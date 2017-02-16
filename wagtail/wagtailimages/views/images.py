@@ -1,24 +1,26 @@
+from __future__ import absolute_import, unicode_literals
+
 import os
 
-from django.shortcuts import render, redirect, get_object_or_404
+from django.core.urlresolvers import NoReverseMatch, reverse
+from django.http import HttpResponse, JsonResponse
+from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.translation import ugettext as _
 from django.views.decorators.vary import vary_on_headers
-from django.core.urlresolvers import reverse, NoReverseMatch
-from django.http import HttpResponse, JsonResponse
 
 from wagtail.utils.pagination import paginate
-from wagtail.wagtailcore.models import Site
-from wagtail.wagtailadmin.forms import SearchForm
 from wagtail.wagtailadmin import messages
-from wagtail.wagtailadmin.utils import PermissionPolicyChecker, permission_denied
-from wagtail.wagtailsearch.backends import get_search_backends
-
-from wagtail.wagtailimages.models import get_image_model, Filter
-from wagtail.wagtailimages.forms import get_image_form, URLGeneratorForm
-from wagtail.wagtailimages.permissions import permission_policy
-from wagtail.wagtailimages.utils import generate_signature
+from wagtail.wagtailadmin.forms import SearchForm
+from wagtail.wagtailadmin.utils import (
+    PermissionPolicyChecker, permission_denied, popular_tags_for_model)
+from wagtail.wagtailcore.models import Collection, Site
+from wagtail.wagtailimages import get_image_model
 from wagtail.wagtailimages.exceptions import InvalidFilterSpecError
-
+from wagtail.wagtailimages.forms import URLGeneratorForm, get_image_form
+from wagtail.wagtailimages.models import Filter
+from wagtail.wagtailimages.permissions import permission_policy
+from wagtail.wagtailimages.views.serve import generate_signature
+from wagtail.wagtailsearch import index as search_index
 
 permission_checker = PermissionPolicyChecker(permission_policy)
 
@@ -44,7 +46,23 @@ def index(request):
     else:
         form = SearchForm(placeholder=_("Search images"))
 
+    # Filter by collection
+    current_collection = None
+    collection_id = request.GET.get('collection_id')
+    if collection_id:
+        try:
+            current_collection = Collection.objects.get(id=collection_id)
+            images = images.filter(collection=current_collection)
+        except (ValueError, Collection.DoesNotExist):
+            pass
+
     paginator, images = paginate(request, images)
+
+    collections = permission_policy.collections_user_has_any_permission_for(
+        request.user, ['add', 'change']
+    )
+    if len(collections) < 2:
+        collections = None
 
     # Create response
     if request.is_ajax():
@@ -60,7 +78,9 @@ def index(request):
             'is_searching': bool(query_string),
 
             'search_form': form,
-            'popular_tags': Image.popular_tags(),
+            'popular_tags': popular_tags_for_model(Image),
+            'collections': collections,
+            'current_collection': current_collection,
             'user_can_add': permission_policy.user_has_permission(request.user, 'add'),
         })
 
@@ -75,9 +95,9 @@ def edit(request, image_id):
     if not permission_policy.user_has_permission_for_instance(request.user, 'change', image):
         return permission_denied(request)
 
-    if request.POST:
+    if request.method == 'POST':
         original_file = image.file
-        form = ImageForm(request.POST, request.FILES, instance=image)
+        form = ImageForm(request.POST, request.FILES, instance=image, user=request.user)
         if form.is_valid():
             if 'file' in form.changed_data:
                 # if providing a new image file, delete the old one and all renditions.
@@ -92,8 +112,7 @@ def edit(request, image_id):
             form.save()
 
             # Reindex the image to make sure all tags are indexed
-            for backend in get_search_backends():
-                backend.add(image)
+            search_index.insert_or_update_object(image)
 
             messages.success(request, _("Image '{0}' updated.").format(image.title), buttons=[
                 messages.button(reverse('wagtailimages:edit', args=(image.id,)), _('Edit again'))
@@ -102,7 +121,7 @@ def edit(request, image_id):
         else:
             messages.error(request, _("The image could not be saved due to errors."))
     else:
-        form = ImageForm(instance=image)
+        form = ImageForm(instance=image, user=request.user)
 
     # Check if we should enable the frontend url generator
     try:
@@ -193,8 +212,9 @@ def preview(request, image_id, filter_spec):
     image = get_object_or_404(get_image_model(), id=image_id)
 
     try:
-        response, image_format = Filter(spec=filter_spec).run(image, HttpResponse())
-        response['Content-Type'] = 'image/' + image_format
+        response = HttpResponse()
+        image = Filter(spec=filter_spec).run(image, response)
+        response['Content-Type'] = 'image/' + image.format_name
         return response
     except InvalidFilterSpecError:
         return HttpResponse("Invalid filter spec: " + filter_spec, content_type='text/plain', status=400)
@@ -207,7 +227,7 @@ def delete(request, image_id):
     if not permission_policy.user_has_permission_for_instance(request.user, 'delete', image):
         return permission_denied(request)
 
-    if request.POST:
+    if request.method == 'POST':
         image.delete()
         messages.success(request, _("Image '{0}' deleted.").format(image.title))
         return redirect('wagtailimages:index')
@@ -222,9 +242,9 @@ def add(request):
     ImageModel = get_image_model()
     ImageForm = get_image_form(ImageModel)
 
-    if request.POST:
+    if request.method == 'POST':
         image = ImageModel(uploaded_by_user=request.user)
-        form = ImageForm(request.POST, request.FILES, instance=image)
+        form = ImageForm(request.POST, request.FILES, instance=image, user=request.user)
         if form.is_valid():
             # Set image file size
             image.file_size = image.file.size
@@ -232,8 +252,7 @@ def add(request):
             form.save()
 
             # Reindex the image to make sure all tags are indexed
-            for backend in get_search_backends():
-                backend.add(image)
+            search_index.insert_or_update_object(image)
 
             messages.success(request, _("Image '{0}' added.").format(image.title), buttons=[
                 messages.button(reverse('wagtailimages:edit', args=(image.id,)), _('Edit'))
@@ -242,7 +261,7 @@ def add(request):
         else:
             messages.error(request, _("The image could not be created due to errors."))
     else:
-        form = ImageForm()
+        form = ImageForm(user=request.user)
 
     return render(request, "wagtailimages/images/add.html", {
         'form': form,

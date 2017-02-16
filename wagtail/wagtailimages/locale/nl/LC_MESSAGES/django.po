@@ -5,15 +5,16 @@
 # Translators:
 # Brecht Dervaux <info@dervauxbrecht.be>, 2015
 # mahulst, 2014
-# mattwestcott <matthew@torchbox.com>, 2015
+# Matt Westcott <matthew@torchbox.com>, 2015
 # Thijs Kramer <thijskramer@gmail.com>, 2015
+# Thijs Kramer <thijskramer@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:02+0000\n"
-"PO-Revision-Date: 2016-02-05 17:09+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2016-09-22 15:03+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -43,11 +44,11 @@ msgstr "Geen ondersteund afbeeldingsformaat. Ondersteunde formaten: %s."
 
 #, python-format
 msgid "Not a valid %s image."
-msgstr "Geen geldige %s afbeelding."
+msgstr "Geen juiste %s afbeelding."
 
 #, python-format
 msgid "This file is too big (%%s). Maximum filesize %s."
-msgstr "Dit bestand is te groot (%%s). Maximale bestandsgrootte is %s."
+msgstr "Dit bestand is te groot (%%s). De maximale bestandsgrootte is %s."
 
 #, python-format
 msgid "This file is too big. Maximum filesize %s."
@@ -72,7 +73,7 @@ msgid "Resize to max"
 msgstr "Vergroot naar maximale grootte"
 
 msgid "Resize to fill"
-msgstr "Vergroot of verklein om uit te vullen"
+msgstr "Vergroot of verklein om te vullen"
 
 msgid "Width"
 msgstr "Breedte"
@@ -82,6 +83,30 @@ msgstr "Hoogte"
 
 msgid "Closeness"
 msgstr "Nabijheid"
+
+msgid "Edit"
+msgstr "Bewerk"
+
+msgid "title"
+msgstr "titel"
+
+msgid "file"
+msgstr "bestand"
+
+msgid "width"
+msgstr "breedte"
+
+msgid "height"
+msgstr "hoogte"
+
+msgid "created at"
+msgstr "gemaakt op"
+
+msgid "uploaded by user"
+msgstr "geupload door gebruiker"
+
+msgid "tags"
+msgstr "tags"
 
 msgid "Choose an image"
 msgstr "Kies een afbeelding"
@@ -94,6 +119,9 @@ msgstr "Uploaden"
 
 msgid "Popular tags"
 msgstr "Populaire labels"
+
+msgid "Uploading..."
+msgstr "Bezig met uploaden..."
 
 #, python-format
 msgid ""
@@ -198,14 +226,6 @@ msgstr "Afbeeldingen"
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
 msgstr "Sorry, er is geen resultaat voor \"\"<em>%(query_string)s</em>\"\" "
 
-#, python-format
-msgid ""
-"You've not uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">add one now</a>?"
-msgstr ""
-"U hebt geen afbeeldingen geupload. Waarom  <a href="
-"\"%(wagtailimages_add_image_url)s\">voegt u er niet een toe</a>?"
-
 msgid "Generating URL"
 msgstr "URL aan het genereren"
 
@@ -301,9 +321,6 @@ msgstr "Afbeelding '{0}' verwijderd."
 #, python-brace-format
 msgid "Image '{0}' added."
 msgstr "Afbeelding '{0}' toegevoegd."
-
-msgid "Edit"
-msgstr "Bewerk"
 
 msgid "The image could not be created due to errors."
 msgstr "De afbeelding kon niet gemaakt worden door foutmeldingen."

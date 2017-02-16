@@ -1,22 +1,28 @@
-from __future__ import unicode_literals
+from __future__ import absolute_import, unicode_literals
 
 import copy
+from itertools import groupby
 
 import django
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm
+from django.contrib.auth.models import Group, Permission
 from django.core import validators
-from django.db import models
+from django.db import models, transaction
 from django.forms.widgets import TextInput
+from django.template.loader import render_to_string
 from django.utils import timezone
+from django.utils.six import with_metaclass
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy, ungettext
 from modelcluster.forms import ClusterForm, ClusterFormMetaclass
 from taggit.managers import TaggableManager
 
 from wagtail.wagtailadmin import widgets
-from wagtail.wagtailcore.models import Page
+from wagtail.wagtailcore.models import (
+    Collection, GroupCollectionPermission, Page, PageViewRestriction
+)
 
 
 class URLOrAbsolutePathValidator(validators.URLValidator):
@@ -47,23 +53,15 @@ class SearchForm(forms.Form):
         super(SearchForm, self).__init__(*args, **kwargs)
         self.fields['q'].widget.attrs = {'placeholder': placeholder}
 
-    q = forms.CharField(label=_("Search term"), widget=forms.TextInput())
+    q = forms.CharField(label=ugettext_lazy("Search term"), widget=forms.TextInput())
 
 
 class ExternalLinkChooserForm(forms.Form):
     url = URLOrAbsolutePathField(required=True, label=ugettext_lazy("URL"))
-
-
-class ExternalLinkChooserWithLinkTextForm(forms.Form):
-    url = URLOrAbsolutePathField(required=True, label=ugettext_lazy("URL"))
-    link_text = forms.CharField(required=True)
+    link_text = forms.CharField(required=False)
 
 
 class EmailLinkChooserForm(forms.Form):
-    email_address = forms.EmailField(required=True)
-
-
-class EmailLinkChooserWithLinkTextForm(forms.Form):
     email_address = forms.EmailField(required=True)
     link_text = forms.CharField(required=False)
 
@@ -183,21 +181,32 @@ class CopyForm(forms.Form):
         return cleaned_data
 
 
-class PageViewRestrictionForm(forms.Form):
-    restriction_type = forms.ChoiceField(label="Visibility", choices=[
-        ('none', ugettext_lazy("Public")),
-        ('password', ugettext_lazy("Private, accessible with the following password")),
-    ], widget=forms.RadioSelect)
-    password = forms.CharField(required=False)
+class PageViewRestrictionForm(forms.ModelForm):
+    restriction_type = forms.ChoiceField(
+        label=ugettext_lazy("Visibility"), choices=PageViewRestriction.RESTRICTION_CHOICES,
+        widget=forms.RadioSelect)
 
-    def clean(self):
-        cleaned_data = super(PageViewRestrictionForm, self).clean()
+    def __init__(self, *args, **kwargs):
+        super(PageViewRestrictionForm, self).__init__(*args, **kwargs)
 
-        if cleaned_data.get('restriction_type') == 'password' and not cleaned_data.get('password'):
-            self._errors["password"] = self.error_class([_('This field is required.')])
-            del cleaned_data['password']
+        self.fields['groups'].widget = forms.CheckboxSelectMultiple()
+        self.fields['groups'].queryset = Group.objects.all()
 
-        return cleaned_data
+    def clean_password(self):
+        password = self.cleaned_data.get('password')
+        if self.cleaned_data.get('restriction_type') == PageViewRestriction.PASSWORD and not password:
+            raise forms.ValidationError(_("This field is required."), code='invalid')
+        return password
+
+    def clean_groups(self):
+        groups = self.cleaned_data.get('groups')
+        if self.cleaned_data.get('restriction_type') == PageViewRestriction.GROUPS and not groups:
+            raise forms.ValidationError(_("Please select at least one group."), code='invalid')
+        return groups
+
+    class Meta:
+        model = PageViewRestriction
+        fields = ('restriction_type', 'password', 'groups')
 
 
 # Form field properties to override whenever we encounter a model field
@@ -259,7 +268,16 @@ class WagtailAdminModelFormMetaclass(ClusterFormMetaclass):
         new_class = super(WagtailAdminModelFormMetaclass, cls).__new__(cls, name, bases, attrs)
         return new_class
 
-WagtailAdminModelForm = WagtailAdminModelFormMetaclass(str('WagtailAdminModelForm'), (ClusterForm,), {})
+
+class WagtailAdminModelForm(with_metaclass(WagtailAdminModelFormMetaclass, ClusterForm)):
+    @property
+    def media(self):
+        # Include media from formsets forms. This allow StreamField in InlinePanel for example.
+        media = super(WagtailAdminModelForm, self).media
+        for formset in self.formsets.values():
+            media += formset.media
+        return media
+
 
 # Now, any model forms built off WagtailAdminModelForm instead of ModelForm should pick up
 # the nice form fields defined in FORM_FIELD_OVERRIDES.
@@ -284,15 +302,12 @@ class WagtailAdminPageForm(WagtailAdminModelForm):
             return self.cleaned_data['seo_title'].strip()
 
     def clean(self):
+
         cleaned_data = super(WagtailAdminPageForm, self).clean()
         if 'slug' in self.cleaned_data:
-            # Get siblings for the page
-            siblings = self.parent_page.get_children()
-            if self.instance and self.instance.id:
-                siblings = siblings.exclude(id=self.instance.id)
-
-            # Make sure the slug isn't being used by a sibling
-            if siblings.filter(slug=cleaned_data['slug']).exists():
+            if not Page._slug_is_available(
+                cleaned_data['slug'], self.parent_page, self.instance
+            ):
                 self.add_error('slug', forms.ValidationError(_("This slug is already in use")))
 
         # Check scheduled publishing fields
@@ -311,3 +326,214 @@ class WagtailAdminPageForm(WagtailAdminModelForm):
             self.add_error('expire_at', forms.ValidationError(_('Expiry date/time must be in the future')))
 
         return cleaned_data
+
+
+class CollectionForm(forms.ModelForm):
+    class Meta:
+        model = Collection
+        fields = ('name',)
+
+
+class BaseCollectionMemberForm(forms.ModelForm):
+    """
+    Abstract form handler for editing models that belong to a collection,
+    such as documents and images. These forms are (optionally) instantiated
+    with a 'user' kwarg, and take care of populating the 'collection' field's
+    choices with the collections the user has permission for, as well as
+    hiding the field when only one collection is available.
+
+    Subclasses must define a 'permission_policy' attribute.
+    """
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None)
+
+        super(BaseCollectionMemberForm, self).__init__(*args, **kwargs)
+
+        if user is None:
+            self.collections = Collection.objects.all()
+        else:
+            self.collections = (
+                self.permission_policy.collections_user_has_permission_for(user, 'add')
+            )
+
+        if self.instance.pk:
+            # editing an existing document; ensure that the list of available collections
+            # includes its current collection
+            self.collections = (
+                self.collections | Collection.objects.filter(id=self.instance.collection_id)
+            )
+
+        if len(self.collections) == 0:
+            raise Exception(
+                "Cannot construct %s for a user with no collection permissions" % type(self)
+            )
+        elif len(self.collections) == 1:
+            # don't show collection field if only one collection is available
+            del self.fields['collection']
+        else:
+            self.fields['collection'].queryset = self.collections
+
+    def save(self, commit=True):
+        if len(self.collections) == 1:
+            # populate the instance's collection field with the one available collection
+            self.instance.collection = self.collections[0]
+
+        return super(BaseCollectionMemberForm, self).save(commit=commit)
+
+
+class BaseGroupCollectionMemberPermissionFormSet(forms.BaseFormSet):
+    """
+    A base formset class for managing GroupCollectionPermissions for a
+    model with CollectionMember behaviour. Subclasses should provide attributes:
+    permission_types - a list of (codename, short_label, long_label) tuples for the permissions
+        being managed here
+    permission_queryset - a queryset of Permission objects for the above permissions
+    default_prefix - prefix to use on form fields if one is not specified in __init__
+    template = template filename
+    """
+    def __init__(self, data=None, files=None, instance=None, prefix=None):
+        if prefix is None:
+            prefix = self.default_prefix
+
+        if instance is None:
+            instance = Group()
+
+        self.instance = instance
+
+        initial_data = []
+
+        for collection, collection_permissions in groupby(
+            instance.collection_permissions.filter(
+                permission__in=self.permission_queryset
+            ).select_related('permission__content_type', 'collection').order_by('collection'),
+            lambda cp: cp.collection
+        ):
+            initial_data.append({
+                'collection': collection,
+                'permissions': [cp.permission for cp in collection_permissions]
+            })
+
+        super(BaseGroupCollectionMemberPermissionFormSet, self).__init__(
+            data, files, initial=initial_data, prefix=prefix
+        )
+        for form in self.forms:
+            form.fields['DELETE'].widget = forms.HiddenInput()
+
+    @property
+    def empty_form(self):
+        empty_form = super(BaseGroupCollectionMemberPermissionFormSet, self).empty_form
+        empty_form.fields['DELETE'].widget = forms.HiddenInput()
+        return empty_form
+
+    def clean(self):
+        """Checks that no two forms refer to the same collection object"""
+        if any(self.errors):
+            # Don't bother validating the formset unless each form is valid on its own
+            return
+
+        collections = [
+            form.cleaned_data['collection']
+            for form in self.forms
+            # need to check for presence of 'collection' in cleaned_data,
+            # because a completely blank form passes validation
+            if form not in self.deleted_forms and 'collection' in form.cleaned_data
+        ]
+        if len(set(collections)) != len(collections):
+            # collections list contains duplicates
+            raise forms.ValidationError(
+                _("You cannot have multiple permission records for the same collection.")
+            )
+
+    @transaction.atomic
+    def save(self):
+        if self.instance.pk is None:
+            raise Exception(
+                "Cannot save a GroupCollectionMemberPermissionFormSet "
+                "for an unsaved group instance"
+            )
+
+        # get a set of (collection, permission) tuples for all ticked permissions
+        forms_to_save = [
+            form for form in self.forms
+            if form not in self.deleted_forms and 'collection' in form.cleaned_data
+        ]
+
+        final_permission_records = set()
+        for form in forms_to_save:
+            for permission in form.cleaned_data['permissions']:
+                final_permission_records.add((form.cleaned_data['collection'], permission))
+
+        # fetch the group's existing collection permission records for this model,
+        # and from that, build a list of records to be created / deleted
+        permission_ids_to_delete = []
+        permission_records_to_keep = set()
+
+        for cp in self.instance.collection_permissions.filter(
+            permission__in=self.permission_queryset,
+        ):
+            if (cp.collection, cp.permission) in final_permission_records:
+                permission_records_to_keep.add((cp.collection, cp.permission))
+            else:
+                permission_ids_to_delete.append(cp.id)
+
+        self.instance.collection_permissions.filter(id__in=permission_ids_to_delete).delete()
+
+        permissions_to_add = final_permission_records - permission_records_to_keep
+        GroupCollectionPermission.objects.bulk_create([
+            GroupCollectionPermission(
+                group=self.instance, collection=collection, permission=permission
+            )
+            for (collection, permission) in permissions_to_add
+        ])
+
+    def as_admin_panel(self):
+        return render_to_string(
+            self.template,
+            {'formset': self},
+        )
+
+
+def collection_member_permission_formset_factory(
+    model, permission_types, template, default_prefix=None
+):
+
+    permission_queryset = Permission.objects.filter(
+        content_type__app_label=model._meta.app_label,
+        codename__in=[codename for codename, short_label, long_label in permission_types]
+    ).select_related('content_type')
+
+    if default_prefix is None:
+        default_prefix = '%s_permissions' % model._meta.model_name
+
+    class CollectionMemberPermissionsForm(forms.Form):
+        """
+        For a given model with CollectionMember behaviour,
+        defines the permissions that are assigned to an entity
+        (i.e. group or user) for a specific collection
+        """
+        collection = forms.ModelChoiceField(
+            queryset=Collection.objects.all().prefetch_related('group_permissions')
+        )
+        permissions = forms.ModelMultipleChoiceField(
+            queryset=permission_queryset,
+            required=False,
+            widget=forms.CheckboxSelectMultiple
+        )
+
+    GroupCollectionMemberPermissionFormSet = type(
+        str('GroupCollectionMemberPermissionFormSet'),
+        (BaseGroupCollectionMemberPermissionFormSet, ),
+        {
+            'permission_types': permission_types,
+            'permission_queryset': permission_queryset,
+            'default_prefix': default_prefix,
+            'template': template,
+        }
+    )
+
+    return forms.formset_factory(
+        CollectionMemberPermissionsForm,
+        formset=GroupCollectionMemberPermissionFormSet,
+        extra=0,
+        can_delete=True
+    )

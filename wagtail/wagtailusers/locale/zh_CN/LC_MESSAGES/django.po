@@ -6,13 +6,15 @@
 # hanfeng <appweb.cn@gmail.com>, 2014-2015
 # hanfeng <appweb.cn@gmail.com>, 2014
 # Jian Li <kdlijian@gmail.com>, 2015
+# Listeng, 2016
+# 沙军 祝 <zhushajun@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:02+0000\n"
-"PO-Revision-Date: 2016-02-05 17:11+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2017-02-06 12:40+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -35,6 +37,9 @@ msgstr "密码字段不匹配"
 
 msgid "Administrator"
 msgstr "管理员"
+
+msgid "Administrators have full access to manage any object or setting."
+msgstr "管理员拥有完全的权限去管理对象和配置"
 
 msgid "Password"
 msgstr "密码"
@@ -60,23 +65,32 @@ msgstr "姓"
 msgid "A group with that name already exists."
 msgstr "此组名已被占用。"
 
+msgid "You cannot have multiple permission records for the same page."
+msgstr "对于同一个页面你不能设置多重权限"
+
+msgid "submitted notifications"
+msgstr "提交通知"
+
 msgid "Receive notification when a page is submitted for moderation"
 msgstr "当存在页面提交审查时接收提醒。"
+
+msgid "approved notifications"
+msgstr "批准通知"
 
 msgid "Receive notification when your page edit is approved"
 msgstr "当您的页面编辑动作通过时接收提醒。"
 
+msgid "rejected notifications"
+msgstr "已拒绝通知"
+
 msgid "Receive notification when your page edit is rejected"
 msgstr "当您的页面编辑动作被拒绝时接收提醒。"
 
+msgid "user profile"
+msgstr "用户资料"
+
 msgid "Delete group"
 msgstr "删除组"
-
-#, python-format
-msgid ""
-"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> users "
-"assigned."
-msgstr "该组 '%(group_name)s' 有 <strong>%(group_user_count)s</strong> 用户。"
 
 msgid ""
 "Deleting this group will revoke this group's permissions from all member "
@@ -122,9 +136,6 @@ msgstr "页面权限"
 msgid "Page"
 msgstr "页面"
 
-msgid "Permission type"
-msgstr "权限类型"
-
 msgid "Add a page permission"
 msgstr "添加一个页面权限"
 
@@ -140,6 +151,12 @@ msgid ""
 "\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
 "目前还没有组。<a href=\"%(wagtailusers_create_group_url)s\">添加</a>一个？"
+
+msgid "Delete user"
+msgstr "删除用户"
+
+msgid "Are you sure you want to delete this user?"
+msgstr "确定删除此用户？"
 
 msgid "Add user"
 msgstr "添加用户"
@@ -239,3 +256,16 @@ msgstr "用户 '{0}'已更新"
 
 msgid "The user could not be saved due to errors."
 msgstr "无法保存用户。出现错误。"
+
+#, python-brace-format
+msgid "User '{0}' deleted."
+msgstr "用户 '{0}' 已删除。"
+
+msgid "Groups"
+msgstr "组"
+
+msgid "Edit this user"
+msgstr "编辑此用户"
+
+msgid "Delete this user"
+msgstr "删除此用户"

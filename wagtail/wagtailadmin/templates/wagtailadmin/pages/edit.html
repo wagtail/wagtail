@@ -2,17 +2,18 @@
 {% load wagtailadmin_tags %}
 {% load gravatar %}
 {% load i18n %}
-{% block titletag %}{% blocktrans with title=page.title page_type=content_type.model_class.get_verbose_name %}Editing {{ page_type }}: {{ title }}{% endblocktrans %}{% endblock %}
-{% block bodyclass %}page-editor {% if page.live %}page-is-live{% endif %} model-{{ content_type.model }}{% endblock %}
+{% block titletag %}{% blocktrans with title=page.get_admin_display_title page_type=content_type.model_class.get_verbose_name %}Editing {{ page_type }}: {{ title }}{% endblocktrans %}{% endblock %}
+{% block bodyclass %}page-editor {% if page.live %}page-is-live{% endif %} model-{{ content_type.model }} {% if page.locked %}page-locked{% endif %}{% endblock %}
 
 {% block content %}
     {% page_permissions page as page_perms %}
-    <header class="merged tab-merged nice-padding">
-        {% include "wagtailadmin/shared/breadcrumb.html" with page=page %}
+    <header class="merged tab-merged">
+        {% explorer_breadcrumb page %}
 
         <div class="row row-flush">
-            <div class="left col9">
-                <h1 class="icon icon-doc-empty-inverse">{% blocktrans with title=page.title page_type=content_type.model_class.get_verbose_name %}Editing {{ page_type }} <span>{{ title }}</span>{% endblocktrans %}</h1>
+            <div class="left col9 header-title">
+                <h1 class="icon icon-doc-empty-inverse">
+                {% blocktrans with title=page.get_admin_display_title page_type=content_type.model_class.get_verbose_name %}Editing {{ page_type }} <span>{{ title }}</span>{% endblocktrans %}</h1>
             </div>
             <div class="right col3">
                 {% trans "Status" %}
@@ -24,31 +25,39 @@
         </div>
     </header>
 
-    <form id="page-edit-form" action="{% url 'wagtailadmin_pages:edit' page.id %}" method="POST"{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
+    <form id="page-edit-form" action="{% url 'wagtailadmin_pages:edit' page.id %}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
         {% csrf_token %}
+
+        <input type="hidden" name="next" value="{{ next }}">
         {{ edit_handler.render_form_content }}
+
+        {% if is_revision %}
+            <input type="hidden" name="revision" value="{{ revision.id }}" />
+        {% endif %}
 
         <footer>
             <ul>
                 <li class="actions">
-                    <div class="dropdown dropup dropdown-button match-width">
-                        <button type="submit" class="action-save button-longrunning" tabindex="3" data-clicked-text="{% trans 'Saving...' %}" {% if page.locked %}disabled {% endif %}><span class="icon icon-spinner"></span><em>{% if page.locked %}{% trans 'Page locked' %}{% else %}{% trans 'Save draft' %}{% endif %}</em></button>
+                    <div class="dropdown dropup dropdown-button match-width {% if is_revision %}warning{% endif %}">
+                        <button type="submit" class="button action-save button-longrunning {% if is_revision %}warning{% endif %}" tabindex="3" data-clicked-text="{% trans 'Saving...' %}" {% if page.locked %}disabled {% endif %}><span class="icon icon-spinner"></span><em>{% if page.locked %}{% trans 'Page locked' %}{% else %}{% if is_revision %}{% trans 'Replace current draft' %}{% else %}{% trans 'Save draft' %}{% endif %}{% endif %}</em></button>
 
                         {% if not page.locked %}
                             <div class="dropdown-toggle icon icon-arrow-up"></div>
                             <ul role="menu">
-                                {% if page_perms.can_unpublish %}
+                                {% if not is_revision and page_perms.can_unpublish %}
                                     <li><a href="{% url 'wagtailadmin_pages:unpublish' page.id %}">{% trans 'Unpublish' %}</a></li>
                                 {% endif %}
-                                {% if page_perms.can_delete %}
+                                {% if not is_revision and page_perms.can_delete %}
                                     <li><a href="{% url 'wagtailadmin_pages:delete' page.id %}" class="shortcut">{% trans 'Delete' %}</a></li>
                                 {% endif %}
                                 {% if page_perms.can_publish %}
                                     <li>
-                                        <button type="submit" name="action-publish" value="action-publish" class="button-longrunning" tabindex="3" data-clicked-text="{% trans 'Publishing...' %}" {% if page.locked %}disabled {% endif %}><span class="icon icon-spinner"></span><em>{% trans 'Publish' %}</em></button>
+                                        <button type="submit" name="action-publish" value="action-publish" class="button button-longrunning {% if is_revision %}warning{% endif %}" tabindex="3" data-clicked-text="{% trans 'Publishing...' %}" {% if page.locked %}disabled {% endif %}><span class="icon icon-spinner"></span><em>{% if is_revision %}{% trans 'Publish this revision' %}{% else %}{% trans 'Publish' %}{% endif %}</em></button>
                                     </li>
                                 {% endif %}
-                                <li><input type="submit" name="action-submit" value="{% trans 'Submit for moderation' %}" class="button" /></li>
+                                {% if not is_revision %}
+                                    <li><input type="submit" name="action-submit" value="{% trans 'Submit for moderation' %}" class="button" /></li>
+                                {% endif %}
                             </ul>
                         {% endif %}
                     </div>
@@ -83,6 +92,7 @@
                                     <span class="avatar small icon icon-user"><img src="{% gravatar_url page.get_latest_revision.user.email 25 %}" /></span>
                                 {% endif %}
                             {% endif %}
+                            <a href="{% url 'wagtailadmin_pages:revisions_index' page.id %}" class="underlined">{% trans 'Revisions' %}</a>
                         {% endif %}
                     </p>
                 </li>
@@ -109,7 +119,7 @@
                 {
                     confirmationMessage: '{{ confirmation_message|escapejs }}',
 
-                    {% if form.errors %}
+                    {% if has_unsaved_changes %}
                         alwaysDirty: true,
                     {% endif %}
                 }

@@ -4,13 +4,14 @@
 #
 # Translators:
 # Wasilis Mandratzis-Walz, 2015
+# Yiannis Inglessis <negletios@users.noreply.github.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:02+0000\n"
-"PO-Revision-Date: 2015-12-17 14:01+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2016-09-20 12:43+0000\n"
+"Last-Translator: Yiannis Inglessis <negletios@users.noreply.github.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
 "MIME-Version: 1.0\n"
@@ -31,6 +32,9 @@ msgstr "Σελιδα"
 msgid "Port"
 msgstr "Θυρα"
 
+msgid "Site name"
+msgstr "Όνομα δικτυακού τόπου"
+
 msgid "Root page"
 msgstr "Κεντρική σελίδα"
 
@@ -42,3 +46,17 @@ msgstr "Προεπιλογή"
 
 msgid "Sites"
 msgstr "Σελιδες"
+
+msgid "Add a site"
+msgstr "Προσθήκη δικτυακού τόπου"
+
+msgid "Add site"
+msgstr "Προσθήκη δικτυακού τόπου"
+
+#, python-brace-format
+msgid "Site '{0}' created."
+msgstr "Δημιουργήθηκε ο δικτυακός τόπος '{0}'."
+
+#, python-brace-format
+msgid "Site '{0}' updated."
+msgstr "Ενημέρωση του δικτυακού τόπου '{0}'."

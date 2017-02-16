@@ -4,6 +4,7 @@ backends
 callable
 callables
 Cloudflare
+Cloudfront
 contrib
 Django
 Elasticsearch
@@ -11,7 +12,6 @@ embeddable
 Embedly
 formset
 frontend
-Gondor
 Gunicorn
 Heroku
 hostname

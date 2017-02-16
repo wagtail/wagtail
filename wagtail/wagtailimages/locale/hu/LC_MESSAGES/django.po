@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:02+0000\n"
-"PO-Revision-Date: 2016-02-10 09:44+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2016-09-22 15:03+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
 "MIME-Version: 1.0\n"
@@ -17,6 +17,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: hu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Edit"
+msgstr "Szerkeszt"
 
 msgid "title"
 msgstr "oldalcím"
@@ -41,12 +44,6 @@ msgstr "Feltöltés"
 
 msgid "Uploading..."
 msgstr "Feltöltés folyamatban..."
-
-msgid "Server Error"
-msgstr "Szerverhiba"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Kérem jelentse az alábbi hibát a webmesternek:"
 
 msgid "Save"
 msgstr "Mentés"
@@ -99,6 +96,3 @@ msgstr "Frissítés"
 
 msgid "Delete"
 msgstr "Törlés"
-
-msgid "Edit"
-msgstr "Szerkeszt"

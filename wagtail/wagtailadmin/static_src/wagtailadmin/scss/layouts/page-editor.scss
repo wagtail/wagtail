@@ -9,8 +9,7 @@
     }
 
     .breadcrumb {
-        margin-top: -1.2em;
-        margin-bottom: 2em;
+        margin: -1.2em 0 2em;
     }
 
     .modal .breadcrumb {
@@ -27,6 +26,17 @@
 
         .home {
             padding-left: 0;
+        }
+    }
+
+    .header-title {
+        padding-left: 3.1em;
+
+        @media screen and (max-width: $breakpoint-mobile) {
+            padding-left: 0;
+            margin-left: -28px;
+            // Because it's nested within tab-merged which we've given padding
+            // on mobile viewports due to snippets
         }
     }
 }
@@ -56,7 +66,7 @@
         position: relative;
         z-index: 1;
         top: 1em;
-        padding-right: $grid-gutter-width/2;
+        padding-right: $grid-gutter-width / 2;
         margin-top: 4em;
         opacity: 1;
         padding-left: 3em;
@@ -85,6 +95,7 @@
     > h2 {
         -webkit-font-smoothing: auto;
         background: $color-salmon-light;
+        color: #200200;
         text-transform: uppercase;
         padding: 0.9em 0 0.9em 4.1em;
         font-size: 0.95em;
@@ -108,7 +119,7 @@
             font-size: inherit;
         }
 
-        &:before, 
+        &:before,
         label:before {
             text-shadow: none;
             font-family: wagtail;
@@ -299,7 +310,7 @@
         min-height: 41px;
 
         h2 {
-            &:before, 
+            &:before,
             label:before {
                 content: '6';
                 cursor: pointer;
@@ -308,7 +319,7 @@
 
         &.collapsed {
             h2 {
-                &:before, 
+                &:before,
                 label:before {
                     content: '5';
                 }
@@ -318,8 +329,8 @@
 }
 
 // Custom styles that make some fields look more important
-.full input, 
-.full textarea, 
+.full input,
+.full textarea,
 .full .richtext {
     @include nice-padding();
     border-radius: 0;
@@ -338,7 +349,7 @@
 
 // Footer control bar for perfoming actions on the page
 footer .preview {
-    button, 
+    button,
     .button {
         background-color: lighten($color-grey-2, 10%);
         border-color: lighten($color-grey-2, 10%);
@@ -350,9 +361,9 @@ footer .preview {
     }
 
     .dropdown {
-        input[type=button], 
-        input[type=submit], 
-        button, 
+        input[type=button],
+        input[type=submit],
+        button,
         .button {
             background-color: lighten($color-grey-2, 10%);
             border-color: lighten($color-grey-2, 10%);
@@ -363,7 +374,7 @@ footer .preview {
             }
         }
 
-        ul, 
+        ul,
         .dropdown-toggle {
             background-color: lighten($color-grey-2, 10%);
         }
@@ -399,7 +410,7 @@ footer .preview {
             z-index: 1;
             right: 0;
             top: 1em;
-            padding-right: $grid-gutter-width/2;
+            padding-right: $grid-gutter-width / 2;
             float: right;
             margin-top: 4em;
             opacity: 0;
@@ -407,9 +418,15 @@ footer .preview {
         }
 
         &.stream-field {
-            &:hover .object-help,
             .object-help {
                 opacity: 0;
+                position: relative;
+                width: 100%;
+                padding-left: 6.4em;
+            }
+            
+            &:hover .object-help {
+                opacity: 1;
             }
         }
 
@@ -420,8 +437,8 @@ footer .preview {
                 padding: 3.2em 0 0;
             }
 
-            input, 
-            textarea, 
+            input,
+            textarea,
             .richtext {
                 border-width: 0 1px;
             }

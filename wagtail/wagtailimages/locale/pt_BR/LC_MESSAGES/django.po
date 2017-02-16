@@ -6,14 +6,17 @@
 # Thiago Cangussu <cng.thg@gmail.com>, 2014
 # Claudemiro Alves Feitosa Neto <dimiro1@gmail.com>, 2015
 # Gladson <gladsonbrito@gmail.com>, 2014
+# João Luiz Lorencetti <me@dirtycoder.net>, 2016
+# Luiz Boaretto <lboaretto@gmail.com>, 2016
+# Luiz Boaretto <lboaretto@gmail.com>, 2016
 # Thiago Cangussu <cangussu.thg@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:02+0000\n"
-"PO-Revision-Date: 2016-02-05 17:09+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2016-10-06 03:14+0000\n"
+"Last-Translator: Luiz Boaretto <lboaretto@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -45,6 +48,23 @@ msgstr "Não é um formato de imagem suportado. Formatos suportados: %s."
 msgid "Not a valid %s image."
 msgstr "Não é uma imagem %s válida."
 
+#, python-format
+msgid "This file is too big (%%s). Maximum filesize %s."
+msgstr "Esse arquivo é muito grande (%%s). Tamanho máximo %s."
+
+#, python-format
+msgid "This file is too big. Maximum filesize %s."
+msgstr "Esse arquivo é muito grande. Tamanho máximo %s."
+
+msgid "Full width"
+msgstr "Largura completa"
+
+msgid "Left-aligned"
+msgstr "Alinhado à esquerda"
+
+msgid "Right-aligned"
+msgstr "Alinhado à direita"
+
 msgid "Filter"
 msgstr "Filtro"
 
@@ -75,6 +95,39 @@ msgstr "Altura"
 msgid "Closeness"
 msgstr "Próximo"
 
+msgid "Add"
+msgstr "Adicionar"
+
+msgid "Add/edit images you own"
+msgstr "Adicionar/editar suas imagens"
+
+msgid "Edit"
+msgstr "Editar"
+
+msgid "Edit any image"
+msgstr "Editar qualquer imagem"
+
+msgid "title"
+msgstr "título"
+
+msgid "file"
+msgstr "arquivo"
+
+msgid "width"
+msgstr "largura"
+
+msgid "height"
+msgstr "altura"
+
+msgid "created at"
+msgstr "criado em"
+
+msgid "uploaded by user"
+msgstr "enviado pelo usuário"
+
+msgid "tags"
+msgstr "etiquetas"
+
 msgid "Choose an image"
 msgstr "Escolha uma imagem"
 
@@ -86,6 +139,9 @@ msgstr "Enviar"
 
 msgid "Popular tags"
 msgstr "Gerar etiquetas"
+
+msgid "Uploading..."
+msgstr "Enviando..."
 
 #, python-format
 msgid ""
@@ -193,11 +249,19 @@ msgstr ""
 
 #, python-format
 msgid ""
-"You've not uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">add one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+msgstr ""
+"Você não enviou nenhuma imagem nessa coleção. Por que não <a href="
+"\"%(wagtailimages_add_image_url)s\">enviar uma agora</a>?"
+
+#, python-format
+msgid ""
+"You haven't uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
 "Você não enviou nenhuma imagem. Por que não <a href="
-"\"%(wagtailimages_add_image_url)s\">adicionar uma agora</a>?"
+"\"%(wagtailimages_add_image_url)s\">enviar uma agora</a>?"
 
 msgid "Generating URL"
 msgstr "Gerando URL"
@@ -249,6 +313,9 @@ msgstr "Arraste e solte imagens para essa área para carregar imediatamente."
 msgid "Or choose from your computer"
 msgstr "Ou escolha do seu computador"
 
+msgid "Add to collection:"
+msgstr "Adicionar a coleção:"
+
 msgid ""
 "Upload successful. Please update this image with a more appropriate title, "
 "if necessary. You may also delete the image completely if the upload wasn't "
@@ -261,11 +328,26 @@ msgstr ""
 msgid "Sorry, upload failed."
 msgstr "Desculpe, o carregamento falhou."
 
+msgid "Server Error"
+msgstr "Erro de servidor"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Relatar este erro ao seu webmaster com as seguintes informações:"
+
+msgid "Image updated."
+msgstr "Imagem atualizada."
+
 msgid "Update"
 msgstr "Atualizar"
 
 msgid "Delete"
 msgstr "Excluir"
+
+msgid "Image permissions"
+msgstr "Permissões da imagem"
+
+msgid "Add an image permission"
+msgstr "Adicionar uma permissão de imagem"
 
 msgid "Search images"
 msgstr "Buscar imagens"
@@ -295,11 +377,14 @@ msgstr "Imagem '{0}' apagada."
 msgid "Image '{0}' added."
 msgstr "Imagem '{0}' adicionada."
 
-msgid "Edit"
-msgstr "Editar"
-
 msgid "The image could not be created due to errors."
 msgstr "A imagem não pôde ser criada devido à erros."
+
+#, python-format
+msgid "%(count)s image"
+msgid_plural "%(count)s images"
+msgstr[0] "%(count)s imagem"
+msgstr[1] "%(count)s imagens"
 
 msgid "Choose another image"
 msgstr "Escolha outra imagem"

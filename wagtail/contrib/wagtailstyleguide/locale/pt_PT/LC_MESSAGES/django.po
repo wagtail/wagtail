@@ -3,14 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Manuela Silva <h_manuela_rodsilva@gmail.com>, 2015
+# Jose Lourenco <jose@lourenco.ws>, 2016
+# Manuela Silva <inactive+h_manuela_rodsilva@transifex.com>, 2015
+# Tiago Henriques <trinosauro@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:01+0000\n"
-"PO-Revision-Date: 2015-11-02 16:22+0000\n"
-"Last-Translator: Manuela Silva <h_manuela_rodsilva@gmail.com>\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2016-08-27 17:29+0000\n"
+"Last-Translator: Jose Lourenco <jose@lourenco.ws>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
@@ -26,22 +28,22 @@ msgid "Save"
 msgstr "Guardar"
 
 msgid "Delete image"
-msgstr "Eliminar imagem"
+msgstr "Apagar imagem"
 
 msgid "Search something"
-msgstr "Procurar qualquer coisa"
+msgstr "Pesquisar algo"
 
 msgid "Success message"
-msgstr "Mensagem bem sucedida"
+msgstr "Mensagem de sucesso"
 
 msgid "View live"
-msgstr "Ver live"
+msgstr "Ver publicado"
 
 msgid "Edit"
 msgstr "Editar"
 
 msgid "Warning message"
-msgstr "Mensagem de aviso"
+msgstr "Mensagem de alerta"
 
 msgid "Error message"
 msgstr "Mensagem de erro"

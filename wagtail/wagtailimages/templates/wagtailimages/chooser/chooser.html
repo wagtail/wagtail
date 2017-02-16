@@ -12,12 +12,14 @@
 
 <div class="tab-content">
     <section id="search" class="{% if not uploadform.errors %}active{% endif %} nice-padding">
-        <form class="image-search search-bar" action="{% url 'wagtailimages:chooser' %}{% if will_select_format %}?select_format=true{% endif %}" method="GET" autocomplete="off">
+        <form class="image-search search-bar" action="{% url 'wagtailimages:chooser' %}{% if will_select_format %}?select_format=true{% endif %}" method="GET" autocomplete="off" novalidate>
             <ul class="fields">
                 {% for field in searchform %}
                     {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
                 {% endfor %}
-                <li class="submit"><input type="submit" value="{% trans 'Search' %}" /></li>
+                {% if collections %}
+                    {% include "wagtailadmin/shared/collection_chooser.html" %}
+                {% endif %}
                 {% if popular_tags %}
                     <li class="taglist">
                         <h3>{% trans 'Popular tags' %}</h3>
@@ -34,7 +36,7 @@
     </section>
     {% if uploadform %}
         <section id="upload" class="{% if uploadform.errors %}active{% endif %} nice-padding">
-            <form class="image-upload" action="{% url 'wagtailimages:chooser_upload' %}{% if will_select_format %}?select_format=true{% endif %}" method="POST" enctype="multipart/form-data">
+            <form class="image-upload" action="{% url 'wagtailimages:chooser_upload' %}{% if will_select_format %}?select_format=true{% endif %}" method="POST" enctype="multipart/form-data" novalidate>
                 {% csrf_token %}
                 <ul class="fields">
                     {% for field in uploadform %}
@@ -45,7 +47,7 @@
                         {% endif %}
                     {% endfor %}
                     <li>
-                        <button type="submit" class="button-longrunning" data-clicked-text="{% trans 'Uploading...' %}"><span class="icon icon-spinner"></span><em>{% trans 'Upload' %}</em></button>
+                        <button type="submit" class="button button-longrunning" data-clicked-text="{% trans 'Uploading...' %}"><span class="icon icon-spinner"></span><em>{% trans 'Upload' %}</em></button>
                     </li>
                 </ul>
             </form>

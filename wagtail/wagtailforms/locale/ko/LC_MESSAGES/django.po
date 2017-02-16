@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Ji Han Chung <jihanchung20@gmail.com>, 2015
+# Jihan Chung <jihanchung20@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:01+0000\n"
-"PO-Revision-Date: 2015-12-17 14:01+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2017-02-06 12:41+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
 "MIME-Version: 1.0\n"
@@ -65,20 +65,7 @@ msgstr ""
 msgid "Default value. Comma separated values supported for checkboxes."
 msgstr "기본값. 콤마로 분류되는 값들은 체크박스를 지원합니다."
 
-msgid "Optional - form submissions will be emailed to this address"
-msgstr "옵션 - 이 주소로 양식 제출에 대한 이메일이 전송 될 것입니다."
-
-#, python-format
-msgid "Delete %(title)s"
-msgstr "%(title)s 삭제"
-
 msgid "Delete"
-msgstr "삭제"
-
-msgid "Are you sure you want to delete this form submission?"
-msgstr "이 제출양식을 정말로 삭제하실 건가요?"
-
-msgid "Delete it"
 msgstr "삭제"
 
 msgid "Forms"
@@ -111,14 +98,5 @@ msgstr "제목"
 msgid "Origin"
 msgstr "오리지날"
 
-msgid "Submission Date"
-msgstr "제출 날짜"
-
-msgid "Actions"
-msgstr "액션"
-
 msgid "No form pages have been created."
 msgstr "양식용 페이지가 생성되지 않았습니다."
-
-msgid "Submission deleted."
-msgstr "제출양식이 삭제되었습니다"

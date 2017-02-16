@@ -1,16 +1,17 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.db import models, migrations
 import taggit.managers
 from django.conf import settings
-import wagtail.wagtailadmin.taggable
+from django.db import migrations, models
+
+import wagtail.wagtailsearch.index
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('taggit', '__latest__'),
+        ('taggit', '0001_initial'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
@@ -45,6 +46,6 @@ class Migration(migrations.Migration):
             ],
             options={
             },
-            bases=(models.Model, wagtail.wagtailadmin.taggable.TagSearchable),
+            bases=(models.Model, wagtail.wagtailsearch.index.Indexed),
         ),
     ]

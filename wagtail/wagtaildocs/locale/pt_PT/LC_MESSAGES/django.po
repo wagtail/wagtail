@@ -4,16 +4,16 @@
 #
 # Translators:
 # Jose Lourenco <jose@lourenco.ws>, 2015
-# Manuela Silva <h_manuela_rodsilva@gmail.com>, 2015
+# Manuela Silva <inactive+h_manuela_rodsilva@transifex.com>, 2015
 # Thiago Cangussu <cangussu.thg@gmail.com>, 2014
-# Tiago Henriques <trinosauro@gmail.com>, 2015
+# Tiago Henriques <trinosauro@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:01+0000\n"
-"PO-Revision-Date: 2016-02-05 17:09+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2017-02-06 12:38+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
@@ -21,6 +21,36 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pt_PT\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Add"
+msgstr "Adicionar"
+
+msgid "Add/edit documents you own"
+msgstr "Crie/altere os seus documentos"
+
+msgid "Edit"
+msgstr "Alterar"
+
+msgid "Edit any document"
+msgstr "Alterar qualquer documento"
+
+msgid "title"
+msgstr "título"
+
+msgid "file"
+msgstr "ficheiro"
+
+msgid "created at"
+msgstr "criado em"
+
+msgid "uploaded by user"
+msgstr "carregado pelo utilizador"
+
+msgid "tags"
+msgstr "palavras-chave"
+
+msgid "document"
+msgstr "documento"
 
 msgid "Choose a document"
 msgstr "Escolher um documento"
@@ -30,6 +60,15 @@ msgstr "Pesquisar"
 
 msgid "Upload"
 msgstr "Carregar"
+
+msgid "Uploading..."
+msgstr "A carregar..."
+
+msgid "Server Error"
+msgstr "Erro no Servidor"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Comunique este erro ao seu webmaster com a seguinte informação:"
 
 #, python-format
 msgid ""
@@ -80,10 +119,10 @@ msgstr "Sim, apagar"
 
 #, python-format
 msgid "Editing %(title)s"
-msgstr "A editar %(title)s"
+msgstr "A alterar %(title)s"
 
 msgid "Editing"
-msgstr "A editar"
+msgstr "A alterar"
 
 msgid "Save"
 msgstr "Guardar"
@@ -105,6 +144,14 @@ msgstr "Ficheiro"
 
 msgid "Uploaded"
 msgstr "Carregado"
+
+#, python-format
+msgid ""
+"You haven't uploaded any documents in this collection. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"Ainda não carregou nenhum documento nesta coleção. Porque não <a href="
+"\"%(wagtaildocs_add_document_url)s\">carregar um agora</a>?"
 
 #, python-format
 msgid ""
@@ -131,7 +178,7 @@ msgid "Status"
 msgstr "Estado"
 
 msgid "Edit this page"
-msgstr "Editar esta página"
+msgstr "Alterar esta página"
 
 #, python-format
 msgid ""
@@ -147,7 +194,47 @@ msgstr[0] ""
 "<span>%(total)s</span> Documento"
 msgstr[1] ""
 "\n"
-"<span>%(total)s</span> Documentos"
+"<span>%(total)s</span> Documentos\n"
+" "
+
+msgid "Add multiple documents"
+msgstr "Adicionar múltiplos documentos"
+
+msgid "Add documents"
+msgstr "Adicionar documentos"
+
+msgid "Drag and drop documents into this area to upload immediately."
+msgstr "Arraste e largue documentos nesta área para carregar imediatamente."
+
+msgid "Or choose from your computer"
+msgstr "Ou escolha no seu computador"
+
+msgid "Add to collection:"
+msgstr "Adicionar a coleção:"
+
+msgid ""
+"Upload successful. Please update this documents with a more appropriate "
+"title, if necessary. You may also delete the document completely if the "
+"upload wasn't required."
+msgstr ""
+"Carregado com sucesso. Por favor atualize este documento com um título mais "
+"apropriado, se necessário. Também pode eliminar completamente o documento se "
+"não o pretendia carregar."
+
+msgid "Sorry, upload failed."
+msgstr "Desculpe, o carregamento falhou."
+
+msgid "Update"
+msgstr "Atualizar"
+
+msgid "Delete"
+msgstr "Apagar"
+
+msgid "Document permissions"
+msgstr "Permissões de documento"
+
+msgid "Add a document permission"
+msgstr "Adicionar uma permissão de documento"
 
 msgid "Search documents"
 msgstr "Pesquisar documentos"
@@ -155,9 +242,6 @@ msgstr "Pesquisar documentos"
 #, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Documento '{0}' adicionado."
-
-msgid "Edit"
-msgstr "Editar"
 
 msgid "The document could not be saved due to errors."
 msgstr "O documento não pôde ser guardado devido a erros."
@@ -169,17 +253,20 @@ msgstr "Documento '{0}' atualizado"
 msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr ""
-"O ficheiro não foi encontrado. Por favor altere a fonte ou apague o documento"
-
-msgid "Delete"
-msgstr "Apagar"
+"O ficheiro não foi encontrado. Por favor mude a fonte ou apague o documento"
 
 #, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Documento '{0}' apagado."
 
+#, python-format
+msgid "%(count)s document"
+msgid_plural "%(count)s documents"
+msgstr[0] "%(count)s documento"
+msgstr[1] "%(count)s documentos"
+
 msgid "Choose another document"
 msgstr "Escolher outro documento"
 
 msgid "Edit this document"
-msgstr "Editar este documento"
+msgstr "Alterar este documento"

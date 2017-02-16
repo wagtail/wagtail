@@ -5,19 +5,20 @@
 # Translators:
 # fooflare <amos.oviedo@gmail.com>, 2014
 # fooflare <amos.oviedo@gmail.com>, 2014
-# chimeno <daniel@chimeno.me>, 2015
+# Daniel Chimeno <daniel@chimeno.me>, 2015-2016
 # fooflare <amos.oviedo@gmail.com>, 2014
 # Joaquín Tita <carpincho@gmail.com>, 2014
-# José Alaguna <alagunajs@gmail.com>, 2015
-# Unai Zalakain <unai@gisa-elkartea.org>, 2014
-# Unai Zalakain <unai@gisa-elkartea.org>, 2014
+# Yusuf (Josè) Luis <alagunajs@gmail.com>, 2015-2016
+# Unai Zalakain <inactive+unaizalakain@transifex.com>, 2014
+# Unai Zalakain <inactive+unaizalakain@transifex.com>, 2014
+# Yusuf (Josè) Luis <alagunajs@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:01+0000\n"
-"PO-Revision-Date: 2015-12-19 04:49+0000\n"
-"Last-Translator: José Alaguna <alagunajs@gmail.com>\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2016-12-09 17:25+0000\n"
+"Last-Translator: Yusuf (Josè) Luis <alagunajs@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -25,6 +26,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#, python-brace-format
+msgid "{label}: this block has no options."
+msgstr "{label}: este bloque no tiene opciones."
+
+msgid "This block has no options."
+msgstr "Este bloque no tiene opciones."
+
+msgid "Password"
+msgstr "Contraseña"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr "La que ha ingresado no es correcta. Por favor intente de nuevo."
 
 msgid "hostname"
 msgstr "nombre del host"
@@ -46,7 +60,7 @@ msgid "site name"
 msgstr "nombre del sitio"
 
 msgid "Human-readable name for the site."
-msgstr "Nombre del sitio legíble para usuarios"
+msgstr "Nombre del sitio legible para usuarios"
 
 msgid "root page"
 msgstr "página raíz"
@@ -117,7 +131,7 @@ msgstr ""
 "superior de la ventana del navegador."
 
 msgid "show in menus"
-msgstr "monstrar en menús"
+msgstr "mostrar en menús"
 
 msgid ""
 "Whether a link to this page will appear in automatically generated menus"
@@ -133,10 +147,10 @@ msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
 msgstr "Por favor añada una fecha-hora con el formato YYYY-MM-DD hh:mm:ss."
 
 msgid "expiry date/time"
-msgstr "fecha/hora de experiación"
+msgstr "fecha/hora de expiración"
 
 msgid "expired"
-msgstr "Expiró"
+msgstr "expiró"
 
 msgid "locked"
 msgstr "bloqueado"
@@ -146,6 +160,9 @@ msgstr "Publicado por primera vez a las"
 
 msgid "latest revision created at"
 msgstr "última revisión creada a las"
+
+msgid "This slug is already in use"
+msgstr "Este slug ya está en uso"
 
 msgid "scheduled"
 msgstr "Agendado"
@@ -186,14 +203,32 @@ msgstr "revisión de página"
 msgid "page revisions"
 msgstr "revisiones de página"
 
+msgid "Add"
+msgstr "Agregar"
+
 msgid "Add/edit pages you own"
 msgstr "Añadir/editar tus propias páginas"
+
+msgid "Edit"
+msgstr "Editar"
 
 msgid "Edit any page"
 msgstr "Editar cualquier página"
 
+msgid "Publish"
+msgstr "Publicar"
+
 msgid "Publish any page"
 msgstr "Publicar cualquier página"
+
+msgid "Bulk delete"
+msgstr "Eliminar volumen."
+
+msgid "Delete pages with children"
+msgstr "Eliminar páginas con hijos."
+
+msgid "Lock"
+msgstr "Bloquear"
 
 msgid "Lock/unlock any page"
 msgstr "Bloquear/desbloquear cualquier página"
@@ -210,6 +245,18 @@ msgstr "grupo de permisos de página"
 msgid "group page permissions"
 msgstr "grupos de permisos de páginas"
 
+msgid "Public"
+msgstr "Público"
+
+msgid "Private, accessible to logged-in users"
+msgstr "Privado, accesible para usuarios que han iniciado sesión"
+
+msgid "Private, accessible with the following password"
+msgstr "Privado, accesible con la siguiente contraseña"
+
+msgid "Private, accessible to users in specific groups"
+msgstr "Privado, accesible para usuarios en grupos específicos"
+
 msgid "password"
 msgstr "contraseña"
 
@@ -218,3 +265,40 @@ msgstr "restricción de vista de página"
 
 msgid "page view restrictions"
 msgstr "restricciones de vista de página"
+
+msgid "name"
+msgstr "nombre"
+
+msgid "collection"
+msgstr "colección"
+
+msgid "collections"
+msgstr "coleciones"
+
+msgid "permission"
+msgstr "permiso"
+
+msgid "group collection permission"
+msgstr "grupo de permisos de colección"
+
+msgid "Log in"
+msgstr "Ingresar"
+
+msgid "Your username and password didn't match. Please try again."
+msgstr "Su usuario y contraseña no coinciden. Intente de nuevo por favor."
+
+msgid ""
+"Your account doesn't have access to this page. To proceed, please log in "
+"with an account that has access."
+msgstr ""
+"Su cuenta no tiene acceso a ésta página. Para proceder, por favor ingrese "
+"con una cuenta que tenga acceso."
+
+msgid "Password required"
+msgstr "Contraseña requerida"
+
+msgid "You need a password to access this page."
+msgstr "Necesita una contraseña para acceder a esta página."
+
+msgid "Continue"
+msgstr "Continuar"

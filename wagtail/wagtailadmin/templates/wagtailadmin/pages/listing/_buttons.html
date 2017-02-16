@@ -1,0 +1,5 @@
+{% for button in buttons %}
+    {% if button.show %}
+    <li>{{ button|safe }}</li>
+    {% endif %}
+{% endfor %}

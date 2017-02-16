@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:01+0000\n"
-"PO-Revision-Date: 2016-02-05 17:09+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2017-02-06 12:38+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -18,6 +18,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: cs\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+
+msgid "Edit"
+msgstr "Upravit"
 
 msgid "Choose a document"
 msgstr "Zvolte dokument"
@@ -126,6 +129,9 @@ msgstr "Stav"
 msgid "Edit this page"
 msgstr "Upravit stránku"
 
+msgid "Delete"
+msgstr "Smazat"
+
 msgid "Search documents"
 msgstr "Hledat v dokumentech"
 
@@ -133,18 +139,12 @@ msgstr "Hledat v dokumentech"
 msgid "Document '{0}' added."
 msgstr "Dokument '{0}' byl přidán."
 
-msgid "Edit"
-msgstr "Upravit"
-
 msgid "The document could not be saved due to errors."
 msgstr "Dokument nebyl uložen, zkontrolujte správné vyplnění polí."
 
 #, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "Dokument '{0}' byl upraven"
-
-msgid "Delete"
-msgstr "Smazat"
 
 #, python-brace-format
 msgid "Document '{0}' deleted."

@@ -1,19 +1,22 @@
+# -*- coding: utf-8 -*
+from __future__ import absolute_import, unicode_literals
+
 import json
 
 from django.apps import apps
-from django.test import TestCase
 from django.db import models
-from django.template import Template, Context, engines
+from django.template import Context, Template, engines
+from django.test import TestCase
 from django.utils.safestring import SafeText
 from django.utils.six import text_type
 
 from wagtail.tests.testapp.models import StreamModel
 from wagtail.wagtailcore import blocks
+from wagtail.wagtailcore.blocks import StreamValue
 from wagtail.wagtailcore.fields import StreamField
+from wagtail.wagtailcore.rich_text import RichText
 from wagtail.wagtailimages.models import Image
 from wagtail.wagtailimages.tests.utils import get_test_image_file
-from wagtail.wagtailcore.blocks import StreamValue
-from wagtail.wagtailcore.rich_text import RichText
 
 
 class TestLazyStreamField(TestCase):
@@ -81,6 +84,36 @@ class TestLazyStreamField(TestCase):
         with self.assertNumQueries(0):
             instances_lookup[self.no_image.pk].body[0]
 
+    def test_lazy_load_queryset_bulk(self):
+        """
+        Ensure that lazy loading StreamField works when gotten as part of a
+        queryset list
+        """
+        file_obj = get_test_image_file()
+        image_1 = Image.objects.create(title='Test image 1', file=file_obj)
+        image_3 = Image.objects.create(title='Test image 3', file=file_obj)
+
+        with_image = StreamModel.objects.create(body=json.dumps([
+            {'type': 'image', 'value': image_1.pk},
+            {'type': 'image', 'value': None},
+            {'type': 'image', 'value': image_3.pk},
+            {'type': 'text', 'value': 'foo'}]))
+
+        with self.assertNumQueries(1):
+            instance = StreamModel.objects.get(pk=with_image.pk)
+
+        # Prefetch all image blocks
+        with self.assertNumQueries(1):
+            instance.body[0]
+
+        # 1. Further image block access should not execute any db lookups
+        # 2. The blank block '1' should be None.
+        # 3. The values should be in the original order.
+        with self.assertNumQueries(0):
+            assert instance.body[0].value.title == 'Test image 1'
+            assert instance.body[1].value is None
+            assert instance.body[2].value.title == 'Test image 3'
+
 
 class TestSystemCheck(TestCase):
     def tearDown(self):
@@ -141,12 +174,14 @@ class TestStreamFieldRenderingBase(TestCase):
 
         self.instance = StreamModel.objects.create(body=json.dumps([
             {'type': 'rich_text', 'value': '<p>Rich text</p>'},
+            {'type': 'rich_text', 'value': '<p>Привет, Микола</p>'},
             {'type': 'image', 'value': self.image.pk},
             {'type': 'text', 'value': 'Hello, World!'}]))
 
         img_tag = self.image.get_rendition('original').img_tag()
         self.expected = ''.join([
             '<div class="block-rich_text"><div class="rich-text"><p>Rich text</p></div></div>',
+            '<div class="block-rich_text"><div class="rich-text"><p>Привет, Микола</p></div></div>',
             '<div class="block-image">{}</div>'.format(img_tag),
             '<div class="block-text">Hello, World!</div>',
         ])
@@ -155,6 +190,11 @@ class TestStreamFieldRenderingBase(TestCase):
 class TestStreamFieldRendering(TestStreamFieldRenderingBase):
     def test_to_string(self):
         rendered = text_type(self.instance.body)
+        self.assertHTMLEqual(rendered, self.expected)
+        self.assertIsInstance(rendered, SafeText)
+
+    def test___html___access(self):
+        rendered = self.instance.body.__html__()
         self.assertHTMLEqual(rendered, self.expected)
         self.assertIsInstance(rendered, SafeText)
 

@@ -20,7 +20,7 @@
             </div>
         {% endif %}
 
-        <form method="post">
+        <form method="post" novalidate>
             {% csrf_token %}
             <h1>{% trans "Set your new password" %}</h1>
 
@@ -38,7 +38,7 @@
                   </div>
                 </li>
                 <li class="submit">
-                    <input type="submit" value="{% trans 'Reset password' %}"/>
+                    <input type="submit" value="{% trans 'Reset password' %}" class="button" />
                 </li>
             </ul>
         </form>

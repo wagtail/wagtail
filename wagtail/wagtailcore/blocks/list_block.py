@@ -1,23 +1,23 @@
 from __future__ import absolute_import, unicode_literals
 
 from django import forms
+from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.core.exceptions import ValidationError
 from django.forms.utils import ErrorList
 from django.template.loader import render_to_string
 from django.utils.html import format_html, format_html_join
 from django.utils.safestring import mark_safe
-from django.contrib.staticfiles.templatetags.staticfiles import static
 
 from wagtail.wagtailcore.utils import escape_script
 
 from .base import Block
 from .utils import js_dict
 
-
 __all__ = ['ListBlock']
 
 
 class ListBlock(Block):
+
     def __init__(self, child_block, **kwargs):
         super(ListBlock, self).__init__(**kwargs)
 
@@ -108,6 +108,9 @@ class ListBlock(Block):
         values_with_indexes.sort()
         return [v for (i, v) in values_with_indexes]
 
+    def value_omitted_from_data(self, data, files, prefix):
+        return ('%s-count' % prefix) not in data
+
     def clean(self, value):
         result = []
         errors = []
@@ -140,10 +143,20 @@ class ListBlock(Block):
             for item in value
         ]
 
-    def render_basic(self, value):
+    def get_api_representation(self, value, context=None):
+        # recursively call get_api_representation on children and return as a list
+        return [
+            self.child_block.get_api_representation(item, context=context)
+            for item in value
+        ]
+
+    def render_basic(self, value, context=None):
         children = format_html_join(
             '\n', '<li>{0}</li>',
-            [(self.child_block.render(child_value),) for child_value in value]
+            [
+                (self.child_block.render(child_value, context=context),)
+                for child_value in value
+            ]
         )
         return format_html("<ul>{0}</ul>", children)
 
@@ -159,6 +172,13 @@ class ListBlock(Block):
         errors = super(ListBlock, self).check(**kwargs)
         errors.extend(self.child_block.check(**kwargs))
         return errors
+
+    class Meta:
+        # No icon specified here, because that depends on the purpose that the
+        # block is being used for. Feel encouraged to specify an icon in your
+        # descendant block type
+        icon = "placeholder"
+
 
 DECONSTRUCT_ALIASES = {
     ListBlock: 'wagtail.wagtailcore.blocks.ListBlock',

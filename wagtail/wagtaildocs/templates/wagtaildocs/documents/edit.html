@@ -23,7 +23,7 @@
     <div class="row row-flush nice-padding">
 
         <div class="col10 divider-after">
-            <form action="{% url 'wagtaildocs:edit' document.id %}" method="POST" enctype="multipart/form-data">
+            <form action="{% url 'wagtaildocs:edit' document.id %}" method="POST" enctype="multipart/form-data" novalidate>
                 {% csrf_token %}
                 <ul class="fields">
                     {% for field in form %}
@@ -34,7 +34,7 @@
                         {% endif %}
                     {% endfor %}
                     <li>
-                        <input type="submit" value="{% trans 'Save' %}" />
+                        <input type="submit" value="{% trans 'Save' %}" class="button" />
                         {% if user_can_delete %}
                             <a href="{% url 'wagtaildocs:delete' document.id %}" class="button button-secondary no">{% trans "Delete document" %}</a>
                         {% endif %}

@@ -30,6 +30,11 @@ Then, in ``urls.py``, you need to add a link to the ``wagtail.contrib.wagtailsit
         ...
 
         url('^sitemap\.xml$', sitemap),
+
+        ...
+
+        # Ensure that the 'sitemap' line appears above the default Wagtail page serving route
+        url(r'', include(wagtail_urls)),
     ]
 
 
@@ -61,8 +66,7 @@ will contain the correct URLs:
     </url>
 
 
-Find out more about `working with Sites
-</reference/pages/model_reference.html?highlight=site#site>`.
+Find out more about :ref:`working with Sites<site-model-ref>`.
 
 
 Customising

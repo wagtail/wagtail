@@ -1,7 +1,15 @@
+from __future__ import absolute_import, unicode_literals
+
 from django import template
 from django.template.loader import render_to_string
 
-from wagtail.wagtailcore.models import Page, PAGE_TEMPLATE_VAR
+from wagtail.wagtailadmin.userbar import (
+    AddPageItem, AdminItem, ApproveModerationEditPageItem, EditPageItem, ExplorePageItem,
+    RejectModerationEditPageItem)
+from wagtail.wagtailcore import hooks
+from wagtail.wagtailcore.models import PAGE_TEMPLATE_VAR, Page, PageRevision
+
+# from django.contrib.auth.decorators import permission_required
 
 
 register = template.Library()
@@ -21,12 +29,26 @@ def get_page_instance(context):
 
 
 @register.simple_tag(takes_context=True)
-def wagtailuserbar(context):
+def wagtailuserbar(context, position='bottom-right'):
     # Find request object
-    request = context['request']
+    try:
+        request = context['request']
+    except KeyError:
+        return ''
+
+    # Don't render without a user because we can't check their permissions
+    try:
+        user = request.user
+    except AttributeError:
+        return ''
 
     # Don't render if user doesn't have permission to access the admin area
-    if not request.user.has_perm('wagtailadmin.access_admin'):
+    if not user.has_perm('wagtailadmin.access_admin'):
+        return ''
+
+    # Don't render if this is a preview. Since some routes can render the userbar without going through Page.serve(),
+    # request.is_preview might not be defined.
+    if getattr(request, 'is_preview', False):
         return ''
 
     # Only render if the context contains a variable referencing a saved page
@@ -43,9 +65,37 @@ def wagtailuserbar(context):
     except AttributeError:
         revision_id = None
 
-    # Render the frame to contain the userbar items
-    return render_to_string('wagtailadmin/userbar/frame.html', {
+    if revision_id is None:
+        items = [
+            AdminItem(),
+            ExplorePageItem(Page.objects.get(id=page.id)),
+            EditPageItem(Page.objects.get(id=page.id)),
+            AddPageItem(Page.objects.get(id=page.id)),
+        ]
+    else:
+        items = [
+            AdminItem(),
+            ExplorePageItem(PageRevision.objects.get(id=revision_id).page),
+            EditPageItem(PageRevision.objects.get(id=revision_id).page),
+            AddPageItem(PageRevision.objects.get(id=revision_id).page),
+            ApproveModerationEditPageItem(PageRevision.objects.get(id=revision_id)),
+            RejectModerationEditPageItem(PageRevision.objects.get(id=revision_id)),
+        ]
+
+    for fn in hooks.get_hooks('construct_wagtail_userbar'):
+        fn(request, items)
+
+    # Render the items
+    rendered_items = [item.render(request) for item in items]
+
+    # Remove any unrendered items
+    rendered_items = [item for item in rendered_items if item]
+
+    # Render the userbar items
+    return render_to_string('wagtailadmin/userbar/base.html', {
         'request': request,
+        'items': rendered_items,
+        'position': position,
         'page': page,
         'revision_id': revision_id
     })

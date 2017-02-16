@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:01+0000\n"
-"PO-Revision-Date: 2016-01-28 07:06+0000\n"
-"Last-Translator: Eetu Häivälä <eetu.haivala@anders.fi>\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2017-02-06 12:41+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +19,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fi\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#, python-format
+msgid "There is another field with the label %s, please change one of them."
+msgstr ""
+"On olemassa toinenkin kenttä tekstillä %s, ole hyvä ja muuta yhtä niistä."
 
 msgid "Single line text"
 msgstr "Yhden rivin teksti"
@@ -93,8 +98,12 @@ msgstr "aputeksti"
 msgid "to address"
 msgstr "lähetysosoite"
 
-msgid "Optional - form submissions will be emailed to this address"
-msgstr "Valinnainen - lomakkeen tiedot lähetetään tähän sähköpostiosoitteeseen"
+msgid ""
+"Optional - form submissions will be emailed to these addresses. Separate "
+"multiple addresses by comma."
+msgstr ""
+"Valinnainen - lomakkeen tiedot lähetetään näihin sähköpostiosoitteisiin "
+"(erottele pilkulla)."
 
 msgid "from address"
 msgstr "lähettäjäosoite"
@@ -102,18 +111,8 @@ msgstr "lähettäjäosoite"
 msgid "subject"
 msgstr "otsake"
 
-#, python-format
-msgid "Delete %(title)s"
-msgstr "Poista %(title)s"
-
 msgid "Delete"
 msgstr "Poista"
-
-msgid "Are you sure you want to delete this form submission?"
-msgstr "Haluatko varmasti poistaa tämän lomakkeen tiedot?"
-
-msgid "Delete it"
-msgstr "Poista se"
 
 msgid "Forms"
 msgstr "Lomakkeet"
@@ -145,14 +144,5 @@ msgstr "Otsikko"
 msgid "Origin"
 msgstr "Lähde"
 
-msgid "Submission Date"
-msgstr "Lähetyspäivämäärä"
-
-msgid "Actions"
-msgstr "Toiminnot"
-
 msgid "No form pages have been created."
 msgstr "Lomakesivuja ei ole luotu."
-
-msgid "Submission deleted."
-msgstr "Lomaketiedot poistettu."

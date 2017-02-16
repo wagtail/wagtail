@@ -5,15 +5,17 @@
     {% trans "Editing" as editing_str %}
     {% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=instance icon="snippet" usage_object=instance tabbed=1 merged=1 %}
 
-    <form action="{% url 'wagtailsnippets:edit' model_opts.app_label model_opts.model_name instance.id %}" method="POST">
+    <form action="{% url 'wagtailsnippets:edit' model_opts.app_label model_opts.model_name instance.id %}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
         {% csrf_token %}
         {{ edit_handler.render_form_content }}
 
         <footer>
             <ul>
                 <li class="actions">
-                    <div class="dropdown dropup match-width">
-                        <input type="submit" value="{% trans 'Save' %}" class="button" />
+                    <div class="dropdown dropup dropdown-button match-width">
+                        <button type="submit" class="button action-save button-longrunning" tabindex="3" data-clicked-text="{% trans 'Saving...' %}" {% if page.locked %}disabled {% endif %}>
+                            <span class="icon icon-spinner"></span><em>{% trans 'Save' %}</em>
+                        </button>
                         <div class="dropdown-toggle icon icon-arrow-up"></div>
                         <ul role="menu">
                             <li><a href="{% url 'wagtailsnippets:delete' model_opts.app_label model_opts.model_name instance.id %}" class="shortcut">{% trans "Delete" %}</a></li>

@@ -4,15 +4,17 @@
 #
 # Translators:
 # ajk, 2014
-# Eugene MechanisM <contact@mechanism.name>, 2014-2015
-# Sergiy Khalymon <sergiykhalimon@gmail.com>, 2015
+# Andrey Avdey <talkerbox@live.com>, 2016
+# Eugene MechanisM <eugene@mechanism.pro>, 2014-2016
+# Mikalai Radchuk <radchuk.m@gmail.com>, 2016
+# Sergey Khalymon <sergiykhalimon@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:01+0000\n"
-"PO-Revision-Date: 2015-12-17 14:29+0000\n"
-"Last-Translator: Eugene MechanisM <contact@mechanism.name>\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2016-12-07 08:51+0000\n"
+"Last-Translator: Mikalai Radchuk <radchuk.m@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -22,6 +24,19 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#, python-brace-format
+msgid "{label}: this block has no options."
+msgstr "{label}: этот блок не имеет опций."
+
+msgid "This block has no options."
+msgstr "Этот блок не имеет опций."
+
+msgid "Password"
+msgstr "Пароль"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr "Введённый вами пароль неверный. Попробуйте еще раз."
 
 msgid "hostname"
 msgstr "имя хоста"
@@ -36,7 +51,7 @@ msgid ""
 msgstr ""
 "Укажите какой-нибудь отличный от 80 порт, если вам нужен конкретный номер "
 "порта в URL-адресе (например, разработка на порту 8000). Не влияет на "
-"обработку запроса (так форвардинг портов до сих пор работает)."
+"обработку запроса (так что форвардинг портов продолжает работать)."
 
 msgid "site name"
 msgstr "имя сайта"
@@ -68,8 +83,8 @@ msgid ""
 "%(hostname)s is already configured as the default site. You must unset that "
 "before you can save this site as default."
 msgstr ""
-"%(hostname)s уже настроен как сайт по умолчанию. Вы должны сначала у него "
-"отключить флажок, прежде, чем вы можете сохранить этот сайт по умолчанию."
+"%(hostname)s уже настроен как сайт по умолчанию. Вы должны сначала отключить "
+"эту настройку у него, прежде, чем вы можете сохранить этот сайт по умолчанию."
 
 msgid "title"
 msgstr "заголовок"
@@ -131,10 +146,10 @@ msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
 msgstr "Пожалуйста, добавьте дату и время в формате YYYY-MM-DD hh:mm."
 
 msgid "expiry date/time"
-msgstr "дата/время окончания действия"
+msgstr "дата/время истечения"
 
 msgid "expired"
-msgstr "истекло время действия"
+msgstr "истекло"
 
 msgid "locked"
 msgstr "заблокировано"
@@ -143,7 +158,10 @@ msgid "first published at"
 msgstr "впервые опубликовано"
 
 msgid "latest revision created at"
-msgstr "последняя ревизия создана"
+msgstr "последняя версия создана"
+
+msgid "This slug is already in use"
+msgstr "Этот слаг уже используется"
 
 msgid "scheduled"
 msgstr "запланированное"
@@ -184,14 +202,32 @@ msgstr "версия страницы"
 msgid "page revisions"
 msgstr "версии страницы"
 
+msgid "Add"
+msgstr "Добавить"
+
 msgid "Add/edit pages you own"
 msgstr "Добавить/редактировать свои страницы"
+
+msgid "Edit"
+msgstr "Редактировать"
 
 msgid "Edit any page"
 msgstr "Редактировать любую страницу"
 
+msgid "Publish"
+msgstr "Опубликовать"
+
 msgid "Publish any page"
 msgstr "Опубликовать любую страницу"
+
+msgid "Bulk delete"
+msgstr "Массовое удаление"
+
+msgid "Delete pages with children"
+msgstr "Удалить вместе с дочерними страницами"
+
+msgid "Lock"
+msgstr "Заблокировать"
 
 msgid "Lock/unlock any page"
 msgstr "Заблокировать/разблокировать любую страницу"
@@ -203,10 +239,22 @@ msgid "permission type"
 msgstr "тип прав"
 
 msgid "group page permission"
-msgstr "права на страницу у группы"
+msgstr "право на страницу у группы"
 
 msgid "group page permissions"
 msgstr "права на страницу у группы"
+
+msgid "Public"
+msgstr "Публично"
+
+msgid "Private, accessible to logged-in users"
+msgstr "Приватно, доступно для зарегистрированных пользователей"
+
+msgid "Private, accessible with the following password"
+msgstr "Приватно, доступно со следующим паролем"
+
+msgid "Private, accessible to users in specific groups"
+msgstr "Приватно, доступно для пользователей из указанных групп"
 
 msgid "password"
 msgstr "пароль"
@@ -216,3 +264,41 @@ msgstr "ограничение на просмотр страницы"
 
 msgid "page view restrictions"
 msgstr "ограничения на просмотр страниц"
+
+msgid "name"
+msgstr "имя"
+
+msgid "collection"
+msgstr "коллекция"
+
+msgid "collections"
+msgstr "коллекции"
+
+msgid "permission"
+msgstr "право доступа"
+
+msgid "group collection permission"
+msgstr "право доступа к коллекции у группы"
+
+msgid "Log in"
+msgstr "Войти"
+
+msgid "Your username and password didn't match. Please try again."
+msgstr ""
+"Ваши имя пользователя и пароль не подходят. Пожалуйста, попробуйте еще раз."
+
+msgid ""
+"Your account doesn't have access to this page. To proceed, please log in "
+"with an account that has access."
+msgstr ""
+"Ваш аккаунт не имеет доступа к этой странице. Для просмотра, пожалуйста, "
+"войдите, используя аккаунт, который имеет доступ."
+
+msgid "Password required"
+msgstr "Требуется пароль"
+
+msgid "You need a password to access this page."
+msgstr "Вам нужен пароль для доступа к этой странице."
+
+msgid "Continue"
+msgstr "Продолжить"

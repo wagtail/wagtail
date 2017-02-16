@@ -5,16 +5,16 @@
 # Translators:
 # jim dal <dimitrisdal@gmail.com>, 2014
 # serafeim <serafeim@torchbox.com>, 2014
-# serafeim <serafeim@torchbox.com>, 2014
-# dotoree <vdotoree@yahoo.gr>, 2015
+# serafeim <serafeim@torchbox.com>, 2014,2016
+# George Giannoulopoulos <vdotoree@yahoo.gr>, 2015
 # Wasilis Mandratzis-Walz, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:01+0000\n"
-"PO-Revision-Date: 2016-02-05 17:09+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2017-02-06 12:38+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
 "MIME-Version: 1.0\n"
@@ -22,6 +22,36 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: el\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Add"
+msgstr "Προσθήκη"
+
+msgid "Add/edit documents you own"
+msgstr "Προσθήκη / διόρθωση εγγράφων που σας ανήκουν"
+
+msgid "Edit"
+msgstr "Επεξεργασία"
+
+msgid "Edit any document"
+msgstr "Διόρθωση όλων των εγγράφων"
+
+msgid "title"
+msgstr "τίτλος"
+
+msgid "file"
+msgstr "αρχείο"
+
+msgid "created at"
+msgstr "δημιουργία στις"
+
+msgid "uploaded by user"
+msgstr "ανέβηκε από το χρήστη"
+
+msgid "tags"
+msgstr "ετικέτες"
+
+msgid "document"
+msgstr "έγγραφο"
 
 msgid "Choose a document"
 msgstr "Επιλογή εγγράφου"
@@ -31,6 +61,15 @@ msgstr "Αναζήτηση"
 
 msgid "Upload"
 msgstr "Ανέβασμα"
+
+msgid "Uploading..."
+msgstr "Ανέβασμα εγγράφου .."
+
+msgid "Server Error"
+msgstr "Σφάλμα"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Αναφέρατε το σφάλμα στο διαχειριστή με τις εξής πληροφορίες:"
 
 #, python-format
 msgid ""
@@ -110,6 +149,14 @@ msgstr "Ανεβασμένο"
 
 #, python-format
 msgid ""
+"You haven't uploaded any documents in this collection. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"Δεν έχετε ανεβάσει έγγραφα στη συλλογή. Θέλετε να <a href="
+"\"%(wagtaildocs_add_document_url)s\">ανεβάσετε ένα</a>;"
+
+#, python-format
+msgid ""
 "You haven't uploaded any documents. Why not <a href="
 "\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
@@ -153,15 +200,50 @@ msgstr[1] ""
 "                <span>%(total)s</span> Έγγραφα\n"
 "            "
 
+msgid "Add multiple documents"
+msgstr "Προσθήκη πολλαπλών εγγράφων"
+
+msgid "Add documents"
+msgstr "Προσθήκη εγγράφου"
+
+msgid "Drag and drop documents into this area to upload immediately."
+msgstr "Σύρετε έγγραφα σε αυτή την περιοχή ώστε να ανέβουν απευθείας."
+
+msgid "Or choose from your computer"
+msgstr "Ή επιλέξατε από τον υπολογιστή σας"
+
+msgid "Add to collection:"
+msgstr "Προσθήκη συλλογής:"
+
+msgid ""
+"Upload successful. Please update this documents with a more appropriate "
+"title, if necessary. You may also delete the document completely if the "
+"upload wasn't required."
+msgstr ""
+"Η μεταφορά ήταν επιτυχής. Μπορείτε, αν χρειάζεται να βάλετε έναν πιο "
+"κατάλληλο τίτλο ή να διαγράψετε τελείως το έγγραφο."
+
+msgid "Sorry, upload failed."
+msgstr "Σφάλμα κατά τη μεταφορά."
+
+msgid "Update"
+msgstr "Ενημέρωση"
+
+msgid "Delete"
+msgstr "Διαγραφή"
+
+msgid "Document permissions"
+msgstr "Δικαιώματα εγγράφων"
+
+msgid "Add a document permission"
+msgstr "Προσθήκη δικαιώματος εγγράφου"
+
 msgid "Search documents"
 msgstr "Αναζήτηση εγγράφων"
 
 #, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Το έγγραφο '{0}' προστέθηκε."
-
-msgid "Edit"
-msgstr "Επεξεργασία"
 
 msgid "The document could not be saved due to errors."
 msgstr "Δεν ήταν δυνατή η αποθήκευση του εγγράφου."
@@ -176,12 +258,15 @@ msgstr ""
 "Το αρχείο δεν μπορεσε να βρεθεί. Παρακαλούμε να αλλάξετε την πηγή ή να "
 "διαγράψετε το έγγραφο"
 
-msgid "Delete"
-msgstr "Διαγραφή"
-
 #, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Το έγγραφο '{0}' διαγράφηκε."
+
+#, python-format
+msgid "%(count)s document"
+msgid_plural "%(count)s documents"
+msgstr[0] "%(count)s έγγραφο"
+msgstr[1] "%(count)s έγγραφα"
 
 msgid "Choose another document"
 msgstr "Επιλογή άλλου εγγράφου"

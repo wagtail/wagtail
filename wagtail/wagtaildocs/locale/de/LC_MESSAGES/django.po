@@ -7,6 +7,7 @@
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 # karlsander <karlsander@gmail.com>, 2014
 # karlsander <karlsander@gmail.com>, 2014
+# Moritz Pfeiffer <moritz@alp-phone.ch>, 2016-2017
 # pcraston <patrick@craston.com>, 2014
 # pcraston <patrick@craston.com>, 2014
 # Tammo van Lessen <tvanlessen@gmail.com>, 2015
@@ -15,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:01+0000\n"
-"PO-Revision-Date: 2016-02-07 15:24+0000\n"
-"Last-Translator: Henrik Kröger <hedwig@riseup.net>\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2017-02-09 10:15+0000\n"
+"Last-Translator: Moritz Pfeiffer <moritz@alp-phone.ch>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -25,6 +26,18 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Add"
+msgstr "Hinzufügen"
+
+msgid "Add/edit documents you own"
+msgstr "Hinzufügen/Bearbeiten von Dokumenten, die Sie besitzen"
+
+msgid "Edit"
+msgstr "Bearbeiten"
+
+msgid "Edit any document"
+msgstr "Jedes Dokument bearbeiten"
 
 msgid "title"
 msgstr "Titel"
@@ -141,6 +154,18 @@ msgid "Uploaded"
 msgstr "Hochgeladen"
 
 #, python-format
+msgid "%(time_period)s ago"
+msgstr "vor %(time_period)s"
+
+#, python-format
+msgid ""
+"You haven't uploaded any documents in this collection. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"Sie haben noch keine Dokumente in dieser Sammlung hochgeladen. <a href="
+"\"%(wagtaildocs_add_document_url)s\">Laden Sie doch jetzt eins hoch!</a>"
+
+#, python-format
 msgid ""
 "You haven't uploaded any documents. Why not <a href="
 "\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
@@ -185,15 +210,50 @@ msgstr[1] ""
 "        <span>%(total)s</span> Dokumente\n"
 "    "
 
+msgid "Add multiple documents"
+msgstr "Mehrere Dokumente hinzufügen"
+
+msgid "Add documents"
+msgstr "Dokumente hinzufügen"
+
+msgid "Drag and drop documents into this area to upload immediately."
+msgstr "Ziehen Sie Dokumente in diesen Bereich, um sie sofort hochzuladen."
+
+msgid "Or choose from your computer"
+msgstr "Oder wählen Sie es von Ihrem Computer aus"
+
+msgid "Add to collection:"
+msgstr "Zu Sammlung hinzufügen:"
+
+msgid ""
+"Upload successful. Please update this documents with a more appropriate "
+"title, if necessary. You may also delete the document completely if the "
+"upload wasn't required."
+msgstr ""
+"Upload erfolgreich. Bitte geben Sie diesem Dokument einen passenden Titel. "
+"Sie können das Dokument auch entfernen, wenn der Upload nicht notwendig war."
+
+msgid "Sorry, upload failed."
+msgstr "Entschuldigung, der Upload ist fehlgeschlagen."
+
+msgid "Update"
+msgstr "Update"
+
+msgid "Delete"
+msgstr "Löschen"
+
+msgid "Document permissions"
+msgstr "Dokumenten-Berechtigungen"
+
+msgid "Add a document permission"
+msgstr "Einfügen einer Dokumenten-Berechtigung"
+
 msgid "Search documents"
 msgstr "Nach Dokumenten suchen"
 
 #, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Dokument ‚{0}‘ wurde hinzugefügt."
-
-msgid "Edit"
-msgstr "Bearbeiten"
 
 msgid "The document could not be saved due to errors."
 msgstr "Aufgrund eines Fehlers konnte das Dokument nicht gespeichert werden."
@@ -208,12 +268,15 @@ msgstr ""
 "Die Datei konnte nicht gefunden werden. Bitte ändern Sie die Quelle oder "
 "löschen Sie das Dokument "
 
-msgid "Delete"
-msgstr "Löschen"
-
 #, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Dokument ‚{0}‘ wurde gelöscht."
+
+#, python-format
+msgid "%(count)s document"
+msgid_plural "%(count)s documents"
+msgstr[0] "%(count)s Dokument"
+msgstr[1] "%(count)s Dokumente"
 
 msgid "Choose another document"
 msgstr "Anderes Dokument wählen"

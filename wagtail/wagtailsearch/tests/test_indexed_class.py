@@ -1,7 +1,24 @@
+from __future__ import absolute_import, unicode_literals
+
+from contextlib import contextmanager
+
+from django.core import checks
 from django.test import TestCase
 
-from wagtail.wagtailsearch import index
 from wagtail.tests.search import models
+from wagtail.wagtailsearch import index
+
+
+@contextmanager
+def patch_search_fields(model, new_search_fields):
+    """
+    A context manager to allow testing of different search_fields configurations
+    without permanently changing the models' search_fields.
+    """
+    old_search_fields = model.search_fields
+    model.search_fields = new_search_fields
+    yield
+    model.search_fields = old_search_fields
 
 
 class TestContentTypeNames(TestCase):
@@ -16,7 +33,7 @@ class TestContentTypeNames(TestCase):
 
 class TestSearchFields(TestCase):
     def make_dummy_type(self, search_fields):
-        return type('DummyType', (index.Indexed, ), dict(search_fields=search_fields))
+        return type(str('DummyType'), (index.Indexed, ), dict(search_fields=search_fields))
 
     def test_basic(self):
         cls = self.make_dummy_type([
@@ -34,7 +51,7 @@ class TestSearchFields(TestCase):
         # standard convention of:
         #
         #     class SpecificPageType(Page):
-        #         search_fields = Page.search_fields + (some_other_definitions)
+        #         search_fields = Page.search_fields + [some_other_definitions]
         #
         # ...causes the definitions in some_other_definitions to override Page.search_fields
         # as intended.
@@ -66,3 +83,14 @@ class TestSearchFields(TestCase):
         self.assertEqual(len(cls.get_search_fields()), 2)
         self.assertEqual(len(cls.get_searchable_search_fields()), 1)
         self.assertEqual(len(cls.get_filterable_search_fields()), 1)
+
+    def test_checking_search_fields(self):
+        with patch_search_fields(models.SearchTest, models.SearchTest.search_fields + [index.SearchField('foo')]):
+            expected_errors = [
+                checks.Warning(
+                    "SearchTest.search_fields contains field 'foo' but it doesn't exist",
+                    obj=models.SearchTest
+                )
+            ]
+            errors = models.SearchTest.check()
+            self.assertEqual(errors, expected_errors)

@@ -61,4 +61,4 @@ The alignments available are described below:
 * **Half-width left/right aligned:** Inserts the image at half the width of the text area. If inserted in a block of text the text will wrap around the image. If two half-width images are inserted together they will display next to each other.
 
 .. Note::
-	The display of images aligned in this way is dependent on your implementation of Wagtail, so you may get slightly different results.
+    The display of images aligned in this way is dependent on your implementation of Wagtail, so you may get slightly different results.

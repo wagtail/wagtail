@@ -1,0 +1,16 @@
+===========================
+Wagtail 1.4.3 release notes
+===========================
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's changed
+==============
+
+Bug fixes
+~~~~~~~~~
+
+ * Fixed regression introduced in 1.4.2 which caused Wagtail to query the database during a system check (Tim Heap)

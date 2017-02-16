@@ -1,26 +1,38 @@
+from __future__ import absolute_import, unicode_literals
+
+from itertools import groupby
+
 from django import forms
+from django.conf import settings
 from django.contrib.auth import get_user_model
-from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import Group, Permission
-from django.forms.models import inlineformset_factory
+from django.db import transaction
+from django.template.loader import render_to_string
+from django.utils.translation import ugettext_lazy as _
 
-from wagtail.wagtailcore import hooks
 from wagtail.wagtailadmin.widgets import AdminPageChooser
+from wagtail.wagtailcore import hooks
+from wagtail.wagtailcore.models import (
+    PAGE_PERMISSION_TYPE_CHOICES, PAGE_PERMISSION_TYPES, GroupPagePermission, Page,
+    UserPagePermissionsProxy)
 from wagtail.wagtailusers.models import UserProfile
-from wagtail.wagtailcore.models import Page, UserPagePermissionsProxy, GroupPagePermission
-
 
 User = get_user_model()
 
 # The standard fields each user model is expected to have, as a minimum.
 standard_fields = set(['email', 'first_name', 'last_name', 'is_superuser', 'groups'])
+# Custom fields
+if hasattr(settings, 'WAGTAIL_USER_CUSTOM_FIELDS'):
+    custom_fields = set(settings.WAGTAIL_USER_CUSTOM_FIELDS)
+else:
+    custom_fields = set()
 
 
 class UsernameForm(forms.ModelForm):
     """
-    Intelligently sets up the username field if it is infact a username. If the
+    Intelligently sets up the username field if it is in fact a username. If the
     User model has been swapped out, and the username field is an email or
-    something else, dont touch it.
+    something else, don't touch it.
     """
     def __init__(self, *args, **kwargs):
         super(UsernameForm, self).__init__(*args, **kwargs)
@@ -72,7 +84,7 @@ class UserCreationForm(UsernameForm):
 
     class Meta:
         model = User
-        fields = set([User.USERNAME_FIELD]) | standard_fields
+        fields = set([User.USERNAME_FIELD]) | standard_fields | custom_fields
         widgets = {
             'groups': forms.CheckboxSelectMultiple
         }
@@ -144,7 +156,7 @@ class UserEditForm(UsernameForm):
 
     class Meta:
         model = User
-        fields = set([User.USERNAME_FIELD, "is_active"]) | standard_fields
+        fields = set([User.USERNAME_FIELD, "is_active"]) | standard_fields | custom_fields
         widgets = {
             'groups': forms.CheckboxSelectMultiple
         }
@@ -155,7 +167,7 @@ class UserEditForm(UsernameForm):
         username = self.cleaned_data["username"]
         username_field = User.USERNAME_FIELD
         try:
-            User._default_manager.exclude(id=self.instance.id).get(**{
+            User._default_manager.exclude(pk=self.instance.pk).get(**{
                 username_field: username})
         except User.DoesNotExist:
             return username
@@ -189,7 +201,7 @@ class GroupForm(forms.ModelForm):
         self.registered_permissions = Permission.objects.none()
         for fn in hooks.get_hooks('register_permissions'):
             self.registered_permissions = self.registered_permissions | fn()
-        self.fields['permissions'].queryset = self.registered_permissions
+        self.fields['permissions'].queryset = self.registered_permissions.select_related('content_type')
 
     required_css_class = "required"
 
@@ -206,13 +218,16 @@ class GroupForm(forms.ModelForm):
     class Meta:
         model = Group
         fields = ("name", "permissions", )
+        widgets = {
+            'permissions': forms.CheckboxSelectMultiple(),
+        }
 
     def clean_name(self):
         # Since Group.name is unique, this check is redundant,
         # but it sets a nicer error message than the ORM. See #13147.
         name = self.cleaned_data["name"]
         try:
-            Group._default_manager.exclude(id=self.instance.id).get(name=name)
+            Group._default_manager.exclude(pk=self.instance.pk).get(name=name)
         except Group.DoesNotExist:
             return name
         raise forms.ValidationError(self.error_messages['duplicate_name'])
@@ -233,19 +248,44 @@ class GroupForm(forms.ModelForm):
         return group
 
 
-class GroupPagePermissionForm(forms.ModelForm):
-    page = forms.ModelChoiceField(queryset=Page.objects.all(),
-                                  widget=AdminPageChooser(show_edit_link=False, can_choose_root=True))
+class PagePermissionsForm(forms.Form):
+    """
+    Note 'Permissions' (plural). A single instance of this form defines the permissions
+    that are assigned to an entity (i.e. group or user) for a specific page.
+    """
+    page = forms.ModelChoiceField(
+        queryset=Page.objects.all(),
+        widget=AdminPageChooser(show_edit_link=False, can_choose_root=True)
+    )
+    permission_types = forms.MultipleChoiceField(
+        choices=PAGE_PERMISSION_TYPE_CHOICES,
+        required=False,
+        widget=forms.CheckboxSelectMultiple
+    )
 
-    class Meta:
-        model = GroupPagePermission
-        fields = ('page', 'permission_type')
 
+class BaseGroupPagePermissionFormSet(forms.BaseFormSet):
+    permission_types = PAGE_PERMISSION_TYPES  # defined here for easy access from templates
 
-class BaseGroupPagePermissionFormSet(forms.models.BaseInlineFormSet):
-    def __init__(self, *args, **kwargs):
-        super(BaseGroupPagePermissionFormSet, self).__init__(*args, **kwargs)
-        self.form = GroupPagePermissionForm
+    def __init__(self, data=None, files=None, instance=None, prefix='page_permissions'):
+        if instance is None:
+            instance = Group()
+
+        self.instance = instance
+
+        initial_data = []
+
+        for page, page_permissions in groupby(
+            instance.page_permissions.select_related('page').order_by('page'), lambda pp: pp.page
+        ):
+            initial_data.append({
+                'page': page,
+                'permission_types': [pp.permission_type for pp in page_permissions]
+            })
+
+        super(BaseGroupPagePermissionFormSet, self).__init__(
+            data, files, initial=initial_data, prefix=prefix
+        )
         for form in self.forms:
             form.fields['DELETE'].widget = forms.HiddenInput()
 
@@ -255,13 +295,70 @@ class BaseGroupPagePermissionFormSet(forms.models.BaseInlineFormSet):
         empty_form.fields['DELETE'].widget = forms.HiddenInput()
         return empty_form
 
+    def clean(self):
+        """Checks that no two forms refer to the same page object"""
+        if any(self.errors):
+            # Don't bother validating the formset unless each form is valid on its own
+            return
 
-GroupPagePermissionFormSet = inlineformset_factory(
-    Group,
-    GroupPagePermission,
-    formset=BaseGroupPagePermissionFormSet,
-    extra=0,
-    fields=('page', 'permission_type'),
+        pages = [
+            form.cleaned_data['page']
+            for form in self.forms
+            # need to check for presence of 'page' in cleaned_data,
+            # because a completely blank form passes validation
+            if form not in self.deleted_forms and 'page' in form.cleaned_data
+        ]
+        if len(set(pages)) != len(pages):
+            # pages list contains duplicates
+            raise forms.ValidationError(_("You cannot have multiple permission records for the same page."))
+
+    @transaction.atomic
+    def save(self):
+        if self.instance.pk is None:
+            raise Exception(
+                "Cannot save a GroupPagePermissionFormSet for an unsaved group instance"
+            )
+
+        # get a set of (page, permission_type) tuples for all ticked permissions
+        forms_to_save = [
+            form for form in self.forms
+            if form not in self.deleted_forms and 'page' in form.cleaned_data
+        ]
+
+        final_permission_records = set()
+        for form in forms_to_save:
+            for permission_type in form.cleaned_data['permission_types']:
+                final_permission_records.add((form.cleaned_data['page'], permission_type))
+
+        # fetch the group's existing page permission records, and from that, build a list
+        # of records to be created / deleted
+        permission_ids_to_delete = []
+        permission_records_to_keep = set()
+
+        for pp in self.instance.page_permissions.all():
+            if (pp.page, pp.permission_type) in final_permission_records:
+                permission_records_to_keep.add((pp.page, pp.permission_type))
+            else:
+                permission_ids_to_delete.append(pp.pk)
+
+        self.instance.page_permissions.filter(pk__in=permission_ids_to_delete).delete()
+
+        permissions_to_add = final_permission_records - permission_records_to_keep
+        GroupPagePermission.objects.bulk_create([
+            GroupPagePermission(
+                group=self.instance, page=page, permission_type=permission_type
+            )
+            for (page, permission_type) in permissions_to_add
+        ])
+
+    def as_admin_panel(self):
+        return render_to_string('wagtailusers/groups/includes/page_permissions_formset.html', {
+            'formset': self
+        })
+
+
+GroupPagePermissionFormSet = forms.formset_factory(
+    PagePermissionsForm, formset=BaseGroupPagePermissionFormSet, extra=0, can_delete=True
 )
 
 

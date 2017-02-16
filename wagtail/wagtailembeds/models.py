@@ -1,9 +1,8 @@
-from __future__ import unicode_literals
+from __future__ import absolute_import, unicode_literals
 
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
-
 
 EMBED_TYPES = (
     ('video', 'Video'),

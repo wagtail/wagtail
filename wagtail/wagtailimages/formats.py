@@ -1,6 +1,10 @@
+from __future__ import absolute_import, unicode_literals
+
 from django.utils.html import escape
+from django.utils.translation import ugettext_lazy as _
 
 from wagtail.utils.apps import get_app_submodules
+
 from .shortcuts import get_rendition_or_not_found
 
 
@@ -86,6 +90,6 @@ def search_for_image_formats():
 
 
 # Define default image formats
-register_image_format(Format('fullwidth', 'Full width', 'richtext-image full-width', 'width-800'))
-register_image_format(Format('left', 'Left-aligned', 'richtext-image left', 'width-500'))
-register_image_format(Format('right', 'Right-aligned', 'richtext-image right', 'width-500'))
+register_image_format(Format('fullwidth', _('Full width'), 'richtext-image full-width', 'width-800'))
+register_image_format(Format('left', _('Left-aligned'), 'richtext-image left', 'width-500'))
+register_image_format(Format('right', _('Right-aligned'), 'richtext-image right', 'width-500'))

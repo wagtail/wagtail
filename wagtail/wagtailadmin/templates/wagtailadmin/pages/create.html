@@ -7,18 +7,20 @@
 
 {% block content %}
 
-    <header class="merged tab-merged nice-padding">
-        {% include "wagtailadmin/shared/breadcrumb.html" with page=parent_page include_self=1 %}
+    <header class="merged tab-merged">
+        {% explorer_breadcrumb parent_page include_self=1 %}
 
         <div class="row row-flush">
-            <div class="left col9">
-                <h1 class="icon icon-doc-empty-inverse">{% trans 'New' %} <span>{{ content_type.model_class.get_verbose_name }}</span></h1>
+            <div class="left col9 header-title">
+                <h1 class="icon icon-doc-empty-inverse">
+                {% trans 'New' %} <span>{{ content_type.model_class.get_verbose_name }}</span></h1>
             </div>
         </div>
     </header>
 
-    <form id="page-edit-form" action="{% url 'wagtailadmin_pages:add' content_type.app_label content_type.model parent_page.id %}" method="POST"{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
+    <form id="page-edit-form" action="{% url 'wagtailadmin_pages:add' content_type.app_label content_type.model parent_page.id %}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
         {% csrf_token %}
+        <input type="hidden" name="next" value="{{ next }}">
         {{ edit_handler.render_form_content }}
 
         {% page_permissions parent_page as parent_page_perms %}
@@ -26,12 +28,12 @@
             <ul>
                 <li class="actions">
                     <div class="dropdown dropup dropdown-button match-width">
-                        <button type="submit" class="action-save button-longrunning" tabindex="3" data-clicked-text="{% trans 'Saving...' %}"><span class="icon icon-spinner"></span><em>{% trans 'Save draft' %}</em></button>
+                        <button type="submit" class="button action-save button-longrunning" tabindex="3" data-clicked-text="{% trans 'Saving...' %}"><span class="icon icon-spinner"></span><em>{% trans 'Save draft' %}</em></button>
                         <div class="dropdown-toggle icon icon-arrow-up"></div>
                         <ul role="menu">
                             {% if parent_page_perms.can_publish_subpage %}
                                 <li>
-                                    <button type="submit" name="action-publish" value="action-publish" class="button-longrunning" tabindex="3" data-clicked-text="{% trans 'Publishing...' %}" {% if page.locked %}disabled {% endif %}><span class="icon icon-spinner"></span><em>{% trans 'Publish' %}</em></button>
+                                    <button type="submit" name="action-publish" value="action-publish" class="button button-longrunning" tabindex="3" data-clicked-text="{% trans 'Publishing...' %}" {% if page.locked %}disabled {% endif %}><span class="icon icon-spinner"></span><em>{% trans 'Publish' %}</em></button>
                                 </li>
                             {% endif %}
                             <li><input type="submit" name="action-submit" value="{% trans 'Submit for moderation' %}" class="button" /></li>
@@ -82,7 +84,7 @@
                 {
                     confirmationMessage: '{{ confirmation_message|escapejs }}',
 
-                    {% if form.errors %}
+                    {% if has_unsaved_changes %}
                         alwaysDirty: true,
                     {% endif %}
                 }

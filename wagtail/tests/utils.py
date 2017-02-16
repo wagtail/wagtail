@@ -11,14 +11,35 @@ from django.test import TestCase
 from django.utils import six
 from django.utils.text import slugify
 
+from wagtail.tests.assert_logs import _AssertLogsContext
+
 
 class WagtailTestUtils(object):
-    def login(self):
-        # Create a user
-        user = get_user_model().objects.create_superuser(username='test', email='test@email.com', password='password')
 
+    @staticmethod
+    def create_test_user():
+        """
+        Override this method to return an instance of your custom user model
+        """
+        user_model = get_user_model()
+        # Create a user
+        user_data = dict()
+        user_data[user_model.USERNAME_FIELD] = 'test@email.com'
+        user_data['password'] = 'password'
+
+        for field in user_model.REQUIRED_FIELDS:
+            user_data[field] = field
+
+        return user_model.objects.create_superuser(**user_data)
+
+    def login(self):
+        user = self.create_test_user()
+
+        user_model = get_user_model()
         # Login
-        self.client.login(username='test', password='password')
+        self.assertTrue(
+            self.client.login(password='password', **{user_model.USERNAME_FIELD: 'test@email.com'})
+        )
 
         return user
 
@@ -57,6 +78,40 @@ class WagtailTestUtils(object):
         for mod in list(sys.modules.values()):
             if hasattr(mod, key):
                 getattr(mod, key).clear()
+
+    # Configuring LOGGING_FORMAT is not possible without subclassing
+    # unittest.TestCase, so use this implementation even on Python 3.4
+    def assertLogs(self, logger=None, level=None):
+        """Fail unless a log message of level *level* or higher is emitted
+        on *logger_name* or its children.  If omitted, *level* defaults to
+        INFO and *logger* defaults to the root logger.
+
+        This method must be used as a context manager, and will yield
+        a recording object with two attributes: `output` and `records`.
+        At the end of the context manager, the `output` attribute will
+        be a list of the matching formatted log messages and the
+        `records` attribute will be a list of the corresponding LogRecord
+        objects.
+
+        Example::
+
+            with self.assertLogs('foo', level='INFO') as cm:
+                logging.getLogger('foo').info('first message')
+                logging.getLogger('foo.bar').error('second message')
+            self.assertEqual(cm.output, ['INFO:foo:first message',
+                                         'ERROR:foo.bar:second message'])
+        """
+        return _AssertLogsContext(self, logger, level)
+
+    @contextmanager
+    def register_hook(self, hook_name, fn, order=0):
+        from wagtail.wagtailcore import hooks
+
+        hooks.register(hook_name, fn, order)
+        try:
+            yield
+        finally:
+            hooks._hooks[hook_name].remove((fn, order))
 
 
 class WagtailPageTests(WagtailTestUtils, TestCase):

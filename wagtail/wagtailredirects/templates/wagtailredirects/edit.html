@@ -15,7 +15,7 @@
         </div>
     {% endif %}
 
-    <form action="{% url 'wagtailredirects:edit' redirect.id %}" method="POST" class="nice-padding">
+    <form action="{% url 'wagtailredirects:edit' redirect.id %}" method="POST" class="nice-padding" novalidate>
         {% csrf_token %}
 
         <ul class="fields">
@@ -24,14 +24,14 @@
             {% endfor %}
 
             <li>
-                <input type="submit" value="{% trans 'Save' %}" />
+                <input type="submit" value="{% trans 'Save' %}" class="button" />
                 {% if user_can_delete %}
                     <a href="{% url 'wagtailredirects:delete' redirect.id %}" class="button button-secondary no">{% trans "Delete redirect" %}</a>
                 {% endif %}
             </li>
         </ul>
     </form>
-    
+
 {% endblock %}
 
 {% block extra_js %}

@@ -87,7 +87,7 @@ Specifying the fields to search
 
 By default, Wagtail will search all fields that have been indexed using ``index.SearchField``.
 
-This can be limited to a certian set of fields using the ``fields`` keyword argument:
+This can be limited to a certian set of fields by using the ``fields`` keyword argument:
 
 .. code-block:: python
 
@@ -102,8 +102,6 @@ Changing search behaviour
 Search operator
 ^^^^^^^^^^^^^^^
 
-.. versionadded:: 1.2
-
 The search operator specifies how search should behave when the user has typed in multiple search terms. There are two possible values:
 
  - "or" - The results must match at least one term (default for Elasticsearch)
@@ -113,7 +111,7 @@ Both operators have benefits and drawbacks. The "or" operator will return many m
 
 We recommend using the "or" operator when ordering by relevance and the "and" operator when ordering by anything else (note: the database backend doesn't currently support ordering by relevance).
 
-Here's an example of using the "operator" keyword argument:
+Here's an example of using the ``operator`` keyword argument:
 
 .. code-block:: python
 
@@ -151,8 +149,6 @@ For page, image and document models, the ``operator`` keyword argument is also s
 Custom ordering
 ^^^^^^^^^^^^^^^
 
-.. versionadded:: 1.2
-
 By default, search results are ordered by relevance, if the backend supports it. To preserve the QuerySet's existing ordering, the ``order_by_relevance`` keyword argument needs to be set to ``False`` on the ``search()`` method.
 
 For example:
@@ -166,8 +162,36 @@ For example:
     [<EventPage: Easter>, <EventPage: Halloween>, <EventPage: Christmas>]
 
 
-.. _wagtailsearch_frontend_views:
+.. _wagtailsearch_annotating_results_with_score:
 
+Annotating results with score
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+For each matched result, Elasticsearch calculates a "score", which is a number
+that represents how relevant the result is based on the user's query. The
+results are usually ordered based on the score.
+
+There are some cases where having access to the score is useful (such as
+programmatically combining two queries for different models). You can add the
+score to each result by calling the ``.annotate_score(field)`` method on the
+``SearchQuerySet``.
+
+For example:
+
+.. code-block:: python
+
+    >>> events = EventPage.objects.search("Event").annotate_score("_score")
+    >>> for event in events:
+    ...    print(event.title, event._score)
+    ...
+    ("Easter", 2.5),
+    ("Haloween", 1.7),
+    ("Christmas", 1.5),
+
+Note that the score itself is arbitrary and it is only useful for comparison
+of results for the same query.
+
+.. _wagtailsearch_frontend_views:
 
 An example page search view
 ===========================

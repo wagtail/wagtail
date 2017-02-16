@@ -1,13 +1,10 @@
-from bs4 import BeautifulSoup
+from __future__ import absolute_import, unicode_literals
 
+from bs4 import BeautifulSoup
 from django.test import TestCase
 
 from wagtail.wagtailcore.whitelist import (
-    check_url,
-    attribute_rule,
-    allow_without_attributes,
-    Whitelister
-)
+    Whitelister, allow_without_attributes, attribute_rule, check_url)
 
 
 class TestCheckUrl(TestCase):

@@ -5,14 +5,17 @@
 # Translators:
 # hanfeng <appweb.cn@gmail.com>, 2014-2015
 # Daniel Hwang <danielblinkhw@gmail.com>, 2015
+# Fred Zeng <979738295@qq.com>, 2016
 # hanfeng <appweb.cn@gmail.com>, 2014
+# Listeng, 2016
+# 飘 赵 <275980464@qq.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:01+0000\n"
-"PO-Revision-Date: 2016-02-05 17:08+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2017-02-06 12:37+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -20,6 +23,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "You do not have permission to access the admin"
+msgstr "你没有访问后台管理的权限"
 
 msgid "Scheduled publishing"
 msgstr "定时发布"
@@ -41,6 +47,9 @@ msgstr "搜索"
 
 msgid "Search term"
 msgstr "搜索条件"
+
+msgid "URL"
+msgstr "URL"
 
 msgid "Enter password"
 msgstr "输入密码"
@@ -108,12 +117,6 @@ msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
 msgstr "此缩写在父页面\"%s\"环境中已被使用。"
 
-msgid "Public"
-msgstr "公开"
-
-msgid "Private, accessible with the following password"
-msgstr "私有，使用下列的密码访问："
-
 msgid "This field is required."
 msgstr "必需字段"
 
@@ -125,6 +128,9 @@ msgstr "发布日期/时间必须早于过期日期/时间"
 
 msgid "Expiry date/time must be in the future"
 msgstr "过期日期/时间必须是未来时间。"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr "对于同一个集合你不能设置多重权限"
 
 msgid "Account"
 msgstr "帐号"
@@ -186,8 +192,11 @@ msgstr "检查您的邮件"
 msgid "A link to reset your password has been emailed to you."
 msgstr "已将重置密码的链接发送到您的邮箱。"
 
-msgid "Please follow the link below to reset your password"
+msgid "Please follow the link below to reset your password:"
 msgstr "请点击下面的链接来重置密码"
+
+msgid "Your username (in case you've forgotten):"
+msgstr "以防遗忘，请填写你的用户名:"
 
 msgid "Password reset"
 msgstr "密码已重置。"
@@ -269,6 +278,24 @@ msgstr "插入链接"
 msgid "Add an external link"
 msgstr "添加一个外部链接"
 
+msgid ""
+"This collection cannot be deleted, because it is not empty. It contains:"
+msgstr "集合非空，不能删除，它包含有："
+
+msgid "Name"
+msgstr "名字"
+
+#, python-format
+msgid ""
+"No collections have been created. Why not <a href=\"%(add_collection_url)s"
+"\">add one</a>?"
+msgstr ""
+"没有创建任何集合，为何不<a href=\"%(add_collection_url)s\">创建一个</a>"
+
+#, python-format
+msgid "Add %(heading)s"
+msgstr "添加%(heading)s"
+
 msgid "Yes, delete"
 msgstr "是的， 删除"
 
@@ -327,7 +354,7 @@ msgid "Draft"
 msgstr "草稿"
 
 msgid "Live"
-msgstr "发布"
+msgstr "预览"
 
 msgid "Site summary"
 msgstr "网站摘要"
@@ -359,9 +386,8 @@ msgstr "登录Wagtail"
 msgid "Forgotten it?"
 msgstr "不记得了？"
 
-#, python-format
-msgid "The page \"%(title)s\" has been approved"
-msgstr "页面\"%(title)s\"已批准"
+msgid "Signing in..."
+msgstr "登录中……"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -370,12 +396,16 @@ msgstr "页面\"%(title)s\"已批准。"
 msgid "You can view the page here:"
 msgstr "在这里查看页面："
 
-msgid "Edit your notification preferences here:"
-msgstr "在此编辑通知选择"
+#, python-format
+msgid "The page \"%(title)s\" has been approved"
+msgstr "页面\"%(title)s\"已批准"
 
 #, python-format
-msgid "The page \"%(title)s\" has been rejected"
-msgstr "页面\"%(title)s\"被驳回"
+msgid "Hello %(username)s,"
+msgstr "%(username)s 你好，"
+
+msgid "Edit your notification preferences here:"
+msgstr "在此编辑通知选择"
 
 #, python-format
 msgid "The page \"%(title)s\" has been rejected."
@@ -385,11 +415,19 @@ msgid "You can edit the page here:"
 msgstr "你可以在此编辑页面："
 
 #, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation"
-msgstr "页面\"%(page)s\"已提交审核"
+msgid "The page \"%(title)s\" has been rejected"
+msgstr "页面\"%(title)s\"被驳回"
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation by %(editor)s."
+msgstr "页面“%(page)s”已被“%(editor)s”审核"
 
 msgid "You can preview the page here:"
 msgstr "可以在此预览页面："
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation"
+msgstr "页面\"%(page)s\"已提交审核"
 
 msgid "Page privacy"
 msgstr "页面保护"
@@ -414,6 +452,9 @@ msgstr "已解锁"
 
 msgid "Privacy"
 msgstr "隐私"
+
+msgid "Public"
+msgstr "公开"
 
 msgid "Private"
 msgstr "私有"
@@ -453,18 +494,8 @@ msgstr[0] ""
 "\n"
 "这也会删除 %(descendant_count)s 个子页面。"
 
-msgid ""
-"Alternatively you can unpublish the page. This removes the page from public "
-"view and you can edit or publish it again later."
-msgstr ""
-"或许你可以选择取消发布此页面。这会将页面不公开展示。回头可以继续编辑或者发布"
-"它。"
-
-msgid "Delete it"
-msgstr "删除"
-
-msgid "Unpublish it"
-msgstr "取消发布"
+msgid "Yes, delete it"
+msgstr "确认删除"
 
 #, python-format
 msgid "Move %(title)s"
@@ -499,6 +530,9 @@ msgstr "确认取消发布此页面？"
 msgid "Yes, unpublish it"
 msgstr "是的。取消发布"
 
+msgid "No, don't unpublish"
+msgstr "否，不发布"
+
 msgid "Pages using"
 msgstr "页面使用"
 
@@ -519,14 +553,23 @@ msgstr "新%(page_type)s页面类型"
 msgid "New"
 msgstr "新"
 
+msgid "Saving..."
+msgstr "正在保存……"
+
 msgid "Save draft"
 msgstr "保存草稿"
+
+msgid "Publishing..."
+msgstr "正在发布……"
 
 msgid "Publish"
 msgstr "发布"
 
 msgid "Submit for moderation"
 msgstr "提交审核"
+
+msgid "This page has unsaved changes."
+msgstr "页面还没保存"
 
 #, python-format
 msgid "Editing %(page_type)s: %(title)s"
@@ -539,6 +582,12 @@ msgstr "编辑 %(page_type)s <span>%(title)s</span>"
 msgid "Page locked"
 msgstr "页面已锁定"
 
+msgid "Replace current draft"
+msgstr "替换当前的草稿"
+
+msgid "Publish this revision"
+msgstr "发布这个版本"
+
 #, python-format
 msgid "Last modified: %(last_mod)s"
 msgstr "上一次编辑： %(last_mod)s"
@@ -546,6 +595,9 @@ msgstr "上一次编辑： %(last_mod)s"
 #, python-format
 msgid "by %(modified_by)s"
 msgstr "被 %(modified_by)s"
+
+msgid "Revisions"
+msgstr "修订"
 
 #, python-format
 msgid "Exploring %(title)s"
@@ -556,6 +608,60 @@ msgstr "拖曳"
 
 msgid "Updated"
 msgstr "已更新"
+
+msgid ""
+"\n"
+"                            The root level is where you can add new sites to "
+"your Wagtail installation. Pages created here will not be accessible at any "
+"URL until they are associated with a site.\n"
+"                        "
+msgstr ""
+"\n"
+"你可以在根节点添加一个新站点。除非关联一个站点，否则添加的页面将无法通过URL访"
+"问。\n"
+"                        "
+
+msgid "Configure a site now."
+msgstr "现在配置站点"
+
+msgid ""
+"\n"
+"                            If you just want to add pages to an existing "
+"site, create them as children of the homepage instead.\n"
+"                        "
+msgstr ""
+"\n"
+"如果你是想给已存在的站点添加一个页面，请给首页添加一个子页面。"
+
+msgid ""
+"\n"
+"                        Pages created here will not be accessible at any "
+"URL. To add pages to an existing site, create them as children of the "
+"homepage.\n"
+"                    "
+msgstr ""
+"\n"
+"在这里创建的页面将无法通过URL访问，如果你是想给已存在的站点添加一个页面，请给"
+"首页添加一个子页面。"
+
+msgid ""
+"\n"
+"                        There is no site set up for this location. Pages "
+"created here will not be accessible at any URL until a site is associated "
+"with this location.\n"
+"                    "
+msgstr ""
+"\n"
+"当前位置没有配置站点，页面将无法访问。"
+
+msgid ""
+"\n"
+"                        There is no site record for this location. Pages "
+"created here will not be accessible at any URL.\n"
+"                    "
+msgstr ""
+"\n"
+"当前位置没有配置站点，页面将无法访问。"
 
 msgid "No pages have been created at this location."
 msgstr "该位置还没有创建页面。"
@@ -581,14 +687,6 @@ msgstr "查看'%(title)s'的子页面"
 #, python-format
 msgid "Add a child page to '%(title)s'"
 msgstr "为'%(title)s'添加子页面"
-
-msgid "Add subpage"
-msgstr "添加子页面"
-
-msgid ""
-"This page is published but does not exist within a configured Site, so "
-"cannot be viewed."
-msgstr "此页面已发布，但并没有配置站点，所以无法查看。"
 
 msgid "Add child page"
 msgstr "添加子页面"
@@ -629,6 +727,29 @@ msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "为<span>%(title)s</span>选择新的父节点"
 
 #, python-format
+msgid "Revisions of %(title)s"
+msgstr "%(title)s 的修订"
+
+msgid "Revisions of"
+msgstr "修订"
+
+msgid "Revision date"
+msgstr "修订时间"
+
+msgctxt "points to a user who created a revision"
+msgid "by"
+msgstr "于"
+
+msgid "Current draft"
+msgstr "当前草稿"
+
+msgid "Review this revision"
+msgstr "查看这个修订"
+
+msgid "No revision of this page exist"
+msgstr "当前页面没有修订记录"
+
+#, python-format
 msgid ""
 "\n"
 "                There is one matching page\n"
@@ -651,8 +772,14 @@ msgstr "输入检索词"
 msgid "No pages use"
 msgstr "没有页面使用"
 
+msgid "Collection"
+msgstr "集合"
+
 msgid "Home"
 msgstr "起始页"
+
+msgid "All collections"
+msgstr "所有集合"
 
 msgid "January"
 msgstr "一月"
@@ -719,6 +846,9 @@ msgstr[0] "已使用%(useage_count)s次"
 msgid "Edit your account"
 msgstr "编辑账户"
 
+msgid "Account settings"
+msgstr "帐号设置"
+
 msgid "Log out"
 msgstr "注销"
 
@@ -737,20 +867,20 @@ msgstr ""
 "您正在使用一个本软件不支持的<strong>过期的</strong> 浏览器。请 <a href="
 "\"http://browsehappy.com/\">更新浏览器</a>。"
 
-msgid "Javascript is required to use Wagtail, but it is currently disabled"
-msgstr "Wagtail需要启用Javascript，但Javascript当前被禁用"
-
-msgid "User bar"
-msgstr "用户栏"
-
 msgid "Go to Wagtail admin interface"
+msgstr "转到管理界面"
+
+msgid "Go to Wagtail admin"
 msgstr "转到管理界面"
 
 msgid "Add a child page"
 msgstr "添加子页面"
 
-msgid "Add"
-msgstr "新增"
+msgid "Show in Explorer"
+msgstr "在资源中显示"
+
+msgid "Test"
+msgstr "测试"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "对不起， 你没有权限访问。"
@@ -760,6 +890,16 @@ msgstr "密码成功修改！"
 
 msgid "Your preferences have been updated successfully!"
 msgstr "参数成功更新！"
+
+msgid "You have been successfully logged out."
+msgstr "注销成功"
+
+msgid "Editing"
+msgstr "正在编辑"
+
+#, python-brace-format
+msgid "Page '{0}' created and scheduled for publishing."
+msgstr "页面 {0} 已创建并计划发布中。"
 
 #, python-brace-format
 msgid "Page '{0}' created and published."
@@ -783,16 +923,12 @@ msgid "The page could not be created due to validation errors"
 msgstr "验证错误，页面无法创建。"
 
 #, python-brace-format
-msgid "Page '{0}' published."
-msgstr "页面'{0}'已发布"
+msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
+msgstr "页面 {1} 的版本 {0} 正在计划发布中。"
 
 #, python-brace-format
-msgid "Page '{0}' submitted for moderation."
-msgstr "页面'{0}'已提交审核"
-
-#, python-brace-format
-msgid "Page '{0}' updated."
-msgstr "页面 '{0}'已更新"
+msgid "Page '{0}' has been scheduled for publishing."
+msgstr "页面 {0} 正在计划发布中。"
 
 msgid "The page could not be saved as it is locked"
 msgstr "页面无法保存，已被锁定。"
@@ -828,6 +964,10 @@ msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "页面 '{0}'目前不在等待审核。"
 
 #, python-brace-format
+msgid "Page '{0}' published."
+msgstr "页面'{0}'已发布"
+
+#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "页面 '{0}'审核失败"
 
@@ -838,6 +978,9 @@ msgstr "页面 '{0}'已锁定"
 #, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "页面 '{0}'已解锁。"
+
+msgid "More"
+msgstr "更多"
 
 msgid "Choose an item"
 msgstr "选择一项"

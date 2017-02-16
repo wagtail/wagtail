@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Ji Han Chung <jihanchung20@gmail.com>, 2015
+# Jihan Chung <jihanchung20@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:02+0000\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
 "PO-Revision-Date: 2015-08-27 01:46+0000\n"
-"Last-Translator: Ji Han Chung <jihanchung20@gmail.com>\n"
+"Last-Translator: Jihan Chung <jihanchung20@gmail.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
 "MIME-Version: 1.0\n"

@@ -6,8 +6,6 @@ Customising the editing interface
 Customising the tabbed interface
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. versionadded:: 1.0
-
 As standard, Wagtail organises panels for pages into three tabs: 'Content', 'Promote' and 'Settings'. For snippets Wagtail puts all panels into one page. Depending on the requirements of your site, you may wish to customise this for specific page types or snippets - for example, adding an additional tab for sidebar content. This can be done by specifying an ``edit_handler`` attribute on the page or snippet model. For example:
 
 .. code-block:: python
@@ -93,7 +91,7 @@ As an example, add a "thumbnail" format:
     register_image_format(Format('thumbnail', 'Thumbnail', 'richtext-image thumbnail', 'max-120x120'))
 
 
-To begin, import the the ``Format`` class, ``register_image_format`` function, and optionally ``unregister_image_format`` function. To register a new ``Format``, call the ``register_image_format`` with the ``Format`` object as the argument. The ``Format`` class takes the following constructor arguments:
+To begin, import the ``Format`` class, ``register_image_format`` function, and optionally ``unregister_image_format`` function. To register a new ``Format``, call the ``register_image_format`` with the ``Format`` object as the argument. The ``Format`` class takes the following constructor arguments:
 
 ``name``
   The unique key used to identify the format. To unregister this format, call ``unregister_image_format`` with this string as the only argument.
@@ -102,7 +100,7 @@ To begin, import the the ``Format`` class, ``register_image_format`` function, a
   The label used in the chooser form when inserting the image into the :class:`~wagtail.wagtailcore.fields.RichTextField`.
 
 ``classnames``
-  The string to assign to the ``class`` attribute of the generated ``<img>`` tag. 
+  The string to assign to the ``class`` attribute of the generated ``<img>`` tag.
 
   .. note::
     Any class names you provide must have CSS rules matching them written separately, as part of the front end CSS code. Specifying a ``classnames`` value of ``left`` will only ensure that class is output in the generated markup, it won't cause the image to align itself left.
@@ -112,3 +110,75 @@ To begin, import the the ``Format`` class, ``register_image_format`` function, a
 
 
 To unregister, call ``unregister_image_format`` with the string of the ``name`` of the ``Format`` as the only argument.
+
+.. _custom_edit_handler_forms:
+
+Customising generated forms
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. class:: wagtail.wagtailadmin.forms.WagtailAdminModelForm
+.. class:: wagtail.wagtailadmin.forms.WagtailAdminPageForm
+
+Wagtail automatically generates forms using the panels configured on the model.
+By default, this form subclasses :class:`~wagtail.wagtailadmin.forms.WagtailAdminModelForm`,
+or :class:`~wagtail.wagtailadmin.forms.WagtailAdminPageForm` for pages.
+A custom base form class can be configured by setting the :attr:`base_form_class` attribute on any model.
+Custom forms for snippets must subclass :class:`~wagtail.wagtailadmin.forms.WagtailAdminModelForm`,
+and custom forms for pages must subclass :class:`~wagtail.wagtailadmin.forms.WagtailAdminPageForm`.
+
+This can be used to add non-model fields to the form, to automatically generate field content,
+or to add custom validation logic for your models:
+
+.. code-block:: python
+
+    from django import forms
+    from wagtail.wagtailadmin.edit_handlers import FieldPanel
+    from wagtail.wagtailadmin.forms import WagtailAdminPageForm
+    from wagtail.wagtailcore.models import Page
+
+
+    class EventPageForm(WagtailAdminPageForm):
+        address = forms.CharField()
+
+        def clean(self):
+            cleaned_data = super(EventPageForm, self).clean()
+
+            # Make sure that the event starts before it ends
+            start_date = cleaned_data['start_date']
+            end_date = cleaned_data['end_date']
+            if start_date and end_date and start_date > end_date:
+                self.add_error('end_date', 'The end date must be after the start date')
+
+            return cleaned_data
+
+        def save(self, commit=True):
+            page = super(EventPageForm, self).save(commit=False)
+
+            # Update the duration field from the submitted dates
+            page.duration = (page.end_date - page.start_date).days
+
+            # Fetch the location by geocoding the address
+            page.location = geocoder.get_coordinates(self.cleaned_data['address'])
+
+            if commit:
+                page.save()
+            return page
+
+
+    class EventPage(Page):
+        start_date = models.DateField()
+        end_date = models.DateField()
+        duration = models.IntegerField()
+        location = models.CharField()
+
+        content_panels = [
+            FieldPanel('given_name'),
+            FieldPanel('family_name'),
+            FieldPanel('bio'),
+        ]
+        base_form_class = EventPageForm
+
+Wagtail will generate a new subclass of this form for the model,
+adding any fields defined in ``panels`` or ``content_panels``.
+Any fields already defined on the model will not be overridden by these automatically added fields,
+so the form field for a model field can be overridden by adding it to the custom form.

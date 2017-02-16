@@ -1,27 +1,24 @@
-from __future__ import absolute_import
+from __future__ import absolute_import, unicode_literals
 
 from collections import OrderedDict
 
 from django.conf.urls import url
-from django.http import Http404
 from django.core.urlresolvers import reverse
-
+from django.http import Http404
 from rest_framework import status
+from rest_framework.renderers import BrowsableAPIRenderer, JSONRenderer
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
-from rest_framework.renderers import JSONRenderer, BrowsableAPIRenderer
 
 from wagtail.wagtailcore.models import Page
-from wagtail.wagtailimages.models import get_image_model
-from wagtail.wagtaildocs.models import Document
 from wagtail.wagtailcore.utils import resolve_model_string
+from wagtail.wagtaildocs.models import get_document_model
+from wagtail.wagtailimages import get_image_model
 
-from .filters import (
-    FieldsFilter, OrderingFilter, SearchFilter,
-    ChildOfFilter, DescendantOfFilter
-)
+from .filters import ChildOfFilter, DescendantOfFilter, FieldsFilter, OrderingFilter, SearchFilter
 from .pagination import WagtailPagination
-from .serializers import BaseSerializer, PageSerializer, DocumentSerializer, ImageSerializer, get_serializer_class
+from .serializers import (
+    BaseSerializer, DocumentSerializer, ImageSerializer, PageSerializer, get_serializer_class)
 from .utils import BadRequestError
 
 
@@ -242,4 +239,4 @@ class DocumentsAPIEndpoint(BaseAPIEndpoint):
     filter_backends = [FieldsFilter, OrderingFilter, SearchFilter]
     extra_api_fields = ['title', 'tags']
     name = 'documents'
-    model = Document
+    model = get_document_model()

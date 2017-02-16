@@ -1,3 +1,5 @@
+from __future__ import absolute_import, unicode_literals
+
 from wagtail.wagtailembeds import format
 from wagtail.wagtailembeds.exceptions import EmbedException
 

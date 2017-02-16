@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:02+0000\n"
-"PO-Revision-Date: 2016-02-05 17:09+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2016-09-22 15:03+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
 "MIME-Version: 1.0\n"
@@ -76,6 +76,9 @@ msgstr "Šírka"
 
 msgid "Height"
 msgstr "Výška"
+
+msgid "Edit"
+msgstr "Upraviť"
 
 msgid "title"
 msgstr "titulok"
@@ -199,14 +202,6 @@ msgstr ""
 "Prepáčte, žiadne obrázky nevyhovujú hľadanému výrazu \"<em>%(query_string)s</"
 "em>\""
 
-#, python-format
-msgid ""
-"You've not uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">add one now</a>?"
-msgstr ""
-"Zatiaľ ste nenahrali žiadne obrázky. Prečo nenahrať <a href="
-"\"%(wagtailimages_add_image_url)s\">jeden práve teraz</a>?"
-
 msgid "URL"
 msgstr "URL adresa"
 
@@ -287,9 +282,6 @@ msgstr "Obrázok '{0}' bol zmazaný."
 #, python-brace-format
 msgid "Image '{0}' added."
 msgstr "Obrázok '{0}' bol pridaný."
-
-msgid "Edit"
-msgstr "Upraviť"
 
 msgid "The image could not be created due to errors."
 msgstr "Obrázok nemôže byť vytvorený kvôli chybám."

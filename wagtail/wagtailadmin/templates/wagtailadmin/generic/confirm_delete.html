@@ -9,7 +9,7 @@
         <p>{{ view.confirmation_message }}</p>
         <form action="{{ view.get_delete_url }}" method="POST">
             {% csrf_token %}
-            <input type="submit" value="{% trans 'Yes, delete' %}" class="serious" />
+            <input type="submit" value="{% trans 'Yes, delete' %}" class="button serious" />
         </form>
     </div>
 {% endblock %}

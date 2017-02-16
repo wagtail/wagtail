@@ -14,8 +14,15 @@
 {% endcomment %}
 <div class="sequence-container sequence-type-{% block sequence_type_class %}{% endblock %}">
     <input type="hidden" name="{{ prefix }}-count" id="{{ prefix }}-count" value="{{ list_members_html|length }}">
-    
+
     {% block header %}{% endblock %}
+
+    {% if block_errors %}
+        {% for error in block_errors %}
+            <div class="help-block help-critical">{{ error }}</div>
+        {% endfor %}
+    {% endif %}
+
     <div class="sequence-container-inner">
         <ul id="{{ prefix }}-list" class="sequence">
             {% for list_member_html in list_members_html %}

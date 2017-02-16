@@ -6,6 +6,8 @@ Third-party tutorials
     The following list is a collection of tutorials and development notes from third-party developers.
     Some of the older links may not apply to the latest Wagtail versions.
 
+* `Wagtail-Multilingual: a simple project to demonstrate how multilingual is implemented <https://github.com/cristovao-alves/Wagtail-Multilingual>`_ (31 January 2017)
+* `Wagtail: 2 Steps for Adding Pages Outside of the CMS <https://www.caktusgroup.com/blog/2016/02/15/wagtail-2-steps-adding-pages-outside-cms/>`_ (15 February 2016)
 * `Adding a Twitter Widget for Wagtail’s new StreamField <https://jossingram.wordpress.com/2015/04/02/adding-a-twitter-widget-for-wagtails-new-streamfield/>`_ (2 April 2015)
 * `Working With Wagtail: Menus <http://www.tivix.com/blog/working-with-wagtail-menus/>`_ (22 January 2015)
 * `Upgrading Wagtail to use Django 1.7 locally using vagrant <https://jossingram.wordpress.com/2014/12/10/upgrading-wagtail-to-use-django-1-7-locally-using-vagrant/>`_ (10 December 2014)
@@ -21,8 +23,6 @@ Third-party tutorials
 * `Wagtail notes: managing redirects as pages <http://www.coactivate.org/projects/ejucovy/blog/2014/05/10/wagtail-notes-managing-redirects-as-pages/>`_ (10 May 2014)
 * `Wagtail notes: dynamic templates per page <http://www.coactivate.org/projects/ejucovy/blog/2014/05/10/wagtail-notes-dynamic-templates-per-page/>`_ (10 May 2014)
 * `Wagtail notes: type-constrained PageChooserPanel <http://www.coactivate.org/projects/ejucovy/blog/2014/05/09/wagtail-notes-type-constrained-pagechooserpanel/>`_ (9 May 2014)
-* `How to Run the Wagtail CMS on Gondor <https://gondor.io/blog/2014/02/14/how-run-wagtail-cms-gondor/>`_ (14 February 2014)
-* `The first Wagtail tutorial <http://spapas.github.io/2014/02/13/wagtail-tutorial/>`_ (13 February 2014)
 
 .. tip::
 

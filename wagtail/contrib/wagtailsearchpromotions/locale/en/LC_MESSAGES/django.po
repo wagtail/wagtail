@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-10 15:32+0000\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,19 +17,19 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: forms.py:33
+#: forms.py:35
 msgid "Please specify at least one recommendation for this search term."
 msgstr ""
 
-#: models.py:9
+#: models.py:11
 msgid "page"
 msgstr ""
 
-#: models.py:11
+#: models.py:13
 msgid "description"
 msgstr ""
 
-#: models.py:18
+#: models.py:20
 msgid "search promotion"
 msgstr ""
 
@@ -115,7 +115,7 @@ msgstr ""
 msgid "Search Terms"
 msgstr ""
 
-#: templates/wagtailsearchpromotions/index.html:17 wagtail_hooks.py:31
+#: templates/wagtailsearchpromotions/index.html:17 wagtail_hooks.py:32
 msgid "Promoted search results"
 msgstr ""
 

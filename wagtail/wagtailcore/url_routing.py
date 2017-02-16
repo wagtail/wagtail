@@ -1,3 +1,6 @@
+from __future__ import absolute_import, unicode_literals
+
+
 class RouteResult(object):
     """
     An object to be returned from Page.route, which encapsulates

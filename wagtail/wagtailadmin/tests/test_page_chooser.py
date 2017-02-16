@@ -1,9 +1,12 @@
-from django.test import TestCase
-from django.core.urlresolvers import reverse
+from __future__ import absolute_import, unicode_literals
 
-from wagtail.wagtailcore.models import Page
-from wagtail.tests.testapp.models import SimplePage, EventPage, EventIndex
+from django.core.urlresolvers import reverse
+from django.test import TestCase
+from django.utils.http import urlencode
+
+from wagtail.tests.testapp.models import EventIndex, EventPage, SimplePage
 from wagtail.tests.utils import WagtailTestUtils
+from wagtail.wagtailcore.models import Page
 
 
 class TestChooserBrowse(TestCase, WagtailTestUtils):
@@ -11,9 +14,7 @@ class TestChooserBrowse(TestCase, WagtailTestUtils):
         self.root_page = Page.objects.get(id=2)
 
         # Add child page
-        self.child_page = SimplePage()
-        self.child_page.title = "foobarbaz"
-        self.child_page.slug = "foobarbaz"
+        self.child_page = SimplePage(title="foobarbaz", content="hello")
         self.root_page.add_child(instance=self.child_page)
 
         self.login()
@@ -48,9 +49,7 @@ class TestChooserBrowseChild(TestCase, WagtailTestUtils):
         self.root_page = Page.objects.get(id=2)
 
         # Add child page
-        self.child_page = SimplePage()
-        self.child_page.title = "foobarbaz"
-        self.child_page.slug = "foobarbaz"
+        self.child_page = SimplePage(title="foobarbaz", content="hello")
         self.root_page.add_child(instance=self.child_page)
 
         self.login()
@@ -75,19 +74,20 @@ class TestChooserBrowseChild(TestCase, WagtailTestUtils):
         # Add a page that is not a SimplePage
         event_page = EventPage(
             title="event",
-            slug="event",
+            location='the moon', audience='public',
+            cost='free', date_from='2001-01-01',
         )
         self.root_page.add_child(instance=event_page)
 
         # Add a page with a child page
         event_index_page = EventIndex(
             title="events",
-            slug="events",
         )
         self.root_page.add_child(instance=event_index_page)
         event_index_page.add_child(instance=EventPage(
             title="other event",
-            slug="other-event",
+            location='the moon', audience='public',
+            cost='free', date_from='2001-01-01',
         ))
 
         # Send request
@@ -128,7 +128,8 @@ class TestChooserBrowseChild(TestCase, WagtailTestUtils):
         # Add a page that is not a SimplePage
         event_page = EventPage(
             title="event",
-            slug="event",
+            location='the moon', audience='public',
+            cost='free', date_from='2001-01-01',
         )
         self.root_page.add_child(instance=event_page)
 
@@ -168,7 +169,8 @@ class TestChooserBrowseChild(TestCase, WagtailTestUtils):
         for i in range(100):
             new_page = SimplePage(
                 title="foobarbaz",
-                slug="foobarbaz",
+                slug="foobarbaz-%d" % i,
+                content="hello",
             )
             self.root_page.add_child(instance=new_page)
 
@@ -203,9 +205,7 @@ class TestChooserSearch(TestCase, WagtailTestUtils):
         self.root_page = Page.objects.get(id=2)
 
         # Add child page
-        self.child_page = SimplePage()
-        self.child_page.title = "foobarbaz"
-        self.child_page.slug = "foobarbaz"
+        self.child_page = SimplePage(title="foobarbaz", content="hello")
         self.root_page.add_child(instance=self.child_page)
 
         self.login()
@@ -229,7 +229,8 @@ class TestChooserSearch(TestCase, WagtailTestUtils):
         # Add a page that is not a SimplePage
         event_page = EventPage(
             title="foo",
-            slug="foo",
+            location='the moon', audience='public',
+            cost='free', date_from='2001-01-01',
         )
         self.root_page.add_child(instance=event_page)
 
@@ -262,7 +263,8 @@ class TestChooserSearch(TestCase, WagtailTestUtils):
         # Add a page that is not a SimplePage
         event_page = EventPage(
             title="foo",
-            slug="foo",
+            location='the moon', audience='public',
+            cost='free', date_from='2001-01-01',
         )
         self.root_page.add_child(instance=event_page)
 
@@ -296,6 +298,84 @@ class TestChooserSearch(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 404)
 
 
+class TestAutomaticRootPageDetection(TestCase, WagtailTestUtils):
+    def setUp(self):
+        self.tree_root = Page.objects.get(id=1)
+        self.home_page = Page.objects.get(id=2)
+
+        self.about_page = self.home_page.add_child(instance=SimplePage(
+            title='About', content='About Foo'))
+        self.contact_page = self.about_page.add_child(instance=SimplePage(
+            title='Contact', content='Content Foo'))
+        self.people_page = self.about_page.add_child(instance=SimplePage(
+            title='People', content='The people of Foo'))
+
+        self.event_index = self.make_event_section('Events')
+
+        self.login()
+
+    def make_event_section(self, name):
+        event_index = self.home_page.add_child(instance=EventIndex(
+            title=name))
+        event_index.add_child(instance=EventPage(
+            title='First Event',
+            location='Bar', audience='public',
+            cost='free', date_from='2001-01-01'))
+        event_index.add_child(instance=EventPage(
+            title='Second Event',
+            location='Baz', audience='public',
+            cost='free', date_from='2001-01-01'))
+        return event_index
+
+    def get_best_root(self, params={}):
+        response = self.client.get(reverse('wagtailadmin_choose_page'), params)
+        return response.context['parent_page'].specific
+
+    def test_no_type_filter(self):
+        self.assertEqual(self.get_best_root(), self.tree_root)
+
+    def test_type_page(self):
+        self.assertEqual(
+            self.get_best_root({'page_type': 'wagtailcore.Page'}),
+            self.tree_root)
+
+    def test_type_eventpage(self):
+        """
+        The chooser should start at the EventIndex that holds all the
+        EventPages.
+        """
+        self.assertEqual(
+            self.get_best_root({'page_type': 'tests.EventPage'}),
+            self.event_index)
+
+    def test_type_eventpage_two_indexes(self):
+        """
+        The chooser should start at the home page, as there are two
+        EventIndexes with EventPages.
+        """
+        self.make_event_section('Other events')
+        self.assertEqual(
+            self.get_best_root({'page_type': 'tests.EventPage'}),
+            self.home_page)
+
+    def test_type_simple_page(self):
+        """
+        The chooser should start at the home page, as all SimplePages are
+        directly under it
+        """
+        self.assertEqual(
+            self.get_best_root({'page_type': 'tests.BusinessIndex'}),
+            self.tree_root)
+
+    def test_type_missing(self):
+        """
+        The chooser should start at the root, as there are no BusinessIndexes
+        """
+        self.assertEqual(
+            self.get_best_root({'page_type': 'tests.BusinessIndex'}),
+            self.tree_root)
+
+
 class TestChooserExternalLink(TestCase, WagtailTestUtils):
     def setUp(self):
         self.login()
@@ -303,36 +383,70 @@ class TestChooserExternalLink(TestCase, WagtailTestUtils):
     def get(self, params={}):
         return self.client.get(reverse('wagtailadmin_choose_page_external_link'), params)
 
-    def post(self, post_data={}):
-        return self.client.post(reverse('wagtailadmin_choose_page_external_link'), post_data)
+    def post(self, post_data={}, url_params={}):
+        url = reverse('wagtailadmin_choose_page_external_link')
+        if url_params:
+            url += '?' + urlencode(url_params)
+        return self.client.post(url, post_data)
 
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailadmin/chooser/external_link.html')
 
-    def test_get_with_param(self):
-        self.assertEqual(self.get({'prompt_for_link_text': 'foo'}).status_code, 200)
+    def test_prepopulated_form(self):
+        response = self.get({'link_text': 'Torchbox', 'link_url': 'https://torchbox.com/'})
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Torchbox')
+        self.assertContains(response, 'https://torchbox.com/')
 
     def test_create_link(self):
+        response = self.post({'url': 'http://www.example.com/', 'link_text': 'example'})
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "'onload'")  # indicates success / post back to calling page
+        self.assertContains(response, '"url": "http://www.example.com/"')
+        self.assertContains(response, '"title": "example"')  # When link text is given, it is used
+        self.assertContains(response, '"prefer_this_title_as_link_text": true')
+
+    def test_create_link_without_text(self):
         response = self.post({'url': 'http://www.example.com/'})
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "'onload'")  # indicates success / post back to calling page
-        self.assertContains(response, "'url': 'http://www.example.com/',")
-        self.assertContains(response, "'title': 'http://www.example.com/'")
+        self.assertContains(response, '"url": "http://www.example.com/"')
+        self.assertContains(response, '"title": "http://www.example.com/"')  # When no text is given, it uses the url
+        self.assertContains(response, '"prefer_this_title_as_link_text": false')
+
+    def test_notice_changes_to_link_text(self):
+        response = self.post(
+            {'url': 'http://www.example.com/', 'link_text': 'example'},  # POST data
+            {'link_url': 'http://old.example.com/', 'link_text': 'example'}  # GET params - initial data
+        )
+        self.assertContains(response, '"url": "http://www.example.com/"')
+        self.assertContains(response, '"title": "example"')
+        # no change to link text, so prefer the existing link/selection content where available
+        self.assertContains(response, '"prefer_this_title_as_link_text": false')
+
+        response = self.post(
+            {'url': 'http://www.example.com/', 'link_text': 'new example'},  # POST data
+            {'link_url': 'http://old.example.com/', 'link_text': 'example'}  # GET params - initial data
+        )
+        self.assertContains(response, '"url": "http://www.example.com/"')
+        self.assertContains(response, '"title": "new example"')
+        # link text has changed, so tell the caller to use it
+        self.assertContains(response, '"prefer_this_title_as_link_text": true')
 
     def test_invalid_url(self):
-        response = self.post({'url': 'ntp://www.example.com'})
+        response = self.post({'url': 'ntp://www.example.com', 'link_text': 'example'})
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "'html'")  # indicates failure / show error message
         self.assertContains(response, "Enter a valid URL.")
 
     def test_allow_local_url(self):
-        response = self.post({'url': '/admin/'})
+        response = self.post({'url': '/admin/', 'link_text': 'admin'})
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "'onload'")  # indicates success / post back to calling page
-        self.assertContains(response, "'url': '/admin/',")
-        self.assertContains(response, "'title': '/admin/'")
+        self.assertContains(response, '"url": "/admin/"')
+        self.assertContains(response, '"title": "admin"')
 
 
 class TestChooserEmailLink(TestCase, WagtailTestUtils):
@@ -342,18 +456,50 @@ class TestChooserEmailLink(TestCase, WagtailTestUtils):
     def get(self, params={}):
         return self.client.get(reverse('wagtailadmin_choose_page_email_link'), params)
 
-    def post(self, post_data={}):
-        return self.client.post(reverse('wagtailadmin_choose_page_email_link'), post_data)
+    def post(self, post_data={}, url_params={}):
+        url = reverse('wagtailadmin_choose_page_email_link')
+        if url_params:
+            url += '?' + urlencode(url_params)
+        return self.client.post(url, post_data)
 
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailadmin/chooser/email_link.html')
 
-    def test_get_with_param(self):
-        self.assertEqual(self.get({'prompt_for_link_text': 'foo'}).status_code, 200)
+    def test_prepopulated_form(self):
+        response = self.get({'link_text': 'Example', 'link_url': 'example@example.com'})
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Example')
+        self.assertContains(response, 'example@example.com')
 
     def test_create_link(self):
-        request = self.post({'email_address': 'example@example.com'})
-        self.assertContains(request, "'url': 'mailto:example@example.com',")
-        self.assertContains(request, "'title': 'example@example.com'")
+        response = self.post({'email_address': 'example@example.com', 'link_text': 'contact'})
+        self.assertContains(response, '"url": "mailto:example@example.com"')
+        self.assertContains(response, '"title": "contact"')  # When link text is given, it is used
+        self.assertContains(response, '"prefer_this_title_as_link_text": true')
+
+    def test_create_link_without_text(self):
+        response = self.post({'email_address': 'example@example.com'})
+        self.assertContains(response, '"url": "mailto:example@example.com"')
+        self.assertContains(response, '"title": "example@example.com"')  # When no link text is given, it uses the email
+        self.assertContains(response, '"prefer_this_title_as_link_text": false')
+
+    def test_notice_changes_to_link_text(self):
+        response = self.post(
+            {'email_address': 'example2@example.com', 'link_text': 'example'},  # POST data
+            {'link_url': 'example@example.com', 'link_text': 'example'}  # GET params - initial data
+        )
+        self.assertContains(response, '"url": "mailto:example2@example.com"')
+        self.assertContains(response, '"title": "example"')
+        # no change to link text, so prefer the existing link/selection content where available
+        self.assertContains(response, '"prefer_this_title_as_link_text": false')
+
+        response = self.post(
+            {'email_address': 'example2@example.com', 'link_text': 'new example'},  # POST data
+            {'link_url': 'example@example.com', 'link_text': 'example'}  # GET params - initial data
+        )
+        self.assertContains(response, '"url": "mailto:example2@example.com"')
+        self.assertContains(response, '"title": "new example"')
+        # link text has changed, so tell the caller to use it
+        self.assertContains(response, '"prefer_this_title_as_link_text": true')

@@ -3,15 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# José Alaguna <alagunajs@gmail.com>, 2015
+# Yusuf (Josè) Luis <alagunajs@gmail.com>, 2015
 # Ragıp Ünal <ragip@ragipunal.com>, 2015
+# Yusuf (Josè) Luis <alagunajs@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:01+0000\n"
-"PO-Revision-Date: 2016-02-05 17:08+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2017-02-06 12:37+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/torchbox/wagtail/"
 "language/tr_TR/)\n"
 "MIME-Version: 1.0\n"
@@ -137,9 +138,6 @@ msgstr "Gizlilik"
 msgid "Private"
 msgstr "Özel"
 
-msgid "Delete it"
-msgstr "Sil"
-
 msgid "Move"
 msgstr "Taşı"
 
@@ -253,14 +251,11 @@ msgstr "Hesabınız düzeltiliyor"
 msgid "Other searches"
 msgstr "Başka aramalar"
 
-msgid "User bar"
-msgstr "Kullanıcı çubuğu"
-
 msgid "Add a child page"
 msgstr "Alt sayfa ekle"
 
-msgid "Add"
-msgstr "Ekle"
+msgid "Test"
+msgstr "Deney"
 
 #, python-brace-format
 msgid "Page '{0}' deleted."

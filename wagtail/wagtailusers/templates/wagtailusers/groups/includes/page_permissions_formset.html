@@ -3,14 +3,26 @@
 
 {{ formset.management_form }}
 
-<table class="listing">
-    <col width="40%"/>
-    <col width="40%" />
+{% if formset.non_form_errors %}
+    <p class="error-message">
+        {% for error in formset.non_form_errors %}
+            <span>{{ error }}</span>
+        {% endfor %}
+    </p>
+{% endif %}
+
+<table class="listing page-permissions-listing">
+    <col />
+    {% for i in formset.permission_types %}
+        <col width="15%" />
+    {% endfor %}
     <col />
     <thead>
         <tr>
             <th>{% trans "Page" %}</th>
-            <th>{% trans "Permission type" %}</th>
+            {% for identifier, short_label, long_label in formset.permission_types %}
+                <th title="{{ long_label }}">{{ short_label }}</th>
+            {% endfor %}
             <th></th>
         </tr>
     </thead>

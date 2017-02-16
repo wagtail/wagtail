@@ -5,13 +5,13 @@
 <div class="nice-padding">
     {# Need to keep the form in the HTML, even if the snippet is not searchable #}
     {# This is to allow pagination links to be generated from the form action URL #}
-    <form class="snippet-search search-bar" action="{% url 'wagtailsnippets:choose' model_opts.app_label model_opts.model_name %}" method="GET">
+    <form class="snippet-search search-bar" action="{% url 'wagtailsnippets:choose' model_opts.app_label model_opts.model_name %}" method="GET" novalidate>
         {% if is_searchable %}
             <ul class="fields">
                 {% for field in search_form %}
                     {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
                 {% endfor %}
-                <li class="submit"><input type="submit" value="{% trans 'Search' %}" /></li>
+                <li class="submit"><input type="submit" value="{% trans 'Search' %}" class="button" /></li>
             </ul>
         {% endif %}
     </form>

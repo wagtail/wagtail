@@ -1,9 +1,12 @@
 Animated GIF support
 ====================
 
-Pillow (Wagtail's default image library) doesn't support resizing animated
-GIFs. If you need animated GIFs in your site, install
-`Wand <https://pypi.python.org/pypi/Wand>`_.
+Pillow, Wagtail's default image library, doesn't support animated
+GIFs.
 
-When Wand is installed, Wagtail will automatically start using it for resizing
-GIF files, and will continue to resize other images with Pillow.
+To get animated GIF support, you will have to
+`install Wand <http://docs.wand-py.org/en/0.4.2/guide/install.html>`_.
+Wand is a binding to ImageMagick so make sure that has been installed as well.
+
+When installed, Wagtail will automatically use Wand for resizing GIF
+files but continue to resize other images with Pillow.

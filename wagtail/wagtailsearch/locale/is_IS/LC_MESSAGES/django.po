@@ -4,13 +4,14 @@
 #
 # Translators:
 # Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015
+# saevarom <saevar@saevar.is>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:02+0000\n"
-"PO-Revision-Date: 2015-09-01 08:28+0000\n"
-"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2016-05-25 09:28+0000\n"
+"Last-Translator: saevarom <saevar@saevar.is>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -19,11 +20,28 @@ msgstr ""
 "Language: is_IS\n"
 "Plural-Forms: nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);\n"
 
+msgid "Search term(s)/phrase"
+msgstr "Leitarorð/frasar"
+
+msgid ""
+"Enter the full search string to match. An exact match is required for your "
+"Promoted Results to be displayed, wildcards are NOT allowed."
+msgstr ""
+"Sláðu inn allan leitarstrenginn sem á að virkja. Notendur þurfa að slá inn "
+"nákvæmlega sömu leit til að fá auglýstar leitarniðurstöður, algildisstafir "
+"(e. wildcards) eru EKKI leyfðir."
+
+msgid "Query Daily Hits"
+msgstr "Fjöldi daglegra leita"
+
 msgid "Popular search terms"
 msgstr "Vinsælir leitarfrasar"
 
 msgid "Search"
 msgstr "Leita"
+
+msgid "Terms"
+msgstr "Leitarorð"
 
 msgid "Views (past week)"
 msgstr "Síðuflettingar (síðust vikuna)"

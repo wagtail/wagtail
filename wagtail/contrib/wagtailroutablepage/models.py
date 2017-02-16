@@ -1,12 +1,11 @@
-from __future__ import unicode_literals
+from __future__ import absolute_import, unicode_literals
 
-from django.http import Http404
-from django.core.urlresolvers import RegexURLResolver
 from django.conf.urls import url
+from django.core.urlresolvers import RegexURLResolver
+from django.http import Http404
 
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.url_routing import RouteResult
-
 
 _creation_counter = 0
 
@@ -36,14 +35,11 @@ class RoutablePageMixin(object):
     This class can be mixed in to a Page model, allowing extra routes to be
     added to it.
     """
-    #: Set this to a tuple of ``django.conf.urls.url`` objects.
-    subpage_urls = None
-
     @classmethod
     def get_subpage_urls(cls):
         routes = []
         for attr in dir(cls):
-            val = getattr(cls, attr)
+            val = getattr(cls, attr, None)
             if hasattr(val, '_routablepage_routes'):
                 routes.extend(val._routablepage_routes)
 
@@ -97,7 +93,13 @@ class RoutablePageMixin(object):
 
         return super(RoutablePageMixin, self).route(request, path_components)
 
-    def serve(self, request, view, args, kwargs):
+    def serve(self, request, view=None, args=None, kwargs=None):
+        if args is None:
+            args = []
+        if kwargs is None:
+            kwargs = {}
+        if view is None:
+            return super(RoutablePageMixin, self).serve(request, *args, **kwargs)
         return view(request, *args, **kwargs)
 
     def serve_preview(self, request, mode_name):

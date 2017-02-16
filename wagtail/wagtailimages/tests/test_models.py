@@ -1,18 +1,19 @@
-import unittest
-from willow.image import Image as WillowImage
+from __future__ import absolute_import, unicode_literals
 
-from django.test import TestCase
-from django.core.urlresolvers import reverse
-from django.test.utils import override_settings
+import unittest
+
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
-
 from django.core.files.uploadedfile import SimpleUploadedFile
+from django.core.urlresolvers import reverse
 from django.db.utils import IntegrityError
+from django.test import TestCase
+from django.test.utils import override_settings
+from willow.image import Image as WillowImage
 
-from wagtail.tests.utils import WagtailTestUtils
-from wagtail.wagtailcore.models import Page
 from wagtail.tests.testapp.models import EventPage, EventPageCarouselItem
+from wagtail.tests.utils import WagtailTestUtils
+from wagtail.wagtailcore.models import Collection, GroupCollectionPermission, Page
 from wagtail.wagtailimages.models import Rendition, SourceImageIOError
 from wagtail.wagtailimages.rect import Rect
 
@@ -131,6 +132,21 @@ class TestImageQuerySet(TestCase):
         results = Image.objects.order_by('-title').search("Test")
         self.assertEqual(list(results), [zzz_image, aaa_image])
 
+    def test_search_indexing_prefetches_tags(self):
+        for i in range(0, 10):
+            image = Image.objects.create(
+                title="Test image %d" % i,
+                file=get_test_image_file(),
+            )
+            image.tags.add('aardvark', 'artichoke', 'armadillo')
+
+        with self.assertNumQueries(2):
+            results = {
+                image.title: [tag.name for tag in image.tags.all()]
+                for image in Image.get_indexed_objects()
+            }
+            self.assertTrue('aardvark' in results['Test image 0'])
+
 
 class TestImagePermissions(TestCase):
     def setUp(self):
@@ -145,7 +161,13 @@ class TestImagePermissions(TestCase):
         )
 
         # Owner user must have the add_image permission
-        self.owner.user_permissions.add(Permission.objects.get(codename='add_image'))
+        image_adders_group = Group.objects.create(name="Image adders")
+        GroupCollectionPermission.objects.create(
+            group=image_adders_group,
+            collection=Collection.get_first_root_node(),
+            permission=Permission.objects.get(codename='add_image'),
+        )
+        self.owner.groups.add(image_adders_group)
 
         # Create an image for running tests on
         self.image = Image.objects.create(
@@ -184,6 +206,10 @@ class TestRenditions(TestCase):
         # Check size
         self.assertEqual(rendition.width, 400)
         self.assertEqual(rendition.height, 300)
+
+        # check that the rendition has been recorded under the correct filter,
+        # via the Rendition.filter_spec attribute (in active use as of Wagtail 1.8)
+        self.assertEqual(rendition.filter_spec, 'width-400')
 
     def test_resize_to_max(self):
         rendition = self.image.get_rendition('max-100x100')
@@ -344,6 +370,7 @@ class TestIssue573(TestCase):
         image.get_rendition('fill-800x600')
 
 
+@override_settings(_WAGTAILSEARCH_FORCE_AUTO_UPDATE=['elasticsearch'])
 class TestIssue613(TestCase, WagtailTestUtils):
     def get_elasticsearch_backend(self):
         from django.conf import settings
@@ -458,8 +485,40 @@ class TestIssue312(TestCase):
             IntegrityError,
             Rendition.objects.create,
             image=rend1.image,
-            filter=rend1.filter,
+            filter_spec=rend1.filter_spec,
             width=rend1.width,
             height=rend1.height,
             focal_point_key=rend1.focal_point_key,
         )
+
+
+class TestFilenameReduction(TestCase):
+    """
+    This tests for a bug which results in filenames without extensions
+    causing an infinite loop
+    """
+    def test_filename_reduction_no_ext(self):
+        # Create an image with a big filename and no extension
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(
+                'thisisaverylongfilename-abcdefghijklmnopqrstuvwxyz-supercalifragilisticexpialidocioussuperlong'
+            )
+        )
+
+        # Saving file will result in infinite loop when bug is present
+        image.save()
+        self.assertEqual("original_images/thisisaverylongfilename-abcdefghijklmnopqrstuvwxyz-supercalifragilisticexpiali", image.file.name)
+
+    # Test for happy path. Long filename with extension
+    def test_filename_reduction_ext(self):
+        # Create an image with a big filename and extensions
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(
+                'thisisaverylongfilename-abcdefghijklmnopqrstuvwxyz-supercalifragilisticexpialidocioussuperlong.png'
+            )
+        )
+
+        image.save()
+        self.assertEqual("original_images/thisisaverylongfilename-abcdefghijklmnopqrstuvwxyz-supercalifragilisticexp.png", image.file.name)

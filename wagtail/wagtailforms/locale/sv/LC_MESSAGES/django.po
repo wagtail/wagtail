@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:01+0000\n"
-"PO-Revision-Date: 2016-01-19 03:18+0000\n"
-"Last-Translator: Thomas Kunambi <kunambi@gmail.com>\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2017-02-06 12:41+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -95,27 +95,14 @@ msgstr "hjälptext"
 msgid "to address"
 msgstr "mottagaradress"
 
-msgid "Optional - form submissions will be emailed to this address"
-msgstr "Valfritt - ifyllda formulär e-postas till denna adress"
-
 msgid "from address"
 msgstr "avsändaradress"
 
 msgid "subject"
 msgstr "ämne"
 
-#, python-format
-msgid "Delete %(title)s"
-msgstr "Radera %(title)s"
-
 msgid "Delete"
 msgstr "Radera"
-
-msgid "Are you sure you want to delete this form submission?"
-msgstr "Är du säker på att du vill radera denna formulärinlaga?"
-
-msgid "Delete it"
-msgstr "Radera den"
 
 msgid "Forms"
 msgstr "Formulär"
@@ -147,14 +134,5 @@ msgstr "Titel"
 msgid "Origin"
 msgstr "Källa"
 
-msgid "Submission Date"
-msgstr "Mottaget"
-
-msgid "Actions"
-msgstr "Handlingar"
-
 msgid "No form pages have been created."
 msgstr "Inga formulär har skapats."
-
-msgid "Submission deleted."
-msgstr "Inlaga raderad"

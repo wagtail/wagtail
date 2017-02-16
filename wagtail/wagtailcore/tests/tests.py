@@ -1,11 +1,15 @@
-from django.test import TestCase
-from django.core.cache import cache
-from django.utils.safestring import SafeString
+from __future__ import absolute_import, unicode_literals
 
+from django import template
+from django.core.cache import cache
+from django.http import HttpRequest
+from django.test import TestCase
+from django.utils.safestring import SafeText
+
+from wagtail.tests.testapp.models import SimplePage
 from wagtail.wagtailcore.models import Page, Site
 from wagtail.wagtailcore.templatetags.wagtailcore_tags import richtext
 from wagtail.wagtailcore.utils import resolve_model_string
-from wagtail.tests.testapp.models import SimplePage
 
 
 class TestPageUrlTags(TestCase):
@@ -22,6 +26,29 @@ class TestPageUrlTags(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response,
                             '<a href="/events/">Back to events index</a>')
+
+    def test_pageurl_without_request_in_context(self):
+        page = Page.objects.get(url_path='/home/events/')
+        tpl = template.Template('''{% load wagtailcore_tags %}<a href="{% pageurl page %}">{{ page.title }}</a>''')
+
+        # no 'request' object in context
+        result = tpl.render(template.Context({'page': page}))
+        self.assertIn('<a href="/events/">Events</a>', result)
+
+        # 'request' object in context, but no 'site' attribute
+        result = tpl.render(template.Context({'page': page, 'request': HttpRequest()}))
+        self.assertIn('<a href="/events/">Events</a>', result)
+
+    def test_slugurl_without_request_in_context(self):
+        tpl = template.Template('''{% load wagtailcore_tags %}<a href="{% slugurl 'events' %}">Events</a>''')
+
+        # no 'request' object in context
+        result = tpl.render(template.Context({}))
+        self.assertIn('<a href="/events/">Events</a>', result)
+
+        # 'request' object in context, but no 'site' attribute
+        result = tpl.render(template.Context({'request': HttpRequest()}))
+        self.assertIn('<a href="/events/">Events</a>', result)
 
 
 class TestSiteRootPathsCache(TestCase):
@@ -89,7 +116,7 @@ class TestSiteRootPathsCache(TestCase):
         site and return None as their url.
 
         Fix: d6cce69a397d08d5ee81a8cbc1977ab2c9db2682
-        Discussion: https://github.com/torchbox/wagtail/issues/7
+        Discussion: https://github.com/wagtail/wagtail/issues/7
         """
         # Get homepage, root page and site
         root_page = Page.objects.get(id=1)
@@ -97,7 +124,7 @@ class TestSiteRootPathsCache(TestCase):
         default_site = Site.objects.get(is_default_site=True)
 
         # Create a new homepage under current homepage
-        new_homepage = SimplePage(title="New Homepage", slug="new-homepage")
+        new_homepage = SimplePage(title="New Homepage", slug="new-homepage", content="hello")
         homepage.add_child(instance=new_homepage)
 
         # Set new homepage as the site root page
@@ -127,7 +154,7 @@ class TestSiteRootPathsCache(TestCase):
         the site and return None as their url.
 
         Fix: d6cce69a397d08d5ee81a8cbc1977ab2c9db2682
-        Discussion: https://github.com/torchbox/wagtail/issues/157
+        Discussion: https://github.com/wagtail/wagtail/issues/157
         """
         # Get homepage
         homepage = Page.objects.get(url_path='/home/')
@@ -194,7 +221,7 @@ class TestRichtextTag(TestCase):
     def test_call_with_text(self):
         result = richtext("Hello world!")
         self.assertEqual(result, '<div class="rich-text">Hello world!</div>')
-        self.assertIsInstance(result, SafeString)
+        self.assertIsInstance(result, SafeText)
 
     def test_call_with_none(self):
         result = richtext(None)

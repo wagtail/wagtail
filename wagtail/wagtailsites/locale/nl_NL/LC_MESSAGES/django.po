@@ -4,13 +4,13 @@
 #
 # Translators:
 # Maarten Kling <kling.maarten@gmail.com>, 2015
-# Thijs Kramer <thijskramer@gmail.com>, 2015
+# Thijs Kramer <thijskramer@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:02+0000\n"
-"PO-Revision-Date: 2015-12-22 17:34+0000\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2016-11-23 19:13+0000\n"
 "Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
@@ -46,3 +46,30 @@ msgstr "Default"
 
 msgid "Sites"
 msgstr "Sites"
+
+msgid "Add a site"
+msgstr "Voeg een site toe"
+
+msgid "Add site"
+msgstr "Voeg site toe"
+
+#, python-brace-format
+msgid "Site '{0}' created."
+msgstr "Site '{0}' aangemaakt."
+
+#, python-brace-format
+msgid "Site '{0}' updated."
+msgstr "Site '{0}' bijgewerkt."
+
+msgid "The site could not be saved due to errors."
+msgstr "De site kon vanwege fouten niet worden opgeslagen."
+
+msgid "Delete site"
+msgstr "Verwijder site"
+
+#, python-brace-format
+msgid "Site '{0}' deleted."
+msgstr "Site '{0}' verwijderd."
+
+msgid "Are you sure you want to delete this site?"
+msgstr "Weet u zeker dat u deze site wilt verwijderen?"

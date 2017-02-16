@@ -1,9 +1,11 @@
+from __future__ import absolute_import, unicode_literals
+
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404
 
-from wagtail.wagtailcore.models import Page, PageViewRestriction
 from wagtail.wagtailadmin.forms import PageViewRestrictionForm
 from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
+from wagtail.wagtailcore.models import Page, PageViewRestriction
 
 
 def set_privacy(request, page_id):
@@ -21,21 +23,17 @@ def set_privacy(request, page_id):
         restriction = None
         restriction_exists_on_ancestor = False
 
-    if request.POST:
-        form = PageViewRestrictionForm(request.POST)
+    if request.method == 'POST':
+        form = PageViewRestrictionForm(request.POST, instance=restriction)
         if form.is_valid() and not restriction_exists_on_ancestor:
-            if form.cleaned_data['restriction_type'] == 'none':
+            if form.cleaned_data['restriction_type'] == PageViewRestriction.NONE:
                 # remove any existing restriction
                 if restriction:
                     restriction.delete()
-            else:  # restriction_type = 'password'
-                if restriction:
-                    restriction.password = form.cleaned_data['password']
-                    restriction.save()
-                else:
-                    # create a new restriction object
-                    PageViewRestriction.objects.create(
-                        page=page, password=form.cleaned_data['password'])
+            else:
+                restriction = form.save(commit=False)
+                restriction.page = page
+                form.save()
 
             return render_modal_workflow(
                 request, None, 'wagtailadmin/page_privacy/set_privacy_done.js', {
@@ -46,9 +44,7 @@ def set_privacy(request, page_id):
     else:  # request is a GET
         if not restriction_exists_on_ancestor:
             if restriction:
-                form = PageViewRestrictionForm(initial={
-                    'restriction_type': 'password', 'password': restriction.password
-                })
+                form = PageViewRestrictionForm(instance=restriction)
             else:
                 # no current view restrictions on this page
                 form = PageViewRestrictionForm(initial={

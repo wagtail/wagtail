@@ -23,7 +23,7 @@
     "model": "wagtailcore.page",
     "fields": {
         "title": "Welcome to the Wagtail test site!",
-        "numchild": 6,
+        "numchild": 9,
         "show_in_menus": false,
         "live": true,
         "depth": 2,
@@ -441,6 +441,138 @@
 },
 
 {
+    "pk": 17,
+    "model": "wagtailcore.page",
+    "fields": {
+        "title": "Contact us one more time",
+        "numchild": 0,
+        "show_in_menus": true,
+        "live": true,
+        "depth": 3,
+        "content_type": ["tests", "formpagewithcustomsubmission"],
+        "path": "000100010007",
+        "url_path": "/home/contact-us-one-more-time/",
+        "slug": "contact-us-one-more-time"
+    }
+},
+{
+    "pk": 17,
+    "model": "tests.formpagewithcustomsubmission",
+    "fields": {
+        "to_address": "to@email.com",
+        "from_address": "from@email.com",
+        "subject": "The subject"
+    }
+},
+{
+    "pk": 1,
+    "model": "tests.formfieldwithcustomsubmission",
+    "fields": {
+        "sort_order": 1,
+        "label": "Your email",
+        "field_type": "email",
+        "required": true,
+        "choices": "",
+        "default_value": "",
+        "help_text": "",
+        "page": 17
+    }
+},
+{
+    "pk": 2,
+    "model": "tests.formfieldwithcustomsubmission",
+    "fields": {
+        "sort_order": 2,
+        "label": "Your message",
+        "field_type": "multiline",
+        "required": true,
+        "choices": "",
+        "default_value": "",
+        "help_text": "",
+        "page": 17
+    }
+},
+{
+    "pk": 3,
+    "model": "tests.formfieldwithcustomsubmission",
+    "fields": {
+        "sort_order": 3,
+        "label": "Your choices",
+        "field_type": "checkboxes",
+        "required": false,
+        "choices": "foo,bar,baz",
+        "default_value": "",
+        "help_text": "",
+        "page": 17
+    }
+},
+{
+    "pk": 1,
+    "model": "tests.customformpagesubmission",
+    "fields": {
+        "form_data": "{\"your-email\": \"old@example.com\", \"your-message\": \"this is a really old message\"}",
+        "user": 2,
+        "page": 16,
+        "submit_time": "2013-01-01T12:00:00.000Z"
+    }
+},
+{
+    "pk": 2,
+    "model": "tests.customformpagesubmission",
+    "fields": {
+        "form_data": "{\"your-email\": \"new@example.com\", \"your-message\": \"this is a fairly new message\"}",
+        "user": 5,
+        "page": 16,
+        "submit_time": "2014-01-01T12:00:00.000Z"
+    }
+},
+{
+    "pk": 18,
+    "model": "wagtailcore.page",
+    "fields": {
+        "title": "Secret event editor plans",
+        "numchild": 0,
+        "show_in_menus": true,
+        "live": true,
+        "depth": 3,
+        "content_type": ["tests", "simplepage"],
+        "path": "000100010008",
+        "url_path": "/home/secret-event-editor-plans/",
+        "slug": "secret-event-editor-plans"
+    }
+},
+{
+    "pk": 18,
+    "model": "tests.simplepage",
+    "fields": {
+        "content": "<p>let's move Easter to Christmas</p>"
+    }
+},
+{
+    "pk": 19,
+    "model": "wagtailcore.page",
+    "fields": {
+        "title": "Secret login plans",
+        "numchild": 0,
+        "show_in_menus": true,
+        "live": true,
+        "depth": 3,
+        "content_type": ["tests", "simplepage"],
+        "path": "000100010009",
+        "url_path": "/home/secret-login-plans/",
+        "slug": "secret-login-plans"
+    }
+},
+{
+    "pk": 19,
+    "model": "tests.simplepage",
+    "fields": {
+        "content": "<p>collect logs</p>"
+    }
+},
+
+
+{
     "pk": 1,
     "model": "wagtailcore.site",
     "fields": {
@@ -661,6 +793,23 @@
         "email": "admin_only_user@example.com"
     }
 },
+{
+    "pk": 5,
+    "model": "customuser.emailuser",
+    "fields": {
+        "first_name": "",
+        "last_name": "",
+        "is_active": true,
+        "is_superuser": false,
+        "is_staff": false,
+        "groups": [
+            ["Site-wide editors"]
+        ],
+        "user_permissions": [],
+        "password": "md5$seasalt$1e9bf2bf5606aa5c39852cc30f0f6f22",
+        "email": "siteeditor@example.com"
+    }
+},
 
 {
     "pk": 1,
@@ -729,7 +878,27 @@
     "model": "wagtailcore.pageviewrestriction",
     "fields": {
         "page": 11,
+        "restriction_type": "password",
         "password": "swordfish"
+    }
+},
+{
+    "pk": 2,
+    "model": "wagtailcore.pageviewrestriction",
+    "fields": {
+        "page": 18,
+        "restriction_type": "groups",
+        "groups": [
+            ["Event editors"]
+        ]
+    }
+},
+{
+    "pk": 3,
+    "model": "wagtailcore.pageviewrestriction",
+    "fields": {
+        "page": 19,
+        "restriction_type": "login"
     }
 },
 {

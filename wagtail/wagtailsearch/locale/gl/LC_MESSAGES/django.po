@@ -4,15 +4,15 @@
 #
 # Translators:
 # fooflare <amos.oviedo@gmail.com>, 2014
-# fooflare <amos.oviedo@gmail.com>, 2014
+# fooflare <amos.oviedo@gmail.com>, 2014,2016
 # fooflare <amos.oviedo@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:02+0000\n"
-"PO-Revision-Date: 2015-08-26 13:37+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2016-05-29 15:50+0000\n"
+"Last-Translator: fooflare <amos.oviedo@gmail.com>\n"
 "Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
 "MIME-Version: 1.0\n"
@@ -23,6 +23,17 @@ msgstr ""
 
 msgid "Search term(s)/phrase"
 msgstr "Termo(s)/frase de busca"
+
+msgid ""
+"Enter the full search string to match. An exact match is required for your "
+"Promoted Results to be displayed, wildcards are NOT allowed."
+msgstr ""
+"Introduce a cadea completa de procura a atopar. É necesaria unha "
+"coincidencia exacta para que as túas Seleccións do Editor sexan mostradas, "
+"os comodines NON están permitidos."
+
+msgid "Query Daily Hits"
+msgstr "Consultas Diarias Exitosas"
 
 msgid "Popular search terms"
 msgstr "Termos de busca popular"
@@ -38,3 +49,9 @@ msgstr "Vistas (semana pasada)"
 
 msgid "No results found"
 msgstr "Non hai resultados"
+
+msgid "Date"
+msgstr "Data"
+
+msgid "Choose from popular search terms"
+msgstr "Selecciona dende os termos de procura populares"

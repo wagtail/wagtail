@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# José Alaguna <alagunajs@gmail.com>, 2015
+# Yusuf (Josè) Luis <alagunajs@gmail.com>, 2015
+# Yusuf (Josè) Luis <alagunajs@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:01+0000\n"
-"PO-Revision-Date: 2016-02-05 17:09+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2017-02-06 12:38+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/torchbox/wagtail/"
 "language/tr_TR/)\n"
 "MIME-Version: 1.0\n"
@@ -19,8 +20,17 @@ msgstr ""
 "Language: tr_TR\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
+msgid "Add"
+msgstr "Ekle"
+
+msgid "Edit"
+msgstr "Düzenle"
+
 msgid "Search"
 msgstr "Ara"
+
+msgid "Latest documents"
+msgstr "En son evraklar"
 
 msgid "Yes, delete"
 msgstr "Evet, sil"
@@ -53,14 +63,11 @@ msgstr "Durum"
 msgid "Edit this page"
 msgstr "Bu sayfa düzenle"
 
-msgid "Search documents"
-msgstr "Arama belgeler"
-
-msgid "Edit"
-msgstr "Düzenle"
-
 msgid "Delete"
 msgstr "Sil"
+
+msgid "Search documents"
+msgstr "Arama belgeler"
 
 msgid "Edit this document"
 msgstr "Bu belge düzenle"

@@ -2,5 +2,7 @@
 {% load i18n %}
 
 {% block item_content %}
-    <a href="{% url 'wagtailadmin_pages:edit' self.page.id %}" target="_parent" class="action icon icon-edit">{% trans 'Edit' %}</a>
+    <div class="wagtail-action wagtail-icon wagtail-icon-edit">
+        <a href="{% url 'wagtailadmin_pages:edit' self.page.id %}" target="_parent">{% trans 'Edit this page' %}</a>
+    </div>
 {% endblock %}

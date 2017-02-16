@@ -4,10 +4,10 @@
 {# The title field for a parent page when the listing is in 'explore' mode #}
 
 <h2>
-    {% if parent_page_perms.can_edit and 'edit' not in hide_actions|default:'' %}
-        <a href="{% url 'wagtailadmin_pages:edit' parent_page.id %}">{{ parent_page.title }}</a>
+    {% if parent_page_perms.can_edit %}
+        <a href="{% url 'wagtailadmin_pages:edit' parent_page.id %}">{{ parent_page.get_admin_display_title }}</a>
     {% else %}
-        {{ parent_page.title }}
+        {{ parent_page.get_admin_display_title }}
     {% endif %}
 
     {% include "wagtailadmin/pages/listing/_locked_indicator.html" with page=parent_page %}
@@ -16,26 +16,5 @@
 {% include "wagtailadmin/pages/_privacy_switch.html" with page=parent_page %}
 
 <ul class="actions">
-    {% if parent_page_perms.can_edit and 'edit' not in hide_actions|default:'' %}
-        <li><a href="{% url 'wagtailadmin_pages:edit' parent_page.id %}" class="button button-small button-secondary">{% trans 'Edit' %}</a></li>
-    {% endif %}
-    {% if parent_page.has_unpublished_changes and 'view_draft' not in hide_actions|default:'' %}
-        <li><a href="{% url 'wagtailadmin_pages:view_draft' parent_page.id %}" class="button button-small button-secondary" target="_blank">{% trans 'Draft' %}</a></li>
-    {% endif %}
-
-    {% if parent_page.live and not parent_page.is_root and 'view_live' not in hide_actions|default:'' %}
-        <li><a {% if parent_page.url %}href="{{ parent_page.url }}"{% endif %} class="button button-small button-secondary {% if not parent_page.url %}disabled{% endif %}" target="_blank" {% if not parent_page.url %}title="{% trans 'This page is published but does not exist within a configured Site, so cannot be viewed.' %}"{% endif %}>{% trans 'Live' %}</a></li>
-    {% endif %}
-    {% if parent_page_perms.can_move and 'move' not in hide_actions|default:'' %}
-        <li><a href="{% url 'wagtailadmin_pages:move' parent_page.id %}" class="button button-small button-secondary">{% trans 'Move' %}</a></li>
-    {% endif %}
-    {% if parent_page_perms.can_delete and 'delete' not in hide_actions|default:'' %}
-        <li><a href="{% url 'wagtailadmin_pages:delete' parent_page.id %}" class="button button-small button-secondary">{% trans 'Delete' %}</a></li>
-    {% endif %}
-    {% if parent_page_perms.can_unpublish and 'unpublish' not in hide_actions|default:'' %}
-        <li><a href="{% url 'wagtailadmin_pages:unpublish' parent_page.id %}" class="button button-small button-secondary">{% trans 'Unpublish' %}</a></li>
-    {% endif %}
-    {% if parent_page_perms.can_add_subpage and 'add_subpage' not in hide_actions|default:'' %}
-        <li><a href="{% url 'wagtailadmin_pages:add_subpage' parent_page.id %}" class="button button-small bicolor icon white icon-plus">{% trans 'Add child page' %}</a></li>
-    {% endif %}
+    {% page_listing_buttons parent_page parent_page_perms is_parent=True %}
 </ul>

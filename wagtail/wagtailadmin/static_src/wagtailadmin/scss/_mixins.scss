@@ -1,3 +1,10 @@
+// =============================================================================
+// Mixins
+// =============================================================================
+
+// Please note that the mixins partial shouldn't include any classes. This is so
+// it can be included in any file without accidentally producing output
+
 @mixin clearfix() {
     &:before,
     &:after {
@@ -11,18 +18,15 @@
 }
 
 @mixin unlist() {
-    &, 
-    ul, 
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    list-style-type: none;
+    font-style: normal;
+
     li {
         list-style-type: none;
         font-style: normal;
-    }
-
-    &, 
-    ul {
-        margin-top: 0;
-        margin-bottom: 0;
-        padding-left: 0;
     }
 }
 
@@ -42,7 +46,7 @@
     position: absolute;
     width: 1px;
 
-    &:active, 
+    &:active,
     &:focus {
         clip: auto;
         height: auto;
@@ -53,9 +57,6 @@
     }
 }
 
-.visuallyhidden {
-    @include visuallyhidden;
-}
 
 @mixin visuallyvisible {
     clip: none;
@@ -66,6 +67,32 @@
     position: initial;
 }
 
-.visuallyvisible {
-    @include visuallyvisible;
+
+@mixin icon () {
+    font-family: 'wagtail';
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    speak: none;
+    text-decoration: none;
+    width: 1.3em;
+    line-height: 1em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: left;
+    vertical-align: middle;
+    margin-right: 0.2em;
+}
+
+
+@mixin webfont($fontname, $filestub, $weight, $style:normal) {
+    @font-face {
+        font-family: '#{$fontname}';
+        src: url('#{$font-root}#{$filestub}.woff2') format('woff2'),
+           url('#{$font-root}#{$filestub}.woff') format('woff'),
+           url('#{$font-root}#{$filestub}.ttf') format('truetype');
+        font-weight: $weight;
+        font-style: $style;
+    }
 }

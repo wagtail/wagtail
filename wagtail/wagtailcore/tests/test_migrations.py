@@ -3,16 +3,18 @@ Check that all changes to Wagtail models have had migrations created. If there
 are outstanding model changes that need migrations, fail the tests.
 """
 
-from django.utils.six import iteritems
-from django.test import TransactionTestCase
+from __future__ import absolute_import, unicode_literals
+
 from django.apps import apps
-from django.db.migrations.loader import MigrationLoader
 from django.db.migrations.autodetector import MigrationAutodetector
-from django.db.migrations.state import ProjectState
+from django.db.migrations.loader import MigrationLoader
 from django.db.migrations.questioner import MigrationQuestioner
+from django.db.migrations.state import ProjectState
+from django.test import TestCase
+from django.utils.six import iteritems
 
 
-class TestForMigrations(TransactionTestCase):
+class TestForMigrations(TestCase):
     def test__migrations(self):
         app_labels = set(app.label for app in apps.get_app_configs()
                          if app.name.startswith('wagtail.'))

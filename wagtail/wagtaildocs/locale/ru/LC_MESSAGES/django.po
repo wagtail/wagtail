@@ -3,16 +3,18 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Eugene MechanisM <contact@mechanism.name>, 2014-2015
-# HNKNTA <hnknta@gmail.com>, 2014
-# mattwestcott <matthew@torchbox.com>, 2015
+# Andrey Avdey <talkerbox@live.com>, 2016
+# Eugene MechanisM <eugene@mechanism.pro>, 2014-2016
+# Никита Викторович <hnknta@gmail.com>, 2014
+# Matt Westcott <matthew@torchbox.com>, 2015
+# Mikalai Radchuk <radchuk.m@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:01+0000\n"
-"PO-Revision-Date: 2016-02-05 17:09+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2017-02-06 12:38+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -22,6 +24,18 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
+
+msgid "Add"
+msgstr "Добавить"
+
+msgid "Add/edit documents you own"
+msgstr "Добавить/редактировать свои документы"
+
+msgid "Edit"
+msgstr "Править"
+
+msgid "Edit any document"
+msgstr "Редактировать любой документ"
 
 msgid "title"
 msgstr "заголовок"
@@ -52,6 +66,12 @@ msgstr "Загрузка"
 
 msgid "Uploading..."
 msgstr "Загрузка..."
+
+msgid "Server Error"
+msgstr "Ошибка Сервера"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Сообщите об этой ошибке администратору и укажите следующую информацию:"
 
 #, python-format
 msgid ""
@@ -84,7 +104,7 @@ msgstr ""
 "Извините, подходящих документов не найдено \"<em>%(query_string)s</em>\""
 
 msgid "Change document:"
-msgstr "Изменить документ"
+msgstr "Изменить документ:"
 
 msgid "Add a document"
 msgstr "Добавить документ"
@@ -132,6 +152,14 @@ msgstr "Файл"
 
 msgid "Uploaded"
 msgstr "Загружено"
+
+#, python-format
+msgid ""
+"You haven't uploaded any documents in this collection. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"Вы еще не загрузили ни одного документа в эту коллекцию. Почему бы не <a "
+"href=\"%(wagtaildocs_add_document_url)s\">сделать это сейчас</a>?"
 
 #, python-format
 msgid ""
@@ -183,8 +211,47 @@ msgstr[2] ""
 "    "
 msgstr[3] ""
 "\n"
-"        <span>%(total)s</span> Документа\n"
+"        <span>%(total)s</span> Документов\n"
 "    "
+
+msgid "Add multiple documents"
+msgstr "Добавить несколько документов"
+
+msgid "Add documents"
+msgstr "Добавить документы"
+
+msgid "Drag and drop documents into this area to upload immediately."
+msgstr "Перетяните документы в эту область для немедленной загрузки."
+
+msgid "Or choose from your computer"
+msgstr "Или выберите на вашем компьютере"
+
+msgid "Add to collection:"
+msgstr "Добавить в коллекцию:"
+
+msgid ""
+"Upload successful. Please update this documents with a more appropriate "
+"title, if necessary. You may also delete the document completely if the "
+"upload wasn't required."
+msgstr ""
+"Загрузка успешна. Пожалуйста, обновите заголовки для этих документов на "
+"более подходящие, если это необходимо. Так же вы можете полностью удалить "
+"изображение если его загрузка не требовалась."
+
+msgid "Sorry, upload failed."
+msgstr "Извините, загрузка не удалась."
+
+msgid "Update"
+msgstr "Обновить"
+
+msgid "Delete"
+msgstr "Удалить"
+
+msgid "Document permissions"
+msgstr "Доступ к документу"
+
+msgid "Add a document permission"
+msgstr "Добавить права доступа к документу"
 
 msgid "Search documents"
 msgstr "Поиск документов"
@@ -192,9 +259,6 @@ msgstr "Поиск документов"
 #, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Документ '{0}' добавлен."
-
-msgid "Edit"
-msgstr "Править"
 
 msgid "The document could not be saved due to errors."
 msgstr "Документ не может быть сохранен из-за ошибок."
@@ -206,15 +270,20 @@ msgstr "Документ '{0}' обновлен"
 msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr ""
-"Файл не может быть найден. Пожалуйста. измените исходный файл или удалите "
+"Файл не может быть найден. Пожалуйста, измените исходный файл или удалите "
 "документ"
-
-msgid "Delete"
-msgstr "Удалить"
 
 #, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Документ '{0}' удален."
+
+#, python-format
+msgid "%(count)s document"
+msgid_plural "%(count)s documents"
+msgstr[0] "%(count)s документ"
+msgstr[1] "%(count)s документа"
+msgstr[2] "%(count)s документов"
+msgstr[3] "%(count)s документов"
 
 msgid "Choose another document"
 msgstr "Выбрать другой документ"

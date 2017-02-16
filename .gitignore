@@ -11,6 +11,7 @@
 /venv
 /node_modules/
 npm-debug.log
+*.idea/
 /*.egg/
 
 ### JetBrains
@@ -18,3 +19,5 @@ npm-debug.log
 *.iml
 *.ipr
 *.iws
+coverage/
+client/node_modules

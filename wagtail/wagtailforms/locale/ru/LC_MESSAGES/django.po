@@ -3,15 +3,17 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Eugene MechanisM <contact@mechanism.name>, 2014-2015
-# Sergiy Khalymon <sergiykhalimon@gmail.com>, 2015
+# Andrey Avdey <talkerbox@live.com>, 2016
+# Eugene MechanisM <eugene@mechanism.pro>, 2014-2015
+# Mikalai Radchuk <radchuk.m@gmail.com>, 2016
+# Sergey Khalymon <sergiykhalimon@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:01+0000\n"
-"PO-Revision-Date: 2015-12-17 18:44+0000\n"
-"Last-Translator: Eugene MechanisM <contact@mechanism.name>\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2017-02-06 12:41+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -21,6 +23,13 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
+
+msgid "{} submissions"
+msgstr "{} добавлений"
+
+#, python-format
+msgid "There is another field with the label %s, please change one of them."
+msgstr "Уже есть другое поле с меткой %s,  измените одно из них."
 
 msgid "Single line text"
 msgstr "Однострочный текст"
@@ -44,7 +53,7 @@ msgid "Checkboxes"
 msgstr "Флажки"
 
 msgid "Drop down"
-msgstr "Выпадающий вниз"
+msgstr "Выпадающий"
 
 msgid "Radio buttons"
 msgstr "Радиокнопки"
@@ -62,7 +71,7 @@ msgid "form submission"
 msgstr "добавление формы"
 
 msgid "label"
-msgstr "имя"
+msgstr "метка"
 
 msgid "The label of the form field"
 msgstr "Метка поля формы"
@@ -92,12 +101,18 @@ msgstr "Значение по умолчанию. Разделенные зап�
 msgid "help text"
 msgstr "текст подсказки"
 
+msgid "Submission date"
+msgstr "Дата добавлления"
+
 msgid "to address"
 msgstr "адрес назначения"
 
-msgid "Optional - form submissions will be emailed to this address"
+msgid ""
+"Optional - form submissions will be emailed to these addresses. Separate "
+"multiple addresses by comma."
 msgstr ""
-"Не обязательно - заполненные формы будут отправляться на этот почтовый адрес"
+"Не обязательно - заполненные формы будут отправляться на эти почтовые адрес. "
+"Разделяйте адреса запятыми."
 
 msgid "from address"
 msgstr "адрес отправителя"
@@ -105,18 +120,14 @@ msgstr "адрес отправителя"
 msgid "subject"
 msgstr "тема"
 
-#, python-format
-msgid "Delete %(title)s"
-msgstr "Удалить %(title)s"
-
 msgid "Delete"
 msgstr "Удалить"
 
-msgid "Are you sure you want to delete this form submission?"
-msgstr "Вы уверены, что хотите удалить эту форму?"
+msgid "Total submissions"
+msgstr "Всего добавлений"
 
-msgid "Delete it"
-msgstr "Удалить"
+msgid "Latest submission"
+msgstr "Псоледнее добавление"
 
 msgid "Forms"
 msgstr "Формы"
@@ -148,14 +159,5 @@ msgstr "Заголовок"
 msgid "Origin"
 msgstr "Происхождение"
 
-msgid "Submission Date"
-msgstr "Дата Заполнения"
-
-msgid "Actions"
-msgstr "Действия"
-
 msgid "No form pages have been created."
 msgstr "Страниц с формами не было создано."
-
-msgid "Submission deleted."
-msgstr "Форма удалена."

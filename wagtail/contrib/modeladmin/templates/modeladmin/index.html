@@ -1,0 +1,93 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n modeladmin_tags %}
+
+{% block titletag %}{{ view.get_meta_title }}{% endblock %}
+
+{% block css %}
+    {{ block.super }}
+    {{ view.media.css }}
+{% endblock %}
+
+{% block extra_js %}
+    {{ view.media.js }}
+{% endblock %}
+
+{% block content %}
+    {% block header %}
+        <header class="nice-padding hasform">
+            <div class="row">
+                <div class="left">
+                    <div class="col">
+                        {% block h1 %}<h1 {% if view.header_icon %}class="icon icon-{{ view.header_icon }}"{% endif %}>{{ view.get_page_title }}<span></span></h1>{% endblock %}
+                    </div>
+                    {% block search %}{% search_form %}{% endblock %}
+                </div>
+                {% block header_extra %}
+                    {% if user_can_create %}
+                        <div class="right">
+                            <div class="addbutton">
+                                {% include 'modeladmin/includes/button.html' with button=view.button_helper.add_button %}
+                             </div>
+                         </div>
+                     {% endif %}
+                {% endblock %}
+            </div>
+        </header>
+    {% endblock %}
+
+    {% block content_main %}
+        <div>
+            <div class="row">
+                {% block content_cols %}
+
+                    {% block filters %}
+                        {% if view.has_filters and all_count %}
+                        <div class="changelist-filter col3">
+                            <h2>{% trans 'Filter' %}</h2>
+                            {% for spec in view.filter_specs %}{% admin_list_filter view spec %}{% endfor %}
+                        </div>
+                        {% endif %}
+                    {% endblock %}
+
+                    <div class="result-list {% if view.has_filters and all_count %}col9{% else %}col12{% endif %}">
+                        {% block result_list %}
+                            {% if not all_count %}
+                                <div class="nice-padding" style="margin-top:30px;">
+                                    {% if no_valid_parents %}
+                                        <p>{% blocktrans with view.verbose_name_plural as name %}No {{ name }} have been created yet. One of the following must be created before you can add any {{ name }}:{% endblocktrans %}</p>
+                                        <ul>
+                                            {% for type in required_parent_types %}<li><b>{{ type|title }}</b></li>{% endfor %}
+                                        </ul>
+                                    {% else %}
+                                        <p>{% blocktrans with view.verbose_name_plural as name %}No {{ name }} have been created yet.{% endblocktrans %}
+                                        {% if user_can_create %}
+                                            {% blocktrans with view.create_url as url %}
+                                                Why not <a href="{{ url }}">add one</a>?
+                                            {% endblocktrans %}
+                                        {% endif %}</p>
+                                    {% endif %}
+                                </div>
+                            {% else %}
+                                {% result_list %}
+                            {% endif %}
+                        {% endblock %}
+                    </div>
+
+                    {% block pagination %}
+                        <div class="pagination {% if view.has_filters and all_count %}col9{% else %}col12{% endif %}">
+                            <p>{% blocktrans with page_obj.number as current_page and paginator.num_pages as num_pages %}Page {{ current_page }} of {{ num_pages }}.{% endblocktrans %}</p>
+                            {% if paginator.num_pages > 1 %}
+                                <ul>
+                                    {% pagination_link_previous page_obj view %}
+                                    {% pagination_link_next page_obj view %}
+                                </ul>
+                            {% endif %}
+                        </div>
+                    {% endblock %}
+
+                {% endblock %}
+            </div>
+        </div>
+    {% endblock %}
+
+{% endblock %}

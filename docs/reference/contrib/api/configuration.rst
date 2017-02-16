@@ -26,16 +26,16 @@ Adding more fields to the pages endpoint
 
 By default, the pages endpoint only includes the ``id``, ``title`` and ``type`` fields in both the listing and detail views.
 
-You can add more fields to the pages endpoint by setting an attribute called ``api_fields`` to a ``list`` or ``tuple`` of field names:
+You can add more fields to the pages endpoint by setting an attribute called ``api_fields`` to a ``list`` of field names:
 
 .. code-block:: python
 
-    class BlogPage(Page):  
+    class BlogPage(Page):
         posted_by = models.CharField()
         posted_at = models.DateTimeField()
         content = RichTextField()
 
-        api_fields = ('posted_by', 'posted_at', 'content')
+        api_fields = ['posted_by', 'posted_at', 'content']
 
 
 This list also supports child relations (which will be nested inside the returned JSON document):
@@ -46,20 +46,20 @@ This list also supports child relations (which will be nested inside the returne
         page = ParentalKey('BlogPage', related_name='related_links')
         link = models.URLField()
 
-        api_fields = ('link', )
+        api_fields = ['link']
 
-    class BlogPage(Page):  
+    class BlogPage(Page):
         posted_by = models.CharField()
         posted_at = models.DateTimeField()
         content = RichTextField()
 
-        api_fields = ('posted_by', 'posted_at', 'content', 'related_links')
+        api_fields = ['posted_by', 'posted_at', 'content', 'related_links']
 
 
 Frontend cache invalidation
 ---------------------------
 
-If you have a Varnish, Squid or Cloudflare instance in front of your API, the ``wagtailapi`` module can automatically invalidate cached responses for you whenever they are updated in the database.
+If you have a Varnish, Squid, Cloudflare or CloudFront instance in front of your API, the ``wagtailapi`` module can automatically invalidate cached responses for you whenever they are updated in the database.
 
 To enable it, firstly configure the ``wagtail.contrib.wagtailfrontendcache`` module within your project (see [Wagtail frontend cache docs](http://docs.wagtail.io/en/latest/contrib_components/frontendcache.html) for more information).
 

@@ -1,20 +1,22 @@
-from __future__ import absolute_import
+from __future__ import absolute_import, unicode_literals
 
+import copy
 import json
-
-from django.utils.six.moves.urllib.parse import urlparse
-
-from elasticsearch import Elasticsearch, NotFoundError
-from elasticsearch.helpers import bulk
 
 from django.db import models
 from django.utils.crypto import get_random_string
+from django.utils.six.moves.urllib.parse import urlparse
+from elasticsearch import Elasticsearch, NotFoundError
+from elasticsearch.helpers import bulk
 
-from wagtail.wagtailsearch.backends.base import BaseSearch, BaseSearchQuery, BaseSearchResults
-from wagtail.wagtailsearch.index import SearchField, FilterField, RelatedFields, class_is_indexed
+from wagtail.utils.utils import deep_update
+from wagtail.wagtailsearch.backends.base import (
+    BaseSearchBackend, BaseSearchQuery, BaseSearchResults)
+from wagtail.wagtailsearch.index import (
+    FilterField, Indexed, RelatedFields, SearchField, class_is_indexed)
 
 
-class ElasticSearchMapping(object):
+class ElasticsearchMapping(object):
     type_map = {
         'AutoField': 'integer',
         'BinaryField': 'binary',
@@ -41,50 +43,93 @@ class ElasticSearchMapping(object):
         'TimeField': 'date',
     }
 
+    keyword_type = 'string'
+    text_type = 'string'
+    set_index_not_analyzed_on_filter_fields = True
+
+    # Contains the configuration required to use the edgengram_analyzer
+    # on a field. It's different in Elasticsearch 2 so it's been put in
+    # an attribute here to make it easier to override in a subclass.
+    edgengram_analyzer_config = {
+        'index_analyzer': 'edgengram_analyzer',
+    }
+
     def __init__(self, model):
         self.model = model
+
+    def get_parent(self):
+        for base in self.model.__bases__:
+            if issubclass(base, Indexed) and issubclass(base, models.Model):
+                return type(self)(base)
 
     def get_document_type(self):
         return self.model.indexed_get_content_type()
 
+    def get_field_column_name(self, field):
+        if isinstance(field, FilterField):
+            return field.get_attname(self.model) + '_filter'
+        elif isinstance(field, SearchField):
+            return field.get_attname(self.model)
+        elif isinstance(field, RelatedFields):
+            return field.field_name
+
     def get_field_mapping(self, field):
         if isinstance(field, RelatedFields):
             mapping = {'type': 'nested', 'properties': {}}
+            nested_model = field.get_field(self.model).related_model
+            nested_mapping = type(self)(nested_model)
 
             for sub_field in field.fields:
-                sub_field_name, sub_field_mapping = self.get_field_mapping(sub_field)
+                sub_field_name, sub_field_mapping = nested_mapping.get_field_mapping(sub_field)
                 mapping['properties'][sub_field_name] = sub_field_mapping
 
-            return field.get_index_name(self.model), mapping
+            return self.get_field_column_name(field), mapping
         else:
             mapping = {'type': self.type_map.get(field.get_type(self.model), 'string')}
 
             if isinstance(field, SearchField):
+                if mapping['type'] == 'string':
+                    mapping['type'] = self.text_type
+
                 if field.boost:
                     mapping['boost'] = field.boost
 
                 if field.partial_match:
-                    mapping['index_analyzer'] = 'edgengram_analyzer'
+                    mapping.update(self.edgengram_analyzer_config)
 
                 mapping['include_in_all'] = True
 
             elif isinstance(field, FilterField):
-                mapping['index'] = 'not_analyzed'
+                if mapping['type'] == 'string':
+                    mapping['type'] = self.keyword_type
+
+                if self.set_index_not_analyzed_on_filter_fields:
+                    # Not required on ES5 as that uses the "keyword" type for
+                    # filtered string fields
+                    mapping['index'] = 'not_analyzed'
+
                 mapping['include_in_all'] = False
 
             if 'es_extra' in field.kwargs:
                 for key, value in field.kwargs['es_extra'].items():
                     mapping[key] = value
 
-            return field.get_index_name(self.model), mapping
+            return self.get_field_column_name(field), mapping
 
     def get_mapping(self):
         # Make field list
         fields = {
-            'pk': dict(type='string', index='not_analyzed', store='yes', include_in_all=False),
-            'content_type': dict(type='string', index='not_analyzed', include_in_all=False),
-            '_partials': dict(type='string', index_analyzer='edgengram_analyzer', include_in_all=False),
+            'pk': dict(type=self.keyword_type, store=True, include_in_all=False),
+            'content_type': dict(type=self.keyword_type, include_in_all=False),
+            '_partials': dict(type=self.text_type, include_in_all=False),
         }
+        fields['_partials'].update(self.edgengram_analyzer_config)
+
+        if self.set_index_not_analyzed_on_filter_fields:
+            # Not required on ES5 as that uses the "keyword" type for
+            # filtered string fields
+            fields['pk']['index'] = 'not_analyzed'
+            fields['content_type']['index'] = 'not_analyzed'
 
         fields.update(dict(
             self.get_field_mapping(field) for field in self.model.get_search_fields()
@@ -103,10 +148,11 @@ class ElasticSearchMapping(object):
         doc = {}
         partials = []
         model = type(obj)
+        mapping = type(self)(model)
 
         for field in fields:
             value = field.get_value(obj)
-            doc[field.get_index_name(model)] = value
+            doc[mapping.get_field_column_name(field)] = value
 
             # Check if this field should be added into _partials
             if isinstance(field, SearchField) and field.partial_match:
@@ -135,7 +181,7 @@ class ElasticSearchMapping(object):
                     value, extra_partials = self._get_nested_document(field.fields, value)
                     partials.extend(extra_partials)
 
-            doc[field.get_index_name(self.model)] = value
+            doc[self.get_field_column_name(field)] = value
 
             # Check if this field should be added into _partials
             if isinstance(field, SearchField) and field.partial_match:
@@ -147,27 +193,43 @@ class ElasticSearchMapping(object):
         return doc
 
     def __repr__(self):
-        return '<ElasticSearchMapping: %s>' % (self.model.__name__, )
+        return '<ElasticsearchMapping: %s>' % (self.model.__name__, )
 
 
-class ElasticSearchQuery(BaseSearchQuery):
+class ElasticsearchSearchQuery(BaseSearchQuery):
+    mapping_class = ElasticsearchMapping
     DEFAULT_OPERATOR = 'or'
 
+    def __init__(self, *args, **kwargs):
+        super(ElasticsearchSearchQuery, self).__init__(*args, **kwargs)
+        self.mapping = self.mapping_class(self.queryset.model)
+
+        # Convert field names into index column names
+        if self.fields:
+            fields = []
+            searchable_fields = {f.field_name: f for f in self.queryset.model.get_searchable_search_fields()}
+            for field_name in self.fields:
+                if field_name in searchable_fields:
+                    field_name = self.mapping.get_field_column_name(searchable_fields[field_name])
+
+                fields.append(field_name)
+
+            self.fields = fields
+
     def _process_lookup(self, field, lookup, value):
-        # Get the name of the field in the index
-        field_index_name = field.get_index_name(self.queryset.model)
+        column_name = self.mapping.get_field_column_name(field)
 
         if lookup == 'exact':
             if value is None:
                 return {
                     'missing': {
-                        'field': field_index_name,
+                        'field': column_name,
                     }
                 }
             else:
                 return {
                     'term': {
-                        field_index_name: value,
+                        column_name: value,
                     }
                 }
 
@@ -175,29 +237,27 @@ class ElasticSearchQuery(BaseSearchQuery):
             if value:
                 return {
                     'missing': {
-                        'field': field_index_name,
+                        'field': column_name,
                     }
                 }
             else:
                 return {
-                    'not': {
-                        'missing': {
-                            'field': field_index_name,
-                        }
+                    'exists': {
+                        'field': column_name,
                     }
                 }
 
         if lookup in ['startswith', 'prefix']:
             return {
                 'prefix': {
-                    field_index_name: value,
+                    column_name: value,
                 }
             }
 
         if lookup in ['gt', 'gte', 'lt', 'lte']:
             return {
                 'range': {
-                    field_index_name: {
+                    column_name: {
                         lookup: value,
                     }
                 }
@@ -208,7 +268,7 @@ class ElasticSearchQuery(BaseSearchQuery):
 
             return {
                 'range': {
-                    field_index_name: {
+                    column_name: {
                         'gte': lower,
                         'lte': upper,
                     }
@@ -218,7 +278,7 @@ class ElasticSearchQuery(BaseSearchQuery):
         if lookup == 'in':
             return {
                 'terms': {
-                    field_index_name: list(value),
+                    column_name: list(value),
                 }
             }
 
@@ -277,15 +337,18 @@ class ElasticSearchQuery(BaseSearchQuery):
 
         return query
 
+    def get_content_type_filter(self):
+        return {
+            'prefix': {
+                'content_type': self.queryset.model.indexed_get_content_type()
+            }
+        }
+
     def get_filters(self):
         filters = []
 
         # Filter by content type
-        filters.append({
-            'prefix': {
-                'content_type': self.queryset.model.indexed_get_content_type()
-            }
-        })
+        filters.append(self.get_content_type_filter())
 
         # Apply filters from queryset
         queryset_filters = self._get_filters_from_queryset()
@@ -336,10 +399,10 @@ class ElasticSearchQuery(BaseSearchQuery):
                     field_name = order_by_field[1:]
 
                 field = self._get_filterable_field(field_name)
-                field_index_name = field.get_index_name(self.queryset.model)
+                column_name = self.mapping.get_field_column_name(field)
 
                 sort.append({
-                    field_index_name: 'desc' if reverse else 'asc'
+                    column_name: 'desc' if reverse else 'asc'
                 })
 
             return sort
@@ -352,7 +415,9 @@ class ElasticSearchQuery(BaseSearchQuery):
         return json.dumps(self.get_query())
 
 
-class ElasticSearchResults(BaseSearchResults):
+class ElasticsearchSearchResults(BaseSearchResults):
+    fields_param_name = 'fields'
+
     def _get_es_body(self, for_count=False):
         body = {
             'query': self.query.get_query()
@@ -369,12 +434,13 @@ class ElasticSearchResults(BaseSearchResults):
     def _do_search(self):
         # Params for elasticsearch query
         params = dict(
-            index=self.backend.index_name,
+            index=self.backend.get_index_for_model(self.query.queryset.model).name,
             body=self._get_es_body(),
             _source=False,
-            fields='pk',
             from_=self.start,
         )
+
+        params[self.fields_param_name] = 'pk'
 
         # Add size if set
         if self.stop is not None:
@@ -385,6 +451,7 @@ class ElasticSearchResults(BaseSearchResults):
 
         # Get pks from results
         pks = [hit['fields']['pk'][0] for hit in hits['hits']['hits']]
+        scores = {str(hit['fields']['pk'][0]): hit['_score'] for hit in hits['hits']['hits']}
 
         # Initialise results dictionary
         results = dict((str(pk), None) for pk in pks)
@@ -394,13 +461,16 @@ class ElasticSearchResults(BaseSearchResults):
         for obj in queryset:
             results[str(obj.pk)] = obj
 
+            if self._score_field:
+                setattr(obj, self._score_field, scores.get(str(obj.pk)))
+
         # Return results in order given by Elasticsearch
         return [results[str(pk)] for pk in pks if results[str(pk)]]
 
     def _do_count(self):
         # Get count
         hit_count = self.backend.es.count(
-            index=self.backend.index_name,
+            index=self.backend.get_index_for_model(self.query.queryset.model).name,
             body=self._get_es_body(for_count=True),
         )['count']
 
@@ -412,7 +482,7 @@ class ElasticSearchResults(BaseSearchResults):
         return max(hit_count, 0)
 
 
-class ElasticSearchIndex(object):
+class ElasticsearchIndex(object):
     def __init__(self, backend, name):
         self.backend = backend
         self.es = backend.es
@@ -529,7 +599,7 @@ class ElasticSearchIndex(object):
         self.put()
 
 
-class ElasticSearchIndexRebuilder(object):
+class ElasticsearchIndexRebuilder(object):
     def __init__(self, index):
         self.index = index
 
@@ -546,7 +616,7 @@ class ElasticSearchIndexRebuilder(object):
         self.index.refresh()
 
 
-class ElasticSearchAtomicIndexRebuilder(ElasticSearchIndexRebuilder):
+class ElasticsearchAtomicIndexRebuilder(ElasticsearchIndexRebuilder):
     def __init__(self, index):
         self.alias = index
         self.index = index.backend.index_class(
@@ -603,13 +673,13 @@ class ElasticSearchAtomicIndexRebuilder(ElasticSearchIndexRebuilder):
             self.index.put_alias(self.alias.name)
 
 
-class ElasticSearch(BaseSearch):
-    index_class = ElasticSearchIndex
-    query_class = ElasticSearchQuery
-    results_class = ElasticSearchResults
-    mapping_class = ElasticSearchMapping
-    basic_rebuilder_class = ElasticSearchIndexRebuilder
-    atomic_rebuilder_class = ElasticSearchAtomicIndexRebuilder
+class ElasticsearchSearchBackend(BaseSearchBackend):
+    index_class = ElasticsearchIndex
+    query_class = ElasticsearchSearchQuery
+    results_class = ElasticsearchSearchResults
+    mapping_class = ElasticsearchMapping
+    basic_rebuilder_class = ElasticsearchIndexRebuilder
+    atomic_rebuilder_class = ElasticsearchAtomicIndexRebuilder
 
     settings = {
         'settings': {
@@ -656,7 +726,7 @@ class ElasticSearch(BaseSearch):
     }
 
     def __init__(self, params):
-        super(ElasticSearch, self).__init__(params)
+        super(ElasticsearchSearchBackend, self).__init__(params)
 
         # Get settings
         self.hosts = params.pop('HOSTS', None)
@@ -688,15 +758,24 @@ class ElasticSearch(BaseSearch):
                     'port': port,
                     'url_prefix': parsed_url.path,
                     'use_ssl': use_ssl,
+                    'verify_certs': use_ssl,
                     'http_auth': http_auth,
                 })
 
+        self.settings = copy.deepcopy(self.settings)  # Make the class settings attribute as instance settings attribute
+        self.settings = deep_update(self.settings, params.pop("INDEX_SETTINGS", {}))
+
         # Get Elasticsearch interface
         # Any remaining params are passed into the Elasticsearch constructor
+        options = params.pop('OPTIONS', {})
+
         self.es = Elasticsearch(
             hosts=self.hosts,
             timeout=self.timeout,
-            **params)
+            **options)
+
+    def get_index_for_model(self, model):
+        return self.index_class(self, self.index_name)
 
     def get_index(self):
         return self.index_class(self, self.index_name)
@@ -709,19 +788,19 @@ class ElasticSearch(BaseSearch):
         self.get_rebuilder().reset_index()
 
     def add_type(self, model):
-        self.get_index().add_model(model)
+        self.get_index_for_model(model).add_model(model)
 
     def refresh_index(self):
         self.get_index().refresh()
 
     def add(self, obj):
-        self.get_index().add_item(obj)
+        self.get_index_for_model(type(obj)).add_item(obj)
 
     def add_bulk(self, model, obj_list):
-        self.get_index().add_items(model, obj_list)
+        self.get_index_for_model(model).add_items(model, obj_list)
 
     def delete(self, obj):
-        self.get_index().delete_item(obj)
+        self.get_index_for_model(type(obj)).delete_item(obj)
 
 
-SearchBackend = ElasticSearch
+SearchBackend = ElasticsearchSearchBackend

@@ -5,16 +5,16 @@
 # Translators:
 # Gladson <gladsonbrito@gmail.com>, 2014
 # Jose Lourenco <jose@lourenco.ws>, 2014-2015
-# Manuela Silva <h_manuela_rodsilva@gmail.com>, 2015
-# Manuela Silva <h_manuela_rodsilva@gmail.com>, 2015
-# Tiago Henriques <trinosauro@gmail.com>, 2015
+# Manuela Silva <inactive+h_manuela_rodsilva@transifex.com>, 2015
+# Manuela Silva <inactive+h_manuela_rodsilva@transifex.com>, 2015
+# Tiago Henriques <trinosauro@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:02+0000\n"
-"PO-Revision-Date: 2015-11-16 01:10+0000\n"
-"Last-Translator: Manuela Silva <h_manuela_rodsilva@gmail.com>\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2016-03-09 19:39+0000\n"
+"Last-Translator: Tiago Henriques <trinosauro@gmail.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
@@ -24,18 +24,18 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Search term(s)/phrase"
-msgstr "Procurar termo(s)/frase"
+msgstr "Pesquisar termo(s)/frase"
 
 msgid ""
 "Enter the full search string to match. An exact match is required for your "
 "Promoted Results to be displayed, wildcards are NOT allowed."
 msgstr ""
-"Insira o texto de procura completo para corresponder. É necessária uma "
-"correspondência exata para que os seus Resultados de Promovidos seja "
-"exibido, não são permitidos carateres de substituição."
+"Insira o texto completo a pesquisar. É necessária uma correspondência exata "
+"para que os seus Resultados Promovidos sejam exibidos, não são permitidos "
+"carateres de substituição."
 
 msgid "Query Daily Hits"
-msgstr "Acessos Diários de Consulta"
+msgstr "Consultar Acessos Diários"
 
 msgid "Popular search terms"
 msgstr "Termos de pesquisa populares"
@@ -56,4 +56,4 @@ msgid "Date"
 msgstr "Data"
 
 msgid "Choose from popular search terms"
-msgstr "Escolha entre os termos de pesquisa populares"
+msgstr "Escolha entre os termos de pesquisa mais populares"

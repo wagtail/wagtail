@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:02+0000\n"
-"PO-Revision-Date: 2016-02-05 18:11+0000\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2016-08-01 13:57+0000\n"
 "Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
@@ -83,8 +83,11 @@ msgstr "%(snippet_type_name)s nou"
 msgid "New"
 msgstr "Nou"
 
+msgid "Saving..."
+msgstr "În curse de salvare..."
+
 msgid "Save"
-msgstr "Salveză"
+msgstr "Salvează"
 
 #, python-format
 msgid "Editing %(snippet_type_name)s - %(instance)s"

@@ -9,7 +9,9 @@ Management commands
 publish_scheduled_pages
 -----------------------
 
-:code:`./manage.py publish_scheduled_pages`
+.. code-block:: console
+
+    $ ./manage.py publish_scheduled_pages
 
 This command publishes or unpublishes pages that have had these actions scheduled by an editor. It is recommended to run this command once an hour.
 
@@ -19,7 +21,9 @@ This command publishes or unpublishes pages that have had these actions schedule
 fixtree
 -------
 
-:code:`./manage.py fixtree`
+.. code-block:: console
+
+    $ ./manage.py fixtree
 
 This command scans for errors in your database and attempts to fix any issues it finds.
 
@@ -29,7 +33,9 @@ This command scans for errors in your database and attempts to fix any issues it
 move_pages
 ----------
 
-:code:`manage.py move_pages from to`
+.. code-block:: console
+
+    $ manage.py move_pages from to
 
 This command moves a selection of pages from one section of the tree to another.
 
@@ -47,7 +53,9 @@ Options:
 update_index
 ------------
 
-:code:`./manage.py update_index [--backend <backend name>]`
+.. code-block:: console
+
+    $ ./manage.py update_index [--backend <backend name>]
 
 This command rebuilds the search index from scratch. It is only required when using Elasticsearch.
 
@@ -62,19 +70,25 @@ The search may not return any results while this command is running, so avoid ru
 Specifying which backend to update
 ``````````````````````````````````
 
-.. versionadded:: 0.7
-
-
 By default, ``update_index`` will rebuild all the search indexes listed in ``WAGTAILSEARCH_BACKENDS``.
 
 If you have multiple backends and would only like to update one of them, you can use the ``--backend`` option.
 
 For example, to update just the default backend:
 
-.. code-block:: sh
+.. code-block:: console
 
-    python manage.py update_index --backend default
+    $ python manage.py update_index --backend default
 
+
+Indexing the schema only
+````````````````````````
+
+You can prevent the ``update_index`` command from indexing any data by using the ``--schema-only`` option:
+
+.. code-block:: console
+
+    $ python manage.py update_index --schema-only
 
 
 .. _search_garbage_collect:
@@ -82,6 +96,8 @@ For example, to update just the default backend:
 search_garbage_collect
 ----------------------
 
-:code:`./manage.py search_garbage_collect`
+.. code-block:: console
 
-Wagtail keeps a log of search queries that are popular on your website. On high traffic websites, this log may get big and you may want to clean out old search queries. This command cleans out all search query logs that are more than one week old.
+    $ ./manage.py search_garbage_collect
+
+Wagtail keeps a log of search queries that are popular on your website. On high traffic websites, this log may get big and you may want to clean out old search queries. This command cleans out all search query logs that are more than one week old (or a number of days configurable through the :ref:`WAGTAILSEARCH_HITS_MAX_AGE <wagtailsearch_hits_max_age>` setting).

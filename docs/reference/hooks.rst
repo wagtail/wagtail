@@ -23,6 +23,21 @@ Alternatively, ``hooks.register`` can be called as an ordinary function, passing
 
   hooks.register('name_of_hook', my_hook_function)
 
+If you need your hooks to run in a particular order, you can pass the ``order`` parameter:
+
+.. code-block:: python
+
+  @hooks.register('name_of_hook', order=1)  # This will run after every hook in the wagtail core
+  def my_hook_function(arg1, arg2...)
+      # your code here
+
+  @hooks.register('name_of_hook', order=-1)  # This will run before every hook in the wagtail core
+  def my_other_hook_function(arg1, arg2...)
+      # your code here
+
+  @hooks.register('name_of_hook', order=2)  # This will run after `my_hook_function`
+  def yet_another_hook_function(arg1, arg2...)
+      # your code here
 
 The available hooks are listed below.
 
@@ -50,14 +65,14 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
     from wagtail.wagtailcore import hooks
 
     class WelcomePanel(object):
-      order = 50
+        order = 50
 
-      def render(self):
-        return mark_safe("""
-        <section class="panel summary nice-padding">
-          <h3>No, but seriously -- welcome to the admin homepage.</h3>
-        </section>
-        """)
+        def render(self):
+            return mark_safe("""
+            <section class="panel summary nice-padding">
+              <h3>No, but seriously -- welcome to the admin homepage.</h3>
+            </section>
+            """)
 
     @hooks.register('construct_homepage_panels')
     def add_another_welcome_panel(request, panels):
@@ -69,8 +84,6 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
 ``construct_homepage_summary_items``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  .. versionadded:: 1.0
-
   Add or remove items from the 'site summary' bar on the admin homepage (which shows the number of pages and other object that exist on the site). The callable passed into this hook should take a ``request`` object and a list of ``SummaryItem`` objects to be modified as required. These objects have a ``render()`` method, which returns an HTML string, and an ``order`` property, which is an integer that specifies the order in which the items will appear.
 
 
@@ -79,7 +92,7 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
 ``construct_main_menu``
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-  Called just before the Wagtail admin menu is output, to allow the list of menu items to be modified. The callable passed to this hook will receive a ``request`` object and a list of ``menu_items``, and should modify ``menu_items`` in-place as required. Adding menu items should generally be done through the ``register_admin_menu_item`` hook instead - items added through ``construct_main_menu`` will be missing any associated Javascript includes, and their ``is_shown`` check will not be applied.
+  Called just before the Wagtail admin menu is output, to allow the list of menu items to be modified. The callable passed to this hook will receive a ``request`` object and a list of ``menu_items``, and should modify ``menu_items`` in-place as required. Adding menu items should generally be done through the ``register_admin_menu_item`` hook instead - items added through ``construct_main_menu`` will be missing any associated JavaScript includes, and their ``is_shown`` check will not be applied.
 
   .. code-block:: python
 
@@ -89,6 +102,23 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
     def hide_explorer_menu_item_from_frank(request, menu_items):
       if request.user.username == 'frank':
         menu_items[:] = [item for item in menu_items if item.name != 'explorer']
+
+
+.. _describe_collection_contents:
+
+``describe_collection_contents``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Called when Wagtail needs to find out what objects exist in a collection, if any. Currently this happens on the confirmation before deleting a collection, to ensure that non-empty collections cannot be deleted. The callable passed to this hook will receive a ``collection`` object, and should return either ``None`` (to indicate no objects in this collection), or a dict containing the following keys:
+
+``count``
+  A numeric count of items in this collection
+
+``count_text``
+  A human-readable string describing the number of items in this collection, such as "3 documents". (Sites with multi-language support should return a translatable string here, most likely using the ``django.utils.translation.ungettext`` function.)
+
+``url`` (optional)
+  A URL to an index page that lists the objects being described.
 
 
 .. _register_admin_menu_item:
@@ -103,7 +133,7 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
   :attrs: additional HTML attributes to apply to the link
   :order: an integer which determines the item's position in the menu
 
-  ``MenuItem`` can be subclassed to customise the HTML output, specify Javascript files required by the menu item, or conditionally show or hide the item for specific requests (for example, to apply permission checks); see the source code (``wagtail/wagtailadmin/menu.py``) for details.
+  ``MenuItem`` can be subclassed to customise the HTML output, specify JavaScript files required by the menu item, or conditionally show or hide the item for specific requests (for example, to apply permission checks); see the source code (``wagtail/wagtailadmin/menu.py``) for details.
 
   .. code-block:: python
 
@@ -145,6 +175,14 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
       ]
 
 
+.. _register_group_permission_panel:
+
+``register_group_permission_panel``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Add a new panel to the Groups form in the 'settings' area. The callable passed to this hook must return a ModelForm / ModelFormSet-like class, with a constructor that accepts a group object as its ``instance`` keyword argument, and which implements the methods ``save``, ``is_valid``, and ``as_admin_panel`` (which returns the HTML to be included on the group edit page).
+
+
 .. _register_settings_menu_item:
 
 ``register_settings_menu_item``
@@ -172,7 +210,7 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
   A template tag, ``search_other`` is provided by the ``wagtailadmin_tags`` template module. This tag takes a single, optional parameter, ``current``, which allows you to specify the ``name`` of the search option currently active. If the parameter is not given, the hook defaults to a reverse lookup of the page's URL for comparison against the ``url`` parameter.
 
 
-  ``SearchArea`` can be subclassed to customise the HTML output, specify Javascript files required by the option, or conditionally show or hide the item for specific requests (for example, to apply permission checks); see the source code (``wagtail/wagtailadmin/search.py``) for details.
+  ``SearchArea`` can be subclassed to customise the HTML output, specify JavaScript files required by the option, or conditionally show or hide the item for specific requests (for example, to apply permission checks); see the source code (``wagtail/wagtailadmin/search.py``) for details.
 
   .. code-block:: python
 
@@ -182,7 +220,7 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
 
     @hooks.register('register_admin_search_area')
     def register_frank_search_area():
-      return SearchArea('Frank', reverse('frank'), classnames='icon icon-folder-inverse', order=10000)
+        return SearchArea('Frank', reverse('frank'), classnames='icon icon-folder-inverse', order=10000)
 
 
 .. _register_permissions:
@@ -190,7 +228,36 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
 ``register_permissions``
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-  Return a queryset of Permission objects to be shown in the Groups administration area.
+  Return a queryset of ``Permission`` objects to be shown in the Groups administration area.
+
+
+.. _filter_form_submissions_for_user:
+
+``filter_form_submissions_for_user``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Allows access to form submissions to be customised on a per-user, per-form basis.
+
+  This hook takes two parameters:
+   - The user attempting to access form submissions
+   - A ``QuerySet`` of form pages
+
+  The hook must return a ``QuerySet`` containing a subset of these form pages which the user is allowed to access the submissions for.
+
+  For example, to prevent non-superusers from accessing form submissions:
+
+  .. code-block:: python
+
+    from wagtail.wagtailcore import hooks
+
+
+    @hooks.register('filter_form_submissions_for_user')
+    def construct_forms_for_user(user, queryset):
+        if not user.is_superuser:
+            queryset = queryset.none()
+
+        return queryset
+
 
 
 Editor interface
@@ -232,16 +299,36 @@ Hooks for customising the editing interface for pages and snippets.
 
   .. code-block:: python
 
+    from django.contrib.staticfiles.templatetags.staticfiles import static
     from django.utils.html import format_html
-    from django.conf import settings
 
     from wagtail.wagtailcore import hooks
 
     @hooks.register('insert_editor_css')
     def editor_css():
-      return format_html('<link rel="stylesheet" href="' \
-      + settings.STATIC_URL \
-      + 'demo/css/vendor/font-awesome/css/font-awesome.min.css">')
+        return format_html(
+            '<link rel="stylesheet" href="{}">',
+            static('demo/css/vendor/font-awesome/css/font-awesome.min.css')
+        )
+
+
+.. _insert_global_admin_css:
+
+``insert_global_admin_css``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Add additional CSS files or snippets to all admin pages.
+
+  .. code-block:: python
+
+    from django.utils.html import format_html
+    from django.contrib.staticfiles.templatetags.staticfiles import static
+
+    from wagtail.wagtailcore import hooks
+
+    @hooks.register('insert_global_admin_css')
+    def global_admin_css():
+        return format_html('<link rel="stylesheet" href="{}">', static('my/wagtail/theme.css'))
 
 
 .. _insert_editor_js:
@@ -249,7 +336,7 @@ Hooks for customising the editing interface for pages and snippets.
 ``insert_editor_js``
 ~~~~~~~~~~~~~~~~~~~~
 
-  Add additional Javascript files or code snippets to the page editor.
+  Add additional JavaScript files or code snippets to the page editor.
 
   .. code-block:: python
 
@@ -260,19 +347,39 @@ Hooks for customising the editing interface for pages and snippets.
 
     @hooks.register('insert_editor_js')
     def editor_js():
-      js_files = [
-        'demo/js/hallo-plugins/hallo-demo-plugin.js',
-      ]
-      js_includes = format_html_join('\n', '<script src="{0}{1}"></script>',
-        ((settings.STATIC_URL, filename) for filename in js_files)
-      )
-      return js_includes + format_html(
-        """
-        <script>
-          registerHalloPlugin('demoeditor');
-        </script>
-        """
-      )
+        js_files = [
+            'demo/js/hallo-plugins/hallo-demo-plugin.js',
+        ]
+        js_includes = format_html_join('\n', '<script src="{0}{1}"></script>',
+            ((settings.STATIC_URL, filename) for filename in js_files)
+        )
+        return js_includes + format_html(
+            """
+            <script>
+                registerHalloPlugin('demoeditor');
+            </script>
+            """
+        )
+
+
+.. _insert_global_admin_js:
+
+``insert_global_admin_js``
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Add additional JavaScript files or code snippets to all admin pages.
+
+  .. code-block:: python
+
+    from django.utils.html import format_html
+
+    from wagtail.wagtailcore import hooks
+
+    @hooks.register('insert_global_admin_js')
+    def global_admin_js():
+        return format_html(
+            '<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r74/three.js"></script>',
+        )
 
 
 Editor workflow
@@ -296,8 +403,34 @@ Hooks for customising the way users are directed through the process of creating
 
     @hooks.register('after_create_page')
     def do_after_page_create(request, page):
-      return HttpResponse("Congrats on making content!", content_type="text/plain")
+        return HttpResponse("Congrats on making content!", content_type="text/plain")
 
+
+.. _before_create_page:
+
+``before_create_page``
+~~~~~~~~~~~~~~~~~~~~~~
+
+  Called at the beginning of the "create page" view passing in the request, the parent page and page model class.
+
+  The function does not have to return anything, but if an object with a ``status_code`` property is returned, Wagtail will use it as a response object and skip the rest of the view.
+
+  Unlike, ``after_create_page``, this is run both for both ``GET`` and ``POST`` requests.
+
+  This can be used to completely override the editor on a per-view basis:
+
+  .. code-block:: python
+
+    from wagtail.wagtailcore import hooks
+
+    from .models import AwesomePage
+    from .admin_views import edit_awesome_page
+
+    @hooks.register('before_create_page')
+    def before_create_page(request, parent_page, page_class):
+        # Use a custom create view for the AwesomePage model
+        if page_class == AwesomePage:
+            return create_awesome_page(request, parent_page)
 
 .. _after_delete_page:
 
@@ -305,6 +438,16 @@ Hooks for customising the way users are directed through the process of creating
 ~~~~~~~~~~~~~~~~~~~~~
 
   Do something after a ``Page`` object is deleted. Uses the same behavior as ``after_create_page``.
+
+
+.. _before_delete_page:
+
+``before_delete_page``
+~~~~~~~~~~~~~~~~~~~~~~
+
+  Called at the beginning of the "delete page" view passing in the request and the page object.
+
+  Uses the same behavior as ``before_create_page``.
 
 
 .. _after_edit_page:
@@ -315,14 +458,42 @@ Hooks for customising the way users are directed through the process of creating
   Do something with a ``Page`` object after it has been updated. Uses the same behavior as ``after_create_page``.
 
 
+.. _before_edit_page:
+
+``before_edit_page``
+~~~~~~~~~~~~~~~~~~~~~
+
+  Called at the beginning of the "edit page" view passing in the request and the page object.
+
+  Uses the same behavior as ``before_create_page``.
+
+
+.. _after_copy_page:
+
+``after_copy_page``
+~~~~~~~~~~~~~~~~~~~
+
+  Do something with a ``Page`` object after it has been copied pasing in the request, page object and the new copied page. Uses the same behavior as ``after_create_page``.
+
+
+.. _before_copy_page:
+
+``before_copy_page``
+~~~~~~~~~~~~~~~~~~~~~
+
+  Called at the beginning of the "copy page" view passing in the request and the page object.
+
+  Uses the same behavior as ``before_create_page``.
+
+
 .. _construct_wagtail_userbar:
 
 ``construct_wagtail_userbar``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. versionchanged:: 1.0
+  .. versionchanged:: 1.0
 
-   The hook was renamed from ``construct_wagtail_edit_bird``
+    The hook was renamed from ``construct_wagtail_edit_bird``
 
   Add or remove items from the wagtail userbar. Add, edit, and moderation tools are provided by default. The callable passed into the hook must take the ``request`` object and a list of menu objects, ``items``. The menu item objects must have a ``render`` method which can take a ``request`` object and return the HTML string representing the menu item. See the userbar templates and menu item classes for more information.
 
@@ -331,17 +502,17 @@ Hooks for customising the way users are directed through the process of creating
     from wagtail.wagtailcore import hooks
 
     class UserbarPuppyLinkItem(object):
-      def render(self, request):
-        return '<li><a href="http://cuteoverload.com/tag/puppehs/" ' \
-        + 'target="_parent" class="action icon icon-wagtail">Puppies!</a></li>'
+        def render(self, request):
+            return '<li><a href="http://cuteoverload.com/tag/puppehs/" ' \
+                + 'target="_parent" class="action icon icon-wagtail">Puppies!</a></li>'
 
     @hooks.register('construct_wagtail_userbar')
     def add_puppy_link_item(request, items):
-      return items.append( UserbarPuppyLinkItem() )
+        return items.append( UserbarPuppyLinkItem() )
 
 
 Page explorer
-------------
+-------------
 
 .. _construct_explorer_page_queryset:
 
@@ -356,11 +527,72 @@ Page explorer
 
     @hooks.register('construct_explorer_page_queryset')
     def show_my_profile_only(parent_page, pages, request):
-      # If we're in the 'user-profiles' section, only show the user's own profile
-      if parent_page.slug == 'user-profiles':
-        pages = pages.filter(owner=request.user)
+        # If we're in the 'user-profiles' section, only show the user's own profile
+        if parent_page.slug == 'user-profiles':
+            pages = pages.filter(owner=request.user)
 
-      return pages
+        return pages
+
+
+.. _register_page_listing_buttons:
+
+``register_page_listing_buttons``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Add buttons to the actions list for a page in the page explorer. This is useful when adding custom actions to the listing, such as translations or a complex workflow.
+
+  This example will add a simple button to the listing:
+
+  .. code-block:: python
+
+    from wagtail.wagtailadmin import widgets as wagtailadmin_widgets
+
+    @hooks.register('register_page_listing_buttons')
+    def page_listing_buttons(page, page_perms, is_parent=False):
+        yield wagtailadmin_widgets.PageListingButton(
+            'A page listing button',
+            '/goes/to/a/url/',
+            priority=10
+        )
+
+  The ``priority`` argument controls the order the buttons are displayed in. Buttons are ordered from low to high priority, so a button with ``priority=10`` will be displayed before a button with ``priority=20``.
+
+
+Buttons with dropdown lists
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+  The admin widgets also provide ``ButtonWithDropdownFromHook``, which allows you to define a custom hook for generating a dropdown menu that gets attached to your button.
+
+  Creating a button with a dropdown menu involves two steps. Firstly, you add your button to the ``register_page_listing_buttons`` hook, just like the example above.
+  Secondly, you register a new hook that yields the contents of the dropdown menu.
+
+  This example shows how Wagtail's default admin dropdown is implemented. You can also see how to register buttons conditionally, in this case by evaluating the ``page_perms``:
+
+  .. code-block:: python
+
+    @hooks.register('register_page_listing_buttons')
+    def page_custom_listing_buttons(page, page_perms, is_parent=False):
+        yield wagtailadmin_widgets.ButtonWithDropdownFromHook(
+            'More actions',
+            hook_name='my_button_dropdown_hook',
+            page=page,
+            page_perms=page_perms,
+            is_parent=is_parent,
+            priority=50
+        )
+
+    @hooks.register('my_button_dropdown_hook')
+    def page_custom_listing_more_buttons(page, page_perms, is_parent=False):
+        if page_perms.can_move():
+            yield Button('Move', reverse('wagtailadmin_pages:move', args=[page.id]), priority=10)
+        if page_perms.can_delete():
+            yield Button('Delete', reverse('wagtailadmin_pages:delete', args=[page.id]), priority=30)
+        if page_perms.can_unpublish():
+            yield Button('Unpublish', reverse('wagtailadmin_pages:unpublish', args=[page.id]), priority=40)
+
+
+
+  The template for the dropdown button can be customised by overriding ``wagtailadmin/pages/listing/_button_with_dropdown.html``. The JavaScript that runs the dropdowns makes use of custom data attributes, so you should leave ``data-dropdown`` and ``data-dropdown-toggle`` in the markup if you customise it.
 
 
 Page serving

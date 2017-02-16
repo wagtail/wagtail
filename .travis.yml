@@ -4,46 +4,86 @@ cache: pip
 # Use container-based infrastructure
 sudo: false
 
+# Install JDK8 for Elasticsearch 5
+addons:
+  apt:
+    packages:
+     - oracle-java8-installer
+     - oracle-java8-set-default
+
 matrix:
   include:
-   - env: TOXENV=py27-dj18-postgres
+   - env: TOXENV=py27-dj18-postgres-noelasticsearch
      python: 2.7
-   - env: TOXENV=py27-dj18-mysql
+   - env: TOXENV=py27-dj18-mysql-noelasticsearch
      python: 2.7
-   - env: TOXENV=py27-dj18-sqlite
+   - env: TOXENV=py27-dj18-sqlite-noelasticsearch
      python: 2.7
-   - env: TOXENV=py33-dj18-postgres
+   - env: TOXENV=py33-dj18-postgres-noelasticsearch
      python: 3.3
-   - env: TOXENV=py34-dj18-postgres
-     python: 3.4
-   - env: TOXENV=py34-dj18-sqlite
-     python: 3.4
-   - env: TOXENV=py34-dj18-mysql
-     python: 3.4
-   - env: TOXENV=py35-dj18-postgres
+   - env: TOXENV=py35-dj18-postgres-noelasticsearch
      python: 3.5
-   - env: TOXENV=py35-dj18-sqlite
-     python: 3.5
-   - env: TOXENV=py35-dj18-mysql
-     python: 3.5
-   - env: TOXENV=py27-dj19-postgres
+   - env: TOXENV=py27-dj19-postgres-noelasticsearch
      python: 2.7
-#   - env: TOXENV=py27-dj19-mysql
-#   - env: TOXENV=py27-dj19-sqlite
-#  - env: TOXENV=py33-dj19-postgres
-   - env: TOXENV=py34-dj19-postgres
+   - env: TOXENV=py34-dj19-postgres-noelasticsearch
      python: 3.4
-   - env: TOXENV=py34-dj19-sqlite
+   - env: TOXENV=py35-dj19-postgres-noelasticsearch
+     python: 3.5
+   - env: TOXENV=py35-dj19-sqlite-noelasticsearch
+     python: 3.5
+   - env: TOXENV=py35-dj19-mysql-noelasticsearch
+     python: 3.5
+   - env: TOXENV=py27-dj19-postgres-elasticsearch
+     python: 2.7
+   - env: TOXENV=py27-dj19-postgres-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
+     python: 2.7
+     sudo: true
+   - env: TOXENV=py27-dj19-postgres-elasticsearch5 INSTALL_ELASTICSEARCH5=yes
+     python: 2.7
+     sudo: true
+   - env: TOXENV=py34-dj19-sqlite-elasticsearch5 INSTALL_ELASTICSEARCH5=yes
+     python: 3.5
+     sudo: true
+   - env: TOXENV=py27-dj110-sqlite-noelasticsearch
+     python: 2.7
+   - env: TOXENV=py27-dj110-postgres-noelasticsearch
+     python: 2.7
+   - env: TOXENV=py27-dj110-mysql-noelasticsearch
+     python: 2.7
+   - env: TOXENV=py27-dj110-mysql-elasticsearch5 INSTALL_ELASTICSEARCH5=yes
+     python: 2.7
+     sudo: true
+   - env: TOXENV=py34-dj110-postgres-noelasticsearch
      python: 3.4
-   - env: TOXENV=py34-dj19-mysql
+   - env: TOXENV=py34-dj110-sqlite-noelasticsearch
      python: 3.4
-   - env: TOXENV=py35-dj19-postgres
+   - env: TOXENV=py34-dj110-mysql-noelasticsearch
+     python: 3.4
+   - env: TOXENV=py35-dj110-sqlite-noelasticsearch
      python: 3.5
-   - env: TOXENV=py35-dj19-sqlite
+   - env: TOXENV=py35-dj110-postgres-noelasticsearch
      python: 3.5
-   - env: TOXENV=py35-dj19-mysql
+   - env: TOXENV=py35-dj110-mysql-noelasticsearch
      python: 3.5
-
+   - env: TOXENV=py35-dj110-postgres-elasticsearch
+     python: 3.5
+   - env: TOXENV=py35-dj110-postgres-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
+     python: 3.5
+     sudo: true
+   - env: TOXENV=py35-dj110-postgres-elasticsearch5 INSTALL_ELASTICSEARCH5=yes
+     python: 3.5
+     sudo: true
+   - env: TOXENV=py35-dj110head-postgres-noelasticsearch
+     python: 3.5
+  allow_failures:
+    - env: TOXENV=py27-dj19-postgres-elasticsearch
+    - env: TOXENV=py35-dj110-postgres-elasticsearch
+    - env: TOXENV=py27-dj19-postgres-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
+    - env: TOXENV=py35-dj110-postgres-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
+    - env: TOXENV=py27-dj19-postgres-elasticsearch5 INSTALL_ELASTICSEARCH5=yes
+    - env: TOXENV=py34-dj19-sqlite-elasticsearch5 INSTALL_ELASTICSEARCH5=yes
+    - env: TOXENV=py27-dj110-mysql-elasticsearch5 INSTALL_ELASTICSEARCH5=yes
+    - env: TOXENV=py35-dj110-postgres-elasticsearch5 INSTALL_ELASTICSEARCH5=yes
 
 # Services
 services:
@@ -52,6 +92,8 @@ services:
 # Package installation
 install:
   - pip install tox coveralls
+  - 'if [[ -n "$INSTALL_ELASTICSEARCH2" ]]; then ./scripts/travis/install_elasticsearch2.sh; fi'
+  - 'if [[ -n "$INSTALL_ELASTICSEARCH5" ]]; then ./scripts/travis/install_elasticsearch5.sh; fi'
 
 # Pre-test configuration
 before_script:
@@ -68,16 +110,6 @@ after_success:
 
 # Who to notify about build results
 notifications:
-  email:
-    recipients:
-      - wagtail-ci@torchbox.com
-    on_success: change
-    on_failure: always
-  webhooks:
-    urls:
-      - secure: "dQZBPlCC2OQE2L7EqOMkKsQxCJm05BhFrfmKmJ0AnKqxiEyZDKd2JiQaMg8X7XtIdJ87dlnBZH5h3erPSMgI3mIfNCWKKs/f6idgWIXPpklzU95KmPOrCoOyT3lkDTEOXCYXhgvOExp8qLHc4qjEWbSoIfPwqYyPlGry3Z76UBM="
-    on_success: change
-    on_failure: always
   slack:
     secure: Y/UERaVnR+RL2dOqLR0Nc60JdGkejQ1Ae5zvPRYdDiMIGSv/1KC3T5Dp8NxamqIlozbQNmRaZD+i4AdX60g1M3xlB9DMINzY584YK0X2T2S28+xIgE0MQJijbpfbk2veV8PMeA6EHNpG4zoT+4sbcSyljt9TPcYTTTiTB8rAtc0=
 

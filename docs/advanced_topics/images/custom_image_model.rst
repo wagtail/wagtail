@@ -1,5 +1,6 @@
 .. _custom_image_model:
 
+===================
 Custom image models
 ===================
 
@@ -21,9 +22,7 @@ Here's an example:
 
     # models.py
     from django.db import models
-    from django.db.models.signals import pre_delete
-    from django.dispatch import receiver
-    
+
     from wagtail.wagtailimages.models import Image, AbstractImage, AbstractRendition
 
 
@@ -31,7 +30,7 @@ Here's an example:
         # Add any extra fields to image here
 
         # eg. To add a caption field:
-        # caption = models.CharField(max_length=255)
+        # caption = models.CharField(max_length=255, blank=True)
 
         admin_form_fields = Image.admin_form_fields + (
             # Then add the field names here to make them appear in the form:
@@ -44,25 +43,20 @@ Here's an example:
 
         class Meta:
             unique_together = (
-                ('image', 'filter', 'focal_point_key'),
+                ('image', 'filter_spec', 'focal_point_key'),
             )
 
 
-    # Delete the source image file when an image is deleted
-    @receiver(pre_delete, sender=CustomImage)
-    def image_delete(sender, instance, **kwargs):
-        instance.file.delete(False)
+.. versionchanged:: 1.10
 
-
-    # Delete the rendition image file when a rendition is deleted
-    @receiver(pre_delete, sender=CustomRendition)
-    def rendition_delete(sender, instance, **kwargs):
-        instance.file.delete(False)
+    In previous versions of Wagtail it was necessary to connect signal handlers to handle deletion of image files. As of Wagtail 1.10 this is now handled automatically.
 
 .. note::
 
-    If you are using image feature detection, follow these instructions to
-    enable it on your custom image model: :ref:`feature_detection_custom_image_model`
+    Fields defined on a custom image model must either be set as non-required
+    (``blank=True``), or specify a default value - this is because uploading
+    the image and entering custom data happen as two separate actions, and
+    Wagtail needs to be able to create an image record immediately on upload.
 
 Then set the ``WAGTAILIMAGES_IMAGE_MODEL`` setting to point to it:
 
@@ -73,10 +67,21 @@ Then set the ``WAGTAILIMAGES_IMAGE_MODEL`` setting to point to it:
 
 .. topic:: Migrating from the builtin image model
 
-    When changing an existing site to use a custom image model. No images will
+    When changing an existing site to use a custom image model, no images will
     be copied to the new model automatically. Copying old images to the new
     model would need to be done manually with a
     `data migration <https://docs.djangoproject.com/en/1.8/topics/migrations/#data-migrations>`_.
 
     Any templates that reference the builtin image model will still continue to
     work as before but would need to be updated in order to see any new images.
+
+.. _custom_image_model_referring_to_image_model:
+
+Referring to the image model
+============================
+
+.. module:: wagtail.wagtailimages
+
+.. autofunction:: get_image_model
+
+.. autofunction:: get_image_model_string

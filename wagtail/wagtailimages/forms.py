@@ -1,10 +1,16 @@
+from __future__ import absolute_import, unicode_literals
+
 from django import forms
 from django.forms.models import modelform_factory
 from django.utils.translation import ugettext as _
 
 from wagtail.wagtailadmin import widgets
-from wagtail.wagtailimages.formats import get_image_formats
+from wagtail.wagtailadmin.forms import (
+    BaseCollectionMemberForm, collection_member_permission_formset_factory)
 from wagtail.wagtailimages.fields import WagtailImageField
+from wagtail.wagtailimages.formats import get_image_formats
+from wagtail.wagtailimages.models import Image
+from wagtail.wagtailimages.permissions import permission_policy as images_permission_policy
 
 
 # Callback to allow us to override the default form field for the image file field
@@ -17,10 +23,23 @@ def formfield_for_dbfield(db_field, **kwargs):
     return db_field.formfield(**kwargs)
 
 
+class BaseImageForm(BaseCollectionMemberForm):
+    permission_policy = images_permission_policy
+
+
 def get_image_form(model):
+    fields = model.admin_form_fields
+    if 'collection' not in fields:
+        # force addition of the 'collection' field, because leaving it out can
+        # cause dubious results when multiple collections exist (e.g adding the
+        # document to the root collection where the user may not have permission) -
+        # and when only one collection exists, it will get hidden anyway.
+        fields = list(fields) + ['collection']
+
     return modelform_factory(
         model,
-        fields=model.admin_form_fields,
+        form=BaseImageForm,
+        fields=fields,
         formfield_callback=formfield_for_dbfield,
         # set the 'file' widget to a FileInput rather than the default ClearableFileInput
         # so that when editing, we don't get the 'currently: ...' banner which is
@@ -62,3 +81,13 @@ class URLGeneratorForm(forms.Form):
     width = forms.IntegerField(_("Width"), min_value=0)
     height = forms.IntegerField(_("Height"), min_value=0)
     closeness = forms.IntegerField(_("Closeness"), min_value=0, initial=0)
+
+
+GroupImagePermissionFormSet = collection_member_permission_formset_factory(
+    Image,
+    [
+        ('add_image', _("Add"), _("Add/edit images you own")),
+        ('change_image', _("Edit"), _("Edit any image")),
+    ],
+    'wagtailimages/permissions/includes/image_permissions_formset.html'
+)

@@ -1,0 +1,456 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2016
+# Ragıp Ünal <ragip@ragipunal.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2017-02-06 12:37+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
+"tr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: tr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "You do not have permission to access the admin"
+msgstr "Yönetici bölümüne erişmeye yetkiniz yok"
+
+msgid "Scheduled publishing"
+msgstr "Planlanmış yayın"
+
+msgid "Common page configuration"
+msgstr "Ortak sayfa ayarları"
+
+msgid "Content"
+msgstr "İçerik"
+
+msgid "Settings"
+msgstr "Ayarlar"
+
+msgid "Search"
+msgstr "Ara"
+
+msgid "Search term"
+msgstr "Arama terimi"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Enter password"
+msgstr "Şifre girin"
+
+#, python-format
+msgid "Enter your %s"
+msgstr "%s gir"
+
+msgid "Enter your email address to reset your password"
+msgstr "Şifreyi sıfırlamak için e posta adresini gir"
+
+msgid "Please fill your email address."
+msgstr "Lütfen E posta adresini doldu"
+
+msgid ""
+"Sorry, you cannot reset your password here as your user account is managed "
+"by another server."
+msgstr ""
+"Üzgünüz, sizin şifrenizi burada sıfırlayamıyoruz, hesabınız başka bir sunucu "
+"tarafından yönetilmekte"
+
+msgid "This email address is not recognised."
+msgstr "Bu email adresi tanınamadı"
+
+msgid "New title"
+msgstr "Yeni başlı"
+
+msgid "New slug"
+msgstr "Yeni url başlık"
+
+msgid "New parent page"
+msgstr "Yeni üst sayfa"
+
+msgid "This copy will be a child of this given parent page."
+msgstr "Bu kopya verilen ebeveyn sayfanın alt sayfası olmalı"
+
+msgid "Copy subpages"
+msgstr "Alt sayfaları kopyala"
+
+msgid "Publish copied page"
+msgstr "Kopyalanan sayfayı yayınla"
+
+msgid "This page is live. Would you like to publish its copy as well?"
+msgstr "Bu sayfa yayında. Kopyasını da yayınlamak istermisiniz?"
+
+msgid "Publish copies"
+msgstr "Kopyaları yayınla"
+
+msgid "This field is required."
+msgstr "Bu alan zorunludur."
+
+msgid "This slug is already in use"
+msgstr "Bu Slug kullanılmakta"
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr "Yayın tarih/saati bitiş tarih/saatinden önce olmalı"
+
+msgid "Expiry date/time must be in the future"
+msgstr "Bitiş tarihi ileri bir tarih olmalı"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr "Aynı kolleksiyona ait birden fazla yetkiye sahip olamazsınız"
+
+msgid "Account"
+msgstr "Hesap"
+
+msgid "Set gravatar"
+msgstr "Gravatar ayarla"
+
+msgid "Change password"
+msgstr "Şifre değiştir"
+
+msgid "Change the password you use to log in."
+msgstr "Giriş şifrenizi değiştirin"
+
+msgid "Notification preferences"
+msgstr "Bildirim tercihleri"
+
+msgid "Choose which email notifications to receive."
+msgstr "Bildirimleri almak için e posta seçin"
+
+msgid "Change Password"
+msgstr "Şifre Değiştir"
+
+msgid ""
+"Your password can't be changed here. Please contact a site administrator."
+msgstr "Şifreniz değiştirilemiyor. Yönetici ile irtibata geçin."
+
+msgid "Notification Preferences"
+msgstr "Bildirim Tercihleri"
+
+msgid "Update"
+msgstr "Güncelle"
+
+msgid "Reset password"
+msgstr "Şifreyi sıfırla"
+
+msgid "Password change successful"
+msgstr "Şifre değiştirme başarılı"
+
+msgid "Login"
+msgstr "Giriş"
+
+msgid "Set your new password"
+msgstr "Yeni şifre ayarla"
+
+msgid "The passwords do not match. Please try again."
+msgstr "Şifreler uyuşmuyor. Yeniden deneyin."
+
+msgid "Check your email"
+msgstr "E postanızı kontrol edin"
+
+msgid "A link to reset your password has been emailed to you."
+msgstr ""
+"Şifreni sıfırlamak için gerekli olan bağlantı e posta olarak gönderildi."
+
+msgid "Please follow the link below to reset your password:"
+msgstr "Şifrenizi resetlemek için aşağıdaki bağlantıyı takip edin"
+
+msgid "Your username (in case you've forgotten):"
+msgstr "Kullanıcı adın(Unutmanız durumunda)"
+
+msgid "Password reset"
+msgstr "Şifre sıfırla"
+
+msgid "Reset your password"
+msgstr "Şifreni sıfırla"
+
+msgid "Dashboard"
+msgstr "Kontrol paneli"
+
+msgid "Menu"
+msgstr "Menü"
+
+msgid "Add another"
+msgstr "Başka ekle"
+
+msgid "Move up"
+msgstr "Yukarı taşı"
+
+msgid "Move down"
+msgstr "Aşağı taşı"
+
+msgid "Delete"
+msgstr "Sil"
+
+msgid "Explorer"
+msgstr "Keşfedici"
+
+msgid "Internal link"
+msgstr "İç bağlantı"
+
+msgid "External link"
+msgstr "Dış bağlantı"
+
+msgid "Email link"
+msgstr "E posta bağlantısı"
+
+msgid "Choose"
+msgstr "Seç"
+
+msgid "Choose a page"
+msgstr "Bir sayfa seç"
+
+msgid "Add an email link"
+msgstr "Bir e posta bağlantısı ekle"
+
+msgid "Insert link"
+msgstr "Bağlantı ekle"
+
+msgid "Add an external link"
+msgstr "Bir dış bağlantı ekle"
+
+msgid ""
+"This collection cannot be deleted, because it is not empty. It contains:"
+msgstr "Bu kolleksiyon silinemedi, çünkü boş değil ve şunları içeriyor:"
+
+msgid "Name"
+msgstr "İsim"
+
+#, python-format
+msgid "Add %(heading)s"
+msgstr "%(heading)s ekle"
+
+msgid "Yes, delete"
+msgstr "Evet, sil"
+
+msgid "Save"
+msgstr "Kaydet"
+
+#, python-format
+msgid "Welcome to the %(site_name)s Wagtail CMS"
+msgstr "%(site_name)s Hoşgeldiniz - Wagtail CMS"
+
+msgid "Pages awaiting moderation"
+msgstr "Denetlenmeyi bekleyen sayfalar"
+
+msgid "Title"
+msgstr "Başlık"
+
+msgid "Parent"
+msgstr "Üst-Ebeveyn"
+
+msgid "Type"
+msgstr "Tip"
+
+msgid "Edited"
+msgstr "Düzenlendi"
+
+msgid "Edit this page"
+msgstr "Bu sayfayı düzenle"
+
+msgid "Approve"
+msgstr "Onayla"
+
+msgid "Reject"
+msgstr "Reddet"
+
+msgid "Edit"
+msgstr "Düzenle"
+
+msgid "Preview"
+msgstr "Önizleme"
+
+msgid "Your most recent edits"
+msgstr "En son düzenlemeleriniz"
+
+msgid "Date"
+msgstr "Tarih"
+
+msgid "Status"
+msgstr "Durum"
+
+msgid "Draft"
+msgstr "Taslak"
+
+msgid "Live"
+msgstr "Yayınla"
+
+msgid "Site summary"
+msgstr "Site özeti"
+
+msgid "Sign in"
+msgstr "Oturum aç"
+
+#, python-format
+msgid "Your %(username_field)s and password didn't match. Please try again."
+msgstr "%(username_field)s ve şifre uyuşmuyor. Lütfen tekrar deneyin"
+
+msgid "Sign in to Wagtail"
+msgstr "Wagtail oturumu aç"
+
+msgid "Signing in..."
+msgstr "Giriş yapılıyor..."
+
+msgid "Page privacy"
+msgstr "Sayfa gizliliği"
+
+msgid "Public"
+msgstr "Genel"
+
+msgid "Private"
+msgstr "Gizli"
+
+#, python-format
+msgid "Delete %(title)s"
+msgstr "%(title)s sil"
+
+msgid "Yes, delete it"
+msgstr "Evet, onu sil."
+
+msgid "No, don't delete it"
+msgstr "Hayır, onu silme!"
+
+msgid "Move"
+msgstr "Taşı"
+
+msgid "New"
+msgstr "Yeni"
+
+msgid "Add child page"
+msgstr "Alt sayfa ekle"
+
+msgid "Home"
+msgstr "Ana Sayfa"
+
+msgid "January"
+msgstr "Ocak"
+
+msgid "February"
+msgstr "Şubat"
+
+msgid "March"
+msgstr "Mart"
+
+msgid "April"
+msgstr "Nisan"
+
+msgid "May"
+msgstr "Mayıs"
+
+msgid "June"
+msgstr "Haziran"
+
+msgid "July"
+msgstr "Temmuz"
+
+msgid "August"
+msgstr "Ağustos"
+
+msgid "September"
+msgstr "Eylül"
+
+msgid "October"
+msgstr "Ekim"
+
+msgid "November"
+msgstr "Kasım"
+
+msgid "December"
+msgstr "Aralık"
+
+msgid "Sun"
+msgstr "Paz"
+
+msgid "Mon"
+msgstr "Pzt"
+
+msgid "Tue"
+msgstr "Sal"
+
+msgid "Wed"
+msgstr "Çrş"
+
+msgid "Thu"
+msgstr "Per"
+
+msgid "Fri"
+msgstr "Cum"
+
+msgid "Sat"
+msgstr "Cts"
+
+msgid "Edit your account"
+msgstr "Hesabını düzenle"
+
+msgid "Log out"
+msgstr "Çıkış"
+
+msgid "Other searches"
+msgstr "Diğer aramalar"
+
+msgid "Go to Wagtail admin interface"
+msgstr "Wagtail yönetici arayüzüne git"
+
+msgid "Add a child page"
+msgstr "Alt sayfa ekle"
+
+msgid "Test"
+msgstr "Test"
+
+msgid "Sorry, you do not have permission to access this area."
+msgstr "Üzgünüm, bu alana erişim yetkiniz yok"
+
+msgid "Your password has been changed successfully!"
+msgstr "Şifreniz başarıyla değiştirildi!"
+
+msgid "Your preferences have been updated successfully!"
+msgstr "Tercihleriniz başarıyla güncellendi"
+
+msgid "View live"
+msgstr "Canlı göster"
+
+msgid "View draft"
+msgstr "Taslak görüntüle"
+
+msgid "The page could not be created due to validation errors"
+msgstr "Sayfa doğrulama hataları nedeniyle oluşturulamadı"
+
+#, python-brace-format
+msgid "Page '{0}' deleted."
+msgstr "Sayfa '{0}' silindi."
+
+#, python-brace-format
+msgid "Page '{0}' unpublished."
+msgstr "Sayfa '{0}' yayından kaldırıldı."
+
+#, python-brace-format
+msgid "Page '{0}' moved."
+msgstr "Sayfa '{0}' taşındı."
+
+msgid "Pages"
+msgstr "Sayfalar"
+
+msgid "More"
+msgstr "Daha fazla"
+
+msgid "Choose an item"
+msgstr "Bir eleman seçiniz"
+
+msgid "Choose another item"
+msgstr "Başka bir eleman seçiniz"
+
+msgid "Clear choice"
+msgstr "Seçimi temizle"
+
+msgid "Edit this item"
+msgstr "Bunu düzenle"
+
+msgid "Choose another page"
+msgstr "Başka sayfa seç"

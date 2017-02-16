@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Ji Han Chung <jihanchung20@gmail.com>, 2015
+# Jihan Chung <jihanchung20@gmail.com>, 2015
 # Kyungil Choi <hanpama@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:02+0000\n"
-"PO-Revision-Date: 2016-02-05 17:09+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2016-09-22 15:03+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
 "MIME-Version: 1.0\n"
@@ -81,6 +81,9 @@ msgstr "높이"
 
 msgid "Closeness"
 msgstr " 접근"
+
+msgid "Edit"
+msgstr "수정"
 
 msgid "Choose an image"
 msgstr "이미지 선택"
@@ -189,14 +192,6 @@ msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
 msgstr ""
 "죄송합니다. \"<em>%(query_string)s</em>\" 와 연관된 이미지 결과가 없습니다."
 
-#, python-format
-msgid ""
-"You've not uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">add one now</a>?"
-msgstr ""
-"업로드된 이미지가 없습니다. 지금 이미지를 <a href="
-"\"%(wagtailimages_add_image_url)s\">추가 해 보시는건 어떨까요?"
-
 msgid "Generating URL"
 msgstr "URL 생성"
 
@@ -291,9 +286,6 @@ msgstr "'{0}' 이미지가 삭제되었습니다."
 #, python-brace-format
 msgid "Image '{0}' added."
 msgstr "'{0}' 이미지가 추가 되었습니다."
-
-msgid "Edit"
-msgstr "수정"
 
 msgid "The image could not be created due to errors."
 msgstr "에러로 인해 이미지가 생성될 수 없습니다."

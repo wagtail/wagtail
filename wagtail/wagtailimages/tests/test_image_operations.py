@@ -1,13 +1,14 @@
-import unittest
+from __future__ import absolute_import, unicode_literals
 
-from mock import Mock
-
+from django.test import TestCase, override_settings
 from django.utils.six import BytesIO
+from mock import Mock, patch
+
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailimages import image_operations
 from wagtail.wagtailimages.exceptions import InvalidFilterSpecError
-from wagtail.wagtailimages.models import Image, Filter
-from wagtail.wagtailimages.tests.utils import get_test_image_file
+from wagtail.wagtailimages.models import Filter, Image
+from wagtail.wagtailimages.tests.utils import get_test_image_file, get_test_image_file_jpeg
 
 
 class WillowOperationRecorder(object):
@@ -15,6 +16,8 @@ class WillowOperationRecorder(object):
     This class pretends to be a Willow image but instead, it records
     the operations that have been performed on the image for testing
     """
+    format_name = 'jpeg'
+
     def __init__(self, start_size):
         self.ran_operations = []
         self.start_size = start_size
@@ -22,6 +25,7 @@ class WillowOperationRecorder(object):
     def __getattr__(self, attr):
         def operation(*args, **kwargs):
             self.ran_operations.append((attr, args, kwargs))
+            return self
 
         return operation
 
@@ -38,7 +42,7 @@ class WillowOperationRecorder(object):
         return size
 
 
-class ImageOperationTestCase(unittest.TestCase):
+class ImageOperationTestCase(TestCase):
     operation_class = None
     filter_spec_tests = []
     filter_spec_error_tests = []
@@ -53,8 +57,7 @@ class ImageOperationTestCase(unittest.TestCase):
             for attr, value in expected_output.items():
                 self.assertEqual(getattr(operation, attr), value)
 
-        test_name = 'test_filter_%s' % filter_spec
-        test_filter_spec.__name__ = test_name
+        test_filter_spec.__name__ = str('test_filter_%s' % filter_spec)
         return test_filter_spec
 
     @classmethod
@@ -62,13 +65,15 @@ class ImageOperationTestCase(unittest.TestCase):
         def test_filter_spec_error(self):
             self.assertRaises(InvalidFilterSpecError, self.operation_class, *filter_spec.split('-'))
 
-        test_name = 'test_filter_%s_raises_%s' % (filter_spec, InvalidFilterSpecError.__name__)
-        test_filter_spec_error.__name__ = test_name
+        test_filter_spec_error.__name__ = str('test_filter_%s_raises_%s' % (
+            filter_spec, InvalidFilterSpecError.__name__))
         return test_filter_spec_error
 
     @classmethod
-    def make_run_test(cls, filter_spec, image, expected_output):
+    def make_run_test(cls, filter_spec, image_kwargs, expected_output):
         def test_run(self):
+            image = Image(**image_kwargs)
+
             # Make operation
             operation = self.operation_class(*filter_spec.split('-'))
 
@@ -76,13 +81,12 @@ class ImageOperationTestCase(unittest.TestCase):
             operation_recorder = WillowOperationRecorder((image.width, image.height))
 
             # Run
-            operation.run(operation_recorder, image)
+            operation.run(operation_recorder, image, {})
 
             # Check
             self.assertEqual(operation_recorder.ran_operations, expected_output)
 
-        test_name = 'test_run_%s' % filter_spec
-        test_run.__name__ = test_name
+        test_run.__name__ = str('test_run_%s' % filter_spec)
         return test_run
 
     @classmethod
@@ -120,8 +124,9 @@ class TestDoNothingOperation(ImageOperationTestCase):
     ]
 
     run_tests = [
-        ('original', Image(width=1000, height=1000), []),
+        ('original', dict(width=1000, height=1000), []),
     ]
+
 
 TestDoNothingOperation.setup_test_methods()
 
@@ -151,26 +156,26 @@ class TestFillOperation(ImageOperationTestCase):
 
     run_tests = [
         # Basic usage
-        ('fill-800x600', Image(width=1000, height=1000), [
+        ('fill-800x600', dict(width=1000, height=1000), [
             ('crop', ((0, 125, 1000, 875), ), {}),
             ('resize', ((800, 600), ), {}),
         ]),
 
         # Basic usage with an oddly-sized original image
         # This checks for a rounding precision issue (#968)
-        ('fill-200x200', Image(width=539, height=720), [
+        ('fill-200x200', dict(width=539, height=720), [
             ('crop', ((0, 90, 539, 630), ), {}),
             ('resize', ((200, 200), ), {}),
         ]),
 
         # Closeness shouldn't have any effect when used without a focal point
-        ('fill-800x600-c100', Image(width=1000, height=1000), [
+        ('fill-800x600-c100', dict(width=1000, height=1000), [
             ('crop', ((0, 125, 1000, 875), ), {}),
             ('resize', ((800, 600), ), {}),
         ]),
 
         # Should always crop towards focal point. Even if no closeness is set
-        ('fill-80x60', Image(
+        ('fill-80x60', dict(
             width=1000,
             height=1000,
             focal_point_x=1000,
@@ -186,7 +191,7 @@ class TestFillOperation(ImageOperationTestCase):
         ]),
 
         # Should crop as close as possible without upscaling
-        ('fill-80x60-c100', Image(
+        ('fill-80x60-c100', dict(
             width=1000,
             height=1000,
             focal_point_x=1000,
@@ -202,7 +207,7 @@ class TestFillOperation(ImageOperationTestCase):
 
         # Ditto with a wide image
         # Using a different filter so method name doesn't clash
-        ('fill-100x60-c100', Image(
+        ('fill-100x60-c100', dict(
             width=2000,
             height=1000,
             focal_point_x=2000,
@@ -215,7 +220,7 @@ class TestFillOperation(ImageOperationTestCase):
         ]),
 
         # Make sure that the crop box never enters the focal point
-        ('fill-50x50-c100', Image(
+        ('fill-50x50-c100', dict(
             width=2000,
             height=1000,
             focal_point_x=1000,
@@ -231,12 +236,12 @@ class TestFillOperation(ImageOperationTestCase):
         ]),
 
         # Test that the image is never upscaled
-        ('fill-1000x800', Image(width=100, height=100), [
+        ('fill-1000x800', dict(width=100, height=100), [
             ('crop', ((0, 10, 100, 90), ), {}),
         ]),
 
         # Test that the crop closeness gets capped to prevent upscaling
-        ('fill-1000x800-c100', Image(
+        ('fill-1000x800-c100', dict(
             width=1500,
             height=1000,
             focal_point_x=750,
@@ -253,7 +258,7 @@ class TestFillOperation(ImageOperationTestCase):
         # Test for an issue where a ZeroDivisionError would occur when the
         # focal point size, image size and filter size match
         # See: #797
-        ('fill-1500x1500-c100', Image(
+        ('fill-1500x1500-c100', dict(
             width=1500,
             height=1500,
             focal_point_x=750,
@@ -268,7 +273,7 @@ class TestFillOperation(ImageOperationTestCase):
 
         # A few tests for single pixel images
 
-        ('fill-100x100', Image(
+        ('fill-100x100', dict(
             width=1,
             height=1,
         ), [
@@ -276,20 +281,21 @@ class TestFillOperation(ImageOperationTestCase):
         ]),
 
         # This one once gave a ZeroDivisionError
-        ('fill-100x150', Image(
+        ('fill-100x150', dict(
             width=1,
             height=1,
         ), [
             ('crop', ((0, 0, 1, 1), ), {}),
         ]),
 
-        ('fill-150x100', Image(
+        ('fill-150x100', dict(
             width=1,
             height=1,
         ), [
             ('crop', ((0, 0, 1, 1), ), {}),
         ]),
     ]
+
 
 TestFillOperation.setup_test_methods()
 
@@ -314,14 +320,15 @@ class TestMinMaxOperation(ImageOperationTestCase):
 
     run_tests = [
         # Basic usage of min
-        ('min-800x600', Image(width=1000, height=1000), [
+        ('min-800x600', dict(width=1000, height=1000), [
             ('resize', ((800, 800), ), {}),
         ]),
         # Basic usage of max
-        ('max-800x600', Image(width=1000, height=1000), [
+        ('max-800x600', dict(width=1000, height=1000), [
             ('resize', ((600, 600), ), {}),
         ]),
     ]
+
 
 TestMinMaxOperation.setup_test_methods()
 
@@ -343,19 +350,20 @@ class TestWidthHeightOperation(ImageOperationTestCase):
 
     run_tests = [
         # Basic usage of width
-        ('width-400', Image(width=1000, height=500), [
+        ('width-400', dict(width=1000, height=500), [
             ('resize', ((400, 200), ), {}),
         ]),
         # Basic usage of height
-        ('height-400', Image(width=1000, height=500), [
+        ('height-400', dict(width=1000, height=500), [
             ('resize', ((800, 400), ), {}),
         ]),
     ]
 
+
 TestWidthHeightOperation.setup_test_methods()
 
 
-class TestCacheKey(unittest.TestCase):
+class TestCacheKey(TestCase):
     def test_cache_key(self):
         image = Image(width=1000, height=1000)
         fil = Filter(spec='max-100x100')
@@ -385,12 +393,17 @@ class TestCacheKey(unittest.TestCase):
         self.assertEqual(cache_key, '0bbe3b2f')
 
 
-class TestFilter(unittest.TestCase):
+class TestFilter(TestCase):
 
     operation_instance = Mock()
 
     def test_runs_operations(self):
-        self.operation_instance.run = Mock()
+        run_mock = Mock()
+
+        def run(willow, image, env):
+            run_mock(willow, image, env)
+
+        self.operation_instance.run = run
 
         fil = Filter(spec='operation1|operation2')
         image = Image.objects.create(
@@ -399,7 +412,7 @@ class TestFilter(unittest.TestCase):
         )
         fil.run(image, BytesIO())
 
-        self.assertEqual(self.operation_instance.run.call_count, 2)
+        self.assertEqual(run_mock.call_count, 2)
 
 
 @hooks.register('register_image_operations')
@@ -408,3 +421,127 @@ def register_image_operations():
         ('operation1', Mock(return_value=TestFilter.operation_instance)),
         ('operation2', Mock(return_value=TestFilter.operation_instance))
     ]
+
+
+class TestFormatFilter(TestCase):
+    def test_jpeg(self):
+        fil = Filter(spec='width-400|format-jpeg')
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+        out = fil.run(image, BytesIO())
+
+        self.assertEqual(out.format_name, 'jpeg')
+
+    def test_png(self):
+        fil = Filter(spec='width-400|format-png')
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+        out = fil.run(image, BytesIO())
+
+        self.assertEqual(out.format_name, 'png')
+
+    def test_gif(self):
+        fil = Filter(spec='width-400|format-gif')
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+        out = fil.run(image, BytesIO())
+
+        self.assertEqual(out.format_name, 'gif')
+
+    def test_invalid(self):
+        fil = Filter(spec='width-400|format-foo')
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+        self.assertRaises(InvalidFilterSpecError, fil.run, image, BytesIO())
+
+
+class TestJPEGQualityFilter(TestCase):
+    def test_default_quality(self):
+        fil = Filter(spec='width-400')
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file_jpeg(),
+        )
+
+        f = BytesIO()
+        with patch('PIL.Image.Image.save') as save:
+            fil.run(image, f)
+
+        save.assert_called_with(f, 'JPEG', quality=85, optimize=True, progressive=True)
+
+    def test_jpeg_quality_filter(self):
+        fil = Filter(spec='width-400|jpegquality-40')
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file_jpeg(),
+        )
+
+        f = BytesIO()
+        with patch('PIL.Image.Image.save') as save:
+            fil.run(image, f)
+
+        save.assert_called_with(f, 'JPEG', quality=40, optimize=True, progressive=True)
+
+    def test_jpeg_quality_filter_invalid(self):
+        fil = Filter(spec='width-400|jpegquality-abc')
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file_jpeg(),
+        )
+        self.assertRaises(InvalidFilterSpecError, fil.run, image, BytesIO())
+
+    def test_jpeg_quality_filter_no_value(self):
+        fil = Filter(spec='width-400|jpegquality')
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file_jpeg(),
+        )
+        self.assertRaises(InvalidFilterSpecError, fil.run, image, BytesIO())
+
+    def test_jpeg_quality_filter_too_big(self):
+        fil = Filter(spec='width-400|jpegquality-101')
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file_jpeg(),
+        )
+        self.assertRaises(InvalidFilterSpecError, fil.run, image, BytesIO())
+
+    @override_settings(
+        WAGTAILIMAGES_JPEG_QUALITY=50
+    )
+    def test_jpeg_quality_setting(self):
+        fil = Filter(spec='width-400')
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file_jpeg(),
+        )
+
+        f = BytesIO()
+        with patch('PIL.Image.Image.save') as save:
+            fil.run(image, f)
+
+        save.assert_called_with(f, 'JPEG', quality=50, optimize=True, progressive=True)
+
+    @override_settings(
+        WAGTAILIMAGES_JPEG_QUALITY=50
+    )
+    def test_jpeg_quality_filter_overrides_setting(self):
+        fil = Filter(spec='width-400|jpegquality-40')
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file_jpeg(),
+        )
+
+        f = BytesIO()
+        with patch('PIL.Image.Image.save') as save:
+            fil.run(image, f)
+
+        save.assert_called_with(f, 'JPEG', quality=40, optimize=True, progressive=True)

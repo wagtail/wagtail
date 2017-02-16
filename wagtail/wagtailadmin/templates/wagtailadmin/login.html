@@ -11,15 +11,23 @@
 
 {% block furniture %}
     <div class="content-wrapper">
-        {% if form.errors %}
+        {% if messages or form.errors %}
             <div class="messages">
                 <ul>
-                    <li class="error">{% blocktrans %}Your {{ username_field }} and password didn't match. Please try again.{% endblocktrans %}</li>
+                    {% if form.errors %}
+                        <li class="error">{% blocktrans %}Your {{ username_field }} and password didn't match. Please try again.{% endblocktrans %}</li>
+                    {% endif %}
+                    {% for message in messages %}
+                        <li class="{{ message.tags }}">{{ message }}</li>
+                    {% endfor %}
                 </ul>
             </div>
         {% endif %}
 
-        <form action="{% url 'wagtailadmin_login' %}" method="post" autocomplete="off">
+        {% block above_login %}{% endblock %}
+
+        <form action="{% url 'wagtailadmin_login' %}" method="post" autocomplete="off" novalidate>
+            {% block login_form %}
             {% csrf_token %}
 
             {% url 'wagtailadmin_home' as home_url %}
@@ -28,6 +36,7 @@
             <h1>{% block branding_login %}{% trans "Sign in to Wagtail" %}{% endblock %}</h1>
 
             <ul class="fields">
+                {% block fields %}
                 <li class="full">
                     <div class="field iconfield">
                         {{ form.username.label_tag }}
@@ -55,11 +64,18 @@
                         </div>
                     </li>
                 {% endcomment %}
+                {% endblock %}
                 <li class="submit">
-                    <button type="submit" class="button-longrunning" tabindex="3" data-clicked-text="{% trans 'Signing in...' %}"><span class="icon icon-spinner"></span><em>{% trans 'Sign in' %}</em></button>
+                    {% block submit_buttons %}
+                    <button type="submit" class="button button-longrunning" tabindex="3" data-clicked-text="{% trans 'Signing in...' %}"><span class="icon icon-spinner"></span><em>{% trans 'Sign in' %}</em></button>
+                    {% endblock %}
                 </li>
             </ul>
+        {% endblock %}
         </form>
+
+        {% block below_login %}{% endblock %}
+
     </div>
 {% endblock %}
 

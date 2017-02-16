@@ -4,13 +4,14 @@
 #
 # Translators:
 # Thijs Kramer <thijskramer@gmail.com>, 2015
+# Thijs Kramer <thijskramer@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:02+0000\n"
-"PO-Revision-Date: 2016-02-05 17:11+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2017-02-06 12:40+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -23,16 +24,21 @@ msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
 msgstr "Verplicht. Maximaal 30 tekens. Alleen letters, cijfers en @/./+/-/_."
 
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
-msgstr "Deze waarde mag alleen letters, cijfers en @/./+/-/_ bevatten."
+msgstr ""
+"In dit veld zijn alleen letters, cijfers en de tekens @.+-_ toegestaan."
 
 msgid "A user with that username already exists."
-msgstr "Deze gebruikersnaam bestaat al. "
+msgstr "Er bestaat al een gebruiker met deze gebruikersnaam."
 
 msgid "The two password fields didn't match."
-msgstr "De beide wachtwoordvelden komen niet overeen."
+msgstr "De beide wachtwoorden komen niet overeen."
 
 msgid "Administrator"
-msgstr "Beheerder"
+msgstr "Administrator"
+
+msgid "Administrators have full access to manage any object or setting."
+msgstr ""
+"Administrators hebben volledige rechten op ieder object en alle instellingen."
 
 msgid "Password"
 msgstr "Wachtwoord"
@@ -41,10 +47,10 @@ msgid "Leave blank if not changing."
 msgstr "Laat leeg indien u dit niet wilt wijzigen."
 
 msgid "Password confirmation"
-msgstr "Wachtwoord bevestiging"
+msgstr "Herhaal wachtwoord"
 
 msgid "Enter the same password as above, for verification."
-msgstr "Voer hetzelfde wachtwoord als hierboven in, ter verificatie."
+msgstr "Voer ter bevestiging hetzelfde wachtwoord nogmaals in."
 
 msgid "Email"
 msgstr "E-mail"
@@ -58,25 +64,29 @@ msgstr "Achternaam"
 msgid "A group with that name already exists."
 msgstr "Er bestaat al een groep met deze naam. "
 
+msgid "submitted notifications"
+msgstr "ingezonden notificaties"
+
 msgid "Receive notification when a page is submitted for moderation"
 msgstr "Ontvang een bericht wanneer een pagina ter goedkeuring is aangeboden"
+
+msgid "approved notifications"
+msgstr "goedgekeurde notificaties"
 
 msgid "Receive notification when your page edit is approved"
 msgstr "Ontvang een bericht wanneer uw wijziging op een pagina is goedgekeurd"
 
+msgid "rejected notifications"
+msgstr "afgewezen notificaties"
+
 msgid "Receive notification when your page edit is rejected"
 msgstr "Ontvang een bericht wanneer uw wijziging op een pagina is afgekeurd"
 
+msgid "user profile"
+msgstr "gebruikersprofiel"
+
 msgid "Delete group"
 msgstr "Verwijder groep"
-
-#, python-format
-msgid ""
-"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> users "
-"assigned."
-msgstr ""
-"Er zijn <strong>%(group_user_count)s</strong> gebruikers aan de groep "
-"'%(group_name)s' toegewezen."
 
 msgid ""
 "Deleting this group will revoke this group's permissions from all member "
@@ -123,9 +133,6 @@ msgstr "Pagina rechten"
 
 msgid "Page"
 msgstr "Pagina"
-
-msgid "Permission type"
-msgstr "Bevoegdheid type"
 
 msgid "Add a page permission"
 msgstr "Voeg een paginabevoegdheid toe"

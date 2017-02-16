@@ -5,13 +5,15 @@
 # Translators:
 # Aarni Koskela, 2016
 # Eetu Häivälä <eetu.haivala@anders.fi>, 2016
+# Juha Yrjölä <juha.yrjola@iki.fi>, 2016
+# Rauli L. <rauli.laine@iki.fi>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:02+0000\n"
-"PO-Revision-Date: 2016-02-05 17:09+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2016-09-22 15:03+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -80,6 +82,18 @@ msgstr "Korkeus"
 
 msgid "Closeness"
 msgstr "Läheisyys"
+
+msgid "Add"
+msgstr "Lisää"
+
+msgid "Add/edit images you own"
+msgstr "Lisää/muokkaa kuvia jota omistat"
+
+msgid "Edit"
+msgstr "Muokkaa"
+
+msgid "Edit any image"
+msgstr "Muokkaa mitä vain kuvaa"
 
 msgid "title"
 msgstr "otsikko"
@@ -221,11 +235,19 @@ msgstr ""
 
 #, python-format
 msgid ""
-"You've not uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">add one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Et ole lisännyt yhtään kuvaa. Mikset vaikka <a href="
-"\"%(wagtailimages_add_image_url)s\">lisäisi yhtä nyt</a>?"
+"Et ole lähettänyt yhtään kuvaa tähän kokoelmaan. Mikset vaikka <a href="
+"\"%(wagtailimages_add_image_url)s\">lähettäisi yhtä nyt</a>?"
+
+#, python-format
+msgid ""
+"You haven't uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+msgstr ""
+"Et ole lähettänyt yhtään kuvaa. Mikset vaikka <a href="
+"\"%(wagtailimages_add_image_url)s\">lähettäisi yhtä nyt</a>?"
 
 msgid "Generating URL"
 msgstr "Generoidaan osoitetta"
@@ -277,6 +299,9 @@ msgstr "Raahaa ja pudota kuvia tälle alueelle lähettääksesi ne heti."
 msgid "Or choose from your computer"
 msgstr "Tai valitse tietokoneeltasi"
 
+msgid "Add to collection:"
+msgstr "Lisää kokoelmaan:"
+
 msgid ""
 "Upload successful. Please update this image with a more appropriate title, "
 "if necessary. You may also delete the image completely if the upload wasn't "
@@ -288,6 +313,12 @@ msgstr ""
 msgid "Sorry, upload failed."
 msgstr "Pahoittelut, siirto epäonnistui."
 
+msgid "Server Error"
+msgstr "Palvelinvirhe"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Raportoi tämä virhe sivuston ylläpitäjälle seuraavan tiedon kanssa:"
+
 msgid "Image updated."
 msgstr "Kuva päivitetty."
 
@@ -296,6 +327,12 @@ msgstr "Päivitä"
 
 msgid "Delete"
 msgstr "Poista"
+
+msgid "Image permissions"
+msgstr "Kuvan oikeudet"
+
+msgid "Add an image permission"
+msgstr "Lisää kuvaoikeus"
 
 msgid "Search images"
 msgstr "Hae kuvia"
@@ -325,11 +362,14 @@ msgstr "Kuva '{0}' poistettu."
 msgid "Image '{0}' added."
 msgstr "Kuva '{0}' lisätty."
 
-msgid "Edit"
-msgstr "Muokkaa"
-
 msgid "The image could not be created due to errors."
 msgstr "Kuvaa ei voitu luoda virheiden vuoksi."
+
+#, python-format
+msgid "%(count)s image"
+msgid_plural "%(count)s images"
+msgstr[0] "%(count)s kuva"
+msgstr[1] "%(count)s kuvaa"
 
 msgid "Choose another image"
 msgstr "Valitse toinen kuva"

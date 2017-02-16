@@ -5,14 +5,15 @@
 # Translators:
 # Henrik Kröger <hedwig@riseup.net>, 2016
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
+# Moritz Pfeiffer <moritz@alp-phone.ch>, 2016
 # Wasilis Mandratzis-Walz, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:02+0000\n"
-"PO-Revision-Date: 2016-02-07 13:52+0000\n"
-"Last-Translator: Henrik Kröger <hedwig@riseup.net>\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2016-05-13 06:17+0000\n"
+"Last-Translator: Moritz Pfeiffer <moritz@alp-phone.ch>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -47,3 +48,30 @@ msgstr "Standard"
 
 msgid "Sites"
 msgstr "Webseiten"
+
+msgid "Add a site"
+msgstr "Webseite hinzufügen"
+
+msgid "Add site"
+msgstr "Webseite hinzufügen"
+
+#, python-brace-format
+msgid "Site '{0}' created."
+msgstr "Webseite '{0}' erstellt."
+
+#, python-brace-format
+msgid "Site '{0}' updated."
+msgstr "Webseite '{0}' geändert."
+
+msgid "The site could not be saved due to errors."
+msgstr "Aufgrund von Fehlern konnte die Webseite nicht gespeichert werden."
+
+msgid "Delete site"
+msgstr "Webseite löschen"
+
+#, python-brace-format
+msgid "Site '{0}' deleted."
+msgstr "Webseite '{0}' gelöscht"
+
+msgid "Are you sure you want to delete this site?"
+msgstr "Sind Sie sicher, dass Sie diese Webseite löschen möchten?"

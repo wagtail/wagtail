@@ -4,13 +4,14 @@
 #
 # Translators:
 # Maris Serzans <maris.serzans@gmail.com>, 2015
+# Reinis Rozenbergs <reinisr@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:02+0000\n"
-"PO-Revision-Date: 2016-02-05 17:09+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2016-09-22 15:03+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/"
 "lv/)\n"
 "MIME-Version: 1.0\n"
@@ -47,7 +48,7 @@ msgid "Filter"
 msgstr "Atsijāt"
 
 msgid "Original size"
-msgstr "Sākotnējais izmērs"
+msgstr "Oriģinālais izmērs"
 
 msgid "Resize to width"
 msgstr "Mainīt platumu"
@@ -63,6 +64,9 @@ msgstr "Platums"
 
 msgid "Height"
 msgstr "Augstums"
+
+msgid "Edit"
+msgstr "Labot"
 
 msgid "Choose an image"
 msgstr "Izvēlēties attēlu"
@@ -122,14 +126,6 @@ msgstr "Attēli"
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
 msgstr "Nav attēlu, kas atbilst \"<em>%(query_string)s</em>\""
-
-#, python-format
-msgid ""
-"You've not uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">add one now</a>?"
-msgstr ""
-"Nav augšupielādētu attēlu. <a href=\"%(wagtailimages_add_image_url)s"
-"\">Pievienot jaunus?</a>"
 
 msgid "URL"
 msgstr "Adrese"
@@ -202,9 +198,6 @@ msgstr "Attēls '{0}' dzēsts."
 #, python-brace-format
 msgid "Image '{0}' added."
 msgstr "Attēls '{0}' pievienots."
-
-msgid "Edit"
-msgstr "Labot"
 
 msgid "The image could not be created due to errors."
 msgstr "Attēlu nevarēja izveidot kļūdu dēļ."

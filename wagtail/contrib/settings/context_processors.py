@@ -1,3 +1,5 @@
+from __future__ import absolute_import, unicode_literals
+
 from django.utils.encoding import python_2_unicode_compatible
 
 from .registry import registry
@@ -53,4 +55,12 @@ class SettingModuleProxy(dict):
 
 
 def settings(request):
-    return {'settings': SettingsProxy(request.site)}
+    site = getattr(request, 'site', None)
+    if site is None:
+        # Can't assume SiteMiddleware already executed
+        # (e.g. middleware rendering a template before that)
+        # Unittest or email templates might also mock request
+        # objects that don't have a request.site.
+        return {}
+    else:
+        return {'settings': SettingsProxy(site)}

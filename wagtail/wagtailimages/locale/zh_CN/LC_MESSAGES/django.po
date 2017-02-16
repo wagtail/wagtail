@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:02+0000\n"
-"PO-Revision-Date: 2016-02-05 17:09+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2016-09-22 15:03+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -75,6 +75,9 @@ msgstr "宽度"
 
 msgid "Height"
 msgstr "高度"
+
+msgid "Edit"
+msgstr "编辑"
 
 msgid "Choose an image"
 msgstr "选择一个图像"
@@ -180,13 +183,6 @@ msgstr "图像"
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
 msgstr "对不起，没有符合\"<em>%(query_string)s</em>\"的图像。"
 
-#, python-format
-msgid ""
-"You've not uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">add one now</a>?"
-msgstr ""
-"还没上传图像呢。来<a href=\"%(wagtailimages_add_image_url)s\">上传一个</a>吧?"
-
 msgid "Generating URL"
 msgstr "生成URL"
 
@@ -277,9 +273,6 @@ msgstr "图片'{0}' 已删除。"
 #, python-brace-format
 msgid "Image '{0}' added."
 msgstr "图片'{0}'已添加"
-
-msgid "Edit"
-msgstr "编辑"
 
 msgid "The image could not be created due to errors."
 msgstr "无法创建图像，出现错误。"

@@ -10,10 +10,12 @@ To install the styleguide module on your site, add it to the list of ``INSTALLED
 .. code-block:: python
 
     INSTALLED_APPS = (
-       ...
-       'wagtail.contrib.wagtailstyleguide',
-       ...
+        ...
+        'wagtail.contrib.wagtailstyleguide',
+        ...
     )
+
+This will add a 'Styleguide' item to the Settings menu in the admin.
 
 At present the styleguide is static: new UI components must be added to it manually, and there are no hooks into it for other modules to use. We hope to support hooks in the future.
 

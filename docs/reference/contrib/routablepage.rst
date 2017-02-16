@@ -11,6 +11,20 @@ The ``RoutablePageMixin`` mixin provides a convenient way for a page to respond 
 A ``Page`` using ``RoutablePageMixin`` exists within the page tree like any other page, but URL paths underneath it are checked against a list of patterns. If none of the patterns match, control is passed to subpages as usual (or failing that, a 404 error is thrown).
 
 
+Installation
+============
+
+Add ``"wagtail.contrib.wagtailroutablepage"`` to your INSTALLED_APPS:
+
+ .. code-block:: python
+
+     INSTALLED_APPS = [
+        ...
+
+        "wagtail.contrib.wagtailroutablepage",
+     ]
+
+
 The basics
 ==========
 

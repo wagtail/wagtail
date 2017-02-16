@@ -15,7 +15,7 @@
         </div>
     {% endif %}
 
-    <form action="{% url 'wagtailredirects:add' %}" method="POST" class="nice-padding">
+    <form action="{% url 'wagtailredirects:add' %}" method="POST" class="nice-padding" novalidate>
         {% csrf_token %}
 
         <ul class="fields">
@@ -24,11 +24,11 @@
             {% endfor %}
 
             <li>
-                <input type="submit" value="{% trans 'Save' %}" />
+                <input type="submit" value="{% trans 'Save' %}" class="button" />
             </li>
         </ul>
     </form>
-    
+
 {% endblock %}
 
 {% block extra_js %}

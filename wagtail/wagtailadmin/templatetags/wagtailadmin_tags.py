@@ -1,30 +1,39 @@
-from __future__ import unicode_literals
+from __future__ import absolute_import, unicode_literals
 
-from django.conf import settings
+import itertools
+
+import django
 from django import template
+from django.conf import settings
 from django.contrib.humanize.templatetags.humanize import intcomma
+from django.contrib.messages.constants import DEFAULT_TAGS as MESSAGE_TAGS
 from django.template.defaultfilters import stringfilter
+from django.utils.html import conditional_escape
 from django.utils.safestring import mark_safe
 
-from wagtail.wagtailcore import hooks
-from wagtail.wagtailcore.models import get_navigation_menu_items, UserPagePermissionsProxy, PageViewRestriction
-from wagtail.wagtailcore.utils import camelcase_to_underscore, escape_script
-from wagtail.wagtailcore.utils import cautious_slugify as _cautious_slugify
+from wagtail.utils.pagination import DEFAULT_PAGE_KEY, replace_page_in_query
 from wagtail.wagtailadmin.menu import admin_menu
+from wagtail.wagtailadmin.navigation import get_explorable_root_page, get_navigation_menu_items
 from wagtail.wagtailadmin.search import admin_search_areas
-
-from wagtail.utils.pagination import DEFAULT_PAGE_KEY
-
+from wagtail.wagtailcore import hooks
+from wagtail.wagtailcore.models import Page, PageViewRestriction, UserPagePermissionsProxy
+from wagtail.wagtailcore.utils import cautious_slugify as _cautious_slugify
+from wagtail.wagtailcore.utils import camelcase_to_underscore, escape_script
 
 register = template.Library()
 
 register.filter('intcomma', intcomma)
 
+if django.VERSION >= (1, 9):
+    assignment_tag = register.simple_tag
+else:
+    assignment_tag = register.assignment_tag
 
-@register.inclusion_tag('wagtailadmin/shared/explorer_nav.html')
-def explorer_nav():
+
+@register.inclusion_tag('wagtailadmin/shared/explorer_nav.html', takes_context=True)
+def explorer_nav(context):
     return {
-        'nodes': get_navigation_menu_items()
+        'nodes': get_navigation_menu_items(context['request'].user)
     }
 
 
@@ -42,6 +51,21 @@ def main_nav(context):
     return {
         'menu_html': admin_menu.render_html(request),
         'request': request,
+    }
+
+
+@register.inclusion_tag('wagtailadmin/shared/breadcrumb.html', takes_context=True)
+def explorer_breadcrumb(context, page, include_self=False):
+    user = context['request'].user
+
+    # find the closest common ancestor of the pages that this user has direct explore permission
+    # (i.e. add/edit/publish/lock) over; this will be the root of the breadcrumb
+    cca = get_explorable_root_page(user)
+    if not cca:
+        return {'pages': Page.objects.none()}
+
+    return {
+        'pages': page.get_ancestors(inclusive=include_self).descendant_of(cca, inclusive=True)
     }
 
 
@@ -71,6 +95,14 @@ def ellipsistrim(value, max_length):
 
 
 @register.filter
+def no_thousand_separator(num):
+    """
+    Prevent USE_THOUSAND_SEPARATOR from automatically inserting a thousand separator on this value
+    """
+    return str(num)
+
+
+@register.filter
 def fieldtype(bound_field):
     try:
         return camelcase_to_underscore(bound_field.field.__class__.__name__)
@@ -92,7 +124,7 @@ def widgettype(bound_field):
             return ""
 
 
-@register.assignment_tag(takes_context=True)
+@assignment_tag(takes_context=True)
 def page_permissions(context, page):
     """
     Usage: {% page_permissions page as page_perms %}
@@ -108,7 +140,7 @@ def page_permissions(context, page):
     return context['user_page_permissions'].for_page(page)
 
 
-@register.assignment_tag(takes_context=True)
+@assignment_tag(takes_context=True)
 def test_page_is_public(context, page):
     """
     Usage: {% test_page_is_public page as is_public %}
@@ -142,14 +174,23 @@ def hook_output(hook_name):
     return mark_safe(''.join(snippets))
 
 
-@register.assignment_tag
+@assignment_tag
 def usage_count_enabled():
     return getattr(settings, 'WAGTAIL_USAGE_COUNT_ENABLED', False)
 
 
-@register.assignment_tag
+@assignment_tag
 def base_url_setting():
     return getattr(settings, 'BASE_URL', None)
+
+
+@assignment_tag
+def allow_unicode_slugs():
+    if django.VERSION < (1, 9):
+        # Unicode slugs are unsupported on Django 1.8
+        return False
+    else:
+        return getattr(settings, 'WAGTAIL_ALLOW_UNICODE_SLUGS', True)
 
 
 class EscapeScriptNode(template.Node):
@@ -168,6 +209,7 @@ class EscapeScriptNode(template.Node):
         nodelist = parser.parse(('end' + EscapeScriptNode.TAG_NAME,))
         parser.delete_first_token()
         return cls(nodelist)
+
 
 register.tag(EscapeScriptNode.TAG_NAME, EscapeScriptNode.handle)
 
@@ -281,3 +323,39 @@ def paginate(context, page, base_url='', page_key=DEFAULT_PAGE_KEY,
         'page_key': page_key,
         'paginator': page.paginator,
     }
+
+
+@register.inclusion_tag("wagtailadmin/pages/listing/_buttons.html",
+                        takes_context=True)
+def page_listing_buttons(context, page, page_perms, is_parent=False):
+    button_hooks = hooks.get_hooks('register_page_listing_buttons')
+    buttons = sorted(itertools.chain.from_iterable(
+        hook(page, page_perms, is_parent)
+        for hook in button_hooks))
+    return {'page': page, 'buttons': buttons}
+
+
+@register.simple_tag
+def message_tags(message):
+    level_tag = MESSAGE_TAGS.get(message.level)
+    if message.extra_tags and level_tag:
+        return message.extra_tags + ' ' + level_tag
+    elif message.extra_tags:
+        return message.extra_tags
+    elif level_tag:
+        return level_tag
+    else:
+        return ''
+
+
+@register.simple_tag
+def replace_page_param(query, page_number, page_key='p'):
+    """
+    Replaces ``page_key`` from query string with ``page_number``.
+    """
+    return conditional_escape(replace_page_in_query(query, page_number, page_key))
+
+
+@register.filter('abs')
+def _abs(val):
+    return abs(val)

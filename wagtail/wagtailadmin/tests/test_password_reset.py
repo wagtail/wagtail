@@ -1,6 +1,8 @@
-from django.test import TestCase, override_settings
+from __future__ import absolute_import, unicode_literals
+
 from django.core import mail
 from django.core.urlresolvers import reverse
+from django.test import TestCase, override_settings
 
 from wagtail.tests.utils import WagtailTestUtils
 
@@ -38,7 +40,7 @@ class TestUserPasswordReset(TestCase, WagtailTestUtils):
         # Get password reset page
         response = self.client.get(reverse('wagtailadmin_password_reset'))
 
-        # Check that the user recieved a 404
+        # Check that the user received a 404
         self.assertEqual(response.status_code, 404)
 
     @override_settings(ROOT_URLCONF="wagtail.wagtailadmin.urls")
@@ -56,3 +58,20 @@ class TestUserPasswordReset(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 302)
         self.assertEqual(len(mail.outbox), 1)
         self.assertIn("mysite.com", mail.outbox[0].body)
+
+    def test_password_reset_email_contains_username(self):
+        self.client.post(
+            reverse('wagtailadmin_password_reset'), {'email': 'siteeditor@example.com'}
+        )
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertIn("Your username (in case you've forgotten): siteeditor", mail.outbox[0].body)
+
+    @override_settings(AUTH_USER_MODEL='customuser.EmailUser')
+    def test_password_reset_no_username_when_email_is_username(self):
+        # When the user model is using email as the username, the password reset email
+        # should not contain "Your username (in case you've forgotten)..."
+        self.client.post(
+            reverse('wagtailadmin_password_reset'), {'email': 'siteeditor@example.com'}
+        )
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertNotIn("Your username (in case you've forgotten)", mail.outbox[0].body)

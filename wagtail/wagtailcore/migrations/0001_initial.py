@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.db import models, migrations
 from django.conf import settings
+from django.db import migrations, models
+
 import wagtail.wagtailsearch.index
 
 
@@ -95,7 +96,7 @@ class Migration(migrations.Migration):
             options={
                 'abstract': False,
             },
-            bases=(models.Model, wagtail.wagtailsearch.index.Indexed),
+            bases=(wagtail.wagtailsearch.index.Indexed, models.Model),
         ),
         migrations.RunPython(
             set_page_path_collation, migrations.RunPython.noop

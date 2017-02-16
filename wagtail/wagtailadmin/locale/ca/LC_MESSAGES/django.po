@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:01+0000\n"
-"PO-Revision-Date: 2016-02-05 17:08+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2017-02-06 12:37+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
 "MIME-Version: 1.0\n"
@@ -93,12 +93,6 @@ msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
 msgstr "Aquest slug ja està en ús dins el context de la seva plana pare \"%s\""
 
-msgid "Public"
-msgstr "Publica"
-
-msgid "Private, accessible with the following password"
-msgstr "Privada, accessible amb la següent clau"
-
 msgid "This field is required."
 msgstr "Aquest camp és obligatori"
 
@@ -167,9 +161,6 @@ msgstr "Revisa el teu correu"
 
 msgid "A link to reset your password has been emailed to you."
 msgstr "S'ha enviat un enllaç per reiniciar la contrasenya al teu correu"
-
-msgid "Please follow the link below to reset your password"
-msgstr "Si us plau segueix el link de sota per reiniciar la teva contrasenya"
 
 msgid "Password reset"
 msgstr "Contrasenya reiniciada"
@@ -285,10 +276,6 @@ msgid "Forgotten it?"
 msgstr "Oblidar?"
 
 #, python-format
-msgid "The page \"%(title)s\" has been approved"
-msgstr "La pàgina \"%(title)s\" ha sigut aprovada"
-
-#, python-format
 msgid "The page \"%(title)s\" has been approved."
 msgstr "La pàgina \"%(title)s\" ha sigut aprovada"
 
@@ -296,8 +283,8 @@ msgid "You can view the page here:"
 msgstr "Pots veure la pàgina aquí:"
 
 #, python-format
-msgid "The page \"%(title)s\" has been rejected"
-msgstr "La pàgina \"%(title)s\" ha sigut rebutjada"
+msgid "The page \"%(title)s\" has been approved"
+msgstr "La pàgina \"%(title)s\" ha sigut aprovada"
 
 #, python-format
 msgid "The page \"%(title)s\" has been rejected."
@@ -307,11 +294,18 @@ msgid "You can edit the page here:"
 msgstr "Pots editar la pàgina aquí:"
 
 #, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation"
-msgstr "La pàgina \"%(page)s\" ha sigut enviada per moderació"
+msgid "The page \"%(title)s\" has been rejected"
+msgstr "La pàgina \"%(title)s\" ha sigut rebutjada"
 
 msgid "You can preview the page here:"
 msgstr "Pots veure la vista prèvia de la pàgina aquí:"
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation"
+msgstr "La pàgina \"%(page)s\" ha sigut enviada per moderació"
+
+msgid "Public"
+msgstr "Publica"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -350,19 +344,6 @@ msgstr[0] ""
 msgstr[1] ""
 "\n"
 "Això també esborrarà %(descendant_count)s subpàgines més."
-
-msgid ""
-"Alternatively you can unpublish the page. This removes the page from public "
-"view and you can edit or publish it again later."
-msgstr ""
-"Alternativament pots despublicar la pàgina. Això treu la pàgina de la vista "
-"pública i podràs editar-la o tornar-la a publicar desprès."
-
-msgid "Delete it"
-msgstr "Esborra-ho"
-
-msgid "Unpublish it"
-msgstr "Despublica-ho"
 
 #, python-format
 msgid "Move %(title)s"
@@ -440,9 +421,6 @@ msgstr "Explora"
 msgid "Add a child page to '%(title)s'"
 msgstr "Afegeix una pàgina filla a '%(title)s'"
 
-msgid "Add subpage"
-msgstr "Afegeix subpàgina"
-
 msgid "Add child page"
 msgstr "Afegeix una pàgina filla"
 
@@ -493,18 +471,6 @@ msgstr "S'ha canviat la teva contrasenya!"
 msgid "Page '{0}' created."
 msgstr "Pàgina '{0}' creada."
 
-#, python-brace-format
-msgid "Page '{0}' published."
-msgstr "Pàgina '{0}' publicada."
-
-#, python-brace-format
-msgid "Page '{0}' submitted for moderation."
-msgstr "Pàgina '{0}' enviada per revisió"
-
-#, python-brace-format
-msgid "Page '{0}' updated."
-msgstr "Pàgina '{0}' actualitzada."
-
 msgid "The page could not be saved due to validation errors"
 msgstr "La pàgina no s'ha pogut guardar degut a errors de validació"
 
@@ -526,6 +492,10 @@ msgstr "Pàgina '{0}' moguda."
 #, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "La pàgina '{0}' ja no es troba esperant moderació."
+
+#, python-brace-format
+msgid "Page '{0}' published."
+msgstr "Pàgina '{0}' publicada."
 
 #, python-brace-format
 msgid "Page '{0}' rejected for publication."

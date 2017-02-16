@@ -1,11 +1,12 @@
-from django.db import models
+from __future__ import absolute_import, unicode_literals
 
+from django.db import models
 from taggit.managers import TaggableManager
 
 from wagtail.wagtailsearch import index
 
 
-class SearchTest(models.Model, index.Indexed):
+class SearchTest(index.Indexed, models.Model):
     title = models.CharField(max_length=255)
     content = models.TextField()
     live = models.BooleanField(default=False)
@@ -57,7 +58,7 @@ class SearchTest(models.Model, index.Indexed):
 class SearchTestChild(SearchTest):
     subtitle = models.CharField(max_length=255, null=True, blank=True)
     extra_content = models.TextField()
-    page = models.ForeignKey('wagtailcore.Page', null=True, blank=True)
+    page = models.ForeignKey('wagtailcore.Page', null=True, blank=True, on_delete=models.SET_NULL)
 
     search_fields = SearchTest.search_fields + [
         index.SearchField('subtitle', partial_match=True),
@@ -67,4 +68,14 @@ class SearchTestChild(SearchTest):
             index.SearchField('search_description'),
             index.FilterField('live'),
         ]),
+    ]
+
+
+class AnotherSearchTestChild(SearchTest):
+    # Checks that having the same field name in two child models with different
+    # search configuration doesn't give an error
+    subtitle = models.CharField(max_length=255, null=True, blank=True)
+
+    search_fields = SearchTest.search_fields + [
+        index.SearchField('subtitle', boost=10),
     ]

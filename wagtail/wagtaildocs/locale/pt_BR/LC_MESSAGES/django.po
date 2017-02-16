@@ -5,14 +5,15 @@
 # Translators:
 # Thiago Cangussu <cng.thg@gmail.com>, 2014
 # Claudemiro Alves Feitosa Neto <dimiro1@gmail.com>, 2015
+# Luiz Boaretto <lboaretto@gmail.com>, 2016-2017
 # Thiago Cangussu <cangussu.thg@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:01+0000\n"
-"PO-Revision-Date: 2016-02-05 17:09+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2017-02-09 14:17+0000\n"
+"Last-Translator: Luiz Boaretto <lboaretto@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -20,6 +21,36 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pt_BR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Add"
+msgstr "Adicionar"
+
+msgid "Add/edit documents you own"
+msgstr "Adicionar/editar seus documentos"
+
+msgid "Edit"
+msgstr "Editar"
+
+msgid "Edit any document"
+msgstr "Editar qualquer documento"
+
+msgid "title"
+msgstr "título"
+
+msgid "file"
+msgstr "arquivo"
+
+msgid "created at"
+msgstr "criado em"
+
+msgid "uploaded by user"
+msgstr "enviado pelo usuário"
+
+msgid "tags"
+msgstr "tags"
+
+msgid "document"
+msgstr "documento"
 
 msgid "Choose a document"
 msgstr "Escolha um documento"
@@ -29,6 +60,15 @@ msgstr "Buscar"
 
 msgid "Upload"
 msgstr "Enviar"
+
+msgid "Uploading..."
+msgstr "Enviando..."
+
+msgid "Server Error"
+msgstr "Erro de servidor"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Relatar este erro ao seu webmaster com as seguintes informações:"
 
 #, python-format
 msgid ""
@@ -107,6 +147,18 @@ msgid "Uploaded"
 msgstr "Enviados"
 
 #, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s atrás"
+
+#, python-format
+msgid ""
+"You haven't uploaded any documents in this collection. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"Você não adicionou documentos nesta coleção. Por que não <a href="
+"\"%(wagtaildocs_add_document_url)s\">enviar um agora</a>?"
+
+#, python-format
 msgid ""
 "You haven't uploaded any documents. Why not <a href="
 "\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
@@ -149,15 +201,52 @@ msgstr[1] ""
 "\n"
 "<span>%(total)s</span> Documentos"
 
+msgid "Add multiple documents"
+msgstr "Adicionar vários documentos"
+
+msgid "Add documents"
+msgstr "Adicionar documentos"
+
+msgid "Drag and drop documents into this area to upload immediately."
+msgstr ""
+"Arraste e solte os documentos para esta área para enviar imediatamente."
+
+msgid "Or choose from your computer"
+msgstr "Ou escolha do seu computador"
+
+msgid "Add to collection:"
+msgstr "Adicionar a coleção:"
+
+msgid ""
+"Upload successful. Please update this documents with a more appropriate "
+"title, if necessary. You may also delete the document completely if the "
+"upload wasn't required."
+msgstr ""
+"Enviado com sucesso. Por favor, atualize estes documentos com um título mais "
+"apropriado, se necessário. Você também pode excluir o documento "
+"completamente se o envio não foi necessário."
+
+msgid "Sorry, upload failed."
+msgstr "Desculpe, o envio falhou."
+
+msgid "Update"
+msgstr "Atualizar"
+
+msgid "Delete"
+msgstr "Excluir"
+
+msgid "Document permissions"
+msgstr "Permissões de documentos"
+
+msgid "Add a document permission"
+msgstr "Adicionar uma permissão de documento"
+
 msgid "Search documents"
 msgstr "Buscar documentos"
 
 #, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Documento '{0}' adicionado."
-
-msgid "Edit"
-msgstr "Editar"
 
 msgid "The document could not be saved due to errors."
 msgstr "O documento não pôde ser salvo devido à erros."
@@ -172,12 +261,15 @@ msgstr ""
 "Este arquivo não pode ser encontrado. Por favor altere a fonte ou remova o "
 "documento"
 
-msgid "Delete"
-msgstr "Excluir"
-
 #, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Documento '{0}' apagado."
+
+#, python-format
+msgid "%(count)s document"
+msgid_plural "%(count)s documents"
+msgstr[0] "%(count)s documento"
+msgstr[1] "%(count)s documentos"
 
 msgid "Choose another document"
 msgstr "Escolha um outro documento"

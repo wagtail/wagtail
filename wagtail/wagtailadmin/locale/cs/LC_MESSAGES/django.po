@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:01+0000\n"
-"PO-Revision-Date: 2016-02-05 17:08+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2017-02-06 12:37+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -26,6 +26,9 @@ msgstr "Naplánovat publikaci"
 
 msgid "Common page configuration"
 msgstr "Nastavení stránky"
+
+msgid "Content"
+msgstr "Obsah"
 
 msgid "Settings"
 msgstr "Nastavení"
@@ -114,12 +117,6 @@ msgid ""
 msgstr ""
 "Tento název pro URL je již použit v kontextu s rodičovskou stránkou \"%s\""
 
-msgid "Public"
-msgstr "Veřejné"
-
-msgid "Private, accessible with the following password"
-msgstr "Soukromé, přístupné pod následujícím heslem"
-
 msgid "This field is required."
 msgstr "Toto pole je povinné."
 
@@ -195,9 +192,6 @@ msgstr "Zkontrolujte svoji e-mailovou schránku"
 msgid "A link to reset your password has been emailed to you."
 msgstr "Odkaz pro obnovu hesla jsme Vám poslali e-mailem."
 
-msgid "Please follow the link below to reset your password"
-msgstr "Použijte odkaz níže k nastavení nového hesla"
-
 msgid "Password reset"
 msgstr "Obnovení hesla"
 
@@ -248,6 +242,9 @@ msgstr "Vložit odkaz"
 
 msgid "Add an external link"
 msgstr "Vložit externí odkaz"
+
+msgid "Name"
+msgstr "Jméno"
 
 msgid "Yes, delete"
 msgstr "Ano, smazat"
@@ -329,22 +326,18 @@ msgid "Signing in..."
 msgstr "Přihlašování..."
 
 #, python-format
-msgid "The page \"%(title)s\" has been approved"
-msgstr "Stránka \"%(title)s\" byla schválena"
-
-#, python-format
 msgid "The page \"%(title)s\" has been approved."
 msgstr "Stránka \"%(title)s\" byla schválena."
 
 msgid "You can view the page here:"
 msgstr "Stránku můžete zobrazit zde:"
 
+#, python-format
+msgid "The page \"%(title)s\" has been approved"
+msgstr "Stránka \"%(title)s\" byla schválena"
+
 msgid "Edit your notification preferences here:"
 msgstr "Své nastavení notifikací najdete zde:"
-
-#, python-format
-msgid "The page \"%(title)s\" has been rejected"
-msgstr "Stránka \"%(title)s\" byla zamítnuta"
 
 #, python-format
 msgid "The page \"%(title)s\" has been rejected."
@@ -354,11 +347,15 @@ msgid "You can edit the page here:"
 msgstr "Stránku můžete upravit zde:"
 
 #, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation"
-msgstr "Stránka \"%(page)s\" byla odeslána ke schválení"
+msgid "The page \"%(title)s\" has been rejected"
+msgstr "Stránka \"%(title)s\" byla zamítnuta"
 
 msgid "You can preview the page here:"
 msgstr "Náhled stránky můžete zobrazit zde:"
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation"
+msgstr "Stránka \"%(page)s\" byla odeslána ke schválení"
 
 msgid "Page privacy"
 msgstr "Viditelnost"
@@ -383,6 +380,9 @@ msgstr "Odemknuto"
 
 msgid "Privacy"
 msgstr "Viditelnost"
+
+msgid "Public"
+msgstr "Veřejné"
 
 msgid "Private"
 msgstr "Soukromé"
@@ -428,18 +428,11 @@ msgstr[2] ""
 "\n"
 "Tímto dojde též ke smazání %(descendant_count)s podstránek."
 
-msgid ""
-"Alternatively you can unpublish the page. This removes the page from public "
-"view and you can edit or publish it again later."
-msgstr ""
-"Můžete také jen zrušit publikaci stránky. Tím přestane být stránka veřejně "
-"viditelná a později ji můžete upravit nebo znovu publikovat."
+msgid "Yes, delete it"
+msgstr "Ano, smazat"
 
-msgid "Delete it"
-msgstr "Smazat"
-
-msgid "Unpublish it"
-msgstr "Zrušit publikaci"
+msgid "No, don't delete it"
+msgstr "Ne, nemazat"
 
 #, python-format
 msgid "Move %(title)s"
@@ -511,8 +504,14 @@ msgstr "Publikovat"
 msgid "Submit for moderation"
 msgstr "Odeslat ke schválení"
 
+msgid "This page has unsaved changes."
+msgstr "Na této stránce jsou neuložené změny."
+
 msgid "Page locked"
 msgstr "Stránka uzamčena"
+
+msgid "Publish this revision"
+msgstr "Publikovat tuto revizi"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -521,6 +520,9 @@ msgstr "Naposledy upraveno: %(last_mod)s"
 #, python-format
 msgid "by %(modified_by)s"
 msgstr "uživatelem %(modified_by)s"
+
+msgid "Revisions"
+msgstr "Revize"
 
 #, python-format
 msgid "Exploring %(title)s"
@@ -556,9 +558,6 @@ msgstr "Zobrazit podstránky \"%(title)s\""
 #, python-format
 msgid "Add a child page to '%(title)s'"
 msgstr "Přidat podstránku pod \"%(title)s\""
-
-msgid "Add subpage"
-msgstr "Přidat podstránku"
 
 msgid "Add child page"
 msgstr "Přidat podstránku"
@@ -598,6 +597,9 @@ msgstr "Zvolte novou nadřazenou stránku pro %(title)s"
 msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Zvolte novou nadřazenou stránku pro <span>%(title)s</span>"
 
+msgid "Current draft"
+msgstr "Současný koncept"
+
 #, python-format
 msgid ""
 "\n"
@@ -628,8 +630,14 @@ msgstr "Zadejte hledaný výraz"
 msgid "No pages use"
 msgstr "Žádné stránky typu"
 
+msgid "Collection"
+msgstr "Kolekce"
+
 msgid "Home"
 msgstr "Domů"
+
+msgid "All collections"
+msgstr "Všechny kolekce"
 
 msgid "January"
 msgstr "leden"
@@ -705,23 +713,29 @@ msgstr "Strana %(page_num)s z %(total_pages)s."
 msgid "Other searches"
 msgstr "Další hledání"
 
-msgid "User bar"
-msgstr "Uživatelská lišta"
-
 msgid "Go to Wagtail admin interface"
 msgstr "Přejít do redakčního systému"
 
 msgid "Add a child page"
 msgstr "Přidat podstránku"
 
-msgid "Add"
-msgstr "Přidat"
-
 msgid "Your password has been changed successfully!"
 msgstr "Vaše heslo bylo úspěšně změněno."
 
 msgid "Your preferences have been updated successfully!"
 msgstr "Vaše nastavení bylo uloženo."
+
+msgid "You have been successfully logged out."
+msgstr "Právě jste se úspěšně odhlásili."
+
+msgid "Add a collection"
+msgstr "Přidat kolekci"
+
+msgid "Add collection"
+msgstr "Přidat kolekci"
+
+msgid "Delete collection"
+msgstr "Smazat kolekci"
 
 msgid "View live"
 msgstr "Zobrazit publikovanou verzi"
@@ -735,18 +749,6 @@ msgstr "Stránka '{0}' byla vytvořena."
 
 msgid "The page could not be created due to validation errors"
 msgstr "Stránka nebyla vytvořena, zkontrolujte správné vyplnění polí"
-
-#, python-brace-format
-msgid "Page '{0}' published."
-msgstr "Stránka '{0}' byla publikována."
-
-#, python-brace-format
-msgid "Page '{0}' submitted for moderation."
-msgstr "Stránka '{0}' byla odeslána ke schválení."
-
-#, python-brace-format
-msgid "Page '{0}' updated."
-msgstr "Stránka '{0}' byla upravena."
 
 msgid "The page could not be saved as it is locked"
 msgstr "Stránku nelze uložit, protože je uzamčena"
@@ -782,6 +784,10 @@ msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "Stránka '{0}' nyní nečeká na schválení."
 
 #, python-brace-format
+msgid "Page '{0}' published."
+msgstr "Stránka '{0}' byla publikována."
+
+#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "Publikace stránky '{0}' byla zamítnuta."
 
@@ -793,6 +799,12 @@ msgstr "Stránka '{0}' je nyní uzamčena."
 msgid "Page '{0}' is now unlocked."
 msgstr "Stránka '{0}' je nyní odemčena."
 
+msgid "Pages"
+msgstr "Stránky"
+
+msgid "More"
+msgstr "Více"
+
 msgid "Choose an item"
 msgstr "Zvolit položku"
 
@@ -801,6 +813,9 @@ msgstr "Zvolit jinou položku"
 
 msgid "Clear choice"
 msgstr "Zrušit výběr"
+
+msgid "Edit this item"
+msgstr "Upravit tuto položku"
 
 msgid "Choose another page"
 msgstr "Zvolit jinou stránku"

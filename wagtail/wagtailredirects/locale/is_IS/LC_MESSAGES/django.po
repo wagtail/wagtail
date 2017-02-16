@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2016
 # saevarom <saevar@saevar.is>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:02+0000\n"
-"PO-Revision-Date: 2015-12-17 13:59+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2016-10-04 09:28+0000\n"
+"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -20,12 +20,42 @@ msgstr ""
 "Language: is_IS\n"
 "Plural-Forms: nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);\n"
 
+msgid "From site"
+msgstr "Frá síðu"
+
+msgid "All sites"
+msgstr "Allar síður"
+
+msgid "A redirect with this path already exists."
+msgstr "Tilvísun á þessa slóð er þegar til"
+
+msgid "redirect from"
+msgstr "Tilvísun frá"
+
+msgid "site"
+msgstr "síðu"
+
+msgid "permanent"
+msgstr "endanleg"
+
 msgid ""
 "Recommended. Permanent redirects ensure search engines forget the old page "
 "(the 'Redirect from') and index the new page instead."
 msgstr ""
 "Mælt með. Endanleg tilvísun passar upp á að leitarvélar gleymi eldri síðunni "
 "(þaðan sem vísað er frá) og indexi nýju síðuna í staðinn."
+
+msgid "redirect to a page"
+msgstr "tilvísun á síðu"
+
+msgid "redirect to any URL"
+msgstr "tilvísun á slóð"
+
+msgid "temporary"
+msgstr "Tímabundið"
+
+msgid "redirect"
+msgstr "tilvísun"
 
 msgid "Add redirect"
 msgstr "Bæta við tilvísun"
@@ -73,9 +103,6 @@ msgstr "Tegund"
 
 msgid "Edit this redirect"
 msgstr "Breyta þessari tilvísun"
-
-msgid "primary"
-msgstr "aðal"
 
 #, python-format
 msgid ""

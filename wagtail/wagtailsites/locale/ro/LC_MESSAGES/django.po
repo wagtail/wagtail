@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:02+0000\n"
-"PO-Revision-Date: 2016-02-05 18:13+0000\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2016-08-01 14:17+0000\n"
 "Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
@@ -27,13 +27,13 @@ msgid "Choose a different root page"
 msgstr "Alege o altă pagină de bază"
 
 msgid "Site"
-msgstr "Sit"
+msgstr "Sait"
 
 msgid "Port"
 msgstr "Port"
 
 msgid "Site name"
-msgstr "Nume sit"
+msgstr "Nume sait"
 
 msgid "Root page"
 msgstr "Pagină de bază"
@@ -45,4 +45,31 @@ msgid "Default"
 msgstr "Implicit"
 
 msgid "Sites"
-msgstr "Site-uri"
+msgstr "Saituri"
+
+msgid "Add a site"
+msgstr "Adaugă un sait"
+
+msgid "Add site"
+msgstr "Adaugă sait"
+
+#, python-brace-format
+msgid "Site '{0}' created."
+msgstr "Sait-ul '{0}' a fost creat."
+
+#, python-brace-format
+msgid "Site '{0}' updated."
+msgstr "Sait-ul '{0}' a fost actualizat."
+
+msgid "The site could not be saved due to errors."
+msgstr "Sait-ul nu a fost salvat din cauza erorilor."
+
+msgid "Delete site"
+msgstr "Șterge sait"
+
+#, python-brace-format
+msgid "Site '{0}' deleted."
+msgstr "Sait-ul '{0}' a fost șters."
+
+msgid "Are you sure you want to delete this site?"
+msgstr "Sigur doriți să ștergeți acest sait?"

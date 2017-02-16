@@ -22,7 +22,7 @@ FieldPanel
 
         The CSS class ``full`` can be used to format the panel so it covers the full width of the Wagtail page editor.
 
-        The CSS class ``title`` can be used to mark a field as the source for auto-generated slug strings.
+        The CSS class ``title`` can be used to give the field a larger text size, suitable for representing page titles and section headings.
 
     .. attribute:: FieldPanel.widget (optional)
 
@@ -66,7 +66,7 @@ MultiFieldPanel
 InlinePanel
 -----------
 
-.. class:: InlinePanel(relation_name, panels=None, classname=None, label='', help_text='', min_num=None, max_num=None)
+.. class:: InlinePanel(relation_name, panels=None, classname='', label='', help_text='', min_num=None, max_num=None)
 
     This panel allows for the creation of a "cluster" of related objects over a join to a separate model, such as a list of related links or slides to an image carousel.
 
@@ -81,7 +81,7 @@ FieldRowPanel
 
     Use of FieldRowPanel particularly helps reduce the "snow-blindness" effect of seeing so many fields on the page, for complex models. It also improves the perceived association between fields of a similar nature. For example if you created a model representing an "Event" which had a starting date and ending date, it may be intuitive to find the start and end date on the same "row".
 
-    FieldRowPanel should be used in combination with ``col*`` class names added to each of the child Panels of the FieldRowPanel. The Wagtail editing interface is laid out using a grid system, in which the maximum width of the editor is 12 columns. Classes ``col1``-``col12`` can be applied to each child of a FieldRowPanel. The class ``col3`` will ensure that field appears 3 columns wide or a quarter the width. ``col4`` would cause the field to be 4 columns wide, or a third the width.
+    By default, the panel is divided into equal-width columns, but this can be overridden by adding ``col*`` class names to each of the child Panels of the FieldRowPanel. The Wagtail editing interface is laid out using a grid system, in which the maximum width of the editor is 12 columns. Classes ``col1``-``col12`` can be applied to each child of a FieldRowPanel. The class ``col3`` will ensure that field appears 3 columns wide or a quarter the width. ``col4`` would cause the field to be 4 columns wide, or a third the width.
 
     .. attribute:: FieldRowPanel.children
 
@@ -105,7 +105,7 @@ PageChooserPanel
 
 
         class BookPage(Page):
-            publisher = models.ForeignKey(
+            related_page = models.ForeignKey(
                 'wagtailcore.Page',
                 null=True,
                 blank=True,
@@ -117,7 +117,9 @@ PageChooserPanel
                 PageChooserPanel('related_page', 'demo.PublisherPage'),
             ]
 
-    ``PageChooserPanel`` takes one required argument, the field name. Optionally, specifying a page type (in the form of an ``"appname.modelname"`` string) will filter the chooser to display only pages of that type. A list or tuple of page types can also be passed in, to allow choosing a page that matches any of those page types::
+    ``PageChooserPanel`` takes one required argument, the field name. Optionally, specifying a page type (in the form of an ``"appname.modelname"`` string) will filter the chooser to display only pages of that type. A list or tuple of page types can also be passed in, to allow choosing a page that matches any of those page types:
+
+    .. code-block:: python
 
         PageChooserPanel('related_page', ['demo.PublisherPage', 'demo.AuthorPage'])
 
@@ -157,6 +159,26 @@ ImageChooserPanel
     .. _Django model field reference (on_delete): https://docs.djangoproject.com/en/dev/ref/models/fields/#django.db.models.ForeignKey.on_delete
 
     Displaying ``Image`` objects in a template requires the use of a template tag. See :ref:`image_tag`.
+
+FormSubmissionsPanel
+--------------------
+
+.. module:: wagtail.wagtailforms.edit_handlers
+
+.. class:: FormSubmissionsPanel
+
+    This panel adds a single, read-only section in the edit interface for pages implementing the :class:`~wagtail.wagtailforms.models.AbstractForm` model.
+    It includes the number of total submissions for the given form and also a link to the listing of submissions.
+
+    .. code-block:: python
+
+        from wagtail.wagtailforms.models import AbstractForm
+        from wagtail.wagtailforms.edit_handlers import FormSubmissionsPanel
+
+        class ContactFormPage(AbstractForm):
+            content_panels = [
+                FormSubmissionsPanel(),
+            ]
 
 DocumentChooserPanel
 --------------------

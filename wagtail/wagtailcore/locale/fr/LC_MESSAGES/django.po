@@ -3,7 +3,9 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Bertrand Bordage <bordage.bertrand@gmail.com>, 2015
+# Benoît Vogel <contact@spicy-informatique.com>, 2016
+# Bertrand Bordage <bordage.bertrand@gmail.com>, 2015-2016
+# Léo <leo@naeka.fr>, 2016
 # nahuel, 2014
 # nahuel, 2014
 # Sebastien Andrivet <sebastien@andrivet.com>, 2016
@@ -12,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:01+0000\n"
-"PO-Revision-Date: 2016-02-05 13:56+0000\n"
-"Last-Translator: Sebastien Andrivet <sebastien@andrivet.com>\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2016-12-07 01:55+0000\n"
+"Last-Translator: Benoît Vogel <contact@spicy-informatique.com>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -22,6 +24,21 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#, python-brace-format
+msgid "{label}: this block has no options."
+msgstr "{label}: ce bloc n'a aucune option."
+
+msgid "This block has no options."
+msgstr "Ce bloc n'a aucune option."
+
+msgid "Password"
+msgstr "Mot de passe"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr ""
+"Le mot de passe que vous avez saisi est incorrect. Merci de bien vouloir "
+"réessayer."
 
 msgid "hostname"
 msgstr "nom d'hôte"
@@ -146,6 +163,9 @@ msgstr "première publication le"
 msgid "latest revision created at"
 msgstr "dernière version créée le"
 
+msgid "This slug is already in use"
+msgstr "Ce slug est déjà utilisé"
+
 msgid "scheduled"
 msgstr "programmée"
 
@@ -165,10 +185,10 @@ msgid "pages"
 msgstr "pages"
 
 msgid "submitted for moderation"
-msgstr "Soumis pour modération"
+msgstr "soumis pour modération"
 
 msgid "created at"
-msgstr "Créé à"
+msgstr "créé à"
 
 msgid "user"
 msgstr "utilisateur"
@@ -185,14 +205,32 @@ msgstr "version de page"
 msgid "page revisions"
 msgstr "versions de page"
 
+msgid "Add"
+msgstr "Ajouter"
+
 msgid "Add/edit pages you own"
 msgstr "Ajouter/modifier vos pages"
+
+msgid "Edit"
+msgstr "Modifier"
 
 msgid "Edit any page"
 msgstr "Modifier n'importe quelle page"
 
+msgid "Publish"
+msgstr "Publier"
+
 msgid "Publish any page"
 msgstr "Publier n'importe quelle page"
+
+msgid "Bulk delete"
+msgstr "Supprimer en masse"
+
+msgid "Delete pages with children"
+msgstr "Supprimer des pages avec leurs enfants"
+
+msgid "Lock"
+msgstr "Verrouiller"
 
 msgid "Lock/unlock any page"
 msgstr "Verrouiller/déverrouiller n'importe quelle page"
@@ -209,6 +247,18 @@ msgstr "permission de page par groupe"
 msgid "group page permissions"
 msgstr "permissions de page par groupe"
 
+msgid "Public"
+msgstr "Publique"
+
+msgid "Private, accessible to logged-in users"
+msgstr "Privée, accessible aux utilisateurs connectés"
+
+msgid "Private, accessible with the following password"
+msgstr "Privée, accessible avec le mot de passe suivant"
+
+msgid "Private, accessible to users in specific groups"
+msgstr "Privée, accessible aux utilisateurs dans des groupes spécifiques"
+
 msgid "password"
 msgstr "mot de passe"
 
@@ -217,3 +267,42 @@ msgstr "confidentialité de page"
 
 msgid "page view restrictions"
 msgstr "confidentialités de page"
+
+msgid "name"
+msgstr "nom"
+
+msgid "collection"
+msgstr "collection"
+
+msgid "collections"
+msgstr "collections"
+
+msgid "permission"
+msgstr "permission"
+
+msgid "group collection permission"
+msgstr "permission de collection de groupe"
+
+msgid "Log in"
+msgstr "Connexion"
+
+msgid "Your username and password didn't match. Please try again."
+msgstr ""
+"Vos nom d'utilisateur et mot de passe ne correspondent pas. Merci de bien "
+"vouloir réessayer."
+
+msgid ""
+"Your account doesn't have access to this page. To proceed, please log in "
+"with an account that has access."
+msgstr ""
+"Votre compte n'a pas accès à cette page. Pour continuer, merci de vous "
+"connecter avec un compte qui y a accès."
+
+msgid "Password required"
+msgstr "Mot de passe requis"
+
+msgid "You need a password to access this page."
+msgstr "L'accès à cette page nécessite un mot de passe."
+
+msgid "Continue"
+msgstr "Continuer"

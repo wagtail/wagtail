@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/base.html" %}
-{% load i18n static %}
+{% load i18n staticfiles %}
 {% block titletag %}{% trans "Add multiple documents" %}{% endblock %}
 {% block extra_css %}
     {{ block.super }}
@@ -18,10 +18,22 @@
 
             <form action="{% url 'wagtaildocs:add_multiple' %}" method="POST" enctype="multipart/form-data">
                 <div class="replace-file-input">
-                    <button class="bicolor icon icon-plus">{% trans "Or choose from your computer" %}</button>
+                    <button class="button bicolor icon icon-plus">{% trans "Or choose from your computer" %}</button>
                     <input id="fileupload" type="file" name="files[]" data-url="{% url 'wagtaildocs:add_multiple' %}" multiple>
                 </div>
                 {% csrf_token %}
+                {% if collections %}
+                    <div class="field">
+                        <label for="id_adddocument_collection">{% trans "Add to collection:" %}</label>
+                        <div class="field-content">
+                            <select id="id_adddocument_collection" name="collection">
+                                {% for collection in collections %}
+                                    <option value="{{ collection.id }}">{{ collection.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                {% endif %}
             </form>
         </div>
 

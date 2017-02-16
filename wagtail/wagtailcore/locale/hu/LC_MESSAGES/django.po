@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Kornel Novak Mergulhão <nkornel@gmail.com>, 2016
 # Laszlo Molnar <lazlowmiller@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:01+0000\n"
-"PO-Revision-Date: 2016-01-07 12:17+0000\n"
-"Last-Translator: Laszlo Molnar <lazlowmiller@gmail.com>\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2016-12-06 22:47+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
 "MIME-Version: 1.0\n"
@@ -132,6 +133,9 @@ msgstr "első közététel időpontja"
 msgid "latest revision created at"
 msgstr "a legutóbbi verzió letrehozásának időpontja"
 
+msgid "This slug is already in use"
+msgstr "Ez a slug már használatban van"
+
 msgid "scheduled"
 msgstr "közzététel időzítése"
 
@@ -171,14 +175,26 @@ msgstr "az oldal verziója"
 msgid "page revisions"
 msgstr "oldal verziók"
 
+msgid "Add"
+msgstr "Hozzáadás"
+
 msgid "Add/edit pages you own"
 msgstr "Oldalaim létrehozása/szerkesztése"
+
+msgid "Edit"
+msgstr "Szerkesztés"
 
 msgid "Edit any page"
 msgstr "Valamely oldal szerkesztése"
 
+msgid "Publish"
+msgstr "Közzététel"
+
 msgid "Publish any page"
 msgstr "Valamely oldal közzététele"
+
+msgid "Lock"
+msgstr "Zárolás"
 
 msgid "Lock/unlock any page"
 msgstr "Valamely oldal zárolása/feloldása"
@@ -203,3 +219,15 @@ msgstr "az oldal megtekintésének korlátozása"
 
 msgid "page view restrictions"
 msgstr "az oldal megtekintésének korlátozásai"
+
+msgid "name"
+msgstr "név"
+
+msgid "collection"
+msgstr "gyűjtemény"
+
+msgid "collections"
+msgstr "gyűjtemények"
+
+msgid "permission"
+msgstr "hozzáférés"

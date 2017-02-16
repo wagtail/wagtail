@@ -1,9 +1,10 @@
+from __future__ import absolute_import, unicode_literals
+
 import sys
 
-from django.db import models
-
 from django.contrib.auth.models import (
-    Group, Permission, AbstractBaseUser, PermissionsMixin, BaseUserManager)
+    AbstractBaseUser, BaseUserManager, Group, Permission, PermissionsMixin)
+from django.db import models
 
 
 class CustomUserManager(BaseUserManager):
@@ -32,12 +33,15 @@ class CustomUserManager(BaseUserManager):
 
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
+    identifier = models.AutoField(primary_key=True)
     username = models.CharField(max_length=100, unique=True)
     email = models.EmailField(max_length=255, blank=True)
     is_staff = models.BooleanField(default=True)
     is_active = models.BooleanField(default=True)
     first_name = models.CharField(max_length=50, blank=True)
     last_name = models.CharField(max_length=50, blank=True)
+    country = models.CharField(max_length=100, blank=True)
+    attachment = models.FileField(blank=True)
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email']
@@ -102,6 +106,7 @@ def steal_method(name):
     if sys.version_info < (3,):
         func = func.__func__
     setattr(EmailUser, name, func)
+
 
 methods = ['get_group_permissions', 'get_all_permissions', 'has_perm',
            'has_perms', 'has_module_perms']

@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# alfuhigi <abajall@gmail.com>, 2016
 # ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:02+0000\n"
-"PO-Revision-Date: 2016-02-07 23:55+0000\n"
-"Last-Translator: ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2016-05-12 03:22+0000\n"
+"Last-Translator: alfuhigi <abajall@gmail.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
@@ -26,13 +27,15 @@ msgstr "مصطلح البحث/عبارة البحث"
 msgid ""
 "Enter the full search string to match. An exact match is required for your "
 "Promoted Results to be displayed, wildcards are NOT allowed."
-msgstr "أدخل مصظلح البحث الكامل للموافقة .  "
+msgstr ""
+"ادخل نص البحث الكامل للحصول عليه. التخصيص بالنتائج مطلوب من اجل تحسين ظهور "
+"نتائج افضل ,علامات الترقيم غير مقبوله "
 
 msgid "Query Daily Hits"
-msgstr "استفسر اتصالات يومية"
+msgstr "استعلام الزيارات اليومية"
 
 msgid "Popular search terms"
-msgstr "أعم مصطلحات البحث"
+msgstr "مصطلحات البحث الاكثر شعبية"
 
 msgid "Search"
 msgstr "بحث"
@@ -44,7 +47,7 @@ msgid "Views (past week)"
 msgstr "المواقع المبحوثة (في الأسبوع الماضي)"
 
 msgid "No results found"
-msgstr "لم يوجد أي نتائج"
+msgstr "لاتوجد نتائج"
 
 msgid "Date"
 msgstr "تاريخ"

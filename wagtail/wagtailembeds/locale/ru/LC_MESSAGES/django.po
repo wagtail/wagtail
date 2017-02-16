@@ -3,16 +3,17 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Eugene MechanisM <contact@mechanism.name>, 2014-2015
-# HNKNTA <hnknta@gmail.com>, 2014
-# HNKNTA <hnknta@gmail.com>, 2014
+# Andrey Avdey <talkerbox@live.com>, 2016
+# Eugene MechanisM <eugene@mechanism.pro>, 2014-2015
+# Никита Викторович <hnknta@gmail.com>, 2014
+# Никита Викторович <hnknta@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:01+0000\n"
-"PO-Revision-Date: 2015-12-17 18:44+0000\n"
-"Last-Translator: Eugene MechanisM <contact@mechanism.name>\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2016-07-03 08:32+0000\n"
+"Last-Translator: Andrey Avdey <talkerbox@live.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -30,10 +31,10 @@ msgid "URL"
 msgstr "URL"
 
 msgid "embed"
-msgstr "вставка"
+msgstr "Встраиваемый код"
 
 msgid "Insert embed"
-msgstr "Вставьте код для вставки"
+msgstr "Вставьте код для встраивания"
 
 msgid "Insert"
 msgstr "Вставить"
@@ -42,15 +43,15 @@ msgid ""
 "There seems to be a problem with your embedly API key. Please check your "
 "settings."
 msgstr ""
-"Кажется есть проблема с вашим embedly API ключом. Пожалуйста, проверьте "
+"Кажется, есть проблема с вашим embedly API ключом. Пожалуйста, проверьте "
 "настройки."
 
 msgid "Cannot find an embed for this URL."
-msgstr "Не могу найти код для вставки для этого URL"
+msgstr "Не могу найти код для встраивания для этого URL"
 
 msgid ""
 "There seems to be an error with Embedly while trying to embed this URL. "
 "Please try again later."
 msgstr ""
-"Кажется появилась ошибка при попытке встроить этот URL с Embedly. "
+"Кажется, появилась ошибка при попытке встроить этот URL с Embedly. "
 "Пожалуйста, попробуйте позже."

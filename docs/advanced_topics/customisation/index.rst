@@ -6,4 +6,5 @@ Customising Wagtail
     :maxdepth: 2
 
     page_editing_interface
-    branding
+    admin_templates
+    custom_user_models

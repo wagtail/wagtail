@@ -1,3 +1,5 @@
+from __future__ import absolute_import, unicode_literals
+
 from django.apps import apps
 from django.contrib.auth.models import Permission
 from django.core.urlresolvers import reverse
@@ -5,6 +7,7 @@ from django.utils.text import capfirst
 
 from wagtail.wagtailadmin.menu import MenuItem
 from wagtail.wagtailcore import hooks
+
 from .permissions import user_can_edit_setting_type
 
 
@@ -76,6 +79,7 @@ class Registry(list):
         if Model not in registry:
             return None
         return Model
+
 
 registry = Registry()
 register_setting = registry.register_decorator

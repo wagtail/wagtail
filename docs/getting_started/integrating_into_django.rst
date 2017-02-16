@@ -5,16 +5,20 @@ Integrating Wagtail into a Django project
 
 Wagtail provides the ``wagtail start`` command and project template to get you started with a new Wagtail project as quickly as possible, but it's easy to integrate Wagtail into an existing Django project too.
 
-Wagtail is currently compatible with Django 1.8 and 1.9. First, install the ``wagtail`` package from PyPI::
+Wagtail is currently compatible with Django 1.8, 1.9 and 1.10. First, install the ``wagtail`` package from PyPI:
 
-    pip install wagtail
+.. code-block:: console
+
+    $ pip install wagtail
 
 or add the package to your existing requirements file. This will also install the **Pillow** library as a dependency, which requires libjpeg and zlib - see Pillow's `platform-specific installation instructions <http://pillow.readthedocs.org/en/latest/installation.html#external-libraries>`_.
 
 Settings
 --------
 
-In your settings file, add the following apps to ``INSTALLED_APPS``::
+In your settings file, add the following apps to ``INSTALLED_APPS``:
+
+.. code-block:: python
 
     'wagtail.wagtailforms',
     'wagtail.wagtailredirects',
@@ -31,7 +35,9 @@ In your settings file, add the following apps to ``INSTALLED_APPS``::
     'modelcluster',
     'taggit',
 
-Add the following entries to ``MIDDLEWARE_CLASSES``::
+Add the following entries to ``MIDDLEWARE_CLASSES``:
+
+.. code-block:: python
 
     'wagtail.wagtailcore.middleware.SiteMiddleware',
     'wagtail.wagtailredirects.middleware.RedirectMiddleware',
@@ -75,7 +81,9 @@ The URL paths here can be altered as necessary to fit your project's URL scheme.
 
 ``wagtaildocs_urls`` is the location from where document files will be served. This can be omitted if you do not intend to use Wagtail's document management features.
 
-``wagtail_urls`` is the base location from where the pages of your Wagtail site will be served. In the above example, Wagtail will handle URLs under ``/pages/``, leaving the root URL and other paths to be handled as normal by your Django project. If you want Wagtail to handle the entire URL space including the root URL, this can be replaced with::
+``wagtail_urls`` is the base location from where the pages of your Wagtail site will be served. In the above example, Wagtail will handle URLs under ``/pages/``, leaving the root URL and other paths to be handled as normal by your Django project. If you want Wagtail to handle the entire URL space including the root URL, this can be replaced with:
+
+.. code-block:: python
 
     url(r'', include(wagtail_urls)),
 

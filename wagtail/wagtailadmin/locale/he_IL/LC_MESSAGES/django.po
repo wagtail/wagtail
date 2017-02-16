@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:01+0000\n"
-"PO-Revision-Date: 2016-02-05 17:08+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2017-02-06 12:37+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/torchbox/wagtail/"
 "language/he_IL/)\n"
 "MIME-Version: 1.0\n"
@@ -110,12 +110,6 @@ msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
 msgstr "הכתובת שבחרת כבר בשימוש בתוך הקונטקסט של עמוד ההורה \"%s\""
 
-msgid "Public"
-msgstr "ציבורי"
-
-msgid "Private, accessible with the following password"
-msgstr "פרטי, זמין עם הסיסמה הבאה"
-
 msgid "This field is required."
 msgstr "שדה חובה"
 
@@ -187,9 +181,6 @@ msgstr "בדקו את תיבת הדואר האלקטרוני שלכם"
 
 msgid "A link to reset your password has been emailed to you."
 msgstr "קישור לאיתחול הסיסמה נשלח לתיבת הדואר האלקטרוני שלכם."
-
-msgid "Please follow the link below to reset your password"
-msgstr "אנא לחצו על הקישור הבא על מנת לאתחל את סיסמתכם"
 
 msgid "Password reset"
 msgstr "איתחול סיסמה"
@@ -345,22 +336,18 @@ msgid "Forgotten it?"
 msgstr "שכחתם את זה?"
 
 #, python-format
-msgid "The page \"%(title)s\" has been approved"
-msgstr "העמוד \"%(title)s\" אושר"
-
-#, python-format
 msgid "The page \"%(title)s\" has been approved."
 msgstr "העמוד \"%(title)s\" אושר."
 
 msgid "You can view the page here:"
 msgstr "ניתן לראות את העמוד כאן"
 
+#, python-format
+msgid "The page \"%(title)s\" has been approved"
+msgstr "העמוד \"%(title)s\" אושר"
+
 msgid "Edit your notification preferences here:"
 msgstr "ערכו הגדרות התראות כאן"
-
-#, python-format
-msgid "The page \"%(title)s\" has been rejected"
-msgstr "העמוד \"%(title)s\" נדחה"
 
 #, python-format
 msgid "The page \"%(title)s\" has been rejected."
@@ -370,11 +357,15 @@ msgid "You can edit the page here:"
 msgstr "ניתן לערוך את העמוד כאן"
 
 #, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation"
-msgstr "העמוד \"%(page)s\" הועבר לאישור"
+msgid "The page \"%(title)s\" has been rejected"
+msgstr "העמוד \"%(title)s\" נדחה"
 
 msgid "You can preview the page here:"
 msgstr "ניתן לראות תצוגה מקדימה של העמוד כאן"
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation"
+msgstr "העמוד \"%(page)s\" הועבר לאישור"
 
 msgid "Page privacy"
 msgstr "הגדרות פרטיות של העמוד"
@@ -399,6 +390,9 @@ msgstr "בלתי נעול"
 
 msgid "Privacy"
 msgstr "פרטיות"
+
+msgid "Public"
+msgstr "ציבורי"
 
 msgid "Private"
 msgstr "פרטי"
@@ -440,19 +434,6 @@ msgstr[0] ""
 msgstr[1] ""
 "\n"
 "פעולה זו תמחק %(descendant_count)s תת-עמודים נוספים."
-
-msgid ""
-"Alternatively you can unpublish the page. This removes the page from public "
-"view and you can edit or publish it again later."
-msgstr ""
-"לחילופין, ניתן להסיר מפרסום את העמוד. הדבר יסיר את העמוד מתצוגה פומבית "
-"ויאפשר עריכה ופרסום שלו שוב לאחר מכן."
-
-msgid "Delete it"
-msgstr "מחק זו"
-
-msgid "Unpublish it"
-msgstr "ביטול פרסום"
 
 #, python-format
 msgid "Move %(title)s"
@@ -562,14 +543,6 @@ msgstr "מסייר בעמודים שבתוך '%(title)s'"
 #, python-format
 msgid "Add a child page to '%(title)s'"
 msgstr "הוספת תת-עמוד אל '%(title)s'"
-
-msgid "Add subpage"
-msgstr "הוספת תת עמוד"
-
-msgid ""
-"This page is published but does not exist within a configured Site, so "
-"cannot be viewed."
-msgstr "עמוד זה מפורסם אך לא קיים באתר, לכן אין אפשרות להציג אותו"
 
 msgid "Add child page"
 msgstr "הוספת תת-עמוד"
@@ -697,20 +670,11 @@ msgstr ""
 "הדפדפן שלכם <strong>מיושן</strong> ולא נתמך ע\"י התוכנה הזו. אנא <a href="
 "\"http://browsehappy.com/\">עברו לדפדפן מודרני</a>."
 
-msgid "Javascript is required to use Wagtail, but it is currently disabled"
-msgstr "יש צורך בJavascript על מנת להתשמש בWagtail, אך הוא מכובה כרגע"
-
-msgid "User bar"
-msgstr "סרגל משתמש"
-
 msgid "Go to Wagtail admin interface"
 msgstr "כניסה למערך המנהל של Wagtail "
 
 msgid "Add a child page"
 msgstr "הוספת תת-עמוד"
-
-msgid "Add"
-msgstr "הוספה"
 
 msgid "Your password has been changed successfully!"
 msgstr "סיסמתכם שונתה בהצלחה!"
@@ -738,18 +702,6 @@ msgstr "עמוד {0} נוצר"
 
 msgid "The page could not be created due to validation errors"
 msgstr "העמוד לא יכל להיווצר עקב שגיאות אישור "
-
-#, python-brace-format
-msgid "Page '{0}' published."
-msgstr "עמוד {0} פורסם"
-
-#, python-brace-format
-msgid "Page '{0}' submitted for moderation."
-msgstr "עמוד {0} הוזן לעריכה"
-
-#, python-brace-format
-msgid "Page '{0}' updated."
-msgstr "עמוד {0} עודכן"
 
 msgid "The page could not be saved as it is locked"
 msgstr "העמוד לא ניתן לשמירה מכיוון שהוא נעול "
@@ -783,6 +735,10 @@ msgstr "עמוד {0} הועתק "
 #, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "העמוד {0} אינו ממתין לעריכה כרגע "
+
+#, python-brace-format
+msgid "Page '{0}' published."
+msgstr "עמוד {0} פורסם"
 
 #, python-brace-format
 msgid "Page '{0}' rejected for publication."

@@ -4,15 +4,16 @@
 #
 # Translators:
 # Ahmad Kiswani <kiswani.ahmad@gmail.com>, 2016
+# alfuhigi <abajall@gmail.com>, 2016
 # Mohamed Mayla <mohamed.mayla@gmail.com>, 2015
 # ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:01+0000\n"
-"PO-Revision-Date: 2016-02-07 23:56+0000\n"
-"Last-Translator: Ahmad Kiswani <kiswani.ahmad@gmail.com>\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2017-02-06 12:37+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
@@ -22,11 +23,20 @@ msgstr ""
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
+msgid "You do not have permission to access the admin"
+msgstr "ليس لديك الصلاحيات لدخول الى Admin"
+
 msgid "Scheduled publishing"
 msgstr "نشر مجدول"
 
 msgid "Common page configuration"
 msgstr "تهيئة الصفحات المشتركة"
+
+msgid "Content"
+msgstr "محتوى"
+
+msgid "Promote"
+msgstr "ترويج"
 
 msgid "Settings"
 msgstr "إعدادات"
@@ -42,6 +52,10 @@ msgstr "الرابط"
 
 msgid "Enter password"
 msgstr "ادخل كلمة المرور"
+
+#, python-format
+msgid "Enter your %s"
+msgstr "ادخل %s الخاص بك "
 
 msgid "Enter your email address to reset your password"
 msgstr "ادخل البريد الإلكتروني الخاص بك لإرجاع كلمة المرور الخاصة بك "
@@ -62,26 +76,35 @@ msgstr "عنوان البريد الإلكتروني هذا غير معروف"
 msgid "New title"
 msgstr "عنوان جديد"
 
+msgid "New slug"
+msgstr "عنوان متصل slug"
+
+msgid "New parent page"
+msgstr "الصفحة الأم الجديدة"
+
 msgid "Copy subpages"
 msgstr "نسخ الصفحات التحتية"
 
 msgid "Publish copied page"
 msgstr "انشر الصفحة المنسوخة"
 
+msgid "This page is live. Would you like to publish its copy as well?"
+msgstr "هذه النسخه مباشرة. هل تريد نشر نسخه لها ؟"
+
 msgid "Publish copies"
 msgstr "انشر النسخ"
-
-msgid "Public"
-msgstr "عمومي"
-
-msgid "Private, accessible with the following password"
-msgstr "حصوصي , قابل للدحول باستعمال كلمة السر الآتية"
 
 msgid "This field is required."
 msgstr "هذا الحقل مقتضى"
 
+msgid "Expiry date/time must be in the future"
+msgstr "تاريخ الانتهاء/الوقت يجب ان يكون مستقبلياً"
+
 msgid "Account"
 msgstr "حساب"
+
+msgid "Set gravatar"
+msgstr "ضبط صورة رمزية"
 
 msgid "Change password"
 msgstr "غير كلمة السر"
@@ -106,7 +129,7 @@ msgid "Notification Preferences"
 msgstr "أفضليات الإبلاغ"
 
 msgid "Update"
-msgstr "جدد"
+msgstr "حدث"
 
 msgid "Reset password"
 msgstr "غير كلمة السر"
@@ -129,14 +152,20 @@ msgstr "افحص بريدك الإلكتروني"
 msgid "A link to reset your password has been emailed to you."
 msgstr "أرسلت إليك حلقة لإعادة تثبيت كلمتك السرية"
 
-msgid "Please follow the link below to reset your password"
-msgstr "من فضلك اتبع الحلقة الموجودة في الاسفل لإعادة تثبيت كلمتك السرية"
+msgid "Please follow the link below to reset your password:"
+msgstr "ارجو استخدم الرابط بالاسفل لإعادة كلمة المرور الخاصه بك"
+
+msgid "Your username (in case you've forgotten):"
+msgstr "اسم المستخدم الخاص بك (في حال فقدانة)"
 
 msgid "Password reset"
 msgstr "أكملت إعادة تثبيت كلمة السر"
 
 msgid "Reset your password"
 msgstr "أعد تثبيت كلمةتك السرية"
+
+msgid "Dashboard"
+msgstr "لوحة التحكم"
 
 msgid "Menu"
 msgstr "قائمة المحتويات"
@@ -180,11 +209,26 @@ msgstr "أدخل حلقة"
 msgid "Add an external link"
 msgstr "أضف حلقة خارجية"
 
+msgid ""
+"This collection cannot be deleted, because it is not empty. It contains:"
+msgstr "المجموعة لايمكن حذفها. بسبب احتوائها على محتويات:"
+
+msgid "Name"
+msgstr "اسم"
+
+#, python-format
+msgid "Add %(heading)s"
+msgstr "أضف %(heading)s"
+
 msgid "Yes, delete"
 msgstr "نعم احذف"
 
 msgid "Save"
 msgstr "احفظ"
+
+#, python-format
+msgid "Welcome to the %(site_name)s Wagtail CMS"
+msgstr "اهلا بك في %(site_name)s"
 
 msgid "Pages awaiting moderation"
 msgstr "صفحات في انتظار التحقيق"
@@ -222,8 +266,11 @@ msgstr "تاريخ"
 msgid "Status"
 msgstr "رتبة"
 
+msgid "Draft"
+msgstr "مسودة"
+
 msgid "Live"
-msgstr "حار"
+msgstr "مباشر"
 
 msgid "Site summary"
 msgstr "ملحص الموقع"
@@ -240,11 +287,12 @@ msgstr "يتم تسجيل الدخول..."
 msgid "You can view the page here:"
 msgstr "انظر الصفحة هنا"
 
-msgid "Hello"
-msgstr "مرحبا"
+#, python-format
+msgid "Hello %(username)s,"
+msgstr "مرحبا  %(username)s,"
 
 msgid "Edit your notification preferences here:"
-msgstr "نقح أفضلياتك للإبلاغ هنا"
+msgstr "حدد التنبيهات للإبلاغ هنا"
 
 msgid "You can edit the page here:"
 msgstr "يمكن تنقيح الصفحة هنا"
@@ -267,6 +315,9 @@ msgstr "غير مغلق"
 msgid "Privacy"
 msgstr "نظام السرية"
 
+msgid "Public"
+msgstr "عمومي"
+
 msgid "Private"
 msgstr "خصوصي"
 
@@ -279,11 +330,9 @@ msgstr "اختر نوع الصفحة التي تريد إنشائها"
 msgid "Are you sure you want to delete this page?"
 msgstr "هل تريد فعلا حذف هذه الصفحة؟ "
 
-msgid "Delete it"
-msgstr "احذفه"
-
-msgid "Unpublish it"
-msgstr "ألغ نشره"
+#, python-format
+msgid "Move %(title)s"
+msgstr "نقل %(title)s"
 
 msgid "Move"
 msgstr "انقل"
@@ -291,8 +340,12 @@ msgstr "انقل"
 msgid "Yes, move this page"
 msgstr "تعم انقل هذه الصفحة"
 
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "الغ نشر %(title)s"
+
 msgid "Unpublish"
-msgstr "ألغ"
+msgstr "غير منشور"
 
 msgid "Are you sure you want to unpublish this page?"
 msgstr "هل تريد فعلا إلغاء نشر هذه الصفحة؟"
@@ -327,8 +380,17 @@ msgstr "انشر"
 msgid "Submit for moderation"
 msgstr "قدّم للمراجعة"
 
+msgid "This page has unsaved changes."
+msgstr " لم يتم حفظ التعديلات على هذه الصحفه"
+
 msgid "Page locked"
 msgstr "الصفحة مغلقة"
+
+msgid "Replace current draft"
+msgstr "استبدال المسودة الحالية"
+
+msgid "Publish this revision"
+msgstr "نشر النسخه السابقه"
 
 msgid "Drag"
 msgstr "اسحب"
@@ -341,14 +403,6 @@ msgstr "لم تنسأ إي صفحات في هذا الموقع"
 
 msgid "This page is locked to further editing"
 msgstr "هذه الصفحة مغلقة لأي تنقيح"
-
-msgid "Add subpage"
-msgstr "أضف صفحة تحتية"
-
-msgid ""
-"This page is published but does not exist within a configured Site, so "
-"cannot be viewed."
-msgstr "هذه الصفحة قد نشرت ولكن لا توجد داخل موضع مشكل فإنه غير قايل للنظر"
 
 msgid "Add child page"
 msgstr "أضف صفحة لطفل "
@@ -370,9 +424,6 @@ msgstr "يناير"
 
 msgid "Log out"
 msgstr "تسجيل الخروج"
-
-msgid "Add"
-msgstr "أضف"
 
 msgid "View live"
 msgstr "انظر في الواقع"

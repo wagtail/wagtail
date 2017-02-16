@@ -1,13 +1,14 @@
-import json
-import mock
+from __future__ import absolute_import, unicode_literals
 
+import json
+
+import mock
+from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.test.utils import override_settings
-from django.core.urlresolvers import reverse
-
-from wagtail.wagtaildocs.models import Document
 
 from wagtail.contrib.wagtailapi import signal_handlers
+from wagtail.wagtaildocs.models import get_document_model
 
 
 class TestDocumentListing(TestCase):
@@ -38,7 +39,7 @@ class TestDocumentListing(TestCase):
         # Check that the total count is there and correct
         self.assertIn('total_count', content['meta'])
         self.assertIsInstance(content['meta']['total_count'], int)
-        self.assertEqual(content['meta']['total_count'], Document.objects.count())
+        self.assertEqual(content['meta']['total_count'], get_document_model().objects.count())
 
         # Check that the documents section is there
         self.assertIn('documents', content)
@@ -112,7 +113,7 @@ class TestDocumentListing(TestCase):
         self.assertEqual(document_id_list, [10])
 
     def test_filtering_tags(self):
-        Document.objects.get(id=3).tags.add('test')
+        get_document_model().objects.get(id=3).tags.add('test')
 
         response = self.get_response(tags='test')
         content = json.loads(response.content.decode('UTF-8'))
@@ -190,7 +191,7 @@ class TestDocumentListing(TestCase):
         content = json.loads(response.content.decode('UTF-8'))
 
         # The total count must not be affected by "limit"
-        self.assertEqual(content['meta']['total_count'], Document.objects.count())
+        self.assertEqual(content['meta']['total_count'], get_document_model().objects.count())
 
     def test_limit_not_integer_gives_error(self):
         response = self.get_response(limit='abc')
@@ -243,7 +244,7 @@ class TestDocumentListing(TestCase):
         content = json.loads(response.content.decode('UTF-8'))
 
         # The total count must not be affected by "offset"
-        self.assertEqual(content['meta']['total_count'], Document.objects.count())
+        self.assertEqual(content['meta']['total_count'], get_document_model().objects.count())
 
     def test_offset_not_integer_gives_error(self):
         response = self.get_response(offset='abc')
@@ -330,8 +331,8 @@ class TestDocumentDetail(TestCase):
         self.assertEqual(content['tags'], [])
 
     def test_tags(self):
-        Document.objects.get(id=1).tags.add('hello')
-        Document.objects.get(id=1).tags.add('world')
+        get_document_model().objects.get(id=1).tags.add('hello')
+        get_document_model().objects.get(id=1).tags.add('world')
 
         response = self.get_response(1)
         content = json.loads(response.content.decode('UTF-8'))
@@ -374,11 +375,11 @@ class TestDocumentCacheInvalidation(TestCase):
         signal_handlers.unregister_signal_handlers()
 
     def test_resave_document_purges(self, purge):
-        Document.objects.get(id=5).save()
+        get_document_model().objects.get(id=5).save()
 
         purge.assert_any_call('http://api.example.com/api/v1/documents/5/')
 
     def test_delete_document_purges(self, purge):
-        Document.objects.get(id=5).delete()
+        get_document_model().objects.get(id=5).delete()
 
         purge.assert_any_call('http://api.example.com/api/v1/documents/5/')

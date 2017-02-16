@@ -1,8 +1,10 @@
+from __future__ import absolute_import, unicode_literals
+
 from django.test import TestCase
 
-from wagtail.wagtailcore.models import Page, PageViewRestriction
+from wagtail.tests.testapp.models import EventPage, SimplePage, SingleEventPage
+from wagtail.wagtailcore.models import Page, PageViewRestriction, Site
 from wagtail.wagtailcore.signals import page_unpublished
-from wagtail.tests.testapp.models import EventPage, SingleEventPage
 
 
 class TestPageQuerySet(TestCase):
@@ -396,6 +398,39 @@ class TestPageQuerySet(TestCase):
         self.assertTrue(pages.filter(id=event.id).exists())
 
 
+class TestPageQueryInSite(TestCase):
+    fixtures = ['test.json']
+
+    def setUp(self):
+        self.site_2_page = SimplePage(
+            title="Site 2 page",
+            slug="site_2_page",
+            content="Hello",
+        )
+        Page.get_first_root_node().add_child(instance=self.site_2_page)
+        self.site_2_subpage = SimplePage(
+            title="Site 2 subpage",
+            slug="site_2_subpage",
+            content="Hello again",
+        )
+        self.site_2_page.add_child(instance=self.site_2_subpage)
+
+        self.site_2 = Site.objects.create(
+            hostname='example.com',
+            port=8080,
+            root_page=Page.objects.get(pk=self.site_2_page.pk),
+            is_default_site=False
+        )
+        self.about_us_page = SimplePage.objects.get(url_path='/home/about-us/')
+
+    def test_in_site(self):
+        site_2_pages = SimplePage.objects.in_site(self.site_2)
+
+        self.assertIn(self.site_2_page, site_2_pages)
+        self.assertIn(self.site_2_subpage, site_2_pages)
+        self.assertNotIn(self.about_us_page, site_2_pages)
+
+
 class TestPageQuerySetSearch(TestCase):
     fixtures = ['test.json']
 
@@ -566,3 +601,78 @@ class TestSpecificQuery(TestCase):
         self.assertIn(Page.objects.get(url_path='/home/events/christmas/').specific, pages)
         self.assertIn(Page.objects.get(url_path='/home/events/').specific, pages)
         self.assertIn(Page.objects.get(url_path='/home/about-us/').specific, pages)
+
+
+class TestFirstCommonAncestor(TestCase):
+    """
+    Uses the same fixture as TestSpecificQuery. See that class for the layout
+    of pages.
+    """
+    fixtures = ['test_specific.json']
+
+    def setUp(self):
+        self.all_events = Page.objects.type(EventPage)
+        self.regular_events = Page.objects.type(EventPage)\
+            .exclude(url_path__contains='/other/')
+
+    def test_bookkeeping(self):
+        self.assertEqual(self.all_events.count(), 4)
+        self.assertEqual(self.regular_events.count(), 3)
+
+    def test_event_pages(self):
+        """Common ancestor for EventPages"""
+        # As there are event pages in multiple trees under /home/, the home
+        # page is the common ancestor
+        self.assertEqual(
+            Page.objects.get(slug='home'),
+            self.all_events.first_common_ancestor())
+
+    def test_normal_event_pages(self):
+        """Common ancestor for EventPages, excluding /other/ events"""
+        self.assertEqual(
+            Page.objects.get(slug='events'),
+            self.regular_events.first_common_ancestor())
+
+    def test_normal_event_pages_include_self(self):
+        """
+        Common ancestor for EventPages, excluding /other/ events, with
+        include_self=True
+        """
+        self.assertEqual(
+            Page.objects.get(slug='events'),
+            self.regular_events.first_common_ancestor(include_self=True))
+
+    def test_single_page_no_include_self(self):
+        """Test getting a single page, with include_self=False."""
+        self.assertEqual(
+            Page.objects.get(slug='events'),
+            Page.objects.filter(title='Christmas').first_common_ancestor())
+
+    def test_single_page_include_self(self):
+        """Test getting a single page, with include_self=True."""
+        self.assertEqual(
+            Page.objects.get(title='Christmas'),
+            Page.objects.filter(title='Christmas').first_common_ancestor(include_self=True))
+
+    def test_all_pages(self):
+        self.assertEqual(
+            Page.get_first_root_node(),
+            Page.objects.first_common_ancestor())
+
+    def test_all_pages_strict(self):
+        with self.assertRaises(Page.DoesNotExist):
+            Page.objects.first_common_ancestor(strict=True)
+
+    def test_all_pages_include_self_strict(self):
+        self.assertEqual(
+            Page.get_first_root_node(),
+            Page.objects.first_common_ancestor(include_self=True, strict=True))
+
+    def test_empty_queryset(self):
+        self.assertEqual(
+            Page.get_first_root_node(),
+            Page.objects.none().first_common_ancestor())
+
+    def test_empty_queryset_strict(self):
+        with self.assertRaises(Page.DoesNotExist):
+            Page.objects.none().first_common_ancestor(strict=True)

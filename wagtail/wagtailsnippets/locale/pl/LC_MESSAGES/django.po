@@ -4,24 +4,66 @@
 #
 # Translators:
 # utek <mail@utek.pl>, 2014
+# Miłosz Miśkiewicz, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:02+0000\n"
-"PO-Revision-Date: 2015-12-17 14:00+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2016-06-06 07:12+0000\n"
+"Last-Translator: Miłosz Miśkiewicz\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pl\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
-"|| n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n"
+"%100<12 || n%100>=14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
+"%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
 msgid "Choose"
 msgstr "Wybierz"
+
+msgid "Search"
+msgstr "Szukaj"
+
+#, python-format
+msgid ""
+"\n"
+"            There is one match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"Jest jedno dopasowanie\n"
+"        "
+msgstr[1] ""
+"\n"
+"Odnaleziono %(counter)s dopasowań"
+msgstr[2] ""
+"\n"
+"Odnaleziono %(counter)s dopasowań\n"
+"        "
+msgstr[3] ""
+"\n"
+"Odnaleziono %(counter)s dopasowań\n"
+"        "
+
+#, python-format
+msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
+msgstr "Żaden snippet nie spełnia pasuje do \"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">create one now"
+msgstr ""
+"Żaden %(snippet_type_name)s nie został stworzony. Czemu nie <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\">dodać jednego</a>?"
 
 #, python-format
 msgid "Delete %(snippet_type_name)s - %(instance)s"
@@ -43,6 +85,9 @@ msgstr "Nowy %(snippet_type_name)s"
 
 msgid "New"
 msgstr "Nowy"
+
+msgid "Saving..."
+msgstr "Zapisywanie..."
 
 msgid "Save"
 msgstr "Zapisz"
@@ -99,9 +144,16 @@ msgstr "Status"
 msgid "Edit this page"
 msgstr "Edytuj tę stronę"
 
+#, python-format
+msgid "Search %(snippet_type_name)s"
+msgstr "Wyszukaj %(snippet_type_name)s"
+
 #, python-brace-format
 msgid "{snippet_type} '{instance}' created."
 msgstr "Stworzono {snippet_type} '{instance}'."
+
+msgid "Edit"
+msgstr "Edytuj"
 
 msgid "The snippet could not be created due to errors."
 msgstr "Snippet nie mógł zostać stworzony z powodu błędów."
@@ -116,3 +168,15 @@ msgstr "Snippet nie mógł zostać zapisany z powodu błędów."
 #, python-brace-format
 msgid "{snippet_type} '{instance}' deleted."
 msgstr "Usunięto {snippet_type} '{instance}'."
+
+#, python-format
+msgid "Choose %s"
+msgstr "Wybierz %s"
+
+#, python-format
+msgid "Choose another %s"
+msgstr "Wybierz inny %s"
+
+#, python-format
+msgid "Edit this %s"
+msgstr "Edytuj ten %s"

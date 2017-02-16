@@ -5,6 +5,8 @@
     {{ block.super }}
 
     <link rel="stylesheet" href="{% static 'wagtailstyleguide/css/styleguide.css' %}" type="text/css" />
+
+    {{ example_form.media.css }}
 {% endblock %}
 
 {% block titletag %}{% trans 'Styleguide' %}{% endblock %}
@@ -237,47 +239,47 @@
             <h3>Regular buttons</h3>
 
             <a href="#" class="button">button link</a>
-            <button>button element</button>
+            <button class="button">button element</button>
 
             <h3>Secondary buttons</h3>
 
             <a href="#" class="button button-secondary">button link</a>
-            <button class="button-secondary">button element</button>
+            <button class="button button-secondary">button element</button>
 
             <h3>Small buttons</h3>
 
             <a href="#" class="button button-small">button link</a>
-            <button class="button-small">button element</button>
+            <button class="button button-small">button element</button>
 
             <h4>(secondary)</h4>
             <a href="#" class="button button-small button-secondary">button link</a>
-            <button class="button-small button-secondary">button element</button>
+            <button class="button button-small button-secondary">button element</button>
 
             <h3>Disabled buttons</h3>
 
             <a href="#" class="button disabled">button link</a>
-            <button class="button-small disabled">button element</button>
+            <button class="button button-small disabled">button element</button>
 
             <h3>Bi-color icon buttons with text</h3>
             <p>Note that <code>input</code> elements are not supported by any icon buttons.</p>
 
             <a href="#" class="button bicolor icon icon-plus">button link</a>
-            <button class="bicolor icon icon-plus">button element</button>
+            <button class="button bicolor icon icon-plus">button element</button>
 
             <h4>(small)</h4>
 
             <a href="#" class="button button-small bicolor icon icon-plus">button link</a>
-            <button class="button-small bicolor icon icon-plus">button element</button>
+            <button class="button button-small bicolor icon icon-plus">button element</button>
 
             <h3>Icon buttons without text</h3>
 
             <a href="#" class="button text-replace icon icon-cog">button link</a>
-            <button class="text-replace icon icon-cog">button element</button>
+            <button class="button text-replace icon icon-cog">button element</button>
 
             <h4>(small)</h4>
 
             <a href="#" class="button button-small text-replace icon icon-cog">button link</a>
-            <button class="button-small text-replace icon icon-cog">button element</button>
+            <button class="button button-small text-replace icon icon-cog">button element</button>
 
             <h3>Colour signifiers</h3>
 
@@ -293,16 +295,16 @@
 
             <h3>Buttons with internal loading indicators (currently only <code>button</code> supported)</h3>
             <p class="help-block help-warning">Note that in some browsers, clicking these buttons minutely affects the appearance of Dropdown buttons, below. This is yet to be resolved.</p>
-            <button class="button-longrunning"><span class="icon icon-spinner"></span>Click me</button>
+            <button class="button button-longrunning"><span class="icon icon-spinner"></span>Click me</button>
 
             <h4>Secondary</h4>
-            <button class="button-secondary button-longrunning"><span class="icon icon-spinner"></span>Click me</button>
+            <button class="button button-secondary button-longrunning"><span class="icon icon-spinner"></span>Click me</button>
 
             <h4>Small</h4>
-            <button class="button-small button-longrunning"><span class="icon icon-spinner"></span>Click me</button>
+            <button class="button button-small button-longrunning"><span class="icon icon-spinner"></span>Click me</button>
 
             <h4>Buttons where the text is replaced on click</h4>
-            <button class="button-longrunning" data-clicked-text="Test"><span class="icon icon-spinner"></span><em>Click me</em></button>
+            <button class="button button-longrunning" data-clicked-text="Test"><span class="icon icon-spinner"></span><em>Click me</em></button>
 
             <h4>Arbitrarily bigger</h4>
             <style>
@@ -312,11 +314,11 @@
                     height:3.5em;
                 }
             </style>
-            <button class="button-longrunning" id="button-arbitrarily-bigger"><span class="icon icon-spinner"></span>Click me</button>
+            <button class="button button-longrunning" id="button-arbitrarily-bigger"><span class="icon icon-spinner"></span>Click me</button>
 
             <h3>Mixtures</h3>
 
-            <button class="icon text-replace yes icon-tick">A proper button</button>
+            <button class="button icon text-replace yes icon-tick">A proper button</button>
             <a href="#" class="button icon text-replace white icon-cog">A link button</a>
             <span class="button icon text-replace no icon-bin">A non-link button</span>
             <a href="#" class="button bicolor disabled icon icon-tick">button link</a>
@@ -327,13 +329,13 @@
             <h2>Button groups</h2>
             <p>Adds rounding to first and last items only</p>
             <div class="button-group">
-                <button>button element</button>
-                <button>button element</button>
-                <button>button element</button>
+                <button class="button">button element</button>
+                <button class="button">button element</button>
+                <button class="button">button element</button>
             </div>
             <br />
             <div class="button-group">
-                <button class="icon text-replace yes icon-tick">A proper button</button>
+                <button class="button icon text-replace yes icon-tick">A proper button</button>
                 <a href="#" class="button icon text-replace white icon-cog">A link button</a>
                 <span class="button icon text-replace no icon-bin">A non-link button</span>
             </div>
@@ -402,9 +404,96 @@
                 </div>
 
                 <div class="col3">
-                    <button>button for comparison of height</button>
+                    <button class="button">button for comparison of height</button>
                 </div>
             </div>
+
+            <div class="row">
+                <br />
+
+                <p>
+                    Inline dropdown components, primarily used in the listing.
+                </p>
+
+                <div class="c-dropdown u-para t-default" data-dropdown="">
+                    <a class="c-dropdown__button  u-btn-current">
+                        More
+                        <div data-dropdown-toggle="" class="o-icon  c-dropdown__toggle  [ icon icon-arrow-down ]"></div>
+                    </a>
+                    <div class="t-dark">
+                        <ul role="menu" class="c-dropdown__menu  u-toggle  u-arrow u-arrow--tl u-background">
+                            <li class="c-dropdown__item ">
+                                <a href="/admin/pages/2/move/" class="u-link is-live ">
+                                    Move
+                                </a>
+                            </li>
+                            <li class="c-dropdown__item ">
+                                <a href="/admin/pages/2/copy/" class="u-link is-live ">
+                                    Copy
+                                </a>
+                            </li>
+                            <li class="c-dropdown__item ">
+                                <a href="/admin/pages/2/delete/" class="u-link is-live ">
+                                    Delete
+                                </a>
+                            </li>
+                            <li class="c-dropdown__item ">
+                                <a href="/admin/pages/2/unpublish/" class="u-link is-live ">
+                                    Unpublish
+                                </a>
+                            </li>
+                            <li>
+                                <hr class="c-dropdown__divider">
+                            </li>
+                            <li class="c-dropdown__item">
+                                <a href="#" class="u-link is-live">
+                                    <span title="Live" class="c-indicator c-dropdown__indicator"></span>
+                                    Live
+                                </a>
+                            </li>
+                            <li class="c-dropdown__item">
+                                <a href="#" class="u-link is-draft">
+                                    <span title="Draft" class="c-indicator c-dropdown__indicator"></span>
+                                    Draft
+                                </a>
+                            </li>
+                            <li class="c-dropdown__item">
+                                <a href="#" class="u-link is-live+draft">
+                                    <span title="Live + Draft" class="c-indicator c-dropdown__indicator"></span>
+                                    Live + Draft
+                                </a>
+                            </li>
+                            <li class="c-dropdown__item">
+                                <a href="#" class="u-link is-absent">
+                                    <span title="Absent" class="c-indicator c-dropdown__indicator"></span>
+                                    Absent
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <p>These can also have an inverted  theme:</p>
+            <header class="nice-padding">
+                <div class="c-dropdown  t-inverted" data-dropdown="">
+                    <a class="c-dropdown__button  u-btn-current">
+                        More
+                        <div data-dropdown-toggle="" class="o-icon  c-dropdown__toggle  [ icon icon-arrow-down ]"></div>
+                    </a>
+                    <div class="t-dark">
+                        <ul role="menu" class="c-dropdown__menu  u-toggle  u-arrow u-arrow--tl u-background">
+                            <li class="c-dropdown__item ">
+                                <a href="/admin/pages/2/move/" class="u-link is-live ">
+                                    Move
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </header>
+
+
         </section>
 
         <section id="header">
@@ -412,7 +501,7 @@
 
             {% include "wagtailadmin/shared/header.html" with title=title_trans %}
 
-            {% include "wagtailadmin/shared/header.html" with title=title_trans add_link="wagtailimages:add" icon="image" add_text="button" search_url="wagtailimages:index" %}
+            {% include "wagtailadmin/shared/header.html" with title=title_trans add_link="wagtailstyleguide" icon="image" add_text="button" search_url="wagtailimages:index" %}
         </section>
 
         <section id="forms">
@@ -427,12 +516,9 @@
                             {% include "wagtailadmin/shared/field_as_li.html" %}
                         {% endif %}
                     {% endfor %}
-                    <li><input type="submit" value="{% trans 'Save' %}" /><a href="#" class="button button-secondary no">{% trans "Delete image" %}</a></li>
+                    <li><input type="submit" value="{% trans 'Save' %}" class="button" /><a href="#" class="button button-secondary no">{% trans "Delete image" %}</a></li>
                 </ul>
             </form>
-
-            <h3>TODO: Rich text input</h3>
-            <h3>TODO: Snippet chooser</h3>
         </section>
 
         <section id="editor">
@@ -496,6 +582,8 @@
 
             <p><span class="avatar icon icon-user"><img src="{% gravatar_url "david@torchbox.com" %}" /></span> Gravatar set (normal)</p>
             <p><span class="avatar icon icon-user"><img src="{% gravatar_url "aeon@torchbox.com" %}" /></span> Gravatar not set (normal)</p>
+            <p><span class="avatar square icon icon-user"><img src="{% gravatar_url "david@torchbox.com" %}" /></span> Gravatar set (square)</p>
+            <p><span class="avatar square icon icon-user"><img src="{% gravatar_url "aeon@torchbox.com" %}" /></span> Gravatar not set (square)</p>
             <p><span class="avatar small icon icon-user"><img src="{% gravatar_url "david@torchbox.com" %}" /></span> Gravatar set (small)</p>
             <p><span class="avatar small icon icon-user"><img src="{% gravatar_url "aeon@torchbox.com" %}" /></span> Gravatar not set (small)</p>
 
@@ -510,6 +598,10 @@
             <div class="loading-mask loading" style="width:200px">
                 <img src="{% static 'wagtailadmin/images/wagtail-logo.svg' %}" width="200" />
             </div>
+
+            <h3>Image transparency</h3>
+            <p>It can be useful to show users the transparent areas of images. Add a transparency checkerboard with the <code>.show-transparency</code> on the <code>img</code> tag thus:</p>
+            <img src="{% static 'wagtailadmin/images/wagtail-logo.svg' %}" width="200" class="show-transparency" />
         </section>
 
         <section id="icons" class="icons">
@@ -588,6 +680,9 @@
                 <li class="icon icon-title">title</li>
                 <li class="icon icon-code">code</li>
                 <li class="icon icon-openquote">openquote</li>
+                <li class="icon icon-chain-broken">chain-broken</li>
+                <li class="icon icon-table">table</li>
+                <li class="icon icon-logout">logout</li>
             </ul>
 
         </section>
@@ -608,6 +703,9 @@
     {{ block.super }}
 
     {% include "wagtailadmin/pages/_editor_js.html" %}
+
+    {{ example_form.media.js}}
+
     <script>
         $(function(){
             // Debugging for stylesheet problems

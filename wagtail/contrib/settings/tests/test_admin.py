@@ -3,11 +3,13 @@ from __future__ import absolute_import, unicode_literals
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Permission
 from django.core.urlresolvers import reverse
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.utils.text import capfirst
 
 from wagtail.contrib.settings.registry import SettingMenuItem
-from wagtail.tests.testapp.models import IconSetting, TestSetting
+from wagtail.contrib.settings.views import get_setting_edit_handler
+from wagtail.tests.testapp.models import (
+    FileUploadSetting, IconSetting, PanelSettings, TabbedSettings, TestSetting)
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import Page, Site
@@ -21,7 +23,7 @@ class TestSettingMenu(TestCase, WagtailTestUtils):
             username='test', email='test@email.com', password='password')
         user.user_permissions.add(Permission.objects.get_by_natural_key(
             codename='access_admin', app_label='wagtailadmin', model='admin'))
-        self.client.login(username='test', password='password')
+        self.assertTrue(self.client.login(username='test', password='password'))
         return user
 
     def test_menu_item_in_admin(self):
@@ -45,24 +47,28 @@ class TestSettingMenu(TestCase, WagtailTestUtils):
 
 
 class BaseTestSettingView(TestCase, WagtailTestUtils):
-    def get(self, site_pk=1, params={}):
-        url = self.edit_url('tests', 'testsetting', site_pk=site_pk)
+    def get(self, site_pk=1, params={}, setting=TestSetting):
+        url = self.edit_url(setting=setting, site_pk=site_pk)
         return self.client.get(url, params)
 
-    def post(self, site_pk=1, post_data={}):
-        url = self.edit_url('tests', 'testsetting', site_pk=site_pk)
+    def post(self, site_pk=1, post_data={}, setting=TestSetting):
+        url = self.edit_url(setting=setting, site_pk=site_pk)
         return self.client.post(url, post_data)
 
-    def edit_url(self, app, model, site_pk=1):
-        return reverse('wagtailsettings:edit', args=[site_pk, app, model])
+    def edit_url(self, setting, site_pk=1):
+        args = [setting._meta.app_label, setting._meta.model_name, site_pk]
+        return reverse('wagtailsettings:edit', args=args)
 
 
 class TestSettingCreateView(BaseTestSettingView):
     def setUp(self):
         self.login()
 
-    def test_status_code(self):
-        self.assertEqual(self.get().status_code, 200)
+    def test_get_edit(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        # there should be a menu item highlighted as active
+        self.assertContains(response, "menu-active")
 
     def test_edit_invalid(self):
         response = self.post(post_data={'foo': 'bar'})
@@ -79,6 +85,11 @@ class TestSettingCreateView(BaseTestSettingView):
         self.assertEqual(setting.title, 'Edited site title')
         self.assertEqual(setting.email, 'test@example.com')
 
+    def test_file_upload_multipart(self):
+        response = self.get(setting=FileUploadSetting)
+        # Ensure the form supports file uploads
+        self.assertContains(response, 'enctype="multipart/form-data"')
+
 
 class TestSettingEditView(BaseTestSettingView):
     def setUp(self):
@@ -92,11 +103,14 @@ class TestSettingEditView(BaseTestSettingView):
 
         self.login()
 
-    def test_status_code(self):
-        self.assertEqual(self.get().status_code, 200)
+    def test_get_edit(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        # there should be a menu item highlighted as active
+        self.assertContains(response, "menu-active")
 
     def test_non_existant_model(self):
-        response = self.client.get(self.edit_url('test', 'foo'))
+        response = self.client.get(reverse('wagtailsettings:edit', args=['test', 'foo', 1]))
         self.assertEqual(response.status_code, 404)
 
     def test_edit_invalid(self):
@@ -115,6 +129,7 @@ class TestSettingEditView(BaseTestSettingView):
         self.assertEqual(setting.email, 'test@example.com')
 
 
+@override_settings(ALLOWED_HOSTS=['testserver', 'example.com', 'noneoftheabove.example.com'])
 class TestMultiSite(BaseTestSettingView):
     def setUp(self):
         self.default_site = Site.objects.get(is_default_site=True)
@@ -128,7 +143,7 @@ class TestMultiSite(BaseTestSettingView):
         start_url = reverse('wagtailsettings:edit', args=[
             'tests', 'testsetting'])
         dest_url = 'http://testserver' + reverse('wagtailsettings:edit', args=[
-            self.default_site.pk, 'tests', 'testsetting'])
+            'tests', 'testsetting', self.default_site.pk])
         response = self.client.get(start_url, follow=True)
         self.assertRedirects(response, dest_url, status_code=302, fetch_redirect_response=False)
 
@@ -140,7 +155,7 @@ class TestMultiSite(BaseTestSettingView):
         start_url = reverse('wagtailsettings:edit', args=[
             'tests', 'testsetting'])
         dest_url = 'http://example.com' + reverse('wagtailsettings:edit', args=[
-            self.other_site.pk, 'tests', 'testsetting'])
+            'tests', 'testsetting', self.other_site.pk])
         response = self.client.get(start_url, follow=True, HTTP_HOST=self.other_site.hostname)
         self.assertRedirects(response, dest_url, status_code=302, fetch_redirect_response=False)
 
@@ -204,3 +219,32 @@ class TestAdminPermission(TestCase, WagtailTestUtils):
                 break
         else:
             self.fail('Change permission for tests.TestSetting not registered')
+
+
+class TestEditHandlers(TestCase):
+    def setUp(self):
+        get_setting_edit_handler.cache_clear()
+
+    def test_default_model_introspection(self):
+        handler = get_setting_edit_handler(TestSetting)
+        self.assertEqual(handler.__name__, '_ObjectList')
+        self.assertEqual(len(handler.children), 2)
+        first = handler.children[0]
+        self.assertEqual(first.__name__, '_FieldPanel')
+        self.assertEqual(first.field_name, 'title')
+        second = handler.children[1]
+        self.assertEqual(second.__name__, '_FieldPanel')
+        self.assertEqual(second.field_name, 'email')
+
+    def test_with_custom_panels(self):
+        handler = get_setting_edit_handler(PanelSettings)
+        self.assertEqual(handler.__name__, '_ObjectList')
+        self.assertEqual(len(handler.children), 1)
+        first = handler.children[0]
+        self.assertEqual(first.__name__, '_FieldPanel')
+        self.assertEqual(first.field_name, 'title')
+
+    def test_with_custom_edit_handler(self):
+        handler = get_setting_edit_handler(TabbedSettings)
+        self.assertEqual(handler.__name__, '_TabbedInterface')
+        self.assertEqual(len(handler.children), 2)

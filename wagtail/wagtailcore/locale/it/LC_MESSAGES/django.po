@@ -4,13 +4,14 @@
 #
 # Translators:
 # Alessio Di Stasio <aledista@gmail.com>, 2015
-# Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015
+# Edd Baldry <edd.baldry@gmail.com>, 2016
+# Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:01+0000\n"
-"PO-Revision-Date: 2015-12-29 08:47+0000\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2016-12-20 16:53+0000\n"
 "Last-Translator: Giacomo Ghizzani <giacomo.ghz@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
@@ -19,6 +20,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: it\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#, python-brace-format
+msgid "{label}: this block has no options."
+msgstr "{label}: questo blocco non ha opzioni."
+
+msgid "This block has no options."
+msgstr "Questo blocco non ha opzioni"
+
+msgid "Password"
+msgstr "Password"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr "La password inserita non è corretta. Riprovare."
 
 msgid "hostname"
 msgstr "hostname"
@@ -111,6 +125,10 @@ msgstr ""
 msgid "show in menus"
 msgstr "mostra nel menu"
 
+msgid ""
+"Whether a link to this page will appear in automatically generated menus"
+msgstr "Se un link a questa pagina apparirà nei menu generati automaticamente"
+
 msgid "search description"
 msgstr "descrizione della ricerca"
 
@@ -134,6 +152,9 @@ msgstr "primo pubblicato a"
 
 msgid "latest revision created at"
 msgstr "ultima revisione creata alle"
+
+msgid "This slug is already in use"
+msgstr "Questo slug è gia in uso"
 
 msgid "scheduled"
 msgstr "schedulato"
@@ -174,14 +195,32 @@ msgstr "revisione pagina"
 msgid "page revisions"
 msgstr "revisioni pagina"
 
+msgid "Add"
+msgstr "Aggiungi"
+
 msgid "Add/edit pages you own"
 msgstr "Aggiungi/modifica pagine di tua proprietà"
+
+msgid "Edit"
+msgstr "Modifica"
 
 msgid "Edit any page"
 msgstr "Modificare qualche pagina"
 
+msgid "Publish"
+msgstr "Pubblica"
+
 msgid "Publish any page"
 msgstr "Pubblica ogni pagina"
+
+msgid "Bulk delete"
+msgstr "Eliminazione massiva"
+
+msgid "Delete pages with children"
+msgstr "Elimina pagine con sottopagine"
+
+msgid "Lock"
+msgstr "Blocca"
 
 msgid "Lock/unlock any page"
 msgstr "Blocca/sblocca ogni pagina"
@@ -198,6 +237,18 @@ msgstr "permesso della pagina del gruppo"
 msgid "group page permissions"
 msgstr "permessi delle pagine del gruppo"
 
+msgid "Public"
+msgstr "Pubblico"
+
+msgid "Private, accessible to logged-in users"
+msgstr "Privato, accessibile da utenti loggati"
+
+msgid "Private, accessible with the following password"
+msgstr "Privato, accessibile con la seguente password"
+
+msgid "Private, accessible to users in specific groups"
+msgstr "Privato, accessibile a utenti di gruppi specifici"
+
 msgid "password"
 msgstr "password"
 
@@ -206,3 +257,38 @@ msgstr "restrizione per la visualizzazione della pagina"
 
 msgid "page view restrictions"
 msgstr "restrizioni per la visualizzazione della pagina"
+
+msgid "name"
+msgstr "nome"
+
+msgid "collection"
+msgstr "collezione"
+
+msgid "collections"
+msgstr "collezioni"
+
+msgid "permission"
+msgstr "permesso"
+
+msgid "group collection permission"
+msgstr "permesso della collezione del gruppo"
+
+msgid "Log in"
+msgstr "Log in"
+
+msgid "Your username and password didn't match. Please try again."
+msgstr "Username e password non corrispondono. Riprova."
+
+msgid ""
+"Your account doesn't have access to this page. To proceed, please log in "
+"with an account that has access."
+msgstr "Il tuo account non ha accesso a questa pagina."
+
+msgid "Password required"
+msgstr "Richiesta password"
+
+msgid "You need a password to access this page."
+msgstr "Devi avere una password per accedere a questa pagina."
+
+msgid "Continue"
+msgstr "Continua"

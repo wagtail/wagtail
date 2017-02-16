@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-10 15:32+0000\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,15 +17,15 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: forms.py:12
+#: forms.py:13
 msgid "From site"
 msgstr ""
 
-#: forms.py:12
+#: forms.py:13
 msgid "All sites"
 msgstr ""
 
-#: forms.py:41
+#: forms.py:42
 msgid "A redirect with this path already exists."
 msgstr ""
 
@@ -37,7 +37,7 @@ msgstr ""
 msgid "site"
 msgstr ""
 
-#: models.py:18
+#: models.py:18 models.py:43
 msgid "permanent"
 msgstr ""
 
@@ -53,6 +53,10 @@ msgstr ""
 
 #: models.py:28
 msgid "redirect to any URL"
+msgstr ""
+
+#: models.py:45
+msgid "temporary"
 msgstr ""
 
 #: models.py:94
@@ -100,7 +104,7 @@ msgid "Delete redirect"
 msgstr ""
 
 #: templates/wagtailredirects/index.html:3
-#: templates/wagtailredirects/index.html:17 wagtail_hooks.py:30
+#: templates/wagtailredirects/index.html:17 wagtail_hooks.py:31
 msgid "Redirects"
 msgstr ""
 
@@ -123,10 +127,6 @@ msgstr ""
 
 #: templates/wagtailredirects/list.html:27
 msgid "Edit this redirect"
-msgstr ""
-
-#: templates/wagtailredirects/list.html:39
-msgid "primary"
 msgstr ""
 
 #: templates/wagtailredirects/results.html:5

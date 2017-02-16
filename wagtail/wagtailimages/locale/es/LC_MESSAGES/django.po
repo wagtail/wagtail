@@ -5,18 +5,20 @@
 # Translators:
 # fooflare <amos.oviedo@gmail.com>, 2014
 # fooflare <amos.oviedo@gmail.com>, 2014
-# chimeno <daniel@chimeno.me>, 2015
+# Daniel Chimeno <daniel@chimeno.me>, 2017
+# Daniel Chimeno <daniel@chimeno.me>, 2015
 # fooflare <amos.oviedo@gmail.com>, 2014
 # Joaquín Tita <carpincho@gmail.com>, 2014
-# José Alaguna <alagunajs@gmail.com>, 2015
-# Mauricio Baeza <web@mauriciobaeza.net>, 2015
+# Yusuf (Josè) Luis <alagunajs@gmail.com>, 2015-2016
+# Mauricio Baeza <python@amigos.email>, 2015
+# Yusuf (Josè) Luis <alagunajs@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:02+0000\n"
-"PO-Revision-Date: 2016-02-05 17:09+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2017-01-27 10:59+0000\n"
+"Last-Translator: Daniel Chimeno <daniel@chimeno.me>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -57,6 +59,15 @@ msgstr ""
 msgid "This file is too big. Maximum filesize %s."
 msgstr "Este archivo es demasiado grande. El tamaño máximo de archivo es: %s."
 
+msgid "Full width"
+msgstr "Ancho completo"
+
+msgid "Left-aligned"
+msgstr "Alineado a la izquierda"
+
+msgid "Right-aligned"
+msgstr "Alineado a la derecha"
+
 msgid "Filter"
 msgstr "Filtro"
 
@@ -86,6 +97,18 @@ msgstr "Alto"
 
 msgid "Closeness"
 msgstr "Proximidad"
+
+msgid "Add"
+msgstr "Agregar"
+
+msgid "Add/edit images you own"
+msgstr "Añadir/editar tus propias páginas"
+
+msgid "Edit"
+msgstr "Editar"
+
+msgid "Edit any image"
+msgstr "Editar cualquier imagen"
 
 msgid "title"
 msgstr "título"
@@ -169,7 +192,7 @@ msgstr[1] ""
 "            "
 
 msgid "Change image file:"
-msgstr "Cambiar archivo de imágen:"
+msgstr "Cambiar archivo de imagen:"
 
 msgid "Add an image"
 msgstr "Añadir una imagen"
@@ -232,11 +255,19 @@ msgstr ""
 
 #, python-format
 msgid ""
-"You've not uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">add one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"No has subido imágenes. ¿Por qué no <a href=\"%(wagtailimages_add_image_url)s"
-"\">añadir una ahora</a>?"
+"No ha cargado imágenes en esta colección. Por qué no <a href="
+"\"%(wagtailimages_add_image_url)s\"> carga una ahora</a>?"
+
+#, python-format
+msgid ""
+"You haven't uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+msgstr ""
+"No ha cargado imágenes. Por qué no <a href=\"%(wagtailimages_add_image_url)s"
+"\"> carga una ahora</a>?"
 
 msgid "Generating URL"
 msgstr "Generar URL"
@@ -291,6 +322,9 @@ msgstr ""
 msgid "Or choose from your computer"
 msgstr "Ó seleccione desde su ordenador."
 
+msgid "Add to collection:"
+msgstr "Añadir a la colección:"
+
 msgid ""
 "Upload successful. Please update this image with a more appropriate title, "
 "if necessary. You may also delete the image completely if the upload wasn't "
@@ -303,6 +337,13 @@ msgstr ""
 msgid "Sorry, upload failed."
 msgstr "Lo sentimos, su subida ha fallado."
 
+msgid "Server Error"
+msgstr "Error de servidor"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr ""
+"Reporte este error a tu administrador web con la siguiente información:"
+
 msgid "Image updated."
 msgstr "Imagen actualizada"
 
@@ -311,6 +352,12 @@ msgstr "Editar"
 
 msgid "Delete"
 msgstr "Eliminar"
+
+msgid "Image permissions"
+msgstr "Permisos de imagen"
+
+msgid "Add an image permission"
+msgstr "Añadir un permiso de imagen"
 
 msgid "Search images"
 msgstr "Buscar imágenes"
@@ -329,8 +376,8 @@ msgid ""
 "The source image file could not be found. Please change the source or delete "
 "the image."
 msgstr ""
-"El archivo origen de la imágen no pudo ser encontrado. Por favor, cambia el "
-"origen o elimina esta imágen."
+"El archivo origen de la imagen no pudo ser encontrado. Por favor, cambia el "
+"origen o elimina esta imagen."
 
 #, python-brace-format
 msgid "Image '{0}' deleted."
@@ -340,14 +387,17 @@ msgstr "Imagen '{0}' eliminada."
 msgid "Image '{0}' added."
 msgstr "Imagen '{0}' añadida."
 
-msgid "Edit"
-msgstr "Editar"
-
 msgid "The image could not be created due to errors."
 msgstr "La imagen no pudo ser creada debido a errores."
+
+#, python-format
+msgid "%(count)s image"
+msgid_plural "%(count)s images"
+msgstr[0] "%(count)s image"
+msgstr[1] "%(count)s imagenes"
 
 msgid "Choose another image"
 msgstr "Seleccionar otra imagen"
 
 msgid "Edit this image"
-msgstr "Editar esta imágen"
+msgstr "Editar esta imagen"

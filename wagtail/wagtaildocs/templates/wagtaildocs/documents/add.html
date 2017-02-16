@@ -21,14 +21,14 @@
     {% include "wagtailadmin/shared/header.html" with title=add_str icon="doc-full-inverse" %}
 
     <div class="nice-padding">
-        <form action="{% url 'wagtaildocs:add' %}" method="POST" enctype="multipart/form-data">
+        <form action="{% url 'wagtaildocs:add' %}" method="POST" enctype="multipart/form-data" novalidate>
             {% csrf_token %}
             <ul class="fields">
                 {% for field in form %}
                     {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
                 {% endfor %}
                 <li>
-                    <button type="submit" class="button-longrunning" data-clicked-text="{% trans 'Uploading...' %}"><span class="icon icon-spinner"></span><em>{% trans 'Upload' %}</em></button>
+                    <button type="submit" class="button button-longrunning" data-clicked-text="{% trans 'Uploading...' %}"><span class="icon icon-spinner"></span><em>{% trans 'Upload' %}</em></button>
                 </li>
             </ul>
         </form>

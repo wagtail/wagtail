@@ -9,8 +9,8 @@
         <p>{% blocktrans with snippet_type_name=model_opts.verbose_name %}Are you sure you want to delete this {{ snippet_type_name }}?{% endblocktrans %}</p>
         <form action="{% url 'wagtailsnippets:delete' model_opts.app_label model_opts.model_name instance.id %}" method="POST">
             {% csrf_token %}
-            <input type="submit" value="{% trans 'Yes, delete' %}" class="serious" />
+            <input type="submit" value="{% trans 'Yes, delete' %}" class="button serious" />
         </form>
     </div>
-    
+
 {% endblock %}

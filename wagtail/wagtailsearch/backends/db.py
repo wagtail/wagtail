@@ -1,9 +1,13 @@
+from __future__ import absolute_import, unicode_literals
+
 from django.db import models
+from django.db.models.expressions import Value
 
-from wagtail.wagtailsearch.backends.base import BaseSearch, BaseSearchQuery, BaseSearchResults
+from wagtail.wagtailsearch.backends.base import (
+    BaseSearchBackend, BaseSearchQuery, BaseSearchResults)
 
 
-class DBSearchQuery(BaseSearchQuery):
+class DatabaseSearchQuery(BaseSearchQuery):
     DEFAULT_OPERATOR = 'and'
 
     def _process_lookup(self, field, lookup, value):
@@ -62,7 +66,7 @@ class DBSearchQuery(BaseSearchQuery):
         return q
 
 
-class DBSearchResults(BaseSearchResults):
+class DatabaseSearchResults(BaseSearchResults):
     def get_queryset(self):
         queryset = self.query.queryset
         q = self.query.get_extra_q()
@@ -70,18 +74,23 @@ class DBSearchResults(BaseSearchResults):
         return queryset.filter(q).distinct()[self.start:self.stop]
 
     def _do_search(self):
-        return self.get_queryset()
+        queryset = self.get_queryset()
+
+        if self._score_field:
+            queryset = queryset.annotate(**{self._score_field: Value(None, output_field=models.FloatField())})
+
+        return queryset
 
     def _do_count(self):
         return self.get_queryset().count()
 
 
-class DBSearch(BaseSearch):
-    query_class = DBSearchQuery
-    results_class = DBSearchResults
+class DatabaseSearchBackend(BaseSearchBackend):
+    query_class = DatabaseSearchQuery
+    results_class = DatabaseSearchResults
 
     def __init__(self, params):
-        super(DBSearch, self).__init__(params)
+        super(DatabaseSearchBackend, self).__init__(params)
 
     def reset_index(self):
         pass  # Not needed
@@ -102,4 +111,4 @@ class DBSearch(BaseSearch):
         pass  # Not needed
 
 
-SearchBackend = DBSearch
+SearchBackend = DatabaseSearchBackend

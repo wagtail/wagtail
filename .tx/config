@@ -78,3 +78,21 @@ file_filter = wagtail/contrib/wagtailstyleguide/locale/<lang>/LC_MESSAGES/django
 source_file = wagtail/contrib/wagtailstyleguide/locale/en/LC_MESSAGES/django.po
 source_lang = en
 type = PO
+
+[wagtail.wagtailsettings]
+file_filter = wagtail/contrib/settings/locale/<lang>/LC_MESSAGES/django.po
+source_file = wagtail/contrib/settings/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type = PO
+
+[wagtail.wagtailmodeladmin]
+file_filter = wagtail/contrib/modeladmin/locale/<lang>/LC_MESSAGES/django.po
+source_file = wagtail/contrib/modeladmin/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type = PO
+
+[wagtail.wagtailtableblock]
+file_filter = wagtail/contrib/table_block/locale/<lang>/LC_MESSAGES/django.po
+source_file = wagtail/contrib/table_block/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type = PO

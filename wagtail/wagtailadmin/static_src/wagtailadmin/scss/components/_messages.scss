@@ -14,16 +14,17 @@
 
     ul {
         @include unlist();
-        padding-left: 10px;
         position: relative;
         top: -100px;
         opacity: 0;
     }
 
     li {
-        @include nice-padding;
-        padding-top: 1.3em;
-        padding-bottom: 1.3em;
+        // @include nice-padding;
+        padding-top: 1.6em;
+        padding-right: 3em;
+        padding-bottom: 1.6em;
+        padding-left: 1.6em;
         color: $color-white;
     }
 
@@ -91,7 +92,7 @@
 
 @media screen and (min-width: $breakpoint-mobile) {
     .messages ul li {
-        padding-left: $desktop-nice-padding;
-        padding-right: $desktop-nice-padding;
+        padding-left: 1.6em;
+        padding-right: 3em;
     }
 }

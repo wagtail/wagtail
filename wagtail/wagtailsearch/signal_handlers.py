@@ -1,39 +1,26 @@
-from django.db.models.signals import post_save, post_delete
+from __future__ import absolute_import, unicode_literals
 
-from wagtail.wagtailsearch.index import get_indexed_models
-from wagtail.wagtailsearch.backends import get_search_backends
+from django.db.models.signals import post_delete, post_save
 
-
-def get_indexed_instance(instance):
-    indexed_instance = instance.get_indexed_instance()
-    if indexed_instance is None:
-        return
-
-    # Make sure that the instance is in its class's indexed objects
-    if not type(indexed_instance).get_indexed_objects().filter(pk=indexed_instance.pk).exists():
-        return
-
-    return indexed_instance
+from wagtail.wagtailsearch import index
 
 
-def post_save_signal_handler(instance, **kwargs):
-    indexed_instance = get_indexed_instance(instance)
+def post_save_signal_handler(instance, update_fields=None, **kwargs):
+    if update_fields is not None:
+        # fetch a fresh copy of instance from the database to ensure
+        # that we're not indexing any of the unsaved data contained in
+        # the fields that were not passed in update_fields
+        instance = type(instance).objects.get(pk=instance.pk)
 
-    if indexed_instance:
-        for backend in get_search_backends(with_auto_update=True):
-            backend.add(indexed_instance)
+    index.insert_or_update_object(instance)
 
 
 def post_delete_signal_handler(instance, **kwargs):
-    indexed_instance = get_indexed_instance(instance)
-
-    if indexed_instance:
-        for backend in get_search_backends(with_auto_update=True):
-            backend.delete(indexed_instance)
+    index.remove_object(instance)
 
 
 def register_signal_handlers():
     # Loop through list and register signal handlers for each one
-    for model in get_indexed_models():
+    for model in index.get_indexed_models():
         post_save.connect(post_save_signal_handler, sender=model)
         post_delete.connect(post_delete_signal_handler, sender=model)

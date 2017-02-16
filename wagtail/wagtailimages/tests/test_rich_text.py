@@ -1,9 +1,11 @@
-from bs4 import BeautifulSoup
-from mock import patch
+from __future__ import absolute_import, unicode_literals
 
+from bs4 import BeautifulSoup
 from django.test import TestCase
 
 from wagtail.wagtailimages.rich_text import ImageEmbedHandler
+
+from .utils import Image, get_test_image_file
 
 
 class TestImageEmbedHandler(TestCase):
@@ -26,9 +28,8 @@ class TestImageEmbedHandler(TestCase):
         )
         self.assertEqual(result, '<img>')
 
-    @patch('wagtail.wagtailimages.models.Image')
-    @patch('django.core.files.File')
-    def test_expand_db_attributes_not_for_editor(self, mock_file, mock_image):
+    def test_expand_db_attributes_not_for_editor(self):
+        Image.objects.create(id=1, title='Test', file=get_test_image_file())
         result = ImageEmbedHandler.expand_db_attributes(
             {'id': 1,
              'alt': 'test-alt',
@@ -37,9 +38,8 @@ class TestImageEmbedHandler(TestCase):
         )
         self.assertIn('<img class="richtext-image left"', result)
 
-    @patch('wagtail.wagtailimages.models.Image')
-    @patch('django.core.files.File')
-    def test_expand_db_attributes_for_editor(self, mock_file, mock_image):
+    def test_expand_db_attributes_for_editor(self):
+        Image.objects.create(id=1, title='Test', file=get_test_image_file())
         result = ImageEmbedHandler.expand_db_attributes(
             {'id': 1,
              'alt': 'test-alt',

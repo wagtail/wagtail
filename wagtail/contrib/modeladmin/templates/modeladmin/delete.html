@@ -1,0 +1,30 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n modeladmin_tags %}
+
+{% block titletag %}{{ view.get_meta_title }}{% endblock %}
+
+{% block content %}
+
+    {% block header %}
+        {% include "wagtailadmin/shared/header.html" with title=view.get_page_title subtitle=view.get_page_subtitle icon=view.header_icon %}
+    {% endblock %}
+
+    {% block content_main %}
+        <div class="nice-padding">
+            {% if protected_error %}
+                <h2>{% blocktrans with view.verbose_name|capfirst as model_name %}{{ model_name }} could not be deleted{% endblocktrans %}</h2>
+                <p>{% blocktrans with instance as instance_name %}'{{ instance_name }}' is currently referenced by other objects, and cannot be deleted without jeopardising data integrity. To delete it successfully, first remove references from the following objects, then try again:{% endblocktrans %}</p>
+                <ul>
+                    {% for obj in linked_objects %}<li><b>{{ obj|get_content_type_for_obj|title }}:</b> {{ obj }}</li>{% endfor %}
+                </ul>
+                <p><a href="{{ view.index_url }}" class="button">{% trans 'Go back to listing' %}</a></p>
+            {% else %}
+                <p>{{ view.confirmation_message }}</p>
+                <form action="{{ view.delete_url }}" method="POST">
+                    {% csrf_token %}
+                    <input type="submit" value="{% trans 'Yes, delete' %}" class="button serious" />
+                </form>
+            {% endif %}
+        </div>
+    {% endblock %}
+{% endblock %}

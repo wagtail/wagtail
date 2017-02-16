@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Ji Han Chung <jihanchung20@gmail.com>, 2015
-# Kyungil Choi <hanpama@gmail.com>, 2015
+# Jihan Chung <jihanchung20@gmail.com>, 2015
+# Kyungil Choi <hanpama@gmail.com>, 2015,2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:01+0000\n"
-"PO-Revision-Date: 2016-02-05 17:08+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2017-02-06 12:37+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +19,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ko\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "You do not have permission to access the admin"
+msgstr "관리자에 접근할 권한을 가지고 있지 않습니다."
 
 msgid "Scheduled publishing"
 msgstr "예정된 퍼블리싱"
@@ -40,6 +43,9 @@ msgstr "검색"
 
 msgid "Search term"
 msgstr "검색어"
+
+msgid "URL"
+msgstr "URL"
 
 msgid "Enter password"
 msgstr "패스워드 입력"
@@ -110,14 +116,11 @@ msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
 msgstr "이 슬러그는 이미 상위 페이지 \"%s\" 에서 사용되어지고 있습니다"
 
-msgid "Public"
-msgstr "공개"
-
-msgid "Private, accessible with the following password"
-msgstr "비공개, 다음의 비밀번호로 접근 가능"
-
 msgid "This field is required."
 msgstr "필수 작성 항목입니다"
+
+msgid "Please select at least one group."
+msgstr "적어도 한 개의 그룹을 선택해 주세요."
 
 msgid "This slug is already in use"
 msgstr "이 슬러그는 이미 사용되었습니다"
@@ -127,6 +130,9 @@ msgstr "라이브를 위한 날짜 및 시간은 만료 날짜 및 시간보다 
 
 msgid "Expiry date/time must be in the future"
 msgstr "만료 날짜는 현재 이후의 날짜 및 시간이어야 합니다"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr "같은 모음에 대해서 여러 개의 권한을 설정할 수는 없습니다."
 
 msgid "Account"
 msgstr "계정"
@@ -189,8 +195,11 @@ msgstr "이메일을 확인하여 주세요"
 msgid "A link to reset your password has been emailed to you."
 msgstr "비밀번호 초기화를 위한 링크를 이메일로 보냈습니다"
 
-msgid "Please follow the link below to reset your password"
-msgstr "비밀번호 초기화를 위해 아래의 링크를 클릭하여 주세요"
+msgid "Please follow the link below to reset your password:"
+msgstr "패스워드를 재설정하려면 아래의 링크를 따라가 주세요."
+
+msgid "Your username (in case you've forgotten):"
+msgstr "사용자명(잊어버린 경우):"
 
 msgid "Password reset"
 msgstr "비밀번호 초기화"
@@ -217,7 +226,7 @@ msgid "Delete"
 msgstr "삭제"
 
 msgid "Explorer"
-msgstr "검색"
+msgstr "탐색기"
 
 msgid "Internal link"
 msgstr "내부 링크"
@@ -255,6 +264,25 @@ msgstr "링크 삽입"
 
 msgid "Add an external link"
 msgstr "외부 링크 추가"
+
+msgid ""
+"This collection cannot be deleted, because it is not empty. It contains:"
+msgstr "이 모음을 삭제할 수 없습니다. 모음이 비어 있지 않습니다:"
+
+msgid "Name"
+msgstr "이름"
+
+#, python-format
+msgid ""
+"No collections have been created. Why not <a href=\"%(add_collection_url)s"
+"\">add one</a>?"
+msgstr ""
+"생성되어 있는 모음이 하나도 없습니다. <a href=\"%(add_collection_url)s\">하"
+"나 생성</a>해 보시는 것은 어떠세요?"
+
+#, python-format
+msgid "Add %(heading)s"
+msgstr "%(heading)s 추가"
 
 msgid "Yes, delete"
 msgstr "네, 지우겠습니다"
@@ -346,9 +374,8 @@ msgstr "와그테일에 로그인"
 msgid "Forgotten it?"
 msgstr "잊어버리셨나요?"
 
-#, python-format
-msgid "The page \"%(title)s\" has been approved"
-msgstr "\"%(title)s\" 페이지가 승인 되었습니다"
+msgid "Signing in..."
+msgstr "로그인 중..."
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -357,12 +384,16 @@ msgstr "\"%(title)s\" 페이지가 승인 되었습니다"
 msgid "You can view the page here:"
 msgstr "여기서 페이지를 볼 수 있습니다"
 
-msgid "Edit your notification preferences here:"
-msgstr "당신의 알림 선호 순위를 여기서 바꿔주세요"
+#, python-format
+msgid "The page \"%(title)s\" has been approved"
+msgstr "\"%(title)s\" 페이지가 승인 되었습니다"
 
 #, python-format
-msgid "The page \"%(title)s\" has been rejected"
-msgstr "\"%(title)s\" 페이지가 거절되었습니다"
+msgid "Hello %(username)s,"
+msgstr "%(username)s님, 안녕하세요."
+
+msgid "Edit your notification preferences here:"
+msgstr "당신의 알림 선호 순위를 여기서 바꿔주세요"
 
 #, python-format
 msgid "The page \"%(title)s\" has been rejected."
@@ -372,11 +403,19 @@ msgid "You can edit the page here:"
 msgstr "여기서 페이지를 수정할 수 있습니다"
 
 #, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation"
-msgstr "검토를 위해 \"%(page)s\" 페이지가 제출 되었습니다"
+msgid "The page \"%(title)s\" has been rejected"
+msgstr "\"%(title)s\" 페이지가 거절되었습니다"
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation by %(editor)s."
+msgstr "\"%(page)s\" 페이지에 대한 검토를 %(editor)s에게 신청했습니다."
 
 msgid "You can preview the page here:"
 msgstr "여기서 페이지를 미리 볼 수 있습니다:"
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation"
+msgstr "검토를 위해 \"%(page)s\" 페이지가 제출 되었습니다"
 
 msgid "Page privacy"
 msgstr "비공개 페이지"
@@ -402,6 +441,9 @@ msgstr "잠금 해제"
 
 msgid "Privacy"
 msgstr "비공개"
+
+msgid "Public"
+msgstr "공개"
 
 msgid "Private"
 msgstr "비공개"
@@ -441,18 +483,11 @@ msgstr[0] ""
 "\n"
 "%(descendant_count)s 개의 하위 페이지들도 삭제될 예정입니다"
 
-msgid ""
-"Alternatively you can unpublish the page. This removes the page from public "
-"view and you can edit or publish it again later."
-msgstr ""
-"대신 이  페이지에 대한 퍼블리싱을 해제할 수 있습니다. 이를 통해 웹뷰에서 이"
-"를 제거하고, 추후 이를 수정하거나 다시 퍼블리싱 할 수 있습니다"
+msgid "Yes, delete it"
+msgstr "네, 지웁니다"
 
-msgid "Delete it"
-msgstr "삭제"
-
-msgid "Unpublish it"
-msgstr "퍼블리싱 해제"
+msgid "No, don't delete it"
+msgstr "아니요, 지우지 않습니다"
 
 #, python-format
 msgid "Move %(title)s"
@@ -487,6 +522,9 @@ msgstr "이 페이지에 대한 퍼블리싱을 해제하시겠습니까?"
 msgid "Yes, unpublish it"
 msgstr "네, 퍼블리싱을 해제합니다"
 
+msgid "No, don't unpublish"
+msgstr "아니요, 퍼블리싱을 해제하지 않습니다"
+
 msgid "Pages using"
 msgstr "사용한 페이지들"
 
@@ -507,14 +545,23 @@ msgstr "새로운 %(page_type)s"
 msgid "New"
 msgstr "새로운"
 
+msgid "Saving..."
+msgstr "저장 중..."
+
 msgid "Save draft"
 msgstr "초안 저장"
+
+msgid "Publishing..."
+msgstr "퍼블리싱 중..."
 
 msgid "Publish"
 msgstr "퍼블리싱"
 
 msgid "Submit for moderation"
 msgstr "검토를 위한 제출"
+
+msgid "This page has unsaved changes."
+msgstr "이 페이지는 저장되지 않은 변경사항이 있습니다."
 
 #, python-format
 msgid "Editing %(page_type)s: %(title)s"
@@ -526,6 +573,12 @@ msgstr "%(page_type)s <span>%(title)s</span> 수정"
 
 msgid "Page locked"
 msgstr "페이지 잠금"
+
+msgid "Replace current draft"
+msgstr "현재 초안을 대체하기"
+
+msgid "Publish this revision"
+msgstr "이 안을 퍼블리싱하기"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -569,16 +622,6 @@ msgstr "'%(title)s' 의 하위페이지 탐색"
 #, python-format
 msgid "Add a child page to '%(title)s'"
 msgstr "'%(title)s' 에 대한 하위페이지 추가"
-
-msgid "Add subpage"
-msgstr "하위페이지 추가"
-
-msgid ""
-"This page is published but does not exist within a configured Site, so "
-"cannot be viewed."
-msgstr ""
-"이 페이지는 퍼블리싱 되었지만 설정된 사이트에 존재하지 않으모로 볼 수 없습니"
-"다"
 
 msgid "Add child page"
 msgstr "하위 페이지 추가"
@@ -727,22 +770,11 @@ msgstr ""
 "당신은 현재 이 서비스를 사용할 <strong>유효한</strong> 브라우저를 사용하고 있"
 "지 않습니다. 브라우저를 업그레이드 해주세요"
 
-msgid "Javascript is required to use Wagtail, but it is currently disabled"
-msgstr ""
-"와그테일을 사용하기 위해서는 자바스크립트가 필요하지만, 현재 이 기능이 비활성"
-"화 되어 있습니다"
-
-msgid "User bar"
-msgstr "사용자 바"
-
 msgid "Go to Wagtail admin interface"
 msgstr "와그테일 관리자 페이지로 이동"
 
 msgid "Add a child page"
 msgstr "하위페이지 추가"
-
-msgid "Add"
-msgstr "추가"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "죄송합니다, 해당 영역에 접근할 권한이 없습니다."
@@ -773,18 +805,6 @@ msgstr "'{0}' 페이지가 생성되었습니다"
 
 msgid "The page could not be created due to validation errors"
 msgstr "이 페이지는 오류에 의해 생성될 수 없습니다"
-
-#, python-brace-format
-msgid "Page '{0}' published."
-msgstr "'{0}' 페이지가 퍼블리싱 되었습니다"
-
-#, python-brace-format
-msgid "Page '{0}' submitted for moderation."
-msgstr "'{0}' 가 검토에 의해 제출되었습니다"
-
-#, python-brace-format
-msgid "Page '{0}' updated."
-msgstr "'{0}' 페이지가 업데이트 되었습니다"
 
 msgid "The page could not be saved as it is locked"
 msgstr "이 페이지는 잠겨 있으므로 저장할 수 없습니다"
@@ -818,6 +838,10 @@ msgstr "'{0}' 페이지가 복사 되었습니다"
 #, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "'{0}' 페이지는 현재 검토를 기다리고 있지 않습니다"
+
+#, python-brace-format
+msgid "Page '{0}' published."
+msgstr "'{0}' 페이지가 퍼블리싱 되었습니다"
 
 #, python-brace-format
 msgid "Page '{0}' rejected for publication."

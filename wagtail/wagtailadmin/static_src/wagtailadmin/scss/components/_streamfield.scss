@@ -41,6 +41,17 @@ li.sequence-member {
             padding: 1.5em 0;
         }
     }
+    
+    // Copied from page-editor.scss    
+    .struct-block li.required > label:after {
+        content: '*';
+        color: $color-red;
+        font-weight: bold;
+        display: inline-block;
+        margin-left: 0.5em;
+        line-height: 1em;
+        font-size: 13px;
+    }
 
     // The top level sequence doesn't have a sequnce-member-inner. This block is basically for things that should only affect inner blocks
     .sequence-member-inner {
@@ -124,7 +135,7 @@ li.sequence-member {
 // that are direct children of highest level sequence should be borderless and full-width
 .block_field > .field-content > .input > .sequence-container > .sequence-container-inner > .sequence > .sequence-member > .sequence-member-inner {
     > .widget-text_input input,
-    > .widget-rich_text_area .richtext,
+    > .widget-hallo_rich_text_area .richtext,
     > .widget-textarea textarea { 
         border: 0;
         padding: 0;
@@ -215,7 +226,6 @@ li.sequence-member {
     position: relative;
     background-color: $color-grey-1;
     opacity: 1;
-    z-index: 5;
 
     .toggle {
         @include transition(color 0.2s ease);
@@ -230,7 +240,7 @@ li.sequence-member {
         width: 1em;
         height: 1em;
         display: block;
-        z-index: 5;
+        z-index: 1;
         color: $color-grey-1;
         background-color: $color-white;
         outline: none;

@@ -41,8 +41,8 @@ By default, the Jinja environment does not have any Django functions or filters.
 
 In Django templates, ``self`` can be used to refer to the current page, stream block, or field panel. In Jinja, ``self`` is reserved for internal use. When writing Jinja templates, use ``page`` to refer to pages, ``value`` for stream blocks, and ``field_panel`` for field panels.
 
-Template functions & filters
-============================
+Template tags, functions & filters
+==================================
 
 ``pageurl()``
 ~~~~~~~~~~~~~
@@ -103,3 +103,24 @@ Output the Wagtail contextual flyout menu for editing pages from the front end
     {{ wagtailuserbar() }}
 
 See :ref:`wagtailuserbar_tag` for more information
+
+``{% include_block %}``
+~~~~~~~~~~~~~~~~~~~~~~~
+
+Output the HTML representation for the stream content as a whole, as well as for each individual block.
+
+Allows to pass template context (by default) to the StreamField template.
+
+.. code-block:: html+jinja
+
+    {% include_block page.body %}
+    {% include_block page.body with context %} {# The same as the previous #}
+    {% include_block page.body without context %}
+
+See :ref:`StreamField template rendering<streamfield_template_rendering>` for more information.
+
+.. note::
+
+        The ``{% include_block %}`` tag is designed to closely follow the syntax and behaviour
+        of Jinja's ``{% include %}``, so it does not implement the Django version's feature of
+        only passing specified variables into the context.

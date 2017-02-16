@@ -8,7 +8,7 @@
     {% include "wagtailadmin/shared/header.html" with title=view.page_title subtitle=view.get_page_subtitle icon=view.header_icon %}
 
     <div class="nice-padding">
-        <form action="{{ view.get_edit_url }}" method="POST">
+        <form action="{{ view.get_edit_url }}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
             {% csrf_token %}
 
             {% block hidden_fields %}
@@ -23,7 +23,7 @@
                 {% endblock %}
 
                 <li>
-                    <input type="submit" value="{% trans 'Save' %}" />
+                    <input type="submit" value="{% trans 'Save' %}" class="button" />
                     {% if can_delete %}
                         <a href="{{ view.get_delete_url }}" class="button button-secondary no">{{ view.delete_item_label }}</a>
                     {% endif %}

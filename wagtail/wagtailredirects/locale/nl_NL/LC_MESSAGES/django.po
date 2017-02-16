@@ -4,13 +4,13 @@
 #
 # Translators:
 # Maarten Kling <kling.maarten@gmail.com>, 2015
-# Thijs Kramer <thijskramer@gmail.com>, 2015
+# Thijs Kramer <thijskramer@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:02+0000\n"
-"PO-Revision-Date: 2015-12-22 16:15+0000\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2016-11-23 19:13+0000\n"
 "Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
@@ -42,7 +42,7 @@ msgid ""
 "Recommended. Permanent redirects ensure search engines forget the old page "
 "(the 'Redirect from') and index the new page instead."
 msgstr ""
-"Aangeraden. Permanente redirects zorgen ervoor dat zoekmachines de oude "
+"Aanbevolen. Permanente redirects zorgen ervoor dat zoekmachines de oude "
 "pagina ('redirect van') vergeten en de nieuwe pagina indexeren."
 
 msgid "redirect to a page"
@@ -50,6 +50,9 @@ msgstr "stuur door naar een pagina"
 
 msgid "redirect to any URL"
 msgstr "stuur door naar een willekeurige URL"
+
+msgid "temporary"
+msgstr "tijdelijk"
 
 msgid "redirect"
 msgstr "stuur door"
@@ -68,7 +71,7 @@ msgid "Delete"
 msgstr "Verwijder"
 
 msgid "Are you sure you want to delete this redirect?"
-msgstr "Weet je zeker dat je deze redirect wilt verwijderen?"
+msgstr "Weet u zeker dat u deze redirect wilt verwijderen?"
 
 msgid "Yes, delete"
 msgstr "Ja, verwijder"
@@ -100,9 +103,6 @@ msgstr "Type"
 
 msgid "Edit this redirect"
 msgstr "Wijzig deze redirect"
-
-msgid "primary"
-msgstr "primair"
 
 #, python-format
 msgid ""

@@ -5,14 +5,14 @@
 # Translators:
 # Franklin Kingma <franklin@statix.net>, 2015
 # Maarten Kling <kling.maarten@gmail.com>, 2015
-# Thijs Kramer <thijskramer@gmail.com>, 2015
+# Thijs Kramer <thijskramer@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:02+0000\n"
-"PO-Revision-Date: 2016-02-05 17:09+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2016-11-23 19:11+0000\n"
+"Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -29,16 +29,16 @@ msgid ""
 "Supported formats: %(supported_formats)s. Maximum filesize: "
 "%(max_upload_size)s."
 msgstr ""
-"Ondersteunde formaten: %(supported_formats)s. Maximale bestandsgrootte: "
-"%(max_upload_size)s."
+"Ondersteunde bestandsformaten: %(supported_formats)s. Maximale "
+"bestandsgrootte: %(max_upload_size)s."
 
 #, python-format
 msgid "Supported formats: %(supported_formats)s."
-msgstr "Ondersteunde formaten: %(supported_formats)s."
+msgstr "Ondersteunde bestandsformaten: %(supported_formats)s."
 
 #, python-format
 msgid "Not a supported image format. Supported formats: %s."
-msgstr "Geen ondersteund afbeelding formaat. ondersteunde formaten: %s."
+msgstr "Geen ondersteund afbeeldingsformaat. ondersteunde formaten: %s."
 
 #, python-format
 msgid "Not a valid %s image."
@@ -46,11 +46,20 @@ msgstr "Geen juiste %s afbeelding."
 
 #, python-format
 msgid "This file is too big (%%s). Maximum filesize %s."
-msgstr "Dit bestand is te groot (%%s). Maximale bestandsgrootte %s."
+msgstr "Dit bestand is te groot (%%s). De maximale bestandsgrootte is %s."
 
 #, python-format
 msgid "This file is too big. Maximum filesize %s."
 msgstr "Dit bestand is te groot. Maximale bestandsgrootte %s."
+
+msgid "Full width"
+msgstr "Volledige breedte"
+
+msgid "Left-aligned"
+msgstr "Links uitgelijnd"
+
+msgid "Right-aligned"
+msgstr "Rechts uitgelijnd"
 
 msgid "Filter"
 msgstr "Filter"
@@ -81,6 +90,18 @@ msgstr "Hoogte"
 
 msgid "Closeness"
 msgstr "Nabijheid"
+
+msgid "Add"
+msgstr "Toevoegen"
+
+msgid "Add/edit images you own"
+msgstr "Eigen afbeeldingen toevoegen/wijzigen"
+
+msgid "Edit"
+msgstr "Wijzig"
+
+msgid "Edit any image"
+msgstr "Alle afbeeldingen wijzigen"
 
 msgid "title"
 msgstr "titel"
@@ -225,11 +246,19 @@ msgstr "Sorry, geen afbeelding overeenkomst \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"You've not uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">add one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+msgstr ""
+"Er zijn nog geen afbeeldingen toegevoegd aan deze collectie. Waarom <a href="
+"\"%(wagtailimages_add_image_url)s\">uploadt u er niet nu een</a>?"
+
+#, python-format
+msgid ""
+"You haven't uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
 "Er zijn nog geen afbeeldingen toegevoegd. Waarom <a href="
-"\"%(wagtailimages_add_image_url)s\">voegt u er niet een toe</a>?"
+"\"%(wagtailimages_add_image_url)s\">uploadt u er niet nu een</a>?"
 
 msgid "Generating URL"
 msgstr "Bezig met URL genereren"
@@ -281,6 +310,9 @@ msgstr "Sleep afbeeldingen naar dit gebied om ze direct te uploaden."
 msgid "Or choose from your computer"
 msgstr "Of kies vanaf uw computer"
 
+msgid "Add to collection:"
+msgstr "Voeg toe aan collectie:"
+
 msgid ""
 "Upload successful. Please update this image with a more appropriate title, "
 "if necessary. You may also delete the image completely if the upload wasn't "
@@ -293,6 +325,13 @@ msgstr ""
 msgid "Sorry, upload failed."
 msgstr "Sorry, upload ging fout."
 
+msgid "Server Error"
+msgstr "Server error"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr ""
+"Rapporteer deze foutmelding aan uw webmaster met de volgende informatie:"
+
 msgid "Image updated."
 msgstr "Afbeelding is bijgewerkt."
 
@@ -301,6 +340,12 @@ msgstr "Update"
 
 msgid "Delete"
 msgstr "Verwijderen"
+
+msgid "Image permissions"
+msgstr "Afbeeldingsmachtigingen"
+
+msgid "Add an image permission"
+msgstr "Voeg een afbeeldingsmachtiging toe"
 
 msgid "Search images"
 msgstr "Zoek afbeeldingen"
@@ -330,11 +375,14 @@ msgstr "Afbeelding '{0}' verwijderd."
 msgid "Image '{0}' added."
 msgstr "Afbeelding '{0}' toegevoegd."
 
-msgid "Edit"
-msgstr "Wijzig"
-
 msgid "The image could not be created due to errors."
 msgstr "De afbeelding kon vanwege fouten niet worden aangemaakt."
+
+#, python-format
+msgid "%(count)s image"
+msgid_plural "%(count)s images"
+msgstr[0] "%(count)s afbeelding"
+msgstr[1] "%(count)s afbeeldingen"
 
 msgid "Choose another image"
 msgstr "Kies een andere afbeelding"

@@ -1,14 +1,16 @@
-from __future__ import unicode_literals
+from __future__ import absolute_import, unicode_literals
 
-from django.db import models
 from django.conf import settings
-from django.utils.translation import ugettext_lazy as _
+from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
+from django.utils.translation import ugettext_lazy as _
 
 
 @python_2_unicode_compatible
 class UserProfile(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='wagtail_userprofile'
+    )
 
     submitted_notifications = models.BooleanField(
         verbose_name=_('submitted notifications'),

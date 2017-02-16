@@ -2,11 +2,11 @@
 {% load i18n %}
 {% load wagtailadmin_tags %}
 
-{% block titletag %}{% blocktrans with title=parent_page.title %}Create a page in {{ title }}{% endblocktrans %}{% endblock %}
+{% block titletag %}{% blocktrans with title=parent_page.get_admin_display_title %}Create a page in {{ title }}{% endblocktrans %}{% endblock %}
 
 {% block content %}
     {% trans "Create a page in" as create_str %}
-    {% include "wagtailadmin/shared/header.html" with title=create_str subtitle=parent_page.title icon="doc-empty-inverse" %}
+    {% include "wagtailadmin/shared/header.html" with title=create_str subtitle=parent_page.get_admin_display_title icon="doc-empty-inverse" %}
 
     <div class="nice-padding">
         <p>{% trans "Choose which type of page you'd like to create." %}</p>
@@ -17,13 +17,13 @@
                     <li>
                         <div class="row row-flush">
                             <div class="col6">
-                                <a href="{% url 'wagtailadmin_pages:add' app_label model_name parent_page.id %}" class="icon icon-plus-inverse icon-larger">{{ verbose_name }}</a>
+                                <a href="{% url 'wagtailadmin_pages:add' app_label model_name parent_page.id %}{% if next %}?next={{ next }}{% endif %}" class="icon icon-plus-inverse icon-larger">{{ verbose_name }}</a>
                             </div>
 
                             <small class="col6" style="text-align:right">
                                 <a href="{% url 'wagtailadmin_pages:type_use' app_label model_name %}" class="nolink">{% blocktrans with page_type=verbose_name %}Pages using {{ page_type }}{% endblocktrans %}</a>
                             </small>
-                            
+
                         </div>
                     </li>
                 {% endfor %}

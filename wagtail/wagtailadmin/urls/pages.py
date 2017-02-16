@@ -1,7 +1,8 @@
+from __future__ import absolute_import, unicode_literals
+
 from django.conf.urls import url
 
-from wagtail.wagtailadmin.views import pages, page_privacy
-
+from wagtail.wagtailadmin.views import page_privacy, pages
 
 urlpatterns = [
     url(r'^add/(\w+)/(\w+)/(\d+)/$', pages.create, name='add'),
@@ -36,4 +37,9 @@ urlpatterns = [
 
     url(r'^(\d+)/lock/$', pages.lock, name='lock'),
     url(r'^(\d+)/unlock/$', pages.unlock, name='unlock'),
+
+    url(r'^(\d+)/revisions/$', pages.revisions_index, name='revisions_index'),
+    url(r'^(\d+)/revisions/(\d+)/view/$', pages.revisions_view, name='revisions_view'),
+    url(r'^(\d+)/revisions/(\d+)/revert/$', pages.revisions_revert, name='revisions_revert'),
+    url(r'^(\d+)/revisions/compare/(live|earliest|\d+)\.\.\.(live|latest|\d+)/$', pages.revisions_compare, name='revisions_compare'),
 ]

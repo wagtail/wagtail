@@ -166,14 +166,10 @@ Copy this into your project and make sure it's imported in any ``models.py`` fil
             self.fr_field = fr_field
 
         def __get__(self, instance, owner):
-            en = getattr(instance, self.en_field)
-            fr = getattr(instance, self.fr_field)
-
             if translation.get_language() == 'fr':
-                return fr
+                return getattr(instance, self.fr_field)
             else:
-                return en
-
+                return getattr(instance, self.en_field)
 
 Then, for each translated field, create an instance of ``TranslatedField`` with a nice name (as this is the name your templates will reference).
 

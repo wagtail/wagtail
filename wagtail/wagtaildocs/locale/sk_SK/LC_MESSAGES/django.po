@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:01+0000\n"
-"PO-Revision-Date: 2016-02-05 17:09+0000\n"
-"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2017-02-06 12:38+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
 "MIME-Version: 1.0\n"
@@ -18,6 +18,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sk_SK\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+
+msgid "Edit"
+msgstr "Upraviť"
 
 msgid "title"
 msgstr "titulok"
@@ -153,15 +156,15 @@ msgstr[2] ""
 "\n"
 "<span>%(total)s</span> Dokumentov"
 
+msgid "Delete"
+msgstr "Vymazať"
+
 msgid "Search documents"
 msgstr "Hľadať dokumenty"
 
 #, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Dokument '{0}' pridaný."
-
-msgid "Edit"
-msgstr "Upraviť"
 
 msgid "The document could not be saved due to errors."
 msgstr "Dokument nemohol byť uložený kvôli chybám."
@@ -173,9 +176,6 @@ msgstr "Dokument '{0}' bol aktualizovaný"
 msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "Súbor nebol nájdený. Prosím aktualizujte zdroj alebo zmažte dokument"
-
-msgid "Delete"
-msgstr "Vymazať"
 
 #, python-brace-format
 msgid "Document '{0}' deleted."

@@ -1,10 +1,14 @@
+from __future__ import absolute_import, unicode_literals
 
-from django.test import TestCase
+import datetime
+
 from django.core import management
+from django.test import TestCase
 from django.utils.six import StringIO
 
-from wagtail.wagtailsearch import models
+from wagtail.contrib.wagtailsearchpromotions.models import SearchPromotion
 from wagtail.tests.utils import WagtailTestUtils
+from wagtail.wagtailsearch import models
 from wagtail.wagtailsearch.utils import normalise_query_string
 
 
@@ -108,9 +112,46 @@ class TestQueryPopularity(TestCase):
 
 class TestGarbageCollectCommand(TestCase):
     def test_garbage_collect_command(self):
+        nowdt = datetime.datetime.now()
+        old_hit_date = (nowdt - datetime.timedelta(days=14)).date()
+        recent_hit_date = (nowdt - datetime.timedelta(days=1)).date()
+
+        # Add 10 hits that are more than one week old ; the related queries and the daily hits
+        # should be deleted bu the search_garbage_collect command.
+        querie_ids_to_be_deleted = []
+        for i in range(10):
+            q = models.Query.get("Hello {}".format(i))
+            q.add_hit(date=old_hit_date)
+            querie_ids_to_be_deleted.append(q.id)
+
+        # Add 10 hits that are less than one week old ; these ones should not be deleted.
+        recent_querie_ids = []
+        for i in range(10):
+            q = models.Query.get("World {}".format(i))
+            q.add_hit(date=recent_hit_date)
+            recent_querie_ids.append(q.id)
+
+        # Add 10 queries that are promoted. These ones should not be deleted.
+        promoted_querie_ids = []
+        for i in range(10):
+            q = models.Query.get("Foo bar {}".format(i))
+            q.add_hit(date=old_hit_date)
+            SearchPromotion.objects.create(query=q, page_id=1, sort_order=0, description='Test')
+            promoted_querie_ids.append(q.id)
+
         management.call_command('search_garbage_collect', interactive=False, stdout=StringIO())
 
-    # TODO: Test that this command is acctually doing its job
+        self.assertFalse(models.Query.objects.filter(id__in=querie_ids_to_be_deleted).exists())
+        self.assertFalse(models.QueryDailyHits.objects.filter(
+            date=old_hit_date, query_id__in=querie_ids_to_be_deleted).exists())
+
+        self.assertEqual(models.Query.objects.filter(id__in=recent_querie_ids).count(), 10)
+        self.assertEqual(models.QueryDailyHits.objects.filter(
+            date=recent_hit_date, query_id__in=recent_querie_ids).count(), 10)
+
+        self.assertEqual(models.Query.objects.filter(id__in=promoted_querie_ids).count(), 10)
+        self.assertEqual(models.QueryDailyHits.objects.filter(
+            date=recent_hit_date, query_id__in=promoted_querie_ids).count(), 0)
 
 
 class TestQueryChooserView(TestCase, WagtailTestUtils):

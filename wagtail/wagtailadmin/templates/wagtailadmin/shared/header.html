@@ -17,14 +17,15 @@
     add_link - if present, display an 'add' button. This is a URL route name (taking no parameters) to be used as the link URL for the button
     add_text - text for the 'add' button
 {% endcomment %}
-<header class="nice-padding {% if merged %}merged{% endif %} {% if tabbed %}tab-merged{% endif %} {% if search_form %}hasform{% endif %}">
-    <div class="row">
+<header class="{% if merged %}merged{% endif %} {% if tabbed %}tab-merged{% endif %} {% if search_form %}hasform{% endif %}">
+    <div class="row nice-padding">
         <div class="left">
-            <div class="col">
-                <h1 class="icon icon-{{ icon }}">{{ title }} <span>{{ subtitle }}</span></h1>
+            <div class="col header-title">
+                <h1 class="icon icon-{{ icon }}">
+                {{ title }}{% if subtitle %} <span>{{ subtitle }}</span>{% endif %}</h1>
             </div>
             {% if search_url %}
-                <form class="col search-form" action="{% url search_url %}{% if query_parameters %}?{{ query_parameters }}{% endif %}" method="get">
+                <form class="col search-form" action="{% url search_url %}{% if query_parameters %}?{{ query_parameters }}{% endif %}" method="get" novalidate>
                     <ul class="fields">
                         {% for field in search_form %}
                             {% include "wagtailadmin/shared/field_as_li.html" with field=field field_classes="field-small iconfield" input_classes="icon-search" %}
@@ -38,7 +39,7 @@
             {% usage_count_enabled as uc_enabled %}
             {% if uc_enabled and usage_object %}
                 <div class="usagecount">
-                    <a href="{{ usage_object.usage_url }}">{% blocktrans count useage_count=usage_object.get_usage.count %}Used {{ useage_count  }} time{% plural %}Used {{ useage_count }} times{% endblocktrans %}</a>
+                    <a href="{{ usage_object.usage_url }}">{% blocktrans count useage_count=usage_object.get_usage.count %}Used {{ useage_count }} time{% plural %}Used {{ useage_count }} times{% endblocktrans %}</a>
                 </div>
             {% endif %}
             {% if add_link %}

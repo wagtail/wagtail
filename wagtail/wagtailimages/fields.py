@@ -1,13 +1,13 @@
+from __future__ import absolute_import, unicode_literals
+
 import os
 
-from PIL import Image
-
-from django.forms.fields import ImageField
-from django.core.exceptions import ValidationError
-from django.utils.translation import ugettext_lazy as _
-from django.template.defaultfilters import filesizeformat
 from django.conf import settings
-
+from django.core.exceptions import ValidationError
+from django.forms.fields import ImageField
+from django.template.defaultfilters import filesizeformat
+from django.utils.translation import ugettext_lazy as _
+from PIL import Image
 
 ALLOWED_EXTENSIONS = ['gif', 'jpg', 'jpeg', 'png']
 SUPPORTED_FORMATS_TEXT = _("GIF, JPEG, PNG")

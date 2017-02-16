@@ -52,10 +52,10 @@
         margin: auto;
     }
 
-    .progress, 
-    .thumb, 
-    .thumb:before, 
-    canvas, 
+    .progress,
+    .thumb,
+    .thumb:before,
+    canvas,
     img {
         position: absolute;
         max-width: 100%;
@@ -71,7 +71,7 @@
     }
 
     .thumb {
-        top: 0; 
+        top: 0;
         right: 0;
         bottom: 0;
         left: 0;
@@ -79,8 +79,8 @@
         width: 100%;
     }
 
-    .thumb:before, 
-    canvas, 
+    .thumb:before,
+    canvas,
     img {
         left: 0;
         right: 0;
@@ -98,14 +98,14 @@
         color: lighten($color-grey-4, 4%);
     }
 
-    canvas, 
+    canvas,
     img {
         z-index: 3;
     }
 
     .hasthumb {
         &:before {
-            display: none;        
+            display: none;
         }
     }
 
@@ -131,8 +131,20 @@
         .preview {
             display: none;
         }
-        
+
         .status-msg.failure {
+            display: block;
+        }
+    }
+
+    .upload-server-error {
+        border-color: $color-red;
+
+        .preview {
+            display: none;
+        }
+
+        .status-msg.server-error {
             display: block;
         }
     }

@@ -3,29 +3,36 @@ from __future__ import absolute_import, unicode_literals
 import collections
 
 from django import forms
-from django.core.exceptions import ValidationError
+from django.contrib.staticfiles.templatetags.staticfiles import static
+from django.core.exceptions import NON_FIELD_ERRORS, ValidationError
 from django.forms.utils import ErrorList
 from django.template.loader import render_to_string
-from django.utils.encoding import python_2_unicode_compatible, force_text
-from django.utils.html import format_html_join
-from django.utils.safestring import mark_safe
-from django.contrib.staticfiles.templatetags.staticfiles import static
-
 # Must be imported from Django so we get the new implementation of with_metaclass
 from django.utils import six
+from django.utils.encoding import python_2_unicode_compatible
+from django.utils.html import format_html_join
+from django.utils.safestring import mark_safe
 
 from wagtail.wagtailcore.utils import escape_script
 
-from .base import Block, DeclarativeSubBlocksMetaclass, BoundBlock
+from .base import Block, BoundBlock, DeclarativeSubBlocksMetaclass
 from .utils import indent, js_dict
 
+__all__ = ['BaseStreamBlock', 'StreamBlock', 'StreamValue', 'StreamBlockValidationError']
 
-__all__ = ['BaseStreamBlock', 'StreamBlock', 'StreamValue']
+
+class StreamBlockValidationError(ValidationError):
+    def __init__(self, block_errors=None, non_block_errors=None):
+        params = {}
+        if block_errors:
+            params.update(block_errors)
+        if non_block_errors:
+            params[NON_FIELD_ERRORS] = non_block_errors
+        super(StreamBlockValidationError, self).__init__(
+            'Validation error in StreamBlock', params=params)
 
 
 class BaseStreamBlock(Block):
-    class Meta:
-        default = []
 
     def __init__(self, local_blocks=None, **kwargs):
         self._constructor_kwargs = kwargs
@@ -111,11 +118,16 @@ class BaseStreamBlock(Block):
         error_dict = {}
         if errors:
             if len(errors) > 1:
-                # We rely on ListBlock.clean throwing a single ValidationError with a specially crafted
-                # 'params' attribute that we can pull apart and distribute to the child blocks
-                raise TypeError('ListBlock.render_form unexpectedly received multiple errors')
+                # We rely on StreamBlock.clean throwing a single
+                # StreamBlockValidationError with a specially crafted 'params'
+                # attribute that we can pull apart and distribute to the child
+                # blocks
+                raise TypeError('StreamBlock.render_form unexpectedly received multiple errors')
             error_dict = errors.as_data()[0].params
 
+        # value can be None when the StreamField is in a formset
+        if value is None:
+            value = self.get_default()
         # drop any child values that are an unrecognised block type
         valid_children = [child for child in value if child.block_type in self.child_blocks]
 
@@ -130,6 +142,7 @@ class BaseStreamBlock(Block):
             'list_members_html': list_members_html,
             'child_blocks': self.child_blocks.values(),
             'header_menu_prefix': '%s-before' % prefix,
+            'block_errors': error_dict.get(NON_FIELD_ERRORS),
         })
 
     def value_from_datadict(self, data, files, prefix):
@@ -158,6 +171,9 @@ class BaseStreamBlock(Block):
             for (index, child_block_type_name, value) in values_with_indexes
         ])
 
+    def value_omitted_from_data(self, data, files, prefix):
+        return ('%s-count' % prefix) not in data
+
     def clean(self, value):
         cleaned_data = []
         errors = {}
@@ -172,7 +188,7 @@ class BaseStreamBlock(Block):
         if errors:
             # The message here is arbitrary - outputting error messages is delegated to the child blocks,
             # which only involves the 'params' list
-            raise ValidationError('Validation error in StreamBlock', params=errors)
+            raise StreamBlockValidationError(block_errors=errors)
 
         return StreamValue(self, cleaned_data)
 
@@ -195,10 +211,23 @@ class BaseStreamBlock(Block):
             for child in value  # child is a BoundBlock instance
         ]
 
-    def render_basic(self, value):
+    def get_api_representation(self, value, context=None):
+        if value is None:
+            # treat None as identical to an empty stream
+            return []
+
+        return [
+            {'type': child.block.name, 'value': child.block.get_api_representation(child.value, context=context)}
+            for child in value  # child is a BoundBlock instance
+        ]
+
+    def render_basic(self, value, context=None):
         return format_html_join(
             '\n', '<div class="block-{1}">{0}</div>',
-            [(force_text(child), child.block_type) for child in value]
+            [
+                (child.render(context=context), child.block_type)
+                for child in value
+            ]
         )
 
     def get_searchable_content(self, value):
@@ -230,6 +259,13 @@ class BaseStreamBlock(Block):
             errors.extend(child_block._check_name(**kwargs))
 
         return errors
+
+    class Meta:
+        # No icon specified here, because that depends on the purpose that the
+        # block is being used for. Feel encouraged to specify an icon in your
+        # descendant block type
+        icon = "placeholder"
+        default = []
 
 
 class StreamBlock(six.with_metaclass(DeclarativeSubBlocksMetaclass, BaseStreamBlock)):
@@ -291,7 +327,11 @@ class StreamValue(collections.Sequence):
                 raw_value = self.stream_data[i]
                 type_name = raw_value['type']
                 child_block = self.stream_block.child_blocks[type_name]
-                value = child_block.to_python(raw_value['value'])
+                if hasattr(child_block, 'bulk_to_python'):
+                    self._prefetch_blocks(type_name, child_block)
+                    return self._bound_blocks[i]
+                else:
+                    value = child_block.to_python(raw_value['value'])
             else:
                 type_name, value = self.stream_data[i]
                 child_block = self.stream_block.child_blocks[type_name]
@@ -300,14 +340,41 @@ class StreamValue(collections.Sequence):
 
         return self._bound_blocks[i]
 
+    def _prefetch_blocks(self, type_name, child_block):
+        """Prefetch all child blocks for the given `type_name` using the
+        given `child_blocks`.
+
+        This prevents n queries for n blocks of a specific type.
+        """
+        raw_values = collections.OrderedDict(
+            (i, item['value']) for i, item in enumerate(self.stream_data)
+            if item['type'] == type_name
+        )
+        converted_values = child_block.bulk_to_python(raw_values.values())
+
+        for i, value in zip(raw_values.keys(), converted_values):
+            self._bound_blocks[i] = StreamValue.StreamChild(child_block, value)
+
+    def __eq__(self, other):
+        if not isinstance(other, StreamValue):
+            return False
+
+        return self.stream_data == other.stream_data
+
+    def __ne__(self, other):
+        return not self.__eq__(other)
+
     def __len__(self):
         return len(self.stream_data)
 
     def __repr__(self):
         return repr(list(self))
 
+    def render_as_block(self, context=None):
+        return self.stream_block.render(self, context=context)
+
     def __html__(self):
-        return self.__str__()
+        return self.stream_block.render(self)
 
     def __str__(self):
-        return self.stream_block.render(self)
+        return self.__html__()

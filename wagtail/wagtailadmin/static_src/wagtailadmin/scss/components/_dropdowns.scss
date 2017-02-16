@@ -2,10 +2,10 @@
     @include clearfix();
     position: relative;
 
-    input[type=submit], 
-    input[type=reset], 
-    input[type=button], 
-    button, 
+    input[type=submit],
+    input[type=reset],
+    input[type=button],
+    button,
     .button {
         padding: 0;
         display: block;
@@ -17,8 +17,8 @@
         float: left;
     }
 
-    input[type=submit], 
-    input[type=reset], 
+    input[type=submit],
+    input[type=reset],
     input[type=button],
     button {
         line-height: inherit;
@@ -71,11 +71,11 @@
             }
         }
 
-        a, 
-        input[type=submit], 
-        input[type=reset], 
-        input[type=button], 
-        .button, 
+        a,
+        input[type=submit],
+        input[type=reset],
+        input[type=button],
+        .button,
         button {
             border-radius: 0;
             font-size: 0.95em;
@@ -117,10 +117,10 @@
         top: auto;
         bottom: 100%;
 
-        li { 
+        li {
             border-width: 0 0 1px;
         }
-    }   
+    }
 
     .dropdown-toggle {
         color: $color-white;
@@ -162,9 +162,9 @@
         }
 
         &.open {
-            > input[type=button], 
-            > input[type=submit], 
-            > button, 
+            > input[type=button],
+            > input[type=submit],
+            > button,
             > .button {
                 border-radius: 3px 3px 0 0;
             }
@@ -178,8 +178,8 @@
     &.dropup.dropdown-button {
         &.open {
             > input[type=button],
-            > input[type=submit], 
-            > button, 
+            > input[type=submit],
+            > button,
             > .button {
                 border-radius: 0 0 3px 3px;
             }
@@ -209,7 +209,214 @@
     }
 }
 
+.dropdown.warning {
+    ul {
+        background-color: $color-button-warning;
+    }
+
+    .dropdown-toggle {
+        background-color: $color-button-warning;
+
+        &:hover {
+            background-color: $color-button-warning-hover;
+        }
+    }
+}
+
 // Transitions
 .dropdown ul {
     @include transition(opacity 0.2s linear);
 }
+
+
+// =============================================================================
+// Listing view smaller dropdowns
+// =============================================================================
+
+// .c-dropdown {
+// }
+
+.o-icon {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 1;
+    margin-top: -.25rem;
+}
+
+.c-dropdown__button {
+    display: inline-block;
+    box-sizing: border-box;
+    padding-left: 0.5rem;
+    padding-right: 0.25rem;
+    // Make this the same as the other buttons
+    line-height: 1.85;
+    border: solid 1px transparent;
+    border-radius: 2px;
+    font-size: 0.95em;
+    cursor: pointer;
+    -webkit-font-smoothing: subpixel-antialiased;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.c-dropdown__toggle {
+    display: inline-block;
+}
+
+.c-dropdown__menu.c-dropdown__menu {
+    margin-top: .75rem;
+    padding: .75rem 1rem;
+    min-width: 8rem;
+    text-transform: none;
+    position: absolute;
+    z-index: 1;
+    animation: dropdownIn .1s ease-out backwards;
+    list-style: none;
+}
+
+.c-dropdown__item {
+    margin-bottom: .375rem;
+
+    &:hover {
+        .c-dropdown__indicator {
+            opacity: .6;
+        }
+    }
+}
+
+
+
+.c-dropdown__item:last-child {
+    margin-bottom: 0;
+}
+
+.c-dropdown__divider {
+    border-color: #555;
+    border-style: dotted;
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+
+// =============================================================================
+//  Arrows
+// =============================================================================
+
+.u-arrow:before {
+    content: '';
+    border: solid .35rem transparent;
+    display: block;
+    position: absolute;
+}
+
+.u-arrow--tl:before {
+    bottom: 100%;
+    left: 1rem;
+}
+
+// =============================================================================
+//  Default dropdown theme
+// =============================================================================
+
+// .t-default {
+
+// }
+
+.t-default .u-btn-current {
+    border-color: rgba(0, 0, 0, 0.15);
+    color: #43b1b0;
+}
+
+.t-default .u-btn-current:hover {
+    background: #43b1b0;
+    color: #fff;
+    border-color: #43b1b0;
+}
+
+.t-default .u-btn-current:active {
+    background: #333;
+    color: #fff;
+    border-color: #333;
+}
+
+.t-inverted .u-btn-current {
+    border-color: rgba(0, 0, 0, 0.25);
+    color: #fff;
+}
+
+.t-inverted .u-btn-current:hover {
+    background-color: $color-teal-darker;
+    border-color: $color-teal-darker;
+}
+
+.t-inverted .u-btn-current:active {
+    border-color: rgba(0, 0, 0, 0.25);
+    background: #333;
+    color: #fff;
+}
+
+
+// =============================================================================
+// Dark theme
+// =============================================================================
+
+.t-dark .u-link {
+    color: #fff;
+}
+
+.t-dark .u-link:hover {
+    color: #aaa;
+}
+
+.t-dark .u-background {
+    background: #333;
+}
+
+.t-dark .u-arrow:before {
+    border-bottom-color: #333;
+}
+
+@keyframes dropdownIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+// =============================================================================
+// Light theme
+// =============================================================================
+
+.t-light .u-link {
+    color: #333;
+}
+
+.t-light .u-link:hover {
+    color: #aaa;
+}
+
+.t-light .u-background {
+    background: #fff;
+    border-color: #ccc;
+}
+
+.t-light .u-arrow:before {
+    border-bottom-color: #fff;
+}
+
+// =============================================================================
+// States
+// =============================================================================
+
+.u-toggle {
+    display: none;
+}
+
+.is-open .u-toggle {
+    display: block;
+}
+
+
+

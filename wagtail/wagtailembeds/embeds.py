@@ -1,7 +1,9 @@
+from __future__ import absolute_import, unicode_literals
+
 from datetime import datetime
 
-from wagtail.wagtailembeds.models import Embed
 from wagtail.wagtailembeds.finders import get_default_finder
+from wagtail.wagtailembeds.models import Embed
 
 
 def get_embed(url, max_width=None, finder=None):

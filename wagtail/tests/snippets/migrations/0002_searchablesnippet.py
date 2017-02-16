@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.db import models, migrations
+from django.db import migrations, models
+
 import wagtail.wagtailsearch.index
 
 
@@ -18,6 +19,6 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(serialize=False, primary_key=True, auto_created=True, verbose_name='ID')),
                 ('text', models.CharField(max_length=255)),
             ],
-            bases=(models.Model, wagtail.wagtailsearch.index.Indexed),
+            bases=(wagtail.wagtailsearch.index.Indexed, models.Model),
         ),
     ]

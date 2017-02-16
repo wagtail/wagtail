@@ -2,9 +2,11 @@
 A generic HTML whitelisting engine, designed to accommodate subclassing to override
 specific rules.
 """
-import re
-from bs4 import BeautifulSoup, NavigableString, Tag, Comment
+from __future__ import absolute_import, unicode_literals
 
+import re
+
+from bs4 import BeautifulSoup, Comment, NavigableString, Tag
 
 ALLOWED_URL_SCHEMES = ['http', 'https', 'ftp', 'mailto', 'tel']
 
@@ -58,6 +60,7 @@ def attribute_rule(allowed_attrs):
                 del tag[attr]
 
     return fn
+
 
 allow_without_attributes = attribute_rule({})
 

@@ -1,0 +1,28 @@
+{% load i18n %}
+{% trans "Total submissions" as total %}
+{% trans "Latest submission" as latest %}
+<fieldset>
+    <legend>{{ self.heading }}</legend>
+    <ul class="fields">
+        <li class="full">
+            <div class="field">
+                <label class="label">{{ total }}</label>
+                <div class="field-content">
+                    <div class="input">
+                        <a href="{% url 'wagtailforms:list_submissions' self.instance.id %}">{{ submission_count }}</a>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li class="full">
+            <div class="field">
+                <label class="label">{{ latest }}</label>
+                <div class="field-content">
+                    <p>
+                        {{ last_submit_time }}
+                    </p>
+                </div>
+            </div>
+        </li>
+    </ul>
+</fieldset>

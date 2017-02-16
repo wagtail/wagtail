@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015
+# Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 17:01+0000\n"
-"PO-Revision-Date: 2015-12-29 08:32+0000\n"
-"Last-Translator: Giacomo Ghizzani <giacomo.ghz@gmail.com>\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2017-02-06 12:41+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -18,6 +18,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: it\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "{} submissions"
+msgstr "{} invii"
+
+#, python-format
+msgid "There is another field with the label %s, please change one of them."
+msgstr "C'è un altro campo con l'etichetta %s."
 
 msgid "Single line text"
 msgstr "Testo linea singola"
@@ -89,12 +96,18 @@ msgstr "Valore di default. Valori separati da virgola per checkboxes."
 msgid "help text"
 msgstr "testo di aiuto"
 
+msgid "Submission date"
+msgstr "Data di invio"
+
 msgid "to address"
 msgstr "indirizzo destinazione"
 
-msgid "Optional - form submissions will be emailed to this address"
+msgid ""
+"Optional - form submissions will be emailed to these addresses. Separate "
+"multiple addresses by comma."
 msgstr ""
-"Optional - All'invio il form verrà spedito per email a questo indirizzo"
+"Optional - il form sarà inviato per email a questi indirizzi. Separa la "
+"lista con la virgola per inserire più indirizzi."
 
 msgid "from address"
 msgstr "indirizzo mittente"
@@ -102,18 +115,14 @@ msgstr "indirizzo mittente"
 msgid "subject"
 msgstr "oggetto"
 
-#, python-format
-msgid "Delete %(title)s"
-msgstr "Elimina %(title)s"
-
 msgid "Delete"
 msgstr "Elimina"
 
-msgid "Are you sure you want to delete this form submission?"
-msgstr "Sei sicuro di voler cancellare questo invio del form?"
+msgid "Total submissions"
+msgstr "Invii totali"
 
-msgid "Delete it"
-msgstr "Eliminalo"
+msgid "Latest submission"
+msgstr "Ultimi invii"
 
 msgid "Forms"
 msgstr "Forms"
@@ -145,14 +154,5 @@ msgstr "Titolo"
 msgid "Origin"
 msgstr "Origine"
 
-msgid "Submission Date"
-msgstr "Data di invio"
-
-msgid "Actions"
-msgstr "Azioni"
-
 msgid "No form pages have been created."
 msgstr "Nessuna pagina form è stata creata."
-
-msgid "Submission deleted."
-msgstr "Invio eliminato"

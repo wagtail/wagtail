@@ -36,8 +36,8 @@
                         <h2><a href="{% url 'wagtaildocs:edit' doc.id %}">{{ doc.title }}</a></h2>
                     {% endif %}
                 </td>
-                <td><a href="{{ doc.url }}" class="nolink">{{ doc.filename }}</a></td>
-                <td><div class="human-readable-date" title="{{ doc.created_at|date:"d M Y H:i" }}">{{ doc.created_at|timesince }} ago</div></td>
+                <td><a href="{{ doc.url }}" class="nolink" download>{{ doc.filename }}</a></td>
+                <td><div class="human-readable-date" title="{{ doc.created_at|date:"d M Y H:i" }}">{% blocktrans with time_period=doc.created_at|timesince %}{{ time_period }} ago{% endblocktrans %}</div></td>
             </tr>
         {% endfor %}
     </tbody>
