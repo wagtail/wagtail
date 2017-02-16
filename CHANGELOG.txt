@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.9 (xx.xx.xxxx) - IN DEVELOPMENT
+1.9 (16.02.2017)
 ~~~~~~~~~~~~~~~~
 
  * Added support for comparing page revisions (Karl Hobley, Janneke Janssen, Matt Westcott)
