@@ -1,9 +1,9 @@
 from __future__ import absolute_import, unicode_literals
 
+from django.apps import apps
 from django.contrib import admin
 from django.contrib.auth.admin import GroupAdmin
 from django.contrib.auth.models import Group
-from django.apps import apps
 
 from treebeard.admin import TreeAdmin
 from treebeard.forms import movenodeform_factory
