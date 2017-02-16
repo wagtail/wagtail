@@ -116,7 +116,7 @@ def language_preferences(request):
             user_profile = form.save()
             # This will set the language only for this request/thread
             activate(user_profile.preferred_language)
-            messages.success(request, _("Your preferences have been updated successfully!."))
+            messages.success(request, _("Your preferences have been updated."))
     else:
         form = PreferredLanguageForm(instance=UserProfile.get_for_user(request.user))
 
