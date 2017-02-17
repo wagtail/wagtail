@@ -193,6 +193,11 @@ def allow_unicode_slugs():
         return getattr(settings, 'WAGTAIL_ALLOW_UNICODE_SLUGS', True)
 
 
+@assignment_tag
+def auto_update_preview():
+    return getattr(settings, 'WAGTAIL_AUTO_UPDATE_PREVIEW', False)
+
+
 class EscapeScriptNode(template.Node):
     TAG_NAME = 'escapescript'
 

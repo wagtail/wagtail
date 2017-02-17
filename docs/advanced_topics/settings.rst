@@ -326,6 +326,19 @@ Unicode Page Slugs
 
 By default, page slugs can contain any alphanumeric characters, including non-Latin alphabets (except on Django 1.8, where only ASCII characters are supported). Set this to False to limit slugs to ASCII characters.
 
+Auto update preview
+-------------------
+
+.. code-block:: python
+
+  WAGTAIL_AUTO_UPDATE_PREVIEW = False
+
+When enabled, data from an edited page is automatically sent to the server
+on each change, even without saving. That way, users don’t have to click on
+“Preview” to update the content of the preview page. However, the preview page
+tab is not refreshed automatically, users have to do it manually.
+This behaviour is disabled by default.
+
 Custom User Edit Forms
 ----------------------
 
