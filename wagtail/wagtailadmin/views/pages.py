@@ -20,7 +20,6 @@ from django.views.generic import View
 from wagtail.utils.pagination import paginate
 from wagtail.wagtailadmin import messages, signals
 from wagtail.wagtailadmin.forms import CopyForm, SearchForm
-from wagtail.wagtailadmin.navigation import get_navigation_menu_items
 from wagtail.wagtailadmin.utils import (
     send_notification, user_has_any_page_permission, user_passes_test)
 from wagtail.wagtailcore import hooks
@@ -32,13 +31,6 @@ def get_valid_next_url_from_request(request):
     if not next_url or not is_safe_url(url=next_url, host=request.get_host()):
         return ''
     return next_url
-
-
-@user_passes_test(user_has_any_page_permission)
-def explorer_nav(request):
-    return render(request, 'wagtailadmin/shared/explorer_nav.html', {
-        'nodes': get_navigation_menu_items(request.user),
-    })
 
 
 @user_passes_test(user_has_any_page_permission)
