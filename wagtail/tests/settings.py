@@ -1,7 +1,7 @@
 from __future__ import absolute_import, unicode_literals
 
-import os
 import logging
+import os
 import django
 
 logging.disable(logging.CRITICAL)
