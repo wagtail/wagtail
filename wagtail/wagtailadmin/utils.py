@@ -42,11 +42,7 @@ WAGTAILADMIN_PROVIDED_LANGUAGES = [
 
 
 def get_available_admin_languages():
-    permitted_languages = getattr(settings, 'WAGTAILADMIN_PERMITTED_LANGUAGES', None)
-    if permitted_languages:
-        return permitted_languages
-
-    return WAGTAILADMIN_PROVIDED_LANGUAGES
+    return getattr(settings, 'WAGTAILADMIN_PERMITTED_LANGUAGES', WAGTAILADMIN_PROVIDED_LANGUAGES)
 
 
 def get_object_usage(obj):
