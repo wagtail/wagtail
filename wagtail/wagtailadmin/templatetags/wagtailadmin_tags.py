@@ -14,7 +14,7 @@ from django.utils.safestring import mark_safe
 
 from wagtail.utils.pagination import DEFAULT_PAGE_KEY, replace_page_in_query
 from wagtail.wagtailadmin.menu import admin_menu
-from wagtail.wagtailadmin.navigation import get_explorable_root_page, get_navigation_menu_items
+from wagtail.wagtailadmin.navigation import get_explorable_root_page
 from wagtail.wagtailadmin.search import admin_search_areas
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import Page, PageViewRestriction, UserPagePermissionsProxy
@@ -29,20 +29,6 @@ if django.VERSION >= (1, 9):
     assignment_tag = register.simple_tag
 else:
     assignment_tag = register.assignment_tag
-
-
-@register.inclusion_tag('wagtailadmin/shared/explorer_nav.html', takes_context=True)
-def explorer_nav(context):
-    return {
-        'nodes': get_navigation_menu_items(context['request'].user)
-    }
-
-
-@register.inclusion_tag('wagtailadmin/shared/explorer_nav_child.html')
-def explorer_subnav(nodes):
-    return {
-        'nodes': nodes
-    }
 
 
 @register.simple_tag(takes_context=True)
