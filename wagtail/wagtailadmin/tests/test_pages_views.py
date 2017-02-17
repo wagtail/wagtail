@@ -863,11 +863,17 @@ class TestPageCreation(TestCase, WagtailTestUtils):
             'slug': 'hello-world',
             'action-submit': "Submit",
         }
-        response = self.client.post(
-            reverse('wagtailadmin_pages:preview_on_add', args=('tests', 'simplepage', self.root_page.id)), post_data
-        )
+        preview_url = reverse('wagtailadmin_pages:preview_on_add',
+                              args=('tests', 'simplepage', self.root_page.id))
+        response = self.client.post(preview_url, post_data)
 
-        # Check the response
+        # Check the JSON response
+        self.assertEqual(response.status_code, 200)
+        self.assertJSONEqual(response.content.decode(), {'is_valid': True})
+
+        response = self.client.get(preview_url)
+
+        # Check the HTML response
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'tests/simple_page.html')
         self.assertContains(response, "New page!")
@@ -1462,10 +1468,17 @@ class TestPageEdit(TestCase, WagtailTestUtils):
             'slug': 'hello-world',
             'action-submit': "Submit",
         }
-        response = self.client.post(
-            reverse('wagtailadmin_pages:preview_on_edit', args=(self.child_page.id, )), post_data)
+        preview_url = reverse('wagtailadmin_pages:preview_on_edit',
+                              args=(self.child_page.id,))
+        response = self.client.post(preview_url, post_data)
 
-        # Check the response
+        # Check the JSON response
+        self.assertEqual(response.status_code, 200)
+        self.assertJSONEqual(response.content.decode(), {'is_valid': True})
+
+        response = self.client.get(preview_url)
+
+        # Check the HTML response
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'tests/simple_page.html')
         self.assertContains(response, "I&#39;ve been edited!")
@@ -1480,9 +1493,15 @@ class TestPageEdit(TestCase, WagtailTestUtils):
             'slug': 'hello-world',
             'action-submit': "Submit",
         }
-        response = self.client.post(
-            reverse('wagtailadmin_pages:preview_on_edit', args=(self.child_page.id, )), post_data
-        )
+        preview_url = reverse('wagtailadmin_pages:preview_on_edit',
+                              args=(self.child_page.id,))
+        response = self.client.post(preview_url, post_data)
+
+        # Check the JSON response
+        self.assertEqual(response.status_code, 200)
+        self.assertJSONEqual(response.content.decode(), {'is_valid': True})
+
+        response = self.client.get(preview_url)
 
         # Check that the correct site object has been selected by the site middleware
         self.assertEqual(response.status_code, 200)
@@ -3587,11 +3606,17 @@ class TestIssue2599(TestCase, WagtailTestUtils):
             'slug': 'hello-world',
             'action-submit': "Submit",
         }
-        response = self.client.post(
-            reverse('wagtailadmin_pages:preview_on_add', args=('tests', 'simplepage', homepage.id)), post_data
-        )
+        preview_url = reverse('wagtailadmin_pages:preview_on_add',
+                              args=('tests', 'simplepage', homepage.id))
+        response = self.client.post(preview_url, post_data)
 
-        # Check the response
+        # Check the JSON response
+        self.assertEqual(response.status_code, 200)
+        self.assertJSONEqual(response.content.decode(), {'is_valid': True})
+
+        response = self.client.get(preview_url)
+
+        # Check the HTML response
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'tests/simple_page.html')
         self.assertContains(response, "New page!")
