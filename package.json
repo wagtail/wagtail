@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "repository": "https://github.com/wagtail/wagtail",
   "private": true,
+  "engines": {
+    "node": ">= 4"
+  },
   "browser": {},
   "browserify": {
     "transform": [
