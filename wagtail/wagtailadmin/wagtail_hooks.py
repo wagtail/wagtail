@@ -1,8 +1,6 @@
 from __future__ import absolute_import, unicode_literals
 
-from django import forms
 from django.contrib.auth.models import Permission
-from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 
@@ -17,10 +15,6 @@ from wagtail.wagtailcore.permissions import collection_permission_policy
 
 class ExplorerMenuItem(MenuItem):
     template = 'wagtailadmin/shared/explorer_menu_item.html'
-
-    @property
-    def media(self):
-        return forms.Media(js=[static('wagtailadmin/js/explorer-menu.js')])
 
     def is_shown(self, request):
         return user_has_any_page_permission(request.user)
