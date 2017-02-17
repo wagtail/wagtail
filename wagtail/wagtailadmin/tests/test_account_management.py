@@ -310,14 +310,7 @@ class TestAccountSection(TestCase, WagtailTestUtils):
         # Check that the language preferences are stored
         self.assertEqual(profile.preferred_language, 'es')
 
-        # There is need to revert language preferences to defualt in order to
-        # not make other tests fail.
-        post_data = {
-            'preferred_language': 'en'
-        }
-        response = self.client.post(reverse('wagtailadmin_account_language_preferences'), post_data)
-        profile = UserProfile.get_for_user(get_user_model().objects.get(pk=self.user.pk))
-        self.assertEqual(profile.preferred_language, 'en')
+
 
     @override_settings(WAGTAILADMIN_PERMITTED_LANGUAGES=[('en', 'English'), ('es', 'Spanish')])
     def test_available_admin_languages_with_permitted_languages(self):
