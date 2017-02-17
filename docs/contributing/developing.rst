@@ -15,7 +15,10 @@ If you'd prefer to set up all the components manually, read on. These instructio
 Setting up the Wagtail codebase
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Install Node.js, version 4.x, 5.x or 6.x. Instructions for installing Node.js can be found on the `Node.js download page <https://nodejs.org/download/>`_. You will also need to install the **libjpeg** and **zlib** libraries, if you haven't done so already - see Pillow's `platform-specific installation instructions <http://pillow.readthedocs.org/en/latest/installation.html#external-libraries>`_.
+Install Node.js, version 4.x, 5.x or 6.x. Instructions for installing Node.js can be found on the `Node.js download page <https://nodejs.org/download/>`_.
+You can also use Node version manager (nvm) since Wagtail supplies a ``.nvmrc`` file in the root of the project with the minimum required Node version - see nvm's `installation instructions <https://github.com/creationix/nvm>`_.
+
+You will also need to install the **libjpeg** and **zlib** libraries, if you haven't done so already - see Pillow's `platform-specific installation instructions <http://pillow.readthedocs.org/en/latest/installation.html#external-libraries>`_.
 
 Clone a copy of `the Wagtail codebase <https://github.com/wagtail/wagtail>`_:
 
@@ -29,6 +32,12 @@ With your preferred virtualenv activated, install the Wagtail package in develop
 .. code-block:: console
 
     $ pip install -e .[testing,docs] -U
+
+Install Node through nvm (optional):
+
+.. code-block:: console
+
+    $ nvm install
 
 Install the tool chain for building static assets:
 
