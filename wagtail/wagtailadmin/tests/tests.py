@@ -35,7 +35,7 @@ class TestHome(TestCase, WagtailTestUtils):
         # check that media attached to menu items is correctly pulled in
         self.assertContains(
             response,
-            '<script type="text/javascript" src="/static/wagtailadmin/js/explorer-menu.js"></script>'
+            '<script type="text/javascript" src="/static/testapp/js/kittens.js"></script>'
         )
         # check that custom menu items (including classname / attrs parameters) are pulled in
         self.assertContains(
