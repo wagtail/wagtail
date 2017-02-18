@@ -1,10 +1,51 @@
 Changelog
 =========
 
-1.9 (xx.xx.xxxx) - IN DEVELOPMENT
+1.10 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~
+
+ * Use minified versions of jQuery and jQuery UI in the admin. Total savings without compression 371 KB (Tom Dyson)
+ * Hooks can now specify the order in which they are run (Gagaro)
+ * Added a `submit_buttons` block to login template (Gagaro)
+ * Added `construct_image_chooser_queryset`, `construct_document_chooser_queryset` and `construct_page_chooser_queryset` hooks (Gagaro)
+ * The homepage created in the project template is now titled "Home" rather than "Homepage" (Karl Hobley)
+ * Signal receivers for custom `Image` and `Rendition` models are connected automatically (Mike Dingjan)
+ * `PageChooserBlock` can now accept a list/tuple of page models as `target_model` (Mikalai Radchuk)
+ * Styling tweaks for the ModelAdmin's `IndexView` to be more inline with the Wagtail styleguide (Andy Babic)
+ * Fix: Marked 'Date from' / 'Date to' strings in wagtailforms for translation (Vorlif)
+ * Fix: Unreliable preview is now reliable by always opening in a new window (Kjartan Sverrisson)
+ * Fix: Fixed placement of `{{ block.super }}` in `snippets/type_index.html` (LB (Ben Johnston))
+ * Fix: Optimised database queries on group edit page (Ashia Zawaduk)
+
+
+1.9 (16.02.2017)
 ~~~~~~~~~~~~~~~~
 
+ * Added support for comparing page revisions (Karl Hobley, Janneke Janssen, Matt Westcott)
+ * Added support for many-to-many relations on page models (Thejaswi Puthraya, Matt Westcott)
+ * Form builder form submissions can now be bulk-deleted (Karl Hobley)
+ * `get_context` methods on StreamField blocks can now access variables from the parent context (Mikael Svensson, Peter Baumgartner)
+ * Updated admin dashboard welcome message for multi-tenanted installations (Jeffrey Chau)
+ * Changed text of "Draft" and "Live" buttons to "View draft" and "View live" (Dan Braghis)
+ * Added `get_api_representation` method to streamfield blocks allowing the JSON representation in the API to be customised (Marco Fucci)
+ * Added `before_copy_page` and `after_copy_page` hooks (Matheus Bratfisch)
  * View live / draft links in the admin now consistently open in a new window (Marco Fucci)
+ * `ChoiceBlock` now omits the blank option if the block is required and has a default value (Andreas Nüßlein)
+ * The `add_subpage` view now maintains a `next` URL parameter to specify where to redirect to after completing page creation (Robert Rollins)
+ * The `wagtailforms` module now allows to define custom form submission model, add custom data to CSV export and some other customisations (Mikalai Radchuk)
+ * The Webpack configuration is now in a subfolder, and uses env-specific configurations (Janneke Janssen, Thibaud Colas)
+ * Added page titles to title text on action buttons in the explorer, for improved accessibility (Matt Westcott)
+ * Fix: Help text for StreamField is now visible and does not cover block controls (Stein Strindhaug)
+ * Fix: "X minutes ago" timestamps are now marked for translation (Janneke Janssen, Matt Westcott)
+ * Fix: Avoid indexing unsaved field content on `save(update_fields=[...])` operations (Matt Westcott)
+ * Fix: Corrected ordering of arguments passed to ModelAdmin `get_extra_class_names_for_field_col` / `get_extra_attrs_for_field_col` methods (Andy Babic)
+ * `pageurl` / `slugurl` tags now function when request.site is not available (Tobias McNulty, Matt Westcott)
+
+
+1.8.1 (26.01.2017)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Reduced `Rendition.focal_point_key` field length to prevent migration failure when upgrading to Wagtail 1.8 on MySQL with `utf8` character encoding (Andy Chosak, Matt Westcott)
 
 
 1.8 (15.12.2016)

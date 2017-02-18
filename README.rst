@@ -62,7 +62,9 @@ Documentation
 
 Community Support
 ~~~~~~~~~~~~~~~~~
-Ask your questions on our `Wagtail support group <https://groups.google.com/forum/#!forum/wagtail>`_.
+There is an active community of Wagtail users and developers responding to questions on `Stack Overflow <http://stackoverflow.com/questions/tagged/wagtail>`_. When posting questions, please read Stack Overflow's advice on `how to ask questions <http://stackoverflow.com/help/how-to-ask>`_ and remember to tag your question with "wagtail".
+
+For topics and discussions that do not fit Stack Overflow's question-and-answer format, there is also a `Wagtail Support mailing list <https://groups.google.com/forum/#!forum/wagtail>`_.
 
 Commercial Support
 ~~~~~~~~~~~~~~~~~~

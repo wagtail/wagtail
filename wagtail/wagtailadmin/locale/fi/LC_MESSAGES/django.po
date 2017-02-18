@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 22:44+0000\n"
-"PO-Revision-Date: 2016-12-06 22:46+0000\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2017-02-06 12:37+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
@@ -732,7 +732,7 @@ msgstr "Selaa sivun %(title)s alasivuja"
 msgid "Add a child page to '%(title)s'"
 msgstr "Lisää alasivu sivulle '%(title)s'"
 
-msgid "Add subpage"
+msgid "Add child page"
 msgstr "Lisää alasivu"
 
 #, python-format
@@ -1097,33 +1097,8 @@ msgstr ""
 msgid "Pages"
 msgstr "Sivut"
 
-msgid "Preview draft"
-msgstr "Esikatsele luonnosta"
-
-msgid "Add child page"
-msgstr "Lisää alasivu"
-
-#, python-brace-format
-msgid "Add a child page to '{0}' "
-msgstr "Lisää alasivu kohteelle '{0}'"
-
 msgid "More"
 msgstr "Lisää"
-
-msgid "View more options"
-msgstr "Näytä lisää vaihtoehtoja"
-
-msgid "Move this page"
-msgstr "Siirrä tämä sivu"
-
-msgid "Delete this page"
-msgstr "Poista tämä sivu"
-
-msgid "Unpublish this page"
-msgstr "Piilota tämä sivu"
-
-msgid "View this page's revision history"
-msgstr "Katso tämän sivun versiohistoria"
 
 msgid "Choose an item"
 msgstr "Valitse vaihtoehto"

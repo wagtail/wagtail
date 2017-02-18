@@ -1,9 +1,7 @@
 from __future__ import absolute_import, unicode_literals
 
 import hashlib
-import inspect
 import os.path
-import warnings
 from collections import OrderedDict
 from contextlib import contextmanager
 
@@ -13,8 +11,6 @@ from django.core import checks
 from django.core.files import File
 from django.core.urlresolvers import reverse
 from django.db import models
-from django.db.models.signals import post_delete, pre_save
-from django.dispatch.dispatcher import receiver
 from django.forms.widgets import flatatt
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.functional import cached_property
@@ -25,7 +21,6 @@ from taggit.managers import TaggableManager
 from unidecode import unidecode
 from willow.image import Image as WillowImage
 
-from wagtail.utils.deprecation import RemovedInWagtail19Warning, RemovedInWagtail110Warning
 from wagtail.wagtailadmin.utils import get_object_usage
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import CollectionMember
@@ -44,14 +39,6 @@ class SourceImageIOError(IOError):
 
 class ImageQuerySet(SearchableQuerySetMixin, models.QuerySet):
     pass
-
-
-def get_image_model():
-    warnings.warn("wagtail.wagtailimages.models.get_image_model "
-                  "has been moved to wagtail.wagtailimages.get_image_model",
-                  RemovedInWagtail110Warning)
-    from wagtail.wagtailimages import get_image_model
-    return get_image_model()
 
 
 def get_upload_to(instance, filename):
@@ -348,33 +335,16 @@ class Image(AbstractImage):
     )
 
 
-# Do smartcropping calculations when user saves an image without a focal point
-@receiver(pre_save, sender=Image)
-def image_feature_detection(sender, instance, **kwargs):
-    if getattr(settings, 'WAGTAILIMAGES_FEATURE_DETECTION_ENABLED', False):
-        # Make sure the image doesn't already have a focal point
-        if not instance.has_focal_point():
-            # Set the focal point
-            instance.set_focal_point(instance.get_suggested_focal_point())
-
-
-# Receive the post_delete signal and delete the file associated with the model instance.
-@receiver(post_delete, sender=Image)
-def image_delete(sender, instance, **kwargs):
-    # Pass false so FileField doesn't save the model.
-    instance.file.delete(False)
-
-
-# RemovedInWagtail19Warning: We will remove the models.Model
-class Filter(models.Model):
+class Filter(object):
     """
     Represents one or more operations that can be applied to an Image to produce a rendition
     appropriate for final display on the website. Usually this would be a resize operation,
     but could potentially involve colour processing, etc.
     """
 
-    # The spec pattern is operation1-var1-var2|operation2-var1
-    spec = models.CharField(max_length=255, unique=True)
+    def __init__(self, spec=None):
+        # The spec pattern is operation1-var1-var2|operation2-var1
+        self.spec = spec
 
     @cached_property
     def operations(self):
@@ -404,24 +374,7 @@ class Filter(models.Model):
                 'original-format': original_format,
             }
             for operation in self.operations:
-                # Check that the operation can take the "env" argument
-                try:
-                    inspect.getcallargs(operation.run, willow, image, env)
-                    accepts_env = True
-                except TypeError:
-                    # Check that the paramters fit the old style, so we don't
-                    # raise a warning if there is a coding error
-                    inspect.getcallargs(operation.run, willow, image)
-                    accepts_env = False
-                    warnings.warn("ImageOperation run methods should take 4 "
-                                  "arguments. %d.run only takes 3.",
-                                  RemovedInWagtail19Warning)
-
-                # Call operation
-                if accepts_env:
-                    willow = operation.run(willow, image, env) or willow
-                else:
-                    willow = operation.run(willow, image) or willow
+                willow = operation.run(willow, image, env) or willow
 
             # Find the output format to use
             if 'output-format' in env:
@@ -483,36 +436,13 @@ class Filter(models.Model):
 
         cls._registered_operations = dict(operations)
 
-    def save(self, *args, **kwargs):
-        warnings.warn(
-            "Filter.save() is deprecated; Filter will no longer be an ORM model in Wagtail 1.9. "
-            "Instantiate and use it in-memory instead",
-            RemovedInWagtail19Warning, stacklevel=2
-        )
-        return super(Filter, self).save(*args, **kwargs)
-
-
-class WarnOnManagerAccess(object):
-    def __get__(self, obj, objtype=None):
-        warnings.warn(
-            "Filter.objects is deprecated; Filter will no longer be an ORM model in Wagtail 1.9. "
-            "Instantiate and use it in-memory instead",
-            RemovedInWagtail19Warning, stacklevel=2
-        )
-        return objtype._objects
-
-
-Filter._objects = Filter.objects
-Filter.objects = WarnOnManagerAccess()
-
 
 class AbstractRendition(models.Model):
-    filter = models.ForeignKey(Filter, related_name='+', null=True, blank=True)  # DEPRECATED - RemovedInWagtail19Warning
     filter_spec = models.CharField(max_length=255, db_index=True)
     file = models.ImageField(upload_to=get_rendition_upload_to, width_field='width', height_field='height')
     width = models.IntegerField(editable=False)
     height = models.IntegerField(editable=False)
-    focal_point_key = models.CharField(max_length=255, blank=True, default='', editable=False)
+    focal_point_key = models.CharField(max_length=16, blank=True, default='', editable=False)
 
     @property
     def url(self):
@@ -586,10 +516,3 @@ class Rendition(AbstractRendition):
         unique_together = (
             ('image', 'filter_spec', 'focal_point_key'),
         )
-
-
-# Receive the post_delete signal and delete the file associated with the model instance.
-@receiver(post_delete, sender=Rendition)
-def rendition_delete(sender, instance, **kwargs):
-    # Pass false so FileField doesn't save the model.
-    instance.file.delete(False)

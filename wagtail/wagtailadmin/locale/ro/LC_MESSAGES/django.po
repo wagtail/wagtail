@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Dan Braghis, 2014-2016
+# Dan Braghis, 2014-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 22:44+0000\n"
-"PO-Revision-Date: 2016-12-06 22:46+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2017-02-06 13:52+0000\n"
+"Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +19,9 @@ msgstr ""
 "Language: ro\n"
 "Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
 "2:1));\n"
+
+msgid "None"
+msgstr "Nici una"
 
 msgid "You do not have permission to access the admin"
 msgstr "Nu aveți permisiunea de a accesa zona de administrare."
@@ -370,6 +373,10 @@ msgstr "Editează"
 
 msgid "Preview"
 msgstr "Examinare"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s în urmă"
 
 msgid "Your most recent edits"
 msgstr "Modificările cele mai recente"
@@ -774,8 +781,8 @@ msgstr "Explorează paginile dependente de '%(title)s'"
 msgid "Add a child page to '%(title)s'"
 msgstr "Adaugă o pagină dependentă de '%(title)s'"
 
-msgid "Add subpage"
-msgstr "Adaugă subpagină"
+msgid "Add child page"
+msgstr "Adaugă pagină dependentă"
 
 #, python-format
 msgid ""
@@ -813,6 +820,25 @@ msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Alege o pagină de bază nouă pentru <span>%(title)s</span>"
 
 #, python-format
+msgid "Comparing %(title)s"
+msgstr "Comparare %(title)s"
+
+msgid "Comparing"
+msgstr "Comparare"
+
+msgid "View revisions"
+msgstr "Vezi revizii"
+
+msgid "Fields"
+msgstr "Câmpuri"
+
+msgid "Changes"
+msgstr "Modificări"
+
+msgid "There are no differences between these two revisions"
+msgstr "Aceste două revizii nu au nici o diferență"
+
+#, python-format
 msgid "Revisions of %(title)s"
 msgstr "Revizii pentru %(title)s"
 
@@ -831,6 +857,9 @@ msgstr "Ciornă curentă"
 
 msgid "Review this revision"
 msgstr "Revezi această revizie"
+
+msgid "Compare with previous revision"
+msgstr "Compară cu revizia precedentă"
 
 msgid "No revisions of this page exist"
 msgstr "Această pagină nu are nici o revizie."
@@ -1088,6 +1117,9 @@ msgstr "Pagina nu a fost salvată pentru că este blocată"
 msgid "The page could not be saved due to validation errors"
 msgstr "Pagina nu a fost salvată din cauza erorilor de validare."
 
+msgid "Compare with live version"
+msgstr "Compară cu revizia publicată"
+
 msgid "This page is currently awaiting moderation"
 msgstr "Această pagină este în moderare"
 
@@ -1148,33 +1180,36 @@ msgstr ""
 msgid "Pages"
 msgstr "Pagini"
 
-msgid "Preview draft"
-msgstr "Previzualizează ciornă"
-
-msgid "Add child page"
-msgstr "Adaugă pagină dependentă"
+#, python-brace-format
+msgid "Edit '{title}'"
+msgstr "Editează '{title}'"
 
 #, python-brace-format
-msgid "Add a child page to '{0}' "
-msgstr "Adaugă o pagină dependentă de '{0}'"
+msgid "View live version of '{title}'"
+msgstr "Vezi versiunea live a '{title}'"
+
+#, python-brace-format
+msgid "Add a child page to '{title}' "
+msgstr "Adaugă o pagină dependentă de '{title}'"
 
 msgid "More"
 msgstr "Mai mult"
 
-msgid "View more options"
-msgstr "Vezi mai multe opțiuni"
+#, python-brace-format
+msgid "View more options for '{title}'"
+msgstr "Vezi mai multe opțiuni pentru '{title}'"
 
-msgid "Move this page"
-msgstr "Mută această pagină"
+#, python-brace-format
+msgid "Copy page '{title}'"
+msgstr "Copie pagina '{title}'"
 
-msgid "Delete this page"
-msgstr "Șterge această pagină"
+#, python-brace-format
+msgid "Delete page '{title}'"
+msgstr "Șterge pagina '{title}'"
 
-msgid "Unpublish this page"
-msgstr "Anulează publicarea acestei pagini"
-
-msgid "View this page's revision history"
-msgstr "Vezi istoricul reviziilor acestei pagini"
+#, python-brace-format
+msgid "Unpublish page '{title}'"
+msgstr "Anulează publicarea paginii '{title}'"
 
 msgid "Choose an item"
 msgstr "Alege un element"

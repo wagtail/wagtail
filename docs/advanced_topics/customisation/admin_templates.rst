@@ -79,6 +79,32 @@ To replace the welcome message on the dashboard, create a template file ``dashbo
 
     {% block branding_welcome %}Welcome to Frank's Site{% endblock %}
 
+Specifying a site or page in the branding
+=========================================
+
+The admin interface has a number of variables available to the renderer context that can be used to customize the branding in the admin page. These can be useful for customizing the dashboard on a multitenanted Wagtail installation:
+
+``root_page``
+-------------
+Returns the highest explorable page object for the currently logged in user. If the user has no explore rights, this will default to ``None``.
+
+``root_site``
+-------------
+Returns the name on the site record for the above root page.
+
+
+``site_name``
+-------------
+Returns the value of ``root_site``, unless it evaluates to ``None``. In that case, it will return the value of ``settings.WAGTAIL_SITE_NAME``.
+
+To use these variables, create a template file ``dashboard/templates/wagtailadmin/home.html``, just as if you were overriding one of the template blocks in the dashboard, and use them as you would any other Django template variable:
+
+.. code-block:: html+django
+
+    {% extends "wagtailadmin/home.html" %}
+
+    {% block branding_welcome %}Welcome to the Admin Homepage for {{ root_site }}{% endblock %}
+
 Extending the login form
 ========================
 
@@ -114,6 +140,20 @@ To add extra fields to the login form, override the ``fields`` block. You will n
                 </div>
             </div>
         </li>
+    {% endblock %}
+
+``submit_buttons``
+------------------
+
+To add extra buttons to the login form, override the ``submit_buttons`` block. You will need to add ``{{ block.super }}`` somewhere in your block to include the sign in button:
+
+.. code-block:: html+django
+
+    {% extends "wagtailadmin/login.html" %}
+
+    {% block submit_buttons %}
+        {{ block.super }}
+        <a href="{% url 'signup' %}"><button type="button" class="button" tabindex="4">{% trans 'Sign up' %}</button></a>
     {% endblock %}
 
 ``login_form``

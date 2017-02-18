@@ -10,7 +10,7 @@ documentation, translations or just feature requests.
 The [issue tracker](https://github.com/wagtail/wagtail/issues) is
 the preferred channel for [bug reports](#bugs), [features requests](#features)
 and [submitting pull requests](#pull-requests). Please don't use the issue tracker
-for support - use our [Wagtail support group](https://groups.google.com/forum/#!forum/wagtail).
+for support - use [the 'wagtail' tag on Stack Overflow](http://stackoverflow.com/questions/tagged/wagtail) (preferred) or our [Wagtail support group](https://groups.google.com/forum/#!forum/wagtail).
 
 ## New code
 

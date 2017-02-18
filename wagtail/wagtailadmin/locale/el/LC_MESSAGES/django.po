@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 22:44+0000\n"
-"PO-Revision-Date: 2016-12-06 22:46+0000\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2017-02-06 12:37+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
@@ -751,8 +751,8 @@ msgstr "Εξερεύνηση των σελίδων - παιδιών του '%(ti
 msgid "Add a child page to '%(title)s'"
 msgstr "Προσθήκη σελίδας - παιδί στην '%(title)s'"
 
-msgid "Add subpage"
-msgstr "Προσθήκη υποσελίδας"
+msgid "Add child page"
+msgstr "Προσθήκη σελίδας-παιδί"
 
 #, python-format
 msgid ""
@@ -1119,33 +1119,8 @@ msgstr ""
 msgid "Pages"
 msgstr "Σελίδες"
 
-msgid "Preview draft"
-msgstr "Προεπισκόπηση σχεδίου"
-
-msgid "Add child page"
-msgstr "Προσθήκη σελίδας-παιδί"
-
-#, python-brace-format
-msgid "Add a child page to '{0}' "
-msgstr "Προσθήκη σελίδας-παιδί στο '{0}'"
-
 msgid "More"
 msgstr "Περισσότερα"
-
-msgid "View more options"
-msgstr "Εμφάνιση περισσότερων επιλογών"
-
-msgid "Move this page"
-msgstr "Μετακίνηση της σελίδας"
-
-msgid "Delete this page"
-msgstr "Διαγραφή της σελίδας"
-
-msgid "Unpublish this page"
-msgstr "Από-έκδοση της σελίδας"
-
-msgid "View this page's revision history"
-msgstr "Εμφάνιση του ιστορικού αναθεωρήσεων της σελίδας"
 
 msgid "Choose an item"
 msgstr "Επιλέξατε αντικείμενο"

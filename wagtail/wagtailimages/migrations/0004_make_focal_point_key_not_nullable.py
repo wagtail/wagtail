@@ -44,6 +44,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='rendition',
             name='focal_point_key',
-            field=models.CharField(blank=True, default='', max_length=255, editable=False),
+            field=models.CharField(blank=True, default='', max_length=18, editable=False),
         ),
     ]

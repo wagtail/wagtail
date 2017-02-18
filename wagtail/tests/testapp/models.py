@@ -14,7 +14,7 @@ from django.shortcuts import render
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.six import text_type
 from modelcluster.contrib.taggit import ClusterTaggableManager
-from modelcluster.fields import ParentalKey
+from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.models import ClusterableModel
 from taggit.managers import TaggableManager
 from taggit.models import TaggedItemBase
@@ -32,7 +32,7 @@ from wagtail.wagtaildocs.edit_handlers import DocumentChooserPanel
 from wagtail.wagtailforms.models import AbstractEmailForm, AbstractFormField, AbstractFormSubmission
 from wagtail.wagtailimages.blocks import ImageChooserBlock
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
-from wagtail.wagtailimages.models import AbstractImage, Image
+from wagtail.wagtailimages.models import AbstractImage, AbstractRendition, Image
 from wagtail.wagtailsearch import index
 from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
 from wagtail.wagtailsnippets.models import register_snippet
@@ -197,6 +197,14 @@ class EventPageSpeaker(Orderable, LinkFields):
     ]
 
 
+@python_2_unicode_compatible
+class EventCategory(models.Model):
+    name = models.CharField("Name", max_length=255)
+
+    def __str__(self):
+        return self.name
+
+
 class EventPage(Page):
     date_from = models.DateField("Start date", null=True)
     date_to = models.DateField(
@@ -219,6 +227,7 @@ class EventPage(Page):
         on_delete=models.SET_NULL,
         related_name='+'
     )
+    categories = ParentalManyToManyField(EventCategory, blank=True)
 
     search_fields = [
         index.SearchField('get_audience_display'),
@@ -243,6 +252,7 @@ EventPage.content_panels = [
     FieldPanel('body', classname="full"),
     InlinePanel('speakers', label="Speakers"),
     InlinePanel('related_links', label="Related links"),
+    FieldPanel('categories'),
 ]
 
 EventPage.promote_panels = [
@@ -630,6 +640,15 @@ class CustomImage(AbstractImage):
     )
 
 
+class CustomRendition(AbstractRendition):
+    image = models.ForeignKey(CustomImage, related_name='renditions', on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = (
+            ('image', 'filter_spec', 'focal_point_key'),
+        )
+
+
 class StreamModel(models.Model):
     body = StreamField([
         ('text', CharBlock()),
@@ -638,11 +657,27 @@ class StreamModel(models.Model):
     ])
 
 
+class ExtendedImageChooserBlock(ImageChooserBlock):
+    """
+    Example of Block with custom get_api_representation method.
+    If the request has an 'extended' query param, it returns a dict of id and title,
+    otherwise, it returns the default value.
+    """
+    def get_api_representation(self, value, context=None):
+        image_id = super(ExtendedImageChooserBlock, self).get_api_representation(value, context=context)
+        if 'request' in context and context['request'].query_params.get('extended', False):
+            return {
+                'id': image_id,
+                'title': value.title
+            }
+        return image_id
+
+
 class StreamPage(Page):
     body = StreamField([
         ('text', CharBlock()),
         ('rich_text', RichTextBlock()),
-        ('image', ImageChooserBlock()),
+        ('image', ExtendedImageChooserBlock()),
     ])
 
     api_fields = ('body',)

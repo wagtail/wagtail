@@ -85,7 +85,7 @@ class FieldBlock(Block):
 
     @property
     def required(self):
-        # a FieldBlock is required iff its underlying form field is required
+        # a FieldBlock is required if and only if its underlying form field is required
         return self.field.required
 
     class Meta:
@@ -333,7 +333,7 @@ class ChoiceBlock(FieldBlock):
 
     choices = ()
 
-    def __init__(self, choices=None, required=True, help_text=None, **kwargs):
+    def __init__(self, choices=None, default=None, required=True, help_text=None, **kwargs):
         if choices is None:
             # no choices specified, so pick up the choice defined at the class level
             choices = self.choices
@@ -361,14 +361,18 @@ class ChoiceBlock(FieldBlock):
         # one already. We have to do this at render time in the case of callable choices - so rather
         # than having separate code paths for static vs dynamic lists, we'll _always_ pass a callable
         # to ChoiceField to perform this step at render time.
-        callable_choices = self.get_callable_choices(choices)
-        self.field = forms.ChoiceField(choices=callable_choices, required=required, help_text=help_text)
-        super(ChoiceBlock, self).__init__(**kwargs)
 
-    def get_callable_choices(self, choices):
+        # If we have a default choice and the field is required, we don't need to add a blank option.
+        callable_choices = self.get_callable_choices(choices, blank_choice=not(default and required))
+
+        self.field = forms.ChoiceField(choices=callable_choices, required=required, help_text=help_text)
+        super(ChoiceBlock, self).__init__(default=default, **kwargs)
+
+    def get_callable_choices(self, choices, blank_choice=True):
         """
         Return a callable that we can pass into `forms.ChoiceField`, which will provide the
-        choices list with the addition of a blank choice (if one does not already exist).
+        choices list with the addition of a blank choice (if blank_choice=True and one does not
+        already exist).
         """
         def choices_callable():
             # Variable choices could be an instance of CallableChoiceIterator, which may be wrapping
@@ -377,7 +381,11 @@ class ChoiceBlock(FieldBlock):
             # once while rendering the final ChoiceField).
             local_choices = list(choices)
 
-            # If choices does not already contain a blank option, insert one
+            # If blank_choice=False has been specified, return the choices list as is
+            if not blank_choice:
+                return local_choices
+
+            # Else: if choices does not already contain a blank option, insert one
             # (to match Django's own behaviour for modelfields:
             # https://github.com/django/django/blob/1.7.5/django/db/models/fields/__init__.py#L732-744)
             has_blank_choice = False
@@ -573,20 +581,48 @@ class ChooserBlock(FieldBlock):
 
 class PageChooserBlock(ChooserBlock):
 
-    def __init__(self, target_model='wagtailcore.Page', can_choose_root=False,
+    # TODO: rename target_model to page_type
+    def __init__(self, target_model=None, can_choose_root=False,
                  **kwargs):
-        self._target_model = target_model
+        if target_model:
+            # Convert single string/model into a list
+            if not isinstance(target_model, (list, tuple)):
+                target_model = [target_model]
+        else:
+            target_model = []
+
+        self._target_models = target_model
         self.can_choose_root = can_choose_root
         super(PageChooserBlock, self).__init__(**kwargs)
 
     @cached_property
     def target_model(self):
-        return resolve_model_string(self._target_model)
+        """
+        Defines the model used by the base ChooserBlock for ID <-> instance
+        conversions. If a single page type is specified in target_model,
+        we can use that to get the more specific instance "for free"; otherwise
+        use the generic Page model.
+        """
+        if len(self.target_models) == 1:
+            return self.target_models[0]
+
+        return resolve_model_string('wagtailcore.Page')
+
+    @cached_property
+    def target_models(self):
+        target_models = []
+
+        for target_model in self._target_models:
+            target_models.append(
+                resolve_model_string(target_model)
+            )
+
+        return target_models
 
     @cached_property
     def widget(self):
         from wagtail.wagtailadmin.widgets import AdminPageChooser
-        return AdminPageChooser(target_models=[self.target_model],
+        return AdminPageChooser(target_models=self.target_models,
                                 can_choose_root=self.can_choose_root)
 
     def render_basic(self, value, context=None):
@@ -597,9 +633,18 @@ class PageChooserBlock(ChooserBlock):
 
     def deconstruct(self):
         name, args, kwargs = super(PageChooserBlock, self).deconstruct()
+
         if 'target_model' in kwargs:
-            opts = self.target_model._meta
-            kwargs['target_model'] = '{}.{}'.format(opts.app_label, opts.object_name)
+            target_models = []
+
+            for target_model in self.target_models:
+                opts = target_model._meta
+                target_models.append(
+                    '{}.{}'.format(opts.app_label, opts.object_name)
+                )
+
+            kwargs['target_model'] = target_models
+
         return name, args, kwargs
 
     class Meta:

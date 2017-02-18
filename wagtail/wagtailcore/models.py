@@ -16,8 +16,6 @@ from django.core.handlers.wsgi import WSGIRequest
 from django.core.urlresolvers import reverse
 from django.db import connection, models, transaction
 from django.db.models import Case, IntegerField, Q, When
-from django.db.models.signals import post_delete, post_save, pre_delete
-from django.dispatch.dispatcher import receiver
 from django.http import Http404
 from django.template.response import TemplateResponse
 # Must be imported from Django so we get the new implementation of with_metaclass
@@ -214,17 +212,6 @@ class Site(models.Model):
             cache.set('wagtail_site_root_paths', result, 3600)
 
         return result
-
-
-# Clear the wagtail_site_root_paths from the cache whenever Site records are updated
-@receiver(post_save, sender=Site)
-def clear_site_root_paths_on_save(sender, instance, **kwargs):
-    cache.delete('wagtail_site_root_paths')
-
-
-@receiver(post_delete, sender=Site)
-def clear_site_root_paths_on_delete(sender, instance, **kwargs):
-    cache.delete('wagtail_site_root_paths')
 
 
 PAGE_MODEL_CLASSES = []
@@ -1385,19 +1372,6 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
         verbose_name_plural = _('pages')
 
 
-@receiver(pre_delete, sender=Page)
-def unpublish_page_before_delete(sender, instance, **kwargs):
-    # Make sure pages are unpublished before deleting
-    if instance.live:
-        # Don't bother to save, this page is just about to be deleted!
-        instance.unpublish(commit=False)
-
-
-@receiver(post_delete, sender=Page)
-def log_page_deletion(sender, instance, **kwargs):
-    logger.info("Page deleted: \"%s\" id=%d", instance.title, instance.id)
-
-
 class Orderable(models.Model):
     sort_order = models.IntegerField(null=True, blank=True, editable=False)
     sort_order_field = 'sort_order'
@@ -1526,6 +1500,12 @@ class PageRevision(models.Model):
                 self.id,
                 page.go_live_at.isoformat()
             )
+
+    def get_previous(self):
+        return self.get_previous_by_created_at(page=self.page)
+
+    def get_next(self):
+        return self.get_next_by_created_at(page=self.page)
 
     def __str__(self):
         return '"' + six.text_type(self.page) + '" at ' + six.text_type(self.created_at)

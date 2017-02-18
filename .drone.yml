@@ -1,4 +1,4 @@
-build:
+pipeline:
   flake8:
     image: python:3.5
     commands:
@@ -25,7 +25,7 @@ build:
     commands:
       - XDG_CACHE_HOME=/drone/pip-cache pip install wheel
       - XDG_CACHE_HOME=/drone/pip-cache pip install -e .[testing,docs]
-      - python runtests.py
+      - python -u runtests.py
 
 cache:
   mount:

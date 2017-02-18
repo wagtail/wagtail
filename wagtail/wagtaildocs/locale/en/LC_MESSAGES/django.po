@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -178,6 +178,11 @@ msgstr ""
 #: templates/wagtaildocs/documents/list.html:21
 #: templates/wagtaildocs/documents/list.html:24
 msgid "Uploaded"
+msgstr ""
+
+#: templates/wagtaildocs/documents/list.html:40
+#, python-format
+msgid "%(time_period)s ago"
 msgstr ""
 
 #: templates/wagtaildocs/documents/results.html:26

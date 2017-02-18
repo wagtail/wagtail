@@ -196,6 +196,24 @@ Contributors
 * Marco Fucci
 * Mihail Russu
 * Robert Slotboom
+* Erick M'bwana
+* Andreas Nüßlein
+* John Heasly
+* Nikolai Røed Kristiansen
+* Alex Zagorodniuk
+* glassresistor
+* Mikael Svensson
+* Peter Baumgartner
+* Matheus Bratfisch
+* Andy Chosak
+* Kevin Whinnery
+* Martey Dodoo
+* David Ray
+* Alasdair Nicol
+* Tobias McNulty
+* Vorlif
+* Kjartan Sverrisson
+* LB (Ben Johnston)
 
 Translators
 ===========
@@ -207,7 +225,7 @@ Translators
 * Catalan: Antoni Aloy, David Llop, Roger Pons
 * Chinese: hanfeng, Lihan Li, Leway Colin
 * Chinese (China): hanfeng, Daniel Hwang, Jian Li, Listeng Teng, Feng Wang, Fred Zeng, Joey Zhao, zhushajun
-* Chinese (Taiwan): Lihan Li, Jp Shieh
+* Chinese (Taiwan): gogobook, Lihan Li, Jp Shieh
 * Croatian (Croatia): Luka Matijević
 * Czech: Ivan Pomykacz, Jiri Stepanek, Marek Turnovec
 * Danish: Asger Sørensen
@@ -219,7 +237,7 @@ Translators
 * Georgian: André Bouatchidzé
 * German: Ettore Atalan, Patrick Craston, Henrik Kröger, Tammo van Lessen, Martin Löhle, Wasilis Mandratzis-Walz, Daniel Manser, m0rph3u5, Max Pfeiffer, Moritz Pfeiffer, Herbert Poul, Karl Sander, Tobias Schmidt, Johannes Spielmann, Raphael Stolt, Jannis Vajen, Vorlif, Matthew Westcott
 * Greek: Jim Dal, George Giannoulopoulos, Yiannis Inglessis, Wasilis Mandratzis-Walz, NeotheOne, Serafeim Papastefanos
-* Hebrew (Israel): bjesus, Lior Abazon
+* Hebrew (Israel): Lior Abazon, bjesus, Yossi Lalum
 * Hungarian: Laszlo Molnar, Kornél Novák Mergulhão
 * Icelandic (Iceland): Arnar Tumi Þorsteinsson, Kjartan Sverrisson, Sævar Öfjörð Magnússon
 * Indonesian (Indonesia): Sutrisno Efendi, Geek Pantura
@@ -227,18 +245,19 @@ Translators
 * Japanese: Sangmin Ahn, Shu Ishida, Daigo Shitara, Shimizu Taku
 * Korean: Kyungil Choi, Jihan Chung
 * Latvian: Reinis Rozenbergs, Maris Serzans
+* Lithuanian: Matas Dailyda
 * Mongolian: Delgermurun Purevkhuu
 * Norwegian Bokmål: Eirik Krogstad, Robin Skahjem-Eriksen
 * Persian: Mohammad reza Jelveh
-* Polish: Mateusz, mmiskiew, utek
-* Portuguese (Brazil): Claudemiro Alves Feitosa Neto, Luiz Boaretto, Gladson Brito, Thiago Cangussu, Gilson Filho, João Luiz Lorencetti, Marcio Mazza, Douglas Miranda, Guilherme Nabanete
+* Polish: Mateusz, Miłosz Miśkiewicz, utek
+* Portuguese (Brazil): Claudemiro Alves Feitosa Neto, Luiz Boaretto, Gladson Brito, Thiago Cangussu, Gilson Filho, Joao Garcia, João Luiz Lorencetti, Marcio Mazza, Douglas Miranda, Guilherme Nabanete
 * Portuguese (Portugal): Gladson Brito, Thiago Cangussu, Tiago Henriques, Jose Lourenco, Nuno Matos, Douglas Miranda, Manuela Silva
 * Romanian: Dan Braghis
 * Russian: ajk, Andrey Avdey, Daniil, gsstver, Sergey Khalymon, Sergey Komarov, Eugene MechanisM, Mikalai Radchuk, Alexandr Romantsov, Nikita Viktorovich
-* Slovak (Slovakia): Stevo Backor, dellax
+* Slovak (Slovakia): Stevo Backor, dellax, Jozef Karabelly
 * Slovenian: Mitja Pagon
 * Spanish: Mauricio Baeza, Daniel Chimeno, fonso, fooflare, Yusuf (Josè) Luis, Joaquín Tita, Unai Zalakain
-* Swedish: Ludwig Kjellström, Thomas Kunambi, Hannes Lohmander
+* Swedish: André Karlsson, Ludwig Kjellström, Thomas Kunambi, Hannes Lohmander
 * Swedish (Sweden): Jon Karlsson, Thomas Kunambi
 * Turkish: Cihad Gündoǧdu
 * Turkish (Turkey): Saadettin Yasir Akel, Cihad Gündoǧdu, Yusuf (Josè) Luis, Ragıp Ünal

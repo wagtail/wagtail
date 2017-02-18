@@ -13,8 +13,7 @@ from django.utils.safestring import mark_safe
 
 from wagtail.utils.pagination import DEFAULT_PAGE_KEY, replace_page_in_query
 from wagtail.wagtailadmin.menu import admin_menu
-from wagtail.wagtailadmin.navigation import (
-    get_navigation_menu_items, get_pages_with_direct_explore_permission)
+from wagtail.wagtailadmin.navigation import get_explorable_root_page, get_navigation_menu_items
 from wagtail.wagtailadmin.search import admin_search_areas
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import Page, PageViewRestriction, UserPagePermissionsProxy
@@ -61,11 +60,8 @@ def explorer_breadcrumb(context, page, include_self=False):
 
     # find the closest common ancestor of the pages that this user has direct explore permission
     # (i.e. add/edit/publish/lock) over; this will be the root of the breadcrumb
-    try:
-        cca = get_pages_with_direct_explore_permission(user).first_common_ancestor(
-            include_self=True, strict=True
-        )
-    except Page.DoesNotExist:
+    cca = get_explorable_root_page(user)
+    if not cca:
         return {'pages': Page.objects.none()}
 
     return {
@@ -358,3 +354,8 @@ def replace_page_param(query, page_number, page_key='p'):
     Replaces ``page_key`` from query string with ``page_number``.
     """
     return conditional_escape(replace_page_in_query(query, page_number, page_key))
+
+
+@register.filter('abs')
+def _abs(val):
+    return abs(val)

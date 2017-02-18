@@ -5,7 +5,7 @@
 # Translators:
 # Adrien <laadrien@gmail.com>, 2014
 # Axel Haustant, 2016
-# Benoît Vogel <contact@spicy-informatique.com>, 2016
+# Benoît Vogel <contact@spicy-informatique.com>, 2016-2017
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015
 # Léo <leo@naeka.fr>, 2016
 # pierre marfoure <pierre@onoffdesign.com>, 2016
@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 22:44+0000\n"
-"PO-Revision-Date: 2016-10-26 05:03+0000\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2017-02-12 18:11+0000\n"
 "Last-Translator: Benoît Vogel <contact@spicy-informatique.com>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
@@ -124,18 +124,23 @@ msgstr "adresse expéditeur"
 msgid "subject"
 msgstr "sujet"
 
-#, python-format
-msgid "Delete %(title)s"
-msgstr "Supprimer %(title)s"
+msgid ""
+"\n"
+"                Are you sure you want to delete this form submission?\n"
+"            "
+msgid_plural ""
+"\n"
+"                Are you sure you want to delete these form submissions?\n"
+"            "
+msgstr[0] ""
+"\n"
+"Êtes-vous sûr(e) de vouloir supprimer cette soumission de formulaire ?"
+msgstr[1] ""
+"\n"
+"Êtes-vous sûr(e) de vouloir supprimer ces soumissions de formulaire ?"
 
 msgid "Delete"
 msgstr "Supprimer"
-
-msgid "Are you sure you want to delete this form submission?"
-msgstr "Êtes-vous sûr(e) de vouloir supprimer cette soumission ?"
-
-msgid "Delete it"
-msgstr "La supprimer"
 
 msgid "Total submissions"
 msgstr "Nombre total de soumissions"
@@ -173,14 +178,11 @@ msgstr "Titre"
 msgid "Origin"
 msgstr "Origine"
 
-msgid "Actions"
-msgstr "Actions"
-
-msgid "delete"
-msgstr "supprimer"
-
 msgid "No form pages have been created."
 msgstr "Aucune page contenant un formulaire n'a été créée."
 
-msgid "Submission deleted."
-msgstr "Soumission supprimée"
+#, python-format
+msgid "One submission has been deleted."
+msgid_plural "%(count)d submissions have been deleted."
+msgstr[0] "Une soumission a été supprimée."
+msgstr[1] "%(count)d soumissions ont été supprimées."

@@ -1,0 +1,44 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# gogobook <O968041428@gmail.com>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2017-02-15 02:35+0000\n"
+"Last-Translator: gogobook <O968041428@gmail.com>\n"
+"Language-Team: Chinese (Taiwan) (http://www.transifex.com/torchbox/wagtail/"
+"language/zh_TW/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh_TW\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
+msgstr "必須。30個字元以下，限字母、數字與@/./+/-/_"
+
+msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
+msgstr "限字母、數字與@/./+/-/_ "
+
+msgid "A user with that username already exists."
+msgstr "此名稱之使用者已存在。"
+
+msgid "The two password fields didn't match."
+msgstr "二次密碼不一致"
+
+msgid "Administrator"
+msgstr "管理者"
+
+msgid "Password"
+msgstr "密碼"
+
+msgid "Leave blank if not changing."
+msgstr "如未修改，請留白。"
+
+msgid "Password confirmation"
+msgstr "密碼確認"

@@ -30,7 +30,7 @@ function entryPoints(paths) {
 
 
 module.exports = function exports() {
-  var CLIENT_DIR = path.resolve(__dirname, 'client', 'src');
+  var CLIENT_DIR = path.resolve(__dirname, '..', 'src');
 
   return {
     entry: entryPoints('./wagtail/**/static_src/**/app/*.entry.js'),
@@ -54,13 +54,9 @@ module.exports = function exports() {
     module: {
       loaders: [
         {
-          test: /\.js$/,
+          test: /\.(js|jsx)$/,
           loader: 'babel'
         },
-        {
-          test: /\.jsx$/,
-          loader: 'babel'
-        }
       ]
     }
   };

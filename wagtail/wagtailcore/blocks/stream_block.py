@@ -211,6 +211,16 @@ class BaseStreamBlock(Block):
             for child in value  # child is a BoundBlock instance
         ]
 
+    def get_api_representation(self, value, context=None):
+        if value is None:
+            # treat None as identical to an empty stream
+            return []
+
+        return [
+            {'type': child.block.name, 'value': child.block.get_api_representation(child.value, context=context)}
+            for child in value  # child is a BoundBlock instance
+        ]
+
     def render_basic(self, value, context=None):
         return format_html_join(
             '\n', '<div class="block-{1}">{0}</div>',
@@ -344,6 +354,15 @@ class StreamValue(collections.Sequence):
 
         for i, value in zip(raw_values.keys(), converted_values):
             self._bound_blocks[i] = StreamValue.StreamChild(child_block, value)
+
+    def __eq__(self, other):
+        if not isinstance(other, StreamValue):
+            return False
+
+        return self.stream_data == other.stream_data
+
+    def __ne__(self, other):
+        return not self.__eq__(other)
 
     def __len__(self):
         return len(self.stream_data)

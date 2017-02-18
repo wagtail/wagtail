@@ -634,7 +634,7 @@ class TestMultipleDocumentUploader(TestCase, WagtailTestUtils):
 
 class TestDocumentChooserView(TestCase, WagtailTestUtils):
     def setUp(self):
-        self.login()
+        self.user = self.login()
 
     def test_simple(self):
         response = self.client.get(reverse('wagtaildocs:chooser'))
@@ -687,6 +687,44 @@ class TestDocumentChooserView(TestCase, WagtailTestUtils):
 
         # Check that we got the last page
         self.assertEqual(response.context['documents'].number, response.context['documents'].paginator.num_pages)
+
+    def test_construct_queryset_hook_browse(self):
+        document = Document.objects.create(
+            title="Test document shown",
+            uploaded_by_user=self.user,
+        )
+        Document.objects.create(
+            title="Test document not shown",
+        )
+
+        def filter_documents(documents, request):
+            # Filter on `uploaded_by_user` because it is
+            # the only default FilterField in search_fields
+            return documents.filter(uploaded_by_user=self.user)
+
+        with self.register_hook('construct_document_chooser_queryset', filter_documents):
+            response = self.client.get(reverse('wagtaildocs:chooser'))
+        self.assertEqual(len(response.context['documents']), 1)
+        self.assertEqual(response.context['documents'][0], document)
+
+    def test_construct_queryset_hook_search(self):
+        document = Document.objects.create(
+            title="Test document shown",
+            uploaded_by_user=self.user,
+        )
+        Document.objects.create(
+            title="Test document not shown",
+        )
+
+        def filter_documents(documents, request):
+            # Filter on `uploaded_by_user` because it is
+            # the only default FilterField in search_fields
+            return documents.filter(uploaded_by_user=self.user)
+
+        with self.register_hook('construct_document_chooser_queryset', filter_documents):
+            response = self.client.get(reverse('wagtaildocs:chooser'), {'q': 'Test'})
+        self.assertEqual(len(response.context['documents']), 1)
+        self.assertEqual(response.context['documents'][0], document)
 
 
 class TestDocumentChooserChosenView(TestCase, WagtailTestUtils):

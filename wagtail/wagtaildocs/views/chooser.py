@@ -9,6 +9,7 @@ from wagtail.utils.pagination import paginate
 from wagtail.wagtailadmin.forms import SearchForm
 from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
 from wagtail.wagtailadmin.utils import PermissionPolicyChecker
+from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import Collection
 from wagtail.wagtaildocs.forms import get_document_form
 from wagtail.wagtaildocs.models import get_document_model
@@ -41,12 +42,14 @@ def chooser(request):
     else:
         uploadform = None
 
-    documents = []
+    documents = Document.objects.all()
+
+    # allow hooks to modify the queryset
+    for hook in hooks.get_hooks('construct_document_chooser_queryset'):
+        documents = hook(documents, request)
 
     q = None
-    is_searching = False
     if 'q' in request.GET or 'p' in request.GET or 'collection_id' in request.GET:
-        documents = Document.objects.all()
 
         collection_id = request.GET.get('collection_id')
         if collection_id:
@@ -77,16 +80,16 @@ def chooser(request):
         if len(collections) < 2:
             collections = None
 
-        documents = Document.objects.order_by('-created_at')
+        documents = documents.order_by('-created_at')
         paginator, documents = paginate(request, documents, per_page=10)
 
-    return render_modal_workflow(request, 'wagtaildocs/chooser/chooser.html', 'wagtaildocs/chooser/chooser.js', {
-        'documents': documents,
-        'uploadform': uploadform,
-        'searchform': searchform,
-        'collections': collections,
-        'is_searching': False,
-    })
+        return render_modal_workflow(request, 'wagtaildocs/chooser/chooser.html', 'wagtaildocs/chooser/chooser.js', {
+            'documents': documents,
+            'uploadform': uploadform,
+            'searchform': searchform,
+            'collections': collections,
+            'is_searching': False,
+        })
 
 
 def document_chosen(request, document_id):

@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# André Karlsson <andre@sess.se>, 2017
 # Thomas Kunambi <kunambi@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 22:44+0000\n"
-"PO-Revision-Date: 2016-05-11 20:34+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2017-01-17 18:42+0000\n"
+"Last-Translator: André Karlsson <andre@sess.se>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -25,6 +26,9 @@ msgstr "Editerar %(setting_type_name)s - %(instance)s"
 
 msgid "Editing"
 msgstr "Editerar"
+
+msgid "Saving..."
+msgstr "Sparar..."
 
 msgid "Save"
 msgstr "Spara"

@@ -15,7 +15,7 @@ If you'd prefer to set up all the components manually, read on. These instructio
 Setting up the Wagtail codebase
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Install Node.js, v5.3.0 or higher. Instructions for installing Node.js can be found on the `Node.js download page <https://nodejs.org/download/>`_. You will also need to install the **libjpeg** and **zlib** libraries, if you haven't done so already - see Pillow's `platform-specific installation instructions <http://pillow.readthedocs.org/en/latest/installation.html#external-libraries>`_.
+Install Node.js, version 4.x, 5.x or 6.x. Instructions for installing Node.js can be found on the `Node.js download page <https://nodejs.org/download/>`_. You will also need to install the **libjpeg** and **zlib** libraries, if you haven't done so already - see Pillow's `platform-specific installation instructions <http://pillow.readthedocs.org/en/latest/installation.html#external-libraries>`_.
 
 Clone a copy of `the Wagtail codebase <https://github.com/wagtail/wagtail>`_:
 
@@ -57,13 +57,21 @@ From the root of the Wagtail codebase, run the following command to run all the 
 
 **Running only some of the tests**
 
-At the time of writing, Wagtail has well over 1000 tests, which takes a while to
+At the time of writing, Wagtail has well over 2500 tests, which takes a while to
 run. You can run tests for only one part of Wagtail by passing in the path as
 an argument to ``runtests.py``:
 
 .. code-block:: console
 
     $ python runtests.py wagtail.wagtailcore
+
+You can also run tests for individual TestCases by passing in the path as
+an argument to ``runtests.py``
+
+.. code-block:: console
+
+    $ python runtests.py wagtail.wagtailcore.tests.test_blocks.TestIntegerBlock
+
 
 **Testing against PostgreSQL**
 
@@ -132,7 +140,7 @@ The Wagtail documentation is built by Sphinx. To install Sphinx and compile the 
 
 .. code-block:: console
 
-    $ cd /path/to/wagtail some text
+    $ cd /path/to/wagtail
     $ # Install the documentation dependencies
     $ pip install -e .[docs]
     $ # Compile the docs

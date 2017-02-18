@@ -27,6 +27,11 @@ Add an entry for the view into your URLs configuration:
         ...
 
         url(r'^images/([^/]*)/(\d*)/([^/]*)/[^/]*$', ServeView.as_view(), name='wagtailimages_serve'),
+
+        ...
+
+        # Ensure that the wagtailimages_serve line appears above the default Wagtail page serving route
+        url(r'', include(wagtail_urls)),
     ]
 
 Usage

@@ -21,7 +21,7 @@ from django.utils.dateparse import parse_date
 
 from wagtail.tests.testapp.models import (
     EVENT_AUDIENCE_CHOICES, Advert, AdvertPlacement, BusinessChild, BusinessIndex, BusinessSubIndex,
-    DefaultStreamPage,
+    DefaultStreamPage, EventCategory,
     EventPage, EventPageCarouselItem, FilePage, SimplePage, SingleEventPage, SingletonPage,
     StandardChild, StandardIndex, TaggedPage)
 from wagtail.tests.utils import WagtailTestUtils
@@ -407,6 +407,21 @@ class TestExplorablePageVisibility(TestCase, WagtailTestUtils):
         # The page title shouldn't appear because it's the "home" breadcrumb.
         self.assertNotContains(response, "Welcome to example.com!")
 
+    def test_admin_home_page_changes_with_permissions(self):
+        self.assertTrue(self.client.login(username='bob', password='password'))
+        response = self.client.get(reverse('wagtailadmin_home'))
+        self.assertEqual(response.status_code, 200)
+        # Bob should only see the welcome for example.com, not testserver
+        self.assertContains(response, "Welcome to the example.com Wagtail CMS")
+        self.assertNotContains(response, "testserver")
+
+    def test_breadcrumb_with_no_user_permissions(self):
+        self.assertTrue(self.client.login(username='mary', password='password'))
+        response = self.client.get(reverse('wagtailadmin_home'))
+        self.assertEqual(response.status_code, 200)
+        # Since Mary has no page permissions, she should not see the breadcrumb
+        self.assertNotContains(response, """<li class="home"><a href="/admin/pages/4/" class="icon icon-home text-replace">Home</a></li>""")
+
 
 class TestPageCreation(TestCase, WagtailTestUtils):
     def setUp(self):
@@ -421,6 +436,8 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
         self.assertContains(response, "Simple page")
+        target_url = reverse('wagtailadmin_pages:add', args=('tests', 'simplepage', self.root_page.id))
+        self.assertContains(response, 'href="%s"' % target_url)
         # List of available page types should not contain pages with is_creatable = False
         self.assertNotContains(response, "MTI base page")
         # List of available page types should not contain abstract pages
@@ -480,6 +497,17 @@ class TestPageCreation(TestCase, WagtailTestUtils):
     def test_add_subpage_nonexistantparent(self):
         response = self.client.get(reverse('wagtailadmin_pages:add_subpage', args=(100000, )))
         self.assertEqual(response.status_code, 404)
+
+    def test_add_subpage_with_next_param(self):
+        response = self.client.get(
+            reverse('wagtailadmin_pages:add_subpage', args=(self.root_page.id, )),
+            {'next': '/admin/users/'}
+        )
+        self.assertEqual(response.status_code, 200)
+
+        self.assertContains(response, "Simple page")
+        target_url = reverse('wagtailadmin_pages:add', args=('tests', 'simplepage', self.root_page.id))
+        self.assertContains(response, 'href="%s?next=/admin/users/"' % target_url)
 
     def test_create_simplepage(self):
         response = self.client.get(reverse('wagtailadmin_pages:add', args=('tests', 'simplepage', self.root_page.id)))
@@ -2300,6 +2328,62 @@ class TestPageCopy(TestCase, WagtailTestUtils):
         # treebeard should report no consistency problems with the tree
         self.assertFalse(any(Page.find_problems()), 'treebeard found consistency problems')
 
+    def test_before_copy_page_hook(self):
+        def hook_func(request, page):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertIsInstance(page.specific, SimplePage)
+
+            return HttpResponse("Overridden!")
+
+        with self.register_hook('before_copy_page', hook_func):
+            response = self.client.get(reverse('wagtailadmin_pages:copy', args=(self.test_page.id,)))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+
+    def test_before_copy_page_hook_post(self):
+        def hook_func(request, page):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertIsInstance(page.specific, SimplePage)
+
+            return HttpResponse("Overridden!")
+
+        with self.register_hook('before_copy_page', hook_func):
+            post_data = {
+                'new_title': "Hello world 2",
+                'new_slug': 'hello-world-2',
+                'new_parent_page': str(self.root_page.id),
+                'copy_subpages': False,
+                'publish_copies': False,
+            }
+            response = self.client.post(reverse('wagtailadmin_pages:copy', args=(self.test_page.id,)), post_data)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+
+    def test_after_copy_page_hook(self):
+        def hook_func(request, page, new_page):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertIsInstance(page.specific, SimplePage)
+            self.assertIsInstance(new_page.specific, SimplePage)
+
+            return HttpResponse("Overridden!")
+
+        with self.register_hook('after_copy_page', hook_func):
+            post_data = {
+                'new_title': "Hello world 2",
+                'new_slug': 'hello-world-2',
+                'new_parent_page': str(self.root_page.id),
+                'copy_subpages': False,
+                'publish_copies': False,
+            }
+            response = self.client.post(reverse('wagtailadmin_pages:copy', args=(self.test_page.id,)), post_data)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+
+
+
 
 class TestPageUnpublish(TestCase, WagtailTestUtils):
     def setUp(self):
@@ -3402,6 +3486,83 @@ class TestRevisions(TestCase, WagtailTestUtils):
         self.assertContains(response, "Publish this revision")
 
 
+class TestCompareRevisions(TestCase, WagtailTestUtils):
+    # Actual tests for the comparison classes can be found in test_compare.py
+
+    fixtures = ['test.json']
+
+    def setUp(self):
+        self.christmas_event = EventPage.objects.get(url_path='/home/events/christmas/')
+        self.christmas_event.title = "Last Christmas"
+        self.christmas_event.date_from = '2013-12-25'
+        self.christmas_event.body = (
+            "<p>Last Christmas I gave you my heart, "
+            "but the very next day you gave it away</p>"
+        )
+        self.last_christmas_revision = self.christmas_event.save_revision()
+        self.last_christmas_revision.created_at = local_datetime(2013, 12, 25)
+        self.last_christmas_revision.save()
+
+        self.christmas_event.title = "This Christmas"
+        self.christmas_event.date_from = '2014-12-25'
+        self.christmas_event.body = (
+            "<p>This year, to save me from tears, "
+            "I'll give it to someone special</p>"
+        )
+        self.this_christmas_revision = self.christmas_event.save_revision()
+        self.this_christmas_revision.created_at = local_datetime(2014, 12, 25)
+        self.this_christmas_revision.save()
+
+        self.login()
+
+    def test_compare_revisions(self):
+        compare_url = reverse(
+            'wagtailadmin_pages:revisions_compare',
+            args=(self.christmas_event.id, self.last_christmas_revision.id, self.this_christmas_revision.id)
+        )
+        response = self.client.get(compare_url)
+        self.assertEqual(response.status_code, 200)
+
+        self.assertContains(response, '<span class="deletion">Last Christmas I gave you my heart, but the very next day you gave it away</span><span class="addition">This year, to save me from tears, I&#39;ll give it to someone special</span>')
+
+    def test_compare_revisions_earliest(self):
+        compare_url = reverse(
+            'wagtailadmin_pages:revisions_compare',
+            args=(self.christmas_event.id, 'earliest', self.this_christmas_revision.id)
+        )
+        response = self.client.get(compare_url)
+        self.assertEqual(response.status_code, 200)
+
+        self.assertContains(response, '<span class="deletion">Last Christmas I gave you my heart, but the very next day you gave it away</span><span class="addition">This year, to save me from tears, I&#39;ll give it to someone special</span>')
+
+    def test_compare_revisions_latest(self):
+        compare_url = reverse(
+            'wagtailadmin_pages:revisions_compare',
+            args=(self.christmas_event.id, self.last_christmas_revision.id, 'latest')
+        )
+        response = self.client.get(compare_url)
+        self.assertEqual(response.status_code, 200)
+
+        self.assertContains(response, '<span class="deletion">Last Christmas I gave you my heart, but the very next day you gave it away</span><span class="addition">This year, to save me from tears, I&#39;ll give it to someone special</span>')
+
+    def test_compare_revisions_live(self):
+        # Mess with the live version, bypassing revisions
+        self.christmas_event.body = (
+            "<p>This year, to save me from tears, "
+            "I'll just feed it to the dog</p>"
+        )
+        self.christmas_event.save(update_fields=['body'])
+
+        compare_url = reverse(
+            'wagtailadmin_pages:revisions_compare',
+            args=(self.christmas_event.id, self.last_christmas_revision.id, 'live')
+        )
+        response = self.client.get(compare_url)
+        self.assertEqual(response.status_code, 200)
+
+        self.assertContains(response, '<span class="deletion">Last Christmas I gave you my heart, but the very next day you gave it away</span><span class="addition">This year, to save me from tears, I&#39;ll just feed it to the dog</span>')
+
+
 class TestIssue2599(TestCase, WagtailTestUtils):
     """
     When previewing a page on creation, we need to assign it a path value consistent with its
@@ -3643,3 +3804,149 @@ class TestIssue2994(TestCase, WagtailTestUtils):
         new_page = DefaultStreamPage.objects.get(slug='issue-2994-test')
         self.assertEqual(1, len(new_page.body))
         self.assertEqual('hello world', new_page.body[0].value)
+
+
+class TestParentalM2M(TestCase, WagtailTestUtils):
+    fixtures = ['test.json']
+
+    def setUp(self):
+        self.events_index = Page.objects.get(url_path='/home/events/')
+        self.christmas_page = Page.objects.get(url_path='/home/events/christmas/')
+        self.user = self.login()
+        self.holiday_category = EventCategory.objects.create(name='Holiday')
+        self.men_with_beards_category = EventCategory.objects.create(name='Men with beards')
+
+    def test_create_and_save(self):
+        post_data = {
+            'title': "Presidents' Day",
+            'date_from': "2017-02-20",
+            'slug': "presidents-day",
+            'audience': "public",
+            'location': "America",
+            'cost': "$1",
+            'carousel_items-TOTAL_FORMS': 0,
+            'carousel_items-INITIAL_FORMS': 0,
+            'carousel_items-MIN_NUM_FORMS': 0,
+            'carousel_items-MAX_NUM_FORMS': 0,
+            'speakers-TOTAL_FORMS': 0,
+            'speakers-INITIAL_FORMS': 0,
+            'speakers-MIN_NUM_FORMS': 0,
+            'speakers-MAX_NUM_FORMS': 0,
+            'related_links-TOTAL_FORMS': 0,
+            'related_links-INITIAL_FORMS': 0,
+            'related_links-MIN_NUM_FORMS': 0,
+            'related_links-MAX_NUM_FORMS': 0,
+            'categories': [self.holiday_category.id, self.men_with_beards_category.id]
+        }
+        response = self.client.post(
+            reverse('wagtailadmin_pages:add', args=('tests', 'eventpage', self.events_index.id)),
+            post_data
+        )
+        created_page = EventPage.objects.get(url_path='/home/events/presidents-day/')
+        self.assertRedirects(response, reverse('wagtailadmin_pages:edit', args=(created_page.id, )))
+        created_revision = created_page.get_latest_revision_as_page()
+
+        self.assertIn(self.holiday_category, created_revision.categories.all())
+        self.assertIn(self.men_with_beards_category, created_revision.categories.all())
+
+    def test_create_and_publish(self):
+        post_data = {
+            'action-publish': "Publish",
+            'title': "Presidents' Day",
+            'date_from': "2017-02-20",
+            'slug': "presidents-day",
+            'audience': "public",
+            'location': "America",
+            'cost': "$1",
+            'carousel_items-TOTAL_FORMS': 0,
+            'carousel_items-INITIAL_FORMS': 0,
+            'carousel_items-MIN_NUM_FORMS': 0,
+            'carousel_items-MAX_NUM_FORMS': 0,
+            'speakers-TOTAL_FORMS': 0,
+            'speakers-INITIAL_FORMS': 0,
+            'speakers-MIN_NUM_FORMS': 0,
+            'speakers-MAX_NUM_FORMS': 0,
+            'related_links-TOTAL_FORMS': 0,
+            'related_links-INITIAL_FORMS': 0,
+            'related_links-MIN_NUM_FORMS': 0,
+            'related_links-MAX_NUM_FORMS': 0,
+            'categories': [self.holiday_category.id, self.men_with_beards_category.id]
+        }
+        response = self.client.post(
+            reverse('wagtailadmin_pages:add', args=('tests', 'eventpage', self.events_index.id)),
+            post_data
+        )
+        self.assertRedirects(response, reverse('wagtailadmin_explore', args=(self.events_index.id, )))
+
+        created_page = EventPage.objects.get(url_path='/home/events/presidents-day/')
+        self.assertIn(self.holiday_category, created_page.categories.all())
+        self.assertIn(self.men_with_beards_category, created_page.categories.all())
+
+    def test_edit_and_save(self):
+        post_data = {
+            'title': "Christmas",
+            'date_from': "2017-12-25",
+            'slug': "christmas",
+            'audience': "public",
+            'location': "The North Pole",
+            'cost': "Free",
+            'carousel_items-TOTAL_FORMS': 0,
+            'carousel_items-INITIAL_FORMS': 0,
+            'carousel_items-MIN_NUM_FORMS': 0,
+            'carousel_items-MAX_NUM_FORMS': 0,
+            'speakers-TOTAL_FORMS': 0,
+            'speakers-INITIAL_FORMS': 0,
+            'speakers-MIN_NUM_FORMS': 0,
+            'speakers-MAX_NUM_FORMS': 0,
+            'related_links-TOTAL_FORMS': 0,
+            'related_links-INITIAL_FORMS': 0,
+            'related_links-MIN_NUM_FORMS': 0,
+            'related_links-MAX_NUM_FORMS': 0,
+            'categories': [self.holiday_category.id, self.men_with_beards_category.id]
+        }
+        response = self.client.post(
+            reverse('wagtailadmin_pages:edit', args=(self.christmas_page.id, )),
+            post_data
+        )
+        self.assertRedirects(response, reverse('wagtailadmin_pages:edit', args=(self.christmas_page.id, )))
+        updated_page = EventPage.objects.get(id=self.christmas_page.id)
+        created_revision = updated_page.get_latest_revision_as_page()
+
+        self.assertIn(self.holiday_category, created_revision.categories.all())
+        self.assertIn(self.men_with_beards_category, created_revision.categories.all())
+
+        # no change to live page record yet
+        self.assertEqual(0, updated_page.categories.count())
+
+    def test_edit_and_publish(self):
+        post_data = {
+            'action-publish': "Publish",
+            'title': "Christmas",
+            'date_from': "2017-12-25",
+            'slug': "christmas",
+            'audience': "public",
+            'location': "The North Pole",
+            'cost': "Free",
+            'carousel_items-TOTAL_FORMS': 0,
+            'carousel_items-INITIAL_FORMS': 0,
+            'carousel_items-MIN_NUM_FORMS': 0,
+            'carousel_items-MAX_NUM_FORMS': 0,
+            'speakers-TOTAL_FORMS': 0,
+            'speakers-INITIAL_FORMS': 0,
+            'speakers-MIN_NUM_FORMS': 0,
+            'speakers-MAX_NUM_FORMS': 0,
+            'related_links-TOTAL_FORMS': 0,
+            'related_links-INITIAL_FORMS': 0,
+            'related_links-MIN_NUM_FORMS': 0,
+            'related_links-MAX_NUM_FORMS': 0,
+            'categories': [self.holiday_category.id, self.men_with_beards_category.id]
+        }
+        response = self.client.post(
+            reverse('wagtailadmin_pages:edit', args=(self.christmas_page.id, )),
+            post_data
+        )
+        self.assertRedirects(response, reverse('wagtailadmin_explore', args=(self.events_index.id, )))
+        updated_page = EventPage.objects.get(id=self.christmas_page.id)
+        self.assertEqual(2, updated_page.categories.count())
+        self.assertIn(self.holiday_category, updated_page.categories.all())
+        self.assertIn(self.men_with_beards_category, updated_page.categories.all())

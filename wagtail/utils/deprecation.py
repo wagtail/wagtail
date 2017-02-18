@@ -1,12 +1,12 @@
 from __future__ import absolute_import, unicode_literals
 
 
-class RemovedInWagtail19Warning(DeprecationWarning):
+class RemovedInWagtail111Warning(DeprecationWarning):
     pass
 
 
-removed_in_next_version_warning = RemovedInWagtail19Warning
+removed_in_next_version_warning = RemovedInWagtail111Warning
 
 
-class RemovedInWagtail110Warning(PendingDeprecationWarning):
+class RemovedInWagtail112Warning(PendingDeprecationWarning):
     pass

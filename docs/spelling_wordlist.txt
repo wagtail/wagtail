@@ -12,7 +12,6 @@ embeddable
 Embedly
 formset
 frontend
-Gondor
 Gunicorn
 Heroku
 hostname

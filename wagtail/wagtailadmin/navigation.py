@@ -17,6 +17,18 @@ def get_pages_with_direct_explore_permission(user):
         )
 
 
+def get_explorable_root_page(user):
+    # Get the highest common explorable ancestor for the given user. If the user
+    # has no permissions over any pages, this method will return None.
+    pages = get_pages_with_direct_explore_permission(user)
+    if pages:
+        return pages.first_common_ancestor(
+            include_self=True,
+            strict=True)
+    else:
+        return None
+
+
 def get_navigation_menu_items(user):
     # Get all pages that the user has direct add/edit/publish/lock permission on
     pages_with_direct_permission = get_pages_with_direct_explore_permission(user)

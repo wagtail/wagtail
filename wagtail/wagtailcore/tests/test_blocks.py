@@ -5,6 +5,7 @@ import base64
 import collections
 import json
 import unittest
+import warnings
 from decimal import Decimal
 
 # non-standard import name for ugettext_lazy, to prevent strings from being picked up for translation
@@ -20,7 +21,8 @@ from django.utils.translation import ugettext_lazy as __
 
 from wagtail.tests.testapp.blocks import LinkBlock as CustomLinkBlock
 from wagtail.tests.testapp.blocks import SectionBlock
-from wagtail.tests.testapp.models import SimplePage
+from wagtail.tests.testapp.models import EventPage, SimplePage
+from wagtail.utils.deprecation import RemovedInWagtail111Warning
 from wagtail.wagtailcore import blocks
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.rich_text import RichText
@@ -37,6 +39,17 @@ class FooStreamBlock(blocks.StreamBlock):
         return value
 
 
+class NoExtraContextCharBlock(blocks.CharBlock):
+    def get_context(self, value):
+        return super(blocks.CharBlock, self).get_context(value)
+
+
+class ContextCharBlock(blocks.CharBlock):
+    def get_context(self, value, parent_context=None):
+        value = str(value).upper()
+        return super(blocks.CharBlock, self).get_context(value, parent_context)
+
+
 class TestFieldBlock(unittest.TestCase):
     def test_charfield_render(self):
         block = blocks.CharBlock()
@@ -51,12 +64,36 @@ class TestFieldBlock(unittest.TestCase):
         self.assertEqual(html, '<h1>Hello world!</h1>')
 
     def test_charfield_render_with_template_with_extra_context(self):
-        block = blocks.CharBlock(template='tests/blocks/heading_block.html')
+        block = ContextCharBlock(template='tests/blocks/heading_block.html')
         html = block.render("Bonjour le monde!", context={
             'language': 'fr',
         })
 
+        self.assertEqual(html, '<h1 lang="fr">BONJOUR LE MONDE!</h1>')
+
+    def test_charfield_render_with_legacy_get_context(self):
+        block = NoExtraContextCharBlock(template='tests/blocks/heading_block.html')
+        with warnings.catch_warnings(record=True) as ws:
+            warnings.simplefilter('always')
+
+            html = block.render("Bonjour le monde!", context={
+                'language': 'fr',
+            })
+
+        self.assertEqual(len(ws), 1)
+        self.assertIs(ws[0].category, RemovedInWagtail111Warning)
         self.assertEqual(html, '<h1 lang="fr">Bonjour le monde!</h1>')
+
+    def test_charfield_render_with_legacy_get_context_none(self):
+        block = NoExtraContextCharBlock(template='tests/blocks/heading_block.html')
+        with warnings.catch_warnings(record=True) as ws:
+            warnings.simplefilter('always')
+
+            html = block.render("Bonjour le monde!")
+
+        self.assertEqual(len(ws), 1)
+        self.assertIs(ws[0].category, RemovedInWagtail111Warning)
+        self.assertEqual(html, '<h1>Bonjour le monde!</h1>')
 
     def test_charfield_render_form(self):
         block = blocks.CharBlock()
@@ -423,6 +460,15 @@ class TestChoiceBlock(unittest.TestCase):
         # blank option should still be rendered for required fields
         # (we may want it as an initial value)
         self.assertIn('<option value="">%s</option>' % self.blank_choice_dash_label, html)
+        self.assertIn('<option value="tea">Tea</option>', html)
+        self.assertIn('<option value="coffee" selected="selected">Coffee</option>', html)
+
+    def test_render_required_choice_block_with_default(self):
+        block = blocks.ChoiceBlock(choices=[('tea', 'Tea'), ('coffee', 'Coffee')], default='tea')
+        html = block.render_form('coffee', prefix='beverage')
+        self.assertIn('<select id="beverage" name="beverage" placeholder="">', html)
+        # blank option should NOT be rendered if default and required are set.
+        self.assertNotIn('<option value="">%s</option>' % self.blank_choice_dash_label, html)
         self.assertIn('<option value="tea">Tea</option>', html)
         self.assertIn('<option value="coffee" selected="selected">Coffee</option>', html)
 
@@ -926,6 +972,39 @@ class TestStructBlock(SimpleTestCase):
 
         self.assertHTMLEqual(html, expected_html)
 
+    def test_get_api_representation_calls_same_method_on_fields_with_context(self):
+        """
+        The get_api_representation method of a StructBlock should invoke
+        the block's get_api_representation method on each field and the
+        context should be passed on.
+        """
+        class ContextBlock(blocks.CharBlock):
+            def get_api_representation(self, value, context=None):
+                return context[value]
+
+        class AuthorBlock(blocks.StructBlock):
+            language = ContextBlock()
+            author = ContextBlock()
+
+        block = AuthorBlock()
+        api_representation = block.get_api_representation(
+            {
+                'language': 'en',
+                'author': 'wagtail',
+            },
+            context={
+                'en': 'English',
+                'wagtail': 'Wagtail!'
+            }
+        )
+
+        self.assertDictEqual(
+            api_representation, {
+                'language': 'English',
+                'author': 'Wagtail!'
+            }
+        )
+
     def test_render_unknown_field(self):
         class LinkBlock(blocks.StructBlock):
             title = blocks.CharBlock()
@@ -1299,6 +1378,28 @@ class TestListBlock(unittest.TestCase):
         self.assertIn('<h1 lang="fr">Bonjour le monde!</h1>', html)
         self.assertIn('<h1 lang="fr">Au revoir le monde!</h1>', html)
 
+    def test_get_api_representation_calls_same_method_on_children_with_context(self):
+        """
+        The get_api_representation method of a ListBlock should invoke
+        the block's get_api_representation method on each child and
+        the context should be passed on.
+        """
+        class ContextBlock(blocks.CharBlock):
+            def get_api_representation(self, value, context=None):
+                return context[value]
+
+        block = blocks.ListBlock(
+            ContextBlock()
+        )
+        api_representation = block.get_api_representation(["en", "fr"], context={
+            'en': 'Hello world!',
+            'fr': 'Bonjour le monde!'
+        })
+
+        self.assertEqual(
+            api_representation, ['Hello world!', 'Bonjour le monde!']
+        )
+
     def render_form(self):
         class LinkBlock(blocks.StructBlock):
             title = blocks.CharBlock()
@@ -1616,6 +1717,38 @@ class TestStreamBlock(SimpleTestCase):
         value = block.to_python(data)
 
         return block.render(value)
+
+    def test_get_api_representation_calls_same_method_on_children_with_context(self):
+        """
+        The get_api_representation method of a StreamBlock should invoke
+        the block's get_api_representation method on each child and
+        the context should be passed on.
+        """
+        class ContextBlock(blocks.CharBlock):
+            def get_api_representation(self, value, context=None):
+                return context[value]
+
+        block = blocks.StreamBlock([
+            ('language', ContextBlock()),
+            ('author', ContextBlock()),
+        ])
+        api_representation = block.get_api_representation(
+            block.to_python([
+                {'type': 'language', 'value': 'en'},
+                {'type': 'author', 'value': 'wagtail'},
+            ]),
+            context={
+                'en': 'English',
+                'wagtail': 'Wagtail!'
+            }
+        )
+
+        self.assertListEqual(
+            api_representation, [
+                {'type': 'language', 'value': 'English'},
+                {'type': 'author', 'value': 'Wagtail!'},
+            ]
+        )
 
     def test_render(self):
         html = self.render_article([
@@ -2081,6 +2214,20 @@ class TestStreamBlock(SimpleTestCase):
         self.assertEqual(stream_value[0].block_type, 'heading')
         self.assertEqual(stream_value[0].value, 'A different default heading')
 
+    def test_stream_value_equality(self):
+        block = blocks.StreamBlock([
+            ('text', blocks.CharBlock()),
+        ])
+        value1 = block.to_python([{'type': 'text', 'value': 'hello'}])
+        value2 = block.to_python([{'type': 'text', 'value': 'hello'}])
+        value3 = block.to_python([{'type': 'text', 'value': 'goodbye'}])
+
+        self.assertTrue(value1 == value2)
+        self.assertFalse(value1 != value2)
+
+        self.assertFalse(value1 == value3)
+        self.assertTrue(value1 != value3)
+
 
 class TestPageChooserBlock(TestCase):
     fixtures = ['test.json']
@@ -2118,10 +2265,30 @@ class TestPageChooserBlock(TestCase):
         self.assertIn(expected_html, christmas_form_html)
         self.assertIn("pick a page, any page", christmas_form_html)
 
-    def test_form_render_with_target_model(self):
+    def test_form_render_with_target_model_default(self):
+        block = blocks.PageChooserBlock()
+        empty_form_html = block.render_form(None, 'page')
+        self.assertIn('createPageChooser("page", ["wagtailcore.page"], null, false);', empty_form_html)
+
+    def test_form_render_with_target_model_string(self):
         block = blocks.PageChooserBlock(help_text="pick a page, any page", target_model='tests.SimplePage')
         empty_form_html = block.render_form(None, 'page')
         self.assertIn('createPageChooser("page", ["tests.simplepage"], null, false);', empty_form_html)
+
+    def test_form_render_with_target_model_literal(self):
+        block = blocks.PageChooserBlock(help_text="pick a page, any page", target_model=SimplePage)
+        empty_form_html = block.render_form(None, 'page')
+        self.assertIn('createPageChooser("page", ["tests.simplepage"], null, false);', empty_form_html)
+
+    def test_form_render_with_target_model_multiple_strings(self):
+        block = blocks.PageChooserBlock(help_text="pick a page, any page", target_model=['tests.SimplePage', 'tests.EventPage'])
+        empty_form_html = block.render_form(None, 'page')
+        self.assertIn('createPageChooser("page", ["tests.simplepage", "tests.eventpage"], null, false);', empty_form_html)
+
+    def test_form_render_with_target_model_multiple_literals(self):
+        block = blocks.PageChooserBlock(help_text="pick a page, any page", target_model=[SimplePage, EventPage])
+        empty_form_html = block.render_form(None, 'page')
+        self.assertIn('createPageChooser("page", ["tests.simplepage", "tests.eventpage"], null, false);', empty_form_html)
 
     def test_form_render_with_can_choose_root(self):
         block = blocks.PageChooserBlock(help_text="pick a page, any page", can_choose_root=True)
@@ -2150,6 +2317,10 @@ class TestPageChooserBlock(TestCase):
         self.assertEqual(nonrequired_block.clean(christmas_page), christmas_page)
         self.assertEqual(nonrequired_block.clean(None), None)
 
+    def test_target_model_default(self):
+        block = blocks.PageChooserBlock()
+        self.assertEqual(block.target_model, Page)
+
     def test_target_model_string(self):
         block = blocks.PageChooserBlock(target_model='tests.SimplePage')
         self.assertEqual(block.target_model, SimplePage)
@@ -2158,17 +2329,43 @@ class TestPageChooserBlock(TestCase):
         block = blocks.PageChooserBlock(target_model=SimplePage)
         self.assertEqual(block.target_model, SimplePage)
 
+    def test_target_model_multiple_strings(self):
+        block = blocks.PageChooserBlock(target_model=['tests.SimplePage', 'tests.EventPage'])
+        self.assertEqual(block.target_model, Page)
+
+    def test_target_model_multiple_literals(self):
+        block = blocks.PageChooserBlock(target_model=[SimplePage, EventPage])
+        self.assertEqual(block.target_model, Page)
+
+    def test_deconstruct_target_model_default(self):
+        block = blocks.PageChooserBlock()
+        self.assertEqual(block.deconstruct(), (
+            'wagtail.wagtailcore.blocks.PageChooserBlock',
+            (), {}))
+
     def test_deconstruct_target_model_string(self):
         block = blocks.PageChooserBlock(target_model='tests.SimplePage')
         self.assertEqual(block.deconstruct(), (
             'wagtail.wagtailcore.blocks.PageChooserBlock',
-            (), {'target_model': 'tests.SimplePage'}))
+            (), {'target_model': ['tests.SimplePage']}))
 
     def test_deconstruct_target_model_literal(self):
         block = blocks.PageChooserBlock(target_model=SimplePage)
         self.assertEqual(block.deconstruct(), (
             'wagtail.wagtailcore.blocks.PageChooserBlock',
-            (), {'target_model': 'tests.SimplePage'}))
+            (), {'target_model': ['tests.SimplePage']}))
+
+    def test_deconstruct_target_model_multiple_strings(self):
+        block = blocks.PageChooserBlock(target_model=['tests.SimplePage', 'tests.EventPage'])
+        self.assertEqual(block.deconstruct(), (
+            'wagtail.wagtailcore.blocks.PageChooserBlock',
+            (), {'target_model': ['tests.SimplePage', 'tests.EventPage']}))
+
+    def test_deconstruct_target_model_multiple_literals(self):
+        block = blocks.PageChooserBlock(target_model=[SimplePage, EventPage])
+        self.assertEqual(block.deconstruct(), (
+            'wagtail.wagtailcore.blocks.PageChooserBlock',
+            (), {'target_model': ['tests.SimplePage', 'tests.EventPage']}))
 
 
 class TestStaticBlock(unittest.TestCase):
@@ -2352,7 +2549,8 @@ class TestTemplateRendering(TestCase):
     def test_render_with_custom_context(self):
         block = CustomLinkBlock()
         value = block.to_python({'title': 'Torchbox', 'url': 'http://torchbox.com/'})
-        result = block.render(value)
+        context = {'classname': 'important'}
+        result = block.render(value, context)
 
         self.assertEqual(result, '<a href="http://torchbox.com/" class="important">Torchbox</a>')
 
