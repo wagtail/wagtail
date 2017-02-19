@@ -180,3 +180,13 @@ To clear the built HTML and start fresh, so you can see all warnings thrown when
     $ cd docs/
     $ make clean
     $ make html
+
+Wagtail also provides a way for documentation to be compiled automatically on each change.
+To do this, you can run the following command to see the changes automatically at ``localhost:4000``:
+
+.. code-block:: console
+
+    $ cd docs/
+    $ make livehtml
+
+
