@@ -275,5 +275,5 @@ all images to output in JPEG format):
 Generating image renditions in Python
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-All of the image transformations mentioned above can also be used directly in Pyton code.
+All of the image transformations mentioned above can also be used directly in Python code.
 See :ref:`image_renditions`.
