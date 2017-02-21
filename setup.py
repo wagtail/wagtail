@@ -53,11 +53,11 @@ testing_extras = [
 
 # Documentation dependencies
 documentation_extras = [
-    'pyenchant==1.6.6',
+    'pyenchant==1.6.8',
     'sphinxcontrib-spelling>=2.3.0',
-    'Sphinx>=1.3.1',
-    'sphinx-autobuild>=0.5.2',
-    'sphinx_rtd_theme>=0.1.8',
+    'Sphinx>=1.5.2',
+    'sphinx-autobuild>=0.6.0',
+    'sphinx_rtd_theme>=0.1.9',
 ]
 
 setup(
