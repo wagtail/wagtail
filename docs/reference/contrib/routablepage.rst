@@ -64,6 +64,13 @@ Here's an example of an ``EventPage`` with three views:
             """
             ...
 
+When custom routes are defined, they can only be calculated from within the context of the page being served. When using the "Preview" function in the Wagtail admin, the normal context is not available. If you add custom routes and find that the Preview is broken, add a `serve_preview` method to your model:
+
+.. code-block:: python
+
+    def serve_preview(self, request, mode_name):
+        return self.serve(request)
+
 Reversing URLs
 ==============
 
