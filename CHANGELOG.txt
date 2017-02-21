@@ -18,6 +18,7 @@ Changelog
  * Fix: Unreliable preview is now reliable by always opening in a new window (Kjartan Sverrisson)
  * Fix: Fixed placement of `{{ block.super }}` in `snippets/type_index.html` (LB (Ben Johnston))
  * Fix: Optimised database queries on group edit page (Ashia Zawaduk)
+ * Fix: Choosing a popular search term for promoted search results now works correctly after pagination (Janneke Janssen)
 
 
 1.9 (16.02.2017)

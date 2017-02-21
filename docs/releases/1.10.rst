@@ -33,6 +33,7 @@ Bug fixes
  * Unreliable preview is now reliable by always opening in a new window (Kjartan Sverrisson)
  * Fixed placement of ``{{ block.super }}`` in ``snippets/type_index.html`` (LB (Ben Johnston))
  * Optimised database queries on group edit page (Ashia Zawaduk)
+ * Choosing a popular search term for promoted search results now works correctly after pagination (Janneke Janssen)
 
 
 Upgrade considerations
