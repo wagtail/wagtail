@@ -7,7 +7,7 @@ Dynamic image serve view
 In most cases, developers wanting to generate image renditions in Python should use the ``get_rendition()``
 method. See :ref:`image_renditions`.
 
-If you need to be able to generate image versions from an *external* system such as a blog or mobile app,
+If you need to be able to generate image versions for an *external* system such as a blog or mobile app,
 Wagtail provides a view for dynamically generating renditions of images by calling a unique URL.
 
 The view takes an image id, filter spec and security signature in the URL. If
