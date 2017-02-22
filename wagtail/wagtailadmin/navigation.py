@@ -2,19 +2,28 @@ from __future__ import absolute_import, unicode_literals
 
 from django.db.models import Q
 
-from wagtail.wagtailcore.models import Page
+from wagtail.wagtailcore.models import Collection, Page
+
+
+def get_nodes_with_direct_explore_permission(user, model, permissions):
+    if user.is_superuser:
+        # superuser has implicit permission on the root node
+        return model.objects.filter(depth=1)
+    else:
+        return model.objects.filter(
+            group_permissions__group__in=user.groups.all(),
+            group_permissions__permission_type__in=permissions
+        )
+
+
+def get_collections_with_direct_explore_permission(user):
+    # Get all collections that the user has permissions for
+    return get_nodes_with_direct_explore_permission(user, Collection, ['add', 'edit'])
 
 
 def get_pages_with_direct_explore_permission(user):
     # Get all pages that the user has direct add/edit/publish/lock permission on
-    if user.is_superuser:
-        # superuser has implicit permission on the root node
-        return Page.objects.filter(depth=1)
-    else:
-        return Page.objects.filter(
-            group_permissions__group__in=user.groups.all(),
-            group_permissions__permission_type__in=['add', 'edit', 'publish', 'lock']
-        )
+    return get_nodes_with_direct_explore_permission(user, Page, ['add', 'edit', 'publish', 'lock'])
 
 
 def get_explorable_root_page(user):
@@ -25,6 +34,19 @@ def get_explorable_root_page(user):
         return pages.first_common_ancestor(
             include_self=True,
             strict=True)
+    else:
+        return None
+
+
+def get_explorable_root_collection(user):
+    # Get the highest common explorable ancestor for the given user. If the user
+    # has no permissions over any collections, this method will return None.
+    collections = get_collections_with_direct_explore_permission(user)
+    if collections:
+        return collections.first_common_ancestor(
+            include_self=True,
+            strict=True
+        )
     else:
         return None
 
