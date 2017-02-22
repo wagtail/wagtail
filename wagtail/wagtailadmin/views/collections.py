@@ -2,6 +2,7 @@ from __future__ import absolute_import, unicode_literals
 
 from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse
 from django.utils.translation import ugettext_lazy
 
 from wagtail.wagtailadmin import messages
@@ -59,17 +60,49 @@ class Create(CreateView):
     form_class = CollectionForm
     page_title = ugettext_lazy("Add collection")
     success_message = ugettext_lazy("Collection '{0}' created.")
-    add_url_name = 'wagtailadmin_collections:add'
+    add_url_name = 'wagtailadmin_collections:add_child'
     edit_url_name = 'wagtailadmin_collections:edit'
-    index_url_name = 'wagtailadmin_collections:index'
     header_icon = 'folder-open-1'
+
+    def __init__(self):
+        super(Create, self).__init__()
+        self._parent_collection = None
+
+    @property
+    def index_url_name(self):
+        return reverse('wagtailadmin_collections:parent_index', args=(self.parent_collection.pk, ))
+
+    @property
+    def parent_collection(self):
+        # Convenience method for getting the correct parent collection object, will fallback to
+        # using the root collection
+        if not self._parent_collection:
+            self._parent_collection = Collection.get_first_root_node()
+        return self._parent_collection
+
+    @parent_collection.setter
+    def parent_collection(self, parent_id):
+        # Take the parent collection id and get the collection object
+        self._parent_collection = get_object_or_404(Collection, pk=parent_id)
 
     def save_instance(self):
         # Always create new collections as children of root
         instance = self.form.save(commit=False)
-        root_collection = Collection.get_first_root_node()
-        root_collection.add_child(instance=instance)
+        self.parent_collection.add_child(instance=instance)
         return instance
+
+    def post(self, request, parent_id=None):
+        if parent_id:
+            self.parent_collection = parent_id
+        return super(Create, self).post(request=request)
+
+    def get(self, request, parent_id=None):
+        if parent_id:
+            self.parent_collection = parent_id
+        return super(Create, self).get(request=request)
+
+    def get_add_url(self):
+        return reverse(self.add_url_name, args=(self.parent_collection.pk, ))
 
 
 class Edit(EditView):
@@ -101,8 +134,8 @@ class Delete(DeleteView):
     header_icon = 'folder-open-1'
 
     def get_queryset(self):
-        # Only return children of the root node, so that the root is not editable
-        return Collection.get_first_root_node().get_children()
+        # Return all collections except the root collection to prevent it from being editable
+        return Collection.objects.exclude(pk=Collection.get_first_root_node().pk)
 
     def get_collection_contents(self):
         collection_contents = [
