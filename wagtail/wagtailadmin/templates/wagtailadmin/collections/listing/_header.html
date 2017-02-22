@@ -1,0 +1,14 @@
+{% load i18n %}
+
+<header class="nice-padding">
+    <div class="row">
+        <div class="col">
+            <div class="left">
+                <h1 class="icon icon-folder-open-1">
+                {{ collection.name }}
+                </h1>
+            </div>
+            {% include 'wagtailadmin/collections/listing/_actions.html' with collection=collection %}
+        </div>
+    </div>
+</header>

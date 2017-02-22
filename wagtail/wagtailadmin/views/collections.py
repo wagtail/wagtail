@@ -19,7 +19,6 @@ class Index(IndexView):
     context_object_name = 'collections'
     template_name = 'wagtailadmin/collections/index.html'
     add_url_name = 'wagtailadmin_collections:add'
-    page_title = ugettext_lazy("Collections")
     add_item_label = ugettext_lazy("Add a collection")
     header_icon = 'folder-open-1'
 
@@ -27,15 +26,24 @@ class Index(IndexView):
         super(Index, self).__init__()
         self.parent_collection = None
 
+    @property
+    def page_title(self):
+        if not self.parent_collection:
+            return ugettext_lazy("Collections")
+        return ugettext_lazy(self.parent_collection.name)
+
     def get_queryset(self):
         if not self.parent_collection:
-            # Only return children of the root node, so that the root is not editable
-            return get_explorable_root_collection(self.request.user).get_children()
+            # Find the root collection that the user has access to
+            self.parent_collection = get_explorable_root_collection(self.request.user)
 
         return self.parent_collection.get_children()
 
     def get_context(self):
         context = super(Index, self).get_context()
+        context.update({
+            'parent_collection': self.parent_collection
+        })
         return context
 
     def get(self, request, root_id=None):
