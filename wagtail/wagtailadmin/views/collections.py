@@ -78,8 +78,8 @@ class Edit(EditView):
     header_icon = 'folder-open-1'
 
     def get_queryset(self):
-        # Only return children of the root node, so that the root is not editable
-        return Collection.get_first_root_node().get_children()
+        # Return all collections except the root collection to prevent it from being editable
+        return Collection.objects.exclude(pk=Collection.get_first_root_node().pk)
 
 
 class Delete(DeleteView):
