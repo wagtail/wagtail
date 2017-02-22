@@ -184,8 +184,9 @@ class UserEditForm(UsernameForm):
     def save(self, commit=True):
         user = super(UserEditForm, self).save(commit=False)
 
-        # users can access django-admin iff they are a superuser
-        user.is_staff = user.is_superuser
+        # users can access django-admin if they are a superuser
+        if not hasattr(user.__class__, 'is_staff') and 'is_staff' in vars(user):
+            user.is_staff = user.is_superuser
 
         if self.cleaned_data["password1"]:
             user.set_password(self.cleaned_data["password1"])
