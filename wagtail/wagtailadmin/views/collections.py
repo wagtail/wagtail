@@ -1,11 +1,12 @@
 from __future__ import absolute_import, unicode_literals
 
 from django.http import HttpResponseForbidden
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.translation import ugettext_lazy
 
 from wagtail.wagtailadmin import messages
 from wagtail.wagtailadmin.forms import CollectionForm
+from wagtail.wagtailadmin.navigation import get_explorable_root_collection
 from wagtail.wagtailadmin.views.generic import CreateView, DeleteView, EditView, IndexView
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import Collection
@@ -22,9 +23,27 @@ class Index(IndexView):
     add_item_label = ugettext_lazy("Add a collection")
     header_icon = 'folder-open-1'
 
+    def __init__(self):
+        super(Index, self).__init__()
+        self.parent_collection = None
+
     def get_queryset(self):
-        # Only return children of the root node, so that the root is not editable
-        return Collection.get_first_root_node().get_children()
+        if not self.parent_collection:
+            # Only return children of the root node, so that the root is not editable
+            return get_explorable_root_collection(self.request.user).get_children()
+
+        return self.parent_collection.get_children()
+
+    def get_context(self):
+        context = super(Index, self).get_context()
+        return context
+
+    def get(self, request, root_id=None):
+        if root_id:
+            self.parent_collection = get_object_or_404(Collection, pk=root_id)
+
+        context = self.get_context()
+        return render(request, self.template_name, context)
 
 
 class Create(CreateView):
