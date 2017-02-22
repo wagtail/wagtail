@@ -1914,8 +1914,8 @@ class GroupCollectionManagementPermission(models.Model):
 
     class Meta:
         unique_together = ('group', 'collection', 'permission_type')
-        verbose_name = _('group collection permission')
-        verbose_name_plural = _('group collection permissions')
+        verbose_name = _('group manage collection permission')
+        verbose_name_plural = _('group manage collection permissions')
 
     def __str__(self):
         return "Group %d ('%s') has permission '%s' on collection %d ('%s')" % (
