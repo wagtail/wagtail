@@ -1880,6 +1880,51 @@ class Collection(MP_Node):
         verbose_name_plural = _('collections')
 
 
+COLLECTION_PERMISSION_TYPES = [
+    ('add', _("Add"), _("Add/edit collections you own")),
+    ('edit', _("Edit"), _("Edit any collection")),
+    ('bulk_delete', _("Bulk delete"), _("Delete collections with children")),
+]
+
+COLLECTION_PERMISSION_TYPE_CHOICES = [
+    (identifier, long_label)
+    for identifier, short_label, long_label in COLLECTION_PERMISSION_TYPES
+]
+
+
+@python_2_unicode_compatible
+class GroupCollectionManagementPermission(models.Model):
+    group = models.ForeignKey(
+        Group,
+        verbose_name=_('group'),
+        related_name='collection_manage_permissions',
+        on_delete=models.CASCADE
+    )
+    collection = models.ForeignKey(
+        'Collection',
+        verbose_name=_('page'),
+        related_name='group_manage_permissions',
+        on_delete=models.CASCADE
+    )
+    permission_type = models.CharField(
+        verbose_name=_('permission type'),
+        max_length=20,
+        choices=COLLECTION_PERMISSION_TYPE_CHOICES
+    )
+
+    class Meta:
+        unique_together = ('group', 'collection', 'permission_type')
+        verbose_name = _('group collection permission')
+        verbose_name_plural = _('group collection permissions')
+
+    def __str__(self):
+        return "Group %d ('%s') has permission '%s' on collection %d ('%s')" % (
+            self.group.id, self.group,
+            self.permission_type,
+            self.collection.id, self.collection
+        )
+
+
 def get_root_collection_id():
     return Collection.get_first_root_node().id
 
