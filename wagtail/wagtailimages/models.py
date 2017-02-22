@@ -11,7 +11,7 @@ from django.core import checks
 from django.core.files import File
 from django.core.urlresolvers import reverse
 from django.db import models
-from django.forms.widgets import flatatt
+from django.forms.utils import flatatt
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.functional import cached_property
 from django.utils.safestring import mark_safe
