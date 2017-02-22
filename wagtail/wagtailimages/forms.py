@@ -11,13 +11,14 @@ from wagtail.wagtailimages.fields import WagtailImageField
 from wagtail.wagtailimages.formats import get_image_formats
 from wagtail.wagtailimages.models import Image
 from wagtail.wagtailimages.permissions import permission_policy as images_permission_policy
+from django.utils.text import capfirst
 
 
 # Callback to allow us to override the default form field for the image file field
 def formfield_for_dbfield(db_field, **kwargs):
     # Check if this is the file field
     if db_field.name == 'file':
-        return WagtailImageField(**kwargs)
+        return WagtailImageField(**kwargs, label=capfirst(db_field.verbose_name))
 
     # For all other fields, just call its formfield() method.
     return db_field.formfield(**kwargs)
