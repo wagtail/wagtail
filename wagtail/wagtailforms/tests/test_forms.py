@@ -1,14 +1,16 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
 
+import json
+
 from django import forms
 from django import template
 from django.test import TestCase
 
 from wagtail.tests.testapp.models import FormField, FormPage, StreamFormPage
-from wagtail.wagtailcore.blocks import CharBlock, ListBlock, StreamBlock, StructBlock, StructValue
+from wagtail.wagtailcore.blocks import CharBlock, ListBlock, RichTextBlock, StreamBlock, StructBlock, StructValue
 from wagtail.wagtailcore.models import Page
-from wagtail.wagtailforms.blocks import AbstractField, FormFieldBlock
+from wagtail.wagtailforms.blocks import AbstractField, CheckboxFormFieldBlock, DateFormFieldBlock, DateTimeFormFieldBlock, DropdownFormFieldBlock, EmailFormFieldBlock, FormFieldBlock, MultiLineFormFieldBlock, NumberFormFieldBlock, RadioFormFieldBlock, SingleLineFormFieldBlock, UrlFormFieldBlock
 from wagtail.wagtailforms.forms import FormBuilder, FormFieldFinder
 from wagtail.wagtailforms.models import FakeManager
 
@@ -192,7 +194,7 @@ class TestAbstractField(TestCase):
 class TestFormFieldBlock(TestCase):
     def test_init(self):
         block = FormFieldBlock()
-        self.assertEqual(list(block.child_blocks.keys()), ['label', 'field_type', 'required', 'choices', 'default_value', 'help_text'])
+        self.assertEqual(list(block.child_blocks.keys()), ['label', 'required', 'help_text', 'field_type', 'choices', 'default_value'])
 
     def test_render(self):
         block = FormFieldBlock()
@@ -358,6 +360,114 @@ class TestFormFieldFinder(TestCase):
         self.assertEqual(fields[3].label, 'Field Four')
         self.assertEqual(fields[4].label, 'Field Five')
         self.assertEqual(fields[5].label, 'Field Six')
+    
+    def test_complex_form_fields(self):
+        TestBlock = StreamBlock([
+            ('h2', CharBlock()),
+            ('h3', CharBlock()),
+            ('p', RichTextBlock()),
+            ('field', FormFieldBlock()),
+            ('singlelinefield', SingleLineFormFieldBlock()), 
+            ('multilinefield', MultiLineFormFieldBlock()), 
+            ('emailfield', EmailFormFieldBlock()), 
+            ('numberfield', NumberFormFieldBlock()), 
+            ('urlfield', UrlFormFieldBlock()), 
+            ('checkboxfield', CheckboxFormFieldBlock()), 
+            ('dropdownfield', DropdownFormFieldBlock()), 
+            ('radiofield', RadioFormFieldBlock()), 
+            ('datefield', DateFormFieldBlock()), 
+            ('datetimefield', DateTimeFormFieldBlock()),
+        ])
+        
+        value = TestBlock.to_python(json.loads('''\
+[{
+    "value": {
+        "choices": [{
+            "description": "Black",
+            "key": "black"
+        }, {
+            "description": "Blue",
+            "key": "blue"
+        }, {
+            "description": "Green",
+            "key": "green"
+        }, {
+            "description": "Orange",
+            "key": "orange"
+        }, {
+            "description": "Red",
+            "key": "red"
+        }, {
+            "description": "White",
+            "key": "white"
+        }, {
+            "description": "Yellow",
+            "key": "yellow"
+        }],
+        "label": "What is your favorite color?",
+        "required": true,
+        "allow_multiple_selections": false,
+        "help_text": "Choose your favorite color from the list below."
+    },
+    "type": "dropdownfield"
+}, {
+    "value": {
+        "label": "What animal comes to mind when you think of your favorite color?",
+        "default_value": "",
+        "required": true,
+        "help_text": "Don't think really hard. First animal that comes to mind."
+    },
+    "type": "singlelinefield"
+}, {
+    "value": {
+        "label": "Why is this your favorite color?",
+        "default_value": "",
+        "required": false,
+        "help_text": "Give us two to three sentences that describe why you like this color."
+    },
+    "type": "multilinefield"
+}, {
+    "value": {
+        "choices": [{
+            "description": "Female",
+            "key": "female"
+        }, {
+            "description": "Male",
+            "key": "male"
+        }],
+        "label": "Gender",
+        "required": false,
+        "help_text": "Are you male or female?"
+    },
+    "type": "radiofield"
+}, {
+    "value": {
+        "label": "When is your birthday.",
+        "required": false,
+        "help_text": "This helps us correlate favorite colors by birth month."
+    },
+    "type": "datefield"
+}, {
+    "value": {
+        "label": "Can we share your answers?",
+        "default_checked": true,
+        "required": false,
+        "help_text": "If you check this box we will share your responses anonymously with everyone that comes to our website."
+    },
+    "type": "checkboxfield"
+}]'''))
+        
+        finder = FormFieldFinder()
+
+        fields = finder.find_form_fields(TestBlock, value)
+
+        self.assertEqual(len(fields), 6)
+        self.assertEqual(fields[0].label, 'What is your favorite color?')
+        self.assertEqual(fields[1].label, 'What animal comes to mind when you think of your favorite color?')
+        self.assertEqual(fields[2].label, 'Why is this your favorite color?')
+        self.assertEqual(fields[3].label, 'Gender')
+        self.assertEqual(fields[4].label, 'When is your birthday.')
+        self.assertEqual(fields[5].label, 'Can we share your answers?')
 
 
 class TestStreamFieldAbstractFormMixin(TestCase):

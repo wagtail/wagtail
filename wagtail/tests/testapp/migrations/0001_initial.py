@@ -13,11 +13,8 @@ import wagtail.wagtailcore.blocks
 import wagtail.wagtailcore.fields
 import wagtail.wagtailimages.blocks
 import wagtail.wagtailimages.models
-<<<<<<< HEAD
 import wagtail.wagtailforms.blocks
-=======
 import wagtail.wagtailsearch.index
->>>>>>> upstream/master
 
 
 class Migration(migrations.Migration):

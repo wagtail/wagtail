@@ -3,13 +3,17 @@ from __future__ import absolute_import, unicode_literals
 from collections import OrderedDict
 
 import django.forms
+from django.utils.six import text_type
 from django.utils.translation import ugettext_lazy as _
+from django.utils.text import slugify
+from unidecode import unidecode
 
 from wagtail.wagtailadmin.forms import WagtailAdminPageForm
 
 from wagtail.wagtailcore.blocks import ListBlock, StreamBlock, StructBlock
 
-from .blocks import AbstractField, FormFieldBlock
+from .blocks import AbstractField, FormFieldBlock, FormFieldBlockMixin
+from wagtail.wagtailforms.blocks import FormFieldBlockMixin
 
 
 class BaseForm(django.forms.Form):
@@ -92,15 +96,22 @@ class FormBuilder(object):
         formfields = OrderedDict()
 
         for field in self.fields:
-            options = self.get_field_options(field)
-
-            if field.field_type in self.FIELD_TYPES:
+            if isinstance(field, django.forms.Field):
+                formfields[self.clean_name(field.label)] = field
+            elif field.field_type in self.FIELD_TYPES:
+                options = self.get_field_options(field)
                 formfields[field.clean_name] = self.FIELD_TYPES[field.field_type](self, field, options)
             else:
                 raise Exception("Unrecognised field type: " + field.field_type)
 
         return formfields
-
+    
+    def clean_name(self, value):
+        # unidecode will return an ascii string while slugify wants a
+        # unicode string on the other hand, slugify returns a safe-string
+        # which will be converted to a normal str
+        return str(slugify(text_type(unidecode(value))))
+    
     def get_field_options(self, field):
         options = {}
         options['label'] = field.label
@@ -182,7 +193,10 @@ class FormFieldFinder(object):
 
     def handle_form_field_block(self, block, value):
         '''This is the base case and allows the recursion to stop.'''
-        return [AbstractField(**value)]
+        if isinstance(block, FormFieldBlockMixin):
+            return [block.create_field(value)]
+        else:
+            return [AbstractField(**value)]
 
     def handle_struct_block(self, block, value):
         '''Handles looping through StructBlock fields.'''
@@ -209,7 +223,7 @@ class FormFieldFinder(object):
         '''Finds all form fields by determining block type and recursively
         calling various handle methods for each block type.
         '''
-        if isinstance(block, FormFieldBlock):
+        if isinstance(block, FormFieldBlockMixin):
             return self.handle_form_field_block(block, value)
         elif isinstance(block, StreamBlock):
             return self.handle_stream_block(block, value)
