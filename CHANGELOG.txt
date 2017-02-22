@@ -17,6 +17,7 @@ Changelog
  * Added `form_fields_exclude` property to ModelAdmin views (Matheus Bratfisch)
  * User creation / edit form now enforces password validators set in `AUTH_PASSWORD_VALIDATORS` (Bertrand Bordage)
  * Fix: Marked 'Date from' / 'Date to' strings in wagtailforms for translation (Vorlif)
+ * Fix: "File" field label on image edit form is now translated (Stein Strindhaug)
  * Fix: Unreliable preview is now reliable by always opening in a new window (Kjartan Sverrisson)
  * Fix: Fixed placement of `{{ block.super }}` in `snippets/type_index.html` (LB (Ben Johnston))
  * Fix: Optimised database queries on group edit page (Ashia Zawaduk)
