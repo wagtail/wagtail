@@ -2,6 +2,7 @@ from __future__ import absolute_import, unicode_literals
 
 from django import forms
 from django.forms.models import modelform_factory
+from django.utils.text import capfirst
 from django.utils.translation import ugettext as _
 
 from wagtail.wagtailadmin import widgets
@@ -11,7 +12,6 @@ from wagtail.wagtailimages.fields import WagtailImageField
 from wagtail.wagtailimages.formats import get_image_formats
 from wagtail.wagtailimages.models import Image
 from wagtail.wagtailimages.permissions import permission_policy as images_permission_policy
-from django.utils.text import capfirst
 
 
 # Callback to allow us to override the default form field for the image file field
