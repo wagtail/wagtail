@@ -18,7 +18,7 @@ from wagtail.wagtailimages.permissions import permission_policy as images_permis
 def formfield_for_dbfield(db_field, **kwargs):
     # Check if this is the file field
     if db_field.name == 'file':
-        return WagtailImageField(**kwargs, label=capfirst(db_field.verbose_name))
+        return WagtailImageField(label=capfirst(db_field.verbose_name), **kwargs)
 
     # For all other fields, just call its formfield() method.
     return db_field.formfield(**kwargs)
