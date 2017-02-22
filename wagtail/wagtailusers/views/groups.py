@@ -11,7 +11,7 @@ from wagtail.wagtailadmin import messages
 from wagtail.wagtailadmin.forms import SearchForm
 from wagtail.wagtailadmin.utils import any_permission_required, permission_required
 from wagtail.wagtailcore import hooks
-from wagtail.wagtailusers.forms import GroupForm, GroupPagePermissionFormSet
+from wagtail.wagtailusers.forms import GroupForm, GroupPagePermissionFormSet, GroupCollectionPermissionFormSet
 
 _permission_panel_classes = None
 
@@ -19,7 +19,7 @@ _permission_panel_classes = None
 def get_permission_panel_classes():
     global _permission_panel_classes
     if _permission_panel_classes is None:
-        _permission_panel_classes = [GroupPagePermissionFormSet]
+        _permission_panel_classes = [GroupPagePermissionFormSet, GroupCollectionPermissionFormSet, ]
         for fn in hooks.get_hooks('register_group_permission_panel'):
             _permission_panel_classes.append(fn())
 
