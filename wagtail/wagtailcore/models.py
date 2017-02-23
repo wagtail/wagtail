@@ -1876,7 +1876,8 @@ class Collection(MP_Node):
         return self.get_siblings(inclusive).filter(path__lte=self.path).order_by('-path')
 
     def permissions_for_user(self, user):
-        return CollectionPermissionTester(user, self)
+        """Get a `CollectionPermissionTester` instance for the user and the current collection instance."""
+        return UserCollectionPermissionsProxy(user).for_collection(self)
 
     class Meta:
         verbose_name = _('collection')
@@ -1926,6 +1927,78 @@ class GroupCollectionManagementPermission(models.Model):
             self.permission_type,
             self.collection.id, self.collection
         )
+
+
+class UserCollectionPermissionsProxy(object):
+    def __init__(self, user):
+        self.user = user
+
+        if user.is_active and not user.is_superuser:
+            self.permissions = GroupCollectionManagementPermission.objects.filter(
+                group__user=self.user
+            ).select_related('collection')
+
+    def for_collection(self, collection):
+        """Return a CollectionPermissionTester object that can be used to query whether this user has
+        permission to perform specific tasks on the given collection"""
+        return CollectionPermissionTester(self.user, collection)
+
+    def editable_collections(self):
+        """Return a queryset of the collections that this user has permission to edit."""
+        # Deal with the trivial cases first...
+        if not self.user.is_active:
+            return Collection.objects.none()
+        if self.user.is_superuser:
+            return Collection.objects.all()
+
+        editable_pages = Collection.objects.none()
+
+        for perm in self.permissions.filter(permission_type='edit'):
+            # user has edit permission on any subpage of perm.page
+            # (including perm.page itself) regardless of owner
+            editable_pages |= Collection.objects.descendant_of(perm.collection, inclusive=True)
+
+        return editable_pages
+
+    def addable_collections(self):
+        """Return a queryset of the collections that this user has permission to add children collections to."""
+        if not self.user.is_active:
+            return Collection.objects.none()
+        if self.user.is_superuser:
+            return Collection.objects.all()
+
+        addable_collections = Collection.objects.none()
+
+        for perm in self.permissions.filter(permission_type='add'):
+            addable_collections |= Collection.objects.descendant_of(perm.collection, inclusive=True)
+
+        return addable_collections
+
+    def bulk_deletable_collections(self):
+        """Return a queryset of the collections that this user has permission to bulk delete."""
+        if not self.user.is_active:
+            return Collection.objects.none()
+        if self.user.is_superuser:
+            return Collection.objects.all()
+
+        deletable_collections = Collection.objects.none()
+
+        for perm in self.permissions.filter(permission_type='bulk_delete'):
+            deletable_collections |= Collection.objects.descendant_of(perm.collection, inclusive=True)
+
+        return deletable_collections
+
+    def can_edit_collections(self):
+        """Return True if the user has permission to edit any collections"""
+        return self.editable_collections().exists()
+
+    def can_add_child_collections(self):
+        """Return True if the user has permission to add children collections to any collection."""
+        return self.addable_collections().exists()
+
+    def can_bulk_delete_collections(self):
+        """Return True if the user has permission to bulk delete any collections."""
+        return self.bulk_deletable_collections().exists()
 
 
 class CollectionPermissionTester(object):
