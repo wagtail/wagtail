@@ -8,15 +8,34 @@ from django.utils.translation import ugettext_lazy
 from wagtail.utils.pagination import paginate
 from wagtail.wagtailadmin import messages
 from wagtail.wagtailadmin.forms import CollectionForm
-from wagtail.wagtailadmin.navigation import get_explorable_root_collection
+from wagtail.wagtailadmin.navigation import get_explorable_root_collection, \
+    get_collections_with_direct_explore_permission
 from wagtail.wagtailadmin.views.generic import CreateView, DeleteView, EditView, IndexView
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import Collection
-from wagtail.wagtailcore.permissions import collection_permission_policy
+
+
+class CollectionPermissionMixin(object):
+
+    def check_permissions(self, collection_perms):
+        """All classes using this mixin must implement this function.
+
+        Called for every dispatch event to check if the user has access to the collection view.
+
+        :param wagtail.wagtailcore.models.CollectionPermissionTester collection_perms: The collection permission tester
+            object used to determine the level of access the user should be given.
+        """
+        raise NotImplementedError
+
+    def dispatch(self, request, instance_id, *args, **kwargs):
+        collection = get_object_or_404(Collection, pk=instance_id)
+        collection_perms = collection.permissions_for_user(request.user)
+        if not self.check_permissions(collection_perms):
+            return HttpResponseForbidden()
+        return super(CollectionPermissionMixin, self).dispatch(request, instance_id, *args, **kwargs)
 
 
 class Index(IndexView):
-    permission_policy = collection_permission_policy
     model = Collection
     context_object_name = 'collections'
     template_name = 'wagtailadmin/collections/index.html'
@@ -61,8 +80,7 @@ class Index(IndexView):
         return render(request, self.template_name, context)
 
 
-class Create(CreateView):
-    permission_policy = collection_permission_policy
+class Create(CollectionPermissionMixin, CreateView):
     form_class = CollectionForm
     page_title = ugettext_lazy("Add collection")
     success_message = ugettext_lazy("Collection '{0}' created.")
@@ -91,6 +109,9 @@ class Create(CreateView):
         # Take the parent collection id and get the collection object
         self._parent_collection = get_object_or_404(Collection, pk=parent_id)
 
+    def check_permissions(self, collection_perms):
+        return collection_perms.can_add()
+
     def save_instance(self):
         # Always create new collections as children of root
         instance = self.form.save(commit=False)
@@ -111,8 +132,7 @@ class Create(CreateView):
         return reverse(self.add_url_name, args=(self.parent_collection.pk, ))
 
 
-class Edit(EditView):
-    permission_policy = collection_permission_policy
+class Edit(CollectionPermissionMixin, EditView):
     model = Collection
     form_class = CollectionForm
     success_message = ugettext_lazy("Collection '{0}' updated.")
@@ -124,13 +144,17 @@ class Edit(EditView):
     context_object_name = 'collection'
     header_icon = 'folder-open-1'
 
+    def check_permissions(self, collection_perms):
+        return collection_perms.can_edit()
+
     def get_queryset(self):
         # Return all collections except the root collection to prevent it from being editable
-        return Collection.objects.exclude(pk=Collection.get_first_root_node().pk)
+        return get_collections_with_direct_explore_permission(self.request.user).exclude(
+            pk=Collection.get_first_root_node().pk
+        )
 
 
-class Delete(DeleteView):
-    permission_policy = collection_permission_policy
+class Delete(CollectionPermissionMixin, DeleteView):
     model = Collection
     success_message = ugettext_lazy("Collection '{0}' deleted.")
     index_url_name = 'wagtailadmin_collections:index'
@@ -138,6 +162,9 @@ class Delete(DeleteView):
     page_title = ugettext_lazy("Delete collection")
     confirmation_message = ugettext_lazy("Are you sure you want to delete this collection?")
     header_icon = 'folder-open-1'
+
+    def check_permissions(self, collection_perms):
+        return collection_perms.can_delete()
 
     def get_queryset(self):
         # Return all collections except the root collection to prevent it from being editable

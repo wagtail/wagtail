@@ -5,25 +5,28 @@ from django.db.models import Q
 from wagtail.wagtailcore.models import Collection, Page
 
 
-def get_nodes_with_direct_explore_permission(user, model, permissions):
-    if user.is_superuser:
-        # superuser has implicit permission on the root node
-        return model.objects.filter(depth=1)
-    else:
-        return model.objects.filter(
-            group_permissions__group__in=user.groups.all(),
-            group_permissions__permission_type__in=permissions
-        )
-
-
 def get_collections_with_direct_explore_permission(user):
     # Get all collections that the user has permissions for
-    return get_nodes_with_direct_explore_permission(user, Collection, ['add', 'edit'])
+    if user.is_superuser:
+        # superuser has implicit permission on the root node
+        return Collection.objects.filter(depth=1)
+    else:
+        return Collection.objects.filter(
+            group_manage_permissions__group__in=user.groups.all(),
+            group_manage_permissions__permission_type__in=['add', 'edit']
+        ).distinct()
 
 
 def get_pages_with_direct_explore_permission(user):
     # Get all pages that the user has direct add/edit/publish/lock permission on
-    return get_nodes_with_direct_explore_permission(user, Page, ['add', 'edit', 'publish', 'lock'])
+    if user.is_superuser:
+        # superuser has implicit permission on the root node
+        return Page.objects.filter(depth=1)
+    else:
+        return Page.objects.filter(
+            group_permissions__group__in=user.groups.all(),
+            group_permissions__permission_type__in=['add', 'edit', 'publish', 'lock']
+        )
 
 
 def get_explorable_root_page(user):
