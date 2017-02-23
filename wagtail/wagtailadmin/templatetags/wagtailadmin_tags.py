@@ -335,6 +335,17 @@ def page_listing_buttons(context, page, page_perms, is_parent=False):
     return {'page': page, 'buttons': buttons}
 
 
+@register.inclusion_tag("wagtailadmin/pages/listing/_buttons.html",
+                        takes_context=True)
+def collection_listing_buttons(context, collection, is_parent=False):
+    button_hooks = hooks.get_hooks('register_collection_listing_buttons')
+    collection_perms = collection.permissions_for_user(context['request'].user)
+    buttons = sorted(itertools.chain.from_iterable(
+        hook(collection, collection_perms, is_parent)
+        for hook in button_hooks))
+    return {'collection': collection, 'buttons': buttons}
+
+
 @register.simple_tag
 def message_tags(message):
     level_tag = MESSAGE_TAGS.get(message.level)

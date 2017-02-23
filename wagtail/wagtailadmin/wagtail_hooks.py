@@ -7,7 +7,7 @@ from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 from wagtail.wagtailadmin.menu import MenuItem, SubmenuMenuItem, settings_menu
 from wagtail.wagtailadmin.search import SearchArea
-from wagtail.wagtailadmin.widgets import Button, ButtonWithDropdownFromHook, PageListingButton
+from wagtail.wagtailadmin.widgets import Button, ButtonWithDropdownFromHook, CollectionListingButton, PageListingButton
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.permissions import collection_permission_policy
 
@@ -62,6 +62,27 @@ class CollectionsMenuItem(MenuItem):
 @hooks.register('register_settings_menu_item')
 def register_collections_menu_item():
     return CollectionsMenuItem(_('Collections'), reverse('wagtailadmin_collections:index'), classnames='icon icon-folder-open-1', order=700)
+
+
+@hooks.register('register_collection_listing_buttons')
+def collection_listing_buttons(collection, collection_perms, is_parent=False):
+    if collection_perms.can_edit():
+        yield CollectionListingButton(
+            _('Edit'),
+            reverse('wagtailadmin_collections:edit', args=(collection.pk, )),
+            attrs={'title': _("Edit '{name}'").format(name=collection.name)},
+            priority=10,
+        )
+    if collection_perms.can_add():
+        add_child_button = CollectionListingButton(
+            _('Add Child'),
+            reverse('wagtailadmin_collections:add_child', args=(collection.pk, )),
+            attrs={'title': _("Add child collection to '{name}'").format(name=collection.name)},
+            priority=20,
+        )
+        if is_parent:
+            add_child_button.classes = {'button', 'button-small', 'bicolor', 'icon', 'white', 'icon-plus'}
+        yield add_child_button
 
 
 @hooks.register('register_page_listing_buttons')

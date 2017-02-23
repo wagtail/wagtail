@@ -233,6 +233,10 @@ class PageListingButton(Button):
         super(PageListingButton, self).__init__(label, url, classes=classes, **kwargs)
 
 
+class CollectionListingButton(PageListingButton):
+    pass
+
+
 class BaseDropdownMenuButton(Button):
     def __init__(self, *args, **kwargs):
         super(BaseDropdownMenuButton, self).__init__(*args, url=None, **kwargs)
