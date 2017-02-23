@@ -138,10 +138,9 @@ class Delete(DeleteView):
         # Return all collections except the root collection to prevent it from being editable
         return Collection.objects.exclude(pk=Collection.get_first_root_node().pk)
 
-    def get_collection_contents(self):
-        # TODO: Need to get the contents for any collections nested under the one being deleted.
+    def get_collection_contents(self, collection):
         collection_contents = [
-            hook(self.instance)
+            hook(collection)
             for hook in hooks.get_hooks('describe_collection_contents')
         ]
 
@@ -152,23 +151,63 @@ class Delete(DeleteView):
 
         return list(filter(is_nonempty, collection_contents))
 
+    def get_children_collection_contents(self):
+        """Get the content information for every collection nested under the collection to be deleted.
+
+        The format for the content under each of the children collections is:
+
+        .. code-block:: python
+
+            [
+                {
+                    'collection': <wagtail.wagtailcore.models.Collection>,  # the child collection
+                    'items': [{}, ],  # list of dictionaries returned from the 'describe_collection_contents' hook
+                },
+                ...
+            ]
+
+        :returns: A list of dictionaries for every child collection containing any content. Will return an empty list
+            if none of its descendants contain any content.
+        """
+        collection_to_delete = self.instance
+        descendant_contents = []
+        # If this collection contains any children collections, then we only want to delete it
+        # if none of its children have any contents.
+        if not collection_to_delete.is_leaf():
+            descendant_collections = collection_to_delete.get_descendants()
+            for collection in descendant_collections:
+                # Check if the collection has anything in it
+                contents = self.get_collection_contents(collection)
+                if contents:
+                    descendant_contents.append({
+                        'collection': collection,
+                        'items': contents,
+                    })
+
+        return descendant_contents
+
     def get_context(self):
         context = super(Delete, self).get_context()
-        collection_contents = self.get_collection_contents()
+        collection_contents = self.get_collection_contents(self.instance)
+        descendant_contents = self.get_children_collection_contents()
+        context['descendant_contents'] = descendant_contents
 
-        if collection_contents:
+        if collection_contents or descendant_contents:
             # collection is non-empty; render the 'not allowed to delete' response
             self.template_name = 'wagtailadmin/collections/delete_not_empty.html'
+
+        if collection_contents:
             context['collection_contents'] = collection_contents
 
         return context
 
     def post(self, request, instance_id):
         self.instance = get_object_or_404(self.get_queryset(), id=instance_id)
-        collection_contents = self.get_collection_contents()
+        collection_contents = self.get_collection_contents(self.instance)
+        descendant_contents = self.get_children_collection_contents()
 
-        if collection_contents:
-            # collection is non-empty; refuse to delete it
+        if collection_contents or descendant_contents:
+            # collection or one of its descendants is non-empty; refuse to delete it
             return HttpResponseForbidden()
 
         self.instance.delete()
