@@ -1,11 +1,12 @@
 {% extends "wagtailadmin/base.html" %}
-{% load i18n %}
+{% load i18n wagtailadmin_tags %}
 
 {% block bodyclass %}collection-explorer{% endblock %}
 
 {% block titletag %}{{ parent_collection.name }} {% trans 'Collection' %}{% endblock %}
 
 {% block content %}
+    {% collection_breadcrumb parent_collection %}
     <div class="listing full-width">
         {% include 'wagtailadmin/collections/listing/_header.html' with collection=parent_collection collection_perms=parent_perms %}
         {% include 'wagtailadmin/collections/listing/_list.html' with collections=collections parent_collection=parent_collection %}

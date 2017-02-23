@@ -13,10 +13,11 @@ from django.utils.safestring import mark_safe
 
 from wagtail.utils.pagination import DEFAULT_PAGE_KEY, replace_page_in_query
 from wagtail.wagtailadmin.menu import admin_menu
-from wagtail.wagtailadmin.navigation import get_explorable_root_page, get_navigation_menu_items
+from wagtail.wagtailadmin.navigation import get_explorable_root_page, get_navigation_menu_items, \
+    get_explorable_root_collection
 from wagtail.wagtailadmin.search import admin_search_areas
 from wagtail.wagtailcore import hooks
-from wagtail.wagtailcore.models import Page, PageViewRestriction, UserPagePermissionsProxy
+from wagtail.wagtailcore.models import Page, PageViewRestriction, UserPagePermissionsProxy, Collection
 from wagtail.wagtailcore.utils import cautious_slugify as _cautious_slugify
 from wagtail.wagtailcore.utils import camelcase_to_underscore, escape_script
 
@@ -66,6 +67,21 @@ def explorer_breadcrumb(context, page, include_self=False):
 
     return {
         'pages': page.get_ancestors(inclusive=include_self).descendant_of(cca, inclusive=True)
+    }
+
+
+@register.inclusion_tag('wagtailadmin/collections/breadcrumb.html', takes_context=True)
+def collection_breadcrumb(context, collection, include_self=False):
+    user = context['request'].user
+
+    # find the closest common ancestor of the collections that this user has direct explore permission
+    # (i.e. add/edit/publish/lock) over; this will be the root of the breadcrumb
+    cca = get_explorable_root_collection(user)
+    if not cca:
+        return {'collections': Collection.objects.none()}
+
+    return {
+        'collections': collection.get_ancestors(inclusive=include_self).descendant_of(cca, inclusive=True)
     }
 
 
