@@ -6,6 +6,8 @@
 {% block titletag %}{{ parent_collection.name }} {% trans 'Collection' %}{% endblock %}
 
 {% block content %}
-    {% include 'wagtailadmin/collections/listing/_header.html' with collection=parent_collection %}
-    {% include 'wagtailadmin/collections/listing/_list.html' with collections=collections parent_collection=parent_collection %}
+    <div class="listing full-width">
+        {% include 'wagtailadmin/collections/listing/_header.html' with collection=parent_collection collection_perms=parent_perms %}
+        {% include 'wagtailadmin/collections/listing/_list.html' with collections=collections parent_collection=parent_collection %}
+    </div>
 {% endblock %}

@@ -692,12 +692,44 @@ td.ord {
 }
 
 .collection-explorer {
-    .actions {
-        padding: 0;
-        margin: 0;
-    }
 
-    header h1 {
-        padding-bottom: 0.7em;
+    .listing {
+        .index {
+            .title {
+                h2 {
+                    color: $color-white;
+                    font-size: 1.8em;
+                    font-weight: 500;
+
+                    a:hover {
+                        color: $color-white;
+                    }
+                }
+            }
+
+            .button {
+                background-color: transparent;
+                color: $color-white;
+                border-color: $color-teal-darker;
+
+                &:hover {
+                    color: $color-white;
+                    background: $color-teal-darker;
+                }
+
+                &.bicolor {
+                    background: $color-teal-darker;
+                }
+            }
+
+            header {
+                margin-bottom: 0;
+                padding-left: 25px;
+            }
+        }
+
+        .children {
+            width: 12em;
+        }
     }
 }

@@ -43,7 +43,8 @@ class Index(IndexView):
     def get_context(self):
         context = super(Index, self).get_context()
         context.update({
-            'parent_collection': self.parent_collection
+            'parent_collection': self.parent_collection,
+            'parent_perms': self.parent_collection.permissions_for_user(self.request.user),
         })
         return context
 
@@ -138,6 +139,7 @@ class Delete(DeleteView):
         return Collection.objects.exclude(pk=Collection.get_first_root_node().pk)
 
     def get_collection_contents(self):
+        # TODO: Need to get the contents for any collections nested under the one being deleted.
         collection_contents = [
             hook(self.instance)
             for hook in hooks.get_hooks('describe_collection_contents')
