@@ -22,8 +22,8 @@ Other features
  * Signal receivers for custom ``Image`` and ``Rendition`` models are connected automatically (Mike Dingjan)
  * ``PageChooserBlock`` can now accept a list/tuple of page models as ``target_model`` (Mikalai Radchuk)
  * Styling tweaks for the ModelAdmin's ``IndexView`` to be more inline with the Wagtail styleguide (Andy Babic)
- * Added `.nvmrc` to the project root for Node versioning support (Janneke Janssen)
- * Added `form_fields_exclude` property to ModelAdmin views (Matheus Bratfisch)
+ * Added ``.nvmrc`` to the project root for Node versioning support (Janneke Janssen)
+ * Added ``form_fields_exclude`` property to ModelAdmin views (Matheus Bratfisch)
  * User creation / edit form now enforces password validators set in ``AUTH_PASSWORD_VALIDATORS`` (Bertrand Bordage)
 
 
