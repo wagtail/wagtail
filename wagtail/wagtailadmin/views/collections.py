@@ -5,6 +5,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy
 
+from wagtail.utils.pagination import paginate
 from wagtail.wagtailadmin import messages
 from wagtail.wagtailadmin.forms import CollectionForm
 from wagtail.wagtailadmin.navigation import get_explorable_root_collection
@@ -42,9 +43,13 @@ class Index(IndexView):
 
     def get_context(self):
         context = super(Index, self).get_context()
+        # Turn the queryset of collections into a Paginator
+        paginator, collections = paginate(self.request, context[self.context_object_name], per_page=50)
         context.update({
             'parent_collection': self.parent_collection,
             'parent_perms': self.parent_collection.permissions_for_user(self.request.user),
+            'collections': collections,
+            'paginator': paginator,
         })
         return context
 

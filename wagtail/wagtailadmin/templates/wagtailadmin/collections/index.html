@@ -11,4 +11,7 @@
         {% include 'wagtailadmin/collections/listing/_header.html' with collection=parent_collection collection_perms=parent_perms %}
         {% include 'wagtailadmin/collections/listing/_list.html' with collections=collections parent_collection=parent_collection %}
     </div>
+
+    {% url 'wagtailadmin_collections:parent_index' parent_collection.pk as pagination_base_url %}
+    {% paginate collections base_url=pagination_base_url %}
 {% endblock %}
