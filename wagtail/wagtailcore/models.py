@@ -1875,6 +1875,9 @@ class Collection(MP_Node):
     def get_prev_siblings(self, inclusive=False):
         return self.get_siblings(inclusive).filter(path__lte=self.path).order_by('-path')
 
+    def permissions_for_user(self, user):
+        return CollectionPermissionTester(user, self)
+
     class Meta:
         verbose_name = _('collection')
         verbose_name_plural = _('collections')
@@ -1923,6 +1926,57 @@ class GroupCollectionManagementPermission(models.Model):
             self.permission_type,
             self.collection.id, self.collection
         )
+
+
+class CollectionPermissionTester(object):
+    """Helper object to check the permissions that a User has on a particular Collection."""
+    def __init__(self, user, collection):
+        self.user = user
+        self.collection = collection
+        if self.user.is_active and not self.user.is_superuser:
+            group_permission = GroupCollectionManagementPermission.objects.filter(
+                group__user=self.user
+            ).select_related('collection')
+            self.permissions = set(
+                perm.permission_type for perm in group_permission
+                if self.collection.path.startswith(perm.collection.path)
+            )
+
+    def can_add(self):
+        if not self.user.is_active:
+            return False
+        return self.user.is_superuser or ('add' in self.permissions)
+
+    def can_edit(self):
+        if not self.user.is_active:
+            return False
+
+        # Don't allow the root collection to be edited
+        if self.collection.is_root():
+            return False
+
+        return self.user.is_superuser or ('edit' in self.permissions)
+
+    def can_delete(self):
+        if not self.user.is_active:
+            return False
+
+        # Don't allow the root collection to be deleted
+        if self.collection.is_root():
+            return False
+
+        if self.user.is_superuser:
+            return True
+
+        if 'bulk_delete' in self.permissions:
+            return True
+
+        # if the user does not have bulk_delete permission, they may only delete leaf collections
+        if not self.collection.is_leaf():
+            return False
+
+        # Allow anyone with add/edit permissions to delete collections that are leaf nodes
+        return self.can_add() or self.can_edit()
 
 
 def get_root_collection_id():
