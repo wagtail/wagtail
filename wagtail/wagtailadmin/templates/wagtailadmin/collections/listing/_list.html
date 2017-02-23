@@ -16,7 +16,12 @@
                     <tr>
                         <td class="title">
                             <h2 class="icon icon-folder-open-inverse">
-                                <a href="{% url 'wagtailadmin_collections:edit' collection.id %}">{{ collection }}</a>
+                                {% collection_permissions collection as collection_perms %}
+                                {% if collection_perms.can_edit %}
+                                    <a href="{% url 'wagtailadmin_collections:edit' collection.id %}">{{ collection }}</a>
+                                {% else %}
+                                    {{ collection }}
+                                {% endif %}
                             </h2>
                             <ul class="actions">
                                 {% collection_listing_buttons collection %}
@@ -25,7 +30,7 @@
                         {% if not collection.is_leaf %}
                             <td class="children">
                                 <a href="{% url 'wagtailadmin_collections:parent_index' collection.id %}"
-                                    class="icon text-replace icon-arrow-right" title="{% blocktrans %}Explore child collections of {% endblocktrans %}'{{ collection.name }}'">
+                                    class="icon text-replace icon-arrow-right" title="{% blocktrans %}Explore child collections of {% endblocktrans %}'{{ collection }}'">
                                     Explore
                                 </a>
                             </td>

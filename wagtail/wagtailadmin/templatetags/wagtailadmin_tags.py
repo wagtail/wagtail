@@ -17,7 +17,8 @@ from wagtail.wagtailadmin.navigation import get_explorable_root_page, get_naviga
     get_explorable_root_collection
 from wagtail.wagtailadmin.search import admin_search_areas
 from wagtail.wagtailcore import hooks
-from wagtail.wagtailcore.models import Page, PageViewRestriction, UserPagePermissionsProxy, Collection
+from wagtail.wagtailcore.models import Page, PageViewRestriction, UserPagePermissionsProxy, Collection, \
+    UserCollectionPermissionsProxy
 from wagtail.wagtailcore.utils import cautious_slugify as _cautious_slugify
 from wagtail.wagtailcore.utils import camelcase_to_underscore, escape_script
 
@@ -154,6 +155,22 @@ def page_permissions(context, page):
 
     # Now retrieve a PagePermissionTester from it, specific to the given page
     return context['user_page_permissions'].for_page(page)
+
+
+@assignment_tag(takes_context=True)
+def collection_permissions(context, collection):
+    """
+    Usage: {% collection_permissions collection as collection_perms %}
+    Sets the variable 'collection_perms' to a CollectionPermissionTester object that can be queried to find out
+    what actions the current logged-in user can perform on the given collection.
+    """
+    # Create a UserCollectionPermissionsProxy object to represent the user's global permissions, and
+    # cache it in the context for the duration of the page request, if one does not exist already
+    if 'user_collection_permissions' not in context:
+        context['user_collection_permissions'] = UserCollectionPermissionsProxy(context['request'].user)
+
+    # Now retrieve a CollectionPermissionTester from it, specific to the given collection
+    return context['user_collection_permissions'].for_collection(collection)
 
 
 @assignment_tag(takes_context=True)
