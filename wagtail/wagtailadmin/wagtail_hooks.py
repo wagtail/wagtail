@@ -9,7 +9,7 @@ from wagtail.wagtailadmin.menu import MenuItem, SubmenuMenuItem, settings_menu
 from wagtail.wagtailadmin.search import SearchArea
 from wagtail.wagtailadmin.widgets import Button, ButtonWithDropdownFromHook, CollectionListingButton, PageListingButton
 from wagtail.wagtailcore import hooks
-from wagtail.wagtailcore.permissions import collection_permission_policy
+from wagtail.wagtailcore.models import UserCollectionPermissionsProxy
 
 
 class ExplorerMenuItem(MenuItem):
@@ -54,9 +54,10 @@ def register_pages_search_area():
 
 class CollectionsMenuItem(MenuItem):
     def is_shown(self, request):
-        return collection_permission_policy.user_has_any_permission(
-            request.user, ['add', 'change', 'delete']
-        )
+        collection_perms = UserCollectionPermissionsProxy(request.user)
+        return collection_perms.can_add_child_collections() or \
+               collection_perms.can_bulk_delete_collections() or \
+               collection_perms.can_edit_collections()
 
 
 @hooks.register('register_settings_menu_item')
