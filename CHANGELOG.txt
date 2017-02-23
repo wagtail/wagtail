@@ -15,6 +15,7 @@ Changelog
  * Styling tweaks for the ModelAdmin's `IndexView` to be more inline with the Wagtail styleguide (Andy Babic)
  * Added `.nvmrc` to the project root for Node versioning support (Janneke Janssen)
  * Added `form_fields_exclude` property to ModelAdmin views (Matheus Bratfisch)
+ * User creation / edit form now enforces password validators set in `AUTH_PASSWORD_VALIDATORS` (Bertrand Bordage)
  * Fix: Marked 'Date from' / 'Date to' strings in wagtailforms for translation (Vorlif)
  * Fix: Unreliable preview is now reliable by always opening in a new window (Kjartan Sverrisson)
  * Fix: Fixed placement of `{{ block.super }}` in `snippets/type_index.html` (LB (Ben Johnston))
