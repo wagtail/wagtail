@@ -144,24 +144,31 @@ class Edit(CollectionPermissionMixin, EditView):
     context_object_name = 'collection'
     header_icon = 'folder-open-1'
 
+    @property
+    def index_url_name(self):
+        # Redirect to the index view of the parent collection
+        return reverse('wagtailadmin_collections:parent_index', args=(self.instance.get_parent().pk, ))
+
     def check_permissions(self, collection_perms):
         return collection_perms.can_edit()
 
     def get_queryset(self):
         # Return all collections except the root collection to prevent it from being editable
-        return get_collections_with_direct_explore_permission(self.request.user).exclude(
-            pk=Collection.get_first_root_node().pk
-        )
+        return Collection.objects.exclude(pk=Collection.get_first_root_node().pk)
 
 
 class Delete(CollectionPermissionMixin, DeleteView):
     model = Collection
     success_message = ugettext_lazy("Collection '{0}' deleted.")
-    index_url_name = 'wagtailadmin_collections:index'
     delete_url_name = 'wagtailadmin_collections:delete'
     page_title = ugettext_lazy("Delete collection")
     confirmation_message = ugettext_lazy("Are you sure you want to delete this collection?")
     header_icon = 'folder-open-1'
+
+    @property
+    def index_url_name(self):
+        # Redirect to the index view of the parent collection
+        return reverse('wagtailadmin_collections:parent_index', args=(self.instance.get_parent().pk, ))
 
     def check_permissions(self, collection_perms):
         return collection_perms.can_delete()
