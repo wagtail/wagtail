@@ -1,0 +1,9 @@
+{% extends "wagtailadmin/widgets/chooser.html" %}
+
+{% block chooser_class %}collection-chooser{% endblock %}
+
+{% block chosen_state_view %}
+    <span class="title">{{ collection }}</span>
+{% endblock %}
+
+{% block edit_chosen_item_url %}{% if collection %}{% url 'wagtailadmin_collections:edit' collection.pk %}{% endif %}{% endblock %}
