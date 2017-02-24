@@ -10,7 +10,7 @@ from django.db import transaction
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
 
-from wagtail.wagtailadmin.widgets import AdminPageChooser
+from wagtail.wagtailadmin.widgets import AdminPageChooser, AdminCollectionChooser
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import (
     COLLECTION_PERMISSION_TYPE_CHOICES, COLLECTION_PERMISSION_TYPES, PAGE_PERMISSION_TYPE_CHOICES,
@@ -404,6 +404,7 @@ class BaseGroupCollectionPermissionFormSet(forms.BaseFormSet):
             data, files, initial=initial_data, prefix=prefix
         )
         for form in self.forms:
+            form.fields['collection'].widget = AdminCollectionChooser(show_edit_link=False, can_choose_root=True)
             form.fields['DELETE'].widget = forms.HiddenInput()
 
     @property

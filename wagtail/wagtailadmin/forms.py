@@ -417,6 +417,7 @@ class BaseGroupCollectionMemberPermissionFormSet(forms.BaseFormSet):
             data, files, initial=initial_data, prefix=prefix
         )
         for form in self.forms:
+            form.fields['collection'].widget = widgets.AdminCollectionChooser(can_choose_root=True)
             form.fields['DELETE'].widget = forms.HiddenInput()
 
     @property

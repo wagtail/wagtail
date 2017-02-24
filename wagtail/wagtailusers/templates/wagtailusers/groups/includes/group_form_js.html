@@ -1,10 +1,12 @@
 {% load staticfiles %}
 <script>
     window.chooserUrls = {
-        'pageChooser': '{% url "wagtailadmin_choose_page" %}'
+        'pageChooser': '{% url "wagtailadmin_choose_page" %}',
+        'collectionChooser': '{% url "wagtailadmin_collections:choose_collection" %}'
     };
 </script>
 
+<script src="{% static 'wagtailadmin/js/collection-chooser.js' %}"></script>
 <script src="{% static 'wagtailadmin/js/page-chooser.js' %}"></script>
 <script src="{% static 'wagtailadmin/js/expanding_formset.js' %}"></script>
 <script src="{% static 'wagtailadmin/js/modal-workflow.js' %}"></script>
