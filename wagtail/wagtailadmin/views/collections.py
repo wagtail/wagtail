@@ -8,6 +8,7 @@ from django.utils.translation import ugettext_lazy
 from wagtail.utils.pagination import paginate
 from wagtail.wagtailadmin import messages
 from wagtail.wagtailadmin.forms import CollectionForm
+from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
 from wagtail.wagtailadmin.navigation import get_explorable_root_collection
 from wagtail.wagtailadmin.views.generic import CreateView, DeleteView, EditView, IndexView
 from wagtail.wagtailcore import hooks
@@ -74,8 +75,14 @@ class Index(IndexView):
     def get(self, request, root_id=None):
         if root_id:
             self.parent_collection = get_object_or_404(Collection, pk=root_id)
-
         context = self.get_context()
+
+        if request.GET.get('modal'):
+            return render_modal_workflow(
+                request,
+                'wagtailadmin/chooser/collection_browse.html', 'wagtailadmin/chooser/collection_browse.js',
+                context,
+            )
         return render(request, self.template_name, context)
 
 
