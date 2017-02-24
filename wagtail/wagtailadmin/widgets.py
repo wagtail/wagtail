@@ -17,7 +17,7 @@ from taggit.forms import TagWidget
 
 from wagtail.utils.widgets import WidgetWithScript
 from wagtail.wagtailcore import hooks
-from wagtail.wagtailcore.models import Page
+from wagtail.wagtailcore.models import Page, Collection
 
 
 class AdminAutoHeightTextInput(WidgetWithScript, widgets.Textarea):
@@ -184,6 +184,46 @@ class AdminPageChooser(AdminChooser):
                     model=model._meta.model_name)
                 for model in self.target_models
             ]),
+            parent=json.dumps(parent.id if parent else None),
+            can_choose_root=('true' if self.can_choose_root else 'false')
+        )
+
+
+class AdminCollectionChooser(AdminChooser):
+    model = Collection
+    choose_one_text = _('Choose a collection')
+    choose_another_text = _('Choose another collection')
+    link_to_chosen_text = _('Edit this collection')
+
+    def __init__(self, can_choose_root=False, **kwargs):
+        super(AdminCollectionChooser, self).__init__(**kwargs)
+
+        self.can_choose_root = can_choose_root
+
+    def render_html(self, name, value, attrs):
+        instance, value = self.get_instance_and_id(self.model, value)
+
+        original_field_html = super(AdminCollectionChooser, self).render_html(name, value, attrs)
+
+        return render_to_string("wagtailadmin/widgets/collection_chooser.html", {
+            'widget': self,
+            'original_field_html': original_field_html,
+            'attrs': attrs,
+            'value': value,
+            'collection': instance,
+        })
+
+    def render_js_init(self, id_, name, value):
+        if isinstance(value, Collection):
+            collection = value
+        else:
+            # Value is an ID look up object
+            collection = self.get_instance(Collection, value)
+
+        parent = collection.get_parent() if collection else None
+
+        return "createCollectionChooser({id}, {parent}, {can_choose_root});".format(
+            id=json.dumps(id_),
             parent=json.dumps(parent.id if parent else None),
             can_choose_root=('true' if self.can_choose_root else 'false')
         )
