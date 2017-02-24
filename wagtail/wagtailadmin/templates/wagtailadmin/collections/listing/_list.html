@@ -2,7 +2,7 @@
 
 <div>
     {% if collections %}
-        <table class="listing full-width">
+        <table class="{% block table_classes %}listing full-width{% endblock %}">
             <thead>
                 <tr class="table-headers">
                     <th class="title">
@@ -12,33 +12,23 @@
                 </tr>
             </thead>
             <tbody>
+                {% block content_before_list %}{% endblock %}
                 {% for collection in collections %}
                     <tr>
                         <td class="title">
                             <h2 class="icon icon-folder-open-inverse">
-                                {% collection_permissions collection as collection_perms %}
-                                {% if collection_perms.can_edit %}
-                                    <a href="{% url 'wagtailadmin_collections:edit' collection.id %}">{{ collection }}</a>
-                                {% else %}
+                                {% block listing_title %}
                                     {{ collection }}
-                                {% endif %}
+                                {% endblock %}
                             </h2>
-                            <ul class="actions">
-                                {% collection_listing_buttons collection %}
-                            </ul>
+                            {% block after_listing_title %}
+                            {% endblock %}
                         </td>
-                        {% if not collection.is_leaf %}
-                            <td class="children">
-                                <a href="{% url 'wagtailadmin_collections:parent_index' collection.id %}"
-                                    class="icon text-replace icon-arrow-right" title="{% blocktrans %}Explore child collections of {% endblocktrans %}'{{ collection }}'">
-                                    Explore
-                                </a>
-                            </td>
-                        {% else %}
-                            <td></td>
-                        {% endif %}
+                        {% block collection_navigation %}
+                        {% endblock %}
                     </tr>
                 {% endfor %}
+                {% block content_after_list %}{% endblock %}
             </tbody>
         </table>
     {% else %}
