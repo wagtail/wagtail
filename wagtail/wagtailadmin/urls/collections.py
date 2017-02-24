@@ -10,4 +10,7 @@ urlpatterns = [
     url(r'^(\d+)/add/$', collections.Create.as_view(), name='add_child'),
     url(r'^(\d+)/edit/$', collections.Edit.as_view(), name='edit'),
     url(r'^(\d+)/delete/$', collections.Delete.as_view(), name='delete'),
+    url(r'^choose-collection/$', collections.Index.as_view(), name='choose_collection'),
+    url(r'^choose-collection/(\d+)/$', collections.Index.as_view(), name='choose_collection_child'),
+    url(r'^choose-collection-search/$', collections.Index.as_view(), name='choose_collection_search'),
 ]
