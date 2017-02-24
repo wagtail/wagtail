@@ -34,6 +34,10 @@ header {
     .left {
         float: left;
 
+        @media screen and (max-width: $breakpoint-mobile) {
+            margin-left: 35px;
+        }
+
         .hasform &:first-child {
             padding-bottom: 0.5em;
             float: none;
