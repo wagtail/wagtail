@@ -43,6 +43,6 @@
         </table>
     {% else %}
         {% url 'wagtailadmin_collections:add' parent_collection.pk as add_collection_url %}
-        <p>{% blocktrans %}No collections have been created. Why not <a href="{{ add_collection_url }}">add one</a>?{% endblocktrans %}</p>
+        <p class="no-results-message">{% blocktrans %}No collections have been created. Why not <a href="{{ add_collection_url }}">add one</a>?{% endblocktrans %}</p>
     {% endif %}
 </div>

@@ -6,7 +6,9 @@
 {% block titletag %}{{ parent_collection.name }} {% trans 'Collection' %}{% endblock %}
 
 {% block content %}
-    {% collection_breadcrumb parent_collection %}
+    <header class="merged no-border no-v-padding">
+        {% collection_breadcrumb parent_collection %}
+    </header>
     <div class="listing full-width">
         {% include 'wagtailadmin/collections/listing/_header.html' with collection=parent_collection collection_perms=parent_perms %}
         {% include 'wagtailadmin/collections/listing/_list.html' with collections=collections parent_collection=parent_collection %}

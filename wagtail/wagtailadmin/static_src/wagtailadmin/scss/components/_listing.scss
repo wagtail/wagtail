@@ -693,22 +693,34 @@ td.ord {
 
 .collection-explorer {
 
-    .breadcrumb {
-        margin-left: 0;
+    header {
+        .breadcrumb {
+            margin-left: 0;
+        }
     }
 
     .listing {
         .index {
-            .title {
-                h2 {
-                    color: $color-white;
-                    font-size: 1.8em;
-                    font-weight: 500;
+            background: $color-teal;
+            padding-left: 25px;
+            padding-top: 0.83em;
 
-                    a:hover {
-                        color: $color-white;
-                    }
+            h2 {
+                color: $color-white;
+                font-size: 1.8em;
+                font-weight: 500;
+
+                a {
+                    color: $color-white;
                 }
+
+                a:hover {
+                    color: $color-white;
+                }
+            }
+
+            .actions {
+                padding-bottom: 1.5em;
             }
 
             .button {
@@ -725,11 +737,10 @@ td.ord {
                     background: $color-teal-darker;
                 }
             }
+        }
 
-            header {
-                margin-bottom: 0;
-                padding-left: 25px;
-            }
+        .no-results-message {
+            padding: 1.2em 1em;
         }
 
         .children {
