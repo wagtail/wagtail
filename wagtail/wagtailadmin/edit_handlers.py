@@ -633,6 +633,31 @@ class PageChooserPanel(object):
         })
 
 
+class BaseCollectionChooserPanel(BaseChooserPanel):
+    object_type_name = 'collection'
+
+    @classmethod
+    def widget_overrides(cls):
+        return {
+            cls.field_name: widgets.AdminCollectionChooser(
+                can_choose_root=cls.can_choose_root
+            )
+        }
+
+
+class CollectionChooserPanel(object):
+    def __init__(self, field_name, can_choose_root=False):
+        self.field_name = field_name
+        self.can_choose_root = can_choose_root
+
+    def bind_to_model(self, model):
+        return type(str('_CollectionChooserPanel'), (BaseCollectionChooserPanel,), {
+            'model': model,
+            'field_name': self.field_name,
+            'can_choose_root': self.can_choose_root,
+        })
+
+
 class BaseInlinePanel(EditHandler):
     @classmethod
     def get_panel_definitions(cls):
