@@ -28,7 +28,10 @@
                         {% block extra_fields %}{% endblock extra_fields %}
                         {% include "wagtailadmin/shared/field_as_li.html" with field=form.password1 %}
                         {% include "wagtailadmin/shared/field_as_li.html" with field=form.password2 %}
-                        {% include "wagtailadmin/shared/field_as_li.html" with field=form.is_active %}
+                        {% if form.is_active %}
+                          {% include "wagtailadmin/shared/field_as_li.html" with field=form.is_active %}
+                        {% endif %}
+
                     {% endblock fields %}
                     <li>
                         <input type="submit" value="{% trans 'Save' %}" class="button" />
@@ -40,7 +43,10 @@
             </section>
             <section id="roles" class="nice-padding">
                 <ul class="fields">
-                    {% include "wagtailadmin/shared/field_as_li.html" with field=form.is_superuser %}
+                    {% if form.is_superuser %}
+                      {% include "wagtailadmin/shared/field_as_li.html" with field=form.is_superuser %}
+                    {% endif %}
+
                     {% include "wagtailadmin/shared/field_as_li.html" with field=form.groups %}
                     <li>
                         <input type="submit" value="{% trans 'Save' %}" class="button" />
