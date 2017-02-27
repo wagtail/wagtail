@@ -371,7 +371,7 @@ class CollectionPermissionsForm(forms.Form):
     # TODO: Use AdminCollectionChooser
     collection = forms.ModelChoiceField(
         queryset=Collection.objects.all(),
-        # widget=AdminPageChooser(show_edit_link=False, can_choose_root=True)
+        widget=AdminPageChooser(show_edit_link=False, can_choose_root=True)
     )
     permission_types = forms.MultipleChoiceField(
         choices=COLLECTION_PERMISSION_TYPE_CHOICES,
@@ -404,13 +404,11 @@ class BaseGroupCollectionPermissionFormSet(forms.BaseFormSet):
             data, files, initial=initial_data, prefix=prefix
         )
         for form in self.forms:
-            form.fields['collection'].widget = AdminCollectionChooser(show_edit_link=False, can_choose_root=True)
             form.fields['DELETE'].widget = forms.HiddenInput()
 
     @property
     def empty_form(self):
         empty_form = super(BaseGroupCollectionPermissionFormSet, self).empty_form
-        empty_form.fields['collection'].widget = AdminCollectionChooser(show_edit_link=False, can_choose_root=True)
         empty_form.fields['DELETE'].widget = forms.HiddenInput()
         return empty_form
 

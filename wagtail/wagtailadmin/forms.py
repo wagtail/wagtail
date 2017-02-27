@@ -417,13 +417,11 @@ class BaseGroupCollectionMemberPermissionFormSet(forms.BaseFormSet):
             data, files, initial=initial_data, prefix=prefix
         )
         for form in self.forms:
-            form.fields['collection'].widget = widgets.AdminCollectionChooser(can_choose_root=True)
             form.fields['DELETE'].widget = forms.HiddenInput()
 
     @property
     def empty_form(self):
         empty_form = super(BaseGroupCollectionMemberPermissionFormSet, self).empty_form
-        empty_form.fields['collection'].widget = widgets.AdminCollectionChooser(can_choose_root=True)
         empty_form.fields['DELETE'].widget = forms.HiddenInput()
         return empty_form
 
@@ -514,7 +512,8 @@ def collection_member_permission_formset_factory(
         (i.e. group or user) for a specific collection
         """
         collection = forms.ModelChoiceField(
-            queryset=Collection.objects.all().prefetch_related('group_permissions')
+            queryset=Collection.objects.all().prefetch_related('group_permissions'),
+            widget=widgets.AdminCollectionChooser(can_choose_root=True, show_edit_link=False)
         )
         permissions = forms.ModelMultipleChoiceField(
             queryset=permission_queryset,
