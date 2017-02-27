@@ -21,6 +21,7 @@ function createCollectionChooser(id, openAtParentId, canChooseRoot) {
             responses: {
                 collectionChosen: function(collectionData) {
                     input.val(collectionData.id);
+                    input.change();
                     openAtParentId = collectionData.parentId;
                     collectionTitle.text(collectionData.name);
                     chooserElement.removeClass('blank');
