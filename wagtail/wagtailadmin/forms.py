@@ -423,6 +423,7 @@ class BaseGroupCollectionMemberPermissionFormSet(forms.BaseFormSet):
     @property
     def empty_form(self):
         empty_form = super(BaseGroupCollectionMemberPermissionFormSet, self).empty_form
+        empty_form.fields['collection'].widget = widgets.AdminCollectionChooser(can_choose_root=True)
         empty_form.fields['DELETE'].widget = forms.HiddenInput()
         return empty_form
 
