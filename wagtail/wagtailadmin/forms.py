@@ -540,9 +540,10 @@ def collection_member_permission_formset_factory(
     )
 
 
-def collection_chooser_form_factory(can_choose_root=False, show_edit_link=False, **kwargs):
+def collection_chooser_form_factory(label="Collection", can_choose_root=False, show_edit_link=False, **kwargs):
     """Helper method that generates a form for choosing a Collection.
 
+    :param str label: The label to use for the `collection` field.
     :param bool can_choose_root: Whether or not the root collection can be chosen.
     :param bool show_edit_link: Whether or not the edit link should be shown for the selected collection.
     :param kwargs: Additional arguments that will be passed to the `AdminCollectionChooser`.
@@ -560,6 +561,7 @@ def collection_chooser_form_factory(can_choose_root=False, show_edit_link=False,
                     show_edit_link=show_edit_link,
                     **kwargs
                 ),
+                label=label,
             ),
         }
     )
