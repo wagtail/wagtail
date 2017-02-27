@@ -540,15 +540,26 @@ def collection_member_permission_formset_factory(
     )
 
 
-def collection_chooser_form_factory(label="Collection", can_choose_root=False, show_edit_link=False, **kwargs):
+def collection_chooser_form_factory(
+    label="Collection", required=True, can_choose_root=False, show_edit_link=False, widget_options=None
+):
     """Helper method that generates a form for choosing a Collection.
 
     :param str label: The label to use for the `collection` field.
+    :param bool required: Whether or not the `collection` field should be required.
     :param bool can_choose_root: Whether or not the root collection can be chosen.
     :param bool show_edit_link: Whether or not the edit link should be shown for the selected collection.
-    :param kwargs: Additional arguments that will be passed to the `AdminCollectionChooser`.
+    :param dict widget_options: Additional arguments that will be passed to the `AdminCollectionChooser` widget.
     :return: A `forms.Form` object with a `collection` field.
     """
+
+    if widget_options is None:
+        widget_options = {}
+
+    widget_options.update({
+        'can_choose_root': can_choose_root,
+        'show_edit_link': show_edit_link
+    })
 
     return type(
         '_CollectionChooserForm',
@@ -557,11 +568,10 @@ def collection_chooser_form_factory(label="Collection", can_choose_root=False, s
             'collection': forms.ModelChoiceField(
                 queryset=Collection.objects.all().prefetch_related('group_permissions'),
                 widget=widgets.AdminCollectionChooser(
-                    can_choose_root=can_choose_root,
-                    show_edit_link=show_edit_link,
-                    **kwargs
+                    **widget_options
                 ),
                 label=label,
+                required=required,
             ),
         }
     )
