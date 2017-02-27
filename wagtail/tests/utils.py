@@ -156,6 +156,9 @@ class WagtailTestUtils(object):
         else:
             self.assertTrue(real_count != 0, msg_prefix + "Couldn't find '%s' in response" % needle)
 
+    def assertNotInHTML(self, needle, haystack, msg_prefix=''):
+        self.assertInHTML(needle, haystack, count=0, msg_prefix=msg_prefix)
+
 
 class WagtailPageTests(WagtailTestUtils, TestCase):
     """
