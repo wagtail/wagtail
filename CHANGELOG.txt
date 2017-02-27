@@ -65,6 +65,7 @@ Changelog
  * Fix: Fixed display of ManyToMany fields and False values on the ModelAdmin inspect view (Andy Babic)
  * Fix: Prevent pages from being recursively copied into themselves (Matheus Bratfisch)
  * Fix: Specifying the full file name in documents URL is mandatory (Morgan Aubert)
+ * Fix: Reordering inline forms now works correctly when moving past a deleted form (Janneke Janssen)
 
 
 1.9 (16.02.2017)
