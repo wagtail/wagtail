@@ -9,10 +9,10 @@
             There are {{ counter }} matches
         {% endblocktrans %}
         </h2>
-        
+
         {% search_other %}
     {% else %}
-        <h2>{% trans "Latest images" %}</h2>
+        <h2>{% if current_collection is None %}{% trans "Latest images from all collections" %}{% else %}{% trans "Latest images from " %}'{{ current_collection }}'{% endif %}</h2>
     {% endif %}
 
     <ul class="listing horiz images">
@@ -31,7 +31,7 @@
 {% else %}
     {% if is_searching %}
         <h2>{% blocktrans %}Sorry, no images match "<em>{{ query_string }}</em>"{% endblocktrans %}</h2>
-        
+
         {% search_other %}
     {% else %}
         {% url 'wagtailimages:add_multiple' as wagtailimages_add_image_url %}
