@@ -1310,7 +1310,7 @@ class TestStructBlock(SimpleTestCase):
         self.assertEqual(result, """<h1 lang="fr">Bonjour</h1><div class="rich-text">monde <i>italique</i></div>""")
 
 
-class TestListBlock(SimpleTestCase):
+class TestListBlock(SimpleTestCase, WagtailTestUtils):
     def test_initialise_with_class(self):
         block = blocks.ListBlock(blocks.CharBlock)
 
@@ -1489,11 +1489,11 @@ class TestListBlock(SimpleTestCase):
         block = blocks.ListBlock(LinkBlock)
         html = block.html_declarations()
 
-        self.assertInHTML(
+        self.assertTagInTemplateScript(
             '<input id="__PREFIX__-value-title" name="__PREFIX__-value-title" placeholder="Title" type="text" />',
             html
         )
-        self.assertInHTML(
+        self.assertTagInTemplateScript(
             '<input id="__PREFIX__-value-link" name="__PREFIX__-value-link" placeholder="Link" type="url" />',
             html
         )
@@ -1506,14 +1506,14 @@ class TestListBlock(SimpleTestCase):
         block = blocks.ListBlock(LinkBlock)
         html = block.html_declarations()
 
-        self.assertInHTML(
+        self.assertTagInTemplateScript(
             (
                 '<input id="__PREFIX__-value-title" name="__PREFIX__-value-title" placeholder="Title"'
                 ' type="text" value="Github" />'
             ),
             html
         )
-        self.assertInHTML(
+        self.assertTagInTemplateScript(
             (
                 '<input id="__PREFIX__-value-link" name="__PREFIX__-value-link" placeholder="Link"'
                 ' type="url" value="http://www.github.com" />'
@@ -1632,7 +1632,7 @@ class TestListBlock(SimpleTestCase):
         self.assertIn('value="chocolate"', form_html)
 
 
-class TestStreamBlock(SimpleTestCase):
+class TestStreamBlock(SimpleTestCase, WagtailTestUtils):
     def test_initialisation(self):
         block = blocks.StreamBlock([
             ('heading', blocks.CharBlock()),
@@ -2045,8 +2045,8 @@ class TestStreamBlock(SimpleTestCase):
         block = ArticleBlock()
         html = block.html_declarations()
 
-        self.assertInHTML('<input id="__PREFIX__-value" name="__PREFIX__-value" placeholder="Heading" type="text" />', html)
-        self.assertInHTML(
+        self.assertTagInTemplateScript('<input id="__PREFIX__-value" name="__PREFIX__-value" placeholder="Heading" type="text" />', html)
+        self.assertTagInTemplateScript(
             '<input id="__PREFIX__-value" name="__PREFIX__-value" placeholder="Paragraph" type="text" />',
             html
         )
@@ -2059,14 +2059,14 @@ class TestStreamBlock(SimpleTestCase):
         block = ArticleBlock()
         html = block.html_declarations()
 
-        self.assertInHTML(
+        self.assertTagInTemplateScript(
             (
                 '<input id="__PREFIX__-value" name="__PREFIX__-value" placeholder="Heading"'
                 ' type="text" value="Fish found on moon" />'
             ),
             html
         )
-        self.assertInHTML(
+        self.assertTagInTemplateScript(
             (
                 '<input id="__PREFIX__-value" name="__PREFIX__-value" placeholder="Paragraph" type="text"'
                 ' value="Lorem ipsum dolor sit amet" />'
