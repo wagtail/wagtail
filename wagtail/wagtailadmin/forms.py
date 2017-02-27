@@ -550,7 +550,7 @@ def collection_chooser_form_factory(
     :param bool can_choose_root: Whether or not the root collection can be chosen.
     :param bool show_edit_link: Whether or not the edit link should be shown for the selected collection.
     :param dict widget_options: Additional arguments that will be passed to the `AdminCollectionChooser` widget.
-    :return: A `forms.Form` object with a `collection` field.
+    :return: A `forms.Form` class with a `collection` field.
     """
 
     if widget_options is None:
