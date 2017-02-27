@@ -144,6 +144,22 @@ class WagtailTestUtils(object):
 
         return count
 
+    def _tag_is_template_script(self, tag):
+        if tag.name != 'script':
+            return False
+        return any(attr == ('type', 'text/template') for attr in tag.attributes)
+
+    def _find_template_script_tags(self, haystack):
+        if not hasattr(haystack, 'name'):
+            return
+
+        if self._tag_is_template_script(haystack):
+            yield haystack
+        else:
+            for child in haystack.children:
+                for script_tag in self._find_template_script_tags(child):
+                    yield script_tag
+
     def assertTagInHTML(self, needle, haystack, count=None, msg_prefix=''):
         needle = assert_and_parse_html(self, needle, None, 'First argument is not valid HTML:')
         haystack = assert_and_parse_html(self, haystack, None, 'Second argument is not valid HTML:')
@@ -158,6 +174,27 @@ class WagtailTestUtils(object):
 
     def assertNotInHTML(self, needle, haystack, msg_prefix=''):
         self.assertInHTML(needle, haystack, count=0, msg_prefix=msg_prefix)
+
+    def assertTagInTemplateScript(self, needle, haystack, count=None, msg_prefix=''):
+        needle = assert_and_parse_html(self, needle, None, 'First argument is not valid HTML:')
+        haystack = assert_and_parse_html(self, haystack, None, 'Second argument is not valid HTML:')
+        real_count = 0
+
+        for script_tag in self._find_template_script_tags(haystack):
+            if script_tag.children:
+                self.assertEqual(len(script_tag.children), 1)
+                script_html = assert_and_parse_html(
+                    self, script_tag.children[0], None, 'Script tag content is not valid HTML:'
+                )
+                real_count += self._count_tag_occurrences(needle, script_html)
+
+        if count is not None:
+            self.assertEqual(
+                real_count, count,
+                msg_prefix + "Found %d instances of '%s' in template script (expected %d)" % (real_count, needle, count)
+            )
+        else:
+            self.assertTrue(real_count != 0, msg_prefix + "Couldn't find '%s' in template script" % needle)
 
 
 class WagtailPageTests(WagtailTestUtils, TestCase):
