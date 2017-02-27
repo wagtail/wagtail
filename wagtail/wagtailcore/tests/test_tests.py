@@ -29,6 +29,20 @@ class TestAssertTagInHTML(TestCase, WagtailTestUtils):
         with self.assertRaises(AssertionError):
             self.assertTagInHTML('<li lang="en" class="important really" data-extra="boom">', haystack)
 
+    def test_assert_tag_in_html_with_extra_attrs(self):
+        haystack = """<ul>
+            <li class="normal">hugh</li>
+            <li class="normal">pugh</li>
+            <li class="really important" lang="en"><em>barney</em> mcgrew</li>
+        </ul>"""
+        self.assertTagInHTML('<li class="important really">', haystack, allow_extra_attrs=True)
+        self.assertTagInHTML('<li>', haystack, count=3, allow_extra_attrs=True)
+
+        with self.assertRaises(AssertionError):
+            self.assertTagInHTML('<li class="normal" lang="en">', haystack, allow_extra_attrs=True)
+        with self.assertRaises(AssertionError):
+            self.assertTagInHTML('<li class="important really">', haystack, count=2, allow_extra_attrs=True)
+
     def test_assert_tag_in_template_script(self):
         haystack = """<html>
             <script type="text/template">
