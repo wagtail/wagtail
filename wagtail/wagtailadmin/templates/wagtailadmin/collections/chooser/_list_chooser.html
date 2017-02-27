@@ -11,7 +11,21 @@
     </a>
 {% endblock %}
 
-{# TODO: Add parent collection above the list of collections #}
+{% block after_table_header %}
+    <tr class="index">
+        <td class="title">
+            <h2 class="icon icon-folder-open-inverse">
+                <a href="#{{ parent_collection.pk }}" class="choose-collection" data-id="{{ parent_collection.pk }}"
+                   data-name="{{ parent_collection.name }}" data-parent-id="{{ parent_collection.pk }}"
+                   data-edit-url="{% url 'wagtailadmin_collections:edit' parent_collection.pk %}">
+                    {{ parent_collection }}
+                </a>
+            </h2>
+        </td>
+        <td></td>
+    </tr>
+{% endblock %}
+
 {% block collection_navigation %}
     {% if not collection.is_leaf %}
         <td class="children">
