@@ -7,7 +7,7 @@ from django.utils.translation import ugettext_lazy
 
 from wagtail.utils.pagination import paginate
 from wagtail.wagtailadmin import messages
-from wagtail.wagtailadmin.forms import CollectionForm
+from wagtail.wagtailadmin.forms import CollectionForm, SearchForm
 from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
 from wagtail.wagtailadmin.navigation import get_explorable_root_collection
 from wagtail.wagtailadmin.views.generic import CreateView, DeleteView, EditView, IndexView
@@ -46,6 +46,7 @@ class Index(IndexView):
     def __init__(self):
         super(Index, self).__init__()
         self.parent_collection = None
+        self.is_searching = False
 
     @property
     def page_title(self):
@@ -54,22 +55,36 @@ class Index(IndexView):
         return ugettext_lazy(self.parent_collection.name)
 
     def get_queryset(self):
-        if not self.parent_collection:
-            # Find the root collection that the user has access to
-            self.parent_collection = get_explorable_root_collection(self.request.user)
+        search = SearchForm(self.request.GET)
 
-        return self.parent_collection.get_children()
+        if search.is_valid() and search.cleaned_data['q']:
+            self.is_searching = True
+            return Collection.objects.filter(name__icontains=search.cleaned_data['q'])
+        else:
+            if not self.parent_collection:
+                # Find the root collection that the user has access to
+                self.parent_collection = get_explorable_root_collection(self.request.user)
+
+            return self.parent_collection.get_children()
 
     def get_context(self):
         context = super(Index, self).get_context()
         # Turn the queryset of collections into a Paginator
         paginator, collections = paginate(self.request, context[self.context_object_name], per_page=50)
+
         context.update({
-            'parent_collection': self.parent_collection,
-            'parent_perms': self.parent_collection.permissions_for_user(self.request.user),
             'collections': collections,
             'paginator': paginator,
+            'search_form': SearchForm(),
         })
+
+        # Chooser search results don't need this
+        if not self.is_searching:
+            context.update({
+                'parent_collection': self.parent_collection,
+                'parent_perms': self.parent_collection.permissions_for_user(self.request.user),
+            })
+
         return context
 
     def get(self, request, root_id=None):
@@ -77,12 +92,24 @@ class Index(IndexView):
             self.parent_collection = get_object_or_404(Collection, pk=root_id)
         context = self.get_context()
 
+        # All requests originating from the collection chooser will a `modal` query param.
         if request.GET.get('modal'):
+            # Handle searching from the chooser
+            if request.GET.get('results_only'):
+                return render(
+                    request,
+                    template_name='wagtailadmin/chooser/_collection_search_results.html',
+                    context=context,
+                )
+
+            # Render the collection chooser modal
             return render_modal_workflow(
                 request,
                 'wagtailadmin/chooser/collection_browse.html', 'wagtailadmin/chooser/collection_browse.js',
                 context,
             )
+
+        # Render the regular listing page
         return render(request, self.template_name, context)
 
 

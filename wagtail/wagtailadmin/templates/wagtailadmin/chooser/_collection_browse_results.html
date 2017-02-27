@@ -4,7 +4,6 @@
 {% include "wagtailadmin/collections/chooser/chooser_breadcrumb.html" with collection=parent_collection %}
 
 {% if collections %}
-    {# TODO: Handle controlling whether or not the root is selectable #}
     {% include "wagtailadmin/collections/chooser/_list_chooser.html" with collections=collections parent_collection=parent_collection %}
 
     {% url 'wagtailadmin_collections:parent_index' parent_collection.pk as pagination_base_url %}
