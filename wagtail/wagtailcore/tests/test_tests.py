@@ -1,12 +1,33 @@
 from __future__ import absolute_import, unicode_literals
 
+from django.test import TestCase
 from django.utils import six
 
 from wagtail.tests.testapp.models import (
     BusinessChild, BusinessIndex, BusinessNowherePage, BusinessSubIndex, EventIndex, EventPage,
     SimplePage, StreamPage)
-from wagtail.tests.utils import WagtailPageTests
+from wagtail.tests.utils import WagtailPageTests, WagtailTestUtils
 from wagtail.wagtailcore.models import PAGE_MODEL_CLASSES, Page, Site
+
+
+class TestAssertTagInHTML(TestCase, WagtailTestUtils):
+    def test_assert_tag_in_html(self):
+        haystack = """<ul>
+            <li class="normal">hugh</li>
+            <li class="normal">pugh</li>
+            <li class="really important" lang="en"><em>barney</em> mcgrew</li>
+        </ul>"""
+        self.assertTagInHTML('<li lang="en" class="important really">', haystack)
+        self.assertTagInHTML('<li class="normal">', haystack, count=2)
+
+        with self.assertRaises(AssertionError):
+            self.assertTagInHTML('<div lang="en" class="important really">', haystack)
+        with self.assertRaises(AssertionError):
+            self.assertTagInHTML('<li lang="en" class="important really">', haystack, count=2)
+        with self.assertRaises(AssertionError):
+            self.assertTagInHTML('<li lang="en" class="important">', haystack)
+        with self.assertRaises(AssertionError):
+            self.assertTagInHTML('<li lang="en" class="important really" data-extra="boom">', haystack)
 
 
 class TestWagtailPageTests(WagtailPageTests):

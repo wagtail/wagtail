@@ -8,6 +8,7 @@ import django
 from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse
 from django.test import TestCase
+from django.test.testcases import assert_and_parse_html
 from django.utils import six
 from django.utils.text import slugify
 
@@ -112,6 +113,48 @@ class WagtailTestUtils(object):
             yield
         finally:
             hooks._hooks[hook_name].remove((fn, order))
+
+    def _tag_is_equal(self, tag1, tag2):
+        if not hasattr(tag1, 'name') or not hasattr(tag2, 'name'):
+            return False
+        if tag1.name != tag2.name:
+            return False
+        if len(tag1.attributes) != len(tag2.attributes):
+            return False
+        if tag1.attributes != tag2.attributes:
+            # attributes without a value is same as attribute with value that
+            # equals the attributes name:
+            # <input checked> == <input checked="checked">
+            for i in range(len(tag1.attributes)):
+                attr, value = tag1.attributes[i]
+                other_attr, other_value = tag2.attributes[i]
+                if value is None:
+                    value = attr
+                if other_value is None:
+                    other_value = other_attr
+                if attr != other_attr or value != other_value:
+                    return False
+        return True
+
+    def _count_tag_occurrences(self, needle, haystack):
+        count = 1 if self._tag_is_equal(needle, haystack) else 0
+
+        if hasattr(haystack, 'children'):
+            count += sum(self._count_tag_occurrences(needle, child) for child in haystack.children)
+
+        return count
+
+    def assertTagInHTML(self, needle, haystack, count=None, msg_prefix=''):
+        needle = assert_and_parse_html(self, needle, None, 'First argument is not valid HTML:')
+        haystack = assert_and_parse_html(self, haystack, None, 'Second argument is not valid HTML:')
+        real_count = self._count_tag_occurrences(needle, haystack)
+        if count is not None:
+            self.assertEqual(
+                real_count, count,
+                msg_prefix + "Found %d instances of '%s' in response (expected %d)" % (real_count, needle, count)
+            )
+        else:
+            self.assertTrue(real_count != 0, msg_prefix + "Couldn't find '%s' in response" % needle)
 
 
 class WagtailPageTests(WagtailTestUtils, TestCase):
