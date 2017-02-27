@@ -214,6 +214,7 @@ Contributors
 * Vorlif
 * Kjartan Sverrisson
 * LB (Ben Johnston)
+* Christine Ho
 
 Translators
 ===========
