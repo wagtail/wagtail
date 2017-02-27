@@ -84,7 +84,9 @@ def index(request):
             'popular_tags': popular_tags_for_model(Document),
             'user_can_add': permission_policy.user_has_permission(request.user, 'add'),
             'collections': collections,
-            'collection_chooser': collection_chooser_form_factory(can_choose_root=True)(initial={'collection': current_collection or collections[0]})
+            'collection_chooser': collection_chooser_form_factory(can_choose_root=True, required=False)(
+                initial={'collection': current_collection or None}
+            )
         })
 
 
