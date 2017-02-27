@@ -21,7 +21,7 @@ function createCollectionChooser(id, openAtParentId, canChooseRoot) {
             responses: {
                 collectionChosen: function(collectionData) {
                     input.val(collectionData.id);
-                    input.change();
+                    input.trigger('change');
                     openAtParentId = collectionData.parentId;
                     collectionTitle.text(collectionData.name);
                     chooserElement.removeClass('blank');
@@ -33,6 +33,7 @@ function createCollectionChooser(id, openAtParentId, canChooseRoot) {
 
     $('.action-clear', chooserElement).click(function() {
         input.val('');
+        input.trigger('change');
         openAtParentId = null;
         chooserElement.addClass('blank');
     });
