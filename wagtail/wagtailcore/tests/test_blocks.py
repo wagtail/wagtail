@@ -22,6 +22,7 @@ from django.utils.translation import ugettext_lazy as __
 from wagtail.tests.testapp.blocks import LinkBlock as CustomLinkBlock
 from wagtail.tests.testapp.blocks import SectionBlock
 from wagtail.tests.testapp.models import EventPage, SimplePage
+from wagtail.tests.utils import WagtailTestUtils
 from wagtail.utils.deprecation import RemovedInWagtail111Warning
 from wagtail.wagtailcore import blocks
 from wagtail.wagtailcore.models import Page
@@ -50,7 +51,7 @@ class ContextCharBlock(blocks.CharBlock):
         return super(blocks.CharBlock, self).get_context(value, parent_context)
 
 
-class TestFieldBlock(SimpleTestCase):
+class TestFieldBlock(SimpleTestCase, WagtailTestUtils):
     def test_charfield_render(self):
         block = blocks.CharBlock()
         html = block.render("Hello world!")
@@ -145,9 +146,9 @@ class TestFieldBlock(SimpleTestCase):
         html = block.render_form('choice-2')
 
         self.assertIn('<div class="field choice_field widget-select">', html)
-        self.assertInHTML('<select id="" name="" placeholder="">', html)
-        self.assertIn('<option value="choice-1">Choice 1</option>', html)
-        self.assertIn('<option value="choice-2" selected="selected">Choice 2</option>', html)
+        self.assertTagInHTML('<select id="" name="" placeholder="">', html)
+        self.assertInHTML('<option value="choice-1">Choice 1</option>', html)
+        self.assertInHTML('<option value="choice-2" selected="selected">Choice 2</option>', html)
 
     def test_searchable_content(self):
         """
@@ -448,7 +449,7 @@ class TestRichTextBlock(TestCase):
         self.assertEqual(result.source, '')
 
 
-class TestChoiceBlock(SimpleTestCase):
+class TestChoiceBlock(SimpleTestCase, WagtailTestUtils):
     def setUp(self):
         from django.db.models.fields import BLANK_CHOICE_DASH
         self.blank_choice_dash_label = BLANK_CHOICE_DASH[0][1]
@@ -456,21 +457,21 @@ class TestChoiceBlock(SimpleTestCase):
     def test_render_required_choice_block(self):
         block = blocks.ChoiceBlock(choices=[('tea', 'Tea'), ('coffee', 'Coffee')])
         html = block.render_form('coffee', prefix='beverage')
-        self.assertInHTML('<select id="beverage" name="beverage" placeholder="">', html)
+        self.assertTagInHTML('<select id="beverage" name="beverage" placeholder="">', html)
         # blank option should still be rendered for required fields
         # (we may want it as an initial value)
         self.assertIn('<option value="">%s</option>' % self.blank_choice_dash_label, html)
         self.assertIn('<option value="tea">Tea</option>', html)
-        self.assertIn('<option value="coffee" selected="selected">Coffee</option>', html)
+        self.assertInHTML('<option value="coffee" selected="selected">Coffee</option>', html)
 
     def test_render_required_choice_block_with_default(self):
         block = blocks.ChoiceBlock(choices=[('tea', 'Tea'), ('coffee', 'Coffee')], default='tea')
         html = block.render_form('coffee', prefix='beverage')
-        self.assertInHTML('<select id="beverage" name="beverage" placeholder="">', html)
+        self.assertTagInHTML('<select id="beverage" name="beverage" placeholder="">', html)
         # blank option should NOT be rendered if default and required are set.
         self.assertNotIn('<option value="">%s</option>' % self.blank_choice_dash_label, html)
         self.assertIn('<option value="tea">Tea</option>', html)
-        self.assertIn('<option value="coffee" selected="selected">Coffee</option>', html)
+        self.assertInHTML('<option value="coffee" selected="selected">Coffee</option>', html)
 
     def test_render_required_choice_block_with_callable_choices(self):
         def callable_choices():
@@ -478,12 +479,12 @@ class TestChoiceBlock(SimpleTestCase):
 
         block = blocks.ChoiceBlock(choices=callable_choices)
         html = block.render_form('coffee', prefix='beverage')
-        self.assertInHTML('<select id="beverage" name="beverage" placeholder="">', html)
+        self.assertTagInHTML('<select id="beverage" name="beverage" placeholder="">', html)
         # blank option should still be rendered for required fields
         # (we may want it as an initial value)
         self.assertIn('<option value="">%s</option>' % self.blank_choice_dash_label, html)
         self.assertIn('<option value="tea">Tea</option>', html)
-        self.assertIn('<option value="coffee" selected="selected">Coffee</option>', html)
+        self.assertInHTML('<option value="coffee" selected="selected">Coffee</option>', html)
 
     def test_validate_required_choice_block(self):
         block = blocks.ChoiceBlock(choices=[('tea', 'Tea'), ('coffee', 'Coffee')])
@@ -501,10 +502,10 @@ class TestChoiceBlock(SimpleTestCase):
     def test_render_non_required_choice_block(self):
         block = blocks.ChoiceBlock(choices=[('tea', 'Tea'), ('coffee', 'Coffee')], required=False)
         html = block.render_form('coffee', prefix='beverage')
-        self.assertInHTML('<select id="beverage" name="beverage" placeholder="">', html)
+        self.assertTagInHTML('<select id="beverage" name="beverage" placeholder="">', html)
         self.assertIn('<option value="">%s</option>' % self.blank_choice_dash_label, html)
         self.assertIn('<option value="tea">Tea</option>', html)
-        self.assertIn('<option value="coffee" selected="selected">Coffee</option>', html)
+        self.assertInHTML('<option value="coffee" selected="selected">Coffee</option>', html)
 
     def test_render_non_required_choice_block_with_callable_choices(self):
         def callable_choices():
@@ -512,10 +513,10 @@ class TestChoiceBlock(SimpleTestCase):
 
         block = blocks.ChoiceBlock(choices=callable_choices, required=False)
         html = block.render_form('coffee', prefix='beverage')
-        self.assertInHTML('<select id="beverage" name="beverage" placeholder="">', html)
+        self.assertTagInHTML('<select id="beverage" name="beverage" placeholder="">', html)
         self.assertIn('<option value="">%s</option>' % self.blank_choice_dash_label, html)
         self.assertIn('<option value="tea">Tea</option>', html)
-        self.assertIn('<option value="coffee" selected="selected">Coffee</option>', html)
+        self.assertInHTML('<option value="coffee" selected="selected">Coffee</option>', html)
 
     def test_validate_non_required_choice_block(self):
         block = blocks.ChoiceBlock(choices=[('tea', 'Tea'), ('coffee', 'Coffee')], required=False)
@@ -532,11 +533,11 @@ class TestChoiceBlock(SimpleTestCase):
             choices=[('tea', 'Tea'), ('coffee', 'Coffee'), ('', 'No thanks')],
             required=False)
         html = block.render_form(None, prefix='beverage')
-        self.assertInHTML('<select id="beverage" name="beverage" placeholder="">', html)
+        self.assertTagInHTML('<select id="beverage" name="beverage" placeholder="">', html)
         self.assertNotIn('<option value="">%s</option>' % self.blank_choice_dash_label, html)
-        self.assertIn('<option value="" selected="selected">No thanks</option>', html)
+        self.assertInHTML('<option value="" selected="selected">No thanks</option>', html)
         self.assertIn('<option value="tea">Tea</option>', html)
-        self.assertIn('<option value="coffee">Coffee</option>', html)
+        self.assertInHTML('<option value="coffee">Coffee</option>', html)
 
     def test_render_choice_block_with_existing_blank_choice_and_with_callable_choices(self):
         def callable_choices():
@@ -546,9 +547,9 @@ class TestChoiceBlock(SimpleTestCase):
             choices=callable_choices,
             required=False)
         html = block.render_form(None, prefix='beverage')
-        self.assertInHTML('<select id="beverage" name="beverage" placeholder="">', html)
+        self.assertTagInHTML('<select id="beverage" name="beverage" placeholder="">', html)
         self.assertNotIn('<option value="">%s</option>' % self.blank_choice_dash_label, html)
-        self.assertIn('<option value="" selected="selected">No thanks</option>', html)
+        self.assertInHTML('<option value="" selected="selected">No thanks</option>', html)
         self.assertIn('<option value="tea">Tea</option>', html)
         self.assertIn('<option value="coffee">Coffee</option>', html)
 
@@ -567,17 +568,17 @@ class TestChoiceBlock(SimpleTestCase):
 
         # test rendering with the blank option selected
         html = block.render_form(None, prefix='beverage')
-        self.assertInHTML('<select id="beverage" name="beverage" placeholder="">', html)
-        self.assertIn('<option value="" selected="selected">%s</option>' % self.blank_choice_dash_label, html)
+        self.assertTagInHTML('<select id="beverage" name="beverage" placeholder="">', html)
+        self.assertInHTML('<option value="" selected="selected">%s</option>' % self.blank_choice_dash_label, html)
         self.assertIn('<optgroup label="Alcoholic">', html)
         self.assertIn('<option value="tea">Tea</option>', html)
 
         # test rendering with a non-blank option selected
         html = block.render_form('tea', prefix='beverage')
-        self.assertInHTML('<select id="beverage" name="beverage" placeholder="">', html)
+        self.assertTagInHTML('<select id="beverage" name="beverage" placeholder="">', html)
         self.assertIn('<option value="">%s</option>' % self.blank_choice_dash_label, html)
         self.assertIn('<optgroup label="Alcoholic">', html)
-        self.assertIn('<option value="tea" selected="selected">Tea</option>', html)
+        self.assertInHTML('<option value="tea" selected="selected">Tea</option>', html)
 
     def test_named_groups_with_blank_option(self):
         block = blocks.ChoiceBlock(
@@ -598,20 +599,20 @@ class TestChoiceBlock(SimpleTestCase):
 
         # test rendering with the blank option selected
         html = block.render_form(None, prefix='beverage')
-        self.assertInHTML('<select id="beverage" name="beverage" placeholder="">', html)
+        self.assertTagInHTML('<select id="beverage" name="beverage" placeholder="">', html)
         self.assertNotIn('<option value="">%s</option>' % self.blank_choice_dash_label, html)
-        self.assertNotIn('<option value="" selected="selected">%s</option>' % self.blank_choice_dash_label, html)
+        self.assertNotInHTML('<option value="" selected="selected">%s</option>' % self.blank_choice_dash_label, html)
         self.assertIn('<optgroup label="Alcoholic">', html)
         self.assertIn('<option value="tea">Tea</option>', html)
-        self.assertIn('<option value="" selected="selected">No thanks</option>', html)
+        self.assertInHTML('<option value="" selected="selected">No thanks</option>', html)
 
         # test rendering with a non-blank option selected
         html = block.render_form('tea', prefix='beverage')
-        self.assertInHTML('<select id="beverage" name="beverage" placeholder="">', html)
+        self.assertTagInHTML('<select id="beverage" name="beverage" placeholder="">', html)
         self.assertNotIn('<option value="">%s</option>' % self.blank_choice_dash_label, html)
-        self.assertNotIn('<option value="" selected="selected">%s</option>' % self.blank_choice_dash_label, html)
+        self.assertNotInHTML('<option value="" selected="selected">%s</option>' % self.blank_choice_dash_label, html)
         self.assertIn('<optgroup label="Alcoholic">', html)
-        self.assertIn('<option value="tea" selected="selected">Tea</option>', html)
+        self.assertInHTML('<option value="tea" selected="selected">Tea</option>', html)
 
     def test_subclassing(self):
         class BeverageChoiceBlock(blocks.ChoiceBlock):
@@ -622,8 +623,8 @@ class TestChoiceBlock(SimpleTestCase):
 
         block = BeverageChoiceBlock(required=False)
         html = block.render_form('tea', prefix='beverage')
-        self.assertInHTML('<select id="beverage" name="beverage" placeholder="">', html)
-        self.assertIn('<option value="tea" selected="selected">Tea</option>', html)
+        self.assertTagInHTML('<select id="beverage" name="beverage" placeholder="">', html)
+        self.assertInHTML('<option value="tea" selected="selected">Tea</option>', html)
 
         # subclasses of ChoiceBlock should deconstruct to a basic ChoiceBlock for migrations
         self.assertEqual(
@@ -715,8 +716,9 @@ class TestChoiceBlock(SimpleTestCase):
 
         block = blocks.ChoiceBlock(choices=callable_choices, required=False)
         html = block.render_form('tea', prefix='beverage')
-        self.assertIn('<select id="beverage" name="beverage" placeholder="">', html)
-        self.assertIn('<option value="tea" selected="selected">Tea</option>', html)
+
+        self.assertTagInHTML('<select id="beverage" name="beverage" placeholder="">', html)
+        self.assertInHTML('<option value="tea" selected="selected">Tea</option>', html)
 
         self.assertEqual(
             block.deconstruct(),
@@ -1457,21 +1459,21 @@ class TestListBlock(SimpleTestCase):
             ),
             html
         )
-        self.assertIn(
+        self.assertInHTML(
             (
                 '<input id="links-0-value-link" name="links-0-value-link" placeholder="Link" type="url"'
                 ' value="http://www.wagtail.io" />'
             ),
             html
         )
-        self.assertIn(
+        self.assertInHTML(
             (
                 '<input id="links-1-value-title" name="links-1-value-title" placeholder="Title" type="text"'
                 ' value="Django" />'
             ),
             html
         )
-        self.assertIn(
+        self.assertInHTML(
             (
                 '<input id="links-1-value-link" name="links-1-value-link" placeholder="Link"'
                 ' type="url" value="http://www.djangoproject.com" />'
@@ -2256,13 +2258,13 @@ class TestPageChooserBlock(TestCase):
         block = blocks.PageChooserBlock(help_text="pick a page, any page")
 
         empty_form_html = block.render_form(None, 'page')
-        self.assertIn('<input id="page" name="page" placeholder="" type="hidden" />', empty_form_html)
+        self.assertInHTML('<input id="page" name="page" placeholder="" type="hidden" />', empty_form_html)
         self.assertIn('createPageChooser("page", ["wagtailcore.page"], null, false);', empty_form_html)
 
         christmas_page = Page.objects.get(slug='christmas')
         christmas_form_html = block.render_form(christmas_page, 'page')
         expected_html = '<input id="page" name="page" placeholder="" type="hidden" value="%d" />' % christmas_page.id
-        self.assertIn(expected_html, christmas_form_html)
+        self.assertInHTML(expected_html, christmas_form_html)
         self.assertIn("pick a page, any page", christmas_form_html)
 
     def test_form_render_with_target_model_default(self):
