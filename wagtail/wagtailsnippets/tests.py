@@ -699,13 +699,13 @@ class TestSnippetChooserBlock(TestCase):
         block = SnippetChooserBlock(Advert, help_text="pick an advert, any advert")
 
         empty_form_html = block.render_form(None, 'advert')
-        self.assertIn('<input id="advert" name="advert" placeholder="" type="hidden" />', empty_form_html)
+        self.assertInHTML('<input id="advert" name="advert" placeholder="" type="hidden" />', empty_form_html)
         self.assertIn('createSnippetChooser("advert", "tests/advert");', empty_form_html)
 
         test_advert = Advert.objects.get(text='test_advert')
         test_advert_form_html = block.render_form(test_advert, 'advert')
         expected_html = '<input id="advert" name="advert" placeholder="" type="hidden" value="%d" />' % test_advert.id
-        self.assertIn(expected_html, test_advert_form_html)
+        self.assertInHTML(expected_html, test_advert_form_html)
         self.assertIn("pick an advert, any advert", test_advert_form_html)
 
     def test_form_response(self):
