@@ -29,6 +29,23 @@ class TestAssertTagInHTML(TestCase, WagtailTestUtils):
         with self.assertRaises(AssertionError):
             self.assertTagInHTML('<li lang="en" class="important really" data-extra="boom">', haystack)
 
+    def test_assert_tag_in_template_script(self):
+        haystack = """<html>
+            <script type="text/template">
+                <p class="really important">first template block</p>
+            </script>
+            <script type="text/template">
+                <p class="really important">second template block</p>
+            </script>
+            <p class="normal">not in a script tag</p>
+        </html>"""
+
+        self.assertTagInTemplateScript('<p class="important really">', haystack)
+        self.assertTagInTemplateScript('<p class="important really">', haystack, count=2)
+
+        with self.assertRaises(AssertionError):
+            self.assertTagInTemplateScript('<p class="normal">', haystack)
+
 
 class TestWagtailPageTests(WagtailPageTests):
     def setUp(self):
