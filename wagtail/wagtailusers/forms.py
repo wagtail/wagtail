@@ -10,7 +10,7 @@ from django.db import transaction
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
 
-from wagtail.wagtailadmin.widgets import AdminPageChooser
+from wagtail.wagtailadmin.widgets import AdminCollectionChooser, AdminPageChooser
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import (
     COLLECTION_PERMISSION_TYPE_CHOICES, COLLECTION_PERMISSION_TYPES, PAGE_PERMISSION_TYPE_CHOICES,
@@ -368,10 +368,9 @@ class CollectionPermissionsForm(forms.Form):
     Note 'Permissions' (plural). A single instance of this form defines the permissions
     that are assigned to an entity (i.e. group or user) for a specific page.
     """
-    # TODO: Use AdminCollectionChooser
     collection = forms.ModelChoiceField(
         queryset=Collection.objects.all(),
-        widget=AdminPageChooser(show_edit_link=False, can_choose_root=True)
+        widget=AdminCollectionChooser(show_edit_link=False, can_choose_root=True)
     )
     permission_types = forms.MultipleChoiceField(
         choices=COLLECTION_PERMISSION_TYPE_CHOICES,
