@@ -3335,7 +3335,9 @@ class TestChildRelationsOnSuperclass(TestCase, WagtailTestUtils):
         self.assertContains(response, "id_advert_placements-TOTAL_FORMS")
         # the formset should be populated with an existing form
         self.assertContains(response, "id_advert_placements-0-advert")
-        self.assertContains(response, '<option value="1" selected="selected">test_advert</option>')
+        self.assertContains(
+            response, '<option value="1" selected="selected">test_advert</option>', html=True
+        )
 
     def test_post_edit_form(self):
         post_data = {

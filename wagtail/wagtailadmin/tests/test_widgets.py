@@ -26,7 +26,7 @@ class TestAdminPageChooserWidget(TestCase):
         widget = widgets.AdminPageChooser()
 
         html = widget.render_html('test', None, {})
-        self.assertIn("<input name=\"test\" type=\"hidden\" />", html)
+        self.assertInHTML("""<input name="test" type="hidden" />""", html)
 
     def test_render_js_init(self):
         widget = widgets.AdminPageChooser()
@@ -38,7 +38,7 @@ class TestAdminPageChooserWidget(TestCase):
         widget = widgets.AdminPageChooser()
 
         html = widget.render_html('test', self.child_page, {})
-        self.assertIn("<input name=\"test\" type=\"hidden\" value=\"%d\" />" % self.child_page.id, html)
+        self.assertInHTML("""<input name="test" type="hidden" value="%d" />""" % self.child_page.id, html)
 
     def test_render_js_init_with_value(self):
         widget = widgets.AdminPageChooser()

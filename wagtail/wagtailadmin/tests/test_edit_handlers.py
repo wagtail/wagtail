@@ -695,12 +695,24 @@ class TestInlinePanel(TestCase, WagtailTestUtils):
         self.assertIn('Choose an image', result)
 
         # rendered panel must also contain hidden fields for id, DELETE and ORDER
-        self.assertIn('<input id="id_speakers-0-id" name="speakers-0-id" type="hidden"', result)
-        self.assertIn('<input id="id_speakers-0-DELETE" name="speakers-0-DELETE" type="hidden"', result)
-        self.assertIn('<input id="id_speakers-0-ORDER" name="speakers-0-ORDER" type="hidden"', result)
+        self.assertTagInHTML(
+            '<input id="id_speakers-0-id" name="speakers-0-id" type="hidden">',
+            result, allow_extra_attrs=True
+        )
+        self.assertTagInHTML(
+            '<input id="id_speakers-0-DELETE" name="speakers-0-DELETE" type="hidden">',
+            result, allow_extra_attrs=True
+        )
+        self.assertTagInHTML(
+            '<input id="id_speakers-0-ORDER" name="speakers-0-ORDER" type="hidden">',
+            result, allow_extra_attrs=True
+        )
 
         # rendered panel must contain maintenance form for the formset
-        self.assertIn('<input id="id_speakers-TOTAL_FORMS" name="speakers-TOTAL_FORMS" type="hidden"', result)
+        self.assertTagInHTML(
+            '<input id="id_speakers-TOTAL_FORMS" name="speakers-TOTAL_FORMS" type="hidden">',
+            result, allow_extra_attrs=True
+        )
 
         # rendered panel must include the JS initializer
         self.assertIn('var panel = InlinePanel({', result)
@@ -735,18 +747,30 @@ class TestInlinePanel(TestCase, WagtailTestUtils):
         self.assertNotIn('<label for="id_speakers-0-last_name">Surname:</label>', result)
 
         # test for #338: surname field should not be rendered as a 'stray' label-less field
-        self.assertNotIn('<input id="id_speakers-0-last_name"', result)
+        self.assertTagInHTML('<input id="id_speakers-0-last_name">', result, count=0, allow_extra_attrs=True)
 
         self.assertIn('<label for="id_speakers-0-image">Image:</label>', result)
         self.assertIn('Choose an image', result)
 
         # rendered panel must also contain hidden fields for id, DELETE and ORDER
-        self.assertIn('<input id="id_speakers-0-id" name="speakers-0-id" type="hidden"', result)
-        self.assertIn('<input id="id_speakers-0-DELETE" name="speakers-0-DELETE" type="hidden"', result)
-        self.assertIn('<input id="id_speakers-0-ORDER" name="speakers-0-ORDER" type="hidden"', result)
+        self.assertTagInHTML(
+            '<input id="id_speakers-0-id" name="speakers-0-id" type="hidden">',
+            result, allow_extra_attrs=True
+        )
+        self.assertTagInHTML(
+            '<input id="id_speakers-0-DELETE" name="speakers-0-DELETE" type="hidden">',
+            result, allow_extra_attrs=True
+        )
+        self.assertTagInHTML(
+            '<input id="id_speakers-0-ORDER" name="speakers-0-ORDER" type="hidden">',
+            result, allow_extra_attrs=True
+        )
 
         # rendered panel must contain maintenance form for the formset
-        self.assertIn('<input id="id_speakers-TOTAL_FORMS" name="speakers-TOTAL_FORMS" type="hidden"', result)
+        self.assertTagInHTML(
+            '<input id="id_speakers-TOTAL_FORMS" name="speakers-TOTAL_FORMS" type="hidden">',
+            result, allow_extra_attrs=True
+        )
 
         # render_js_init must provide the JS initializer
         self.assertIn('var panel = InlinePanel({', panel.render_js_init())
