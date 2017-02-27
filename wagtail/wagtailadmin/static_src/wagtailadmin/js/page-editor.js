@@ -132,7 +132,7 @@ function InlinePanel(opts) {
                 var currentChildOrder = currentChildOrderElem.val();
 
                 /* find the previous visible 'inline_child' li before this one */
-                var prevChild = currentChild.prev(':visible');
+                var prevChild = currentChild.prevAll(':not(.deleted)').first();
                 if (!prevChild.length) return;
                 var prevChildOrderElem = prevChild.find('input[name$="-ORDER"]');
                 var prevChildOrder = prevChildOrderElem.val();
@@ -153,7 +153,7 @@ function InlinePanel(opts) {
                 var currentChildOrder = currentChildOrderElem.val();
 
                 /* find the next visible 'inline_child' li after this one */
-                var nextChild = currentChild.next(':visible');
+                var nextChild = currentChild.nextAll(':not(.deleted)').first();
                 if (!nextChild.length) return;
                 var nextChildOrderElem = nextChild.find('input[name$="-ORDER"]');
                 var nextChildOrder = nextChildOrderElem.val();
