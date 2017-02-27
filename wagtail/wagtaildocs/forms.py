@@ -30,7 +30,8 @@ def get_document_form(model):
         fields=fields,
         widgets={
             'tags': widgets.AdminTagWidget,
-            'file': forms.FileInput()
+            'file': forms.FileInput(),
+            'collection': widgets.AdminCollectionChooser(can_choose_root=True, show_edit_link=True)
         })
 
 
@@ -41,7 +42,8 @@ def get_document_multi_form(model):
         fields=['title', 'collection', 'tags'],
         widgets={
             'tags': widgets.AdminTagWidget,
-            'file': forms.FileInput()
+            'file': forms.FileInput(),
+            'collection': widgets.AdminCollectionChooser(can_choose_root=True, show_edit_link=True)
         })
 
 

@@ -8,6 +8,7 @@ from django.utils.encoding import force_text
 from django.views.decorators.http import require_POST
 from django.views.decorators.vary import vary_on_headers
 
+from wagtail.wagtailadmin.forms import collection_chooser_form_factory
 from wagtail.wagtailadmin.utils import PermissionPolicyChecker
 from wagtail.wagtailsearch.backends import get_search_backends
 
@@ -79,6 +80,9 @@ def add(request):
     return render(request, 'wagtaildocs/multiple/add.html', {
         'help_text': form.fields['file'].help_text,
         'collections': collections_to_choose,
+        'collection_chooser': collection_chooser_form_factory(label="", can_choose_root=True)(
+            initial={'collection': collections[0]}
+        )
     })
 
 
