@@ -17,7 +17,7 @@ from taggit.forms import TagWidget
 
 from wagtail.utils.widgets import WidgetWithScript
 from wagtail.wagtailcore import hooks
-from wagtail.wagtailcore.models import Page, Collection
+from wagtail.wagtailcore.models import Collection, Page
 
 
 class AdminAutoHeightTextInput(WidgetWithScript, widgets.Textarea):

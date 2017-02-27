@@ -13,12 +13,12 @@ from django.utils.safestring import mark_safe
 
 from wagtail.utils.pagination import DEFAULT_PAGE_KEY, replace_page_in_query
 from wagtail.wagtailadmin.menu import admin_menu
-from wagtail.wagtailadmin.navigation import get_explorable_root_page, get_navigation_menu_items, \
-    get_explorable_root_collection
+from wagtail.wagtailadmin.navigation import (
+    get_explorable_root_collection, get_explorable_root_page, get_navigation_menu_items)
 from wagtail.wagtailadmin.search import admin_search_areas
 from wagtail.wagtailcore import hooks
-from wagtail.wagtailcore.models import Page, PageViewRestriction, UserPagePermissionsProxy, Collection, \
-    UserCollectionPermissionsProxy
+from wagtail.wagtailcore.models import (
+    Collection, Page, PageViewRestriction, UserCollectionPermissionsProxy, UserPagePermissionsProxy)
 from wagtail.wagtailcore.utils import cautious_slugify as _cautious_slugify
 from wagtail.wagtailcore.utils import camelcase_to_underscore, escape_script
 

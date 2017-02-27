@@ -5,9 +5,11 @@ from django.contrib.auth.models import Permission
 from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
+
 from wagtail.wagtailadmin.menu import MenuItem, SubmenuMenuItem, settings_menu
 from wagtail.wagtailadmin.search import SearchArea
-from wagtail.wagtailadmin.widgets import Button, ButtonWithDropdownFromHook, CollectionListingButton, PageListingButton
+from wagtail.wagtailadmin.widgets import (
+    Button, ButtonWithDropdownFromHook, CollectionListingButton, PageListingButton)
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import UserCollectionPermissionsProxy
 
@@ -55,9 +57,11 @@ def register_pages_search_area():
 class CollectionsMenuItem(MenuItem):
     def is_shown(self, request):
         collection_perms = UserCollectionPermissionsProxy(request.user)
-        return collection_perms.can_add_child_collections() or \
-               collection_perms.can_bulk_delete_collections() or \
-               collection_perms.can_edit_collections()
+        return (
+            collection_perms.can_add_child_collections() or
+            collection_perms.can_bulk_delete_collections() or
+            collection_perms.can_edit_collections()
+        )
 
 
 @hooks.register('register_settings_menu_item')

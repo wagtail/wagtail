@@ -11,7 +11,8 @@ from wagtail.wagtailadmin import messages
 from wagtail.wagtailadmin.forms import SearchForm
 from wagtail.wagtailadmin.utils import any_permission_required, permission_required
 from wagtail.wagtailcore import hooks
-from wagtail.wagtailusers.forms import GroupForm, GroupPagePermissionFormSet, GroupCollectionPermissionFormSet
+from wagtail.wagtailusers.forms import (
+    GroupCollectionPermissionFormSet, GroupForm, GroupPagePermissionFormSet)
 
 _permission_panel_classes = None
 

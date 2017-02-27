@@ -10,12 +10,12 @@ from django.db import transaction
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
 
-from wagtail.wagtailadmin.widgets import AdminPageChooser, AdminCollectionChooser
+from wagtail.wagtailadmin.widgets import AdminPageChooser
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import (
     COLLECTION_PERMISSION_TYPE_CHOICES, COLLECTION_PERMISSION_TYPES, PAGE_PERMISSION_TYPE_CHOICES,
-    PAGE_PERMISSION_TYPES, GroupPagePermission, Page, UserPagePermissionsProxy, Collection,
-    GroupCollectionManagementPermission)
+    PAGE_PERMISSION_TYPES, Collection, GroupCollectionManagementPermission, GroupPagePermission,
+    Page, UserPagePermissionsProxy)
 from wagtail.wagtailusers.models import UserProfile
 
 User = get_user_model()
