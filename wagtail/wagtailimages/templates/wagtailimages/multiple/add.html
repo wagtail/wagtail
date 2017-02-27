@@ -23,15 +23,9 @@
                 </div>
                 {% csrf_token %}
                 {% if collections %}
-                    <div class="field">
+                    <div class="field collection-field">
                         <label for="id_addimage_collection">{% trans "Add to collection:" %}</label>
-                        <div class="field-content">
-                            <select id="id_addimage_collection" name="collection">
-                                {% for collection in collections %}
-                                    <option value="{{ collection.id }}">{{ collection.name }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
+                        {{ collection_chooser }}
                     </div>
                 {% endif %}
             </form>
@@ -84,6 +78,8 @@
 
     <!-- Main script -->
     <script src="{% static 'wagtailimages/js/add-multiple.js' %}"></script>
+    <script src="{% static 'wagtailadmin/js/modal-workflow.js' %}"></script>
+    <script src="{% static 'wagtailadmin/js/collection-chooser.js' %}"></script>
 
     {% url 'wagtailadmin_tag_autocomplete' as autocomplete_url %}
     <script>
@@ -95,9 +91,14 @@
                 max_file_size: "{{ error_max_file_size }}",
                 accepted_file_types: "{{ error_accepted_file_types }}"
             }
-        }
+        };
+
         window.tagit_opts = {
             autocomplete: {source: "{{ autocomplete_url|addslashes }}"}
+        };
+
+        window.chooserUrls = {
+            'collectionChooser': '{% url "wagtailadmin_collections:choose_collection" %}'
         };
     </script>
 {% endblock %}

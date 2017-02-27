@@ -8,6 +8,7 @@ from django.utils.encoding import force_text
 from django.views.decorators.http import require_POST
 from django.views.decorators.vary import vary_on_headers
 
+from wagtail.wagtailadmin.forms import collection_chooser_form_factory
 from wagtail.wagtailadmin.utils import PermissionPolicyChecker
 from wagtail.wagtailimages import get_image_model
 from wagtail.wagtailimages.fields import ALLOWED_EXTENSIONS
@@ -100,6 +101,9 @@ def add(request):
         'error_max_file_size': form.fields['file'].error_messages['file_too_large_unknown_size'],
         'error_accepted_file_types': form.fields['file'].error_messages['invalid_image'],
         'collections': collections_to_choose,
+        'collection_chooser': collection_chooser_form_factory(
+            label="", can_choose_root=True,
+        )(initial={'collection': collections[0]}),
     })
 
 
