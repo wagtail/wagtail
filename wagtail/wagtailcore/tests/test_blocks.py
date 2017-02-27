@@ -50,7 +50,7 @@ class ContextCharBlock(blocks.CharBlock):
         return super(blocks.CharBlock, self).get_context(value, parent_context)
 
 
-class TestFieldBlock(unittest.TestCase):
+class TestFieldBlock(SimpleTestCase):
     def test_charfield_render(self):
         block = blocks.CharBlock()
         html = block.render("Hello world!")
@@ -100,13 +100,13 @@ class TestFieldBlock(unittest.TestCase):
         html = block.render_form("Hello world!")
 
         self.assertIn('<div class="field char_field widget-text_input">', html)
-        self.assertIn('<input id="" name="" placeholder="" type="text" value="Hello world!" />', html)
+        self.assertInHTML('<input id="" name="" placeholder="" type="text" value="Hello world!" />', html)
 
     def test_charfield_render_form_with_prefix(self):
         block = blocks.CharBlock()
         html = block.render_form("Hello world!", prefix='foo')
 
-        self.assertIn('<input id="foo" name="foo" placeholder="" type="text" value="Hello world!" />', html)
+        self.assertInHTML('<input id="foo" name="foo" placeholder="" type="text" value="Hello world!" />', html)
 
     def test_charfield_render_form_with_error(self):
         block = blocks.CharBlock()
@@ -145,7 +145,7 @@ class TestFieldBlock(unittest.TestCase):
         html = block.render_form('choice-2')
 
         self.assertIn('<div class="field choice_field widget-select">', html)
-        self.assertIn('<select id="" name="" placeholder="">', html)
+        self.assertInHTML('<select id="" name="" placeholder="">', html)
         self.assertIn('<option value="choice-1">Choice 1</option>', html)
         self.assertIn('<option value="choice-2" selected="selected">Choice 2</option>', html)
 
@@ -448,7 +448,7 @@ class TestRichTextBlock(TestCase):
         self.assertEqual(result.source, '')
 
 
-class TestChoiceBlock(unittest.TestCase):
+class TestChoiceBlock(SimpleTestCase):
     def setUp(self):
         from django.db.models.fields import BLANK_CHOICE_DASH
         self.blank_choice_dash_label = BLANK_CHOICE_DASH[0][1]
@@ -456,7 +456,7 @@ class TestChoiceBlock(unittest.TestCase):
     def test_render_required_choice_block(self):
         block = blocks.ChoiceBlock(choices=[('tea', 'Tea'), ('coffee', 'Coffee')])
         html = block.render_form('coffee', prefix='beverage')
-        self.assertIn('<select id="beverage" name="beverage" placeholder="">', html)
+        self.assertInHTML('<select id="beverage" name="beverage" placeholder="">', html)
         # blank option should still be rendered for required fields
         # (we may want it as an initial value)
         self.assertIn('<option value="">%s</option>' % self.blank_choice_dash_label, html)
@@ -466,7 +466,7 @@ class TestChoiceBlock(unittest.TestCase):
     def test_render_required_choice_block_with_default(self):
         block = blocks.ChoiceBlock(choices=[('tea', 'Tea'), ('coffee', 'Coffee')], default='tea')
         html = block.render_form('coffee', prefix='beverage')
-        self.assertIn('<select id="beverage" name="beverage" placeholder="">', html)
+        self.assertInHTML('<select id="beverage" name="beverage" placeholder="">', html)
         # blank option should NOT be rendered if default and required are set.
         self.assertNotIn('<option value="">%s</option>' % self.blank_choice_dash_label, html)
         self.assertIn('<option value="tea">Tea</option>', html)
@@ -478,7 +478,7 @@ class TestChoiceBlock(unittest.TestCase):
 
         block = blocks.ChoiceBlock(choices=callable_choices)
         html = block.render_form('coffee', prefix='beverage')
-        self.assertIn('<select id="beverage" name="beverage" placeholder="">', html)
+        self.assertInHTML('<select id="beverage" name="beverage" placeholder="">', html)
         # blank option should still be rendered for required fields
         # (we may want it as an initial value)
         self.assertIn('<option value="">%s</option>' % self.blank_choice_dash_label, html)
@@ -501,7 +501,7 @@ class TestChoiceBlock(unittest.TestCase):
     def test_render_non_required_choice_block(self):
         block = blocks.ChoiceBlock(choices=[('tea', 'Tea'), ('coffee', 'Coffee')], required=False)
         html = block.render_form('coffee', prefix='beverage')
-        self.assertIn('<select id="beverage" name="beverage" placeholder="">', html)
+        self.assertInHTML('<select id="beverage" name="beverage" placeholder="">', html)
         self.assertIn('<option value="">%s</option>' % self.blank_choice_dash_label, html)
         self.assertIn('<option value="tea">Tea</option>', html)
         self.assertIn('<option value="coffee" selected="selected">Coffee</option>', html)
@@ -512,7 +512,7 @@ class TestChoiceBlock(unittest.TestCase):
 
         block = blocks.ChoiceBlock(choices=callable_choices, required=False)
         html = block.render_form('coffee', prefix='beverage')
-        self.assertIn('<select id="beverage" name="beverage" placeholder="">', html)
+        self.assertInHTML('<select id="beverage" name="beverage" placeholder="">', html)
         self.assertIn('<option value="">%s</option>' % self.blank_choice_dash_label, html)
         self.assertIn('<option value="tea">Tea</option>', html)
         self.assertIn('<option value="coffee" selected="selected">Coffee</option>', html)
@@ -532,7 +532,7 @@ class TestChoiceBlock(unittest.TestCase):
             choices=[('tea', 'Tea'), ('coffee', 'Coffee'), ('', 'No thanks')],
             required=False)
         html = block.render_form(None, prefix='beverage')
-        self.assertIn('<select id="beverage" name="beverage" placeholder="">', html)
+        self.assertInHTML('<select id="beverage" name="beverage" placeholder="">', html)
         self.assertNotIn('<option value="">%s</option>' % self.blank_choice_dash_label, html)
         self.assertIn('<option value="" selected="selected">No thanks</option>', html)
         self.assertIn('<option value="tea">Tea</option>', html)
@@ -546,7 +546,7 @@ class TestChoiceBlock(unittest.TestCase):
             choices=callable_choices,
             required=False)
         html = block.render_form(None, prefix='beverage')
-        self.assertIn('<select id="beverage" name="beverage" placeholder="">', html)
+        self.assertInHTML('<select id="beverage" name="beverage" placeholder="">', html)
         self.assertNotIn('<option value="">%s</option>' % self.blank_choice_dash_label, html)
         self.assertIn('<option value="" selected="selected">No thanks</option>', html)
         self.assertIn('<option value="tea">Tea</option>', html)
@@ -567,14 +567,14 @@ class TestChoiceBlock(unittest.TestCase):
 
         # test rendering with the blank option selected
         html = block.render_form(None, prefix='beverage')
-        self.assertIn('<select id="beverage" name="beverage" placeholder="">', html)
+        self.assertInHTML('<select id="beverage" name="beverage" placeholder="">', html)
         self.assertIn('<option value="" selected="selected">%s</option>' % self.blank_choice_dash_label, html)
         self.assertIn('<optgroup label="Alcoholic">', html)
         self.assertIn('<option value="tea">Tea</option>', html)
 
         # test rendering with a non-blank option selected
         html = block.render_form('tea', prefix='beverage')
-        self.assertIn('<select id="beverage" name="beverage" placeholder="">', html)
+        self.assertInHTML('<select id="beverage" name="beverage" placeholder="">', html)
         self.assertIn('<option value="">%s</option>' % self.blank_choice_dash_label, html)
         self.assertIn('<optgroup label="Alcoholic">', html)
         self.assertIn('<option value="tea" selected="selected">Tea</option>', html)
@@ -598,7 +598,7 @@ class TestChoiceBlock(unittest.TestCase):
 
         # test rendering with the blank option selected
         html = block.render_form(None, prefix='beverage')
-        self.assertIn('<select id="beverage" name="beverage" placeholder="">', html)
+        self.assertInHTML('<select id="beverage" name="beverage" placeholder="">', html)
         self.assertNotIn('<option value="">%s</option>' % self.blank_choice_dash_label, html)
         self.assertNotIn('<option value="" selected="selected">%s</option>' % self.blank_choice_dash_label, html)
         self.assertIn('<optgroup label="Alcoholic">', html)
@@ -607,7 +607,7 @@ class TestChoiceBlock(unittest.TestCase):
 
         # test rendering with a non-blank option selected
         html = block.render_form('tea', prefix='beverage')
-        self.assertIn('<select id="beverage" name="beverage" placeholder="">', html)
+        self.assertInHTML('<select id="beverage" name="beverage" placeholder="">', html)
         self.assertNotIn('<option value="">%s</option>' % self.blank_choice_dash_label, html)
         self.assertNotIn('<option value="" selected="selected">%s</option>' % self.blank_choice_dash_label, html)
         self.assertIn('<optgroup label="Alcoholic">', html)
@@ -622,7 +622,7 @@ class TestChoiceBlock(unittest.TestCase):
 
         block = BeverageChoiceBlock(required=False)
         html = block.render_form('tea', prefix='beverage')
-        self.assertIn('<select id="beverage" name="beverage" placeholder="">', html)
+        self.assertInHTML('<select id="beverage" name="beverage" placeholder="">', html)
         self.assertIn('<option value="tea" selected="selected">Tea</option>', html)
 
         # subclasses of ChoiceBlock should deconstruct to a basic ChoiceBlock for migrations
@@ -1075,11 +1075,11 @@ class TestStructBlock(SimpleTestCase):
         self.assertIn('<div class="struct-block">', html)
         self.assertIn('<div class="field char_field widget-text_input fieldname-title">', html)
         self.assertIn('<label for="mylink-title">Title:</label>', html)
-        self.assertIn(
+        self.assertInHTML(
             '<input id="mylink-title" name="mylink-title" placeholder="Title" type="text" value="Wagtail site" />', html
         )
         self.assertIn('<div class="field url_field widget-url_input fieldname-link">', html)
-        self.assertIn(
+        self.assertInHTML(
             (
                 '<input id="mylink-link" name="mylink-link" placeholder="Link"'
                 ' type="url" value="http://www.wagtail.io" />'
@@ -1113,14 +1113,14 @@ class TestStructBlock(SimpleTestCase):
             'image': 10,
         }), prefix='mylink')
 
-        self.assertIn(
+        self.assertInHTML(
             (
                 '<input id="mylink-title" name="mylink-title" placeholder="Title"'
                 ' type="text" value="Wagtail site" />'
             ),
             html
         )
-        self.assertIn(
+        self.assertInHTML(
             (
                 '<input id="mylink-link" name="mylink-link" placeholder="Link" type="url"'
                 ' value="http://www.wagtail.io" />'
@@ -1139,10 +1139,10 @@ class TestStructBlock(SimpleTestCase):
         block = LinkBlock()
         html = block.render_form(block.to_python({}), prefix='mylink')
 
-        self.assertIn(
+        self.assertInHTML(
             '<input id="mylink-title" name="mylink-title" placeholder="Title" type="text" value="Torchbox" />', html
         )
-        self.assertIn(
+        self.assertInHTML(
             (
                 '<input id="mylink-link" name="mylink-link" placeholder="Link"'
                 ' type="url" value="http://www.torchbox.com" />'
@@ -1308,7 +1308,7 @@ class TestStructBlock(SimpleTestCase):
         self.assertEqual(result, """<h1 lang="fr">Bonjour</h1><div class="rich-text">monde <i>italique</i></div>""")
 
 
-class TestListBlock(unittest.TestCase):
+class TestListBlock(SimpleTestCase):
     def test_initialise_with_class(self):
         block = blocks.ListBlock(blocks.CharBlock)
 
@@ -1450,7 +1450,7 @@ class TestListBlock(unittest.TestCase):
     def test_render_form_values(self):
         html = self.render_form()
 
-        self.assertIn(
+        self.assertInHTML(
             (
                 '<input id="links-0-value-title" name="links-0-value-title" placeholder="Title"'
                 ' type="text" value="Wagtail" />'
@@ -1487,11 +1487,11 @@ class TestListBlock(unittest.TestCase):
         block = blocks.ListBlock(LinkBlock)
         html = block.html_declarations()
 
-        self.assertIn(
+        self.assertInHTML(
             '<input id="__PREFIX__-value-title" name="__PREFIX__-value-title" placeholder="Title" type="text" />',
             html
         )
-        self.assertIn(
+        self.assertInHTML(
             '<input id="__PREFIX__-value-link" name="__PREFIX__-value-link" placeholder="Link" type="url" />',
             html
         )
@@ -1504,14 +1504,14 @@ class TestListBlock(unittest.TestCase):
         block = blocks.ListBlock(LinkBlock)
         html = block.html_declarations()
 
-        self.assertIn(
+        self.assertInHTML(
             (
                 '<input id="__PREFIX__-value-title" name="__PREFIX__-value-title" placeholder="Title"'
                 ' type="text" value="Github" />'
             ),
             html
         )
-        self.assertIn(
+        self.assertInHTML(
             (
                 '<input id="__PREFIX__-value-link" name="__PREFIX__-value-link" placeholder="Link"'
                 ' type="url" value="http://www.github.com" />'
@@ -1918,21 +1918,21 @@ class TestStreamBlock(SimpleTestCase):
     def test_render_form_value_fields(self):
         html = self.render_form()
 
-        self.assertIn(
+        self.assertInHTML(
             (
                 '<input id="myarticle-0-value" name="myarticle-0-value" placeholder="Heading"'
                 ' type="text" value="My title" />'
             ),
             html
         )
-        self.assertIn(
+        self.assertInHTML(
             (
                 '<input id="myarticle-1-value" name="myarticle-1-value" placeholder="Paragraph"'
                 ' type="text" value="My first paragraph" />'
             ),
             html
         )
-        self.assertIn(
+        self.assertInHTML(
             (
                 '<input id="myarticle-2-value" name="myarticle-2-value" placeholder="Paragraph"'
                 ' type="text" value="My second paragraph" />'
@@ -2043,8 +2043,8 @@ class TestStreamBlock(SimpleTestCase):
         block = ArticleBlock()
         html = block.html_declarations()
 
-        self.assertIn('<input id="__PREFIX__-value" name="__PREFIX__-value" placeholder="Heading" type="text" />', html)
-        self.assertIn(
+        self.assertInHTML('<input id="__PREFIX__-value" name="__PREFIX__-value" placeholder="Heading" type="text" />', html)
+        self.assertInHTML(
             '<input id="__PREFIX__-value" name="__PREFIX__-value" placeholder="Paragraph" type="text" />',
             html
         )
@@ -2057,14 +2057,14 @@ class TestStreamBlock(SimpleTestCase):
         block = ArticleBlock()
         html = block.html_declarations()
 
-        self.assertIn(
+        self.assertInHTML(
             (
                 '<input id="__PREFIX__-value" name="__PREFIX__-value" placeholder="Heading"'
                 ' type="text" value="Fish found on moon" />'
             ),
             html
         )
-        self.assertIn(
+        self.assertInHTML(
             (
                 '<input id="__PREFIX__-value" name="__PREFIX__-value" placeholder="Paragraph" type="text"'
                 ' value="Lorem ipsum dolor sit amet" />'
