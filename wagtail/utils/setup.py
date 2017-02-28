@@ -18,14 +18,14 @@ class assets_mixin(object):
         try:
             subprocess.check_call(['npm', 'run', 'build'])
         except (OSError, subprocess.CalledProcessError) as e:
-            print('Error compiling assets: ' + str(e))
+            print('Error compiling assets: ' + str(e))  # noqa
             raise SystemExit(1)
 
     def publish_assets(self):
         try:
             subprocess.check_call(['npm', 'publish', 'client'])
         except (OSError, subprocess.CalledProcessError) as e:
-            print('Error publishing front-end assets: ' + str(e))
+            print('Error publishing front-end assets: ' + str(e))  # noqa
             raise SystemExit(1)
 
     def bump_client_version(self):
@@ -38,7 +38,7 @@ class assets_mixin(object):
         try:
             package = json.loads(input_file.read().decode("utf-8"))
         except (ValueError) as e:
-            print('Unable to read ' + path + ' ' + e)
+            print('Unable to read ' + path + ' ' + e)  # noqa
             raise SystemExit(1)
 
         package['version'] = __semver__
@@ -49,7 +49,7 @@ class assets_mixin(object):
 
                 f.write(six.text_type(json.dumps(package, indent=2, ensure_ascii=False)))
         except (IOError) as e:
-            print('Error setting the version for front-end assets: ' + str(e))
+            print('Error setting the version for front-end assets: ' + str(e))  # noqa
             raise SystemExit(1)
 
 
@@ -82,7 +82,7 @@ class check_bdist_egg(bdist_egg):
     def run(self):
         bdist_egg.run(self)
         if not os.path.isdir(self.sentinel_dir):
-            print("\n".join([
+            print("\n".join([  # noqa
                 "************************************************************",
                 "The front end assets for Wagtail are missing.",
                 "To generate the assets, please refer to the documentation in",
