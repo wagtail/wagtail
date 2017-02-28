@@ -15,7 +15,7 @@ from django.core.files.base import ContentFile
 from django.core.urlresolvers import reverse
 from django.db.models.signals import post_delete, pre_delete
 from django.http import HttpRequest, HttpResponse
-from django.test import TestCase
+from django.test import TestCase, modify_settings
 from django.utils import formats, timezone
 from django.utils.dateparse import parse_date
 
@@ -1470,6 +1470,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, 'tests/simple_page.html')
         self.assertContains(response, "I&#39;ve been edited!")
 
+    @modify_settings(ALLOWED_HOSTS={'append': 'childpage.example.com'})
     def test_preview_uses_correct_site(self):
         # create a Site record for the child page
         Site.objects.create(hostname='childpage.example.com', root_page=self.child_page)
