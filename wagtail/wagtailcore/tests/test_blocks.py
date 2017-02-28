@@ -51,7 +51,7 @@ class ContextCharBlock(blocks.CharBlock):
         return super(blocks.CharBlock, self).get_context(value, parent_context)
 
 
-class TestFieldBlock(SimpleTestCase, WagtailTestUtils):
+class TestFieldBlock(WagtailTestUtils, SimpleTestCase):
     def test_charfield_render(self):
         block = blocks.CharBlock()
         html = block.render("Hello world!")
@@ -449,7 +449,7 @@ class TestRichTextBlock(TestCase):
         self.assertEqual(result.source, '')
 
 
-class TestChoiceBlock(SimpleTestCase, WagtailTestUtils):
+class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
     def setUp(self):
         from django.db.models.fields import BLANK_CHOICE_DASH
         self.blank_choice_dash_label = BLANK_CHOICE_DASH[0][1]
