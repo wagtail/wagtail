@@ -1941,7 +1941,7 @@ class UserCollectionPermissionsProxy(object):
     def for_collection(self, collection):
         """Return a CollectionPermissionTester object that can be used to query whether this user has
         permission to perform specific tasks on the given collection"""
-        return CollectionPermissionTester(self.user, collection)
+        return CollectionPermissionTester(self, collection)
 
     def editable_collections(self):
         """Return a queryset of the collections that this user has permission to edit."""
@@ -2003,8 +2003,9 @@ class UserCollectionPermissionsProxy(object):
 
 class CollectionPermissionTester(object):
     """Helper object to check the permissions that a User has on a particular Collection."""
-    def __init__(self, user, collection):
-        self.user = user
+    def __init__(self, user_perms, collection):
+        self.user_perms = user_perms
+        self.user = user_perms.user
         self.collection = collection
         if self.user.is_active and not self.user.is_superuser:
             group_permission = GroupCollectionManagementPermission.objects.filter(
@@ -2050,6 +2051,30 @@ class CollectionPermissionTester(object):
 
         # Allow anyone with add/edit permissions to delete collections that are leaf nodes
         return self.can_add() or self.can_edit()
+
+    def can_move(self):
+        # If the user can delete the collection then they can move it this means that in order
+        # for a parent collection to be moved a long with its children, the user must
+        # have the `bulk_delete` permission.
+        return self.can_delete()
+
+    def can_move_to(self, destination):
+        if self.collection == destination or destination.is_descendant_of(self.collection):
+            return False
+
+        if not self.user.is_active:
+            return False
+        if self.user.is_superuser:
+            return True
+
+        # check that the collection can be moved at all
+        if not self.can_move():
+            return False
+
+        # Make sure the user has `add` permissions on the destination collection
+        destination_perms = self.user_perms.for_collection(destination)
+
+        return 'add' in destination_perms.permissions
 
 
 def get_root_collection_id():
