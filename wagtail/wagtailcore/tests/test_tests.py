@@ -10,7 +10,7 @@ from wagtail.tests.utils import WagtailPageTests, WagtailTestUtils
 from wagtail.wagtailcore.models import PAGE_MODEL_CLASSES, Page, Site
 
 
-class TestAssertTagInHTML(TestCase, WagtailTestUtils):
+class TestAssertTagInHTML(WagtailTestUtils, TestCase):
     def test_assert_tag_in_html(self):
         haystack = """<ul>
             <li class="normal">hugh</li>
