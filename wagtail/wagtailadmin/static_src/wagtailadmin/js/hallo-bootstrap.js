@@ -27,10 +27,11 @@ function makeHalloRichTextEditable(id) {
     }
 
     var closestObj = input.closest('.object');
+    var isDeepNested = input.closest('.struct-block').length;
 
     richText.hallo({
         toolbar: 'halloToolbarFixed',
-        toolbarCssClass: (closestObj.hasClass('full')) ? 'full' : (closestObj.hasClass('stream-field')) ? 'stream-field' : '',
+        toolbarCssClass: (closestObj.hasClass('full')) ? 'full' : (closestObj.hasClass('stream-field') && !isDeepNested) ? 'stream-field' : '',
         plugins: halloPlugins
     }).bind('hallomodified', function(event, data) {
         input.val(data.content);
