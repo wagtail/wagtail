@@ -12,7 +12,7 @@ from django.db.models import Count, Q
 from django.shortcuts import redirect
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext as _
-from django.utils.translation import gettext_noop
+from django.utils.translation import override, gettext_noop
 from modelcluster.fields import ParentalKey
 from taggit.models import Tag
 
@@ -242,9 +242,11 @@ def send_notification(page_revision_id, notification, excluded_user_id):
             # update context with this recipient
             context["user"] = recipient
 
-            # Get email subject and content
-            email_subject = render_to_string(template_subject, context).strip()
-            email_content = render_to_string(template_text, context).strip()
+            # Translate text to the recipient language settings
+            with override(recipient.wagtail_userprofile.get_preferred_language()):
+                # Get email subject and content
+                email_subject = render_to_string(template_subject, context).strip()
+                email_content = render_to_string(template_text, context).strip()
 
             kwargs = {}
             if getattr(settings, 'WAGTAILADMIN_NOTIFICATION_USE_HTML', False):
