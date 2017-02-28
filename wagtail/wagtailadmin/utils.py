@@ -12,6 +12,7 @@ from django.db.models import Count, Q
 from django.shortcuts import redirect
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext as _
+from django.utils.translation import gettext_noop
 from modelcluster.fields import ParentalKey
 from taggit.models import Tag
 
@@ -23,21 +24,21 @@ logger = logging.getLogger('wagtail.admin')
 # Wagtail languages with >=90% coverage
 # This list is manually maintained
 WAGTAILADMIN_PROVIDED_LANGUAGES = [
-    ('en', 'English'),
-    ('de', 'German'),
-    ('pt-br', 'Brazilian Portuguese'),
-    ('es', 'Spanish'),
-    ('ro', 'Romanian'),
-    ('fr', 'French'),
-    ('is-is', 'Icelandic'),
-    ('it', 'Italian'),
-    ('nb', 'Norwegian Bokmål'),
-    ('pl', 'Polish'),
-    ('pt-pt', 'Portuguese'),
-    ('ru', 'Russian'),
-    ('nl-nl', 'Netherlands Dutch'),
-    ('fi', 'Finish'),
-    ('ga', 'Galician')
+    ('en', gettext_noop('English')),
+    ('de', gettext_noop('German')),
+    ('pt-br', gettext_noop('Brazilian Portuguese')),
+    ('es', gettext_noop('Spanish')),
+    ('ro', gettext_noop('Romanian')),
+    ('fr', gettext_noop('French')),
+    ('is-is', gettext_noop('Icelandic')),
+    ('it', gettext_noop('Italian')),
+    ('nb', gettext_noop('Norwegian Bokmål')),
+    ('pl', gettext_noop('Polish')),
+    ('pt-pt', gettext_noop('Portuguese')),
+    ('ru', gettext_noop('Russian')),
+    ('nl-nl', gettext_noop('Netherlands Dutch')),
+    ('fi', gettext_noop('Finish')),
+    ('ga', gettext_noop('Galician'))
 ]
 
 
