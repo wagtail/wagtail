@@ -1,7 +1,5 @@
 from __future__ import absolute_import, unicode_literals
 
-from bs4 import BeautifulSoup
-
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
