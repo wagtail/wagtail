@@ -512,8 +512,8 @@ class TestPageCreation(TestCase, WagtailTestUtils):
     def test_create_simplepage(self):
         response = self.client.get(reverse('wagtailadmin_pages:add', args=('tests', 'simplepage', self.root_page.id)))
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, '<a href="#content" class="active">Content</a>')
-        self.assertContains(response, '<a href="#promote" class="">Promote</a>')
+        self.assertContains(response, '<a href="#tab-content" class="active">Content</a>')
+        self.assertContains(response, '<a href="#tab-promote" class="">Promote</a>')
 
     def test_create_multipart(self):
         """
@@ -538,8 +538,8 @@ class TestPageCreation(TestCase, WagtailTestUtils):
             reverse('wagtailadmin_pages:add', args=('tests', 'standardindex', self.root_page.id))
         )
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, '<a href="#content" class="active">Content</a>')
-        self.assertNotContains(response, '<a href="#promote" class="">Promote</a>')
+        self.assertContains(response, '<a href="#tab-content" class="active">Content</a>')
+        self.assertNotContains(response, '<a href="#tab-promote" class="">Promote</a>')
 
     def test_create_page_with_custom_tabs(self):
         """
@@ -549,9 +549,9 @@ class TestPageCreation(TestCase, WagtailTestUtils):
             reverse('wagtailadmin_pages:add', args=('tests', 'standardchild', self.root_page.id))
         )
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, '<a href="#content" class="active">Content</a>')
-        self.assertContains(response, '<a href="#promote" class="">Promote</a>')
-        self.assertContains(response, '<a href="#dinosaurs" class="">Dinosaurs</a>')
+        self.assertContains(response, '<a href="#tab-content" class="active">Content</a>')
+        self.assertContains(response, '<a href="#tab-promote" class="">Promote</a>')
+        self.assertContains(response, '<a href="#tab-dinosaurs" class="">Dinosaurs</a>')
 
     def test_create_simplepage_bad_permissions(self):
         # Remove privileges from user

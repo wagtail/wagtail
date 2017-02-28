@@ -22,6 +22,7 @@ Changelog
  * Fix: Fixed placement of `{{ block.super }}` in `snippets/type_index.html` (LB (Ben Johnston))
  * Fix: Optimised database queries on group edit page (Ashia Zawaduk)
  * Fix: Choosing a popular search term for promoted search results now works correctly after pagination (Janneke Janssen)
+ * Fix: IDs used in tabbed interfaces are now namespaced to avoid collisions with other page elements (Janneke Janssen)
 
 
 1.9 (16.02.2017)

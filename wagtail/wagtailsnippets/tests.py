@@ -133,8 +133,8 @@ class TestSnippetCreateView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailsnippets/snippets/create.html')
         self.assertNotContains(response, '<ul class="tab-nav merged">')
-        self.assertNotContains(response, '<a href="#advert" class="active">Advert</a>', html=True)
-        self.assertNotContains(response, '<a href="#other" class="">Other</a>', html=True)
+        self.assertNotContains(response, '<a href="#tab-advert" class="active">Advert</a>', html=True)
+        self.assertNotContains(response, '<a href="#tab-other" class="">Other</a>', html=True)
 
     def test_snippet_with_tabbed_interface(self):
         response = self.client.get(reverse('wagtailsnippets:add',
@@ -143,8 +143,8 @@ class TestSnippetCreateView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailsnippets/snippets/create.html')
         self.assertContains(response, '<ul class="tab-nav merged">')
-        self.assertContains(response, '<a href="#advert" class="active">Advert</a>', html=True)
-        self.assertContains(response, '<a href="#other" class="">Other</a>', html=True)
+        self.assertContains(response, '<a href="#tab-advert" class="active">Advert</a>', html=True)
+        self.assertContains(response, '<a href="#tab-other" class="">Other</a>', html=True)
 
     def test_create_invalid(self):
         response = self.post(post_data={'foo': 'bar'})
@@ -275,8 +275,8 @@ class TestEditTabbedSnippet(BaseTestSnippetEditView):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailsnippets/snippets/edit.html')
         self.assertContains(response, '<ul class="tab-nav merged">')
-        self.assertContains(response, '<a href="#advert" class="active">Advert</a>', html=True)
-        self.assertContains(response, '<a href="#other" class="">Other</a>', html=True)
+        self.assertContains(response, '<a href="#tab-advert" class="active">Advert</a>', html=True)
+        self.assertContains(response, '<a href="#tab-other" class="">Other</a>', html=True)
 
 
 class TestEditFileUploadSnippet(BaseTestSnippetEditView):
