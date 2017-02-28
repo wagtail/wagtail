@@ -8,8 +8,16 @@
             There are {{ counter }} matches
         {% endblocktrans %}
         </h2>
-        
+
         {% search_other %}
+    {% else %}
+        <h2>
+            {% if current_collection %}
+                {% trans 'Latest from ' %}'{{ current_collection }}'
+            {% else %}
+                {% trans 'Latest from all collections' %}
+            {% endif %}
+        </h2>
     {% endif %}
 
     {% include "wagtaildocs/documents/list.html" %}
@@ -18,7 +26,7 @@
 {% else %}
     {% if is_searching %}
          <h2>{% blocktrans %}Sorry, no documents match "<em>{{ query_string }}</em>"{% endblocktrans %}</h2>
-         
+
          {% search_other %}
     {% else %}
         {% url 'wagtaildocs:add_multiple' as wagtaildocs_add_document_url %}

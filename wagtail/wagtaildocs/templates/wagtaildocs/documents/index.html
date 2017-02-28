@@ -36,10 +36,8 @@
 
     <div class="nice-padding">
         {% if collections %}
-            <form class="image-search search-bar" action="{% url 'wagtaildocs:index' %}" method="GET" novalidate>
-                <div id="collection-chooser">
-                    {{ collection_chooser }}
-                </div>
+            <form class="collection-filter" action="{% url 'wagtaildocs:index' %}" method="GET" novalidate>
+                {{ collection_chooser }}
             </form>
         {% endif %}
 

@@ -81,8 +81,8 @@ def index(request):
             'popular_tags': popular_tags_for_model(Image),
             'collections': collections,
             'current_collection': current_collection,
-            'collection_chooser': collection_chooser_form_factory(required=False, can_choose_root=True)(
-                initial={'collection': current_collection or None}
+            'collection_chooser': collection_chooser_form_factory(label="", required=False, can_choose_root=True)(
+                initial={'collection': current_collection}
             ),
             'user_can_add': permission_policy.user_has_permission(request.user, 'add'),
         })
