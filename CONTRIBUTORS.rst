@@ -207,6 +207,13 @@ Contributors
 * Matheus Bratfisch
 * Andy Chosak
 * Kevin Whinnery
+* Martey Dodoo
+* David Ray
+* Alasdair Nicol
+* Tobias McNulty
+* Vorlif
+* Kjartan Sverrisson
+* LB (Ben Johnston)
 * Daniel Chimeno
 
 Translators
