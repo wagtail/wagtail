@@ -1310,7 +1310,7 @@ class TestStructBlock(SimpleTestCase):
         self.assertEqual(result, """<h1 lang="fr">Bonjour</h1><div class="rich-text">monde <i>italique</i></div>""")
 
 
-class TestListBlock(SimpleTestCase, WagtailTestUtils):
+class TestListBlock(WagtailTestUtils, SimpleTestCase):
     def test_initialise_with_class(self):
         block = blocks.ListBlock(blocks.CharBlock)
 
@@ -1632,7 +1632,7 @@ class TestListBlock(SimpleTestCase, WagtailTestUtils):
         self.assertIn('value="chocolate"', form_html)
 
 
-class TestStreamBlock(SimpleTestCase, WagtailTestUtils):
+class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
     def test_initialisation(self):
         block = blocks.StreamBlock([
             ('heading', blocks.CharBlock()),
