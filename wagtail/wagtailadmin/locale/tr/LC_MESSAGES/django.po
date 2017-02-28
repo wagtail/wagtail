@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 22:44+0000\n"
-"PO-Revision-Date: 2016-12-06 22:46+0000\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2017-02-06 12:37+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
 "tr/)\n"
@@ -323,6 +323,9 @@ msgstr "Taşı"
 msgid "New"
 msgstr "Yeni"
 
+msgid "Add child page"
+msgstr "Alt sayfa ekle"
+
 msgid "Home"
 msgstr "Ana Sayfa"
 
@@ -434,30 +437,8 @@ msgstr "Sayfa '{0}' taşındı."
 msgid "Pages"
 msgstr "Sayfalar"
 
-msgid "Preview draft"
-msgstr "Taslak önizleme"
-
-msgid "Add child page"
-msgstr "Alt sayfa ekle"
-
-#, python-brace-format
-msgid "Add a child page to '{0}' "
-msgstr "'{0}' a bir alt sayfa ekle"
-
 msgid "More"
 msgstr "Daha fazla"
-
-msgid "View more options"
-msgstr "Daha fazla ayar görüntüle"
-
-msgid "Move this page"
-msgstr "Sayfayı taşı"
-
-msgid "Delete this page"
-msgstr "Sayfayı sil"
-
-msgid "Unpublish this page"
-msgstr "Sayfayı yayından kaldır"
 
 msgid "Choose an item"
 msgstr "Bir eleman seçiniz"

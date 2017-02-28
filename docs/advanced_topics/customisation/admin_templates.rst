@@ -142,6 +142,20 @@ To add extra fields to the login form, override the ``fields`` block. You will n
         </li>
     {% endblock %}
 
+``submit_buttons``
+------------------
+
+To add extra buttons to the login form, override the ``submit_buttons`` block. You will need to add ``{{ block.super }}`` somewhere in your block to include the sign in button:
+
+.. code-block:: html+django
+
+    {% extends "wagtailadmin/login.html" %}
+
+    {% block submit_buttons %}
+        {{ block.super }}
+        <a href="{% url 'signup' %}"><button type="button" class="button" tabindex="4">{% trans 'Sign up' %}</button></a>
+    {% endblock %}
+
 ``login_form``
 --------------
 

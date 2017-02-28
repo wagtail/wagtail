@@ -19,8 +19,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 22:44+0000\n"
-"PO-Revision-Date: 2016-12-06 22:46+0000\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2017-02-06 12:37+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
@@ -608,8 +608,8 @@ msgstr "Bekijk onderliggende pagina's van '%(title)s'"
 msgid "Add a child page to '%(title)s'"
 msgstr "Voeg een onderliggende pagina toe aan '%(title)s'"
 
-msgid "Add subpage"
-msgstr "Voeg onderliggende pagina toe"
+msgid "Add child page"
+msgstr "Voeg een onderliggende pagina toe"
 
 #, python-format
 msgid ""
@@ -846,9 +846,6 @@ msgstr "Pagina '{0}' is vergrendeld."
 #, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "Pagina '{0}' is ontgrendeld."
-
-msgid "Add child page"
-msgstr "Voeg een onderliggende pagina toe"
 
 msgid "Choose an item"
 msgstr "Kies een item"

@@ -3,8 +3,8 @@
 {% block titletag %}{% blocktrans with snippet_type_name_plural=model_opts.verbose_name_plural|capfirst %}Snippets {{ snippet_type_name_plural }}{% endblocktrans %}{% endblock %}
 
 {% block extra_js %}
+    {{ block.super }}
     <script>
-        {{ block.super }}
         window.headerSearch = {
             url: "{% url 'wagtailsnippets:list' model_opts.app_label model_opts.model_name %}",
             termInput: "#id_q",
@@ -17,8 +17,9 @@
 
     <header class="nice-padding">
         <div class="row row-flush">
-            <div class="left col9">
-                <h1 class="icon icon-snippet">{% blocktrans with snippet_type_name_plural=model_opts.verbose_name_plural|capfirst %}Snippets <span>{{ snippet_type_name_plural }}</span>{% endblocktrans %}</h1>
+            <div class="left col9 header-snippet">
+                <h1 class="icon icon-snippet">
+                {% blocktrans with snippet_type_name_plural=model_opts.verbose_name_plural|capfirst %}Snippets <span>{{ snippet_type_name_plural }}</span>{% endblocktrans %}</h1>
 
                 {% if is_searchable %}
                     <form class="col search-form" action="{% url 'wagtailsnippets:list' model_opts.app_label model_opts.model_name %}" method="get" novalidate>

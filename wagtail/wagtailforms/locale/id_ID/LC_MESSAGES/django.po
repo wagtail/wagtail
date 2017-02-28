@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 22:44+0000\n"
-"PO-Revision-Date: 2016-09-22 15:05+0000\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2017-02-06 12:41+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
 "wagtail/language/id_ID/)\n"
@@ -21,14 +21,7 @@ msgstr ""
 msgid "Date"
 msgstr "Tanggal"
 
-#, python-format
-msgid "Delete %(title)s"
-msgstr "Hapus %(title)s"
-
 msgid "Delete"
-msgstr "Hapus"
-
-msgid "Delete it"
 msgstr "Hapus"
 
 msgid "Title"

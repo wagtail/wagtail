@@ -1,9 +1,33 @@
 Changelog
 =========
 
-1.9 (xx.xx.xxxx) - IN DEVELOPMENT
+1.10 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~
+
+ * Dropped Django 1.9 and Python 3.3 support; note that Django 1.8.x is still supported
+ * Use minified versions of jQuery and jQuery UI in the admin. Total savings without compression 371 KB (Tom Dyson)
+ * Hooks can now specify the order in which they are run (Gagaro)
+ * Added a `submit_buttons` block to login template (Gagaro)
+ * Added `construct_image_chooser_queryset`, `construct_document_chooser_queryset` and `construct_page_chooser_queryset` hooks (Gagaro)
+ * The homepage created in the project template is now titled "Home" rather than "Homepage" (Karl Hobley)
+ * Signal receivers for custom `Image` and `Rendition` models are connected automatically (Mike Dingjan)
+ * `PageChooserBlock` can now accept a list/tuple of page models as `target_model` (Mikalai Radchuk)
+ * Styling tweaks for the ModelAdmin's `IndexView` to be more inline with the Wagtail styleguide (Andy Babic)
+ * Added `.nvmrc` to the project root for Node versioning support (Janneke Janssen)
+ * Added `form_fields_exclude` property to ModelAdmin views (Matheus Bratfisch)
+ * User creation / edit form now enforces password validators set in `AUTH_PASSWORD_VALIDATORS` (Bertrand Bordage)
+ * Fix: Marked 'Date from' / 'Date to' strings in wagtailforms for translation (Vorlif)
+ * Fix: Unreliable preview is now reliable by always opening in a new window (Kjartan Sverrisson)
+ * Fix: Fixed placement of `{{ block.super }}` in `snippets/type_index.html` (LB (Ben Johnston))
+ * Fix: Optimised database queries on group edit page (Ashia Zawaduk)
+ * Fix: Choosing a popular search term for promoted search results now works correctly after pagination (Janneke Janssen)
+
+
+1.9 (16.02.2017)
 ~~~~~~~~~~~~~~~~
 
+ * Added support for comparing page revisions (Karl Hobley, Janneke Janssen, Matt Westcott)
+ * Added support for many-to-many relations on page models (Thejaswi Puthraya, Matt Westcott)
  * Form builder form submissions can now be bulk-deleted (Karl Hobley)
  * `get_context` methods on StreamField blocks can now access variables from the parent context (Mikael Svensson, Peter Baumgartner)
  * Updated admin dashboard welcome message for multi-tenanted installations (Jeffrey Chau)
@@ -15,9 +39,12 @@ Changelog
  * The `add_subpage` view now maintains a `next` URL parameter to specify where to redirect to after completing page creation (Robert Rollins)
  * The `wagtailforms` module now allows to define custom form submission model, add custom data to CSV export and some other customisations (Mikalai Radchuk)
  * The Webpack configuration is now in a subfolder, and uses env-specific configurations (Janneke Janssen, Thibaud Colas)
+ * Added page titles to title text on action buttons in the explorer, for improved accessibility (Matt Westcott)
  * Fix: Help text for StreamField is now visible and does not cover block controls (Stein Strindhaug)
  * Fix: "X minutes ago" timestamps are now marked for translation (Janneke Janssen, Matt Westcott)
  * Fix: Avoid indexing unsaved field content on `save(update_fields=[...])` operations (Matt Westcott)
+ * Fix: Corrected ordering of arguments passed to ModelAdmin `get_extra_class_names_for_field_col` / `get_extra_attrs_for_field_col` methods (Andy Babic)
+ * `pageurl` / `slugurl` tags now function when request.site is not available (Tobias McNulty, Matt Westcott)
 
 
 1.8.1 (26.01.2017)

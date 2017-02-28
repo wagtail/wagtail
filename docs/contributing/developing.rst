@@ -15,7 +15,10 @@ If you'd prefer to set up all the components manually, read on. These instructio
 Setting up the Wagtail codebase
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Install Node.js, version 4.x, 5.x or 6.x. Instructions for installing Node.js can be found on the `Node.js download page <https://nodejs.org/download/>`_. You will also need to install the **libjpeg** and **zlib** libraries, if you haven't done so already - see Pillow's `platform-specific installation instructions <http://pillow.readthedocs.org/en/latest/installation.html#external-libraries>`_.
+Install Node.js, version 4.x, 5.x or 6.x. Instructions for installing Node.js can be found on the `Node.js download page <https://nodejs.org/download/>`_.
+You can also use Node version manager (nvm) since Wagtail supplies a ``.nvmrc`` file in the root of the project with the minimum required Node version - see nvm's `installation instructions <https://github.com/creationix/nvm>`_.
+
+You will also need to install the **libjpeg** and **zlib** libraries, if you haven't done so already - see Pillow's `platform-specific installation instructions <http://pillow.readthedocs.org/en/latest/installation.html#external-libraries>`_.
 
 Clone a copy of `the Wagtail codebase <https://github.com/wagtail/wagtail>`_:
 
@@ -29,6 +32,12 @@ With your preferred virtualenv activated, install the Wagtail package in develop
 .. code-block:: console
 
     $ pip install -e .[testing,docs] -U
+
+Install Node through nvm (optional):
+
+.. code-block:: console
+
+    $ nvm install
 
 Install the tool chain for building static assets:
 
@@ -57,13 +66,21 @@ From the root of the Wagtail codebase, run the following command to run all the 
 
 **Running only some of the tests**
 
-At the time of writing, Wagtail has well over 1000 tests, which takes a while to
+At the time of writing, Wagtail has well over 2500 tests, which takes a while to
 run. You can run tests for only one part of Wagtail by passing in the path as
 an argument to ``runtests.py``:
 
 .. code-block:: console
 
     $ python runtests.py wagtail.wagtailcore
+
+You can also run tests for individual TestCases by passing in the path as
+an argument to ``runtests.py``
+
+.. code-block:: console
+
+    $ python runtests.py wagtail.wagtailcore.tests.test_blocks.TestIntegerBlock
+
 
 **Testing against PostgreSQL**
 
@@ -108,6 +125,36 @@ If your Elasticsearch instance is located somewhere else, you can set the
 
     $ ELASTICSEARCH_URL=http://my-elasticsearch-instance:9200 python runtests.py --elasticsearch
 
+**Browser and device support**
+
+Wagtail is meant to be used on a wide variety of devices and browsers. Supported browser / device versions include:
+
+=============  =============  =============
+Browser        Device/OS      Version(s)
+=============  =============  =============
+Mobile Safari  iOS Phone      Last 2
+Mobile Safari  iOS Tablet     Last 2
+Chrome         Android        Last 2
+IE             Desktop        11
+Chrome         Desktop        Last 2
+MS Edge        Desktop        Last 2
+Firefox        Desktop        Latest
+Firefox ESR    Desktop        Latest
+Safari         macOS          Last 2
+=============  =============  =============
+
+We aim for Wagtail to work in those environments. Our development standards ensure that the site is usable on other browsers **and will work on future browsers**. To test on IE, install virtual machines `made available by Microsoft <https://developer.microsoft.com/en-us/microsoft-edge/tools/vms/>`_.
+
+Unsupported browsers / devices include:
+
+=============  =============  =============
+Browser        Device/OS      Version(s)
+=============  =============  =============
+Stock browser  Android        All
+IE             Desktop        10 and below
+Safari         Windows        All
+=============  =============  =============
+
 Compiling static assets
 ~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -132,7 +179,7 @@ The Wagtail documentation is built by Sphinx. To install Sphinx and compile the 
 
 .. code-block:: console
 
-    $ cd /path/to/wagtail some text
+    $ cd /path/to/wagtail
     $ # Install the documentation dependencies
     $ pip install -e .[docs]
     $ # Compile the docs
@@ -163,3 +210,13 @@ To clear the built HTML and start fresh, so you can see all warnings thrown when
     $ cd docs/
     $ make clean
     $ make html
+
+Wagtail also provides a way for documentation to be compiled automatically on each change.
+To do this, you can run the following command to see the changes automatically at ``localhost:4000``:
+
+.. code-block:: console
+
+    $ cd docs/
+    $ make livehtml
+
+

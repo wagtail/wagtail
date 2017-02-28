@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 22:44+0000\n"
-"PO-Revision-Date: 2016-12-07 14:29+0000\n"
-"Last-Translator: Tiago Henriques <trinosauro@gmail.com>\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2017-02-06 12:37+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
@@ -773,7 +773,7 @@ msgstr "Explorar as páginas-filha de '%(title)s'"
 msgid "Add a child page to '%(title)s'"
 msgstr "Adicionar página-filha a %(title)s"
 
-msgid "Add subpage"
+msgid "Add child page"
 msgstr "Adicionar página-filha"
 
 #, python-format
@@ -1161,33 +1161,8 @@ msgstr ""
 msgid "Pages"
 msgstr "Páginas"
 
-msgid "Preview draft"
-msgstr "Visualizar rascunho"
-
-msgid "Add child page"
-msgstr "Adicionar página-filha"
-
-#, python-brace-format
-msgid "Add a child page to '{0}' "
-msgstr "Adicionar página-filha a '{0}'"
-
 msgid "More"
 msgstr "Mais"
-
-msgid "View more options"
-msgstr "Ver mais opções"
-
-msgid "Move this page"
-msgstr "Mover esta página"
-
-msgid "Delete this page"
-msgstr "Apagar esta página"
-
-msgid "Unpublish this page"
-msgstr "Despublicar esta página"
-
-msgid "View this page's revision history"
-msgstr "Ver o histórico de versões desta página"
 
 msgid "Choose an item"
 msgstr "Escolher um item"

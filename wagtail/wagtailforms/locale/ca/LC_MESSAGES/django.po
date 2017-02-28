@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 22:44+0000\n"
-"PO-Revision-Date: 2016-09-22 15:05+0000\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2017-02-06 12:41+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
@@ -67,9 +67,6 @@ msgstr "text d'ajuda"
 msgid "Delete"
 msgstr "Esborrar"
 
-msgid "Delete it"
-msgstr "Esborrar això"
-
 msgid "Forms"
 msgstr "Formularis"
 
@@ -81,12 +78,6 @@ msgstr "Títol"
 
 msgid "Origin"
 msgstr "Orígen"
-
-msgid "Actions"
-msgstr "Accions"
-
-msgid "delete"
-msgstr "esborrar"
 
 msgid "No form pages have been created."
 msgstr "No s'han creat pàgines de formulari"

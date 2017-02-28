@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 22:44+0000\n"
-"PO-Revision-Date: 2016-12-06 22:46+0000\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2017-02-06 12:37+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
@@ -768,7 +768,7 @@ msgstr "Bekijk de onderliggende pagina's van '%(title)s'"
 msgid "Add a child page to '%(title)s'"
 msgstr "Voeg een onderliggende pagina toe aan '%(title)s'"
 
-msgid "Add subpage"
+msgid "Add child page"
 msgstr "Voeg onderliggende pagina toe"
 
 #, python-format
@@ -1138,33 +1138,8 @@ msgstr ""
 msgid "Pages"
 msgstr "Pagina's"
 
-msgid "Preview draft"
-msgstr "Bekijk voorbeeld van concept"
-
-msgid "Add child page"
-msgstr "Voeg onderliggende pagina toe"
-
-#, python-brace-format
-msgid "Add a child page to '{0}' "
-msgstr "Voeg een onderliggende pagina toe aan '{0}'"
-
 msgid "More"
 msgstr "Meer"
-
-msgid "View more options"
-msgstr "Bekijk meer opties"
-
-msgid "Move this page"
-msgstr "Verplaats deze pagina"
-
-msgid "Delete this page"
-msgstr "Verwijder deze pagina"
-
-msgid "Unpublish this page"
-msgstr "Maak de publicatie ongedaan van deze pagina"
-
-msgid "View this page's revision history"
-msgstr "Bekijk de versiegeschiedenis van deze pagina"
 
 msgid "Choose an item"
 msgstr "Kies een item"

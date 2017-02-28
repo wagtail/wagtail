@@ -23,6 +23,21 @@ Alternatively, ``hooks.register`` can be called as an ordinary function, passing
 
   hooks.register('name_of_hook', my_hook_function)
 
+If you need your hooks to run in a particular order, you can pass the ``order`` parameter:
+
+.. code-block:: python
+
+  @hooks.register('name_of_hook', order=1)  # This will run after every hook in the wagtail core
+  def my_hook_function(arg1, arg2...)
+      # your code here
+
+  @hooks.register('name_of_hook', order=-1)  # This will run before every hook in the wagtail core
+  def my_other_hook_function(arg1, arg2...)
+      # your code here
+
+  @hooks.register('name_of_hook', order=2)  # This will run after `my_hook_function`
+  def yet_another_hook_function(arg1, arg2...)
+      # your code here
 
 The available hooks are listed below.
 
@@ -496,6 +511,66 @@ Hooks for customising the way users are directed through the process of creating
         return items.append( UserbarPuppyLinkItem() )
 
 
+Choosers
+--------
+
+.. _construct_page_chooser_queryset:
+
+``construct_page_chooser_queryset``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Called when rendering the page chooser view, to allow the page listing queryset to be customised. The callable passed into the hook will receive the current page queryset and the request object, and must return a Page queryset (either the original one, or a new one).
+
+  .. code-block:: python
+
+    from wagtail.wagtailcore import hooks
+
+    @hooks.register('construct_page_chooser_queryset')
+    def show_my_pages_only(pages, request):
+        # Only show own pages
+        pages = pages.filter(owner=request.user)
+
+        return pages
+
+
+.. _construct_document_chooser_queryset:
+
+``construct_document_chooser_queryset``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Called when rendering the document chooser view, to allow the document listing queryset to be customised. The callable passed into the hook will receive the current document queryset and the request object, and must return a Document queryset (either the original one, or a new one).
+
+  .. code-block:: python
+
+    from wagtail.wagtailcore import hooks
+
+    @hooks.register('construct_document_chooser_queryset')
+    def show_my_uploaded_documents_only(documents, request):
+        # Only show uploaded documents
+        documents = documents.filter(uploaded_by=request.user)
+
+        return documents
+
+
+.. _construct_image_chooser_queryset:
+
+``construct_image_chooser_queryset``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Called when rendering the image chooser view, to allow the image listing queryset to be customised. The callable passed into the hook will receive the current image queryset and the request object, and must return a Document queryset (either the original one, or a new one).
+
+  .. code-block:: python
+
+    from wagtail.wagtailcore import hooks
+
+    @hooks.register('construct_image_chooser_queryset')
+    def show_my_uploaded_images_only(images, request):
+        # Only show uploaded images
+        images = images.filter(uploaded_by=request.user)
+
+        return images
+
+
 Page explorer
 -------------
 
@@ -541,6 +616,30 @@ Page explorer
         )
 
   The ``priority`` argument controls the order the buttons are displayed in. Buttons are ordered from low to high priority, so a button with ``priority=10`` will be displayed before a button with ``priority=20``.
+
+
+.. register_page_listing_more_buttons:
+
+``register_page_listing_more_buttons``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Add buttons to the "More" dropdown menu for a page in the page explorer. This works similarly to the ``register_page_listing_buttons`` hook but is useful for lesser-used custom actions that are better suited for the dropdown.
+  
+  This example will add a simple button to the dropdown menu:
+
+  .. code-block:: python
+
+    from wagtail.wagtailadmin import widgets as wagtailadmin_widgets
+
+    @hooks.register('register_page_listing_more_buttons')
+    def page_listing_more_buttons(page, page_perms, is_parent=False):
+        yield wagtailadmin_widgets.PageListingButton(
+            'A dropdown button',
+            '/goes/to/a/url/',
+            priority=10
+        )
+
+  The ``priority`` argument controls the order the buttons are displayed in the dropdown. Buttons are ordered from low to high priority, so a button with ``priority=10`` will be displayed before a button with ``priority=20``.
 
 
 Buttons with dropdown lists

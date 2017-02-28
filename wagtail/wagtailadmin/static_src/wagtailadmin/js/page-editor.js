@@ -367,11 +367,7 @@ $(function() {
         e.preventDefault();
         var $this = $(this);
 
-        if (previewWindow) {
-            previewWindow.close();
-        }
-
-        previewWindow = window.open($this.data('placeholder'), $this.data('windowname'));
+        previewWindow = window.open($this.data('placeholder'));
 
         if (previewWindow.addEventListener) {
             previewWindow.addEventListener('load', function() {

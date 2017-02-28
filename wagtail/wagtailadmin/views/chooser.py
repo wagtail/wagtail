@@ -8,6 +8,7 @@ from django.shortcuts import get_object_or_404, render
 from wagtail.utils.pagination import paginate
 from wagtail.wagtailadmin.forms import EmailLinkChooserForm, ExternalLinkChooserForm, SearchForm
 from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
+from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.utils import resolve_model_string
 
@@ -75,6 +76,10 @@ def browse(request, parent_page_id=None):
     # Get children of parent page
     pages = parent_page.get_children()
 
+    # allow hooks to modify the queryset
+    for hook in hooks.get_hooks('construct_page_chooser_queryset'):
+        pages = hook(pages, request)
+
     # Filter them by page type
     if desired_classes != (Page,):
         # restrict the page listing to just those pages that:
@@ -131,15 +136,20 @@ def search(request, parent_page_id=None):
     except (ValueError, LookupError):
         raise Http404
 
+    pages = Page.objects.all()
+    # allow hooks to modify the queryset
+    for hook in hooks.get_hooks('construct_page_chooser_queryset'):
+        pages = hook(pages, request)
+
     search_form = SearchForm(request.GET)
     if search_form.is_valid() and search_form.cleaned_data['q']:
-        pages = Page.objects.exclude(
+        pages = pages.exclude(
             depth=1  # never include root
         )
         pages = filter_page_type(pages, desired_classes)
         pages = pages.search(search_form.cleaned_data['q'], fields=['title'])
     else:
-        pages = Page.objects.none()
+        pages = pages.none()
 
     paginator, pages = paginate(request, pages, per_page=25)
 

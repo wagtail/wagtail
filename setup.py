@@ -22,7 +22,7 @@ except ImportError:
 
 install_requires = [
     "Django>=1.8.1,<1.11",
-    "django-modelcluster==3.0a1",
+    "django-modelcluster>=3.0,<4.0",
     "django-taggit>=0.20,<1.0",
     "django-treebeard>=3.0,<5.0",
     "djangorestframework>=3.1.3",
@@ -53,11 +53,11 @@ testing_extras = [
 
 # Documentation dependencies
 documentation_extras = [
-    'pyenchant==1.6.6',
+    'pyenchant==1.6.8',
     'sphinxcontrib-spelling>=2.3.0',
-    'Sphinx>=1.3.1',
-    'sphinx-autobuild>=0.5.2',
-    'sphinx_rtd_theme>=0.1.8',
+    'Sphinx>=1.5.2',
+    'sphinx-autobuild>=0.6.0',
+    'sphinx_rtd_theme>=0.1.9',
 ]
 
 setup(
@@ -81,12 +81,10 @@ setup(
         'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
         'Framework :: Django',
         'Framework :: Django :: 1.8',
-        'Framework :: Django :: 1.9',
         'Framework :: Django :: 1.10',
         'Topic :: Internet :: WWW/HTTP :: Site Management',
     ],

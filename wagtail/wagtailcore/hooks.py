@@ -1,11 +1,13 @@
 from __future__ import absolute_import, unicode_literals
 
+from operator import itemgetter
+
 from wagtail.utils.apps import get_app_submodules
 
 _hooks = {}
 
 
-def register(hook_name, fn=None):
+def register(hook_name, fn=None, order=0):
     """
     Register hook for ``hook_name``. Can be used as a decorator::
 
@@ -23,13 +25,13 @@ def register(hook_name, fn=None):
     # Pretend to be a decorator if fn is not supplied
     if fn is None:
         def decorator(fn):
-            register(hook_name, fn)
+            register(hook_name, fn, order=order)
             return fn
         return decorator
 
     if hook_name not in _hooks:
         _hooks[hook_name] = []
-    _hooks[hook_name].append(fn)
+    _hooks[hook_name].append((fn, order))
 
 
 _searched_for_hooks = False
@@ -43,5 +45,8 @@ def search_for_hooks():
 
 
 def get_hooks(hook_name):
+    """ Return the hooks function sorted by their order. """
     search_for_hooks()
-    return _hooks.get(hook_name, [])
+    hooks = _hooks.get(hook_name, [])
+    hooks = sorted(hooks, key=itemgetter(1))
+    return [hook[0] for hook in hooks]

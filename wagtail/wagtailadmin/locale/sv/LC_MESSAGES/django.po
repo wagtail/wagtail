@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# André Karlsson <andre@sess.se>, 2017
 # Hannes Lohmander <c.hannes.l@gmail.com>, 2015
 # Thomas Kunambi <kunambi@gmail.com>, 2016
 # Thomas Kunambi <kunambi@gmail.com>, 2015
@@ -10,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 22:44+0000\n"
-"PO-Revision-Date: 2016-12-06 22:46+0000\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2017-02-06 12:37+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
@@ -117,8 +118,14 @@ msgstr ""
 "Detta URL-fragment är redan i användning inom ramen för sin föräldrasida \"%s"
 "\""
 
+msgid "Visibility"
+msgstr "Synlighet"
+
 msgid "This field is required."
 msgstr "Det här fältet är obligatoriskt"
+
+msgid "Please select at least one group."
+msgstr "Vänligen välj minst en grupp"
 
 msgid "This slug is already in use"
 msgstr "URL-fragmentet är redan i användning"
@@ -193,6 +200,12 @@ msgstr "Kontrollera din mejl"
 
 msgid "A link to reset your password has been emailed to you."
 msgstr "En länk för att återställa ditt lösenord har mejlats till dig."
+
+msgid "Please follow the link below to reset your password:"
+msgstr "Vänligen följ länken för att återställa ditt lösenord: "
+
+msgid "Your username (in case you've forgotten):"
+msgstr "Ditt användarnamn(om du råkat glömma): "
 
 msgid "Password reset"
 msgstr "Återställ lösenord"
@@ -514,6 +527,12 @@ msgstr[1] ""
 "%(descendant_count)s undersidor.\n"
 "                "
 
+msgid "Yes, delete it"
+msgstr "Ja, ta bort"
+
+msgid "No, don't delete it"
+msgstr "Nej, ta inte bort"
+
 #, python-format
 msgid "Move %(title)s"
 msgstr "Flytta %(title)s"
@@ -548,6 +567,9 @@ msgstr "Är du säker på att du vill avpublicera denna sida?"
 
 msgid "Yes, unpublish it"
 msgstr "Ja, avpublicera den"
+
+msgid "No, don't unpublish"
+msgstr "Nej, avpublicera inte"
 
 msgid "Pages using"
 msgstr "Sidor som använder"
@@ -611,6 +633,9 @@ msgstr "Senast modifierad: %(last_mod)s"
 #, python-format
 msgid "by %(modified_by)s"
 msgstr "av %(modified_by)s"
+
+msgid "Revisions"
+msgstr "Revisioner"
 
 #, python-format
 msgid "Exploring %(title)s"
@@ -700,7 +725,7 @@ msgstr "Utforska undersidor till '%(title)s'"
 msgid "Add a child page to '%(title)s'"
 msgstr "Lägg till en undersida till '%(title)s'"
 
-msgid "Add subpage"
+msgid "Add child page"
 msgstr "Lägg till undersida"
 
 #, python-format
@@ -939,9 +964,6 @@ msgstr "Sida '{0}' är nu låst."
 #, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "Sida '{0}' är nu olåst."
-
-msgid "Add child page"
-msgstr "Lägg till undersida"
 
 msgid "Choose an item"
 msgstr "Välj ett objekt"

@@ -1,5 +1,6 @@
 from __future__ import absolute_import, unicode_literals
 
+import mock
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from django.test import TestCase
@@ -10,7 +11,7 @@ from wagtail.wagtailimages.models import Image
 from wagtail.wagtailimages.tests.utils import get_test_image_file
 
 
-class TestIndexView(TestCase, WagtailTestUtils):
+class TestBookIndexView(TestCase, WagtailTestUtils):
     fixtures = ['modeladmintest_test.json']
 
     def setUp(self):
@@ -47,7 +48,7 @@ class TestIndexView(TestCase, WagtailTestUtils):
         self.assertContains(response, 'data-object-pk="3"')
 
         # There should be two odd rows and two even ones, and 'book' should be
-        # add to the `class` attribute for every one.
+        # added to the `class` attribute for every one.
         self.assertContains(response, 'class="book odd"', count=2)
         self.assertContains(response, 'class="book even"', count=2)
 
@@ -96,6 +97,32 @@ class TestIndexView(TestCase, WagtailTestUtils):
 
         # There are four books in the test data
         self.assertEqual(response.context['result_count'], 4)
+
+
+class TestAuthorIndexView(TestCase, WagtailTestUtils):
+    fixtures = ['modeladmintest_test.json']
+
+    def setUp(self):
+        self.login()
+
+    def get(self, **params):
+        return self.client.get('/admin/modeladmintest/author/', params)
+
+    def test_col_extra_class_names(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        test_html = """
+            <td class="field-first_book for-author-1">The Lord of the Rings</td>
+        """
+        self.assertContains(response, test_html, html=True)
+
+    def test_col_extra_attributes(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        test_html = """
+            <td class="field-last_book" data-for_author="1">The Hobbit</td>
+        """
+        self.assertContains(response, test_html, html=True)
 
 
 class TestCreateView(TestCase, WagtailTestUtils):
@@ -154,6 +181,16 @@ class TestCreateView(TestCase, WagtailTestUtils):
 
         # Check that a form error was raised
         self.assertFormError(response, 'form', 'title', "This field is required.")
+
+    def test_exclude_passed_to_extract_panel_definitions(self):
+        path_to_form_fields_exclude_property = 'wagtail.contrib.modeladmin.options.ModelAdmin.form_fields_exclude'
+        with mock.patch('wagtail.contrib.modeladmin.views.extract_panel_definitions_from_model_class') as m:
+            with mock.patch(path_to_form_fields_exclude_property, new_callable=mock.PropertyMock) as mock_form_fields_exclude:
+                mock_form_fields_exclude.return_value = ['123']
+
+                self.get()
+                mock_form_fields_exclude.assert_called()
+                m.assert_called_with(Book, exclude=mock_form_fields_exclude.return_value)
 
 
 class TestInspectView(TestCase, WagtailTestUtils):
@@ -270,6 +307,16 @@ class TestEditView(TestCase, WagtailTestUtils):
 
         # Check that a form error was raised
         self.assertFormError(response, 'form', 'title', "This field is required.")
+
+    def test_exclude_passed_to_extract_panel_definitions(self):
+        path_to_form_fields_exclude_property = 'wagtail.contrib.modeladmin.options.ModelAdmin.form_fields_exclude'
+        with mock.patch('wagtail.contrib.modeladmin.views.extract_panel_definitions_from_model_class') as m:
+            with mock.patch(path_to_form_fields_exclude_property, new_callable=mock.PropertyMock) as mock_form_fields_exclude:
+                mock_form_fields_exclude.return_value = ['123']
+
+                self.get(1)
+                mock_form_fields_exclude.assert_called()
+                m.assert_called_with(Book, exclude=mock_form_fields_exclude.return_value)
 
 
 class TestPageSpecificViews(TestCase, WagtailTestUtils):
