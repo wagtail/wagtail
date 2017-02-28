@@ -310,8 +310,6 @@ class TestAccountSection(TestCase, WagtailTestUtils):
         # Check that the language preferences are stored
         self.assertEqual(profile.preferred_language, 'es')
 
-
-
     @override_settings(WAGTAILADMIN_PERMITTED_LANGUAGES=[('en', 'English'), ('es', 'Spanish')])
     def test_available_admin_languages_with_permitted_languages(self):
         self.assertListEqual(get_available_admin_languages(), [('en', 'English'), ('es', 'Spanish')])
