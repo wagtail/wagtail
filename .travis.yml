@@ -76,6 +76,8 @@ matrix:
      python: 3.5
      sudo: true
   allow_failures:
+    # Ignore failures on Elasticsearch tests because ES on Travis is intermittently flaky;
+    # ignore failures on Django 1.11 because we're still working on supporting it
     - env: TOXENV=py27-dj110-mysql-elasticsearch5 INSTALL_ELASTICSEARCH5=yes
     - env: TOXENV=py27-dj111-sqlite-noelasticsearch
     - env: TOXENV=py27-dj111-postgres-noelasticsearch
