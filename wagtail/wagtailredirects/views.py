@@ -32,8 +32,7 @@ def index(request):
     if ordering not in ['old_path']:
         ordering = 'old_path'
 
-    if ordering != 'old_path':
-        redirects = redirects.order_by(ordering)
+    redirects = redirects.order_by(ordering)
 
     # Pagination
     paginator, redirects = paginate(request, redirects)
