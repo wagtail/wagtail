@@ -1,0 +1,20 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n %}
+{% block titletag %}{% blocktrans with title=moving_collection.name %}Move {{ title }}{% endblocktrans %}{% endblock %}
+{% block content %}
+    {% trans "Move" as move_str %}
+    {% include "wagtailadmin/shared/header.html" with title=move_str subtitle=moving_collection.name icon="folder-open-1" %}
+
+    <div class="nice-padding">
+        {% if moving_collection.is_leaf %}
+            <p>{% blocktrans with title=destination_collection.name %}Are you sure you want to move this collection into '{{ title }}'?{% endblocktrans %}</p>
+        {% else %}
+            <p>{% blocktrans with title=destination_collection.name %}Are you sure you want to move this collection and all of its children into '{{ title }}'?{% endblocktrans %}</p>
+        {% endif %}
+
+        <form action="{% url 'wagtailadmin_collections:move_confirm' moving_collection.id destination_collection.id %}" method="POST">
+            {% csrf_token %}
+            <input type="submit" value="{% trans 'Yes, move this collection' %}" class="button">
+        </form>
+    </div>
+{% endblock %}
