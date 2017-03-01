@@ -88,13 +88,20 @@ def collection_listing_buttons(collection, collection_perms, is_parent=False):
         if is_parent:
             add_child_button.classes = {'button', 'button-small', 'bicolor', 'icon', 'white', 'icon-plus'}
         yield add_child_button
+    if collection_perms.can_move():
+        yield CollectionListingButton(
+            _('Move'),
+            reverse('wagtailadmin_collections:move_root', args=(collection.pk, )),
+            attrs={'title': _("Move '{name}'").format(name=collection.name)},
+            priority=30,
+        )
     if collection_perms.can_delete():
         yield CollectionListingButton(
             _('Delete'),
             reverse('wagtailadmin_collections:delete', args=(collection.pk,)),
             attrs={'title': _("Delete '{name}'").format(name=collection.name)},
             classes={'button', 'button-secondary', 'button-small', 'no'},
-            priority=30,
+            priority=40,
         )
 
 
