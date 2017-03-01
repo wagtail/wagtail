@@ -1,9 +1,10 @@
 from __future__ import absolute_import, unicode_literals
 
-from django.http import HttpResponseForbidden
+from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy
+from django.views import View
 
 from wagtail.utils.pagination import paginate
 from wagtail.wagtailadmin import messages
@@ -31,7 +32,7 @@ class CollectionPermissionMixin(object):
         collection = get_object_or_404(Collection, pk=instance_id)
         collection_perms = collection.permissions_for_user(request.user)
         if not self.check_permissions(collection_perms):
-            return HttpResponseForbidden()
+            raise PermissionDenied
         return super(CollectionPermissionMixin, self).dispatch(request, instance_id, *args, **kwargs)
 
 
@@ -280,8 +281,94 @@ class Delete(CollectionPermissionMixin, DeleteView):
 
         if collection_contents or descendant_contents:
             # collection or one of its descendants is non-empty; refuse to delete it
-            return HttpResponseForbidden()
+            raise PermissionDenied
 
         self.instance.delete()
         messages.success(request, self.success_message.format(self.instance))
         return redirect(self.index_url_name)
+
+
+class Move(View):
+    """Allow the user to select which collection they want to move to."""
+
+    def get(self, request, instance_id, viewed_collection_id=None):
+        moving_collection = get_object_or_404(Collection, id=instance_id)
+
+        collection_permissions = moving_collection.permissions_for_user(request.user)
+
+        if not collection_permissions.can_move():
+            raise PermissionDenied
+
+        if not viewed_collection_id:
+            # Find the root collection that the user has access to
+            viewed_collection = get_explorable_root_collection(request.user)
+        else:
+            viewed_collection = get_object_or_404(Collection, id=viewed_collection_id)
+
+        viewed_collection.can_choose = collection_permissions.can_move_to(viewed_collection)
+
+        paginator, collections = paginate(request, viewed_collection.get_children(), per_page=50)
+
+        for collection in collections:
+            collection.can_choose = collection_permissions.can_move_to(collection)
+
+        return render(
+            request,
+            'wagtailadmin/collections/move.html',
+            {
+                'moving_collection': moving_collection,
+                'parent_collection': viewed_collection,
+                'collections': collections,
+                'paginator': paginator,
+            }
+        )
+
+
+class MoveConfirm(View):
+    """Confirm that the user wants to move the collection. If so, move the collection in the tree."""
+
+    def get(self, request, instance_id, destination_id):
+        moving_collection = get_object_or_404(Collection, id=instance_id)
+        destination_collection = get_object_or_404(Collection, id=destination_id)
+
+        # Prevent the user from moving the collection somewhere they aren't allowed
+        permissions_tester = moving_collection.permissions_for_user(request.user)
+        if not permissions_tester.can_move_to(destination_collection):
+            raise PermissionDenied
+
+        return render(
+            request,
+            'wagtailadmin/collections/confirm_move.html',
+            {
+                'moving_collection': moving_collection,
+                'destination_collection': destination_collection
+            }
+        )
+
+    def post(self, request, instance_id, destination_id):
+        moving_collection = get_object_or_404(Collection, id=instance_id)
+        destination_collection = get_object_or_404(Collection, id=destination_id)
+
+        # Prevent the user from moving the collection somewhere they aren't allowed
+        permissions_tester = moving_collection.permissions_for_user(request.user)
+        if not permissions_tester.can_move_to(destination_collection):
+            raise PermissionDenied
+
+        # Move the collection in the tree
+        moving_collection.move(destination_collection, pos='last-child')
+
+        # Notify the user that the move was successful
+        messages.success(
+            request,
+            ugettext_lazy("Collection '{0}' moved.").format(moving_collection.name),
+            buttons=[
+                messages.button(
+                    reverse('wagtailadmin_collections:edit', args=(moving_collection.id,)),
+                    ugettext_lazy('Edit')
+                )
+            ]
+        )
+
+        # Redirect to the index view for the collection that was chosen as the destination
+        return redirect('wagtailadmin_collections:parent_index', destination_collection.id)
+
