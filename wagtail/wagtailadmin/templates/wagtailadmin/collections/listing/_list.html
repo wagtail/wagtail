@@ -15,9 +15,9 @@
             <tbody>
                 {% block content_before_list %}{% endblock %}
                 {% for collection in collections %}
-                    <tr>
+                    <tr class="{% block collection_row_classname %}{% endblock %}">
                         <td class="title">
-                            <h2 class="icon icon-folder-open-inverse">
+                            <h2>
                                 {% block listing_title %}
                                     {{ collection }}
                                 {% endblock %}

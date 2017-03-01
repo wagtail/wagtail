@@ -1,9 +1,9 @@
 {% extends "wagtailadmin/base.html" %}
 {% load i18n wagtailadmin_tags %}
 
-{% block bodyclass %}collection-move{% endblock %}
+{% block bodyclass %}collection-chooser{% endblock %}
 
-{% block titletag %}{% trans 'Moving' %} {{ parent_collection.name }} {% trans 'Collection' %}{% endblock %}
+{% block titletag %}{% blocktrans %}Moving {{ parent_collection.name }} Collection{% endblocktrans %}{% endblock %}
 
 {% block content %}
     {% include 'wagtailadmin/shared/header.html' with title=_('Select new parent collection for ') subtitle=moving_collection icon='folder-open-1' %}

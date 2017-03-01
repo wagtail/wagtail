@@ -746,5 +746,13 @@ td.ord {
         .children {
             width: 12em;
         }
+
+        .title {
+            h2 {
+                a::before {
+                   padding-right: 0.7em;
+                }
+            }
+        }
     }
 }
