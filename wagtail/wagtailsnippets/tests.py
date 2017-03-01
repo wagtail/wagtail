@@ -54,6 +54,16 @@ class TestSnippetListView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailsnippets/snippets/type_index.html')
 
+    def test_ordering(self):
+        """
+        Listing should be ordered by PK if no ordering has been set on the model
+        """
+        for i in range(10, 0, -1):
+            Advert.objects.create(pk=i, text="advert %d" % i)
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['items'][0].text, "advert 1")
+
     def test_simple_pagination(self):
 
         pages = ['0', '1', '-1', '9999', 'Not a page']
@@ -67,6 +77,28 @@ class TestSnippetListView(TestCase, WagtailTestUtils):
 
     def test_not_searchable(self):
         self.assertFalse(self.get().context['is_searchable'])
+
+
+class TestModelOrdering(TestCase, WagtailTestUtils):
+    def setUp(self):
+        for i in range(1, 10):
+            AdvertWithTabbedInterface.objects.create(text="advert %d" % i)
+        AdvertWithTabbedInterface.objects.create(text="aaaadvert")
+        self.login()
+
+    def test_listing_respects_model_ordering(self):
+        response = self.client.get(
+            reverse('wagtailsnippets:list', args=('tests', 'advertwithtabbedinterface'))
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['items'][0].text, "aaaadvert")
+
+    def test_chooser_respects_model_ordering(self):
+        response = self.client.get(
+            reverse('wagtailsnippets:choose', args=('tests', 'advertwithtabbedinterface'))
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['items'][0].text, "aaaadvert")
 
 
 class TestSnippetListViewWithSearchableSnippet(TestCase, WagtailTestUtils):
@@ -429,6 +461,17 @@ class TestSnippetChoose(TestCase, WagtailTestUtils):
     def test_simple(self):
         response = self.get()
         self.assertTemplateUsed(response, 'wagtailsnippets/chooser/choose.html')
+
+    def test_ordering(self):
+        """
+        Listing should be ordered by PK if no ordering has been set on the model
+        """
+        Advert.objects.all().delete()
+        for i in range(10, 0, -1):
+            Advert.objects.create(pk=i, text="advert %d" % i)
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['items'][0].text, "advert 1")
 
     def test_simple_pagination(self):
 

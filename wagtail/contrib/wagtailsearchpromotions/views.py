@@ -24,7 +24,7 @@ def index(request):
     is_searching = False
     query_string = request.GET.get('q', "")
 
-    queries = Query.objects.filter(editors_picks__isnull=False).distinct()
+    queries = Query.objects.filter(editors_picks__isnull=False).distinct().order_by('query_string')
 
     # Search
     if query_string:

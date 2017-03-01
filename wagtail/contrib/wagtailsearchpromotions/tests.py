@@ -138,6 +138,24 @@ class TestSearchPromotionsIndexView(TestCase, WagtailTestUtils):
         # Check that we got the last page
         self.assertEqual(response.context['queries'].number, response.context['queries'].paginator.num_pages)
 
+    def test_results_are_ordered_alphabetically(self):
+        self.make_search_picks()
+        SearchPromotion.objects.create(
+            query=Query.get("aaargh snake"),
+            page_id=1,
+            sort_order=0,
+            description="ooh, it's a snake",
+        )
+
+        response = self.client.get(reverse('wagtailsearchpromotions:index'))
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailsearchpromotions/index.html')
+
+        # "aargh snake" should be the first result alphabetically
+        self.assertEqual(response.context['queries'][0].query_string, "aaargh snake")
+
 
 class TestSearchPromotionsAddView(TestCase, WagtailTestUtils):
     def setUp(self):

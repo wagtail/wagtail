@@ -535,6 +535,9 @@ class AdvertWithTabbedInterface(models.Model):
     def __str__(self):
         return self.text
 
+    class Meta:
+        ordering = ('text',)
+
 
 register_snippet(AdvertWithTabbedInterface)
 
