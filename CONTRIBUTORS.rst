@@ -215,6 +215,7 @@ Contributors
 * Kjartan Sverrisson
 * LB (Ben Johnston)
 * Christine Ho
+* Trent Holliday
 
 Translators
 ===========
