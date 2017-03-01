@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
 
 import logging
@@ -11,6 +12,7 @@ from django.db.models import Count, Q
 from django.shortcuts import redirect
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext as _
+from django.utils.translation import gettext_lazy, override
 from modelcluster.fields import ParentalKey
 from taggit.models import Tag
 
@@ -18,6 +20,30 @@ from wagtail.wagtailcore.models import GroupPagePermission, Page, PageRevision
 from wagtail.wagtailusers.models import UserProfile
 
 logger = logging.getLogger('wagtail.admin')
+
+# Wagtail languages with >=90% coverage
+# This list is manually maintained
+WAGTAILADMIN_PROVIDED_LANGUAGES = [
+    ('en', _('English')),
+    ('de', gettext_lazy('German')),
+    ('pt-br', gettext_lazy('Brazilian Portuguese')),
+    ('es', gettext_lazy('Spanish')),
+    ('ro', gettext_lazy('Romanian')),
+    ('fr', gettext_lazy('French')),
+    ('is-is', gettext_lazy('Icelandic')),
+    ('it', gettext_lazy('Italian')),
+    ('nb', gettext_lazy('Norwegian Bokmål')),
+    ('pl', gettext_lazy('Polish')),
+    ('pt-pt', gettext_lazy('Portuguese')),
+    ('ru', gettext_lazy('Russian')),
+    ('nl-nl', gettext_lazy('Netherlands Dutch')),
+    ('fi', gettext_lazy('Finish')),
+    ('ga', gettext_lazy('Galician'))
+]
+
+
+def get_available_admin_languages():
+    return getattr(settings, 'WAGTAILADMIN_PERMITTED_LANGUAGES', WAGTAILADMIN_PROVIDED_LANGUAGES)
 
 
 def get_object_usage(obj):
@@ -216,9 +242,11 @@ def send_notification(page_revision_id, notification, excluded_user_id):
             # update context with this recipient
             context["user"] = recipient
 
-            # Get email subject and content
-            email_subject = render_to_string(template_subject, context).strip()
-            email_content = render_to_string(template_text, context).strip()
+            # Translate text to the recipient language settings
+            with override(recipient.wagtail_userprofile.get_preferred_language()):
+                # Get email subject and content
+                email_subject = render_to_string(template_subject, context).strip()
+                email_content = render_to_string(template_text, context).strip()
 
             kwargs = {}
             if getattr(settings, 'WAGTAILADMIN_NOTIFICATION_USE_HTML', False):

@@ -17,6 +17,26 @@ The Wagtail admin backend has been translated into many different languages. You
 
 If your language isn't listed on that page, you can easily contribute new languages or correct mistakes. Sign up and submit changes to `Transifex <https://www.transifex.com/torchbox/wagtail/>`_. Translation updates are typically merged into an official release within one month of being submitted.
 
+Change Wagtail admin language on a per user basis
+=================================================
+.. versionadded:: 1.10
+
+
+Logged users can set their preferred language from ``/admin/account/``.
+By default, Wagtail provides a list of languages that have a coverage >= 90% translation.
+It is possible to override this list by adding a setting configuration.
+
+Example:
+
+.. code-block:: python
+
+    from django.conf import settings
+    WAGTAILADMIN_PERMITTED_LANGUAGES = [ ('en' , 'English'), ('pt', 'Portuguese') ]
+
+In case there is zero or one language permitted, the form will be hidden.
+
+If there is no language selected either by the user or by the Site Administrator, the ``LANGUAGE_CODE`` wil be used.
+
 
 Changing the primary language of your Wagtail installation
 ==========================================================

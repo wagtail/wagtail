@@ -214,6 +214,9 @@ Contributors
 * Vorlif
 * Kjartan Sverrisson
 * LB (Ben Johnston)
+* Daniel Chimeno
+
+
 
 Translators
 ===========
