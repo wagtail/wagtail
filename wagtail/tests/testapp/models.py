@@ -466,7 +466,7 @@ FormPageWithCustomSubmission.content_panels = [
 
 
 class FormFieldWithCustomSubmission(AbstractFormField):
-    page = ParentalKey(FormPageWithCustomSubmission, related_name='custom_form_fields')
+    page = ParentalKey(FormPageWithCustomSubmission, on_delete=models.CASCADE, related_name='custom_form_fields')
 
 
 class CustomFormPageSubmission(AbstractFormSubmission):
