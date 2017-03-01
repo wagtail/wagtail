@@ -49,6 +49,8 @@ testing_extras = [
     'coverage>=3.7.0',
     'flake8>=2.2.0',
     'isort>=4.2.0',
+    'flake8-blind-except==0.1.1',
+    'flake8-print==2.0.2',
 ]
 
 # Documentation dependencies
