@@ -24,6 +24,8 @@ Third-party tutorials
 * `Wagtail notes: dynamic templates per page <http://www.coactivate.org/projects/ejucovy/blog/2014/05/10/wagtail-notes-dynamic-templates-per-page/>`_ (10 May 2014)
 * `Wagtail notes: type-constrained PageChooserPanel <http://www.coactivate.org/projects/ejucovy/blog/2014/05/09/wagtail-notes-type-constrained-pagechooserpanel/>`_ (9 May 2014)
 
+You can also find more resources from the community on `Awesome Wagtail <https://github.com/springload/awesome-wagtail>`_.
+
 .. tip::
 
     We are working on a collection of Wagtail tutorials and best practices. Please tweet `@WagtailCMS <https://twitter.com/WagtailCMS>`_ or `contact us directly <mailto:hello@wagtail.io>`_ to share your Wagtail HOWTOs, development notes or site launches.
