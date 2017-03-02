@@ -866,7 +866,7 @@ class InspectView(InstanceSpecificView):
             if isinstance(val, AbstractImage):
                 # Render a rendition of the image
                 return self.get_image_field_display(field_name, field)
-        except ImportError:
+        except RuntimeError:
             pass
 
         # wagtail.wagtaildocuments might not be installed
@@ -875,7 +875,7 @@ class InspectView(InstanceSpecificView):
             if isinstance(val, AbstractDocument):
                 # Render a link to the document
                 return self.get_document_field_display(field_name, field)
-        except ImportError:
+        except RuntimeError:
             pass
 
         # Resort to returning the real value or 'empty value'
