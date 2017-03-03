@@ -861,6 +861,9 @@ class InspectView(InstanceSpecificView):
         # we can render something useful. raises AttributeError appropriately.
         val = getattr(self.instance, field_name)
 
+        if isinstance(val, models.Manager):
+            return val.get_queryset()
+
         # wagtail.wagtailimages might not be installed
         try:
             from wagtail.wagtailimages.models import AbstractImage
