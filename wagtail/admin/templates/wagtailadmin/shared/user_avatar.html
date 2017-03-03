@@ -1,7 +1,7 @@
-{% load gravatar %}
+{% load avatar %}
 
 <span class="avatar small">
-    <img src="{% gravatar_url user.email 25 %}" />
+    <img src="{% avatar_url user size=25 %}" />
 </span>
 
 {{ user }}

@@ -10,11 +10,11 @@
         <ul class="listing">
             <li class="row row-flush">
                 <div class="col6">
-                    <a href="https://gravatar.com/emails/" class="button button-primary">{% trans "Set gravatar" %}</a>
+                    <a href="{% url 'wagtailadmin_account_change_avatar' %}" class="button button-primary">{% trans "Set profile picture" %}</a>
                 </div>
 
                 <small class="col6">
-                    {% trans "Your avatar image is provided by Gravatar and is connected to your email address. With a Gravatar account you can set an avatar for any number of other email addresses you use." %}
+                    {% trans "Change your profile picture" %}
                 </small>
 
             </li>

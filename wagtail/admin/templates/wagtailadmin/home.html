@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/base.html" %}
-{% load gravatar staticfiles i18n %}
+{% load avatar staticfiles i18n %}
 {% block titletag %}{% trans "Dashboard" %}{% endblock %}
 {% block bodyclass %}homepage{% endblock %}
 
@@ -13,7 +13,7 @@
     <header class="merged nice-padding">
         <div class="row row-flush">
             <div class="col1">
-                <div class="avatar"><img src="{% gravatar_url user.email %}" alt="" /></div>
+                <div class="avatar"><img src="{% avatar_url user.email %}" alt="" /></div>
             </div>
             <div class="col9">
                 <h1>{% block branding_welcome %}{% blocktrans %}Welcome to the {{ site_name }} Wagtail CMS{% endblocktrans %}{% endblock %}</h1>

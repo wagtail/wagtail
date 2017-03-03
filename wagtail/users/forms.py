@@ -375,3 +375,12 @@ class PreferredLanguageForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = ("preferred_language",)
+
+
+class AvatarPreferencesForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ("avatar_choice", "avatar")
+        widgets = {
+            'avatar_choice': forms.RadioSelect(),
+        }
