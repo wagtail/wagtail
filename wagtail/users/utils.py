@@ -1,3 +1,6 @@
+import hashlib
+from django.utils.http import urlencode
+
 from wagtail.core.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
 
 delete_user_perm = "{0}.delete_{1}".format(AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME.lower())
@@ -16,3 +19,12 @@ def user_can_delete_user(current_user, user_to_delete):
         return False
 
     return True
+
+
+def get_gravatar_url(email, default=None, size=50):
+    params = {'s': str(size)}
+    if default is not None:
+        params['default'] = default
+    gravatar_url = "https://www.gravatar.com/avatar/" + hashlib.md5(email.lower().encode('utf-8')).hexdigest() + "?"
+    gravatar_url += urlencode(params)
+    return gravatar_url

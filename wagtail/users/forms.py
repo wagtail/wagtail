@@ -399,3 +399,12 @@ class EmailForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ("email", )
+
+
+class AvatarPreferencesForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ("avatar_choice", "avatar")
+        widgets = {
+            'avatar_choice': forms.RadioSelect(),
+        }

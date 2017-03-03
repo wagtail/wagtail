@@ -14,7 +14,8 @@ from django.views.decorators.debug import sensitive_post_parameters
 
 from wagtail.admin import forms
 from wagtail.core import hooks
-from wagtail.users.forms import EmailForm, NotificationPreferencesForm, PreferredLanguageForm
+from wagtail.users.forms import (
+    AvatarPreferencesForm, EmailForm, NotificationPreferencesForm, PreferredLanguageForm)
 from wagtail.users.models import UserProfile
 from wagtail.utils.loading import get_custom_form
 
@@ -188,3 +189,17 @@ def logout(request):
     request.session.modified = False
 
     return response
+
+
+def change_avatar(request):
+    if request.method == 'POST':
+        user_profile = UserProfile.get_for_user(request.user)
+        form = AvatarPreferencesForm(request.POST, request.FILES, instance=user_profile)
+        if form.is_valid():
+            form.save()
+            messages.success(request, _("Your preferences have been updated successfully!"))
+            return redirect('wagtailadmin_account_change_avatar')
+    else:
+        form = AvatarPreferencesForm(instance=UserProfile.get_for_user(request.user))
+
+    return render(request, 'wagtailadmin/account/change_avatar.html', {'form': form})
