@@ -1,6 +1,6 @@
 {% extends "wagtailadmin/base.html" %}
 {% load wagtailadmin_tags %}
-{% load gravatar %}
+{% load avatar %}
 {% load i18n %}
 {% load l10n %}
 {% block titletag %}{% blocktrans with title=page.get_admin_display_title page_type=content_type.model_class.get_verbose_name %}Editing {{ page_type }}: {{ title }}{% endblocktrans %}{% endblock %}
@@ -89,7 +89,7 @@
                             {% blocktrans with last_mod=page.get_latest_revision.created_at %}Last modified: {{ last_mod }}{% endblocktrans %}
                             {% if page.get_latest_revision.user %}
                                 {% blocktrans with modified_by=page.get_latest_revision.user.get_full_name|default:page.get_latest_revision.user.get_username %}by {{ modified_by }}{% endblocktrans %}
-                                <span class="avatar small"><img src="{% gravatar_url page.get_latest_revision.user.email 25 %}" /></span>
+                                <span class="avatar small"><img src="{% avatar_url page.get_latest_revision.user size=25 %}" /></span>
                             {% endif %}
                             <a href="{% url 'wagtailadmin_pages:revisions_index' page.id %}" class="underlined">{% trans 'Revisions' %}</a>
                         {% endif %}

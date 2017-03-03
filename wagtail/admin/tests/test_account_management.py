@@ -1,3 +1,6 @@
+import os
+import tempfile
+
 import pytz
 
 from django.contrib.auth import views as auth_views
@@ -12,6 +15,8 @@ from wagtail.admin.utils import (
     WAGTAILADMIN_PROVIDED_LANGUAGES, get_available_admin_languages, get_available_admin_time_zones)
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.users.models import UserProfile
+
+TMP_MEDIA_ROOT = tempfile.mktemp()
 
 
 class TestAuthentication(TestCase, WagtailTestUtils):
@@ -466,6 +471,101 @@ class TestAccountSection(TestCase, WagtailTestUtils):
     def test_not_show_options_if_only_one_time_zone_is_permitted(self):
         response = self.client.post(reverse('wagtailadmin_account'))
         self.assertNotContains(response, 'Set Time Zone')
+
+
+class TestAvatarSection(TestCase, WagtailTestUtils):
+    def _create_image(self):
+        from PIL import Image
+
+        with tempfile.NamedTemporaryFile(suffix='.jpg', delete=False) as f:
+            image = Image.new('RGB', (200, 200), 'white')
+            image.save(f, 'JPEG')
+
+        return open(f.name, mode='rb')
+
+    def setUp(self):
+        self.user = self.login()
+        self.avatar = self._create_image()
+        self.other_avatar = self._create_image()
+
+    def tearDown(self):
+        self.avatar.close()
+        self.other_avatar.close()
+
+    def test_avatar_preferences_view(self):
+        """
+        This tests that the change user profile(avatar) view responds with an index page
+        """
+        response = self.client.get(reverse('wagtailadmin_account_change_avatar'))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/account/change_avatar.html')
+        self.assertContains(response, "Change profile picture")
+
+    def test_avatar_preferences_post(self):
+        """
+        This tests that the change user profile(avatar) view change the user preferences
+        """
+        post_data = {
+            'avatar_choice': 'default',
+        }
+        response = self.client.post(reverse('wagtailadmin_account_change_avatar'), post_data, follow=True)
+        self.assertEqual(response.status_code, 200)
+
+        profile = UserProfile.get_for_user(get_user_model().objects.get(pk=self.user.pk))
+        self.assertEqual('default', profile.avatar_choice)
+
+    def test_get_avatar_returns_default_if_not_changed(self):
+        profile = UserProfile.get_for_user(get_user_model().objects.get(pk=self.user.pk))
+
+        self.assertEqual(profile.avatar_choice, 'default')
+        self.assertIn('default-user-avatar', profile.get_avatar_url())
+
+    def test_set_gravatar_returns_gravatar(self):
+        post_data = {
+            'avatar_choice': 'gravatar',
+        }
+        response = self.client.post(reverse('wagtailadmin_account_change_avatar'), post_data, follow=True)
+        self.assertEqual(response.status_code, 200)
+
+        profile = UserProfile.get_for_user(get_user_model().objects.get(pk=self.user.pk))
+        self.assertEqual(profile.avatar_choice, 'gravatar')
+        self.assertIn('www.gravatar.com', profile.get_avatar_url())
+
+    @override_settings(MEDIA_ROOT=TMP_MEDIA_ROOT)
+    def test_set_custom_avatar_stores_and_get_custom_avatar(self):
+        response = self.client.post(reverse('wagtailadmin_account_change_avatar'),
+                                    {'avatar_choice': 'custom',
+                                    'avatar': self.avatar},
+                                    follow=True)
+
+        self.assertEqual(response.status_code, 200)
+
+        profile = UserProfile.get_for_user(get_user_model().objects.get(pk=self.user.pk))
+        self.assertEqual('custom', profile.avatar_choice)
+        self.assertIn(os.path.basename(self.avatar.name), profile.get_avatar_url())
+
+    @override_settings(MEDIA_ROOT=TMP_MEDIA_ROOT)
+    def test_user_upload_another_image_removes_previous_one(self):
+        response = self.client.post(reverse('wagtailadmin_account_change_avatar'),
+                                    {'avatar_choice': 'custom',
+                                    'avatar': self.avatar},
+                                    follow=True)
+        self.assertEqual(response.status_code, 200)
+
+        profile = UserProfile.get_for_user(get_user_model().objects.get(pk=self.user.pk))
+        old_avatar_path = profile.avatar.path
+
+        # Upload a new avatar
+        new_response = self.client.post(reverse('wagtailadmin_account_change_avatar'),
+                                        {'avatar_choice': 'custom',
+                                        'avatar': self.other_avatar},
+                                        follow=True)
+        self.assertEqual(new_response.status_code, 200)
+
+        # Check old avatar doesn't exist anymore in filesystem
+        with self.assertRaises(FileNotFoundError):
+            open(old_avatar_path)
 
 
 class TestAccountManagementForNonModerator(TestCase, WagtailTestUtils):

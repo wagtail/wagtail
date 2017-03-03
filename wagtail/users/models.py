@@ -1,9 +1,34 @@
+import os
+import uuid
+
 from django.conf import settings
+from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.db import models
+from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
+
+from wagtail.users.utils import get_gravatar_url
+
+
+def upload_avatar_to(instance, filename):
+    filename, ext = os.path.splitext(filename)
+    return os.path.join(
+        'avatar_images',
+        'avatar_{uuid}_{filename}{ext}'.format(
+            uuid=uuid.uuid4(), filename=filename, ext=ext)
+    )
 
 
 class UserProfile(models.Model):
+    DEFAULT = 'default'
+    CUSTOM = 'custom'
+    GRAVATAR = 'gravatar'
+    AVATAR_CHOICES = (
+        (DEFAULT, _('Default')),
+        (CUSTOM, _('Custom')),
+        (GRAVATAR, 'Gravatar')
+    )
+
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='wagtail_userprofile'
     )
@@ -40,6 +65,19 @@ class UserProfile(models.Model):
         default=''
     )
 
+    avatar_choice = models.CharField(
+        verbose_name=_('Select profile picture type'),
+        default=DEFAULT,
+        choices=AVATAR_CHOICES,
+        max_length=10
+    )
+
+    avatar = models.ImageField(
+        verbose_name=_('Upload your custom avatar'),
+        upload_to=upload_avatar_to,
+        blank=True,
+    )
+
     @classmethod
     def get_for_user(cls, user):
         return cls.objects.get_or_create(user=user)[0]
@@ -52,6 +90,31 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return self.user.get_username()
+
+    @cached_property
+    def default_avatar(self):
+        return static('wagtailadmin/images/default-user-avatar.svg')
+
+    def get_avatar_url(self, size=50):
+        if self.avatar_choice == self.DEFAULT:
+            return self.default_avatar
+
+        if self.avatar_choice == self.CUSTOM:
+            try:
+                return self.avatar.url
+            except ValueError:
+                return self.default_avatar
+
+        if self.avatar_choice == self.GRAVATAR and self.user.email:
+            return get_gravatar_url(self.user.email, default=None, size=50)
+
+        return self.default_avatar
+
+    def save(self, *args, **kwargs):
+        if self.avatar:
+            this = UserProfile.objects.get(pk=self.pk)
+            this.avatar.delete(save=False)
+        return super(UserProfile, self).save(*args, **kwargs)
 
     class Meta:
         verbose_name = _('user profile')

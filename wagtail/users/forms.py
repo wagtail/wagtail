@@ -418,3 +418,12 @@ class CurrentTimeZoneForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = ("current_time_zone",)
+
+
+class AvatarPreferencesForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ("avatar_choice", "avatar")
+        widgets = {
+            'avatar_choice': forms.RadioSelect(),
+        }

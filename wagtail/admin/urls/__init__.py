@@ -50,6 +50,7 @@ urlpatterns = [
         account.notification_preferences,
         name='wagtailadmin_account_notification_preferences'
     ),
+    url(r'account/change_avatar/$', account.change_avatar, name='wagtailadmin_account_change_avatar'),
     url(
         r'^account/language_preferences/$',
         account.language_preferences,

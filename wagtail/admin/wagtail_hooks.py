@@ -194,15 +194,11 @@ def register_viewsets_urls():
 
 
 @hooks.register('register_account_menu_item')
-def register_account_set_gravatar(request):
+def register_account_set_profile_picture(request):
     return {
-        'url': 'https://gravatar.com/emails/',
-        'label': _('Set gravatar'),
-        'help_text': _(
-            "Your avatar image is provided by Gravatar and is connected to "
-            "your email address. With a Gravatar account you can set an "
-            "avatar for any number of other email addresses you use."
-        )
+        'url': reverse('wagtailadmin_account_change_avatar'),
+        'label': _('Set profile picture'),
+        'help_text': _("Change your profile picture")
     }
 
 
