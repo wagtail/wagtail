@@ -862,7 +862,7 @@ class InspectView(InstanceSpecificView):
         val = getattr(self.instance, field_name)
 
         if isinstance(val, models.Manager):
-            return val.get_queryset()
+            return val.all()
 
         # wagtail.wagtailimages might not be installed
         try:
