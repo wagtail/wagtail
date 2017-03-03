@@ -22,6 +22,7 @@ from wagtail.wagtailusers.views.users import get_user_creation_form, get_user_ed
 
 
 delete_user_perm_codename = "delete_{0}".format(AUTH_USER_MODEL_NAME.lower())
+change_user_perm_codename = "change_{0}".format(AUTH_USER_MODEL_NAME.lower())
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -268,6 +269,9 @@ class TestUserDeleteViewForNonSuperuser(TestCase, WagtailTestUtils):
         deleters_group.permissions.add(Permission.objects.get(
             content_type__app_label=AUTH_USER_APP_LABEL, codename=delete_user_perm_codename
         ))
+        deleters_group.permissions.add(Permission.objects.get(
+            content_type__app_label=AUTH_USER_APP_LABEL, codename=change_user_perm_codename
+        ))
         self.deleter_user.groups.add(deleters_group)
 
         self.superuser = self.create_test_user()
@@ -297,6 +301,31 @@ class TestUserDeleteViewForNonSuperuser(TestCase, WagtailTestUtils):
         # Check user was not deleted
         self.assertTrue(get_user_model().objects.filter(pk=self.deleter_user.pk).exists())
 
+
+    def test_user_cannot_escalate_privileges(self):
+        post_data = {
+            'username': "deleter",
+            'email': "deleter@email.com",
+            'first_name': "Escalating",
+            'last_name': "User",
+            'password1': "",
+            'password2': "",
+            # These should not be possible without manipulating the form in the DOM:
+            'is_superuser': 'on',
+            'is_active': 'on',
+        }
+        # response =
+        self.client.post(reverse('wagtailusers_users:edit', args=(self.deleter_user.pk, )), post_data)
+        # FIXME: Weirdly this doesn't redirect, but it still changes the first_name?
+        # # Should redirect back to index
+        # self.assertRedirects(response, reverse('wagtailusers_users:index'))
+
+        user = get_user_model().objects.get(pk=self.deleter_user.pk)
+        self.assertEqual(user.first_name, "Escalating")
+        # Check that the user did not escalate its is_superuser status
+        self.assertEqual(user.is_superuser, False)
+
+
     def test_user_cannot_delete_superuser(self):
         response = self.client.post(reverse('wagtailusers_users:delete', args=(self.superuser.pk,)))
 
@@ -316,7 +345,7 @@ class TestUserEditView(TestCase, WagtailTestUtils):
         )
 
         # Login
-        self.login()
+        self.current_user = self.login()
 
     def get(self, params={}, user_id=None):
         return self.client.get(reverse('wagtailusers_users:edit', args=(user_id or self.test_user.pk, )), params)
@@ -332,7 +361,7 @@ class TestUserEditView(TestCase, WagtailTestUtils):
     def test_nonexistant_redirect(self):
         self.assertEqual(self.get(user_id=100000).status_code, 404)
 
-    def test_edit(self):
+    def test_edit_and_deactivate(self):
         response = self.post({
             'username': "testuser",
             'email': "test@user.com",
@@ -340,6 +369,9 @@ class TestUserEditView(TestCase, WagtailTestUtils):
             'last_name': "User",
             'password1': "password",
             'password2': "password",
+            # Leaving out these fields, thus setting them to False:
+            # 'is_active': 'on'
+            # 'is_superuser': 'on',
         })
 
         # Should redirect back to index
@@ -348,6 +380,62 @@ class TestUserEditView(TestCase, WagtailTestUtils):
         # Check that the user was edited
         user = get_user_model().objects.get(pk=self.test_user.pk)
         self.assertEqual(user.first_name, 'Edited')
+        # Check that the user is no longer superuser
+        self.assertEqual(user.is_superuser, False)
+        # Check that the user is no longer active
+        self.assertEqual(user.is_active, False)
+
+
+    def test_edit_and_make_superuser(self):
+        response = self.post({
+            'username': "testuser",
+            'email': "test@user.com",
+            'first_name': "Edited",
+            'last_name': "User",
+            'password1': "password",
+            'password2': "password",
+            'is_active': 'on',
+            'is_superuser': 'on',
+        })
+
+        # Should redirect back to index
+        self.assertRedirects(response, reverse('wagtailusers_users:index'))
+
+        # Check that the user was edited
+        user = get_user_model().objects.get(pk=self.test_user.pk)
+
+        # Check that the user is now superuser
+        self.assertEqual(user.is_superuser, True)
+        # Check that the user is now active
+        self.assertEqual(user.is_active, True)
+
+    def test_edit_self(self):
+        response = self.post({
+            'username': 'test@email.com',
+            'email': 'test@email.com',
+            'first_name': "Edited Myself",
+            'last_name': "User",
+            # 'password1': "password",
+            # 'password2': "password",
+            'is_active': 'on',
+            'is_superuser': 'on',
+        }, self.current_user.pk)
+
+        # Should redirect back to index
+        self.assertRedirects(response, reverse('wagtailusers_users:index'))
+
+        # Check that the user was edited
+        user = get_user_model().objects.get(pk=self.current_user.pk)
+        self.assertEqual(user.first_name, 'Edited Myself')
+
+        # Check that the user is still superuser
+        self.assertEqual(user.is_superuser, True)
+        # Check that the user is still active
+        self.assertEqual(user.is_active, True)
+
+
+    def test_(arg):
+        pass
 
     @override_settings(
         WAGTAIL_USER_EDIT_FORM='wagtail.wagtailusers.tests.CustomUserEditForm',
