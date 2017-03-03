@@ -1,0 +1,28 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n %}
+
+{% block titletag %}{% trans "Change avatar" %}{% endblock %}
+{% block content %}
+    {% trans "Change avatar" as change_str %}
+    {% include "wagtailadmin/shared/header.html" with title=change_str %}
+
+    <div class="nice-padding">
+        <form action="{% url 'wagtailadmin_account_change_avatar' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+
+                <ul class="fields">
+                    {% for field in form %}
+                        {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
+                    {% endfor %}
+                </ul>
+
+            <li class="submit"><input type="submit" value="{% trans 'Update' %}" class="button" /></li>
+        </form>
+        <p>Your current avatar:</p>
+        <p>
+            <span class="avatar square"><img src="{{request.user.wagtail_userprofile.get_avatar_url}}"></span>
+        </p>
+
+    </div>
+{% endblock %}
