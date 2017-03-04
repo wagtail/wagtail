@@ -16,7 +16,7 @@ from django.views.decorators.debug import sensitive_post_parameters
 from wagtail.utils.compat import user_is_authenticated
 from wagtail.wagtailadmin import forms
 from wagtail.wagtailcore.models import UserPagePermissionsProxy
-from wagtail.wagtailusers.forms import NotificationPreferencesForm, AvatarPreferencesForm
+from wagtail.wagtailusers.forms import AvatarPreferencesForm, NotificationPreferencesForm
 from wagtail.wagtailusers.models import UserProfile
 
 

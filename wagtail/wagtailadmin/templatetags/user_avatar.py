@@ -1,3 +1,5 @@
+from __future__ import absolute_import, unicode_literals
+
 from django import template
 
 register = template.Library()
@@ -15,4 +17,3 @@ def user_avatar_url(context, *args, **kwargs):
     size = kwargs.get('size')
 
     return user.wagtail_userprofile.get_avatar_url(size=size)
-
