@@ -346,15 +346,12 @@ class ModelAdmin(WagtailRegisterable):
         'inspect_view_fields_exclude' not being included.
         """
         if not self.inspect_view_fields:
-            found_fields = []
+            field_names = []
             for f in self.model._meta.get_fields():
-                if f.name not in self.inspect_view_fields_exclude:
-                    if f.concrete and (
-                        not f.is_relation or
-                        (not f.auto_created and f.related_model)
-                    ):
-                        found_fields.append(f.name)
-            return found_fields
+                exclude_names = self.inspect_view_fields_exclude
+                if isinstance(f, Field) and f.name not in exclude_names:
+                    field_names.append(f.name)
+            return field_names
         return self.inspect_view_fields
 
     def index_view(self, request):
