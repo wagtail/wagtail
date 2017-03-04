@@ -18,7 +18,7 @@
 
             <li class="submit"><input type="submit" value="{% trans 'Update' %}" class="button" /></li>
         </form>
-        <p>Your current avatar:</p>
+        <p>{% trans "Your current avatar:" %}</p>
         <p>
             <span class="avatar square"><img src="{% user_avatar_url user=request.user size=50 %}"></span>
         </p>
