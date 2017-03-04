@@ -1,5 +1,5 @@
 {% load i18n wagtailusers_tags %}
-{% load gravatar %}
+{% load user_avatar %}
 <table class="listing">
     <thead>
         <tr>
@@ -28,7 +28,7 @@
             <tr>
                 <td class="title" valign="top">
                     <h2>
-                        <span class="avatar small icon icon-user"><img src="{% gravatar_url user.email 25 %}" /></span>
+                        <span class="avatar small "><img src="{% user_avatar_url user=user size=25 %}" /></span>
                         <a href="{% url 'wagtailusers_users:edit' user.pk %}">{{ user.get_full_name|default:user.get_username }}</a>
                     </h2>
                     <ul class="actions">
