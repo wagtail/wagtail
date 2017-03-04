@@ -5,7 +5,6 @@ from django.conf.urls import url
 from django.contrib.auth.models import Permission
 from django.core.exceptions import ImproperlyConfigured
 from django.db.models import Model
-from django.db.models.fields import Field
 from django.forms.utils import flatatt
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
@@ -347,12 +346,15 @@ class ModelAdmin(WagtailRegisterable):
         'inspect_view_fields_exclude' not being included.
         """
         if not self.inspect_view_fields:
-            field_names = []
+            found_fields = []
             for f in self.model._meta.get_fields():
-                exclude_names = self.inspect_view_fields_exclude
-                if isinstance(f, Field) and f.name not in exclude_names:
-                    field_names.append(f.name)
-            return field_names
+                if f.name not in self.inspect_view_fields_exclude:
+                    if f.concrete and (
+                        not f.is_relation or
+                        (not f.auto_created and f.related_model)
+                    ):
+                        found_fields.append(f.name)
+            return found_fields
         return self.inspect_view_fields
 
     def index_view(self, request):
