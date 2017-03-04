@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/base.html" %}
-{% load i18n %}
+{% load user_avatar i18n %}
 
 {% block titletag %}{% trans "Change avatar" %}{% endblock %}
 {% block content %}
@@ -9,7 +9,6 @@
     <div class="nice-padding">
         <form action="{% url 'wagtailadmin_account_change_avatar' %}" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
-
 
                 <ul class="fields">
                     {% for field in form %}
@@ -21,7 +20,7 @@
         </form>
         <p>Your current avatar:</p>
         <p>
-            <span class="avatar square"><img src="{{request.user.wagtail_userprofile.get_avatar_url}}"></span>
+            <span class="avatar square"><img src="{% user_avatar_url user=request.user size=50 %}"></span>
         </p>
 
     </div>

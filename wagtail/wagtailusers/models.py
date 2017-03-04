@@ -47,7 +47,7 @@ class UserProfile(models.Model):
 
     avatar_choice = models.CharField(
         verbose_name=_('Select avatar backend'),
-        default=DEFAULT,
+        default=GRAVATAR,
         choices=AVATAR_CHOICES,
         max_length=10
     )
@@ -65,19 +65,21 @@ class UserProfile(models.Model):
     def __str__(self):
         return self.user.get_username()
 
-    def get_avatar_url(self):
+    def get_avatar_url(self, size=50):
+        default_avatar = static('wagtailadmin/images/default-user-avatar.svg')
+
         if self.avatar_choice == self.DEFAULT:
-            return static('wagtailadmin/images/default-user-avatar.svg')
+            return default_avatar
         elif self.avatar_choice == self.CUSTOM:
             try:
                 return self.avatar.url
             except ValueError:
-                return static('wagtailadmin/images/default-user-avatar.svg')
+                return default_avatar
         else:
             if self.user.email:
                 return get_gravatar_url(self.user.email, default=None, size=50)
             else:
-                return static('wagtailadmin/images/default-user-avatar.svg')
+                return default_avatar
 
     class Meta:
         verbose_name = _('user profile')
