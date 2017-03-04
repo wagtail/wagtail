@@ -5,6 +5,7 @@ from django.conf.urls import url
 from django.contrib.auth.models import Permission
 from django.core.exceptions import ImproperlyConfigured
 from django.db.models import Model
+from django.db.models.fields import Field
 from django.forms.utils import flatatt
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
