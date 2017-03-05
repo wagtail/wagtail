@@ -865,7 +865,9 @@ class InspectView(InstanceSpecificView):
             val = val.all()
 
         if isinstance(val, models.QuerySet):
-            return list(val)
+            if val.exists():
+                return ', '.join(['%s' % obj for obj in val])
+            return self.model_admin.get_empty_value_display(field_name)
 
         # wagtail.wagtailimages might not be installed
         try:

@@ -125,6 +125,15 @@ class TestInspectView(TestCase, WagtailTestUtils):
         response = self.get(4)
         self.assertContains(response, 'Christmas', 2)
 
+    def test_false_values_displayed(self):
+        """
+        Boolean fields with False values should display False, rather than the
+        value of `get_empty_value_display()`. For this page, those should be
+        `locked`, `expired` and `has_unpublished_changes`
+        """
+        response = self.get(4)
+        self.assertContains(response, '<dd>False</dd>', 3, html=True)
+
     def test_location_present(self):
         """
         The location should appear once, in the field listing
