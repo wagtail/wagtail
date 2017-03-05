@@ -1,4 +1,5 @@
 from __future__ import absolute_import, unicode_literals
+from django.contrib.staticfiles.templatetags.staticfiles import static
 
 from django import template
 
@@ -15,5 +16,6 @@ def user_avatar_url(context, *args, **kwargs):
 
     user = kwargs.get('user')
     size = kwargs.get('size')
-
-    return user.wagtail_userprofile.get_avatar_url(size=size)
+    if hasattr(user, 'wagtail_userprofile'):
+        return user.wagtail_userprofile.get_avatar_url(size=size)
+    return static('wagtailadmin/images/default-user-avatar.svg')
