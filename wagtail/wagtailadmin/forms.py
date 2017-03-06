@@ -562,7 +562,7 @@ def collection_chooser_form_factory(
     })
 
     return type(
-        '_CollectionChooserForm',
+        str('_CollectionChooserForm'),
         (forms.Form, ),
         {
             'collection': forms.ModelChoiceField(
