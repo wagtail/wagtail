@@ -79,8 +79,8 @@ class URLGeneratorForm(forms.Form):
             ('fill', _("Resize to fill")),
         ),
     )
-    width = forms.IntegerField(_("Width"), min_value=0)
-    height = forms.IntegerField(_("Height"), min_value=0)
+    width = forms.IntegerField(_("width"), min_value=0)
+    height = forms.IntegerField(_("height"), min_value=0)
     closeness = forms.IntegerField(_("Closeness"), min_value=0, initial=0)
 
 
