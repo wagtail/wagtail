@@ -84,6 +84,7 @@ class TestImageIndexView(TestCase, WagtailTestUtils):
 
 
 class TestImageAddView(TestCase, WagtailTestUtils):
+    # TODO: Add test for adding to collections other than Root
     def setUp(self):
         self.login()
 
@@ -113,8 +114,9 @@ class TestImageAddView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailimages/images/add.html')
 
+        # Make sure the collection chooser is on the page
         self.assertContains(response, '<label for="id_collection">')
-        self.assertContains(response, "Evil plans")
+        self.assertContains(response, '<input id="id_collection" name="collection"')
 
     def test_add(self):
         response = self.post({
