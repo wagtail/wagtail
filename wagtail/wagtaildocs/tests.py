@@ -184,7 +184,7 @@ class TestDocumentAddView(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, 'wagtaildocs/documents/add.html')
 
         self.assertContains(response, '<label for="id_collection">')
-        self.assertContains(response, "Evil plans")
+        self.assertContains(response, '<input id="id_collection" name="collection"')
 
     def test_post(self):
         # Build a fake file
@@ -416,7 +416,7 @@ class TestMultipleDocumentUploader(TestCase, WagtailTestUtils):
 
         # collection chooser should exisst
         self.assertContains(response, '<label for="id_adddocument_collection">')
-        self.assertContains(response, 'Evil plans')
+        self.assertContains(response, '<input id="id_collection" name="collection"')
 
     def test_add_post(self):
         """
@@ -1304,8 +1304,7 @@ class TestEditOnlyPermissions(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtaildocs:edit', args=(self.document.id,)))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, '<label for="id_collection">')
-        self.assertContains(response, 'Nice plans')
-        self.assertContains(response, 'Evil plans')
+        self.assertContains(response, '<input id="id_collection" name="collection"')
 
     def test_post_edit(self):
         # Submit title change
