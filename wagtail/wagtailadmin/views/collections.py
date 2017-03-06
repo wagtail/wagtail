@@ -371,4 +371,3 @@ class MoveConfirm(View):
 
         # Redirect to the index view for the collection that was chosen as the destination
         return redirect('wagtailadmin_collections:parent_index', destination_collection.id)
-

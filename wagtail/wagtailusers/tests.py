@@ -15,7 +15,7 @@ from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
 from wagtail.wagtailcore.models import (
-    Collection, GroupCollectionPermission, GroupPagePermission, Page)
+    Collection, GroupCollectionManagementPermission, GroupCollectionPermission, GroupPagePermission, Page)
 from wagtail.wagtailusers.forms import UserCreationForm, UserEditForm
 from wagtail.wagtailusers.models import UserProfile
 from wagtail.wagtailusers.views.users import get_user_creation_form, get_user_edit_form
@@ -433,6 +433,7 @@ class TestGroupIndexView(TestCase, WagtailTestUtils):
 
 
 class TestGroupCreateView(TestCase, WagtailTestUtils):
+    # TODO: Add tests for collection management permissions
     def setUp(self):
         self.login()
         self.add_doc_permission = Permission.objects.get(
@@ -456,6 +457,9 @@ class TestGroupCreateView(TestCase, WagtailTestUtils):
             'image_permissions-TOTAL_FORMS': ['0'],
             'image_permissions-MAX_NUM_FORMS': ['1000'],
             'image_permissions-INITIAL_FORMS': ['0'],
+            'collection_permissions-INITIAL_FORMS': ['0'],
+            'collection_permissions-MAX_NUM_FORMS': ['1000'],
+            'collection_permissions-TOTAL_FORMS': ['0'],
         }
         for k, v in six.iteritems(post_defaults):
             post_data[k] = post_data.get(k, v)
@@ -485,6 +489,8 @@ class TestGroupCreateView(TestCase, WagtailTestUtils):
             'document_permissions-0-collection': [Collection.get_first_root_node().pk],
             'document_permissions-0-permissions': [self.add_doc_permission.pk],
             'document_permissions-TOTAL_FORMS': ['1'],
+            'collection_permissions-0-collection': [''],
+            'collection_permissions-TOTAL_FORMS': ['1'],
         })
 
         self.assertRedirects(response, reverse('wagtailusers_groups:index'))
@@ -506,6 +512,8 @@ class TestGroupCreateView(TestCase, WagtailTestUtils):
             'page_permissions-1-page': ['1'],
             'page_permissions-1-permission_types': ['edit'],
             'page_permissions-TOTAL_FORMS': ['2'],
+            'collection_permissions-0-collection': [''],
+            'collection_permissions-TOTAL_FORMS': ['1'],
         })
 
         self.assertEqual(response.status_code, 200)
@@ -522,6 +530,8 @@ class TestGroupCreateView(TestCase, WagtailTestUtils):
             'document_permissions-1-collection': [root_collection.pk],
             'document_permissions-1-permissions': [self.change_doc_permission.pk],
             'document_permissions-TOTAL_FORMS': ['2'],
+            'collection_permissions-0-collection': [''],
+            'collection_permissions-TOTAL_FORMS': ['1'],
         })
 
         self.assertEqual(response.status_code, 200)
@@ -544,6 +554,8 @@ class TestGroupCreateView(TestCase, WagtailTestUtils):
             'page_permissions-TOTAL_FORMS': ['1'],
             'document_permissions-0-collection': [''],
             'document_permissions-TOTAL_FORMS': ['1'],
+            'collection_permissions-0-collection': [''],
+            'collection_permissions-TOTAL_FORMS': ['1'],
         })
 
         self.assertRedirects(response, reverse('wagtailusers_groups:index'))
@@ -557,6 +569,7 @@ class TestGroupCreateView(TestCase, WagtailTestUtils):
 
 
 class TestGroupEditView(TestCase, WagtailTestUtils):
+    # Add tests for collection management permissions
     def setUp(self):
         # Create a group to edit
         self.test_group = Group.objects.create(name='test group')
@@ -590,6 +603,12 @@ class TestGroupEditView(TestCase, WagtailTestUtils):
             permission=self.add_doc_permission,
         )
 
+        GroupCollectionManagementPermission.objects.create(
+            group=self.test_group,
+            collection=self.evil_plans_collection,
+            permission_type='add',
+        )
+
         # Login
         self.login()
 
@@ -613,6 +632,12 @@ class TestGroupEditView(TestCase, WagtailTestUtils):
             'image_permissions-TOTAL_FORMS': ['0'],
             'image_permissions-MAX_NUM_FORMS': ['1000'],
             'image_permissions-INITIAL_FORMS': ['0'],
+            'collection_permissions-0-DELETE': [''],
+            'collection_permissions-0-collection': [self.evil_plans_collection.pk],
+            'collection_permissions-0-permission_types': ['add'],
+            'collection_permissions-INITIAL_FORMS': ['1'],
+            'collection_permissions-MAX_NUM_FORMS': ['1000'],
+            'collection_permissions-TOTAL_FORMS': ['2'],
         }
         for k, v in six.iteritems(post_defaults):
             post_data[k] = post_data.get(k, v)
