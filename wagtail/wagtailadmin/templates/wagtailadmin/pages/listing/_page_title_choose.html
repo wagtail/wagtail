@@ -6,9 +6,7 @@ Expects a variable 'page', the page instance.
 
 <h2>
     {% if page.can_choose %}
-        {% with page=page.specific %}
-            <a class="choose-page" href="#{{ page.id }}" data-id="{{ page.id }}" data-title="{{ page.get_admin_display_title }}" data-url="{{ page.url }}" data-parent-id="{{ page.get_parent.id }}" data-edit-url="{% url 'wagtailadmin_pages:edit' page.id %}">{{ page.get_admin_display_title }}</a>
-        {% endwith %}
+        <a class="choose-page" href="#{{ page.id }}" data-id="{{ page.id }}" data-title="{{ page.get_admin_display_title }}" data-url="{{ page.url }}" data-parent-id="{{ page.get_parent.id }}" data-edit-url="{% url 'wagtailadmin_pages:edit' page.id %}">{{ page.get_admin_display_title }}</a>
     {% else %}
         {{ page.get_admin_display_title }}
     {% endif %}
