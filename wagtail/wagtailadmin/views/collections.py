@@ -4,7 +4,7 @@ from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.translation import ugettext_lazy
-from django.views import View
+from django.views.generic.base import View
 
 from wagtail.utils.pagination import paginate
 from wagtail.wagtailadmin import messages
