@@ -1,5 +1,4 @@
-{% load wagtailimages_tags wagtailadmin_tags %}
-{% load i18n %}
+{% load i18n wagtailimages_tags wagtailadmin_tags %}
 {% if images %}
     {% if is_searching %}
         <h2>
@@ -12,7 +11,7 @@
 
         {% search_other %}
     {% else %}
-        <h2>{% if current_collection is None %}{% trans "Latest images from all collections" %}{% else %}{% trans "Latest images from " %}'{{ current_collection }}'{% endif %}</h2>
+        <h2>{% if not current_collection %}{% trans "Latest images from all collections" %}{% else %}{% trans "Latest images from " %}'{{ current_collection }}'{% endif %}</h2>
     {% endif %}
 
     <ul class="listing horiz images">
