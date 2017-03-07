@@ -216,6 +216,7 @@ Contributors
 * LB (Ben Johnston)
 * Christine Ho
 * Trent Holliday
+* jacoor
 
 Translators
 ===========
