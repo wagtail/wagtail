@@ -25,6 +25,7 @@ Changelog
  * Fix: IDs used in tabbed interfaces are now namespaced to avoid collisions with other page elements (Janneke Janssen)
  * Fix: Page title not displaying page name when moving a page (Trent Holliday)
  * Fix: The ModelAdmin module can now work without the wagtailimages and wagtaildocs apps installed (Andy Babic)
+ * Fix: Cloudflare error handling now handles non-string error responses correctly (hdnpl)
 
 
 1.9 (16.02.2017)

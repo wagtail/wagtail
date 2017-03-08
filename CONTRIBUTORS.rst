@@ -217,6 +217,7 @@ Contributors
 * Christine Ho
 * Trent Holliday
 * jacoor
+* hdnpl
 
 Translators
 ===========

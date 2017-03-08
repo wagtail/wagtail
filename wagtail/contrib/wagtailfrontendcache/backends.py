@@ -101,7 +101,7 @@ class CloudflareBackend(BaseBackend):
             return
 
         if response_json['success'] is False:
-            error_messages = ', '.join([err['message'] for err in response_json['errors']])
+            error_messages = ', '.join([str(err['message']) for err in response_json['errors']])
             logger.error("Couldn't purge '%s' from Cloudflare. Cloudflare errors '%s'", url, error_messages)
             return
 
