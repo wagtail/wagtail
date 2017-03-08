@@ -146,9 +146,6 @@ class UserForm(UsernameForm):
         if password:
             user.set_password(password)
 
-        # Superusers can always access the admin interface.
-        user.is_staff = user.is_superuser
-
         if commit:
             user.save()
             self.save_m2m()
