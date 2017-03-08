@@ -86,3 +86,9 @@ Projects using :ref:`custom image models <custom_image_model>` no longer need to
     def image_feature_detection(sender, instance, **kwargs):
         if not instance.has_focal_point():
             instance.set_focal_point(instance.get_suggested_focal_point())
+
+
+Adding / editing users through Wagtail admin no longer sets ``is_staff`` flag
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Previously, the ``is_staff`` flag (which grants access to the Django admin interface) was automatically set for superusers, and reset for other users, when creating and updating users through the Wagtail admin. This behaviour has now been removed, since Wagtail is designed to work independently of the Django admin. If you need to reinstate the old behaviour, you can set up a `pre_save signal handler <https://docs.djangoproject.com/en/1.10/ref/signals/#django.db.models.signals.pre_save>`_ on the User model to set the flag appropriately.
