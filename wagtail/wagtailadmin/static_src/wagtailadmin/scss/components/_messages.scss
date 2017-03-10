@@ -12,14 +12,14 @@
         margin-left: 1em;
     }
 
-    ul {
-        @include unlist();
+    > ul {
+        @include unlistimmediate();
         position: relative;
         top: -100px;
         opacity: 0;
     }
 
-    li {
+    > ul > li {
         // @include nice-padding;
         padding-top: 1.6em;
         padding-right: 3em;
@@ -28,7 +28,7 @@
         color: $color-white;
     }
 
-    li:before {
+    > ul > li:before {
         margin-right: 0.5em;
         font-size: 1.5em;
         vertical-align: middle;
@@ -76,22 +76,26 @@
             color: $color-white;
         }
     }
+
+    .errorlist {
+        margin: 0.5em 0 0 1em;
+    }
 }
 
-.messages.new ul {
+.messages.new > ul {
     transition: none;
     top: -100px;
 }
 
-.ready .messages ul,
-.messages.appear ul {
+.ready .messages > ul,
+.messages.appear > ul {
     transition: top 0.5s ease, opacity 0.5s ease, max-height 1.2s ease;
     opacity: 1;
     top: 0;
 }
 
 @media screen and (min-width: $breakpoint-mobile) {
-    .messages ul li {
+    .messages > ul > li {
         padding-left: 1.6em;
         padding-right: 3em;
     }

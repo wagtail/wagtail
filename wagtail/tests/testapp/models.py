@@ -7,6 +7,7 @@ import os
 from django.conf import settings
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
+from django.core.exceptions import ValidationError
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
@@ -205,6 +206,22 @@ class EventCategory(models.Model):
         return self.name
 
 
+# Override the standard WagtailAdminPageForm to add validation on start/end dates
+# that appears as a non-field error
+
+class EventPageForm(WagtailAdminPageForm):
+    def clean(self):
+        cleaned_data = super(EventPageForm, self).clean()
+
+        # Make sure that the event starts before it ends
+        start_date = cleaned_data['date_from']
+        end_date = cleaned_data['date_to']
+        if start_date and end_date and start_date > end_date:
+            raise ValidationError('The end date must be after the start date')
+
+        return cleaned_data
+
+
 class EventPage(Page):
     date_from = models.DateField("Start date", null=True)
     date_to = models.DateField(
@@ -236,6 +253,7 @@ class EventPage(Page):
     ]
 
     password_required_template = 'tests/event_page_password_required.html'
+    base_form_class = EventPageForm
 
 
 EventPage.content_panels = [
