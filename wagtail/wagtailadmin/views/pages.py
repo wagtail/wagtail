@@ -269,7 +269,9 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
                     target_url += '?next=%s' % urlquote(next_url)
                 return redirect(target_url)
         else:
-            messages.error(request, _("The page could not be created due to validation errors"))
+            messages.validation_error(
+                request, _("The page could not be created due to validation errors"), form
+            )
             edit_handler = edit_handler_class(instance=page, form=form)
             has_unsaved_changes = True
     else:
@@ -462,7 +464,9 @@ def edit(request, page_id):
             if page.locked:
                 messages.error(request, _("The page could not be saved as it is locked"))
             else:
-                messages.error(request, _("The page could not be saved due to validation errors"))
+                messages.validation_error(
+                    request, _("The page could not be saved due to validation errors"), form
+                )
 
             edit_handler = edit_handler_class(instance=page, form=form)
             errors_debug = (

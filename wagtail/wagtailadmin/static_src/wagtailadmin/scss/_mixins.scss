@@ -30,6 +30,22 @@
     }
 }
 
+@mixin unlistimmediate() {
+    /* remove list styles, but only for the immediate element - allow nested lists inside it
+    to keep the default style */
+
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    list-style-type: none;
+    font-style: normal;
+
+    > li {
+        list-style-type: none;
+        font-style: normal;
+    }
+}
+
 @mixin transition($transition...) {
     body.ready & {
         transition: $transition;

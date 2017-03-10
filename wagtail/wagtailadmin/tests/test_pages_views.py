@@ -3951,3 +3951,118 @@ class TestParentalM2M(TestCase, WagtailTestUtils):
         self.assertEqual(2, updated_page.categories.count())
         self.assertIn(self.holiday_category, updated_page.categories.all())
         self.assertIn(self.men_with_beards_category, updated_page.categories.all())
+
+
+class TestValidationErrorMessages(TestCase, WagtailTestUtils):
+    fixtures = ['test.json']
+
+    def setUp(self):
+        self.events_index = Page.objects.get(url_path='/home/events/')
+        self.christmas_page = Page.objects.get(url_path='/home/events/christmas/')
+        self.user = self.login()
+
+    def test_field_error(self):
+        """Field errors should be shown against the relevant fields, not in the header message"""
+        post_data = {
+            'title': "",
+            'date_from': "2017-12-25",
+            'slug': "christmas",
+            'audience': "public",
+            'location': "The North Pole",
+            'cost': "Free",
+            'carousel_items-TOTAL_FORMS': 0,
+            'carousel_items-INITIAL_FORMS': 0,
+            'carousel_items-MIN_NUM_FORMS': 0,
+            'carousel_items-MAX_NUM_FORMS': 0,
+            'speakers-TOTAL_FORMS': 0,
+            'speakers-INITIAL_FORMS': 0,
+            'speakers-MIN_NUM_FORMS': 0,
+            'speakers-MAX_NUM_FORMS': 0,
+            'related_links-TOTAL_FORMS': 0,
+            'related_links-INITIAL_FORMS': 0,
+            'related_links-MIN_NUM_FORMS': 0,
+            'related_links-MAX_NUM_FORMS': 0,
+        }
+        response = self.client.post(
+            reverse('wagtailadmin_pages:edit', args=(self.christmas_page.id, )),
+            post_data
+        )
+        self.assertEqual(response.status_code, 200)
+
+        self.assertContains(response, "The page could not be saved due to validation errors")
+        # the error should only appear once: against the field, not in the header message
+        self.assertContains(response, """<p class="error-message"><span>This field is required.</span></p>""", count=1, html=True)
+        self.assertContains(response, "This field is required", count=1)
+
+    def test_non_field_error(self):
+        """Non-field errors should be shown in the header message"""
+        post_data = {
+            'title': "Christmas",
+            'date_from': "2017-12-25",
+            'date_to': "2017-12-24",
+            'slug': "christmas",
+            'audience': "public",
+            'location': "The North Pole",
+            'cost': "Free",
+            'carousel_items-TOTAL_FORMS': 0,
+            'carousel_items-INITIAL_FORMS': 0,
+            'carousel_items-MIN_NUM_FORMS': 0,
+            'carousel_items-MAX_NUM_FORMS': 0,
+            'speakers-TOTAL_FORMS': 0,
+            'speakers-INITIAL_FORMS': 0,
+            'speakers-MIN_NUM_FORMS': 0,
+            'speakers-MAX_NUM_FORMS': 0,
+            'related_links-TOTAL_FORMS': 0,
+            'related_links-INITIAL_FORMS': 0,
+            'related_links-MIN_NUM_FORMS': 0,
+            'related_links-MAX_NUM_FORMS': 0,
+        }
+        response = self.client.post(
+            reverse('wagtailadmin_pages:edit', args=(self.christmas_page.id, )),
+            post_data
+        )
+        self.assertEqual(response.status_code, 200)
+
+        self.assertContains(response, "The page could not be saved due to validation errors")
+        self.assertContains(response, "<li>The end date must be after the start date</li>", count=1)
+
+    def test_field_and_non_field_error(self):
+        """
+        If both field and non-field errors exist, all errors should be shown in the header message
+        with appropriate context to identify the field; and field errors should also be shown
+        against the relevant fields.
+        """
+        post_data = {
+            'title': "",
+            'date_from': "2017-12-25",
+            'date_to': "2017-12-24",
+            'slug': "christmas",
+            'audience': "public",
+            'location': "The North Pole",
+            'cost': "Free",
+            'carousel_items-TOTAL_FORMS': 0,
+            'carousel_items-INITIAL_FORMS': 0,
+            'carousel_items-MIN_NUM_FORMS': 0,
+            'carousel_items-MAX_NUM_FORMS': 0,
+            'speakers-TOTAL_FORMS': 0,
+            'speakers-INITIAL_FORMS': 0,
+            'speakers-MIN_NUM_FORMS': 0,
+            'speakers-MAX_NUM_FORMS': 0,
+            'related_links-TOTAL_FORMS': 0,
+            'related_links-INITIAL_FORMS': 0,
+            'related_links-MIN_NUM_FORMS': 0,
+            'related_links-MAX_NUM_FORMS': 0,
+        }
+        response = self.client.post(
+            reverse('wagtailadmin_pages:edit', args=(self.christmas_page.id, )),
+            post_data
+        )
+        self.assertEqual(response.status_code, 200)
+
+        self.assertContains(response, "The page could not be saved due to validation errors")
+        self.assertContains(response, "<li>The end date must be after the start date</li>", count=1)
+
+        # Error on title shown against the title field
+        self.assertContains(response, """<p class="error-message"><span>This field is required.</span></p>""", count=1, html=True)
+        # Error on title shown in the header message
+        self.assertContains(response, "<li>Title: This field is required.</li>", count=1)
