@@ -810,7 +810,7 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
 
         return root_url + page_path
 
-    full_url = property(get_full_url)  # TODO: deprecate this property (using AND overriding it)
+    full_url = property(get_full_url)
 
     def get_url(self, request=None, current_site=None):
         """
@@ -845,9 +845,9 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
         else:
             return root_url + page_path
 
-    url = property(get_url)  # TODO: deprecate this property (using AND overriding it)
+    url = property(get_url)
 
-    def relative_url(self, current_site, request=None):  # TODO: deprecate this method
+    def relative_url(self, current_site, request=None):
         """
         Return the 'most appropriate' URL for this page taking into account the site we're currently on;
         a local URL if the site matches, or a fully qualified one otherwise.
