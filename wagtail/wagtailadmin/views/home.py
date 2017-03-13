@@ -51,7 +51,8 @@ class RecentEditsPanel(object):
     def __init__(self, request):
         self.request = request
 
-        pk_field = get_user_model()._meta.get_field('id')
+        pk_field_name = User._meta.pk.name
+        pk_field = get_user_model()._meta.get_field(pk_field_name)
         connection = connections['default']
         pk = pk_field.get_db_prep_value(self.request.user.pk, connection)
         
