@@ -48,6 +48,7 @@ Changelog
  * Fix: Ensure that page editor forms are submitted as multipart when file fields exist in InlinePanels (Wietze Helmantel)
  * Fix: The page type usage listing now have a translatable page title (Ramon de Jezus)
  * Fix: Styles for submission filtering form now have a consistent height. (Thijs Kramer)
+ * Fix: Custom user models with a primary key type requiring `get_db_prep_value` conversion are now supported (thenewguy)
 
 
 1.9 (16.02.2017)
