@@ -6,10 +6,11 @@ from django.template.loader import render_to_string
 from django.utils.html import format_html, format_html_join
 
 
-def render(message, buttons):
+def render(message, buttons, detail=''):
     return render_to_string('wagtailadmin/shared/messages.html', {
         'message': message,
         'buttons': buttons,
+        'detail': detail,
     })
 
 
@@ -37,7 +38,7 @@ def validation_error(request, message, form, buttons=None):
     if not form.non_field_errors():
         # just output the generic "there were validation errors" message, and leave
         # the per-field highlighting to do the rest
-        full_message = message
+        detail = ''
     else:
         # display the full list of field and non-field validation errors
         all_errors = []
@@ -55,9 +56,9 @@ def validation_error(request, message, form, buttons=None):
                 all_errors.append(prefix + error)
 
         errors_html = format_html_join('\n', '<li>{}</li>', ((e,) for e in all_errors))
-        full_message = format_html("""{} <ul class="errorlist">{}</ul>""", message, errors_html)
+        detail = format_html("""<ul class="errorlist">{}</ul>""", errors_html)
 
-    return messages.error(request, render(full_message, buttons))
+    return messages.error(request, render(message, buttons, detail=detail))
 
 
 def button(url, text, new_window=False):
