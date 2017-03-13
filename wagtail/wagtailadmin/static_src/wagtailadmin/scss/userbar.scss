@@ -166,7 +166,7 @@ $positions: (
         transition-duration: .15s;
         transition-timing-function: cubic-bezier(.55, 0, .1, 1);
 
-        .#{$namespace}-userbar.is-active & {
+        .#{$namespace}-userbar.is-opened & {
             opacity: 1;
             transform: translateY(0);
             transition-delay: .3s;
@@ -303,7 +303,7 @@ $positions: (
             }
         }
 
-        &.is-active .#{$namespace}-userbar__item {
+        &.is-opened .#{$namespace}-userbar__item {
             @for $i from 1 through $max-items {
 
                 @if $vertical == 'bottom' {
@@ -329,7 +329,7 @@ $positions: (
 
 // Active state for the list items comes last.
 
-.#{$namespace}-userbar.is-active .#{$namespace}-userbar__item {
+.#{$namespace}-userbar.is-opened .#{$namespace}-userbar__item {
     transform: translateY(0) !important;
     opacity: 1 !important;
 }
