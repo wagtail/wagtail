@@ -25,6 +25,7 @@ Other features
  * Added ``.nvmrc`` to the project root for Node versioning support (Janneke Janssen)
  * Added ``form_fields_exclude`` property to ModelAdmin views (Matheus Bratfisch)
  * User creation / edit form now enforces password validators set in ``AUTH_PASSWORD_VALIDATORS`` (Bertrand Bordage)
+ * Added support for displaying ``non_field_errors`` when validation fails in the page editor (Matt Westcott)
 
 
 Bug fixes
