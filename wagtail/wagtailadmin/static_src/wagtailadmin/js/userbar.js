@@ -4,7 +4,8 @@ document.addEventListener('DOMContentLoaded', function userBar(e) {
     var userbar = document.querySelector('[data-wagtail-userbar]');
     var trigger = userbar.querySelector('[data-wagtail-userbar-trigger]');
     var list = userbar.querySelector('.wagtail-userbar-items');
-    var className = 'is-active';
+    var activeClassName = 'is-active';
+    var openedClassName = 'is-opened';
     var hasTouch = 'ontouchstart' in window;
     var clickEvent = 'click';
 
@@ -32,20 +33,28 @@ document.addEventListener('DOMContentLoaded', function userBar(e) {
     window.addEventListener('pageshow', hideUserbar, false);
 
     function showUserbar(e) {
-        userbar.classList.add(className);
+        userbar.classList.add(activeClassName);
+        setTimeout(function() {
+            /* need to start opening animation slightly after visibility has been set,
+            to avoid a Firefox 52 bug: https://github.com/wagtail/wagtail/issues/3443 */
+            userbar.classList.add(openedClassName);
+        }, 50);
         list.addEventListener(clickEvent, sandboxClick, false);
         window.addEventListener(clickEvent, clickOutside, false);
     }
 
     function hideUserbar(e) {
-        userbar.classList.remove(className);
+        userbar.classList.remove(openedClassName);
+        setTimeout(function() {
+            userbar.classList.remove(activeClassName);
+        }, 50);
         list.addEventListener(clickEvent, sandboxClick, false);
         window.removeEventListener(clickEvent, clickOutside, false);
     }
 
     function toggleUserbar(e) {
         e.stopPropagation();
-        if (userbar.classList.contains(className)) {
+        if (userbar.classList.contains(activeClassName)) {
             hideUserbar();
         } else {
             showUserbar();
