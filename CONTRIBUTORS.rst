@@ -222,6 +222,7 @@ Contributors
 * Ralph Jacobs
 * Wietze Helmantel
 * Patrick Gerken
+* Will Giddens
 
 Translators
 ===========
