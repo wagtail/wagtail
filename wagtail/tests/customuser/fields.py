@@ -24,12 +24,15 @@ class ConvertedValue:
         return force_text(self.display_value)
     
     def __int__(self):
-        return self.display_value
+        return self.db_value
 
     def __eq__(self, other):
         if isinstance(other, self.__class__):
             return self.db_value == other.db_value
         return self.db_value == other
+    
+    def __hash__(self):
+        return hash(self.db_value)
 
 
 class ConvertedValueField(models.IntegerField):
