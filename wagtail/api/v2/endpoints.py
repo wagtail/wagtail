@@ -103,6 +103,10 @@ class BaseAPIEndpoint(GenericViewSet):
 
     @classmethod
     def generate_base_serializer_class(cls, model, base_serializer_class):
+        """
+        Generates a DRF serializer for page types that still use the old api_fields
+        style config.
+        """
         model_ = model
         custom_fields = getattr(model, 'api_fields', [])
 
@@ -116,6 +120,10 @@ class BaseAPIEndpoint(GenericViewSet):
 
     @classmethod
     def get_base_serializer_class(cls, model):
+        """
+        Gets the base serializer class for this model. A new serializer class will be
+        derived from this at runtime to only include the fields that the user has specified.
+        """
         if cls.base_serializer_class is not None:
             return cls.generate_base_serializer_class(model, cls.base_serializer_class)
         elif hasattr(model, 'serializer_class'):
