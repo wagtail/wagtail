@@ -16,6 +16,8 @@ from wagtail.wagtaildocs.edit_handlers import DocumentChooserPanel
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtailsearch import index
 
+from wagtail.wagtailimages.api.fields import ImageRenditionField
+
 
 # ABSTRACT MODELS
 # =============================
@@ -280,6 +282,7 @@ class BlogEntryPage(Page):
         'tags',
         'date',
         'feed_image',
+        ('feed_image_thumbnail', ImageRenditionField('fill-300x300', source='feed_image')),
         'carousel_items',
         'related_links',
     )

@@ -102,7 +102,10 @@ class BaseAPIEndpoint(GenericViewSet):
         fields = cls.body_fields[:]
 
         if hasattr(model, 'api_fields'):
-            fields.extend(model.api_fields)
+            fields.extend([
+                field[0] if isinstance(field, tuple) else field
+                for field in model.api_fields
+            ])
 
         return fields
 
@@ -115,9 +118,32 @@ class BaseAPIEndpoint(GenericViewSet):
         meta_fields = cls.meta_fields[:]
 
         if hasattr(model, 'api_meta_fields'):
-            meta_fields.extend(model.api_meta_fields)
+            meta_fields.extend([
+                field[0] if isinstance(field, tuple) else field
+                for field in model.api_meta_fields
+            ])
 
         return meta_fields
+
+    @classmethod
+    def get_field_configs(cls, model):
+        configs = {}
+
+        if hasattr(model, 'api_fields'):
+            configs.update({
+                field[0]: field[1]
+                for field in model.api_fields
+                if isinstance(field, tuple)
+            })
+
+        if hasattr(model, 'api_meta_fields'):
+            configs.update({
+                field[0]: field[1]
+                for field in model.api_meta_fields
+                if isinstance(field, tuple)
+            })
+
+        return configs
 
     @classmethod
     def get_available_fields(cls, model, db_fields_only=False):
@@ -257,7 +283,8 @@ class BaseAPIEndpoint(GenericViewSet):
         # Reorder fields so it matches the order of all_fields
         fields = [field for field in all_fields if field in fields]
 
-        return get_serializer_class(model, fields, meta_fields=meta_fields, child_serializer_classes=child_serializer_classes, base=cls.base_serializer_class)
+        field_configs = {field[0]: field[1] for field in cls.get_field_configs(model).items() if field[0] in fields}
+        return get_serializer_class(model, fields, meta_fields=meta_fields, field_configs=field_configs, child_serializer_classes=child_serializer_classes, base=cls.base_serializer_class)
 
     def get_serializer_class(self):
         request = self.request
