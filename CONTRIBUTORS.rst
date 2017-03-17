@@ -221,6 +221,7 @@ Contributors
 * Tom Hendrikx
 * Ralph Jacobs
 * Wietze Helmantel
+* Patrick Gerken
 
 Translators
 ===========
