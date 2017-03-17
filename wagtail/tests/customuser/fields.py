@@ -2,20 +2,32 @@ import random
 
 from django.db import models
 from django.utils.encoding import force_text
+from django.utils.six import text_type
 
 LOWER_BOUND = -2147483648
 UPPER_BOUND =  2147483647
 SHIFT     = 92147483647
 
-class ConvertedValue:
-    def __init__(self, value):
+class ConvertedValue(text_type):
+    def __new__(cls, value):
         value = int(value)
+        
         if UPPER_BOUND < value:
-            self.display_value = value
-            self.db_value = value - SHIFT
+            display_value = value
+            db_value = value - SHIFT
         else:
-            self.db_value = value
-            self.display_value = value + SHIFT
+            db_value = value
+            display_value = value + SHIFT
+        
+        display_str = text_type(display_value)
+        self = super(ConvertedValue, cls).__new__(cls, display_str)
+        self.display_value = display_value
+        self.db_value = db_value
+    
+        return self
+    
+    def __int__(self):
+        return self.db_value
 
     def __repr__(self):
         return "<%s: %s>" % (self.__class__.__name__, self.db_value)
