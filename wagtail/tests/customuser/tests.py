@@ -1,6 +1,8 @@
 import json
 
+from django.db import connections
 from django.test import TestCase
+from django.utils.six import text_type
 from wagtail.tests.utils import WagtailTestUtils
 
 from .fields import ConvertedValue, ConvertedValueField
@@ -9,6 +11,14 @@ from .fields import ConvertedValue, ConvertedValueField
 class TestConvertedValueField(TestCase, WagtailTestUtils):
     def setUp(self):
         self.user = self.login()
+        
+        User = self.user.__class__
+        self.pk_field = User._meta.get_field(User._meta.pk.name)
+    
+    def test_db_value_is_different(self):
+        db_value = self.pk_field.get_db_prep_value(self.user.pk, connections['default'])
+        self.assertEqual(self.user.pk, db_value)
+        self.assertNotEqual(text_type(self.user.pk), text_type(db_value))
     
     def test_custom_user_primary_key_is_hashable(self):
         hash(self.user.pk)
@@ -21,6 +31,4 @@ class TestConvertedValueField(TestCase, WagtailTestUtils):
         self.assertIsInstance(self.user.pk, ConvertedValue)
     
     def test_custom_user_primary_key_is_converted_value_field(self):
-        User = self.user.__class__
-        pk_field = User._meta.get_field(User._meta.pk.name)
-        self.assertIsInstance(pk_field, ConvertedValueField)
+        self.assertIsInstance(self.pk_field, ConvertedValueField)
