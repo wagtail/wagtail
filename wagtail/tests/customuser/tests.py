@@ -8,9 +8,6 @@ class TestConvertedValueField(TestCase, WagtailTestUtils):
     def setUp(self):
         self.user = self.login()
     
-    def test_user_created(self):
-        self.assertTrue(self.user)
-    
     def test_custom_user_primary_key(self):
         self.assertIsInstance(self.user.pk, ConvertedValue)
     
