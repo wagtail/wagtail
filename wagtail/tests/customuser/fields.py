@@ -34,6 +34,9 @@ class ConvertedValue(text_type):
             return self.db_value == other.db_value
         return self.db_value == other
 
+    def __hash__(self):
+        return hash(self.db_value)
+
 
 class ConvertedValueField(models.IntegerField):
     '''
