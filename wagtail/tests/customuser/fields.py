@@ -25,9 +25,6 @@ class ConvertedValue(text_type):
 
     def __repr__(self):
         return "<%s: %s>" % (self.__class__.__name__, self.db_value)
-    
-    def __int__(self):
-        return self.db_value
 
     def __eq__(self, other):
         if isinstance(other, self.__class__):
