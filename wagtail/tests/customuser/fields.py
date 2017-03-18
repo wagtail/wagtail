@@ -1,7 +1,6 @@
 import random
 
 from django.db import models
-from django.utils.encoding import force_text
 from django.utils.six import text_type
 
 LOWER_BOUND = -2147483648
@@ -19,18 +18,13 @@ class ConvertedValue(text_type):
             db_value = value
             display_value = value + SHIFT
         
-        display_str = text_type(display_value)
-        self = super(ConvertedValue, cls).__new__(cls, display_str)
-        self.display_value = display_value
+        self = super(ConvertedValue, cls).__new__(cls, display_value)
         self.db_value = db_value
     
         return self
 
     def __repr__(self):
         return "<%s: %s>" % (self.__class__.__name__, self.db_value)
-
-    def __str__(self):
-        return force_text(self.display_value)
     
     def __int__(self):
         return self.db_value
@@ -39,9 +33,6 @@ class ConvertedValue(text_type):
         if isinstance(other, self.__class__):
             return self.db_value == other.db_value
         return self.db_value == other
-    
-    def __hash__(self):
-        return hash(self.db_value)
 
 
 class ConvertedValueField(models.IntegerField):
