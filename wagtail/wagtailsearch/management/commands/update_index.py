@@ -83,7 +83,7 @@ class Command(BaseCommand):
                     self.stdout.write('{}: {}.{} '.format(backend_name, model._meta.app_label, model.__name__).ljust(35), ending='')
 
                     # Add items (1000 at a time)
-                    for chunk in self.print_iter_progress(self.queryset_chunks(model.get_indexed_objects().order_by('id'))):
+                    for chunk in self.print_iter_progress(self.queryset_chunks(model.get_indexed_objects().order_by('pk'))):
                         index.add_items(model, chunk)
                         object_count += len(chunk)
 
