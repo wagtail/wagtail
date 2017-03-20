@@ -2,9 +2,11 @@ from __future__ import absolute_import, unicode_literals
 
 from django import forms
 from django.forms.models import modelform_factory
+from django.utils.lru_cache import lru_cache
 from django.utils.translation import ugettext_lazy as _
 
 from wagtail.wagtailadmin import widgets
+from wagtail.wagtailadmin.edit_handlers import extract_panel_definitions_from_model_class, ObjectList
 from wagtail.wagtailadmin.forms import (
     BaseCollectionMemberForm, collection_member_permission_formset_factory)
 from wagtail.wagtaildocs.models import Document
@@ -15,23 +17,23 @@ class BaseDocumentForm(BaseCollectionMemberForm):
     permission_policy = documents_permission_policy
 
 
-def get_document_form(model):
-    fields = model.admin_form_fields
-    if 'collection' not in fields:
-        # force addition of the 'collection' field, because leaving it out can
-        # cause dubious results when multiple collections exist (e.g adding the
-        # document to the root collection where the user may not have permission) -
-        # and when only one collection exists, it will get hidden anyway.
-        fields = list(fields) + ['collection']
+@lru_cache()
+def get_document_edit_handler(model):
+    if hasattr(model, 'edit_handler'):
+        # use the edit handler specified on the document class
+        edit_handler = model.edit_handler
+    else:
+        panels = extract_panel_definitions_from_model_class(model)
+        edit_handler = ObjectList(panels, base_form_class=BaseDocumentForm)
 
-    return modelform_factory(
-        model,
-        form=BaseDocumentForm,
-        fields=fields,
-        widgets={
-            'tags': widgets.AdminTagWidget,
-            'file': forms.FileInput()
-        })
+    return edit_handler.bind_to_model(model)
+
+
+def get_document_form(model):
+    # TODO: Add a check that edit_handler contains panel for the collection field
+    # TODO: Add a check that form is subclass of the BaseDocumentForm class
+    edit_handler_class = get_document_edit_handler(model)
+    return edit_handler_class.get_form_class(model)
 
 
 def get_document_multi_form(model):

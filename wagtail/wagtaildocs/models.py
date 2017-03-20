@@ -2,6 +2,8 @@ from __future__ import absolute_import, unicode_literals
 
 import os.path
 
+from django import forms
+
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.core.urlresolvers import reverse
@@ -11,6 +13,8 @@ from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 from taggit.managers import TaggableManager
 
+from wagtail.wagtailadmin import widgets
+from wagtail.wagtailadmin.edit_handlers import FieldPanel
 from wagtail.wagtailadmin.utils import get_object_usage
 from wagtail.wagtailcore.models import CollectionMember
 from wagtail.wagtailsearch import index
@@ -80,12 +84,21 @@ class AbstractDocument(CollectionMember, index.Indexed, models.Model):
 
 
 class Document(AbstractDocument):
+    # TODO: Add a deprecation warning or remove, if there are no mentions in docs
+    # TODO: Add a note to upgrade consideration section for custom document models
     admin_form_fields = (
         'title',
         'file',
         'collection',
         'tags'
     )
+
+    panels = [
+        FieldPanel('title'),
+        FieldPanel('file', widget=forms.FileInput()),
+        FieldPanel('collection'),
+        FieldPanel('tags', widget=widgets.AdminTagWidget),
+    ]
 
 
 def get_document_model():
