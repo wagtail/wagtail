@@ -13,7 +13,7 @@ from .helpers import (
     AdminURLHelper, ButtonHelper, PageAdminURLHelper, PageButtonHelper, PagePermissionHelper,
     PermissionHelper)
 from .menus import GroupMenuItem, ModelAdminMenuItem, SubMenu
-from .mixins import ThumbnailMixin
+from .mixins import ThumbnailMixin # NOQA
 from .views import ChooseParentView, CreateView, DeleteView, EditView, IndexView, InspectView
 
 
