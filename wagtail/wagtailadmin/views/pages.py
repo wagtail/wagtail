@@ -770,8 +770,8 @@ def move_confirm(request, page_to_move_id, destination_id):
 
 
 def set_page_position(request, page_to_move_id):
-    page_to_move = get_object_or_404(Page, id=page_to_move_id)
-    parent_page = page_to_move.get_parent()
+    page_to_move = get_object_or_404(Page, id=page_to_move_id).specific
+    parent_page = page_to_move.get_parent().specific
 
     if not parent_page.permissions_for_user(request.user).can_reorder_children():
         raise PermissionDenied
