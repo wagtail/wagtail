@@ -6,7 +6,8 @@ from django.utils.lru_cache import lru_cache
 from django.utils.translation import ugettext_lazy as _
 
 from wagtail.wagtailadmin import widgets
-from wagtail.wagtailadmin.edit_handlers import extract_panel_definitions_from_model_class, ObjectList
+from wagtail.wagtailadmin.edit_handlers import (
+    ObjectList, extract_panel_definitions_from_model_class)
 from wagtail.wagtailadmin.forms import (
     BaseCollectionMemberForm, collection_member_permission_formset_factory)
 from wagtail.wagtaildocs.models import Document
