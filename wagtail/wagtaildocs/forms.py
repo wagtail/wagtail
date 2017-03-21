@@ -20,19 +20,24 @@ class BaseDocumentForm(BaseCollectionMemberForm):
 
 @lru_cache()
 def get_document_edit_handler(model):
+    # TODO: Add a check that edit_handler contains panel for the collection field
+    # TODO: Add a check that form is subclass of the BaseDocumentForm class
+
     if hasattr(model, 'edit_handler'):
         # use the edit handler specified on the document class
         edit_handler = model.edit_handler
     else:
         panels = extract_panel_definitions_from_model_class(model)
-        edit_handler = ObjectList(panels, base_form_class=BaseDocumentForm)
+        edit_handler = ObjectList(panels)
+
+    # TODO: We need a better solution for model.edit_handler
+    if edit_handler.base_form_class is None:
+        edit_handler.base_form_class = BaseDocumentForm
 
     return edit_handler.bind_to_model(model)
 
 
 def get_document_form(model):
-    # TODO: Add a check that edit_handler contains panel for the collection field
-    # TODO: Add a check that form is subclass of the BaseDocumentForm class
     edit_handler_class = get_document_edit_handler(model)
     return edit_handler_class.get_form_class(model)
 
