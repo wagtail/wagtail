@@ -784,7 +784,7 @@ def set_page_position(request, page_to_move_id):
         position_page = None
         if position is not None:
             try:
-                position_page = parent_page.get_children()[int(position)]
+                position_page = parent_page.get_children()[int(position)].specific
             except IndexError:
                 pass  # No page in this position
 
@@ -796,7 +796,7 @@ def set_page_position(request, page_to_move_id):
         if position_page:
             # If the page has been moved to the right, insert it to the
             # right. If left, then left.
-            old_position = list(parent_page.get_children()).index(page_to_move)
+            old_position = list(parent_page.get_children().specific()).index(page_to_move)
             if int(position) < old_position:
                 page_to_move.move(position_page, pos='left')
             elif int(position) > old_position:
