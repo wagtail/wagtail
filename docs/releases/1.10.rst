@@ -31,6 +31,7 @@ Other features
  * Tag input fields now accept spaces in tags by default, and can be overridden with the ``TAG_SPACES_ALLOWED`` setting (Kees Hink, Alex Gleason)
  * Page chooser widgets now display the required page type where relevant (Christine Ho)
  * Site root pages are now indicated with a globe icon in the explorer listing (Nick Smith, Huub Bouma)
+ * Draft page view is now restricted to users with edit / publish permission over the page (Kees Hink)
 
 
 Bug fixes
