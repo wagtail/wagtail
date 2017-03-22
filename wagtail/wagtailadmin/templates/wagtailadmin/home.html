@@ -14,7 +14,7 @@
         <div class="row row-flush">
             {% if user.email %}
                 <div class="col1">
-                    <div class="avatar icon icon-user"><img src="{% gravatar_url user.email %}" /></div>
+                    <div class="avatar"><img src="{% gravatar_url user.email %}" alt="" /></div>
                 </div>
             {% endif %}
             <div class="col9">
