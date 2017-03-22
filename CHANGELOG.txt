@@ -22,6 +22,7 @@ Changelog
  * Creating / editing users through the Wagtail admin no longer modifies the `is_staff` flag (Matt Westcott)
  * Added link to the full Elasticsearch setup documentation from the Performance page (Matt Westcott)
  * Tag input fields now accept spaces in tags by default, and can be overridden with the `TAG_SPACES_ALLOWED` setting (Kees Hink, Alex Gleason)
+ * Page chooser widgets now display the required page type where relevant (Christine Ho)
  * Fix: Marked 'Date from' / 'Date to' strings in wagtailforms for translation (Vorlif)
  * Fix: "File" field label on image edit form is now translated (Stein Strindhaug)
  * Fix: Unreliable preview is now reliable by always opening in a new window (Kjartan Sverrisson)
