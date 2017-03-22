@@ -9,13 +9,6 @@ The Dashboard provides information on:
 * Any pages currently awaiting moderation (if you have these privileges)
 * Your most recently edited pages
 
-In your settings file, add ``WAGTAILADMIN_RECENT_EDITS_LIMIT`` to change the number of items shown at recent edit.
-
-.. code-block:: python
-
-    WAGTAILADMIN_RECENT_EDITS_LIMIT = 5
-
-
 You can return to the Dashboard at any time by clicking the Wagtail logo in the top-left of the screen.
 
 .. image:: ../../_static/images/screen02_dashboard_editor.png

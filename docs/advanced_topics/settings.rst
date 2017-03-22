@@ -240,6 +240,16 @@ Images
 This setting lets you provide your own image model for use in Wagtail, which might extend the built-in ``AbstractImage`` class or replace it entirely.
 
 
+Dashboard: Your most recent edits
+-------------------
+
+.. code-block:: python
+
+    WAGTAILADMIN_RECENT_EDITS_LIMIT = 5
+
+This setting lets you change the number of items shown at 'Your most recent edits' on the dashboard.
+
+
 Maximum Upload size for Images
 ------------------------------
 
