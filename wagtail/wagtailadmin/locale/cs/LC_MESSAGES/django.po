@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-05-11 20:33+0000\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2017-02-06 12:37+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
@@ -26,6 +26,9 @@ msgstr "Naplánovat publikaci"
 
 msgid "Common page configuration"
 msgstr "Nastavení stránky"
+
+msgid "Content"
+msgstr "Obsah"
 
 msgid "Settings"
 msgstr "Nastavení"
@@ -113,12 +116,6 @@ msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
 msgstr ""
 "Tento název pro URL je již použit v kontextu s rodičovskou stránkou \"%s\""
-
-msgid "Public"
-msgstr "Veřejné"
-
-msgid "Private, accessible with the following password"
-msgstr "Soukromé, přístupné pod následujícím heslem"
 
 msgid "This field is required."
 msgstr "Toto pole je povinné."
@@ -245,6 +242,9 @@ msgstr "Vložit odkaz"
 
 msgid "Add an external link"
 msgstr "Vložit externí odkaz"
+
+msgid "Name"
+msgstr "Jméno"
 
 msgid "Yes, delete"
 msgstr "Ano, smazat"
@@ -381,6 +381,9 @@ msgstr "Odemknuto"
 msgid "Privacy"
 msgstr "Viditelnost"
 
+msgid "Public"
+msgstr "Veřejné"
+
 msgid "Private"
 msgstr "Soukromé"
 
@@ -425,18 +428,11 @@ msgstr[2] ""
 "\n"
 "Tímto dojde též ke smazání %(descendant_count)s podstránek."
 
-msgid ""
-"Alternatively you can unpublish the page. This removes the page from public "
-"view and you can edit or publish it again later."
-msgstr ""
-"Můžete také jen zrušit publikaci stránky. Tím přestane být stránka veřejně "
-"viditelná a později ji můžete upravit nebo znovu publikovat."
+msgid "Yes, delete it"
+msgstr "Ano, smazat"
 
-msgid "Delete it"
-msgstr "Smazat"
-
-msgid "Unpublish it"
-msgstr "Zrušit publikaci"
+msgid "No, don't delete it"
+msgstr "Ne, nemazat"
 
 #, python-format
 msgid "Move %(title)s"
@@ -508,8 +504,14 @@ msgstr "Publikovat"
 msgid "Submit for moderation"
 msgstr "Odeslat ke schválení"
 
+msgid "This page has unsaved changes."
+msgstr "Na této stránce jsou neuložené změny."
+
 msgid "Page locked"
 msgstr "Stránka uzamčena"
+
+msgid "Publish this revision"
+msgstr "Publikovat tuto revizi"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -518,6 +520,9 @@ msgstr "Naposledy upraveno: %(last_mod)s"
 #, python-format
 msgid "by %(modified_by)s"
 msgstr "uživatelem %(modified_by)s"
+
+msgid "Revisions"
+msgstr "Revize"
 
 #, python-format
 msgid "Exploring %(title)s"
@@ -554,7 +559,7 @@ msgstr "Zobrazit podstránky \"%(title)s\""
 msgid "Add a child page to '%(title)s'"
 msgstr "Přidat podstránku pod \"%(title)s\""
 
-msgid "Add subpage"
+msgid "Add child page"
 msgstr "Přidat podstránku"
 
 #, python-format
@@ -592,6 +597,9 @@ msgstr "Zvolte novou nadřazenou stránku pro %(title)s"
 msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Zvolte novou nadřazenou stránku pro <span>%(title)s</span>"
 
+msgid "Current draft"
+msgstr "Současný koncept"
+
 #, python-format
 msgid ""
 "\n"
@@ -622,8 +630,14 @@ msgstr "Zadejte hledaný výraz"
 msgid "No pages use"
 msgstr "Žádné stránky typu"
 
+msgid "Collection"
+msgstr "Kolekce"
+
 msgid "Home"
 msgstr "Domů"
+
+msgid "All collections"
+msgstr "Všechny kolekce"
 
 msgid "January"
 msgstr "leden"
@@ -711,6 +725,18 @@ msgstr "Vaše heslo bylo úspěšně změněno."
 msgid "Your preferences have been updated successfully!"
 msgstr "Vaše nastavení bylo uloženo."
 
+msgid "You have been successfully logged out."
+msgstr "Právě jste se úspěšně odhlásili."
+
+msgid "Add a collection"
+msgstr "Přidat kolekci"
+
+msgid "Add collection"
+msgstr "Přidat kolekci"
+
+msgid "Delete collection"
+msgstr "Smazat kolekci"
+
 msgid "View live"
 msgstr "Zobrazit publikovanou verzi"
 
@@ -773,8 +799,11 @@ msgstr "Stránka '{0}' je nyní uzamčena."
 msgid "Page '{0}' is now unlocked."
 msgstr "Stránka '{0}' je nyní odemčena."
 
-msgid "Add child page"
-msgstr "Přidat podstránku"
+msgid "Pages"
+msgstr "Stránky"
+
+msgid "More"
+msgstr "Více"
 
 msgid "Choose an item"
 msgstr "Zvolit položku"
@@ -784,6 +813,9 @@ msgstr "Zvolit jinou položku"
 
 msgid "Clear choice"
 msgstr "Zrušit výběr"
+
+msgid "Edit this item"
+msgstr "Upravit tuto položku"
 
 msgid "Choose another page"
 msgstr "Zvolit jinou stránku"

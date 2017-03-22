@@ -11,6 +11,7 @@ from django.template.loader import render_to_string
 from django.utils import six
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.functional import cached_property
+from django.utils.html import format_html, format_html_join
 
 from .base import Block, DeclarativeSubBlocksMetaclass
 from .utils import js_dict
@@ -97,6 +98,12 @@ class BaseStructBlock(Block):
             for name, block in self.child_blocks.items()
         ])
 
+    def value_omitted_from_data(self, data, files, prefix):
+        return all(
+            block.value_omitted_from_data(data, files, '%s-%s' % (prefix, name))
+            for name, block in self.child_blocks.items()
+        )
+
     def clean(self, value):
         result = []  # build up a list of (name, value) tuples to be passed to the StructValue constructor
         errors = {}
@@ -132,6 +139,13 @@ class BaseStructBlock(Block):
             for name, val in value.items()
         ])
 
+    def get_api_representation(self, value, context=None):
+        # recursively call get_api_representation on children and return as a plain dict
+        return dict([
+            (name, self.child_blocks[name].get_api_representation(val, context=context))
+            for name, val in value.items()
+        ])
+
     def get_searchable_content(self, value):
         content = []
 
@@ -162,9 +176,12 @@ class BaseStructBlock(Block):
 
         return errors
 
+    def render_basic(self, value, context=None):
+        return format_html('<dl>\n{}\n</dl>', format_html_join(
+            '\n', '    <dt>{}</dt>\n    <dd>{}</dd>', value.items()))
+
     class Meta:
         default = {}
-        template = "wagtailadmin/blocks/struct.html"
         form_classname = 'struct-block'
         form_template = 'wagtailadmin/block_forms/struct.html'
         # No icon specified here, because that depends on the purpose that the

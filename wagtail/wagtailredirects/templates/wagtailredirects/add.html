@@ -15,7 +15,7 @@
         </div>
     {% endif %}
 
-    <form action="{% url 'wagtailredirects:add' %}" method="POST" class="nice-padding">
+    <form action="{% url 'wagtailredirects:add' %}" method="POST" class="nice-padding" novalidate>
         {% csrf_token %}
 
         <ul class="fields">

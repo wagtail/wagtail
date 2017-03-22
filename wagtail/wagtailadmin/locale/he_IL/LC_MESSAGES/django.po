@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-05-11 20:33+0000\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2017-02-06 12:37+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/torchbox/wagtail/"
 "language/he_IL/)\n"
@@ -109,12 +109,6 @@ msgstr[1] ""
 msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
 msgstr "הכתובת שבחרת כבר בשימוש בתוך הקונטקסט של עמוד ההורה \"%s\""
-
-msgid "Public"
-msgstr "ציבורי"
-
-msgid "Private, accessible with the following password"
-msgstr "פרטי, זמין עם הסיסמה הבאה"
 
 msgid "This field is required."
 msgstr "שדה חובה"
@@ -397,6 +391,9 @@ msgstr "בלתי נעול"
 msgid "Privacy"
 msgstr "פרטיות"
 
+msgid "Public"
+msgstr "ציבורי"
+
 msgid "Private"
 msgstr "פרטי"
 
@@ -437,19 +434,6 @@ msgstr[0] ""
 msgstr[1] ""
 "\n"
 "פעולה זו תמחק %(descendant_count)s תת-עמודים נוספים."
-
-msgid ""
-"Alternatively you can unpublish the page. This removes the page from public "
-"view and you can edit or publish it again later."
-msgstr ""
-"לחילופין, ניתן להסיר מפרסום את העמוד. הדבר יסיר את העמוד מתצוגה פומבית "
-"ויאפשר עריכה ופרסום שלו שוב לאחר מכן."
-
-msgid "Delete it"
-msgstr "מחק זו"
-
-msgid "Unpublish it"
-msgstr "ביטול פרסום"
 
 #, python-format
 msgid "Move %(title)s"
@@ -560,8 +544,8 @@ msgstr "מסייר בעמודים שבתוך '%(title)s'"
 msgid "Add a child page to '%(title)s'"
 msgstr "הוספת תת-עמוד אל '%(title)s'"
 
-msgid "Add subpage"
-msgstr "הוספת תת עמוד"
+msgid "Add child page"
+msgstr "הוספת תת-עמוד"
 
 msgid "Previous"
 msgstr "קודם"
@@ -686,9 +670,6 @@ msgstr ""
 "הדפדפן שלכם <strong>מיושן</strong> ולא נתמך ע\"י התוכנה הזו. אנא <a href="
 "\"http://browsehappy.com/\">עברו לדפדפן מודרני</a>."
 
-msgid "Javascript is required to use Wagtail, but it is currently disabled"
-msgstr "יש צורך בJavascript על מנת להתשמש בWagtail, אך הוא מכובה כרגע"
-
 msgid "Go to Wagtail admin interface"
 msgstr "כניסה למערך המנהל של Wagtail "
 
@@ -770,9 +751,6 @@ msgstr "עמוד {0} נעול כעת"
 #, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "עמוד {0} בלתי נעול כעת"
-
-msgid "Add child page"
-msgstr "הוספת תת-עמוד"
 
 msgid "Choose an item"
 msgstr "בחרו פריט"

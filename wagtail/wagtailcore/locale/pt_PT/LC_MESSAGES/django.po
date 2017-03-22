@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Jose Lourenco <jose@lourenco.ws>, 2014-2015
+# Jose Lourenco <jose@lourenco.ws>, 2014-2016
 # Manuela Silva <inactive+h_manuela_rodsilva@transifex.com>, 2015
 # Tiago Henriques <trinosauro@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-03-09 21:27+0000\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2016-12-07 14:29+0000\n"
 "Last-Translator: Tiago Henriques <trinosauro@gmail.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
@@ -21,11 +21,24 @@ msgstr ""
 "Language: pt_PT\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#, python-brace-format
+msgid "{label}: this block has no options."
+msgstr "{label}: este bloco não tem opções."
+
+msgid "This block has no options."
+msgstr "Este bloco não tem opções."
+
+msgid "Password"
+msgstr "Senha"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr "Introduziu uma senha incorreta. Por favor tente novamente."
+
 msgid "hostname"
 msgstr "nome do servidor"
 
 msgid "port"
-msgstr "porta"
+msgstr "porto"
 
 msgid ""
 "Set this to something other than 80 if you need a specific port number to "
@@ -204,6 +217,12 @@ msgstr "Publicar"
 msgid "Publish any page"
 msgstr "Publicar qualquer página"
 
+msgid "Bulk delete"
+msgstr "Apagar vários"
+
+msgid "Delete pages with children"
+msgstr "Apagar páginas com filhas"
+
 msgid "Lock"
 msgstr "Trancar"
 
@@ -221,6 +240,18 @@ msgstr "permissão de página de grupo"
 
 msgid "group page permissions"
 msgstr "permissões de página de grupo"
+
+msgid "Public"
+msgstr "Público"
+
+msgid "Private, accessible to logged-in users"
+msgstr "Privado, acessível a utilizadores autenticados"
+
+msgid "Private, accessible with the following password"
+msgstr "Privado, acessível com a seguinte senha"
+
+msgid "Private, accessible to users in specific groups"
+msgstr "Privado, acessível aos utilizadores de grupos específicos"
 
 msgid "password"
 msgstr "senha"
@@ -245,3 +276,26 @@ msgstr "permissão"
 
 msgid "group collection permission"
 msgstr "permissão de coleção de grupo"
+
+msgid "Log in"
+msgstr "Entrar"
+
+msgid "Your username and password didn't match. Please try again."
+msgstr ""
+"O seu utilizador e senha não estão corretos. Por favor tente novamente."
+
+msgid ""
+"Your account doesn't have access to this page. To proceed, please log in "
+"with an account that has access."
+msgstr ""
+"A sua conta não tem acesso a esta página. Para continuar, por favor utilize "
+"uma conta que tenha acesso."
+
+msgid "Password required"
+msgstr "Senha obrigatória"
+
+msgid "You need a password to access this page."
+msgstr "É preciso uma senha para aceder a esta página."
+
+msgid "Continue"
+msgstr "Continuar"

@@ -5,15 +5,15 @@
 # Translators:
 # Daigo Shitara <stain.witness@gmail.com>, 2016
 # Sangmin Ahn <gijigae@gmail.com>, 2016
-# takuan_osho <shimizu.taku@gmail.com>, 2015
+# SHIMIZU Taku <shimizu.taku@gmail.com>, 2015
 # 石田秀 <ishidashu@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-03-14 11:20+0000\n"
-"Last-Translator: Sangmin Ahn <gijigae@gmail.com>\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2017-02-06 12:40+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
 "MIME-Version: 1.0\n"
@@ -88,14 +88,6 @@ msgstr "プロフィール"
 
 msgid "Delete group"
 msgstr "グループを削除"
-
-#, python-format
-msgid ""
-"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> users "
-"assigned."
-msgstr ""
-"グループ %(group_name)s には <strong>%(group_user_count)s</strong>名のユーザ"
-"がいます。"
 
 msgid ""
 "Deleting this group will revoke this group's permissions from all member "

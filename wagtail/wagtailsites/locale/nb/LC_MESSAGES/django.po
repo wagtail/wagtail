@@ -4,13 +4,14 @@
 #
 # Translators:
 # Eirik Krogstad <eirikkr@gmail.com>, 2015
+# Stein Strindhaug <stein.strindhaug@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-05-11 20:34+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2016-11-18 10:54+0000\n"
+"Last-Translator: Stein Strindhaug <stein.strindhaug@gmail.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
 "MIME-Version: 1.0\n"
@@ -31,6 +32,9 @@ msgstr "Nettsted"
 msgid "Port"
 msgstr "Port"
 
+msgid "Site name"
+msgstr "Nettstedsnavn"
+
 msgid "Root page"
 msgstr "Rotside"
 
@@ -42,3 +46,30 @@ msgstr "Standard"
 
 msgid "Sites"
 msgstr "Nettsteder"
+
+msgid "Add a site"
+msgstr "Legg til et nettsted"
+
+msgid "Add site"
+msgstr "Legg til nettsted"
+
+#, python-brace-format
+msgid "Site '{0}' created."
+msgstr "Nettstedet \"{0}\" er opprettet."
+
+#, python-brace-format
+msgid "Site '{0}' updated."
+msgstr "Nettstedet \"{0}\" er oppdatert."
+
+msgid "The site could not be saved due to errors."
+msgstr "Nettstedet kunne ikke lagres grunnet feil."
+
+msgid "Delete site"
+msgstr "Slett nettsted"
+
+#, python-brace-format
+msgid "Site '{0}' deleted."
+msgstr "Nettstedet \"{0}\" er slettet."
+
+msgid "Are you sure you want to delete this site?"
+msgstr "Er du sikker på at du vil slette dette nettstedet?"

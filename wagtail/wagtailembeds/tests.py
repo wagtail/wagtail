@@ -22,16 +22,13 @@ from wagtail.wagtailembeds.finders.embedly import AccessDeniedEmbedlyException, 
 from wagtail.wagtailembeds.finders.oembed import oembed as wagtail_oembed
 from wagtail.wagtailembeds.models import Embed
 from wagtail.wagtailembeds.rich_text import MediaEmbedHandler
-from wagtail.wagtailembeds.templatetags.wagtailembeds_tags import embed as embed_filter
+from wagtail.wagtailembeds.templatetags.wagtailembeds_tags import embed_tag
 
 try:
     import embedly  # noqa
     no_embedly = False
 except ImportError:
     no_embedly = True
-
-
-
 
 
 class TestGetDefaultFinder(TestCase):
@@ -152,6 +149,11 @@ class TestChooser(TestCase, WagtailTestUtils):
     def test_chooser(self):
         r = self.client.get('/admin/embeds/chooser/')
         self.assertEqual(r.status_code, 200)
+
+    def test_chooser_with_edit_params(self):
+        r = self.client.get('/admin/embeds/chooser/?url=http://example2.com')
+        self.assertEqual(r.status_code, 200)
+        self.assertContains(r, 'value=\\"http://example2.com\\"')
 
     @patch('wagtail.wagtailembeds.embeds.get_embed')
     def test_submit_valid_embed(self, get_embed):
@@ -332,12 +334,12 @@ class TestOembed(TestCase):
         })
 
 
-class TestEmbedFilter(TestCase):
+class TestEmbedTag(TestCase):
     @patch('wagtail.wagtailembeds.embeds.get_embed')
     def test_direct_call(self, get_embed):
         get_embed.return_value = Embed(html='<img src="http://www.example.com" />')
 
-        result = embed_filter('http://www.youtube.com/watch/')
+        result = embed_tag('http://www.youtube.com/watch/')
 
         self.assertEqual(result, '<img src="http://www.example.com" />')
 
@@ -345,7 +347,7 @@ class TestEmbedFilter(TestCase):
     def test_call_from_template(self, get_embed):
         get_embed.return_value = Embed(html='<img src="http://www.example.com" />')
 
-        temp = template.Template('{% load wagtailembeds_tags %}{{ "http://www.youtube.com/watch/"|embed }}')
+        temp = template.Template('{% load wagtailembeds_tags %}{% embed "http://www.youtube.com/watch/" %}')
         result = temp.render(template.Context())
 
         self.assertEqual(result, '<img src="http://www.example.com" />')
@@ -354,7 +356,7 @@ class TestEmbedFilter(TestCase):
     def test_catches_embed_not_found(self, get_embed):
         get_embed.side_effect = EmbedNotFoundException
 
-        temp = template.Template('{% load wagtailembeds_tags %}{{ "http://www.youtube.com/watch/"|embed }}')
+        temp = template.Template('{% load wagtailembeds_tags %}{% embed "http://www.youtube.com/watch/" %}')
         result = temp.render(template.Context())
 
         self.assertEqual(result, '')

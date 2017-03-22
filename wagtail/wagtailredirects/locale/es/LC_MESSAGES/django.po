@@ -8,15 +8,16 @@
 # Daniel Chimeno <daniel@chimeno.me>, 2016
 # fooflare <amos.oviedo@gmail.com>, 2014
 # Yusuf (Josè) Luis <alagunajs@gmail.com>, 2015
-# Mauricio Baeza <web@mauriciobaeza.net>, 2015
-# Mauricio Baeza <web@mauriciobaeza.net>, 2014
+# Mauricio Baeza <python@amigos.email>, 2015
+# Mauricio Baeza <python@amigos.email>, 2014
+# Yusuf (Josè) Luis <alagunajs@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-03-15 01:49+0000\n"
-"Last-Translator: Daniel Chimeno <daniel@chimeno.me>\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2016-08-01 19:24+0000\n"
+"Last-Translator: Yusuf (Josè) Luis <alagunajs@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -56,6 +57,9 @@ msgstr "redirigir a una página"
 
 msgid "redirect to any URL"
 msgstr "redirigir cualquier url"
+
+msgid "temporary"
+msgstr "temporal"
 
 msgid "redirect"
 msgstr "redirigir"
@@ -106,9 +110,6 @@ msgstr "Tipo"
 
 msgid "Edit this redirect"
 msgstr "Editar esta redirección"
-
-msgid "primary"
-msgstr "primaria"
 
 #, python-format
 msgid ""

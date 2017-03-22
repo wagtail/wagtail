@@ -94,11 +94,11 @@ First, ``models.py``:
     from wagtail.wagtailcore.url_routing import RouteResult
     from django.http.response import Http404
     from wagtail.wagtailcore.models import Page
-    
+
     ...
 
     class Echoer(Page):
-  
+
         def route(self, request, path_components):
             if path_components:
                 # tell Wagtail to call self.serve() with an additional 'path_components' kwarg

@@ -22,7 +22,7 @@ class TestAuthentication(TestCase, WagtailTestUtils):
         # Get login page
         response = self.client.get(reverse('wagtailadmin_login'))
 
-        # Check that the user recieved a login page
+        # Check that the user received a login page
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailadmin/login.html')
 
@@ -82,7 +82,7 @@ class TestAuthentication(TestCase, WagtailTestUtils):
         # Get login page
         response = self.client.get(reverse('wagtailadmin_login'))
 
-        # Check that the user recieved a login page and was not redirected
+        # Check that the user received a login page and was not redirected
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailadmin/login.html')
 
@@ -160,7 +160,7 @@ class TestAccountSection(TestCase, WagtailTestUtils):
         # Get account page
         response = self.client.get(reverse('wagtailadmin_account'))
 
-        # Check that the user recieved an account page
+        # Check that the user received an account page
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailadmin/account/account.html')
         # Page should contain a 'Change password' option
@@ -183,7 +183,7 @@ class TestAccountSection(TestCase, WagtailTestUtils):
         # Get change password page
         response = self.client.get(reverse('wagtailadmin_account_change_password'))
 
-        # Check that the user recieved a change password page
+        # Check that the user received a change password page
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailadmin/account/change_password.html')
 
@@ -196,7 +196,7 @@ class TestAccountSection(TestCase, WagtailTestUtils):
         # Get change password page
         response = self.client.get(reverse('wagtailadmin_account_change_password'))
 
-        # Check that the user recieved a 404
+        # Check that the user received a 404
         self.assertEqual(response.status_code, 404)
 
     def test_change_password_view_post(self):
@@ -248,7 +248,7 @@ class TestAccountSection(TestCase, WagtailTestUtils):
         # Get notification preferences page
         response = self.client.get(reverse('wagtailadmin_account_notification_preferences'))
 
-        # Check that the user recieved a notification preferences page
+        # Check that the user received a notification preferences page
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailadmin/account/notification_preferences.html')
 
@@ -351,7 +351,7 @@ class TestPasswordReset(TestCase, WagtailTestUtils):
         # Get password reset page
         response = self.client.get(reverse('wagtailadmin_password_reset'))
 
-        # Check that the user recieved a password reset page
+        # Check that the user received a password reset page
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailadmin/account/password_reset/form.html')
 
@@ -439,7 +439,7 @@ class TestPasswordReset(TestCase, WagtailTestUtils):
         # Get password reset confirm page
         response = self.client.get(reverse('wagtailadmin_password_reset_confirm', kwargs=self.url_kwargs))
 
-        # Check that the user recieved a password confirm done page
+        # Check that the user received a password confirm done page
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailadmin/account/password_reset/confirm.html')
 
@@ -494,7 +494,7 @@ class TestPasswordReset(TestCase, WagtailTestUtils):
         # Get password reset done page
         response = self.client.get(reverse('wagtailadmin_password_reset_done'))
 
-        # Check that the user recieved a password reset done page
+        # Check that the user received a password reset done page
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailadmin/account/password_reset/done.html')
 
@@ -505,6 +505,6 @@ class TestPasswordReset(TestCase, WagtailTestUtils):
         # Get password reset complete page
         response = self.client.get(reverse('wagtailadmin_password_reset_complete'))
 
-        # Check that the user recieved a password reset complete page
+        # Check that the user received a password reset complete page
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailadmin/account/password_reset/complete.html')

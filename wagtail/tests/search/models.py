@@ -69,3 +69,13 @@ class SearchTestChild(SearchTest):
             index.FilterField('live'),
         ]),
     ]
+
+
+class AnotherSearchTestChild(SearchTest):
+    # Checks that having the same field name in two child models with different
+    # search configuration doesn't give an error
+    subtitle = models.CharField(max_length=255, null=True, blank=True)
+
+    search_fields = SearchTest.search_fields + [
+        index.SearchField('subtitle', boost=10),
+    ]

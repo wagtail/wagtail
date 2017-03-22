@@ -8,14 +8,15 @@ from django.conf import settings
 from django.contrib.humanize.templatetags.humanize import intcomma
 from django.contrib.messages.constants import DEFAULT_TAGS as MESSAGE_TAGS
 from django.template.defaultfilters import stringfilter
+from django.utils.html import conditional_escape
 from django.utils.safestring import mark_safe
 
-from wagtail.utils.pagination import DEFAULT_PAGE_KEY
+from wagtail.utils.pagination import DEFAULT_PAGE_KEY, replace_page_in_query
 from wagtail.wagtailadmin.menu import admin_menu
-from wagtail.wagtailadmin.navigation import get_navigation_menu_items
+from wagtail.wagtailadmin.navigation import get_explorable_root_page, get_navigation_menu_items
 from wagtail.wagtailadmin.search import admin_search_areas
 from wagtail.wagtailcore import hooks
-from wagtail.wagtailcore.models import PageViewRestriction, UserPagePermissionsProxy
+from wagtail.wagtailcore.models import Page, PageViewRestriction, UserPagePermissionsProxy
 from wagtail.wagtailcore.utils import cautious_slugify as _cautious_slugify
 from wagtail.wagtailcore.utils import camelcase_to_underscore, escape_script
 
@@ -53,6 +54,21 @@ def main_nav(context):
     }
 
 
+@register.inclusion_tag('wagtailadmin/shared/breadcrumb.html', takes_context=True)
+def explorer_breadcrumb(context, page, include_self=False):
+    user = context['request'].user
+
+    # find the closest common ancestor of the pages that this user has direct explore permission
+    # (i.e. add/edit/publish/lock) over; this will be the root of the breadcrumb
+    cca = get_explorable_root_page(user)
+    if not cca:
+        return {'pages': Page.objects.none()}
+
+    return {
+        'pages': page.get_ancestors(inclusive=include_self).descendant_of(cca, inclusive=True)
+    }
+
+
 @register.inclusion_tag('wagtailadmin/shared/search_other.html', takes_context=True)
 def search_other(context, current=None):
     request = context['request']
@@ -76,6 +92,14 @@ def ellipsistrim(value, max_length):
             truncd_val = truncd_val[:truncd_val.rfind(" ")]
         return truncd_val + "..."
     return value
+
+
+@register.filter
+def no_thousand_separator(num):
+    """
+    Prevent USE_THOUSAND_SEPARATOR from automatically inserting a thousand separator on this value
+    """
+    return str(num)
 
 
 @register.filter
@@ -160,6 +184,15 @@ def base_url_setting():
     return getattr(settings, 'BASE_URL', None)
 
 
+@assignment_tag
+def allow_unicode_slugs():
+    if django.VERSION < (1, 9):
+        # Unicode slugs are unsupported on Django 1.8
+        return False
+    else:
+        return getattr(settings, 'WAGTAIL_ALLOW_UNICODE_SLUGS', True)
+
+
 class EscapeScriptNode(template.Node):
     TAG_NAME = 'escapescript'
 
@@ -176,6 +209,7 @@ class EscapeScriptNode(template.Node):
         nodelist = parser.parse(('end' + EscapeScriptNode.TAG_NAME,))
         parser.delete_first_token()
         return cls(nodelist)
+
 
 register.tag(EscapeScriptNode.TAG_NAME, EscapeScriptNode.handle)
 
@@ -312,3 +346,16 @@ def message_tags(message):
         return level_tag
     else:
         return ''
+
+
+@register.simple_tag
+def replace_page_param(query, page_number, page_key='p'):
+    """
+    Replaces ``page_key`` from query string with ``page_number``.
+    """
+    return conditional_escape(replace_page_in_query(query, page_number, page_key))
+
+
+@register.filter('abs')
+def _abs(val):
+    return abs(val)

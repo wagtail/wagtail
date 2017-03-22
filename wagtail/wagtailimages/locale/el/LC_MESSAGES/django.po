@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-05-14 21:27+0000\n"
-"Last-Translator: serafeim <serafeim@torchbox.com>\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2016-09-22 15:03+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
 "MIME-Version: 1.0\n"
@@ -132,12 +132,6 @@ msgstr "Δημοφιλείς ετικέτες"
 
 msgid "Uploading..."
 msgstr "Ανέβασμα εικόνας ..."
-
-msgid "Server Error"
-msgstr "Σφάλμα"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Αναφέρατε το σφάλμα στο διαχειριστή με τις εξής πληροφορίες:"
 
 #, python-format
 msgid ""
@@ -327,6 +321,12 @@ msgstr ""
 
 msgid "Sorry, upload failed."
 msgstr "Συγγνώμη, η μεταφόρτωση απέτυχε."
+
+msgid "Server Error"
+msgstr "Σφάλμα"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Αναφέρατε το σφάλμα στο διαχειριστή με τις εξής πληροφορίες:"
 
 msgid "Image updated."
 msgstr "Ενημέρωση εικόνας"

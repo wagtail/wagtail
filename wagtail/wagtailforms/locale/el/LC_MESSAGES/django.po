@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-05-14 21:29+0000\n"
-"Last-Translator: serafeim <serafeim@torchbox.com>\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2017-02-06 12:41+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
 "MIME-Version: 1.0\n"
@@ -96,26 +96,13 @@ msgstr "κείμενο βοήθειας"
 msgid "to address"
 msgstr "διεύθυνση προς"
 
-msgid "Optional - form submissions will be emailed to this address"
-msgstr "Προαιρετικά - υποβολές μορφής θα αποστέλλονται σε αυτή τη διεύθυνση"
-
 msgid "from address"
 msgstr "διεύθυνση από"
 
 msgid "subject"
 msgstr "θέμα"
 
-#, python-format
-msgid "Delete %(title)s"
-msgstr "Διαγραφή %(title)s"
-
 msgid "Delete"
-msgstr "Διαγραφή"
-
-msgid "Are you sure you want to delete this form submission?"
-msgstr "Θέλετε να διαγράψετε την υποβολή της φόρμας;"
-
-msgid "Delete it"
 msgstr "Διαγραφή"
 
 msgid "Forms"
@@ -148,17 +135,5 @@ msgstr "Τίτλος"
 msgid "Origin"
 msgstr "Προέλευση"
 
-msgid "Submission Date"
-msgstr "Ημερομηνία Υποβολής"
-
-msgid "Actions"
-msgstr "Ενέργειες"
-
-msgid "delete"
-msgstr "διαγραφή"
-
 msgid "No form pages have been created."
 msgstr "Δεν έχουν δημιουργηθεί σελίδες μορφής. "
-
-msgid "Submission deleted."
-msgstr "Η υποβολή διαγράφηκε."

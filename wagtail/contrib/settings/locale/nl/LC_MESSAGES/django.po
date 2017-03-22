@@ -1,0 +1,44 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Rob Moorman <rob@moori.nl>, 2016
+# Thijs Kramer <thijskramer@gmail.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2016-11-23 17:49+0000\n"
+"Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
+"Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
+"nl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nl\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#, python-format
+msgid "Editing %(setting_type_name)s - %(instance)s"
+msgstr "%(setting_type_name)s bewerken - %(instance)s"
+
+msgid "Editing"
+msgstr "Aan het bewerken"
+
+msgid "Saving..."
+msgstr "Opslaan..."
+
+msgid "Save"
+msgstr "Opslaan"
+
+msgid "Settings"
+msgstr "Instellingen"
+
+#, python-brace-format
+msgid "{setting_type} updated."
+msgstr "{setting_type} gewijzigd."
+
+msgid "The setting could not be saved due to errors."
+msgstr "De instellingen konden vanwege foutmeldingen niet opgeslagen worden."

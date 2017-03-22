@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-05-29 11:41+0000\n"
-"Last-Translator: fooflare <amos.oviedo@gmail.com>\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2017-02-06 12:41+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
 "MIME-Version: 1.0\n"
@@ -94,27 +94,14 @@ msgstr "texto de axuda"
 msgid "to address"
 msgstr "á dirección"
 
-msgid "Optional - form submissions will be emailed to this address"
-msgstr "Opcional - os envíos de formulario enviaranse a esta dirección"
-
 msgid "from address"
 msgstr "dende a dirección"
 
 msgid "subject"
 msgstr "Asunto"
 
-#, python-format
-msgid "Delete %(title)s"
-msgstr "Eliminar %(title)s"
-
 msgid "Delete"
 msgstr "Eliminar"
-
-msgid "Are you sure you want to delete this form submission?"
-msgstr "¿Seguro que queres eliminar este envío de formulario?"
-
-msgid "Delete it"
-msgstr "Eliminalo"
 
 msgid "Forms"
 msgstr "Formularios"
@@ -146,17 +133,5 @@ msgstr "Título"
 msgid "Origin"
 msgstr "Orixe"
 
-msgid "Submission Date"
-msgstr "Data de envío"
-
-msgid "Actions"
-msgstr "Accións"
-
-msgid "delete"
-msgstr "eliminar"
-
 msgid "No form pages have been created."
 msgstr "Non foi creada ningunha páxina de formulario."
-
-msgid "Submission deleted."
-msgstr "Envío eliminado."

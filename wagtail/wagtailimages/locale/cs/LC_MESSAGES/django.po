@@ -4,12 +4,13 @@
 #
 # Translators:
 # Jiri Stepanek <stepiiicz@gmail.com>, 2015
+# Marek Turnovec <aesculap@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-05-11 20:33+0000\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2016-09-22 15:03+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
@@ -23,12 +24,32 @@ msgid "GIF, JPEG, PNG"
 msgstr "GIF, JPEG, PNG"
 
 #, python-format
+msgid ""
+"Supported formats: %(supported_formats)s. Maximum filesize: "
+"%(max_upload_size)s."
+msgstr ""
+"Podporované formáty: %(supported_formats)s. Maximální velikost souboru: "
+"%(max_upload_size)s."
+
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr "Podporované formáty: %(supported_formats)s."
+
+#, python-format
 msgid "Not a supported image format. Supported formats: %s."
 msgstr "Nepodporovaný formát obrázku. Podporovány jsou formáty %s"
 
 #, python-format
 msgid "Not a valid %s image."
 msgstr "Toto není validní obrázek %s."
+
+#, python-format
+msgid "This file is too big (%%s). Maximum filesize %s."
+msgstr "Soubor je příliš velký (%%s). Maximální velikost souboru %s."
+
+#, python-format
+msgid "This file is too big. Maximum filesize %s."
+msgstr "Soubor je příliš velký. Maximální velikost souboru %s."
 
 msgid "Filter"
 msgstr "Filtr"
@@ -60,8 +81,32 @@ msgstr "Výška"
 msgid "Closeness"
 msgstr "Přiblížení"
 
+msgid "Add"
+msgstr "Přidat"
+
 msgid "Edit"
 msgstr "Upravit"
+
+msgid "Edit any image"
+msgstr "Editovat kterýkoliv obrázek"
+
+msgid "title"
+msgstr "titulek"
+
+msgid "file"
+msgstr "soubor"
+
+msgid "width"
+msgstr "šířka"
+
+msgid "height"
+msgstr "výška"
+
+msgid "uploaded by user"
+msgstr "nahráno uživatelem"
+
+msgid "tags"
+msgstr "Tagy"
 
 msgid "Choose an image"
 msgstr "Zvolit obrázek"
@@ -74,6 +119,9 @@ msgstr "Nahrát"
 
 msgid "Popular tags"
 msgstr "Oblíbené tagy"
+
+msgid "Uploading..."
+msgstr "Nahrávání..."
 
 #, python-format
 msgid ""
@@ -102,6 +150,9 @@ msgstr "Zvolte formát"
 
 msgid "Insert image"
 msgstr "Vložit obrázek"
+
+msgid "Change image file:"
+msgstr "Změnit soubor obrázku:"
 
 msgid "Add an image"
 msgstr "Přidat obrázek"
@@ -143,6 +194,15 @@ msgstr "Zobrazen aktuální středový bod"
 
 msgid "URL Generator"
 msgstr "Generátor URL"
+
+msgid "Max dimensions"
+msgstr "Maximální rozměry"
+
+msgid "Filesize"
+msgstr "Velikost souboru"
+
+msgid "File not found"
+msgstr "Soubor nenalezen"
 
 msgid "Images"
 msgstr "Obrázky"
@@ -203,6 +263,9 @@ msgstr ""
 msgid "Or choose from your computer"
 msgstr "Nebo zvolte soubor ve vašem počítači"
 
+msgid "Add to collection:"
+msgstr "Přidat do kolekce:"
+
 msgid ""
 "Upload successful. Please update this image with a more appropriate title, "
 "if necessary. You may also delete the image completely if the upload wasn't "
@@ -214,11 +277,26 @@ msgstr ""
 msgid "Sorry, upload failed."
 msgstr "Nahrání obrázků na server selhalo."
 
+msgid "Server Error"
+msgstr "Chyba serveru"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Nahlašte tuto chybu správci serveru s následujícími informacemi:"
+
+msgid "Image updated."
+msgstr "Obrázek aktualizován."
+
 msgid "Update"
 msgstr "Uložit"
 
 msgid "Delete"
 msgstr "Smazat"
+
+msgid "Image permissions"
+msgstr "Oprávnění obrázku"
+
+msgid "Add an image permission"
+msgstr "Přidat oprávnění obrázku"
 
 msgid "Search images"
 msgstr "Hledat obrázky"
@@ -227,8 +305,18 @@ msgstr "Hledat obrázky"
 msgid "Image '{0}' updated."
 msgstr "Obrázek '{0}' byl upraven."
 
+msgid "Edit again"
+msgstr "Upravit znovu"
+
 msgid "The image could not be saved due to errors."
 msgstr "Obrázek nelze uložit, zkontrolujte správné vyplnění polí."
+
+msgid ""
+"The source image file could not be found. Please change the source or delete "
+"the image."
+msgstr ""
+"Zdrojový soubor obrázku není možné nalézt. Prosím změňte zdroj nebo smažte "
+"obrázek."
 
 #, python-brace-format
 msgid "Image '{0}' deleted."
@@ -241,5 +329,15 @@ msgstr "Obrázek '{0}' byl přidán."
 msgid "The image could not be created due to errors."
 msgstr "Obrázek nebyl vytvořen, zkontrolujte správné vyplnění polí."
 
+#, python-format
+msgid "%(count)s image"
+msgid_plural "%(count)s images"
+msgstr[0] "%(count)s obrázek"
+msgstr[1] "%(count)s obrázky"
+msgstr[2] "%(count)s obrázků"
+
 msgid "Choose another image"
 msgstr "Zvolit jiný obrázek"
+
+msgid "Edit this image"
+msgstr "Upravit tento obrázek"

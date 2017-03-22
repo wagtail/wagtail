@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-05-11 20:33+0000\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2017-02-06 12:37+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
@@ -92,12 +92,6 @@ msgstr "Publicar còpies"
 msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
 msgstr "Aquest slug ja està en ús dins el context de la seva plana pare \"%s\""
-
-msgid "Public"
-msgstr "Publica"
-
-msgid "Private, accessible with the following password"
-msgstr "Privada, accessible amb la següent clau"
 
 msgid "This field is required."
 msgstr "Aquest camp és obligatori"
@@ -310,6 +304,9 @@ msgstr "Pots veure la vista prèvia de la pàgina aquí:"
 msgid "The page \"%(page)s\" has been submitted for moderation"
 msgstr "La pàgina \"%(page)s\" ha sigut enviada per moderació"
 
+msgid "Public"
+msgstr "Publica"
+
 #, python-format
 msgid "Create a page in %(title)s"
 msgstr "Crear una pàgina a %(title)s"
@@ -347,19 +344,6 @@ msgstr[0] ""
 msgstr[1] ""
 "\n"
 "Això també esborrarà %(descendant_count)s subpàgines més."
-
-msgid ""
-"Alternatively you can unpublish the page. This removes the page from public "
-"view and you can edit or publish it again later."
-msgstr ""
-"Alternativament pots despublicar la pàgina. Això treu la pàgina de la vista "
-"pública i podràs editar-la o tornar-la a publicar desprès."
-
-msgid "Delete it"
-msgstr "Esborra-ho"
-
-msgid "Unpublish it"
-msgstr "Despublica-ho"
 
 #, python-format
 msgid "Move %(title)s"
@@ -437,8 +421,8 @@ msgstr "Explora"
 msgid "Add a child page to '%(title)s'"
 msgstr "Afegeix una pàgina filla a '%(title)s'"
 
-msgid "Add subpage"
-msgstr "Afegeix subpàgina"
+msgid "Add child page"
+msgstr "Afegeix una pàgina filla"
 
 msgid "Previous"
 msgstr "Anterior"
@@ -516,9 +500,6 @@ msgstr "Pàgina '{0}' publicada."
 #, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "La pàgina '{0}' ha estat rebutjada per publicació"
-
-msgid "Add child page"
-msgstr "Afegeix una pàgina filla"
 
 msgid "Choose an item"
 msgstr "Escull un element"

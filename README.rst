@@ -1,5 +1,5 @@
-.. image:: https://api.travis-ci.org/torchbox/wagtail.svg?branch=master
-    :target: https://travis-ci.org/torchbox/wagtail
+.. image:: https://api.travis-ci.org/wagtail/wagtail.svg?branch=master
+    :target: https://travis-ci.org/wagtail/wagtail
 .. image:: https://img.shields.io/pypi/l/wagtail.svg
     :target: https://pypi.python.org/pypi/wagtail/
 .. image:: https://img.shields.io/pypi/v/wagtail.svg
@@ -62,22 +62,30 @@ Documentation
 
 Community Support
 ~~~~~~~~~~~~~~~~~
-Ask your questions on our `Wagtail support group <https://groups.google.com/forum/#!forum/wagtail>`_.
+There is an active community of Wagtail users and developers responding to questions on `Stack Overflow <http://stackoverflow.com/questions/tagged/wagtail>`_. When posting questions, please read Stack Overflow's advice on `how to ask questions <http://stackoverflow.com/help/how-to-ask>`_ and remember to tag your question with "wagtail".
+
+For topics and discussions that do not fit Stack Overflow's question-and-answer format, there is also a `Wagtail Support mailing list <https://groups.google.com/forum/#!forum/wagtail>`_.
 
 Commercial Support
 ~~~~~~~~~~~~~~~~~~
 Wagtail is sponsored by `Torchbox <https://torchbox.com/>`_. If you need help implementing or hosting Wagtail, please contact us: hello@torchbox.com.
 
+Thanks
+~~~~~~
+We thank `BrowserStack <https://www.browserstack.com/>`_, who provide the project with free access to their live web-based browser testing tool, and automated Selenium cloud testing.
+
+.. image:: https://cdn.rawgit.com/wagtail/wagtail/master/.github/browserstack-logo.svg
+    :target: https://www.browserstack.com/
+    :width: 219 px
+
 Compatibility
 ~~~~~~~~~~~~~
-Wagtail supports Django 1.8.1+ on Python 2.7, 3.3, 3.4 and 3.5. Supported database backends are PostgreSQL, MySQL and SQLite.
+Wagtail supports Django 1.8.x and 1.10.x, on Python 2.7, 3.4 and 3.5. Supported database backends are PostgreSQL, MySQL and SQLite.
 
 Contributing
 ~~~~~~~~~~~~
 If you're a Python or Django developer, fork the repo and get stuck in! We run a separate group for developers of Wagtail itself at https://groups.google.com/forum/#!forum/wagtail-developers (please note that this is not for support requests).
 
-You might like to start by reviewing the `coding guidelines <http://docs.wagtail.io/en/latest/contributing/developing.html#coding-guidelines>`_ and checking issues with the `Ready to develop <https://github.com/torchbox/wagtail/issues?q=is%3Aopen+is%3Aissue+label%3A%22Ready+to+develop%21%22>`_ label.
-
-Send us a particularly useful pull request and we'll post you a `t-shirt <https://twitter.com/WagtailCMS/status/432166799464210432/photo/1>`_.
+You might like to start by reviewing the `contributing guidelines <http://docs.wagtail.io/en/latest/contributing/index.html>`_ and checking issues with the `difficulty:Easy <https://github.com/wagtail/wagtail/labels/difficulty%3AEasy>`_ label.
 
 We also welcome translations for Wagtail's interface. Translation work should be submitted through `Transifex <https://www.transifex.com/projects/p/wagtail/>`_.

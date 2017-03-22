@@ -29,7 +29,7 @@ The Elasticsearch search backend now accepts an experimental ``ATOMIC_REBUILD`` 
 The :mod:`~wagtail.contrib.wagtailapi` module now uses Django REST Framework
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The ``wagtailapi`` module is now built on Django REST Framework and it now also has a `library of serialisers <https://github.com/torchbox/wagtail/blob/stable/1.1.x/wagtail/contrib/wagtailapi/serializers.py>`_ that you can use in your own REST Framework based APIs. No user-facing changes have been made.
+The ``wagtailapi`` module is now built on Django REST Framework and it now also has a `library of serialisers <https://github.com/wagtail/wagtail/blob/stable/1.1.x/wagtail/contrib/wagtailapi/serializers.py>`_ that you can use in your own REST Framework based APIs. No user-facing changes have been made.
 
 We hope to support more REST framework features, such as a browsable API, in future releases.
 

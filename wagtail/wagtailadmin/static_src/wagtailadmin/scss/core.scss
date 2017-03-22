@@ -61,7 +61,6 @@ body {
     padding: 1em 2em;
     margin: 0;
     position: relative;
-    width: 100%;
     text-align: center;
 
     a {
@@ -72,6 +71,8 @@ body {
 
 .wrapper {
     @include clearfix();
+    height: 100vh;
+    min-height: 800px;
     transition: transform 0.2s ease;
 }
 
@@ -114,8 +115,21 @@ body {
     @include row();
     background: $color-white;
     border-top: 0 solid $color-grey-5; // this top border provides space for the floating logo to toggle the menu
+    min-height: 100%;
     padding-bottom: 4em;
     position: relative; // yuk. necessary for positions for jquery ui widgets
+}
+
+.page-locked {
+
+    .tab-content {
+        cursor: not-allowed;
+        user-select: none;
+
+        > * {
+            pointer-events: none;
+        }
+    }
 }
 
 footer {
@@ -142,13 +156,13 @@ footer {
 
     .actions {
         width: 250px;
-        margin-right: $grid-gutter-width/2;
+        margin-right: $grid-gutter-width / 2;
     }
 
     .meta {
         float: right;
         text-align: right;
-        padding: 7px $grid-gutter-width/2;
+        padding: 7px $grid-gutter-width / 2;
         font-size: 0.85em;
 
         p {
@@ -433,6 +447,8 @@ footer,
     .breadcrumb {
         padding-top: 0;
         background: $color-teal-darker;
+        margin-left: -($desktop-nice-padding);
+        margin-right: -($desktop-nice-padding);
 
         li {
             a,
@@ -479,7 +495,7 @@ footer,
 
 @media screen and (min-width: 90em) {
     .wrapper {
-        max-width: $breakpoint-desktop-larger;
+        // width: 100%;
     }
 
     footer {

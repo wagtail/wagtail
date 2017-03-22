@@ -3,16 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2016
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2017
 # Kjartan Sverrisson <kjartan@wow.is>, 2016
 # saevarom <saevar@saevar.is>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-05-25 13:27+0000\n"
-"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2017-02-06 12:37+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -120,14 +120,14 @@ msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
 msgstr "Þessi vefslóð (e.slug) er þegar í notkun innan ramma yfirsíðu \"%s\""
 
-msgid "Public"
-msgstr "Í birtingu"
-
-msgid "Private, accessible with the following password"
-msgstr "Læst, aðgengileg með eftirfarandi lykilorði"
+msgid "Visibility"
+msgstr "Sýnileiki"
 
 msgid "This field is required."
 msgstr "Þennan reit þarf að fylla út."
+
+msgid "Please select at least one group."
+msgstr "Vinsamlegast veljið amk eina grúppu."
 
 msgid "This slug is already in use"
 msgstr "Þessi vefslóð (e.slug) er þegar í notkun"
@@ -222,7 +222,7 @@ msgid "Reset your password"
 msgstr "Endursettu lykilorðið þitt"
 
 msgid "Dashboard"
-msgstr "Mælaborð"
+msgstr "Yfirlitssíða"
 
 msgid "Menu"
 msgstr "Valmynd"
@@ -240,7 +240,7 @@ msgid "Delete"
 msgstr "Eyða"
 
 msgid "Explorer"
-msgstr "Skoðari"
+msgstr "Veftré"
 
 msgid "Internal link"
 msgstr "Innri hlekkur"
@@ -337,8 +337,8 @@ msgid ""
 "This is your dashboard on which helpful information about content you've "
 "created will be displayed."
 msgstr ""
-"Þetta er upplýsingataflan þín sem sýnir hjálplegar upplýsingar um efni sem "
-"þú hefur búið til"
+"Þetta er yfirlitssíðan þín sem sýnir hjálplegar upplýsingar um efni sem þú "
+"hefur búið til"
 
 msgid "Pages awaiting moderation"
 msgstr "Síður sem bíða samþykktar"
@@ -487,6 +487,9 @@ msgstr "Aflæst"
 msgid "Privacy"
 msgstr "Aðgengi"
 
+msgid "Public"
+msgstr "Í birtingu"
+
 msgid "Private"
 msgstr "Prívat"
 
@@ -530,18 +533,21 @@ msgstr[1] ""
 "                    Þetta mun einnig eyða %(descendant_count)s undirsíðum.\n"
 "                "
 
+msgid "Yes, delete it"
+msgstr "Já, eyddu því"
+
+msgid "No, don't delete it"
+msgstr "Nei, ekki eyða því"
+
+#, python-format
 msgid ""
-"Alternatively you can unpublish the page. This removes the page from public "
-"view and you can edit or publish it again later."
+"Alternatively you can <a href=\"%(unpublish_url)s\">unpublish the page</a>. "
+"This removes the page from public view and you can edit or publish it again "
+"later."
 msgstr ""
-"Þú getur einnig tekið síðu úr loftinu. Þetta gerir síðuna óaðgengilega "
-"almenningi og þú getur breytt henni eða sett hana í loftið aftur síðar"
-
-msgid "Delete it"
-msgstr "Eyða henni"
-
-msgid "Unpublish it"
-msgstr "Taka hana úr loftinu"
+"Þú getur einnig <a href=\"%(unpublish_url)s\">tekið síðuna úr loftinu</a>. "
+"Það gerir hana ósýnilega fyrir almenningi og gerir þér kleift að breyta "
+"henni og birta aftur síðar."
 
 #, python-format
 msgid "Move %(title)s"
@@ -575,8 +581,31 @@ msgstr "Taka úr loftinu"
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Ertu viss um að þú viljir taka þessa síðu úr loftinu?"
 
+#, python-format
+msgid ""
+"\n"
+"                    This page has one subpage. Unpublish this too\n"
+"                "
+msgid_plural ""
+"\n"
+"                    This page has %(live_descendant_count)s subpages. "
+"Unpublish these too\n"
+"                "
+msgstr[0] ""
+"\n"
+"                    Þessi síða hefur eina undirsíðu. Taka hana einnig úr "
+"loftinu"
+msgstr[1] ""
+"\n"
+"\n"
+"Þessi síða hefur %(live_descendant_count)s undirsíður. Taktu þær úr loftinu "
+"líka"
+
 msgid "Yes, unpublish it"
 msgstr "Já, taka úr loftinu"
+
+msgid "No, don't unpublish"
+msgstr "Nei, ekki taka úr loftinu"
 
 msgid "Pages using"
 msgstr "Síður sem nota"
@@ -740,7 +769,7 @@ msgstr "Skoða undirsíður '%(title)s'"
 msgid "Add a child page to '%(title)s'"
 msgstr "Bæta undirsíðu við '%(title)s'"
 
-msgid "Add subpage"
+msgid "Add child page"
 msgstr "Bæta við undirsíðu"
 
 #, python-format
@@ -908,6 +937,9 @@ msgstr[1] "Notað %(useage_count)s sinnum"
 msgid "Edit your account"
 msgstr "Breyta reikningnum þínum"
 
+msgid "Account settings"
+msgstr "Stillingar reiknings"
+
 msgid "Log out"
 msgstr "Útskrá"
 
@@ -927,10 +959,23 @@ msgstr ""
 "hugbúnaði. Vinsamlegast <a href=\"http://browsehappy.com/\">uppfærðu vafrann "
 "þinn</a>."
 
-msgid "Javascript is required to use Wagtail, but it is currently disabled"
+msgid ""
+"\n"
+"            Javascript is required to use Wagtail, but it is currently "
+"disabled.<br />\n"
+"            Here are the <a href=\"http://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noopener\">instructions how to enable JavaScript in "
+"your web browser</a>.\n"
+"        "
 msgstr ""
-"Javascript er nauðsynlegt til að nota Wagtail, en það er slökkt á því í "
-"vafranum þínum"
+"\n"
+"            Wagtail þarfnast Javascript til að virka, en það er óvirkjað í "
+"vafranum þínum.<br />\n"
+"            Hérna eru <a href=\"http://www.enable-javascript.com/\" target="
+"\"_blank\" rel=\"noopener\">leiðbeiningar um hvernig á að virkja Javascript "
+"í vafranum.</a>\n"
+"\n"
+"        "
 
 msgid "Go to Wagtail admin interface"
 msgstr "Fara á Wagtail stjórnborð"
@@ -942,7 +987,7 @@ msgid "Add a child page"
 msgstr "Bæta við undirsíðu"
 
 msgid "Show in Explorer"
-msgstr "Sýna í skoðara"
+msgstr "Sýna í veftré"
 
 msgid "Test"
 msgstr "Prufa"
@@ -1115,33 +1160,8 @@ msgstr ""
 msgid "Pages"
 msgstr "Síður"
 
-msgid "Preview draft"
-msgstr "Forskoða uppkast"
-
-msgid "Add child page"
-msgstr "Bæða við undirsíðu"
-
-#, python-brace-format
-msgid "Add a child page to '{0}' "
-msgstr "Bæta við undirsíðu við '{0}'"
-
 msgid "More"
 msgstr "Meira"
-
-msgid "View more options"
-msgstr "Sjá fleiri valmöguleika"
-
-msgid "Move this page"
-msgstr "Færa þessa síðu"
-
-msgid "Delete this page"
-msgstr "Eyða þessari síðu"
-
-msgid "Unpublish this page"
-msgstr "Taka þessa síðu úr loftinu"
-
-msgid "View this page's revision history"
-msgstr "Skoða útgáfusögu þessarar síðu"
 
 msgid "Choose an item"
 msgstr "Veldu"

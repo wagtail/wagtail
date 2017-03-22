@@ -3,8 +3,9 @@ root = true
 [*]
 end_of_line = lf
 insert_final_newline = true
+trim_trailing_whitespace = true
 
-[*.{css,js,json,py,yml}]
+[*.{css,js,json,py,yml,rst}]
 indent_style = space
 
 [*.{js,py}]
@@ -15,3 +16,6 @@ indent_size = 4
 
 [*.{js,json,yml}]
 indent_size = 2
+
+[*.md]
+trim_trailing_whitespace = false

@@ -7,17 +7,18 @@
 
 {% block content %}
 
-    <header class="merged tab-merged nice-padding">
-        {% include "wagtailadmin/shared/breadcrumb.html" with page=parent_page include_self=1 %}
+    <header class="merged tab-merged">
+        {% explorer_breadcrumb parent_page include_self=1 %}
 
         <div class="row row-flush">
-            <div class="left col9">
-                <h1 class="icon icon-doc-empty-inverse">{% trans 'New' %} <span>{{ content_type.model_class.get_verbose_name }}</span></h1>
+            <div class="left col9 header-title">
+                <h1 class="icon icon-doc-empty-inverse">
+                {% trans 'New' %} <span>{{ content_type.model_class.get_verbose_name }}</span></h1>
             </div>
         </div>
     </header>
 
-    <form id="page-edit-form" action="{% url 'wagtailadmin_pages:add' content_type.app_label content_type.model parent_page.id %}" method="POST"{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
+    <form id="page-edit-form" action="{% url 'wagtailadmin_pages:add' content_type.app_label content_type.model parent_page.id %}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
         {% csrf_token %}
         <input type="hidden" name="next" value="{{ next }}">
         {{ edit_handler.render_form_content }}

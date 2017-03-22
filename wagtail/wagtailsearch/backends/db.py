@@ -1,10 +1,8 @@
 from __future__ import absolute_import, unicode_literals
 
-import warnings
-
 from django.db import models
+from django.db.models.expressions import Value
 
-from wagtail.utils.deprecation import RemovedInWagtail18Warning
 from wagtail.wagtailsearch.backends.base import (
     BaseSearchBackend, BaseSearchQuery, BaseSearchResults)
 
@@ -76,7 +74,12 @@ class DatabaseSearchResults(BaseSearchResults):
         return queryset.filter(q).distinct()[self.start:self.stop]
 
     def _do_search(self):
-        return self.get_queryset()
+        queryset = self.get_queryset()
+
+        if self._score_field:
+            queryset = queryset.annotate(**{self._score_field: Value(None, output_field=models.FloatField())})
+
+        return queryset
 
     def _do_count(self):
         return self.get_queryset().count()
@@ -106,18 +109,6 @@ class DatabaseSearchBackend(BaseSearchBackend):
 
     def delete(self, obj):
         pass  # Not needed
-
-
-
-class DBSearch(DatabaseSearchBackend):
-    def __init__(self, params):
-        warnings.warn(
-            "The wagtail.wagtailsearch.backends.db.DBSearch has "
-            "been moved to wagtail.wagtailsearch.backends.db.DatabaseSearchBackend",
-            category=RemovedInWagtail18Warning, stacklevel=2
-        )
-
-        super(DBSearch, self).__init__(params)
 
 
 SearchBackend = DatabaseSearchBackend

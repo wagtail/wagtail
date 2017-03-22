@@ -4,8 +4,9 @@ from django.template import engines
 from django.template.loader import render_to_string
 from django.test import TestCase
 
+from wagtail import __version__
 from wagtail.tests.testapp.blocks import SectionBlock
-from wagtail.wagtailcore import __version__, blocks
+from wagtail.wagtailcore import blocks
 from wagtail.wagtailcore.models import Page, Site
 
 

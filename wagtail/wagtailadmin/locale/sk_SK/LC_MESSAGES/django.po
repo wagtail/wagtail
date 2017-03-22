@@ -3,15 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Jozef Karabelly <jozefkarabelly@gmail.com>, 2017
 # dellax <michalnebbia@gmail.com>, 2015
 # Stevo Backor, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-07-12 09:51+0000\n"
-"Last-Translator: Stevo Backor\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2017-02-06 12:37+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
 "MIME-Version: 1.0\n"
@@ -123,14 +124,11 @@ msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
 msgstr "Tento slug je už použitý v kontexte jeho rodičovskej stránky \"%s\""
 
-msgid "Public"
-msgstr "Verejná"
-
-msgid "Private, accessible with the following password"
-msgstr "Súkromná, dostupná s nasledujúcim heslom"
-
 msgid "This field is required."
 msgstr "Toto pole je povinné."
+
+msgid "Please select at least one group."
+msgstr "Prosím, vyberte aspoň jednu skupinu."
 
 msgid "This slug is already in use"
 msgstr "Tento slug sa už používa"
@@ -465,6 +463,9 @@ msgstr "Odomknuté"
 msgid "Privacy"
 msgstr "Súkromie"
 
+msgid "Public"
+msgstr "Verejná"
+
 msgid "Private"
 msgstr "Privátne"
 
@@ -509,19 +510,11 @@ msgstr[2] ""
 "\n"
 "Toto odstráni tiež %(descendant_count)s podstránok."
 
-msgid ""
-"Alternatively you can unpublish the page. This removes the page from public "
-"view and you can edit or publish it again later."
-msgstr ""
-"V prípade potreby môžete stránke zrušiť publikáciu. Toto ju pred "
-"návštevníkmi schová, a nadalej ju budete môcť upravovať alebo neskôr "
-"publikovať."
+msgid "Yes, delete it"
+msgstr "Áno, vymazať"
 
-msgid "Delete it"
-msgstr "Zmazať"
-
-msgid "Unpublish it"
-msgstr "Nezverejniť"
+msgid "No, don't delete it"
+msgstr "Nie, nevymazať"
 
 #, python-format
 msgid "Move %(title)s"
@@ -556,6 +549,9 @@ msgstr "Naozaj chcete odpublikovať túto stránku?"
 
 msgid "Yes, unpublish it"
 msgstr "Áno, odpublikovať"
+
+msgid "No, don't unpublish"
+msgstr "Nie, nepublikovať"
 
 msgid "Pages using"
 msgstr "Stránky požívajúce"
@@ -673,7 +669,7 @@ msgstr "Prehliadajte podstránky '%(title)s'"
 msgid "Add a child page to '%(title)s'"
 msgstr "Pridajte podstránku do '%(title)s'"
 
-msgid "Add subpage"
+msgid "Add child page"
 msgstr "Pridať podstránku"
 
 #, python-format
@@ -825,6 +821,9 @@ msgstr[2] "Použité %(useage_count)s krát"
 msgid "Edit your account"
 msgstr "Upraviť váš účet"
 
+msgid "Account settings"
+msgstr "Nastavenia účtu"
+
 msgid "Log out"
 msgstr "Odhlásiť sa"
 
@@ -844,10 +843,22 @@ msgstr ""
 "týmto systémom. Prosím <a href=\"http://browsehappy.com/\">aktualizujte váš "
 "prehliadač</a>."
 
-msgid "Javascript is required to use Wagtail, but it is currently disabled"
+msgid ""
+"\n"
+"            Javascript is required to use Wagtail, but it is currently "
+"disabled.<br />\n"
+"            Here are the <a href=\"http://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noopener\">instructions how to enable JavaScript in "
+"your web browser</a>.\n"
+"        "
 msgstr ""
-"Pre používanie systému Wagtail je vyžadovaný JavaScript, no momentálne je "
-"deaktivovaný."
+"\n"
+"            Javascript je potrebný na použitie Wagtailu, ale momentálne je "
+"vypnutý.<br />\n"
+"            Tu sú <a href=\"http://www.enable-javascript.com/\" target="
+"\"_blank\" rel=\"noopener\">inštrukcie ako zapnúť JavaScript vo Vašom "
+"webovom prehliadači</a>.\n"
+"        "
 
 msgid "Go to Wagtail admin interface"
 msgstr "Pokračovať do administrátorskej časti"
@@ -1031,33 +1042,8 @@ msgstr ""
 msgid "Pages"
 msgstr "Stránky"
 
-msgid "Preview draft"
-msgstr "Náhľad na koncept"
-
-msgid "Add child page"
-msgstr "Pridať podstránku"
-
-#, python-brace-format
-msgid "Add a child page to '{0}' "
-msgstr "Pridať podstránku pre '{0}' "
-
 msgid "More"
 msgstr "Viac"
-
-msgid "View more options"
-msgstr "Zobraziť viac možností"
-
-msgid "Move this page"
-msgstr "Presunúť túto stránku"
-
-msgid "Delete this page"
-msgstr "Zmazať túto stránku"
-
-msgid "Unpublish this page"
-msgstr "Odpublikovať túto stranku"
-
-msgid "View this page's revision history"
-msgstr "Zobraziť históriu revízií tejto stránky "
 
 msgid "Choose an item"
 msgstr "Zvoľte položku"

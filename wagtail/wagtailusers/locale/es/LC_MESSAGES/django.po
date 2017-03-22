@@ -8,15 +8,16 @@
 # Daniel Chimeno <daniel@chimeno.me>, 2015-2016
 # fooflare <amos.oviedo@gmail.com>, 2014
 # Yusuf (Josè) Luis <alagunajs@gmail.com>, 2015-2016
-# Mauricio Baeza <web@mauriciobaeza.net>, 2015
-# Mauricio Baeza <web@mauriciobaeza.net>, 2014
+# Mauricio Baeza <python@amigos.email>, 2015
+# Mauricio Baeza <python@amigos.email>, 2014
+# Yusuf (Josè) Luis <alagunajs@gmail.com>, 2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-03-15 01:59+0000\n"
-"Last-Translator: Daniel Chimeno <daniel@chimeno.me>\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2017-02-13 21:55+0000\n"
+"Last-Translator: Yusuf (Josè) Luis <alagunajs@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -100,11 +101,25 @@ msgstr "Eliminar grupo"
 
 #, python-format
 msgid ""
-"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> users "
-"assigned."
-msgstr ""
-"El grupo '%(group_name)s' tiene <strong>%(group_user_count)s</strong> "
-"usuarios asignados."
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> member.\n"
+"            "
+msgid_plural ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> members.\n"
+"            "
+msgstr[0] ""
+"\n"
+"                El grupo '%(group_name)s' tienes <strong>"
+"%(group_user_count)s</strong> miembro.\n"
+"            "
+msgstr[1] ""
+"\n"
+"                El grupo '%(group_name)s' tiene <strong>"
+"%(group_user_count)s</strong> miembros.\n"
+"            "
 
 msgid ""
 "Deleting this group will revoke this group's permissions from all member "
@@ -168,6 +183,12 @@ msgid ""
 msgstr ""
 "No hay grupos configurados. ¿Por que no <a href="
 "\"%(wagtailusers_create_group_url)s\">agregar alguno</a>?"
+
+msgid "Delete user"
+msgstr "Eliminar usuario"
+
+msgid "Are you sure you want to delete this user?"
+msgstr "Está seguro de que desea eliminar este usuario?"
 
 msgid "Add user"
 msgstr "Añadir usuario"
@@ -273,5 +294,15 @@ msgstr "Usuario '{0}' actualizado."
 msgid "The user could not be saved due to errors."
 msgstr "El usuario no pudo ser guardado debido a errores."
 
+#, python-brace-format
+msgid "User '{0}' deleted."
+msgstr "Usuario '{0}' eliminado."
+
 msgid "Groups"
 msgstr "Grupos"
+
+msgid "Edit this user"
+msgstr "Editar este usuario"
+
+msgid "Delete this user"
+msgstr "Eliminar este usuario"

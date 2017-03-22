@@ -7,13 +7,13 @@ from django.core.exceptions import PermissionDenied
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.encoding import smart_str
-from django.utils.translation import ugettext as _
+from django.utils.translation import ungettext
 
 from wagtail.utils.pagination import paginate
 from wagtail.wagtailadmin import messages
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailforms.forms import SelectDateForm
-from wagtail.wagtailforms.models import FormSubmission, get_forms_for_user
+from wagtail.wagtailforms.models import get_forms_for_user
 
 
 def index(request):
@@ -26,37 +26,50 @@ def index(request):
     })
 
 
-def delete_submission(request, page_id, submission_id):
+def delete_submissions(request, page_id):
     if not get_forms_for_user(request.user).filter(id=page_id).exists():
         raise PermissionDenied
 
-    submission = get_object_or_404(FormSubmission, id=submission_id)
-    page = get_object_or_404(Page, id=page_id)
+    page = get_object_or_404(Page, id=page_id).specific
+
+    # Get submissions
+    submission_ids = request.GET.getlist('selected-submissions')
+    submissions = page.get_submission_class()._default_manager.filter(id__in=submission_ids)
 
     if request.method == 'POST':
-        submission.delete()
+        count = submissions.count()
+        submissions.delete()
 
-        messages.success(request, _("Submission deleted."))
+        messages.success(
+            request,
+            ungettext(
+                "One submission has been deleted.",
+                "%(count)d submissions have been deleted.",
+                count
+            ) % {
+                'count': count,
+            }
+        )
+
         return redirect('wagtailforms:list_submissions', page_id)
 
     return render(request, 'wagtailforms/confirm_delete.html', {
         'page': page,
-        'submission': submission
+        'submissions': submissions,
     })
 
 
 def list_submissions(request, page_id):
-    form_page = get_object_or_404(Page, id=page_id).specific
-
     if not get_forms_for_user(request.user).filter(id=page_id).exists():
         raise PermissionDenied
 
-    data_fields = [
-        (field.clean_name, field.label)
-        for field in form_page.form_fields.all()
-    ]
+    form_page = get_object_or_404(Page, id=page_id).specific
+    form_submission_class = form_page.get_submission_class()
 
-    submissions = FormSubmission.objects.filter(page=form_page)
+    data_fields = form_page.get_data_fields()
+
+    submissions = form_submission_class.objects.filter(page=form_page).order_by('submit_time')
+    data_headings = [label for name, label in data_fields]
 
     select_date_form = SelectDateForm(request.GET)
     if select_date_form.is_valid():
@@ -78,13 +91,13 @@ def list_submissions(request, page_id):
         response = HttpResponse(content_type='text/csv; charset=utf-8')
         response['Content-Disposition'] = 'attachment;filename=export.csv'
 
+        # Prevents UnicodeEncodeError for labels with non-ansi symbols
+        data_headings = [smart_str(label) for label in data_headings]
+
         writer = csv.writer(response)
-
-        header_row = ['Submission date'] + [smart_str(label) for name, label in data_fields]
-
-        writer.writerow(header_row)
+        writer.writerow(data_headings)
         for s in submissions:
-            data_row = [s.submit_time]
+            data_row = []
             form_data = s.get_data()
             for name, label in data_fields:
                 data_row.append(smart_str(form_data.get(name)))
@@ -93,11 +106,10 @@ def list_submissions(request, page_id):
 
     paginator, submissions = paginate(request, submissions)
 
-    data_headings = [label for name, label in data_fields]
     data_rows = []
     for s in submissions:
         form_data = s.get_data()
-        data_row = [s.submit_time] + [form_data.get(name) for name, label in data_fields]
+        data_row = [form_data.get(name) for name, label in data_fields]
         data_rows.append({
             "model_id": s.id,
             "fields": data_row

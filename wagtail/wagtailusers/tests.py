@@ -89,7 +89,7 @@ class TestUserIndexView(TestCase, WagtailTestUtils):
         self.assertContains(response, 'testuser')
 
     def test_allows_negative_ids(self):
-        # see https://github.com/torchbox/wagtail/issues/565
+        # see https://github.com/wagtail/wagtail/issues/565
         get_user_model().objects.create_user('guardian', 'guardian@example.com', 'gu@rd14n', pk=-1)
         response = self.get()
         self.assertEqual(response.status_code, 200)
@@ -398,7 +398,7 @@ class TestUserProfileCreation(TestCase, WagtailTestUtils):
     def test_user_created_without_profile(self):
         self.assertEqual(UserProfile.objects.filter(user=self.test_user).count(), 0)
         with self.assertRaises(UserProfile.DoesNotExist):
-            self.test_user.userprofile
+            self.test_user.wagtail_userprofile
 
     def test_user_profile_created_when_method_called(self):
         self.assertIsInstance(UserProfile.get_for_user(self.test_user), UserProfile)
@@ -749,6 +749,16 @@ class TestGroupEditView(TestCase, WagtailTestUtils):
             ).count(),
             0
         )
+
+    def test_group_edit_loads_with_django_permissions_shown(self):
+        # the checkbox for self.existing_permission should be ticked
+        response = self.get()
+
+        # use allow_extra_attrs because the input will also have an id (with an unpredictable value)
+        self.assertTagInHTML(
+            '<input name="permissions" type="checkbox" checked value="%s">' % self.existing_permission.id,
+            str(response.content),
+            allow_extra_attrs=True)
 
     def test_group_edit_loads_with_page_permissions_shown(self):
         # The test group has one page permission to begin with

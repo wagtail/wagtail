@@ -172,6 +172,14 @@ class TestTableBlock(TestTableBlockRenderingBase):
         block2 = TableBlock(table_options=new_options)
         self.assertEqual(block2.is_html_renderer(), True)
 
+    def test_searchable_content(self):
+        value = {'first_row_is_table_header': False, 'first_col_is_header': False,
+                 'data': [['Test 1', 'Test 2', 'Test 3'], [None, 'Bar', None],
+                          [None, 'Foo', None]]}
+        block = TableBlock()
+        content = block.get_searchable_content(value)
+        self.assertEqual(content, ['Test 1', 'Test 2', 'Test 3', 'Bar', 'Foo', ])
+
     def test_render_with_extra_context(self):
         """
         Test that extra context variables passed in block.render are passed through

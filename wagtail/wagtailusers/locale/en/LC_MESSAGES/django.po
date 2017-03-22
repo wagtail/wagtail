@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-01 13:25+0000\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -73,35 +73,35 @@ msgstr ""
 msgid "A group with that name already exists."
 msgstr ""
 
-#: forms.py:310
+#: forms.py:313
 msgid "You cannot have multiple permission records for the same page."
 msgstr ""
 
-#: models.py:14
+#: models.py:16
 msgid "submitted notifications"
 msgstr ""
 
-#: models.py:16
+#: models.py:18
 msgid "Receive notification when a page is submitted for moderation"
 msgstr ""
 
-#: models.py:20
+#: models.py:22
 msgid "approved notifications"
 msgstr ""
 
-#: models.py:22
+#: models.py:24
 msgid "Receive notification when your page edit is approved"
 msgstr ""
 
-#: models.py:26
+#: models.py:28
 msgid "rejected notifications"
 msgstr ""
 
-#: models.py:28
+#: models.py:30
 msgid "Receive notification when your page edit is rejected"
 msgstr ""
 
-#: models.py:39
+#: models.py:41
 msgid "user profile"
 msgstr ""
 
@@ -114,21 +114,29 @@ msgstr ""
 #: templates/wagtailusers/groups/confirm_delete.html:11
 #, python-format
 msgid ""
-"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> users "
-"assigned."
-msgstr ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> member.\n"
+"            "
+msgid_plural ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> members.\n"
+"            "
+msgstr[0] ""
+msgstr[1] ""
 
-#: templates/wagtailusers/groups/confirm_delete.html:15
+#: templates/wagtailusers/groups/confirm_delete.html:19
 msgid ""
 "Deleting this group will revoke this group's permissions from all member "
 "users."
 msgstr ""
 
-#: templates/wagtailusers/groups/confirm_delete.html:19
+#: templates/wagtailusers/groups/confirm_delete.html:23
 msgid "Are you sure you want to delete this group?"
 msgstr ""
 
-#: templates/wagtailusers/groups/confirm_delete.html:22
+#: templates/wagtailusers/groups/confirm_delete.html:26
 #: templates/wagtailusers/users/confirm_delete.html:13
 msgid "Yes, delete"
 msgstr ""
@@ -157,7 +165,7 @@ msgid "Object permissions"
 msgstr ""
 
 #: templates/wagtailusers/groups/includes/formatted_permissions.html:11
-#: templates/wagtailusers/groups/includes/formatted_permissions.html:53
+#: templates/wagtailusers/groups/includes/formatted_permissions.html:41
 #: templates/wagtailusers/groups/list.html:6
 #: templates/wagtailusers/users/list.html:7
 msgid "Name"
@@ -177,7 +185,7 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: templates/wagtailusers/groups/includes/formatted_permissions.html:47
+#: templates/wagtailusers/groups/includes/formatted_permissions.html:35
 msgid "Other permissions"
 msgstr ""
 

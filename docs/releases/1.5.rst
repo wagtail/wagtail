@@ -25,7 +25,7 @@ Wagtail now includes an app ``wagtail.contrib.modeladmin`` (previously available
 .. image:: ../_static/images/releasenotes_1_5_modeladmin.png
 
 
-See :doc:`/reference/contrib/modeladmin` for full documentation. This feature was developed by Andy Babic.
+See :doc:`/reference/contrib/modeladmin/index` for full documentation. This feature was developed by Andy Babic.
 
 
 TableBlock

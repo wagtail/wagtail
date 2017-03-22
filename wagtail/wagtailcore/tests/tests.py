@@ -1,6 +1,8 @@
 from __future__ import absolute_import, unicode_literals
 
+from django import template
 from django.core.cache import cache
+from django.http import HttpRequest
 from django.test import TestCase
 from django.utils.safestring import SafeText
 
@@ -24,6 +26,29 @@ class TestPageUrlTags(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response,
                             '<a href="/events/">Back to events index</a>')
+
+    def test_pageurl_without_request_in_context(self):
+        page = Page.objects.get(url_path='/home/events/')
+        tpl = template.Template('''{% load wagtailcore_tags %}<a href="{% pageurl page %}">{{ page.title }}</a>''')
+
+        # no 'request' object in context
+        result = tpl.render(template.Context({'page': page}))
+        self.assertIn('<a href="/events/">Events</a>', result)
+
+        # 'request' object in context, but no 'site' attribute
+        result = tpl.render(template.Context({'page': page, 'request': HttpRequest()}))
+        self.assertIn('<a href="/events/">Events</a>', result)
+
+    def test_slugurl_without_request_in_context(self):
+        tpl = template.Template('''{% load wagtailcore_tags %}<a href="{% slugurl 'events' %}">Events</a>''')
+
+        # no 'request' object in context
+        result = tpl.render(template.Context({}))
+        self.assertIn('<a href="/events/">Events</a>', result)
+
+        # 'request' object in context, but no 'site' attribute
+        result = tpl.render(template.Context({'request': HttpRequest()}))
+        self.assertIn('<a href="/events/">Events</a>', result)
 
 
 class TestSiteRootPathsCache(TestCase):
@@ -91,7 +116,7 @@ class TestSiteRootPathsCache(TestCase):
         site and return None as their url.
 
         Fix: d6cce69a397d08d5ee81a8cbc1977ab2c9db2682
-        Discussion: https://github.com/torchbox/wagtail/issues/7
+        Discussion: https://github.com/wagtail/wagtail/issues/7
         """
         # Get homepage, root page and site
         root_page = Page.objects.get(id=1)
@@ -129,7 +154,7 @@ class TestSiteRootPathsCache(TestCase):
         the site and return None as their url.
 
         Fix: d6cce69a397d08d5ee81a8cbc1977ab2c9db2682
-        Discussion: https://github.com/torchbox/wagtail/issues/157
+        Discussion: https://github.com/wagtail/wagtail/issues/157
         """
         # Get homepage
         homepage = Page.objects.get(url_path='/home/')

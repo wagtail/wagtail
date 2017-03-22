@@ -103,7 +103,7 @@ IntegerBlock
 
 ``wagtail.wagtailcore.blocks.IntegerBlock``
 
-A single-line integer input that validates that the integer is a valid whole number. The keyword arguments ``required``, ``max_length``, ``min_length`` and ``help_text`` are accepted.
+A single-line integer input that validates that the integer is a valid whole number. The keyword arguments ``required``, ``max_value``, ``min_value`` and ``help_text`` are accepted.
 
 For an example of ``IntegerBlock`` in use, see :ref:`streamfield_personblock_example`
 
@@ -132,7 +132,7 @@ A single-line text input that validates a string against a regex expression. The
 
 .. code-block:: python
 
-    blocks.RegexBlock(regex=r'^[0-9]{3}$', error_message={
+    blocks.RegexBlock(regex=r'^[0-9]{3}$', error_messages={
         'invalid': "Not a valid library card number."
     })
 
@@ -190,6 +190,14 @@ A text area for entering raw HTML which will be rendered unescaped in the page o
 .. WARNING::
    When this block is in use, there is nothing to prevent editors from inserting malicious scripts into the page, including scripts that would allow the editor to acquire administrator privileges when another administrator views the page. Do not use this block unless your editors are fully trusted.
 
+BlockQuoteBlock
+~~~~~~~~~~~~~~~
+
+``wagtail.wagtailcore.blocks.BlockQuoteBlock``
+
+A text field, the contents of which will be wrapped in an HTML `<blockquote>` tag pair. The keyword arguments ``required``, ``max_length``, ``min_length`` and ``help_text`` are accepted.
+
+
 ChoiceBlock
 ~~~~~~~~~~~
 
@@ -198,7 +206,7 @@ ChoiceBlock
 A dropdown select box for choosing from a list of choices. The following keyword arguments are accepted:
 
 ``choices``
-  A list of choices, in any format accepted by Django's ``choices`` parameter for model fields: https://docs.djangoproject.com/en/stable/ref/models/fields/#field-choices
+  A list of choices, in any format accepted by Django's ``choices`` parameter for model fields (https://docs.djangoproject.com/en/stable/ref/models/fields/#field-choices), or a callable returning such a list.
 
 ``required`` (default: True)
   If true, the field cannot be left blank.
@@ -230,7 +238,7 @@ could be rewritten as a subclass of ChoiceBlock:
             icon = 'cup'
 
 
-``StreamField`` definitions can then refer to ``DrinksChoiceBlock()`` in place of the full ``ChoiceBlock`` definition.
+``StreamField`` definitions can then refer to ``DrinksChoiceBlock()`` in place of the full ``ChoiceBlock`` definition. Note that this only works when ``choices`` is a fixed list, not a callable.
 
 PageChooserBlock
 ~~~~~~~~~~~~~~~~
@@ -241,6 +249,9 @@ A control for selecting a page object, using Wagtail's page browser. The followi
 
 ``required`` (default: True)
   If true, the field cannot be left blank.
+
+``target_model`` (default: Page)
+  Restrict choices to one or more specific page types. Accepts a page model class, model name (as a string), or a list or tuple of these.
 
 ``can_choose_root`` (default: False)
   If true, the editor can choose the tree root as a page. Normally this would be undesirable, since the tree root is never a usable page, but in some specialised cases it may be appropriate. For example, a block providing a feed of related articles could use a PageChooserBlock to select which subsection of the site articles will be taken from, with the root corresponding to 'everywhere'.
@@ -272,6 +283,36 @@ EmbedBlock
 ``wagtail.wagtailembeds.blocks.EmbedBlock``
 
 A field for the editor to enter a URL to a media item (such as a YouTube video) to appear as embedded media on the page. The keyword arguments ``required``, ``max_length``, ``min_length`` and ``help_text`` are accepted.
+
+
+.. _streamfield_staticblock:
+
+StaticBlock
+~~~~~~~~~~~
+
+``wagtail.wagtailcore.blocks.StaticBlock``
+
+A block which doesn't have any fields, thus passes no particular values to its template during rendering. This can be useful if you need the editor to be able to insert some content which is always the same or doesn't need to be configured within the page editor, such as an address, embed code from third-party services, or more complex pieces of code if the template uses template tags.
+
+By default, some default text (which contains the ``label`` keyword argument if you pass it) will be displayed in the editor interface, so that the block doesn't look empty. But you can also customise it entirely by passing a text string as the ``admin_text`` keyword argument instead:
+
+.. code-block:: python
+
+    blocks.StaticBlock(
+        admin_text='Latest posts: no configuration needed.',
+        # or admin_text=mark_safe('<b>Latest posts</b>: no configuration needed.'),
+        template='latest_posts.html')
+
+``StaticBlock`` can also be subclassed to produce a reusable block with the same configuration everywhere it is used:
+
+.. code-block:: python
+
+    class LatestPostsStaticBlock(blocks.StaticBlock):
+        class Meta:
+            icon = 'user'
+            label = 'Latest posts'
+            admin_text = '{label}: configured elsewhere'.format(label=label)
+            template = 'latest_posts.html'
 
 
 Structural block types
@@ -426,6 +467,8 @@ StreamField provides an HTML representation for the stream content as a whole, a
 
     {% load wagtailcore_tags %}
 
+     ...
+
     {% include_block page.body %}
 
 
@@ -434,6 +477,8 @@ In the default rendering, each block of the stream is wrapped in a ``<div class=
 .. code-block:: html+django
 
     {% load wagtailcore_tags %}
+
+     ...
 
     <article>
         {% for block in page.body %}
@@ -447,6 +492,8 @@ For more control over the rendering of specific block types, each block object p
 .. code-block:: html+django
 
     {% load wagtailcore_tags %}
+
+     ...
 
     <article>
         {% for block in page.body %}
@@ -589,8 +636,8 @@ As well as passing variables from the parent template, block subclasses can pass
         title = blocks.CharBlock(required=True)
         date = blocks.DateBlock(required=True)
 
-        def get_context(self, value):
-            context = super(EventBlock, self).get_context(value)
+        def get_context(self, value, parent_context=None):
+            context = super(EventBlock, self).get_context(value, parent_context=parent_context)
             context['is_happening_today'] = (value['date'] == datetime.date.today())
             return context
 
@@ -598,7 +645,7 @@ As well as passing variables from the parent template, block subclasses can pass
             template = 'myapp/blocks/event.html'
 
 
-In this example, the variable ``is_happening_today`` will be made available within the block template.
+In this example, the variable ``is_happening_today`` will be made available within the block template. The ``parent_context`` keyword argument is available when the block is rendered through an ``{% include_block %}`` tag, and is a dict of variables passed from the calling template.
 
 
 BoundBlocks and values

@@ -1,7 +1,7 @@
 from __future__ import absolute_import, unicode_literals
 
+import copy
 import json
-import warnings
 
 from django.db import models
 from django.utils.crypto import get_random_string
@@ -9,10 +9,11 @@ from django.utils.six.moves.urllib.parse import urlparse
 from elasticsearch import Elasticsearch, NotFoundError
 from elasticsearch.helpers import bulk
 
-from wagtail.utils.deprecation import RemovedInWagtail18Warning
+from wagtail.utils.utils import deep_update
 from wagtail.wagtailsearch.backends.base import (
     BaseSearchBackend, BaseSearchQuery, BaseSearchResults)
-from wagtail.wagtailsearch.index import FilterField, RelatedFields, SearchField, class_is_indexed
+from wagtail.wagtailsearch.index import (
+    FilterField, Indexed, RelatedFields, SearchField, class_is_indexed)
 
 
 class ElasticsearchMapping(object):
@@ -42,8 +43,24 @@ class ElasticsearchMapping(object):
         'TimeField': 'date',
     }
 
+    keyword_type = 'string'
+    text_type = 'string'
+    set_index_not_analyzed_on_filter_fields = True
+
+    # Contains the configuration required to use the edgengram_analyzer
+    # on a field. It's different in Elasticsearch 2 so it's been put in
+    # an attribute here to make it easier to override in a subclass.
+    edgengram_analyzer_config = {
+        'index_analyzer': 'edgengram_analyzer',
+    }
+
     def __init__(self, model):
         self.model = model
+
+    def get_parent(self):
+        for base in self.model.__bases__:
+            if issubclass(base, Indexed) and issubclass(base, models.Model):
+                return type(self)(base)
 
     def get_document_type(self):
         return self.model.indexed_get_content_type()
@@ -71,16 +88,26 @@ class ElasticsearchMapping(object):
             mapping = {'type': self.type_map.get(field.get_type(self.model), 'string')}
 
             if isinstance(field, SearchField):
+                if mapping['type'] == 'string':
+                    mapping['type'] = self.text_type
+
                 if field.boost:
                     mapping['boost'] = field.boost
 
                 if field.partial_match:
-                    mapping['index_analyzer'] = 'edgengram_analyzer'
+                    mapping.update(self.edgengram_analyzer_config)
 
                 mapping['include_in_all'] = True
 
             elif isinstance(field, FilterField):
-                mapping['index'] = 'not_analyzed'
+                if mapping['type'] == 'string':
+                    mapping['type'] = self.keyword_type
+
+                if self.set_index_not_analyzed_on_filter_fields:
+                    # Not required on ES5 as that uses the "keyword" type for
+                    # filtered string fields
+                    mapping['index'] = 'not_analyzed'
+
                 mapping['include_in_all'] = False
 
             if 'es_extra' in field.kwargs:
@@ -92,10 +119,17 @@ class ElasticsearchMapping(object):
     def get_mapping(self):
         # Make field list
         fields = {
-            'pk': dict(type='string', index='not_analyzed', store='yes', include_in_all=False),
-            'content_type': dict(type='string', index='not_analyzed', include_in_all=False),
-            '_partials': dict(type='string', index_analyzer='edgengram_analyzer', include_in_all=False),
+            'pk': dict(type=self.keyword_type, store=True, include_in_all=False),
+            'content_type': dict(type=self.keyword_type, include_in_all=False),
+            '_partials': dict(type=self.text_type, include_in_all=False),
         }
+        fields['_partials'].update(self.edgengram_analyzer_config)
+
+        if self.set_index_not_analyzed_on_filter_fields:
+            # Not required on ES5 as that uses the "keyword" type for
+            # filtered string fields
+            fields['pk']['index'] = 'not_analyzed'
+            fields['content_type']['index'] = 'not_analyzed'
 
         fields.update(dict(
             self.get_field_mapping(field) for field in self.model.get_search_fields()
@@ -208,10 +242,8 @@ class ElasticsearchSearchQuery(BaseSearchQuery):
                 }
             else:
                 return {
-                    'not': {
-                        'missing': {
-                            'field': column_name,
-                        }
+                    'exists': {
+                        'field': column_name,
                     }
                 }
 
@@ -305,15 +337,18 @@ class ElasticsearchSearchQuery(BaseSearchQuery):
 
         return query
 
+    def get_content_type_filter(self):
+        return {
+            'prefix': {
+                'content_type': self.queryset.model.indexed_get_content_type()
+            }
+        }
+
     def get_filters(self):
         filters = []
 
         # Filter by content type
-        filters.append({
-            'prefix': {
-                'content_type': self.queryset.model.indexed_get_content_type()
-            }
-        })
+        filters.append(self.get_content_type_filter())
 
         # Apply filters from queryset
         queryset_filters = self._get_filters_from_queryset()
@@ -381,6 +416,8 @@ class ElasticsearchSearchQuery(BaseSearchQuery):
 
 
 class ElasticsearchSearchResults(BaseSearchResults):
+    fields_param_name = 'fields'
+
     def _get_es_body(self, for_count=False):
         body = {
             'query': self.query.get_query()
@@ -400,9 +437,10 @@ class ElasticsearchSearchResults(BaseSearchResults):
             index=self.backend.get_index_for_model(self.query.queryset.model).name,
             body=self._get_es_body(),
             _source=False,
-            fields='pk',
             from_=self.start,
         )
+
+        params[self.fields_param_name] = 'pk'
 
         # Add size if set
         if self.stop is not None:
@@ -413,6 +451,7 @@ class ElasticsearchSearchResults(BaseSearchResults):
 
         # Get pks from results
         pks = [hit['fields']['pk'][0] for hit in hits['hits']['hits']]
+        scores = {str(hit['fields']['pk'][0]): hit['_score'] for hit in hits['hits']['hits']}
 
         # Initialise results dictionary
         results = dict((str(pk), None) for pk in pks)
@@ -421,6 +460,9 @@ class ElasticsearchSearchResults(BaseSearchResults):
         queryset = self.query.queryset.filter(pk__in=pks)
         for obj in queryset:
             results[str(obj.pk)] = obj
+
+            if self._score_field:
+                setattr(obj, self._score_field, scores.get(str(obj.pk)))
 
         # Return results in order given by Elasticsearch
         return [results[str(pk)] for pk in pks if results[str(pk)]]
@@ -720,12 +762,17 @@ class ElasticsearchSearchBackend(BaseSearchBackend):
                     'http_auth': http_auth,
                 })
 
+        self.settings = copy.deepcopy(self.settings)  # Make the class settings attribute as instance settings attribute
+        self.settings = deep_update(self.settings, params.pop("INDEX_SETTINGS", {}))
+
         # Get Elasticsearch interface
         # Any remaining params are passed into the Elasticsearch constructor
+        options = params.pop('OPTIONS', {})
+
         self.es = Elasticsearch(
             hosts=self.hosts,
             timeout=self.timeout,
-            **params)
+            **options)
 
     def get_index_for_model(self, model):
         return self.index_class(self, self.index_name)
@@ -754,17 +801,6 @@ class ElasticsearchSearchBackend(BaseSearchBackend):
 
     def delete(self, obj):
         self.get_index_for_model(type(obj)).delete_item(obj)
-
-
-class ElasticSearch(ElasticsearchSearchBackend):
-    def __init__(self, params):
-        warnings.warn(
-            "The wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch has "
-            "been moved to wagtail.wagtailsearch.backends.elasticsearch.ElasticsearchSearchBackend",
-            category=RemovedInWagtail18Warning, stacklevel=2
-        )
-
-        super(ElasticSearch, self).__init__(params)
 
 
 SearchBackend = ElasticsearchSearchBackend

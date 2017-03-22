@@ -11,7 +11,7 @@ import wagtail.wagtailsearch.index
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('taggit', '__latest__'),
+        ('taggit', '0001_initial'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 

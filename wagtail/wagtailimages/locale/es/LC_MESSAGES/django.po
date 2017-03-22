@@ -5,19 +5,20 @@
 # Translators:
 # fooflare <amos.oviedo@gmail.com>, 2014
 # fooflare <amos.oviedo@gmail.com>, 2014
+# Daniel Chimeno <daniel@chimeno.me>, 2017
 # Daniel Chimeno <daniel@chimeno.me>, 2015
 # fooflare <amos.oviedo@gmail.com>, 2014
 # Joaquín Tita <carpincho@gmail.com>, 2014
 # Yusuf (Josè) Luis <alagunajs@gmail.com>, 2015-2016
-# Mauricio Baeza <web@mauriciobaeza.net>, 2015
+# Mauricio Baeza <python@amigos.email>, 2015
 # Yusuf (Josè) Luis <alagunajs@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-05-15 22:04+0000\n"
-"Last-Translator: Yusuf (Josè) Luis <alagunajs@gmail.com>\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2017-01-27 10:59+0000\n"
+"Last-Translator: Daniel Chimeno <daniel@chimeno.me>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -57,6 +58,15 @@ msgstr ""
 #, python-format
 msgid "This file is too big. Maximum filesize %s."
 msgstr "Este archivo es demasiado grande. El tamaño máximo de archivo es: %s."
+
+msgid "Full width"
+msgstr "Ancho completo"
+
+msgid "Left-aligned"
+msgstr "Alineado a la izquierda"
+
+msgid "Right-aligned"
+msgstr "Alineado a la derecha"
 
 msgid "Filter"
 msgstr "Filtro"
@@ -136,13 +146,6 @@ msgstr "Etiquetas populares"
 msgid "Uploading..."
 msgstr "Subiendo..."
 
-msgid "Server Error"
-msgstr "Error de servidor"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr ""
-"Reporte este error a tu administrador web con la siguiente información:"
-
 #, python-format
 msgid ""
 "\n"
@@ -189,7 +192,7 @@ msgstr[1] ""
 "            "
 
 msgid "Change image file:"
-msgstr "Cambiar archivo de imágen:"
+msgstr "Cambiar archivo de imagen:"
 
 msgid "Add an image"
 msgstr "Añadir una imagen"
@@ -334,6 +337,13 @@ msgstr ""
 msgid "Sorry, upload failed."
 msgstr "Lo sentimos, su subida ha fallado."
 
+msgid "Server Error"
+msgstr "Error de servidor"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr ""
+"Reporte este error a tu administrador web con la siguiente información:"
+
 msgid "Image updated."
 msgstr "Imagen actualizada"
 
@@ -366,8 +376,8 @@ msgid ""
 "The source image file could not be found. Please change the source or delete "
 "the image."
 msgstr ""
-"El archivo origen de la imágen no pudo ser encontrado. Por favor, cambia el "
-"origen o elimina esta imágen."
+"El archivo origen de la imagen no pudo ser encontrado. Por favor, cambia el "
+"origen o elimina esta imagen."
 
 #, python-brace-format
 msgid "Image '{0}' deleted."
@@ -390,4 +400,4 @@ msgid "Choose another image"
 msgstr "Seleccionar otra imagen"
 
 msgid "Edit this image"
-msgstr "Editar esta imágen"
+msgstr "Editar esta imagen"

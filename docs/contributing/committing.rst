@@ -8,11 +8,14 @@ or for anyone interested in the process of getting code committed to Wagtail.
 Code should only be committed after it has been reviewed
 by at least one other reviewer or committer,
 unless the change is a small documentation change or fixing a typo.
+If additional code changes are made after the review, it is OK to commit them
+without further review if they are uncontroversial and small enough that
+there is minimal chance of introducing new bugs.
 
 Most code contributions will be in the form of pull requests from Github.
-Pull requests should not be merged from Github though.
-Instead, the code should be checked out by a committer locally,
-the changes examined and rebased,
+Pull requests should not be merged from Github, apart from small documentation fixes,
+which can be merged with the 'Squash and merge' option. Instead, the code should
+be checked out by a committer locally, the changes examined and rebased,
 the ``CHANGELOG.txt`` and release notes updated,
 and finally the code should be pushed to the master branch.
 This process is covered in more detail below.
@@ -22,7 +25,7 @@ Check out the code locally
 
 If the code has been submitted as a pull request,
 you should fetch the changes and check them out in your Wagtail repository.
-A simple way to do this is by adding the following ``git`` alias to your ``~/.gitconfig`` (assuming ``upstream`` is ``torchbox/wagtail``):
+A simple way to do this is by adding the following ``git`` alias to your ``~/.gitconfig`` (assuming ``upstream`` is ``wagtail/wagtail``):
 
 .. code-block:: text
 
@@ -42,16 +45,22 @@ You can fix up any small mistakes in the commits,
 such as typos and formatting, as part of the rebase.
 ``git rebase --interactive`` is an excellent tool for this job.
 
-.. code-block:: sh
+Ideally, use this as an opportunity to squash the changes to a few commits, so
+each commit is making a single meaningful change (and not breaking anything).
+If this is not possible because of the nature of the changes, it's acceptable
+to either squash into a commit or leave all commits unsquashed,
+depending on which will be more readable in the commit history.
 
-    # Get the latest commits from Wagtail
+.. code-block:: console
+
+    $ # Get the latest commits from Wagtail
     $ git fetch upstream
     $ git checkout master
     $ git merge --ff-only upstream/master
-    # Rebase this pull request on to master
+    $ # Rebase this pull request on to master
     $ git checkout pr/xxxx
     $ git rebase master
-    # Update master to this commit
+    $ # Update master to this commit
     $ git checkout master
     $ git merge --ff-only pr/xxxx
 
@@ -92,7 +101,7 @@ If the changes to be merged are small enough to be a single commit,
 amend this single commit with the additions to
 the ``CHANGELOG.txt``, release notes, and contributors:
 
-.. code-block:: sh
+.. code-block:: console
 
     $ git add CHANGELOG.txt docs/releases/x.x.x.rst CONTRIBUTORS.rst
     $ git commit --amend --no-edit
@@ -101,7 +110,7 @@ If the changes do not fit in a single commit, make a new commit with the updates
 the ``CHANGELOG.txt``, release notes, and contributors.
 The commit message should say ``Release notes for #xxxx``:
 
-.. code-block:: sh
+.. code-block:: console
 
     $ git add CHANGELOG.txt docs/releases/x.x.x.rst CONTRIBUTORS.rst
     $ git commit -m 'Release notes for #xxxx'
@@ -111,11 +120,19 @@ Push to master
 
 The changes are ready to be pushed to ``master`` now.
 
-.. code-block:: sh
+.. code-block:: console
 
-    # Check that everything looks OK
+    $ # Check that everything looks OK
     $ git log upstream/master..master --oneline
     $ git push --dry-run upstream master
-    # Push the commits!
+    $ # Push the commits!
     $ git push upstream master
     $ git branch -d pr/xxxx
+
+When you have made a mistake
+============================
+
+It's ok! Everyone makes mistakes. If you realise that recent merged changes
+have a negative impact, create a new pull request with a revert of the changes
+and merge it without waiting for a review. The PR will serve as additional
+documentation for the changes, and will run through the CI tests.

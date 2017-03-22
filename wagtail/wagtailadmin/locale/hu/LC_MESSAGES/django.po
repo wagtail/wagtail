@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Kornel Novak Mergulhão <nkornel@gmail.com>, 2016
 # Laszlo Molnar <lazlowmiller@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-05-11 20:33+0000\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2017-02-06 12:37+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
@@ -24,6 +25,12 @@ msgstr "Oldal közzététele későbbi időpontban"
 
 msgid "Common page configuration"
 msgstr "Az oldal általános beállításai"
+
+msgid "Content"
+msgstr "Tartalom"
+
+msgid "Settings"
+msgstr "Beállítások"
 
 msgid "Search"
 msgstr "Keresés"
@@ -106,14 +113,11 @@ msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
 msgstr "A domain-darabka már használatban van az oldal szülőoldalán \"%s\""
 
-msgid "Public"
-msgstr "Publikus"
-
-msgid "Private, accessible with the following password"
-msgstr "Korlátozott, csak jelszóval elérhető"
-
 msgid "This field is required."
 msgstr "Egy mező megadása szükséges."
+
+msgid "Expiry date/time must be in the future"
+msgstr "A lejárat dátumának/idejének egy jövőbeni időpontnak kell lennie."
 
 msgid "Account"
 msgstr "Felhasználói profil"
@@ -178,6 +182,9 @@ msgstr "Ellenőrizze emailjeit"
 
 msgid "A link to reset your password has been emailed to you."
 msgstr "Emailben küldtünk egy link-et a jelszó megváltoztatásához."
+
+msgid "Please follow the link below to reset your password:"
+msgstr "Kérem kattintson az alábbi linkre a jelszava módosításához."
 
 msgid "Password reset"
 msgstr "Jelszó módosítva"
@@ -265,6 +272,9 @@ msgstr "Link beszúrása"
 
 msgid "Add an external link"
 msgstr "Külső link hozzáadása"
+
+msgid "Name"
+msgstr "Név"
 
 #, python-format
 msgid "Add %(heading)s"
@@ -407,6 +417,12 @@ msgstr "A \"%(page)s\" oldalt benyújtotta moderálásra"
 
 msgid "Page privacy"
 msgstr "Az oldal hozzáferése"
+
+msgid "Locked"
+msgstr "Zárolt"
+
+msgid "Public"
+msgstr "Publikus"
 
 #, python-format
 msgid "Delete %(title)s"

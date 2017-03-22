@@ -1,5 +1,6 @@
 from __future__ import absolute_import, unicode_literals
 
+import inspect
 import logging
 
 from django.apps import apps
@@ -178,6 +179,16 @@ class BaseField(object):
         except models.fields.FieldDoesNotExist:
             return self.field_name
 
+    def get_definition_model(self, cls):
+        try:
+            field = self.get_field(cls)
+            return field.model
+        except models.fields.FieldDoesNotExist:
+            # Find where it was defined by walking the inheritance tree
+            for base_cls in inspect.getmro(cls):
+                if self.field_name in base_cls.__dict__:
+                    return base_cls
+
     def get_type(self, cls):
         if 'type' in self.kwargs:
             return self.kwargs['type']
@@ -223,6 +234,10 @@ class RelatedFields(object):
 
     def get_field(self, cls):
         return cls._meta.get_field(self.field_name)
+
+    def get_definition_model(self, cls):
+        field = self.get_field(cls)
+        return field.model
 
     def get_value(self, obj):
         field = self.get_field(obj.__class__)

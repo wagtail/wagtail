@@ -40,6 +40,8 @@ class ZuluSnippet(models.Model):
 
 class RegisterFunction(models.Model):
     pass
+
+
 register_snippet(RegisterFunction)
 
 

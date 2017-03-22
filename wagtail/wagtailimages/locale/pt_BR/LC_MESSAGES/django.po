@@ -8,13 +8,14 @@
 # Gladson <gladsonbrito@gmail.com>, 2014
 # João Luiz Lorencetti <me@dirtycoder.net>, 2016
 # Luiz Boaretto <lboaretto@gmail.com>, 2016
+# Luiz Boaretto <lboaretto@gmail.com>, 2016
 # Thiago Cangussu <cangussu.thg@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-05-17 03:51+0000\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2016-10-06 03:14+0000\n"
 "Last-Translator: Luiz Boaretto <lboaretto@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
@@ -54,6 +55,15 @@ msgstr "Esse arquivo é muito grande (%%s). Tamanho máximo %s."
 #, python-format
 msgid "This file is too big. Maximum filesize %s."
 msgstr "Esse arquivo é muito grande. Tamanho máximo %s."
+
+msgid "Full width"
+msgstr "Largura completa"
+
+msgid "Left-aligned"
+msgstr "Alinhado à esquerda"
+
+msgid "Right-aligned"
+msgstr "Alinhado à direita"
 
 msgid "Filter"
 msgstr "Filtro"
@@ -132,12 +142,6 @@ msgstr "Gerar etiquetas"
 
 msgid "Uploading..."
 msgstr "Enviando..."
-
-msgid "Server Error"
-msgstr "Erro de servidor"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Relatar este erro ao seu webmaster com as seguintes informações:"
 
 #, python-format
 msgid ""
@@ -323,6 +327,12 @@ msgstr ""
 
 msgid "Sorry, upload failed."
 msgstr "Desculpe, o carregamento falhou."
+
+msgid "Server Error"
+msgstr "Erro de servidor"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Relatar este erro ao seu webmaster com as seguintes informações:"
 
 msgid "Image updated."
 msgstr "Imagem atualizada."

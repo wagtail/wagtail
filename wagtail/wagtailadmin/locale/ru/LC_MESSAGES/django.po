@@ -9,8 +9,9 @@
 # Andrey Avdey <talkerbox@live.com>, 2016
 # Daniil <fleepd@gmail.com>, 2015
 # Eugene MechanisM <eugene@mechanism.pro>, 2014-2016
-# HNKNTA <hnknta@gmail.com>, 2014
-# HNKNTA <hnknta@gmail.com>, 2014
+# Eugene MechanisM <eugene@mechanism.pro>, 2016
+# Никита Викторович <hnknta@gmail.com>, 2014
+# Никита Викторович <hnknta@gmail.com>, 2014
 # Matt Westcott <matthew@torchbox.com>, 2015
 # Mikalai Radchuk <radchuk.m@gmail.com>, 2016
 # Sergey Komarov <sjkomarov@gmail.com>, 2014
@@ -19,9 +20,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-07-01 21:12+0000\n"
-"Last-Translator: Andrey Avdey <talkerbox@live.com>\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2017-02-06 12:37+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -141,14 +142,14 @@ msgid ""
 msgstr ""
 "Этот слаг уже используется в контексте своей родительской страницы \"%s\""
 
-msgid "Public"
-msgstr "Публично"
-
-msgid "Private, accessible with the following password"
-msgstr "Приватно, доступно со следующим паролем"
+msgid "Visibility"
+msgstr "Видимость"
 
 msgid "This field is required."
 msgstr "Требуется заполнить это поле."
+
+msgid "Please select at least one group."
+msgstr "Пожалуйста, выберите хотя бы одну группу."
 
 msgid "This slug is already in use"
 msgstr "Этот слаг уже используется"
@@ -527,6 +528,9 @@ msgstr "Разблокировано"
 msgid "Privacy"
 msgstr "Приватность"
 
+msgid "Public"
+msgstr "Публично"
+
 msgid "Private"
 msgstr "Приватно"
 
@@ -574,19 +578,21 @@ msgstr[3] ""
 "\n"
 "Это так же удалит еще %(descendant_count)s подстраниц."
 
+msgid "Yes, delete it"
+msgstr "Да, удалить"
+
+msgid "No, don't delete it"
+msgstr "Нет, не удалять"
+
+#, python-format
 msgid ""
-"Alternatively you can unpublish the page. This removes the page from public "
-"view and you can edit or publish it again later."
+"Alternatively you can <a href=\"%(unpublish_url)s\">unpublish the page</a>. "
+"This removes the page from public view and you can edit or publish it again "
+"later."
 msgstr ""
-"Как вариант, вы можете снять с публикации эту страницу. Это скроет страницу "
-"от публичного просмотра и позже вы сможете отредактировать и опубликовать её "
-"снова."
-
-msgid "Delete it"
-msgstr "Удалить"
-
-msgid "Unpublish it"
-msgstr "Снять с публикации"
+"Как вариант, вы можете <a href=\"%(unpublish_url)s\">снять с публикации эту "
+"страницу</a>. Это скроет страницу от публичного просмотра и позже вы сможете "
+"отредактировать и опубликовать её снова."
 
 #, python-format
 msgid "Move %(title)s"
@@ -620,8 +626,37 @@ msgstr "Отменить публикацию"
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Вы уверены, что хотите отменить публикацию этой страницы?"
 
+#, python-format
+msgid ""
+"\n"
+"                    This page has one subpage. Unpublish this too\n"
+"                "
+msgid_plural ""
+"\n"
+"                    This page has %(live_descendant_count)s subpages. "
+"Unpublish these too\n"
+"                "
+msgstr[0] ""
+"\n"
+"У этой страницы одна дочерняя страница. Распубликуйте её тоже."
+msgstr[1] ""
+"\n"
+"У этой страницы %(live_descendant_count)s дочерних страниц. Распубликуйте их "
+"тоже."
+msgstr[2] ""
+"\n"
+"У этой страницы %(live_descendant_count)s дочерних страниц. Распубликуйте их "
+"тоже."
+msgstr[3] ""
+"\n"
+"У этой страницы %(live_descendant_count)s дочерних страниц. Распубликуйте их "
+"тоже."
+
 msgid "Yes, unpublish it"
 msgstr "Да, отменить публикацию"
+
+msgid "No, don't unpublish"
+msgstr "Нет, оставить неопубликованным"
 
 msgid "Pages using"
 msgstr "Страницы, использующие"
@@ -787,8 +822,8 @@ msgstr "Обзор дочерних для '%(title)s' страниц"
 msgid "Add a child page to '%(title)s'"
 msgstr "Добавить дочернюю страницу к '%(title)s'"
 
-msgid "Add subpage"
-msgstr "Добавить подстраницу"
+msgid "Add child page"
+msgstr "Добавить дочернюю страницу"
 
 #, python-format
 msgid ""
@@ -963,6 +998,9 @@ msgstr[3] "Использовано %(useage_count)s раз"
 msgid "Edit your account"
 msgstr "Редактировать ваш аккаунт"
 
+msgid "Account settings"
+msgstr "Настройки аккаунта"
+
 msgid "Log out"
 msgstr "Выйти"
 
@@ -982,8 +1020,21 @@ msgstr ""
 "сайтом. Пожалуйста, <a href=\"http://browsehappy.com/\">обновите ваш "
 "браузер</a>."
 
-msgid "Javascript is required to use Wagtail, but it is currently disabled"
-msgstr "Для использования Wagtail требуется Javascript, но он сейчас отключен"
+msgid ""
+"\n"
+"            Javascript is required to use Wagtail, but it is currently "
+"disabled.<br />\n"
+"            Here are the <a href=\"http://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noopener\">instructions how to enable JavaScript in "
+"your web browser</a>.\n"
+"        "
+msgstr ""
+"\n"
+"JavaScript необходим для использования Wagtail, но в данный момент он "
+"отключен.<br />\n"
+"Тут вы можете найти <a href=\"http://www.enable-javascript.com/ru/\" target="
+"\"_blank\" rel=\"noopener\">инструкцию как включить JavaScript в вашем "
+"браузере</a>."
 
 msgid "Go to Wagtail admin interface"
 msgstr "Идти в интерфейс управления Wagtail"
@@ -1167,33 +1218,8 @@ msgstr ""
 msgid "Pages"
 msgstr "Страницы"
 
-msgid "Preview draft"
-msgstr "Предпросмотр черновика"
-
-msgid "Add child page"
-msgstr "Добавить дочернюю страницу"
-
-#, python-brace-format
-msgid "Add a child page to '{0}' "
-msgstr "Добавить дочернюю страницу к '{0}' "
-
 msgid "More"
 msgstr "Больше"
-
-msgid "View more options"
-msgstr "Показать больше опций"
-
-msgid "Move this page"
-msgstr "Переместить эту страницу"
-
-msgid "Delete this page"
-msgstr "Удалить эту страницу"
-
-msgid "Unpublish this page"
-msgstr "Отменить публикацию этой страницы"
-
-msgid "View this page's revision history"
-msgstr "Показать историю версий этой страницы"
 
 msgid "Choose an item"
 msgstr "Выбрать элемент"

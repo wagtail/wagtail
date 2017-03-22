@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-05-11 20:33+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2016-10-05 19:19+0000\n"
+"Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -49,6 +49,15 @@ msgstr "Acest fișier este prea mare (%%s). Mărime maximă: %s."
 #, python-format
 msgid "This file is too big. Maximum filesize %s."
 msgstr "Acest fișier este prea mare. Mărime maximă: %s."
+
+msgid "Full width"
+msgstr "Lățime maximă"
+
+msgid "Left-aligned"
+msgstr "Aliniat la stânga"
+
+msgid "Right-aligned"
+msgstr "Aliniat la dreapta"
 
 msgid "Filter"
 msgstr "Filtrează"
@@ -236,6 +245,22 @@ msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
 msgstr ""
 "Ne pare rău, \"<em>%(query_string)s</em>\" nu se potrivește cu nici o imagine"
 
+#, python-format
+msgid ""
+"You haven't uploaded any images in this collection. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+msgstr ""
+"Nu ați încărcat nici o imagine în această colecție. De să nu <a href="
+"\"%(wagtailimages_add_image_url)s\">adăugați una</a>?"
+
+#, python-format
+msgid ""
+"You haven't uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+msgstr ""
+"Nu ați încărcat nici o imagine. De să nu <a href="
+"\"%(wagtailimages_add_image_url)s\">adăugați una</a>?"
+
 msgid "Generating URL"
 msgstr "Generarea URL"
 
@@ -302,6 +327,12 @@ msgstr ""
 
 msgid "Sorry, upload failed."
 msgstr "Încărcarea a eșuat."
+
+msgid "Server Error"
+msgstr "Eroare de server"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Raportează această eroare webmasterului cu următoarele informații:"
 
 msgid "Image updated."
 msgstr "Imaginea a fost actualizată."

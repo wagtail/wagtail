@@ -2,7 +2,6 @@ from __future__ import absolute_import, unicode_literals
 
 import time
 import unittest
-import warnings
 
 from django.conf import settings
 from django.core import management
@@ -12,11 +11,11 @@ from django.utils.six import StringIO
 
 from wagtail.tests.search import models
 from wagtail.tests.utils import WagtailTestUtils
-from wagtail.utils.deprecation import RemovedInWagtail18Warning
 from wagtail.wagtailsearch.backends import (
     InvalidSearchBackendError, get_search_backend, get_search_backends)
 from wagtail.wagtailsearch.backends.base import FieldError
 from wagtail.wagtailsearch.backends.db import DatabaseSearchBackend
+from wagtail.wagtailsearch.management.commands.update_index import group_models_by_index
 
 
 class BackendTests(WagtailTestUtils):
@@ -35,11 +34,22 @@ class BackendTests(WagtailTestUtils):
 
         self.load_test_data()
 
+    def reset_index(self):
+        if self.backend.rebuilder_class:
+            for index, indexed_models in group_models_by_index(self.backend, [models.SearchTest, models.SearchTestChild]).items():
+                rebuilder = self.backend.rebuilder_class(index)
+                index = rebuilder.start()
+                for model in indexed_models:
+                    index.add_model(model)
+                rebuilder.finish()
+
+    def refresh_index(self):
+        index = self.backend.get_index_for_model(models.SearchTest)
+        if index:
+            index.refresh()
+
     def load_test_data(self):
-        # Reset the index
-        self.backend.reset_index()
-        self.backend.add_type(models.SearchTest)
-        self.backend.add_type(models.SearchTestChild)
+        self.reset_index()
 
         # Create a test database
         testa = models.SearchTest()
@@ -71,8 +81,7 @@ class BackendTests(WagtailTestUtils):
         self.backend.add(testd)
         self.testd = testd
 
-        # Refresh the index
-        self.backend.refresh_index()
+        self.refresh_index()
 
     def test_blank_search(self):
         results = self.backend.search("", models.SearchTest)
@@ -148,14 +157,14 @@ class BackendTests(WagtailTestUtils):
         # Delete one of the objects
         self.backend.delete(self.testa)
         self.testa.delete()
-        self.backend.refresh_index()
+        self.refresh_index()
 
         results = self.backend.search(None, models.SearchTest)
         self.assertEqual(set(results), {self.testb, self.testc.searchtest_ptr, self.testd.searchtest_ptr})
 
     def test_update_index_command(self):
         # Reset the index, this should clear out the index
-        self.backend.reset_index()
+        self.reset_index()
 
         # Give Elasticsearch some time to catch up...
         time.sleep(1)
@@ -191,23 +200,6 @@ class TestBackendLoader(TestCase):
     def test_import_by_full_path(self):
         db = get_search_backend(backend='wagtail.wagtailsearch.backends.db.DatabaseSearchBackend')
         self.assertIsInstance(db, DatabaseSearchBackend)
-
-    def test_import_old_name(self):
-        with warnings.catch_warnings(record=True) as w:
-            warnings.simplefilter('always')
-
-            db = get_search_backend(backend='wagtail.wagtailsearch.backends.db.DBSearch')
-
-        self.assertIsInstance(db, DatabaseSearchBackend)
-
-        self.assertEqual(len(w), 1)
-        self.assertIs(w[0].category, RemovedInWagtail18Warning)
-        self.assertEqual(
-            str(w[0].message),
-            "The 'wagtail.wagtailsearch.backends.db.DBSearch' search backend path has "
-            "changed to 'wagtail.wagtailsearch.backends.db'. Please update the "
-            "WAGTAILSEARCH_BACKENDS setting to use the new path."
-        )
 
     def test_nonexistent_backend_import(self):
         self.assertRaises(

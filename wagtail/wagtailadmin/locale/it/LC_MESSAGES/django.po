@@ -7,14 +7,15 @@
 # andrea tagliazucchi <andreatagliazucchi@gmail.com>, 2015
 # Edd Baldry <edd.baldry@gmail.com>, 2016
 # Edd <edd.baldry@googlemail.com>, 2016
-# Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2016
+# Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2017
+# giammi <gian-maria.daffre@giammi.org>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-06-24 14:30+0000\n"
-"Last-Translator: Giacomo Ghizzani <giacomo.ghz@gmail.com>\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2017-02-06 12:37+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -39,7 +40,7 @@ msgid "Promote"
 msgstr "Promuovi"
 
 msgid "Settings"
-msgstr "Settings"
+msgstr "Impostazioni"
 
 msgid "Search"
 msgstr "Cerca"
@@ -120,14 +121,14 @@ msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
 msgstr "Questo slug è già in uso nel contesto della pagina padre \"%s\""
 
-msgid "Public"
-msgstr "Pubblico"
-
-msgid "Private, accessible with the following password"
-msgstr "Privato, accessibile con la seguente password"
+msgid "Visibility"
+msgstr "Visibilità"
 
 msgid "This field is required."
 msgstr "Questo campo è obbligatorio"
+
+msgid "Please select at least one group."
+msgstr "Seleziona almeno un gruppo."
 
 msgid "This slug is already in use"
 msgstr "Questo slug è gia in uso"
@@ -491,6 +492,9 @@ msgstr "Sbloccato"
 msgid "Privacy"
 msgstr "Privacy"
 
+msgid "Public"
+msgstr "Pubblico"
+
 msgid "Private"
 msgstr "Privato"
 
@@ -535,19 +539,21 @@ msgstr[1] ""
 "sottopagine.\n"
 "                "
 
+msgid "Yes, delete it"
+msgstr "Si, eliminalo"
+
+msgid "No, don't delete it"
+msgstr "No, non eliminarlo"
+
+#, python-format
 msgid ""
-"Alternatively you can unpublish the page. This removes the page from public "
-"view and you can edit or publish it again later."
+"Alternatively you can <a href=\"%(unpublish_url)s\">unpublish the page</a>. "
+"This removes the page from public view and you can edit or publish it again "
+"later."
 msgstr ""
-"In alternativa puoi annullare la pubblicazione della pagina. Questo rimuove "
-"la pagina dalla visione pubblica e puoi modificare o pubblicare la pagina "
-"più avanti."
-
-msgid "Delete it"
-msgstr "Eliminala"
-
-msgid "Unpublish it"
-msgstr "Annulla pubblicazione"
+"Altrimenti puoi <a href=\"%(unpublish_url)s\">annullare la pubblicazione "
+"della pagina</a>. Questo rimuoverà la pagina dalla visione pubblica e potrai "
+"modificarla e pubblicarla nuovamente."
 
 #, python-format
 msgid "Move %(title)s"
@@ -580,8 +586,32 @@ msgstr "Annulla pubblicazione"
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Sei sicuro di voler annullare la pubblicazione di questa pagina?"
 
+#, python-format
+msgid ""
+"\n"
+"                    This page has one subpage. Unpublish this too\n"
+"                "
+msgid_plural ""
+"\n"
+"                    This page has %(live_descendant_count)s subpages. "
+"Unpublish these too\n"
+"                "
+msgstr[0] ""
+"\n"
+"                    Questa pagina ha una sottopagina. Annullare la "
+"pubblicazione anche di questa\n"
+"                "
+msgstr[1] ""
+"\n"
+"                    Questa pagina ha %(live_descendant_count)s sottopagine. "
+"Annullare la pubblicazione anche di queste\n"
+"                "
+
 msgid "Yes, unpublish it"
 msgstr "Si, annulla la pubblicazione"
+
+msgid "No, don't unpublish"
+msgstr "No, non annullare la pubblicazione"
 
 msgid "Pages using"
 msgstr "Pagina usate"
@@ -748,8 +778,8 @@ msgstr "Esplora pagine figlio di '%(title)s'"
 msgid "Add a child page to '%(title)s'"
 msgstr "Aggiungi pagina figlio a '%(title)s'"
 
-msgid "Add subpage"
-msgstr "Aggiungi sottopagina"
+msgid "Add child page"
+msgstr "Aggiungi pagina figlio"
 
 #, python-format
 msgid ""
@@ -917,6 +947,9 @@ msgstr[1] "Usato %(useage_count)s volte"
 msgid "Edit your account"
 msgstr "Modifica il tuo account"
 
+msgid "Account settings"
+msgstr "Impostazioni dell 'account"
+
 msgid "Log out"
 msgstr "Esci"
 
@@ -936,9 +969,22 @@ msgstr ""
 "software. Per favore <a href=\"http://browsehappy.com/\">aggiorna il tuo "
 "browser</a>."
 
-msgid "Javascript is required to use Wagtail, but it is currently disabled"
+msgid ""
+"\n"
+"            Javascript is required to use Wagtail, but it is currently "
+"disabled.<br />\n"
+"            Here are the <a href=\"http://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noopener\">instructions how to enable JavaScript in "
+"your web browser</a>.\n"
+"        "
 msgstr ""
-"Javascript è richiesto per l'uso di Wagtail, ma al momento è disabilitato"
+"\n"
+"            E' richiesto JavaScript  per usare Wagtail, ma al momento è "
+"disabilitato.<br />\n"
+"            Qui ci sono <a href=\"http://www.enable-javascript.com/\" target="
+"\"_blank\" rel=\"noopener\">le istruzioni per abilitare JavaScript nel tuo "
+"browser</a>.\n"
+"        "
 
 msgid "Go to Wagtail admin interface"
 msgstr "Vai all'interfaccia admin di Wagtail"
@@ -1122,33 +1168,8 @@ msgstr ""
 msgid "Pages"
 msgstr "Pagine"
 
-msgid "Preview draft"
-msgstr "Anteprima bozza"
-
-msgid "Add child page"
-msgstr "Aggiungi pagina figlio"
-
-#, python-brace-format
-msgid "Add a child page to '{0}' "
-msgstr "Aggiungi una pagina figlio a '{0}'"
-
 msgid "More"
-msgstr "Ancora"
-
-msgid "View more options"
-msgstr "Vedi altre opzioni"
-
-msgid "Move this page"
-msgstr "Sposta questa pagina"
-
-msgid "Delete this page"
-msgstr "Elimina questa pagina"
-
-msgid "Unpublish this page"
-msgstr "Annulla pubblicazione di questa pagina"
-
-msgid "View this page's revision history"
-msgstr "Vedi storico revisioni di questa pagina"
+msgstr "Altro"
 
 msgid "Choose an item"
 msgstr "Scegli un elemento"

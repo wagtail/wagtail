@@ -3,12 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Roger Pons <rogerpons@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-05-11 20:34+0000\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2017-02-06 12:41+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
@@ -18,5 +19,65 @@ msgstr ""
 "Language: ca\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "Multi-line text"
+msgstr "Text multi-ĺínia"
+
+msgid "Email"
+msgstr "Correu electrònic"
+
+msgid "Number"
+msgstr "Número"
+
 msgid "URL"
 msgstr "URL"
+
+msgid "Drop down"
+msgstr "Desplegable"
+
+msgid "Radio buttons"
+msgstr "Botons d'opció"
+
+msgid "Date"
+msgstr "Data"
+
+msgid "Date/time"
+msgstr "Data/hora"
+
+msgid "label"
+msgstr "etiqueta"
+
+msgid "The label of the form field"
+msgstr "L'etiqueta del camp del formulari"
+
+msgid "field type"
+msgstr "tipus de camp"
+
+msgid "required"
+msgstr "necessari"
+
+msgid "choices"
+msgstr "opcions"
+
+msgid "default value"
+msgstr "valor per defecte"
+
+msgid "help text"
+msgstr "text d'ajuda"
+
+msgid "Delete"
+msgstr "Esborrar"
+
+msgid "Forms"
+msgstr "Formularis"
+
+msgid "Pages"
+msgstr "Pàgines"
+
+msgid "Title"
+msgstr "Títol"
+
+msgid "Origin"
+msgstr "Orígen"
+
+msgid "No form pages have been created."
+msgstr "No s'han creat pàgines de formulari"

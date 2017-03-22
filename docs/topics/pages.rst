@@ -88,7 +88,7 @@ This example represents a typical blog post:
 
 .. important::
 
-    Ensure that none of your field names are the same as your class names. This will cause errors due to the way Django handles relations (`read more <https://github.com/torchbox/wagtail/issues/503>`_). In our examples we have avoided this by appending "Page" to each model name.
+    Ensure that none of your field names are the same as your class names. This will cause errors due to the way Django handles relations (`read more <https://github.com/wagtail/wagtail/issues/503>`_). In our examples we have avoided this by appending "Page" to each model name.
 
 
 Writing page models
@@ -175,6 +175,8 @@ Customising the page editor interface
 
 The page editor can be customised further. See :doc:`/advanced_topics/customisation/page_editing_interface`.
 
+
+.. _page_type_business_rules:
 
 Parent page / subpage type rules
 --------------------------------
@@ -440,6 +442,8 @@ This is because ``Page`` enforces ordering QuerySets by path. Instead, you must 
 
     news_items = NewsItemPage.objects.live().order_by('-publication_date')
 
+.. _custom_page_managers:
+
 Custom Page managers
 --------------------
 
@@ -471,7 +475,9 @@ Alternately, if you only need to add extra ``QuerySet`` methods, you can inherit
             today = timezone.localtime(timezone.now()).date()
             return self.filter(start_date__gte=today)
 
+    EventPageManager = PageManager.from_queryset(EventPageQuerySet)
+
     class EventPage(Page):
         start_date = models.DateField()
 
-        objects = PageManager.from_queryset(EventPageQuerySet)
+        objects = EventPageManager()

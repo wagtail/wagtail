@@ -15,12 +15,13 @@ def embed_to_frontend_html(url):
         if embed.width and embed.height:
             ratio = str(embed.height / embed.width * 100) + "%"
         else:
-            ratio = "0"
+            ratio = None
 
         # Render template
         return render_to_string('wagtailembeds/embed_frontend.html', {
             'embed': embed,
             'ratio': ratio,
+            'is_responsive': ratio is not None,
         })
     except EmbedException:
         # silently ignore failed embeds, rather than letting them crash the page

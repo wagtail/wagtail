@@ -1,9 +1,7 @@
 function(modal) {
     function ajaxifyLinks (context) {
-        $('.listing a', context).click(function() {
-            modal.loadUrl(this.href);
-            return false;
-        });
+
+        $('.listing a.choose-query', context).click(chooseQuery);
 
         $('.pagination a', context).click(function() {
             var page = this.getAttribute("data-page");
@@ -42,17 +40,16 @@ function(modal) {
         });
         return false;
     }
-
-    ajaxifyLinks(modal.body);
-
-    $('form.query-search', modal.body).submit(search);
-
-    $('a.choose-query', modal.body).click(function() {
+    function chooseQuery() {
         modal.respond('queryChosen', $(this).data());
         modal.close();
 
         return false;
-    });
+    }
+
+    ajaxifyLinks(modal.body);
+
+    $('form.query-search', modal.body).submit(search);
 
     $('#id_q').on('input', function() {
         clearTimeout($.data(this, 'timer'));

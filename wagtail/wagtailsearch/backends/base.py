@@ -104,6 +104,7 @@ class BaseSearchResults(object):
         self.stop = None
         self._results_cache = None
         self._count_cache = None
+        self._score_field = None
 
     def _set_limits(self, start=None, stop=None):
         if stop is not None:
@@ -177,6 +178,11 @@ class BaseSearchResults(object):
         if len(data) > 20:
             data[-1] = "...(remaining elements truncated)..."
         return '<SearchResults %r>' % data
+
+    def annotate_score(self, field_name):
+        clone = self._clone()
+        clone._score_field = field_name
+        return clone
 
 
 class BaseSearchBackend(object):

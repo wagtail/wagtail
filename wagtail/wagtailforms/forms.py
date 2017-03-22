@@ -11,6 +11,10 @@ from wagtail.wagtailadmin.forms import WagtailAdminPageForm
 class BaseForm(django.forms.Form):
     def __init__(self, *args, **kwargs):
         kwargs.setdefault('label_suffix', '')
+
+        self.user = kwargs.pop('user', None)
+        self.page = kwargs.pop('page', None)
+
         super(BaseForm, self).__init__(*args, **kwargs)
 
 
@@ -108,11 +112,11 @@ class FormBuilder(object):
 class SelectDateForm(django.forms.Form):
     date_from = django.forms.DateTimeField(
         required=False,
-        widget=django.forms.DateInput(attrs={'placeholder': 'Date from'})
+        widget=django.forms.DateInput(attrs={'placeholder': _('Date from')})
     )
     date_to = django.forms.DateTimeField(
         required=False,
-        widget=django.forms.DateInput(attrs={'placeholder': 'Date to'})
+        widget=django.forms.DateInput(attrs={'placeholder': _('Date to')})
     )
 
 

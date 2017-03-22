@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015
+# Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-03-14 21:24+0000\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2016-10-03 16:17+0000\n"
 "Last-Translator: Giacomo Ghizzani <giacomo.ghz@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
@@ -50,6 +50,9 @@ msgstr "redirect a una pagina"
 
 msgid "redirect to any URL"
 msgstr "redirect a URL"
+
+msgid "temporary"
+msgstr "temporaneo"
 
 msgid "redirect"
 msgstr "redirect"
@@ -100,9 +103,6 @@ msgstr "Tipo"
 
 msgid "Edit this redirect"
 msgstr "Modifica questo redirect"
-
-msgid "primary"
-msgstr "primario"
 
 #, python-format
 msgid ""

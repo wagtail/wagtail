@@ -3,21 +3,23 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Ettore Atalan <atalanttore@googlemail.com>, 2016
 # Vorlif <flori@vorlif.org>, 2015
 # Henrik Kröger <hedwig@riseup.net>, 2016
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 # M0rph 3u5 <transifex@m0rph3u5.net>, 2014
 # Matt Westcott <matthew@torchbox.com>, 2015
+# Moritz Pfeiffer <moritz@alp-phone.ch>, 2017
 # Tammo van Lessen <tvanlessen@gmail.com>, 2015
 # Wasilis Mandratzis-Walz, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-03-02 13:07+0000\n"
-"Last-Translator: Henrik Kröger <hedwig@riseup.net>\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2017-02-09 10:27+0000\n"
+"Last-Translator: Moritz Pfeiffer <moritz@alp-phone.ch>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -105,9 +107,21 @@ msgstr "Gruppe löschen"
 
 #, python-format
 msgid ""
-"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> users "
-"assigned."
-msgstr ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> member.\n"
+"            "
+msgid_plural ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> members.\n"
+"            "
+msgstr[0] ""
+"\n"
+"Der Gruppe ‚%(group_name)s‘ ist <strong>%(group_user_count)s</strong> "
+"Benutzer zugeordnet."
+msgstr[1] ""
+"\n"
 "Der Gruppe ‚%(group_name)s‘ sind <strong>%(group_user_count)s</strong> "
 "Benutzer zugeordnet."
 
@@ -122,7 +136,7 @@ msgid "Are you sure you want to delete this group?"
 msgstr "Sind Sie sicher, dass Sie diese Gruppe löschen möchten?"
 
 msgid "Yes, delete"
-msgstr "Ja, Löschen"
+msgstr "Ja, löschen"
 
 msgid "Add group"
 msgstr "Gruppe hinzufügen"
@@ -173,6 +187,12 @@ msgid ""
 msgstr ""
 "Es sind keine Gruppen konfiguriert. <a href="
 "\"%(wagtailusers_create_group_url)s\">Legen Sie eine an.</a>"
+
+msgid "Delete user"
+msgstr "Benutzer löschen"
+
+msgid "Are you sure you want to delete this user?"
+msgstr "Sind Sie sicher, dass Sie diesen Benutzer löschen möchten?"
 
 msgid "Add user"
 msgstr "Benutzer hinzufügen"
@@ -260,7 +280,7 @@ msgstr "Aufgrund von Fehlern konnte die Gruppe nicht gespeichert werden."
 
 #, python-brace-format
 msgid "Group '{0}' deleted."
-msgstr "Gruppe ‚{0}‘ wurde gelöscht."
+msgstr "Gruppe '{0}' gelöscht."
 
 msgid "Search users"
 msgstr "Benutzer suchen"
@@ -279,5 +299,15 @@ msgstr "Benutzer ‚{0}‘ geändert."
 msgid "The user could not be saved due to errors."
 msgstr "Aufgrund von Fehlern konnte der Benutzer nicht gespeichert werden."
 
+#, python-brace-format
+msgid "User '{0}' deleted."
+msgstr "Benutzer '{0}' gelöscht."
+
 msgid "Groups"
 msgstr "Gruppen"
+
+msgid "Edit this user"
+msgstr "Diesen Benutzer bearbeiten"
+
+msgid "Delete this user"
+msgstr "Diesen Benutzer löschen"

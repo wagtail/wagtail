@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-07-16 11:57+0000\n"
-"Last-Translator: Reinis Rozenbergs <reinisr@gmail.com>\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2017-02-06 12:37+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/"
 "lv/)\n"
 "MIME-Version: 1.0\n"
@@ -122,12 +122,6 @@ msgid ""
 msgstr ""
 "Šis tekstuālais identifikators jau lietots kontekstā ar augstāka līmeņa lapu "
 "\"%s\""
-
-msgid "Public"
-msgstr "Publisks"
-
-msgid "Private, accessible with the following password"
-msgstr "Privāts, pieejams ar šādu paroli"
 
 msgid "This field is required."
 msgstr "Šis lauks ir nepieciešams"
@@ -407,6 +401,9 @@ msgstr "Atslēgts"
 msgid "Privacy"
 msgstr "Privātums"
 
+msgid "Public"
+msgstr "Publisks"
+
 msgid "Private"
 msgstr "Privāts"
 
@@ -430,12 +427,6 @@ msgstr "Dzēst %(title)s"
 
 msgid "Are you sure you want to delete this page?"
 msgstr "Dzēst lapu?"
-
-msgid "Delete it"
-msgstr "Dzēst"
-
-msgid "Unpublish it"
-msgstr "Atsaukt publikāciju"
 
 #, python-format
 msgid "Move %(title)s"
@@ -568,7 +559,7 @@ msgstr "Pārlūkot lapas '%(title)s' zemāka līmeņa lapas."
 msgid "Add a child page to '%(title)s'"
 msgstr "Pievienot  zemāka līmeņa lapas pie '%(title)s'"
 
-msgid "Add subpage"
+msgid "Add child page"
 msgstr "Pievienot apakšlapu"
 
 msgid "Previous"
@@ -727,9 +718,6 @@ msgstr ""
 "Jūs lietojat <strong>novecojušu</strong> interneta pārlūku, kas neatbalsta "
 "šo programmatūru. Lūdzu <a href=\"http://browsehappy.com/\">atjaunojiet savu "
 "pārlūku</a>."
-
-msgid "Javascript is required to use Wagtail, but it is currently disabled"
-msgstr "Lai lietotu Wagtail, nepieciešams Javascript, kas šobrīd ir atspējots."
 
 msgid "Go to Wagtail admin interface"
 msgstr "Doties uz Wagtail administrācijas intefeisu"
@@ -913,33 +901,8 @@ msgstr ""
 msgid "Pages"
 msgstr "Lapas"
 
-msgid "Preview draft"
-msgstr "Pievienot sagatavi"
-
-msgid "Add child page"
-msgstr "Pievienot apakšlapu"
-
-#, python-brace-format
-msgid "Add a child page to '{0}' "
-msgstr "Pievienot apakšlapu '{0}'"
-
 msgid "More"
 msgstr "Vairāk"
-
-msgid "View more options"
-msgstr "Apskatīt vairāk iespējas"
-
-msgid "Move this page"
-msgstr "Pārvietot lapu"
-
-msgid "Delete this page"
-msgstr "Dzēst lapu"
-
-msgid "Unpublish this page"
-msgstr "Noņemt publicēto lapu"
-
-msgid "View this page's revision history"
-msgstr "Apskatīt šīs lapas versiju vēsturi"
 
 msgid "Choose an item"
 msgstr "Izvēlies vienību"

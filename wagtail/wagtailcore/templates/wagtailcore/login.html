@@ -1,0 +1,25 @@
+{% load i18n %}
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>{% trans "Log in" %}</title>
+    </head>
+    <body>
+        <h1>{% trans "Log in" %}</h1>
+
+        {% if form.errors %}
+            <p>{% trans "Your username and password didn't match. Please try again." %}</p>
+        {% endif %}
+
+        {% if next and request.user.is_authenticated %}
+            <p>{% trans "Your account doesn't have access to this page. To proceed, please log in with an account that has access." %}</p>
+        {% endif %}
+
+        <form method="post" action="{% url 'wagtailcore_login' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="{% trans "Log in" %}" class="button" />
+            <input type="hidden" name="next" value="{{ next }}" />
+        </form>
+    </body>
+</html>

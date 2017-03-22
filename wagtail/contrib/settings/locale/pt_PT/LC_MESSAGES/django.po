@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Jose Lourenco <jose@lourenco.ws>, 2016
 # Tiago Henriques <trinosauro@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-05-12 10:48+0000\n"
-"Last-Translator: Tiago Henriques <trinosauro@gmail.com>\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2016-08-27 17:20+0000\n"
+"Last-Translator: Jose Lourenco <jose@lourenco.ws>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
@@ -27,7 +28,7 @@ msgid "Editing"
 msgstr "A alterar"
 
 msgid "Saving..."
-msgstr "A gravar..."
+msgstr "A guardar..."
 
 msgid "Save"
 msgstr "Guardar"

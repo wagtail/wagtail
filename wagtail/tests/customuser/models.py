@@ -107,6 +107,7 @@ def steal_method(name):
         func = func.__func__
     setattr(EmailUser, name, func)
 
+
 methods = ['get_group_permissions', 'get_all_permissions', 'has_perm',
            'has_perms', 'has_module_perms']
 for method in methods:

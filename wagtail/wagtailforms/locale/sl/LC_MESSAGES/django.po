@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-05-11 20:34+0000\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2017-02-06 12:41+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
@@ -83,26 +83,13 @@ msgstr "besedilo pomoči"
 msgid "to address"
 msgstr "naslov prejemnika"
 
-msgid "Optional - form submissions will be emailed to this address"
-msgstr "Opcijsko - oddani obrazci bodo poslani na ta e-naslov"
-
 msgid "from address"
 msgstr "naslov pošiljatelja"
 
 msgid "subject"
 msgstr "zadeva"
 
-#, python-format
-msgid "Delete %(title)s"
-msgstr "Izbriši %(title)s"
-
 msgid "Delete"
-msgstr "Izbriši"
-
-msgid "Are you sure you want to delete this form submission?"
-msgstr "Ali ste prepričani, da želite izbrisati ta oddani obrazec?"
-
-msgid "Delete it"
 msgstr "Izbriši"
 
 msgid "Forms"
@@ -126,12 +113,3 @@ msgstr "Naziv"
 
 msgid "Origin"
 msgstr "Izvor"
-
-msgid "Submission Date"
-msgstr "Datum vloge"
-
-msgid "Actions"
-msgstr "Dejanja"
-
-msgid "Submission deleted."
-msgstr "Oddan obrazec izbrisan."

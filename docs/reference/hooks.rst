@@ -23,6 +23,21 @@ Alternatively, ``hooks.register`` can be called as an ordinary function, passing
 
   hooks.register('name_of_hook', my_hook_function)
 
+If you need your hooks to run in a particular order, you can pass the ``order`` parameter:
+
+.. code-block:: python
+
+  @hooks.register('name_of_hook', order=1)  # This will run after every hook in the wagtail core
+  def my_hook_function(arg1, arg2...)
+      # your code here
+
+  @hooks.register('name_of_hook', order=-1)  # This will run before every hook in the wagtail core
+  def my_other_hook_function(arg1, arg2...)
+      # your code here
+
+  @hooks.register('name_of_hook', order=2)  # This will run after `my_hook_function`
+  def yet_another_hook_function(arg1, arg2...)
+      # your code here
 
 The available hooks are listed below.
 
@@ -68,8 +83,6 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
 
 ``construct_homepage_summary_items``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-  .. versionadded:: 1.0
 
   Add or remove items from the 'site summary' bar on the admin homepage (which shows the number of pages and other object that exist on the site). The callable passed into this hook should take a ``request`` object and a list of ``SummaryItem`` objects to be modified as required. These objects have a ``render()`` method, which returns an HTML string, and an ``order`` property, which is an integer that specifies the order in which the items will appear.
 
@@ -215,7 +228,36 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
 ``register_permissions``
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-  Return a queryset of Permission objects to be shown in the Groups administration area.
+  Return a queryset of ``Permission`` objects to be shown in the Groups administration area.
+
+
+.. _filter_form_submissions_for_user:
+
+``filter_form_submissions_for_user``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Allows access to form submissions to be customised on a per-user, per-form basis.
+
+  This hook takes two parameters:
+   - The user attempting to access form submissions
+   - A ``QuerySet`` of form pages
+
+  The hook must return a ``QuerySet`` containing a subset of these form pages which the user is allowed to access the submissions for.
+
+  For example, to prevent non-superusers from accessing form submissions:
+
+  .. code-block:: python
+
+    from wagtail.wagtailcore import hooks
+
+
+    @hooks.register('filter_form_submissions_for_user')
+    def construct_forms_for_user(user, queryset):
+        if not user.is_superuser:
+            queryset = queryset.none()
+
+        return queryset
+
 
 
 Editor interface
@@ -278,12 +320,12 @@ Hooks for customising the editing interface for pages and snippets.
   Add additional CSS files or snippets to all admin pages.
 
   .. code-block:: python
-  
+
     from django.utils.html import format_html
     from django.contrib.staticfiles.templatetags.staticfiles import static
-  
+
     from wagtail.wagtailcore import hooks
-  
+
     @hooks.register('insert_global_admin_css')
     def global_admin_css():
         return format_html('<link rel="stylesheet" href="{}">', static('my/wagtail/theme.css'))
@@ -364,6 +406,32 @@ Hooks for customising the way users are directed through the process of creating
         return HttpResponse("Congrats on making content!", content_type="text/plain")
 
 
+.. _before_create_page:
+
+``before_create_page``
+~~~~~~~~~~~~~~~~~~~~~~
+
+  Called at the beginning of the "create page" view passing in the request, the parent page and page model class.
+
+  The function does not have to return anything, but if an object with a ``status_code`` property is returned, Wagtail will use it as a response object and skip the rest of the view.
+
+  Unlike, ``after_create_page``, this is run both for both ``GET`` and ``POST`` requests.
+
+  This can be used to completely override the editor on a per-view basis:
+
+  .. code-block:: python
+
+    from wagtail.wagtailcore import hooks
+
+    from .models import AwesomePage
+    from .admin_views import edit_awesome_page
+
+    @hooks.register('before_create_page')
+    def before_create_page(request, parent_page, page_class):
+        # Use a custom create view for the AwesomePage model
+        if page_class == AwesomePage:
+            return create_awesome_page(request, parent_page)
+
 .. _after_delete_page:
 
 ``after_delete_page``
@@ -372,12 +440,50 @@ Hooks for customising the way users are directed through the process of creating
   Do something after a ``Page`` object is deleted. Uses the same behavior as ``after_create_page``.
 
 
+.. _before_delete_page:
+
+``before_delete_page``
+~~~~~~~~~~~~~~~~~~~~~~
+
+  Called at the beginning of the "delete page" view passing in the request and the page object.
+
+  Uses the same behavior as ``before_create_page``.
+
+
 .. _after_edit_page:
 
 ``after_edit_page``
 ~~~~~~~~~~~~~~~~~~~
 
   Do something with a ``Page`` object after it has been updated. Uses the same behavior as ``after_create_page``.
+
+
+.. _before_edit_page:
+
+``before_edit_page``
+~~~~~~~~~~~~~~~~~~~~~
+
+  Called at the beginning of the "edit page" view passing in the request and the page object.
+
+  Uses the same behavior as ``before_create_page``.
+
+
+.. _after_copy_page:
+
+``after_copy_page``
+~~~~~~~~~~~~~~~~~~~
+
+  Do something with a ``Page`` object after it has been copied pasing in the request, page object and the new copied page. Uses the same behavior as ``after_create_page``.
+
+
+.. _before_copy_page:
+
+``before_copy_page``
+~~~~~~~~~~~~~~~~~~~~~
+
+  Called at the beginning of the "copy page" view passing in the request and the page object.
+
+  Uses the same behavior as ``before_create_page``.
 
 
 .. _construct_wagtail_userbar:
@@ -403,6 +509,66 @@ Hooks for customising the way users are directed through the process of creating
     @hooks.register('construct_wagtail_userbar')
     def add_puppy_link_item(request, items):
         return items.append( UserbarPuppyLinkItem() )
+
+
+Choosers
+--------
+
+.. _construct_page_chooser_queryset:
+
+``construct_page_chooser_queryset``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Called when rendering the page chooser view, to allow the page listing queryset to be customised. The callable passed into the hook will receive the current page queryset and the request object, and must return a Page queryset (either the original one, or a new one).
+
+  .. code-block:: python
+
+    from wagtail.wagtailcore import hooks
+
+    @hooks.register('construct_page_chooser_queryset')
+    def show_my_pages_only(pages, request):
+        # Only show own pages
+        pages = pages.filter(owner=request.user)
+
+        return pages
+
+
+.. _construct_document_chooser_queryset:
+
+``construct_document_chooser_queryset``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Called when rendering the document chooser view, to allow the document listing queryset to be customised. The callable passed into the hook will receive the current document queryset and the request object, and must return a Document queryset (either the original one, or a new one).
+
+  .. code-block:: python
+
+    from wagtail.wagtailcore import hooks
+
+    @hooks.register('construct_document_chooser_queryset')
+    def show_my_uploaded_documents_only(documents, request):
+        # Only show uploaded documents
+        documents = documents.filter(uploaded_by=request.user)
+
+        return documents
+
+
+.. _construct_image_chooser_queryset:
+
+``construct_image_chooser_queryset``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Called when rendering the image chooser view, to allow the image listing queryset to be customised. The callable passed into the hook will receive the current image queryset and the request object, and must return a Document queryset (either the original one, or a new one).
+
+  .. code-block:: python
+
+    from wagtail.wagtailcore import hooks
+
+    @hooks.register('construct_image_chooser_queryset')
+    def show_my_uploaded_images_only(images, request):
+        # Only show uploaded images
+        images = images.filter(uploaded_by=request.user)
+
+        return images
 
 
 Page explorer
@@ -450,6 +616,30 @@ Page explorer
         )
 
   The ``priority`` argument controls the order the buttons are displayed in. Buttons are ordered from low to high priority, so a button with ``priority=10`` will be displayed before a button with ``priority=20``.
+
+
+.. register_page_listing_more_buttons:
+
+``register_page_listing_more_buttons``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Add buttons to the "More" dropdown menu for a page in the page explorer. This works similarly to the ``register_page_listing_buttons`` hook but is useful for lesser-used custom actions that are better suited for the dropdown.
+  
+  This example will add a simple button to the dropdown menu:
+
+  .. code-block:: python
+
+    from wagtail.wagtailadmin import widgets as wagtailadmin_widgets
+
+    @hooks.register('register_page_listing_more_buttons')
+    def page_listing_more_buttons(page, page_perms, is_parent=False):
+        yield wagtailadmin_widgets.PageListingButton(
+            'A dropdown button',
+            '/goes/to/a/url/',
+            priority=10
+        )
+
+  The ``priority`` argument controls the order the buttons are displayed in the dropdown. Buttons are ordered from low to high priority, so a button with ``priority=10`` will be displayed before a button with ``priority=20``.
 
 
 Buttons with dropdown lists

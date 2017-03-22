@@ -15,7 +15,7 @@
                 <p>The "Search term(s)/phrase" field below must contain the full and exact search for which you wish to provide recommended results, <em>including</em> any misspellings/user error. To help, you can choose from search terms that have been popular with users of your site.</p>
             {% endblocktrans %}
         </div>
-        <form action="{% url 'wagtailsearchpromotions:add' %}" method="POST">
+        <form action="{% url 'wagtailsearchpromotions:add' %}" method="POST" novalidate>
             {% csrf_token %}
 
             <ul class="fields">

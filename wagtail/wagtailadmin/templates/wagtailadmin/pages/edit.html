@@ -2,17 +2,18 @@
 {% load wagtailadmin_tags %}
 {% load gravatar %}
 {% load i18n %}
-{% block titletag %}{% blocktrans with title=page.title page_type=content_type.model_class.get_verbose_name %}Editing {{ page_type }}: {{ title }}{% endblocktrans %}{% endblock %}
-{% block bodyclass %}page-editor {% if page.live %}page-is-live{% endif %} model-{{ content_type.model }}{% endblock %}
+{% block titletag %}{% blocktrans with title=page.get_admin_display_title page_type=content_type.model_class.get_verbose_name %}Editing {{ page_type }}: {{ title }}{% endblocktrans %}{% endblock %}
+{% block bodyclass %}page-editor {% if page.live %}page-is-live{% endif %} model-{{ content_type.model }} {% if page.locked %}page-locked{% endif %}{% endblock %}
 
 {% block content %}
     {% page_permissions page as page_perms %}
-    <header class="merged tab-merged nice-padding">
-        {% include "wagtailadmin/shared/breadcrumb.html" with page=page %}
+    <header class="merged tab-merged">
+        {% explorer_breadcrumb page %}
 
         <div class="row row-flush">
-            <div class="left col9">
-                <h1 class="icon icon-doc-empty-inverse">{% blocktrans with title=page.title page_type=content_type.model_class.get_verbose_name %}Editing {{ page_type }} <span>{{ title }}</span>{% endblocktrans %}</h1>
+            <div class="left col9 header-title">
+                <h1 class="icon icon-doc-empty-inverse">
+                {% blocktrans with title=page.get_admin_display_title page_type=content_type.model_class.get_verbose_name %}Editing {{ page_type }} <span>{{ title }}</span>{% endblocktrans %}</h1>
             </div>
             <div class="right col3">
                 {% trans "Status" %}
@@ -24,8 +25,9 @@
         </div>
     </header>
 
-    <form id="page-edit-form" action="{% url 'wagtailadmin_pages:edit' page.id %}" method="POST"{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
+    <form id="page-edit-form" action="{% url 'wagtailadmin_pages:edit' page.id %}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
         {% csrf_token %}
+
         <input type="hidden" name="next" value="{{ next }}">
         {{ edit_handler.render_form_content }}
 

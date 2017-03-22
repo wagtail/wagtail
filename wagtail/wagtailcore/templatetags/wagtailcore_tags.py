@@ -5,7 +5,7 @@ from django.template.defaulttags import token_kwargs
 from django.utils.encoding import force_text
 from django.utils.safestring import mark_safe
 
-from wagtail.wagtailcore import __version__
+from wagtail import __version__
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.rich_text import RichText, expand_db_html
 
@@ -18,7 +18,13 @@ def pageurl(context, page):
     Outputs a page's URL as relative (/foo/bar/) if it's within the same site as the
     current page, or absolute (http://example.com/foo/bar/) if not.
     """
-    return page.relative_url(context['request'].site)
+    try:
+        current_site = context['request'].site
+    except (KeyError, AttributeError):
+        # request.site not available in the current context; fall back on page.url
+        return page.url
+
+    return page.relative_url(current_site)
 
 
 @register.simple_tag(takes_context=True)
@@ -26,10 +32,16 @@ def slugurl(context, slug):
     """Returns the URL for the page that has the given slug."""
     page = Page.objects.filter(slug=slug).first()
 
-    if page:
-        return page.relative_url(context['request'].site)
-    else:
+    if not page:
         return None
+
+    try:
+        current_site = context['request'].site
+    except (KeyError, AttributeError):
+        # request.site not available in the current context; fall back on page.url
+        return page.url
+
+    return page.relative_url(current_site)
 
 
 @register.simple_tag

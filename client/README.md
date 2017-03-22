@@ -37,6 +37,6 @@ webpack
 
 ## How to release
 
-The front-end is bundled at the same time as the Wagtail project, via `setuptools`. You'll need to set the `__semver__` property to a npm-compliant version number in `wagtail.wagtailcore`.
+The front-end is bundled at the same time as the Wagtail project, via `setuptools`.
 
 

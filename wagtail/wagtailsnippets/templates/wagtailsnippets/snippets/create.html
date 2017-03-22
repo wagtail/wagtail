@@ -5,7 +5,7 @@
     {% trans "New" as new_str %}
     {% include "wagtailadmin/shared/header.html" with title=new_str subtitle=model_opts.verbose_name icon="snippet" tabbed=1 merged=1 %}
 
-    <form action="{% url 'wagtailsnippets:add' model_opts.app_label model_opts.model_name %}" method="POST"{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
+    <form action="{% url 'wagtailsnippets:add' model_opts.app_label model_opts.model_name %}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
         {% csrf_token %}
         {{ edit_handler.render_form_content }}
 

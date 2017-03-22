@@ -4,9 +4,9 @@ Getting started
 The Wagtail demo site
 _____________________
 
-This examples in this document are based on `Torchbox.com <https://torchbox.com>`_. However, the instructions are general enough as to be applicable to any Wagtail site.
+The examples in this document are based on `Torchbox.com <https://torchbox.com>`_. However, the instructions are general enough as to be applicable to any Wagtail site.
 
-For the purposes of this documentation we will be using the URL, **www.example.com**, to represent the root (homepage) of your website. 
+For the purposes of this documentation we will be using the URL, **www.example.com**, to represent the root (homepage) of your website.
 
 Logging in
 __________

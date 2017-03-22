@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-05-11 20:34+0000\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2017-02-06 12:41+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
@@ -19,6 +19,13 @@ msgstr ""
 "Language: ro\n"
 "Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
 "2:1));\n"
+
+msgid "{} submissions"
+msgstr "{} depuneri"
+
+#, python-format
+msgid "There is another field with the label %s, please change one of them."
+msgstr "Un alt câmp are eticheta %s. Amendeză unul din ele."
 
 msgid "Single line text"
 msgstr "Linie de text"
@@ -90,12 +97,18 @@ msgstr "Valoare implicită. Suportă valori separate prin virgule pentru căsuț
 msgid "help text"
 msgstr "text de ajutor"
 
+msgid "Submission date"
+msgstr "Data trimiterii"
+
 msgid "to address"
 msgstr "adresă la"
 
-msgid "Optional - form submissions will be emailed to this address"
+msgid ""
+"Optional - form submissions will be emailed to these addresses. Separate "
+"multiple addresses by comma."
 msgstr ""
-"Opțional. Depunerile de formular vor fi trimise la această adresă de email."
+"Opțional. Depunerile de formular vor fi trimise la această adresă de email. "
+"Separează mai multe adrese prin virgulă."
 
 msgid "from address"
 msgstr "adresa de la"
@@ -103,18 +116,14 @@ msgstr "adresa de la"
 msgid "subject"
 msgstr "subiect"
 
-#, python-format
-msgid "Delete %(title)s"
-msgstr "Șterge %(title)s"
-
 msgid "Delete"
 msgstr "Șterge"
 
-msgid "Are you sure you want to delete this form submission?"
-msgstr "Sigur doriți să ștergeți această depunere de formular?"
+msgid "Total submissions"
+msgstr "Total depuneri"
 
-msgid "Delete it"
-msgstr "Șterge"
+msgid "Latest submission"
+msgstr "Ultima depunere"
 
 msgid "Forms"
 msgstr "Formulare"
@@ -146,14 +155,5 @@ msgstr "Titlu"
 msgid "Origin"
 msgstr "Origine"
 
-msgid "Submission Date"
-msgstr "Data trimiterii"
-
-msgid "Actions"
-msgstr "Acțiuni"
-
 msgid "No form pages have been created."
 msgstr "Nu a fost creată nici o pagină de formular"
-
-msgid "Submission deleted."
-msgstr "Depunerea a fost ștearsă."

@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 21:37+0000\n"
-"PO-Revision-Date: 2016-06-23 16:16+0000\n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2016-10-14 13:47+0000\n"
 "Last-Translator: Tiago Henriques <trinosauro@gmail.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
@@ -52,6 +52,15 @@ msgstr "Este ficheiro é demasiado grande (%%s). Tamanho máximo %s."
 #, python-format
 msgid "This file is too big. Maximum filesize %s."
 msgstr "Este ficheiro é demasiado grande. Tamanho do ficheiro máximo %s."
+
+msgid "Full width"
+msgstr "Largura completa"
+
+msgid "Left-aligned"
+msgstr "Alinhar à esquerda"
+
+msgid "Right-aligned"
+msgstr "Alinhar à direita"
 
 msgid "Filter"
 msgstr "Filtro"
@@ -130,12 +139,6 @@ msgstr "Palavras-chave populares"
 
 msgid "Uploading..."
 msgstr "A carregar..."
-
-msgid "Server Error"
-msgstr "Erro no Servidor"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Comunique este erro ao seu webmaster com a seguinte informação:"
 
 #, python-format
 msgid ""
@@ -320,6 +323,12 @@ msgstr ""
 
 msgid "Sorry, upload failed."
 msgstr "Desculpe, o carregamento falhou."
+
+msgid "Server Error"
+msgstr "Erro no Servidor"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Comunique este erro ao seu webmaster com a seguinte informação:"
 
 msgid "Image updated."
 msgstr "Imagem atualizada."
