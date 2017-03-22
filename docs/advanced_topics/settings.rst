@@ -230,6 +230,16 @@ To use Embedly, you must also install their Python module:
   $ pip install embedly
 
 
+Dashboard
+---------
+
+.. code-block:: python
+
+    WAGTAILADMIN_RECENT_EDITS_LIMIT = 5
+
+This setting lets you change the number of items shown at 'Your most recent edits' on the dashboard.
+
+
 Images
 ------
 
