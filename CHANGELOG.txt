@@ -17,6 +17,7 @@ Changelog
  * Added `form_fields_exclude` property to ModelAdmin views (Matheus Bratfisch)
  * User creation / edit form now enforces password validators set in `AUTH_PASSWORD_VALIDATORS` (Bertrand Bordage)
  * Added support for showing `non_field_errors` when validation fails in the page editor (Matt Westcott)
+ * Added `WAGTAILADMIN_RECENT_EDITS_LIMIT` setting to to define the number of your most recent edits on the dashboard (Maarten Kling)
  * Fix: Marked 'Date from' / 'Date to' strings in wagtailforms for translation (Vorlif)
  * Fix: "File" field label on image edit form is now translated (Stein Strindhaug)
  * Fix: Unreliable preview is now reliable by always opening in a new window (Kjartan Sverrisson)
