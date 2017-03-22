@@ -1,4 +1,5 @@
 {% load i18n %}
+{% load l10n %}
 {% comment %}
     Either the chosen or unchosen div will be shown, depending on the presence
     of the 'blank' class on the container.
@@ -7,7 +8,7 @@
     when clicked.
 {% endcomment %}
 
-<div id="{{ attrs.id }}-chooser" class="chooser {% block chooser_class %}page-chooser{% endblock %} {% if not value %}blank{% endif %}">
+<div id="{{ attrs.id|unlocalize }}-chooser" class="chooser {% block chooser_class %}page-chooser{% endblock %} {% if not value %}blank{% endif %}">
 
     <div class="chosen">
         {% block chosen_state_view %}{% endblock %}
