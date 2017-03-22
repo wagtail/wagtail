@@ -44,6 +44,7 @@ Bug fixes
  * Cloudflare error handling now handles non-string error responses correctly (hdnpl)
  * Search indexing now uses a defined query ordering to prevent objects from being skipped (Christian Peters)
  * Ensure that number localisation is not applied to object IDs within admin templates (Tom Hendrikx)
+ * Paginating with a search present was always returning the 1st page in Internet Explorer 10 & 11 (Ralph Jacobs)
 
 
 Upgrade considerations

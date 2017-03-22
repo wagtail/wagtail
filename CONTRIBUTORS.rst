@@ -219,6 +219,7 @@ Contributors
 * jacoor
 * hdnpl
 * Tom Hendrikx
+* Ralph Jacobs
 
 Translators
 ===========
