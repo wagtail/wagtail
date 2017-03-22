@@ -1,0 +1,11 @@
+{% load i18n wagtailadmin_tags %}
+
+<h2>{% trans "Explorer" %}</h2>
+{% include "wagtailadmin/collections/chooser/chooser_breadcrumb.html" with collection=parent_collection %}
+
+{% if collections %}
+    {% include "wagtailadmin/collections/chooser/_list_chooser.html" with collections=collections parent_collection=parent_collection %}
+
+    {% url 'wagtailadmin_collections:parent_index' parent_collection.pk as pagination_base_url %}
+    {% paginate collections base_url=pagination_base_url classnames="navigate-collections" %}
+{% endif %}

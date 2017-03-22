@@ -57,7 +57,7 @@ class IndexView(PermissionCheckedMixin, View):
     def get_queryset(self):
         return self.model.objects.all()
 
-    def get(self, request):
+    def get_context(self):
         object_list = self.get_queryset()
 
         context = {
@@ -71,6 +71,10 @@ class IndexView(PermissionCheckedMixin, View):
         if self.context_object_name:
             context[self.context_object_name] = object_list
 
+        return context
+
+    def get(self, request):
+        context = self.get_context()
         return render(request, self.template_name, context)
 
 

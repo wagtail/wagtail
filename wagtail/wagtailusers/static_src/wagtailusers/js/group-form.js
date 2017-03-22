@@ -10,4 +10,15 @@ $(function() {
             });
         }
     });
+    buildExpandingFormset('id_collection_permissions', {
+        onInit: function(index) {
+            var deleteInputId = 'id_collection_permissions-' + index + '-DELETE';
+            var childId = 'inline_child_collection_permissions-' + index;
+            $('#' + deleteInputId + '-button').click(function() {
+                /* set 'deleted' form field to true */
+                $('#' + deleteInputId).val('1');
+                $('#' + childId).fadeOut();
+            });
+        }
+    });
 });

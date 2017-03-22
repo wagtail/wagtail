@@ -52,6 +52,7 @@ def get_image_form(model):
             'focal_point_y': forms.HiddenInput(attrs={'class': 'focal_point_y'}),
             'focal_point_width': forms.HiddenInput(attrs={'class': 'focal_point_width'}),
             'focal_point_height': forms.HiddenInput(attrs={'class': 'focal_point_height'}),
+            'collection': widgets.AdminCollectionChooser(can_choose_root=True, show_edit_link=False),
         })
 
 

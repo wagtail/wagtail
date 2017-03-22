@@ -1,0 +1,42 @@
+{% extends 'wagtailadmin/collections/listing/_list.html' %}
+{% load i18n wagtailadmin_tags %}
+
+{% block table_classes %}listing{% endblock %}
+
+{% block listing_title %}
+    <a href="#{{ collection.pk }}" class="icon icon-folder-open-inverse choose-collection" data-id="{{ collection.pk }}"
+       data-name="{{ collection.name }}" data-parent-id="{{ collection.get_parent.id }}"
+       data-edit-url="{% url 'wagtailadmin_collections:edit' collection.pk %}">
+        {{ collection }}
+    </a>
+{% endblock %}
+
+{% block after_table_header %}
+    {% if show_parent|default_if_none:True and parent_collection %}
+        <tr class="index">
+            <td class="title">
+                <h2 class="icon icon-folder-open-inverse">
+                    <a href="#{{ parent_collection.pk }}" class="choose-collection" data-id="{{ parent_collection.pk }}"
+                       data-name="{{ parent_collection.name }}" data-parent-id="{{ parent_collection.pk }}"
+                       data-edit-url="{% url 'wagtailadmin_collections:edit' parent_collection.pk %}">
+                        {{ parent_collection }}
+                    </a>
+                </h2>
+            </td>
+            <td></td>
+        </tr>
+    {% endif %}
+{% endblock %}
+
+{% block collection_navigation %}
+    {% if allow_navigation|default_if_none:True and not collection.is_leaf %}
+        <td class="children">
+            <a href="{% url 'wagtailadmin_collections:parent_index' collection.id %}{% querystring modal='true' %}"
+                class="icon text-replace icon-arrow-right navigate-collections" title="{% blocktrans %}Explore child collections of {% endblocktrans %}'{{ collection }}'">
+                Explore
+            </a>
+        </td>
+    {% else %}
+        <td></td>
+    {% endif %}
+{% endblock %}

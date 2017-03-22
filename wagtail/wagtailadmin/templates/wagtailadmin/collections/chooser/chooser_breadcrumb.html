@@ -1,0 +1,11 @@
+{% load i18n wagtailadmin_tags %}
+
+<ul class="breadcrumb">
+    {% for collection in collection.get_ancestors %}
+        {% if collection.is_root %}
+            <li class="home"><a href="{% url 'wagtailadmin_collections:choose_collection_child' collection.id %}{% querystring p=None %}" class="navigate-collections icon icon-home text-replace">{% trans 'Home' %}</a></li>
+        {% else %}
+            <li><a href="{% url 'wagtailadmin_collections:choose_collection_child' collection.id %}{% querystring p=None %}" class="navigate-collections">{{ collection }}</a></li>
+        {% endif %}
+    {% endfor %}
+</ul>

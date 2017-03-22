@@ -1,0 +1,7 @@
+{% load i18n %}
+
+<ul class="actions">
+    <li>
+        <a class="bicolor button button-small icon icon-plus white" href="{% url 'wagtailadmin_collections:add_child' collection.pk %}" title="{% blocktrans %}Add child collection to {% endblocktrans %}'{{ collection.name }}'">Add Child</a>
+    </li>
+</ul>

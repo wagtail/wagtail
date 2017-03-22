@@ -1,6 +1,6 @@
 {% extends "wagtailadmin/base.html" %}
 {% load i18n %}
-{% load wagtailimages_tags %}
+{% load static wagtailimages_tags %}
 {% block titletag %}{% trans "Add a document" %}{% endblock %}
 
 {% block extra_js %}
@@ -13,7 +13,12 @@
                 autocomplete: {source: "{{ autocomplete_url|addslashes }}"}
             });
         });
+        window.chooserUrls = {
+            'collectionChooser': '{% url "wagtailadmin_collections:choose_collection" %}'
+        };
     </script>
+    <script src="{% static 'wagtailadmin/js/modal-workflow.js' %}"></script>
+    <script src="{% static 'wagtailadmin/js/collection-chooser.js' %}"></script>
 {% endblock %}
 
 {% block content %}

@@ -1,35 +1,19 @@
-{% extends "wagtailadmin/generic/index.html" %}
-{% load i18n %}
+{% extends "wagtailadmin/base.html" %}
+{% load i18n wagtailadmin_tags %}
 
-{% block listing %}
-    <div class="nice-padding">
-        {% if collections %}
-            <div id="sites-list">
-                <table class="listing">
-                    <thead>
-                        <tr>
-                            <th>
-                                {% trans "Name" %}
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for collection in collections %}
-                            <tr>
-                                <td class="title">
-                                    <h2>
-                                        <a href="{% url 'wagtailadmin_collections:edit' collection.id %}">{{ collection }}</a>
-                                    </h2>
-                                </td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+{% block bodyclass %}collection-explorer{% endblock %}
 
-            </div>
-        {% else %}
-            {% url 'wagtailadmin_collections:add' as add_collection_url %}
-            <p>{% blocktrans %}No collections have been created. Why not <a href="{{ add_collection_url }}">add one</a>?{% endblocktrans %}</p>
-        {% endif %}
+{% block titletag %}{{ parent_collection.name }} {% trans 'Collection' %}{% endblock %}
+
+{% block content %}
+    <header class="merged no-border no-v-padding">
+        {% collection_breadcrumb parent_collection %}
+    </header>
+    <div class="listing full-width">
+        {% include 'wagtailadmin/collections/listing/_header.html' with collection=parent_collection collection_perms=parent_perms %}
+        {% include 'wagtailadmin/collections/listing/_list_explore.html' with collections=collections parent_collection=parent_collection %}
     </div>
+
+    {% url 'wagtailadmin_collections:parent_index' parent_collection.pk as pagination_base_url %}
+    {% paginate collections base_url=pagination_base_url %}
 {% endblock %}

@@ -1,0 +1,12 @@
+{% load i18n %}
+{% trans "Choose a collection" as choose_str %}
+
+{% include "wagtailadmin/shared/header.html" with title=choose_str search_url="wagtailadmin_collections:choose_collection_search" query_parameters="modal=True" icon="folder-open-1" %}
+
+<div class="nice-padding">
+    {% include 'wagtailadmin/chooser/_link_types.html' with current='internal' %}
+
+    <div class="collection-results">
+        {% include 'wagtailadmin/chooser/_collection_browse_results.html' %}
+    </div>
+</div>

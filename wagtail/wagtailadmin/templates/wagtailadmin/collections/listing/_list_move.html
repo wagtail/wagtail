@@ -1,0 +1,50 @@
+{% extends 'wagtailadmin/collections/listing/_list.html' %}
+{% load i18n wagtailadmin_tags %}
+
+{% block table_classes %}listing chooser{% endblock %}
+
+{% block collection_row_classname %}{% if not collection.can_choose %}disabled{% endif %}{% endblock %}
+
+{% block listing_title %}
+    {% if collection.can_choose %}
+        <a href="{% url 'wagtailadmin_collections:move_confirm' moving_collection.pk collection.pk %}" class="icon icon-folder-open-inverse">
+            {{ collection }}
+        </a>
+    {% else %}
+        <div class="icon icon-folder-open-inverse">
+            {{ collection }}
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block after_table_header %}
+    {% if show_parent|default_if_none:True and parent_collection %}
+        <tr class="index {% if not parent_collection.can_choose %}disabled{% endif %}">
+            <td class="title">
+                <h2 class="icon icon-folder-open-inverse">
+                    {% if parent_collection.can_choose %}
+                        <a href="{% url 'wagtailadmin_collections:move_confirm' moving_collection.pk parent_collection.pk %}">
+                            {{ parent_collection }}
+                        </a>
+                    {% else %}
+                        {{ parent_collection }}
+                    {% endif %}
+                </h2>
+            </td>
+            <td></td>
+        </tr>
+    {% endif %}
+{% endblock %}
+
+{% block collection_navigation %}
+    {% if allow_navigation|default_if_none:True and not collection.is_leaf %}
+        <td class="children">
+            <a href="{% url 'wagtailadmin_collections:move' moving_collection.pk collection.id %}"
+                class="icon text-replace icon-arrow-right navigate-collections" title="{% blocktrans %}Explore child collections of {% endblocktrans %}'{{ collection }}'">
+                Explore
+            </a>
+        </td>
+    {% else %}
+        <td></td>
+    {% endif %}
+{% endblock %}

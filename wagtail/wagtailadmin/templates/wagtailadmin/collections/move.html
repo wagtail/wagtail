@@ -1,0 +1,15 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n wagtailadmin_tags %}
+
+{% block bodyclass %}collection-chooser{% endblock %}
+
+{% block titletag %}{% blocktrans %}Moving {{ parent_collection.name }} Collection{% endblocktrans %}{% endblock %}
+
+{% block content %}
+    {% include 'wagtailadmin/shared/header.html' with title=_('Select new parent collection for ') subtitle=moving_collection icon='folder-open-1' %}
+    <div class="listing full-width nice-padding">
+        {% include 'wagtailadmin/collections/listing/_list_move.html' %}
+        {% url 'wagtailadmin_collections:move' parent_collection.pk as pagination_base_url %}
+        {% paginate collections base_url=pagination_base_url %}
+    </div>
+{% endblock %}

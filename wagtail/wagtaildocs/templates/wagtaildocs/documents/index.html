@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/base.html" %}
-{% load i18n %}
+{% load i18n static %}
 {% block titletag %}Documents{% endblock %}
 {% block extra_js %}
     {{ block.super }}
@@ -8,14 +8,20 @@
             url: "{% url 'wagtaildocs:index' %}",
             termInput: "#id_q",
             targetOutput: "#document-results"
-        }
+        };
+
+        window.chooserUrls = {
+            'collectionChooser': '{% url "wagtailadmin_collections:choose_collection" %}'
+        };
 
         $(function() {
-            $('#collection_chooser_collection_id').change(function() {
+            $('#id_collection').change(function() {
                 this.form.submit();
             })
         });
     </script>
+    <script src="{% static 'wagtailadmin/js/modal-workflow.js' %}"></script>
+    <script src="{% static 'wagtailadmin/js/collection-chooser.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -30,10 +36,8 @@
 
     <div class="nice-padding">
         {% if collections %}
-            <form class="image-search search-bar" action="{% url 'wagtaildocs:index' %}" method="GET" novalidate>
-                <ul class="fields">
-                    {% include "wagtailadmin/shared/collection_chooser.html" %}
-                </ul>
+            <form class="collection-filter" action="{% url 'wagtaildocs:index' %}" method="GET" novalidate>
+                {{ collection_chooser }}
             </form>
         {% endif %}
 

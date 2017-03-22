@@ -13,10 +13,12 @@ from django.utils.safestring import mark_safe
 
 from wagtail.utils.pagination import DEFAULT_PAGE_KEY, replace_page_in_query
 from wagtail.wagtailadmin.menu import admin_menu
-from wagtail.wagtailadmin.navigation import get_explorable_root_page, get_navigation_menu_items
+from wagtail.wagtailadmin.navigation import (
+    get_explorable_root_collection, get_explorable_root_page, get_navigation_menu_items)
 from wagtail.wagtailadmin.search import admin_search_areas
 from wagtail.wagtailcore import hooks
-from wagtail.wagtailcore.models import Page, PageViewRestriction, UserPagePermissionsProxy
+from wagtail.wagtailcore.models import (
+    Collection, Page, PageViewRestriction, UserCollectionPermissionsProxy, UserPagePermissionsProxy)
 from wagtail.wagtailcore.utils import cautious_slugify as _cautious_slugify
 from wagtail.wagtailcore.utils import camelcase_to_underscore, escape_script
 
@@ -66,6 +68,21 @@ def explorer_breadcrumb(context, page, include_self=False):
 
     return {
         'pages': page.get_ancestors(inclusive=include_self).descendant_of(cca, inclusive=True)
+    }
+
+
+@register.inclusion_tag('wagtailadmin/collections/breadcrumb.html', takes_context=True)
+def collection_breadcrumb(context, collection, include_self=False):
+    user = context['request'].user
+
+    # find the closest common ancestor of the collections that this user has direct explore permission
+    # (i.e. add/edit/publish/lock) over; this will be the root of the breadcrumb
+    cca = get_explorable_root_collection(user)
+    if not cca:
+        return {'collections': Collection.objects.none()}
+
+    return {
+        'collections': collection.get_ancestors(inclusive=include_self).descendant_of(cca, inclusive=True)
     }
 
 
@@ -138,6 +155,22 @@ def page_permissions(context, page):
 
     # Now retrieve a PagePermissionTester from it, specific to the given page
     return context['user_page_permissions'].for_page(page)
+
+
+@assignment_tag(takes_context=True)
+def collection_permissions(context, collection):
+    """
+    Usage: {% collection_permissions collection as collection_perms %}
+    Sets the variable 'collection_perms' to a CollectionPermissionTester object that can be queried to find out
+    what actions the current logged-in user can perform on the given collection.
+    """
+    # Create a UserCollectionPermissionsProxy object to represent the user's global permissions, and
+    # cache it in the context for the duration of the page request, if one does not exist already
+    if 'user_collection_permissions' not in context:
+        context['user_collection_permissions'] = UserCollectionPermissionsProxy(context['request'].user)
+
+    # Now retrieve a CollectionPermissionTester from it, specific to the given collection
+    return context['user_collection_permissions'].for_collection(collection)
 
 
 @assignment_tag(takes_context=True)
@@ -333,6 +366,17 @@ def page_listing_buttons(context, page, page_perms, is_parent=False):
         hook(page, page_perms, is_parent)
         for hook in button_hooks))
     return {'page': page, 'buttons': buttons}
+
+
+@register.inclusion_tag("wagtailadmin/pages/listing/_buttons.html",
+                        takes_context=True)
+def collection_listing_buttons(context, collection, is_parent=False):
+    button_hooks = hooks.get_hooks('register_collection_listing_buttons')
+    collection_perms = collection.permissions_for_user(context['request'].user)
+    buttons = sorted(itertools.chain.from_iterable(
+        hook(collection, collection_perms, is_parent)
+        for hook in button_hooks))
+    return {'collection': collection, 'buttons': buttons}
 
 
 @register.simple_tag

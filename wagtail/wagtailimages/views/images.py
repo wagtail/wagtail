@@ -10,7 +10,7 @@ from django.views.decorators.vary import vary_on_headers
 
 from wagtail.utils.pagination import paginate
 from wagtail.wagtailadmin import messages
-from wagtail.wagtailadmin.forms import SearchForm
+from wagtail.wagtailadmin.forms import SearchForm, collection_chooser_form_factory
 from wagtail.wagtailadmin.utils import (
     PermissionPolicyChecker, permission_denied, popular_tags_for_model)
 from wagtail.wagtailcore.models import Collection, Site
@@ -48,7 +48,7 @@ def index(request):
 
     # Filter by collection
     current_collection = None
-    collection_id = request.GET.get('collection_id')
+    collection_id = request.GET.get('collection')
     if collection_id:
         try:
             current_collection = Collection.objects.get(id=collection_id)
@@ -81,6 +81,9 @@ def index(request):
             'popular_tags': popular_tags_for_model(Image),
             'collections': collections,
             'current_collection': current_collection,
+            'collection_chooser': collection_chooser_form_factory(label="", required=False, can_choose_root=True)(
+                initial={'collection': current_collection}
+            ),
             'user_can_add': permission_policy.user_has_permission(request.user, 'add'),
         })
 

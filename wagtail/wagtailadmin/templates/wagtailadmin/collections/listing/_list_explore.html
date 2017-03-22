@@ -1,0 +1,35 @@
+{% extends 'wagtailadmin/collections/listing/_list.html' %}
+{% load i18n wagtailadmin_tags %}
+
+{# Called in the collections loop and passed a collection instance. #}
+{% block listing_title %}
+    {% collection_permissions collection as collection_perms %}
+    {% if collection_perms.can_edit %}
+        <a href="{% url 'wagtailadmin_collections:edit' collection.id %}" class="icon icon-folder-open-inverse">{{ collection }}</a>
+    {% else %}
+        <div class="icon icon-folder-open-inverse">
+            {{ collection }}
+        </div>
+    {% endif %}
+{% endblock %}
+
+{# Called in the collections loop and passed a collection instance. #}
+{% block after_listing_title %}
+    <ul class="actions">
+        {% collection_listing_buttons collection %}
+    </ul>
+{% endblock %}
+
+{% block collection_navigation %}
+    {% if not collection.is_leaf %}
+        <td class="children">
+            <a href="{% url 'wagtailadmin_collections:parent_index' collection.id %}"
+               class="icon text-replace icon-arrow-right"
+               title="{% blocktrans %}Explore child collections of {% endblocktrans %}'{{ collection }}'">
+                Explore
+            </a>
+        </td>
+    {% else %}
+        <td></td>
+    {% endif %}
+{% endblock %}
