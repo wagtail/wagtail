@@ -137,6 +137,8 @@ class AdminPageChooser(AdminChooser):
     def __init__(self, target_models=None, can_choose_root=False, **kwargs):
         super(AdminPageChooser, self).__init__(**kwargs)
 
+        if target_models:
+            self.choose_one_text += ' (' + (', ').join([model._meta.model_name for model in target_models]) + ')'
         self.target_models = list(target_models or [Page])
         self.can_choose_root = can_choose_root
 
