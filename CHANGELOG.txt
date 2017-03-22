@@ -4,6 +4,7 @@ Changelog
 1.10 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~
 
+ * Dropped support for generating static sites using django-medusa
  * Dropped Django 1.9 and Python 3.3 support; note that Django 1.8.x is still supported
  * Use minified versions of jQuery and jQuery UI in the admin. Total savings without compression 371 KB (Tom Dyson)
  * Hooks can now specify the order in which they are run (Gagaro)
