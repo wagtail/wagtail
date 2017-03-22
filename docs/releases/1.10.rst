@@ -56,6 +56,12 @@ Django 1.9 and Python 3.3 support dropped
 Support for Django 1.9 and Python 3.3 has been dropped in this release; please upgrade from these before upgrading Wagtail. Note that the Django 1.8 release series is still supported, as a Long Term Support release.
 
 
+Dropped support for generating static sites using ``django-medusa``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Django-medusa is no longer maintained, and is incompatible with Django 1.8 and above. An alternative module based on the `django-bakery`_ package is available as a third-party contribution: https://github.com/moorinteractive/wagtail-bakery.
+
+
 Signals on custom ``Image`` and ``Rendition`` models connected automatically
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

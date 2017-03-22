@@ -31,7 +31,6 @@ Features
 * Workflow support
 * An extensible `form builder <http://docs.wagtail.io/en/latest/reference/contrib/forms.html>`_
 * Multi-site and multi-language support
-* Optional `static site generation <http://docs.wagtail.io/en/latest/reference/contrib/staticsitegen.html>`_
 * Excellent `test coverage <https://coveralls.io/r/torchbox/wagtail?branch=master>`_
 
 Find out more at `wagtail.io <http://wagtail.io/>`_.
