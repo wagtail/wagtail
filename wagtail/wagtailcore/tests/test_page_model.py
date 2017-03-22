@@ -67,13 +67,6 @@ class TestValidation(TestCase):
         retrieved_page = Page.objects.get(id=events_page.id)
         self.assertEqual(retrieved_page.slug, 'events-2')
 
-    def test_slug_must_be_unique_within_parent(self):
-        homepage = Page.objects.get(url_path='/home/')
-
-        events_page = SimplePage(title="Events", slug='events', content="hello")
-        with self.assertRaises(ValidationError):
-            homepage.add_child(instance=events_page)
-
     def test_slug_can_duplicate_other_sections(self):
         homepage = Page.objects.get(url_path='/home/')
 
