@@ -223,6 +223,7 @@ Contributors
 * Wietze Helmantel
 * Patrick Gerken
 * Will Giddens
+* Maarten Kling
 
 Translators
 ===========
