@@ -348,9 +348,21 @@
 }
 
 // Footer control bar for perfoming actions on the page
+@media screen and (max-width: $breakpoint-mobile) {
+    footer .actions {
+        width: 100%;
+    }
+}
 footer .preview {
     button,
     .button {
+        @media screen and (max-width: $breakpoint-mobile) {
+            width: 100%;
+            margin-top: 2px;
+            margin-bottom: 2px;
+            height: 3em;
+        }
+
         background-color: lighten($color-grey-2, 10%);
         border-color: lighten($color-grey-2, 10%);
 
@@ -424,7 +436,7 @@ footer .preview {
                 width: 100%;
                 padding-left: 6.4em;
             }
-            
+
             &:hover .object-help {
                 opacity: 1;
             }
