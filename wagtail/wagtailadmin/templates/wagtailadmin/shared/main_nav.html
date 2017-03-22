@@ -6,7 +6,7 @@
 
         <li class="footer" id="footer">
             <div class="account" id="account-settings" title="{% trans 'Edit your account' %}">
-                <span class="avatar square avatar-on-dark icon icon-user">
+                <span class="avatar square avatar-on-dark">
                     {% if request.user.email %}
                     <img src="{% gravatar_url request.user.email 25 %}" />
                     {% endif %}
