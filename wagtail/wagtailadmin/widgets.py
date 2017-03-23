@@ -4,6 +4,7 @@ import itertools
 import json
 from functools import total_ordering
 
+from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.forms import widgets
 from django.forms.utils import flatatt
@@ -68,9 +69,11 @@ class AdminDateTimeInput(WidgetWithScript, widgets.DateTimeInput):
 
 class AdminTagWidget(WidgetWithScript, TagWidget):
     def render_js_init(self, id_, name, value):
-        return "initTagField({0}, {1});".format(
+        return "initTagField({0}, {1}, {2});".format(
             json.dumps(id_),
-            json.dumps(reverse('wagtailadmin_tag_autocomplete')))
+            json.dumps(reverse('wagtailadmin_tag_autocomplete')),
+            'true' if getattr(settings, 'TAG_SPACES_ALLOWED', True) else 'false',
+        )
 
 
 class AdminChooser(WidgetWithScript, widgets.Input):

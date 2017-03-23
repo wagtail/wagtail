@@ -21,7 +21,7 @@ function escapeHtml(text) {
     });
 }
 
-function initTagField(id, autocompleteUrl) {
+function initTagField(id, autocompleteUrl, allowSpaces) {
     $('#' + id).tagit({
         autocomplete: {source: autocompleteUrl},
         preprocessTag: function(val) {
@@ -34,7 +34,7 @@ function initTagField(id, autocompleteUrl) {
             return val;
         },
 
-        allowSpaces: true
+        allowSpaces: allowSpaces
     });
 }
 
