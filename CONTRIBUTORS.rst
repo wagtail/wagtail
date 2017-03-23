@@ -220,6 +220,7 @@ Contributors
 * hdnpl
 * Tom Hendrikx
 * Ralph Jacobs
+* Wietze Helmantel
 
 Translators
 ===========

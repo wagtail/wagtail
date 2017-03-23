@@ -36,6 +36,7 @@ Changelog
  * Fix: Search indexing now uses a defined query ordering to prevent objects from being skipped (Christian Peters)
  * Fix: Ensure that number localisation is not applied to object IDs within admin templates (Tom Hendrikx)
  * Fix: Paginating with a search present was always returning the 1st page in Internet Explorer 10 & 11 (Ralph Jacobs)
+ * Fix: RoutablePageMixin and wagtailforms previews now set the `request.is_preview` flag (Wietze Helmantel)
 
 
 1.9 (16.02.2017)
