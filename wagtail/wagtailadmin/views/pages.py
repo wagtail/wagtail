@@ -818,7 +818,7 @@ def copy(request, page_id):
     can_publish = parent_page.permissions_for_user(request.user).can_publish_subpage()
 
     # Create the form
-    form = CopyForm(request.POST or None, page=page, can_publish=can_publish)
+    form = CopyForm(request.POST or None, user=request.user, page=page, can_publish=can_publish)
 
     next_url = get_valid_next_url_from_request(request)
 
