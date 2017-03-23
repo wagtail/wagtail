@@ -122,8 +122,9 @@ class TestGetGeneratorClass(TestCase):
 
     @override_settings(WAGTAILSITEMAPS_GENERATOR='wagtail.tests.testapp.sitemap_generator.CustomSitemap')
     def get_custom_generator(self):
-        self.assertRaises(get_generator_class(), ImportError)
+        self.assertEqual(get_generator_class(), CustomSitemap)
 
     @override_settings(WAGTAILSITEMAPS_GENERATOR='path.to.nonexistent.SitemapGenerator')
     def get_nonexistent_generator(self):
-        self.assertEqual(get_generator_class(), Sitemap)
+        with self.assertRaises(ImportError):
+            get_generator_class()
