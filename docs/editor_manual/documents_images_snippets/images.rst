@@ -26,4 +26,5 @@ ___________
 * This interface allows you to select a focal point which can effect how your image displays to visitors on the front-end.
 * If your images are cropped in some way to make them fit to a specific shape, then the focal point will define the centre point from which the image is cropped.
 * To set the focal point, simply drag a marquee around the most important element of the image.
+* To remove the focal point, simply hit the button below the image.
 * If the feature is set up in your website, then on the front-end you will see the crop of this image focusing on your selection.
