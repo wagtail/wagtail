@@ -174,7 +174,7 @@ $(function() {
         var searchCurrentIndex = 0;
         var searchNextIndex = 0;
 
-        $(window.headerSearch.termInput).on('keypress', function() {
+        $(window.headerSearch.termInput).on('keypress cut paste', function() {
             clearTimeout($.data(this, 'timer'));
             var wait = setTimeout(search, 200);
             $(this).data('timer', wait);
