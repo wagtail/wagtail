@@ -463,7 +463,6 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
         super(Page, self).full_clean(*args, **kwargs)
 
     def clean(self):
-
         if not Page._slug_is_available(self.slug, self.get_parent(), self):
             raise ValidationError({'slug': _("This slug is already in use")})
 
