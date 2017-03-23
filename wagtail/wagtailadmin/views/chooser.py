@@ -51,7 +51,7 @@ def filter_page_type(queryset, page_models):
     return qs
 
 
-def can_choose_page(page, permission_proxy, desired_classes, can_choose_root, user_perm):
+def can_choose_page(page, permission_proxy, desired_classes, can_choose_root=True, user_perm=None):
     if not issubclass(page.specific_class or Page, desired_classes) and not desired_classes == (Page, ):
         return False
     elif not can_choose_root and page.is_root():
