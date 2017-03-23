@@ -173,8 +173,7 @@ $(function() {
     if (window.headerSearch) {
         var searchCurrentIndex = 0;
         var searchNextIndex = 0;
-
-        $(window.headerSearch.termInput).on('keypress cut paste', function() {
+        $(window.headerSearch.termInput).on('keyup cut paste', function() {
             clearTimeout($.data(this, 'timer'));
             var wait = setTimeout(search, 200);
             $(this).data('timer', wait);
