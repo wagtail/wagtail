@@ -32,7 +32,9 @@ function initTagField(id, autocompleteUrl) {
             }
 
             return val;
-        }
+        },
+
+        allowSpaces: true
     });
 }
 
