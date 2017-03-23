@@ -218,6 +218,7 @@ Contributors
 * Trent Holliday
 * jacoor
 * hdnpl
+* Tom Hendrikx
 
 Translators
 ===========

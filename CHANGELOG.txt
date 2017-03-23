@@ -29,6 +29,7 @@ Changelog
  * Fix: The ModelAdmin module can now work without the wagtailimages and wagtaildocs apps installed (Andy Babic)
  * Fix: Cloudflare error handling now handles non-string error responses correctly (hdnpl)
  * Fix: Search indexing now uses a defined query ordering to prevent objects from being skipped (Christian Peters)
+ * Fix: Ensure that number localisation is not applied to object IDs within admin templates (Tom Hendrikx)
 
 
 1.9 (16.02.2017)
