@@ -54,6 +54,7 @@ Bug fixes
  * The save and preview buttons in the page editor are now mobile-friendly (Maarten Kling)
  * Page links within rich text now respect custom URLs defined on specific page models (Gary Krige, Huub Bouma)
  * Default avatar no longer visible when using a transparent gravatar image (Thijs Kramer)
+ * Scrolling within the datetime picker is now usable again for touchpads (Ralph Jacobs)
 
 
 Upgrade considerations
