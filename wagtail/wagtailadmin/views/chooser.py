@@ -9,7 +9,7 @@ from wagtail.utils.pagination import paginate
 from wagtail.wagtailadmin.forms import EmailLinkChooserForm, ExternalLinkChooserForm, SearchForm
 from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
 from wagtail.wagtailcore import hooks
-from wagtail.wagtailcore.models import Page
+from wagtail.wagtailcore.models import Page, UserPagePermissionsProxy
 from wagtail.wagtailcore.utils import resolve_model_string
 
 
@@ -51,10 +51,27 @@ def filter_page_type(queryset, page_models):
     return qs
 
 
+def can_choose_page(page, permission_proxy, desired_classes, can_choose_root=True, user_perm=None):
+    """Returns boolean indicating of the user can choose page.
+    will check if the root page can be selected and if user permissions
+    should be checked.
+    """
+    if not issubclass(page.specific_class or Page, desired_classes) and not desired_classes == (Page, ):
+        return False
+    elif not can_choose_root and page.is_root():
+        return False
+    if user_perm == 'copy_to':
+        return permission_proxy.for_page(page).can_add_subpage()
+
+    return True
+
+
 def browse(request, parent_page_id=None):
     # A missing or empty page_type parameter indicates 'all page types'
     # (i.e. descendants of wagtailcore.page)
     page_type_string = request.GET.get('page_type') or 'wagtailcore.page'
+    user_perm = request.GET.get('user_perms', False)
+
     try:
         desired_classes = page_models_from_string(page_type_string)
     except (ValueError, LookupError):
@@ -91,11 +108,12 @@ def browse(request, parent_page_id=None):
 
     can_choose_root = request.GET.get('can_choose_root', False)
 
+    # Do permission lookups for this user now, instead of for every page.
+    permission_proxy = UserPagePermissionsProxy(request.user)
+
     # Parent page can be chosen if it is a instance of desired_classes
-    parent_page.can_choose = (
-        issubclass(parent_page.specific_class or Page, desired_classes) and
-        (can_choose_root or not parent_page.is_root())
-    )
+    parent_page.can_choose = can_choose_page(
+        parent_page, permission_proxy, desired_classes, can_choose_root, user_perm)
 
     # Pagination
     # We apply pagination first so we don't need to walk the entire list
@@ -104,11 +122,7 @@ def browse(request, parent_page_id=None):
 
     # Annotate each page with can_choose/can_decend flags
     for page in pages:
-        if desired_classes == (Page, ):
-            page.can_choose = True
-        else:
-            page.can_choose = issubclass(page.specific_class or Page, desired_classes)
-
+        page.can_choose = can_choose_page(page, permission_proxy, desired_classes, can_choose_root, user_perm)
         page.can_descend = page.get_children_count()
 
     # Render
