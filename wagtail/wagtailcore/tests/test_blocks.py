@@ -2319,7 +2319,7 @@ class TestPageChooserBlock(TestCase):
 
         empty_form_html = block.render_form(None, 'page')
         self.assertInHTML('<input id="page" name="page" placeholder="" type="hidden" />', empty_form_html)
-        self.assertIn('createPageChooser("page", ["wagtailcore.page"], null, false);', empty_form_html)
+        self.assertIn('createPageChooser("page", ["wagtailcore.page"], null, false, null);', empty_form_html)
 
         christmas_page = Page.objects.get(slug='christmas')
         christmas_form_html = block.render_form(christmas_page, 'page')
@@ -2330,32 +2330,32 @@ class TestPageChooserBlock(TestCase):
     def test_form_render_with_target_model_default(self):
         block = blocks.PageChooserBlock()
         empty_form_html = block.render_form(None, 'page')
-        self.assertIn('createPageChooser("page", ["wagtailcore.page"], null, false);', empty_form_html)
+        self.assertIn('createPageChooser("page", ["wagtailcore.page"], null, false, null);', empty_form_html)
 
     def test_form_render_with_target_model_string(self):
         block = blocks.PageChooserBlock(help_text="pick a page, any page", target_model='tests.SimplePage')
         empty_form_html = block.render_form(None, 'page')
-        self.assertIn('createPageChooser("page", ["tests.simplepage"], null, false);', empty_form_html)
+        self.assertIn('createPageChooser("page", ["tests.simplepage"], null, false, null);', empty_form_html)
 
     def test_form_render_with_target_model_literal(self):
         block = blocks.PageChooserBlock(help_text="pick a page, any page", target_model=SimplePage)
         empty_form_html = block.render_form(None, 'page')
-        self.assertIn('createPageChooser("page", ["tests.simplepage"], null, false);', empty_form_html)
+        self.assertIn('createPageChooser("page", ["tests.simplepage"], null, false, null);', empty_form_html)
 
     def test_form_render_with_target_model_multiple_strings(self):
         block = blocks.PageChooserBlock(help_text="pick a page, any page", target_model=['tests.SimplePage', 'tests.EventPage'])
         empty_form_html = block.render_form(None, 'page')
-        self.assertIn('createPageChooser("page", ["tests.simplepage", "tests.eventpage"], null, false);', empty_form_html)
+        self.assertIn('createPageChooser("page", ["tests.simplepage", "tests.eventpage"], null, false, null);', empty_form_html)
 
     def test_form_render_with_target_model_multiple_literals(self):
         block = blocks.PageChooserBlock(help_text="pick a page, any page", target_model=[SimplePage, EventPage])
         empty_form_html = block.render_form(None, 'page')
-        self.assertIn('createPageChooser("page", ["tests.simplepage", "tests.eventpage"], null, false);', empty_form_html)
+        self.assertIn('createPageChooser("page", ["tests.simplepage", "tests.eventpage"], null, false, null);', empty_form_html)
 
     def test_form_render_with_can_choose_root(self):
         block = blocks.PageChooserBlock(help_text="pick a page, any page", can_choose_root=True)
         empty_form_html = block.render_form(None, 'page')
-        self.assertIn('createPageChooser("page", ["wagtailcore.page"], null, true);', empty_form_html)
+        self.assertIn('createPageChooser("page", ["wagtailcore.page"], null, true, null);', empty_form_html)
 
     def test_form_response(self):
         block = blocks.PageChooserBlock()

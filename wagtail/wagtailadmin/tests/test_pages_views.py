@@ -2101,7 +2101,7 @@ class TestPageCopy(TestCase, WagtailTestUtils):
         self.assertRedirects(response, reverse('wagtailadmin_home'))
 
         # A user with page permissions, but not add permission at the destination,
-        # should receive a PermissionDenied response
+        # should receive a form validation error
         publishers = Group.objects.create(name='Publishers')
         GroupPagePermission.objects.create(
             group=publishers, page=self.root_page, permission_type='publish'
@@ -2117,7 +2117,9 @@ class TestPageCopy(TestCase, WagtailTestUtils):
             'copy_subpages': False,
         }
         response = self.client.post(reverse('wagtailadmin_pages:copy', args=(self.test_page.id, )), post_data)
-        self.assertEqual(response.status_code, 403)
+        form = response.context['form']
+        self.assertFalse(form.is_valid())
+        self.assertTrue('new_parent_page' in form.errors)
 
     def test_page_copy_post(self):
         post_data = {
