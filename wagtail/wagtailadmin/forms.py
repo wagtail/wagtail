@@ -120,9 +120,9 @@ class CopyForm(forms.Form):
     def __init__(self, *args, **kwargs):
         # CopyPage must be passed a 'page' kwarg indicating the page to be copied
         self.page = kwargs.pop('page')
+        self.user = kwargs.pop('user', None)
         can_publish = kwargs.pop('can_publish')
         super(CopyForm, self).__init__(*args, **kwargs)
-
         self.fields['new_title'] = forms.CharField(initial=self.page.title, label=_("New title"))
         self.fields['new_slug'] = forms.SlugField(initial=self.page.slug, label=_("New slug"))
         self.fields['new_parent_page'] = forms.ModelChoiceField(
@@ -132,7 +132,6 @@ class CopyForm(forms.Form):
             label=_("New parent page"),
             help_text=_("This copy will be a child of this given parent page.")
         )
-
         pages_to_copy = self.page.get_descendants(inclusive=True)
         subpage_count = pages_to_copy.count() - 1
         if subpage_count > 0:
@@ -169,6 +168,12 @@ class CopyForm(forms.Form):
 
         # New parent page given in form or parent of source, if parent_page is empty
         parent_page = cleaned_data.get('new_parent_page') or self.page.get_parent()
+
+        # check if user is allowed to create a page at given location.
+        if not parent_page.permissions_for_user(self.user).can_add_subpage():
+            self._errors['new_parent_page'] = self.error_class([
+                _("You do not have permission to copy to page \"%(page_title)s\"") % {'page_title': parent_page.get_admin_display_title()}
+            ])
 
         # Count the pages with the same slug within the context of our copy's parent page
         if slug and parent_page.get_children().filter(slug=slug).count():
