@@ -10,12 +10,7 @@ DEFAULT_GENERATOR = 'wagtail.contrib.wagtailsitemaps.sitemap_generator.Sitemap'
 
 def get_generator_class():
     generator_class = getattr(settings, 'WAGTAILSITEMAPS_GENERATOR', DEFAULT_GENERATOR)
-    try:
-        Sitemap = import_string(generator_class)
-    except ImportError:
-        Sitemap = import_string(DEFAULT_GENERATOR)
-
-    return Sitemap
+    return import_string(generator_class)
 
 
 def sitemap(request):
