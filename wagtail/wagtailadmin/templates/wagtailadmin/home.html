@@ -12,11 +12,9 @@
 {% block content %}
     <header class="merged nice-padding">
         <div class="row row-flush">
-            {% if user.email %}
-                <div class="col1">
-                    <div class="avatar"><img src="{% gravatar_url user.email %}" alt="" /></div>
-                </div>
-            {% endif %}
+            <div class="col1">
+                <div class="avatar"><img src="{% gravatar_url user.email %}" alt="" /></div>
+            </div>
             <div class="col9">
                 <h1>{% block branding_welcome %}{% blocktrans %}Welcome to the {{ site_name }} Wagtail CMS{% endblocktrans %}{% endblock %}</h1>
                 <h2>{{ user.get_full_name|default:user.get_username }}</h2>
