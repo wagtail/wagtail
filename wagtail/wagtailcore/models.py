@@ -985,7 +985,8 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
         Checks if this page instance can be moved to be a subpage of a parent
         page instance.
         """
-        return self.can_exist_under(parent)
+        return self._slug_is_available(
+            self.slug, parent, self) and self.can_exist_under(parent)
 
     @classmethod
     def get_verbose_name(cls):
