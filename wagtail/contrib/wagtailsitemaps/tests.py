@@ -1,7 +1,8 @@
 from __future__ import absolute_import, unicode_literals
 
+from django.contrib.sites.shortcuts import get_current_site
 from django.core.cache import cache
-from django.test import TestCase
+from django.test import RequestFactory, TestCase
 
 from wagtail.tests.testapp.models import EventIndex, SimplePage
 from wagtail.wagtailcore.models import Page, PageViewRestriction, Site
@@ -37,22 +38,30 @@ class TestSitemapGenerator(TestCase):
 
         self.site = Site.objects.get(is_default_site=True)
 
-    def test_get_pages(self):
+    def test_items(self):
         sitemap = Sitemap(self.site)
-        pages = sitemap.get_pages()
+        pages = sitemap.items()
 
         self.assertIn(self.child_page.page_ptr, pages)
         self.assertNotIn(self.unpublished_child_page.page_ptr, pages)
         self.assertNotIn(self.protected_child_page.page_ptr, pages)
 
     def test_get_urls(self):
+        request = RequestFactory().get('/sitemap.xml')
+        req_protocol = request.scheme
+        req_site = get_current_site(request)
+
         sitemap = Sitemap(self.site)
-        urls = [url['location'] for url in sitemap.get_urls()]
+        urls = [url['location'] for url in sitemap.get_urls(1, req_site, req_protocol)]
 
         self.assertIn('http://localhost/', urls)  # Homepage
         self.assertIn('http://localhost/hello-world/', urls)  # Child page
 
     def test_get_urls_uses_specific(self):
+        request = RequestFactory().get('/sitemap.xml')
+        req_protocol = request.scheme
+        req_site = get_current_site(request)
+
         # Add an event page which has an extra url in the sitemap
         self.home_page.add_child(instance=EventIndex(
             title="Events",
@@ -61,23 +70,18 @@ class TestSitemapGenerator(TestCase):
         ))
 
         sitemap = Sitemap(self.site)
-        urls = [url['location'] for url in sitemap.get_urls()]
+        urls = [url['location'] for url in sitemap.get_urls(1, req_site, req_protocol)]
 
         self.assertIn('http://localhost/events/', urls)  # Main view
         self.assertIn('http://localhost/events/past/', urls)  # Sub view
 
-    def test_render(self):
-        sitemap = Sitemap(self.site)
-        xml = sitemap.render()
 
-        # Check that a URL has made it into the xml
-        self.assertIn('http://localhost/hello-world/', xml)
+class TestIndexView(TestCase):
+    def test_index_view(self):
+        response = self.client.get('/sitemap-index.xml')
 
-        # Make sure the unpublished page didn't make it into the xml
-        self.assertNotIn('http://localhost/unpublished/', xml)
-
-        # Make sure the protected page didn't make it into the xml
-        self.assertNotIn('http://localhost/protected/', xml)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response['Content-Type'], 'application/xml')
 
 
 class TestSitemapView(TestCase):
@@ -85,29 +89,4 @@ class TestSitemapView(TestCase):
         response = self.client.get('/sitemap.xml')
 
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailsitemaps/sitemap.xml')
-        self.assertEqual(response['Content-Type'], 'text/xml; charset=utf-8')
-
-    def test_sitemap_view_cache(self):
-        cache_key = 'wagtail-sitemap:%d' % Site.objects.get(is_default_site=True).id
-
-        # Check that the key is not in the cache
-        self.assertNotIn(cache_key, cache)
-
-        # Hit the view
-        first_response = self.client.get('/sitemap.xml')
-
-        self.assertEqual(first_response.status_code, 200)
-        self.assertTemplateUsed(first_response, 'wagtailsitemaps/sitemap.xml')
-
-        # Check that the key is in the cache
-        self.assertIn(cache_key, cache)
-
-        # Hit the view again. Should come from the cache this time
-        second_response = self.client.get('/sitemap.xml')
-
-        self.assertEqual(second_response.status_code, 200)
-        self.assertTemplateNotUsed(second_response, 'wagtailsitemaps/sitemap.xml')  # Sitemap should not be re rendered
-
-        # Check that the content is the same
-        self.assertEqual(first_response.content, second_response.content)
+        self.assertEqual(response['Content-Type'], 'application/xml')
