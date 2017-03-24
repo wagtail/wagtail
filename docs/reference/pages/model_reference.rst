@@ -61,6 +61,7 @@ Database fields
         (date/time)
 
         The date/time when the page was first published.
+        This can be changed by editing the page.
 
     .. attribute:: seo_title
 
