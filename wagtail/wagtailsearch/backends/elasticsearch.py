@@ -3,7 +3,7 @@ from __future__ import absolute_import, unicode_literals
 import copy
 import json
 
-from django.db import models, DEFAULT_DB_ALIAS
+from django.db import DEFAULT_DB_ALIAS, models
 from django.db.models.sql import Query
 from django.db.models.sql.constants import SINGLE
 from django.utils.crypto import get_random_string
