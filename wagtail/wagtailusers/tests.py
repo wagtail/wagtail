@@ -303,6 +303,7 @@ class TestUserDeleteViewForNonSuperuser(TestCase, WagtailTestUtils):
 
 
     def test_user_cannot_escalate_privileges(self):
+        deleters_group = Group.objects.get(name='User deleters')
         post_data = {
             'username': "deleter",
             'email': "deleter@email.com",
@@ -310,17 +311,21 @@ class TestUserDeleteViewForNonSuperuser(TestCase, WagtailTestUtils):
             'last_name': "User",
             'password1': "",
             'password2': "",
+            'groups': [deleters_group.id, ],
             # These should not be possible without manipulating the form in the DOM:
             'is_superuser': 'on',
             'is_active': 'on',
         }
-        # response =
-        self.client.post(reverse('wagtailusers_users:edit', args=(self.deleter_user.pk, )), post_data)
-        # FIXME: Weirdly this doesn't redirect, but it still changes the first_name?
-        # # Should redirect back to index
-        # self.assertRedirects(response, reverse('wagtailusers_users:index'))
+        response = self.client.post(
+            reverse('wagtailusers_users:edit', args=(self.deleter_user.pk, )),
+            post_data)
+        # Should redirect back to index
+        self.assertRedirects(response, reverse('wagtailusers_users:index'))
 
         user = get_user_model().objects.get(pk=self.deleter_user.pk)
+        # check if user is still in the deleters group
+        self.assertTrue(user.groups.filter(name='User deleters').exists())
+
         self.assertEqual(user.first_name, "Escalating")
         # Check that the user did not escalate its is_superuser status
         self.assertEqual(user.is_superuser, False)
