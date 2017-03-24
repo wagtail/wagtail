@@ -84,5 +84,6 @@ $(function() {
         fields.y.removeAttr('value');
         fields.width.removeAttr('value');
         fields.height.removeAttr('value');
+        setupJcrop.apply(this, params);
     });
 });
