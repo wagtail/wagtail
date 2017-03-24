@@ -782,6 +782,11 @@ class ManyToManyBlogPage(Page):
     blog_categories = models.ManyToManyField(
         BlogCategory, through=BlogCategoryBlogPage, blank=True)
 
+    # make first_published_at editable on this page model
+    settings_panels = Page.settings_panels + [
+        FieldPanel('first_published_at'),
+    ]
+
 
 class OneToOnePage(Page):
     """

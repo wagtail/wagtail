@@ -336,6 +336,10 @@ class WagtailAdminPageForm(WagtailAdminModelForm):
         if expire_at and expire_at < timezone.now():
             self.add_error('expire_at', forms.ValidationError(_('Expiry date/time must be in the future')))
 
+        # Don't allow an existing first_published_at to be unset by clearing the field
+        if 'first_published_at' in cleaned_data and not cleaned_data['first_published_at']:
+            del cleaned_data['first_published_at']
+
         return cleaned_data
 
 

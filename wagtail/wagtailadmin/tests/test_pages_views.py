@@ -22,8 +22,8 @@ from django.utils.dateparse import parse_date
 from freezegun import freeze_time
 from wagtail.tests.testapp.models import (
     EVENT_AUDIENCE_CHOICES, Advert, AdvertPlacement, BusinessChild, BusinessIndex, BusinessSubIndex,
-    DefaultStreamPage, EventCategory, EventPage, EventPageCarouselItem, FilePage, SimplePage,
-    SingleEventPage, SingletonPage, StandardChild, StandardIndex, TaggedPage)
+    DefaultStreamPage, EventCategory, EventPage, EventPageCarouselItem, FilePage, ManyToManyBlogPage,
+    SimplePage, SingleEventPage, SingletonPage, StandardChild, StandardIndex, TaggedPage)
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailadmin.views.home import RecentEditsPanel
 from wagtail.wagtailadmin.views.pages import PreviewOnEdit
@@ -1352,6 +1352,46 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         for message in response.context['messages']:
             self.assertIn('hello-world-new', message.message)
             break
+
+    def test_first_published_at_editable(self):
+        """Test that we can update the first_published_at via the Page edit form,
+        for page models that expose it."""
+
+        # Add child page, of a type which has first_published_at in its form
+        child_page = ManyToManyBlogPage(
+            title="Hello world!",
+            slug="hello-again-world",
+            body="hello",
+        )
+        self.root_page.add_child(instance=child_page)
+        child_page.save_revision().publish()
+        self.child_page = ManyToManyBlogPage.objects.get(id=child_page.id)
+
+        initial_delta = self.child_page.first_published_at - timezone.now()
+
+        go_live_at = timezone.now() + datetime.timedelta(days=1)
+        expire_at = timezone.now() + datetime.timedelta(days=2)
+        first_published_at = timezone.now() - datetime.timedelta(days=2)
+
+        post_data = {
+            'title': "I've been edited!",
+            'body': "Some content",
+            'slug': 'hello-again-world',
+            'action-publish': "Publish",
+            'go_live_at': submittable_timestamp(go_live_at),
+            'expire_at': submittable_timestamp(expire_at),
+            'first_published_at': submittable_timestamp(first_published_at),
+        }
+        self.client.post(reverse('wagtailadmin_pages:edit', args=(self.child_page.id, )), post_data)
+
+        # Get the edited page.
+        child_page_new = ManyToManyBlogPage.objects.get(id=self.child_page.id)
+
+        # first_published_at should have changed.
+        new_delta = child_page_new.first_published_at - timezone.now()
+        self.assertNotEqual(new_delta.days, initial_delta.days)
+        # first_published_at should be 3 days ago.
+        self.assertEqual(new_delta.days, -3)
 
     def test_edit_post_publish_scheduled(self):
         go_live_at = timezone.now() + datetime.timedelta(days=1)
