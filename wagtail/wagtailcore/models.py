@@ -358,8 +358,9 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
 
     first_published_at = models.DateTimeField(
         verbose_name=_('first published at'),
+        help_text=_("Please add a date-time in the form YYYY-MM-DD hh:mm."),
+        blank=True,
         null=True,
-        editable=False,
         db_index=True
     )
     latest_revision_created_at = models.DateTimeField(
