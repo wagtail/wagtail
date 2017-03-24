@@ -5,7 +5,7 @@
 <h2>
     {% if page.sites_rooted_here.exists %}
         {% if perms.wagtailcore.add_site or perms.wagtailcore.change_site or perms.wagtailcore.delete_site %}
-            <a href="{% url 'wagtailsites:index' %}" class="icon icon-site" title="Sites menu"></a>
+            <a href="{% url 'wagtailsites:index' %}" class="icon icon-site" title="{% trans 'Sites menu' %}"></a>
         {% endif %}
     {% endif %}
 
