@@ -279,8 +279,8 @@ class ElasticsearchSearchQuery(BaseSearchQuery):
 
         if lookup == 'in':
             if isinstance(value, Query):
-                value = (value.get_compiler(self.queryset._db
-                                            or DEFAULT_DB_ALIAS)
+                db_alias = self.queryset._db or DEFAULT_DB_ALIAS
+                value = (value.get_compiler(db_alias)
                          .execute_sql(result_type=SINGLE))
             elif not isinstance(value, list):
                 value = list(value)
