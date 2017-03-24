@@ -320,8 +320,8 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
 
     first_published_at = models.DateTimeField(
         verbose_name=_('first published at'),
+        blank=True,
         null=True,
-        editable=False,
         db_index=True
     )
     last_published_at = models.DateTimeField(
