@@ -1332,6 +1332,34 @@ class TestPageEdit(TestCase, WagtailTestUtils):
             self.assertIn('hello-world-new', message.message)
             break
 
+    def test_first_published_at_editable(self):
+        """Test that we can update the first_published_at via the Page edit form."""
+        initial_delta = self.child_page.first_published_at - timezone.now()
+
+        go_live_at = timezone.now() + datetime.timedelta(days=1)
+        expire_at = timezone.now() + datetime.timedelta(days=2)
+        first_published_at = timezone.now() - datetime.timedelta(days=2)
+
+        post_data = {
+            'title': "I've been edited!",
+            'content': "Some content",
+            'slug': 'hello-world',
+            'action-publish': "Publish",
+            'go_live_at': submittable_timestamp(go_live_at),
+            'expire_at': submittable_timestamp(expire_at),
+            'first_published_at': submittable_timestamp(first_published_at),
+        }
+        self.client.post(reverse('wagtailadmin_pages:edit', args=(self.child_page.id, )), post_data)
+
+        # Get the edited page.
+        child_page_new = SimplePage.objects.get(id=self.child_page.id)
+
+        # first_published_at should have changed.
+        new_delta = child_page_new.first_published_at - timezone.now()
+        self.assertNotEqual(new_delta.days, initial_delta.days)
+        # first_published_at should be 3 days ago.
+        self.assertEqual(new_delta.days, -3)
+
     def test_edit_post_publish_scheduled(self):
         go_live_at = timezone.now() + datetime.timedelta(days=1)
         expire_at = timezone.now() + datetime.timedelta(days=2)
