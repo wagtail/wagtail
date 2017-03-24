@@ -348,16 +348,6 @@
 }
 
 // Footer control bar for perfoming actions on the page
-@media screen and (max-width: $breakpoint-mobile) {
-    footer .actions {
-        width: 100%;
-    }
-
-    footer .meta p {
-        white-space: normal;
-    }
-}
-
 footer .preview {
     button,
     .button {
