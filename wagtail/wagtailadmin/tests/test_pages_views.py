@@ -98,6 +98,18 @@ class TestPageExplorer(TestCase, WagtailTestUtils):
         self.assertEqual(Page.objects.get(id=1), response.context['parent_page'])
         self.assertTrue(response.context['pages'].paginator.object_list.filter(id=self.root_page.id).exists())
 
+    def test_explore_root_shows_icon(self):
+        response = self.client.get(reverse('wagtailadmin_explore_root'))
+        self.assertEqual(response.status_code, 200)
+
+        # Administrator (or user with add_site permission) should see the
+        # sites link with the icon-site icon
+        self.assertContains(
+            response,
+            ("""<a href="/admin/sites/" class="icon icon-site" """
+             """title="Sites menu"></a>""")
+        )
+
     def test_ordering(self):
         response = self.client.get(
             reverse('wagtailadmin_explore', args=(self.root_page.id, )),
