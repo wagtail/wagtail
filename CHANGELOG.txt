@@ -40,6 +40,7 @@ Changelog
  * Fix: RoutablePageMixin and wagtailforms previews now set the `request.is_preview` flag (Wietze Helmantel)
  * Fix: The save and preview buttons in the page editor are now mobile-friendly (Maarten Kling)
  * Fix: Page links within rich text now respect custom URLs defined on specific page models (Gary Krige, Huub Bouma)
+ * Fix: Default avatar no longer visible when using a transparent gravatar image (Thijs Kramer)
 
 
 1.9 (16.02.2017)

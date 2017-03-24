@@ -225,6 +225,7 @@ Contributors
 * Will Giddens
 * Maarten Kling
 * Huub Bouma
+* Thijs Kramer
 
 Translators
 ===========
