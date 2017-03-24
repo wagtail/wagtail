@@ -44,6 +44,7 @@ Changelog
  * Fix: Default avatar no longer visible when using a transparent gravatar image (Thijs Kramer)
  * Fix: Scrolling within the datetime picker is now usable again for touchpads (Ralph Jacobs)
  * Fix: List-based fields within form builder form submissions are now displayed as comma-separated strings rather than as Python lists (Christine Ho, Matt Westcott)
+ * Fix: Ensure that page editor forms are submitted as multipart when file fields exist in InlinePanels (Wietze Helmantel)
 
 
 1.9 (16.02.2017)
