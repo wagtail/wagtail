@@ -776,6 +776,7 @@ def PublishingPanel():
         FieldRowPanel([
             FieldPanel('go_live_at'),
             FieldPanel('expire_at'),
+            FieldPanel('first_published_at'),
         ], classname="label-above"),
     ], ugettext_lazy('Scheduled publishing'), classname="publishing")
 
