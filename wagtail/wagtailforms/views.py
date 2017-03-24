@@ -109,7 +109,12 @@ def list_submissions(request, page_id):
     data_rows = []
     for s in submissions:
         form_data = s.get_data()
-        data_row = [form_data.get(name) for name, label in data_fields]
+        data_row = []
+        for name, label in data_fields:
+            if isinstance(form_data.get(name), list):
+                data_row.append(', '.join(form_data.get(name)))
+            else:
+                data_row.append(form_data.get(name))
         data_rows.append({
             "model_id": s.id,
             "fields": data_row
