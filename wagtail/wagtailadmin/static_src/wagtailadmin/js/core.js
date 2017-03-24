@@ -21,7 +21,7 @@ function escapeHtml(text) {
     });
 }
 
-function initTagField(id, autocompleteUrl) {
+function initTagField(id, autocompleteUrl, allowSpaces) {
     $('#' + id).tagit({
         autocomplete: {source: autocompleteUrl},
         preprocessTag: function(val) {
@@ -32,7 +32,9 @@ function initTagField(id, autocompleteUrl) {
             }
 
             return val;
-        }
+        },
+
+        allowSpaces: allowSpaces
     });
 }
 
@@ -174,7 +176,7 @@ $(function() {
         var searchCurrentIndex = 0;
         var searchNextIndex = 0;
 
-        $(window.headerSearch.termInput).on('input', function() {
+        $(window.headerSearch.termInput).on('keyup cut paste', function() {
             clearTimeout($.data(this, 'timer'));
             var wait = setTimeout(search, 200);
             $(this).data('timer', wait);

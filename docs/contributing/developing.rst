@@ -31,7 +31,7 @@ With your preferred virtualenv activated, install the Wagtail package in develop
 
 .. code-block:: console
 
-    $ pip install -e .[testing,docs] -U
+    $ pip install -e '.[testing,docs]' -U
 
 Install Node through nvm (optional):
 

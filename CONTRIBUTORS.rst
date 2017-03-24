@@ -218,6 +218,11 @@ Contributors
 * Trent Holliday
 * jacoor
 * hdnpl
+* Tom Hendrikx
+* Ralph Jacobs
+* Wietze Helmantel
+* Patrick Gerken
+* Will Giddens
 
 Translators
 ===========

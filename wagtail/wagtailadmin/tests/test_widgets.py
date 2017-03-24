@@ -27,6 +27,7 @@ class TestAdminPageChooserWidget(TestCase):
 
         html = widget.render_html('test', None, {})
         self.assertInHTML("""<input name="test" type="hidden" />""", html)
+        self.assertIn(">Choose a page<", html)
 
     def test_render_js_init(self):
         widget = widgets.AdminPageChooser()
@@ -63,6 +64,9 @@ class TestAdminPageChooserWidget(TestCase):
         js_init = widget.render_js_init('test-id', 'test', None)
         self.assertEqual(js_init, "createPageChooser(\"test-id\", [\"tests.simplepage\"], null, false, null);")
 
+        html = widget.render_html('test', self.child_page, {})
+        self.assertIn(">Choose a page (Simple Page)<", html)
+
     def test_render_js_init_with_multiple_target_models(self):
         target_models = [SimplePage, EventPage]
         widget = widgets.AdminPageChooser(target_models=target_models)
@@ -71,6 +75,9 @@ class TestAdminPageChooserWidget(TestCase):
         self.assertEqual(
             js_init, "createPageChooser(\"test-id\", [\"tests.simplepage\", \"tests.eventpage\"], null, false, null);"
         )
+
+        html = widget.render_html('test', self.child_page, {})
+        self.assertIn(">Choose a page (Simple Page, Event Page)<", html)
 
     def test_render_js_init_with_can_choose_root(self):
         widget = widgets.AdminPageChooser(can_choose_root=True)

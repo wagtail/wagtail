@@ -5,6 +5,7 @@ Changelog
 ~~~~~~~~~~~~~~~~~
 
  * Dropped Django 1.9 and Python 3.3 support; note that Django 1.8.x is still supported
+ * Dropped support for generating static sites using django-medusa
  * Use minified versions of jQuery and jQuery UI in the admin. Total savings without compression 371 KB (Tom Dyson)
  * Hooks can now specify the order in which they are run (Gagaro)
  * Added a `submit_buttons` block to login template (Gagaro)
@@ -18,6 +19,10 @@ Changelog
  * User creation / edit form now enforces password validators set in `AUTH_PASSWORD_VALIDATORS` (Bertrand Bordage)
  * Added support for showing `non_field_errors` when validation fails in the page editor (Matt Westcott)
  * Added `WAGTAILADMIN_RECENT_EDITS_LIMIT` setting to to define the number of your most recent edits on the dashboard (Maarten Kling)
+ * Creating / editing users through the Wagtail admin no longer modifies the `is_staff` flag (Matt Westcott)
+ * Added link to the full Elasticsearch setup documentation from the Performance page (Matt Westcott)
+ * Tag input fields now accept spaces in tags by default, and can be overridden with the `TAG_SPACES_ALLOWED` setting (Kees Hink, Alex Gleason)
+ * Page chooser widgets now display the required page type where relevant (Christine Ho)
  * Fix: Marked 'Date from' / 'Date to' strings in wagtailforms for translation (Vorlif)
  * Fix: "File" field label on image edit form is now translated (Stein Strindhaug)
  * Fix: Unreliable preview is now reliable by always opening in a new window (Kjartan Sverrisson)
@@ -29,6 +34,9 @@ Changelog
  * Fix: The ModelAdmin module can now work without the wagtailimages and wagtaildocs apps installed (Andy Babic)
  * Fix: Cloudflare error handling now handles non-string error responses correctly (hdnpl)
  * Fix: Search indexing now uses a defined query ordering to prevent objects from being skipped (Christian Peters)
+ * Fix: Ensure that number localisation is not applied to object IDs within admin templates (Tom Hendrikx)
+ * Fix: Paginating with a search present was always returning the 1st page in Internet Explorer 10 & 11 (Ralph Jacobs)
+ * Fix: RoutablePageMixin and wagtailforms previews now set the `request.is_preview` flag (Wietze Helmantel)
 
 
 1.9 (16.02.2017)
