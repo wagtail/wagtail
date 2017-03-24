@@ -3,7 +3,9 @@ from __future__ import absolute_import, unicode_literals
 import copy
 import json
 
-from django.db import models
+from django.db import models, DEFAULT_DB_ALIAS
+from django.db.models.sql import Query
+from django.db.models.sql.constants import SINGLE
 from django.utils.crypto import get_random_string
 from django.utils.six.moves.urllib.parse import urlparse
 from elasticsearch import Elasticsearch, NotFoundError
@@ -276,10 +278,15 @@ class ElasticsearchSearchQuery(BaseSearchQuery):
             }
 
         if lookup == 'in':
+            if isinstance(value, Query):
+                value = (value.get_compiler(self.queryset._db
+                                            or DEFAULT_DB_ALIAS)
+                         .execute_sql(result_type=SINGLE))
+            elif not isinstance(value, list):
+                value = list(value)
             return {
                 'terms': {
-                    column_name: (value.get_compiler(self.queryset._db)
-                                  .execute_sql()),
+                    column_name: value,
                 }
             }
 

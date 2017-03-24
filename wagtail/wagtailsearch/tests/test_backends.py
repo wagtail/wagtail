@@ -128,10 +128,30 @@ class BackendTests(WagtailTestUtils):
         results = self.backend.search(None, models.SearchTest, filters=dict(live=True))
         self.assertEqual(set(results), {self.testb, self.testc.searchtest_ptr})
 
-    def test_filters_with_in_lookup(self):
+    def test_filters_in_subquery(self):
         live_page_titles = models.SearchTest.objects.filter(live=True).values_list('title', flat=True)
         results = self.backend.search(None, models.SearchTest, filters=dict(title__in=live_page_titles))
         self.assertEqual(set(results), {self.testb, self.testc.searchtest_ptr})
+
+    def test_filters_in_list(self):
+        live_page_titles = ['Hello']
+        results = self.backend.search(None, models.SearchTest,
+                                      filters=dict(title__in=live_page_titles))
+        self.assertEqual(set(results), {self.testb, self.testc.searchtest_ptr})
+
+    def test_filters_in_iterable(self):
+        class CustomIterable:
+            def __init__(self, data):
+                self.data = data
+
+            def __iter__(self):
+                for item in self.data:
+                    yield item
+
+        results = self.backend.search(
+            None, models.SearchTest,
+            filters=dict(title__in=CustomIterable(['World'])))
+        self.assertEqual(set(results), {self.testd.searchtest_ptr})
 
     def test_single_result(self):
         result = self.backend.search(None, models.SearchTest)[0]
