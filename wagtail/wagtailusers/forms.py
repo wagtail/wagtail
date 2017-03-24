@@ -352,3 +352,14 @@ class NotificationPreferencesForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = ("submitted_notifications", "approved_notifications", "rejected_notifications")
+
+
+class AvatarPreferencesForm(forms.ModelForm):
+
+
+    class Meta:
+        model = UserProfile
+        fields = ("avatar_choice", "avatar")
+        widgets = {
+            'avatar_choice': forms.RadioSelect(),
+        }

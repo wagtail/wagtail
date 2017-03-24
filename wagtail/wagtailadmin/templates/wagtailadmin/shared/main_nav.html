@@ -1,4 +1,4 @@
-{% load gravatar wagtailadmin_tags %}
+{% load user_avatar wagtailadmin_tags %}
 {% load i18n %}
 <nav class="nav-main">
     <ul>
@@ -6,9 +6,9 @@
 
         <li class="footer" id="footer">
             <div class="account" id="account-settings" title="{% trans 'Edit your account' %}">
-                <span class="avatar square avatar-on-dark icon icon-user">
+                <span class="avatar square avatar-on-dark icon ">
                     {% if request.user.email %}
-                    <img src="{% gravatar_url request.user.email 25 %}" />
+                    <img src="{% user_avatar_url user=request.user size=25 %}" />
                     {% endif %}
                 </span>
                 <em class="icon icon-arrow-up-after">{{ request.user.first_name|default:request.user.get_username }}</em>
