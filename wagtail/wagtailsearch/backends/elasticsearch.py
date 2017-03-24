@@ -278,7 +278,8 @@ class ElasticsearchSearchQuery(BaseSearchQuery):
         if lookup == 'in':
             return {
                 'terms': {
-                    column_name: list(value),
+                    column_name: (value.get_compiler(self.queryset._db)
+                                  .execute_sql()),
                 }
             }
 
