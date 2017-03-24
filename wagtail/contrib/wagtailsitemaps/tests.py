@@ -1,7 +1,6 @@
 from __future__ import absolute_import, unicode_literals
 
 from django.contrib.sites.shortcuts import get_current_site
-from django.core.cache import cache
 from django.test import RequestFactory, TestCase
 
 from wagtail.tests.testapp.models import EventIndex, SimplePage
