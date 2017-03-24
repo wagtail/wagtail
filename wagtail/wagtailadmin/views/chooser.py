@@ -52,6 +52,10 @@ def filter_page_type(queryset, page_models):
 
 
 def can_choose_page(page, permission_proxy, desired_classes, can_choose_root=True, user_perm=None):
+    """Returns boolean indicating of the user can choose page.
+    will check if the root page can be selected and if user permissions
+    should be checked.
+    """
     if not issubclass(page.specific_class or Page, desired_classes) and not desired_classes == (Page, ):
         return False
     elif not can_choose_root and page.is_root():

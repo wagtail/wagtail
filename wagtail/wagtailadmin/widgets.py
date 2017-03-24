@@ -139,7 +139,7 @@ class AdminPageChooser(AdminChooser):
 
     def __init__(self, target_models=None, can_choose_root=False, user_perms=None, **kwargs):
         super(AdminPageChooser, self).__init__(**kwargs)
-        
+
         if target_models:
             models = ', '.join([model._meta.verbose_name.title() for model in target_models if model is not Page])
             if models:
