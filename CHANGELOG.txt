@@ -38,6 +38,7 @@ Changelog
  * Fix: Paginating with a search present was always returning the 1st page in Internet Explorer 10 & 11 (Ralph Jacobs)
  * Fix: RoutablePageMixin and wagtailforms previews now set the `request.is_preview` flag (Wietze Helmantel)
  * Fix: The save and preview buttons in the page editor are now mobile-friendly (Maarten Kling)
+ * Fix: Page links within rich text now respect custom URLs defined on specific page models (Gary Krige, Huub Bouma)
 
 
 1.9 (16.02.2017)

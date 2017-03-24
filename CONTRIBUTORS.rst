@@ -224,6 +224,7 @@ Contributors
 * Patrick Gerken
 * Will Giddens
 * Maarten Kling
+* Huub Bouma
 
 Translators
 ===========
