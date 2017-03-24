@@ -123,7 +123,6 @@ INSTALLED_APPS = (
     'wagtail.tests.search',
     'wagtail.tests.modeladmintest',
     'wagtail.contrib.wagtailstyleguide',
-    'wagtail.contrib.wagtailsitemaps',
     'wagtail.contrib.wagtailroutablepage',
     'wagtail.contrib.wagtailfrontendcache',
     'wagtail.contrib.wagtailapi',
@@ -151,6 +150,7 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'django.contrib.sitemaps',
     'django.contrib.staticfiles',
 )
 
