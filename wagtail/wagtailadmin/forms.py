@@ -313,6 +313,7 @@ class WagtailAdminPageForm(WagtailAdminModelForm):
         # Check scheduled publishing fields
         go_live_at = cleaned_data.get('go_live_at')
         expire_at = cleaned_data.get('expire_at')
+        first_published_at = cleaned_data.get('first_published_at')
 
         # Go live must be before expire
         if go_live_at and expire_at:
@@ -324,6 +325,10 @@ class WagtailAdminPageForm(WagtailAdminModelForm):
         # Expire at must be in the future
         if expire_at and expire_at < timezone.now():
             self.add_error('expire_at', forms.ValidationError(_('Expiry date/time must be in the future')))
+
+        # Don't update first_published_at
+        if not first_published_at:
+            del cleaned_data['first_published_at']
 
         return cleaned_data
 
