@@ -896,3 +896,22 @@ If you change an existing RichTextField to a StreamField, and create and run mig
                 convert_to_richtext,
             ),
         ]
+
+Block Example
+~~~~~~~~~~~~~
+
+Here is an example regarding the blocks from above.
+To make your own block, you should define a new class that extend from blocks.StructBlock.
+
+.. code-block:: python
+
+   from wagtail.wagtailcore import blocks
+
+   class PersonBlock(blocks.StructBlock):
+      name = blocks.CharBlock()
+      height = blocks.DecimalBlock()
+      age = blocks.IntegerBlock()
+      email = blocks.EmailBlock()
+
+      class Meta:
+            template = 'blocks/person_block.html'
