@@ -74,4 +74,16 @@ $(function() {
         $('.jcrop-holder').remove();
         setupJcrop.apply(this, params)
     }));
+
+    $('.remove-focal-point').click(function() {
+        jcropapi.destroy();
+        $image.removeAttr('style');
+        $('.jcrop-holder').remove();
+        $('.current-focal-point-indicator').remove();
+        fields.x.removeAttr('value');
+        fields.y.removeAttr('value');
+        fields.width.removeAttr('value');
+        fields.height.removeAttr('value');
+        setupJcrop.apply(this, params);
+    });
 });
