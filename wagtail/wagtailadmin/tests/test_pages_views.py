@@ -98,6 +98,18 @@ class TestPageExplorer(TestCase, WagtailTestUtils):
         self.assertEqual(Page.objects.get(id=1), response.context['parent_page'])
         self.assertTrue(response.context['pages'].paginator.object_list.filter(id=self.root_page.id).exists())
 
+    def test_explore_root_shows_icon(self):
+        response = self.client.get(reverse('wagtailadmin_explore_root'))
+        self.assertEqual(response.status_code, 200)
+
+        # Administrator (or user with add_site permission) should see the
+        # sites link with the icon-site icon
+        self.assertContains(
+            response,
+            ("""<a href="/admin/sites/" class="icon icon-site" """
+             """title="Sites menu"></a>""")
+        )
+
     def test_ordering(self):
         response = self.client.get(
             reverse('wagtailadmin_explore', args=(self.root_page.id, )),
@@ -4069,3 +4081,61 @@ class TestValidationErrorMessages(TestCase, WagtailTestUtils):
         self.assertContains(response, """<p class="error-message"><span>This field is required.</span></p>""", count=1, html=True)
         # Error on title shown in the header message
         self.assertContains(response, "<li>Title: This field is required.</li>", count=1)
+
+
+class TestDraftAccess(TestCase, WagtailTestUtils):
+    """Tests for the draft view access restrictions."""
+
+    def setUp(self):
+        # Find root page
+        self.root_page = Page.objects.get(id=2)
+
+        # Add child page
+        self.child_page = SimplePage(
+            title="Hello world!",
+            slug="hello-world",
+            content="hello",
+        )
+        self.root_page.add_child(instance=self.child_page)
+
+        # create user with admin access (but not draft_view access)
+        user = get_user_model().objects.create_user(username='bob', email='bob@email.com', password='password')
+        user.user_permissions.add(
+            Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+        )
+
+    def test_draft_access_admin(self):
+        """Test that admin can view draft."""
+        # Login as admin
+        self.user = self.login()
+
+        # Try getting page draft
+        response = self.client.get(reverse('wagtailadmin_pages:view_draft', args=(self.child_page.id, )))
+
+        # User can view
+        self.assertEqual(response.status_code, 200)
+
+    def test_draft_access_unauthorized(self):
+        """Test that user without edit/publish permission can't view draft."""
+        self.assertTrue(self.client.login(username='bob', password='password'))
+
+        # Try getting page draft
+        response = self.client.get(reverse('wagtailadmin_pages:view_draft', args=(self.child_page.id, )))
+
+        # User gets Unauthorized response
+        self.assertEqual(response.status_code, 403)
+
+    def test_draft_access_authorized(self):
+        """Test that user with edit permission can view draft."""
+        # give user the permission to edit page
+        user = get_user_model().objects.get(username='bob')
+        user.groups.add(Group.objects.get(name='Moderators'))
+        user.save()
+
+        self.assertTrue(self.client.login(username='bob', password='password'))
+
+        # Get add subpage page
+        response = self.client.get(reverse('wagtailadmin_pages:view_draft', args=(self.child_page.id, )))
+
+        # User can view
+        self.assertEqual(response.status_code, 200)

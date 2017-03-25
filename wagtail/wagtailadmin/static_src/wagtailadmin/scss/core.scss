@@ -179,6 +179,16 @@ footer {
             }
         }
     }
+
+    @media screen and (max-width: $breakpoint-mobile) {
+        .actions {
+            width: 100%;
+        }
+
+        .meta p {
+            white-space: normal;
+        }
+    }
 }
 
 ::-webkit-scrollbar {

@@ -223,6 +223,9 @@ Contributors
 * Wietze Helmantel
 * Patrick Gerken
 * Will Giddens
+* Maarten Kling
+* Huub Bouma
+* Thijs Kramer
 
 Translators
 ===========

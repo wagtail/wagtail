@@ -163,6 +163,19 @@ class EditHandler(object):
         """
         return ""
 
+    def is_multipart(self):
+        """ Checks form's *and* formsets' is_multipart method """
+        multipart = False
+        if self.form.is_multipart():
+            multipart = True
+        else:
+            for k in self.form.formsets.keys():
+                if self.form.formsets[k].is_multipart():
+                    multipart = True
+                    break
+
+        return multipart
+
     def render_as_object(self):
         """
         Render this object as it should appear within an ObjectList. Should not

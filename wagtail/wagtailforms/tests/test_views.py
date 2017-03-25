@@ -170,6 +170,7 @@ class TestFormsSubmissionsList(TestCase, WagtailTestUtils):
             form_data=json.dumps({
                 'your-email': "new@example.com",
                 'your-message': "this is a fairly new message",
+                'your-choices': ['foo', 'baz'],
             }),
         )
         new_form_submission.submit_time = '2014-01-01T12:00:00.000Z'
@@ -208,6 +209,9 @@ class TestFormsSubmissionsList(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailforms/index_submissions.html')
         self.assertEqual(len(response.context['data_rows']), 2)
+
+        # check display of list values within form submissions
+        self.assertContains(response, 'foo, baz')
 
     def test_list_submissions_after_filter_form_submissions_for_user_hook(self):
         # Hook forbids to delete form submissions for everyone
@@ -308,6 +312,7 @@ class TestFormsSubmissionsExport(TestCase, WagtailTestUtils):
             form_data=json.dumps({
                 'your-email': "old@example.com",
                 'your-message': "this is a really old message",
+                'your-choices': ['foo', 'baz'],
             }),
         )
         old_form_submission.submit_time = '2013-01-01T12:00:00.000Z'
@@ -337,7 +342,7 @@ class TestFormsSubmissionsExport(TestCase, WagtailTestUtils):
         data_lines = response.content.decode().split("\n")
 
         self.assertEqual(data_lines[0], 'Submission date,Your email,Your message,Your choices\r')
-        self.assertEqual(data_lines[1], '2013-01-01 12:00:00+00:00,old@example.com,this is a really old message,None\r')
+        self.assertEqual(data_lines[1], '2013-01-01 12:00:00+00:00,old@example.com,this is a really old message,"foo, baz"\r')
         self.assertEqual(data_lines[2], '2014-01-01 12:00:00+00:00,new@example.com,this is a fairly new message,None\r')
 
     def test_list_submissions_csv_export_after_filter_form_submissions_for_user_hook(self):
@@ -355,7 +360,7 @@ class TestFormsSubmissionsExport(TestCase, WagtailTestUtils):
         data_lines = response.content.decode().split("\n")
 
         self.assertEqual(data_lines[0], 'Submission date,Your email,Your message,Your choices\r')
-        self.assertEqual(data_lines[1], '2013-01-01 12:00:00+00:00,old@example.com,this is a really old message,None\r')
+        self.assertEqual(data_lines[1], '2013-01-01 12:00:00+00:00,old@example.com,this is a really old message,"foo, baz"\r')
         self.assertEqual(data_lines[2], '2014-01-01 12:00:00+00:00,new@example.com,this is a fairly new message,None\r')
 
         with self.register_hook('filter_form_submissions_for_user', construct_forms_for_user):
@@ -391,7 +396,7 @@ class TestFormsSubmissionsExport(TestCase, WagtailTestUtils):
         data_lines = response.content.decode().split("\n")
 
         self.assertEqual(data_lines[0], 'Submission date,Your email,Your message,Your choices\r')
-        self.assertEqual(data_lines[1], '2013-01-01 12:00:00+00:00,old@example.com,this is a really old message,None\r')
+        self.assertEqual(data_lines[1], '2013-01-01 12:00:00+00:00,old@example.com,this is a really old message,"foo, baz"\r')
 
     def test_list_submissions_csv_export_with_range_filtering(self):
         response = self.client.get(

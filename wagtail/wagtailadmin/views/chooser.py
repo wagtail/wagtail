@@ -91,7 +91,7 @@ def browse(request, parent_page_id=None):
         parent_page = all_desired_pages.first_common_ancestor()
 
     # Get children of parent page
-    pages = parent_page.get_children()
+    pages = parent_page.get_children().specific()
 
     # allow hooks to modify the queryset
     for hook in hooks.get_hooks('construct_page_chooser_queryset'):

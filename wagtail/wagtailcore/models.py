@@ -15,7 +15,7 @@ from django.core.handlers.base import BaseHandler
 from django.core.handlers.wsgi import WSGIRequest
 from django.core.urlresolvers import reverse
 from django.db import connection, models, transaction
-from django.db.models import Case, IntegerField, Q, When
+from django.db.models import Q
 from django.http import Http404
 from django.template.response import TemplateResponse
 # Must be imported from Django so we get the new implementation of with_metaclass
@@ -32,6 +32,7 @@ from treebeard.mp_tree import MP_Node
 from wagtail.utils.compat import user_is_authenticated
 from wagtail.wagtailcore.query import PageQuerySet, TreeQuerySet
 from wagtail.wagtailcore.signals import page_published, page_unpublished
+from wagtail.wagtailcore.sites import get_site_for_hostname
 from wagtail.wagtailcore.url_routing import RouteResult
 from wagtail.wagtailcore.utils import (
     WAGTAIL_APPEND_SLASH, camelcase_to_underscore, resolve_model_string)
@@ -40,12 +41,6 @@ from wagtail.wagtailsearch import index
 logger = logging.getLogger('wagtail.core')
 
 PAGE_TEMPLATE_VAR = 'page'
-
-
-MATCH_HOSTNAME_PORT = 0
-MATCH_HOSTNAME_DEFAULT = 1
-MATCH_DEFAULT = 2
-MATCH_HOSTNAME = 3
 
 
 class SiteManager(models.Manager):
@@ -129,42 +124,7 @@ class Site(models.Model):
         except (AttributeError, KeyError):
             port = request.META.get('SERVER_PORT')
 
-        sites = list(Site.objects.annotate(match=Case(
-            # annotate the results by best choice descending
-
-            # put exact hostname+port match first
-            When(hostname=hostname, port=port, then=MATCH_HOSTNAME_PORT),
-
-            # then put hostname+default (better than just hostname or just default)
-            When(hostname=hostname, is_default_site=True, then=MATCH_HOSTNAME_DEFAULT),
-
-            # then match default with different hostname. there is only ever
-            # one default, so order it above (possibly multiple) hostname
-            # matches so we can use sites[0] below to access it
-            When(is_default_site=True, then=MATCH_DEFAULT),
-
-            # because of the filter below, if it's not default then its a hostname match
-            default=MATCH_HOSTNAME,
-
-            output_field=IntegerField(),
-        )).filter(Q(hostname=hostname) | Q(is_default_site=True)).order_by(
-            'match'
-        ).select_related(
-            'root_page'
-        ))
-
-        if sites:
-            # if theres a unique match or hostname (with port or default) match
-            if len(sites) == 1 or sites[0].match in (MATCH_HOSTNAME_PORT, MATCH_HOSTNAME_DEFAULT):
-                return sites[0]
-
-            # if there is a default match with a different hostname, see if
-            # there are many hostname matches. if only 1 then use that instead
-            # otherwise we use the default
-            if sites[0].match == MATCH_DEFAULT:
-                return sites[len(sites) == 2]
-
-        raise Site.DoesNotExist()
+        return get_site_for_hostname(hostname, port)
 
     @property
     def root_url(self):

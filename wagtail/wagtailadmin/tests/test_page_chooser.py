@@ -5,7 +5,7 @@ from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.utils.http import urlencode
 
-from wagtail.tests.testapp.models import EventIndex, EventPage, SimplePage
+from wagtail.tests.testapp.models import EventIndex, EventPage, SimplePage, SingleEventPage
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailadmin.views.chooser import can_choose_page
 from wagtail.wagtailcore.models import Page, UserPagePermissionsProxy
@@ -133,6 +133,27 @@ class TestChooserBrowseChild(TestCase, WagtailTestUtils):
         self.assertIn(event_index_page.id, pages)
         self.assertFalse(pages[event_index_page.id].can_choose)
         self.assertTrue(pages[event_index_page.id].can_descend)
+
+    def test_with_url_extended_page_type(self):
+        # Add a page that overrides the url path
+        single_event_page = SingleEventPage(
+            title="foo",
+            location='the moon', audience='public',
+            cost='free', date_from='2001-01-01',
+        )
+        self.root_page.add_child(instance=single_event_page)
+
+        # Send request
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/chooser/browse.html')
+
+        page_urls = [
+            page.url
+            for page in response.context['pages']
+        ]
+
+        self.assertIn('/foo/pointless-suffix/', page_urls)
 
     def test_with_blank_page_type(self):
         # a blank page_type parameter should be equivalent to an absent parameter

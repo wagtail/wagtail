@@ -30,6 +30,8 @@ Other features
  * Added link to the full Elasticsearch setup documentation from the Performance page (Matt Westcott)
  * Tag input fields now accept spaces in tags by default, and can be overridden with the ``TAG_SPACES_ALLOWED`` setting (Kees Hink, Alex Gleason)
  * Page chooser widgets now display the required page type where relevant (Christine Ho)
+ * Site root pages are now indicated with a globe icon in the explorer listing (Nick Smith, Huub Bouma)
+ * Draft page view is now restricted to users with edit / publish permission over the page (Kees Hink)
 
 
 Bug fixes
@@ -49,6 +51,12 @@ Bug fixes
  * Ensure that number localisation is not applied to object IDs within admin templates (Tom Hendrikx)
  * Paginating with a search present was always returning the 1st page in Internet Explorer 10 & 11 (Ralph Jacobs)
  * RoutablePageMixin and wagtailforms previews now set the ``request.is_preview`` flag (Wietze Helmantel)
+ * The save and preview buttons in the page editor are now mobile-friendly (Maarten Kling)
+ * Page links within rich text now respect custom URLs defined on specific page models (Gary Krige, Huub Bouma)
+ * Default avatar no longer visible when using a transparent gravatar image (Thijs Kramer)
+ * Scrolling within the datetime picker is now usable again for touchpads (Ralph Jacobs)
+ * List-based fields within form builder form submissions are now displayed as comma-separated strings rather than as Python lists (Christine Ho, Matt Westcott)
+ * Ensure that page editor forms are submitted as multipart when file fields exist in InlinePanels (Wietze Helmantel)
 
 
 Upgrade considerations
@@ -63,7 +71,7 @@ Support for Django 1.9 and Python 3.3 has been dropped in this release; please u
 Dropped support for generating static sites using ``django-medusa``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Django-medusa is no longer maintained, and is incompatible with Django 1.8 and above. An alternative module based on the `django-bakery`_ package is available as a third-party contribution: https://github.com/moorinteractive/wagtail-bakery.
+Django-medusa is no longer maintained, and is incompatible with Django 1.8 and above. An alternative module based on the `django-bakery` package is available as a third-party contribution: https://github.com/moorinteractive/wagtail-bakery.
 
 
 Signals on custom ``Image`` and ``Rendition`` models connected automatically
