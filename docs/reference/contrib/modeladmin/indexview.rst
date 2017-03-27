@@ -535,7 +535,7 @@ kind of interactivity using javascript:
 .. _modeladmin_thumbnailmixin:
 
 ----------------------------------------------------
-``wagtal.contrib.modeladmin.mixins.ThumbnailMixin``
+``wagtail.contrib.modeladmin.mixins.ThumbnailMixin``
 ----------------------------------------------------
 
 If you're using ``wagtailimages.Image`` to define an image for each item in
