@@ -1,9 +1,9 @@
 {% extends "wagtailadmin/base.html" %}
 {% load user_avatar i18n %}
 
-{% block titletag %}{% trans "Change avatar" %}{% endblock %}
+{% block titletag %}{% trans "Change profile profile" %}{% endblock %}
 {% block content %}
-    {% trans "Change avatar" as change_str %}
+    {% trans "Change user profile" as change_str %}
     {% include "wagtailadmin/shared/header.html" with title=change_str %}
 
     <div class="nice-padding">
@@ -18,9 +18,9 @@
 
             <li class="submit"><input type="submit" value="{% trans 'Update' %}" class="button" /></li>
         </form>
-        <p>{% trans "Your current avatar:" %}</p>
+        <p>{% trans "Your current profile picture:" %}</p>
         <p>
-            <span class="avatar square"><img src="{% user_avatar_url user=request.user size=50 %}"></span>
+            <span class="avatar square"><img src="{% user_avatar_url request.user 50 %}"></span>
         </p>
 
     </div>

@@ -359,7 +359,6 @@ class NotificationPreferencesForm(forms.ModelForm):
 
 class AvatarPreferencesForm(forms.ModelForm):
 
-
     class Meta:
         model = UserProfile
         fields = ("avatar_choice", "avatar")

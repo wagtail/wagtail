@@ -2,9 +2,9 @@ from __future__ import absolute_import, unicode_literals
 
 from django.conf import settings
 from django.contrib.staticfiles.templatetags.staticfiles import static
-
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
+from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
 from wagtail.wagtailusers.utils import get_gravatar_url
 
@@ -47,7 +47,7 @@ class UserProfile(models.Model):
     )
 
     avatar_choice = models.CharField(
-        verbose_name=_('Select avatar backend'),
+        verbose_name=_('Select profile picture type'),
         default=GRAVATAR,
         choices=AVATAR_CHOICES,
         max_length=10
@@ -66,21 +66,29 @@ class UserProfile(models.Model):
     def __str__(self):
         return self.user.get_username()
 
+    @cached_property
+    def default_avatar(self):
+        return static('wagtailadmin/images/default-user-avatar.svg')
+
     def get_avatar_url(self, size=50):
-        default_avatar = static('wagtailadmin/images/default-user-avatar.svg')
 
         if self.avatar_choice == self.DEFAULT:
-            return default_avatar
-        elif self.avatar_choice == self.CUSTOM:
+            return self.default_avatar
+        if self.avatar_choice == self.CUSTOM:
             try:
                 return self.avatar.url
             except ValueError:
-                return default_avatar
-        else:
-            if self.user.email:
-                return get_gravatar_url(self.user.email, default=None, size=50)
-            else:
-                return default_avatar
+                return self.default_avatar
+        if self.avatar_choice == self.GRAVATAR and self.user.email:
+            return get_gravatar_url(self.user.email, default=None, size=50)
+
+        return self.default_avatar
+
+    def save(self, *args, **kwargs):
+        if self.avatar:
+            this = UserProfile.objects.get(pk=self.pk)
+            this.avatar.delete(save=False)
+        return super(UserProfile, self).save(*args, **kwargs)
 
     class Meta:
         verbose_name = _('user profile')

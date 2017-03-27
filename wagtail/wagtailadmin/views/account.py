@@ -145,7 +145,8 @@ def logout(request):
 
 def change_avatar(request):
     if request.method == 'POST':
-        form = AvatarPreferencesForm(request.POST, request.FILES, instance=UserProfile.get_for_user(request.user))
+        user_profile = UserProfile.get_for_user(request.user)
+        form = AvatarPreferencesForm(request.POST, request.FILES, instance=user_profile)
         if form.is_valid():
             form.save()
             messages.success(request, _("Your preferences have been updated successfully!"))
