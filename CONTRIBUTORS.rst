@@ -226,6 +226,7 @@ Contributors
 * Maarten Kling
 * Huub Bouma
 * Thijs Kramer
+* Ramon de Jezus
 
 Translators
 ===========
