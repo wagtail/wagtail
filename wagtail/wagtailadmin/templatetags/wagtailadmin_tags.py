@@ -95,14 +95,6 @@ def ellipsistrim(value, max_length):
 
 
 @register.filter
-def no_thousand_separator(num):
-    """
-    Prevent USE_THOUSAND_SEPARATOR from automatically inserting a thousand separator on this value
-    """
-    return str(num)
-
-
-@register.filter
 def fieldtype(bound_field):
     try:
         return camelcase_to_underscore(bound_field.field.__class__.__name__)

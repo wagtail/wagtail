@@ -42,7 +42,7 @@ def index(request, parent_page_id=None):
     else:
         parent_page = Page.get_first_root_node().specific
 
-    pages = parent_page.get_children().prefetch_related('content_type')
+    pages = parent_page.get_children().prefetch_related('content_type', 'sites_rooted_here')
 
     # Get page ordering
     ordering = request.GET.get('ordering', '-latest_revision_created_at')
@@ -543,6 +543,9 @@ def delete(request, page_id):
 
 def view_draft(request, page_id):
     page = get_object_or_404(Page, id=page_id).get_latest_revision_as_page()
+    perms = page.permissions_for_user(request.user)
+    if not (perms.can_publish() or perms.can_edit()):
+        raise PermissionDenied
     return page.serve_preview(page.dummy_request(request), page.default_preview_mode)
 
 

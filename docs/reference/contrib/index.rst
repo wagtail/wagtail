@@ -9,7 +9,6 @@ Wagtail ships with a variety of extra optional modules.
 
     settings
     forms/index
-    staticsitegen
     sitemaps
     frontendcache
     routablepage
@@ -29,12 +28,6 @@ Site-wide settings that are editable by administrators in the Wagtail admin.
 ------------------
 
 Allows forms to be created by admins and provides an interface for browsing form submissions.
-
-
-:doc:`staticsitegen`
---------------------
-
-Provides a management command that turns a Wagtail site into a set of static HTML files.
 
 
 :doc:`sitemaps`

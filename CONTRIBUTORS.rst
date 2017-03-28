@@ -218,6 +218,15 @@ Contributors
 * Trent Holliday
 * jacoor
 * hdnpl
+* Tom Hendrikx
+* Ralph Jacobs
+* Wietze Helmantel
+* Patrick Gerken
+* Will Giddens
+* Maarten Kling
+* Huub Bouma
+* Thijs Kramer
+* Ramon de Jezus
 
 Translators
 ===========

@@ -781,6 +781,7 @@ class TestInlinePanel(TestCase, WagtailTestUtils):
         Test that the USE_THOUSAND_SEPARATOR setting does not screw up the rendering of numbers
         (specifically maxForms=1000) in the JS initializer:
         https://github.com/wagtail/wagtail/pull/2699
+        https://github.com/wagtail/wagtail/issues/3227
         """
         SpeakerObjectList = ObjectList([
             InlinePanel('speakers', label="Speakers", panels=[
@@ -796,7 +797,41 @@ class TestInlinePanel(TestCase, WagtailTestUtils):
 
         self.assertIn('maxForms: 1000', panel.render_js_init())
 
+
     def test_invalid_inlinepanel_declaration(self):
         with self.ignore_deprecation_warnings():
             self.assertRaises(TypeError, lambda: InlinePanel(label="Speakers"))
             self.assertRaises(TypeError, lambda: InlinePanel(EventPage, 'speakers', label="Speakers", bacon="chunky"))
+
+    def test_is_multipart(self):
+        """
+        Check whether is_multipart returns True when an InlinePanel contains
+        a FileInput and False otherwise
+        """
+        SpeakerObjectList = ObjectList([
+            InlinePanel('speakers', label="Speakers", panels=[
+                FieldPanel('first_name', widget=forms.FileInput),
+            ]),
+        ]).bind_to_model(EventPage)
+        SpeakerInlinePanel = SpeakerObjectList.children[0]
+        EventPageForm = SpeakerObjectList.get_form_class(EventPage)
+
+        event_page = EventPage.objects.get(slug='christmas')
+        form = EventPageForm(instance=event_page)
+        panel = SpeakerInlinePanel(instance=event_page, form=form)
+
+        self.assertTrue(panel.is_multipart())
+
+        SpeakerObjectList = ObjectList([
+            InlinePanel('speakers', label="Speakers", panels=[
+                FieldPanel('first_name', widget=forms.Textarea),
+            ]),
+        ]).bind_to_model(EventPage)
+        SpeakerInlinePanel = SpeakerObjectList.children[0]
+        EventPageForm = SpeakerObjectList.get_form_class(EventPage)
+
+        event_page = EventPage.objects.get(slug='christmas')
+        form = EventPageForm(instance=event_page)
+        panel = SpeakerInlinePanel(instance=event_page, form=form)
+
+        self.assertFalse(panel.is_multipart())

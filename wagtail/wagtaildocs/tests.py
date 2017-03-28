@@ -1143,7 +1143,7 @@ class TestServeViewWithSendfile(TestCase):
         response = self.get()
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response['X-Sendfile'], os.path.join(settings.MEDIA_ROOT, self.document.file.name))
+        self.assertEqual(response['X-Sendfile'], self.document.file.path)
 
     @unittest.skipIf(
         django.VERSION < (1, 9), "Fails on Django 1.8"

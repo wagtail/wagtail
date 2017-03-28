@@ -230,6 +230,16 @@ To use Embedly, you must also install their Python module:
   $ pip install embedly
 
 
+Dashboard
+---------
+
+.. code-block:: python
+
+    WAGTAILADMIN_RECENT_EDITS_LIMIT = 5
+
+This setting lets you change the number of items shown at 'Your most recent edits' on the dashboard.
+
+
 Images
 ------
 
@@ -316,6 +326,15 @@ Case-Insensitive Tags
   TAGGIT_CASE_INSENSITIVE = True
 
 Tags are case-sensitive by default ('music' and 'Music' are treated as distinct tags). In many cases the reverse behaviour is preferable.
+
+Multi-word tags
+---------------
+
+.. code-block:: python
+
+  TAG_SPACES_ALLOWED = False
+
+Tags can only consist of a single word, no spaces allowed. The default setting is ``True`` (spaces in tags are allowed).
 
 Unicode Page Slugs
 ------------------

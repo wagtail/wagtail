@@ -4,8 +4,9 @@
     :target: https://pypi.python.org/pypi/wagtail/
 .. image:: https://img.shields.io/pypi/v/wagtail.svg
     :target: https://pypi.python.org/pypi/wagtail/
-.. image:: https://coveralls.io/repos/torchbox/wagtail/badge.svg?branch=master
-    :target: https://coveralls.io/r/torchbox/wagtail?branch=master
+.. image:: http://codecov.io/github/wagtail/wagtail/coverage.svg?branch=master
+    :target: http://codecov.io/github/wagtail/wagtail?branch=master
+
 
 Wagtail CMS
 ===========
@@ -31,7 +32,6 @@ Features
 * Workflow support
 * An extensible `form builder <http://docs.wagtail.io/en/latest/reference/contrib/forms.html>`_
 * Multi-site and multi-language support
-* Optional `static site generation <http://docs.wagtail.io/en/latest/reference/contrib/staticsitegen.html>`_
 * Excellent `test coverage <https://coveralls.io/r/torchbox/wagtail?branch=master>`_
 
 Find out more at `wagtail.io <http://wagtail.io/>`_.

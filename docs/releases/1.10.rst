@@ -26,6 +26,13 @@ Other features
  * Added ``form_fields_exclude`` property to ModelAdmin views (Matheus Bratfisch)
  * User creation / edit form now enforces password validators set in ``AUTH_PASSWORD_VALIDATORS`` (Bertrand Bordage)
  * Added support for displaying ``non_field_errors`` when validation fails in the page editor (Matt Westcott)
+ * Added `WAGTAILADMIN_RECENT_EDITS_LIMIT` setting to to define the number of your most recent edits on the dashboard (Maarten Kling)
+ * Added link to the full Elasticsearch setup documentation from the Performance page (Matt Westcott)
+ * Tag input fields now accept spaces in tags by default, and can be overridden with the ``TAG_SPACES_ALLOWED`` setting (Kees Hink, Alex Gleason)
+ * Page chooser widgets now display the required page type where relevant (Christine Ho)
+ * Site root pages are now indicated with a globe icon in the explorer listing (Nick Smith, Huub Bouma)
+ * Draft page view is now restricted to users with edit / publish permission over the page (Kees Hink)
+ * Added the option to delete a previously saved focal point on a image (Maarten Kling)
 
 
 Bug fixes
@@ -41,6 +48,17 @@ Bug fixes
  * Page title not displaying page name when moving a page (Trent Holliday)
  * The ModelAdmin module can now work without the wagtailimages and wagtaildocs apps installed (Andy Babic)
  * Cloudflare error handling now handles non-string error responses correctly (hdnpl)
+ * Search indexing now uses a defined query ordering to prevent objects from being skipped (Christian Peters)
+ * Ensure that number localisation is not applied to object IDs within admin templates (Tom Hendrikx)
+ * Paginating with a search present was always returning the 1st page in Internet Explorer 10 & 11 (Ralph Jacobs)
+ * RoutablePageMixin and wagtailforms previews now set the ``request.is_preview`` flag (Wietze Helmantel)
+ * The save and preview buttons in the page editor are now mobile-friendly (Maarten Kling)
+ * Page links within rich text now respect custom URLs defined on specific page models (Gary Krige, Huub Bouma)
+ * Default avatar no longer visible when using a transparent gravatar image (Thijs Kramer)
+ * Scrolling within the datetime picker is now usable again for touchpads (Ralph Jacobs)
+ * List-based fields within form builder form submissions are now displayed as comma-separated strings rather than as Python lists (Christine Ho, Matt Westcott)
+ * Ensure that page editor forms are submitted as multipart when file fields exist in InlinePanels (Wietze Helmantel)
+ * The page type usage listing now have a translatable page title (Ramon de Jezus)
 
 
 Upgrade considerations
@@ -50,6 +68,12 @@ Django 1.9 and Python 3.3 support dropped
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Support for Django 1.9 and Python 3.3 has been dropped in this release; please upgrade from these before upgrading Wagtail. Note that the Django 1.8 release series is still supported, as a Long Term Support release.
+
+
+Dropped support for generating static sites using ``django-medusa``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Django-medusa is no longer maintained, and is incompatible with Django 1.8 and above. An alternative module based on the `django-bakery` package is available as a third-party contribution: https://github.com/moorinteractive/wagtail-bakery.
 
 
 Signals on custom ``Image`` and ``Rendition`` models connected automatically
@@ -76,3 +100,9 @@ Projects using :ref:`custom image models <custom_image_model>` no longer need to
     def image_feature_detection(sender, instance, **kwargs):
         if not instance.has_focal_point():
             instance.set_focal_point(instance.get_suggested_focal_point())
+
+
+Adding / editing users through Wagtail admin no longer sets ``is_staff`` flag
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Previously, the ``is_staff`` flag (which grants access to the Django admin interface) was automatically set for superusers, and reset for other users, when creating and updating users through the Wagtail admin. This behaviour has now been removed, since Wagtail is designed to work independently of the Django admin. If you need to reinstate the old behaviour, you can set up a `pre_save signal handler <https://docs.djangoproject.com/en/1.10/ref/signals/#django.db.models.signals.pre_save>`_ on the User model to set the flag appropriately.
