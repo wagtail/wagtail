@@ -276,7 +276,7 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
             has_unsaved_changes = True
     else:
         signals.init_new_page.send(sender=create, page=page, parent=parent_page)
-        form = form_class(instance=page)
+        form = form_class(instance=page, parent_page=parent_page)
         edit_handler = edit_handler_class(instance=page, form=form)
         has_unsaved_changes = False
 
@@ -479,7 +479,7 @@ def edit(request, page_id):
             )
             has_unsaved_changes = True
     else:
-        form = form_class(instance=page)
+        form = form_class(instance=page, parent_page=parent)
         edit_handler = edit_handler_class(instance=page, form=form)
         has_unsaved_changes = False
 
