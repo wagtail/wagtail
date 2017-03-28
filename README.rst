@@ -4,8 +4,9 @@
     :target: https://pypi.python.org/pypi/wagtail/
 .. image:: https://img.shields.io/pypi/v/wagtail.svg
     :target: https://pypi.python.org/pypi/wagtail/
-.. image:: https://coveralls.io/repos/github/wagtail/wagtail/badge.svg?branch=master
-    :target: https://coveralls.io/github/wagtail/wagtail?branch=master
+.. image:: http://codecov.io/github/wagtail/wagtail/coverage.svg?branch=master
+    :target: http://codecov.io/github/wagtail/wagtail?branch=master
+
 
 Wagtail CMS
 ===========
