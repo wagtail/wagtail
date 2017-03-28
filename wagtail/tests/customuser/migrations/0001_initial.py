@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 from django.db import migrations, models
 
+from ..fields import ConvertedValueField
 
 class Migration(migrations.Migration):
 
@@ -14,7 +15,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='CustomUser',
             fields=[
-                ('identifier', models.AutoField(serialize=False, primary_key=True)),
+                ('identifier', ConvertedValueField(serialize=False, primary_key=True)),
                 ('password', models.CharField(max_length=128, verbose_name='password')),
 
                 (

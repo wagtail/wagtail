@@ -1,6 +1,8 @@
 from __future__ import absolute_import, unicode_literals
 
 from django.conf import settings
+from django.contrib.auth import get_user_model
+from django.db import connections
 from django.shortcuts import render
 from django.template.loader import render_to_string
 
@@ -8,6 +10,9 @@ from wagtail.wagtailadmin.navigation import get_explorable_root_page
 from wagtail.wagtailadmin.site_summary import SiteSummaryPanel
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import Page, PageRevision, UserPagePermissionsProxy
+
+
+User = get_user_model()
 
 
 # Panels for the homepage
@@ -48,6 +53,7 @@ class RecentEditsPanel(object):
 
     def __init__(self, request):
         self.request = request
+        
         # Last n edited pages
         last_edits = PageRevision.objects.raw(
             """
@@ -56,7 +62,7 @@ class RecentEditsPanel(object):
                     SELECT max(created_at) AS max_created_at, page_id FROM
                         wagtailcore_pagerevision WHERE user_id = %s GROUP BY page_id ORDER BY max_created_at DESC LIMIT %s
                 ) AS max_rev ON max_rev.max_created_at = wp.created_at ORDER BY wp.created_at DESC
-             """, [self.request.user.pk, getattr(settings, 'WAGTAILADMIN_RECENT_EDITS_LIMIT', 5)])
+             """, [User._meta.pk.get_db_prep_value(self.request.user.pk, connections['default']), getattr(settings, 'WAGTAILADMIN_RECENT_EDITS_LIMIT', 5)])
         last_edits = list(last_edits)
         page_keys = [pr.page.pk for pr in last_edits]
         specific_pages = Page.objects.filter(pk__in=page_keys).specific()
