@@ -1,6 +1,9 @@
+from __future__ import absolute_import, unicode_literals
+
 from django.core.management import call_command
 from django.test import TestCase
 from django.utils.six import StringIO
+
 from wagtail.tests.search.models import SearchTest
 from wagtail.wagtailsearch.tests.test_backends import BackendTests
 
