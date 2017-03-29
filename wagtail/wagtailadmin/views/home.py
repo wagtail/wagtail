@@ -53,8 +53,7 @@ class RecentEditsPanel(object):
         if connection.vendor in ('mssql', 'microsoft'):
             # This is a hack for SQL Server. We should be able to replace this raw
             # SQL with an ORM query in Django 1.11, as it supports sub-selects.
-            cursor = connection.cursor()
-            last_edits = cursor.execute(
+            last_edits = PageRevision.objects.raw(
                 """
                 SELECT wp.* FROM
                     wagtailcore_pagerevision wp INNER JOIN (
