@@ -41,8 +41,8 @@ class Migration(migrations.Migration):
             unique_together=set([('content_type', 'object_id')]),
         ),
         migrations.RunSQL(
-            'CREATE INDEX IF NOT EXISTS {0}_body_search ON {0} '
+            'CREATE INDEX {0}_body_search ON {0} '
             'USING GIN(body_search);'.format(table),
-            'DROP INDEX IF EXISTS {}_body_search;'.format(table),
+            'DROP INDEX {}_body_search;'.format(table),
         ),
     ]

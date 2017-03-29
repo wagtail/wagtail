@@ -178,7 +178,7 @@ WAGTAILSEARCH_BACKENDS = {
 
 AUTH_USER_MODEL = 'customuser.CustomUser'
 
-if os.environ.get('DATABASE_ENGINE') in (
+if django.VERSION >= (1, 10) and os.environ.get('DATABASE_ENGINE') in (
         # Remove next line when Django 1.8 support is dropped.
         'django.db.backends.postgresql_psycopg2',
         'django.db.backends.postgresql'):
@@ -186,6 +186,7 @@ if os.environ.get('DATABASE_ENGINE') in (
     WAGTAILSEARCH_BACKENDS['postgresql'] = {
         'BACKEND': 'wagtail.contrib.postgres_search.backend',
     }
+
 if 'ELASTICSEARCH_URL' in os.environ:
     if os.environ.get('ELASTICSEARCH_VERSION') == '5':
         backend = 'wagtail.wagtailsearch.backends.elasticsearch5'
