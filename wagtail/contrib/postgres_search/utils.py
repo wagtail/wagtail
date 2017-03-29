@@ -7,6 +7,7 @@ from functools import partial, reduce
 from django.apps import apps
 from django.db import connections
 from django.db.models import Q
+from django.utils.lru_cache import lru_cache
 
 from wagtail.wagtailsearch.index import Indexed, RelatedFields, SearchField
 
@@ -50,18 +51,7 @@ def keyword_split(keywords):
     return [match[0] or match[1] or match[2] for match in matches]
 
 
-def cache_results(func):
-    results_cache = {}
-
-    def inner(*args):
-        if args not in results_cache:
-            results_cache[args] = func(*args)
-        return results_cache[args]
-
-    return inner
-
-
-@cache_results
+@lru_cache()
 def get_descendant_models(model):
     """
     Returns all descendants of a model, including the model itself.
@@ -73,7 +63,7 @@ def get_descendant_models(model):
     return models
 
 
-@cache_results
+@lru_cache()
 def get_content_types_pks(models, db_alias):
     # We import it locally because this file is loaded before apps are ready.
     from django.contrib.contenttypes.models import ContentType
@@ -116,7 +106,7 @@ def determine_boosts_weights():
             for i, weight in zip(range(WEIGHTS_COUNT), WEIGHTS)]
 
 
-@cache_results
+@lru_cache()
 def get_weight(boost):
     if boost is None:
         boost = 0
