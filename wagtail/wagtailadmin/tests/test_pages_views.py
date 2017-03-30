@@ -2074,8 +2074,9 @@ class TestPageCopy(TestCase, WagtailTestUtils):
         }
         response = self.client.post(reverse('wagtailadmin_pages:copy', args=(self.test_page.id, )), post_data)
 
-        # Check that the user received a 403 response
-        self.assertEqual(response.status_code, 403)
+        form = response.context['form']
+        self.assertFalse(form.is_valid())
+        self.assertTrue('new_parent_page' in form.errors)
 
     def test_page_copy_post(self):
         post_data = {

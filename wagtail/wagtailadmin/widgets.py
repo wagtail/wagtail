@@ -137,7 +137,7 @@ class AdminPageChooser(AdminChooser):
     choose_another_text = _('Choose another page')
     link_to_chosen_text = _('Edit this page')
 
-    def __init__(self, target_models=None, can_choose_root=False, **kwargs):
+    def __init__(self, target_models=None, can_choose_root=False, user_perms=None, **kwargs):
         super(AdminPageChooser, self).__init__(**kwargs)
 
         if target_models:
@@ -145,6 +145,7 @@ class AdminPageChooser(AdminChooser):
             if models:
                 self.choose_one_text += ' (' + models + ')'
 
+        self.user_perms = user_perms
         self.target_models = list(target_models or [Page])
         self.can_choose_root = can_choose_root
 
@@ -184,7 +185,7 @@ class AdminPageChooser(AdminChooser):
 
         parent = page.get_parent() if page else None
 
-        return "createPageChooser({id}, {model_names}, {parent}, {can_choose_root});".format(
+        return "createPageChooser({id}, {model_names}, {parent}, {can_choose_root}, {user_perms});".format(
             id=json.dumps(id_),
             model_names=json.dumps([
                 '{app}.{model}'.format(
@@ -193,7 +194,8 @@ class AdminPageChooser(AdminChooser):
                 for model in self.target_models
             ]),
             parent=json.dumps(parent.id if parent else None),
-            can_choose_root=('true' if self.can_choose_root else 'false')
+            can_choose_root=('true' if self.can_choose_root else 'false'),
+            user_perms=json.dumps(self.user_perms),
         )
 
 
