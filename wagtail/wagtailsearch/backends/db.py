@@ -79,7 +79,7 @@ class DatabaseSearchResults(BaseSearchResults):
         if self._score_field:
             queryset = queryset.annotate(**{self._score_field: Value(None, output_field=models.FloatField())})
 
-        return queryset
+        return queryset.iterator()
 
     def _do_count(self):
         return self.get_queryset().count()

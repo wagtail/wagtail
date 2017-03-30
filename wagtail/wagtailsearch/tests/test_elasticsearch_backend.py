@@ -43,6 +43,20 @@ class TestElasticsearchSearchBackend(BackendTests, ElasticsearchCommonSearchBack
     def test_delete(self):
         super(TestElasticsearchSearchBackend, self).test_delete()
 
+    def test_more_than_ten_results(self):
+        # #3431 reported that Elasticsearch only sends back 10 results if the results set is not sliced
+        for i in range(20):
+            a = models.SearchTest()
+            a.title = "Hello World {}".format(i)
+            a.save()
+            self.backend.add(a)
+
+        self.refresh_index()
+
+        results = self.backend.search("Hello", models.SearchTest)
+
+        self.assertEqual(len(results), 23)
+
 
 class TestElasticsearchSearchQuery(TestCase):
     def assertDictEqual(self, a, b):
@@ -395,7 +409,9 @@ class TestElasticsearchSearchResults(TestCase):
             body={'query': 'QUERY'},
             _source=False,
             fields='pk',
-            index='wagtail'
+            index='wagtail',
+            scroll='2m',
+            size=100
         )
 
     @mock.patch('elasticsearch.Elasticsearch.search')
@@ -412,6 +428,7 @@ class TestElasticsearchSearchResults(TestCase):
             _source=False,
             fields='pk',
             index='wagtail',
+            scroll='2m',
             size=1
         )
 
@@ -428,6 +445,7 @@ class TestElasticsearchSearchResults(TestCase):
             _source=False,
             fields='pk',
             index='wagtail',
+            scroll='2m',
             size=3
         )
 
@@ -444,6 +462,7 @@ class TestElasticsearchSearchResults(TestCase):
             _source=False,
             fields='pk',
             index='wagtail',
+            scroll='2m',
             size=10
         )
 
@@ -461,6 +480,7 @@ class TestElasticsearchSearchResults(TestCase):
             _source=False,
             fields='pk',
             index='wagtail',
+            scroll='2m',
             size=1
         )
 
