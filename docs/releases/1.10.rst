@@ -57,7 +57,6 @@ Bug fixes
  * Default avatar no longer visible when using a transparent gravatar image (Thijs Kramer)
  * Scrolling within the datetime picker is now usable again for touchpads (Ralph Jacobs)
  * List-based fields within form builder form submissions are now displayed as comma-separated strings rather than as Python lists (Christine Ho, Matt Westcott)
- * Ensure that page editor forms are submitted as multipart when file fields exist in InlinePanels (Wietze Helmantel)
  * The page type usage listing now have a translatable page title (Ramon de Jezus)
  * Styles for submission filtering form now have a consistent height. (Thijs Kramer)
 
