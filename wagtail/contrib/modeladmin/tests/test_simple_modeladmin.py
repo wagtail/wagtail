@@ -477,8 +477,13 @@ class TestQuoting(TestCase, WagtailTestUtils):
 
     def test_action_links(self):
         response = self.client.get('/admin/modeladmintest/token/')
-        soup = BeautifulSoup(response.content, 'html.parser')
-        action_links = soup.find_all(href=re.compile('/admin/modeladmintest/token/'))
-        for link in action_links:
-            link_response = self.client.get(link['href'])
-            self.assertEqual(link_response.status_code, self.expected_status_code)
+
+        self.assertContains(response, 'href="/admin/modeladmintest/token/edit/RegularName/"')
+        self.assertContains(response, 'href="/admin/modeladmintest/token/delete/RegularName/"')
+        self.assertContains(response, 'href="/admin/modeladmintest/token/edit/Irregular_5FName/"')
+        self.assertContains(response, 'href="/admin/modeladmintest/token/delete/Irregular_5FName/"')
+
+        response = self.client.get('/admin/modeladmintest/token/edit/Irregular_5FName/')
+        self.assertEqual(response.status_code, 200)
+        response = self.client.get('/admin/modeladmintest/token/delete/Irregular_5FName/')
+        self.assertEqual(response.status_code, 200)
