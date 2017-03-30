@@ -128,6 +128,7 @@ Changelog
 1.7 (20.10.2016)
 ~~~~~~~~~~~~~~~~
 
+ * Added support for custom date and datetime formats (Bojan Mihelac)
  * Elasticsearch 2 support (Karl Hobley)
  * Added parameters to image tag to specify file type and JPEG compression level (Karl Hobley)
  * Added support for AWS CloudFront in frontend cache invalidation module (Rob Moorman)
