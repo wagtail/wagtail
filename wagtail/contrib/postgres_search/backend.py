@@ -137,9 +137,11 @@ class Index(object):
     def add_items_update_then_create(self, content_type_pk, objs, config):
         ids_and_objs = {}
         for obj in objs:
-            obj._search_vector = ADD([
-                SearchVector(Value(text), weight=weight, config=config)
-                for text, weight in obj._body_]) if obj._body_ else None
+            obj._search_vector = (
+                ADD([
+                    SearchVector(Value(text), weight=weight, config=config)
+                    for text, weight in obj._body_])
+                if obj._body_ else SearchVector(Value('')))
             ids_and_objs[obj._object_id] = obj
         index_entries = IndexEntry._default_manager.using(self.db_alias)
         index_entries_for_ct = index_entries.filter(
