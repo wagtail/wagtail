@@ -7,16 +7,16 @@ from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
 from taggit.models import TaggedItemBase
 
+from wagtail.api import APIField
 from wagtail.utils.pagination import paginate
 from wagtail.wagtailadmin.edit_handlers import (
     FieldPanel, InlinePanel, MultiFieldPanel, PageChooserPanel)
 from wagtail.wagtailcore.fields import RichTextField
 from wagtail.wagtailcore.models import Orderable, Page
 from wagtail.wagtaildocs.edit_handlers import DocumentChooserPanel
+from wagtail.wagtailimages.api.fields import ImageRenditionField
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtailsearch import index
-
-from wagtail.wagtailimages.api.fields import ImageRenditionField
 
 
 # ABSTRACT MODELS
@@ -278,13 +278,13 @@ class BlogEntryPage(Page):
     )
 
     api_fields = (
-        'body',
-        'tags',
-        'date',
-        'feed_image',
-        ('feed_image_thumbnail', ImageRenditionField('fill-300x300', source='feed_image')),
-        'carousel_items',
-        'related_links',
+        APIField('body'),
+        APIField('tags'),
+        APIField('date'),
+        APIField('feed_image'),
+        APIField('feed_image_thumbnail', serializer=ImageRenditionField('fill-300x300', source='feed_image')),
+        APIField('carousel_items'),
+        APIField('related_links'),
     )
 
     search_fields = Page.search_fields + [

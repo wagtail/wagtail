@@ -13,6 +13,7 @@ from rest_framework.renderers import BrowsableAPIRenderer, JSONRenderer
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
+from wagtail.api import APIField
 from wagtail.wagtailcore.models import Page
 
 from .filters import (
@@ -103,7 +104,7 @@ class BaseAPIEndpoint(GenericViewSet):
 
         if hasattr(model, 'api_fields'):
             fields.extend([
-                field[0] if isinstance(field, tuple) else field
+                field.name if isinstance(field, APIField) else field
                 for field in model.api_fields
             ])
 
@@ -119,7 +120,7 @@ class BaseAPIEndpoint(GenericViewSet):
 
         if hasattr(model, 'api_meta_fields'):
             meta_fields.extend([
-                field[0] if isinstance(field, tuple) else field
+                field.name if isinstance(field, APIField) else field
                 for field in model.api_meta_fields
             ])
 
@@ -131,16 +132,16 @@ class BaseAPIEndpoint(GenericViewSet):
 
         if hasattr(model, 'api_fields'):
             configs.update({
-                field[0]: field[1]
+                field.name: field.serializer
                 for field in model.api_fields
-                if isinstance(field, tuple)
+                if isinstance(field, APIField) and field.serializer is not None
             })
 
         if hasattr(model, 'api_meta_fields'):
             configs.update({
-                field[0]: field[1]
+                field.name: field.serializer
                 for field in model.api_meta_fields
-                if isinstance(field, tuple)
+                if isinstance(field, APIField) and field.serializer is not None
             })
 
         return configs
