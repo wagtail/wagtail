@@ -139,7 +139,7 @@ class Index(object):
         for obj in objs:
             obj._search_vector = ADD([
                 SearchVector(Value(text), weight=weight, config=config)
-                for text, weight in obj._body_])
+                for text, weight in obj._body_]) if obj._body_ else None
             ids_and_objs[obj._object_id] = obj
         index_entries = IndexEntry._default_manager.using(self.db_alias)
         index_entries_for_ct = index_entries.filter(
@@ -187,6 +187,8 @@ class PostgresSearchQuery(BaseSearchQuery):
     def get_search_query(self, config):
         combine = OR if self.operator == 'or' else AND
         search_terms = keyword_split(unidecode(self.query_string))
+        if not search_terms:
+            return SearchQuery('')
         return combine(SearchQuery(q, config=config) for q in search_terms)
 
     def get_base_queryset(self):
@@ -228,6 +230,8 @@ class PostgresSearchQuery(BaseSearchQuery):
                 return field.boost
 
     def get_in_fields_queryset(self, queryset, search_query):
+        if not self.fields:
+            return queryset.none()
         return (
             queryset.annotate(
                 _search_=ADD(
