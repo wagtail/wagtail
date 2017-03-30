@@ -127,24 +127,24 @@ class BaseAPIEndpoint(GenericViewSet):
         return meta_fields
 
     @classmethod
-    def get_field_configs(cls, model):
-        configs = {}
+    def get_field_serializer_overrides(cls, model):
+        serializers = {}
 
         if hasattr(model, 'api_fields'):
-            configs.update({
+            serializers.update({
                 field.name: field.serializer
                 for field in model.api_fields
                 if isinstance(field, APIField) and field.serializer is not None
             })
 
         if hasattr(model, 'api_meta_fields'):
-            configs.update({
+            serializers.update({
                 field.name: field.serializer
                 for field in model.api_meta_fields
                 if isinstance(field, APIField) and field.serializer is not None
             })
 
-        return configs
+        return serializers
 
     @classmethod
     def get_available_fields(cls, model, db_fields_only=False):
@@ -284,8 +284,15 @@ class BaseAPIEndpoint(GenericViewSet):
         # Reorder fields so it matches the order of all_fields
         fields = [field for field in all_fields if field in fields]
 
-        field_configs = {field[0]: field[1] for field in cls.get_field_configs(model).items() if field[0] in fields}
-        return get_serializer_class(model, fields, meta_fields=meta_fields, field_configs=field_configs, child_serializer_classes=child_serializer_classes, base=cls.base_serializer_class)
+        field_serializer_overrides = {field[0]: field[1] for field in cls.get_field_serializer_overrides(model).items() if field[0] in fields}
+        return get_serializer_class(
+            model,
+            fields,
+            meta_fields=meta_fields,
+            field_serializer_overrides=field_serializer_overrides,
+            child_serializer_classes=child_serializer_classes,
+            base=cls.base_serializer_class
+        )
 
     def get_serializer_class(self):
         request = self.request
