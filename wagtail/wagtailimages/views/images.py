@@ -1,8 +1,10 @@
 from __future__ import absolute_import, unicode_literals
 
 import os
+from itertools import chain, islice
 
 from django.core.urlresolvers import NoReverseMatch, reverse
+from django.db.models import ProtectedError
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.translation import ugettext as _
@@ -13,7 +15,7 @@ from wagtail.wagtailadmin import messages
 from wagtail.wagtailadmin.forms import SearchForm
 from wagtail.wagtailadmin.utils import (
     PermissionPolicyChecker, permission_denied, popular_tags_for_model)
-from wagtail.wagtailcore.models import Collection, Site
+from wagtail.wagtailcore.models import Collection, Page, Site
 from wagtail.wagtailimages import get_image_model
 from wagtail.wagtailimages.exceptions import InvalidFilterSpecError
 from wagtail.wagtailimages.forms import URLGeneratorForm, get_image_form
@@ -21,6 +23,7 @@ from wagtail.wagtailimages.models import Filter
 from wagtail.wagtailimages.permissions import permission_policy
 from wagtail.wagtailimages.views.serve import generate_signature
 from wagtail.wagtailsearch import index as search_index
+from wagtail.wagtailsnippets.models import SNIPPET_MODELS
 
 permission_checker = PermissionPolicyChecker(permission_policy)
 
@@ -228,7 +231,42 @@ def delete(request, image_id):
         return permission_denied(request)
 
     if request.method == 'POST':
-        image.delete()
+        try:
+            image.delete()
+        except ProtectedError as e:
+            # Filter objects caused protected error. Give a meaningful error message for pages and snippets
+            # back to the user. For other objects provide a model name and a primary key value.
+            def is_snippet(x):
+                return x.__class__ in SNIPPET_MODELS
+
+            def is_page(x):
+                return isinstance(x, Page)
+
+            def is_other(x):
+                return not is_snippet(x) and not is_page(x)
+
+            def snippet_edit_params(snippet_obj):
+                return snippet_obj._meta.app_label, snippet_obj._meta.model_name, snippet_obj.id
+
+            show_limit = 5
+            protected = e.protected_objects
+
+            snippets = filter(is_snippet, protected)
+            pages = filter(is_page, protected)
+            others = filter(is_other, protected)
+
+            snippets = ((s, reverse('wagtailsnippets:edit', args=snippet_edit_params(s))) for s in snippets)
+            pages = ((p, reverse('wagtailadmin_pages:edit', args=(p.id,))) for p in pages)
+
+            buttons = chain(snippets, pages)
+            buttons = (messages.button(url, _("Edit {0}".format(obj._meta.verbose_name))) for (obj, url) in buttons)
+            others_buttons = (messages.button('#', _(
+                'Edit {0} model object with primary key {1}'.format(o._meta.verbose_name,
+                                                                    getattr(o, o._meta.pk.name)))) for o in others)
+            messages.warning(request,
+                             _("Image '{0}' can't be deleted because of usage in other entities.".format(image.title)),
+                             buttons=islice(chain(buttons, others_buttons), 0, show_limit))
+            return redirect('wagtailimages:edit', image_id)
         messages.success(request, _("Image '{0}' deleted.").format(image.title))
         return redirect('wagtailimages:index')
 
