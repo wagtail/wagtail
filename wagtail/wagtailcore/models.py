@@ -1753,6 +1753,18 @@ class PagePermissionTester(object):
             # no publishing required, so the already-tested 'add' permission is sufficient
             return True
 
+    def can_perform_action(self):
+        """
+        Convenience method for checking whether a user has any action on the page at all.
+        This is useful for shaving down systems that would otherwise need to check each of
+        these permissions explicitly like in Django templates.
+        """
+        return self.can_add_subpage() or \
+            self.can_edit() or \
+            self.can_delete() or \
+            self.can_unpublish() or \
+            self.can_publish()
+
 
 class PageViewRestriction(models.Model):
     NONE = 'none'
