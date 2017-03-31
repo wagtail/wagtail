@@ -3,8 +3,11 @@ from __future__ import absolute_import, unicode_literals
 from collections import OrderedDict
 
 from django.conf import settings
+from django.db.models.query import QuerySet
 from rest_framework.pagination import BasePagination
 from rest_framework.response import Response
+
+from wagtail.wagtailsearch.backends.base import BaseSearchResults
 
 from .utils import BadRequestError
 
@@ -33,7 +36,8 @@ class WagtailPagination(BasePagination):
         stop = offset + limit
 
         self.view = view
-        self.total_count = queryset.count()
+        self.total_count = (queryset.count() if isinstance(queryset, QuerySet) or
+                            isinstance(queryset, BaseSearchResults) else len(queryset))
         return queryset[start:stop]
 
     def get_paginated_response(self, data):
