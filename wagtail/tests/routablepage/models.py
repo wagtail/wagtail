@@ -10,6 +10,10 @@ def routable_page_external_view(request, arg="ARG NOT SET"):
 
 
 class RoutablePageTest(RoutablePage):
+    @route(r'^archive/year/1984/$')
+    def archive_for_1984(self, request):
+        # check that routes are tested in order (and thus this takes precedence over archive_by_year)
+        return HttpResponse("we were always at war with eastasia")
 
     @route(r'^archive/year/(\d+)/$')
     def archive_by_year(self, request, year):

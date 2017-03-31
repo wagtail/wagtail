@@ -110,6 +110,11 @@ class TestRoutablePage(TestCase):
 
         self.assertContains(response, "ARCHIVE BY YEAR: 2014")
 
+    def test_earlier_view_takes_precedence(self):
+        response = self.client.get(self.routable_page.url + 'archive/year/1984/')
+
+        self.assertContains(response, "we were always at war with eastasia")
+
     def test_get_archive_by_author_view(self):
         response = self.client.get(self.routable_page.url + 'archive/author/joe-bloggs/')
 
