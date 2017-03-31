@@ -49,15 +49,23 @@ class RoutablePageMixin(object):
     @classmethod
     def get_subpage_urls(cls):
         routes = []
-        for attr in dir(cls):
-            val = getattr(cls, attr, None)
-            if hasattr(val, '_routablepage_routes'):
-                routes.extend(val._routablepage_routes)
 
-        return tuple([
-            route[0]
-            for route in reversed(sorted(routes, key=lambda route: route[1]))
-        ])
+        # Loop over this class's defined routes, in method resolution order.
+        # Routes defined in the immediate class take precedence, followed by
+        # immediate superclass and so on
+        for klass in cls.__mro__:
+            routes_for_class = []
+            for val in klass.__dict__.values():
+                if hasattr(val, '_routablepage_routes'):
+                    routes_for_class.extend(val._routablepage_routes)
+
+            # sort routes by _creation_counter so that ones earlier in the class definition
+            # take precedence
+            routes_for_class.sort(key=lambda route: route[1])
+
+            routes.extend(route[0] for route in routes_for_class)
+
+        return tuple(routes)
 
     @classmethod
     def get_resolver(cls):
