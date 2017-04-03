@@ -1193,15 +1193,6 @@ button {
         }
     }
 
-    .label-above {
-        .field > label {
-            display: block;
-            padding: 0 0 0.8em;
-            float: none;
-            width: auto;
-        }
-    }
-
     .help {
         opacity: 1;
     }
@@ -1243,6 +1234,16 @@ button {
                 @include column(4, $padding, 6);
                 padding-left: 0;
             }
+        }
+    }
+
+    .label-above {
+        .field > label,
+        .field > .field-content {
+            display: block;
+            padding: 0 0 0.8em;
+            float: none;
+            width: auto;
         }
     }
 }
