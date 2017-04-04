@@ -8,6 +8,7 @@ from django.conf import settings
 from django.contrib.humanize.templatetags.humanize import intcomma
 from django.contrib.messages.constants import DEFAULT_TAGS as MESSAGE_TAGS
 from django.template.defaultfilters import stringfilter
+from django.template.loader import render_to_string
 from django.utils.html import conditional_escape
 from django.utils.safestring import mark_safe
 
@@ -42,6 +43,20 @@ def explorer_subnav(nodes):
     return {
         'nodes': nodes
     }
+
+
+@register.simple_tag(takes_context=True)
+def menu_search(context):
+    request = context['request']
+
+    search_areas = admin_search_areas.search_items_for_request(request)
+    if not search_areas:
+        return ''
+    search_area = search_areas[0]
+
+    return render_to_string('wagtailadmin/shared/menu_search.html', {
+        'search_url': search_area.url,
+    })
 
 
 @register.inclusion_tag('wagtailadmin/shared/main_nav.html', takes_context=True)

@@ -105,7 +105,7 @@ services:
 
 # Package installation
 install:
-  - pip install tox coveralls
+  - pip install tox codecov
   - 'if [[ -n "$INSTALL_ELASTICSEARCH2" ]]; then ./scripts/travis/install_elasticsearch2.sh; fi'
   - 'if [[ -n "$INSTALL_ELASTICSEARCH5" ]]; then ./scripts/travis/install_elasticsearch5.sh; fi'
 
@@ -120,7 +120,7 @@ script:
   tox
 
 after_success:
-  coveralls
+  - codecov
 
 # Who to notify about build results
 notifications:

@@ -8,7 +8,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailcore', '0032_add_bulk_delete_page_permission'),
+        ('wagtailcore', '0033_remove_golive_expiry_help_text'),
     ]
 
     operations = [

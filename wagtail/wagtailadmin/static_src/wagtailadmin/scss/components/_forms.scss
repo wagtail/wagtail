@@ -1127,6 +1127,11 @@ li.inline:first-child {
     .required .field > label:after {
         display: none;
     }
+
+    .button-filter {
+        height: 2.71em;
+        border-color: transparent;
+    }
 }
 
 // file drop zones

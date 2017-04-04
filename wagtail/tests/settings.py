@@ -26,6 +26,13 @@ DATABASES = {
     }
 }
 
+# Add extra options when mssql is used (on for example appveyor)
+if DATABASES['default']['ENGINE'] == 'sql_server.pyodbc':
+    DATABASES['default']['OPTIONS'] = {
+        'driver': 'SQL Server Native Client 11.0',
+        'MARS_Connection': 'True',
+    }
+
 
 SECRET_KEY = 'not needed'
 

@@ -250,9 +250,9 @@ by setting values on the following attributes:
 ``ModelAdmin.url_helper_class``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-By default, the ``modeladmin.helpers.PageAdminURLHelper`` class is used when
-your model extends ``wagtailcore.models.Page``, otherwise
-``modeladmin.helpers.AdminURLHelper`` is used.
+By default, the ``modeladmin.helpers.url.PageAdminURLHelper`` class is used 
+when your model extends ``wagtailcore.models.Page``, otherwise
+``modeladmin.helpers.url.AdminURLHelper`` is used.
 
 If you find that the above helper classes don't cater for your needs, you can
 easily create your own helper class, by sub-classing ``AdminURLHelper`` or
@@ -301,9 +301,9 @@ so:
 ``ModelAdmin.permission_helper_class``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-By default, the ``modeladmin.helpers.PagePermissionHelper``
+By default, the ``modeladmin.helpers.permission.PagePermissionHelper``
 class is used when your model extends ``wagtailcore.models.Page``,
-otherwise ``wagtail.contrib.modeladmin.helpers.PermissionHelper`` is used.
+otherwise ``modeladmin.helpers.permission.PermissionHelper`` is used.
 
 If you find that the above helper classes don't cater for your needs, you can
 easily create your own helper class, by sub-classing
@@ -350,9 +350,9 @@ isn't possible or doesn't meet your needs, you can override the
 ``ModelAdmin.button_helper_class``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-By default, the ``modeladmin.helpers.PageButtonHelper`` class is used when your
-model extends ``wagtailcore.models.Page``, otherwise
-``modeladmin.helpers.ButtonHelper`` is used.
+By default, the ``modeladmin.helpers.button.PageButtonHelper`` class is used 
+when your model extends ``wagtailcore.models.Page``, otherwise
+``modeladmin.helpers.button.ButtonHelper`` is used.
 
 If you wish to add or change buttons for your model's IndexView, you'll need to
 create  your own button helper class, by sub-classing ``ButtonHelper`` or (if

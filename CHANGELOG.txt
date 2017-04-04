@@ -25,6 +25,9 @@ Changelog
  * Page chooser widgets now display the required page type where relevant (Christine Ho)
  * Site root pages are now indicated with a globe icon in the explorer listing (Nick Smith, Huub Bouma)
  * Draft page view is now restricted to users with edit / publish permission over the page (Kees Hink)
+ * Added the option to delete a previously saved focal point on a image (Maarten Kling)
+ * Page explorer menu item, search and summary panel are now hidden for users with no page permissions (Tim Heap)
+ * Added support for custom date and datetime formats in input fields (Bojan Mihelac)
  * Fix: Marked 'Date from' / 'Date to' strings in wagtailforms for translation (Vorlif)
  * Fix: "File" field label on image edit form is now translated (Stein Strindhaug)
  * Fix: Unreliable preview is now reliable by always opening in a new window (Kjartan Sverrisson)
@@ -43,6 +46,12 @@ Changelog
  * Fix: Page links within rich text now respect custom URLs defined on specific page models (Gary Krige, Huub Bouma)
  * Fix: Default avatar no longer visible when using a transparent gravatar image (Thijs Kramer)
  * Fix: Scrolling within the datetime picker is now usable again for touchpads (Ralph Jacobs)
+ * Fix: List-based fields within form builder form submissions are now displayed as comma-separated strings rather than as Python lists (Christine Ho, Matt Westcott)
+ * Fix: The page type usage listing now have a translatable page title (Ramon de Jezus)
+ * Fix: Styles for submission filtering form now have a consistent height. (Thijs Kramer)
+ * Fix: Custom user models with a primary key type requiring `get_db_prep_value` conversion are now supported (thenewguy)
+ * Fix: Slicing a search result set no longer loses the annotation added by `annotate_score` (Karl Hobley)
+ * Fix: String-based primary keys are now escaped correctly in ModelAdmin URLs (Andreas Nüßlein)
 
 
 1.9 (16.02.2017)

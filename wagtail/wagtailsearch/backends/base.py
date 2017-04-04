@@ -124,6 +124,7 @@ class BaseSearchResults(object):
         new = klass(self.backend, self.query, prefetch_related=self.prefetch_related)
         new.start = self.start
         new.stop = self.stop
+        new._score_field = self._score_field
         return new
 
     def _do_search(self):
