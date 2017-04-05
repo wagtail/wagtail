@@ -24,7 +24,6 @@ from wagtail.wagtailimages.forms import get_image_form
 from wagtail.wagtailimages.models import Image as WagtailImage
 from wagtail.wagtailimages.rect import Rect, Vector
 from wagtail.wagtailimages.views.serve import ServeView, generate_signature, verify_signature
-
 from .utils import Image, get_test_image_file
 
 try:
@@ -629,14 +628,14 @@ class TestProtectedImages(TestCase, WagtailTestUtils):
 
     @classmethod
     def setUpClass(cls):
-        super().setUpClass()
+        super(TestProtectedImages, cls).setUpClass()
         cls.image = Image.objects.create(
             title="Test image",
             file=get_test_image_file(),
         )
 
     def setUp(self):
-        super().setUp()
+        super(TestProtectedImages, self).setUp()
         self.login()
 
     def check(self):
