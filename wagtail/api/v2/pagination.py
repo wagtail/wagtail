@@ -36,8 +36,7 @@ class WagtailPagination(BasePagination):
         stop = offset + limit
 
         self.view = view
-        self.total_count = (queryset.count() if isinstance(queryset, QuerySet) or
-                            isinstance(queryset, BaseSearchResults) else len(queryset))
+        self.total_count = queryset.count() if isinstance(queryset, (BaseSearchResults, QuerySet)) else len(queryset)
         return queryset[start:stop]
 
     def get_paginated_response(self, data):
