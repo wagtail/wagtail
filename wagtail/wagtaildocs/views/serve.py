@@ -20,7 +20,7 @@ def serve(request, document_id, document_filename):
     # document_id. If not we can't be sure that the document the user wants to access is the one corresponding to the
     # <document_id, document_filename> pair.
     if doc.filename != document_filename:
-        raise Http404
+        raise Http404('This document does not match the given filename.')
 
     # Send document_served signal
     document_served.send(sender=Document, instance=doc, request=request)
