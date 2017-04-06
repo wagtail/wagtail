@@ -26,7 +26,7 @@ Other features
  * Added ``form_fields_exclude`` property to ModelAdmin views (Matheus Bratfisch)
  * User creation / edit form now enforces password validators set in ``AUTH_PASSWORD_VALIDATORS`` (Bertrand Bordage)
  * Added support for displaying ``non_field_errors`` when validation fails in the page editor (Matt Westcott)
- * Added `WAGTAILADMIN_RECENT_EDITS_LIMIT` setting to to define the number of your most recent edits on the dashboard (Maarten Kling)
+ * Added ``WAGTAILADMIN_RECENT_EDITS_LIMIT`` setting to to define the number of your most recent edits on the dashboard (Maarten Kling)
  * Added link to the full Elasticsearch setup documentation from the Performance page (Matt Westcott)
  * Tag input fields now accept spaces in tags by default, and can be overridden with the ``TAG_SPACES_ALLOWED`` setting (Kees Hink, Alex Gleason)
  * Page chooser widgets now display the required page type where relevant (Christine Ho)
@@ -35,6 +35,7 @@ Other features
  * Added the option to delete a previously saved focal point on a image (Maarten Kling)
  * Page explorer menu item, search and summary panel are now hidden for users with no page permissions (Tim Heap)
  * Added support for custom date and datetime formats in input fields (Bojan Mihelac)
+ * Added support for custom Django REST framework serialiser fields in ``Page.api_fields`` using a new ``APIField`` class (Karl Hobley)
 
 
 Bug fixes
@@ -61,8 +62,9 @@ Bug fixes
  * List-based fields within form builder form submissions are now displayed as comma-separated strings rather than as Python lists (Christine Ho, Matt Westcott)
  * The page type usage listing now have a translatable page title (Ramon de Jezus)
  * Styles for submission filtering form now have a consistent height. (Thijs Kramer)
- * Slicing a search result set no longer loses the annotation added by `annotate_score` (Karl Hobley)
+ * Slicing a search result set no longer loses the annotation added by ``annotate_score`` (Karl Hobley)
  * String-based primary keys are now escaped correctly in ModelAdmin URLs (Andreas Nüßlein)
+ * Empty search in the API now works (Morgan Aubert)
 
 
 Upgrade considerations
