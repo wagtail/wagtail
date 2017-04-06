@@ -111,11 +111,15 @@ For example:
 
     # blog/models.py
 
+    from wagtail.api import APIField
+
     class BlogPageAuthor(Orderable):
         page = models.ForeignKey('blog.BlogPage', related_name='authors')
         name = models.CharField(max_length=255)
 
-        api_fields = ['name']
+        api_fields = [
+            APIField('name'),
+        ]
 
 
     class BlogPage(Page):
@@ -126,16 +130,121 @@ For example:
 
         # Export fields over the API
         api_fields = [
-            'published_date',
-            'body',
-            'feed_image',
-            'authors',  # This will nest the relevant BlogPageAuthor objects in the API response
+            APIField('published_date'),
+            APIField('body'),
+            APIField('feed_image'),
+            APIField('authors'),  # This will nest the relevant BlogPageAuthor objects in the API response
         ]
 
 This will make ``published_date``, ``body``, ``feed_image`` and a list of
 ``authors`` with the ``name`` field available in the API. But to access these
 fields, you must select the ``blog.BlogPage`` type using the ``?type``
 :ref:`parameter in the API itself <apiv2_custom_page_fields>`.
+
+Custom serialisers
+------------------
+
+.. versionadded: 1.10
+
+Serialisers_ are used to convert the database representation of a model into
+something that can be sent over the wire in JSON format. You can override the
+serialiser for any field using the ``serializer`` keyword argument:
+
+.. code-block:: python
+
+    from rest_framework.fields import DateField
+
+    class BlogPage(Page):
+        ...
+
+        api_fields = [
+            # Change the format of the published_date field to "Thursday 06 April 2017"
+            APIField('published_date', serializer=DateField(format='%A $d %B %Y')),
+            ...
+        ]
+
+Django REST framework's serializers can all take a source_ argument allowing you
+to add API fields that have a different field name or no underlying field at all:
+
+.. code-block:: python
+
+    from rest_framework.fields import DateField
+
+    class BlogPage(Page):
+        ...
+
+        api_fields = [
+            # Date in ISO8601 format (the default)
+            APIField('published_date'),
+
+            # A separate published_date_display field with a different format
+            APIField('published_date_display', serializer=DateField(format='%A $d %B %Y', source='published_date')),
+            ...
+        ]
+
+This adds two fields to the API for the same underlying database field
+(other fields omitted for brevity):
+
+.. code-block:: json
+
+    {
+        "published_date": "2017-04-06",
+        "published_date_display": "Thursday 06 April 2017"
+    }
+
+.. _Serialisers: http://www.django-rest-framework.org/api-guide/fields/
+.. _source: http://www.django-rest-framework.org/api-guide/fields/#source
+
+Images in the API
+-----------------
+
+.. versionadded: 1.10
+
+The :class:`~wagtail.wagtailimages.api.fields.ImageRenditionField` serialiser
+allows you to add renditions of images into your API. It requires an image
+filter string specifying the resize operations to perform on the image. It can
+also take the ``source`` keyword argument described above.
+
+For example:
+
+.. code-block:: python
+
+    from wagtail.wagtailimages.api.fields.ImageRenditionField
+
+    class BlogPage(Page):
+        ...
+
+        api_fields = [
+            # Adds information about the source image (eg, title) into the API
+            APIField('feed_image'),
+
+            # Adds a URL to a rendered thumbnail of the image to the API
+            APIField('feed_image_thumbnail', serializer=ImageRenditionField('fill-100x100', source='feed_image')),
+            ...
+        ]
+
+This would add the following to the reponse:
+
+.. code-block:: json
+
+    {
+        "feed_image": {
+            "id": 45529,
+            "meta": {
+                "type": "wagtailimages.Image",
+                "detail_url": "http://www.example.com/api/v2/images/12/",
+                "tags": []
+            },
+            "title": "A test image",
+            "width": 2000,
+            "height": 1125
+        },
+        "feed_image_thumbnail": {
+            "url": "http://www.example.com/media/images/a_test_image.fill-100x100.jpg",
+            "width": 100,
+            "height": 100
+        }
+    }
 
 Additional settings
 ===================
