@@ -51,16 +51,14 @@ def keyword_split(keywords):
     return [match[0] or match[1] or match[2] for match in matches]
 
 
-@lru_cache()
 def get_descendant_models(model):
     """
     Returns all descendants of a model, including the model itself.
     """
-    models = set([model])
-    for other_model in apps.get_models():
-        if model in other_model._meta.parents:
-            models.add(other_model)
-    return models
+    descendant_models = {other_model for other_model in apps.get_models()
+                         if issubclass(other_model, model)}
+    descendant_models.add(model)
+    return descendant_models
 
 
 @lru_cache()
@@ -106,7 +104,6 @@ def determine_boosts_weights():
             for i, weight in zip(range(WEIGHTS_COUNT), WEIGHTS)]
 
 
-@lru_cache()
 def get_weight(boost):
     if boost is None:
         boost = 0
