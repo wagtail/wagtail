@@ -28,6 +28,7 @@ Changelog
  * Added the option to delete a previously saved focal point on a image (Maarten Kling)
  * Page explorer menu item, search and summary panel are now hidden for users with no page permissions (Tim Heap)
  * Added support for custom date and datetime formats in input fields (Bojan Mihelac)
+ * Added support for custom Django REST framework serialiser fields in `Page.api_fields` using a new `APIField` class (Karl Hobley)
  * Fix: Marked 'Date from' / 'Date to' strings in wagtailforms for translation (Vorlif)
  * Fix: "File" field label on image edit form is now translated (Stein Strindhaug)
  * Fix: Unreliable preview is now reliable by always opening in a new window (Kjartan Sverrisson)
@@ -52,6 +53,7 @@ Changelog
  * Fix: Custom user models with a primary key type requiring `get_db_prep_value` conversion are now supported (thenewguy)
  * Fix: Slicing a search result set no longer loses the annotation added by `annotate_score` (Karl Hobley)
  * Fix: String-based primary keys are now escaped correctly in ModelAdmin URLs (Andreas Nüßlein)
+ * Fix: Empty search in the API now works (Morgan Aubert)
 
 
 1.9 (16.02.2017)
