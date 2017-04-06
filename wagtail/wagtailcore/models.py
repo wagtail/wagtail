@@ -302,13 +302,11 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
 
     go_live_at = models.DateTimeField(
         verbose_name=_("go live date/time"),
-        help_text=_("Please add a date-time in the form YYYY-MM-DD hh:mm."),
         blank=True,
         null=True
     )
     expire_at = models.DateTimeField(
         verbose_name=_("expiry date/time"),
-        help_text=_("Please add a date-time in the form YYYY-MM-DD hh:mm."),
         blank=True,
         null=True
     )

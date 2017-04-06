@@ -254,6 +254,13 @@ class TestElasticsearchSearchBackend(BackendTests, TestCase):
         for result in results:
             self.assertIsInstance(result._score, float)
 
+    def test_annotate_score_with_slice(self):
+        # #3431 - Annotate score wasn't being passed to new queryset when slicing
+        results = self.backend.search("Hello", models.SearchTest).annotate_score('_score')[:10]
+
+        for result in results:
+            self.assertIsInstance(result._score, float)
+
 
 class TestElasticsearchSearchQuery(TestCase):
     def assertDictEqual(self, a, b):

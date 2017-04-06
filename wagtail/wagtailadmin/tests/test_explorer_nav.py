@@ -146,10 +146,8 @@ class TestExplorerNavView(TestCase, WagtailTestUtils):
         self.assertEqual(response.context['nodes'][0][0], Page.objects.get(id=2).specific)
         self.assertEqual(len(response.context['nodes'][0][1]), 0)
 
-    def test_nonadmin_with_no_page_perms_sees_nothing_in_nav(self):
+    def test_nonadmin_with_no_page_perms_is_redirected(self):
         self.assertTrue(self.client.login(username='mary', password='password'))
         response = self.client.get(reverse('wagtailadmin_explorer_nav'))
 
-        self.assertEqual(response.status_code, 200)
-        # Being in no Groups, Mary should ot be shown any nodes.
-        self.assertEqual(len(response.context['nodes']), 0)
+        self.assertRedirects(response, reverse('wagtailadmin_home'))

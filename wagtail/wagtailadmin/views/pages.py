@@ -18,7 +18,8 @@ from wagtail.utils.pagination import paginate
 from wagtail.wagtailadmin import messages, signals
 from wagtail.wagtailadmin.forms import CopyForm, SearchForm
 from wagtail.wagtailadmin.navigation import get_navigation_menu_items
-from wagtail.wagtailadmin.utils import send_notification
+from wagtail.wagtailadmin.utils import (
+    send_notification, user_has_any_page_permission, user_passes_test)
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import Page, PageRevision, UserPagePermissionsProxy
 
@@ -30,12 +31,14 @@ def get_valid_next_url_from_request(request):
     return next_url
 
 
+@user_passes_test(user_has_any_page_permission)
 def explorer_nav(request):
     return render(request, 'wagtailadmin/shared/explorer_nav.html', {
         'nodes': get_navigation_menu_items(request.user),
     })
 
 
+@user_passes_test(user_has_any_page_permission)
 def index(request, parent_page_id=None):
     if parent_page_id:
         parent_page = get_object_or_404(Page, id=parent_page_id).specific
@@ -811,6 +814,7 @@ def set_page_position(request, page_to_move_id):
     return HttpResponse('')
 
 
+@user_passes_test(user_has_any_page_permission)
 def copy(request, page_id):
     page = Page.objects.get(id=page_id)
 
@@ -887,6 +891,7 @@ def copy(request, page_id):
 
 
 @vary_on_headers('X-Requested-With')
+@user_passes_test(user_has_any_page_permission)
 def search(request):
     pages = []
     q = None
@@ -1024,6 +1029,7 @@ def unlock(request, page_id):
         return redirect('wagtailadmin_explore', page.get_parent().id)
 
 
+@user_passes_test(user_has_any_page_permission)
 def revisions_index(request, page_id):
     page = get_object_or_404(Page, id=page_id).specific
 
@@ -1083,6 +1089,7 @@ def revisions_revert(request, page_id, revision_id):
     })
 
 
+@user_passes_test(user_has_any_page_permission)
 def revisions_view(request, page_id, revision_id):
     page = get_object_or_404(Page, id=page_id).specific
     revision = get_object_or_404(page.revisions, id=revision_id)
