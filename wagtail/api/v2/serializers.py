@@ -337,13 +337,20 @@ class PageSerializer(BaseSerializer):
         return super(PageSerializer, self).build_relational_field(field_name, relation_info)
 
 
-def get_serializer_class(model_, fields_, meta_fields, child_serializer_classes=None, base=BaseSerializer):
+def get_serializer_class(model, field_names, meta_fields, field_serializer_overrides=None, child_serializer_classes=None, base=BaseSerializer):
+    model_ = model
+
     class Meta:
         model = model_
-        fields = list(fields_)
+        fields = list(field_names)
 
-    return type(str(model_.__name__ + 'Serializer'), (base, ), {
+    attrs = {
         'Meta': Meta,
         'meta_fields': list(meta_fields),
         'child_serializer_classes': child_serializer_classes or {},
-    })
+    }
+
+    if field_serializer_overrides:
+        attrs.update(field_serializer_overrides)
+
+    return type(str(model_.__name__ + 'Serializer'), (base, ), attrs)

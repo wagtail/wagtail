@@ -188,7 +188,7 @@ class TestPageListing(TestCase):
         content = json.loads(response.content.decode('UTF-8'))
 
         for page in content['items']:
-            self.assertEqual(set(page.keys()), {'id', 'meta', 'title', 'date', 'related_links', 'tags', 'carousel_items', 'body', 'feed_image'})
+            self.assertEqual(set(page.keys()), {'id', 'meta', 'title', 'date', 'related_links', 'tags', 'carousel_items', 'body', 'feed_image', 'feed_image_thumbnail'})
             self.assertEqual(set(page['meta'].keys()), {'type', 'detail_url', 'show_in_menus', 'first_published_at', 'seo_title', 'slug', 'html_url', 'search_description'})
 
     def test_all_fields_then_remove_something(self):
@@ -196,7 +196,7 @@ class TestPageListing(TestCase):
         content = json.loads(response.content.decode('UTF-8'))
 
         for page in content['items']:
-            self.assertEqual(set(page.keys()), {'id', 'meta', 'related_links', 'tags', 'carousel_items', 'body', 'feed_image'})
+            self.assertEqual(set(page.keys()), {'id', 'meta', 'related_links', 'tags', 'carousel_items', 'body', 'feed_image', 'feed_image_thumbnail'})
             self.assertEqual(set(page['meta'].keys()), {'type', 'detail_url', 'show_in_menus', 'first_published_at', 'slug', 'html_url', 'search_description'})
 
     def test_remove_all_fields(self):
@@ -809,6 +809,12 @@ class TestPageDetail(TestCase):
         self.assertEqual(content['feed_image']['meta']['type'], 'wagtailimages.Image')
         self.assertEqual(content['feed_image']['meta']['detail_url'], 'http://localhost/api/v2beta/images/7/')
 
+        # Check that the feed images' thumbnail was serialised properly
+        self.assertEqual(content['feed_image_thumbnail'], {
+            # This is OK because it tells us it used ImageRenditionField to generate the output
+            'error': 'SourceImageIOError'
+        })
+
         # Check that the child relations were serialised properly
         self.assertEqual(content['related_links'], [])
         for carousel_item in content['carousel_items']:
@@ -838,6 +844,7 @@ class TestPageDetail(TestCase):
             'tags',
             'date',
             'feed_image',
+            'feed_image_thumbnail',
             'carousel_items',
             'related_links',
         ]
