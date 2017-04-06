@@ -147,8 +147,8 @@ Custom serialisers
 .. versionadded: 1.10
 
 Serialisers_ are used to convert the database representation of a model into
-something that can be sent over the wire in JSON format. You can override the
-serialiser for any field using the ``serializer`` keyword argument:
+JSON format. You can override the serialiser for any field using the
+``serializer`` keyword argument:
 
 .. code-block:: python
 
@@ -182,8 +182,7 @@ to add API fields that have a different field name or no underlying field at all
             ...
         ]
 
-This adds two fields to the API for the same underlying database field
-(other fields omitted for brevity):
+This adds two fields to the API (other fields omitted for brevity):
 
 .. code-block:: json
 
@@ -223,7 +222,7 @@ For example:
             ...
         ]
 
-This would add the following to the reponse:
+This would add the following to the JSON:
 
 .. code-block:: json
 
