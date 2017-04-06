@@ -133,6 +133,9 @@ class PageParentField(relations.RelatedField):
             return parent
 
     def to_representation(self, value):
+        if value is None:
+            return None
+
         serializer_class = get_serializer_class(value.__class__, ['id', 'type', 'detail_url', 'html_url', 'title'], meta_fields=['type', 'detail_url', 'html_url'], base=PageSerializer)
         serializer = serializer_class(context=self.context)
         return serializer.to_representation(value)
@@ -276,12 +279,7 @@ class BaseSerializer(serializers.ModelSerializer):
             except SkipField:
                 continue
 
-            if attribute is None:
-                # We skip `to_representation` for `None` values so that
-                # fields do not have to explicitly deal with that case.
-                meta[field.field_name] = None
-            else:
-                meta[field.field_name] = field.to_representation(attribute)
+            meta[field.field_name] = field.to_representation(attribute)
 
         if meta:
             data['meta'] = meta
@@ -315,6 +313,32 @@ class BaseSerializer(serializers.ModelSerializer):
         field_kwargs['serializer_class'] = self.child_serializer_classes[field_name]
         return field_class, field_kwargs
 
+    class Meta:
+        fields = [
+            'id',
+            'type',
+            'detail_url',
+        ]
+
+        meta_fields = [
+            'type',
+            'detail_url',
+        ]
+
+        listing_default_fields = [
+            'id',
+            'type',
+            'detail_url',
+        ]
+
+        nested_default_fields = [
+            'id',
+            'type',
+            'detail_url',
+        ]
+
+        detail_only_fields = []
+
 
 class PageSerializer(BaseSerializer):
     type = PageTypeField(read_only=True)
@@ -335,6 +359,43 @@ class PageSerializer(BaseSerializer):
                 return ChildRelationField, {'serializer_class': self.child_serializer_classes[field_name]}
 
         return super(PageSerializer, self).build_relational_field(field_name, relation_info)
+
+    class Meta:
+        fields = BaseSerializer.Meta.fields + [
+            'html_url',
+            'slug',
+            'show_in_menus',
+            'seo_title',
+            'search_description',
+            'first_published_at',
+            'parent',
+            'title',
+        ]
+
+        meta_fields = BaseSerializer.Meta.meta_fields + [
+            'html_url',
+            'slug',
+            'show_in_menus',
+            'seo_title',
+            'search_description',
+            'first_published_at',
+            'parent',
+        ]
+
+        listing_default_fields = BaseSerializer.Meta.listing_default_fields + [
+            'title',
+            'html_url',
+            'slug',
+            'first_published_at',
+        ]
+
+        nested_default_fields = BaseSerializer.Meta.nested_default_fields + [
+            'title',
+        ]
+
+        detail_only_fields = BaseSerializer.Meta.detail_only_fields + [
+            'parent',
+        ]
 
 
 def get_serializer_class(model_, fields_, meta_fields, child_serializer_classes=None, base=BaseSerializer):
