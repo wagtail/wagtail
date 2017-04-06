@@ -534,6 +534,13 @@ class TestPageListing(TestCase):
         self.assertEqual(response.status_code, 400)
         self.assertEqual(content, {'message': "filtering by tag with a search query is not supported"})
 
+    def test_empty_searches_work(self):
+        response = self.get_response(search='')
+        content = json.loads(response.content.decode('UTF-8'))
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response['Content-type'], 'application/json')
+        self.assertEqual(content['meta']['total_count'], 0)
+
 
 class TestPageDetail(TestCase):
     fixtures = ['demosite.json']

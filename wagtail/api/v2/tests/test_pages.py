@@ -82,7 +82,6 @@ class TestPageListing(TestCase):
         content = json.loads(response.content.decode('UTF-8'))
         self.assertEqual(content['meta']['total_count'], new_total_count)
 
-
     # TYPE FILTER
 
     def test_type_filter_items_are_all_blog_entries(self):
@@ -738,6 +737,13 @@ class TestPageListing(TestCase):
         page_id_list = self.get_page_id_list(content)
 
         self.assertEqual(set(page_id_list), set([16, 18, 19]))
+
+    def test_empty_searches_work(self):
+        response = self.get_response(search='')
+        content = json.loads(response.content.decode('UTF-8'))
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response['Content-type'], 'application/json')
+        self.assertEqual(content['meta']['total_count'], 0)
 
 
 class TestPageDetail(TestCase):
