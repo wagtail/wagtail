@@ -1125,7 +1125,7 @@ class TestServeViewWithSendfile(TestCase):
         self.document.file.save('example.doc', ContentFile("A boring example document"))
 
     def get(self):
-        return self.client.get(reverse('wagtaildocs_serve', args=(self.document.id, 'example.doc')))
+        return self.client.get(reverse('wagtaildocs_serve', args=(self.document.id, self.document.filename)))
 
     def clear_sendfile_cache(self):
         from wagtail.utils.sendfile import _get_sendfile
