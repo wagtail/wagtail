@@ -248,24 +248,26 @@ def delete(request, image_id):
             def snippet_edit_params(snippet_obj):
                 return snippet_obj._meta.app_label, snippet_obj._meta.model_name, snippet_obj.id
 
-            show_limit = 5
+            show_limit = 3
             protected = e.protected_objects
 
-            snippets = filter(is_snippet, protected)
-            pages = filter(is_page, protected)
-            others = filter(is_other, protected)
+            snippets = (x for x in protected if is_snippet(x))
+            pages = (x for x in protected if is_page(x))
+            others = (x for x in protected if is_other(x))
 
             snippets = ((s, reverse('wagtailsnippets:edit', args=snippet_edit_params(s))) for s in snippets)
             pages = ((p, reverse('wagtailadmin_pages:edit', args=(p.id,))) for p in pages)
 
-            buttons = chain(snippets, pages)
-            buttons = (messages.button(url, _("Edit {0}".format(obj._meta.verbose_name))) for (obj, url) in buttons)
+            buttons = (messages.button(url, _("Edit {0}".format(obj._meta.verbose_name))) for (obj, url) in
+                       chain(snippets, pages))
             others_buttons = (messages.button('#', _(
                 'Edit {0} model object with primary key {1}'.format(o._meta.verbose_name,
                                                                     getattr(o, o._meta.pk.name)))) for o in others)
+
+            buttons = islice(chain(buttons, others_buttons), 0, show_limit)
             messages.warning(request,
                              _("Image '{0}' can't be deleted because of usage in other entities.".format(image.title)),
-                             buttons=islice(chain(buttons, others_buttons), 0, show_limit))
+                             buttons=buttons)
             return redirect('wagtailimages:edit', image_id)
         messages.success(request, _("Image '{0}' deleted.").format(image.title))
         return redirect('wagtailimages:index')
