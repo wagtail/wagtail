@@ -89,7 +89,7 @@ This feature is enabled through the project's root URL configuration. Just put t
     ]
 
 
-    urlpatterns += i18n_patterns('',
+    urlpatterns += i18n_patterns(
         # These URLs will have /<language_code>/ appended to the beginning
 
         url(r'^search/$', 'search.views.search', name='search'),
