@@ -4,6 +4,7 @@ Changelog
 1.10 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~
 
+ * Django 1.11 support (Tim Graham, Matt Westcott, Mikalai Radchuk, Bertrand Bordage)
  * Dropped Django 1.9 and Python 3.3 support; note that Django 1.8.x is still supported
  * Dropped support for generating static sites using django-medusa
  * Use minified versions of jQuery and jQuery UI in the admin. Total savings without compression 371 KB (Tom Dyson)

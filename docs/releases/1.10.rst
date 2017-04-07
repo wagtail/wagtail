@@ -10,6 +10,11 @@ Wagtail 1.10 release notes - IN DEVELOPMENT
 What's new
 ==========
 
+Django 1.11 and Python 3.6 support
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Wagtail is now compatible with Django 1.11 and Python 3.6. Compatibility fixes were contributed by Tim Graham, Matt Westcott, Mikalai Radchuk and Bertrand Bordage.
+
 
 Other features
 ~~~~~~~~~~~~~~
