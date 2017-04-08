@@ -227,6 +227,7 @@ Contributors
 * Huub Bouma
 * Thijs Kramer
 * Ramon de Jezus
+* Ross Curzon-Butler
 
 Translators
 ===========
