@@ -71,6 +71,7 @@ Bug fixes
  * Slicing a search result set no longer loses the annotation added by ``annotate_score`` (Karl Hobley)
  * String-based primary keys are now escaped correctly in ModelAdmin URLs (Andreas Nüßlein)
  * Empty search in the API now works (Morgan Aubert)
+ * ``RichTextBlock`` toolbar now correctly positioned within ``StructBlock`` (Janneke Janssen)
 
 
 Upgrade considerations
