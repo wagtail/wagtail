@@ -72,6 +72,7 @@ Bug fixes
  * String-based primary keys are now escaped correctly in ModelAdmin URLs (Andreas Nüßlein)
  * Empty search in the API now works (Morgan Aubert)
  * ``RichTextBlock`` toolbar now correctly positioned within ``StructBlock`` (Janneke Janssen)
+ * Fixed display of ManyToMany fields and False values on the ModelAdmin inspect view (Andy Babic)
 
 
 Upgrade considerations
