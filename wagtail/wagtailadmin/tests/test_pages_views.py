@@ -2199,9 +2199,7 @@ class TestPageCopy(TestCase, WagtailTestUtils):
         )
 
     def test_page_copy_post_and_subpages_to_same_tree_branch(self):
-        # This tests the existing slug checking on page copy when changing the parent page
-
-        # Attempt to copy the page and changed the parent page
+        # This tests that a page cannot be copied into itself when copying subpages
         post_data = {
             'new_title': "Hello world 2",
             'new_slug': 'hello-world',
@@ -2209,7 +2207,14 @@ class TestPageCopy(TestCase, WagtailTestUtils):
             'copy_subpages': True,
         }
         response = self.client.post(reverse('wagtailadmin_pages:copy', args=(self.test_page.id,)), post_data)
-        self.assertEqual(response.status_code, 403)
+
+        # Should not be redirected (as the save should fail)
+        self.assertEqual(response.status_code, 200)
+
+        # Check that a form error was raised
+        self.assertFormError(
+            response, 'form', 'new_parent_page', "You cannot copy a page into itself when copying subpages"
+        )
 
     def test_page_copy_post_existing_slug_to_another_parent_page(self):
         # This tests the existing slug checking on page copy when changing the parent page
