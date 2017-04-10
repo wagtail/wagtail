@@ -74,6 +74,7 @@ Bug fixes
  * Empty search in the API now works (Morgan Aubert)
  * ``RichTextBlock`` toolbar now correctly positioned within ``StructBlock`` (Janneke Janssen)
  * Fixed display of ManyToMany fields and False values on the ModelAdmin inspect view (Andy Babic)
+ * Prevent pages from being recursively copied into themselves (Matheus Bratfisch)
 
 
 Upgrade considerations
