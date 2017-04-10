@@ -845,8 +845,8 @@ def copy(request, page_id):
             if form.cleaned_data['new_parent_page']:
                 parent_page = form.cleaned_data['new_parent_page']
 
-            # Make sure this user has permission to add subpages on the parent
-            if not parent_page.permissions_for_user(request.user).can_add_subpage():
+            if not page.permissions_for_user(request.user).can_copy_to(parent_page,
+                                                                       form.cleaned_data.get('copy_subpages')):
                 raise PermissionDenied
 
             # Re-check if the user has permission to publish subpages on the new parent
