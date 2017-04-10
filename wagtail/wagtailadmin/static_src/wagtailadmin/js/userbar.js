@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function userBar(e) {
     var hasTouch = 'ontouchstart' in window;
     var clickEvent = 'click';
 
-    if (!'classList' in userbar) {
+    if (!('classList' in userbar)) {
         return;
     }
 
