@@ -61,6 +61,12 @@ def get_descendant_models(model):
     return descendant_models
 
 
+def get_descendants_content_types_pks(models, db_alias):
+    return get_content_types_pks(
+        tuple(descendant_model for model in models
+              for descendant_model in get_descendant_models(model)), db_alias)
+
+
 @lru_cache()
 def get_content_types_pks(models, db_alias):
     # We import it locally because this file is loaded before apps are ready.

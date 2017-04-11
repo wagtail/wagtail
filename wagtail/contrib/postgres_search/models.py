@@ -10,7 +10,7 @@ from django.db.models.functions import Cast
 from django.utils.encoding import force_text, python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 
-from .utils import WEIGHTS_VALUES, get_content_types_pks, get_descendant_models
+from .utils import WEIGHTS_VALUES, get_descendants_content_types_pks
 
 
 class IndexQuerySet(QuerySet):
@@ -18,16 +18,12 @@ class IndexQuerySet(QuerySet):
         if not models:
             return self.none()
         return self.filter(
-            content_type_id__in=get_content_types_pks(models, self._db))
-
-    def for_model(self, model):
-        return self.filter(
-            content_type_id=get_content_types_pks((model,), self._db)[0])
+            content_type_id__in=get_descendants_content_types_pks(models,
+                                                                  self._db))
 
     def for_object(self, obj):
         db_alias = obj._state.db
-        return (self.using(db_alias)
-                .for_models(*get_descendant_models(obj._meta.model))
+        return (self.using(db_alias).for_models(obj._meta.model)
                 .filter(object_id=force_text(obj.pk)))
 
     def add_rank(self, search_query):
@@ -68,7 +64,7 @@ class IndexEntry(Model):
         # TODO: Move here the GIN index from the migration.
 
     def __str__(self):
-        return '%s: %s' % (self.content_type.name, self.title)
+        return '%s: %s' % (self.content_type.name, self.content_object)
 
     @property
     def model(self):
