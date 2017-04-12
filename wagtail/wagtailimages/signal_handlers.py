@@ -1,6 +1,7 @@
 from __future__ import absolute_import, unicode_literals
 
 from django.conf import settings
+from django.db import transaction
 from django.db.models.signals import post_delete, pre_save
 
 from wagtail.wagtailimages import get_image_model
@@ -8,7 +9,7 @@ from wagtail.wagtailimages import get_image_model
 
 def post_delete_file_cleanup(instance, **kwargs):
     # Pass false so FileField doesn't save the model.
-    instance.file.delete(False)
+    transaction.on_commit(lambda: instance.file.delete(False))
 
 
 def pre_save_image_feature_detection(instance, **kwargs):
