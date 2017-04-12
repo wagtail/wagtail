@@ -8,7 +8,7 @@ from django.db.models.signals import post_delete, pre_save
 from wagtail.wagtailimages import get_image_model
 
 
-TRANSACTION_ON_COMMIT_AVAILABLE = (1, 8) < DJANGO_VERSION
+TRANSACTION_ON_COMMIT_AVAILABLE = (1, 8) < DJANGO_VERSION[:2]
 if TRANSACTION_ON_COMMIT_AVAILABLE:
     on_commit_handler = lambda f: transaction.on_commit(f)
 else:
