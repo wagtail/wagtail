@@ -50,6 +50,21 @@ class TestDefaultModelSignalHandlers(TestCase):
 
         self.assertFalse(os.path.exists(rendition_path))
 
+    def test_rendition_file_not_deleted(self):
+        image = get_image_model().objects.create(title="Test Image", file=get_test_image_file())
+        rendition = image.get_rendition('original')
+        file_name = rendition.file.name
+        self.assertTrue(rendition.file.storage.exists(file_name))
+        
+        try:
+            with transaction.atomic():
+                rendition.delete()
+                raise ExpectedException()
+        except ExpectedException:
+            pass
+        
+        self.assertTrue(rendition.file.storage.exists(file_name))
+
 
 @override_settings(WAGTAILIMAGES_IMAGE_MODEL='tests.CustomImage')
 class TestCustomModelSignalHandlers(TestDefaultModelSignalHandlers):
