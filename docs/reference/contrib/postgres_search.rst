@@ -4,6 +4,8 @@
 PostgreSQL search engine
 ========================
 
+.. versionadded:: 1.10
+
 This contrib module provides a search engine backend for Wagtail using
 `PostgreSQL full-text search capabilities <https://www.postgresql.org/docs/current/static/textsearch.html>`_.
 
