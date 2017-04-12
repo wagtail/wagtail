@@ -1403,3 +1403,16 @@ class TestFilesDeletedForDefaultModels(TransactionTestCase):
             self.assertTrue(document.file.storage.exists(document.file.name))
             document.delete()
         self.assertFalse(document.file.storage.exists(document.file.name))
+
+
+@override_settings(WAGTAILDOCS_DOCUMENT_MODEL='tests.CustomDocument')
+class TestFilesDeletedForCustomModels(TestFilesDeletedForDefaultModels):
+    def setUp(self):
+        #: Sadly signal receivers only get connected when starting django.
+        #: We will re-attach them here to mimic the django startup behavior
+        #: and get the signals connected to our custom model..
+        signal_handlers.register_signal_handlers()
+    
+    def test_document_model(self):
+        cls = get_document_model()
+        self.assertEqual('%s.%s' % (cls._meta.app_label, cls.__name__), 'tests.CustomDocument')
