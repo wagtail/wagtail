@@ -2,39 +2,15 @@ from __future__ import absolute_import, unicode_literals
 
 from django.apps import apps
 from django.contrib.auth.models import Permission
-from django.core.urlresolvers import reverse
-from django.utils.text import capfirst
 
-from wagtail.wagtailadmin.menu import MenuItem
+from wagtail.contrib.modeladmin.options import modeladmin_register
+from wagtail.contrib.settings.options import SettingAdmin
 from wagtail.wagtailcore import hooks
-
-from .permissions import user_can_edit_setting_type
-
-
-class SettingMenuItem(MenuItem):
-    def __init__(self, model, icon='cog', classnames='', **kwargs):
-
-        icon_classes = 'icon icon-' + icon
-        if classnames:
-            classnames += ' ' + icon_classes
-        else:
-            classnames = icon_classes
-
-        self.model = model
-        super(SettingMenuItem, self).__init__(
-            label=capfirst(model._meta.verbose_name),
-            url=reverse('wagtailsettings:edit', args=[
-                model._meta.app_label, model._meta.model_name]),
-            classnames=classnames,
-            **kwargs)
-
-    def is_shown(self, request):
-        return user_can_edit_setting_type(request.user, self.model)
 
 
 class Registry(list):
 
-    def register(self, model, **kwargs):
+    def register(self, model, add_to_menu=True, **kwargs):
         """
         Register a model as a setting, adding it to the wagtail admin menu
         """
@@ -45,9 +21,12 @@ class Registry(list):
         self.append(model)
 
         # Register a new menu item in the settings menu
-        @hooks.register('register_settings_menu_item')
-        def menu_hook():
-            return SettingMenuItem(model, **kwargs)
+        if add_to_menu:
+            admin_kwargs = {'menu_' + key: value for key, value in kwargs.items()}
+            modeladmin_register(SettingAdmin.for_setting(model, **admin_kwargs))
+
+        elif kwargs:
+            raise TypeError('Menu keyword arguments supplied when `add_to_menu` is False')
 
         @hooks.register('register_permissions')
         def permissions_hook():

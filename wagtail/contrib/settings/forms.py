@@ -10,18 +10,17 @@ class SiteSwitchForm(forms.Form):
     site = forms.ChoiceField(choices=[])
 
     class Media:
-        js = [
-            'wagtailsettings/js/site-switcher.js',
-        ]
+        js = ['wagtailsettings/js/site-switcher.js']
 
-    def __init__(self, current_site, model, **kwargs):
-        initial_data = {'site': self.get_change_url(current_site, model)}
+    def __init__(self, current_site, model, url_name, **kwargs):
+        initial_data = {'site': self.get_change_url(current_site, url_name)}
+
         super(SiteSwitchForm, self).__init__(initial=initial_data, **kwargs)
-        sites = [(self.get_change_url(site, model), site)
+
+        sites = [(self.get_change_url(site, url_name), site)
                  for site in Site.objects.all()]
         self.fields['site'].choices = sites
 
     @classmethod
-    def get_change_url(cls, site, model):
-        return reverse('wagtailsettings:edit', args=[
-            model._meta.app_label, model._meta.model_name, site.pk])
+    def get_change_url(cls, site, url_name):
+        return reverse(url_name, args=[site.pk])
