@@ -1370,7 +1370,7 @@ class TestFilesDeletedForDefaultModels(TransactionTestCase):
     Because we expect file deletion to only happen once a transaction is
     successfully committed, we must run these tests using TransactionTestCase
     per the following documentation:
-    
+
         Django's TestCase class wraps each test in a transaction and rolls back that
         transaction after each test, in order to provide test isolation. This means
         that no transaction is ever actually committed, thus your on_commit()
@@ -1378,10 +1378,21 @@ class TestFilesDeletedForDefaultModels(TransactionTestCase):
         on_commit() callback, use a TransactionTestCase instead.
         https://docs.djangoproject.com/en/1.10/topics/db/transactions/#use-in-tests
     '''
-    
+    def setUp(self):
+        # Required to create root collection because the TransactionTestCase
+        # does not make initial data loaded in migrations available and
+        # serialized_rollback=True causes other problems in the test suite.
+        # ref: https://docs.djangoproject.com/en/1.10/topics/testing/overview/#rollback-emulation
+        Collection.objects.get_or_create(
+            name="Root",
+            path='0001',
+            depth=1,
+            numchild=0,
+        )
+
     def test_oncommit_available(self):
         self.assertEqual(hasattr(transaction, 'on_commit'), signal_handlers.TRANSACTION_ON_COMMIT_AVAILABLE)
-    
+
     @unittest.skipUnless(signal_handlers.TRANSACTION_ON_COMMIT_AVAILABLE, 'is required for this test')
     def test_document_file_deleted_oncommit(self):
         with transaction.atomic():
@@ -1390,7 +1401,7 @@ class TestFilesDeletedForDefaultModels(TransactionTestCase):
             document.delete()
             self.assertTrue(document.file.storage.exists(document.file.name))
         self.assertFalse(document.file.storage.exists(document.file.name))
-    
+
     @unittest.skipIf(signal_handlers.TRANSACTION_ON_COMMIT_AVAILABLE, 'duplicate')
     def test_document_file_deleted(self):
         '''
@@ -1408,11 +1419,22 @@ class TestFilesDeletedForDefaultModels(TransactionTestCase):
 @override_settings(WAGTAILDOCS_DOCUMENT_MODEL='tests.CustomDocument')
 class TestFilesDeletedForCustomModels(TestFilesDeletedForDefaultModels):
     def setUp(self):
+        # Required to create root collection because the TransactionTestCase
+        # does not make initial data loaded in migrations available and
+        # serialized_rollback=True causes other problems in the test suite.
+        # ref: https://docs.djangoproject.com/en/1.10/topics/testing/overview/#rollback-emulation
+        Collection.objects.get_or_create(
+            name="Root",
+            path='0001',
+            depth=1,
+            numchild=0,
+        )
+
         #: Sadly signal receivers only get connected when starting django.
         #: We will re-attach them here to mimic the django startup behavior
         #: and get the signals connected to our custom model..
         signal_handlers.register_signal_handlers()
-    
+
     def test_document_model(self):
         cls = get_document_model()
         self.assertEqual('%s.%s' % (cls._meta.app_label, cls.__name__), 'tests.CustomDocument')
