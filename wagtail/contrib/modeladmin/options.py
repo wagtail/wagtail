@@ -27,31 +27,20 @@ class WagtailRegisterable(object):
 
     def register_with_wagtail(self):
 
-        @hooks.register('register_permissions')
-        def register_permissions():
-            return self.get_permissions_for_registration()
-
-        @hooks.register('register_admin_urls')
-        def register_admin_urls():
-            return self.get_admin_urls_for_registration()
+        hooks.register('register_permissions', self.get_permissions_for_registration)
+        hooks.register('register_admin_urls', self.get_admin_urls_for_registration)
 
         menu_hook = (
             'register_settings_menu_item' if self.add_to_settings_menu else
             'register_admin_menu_item'
         )
-
-        @hooks.register(menu_hook)
-        def register_admin_menu_item():
-            return self.get_menu_item()
+        hooks.register(menu_hook, self.get_menu_item)
 
         # Overriding the explorer page queryset is a somewhat 'niche' / experimental
         # operation, so only attach that hook if we specifically opt into it
         # by returning True from will_modify_explorer_page_queryset
         if self.will_modify_explorer_page_queryset():
-            @hooks.register('construct_explorer_page_queryset')
-            def construct_explorer_page_queryset(parent_page, queryset, request):
-                return self.modify_explorer_page_queryset(
-                    parent_page, queryset, request)
+            hooks.register('construct_explorer_page_queryset', self.modify_explorer_page_queryset)
 
     def will_modify_explorer_page_queryset(self):
         return False
