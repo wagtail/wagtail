@@ -7,7 +7,7 @@ from django.db.models.signals import post_delete
 from wagtail.wagtaildocs.models import Document
 
 
-TRANSACTION_ON_COMMIT_AVAILABLE = (1, 8) < DJANGO_VERSION
+TRANSACTION_ON_COMMIT_AVAILABLE = (1, 8) < DJANGO_VERSION[:2]
 if TRANSACTION_ON_COMMIT_AVAILABLE:
     on_commit_handler = lambda f: transaction.on_commit(f)
 else:
