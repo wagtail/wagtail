@@ -49,6 +49,12 @@ class TestFilesDeletedForDefaultModels(TransactionTestCase):
     Because we expect file deletion to only happen once a transaction is
     successfully committed, we must run these tests using TransactionTestCase
     '''
+    
+    # indicate that these tests need the initial data loaded in migrations which
+    # is not available by default for TransactionTestCase per
+    # https://docs.djangoproject.com/en/1.10/topics/testing/overview/#rollback-emulation
+    serialized_rollback = True
+    
     def test_image_file_deleted(self):
         with transaction.atomic():
             image = get_image_model().objects.create(title="Test Image", file=get_test_image_file())
@@ -56,3 +62,10 @@ class TestFilesDeletedForDefaultModels(TransactionTestCase):
         with transaction.atomic():
             image.delete()
         self.assertFalse(image.file.storage.exists(image.file.name))
+    
+    def test_rendition_file_deleted(self):
+        image = get_image_model().objects.create(title="Test Image", file=get_test_image_file())
+        rendition = image.get_rendition('original')
+        self.assertTrue(rendition.file.storage.exists(rendition.file.name))
+        rendition.delete()
+        self.assertFalse(rendition.file.storage.exists(rendition.file.name))
