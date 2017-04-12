@@ -5,6 +5,7 @@ import unittest
 from django.db import transaction
 from django.test import TestCase, TransactionTestCase, override_settings
 
+from wagtail.wagtailcore.models import Collection
 from wagtail.wagtailimages import get_image_model, signal_handlers
 from wagtail.wagtailimages.tests.utils import get_test_image_file
 
@@ -22,6 +23,17 @@ class TestFilesDeletedForDefaultModels(TransactionTestCase):
         on_commit() callback, use a TransactionTestCase instead.
         https://docs.djangoproject.com/en/1.10/topics/db/transactions/#use-in-tests
     '''
+    
+    def setUp(self):
+        # Required to create root collection because the TransactionTestCase
+        # does not make initial data loaded in migrations available
+        # ref: https://docs.djangoproject.com/en/1.10/topics/testing/overview/#rollback-emulation
+        Collection.objects.get_or_create(
+            name="Root",
+            path='0001',
+            depth=1,
+            numchild=0,
+        )
     
     def test_oncommit_available(self):
         self.assertEqual(hasattr(transaction, 'on_commit'), signal_handlers.TRANSACTION_ON_COMMIT_AVAILABLE)
@@ -76,6 +88,8 @@ class TestFilesDeletedForDefaultModels(TransactionTestCase):
 @override_settings(WAGTAILIMAGES_IMAGE_MODEL='tests.CustomImage')
 class TestFilesDeletedForCustomModels(TestFilesDeletedForDefaultModels):
     def setUp(self):
+        super(TestFilesDeletedForDefaultModels, self).setUp()
+        
         #: Sadly signal receivers only get connected when starting django.
         #: We will re-attach them here to mimic the django startup behavior
         #: and get the signals connected to our custom model..
