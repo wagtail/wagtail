@@ -117,6 +117,17 @@ class TestFilesDeletedForDefaultModels(TransactionTestCase):
         on_commit() callback, use a TransactionTestCase instead.
         https://docs.djangoproject.com/en/1.10/topics/db/transactions/#use-in-tests
     '''
+    def setUp(self):
+        # Required to create root collection because the TransactionTestCase
+        # does not make initial data loaded in migrations available and
+        # serialized_rollback=True causes other problems in the test suite.
+        # ref: https://docs.djangoproject.com/en/1.10/topics/testing/overview/#rollback-emulation
+        Collection.objects.get_or_create(
+            name="Root",
+            path='0001',
+            depth=1,
+            numchild=0,
+        )
 
     def test_oncommit_available(self):
         self.assertEqual(hasattr(transaction, 'on_commit'), signal_handlers.TRANSACTION_ON_COMMIT_AVAILABLE)
@@ -147,6 +158,17 @@ class TestFilesDeletedForDefaultModels(TransactionTestCase):
 @override_settings(WAGTAILDOCS_DOCUMENT_MODEL='tests.CustomDocument')
 class TestFilesDeletedForCustomModels(TestFilesDeletedForDefaultModels):
     def setUp(self):
+        # Required to create root collection because the TransactionTestCase
+        # does not make initial data loaded in migrations available and
+        # serialized_rollback=True causes other problems in the test suite.
+        # ref: https://docs.djangoproject.com/en/1.10/topics/testing/overview/#rollback-emulation
+        Collection.objects.get_or_create(
+            name="Root",
+            path='0001',
+            depth=1,
+            numchild=0,
+        )
+
         #: Sadly signal receivers only get connected when starting django.
         #: We will re-attach them here to mimic the django startup behavior
         #: and get the signals connected to our custom model..
