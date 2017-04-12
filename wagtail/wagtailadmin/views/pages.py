@@ -547,11 +547,12 @@ def view_draft(request, page_id):
 class PreviewOnEdit(View):
     http_method_names = ('post', 'get')
     preview_expiration_timeout = 60 * 60 * 24  # seconds
+    session_key_prefix = 'wagtail-preview-'
 
     def remove_old_preview_data(self):
         expiration = time() - self.preview_expiration_timeout
         for k, v in self.request.session.items():
-            if not k.startswith('preview-'):
+            if not k.startswith(self.session_key_prefix):
                 continue
             post_data, timestamp = v
             if timestamp < expiration:
@@ -560,7 +561,7 @@ class PreviewOnEdit(View):
 
     @property
     def session_key(self):
-        return 'preview-%s' % ','.join(self.args)
+        return self.session_key_prefix + ','.join(self.args)
 
     def get_page(self):
         return get_object_or_404(Page,
