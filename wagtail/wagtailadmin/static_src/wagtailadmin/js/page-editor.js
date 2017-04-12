@@ -372,6 +372,7 @@ $(function() {
 
     var $previewButton = $('.action-preview'), $form = $('#page-edit-form');
     var previewUrl = $previewButton.data('action');
+    var autoUpdatePreviewDataTimeout = -1;
 
     function setPreviewData() {
         return $.ajax({
@@ -383,20 +384,20 @@ $(function() {
         });
     }
 
-    if ($previewButton.data('auto-update')) {
-        var setPreviewDataTimeout = -1;
-
-        // Form data is changed when field values are changed (change event),
-        // when HTML elements are added, modified, moved, and deleted
-        // (DOMSubtreeModified event), and we need to delay setPreviewData
-        // when typing to avoid useless extra AJAX requests
-        // (so we postpone setPreviewData when keyup occurs).
-        // TODO: Replace DOMSubtreeModified with a MutationObserver.
-        $form.on('change keyup DOMSubtreeModified', function () {
-            clearTimeout(setPreviewDataTimeout);
-            setPreviewDataTimeout = setTimeout(setPreviewData, 1000);
-        }).change();
-    }
+    $previewButton.one('click', function () {
+        if ($previewButton.data('auto-update')) {
+            // Form data is changed when field values are changed
+            // (change event), when HTML elements are added, modified, moved,
+            // and deleted (DOMSubtreeModified event), and we need to delay
+            // setPreviewData when typing to avoid useless extra AJAX requests
+            // (so we postpone setPreviewData when keyup occurs).
+            // TODO: Replace DOMSubtreeModified with a MutationObserver.
+            $form.on('change keyup DOMSubtreeModified', function () {
+                clearTimeout(autoUpdatePreviewDataTimeout);
+                autoUpdatePreviewDataTimeout = setTimeout(setPreviewData, 1000);
+            }).change();
+        }
+    });
 
     $previewButton.click(function(e) {
         e.preventDefault();
