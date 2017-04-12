@@ -10,6 +10,19 @@ Wagtail 1.10 release notes - IN DEVELOPMENT
 What's new
 ==========
 
+PostgreSQL search engine
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+A new search engine has been added to Wagtail which uses PostgreSQL's builtin
+full-text search functionality. This means that if you use PostgreSQL to manage
+your database, you can now get a good quality search engine without needing
+to install Elasticsearch.
+
+To get started, see: :ref:`postgres_search`
+
+This feature was developed at the Arnhem sprint by Bertrand Bordage, Jaap Roes,
+Arne de Laat and Ramon de Jezus.
+
 Django 1.11 and Python 3.6 support
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
