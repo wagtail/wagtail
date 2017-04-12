@@ -3,8 +3,14 @@ from __future__ import absolute_import, unicode_literals
 from django.conf import settings
 from django.core.cache import cache
 from django.http import HttpResponse
+from django.utils.module_loading import import_string
 
-from .sitemap_generator import Sitemap
+DEFAULT_GENERATOR = 'wagtail.contrib.wagtailsitemaps.sitemap_generator.Sitemap'
+
+
+def get_generator_class():
+    generator_class = getattr(settings, 'WAGTAILSITEMAPS_GENERATOR', DEFAULT_GENERATOR)
+    return import_string(generator_class)
 
 
 def sitemap(request):
@@ -12,6 +18,9 @@ def sitemap(request):
     sitemap_xml = cache.get(cache_key)
 
     if not sitemap_xml:
+        # Get Sitemap generator class
+        Sitemap = get_generator_class()
+
         # Rerender sitemap
         sitemap = Sitemap(request.site)
         sitemap_xml = sitemap.render()

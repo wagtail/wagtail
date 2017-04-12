@@ -1,12 +1,14 @@
 from __future__ import absolute_import, unicode_literals
 
 from django.core.cache import cache
-from django.test import TestCase
+from django.test import TestCase, override_settings
 
 from wagtail.tests.testapp.models import EventIndex, SimplePage
+from wagtail.tests.testapp.sitemap_generator import CustomSitemap
 from wagtail.wagtailcore.models import Page, PageViewRestriction, Site
 
 from .sitemap_generator import Sitemap
+from .views import get_generator_class
 
 
 class TestSitemapGenerator(TestCase):
@@ -111,3 +113,18 @@ class TestSitemapView(TestCase):
 
         # Check that the content is the same
         self.assertEqual(first_response.content, second_response.content)
+
+
+class TestGetGeneratorClass(TestCase):
+
+    def get_default_generator(self):
+        self.assertEqual(get_generator_class(), Sitemap)
+
+    @override_settings(WAGTAILSITEMAPS_GENERATOR='wagtail.tests.testapp.sitemap_generator.CustomSitemap')
+    def get_custom_generator(self):
+        self.assertEqual(get_generator_class(), CustomSitemap)
+
+    @override_settings(WAGTAILSITEMAPS_GENERATOR='path.to.nonexistent.SitemapGenerator')
+    def get_nonexistent_generator(self):
+        with self.assertRaises(ImportError):
+            get_generator_class()

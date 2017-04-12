@@ -84,7 +84,10 @@ Each dictionary can contain the following:
  - **changefreq**
  - **priority**
 
-You can add more but you will need to override the ``wagtailsitemaps/sitemap.xml`` template in order for them to be displayed in the sitemap.
+You can add more but you will need to override the ``wagtailsitemaps/sitemap.xml`` template in order for them to be displayed in the sitemap, extending the ``Sitemap`` generator is also an option.
+
+.. note::
+    As of Wagtail 1.10 it's possible to extend the existing ``Sitemap`` generator class. this can be done by setting ``WAGTAILSITEMAPS_GENERATOR`` to your own implementation of the ``Sitemap`` object. This can be done used to implement multi language sitemaps, for example.
 
 
 Cache
