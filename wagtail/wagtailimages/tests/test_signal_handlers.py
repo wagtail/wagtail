@@ -26,7 +26,8 @@ class TestFilesDeletedForDefaultModels(TransactionTestCase):
     
     def setUp(self):
         # Required to create root collection because the TransactionTestCase
-        # does not make initial data loaded in migrations available
+        # does not make initial data loaded in migrations available and
+        # serialized_rollback=True causes other problems in the test suite.
         # ref: https://docs.djangoproject.com/en/1.10/topics/testing/overview/#rollback-emulation
         Collection.objects.get_or_create(
             name="Root",
@@ -88,7 +89,16 @@ class TestFilesDeletedForDefaultModels(TransactionTestCase):
 @override_settings(WAGTAILIMAGES_IMAGE_MODEL='tests.CustomImage')
 class TestFilesDeletedForCustomModels(TestFilesDeletedForDefaultModels):
     def setUp(self):
-        super(TestFilesDeletedForDefaultModels, self).setUp()
+        # Required to create root collection because the TransactionTestCase
+        # does not make initial data loaded in migrations available and
+        # serialized_rollback=True causes other problems in the test suite.
+        # ref: https://docs.djangoproject.com/en/1.10/topics/testing/overview/#rollback-emulation
+        Collection.objects.get_or_create(
+            name="Root",
+            path='0001',
+            depth=1,
+            numchild=0,
+        )
         
         #: Sadly signal receivers only get connected when starting django.
         #: We will re-attach them here to mimic the django startup behavior
