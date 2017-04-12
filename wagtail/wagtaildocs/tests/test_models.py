@@ -7,6 +7,7 @@ from django.contrib.auth.models import Group, Permission
 from django.core.files.base import ContentFile
 from django.db import transaction
 from django.test import TestCase, TransactionTestCase
+from django.test.utils import override_settings
 
 from wagtail.wagtailcore.models import Collection, GroupCollectionPermission
 from wagtail.wagtaildocs import models, signal_handlers
@@ -152,3 +153,27 @@ class TestFilesDeletedForDefaultModels(TransactionTestCase):
             self.assertTrue(document.file.storage.exists(document.file.name))
             document.delete()
         self.assertFalse(document.file.storage.exists(document.file.name))
+
+
+@override_settings(WAGTAILDOCS_DOCUMENT_MODEL='tests.CustomDocument')
+class TestFilesDeletedForCustomModels(TestFilesDeletedForDefaultModels):
+    def setUp(self):
+        # Required to create root collection because the TransactionTestCase
+        # does not make initial data loaded in migrations available and
+        # serialized_rollback=True causes other problems in the test suite.
+        # ref: https://docs.djangoproject.com/en/1.10/topics/testing/overview/#rollback-emulation
+        Collection.objects.get_or_create(
+            name="Root",
+            path='0001',
+            depth=1,
+            numchild=0,
+        )
+
+        #: Sadly signal receivers only get connected when starting django.
+        #: We will re-attach them here to mimic the django startup behavior
+        #: and get the signals connected to our custom model..
+        signal_handlers.register_signal_handlers()
+
+    def test_document_model(self):
+        cls = get_document_model()
+        self.assertEqual('%s.%s' % (cls._meta.app_label, cls.__name__), 'tests.CustomDocument')
