@@ -10,7 +10,7 @@ from django.contrib.admin import FieldListFilter, widgets
 from django.contrib.admin.exceptions import DisallowedModelAdminLookup
 from django.contrib.admin.options import IncorrectLookupParameters
 from django.contrib.admin.utils import (
-    get_fields_from_path, lookup_needs_distinct, prepare_lookup_value, quote)
+    get_fields_from_path, lookup_needs_distinct, prepare_lookup_value, quote, unquote)
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ImproperlyConfigured, PermissionDenied, SuspiciousOperation
 from django.core.paginator import InvalidPage, Paginator
@@ -208,15 +208,21 @@ class InstanceSpecificView(WMABaseView, SingleObjectMixin):
         self.instance = self.object = self.get_instance()
         return super(InstanceSpecificView, self).post(request, *args, **kwargs)
 
+    @property
+    def pk_quoted(self):
+        return quote(self.kwargs.get(self.pk_url_kwarg))
+
+    def get_object(self):
+        # unquote the 'pk_url_kwarg' value before calling get_object()
+        kwarg_key = self.pk_url_kwarg
+        self.kwargs[kwarg_key] = unquote(self.kwargs.get(kwarg_key))
+        return super(InstanceSpecificView, self).get_object()
+
     def get_instance(self):
         return self.get_object()
 
     def get_page_subtitle(self):
         return self.get_instance()
-
-    @property
-    def pk_quoted(self):
-        return quote(self.kwargs.get(self.pk_url_kwarg))
 
     @property
     def edit_url(self):
