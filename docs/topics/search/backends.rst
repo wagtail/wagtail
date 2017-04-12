@@ -70,6 +70,16 @@ It also doesn't support:
 
 If any of these features are important to you, we recommend using Elasticsearch instead.
 
+PostgreSQL Backend
+------------------
+
+``wagtail.contrib.postgres_search.backend``
+
+If you use PostgreSQL for your database and your site has less than
+a million pages, you probably want to use this backend.
+
+See :ref:`postgres_search` for more detail.
+
 
 .. _wagtailsearch_backends_elasticsearch:
 
