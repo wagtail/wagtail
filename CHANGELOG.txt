@@ -7,6 +7,7 @@ Changelog
  * Added PostgreSQL search engine (Bertrand Bordage, Jaap Roes, Arne de Laat, Ramon de Jezus)
  * Django 1.11 support (Tim Graham, Matt Westcott, Mikalai Radchuk, Bertrand Bordage)
  * Dropped Django 1.9 and Python 3.3 support; note that Django 1.8.x is still supported
+ * Added `WAGTAIL_AUTO_UPDATE_PREVIEW` setting that when set to `True`, allows the preview window to be refreshed when changes have been made in the editor (Bertrand Bordage)
  * Dropped support for generating static sites using django-medusa
  * Use minified versions of jQuery and jQuery UI in the admin. Total savings without compression 371 KB (Tom Dyson)
  * Hooks can now specify the order in which they are run (Gagaro)
