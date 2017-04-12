@@ -1067,7 +1067,7 @@ class TestServeView(TestCase):
         self.document.file.save('example.doc', ContentFile("A boring example document"))
 
     def get(self):
-        return self.client.get(reverse('wagtaildocs_serve', args=(self.document.id, 'example.doc')))
+        return self.client.get(reverse('wagtaildocs_serve', args=(self.document.id, self.document.filename)))
 
     def test_response_code(self):
         self.assertEqual(self.get().status_code, 200)
@@ -1104,14 +1104,8 @@ class TestServeView(TestCase):
         self.assertEqual(response.status_code, 404)
 
     def test_with_incorrect_filename(self):
-        """
-        Wagtail should be forgiving with filenames at the end of the URL. These
-        filenames are to make the URL look nice, and to provide a fallback for
-        browsers that do not handle the 'Content-Disposition' header filename
-        component. They should not be validated.
-        """
         response = self.client.get(reverse('wagtaildocs_serve', args=(self.document.id, 'incorrectfilename')))
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 404)
 
     def clear_sendfile_cache(self):
         from wagtail.utils.sendfile import _get_sendfile
@@ -1131,7 +1125,7 @@ class TestServeViewWithSendfile(TestCase):
         self.document.file.save('example.doc', ContentFile("A boring example document"))
 
     def get(self):
-        return self.client.get(reverse('wagtaildocs_serve', args=(self.document.id, 'example.doc')))
+        return self.client.get(reverse('wagtaildocs_serve', args=(self.document.id, self.document.filename)))
 
     def clear_sendfile_cache(self):
         from wagtail.utils.sendfile import _get_sendfile

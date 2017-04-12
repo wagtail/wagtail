@@ -3,7 +3,7 @@ from __future__ import absolute_import, unicode_literals
 from wsgiref.util import FileWrapper
 
 from django.conf import settings
-from django.http import BadHeaderError, StreamingHttpResponse
+from django.http import BadHeaderError, Http404, StreamingHttpResponse
 from django.shortcuts import get_object_or_404
 from unidecode import unidecode
 
@@ -15,6 +15,12 @@ from wagtail.wagtaildocs.models import document_served, get_document_model
 def serve(request, document_id, document_filename):
     Document = get_document_model()
     doc = get_object_or_404(Document, id=document_id)
+
+    # We want to ensure that the document filename provided in the URL matches the one associated with the considered
+    # document_id. If not we can't be sure that the document the user wants to access is the one corresponding to the
+    # <document_id, document_filename> pair.
+    if doc.filename != document_filename:
+        raise Http404('This document does not match the given filename.')
 
     # Send document_served signal
     document_served.send(sender=Document, instance=doc, request=request)
