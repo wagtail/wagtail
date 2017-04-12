@@ -42,8 +42,33 @@ class WagtailRegisterable(object):
         if self.will_modify_explorer_page_queryset():
             hooks.register('construct_explorer_page_queryset', self.modify_explorer_page_queryset)
 
+    # Subclasses must override these methods
+    def get_menu_item(self):
+        """
+        Utilised by Wagtail's 'register_menu_item' hook to create a menu item
+        to access the listing view, or can be called by ModelAdminGroup
+        to create a SubMenu
+        """
+        raise NotImplementedError
+
+    # Subclasses should override these if needed
     def will_modify_explorer_page_queryset(self):
         return False
+
+    def get_admin_urls_for_registration(self):
+        """
+        Utilised by Wagtail's 'register_admin_urls' hook to register urls for
+        the views that class offers.
+        """
+        return ()
+
+    def get_permissions_for_registration(self):
+        """
+        Utilised by Wagtail's 'register_permissions' hook to allow permissions
+        for a model to be assigned to groups in settings. This is only required
+        if the model isn't a Page model, and isn't registered as a Snippet
+        """
+        return Permission.objects.none()
 
 
 class ModelAdmin(WagtailRegisterable):
@@ -429,29 +454,15 @@ class ModelAdmin(WagtailRegisterable):
         return self.delete_template_name or self.get_templates('delete')
 
     def get_menu_item(self, order=None):
-        """
-        Utilised by Wagtail's 'register_menu_item' hook to create a menu item
-        to access the listing view, or can be called by ModelAdminGroup
-        to create a SubMenu
-        """
         return ModelAdminMenuItem(self, order or self.get_menu_order())
 
     def get_permissions_for_registration(self):
-        """
-        Utilised by Wagtail's 'register_permissions' hook to allow permissions
-        for a model to be assigned to groups in settings. This is only required
-        if the model isn't a Page model, and isn't registered as a Snippet
-        """
         from wagtail.wagtailsnippets.models import SNIPPET_MODELS
         if not self.is_pagemodel and self.model not in SNIPPET_MODELS:
             return self.permission_helper.get_all_model_permissions()
         return Permission.objects.none()
 
     def get_admin_urls_for_registration(self):
-        """
-        Utilised by Wagtail's 'register_admin_urls' hook to register urls for
-        our the views that class offers.
-        """
         urls = (
             url(self.url_helper.get_action_url_pattern('index'),
                 self.index_view,
@@ -525,11 +536,6 @@ class ModelAdminGroup(WagtailRegisterable):
         return self.menu_order or 999
 
     def get_menu_item(self):
-        """
-        Utilised by Wagtail's 'register_menu_item' hook to create a menu
-        for this group with a SubMenu linking to listing pages for any
-        associated ModelAdmin instances
-        """
         if self.modeladmin_instances:
             submenu = SubMenu(self.get_submenu_items())
             return GroupMenuItem(self, self.get_menu_order(), submenu)
@@ -543,21 +549,12 @@ class ModelAdminGroup(WagtailRegisterable):
         return menu_items
 
     def get_permissions_for_registration(self):
-        """
-        Utilised by Wagtail's 'register_permissions' hook to allow permissions
-        for a all models grouped by this class to be assigned to Groups in
-        settings.
-        """
         qs = Permission.objects.none()
         for instance in self.modeladmin_instances:
             qs = qs | instance.get_permissions_for_registration()
         return qs
 
     def get_admin_urls_for_registration(self):
-        """
-        Utilised by Wagtail's 'register_admin_urls' hook to register urls for
-        used by any associated ModelAdmin instances
-        """
         urls = tuple()
         for instance in self.modeladmin_instances:
             urls += instance.get_admin_urls_for_registration()
