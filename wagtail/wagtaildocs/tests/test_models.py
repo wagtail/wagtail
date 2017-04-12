@@ -118,11 +118,6 @@ class TestFilesDeletedForDefaultModels(TransactionTestCase):
         https://docs.djangoproject.com/en/1.10/topics/db/transactions/#use-in-tests
     '''
 
-    # indicate that these tests need the initial data loaded in migrations which
-    # is not available by default for TransactionTestCase per
-    # https://docs.djangoproject.com/en/1.10/topics/testing/overview/#rollback-emulation
-    serialized_rollback = True
-
     def test_oncommit_available(self):
         self.assertEqual(hasattr(transaction, 'on_commit'), signal_handlers.TRANSACTION_ON_COMMIT_AVAILABLE)
 
