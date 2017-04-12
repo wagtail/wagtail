@@ -60,6 +60,7 @@ Changelog
  * Fix: `RichTextBlock` toolbar now correctly positioned within `StructBlock` (Janneke Janssen)
  * Fix: Fixed display of ManyToMany fields and False values on the ModelAdmin inspect view (Andy Babic)
  * Fix: Prevent pages from being recursively copied into themselves (Matheus Bratfisch)
+ * Fix: Specifying the full file name in documents URL is mandatory (Morgan Aubert)
 
 
 1.9 (16.02.2017)
