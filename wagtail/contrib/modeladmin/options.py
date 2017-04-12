@@ -306,28 +306,26 @@ class ModelAdmin(WagtailRegisterable):
             return found_fields
         return self.inspect_view_fields
 
-    def index_view(self, request):
+    def index_view(self, *args, **kwargs):
         """
         Instantiates a class-based view to provide listing functionality for
         the assigned model. The view class used can be overridden by changing
         the 'index_view_class' attribute.
         """
-        kwargs = {'model_admin': self}
         view_class = self.index_view_class
-        return view_class.as_view(**kwargs)(request)
+        return view_class.as_view(model_admin=self)(*args, **kwargs)
 
-    def create_view(self, request):
+    def create_view(self, *args, **kwargs):
         """
         Instantiates a class-based view to provide 'creation' functionality for
         the assigned model, or redirect to Wagtail's create view if the
         assigned model extends 'Page'. The view class used can be overridden by
         changing the 'create_view_class' attribute.
         """
-        kwargs = {'model_admin': self}
         view_class = self.create_view_class
-        return view_class.as_view(**kwargs)(request)
+        return view_class.as_view(model_admin=self)(*args, **kwargs)
 
-    def choose_parent_view(self, request):
+    def choose_parent_view(self, *args, **kwargs):
         """
         Instantiates a class-based view to allows a parent page to be chosen
         for a new object, where the assigned model extends Wagtail's Page
@@ -335,32 +333,29 @@ class ModelAdmin(WagtailRegisterable):
         The view class used can be overridden by changing the
         'choose_parent_view_class' attribute.
         """
-        kwargs = {'model_admin': self}
         view_class = self.choose_parent_view_class
-        return view_class.as_view(**kwargs)(request)
+        return view_class.as_view(model_admin=self)(*args, **kwargs)
 
-    def inspect_view(self, request, instance_pk):
+    def inspect_view(self, *args, **kwargs):
         """
         Instantiates a class-based view to provide 'inspect' functionality for
         the assigned model. The view class used can be overridden by changing
         the 'inspect_view_class' attribute.
         """
-        kwargs = {'model_admin': self, 'instance_pk': instance_pk}
         view_class = self.inspect_view_class
-        return view_class.as_view(**kwargs)(request)
+        return view_class.as_view(model_admin=self)(*args, **kwargs)
 
-    def edit_view(self, request, instance_pk):
+    def edit_view(self, *args, **kwargs):
         """
         Instantiates a class-based view to provide 'edit' functionality for the
         assigned model, or redirect to Wagtail's edit view if the assinged
         model extends 'Page'. The view class used can be overridden by changing
         the  'edit_view_class' attribute.
         """
-        kwargs = {'model_admin': self, 'instance_pk': instance_pk}
         view_class = self.edit_view_class
-        return view_class.as_view(**kwargs)(request)
+        return view_class.as_view(model_admin=self)(*args, **kwargs)
 
-    def delete_view(self, request, instance_pk):
+    def delete_view(self, *args, **kwargs):
         """
         Instantiates a class-based view to provide 'delete confirmation'
         functionality for the assigned model, or redirect to Wagtail's delete
@@ -368,9 +363,8 @@ class ModelAdmin(WagtailRegisterable):
         used can be overridden by changing the 'delete_view_class'
         attribute.
         """
-        kwargs = {'model_admin': self, 'instance_pk': instance_pk}
         view_class = self.delete_view_class
-        return view_class.as_view(**kwargs)(request)
+        return view_class.as_view(model_admin=self)(*args, **kwargs)
 
     def get_templates(self, action='index'):
         """
