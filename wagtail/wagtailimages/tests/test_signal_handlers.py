@@ -9,15 +9,15 @@ from wagtail.wagtailimages.tests.utils import get_test_image_file
 
 class TestFilesNotDeletedForDefaultModels(TestCase):
     '''
-    Django's TestCase class wraps each test in a transaction and rolls back that
-    transaction after each test, in order to provide test isolation. This means
-    that no transaction is ever actually committed, thus your on_commit()
-    callbacks will never be run. If you need to test the results of an
-    on_commit() callback, use a TransactionTestCase instead.
-    https://docs.djangoproject.com/en/1.10/topics/db/transactions/#use-in-tests
+    Checking that the files are not deleted in this test case means that the
+    delete signal handler is waiting for on_commit per the following documentation:
     
-    Because of this, checking that the files are not deleted in this test means
-    that the delete signal handler is waiting for on_commit
+        Django's TestCase class wraps each test in a transaction and rolls back that
+        transaction after each test, in order to provide test isolation. This means
+        that no transaction is ever actually committed, thus your on_commit()
+        callbacks will never be run. If you need to test the results of an
+        on_commit() callback, use a TransactionTestCase instead.
+        https://docs.djangoproject.com/en/1.10/topics/db/transactions/#use-in-tests
     '''
     
     def setUp(self):
@@ -39,15 +39,16 @@ class TestFilesNotDeletedForDefaultModels(TestCase):
 
 class TestFilesDeletedForDefaultModels(TransactionTestCase):
     '''
-    Django's TestCase class wraps each test in a transaction and rolls back that
-    transaction after each test, in order to provide test isolation. This means
-    that no transaction is ever actually committed, thus your on_commit()
-    callbacks will never be run. If you need to test the results of an
-    on_commit() callback, use a TransactionTestCase instead.
-    https://docs.djangoproject.com/en/1.10/topics/db/transactions/#use-in-tests
-    
     Because we expect file deletion to only happen once a transaction is
     successfully committed, we must run these tests using TransactionTestCase
+    per the following documentation:
+    
+        Django's TestCase class wraps each test in a transaction and rolls back that
+        transaction after each test, in order to provide test isolation. This means
+        that no transaction is ever actually committed, thus your on_commit()
+        callbacks will never be run. If you need to test the results of an
+        on_commit() callback, use a TransactionTestCase instead.
+        https://docs.djangoproject.com/en/1.10/topics/db/transactions/#use-in-tests
     '''
     
     # indicate that these tests need the initial data loaded in migrations which
