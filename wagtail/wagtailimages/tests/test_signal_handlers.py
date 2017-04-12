@@ -1,7 +1,7 @@
 from __future__ import absolute_import, unicode_literals
 
 from django.db import transaction
-from django.test import TestCase, TransactionTestCase
+from django.test import TestCase, TransactionTestCase, override_settings
 
 from wagtail.wagtailimages import get_image_model, signal_handlers
 from wagtail.wagtailimages.tests.utils import get_test_image_file
@@ -47,3 +47,13 @@ class TestFilesDeletedForDefaultModels(TransactionTestCase):
             if signal_handlers.TRANSACTION_ON_COMMIT_AVAILABLE:
                 self.assertTrue(rendition.file.storage.exists(rendition.file.name))
         self.assertFalse(rendition.file.storage.exists(rendition.file.name))
+
+
+@override_settings(WAGTAILIMAGES_IMAGE_MODEL='tests.CustomImage')
+class TestFilesDeletedForCustomModels(TestFilesDeletedForDefaultModels):
+    def setUp(self):
+        #: Sadly signal receivers only get connected when starting django.
+        #: We will re-attach them here to mimic the django startup behavior
+        #: and get the signals connected to our custom model..
+        signal_handlers.register_signal_handlers()
+    
