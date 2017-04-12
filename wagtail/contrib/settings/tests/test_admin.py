@@ -6,8 +6,7 @@ from django.core.urlresolvers import reverse
 from django.test import TestCase, override_settings
 from django.utils.text import capfirst
 
-from wagtail.contrib.settings.registry import SettingMenuItem
-from wagtail.contrib.settings.views import get_setting_edit_handler
+from wagtail.contrib.settings.menu import SettingMenuItem
 from wagtail.tests.testapp.models import (
     FileUploadSetting, IconSetting, PanelSettings, TabbedSettings, TestSetting)
 from wagtail.tests.utils import WagtailTestUtils
@@ -31,19 +30,14 @@ class TestSettingMenu(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtailadmin_home'))
 
         self.assertContains(response, capfirst(TestSetting._meta.verbose_name))
-        self.assertContains(response, reverse('wagtailsettings:edit', args=('tests', 'testsetting')))
+        self.assertContains(response, reverse('tests_testsetting_setting_edit'))
 
     def test_menu_item_no_permissions(self):
         self.login_only_admin()
         response = self.client.get(reverse('wagtailadmin_home'))
 
         self.assertNotContains(response, TestSetting._meta.verbose_name)
-        self.assertNotContains(response, reverse('wagtailsettings:edit', args=('tests', 'testsetting')))
-
-    def test_menu_item_icon(self):
-        menu_item = SettingMenuItem(IconSetting, icon='tag', classnames='test-class')
-        classnames = set(menu_item.classnames.split(' '))
-        self.assertEqual(classnames, {'icon', 'icon-tag', 'test-class'})
+        self.assertNotContains(response, reverse('tests_testsetting_setting_edit'))
 
 
 class BaseTestSettingView(TestCase, WagtailTestUtils):
@@ -56,8 +50,9 @@ class BaseTestSettingView(TestCase, WagtailTestUtils):
         return self.client.post(url, post_data)
 
     def edit_url(self, setting, site_pk=1):
-        args = [setting._meta.app_label, setting._meta.model_name, site_pk]
-        return reverse('wagtailsettings:edit', args=args)
+        url_name = '{}_{}_setting_edit'.format(
+            setting._meta.app_label, setting._meta.model_name, site_pk)
+        return reverse(url_name, kwargs={'site_pk': site_pk})
 
 
 class TestSettingCreateView(BaseTestSettingView):
@@ -109,10 +104,6 @@ class TestSettingEditView(BaseTestSettingView):
         # there should be a menu item highlighted as active
         self.assertContains(response, "menu-active")
 
-    def test_non_existant_model(self):
-        response = self.client.get(reverse('wagtailsettings:edit', args=['test', 'foo', 1]))
-        self.assertEqual(response.status_code, 404)
-
     def test_edit_invalid(self):
         response = self.post(post_data={'foo': 'bar'})
         self.assertContains(response, "The setting could not be saved due to errors.")
@@ -140,10 +131,9 @@ class TestMultiSite(BaseTestSettingView):
         """
         Should redirect to the setting for the default site.
         """
-        start_url = reverse('wagtailsettings:edit', args=[
-            'tests', 'testsetting'])
-        dest_url = 'http://testserver' + reverse('wagtailsettings:edit', args=[
-            'tests', 'testsetting', self.default_site.pk])
+        start_url = reverse('tests_testsetting_setting_edit')
+        dest_url = 'http://testserver' + reverse(
+            'tests_testsetting_setting_edit', args=[self.default_site.pk])
         response = self.client.get(start_url, follow=True)
         self.assertRedirects(response, dest_url, status_code=302, fetch_redirect_response=False)
 
@@ -152,10 +142,9 @@ class TestMultiSite(BaseTestSettingView):
         Should redirect to the setting for the current site taken from the URL,
         by default
         """
-        start_url = reverse('wagtailsettings:edit', args=[
-            'tests', 'testsetting'])
-        dest_url = 'http://example.com' + reverse('wagtailsettings:edit', args=[
-            'tests', 'testsetting', self.other_site.pk])
+        start_url = reverse('tests_testsetting_setting_edit')
+        dest_url = 'http://example.com' + reverse(
+            'tests_testsetting_setting_edit', args=[self.other_site.pk])
         response = self.client.get(start_url, follow=True, HTTP_HOST=self.other_site.hostname)
         self.assertRedirects(response, dest_url, status_code=302, fetch_redirect_response=False)
 
@@ -166,8 +155,7 @@ class TestMultiSite(BaseTestSettingView):
         self.default_site.is_default_site = False
         self.default_site.save()
 
-        start_url = reverse('wagtailsettings:edit', args=[
-            'tests', 'testsetting'])
+        start_url = reverse('tests_testsetting_setting_edit')
         response = self.client.get(start_url, follow=True, HTTP_HOST="noneoftheabove.example.com")
         self.assertEqual(302, response.redirect_chain[0][1])
 
@@ -219,32 +207,3 @@ class TestAdminPermission(TestCase, WagtailTestUtils):
                 break
         else:
             self.fail('Change permission for tests.TestSetting not registered')
-
-
-class TestEditHandlers(TestCase):
-    def setUp(self):
-        get_setting_edit_handler.cache_clear()
-
-    def test_default_model_introspection(self):
-        handler = get_setting_edit_handler(TestSetting)
-        self.assertEqual(handler.__name__, '_ObjectList')
-        self.assertEqual(len(handler.children), 2)
-        first = handler.children[0]
-        self.assertEqual(first.__name__, '_FieldPanel')
-        self.assertEqual(first.field_name, 'title')
-        second = handler.children[1]
-        self.assertEqual(second.__name__, '_FieldPanel')
-        self.assertEqual(second.field_name, 'email')
-
-    def test_with_custom_panels(self):
-        handler = get_setting_edit_handler(PanelSettings)
-        self.assertEqual(handler.__name__, '_ObjectList')
-        self.assertEqual(len(handler.children), 1)
-        first = handler.children[0]
-        self.assertEqual(first.__name__, '_FieldPanel')
-        self.assertEqual(first.field_name, 'title')
-
-    def test_with_custom_edit_handler(self):
-        handler = get_setting_edit_handler(TabbedSettings)
-        self.assertEqual(handler.__name__, '_TabbedInterface')
-        self.assertEqual(len(handler.children), 2)

@@ -45,7 +45,7 @@ class SettingAdmin(WagtailRegisterable):
         """
         A shortcut for making a SettingAdmin subclass for a setting model.
         """
-        name = '{}SettingAdmin'.format(setting.__name__)
+        name = str('{}SettingAdmin'.format(setting.__name__))
         bases = (cls,)
         attrs.update({'model': setting})
 
@@ -101,7 +101,7 @@ class SettingAdmin(WagtailRegisterable):
         return self.menu_order
 
     def get_menu_label(self):
-        return self.menu_label or capfirst(self.opts.verbose_name_plural.title())
+        return self.menu_label or capfirst(self.opts.verbose_name_plural)
 
     def get_menu_item(self, order=None):
         return SettingMenuItem(self, order=order or self.get_menu_order())
@@ -133,3 +133,6 @@ class SettingAdmin(WagtailRegisterable):
         model.
         """
         return self.button_helper_class
+
+    def modify_explorer_page_queryset(self, parent_page, queryset, request):
+        return queryset

@@ -65,6 +65,9 @@ class SettingEditView(ModelFormView):
         return _("{setting_type} updated.").format(
             setting_type=capfirst(self.verbose_name))
 
+    def get_error_message(self):
+        return _("The setting could not be saved due to errors.")
+
     def get_success_url(self):
         """
         Redirect the user back to this view when they hit save.
