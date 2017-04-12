@@ -85,4 +85,8 @@ class TestFilesDeletedForCustomModels(TestFilesDeletedForDefaultModels):
         #: We will re-attach them here to mimic the django startup behavior
         #: and get the signals connected to our custom model..
         signal_handlers.register_signal_handlers()
+
+    def test_image_model(self):
+        cls = get_image_model()
+        self.assertEqual('%s.%s' % (cls._meta.app_label, cls.__name__), 'tests.CustomImage')
     
