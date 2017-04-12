@@ -3,10 +3,11 @@ from __future__ import absolute_import, unicode_literals
 from wagtail.contrib.modeladmin.options import (
     ModelAdmin, ModelAdminGroup, ThumbnailMixin, modeladmin_register)
 from wagtail.contrib.modeladmin.views import CreateView
+from wagtail.contrib.settings.options import SettingAdmin
 from wagtail.tests.testapp.models import BusinessChild, EventPage, SingleEventPage
 
 from .forms import PublisherModelAdminForm
-from .models import Author, Book, Publisher, Token, VenuePage
+from .models import Author, Book, EventDisplayOptions, Publisher, Token, VenuePage
 
 
 class AuthorModelAdmin(ModelAdmin):
@@ -95,8 +96,14 @@ class VenuePageAdmin(ModelAdmin):
 
 class EventsAdminGroup(ModelAdminGroup):
     menu_label = "Events"
-    items = (EventPageAdmin, SingleEventPageAdmin, VenuePageAdmin)
+    items = (
+        EventPageAdmin,
+        SingleEventPageAdmin,
+        VenuePageAdmin,
+        SettingAdmin.for_setting(EventDisplayOptions, menu_icon='date'),
+    )
     menu_order = 500
+    menu_icon = 'date'
 
 
 class BusinessChildAdmin(ModelAdmin):

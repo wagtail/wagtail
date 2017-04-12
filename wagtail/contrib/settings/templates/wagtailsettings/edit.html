@@ -1,15 +1,18 @@
 {% extends "wagtailadmin/base.html" %}
 {% load i18n %}
-{% block titletag %}{% blocktrans %}Editing {{ setting_type_name}} - {{ instance }}{% endblocktrans %}{% endblock %}
+
+{% block titletag %}{{ view.get_meta_title }}{% endblock %}
+
 {% block bodyclass %}menu-settings{% endblock %}
 {% block content %}
-    <header class="nice-padding {% if tabbed %}merged tab-merged{% endif %}">
+
+    <header class="nice-padding merged tab-merged">
         <div class="row">
             <div class="left">
                 <div class="col">
-                    <h1 class="icon icon-cogs">
-                        {% trans "Editing" %}
-                        <span>{{ setting_type_name|capfirst }}</span>
+                    <h1 class="icon icon-{{ view.header_icon }}">
+                        {{ view.get_page_title }}
+                        <span>{{ view.get_page_subtitle }}</span>
                     </h1>
                 </div>
             </div>
@@ -26,7 +29,7 @@
         </div>
     </header>
 
-    <form action="{% url 'wagtailsettings:edit' opts.app_label opts.model_name site.pk %}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
+    <form action="{{ edit_url }}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
         {% csrf_token %}
         {{ edit_handler.render_form_content }}
 

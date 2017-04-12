@@ -1,12 +1,16 @@
 from __future__ import absolute_import, unicode_literals
 
+from django.contrib.admin.utils import quote, unquote
 from django.core.exceptions import PermissionDenied
+from django.core.urlresolvers import reverse
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
+from django.utils.functional import cached_property
 from django.utils.lru_cache import lru_cache
 from django.utils.text import capfirst
 from django.utils.translation import ugettext as _
 
+from wagtail.contrib.modeladmin.views import ModelFormView
 from wagtail.wagtailadmin import messages
 from wagtail.wagtailadmin.edit_handlers import (
     ObjectList, extract_panel_definitions_from_model_class)
@@ -14,80 +18,73 @@ from wagtail.wagtailcore.models import Site
 
 from .forms import SiteSwitchForm
 from .permissions import user_can_edit_setting_type
-from .registry import registry
 
 
-def get_model_from_url_params(app_name, model_name):
-    """
-    retrieve a content type from an app_name / model_name combo.
-    Throw Http404 if not a valid setting type
-    """
-    model = registry.get_by_natural_key(app_name, model_name)
-    if model is None:
-        raise Http404
-    return model
+class SettingEditView(ModelFormView):
+    site_pk = None
 
+    def __init__(self, model_admin, site_pk):
+        super(ModelFormView, self).__init__(model_admin)
+        self.site_pk = unquote(site_pk)
+        self.pk_quoted = quote(self.site_pk)
 
-@lru_cache()
-def get_setting_edit_handler(model):
-    if hasattr(model, 'edit_handler'):
-        return model.edit_handler.bind_to_model(model)
-    panels = extract_panel_definitions_from_model_class(model, ['site'])
-    return ObjectList(panels).bind_to_model(model)
+        # Get the site from the URL, and then find a setting for it
+        self.site = get_object_or_404(Site, pk=self.site_pk)
+        try:
+            self.instance = self.model.objects.get(site=self.site)
+        except self.model.DoesNotExist:
+            self.instance = self.model(site=self.site)
 
+    def get_page_subtitle(self):
+        """
+        Subtitle for setting edit view. If there are multiple sites, the site
+        name is used as the subtitle, otherwise it is blank.
+        """
+        if Site.objects.count() > 1:
+            return self.site.site_name or self.site.hostname
+        return ''
 
-def edit_current_site(request, app_name, model_name):
-    # Redirect the user to the edit page for the current site
-    # (or the current request does not correspond to a site, the first site in the list)
-    site = request.site or Site.objects.first()
-    return redirect('wagtailsettings:edit', app_name, model_name, site.pk)
+    def get_context_data(self, **kwargs):
+        """
+        Context data for the setting edit view. Extends
+        :meth:`ModelFormView.get_context_data` with a SiteSwitcher form if
+        there is more than one site
+        """
+        site_switcher = None
+        if Site.objects.count() > 1:
+            site_switcher = SiteSwitchForm(
+                self.site, self.model, self.model_admin.edit_url_name)
 
+        context = {
+            'site_switcher': site_switcher,
+            'edit_url': reverse(self.model_admin.edit_url_name,
+                                kwargs={'site_pk': self.site.pk})
+        }
+        context.update(kwargs)
 
-def edit(request, app_name, model_name, site_pk):
-    model = get_model_from_url_params(app_name, model_name)
-    if not user_can_edit_setting_type(request.user, model):
-        raise PermissionDenied
-    site = get_object_or_404(Site, pk=site_pk)
+        return super(SettingEditView, self).get_context_data(**context)
 
-    setting_type_name = model._meta.verbose_name
+    def get_success_message_buttons(self, instance):
+        # No buttons in the message, as the user stays on the page on success.
+        return []
 
-    instance = model.for_site(site)
-    edit_handler_class = get_setting_edit_handler(model)
-    form_class = edit_handler_class.get_form_class(model)
+    def get_success_message(self, instance):
+        return _("{setting_type} updated.").format(
+            setting_type=capfirst(self.verbose_name))
 
-    if request.method == 'POST':
-        form = form_class(request.POST, request.FILES, instance=instance)
+    def get_success_url(self):
+        """
+        Redirect the user back to this view when they hit save.
+        """
+        return reverse(self.model_admin.edit_url_name, kwargs={
+            'site_pk': self.get_instance().site.pk})
 
-        if form.is_valid():
-            form.save()
+    def get_instance(self):
+        return self.instance
 
-            messages.success(
-                request,
-                _("{setting_type} updated.").format(
-                    setting_type=capfirst(setting_type_name),
-                    instance=instance
-                )
-            )
-            return redirect('wagtailsettings:edit', app_name, model_name, site.pk)
-        else:
-            messages.error(request, _("The setting could not be saved due to errors."))
-            edit_handler = edit_handler_class(instance=instance, form=form)
-    else:
-        form = form_class(instance=instance)
-        edit_handler = edit_handler_class(instance=instance, form=form)
+    def get_template_names(self):
+        return self.model_admin.get_edit_template()
 
-    # Show a site switcher form if there are multiple sites
-    site_switcher = None
-    if Site.objects.count() > 1:
-        site_switcher = SiteSwitchForm(site, model)
-
-    return render(request, 'wagtailsettings/edit.html', {
-        'opts': model._meta,
-        'setting_type_name': setting_type_name,
-        'instance': instance,
-        'edit_handler': edit_handler,
-        'form': form,
-        'site': site,
-        'site_switcher': site_switcher,
-        'tabbed': edit_handler_class.__name__ == '_TabbedInterface',
-    })
+    @cached_property
+    def header_icon(self):
+        return self.menu_icon
