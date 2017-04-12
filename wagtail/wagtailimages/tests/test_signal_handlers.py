@@ -56,15 +56,19 @@ class TestFilesDeletedForDefaultModels(TransactionTestCase):
     # https://docs.djangoproject.com/en/1.10/topics/testing/overview/#rollback-emulation
     serialized_rollback = True
     
-    def test_image_file_deleted(self):
-        image = get_image_model().objects.create(title="Test Image", file=get_test_image_file())
-        self.assertTrue(image.file.storage.exists(image.file.name))
-        image.delete()
+    def test_image_file_deleted_oncommit(self):
+        with transaction.atomic():
+            image = get_image_model().objects.create(title="Test Image", file=get_test_image_file())
+            self.assertTrue(image.file.storage.exists(image.file.name))
+            image.delete()
+            self.assertTrue(image.file.storage.exists(image.file.name))
         self.assertFalse(image.file.storage.exists(image.file.name))
     
-    def test_rendition_file_deleted(self):
-        image = get_image_model().objects.create(title="Test Image", file=get_test_image_file())
-        rendition = image.get_rendition('original')
-        self.assertTrue(rendition.file.storage.exists(rendition.file.name))
-        rendition.delete()
+    def test_rendition_file_deleted_oncommit(self):
+        with transaction.atomic():
+            image = get_image_model().objects.create(title="Test Image", file=get_test_image_file())
+            rendition = image.get_rendition('original')
+            self.assertTrue(rendition.file.storage.exists(rendition.file.name))
+            rendition.delete()
+            self.assertTrue(rendition.file.storage.exists(rendition.file.name))
         self.assertFalse(rendition.file.storage.exists(rendition.file.name))
