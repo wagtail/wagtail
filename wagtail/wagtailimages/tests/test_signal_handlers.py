@@ -57,11 +57,9 @@ class TestFilesDeletedForDefaultModels(TransactionTestCase):
     serialized_rollback = True
     
     def test_image_file_deleted(self):
-        with transaction.atomic():
-            image = get_image_model().objects.create(title="Test Image", file=get_test_image_file())
+        image = get_image_model().objects.create(title="Test Image", file=get_test_image_file())
         self.assertTrue(image.file.storage.exists(image.file.name))
-        with transaction.atomic():
-            image.delete()
+        image.delete()
         self.assertFalse(image.file.storage.exists(image.file.name))
     
     def test_rendition_file_deleted(self):
