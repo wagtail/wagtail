@@ -468,7 +468,7 @@ class ElasticsearchSearchResults(BaseSearchResults):
 
             while True:
                 if len(page['hits']['hits']) == 0:
-                    return
+                    break
 
                 # Get pks from results
                 pks = [hit['fields']['pk'][0] for hit in page['hits']['hits']]
@@ -494,13 +494,20 @@ class ElasticsearchSearchResults(BaseSearchResults):
                             limit -= 1
 
                             if limit == 0:
-                                return
+                                break
+
+                if limit is not None and limit == 0:
+                    break
 
                 # Fetch next page of results
                 if '_scroll_id' not in page:
-                    return
+                    break
 
                 page = self.backend.es.scroll(scroll_id=page['_scroll_id'], scroll='2m')
+
+            # Clear the scroll
+            if '_scroll_id' in page:
+                self.backend.es.clear_scroll(scroll_id=page['_scroll_id'])
         else:
             params.update({
                 'size': limit or PAGE_SIZE,
