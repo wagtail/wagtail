@@ -1,19 +1,22 @@
 pipeline:
   lint_python:
     image: python:3.5
+    group: lint
     commands:
       - XDG_CACHE_HOME=/drone/pip-cache pip install wheel
       - XDG_CACHE_HOME=/drone/pip-cache pip install -e .[testing]
       - flake8 wagtail
       - isort --check-only --diff --recursive wagtail
-  js:
+  lint_js:
     image: node:4.2.4
+    group: lint
     commands:
       - npm install --quiet
       - npm run lint
       - npm run test:unit
-  scss-lint:
+  lint_scss:
     image: torchbox/scss-lint
+    group: lint
     commands:
       - scss-lint
   unittest:
