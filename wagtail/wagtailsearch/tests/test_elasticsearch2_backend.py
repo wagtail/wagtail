@@ -427,7 +427,6 @@ class TestElasticsearch2SearchResults(TestCase):
             _source=False,
             fields='pk',
             index='wagtail__searchtests_book',
-            scroll='2m',
             size=1
         )
 
@@ -444,7 +443,6 @@ class TestElasticsearch2SearchResults(TestCase):
             _source=False,
             fields='pk',
             index='wagtail__searchtests_book',
-            scroll='2m',
             size=3
         )
 
@@ -461,7 +459,6 @@ class TestElasticsearch2SearchResults(TestCase):
             _source=False,
             fields='pk',
             index='wagtail__searchtests_book',
-            scroll='2m',
             size=10
         )
 
@@ -479,7 +476,6 @@ class TestElasticsearch2SearchResults(TestCase):
             _source=False,
             fields='pk',
             index='wagtail__searchtests_book',
-            scroll='2m',
             size=1
         )
 
