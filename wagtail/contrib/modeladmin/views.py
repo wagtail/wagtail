@@ -24,6 +24,7 @@ from django.template.defaultfilters import filesizeformat
 from django.utils import six
 from django.utils.decorators import method_decorator
 from django.utils.encoding import force_text
+from django.utils.functional import cached_property
 from django.utils.http import urlencode
 from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
@@ -58,7 +59,6 @@ class WMABaseView(TemplateView):
         self.verbose_name_plural = force_text(self.opts.verbose_name_plural)
         self.pk_attname = self.opts.pk.attname
         self.is_pagemodel = model_admin.is_pagemodel
-        self.permission_helper = model_admin.permission_helper
         self.url_helper = model_admin.url_helper
 
     def check_action_permitted(self, user):
@@ -68,12 +68,6 @@ class WMABaseView(TemplateView):
         if not self.check_action_permitted(request.user):
             raise PermissionDenied
 
-    @method_decorator(login_required)
-    def dispatch(self, request, *args, **kwargs):
-        button_helper_class = self.model_admin.get_button_helper_class()
-        self.button_helper = button_helper_class(self, request)
-        return super(WMABaseView, self).dispatch(request, *args, **kwargs)
-
     def get(self, request, *args, **kwargs):
         self.deny_request_if_appropriate(request)
         return super(WMABaseView, self).get(request, *args, **kwargs)
@@ -81,6 +75,14 @@ class WMABaseView(TemplateView):
     def post(self, request, *args, **kwargs):
         self.deny_request_if_appropriate(request)
         return super(WMABaseView, self).post(request, *args, **kwargs)
+
+    @cached_property
+    def button_helper(self):
+        return self.model_admin.get_button_helper_class()(self, self.request)
+
+    @property
+    def permission_helper(self):
+        return self.model_admin.permission_helper
 
     @property
     def menu_icon(self):
@@ -200,6 +202,23 @@ class InstanceSpecificView(WMABaseView, SingleObjectMixin):
     pk_url_kwarg = 'instance_pk'
     context_object_name = 'instance'
 
+    def get_instance(self):
+        """
+        Return an instance of self.model, identified by URL parameters for the
+        current request. Will raise a 404 if no match is found.
+        """
+        # return a cached instance if it has already been fetched
+        self._instance = getattr(self, '_instance', self.get_object())
+        return self._instance
+
+    def get_object(self):
+        # Views should always call get_instance(), but this method should
+        # behave correctly if used by developers. We just need to unquote the
+        # 'pk_url_kwarg' value before calling super()
+        kwarg_key = self.pk_url_kwarg
+        self.kwargs[kwarg_key] = unquote(self.kwargs.get(kwarg_key))
+        return super(InstanceSpecificView, self).get_object()
+
     def get(self, request, *args, **kwargs):
         self.instance = self.object = self.get_instance()
         return super(InstanceSpecificView, self).get(request, *args, **kwargs)
@@ -208,21 +227,12 @@ class InstanceSpecificView(WMABaseView, SingleObjectMixin):
         self.instance = self.object = self.get_instance()
         return super(InstanceSpecificView, self).post(request, *args, **kwargs)
 
+    def get_page_subtitle(self):
+        return self.get_instance()
+
     @property
     def pk_quoted(self):
         return quote(self.kwargs.get(self.pk_url_kwarg))
-
-    def get_object(self):
-        # unquote the 'pk_url_kwarg' value before calling get_object()
-        kwarg_key = self.pk_url_kwarg
-        self.kwargs[kwarg_key] = unquote(self.kwargs.get(kwarg_key))
-        return super(InstanceSpecificView, self).get_object()
-
-    def get_instance(self):
-        return self.get_object()
-
-    def get_page_subtitle(self):
-        return self.get_instance()
 
     @property
     def edit_url(self):
@@ -742,7 +752,7 @@ class EditView(InstanceSpecificView, ModelFormView):
     def get_context_data(self, **kwargs):
         context = {
             'user_can_delete': self.permission_helper.user_can_delete_obj(
-                self.request.user, self.instance)
+                self.request.user, self.get_instance())
         }
         context.update(kwargs)
         return super(EditView, self).get_context_data(**context)
@@ -755,35 +765,28 @@ class EditView(InstanceSpecificView, ModelFormView):
         return self.model_admin.get_edit_template()
 
 
-class ChooseParentView(WMABaseView):
+class ChooseParentView(FormView, WMABaseView):
+
+    form_class = ParentChooserForm
 
     def check_action_permitted(self, user):
         return self.permission_helper.user_can_create(user)
 
-    def get(self, request, *args, **kwargs):
-        form = self.get_form(request)
-        return self.render_to_response(self.get_context_data(form=form))
-
-    def post(self, request, *args, **kargs):
-        form = self.get_form(request)
-        if form.is_valid():
-            return self.form_valid(form)
-        return self.form_invalid(form)
+    def get_form_kwargs(self):
+        kwargs = super(ChooseParentView, self).get_form_kwargs()
+        kwargs.update({
+            'valid_parents_qs': self.permission_helper.get_valid_parent_pages(
+                self.request.user)
+        })
+        return kwargs
 
     def get_page_title(self):
         return _('Add %s') % self.verbose_name
-
-    def get_form(self, request):
-        parents = self.permission_helper.get_valid_parent_pages(request.user)
-        return ParentChooserForm(parents, request.POST or None)
 
     def form_valid(self, form):
         parent_pk = quote(form.cleaned_data['parent_page'].pk)
         return redirect(self.url_helper.get_action_url(
             'add', self.app_label, self.model_name, parent_pk))
-
-    def form_invalid(self, form):
-        return self.render_to_response(self.get_context_data(form=form))
 
     def get_template_names(self):
         return self.model_admin.get_choose_parent_template()
@@ -804,9 +807,9 @@ class DeleteView(InstanceSpecificView):
 
     def post(self, request, *args, **kwargs):
         self.deny_request_if_appropriate(request)
-        self.instance = self.object = self.get_instance()
         if self.is_pagemodel:
             return redirect(self.delete_url)
+        self.instance = self.object = self.get_instance()
         try:
             msg = _("{model} '{instance}' deleted.").format(
                 model=self.verbose_name, instance=self.instance)
@@ -850,7 +853,7 @@ class InspectView(InstanceSpecificView):
     page_title = _('Inspecting')
 
     def check_action_permitted(self, user):
-        return self.permission_helper.user_can_inspect_obj(user, self.instance)
+        return self.permission_helper.user_can_inspect_obj(user, self.get_instance())
 
     @property
     def media(self):
