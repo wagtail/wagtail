@@ -791,6 +791,12 @@ class ChooseParentView(FormView, WMABaseView):
         })
         return kwargs
 
+    def get_context_data(self, **kwargs):
+        # Django 1.8 doesn't seem to work without this here
+        if 'form' not in kwargs:
+            kwargs['form'] = self.get_form()
+        return super(ChooseParentView, self).get_context_data(**kwargs)
+
     def get_page_title(self):
         return _('Add %s') % self.verbose_name
 
