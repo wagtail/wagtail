@@ -258,7 +258,7 @@ class IndexView(WMABaseView):
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
         # Only continue if logged in user has list permission
-        self.deny_request_if_appropriate(request)
+        self.deny_request_if_not_permitted(request)
 
         self.list_display = self.model_admin.get_list_display(request)
         self.list_filter = self.model_admin.get_list_filter(request)
@@ -696,7 +696,7 @@ class CreateView(ModelFormView):
         return self.permission_helper.user_can_create(user)
 
     def get(self, request, *args, **kwargs):
-        self.deny_request_if_appropriate(request)
+        self.deny_request_if_not_permitted(request)
         if self.is_pagemodel:
             parents = self.permission_helper.get_valid_parent_pages(
                 request.user)
@@ -731,13 +731,13 @@ class EditView(InstanceSpecificView, ModelFormView):
             user, self.get_instance())
 
     def get(self, request, *args, **kwargs):
-        self.deny_request_if_appropriate(request)
+        self.deny_request_if_not_permitted(request)
         if self.is_pagemodel:
             return redirect(self.edit_url)
         return super(EditView, self).get(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        self.deny_request_if_appropriate(request)
+        self.deny_request_if_not_permitted(request)
         if self.is_pagemodel:
             return redirect(self.edit_url)
         return super(EditView, self).post(request, *args, **kwargs)
@@ -800,13 +800,13 @@ class DeleteView(InstanceSpecificView):
             user, self.get_instance())
 
     def get(self, request, *args, **kwargs):
-        self.deny_request_if_appropriate(request)
+        self.deny_request_if_not_permitted(request)
         if self.is_pagemodel:
             return redirect(self.delete_url)
         return super(DeleteView, self).get(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        self.deny_request_if_appropriate(request)
+        self.deny_request_if_not_permitted(request)
         if self.is_pagemodel:
             return redirect(self.delete_url)
         self.instance = self.object = self.get_instance()
