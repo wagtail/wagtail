@@ -447,28 +447,71 @@ class ElasticsearchSearchResults(BaseSearchResults):
         else:
             limit = None
 
-        # Params for elasticsearch query
-        params = dict(
-            index=self.backend.get_index_for_model(self.query.queryset.model).name,
-            body=self._get_es_body(),
-            _source=False,
-            from_=self.start,
-            scroll='2m',
-            size=min(limit or PAGE_SIZE, PAGE_SIZE),
-        )
+        use_scroll = limit is None or limit > PAGE_SIZE
 
-        params[self.fields_param_name] = 'pk'
+        params = {
+            'index': self.backend.get_index_for_model(self.query.queryset.model).name,
+            'body': self._get_es_body(),
+            '_source': False,
+            'from_': self.start,
+            self.fields_param_name: 'pk',
+        }
 
-        # Send to Elasticsearch
-        page = self.backend.es.search(**params)
+        if use_scroll:
+            params.update({
+                'scroll': '2m',
+                'size': PAGE_SIZE,
+            })
 
-        while True:
-            if len(page['hits']['hits']) == 0:
-                return
+            # Send to Elasticsearch
+            page = self.backend.es.search(**params)
+
+            while True:
+                if len(page['hits']['hits']) == 0:
+                    return
+
+                # Get pks from results
+                pks = [hit['fields']['pk'][0] for hit in page['hits']['hits']]
+                scores = {str(hit['fields']['pk'][0]): hit['_score'] for hit in page['hits']['hits']}
+
+                # Initialise results dictionary
+                results = dict((str(pk), None) for pk in pks)
+
+                # Find objects in database and add them to dict
+                queryset = self.query.queryset.filter(pk__in=pks)
+                for obj in queryset:
+                    results[str(obj.pk)] = obj
+
+                    if self._score_field:
+                        setattr(obj, self._score_field, scores.get(str(obj.pk)))
+
+                # Yield results in order given by Elasticsearch
+                for pk in pks:
+                    if results[str(pk)]:
+                        yield results[str(pk)]
+
+                        if limit is not None:
+                            limit -= 1
+
+                            if limit == 0:
+                                return
+
+                # Fetch next page of results
+                if '_scroll_id' not in page:
+                    return
+
+                page = self.backend.es.scroll(scroll_id=page['_scroll_id'], scroll='2m')
+        else:
+            params.update({
+                'size': limit or PAGE_SIZE,
+            })
+
+            # Send to Elasticsearch
+            hits = self.backend.es.search(**params)
 
             # Get pks from results
-            pks = [hit['fields']['pk'][0] for hit in page['hits']['hits']]
-            scores = {str(hit['fields']['pk'][0]): hit['_score'] for hit in page['hits']['hits']}
+            pks = [hit['fields']['pk'][0] for hit in hits['hits']['hits']]
+            scores = {str(hit['fields']['pk'][0]): hit['_score'] for hit in hits['hits']['hits']}
 
             # Initialise results dictionary
             results = dict((str(pk), None) for pk in pks)
@@ -485,18 +528,6 @@ class ElasticsearchSearchResults(BaseSearchResults):
             for pk in pks:
                 if results[str(pk)]:
                     yield results[str(pk)]
-
-                    if limit is not None:
-                        limit -= 1
-
-                        if limit == 0:
-                            return
-
-            # Fetch next page of results
-            if '_scroll_id' not in page:
-                return
-
-            page = self.backend.es.scroll(scroll_id=page['_scroll_id'], scroll='2m')
 
     def _do_count(self):
         # Get count
