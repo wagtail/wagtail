@@ -64,16 +64,16 @@ class WMABaseView(TemplateView):
     def check_action_permitted(self, user):
         return True
 
-    def deny_request_if_appropriate(self, request):
+    def deny_request_if_not_permitted(self, request):
         if not self.check_action_permitted(request.user):
             raise PermissionDenied
 
     def get(self, request, *args, **kwargs):
-        self.deny_request_if_appropriate(request)
+        self.deny_request_if_not_permitted(request)
         return super(WMABaseView, self).get(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        self.deny_request_if_appropriate(request)
+        self.deny_request_if_not_permitted(request)
         return super(WMABaseView, self).post(request, *args, **kwargs)
 
     @cached_property
