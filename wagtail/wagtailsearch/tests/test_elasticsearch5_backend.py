@@ -20,12 +20,6 @@ from .test_backends import BackendTests
 class TestElasticsearch5SearchBackend(BackendTests, ElasticsearchCommonSearchBackendTests, TestCase):
     backend_path = 'wagtail.wagtailsearch.backends.elasticsearch5'
 
-    # TODO: we have to put [:100] on the end of the query due to issue #3431
-    def test_search_all(self):
-        # Searches on None should return everything in the index
-        results = self.backend.search(None, models.Book)[:100]
-        self.assertSetEqual(set(results), set(models.Book.objects.all()))
-
     # Broken
     @unittest.expectedFailure
     def test_filter_isnull_true(self):
@@ -45,20 +39,6 @@ class TestElasticsearch5SearchBackend(BackendTests, ElasticsearchCommonSearchBac
     @unittest.expectedFailure
     def test_delete(self):
         super(TestElasticsearch5SearchBackend, self).test_delete()
-
-    def test_more_than_ten_results(self):
-        # #3431 reported that Elasticsearch only sends back 10 results if the results set is not sliced
-        for i in range(20):
-            a = models.SearchTest()
-            a.title = "Hello World {}".format(i)
-            a.save()
-            self.backend.add(a)
-
-        self.refresh_index()
-
-        results = self.backend.search("Hello", models.SearchTest)
-
-        self.assertEqual(len(results), 23)
 
 
 class TestElasticsearch5SearchQuery(TestCase):

@@ -126,3 +126,34 @@ class ElasticsearchCommonSearchBackendTests(object):
 
         for result in results:
             self.assertIsInstance(result._score, float)
+
+    def test_more_than_ten_results(self):
+        # #3431 reported that Elasticsearch only sends back 10 results if the results set is not sliced
+        results = self.backend.search(None, models.Book)
+
+        self.assertEqual(len(results), 13)
+
+    def test_more_than_one_hundred_results(self):
+        # Tests that fetching more than 100 results uses the scroll API
+        books = []
+        for i in range(150):
+            books.append(models.Book.objects.create(title="Book {}".format(i), publication_date=date(2017, 10, 21), number_of_pages=i))
+
+        index = self.backend.get_index_for_model(models.Book)
+        index.add_items(models.Book, books)
+        index.refresh()
+
+        results = self.backend.search(None, models.Book)
+        self.assertEqual(len(results), 163)
+
+    def test_slice_more_than_one_hundred_results(self):
+        books = []
+        for i in range(150):
+            books.append(models.Book.objects.create(title="Book {}".format(i), publication_date=date(2017, 10, 21), number_of_pages=i))
+
+        index = self.backend.get_index_for_model(models.Book)
+        index.add_items(models.Book, books)
+        index.refresh()
+
+        results = self.backend.search(None, models.Book)[10:120]
+        self.assertEqual(len(results), 110)
