@@ -861,8 +861,10 @@ class TestDocumentFilenameProperties(TestCase):
         self.assertEqual('', self.extensionless_document.file_extension)
 
     def tearDown(self):
-        self.document.delete()
-        self.extensionless_document.delete()
+        # delete the FieldFile directly because the TestCase does not commit
+        # transactions to trigger transaction.on_commit() in the signal handler
+        self.document.file.delete()
+        self.extensionless_document.file.delete()
 
 
 class TestUsageCount(TestCase, WagtailTestUtils):
