@@ -847,14 +847,14 @@ class TestDocumentChooserUploadViewWithLimitedPermissions(TestCase, WagtailTestU
 class TestDocumentFilenameProperties(TestCase):
     def setUp(self):
         self.document = models.Document(title="Test document")
-        self.document.file.save('unique-example.doc', ContentFile("A boring example document"))
+        self.document.file.save('example.doc', ContentFile("A boring example document"))
 
         self.extensionless_document = models.Document(title="Test document")
-        self.extensionless_document.file.save('unique-example', ContentFile("A boring example document"))
+        self.extensionless_document.file.save('example', ContentFile("A boring example document"))
 
     def test_filename(self):
-        self.assertEqual('unique-example.doc', self.document.filename)
-        self.assertEqual('unique-example', self.extensionless_document.filename)
+        self.assertEqual('example.doc', self.document.filename)
+        self.assertEqual('example', self.extensionless_document.filename)
 
     def test_file_extension(self):
         self.assertEqual('doc', self.document.file_extension)
