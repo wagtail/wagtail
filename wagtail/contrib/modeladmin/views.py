@@ -198,9 +198,16 @@ class ModelFormView(WMABaseView, FormView):
 
 
 class InstanceSpecificView(WMABaseView, SingleObjectMixin):
-
+    instance_pk = None
     pk_url_kwarg = 'instance_pk'
     context_object_name = 'instance'
+
+    def __init__(self, model_admin, instance_pk=None):
+        super(InstanceSpecificView, self).__init__(model_admin)
+        # For backwards compatibility, store instance_pk if passed here. But
+        # it should be passed in along with `request` and other url kwargs.
+        self.instance_pk = instance_pk
+        # TODO: Add deprecation warning when `instance_pk` is not `None`
 
     def get_instance(self):
         """
@@ -213,10 +220,14 @@ class InstanceSpecificView(WMABaseView, SingleObjectMixin):
 
     def get_object(self):
         # Views should always call get_instance(), but this method should
-        # behave correctly if used by developers. We just need to unquote the
-        # 'pk_url_kwarg' value before calling super()
+        # behave correctly if used by developers.
         kwarg_key = self.pk_url_kwarg
-        self.kwargs[kwarg_key] = unquote(self.kwargs.get(kwarg_key))
+        # We need to unquote the primary key value regardless. The value we
+        # need should be present in `self.kwargs` if passed in correctly, or
+        # it could have been passed in the old way as an __init__() arg.
+        self.kwargs[kwarg_key] = unquote(
+            self.kwargs.get(kwarg_key, self.instance_pk)
+        )
         return super(InstanceSpecificView, self).get_object()
 
     def get(self, request, *args, **kwargs):
