@@ -114,7 +114,6 @@ class WMABaseView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = {
-            'view': self,
             'meta_title': self.get_meta_title(),
             'page_title': self.get_page_title(),
             'page_subtitle': self.get_page_subtitle(),
