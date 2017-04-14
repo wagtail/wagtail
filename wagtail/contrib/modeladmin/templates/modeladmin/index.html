@@ -1,7 +1,7 @@
 {% extends "wagtailadmin/base.html" %}
 {% load i18n modeladmin_tags %}
 
-{% block titletag %}{{ view.get_meta_title }}{% endblock %}
+{% block titletag %}{{ meta_title }}{% endblock %}
 
 {% block css %}
     {{ block.super }}
@@ -18,7 +18,7 @@
             <div class="row">
                 <div class="left">
                     <div class="col">
-                        {% block h1 %}<h1 {% if view.header_icon %}class="icon icon-{{ view.header_icon }}"{% endif %}>{{ view.get_page_title }}<span></span></h1>{% endblock %}
+                        {% block h1 %}<h1 {% if header_icon %}class="icon icon-{{ header_icon }}"{% endif %}>{{ title }}<span></span></h1>{% endblock %}
                     </div>
                     {% block search %}{% search_form %}{% endblock %}
                 </div>
@@ -54,12 +54,12 @@
                             {% if not all_count %}
                                 <div class="nice-padding" style="margin-top:30px;">
                                     {% if no_valid_parents %}
-                                        <p>{% blocktrans with view.verbose_name_plural as name %}No {{ name }} have been created yet. One of the following must be created before you can add any {{ name }}:{% endblocktrans %}</p>
+                                        <p>{% blocktrans with model_name_plural as name %}No {{ name }} have been created yet. One of the following must be created before you can add any {{ name }}:{% endblocktrans %}</p>
                                         <ul>
                                             {% for type in required_parent_types %}<li><b>{{ type|title }}</b></li>{% endfor %}
                                         </ul>
                                     {% else %}
-                                        <p>{% blocktrans with view.verbose_name_plural as name %}No {{ name }} have been created yet.{% endblocktrans %}
+                                        <p>{% blocktrans with model_name_plural as name %}No {{ name }} have been created yet.{% endblocktrans %}
                                         {% if user_can_create %}
                                             {% blocktrans with view.create_url as url %}
                                                 Why not <a href="{{ url }}">add one</a>?

@@ -1,7 +1,7 @@
 {% extends "wagtailadmin/base.html" %}
 {% load i18n admin_static %}
 
-{% block titletag %}{{ view.get_meta_title }}{% endblock %}
+{% block titletag %}{{ meta_title }}{% endblock %}
 
 {% block extra_css %}
     {% include "wagtailadmin/pages/_editor_css.html" %}
@@ -18,12 +18,12 @@
 
     {% block header %}
         {% include "modeladmin/includes/breadcrumb.html" %}
-        {% include "wagtailadmin/shared/header.html" with title=view.get_page_title subtitle=view.get_page_subtitle icon=view.header_icon %}
+        {% include "wagtailadmin/shared/header.html" with icon=header_icon %}
     {% endblock %}
 
     <div class="nice-padding">
         <h2>{% blocktrans %}Choose a parent page{% endblocktrans %}</h2>
-        <p>{% blocktrans with view.verbose_name_plural|capfirst as plural %}{{ plural }} can be added to more than one place within your site. Which of the following would you like to be the parent of your new page?{% endblocktrans %}</p>
+        <p>{% blocktrans with model_name_plural|capfirst as plural %}{{ plural }} can be added to more than one place within your site. Which of the following would you like to be the parent of your new page?{% endblocktrans %}</p>
 
         <form action="" method="post" novalidate>
             {% csrf_token %}

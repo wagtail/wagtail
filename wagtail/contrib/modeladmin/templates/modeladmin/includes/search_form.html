@@ -7,7 +7,7 @@
                 <label for="id_q" class="visuallyhidden">{% trans 'Search for' %}</label>
                 <div class="field-content">
                     <div class="input icon-search ">
-                        <input id="id_q" name="{{ search_var }}" value="{{ view.query }}" placeholder="{% blocktrans with view.verbose_name_plural|lower as name %}Search {{ name }}{% endblocktrans %}" type="text">
+                        <input id="id_q" name="{{ search_var }}" value="{{ view.query }}" placeholder="{% blocktrans with model_name_plural|lower as name %}Search {{ name }}{% endblocktrans %}" type="text">
                         <span></span>
                     </div>
                 </div>
