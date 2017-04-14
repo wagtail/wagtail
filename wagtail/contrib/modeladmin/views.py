@@ -241,11 +241,11 @@ class InstanceSpecificView(WMABaseView, SingleObjectMixin):
         return super(InstanceSpecificView, self).get_object()
 
     def get(self, request, *args, **kwargs):
-        self.instance = self.object = self.get_instance()
+        self.instance = self.get_instance()
         return super(InstanceSpecificView, self).get(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        self.instance = self.object = self.get_instance()
+        self.instance = self.get_instance()
         return super(InstanceSpecificView, self).post(request, *args, **kwargs)
 
     def get_page_subtitle(self):
@@ -262,6 +262,10 @@ class InstanceSpecificView(WMABaseView, SingleObjectMixin):
     @property
     def delete_url(self):
         return self.url_helper.get_action_url('delete', self.pk_quoted)
+
+    def get_context_data(self, **kwargs):
+        self.object = self.instance  # placate SingleObjectMixin
+        return super(InstanceSpecificView, self).get_context_data(**kwargs)
 
 
 class IndexView(WMABaseView):
@@ -836,7 +840,7 @@ class DeleteView(InstanceSpecificView):
         self.deny_request_if_not_permitted()
         if self.is_pagemodel:
             return redirect(self.delete_url)
-        self.instance = self.object = self.get_instance()
+        self.instance = self.get_instance()
         try:
             msg = _("{model} '{instance}' deleted.").format(
                 model=self.verbose_name, instance=self.instance)
