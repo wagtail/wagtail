@@ -49,7 +49,8 @@ class WMABaseView(TemplateView):
     page_title = ''
     page_subtitle = ''
 
-    def __init__(self, model_admin):
+    def __init__(self, model_admin, **kwargs):
+        super(WMABaseView, self).__init__(**kwargs)
         self.model_admin = model_admin
         self.model = model_admin.model
         self.opts = self.model._meta
