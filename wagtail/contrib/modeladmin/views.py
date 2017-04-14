@@ -59,7 +59,6 @@ class WMABaseView(TemplateView):
         self.verbose_name_plural = force_text(self.opts.verbose_name_plural)
         self.pk_attname = self.opts.pk.attname
         self.is_pagemodel = model_admin.is_pagemodel
-        self.url_helper = model_admin.url_helper
 
     def check_action_permitted(self, user):
         return True
@@ -83,6 +82,10 @@ class WMABaseView(TemplateView):
     @property
     def permission_helper(self):
         return self.model_admin.permission_helper
+
+    @property
+    def url_helper(self):
+        return self.model_admin.url_helper
 
     @property
     def menu_icon(self):
