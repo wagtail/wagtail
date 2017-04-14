@@ -4,6 +4,7 @@ import operator
 import sys
 from collections import OrderedDict
 from functools import reduce
+import warnings
 
 from django import forms
 from django.contrib.admin import FieldListFilter, widgets
@@ -34,6 +35,7 @@ from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.edit import FormView
 
 from wagtail.wagtailadmin import messages
+from wagtail.utils.deprecation import RemovedInWagtail112Warning
 from wagtail.wagtailadmin.edit_handlers import (
     ObjectList, extract_panel_definitions_from_model_class)
 
@@ -207,12 +209,15 @@ class InstanceSpecificView(WMABaseView, SingleObjectMixin):
     pk_url_kwarg = 'instance_pk'
     context_object_name = 'instance'
 
-    def __init__(self, model_admin, instance_pk=None):
-        super(InstanceSpecificView, self).__init__(model_admin)
-        # For backwards compatibility, store instance_pk if passed here. But
-        # it should be passed in along with `request` and other url kwargs.
-        self.instance_pk = instance_pk
-        # TODO: Add deprecation warning when `instance_pk` is not `None`
+    def __init__(self, model_admin, **kwargs):
+        super(InstanceSpecificView, self).__init__(model_admin, **kwargs)
+        if 'instance_pk' in kwargs:
+            warnings.warn(
+                "`instance_pk` should no longer be passed to %s's as_view() "
+                "method. It should instead be passed as a keyword argument to "
+                "the dispatch() method returned by as_view()" %
+                self.__class__.__name__, category=RemovedInWagtail112Warning
+            )
 
     def get_instance(self):
         """
