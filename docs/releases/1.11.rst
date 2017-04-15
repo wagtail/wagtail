@@ -60,6 +60,7 @@ Other features
  * "Copy page" form now validates against copying to a destination where the user does not have permission (Henk-Jan van Hasselaar)
  * Allows reverse relations in ``RelatedFields`` for elasticsearch & PostgreSQL search backends (Lucas Moeskops, Bertrand Bordage)
  * Added oEmbed support for Facebook (Mikalai Radchuk)
+ * Added oEmbed support for Tumblr (Mikalai Radchuk)
 
 Bug fixes
 ~~~~~~~~~
