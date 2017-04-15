@@ -4,6 +4,7 @@
 Pagination for page listings. Used by the `{% paginate %}` template tag.
 {% endcomment %}
 
+{% if page.paginator %}
 <div class="pagination">
     <p>{% blocktrans with page_number=page.number num_pages=paginator.num_pages %}
         Page {{ page_number }} of {{ num_pages }}.
@@ -21,3 +22,4 @@ Pagination for page listings. Used by the `{% paginate %}` template tag.
         </li>
     </ul>
 </div>
+{% endif %}
