@@ -179,6 +179,7 @@ def expand_db_html(html, for_editor=False):
 
     html = FIND_A_TAG.sub(replace_a_tag, html)
     html = FIND_EMBED_TAG.sub(replace_embed_tag, html)
+    html = '<div class="rich-text">' + html + '</div>'
     return html
 
 
