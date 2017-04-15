@@ -301,6 +301,9 @@ OEMBED_ENDPOINTS = {
     "http://issuu.com/oembed": [
         "^http(?:s)?://(?:www\\.)?issuu\\.com/[^#?/]+/docs/.+$"
     ],
+    "https://www.tumblr.com/oembed/1.0": [
+        "^http(?:s)?://.+.tumblr.com/post/.+$",
+    ]
 }
 
 
