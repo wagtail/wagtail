@@ -243,11 +243,6 @@ class InstanceSpecificView(WMABaseView, SingleObjectMixin):
         )
         return super(InstanceSpecificView, self).get_object()
 
-    def get_queryset(self):
-        return self.model_admin.get_queryset(
-            self.request, apply_ordering=False
-        ).order_by()  # For best performance, always remove ordering
-
     def get_page_subtitle(self):
         return self.instance
 

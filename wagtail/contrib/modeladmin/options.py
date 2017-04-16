@@ -214,16 +214,15 @@ class ModelAdmin(WagtailRegisterable):
         """
         return self.ordering or ()
 
-    def get_queryset(self, request, apply_ordering=True):
+    def get_queryset(self, request):
         """
-        Returns a QuerySet of all model instances that can be viewed or
-        operated on.
+        Returns a QuerySet of all model instances that should be visible to
+        the current user in the list view
         """
         qs = self.model._default_manager.get_queryset()
-        if apply_ordering:
-            ordering = self.get_ordering(request)
-            if ordering:
-                qs = qs.order_by(*ordering)
+        ordering = self.get_ordering(request)
+        if ordering:
+            qs = qs.order_by(*ordering)
         return qs
 
     def get_search_fields(self, request):
