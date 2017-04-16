@@ -149,6 +149,9 @@ class ModelFormView(WMABaseView, FormView):
         return self.index_url
 
     def get_instance(self):
+        """Return an instance for the ModelForm to use. An existing instance is
+        used when the view has an `instance` attribute / cached property
+        method. Otherwise, a fresh instance of self.model is returned"""
         return getattr(self, 'instance', None) or self.model()
 
     def get_form_kwargs(self):
@@ -219,37 +222,28 @@ class InstanceSpecificView(WMABaseView, SingleObjectMixin):
                 self.__class__.__name__, category=RemovedInWagtail112Warning
             )
 
-    def get_instance(self):
+    @cached_property
+    def instance(self):
         """
-        Return an instance of self.model, identified by URL parameters for the
-        current request. Will raise a 404 if no match is found.
+        Return an instance of self.model, identified by URL parameters in the
+        current request. Raises a 404 if no match is found.
         """
-        # return a cached instance if it has already been fetched
-        self._instance = getattr(self, '_instance', self.get_object())
-        return self._instance
+        return self.get_object()
 
     def get_object(self):
-        # Views should always call get_instance(), but this method should
-        # behave correctly if used by developers.
+        # Ensure the primary key value supplied is unquoted and correctly
+        # named before calling super()
         kwarg_key = self.pk_url_kwarg
-        # We need to unquote the primary key value regardless. The value we
-        # need should be present in `self.kwargs` if passed in correctly, or
-        # it could have been passed in the old way as an __init__() arg.
         self.kwargs[kwarg_key] = unquote(
             self.kwargs.get(kwarg_key, self.instance_pk)
         )
         return super(InstanceSpecificView, self).get_object()
 
-    def get(self, request, *args, **kwargs):
-        self.instance = self.get_instance()
-        return super(InstanceSpecificView, self).get(request, *args, **kwargs)
-
-    def post(self, request, *args, **kwargs):
-        self.instance = self.get_instance()
-        return super(InstanceSpecificView, self).post(request, *args, **kwargs)
+    def get_queryset(self):
+        return self.model_admin.get_queryset(self.request, apply_ordering=False)
 
     def get_page_subtitle(self):
-        return self.get_instance()
+        return self.instance
 
     @property
     def pk_quoted(self):
@@ -752,8 +746,7 @@ class EditView(InstanceSpecificView, ModelFormView):
     page_title = _('Editing')
 
     def check_action_permitted(self, user):
-        return self.permission_helper.user_can_edit_obj(
-            user, self.get_instance())
+        return self.permission_helper.user_can_edit_obj(user, self.instance)
 
     def get(self, request, *args, **kwargs):
         self.deny_request_if_not_permitted()
@@ -777,7 +770,7 @@ class EditView(InstanceSpecificView, ModelFormView):
     def get_context_data(self, **kwargs):
         context = {
             'user_can_delete': self.permission_helper.user_can_delete_obj(
-                self.request.user, self.get_instance())
+                self.request.user, self.instance)
         }
         context.update(kwargs)
         return super(EditView, self).get_context_data(**context)
@@ -827,8 +820,7 @@ class DeleteView(InstanceSpecificView):
     page_title = _('Delete')
 
     def check_action_permitted(self, user):
-        return self.permission_helper.user_can_delete_obj(
-            user, self.get_instance())
+        return self.permission_helper.user_can_delete_obj(user, self.instance)
 
     def get(self, request, *args, **kwargs):
         self.deny_request_if_not_permitted()
@@ -840,7 +832,6 @@ class DeleteView(InstanceSpecificView):
         self.deny_request_if_not_permitted()
         if self.is_pagemodel:
             return redirect(self.delete_url)
-        self.instance = self.get_instance()
         try:
             msg = _("{model} '{instance}' deleted.").format(
                 model=self.verbose_name, instance=self.instance)
@@ -884,7 +875,7 @@ class InspectView(InstanceSpecificView):
     page_title = _('Inspecting')
 
     def check_action_permitted(self, user):
-        return self.permission_helper.user_can_inspect_obj(user, self.get_instance())
+        return self.permission_helper.user_can_inspect_obj(user, self.instance)
 
     @property
     def media(self):
