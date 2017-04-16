@@ -96,6 +96,18 @@ class FieldBlock(Block):
         default = None
 
 
+class IntegerBlock(FieldBlock):
+    def __init__(self, required=True, help_text=None, **kwargs):
+        self.field = forms.IntegerField(
+            required=required,
+            help_text=help_text,
+        )
+        super(IntegerBlock, self).__init__(**kwargs)
+
+    def get_searchable_content(self, value):
+        return [force_text(value)]
+
+
 class CharBlock(FieldBlock):
 
     def __init__(self, required=True, help_text=None, max_length=None, min_length=None, **kwargs):
