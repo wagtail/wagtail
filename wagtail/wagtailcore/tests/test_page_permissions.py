@@ -269,8 +269,9 @@ class TestPagePermission(TestCase):
         self.assertTrue(homepage_perms.can_edit())
         self.assertFalse(root_perms.can_edit())  # root is not a real editable page, even to superusers
 
-        self.assertTrue(homepage_perms.can_delete())
+        self.assertFalse(homepage_perms.can_delete()) # Cannot delete page with children
         self.assertFalse(root_perms.can_delete())
+        self.assertTrue(unpub_perms.can_delete())
 
         self.assertTrue(homepage_perms.can_publish())
         self.assertFalse(root_perms.can_publish())

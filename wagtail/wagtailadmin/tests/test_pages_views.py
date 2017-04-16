@@ -1905,6 +1905,23 @@ class TestPageDelete(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, b"Overridden!")
 
+    def test_page_delete_with_children(self):
+        # Add a grandchild page
+        grandchild_page = SimplePage()
+        grandchild_page.title = "Hello world!"
+        grandchild_page.slug = "hello-world"
+        self.child_page.add_child(instance=grandchild_page)
+
+        # Post
+        post_data = {'hello': 'world'} # For some reason, this test doesn't work without a bit of POST data
+        response = self.client.post(reverse('wagtailadmin_pages_delete', args=(self.child_page.id, )), post_data)
+
+        # Check that the user was given a 403 error
+        self.assertEqual(response.status_code, 403)
+
+        # Check that the pages still exist
+        self.assertEqual(Page.objects.filter(path__startswith=self.root_page.path, slug='hello-world').count(), 2)
+
 
 class TestPageSearch(TestCase, WagtailTestUtils):
     def setUp(self):

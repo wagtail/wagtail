@@ -1630,7 +1630,7 @@ class PagePermissionTester(object):
             ('add' in self.permissions and self.page.owner_id == self.user.pk)
         )
 
-    def can_delete(self):
+    def can_move(self):
         if not self.user.is_active:
             return False
         if self.page_is_root:  # root node is not a page and can never be deleted, even by superusers
@@ -1667,6 +1667,9 @@ class PagePermissionTester(object):
 
         else:
             return False
+
+    def can_delete(self):
+        return self.can_move() and self.page.is_leaf()
 
     def can_unpublish(self):
         if not self.user.is_active:
@@ -1712,14 +1715,6 @@ class PagePermissionTester(object):
         (and the use-cases for a non-admin needing to do it are fairly obscure...)
         """
         return self.can_publish_subpage()
-
-    def can_move(self):
-        """
-        Moving a page should be logically equivalent to deleting and re-adding it (and all its children).
-        As such, the permission test for 'can this be moved at all?' should be the same as for deletion.
-        (Further constraints will then apply on where it can be moved *to*.)
-        """
-        return self.can_delete()
 
     def can_move_to(self, destination):
         # reject the logically impossible cases first
