@@ -319,6 +319,18 @@ class TestEditView(TestCase, WagtailTestUtils):
                 m.assert_called_with(Book, exclude=mock_form_fields_exclude.return_value)
 
 
+class TestCustomCopyView(TestCase, WagtailTestUtils):
+    fixtures = ['modeladmintest_test.json']
+
+    def setUp(self):
+        self.login()
+
+    def test_new_view_init_style(self):
+        response = self.client.get('/admin/modeladmintest/book/edit_old/1/')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['instance'], Book.objects.get(id=1))
+
+
 class TestPageSpecificViews(TestCase, WagtailTestUtils):
     fixtures = ['modeladmintest_test.json']
     expected_status_code = 404
