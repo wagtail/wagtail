@@ -225,12 +225,16 @@ class InstanceSpecificView(WMABaseView, SingleObjectMixin):
     @cached_property
     def instance(self):
         """
-        Return an instance of self.model, identified by URL parameters in the
-        current request. Raises a 404 if no match is found.
+        Return an instance of self.model from self.get_object() and caches it
+        to avoid futher queries when the instance is needed.
         """
         return self.get_object()
 
     def get_object(self):
+        """
+        Returns an instance of self.model identified by URL parameters in the
+        current request. Raises a 404 if no match is found.
+        """
         # Ensure the primary key value supplied is unquoted and correctly
         # named before calling super()
         kwarg_key = self.pk_url_kwarg
