@@ -312,8 +312,8 @@ class ModelAdmin(WagtailRegisterable):
         the assigned model. The view class used can be overridden by changing
         the 'index_view_class' attribute.
         """
-        view_class = self.index_view_class
-        return view_class.as_view(model_admin=self)(request, **kwargs)
+        view = self.index_view_class.as_view(model_admin=self)
+        return view(request, **kwargs)
 
     def create_view(self, request, **kwargs):
         """
@@ -322,8 +322,8 @@ class ModelAdmin(WagtailRegisterable):
         assigned model extends 'Page'. The view class used can be overridden by
         changing the 'create_view_class' attribute.
         """
-        view_class = self.create_view_class
-        return view_class.as_view(model_admin=self)(request, **kwargs)
+        view = self.create_view_class.as_view(model_admin=self)
+        return view(request, **kwargs)
 
     def choose_parent_view(self, request, **kwargs):
         """
@@ -333,8 +333,8 @@ class ModelAdmin(WagtailRegisterable):
         The view class used can be overridden by changing the
         'choose_parent_view_class' attribute.
         """
-        view_class = self.choose_parent_view_class
-        return view_class.as_view(model_admin=self)(request, **kwargs)
+        view = self.choose_parent_view_class.as_view(model_admin=self)
+        return view(request, **kwargs)
 
     def inspect_view(self, request, **kwargs):
         """
@@ -342,8 +342,8 @@ class ModelAdmin(WagtailRegisterable):
         the assigned model. The view class used can be overridden by changing
         the 'inspect_view_class' attribute.
         """
-        view_class = self.inspect_view_class
-        return view_class.as_view(model_admin=self)(request, **kwargs)
+        view = self.inspect_view_class.as_view(model_admin=self)
+        return view(request, **kwargs)
 
     def edit_view(self, request, **kwargs):
         """
@@ -352,19 +352,18 @@ class ModelAdmin(WagtailRegisterable):
         model extends 'Page'. The view class used can be overridden by changing
         the  'edit_view_class' attribute.
         """
-        view_class = self.edit_view_class
-        return view_class.as_view(model_admin=self)(request, **kwargs)
+        view = self.edit_view_class.as_view(model_admin=self)
+        return view(request, **kwargs)
 
     def delete_view(self, request, **kwargs):
         """
         Instantiates a class-based view to provide 'delete confirmation'
         functionality for the assigned model, or redirect to Wagtail's delete
         confirmation view if the assinged model extends 'Page'. The view class
-        used can be overridden by changing the 'delete_view_class'
-        attribute.
+        used can be overridden by changing the 'delete_view_class' attribute.
         """
-        view_class = self.delete_view_class
-        return view_class.as_view(model_admin=self)(request, **kwargs)
+        view = self.delete_view_class.as_view(model_admin=self)
+        return view(request, **kwargs)
 
     def get_templates(self, action='index'):
         """
