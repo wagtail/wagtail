@@ -182,11 +182,9 @@ class ModelFormView(WMABaseView, FormView):
             model_name=capfirst(self.opts.verbose_name), instance=instance)
 
     def get_success_message_buttons(self, instance):
+        button_url = self.url_helper.get_action_url('edit', quote(instance.pk))
         return [
-            messages.button(
-                self.url_helper.get_action_url('edit', quote(instance.pk)),
-                _('Edit')
-            )
+            messages.button(button_url, _('Edit'))
         ]
 
     def get_error_message(self):
