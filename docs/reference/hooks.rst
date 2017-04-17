@@ -331,6 +331,27 @@ Hooks for customising the editing interface for pages and snippets.
         return format_html('<link rel="stylesheet" href="{}">', static('my/wagtail/theme.css'))
 
 
+.. _insert_global_admin_css:
+
+``insert_global_admin_css``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Add additional CSS files or snippets to all admin pages.
+
+.. code-block:: python
+
+  from django.utils.html import format_html
+  from django.conf import settings
+
+  from wagtail.wagtailcore import hooks
+
+  @hooks.register('insert_global_admin_css')
+  def global_admin_css():
+    return format_html('<link rel="stylesheet" href="' \
+    + settings.STATIC_URL \
+    + 'my/wagtail/theme.css">')
+
+
 .. _insert_editor_js:
 
 ``insert_editor_js``
