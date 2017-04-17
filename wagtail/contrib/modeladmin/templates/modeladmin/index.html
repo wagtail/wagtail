@@ -1,7 +1,7 @@
 {% extends "wagtailadmin/base.html" %}
 {% load i18n modeladmin_tags %}
 
-{% block titletag %}{{ meta_title }}{% endblock %}
+{% block titletag %}{{ view.get_meta_title }}{% endblock %}
 
 {% block css %}
     {{ block.super }}
@@ -18,7 +18,7 @@
             <div class="row">
                 <div class="left">
                     <div class="col">
-                        {% block h1 %}<h1 {% if header_icon %}class="icon icon-{{ header_icon }}"{% endif %}>{{ title }}<span></span></h1>{% endblock %}
+                        {% block h1 %}<h1 {% if view.header_icon %}class="icon icon-{{ view.header_icon }}"{% endif %}>{{ view.get_page_title }}<span></span></h1>{% endblock %}
                     </div>
                     {% block search %}{% search_form %}{% endblock %}
                 </div>

@@ -20,7 +20,7 @@
 </table>
 {% else %}
     <div class="nice-padding no-search-results">
-        <p>{% blocktrans with model_name_plural as name %}Sorry, there are no {{ name }} matching your search parameters.{% endblocktrans %}</p>
+        <p>{% blocktrans with view.verbose_name_plural as name %}Sorry, there are no {{ name }} matching your search parameters.{% endblocktrans %}</p>
     </div>
 {% endif %}
 

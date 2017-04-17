@@ -120,11 +120,6 @@ class WMABaseView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = {
-            'meta_title': self.get_meta_title(),
-            'title': self.get_page_title(),
-            'subtitle': self.get_page_subtitle(),
-            'model_name': self.verbose_name,
-            'model_name_plural': self.verbose_name_plural,
             'model_admin': self.model_admin,
         }
         context.update(kwargs)
