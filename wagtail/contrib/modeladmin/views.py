@@ -63,6 +63,10 @@ class WMABaseView(TemplateView):
         self.pk_attname = self.opts.pk.attname
         self.is_pagemodel = model_admin.is_pagemodel
 
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super(WMABaseView, self).dispatch(request, *args, **kwargs)
+
     def get(self, request, *args, **kwargs):
         self.deny_request_if_not_permitted()
         return super(WMABaseView, self).get(request, *args, **kwargs)
