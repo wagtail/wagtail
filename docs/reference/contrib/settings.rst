@@ -137,7 +137,7 @@ Add the ``settings`` context processor to your settings:
     ]
 
 
-Then access the settings through ``{{ settings }}``:
+Then access the settings through ``{{ settings }}``, where ``app_label`` is the label of the app containing your settings model:
 
 .. code-block:: html+django
 
