@@ -18,6 +18,7 @@ def serve(request, path):
 
     path_components = [component for component in path.split('/') if component]
     page, args, kwargs = request.site.root_page.specific.route(request, path_components)
+    page.user = request.user
 
     for fn in hooks.get_hooks('before_serve_page'):
         result = fn(page, request, args, kwargs)

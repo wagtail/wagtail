@@ -824,6 +824,18 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
 
         return Site.objects.get(id=site_id)
 
+    def build_absolute_uri(self):
+        """
+        added to enable @login_required decorator.
+        """
+        return self.full_url
+
+    def get_full_path(self):
+        """
+        added to enable @login_required decorator
+        """
+        return self.full_url
+
     @classmethod
     def get_indexed_objects(cls):
         content_type = ContentType.objects.get_for_model(cls)
