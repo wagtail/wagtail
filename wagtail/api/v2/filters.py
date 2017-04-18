@@ -57,6 +57,10 @@ class FieldsFilter(BaseFilterBackend):
 
 
 class OrderingFilter(BaseFilterBackend):
+    ordering_param = 'order'
+    ordering_title = _('Ordering')
+    ordering_description = _('Which field to use when ordering the results.')
+
     def filter_queryset(self, request, queryset, view):
         """
         This applies ordering to the result set
@@ -68,8 +72,8 @@ class OrderingFilter(BaseFilterBackend):
         And random ordering
         Eg: ?order=random
         """
-        if 'order' in request.GET:
-            order_by = request.GET['order']
+        if self.ordering_param in request.GET:
+            order_by = request.GET[self.ordering_param]
 
             # Random ordering
             if order_by == 'random':
@@ -99,6 +103,21 @@ class OrderingFilter(BaseFilterBackend):
 
         return queryset
 
+    def get_schema_fields(self, view):
+        assert coreapi is not None, 'coreapi must be installed to use `get_schema_fields()`'
+        assert coreschema is not None, 'coreschema must be installed to use `get_schema_fields()`'
+        return [
+            coreapi.Field(
+                name=self.ordering_param,
+                required=False,
+                location='query',
+                schema=coreschema.String(
+                    title=force_text(self.ordering_title),
+                    description=force_text(self.ordering_description)
+                )
+            )
+        ]
+
 
 class SearchFilter(BaseFilterBackend):
     search_param = 'search'
@@ -126,7 +145,7 @@ class SearchFilter(BaseFilterBackend):
 
             search_query = request.GET[self.search_param]
             search_operator = request.GET.get(self.search_operator_param, None)
-            order_by_relevance = 'order' not in request.GET
+            order_by_relevance = OrderingFilter.ordering_param not in request.GET
 
             sb = get_search_backend()
             queryset = sb.search(search_query, queryset, operator=search_operator, order_by_relevance=order_by_relevance)
