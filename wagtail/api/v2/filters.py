@@ -2,11 +2,14 @@ from __future__ import absolute_import, unicode_literals
 
 from django.conf import settings
 from django.db import models
+from django.utils.encoding import force_text
+from django.utils.translation import ugettext_lazy as _
 from rest_framework.filters import BaseFilterBackend
 from taggit.managers import TaggableManager
 
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailsearch.backends import get_search_backend
+from wagtail.utils.compat import coreapi, coreschema
 
 from .utils import BadRequestError, pages_for_site, parse_boolean
 
@@ -98,6 +101,14 @@ class OrderingFilter(BaseFilterBackend):
 
 
 class SearchFilter(BaseFilterBackend):
+    search_param = 'search'
+    search_title = _('Search')
+    search_description = _('A search term.')
+
+    search_operator_param = 'search_operator'
+    search_operator_title = _('Search operator')
+    search_operator_description = _('Specifies how multiple terms in the query should be handled.')
+
     def filter_queryset(self, request, queryset, view):
         """
         This performs a full-text search on the result set
@@ -105,7 +116,7 @@ class SearchFilter(BaseFilterBackend):
         """
         search_enabled = getattr(settings, 'WAGTAILAPI_SEARCH_ENABLED', True)
 
-        if 'search' in request.GET:
+        if self.search_param in request.GET:
             if not search_enabled:
                 raise BadRequestError("search is disabled")
 
@@ -113,14 +124,39 @@ class SearchFilter(BaseFilterBackend):
             if getattr(queryset, '_filtered_by_tag', False):
                 raise BadRequestError("filtering by tag with a search query is not supported")
 
-            search_query = request.GET['search']
-            search_operator = request.GET.get('search_operator', None)
+            search_query = request.GET[self.search_param]
+            search_operator = request.GET.get(self.search_operator_param, None)
             order_by_relevance = 'order' not in request.GET
 
             sb = get_search_backend()
             queryset = sb.search(search_query, queryset, operator=search_operator, order_by_relevance=order_by_relevance)
 
         return queryset
+
+    def get_schema_fields(self, view):
+        assert coreapi is not None, 'coreapi must be installed to use `get_schema_fields()`'
+        assert coreschema is not None, 'coreschema must be installed to use `get_schema_fields()`'
+        return [
+            coreapi.Field(
+                name=self.search_param,
+                required=False,
+                location='query',
+                schema=coreschema.String(
+                    title=force_text(self.search_title),
+                    description=force_text(self.search_description)
+                )
+            ),
+            coreapi.Field(
+                name=self.search_operator_param,
+                required=False,
+                location='query',
+                # TODO: Use Enum once https://github.com/core-api/python-client/pull/126 merged
+                schema=coreschema.String(
+                    title=force_text(self.search_operator_title),
+                    description=force_text(self.search_operator_description)
+                )
+            )
+        ]
 
 
 class ChildOfFilter(BaseFilterBackend):
