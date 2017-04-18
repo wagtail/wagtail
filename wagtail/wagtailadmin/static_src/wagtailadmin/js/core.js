@@ -233,6 +233,13 @@ $(function() {
             return;
         }
 
+        // Check the form this submit button belongs to (if any)
+        var form = $self.closest('form').get(0);
+        if (form && form.checkValidity && (form.checkValidity() == false)) {
+                 // ^ Check form.checkValidity returns something as it may not be browser compatible
+            return;
+        }
+
         // Disabling a button prevents it submitting the form, so disabling
         // must occur on a brief timeout only after this function returns.
 
