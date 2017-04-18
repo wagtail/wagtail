@@ -382,6 +382,26 @@ Hooks for customising the editing interface for pages and snippets.
         )
 
 
+.. _insert_global_admin_js:
+
+``insert_global_admin_js``
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Add additional JavaScript files or code snippets to all admin pages.
+
+  .. code-block:: python
+
+    from django.utils.html import format_html
+
+    from wagtail.wagtailcore import hooks
+
+    @hooks.register('insert_global_admin_js')
+    def global_admin_js():
+      return format_html('<script src="' \
+      + 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r74/three.js' \
+      + '"></script>')
+
+
 Editor workflow
 ---------------
 
