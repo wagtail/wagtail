@@ -249,6 +249,12 @@ class DescendantOfFilter(BaseFilterBackend):
     Implements the ?decendant_of filter which limits the set of pages to a
     particular branch of the page tree.
     """
+    descendant_of_param = 'descendant_of'
+    descendant_of_title = _('All descendants of a page')
+    descendant_of_description = _(
+        'Id of a page to filters the list of results to contain all descendants (children of children) of that page.'
+    )
+
     def get_root_page(self, request):
         return Page.get_first_root_node()
 
@@ -256,25 +262,42 @@ class DescendantOfFilter(BaseFilterBackend):
         return Page.objects.get(id=page_id)
 
     def filter_queryset(self, request, queryset, view):
-        if 'descendant_of' in request.GET:
+        if self.descendant_of_param in request.GET:
             if getattr(queryset, '_filtered_by_child_of', False):
-                raise BadRequestError("filtering by descendant_of with child_of is not supported")
+                raise BadRequestError(
+                    "filtering by {} with child_of is not supported".format(self.descendant_of_param)
+                )
             try:
-                parent_page_id = int(request.GET['descendant_of'])
+                parent_page_id = int(request.GET[self.descendant_of_param])
                 assert parent_page_id >= 0
 
                 parent_page = self.get_page_by_id(request, parent_page_id)
             except (ValueError, AssertionError):
-                if request.GET['descendant_of'] == 'root':
+                if request.GET[self.descendant_of_param] == 'root':
                     parent_page = self.get_root_page(request)
                 else:
-                    raise BadRequestError("descendant_of must be a positive integer")
+                    raise BadRequestError("{} must be a positive integer".format(self.descendant_of_param))
             except Page.DoesNotExist:
                 raise BadRequestError("ancestor page doesn't exist")
 
             queryset = queryset.descendant_of(parent_page)
 
         return queryset
+
+    def get_schema_fields(self, view):
+        assert coreapi is not None, 'coreapi must be installed to use `get_schema_fields()`'
+        assert coreschema is not None, 'coreschema must be installed to use `get_schema_fields()`'
+        return [
+            coreapi.Field(
+                name=self.descendant_of_param,
+                required=False,
+                location='query',
+                schema=coreschema.String(
+                    title=force_text(self.descendant_of_title),
+                    description=force_text(self.descendant_of_description)
+                )
+            )
+        ]
 
 
 class RestrictedDescendantOfFilter(DescendantOfFilter):
