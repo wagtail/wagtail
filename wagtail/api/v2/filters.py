@@ -183,6 +183,12 @@ class ChildOfFilter(BaseFilterBackend):
     Implements the ?child_of filter used to filter the results to only contain
     pages that are direct children of the specified page.
     """
+    child_of_param = 'child_of'
+    child_of_title = _('Direct children of a page')
+    child_of_description = _(
+        'Id of a page to filters the list of results to contain only direct children of that page.'
+    )
+
     def get_root_page(self, request):
         return Page.get_first_root_node()
 
@@ -190,17 +196,17 @@ class ChildOfFilter(BaseFilterBackend):
         return Page.objects.get(id=page_id)
 
     def filter_queryset(self, request, queryset, view):
-        if 'child_of' in request.GET:
+        if self.child_of_param in request.GET:
             try:
-                parent_page_id = int(request.GET['child_of'])
+                parent_page_id = int(request.GET[self.child_of_param])
                 assert parent_page_id >= 0
 
                 parent_page = self.get_page_by_id(request, parent_page_id)
             except (ValueError, AssertionError):
-                if request.GET['child_of'] == 'root':
+                if request.GET[self.child_of_param] == 'root':
                     parent_page = self.get_root_page(request)
                 else:
-                    raise BadRequestError("child_of must be a positive integer")
+                    raise BadRequestError("{} must be a positive integer".format(self.child_of_param))
             except Page.DoesNotExist:
                 raise BadRequestError("parent page doesn't exist")
 
@@ -208,6 +214,21 @@ class ChildOfFilter(BaseFilterBackend):
             queryset._filtered_by_child_of = True
 
         return queryset
+
+    def get_schema_fields(self, view):
+        assert coreapi is not None, 'coreapi must be installed to use `get_schema_fields()`'
+        assert coreschema is not None, 'coreschema must be installed to use `get_schema_fields()`'
+        return [
+            coreapi.Field(
+                name=self.child_of_param,
+                required=False,
+                location='query',
+                schema=coreschema.String(
+                    title=force_text(self.child_of_title),
+                    description=force_text(self.child_of_description)
+                )
+            )
+        ]
 
 
 class RestrictedChildOfFilter(ChildOfFilter):
