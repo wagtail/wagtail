@@ -55,6 +55,26 @@ class FieldsFilter(BaseFilterBackend):
 
         return queryset
 
+    def get_schema_fields(self, view):
+        assert coreapi is not None, 'coreapi must be installed to use `get_schema_fields()`'
+        assert coreschema is not None, 'coreschema must be installed to use `get_schema_fields()`'
+
+        if not view.model:
+            return []
+
+        fields_list = []
+        fields = set(view.get_available_fields(view.model, db_fields_only=True))
+
+        for field in fields:
+            fields_list.append(coreapi.Field(
+                name=field,
+                required=False,
+                location='query',
+                schema=coreschema.String()
+            ))
+
+        return fields_list
+
 
 class OrderingFilter(BaseFilterBackend):
     ordering_param = 'order'
