@@ -66,6 +66,7 @@ class FieldsFilter(BaseFilterBackend):
         fields = set(view.get_available_fields(view.model, db_fields_only=True))
 
         for field in fields:
+            # TODO: use more specific schema class (e.g. models.BooleanField -> coreschema.Boolean)
             fields_list.append(coreapi.Field(
                 name=field,
                 required=False,
@@ -243,7 +244,7 @@ class ChildOfFilter(BaseFilterBackend):
                 name=self.child_of_param,
                 required=False,
                 location='query',
-                schema=coreschema.String(
+                schema=coreschema.Integer(
                     title=force_text(self.child_of_title),
                     description=force_text(self.child_of_description)
                 )
@@ -312,7 +313,7 @@ class DescendantOfFilter(BaseFilterBackend):
                 name=self.descendant_of_param,
                 required=False,
                 location='query',
-                schema=coreschema.String(
+                schema=coreschema.Integer(
                     title=force_text(self.descendant_of_title),
                     description=force_text(self.descendant_of_description)
                 )
