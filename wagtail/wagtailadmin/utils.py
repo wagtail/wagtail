@@ -12,7 +12,7 @@ from django.db.models import Count, Q
 from django.shortcuts import redirect
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext as _
-from django.utils.translation import ugettext_lazy, override
+from django.utils.translation import override, ugettext_lazy
 from modelcluster.fields import ParentalKey
 from taggit.models import Tag
 
