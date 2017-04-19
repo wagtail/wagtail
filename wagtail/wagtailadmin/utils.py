@@ -12,7 +12,7 @@ from django.db.models import Count, Q
 from django.shortcuts import redirect
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext as _
-from django.utils.translation import gettext_lazy, override
+from django.utils.translation import ugettext_lazy, override
 from modelcluster.fields import ParentalKey
 from taggit.models import Tag
 
@@ -24,21 +24,21 @@ logger = logging.getLogger('wagtail.admin')
 # Wagtail languages with >=90% coverage
 # This list is manually maintained
 WAGTAILADMIN_PROVIDED_LANGUAGES = [
-    ('en', _('English')),
-    ('de', gettext_lazy('German')),
-    ('pt-br', gettext_lazy('Brazilian Portuguese')),
-    ('es', gettext_lazy('Spanish')),
-    ('ro', gettext_lazy('Romanian')),
-    ('fr', gettext_lazy('French')),
-    ('is-is', gettext_lazy('Icelandic')),
-    ('it', gettext_lazy('Italian')),
-    ('nb', gettext_lazy('Norwegian Bokmål')),
-    ('pl', gettext_lazy('Polish')),
-    ('pt-pt', gettext_lazy('Portuguese')),
-    ('ru', gettext_lazy('Russian')),
-    ('nl-nl', gettext_lazy('Netherlands Dutch')),
-    ('fi', gettext_lazy('Finish')),
-    ('ga', gettext_lazy('Galician'))
+    ('en', ugettext_lazy('English')),
+    ('de', ugettext_lazy('German')),
+    ('pt-br', ugettext_lazy('Brazilian Portuguese')),
+    ('es', ugettext_lazy('Spanish')),
+    ('ro', ugettext_lazy('Romanian')),
+    ('fr', ugettext_lazy('French')),
+    ('is-is', ugettext_lazy('Icelandic')),
+    ('it', ugettext_lazy('Italian')),
+    ('nb', ugettext_lazy('Norwegian Bokmål')),
+    ('pl', ugettext_lazy('Polish')),
+    ('pt-pt', ugettext_lazy('Portuguese')),
+    ('ru', ugettext_lazy('Russian')),
+    ('nl-nl', ugettext_lazy('Netherlands Dutch')),
+    ('fi', ugettext_lazy('Finish')),
+    ('ga', ugettext_lazy('Galician'))
 ]
 
 
