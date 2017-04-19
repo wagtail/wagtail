@@ -293,8 +293,8 @@ class TestAccountSection(TestCase, WagtailTestUtils):
 
     def test_language_preferences_view_post(self):
         """
-        This post to the language preferences view and checks that the
-        user's profile is updated
+        This posts to the language preferences view and checks that the
+        user profile is updated
         """
         # Post new values to the language preferences page
         post_data = {
