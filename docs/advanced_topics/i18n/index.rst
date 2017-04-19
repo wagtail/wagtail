@@ -22,9 +22,9 @@ Change Wagtail admin language on a per user basis
 .. versionadded:: 1.10
 
 
-Logged users can set their preferred language from ``/admin/account/``.
-By default, Wagtail provides a list of languages that have a coverage >= 90% translation.
-It is possible to override this list by adding a setting configuration.
+Logged-in users can set their preferred language from ``/admin/account/``.
+By default, Wagtail provides a list of languages that have a >= 90% translation coverage.
+It is possible to override this list via the ``WAGTAILADMIN_PERMITTED_LANGUAGES`` setting.
 
 Example:
 
@@ -35,7 +35,7 @@ Example:
 
 In case there is zero or one language permitted, the form will be hidden.
 
-If there is no language selected either by the user or by the Site Administrator, the ``LANGUAGE_CODE`` wil be used.
+If there is no language selected by the user, the ``LANGUAGE_CODE`` wil be used.
 
 
 Changing the primary language of your Wagtail installation
