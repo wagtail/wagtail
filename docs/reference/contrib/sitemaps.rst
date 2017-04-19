@@ -17,7 +17,7 @@ using the ``wagtail.contrib.wagtailsitemaps`` module.
     
     The usage of these views is otherwise identical, which means that
     customisation and caching of the sitemaps are done using the default Django
-    patterns.  See for in-depth information the Django documentation. 
+    patterns.  See the Django documentation for in-depth information.
 
 
 Basic configuration
@@ -117,6 +117,6 @@ Serving multiple sitemaps
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 If you want to support the sitemap indexes from Django then you will need to
-use the index view from ``wagtail.contrib.sitemaps.views`` instead of the
-index view from ``django.contrib.sitemaps.views``.  Please see for further
-details the Django documentation.
+use the index view from ``wagtail.contrib.sitemaps.views`` instead of the index
+view from ``django.contrib.sitemaps.views``.  Please see the Django
+documentation for further details.
