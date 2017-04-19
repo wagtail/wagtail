@@ -65,15 +65,8 @@ class WMABaseView(TemplateView):
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
+        self.deny_request_if_not_permitted()
         return super(WMABaseView, self).dispatch(request, *args, **kwargs)
-
-    def get(self, request, *args, **kwargs):
-        self.deny_request_if_not_permitted()
-        return super(WMABaseView, self).get(request, *args, **kwargs)
-
-    def post(self, request, *args, **kwargs):
-        self.deny_request_if_not_permitted()
-        return super(WMABaseView, self).post(request, *args, **kwargs)
 
     def deny_request_if_not_permitted(self):
         if not self.check_action_permitted(self.request.user):
@@ -269,14 +262,17 @@ class IndexView(WMABaseView):
     ERROR_FLAG = 'e'
     IGNORED_PARAMS = (ORDER_VAR, ORDER_TYPE_VAR, SEARCH_VAR)
 
+    @property
+    def media(self):
+        return forms.Media(
+            css={'all': self.model_admin.get_index_view_extra_css()},
+            js=self.model_admin.get_index_view_extra_js()
+        )
+
     def check_action_permitted(self, user):
         return self.permission_helper.user_can_list(user)
 
-    @method_decorator(login_required)
-    def dispatch(self, request, *args, **kwargs):
-        # Only continue if logged in user has list permission
-        self.deny_request_if_not_permitted()
-
+    def get(self, request, *args, **kwargs):
         self.list_display = self.model_admin.get_list_display(request)
         self.list_filter = self.model_admin.get_list_filter(request)
         self.search_fields = self.model_admin.get_search_fields(request)
@@ -297,15 +293,45 @@ class IndexView(WMABaseView):
 
         self.query = request.GET.get(self.SEARCH_VAR, '')
         self.queryset = self.get_queryset(request)
+        return super(IndexView, self).get(request, *args, **kwargs)
 
-        return super(IndexView, self).dispatch(request, *args, **kwargs)
+    def post(self, request, *args, **kwargs):
+        return self.get(request, *args, **kwargs)
 
-    @property
-    def media(self):
-        return forms.Media(
-            css={'all': self.model_admin.get_index_view_extra_css()},
-            js=self.model_admin.get_index_view_extra_js()
-        )
+    def get_context_data(self, **kwargs):
+        user = self.request.user
+        all_count = self.get_base_queryset().count()
+        queryset = self.get_queryset()
+        result_count = queryset.count()
+        paginator = Paginator(queryset, self.items_per_page)
+
+        try:
+            page_obj = paginator.page(self.page_num + 1)
+        except InvalidPage:
+            page_obj = paginator.page(1)
+
+        context = {
+            'view': self,
+            'all_count': all_count,
+            'result_count': result_count,
+            'paginator': paginator,
+            'page_obj': page_obj,
+            'object_list': page_obj.object_list,
+            'user_can_create': self.permission_helper.user_can_create(user)
+        }
+
+        if self.is_pagemodel:
+            models = self.model.allowed_parent_page_models()
+            allowed_parent_types = [m._meta.verbose_name for m in models]
+            valid_parents = self.permission_helper.get_valid_parent_pages(user)
+            valid_parent_count = valid_parents.count()
+            context.update({
+                'no_valid_parents': not valid_parent_count,
+                'required_parent_types': allowed_parent_types,
+            })
+
+        context.update(kwargs)
+        return super(IndexView, self).get_context_data(**context)
 
     def get_buttons_for_obj(self, obj):
         return self.button_helper.get_buttons_for_obj(
@@ -667,41 +693,6 @@ class IndexView(WMABaseView):
                     return True
         return False
 
-    def get_context_data(self, **kwargs):
-        user = self.request.user
-        all_count = self.get_base_queryset().count()
-        queryset = self.get_queryset()
-        result_count = queryset.count()
-        paginator = Paginator(queryset, self.items_per_page)
-
-        try:
-            page_obj = paginator.page(self.page_num + 1)
-        except InvalidPage:
-            page_obj = paginator.page(1)
-
-        context = {
-            'view': self,
-            'all_count': all_count,
-            'result_count': result_count,
-            'paginator': paginator,
-            'page_obj': page_obj,
-            'object_list': page_obj.object_list,
-            'user_can_create': self.permission_helper.user_can_create(user)
-        }
-
-        if self.is_pagemodel:
-            models = self.model.allowed_parent_page_models()
-            allowed_parent_types = [m._meta.verbose_name for m in models]
-            valid_parents = self.permission_helper.get_valid_parent_pages(user)
-            valid_parent_count = valid_parents.count()
-            context.update({
-                'no_valid_parents': not valid_parent_count,
-                'required_parent_types': allowed_parent_types,
-            })
-
-        context.update(kwargs)
-        return super(IndexView, self).get_context_data(**context)
-
     def get_template_names(self):
         return self.model_admin.get_index_template()
 
@@ -713,7 +704,6 @@ class CreateView(ModelFormView):
         return self.permission_helper.user_can_create(user)
 
     def get(self, request, *args, **kwargs):
-        self.deny_request_if_not_permitted()
         if self.is_pagemodel:
             parents = self.permission_helper.get_valid_parent_pages(
                 request.user)
@@ -747,13 +737,11 @@ class EditView(InstanceSpecificView, ModelFormView):
         return self.permission_helper.user_can_edit_obj(user, self.instance)
 
     def get(self, request, *args, **kwargs):
-        self.deny_request_if_not_permitted()
         if self.is_pagemodel:
             return redirect(self.edit_url)
         return super(EditView, self).get(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        self.deny_request_if_not_permitted()
         if self.is_pagemodel:
             return redirect(self.edit_url)
         return super(EditView, self).post(request, *args, **kwargs)
@@ -821,13 +809,11 @@ class DeleteView(InstanceSpecificView):
         return self.permission_helper.user_can_delete_obj(user, self.instance)
 
     def get(self, request, *args, **kwargs):
-        self.deny_request_if_not_permitted()
         if self.is_pagemodel:
             return redirect(self.delete_url)
         return super(DeleteView, self).get(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        self.deny_request_if_not_permitted()
         if self.is_pagemodel:
             return redirect(self.delete_url)
         try:
