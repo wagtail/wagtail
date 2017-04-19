@@ -58,6 +58,7 @@ Other features
  * Added ``classname`` argument to ``StreamFieldPanel`` (Christine Ho)
  * Added ``group`` keyword argument to StreamField blocks for grouping related blocks together in the block menu (Andreas Nüßlein)
  * Update the sitemap generator to use the Django sitemap module (Michael van Tellingen, Mike Dingjan)
+ * Added user-prefered admin language along with `WAGTAILADMIN_PERMITTED_LANGUAGES` (Daniel Chimeno)
 
 
 Bug fixes
