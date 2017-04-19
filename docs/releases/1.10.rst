@@ -36,10 +36,23 @@ User language preference
 Users can now set their preferred language for the Wagtail admin interface under Account Settings -> Language Preferences. The list of available languages can be configured via the :ref:`WAGTAILADMIN_PERMITTED_LANGUAGES <WAGTAILADMIN_PERMITTED_LANGUAGES>` setting. This feature was developed by Daniel Chimeno.
 
 
+New admin preview
+~~~~~~~~~~~~~~~~~
+
+Previewing pages in Wagtail admin interface was rewritten
+to make it more robust. In previous versions, preview was broken in several
+scenarii so users often ended up on a blank page with an infinite spinner.
+
+An additional setting was created: :ref:`WAGTAIL_AUTO_UPDATE_PREVIEW <WAGTAIL_AUTO_UPDATE_PREVIEW>`.
+It allows users to see changes done in the editor by refreshing the preview tab
+without having to click again on the preview button.
+
+This was developed by Bertrand Bordage.
+
+
 Other features
 ~~~~~~~~~~~~~~
 
- * Added ``WAGTAIL_AUTO_UPDATE_PREVIEW`` setting that when set to ``True``, allows the preview window to be refreshed when changes have been made in the editor (Bertrand Bordage)
  * Use minified versions of jQuery and jQuery UI in the admin. Total savings without compression 371 KB (Tom Dyson)
  * Hooks can now specify the order in which they are run (Gagaro)
  * Added a ``submit_buttons`` block to login template (Gagaro)
