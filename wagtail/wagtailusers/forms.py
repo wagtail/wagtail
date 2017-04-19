@@ -356,7 +356,9 @@ class NotificationPreferencesForm(forms.ModelForm):
 
 
 class PreferredLanguageForm(forms.ModelForm):
-    preferred_language = forms.ChoiceField(choices=get_available_admin_languages())
+    preferred_language = forms.ChoiceField(
+        choices=lambda: sorted(get_available_admin_languages(), key=lambda l: l[1])
+    )
 
     def __init__(self, *args, **kwargs):
         super(PreferredLanguageForm, self).__init__(*args, **kwargs)
