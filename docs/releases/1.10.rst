@@ -13,7 +13,7 @@ What's new
 PostgreSQL search engine
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-A new search engine has been added to Wagtail which uses PostgreSQL's builtin
+A new search engine has been added to Wagtail which uses PostgreSQL's built-in
 full-text search functionality. This means that if you use PostgreSQL to manage
 your database, you can now get a good quality search engine without needing
 to install Elasticsearch.
@@ -23,10 +23,17 @@ To get started, see: :ref:`postgres_search`
 This feature was developed at the Arnhem sprint by Bertrand Bordage, Jaap Roes,
 Arne de Laat and Ramon de Jezus.
 
+
 Django 1.11 and Python 3.6 support
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Wagtail is now compatible with Django 1.11 and Python 3.6. Compatibility fixes were contributed by Tim Graham, Matt Westcott, Mikalai Radchuk and Bertrand Bordage.
+
+
+User language preference
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+Users can now set their preferred language for the Wagtail admin interface under Account Settings -> Language Preferences. The list of available languages can be configured via the :ref:`WAGTAILADMIN_PERMITTED_LANGUAGES <WAGTAILADMIN_PERMITTED_LANGUAGES>` setting. This feature was developed by Daniel Chimeno.
 
 
 Other features
@@ -58,7 +65,6 @@ Other features
  * Added ``classname`` argument to ``StreamFieldPanel`` (Christine Ho)
  * Added ``group`` keyword argument to StreamField blocks for grouping related blocks together in the block menu (Andreas Nüßlein)
  * Update the sitemap generator to use the Django sitemap module (Michael van Tellingen, Mike Dingjan)
- * Added user-preferred admin language along with ``WAGTAILADMIN_PERMITTED_LANGUAGES`` (Daniel Chimeno)
 
 
 Bug fixes
