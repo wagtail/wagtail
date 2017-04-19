@@ -1,10 +1,13 @@
 from __future__ import absolute_import, unicode_literals
 
 from django.conf import settings
+from django.db import models
+from django.utils.encoding import force_text
 from django.utils.six.moves.urllib.parse import urlparse
 
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.utils import resolve_model_string
+from wagtail.utils.compat import coreschema
 
 
 class BadRequestError(Exception):
@@ -233,3 +236,30 @@ def parse_boolean(value):
         return False
     else:
         raise ValueError("expected 'true' or 'false', got '%s'" % value)
+
+
+def field_to_schema(field):
+    """
+    Takes a field instance and returns corresponding coreschema class instance.
+    """
+
+    assert coreschema is not None, 'coreschema must be installed to use `field_to_schema()`'
+
+    title = force_text(getattr(field, 'label', ''))
+    description = force_text(getattr(field, 'help_text', ''))
+
+    integer_fields = (
+        models.AutoField, models.BigIntegerField, models.IntegerField,
+        models.PositiveIntegerField, models.PositiveSmallIntegerField,
+        models.SmallIntegerField
+    )
+    if isinstance(field, integer_fields):
+        schema_cls = coreschema.Integer
+    elif isinstance(field, (models.DecimalField, models.FloatField)):
+        schema_cls = coreschema.Number
+    elif isinstance(field, models.BooleanField):
+        schema_cls = coreschema.Boolean
+    else:
+        schema_cls = coreschema.String
+
+    return schema_cls(title, description)

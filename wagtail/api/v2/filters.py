@@ -11,7 +11,7 @@ from wagtail.wagtailcore.models import Page
 from wagtail.wagtailsearch.backends import get_search_backend
 from wagtail.utils.compat import coreapi, coreschema
 
-from .utils import BadRequestError, pages_for_site, parse_boolean
+from .utils import BadRequestError, pages_for_site, parse_boolean, field_to_schema
 
 
 class FieldsFilter(BaseFilterBackend):
@@ -62,19 +62,22 @@ class FieldsFilter(BaseFilterBackend):
         if not view.model:
             return []
 
-        fields_list = []
-        fields = set(view.get_available_fields(view.model, db_fields_only=True))
+        model = view.model
+        fields = set(view.get_available_fields(model, db_fields_only=True))
 
-        for field in fields:
-            # TODO: use more specific schema class (e.g. models.BooleanField -> coreschema.Boolean)
-            fields_list.append(coreapi.Field(
-                name=field,
+        schema_fields = []
+        for field_name in fields:
+            field = model._meta.get_field(field_name)
+
+            schema = field_to_schema(field)
+            schema_fields.append(coreapi.Field(
+                name=field_name,
                 required=False,
                 location='query',
-                schema=coreschema.String()
+                schema=schema
             ))
 
-        return fields_list
+        return schema_fields
 
 
 class OrderingFilter(BaseFilterBackend):
