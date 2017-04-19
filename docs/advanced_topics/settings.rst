@@ -407,6 +407,28 @@ Date and DateTime inputs
 
 Specifies the date and datetime format to be used in input fields in the Wagtail admin. The format is specified in `Python datetime module syntax <https://docs.python.org/3/library/datetime.html#strftime-strptime-behavior>`_, and must be one of the recognised formats listed in the ``DATE_INPUT_FORMATS`` or ``DATETIME_INPUT_FORMATS`` setting respectively (see `DATE_INPUT_FORMATS <https://docs.djangoproject.com/en/1.10/ref/settings/#std:setting-DATE_INPUT_FORMATS>`_).
 
+.. _WAGTAILADMIN_PERMITTED_LANGUAGES:
+
+Admin languages
+---------------
+
+Users can choose between several languages for the admin interface
+in the account settings. The list of languages is by default all the available
+languages in Wagtail. To change it, set ``WAGTAILADMIN_PERMITTED_LANGUAGES``:
+
+.. code-block:: python
+
+    WAGTAILADMIN_PERMITTED_LANGUAGES = [('en', 'English'),
+                                        ('pt', 'Portuguese')]
+
+Since the syntax is the same as Django ``LANGUAGES``, you can do this so users
+can only choose between front office languages:
+
+.. code-block:: python
+
+    LANGUAGES = WAGTAILADMIN_PERMITTED_LANGUAGES = [('en', 'English'),
+                                                    ('pt', 'Portuguese')]
+
 
 URL Patterns
 ~~~~~~~~~~~~

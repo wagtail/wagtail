@@ -24,14 +24,7 @@ Change Wagtail admin language on a per user basis
 
 Logged-in users can set their preferred language from ``/admin/account/``.
 By default, Wagtail provides a list of languages that have a >= 90% translation coverage.
-It is possible to override this list via the ``WAGTAILADMIN_PERMITTED_LANGUAGES`` setting.
-
-Example:
-
-.. code-block:: python
-
-    from django.conf import settings
-    WAGTAILADMIN_PERMITTED_LANGUAGES = [ ('en' , 'English'), ('pt', 'Portuguese') ]
+It is possible to override this list via the :ref:`WAGTAILADMIN_PERMITTED_LANGUAGES` setting.
 
 In case there is zero or one language permitted, the form will be hidden.
 
