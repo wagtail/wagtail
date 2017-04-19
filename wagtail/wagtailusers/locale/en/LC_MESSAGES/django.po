@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"POT-Creation-Date: 2017-04-19 21:02+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,63 +17,63 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: forms.py:42
+#: forms.py:51
 msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
 msgstr ""
 
-#: forms.py:46
+#: forms.py:55
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr ""
 
-#: forms.py:61 forms.py:133
+#: forms.py:72
 msgid "A user with that username already exists."
 msgstr ""
 
-#: forms.py:62 forms.py:134
+#: forms.py:73
 msgid "The two password fields didn't match."
 msgstr ""
 
-#: forms.py:66 forms.py:152 forms.py:213
-msgid "Administrator"
-msgstr ""
-
-#: forms.py:68 forms.py:154 forms.py:215
-msgid "Administrators have full access to manage any object or setting."
-msgstr ""
-
-#: forms.py:72 forms.py:142
-msgid "Password"
-msgstr ""
-
-#: forms.py:75 forms.py:145
-msgid "Leave blank if not changing."
-msgstr ""
-
-#: forms.py:77 forms.py:147
-msgid "Password confirmation"
-msgstr ""
-
-#: forms.py:79 forms.py:149
-msgid "Enter the same password as above, for verification."
-msgstr ""
-
-#: forms.py:81 forms.py:137
+#: forms.py:76
 msgid "Email"
 msgstr ""
 
-#: forms.py:82 forms.py:138
+#: forms.py:77
 msgid "First Name"
 msgstr ""
 
-#: forms.py:83 forms.py:139
+#: forms.py:78
 msgid "Last Name"
 msgstr ""
 
-#: forms.py:209
+#: forms.py:81
+msgid "Password"
+msgstr ""
+
+#: forms.py:83
+msgid "Leave blank if not changing."
+msgstr ""
+
+#: forms.py:85
+msgid "Password confirmation"
+msgstr ""
+
+#: forms.py:87
+msgid "Enter the same password as above, for verification."
+msgstr ""
+
+#: forms.py:90 forms.py:191
+msgid "Administrator"
+msgstr ""
+
+#: forms.py:91 forms.py:193
+msgid "Administrators have full access to manage any object or setting."
+msgstr ""
+
+#: forms.py:187
 msgid "A group with that name already exists."
 msgstr ""
 
-#: forms.py:313
+#: forms.py:291
 msgid "You cannot have multiple permission records for the same page."
 msgstr ""
 
@@ -101,7 +101,15 @@ msgstr ""
 msgid "Receive notification when your page edit is rejected"
 msgstr ""
 
-#: models.py:41
+#: models.py:34
+msgid "preferred language"
+msgstr ""
+
+#: models.py:36
+msgid "Select language for the admin"
+msgstr ""
+
+#: models.py:51
 msgid "user profile"
 msgstr ""
 

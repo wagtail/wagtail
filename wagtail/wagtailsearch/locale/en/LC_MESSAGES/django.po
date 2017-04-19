@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"POT-Creation-Date: 2017-04-19 21:02+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,15 +39,15 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
-#: templates/wagtailsearch/queries/chooser/results.html:7
+#: templates/wagtailsearch/queries/chooser/results.html:9
 msgid "Terms"
 msgstr ""
 
-#: templates/wagtailsearch/queries/chooser/results.html:8
+#: templates/wagtailsearch/queries/chooser/results.html:10
 msgid "Views (past week)"
 msgstr ""
 
-#: templates/wagtailsearch/queries/chooser/results.html:22
+#: templates/wagtailsearch/queries/chooser/results.html:24
 msgid "No results found"
 msgstr ""
 

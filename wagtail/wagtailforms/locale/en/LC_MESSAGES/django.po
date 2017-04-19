@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"POT-Creation-Date: 2017-04-19 21:02+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,6 +19,14 @@ msgstr ""
 
 #: edit_handlers.py:33
 msgid "{} submissions"
+msgstr ""
+
+#: forms.py:115
+msgid "Date from"
+msgstr ""
+
+#: forms.py:119
+msgid "Date to"
 msgstr ""
 
 #: forms.py:143
@@ -120,21 +128,21 @@ msgstr ""
 msgid "Submission date"
 msgstr ""
 
-#: models.py:284
+#: models.py:286
 msgid "to address"
 msgstr ""
 
-#: models.py:285
+#: models.py:287
 msgid ""
 "Optional - form submissions will be emailed to these addresses. Separate "
 "multiple addresses by comma."
 msgstr ""
 
-#: models.py:287
+#: models.py:289
 msgid "from address"
 msgstr ""
 
-#: models.py:288
+#: models.py:290
 msgid "subject"
 msgstr ""
 
@@ -209,6 +217,10 @@ msgstr ""
 
 #: templates/wagtailforms/list_forms.html:8
 msgid "Origin"
+msgstr ""
+
+#: templates/wagtailforms/list_submissions.html:10
+msgid "Delete selected submissions"
 msgstr ""
 
 #: templates/wagtailforms/results_forms.html:7

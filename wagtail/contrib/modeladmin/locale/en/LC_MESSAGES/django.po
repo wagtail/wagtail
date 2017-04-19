@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"POT-Creation-Date: 2017-04-19 21:02+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,62 +21,62 @@ msgstr ""
 msgid "Parent page"
 msgstr ""
 
-#: helpers.py:263 views.py:738
+#: helpers/button.py:44 views.py:736
 #, python-format
 msgid "Add %s"
 msgstr ""
 
-#: helpers.py:265
+#: helpers/button.py:46
 #, python-format
 msgid "Add a new %s"
 msgstr ""
 
-#: helpers.py:277
+#: helpers/button.py:58
 msgid "Inspect"
 msgstr ""
 
-#: helpers.py:279
+#: helpers/button.py:60
 #, python-format
 msgid "Inspect this %s"
 msgstr ""
 
-#: helpers.py:291 views.py:162
+#: helpers/button.py:72 views.py:160
 msgid "Edit"
 msgstr ""
 
-#: helpers.py:293
+#: helpers/button.py:74
 #, python-format
 msgid "Edit this %s"
 msgstr ""
 
-#: helpers.py:305 templates/modeladmin/edit.html:15 views.py:769
+#: helpers/button.py:86 templates/modeladmin/edit.html:15 views.py:767
 msgid "Delete"
 msgstr ""
 
-#: helpers.py:307
+#: helpers/button.py:88
 #, python-format
 msgid "Delete this %s"
 msgstr ""
 
-#: helpers.py:351
+#: helpers/button.py:132
 msgid "Unpublish"
 msgstr ""
 
-#: helpers.py:353
+#: helpers/button.py:134
 #, python-format
 msgid "Unpublish this %s"
 msgstr ""
 
-#: helpers.py:365
+#: helpers/button.py:146
 msgid "Copy"
 msgstr ""
 
-#: helpers.py:367
+#: helpers/button.py:148
 #, python-format
 msgid "Copy this %s"
 msgstr ""
 
-#: options.py:72
+#: mixins.py:20
 msgid "image"
 msgstr ""
 
@@ -190,66 +190,66 @@ msgstr ""
 msgid "Next"
 msgstr ""
 
-#: views.py:156
+#: views.py:154
 #, python-brace-format
 msgid "{model_name} '{instance}' created."
 msgstr ""
 
-#: views.py:167
+#: views.py:165
 #, python-format
 msgid "The %s could not be created due to errors."
 msgstr ""
 
-#: views.py:660
+#: views.py:658
 msgid "New"
 msgstr ""
 
-#: views.py:685
+#: views.py:683
 #, python-format
 msgid "Create new %s"
 msgstr ""
 
-#: views.py:695
+#: views.py:693
 msgid "Editing"
 msgstr ""
 
-#: views.py:709
+#: views.py:707
 #, python-format
 msgid "Editing %s"
 msgstr ""
 
-#: views.py:712
+#: views.py:710
 #, python-brace-format
 msgid "{model_name} '{instance}' updated."
 msgstr ""
 
-#: views.py:725
+#: views.py:723
 #, python-format
 msgid "The %s could not be saved due to errors."
 msgstr ""
 
-#: views.py:785
+#: views.py:783
 #, python-format
 msgid "Confirm deletion of %s"
 msgstr ""
 
-#: views.py:789
+#: views.py:787
 #, python-format
 msgid ""
 "Are you sure you want to delete this %s? If other things in your site are "
 "related to it, they may also be affected."
 msgstr ""
 
-#: views.py:798
+#: views.py:796
 #, python-brace-format
 msgid "{model} '{instance}' deleted."
 msgstr ""
 
-#: views.py:825
+#: views.py:823
 msgid "Inspecting"
 msgstr ""
 
-#: views.py:838
+#: views.py:836
 #, python-format
 msgid "Inspecting %s"
 msgstr ""
