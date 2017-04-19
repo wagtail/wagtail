@@ -233,6 +233,8 @@ To use Embedly, you must also install their Python module:
 Dashboard
 ---------
 
+.. versionadded:: 1.10
+
 .. code-block:: python
 
     WAGTAILADMIN_RECENT_EDITS_LIMIT = 5
@@ -330,6 +332,8 @@ Tags are case-sensitive by default ('music' and 'Music' are treated as distinct 
 Multi-word tags
 ---------------
 
+.. versionadded:: 1.10
+
 .. code-block:: python
 
   TAG_SPACES_ALLOWED = False
@@ -347,6 +351,8 @@ By default, page slugs can contain any alphanumeric characters, including non-La
 
 Auto update preview
 -------------------
+
+.. versionadded:: 1.10
 
 .. code-block:: python
 
@@ -411,6 +417,8 @@ Specifies the date and datetime format to be used in input fields in the Wagtail
 
 Admin languages
 ---------------
+
+.. versionadded:: 1.10
 
 Users can choose between several languages for the admin interface
 in the account settings. The list of languages is by default all the available
