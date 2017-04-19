@@ -2,15 +2,15 @@
 Embedded content
 ================
 
-Wagtail has builtin functionality for generating embeds for content on external
+Wagtail has built-in functionality for generating embeds for content on external
 websites such as Vimeo, YouTube and Soundcloud. The basic idea is to take a URL
 to a piece of content and generate a HTML embed for that content that can be
 nested on the page.
 
 The way these HTML embeds are generated is completely configurable. The default
-method is to query the site's `oEmbed`_ endpoint if it has one and Wagtail also
-supports `Embedly`_ and writing custom "embed finders" as well. These finders
-can also be chained together.
+method is to query the site's `oEmbed`_ endpoint if it has one. Wagtail also
+supports `Embedly`_ and writing custom "embed finders". These finders can be
+chained together.
 
 Embedding content on your site
 ==============================
@@ -49,7 +49,7 @@ For example:
 Syntax: ``{% embed <url> [max_width=<max width>] %}``
 
 You can nest embeds directly in a template by passing the URL and an optional
-max width argument to the ``{% embed %} tag. The ``max_width`` is sent in the
+max width argument to the ``{% embed %}`` tag. The ``max_width`` is sent in the
 query when fetching the embed HTML so it can have an effect on the generated
 HTML.
 
@@ -110,7 +110,7 @@ oEmbed (default)
 ----------------
 
 The default embed finder fetches the embed code directly from the content
-provider using the oEmbed protocol. Wagtail has a builtin list of providers
+provider using the oEmbed protocol. Wagtail has a built-in list of providers
 which are all enabled by default. You can find that provider list at the
 following link:
 
@@ -123,7 +123,7 @@ You can limit which providers may be used by specifying the list of providers
 in the finder configuration.
 
 For example, this configuration will only allow content to be nested from Vimeo
-and Youtube. It also adds a custom provider in as well:
+and Youtube. It also adds a custom provider:
 
 .. code-block:: python
 
