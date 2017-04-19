@@ -65,7 +65,7 @@ class WagtailPagination(BasePagination):
                 name=self.offset_param,
                 required=False,
                 location='query',
-                schema=coreschema.String(
+                schema=coreschema.Integer(
                     title=force_text(self.offset_title),
                     description=force_text(self.offset_description)
                 )
@@ -74,7 +74,7 @@ class WagtailPagination(BasePagination):
                 name=self.limit_param,
                 required=False,
                 location='query',
-                schema=coreschema.String(
+                schema=coreschema.Integer(
                     title=force_text(self.limit_title),
                     description=force_text(self.limit_description)
                 )
