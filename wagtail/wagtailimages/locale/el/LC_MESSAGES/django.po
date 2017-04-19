@@ -4,6 +4,7 @@
 #
 # Translators:
 # jim dal <dimitrisdal@gmail.com>, 2014
+# Nick Mavrakis <mavrakis.n@gmail.com>, 2017
 # serafeim <serafeim@torchbox.com>, 2014
 # serafeim <serafeim@torchbox.com>, 2014,2016
 # George Giannoulopoulos <vdotoree@yahoo.gr>, 2015
@@ -13,8 +14,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-02-06 12:33+0000\n"
-"PO-Revision-Date: 2016-09-22 15:03+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2017-03-05 18:37+0000\n"
+"Last-Translator: Nick Mavrakis <mavrakis.n@gmail.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
 "MIME-Version: 1.0\n"
@@ -54,6 +55,15 @@ msgstr "Το αρχείο είναι πολύ μεγάλο (%%s). Μέγιστο
 #, python-format
 msgid "This file is too big. Maximum filesize %s."
 msgstr "Το αρχείο είναι πολύ μεγάλο. Μέγιστο μέγεθος αρχείου  %s."
+
+msgid "Full width"
+msgstr "Πλήρες πλάτος"
+
+msgid "Left-aligned"
+msgstr "Στοίχιση αριστερά"
+
+msgid "Right-aligned"
+msgstr "Στοίχιση δεξιά"
 
 msgid "Filter"
 msgstr "Φίλτρο"

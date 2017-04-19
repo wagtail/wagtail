@@ -5,14 +5,14 @@
 # Translators:
 # Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2017
 # Kjartan Sverrisson <kjartan@wow.is>, 2016
-# saevarom <saevar@saevar.is>, 2015
+# saevarom <saevar@saevar.is>, 2015,2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-02-06 12:33+0000\n"
-"PO-Revision-Date: 2017-02-06 12:37+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2017-02-16 23:41+0000\n"
+"Last-Translator: saevarom <saevar@saevar.is>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -20,6 +20,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: is_IS\n"
 "Plural-Forms: nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);\n"
+
+msgid "None"
+msgstr "Ekkert"
 
 msgid "You do not have permission to access the admin"
 msgstr "Þú ert ekki með réttindi til þess að skoða umsjónarsvæðið"
@@ -369,6 +372,10 @@ msgstr "Breyta"
 
 msgid "Preview"
 msgstr "Forskoða"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s síðan"
 
 msgid "Your most recent edits"
 msgstr "Síðustu breytingar sem þú hefur gert"
@@ -809,6 +816,69 @@ msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Veldu nýja yfirsíðu fyrir <span>%(title)s</span>"
 
 #, python-format
+msgid "Comparing %(title)s"
+msgstr "Bera saman %(title)s"
+
+msgid "Comparing"
+msgstr "Ber saman"
+
+msgid "View revisions"
+msgstr "Skoða útgáfur"
+
+msgid "Fields"
+msgstr "Reitir"
+
+msgid "Changes"
+msgstr "Breytingar"
+
+#, python-format
+msgid ""
+"\n"
+"                                                            Moved down 1 "
+"place.\n"
+"                                                        "
+msgid_plural ""
+"\n"
+"                                                            Moved down "
+"%(counter)s places.\n"
+"                                                        "
+msgstr[0] ""
+"\n"
+"                                                            Færði niður um 1 "
+"sæti.\n"
+"                                                        "
+msgstr[1] ""
+"\n"
+"                                                            Færði niður "
+"%(counter)s sæti.\n"
+"                                                        "
+
+#, python-format
+msgid ""
+"\n"
+"                                                            Moved up 1 "
+"place.\n"
+"                                                        "
+msgid_plural ""
+"\n"
+"                                                            Moved up "
+"%(counter)s places.\n"
+"                                                        "
+msgstr[0] ""
+"\n"
+"                                                            Færði upp um 1 "
+"sæti.\n"
+"                                                        "
+msgstr[1] ""
+"\n"
+"                                                            Færði upp um "
+"%(counter)s sæti.\n"
+"                                                        "
+
+msgid "There are no differences between these two revisions"
+msgstr "Það eru engar breytingar milli þessara útgáfa"
+
+#, python-format
 msgid "Revisions of %(title)s"
 msgstr "Útgáfur af %(title)s"
 
@@ -827,6 +897,9 @@ msgstr "Núverandi vinnuskjal"
 
 msgid "Review this revision"
 msgstr "Skoða þessa útgáfu"
+
+msgid "Compare with previous revision"
+msgstr "Bera saman við fyrri útgáfur"
 
 msgid "No revisions of this page exist"
 msgstr "Engar útgáfur til af þessari síðu"
@@ -1100,6 +1173,9 @@ msgstr "Ekki var hægt að vista síðuna, hún er læst"
 msgid "The page could not be saved due to validation errors"
 msgstr "Ekki var hægt að vista síðuna þar sem hún stóðst ekki villuprófanir"
 
+msgid "Compare with live version"
+msgstr "Bera saman við útgáfu í birtingu"
+
 msgid "This page is currently awaiting moderation"
 msgstr "Þessi síða bíður samþykkis til birtingar."
 
@@ -1157,11 +1233,57 @@ msgstr ""
 "Þú ert að skoða útgáfu af þessari síðu frá <b>%(created_at)s</b> eftir "
 "%(user)s"
 
+msgid "Earliest"
+msgstr "Fyrsta"
+
+msgid "Latest"
+msgstr "Nýjasta"
+
 msgid "Pages"
 msgstr "Síður"
 
+#, python-brace-format
+msgid "Edit '{title}'"
+msgstr "Breyta '{title}'"
+
+#, python-brace-format
+msgid "Preview draft version of '{title}'"
+msgstr "Forskoða uppkast af '{title}'"
+
+#, python-brace-format
+msgid "View live version of '{title}'"
+msgstr "Skoða útgáfu af '{title}' í birtingu"
+
+#, python-brace-format
+msgid "Add a child page to '{title}' "
+msgstr "Bæta undirsíðu við '{title}'"
+
 msgid "More"
 msgstr "Meira"
+
+#, python-brace-format
+msgid "View more options for '{title}'"
+msgstr "Skoða fleiri valkosti fyrir '{title}'"
+
+#, python-brace-format
+msgid "Move page '{title}'"
+msgstr "Færa síðu '{title}'"
+
+#, python-brace-format
+msgid "Copy page '{title}'"
+msgstr "Afrita síðu '{title}'"
+
+#, python-brace-format
+msgid "Delete page '{title}'"
+msgstr "Eyða síðu '{title}'"
+
+#, python-brace-format
+msgid "Unpublish page '{title}'"
+msgstr "Taka '{title}' úr loftinu"
+
+#, python-brace-format
+msgid "View revision history for '{title}'"
+msgstr "Skoða útgáfusögu '{title}'"
 
 msgid "Choose an item"
 msgstr "Veldu"

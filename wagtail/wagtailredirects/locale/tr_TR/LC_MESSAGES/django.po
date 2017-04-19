@@ -4,14 +4,14 @@
 #
 # Translators:
 # Yusuf (Josè) Luis <alagunajs@gmail.com>, 2015
-# Yusuf (Josè) Luis <alagunajs@gmail.com>, 2016
+# Yusuf (Josè) Luis <alagunajs@gmail.com>, 2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-02-06 12:33+0000\n"
-"PO-Revision-Date: 2016-08-01 13:29+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2017-04-07 13:45+0000\n"
+"Last-Translator: Yusuf (Josè) Luis <alagunajs@gmail.com>\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/torchbox/wagtail/"
 "language/tr_TR/)\n"
 "MIME-Version: 1.0\n"
@@ -25,6 +25,9 @@ msgstr "Siteden"
 
 msgid "All sites"
 msgstr "Her siteler"
+
+msgid "redirect to any URL"
+msgstr "Herhangi bir BKK'ya yönlendir"
 
 msgid "Save"
 msgstr "Kayde"

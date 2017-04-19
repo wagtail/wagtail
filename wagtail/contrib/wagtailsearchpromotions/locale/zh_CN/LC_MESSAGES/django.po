@@ -4,13 +4,14 @@
 #
 # Translators:
 # hanfeng <appweb.cn@gmail.com>, 2014
+# jszsj <zhushajun@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-02-06 12:33+0000\n"
-"PO-Revision-Date: 2015-12-17 14:02+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2017-04-05 03:42+0000\n"
+"Last-Translator: jszsj <zhushajun@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -18,6 +19,24 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Please specify at least one recommendation for this search term."
+msgstr "请至少指定一条针对此搜索条件的建议。"
+
+msgid "page"
+msgstr "页面"
+
+msgid "description"
+msgstr "描述"
+
+msgid "search promotion"
+msgstr "搜索推广"
+
+msgid "Add search promotion"
+msgstr "增加搜索推广"
+
+msgid "Add search pick"
+msgstr "增加搜索精选"
 
 msgid "Save"
 msgstr "保存"

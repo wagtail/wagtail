@@ -7,14 +7,15 @@
 # hanfeng <appweb.cn@gmail.com>, 2014
 # Jian Li <kdlijian@gmail.com>, 2015
 # Listeng, 2016
-# 沙军 祝 <zhushajun@gmail.com>, 2016
+# jszsj <zhushajun@gmail.com>, 2017
+# jszsj <zhushajun@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-02-06 12:33+0000\n"
-"PO-Revision-Date: 2017-02-06 12:40+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2017-04-05 05:19+0000\n"
+"Last-Translator: jszsj <zhushajun@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -91,6 +92,23 @@ msgstr "用户资料"
 
 msgid "Delete group"
 msgstr "删除组"
+
+#, python-format
+msgid ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> member.\n"
+"            "
+msgid_plural ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> members.\n"
+"            "
+msgstr[0] ""
+"\n"
+"                '%(group_name)s' 组有 <strong>%(group_user_count)s</strong> "
+"个成员。\n"
+"            "
 
 msgid ""
 "Deleting this group will revoke this group's permissions from all member "

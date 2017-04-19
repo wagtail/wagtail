@@ -5,15 +5,15 @@
 # Translators:
 # Bram <bram2w@live.nl>, 2015
 # Franklin Kingma <franklin@statix.net>, 2015
-# Maarten Kling <kling.maarten@gmail.com>, 2015
-# Thijs Kramer <thijskramer@gmail.com>, 2015-2016
+# Maarten Kling <kling.maarten@gmail.com>, 2015,2017
+# Thijs Kramer <thijskramer@gmail.com>, 2015-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-02-06 12:33+0000\n"
-"PO-Revision-Date: 2017-02-06 12:41+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2017-02-17 08:53+0000\n"
+"Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -120,6 +120,28 @@ msgstr "e-mail afzender"
 msgid "subject"
 msgstr "onderwerp"
 
+#, python-format
+msgid "Delete form data %(title)s"
+msgstr "Verwijder formuliergegevens van %(title)s"
+
+msgid "Delete form data"
+msgstr "Formuliergegevens verwijderen"
+
+msgid ""
+"\n"
+"                Are you sure you want to delete this form submission?\n"
+"            "
+msgid_plural ""
+"\n"
+"                Are you sure you want to delete these form submissions?\n"
+"            "
+msgstr[0] ""
+"\n"
+"Weet u zeker dat u deze inzending wilt verwijderen?"
+msgstr[1] ""
+"\n"
+"Weet u zeker dat u deze inzendingen wilt verwijderen?"
+
 msgid "Delete"
 msgstr "Verwijderen"
 
@@ -161,3 +183,9 @@ msgstr "Herkomst"
 
 msgid "No form pages have been created."
 msgstr "Er zijn nog geen pagina's met een formulier aangemaakt."
+
+#, python-format
+msgid "One submission has been deleted."
+msgid_plural "%(count)d submissions have been deleted."
+msgstr[0] "Inzending verwijderd."
+msgstr[1] "%(count)d inzendingen verwijderd."

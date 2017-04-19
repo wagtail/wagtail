@@ -1,0 +1,107 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Daniel Chimeno <daniel@chimeno.me>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2017-03-03 21:12+0000\n"
+"Last-Translator: Daniel Chimeno <daniel@chimeno.me>\n"
+"Language-Team: Spanish (Spain) (http://www.transifex.com/torchbox/wagtail/"
+"language/es_ES/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es_ES\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "This block has no options."
+msgstr "Este bloque no tiene opciones"
+
+msgid "Password"
+msgstr "Contraseña"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr ""
+"La contraseña que ha introducido es incorrecta. Por favor inténtelo de nuevo."
+
+msgid "hostname"
+msgstr "nombre del host"
+
+msgid "port"
+msgstr "puerto"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"Establezca este campos a un valor distinto de 80 si necesita que un puerto "
+"específico aparezca en las URLs (por ejemplo en desarrollo el puerto 8000). "
+"Esto no afectará a las solicitudes recibidas (por lo que el reenvío de "
+"puertos seguirá funcionando)"
+
+msgid "site name"
+msgstr "nombre del sitio"
+
+msgid "root page"
+msgstr "Página raíz"
+
+msgid "is default site"
+msgstr "Es sitio por defecto"
+
+msgid "site"
+msgstr "sitio"
+
+msgid "sites"
+msgstr "sitios"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)s está previamente configurado como el sitio por defecto. Deberá "
+"quitarlo antes de poder guardar este como por defecto."
+
+msgid "title"
+msgstr "título"
+
+msgid "The page title as you'd like it to be seen by the public"
+msgstr "El título de la página como quiere que sea visto por el público"
+
+msgid "slug"
+msgstr "slug"
+
+msgid ""
+"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
+"[my-slug]/"
+msgstr ""
+"Nombre de la página tal como aparecerá en URLs p.ej. http://domain.com/blog/"
+"[my-slug]/"
+
+msgid "content type"
+msgstr "tipo de contenido"
+
+msgid "has unpublished changes"
+msgstr "tiene cambios no publicados"
+
+msgid "URL path"
+msgstr "Ruta URL"
+
+msgid "owner"
+msgstr "propietario"
+
+msgid "page title"
+msgstr "título de la página"
+
+msgid ""
+"Optional. 'Search Engine Friendly' title. This will appear at the top of the "
+"browser window."
+msgstr ""
+"Opcional. Título 'Amigable para el Motor de Búsqueda'. Aparecerá en la parte "
+"superior de la ventana del navegador."

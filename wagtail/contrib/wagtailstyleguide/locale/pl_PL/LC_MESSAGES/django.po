@@ -1,0 +1,49 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Grzegorz Wasilewski <legard4d@gmail.com>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2017-02-26 22:27+0000\n"
+"Last-Translator: Grzegorz Wasilewski <legard4d@gmail.com>\n"
+"Language-Team: Polish (Poland) (http://www.transifex.com/torchbox/wagtail/"
+"language/pl_PL/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: pl_PL\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n"
+"%100<12 || n%100>=14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
+"%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+
+msgid "Styleguide"
+msgstr "Styl"
+
+msgid "Save"
+msgstr "Zapisz"
+
+msgid "Delete image"
+msgstr "Usuń zdjęcie"
+
+msgid "Search something"
+msgstr "Wyszukaj"
+
+msgid "Success message"
+msgstr "Sukces"
+
+msgid "View live"
+msgstr "Pokaż podgląd \"na żywo\""
+
+msgid "Edit"
+msgstr "Edytuj"
+
+msgid "Warning message"
+msgstr "Ostrzeżenie"
+
+msgid "Error message"
+msgstr "Błąd"

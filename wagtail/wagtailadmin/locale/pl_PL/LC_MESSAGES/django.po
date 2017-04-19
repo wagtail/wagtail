@@ -1,0 +1,94 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Konrad Lalik <konradlalik@gmail.com>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"PO-Revision-Date: 2017-04-15 11:04+0000\n"
+"Last-Translator: Konrad Lalik <konradlalik@gmail.com>\n"
+"Language-Team: Polish (Poland) (http://www.transifex.com/torchbox/wagtail/"
+"language/pl_PL/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: pl_PL\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n"
+"%100<12 || n%100>=14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
+"%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+
+msgid "None"
+msgstr "Brak"
+
+msgid "Content"
+msgstr "Treść"
+
+msgid "Settings"
+msgstr "Ustawienia"
+
+msgid "Search"
+msgstr "Wyszukaj"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Enter password"
+msgstr "Wpisz hasło"
+
+msgid "Enter your email address to reset your password"
+msgstr "Wpisz swój adres e-mail aby zresetować hasło"
+
+msgid "Please fill your email address."
+msgstr "Wpisz swój adres e-mail"
+
+msgid "This email address is not recognised."
+msgstr "Podany adres nie został rozpoznany."
+
+msgid "New title"
+msgstr "Nowy tytuł"
+
+msgid "New parent page"
+msgstr "Nowa nadrzędna strona"
+
+msgid "This copy will be a child of this given parent page."
+msgstr "Ta kopia będzie podrzędna względem obecnej strony"
+
+msgid "Copy subpages"
+msgstr "Kopiuj podstrony"
+
+msgid "Publish copied page"
+msgstr "Opublikuj skopiowaną stronę"
+
+msgid "Publish copies"
+msgstr "Opublikuj kopie"
+
+msgid "Visibility"
+msgstr "Widoczność"
+
+msgid "This field is required."
+msgstr "Pole jest wymagane"
+
+msgid "Please select at least one group."
+msgstr "Proszę wybrać co najmniej jedną grupę"
+
+msgid "Account"
+msgstr "Konto"
+
+msgid "Change password"
+msgstr "Zmień hasło"
+
+msgid "Change the password you use to log in."
+msgstr "Zmień hasło wykorzystywane do logowania"
+
+msgid "Notification preferences"
+msgstr "Ustawienia powiadomień"
+
+msgid "Change Password"
+msgstr "Zmień hasło"
+
+msgid "Notification Preferences"
+msgstr "Ustawienia Powiadomień"

@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# karabellyj <jozefkarabelly@gmail.com>, 2017
 # dellax <michalnebbia@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-02-06 12:33+0000\n"
-"PO-Revision-Date: 2015-12-26 13:45+0000\n"
-"Last-Translator: dellax <michalnebbia@gmail.com>\n"
+"PO-Revision-Date: 2017-03-12 11:24+0000\n"
+"Last-Translator: karabellyj <jozefkarabelly@gmail.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
 "MIME-Version: 1.0\n"
@@ -19,11 +20,38 @@ msgstr ""
 "Language: sk_SK\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
+msgid "Please specify at least one recommendation for this search term."
+msgstr "Prosím definujte aspoň jedno odporúčanie pre tento výraz vyhladávania."
+
 msgid "page"
 msgstr "stránka"
 
 msgid "description"
 msgstr "popis"
+
+msgid "search promotion"
+msgstr "propagovanie vyhladávania"
+
+msgid "Add search promotion"
+msgstr "Propagovať vyhladávanie"
+
+msgid "Add search pick"
+msgstr "Pridať voľbu vyhladávania"
+
+msgid ""
+"\n"
+"                <p>Promoted search results are a means of recommending "
+"specific pages that might not organically come high up in search results. E."
+"g recommending your primary donation page to a user searching with the less "
+"common term \"<em>giving</em>\".</p>\n"
+"            "
+msgstr ""
+"\n"
+"                <p>Propagonavé výsledky vyhladávania sú spôsobom odporúčania "
+"špecifických stránok, ktoré by pôvodne neboli vysoko vo výsledkoch "
+"vyhladávania. Napr. odporučenie Vašej hlavnej donation stránky užívateľovi "
+"hladajúcemu s menej bežným výrazom \"<em>dávanie</em>\".</p>\n"
+"            "
 
 msgid "Save"
 msgstr "Uložiť"
@@ -47,14 +75,26 @@ msgstr "Posunúť vyššie"
 msgid "Move down"
 msgstr "Posunúť nižšie"
 
+msgid "Promoted search result"
+msgstr "Propagované výsledky vyhladávania"
+
 msgid "Add recommended page"
 msgstr "Pridať odporúčanú stránku"
+
+msgid "Search Terms"
+msgstr "Výrazy vyhladávania"
 
 msgid "Search term(s)"
 msgstr "Hľadané výrazy"
 
+msgid "Promoted results"
+msgstr "Propagované výsledky"
+
 msgid "Views (past week)"
 msgstr "Zobrazení (posledný týždeň)"
+
+msgid "Edit this promotion"
+msgstr "Upraviť propagáciu"
 
 msgid "None"
 msgstr "Žiadne"
@@ -86,3 +126,6 @@ msgstr "Odporúčania nemôžu byť vytvorené kvôli chybám."
 
 msgid "Recommendations have not been saved due to errors"
 msgstr "Odporúčania nemôžu byť uložené kvôli chybám."
+
+msgid "Editor's picks deleted."
+msgstr "Výbery Editora vymazané."

@@ -4,14 +4,14 @@
 #
 # Translators:
 # Eirik Krogstad <eirikkr@gmail.com>, 2015
-# Stein Strindhaug <stein.strindhaug@gmail.com>, 2016
+# Stein Strindhaug <stein.strindhaug@gmail.com>, 2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-02-06 12:33+0000\n"
-"PO-Revision-Date: 2017-02-06 12:38+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2017-02-20 12:17+0000\n"
+"Last-Translator: Stein Strindhaug <stein.strindhaug@gmail.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
 "MIME-Version: 1.0\n"
@@ -142,6 +142,10 @@ msgstr "Fil"
 
 msgid "Uploaded"
 msgstr "Opplastet"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s siden"
 
 #, python-format
 msgid ""

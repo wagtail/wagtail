@@ -5,6 +5,7 @@
 # Translators:
 # fooflare <amos.oviedo@gmail.com>, 2014
 # fooflare <amos.oviedo@gmail.com>, 2014
+# Daniel Chimeno <daniel@chimeno.me>, 2017
 # Daniel Chimeno <daniel@chimeno.me>, 2015-2016
 # fooflare <amos.oviedo@gmail.com>, 2014
 # Yusuf (Josè) Luis <alagunajs@gmail.com>, 2015-2016
@@ -16,8 +17,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-02-06 12:33+0000\n"
-"PO-Revision-Date: 2017-02-13 21:55+0000\n"
-"Last-Translator: Yusuf (Josè) Luis <alagunajs@gmail.com>\n"
+"PO-Revision-Date: 2017-02-28 09:52+0000\n"
+"Last-Translator: Daniel Chimeno <daniel@chimeno.me>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -64,7 +65,7 @@ msgid "Email"
 msgstr "Correo electrónico"
 
 msgid "First Name"
-msgstr "Nombres"
+msgstr "Nombre"
 
 msgid "Last Name"
 msgstr "Apellidos"

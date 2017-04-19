@@ -4,6 +4,7 @@
 #
 # Translators:
 # jim dal <dimitrisdal@gmail.com>, 2014
+# Nick Mavrakis <mavrakis.n@gmail.com>, 2017
 # serafeim <serafeim@torchbox.com>, 2014
 # serafeim <serafeim@torchbox.com>, 2014,2016
 # George Giannoulopoulos <vdotoree@yahoo.gr>, 2015
@@ -13,8 +14,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-02-06 12:33+0000\n"
-"PO-Revision-Date: 2016-12-06 22:47+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2017-03-04 19:20+0000\n"
+"Last-Translator: Nick Mavrakis <mavrakis.n@gmail.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
 "MIME-Version: 1.0\n"
@@ -23,8 +24,21 @@ msgstr ""
 "Language: el\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#, python-brace-format
+msgid "{label}: this block has no options."
+msgstr "{label}: αυτό το block δεν έχει επιλογές."
+
+msgid "This block has no options."
+msgstr "Αυτό το block δεν έχει επιλογές."
+
+msgid "Password"
+msgstr "Κωδικός"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr "Ο κωδικός που εισαγάγατε δεν είναι σωστός. Προσπαθήστε ξανα."
+
 msgid "hostname"
-msgstr "hostname"
+msgstr "Όνομα κεντρικού υπολογιστή"
 
 msgid "port"
 msgstr "θύρα"
@@ -46,10 +60,10 @@ msgid "Human-readable name for the site."
 msgstr "Φιλικό όνομα για το site."
 
 msgid "root page"
-msgstr "ριζική σελίδα"
+msgstr "κεντρική σελίδα"
 
 msgid "is default site"
-msgstr "είναι η προεπιλεγμένη τοποθεσία"
+msgstr "είναι το προεπιλεγμένο site"
 
 msgid ""
 "If true, this site will handle requests for all other hostnames that do not "
@@ -70,11 +84,10 @@ msgid ""
 "before you can save this site as default."
 msgstr ""
 "%(hostname)s έχει ήδη ρυθμιστεί ως η προεπιλεγμένη τοποθεσία. Θα πρέπει να "
-"απενεργοποιήσετε αυτο προτού μπορείτε να αποθηκεύσετε αυτήν την τοποθεσία ως "
-"προεπιλογή."
+"το απενεργοποιήσετε προτού αποθηκεύσετε αυτή την τοποθεσία ως προεπιλογή."
 
 msgid "title"
-msgstr "Τίτλος"
+msgstr "τίτλος"
 
 msgid "The page title as you'd like it to be seen by the public"
 msgstr "Ο τίτλος της σελίδας έτσι όπως θα εμφανίζεται στο κοινό"
@@ -93,7 +106,7 @@ msgid "content type"
 msgstr "Τύπος περιεχομένου"
 
 msgid "live"
-msgstr "Ζωντανα"
+msgstr "live"
 
 msgid "has unpublished changes"
 msgstr "έχει αδημοσίευτες αλλαγές"
@@ -127,10 +140,12 @@ msgid "search description"
 msgstr "περιγραφή αναζήτησης"
 
 msgid "go live date/time"
-msgstr "σημερομηνία/ώρα δημοσίευσης"
+msgstr "ημερομηνία/ώρα δημοσίευσης"
 
 msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
-msgstr "Παρακαλούμε προσθέστε μια ημερομηνία στη μορφή YYYY-MM-DD hh:mm:ss."
+msgstr ""
+"Παρακαλούμε προσθέστε μια ημερομηνία-ώρα στη μορφή EEEE-MM-HH ωω:λλ (πχ "
+"2017-03-09 05:55)."
 
 msgid "expiry date/time"
 msgstr "ημερομηνία/ώρα λήξης"
@@ -142,22 +157,22 @@ msgid "locked"
 msgstr "κλειδωμένο"
 
 msgid "first published at"
-msgstr "πρώτη δημοσίευση"
+msgstr "πρώτη δημοσίευση στις"
 
 msgid "latest revision created at"
 msgstr "τελευταία αναθεώρηση δημιουργήθηκε στις"
 
 msgid "This slug is already in use"
-msgstr "Το slug χρησιμοποιείται"
+msgstr "Το slug χρησιμοποιείται ήδη"
 
 msgid "scheduled"
 msgstr "έχει προγραμματιστεί"
 
 msgid "draft"
-msgstr "Σχέδιο"
+msgstr "draft"
 
 msgid "live + draft"
-msgstr "ζωντανα + σχέδιο "
+msgstr "live + draft "
 
 msgid "Default"
 msgstr "Προεπιλογή"
@@ -193,7 +208,7 @@ msgid "Add"
 msgstr "Προσθήκη"
 
 msgid "Add/edit pages you own"
-msgstr "Προσθήκη σελίδων/Επεξεργασία αυτων που έχετε στην κατοχή σας"
+msgstr "Προσθέστε/επεξεργαστείτε σελίδες που σας ανήκουν"
 
 msgid "Edit"
 msgstr "Επεξεργασία"
@@ -206,6 +221,12 @@ msgstr "Δημοσίευση"
 
 msgid "Publish any page"
 msgstr "Δημοσίευση καθε σελίδας"
+
+msgid "Bulk delete"
+msgstr "Μαζική διαγραφή"
+
+msgid "Delete pages with children"
+msgstr "Διαγραφή σελιδών με υποσελίδες"
 
 msgid "Lock"
 msgstr "Κλείδωμα"
@@ -224,6 +245,19 @@ msgstr "άδεια ομάδας σελίδων"
 
 msgid "group page permissions"
 msgstr "άδειες ομάδας σελίδων"
+
+msgid "Public"
+msgstr "Δημόσια"
+
+msgid "Private, accessible to logged-in users"
+msgstr "Ιδιωτικό, προσβάσιμο μόνο σε εγγεγραμμένους χρήστες"
+
+msgid "Private, accessible with the following password"
+msgstr "Ιδιωτικό, προσβάσιμο με τον ακόλουθο κωδικό"
+
+msgid "Private, accessible to users in specific groups"
+msgstr ""
+"Ιδιωτικό, προσβάσιμο μόνο σε χρήστες που ανήκουν σε συγκεκριμένες ομάδες"
 
 msgid "password"
 msgstr "κωδικός"
@@ -248,3 +282,25 @@ msgstr "άδεια"
 
 msgid "group collection permission"
 msgstr "άδεια ομάδας συλλογών"
+
+msgid "Log in"
+msgstr "Είσοδος"
+
+msgid "Your username and password didn't match. Please try again."
+msgstr "Το όνομα χρήστη και ο κωδικός δεν ταιριάζουν. Παρακαλώ δοκιμάστε ξανά."
+
+msgid ""
+"Your account doesn't have access to this page. To proceed, please log in "
+"with an account that has access."
+msgstr ""
+"Ο λογαριασμός σας δεν έχει πρόσβαση σε αυτή τη σελίδα. Για να προχωρήσετε, "
+"παρακαλούμε συνδεθείτε με έναν λογαριασμό που να έχει πρόσβαση."
+
+msgid "Password required"
+msgstr "Απαιτείται κωδικός"
+
+msgid "You need a password to access this page."
+msgstr "Θα χρειαστείτε κωδικό για να δείτε αυτή τη σελίδα"
+
+msgid "Continue"
+msgstr "Συνέχεια"

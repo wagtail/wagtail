@@ -4,7 +4,7 @@
 #
 # Translators:
 # Antoni Aloy <aaloy@apsl.net>, 2016
-# David Llop <d.lloople@gmail.com>, 2014
+# David Llop, 2014
 # Roger Pons <rogerpons@gmail.com>, 2016
 msgid ""
 msgstr ""

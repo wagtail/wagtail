@@ -24,21 +24,25 @@ logger = logging.getLogger('wagtail.admin')
 # Wagtail languages with >=90% coverage
 # This list is manually maintained
 WAGTAILADMIN_PROVIDED_LANGUAGES = [
-    ('en', ugettext_lazy('English')),
+    ('ca', ugettext_lazy('Catalan')),
     ('de', ugettext_lazy('German')),
-    ('pt-br', ugettext_lazy('Brazilian Portuguese')),
+    ('el', ugettext_lazy('Greek')),
+    ('en', ugettext_lazy('English')),
     ('es', ugettext_lazy('Spanish')),
-    ('ro', ugettext_lazy('Romanian')),
+    ('fi', ugettext_lazy('Finnish')),
     ('fr', ugettext_lazy('French')),
+    ('gl', ugettext_lazy('Galician')),
     ('is-is', ugettext_lazy('Icelandic')),
     ('it', ugettext_lazy('Italian')),
+    ('lt', ugettext_lazy('Lithuanian')),
     ('nb', ugettext_lazy('Norwegian Bokmål')),
-    ('pl', ugettext_lazy('Polish')),
-    ('pt-pt', ugettext_lazy('Portuguese')),
-    ('ru', ugettext_lazy('Russian')),
     ('nl-nl', ugettext_lazy('Netherlands Dutch')),
-    ('fi', ugettext_lazy('Finish')),
-    ('ga', ugettext_lazy('Galician'))
+    ('pl', ugettext_lazy('Polish')),
+    ('pt-br', ugettext_lazy('Brazilian Portuguese')),
+    ('pt-pt', ugettext_lazy('Portuguese')),
+    ('ro', ugettext_lazy('Romanian')),
+    ('ru', ugettext_lazy('Russian')),
+    ('zh-cn', ugettext_lazy('Chinese (China)')),
 ]
 
 

@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Thomas Kunambi <kunambi@gmail.com>, 2017
 # Thomas Kunambi <kunambi@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-02-06 12:33+0000\n"
-"PO-Revision-Date: 2015-12-17 13:59+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2017-04-18 07:53+0000\n"
+"Last-Translator: Thomas Kunambi <kunambi@gmail.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -24,6 +25,9 @@ msgstr "Vänligen ange gitlig URL"
 
 msgid "URL"
 msgstr "URL"
+
+msgid "embed"
+msgstr "inbädda"
 
 msgid "Insert embed"
 msgstr "Infoga inbäddning"

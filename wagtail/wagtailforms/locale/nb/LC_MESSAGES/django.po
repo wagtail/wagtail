@@ -4,14 +4,14 @@
 #
 # Translators:
 # Eirik Krogstad <eirikkr@gmail.com>, 2015
-# Stein Strindhaug <stein.strindhaug@gmail.com>, 2016
+# Stein Strindhaug <stein.strindhaug@gmail.com>, 2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-02-06 12:33+0000\n"
-"PO-Revision-Date: 2017-02-06 12:41+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2017-02-20 12:16+0000\n"
+"Last-Translator: Stein Strindhaug <stein.strindhaug@gmail.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
 "MIME-Version: 1.0\n"
@@ -116,6 +116,30 @@ msgstr "fra-adresse"
 msgid "subject"
 msgstr "emne"
 
+#, python-format
+msgid "Delete form data %(title)s"
+msgstr "Slett skjemadata for %(title)s"
+
+msgid "Delete form data"
+msgstr "Slett skjemadata"
+
+msgid ""
+"\n"
+"                Are you sure you want to delete this form submission?\n"
+"            "
+msgid_plural ""
+"\n"
+"                Are you sure you want to delete these form submissions?\n"
+"            "
+msgstr[0] ""
+"\n"
+"                Er du sikker på at du vil slette dette innsendte skjemaet?\n"
+"            "
+msgstr[1] ""
+"\n"
+"                Er du sikker på at du vil slette disse innsendte skjemaene?\n"
+"            "
+
 msgid "Delete"
 msgstr "Slett"
 
@@ -157,3 +181,9 @@ msgstr "Opphav"
 
 msgid "No form pages have been created."
 msgstr "Ingen skjemasider har blitt opprettet."
+
+#, python-format
+msgid "One submission has been deleted."
+msgid_plural "%(count)d submissions have been deleted."
+msgstr[0] "Ett innsendt skjema ble slettet."
+msgstr[1] "%(count)d innsendte skjema ble slettet."

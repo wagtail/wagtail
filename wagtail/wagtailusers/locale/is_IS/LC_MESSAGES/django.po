@@ -4,13 +4,14 @@
 #
 # Translators:
 # Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2016
+# saevarom <saevar@saevar.is>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-02-06 12:33+0000\n"
-"PO-Revision-Date: 2017-02-06 12:40+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2017-02-16 23:45+0000\n"
+"Last-Translator: saevarom <saevar@saevar.is>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -91,6 +92,28 @@ msgstr "uppsetning notanda"
 
 msgid "Delete group"
 msgstr "Eyða hóp"
+
+#, python-format
+msgid ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> member.\n"
+"            "
+msgid_plural ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> members.\n"
+"            "
+msgstr[0] ""
+"\n"
+"                Hópurinn '%(group_name)s' hefur <strong>"
+"%(group_user_count)s</strong> meðlim.\n"
+"            "
+msgstr[1] ""
+"\n"
+"                Hópurinn '%(group_name)s' hefur <strong>"
+"%(group_user_count)s</strong> meðlimi.\n"
+"            "
 
 msgid ""
 "Deleting this group will revoke this group's permissions from all member "

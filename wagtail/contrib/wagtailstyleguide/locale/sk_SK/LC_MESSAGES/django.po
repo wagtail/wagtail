@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# karabellyj <jozefkarabelly@gmail.com>, 2017
 # dellax <michalnebbia@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-02-06 12:33+0000\n"
-"PO-Revision-Date: 2015-12-12 22:30+0000\n"
-"Last-Translator: dellax <michalnebbia@gmail.com>\n"
+"PO-Revision-Date: 2017-03-09 18:35+0000\n"
+"Last-Translator: karabellyj <jozefkarabelly@gmail.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
 "MIME-Version: 1.0\n"
@@ -31,11 +32,17 @@ msgstr "Zmazať obrázok"
 msgid "Search something"
 msgstr "Hľadať niečo"
 
+msgid "Success message"
+msgstr "Úspešná správa"
+
 msgid "View live"
 msgstr "Zobraziť live"
 
 msgid "Edit"
 msgstr "Upraviť"
+
+msgid "Warning message"
+msgstr "Varovná správa"
 
 msgid "Error message"
 msgstr "Chybová správa"

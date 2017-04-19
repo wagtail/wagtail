@@ -3,15 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# David Llop <d.lloople@gmail.com>, 2014
-# David Llop <d.lloople@gmail.com>, 2014
+# David Llop, 2014
+# David Llop, 2014
+# Roger Pons <rogerpons@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-02-06 12:33+0000\n"
-"PO-Revision-Date: 2016-08-01 13:29+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2017-03-31 11:45+0000\n"
+"Last-Translator: Roger Pons <rogerpons@gmail.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
 "MIME-Version: 1.0\n"
@@ -20,6 +21,24 @@ msgstr ""
 "Language: ca\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "From site"
+msgstr "Des del lloc"
+
+msgid "All sites"
+msgstr "Tots els llocs"
+
+msgid "A redirect with this path already exists."
+msgstr "Ja existeix una redirecció amb aquesta ruta."
+
+msgid "redirect from"
+msgstr "redirigir des de"
+
+msgid "site"
+msgstr "lloc"
+
+msgid "permanent"
+msgstr "permanent"
+
 msgid ""
 "Recommended. Permanent redirects ensure search engines forget the old page "
 "(the 'Redirect from') and index the new page instead."
@@ -27,6 +46,18 @@ msgstr ""
 "Recomanat. Redireccionaments permanents asseguren que els motors de cerca "
 "oblidin la pàgina antiga (El 'redireccionament des de') i indexin la nova "
 "pàgina al seu lloc."
+
+msgid "redirect to a page"
+msgstr "redirigir a una pàgina"
+
+msgid "redirect to any URL"
+msgstr "redirigir a alguna URL"
+
+msgid "temporary"
+msgstr "provisional"
+
+msgid "redirect"
+msgstr "redirigir"
 
 msgid "Add redirect"
 msgstr "Afegeix redirecció"
@@ -59,6 +90,9 @@ msgstr "Esborra redirecció"
 
 msgid "Redirects"
 msgstr "Redireccions"
+
+msgid "From"
+msgstr "Des de"
 
 msgid "Site"
 msgstr "Lloc"
@@ -116,6 +150,10 @@ msgstr "És possible que el redireccionament no s'hagi guardat degut a errors."
 #, python-brace-format
 msgid "Redirect '{0}' deleted."
 msgstr "Redireccionamnet '{0}' eliminat."
+
+#, python-brace-format
+msgid "Redirect '{0}' added."
+msgstr "S'ha afegit la redirecció '{0}'"
 
 msgid "The redirect could not be created due to errors."
 msgstr "No s'ha pogut crear el redireccionament."

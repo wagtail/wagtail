@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2016
+# Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-02-06 12:33+0000\n"
-"PO-Revision-Date: 2017-02-06 12:40+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2017-02-21 14:16+0000\n"
+"Last-Translator: Giacomo Ghizzani <giacomo.ghz@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -91,6 +91,28 @@ msgstr "profilo utente"
 
 msgid "Delete group"
 msgstr "Elimina gruppo"
+
+#, python-format
+msgid ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> member.\n"
+"            "
+msgid_plural ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> members.\n"
+"            "
+msgstr[0] ""
+"\n"
+"                Il gruppo '%(group_name)s' ha <strong>%(group_user_count)s</"
+"strong> membro.\n"
+"            "
+msgstr[1] ""
+"\n"
+"                Il gruppo '%(group_name)s' ha <strong>%(group_user_count)s</"
+"strong> membri.\n"
+"            "
 
 msgid ""
 "Deleting this group will revoke this group's permissions from all member "

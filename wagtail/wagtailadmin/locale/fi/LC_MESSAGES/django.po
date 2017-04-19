@@ -4,7 +4,7 @@
 #
 # Translators:
 # Aarni Koskela, 2016
-# Eetu Häivälä <eetu.haivala@anders.fi>, 2016
+# Eetu Häivälä <eetu.haivala@anders.fi>, 2016-2017
 # Juha Yrjölä <juha.yrjola@iki.fi>, 2016
 # Niklas Jerva <niklas.jerva@gmail.com>, 2016
 # Rauli L. <rauli.laine@iki.fi>, 2016
@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-02-06 12:33+0000\n"
-"PO-Revision-Date: 2017-02-06 12:37+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2017-04-13 12:48+0000\n"
+"Last-Translator: Eetu Häivälä <eetu.haivala@anders.fi>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -22,6 +22,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fi\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "None"
+msgstr "Ei mitään"
 
 msgid "You do not have permission to access the admin"
 msgstr "Sinulla ei ole oikeuksia käyttää hallintaa"
@@ -121,8 +124,14 @@ msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
 msgstr "Lyhytnimi on jo käytössä isäntäsivun \"%s\" alla"
 
+msgid "Visibility"
+msgstr "Näkyvyys"
+
 msgid "This field is required."
 msgstr "Tämä kenttä on pakollinen."
+
+msgid "Please select at least one group."
+msgstr "Valitse vähintään yksi ryhmä."
 
 msgid "This slug is already in use"
 msgstr "Lyhytnimi on jo käytössä"
@@ -358,6 +367,10 @@ msgstr "Muokkaa"
 
 msgid "Preview"
 msgstr "Esikatsele"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s sitten"
 
 msgid "Your most recent edits"
 msgstr "Tuoreimmat muokkauksesi"
@@ -771,6 +784,25 @@ msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Valitse uusi isäntäsivu sivulle <span>%(title)s</span>"
 
 #, python-format
+msgid "Comparing %(title)s"
+msgstr "Vertaillaan %(title)s"
+
+msgid "Comparing"
+msgstr "Vertaillaan"
+
+msgid "View revisions"
+msgstr "Tarkastele revisioita"
+
+msgid "Fields"
+msgstr "Kentät"
+
+msgid "Changes"
+msgstr "Muutokset"
+
+msgid "There are no differences between these two revisions"
+msgstr "Revisioiden välillä ei ole eroavaisuuksia"
+
+#, python-format
 msgid "Revisions of %(title)s"
 msgstr "Kohteen %(title)s versiot"
 
@@ -789,6 +821,9 @@ msgstr "Nykyinen luonnos"
 
 msgid "Review this revision"
 msgstr "Tarkastele tätä versiota"
+
+msgid "Compare with previous revision"
+msgstr "Vertaile edellisen revision kanssa"
 
 msgid "No revisions of this page exist"
 msgstr "Tästä sivusta ei ole versioita"
@@ -896,6 +931,9 @@ msgstr[1] "Käytetty %(useage_count)s kertaa"
 
 msgid "Edit your account"
 msgstr "Muokkaa tiliäsi"
+
+msgid "Account settings"
+msgstr "Tiliasetukset"
 
 msgid "Log out"
 msgstr "Kirjaudu ulos"
@@ -1037,6 +1075,9 @@ msgstr "Sivua ei voitu tallentaa, sillä se on lukittu"
 msgid "The page could not be saved due to validation errors"
 msgstr "Sivua ei voitu tallentaa validointivirheiden vuoksi"
 
+msgid "Compare with live version"
+msgstr "Vertaile julkaistun version kanssa"
+
 msgid "This page is currently awaiting moderation"
 msgstr "Sivu odottaa parhaillaan tarkastusta"
 
@@ -1094,8 +1135,18 @@ msgstr ""
 "Katselet tämän sivun aiempaa versiota (luotu <b>%(created_at)s</b>, käyttäjä "
 "%(user)s)"
 
+msgid "Earliest"
+msgstr "Aikaisin"
+
+msgid "Latest"
+msgstr "Viimeisin"
+
 msgid "Pages"
 msgstr "Sivut"
+
+#, python-brace-format
+msgid "Edit '{title}'"
+msgstr "Muokkaa '{title}'"
 
 msgid "More"
 msgstr "Lisää"

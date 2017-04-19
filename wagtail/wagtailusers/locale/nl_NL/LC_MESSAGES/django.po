@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Maarten Kling <kling.maarten@gmail.com>, 2015
+# Maarten Kling <kling.maarten@gmail.com>, 2015,2017
 # Thijs Kramer <thijskramer@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-02-06 12:33+0000\n"
-"PO-Revision-Date: 2017-02-06 12:40+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2017-02-16 19:17+0000\n"
+"Last-Translator: Maarten Kling <kling.maarten@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -94,6 +94,26 @@ msgstr "gebruikersprofiel"
 
 msgid "Delete group"
 msgstr "Verwijder groep"
+
+#, python-format
+msgid ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> member.\n"
+"            "
+msgid_plural ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> members.\n"
+"            "
+msgstr[0] ""
+"\n"
+"De groep '%(group_name)s' heeft <strong>%(group_user_count)s</strong> "
+"gebruiker."
+msgstr[1] ""
+"\n"
+"De groep '%(group_name)s' heeft <strong>%(group_user_count)s</strong> "
+"gebruikers."
 
 msgid ""
 "Deleting this group will revoke this group's permissions from all member "

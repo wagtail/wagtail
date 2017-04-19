@@ -6,13 +6,14 @@
 # Yusuf (Josè) Luis <alagunajs@gmail.com>, 2015
 # Ragıp Ünal <ragip@ragipunal.com>, 2015
 # Saadettin Yasir AKEL <destek@nixron.com>, 2016
+# Yusuf (Josè) Luis <alagunajs@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-02-06 12:33+0000\n"
-"PO-Revision-Date: 2017-02-06 12:41+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2017-04-07 12:50+0000\n"
+"Last-Translator: Yusuf (Josè) Luis <alagunajs@gmail.com>\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/torchbox/wagtail/"
 "language/tr_TR/)\n"
 "MIME-Version: 1.0\n"
@@ -34,7 +35,7 @@ msgid "Number"
 msgstr "Sayı"
 
 msgid "URL"
-msgstr "URL"
+msgstr "BKK"
 
 msgid "Checkbox"
 msgstr "Onay kutusu"

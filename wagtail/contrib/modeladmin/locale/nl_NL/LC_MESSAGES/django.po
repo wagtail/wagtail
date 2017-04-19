@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Thijs Kramer <thijskramer@gmail.com>, 2016
+# Maarten Kling <kling.maarten@gmail.com>, 2017
+# Thijs Kramer <thijskramer@gmail.com>, 2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-02-06 12:33+0000\n"
-"PO-Revision-Date: 2016-06-13 10:08+0000\n"
+"PO-Revision-Date: 2017-02-17 09:02+0000\n"
 "Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
@@ -35,7 +36,7 @@ msgstr "Inspecteer"
 
 #, python-format
 msgid "Inspect this %s"
-msgstr "Inspecteer dit/deze %s"
+msgstr "Bekijk dit/deze %s"
 
 msgid "Edit"
 msgstr "Wijzig"
@@ -56,7 +57,7 @@ msgstr "Publicatie ongedaan maken"
 
 #, python-format
 msgid "Unpublish this %s"
-msgstr "Publicatie ongedaan maken van dit %s"
+msgstr "Publicatie intrekken van dit/deze %s"
 
 msgid "Copy"
 msgstr "Kopiëren"
@@ -90,7 +91,7 @@ msgstr "Opslaan"
 
 #, python-format
 msgid "%(model_name)s could not be deleted"
-msgstr "%(model_name)s kon niet verwijderd worden."
+msgstr "%(model_name)s kon niet verwijderd worden"
 
 #, python-format
 msgid ""
@@ -98,7 +99,7 @@ msgid ""
 "deleted without jeopardising data integrity. To delete it successfully, "
 "first remove references from the following objects, then try again:"
 msgstr ""
-"Naar '%(instance_name)s' wordt momenteel door andere objecten verwezen, en "
+"Naar '%(instance_name)s' wordt momenteel door andere objecten verwezen en "
 "kan daardoor niet verwijderd worden zonder de data-integriteit aan te "
 "tasten. Verwijder eerst de referenties van de volgende objecten en probeer "
 "het daarna opnieuw:"
@@ -114,7 +115,7 @@ msgstr "Home"
 
 #, python-format
 msgid " By %(filter_title)s "
-msgstr "Op %(filter_title)s"
+msgstr "Door %(filter_title)s"
 
 #, python-format
 msgid "Sorry, there are no %(name)s matching your search parameters."
@@ -150,9 +151,7 @@ msgid ""
 "                                            "
 msgstr ""
 "\n"
-"                                               Waarom niet <a href=\"%(url)s"
-"\">een toevoegen</a>?\n"
-"                                            "
+"Waarom niet <a href=\"%(url)s\">een toevoegen</a>?"
 
 #, python-format
 msgid "Page %(current_page)s of %(num_pages)s."

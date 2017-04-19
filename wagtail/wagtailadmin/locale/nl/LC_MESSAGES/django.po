@@ -11,6 +11,7 @@
 # mahulst, 2014
 # mahulst, 2014
 # Michael van Tellingen <michaelvantellingen@gmail.com>, 2015
+# Rob Moorman <rob@moori.nl>, 2017
 # Samuel Leeuwenburg, 2014
 # Samuel Leeuwenburg, 2014
 # Thijs Kramer <thijskramer@gmail.com>, 2015
@@ -20,8 +21,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-02-06 12:33+0000\n"
-"PO-Revision-Date: 2017-02-06 12:37+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2017-02-16 18:05+0000\n"
+"Last-Translator: Rob Moorman <rob@moori.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -29,6 +30,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "None"
+msgstr "Geen"
+
+msgid "You do not have permission to access the admin"
+msgstr "U heeft geen permissies om de admin te bereiken"
 
 msgid "Scheduled publishing"
 msgstr "Geplande publicatie"
@@ -126,8 +133,14 @@ msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
 msgstr "Deze slug is al in gebruik onder de bovenliggende pagina \"%s\""
 
+msgid "Visibility"
+msgstr "Zichtbaarheid"
+
 msgid "This field is required."
 msgstr "Dit veld is verplicht"
+
+msgid "Please select at least one group."
+msgstr "Selecteer minimaal één groep."
 
 msgid "This slug is already in use"
 msgstr "Deze slug is al in gebruik"
@@ -139,6 +152,10 @@ msgstr ""
 
 msgid "Expiry date/time must be in the future"
 msgstr "Vervaldatum moet in de toekomst zijn."
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr ""
+"U kunt niet beschikken over meerdere permissies voor dezelfde collectie."
 
 msgid "Account"
 msgstr "Account"
@@ -292,6 +309,9 @@ msgstr "Link invoegen"
 
 msgid "Add an external link"
 msgstr "Voeg een externe link toe"
+
+msgid "Name"
+msgstr "Naam"
 
 msgid "Yes, delete"
 msgstr "Ja, verwijder"
@@ -545,8 +565,14 @@ msgstr "Nieuwe %(page_type)s"
 msgid "New"
 msgstr "Nieuwe"
 
+msgid "Saving..."
+msgstr "Bezig met opslaan..."
+
 msgid "Save draft"
 msgstr "Concept opslaan"
+
+msgid "Publishing..."
+msgstr "Bezig met publiceren..."
 
 msgid "Publish"
 msgstr "Publiceer"
@@ -565,6 +591,9 @@ msgstr "Bewerk %(page_type)s <span>%(title)s</span>"
 msgid "Page locked"
 msgstr "Pagina vergrendeld"
 
+msgid "Publish this revision"
+msgstr "Publiceer deze revisie"
+
 #, python-format
 msgid "Last modified: %(last_mod)s"
 msgstr "Laatste gewijzigd: %(last_mod)s"
@@ -572,6 +601,9 @@ msgstr "Laatste gewijzigd: %(last_mod)s"
 #, python-format
 msgid "by %(modified_by)s"
 msgstr "door %(modified_by)s"
+
+msgid "Revisions"
+msgstr "Revisies"
 
 #, python-format
 msgid "Exploring %(title)s"
@@ -647,6 +679,36 @@ msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Selecteer een nieuwe bovenliggende pagina voor <span>%(title)s</span>"
 
 #, python-format
+msgid "Comparing %(title)s"
+msgstr "Vergelijk %(title)s"
+
+msgid "Comparing"
+msgstr "Vegelijken"
+
+msgid "View revisions"
+msgstr "Bekijk revisies"
+
+msgid "Fields"
+msgstr "Velden"
+
+msgid "Changes"
+msgstr "Wijzigingen"
+
+#, python-format
+msgid "Revisions of %(title)s"
+msgstr "Revisies van  %(title)s"
+
+msgid "Revisions of"
+msgstr "Revisies van"
+
+msgid "Revision date"
+msgstr "Revisie datum"
+
+msgctxt "points to a user who created a revision"
+msgid "by"
+msgstr "door"
+
+#, python-format
 msgid ""
 "\n"
 "                There is one matching page\n"
@@ -674,8 +736,14 @@ msgstr "Voer hierboven een zoekterm in"
 msgid "No pages use"
 msgstr "Geen enkele pagina maakt gebruik van"
 
+msgid "Collection"
+msgstr "Collectie"
+
 msgid "Home"
 msgstr "Home"
+
+msgid "All collections"
+msgstr "Alle collecties"
 
 msgid "January"
 msgstr "januari"
@@ -776,6 +844,9 @@ msgstr "Uw wachtwoord is succesvol gewijzigd."
 
 msgid "Your preferences have been updated successfully!"
 msgstr "Uw voorkeuren zijn succesvol gewijzigd."
+
+msgid "Collections"
+msgstr "Collecties"
 
 #, python-brace-format
 msgid "Page '{0}' created and published."
