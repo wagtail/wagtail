@@ -57,6 +57,7 @@ Other features
  * Added support for custom Django REST framework serialiser fields in ``Page.api_fields`` using a new ``APIField`` class (Karl Hobley)
  * Added ``classname`` argument to ``StreamFieldPanel`` (Christine Ho)
  * Added ``group`` keyword argument to StreamField blocks for grouping related blocks together in the block menu (Andreas Nüßlein)
+ * Update the sitemap generator to use the Django sitemap module (Michael van Tellingen, Mike Dingjan)
 
 
 Bug fixes
