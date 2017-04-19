@@ -384,7 +384,31 @@ def specific_iterator(qs):
 
     # Yield all of the pages, in the order they occurred in the original query.
     for pk, content_type in pks_and_types:
-        yield pages_by_type[content_type][pk]
+        try:
+            yield pages_by_type[content_type][pk]
+        except KeyError:
+            if content_type in pages_by_type:
+                exc_msg = (
+                    "Error trying to find a specific Page model inheritor for "
+                    "the type {model}: "
+                    "The page with pk={pg} has changed its content type or "
+                    "a model instance for {model} does "
+                    "not exist. The content type was set as pk={ct}. You "
+                    "could correct the content type, for instance to the "
+                    "content type pk of wagtailcore.page:\n"
+                    "\n"
+                    "from wagtail.wagtailcore.models import Page\n"
+                    "Page.objects.filter(pk={pg}).update("
+                    "content_type=<correct_ct>)\n"
+                    "\n"
+                    "If you think this is old data, you can delete the page "
+                    "with this statement: Page.objects.filter(pk={pg}).delete()"
+                ).format(
+                    pg=pk,
+                    ct=content_type,
+                    model=content_types[content_type].model_class()
+                )
+            raise KeyError(exc_msg)
 
 
 # Django 1.9 changed how extending QuerySets with different iterators behaved
