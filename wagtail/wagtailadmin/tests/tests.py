@@ -252,6 +252,14 @@ class TestUserPassesTestPermissionDecorator(TestCase):
         response = self.client.get(reverse('testapp_bob_only_zone'))
         self.assertRedirects(response, reverse('wagtailadmin_home'))
 
+    def test_user_fails_test_ajax(self):
+        # create and log in as a user not called Bob
+        get_user_model().objects.create_superuser(first_name='Vic', last_name='Reeves', username='test', email='test@email.com', password='password')
+        self.assertTrue(self.client.login(username='test', password='password'))
+
+        response = self.client.get(reverse('testapp_bob_only_zone'), HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertEqual(response.status_code, 403)
+
 
 class TestUserHasAnyPagePermission(TestCase):
     def test_superuser(self):
