@@ -24,7 +24,6 @@ from wagtail.tests.testapp.blocks import LinkBlock as CustomLinkBlock
 from wagtail.tests.testapp.blocks import SectionBlock
 from wagtail.tests.testapp.models import EventPage, SimplePage
 from wagtail.tests.utils import WagtailTestUtils
-from wagtail.utils.deprecation import RemovedInWagtail111Warning
 from wagtail.wagtailcore import blocks
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.rich_text import RichText
@@ -39,11 +38,6 @@ class FooStreamBlock(blocks.StreamBlock):
         if not any(block.value == 'foo' for block in value):
             raise blocks.StreamBlockValidationError(non_block_errors=ErrorList([self.error]))
         return value
-
-
-class NoExtraContextCharBlock(blocks.CharBlock):
-    def get_context(self, value):
-        return super(blocks.CharBlock, self).get_context(value)
 
 
 class ContextCharBlock(blocks.CharBlock):
@@ -72,30 +66,6 @@ class TestFieldBlock(WagtailTestUtils, SimpleTestCase):
         })
 
         self.assertEqual(html, '<h1 lang="fr">BONJOUR LE MONDE!</h1>')
-
-    def test_charfield_render_with_legacy_get_context(self):
-        block = NoExtraContextCharBlock(template='tests/blocks/heading_block.html')
-        with warnings.catch_warnings(record=True) as ws:
-            warnings.simplefilter('always')
-
-            html = block.render("Bonjour le monde!", context={
-                'language': 'fr',
-            })
-
-        self.assertEqual(len(ws), 1)
-        self.assertIs(ws[0].category, RemovedInWagtail111Warning)
-        self.assertEqual(html, '<h1 lang="fr">Bonjour le monde!</h1>')
-
-    def test_charfield_render_with_legacy_get_context_none(self):
-        block = NoExtraContextCharBlock(template='tests/blocks/heading_block.html')
-        with warnings.catch_warnings(record=True) as ws:
-            warnings.simplefilter('always')
-
-            html = block.render("Bonjour le monde!")
-
-        self.assertEqual(len(ws), 1)
-        self.assertIs(ws[0].category, RemovedInWagtail111Warning)
-        self.assertEqual(html, '<h1>Bonjour le monde!</h1>')
 
     def test_charfield_render_form(self):
         block = blocks.CharBlock()
