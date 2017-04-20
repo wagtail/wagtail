@@ -15,7 +15,8 @@ from django.test.utils import override_settings
 
 from wagtail.tests.testapp.models import (
     AbstractPage, Advert, BlogCategory, BlogCategoryBlogPage, BusinessChild, BusinessIndex,
-    BusinessNowherePage, BusinessSubIndex, CustomManager, CustomManagerPage, EventIndex, EventPage,
+    BusinessNowherePage, BusinessSubIndex, CustomManager, CustomManagerPage, CustomPageQuerySet,
+    EventIndex, EventPage,
     GenericSnippetPage, ManyToManyBlogPage, MTIBasePage, MTIChildPage, MyCustomPage, OneToOnePage,
     SimplePage, SingleEventPage, SingletonPage, StandardIndex, TaggedPage)
 from wagtail.tests.utils import WagtailTestUtils
@@ -1133,6 +1134,17 @@ class TestPageManager(TestCase):
         custom Manager inherits from PageManager.
         """
         self.assertIs(type(CustomManagerPage.objects), CustomManager)
+
+    def test_custom_page_queryset(self):
+        """
+        Managers that are constructed from a custom PageQuerySet
+        (via PageManager.from_queryset(CustomPageQuerySet)) should return
+        querysets of that type
+        """
+        self.assertIs(type(CustomManagerPage.objects.all()), CustomPageQuerySet)
+        self.assertIs(type(CustomManagerPage.objects.about_spam()), CustomPageQuerySet)
+        self.assertIs(type(CustomManagerPage.objects.all().about_spam()), CustomPageQuerySet)
+        self.assertIs(type(CustomManagerPage.objects.about_spam().all()), CustomPageQuerySet)
 
     def test_abstract_base_page_manager(self):
         """
