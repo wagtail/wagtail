@@ -206,9 +206,9 @@ class InstanceSpecificView(WMABaseView, SingleObjectMixin):
         super(InstanceSpecificView, self).__init__(model_admin, **kwargs)
         if 'instance_pk' in kwargs:
             warnings.warn(
-                "`instance_pk` should no longer be passed to %s's as_view() "
-                "method. It should instead be passed as a keyword argument to "
-                "the dispatch() method returned by as_view()" %
+                "'instance_pk' should no longer be passed to %s's as_view() "
+                "method. It should be passed as a keyword argument to "
+                "the 'view' method returned by as_view() instead" %
                 self.__class__.__name__, category=RemovedInWagtail112Warning
             )
 
