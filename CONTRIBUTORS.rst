@@ -229,6 +229,7 @@ Contributors
 * Ramon de Jezus
 * Ross Curzon-Butler
 * Daniel Chimeno
+* Medhat Assaad
 
 Translators
 ===========
