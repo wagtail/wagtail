@@ -423,6 +423,8 @@ wagtail = (function(document, window, wagtail) {
 
         _closeDropDown: function(e) {
             this.state.isOpen = false;
+            e.stopPropagation();
+            e.preventDefault();
 
             var el = this.el;
             var $parent = this.$parent;
