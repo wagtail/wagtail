@@ -195,7 +195,7 @@ def get_default_page_content_type():
 
 class BasePageManager(models.Manager):
     def get_queryset(self):
-        return PageQuerySet(self.model).order_by('path')
+        return self._queryset_class(self.model).order_by('path')
 
 
 PageManager = BasePageManager.from_queryset(PageQuerySet)

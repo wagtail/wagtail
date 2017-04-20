@@ -42,6 +42,7 @@ Bug fixes
  * Prevent ``USE_THOUSAND_SEPARATOR = True`` from breaking the image focal point chooser (Sævar Öfjörð Magnússon)
  * Removed deprecated ``SessionAuthenticationMiddleware`` from project template (Samir Shah)
  * Custom display page titles defined with ``get_admin_display_title`` are now shown in search results (Ben Sturmfels, Matt Westcott)
+ * Custom PageManagers now return the correct PageQuerySet subclass (Matt Westcott)
 
 Upgrade considerations
 ======================
