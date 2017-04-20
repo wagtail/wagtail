@@ -41,7 +41,7 @@ New admin preview
 
 Previewing pages in Wagtail admin interface was rewritten
 to make it more robust. In previous versions, preview was broken in several
-scenarii so users often ended up on a blank page with an infinite spinner.
+scenarios so users often ended up on a blank page with an infinite spinner.
 
 An additional setting was created: :ref:`WAGTAIL_AUTO_UPDATE_PREVIEW <WAGTAIL_AUTO_UPDATE_PREVIEW>`.
 It allows users to see changes done in the editor by refreshing the preview tab
