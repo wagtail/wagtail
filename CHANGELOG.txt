@@ -4,6 +4,8 @@ Changelog
 1.11 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~
 
+ * Fix: Unauthenticated AJAX requests to admin views now return 403 rather than redirecting to the login page (Karl Hobley)
+
 
 1.10 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~

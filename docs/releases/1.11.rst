@@ -18,6 +18,8 @@ Other features
 Bug fixes
 ~~~~~~~~~
 
+ * Unauthenticated AJAX requests to admin views now return 403 rather than redirecting to the login page (Karl Hobley)
+
 
 Upgrade considerations
 ======================
