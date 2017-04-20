@@ -63,6 +63,8 @@ Give it the alias `'default'` if you want it to be the default search backend:
         },
     }
 
+After installing the module, run ``python manage.py migrate`` to create the necessary ``postgres_search_indexentry`` table.
+
 You then need to index data inside this backend using
 the :ref:`update_index` command. You can reuse this command whenever
 you want. However, it should not be needed after a first usage since
