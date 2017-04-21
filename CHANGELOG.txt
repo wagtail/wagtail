@@ -100,6 +100,10 @@ Changelog
  * `pageurl` / `slugurl` tags now function when request.site is not available (Tobias McNulty, Matt Westcott)
 
 
+1.8.2 (xx.xx.xxxx)
+~~~~~~~~~~~~~~~~~~
+
+
 1.8.1 (26.01.2017)
 ~~~~~~~~~~~~~~~~~~
 
