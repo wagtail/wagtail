@@ -66,13 +66,13 @@ Changelog
  * Fix: Prevent pages from being recursively copied into themselves (Matheus Bratfisch)
  * Fix: Specifying the full file name in documents URL is mandatory (Morgan Aubert)
  * Fix: Reordering inline forms now works correctly when moving past a deleted form (Janneke Janssen)
- * Fix: Removed erroneous ``|safe`` filter from search results template in project template (Karl Hobley)
+ * Fix: Removed erroneous `|safe` filter from search results template in project template (Karl Hobley)
 
 
 1.9.1 (xx.xx.xxxx)
 ~~~~~~~~~~~~~~~~~~
 
- * Fix: Removed erroneous ``|safe`` filter from search results template in project template (Karl Hobley)
+ * Fix: Removed erroneous `|safe` filter from search results template in project template (Karl Hobley)
 
 
 1.9 (16.02.2017)
@@ -102,7 +102,7 @@ Changelog
 1.8.2 (xx.xx.xxxx)
 ~~~~~~~~~~~~~~~~~~
 
- * Fix: Removed erroneous ``|safe`` filter from search results template in project template (Karl Hobley)
+ * Fix: Removed erroneous `|safe` filter from search results template in project template (Karl Hobley)
 
 
 1.8.1 (26.01.2017)
