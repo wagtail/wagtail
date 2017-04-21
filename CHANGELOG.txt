@@ -100,7 +100,7 @@ Changelog
  * `pageurl` / `slugurl` tags now function when request.site is not available (Tobias McNulty, Matt Westcott)
 
 
-1.8.2 (xx.xx.xxxx)
+1.8.2 (21.04.2017)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Removed erroneous `|safe` filter from search results template in project template (Karl Hobley)
