@@ -103,6 +103,7 @@ Changelog
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Removed erroneous `|safe` filter from search results template in project template (Karl Hobley)
+ * Fix: Avoid indexing unsaved field content on `save(update_fields=[...])` operations (Matt Westcott)
 
 
 1.8.1 (26.01.2017)
