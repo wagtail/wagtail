@@ -13,3 +13,4 @@ What's changed
 Bug fixes
 ~~~~~~~~~
 
+ * Removed erroneous ``|safe`` filter from search results template in project template (Karl Hobley)

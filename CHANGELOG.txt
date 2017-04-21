@@ -103,6 +103,8 @@ Changelog
 1.8.2 (xx.xx.xxxx)
 ~~~~~~~~~~~~~~~~~~
 
+ * Fix: Removed erroneous `|safe` filter from search results template in project template (Karl Hobley)
+
 
 1.8.1 (26.01.2017)
 ~~~~~~~~~~~~~~~~~~
