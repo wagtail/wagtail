@@ -230,6 +230,7 @@ Contributors
 * Ross Curzon-Butler
 * Daniel Chimeno
 * Medhat Assaad
+* Sebastian Bauer
 
 Translators
 ===========
