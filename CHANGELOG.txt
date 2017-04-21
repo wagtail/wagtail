@@ -76,7 +76,7 @@ Changelog
  * Fix: Removed erroneous ``|safe`` filter from search results template in project template (Karl Hobley)
 
 
-1.9.1 (xx.xx.xxxx)
+1.9.1 (21.04.2017)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Removed erroneous `|safe` filter from search results template in project template (Karl Hobley)
