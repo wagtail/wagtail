@@ -8,6 +8,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.db import transaction
+from django.db.models.fields import BLANK_CHOICE_DASH
 from django.template.loader import render_to_string
 from django.utils.html import mark_safe
 from django.utils.translation import ugettext_lazy as _
@@ -357,7 +358,8 @@ class NotificationPreferencesForm(forms.ModelForm):
 
 class PreferredLanguageForm(forms.ModelForm):
     preferred_language = forms.ChoiceField(
-        choices=lambda: sorted(get_available_admin_languages(), key=lambda l: l[1])
+        required=False,
+        choices=lambda: sorted(BLANK_CHOICE_DASH + get_available_admin_languages(), key=lambda l: l[1])
     )
 
     def __init__(self, *args, **kwargs):
