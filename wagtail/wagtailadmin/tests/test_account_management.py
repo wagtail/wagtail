@@ -327,13 +327,28 @@ class TestAccountSection(TestCase, WagtailTestUtils):
         }
         response = self.client.post(reverse('wagtailadmin_account_language_preferences'), post_data)
 
-        # Check that the user was redirected to the account language preferences page
-        self.assertEqual(response.status_code, 200)
+        # Check that the user was redirected to the account page
+        self.assertRedirects(response, reverse('wagtailadmin_account'))
 
         profile = UserProfile.get_for_user(get_user_model().objects.get(pk=self.user.pk))
 
         # Check that the language preferences are stored
         self.assertEqual(profile.preferred_language, 'es')
+
+    def test_unset_language_preferences(self):
+        # Post new values to the language preferences page
+        post_data = {
+            'preferred_language': ''
+        }
+        response = self.client.post(reverse('wagtailadmin_account_language_preferences'), post_data)
+
+        # Check that the user was redirected to the account page
+        self.assertRedirects(response, reverse('wagtailadmin_account'))
+
+        profile = UserProfile.get_for_user(get_user_model().objects.get(pk=self.user.pk))
+
+        # Check that the language preferences are stored
+        self.assertEqual(profile.preferred_language, '')
 
     @override_settings(WAGTAILADMIN_PERMITTED_LANGUAGES=[('en', 'English'), ('es', 'Spanish')])
     def test_available_admin_languages_with_permitted_languages(self):

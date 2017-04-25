@@ -117,8 +117,10 @@ def language_preferences(request):
         if form.is_valid():
             user_profile = form.save()
             # This will set the language only for this request/thread
-            activate(user_profile.preferred_language)
+            # (so that the 'success' messages is in the right language)
+            activate(user_profile.get_preferred_language())
             messages.success(request, _("Your preferences have been updated."))
+            return redirect('wagtailadmin_account')
     else:
         form = PreferredLanguageForm(instance=UserProfile.get_for_user(request.user))
 
