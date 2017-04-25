@@ -1,5 +1,6 @@
 from __future__ import absolute_import, unicode_literals
 
+from django.contrib.contenttypes.models import ContentType
 from django.test import TestCase
 
 from wagtail.tests.testapp.models import EventPage, SimplePage, SingleEventPage
@@ -601,6 +602,22 @@ class TestSpecificQuery(TestCase):
         self.assertIn(Page.objects.get(url_path='/home/events/christmas/').specific, pages)
         self.assertIn(Page.objects.get(url_path='/home/events/').specific, pages)
         self.assertIn(Page.objects.get(url_path='/home/about-us/').specific, pages)
+
+    def test_specific_gracefully_handles_missing_models(self):
+        # 3567 - PageQuerySet.specific should gracefully handle pages whose class definition
+        # is missing, by keeping them as basic Page instances.
+
+        # Create a ContentType that doesn't correspond to a real model
+        missing_page_content_type = ContentType.objects.create(app_label='tests', model='missingpage')
+        # Turn /home/events/ into this content type
+        Page.objects.filter(url_path='/home/events/').update(content_type=missing_page_content_type)
+
+        pages = list(Page.objects.get(url_path='/home/').get_children().specific())
+        self.assertEqual(pages, [
+            Page.objects.get(url_path='/home/events/'),
+            Page.objects.get(url_path='/home/about-us/').specific,
+            Page.objects.get(url_path='/home/other/').specific,
+        ])
 
 
 class TestFirstCommonAncestor(TestCase):
