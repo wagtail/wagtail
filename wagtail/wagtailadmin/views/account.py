@@ -95,7 +95,7 @@ def notification_preferences(request):
 
         if form.is_valid():
             form.save()
-            messages.success(request, _("Your preferences have been updated successfully!"))
+            messages.success(request, _("Your preferences have been updated."))
             return redirect('wagtailadmin_account')
     else:
         form = NotificationPreferencesForm(instance=UserProfile.get_for_user(request.user))
