@@ -376,7 +376,9 @@ def specific_iterator(qs):
     # Get the specific instances of all pages, one model class at a time.
     pages_by_type = {}
     for content_type, pks in pks_by_type.items():
-        model = content_types[content_type].model_class()
+        # look up model class for this content type, falling back on the original
+        # model (i.e. Page) if the more specific one is missing
+        model = content_types[content_type].model_class() or qs.model
         pages = model.objects.filter(pk__in=pks)
         pages_by_type[content_type] = {page.pk: page for page in pages}
 
