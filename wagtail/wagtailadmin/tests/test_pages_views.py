@@ -9,6 +9,7 @@ import mock
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
+from django.contrib.contenttypes.models import ContentType
 from django.contrib.messages import constants as message_constants
 from django.core import mail, paginator
 from django.core.files.base import ContentFile
@@ -269,6 +270,22 @@ class TestPageExplorer(TestCase, WagtailTestUtils):
             admin)
         self.assertRedirects(
             self.client.get(reverse('wagtailadmin_explore_root')), admin)
+
+    def test_explore_with_missing_page_model(self):
+        # Create a ContentType that doesn't correspond to a real model
+        missing_page_content_type = ContentType.objects.create(app_label='tests', model='missingpage')
+        # Turn /home/old-page/ into this content type
+        Page.objects.filter(id=self.old_page.id).update(content_type=missing_page_content_type)
+
+        # try to browse the the listing that contains the missing model
+        response = self.client.get(reverse('wagtailadmin_explore', args=(self.root_page.id, )))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/pages/index.html')
+
+        # try to browse into the page itself
+        response = self.client.get(reverse('wagtailadmin_explore', args=(self.old_page.id, )))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/pages/index.html')
 
 
 class TestPageExplorerSignposting(TestCase, WagtailTestUtils):
