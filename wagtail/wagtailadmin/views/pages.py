@@ -6,6 +6,7 @@ from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import reverse
 from django.db.models import Count
 from django.http import Http404, HttpResponse, JsonResponse
+from django.http.request import QueryDict
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template.loader import render_to_string
 from django.utils import timezone
@@ -581,12 +582,23 @@ class PreviewOnEdit(View):
         page = self.get_page()
         form_class = page.get_edit_handler().get_form_class(page._meta.model)
         parent_page = page.get_parent().specific
-        post_data, timestamp = self.request.session[self.session_key]
+        post_data_dict, timestamp = self.request.session[self.session_key]
+
+        # convert post_data_dict back into a QueryDict
+        post_data = QueryDict('', mutable=True)
+        for k, v in post_data_dict.items():
+            post_data.setlist(k, v)
+
         return form_class(post_data, instance=page, parent_page=parent_page)
 
     def post(self, request, *args, **kwargs):
         # TODO: Handle request.FILES.
-        request.session[self.session_key] = request.POST, time()
+
+        # Convert request.POST to a plain dict (rather than a QueryDict) so that it can be
+        # stored without data loss in session data
+        post_data_dict = dict(request.POST.lists())
+
+        request.session[self.session_key] = post_data_dict, time()
         self.remove_old_preview_data()
         form = self.get_form()
         return JsonResponse({'is_valid': form.is_valid()})
