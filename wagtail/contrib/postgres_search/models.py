@@ -35,14 +35,16 @@ class IndexQuerySet(QuerySet):
     def rank(self, search_query):
         return self.add_rank(search_query).order_by('-rank')
 
-    def pks(self):
+    def annotate_typed_pk(self):
         cast_field = self.model._meta.pk
         if isinstance(cast_field, BigAutoField):
             cast_field = BigIntegerField()
         elif isinstance(cast_field, AutoField):
             cast_field = IntegerField()
-        return (self.annotate(typed_pk=Cast('object_id', cast_field))
-                .values_list('typed_pk', flat=True))
+        return self.annotate(typed_pk=Cast('object_id', cast_field))
+
+    def pks(self):
+        return self.annotate_typed_pk().values_list('typed_pk', flat=True)
 
 
 @python_2_unicode_compatible
