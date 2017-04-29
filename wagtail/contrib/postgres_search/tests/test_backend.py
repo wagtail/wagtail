@@ -1,3 +1,4 @@
+# coding: utf-8
 from __future__ import absolute_import, unicode_literals
 
 from django.core.management import call_command
@@ -70,3 +71,28 @@ class TestPostgresSearchBackend(BackendTests, TestCase):
                              [(6, 'A'), (4, 'B'), (2, 'C'), (0, 'D')])
         self.assertListEqual(determine_boosts_weights([-2, -1, 0, 1, 2, 3, 4]),
                              [(4, 'A'), (2, 'B'), (0, 'C'), (-2, 'D')])
+
+    def test_ranking(self):
+        title_search_field = SearchTest.search_fields[0]
+        original_title_boost = title_search_field.boost
+        title_search_field.boost = 2
+
+        SearchTest.objects.all().delete()
+
+        vivaldi_composer = SearchTest.objects.create(
+            title='Antonio Vivaldi',
+            content='Born in 1678, Vivaldi is one of Earth’s '
+                    'most inspired composers. '
+                    'Read more about it in your favorite browser.')
+        vivaldi_browser = SearchTest.objects.create(
+            title='The Vivaldi browser',
+            content='This web browser is based on WebKit.')
+
+        results = self.backend.search('vivaldi', SearchTest)
+        self.assertListEqual(list(results),
+                             [vivaldi_composer, vivaldi_browser])
+        results = self.backend.search('browser', SearchTest)
+        self.assertListEqual(list(results),
+                             [vivaldi_browser, vivaldi_composer])
+
+        title_search_field.boost = original_title_boost
