@@ -248,13 +248,17 @@ class PostgresSearchQuery(BaseSearchQuery):
         index_entries = self.get_in_index_queryset(queryset, search_query)
         if self.order_by_relevance:
             index_entries = index_entries.rank(search_query)
-        index_sql, index_params = get_sql(index_entries.pks())
+        index_sql, index_params = get_sql(
+            index_entries.annotate_typed_pk()
+            .values('typed_pk', 'rank')
+        )
         model_sql, model_params = get_sql(queryset)
         model = queryset.model
         sql = """
             SELECT obj.*
             FROM (%s) AS index_entry
             INNER JOIN (%s) AS obj ON obj."%s" = index_entry.typed_pk
+            ORDER BY index_entry.rank DESC
             OFFSET %%s LIMIT %%s;
             """ % (index_sql, model_sql, get_pk_column(model))
         limits = (start, None if stop is None else stop - start)
