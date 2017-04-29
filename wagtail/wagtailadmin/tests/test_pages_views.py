@@ -4199,3 +4199,76 @@ class TestDraftAccess(TestCase, WagtailTestUtils):
 
         # User can view
         self.assertEqual(response.status_code, 200)
+
+
+class TestPreview(TestCase, WagtailTestUtils):
+    fixtures = ['test.json']
+
+    def setUp(self):
+        self.meetings_category = EventCategory.objects.create(name='Meetings')
+        self.parties_category = EventCategory.objects.create(name='Parties')
+        self.holidays_category = EventCategory.objects.create(name='Holidays')
+
+        self.home_page = Page.objects.get(url_path='/home/')
+        self.event_page = Page.objects.get(url_path='/home/events/christmas/')
+
+        self.user = self.login()
+
+        self.post_data = {
+            'title': "Beach party",
+            'slug': 'beach-party',
+            'body': "party on wayne",
+            'date_from': '2017-08-01',
+            'audience': 'public',
+            'location': 'the beach',
+            'cost': 'six squid',
+            'carousel_items-TOTAL_FORMS': 0,
+            'carousel_items-INITIAL_FORMS': 0,
+            'carousel_items-MIN_NUM_FORMS': 0,
+            'carousel_items-MAX_NUM_FORMS': 0,
+            'speakers-TOTAL_FORMS': 0,
+            'speakers-INITIAL_FORMS': 0,
+            'speakers-MIN_NUM_FORMS': 0,
+            'speakers-MAX_NUM_FORMS': 0,
+            'related_links-TOTAL_FORMS': 0,
+            'related_links-INITIAL_FORMS': 0,
+            'related_links-MIN_NUM_FORMS': 0,
+            'related_links-MAX_NUM_FORMS': 0,
+            'categories': [self.parties_category.id, self.holidays_category.id],
+        }
+
+    def test_preview_on_create_with_m2m_field(self):
+        preview_url = reverse('wagtailadmin_pages:preview_on_add',
+                              args=('tests', 'eventpage', self.home_page.id))
+        response = self.client.post(preview_url, self.post_data)
+
+        # Check the JSON response
+        self.assertEqual(response.status_code, 200)
+        self.assertJSONEqual(response.content.decode(), {'is_valid': True})
+
+        response = self.client.get(preview_url)
+
+        # Check the HTML response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'tests/event_page.html')
+        self.assertContains(response, "Beach party")
+        self.assertContains(response, "<li>Parties</li>")
+        self.assertContains(response, "<li>Holidays</li>")
+
+    def test_preview_on_edit_with_m2m_field(self):
+        preview_url = reverse('wagtailadmin_pages:preview_on_edit',
+                              args=(self.event_page.id,))
+        response = self.client.post(preview_url, self.post_data)
+
+        # Check the JSON response
+        self.assertEqual(response.status_code, 200)
+        self.assertJSONEqual(response.content.decode(), {'is_valid': True})
+
+        response = self.client.get(preview_url)
+
+        # Check the HTML response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'tests/event_page.html')
+        self.assertContains(response, "Beach party")
+        self.assertContains(response, "<li>Parties</li>")
+        self.assertContains(response, "<li>Holidays</li>")
