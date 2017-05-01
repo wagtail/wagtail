@@ -5,9 +5,9 @@ from django.db import models
 from django.utils.encoding import force_text
 from django.utils.six.moves.urllib.parse import urlparse
 
+from wagtail.utils.compat import coreschema
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.utils import resolve_model_string
-from wagtail.utils.compat import coreschema
 
 
 class BadRequestError(Exception):

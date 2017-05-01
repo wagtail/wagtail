@@ -7,11 +7,11 @@ from django.utils.translation import ugettext_lazy as _
 from rest_framework.filters import BaseFilterBackend
 from taggit.managers import TaggableManager
 
+from wagtail.utils.compat import coreapi, coreschema
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailsearch.backends import get_search_backend
-from wagtail.utils.compat import coreapi, coreschema
 
-from .utils import BadRequestError, pages_for_site, parse_boolean, field_to_schema
+from .utils import BadRequestError, field_to_schema, pages_for_site, parse_boolean
 
 
 class FieldsFilter(BaseFilterBackend):
