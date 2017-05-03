@@ -276,7 +276,7 @@ Translators
 * Slovenian: Mitja Pagon
 * Spanish: Mauricio Baeza, Daniel Chimeno, fonso, fooflare, Yusuf (Josè) Luis, Joaquín Tita, Unai Zalakain
 * Spanish (Spain): Daniel Chimeno
-* Swedish: André Karlsson, Ludwig Kjellström, Thomas Kunambi, Hannes Lohmander
+* Swedish: Alexander Holmbäck, André Karlsson, Ludwig Kjellström, Thomas Kunambi, Hannes Lohmander
 * Swedish (Sweden): Jon Karlsson, Thomas Kunambi
 * Turkish: Cihad Gündoǧdu
 * Turkish (Turkey): Saadettin Yasir Akel, Cihad Gündoǧdu, Yusuf (Josè) Luis, Ragıp Ünal

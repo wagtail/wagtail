@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-06 12:33+0000\n"
-"PO-Revision-Date: 2016-09-07 18:46+0000\n"
-"Last-Translator: Roger Pons <rogerpons@gmail.com>\n"
+"POT-Creation-Date: 2017-04-19 21:02+0000\n"
+"PO-Revision-Date: 2017-04-19 21:08+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
 "MIME-Version: 1.0\n"
@@ -46,14 +46,6 @@ msgstr[1] ""
 #, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
 msgstr "Ens sap greu, no hi ha cap fragment amb \"<em>%(query_string)s</em>\""
-
-#, python-format
-msgid ""
-"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">create one now"
-msgstr ""
-"Nou heu creat cap snippet %(snippet_type_name)s snippets. Per què no <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">creeu un ara"
 
 #, python-format
 msgid "Delete %(snippet_type_name)s - %(instance)s"

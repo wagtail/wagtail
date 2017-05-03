@@ -11,14 +11,14 @@
 # Joaquín Tita <carpincho@gmail.com>, 2014
 # Yusuf (Josè) Luis <alagunajs@gmail.com>, 2015-2016
 # Mauricio Baeza <python@amigos.email>, 2015
-# Yusuf (Josè) Luis <alagunajs@gmail.com>, 2016
+# Yusuf (Josè) Luis <alagunajs@gmail.com>, 2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-06 12:33+0000\n"
-"PO-Revision-Date: 2017-01-27 10:59+0000\n"
-"Last-Translator: Daniel Chimeno <daniel@chimeno.me>\n"
+"POT-Creation-Date: 2017-04-19 21:02+0000\n"
+"PO-Revision-Date: 2017-04-30 11:45+0000\n"
+"Last-Translator: Yusuf (Josè) Luis <alagunajs@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -231,6 +231,9 @@ msgstr ""
 
 msgid "Current focal point shown"
 msgstr "Mostrando punto focal actual"
+
+msgid "Remove focal area"
+msgstr "Remover área focal"
 
 msgid "URL Generator"
 msgstr "Generador de URL"

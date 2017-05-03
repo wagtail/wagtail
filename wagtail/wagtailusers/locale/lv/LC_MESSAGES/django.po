@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-06 12:33+0000\n"
-"PO-Revision-Date: 2017-02-06 12:40+0000\n"
+"POT-Creation-Date: 2017-04-19 21:02+0000\n"
+"PO-Revision-Date: 2017-04-19 21:08+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/"
 "lv/)\n"
@@ -27,15 +27,6 @@ msgstr "Obligāts. 30 vai mazāk simbolu. Burti, cipari un @/./+/-/_ simboli."
 msgid "A user with that username already exists."
 msgstr "Lietotājvāds aizņemts"
 
-msgid "Administrator"
-msgstr "Administrators"
-
-msgid "Password"
-msgstr "Parole"
-
-msgid "Password confirmation"
-msgstr "Paroles apstiprinājums"
-
 msgid "Email"
 msgstr "E-pasts"
 
@@ -44,6 +35,15 @@ msgstr "Vārds"
 
 msgid "Last Name"
 msgstr "Uzvārds"
+
+msgid "Password"
+msgstr "Parole"
+
+msgid "Password confirmation"
+msgstr "Paroles apstiprinājums"
+
+msgid "Administrator"
+msgstr "Administrators"
 
 msgid "A group with that name already exists."
 msgstr "Grupas nosaukums aizņemts."

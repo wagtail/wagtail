@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-06 12:33+0000\n"
-"PO-Revision-Date: 2017-04-05 05:17+0000\n"
-"Last-Translator: jszsj <zhushajun@gmail.com>\n"
+"POT-Creation-Date: 2017-04-19 21:02+0000\n"
+"PO-Revision-Date: 2017-04-19 21:08+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -45,14 +45,6 @@ msgstr[0] ""
 #, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
 msgstr "对不起，没有匹配 \"<em>%(query_string)s</em>\" 的片段"
-
-#, python-format
-msgid ""
-"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">create one now"
-msgstr ""
-"还没有创建 %(snippet_type_name)s 片段。为何不 <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">创建一个"
 
 #, python-format
 msgid "Delete %(snippet_type_name)s - %(instance)s"
