@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-06 12:33+0000\n"
-"PO-Revision-Date: 2017-02-20 12:16+0000\n"
+"POT-Creation-Date: 2017-04-19 21:02+0000\n"
+"PO-Revision-Date: 2017-04-21 07:22+0000\n"
 "Last-Translator: Stein Strindhaug <stein.strindhaug@gmail.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
@@ -22,6 +22,12 @@ msgstr ""
 
 msgid "{} submissions"
 msgstr "{} innsendinger"
+
+msgid "Date from"
+msgstr "Fra-dato"
+
+msgid "Date to"
+msgstr "Til-dato"
 
 #, python-format
 msgid "There is another field with the label %s, please change one of them."
@@ -178,6 +184,9 @@ msgstr "Tittel"
 
 msgid "Origin"
 msgstr "Opphav"
+
+msgid "Delete selected submissions"
+msgstr "Slett valgte innsendinger"
 
 msgid "No form pages have been created."
 msgstr "Ingen skjemasider har blitt opprettet."

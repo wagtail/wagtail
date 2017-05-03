@@ -3,15 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Alexander Holmbäck <alexander.holmback@creuna.se>, 2017
 # Thomas Kunambi <kunambi@gmail.com>, 2017
 # Thomas Kunambi <kunambi@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-06 12:33+0000\n"
-"PO-Revision-Date: 2017-04-18 07:53+0000\n"
-"Last-Translator: Thomas Kunambi <kunambi@gmail.com>\n"
+"POT-Creation-Date: 2017-04-19 21:02+0000\n"
+"PO-Revision-Date: 2017-04-27 08:39+0000\n"
+"Last-Translator: Alexander Holmbäck <alexander.holmback@creuna.se>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -49,14 +50,6 @@ msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
 msgstr "Ledsen, men inga snuttar matchade \"<em>%(query_string)s</em>\""
 
 #, python-format
-msgid ""
-"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">create one now"
-msgstr ""
-"Du har inte skapat några %(snippet_type_name)s snuttar. Varför inte <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">skapa en nu"
-
-#, python-format
 msgid "Delete %(snippet_type_name)s - %(instance)s"
 msgstr "Radera %(snippet_type_name)s - %(instance)s"
 
@@ -85,16 +78,16 @@ msgstr "Spara"
 
 #, python-format
 msgid "Editing %(snippet_type_name)s - %(instance)s"
-msgstr "Editerar %(snippet_type_name)s - %(instance)s"
+msgstr "Redigerar %(snippet_type_name)s - %(instance)s"
 
 msgid "Editing"
-msgstr "Editerar"
+msgstr "Redigerar"
 
 msgid "Snippets"
 msgstr "Snutt"
 
 msgid "Title"
-msgstr "Titel"
+msgstr "Rubrik"
 
 #, python-format
 msgid ""

@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-06 12:33+0000\n"
-"PO-Revision-Date: 2017-02-20 12:11+0000\n"
+"POT-Creation-Date: 2017-04-19 21:02+0000\n"
+"PO-Revision-Date: 2017-04-21 07:21+0000\n"
 "Last-Translator: Stein Strindhaug <stein.strindhaug@gmail.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
@@ -124,6 +124,9 @@ msgid ""
 msgstr ""
 "Denne permalenken er allerede i bruk i konteksten til foreldresiden \"%s\""
 
+msgid "You cannot copy a page into itself when copying subpages"
+msgstr "Du kan ikke kopiere en side inn i seg selv når du kopierer undersider"
+
 msgid "Visibility"
 msgstr "Synlighet"
 
@@ -172,16 +175,19 @@ msgstr "Varslingsinnstillinger"
 msgid "Choose which email notifications to receive."
 msgstr "Velg hvilke e-postvarsler du vil motta."
 
-msgid "Change Password"
-msgstr "Endre passord"
+msgid "Language preferences"
+msgstr "Språkinnstillinger"
+
+msgid "Choose the language you want to use here."
+msgstr "Velg språket du vil bruke her."
 
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr ""
 "Passordet ditt kan ikke endres her. Kontakt en administrator for nettstedet."
 
-msgid "Notification Preferences"
-msgstr "Varslingsinnstillinger"
+msgid "Language Preferences"
+msgstr "Språkinnstillinger"
 
 msgid "Update"
 msgstr "Oppdatér"
@@ -610,6 +616,10 @@ msgstr "Ja, avpubliser den"
 msgid "No, don't unpublish"
 msgstr "Nei, ikke avpubliser"
 
+#, python-format
+msgid "Pages using %(page_class_verbose_name)s"
+msgstr "Sider som bruker %(page_class_verbose_name)s"
+
 msgid "Pages using"
 msgstr "Sider som bruker"
 
@@ -772,6 +782,9 @@ msgstr "Legg en underside til \"%(title)s\""
 msgid "Add child page"
 msgstr "Legg til underside"
 
+msgid "Sites menu"
+msgstr "Nettsteder-meny"
+
 #, python-format
 msgid ""
 "\n"
@@ -807,6 +820,24 @@ msgstr "Velg en ny forelderside for %(title)s"
 #, python-format
 msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Velg en ny forelderside for <span>%(title)s</span>"
+
+msgid "Preview error"
+msgstr "Forhåndsvisningsfeil"
+
+msgid ""
+"\n"
+"                Impossible to preview this page, some errors are remaining.\n"
+"                Please close this tab, edit the page to fix these errors,\n"
+"                then use preview again.\n"
+"            "
+msgstr ""
+"\n"
+"Kan ikke forhåndsvise siden fordi det er feil som må fikses. \n"
+"Lukk denne fanen, rediger siden for å korrigere feilene og bruk "
+"forhåndsvisning på nytt."
+
+msgid "Close"
+msgstr "Lukk"
 
 #, python-format
 msgid "Comparing %(title)s"
@@ -1057,6 +1088,63 @@ msgstr "Vis i Utforsker"
 msgid "Test"
 msgstr "Test"
 
+msgid "Catalan"
+msgstr "katalansk"
+
+msgid "German"
+msgstr "tysk"
+
+msgid "Greek"
+msgstr "gresk"
+
+msgid "English"
+msgstr "engelsk"
+
+msgid "Spanish"
+msgstr "spansk"
+
+msgid "Finnish"
+msgstr "finsk"
+
+msgid "French"
+msgstr "fransk"
+
+msgid "Galician"
+msgstr "galisisk"
+
+msgid "Icelandic"
+msgstr "islandsk"
+
+msgid "Italian"
+msgstr "italiensk"
+
+msgid "Lithuanian"
+msgstr "litauisk"
+
+msgid "Norwegian Bokmål"
+msgstr "norsk bokmål"
+
+msgid "Netherlands Dutch"
+msgstr "nederlandsk"
+
+msgid "Polish"
+msgstr "polsk"
+
+msgid "Brazilian Portuguese"
+msgstr "brasiliansk portugisisk"
+
+msgid "Portuguese"
+msgstr "portugisisk"
+
+msgid "Romanian"
+msgstr "rumensk"
+
+msgid "Russian"
+msgstr "russisk"
+
+msgid "Chinese (China)"
+msgstr "kinesisk (Kina)"
+
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Beklager, du har ikke tilgang på dette området."
 
@@ -1064,6 +1152,9 @@ msgid "Your password has been changed successfully!"
 msgstr "Passordet ditt er endret."
 
 msgid "Your preferences have been updated successfully!"
+msgstr "Dine innstillinger har blitt oppdatert."
+
+msgid "Your preferences have been updated."
 msgstr "Dine innstillinger har blitt oppdatert."
 
 msgid "You have been successfully logged out."

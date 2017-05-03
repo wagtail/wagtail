@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Ettore Atalan <atalanttore@googlemail.com>, 2016
+# Ettore Atalan <atalanttore@googlemail.com>, 2016-2017
 # Vorlif <flori@vorlif.org>, 2015
 # Henrik Kröger <hedwig@riseup.net>, 2016
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
@@ -17,9 +17,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-06 12:33+0000\n"
-"PO-Revision-Date: 2017-02-09 10:27+0000\n"
-"Last-Translator: Moritz Pfeiffer <moritz@alp-phone.ch>\n"
+"POT-Creation-Date: 2017-04-19 21:02+0000\n"
+"PO-Revision-Date: 2017-04-20 00:00+0000\n"
+"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -44,13 +44,14 @@ msgstr "Es existiert bereits ein Benutzer mit diesem Benutzernamen."
 msgid "The two password fields didn't match."
 msgstr "Die beiden Passwortfelder stimmen nicht überein."
 
-msgid "Administrator"
-msgstr "Administrator"
+msgid "Email"
+msgstr "Email"
 
-msgid "Administrators have full access to manage any object or setting."
-msgstr ""
-"Administratoren haben vollen Zugang um jedes Objekt und jede Einstellung zu "
-"verwalten."
+msgid "First Name"
+msgstr "Vorname"
+
+msgid "Last Name"
+msgstr "Nachname"
 
 msgid "Password"
 msgstr "Passwort"
@@ -64,14 +65,13 @@ msgstr "Passwort wiederholen"
 msgid "Enter the same password as above, for verification."
 msgstr "Geben Sie das gleiche Passwort wie oben zur Überprüfung ein."
 
-msgid "Email"
-msgstr "Email"
+msgid "Administrator"
+msgstr "Administrator"
 
-msgid "First Name"
-msgstr "Vorname"
-
-msgid "Last Name"
-msgstr "Nachname"
+msgid "Administrators have full access to manage any object or setting."
+msgstr ""
+"Administratoren haben vollen Zugang um jedes Objekt und jede Einstellung zu "
+"verwalten."
 
 msgid "A group with that name already exists."
 msgstr "Es existiert bereits eine Gruppe mit diesem Namen."
@@ -98,6 +98,12 @@ msgstr "Zurückgewiesen-Benachrichtigungen"
 
 msgid "Receive notification when your page edit is rejected"
 msgstr "Benachrichtung erhalten, wenn Ihre Änderungen abgelehnt wurden"
+
+msgid "preferred language"
+msgstr "bevorzugte Sprache"
+
+msgid "Select language for the admin"
+msgstr "Wählen Sie die Sprache für den Admin aus"
 
 msgid "user profile"
 msgstr "Benutzerprofil"

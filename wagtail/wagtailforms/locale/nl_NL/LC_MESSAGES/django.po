@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-06 12:33+0000\n"
-"PO-Revision-Date: 2017-02-17 08:53+0000\n"
+"POT-Creation-Date: 2017-04-19 21:02+0000\n"
+"PO-Revision-Date: 2017-04-28 09:18+0000\n"
 "Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
@@ -24,6 +24,12 @@ msgstr ""
 
 msgid "{} submissions"
 msgstr "{} inzendingen"
+
+msgid "Date from"
+msgstr "Datum vanaf"
+
+msgid "Date to"
+msgstr "Datum tot"
 
 #, python-format
 msgid "There is another field with the label %s, please change one of them."
@@ -180,6 +186,9 @@ msgstr "Titel"
 
 msgid "Origin"
 msgstr "Herkomst"
+
+msgid "Delete selected submissions"
+msgstr "Verwijder geselecteerde inzendingen"
 
 msgid "No form pages have been created."
 msgstr "Er zijn nog geen pagina's met een formulier aangemaakt."

@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-06 12:33+0000\n"
-"PO-Revision-Date: 2017-02-17 08:58+0000\n"
+"POT-Creation-Date: 2017-04-19 21:02+0000\n"
+"PO-Revision-Date: 2017-04-28 09:24+0000\n"
 "Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
@@ -126,6 +126,11 @@ msgstr ""
 "Er bestaat al een pagina met deze slug binnen de context van de "
 "bovenliggende pagina \"%s\""
 
+msgid "You cannot copy a page into itself when copying subpages"
+msgstr ""
+"Het is niet mogelijk een pagina naar zichzelf te kopiëren bij het kopiëren "
+"van onderliggende pagina's"
+
 msgid "Visibility"
 msgstr "Zichtbaarheid"
 
@@ -176,8 +181,11 @@ msgstr "Notificatievoorkeuren"
 msgid "Choose which email notifications to receive."
 msgstr "Kies hier welke e-mailnotificaties u wilt ontvangen."
 
-msgid "Change Password"
-msgstr "Wijzig wachtwoord"
+msgid "Language preferences"
+msgstr "Taalvoorkeuren"
+
+msgid "Choose the language you want to use here."
+msgstr "Kies de taal die u hier wilt gebruiken."
 
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
@@ -185,8 +193,8 @@ msgstr ""
 "Uw wachtwoord kan hier niet gewijzigd worden. Neem contact op met een "
 "beheerder van deze site."
 
-msgid "Notification Preferences"
-msgstr "Notificatievoorkeuren"
+msgid "Language Preferences"
+msgstr "Taalvoorkeuren"
 
 msgid "Update"
 msgstr "Bijwerken"
@@ -613,6 +621,10 @@ msgstr "Ja, trek de publicatie in"
 msgid "No, don't unpublish"
 msgstr "Nee, niet de publicatie intrekken"
 
+#, python-format
+msgid "Pages using %(page_class_verbose_name)s"
+msgstr "Pagina's die %(page_class_verbose_name)s gebruiken"
+
 msgid "Pages using"
 msgstr "Pagina's van het type"
 
@@ -781,6 +793,9 @@ msgstr "Voeg een onderliggende pagina toe aan '%(title)s'"
 msgid "Add child page"
 msgstr "Voeg onderliggende pagina toe"
 
+msgid "Sites menu"
+msgstr "Sites menu"
+
 #, python-format
 msgid ""
 "\n"
@@ -815,6 +830,25 @@ msgstr "Kies een nieuwe bovenliggende pagina voor %(title)s"
 #, python-format
 msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Kies een nieuwe bovenliggende pagina voor <span>%(title)s</span>"
+
+msgid "Preview error"
+msgstr "Voorbeeld fout"
+
+msgid ""
+"\n"
+"                Impossible to preview this page, some errors are remaining.\n"
+"                Please close this tab, edit the page to fix these errors,\n"
+"                then use preview again.\n"
+"            "
+msgstr ""
+"\n"
+"Het is niet mogelijk om een voorbeeld van deze pagina te bekijken omdat er "
+"nog foutmeldingen zijn.\n"
+"Sluit dit tab, bewerk de pagina om de fouten te verbeteren,\n"
+"en bekijk daarna het voorbeeld opnieuw."
+
+msgid "Close"
+msgstr "Sluit"
 
 #, python-format
 msgid "Comparing %(title)s"
@@ -1054,6 +1088,63 @@ msgstr "Toon in verkenner"
 msgid "Test"
 msgstr "Test"
 
+msgid "Catalan"
+msgstr "Catalaans"
+
+msgid "German"
+msgstr "Duits"
+
+msgid "Greek"
+msgstr "Grieks"
+
+msgid "English"
+msgstr "Engels"
+
+msgid "Spanish"
+msgstr "Spaans"
+
+msgid "Finnish"
+msgstr "Fins"
+
+msgid "French"
+msgstr "Frans"
+
+msgid "Galician"
+msgstr "Galicisch"
+
+msgid "Icelandic"
+msgstr "IJslands"
+
+msgid "Italian"
+msgstr "Italiaans"
+
+msgid "Lithuanian"
+msgstr "Litouws"
+
+msgid "Norwegian Bokmål"
+msgstr "Noors Bokmål"
+
+msgid "Netherlands Dutch"
+msgstr "Nederlands"
+
+msgid "Polish"
+msgstr "Pools"
+
+msgid "Brazilian Portuguese"
+msgstr "Braziliaans Portugees"
+
+msgid "Portuguese"
+msgstr "Portugees"
+
+msgid "Romanian"
+msgstr "Roemeens"
+
+msgid "Russian"
+msgstr "Russisch"
+
+msgid "Chinese (China)"
+msgstr "Chinees (China)"
+
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Sorry, u heeft geen toegang tot dit gedeelte."
 
@@ -1062,6 +1153,9 @@ msgstr "Uw wachtwoord is succesvol gewijzigd!"
 
 msgid "Your preferences have been updated successfully!"
 msgstr "Uw voorkeuren zijn succesvol aangepast!"
+
+msgid "Your preferences have been updated."
+msgstr "Uw voorkeuren zijn aangepast."
 
 msgid "You have been successfully logged out."
 msgstr "U bent succesvol uitgelogd."
