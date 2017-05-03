@@ -240,6 +240,7 @@ Contributors
 * Ben Enright
 * Alice Rose
 * John Franey
+* Marc Tudurí
 
 Translators
 ===========
