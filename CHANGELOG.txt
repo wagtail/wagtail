@@ -8,7 +8,7 @@ Changelog
  * Fix: `TableBlock` options `afterChange`, `afterCreateCol`, `afterCreateRow`, `afterRemoveCol`, `afterRemoveRow` and `contextMenu` can now be overridden (Loic Teixeira)
 
 
-1.10 (xx.xx.xxxx) - IN DEVELOPMENT
+1.10 (03.05.2017)
 ~~~~~~~~~~~~~~~~~
 
  * Added PostgreSQL search engine (Bertrand Bordage, Jaap Roes, Arne de Laat, Ramon de Jezus)
