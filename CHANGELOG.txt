@@ -1,7 +1,14 @@
 Changelog
 =========
 
-1.10 (xx.xx.xxxx) - IN DEVELOPMENT
+1.11 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~
+
+ * Fix: Unauthenticated AJAX requests to admin views now return 403 rather than redirecting to the login page (Karl Hobley)
+ * Fix: `TableBlock` options `afterChange`, `afterCreateCol`, `afterCreateRow`, `afterRemoveCol`, `afterRemoveRow` and `contextMenu` can now be overridden (Loic Teixeira)
+
+
+1.10 (03.05.2017)
 ~~~~~~~~~~~~~~~~~
 
  * Added PostgreSQL search engine (Bertrand Bordage, Jaap Roes, Arne de Laat, Ramon de Jezus)
