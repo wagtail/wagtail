@@ -282,7 +282,7 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
         verbose_name=_('owner'),
         null=True,
         blank=True,
-        editable=False,
+        editable=True,
         on_delete=models.SET_NULL,
         related_name='owned_pages'
     )
