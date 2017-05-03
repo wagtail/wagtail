@@ -644,8 +644,8 @@ class PreviewOnCreate(PreviewOnEdit):
         page.path = Page._get_children_path_interval(parent_page.path)[1]
         return page
 
-    def get_form(self):
-        form = super(PreviewOnCreate, self).get_form()
+    def get_form(self, page, query_dict):
+        form = super(PreviewOnCreate, self).get_form(page, query_dict)
         if self.is_form_valid(form):
             # Ensures our unsaved page has a suitable url.
             form.instance.set_url_path(form.parent_page)
