@@ -2,7 +2,7 @@ from __future__ import absolute_import, unicode_literals
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
-from django.db import connections
+from django.db.models import Max
 from django.shortcuts import render
 from django.template.loader import render_to_string
 
@@ -55,22 +55,13 @@ class RecentEditsPanel(object):
         self.request = request
 
         # Last n edited pages
-        last_edits = PageRevision.objects.raw(
-            """
-            SELECT wp.* FROM
-                wagtailcore_pagerevision wp JOIN (
-                    SELECT max(created_at) AS max_created_at, page_id FROM
-                        wagtailcore_pagerevision WHERE user_id = %s GROUP BY page_id ORDER BY max_created_at DESC LIMIT %s
-                ) AS max_rev ON max_rev.max_created_at = wp.created_at ORDER BY wp.created_at DESC
-             """, [
-                User._meta.pk.get_db_prep_value(self.request.user.pk, connections['default']),
-                getattr(settings, 'WAGTAILADMIN_RECENT_EDITS_LIMIT', 5)
-            ]
-        )
-        last_edits = list(last_edits)
-        page_keys = [pr.page.pk for pr in last_edits]
-        specific_pages = Page.objects.filter(pk__in=page_keys).specific()
-        pages = {p.pk: p for p in specific_pages}
+        edit_count = getattr(settings, 'WAGTAILADMIN_RECENT_EDITS_LIMIT', 5)
+        last_edits_dates = (PageRevision.objects.filter(user=self.request.user)
+                            .values('page_id').annotate(latest_date=Max('created_at'))
+                            .order_by('-latest_date').values('latest_date')[:edit_count])
+        last_edits = PageRevision.objects.filter(created_at__in=last_edits_dates).order_by('-created_at')
+        page_keys = [pr.page_id for pr in last_edits]
+        pages = Page.objects.specific().in_bulk(page_keys)
         self.last_edits = [
             [review, pages.get(review.page.pk)] for review in last_edits
         ]
