@@ -39,6 +39,12 @@ Install Node through nvm (optional):
 
     $ nvm install
 
+Install Node through nvm (optional):
+
+.. code-block:: console
+
+    $ nvm install
+
 Install the tool chain for building static assets:
 
 .. code-block:: console
