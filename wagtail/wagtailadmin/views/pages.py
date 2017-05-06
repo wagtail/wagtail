@@ -562,13 +562,12 @@ class PreviewOnEdit(View):
 
     def remove_old_preview_data(self):
         expiration = time() - self.preview_expiration_timeout
-        for k, v in self.request.session.items():
-            if not k.startswith(self.session_key_prefix):
-                continue
-            post_data, timestamp = v
-            if timestamp < expiration:
-                # Removes the session key gracefully
-                self.request.session.pop(k)
+        expired_keys = [
+            k for k, v in self.request.session.items()
+            if k.startswith(self.session_key_prefix) and v[1] < expiration]
+        # Removes the session key gracefully
+        for k in expired_keys:
+            self.request.session.pop(k)
 
     @property
     def session_key(self):

@@ -6,6 +6,7 @@ import os
 
 import django
 import mock
+from freezegun import freeze_time
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
@@ -28,6 +29,7 @@ from wagtail.wagtailcore.models import GroupPagePermission, Page, PageRevision, 
 from wagtail.wagtailcore.signals import page_published, page_unpublished
 from wagtail.wagtailsearch.index import SearchField
 from wagtail.wagtailusers.models import UserProfile
+from wagtail.wagtailadmin.views.pages import PreviewOnEdit
 
 
 def submittable_timestamp(timestamp):
@@ -4272,3 +4274,30 @@ class TestPreview(TestCase, WagtailTestUtils):
         self.assertContains(response, "Beach party")
         self.assertContains(response, "<li>Parties</li>")
         self.assertContains(response, "<li>Holidays</li>")
+
+    def test_preview_on_edit_expiry(self):
+        initial_datetime = timezone.now()
+        expiry_datetime = initial_datetime + datetime.timedelta(
+            seconds=PreviewOnEdit.preview_expiration_timeout + 1)
+
+        with freeze_time(initial_datetime) as frozen_datetime:
+            preview_url = reverse('wagtailadmin_pages:preview_on_edit',
+                                  args=(self.event_page.id,))
+            response = self.client.post(preview_url, self.post_data)
+
+            # Check the JSON response
+            self.assertEqual(response.status_code, 200)
+
+            response = self.client.get(preview_url)
+
+            # Check the HTML response
+            self.assertEqual(response.status_code, 200)
+
+            frozen_datetime.move_to(expiry_datetime)
+
+            preview_url = reverse('wagtailadmin_pages:preview_on_edit',
+                                  args=(self.home_page.id,))
+            response = self.client.post(preview_url, self.post_data)
+            self.assertEqual(response.status_code, 200)
+            response = self.client.get(preview_url)
+            self.assertEqual(response.status_code, 200)
