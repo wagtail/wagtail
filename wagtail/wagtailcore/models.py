@@ -547,13 +547,13 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
         if not accepts_kwarg(cls.relative_url, 'request'):
             warnings.warn(
                 "%s.relative_url should accept a 'request' keyword argument. "
-                "See http://docs.wagtail.io/en/v1.10/reference/pages/model_reference.html#wagtail.wagtailcore.models.Page.relative_url" % cls,
+                "See http://docs.wagtail.io/en/v1.11/reference/pages/model_reference.html#wagtail.wagtailcore.models.Page.relative_url" % cls,
                 RemovedInWagtail112Warning)
 
         if not accepts_kwarg(cls.get_url_parts, 'request'):
             warnings.warn(
                 "%s.get_url_parts should accept a 'request' keyword argument. "
-                "See http://docs.wagtail.io/en/v1.10/reference/pages/model_reference.html#wagtail.wagtailcore.models.Page.get_url_parts" % cls,
+                "See http://docs.wagtail.io/en/v1.11/reference/pages/model_reference.html#wagtail.wagtailcore.models.Page.get_url_parts" % cls,
                 RemovedInWagtail112Warning)
 
         return errors
@@ -760,7 +760,7 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
     def _safe_get_url_parts(self, request=None):
         """
         Backwards-compatibility method to safely call get_url_parts without
-        the new ``request`` kwarg (added in Wagtail 1.10), if needed.
+        the new ``request`` kwarg (added in Wagtail 1.11), if needed.
         """
         # RemovedInWagtail112Warning - this accepts_kwarg test can be removed when we drop support
         # for get_url_parts methods which omit the `request` kwarg
