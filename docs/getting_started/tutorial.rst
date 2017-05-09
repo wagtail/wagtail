@@ -232,10 +232,10 @@ Now we need a model and template for our blog posts. In ``blog/models.py``:
         intro = models.CharField(max_length=250)
         body = RichTextField(blank=True)
 
-        search_fields = Page.search_fields + [
+        search_fields = Page.search_fields + (
             index.SearchField('intro'),
             index.SearchField('body'),
-        ]
+        )
 
         content_panels = Page.content_panels + [
             FieldPanel('date'),
@@ -424,10 +424,10 @@ Add a new ``BlogPageGalleryImage`` model to ``models.py``:
         intro = models.CharField(max_length=250)
         body = RichTextField(blank=True)
 
-        search_fields = Page.search_fields + [
+        search_fields = Page.search_fields + (
             index.SearchField('intro'),
             index.SearchField('body'),
-        ]
+        )
 
         content_panels = Page.content_panels + [
             FieldPanel('date'),
