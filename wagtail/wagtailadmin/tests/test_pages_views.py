@@ -6,7 +6,6 @@ import os
 
 import django
 import mock
-from freezegun import freeze_time
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
@@ -19,17 +18,19 @@ from django.http import HttpRequest, HttpResponse
 from django.test import TestCase, modify_settings
 from django.utils import formats, timezone
 from django.utils.dateparse import parse_date
+
+from freezegun import freeze_time
 from wagtail.tests.testapp.models import (
     EVENT_AUDIENCE_CHOICES, Advert, AdvertPlacement, BusinessChild, BusinessIndex, BusinessSubIndex,
     DefaultStreamPage, EventCategory, EventPage, EventPageCarouselItem, FilePage, SimplePage,
     SingleEventPage, SingletonPage, StandardChild, StandardIndex, TaggedPage)
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailadmin.views.home import RecentEditsPanel
+from wagtail.wagtailadmin.views.pages import PreviewOnEdit
 from wagtail.wagtailcore.models import GroupPagePermission, Page, PageRevision, Site
 from wagtail.wagtailcore.signals import page_published, page_unpublished
 from wagtail.wagtailsearch.index import SearchField
 from wagtail.wagtailusers.models import UserProfile
-from wagtail.wagtailadmin.views.pages import PreviewOnEdit
 
 
 def submittable_timestamp(timestamp):
