@@ -677,7 +677,10 @@ class TestPageDetailWithStreamField(TestCase):
         self.assertIn('id', content)
         self.assertEqual(content['id'], stream_page.id)
         self.assertIn('body', content)
-        self.assertEqual(content['body'], [{'type': 'text', 'value': 'foo'}])
+        self.assertEqual(len(content['body']), 1)
+        self.assertEqual(content['body'][0]['type'], 'text')
+        self.assertEqual(content['body'][0]['value'], 'foo')
+        self.assertTrue(content['body'][0]['id'])
 
     def test_image_block(self):
         stream_page = self.make_stream_page('[{"type": "image", "value": 1}]')
@@ -687,7 +690,8 @@ class TestPageDetailWithStreamField(TestCase):
         content = json.loads(response.content.decode('utf-8'))
 
         # ForeignKeys in a StreamField shouldn't be translated into dictionary representation
-        self.assertEqual(content['body'], [{'type': 'image', 'value': 1}])
+        self.assertEqual(content['body'][0]['type'], 'image')
+        self.assertEqual(content['body'][0]['value'], 1)
 
 
 @override_settings(

@@ -1707,7 +1707,7 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         api_representation = block.get_api_representation(
             block.to_python([
                 {'type': 'language', 'value': 'en'},
-                {'type': 'author', 'value': 'wagtail'},
+                {'type': 'author', 'value': 'wagtail', 'id': '111111'},
             ]),
             context={
                 'en': 'English',
@@ -1717,8 +1717,8 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
 
         self.assertListEqual(
             api_representation, [
-                {'type': 'language', 'value': 'English'},
-                {'type': 'author', 'value': 'Wagtail!'},
+                {'type': 'language', 'value': 'English', 'id': None},
+                {'type': 'author', 'value': 'Wagtail!', 'id': '111111'},
             ]
         )
 
@@ -1846,6 +1846,7 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             {
                 'type': 'heading',
                 'value': "My title",
+                'id': '123123123',
             },
             {
                 'type': 'paragraph',
@@ -1879,6 +1880,13 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         self.assertIn('<input type="hidden" id="myarticle-0-order" name="myarticle-0-order" value="0">', html)
         self.assertIn('<input type="hidden" id="myarticle-1-order" name="myarticle-1-order" value="1">', html)
         self.assertIn('<input type="hidden" id="myarticle-2-order" name="myarticle-2-order" value="2">', html)
+
+    def test_render_form_id_fields(self):
+        html = self.render_form()
+
+        self.assertIn('<input type="hidden" id="myarticle-0-id" name="myarticle-0-id" value="123123123">', html)
+        self.assertIn('<input type="hidden" id="myarticle-1-id" name="myarticle-1-id" value="">', html)
+        self.assertIn('<input type="hidden" id="myarticle-2-id" name="myarticle-2-id" value="">', html)
 
     def test_render_form_type_fields(self):
         html = self.render_form()
@@ -1933,24 +1941,12 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             url = blocks.URLBlock()
         block = ValidatedBlock()
 
-        value = [
-            blocks.BoundBlock(
-                block=block.child_blocks['char'],
-                value='',
-            ),
-            blocks.BoundBlock(
-                block=block.child_blocks['char'],
-                value='foo',
-            ),
-            blocks.BoundBlock(
-                block=block.child_blocks['url'],
-                value='http://example.com/',
-            ),
-            blocks.BoundBlock(
-                block=block.child_blocks['url'],
-                value='not a url',
-            ),
-        ]
+        value = blocks.StreamValue(block, [
+            ('char', ''),
+            ('char', 'foo'),
+            ('url', 'http://example.com/'),
+            ('url', 'not a url'),
+        ])
 
         with self.assertRaises(ValidationError) as catcher:
             block.clean(value)
@@ -2015,6 +2011,8 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         block = ArticleBlock()
         html = block.html_declarations()
 
+        self.assertTagInTemplateScript('<input type="hidden" id="__PREFIX__-id" name="__PREFIX__-id" value="" />', html)
+        self.assertTagInTemplateScript('<input type="hidden" id="__PREFIX__-type" name="__PREFIX__-type" value="heading" />', html)
         self.assertTagInTemplateScript('<input id="__PREFIX__-value" name="__PREFIX__-value" placeholder="Heading" type="text" />', html)
         self.assertTagInTemplateScript(
             '<input id="__PREFIX__-value" name="__PREFIX__-value" placeholder="Paragraph" type="text" />',
@@ -2081,11 +2079,13 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
                 'article-%d-deleted' % i: '',
                 'article-%d-order' % i: str(2 - i),
                 'article-%d-type' % i: 'heading',
-                'article-%d-value' % i: "heading %d" % i
+                'article-%d-value' % i: "heading %d" % i,
+                'article-%d-id' % i: "000%d" % i,
             })
 
         block_value = block.value_from_datadict(post_data, {}, 'article')
         self.assertEqual(block_value[2].value, "heading 0")
+        self.assertEqual(block_value[2].id, "0000")
 
     def test_ordering_in_form_submission_is_numeric(self):
         class ArticleBlock(blocks.StreamBlock):
@@ -2233,6 +2233,62 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         self.assertNotIn('<h3></h3>', block.render_form(''))
         self.assertIn('<h3>group1</h3>', html)
         self.assertIn('<h3>group2</h3>', html)
+
+    def test_value_from_datadict(self):
+        class ArticleBlock(blocks.StreamBlock):
+            heading = blocks.CharBlock()
+            paragraph = blocks.CharBlock()
+
+        block = ArticleBlock()
+
+        value = block.value_from_datadict({
+            'foo-count': '3',
+            'foo-0-deleted': '',
+            'foo-0-order': '2',
+            'foo-0-type': 'heading',
+            'foo-0-id': '0000',
+            'foo-0-value': 'this is my heading',
+            'foo-1-deleted': '1',
+            'foo-1-order': '1',
+            'foo-1-type': 'heading',
+            'foo-1-id': '0001',
+            'foo-1-value': 'a deleted heading',
+            'foo-2-deleted': '',
+            'foo-2-order': '0',
+            'foo-2-type': 'paragraph',
+            'foo-2-id': '',
+            'foo-2-value': '<p>this is a paragraph</p>',
+        }, {}, prefix='foo')
+
+        self.assertEqual(len(value), 2)
+        self.assertEqual(value[0].block_type, 'paragraph')
+        self.assertEqual(value[0].id, '')
+        self.assertEqual(value[0].value, '<p>this is a paragraph</p>')
+
+        self.assertEqual(value[1].block_type, 'heading')
+        self.assertEqual(value[1].id, '0000')
+        self.assertEqual(value[1].value, 'this is my heading')
+
+    def test_get_prep_value(self):
+        class ArticleBlock(blocks.StreamBlock):
+            heading = blocks.CharBlock()
+            paragraph = blocks.CharBlock()
+
+        block = ArticleBlock()
+
+        value = blocks.StreamValue(block, [
+            ('heading', 'this is my heading', '0000'),
+            ('paragraph', '<p>this is a paragraph</p>')
+        ])
+        jsonish_value = block.get_prep_value(value)
+
+        self.assertEqual(len(jsonish_value), 2)
+        self.assertEqual(jsonish_value[0], {'type': 'heading', 'value': 'this is my heading', 'id': '0000'})
+        self.assertEqual(jsonish_value[1]['type'], 'paragraph')
+        self.assertEqual(jsonish_value[1]['value'], '<p>this is a paragraph</p>')
+        # get_prep_value should assign a new (random and non-empty) ID to this block, as it didn't
+        # have one already
+        self.assertTrue(jsonish_value[1]['id'])
 
 
 class TestPageChooserBlock(TestCase):
