@@ -67,7 +67,7 @@ with a custom ``edit_handler`` attribute:
     from wagtail.wagtailadmin.edit_handlers import TabbedInterface, ObjectList
 
     @register_setting
-    class MySettings(BaseSettings):
+    class MySettings(BaseSetting):
         # ...
         first_tab_panels = [
             FieldPanel('field_1'),
