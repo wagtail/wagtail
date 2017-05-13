@@ -16,10 +16,6 @@ from wagtail.wagtailcore.permissions import collection_permission_policy
 class ExplorerMenuItem(MenuItem):
     template = 'wagtailadmin/shared/explorer_menu_item.html'
 
-    @property
-    def media(self):
-        return forms.Media(js=[static('wagtailadmin/js/explorer-menu.js')])
-
     def is_shown(self, request):
         return user_has_any_page_permission(request.user)
 
