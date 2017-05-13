@@ -10,6 +10,36 @@ Wagtail 1.11 release notes - IN DEVELOPMENT
 What's new
 ==========
 
+Explorer menu built with the admin API and React
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+After more than a year of work, the new explorer menu has finally landed! It comes with the following improvements:
+
+ * View all pages - not just the ones with child pages.
+ * Better performance, no matter the number of pages or levels in the hierarchy.
+ * Navigate the menu via keyboard.
+ * View Draft pages, and go to page editing, directly from the menu.
+
+Beyond features, the explorer is built with the new admin API and React components.
+This will facilitate further evolutions to make it even faster and user-friendly.
+This work is the product of ``4`` Wagtail sprints, and the efforts of ``16`` people, listed here by order of first involvement:
+
+ * Karl Hobley (Cape town sprint, admin API)
+ * Josh Barr (Cape town sprint, prototype UI)
+ * Thibaud Colas (Ede sprint, Reykjavík sprint)
+ * Janneke Janssen (Ede sprint, Reykjavík sprint, Wagtail Space sprint)
+ * Rob Moorman (Ede sprint, eslint-config-wagtail, ES6+React+Redux styleguide)
+ * Maurice Bartnig (Ede sprint, i18n and bug fixes)
+ * Jonny Scholes (code review)
+ * Matt Westcott (Reykjavík sprint, refactorings)
+ * Sævar Öfjörð Magnússon (Reykjavík sprint)
+ * Eirikur Ingi Magnusson (Reykjavík sprint)
+ * Harris Lapiroff (Reykjavík sprint, tab-accessible navigation)
+ * Hugo van den Berg (testing, Wagtail Space sprint)
+ * Olly Willans (UI, UX, Wagtail Space sprint)
+ * Andy Babic (UI, UX)
+ * Ben Enright (UI, UX)
+ * Bertrand Bordage (testing, documentation)
 
 Other features
 ~~~~~~~~~~~~~~
@@ -24,3 +54,8 @@ Bug fixes
 
 Upgrade considerations
 ======================
+
+Browser requirements for the new explorer menu
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The new explorer menu does not support IE8, IE9, and IE10. The fallback experience is a link pointing to the explorer pages.

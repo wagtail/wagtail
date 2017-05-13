@@ -140,7 +140,7 @@ Contributors
 * Stephen Rice
 * Behzad Nategh
 * Yann Fouillat (Gagaro)
-* Jonny Scholes
+* Jonny Scholev
 * Richard McMillan
 * Johannes Spielmann
 * Franklin Kingma
@@ -231,6 +231,12 @@ Contributors
 * Daniel Chimeno
 * Medhat Assaad
 * Sebastian Bauer
+* Maurice Bartnig
+* Eirikur Ingi Magnusson
+* Harris Lapiroff
+* Hugo van den Berg
+* Olly Willans
+* Ben Enright
 
 Translators
 ===========
