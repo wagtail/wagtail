@@ -6,6 +6,37 @@ $c-explorer-easing: cubic-bezier(0.075, 0.820, 0.165, 1.000);
 
 @import 'ExplorerItem';
 
+.explorer {
+    width: 100%;
+    position: relative;
+    top: 0;
+    left: 0;
+    font-size: 1em;
+    z-index: 500;
+
+    @include medium {
+        width: 485px;
+        position: fixed;
+        top: 0;
+        left: $menu-width;
+
+        &:before {
+            display: none;
+        }
+
+        &:after {
+            content: '';
+            width: calc(100% - 2px);
+            height: 100%;
+            position: absolute;
+            top: 0;
+            right: 0;
+            z-index: -1;
+            box-shadow: 0 0 2px rgba(255, 255, 255, 0.9);
+        }
+    }
+}
+
 .c-explorer,
 .c-explorer * {
     box-sizing: border-box;

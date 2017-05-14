@@ -2,7 +2,6 @@
 @import 'wagtailadmin/scss/mixins';
 @import 'wagtailadmin/scss/grid';
 
-@import 'wagtailadmin/scss/components/explorer';
 @import 'wagtailadmin/scss/components/icons';
 @import 'wagtailadmin/scss/components/typography';
 @import 'wagtailadmin/scss/components/tabs';
@@ -495,12 +494,8 @@ footer,
         }
     }
 
-    .explorer {
-        z-index: $explorer-z-index;
-    }
-
     .nav-submenu {
-        z-index: $explorer-z-index;
+        z-index: 500;
     }
 
     // Allows overspill of messages banner onto left menu, but also explorer

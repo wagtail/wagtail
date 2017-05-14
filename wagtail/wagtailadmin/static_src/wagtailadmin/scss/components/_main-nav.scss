@@ -153,12 +153,6 @@ $footer-submenu: $submenu-color;
     }
 }
 
-.explorer {
-    // position: absolute;
-    // margin-top: 70px;
-    font-size: 1em;
-}
-
 .nav-search {
     position: relative;
     padding: 0;
@@ -415,17 +409,6 @@ body.explorer-open {
         }
     }
 
-    .explorer {
-        width: 485px;
-        position: fixed;
-        top: 0;
-        left: $menu-width;
-    }
-
-    .dl-menu {
-        position: absolute;
-    }
-
     body.nav-open {
         .content-wrapper {
             position: relative;
@@ -446,21 +429,6 @@ body.explorer-open {
         .nav-wrapper {
             margin-left: 0;
             width: $menu-width;
-        }
-
-        .explorer:before {
-            display: none;
-        }
-
-        .explorer:after {
-            content: '';
-            width: calc(100% - 2px);
-            height: 100%;
-            position: absolute;
-            top: 0;
-            right: 0;
-            z-index: -1;
-            box-shadow: 0 0 2px rgba(255, 255, 255, 0.9);
         }
 
         .nav-main {
