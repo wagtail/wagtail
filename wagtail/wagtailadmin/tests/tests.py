@@ -43,6 +43,12 @@ class TestHome(TestCase, WagtailTestUtils):
             '<a href="http://www.tomroyal.com/teaandkittens/" class="icon icon-kitten" data-fluffy="yes">Kittens!</a>'
         )
 
+        # Check that the explorer menu item is here, with the right start page.
+        self.assertContains(
+            response,
+            'data-explorer-start-page="1"'
+        )
+
         # check that is_shown is respected on menu items
         response = self.client.get(reverse('wagtailadmin_home') + '?hide-kittens=true')
         self.assertNotContains(
