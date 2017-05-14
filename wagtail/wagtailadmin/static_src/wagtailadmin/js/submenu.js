@@ -1,6 +1,4 @@
 $(function() {
-    var $explorer = $('#explorer');
-
     $('.nav-main .submenu-trigger').on('click', function() {
         if ($(this).closest('li').find('.nav-submenu').length) {
 
