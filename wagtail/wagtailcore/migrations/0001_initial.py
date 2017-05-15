@@ -101,6 +101,9 @@ class Migration(migrations.Migration):
         migrations.RunPython(
             set_page_path_collation, migrations.RunPython.noop
         ),
+        migrations.RunPython(
+            set_page_path_collation, migrations.RunPython.noop
+        ),
         migrations.CreateModel(
             name='PageRevision',
             fields=[
