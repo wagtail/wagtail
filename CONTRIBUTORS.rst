@@ -231,6 +231,7 @@ Contributors
 * Daniel Chimeno
 * Medhat Assaad
 * Sebastian Bauer
+* Martin Hill
 
 Translators
 ===========
