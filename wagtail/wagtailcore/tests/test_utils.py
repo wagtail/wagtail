@@ -4,7 +4,7 @@ from __future__ import absolute_import, unicode_literals
 from django.test import TestCase
 from django.utils.text import slugify
 
-from wagtail.wagtailcore.utils import accepts_kwarg, cautious_slugify
+from wagtail.wagtailcore.utils import cautious_slugify
 
 
 class TestCautiousSlugify(TestCase):
@@ -36,19 +36,3 @@ class TestCautiousSlugify(TestCase):
 
         for (original, expected_result) in test_cases:
             self.assertEqual(cautious_slugify(original), expected_result)
-
-
-class TestAcceptsKwarg(TestCase):
-    def test_accepts_kwarg(self):
-        def func_without_banana(apple, orange=42):
-            pass
-
-        def func_with_banana(apple, banana=42):
-            pass
-
-        def func_with_kwargs(apple, **kwargs):
-            pass
-
-        self.assertFalse(accepts_kwarg(func_without_banana, 'banana'))
-        self.assertTrue(accepts_kwarg(func_with_banana, 'banana'))
-        self.assertTrue(accepts_kwarg(func_with_kwargs, 'banana'))

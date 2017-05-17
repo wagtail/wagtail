@@ -44,8 +44,6 @@ This work is the product of ``4`` Wagtail sprints, and the efforts of ``16`` peo
 Other features
 ~~~~~~~~~~~~~~
 
- * Optimised page URL generation by caching site paths in the request scope (Tobias McNulty, Matt Westcott)
-
 
 Bug fixes
 ~~~~~~~~~
@@ -61,45 +59,3 @@ Browser requirements for the new explorer menu
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The new explorer menu does not support IE8, IE9, and IE10. The fallback experience is a link pointing to the explorer pages.
-
-
-Caching of site-level URL information throughout the request cycle
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-The ``get_url_parts`` and ``relative_url`` methods on ``Page`` now accept an optional ``request`` keyword argument.
-Additionally, two new methods have been added, ``get_url`` (analogous to the ``url`` property) and ``get_full_url``
-(analogous to the ``full_url``) property. Whenever possible, these methods should be used instead of the property
-versions, and the request passed to each method. For example:
-
-.. code-block:: python
-
-    page_url = my_page.url
-
-would become:
-
-.. code-block:: python
-
-    page_url = my_page.get_url(request=request)
-
-This enables caching of underlying site-level URL information throughout the request cycle, thereby significantly
-reducing the number of cache or SQL queries your site will generate for a given page load. A common use case for these
-methods is any custom template tag your project may include for generating navigation menus. For more information,
-please refer to :ref:`page_urls`.
-
-Furthermore, if you have overridden ``get_url_parts`` or ``relative_url`` on any of your page models, you will need to
-update the method signature to support this keyword argument; most likely, this will involve changing the line:
-
-.. code-block:: python
-
-    def get_url_parts(self):
-
-to:
-
-.. code-block:: python
-
-    def get_url_parts(self, *args, **kwargs):
-
-and passing those through at the point where you are calling ``get_url_parts`` on ``super`` (if applicable).
-
-See also: :meth:`wagtail.wagtailcore.models.Page.get_url_parts`, :meth:`wagtail.wagtailcore.models.Page.get_url`,
-:meth:`wagtail.wagtailcore.models.Page.get_full_url`, and :meth:`wagtail.wagtailcore.models.Page.relative_url`
