@@ -545,47 +545,6 @@ class TestPrevNextSiblings(TestCase):
         self.assertEqual(final_event.get_prev_siblings(inclusive=True).first(), final_event)
 
 
-class TestLiveRevision(TestCase):
-    fixtures = ['test.json']
-
-    def test_publish_method_will_set_live_revision(self):
-        page = Page.objects.get(id=1)
-
-        revision = page.save_revision()
-        revision.publish()
-
-        page.refresh_from_db()
-        self.assertEqual(page.live_revision, revision)
-
-    def test_unpublish_method_will_clean_live_revision(self):
-        page = Page.objects.get(id=1)
-
-        revision = page.save_revision()
-        revision.publish()
-
-        page.unpublish()
-
-        page.refresh_from_db()
-        self.assertIsNone(page.live_revision)
-
-    def test_copy_method_with_keep_live_will_update_live_revision(self):
-        about_us = SimplePage.objects.get(url_path='/home/about-us/')
-        revision = about_us.save_revision()
-        revision.publish()
-
-        new_about_us = about_us.copy(keep_live=True, update_attrs={'title': "New about us", 'slug': 'new-about-us'})
-        self.assertIsNotNone(new_about_us.live_revision)
-        self.assertNotEqual(about_us.live_revision, new_about_us.live_revision)
-
-    def test_copy_method_without_keep_live_will_not_update_live_revision(self):
-        about_us = SimplePage.objects.get(url_path='/home/about-us/')
-        revision = about_us.save_revision()
-        revision.publish()
-
-        new_about_us = about_us.copy(keep_live=False, update_attrs={'title': "New about us", 'slug': 'new-about-us'})
-        self.assertIsNone(new_about_us.live_revision)
-
-
 class TestCopyPage(TestCase):
     fixtures = ['test.json']
 

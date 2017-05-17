@@ -327,15 +327,6 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
         null=True,
         editable=False
     )
-    live_revision = models.ForeignKey(
-        'PageRevision',
-        related_name='+',
-        verbose_name='live revision',
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
-        editable=False
-    )
 
     search_fields = [
         index.SearchField('title', partial_match=True, boost=2),
@@ -710,7 +701,6 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
         if self.live:
             self.live = False
             self.has_unpublished_changes = True
-            self.live_revision = None
 
             if set_expired:
                 self.expired = True
@@ -1091,7 +1081,6 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
         if not keep_live:
             page_copy.live = False
             page_copy.has_unpublished_changes = True
-            page_copy.live_revision = None
 
         if user:
             page_copy.owner = user
@@ -1173,10 +1162,7 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
             for field, value in update_attrs.items():
                 setattr(latest_revision, field, value)
 
-        latest_revision_as_page_revision = latest_revision.save_revision(user=user, changed=False)
-        if keep_live:
-            page_copy.live_revision = latest_revision_as_page_revision
-            page_copy.save()
+        latest_revision.save_revision(user=user, changed=False)
 
         # Log
         logger.info("Page copied: \"%s\" id=%d from=%d", page_copy.title, page_copy.id, self.id)
@@ -1509,7 +1495,6 @@ class PageRevision(models.Model):
         if page.live and page.first_published_at is None:
             page.first_published_at = timezone.now()
 
-        page.live_revision = self
         page.save()
         self.submitted_for_moderation = False
         page.revisions.update(submitted_for_moderation=False)
