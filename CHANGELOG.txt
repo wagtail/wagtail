@@ -11,6 +11,12 @@ Changelog
  * Fix: `TableBlock` options `afterChange`, `afterCreateCol`, `afterCreateRow`, `afterRemoveCol`, `afterRemoveRow` and `contextMenu` can now be overridden (Loic Teixeira)
 
 
+1.10.1 (17.05.2017)
+~~~~~~~~~~~~~~~~~~~
+
+ * Fix: Fix admin page preview that was broken 24 hours after previewing a page (Martin Hill)
+
+
 1.10 (03.05.2017)
 ~~~~~~~~~~~~~~~~~
 
