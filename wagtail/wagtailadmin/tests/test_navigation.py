@@ -6,7 +6,8 @@ from django.contrib.auth import get_user_model
 from django.test import TestCase
 
 from wagtail.tests.utils import WagtailTestUtils
-from wagtail.wagtailadmin.navigation import get_explorable_root_page, get_pages_with_direct_explore_permission
+from wagtail.wagtailadmin.navigation import (
+    get_explorable_root_page, get_pages_with_direct_explore_permission)
 
 
 class TestExplorablePages(TestCase, WagtailTestUtils):
@@ -77,7 +78,6 @@ class TestExplorablePages(TestCase, WagtailTestUtils):
         User = get_user_model()
         user = User.objects.get(username='sam')
         self.assertEqual(get_explorable_root_page(user).id, 1)
-        print(get_pages_with_direct_explore_permission(user))
         for page in get_pages_with_direct_explore_permission(user):
             self.assertIn(page.id, [2, 6])
 
