@@ -1680,6 +1680,37 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         self.assertEqual(list(block.child_blocks.keys()),
                          ['heading', 'paragraph', 'intro', 'by_line'])
 
+    def test_required_raises_an_exception_if_empty(self):
+        block = blocks.StreamBlock([('paragraph', blocks.CharBlock())], required=True)
+        value = blocks.StreamValue(block, [])
+
+        with self.assertRaises(blocks.StreamBlockValidationError):
+            block.clean(value)
+
+    def test_required_does_not_raise_an_exception_if_not_empty(self):
+        block = blocks.StreamBlock([('paragraph', blocks.CharBlock())], required=True)
+        value = block.to_python([{'type': 'paragraph', 'value': 'Hello'}])
+        try:
+            block.clean(value)
+        except blocks.StreamBlockValidationError:
+            raise self.failureException("%s was raised" % blocks.StreamBlockValidationError)
+
+    def test_not_required_does_not_raise_an_exception_if_empty(self):
+        block = blocks.StreamBlock([('paragraph', blocks.CharBlock())], required=False)
+        value = blocks.StreamValue(block, [])
+
+        try:
+            block.clean(value)
+        except blocks.StreamBlockValidationError:
+            raise self.failureException("%s was raised" % blocks.StreamBlockValidationError)
+
+    def test_required_by_default(self):
+        block = blocks.StreamBlock([('paragraph', blocks.CharBlock())])
+        value = blocks.StreamValue(block, [])
+
+        with self.assertRaises(blocks.StreamBlockValidationError):
+            block.clean(value)
+
     def render_article(self, data):
         class ArticleBlock(blocks.StreamBlock):
             heading = blocks.CharBlock()

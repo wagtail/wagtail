@@ -47,6 +47,7 @@ class StreamField(models.Field):
         else:
             self.stream_block = StreamBlock(block_types)
         super(StreamField, self).__init__(**kwargs)
+        self.stream_block._required = not self.blank
 
     def get_internal_type(self):
         return 'TextField'
