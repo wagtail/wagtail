@@ -8,11 +8,11 @@ Changelog
  * Fix: `TableBlock` options `afterChange`, `afterCreateCol`, `afterCreateRow`, `afterRemoveCol`, `afterRemoveRow` and `contextMenu` can now be overridden (Loic Teixeira)
 
 
-1.10.1 (17.05.2017)
+1.10.1 (19.05.2017)
 ~~~~~~~~~~~~~~~~~~~
 
  * Fix: Fix admin page preview that was broken 24 hours after previewing a page (Martin Hill)
- * Fix: Remove territory-specific translations for Spanish, Polish, Swedish, Russian and Chinese (Taiwan) that block more complete translations from being used (Matt Westcott)
+ * Fix: Removed territory-specific translations for Spanish, Polish, Swedish, Russian and Chinese (Taiwan) that block more complete translations from being used (Matt Westcott)
 
 
 1.10 (03.05.2017)
