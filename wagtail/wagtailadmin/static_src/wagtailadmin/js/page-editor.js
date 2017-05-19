@@ -34,6 +34,24 @@ function hideCurrent(current, input) {
     }
 }
 
+// Compare two date objects. Ignore minutes and seconds.
+function dateEqual(x, y) {
+    return x.getDate() === y.getDate() &&
+           x.getMonth() === y.getMonth() &&
+           x.getYear() === y.getYear()
+}
+
+/*
+Remove the xdsoft_current css class from markup unless the selected date is currently in view.
+Keep the normal behaviour if the home button is clicked.
+ */
+function hideCurrent(current, input) {
+    var selected = new Date(input[0].value);
+    if (!dateEqual(selected, current)) {
+        $(this).find('.xdsoft_datepicker .xdsoft_current:not(.xdsoft_today)').removeClass('xdsoft_current');
+    }
+}
+
 function initDateChooser(id, opts) {
     if (window.dateTimePickerTranslations) {
         $('#' + id).datetimepicker($.extend({
