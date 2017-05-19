@@ -12,6 +12,7 @@ Changelog
 ~~~~~~~~~~~~~~~~~~~
 
  * Fix: Fix admin page preview that was broken 24 hours after previewing a page (Martin Hill)
+ * Fix: Remove territory-specific translations for Spanish, Polish, Swedish, Russian and Chinese (Taiwan) that block more complete translations from being used (Matt Westcott)
 
 
 1.10 (03.05.2017)
