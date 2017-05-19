@@ -313,31 +313,53 @@ class ElasticsearchSearchQuery(BaseSearchQuery):
             fields = self.fields or ['_all', '_partials']
 
             if len(fields) == 1:
-                if self.operator == 'or':
-                    query = {
-                        'match': {
-                            fields[0]: self.query_string,
-                        }
+                query = {
+                    "bool": {
+                        "should": [
+                            {
+                                'match': {
+                                    fields[0]: {
+                                        'query': self.query_string,
+                                        'operator': self.operator,
+                                    }
+                                }
+                            },
+                            {
+                                'match_phrase': {
+                                    fields[0]: {
+                                        'query': self.query_string,
+                                        'operator': self.operator,
+                                        'boost': 1.5,
+                                    }
+                                }
+                            },
+                        ]
                     }
-                else:
-                    query = {
-                        'match': {
-                            fields[0]: {
-                                'query': self.query_string,
-                                'operator': self.operator,
-                            }
-                        }
-                    }
+                }
             else:
                 query = {
-                    'multi_match': {
-                        'query': self.query_string,
-                        'fields': fields,
+                    "bool": {
+                        "should": [
+                            {
+                                'multi_match': {
+                                    'query': self.query_string,
+                                    'fields': fields,
+                                }
+                            },
+                            {
+                                "multi_match": {
+                                    'query': self.query_string,
+                                    'type': 'phrase',
+                                    "fields": fields,
+                                    "boost": 1.5,
+                                }
+                            }
+                        ],
                     }
                 }
 
                 if self.operator != 'or':
-                    query['multi_match']['operator'] = self.operator
+                    query['bool']['should'][0]['multi_match']['operator'] = self.operator
         else:
             query = {
                 'match_all': {}
