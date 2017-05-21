@@ -441,9 +441,18 @@ Since ``StreamField`` accepts an instance of ``StreamBlock`` as a parameter, in 
 .. code-block:: python
 
     class HomePage(Page):
-        carousel = StreamField(CarouselBlock())
+        carousel = StreamField(CarouselBlock(max_num=10))
 
-``StreamBlock`` accepts ``required`` as a keyword argument or ``Meta`` property; if true (the default), at least one sub-block must be supplied.
+``StreamBlock`` accepts the following options as either keyword arguments or ``Meta`` properties:
+
+``required`` (default: True)
+  If true, at least one sub-block must be supplied.
+
+``min_num``
+  Minimum number of sub-blocks that the stream must have.
+
+``max_num``
+  Maximum number of sub-blocks that the stream may have.
 
 
 .. _streamfield_personblock_example:

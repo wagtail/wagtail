@@ -13,6 +13,7 @@ from django.utils import six
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.html import format_html_join
 from django.utils.safestring import mark_safe
+from django.utils.translation import ugettext as _
 
 from wagtail.wagtailcore.utils import escape_script
 
@@ -35,8 +36,12 @@ class StreamBlockValidationError(ValidationError):
 
 class BaseStreamBlock(Block):
 
-    def __init__(self, local_blocks=None, **kwargs):
+    def __init__(self, local_blocks=None, min_num=None, max_num=None, **kwargs):
         self._constructor_kwargs = kwargs
+
+        # Used to validate the minimum and maximum number of elements in the block
+        self.min_num = min_num
+        self.max_num = max_num
 
         super(BaseStreamBlock, self).__init__(**kwargs)
 
@@ -195,6 +200,17 @@ class BaseStreamBlock(Block):
 
         if self.required and len(value) == 0:
             non_block_errors.append(ValidationError('This field is required', code='invalid'))
+
+        # Validate that the min_num and max_num has a value
+        # and if it does meet the conditions of the number of components in the block
+        if self.min_num and self.min_num > len(value):
+            non_block_errors.append(ErrorList(
+                [_('The minimum number of items is %s' % self.min_num)]
+            ))
+        if self.max_num and self.max_num < len(value):
+            non_block_errors.append(ErrorList(
+                [_('The maximum number of items is %s' % self.max_num)]
+            ))
 
         if errors or non_block_errors:
             # The message here is arbitrary - outputting error messages is delegated to the child blocks,
