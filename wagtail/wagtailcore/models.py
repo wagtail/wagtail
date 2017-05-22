@@ -322,6 +322,11 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
         editable=False,
         db_index=True
     )
+    last_published_at = models.DateTimeField(
+        verbose_name=_('last published at'),
+        null=True,
+        editable=False
+    )
     latest_revision_created_at = models.DateTimeField(
         verbose_name=_('latest revision created at'),
         null=True,
@@ -1092,6 +1097,8 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
             page_copy.live = False
             page_copy.has_unpublished_changes = True
             page_copy.live_revision = None
+            page_copy.first_published_at = None
+            page_copy.last_published_at = None
 
         if user:
             page_copy.owner = user
@@ -1176,6 +1183,8 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
         latest_revision_as_page_revision = latest_revision.save_revision(user=user, changed=False)
         if keep_live:
             page_copy.live_revision = latest_revision_as_page_revision
+            page_copy.last_published_at = latest_revision_as_page_revision.created_at
+            page_copy.first_published_at = latest_revision_as_page_revision.created_at
             page_copy.save()
 
         # Log
@@ -1505,11 +1514,19 @@ class PageRevision(models.Model):
             page.revisions.update(approved_go_live_at=None)
         page.expired = False  # When a page is published it can't be expired
 
-        # Set first_published_at if the page is being published now
-        if page.live and page.first_published_at is None:
-            page.first_published_at = timezone.now()
+        # Set first_published_at, last_published_at and live_revision
+        # if the page is being published now
+        if page.live:
+            now = timezone.now()
+            page.last_published_at = now
+            page.live_revision = self
 
-        page.live_revision = self
+            if page.first_published_at is None:
+                page.first_published_at = now
+        else:
+            # Unset live_revision if the page is going live in the future
+            page.live_revision = None
+
         page.save()
         self.submitted_for_moderation = False
         page.revisions.update(submitted_for_moderation=False)

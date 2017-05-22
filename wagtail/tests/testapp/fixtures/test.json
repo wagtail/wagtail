@@ -30,7 +30,9 @@
         "content_type": ["wagtailcore", "page"],
         "path": "00010001",
         "url_path": "/home/",
-        "slug": "home"
+        "slug": "home",
+        "first_published_at": "2014-01-01T12:00:00.000Z",
+        "last_published_at": "2014-02-01T12:00:00.000Z"
     }
 },
 {
@@ -199,7 +201,9 @@
         "content_type": ["tests", "simplepage"],
         "path": "000100010002",
         "url_path": "/home/about-us/",
-        "slug": "about-us"
+        "slug": "about-us",
+        "first_published_at": "2014-01-01T12:00:00.000Z",
+        "last_published_at": "2014-02-01T12:00:00.000Z"
     }
 },
 {
