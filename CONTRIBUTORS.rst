@@ -238,6 +238,7 @@ Contributors
 * Hugo van den Berg
 * Olly Willans
 * Ben Enright
+* Alice Rose
 
 Translators
 ===========
