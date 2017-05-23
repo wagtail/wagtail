@@ -140,7 +140,7 @@ OEMBED_ENDPOINTS = {
         "^http://video\\.yandex\\.ru/users/[^#?/]+/view/.+$"
     ],
     "https://www.mixcloud.com/oembed/": [
-        "^https?://www\\.mixcloud\\.com/.+$"
+        "^https?://(?:www\\.)?mixcloud\\.com/.+$"
     ],
     "http://www.kickstarter.com/services/oembed": [
         "^http(?:s)://[-\\w]+\\.kickstarter\\.com/projects/.+$"
