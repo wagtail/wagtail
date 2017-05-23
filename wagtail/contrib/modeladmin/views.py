@@ -2,9 +2,9 @@ from __future__ import absolute_import, unicode_literals
 
 import operator
 import sys
+import warnings
 from collections import OrderedDict
 from functools import reduce
-import warnings
 
 from django import forms
 from django.contrib.admin import FieldListFilter, widgets
