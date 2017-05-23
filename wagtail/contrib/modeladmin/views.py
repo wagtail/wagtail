@@ -34,8 +34,8 @@ from django.views.generic import TemplateView
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.edit import FormView
 
-from wagtail.wagtailadmin import messages
 from wagtail.utils.deprecation import RemovedInWagtail112Warning
+from wagtail.wagtailadmin import messages
 from wagtail.wagtailadmin.edit_handlers import (
     ObjectList, extract_panel_definitions_from_model_class)
 
