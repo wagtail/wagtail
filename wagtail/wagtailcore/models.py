@@ -1350,7 +1350,9 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
         return [
             {
                 'location': self.full_url,
-                'lastmod': self.latest_revision_created_at
+                # fall back on latest_revision_created_at if last_published_at is null
+                # (for backwards compatibility from before last_published_at was added)
+                'lastmod': (self.last_published_at or self.latest_revision_created_at),
             }
         ]
 

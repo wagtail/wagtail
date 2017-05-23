@@ -12,7 +12,11 @@ class Sitemap(DjangoSitemap):
         return obj.specific.url
 
     def lastmod(self, obj):
-        return obj.specific.latest_revision_created_at
+        obj = obj.specific
+
+        # fall back on latest_revision_created_at if last_published_at is null
+        # (for backwards compatibility from before last_published_at was added)
+        return (obj.last_published_at or obj.latest_revision_created_at)
 
     def items(self):
         return (
