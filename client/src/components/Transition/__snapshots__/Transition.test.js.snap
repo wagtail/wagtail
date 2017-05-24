@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Transition basic 1`] = `
-<ReactCSSTransitionGroup
+<CSSTransitionGroup
   className={null}
   component="div"
   transitionAppear={false}
