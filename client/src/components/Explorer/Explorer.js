@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 
@@ -28,13 +29,13 @@ const Explorer = ({
 };
 
 Explorer.propTypes = {
-  isVisible: React.PropTypes.bool.isRequired,
-  path: React.PropTypes.array.isRequired,
-  nodes: React.PropTypes.object.isRequired,
+  isVisible: PropTypes.bool.isRequired,
+  path: PropTypes.array.isRequired,
+  nodes: PropTypes.object.isRequired,
 
-  pushPage: React.PropTypes.func.isRequired,
-  popPage: React.PropTypes.func.isRequired,
-  onClose: React.PropTypes.func.isRequired,
+  pushPage: PropTypes.func.isRequired,
+  popPage: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

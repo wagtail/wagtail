@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 /**
@@ -16,9 +17,9 @@ const Icon = ({ name, className, title }) => (
 );
 
 Icon.propTypes = {
-  name: React.PropTypes.string.isRequired,
-  className: React.PropTypes.string,
-  title: React.PropTypes.string,
+  name: PropTypes.string.isRequired,
+  className: PropTypes.string,
+  title: PropTypes.string,
 };
 
 Icon.defaultProps = {

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import { ADMIN_URLS, STRINGS } from '../../config/wagtailConfig';
@@ -46,14 +47,14 @@ const ExplorerItem = ({ item, onClick }) => {
 };
 
 ExplorerItem.propTypes = {
-  item: React.PropTypes.shape({
-    id: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]).isRequired,
-    title: React.PropTypes.string.isRequired,
-    meta: React.PropTypes.shape({
-      status: React.PropTypes.object.isRequired,
+  item: PropTypes.shape({
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    title: PropTypes.string.isRequired,
+    meta: PropTypes.shape({
+      status: PropTypes.object.isRequired,
     }).isRequired,
   }).isRequired,
-  onClick: React.PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
 export default ExplorerItem;

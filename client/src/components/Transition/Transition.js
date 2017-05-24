@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import CSSTransitionGroup from 'react-addons-css-transition-group';
@@ -31,11 +32,11 @@ const Transition = ({
 );
 
 Transition.propTypes = {
-  name: React.PropTypes.oneOf([PUSH, POP, FADE]).isRequired,
-  component: React.PropTypes.string,
-  className: React.PropTypes.string,
-  duration: React.PropTypes.number,
-  children: React.PropTypes.node,
+  name: PropTypes.oneOf([PUSH, POP, FADE]).isRequired,
+  component: PropTypes.string,
+  className: PropTypes.string,
+  duration: PropTypes.number,
+  children: PropTypes.node,
 };
 
 Transition.defaultProps = {

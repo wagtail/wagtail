@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import FocusTrap from 'focus-trap-react';
 
@@ -161,15 +162,15 @@ export default class ExplorerPanel extends React.Component {
 }
 
 ExplorerPanel.propTypes = {
-  nodes: React.PropTypes.object.isRequired,
-  path: React.PropTypes.array,
-  page: React.PropTypes.shape({
-    isFetching: React.PropTypes.bool,
-    children: React.PropTypes.shape({
-      items: React.PropTypes.array,
+  nodes: PropTypes.object.isRequired,
+  path: PropTypes.array,
+  page: PropTypes.shape({
+    isFetching: PropTypes.bool,
+    children: PropTypes.shape({
+      items: PropTypes.array,
     }),
   }),
-  onClose: React.PropTypes.func.isRequired,
-  popPage: React.PropTypes.func.isRequired,
-  pushPage: React.PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
+  popPage: PropTypes.func.isRequired,
+  pushPage: PropTypes.func.isRequired,
 };
