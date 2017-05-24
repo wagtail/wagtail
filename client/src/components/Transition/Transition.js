@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import CSSTransitionGroup from 'react-addons-css-transition-group';
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 
 const TRANSITION_DURATION = 210;
 
@@ -11,7 +11,7 @@ export const POP = 'pop';
 export const FADE = 'fade';
 
 /**
- * Wrapper arround react-addons-css-transition-group with default values.
+ * Wrapper arround react-transition-group with default values.
  */
 const Transition = ({
   name,
