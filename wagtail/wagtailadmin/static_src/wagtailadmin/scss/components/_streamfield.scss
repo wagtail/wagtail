@@ -222,9 +222,8 @@ li.sequence-member {
 // Menu of other blocks to be added at each position 
 .stream-menu {
     @include transition(all 0.2s ease);
-    box-shadow: inset 0 0 45px rgba(0, 0, 0, 0.3);
     position: relative;
-    background-color: $color-grey-1;
+    background-color: $color-grey-6;
     opacity: 1;
 
     .toggle {
@@ -291,7 +290,7 @@ li.sequence-member {
         @include transition(all 0.2s ease);
         background-color: transparent;
         border: 0;
-        color: darken($color-grey-3, 5%);
+        color: $color-white;
         height: auto;
         display: block;
         width: 100%;
