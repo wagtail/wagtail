@@ -961,3 +961,7 @@ class TabbedSettings(TestSetting):
             FieldPanel('email')
         ], heading='Second tab'),
     ])
+
+
+class AlwaysShowInMenusPage(Page):
+    show_in_menus_default = True

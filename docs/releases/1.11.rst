@@ -49,6 +49,7 @@ Other features
  * Each block created in a ``StreamField`` is now assigned a globally unique identifier (Matt Westcott)
  * Mixcloud oEmbed pattern has been updated (Alice Rose)
  * Added ``last_published_at`` field to the Page model (Matt Westcott)
+ * Added ``show_in_menus_default`` flag on page models, to allow "show in menus" to be checked by default (LB (Ben Johnston))
 
 
 Bug fixes
