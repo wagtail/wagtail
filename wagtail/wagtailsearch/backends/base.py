@@ -124,6 +124,7 @@ class BaseSearchResults(object):
         new = klass(self.backend, self.query, prefetch_related=self.prefetch_related)
         new.start = self.start
         new.stop = self.stop
+        new._score_field = self._score_field
         return new
 
     def _do_search(self):
@@ -185,6 +186,20 @@ class BaseSearchResults(object):
         return clone
 
 
+class EmptySearchResults(BaseSearchResults):
+    def __init__(self):
+        return super(EmptySearchResults, self).__init__(None, None)
+
+    def _clone(self):
+        return self.__class__()
+
+    def _do_search(self):
+        return []
+
+    def _do_count(self):
+        return 0
+
+
 class BaseSearchBackend(object):
     query_class = None
     results_class = None
@@ -229,11 +244,11 @@ class BaseSearchBackend(object):
 
         # Model must be a class that is in the index
         if not class_is_indexed(model):
-            return []
+            return EmptySearchResults()
 
         # Check that theres still a query string after the clean up
         if query_string == "":
-            return []
+            return EmptySearchResults()
 
         # Only fields that are indexed as a SearchField can be passed in fields
         if fields:

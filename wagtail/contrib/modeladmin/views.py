@@ -861,6 +861,14 @@ class InspectView(InstanceSpecificView):
         # we can render something useful. raises AttributeError appropriately.
         val = getattr(self.instance, field_name)
 
+        if isinstance(val, models.Manager):
+            val = val.all()
+
+        if isinstance(val, models.QuerySet):
+            if val.exists():
+                return ', '.join(['%s' % obj for obj in val])
+            return self.model_admin.get_empty_value_display(field_name)
+
         # wagtail.wagtailimages might not be installed
         try:
             from wagtail.wagtailimages.models import AbstractImage
@@ -880,7 +888,9 @@ class InspectView(InstanceSpecificView):
             pass
 
         # Resort to returning the real value or 'empty value'
-        return val or self.model_admin.get_empty_value_display(field_name)
+        if val or val is False:
+            return val
+        return self.model_admin.get_empty_value_display(field_name)
 
     def get_image_field_display(self, field_name, field):
         """ Render an image """

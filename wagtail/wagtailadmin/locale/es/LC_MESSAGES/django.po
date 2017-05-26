@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-06 12:33+0000\n"
-"PO-Revision-Date: 2017-02-13 21:51+0000\n"
+"POT-Creation-Date: 2017-04-19 21:02+0000\n"
+"PO-Revision-Date: 2017-04-30 12:01+0000\n"
 "Last-Translator: Yusuf (Josè) Luis <alagunajs@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
@@ -128,6 +128,9 @@ msgid ""
 msgstr ""
 "Esta marca ya esta en uso dentro del contexto de su página padre \"%s\""
 
+msgid "You cannot copy a page into itself when copying subpages"
+msgstr "No puede copiar una página dentro de sí misma cuando copia subpáginas."
+
 msgid "Visibility"
 msgstr "Visibilidad"
 
@@ -178,8 +181,11 @@ msgstr "Preferencias de notificación"
 msgid "Choose which email notifications to receive."
 msgstr "Seleccione cuales notificaciones por correo electrónico desea recibir."
 
-msgid "Change Password"
-msgstr "Cambiar Contraseña"
+msgid "Language preferences"
+msgstr "Preferencias de idioma"
+
+msgid "Choose the language you want to use here."
+msgstr "Elija el idioma que quiere usar acá."
 
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
@@ -187,8 +193,8 @@ msgstr ""
 "Tu contraseña no puede cambiarse aquí. Por favor, contacta con el "
 "administrador."
 
-msgid "Notification Preferences"
-msgstr "Preferencias de Notificación"
+msgid "Language Preferences"
+msgstr "Preferencias de idioma"
 
 msgid "Update"
 msgstr "Actualizar"
@@ -621,6 +627,10 @@ msgstr "Sí, no publicar"
 msgid "No, don't unpublish"
 msgstr "No, no despuclicar"
 
+#, python-format
+msgid "Pages using %(page_class_verbose_name)s"
+msgstr "Páginas usando %(page_class_verbose_name)s"
+
 msgid "Pages using"
 msgstr "Páginas usando"
 
@@ -783,6 +793,9 @@ msgstr "Añadir página hija a '%(title)s'"
 msgid "Add child page"
 msgstr "Añadir página hija"
 
+msgid "Sites menu"
+msgstr "Menú de sitios"
+
 #, python-format
 msgid ""
 "\n"
@@ -817,6 +830,24 @@ msgstr "Selecciona una nueva página padre para %(title)s"
 #, python-format
 msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Selecciona una nueva página padre para <span>%(title)s</span>"
+
+msgid "Preview error"
+msgstr "Previsualizar error"
+
+msgid ""
+"\n"
+"                Impossible to preview this page, some errors are remaining.\n"
+"                Please close this tab, edit the page to fix these errors,\n"
+"                then use preview again.\n"
+"            "
+msgstr ""
+"\n"
+"Imposible previsualizar esta página, algunos errores permanecen.\n"
+"Por favor cierre esta pestaña, edite la página para arreglar estos errores,\n"
+"luego use previsualizar de nuevo."
+
+msgid "Close"
+msgstr "Cerrar"
 
 #, python-format
 msgid "Comparing %(title)s"
@@ -1064,6 +1095,63 @@ msgstr "Mostrar en el explorador"
 msgid "Test"
 msgstr "Prueba"
 
+msgid "Catalan"
+msgstr "Catalán"
+
+msgid "German"
+msgstr "Alemán"
+
+msgid "Greek"
+msgstr "Griego"
+
+msgid "English"
+msgstr "Inglés"
+
+msgid "Spanish"
+msgstr "Español"
+
+msgid "Finnish"
+msgstr "Finés"
+
+msgid "French"
+msgstr "Francés"
+
+msgid "Galician"
+msgstr "Gallego"
+
+msgid "Icelandic"
+msgstr "Islandés"
+
+msgid "Italian"
+msgstr "Italiano"
+
+msgid "Lithuanian"
+msgstr "Lituano"
+
+msgid "Norwegian Bokmål"
+msgstr "Holandés Bokmål"
+
+msgid "Netherlands Dutch"
+msgstr "Holandés"
+
+msgid "Polish"
+msgstr "Polaco"
+
+msgid "Brazilian Portuguese"
+msgstr "Portugués brasileño"
+
+msgid "Portuguese"
+msgstr "Portugués"
+
+msgid "Romanian"
+msgstr "Rumano"
+
+msgid "Russian"
+msgstr "Ruso"
+
+msgid "Chinese (China)"
+msgstr "Chino (China)"
+
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Lo sentimos, no tienes permisos para acceder a esta área."
 
@@ -1072,6 +1160,9 @@ msgstr "¡Tu contraseña ha sido cambiada con éxito!"
 
 msgid "Your preferences have been updated successfully!"
 msgstr "¡Sus preferencias han sido actualizadas exitosamente!"
+
+msgid "Your preferences have been updated."
+msgstr "Sus preferencias han sido actualizadas."
 
 msgid "You have been successfully logged out."
 msgstr "Ha cerrado sesión exitosamente."

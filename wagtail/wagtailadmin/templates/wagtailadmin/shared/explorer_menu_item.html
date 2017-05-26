@@ -1,0 +1,5 @@
+{% if start_page_id %}
+    <li class="menu-item{% if active %} menu-active{% endif %}" data-explorer-menu-item>
+        <a href="{{ url }}" class="{{ classnames }}"{{ attr_string }} data-explorer-start-page="{{ start_page_id }}">{{ label }}</a>
+    </li>
+{% endif %}

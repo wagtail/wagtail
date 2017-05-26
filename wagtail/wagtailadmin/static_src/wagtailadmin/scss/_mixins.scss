@@ -113,3 +113,11 @@
         font-style: $style;
     }
 }
+
+// Applies given rules on hover, except for touch screens.
+// Relies on feature detection to add a no-touch class on the html element.
+@mixin hover {
+    .no-touch &:hover {
+        @content;
+    }
+}

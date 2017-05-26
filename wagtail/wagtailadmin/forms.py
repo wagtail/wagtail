@@ -178,6 +178,12 @@ class CopyForm(forms.Form):
             # The slug is no longer valid, hence remove it from cleaned_data
             del cleaned_data['new_slug']
 
+        # Don't allow recursive copies into self
+        if cleaned_data.get('copy_subpages') and (self.page == parent_page or parent_page.is_descendant_of(self.page)):
+            self._errors['new_parent_page'] = self.error_class(
+                [_("You cannot copy a page into itself when copying subpages")]
+            )
+
         return cleaned_data
 
 

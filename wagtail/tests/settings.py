@@ -26,6 +26,13 @@ DATABASES = {
     }
 }
 
+# Add extra options when mssql is used (on for example appveyor)
+if DATABASES['default']['ENGINE'] == 'sql_server.pyodbc':
+    DATABASES['default']['OPTIONS'] = {
+        'driver': 'SQL Server Native Client 11.0',
+        'MARS_Connection': 'True',
+    }
+
 
 SECRET_KEY = 'not needed'
 
@@ -55,7 +62,7 @@ TEMPLATES = [
                 'wagtail.tests.context_processors.do_not_use_static_url',
                 'wagtail.contrib.settings.context_processors.settings',
             ],
-            'debug': False,
+            'debug': True,  # required in order to catch template errors
         },
     },
     {
@@ -116,7 +123,6 @@ INSTALLED_APPS = (
     'wagtail.tests.search',
     'wagtail.tests.modeladmintest',
     'wagtail.contrib.wagtailstyleguide',
-    'wagtail.contrib.wagtailsitemaps',
     'wagtail.contrib.wagtailroutablepage',
     'wagtail.contrib.wagtailfrontendcache',
     'wagtail.contrib.wagtailapi',
@@ -144,6 +150,7 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'django.contrib.sitemaps',
     'django.contrib.staticfiles',
 )
 
@@ -170,6 +177,15 @@ WAGTAILSEARCH_BACKENDS = {
 }
 
 AUTH_USER_MODEL = 'customuser.CustomUser'
+
+if django.VERSION >= (1, 10) and os.environ.get('DATABASE_ENGINE') in (
+        # Remove next line when Django 1.8 support is dropped.
+        'django.db.backends.postgresql_psycopg2',
+        'django.db.backends.postgresql'):
+    INSTALLED_APPS += ('wagtail.contrib.postgres_search',)
+    WAGTAILSEARCH_BACKENDS['postgresql'] = {
+        'BACKEND': 'wagtail.contrib.postgres_search.backend',
+    }
 
 if 'ELASTICSEARCH_URL' in os.environ:
     if os.environ.get('ELASTICSEARCH_VERSION') == '5':

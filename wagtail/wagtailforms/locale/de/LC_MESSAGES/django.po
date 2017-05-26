@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Ettore Atalan <atalanttore@googlemail.com>, 2017
 # Henrik Kröger <hedwig@riseup.net>, 2016
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014-2015
 # Max Pfeiffer <max.pfeiffer@alp-phone.ch>, 2015
@@ -12,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-06 12:33+0000\n"
-"PO-Revision-Date: 2017-02-09 10:27+0000\n"
-"Last-Translator: Moritz Pfeiffer <moritz@alp-phone.ch>\n"
+"POT-Creation-Date: 2017-04-19 21:02+0000\n"
+"PO-Revision-Date: 2017-04-20 00:04+0000\n"
+"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -25,6 +26,12 @@ msgstr ""
 
 msgid "{} submissions"
 msgstr "{} Abgaben"
+
+msgid "Date from"
+msgstr "Datum von"
+
+msgid "Date to"
+msgstr "Datum bis"
 
 #, python-format
 msgid "There is another field with the label %s, please change one of them."
@@ -182,6 +189,9 @@ msgstr "Titel"
 
 msgid "Origin"
 msgstr "Ursprung"
+
+msgid "Delete selected submissions"
+msgstr "Ausgewählte Abgaben löschen"
 
 msgid "No form pages have been created."
 msgstr "Es wurden keine Formularseiten angelegt."

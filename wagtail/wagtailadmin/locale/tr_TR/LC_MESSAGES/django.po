@@ -5,13 +5,13 @@
 # Translators:
 # Yusuf (Josè) Luis <alagunajs@gmail.com>, 2015
 # Ragıp Ünal <ragip@ragipunal.com>, 2015
-# Yusuf (Josè) Luis <alagunajs@gmail.com>, 2016
+# Yusuf (Josè) Luis <alagunajs@gmail.com>, 2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-06 12:33+0000\n"
-"PO-Revision-Date: 2017-02-06 12:37+0000\n"
+"POT-Creation-Date: 2017-04-19 21:02+0000\n"
+"PO-Revision-Date: 2017-04-19 21:05+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/torchbox/wagtail/"
 "language/tr_TR/)\n"
@@ -21,8 +21,23 @@ msgstr ""
 "Language: tr_TR\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
+msgid "None"
+msgstr "Yok"
+
+msgid "You do not have permission to access the admin"
+msgstr "Yönetici'ye erişmek için izniniz yok"
+
+msgid "Scheduled publishing"
+msgstr "Zamanlanmış yayıncılık"
+
+msgid "Common page configuration"
+msgstr "Ortak sayfa yapılandırması"
+
 msgid "Content"
 msgstr "İçerik"
+
+msgid "Promote"
+msgstr "İlerlet"
 
 msgid "Settings"
 msgstr "Ayarlar"
@@ -32,6 +47,9 @@ msgstr "Ara"
 
 msgid "Search term"
 msgstr "Arama terimi"
+
+msgid "URL"
+msgstr "BKK"
 
 msgid "Enter password"
 msgstr "Şifre gir"
@@ -47,9 +65,6 @@ msgstr "Hesap"
 
 msgid "Change password"
 msgstr "Şifreni değiştir"
-
-msgid "Change Password"
-msgstr "Şifreni Değiştir"
 
 msgid "Update"
 msgstr "Güncelle"

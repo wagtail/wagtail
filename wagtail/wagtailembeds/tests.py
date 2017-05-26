@@ -1,4 +1,4 @@
-from __future__ import absolute_import, unicode_literals
+from __future__ import absolute_import, division, unicode_literals
 
 import unittest
 
@@ -94,6 +94,11 @@ class TestEmbeds(TestCase):
         self.assertEqual(embed.title, "Test: www.test.com/1234")
         self.assertEqual(embed.type, 'video')
         self.assertEqual(embed.width, 400)
+
+        # Check ratio calculations
+        self.assertEqual(embed.ratio, 480 / 400)
+        self.assertEqual(embed.ratio_css, '120.0%')
+        self.assertTrue(embed.is_responsive)
 
         # Check that there has only been one hit to the backend
         self.assertEqual(self.hit_count, 1)

@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# David Llop <d.lloople@gmail.com>, 2014
+# David Llop, 2014
+# Roger Pons <rogerpons@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-06 12:33+0000\n"
-"PO-Revision-Date: 2016-09-22 15:03+0000\n"
+"POT-Creation-Date: 2017-04-19 21:02+0000\n"
+"PO-Revision-Date: 2017-04-19 21:06+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
@@ -19,8 +20,108 @@ msgstr ""
 "Language: ca\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "GIF, JPEG, PNG"
+msgstr "GIF, JPEG, PNG"
+
+#, python-format
+msgid ""
+"Supported formats: %(supported_formats)s. Maximum filesize: "
+"%(max_upload_size)s."
+msgstr ""
+"Formats permesos: %(supported_formats)s. Mida màxima de fitxer: "
+"%(max_upload_size)s."
+
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr "Formats permesos: %(supported_formats)s."
+
+#, python-format
+msgid "Not a supported image format. Supported formats: %s."
+msgstr "No és un format d'imatge permès. Formats permesos: %s."
+
+#, python-format
+msgid "Not a valid %s image."
+msgstr "No és una imatge %s vàlida"
+
+#, python-format
+msgid "This file is too big (%%s). Maximum filesize %s."
+msgstr "Aquest fitxer és massa gran (%%s). Mida màxima de fitxer %s."
+
+#, python-format
+msgid "This file is too big. Maximum filesize %s."
+msgstr "Aquest fitxer és massa gran. Mida màxima de fitxer %s."
+
+msgid "Full width"
+msgstr "Amplada completa"
+
+msgid "Left-aligned"
+msgstr "Alineat a l'esquerra"
+
+msgid "Right-aligned"
+msgstr "Alineat a la dreta"
+
+msgid "Filter"
+msgstr "Filtrar"
+
+msgid "Original size"
+msgstr "Mida original"
+
+msgid "Resize to width"
+msgstr "Canviar la mida a l'amplada"
+
+msgid "Resize to height"
+msgstr "Canviar la mida a l'alçada"
+
+msgid "Resize to min"
+msgstr "Canviar la mida al mínim"
+
+msgid "Resize to max"
+msgstr "Canviar la mida al màxim"
+
+msgid "Resize to fill"
+msgstr "Canviar la mida per ajustar"
+
+msgid "Width"
+msgstr "Amplada"
+
+msgid "Height"
+msgstr "Alçada"
+
+msgid "Closeness"
+msgstr "Proximitat"
+
+msgid "Add"
+msgstr "Afegir"
+
+msgid "Add/edit images you own"
+msgstr "Afegir/editar imatges pròpies"
+
 msgid "Edit"
 msgstr "Editar"
+
+msgid "Edit any image"
+msgstr "Editar alguna imatge"
+
+msgid "title"
+msgstr "títol"
+
+msgid "file"
+msgstr "fitxer"
+
+msgid "width"
+msgstr "amplada"
+
+msgid "height"
+msgstr "alçada"
+
+msgid "created at"
+msgstr "creada el"
+
+msgid "uploaded by user"
+msgstr "pujada per l'usuari"
+
+msgid "tags"
+msgstr "etiquetes"
 
 msgid "Choose an image"
 msgstr "Escull una imatge"
@@ -33,6 +134,9 @@ msgstr "Puja"
 
 msgid "Popular tags"
 msgstr "Tags populars"
+
+msgid "Uploading..."
+msgstr "Pujant..."
 
 #, python-format
 msgid ""
@@ -59,6 +163,27 @@ msgstr "Escull un fomat"
 msgid "Insert image"
 msgstr "Insereix una imatge"
 
+#, python-format
+msgid ""
+"\n"
+"        <span>%(total)s</span> Image\n"
+"    "
+msgid_plural ""
+"\n"
+"        <span>%(total)s</span> Images\n"
+"    "
+msgstr[0] ""
+"\n"
+"        <span>%(total)s</span> Imatge\n"
+"    "
+msgstr[1] ""
+"\n"
+"        <span>%(total)s</span> Imatges\n"
+"    "
+
+msgid "Change image file:"
+msgstr "Canviar fitxer d'imatge:"
+
 msgid "Add an image"
 msgstr "Afegeix una imatge"
 
@@ -84,6 +209,31 @@ msgstr "Editant imatge %(title)s"
 msgid "Editing"
 msgstr "Editant"
 
+msgid "Focal point (optional)"
+msgstr "Punt focal (opcional)"
+
+msgid ""
+"To define this image's most important region, drag a box over the image "
+"below."
+msgstr ""
+"Per definir la regió més important d'aquesta imatge, arrossegueu una caixa "
+"sobre la imatge sota."
+
+msgid "Current focal point shown"
+msgstr "Punt focal actual mostrat"
+
+msgid "URL Generator"
+msgstr "Generador d'URL"
+
+msgid "Max dimensions"
+msgstr "Dimensions màximes"
+
+msgid "Filesize"
+msgstr "Mida de fitxer"
+
+msgid "File not found"
+msgstr "No s'ha trobat el fitxer"
+
 msgid "Images"
 msgstr "Imatges"
 
@@ -91,8 +241,38 @@ msgstr "Imatges"
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
 msgstr "Ho sentim, cap imatge coincideix amb \"<em>%(query_string)s</em>\""
 
+#, python-format
+msgid ""
+"You haven't uploaded any images in this collection. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+msgstr ""
+"No heu pujat cap imatge a aquesta col·lecció. Per què no en <a href="
+"\"%(wagtailimages_add_image_url)s\">pugeu una ara</a>?"
+
+#, python-format
+msgid ""
+"You haven't uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+msgstr ""
+"No heu pujat cap imatge. Per què no en <a href="
+"\"%(wagtailimages_add_image_url)s\">pugeu una ara</a>?"
+
+msgid "Generating URL"
+msgstr "Generant URL"
+
 msgid "URL"
 msgstr "URL"
+
+msgid "Preview"
+msgstr "Previsualització"
+
+msgid ""
+"Note that images generated larger than the screen will appear smaller when "
+"previewed here, so they fit the screen."
+msgstr ""
+"Recordeu que les imatges generades que són més grans que la pantalla es "
+"mostren més petites quan són previsualitzades aquí, per tal d'ajustar-se a "
+"la pantalla."
 
 #, python-format
 msgid "Usage of %(title)s"
@@ -116,8 +296,57 @@ msgstr "Estat"
 msgid "Edit this page"
 msgstr "Editar aquesta plana"
 
+msgid "Add multiple images"
+msgstr "Afegir diverses imatges"
+
+msgid "Add images"
+msgstr "Afegir imatges"
+
+msgid "Drag and drop images into this area to upload immediately."
+msgstr ""
+"Arrossegueu i deixeu anar imatges en aquesta àrea per pujar-les "
+"immediatament."
+
+msgid "Or choose from your computer"
+msgstr "O trieu del vostre ordinador"
+
+msgid "Add to collection:"
+msgstr "Afegir a la col·lecció:"
+
+msgid ""
+"Upload successful. Please update this image with a more appropriate title, "
+"if necessary. You may also delete the image completely if the upload wasn't "
+"required."
+msgstr ""
+"Pujada finalitzada correctament. Actualitzeu aquesta imatge amb un títol més "
+"adequat, si s'escau. També podeu eliminar del tot la imatge si la pujada no "
+"era requerida."
+
+msgid "Sorry, upload failed."
+msgstr "La pujada ha fallat."
+
+msgid "Server Error"
+msgstr "Error del servidor"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr ""
+"Informeu d'aquest error a l'administrador del lloc web amb la següent "
+"informació:"
+
+msgid "Image updated."
+msgstr "Imatge actualitzada."
+
 msgid "Update"
 msgstr "Actualitzar"
+
+msgid "Delete"
+msgstr "Eliminar"
+
+msgid "Image permissions"
+msgstr "Permisos d'imatge"
+
+msgid "Add an image permission"
+msgstr "Afegir un permís d'imatge"
 
 msgid "Search images"
 msgstr "Cercar imatges"
@@ -126,8 +355,18 @@ msgstr "Cercar imatges"
 msgid "Image '{0}' updated."
 msgstr "Imatge '{0}' actualitzada."
 
+msgid "Edit again"
+msgstr "Tornar a editar"
+
 msgid "The image could not be saved due to errors."
 msgstr "No s'ha pogut desar la imatge."
+
+msgid ""
+"The source image file could not be found. Please change the source or delete "
+"the image."
+msgstr ""
+"No s'ha trobat el fitxer origen de la imatge. Canvieu l'origen o elimineu la "
+"imatge."
 
 #, python-brace-format
 msgid "Image '{0}' deleted."
@@ -140,5 +379,14 @@ msgstr "Imatge '{0}' afegida."
 msgid "The image could not be created due to errors."
 msgstr "No s'ha pogut crear la imatge."
 
+#, python-format
+msgid "%(count)s image"
+msgid_plural "%(count)s images"
+msgstr[0] "%(count)s imatge"
+msgstr[1] "%(count)s imatges"
+
 msgid "Choose another image"
 msgstr "Escull una altra imatge"
+
+msgid "Edit this image"
+msgstr "Editar aquesta imatge"

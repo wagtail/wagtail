@@ -1,10 +1,33 @@
 Changelog
 =========
 
-1.10 (xx.xx.xxxx) - IN DEVELOPMENT
+1.11 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~
 
+ * Added a new page explorer menu built with the admin API and React (Karl Hobley, Josh Barr, Thibaud Colas, Janneke Janssen, Rob Moorman, Maurice Bartnig, Jonny Scholes, Matt Westcott, Sævar Öfjörð Magnússon, Eirikur Ingi Magnusson, Harris Lapiroff, Hugo van den Berg, Olly Willans, Andy Babic, Ben Enright, Bertrand Bordage)
+ * Optimised page URL generation by caching site paths in the request scope (Tobias McNulty, Matt Westcott)
+ * The current live version of a page is now tracked on the revision listing view (Matheus Bratfisch)
+ * Each block created in a `StreamField` is now assigned a globally unique identifier (Matt Westcott)
+ * Mixcloud oEmbed pattern has been updated (Alice Rose)
+ * Fix: Unauthenticated AJAX requests to admin views now return 403 rather than redirecting to the login page (Karl Hobley)
+ * Fix: `TableBlock` options `afterChange`, `afterCreateCol`, `afterCreateRow`, `afterRemoveCol`, `afterRemoveRow` and `contextMenu` can now be overridden (Loic Teixeira)
+
+
+1.10.1 (19.05.2017)
+~~~~~~~~~~~~~~~~~~~
+
+ * Fix: Fix admin page preview that was broken 24 hours after previewing a page (Martin Hill)
+ * Fix: Removed territory-specific translations for Spanish, Polish, Swedish, Russian and Chinese (Taiwan) that block more complete translations from being used (Matt Westcott)
+
+
+1.10 (03.05.2017)
+~~~~~~~~~~~~~~~~~
+
+ * Added PostgreSQL search engine (Bertrand Bordage, Jaap Roes, Arne de Laat, Ramon de Jezus)
+ * Django 1.11 support (Tim Graham, Matt Westcott, Mikalai Radchuk, Bertrand Bordage)
  * Dropped Django 1.9 and Python 3.3 support; note that Django 1.8.x is still supported
+ * Added user-preferred admin language along with `WAGTAILADMIN_PERMITTED_LANGUAGES` (Daniel Chimeno)
+ * Added `WAGTAIL_AUTO_UPDATE_PREVIEW` setting that when set to `True`, allows the preview window to be refreshed when changes have been made in the editor (Bertrand Bordage)
  * Dropped support for generating static sites using django-medusa
  * Use minified versions of jQuery and jQuery UI in the admin. Total savings without compression 371 KB (Tom Dyson)
  * Hooks can now specify the order in which they are run (Gagaro)
@@ -23,6 +46,15 @@ Changelog
  * Added link to the full Elasticsearch setup documentation from the Performance page (Matt Westcott)
  * Tag input fields now accept spaces in tags by default, and can be overridden with the `TAG_SPACES_ALLOWED` setting (Kees Hink, Alex Gleason)
  * Page chooser widgets now display the required page type where relevant (Christine Ho)
+ * Site root pages are now indicated with a globe icon in the explorer listing (Nick Smith, Huub Bouma)
+ * Draft page view is now restricted to users with edit / publish permission over the page (Kees Hink)
+ * Added the option to delete a previously saved focal point on a image (Maarten Kling)
+ * Page explorer menu item, search and summary panel are now hidden for users with no page permissions (Tim Heap)
+ * Added support for custom date and datetime formats in input fields (Bojan Mihelac)
+ * Added support for custom Django REST framework serialiser fields in `Page.api_fields` using a new `APIField` class (Karl Hobley)
+ * Added `classname` argument to `StreamFieldPanel` (Christine Ho)
+ * Added `group` keyword argument to StreamField blocks for grouping related blocks together in the block menu (Andreas Nüßlein)
+ * Update the sitemap generator to use the Django sitemap module (Michael van Tellingen, Mike Dingjan)
  * Fix: Marked 'Date from' / 'Date to' strings in wagtailforms for translation (Vorlif)
  * Fix: "File" field label on image edit form is now translated (Stein Strindhaug)
  * Fix: Unreliable preview is now reliable by always opening in a new window (Kjartan Sverrisson)
@@ -37,6 +69,30 @@ Changelog
  * Fix: Ensure that number localisation is not applied to object IDs within admin templates (Tom Hendrikx)
  * Fix: Paginating with a search present was always returning the 1st page in Internet Explorer 10 & 11 (Ralph Jacobs)
  * Fix: RoutablePageMixin and wagtailforms previews now set the `request.is_preview` flag (Wietze Helmantel)
+ * Fix: The save and preview buttons in the page editor are now mobile-friendly (Maarten Kling)
+ * Fix: Page links within rich text now respect custom URLs defined on specific page models (Gary Krige, Huub Bouma)
+ * Fix: Default avatar no longer visible when using a transparent gravatar image (Thijs Kramer)
+ * Fix: Scrolling within the datetime picker is now usable again for touchpads (Ralph Jacobs)
+ * Fix: List-based fields within form builder form submissions are now displayed as comma-separated strings rather than as Python lists (Christine Ho, Matt Westcott)
+ * Fix: The page type usage listing now have a translatable page title (Ramon de Jezus)
+ * Fix: Styles for submission filtering form now have a consistent height. (Thijs Kramer)
+ * Fix: Custom user models with a primary key type requiring `get_db_prep_value` conversion are now supported (thenewguy)
+ * Fix: Slicing a search result set no longer loses the annotation added by `annotate_score` (Karl Hobley)
+ * Fix: String-based primary keys are now escaped correctly in ModelAdmin URLs (Andreas Nüßlein)
+ * Fix: Empty search in the API now works (Morgan Aubert)
+ * Fix: `RichTextBlock` toolbar now correctly positioned within `StructBlock` (Janneke Janssen)
+ * Fix: Fixed display of ManyToMany fields and False values on the ModelAdmin inspect view (Andy Babic)
+ * Fix: Prevent pages from being recursively copied into themselves (Matheus Bratfisch)
+ * Fix: Specifying the full file name in documents URL is mandatory (Morgan Aubert)
+ * Fix: Reordering inline forms now works correctly when moving past a deleted form (Janneke Janssen)
+ * Fix: Removed erroneous ``|safe`` filter from search results template in project template (Karl Hobley)
+
+
+1.9.1 (21.04.2017)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Removed erroneous `|safe` filter from search results template in project template (Karl Hobley)
+ * Fix: Prevent pages from being recursively copied into themselves (Matheus Bratfisch)
 
 
 1.9 (16.02.2017)
@@ -61,6 +117,14 @@ Changelog
  * Fix: Avoid indexing unsaved field content on `save(update_fields=[...])` operations (Matt Westcott)
  * Fix: Corrected ordering of arguments passed to ModelAdmin `get_extra_class_names_for_field_col` / `get_extra_attrs_for_field_col` methods (Andy Babic)
  * `pageurl` / `slugurl` tags now function when request.site is not available (Tobias McNulty, Matt Westcott)
+
+
+1.8.2 (21.04.2017)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Removed erroneous `|safe` filter from search results template in project template (Karl Hobley)
+ * Fix: Avoid indexing unsaved field content on `save(update_fields=[...])` operations (Matt Westcott)
+ * Fix: Prevent pages from being recursively copied into themselves (Matheus Bratfisch)
 
 
 1.8.1 (26.01.2017)

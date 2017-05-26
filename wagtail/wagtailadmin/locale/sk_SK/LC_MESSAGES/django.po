@@ -3,15 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Jozef Karabelly <jozefkarabelly@gmail.com>, 2017
+# karabellyj <jozefkarabelly@gmail.com>, 2017
+# karabellyj <jozefkarabelly@gmail.com>, 2017
 # dellax <michalnebbia@gmail.com>, 2015
 # Stevo Backor, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-06 12:33+0000\n"
-"PO-Revision-Date: 2017-02-06 12:37+0000\n"
+"POT-Creation-Date: 2017-04-19 21:02+0000\n"
+"PO-Revision-Date: 2017-04-19 21:05+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
@@ -169,16 +170,10 @@ msgstr "Notifikačné nastavenia"
 msgid "Choose which email notifications to receive."
 msgstr "Zvoľte ktoré emailové notifikácie chcete dostávať"
 
-msgid "Change Password"
-msgstr "Zmeniť heslo"
-
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr ""
 "Vaše heslo nemôže byť zmenené. Prosím kontaktujte administrátora stránky."
-
-msgid "Notification Preferences"
-msgstr "Notifikačné nastavenia"
 
 msgid "Update"
 msgstr "Aktualizovať"
@@ -707,6 +702,12 @@ msgstr "Zvolte novú rodičovskú stránku pre %(title)s"
 msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Zvoľte novú rodičovskú stránku pre  <span>%(title)s</span>"
 
+msgid "Fields"
+msgstr "Polia"
+
+msgid "Changes"
+msgstr "Zmeny"
+
 #, python-format
 msgid "Revisions of %(title)s"
 msgstr "Revízie %(title)s"
@@ -726,6 +727,9 @@ msgstr "Aktuálny koncept"
 
 msgid "Review this revision"
 msgstr "Posúdiť túto revíziu"
+
+msgid "Compare with previous revision"
+msgstr "Porovnaj s predošlou revíziou"
 
 msgid "No revisions of this page exist"
 msgstr "Pre túto stránku neexistujú žiadne revízie"
@@ -982,6 +986,9 @@ msgstr "Stránka nemohla byť uložená, pretože je momentálne uzamknutá."
 msgid "The page could not be saved due to validation errors"
 msgstr "Táto stránka nemohla byť uložená, kvôli validačným chybám."
 
+msgid "Compare with live version"
+msgstr "Porovnaj s live verziou"
+
 msgid "This page is currently awaiting moderation"
 msgstr "Táto stránka momentálne čaká na moderáciu"
 
@@ -1039,11 +1046,37 @@ msgstr ""
 "Prezeráte si predchádzajúcu revíziu tejto stránky z <b>%(created_at)s</b> "
 "vytvorenú používateľom %(user)s"
 
+msgid "Earliest"
+msgstr "Najstaršie"
+
+msgid "Latest"
+msgstr "Najnovšie"
+
 msgid "Pages"
 msgstr "Stránky"
 
+#, python-brace-format
+msgid "Edit '{title}'"
+msgstr "Upraviť '{title}'"
+
+#, python-brace-format
+msgid "View live version of '{title}'"
+msgstr "Zobraziť live verziu '{title}'"
+
 msgid "More"
 msgstr "Viac"
+
+#, python-brace-format
+msgid "View more options for '{title}'"
+msgstr "Zobraziť viac možností pre '{title}'"
+
+#, python-brace-format
+msgid "Delete page '{title}'"
+msgstr "Vymazať stránku '{title}'"
+
+#, python-brace-format
+msgid "View revision history for '{title}'"
+msgstr "Zobraziť históriu revízii pre '{title}'"
 
 msgid "Choose an item"
 msgstr "Zvoľte položku"

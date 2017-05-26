@@ -5,6 +5,7 @@
 # Translators:
 # fooflare <amos.oviedo@gmail.com>, 2014
 # fooflare <amos.oviedo@gmail.com>, 2014
+# Daniel Chimeno <daniel@chimeno.me>, 2017
 # Daniel Chimeno <daniel@chimeno.me>, 2015-2016
 # fooflare <amos.oviedo@gmail.com>, 2014
 # Yusuf (Josè) Luis <alagunajs@gmail.com>, 2015-2016
@@ -15,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-06 12:33+0000\n"
-"PO-Revision-Date: 2017-02-13 21:55+0000\n"
+"POT-Creation-Date: 2017-04-19 21:02+0000\n"
+"PO-Revision-Date: 2017-04-30 11:54+0000\n"
 "Last-Translator: Yusuf (Josè) Luis <alagunajs@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
@@ -40,13 +41,14 @@ msgstr "Un usuario con ese nombre ya existe."
 msgid "The two password fields didn't match."
 msgstr "Los dos campos de contraseña no coinciden."
 
-msgid "Administrator"
-msgstr "Administrador"
+msgid "Email"
+msgstr "Correo electrónico"
 
-msgid "Administrators have full access to manage any object or setting."
-msgstr ""
-"Los administradores tienen la capacidad de gestionar cualquier objeto o "
-"configuración."
+msgid "First Name"
+msgstr "Nombre"
+
+msgid "Last Name"
+msgstr "Apellidos"
 
 msgid "Password"
 msgstr "Contraseña"
@@ -60,14 +62,13 @@ msgstr "Confirmación de contraseña"
 msgid "Enter the same password as above, for verification."
 msgstr "Introduce la misma contraseña que arriba, para verificación."
 
-msgid "Email"
-msgstr "Correo electrónico"
+msgid "Administrator"
+msgstr "Administrador"
 
-msgid "First Name"
-msgstr "Nombres"
-
-msgid "Last Name"
-msgstr "Apellidos"
+msgid "Administrators have full access to manage any object or setting."
+msgstr ""
+"Los administradores tienen la capacidad de gestionar cualquier objeto o "
+"configuración."
 
 msgid "A group with that name already exists."
 msgstr "Ya existe un grupo con este nombre."
@@ -92,6 +93,12 @@ msgstr "Notificaciones rechazadas"
 
 msgid "Receive notification when your page edit is rejected"
 msgstr "Recibir una notificación cuando su página editada es rechazada"
+
+msgid "preferred language"
+msgstr "Idioma preferido"
+
+msgid "Select language for the admin"
+msgstr "Seleccione el idioma para el administrador"
 
 msgid "user profile"
 msgstr "Perfil de usuario"

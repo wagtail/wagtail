@@ -1,10 +1,12 @@
 from __future__ import absolute_import, unicode_literals
+from time import time
 
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import reverse
 from django.db.models import Count
-from django.http import Http404, HttpResponse
+from django.http import Http404, HttpResponse, JsonResponse
+from django.http.request import QueryDict
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template.loader import render_to_string
 from django.utils import timezone
@@ -13,12 +15,13 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as _
 from django.views.decorators.http import require_GET, require_POST
 from django.views.decorators.vary import vary_on_headers
+from django.views.generic import View
 
 from wagtail.utils.pagination import paginate
 from wagtail.wagtailadmin import messages, signals
 from wagtail.wagtailadmin.forms import CopyForm, SearchForm
-from wagtail.wagtailadmin.navigation import get_navigation_menu_items
-from wagtail.wagtailadmin.utils import send_notification
+from wagtail.wagtailadmin.utils import (
+    send_notification, user_has_any_page_permission, user_passes_test)
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import Page, PageRevision, UserPagePermissionsProxy
 
@@ -30,19 +33,14 @@ def get_valid_next_url_from_request(request):
     return next_url
 
 
-def explorer_nav(request):
-    return render(request, 'wagtailadmin/shared/explorer_nav.html', {
-        'nodes': get_navigation_menu_items(request.user),
-    })
-
-
+@user_passes_test(user_has_any_page_permission)
 def index(request, parent_page_id=None):
     if parent_page_id:
         parent_page = get_object_or_404(Page, id=parent_page_id).specific
     else:
         parent_page = Page.get_first_root_node().specific
 
-    pages = parent_page.get_children().prefetch_related('content_type')
+    pages = parent_page.get_children().prefetch_related('content_type', 'sites_rooted_here')
 
     # Get page ordering
     ordering = request.GET.get('ordering', '-latest_revision_created_at')
@@ -276,7 +274,7 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
             has_unsaved_changes = True
     else:
         signals.init_new_page.send(sender=create, page=page, parent=parent_page)
-        form = form_class(instance=page)
+        form = form_class(instance=page, parent_page=parent_page)
         edit_handler = edit_handler_class(instance=page, form=form)
         has_unsaved_changes = False
 
@@ -479,7 +477,7 @@ def edit(request, page_id):
             )
             has_unsaved_changes = True
     else:
-        form = form_class(instance=page)
+        form = form_class(instance=page, parent_page=parent)
         edit_handler = edit_handler_class(instance=page, form=form)
         has_unsaved_changes = False
 
@@ -543,136 +541,113 @@ def delete(request, page_id):
 
 def view_draft(request, page_id):
     page = get_object_or_404(Page, id=page_id).get_latest_revision_as_page()
+    perms = page.permissions_for_user(request.user)
+    if not (perms.can_publish() or perms.can_edit()):
+        raise PermissionDenied
     return page.serve_preview(page.dummy_request(request), page.default_preview_mode)
 
 
-def preview_on_edit(request, page_id):
-    # Receive the form submission that would typically be posted to the 'edit' view. If submission is valid,
-    # return the rendered page; if not, re-render the edit form
-    page = get_object_or_404(Page, id=page_id).get_latest_revision_as_page()
-    content_type = page.content_type
-    page_class = content_type.model_class()
-    parent_page = page.get_parent().specific
-    edit_handler_class = page_class.get_edit_handler()
-    form_class = edit_handler_class.get_form_class(page_class)
+class PreviewOnEdit(View):
+    http_method_names = ('post', 'get')
+    preview_expiration_timeout = 60 * 60 * 24  # seconds
+    session_key_prefix = 'wagtail-preview-'
 
-    form = form_class(request.POST, request.FILES, instance=page, parent_page=parent_page)
+    def remove_old_preview_data(self):
+        expiration = time() - self.preview_expiration_timeout
+        expired_keys = [
+            k for k, v in self.request.session.items()
+            if k.startswith(self.session_key_prefix) and v[1] < expiration]
+        # Removes the session key gracefully
+        for k in expired_keys:
+            self.request.session.pop(k)
 
-    if form.is_valid():
-        form.save(commit=False)
-        page.full_clean()
+    @property
+    def session_key(self):
+        return self.session_key_prefix + ','.join(self.args)
 
-        preview_mode = request.GET.get('mode', page.default_preview_mode)
-        response = page.serve_preview(page.dummy_request(request), preview_mode)
-        response['X-Wagtail-Preview'] = 'ok'
-        return response
+    def get_page(self):
+        return get_object_or_404(Page,
+                                 id=self.args[0]).get_latest_revision_as_page()
 
-    else:
-        edit_handler = edit_handler_class(instance=page, form=form)
+    def get_form(self):
+        page = self.get_page()
+        form_class = page.get_edit_handler().get_form_class(page._meta.model)
+        parent_page = page.get_parent().specific
+        post_data_dict, timestamp = self.request.session[self.session_key]
 
-        response = render(request, 'wagtailadmin/pages/edit.html', {
-            'page': page,
-            'edit_handler': edit_handler,
-            'preview_modes': page.preview_modes,
-            'form': form,
-            'has_unsaved_changes': True,
-        })
-        response['X-Wagtail-Preview'] = 'error'
-        return response
+        # convert post_data_dict back into a QueryDict
+        post_data = QueryDict('', mutable=True)
+        for k, v in post_data_dict.items():
+            post_data.setlist(k, v)
+
+        return form_class(post_data, instance=page, parent_page=parent_page)
+
+    def post(self, request, *args, **kwargs):
+        # TODO: Handle request.FILES.
+
+        # Convert request.POST to a plain dict (rather than a QueryDict) so that it can be
+        # stored without data loss in session data
+        post_data_dict = dict(request.POST.lists())
+
+        request.session[self.session_key] = post_data_dict, time()
+        self.remove_old_preview_data()
+        form = self.get_form()
+        return JsonResponse({'is_valid': form.is_valid()})
+
+    def error_response(self, page):
+        return render(self.request, 'wagtailadmin/pages/preview_error.html',
+                      {'page': page})
+
+    def get(self, request, *args, **kwargs):
+        # Receive the form submission that would typically be posted
+        # to the view. If submission is valid, return the rendered page;
+        # if not, re-render the edit form
+        form = self.get_form()
+        page = form.instance
+
+        if form.is_valid():
+            form.save(commit=False)
+
+            preview_mode = request.GET.get('mode', page.default_preview_mode)
+            return page.serve_preview(page.dummy_request(request),
+                                      preview_mode)
+
+        return self.error_response(page)
 
 
-def preview_on_create(request, content_type_app_name, content_type_model_name, parent_page_id):
-    # Receive the form submission that would typically be posted to the 'create' view. If submission is valid,
-    # return the rendered page; if not, re-render the edit form
-    try:
-        content_type = ContentType.objects.get_by_natural_key(content_type_app_name, content_type_model_name)
-    except ContentType.DoesNotExist:
-        raise Http404
+class PreviewOnCreate(PreviewOnEdit):
+    def get_page(self):
+        (content_type_app_name, content_type_model_name,
+         parent_page_id) = self.args
+        try:
+            content_type = ContentType.objects.get_by_natural_key(
+                content_type_app_name, content_type_model_name)
+        except ContentType.DoesNotExist:
+            raise Http404
 
-    page_class = content_type.model_class()
-    page = page_class()
-    edit_handler_class = page_class.get_edit_handler()
-    form_class = edit_handler_class.get_form_class(page_class)
-    parent_page = get_object_or_404(Page, id=parent_page_id).specific
-
-    form = form_class(request.POST, request.FILES, instance=page, parent_page=parent_page)
-
-    if form.is_valid():
-        form.save(commit=False)
-
-        # We need to populate treebeard's path / depth fields in order to pass validation.
-        # We can't make these 100% consistent with the rest of the tree without making actual
-        # database changes (such as incrementing the parent's numchild field), but by
-        # calling treebeard's internal _get_path method, we can set a 'realistic' value that
-        # will hopefully enable tree traversal operations to at least partially work.
+        page = content_type.model_class()()
+        parent_page = get_object_or_404(Page, id=parent_page_id).specific
+        # We need to populate treebeard's path / depth fields in order to
+        # pass validation. We can't make these 100% consistent with the rest
+        # of the tree without making actual database changes (such as
+        # incrementing the parent's numchild field), but by calling treebeard's
+        # internal _get_path method, we can set a 'realistic' value that will
+        # hopefully enable tree traversal operations
+        # to at least partially work.
         page.depth = parent_page.depth + 1
-
-        if parent_page.is_leaf():
-            # set the path as the first child of parent_page
-            page.path = page._get_path(parent_page.path, page.depth, 1)
-        else:
-            # add the new page after the last child of parent_page
-            page.path = parent_page.get_last_child()._inc_path()
-
-        # ensure that our unsaved page instance has a suitable url set
-        page.set_url_path(parent_page)
-
-        page.full_clean()
-
-        # Set treebeard attributes
-        page.depth = parent_page.depth + 1
+        # Puts the page at the maximum possible path
+        # for a child of `parent_page`.
         page.path = Page._get_children_path_interval(parent_page.path)[1]
+        return page
 
-        preview_mode = request.GET.get('mode', page.default_preview_mode)
-        response = page.serve_preview(page.dummy_request(request), preview_mode)
-        response['X-Wagtail-Preview'] = 'ok'
-        return response
+    def get_form(self):
+        form = super(PreviewOnCreate, self).get_form()
+        if form.is_valid():
+            # Ensures our unsaved page has a suitable url.
+            form.instance.set_url_path(form.parent_page)
 
-    else:
-        edit_handler = edit_handler_class(instance=page, form=form)
-
-        response = render(request, 'wagtailadmin/pages/create.html', {
-            'content_type': content_type,
-            'page_class': page_class,
-            'parent_page': parent_page,
-            'edit_handler': edit_handler,
-            'preview_modes': page.preview_modes,
-            'form': form,
-            'has_unsaved_changes': True,
-        })
-        response['X-Wagtail-Preview'] = 'error'
-        return response
-
-
-def preview(request):
-    """
-    The HTML of a previewed page is written to the destination browser window using document.write.
-    This overwrites any previous content in the window, while keeping its URL intact. This in turn
-    means that any content we insert that happens to trigger an HTTP request, such as an image or
-    stylesheet tag, will report that original URL as its referrer.
-
-    In Webkit browsers, a new window opened with window.open('', 'window_name') will have a location
-    of 'about:blank', causing it to omit the Referer header on those HTTP requests. This means that
-    any third-party font services that use the Referer header for access control will refuse to
-    serve us.
-
-    So, instead, we need to open the window on some arbitrary URL on our domain. (Provided that's
-    also the same domain as our editor JS code, the browser security model will happily allow us to
-    document.write over the page in question.)
-
-    This, my friends, is that arbitrary URL.
-
-    Since we're going to this trouble, we'll also take the opportunity to display a spinner on the
-    placeholder page, providing some much-needed visual feedback.
-    """
-    return render(request, 'wagtailadmin/pages/preview.html')
-
-
-def preview_loading(request):
-    """
-    This page is blank, but must be real HTML so its DOM can be written to once the preview of the page has rendered
-    """
-    return HttpResponse("<html><head><title></title></head><body></body></html>")
+            form.instance.full_clean()
+        return form
 
 
 def unpublish(request, page_id):
@@ -808,6 +783,7 @@ def set_page_position(request, page_to_move_id):
     return HttpResponse('')
 
 
+@user_passes_test(user_has_any_page_permission)
 def copy(request, page_id):
     page = Page.objects.get(id=page_id)
 
@@ -838,8 +814,8 @@ def copy(request, page_id):
             if form.cleaned_data['new_parent_page']:
                 parent_page = form.cleaned_data['new_parent_page']
 
-            # Make sure this user has permission to add subpages on the parent
-            if not parent_page.permissions_for_user(request.user).can_add_subpage():
+            if not page.permissions_for_user(request.user).can_copy_to(parent_page,
+                                                                       form.cleaned_data.get('copy_subpages')):
                 raise PermissionDenied
 
             # Re-check if the user has permission to publish subpages on the new parent
@@ -884,6 +860,7 @@ def copy(request, page_id):
 
 
 @vary_on_headers('X-Requested-With')
+@user_passes_test(user_has_any_page_permission)
 def search(request):
     pages = []
     q = None
@@ -1021,6 +998,7 @@ def unlock(request, page_id):
         return redirect('wagtailadmin_explore', page.get_parent().id)
 
 
+@user_passes_test(user_has_any_page_permission)
 def revisions_index(request, page_id):
     page = get_object_or_404(Page, id=page_id).specific
 
@@ -1080,6 +1058,7 @@ def revisions_revert(request, page_id, revision_id):
     })
 
 
+@user_passes_test(user_has_any_page_permission)
 def revisions_view(request, page_id, revision_id):
     page = get_object_or_404(Page, id=page_id).specific
     revision = get_object_or_404(page.revisions, id=revision_id)

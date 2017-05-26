@@ -52,8 +52,6 @@ function initTagField(id, autocompleteUrl, allowSpaces) {
  *      prompting the user even when nothing has been changed.
 */
 
-var dirtyFormCheckIsActive = true;
-
 function enableDirtyFormCheck(formSelector, options) {
     var $form = $(formSelector);
     var confirmationMessage = options.confirmationMessage || ' ';
@@ -61,13 +59,13 @@ function enableDirtyFormCheck(formSelector, options) {
     var initialData = $form.serialize();
     var formSubmitted = false;
 
-    $($form).submit(function() {
+    $form.submit(function() {
         formSubmitted = true;
     });
 
     window.addEventListener('beforeunload', function(event) {
         var displayConfirmation = (
-            dirtyFormCheckIsActive && !formSubmitted && (alwaysDirty || $form.serialize() != initialData)
+            !formSubmitted && (alwaysDirty || $form.serialize() != initialData)
         );
 
         if (displayConfirmation) {
@@ -75,10 +73,6 @@ function enableDirtyFormCheck(formSelector, options) {
             return confirmationMessage;
         }
     });
-}
-
-function disableDirtyFormCheck() {
-    dirtyFormCheckIsActive = false;
 }
 
 $(function() {

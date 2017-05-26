@@ -1,0 +1,106 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Explorer renders 1`] = `
+<Explorer
+  isVisible={false}
+  nodes={Object {}}
+  onClose={[Function]}
+  path={Array []}
+  popPage={[Function]}
+  pushPage={[Function]}
+  store={
+    Object {
+      "dispatch": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
+/>
+`;
+
+exports[`Explorer renders 2`] = `<Connect(Explorer) />`;
+
+exports[`Explorer visible 1`] = `
+<Explorer
+  isVisible={true}
+  nodes={
+    Object {
+      "1": Object {
+        "children": Object {
+          "count": 0,
+          "isFetching": true,
+          "items": Array [],
+        },
+        "isError": false,
+        "isFetching": true,
+        "isLoaded": true,
+        "meta": Object {
+          "children": Object {},
+        },
+      },
+    }
+  }
+  onClose={[Function]}
+  path={
+    Array [
+      1,
+    ]
+  }
+  popPage={[Function]}
+  pushPage={[Function]}
+  store={
+    Object {
+      "dispatch": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
+/>
+`;
+
+exports[`Explorer visible 2`] = `
+<ExplorerPanel
+  nodes={
+    Object {
+      "1": Object {
+        "children": Object {
+          "count": 0,
+          "isFetching": true,
+          "items": Array [],
+        },
+        "isError": false,
+        "isFetching": true,
+        "isLoaded": true,
+        "meta": Object {
+          "children": Object {},
+        },
+      },
+    }
+  }
+  onClose={[Function]}
+  page={
+    Object {
+      "children": Object {
+        "count": 0,
+        "isFetching": true,
+        "items": Array [],
+      },
+      "isError": false,
+      "isFetching": true,
+      "isLoaded": true,
+      "meta": Object {
+        "children": Object {},
+      },
+    }
+  }
+  path={
+    Array [
+      1,
+    ]
+  }
+  popPage={[Function]}
+  pushPage={[Function]}
+/>
+`;

@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Bartek Sielicki <sielickib@student.mini.pw.edu.pl>, 2017
 # utek <mail@utek.pl>, 2014
 # Mateusz <undefined5102@gmail.com>, 2015
 # Miłosz Miśkiewicz, 2016-2017
@@ -11,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-06 12:33+0000\n"
-"PO-Revision-Date: 2017-02-06 12:37+0000\n"
+"POT-Creation-Date: 2017-04-19 21:02+0000\n"
+"PO-Revision-Date: 2017-04-19 21:05+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
@@ -179,17 +180,11 @@ msgstr "Ustawienia powiadomień"
 msgid "Choose which email notifications to receive."
 msgstr "Wybierz, które powiadomienia mailowe chcesz otrzymywać"
 
-msgid "Change Password"
-msgstr "Zmień hasło"
-
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr ""
 "Twoje hasło nie może być zmienione. Proszę skontaktować się z "
 "administratorem."
-
-msgid "Notification Preferences"
-msgstr "Ustawienia Powiadomień"
 
 msgid "Update"
 msgstr "Uaktualnij"
@@ -389,6 +384,10 @@ msgstr "Edytuj"
 
 msgid "Preview"
 msgstr "Podgląd"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s temu"
 
 msgid "Your most recent edits"
 msgstr "Twoje ostatnie zmiany"
@@ -850,6 +849,9 @@ msgstr "Wybierz nową stronę nadrzędną dla %(title)s"
 msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Wybierz nową stronę nadrzędną dla <span>%(title)s</span>"
 
+msgid "Changes"
+msgstr "Zmiany"
+
 #, python-format
 msgid "Revisions of %(title)s"
 msgstr "Wersje %(title)s"
@@ -1203,11 +1205,41 @@ msgstr ""
 "Przeglądasz wcześniejszą rewizję tej strony od <b>%(created_at)s</b> przez "
 "%(user)s"
 
+msgid "Earliest"
+msgstr "Najstarsze"
+
+msgid "Latest"
+msgstr "Najnowsze"
+
 msgid "Pages"
 msgstr "Strony"
 
+#, python-brace-format
+msgid "Edit '{title}'"
+msgstr "Edytuj '{title}'"
+
+#, python-brace-format
+msgid "Add a child page to '{title}' "
+msgstr "Dodaj podstronę do '{title}'"
+
 msgid "More"
 msgstr "Więcej"
+
+#, python-brace-format
+msgid "View more options for '{title}'"
+msgstr "Wyświetl więcej opcji dla '{title}'"
+
+#, python-brace-format
+msgid "Move page '{title}'"
+msgstr "Przenieś stronę '{title}'"
+
+#, python-brace-format
+msgid "Copy page '{title}'"
+msgstr "Skopiuj stronę '{title}'"
+
+#, python-brace-format
+msgid "Delete page '{title}'"
+msgstr "Usuń stronę '{title}'"
 
 msgid "Choose an item"
 msgstr "Wybierz rzecz"

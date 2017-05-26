@@ -3,6 +3,7 @@
 
 {% block hidden_fields %}
     <input type="hidden" id="{{ prefix }}-type" name="{{ prefix }}-type" value="{{ child.block.name }}">
+    <input type="hidden" id="{{ prefix }}-id" name="{{ prefix }}-id" value="{{ block_id|default:"" }}">
 {% endblock %}
 
 {% block header_controls %}

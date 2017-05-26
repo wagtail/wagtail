@@ -138,7 +138,7 @@ class TestAdminPageListing(AdminAPITestCase, TestPageListing):
         content = json.loads(response.content.decode('UTF-8'))
 
         for page in content['items']:
-            self.assertEqual(set(page.keys()), {'id', 'meta', 'title', 'date', 'related_links', 'tags', 'carousel_items', 'body', 'feed_image'})
+            self.assertEqual(set(page.keys()), {'id', 'meta', 'title', 'date', 'related_links', 'tags', 'carousel_items', 'body', 'feed_image', 'feed_image_thumbnail'})
             self.assertEqual(set(page['meta'].keys()), {'type', 'detail_url', 'show_in_menus', 'first_published_at', 'seo_title', 'slug', 'parent', 'html_url', 'search_description', 'children', 'descendants', 'status', 'latest_revision_created_at'})
 
     def test_all_fields_then_remove_something(self):
@@ -146,7 +146,7 @@ class TestAdminPageListing(AdminAPITestCase, TestPageListing):
         content = json.loads(response.content.decode('UTF-8'))
 
         for page in content['items']:
-            self.assertEqual(set(page.keys()), {'id', 'meta', 'related_links', 'tags', 'carousel_items', 'body', 'feed_image'})
+            self.assertEqual(set(page.keys()), {'id', 'meta', 'related_links', 'tags', 'carousel_items', 'body', 'feed_image', 'feed_image_thumbnail'})
             self.assertEqual(set(page['meta'].keys()), {'type', 'detail_url', 'show_in_menus', 'first_published_at', 'slug', 'parent', 'html_url', 'search_description', 'children', 'descendants', 'latest_revision_created_at'})
 
     def test_all_nested_fields(self):
@@ -413,6 +413,7 @@ class TestAdminPageDetail(AdminAPITestCase, TestPageDetail):
             'tags',
             'date',
             'feed_image',
+            'feed_image_thumbnail',
             'carousel_items',
             'related_links',
             '__types',
@@ -567,7 +568,10 @@ class TestAdminPageDetailWithStreamField(AdminAPITestCase):
         self.assertIn('id', content)
         self.assertEqual(content['id'], stream_page.id)
         self.assertIn('body', content)
-        self.assertEqual(content['body'], [{'type': 'text', 'value': 'foo'}])
+        self.assertEqual(len(content['body']), 1)
+        self.assertEqual(content['body'][0]['type'], 'text')
+        self.assertEqual(content['body'][0]['value'], 'foo')
+        self.assertTrue(content['body'][0]['id'])
 
     def test_image_block(self):
         stream_page = self.make_stream_page('[{"type": "image", "value": 1}]')
@@ -577,4 +581,5 @@ class TestAdminPageDetailWithStreamField(AdminAPITestCase):
         content = json.loads(response.content.decode('utf-8'))
 
         # ForeignKeys in a StreamField shouldn't be translated into dictionary representation
-        self.assertEqual(content['body'], [{'type': 'image', 'value': 1}])
+        self.assertEqual(content['body'][0]['type'], 'image')
+        self.assertEqual(content['body'][0]['value'], 1)

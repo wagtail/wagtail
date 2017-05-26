@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-06 12:33+0000\n"
+"POT-Creation-Date: 2017-04-19 21:02+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,18 +17,18 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: templates/table_block/widgets/table.html:3
+#: templates/table_block/widgets/table.html:4
 msgid "Row header"
 msgstr ""
 
-#: templates/table_block/widgets/table.html:8
+#: templates/table_block/widgets/table.html:9
 msgid "Display the first row as a header."
 msgstr ""
 
-#: templates/table_block/widgets/table.html:13
+#: templates/table_block/widgets/table.html:14
 msgid "Column header"
 msgstr ""
 
-#: templates/table_block/widgets/table.html:18
+#: templates/table_block/widgets/table.html:19
 msgid "Display the first column as a header."
 msgstr ""

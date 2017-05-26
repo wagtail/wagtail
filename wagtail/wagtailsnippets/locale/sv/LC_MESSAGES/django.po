@@ -3,14 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Alexander Holmbäck <alexander.holmback@creuna.se>, 2017
+# Thomas Kunambi <kunambi@gmail.com>, 2017
 # Thomas Kunambi <kunambi@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-06 12:33+0000\n"
-"PO-Revision-Date: 2016-05-18 21:51+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-04-19 21:02+0000\n"
+"PO-Revision-Date: 2017-04-27 08:39+0000\n"
+"Last-Translator: Alexander Holmbäck <alexander.holmback@creuna.se>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -22,13 +24,30 @@ msgstr ""
 msgid "Choose"
 msgstr "Välj"
 
+msgid "Search"
+msgstr "Sök"
+
 #, python-format
 msgid ""
-"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">create one now"
-msgstr ""
-"Du har inte skapat några %(snippet_type_name)s snuttar. Varför inte <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">skapa en nu"
+"\n"
+"            There is one match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"            Det finns en träff\n"
+"        "
+msgstr[1] ""
+"\n"
+"            Det finns %(counter)s träffar\n"
+"        "
+
+#, python-format
+msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
+msgstr "Ledsen, men inga snuttar matchade \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid "Delete %(snippet_type_name)s - %(instance)s"
@@ -51,21 +70,24 @@ msgstr "Ny %(snippet_type_name)s"
 msgid "New"
 msgstr "Ny"
 
+msgid "Saving..."
+msgstr "Sparar..."
+
 msgid "Save"
 msgstr "Spara"
 
 #, python-format
 msgid "Editing %(snippet_type_name)s - %(instance)s"
-msgstr "Editerar %(snippet_type_name)s - %(instance)s"
+msgstr "Redigerar %(snippet_type_name)s - %(instance)s"
 
 msgid "Editing"
-msgstr "Editerar"
+msgstr "Redigerar"
 
 msgid "Snippets"
 msgstr "Snutt"
 
 msgid "Title"
-msgstr "Titel"
+msgstr "Rubrik"
 
 #, python-format
 msgid ""
@@ -105,6 +127,10 @@ msgstr "Status"
 
 msgid "Edit this page"
 msgstr "Editera denna sida"
+
+#, python-format
+msgid "Search %(snippet_type_name)s"
+msgstr "Sök %(snippet_type_name)s"
 
 #, python-brace-format
 msgid "{snippet_type} '{instance}' created."

@@ -1,11 +1,11 @@
 {% extends "wagtailadmin/base.html" %}
 {% load i18n %}
-{% block titletag %}{% endblock %}
+{% block titletag %}{% blocktrans with page_class_verbose_name=page_class.get_verbose_name %}Pages using {{ page_class_verbose_name }}{% endblocktrans %}{% endblock %}
 
 {% block content %}
     {% trans "Pages using" as pages_str %}
     {% include "wagtailadmin/shared/header.html" with title=pages_str subtitle=page_class.get_verbose_name icon="doc-empty-inverse" %}
-   
+
     <div id="page-results">
         {% include "wagtailadmin/pages/usage_results.html" %}
     </div>

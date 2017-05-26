@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Nick Mavrakis <mavrakis.n@gmail.com>, 2017
 # serafeim <serafeim@torchbox.com>, 2014
 # serafeim <serafeim@torchbox.com>, 2014
 # George Giannoulopoulos <vdotoree@yahoo.gr>, 2015
@@ -11,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-06 12:33+0000\n"
-"PO-Revision-Date: 2015-08-26 13:37+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"POT-Creation-Date: 2017-04-19 21:02+0000\n"
+"PO-Revision-Date: 2017-03-05 19:00+0000\n"
+"Last-Translator: Nick Mavrakis <mavrakis.n@gmail.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
 "MIME-Version: 1.0\n"
@@ -24,6 +25,14 @@ msgstr ""
 
 msgid "Search term(s)/phrase"
 msgstr "Όροι/φράση αναζήτησης"
+
+msgid ""
+"Enter the full search string to match. An exact match is required for your "
+"Promoted Results to be displayed, wildcards are NOT allowed."
+msgstr ""
+"Συμπληρώστε το πλήρες κείμενο προς αντιστοιχία. Απαιτείται μια ακριβής "
+"αντιστοιχία για να εμφανιστούν τα Προωθημένα Αποτελέσματα. Τυχόν wildcards "
+"ΔΕΝ επιτρέπονται."
 
 msgid "Query Daily Hits"
 msgstr "Καθημερινές Εμφανίσεις Ερωτημάτων"

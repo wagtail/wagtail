@@ -4,8 +4,9 @@
     :target: https://pypi.python.org/pypi/wagtail/
 .. image:: https://img.shields.io/pypi/v/wagtail.svg
     :target: https://pypi.python.org/pypi/wagtail/
-.. image:: https://coveralls.io/repos/torchbox/wagtail/badge.svg?branch=master
-    :target: https://coveralls.io/r/torchbox/wagtail?branch=master
+.. image:: http://codecov.io/github/wagtail/wagtail/coverage.svg?branch=master
+    :target: http://codecov.io/github/wagtail/wagtail?branch=master
+
 
 Wagtail CMS
 ===========
@@ -79,7 +80,7 @@ We thank `BrowserStack <https://www.browserstack.com/>`_, who provide the projec
 
 Compatibility
 ~~~~~~~~~~~~~
-Wagtail supports Django 1.8.x and 1.10.x, on Python 2.7, 3.4 and 3.5. Supported database backends are PostgreSQL, MySQL and SQLite.
+Wagtail supports Django 1.8.x, 1.10.x and 1.11.x, on Python 2.7, 3.4, 3.5 and 3.6. Supported database backends are PostgreSQL, MySQL and SQLite.
 
 Contributing
 ~~~~~~~~~~~~

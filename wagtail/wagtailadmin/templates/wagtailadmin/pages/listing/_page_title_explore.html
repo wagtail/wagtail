@@ -3,6 +3,12 @@
 {# The title field for a page in the page listing, when in 'explore' mode #}
 
 <h2>
+    {% if page.sites_rooted_here.exists %}
+        {% if perms.wagtailcore.add_site or perms.wagtailcore.change_site or perms.wagtailcore.delete_site %}
+            <a href="{% url 'wagtailsites:index' %}" class="icon icon-site" title="{% trans 'Sites menu' %}"></a>
+        {% endif %}
+    {% endif %}
+
     {% if page_perms.can_edit %}
         <a href="{% url 'wagtailadmin_pages:edit' page.id %}" title="{% trans 'Edit this page' %}">{{ page.get_admin_display_title }}</a>
     {% else %}

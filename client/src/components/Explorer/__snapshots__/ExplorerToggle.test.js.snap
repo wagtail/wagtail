@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ExplorerToggle basic 1`] = `
+<ExplorerToggle
+  onToggle={[Function]}
+>
+  <span>
+    To infinity and beyond!
+  </span>
+</ExplorerToggle>
+`;

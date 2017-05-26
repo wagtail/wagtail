@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Bruno Bertoldi <bruno.bertoldi@gmail.com>, 2017
 # Claudemiro Alves Feitosa Neto <dimiro1@gmail.com>, 2015
 # Douglas Miranda <douglasmirandasilva@gmail.com>, 2014-2015
 # Gilson Filho <me@gilsondev.in>, 2014
@@ -16,9 +17,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-06 12:33+0000\n"
-"PO-Revision-Date: 2017-02-09 14:13+0000\n"
-"Last-Translator: Luiz Boaretto <lboaretto@gmail.com>\n"
+"POT-Creation-Date: 2017-04-19 21:02+0000\n"
+"PO-Revision-Date: 2017-04-19 21:05+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -177,15 +178,9 @@ msgstr "Preferências de notificação"
 msgid "Choose which email notifications to receive."
 msgstr "Escolha quais notificações de e-mail para receber."
 
-msgid "Change Password"
-msgstr "Alterar Senha"
-
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr "Sua senha não pode ser alterada. Contacte o administrador do site."
-
-msgid "Notification Preferences"
-msgstr "Preferências de notificação"
 
 msgid "Update"
 msgstr "Atualizar"
@@ -503,10 +498,10 @@ msgstr "Privativo"
 
 #, python-format
 msgid "Create a page in %(title)s"
-msgstr "Criado página de %(title)s"
+msgstr "Crie uma página a partir de %(title)s"
 
 msgid "Create a page in"
-msgstr "Criado uma página de"
+msgstr "Crie uma página a partir de"
 
 msgid "Choose which type of page you'd like to create."
 msgstr "Escolhe o tipo de página gostaria de criar."
