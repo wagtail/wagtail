@@ -213,7 +213,6 @@ $footer-submenu: $submenu-color;
 body.nav-open {
     .wrapper {
         transform: translate3d($menu-width, 0, 0);
-        -webkit-transform: translate3d($menu-width, 0, 0);
     }
 
     .content-wrapper {
@@ -248,7 +247,6 @@ body.explorer-open {
 
     .wrapper,
     body.nav-open .wrapper {
-        -webkit-transform: none;
         transform: none;
         padding-left: $menu-width;
     }
@@ -422,7 +420,6 @@ body.explorer-open {
         }
 
         .wrapper {
-            -webkit-transform: none;
             transform: none;
         }
 
