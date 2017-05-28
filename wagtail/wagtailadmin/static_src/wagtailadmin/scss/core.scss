@@ -495,17 +495,3 @@ footer,
         width: 90em;
     }
 }
-
-// Transitions (resolution agnostic)
-.content-wrapper,
-.nav-main,
-.nav-toggle,
-footer,
-.logo {
-    // @include transition(all 0.2s ease);
-}
-
-// .nav-main a,
-// a {
-    // @include transition(color 0.2s ease, background-color 0.2s ease);
-// }
