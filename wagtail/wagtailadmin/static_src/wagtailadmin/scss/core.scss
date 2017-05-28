@@ -198,6 +198,10 @@ footer {
             white-space: normal;
         }
     }
+
+    @media screen and (min-width: 90em) {
+        width: 90em;
+    }
 }
 
 .breadcrumb {
@@ -487,11 +491,5 @@ footer,
     // footer is z-index: 100, so ensure the navigation sits on top of it.
     .nav-wrapper.submenu-active {
         z-index: 200;
-    }
-}
-
-@media screen and (min-width: 90em) {
-    footer {
-        width: 90em;
     }
 }
