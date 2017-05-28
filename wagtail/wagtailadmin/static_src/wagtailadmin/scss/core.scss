@@ -202,9 +202,6 @@ footer {
 
 .breadcrumb {
     @include unlist();
-}
-
-.breadcrumb {
     @include clearfix();
     overflow: hidden;
     padding-top: 1.4em;
