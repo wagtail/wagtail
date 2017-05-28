@@ -241,10 +241,6 @@ body.explorer-open {
 }
 
 @media screen and (min-width: $breakpoint-mobile) {
-    body.explorer-open {
-        overflow: hidden;
-    }
-
     .wrapper,
     body.nav-open .wrapper {
         transform: none;
@@ -414,6 +410,8 @@ body.explorer-open {
     }
 
     body.explorer-open {
+        overflow: hidden;
+
         &:after {
             opacity: 1;
             visibility: visible;
