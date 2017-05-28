@@ -239,6 +239,7 @@ Contributors
 * Olly Willans
 * Ben Enright
 * Alice Rose
+* John Franey
 
 Translators
 ===========
