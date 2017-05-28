@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 const getClassName = (className, icon) => {
@@ -60,18 +61,18 @@ const Button = ({
 };
 
 Button.propTypes = {
-  href: React.PropTypes.string,
-  className: React.PropTypes.string,
-  icon: React.PropTypes.oneOfType([
-    React.PropTypes.string,
-    React.PropTypes.arrayOf(React.PropTypes.string),
+  href: PropTypes.string,
+  className: PropTypes.string,
+  icon: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.arrayOf(PropTypes.string),
   ]),
-  target: React.PropTypes.string,
-  children: React.PropTypes.node,
-  accessibleLabel: React.PropTypes.string,
-  onClick: React.PropTypes.func,
-  isLoading: React.PropTypes.bool,
-  preventDefault: React.PropTypes.bool,
+  target: PropTypes.string,
+  children: PropTypes.node,
+  accessibleLabel: PropTypes.string,
+  onClick: PropTypes.func,
+  isLoading: PropTypes.bool,
+  preventDefault: PropTypes.bool,
 };
 
 Button.defaultProps = {
