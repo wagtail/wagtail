@@ -200,23 +200,6 @@ footer {
     }
 }
 
-// Let's not, for now...
-
-// ::-webkit-scrollbar {
-//     height: 10px;
-//     width: 10px;
-//     background: $color-grey-1;
-// }
-
-// ::-webkit-scrollbar-thumb {
-//     background: $color-grey-2;
-//     -webkit-border-radius: 1ex;
-// }
-
-// ::-webkit-scrollbar-corner {
-//     background: $color-grey-1;
-// }
-
 .breadcrumb {
     @include unlist();
 }
