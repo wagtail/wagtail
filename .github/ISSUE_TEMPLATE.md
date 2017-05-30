@@ -6,11 +6,11 @@ A summary of the issue.
 
 ### Steps to Reproduce
 
+It's essential that you provide enough information for someone else to replicate the problem you're seeing. Simply describing something that's broken on your current project is not enough!
+
 1. (for example) Start a new project with `wagtail start myproject`
 2. Edit models.py as follows...
 3. ...
-
-(It's essential that you provide enough information for someone else to replicate the problem you're seeing. Simply describing something that's broken on your current project is not enough!)
 
 Any other relevant information. For example, why do you consider this a bug and what did you expect to happen instead?
 
