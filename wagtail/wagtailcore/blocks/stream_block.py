@@ -36,12 +36,15 @@ class StreamBlockValidationError(ValidationError):
 
 class BaseStreamBlock(Block):
 
-    def __init__(self, local_blocks=None, min_num=None, max_num=None, **kwargs):
+    def __init__(self, local_blocks=None, min_num=None, max_num=None, min_max_fields=None, **kwargs):
         self._constructor_kwargs = kwargs
 
         # Used to validate the minimum and maximum number of elements in the block
         self.min_num = min_num
         self.max_num = max_num
+        if min_max_fields is None:
+            min_max_fields = {}
+        self.min_max_fields = min_max_fields
 
         super(BaseStreamBlock, self).__init__(**kwargs)
 
@@ -211,6 +214,33 @@ class BaseStreamBlock(Block):
             non_block_errors.append(ErrorList(
                 [_('The maximum number of items is %s' % self.max_num)]
             ))
+
+        if self.min_max_fields:
+            fields = {}
+            for item in value:
+                if item.block_type not in self.min_max_fields:
+                    continue
+                if item.block_type not in fields:
+                    fields[item.block_type] = 0
+                fields[item.block_type] += 1
+
+            for field in self.min_max_fields:
+                field_title = field.replace('_', ' ').title()
+                max_num = self.min_max_fields[field].get('max_num', None)
+                min_num = self.min_max_fields[field].get('min_num', None)
+                if field in fields:
+                    if min_num and min_num > fields[field]:
+                        non_block_errors.append(ErrorList(
+                            ['{}: {}'.format(field_title, _('The minimum number of items is %s' % min_num))]
+                        ))
+                    if max_num and max_num < fields[field]:
+                        non_block_errors.append(ErrorList(
+                            ['{}: {}'.format(field_title, _('The maximum number of items is %s' % max_num))]
+                        ))
+                elif min_num:
+                        non_block_errors.append(ErrorList(
+                            ['{}: {}'.format(field_title, _('The minimum number of items is %s' % min_num))]
+                        ))
 
         if errors or non_block_errors:
             # The message here is arbitrary - outputting error messages is delegated to the child blocks,
