@@ -285,8 +285,17 @@ class AbstractImage(CollectionMember, index.Indexed, models.Model):
             if cache_key:
                 output_extension = cache_key + '.' + output_extension
 
-            # Truncate filename to prevent it going over 60 chars
-            output_filename_without_extension = input_filename_without_extension[:(59 - len(output_extension))]
+            # Shorten longer filenames with md5 to prevent it going over 60 chars
+            if len(input_filename_without_extension) + len(output_extension) > 59:
+                max_length_basename = (20 - len(output_extension))
+                if max_length_basename < 1:
+                    base_name = ''
+                else:
+                    base_name = input_filename_without_extension[:max_length_basename]
+                digest = hashlib.md5(input_filename_without_extension.encode('utf-8')).hexdigest()
+                output_filename_without_extension = base_name + digest
+            else:
+                output_filename_without_extension = input_filename_without_extension
             output_filename = output_filename_without_extension + '.' + output_extension
 
             rendition, created = self.renditions.get_or_create(
