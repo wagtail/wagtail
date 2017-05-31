@@ -364,7 +364,13 @@ def specific_iterator(qs):
 
     This should be called from ``PageQuerySet.specific``
     """
-    pks_and_types = qs.values_list('pk', 'content_type')
+    # Dynamically grab any annotated fields on the queryset
+    # https://docs.djangoproject.com/en/dev/topics/db/aggregation/#order-of-annotate-and-values-clauses
+    qs_fields = ['pk', 'content_type'] + list(qs.query.annotations.keys())
+    pks_and_types = qs.values_list(*qs_fields)
+    # Remove the annotated fields previously added
+    pks_and_types = [(values_tuple[0], values_tuple[1]) for values_tuple in pks_and_types]
+
     pks_by_type = defaultdict(list)
     for pk, content_type in pks_and_types:
         pks_by_type[content_type].append(pk)
