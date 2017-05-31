@@ -43,6 +43,7 @@ INSTALLED_APPS = [
 
     'modelcluster',
     'taggit',
+    'treebeard',
 
     'django.contrib.admin',
     'django.contrib.auth',
