@@ -364,14 +364,15 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
 
     def __init__(self, *args, **kwargs):
         super(Page, self).__init__(*args, **kwargs)
-        if not self.id and not self.content_type_id:
-            # this model is being newly created rather than retrieved from the db;
-            # set content type to correctly represent the model class that this was
-            # created as
-            self.content_type = ContentType.objects.get_for_model(self)
-        if self.pk is None:
+        if not self.id:
+            # this model is being newly created
+            # rather than retrieved from the db;
+            if not self.content_type_id:
+                # set content type to correctly represent the model class
+                # that this was created as
+                self.content_type = ContentType.objects.get_for_model(self)
             if 'show_in_menus' not in kwargs:
-                # if the value is not set on submit, refer to the model's setting
+                # if the value is not set on submit refer to the model setting
                 self.show_in_menus = self.show_in_menus_default
 
     def __str__(self):
