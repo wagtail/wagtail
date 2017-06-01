@@ -726,6 +726,7 @@ class EditView(ModelFormView, InstanceSpecificView):
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
+        self.instance
         if self.is_pagemodel:
             return redirect(
                 self.url_helper.get_action_url('edit', self.pk_quoted)
