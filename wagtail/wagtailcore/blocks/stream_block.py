@@ -36,12 +36,14 @@ class StreamBlockValidationError(ValidationError):
 
 class BaseStreamBlock(Block):
 
-    def __init__(self, local_blocks=None, min_num=None, max_num=None, min_max_fields={}, **kwargs):
+    def __init__(self, local_blocks=None, min_num=None, max_num=None, min_max_fields=None, **kwargs):
         self._constructor_kwargs = kwargs
 
         # Used to validate the minimum and maximum number of elements in the block
         self.min_num = min_num
         self.max_num = max_num
+        if min_max_fields is None:
+            min_max_fields = {}
         self.min_max_fields = min_max_fields
 
         super(BaseStreamBlock, self).__init__(**kwargs)
