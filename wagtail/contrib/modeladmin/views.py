@@ -219,7 +219,9 @@ class InstanceSpecificView(SingleObjectMixin, WMABaseView):
 
     @property
     def pk_quoted(self):
-        return quote(self.kwargs.get(self.pk_url_kwarg))
+        return quote(
+            self.kwargs.get(self.pk_url_kwarg, self.instance_pk)
+        )
 
     def get_page_subtitle(self):
         return self.instance
