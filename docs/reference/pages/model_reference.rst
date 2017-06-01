@@ -80,7 +80,7 @@ Database fields
 
         Toggles whether the page should be included in site-wide menus.
 
-        Deafults to ``False`` and can be overridden on the model with ``show_in_menus_default=True``.
+        Deafults to ``False`` and can be overridden on the model with ``show_in_menus_default = True``.
 
         This is used by the :meth:`~wagtail.wagtailcore.query.PageQuerySet.in_menu` QuerySet filter.
 
