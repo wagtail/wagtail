@@ -369,9 +369,10 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
             # set content type to correctly represent the model class that this was
             # created as
             self.content_type = ContentType.objects.get_for_model(self)
-        if 'show_in_menus' not in kwargs:
-            # if the value is not set on submit, refer to the model's setting
-            self.show_in_menus = self.show_in_menus_default
+        if self.pk is None:
+            if 'show_in_menus' not in kwargs:
+                # if the value is not set on submit, refer to the model's setting
+                self.show_in_menus = self.show_in_menus_default
 
     def __str__(self):
         return self.title
