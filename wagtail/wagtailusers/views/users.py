@@ -157,6 +157,11 @@ def edit(request, user_id):
     else:
         form = get_user_edit_form()(instance=user)
 
+    # If you're not allowed to delete a user,
+    # you should not be able to deactivate or demote them either:
+    form.fields['is_active'].widget.attrs['disabled'] = not can_delete
+    form.fields['is_superuser'].widget.attrs['disabled'] = not can_delete
+
     return render(request, 'wagtailusers/users/edit.html', {
         'user': user,
         'form': form,
