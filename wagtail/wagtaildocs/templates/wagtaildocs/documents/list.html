@@ -8,13 +8,13 @@
             <th>
                 {% if not is_searching %}
                     <a href="{% url 'wagtaildocs:index' %}{% if not ordering == "title" %}?ordering=title{% endif %}" class="icon icon-arrow-down-after {% if  ordering == "title" %}teal{% endif %}">
-                        {% trans "Title" %}
+                        {% trans "title"|capfirst %}
                     </a>
                 {% else %}
-                    {% trans "Title" %}
+                    {% trans "title"|capfirst %}
                 {% endif %}
             </th>
-            <th>{% trans "File" %}</th>
+            <th>{% trans "file"|capfirst %}</th>
             <th>
                 {% if not is_searching %}
                     <a href="{% url 'wagtaildocs:index' %}{% if not ordering == "-created_at" %}?ordering=-created_at{% endif %}" class="icon icon-arrow-down-after {% if  ordering == "-created_at" %}teal{% endif %}">

@@ -63,7 +63,7 @@ class GroupsMenuItem(MenuItem):
 @hooks.register('register_settings_menu_item')
 def register_groups_menu_item():
     return GroupsMenuItem(
-        _('Groups'),
+        _('groups').title(),
         urlresolvers.reverse('wagtailusers_groups:index'),
         classnames='icon icon-group',
         order=601
