@@ -171,7 +171,7 @@ Now that we have the many-to-many tag relationship in place, we can fit in a way
         ...
         def serve(self, request):
             # Get blogs
-            blogs = self.blogs
+            blogs = BlogPage.objects.child_of(self).live()
 
             # Filter by tag
             tag = request.GET.get('tag')

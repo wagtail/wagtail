@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 /**
@@ -10,9 +11,9 @@ const PublicationStatus = ({ status }) => (
 );
 
 PublicationStatus.propTypes = {
-  status: React.PropTypes.shape({
-    live: React.PropTypes.bool.isRequired,
-    status: React.PropTypes.string.isRequired,
+  status: PropTypes.shape({
+    live: PropTypes.bool.isRequired,
+    status: PropTypes.string.isRequired,
   }).isRequired,
 };
 

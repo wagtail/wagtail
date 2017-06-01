@@ -1,6 +1,7 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
-import CSSTransitionGroup from 'react-addons-css-transition-group';
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 
 const TRANSITION_DURATION = 210;
 
@@ -10,7 +11,7 @@ export const POP = 'pop';
 export const FADE = 'fade';
 
 /**
- * Wrapper arround react-addons-css-transition-group with default values.
+ * Wrapper arround react-transition-group with default values.
  */
 const Transition = ({
   name,
@@ -31,11 +32,11 @@ const Transition = ({
 );
 
 Transition.propTypes = {
-  name: React.PropTypes.oneOf([PUSH, POP, FADE]).isRequired,
-  component: React.PropTypes.string,
-  className: React.PropTypes.string,
-  duration: React.PropTypes.number,
-  children: React.PropTypes.node,
+  name: PropTypes.oneOf([PUSH, POP, FADE]).isRequired,
+  component: PropTypes.string,
+  className: PropTypes.string,
+  duration: PropTypes.number,
+  children: PropTypes.node,
 };
 
 Transition.defaultProps = {

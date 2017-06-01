@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { ADMIN_URLS, STRINGS } from '../../config/wagtailConfig';
 
@@ -26,12 +27,12 @@ const ExplorerHeader = ({ page, depth, onClick }) => {
 };
 
 ExplorerHeader.propTypes = {
-  page: React.PropTypes.shape({
-    id: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
-    title: React.PropTypes.string,
+  page: PropTypes.shape({
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    title: PropTypes.string,
   }).isRequired,
-  depth: React.PropTypes.number.isRequired,
-  onClick: React.PropTypes.func.isRequired,
+  depth: PropTypes.number.isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
 export default ExplorerHeader;

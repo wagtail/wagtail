@@ -1,7 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ExplorerPanel #isError 1`] = `
-<Component
+<FocusTrap
+  _createFocusTrap={[Function]}
   active={true}
   className="explorer"
   focusTrapOptions={
@@ -67,11 +68,12 @@ exports[`ExplorerPanel #isError 1`] = `
       />
     </div>
   </Transition>
-</Component>
+</FocusTrap>
 `;
 
 exports[`ExplorerPanel #isFetching 1`] = `
-<Component
+<FocusTrap
+  _createFocusTrap={[Function]}
   active={true}
   className="explorer"
   focusTrapOptions={
@@ -127,11 +129,12 @@ exports[`ExplorerPanel #isFetching 1`] = `
       </div>
     </div>
   </Transition>
-</Component>
+</FocusTrap>
 `;
 
 exports[`ExplorerPanel #items 1`] = `
-<Component
+<FocusTrap
+  _createFocusTrap={[Function]}
   active={true}
   className="explorer"
   focusTrapOptions={
@@ -211,11 +214,12 @@ exports[`ExplorerPanel #items 1`] = `
       </div>
     </div>
   </Transition>
-</Component>
+</FocusTrap>
 `;
 
 exports[`ExplorerPanel no children 1`] = `
-<Component
+<FocusTrap
+  _createFocusTrap={[Function]}
   active={true}
   className="explorer"
   focusTrapOptions={
@@ -267,11 +271,12 @@ exports[`ExplorerPanel no children 1`] = `
       </div>
     </div>
   </Transition>
-</Component>
+</FocusTrap>
 `;
 
 exports[`ExplorerPanel renders 1`] = `
-<Component
+<FocusTrap
+  _createFocusTrap={[Function]}
   active={true}
   className="explorer"
   focusTrapOptions={
@@ -321,5 +326,5 @@ exports[`ExplorerPanel renders 1`] = `
       </div>
     </div>
   </Transition>
-</Component>
+</FocusTrap>
 `;

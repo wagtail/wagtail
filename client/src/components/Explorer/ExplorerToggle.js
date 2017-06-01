@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 
@@ -18,8 +19,8 @@ const ExplorerToggle = ({ children, onToggle }) => (
 );
 
 ExplorerToggle.propTypes = {
-  onToggle: React.PropTypes.func.isRequired,
-  children: React.PropTypes.node.isRequired,
+  onToggle: PropTypes.func.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 const mapStateToProps = () => ({});

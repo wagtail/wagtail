@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import { ADMIN_URLS, STRINGS } from '../../config/wagtailConfig';
@@ -20,7 +21,7 @@ const PageCount = ({ page }) => {
 };
 
 PageCount.propTypes = {
-  page: React.PropTypes.object.isRequired,
+  page: PropTypes.object.isRequired,
 };
 
 export default PageCount;
