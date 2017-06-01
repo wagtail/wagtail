@@ -2,6 +2,7 @@ from __future__ import absolute_import, unicode_literals
 
 import operator
 import sys
+import warnings
 from collections import OrderedDict
 from functools import reduce
 
@@ -19,7 +20,7 @@ from django.db.models.constants import LOOKUP_SEP
 from django.db.models.fields import FieldDoesNotExist
 from django.db.models.fields.related import ForeignObjectRel, ManyToManyField
 from django.db.models.sql.constants import QUERY_TERMS
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import redirect
 from django.template.defaultfilters import filesizeformat
 from django.utils import six
 from django.utils.decorators import method_decorator
@@ -30,11 +31,13 @@ from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
+from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.edit import FormView
 
 from wagtail.wagtailadmin import messages
 from wagtail.wagtailadmin.edit_handlers import (
     ObjectList, extract_panel_definitions_from_model_class)
+from wagtail.utils.deprecation import RemovedInWagtail113Warning
 
 from .forms import ParentChooserForm
 
@@ -178,21 +181,45 @@ class ModelFormView(WMABaseView, FormView):
         return self.render_to_response(self.get_context_data())
 
 
-class InstanceSpecificView(WMABaseView):
-
+class InstanceSpecificView(SingleObjectMixin, WMABaseView):
     instance_pk = None
-    pk_quoted = None
-    instance = None
+    pk_url_kwarg = 'instance_pk'
+    context_object_name = 'instance'
 
-    def __init__(self, model_admin, instance_pk):
-        super(InstanceSpecificView, self).__init__(model_admin)
-        self.instance_pk = unquote(instance_pk)
-        self.pk_quoted = quote(self.instance_pk)
-        filter_kwargs = {}
-        filter_kwargs[self.pk_attname] = self.instance_pk
-        object_qs = model_admin.model._default_manager.get_queryset().filter(
-            **filter_kwargs)
-        self.instance = get_object_or_404(object_qs)
+    def __init__(self, **kwargs):
+        super(InstanceSpecificView, self).__init__(**kwargs)
+        if 'instance_pk' in kwargs:
+            warnings.warn(
+                "'instance_pk' should no longer be passed to %s's as_view() "
+                "method. It should be passed as a keyword argument to "
+                "the 'view' method returned by as_view() instead" %
+                self.__class__.__name__, category=RemovedInWagtail113Warning
+            )
+
+    @cached_property
+    def instance(self):
+        """
+        Return the result of self.get_object() and cache it to avoid repeat
+        database queries
+        """
+        return self.get_object()
+
+    def get_object(self):
+        """
+        Returns an instance of self.model identified by URL parameters in the
+        current request. Raises a 404 if no match is found.
+        """
+        # Ensure primary key value is unquoted and named as expected by
+        # SingleObjectMixin.get_object()
+        kwarg_key = self.pk_url_kwarg
+        self.kwargs[kwarg_key] = unquote(
+            self.kwargs.get(kwarg_key, self.instance_pk)
+        )
+        return super(InstanceSpecificView, self).get_object()
+
+    @property
+    def pk_quoted(self):
+        return quote(self.kwargs.get(self.pk_url_kwarg))
 
     def get_page_subtitle(self):
         return self.instance
@@ -206,9 +233,8 @@ class InstanceSpecificView(WMABaseView):
         return self.url_helper.get_action_url('delete', self.pk_quoted)
 
     def get_context_data(self, **kwargs):
-        context = {'instance': self.instance}
-        context.update(kwargs)
-        return super(InstanceSpecificView, self).get_context_data(**context)
+        self.object = self.instance  # placate SingleObjectMixin
+        return super(InstanceSpecificView, self).get_context_data(**kwargs)
 
 
 class IndexView(WMABaseView):
