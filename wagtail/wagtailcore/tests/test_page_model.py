@@ -14,10 +14,11 @@ from django.test.client import RequestFactory
 from django.test.utils import override_settings
 
 from wagtail.tests.testapp.models import (
-    AbstractPage, Advert, BlogCategory, BlogCategoryBlogPage, BusinessChild, BusinessIndex,
-    BusinessNowherePage, BusinessSubIndex, CustomManager, CustomManagerPage, EventIndex, EventPage,
-    GenericSnippetPage, ManyToManyBlogPage, MTIBasePage, MTIChildPage, MyCustomPage, OneToOnePage,
-    SimplePage, SingleEventPage, SingletonPage, StandardIndex, TaggedPage, AlwaysShowInMenusPage)
+    AbstractPage, Advert, AlwaysShowInMenusPage, BlogCategory, BlogCategoryBlogPage, BusinessChild,
+    BusinessIndex, BusinessNowherePage, BusinessSubIndex, CustomManager, CustomManagerPage,
+    EventIndex, EventPage, GenericSnippetPage, ManyToManyBlogPage, MTIBasePage, MTIChildPage,
+    MyCustomPage, OneToOnePage, SimplePage, SingleEventPage, SingletonPage, StandardIndex,
+    TaggedPage)
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailcore.models import Page, PageManager, Site, get_page_models
 
