@@ -51,8 +51,8 @@ class WMABaseView(TemplateView):
     page_title = ''
     page_subtitle = ''
 
-    def __init__(self, model_admin, **kwargs):
-        super(WMABaseView, self).__init__(**kwargs)
+    def __init__(self, model_admin, *args, **kwargs):
+        super(WMABaseView, self).__init__(*args, **kwargs)
         self.model_admin = model_admin
         self.model = model_admin.model
         self.opts = self.model._meta
@@ -186,8 +186,8 @@ class InstanceSpecificView(SingleObjectMixin, WMABaseView):
     pk_url_kwarg = 'instance_pk'
     context_object_name = 'instance'
 
-    def __init__(self, **kwargs):
-        super(InstanceSpecificView, self).__init__(**kwargs)
+    def __init__(self, *args, **kwargs):
+        super(InstanceSpecificView, self).__init__(*args, **kwargs)
         if 'instance_pk' in kwargs:
             warnings.warn(
                 "'instance_pk' should no longer be passed to %s's as_view() "
