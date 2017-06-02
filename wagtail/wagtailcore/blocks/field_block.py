@@ -570,6 +570,13 @@ class ChooserBlock(FieldBlock):
             except self.target_model.DoesNotExist:
                 return None
 
+    def value_for_form(self, value):
+        # When reloading a page it would return an instance, we want an ID.
+        if isinstance(value, self.target_model):
+            return value.pk
+        else:
+            return value
+            
     def clean(self, value):
         # ChooserBlock works natively with model instances as its 'value' type (because that's what you
         # want to work with when doing front-end templating), but ModelChoiceField.clean expects an ID
