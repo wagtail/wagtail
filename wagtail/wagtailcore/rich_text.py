@@ -37,7 +37,7 @@ class PageLinkHandler(object):
     @staticmethod
     def expand_db_attributes(attrs, for_editor):
         try:
-            page = Page.objects.get(id=attrs['id'])
+            page = Page.objects.get(id=attrs['id']).specific
 
             if for_editor:
                 editor_attrs = 'data-linktype="page" data-id="%d" ' % page.id
