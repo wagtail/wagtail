@@ -99,8 +99,8 @@ class FormBuilder(object):
 
     def get_field_options(self, field):
         options = {}
-        options['label'] = field.label
-        options['help_text'] = field.help_text
+        options['label'] = _(field.label)
+        options['help_text'] = _(field.help_text)
         options['required'] = field.required
         options['initial'] = field.default_value
         return options
