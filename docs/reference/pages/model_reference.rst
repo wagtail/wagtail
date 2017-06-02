@@ -62,6 +62,12 @@ Database fields
 
         The date/time when the page was first published.
 
+    .. attribute:: last_published_at
+
+        (date/time)
+
+        The date/time when the page was last published.
+
     .. attribute:: seo_title
 
         (text)
