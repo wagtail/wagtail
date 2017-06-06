@@ -136,7 +136,10 @@ export default class ExplorerPanel extends React.Component {
         tag="nav"
         className="explorer"
         paused={paused || !page || page.isFetching}
-        focusTrapOptions={{ onDeactivate: onClose }}
+        focusTrapOptions={{
+          initialFocus: '.c-explorer__close',
+          onDeactivate: onClose,
+        }}
       >
         <Button className="c-explorer__close u-hidden" onClick={onClose}>
           {STRINGS.CLOSE_EXPLORER}

@@ -7,6 +7,7 @@ exports[`ExplorerPanel #isError 1`] = `
   className="explorer"
   focusTrapOptions={
     Object {
+      "initialFocus": ".c-explorer__close",
       "onDeactivate": [Function],
     }
   }
@@ -78,6 +79,7 @@ exports[`ExplorerPanel #isFetching 1`] = `
   className="explorer"
   focusTrapOptions={
     Object {
+      "initialFocus": ".c-explorer__close",
       "onDeactivate": [Function],
     }
   }
@@ -139,6 +141,7 @@ exports[`ExplorerPanel #items 1`] = `
   className="explorer"
   focusTrapOptions={
     Object {
+      "initialFocus": ".c-explorer__close",
       "onDeactivate": [Function],
     }
   }
@@ -224,6 +227,7 @@ exports[`ExplorerPanel no children 1`] = `
   className="explorer"
   focusTrapOptions={
     Object {
+      "initialFocus": ".c-explorer__close",
       "onDeactivate": [Function],
     }
   }
@@ -281,6 +285,7 @@ exports[`ExplorerPanel renders 1`] = `
   className="explorer"
   focusTrapOptions={
     Object {
+      "initialFocus": ".c-explorer__close",
       "onDeactivate": [Function],
     }
   }
