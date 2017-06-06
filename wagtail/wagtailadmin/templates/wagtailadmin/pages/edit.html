@@ -42,27 +42,31 @@
                     <div class="dropdown dropup dropdown-button match-width {% if is_revision %}warning{% endif %}">
                         <button type="submit" class="button action-save button-longrunning {% if is_revision %}warning{% endif %}" tabindex="3" data-clicked-text="{% trans 'Saving...' %}" {% if page.locked %}disabled {% endif %}><span class="icon icon-spinner"></span><em>{% if page.locked %}{% trans 'Page locked' %}{% else %}{% if is_revision %}{% trans 'Replace current draft' %}{% else %}{% trans 'Save draft' %}{% endif %}{% endif %}</em></button>
 
-                        {% if not page.locked %}
+                        {% if not page.locked and not is_revision %}
                             <div class="dropdown-toggle icon icon-arrow-up"></div>
                             <ul role="menu">
-                                {% if not is_revision and page_perms.can_unpublish %}
-                                    <li><a href="{% url 'wagtailadmin_pages:unpublish' page.id %}">{% trans 'Unpublish' %}</a></li>
+                                {% if page_perms.can_delete %}
+                                    <li style="border-width: 0;"><a href="{% url 'wagtailadmin_pages:delete' page.id %}" class="shortcut button no">
+                                      <span class="icon icon-bin"></span>
+                                      {% trans 'Delete' %}</a></li>
                                 {% endif %}
-                                {% if not is_revision and page_perms.can_delete %}
-                                    <li><a href="{% url 'wagtailadmin_pages:delete' page.id %}" class="shortcut">{% trans 'Delete' %}</a></li>
+                                {% if page_perms.can_unpublish %}
+                                    <li style="border-width: 0;"><a href="{% url 'wagtailadmin_pages:unpublish' page.id %}" class="button warning">
+                                      <span class="icon icon-cross"></span>
+                                      {% trans 'Unpublish' %}</a></li>
                                 {% endif %}
-                                {% if page_perms.can_publish %}
-                                    <li>
-                                        <button type="submit" name="action-publish" value="action-publish" class="button button-longrunning {% if is_revision %}warning{% endif %}" tabindex="3" data-clicked-text="{% trans 'Publishing...' %}" {% if page.locked %}disabled {% endif %}><span class="icon icon-spinner"></span><em>{% if is_revision %}{% trans 'Publish this revision' %}{% else %}{% trans 'Publish' %}{% endif %}</em></button>
-                                    </li>
-                                {% endif %}
-                                {% if not is_revision %}
-                                    <li><input type="submit" name="action-submit" value="{% trans 'Submit for moderation' %}" class="button" /></li>
-                                {% endif %}
+                                <li style="border-width: 0;">&nbsp;</li>
+
+                                <li><button type="submit" name="action-submit" value="{% trans 'Submit for moderation' %}" class="button xbutton-secondary xyes">
+                                  <span class="icon icon-success"></span>
+                                  {% trans 'Submit for moderation' %}</button></li>
+
                             </ul>
                         {% endif %}
                     </div>
                 </li>
+
+
 
                 <li class="actions preview">
                     {% trans 'Preview' as preview_label %}
@@ -82,6 +86,18 @@
                         {% include "wagtailadmin/pages/_preview_button_on_edit.html" with label=preview_label icon=1 %}
                     {% endif %}
                 </li>
+
+                {% if page_perms.can_publish %}
+                    <li class="actions" style="width: auto;">
+                        <button type="submit" name="action-publish" value="action-publish"
+                        class="button yes button-longrunning icon icon-tick {% if is_revision %}warning{% endif %}" tabindex="3" data-clicked-text="{% trans 'Publishing...' %}" {% if page.locked %}disabled {% endif %}><span class="icon icon-spinner"></span><em>
+                          {% if is_revision %}
+                            {% trans 'Publish this revision' %}
+                          {% else %}
+                            {% trans 'Publish' %}{% endif %}
+                        </em></button>
+                    </li>
+                {% endif %}
 
                 <li class="meta">
                     <p class="modified">
