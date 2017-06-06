@@ -4,14 +4,15 @@
 #
 # Translators:
 # Aarni Koskela, 2016
+# Eetu Häivälä <eetu.haivala@anders.fi>, 2017
 # Rauli L. <rauli.laine@iki.fi>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 22:44+0000\n"
-"PO-Revision-Date: 2016-05-12 12:22+0000\n"
-"Last-Translator: Aarni Koskela\n"
+"POT-Creation-Date: 2017-04-19 21:02+0000\n"
+"PO-Revision-Date: 2017-04-13 12:37+0000\n"
+"Last-Translator: Eetu Häivälä <eetu.haivala@anders.fi>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -144,6 +145,10 @@ msgstr "Tiedosto"
 
 msgid "Uploaded"
 msgstr "Lähetetty"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s sitten"
 
 #, python-format
 msgid ""

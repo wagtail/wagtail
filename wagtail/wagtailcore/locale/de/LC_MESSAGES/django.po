@@ -10,14 +10,15 @@
 # Max Pfeiffer <max.pfeiffer@alp-phone.ch>, 2015
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2016
 # Tammo van Lessen <tvanlessen@gmail.com>, 2015
+# Vorlif <flori@vorlif.org>, 2017
 # Wasilis Mandratzis-Walz, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 22:44+0000\n"
-"PO-Revision-Date: 2016-12-07 07:53+0000\n"
-"Last-Translator: Moritz Pfeiffer <moritz@alp-phone.ch>\n"
+"POT-Creation-Date: 2017-04-19 21:02+0000\n"
+"PO-Revision-Date: 2017-04-19 21:05+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -140,13 +141,10 @@ msgid "search description"
 msgstr "Suchbeschreibung"
 
 msgid "go live date/time"
-msgstr "Veröffentlichungszeitpunkt"
-
-msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
-msgstr "Bitte geben ein Datum im Format JJJJ-MM-DD hh:mm:ss ein."
+msgstr "Veröffentlicht ab"
 
 msgid "expiry date/time"
-msgstr "Verfallszeitpunkt"
+msgstr "Veröffentlicht bis"
 
 msgid "expired"
 msgstr "abgelaufen"

@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 22:44+0000\n"
-"PO-Revision-Date: 2016-12-06 22:46+0000\n"
+"POT-Creation-Date: 2017-04-19 21:02+0000\n"
+"PO-Revision-Date: 2017-04-19 21:05+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
@@ -156,17 +156,11 @@ msgstr "Nastavení notifikací"
 msgid "Choose which email notifications to receive."
 msgstr "Zvolte, které e-mailové notifikace si přejete dostávat."
 
-msgid "Change Password"
-msgstr "Změnit heslo"
-
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr ""
 "Vaše heslo nelze změnit pomocí této stránky. Kontaktujte prosím "
 "administrátora."
-
-msgid "Notification Preferences"
-msgstr "Nastavení notifikací"
 
 msgid "Update"
 msgstr "Uložit"
@@ -559,7 +553,7 @@ msgstr "Zobrazit podstránky \"%(title)s\""
 msgid "Add a child page to '%(title)s'"
 msgstr "Přidat podstránku pod \"%(title)s\""
 
-msgid "Add subpage"
+msgid "Add child page"
 msgstr "Přidat podstránku"
 
 #, python-format
@@ -802,23 +796,8 @@ msgstr "Stránka '{0}' je nyní odemčena."
 msgid "Pages"
 msgstr "Stránky"
 
-msgid "Add child page"
-msgstr "Přidat podstránku"
-
 msgid "More"
 msgstr "Více"
-
-msgid "Move this page"
-msgstr "Přesunout tuto stránku"
-
-msgid "Delete this page"
-msgstr "Smazat tuto stránku"
-
-msgid "Unpublish this page"
-msgstr "Zrušit publikaci této stránky"
-
-msgid "View this page's revision history"
-msgstr "Zobrazit revize této stránky"
 
 msgid "Choose an item"
 msgstr "Zvolit položku"

@@ -4,13 +4,14 @@
 #
 # Translators:
 # Jihan Chung <jihanchung20@gmail.com>, 2015
+# Kyungil Choi <hanpama@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 22:44+0000\n"
-"PO-Revision-Date: 2016-08-01 13:29+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-04-19 21:02+0000\n"
+"PO-Revision-Date: 2017-01-23 04:09+0000\n"
+"Last-Translator: Kyungil Choi <hanpama@gmail.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
 "MIME-Version: 1.0\n"
@@ -19,12 +20,33 @@ msgstr ""
 "Language: ko\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
+msgid "All sites"
+msgstr "모든 사이트"
+
+msgid "A redirect with this path already exists."
+msgstr "해당 경로의 리다이렉트는 이미 있습니다."
+
+msgid "site"
+msgstr "사이트"
+
+msgid "permanent"
+msgstr "영구"
+
 msgid ""
 "Recommended. Permanent redirects ensure search engines forget the old page "
 "(the 'Redirect from') and index the new page instead."
 msgstr ""
 "권장사항입니다. 영구적인 리다이렉트는 검색 엔진이 오래된 페이지('리다이렉트 "
 "출처')를 찾지 않도록 하며, 대신 새로운 페이지를 검색 하도록 합니다."
+
+msgid "redirect to a page"
+msgstr "페이지로 리다이렉트"
+
+msgid "temporary"
+msgstr "임시"
+
+msgid "redirect"
+msgstr "리다이렉트"
 
 msgid "Add redirect"
 msgstr "리다이렉트 추가"

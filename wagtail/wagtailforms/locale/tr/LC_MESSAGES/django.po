@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 22:44+0000\n"
-"PO-Revision-Date: 2016-09-22 15:05+0000\n"
+"POT-Creation-Date: 2017-04-19 21:02+0000\n"
+"PO-Revision-Date: 2017-04-19 21:09+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
 "tr/)\n"
@@ -98,17 +98,7 @@ msgstr "adresinden"
 msgid "subject"
 msgstr "konu"
 
-#, python-format
-msgid "Delete %(title)s"
-msgstr "%(title)s sil"
-
 msgid "Delete"
-msgstr "Sil"
-
-msgid "Are you sure you want to delete this form submission?"
-msgstr "Bu form gönderisini silmek istediğinize emin misiniz?"
-
-msgid "Delete it"
 msgstr "Sil"
 
 msgid "Forms"
@@ -133,14 +123,5 @@ msgstr "Başlık"
 msgid "Origin"
 msgstr "Başlangıç"
 
-msgid "Actions"
-msgstr "İşlemler"
-
-msgid "delete"
-msgstr "sil"
-
 msgid "No form pages have been created."
 msgstr "Oluşturulmuş form sayfası yok"
-
-msgid "Submission deleted."
-msgstr "Gönderi silindi"

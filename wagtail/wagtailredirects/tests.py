@@ -265,6 +265,16 @@ class TestRedirectsIndexView(TestCase, WagtailTestUtils):
             response = self.get({'p': page})
             self.assertEqual(response.status_code, 200)
 
+    def test_listing_order(self):
+        for i in range(0, 10):
+            models.Redirect.objects.create(old_path="/redirect%d" % i, redirect_link="http://torchbox.com/")
+
+        models.Redirect.objects.create(old_path="/aaargh", redirect_link="http://torchbox.com/")
+
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['redirects'][0].old_path, "/aaargh")
+
 
 class TestRedirectsAddView(TestCase, WagtailTestUtils):
     fixtures = ['test.json']

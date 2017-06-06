@@ -1,4 +1,4 @@
-// user avatars, with fallback to placeholder graphic if no gravatar exists
+// user avatars
 .avatar {
     border-radius: 100%;
     position: relative;
@@ -19,36 +19,11 @@
         border: 0;
     }
 
-    &:before {
-        border-radius: 100%;
-        color: $color-grey-3;
-        border: 2px solid $color-grey-3;
-        text-align: center;
-        display: inline-block;
-        width: 42px;
-        height: 42px;
-        line-height: 42px;
-        margin: 2px 0 0;
-        z-index: 1;
-        left: 0;
-        font-size: 22px;
-    }
-
     &.small {
         vertical-align: middle;
         margin: 0 0.5em;
         width: 25px;
         height: 25px;
-
-        &:before {
-            margin: 0;
-            width: 22px;
-            height: 22px;
-            line-height: 22px;
-            border-width: 1px;
-            font-size: 14px;
-            text-indent: 0.1em;
-        }
     }
 
     &.square {
@@ -61,11 +36,6 @@
         &:before {
             border-radius: 0;
         }
-    }
-
-    &.avatar-on-dark:before {
-        color: $color-grey-2;
-        border-color: $color-grey-2; 
     }
 }
 

@@ -6,16 +6,17 @@
 # Thiago Cangussu <cng.thg@gmail.com>, 2014
 # Claudemiro Alves Feitosa Neto <dimiro1@gmail.com>, 2015
 # Gladson <gladsonbrito@gmail.com>, 2014
+# Joao Garcia <joaosdgarcia@gmail.com>, 2017
 # João Luiz Lorencetti <me@dirtycoder.net>, 2016
 # Luiz Boaretto <lboaretto@gmail.com>, 2016
-# Luiz Boaretto <lboaretto@gmail.com>, 2016
+# Luiz Boaretto <lboaretto@gmail.com>, 2016-2017
 # Marcio Mazza <marciomazza@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 22:44+0000\n"
-"PO-Revision-Date: 2016-12-06 22:47+0000\n"
+"POT-Creation-Date: 2017-04-19 21:02+0000\n"
+"PO-Revision-Date: 2017-04-19 21:05+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
@@ -24,6 +25,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pt_BR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#, python-brace-format
+msgid "{label}: this block has no options."
+msgstr "{label}: este bloco não possui opções."
+
+msgid "This block has no options."
+msgstr "Este bloco não possui opções."
 
 msgid "Password"
 msgstr "Senha"
@@ -100,7 +108,7 @@ msgid "content type"
 msgstr "tipo de conteúdo"
 
 msgid "live"
-msgstr "aovivo"
+msgstr "online"
 
 msgid "has unpublished changes"
 msgstr "possui alterações não publicadas"
@@ -135,9 +143,6 @@ msgstr "descrição da busca"
 msgid "go live date/time"
 msgstr "data/hora para publicar"
 
-msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
-msgstr "Por favor adicione a data e hora no formato YYYY-MM-DD hh:mm."
-
 msgid "expiry date/time"
 msgstr "data/hora para expirar"
 
@@ -163,7 +168,7 @@ msgid "draft"
 msgstr "rascunho"
 
 msgid "live + draft"
-msgstr "aovivo + rascunho"
+msgstr "online + rascunho"
 
 msgid "Default"
 msgstr "Padrão"
@@ -213,6 +218,12 @@ msgstr "Publicar"
 msgid "Publish any page"
 msgstr "Publicar qualquer página"
 
+msgid "Bulk delete"
+msgstr "Deletar em bloco"
+
+msgid "Delete pages with children"
+msgstr "Deletar páginas com filhos"
+
 msgid "Lock"
 msgstr "Travar"
 
@@ -230,6 +241,18 @@ msgstr "grupo de permissão da página"
 
 msgid "group page permissions"
 msgstr "grupo de permissões da página"
+
+msgid "Public"
+msgstr "Público"
+
+msgid "Private, accessible to logged-in users"
+msgstr "Privado, acessível a usuários logados"
+
+msgid "Private, accessible with the following password"
+msgstr "Privado, acessível com a seguinte senha"
+
+msgid "Private, accessible to users in specific groups"
+msgstr "Privado, acessível a usuários em grupos específicos"
 
 msgid "password"
 msgstr "senha"
@@ -254,6 +277,19 @@ msgstr "permissão"
 
 msgid "group collection permission"
 msgstr "grupo de permissão de coleção"
+
+msgid "Log in"
+msgstr "Entrar"
+
+msgid "Your username and password didn't match. Please try again."
+msgstr "Seu usuário e senha não estão corretos. Tente novamente."
+
+msgid ""
+"Your account doesn't have access to this page. To proceed, please log in "
+"with an account that has access."
+msgstr ""
+"Sua conta não possui acesso a esta página. Para continuar, por favor "
+"registre-se com uma conta que possua acesso."
 
 msgid "Password required"
 msgstr "Senha requerida"

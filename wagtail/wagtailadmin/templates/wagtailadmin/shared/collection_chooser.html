@@ -1,4 +1,5 @@
 {% load i18n %}
+{% load l10n %}
 
 <li>
     <div class="field choice_field select">
@@ -8,7 +9,7 @@
                 <select id="collection_chooser_collection_id" name="collection_id">
                     <option value="">{% trans "All collections" %}</option>
                     {% for collection in collections %}
-                        <option value="{{ collection.id }}" {% if collection == current_collection %}selected="selected"{% endif %}>{{ collection.name }}</option>
+                        <option value="{{ collection.id|unlocalize }}" {% if collection == current_collection %}selected="selected"{% endif %}>{{ collection.name }}</option>
                     {% endfor %}
                 </select>
                 <span></span>

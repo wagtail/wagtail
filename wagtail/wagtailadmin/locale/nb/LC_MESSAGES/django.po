@@ -5,13 +5,13 @@
 # Translators:
 # Eirik Krogstad <eirikkr@gmail.com>, 2015
 # Robin Skahjem-Eriksen <robinds@student.matnat.uio.no>, 2015
-# Stein Strindhaug <stein.strindhaug@gmail.com>, 2016
+# Stein Strindhaug <stein.strindhaug@gmail.com>, 2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 22:44+0000\n"
-"PO-Revision-Date: 2016-12-07 11:59+0000\n"
+"POT-Creation-Date: 2017-04-19 21:02+0000\n"
+"PO-Revision-Date: 2017-04-21 07:21+0000\n"
 "Last-Translator: Stein Strindhaug <stein.strindhaug@gmail.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
@@ -20,6 +20,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nb\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "None"
+msgstr "Ingen"
 
 msgid "You do not have permission to access the admin"
 msgstr "Du har ikke tilgang på admin sidene"
@@ -121,6 +124,9 @@ msgid ""
 msgstr ""
 "Denne permalenken er allerede i bruk i konteksten til foreldresiden \"%s\""
 
+msgid "You cannot copy a page into itself when copying subpages"
+msgstr "Du kan ikke kopiere en side inn i seg selv når du kopierer undersider"
+
 msgid "Visibility"
 msgstr "Synlighet"
 
@@ -169,16 +175,19 @@ msgstr "Varslingsinnstillinger"
 msgid "Choose which email notifications to receive."
 msgstr "Velg hvilke e-postvarsler du vil motta."
 
-msgid "Change Password"
-msgstr "Endre passord"
+msgid "Language preferences"
+msgstr "Språkinnstillinger"
+
+msgid "Choose the language you want to use here."
+msgstr "Velg språket du vil bruke her."
 
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr ""
 "Passordet ditt kan ikke endres her. Kontakt en administrator for nettstedet."
 
-msgid "Notification Preferences"
-msgstr "Varslingsinnstillinger"
+msgid "Language Preferences"
+msgstr "Språkinnstillinger"
 
 msgid "Update"
 msgstr "Oppdatér"
@@ -366,6 +375,10 @@ msgstr "Redigér"
 
 msgid "Preview"
 msgstr "Forhåndsvis"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s siden"
 
 msgid "Your most recent edits"
 msgstr "Dine siste endringer"
@@ -603,6 +616,10 @@ msgstr "Ja, avpubliser den"
 msgid "No, don't unpublish"
 msgstr "Nei, ikke avpubliser"
 
+#, python-format
+msgid "Pages using %(page_class_verbose_name)s"
+msgstr "Sider som bruker %(page_class_verbose_name)s"
+
 msgid "Pages using"
 msgstr "Sider som bruker"
 
@@ -762,8 +779,11 @@ msgstr "Utforsk undersider av \"%(title)s\""
 msgid "Add a child page to '%(title)s'"
 msgstr "Legg en underside til \"%(title)s\""
 
-msgid "Add subpage"
+msgid "Add child page"
 msgstr "Legg til underside"
+
+msgid "Sites menu"
+msgstr "Nettsteder-meny"
 
 #, python-format
 msgid ""
@@ -801,6 +821,87 @@ msgstr "Velg en ny forelderside for %(title)s"
 msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Velg en ny forelderside for <span>%(title)s</span>"
 
+msgid "Preview error"
+msgstr "Forhåndsvisningsfeil"
+
+msgid ""
+"\n"
+"                Impossible to preview this page, some errors are remaining.\n"
+"                Please close this tab, edit the page to fix these errors,\n"
+"                then use preview again.\n"
+"            "
+msgstr ""
+"\n"
+"Kan ikke forhåndsvise siden fordi det er feil som må fikses. \n"
+"Lukk denne fanen, rediger siden for å korrigere feilene og bruk "
+"forhåndsvisning på nytt."
+
+msgid "Close"
+msgstr "Lukk"
+
+#, python-format
+msgid "Comparing %(title)s"
+msgstr "Sammenligner %(title)s"
+
+msgid "Comparing"
+msgstr "Sammenligner"
+
+msgid "View revisions"
+msgstr "Vis revisjoner"
+
+msgid "Fields"
+msgstr "Felt"
+
+msgid "Changes"
+msgstr "Endringer"
+
+#, python-format
+msgid ""
+"\n"
+"                                                            Moved down 1 "
+"place.\n"
+"                                                        "
+msgid_plural ""
+"\n"
+"                                                            Moved down "
+"%(counter)s places.\n"
+"                                                        "
+msgstr[0] ""
+"\n"
+"                                                            Flyttet ned 1 "
+"plass.\n"
+"                                                        "
+msgstr[1] ""
+"\n"
+"                                                            Flyttet ned "
+"%(counter)s plasser.\n"
+"                                                        "
+
+#, python-format
+msgid ""
+"\n"
+"                                                            Moved up 1 "
+"place.\n"
+"                                                        "
+msgid_plural ""
+"\n"
+"                                                            Moved up "
+"%(counter)s places.\n"
+"                                                        "
+msgstr[0] ""
+"\n"
+"                                                            Flyttet opp 1 "
+"plass.\n"
+"                                                        "
+msgstr[1] ""
+"\n"
+"                                                            Flyttet opp "
+"%(counter)s plasser.\n"
+"                                                        "
+
+msgid "There are no differences between these two revisions"
+msgstr "Det er ingen forskjeller mellom disse to revisjonene"
+
 #, python-format
 msgid "Revisions of %(title)s"
 msgstr "Revisjoner av %(title)s"
@@ -820,6 +921,9 @@ msgstr "Nåværende kladd"
 
 msgid "Review this revision"
 msgstr "Vurder denne revisjonen"
+
+msgid "Compare with previous revision"
+msgstr "Sammenlign med forrige revisjon"
 
 msgid "No revisions of this page exist"
 msgstr "Det finnes ingen revisjoner av denne siden"
@@ -984,6 +1088,63 @@ msgstr "Vis i Utforsker"
 msgid "Test"
 msgstr "Test"
 
+msgid "Catalan"
+msgstr "katalansk"
+
+msgid "German"
+msgstr "tysk"
+
+msgid "Greek"
+msgstr "gresk"
+
+msgid "English"
+msgstr "engelsk"
+
+msgid "Spanish"
+msgstr "spansk"
+
+msgid "Finnish"
+msgstr "finsk"
+
+msgid "French"
+msgstr "fransk"
+
+msgid "Galician"
+msgstr "galisisk"
+
+msgid "Icelandic"
+msgstr "islandsk"
+
+msgid "Italian"
+msgstr "italiensk"
+
+msgid "Lithuanian"
+msgstr "litauisk"
+
+msgid "Norwegian Bokmål"
+msgstr "norsk bokmål"
+
+msgid "Netherlands Dutch"
+msgstr "nederlandsk"
+
+msgid "Polish"
+msgstr "polsk"
+
+msgid "Brazilian Portuguese"
+msgstr "brasiliansk portugisisk"
+
+msgid "Portuguese"
+msgstr "portugisisk"
+
+msgid "Romanian"
+msgstr "rumensk"
+
+msgid "Russian"
+msgstr "russisk"
+
+msgid "Chinese (China)"
+msgstr "kinesisk (Kina)"
+
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Beklager, du har ikke tilgang på dette området."
 
@@ -991,6 +1152,9 @@ msgid "Your password has been changed successfully!"
 msgstr "Passordet ditt er endret."
 
 msgid "Your preferences have been updated successfully!"
+msgstr "Dine innstillinger har blitt oppdatert."
+
+msgid "Your preferences have been updated."
 msgstr "Dine innstillinger har blitt oppdatert."
 
 msgid "You have been successfully logged out."
@@ -1091,6 +1255,9 @@ msgstr "Siden kunne ikke lagres fordi den er låst"
 msgid "The page could not be saved due to validation errors"
 msgstr "Siden kunne ikke lagres grunnet valideringsfeil"
 
+msgid "Compare with live version"
+msgstr "Sammenlign med publisert versjon"
+
 msgid "This page is currently awaiting moderation"
 msgstr "Denne siden påventer godkjenning"
 
@@ -1148,36 +1315,57 @@ msgstr ""
 "Du ser på en tidligere revisjon av denne siden fra <b>%(created_at)s</b> av "
 "%(user)s"
 
+msgid "Earliest"
+msgstr "Tidligste"
+
+msgid "Latest"
+msgstr "Siste"
+
 msgid "Pages"
 msgstr "Sider"
 
-msgid "Preview draft"
-msgstr "Forhåndsvis kladd"
-
-msgid "Add child page"
-msgstr "Legg til underside"
+#, python-brace-format
+msgid "Edit '{title}'"
+msgstr "Endre '{title}'"
 
 #, python-brace-format
-msgid "Add a child page to '{0}' "
-msgstr "Legg en underside til \"{0}\""
+msgid "Preview draft version of '{title}'"
+msgstr "Forhåndsvis kladd av «{title}»"
+
+#, python-brace-format
+msgid "View live version of '{title}'"
+msgstr "Vis publisert versjon av  «{title}»"
+
+#, python-brace-format
+msgid "Add a child page to '{title}' "
+msgstr "Legg til underside til «{title}»"
 
 msgid "More"
 msgstr "Mer"
 
-msgid "View more options"
-msgstr "Vis flere valgmuligheter"
+#, python-brace-format
+msgid "View more options for '{title}'"
+msgstr "Vis flere valgmuligheter for «{title}»"
 
-msgid "Move this page"
-msgstr "Flytt denne siden"
+#, python-brace-format
+msgid "Move page '{title}'"
+msgstr "Flytt siden «{title}»"
 
-msgid "Delete this page"
-msgstr "Slett denne siden"
+#, python-brace-format
+msgid "Copy page '{title}'"
+msgstr "Kopier siden «{title}»"
 
-msgid "Unpublish this page"
-msgstr "Avpublisér denne siden"
+#, python-brace-format
+msgid "Delete page '{title}'"
+msgstr "Slett siden «{title}»"
 
-msgid "View this page's revision history"
-msgstr "Vis revisjonshistorikken til denne siden"
+#, python-brace-format
+msgid "Unpublish page '{title}'"
+msgstr "Avpublisér siden «{title}»"
+
+#, python-brace-format
+msgid "View revision history for '{title}'"
+msgstr "Vis revisjonshistorikken til siden «{title}»"
 
 msgid "Choose an item"
 msgstr "Velg et element"

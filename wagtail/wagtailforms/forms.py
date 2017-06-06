@@ -112,11 +112,11 @@ class FormBuilder(object):
 class SelectDateForm(django.forms.Form):
     date_from = django.forms.DateTimeField(
         required=False,
-        widget=django.forms.DateInput(attrs={'placeholder': 'Date from'})
+        widget=django.forms.DateInput(attrs={'placeholder': _('Date from')})
     )
     date_to = django.forms.DateTimeField(
         required=False,
-        widget=django.forms.DateInput(attrs={'placeholder': 'Date to'})
+        widget=django.forms.DateInput(attrs={'placeholder': _('Date to')})
     )
 
 

@@ -2,6 +2,7 @@ from __future__ import absolute_import, unicode_literals
 
 import itertools
 
+import django
 from django import template
 from wagtail.wagtailcore import hooks
 
@@ -29,8 +30,9 @@ def format_permissions(permission_bound_field):
             (any_non_add_change_delete_permission, checkbox),
         ]
 
-        (where 'checkbox' is an instance of django.forms.widgets.CheckboxChoiceInput, renderable
-        as HTML using checkbox.tag() )
+        (where 'checkbox' is an object with a tag() method that renders the checkbox as HTML;
+        this is an instance of django.forms.widgets.CheckboxChoiceInput on Django <1.11,
+        and a BoundWidget on Django >=1.11)
 
         - and returns a table template formatted with this list.
 
@@ -41,10 +43,20 @@ def format_permissions(permission_bound_field):
 
     # iterate over permission_bound_field to build a lookup of individual renderable
     # checkbox objects
-    checkboxes_by_id = {
-        int(checkbox.choice_value): checkbox
-        for checkbox in permission_bound_field
-    }
+    if django.VERSION < (1, 11):
+        # On Django <1.11, iterating over the BoundField returns a sequence of CheckboxChoiceInput objects,
+        # whose ID is available as .choice_value
+        checkboxes_by_id = {
+            int(checkbox.choice_value): checkbox
+            for checkbox in permission_bound_field
+        }
+    else:
+        # On Django >=1.11, iterating over the BoundField returns a sequence of BoundWidget objects,
+        # whose ID is available as .data['value']
+        checkboxes_by_id = {
+            int(checkbox.data['value']): checkbox
+            for checkbox in permission_bound_field
+        }
 
     object_perms = []
     other_perms = []

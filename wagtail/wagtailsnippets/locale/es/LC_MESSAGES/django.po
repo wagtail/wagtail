@@ -10,13 +10,13 @@
 # Joaquín Tita <carpincho@gmail.com>, 2014
 # Yusuf (Josè) Luis <alagunajs@gmail.com>, 2015
 # Mauricio Baeza <python@amigos.email>, 2015
-# Yusuf (Josè) Luis <alagunajs@gmail.com>, 2016
+# Yusuf (Josè) Luis <alagunajs@gmail.com>, 2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 22:44+0000\n"
-"PO-Revision-Date: 2016-05-18 22:05+0000\n"
+"POT-Creation-Date: 2017-04-19 21:02+0000\n"
+"PO-Revision-Date: 2017-04-30 11:59+0000\n"
 "Last-Translator: Yusuf (Josè) Luis <alagunajs@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
@@ -56,10 +56,12 @@ msgstr "Lo sentimos, ningún retazo coincide con \"<em>%(query_string)s</em>\""
 #, python-format
 msgid ""
 "You haven't created any %(snippet_type_name)s snippets. Why not <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">create one now"
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">create one now</"
+"a>?"
 msgstr ""
-"No has creado ningún %(snippet_type_name)s snippets. ¿Por qué no <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">creas uno ahora?"
+"No ha creado ningún fragmento %(snippet_type_name)s. Por qué <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">no crear uno "
+"ahora</a>?"
 
 #, python-format
 msgid "Delete %(snippet_type_name)s - %(instance)s"

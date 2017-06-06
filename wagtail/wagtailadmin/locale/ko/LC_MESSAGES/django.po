@@ -4,13 +4,13 @@
 #
 # Translators:
 # Jihan Chung <jihanchung20@gmail.com>, 2015
-# Kyungil Choi <hanpama@gmail.com>, 2015
+# Kyungil Choi <hanpama@gmail.com>, 2015,2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 22:44+0000\n"
-"PO-Revision-Date: 2016-12-06 22:46+0000\n"
+"POT-Creation-Date: 2017-04-19 21:02+0000\n"
+"PO-Revision-Date: 2017-04-19 21:05+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
@@ -19,6 +19,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ko\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "You do not have permission to access the admin"
+msgstr "관리자에 접근할 권한을 가지고 있지 않습니다."
 
 msgid "Scheduled publishing"
 msgstr "예정된 퍼블리싱"
@@ -40,6 +43,9 @@ msgstr "검색"
 
 msgid "Search term"
 msgstr "검색어"
+
+msgid "URL"
+msgstr "URL"
 
 msgid "Enter password"
 msgstr "패스워드 입력"
@@ -113,6 +119,9 @@ msgstr "이 슬러그는 이미 상위 페이지 \"%s\" 에서 사용되어지�
 msgid "This field is required."
 msgstr "필수 작성 항목입니다"
 
+msgid "Please select at least one group."
+msgstr "적어도 한 개의 그룹을 선택해 주세요."
+
 msgid "This slug is already in use"
 msgstr "이 슬러그는 이미 사용되었습니다"
 
@@ -121,6 +130,9 @@ msgstr "라이브를 위한 날짜 및 시간은 만료 날짜 및 시간보다 
 
 msgid "Expiry date/time must be in the future"
 msgstr "만료 날짜는 현재 이후의 날짜 및 시간이어야 합니다"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr "같은 모음에 대해서 여러 개의 권한을 설정할 수는 없습니다."
 
 msgid "Account"
 msgstr "계정"
@@ -149,15 +161,9 @@ msgstr "알림 선호 순위"
 msgid "Choose which email notifications to receive."
 msgstr "알림을 받기 위한 이메일 선택"
 
-msgid "Change Password"
-msgstr "비밀번호 변경"
-
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr "비밀번호를 변경할 수 없습니다. 사이트 관리자에게 문의해 주세요."
-
-msgid "Notification Preferences"
-msgstr "알림 선호 순위"
 
 msgid "Update"
 msgstr "업데이트"
@@ -182,6 +188,12 @@ msgstr "이메일을 확인하여 주세요"
 
 msgid "A link to reset your password has been emailed to you."
 msgstr "비밀번호 초기화를 위한 링크를 이메일로 보냈습니다"
+
+msgid "Please follow the link below to reset your password:"
+msgstr "패스워드를 재설정하려면 아래의 링크를 따라가 주세요."
+
+msgid "Your username (in case you've forgotten):"
+msgstr "사용자명(잊어버린 경우):"
 
 msgid "Password reset"
 msgstr "비밀번호 초기화"
@@ -208,7 +220,7 @@ msgid "Delete"
 msgstr "삭제"
 
 msgid "Explorer"
-msgstr "검색"
+msgstr "탐색기"
 
 msgid "Internal link"
 msgstr "내부 링크"
@@ -246,6 +258,25 @@ msgstr "링크 삽입"
 
 msgid "Add an external link"
 msgstr "외부 링크 추가"
+
+msgid ""
+"This collection cannot be deleted, because it is not empty. It contains:"
+msgstr "이 모음을 삭제할 수 없습니다. 모음이 비어 있지 않습니다:"
+
+msgid "Name"
+msgstr "이름"
+
+#, python-format
+msgid ""
+"No collections have been created. Why not <a href=\"%(add_collection_url)s"
+"\">add one</a>?"
+msgstr ""
+"생성되어 있는 모음이 하나도 없습니다. <a href=\"%(add_collection_url)s\">하"
+"나 생성</a>해 보시는 것은 어떠세요?"
+
+#, python-format
+msgid "Add %(heading)s"
+msgstr "%(heading)s 추가"
 
 msgid "Yes, delete"
 msgstr "네, 지우겠습니다"
@@ -337,6 +368,9 @@ msgstr "와그테일에 로그인"
 msgid "Forgotten it?"
 msgstr "잊어버리셨나요?"
 
+msgid "Signing in..."
+msgstr "로그인 중..."
+
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
 msgstr "\"%(title)s\" 페이지가 승인 되었습니다"
@@ -347,6 +381,10 @@ msgstr "여기서 페이지를 볼 수 있습니다"
 #, python-format
 msgid "The page \"%(title)s\" has been approved"
 msgstr "\"%(title)s\" 페이지가 승인 되었습니다"
+
+#, python-format
+msgid "Hello %(username)s,"
+msgstr "%(username)s님, 안녕하세요."
 
 msgid "Edit your notification preferences here:"
 msgstr "당신의 알림 선호 순위를 여기서 바꿔주세요"
@@ -361,6 +399,10 @@ msgstr "여기서 페이지를 수정할 수 있습니다"
 #, python-format
 msgid "The page \"%(title)s\" has been rejected"
 msgstr "\"%(title)s\" 페이지가 거절되었습니다"
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation by %(editor)s."
+msgstr "\"%(page)s\" 페이지에 대한 검토를 %(editor)s에게 신청했습니다."
 
 msgid "You can preview the page here:"
 msgstr "여기서 페이지를 미리 볼 수 있습니다:"
@@ -435,6 +477,12 @@ msgstr[0] ""
 "\n"
 "%(descendant_count)s 개의 하위 페이지들도 삭제될 예정입니다"
 
+msgid "Yes, delete it"
+msgstr "네, 지웁니다"
+
+msgid "No, don't delete it"
+msgstr "아니요, 지우지 않습니다"
+
 #, python-format
 msgid "Move %(title)s"
 msgstr "%(title)s 이동"
@@ -468,6 +516,9 @@ msgstr "이 페이지에 대한 퍼블리싱을 해제하시겠습니까?"
 msgid "Yes, unpublish it"
 msgstr "네, 퍼블리싱을 해제합니다"
 
+msgid "No, don't unpublish"
+msgstr "아니요, 퍼블리싱을 해제하지 않습니다"
+
 msgid "Pages using"
 msgstr "사용한 페이지들"
 
@@ -488,14 +539,23 @@ msgstr "새로운 %(page_type)s"
 msgid "New"
 msgstr "새로운"
 
+msgid "Saving..."
+msgstr "저장 중..."
+
 msgid "Save draft"
 msgstr "초안 저장"
+
+msgid "Publishing..."
+msgstr "퍼블리싱 중..."
 
 msgid "Publish"
 msgstr "퍼블리싱"
 
 msgid "Submit for moderation"
 msgstr "검토를 위한 제출"
+
+msgid "This page has unsaved changes."
+msgstr "이 페이지는 저장되지 않은 변경사항이 있습니다."
 
 #, python-format
 msgid "Editing %(page_type)s: %(title)s"
@@ -507,6 +567,12 @@ msgstr "%(page_type)s <span>%(title)s</span> 수정"
 
 msgid "Page locked"
 msgstr "페이지 잠금"
+
+msgid "Replace current draft"
+msgstr "현재 초안을 대체하기"
+
+msgid "Publish this revision"
+msgstr "이 안을 퍼블리싱하기"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -551,8 +617,8 @@ msgstr "'%(title)s' 의 하위페이지 탐색"
 msgid "Add a child page to '%(title)s'"
 msgstr "'%(title)s' 에 대한 하위페이지 추가"
 
-msgid "Add subpage"
-msgstr "하위페이지 추가"
+msgid "Add child page"
+msgstr "하위 페이지 추가"
 
 #, python-format
 msgid ""
@@ -782,9 +848,6 @@ msgstr "'{0}' 페이지는 현재 잠겨 있습니다"
 #, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "'{0}' 페이즈는 현재 잠금해제 상태입니다"
-
-msgid "Add child page"
-msgstr "하위 페이지 추가"
 
 msgid "Choose an item"
 msgstr "아이템 선택"

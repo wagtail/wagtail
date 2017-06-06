@@ -8,7 +8,7 @@
 # Antonin ENFRUN <anton@zorgameuh.org>, 2016
 # Axel Haustant, 2016
 # Benoît Vogel <contact@spicy-informatique.com>, 2016
-# Bertrand Bordage <bordage.bertrand@gmail.com>, 2015-2016
+# Bertrand Bordage <bordage.bertrand@gmail.com>, 2015-2017
 # Dominique PERETTI <dperetti@gmail.com>, 2016
 # Léo <leo@naeka.fr>, 2016
 # Matt Westcott <matthew@torchbox.com>, 2016
@@ -21,9 +21,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 22:44+0000\n"
-"PO-Revision-Date: 2016-12-07 01:21+0000\n"
-"Last-Translator: Benoît Vogel <contact@spicy-informatique.com>\n"
+"POT-Creation-Date: 2017-04-19 21:02+0000\n"
+"PO-Revision-Date: 2017-04-20 21:03+0000\n"
+"Last-Translator: Bertrand Bordage <bordage.bertrand@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -31,6 +31,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "None"
+msgstr "Aucun(e)"
 
 msgid "You do not have permission to access the admin"
 msgstr "Vous n’avez pas l’autorisation d’accéder à l’administration"
@@ -129,6 +132,11 @@ msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
 msgstr "Ce slug est déjà utilisé dans le contexte de sa page parent \"%s\""
 
+msgid "You cannot copy a page into itself when copying subpages"
+msgstr ""
+"Vous ne pouvez pas copier une page sous elle-même lors de la copie de sous-"
+"pages"
+
 msgid "Visibility"
 msgstr "Visibilité"
 
@@ -177,16 +185,19 @@ msgstr "Préférences de notifications"
 msgid "Choose which email notifications to receive."
 msgstr "Choisissez les notifications par e-mail à recevoir."
 
-msgid "Change Password"
-msgstr "Changer le mot de passe"
+msgid "Language preferences"
+msgstr "Préférences de langue"
+
+msgid "Choose the language you want to use here."
+msgstr "Choisissez la langue que vous souhaitez utiliser ici."
 
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr ""
 "Votre mot de passe ne peut être changé ici. Contactez un administrateur."
 
-msgid "Notification Preferences"
-msgstr "Préférences de Notifications"
+msgid "Language Preferences"
+msgstr "Préférences de langue"
 
 msgid "Update"
 msgstr "Mettre à jour"
@@ -375,6 +386,10 @@ msgstr "Modifier"
 
 msgid "Preview"
 msgstr "Prévisualisation"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "il y a %(time_period)s"
 
 msgid "Your most recent edits"
 msgstr "Vos modifications les plus récentes"
@@ -617,6 +632,10 @@ msgstr "Oui, la dépublier"
 msgid "No, don't unpublish"
 msgstr "Non, ne pas dépublier"
 
+#, python-format
+msgid "Pages using %(page_class_verbose_name)s"
+msgstr "Pages utilisant %(page_class_verbose_name)s"
+
 msgid "Pages using"
 msgstr "Pages utilisant"
 
@@ -777,8 +796,11 @@ msgstr "Explorer les sous-pages de '%(title)s'"
 msgid "Add a child page to '%(title)s'"
 msgstr "Ajouter une sous-page à '%(title)s'"
 
-msgid "Add subpage"
+msgid "Add child page"
 msgstr "Ajouter une sous-page"
+
+msgid "Sites menu"
+msgstr "Menu des sites"
 
 #, python-format
 msgid ""
@@ -816,6 +838,79 @@ msgstr "Sélectionner une nouvelle page parente à %(title)s"
 msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Sélectionnez une nouvelle page parente pour <span>%(title)s</span>"
 
+msgid "Preview error"
+msgstr "Erreur de prévisualisation"
+
+msgid ""
+"\n"
+"                Impossible to preview this page, some errors are remaining.\n"
+"                Please close this tab, edit the page to fix these errors,\n"
+"                then use preview again.\n"
+"            "
+msgstr ""
+"\n"
+"Impossible de prévisualiser cette page, il reste des erreurs.\n"
+"Veuillez fermer cet onglet, modifier la page pour corriger ces erreurs,\n"
+"puis utiliser à nouveau la prévisualisation."
+
+msgid "Close"
+msgstr "Fermer"
+
+#, python-format
+msgid "Comparing %(title)s"
+msgstr "Comparaison de %(title)s"
+
+msgid "Comparing"
+msgstr "Comparaison"
+
+msgid "View revisions"
+msgstr "Voir les révisions"
+
+msgid "Fields"
+msgstr "Champs"
+
+msgid "Changes"
+msgstr "Modifications"
+
+#, python-format
+msgid ""
+"\n"
+"                                                            Moved down 1 "
+"place.\n"
+"                                                        "
+msgid_plural ""
+"\n"
+"                                                            Moved down "
+"%(counter)s places.\n"
+"                                                        "
+msgstr[0] ""
+"\n"
+"Déplacé 1 fois vers le bas."
+msgstr[1] ""
+"\n"
+"Déplacé %(counter)s fois vers le bas."
+
+#, python-format
+msgid ""
+"\n"
+"                                                            Moved up 1 "
+"place.\n"
+"                                                        "
+msgid_plural ""
+"\n"
+"                                                            Moved up "
+"%(counter)s places.\n"
+"                                                        "
+msgstr[0] ""
+"\n"
+"Déplacé 1 fois vers le haut."
+msgstr[1] ""
+"\n"
+"Déplacé %(counter)s fois vers le haut."
+
+msgid "There are no differences between these two revisions"
+msgstr "Il n’y a pas de différence entre ces deux révisions"
+
 #, python-format
 msgid "Revisions of %(title)s"
 msgstr "Versions de %(title)s"
@@ -835,6 +930,9 @@ msgstr "Brouillon actuel"
 
 msgid "Review this revision"
 msgstr "Passer en revue cette version"
+
+msgid "Compare with previous revision"
+msgstr "comparer avec la révision précédente"
 
 msgid "No revisions of this page exist"
 msgstr "Aucune version n’existe pour cette page"
@@ -997,6 +1095,63 @@ msgstr "Montrer dans l’explorateur"
 msgid "Test"
 msgstr "Test"
 
+msgid "Catalan"
+msgstr "catalan"
+
+msgid "German"
+msgstr "allemand"
+
+msgid "Greek"
+msgstr "grec"
+
+msgid "English"
+msgstr "anglais"
+
+msgid "Spanish"
+msgstr "espagnol"
+
+msgid "Finnish"
+msgstr "finnois"
+
+msgid "French"
+msgstr "français"
+
+msgid "Galician"
+msgstr "galicien"
+
+msgid "Icelandic"
+msgstr "islandais"
+
+msgid "Italian"
+msgstr "italien"
+
+msgid "Lithuanian"
+msgstr "lituanien"
+
+msgid "Norwegian Bokmål"
+msgstr "norvégien bokmål"
+
+msgid "Netherlands Dutch"
+msgstr "néerlandais"
+
+msgid "Polish"
+msgstr "polonais"
+
+msgid "Brazilian Portuguese"
+msgstr "portugais brésilien"
+
+msgid "Portuguese"
+msgstr "portugais"
+
+msgid "Romanian"
+msgstr "roumain"
+
+msgid "Russian"
+msgstr "russe"
+
+msgid "Chinese (China)"
+msgstr "chinois (Chine)"
+
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Désolé, vous n'avez pas les autorisations pour accéder à cette zone."
 
@@ -1005,6 +1160,9 @@ msgstr "Votre mot de passe a été changé avec succès !"
 
 msgid "Your preferences have been updated successfully!"
 msgstr "Vos préférences ont été mises à jour avec succès !"
+
+msgid "Your preferences have been updated."
+msgstr "Vos préférences ont été mises à jour."
 
 msgid "You have been successfully logged out."
 msgstr "Vous avez été déconnecté avec succès"
@@ -1105,6 +1263,9 @@ msgstr "La page n'a pu être enregistrée car elle est verrouillée"
 msgid "The page could not be saved due to validation errors"
 msgstr "La page ne peut être enregistrée du fait d'erreurs de validation."
 
+msgid "Compare with live version"
+msgstr "Comparer avec la version publiée"
+
 msgid "This page is currently awaiting moderation"
 msgstr "Cette page est actuellement en attente de modération"
 
@@ -1162,36 +1323,57 @@ msgstr ""
 "Vous passez en revue une version passée de cette page du <b>%(created_at)s</"
 "b> par %(user)s"
 
+msgid "Earliest"
+msgstr "Première"
+
+msgid "Latest"
+msgstr "Dernière"
+
 msgid "Pages"
 msgstr "Pages"
 
-msgid "Preview draft"
-msgstr "Prévisualiser le brouillon"
-
-msgid "Add child page"
-msgstr "Ajouter une sous-page"
+#, python-brace-format
+msgid "Edit '{title}'"
+msgstr "Modifier '{title}'"
 
 #, python-brace-format
-msgid "Add a child page to '{0}' "
-msgstr "Ajouter une sous-page à '{0}'"
+msgid "Preview draft version of '{title}'"
+msgstr "Prévisualiser la version brouillon de '{title}'"
+
+#, python-brace-format
+msgid "View live version of '{title}'"
+msgstr "Voir la version publiée de '{title}'"
+
+#, python-brace-format
+msgid "Add a child page to '{title}' "
+msgstr "Ajouter une sous-page à '{title}'"
 
 msgid "More"
 msgstr "Plus"
 
-msgid "View more options"
-msgstr "Voir plus d'options"
+#, python-brace-format
+msgid "View more options for '{title}'"
+msgstr "Voir plus d’options pour '{title}'"
 
-msgid "Move this page"
-msgstr "Déplacer cette page"
+#, python-brace-format
+msgid "Move page '{title}'"
+msgstr "Déplacer la page '{title}'"
 
-msgid "Delete this page"
-msgstr "Supprimer cette page"
+#, python-brace-format
+msgid "Copy page '{title}'"
+msgstr "Copier la page '{title}'"
 
-msgid "Unpublish this page"
-msgstr "Dépublier cette page"
+#, python-brace-format
+msgid "Delete page '{title}'"
+msgstr "Supprimer la page '{title}'"
 
-msgid "View this page's revision history"
-msgstr "Voir l'historique des versions de cette page"
+#, python-brace-format
+msgid "Unpublish page '{title}'"
+msgstr "Dépublier la page '{title}'"
+
+#, python-brace-format
+msgid "View revision history for '{title}'"
+msgstr "Voir l’historique des révisions pour '{title}'"
 
 msgid "Choose an item"
 msgstr "Choisissez un élément"

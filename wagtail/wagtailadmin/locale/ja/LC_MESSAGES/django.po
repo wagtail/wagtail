@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 22:44+0000\n"
-"PO-Revision-Date: 2016-12-06 22:46+0000\n"
+"POT-Creation-Date: 2017-04-19 21:02+0000\n"
+"PO-Revision-Date: 2017-04-19 21:05+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
@@ -151,16 +151,10 @@ msgstr "通知設定"
 msgid "Choose which email notifications to receive."
 msgstr "受信するEメール通知を選択します。"
 
-msgid "Change Password"
-msgstr "パスワードを変更する"
-
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr ""
 "パスワードを変更することができません。サイトの管理者に連絡してください。"
-
-msgid "Notification Preferences"
-msgstr "通知方法"
 
 msgid "Update"
 msgstr "アップデート"
@@ -644,8 +638,8 @@ msgstr "%(title)sの子ページを閲覧"
 msgid "Add a child page to '%(title)s'"
 msgstr "%(title)sに子ページを追加"
 
-msgid "Add subpage"
-msgstr "サブページを追加"
+msgid "Add child page"
+msgstr "子ページを追加"
 
 #, python-format
 msgid ""
@@ -884,9 +878,6 @@ msgstr "ページ：'{0}' のロックが解除されました。"
 
 msgid "Pages"
 msgstr "ページ"
-
-msgid "Add child page"
-msgstr "子ページを追加"
 
 msgid "Choose an item"
 msgstr "アイテムを選択"

@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`client API should crash fetching 1`] = `
+Object {
+  "status": 500,
+  "statusText": "Internal Error",
+}
+`;
+
+exports[`client API should fail fetching 1`] = `[Error: Internal Error]`;
+
+exports[`client API should succeed fetching 1`] = `
+Object {
+  "items": Array [],
+  "meta": Object {
+    "total_count": 1,
+  },
+}
+`;
+
+exports[`client API should timeout fetching 1`] = `[Error: Response timeout]`;

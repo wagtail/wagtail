@@ -100,7 +100,10 @@ def list_submissions(request, page_id):
             data_row = []
             form_data = s.get_data()
             for name, label in data_fields:
-                data_row.append(smart_str(form_data.get(name)))
+                val = form_data.get(name)
+                if isinstance(val, list):
+                    val = ', '.join(val)
+                data_row.append(smart_str(val))
             writer.writerow(data_row)
         return response
 
@@ -109,7 +112,12 @@ def list_submissions(request, page_id):
     data_rows = []
     for s in submissions:
         form_data = s.get_data()
-        data_row = [form_data.get(name) for name, label in data_fields]
+        data_row = []
+        for name, label in data_fields:
+            val = form_data.get(name)
+            if isinstance(val, list):
+                val = ', '.join(val)
+            data_row.append(val)
         data_rows.append({
             "model_id": s.id,
             "fields": data_row

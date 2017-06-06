@@ -230,6 +230,18 @@ To use Embedly, you must also install their Python module:
   $ pip install embedly
 
 
+Dashboard
+---------
+
+.. versionadded:: 1.10
+
+.. code-block:: python
+
+    WAGTAILADMIN_RECENT_EDITS_LIMIT = 5
+
+This setting lets you change the number of items shown at 'Your most recent edits' on the dashboard.
+
+
 Images
 ------
 
@@ -317,6 +329,17 @@ Case-Insensitive Tags
 
 Tags are case-sensitive by default ('music' and 'Music' are treated as distinct tags). In many cases the reverse behaviour is preferable.
 
+Multi-word tags
+---------------
+
+.. versionadded:: 1.10
+
+.. code-block:: python
+
+  TAG_SPACES_ALLOWED = False
+
+Tags can only consist of a single word, no spaces allowed. The default setting is ``True`` (spaces in tags are allowed).
+
 Unicode Page Slugs
 ------------------
 
@@ -325,6 +348,23 @@ Unicode Page Slugs
   WAGTAIL_ALLOW_UNICODE_SLUGS = True
 
 By default, page slugs can contain any alphanumeric characters, including non-Latin alphabets (except on Django 1.8, where only ASCII characters are supported). Set this to False to limit slugs to ASCII characters.
+
+.. _WAGTAIL_AUTO_UPDATE_PREVIEW:
+
+Auto update preview
+-------------------
+
+.. versionadded:: 1.10
+
+.. code-block:: python
+
+  WAGTAIL_AUTO_UPDATE_PREVIEW = False
+
+When enabled, data from an edited page is automatically sent to the server
+on each change, even without saving. That way, users don’t have to click on
+“Preview” to update the content of the preview page. However, the preview page
+tab is not refreshed automatically, users have to do it manually.
+This behaviour is disabled by default.
 
 Custom User Edit Forms
 ----------------------
@@ -363,6 +403,42 @@ When enabled Wagtail shows where a particular image, document or snippet is bein
 .. note::
 
     The usage count only applies to direct (database) references. Using documents, images and snippets within StreamFields or rich text fields will not be taken into account.
+
+Date and DateTime inputs
+------------------------
+
+.. code-block:: python
+
+    WAGTAIL_DATE_FORMAT = '%d.%m.%Y.'
+    WAGTAIL_DATETIME_FORMAT = '%d.%m.%Y. %H:%M'
+
+
+Specifies the date and datetime format to be used in input fields in the Wagtail admin. The format is specified in `Python datetime module syntax <https://docs.python.org/3/library/datetime.html#strftime-strptime-behavior>`_, and must be one of the recognised formats listed in the ``DATE_INPUT_FORMATS`` or ``DATETIME_INPUT_FORMATS`` setting respectively (see `DATE_INPUT_FORMATS <https://docs.djangoproject.com/en/1.10/ref/settings/#std:setting-DATE_INPUT_FORMATS>`_).
+
+.. _WAGTAILADMIN_PERMITTED_LANGUAGES:
+
+Admin languages
+---------------
+
+.. versionadded:: 1.10
+
+Users can choose between several languages for the admin interface
+in the account settings. The list of languages is by default all the available
+languages in Wagtail. To change it, set ``WAGTAILADMIN_PERMITTED_LANGUAGES``:
+
+.. code-block:: python
+
+    WAGTAILADMIN_PERMITTED_LANGUAGES = [('en', 'English'),
+                                        ('pt', 'Portuguese')]
+
+Since the syntax is the same as Django ``LANGUAGES``, you can do this so users
+can only choose between front office languages:
+
+.. code-block:: python
+
+    LANGUAGES = WAGTAILADMIN_PERMITTED_LANGUAGES = [('en', 'English'),
+                                                    ('pt', 'Portuguese')]
+
 
 URL Patterns
 ~~~~~~~~~~~~
@@ -612,7 +688,7 @@ These two files should reside in your project directory (``myproject/myproject/`
 
 .. code-block:: python
 
-  from django.conf.urls import patterns, include, url
+  from django.conf.urls import include, url
   from django.conf.urls.static import static
   from django.views.generic.base import RedirectView
   from django.contrib import admin
@@ -625,7 +701,7 @@ These two files should reside in your project directory (``myproject/myproject/`
   from wagtail.wagtailsearch import urls as wagtailsearch_urls
 
 
-  urlpatterns = patterns('',
+  urlpatterns = [
       url(r'^django-admin/', include(admin.site.urls)),
 
       url(r'^admin/', include(wagtailadmin_urls)),
@@ -635,7 +711,7 @@ These two files should reside in your project directory (``myproject/myproject/`
       # For anything not caught by a more specific rule above, hand over to
       # Wagtail's serving mechanism
       url(r'', include(wagtail_urls)),
-  )
+  ]
 
 
   if settings.DEBUG:
@@ -643,6 +719,6 @@ These two files should reside in your project directory (``myproject/myproject/`
 
       urlpatterns += staticfiles_urlpatterns() # tell gunicorn where static files are in dev mode
       urlpatterns += static(settings.MEDIA_URL + 'images/', document_root=os.path.join(settings.MEDIA_ROOT, 'images'))
-      urlpatterns += patterns('',
-          (r'^favicon\.ico$', RedirectView.as_view(url=settings.STATIC_URL + 'myapp/images/favicon.ico'))
-      )
+      urlpatterns += [
+          url(r'^favicon\.ico$', RedirectView.as_view(url=settings.STATIC_URL + 'myapp/images/favicon.ico'))
+      ]

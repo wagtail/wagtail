@@ -84,6 +84,11 @@ class DocumentsSummaryItem(SummaryItem):
             'total_docs': get_document_model().objects.count(),
         }
 
+    def is_shown(self):
+        return permission_policy.user_has_any_permission(
+            self.request.user, ['add', 'change', 'delete']
+        )
+
 
 @hooks.register('construct_homepage_summary_items')
 def add_documents_summary_item(request, items):

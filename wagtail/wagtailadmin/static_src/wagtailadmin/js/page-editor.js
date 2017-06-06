@@ -132,7 +132,7 @@ function InlinePanel(opts) {
                 var currentChildOrder = currentChildOrderElem.val();
 
                 /* find the previous visible 'inline_child' li before this one */
-                var prevChild = currentChild.prev(':visible');
+                var prevChild = currentChild.prevAll(':not(.deleted)').first();
                 if (!prevChild.length) return;
                 var prevChildOrderElem = prevChild.find('input[name$="-ORDER"]');
                 var prevChildOrder = prevChildOrderElem.val();
@@ -153,7 +153,7 @@ function InlinePanel(opts) {
                 var currentChildOrder = currentChildOrderElem.val();
 
                 /* find the next visible 'inline_child' li after this one */
-                var nextChild = currentChild.next(':visible');
+                var nextChild = currentChild.nextAll(':not(.deleted)').first();
                 if (!nextChild.length) return;
                 var nextChildOrderElem = nextChild.find('input[name$="-ORDER"]');
                 var nextChildOrder = nextChildOrderElem.val();
@@ -361,84 +361,68 @@ $(function() {
     initCollapsibleBlocks();
     initKeyboardShortcuts();
 
-    /* Set up behaviour of preview button */
-    var previewWindow = null;
-    $('.action-preview').click(function(e) {
+    //
+    // Preview
+    //
+    // In order to make the preview truly reliable, the preview page needs
+    // to be perfectly independent from the edit page,
+    // from the browser perspective. To pass data from the edit page
+    // to the preview page, we send the form after each change
+    // and save it inside the user session.
+
+    var $previewButton = $('.action-preview'), $form = $('#page-edit-form');
+    var previewUrl = $previewButton.data('action');
+    var autoUpdatePreviewDataTimeout = -1;
+
+    function setPreviewData() {
+        return $.ajax({
+            url: previewUrl,
+            method: 'POST',
+            data: new FormData($form[0]),
+            processData: false,
+            contentType: false
+        });
+    }
+
+    $previewButton.one('click', function () {
+        if ($previewButton.data('auto-update')) {
+            // Form data is changed when field values are changed
+            // (change event), when HTML elements are added, modified, moved,
+            // and deleted (DOMSubtreeModified event), and we need to delay
+            // setPreviewData when typing to avoid useless extra AJAX requests
+            // (so we postpone setPreviewData when keyup occurs).
+            // TODO: Replace DOMSubtreeModified with a MutationObserver.
+            $form.on('change keyup DOMSubtreeModified', function () {
+                clearTimeout(autoUpdatePreviewDataTimeout);
+                autoUpdatePreviewDataTimeout = setTimeout(setPreviewData, 1000);
+            }).change();
+        }
+    });
+
+    $previewButton.click(function(e) {
         e.preventDefault();
         var $this = $(this);
+        var $icon = $this.filter('.icon'),
+            thisPreviewUrl = $this.data('action');
+        $icon.addClass('icon-spinner').removeClass('icon-view');
+        var previewWindow = window.open('', thisPreviewUrl);
+        previewWindow.focus();
 
-        if (previewWindow) {
+        setPreviewData().done(function (data) {
+            if (data['is_valid']) {
+                previewWindow.document.location = thisPreviewUrl;
+            } else {
+                window.focus();
+                previewWindow.close();
+                // TODO: Stop sending the form, as it removes file data.
+                $form.submit();
+            }
+        }).fail(function () {
+            alert('Error while sending preview data.');
+            window.focus();
             previewWindow.close();
-        }
-
-        previewWindow = window.open($this.data('placeholder'), $this.data('windowname'));
-
-        if (previewWindow.addEventListener) {
-            previewWindow.addEventListener('load', function() {
-                submitPreview.call($this, true);
-            }, false);
-        } else if (previewWindow.attachEvent) {
-            // for IE
-            previewWindow.attachEvent('onload', function() {
-                submitPreview.call($this, true);
-            }, false);
-        } else {
-            // Can't trap onload event, so load contents immediately without fancy effects
-            submitPreview.call($this, false);
-        }
-
-        function submitPreview(enhanced) {
-            var previewDoc = previewWindow.document;
-
-            $.ajax({
-                type: 'POST',
-                url: $this.data('action'),
-                data: $('#page-edit-form').serialize(),
-                success: function(data, textStatus, request) {
-                    if (request.getResponseHeader('X-Wagtail-Preview') == 'ok') {
-                        if (enhanced) {
-                            var frame = previewDoc.getElementById('preview-frame');
-
-                            frame = frame.contentWindow || frame.contentDocument.document || frame.contentDocument;
-                            frame.document.open();
-                            frame.document.write(data);
-                            frame.document.close();
-
-                            var hideTimeout = setTimeout(function() {
-                                previewDoc.getElementById('loading-spinner-wrapper').className += ' remove';
-                                clearTimeout(hideTimeout);
-                            });
-
- // just enough to give effect without adding discernible slowness
-                        } else {
-                            previewDoc.open();
-                            previewDoc.write(data);
-                            previewDoc.close();
-                        }
-
-                    } else {
-                        previewWindow.close();
-                        disableDirtyFormCheck();
-                        document.open();
-                        document.write(data);
-                        document.close();
-                    }
-                },
-
-                error: function(xhr, textStatus, errorThrown) {
-                    /* If an error occurs, display it in the preview window so that
-                    we aren't just showing the spinner forever. We preserve the original
-                    error output rather than giving a 'friendly' error message so that
-                    developers can debug template errors. (On a production site, we'd
-                    typically be serving a friendly custom 500 page anyhow.) */
-
-                    previewDoc.open();
-                    previewDoc.write(xhr.responseText);
-                    previewDoc.close();
-                }
-            });
-
-        }
-
+        }).always(function () {
+            $icon.addClass('icon-view').removeClass('icon-spinner');
+        });
     });
 });

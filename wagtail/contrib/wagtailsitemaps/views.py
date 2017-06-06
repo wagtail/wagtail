@@ -1,25 +1,29 @@
 from __future__ import absolute_import, unicode_literals
 
-from django.conf import settings
-from django.core.cache import cache
-from django.http import HttpResponse
+from django.contrib.sitemaps import views as sitemap_views
 
 from .sitemap_generator import Sitemap
 
 
-def sitemap(request):
-    cache_key = 'wagtail-sitemap:' + str(request.site.id)
-    sitemap_xml = cache.get(cache_key)
+def index(request, sitemaps, **kwargs):
+    sitemaps = prepare_sitemaps(request, sitemaps)
+    return sitemap_views.index(request, sitemaps, **kwargs)
 
-    if not sitemap_xml:
-        # Rerender sitemap
-        sitemap = Sitemap(request.site)
-        sitemap_xml = sitemap.render()
 
-        cache.set(cache_key, sitemap_xml, getattr(settings, 'WAGTAILSITEMAPS_CACHE_TIMEOUT', 6000))
+def sitemap(request, sitemaps=None, **kwargs):
+    if sitemaps:
+        sitemaps = prepare_sitemaps(request, sitemaps)
+    else:
+        sitemaps = {'wagtail': Sitemap(request.site)}
+    return sitemap_views.sitemap(request, sitemaps, **kwargs)
 
-    # Build response
-    response = HttpResponse(sitemap_xml)
-    response['Content-Type'] = "text/xml; charset=utf-8"
 
-    return response
+def prepare_sitemaps(request, sitemaps):
+    """Intialize the wagtail Sitemap by passing the request.site value. """
+    initialised_sitemaps = {}
+    for name, sitemap_cls in sitemaps.items():
+        if issubclass(sitemap_cls, Sitemap):
+            initialised_sitemaps[name] = sitemap_cls(request.site)
+        else:
+            initialised_sitemaps[name] = sitemap_cls
+    return initialised_sitemaps

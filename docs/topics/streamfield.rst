@@ -64,6 +64,9 @@ All block types accept the following optional keyword arguments:
 ``template``
   The path to a Django template that will be used to render this block on the front end. See `Template rendering`_.
 
+``group``
+  The group used to categorize this block, i.e. any blocks with the same group name will be shown together in the editor interface with the group name as a heading.
+
 The basic block types provided by Wagtail are as follows:
 
 CharBlock
@@ -157,7 +160,10 @@ DateBlock
 
 ``wagtail.wagtailcore.blocks.DateBlock``
 
-A date picker. The keyword arguments ``required`` and ``help_text`` are accepted.
+A date picker. The keyword arguments ``required``, ``help_text`` and ``format`` are accepted.
+
+``format`` (default: None)
+  Date format. This must be one of the recognised formats listed in the `DATE_INPUT_FORMATS <https://docs.djangoproject.com/en/1.10/ref/settings/#std:setting-DATE_INPUT_FORMATS>`_ setting. If not specifed Wagtail will use ``WAGTAIL_DATE_FORMAT`` setting with fallback to '%Y-%m-%d'.
 
 TimeBlock
 ~~~~~~~~~
@@ -171,7 +177,10 @@ DateTimeBlock
 
 ``wagtail.wagtailcore.blocks.DateTimeBlock``
 
-A combined date / time picker. The keyword arguments ``required`` and ``help_text`` are accepted.
+A combined date / time picker. The keyword arguments ``required``, ``help_text`` and ``format`` are accepted.
+
+``format`` (default: None)
+  Date format. This must be one of the recognised formats listed in the `DATETIME_INPUT_FORMATS <https://docs.djangoproject.com/en/1.10/ref/settings/#std:setting-DATETIME_INPUT_FORMATS>`_ setting. If not specifed Wagtail will use ``WAGTAIL_DATETIME_FORMAT`` setting with fallback to '%Y-%m-%d %H:%M'.
 
 RichTextBlock
 ~~~~~~~~~~~~~
@@ -251,7 +260,7 @@ A control for selecting a page object, using Wagtail's page browser. The followi
   If true, the field cannot be left blank.
 
 ``target_model`` (default: Page)
-  Restrict choices to a single Page type.
+  Restrict choices to one or more specific page types. Accepts a page model class, model name (as a string), or a list or tuple of these.
 
 ``can_choose_root`` (default: False)
   If true, the editor can choose the tree root as a page. Normally this would be undesirable, since the tree root is never a usable page, but in some specialised cases it may be appropriate. For example, a block providing a feed of related articles could use a PageChooserBlock to select which subsection of the site articles will be taken from, with the root corresponding to 'everywhere'.
@@ -881,6 +890,119 @@ If you change an existing RichTextField to a StreamField, and create and run mig
                 ])
                 page.body = raw_text
                 page.save()
+
+
+    class Migration(migrations.Migration):
+
+        dependencies = [
+            # leave the dependency line from the generated migration intact!
+            ('demo', '0001_initial'),
+        ]
+
+        operations = [
+            migrations.RunPython(
+                convert_to_streamfield,
+                convert_to_richtext,
+            ),
+        ]
+
+
+Note that the above migration will work on published Page objects only. If you also need to migrate draft pages and page revisions, then edit your new data migration as in the following example instead:
+
+.. code-block:: python
+
+    # -*- coding: utf-8 -*-
+    from __future__ import unicode_literals
+
+    import json
+
+    from django.core.serializers.json import DjangoJSONEncoder
+    from django.db import migrations, models
+
+    from wagtail.wagtailcore.rich_text import RichText
+
+
+    def page_to_streamfield(page):
+        changed = False
+        if page.body.raw_text and not page.body:
+            page.body = [('rich_text', {'rich_text': RichText(page.body.raw_text)})]
+            changed = True
+        return page, changed
+
+
+    def pagerevision_to_streamfield(revision_data):
+        changed = False
+        body = revision_data.get('body')
+        if body:
+            try:
+                json.loads(body)
+            except ValueError:
+                revision_data['body'] = json.dumps(
+                    [{
+                        "value": {"rich_text": body},
+                        "type": "rich_text"
+                    }],
+                    cls=DjangoJSONEncoder)
+                changed = True
+            else:
+                # It's already valid JSON. Leave it.
+                pass
+        return revision_data, changed
+
+
+    def page_to_richtext(page):
+        changed = False
+        if page.body.raw_text is None:
+            raw_text = ''.join([
+                child.value['rich_text'].source for child in page.body
+                if child.block_type == 'rich_text'
+            ])
+            page.body = raw_text
+            changed = True
+        return page, changed
+
+
+    def pagerevision_to_richtext(revision_data):
+        changed = False
+        body = revision_data.get('body', 'definitely non-JSON string')
+        if body:
+            try:
+                body_data = json.loads(body)
+            except ValueError:
+                # It's not apparently a StreamField. Leave it.
+                pass
+            else:
+                raw_text = ''.join([
+                    child['value']['rich_text'] for child in body_data
+                    if child['type'] == 'rich_text'
+                ])
+                revision_data['body'] = raw_text
+                changed = True
+        return revision_data, changed
+
+
+    def convert(apps, schema_editor, page_converter, pagerevision_converter):
+        BlogPage = apps.get_model("demo", "BlogPage")
+        for page in BlogPage.objects.all():
+
+            page, changed = page_converter(page)
+            if changed:
+                page.save()
+
+            for revision in page.revisions.all():
+                revision_data = json.loads(revision.content_json)
+                revision_data, changed = pagerevision_converter(revision_data)
+                if changed:
+                    revision.content_json = json.dumps(revision_data, cls=DjangoJSONEncoder)
+                    revision.save()
+
+
+    def convert_to_streamfield(apps, schema_editor):
+        return convert(apps, schema_editor, page_to_streamfield, pagerevision_to_streamfield)
+
+
+    def convert_to_richtext(apps, schema_editor):
+        return convert(apps, schema_editor, page_to_richtext, pagerevision_to_richtext)
 
 
     class Migration(migrations.Migration):

@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Thomas Kunambi <kunambi@gmail.com>, 2017
 # Thomas Kunambi <kunambi@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 22:44+0000\n"
-"PO-Revision-Date: 2016-08-01 13:29+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-04-19 21:02+0000\n"
+"PO-Revision-Date: 2017-04-18 08:07+0000\n"
+"Last-Translator: Thomas Kunambi <kunambi@gmail.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -19,8 +20,23 @@ msgstr ""
 "Language: sv\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "From site"
+msgstr "Från sajt"
+
+msgid "All sites"
+msgstr "Alla sajter"
+
+msgid "A redirect with this path already exists."
+msgstr "En omdirigering med den här sökvägen existerar redan."
+
+msgid "redirect from"
+msgstr "omdirigeringsformulär"
+
 msgid "site"
 msgstr "sajt"
+
+msgid "permanent"
+msgstr "permanent"
 
 msgid ""
 "Recommended. Permanent redirects ensure search engines forget the old page "
@@ -28,6 +44,18 @@ msgid ""
 msgstr ""
 "Rekommenderat. Permanenta omdirigeringar säkerställer att sökmotorer glömmen "
 "den gamla sidan ('Omdirigera från') och indexerar den nya sidan istället."
+
+msgid "redirect to a page"
+msgstr "omdirigera till en sida"
+
+msgid "redirect to any URL"
+msgstr "omdirigera till valfri URL"
+
+msgid "temporary"
+msgstr "temporär"
+
+msgid "redirect"
+msgstr "omdirigering"
 
 msgid "Add redirect"
 msgstr "Lägg omdirigering"

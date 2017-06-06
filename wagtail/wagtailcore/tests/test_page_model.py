@@ -13,6 +13,8 @@ from django.test import Client, TestCase
 from django.test.client import RequestFactory
 from django.test.utils import override_settings
 
+from freezegun import freeze_time
+
 from wagtail.tests.testapp.models import (
     AbstractPage, Advert, BlogCategory, BlogCategoryBlogPage, BusinessChild, BusinessIndex,
     BusinessNowherePage, BusinessSubIndex, CustomManager, CustomManagerPage, EventIndex, EventPage,
@@ -331,6 +333,34 @@ class TestRouting(TestCase):
         with self.assertRaises(Http404):
             homepage.route(request, ['events', 'tentative-unpublished-event'])
 
+    # Override CACHES so we don't generate any cache-related SQL queries (tests use DatabaseCache
+    # otherwise) and so cache.get will always return None.
+    @override_settings(CACHES={'default': {'BACKEND': 'django.core.cache.backends.dummy.DummyCache'}})
+    def test_request_scope_site_root_paths_cache(self):
+        homepage = Page.objects.get(url_path='/home/')
+        christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
+
+        # without a request, get_url should only issue 1 SQL query
+        with self.assertNumQueries(1):
+            self.assertEqual(homepage.get_url(), '/')
+        # subsequent calls with the same page should generate no SQL queries
+        with self.assertNumQueries(0):
+            self.assertEqual(homepage.get_url(), '/')
+        # subsequent calls with a different page will still generate 1 SQL query
+        with self.assertNumQueries(1):
+            self.assertEqual(christmas_page.get_url(), '/events/christmas/')
+
+        # with a request, the first call to get_url should issue 1 SQL query
+        request = HttpRequest()
+        with self.assertNumQueries(1):
+            self.assertEqual(homepage.get_url(request=request), '/')
+        # subsequent calls should issue no SQL queries
+        with self.assertNumQueries(0):
+            self.assertEqual(homepage.get_url(request=request), '/')
+        # even if called on a different page
+        with self.assertNumQueries(0):
+            self.assertEqual(christmas_page.get_url(request=request), '/events/christmas/')
+
 
 class TestServeView(TestCase):
     fixtures = ['test.json']
@@ -515,6 +545,85 @@ class TestPrevNextSiblings(TestCase):
 
         # First element must always be the current page
         self.assertEqual(final_event.get_prev_siblings(inclusive=True).first(), final_event)
+
+
+class TestLiveRevision(TestCase):
+    fixtures = ['test.json']
+
+    @freeze_time("2017-01-01 12:00:00")
+    def test_publish_method_will_set_live_revision(self):
+        page = Page.objects.get(id=2)
+
+        revision = page.save_revision()
+        revision.publish()
+
+        page.refresh_from_db()
+        self.assertEqual(page.live_revision, revision)
+        self.assertEqual(page.last_published_at, datetime.datetime(2017, 1, 1, 12, 0, 0, tzinfo=pytz.utc))
+        # first_published_at should not change
+        self.assertEqual(page.first_published_at, datetime.datetime(2014, 1, 1, 12, 0, 0, tzinfo=pytz.utc))
+
+    @freeze_time("2017-01-01 12:00:00")
+    def test_unpublish_method_will_clean_live_revision(self):
+        page = Page.objects.get(id=2)
+
+        revision = page.save_revision()
+        revision.publish()
+
+        page.refresh_from_db()
+
+        page.unpublish()
+
+        page.refresh_from_db()
+        self.assertIsNone(page.live_revision)
+        # first_published_at / last_published_at should remain unchanged on unpublish
+        self.assertEqual(page.first_published_at, datetime.datetime(2014, 1, 1, 12, 0, 0, tzinfo=pytz.utc))
+        self.assertEqual(page.last_published_at, datetime.datetime(2017, 1, 1, 12, 0, 0, tzinfo=pytz.utc))
+
+    @freeze_time("2017-01-01 12:00:00")
+    def test_copy_method_with_keep_live_will_update_live_revision(self):
+        about_us = SimplePage.objects.get(url_path='/home/about-us/')
+        revision = about_us.save_revision()
+        revision.publish()
+
+        new_about_us = about_us.copy(keep_live=True, update_attrs={'title': "New about us", 'slug': 'new-about-us'})
+        self.assertIsNotNone(new_about_us.live_revision)
+        self.assertNotEqual(about_us.live_revision, new_about_us.live_revision)
+
+        # first_published_at / last_published_at should reflect the current time,
+        # not the source page's publish dates, since the copied page is being published
+        # for the first time
+        self.assertEqual(new_about_us.first_published_at, datetime.datetime(2017, 1, 1, 12, 0, 0, tzinfo=pytz.utc))
+        self.assertEqual(new_about_us.last_published_at, datetime.datetime(2017, 1, 1, 12, 0, 0, tzinfo=pytz.utc))
+
+    def test_copy_method_without_keep_live_will_not_update_live_revision(self):
+        about_us = SimplePage.objects.get(url_path='/home/about-us/')
+        revision = about_us.save_revision()
+        revision.publish()
+        about_us.refresh_from_db()
+        self.assertIsNotNone(about_us.live_revision)
+
+        new_about_us = about_us.copy(keep_live=False, update_attrs={'title': "New about us", 'slug': 'new-about-us'})
+        self.assertIsNone(new_about_us.live_revision)
+        # first_published_at / last_published_at should be blank, because the copied article
+        # has not been published
+        self.assertIsNone(new_about_us.first_published_at)
+        self.assertIsNone(new_about_us.last_published_at)
+
+    @freeze_time("2017-01-01 12:00:00")
+    def test_publish_with_future_go_live_does_not_set_live_revision(self):
+        about_us = SimplePage.objects.get(url_path='/home/about-us/')
+        about_us.go_live_at = datetime.datetime(2018, 1, 1, 12, 0, 0, tzinfo=pytz.utc)
+        revision = about_us.save_revision()
+        revision.publish()
+        about_us.refresh_from_db()
+
+        self.assertFalse(about_us.live)
+        self.assertIsNone(about_us.live_revision)
+
+        # first_published_at / last_published_at should remain unchanged
+        self.assertEqual(about_us.first_published_at, datetime.datetime(2014, 1, 1, 12, 0, 0, tzinfo=pytz.utc))
+        self.assertEqual(about_us.last_published_at, datetime.datetime(2014, 2, 1, 12, 0, 0, tzinfo=pytz.utc))
 
 
 class TestCopyPage(TestCase):
@@ -771,6 +880,17 @@ class TestCopyPage(TestCase):
         self.assertEqual(
             old_christmas_event.specific.revisions.count(), 1, "Revisions were removed from the original page"
         )
+
+    def test_copy_page_copies_recursively_to_the_same_tree(self):
+        events_index = EventIndex.objects.get(url_path='/home/events/')
+        old_christmas_event = events_index.get_children().filter(slug='christmas').first().specific
+        old_christmas_event.save_revision()
+
+        with self.assertRaises(Exception) as exception:
+            events_index.copy(
+                recursive=True, update_attrs={'title': "New events index", 'slug': 'new-events-index'}, to=events_index
+            )
+        self.assertEqual(str(exception.exception), "You cannot copy a tree branch recursively into itself")
 
     def test_copy_page_updates_user(self):
         event_moderator = get_user_model().objects.get(username='eventmoderator')

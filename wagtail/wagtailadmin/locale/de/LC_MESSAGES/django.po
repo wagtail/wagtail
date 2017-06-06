@@ -4,7 +4,7 @@
 #
 # Translators:
 # Daniel Manser <me@danielmanser.com>, 2015
-# Ettore Atalan <atalanttore@googlemail.com>, 2015-2016
+# Ettore Atalan <atalanttore@googlemail.com>, 2015-2017
 # Henrik Kröger <hedwig@riseup.net>, 2015-2016
 # hpoul <herbert.transifex@m.poul.at>, 2015
 # Jannis, 2016
@@ -15,7 +15,7 @@
 # Martin Löhle <martin.loehle@web-forest.de>, 2016
 # Matt Westcott <matthew@torchbox.com>, 2015
 # Max Pfeiffer <max.pfeiffer@alp-phone.ch>, 2015
-# Moritz Pfeiffer <moritz@alp-phone.ch>, 2016
+# Moritz Pfeiffer <moritz@alp-phone.ch>, 2016-2017
 # pcraston <patrick@craston.com>, 2014
 # pcraston <patrick@craston.com>, 2014
 # tobias schmidt <tobias.schmidt82@gmail.com>, 2016
@@ -25,9 +25,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 22:44+0000\n"
-"PO-Revision-Date: 2016-12-07 07:43+0000\n"
-"Last-Translator: Moritz Pfeiffer <moritz@alp-phone.ch>\n"
+"POT-Creation-Date: 2017-04-19 21:02+0000\n"
+"PO-Revision-Date: 2017-04-20 00:08+0000\n"
+"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -35,6 +35,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "None"
+msgstr "Nichts"
 
 msgid "You do not have permission to access the admin"
 msgstr "Sie haben keinen Zugang zur Verwaltung."
@@ -139,6 +142,10 @@ msgstr ""
 "Dieser Kurztitel wird bereits im Rahmen der übergeordneten Seite „%s“ "
 "verwendet"
 
+msgid "You cannot copy a page into itself when copying subpages"
+msgstr ""
+"Sie können beim Kopieren von Unterseiten keine Seite in sich selbst kopieren"
+
 msgid "Visibility"
 msgstr "Sichtbarkeit"
 
@@ -188,8 +195,11 @@ msgstr "Benachrichtigungseinstellungen"
 msgid "Choose which email notifications to receive."
 msgstr "Wählen Sie, welche Emailbenachrichtigungen Sie erhalten möchten!"
 
-msgid "Change Password"
-msgstr "Passwort ändern"
+msgid "Language preferences"
+msgstr "Spracheinstellungen"
+
+msgid "Choose the language you want to use here."
+msgstr "Wählen Sie die Sprache aus, die Sie hier verwenden möchten."
 
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
@@ -197,8 +207,8 @@ msgstr ""
 "Sie können Ihr Passwort hier nicht ändern. Bitte kontaktieren Sie einen "
 "Administrator der Website."
 
-msgid "Notification Preferences"
-msgstr "Benachrichtigungseinstellungen"
+msgid "Language Preferences"
+msgstr "Spracheinstellungen"
 
 msgid "Update"
 msgstr "Update"
@@ -387,6 +397,10 @@ msgstr "Bearbeiten"
 
 msgid "Preview"
 msgstr "Vorschau"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "vor %(time_period)s"
 
 msgid "Your most recent edits"
 msgstr "Ihre letzen Änderungen"
@@ -636,6 +650,10 @@ msgstr "Ja, depublizieren"
 msgid "No, don't unpublish"
 msgstr "Nein, nicht depublizieren"
 
+#, python-format
+msgid "Pages using %(page_class_verbose_name)s"
+msgstr "Seiten, die %(page_class_verbose_name)s verwenden"
+
 msgid "Pages using"
 msgstr "Benutzende Seiten"
 
@@ -796,8 +814,11 @@ msgstr "Unterseiten von ‚%(title)s‘ durchsehen"
 msgid "Add a child page to '%(title)s'"
 msgstr "Unterseite zu ‚%(title)s‘ hinzufügen"
 
-msgid "Add subpage"
+msgid "Add child page"
 msgstr "Unterseite hinzufügen"
+
+msgid "Sites menu"
+msgstr "Seitenmenü"
 
 #, python-format
 msgid ""
@@ -835,6 +856,89 @@ msgstr "Wählen Sie eine neue übergeordnete Seite für %(title)s"
 msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Wählen Sie eine neue übergeordnete Seite für <span>%(title)s</span>"
 
+msgid "Preview error"
+msgstr "Vorschaufehler"
+
+msgid ""
+"\n"
+"                Impossible to preview this page, some errors are remaining.\n"
+"                Please close this tab, edit the page to fix these errors,\n"
+"                then use preview again.\n"
+"            "
+msgstr ""
+"\n"
+"Eine Vorschau dieser Seite ist unmöglich, da einige Fehler übrig geblieben "
+"sind.\n"
+"Bitte schließen Sie diese Registerkarte, bearbeiten Sie die\n"
+"Seite, um die Fehler zu beheben, und verwenden Sie dann\n"
+"erneut die Vorschau."
+
+msgid "Close"
+msgstr "Schließen"
+
+#, python-format
+msgid "Comparing %(title)s"
+msgstr "%(title)s vergleichen"
+
+msgid "Comparing"
+msgstr "Vergleichen"
+
+msgid "View revisions"
+msgstr "Revisionen ansehen"
+
+msgid "Fields"
+msgstr "Felder"
+
+msgid "Changes"
+msgstr "Änderungen"
+
+#, python-format
+msgid ""
+"\n"
+"                                                            Moved down 1 "
+"place.\n"
+"                                                        "
+msgid_plural ""
+"\n"
+"                                                            Moved down "
+"%(counter)s places.\n"
+"                                                        "
+msgstr[0] ""
+"\n"
+"                                                            Wurde um 1 "
+"Stelle nach unten verschoben.\n"
+"                                                        "
+msgstr[1] ""
+"\n"
+"                                                            Wurde um "
+"%(counter)s Stellen nach unten verschoben.\n"
+"                                                        "
+
+#, python-format
+msgid ""
+"\n"
+"                                                            Moved up 1 "
+"place.\n"
+"                                                        "
+msgid_plural ""
+"\n"
+"                                                            Moved up "
+"%(counter)s places.\n"
+"                                                        "
+msgstr[0] ""
+"\n"
+"                                                            Wurde um 1 "
+"Stelle nach oben verschoben.\n"
+"                                                        "
+msgstr[1] ""
+"\n"
+"                                                            Wurde um "
+"%(counter)s Stellen nach oben verschoben.\n"
+"                                                        "
+
+msgid "There are no differences between these two revisions"
+msgstr "Diese zwei Revisionen weisen keine Unterschiede auf"
+
 #, python-format
 msgid "Revisions of %(title)s"
 msgstr "Revisionen von %(title)s"
@@ -854,6 +958,9 @@ msgstr "Aktueller Entwurf"
 
 msgid "Review this revision"
 msgstr "Diese Revision begutachten"
+
+msgid "Compare with previous revision"
+msgstr "Mit vorheriger Revision vergleichen"
 
 msgid "No revisions of this page exist"
 msgstr "Es existieren keine Revisionen dieser Seite"
@@ -1019,6 +1126,63 @@ msgstr "Im Explorer anzeigen"
 msgid "Test"
 msgstr "Test"
 
+msgid "Catalan"
+msgstr "Katalanisch"
+
+msgid "German"
+msgstr "Deutsch"
+
+msgid "Greek"
+msgstr "Griechisch"
+
+msgid "English"
+msgstr "Englisch"
+
+msgid "Spanish"
+msgstr "Spanisch"
+
+msgid "Finnish"
+msgstr "Finnisch"
+
+msgid "French"
+msgstr "Französisch"
+
+msgid "Galician"
+msgstr "Galicisch"
+
+msgid "Icelandic"
+msgstr "Isländisch"
+
+msgid "Italian"
+msgstr "Italienisch"
+
+msgid "Lithuanian"
+msgstr "Litauisch"
+
+msgid "Norwegian Bokmål"
+msgstr "Norwegische Buchsprache"
+
+msgid "Netherlands Dutch"
+msgstr "Niederländisch"
+
+msgid "Polish"
+msgstr "Polnisch"
+
+msgid "Brazilian Portuguese"
+msgstr "Brasilianisches Portugiesisch"
+
+msgid "Portuguese"
+msgstr "Portugiesisch"
+
+msgid "Romanian"
+msgstr "Rumänisch"
+
+msgid "Russian"
+msgstr "Russisch"
+
+msgid "Chinese (China)"
+msgstr "Chinesisch (China)"
+
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Sie haben leider keinen Zugang zu diesem Bereich."
 
@@ -1026,7 +1190,10 @@ msgid "Your password has been changed successfully!"
 msgstr "Ihr Passwort wurde erfolgreich geändert."
 
 msgid "Your preferences have been updated successfully!"
-msgstr "Ihre Einstellungen wurden gesichert!"
+msgstr "Ihre Einstellungen wurden erfolgreich aktualisiert!"
+
+msgid "Your preferences have been updated."
+msgstr "Ihre Einstellungen wurden aktualisiert."
 
 msgid "You have been successfully logged out."
 msgstr "Sie wurden erfolgreich abgemeldet."
@@ -1133,6 +1300,9 @@ msgstr ""
 "Aufgrund von Fehlern bei der Validierung konnte die Seite nicht gespeichert "
 "werden."
 
+msgid "Compare with live version"
+msgstr "Mit veröffentlichter Revision vergleichen"
+
 msgid "This page is currently awaiting moderation"
 msgstr "Diese Seite wartet derzeit auf Freischaltung"
 
@@ -1190,36 +1360,57 @@ msgstr ""
 "Sie betrachten eine frühere Version dieser Seite vom <b>%(created_at)s</b> "
 "von %(user)s"
 
+msgid "Earliest"
+msgstr "Früheste"
+
+msgid "Latest"
+msgstr "Späteste"
+
 msgid "Pages"
 msgstr "Seiten"
 
-msgid "Preview draft"
-msgstr "Entwurf anzeigen"
-
-msgid "Add child page"
-msgstr "Unterseite hinzufügen"
+#, python-brace-format
+msgid "Edit '{title}'"
+msgstr "'{title}' bearbeiten"
 
 #, python-brace-format
-msgid "Add a child page to '{0}' "
-msgstr "Unterseite zu '{0}' hinzufügen"
+msgid "Preview draft version of '{title}'"
+msgstr "Entwurf von '{title}' ansehen"
+
+#, python-brace-format
+msgid "View live version of '{title}'"
+msgstr "Veröffentlichte Version von '{title}' ansehen"
+
+#, python-brace-format
+msgid "Add a child page to '{title}' "
+msgstr "Unterseite zu '{title}' hinzufügen"
 
 msgid "More"
 msgstr "Mehr"
 
-msgid "View more options"
-msgstr "Weitere Optionen anzeigen"
+#, python-brace-format
+msgid "View more options for '{title}'"
+msgstr "Weitere Optionen für '{title}' anzeigen"
 
-msgid "Move this page"
-msgstr "Diese Seite verschieben"
+#, python-brace-format
+msgid "Move page '{title}'"
+msgstr "Seite '{title}' verschieben"
 
-msgid "Delete this page"
-msgstr "Diese Seite löschen"
+#, python-brace-format
+msgid "Copy page '{title}'"
+msgstr "Seite '{title}' kopieren"
 
-msgid "Unpublish this page"
-msgstr "Diese Seite depublizieren"
+#, python-brace-format
+msgid "Delete page '{title}'"
+msgstr "Seite '{title}' löschen"
 
-msgid "View this page's revision history"
-msgstr "Revisionsgeschichte dieser Seite anzeigen"
+#, python-brace-format
+msgid "Unpublish page '{title}'"
+msgstr "Seite '{title}' depublizieren"
+
+#, python-brace-format
+msgid "View revision history for '{title}'"
+msgstr "Revisionsgeschichte von '{title}' anzeigen"
 
 msgid "Choose an item"
 msgstr "Eintrag wählen"

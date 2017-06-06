@@ -255,13 +255,13 @@ class TestTabbedInterface(TestCase):
         result = tabbed_interface.render()
 
         # result should contain tab buttons
-        self.assertIn('<a href="#event-details" class="active">Event details</a>', result)
-        self.assertIn('<a href="#speakers" class="">Speakers</a>', result)
+        self.assertIn('<a href="#tab-event-details" class="active">Event details</a>', result)
+        self.assertIn('<a href="#tab-speakers" class="">Speakers</a>', result)
 
         # result should contain tab panels
         self.assertIn('<div class="tab-content">', result)
-        self.assertIn('<section id="event-details" class="shiny active">', result)
-        self.assertIn('<section id="speakers" class=" ">', result)
+        self.assertIn('<section id="tab-event-details" class="shiny active">', result)
+        self.assertIn('<section id="tab-speakers" class=" ">', result)
 
         # result should contain rendered content from descendants
         self.assertIn('Abergavenny sheepdog trials</textarea>', result)
@@ -695,12 +695,24 @@ class TestInlinePanel(TestCase, WagtailTestUtils):
         self.assertIn('Choose an image', result)
 
         # rendered panel must also contain hidden fields for id, DELETE and ORDER
-        self.assertIn('<input id="id_speakers-0-id" name="speakers-0-id" type="hidden"', result)
-        self.assertIn('<input id="id_speakers-0-DELETE" name="speakers-0-DELETE" type="hidden"', result)
-        self.assertIn('<input id="id_speakers-0-ORDER" name="speakers-0-ORDER" type="hidden"', result)
+        self.assertTagInHTML(
+            '<input id="id_speakers-0-id" name="speakers-0-id" type="hidden">',
+            result, allow_extra_attrs=True
+        )
+        self.assertTagInHTML(
+            '<input id="id_speakers-0-DELETE" name="speakers-0-DELETE" type="hidden">',
+            result, allow_extra_attrs=True
+        )
+        self.assertTagInHTML(
+            '<input id="id_speakers-0-ORDER" name="speakers-0-ORDER" type="hidden">',
+            result, allow_extra_attrs=True
+        )
 
         # rendered panel must contain maintenance form for the formset
-        self.assertIn('<input id="id_speakers-TOTAL_FORMS" name="speakers-TOTAL_FORMS" type="hidden"', result)
+        self.assertTagInHTML(
+            '<input id="id_speakers-TOTAL_FORMS" name="speakers-TOTAL_FORMS" type="hidden">',
+            result, allow_extra_attrs=True
+        )
 
         # rendered panel must include the JS initializer
         self.assertIn('var panel = InlinePanel({', result)
@@ -735,18 +747,30 @@ class TestInlinePanel(TestCase, WagtailTestUtils):
         self.assertNotIn('<label for="id_speakers-0-last_name">Surname:</label>', result)
 
         # test for #338: surname field should not be rendered as a 'stray' label-less field
-        self.assertNotIn('<input id="id_speakers-0-last_name"', result)
+        self.assertTagInHTML('<input id="id_speakers-0-last_name">', result, count=0, allow_extra_attrs=True)
 
         self.assertIn('<label for="id_speakers-0-image">Image:</label>', result)
         self.assertIn('Choose an image', result)
 
         # rendered panel must also contain hidden fields for id, DELETE and ORDER
-        self.assertIn('<input id="id_speakers-0-id" name="speakers-0-id" type="hidden"', result)
-        self.assertIn('<input id="id_speakers-0-DELETE" name="speakers-0-DELETE" type="hidden"', result)
-        self.assertIn('<input id="id_speakers-0-ORDER" name="speakers-0-ORDER" type="hidden"', result)
+        self.assertTagInHTML(
+            '<input id="id_speakers-0-id" name="speakers-0-id" type="hidden">',
+            result, allow_extra_attrs=True
+        )
+        self.assertTagInHTML(
+            '<input id="id_speakers-0-DELETE" name="speakers-0-DELETE" type="hidden">',
+            result, allow_extra_attrs=True
+        )
+        self.assertTagInHTML(
+            '<input id="id_speakers-0-ORDER" name="speakers-0-ORDER" type="hidden">',
+            result, allow_extra_attrs=True
+        )
 
         # rendered panel must contain maintenance form for the formset
-        self.assertIn('<input id="id_speakers-TOTAL_FORMS" name="speakers-TOTAL_FORMS" type="hidden"', result)
+        self.assertTagInHTML(
+            '<input id="id_speakers-TOTAL_FORMS" name="speakers-TOTAL_FORMS" type="hidden">',
+            result, allow_extra_attrs=True
+        )
 
         # render_js_init must provide the JS initializer
         self.assertIn('var panel = InlinePanel({', panel.render_js_init())
@@ -757,6 +781,7 @@ class TestInlinePanel(TestCase, WagtailTestUtils):
         Test that the USE_THOUSAND_SEPARATOR setting does not screw up the rendering of numbers
         (specifically maxForms=1000) in the JS initializer:
         https://github.com/wagtail/wagtail/pull/2699
+        https://github.com/wagtail/wagtail/issues/3227
         """
         SpeakerObjectList = ObjectList([
             InlinePanel('speakers', label="Speakers", panels=[
@@ -771,6 +796,7 @@ class TestInlinePanel(TestCase, WagtailTestUtils):
         panel = SpeakerInlinePanel(instance=event_page, form=form)
 
         self.assertIn('maxForms: 1000', panel.render_js_init())
+
 
     def test_invalid_inlinepanel_declaration(self):
         with self.ignore_deprecation_warnings():

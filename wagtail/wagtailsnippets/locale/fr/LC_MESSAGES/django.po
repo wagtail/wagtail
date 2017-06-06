@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Bertrand Bordage <bordage.bertrand@gmail.com>, 2015
+# Bertrand Bordage <bordage.bertrand@gmail.com>, 2015,2017
 # Léo <leo@naeka.fr>, 2016
 # nahuel, 2014
 # nahuel, 2014
@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 22:44+0000\n"
-"PO-Revision-Date: 2016-06-06 09:51+0000\n"
-"Last-Translator: Léo <leo@naeka.fr>\n"
+"POT-Creation-Date: 2017-04-19 21:02+0000\n"
+"PO-Revision-Date: 2017-04-20 20:20+0000\n"
+"Last-Translator: Bertrand Bordage <bordage.bertrand@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -52,11 +52,12 @@ msgstr "Désolé, aucun bloc ne correspond à <em>\"%(query_string)s\"</em>"
 #, python-format
 msgid ""
 "You haven't created any %(snippet_type_name)s snippets. Why not <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">create one now"
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">create one now</"
+"a>?"
 msgstr ""
-"Aucun %(snippet_type_name)s n'a été créé. Pourquoi ne pas <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">en créer un "
-"maintenant"
+"Vous n’avez pas encore créé de snippet %(snippet_type_name)s. Pourquoi ne "
+"pas <a href=\"%(wagtailsnippets_create_snippet_url)s\">en créer un "
+"maintenant</a> ?"
 
 #, python-format
 msgid "Delete %(snippet_type_name)s - %(instance)s"

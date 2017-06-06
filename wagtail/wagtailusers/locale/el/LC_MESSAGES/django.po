@@ -4,6 +4,7 @@
 #
 # Translators:
 # Yiannis Inglessis <inactive+ne0the0ne@transifex.com>, 2015
+# Nick Mavrakis <mavrakis.n@gmail.com>, 2017
 # serafeim <serafeim@torchbox.com>, 2014
 # serafeim <serafeim@torchbox.com>, 2014
 # George Giannoulopoulos <vdotoree@yahoo.gr>, 2015
@@ -13,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 22:44+0000\n"
-"PO-Revision-Date: 2016-09-20 12:49+0000\n"
-"Last-Translator: Yiannis Inglessis <negletios@users.noreply.github.com>\n"
+"POT-Creation-Date: 2017-04-19 21:02+0000\n"
+"PO-Revision-Date: 2017-04-19 21:08+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
 "MIME-Version: 1.0\n"
@@ -40,13 +41,14 @@ msgstr "Υπάρχει ήδη χρήστης με το συγκεκριμένο 
 msgid "The two password fields didn't match."
 msgstr "Τα δύο πεδία κωδικών δεν είναι ίδια."
 
-msgid "Administrator"
-msgstr "Διαχειριστής"
+msgid "Email"
+msgstr "Email"
 
-msgid "Administrators have full access to manage any object or setting."
-msgstr ""
-"Οι διαχειριστές έχουν πλήρη πρόσβαση στην  διαχείριση κάθε αντικειμένου ή "
-"ρύθμισης. "
+msgid "First Name"
+msgstr "Όνομα"
+
+msgid "Last Name"
+msgstr "Επίθετο"
 
 msgid "Password"
 msgstr "Κωδικός"
@@ -60,38 +62,66 @@ msgstr "Επιβεβαίωση κωδικού."
 msgid "Enter the same password as above, for verification."
 msgstr "Εισάγετε τον ίδιο κωδικό για επιβεβαίωση"
 
-msgid "Email"
-msgstr "Email"
+msgid "Administrator"
+msgstr "Διαχειριστής"
 
-msgid "First Name"
-msgstr "Όνομα"
-
-msgid "Last Name"
-msgstr "Επίθετο"
+msgid "Administrators have full access to manage any object or setting."
+msgstr ""
+"Οι διαχειριστές έχουν πλήρη πρόσβαση στην  διαχείριση κάθε αντικειμένου ή "
+"ρύθμισης. "
 
 msgid "A group with that name already exists."
 msgstr "Υπάρχει ήδη ομάδα με το συγκεκριμένο όνομα ομάδας."
+
+msgid "You cannot have multiple permission records for the same page."
+msgstr "Δε μπορείτε να έχετε πολλαπλά δικαιώματα για την ίδια σελίδα."
+
+msgid "submitted notifications"
+msgstr "υποβληθείσες ειδοποιήσεις"
 
 msgid "Receive notification when a page is submitted for moderation"
 msgstr ""
 "Λήψη ειδοποίησης όταν υποβάλλεται μια σελίδα για επίδειξη μετριοπάθειας"
 
+msgid "approved notifications"
+msgstr "εγκεκριμένες ειδοποιήσεις"
+
 msgid "Receive notification when your page edit is approved"
 msgstr "Λήψη ειδοποίησης όταν σελίδα επεξεργασίας σας έχει εγκριθεί"
 
+msgid "rejected notifications"
+msgstr "απορριφθείσες ειδοποιήσεις"
+
 msgid "Receive notification when your page edit is rejected"
 msgstr "Λήψη ειδοποίησης όταν σελίδα επεξεργασίας σας απορρίπτεται"
+
+msgid "user profile"
+msgstr "προφίλ χρήστη"
 
 msgid "Delete group"
 msgstr "Διαγραφή ομάδας"
 
 #, python-format
 msgid ""
-"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> users "
-"assigned."
-msgstr ""
-"Στην ομάδα '%(group_name)s' εχουν <strong>%(group_user_count)s</strong> "
-"έχουν ανατεθεί χρήστες. "
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> member.\n"
+"            "
+msgid_plural ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> members.\n"
+"            "
+msgstr[0] ""
+"\n"
+"                Η ομάδα '%(group_name)s' έχει <strong>%(group_user_count)s</"
+"strong> μέλη.\n"
+"            "
+msgstr[1] ""
+"\n"
+"                Η ομάδα '%(group_name)s' έχει <strong>%(group_user_count)s</"
+"strong> μέλη.\n"
+"            "
 
 msgid ""
 "Deleting this group will revoke this group's permissions from all member "
@@ -158,6 +188,9 @@ msgstr ""
 
 msgid "Delete user"
 msgstr "Διαγραφή χρήστη."
+
+msgid "Are you sure you want to delete this user?"
+msgstr "Είστε σίγουροι ότι θέλετε να διαγράψετε αυτόν τον χρήστη;"
 
 msgid "Add user"
 msgstr "Προσθήκη χρήστη"
@@ -260,3 +293,16 @@ msgstr "Τα στοιχεία του χρήστη '{0}' ενημερώθηκαν
 
 msgid "The user could not be saved due to errors."
 msgstr "Δεν ήταν δυνατή η ενημέρωση των στοιχείων του χρήστη."
+
+#, python-brace-format
+msgid "User '{0}' deleted."
+msgstr "Ο χρήστης '{0}' διαγράφηκε."
+
+msgid "Groups"
+msgstr "Ομάδες"
+
+msgid "Edit this user"
+msgstr "Επεξεργασία αυτού του χρήστη"
+
+msgid "Delete this user"
+msgstr "Διαγραφή αυτού του χρήστη"

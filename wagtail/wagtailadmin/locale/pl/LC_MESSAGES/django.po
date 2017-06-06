@@ -3,16 +3,17 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Bartek Sielicki <sielickib@student.mini.pw.edu.pl>, 2017
 # utek <mail@utek.pl>, 2014
 # Mateusz <undefined5102@gmail.com>, 2015
-# mmiskiew <mmiskiew@gmail.com>, 2016
+# Miłosz Miśkiewicz, 2016-2017
 # utek <mail@utek.pl>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 22:44+0000\n"
-"PO-Revision-Date: 2016-12-06 22:46+0000\n"
+"POT-Creation-Date: 2017-04-19 21:02+0000\n"
+"PO-Revision-Date: 2017-04-19 21:05+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
@@ -20,8 +21,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pl\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
-"|| n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n"
+"%100<12 || n%100>=14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
+"%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
 msgid "You do not have permission to access the admin"
 msgstr "Nie posiadasz praw dostępu do części administracyjnej"
@@ -94,6 +96,7 @@ msgid_plural "This will copy %(count)s subpages."
 msgstr[0] "Zostanie skopiowana %(count)s strona."
 msgstr[1] "Zostaną skopiowane %(count)s strony."
 msgstr[2] "Zostanie skopiowanych %(count)s stron."
+msgstr[3] "Zostanie skopiowanych %(count)s stron."
 
 msgid "Publish copied page"
 msgstr "Opublikuj skopiowaną stronę"
@@ -120,6 +123,9 @@ msgstr[1] ""
 msgstr[2] ""
 "%(count)s kopiowanych stron jest opublikowana. Czy chcesz opublikować "
 "również ich kopię?"
+msgstr[3] ""
+"%(count)s kopiowanych stron jest opublikowana. Czy chcesz opublikować "
+"również ich kopię?"
 
 #, python-format
 msgid ""
@@ -131,6 +137,9 @@ msgstr "Widoczność"
 
 msgid "This field is required."
 msgstr "To pole jest wymagane."
+
+msgid "Please select at least one group."
+msgstr "Proszę wybrać co najmniej jedną grupę"
 
 msgid "This slug is already in use"
 msgstr "Ten slug jest już w użyciu"
@@ -171,17 +180,11 @@ msgstr "Ustawienia powiadomień"
 msgid "Choose which email notifications to receive."
 msgstr "Wybierz, które powiadomienia mailowe chcesz otrzymywać"
 
-msgid "Change Password"
-msgstr "Zmień hasło"
-
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr ""
 "Twoje hasło nie może być zmienione. Proszę skontaktować się z "
 "administratorem."
-
-msgid "Notification Preferences"
-msgstr "Ustawienia Powiadomień"
 
 msgid "Update"
 msgstr "Uaktualnij"
@@ -268,6 +271,10 @@ msgstr[2] ""
 "\n"
 "Znaleziono %(counter)s dopasowań\n"
 "        "
+msgstr[3] ""
+"\n"
+"Znaleziono %(counter)s dopasowań\n"
+"        "
 
 msgid "Choose"
 msgstr "Wybierz"
@@ -295,6 +302,10 @@ msgstr[1] ""
 "Dla tego pola można wybrać wyłącznie strony typu: \"%(type)s\". Wyniki "
 "wyszukiwania nie będą zawierały stron innego typu."
 msgstr[2] ""
+"\n"
+"Dla tego pola można wybrać wyłącznie strony typu: \"%(type)s\". Wyniki "
+"wyszukiwania nie będą zawierały stron innego typu."
+msgstr[3] ""
 "\n"
 "Dla tego pola można wybrać wyłącznie strony typu: \"%(type)s\". Wyniki "
 "wyszukiwania nie będą zawierały stron innego typu."
@@ -374,6 +385,10 @@ msgstr "Edytuj"
 msgid "Preview"
 msgstr "Podgląd"
 
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s temu"
+
 msgid "Your most recent edits"
 msgstr "Twoje ostatnie zmiany"
 
@@ -408,6 +423,9 @@ msgstr[1] ""
 "\n"
 "<span>%(total)s</span> Stron"
 msgstr[2] ""
+"\n"
+"<span>%(total)s</span> Stron"
+msgstr[3] ""
 "\n"
 "<span>%(total)s</span> Stron"
 
@@ -545,6 +563,11 @@ msgstr[2] ""
 "                    Zostanie usuniętych również %(descendant_count)s stron "
 "podrzędnych.\n"
 "                "
+msgstr[3] ""
+"\n"
+"                    Zostanie usuniętych również %(descendant_count)s stron "
+"podrzędnych.\n"
+"                "
 
 msgid "Yes, delete it"
 msgstr "Tak, usuń"
@@ -613,6 +636,10 @@ msgstr[1] ""
 "również.\n"
 "                "
 msgstr[2] ""
+"\n"
+"Ta strona posiada %(live_descendant_count)s podstron. Odpublikuj je również\n"
+"                "
+msgstr[3] ""
 "\n"
 "Ta strona posiada %(live_descendant_count)s podstron. Odpublikuj je również\n"
 "                "
@@ -783,8 +810,8 @@ msgstr "Przeglądaj strony pochodne '%(title)s'"
 msgid "Add a child page to '%(title)s'"
 msgstr "Dodaj stronę podrzędną do '%(title)s'"
 
-msgid "Add subpage"
-msgstr "Dodaj podstronę"
+msgid "Add child page"
+msgstr "Dodaj stronę podrzędną"
 
 #, python-format
 msgid ""
@@ -821,6 +848,9 @@ msgstr "Wybierz nową stronę nadrzędną dla %(title)s"
 #, python-format
 msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Wybierz nową stronę nadrzędną dla <span>%(title)s</span>"
+
+msgid "Changes"
+msgstr "Zmiany"
 
 #, python-format
 msgid "Revisions of %(title)s"
@@ -864,6 +894,9 @@ msgstr[1] ""
 "\n"
 "Znaleziono %(counter)s pasujących stron"
 msgstr[2] ""
+"\n"
+"Znaleziono %(counter)s pasujących stron"
+msgstr[3] ""
 "\n"
 "Znaleziono %(counter)s pasujących stron"
 
@@ -949,6 +982,7 @@ msgid_plural "Used %(useage_count)s times"
 msgstr[0] "Użyto %(useage_count)s raz"
 msgstr[1] "Użyto %(useage_count)s razy"
 msgstr[2] "Użyto %(useage_count)s razy"
+msgstr[3] "Użyto %(useage_count)s razy"
 
 msgid "Edit your account"
 msgstr "Edytuj swoje konto"
@@ -974,6 +1008,23 @@ msgstr ""
 "Używasz <strong>przestarzałej</strong> przeglądarki nie wspieranej przez tą "
 "aplikację. Proszę <a href=\"http://browsehappy.com/\">zaktualizuj swoją "
 "przeglądarkę</a>."
+
+msgid ""
+"\n"
+"            Javascript is required to use Wagtail, but it is currently "
+"disabled.<br />\n"
+"            Here are the <a href=\"http://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noopener\">instructions how to enable JavaScript in "
+"your web browser</a>.\n"
+"        "
+msgstr ""
+"\n"
+"            Javascript jest wymagany do korzystanie z Wagtail, jednak "
+"obecnie jest wyłączony.<br />\n"
+"            Tutaj znajdują się instrukcje jak  <a href=\"http://www.enable-"
+"javascript.com/\" target=\"_blank\" rel=\"noopener\">uruchomić JavaScript w "
+"Twojej przeglądarce</a>.\n"
+"        "
 
 msgid "Go to Wagtail admin interface"
 msgstr "Idź do panelu administratora Wagtaila"
@@ -1154,36 +1205,41 @@ msgstr ""
 "Przeglądasz wcześniejszą rewizję tej strony od <b>%(created_at)s</b> przez "
 "%(user)s"
 
+msgid "Earliest"
+msgstr "Najstarsze"
+
+msgid "Latest"
+msgstr "Najnowsze"
+
 msgid "Pages"
 msgstr "Strony"
 
-msgid "Preview draft"
-msgstr "Podgląd szkicu"
-
-msgid "Add child page"
-msgstr "Dodaj stronę podrzędną"
+#, python-brace-format
+msgid "Edit '{title}'"
+msgstr "Edytuj '{title}'"
 
 #, python-brace-format
-msgid "Add a child page to '{0}' "
-msgstr "Dodaj podstronę do '{0}'"
+msgid "Add a child page to '{title}' "
+msgstr "Dodaj podstronę do '{title}'"
 
 msgid "More"
 msgstr "Więcej"
 
-msgid "View more options"
-msgstr "Wyświetl więcej opcji"
+#, python-brace-format
+msgid "View more options for '{title}'"
+msgstr "Wyświetl więcej opcji dla '{title}'"
 
-msgid "Move this page"
-msgstr "Przenieś tę stronę"
+#, python-brace-format
+msgid "Move page '{title}'"
+msgstr "Przenieś stronę '{title}'"
 
-msgid "Delete this page"
-msgstr "Usuń tę stronę"
+#, python-brace-format
+msgid "Copy page '{title}'"
+msgstr "Skopiuj stronę '{title}'"
 
-msgid "Unpublish this page"
-msgstr "Cofnij publikację tej strony"
-
-msgid "View this page's revision history"
-msgstr "Wyświetl historię rewizji tej strony"
+#, python-brace-format
+msgid "Delete page '{title}'"
+msgstr "Usuń stronę '{title}'"
 
 msgid "Choose an item"
 msgstr "Wybierz rzecz"

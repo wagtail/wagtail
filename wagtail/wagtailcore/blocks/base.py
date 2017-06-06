@@ -1,7 +1,6 @@
 from __future__ import absolute_import, unicode_literals
 
 import collections
-import warnings
 from importlib import import_module
 
 from django import forms
@@ -16,8 +15,6 @@ from django.utils.text import capfirst
 # unicode_literals ensures that any render / __str__ methods returning HTML via calls to mark_safe / format_html
 # return a SafeText, not SafeBytes; necessary so that it doesn't get re-encoded when the template engine
 # calls force_text, which would cause it to lose its 'safe' flag
-from wagtail.utils.deprecation import RemovedInWagtail111Warning
-from wagtail.wagtailcore.blocks.utils import accepts_kwarg
 
 __all__ = ['BaseBlock', 'Block', 'BoundBlock', 'DeclarativeSubBlocksMetaclass', 'BlockWidget', 'BlockField']
 
@@ -52,6 +49,7 @@ class Block(six.with_metaclass(BaseBlock, object)):
         label = None
         icon = "placeholder"
         classname = None
+        group = ''
 
     """
     Setting a 'dependencies' list serves as a shortcut for the common case where a complex block type
@@ -235,20 +233,6 @@ class Block(six.with_metaclass(BaseBlock, object)):
         template = getattr(self.meta, 'template', None)
         if not template:
             return self.render_basic(value, context=context)
-
-        if not accepts_kwarg(self.get_context, 'parent_context'):
-            class_with_render_method = next(
-                (cls for cls in type(self).__mro__ if 'get_context' in cls.__dict__),
-                type(self)
-            )
-            warnings.warn(
-                "The get_context method on %s needs to be updated to accept an optional 'parent_context' "
-                "keyword argument" % class_with_render_method,
-                category=RemovedInWagtail111Warning
-            )
-            new_context = context
-            new_context.update(self.get_context(value))
-            return mark_safe(render_to_string(template, new_context))
 
         if context is None:
             new_context = self.get_context(value)

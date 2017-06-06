@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 22:44+0000\n"
+"POT-Creation-Date: 2017-04-19 21:02+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,6 +19,14 @@ msgstr ""
 
 #: edit_handlers.py:33
 msgid "{} submissions"
+msgstr ""
+
+#: forms.py:115
+msgid "Date from"
+msgstr ""
+
+#: forms.py:119
+msgid "Date to"
 msgstr ""
 
 #: forms.py:143
@@ -120,39 +128,47 @@ msgstr ""
 msgid "Submission date"
 msgstr ""
 
-#: models.py:284
+#: models.py:286
 msgid "to address"
 msgstr ""
 
-#: models.py:285
+#: models.py:287
 msgid ""
 "Optional - form submissions will be emailed to these addresses. Separate "
 "multiple addresses by comma."
 msgstr ""
 
-#: models.py:287
+#: models.py:289
 msgid "from address"
 msgstr ""
 
-#: models.py:288
+#: models.py:290
 msgid "subject"
 msgstr ""
 
 #: templates/wagtailforms/confirm_delete.html:3
 #, python-format
-msgid "Delete %(title)s"
+msgid "Delete form data %(title)s"
 msgstr ""
 
 #: templates/wagtailforms/confirm_delete.html:7
-msgid "Delete"
+msgid "Delete form data"
 msgstr ""
 
 #: templates/wagtailforms/confirm_delete.html:12
-msgid "Are you sure you want to delete this form submission?"
-msgstr ""
+msgid ""
+"\n"
+"                Are you sure you want to delete this form submission?\n"
+"            "
+msgid_plural ""
+"\n"
+"                Are you sure you want to delete these form submissions?\n"
+"            "
+msgstr[0] ""
+msgstr[1] ""
 
-#: templates/wagtailforms/confirm_delete.html:16
-msgid "Delete it"
+#: templates/wagtailforms/confirm_delete.html:20
+msgid "Delete"
 msgstr ""
 
 #: templates/wagtailforms/edit_handlers/form_responses_panel.html:2
@@ -177,20 +193,20 @@ msgstr ""
 msgid "Submissions of %(form_title)s"
 msgstr ""
 
-#: templates/wagtailforms/index_submissions.html:36
+#: templates/wagtailforms/index_submissions.html:93
 #, python-format
 msgid "Form data <span>%(form_title)s</span>"
 msgstr ""
 
-#: templates/wagtailforms/index_submissions.html:45
+#: templates/wagtailforms/index_submissions.html:102
 msgid "Filter"
 msgstr ""
 
-#: templates/wagtailforms/index_submissions.html:51
+#: templates/wagtailforms/index_submissions.html:108
 msgid "Download CSV"
 msgstr ""
 
-#: templates/wagtailforms/index_submissions.html:63
+#: templates/wagtailforms/index_submissions.html:122
 #, python-format
 msgid "There have been no submissions of the '%(title)s' form."
 msgstr ""
@@ -203,18 +219,17 @@ msgstr ""
 msgid "Origin"
 msgstr ""
 
-#: templates/wagtailforms/list_submissions.html:12
-msgid "Actions"
-msgstr ""
-
-#: templates/wagtailforms/list_submissions.html:26
-msgid "delete"
+#: templates/wagtailforms/list_submissions.html:10
+msgid "Delete selected submissions"
 msgstr ""
 
 #: templates/wagtailforms/results_forms.html:7
 msgid "No form pages have been created."
 msgstr ""
 
-#: views.py:39
-msgid "Submission deleted."
-msgstr ""
+#: views.py:46
+#, python-format
+msgid "One submission has been deleted."
+msgid_plural "%(count)d submissions have been deleted."
+msgstr[0] ""
+msgstr[1] ""

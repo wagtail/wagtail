@@ -634,7 +634,7 @@ class TestMultipleDocumentUploader(TestCase, WagtailTestUtils):
 
 class TestDocumentChooserView(TestCase, WagtailTestUtils):
     def setUp(self):
-        self.login()
+        self.user = self.login()
 
     def test_simple(self):
         response = self.client.get(reverse('wagtaildocs:chooser'))
@@ -687,6 +687,44 @@ class TestDocumentChooserView(TestCase, WagtailTestUtils):
 
         # Check that we got the last page
         self.assertEqual(response.context['documents'].number, response.context['documents'].paginator.num_pages)
+
+    def test_construct_queryset_hook_browse(self):
+        document = Document.objects.create(
+            title="Test document shown",
+            uploaded_by_user=self.user,
+        )
+        Document.objects.create(
+            title="Test document not shown",
+        )
+
+        def filter_documents(documents, request):
+            # Filter on `uploaded_by_user` because it is
+            # the only default FilterField in search_fields
+            return documents.filter(uploaded_by_user=self.user)
+
+        with self.register_hook('construct_document_chooser_queryset', filter_documents):
+            response = self.client.get(reverse('wagtaildocs:chooser'))
+        self.assertEqual(len(response.context['documents']), 1)
+        self.assertEqual(response.context['documents'][0], document)
+
+    def test_construct_queryset_hook_search(self):
+        document = Document.objects.create(
+            title="Test document shown",
+            uploaded_by_user=self.user,
+        )
+        Document.objects.create(
+            title="Test document not shown",
+        )
+
+        def filter_documents(documents, request):
+            # Filter on `uploaded_by_user` because it is
+            # the only default FilterField in search_fields
+            return documents.filter(uploaded_by_user=self.user)
+
+        with self.register_hook('construct_document_chooser_queryset', filter_documents):
+            response = self.client.get(reverse('wagtaildocs:chooser'), {'q': 'Test'})
+        self.assertEqual(len(response.context['documents']), 1)
+        self.assertEqual(response.context['documents'][0], document)
 
 
 class TestDocumentChooserChosenView(TestCase, WagtailTestUtils):
@@ -1029,7 +1067,7 @@ class TestServeView(TestCase):
         self.document.file.save('example.doc', ContentFile("A boring example document"))
 
     def get(self):
-        return self.client.get(reverse('wagtaildocs_serve', args=(self.document.id, 'example.doc')))
+        return self.client.get(reverse('wagtaildocs_serve', args=(self.document.id, self.document.filename)))
 
     def test_response_code(self):
         self.assertEqual(self.get().status_code, 200)
@@ -1066,14 +1104,8 @@ class TestServeView(TestCase):
         self.assertEqual(response.status_code, 404)
 
     def test_with_incorrect_filename(self):
-        """
-        Wagtail should be forgiving with filenames at the end of the URL. These
-        filenames are to make the URL look nice, and to provide a fallback for
-        browsers that do not handle the 'Content-Disposition' header filename
-        component. They should not be validated.
-        """
         response = self.client.get(reverse('wagtaildocs_serve', args=(self.document.id, 'incorrectfilename')))
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 404)
 
     def clear_sendfile_cache(self):
         from wagtail.utils.sendfile import _get_sendfile
@@ -1093,7 +1125,7 @@ class TestServeViewWithSendfile(TestCase):
         self.document.file.save('example.doc', ContentFile("A boring example document"))
 
     def get(self):
-        return self.client.get(reverse('wagtaildocs_serve', args=(self.document.id, 'example.doc')))
+        return self.client.get(reverse('wagtaildocs_serve', args=(self.document.id, self.document.filename)))
 
     def clear_sendfile_cache(self):
         from wagtail.utils.sendfile import _get_sendfile
@@ -1105,7 +1137,7 @@ class TestServeViewWithSendfile(TestCase):
         response = self.get()
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response['X-Sendfile'], os.path.join(settings.MEDIA_ROOT, self.document.file.name))
+        self.assertEqual(response['X-Sendfile'], self.document.file.path)
 
     @unittest.skipIf(
         django.VERSION < (1, 9), "Fails on Django 1.8"
