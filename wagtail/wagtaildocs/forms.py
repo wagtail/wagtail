@@ -13,6 +13,7 @@ from wagtail.wagtaildocs.permissions import permission_policy as documents_permi
 
 class BaseDocumentForm(BaseCollectionMemberForm):
     permission_policy = documents_permission_policy
+    use_required_attribute = False
 
 
 def get_document_form(model):
