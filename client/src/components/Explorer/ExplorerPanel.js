@@ -6,7 +6,7 @@ import { STRINGS, MAX_EXPLORER_PAGES } from '../../config/wagtailConfig';
 
 import Button from '../Button/Button';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
-import Transition, { PUSH, POP, FADE } from '../Transition/Transition';
+import Transition, { PUSH, POP } from '../Transition/Transition';
 import ExplorerHeader from './ExplorerHeader';
 import ExplorerItem from './ExplorerItem';
 import PageCount from './PageCount';
