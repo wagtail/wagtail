@@ -1871,7 +1871,7 @@ class PagePermissionTester(object):
         return True
 
 
-class PageViewRestriction(models.Model):
+class BaseViewRestriction(models.Model):
     NONE = 'none'
     PASSWORD = 'password'
     GROUPS = 'groups'
@@ -1886,23 +1886,20 @@ class PageViewRestriction(models.Model):
 
     restriction_type = models.CharField(
         max_length=20, choices=RESTRICTION_CHOICES)
-    page = models.ForeignKey(
-        'Page', verbose_name=_('page'), related_name='view_restrictions', on_delete=models.CASCADE
-    )
     password = models.CharField(verbose_name=_('password'), max_length=255, blank=True)
-    groups = models.ManyToManyField(Group, blank=True)
+    groups = models.ManyToManyField(Group, verbose_name=_('groups'), blank=True)
 
     def accept_request(self, request):
-        if self.restriction_type == PageViewRestriction.PASSWORD:
-            passed_restrictions = request.session.get('passed_page_view_restrictions', [])
+        if self.restriction_type == BaseViewRestriction.PASSWORD:
+            passed_restrictions = request.session.get(self.passed_view_restrictions_session_key, [])
             if self.id not in passed_restrictions:
                 return False
 
-        elif self.restriction_type == PageViewRestriction.LOGIN:
+        elif self.restriction_type == BaseViewRestriction.LOGIN:
             if not user_is_authenticated(request.user):
                 return False
 
-        elif self.restriction_type == PageViewRestriction.GROUPS:
+        elif self.restriction_type == BaseViewRestriction.GROUPS:
             if not request.user.is_superuser:
                 current_user_groups = request.user.groups.all()
 
@@ -1910,6 +1907,19 @@ class PageViewRestriction(models.Model):
                     return False
 
         return True
+
+    class Meta:
+        abstract = True
+        verbose_name = _('view restriction')
+        verbose_name_plural = _('view restrictions')
+
+
+class PageViewRestriction(BaseViewRestriction):
+    page = models.ForeignKey(
+        'Page', verbose_name=_('page'), related_name='view_restrictions', on_delete=models.CASCADE
+    )
+
+    passed_view_restrictions_session_key = 'passed_page_view_restrictions'
 
     class Meta:
         verbose_name = _('page view restriction')
@@ -1922,6 +1932,21 @@ class BaseCollectionManager(models.Manager):
 
 
 CollectionManager = BaseCollectionManager.from_queryset(TreeQuerySet)
+
+
+class CollectionViewRestriction(BaseViewRestriction):
+    collection = models.ForeignKey(
+        'Collection',
+        verbose_name=_('collection'),
+        related_name='view_restrictions',
+        on_delete=models.CASCADE
+    )
+
+    passed_view_restrictions_session_key = 'passed_collection_view_restrictions'
+
+    class Meta:
+        verbose_name = _('collection view restriction')
+        verbose_name_plural = _('collection view restrictions')
 
 
 @python_2_unicode_compatible
@@ -1950,6 +1975,10 @@ class Collection(MP_Node):
 
     def get_prev_siblings(self, inclusive=False):
         return self.get_siblings(inclusive).filter(path__lte=self.path).order_by('-path')
+
+    def get_view_restrictions(self):
+        """Return a query set of all collection view restrictions that apply to this collection"""
+        return CollectionViewRestriction.objects.filter(collection__in=self.get_ancestors(inclusive=True))
 
     class Meta:
         verbose_name = _('collection')
