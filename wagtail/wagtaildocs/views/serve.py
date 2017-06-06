@@ -3,12 +3,13 @@ from __future__ import absolute_import, unicode_literals
 from wsgiref.util import FileWrapper
 
 from django.conf import settings
-from django.http import BadHeaderError, Http404, StreamingHttpResponse
+from django.http import BadHeaderError, Http404, HttpResponse, StreamingHttpResponse
 from django.shortcuts import get_object_or_404
 from unidecode import unidecode
 
 from wagtail.utils import sendfile_streaming_backend
 from wagtail.utils.sendfile import sendfile
+from wagtail.wagtailcore import hooks
 from wagtail.wagtaildocs.models import document_served, get_document_model
 
 
@@ -21,6 +22,11 @@ def serve(request, document_id, document_filename):
     # <document_id, document_filename> pair.
     if doc.filename != document_filename:
         raise Http404('This document does not match the given filename.')
+
+    for fn in hooks.get_hooks('before_serve_document'):
+        result = fn(doc, request)
+        if isinstance(result, HttpResponse):
+            return result
 
     # Send document_served signal
     document_served.send(sender=Document, instance=doc, request=request)
