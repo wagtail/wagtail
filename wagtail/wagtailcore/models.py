@@ -1901,6 +1901,21 @@ class BaseViewRestriction(models.Model):
 
         return True
 
+    def mark_as_passed(self, request):
+        """
+        Update the session data in the request to mark the user as having passed this
+        view restriction
+        """
+        has_existing_session = (settings.SESSION_COOKIE_NAME in request.COOKIES)
+        passed_restrictions = request.session.setdefault(self.passed_view_restrictions_session_key, [])
+        if self.id not in passed_restrictions:
+            passed_restrictions.append(self.id)
+            request.session[self.passed_view_restrictions_session_key] = passed_restrictions
+        if not has_existing_session:
+            # if this is a session we've created, set it to expire at the end
+            # of the browser session
+            request.session.set_expiry(0)
+
     class Meta:
         abstract = True
         verbose_name = _('view restriction')
