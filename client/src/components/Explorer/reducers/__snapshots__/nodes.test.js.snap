@@ -19,8 +19,15 @@ Object {
 exports[`nodes GET_CHILDREN_START 1`] = `
 Object {
   "1": Object {
-    "children": Object {},
+    "children": Object {
+      "count": 0,
+      "items": Array [],
+    },
+    "isError": false,
     "isFetching": true,
+    "meta": Object {
+      "children": Object {},
+    },
   },
 }
 `;
@@ -100,7 +107,15 @@ Object {
 exports[`nodes GET_PAGE_SUCCESS 1`] = `
 Object {
   "1": Object {
+    "children": Object {
+      "count": 0,
+      "items": Array [],
+    },
     "isError": false,
+    "isFetching": false,
+    "meta": Object {
+      "children": Object {},
+    },
   },
 }
 `;
