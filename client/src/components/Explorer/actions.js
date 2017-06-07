@@ -1,6 +1,5 @@
-import { createAction } from 'redux-actions';
-
 import * as admin from '../../api/admin';
+import { createAction } from '../../utils/actions';
 import { MAX_EXPLORER_PAGES } from '../../config/wagtailConfig';
 
 const getPageStart = createAction('GET_PAGE_START');

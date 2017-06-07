@@ -31,6 +31,7 @@ Array [
 exports[`actions toggleExplorer close 1`] = `
 Array [
   Object {
+    "payload": undefined,
     "type": "CLOSE_EXPLORER",
   },
 ]
