@@ -14,7 +14,9 @@ const isVendorModule = (module) => {
 module.exports = function exports() {
   const entry = {
     // Create a vendor chunk that will contain polyfills, and all third-party dependencies.
-    vendor: ['whatwg-fetch', 'babel-polyfill'],
+    vendor: [
+      './client/src/utils/polyfills.js',
+    ],
   };
 
   entry[getOutputPath('wagtailadmin', 'wagtailadmin')] = getEntryPath('wagtailadmin', 'wagtailadmin.entry.js');
