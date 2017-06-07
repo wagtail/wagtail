@@ -3,13 +3,17 @@ from __future__ import absolute_import, unicode_literals
 from wsgiref.util import FileWrapper
 
 from django.conf import settings
+from django.core.urlresolvers import reverse
 from django.http import BadHeaderError, Http404, HttpResponse, StreamingHttpResponse
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
+from django.template.response import TemplateResponse
 from unidecode import unidecode
 
 from wagtail.utils import sendfile_streaming_backend
 from wagtail.utils.sendfile import sendfile
 from wagtail.wagtailcore import hooks
+from wagtail.wagtailcore.forms import PasswordViewRestrictionForm
+from wagtail.wagtailcore.models import CollectionViewRestriction
 from wagtail.wagtaildocs.models import document_served, get_document_model
 
 
@@ -74,3 +78,30 @@ def serve(request, document_id, document_filename):
         response['Content-Length'] = doc.file.size
 
         return response
+
+
+def authenticate_with_password(request, restriction_id):
+    """
+    Handle a submission of PasswordViewRestrictionForm to grant view access over a
+    subtree that is protected by a PageViewRestriction
+    """
+    restriction = get_object_or_404(CollectionViewRestriction, id=restriction_id)
+
+    if request.method == 'POST':
+        form = PasswordViewRestrictionForm(request.POST, instance=restriction)
+        if form.is_valid():
+            restriction.mark_as_passed(request)
+
+            return redirect(form.cleaned_data['return_url'])
+    else:
+        form = PasswordViewRestrictionForm(instance=restriction)
+
+    action_url = reverse('wagtaildocs_authenticate_with_password', args=[restriction.id])
+
+    password_required_template = getattr(settings, 'DOCUMENT_PASSWORD_REQUIRED_TEMPLATE', 'wagtaildocs/password_required.html')
+
+    context = {
+        'form': form,
+        'action_url': action_url
+    }
+    return TemplateResponse(request, password_required_template, context)
