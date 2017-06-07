@@ -2,7 +2,6 @@ const defaultState = {};
 
 const defaultPageState = {
   isFetching: false,
-  isLoaded: true,
   isError: false,
   children: {
     items: [],
@@ -43,7 +42,6 @@ export default function nodes(prevState = defaultState, { type, payload }) {
     state[payload.id].children = Object.assign({}, state[payload.id].children, {
       items: state[payload.id].children.items.slice(),
       count: payload.meta.total_count,
-      isLoaded: true,
       isError: false,
     });
 

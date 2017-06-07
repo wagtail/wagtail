@@ -9,7 +9,6 @@ Object {
     },
     "isError": true,
     "isFetching": false,
-    "isLoaded": true,
     "meta": Object {
       "children": Object {},
     },
@@ -32,7 +31,6 @@ Object {
     "children": Object {
       "count": 3,
       "isError": false,
-      "isLoaded": true,
       "items": Array [
         3,
         4,
@@ -41,7 +39,6 @@ Object {
     },
     "isError": false,
     "isFetching": false,
-    "isLoaded": true,
     "meta": Object {
       "children": Object {},
     },
@@ -54,7 +51,6 @@ Object {
     "id": 3,
     "isError": false,
     "isFetching": false,
-    "isLoaded": true,
     "meta": Object {
       "children": Object {},
     },
@@ -67,7 +63,6 @@ Object {
     "id": 4,
     "isError": false,
     "isFetching": false,
-    "isLoaded": true,
     "meta": Object {
       "children": Object {},
     },
@@ -80,7 +75,6 @@ Object {
     "id": 5,
     "isError": false,
     "isFetching": false,
-    "isLoaded": true,
     "meta": Object {
       "children": Object {},
     },
@@ -97,7 +91,6 @@ Object {
     },
     "isError": true,
     "isFetching": false,
-    "isLoaded": true,
     "meta": Object {
       "children": Object {},
     },
@@ -122,7 +115,6 @@ Object {
     },
     "isError": false,
     "isFetching": false,
-    "isLoaded": true,
     "meta": Object {
       "children": Object {},
     },
