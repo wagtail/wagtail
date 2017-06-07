@@ -15,7 +15,7 @@ const ExplorerItem = ({ item, onClick }) => {
     <div className="c-explorer__item">
       <Button href={`${ADMIN_URLS.PAGES}${id}/`} className="c-explorer__item__link">
         {hasChildren ? (
-          <Icon name="folder-inverse" className="c-explorer__children" />
+          <Icon name="folder-inverse" />
         ) : null}
 
         <h3 className="c-explorer__item__title">

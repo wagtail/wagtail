@@ -15,7 +15,7 @@ exports[`ExplorerItem children 1`] = `
     target={null}
   >
     <Icon
-      className="c-explorer__children"
+      className=""
       name="folder-inverse"
       title={null}
     />
@@ -114,7 +114,7 @@ exports[`ExplorerItem should show a publication status if not live 1`] = `
     target={null}
   >
     <Icon
-      className="c-explorer__children"
+      className=""
       name="folder-inverse"
       title={null}
     />
@@ -187,7 +187,7 @@ exports[`ExplorerItem should show a publication status with unpublished changes 
     target={null}
   >
     <Icon
-      className="c-explorer__children"
+      className=""
       name="folder-inverse"
       title={null}
     />
