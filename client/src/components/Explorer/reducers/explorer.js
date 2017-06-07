@@ -9,31 +9,30 @@ const defaultState = {
  * - Whether the explorer is open or not.
  */
 export default function explorer(prevState = defaultState, { type, payload }) {
-  const state = Object.assign({}, prevState);
-
   switch (type) {
   case 'OPEN_EXPLORER':
     // Provide a starting page when opening the explorer.
-    state.path = [payload.id];
-    state.isVisible = true;
-    break;
+    return {
+      isVisible: true,
+      path: [payload.id],
+    };
 
   case 'CLOSE_EXPLORER':
-    state.path = [];
-    state.isVisible = false;
-    break;
+    return defaultState;
 
   case 'PUSH_PAGE':
-    state.path = state.path.concat([payload.id]);
-    break;
+    return {
+      isVisible: prevState.isVisible,
+      path: prevState.path.concat([payload.id]),
+    };
 
   case 'POP_PAGE':
-    state.path = state.path.slice(0, -1);
-    break;
+    return {
+      isVisible: prevState.isVisible,
+      path: prevState.path.slice(0, -1),
+    };
 
   default:
-    break;
+    return prevState;
   }
-
-  return state;
 }
