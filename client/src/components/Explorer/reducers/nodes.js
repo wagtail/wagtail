@@ -7,7 +7,6 @@ const defaultPageState = {
   children: {
     items: [],
     count: 0,
-    isFetching: false,
   },
   meta: {
     children: {},
@@ -34,7 +33,6 @@ export default function nodes(prevState = defaultState, { type, payload }) {
     state[payload.id] = Object.assign({}, state[payload.id]);
     state[payload.id].isFetching = true;
     state[payload.id].children = Object.assign({}, state[payload.id].children);
-    state[payload.id].children.isFetching = true;
     return state;
 
   case 'GET_CHILDREN_SUCCESS':
@@ -45,7 +43,6 @@ export default function nodes(prevState = defaultState, { type, payload }) {
     state[payload.id].children = Object.assign({}, state[payload.id].children, {
       items: state[payload.id].children.items.slice(),
       count: payload.meta.total_count,
-      isFetching: false,
       isLoaded: true,
       isError: false,
     });
@@ -63,7 +60,6 @@ export default function nodes(prevState = defaultState, { type, payload }) {
     state[payload.id] = Object.assign({}, state[payload.id]);
     state[payload.id].isFetching = false;
     state[payload.id].isError = true;
-    state[payload.id].children.isFetching = false;
     return state;
 
   default:

@@ -46,7 +46,6 @@ exports[`Explorer visible 1`] = `
       "1": Object {
         "children": Object {
           "count": 0,
-          "isFetching": true,
           "items": Array [],
         },
         "isError": false,
@@ -101,7 +100,6 @@ exports[`Explorer visible 2`] = `
       "1": Object {
         "children": Object {
           "count": 0,
-          "isFetching": true,
           "items": Array [],
         },
         "isError": false,
@@ -118,7 +116,6 @@ exports[`Explorer visible 2`] = `
     Object {
       "children": Object {
         "count": 0,
-        "isFetching": true,
         "items": Array [],
       },
       "isError": false,

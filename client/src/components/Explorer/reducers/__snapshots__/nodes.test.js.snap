@@ -5,7 +5,6 @@ Object {
   "1": Object {
     "children": Object {
       "count": 0,
-      "isFetching": false,
       "items": Array [],
     },
     "isError": true,
@@ -21,9 +20,7 @@ Object {
 exports[`nodes GET_CHILDREN_START 1`] = `
 Object {
   "1": Object {
-    "children": Object {
-      "isFetching": true,
-    },
+    "children": Object {},
     "isFetching": true,
   },
 }
@@ -35,7 +32,6 @@ Object {
     "children": Object {
       "count": 3,
       "isError": false,
-      "isFetching": false,
       "isLoaded": true,
       "items": Array [
         3,
@@ -53,7 +49,6 @@ Object {
   "3": Object {
     "children": Object {
       "count": 0,
-      "isFetching": false,
       "items": Array [],
     },
     "id": 3,
@@ -67,7 +62,6 @@ Object {
   "4": Object {
     "children": Object {
       "count": 0,
-      "isFetching": false,
       "items": Array [],
     },
     "id": 4,
@@ -81,7 +75,6 @@ Object {
   "5": Object {
     "children": Object {
       "count": 0,
-      "isFetching": false,
       "items": Array [],
     },
     "id": 5,
@@ -100,7 +93,6 @@ Object {
   "1": Object {
     "children": Object {
       "count": 0,
-      "isFetching": false,
       "items": Array [],
     },
     "isError": true,
@@ -126,7 +118,6 @@ Object {
   "1": Object {
     "children": Object {
       "count": 0,
-      "isFetching": false,
       "items": Array [],
     },
     "isError": false,
