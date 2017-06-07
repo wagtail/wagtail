@@ -20,6 +20,7 @@ from django.db.models.constants import LOOKUP_SEP
 from django.db.models.fields import FieldDoesNotExist
 from django.db.models.fields.related import ForeignObjectRel, ManyToManyField
 from django.db.models.sql.constants import QUERY_TERMS
+from django.http import Http404
 from django.shortcuts import redirect
 from django.template.defaultfilters import filesizeformat
 from django.utils import six
@@ -31,7 +32,6 @@ from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
-from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.edit import FormView
 
 from wagtail.utils.deprecation import RemovedInWagtail113Warning
@@ -181,10 +181,9 @@ class ModelFormView(WMABaseView, FormView):
         return self.render_to_response(self.get_context_data())
 
 
-class InstanceSpecificView(SingleObjectMixin, WMABaseView):
+class InstanceSpecificView(WMABaseView):
     instance_pk = None
     pk_url_kwarg = 'instance_pk'
-    context_object_name = 'instance'
 
     def __init__(self, *args, **kwargs):
         super(InstanceSpecificView, self).__init__(*args, **kwargs)
@@ -199,23 +198,25 @@ class InstanceSpecificView(SingleObjectMixin, WMABaseView):
     @cached_property
     def instance(self):
         """
-        Return the result of self.get_object() and cache it to avoid repeat
-        database queries
+        Return the result of self.get_model_instance() and cache it to avoid
+        repeat database queries
         """
-        return self.get_object()
+        return self.get_model_instance()
 
-    def get_object(self):
+    def get_model_instance(self):
         """
         Returns an instance of self.model identified by URL parameters in the
-        current request. Raises a 404 if no match is found.
+        current request. Raises Http404 if no match is found.
         """
-        # Ensure primary key value is unquoted and named as expected by
-        # SingleObjectMixin.get_object()
-        kwarg_key = self.pk_url_kwarg
-        self.kwargs[kwarg_key] = unquote(
-            self.kwargs.get(kwarg_key, self.instance_pk)
-        )
-        return super(InstanceSpecificView, self).get_object()
+        pk = self.kwargs.get(self.pk_url_kwarg, self.instance_pk)
+        queryset = self.model._default_manager.all().filter(pk=unquote(pk))
+        try:
+            # Get the single item from the filtered queryset
+            obj = queryset.get()
+        except self.model.DoesNotExist:
+            raise Http404(_("No %(verbose_name)s found matching the query") %
+                          {'verbose_name': self.verbose_name})
+        return obj
 
     @property
     def pk_quoted(self):
@@ -235,8 +236,11 @@ class InstanceSpecificView(SingleObjectMixin, WMABaseView):
         return self.url_helper.get_action_url('delete', self.pk_quoted)
 
     def get_context_data(self, **kwargs):
-        self.object = self.instance  # placate SingleObjectMixin
-        return super(InstanceSpecificView, self).get_context_data(**kwargs)
+        context = {
+            'instance': self.instance
+        }
+        context.update(kwargs)
+        return super(InstanceSpecificView, self).get_context_data(**context)
 
 
 class IndexView(WMABaseView):
