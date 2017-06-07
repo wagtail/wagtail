@@ -25,7 +25,6 @@
     ]
   },
   "devDependencies": {
-    "babel-cli": "^6.24.1",
     "babel-core": "^6.24.1",
     "babel-jest": "^20.0.3",
     "babel-loader": "^7.0.0",
@@ -40,14 +39,12 @@
     "eslint-plugin-import": "^1.8.1",
     "eslint-plugin-jsx-a11y": "^1.5.3",
     "eslint-plugin-react": "^5.2.2",
-    "exports-loader": "^0.6.4",
     "gulp": "~3.8.11",
     "gulp-autoprefixer": "~3.0.2",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "~2.3.1",
     "gulp-sourcemaps": "~1.5.2",
     "gulp-util": "~2.2.14",
-    "imports-loader": "^0.7.1",
     "jest": "^20.0.4",
     "mustache": "^2.2.1",
     "react-addons-perf": "^15.4.2",
