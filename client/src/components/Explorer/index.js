@@ -10,6 +10,8 @@ import ExplorerToggle from './ExplorerToggle';
 import explorer from './reducers/explorer';
 import nodes from './reducers/nodes';
 
+const MEASURE_PERFORMANCE = false;
+
 /**
  * Initialises the explorer component on the given nodes.
  */
@@ -23,7 +25,7 @@ const initExplorer = (explorerNode, toggleNode) => {
     thunkMiddleware,
   ];
 
-  if (process.env.NODE_ENV !== 'production') {
+  if (MEASURE_PERFORMANCE && process.env.NODE_ENV !== 'production') {
     middleware.push(perfMiddleware);
   }
 
