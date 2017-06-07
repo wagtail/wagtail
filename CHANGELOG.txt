@@ -13,6 +13,7 @@ Changelog
  * Fix: Unauthenticated AJAX requests to admin views now return 403 rather than redirecting to the login page (Karl Hobley)
  * Fix: `TableBlock` options `afterChange`, `afterCreateCol`, `afterCreateRow`, `afterRemoveCol`, `afterRemoveRow` and `contextMenu` can now be overridden (Loic Teixeira)
  * Fix: The lastmod field returned by wagtailsitemaps now shows the last published date rather than the date of the last draft edit (Matt Westcott)
+ * Fix: Document chooser upload form no longer renders container elements for hidden fields (Jeffrey Chau)
 
 
 1.10.1 (19.05.2017)
