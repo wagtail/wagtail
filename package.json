@@ -6,13 +6,6 @@
   "engines": {
     "node": ">= 4"
   },
-  "browser": {},
-  "browserify": {
-    "transform": [
-      "browserify-shim"
-    ]
-  },
-  "browserify-shim": {},
   "jest": {
     "setupFiles": [
       "./client/tests/stubs.js",
