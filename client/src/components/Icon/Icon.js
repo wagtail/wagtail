@@ -7,7 +7,7 @@ import React from 'react';
  */
 const Icon = ({ name, className, title }) => (
   <span>
-    <span className={`icon icon-${name} ${className}`} aria-hidden></span>
+    <span className={`icon icon-${name} ${className || ''}`} aria-hidden></span>
     {title ? (
       <span className="visuallyhidden">
         {title}
@@ -23,7 +23,7 @@ Icon.propTypes = {
 };
 
 Icon.defaultProps = {
-  className: '',
+  className: null,
   title: null,
 };
 

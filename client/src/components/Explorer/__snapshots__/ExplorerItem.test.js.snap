@@ -15,7 +15,7 @@ exports[`ExplorerItem children 1`] = `
     target={null}
   >
     <Icon
-      className=""
+      className={null}
       name="folder-inverse"
       title={null}
     />
@@ -36,7 +36,7 @@ exports[`ExplorerItem children 1`] = `
     target={null}
   >
     <Icon
-      className=""
+      className={null}
       name="edit"
       title="Edit 'test'"
     />
@@ -52,7 +52,7 @@ exports[`ExplorerItem children 1`] = `
     target={null}
   >
     <Icon
-      className=""
+      className={null}
       name="arrow-right"
       title="See children"
     />
@@ -91,7 +91,7 @@ exports[`ExplorerItem renders 1`] = `
     target={null}
   >
     <Icon
-      className=""
+      className={null}
       name="edit"
       title="Edit 'test'"
     />
@@ -114,7 +114,7 @@ exports[`ExplorerItem should show a publication status if not live 1`] = `
     target={null}
   >
     <Icon
-      className=""
+      className={null}
       name="folder-inverse"
       title={null}
     />
@@ -148,7 +148,7 @@ exports[`ExplorerItem should show a publication status if not live 1`] = `
     target={null}
   >
     <Icon
-      className=""
+      className={null}
       name="edit"
       title="Edit 'test'"
     />
@@ -164,7 +164,7 @@ exports[`ExplorerItem should show a publication status if not live 1`] = `
     target={null}
   >
     <Icon
-      className=""
+      className={null}
       name="arrow-right"
       title="See children"
     />
@@ -187,7 +187,7 @@ exports[`ExplorerItem should show a publication status with unpublished changes 
     target={null}
   >
     <Icon
-      className=""
+      className={null}
       name="folder-inverse"
       title={null}
     />
@@ -221,7 +221,7 @@ exports[`ExplorerItem should show a publication status with unpublished changes 
     target={null}
   >
     <Icon
-      className=""
+      className={null}
       name="edit"
       title="Edit 'test'"
     />
@@ -237,7 +237,7 @@ exports[`ExplorerItem should show a publication status with unpublished changes 
     target={null}
   >
     <Icon
-      className=""
+      className={null}
       name="arrow-right"
       title="See children"
     />

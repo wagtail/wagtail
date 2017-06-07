@@ -15,7 +15,7 @@ exports[`ExplorerHeader #depth at root 1`] = `
     className="c-explorer__header__inner"
   >
     <Icon
-      className=""
+      className={null}
       name="home"
       title={null}
     />
@@ -41,7 +41,7 @@ exports[`ExplorerHeader #page 1`] = `
     className="c-explorer__header__inner"
   >
     <Icon
-      className=""
+      className={null}
       name="arrow-left"
       title={null}
     />
@@ -67,7 +67,7 @@ exports[`ExplorerHeader basic 1`] = `
     className="c-explorer__header__inner"
   >
     <Icon
-      className=""
+      className={null}
       name="arrow-left"
       title={null}
     />
