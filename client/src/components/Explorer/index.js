@@ -4,13 +4,11 @@ import { Provider } from 'react-redux';
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 
-import { perfMiddleware } from '../../utils/performance';
+// import { perfMiddleware } from '../../utils/performance';
 import Explorer from './Explorer';
 import ExplorerToggle from './ExplorerToggle';
 import explorer from './reducers/explorer';
 import nodes from './reducers/nodes';
-
-const MEASURE_PERFORMANCE = false;
 
 /**
  * Initialises the explorer component on the given nodes.
@@ -25,9 +23,10 @@ const initExplorer = (explorerNode, toggleNode) => {
     thunkMiddleware,
   ];
 
-  if (MEASURE_PERFORMANCE && process.env.NODE_ENV !== 'production') {
-    middleware.push(perfMiddleware);
-  }
+  // Uncomment this to use performance measurements.
+  // if (process.env.NODE_ENV !== 'production') {
+  //   middleware.push(perfMiddleware);
+  // }
 
   const store = createStore(rootReducer, {}, compose(
     applyMiddleware(...middleware),
