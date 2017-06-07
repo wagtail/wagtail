@@ -6,6 +6,15 @@
   "engines": {
     "node": ">= 4"
   },
+  "babel": {
+    "presets": [
+      "es2015",
+      "react"
+    ],
+    "plugins": [
+      "lodash"
+    ]
+  },
   "jest": {
     "setupFiles": [
       "./client/tests/stubs.js",
