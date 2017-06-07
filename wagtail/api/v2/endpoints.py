@@ -80,7 +80,7 @@ class BaseAPIEndpoint(GenericViewSet):
         serializer = self.get_serializer(queryset, many=True)
         return self.get_paginated_response(serializer.data)
 
-    def detail_view(self, request, pk):
+    def detail_view(self, request, *args, **kwargs):
         instance = self.get_object()
         serializer = self.get_serializer(instance)
         return Response(serializer.data)
@@ -316,9 +316,12 @@ class BaseAPIEndpoint(GenericViewSet):
         """
         This returns a list of URL patterns for the endpoint
         """
+        lookup_field = getattr(cls, 'lookup_field', 'pk')
+        lookup_regex = getattr(cls, 'lookup_value_regex', r'\d+')
         return [
             url(r'^$', cls.as_view({'get': 'listing_view'}), name='listing'),
-            url(r'^(?P<pk>\d+)/$', cls.as_view({'get': 'detail_view'}), name='detail'),
+            url(r'^(?P<{}>{})/$'.format(lookup_field, lookup_regex),
+                cls.as_view({'get': 'detail_view'}), name='detail'),
         ]
 
     @classmethod
