@@ -42,14 +42,14 @@ class ExplorerPanel extends React.Component {
     document.querySelector('[data-explorer-menu-item]').classList.add('submenu-active');
     document.body.classList.add('explorer-open');
     document.addEventListener('mousedown', this.clickOutside);
-    document.addEventListener('touchstart', this.clickOutside);
+    document.addEventListener('touchend', this.clickOutside);
   }
 
   componentWillUnmount() {
     document.querySelector('[data-explorer-menu-item]').classList.remove('submenu-active');
     document.body.classList.remove('explorer-open');
     document.removeEventListener('mousedown', this.clickOutside);
-    document.removeEventListener('touchstart', this.clickOutside);
+    document.removeEventListener('touchend', this.clickOutside);
   }
 
   clickOutside(e) {
