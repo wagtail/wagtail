@@ -13,16 +13,18 @@ from django.contrib.auth.models import Group, Permission
 from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.urlresolvers import reverse
-from django.test import TestCase
+from django.db import transaction
+from django.test import TestCase, TransactionTestCase
 from django.test.utils import override_settings
 from django.utils.six import b
 
 from wagtail.tests.testapp.models import EventPage, EventPageRelatedLink
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailcore.models import Collection, GroupCollectionPermission, Page
-from wagtail.wagtaildocs import models
-from wagtail.wagtaildocs.models import Document
+from wagtail.wagtaildocs import models, signal_handlers
+from wagtail.wagtaildocs.models import Document, get_document_model
 from wagtail.wagtaildocs.rich_text import DocumentLinkHandler
+from wagtail.wagtailimages.tests.utils import get_test_image_file
 
 
 class TestDocumentQuerySet(TestCase):
@@ -845,14 +847,14 @@ class TestDocumentChooserUploadViewWithLimitedPermissions(TestCase, WagtailTestU
 class TestDocumentFilenameProperties(TestCase):
     def setUp(self):
         self.document = models.Document(title="Test document")
-        self.document.file.save('example.doc', ContentFile("A boring example document"))
+        self.document.file.save('unique-example.doc', ContentFile("A boring example document"))
 
         self.extensionless_document = models.Document(title="Test document")
-        self.extensionless_document.file.save('example', ContentFile("A boring example document"))
+        self.extensionless_document.file.save('unique-example', ContentFile("A boring example document"))
 
     def test_filename(self):
-        self.assertEqual('example.doc', self.document.filename)
-        self.assertEqual('example', self.extensionless_document.filename)
+        self.assertEqual('unique-example.doc', self.document.filename)
+        self.assertEqual('unique-example', self.extensionless_document.filename)
 
     def test_file_extension(self):
         self.assertEqual('doc', self.document.file_extension)
@@ -1355,3 +1357,43 @@ class TestEditOnlyPermissions(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtaildocs:add_multiple'))
         # permission should be denied
         self.assertRedirects(response, reverse('wagtailadmin_home'))
+
+
+class TestFilesDeletedForDefaultModels(TransactionTestCase):
+    '''
+    Because we expect file deletion to only happen once a transaction is
+    successfully committed, we must run these tests using TransactionTestCase
+    per the following documentation:
+    
+        Django's TestCase class wraps each test in a transaction and rolls back that
+        transaction after each test, in order to provide test isolation. This means
+        that no transaction is ever actually committed, thus your on_commit()
+        callbacks will never be run. If you need to test the results of an
+        on_commit() callback, use a TransactionTestCase instead.
+        https://docs.djangoproject.com/en/1.10/topics/db/transactions/#use-in-tests
+    '''
+    
+    def test_oncommit_available(self):
+        self.assertEqual(hasattr(transaction, 'on_commit'), signal_handlers.TRANSACTION_ON_COMMIT_AVAILABLE)
+    
+    @unittest.skipUnless(signal_handlers.TRANSACTION_ON_COMMIT_AVAILABLE, 'is required for this test')
+    def test_document_file_deleted_oncommit(self):
+        with transaction.atomic():
+            document = get_document_model().objects.create(title="Test Image", file=get_test_image_file())
+            self.assertTrue(document.file.storage.exists(document.file.name))
+            document.delete()
+            self.assertTrue(document.file.storage.exists(document.file.name))
+        self.assertFalse(document.file.storage.exists(document.file.name))
+    
+    @unittest.skipIf(signal_handlers.TRANSACTION_ON_COMMIT_AVAILABLE, 'duplicate')
+    def test_document_file_deleted(self):
+        '''
+            this test duplicates `test_image_file_deleted_oncommit` for
+            django 1.8 support and can be removed once django 1.8 is no longer
+            supported
+        '''
+        with transaction.atomic():
+            document = get_document_model().objects.create(title="Test Image", file=get_test_image_file())
+            self.assertTrue(document.file.storage.exists(document.file.name))
+            document.delete()
+        self.assertFalse(document.file.storage.exists(document.file.name))
