@@ -57,29 +57,3 @@ $c-transition-duration: 200ms;
     transform: translateX(100%);
     opacity: 0;
 }
-
-// =============================================================================
-// Fade transition
-// =============================================================================
-
-.c-transition-fade-enter {
-    position: absolute;
-    width: 100%;
-    opacity: 0;
-    transition: opacity $c-transition-duration ease $c-transition-duration;
-}
-
-.c-transition-fade-enter-active {
-    opacity: 1;
-}
-
-.c-transition-fade-leave {
-    position: absolute;
-    width: 100%;
-    opacity: 1;
-    transition: opacity $c-transition-duration ease;
-}
-
-.c-transition-fade-leave-active {
-    opacity: 0;
-}
