@@ -30,7 +30,6 @@ Object {
   "1": Object {
     "children": Object {
       "count": 3,
-      "isError": false,
       "items": Array [
         3,
         4,

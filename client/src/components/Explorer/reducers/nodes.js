@@ -42,7 +42,6 @@ export default function nodes(prevState = defaultState, { type, payload }) {
     state[payload.id].children = Object.assign({}, state[payload.id].children, {
       items: state[payload.id].children.items.slice(),
       count: payload.meta.total_count,
-      isError: false,
     });
 
     payload.items.forEach((item) => {
