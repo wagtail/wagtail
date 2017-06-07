@@ -108,3 +108,9 @@ and passing those through at the point where you are calling ``get_url_parts`` o
 
 See also: :meth:`wagtail.wagtailcore.models.Page.get_url_parts`, :meth:`wagtail.wagtailcore.models.Page.get_url`,
 :meth:`wagtail.wagtailcore.models.Page.get_full_url`, and :meth:`wagtail.wagtailcore.models.Page.relative_url`
+
+
+Elasticsearch 5.4 is incompatible with ``ATOMIC_REBUILD``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+While not specific to Wagtail 1.11, users of Elasticsearch should be aware that the ``ATOMIC_REBUILD`` option is not compatible with Elasticsearch 5.4.x due to `a bug in the handling of aliases <https://github.com/elastic/elasticsearch/issues/24644>`_. If you wish to use this feature, please use Elasticsearch 5.3.x or 5.5.x (when available).
