@@ -22,7 +22,7 @@ module.exports = function exports() {
   return {
     entry: entry,
     output: {
-      path: '.',
+      path: path.resolve('.'),
       filename: '[name].js',
       publicPath: '/static/js/'
     },
@@ -39,10 +39,10 @@ module.exports = function exports() {
       },
     },
     module: {
-      loaders: [
+      rules: [
         {
           test: /\.js$/,
-          loader: 'babel',
+          loader: 'babel-loader',
           exclude: /node_modules/,
         },
       ]
