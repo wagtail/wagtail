@@ -63,7 +63,7 @@
     "whatwg-fetch": "^2.0.2"
   },
   "scripts": {
-    "postinstall": "cd ./client; npm install; cd ..",
+    "postinstall": "npm --prefix client install",
     "build": "gulp build; webpack --config ./client/webpack/prod.config.js",
     "watch": "webpack --config ./client/webpack/dev.config.js & gulp watch",
     "start": "npm run watch",
