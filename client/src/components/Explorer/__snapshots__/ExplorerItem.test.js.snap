@@ -38,7 +38,7 @@ exports[`ExplorerItem children 1`] = `
     <Icon
       className={null}
       name="edit"
-      title="Edit 'test'"
+      title="Edit"
     />
   </Button>
   <Button
@@ -93,7 +93,7 @@ exports[`ExplorerItem renders 1`] = `
     <Icon
       className={null}
       name="edit"
-      title="Edit 'test'"
+      title="Edit"
     />
   </Button>
 </div>
@@ -150,7 +150,7 @@ exports[`ExplorerItem should show a publication status if not live 1`] = `
     <Icon
       className={null}
       name="edit"
-      title="Edit 'test'"
+      title="Edit"
     />
   </Button>
   <Button
@@ -223,7 +223,7 @@ exports[`ExplorerItem should show a publication status with unpublished changes 
     <Icon
       className={null}
       name="edit"
-      title="Edit 'test'"
+      title="Edit"
     />
   </Button>
   <Button
