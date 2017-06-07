@@ -15,26 +15,30 @@ const defaultPageState = {
 };
 
 export default function nodes(prevState = defaultState, { type, payload }) {
-  const state = Object.assign({}, prevState);
+  let state = prevState;
 
   switch (type) {
   case 'OPEN_EXPLORER':
+    state = Object.assign({}, prevState);
     state[payload.id] = Object.assign({}, defaultPageState, state[payload.id]);
-    break;
+    return state;
 
   case 'GET_PAGE_SUCCESS':
+    state = Object.assign({}, prevState);
     state[payload.id] = Object.assign({}, state[payload.id], payload.data);
     state[payload.id].isError = false;
-    break;
+    return state;
 
   case 'GET_CHILDREN_START':
+    state = Object.assign({}, prevState);
     state[payload.id] = Object.assign({}, state[payload.id]);
     state[payload.id].isFetching = true;
     state[payload.id].children = Object.assign({}, state[payload.id].children);
     state[payload.id].children.isFetching = true;
-    break;
+    return state;
 
   case 'GET_CHILDREN_SUCCESS':
+    state = Object.assign({}, prevState);
     state[payload.id] = Object.assign({}, state[payload.id]);
     state[payload.id].isFetching = false;
     state[payload.id].isError = false;
@@ -51,19 +55,18 @@ export default function nodes(prevState = defaultState, { type, payload }) {
 
       state[payload.id].children.items.push(item.id);
     });
-    break;
+    return state;
 
   case 'GET_PAGE_FAILURE':
   case 'GET_CHILDREN_FAILURE':
+    state = Object.assign({}, prevState);
     state[payload.id] = Object.assign({}, state[payload.id]);
     state[payload.id].isFetching = false;
     state[payload.id].isError = true;
     state[payload.id].children.isFetching = false;
-    break;
+    return state;
 
   default:
-    break;
+    return state;
   }
-
-  return state;
 }
