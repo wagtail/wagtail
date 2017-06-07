@@ -15,3 +15,4 @@ test:
     - scss-lint
     - python -u runtests.py
     - npm run test:unit:coverage -- --runInBand
+    - npm run build
