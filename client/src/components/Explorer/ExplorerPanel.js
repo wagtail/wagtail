@@ -11,7 +11,11 @@ import ExplorerHeader from './ExplorerHeader';
 import ExplorerItem from './ExplorerItem';
 import PageCount from './PageCount';
 
-export default class ExplorerPanel extends React.Component {
+/**
+ * The main panel of the page explorer menu, with heading,
+ * menu items, and special states.
+ */
+class ExplorerPanel extends React.Component {
   constructor(props) {
     super(props);
 
@@ -166,14 +170,17 @@ export default class ExplorerPanel extends React.Component {
 
 ExplorerPanel.propTypes = {
   nodes: PropTypes.object.isRequired,
-  path: PropTypes.array,
+  path: PropTypes.array.isRequired,
   page: PropTypes.shape({
     isFetching: PropTypes.bool,
     children: PropTypes.shape({
+      count: PropTypes.number,
       items: PropTypes.array,
     }),
-  }),
+  }).isRequired,
   onClose: PropTypes.func.isRequired,
   popPage: PropTypes.func.isRequired,
   pushPage: PropTypes.func.isRequired,
 };
+
+export default ExplorerPanel;
