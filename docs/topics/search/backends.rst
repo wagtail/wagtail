@@ -44,6 +44,9 @@ If you have disabled auto update, you must run the :ref:`update_index` command o
 ``ATOMIC_REBUILD``
 ==================
 
+.. warning::
+    This option is not compatible with Elasticsearch 5.4.x due to `a bug in the handling of aliases <https://github.com/elastic/elasticsearch/issues/24644>`_ in this release. Please use a 5.3.x or 5.5.x release instead.
+
 By default (when using the Elasticsearch backend), when the ``update_index`` command is run, Wagtail deletes the index and rebuilds it from scratch. This causes the search engine to not return results until the rebuild is complete and is also risky as you can't rollback if an error occurs.
 
 Setting the ``ATOMIC_REBUILD`` setting to ``True`` makes Wagtail rebuild into a separate index while keep the old index active until the new one is fully built. When the rebuild is finished, the indexes are swapped atomically and the old index is deleted.
