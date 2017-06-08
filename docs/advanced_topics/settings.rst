@@ -311,14 +311,22 @@ Wagtail update notifications
 For admins only, Wagtail performs a check on the dashboard to see if newer releases are available. This also provides the Wagtail team with the hostname of your Wagtail site. If you'd rather not receive update notifications, or if you'd like your site to remain unknown, you can disable it with this setting.
 
 
-Private Pages
--------------
+Private pages / documents
+-------------------------
 
 .. code-block:: python
 
   PASSWORD_REQUIRED_TEMPLATE = 'myapp/password_required.html'
 
 This is the path to the Django template which will be used to display the "password required" form when a user accesses a private page. For more details, see the :ref:`private_pages` documentation.
+
+.. code-block:: python
+
+  DOCUMENT_PASSWORD_REQUIRED_TEMPLATE = 'myapp/document_password_required.html'
+
+.. versionadded:: 1.11
+
+As above, but for password restrictions on documents. For more details, see the :ref:`private_pages` documentation.
 
 Case-Insensitive Tags
 ---------------------
