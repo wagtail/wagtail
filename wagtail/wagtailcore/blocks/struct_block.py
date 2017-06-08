@@ -134,7 +134,7 @@ class BaseStructBlock(Block):
 
     def get_prep_value(self, value):
         # recursively call get_prep_value on children and return as a plain dict
-        return dict([
+        return collections.OrderedDict([
             (name, self.child_blocks[name].get_prep_value(val))
             for name, val in value.items()
         ])
