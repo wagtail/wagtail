@@ -156,25 +156,25 @@ describe('ExplorerPanel', () => {
     });
 
     it('triggers onClose when click is outside', () => {
-      document.body.innerHTML = '<div data-explorer-menu-item></div><div data-explorer-menu></div><div id="target"></div>';
+      document.body.innerHTML = '<div data-explorer-menu-item></div><div data-explorer-menu></div><div id="t"></div>';
       wrapper.instance().clickOutside({
-        target: document.querySelector('#target'),
+        target: document.querySelector('#t'),
       });
       expect(mockProps.onClose).toHaveBeenCalled();
     });
 
     it('does not trigger onClose when click is inside', () => {
-      document.body.innerHTML = '<div data-explorer-menu-item></div><div data-explorer-menu><div id="target"></div></div>';
+      document.body.innerHTML = '<div data-explorer-menu-item></div><div data-explorer-menu><div id="t"></div></div>';
       wrapper.instance().clickOutside({
-        target: document.querySelector('#target'),
+        target: document.querySelector('#t'),
       });
       expect(mockProps.onClose).not.toHaveBeenCalled();
     });
 
     it('pauses focus trap inside toggle', () => {
-      document.body.innerHTML = '<div data-explorer-menu-item><div id="target"></div></div><div data-explorer-menu></div>';
+      document.body.innerHTML = '<div data-explorer-menu-item><div id="t"></div></div><div data-explorer-menu></div>';
       wrapper.instance().clickOutside({
-        target: document.querySelector('#target'),
+        target: document.querySelector('#t'),
       });
       expect(wrapper.state('paused')).toEqual(true);
     });

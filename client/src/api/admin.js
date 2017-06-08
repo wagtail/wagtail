@@ -24,7 +24,6 @@ export const getPageChildren = (id, options = {}) => {
     url += `&offset=${options.offset}`;
   }
 
-  // TODO To remove once we are done testing this.
   url += ADMIN_API.EXTRA_CHILDREN_PARAMETERS;
 
   return get(url);
