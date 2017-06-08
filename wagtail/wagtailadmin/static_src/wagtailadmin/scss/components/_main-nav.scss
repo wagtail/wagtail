@@ -8,8 +8,9 @@ $footer-submenu: $submenu-color;
     margin-left: -$menu-width;
     width: $menu-width;
     float: left;
+    display: flex;
+    flex-direction: column;
     height: 100%;
-    min-height: 800px;
     background: $color-grey-1;
 
     .inner {

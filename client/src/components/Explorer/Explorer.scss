@@ -7,8 +7,15 @@ $menu-footer-height: 50px;
 
 @import 'ExplorerItem';
 
+.explorer__wrapper {
+    flex: 1;
+    display: flex;
+}
+
 .explorer {
     width: 100%;
+    display: flex;
+    flex-direction: column;
     position: relative;
     top: 0;
     left: 0;
@@ -17,6 +24,7 @@ $menu-footer-height: 50px;
 
     @include medium {
         width: 485px;
+        height: 100vh;
         position: fixed;
         top: 0;
         left: $menu-width;
@@ -46,7 +54,7 @@ $menu-footer-height: 50px;
 .c-explorer {
     position: relative;
     overflow: hidden;
-    height: 100vh;
+    flex: 1;
     background: $c-explorer-bg;
 
     @include medium {
