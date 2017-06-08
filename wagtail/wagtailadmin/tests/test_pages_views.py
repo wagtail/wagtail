@@ -450,6 +450,31 @@ class TestExplorablePageVisibility(TestCase, WagtailTestUtils):
         self.assertNotContains(response, """<li class="home"><a href="/admin/pages/4/" class="icon icon-home text-replace">Home</a></li>""")
 
 
+class TestAdminHomePageTitle(TestCase, WagtailTestUtils):
+    '''
+    Test the rendering of the highest explorable page name in the admin home page.
+    We should not be showing users the name of the root installation or any parent pages
+    that they do not have access to.
+
+    Uses the same test fixture as TestExplorablePageVisibility.
+    '''
+    fixtures = ['test_explorable_pages.json']
+
+    def test_admin_sees_root_site_name(self):
+        self.assertTrue(self.client.login(username='superman', password='password'))
+        response = self.client.get(reverse('wagtailadmin_home'))
+        self.assertEqual(response.status_code, 200)
+        # The administrator should see the welcome message for the root of the installation
+        self.assertInHTML("""<h1>Welcome to the Test Site Wagtail CMS</h1>""", str(response.content))
+
+    def test_child_page_user_sees_only_child_page_title(self):
+        self.assertTrue(self.client.login(username='josh', password='password'))
+        response = self.client.get(reverse('wagtailadmin_home'))
+        self.assertEqual(response.status_code, 200)
+        # Josh should not see the welcome message for the root
+        self.assertNotContains(response, "Welcome to the Test Site Wagtail CMS")
+
+
 class TestPageCreation(TestCase, WagtailTestUtils):
     def setUp(self):
         # Find root page

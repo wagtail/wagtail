@@ -70,6 +70,24 @@ def explorer_breadcrumb(context, page, include_self=False):
     }
 
 
+@register.assignment_tag(takes_context=True)
+def explorer_site(context, user, root_site_name="Root"):
+    """
+    Usage: {% explorer_site user site_name}
+    Determines the root owning site record of the highest explorable ancestor page for the currently
+    logged in user.
+    """
+    explorable_root = get_pages_with_direct_explore_permission(user).first()
+    if explorable_root:
+        if explorable_root.title == "Root":
+            return root_site_name
+        else:
+            site_name = str(explorable_root.get_site()).replace('[default]', '')
+            return site_name if site_name != "None" else root_site_name
+    else:
+        return None
+
+
 @register.inclusion_tag('wagtailadmin/shared/search_other.html', takes_context=True)
 def search_other(context, current=None):
     request = context['request']
