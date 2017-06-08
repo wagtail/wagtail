@@ -2547,6 +2547,74 @@ class TestDateTimeBlock(TestCase):
         )
 
 
+class TestStaticBlock(unittest.TestCase):
+    def test_render_form_with_constructor(self):
+        block = blocks.StaticBlock(
+            admin_text="Latest posts - This block doesn't need to be configured, it will be displayed automatically",
+            template='tests/blocks/posts_static_block.html')
+        rendered_html = block.render_form(None)
+
+        self.assertEqual(rendered_html, "Latest posts - This block doesn't need to be configured, it will be displayed automatically")
+
+    def test_render_form_with_subclass(self):
+        class PostsStaticBlock(blocks.StaticBlock):
+            class Meta:
+                admin_text = "Latest posts - This block doesn't need to be configured, it will be displayed automatically"
+                template = "tests/blocks/posts_static_block.html"
+
+        block = PostsStaticBlock()
+        rendered_html = block.render_form(None)
+
+        self.assertEqual(rendered_html, "Latest posts - This block doesn't need to be configured, it will be displayed automatically")
+
+    def test_render_form_with_subclass_displays_default_text_if_no_admin_text(self):
+        class LabelOnlyStaticBlock(blocks.StaticBlock):
+            class Meta:
+                label = "Latest posts"
+
+        block = LabelOnlyStaticBlock()
+        rendered_html = block.render_form(None)
+
+        self.assertEqual(rendered_html, "Latest posts: this block has no options.")
+
+    def test_render_form_with_subclass_displays_default_text_if_no_admin_text_and_no_label(self):
+        class NoMetaStaticBlock(blocks.StaticBlock):
+            pass
+
+        block = NoMetaStaticBlock()
+        rendered_html = block.render_form(None)
+
+        self.assertEqual(rendered_html, "This block has no options.")
+
+    def test_render_form_works_with_mark_safe(self):
+        block = blocks.StaticBlock(
+            admin_text=mark_safe("<b>Latest posts</b> - This block doesn't need to be configured, it will be displayed automatically"),
+            template='tests/blocks/posts_static_block.html')
+        rendered_html = block.render_form(None)
+
+        self.assertEqual(rendered_html, "<b>Latest posts</b> - This block doesn't need to be configured, it will be displayed automatically")
+
+    def test_get_default(self):
+        block = blocks.StaticBlock()
+        default_value = block.get_default()
+        self.assertEqual(default_value, None)
+
+    def test_render(self):
+        block = blocks.StaticBlock(template='tests/blocks/posts_static_block.html')
+        result = block.render(None)
+        self.assertEqual(result, '<p>PostsStaticBlock template</p>')
+
+    def test_serialize(self):
+        block = blocks.StaticBlock()
+        result = block.get_prep_value(None)
+        self.assertEqual(result, None)
+
+    def test_deserialize(self):
+        block = blocks.StaticBlock()
+        result = block.to_python(None)
+        self.assertEqual(result, None)
+
+
 class TestSystemCheck(TestCase):
     def test_name_must_be_nonempty(self):
         block = blocks.StreamBlock([
