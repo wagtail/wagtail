@@ -1,8 +1,10 @@
 from __future__ import absolute_import, unicode_literals
 
+from django.conf.urls import url
+
 from wagtail.contrib.modeladmin.options import (
     ModelAdmin, ModelAdminGroup, ThumbnailMixin, modeladmin_register)
-from wagtail.contrib.modeladmin.views import CreateView
+from wagtail.contrib.modeladmin.views import CreateView, EditView
 from wagtail.tests.testapp.models import BusinessChild, EventPage, SingleEventPage
 
 from .forms import PublisherModelAdminForm
@@ -58,6 +60,19 @@ class BookModelAdmin(ThumbnailMixin, ModelAdmin):
             'data-author-yob': obj.author.date_of_birth.year,
             'class': 'book',
         }
+
+    def old_style_edit_view(self, request, instance_pk):
+        """To test that passing instance_pk to `as_view` still works"""
+        view = EditView.as_view(model_admin=self, instance_pk=instance_pk)
+        return view(request)
+
+    def get_admin_urls_for_registration(self):
+        urls = super(BookModelAdmin, self).get_admin_urls_for_registration()
+        return urls + (
+            url(self.url_helper.get_action_url_pattern('edit_old'),
+                self.old_style_edit_view,
+                name=self.url_helper.get_action_url_name('edit_old')),
+        )
 
 
 class TokenModelAdmin(ModelAdmin):
