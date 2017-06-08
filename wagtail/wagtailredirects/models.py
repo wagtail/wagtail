@@ -3,9 +3,11 @@ from __future__ import absolute_import, unicode_literals
 from django.db import models
 from django.utils.six.moves.urllib.parse import urlparse
 from django.utils.translation import ugettext_lazy as _
+from modelcluster.fields import ParentalKey
 
 
 class Redirect(models.Model):
+
     old_path = models.CharField(verbose_name=_("redirect from"), max_length=255, db_index=True)
     site = models.ForeignKey(
         'wagtailcore.Site',
@@ -19,9 +21,10 @@ class Redirect(models.Model):
         "Recommended. Permanent redirects ensure search engines "
         "forget the old page (the 'Redirect from') and index the new page instead."
     ))
-    redirect_page = models.ForeignKey(
+    redirect_page = ParentalKey(
         'wagtailcore.Page',
         verbose_name=_("redirect to a page"),
+        related_name='redirects',
         null=True, blank=True,
         on_delete=models.CASCADE
     )
