@@ -6,6 +6,7 @@ import os
 
 import django
 import mock
+from freezegun import freeze_time
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
@@ -31,6 +32,7 @@ from wagtail.wagtailcore.models import GroupPagePermission, Page, PageRevision, 
 from wagtail.wagtailcore.signals import page_published, page_unpublished
 from wagtail.wagtailsearch.index import SearchField
 from wagtail.wagtailusers.models import UserProfile
+from wagtail.wagtailadmin.views.pages import PreviewOnEdit
 
 
 def submittable_timestamp(timestamp):
