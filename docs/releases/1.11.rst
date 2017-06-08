@@ -110,6 +110,12 @@ See also: :meth:`wagtail.wagtailcore.models.Page.get_url_parts`, :meth:`wagtail.
 :meth:`wagtail.wagtailcore.models.Page.get_full_url`, and :meth:`wagtail.wagtailcore.models.Page.relative_url`
 
 
+"Password required" template for documents
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This release adds the ability to password-protect documents as well as pages. The template used for the "password required" form is distinct from the one used for pages; if you have previously overridden the default template through the ``PASSWORD_REQUIRED_TEMPLATE`` setting, you may wish to provide a corresponding template for documents through the setting ``DOCUMENT_PASSWORD_REQUIRED_TEMPLATE``. See: :ref:`private_pages`
+
+
 Elasticsearch 5.4 is incompatible with ``ATOMIC_REBUILD``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
