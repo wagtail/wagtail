@@ -12,10 +12,8 @@ const stubState = {
   },
   nodes: {
     5: {
-      children: {
-        isFetching: false,
-        isLoaded: true,
-      },
+      isFetching: true,
+      children: {},
     },
   },
 };
@@ -90,7 +88,7 @@ describe('actions', () => {
 
     it('triggers getChildren', () => {
       const stub = Object.assign({}, stubState);
-      stub.nodes[5].children.isLoaded = false;
+      stub.nodes[5].isFetching = false;
       const store = mockStore(stub);
       store.dispatch(actions.pushPage(5));
       expect(store.getActions()).toMatchSnapshot();

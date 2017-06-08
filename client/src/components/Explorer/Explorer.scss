@@ -3,6 +3,7 @@ $c-explorer-bg-dark: $color-grey-1;
 $c-explorer-bg-active: rgba(0,0,0,0.425);
 $c-explorer-secondary: #a5a5a5;
 $c-explorer-easing: cubic-bezier(0.075, 0.820, 0.165, 1.000);
+$menu-footer-height: 50px;
 
 @import 'ExplorerItem';
 
@@ -92,7 +93,6 @@ $c-explorer-easing: cubic-bezier(0.075, 0.820, 0.165, 1.000);
 
 .c-explorer__header {
     display: block;
-    height: 50px;
     background-color: $c-explorer-bg-dark;
     border-bottom: 1px solid $c-explorer-bg-dark;
     color: $color-white;
@@ -114,7 +114,7 @@ $c-explorer-easing: cubic-bezier(0.075, 0.820, 0.165, 1.000);
 }
 
 .c-explorer__header__inner {
-    padding: 1rem;
+    padding: 1em .75em;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -124,17 +124,24 @@ $c-explorer-easing: cubic-bezier(0.075, 0.820, 0.165, 1.000);
         margin-right: .25rem;
         font-size: 1rem;
     }
+
+    @include medium {
+        padding: 1em 1.5em;
+    }
 }
 
 .c-explorer__placeholder {
-    padding: 1rem;
+    padding: 1em;
     color: $color-white;
+
+    @include medium {
+        padding: 1em 1.75em;
+    }
 }
 
 .c-explorer__see-more {
     display: block;
-    padding: 1rem;
-    height: 50px;
+    padding: 1em;
     background: rgba(0,0,0,0.3);
     color: $color-white;
 
@@ -151,5 +158,10 @@ $c-explorer-easing: cubic-bezier(0.075, 0.820, 0.165, 1.000);
 
     @include hover {
         background: $c-explorer-bg-active;
+    }
+
+    @include medium {
+        padding: 1em 1.75em;
+        height: $menu-footer-height;
     }
 }

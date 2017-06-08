@@ -8,7 +8,6 @@ const TRANSITION_DURATION = 210;
 // The available transitions. Must match the class names in CSS.
 export const PUSH = 'push';
 export const POP = 'pop';
-export const FADE = 'fade';
 
 /**
  * Wrapper arround react-transition-group with default values.
@@ -32,7 +31,7 @@ const Transition = ({
 );
 
 Transition.propTypes = {
-  name: PropTypes.oneOf([PUSH, POP, FADE]).isRequired,
+  name: PropTypes.oneOf([PUSH, POP]).isRequired,
   component: PropTypes.string,
   className: PropTypes.string,
   duration: PropTypes.number,

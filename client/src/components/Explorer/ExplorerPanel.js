@@ -6,12 +6,16 @@ import { STRINGS, MAX_EXPLORER_PAGES } from '../../config/wagtailConfig';
 
 import Button from '../Button/Button';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
-import Transition, { PUSH, POP, FADE } from '../Transition/Transition';
+import Transition, { PUSH, POP } from '../Transition/Transition';
 import ExplorerHeader from './ExplorerHeader';
 import ExplorerItem from './ExplorerItem';
 import PageCount from './PageCount';
 
-export default class ExplorerPanel extends React.Component {
+/**
+ * The main panel of the page explorer menu, with heading,
+ * menu items, and special states.
+ */
+class ExplorerPanel extends React.Component {
   constructor(props) {
     super(props);
 
@@ -38,14 +42,14 @@ export default class ExplorerPanel extends React.Component {
     document.querySelector('[data-explorer-menu-item]').classList.add('submenu-active');
     document.body.classList.add('explorer-open');
     document.addEventListener('mousedown', this.clickOutside);
-    document.addEventListener('touchstart', this.clickOutside);
+    document.addEventListener('touchend', this.clickOutside);
   }
 
   componentWillUnmount() {
     document.querySelector('[data-explorer-menu-item]').classList.remove('submenu-active');
     document.body.classList.remove('explorer-open');
     document.removeEventListener('mousedown', this.clickOutside);
-    document.removeEventListener('touchstart', this.clickOutside);
+    document.removeEventListener('touchend', this.clickOutside);
   }
 
   clickOutside(e) {
@@ -136,7 +140,10 @@ export default class ExplorerPanel extends React.Component {
         tag="nav"
         className="explorer"
         paused={paused || !page || page.isFetching}
-        focusTrapOptions={{ onDeactivate: onClose }}
+        focusTrapOptions={{
+          initialFocus: '.c-explorer__close',
+          onDeactivate: onClose,
+        }}
       >
         <Button className="c-explorer__close u-hidden" onClick={onClose}>
           {STRINGS.CLOSE_EXPLORER}
@@ -163,14 +170,17 @@ export default class ExplorerPanel extends React.Component {
 
 ExplorerPanel.propTypes = {
   nodes: PropTypes.object.isRequired,
-  path: PropTypes.array,
+  path: PropTypes.array.isRequired,
   page: PropTypes.shape({
     isFetching: PropTypes.bool,
     children: PropTypes.shape({
+      count: PropTypes.number,
       items: PropTypes.array,
     }),
-  }),
+  }).isRequired,
   onClose: PropTypes.func.isRequired,
   popPage: PropTypes.func.isRequired,
   pushPage: PropTypes.func.isRequired,
 };
+
+export default ExplorerPanel;

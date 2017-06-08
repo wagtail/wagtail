@@ -15,7 +15,7 @@ exports[`ExplorerItem children 1`] = `
     target={null}
   >
     <Icon
-      className="c-explorer__children"
+      className={null}
       name="folder-inverse"
       title={null}
     />
@@ -36,9 +36,9 @@ exports[`ExplorerItem children 1`] = `
     target={null}
   >
     <Icon
-      className=""
+      className={null}
       name="edit"
-      title="Edit 'test'"
+      title="Edit"
     />
   </Button>
   <Button
@@ -52,7 +52,7 @@ exports[`ExplorerItem children 1`] = `
     target={null}
   >
     <Icon
-      className=""
+      className={null}
       name="arrow-right"
       title="See children"
     />
@@ -91,9 +91,9 @@ exports[`ExplorerItem renders 1`] = `
     target={null}
   >
     <Icon
-      className=""
+      className={null}
       name="edit"
-      title="Edit 'test'"
+      title="Edit"
     />
   </Button>
 </div>
@@ -114,7 +114,7 @@ exports[`ExplorerItem should show a publication status if not live 1`] = `
     target={null}
   >
     <Icon
-      className="c-explorer__children"
+      className={null}
       name="folder-inverse"
       title={null}
     />
@@ -148,9 +148,9 @@ exports[`ExplorerItem should show a publication status if not live 1`] = `
     target={null}
   >
     <Icon
-      className=""
+      className={null}
       name="edit"
-      title="Edit 'test'"
+      title="Edit"
     />
   </Button>
   <Button
@@ -164,7 +164,7 @@ exports[`ExplorerItem should show a publication status if not live 1`] = `
     target={null}
   >
     <Icon
-      className=""
+      className={null}
       name="arrow-right"
       title="See children"
     />
@@ -187,7 +187,7 @@ exports[`ExplorerItem should show a publication status with unpublished changes 
     target={null}
   >
     <Icon
-      className="c-explorer__children"
+      className={null}
       name="folder-inverse"
       title={null}
     />
@@ -221,9 +221,9 @@ exports[`ExplorerItem should show a publication status with unpublished changes 
     target={null}
   >
     <Icon
-      className=""
+      className={null}
       name="edit"
-      title="Edit 'test'"
+      title="Edit"
     />
   </Button>
   <Button
@@ -237,7 +237,7 @@ exports[`ExplorerItem should show a publication status with unpublished changes 
     target={null}
   >
     <Icon
-      className=""
+      className={null}
       name="arrow-right"
       title="See children"
     />

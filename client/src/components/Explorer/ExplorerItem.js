@@ -6,6 +6,23 @@ import Icon from '../../components/Icon/Icon';
 import Button from '../../components/Button/Button';
 import PublicationStatus from '../../components/PublicationStatus/PublicationStatus';
 
+// Hoist icons in the explorer item, as it is re-rendered many times.
+const childrenIcon = (
+  <Icon name="folder-inverse" />
+);
+
+const editIcon = (
+  <Icon name="edit" title={STRINGS.EDIT} />
+);
+
+const nextIcon = (
+  <Icon name="arrow-right" title={STRINGS.SEE_CHILDREN} />
+);
+
+/**
+ * One menu item in the page explorer, with different available actions
+ * and information depending on the metadata of the page.
+ */
 const ExplorerItem = ({ item, onClick }) => {
   const { id, title, meta } = item;
   const hasChildren = meta.children.count > 0;
@@ -14,9 +31,7 @@ const ExplorerItem = ({ item, onClick }) => {
   return (
     <div className="c-explorer__item">
       <Button href={`${ADMIN_URLS.PAGES}${id}/`} className="c-explorer__item__link">
-        {hasChildren ? (
-          <Icon name="folder-inverse" className={'c-explorer__children'} />
-        ) : null}
+        {hasChildren ? childrenIcon : null}
 
         <h3 className="c-explorer__item__title">
           {title}
@@ -32,14 +47,14 @@ const ExplorerItem = ({ item, onClick }) => {
         href={`${ADMIN_URLS.PAGES}${id}/edit/`}
         className="c-explorer__item__action c-explorer__item__action--small"
       >
-        <Icon name="edit" title={`${STRINGS.EDIT} '${title}'`} />
+        {editIcon}
       </Button>
       {hasChildren ? (
         <Button
           className="c-explorer__item__action"
           onClick={onClick}
         >
-          <Icon name="arrow-right" title={STRINGS.SEE_CHILDREN} />
+          {nextIcon}
         </Button>
       ) : null}
     </div>

@@ -49,6 +49,7 @@
     "imports-loader": "^0.7.1",
     "jest": "^20.0.4",
     "mustache": "^2.2.1",
+    "react-addons-perf": "^15.4.2",
     "react-addons-test-utils": "^15.4.2",
     "react-test-renderer": "^15.5.4",
     "redux-mock-store": "^1.2.2",

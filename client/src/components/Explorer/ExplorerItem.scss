@@ -8,7 +8,7 @@
     display: inline-flex;
     align-items: center;
     flex-grow: 1;
-    padding: 1.45em 1.75em;
+    padding: 1.45em 1em;
     cursor: pointer;
 
     &:focus {
@@ -24,6 +24,10 @@
 
     @include hover {
         background: $c-explorer-bg-active;
+    }
+
+    @include medium {
+        padding: 1.45em 1.75em;
     }
 }
 
