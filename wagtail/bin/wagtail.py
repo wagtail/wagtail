@@ -7,14 +7,14 @@ from optparse import OptionParser
 from django.core.management import ManagementUtility
 
 
-def create_project(parser, options, args):
+def create_project(parser, options, arguments):
     # Validate args
-    if len(args) < 2:
+    if len(arguments) < 2:
         parser.error("Please specify a name for your Wagtail installation")
-    elif len(args) > 2:
+    elif len(arguments) > 2:
         parser.error("Too many arguments")
 
-    project_name = args[1]
+    project_name = arguments[1]
 
     if options.destination:
         destination_dir = options.destination
@@ -74,17 +74,17 @@ def main():
     parser = OptionParser(usage="Usage: %prog start project_name [--destination=<destination_directory>] [--template=<template_path>]")
     parser.add_option("--destination", dest="destination", help="Set destination directory")
     parser.add_option("--template", dest="template", help="Specify a custom template")
-    (options, pargs) = parser.parse_args()
+    (options, arguments) = parser.parse_args()
 
     # Find command
     try:
-        command = pargs[0]
+        command = arguments[0]
     except IndexError:
         parser.print_help()
         return
 
     if command in COMMANDS:
-        COMMANDS[command](parser, options, pargs)
+        COMMANDS[command](parser, options, arguments)
     else:
         parser.error("Unrecognised command: " + command)
 
