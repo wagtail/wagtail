@@ -3552,6 +3552,16 @@
         }
       }
     },
+    "core-js": {
+      "version": "1.2.7",
+      "from": "core-js@^1.0.0",
+      "resolved": "https://registry.npmjs.org/core-js/-/core-js-1.2.7.tgz"
+    },
+    "encoding": {
+      "version": "0.1.12",
+      "from": "encoding@^0.1.11",
+      "resolved": "https://registry.npmjs.org/encoding/-/encoding-0.1.12.tgz"
+    },
     "enzyme": {
       "version": "2.8.2",
       "from": "https://registry.npmjs.org/enzyme/-/enzyme-2.8.2.tgz",
@@ -5870,6 +5880,11 @@
           }
         }
       }
+    },
+    "fbjs": {
+      "version": "0.8.12",
+      "from": "fbjs@^0.8.4",
+      "resolved": "https://registry.npmjs.org/fbjs/-/fbjs-0.8.12.tgz"
     },
     "focus-trap-react": {
       "version": "3.0.3",
@@ -10318,6 +10333,21 @@
         }
       }
     },
+    "iconv-lite": {
+      "version": "0.4.17",
+      "from": "iconv-lite@~0.4.13",
+      "resolved": "https://registry.npmjs.org/iconv-lite/-/iconv-lite-0.4.17.tgz"
+    },
+    "is-stream": {
+      "version": "1.1.0",
+      "from": "is-stream@^1.0.1",
+      "resolved": "https://registry.npmjs.org/is-stream/-/is-stream-1.1.0.tgz"
+    },
+    "isomorphic-fetch": {
+      "version": "2.2.1",
+      "from": "isomorphic-fetch@^2.1.1",
+      "resolved": "https://registry.npmjs.org/isomorphic-fetch/-/isomorphic-fetch-2.2.1.tgz"
+    },
     "jest": {
       "version": "20.0.4",
       "from": "https://registry.npmjs.org/jest/-/jest-20.0.4.tgz",
@@ -12694,15 +12724,30 @@
         }
       }
     },
+    "js-tokens": {
+      "version": "3.0.1",
+      "from": "js-tokens@^3.0.0",
+      "resolved": "https://registry.npmjs.org/js-tokens/-/js-tokens-3.0.1.tgz"
+    },
     "lodash": {
       "version": "4.17.4",
       "from": "https://registry.npmjs.org/lodash/-/lodash-4.17.4.tgz",
       "resolved": "https://registry.npmjs.org/lodash/-/lodash-4.17.4.tgz"
     },
+    "loose-envify": {
+      "version": "1.3.1",
+      "from": "loose-envify@^1.0.0",
+      "resolved": "https://registry.npmjs.org/loose-envify/-/loose-envify-1.3.1.tgz"
+    },
     "mustache": {
       "version": "2.3.0",
       "from": "https://registry.npmjs.org/mustache/-/mustache-2.3.0.tgz",
       "resolved": "https://registry.npmjs.org/mustache/-/mustache-2.3.0.tgz"
+    },
+    "node-fetch": {
+      "version": "1.7.1",
+      "from": "node-fetch@^1.0.1",
+      "resolved": "https://registry.npmjs.org/node-fetch/-/node-fetch-1.7.1.tgz"
     },
     "object-assign": {
       "version": "4.1.1",
@@ -12898,6 +12943,11 @@
           "resolved": "https://registry.npmjs.org/object-assign/-/object-assign-4.1.1.tgz"
         }
       }
+    },
+    "react-addons-perf": {
+      "version": "15.4.2",
+      "from": "react-addons-perf@^15.4.2",
+      "resolved": "https://registry.npmjs.org/react-addons-perf/-/react-addons-perf-15.4.2.tgz"
     },
     "react-dom": {
       "version": "15.5.4",
@@ -13267,6 +13317,16 @@
       "version": "0.3.1",
       "from": "https://registry.npmjs.org/require-dir/-/require-dir-0.3.1.tgz",
       "resolved": "https://registry.npmjs.org/require-dir/-/require-dir-0.3.1.tgz"
+    },
+    "setimmediate": {
+      "version": "1.0.5",
+      "from": "setimmediate@^1.0.5",
+      "resolved": "https://registry.npmjs.org/setimmediate/-/setimmediate-1.0.5.tgz"
+    },
+    "ua-parser-js": {
+      "version": "0.7.12",
+      "from": "ua-parser-js@^0.7.9",
+      "resolved": "https://registry.npmjs.org/ua-parser-js/-/ua-parser-js-0.7.12.tgz"
     },
     "webpack": {
       "version": "2.6.1",
