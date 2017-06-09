@@ -12,8 +12,11 @@ from django.utils import six
 from mock import MagicMock
 from taggit.forms import TagField, TagWidget
 
-from wagtail.tests.testapp.models import CustomImage, CustomImageFilePath
+from wagtail.tests.testapp.models import (
+    CustomImage, CustomImageFilePath, ProtectedImageModel, ProtectedImagePage,
+    ProtectedImageSnippet)
 from wagtail.tests.utils import WagtailTestUtils
+from wagtail.wagtailcore.models import Page
 from wagtail.wagtailimages import get_image_model, get_image_model_string
 from wagtail.wagtailimages.fields import WagtailImageField
 from wagtail.wagtailimages.formats import Format, get_image_format, register_image_format
@@ -21,7 +24,6 @@ from wagtail.wagtailimages.forms import get_image_form
 from wagtail.wagtailimages.models import Image as WagtailImage
 from wagtail.wagtailimages.rect import Rect, Vector
 from wagtail.wagtailimages.views.serve import ServeView, generate_signature, verify_signature
-
 from .utils import Image, get_test_image_file
 
 try:
@@ -619,3 +621,45 @@ class TestGetImageModel(WagtailTestUtils, TestCase):
         """Test get_image_model with an invalid model string"""
         with self.assertRaises(ImproperlyConfigured):
             get_image_model()
+
+
+class TestProtectedImages(TestCase, WagtailTestUtils):
+    fixtures = ['test.json']
+
+    @classmethod
+    def setUpClass(cls):
+        super(TestProtectedImages, cls).setUpClass()
+        cls.image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+
+    def setUp(self):
+        super(TestProtectedImages, self).setUp()
+        self.login()
+
+    def check(self):
+        response = self.client.post(reverse('wagtailimages:delete', args=(self.image.id,)), {})
+
+        self.assertRedirects(response, reverse('wagtailimages:edit', args=(self.image.id,)))
+        # Check that image still present
+        images = Image.objects.filter(title="Test image")
+        self.assertEqual(images.count(), 1)
+
+    def test_protected_page_not_deleted(self):
+        page = ProtectedImagePage(
+            title='Test Page',
+            image=self.image,
+            content='hello'
+        )
+        homepage = Page.objects.get(url_path='/home/')
+        homepage.add_child(instance=page)
+        self.check()
+
+    def test_protected_snippet_not_deleted(self):
+        ProtectedImageSnippet.objects.create(image=self.image)
+        self.check()
+
+    def test_protected_model_not_deleted(self):
+        ProtectedImageModel.objects.create(image=self.image)
+        self.check()

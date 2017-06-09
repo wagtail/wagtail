@@ -560,6 +560,23 @@ class AdvertWithTabbedInterface(models.Model):
 register_snippet(AdvertWithTabbedInterface)
 
 
+class ProtectedImageSnippet(models.Model):
+    image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.PROTECT,
+        related_name='+'
+    )
+
+    panels = [
+        ImageChooserPanel('image')
+    ]
+
+
+register_snippet(ProtectedImageSnippet)
+
+
 class StandardIndex(Page):
     """ Index for the site """
     parent_page_types = [Page]
@@ -961,3 +978,30 @@ class TabbedSettings(TestSetting):
             FieldPanel('email')
         ], heading='Second tab'),
     ])
+
+
+class ProtectedImagePage(Page):
+    image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.PROTECT,
+        related_name='+'
+    )
+    content = models.TextField()
+
+    panels = Page.content_panels + [
+        ImageChooserPanel('image'),
+        FieldPanel('title', classname="full title"),
+        FieldPanel('content'),
+    ]
+
+
+class ProtectedImageModel(models.Model):
+    image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.PROTECT,
+        related_name='+'
+    )
