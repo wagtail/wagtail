@@ -915,5 +915,73 @@
         "height": 1000,
         "created_at": "2014-01-01T12:00:00.000Z"
     }
+},
+{
+    "model": "wagtailcore.collectionviewrestriction",
+    "pk": 1,
+    "fields": {
+        "restriction_type": "password",
+        "password": "swordfish",
+        "collection": 2
+    }
+},
+{
+    "model": "wagtailcore.collectionviewrestriction",
+    "pk": 2,
+    "fields": {
+        "restriction_type": "login",
+        "collection": 3
+    }
+},
+{
+    "model": "wagtailcore.collectionviewrestriction",
+    "pk": 3,
+    "fields": {
+        "restriction_type": "groups",
+        "collection": 4,
+        "groups": [
+            ["Event editors"]
+        ]
+    }
+},
+{
+    "model": "wagtailcore.collection",
+    "pk": 1,
+    "fields": {
+        "path": "0001",
+        "depth": 1,
+        "numchild": 3,
+        "name": "Root"
+    }
+},
+{
+    "model": "wagtailcore.collection",
+    "pk": 2,
+    "fields": {
+        "path": "00010001",
+        "depth": 2,
+        "numchild": 0,
+        "name": "Password protected"
+    }
+},
+{
+    "model": "wagtailcore.collection",
+    "pk": 3,
+    "fields": {
+        "path": "00010002",
+        "depth": 2,
+        "numchild": 0,
+        "name": "Login protected"
+    }
+},
+{
+    "model": "wagtailcore.collection",
+    "pk": 4,
+    "fields": {
+        "path": "00010003",
+        "depth": 2,
+        "numchild": 0,
+        "name": "Group protected"
+    }
 }
 ]

@@ -22,7 +22,7 @@ class TestPagePrivacy(TestCase):
         response = self.client.get('/secret-plans/')
         self.assertEqual(response.templates[0].name, 'wagtailcore/password_required.html')
 
-        submit_url = "/_util/authenticate_with_password/%d/%d/" % (self.view_restriction.id, self.secret_plans_page.id)
+        submit_url = "/_util/authenticate_with_password/page/%d/0/%d/" % (self.view_restriction.id, self.secret_plans_page.id)
         self.assertContains(response, '<form action="%s"' % submit_url)
         self.assertContains(
             response,
@@ -56,7 +56,7 @@ class TestPagePrivacy(TestCase):
         # check that we're overriding the default password_required template for this page type
         self.assertEqual(response.templates[0].name, 'tests/event_page_password_required.html')
 
-        submit_url = "/_util/authenticate_with_password/%d/%d/" % (self.view_restriction.id, underpants_page.id)
+        submit_url = "/_util/authenticate_with_password/page/%d/0/%d/" % (self.view_restriction.id, underpants_page.id)
         self.assertContains(response, '<title>Steal underpants</title>')
         self.assertContains(response, '<form action="%s"' % submit_url)
         self.assertContains(

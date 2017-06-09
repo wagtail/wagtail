@@ -43,6 +43,7 @@ from wagtail.wagtailsearch import index
 logger = logging.getLogger('wagtail.core')
 
 PAGE_TEMPLATE_VAR = 'page'
+COLLECTION_TEMPLATE_VAR = 'collection'
 
 
 class SiteManager(models.Manager):
@@ -1864,7 +1865,7 @@ class PagePermissionTester(object):
         return True
 
 
-class PageViewRestriction(models.Model):
+class BaseViewRestriction(models.Model):
     NONE = 'none'
     PASSWORD = 'password'
     GROUPS = 'groups'
@@ -1879,23 +1880,20 @@ class PageViewRestriction(models.Model):
 
     restriction_type = models.CharField(
         max_length=20, choices=RESTRICTION_CHOICES)
-    page = models.ForeignKey(
-        'Page', verbose_name=_('page'), related_name='view_restrictions', on_delete=models.CASCADE
-    )
     password = models.CharField(verbose_name=_('password'), max_length=255, blank=True)
-    groups = models.ManyToManyField(Group, blank=True)
+    groups = models.ManyToManyField(Group, verbose_name=_('groups'), blank=True)
 
     def accept_request(self, request):
-        if self.restriction_type == PageViewRestriction.PASSWORD:
-            passed_restrictions = request.session.get('passed_page_view_restrictions', [])
+        if self.restriction_type == BaseViewRestriction.PASSWORD:
+            passed_restrictions = request.session.get('passed_view_restrictions', [])
             if self.id not in passed_restrictions:
                 return False
 
-        elif self.restriction_type == PageViewRestriction.LOGIN:
+        elif self.restriction_type == BaseViewRestriction.LOGIN:
             if not user_is_authenticated(request.user):
                 return False
 
-        elif self.restriction_type == PageViewRestriction.GROUPS:
+        elif self.restriction_type == BaseViewRestriction.GROUPS:
             if not request.user.is_superuser:
                 current_user_groups = request.user.groups.all()
 
@@ -1903,6 +1901,17 @@ class PageViewRestriction(models.Model):
                     return False
 
         return True
+
+    class Meta:
+        abstract = True
+        verbose_name = _('view restriction')
+        verbose_name_plural = _('view restrictions')
+
+
+class PageViewRestriction(BaseViewRestriction):
+    page = models.ForeignKey(
+        'Page', verbose_name=_('page'), related_name='view_restrictions', on_delete=models.CASCADE
+    )
 
     class Meta:
         verbose_name = _('page view restriction')
@@ -1915,6 +1924,19 @@ class BaseCollectionManager(models.Manager):
 
 
 CollectionManager = BaseCollectionManager.from_queryset(TreeQuerySet)
+
+
+class CollectionViewRestriction(BaseViewRestriction):
+    collection = models.ForeignKey(
+        'Collection',
+        verbose_name=_('collection'),
+        related_name='view_restrictions',
+        on_delete=models.CASCADE
+    )
+
+    class Meta:
+        verbose_name = _('collection view restriction')
+        verbose_name_plural = _('collection view restrictions')
 
 
 @python_2_unicode_compatible
@@ -1943,6 +1965,32 @@ class Collection(MP_Node):
 
     def get_prev_siblings(self, inclusive=False):
         return self.get_siblings(inclusive).filter(path__lte=self.path).order_by('-path')
+
+    def get_context(self, request, *args, **kwargs):
+        return {
+            COLLECTION_TEMPLATE_VAR: self,
+            'self': self,
+            'request': request,
+        }
+
+    def get_view_restrictions(self):
+        """Return a query set of all collection view restrictions that apply to this collection"""
+        return CollectionViewRestriction.objects.filter(collection__in=self.get_ancestors(inclusive=True))
+
+    password_required_template = getattr(settings, 'PASSWORD_REQUIRED_TEMPLATE', 'wagtailcore/password_required.html')
+
+    def serve_password_required_response(self, request, form, action_url):
+        """
+        Serve a response indicating that the user has been denied access to view this collection,
+        and must supply a password.
+        form = a Django form object containing the password input
+            (and zero or more hidden fields that also need to be output on the template)
+        action_url = URL that this form should be POSTed to
+        """
+        context = self.get_context(request)
+        context['form'] = form
+        context['action_url'] = action_url
+        return TemplateResponse(request, self.password_required_template, context)
 
     class Meta:
         verbose_name = _('collection')

@@ -16,13 +16,13 @@ from django.utils import timezone
 from django.utils.six import with_metaclass
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy, ungettext
+
 from modelcluster.forms import ClusterForm, ClusterFormMetaclass
 from taggit.managers import TaggableManager
-
 from wagtail.wagtailadmin import widgets
 from wagtail.wagtailcore.models import (
-    Collection, GroupCollectionPermission, Page, PageViewRestriction
-)
+    BaseViewRestriction, Collection, CollectionViewRestriction, GroupCollectionPermission, Page,
+    PageViewRestriction)
 
 
 class URLOrAbsolutePathValidator(validators.URLValidator):
@@ -187,28 +187,42 @@ class CopyForm(forms.Form):
         return cleaned_data
 
 
-class PageViewRestrictionForm(forms.ModelForm):
+class BaseViewRestrictionForm(forms.ModelForm):
     restriction_type = forms.ChoiceField(
-        label=ugettext_lazy("Visibility"), choices=PageViewRestriction.RESTRICTION_CHOICES,
+        label=ugettext_lazy("Visibility"), choices=BaseViewRestriction.RESTRICTION_CHOICES,
         widget=forms.RadioSelect)
 
     def __init__(self, *args, **kwargs):
-        super(PageViewRestrictionForm, self).__init__(*args, **kwargs)
+        super(BaseViewRestrictionForm, self).__init__(*args, **kwargs)
 
         self.fields['groups'].widget = forms.CheckboxSelectMultiple()
         self.fields['groups'].queryset = Group.objects.all()
 
     def clean_password(self):
         password = self.cleaned_data.get('password')
-        if self.cleaned_data.get('restriction_type') == PageViewRestriction.PASSWORD and not password:
+        if self.cleaned_data.get('restriction_type') == BaseViewRestriction.PASSWORD and not password:
             raise forms.ValidationError(_("This field is required."), code='invalid')
         return password
 
     def clean_groups(self):
         groups = self.cleaned_data.get('groups')
-        if self.cleaned_data.get('restriction_type') == PageViewRestriction.GROUPS and not groups:
+        if self.cleaned_data.get('restriction_type') == BaseViewRestriction.GROUPS and not groups:
             raise forms.ValidationError(_("Please select at least one group."), code='invalid')
         return groups
+
+    class Meta:
+        model = BaseViewRestriction
+        fields = ('restriction_type', 'password', 'groups')
+
+
+class CollectionViewRestrictionForm(BaseViewRestrictionForm):
+
+    class Meta:
+        model = CollectionViewRestriction
+        fields = ('restriction_type', 'password', 'groups')
+
+
+class PageViewRestrictionForm(BaseViewRestrictionForm):
 
     class Meta:
         model = PageViewRestriction
