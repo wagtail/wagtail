@@ -13,7 +13,7 @@ from .views import SiteViewSet
 
 @hooks.register('register_admin_viewset')
 def register_viewset():
-    return SiteViewSet('wagtailsites')
+    return SiteViewSet('wagtailsites', url_prefix='sites')
 
 
 class SitesMenuItem(MenuItem):
