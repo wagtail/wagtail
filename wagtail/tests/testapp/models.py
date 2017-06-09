@@ -28,7 +28,7 @@ from wagtail.wagtailadmin.forms import WagtailAdminPageForm
 from wagtail.wagtailadmin.utils import send_mail
 from wagtail.wagtailcore.blocks import CharBlock, RichTextBlock
 from wagtail.wagtailcore.fields import RichTextField, StreamField
-from wagtail.wagtailcore.models import Orderable, Page, PageManager
+from wagtail.wagtailcore.models import Orderable, Page, PageManager, PageQuerySet
 from wagtail.wagtaildocs.edit_handlers import DocumentChooserPanel
 from wagtail.wagtailforms.models import AbstractEmailForm, AbstractFormField, AbstractFormSubmission
 from wagtail.wagtailimages.blocks import ImageChooserBlock
@@ -833,8 +833,12 @@ class CustomImageFilePath(AbstractImage):
         return os.path.join(folder_name, checksum[:3], filename)
 
 
-class CustomManager(PageManager):
-    pass
+class CustomPageQuerySet(PageQuerySet):
+    def about_spam(self):
+        return self.filter(title__contains='spam')
+
+
+CustomManager = PageManager.from_queryset(CustomPageQuerySet)
 
 
 class CustomManagerPage(Page):
