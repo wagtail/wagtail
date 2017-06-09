@@ -13,6 +13,7 @@ class IndexView(generic.IndexView):
     template_name = 'wagtailsites/index.html'
     page_title = ugettext_lazy("Sites")
     add_item_label = ugettext_lazy("Add a site")
+    context_object_name = 'sites'
 
 
 class CreateView(generic.CreateView):
@@ -24,6 +25,7 @@ class CreateView(generic.CreateView):
 class EditView(generic.EditView):
     success_message = ugettext_lazy("Site '{0}' updated.")
     error_message = ugettext_lazy("The site could not be saved due to errors.")
+    delete_item_label = ugettext_lazy("Delete site")
     context_object_name = 'site'
     template_name = 'wagtailsites/edit.html'
 
