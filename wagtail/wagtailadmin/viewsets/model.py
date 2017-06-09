@@ -80,7 +80,7 @@ class ModelViewSet(ViewSet):
         )
 
     def get_urlpatterns(self):
-        return [
+        return super(ModelViewSet, self).get_urlpatterns() + [
             url(r'^$', self.index_view, name='index'),
             url(r'^new/$', self.add_view, name='add'),
             url(r'^(\d+)/$', self.edit_view, name='edit'),
