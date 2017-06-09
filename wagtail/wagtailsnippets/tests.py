@@ -362,10 +362,11 @@ class TestSnippetChooserPanel(TestCase, WagtailTestUtils):
         test_snippet = model.objects.create(
             advert=Advert.objects.create(text=self.advert_text))
 
-        self.edit_handler_class = get_snippet_edit_handler(model)
-        self.form_class = self.edit_handler_class.get_form_class(model)
+        self.edit_handler = get_snippet_edit_handler(model)
+        self.form_class = self.edit_handler.get_form_class(model)
         form = self.form_class(instance=test_snippet)
-        edit_handler = self.edit_handler_class(instance=test_snippet, form=form)
+        edit_handler = self.edit_handler.bind_to_instance(instance=test_snippet,
+                                                          form=form)
 
         self.snippet_chooser_panel = [
             panel for panel in edit_handler.children
@@ -384,7 +385,8 @@ class TestSnippetChooserPanel(TestCase, WagtailTestUtils):
     def test_render_as_empty_field(self):
         test_snippet = SnippetChooserModel()
         form = self.form_class(instance=test_snippet)
-        edit_handler = self.edit_handler_class(instance=test_snippet, form=form)
+        edit_handler = self.edit_handler.bind_to_instance(instance=test_snippet,
+                                                          form=form)
 
         snippet_chooser_panel = [
             panel for panel in edit_handler.children

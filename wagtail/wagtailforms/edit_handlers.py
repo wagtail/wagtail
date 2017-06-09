@@ -7,7 +7,7 @@ from django.utils.translation import ugettext as _
 from wagtail.wagtailadmin.edit_handlers import EditHandler
 
 
-class BaseFormSubmissionsPanel(EditHandler):
+class FormSubmissionsPanel(EditHandler):
     template = "wagtailforms/edit_handlers/form_responses_panel.html"
 
     def render(self):
@@ -24,14 +24,6 @@ class BaseFormSubmissionsPanel(EditHandler):
             'last_submit_time': submissions.order_by('submit_time').last().submit_time,
         }))
 
-
-class FormSubmissionsPanel(object):
-    def __init__(self, heading=None):
-        self.heading = heading
-
-    def bind_to_model(self, model):
-        heading = _('{} submissions').format(model.get_verbose_name())
-        return type(str('_FormResponsesPanel'), (BaseFormSubmissionsPanel,), {
-            'model': model,
-            'heading': self.heading or heading,
-        })
+    def on_model_bound(self):
+        if not self.heading:
+            self.heading = _('%s submissions') % self.model.get_verbose_name()
