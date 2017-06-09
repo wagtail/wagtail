@@ -1,6 +1,7 @@
 from __future__ import absolute_import, unicode_literals
 
 from django.conf.urls import url
+from django.core.exceptions import ImproperlyConfigured
 from django.forms.models import modelform_factory
 
 from wagtail.wagtailadmin.views import generic
@@ -73,10 +74,20 @@ class ModelViewSet(ViewSet):
         return db_field.formfield(**kwargs)
 
     def get_form_class(self, for_update=False):
+        fields = getattr(self, 'form_fields', None)
+        exclude = getattr(self, 'exclude_form_fields', None)
+
+        if fields is None and exclude is None:
+            raise ImproperlyConfigured(
+                "Subclasses of ModelViewSet must specify 'get_form_class', 'form_fields' "
+                "or 'exclude_form_fields'."
+            )
+
         return modelform_factory(
             self.model,
             formfield_callback=self.formfield_for_dbfield,
-            fields='__all__'
+            fields=fields,
+            exclude=exclude
         )
 
     def get_urlpatterns(self):
