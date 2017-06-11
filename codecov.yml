@@ -1,1 +1,4 @@
+codecov:
+  notify:
+    after_n_builds: 10
 comment: off
