@@ -7,46 +7,34 @@ $menu-footer-height: 50px;
 
 @import 'ExplorerItem';
 
-.explorer {
-    width: 100%;
-    position: relative;
-    top: 0;
-    left: 0;
-    font-size: 1em;
-    z-index: 500;
-
-    @include medium {
-        width: 485px;
-        position: fixed;
-        top: 0;
-        left: $menu-width;
-
-        &:before {
-            display: none;
-        }
-
-        &:after {
-            content: '';
-            width: calc(100% - 2px);
-            height: 100%;
-            position: absolute;
-            top: 0;
-            right: 0;
-            z-index: -1;
-            box-shadow: 0 0 2px rgba(255, 255, 255, 0.9);
-        }
-    }
-}
-
-.c-explorer,
-.c-explorer * {
+.explorer__wrapper,
+.explorer__wrapper * {
     box-sizing: border-box;
 }
 
+.explorer__wrapper {
+    display: flex;
+    flex: 1;
+}
+
+.explorer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    @include medium {
+        width: 485px;
+        height: 100vh;
+        position: fixed;
+        z-index: 500;
+        left: $menu-width;
+    }
+}
+
 .c-explorer {
+    flex: 1;
     position: relative;
     overflow: hidden;
-    height: 100vh;
     background: $c-explorer-bg;
 
     @include medium {

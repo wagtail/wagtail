@@ -81,7 +81,6 @@ body {
 .wrapper {
     @include clearfix();
     height: 100vh;
-    min-height: 800px;
     transition: transform 0.2s ease;
 }
 
