@@ -133,6 +133,7 @@ class EditView(PermissionCheckedMixin, TemplateResponseMixin, BaseUpdateView):
     context_object_name = None
     template_name = 'wagtailadmin/generic/edit.html'
     permission_required = 'change'
+    delete_item_label = ugettext_lazy("Delete")
     success_message = None
     error_message = None
 
