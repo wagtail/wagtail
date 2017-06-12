@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PageChooserSearchView renders 1`] = `
+<div
+  className="nice-padding"
+>
+  <h2>
+    There are no matches
+  </h2>
+  <PageChooserResultSet
+    displayChildNavigation={false}
+    items={Array []}
+    onNavigate={[Function]}
+    onPageChosen={[Function]}
+    pageTypes={Object {}}
+    parentPage={null}
+    restrictPageTypes={Array []}
+  />
+</div>
+`;

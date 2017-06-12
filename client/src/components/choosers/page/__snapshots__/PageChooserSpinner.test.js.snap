@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PageChooserSpinner #isActive 1`] = `
+<div
+  className="loading-mask loading"
+>
+  Test
+</div>
+`;
+
+exports[`PageChooserSpinner renders 1`] = `
+<div
+  className="loading-mask"
+>
+  Test
+</div>
+`;

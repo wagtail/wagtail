@@ -1,24 +1,65 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import PageChooserResultSet from '../PageChooserResultSet';
 
+// TODO Get rid of any propTypes.
+// TODO Figure out whether those values are required or not.
+const propTypes = {
+  totalItems: PropTypes.number.isRequired,
+  pageNumber: PropTypes.any,
+  totalPages: PropTypes.any,
+  items: PropTypes.any,
+  pageTypes: PropTypes.any,
+  restrictPageTypes: PropTypes.any,
+  onPageChosen: PropTypes.any,
+  onNavigate: PropTypes.any,
+  onChangePage: PropTypes.any,
+};
 
-export default class PageChooserBrowseView extends React.Component {
-  renderTitle() {
-    switch (this.props.totalItems) {
-      case 0:
-        return "There are no matches"
-      case 1:
-        return "There is 1 match"
-      default:
-        return `There are ${this.props.totalItems} matches`
-    }
+const renderTitle = (totalItems) => {
+  switch (totalItems) {
+  case 0:
+    return 'There are no matches';
+  case 1:
+    return 'There is 1 match';
+  default:
+    return `There are ${totalItems} matches`;
   }
+};
 
+class PageChooserSearchView extends React.Component {
   render() {
-    return <div className="nice-padding">
-      <h2>{this.renderTitle()}</h2>
-      <PageChooserResultSet pageNumber={this.props.pageNumber} totalPages={this.props.totalPages} items={this.props.items} pageTypes={this.props.pageTypes} restrictPageTypes={this.props.restrictPageTypes} onPageChosen={this.props.onPageChosen} onNavigate={this.props.onNavigate} onChangePage={this.props.onChangePage} />
-    </div>;
+    const {
+      totalItems,
+      pageNumber,
+      totalPages,
+      items,
+      pageTypes,
+      restrictPageTypes,
+      onPageChosen,
+      onNavigate,
+      onChangePage,
+    } = this.props;
+    return (
+      <div className="nice-padding">
+        <h2>{renderTitle(totalItems)}</h2>
+        <PageChooserResultSet
+          pageNumber={pageNumber}
+          totalPages={totalPages}
+          items={items}
+          pageTypes={pageTypes}
+          restrictPageTypes={restrictPageTypes}
+          onPageChosen={onPageChosen}
+          onNavigate={onNavigate}
+          onChangePage={onChangePage}
+        />
+      </div>
+    );
   }
 }
+
+PageChooserSearchView.propTypes = propTypes;
+// PageChooserSearchView.defaultProps = defaultProps;
+
+export default PageChooserSearchView;

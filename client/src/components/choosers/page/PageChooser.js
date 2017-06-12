@@ -1,115 +1,134 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { BaseChooser } from '../BaseChooser';
+import ModalWindow from '../../modal/ModalWindow';
 
 import * as actions from './actions';
 import PageChooserHeader from './PageChooserHeader';
+import PageChooserSpinner from './PageChooserSpinner';
 import PageChooserBrowseView from './views/PageChooserBrowseView';
 import PageChooserSearchView from './views/PageChooserSearchView';
-
+import PageChooserErrorView from './views/PageChooserErrorView';
 
 // TODO PageChooserExternalLinkView
 // TODO PageChooserEmailView
 
+const getTotalPages = (totalItems, itemsPerPage) => Math.ceil(totalItems / itemsPerPage);
 
-function getTotalPages(totalItems, itemsPerPage) {
-  return Math.ceil(totalItems / itemsPerPage);
-}
+const propTypes = {
+  initialParentPageId: PropTypes.any,
+  browse: PropTypes.func.isRequired,
+};
 
+const defaultProps = {
+  initialParentPageId: null,
+};
 
-class PageChooserSpinner extends React.Component {
-  render() {
-    if (this.props.isActive) {
-      return (
-        <div className="loading-mask loading">
-          {this.props.children}
-        </div>
-      );
-    } else {
-      return (
-        <div className="loading-mask">
-          {this.props.children}
-        </div>
-      );
-    }
+class PageChooser extends ModalWindow {
+  componentDidMount() {
+    const { browse, initialParentPageId } = this.props;
+
+    browse(initialParentPageId || 'root', 1);
   }
-}
 
-
-class PageChooserErrorView extends React.Component {
-  render() {
-    return (
-      <div className="nice-padding">
-        <div className="help-block help-critical">
-          {this.props.errorMessage}
-        </div>
-      </div>
-    );
-  }
-}
-
-
-class PageChooser extends BaseChooser {
   renderModalContents() {
+    const {
+      browse,
+      error,
+      isFetching,
+      items,
+      onPageChosen,
+      pageTypes,
+      parent,
+      restrictPageTypes,
+      search,
+      totalItems,
+      viewName,
+      viewOptions,
+    } = this.props;
     // Event handlers
-    let onSearch = (queryString) => {
+    const onSearch = (queryString) => {
       if (queryString) {
-        this.props.search(queryString, this.props.restrictPageTypes, 1);
+        search(queryString, restrictPageTypes, 1);
       } else {
         // Search box is empty, browse instead
-        this.props.browse('root', 1);
+        browse('root', 1);
       }
-    }
-
-    let onNavigate = (page) => {
-      this.props.browse(page.id, 1);
     };
 
-    let onChangePage = (newPageNumber) => {
-      switch (this.props.viewName) {
-        case 'browse':
-          this.props.browse(this.props.viewOptions.parentPageID, newPageNumber);
-          break;
-        case 'search':
-          this.props.search(this.props.viewOptions.queryString, this.props.restrictPageTypes, newPageNumber);
-          break;
+    const onNavigate = (page) => {
+      browse(page.id, 1);
+    };
+
+    const onChangePage = (newPageNumber) => {
+      // TODO add missing default?
+      switch (viewName) {
+      case 'browse':
+        browse(viewOptions.parentPageID, newPageNumber);
+        break;
+      case 'search':
+        search(viewOptions.queryString, restrictPageTypes, newPageNumber);
+        break;
       }
     };
 
     // Views
     let view = null;
-    switch (this.props.viewName) {
-      case 'browse':
-        view = <PageChooserBrowseView parentPage={this.props.parent} items={this.props.items} pageTypes={this.props.pageTypes} restrictPageTypes={this.props.restrictPageTypes} pageNumber={this.props.viewOptions.pageNumber} totalPages={getTotalPages(this.props.totalItems, 20)} onPageChosen={this.props.onPageChosen} onNavigate={onNavigate} onChangePage={onChangePage} />;
-        break;
-      case 'search':
-        view = <PageChooserSearchView items={this.props.items} totalItems={this.props.totalItems} pageTypes={this.props.pageTypes} restrictPageTypes={this.props.restrictPageTypes} pageNumber={this.props.viewOptions.pageNumber} totalPages={getTotalPages(this.props.totalItems, 20)} onPageChosen={this.props.onPageChosen} onNavigate={onNavigate} onChangePage={onChangePage} />;
-        break;
+    // TODO add missing default?
+    switch (viewName) {
+    case 'browse':
+      view = (
+        <PageChooserBrowseView
+          parentPage={parent}
+          items={items}
+          pageTypes={pageTypes}
+          restrictPageTypes={restrictPageTypes}
+          pageNumber={viewOptions.pageNumber}
+          totalPages={getTotalPages(totalItems, 20)}
+          onPageChosen={onPageChosen}
+          onNavigate={onNavigate}
+          onChangePage={onChangePage}
+        />
+      );
+      break;
+    case 'search':
+      view = (
+        <PageChooserSearchView
+          items={items}
+          totalItems={totalItems}
+          pageTypes={pageTypes}
+          restrictPageTypes={restrictPageTypes}
+          pageNumber={viewOptions.pageNumber}
+          totalPages={getTotalPages(totalItems, 20)}
+          onPageChosen={onPageChosen}
+          onNavigate={onNavigate}
+          onChangePage={onChangePage}
+        />
+      );
+      break;
     }
 
     // Check for error
-    if (this.props.error) {
-      view = <PageChooserErrorView errorMessage={this.props.error} />;
+    if (error) {
+      view = <PageChooserErrorView errorMessage={error} />;
     }
 
     return (
       <div>
-        <PageChooserHeader onSearch={onSearch} searchEnabled={!this.props.error} />
-        <PageChooserSpinner isActive={this.props.isFetching}>
+        <PageChooserHeader onSearch={onSearch} searchEnabled={!error} />
+        <PageChooserSpinner isActive={isFetching}>
           {view}
         </PageChooserSpinner>
       </div>
     );
   }
-
-  componentDidMount() {
-    this.props.browse(this.props.initialParentPageId || 'root', 1);
-  }
 }
 
+PageChooser.propTypes = propTypes;
+PageChooser.defaultProps = defaultProps;
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   viewName: state.viewName,
   viewOptions: state.viewOptions,
   parent: state.parent,
@@ -120,9 +139,10 @@ const mapStateToProps = (state) => ({
   error: state.error,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   browse: (parentPageID, pageNumber) => dispatch(actions.browse(parentPageID, pageNumber)),
-  search: (queryString, restrictPageTypes, pageNumber) => dispatch(actions.search(queryString, restrictPageTypes, pageNumber)),
+  search: (queryString, restrictPageTypes, pageNumber) =>
+    dispatch(actions.search(queryString, restrictPageTypes, pageNumber)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PageChooser);

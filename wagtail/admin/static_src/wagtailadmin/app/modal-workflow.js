@@ -4,28 +4,35 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 
-import PageChooser from 'components/choosers/page/PageChooser';
-import pageChooser from 'components/choosers/page/reducers';
+import PageChooser from 'wagtail-client/src/components/choosers/page/PageChooser';
+import pageChooser from 'wagtail-client/src/components/choosers/page/reducers';
 
-
-export function createPageChooser(id, restrictPageTypes, initialParentPageId, canChooseRoot) {
-  let chooserElement = document.getElementById(`${id}-chooser`);
-  let pageTitleElement = chooserElement.querySelector('.title');
-  let editLinkElement = chooserElement.querySelector('.edit-link');
-  let inputElement = document.getElementById(id);
-  let chooseButtons = chooserElement.querySelectorAll('.action-choose');
-  let clearButton = chooserElement.querySelector('.action-clear');
+// TODO Implement missing `canChooseRoot` param.
+// TODO Implement missing `userPerms` param.
+export function createPageChooser(id, restrictPageTypes, initialParentPageId) {
+  const chooserElement = document.getElementById(`${id}-chooser`);
+  const pageTitleElement = chooserElement.querySelector('.title');
+  const editLinkElement = chooserElement.querySelector('.edit-link');
+  const inputElement = document.getElementById(id);
+  const chooseButtons = chooserElement.querySelectorAll('.action-choose');
+  const clearButton = chooserElement.querySelector('.action-clear');
 
   // A few hacks to get restrictPageTypes into the correct format
-  restrictPageTypes = restrictPageTypes.map((pageType) => pageType.toLowerCase());
-  restrictPageTypes = restrictPageTypes.filter((pageType) => pageType != 'wagtailcore.page');
-  if (restrictPageTypes.length == 0) { restrictPageTypes = null; }
+  // eslint-disable-next-line no-param-reassign
+  restrictPageTypes = restrictPageTypes
+    .map(pageType => pageType.toLowerCase())
+    .filter(pageType => pageType !== 'wagtailcore.page');
 
-  for (let chooseButton of chooseButtons) {
-    chooseButton.addEventListener('click', function() {
+  if (restrictPageTypes.length === 0) {
+    // eslint-disable-next-line no-param-reassign
+    restrictPageTypes = null;
+  }
+
+  Array.prototype.slice.call(chooseButtons).forEach((chooseButton) => {
+    chooseButton.addEventListener('click', () => {
       // Modal element might not exist when createPageChooser is called,
       // so we look it up in the event handler instead
-      let modalPlacement = document.getElementById('react-modal');
+      const modalPlacement = document.getElementById('react-modal');
 
       const middleware = [
         thunkMiddleware,
@@ -37,11 +44,11 @@ export function createPageChooser(id, restrictPageTypes, initialParentPageId, ca
         window.devToolsExtension ? window.devToolsExtension() : f => f
       ));
 
-      let onModalClose = () => {
+      const onModalClose = () => {
         ReactDOM.render(<div />, modalPlacement);
       };
 
-      let onPageChosen = (page) => {
+      const onPageChosen = (page) => {
         inputElement.value = page.id;
         pageTitleElement.innerHTML = page.title;  // FIXME
         chooserElement.classList.remove('blank');
@@ -50,25 +57,35 @@ export function createPageChooser(id, restrictPageTypes, initialParentPageId, ca
         // Set initialParentPageId so if the chooser is open again,
         // it opens in the correct position
         if (page.meta.parent) {
+          // eslint-disable-next-line no-param-reassign
           initialParentPageId = page.meta.parent.id;
         } else {
+          // eslint-disable-next-line no-param-reassign
           initialParentPageId = null;
         }
 
         onModalClose();
       };
 
-      ReactDOM.render(<Provider store={store}>
-        <PageChooser onModalClose={onModalClose} onPageChosen={onPageChosen} initialParentPageId={initialParentPageId} restrictPageTypes={restrictPageTypes || null} />
-      </Provider>, modalPlacement);
+      ReactDOM.render((
+        <Provider store={store}>
+          <PageChooser
+            onModalClose={onModalClose}
+            onPageChosen={onPageChosen}
+            initialParentPageId={initialParentPageId}
+            restrictPageTypes={restrictPageTypes || null}
+          />
+        </Provider>
+      ), modalPlacement);
     });
-  }
+  });
 
   if (clearButton) {
-    clearButton.addEventListener('click', function() {
+    clearButton.addEventListener('click', () => {
       inputElement.value = '';
       chooserElement.classList.add('blank');
-      initialParentPageId = null
+      // eslint-disable-next-line no-param-reassign
+      initialParentPageId = null;
     });
   }
 }

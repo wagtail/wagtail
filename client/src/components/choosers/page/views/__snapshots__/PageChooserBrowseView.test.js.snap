@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PageChooserBrowseView renders 1`] = `
+<div
+  className="nice-padding"
+>
+  <h2>
+    Explorer
+  </h2>
+  <ul
+    className="breadcrumb"
+  />
+  <PageChooserResultSet
+    displayChildNavigation={true}
+    items={Array []}
+    onNavigate={[Function]}
+    onPageChosen={[Function]}
+    pageTypes={Object {}}
+    parentPage={null}
+    restrictPageTypes={Array []}
+  />
+</div>
+`;

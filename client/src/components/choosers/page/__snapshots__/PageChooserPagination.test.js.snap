@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PageChooserPagination has pages 1`] = `
+<div
+  className="pagination"
+>
+  <div>
+    <p>
+      Page 0 of 2.
+    </p>
+    <ul>
+      <li
+        className="prev"
+      >
+        <a
+          className="icon icon-arrow-left navigate-pages"
+          href="#"
+          onClick={[Function]}
+        >
+          Previous
+        </a>
+      </li>
+      <li
+        className="next"
+      >
+        <a
+          className="icon icon-arrow-right-after navigate-pages"
+          href="#"
+          onClick={[Function]}
+        >
+          Next
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+`;
+
+exports[`PageChooserPagination renders 1`] = `
+<div
+  className="pagination"
+/>
+`;

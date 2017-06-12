@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PageChooserResultSet renders 1`] = `
+<div
+  className="page-results"
+>
+  <table
+    className="listing  chooser"
+  >
+    <colgroup>
+      <col />
+      <col
+        width="12%"
+      />
+      <col
+        width="12%"
+      />
+      <col
+        width="12%"
+      />
+      <col
+        width="10%"
+      />
+    </colgroup>
+    <thead>
+      <tr
+        className="table-headers"
+      >
+        <th
+          className="title"
+        >
+          Title
+        </th>
+        <th
+          className="updated"
+        >
+          Updated
+        </th>
+        <th
+          className="type"
+        >
+          Type
+        </th>
+        <th
+          className="status"
+        >
+          Status
+        </th>
+        <th />
+      </tr>
+    </thead>
+    <tbody />
+  </table>
+  <PageChooserPagination
+    onChangePage={[Function]}
+    pageNumber={0}
+    totalPages={0}
+  />
+</div>
+`;

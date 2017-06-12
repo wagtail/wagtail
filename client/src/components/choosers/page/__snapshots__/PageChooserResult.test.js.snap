@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PageChooserResult renders 1`] = `
+<tr
+  className="unpublished disabled"
+>
+  <td
+    className="title u-vertical-align-top"
+    data-listing-page-title=""
+  >
+    <h2 />
+  </td>
+  <td
+    className="updated u-vertical-align-top"
+  />
+  <td
+    className="type u-vertical-align-top"
+  />
+  <td
+    className="status u-vertical-align-top"
+  >
+    <a
+      className="status-tag primary"
+      rel="noopener noreferrer"
+      target="_blank"
+    />
+  </td>
+  <td />
+</tr>
+`;

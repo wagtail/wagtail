@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PageChooserErrorView renders 1`] = `
+<div
+  className="nice-padding"
+>
+  <div
+    className="help-block help-critical"
+  >
+    test
+  </div>
+</div>
+`;
