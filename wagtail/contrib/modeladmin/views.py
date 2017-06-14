@@ -155,7 +155,7 @@ class ModelFormView(WMABaseView, FormView):
             model_name=capfirst(self.opts.verbose_name), instance=instance)
 
     def get_success_message_buttons(self, instance):
-        button_url = self.url_helper.get_action_url('edit', quote(instance.pk))
+        button_url = self.url_helper.get_action_url_for_obj('edit', instance)
         return [
             messages.button(button_url, _('Edit'))
         ]
@@ -198,11 +198,11 @@ class InstanceSpecificView(WMABaseView):
 
     @cached_property
     def edit_url(self):
-        return self.url_helper.get_action_url('edit', self.pk_quoted)
+        return self.url_helper.get_action_url_for_obj('edit', self.instance)
 
     @cached_property
     def delete_url(self):
-        return self.url_helper.get_action_url('delete', self.pk_quoted)
+        return self.url_helper.get_action_url_for_obj('delete', self.instance)
 
     def get_context_data(self, **kwargs):
         context = {'instance': self.instance}
@@ -699,7 +699,7 @@ class EditView(ModelFormView, InstanceSpecificView):
     def dispatch(self, request, *args, **kwargs):
         if self.is_pagemodel:
             return redirect(
-                self.url_helper.get_action_url('edit', self.pk_quoted)
+                self.url_helper.get_action_url_for_obj('edit', self.instance)
             )
         return super(EditView, self).dispatch(request, *args, **kwargs)
 
@@ -775,7 +775,7 @@ class DeleteView(InstanceSpecificView):
             raise PermissionDenied
         if self.is_pagemodel:
             return redirect(
-                self.url_helper.get_action_url('delete', self.pk_quoted)
+                self.url_helper.get_action_url_for_obj('delete', self.instance)
             )
         return super(DeleteView, self).dispatch(request, *args, **kwargs)
 
