@@ -220,9 +220,7 @@ class InstanceSpecificView(WMABaseView):
 
     @property
     def pk_quoted(self):
-        return quote(
-            self.kwargs.get(self.pk_url_kwarg, self.instance_pk)
-        )
+        return self.kwargs.get(self.pk_url_kwarg, self.instance_pk)
 
     def get_page_subtitle(self):
         return self.instance
@@ -730,8 +728,10 @@ class EditView(ModelFormView, InstanceSpecificView):
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
-        self.instance
         if self.is_pagemodel:
+            # pre-fetch the instance to ensure potential Http404 exceptions
+            # are raised before redirecting
+            self.instance
             return redirect(
                 self.url_helper.get_action_url('edit', self.pk_quoted)
             )
