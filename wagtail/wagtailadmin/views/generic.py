@@ -10,6 +10,7 @@ from django.views.generic.base import TemplateResponseMixin
 from django.views.generic.edit import BaseCreateView, BaseDeleteView, BaseUpdateView
 from django.views.generic.list import BaseListView
 
+from wagtail.utils.deprecation import RemovedInWagtail113Warning
 from wagtail.wagtailadmin import messages
 from wagtail.wagtailadmin.utils import permission_denied
 
@@ -140,7 +141,7 @@ class EditView(PermissionCheckedMixin, TemplateResponseMixin, BaseUpdateView):
     def instance(self):
         warnings.warn(
             "instance attribute is deprecated, please use object instead",
-            category=DeprecationWarning
+            category=RemovedInWagtail113Warning
         )
         return self.object
 
@@ -148,7 +149,7 @@ class EditView(PermissionCheckedMixin, TemplateResponseMixin, BaseUpdateView):
     def instance(self, instance):
         warnings.warn(
             "instance attribute is deprecated, please use object instead",
-            category=DeprecationWarning
+            category=RemovedInWagtail113Warning
         )
         self.object = instance
 
