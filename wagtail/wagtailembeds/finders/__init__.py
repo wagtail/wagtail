@@ -1,9 +1,13 @@
+import pprint
 import sys
+import warnings
 from importlib import import_module
 
 from django.utils.module_loading import import_string
 from django.utils import six
 from django.conf import settings
+
+from wagtail.utils.deprecation import RemovedInWagtail113Warning
 
 
 MOVED_FINDERS = {
@@ -32,6 +36,14 @@ def import_finder_class(dotted_path):
             six.reraise(ImportError, e, sys.exc_info()[2])
 
 
+def _settings_deprecation_warning(key, suggestion):
+    hint = 'WAGTAILEMBEDS_FINDERS = ' + pprint.pformat(suggestion)
+    warnings.warn(
+        "The `{}` setting is now deprecrated. Please replace this with `{}`".format(key, hint),
+        category=RemovedInWagtail113Warning
+    )
+
+
 def _get_config_from_settings():
     if hasattr(settings, 'WAGTAILEMBEDS_FINDERS'):
         return settings.WAGTAILEMBEDS_FINDERS
@@ -42,19 +54,27 @@ def _get_config_from_settings():
         if finder_name in MOVED_FINDERS:
             finder_name = MOVED_FINDERS[finder_name]
 
-        return [
+        finders = [
             {
                 'class': finder_name,
             }
         ]
 
+        _settings_deprecation_warning('WAGTAILEMBEDS_EMBED_FINDER', finders)
+
+        return finders
+
     elif hasattr(settings, 'WAGTAILEMBEDS_EMBEDLY_KEY'):
-        return [
+        finders = [
             {
                 'class': 'wagtail.wagtailembeds.finders.embedly',
                 'key': settings.WAGTAILEMBEDS_EMBEDLY_KEY,
             }
         ]
+
+        _settings_deprecation_warning('WAGTAILEMBEDS_EMBEDLY_KEY', finders)
+
+        return finders
 
     else:
         # Default to the oembed backend
