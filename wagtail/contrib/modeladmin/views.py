@@ -182,18 +182,27 @@ class ModelFormView(WMABaseView, FormView):
 
 
 class InstanceSpecificView(WMABaseView):
-    instance_pk = None
     pk_url_kwarg = 'instance_pk'
+    instance_pk_init = None
 
     def __init__(self, *args, **kwargs):
-        super(InstanceSpecificView, self).__init__(*args, **kwargs)
         if 'instance_pk' in kwargs:
+            kwargs['instance_pk_init'] = kwargs.pop('instance_pk')
             warnings.warn(
                 "'instance_pk' should no longer be passed to %s's as_view() "
                 "method. It should be passed as a keyword argument to "
                 "the 'view' method returned by as_view() instead" %
                 self.__class__.__name__, category=RemovedInWagtail113Warning
             )
+        super(InstanceSpecificView, self).__init__(*args, **kwargs)
+
+    @property
+    def pk_quoted(self):
+        return self.kwargs.get(self.pk_url_kwarg, self.instance_pk_init)
+
+    @property
+    def instance_pk(self):
+        return unquote(self.pk_quoted)
 
     @cached_property
     def instance(self):
@@ -208,8 +217,7 @@ class InstanceSpecificView(WMABaseView):
         Returns an instance of self.model identified by URL parameters in the
         current request. Raises Http404 if no match is found.
         """
-        pk = unquote(self.pk_quoted)
-        queryset = self.model._default_manager.all().filter(pk=pk)
+        queryset = self.model._default_manager.all().filter(pk=self.instance_pk)
         try:
             # Get the single item from the filtered queryset
             obj = queryset.get()
@@ -217,10 +225,6 @@ class InstanceSpecificView(WMABaseView):
             raise Http404(_("No %(verbose_name)s found matching the query") %
                           {'verbose_name': self.verbose_name})
         return obj
-
-    @property
-    def pk_quoted(self):
-        return self.kwargs.get(self.pk_url_kwarg, self.instance_pk)
 
     def get_page_subtitle(self):
         return self.instance
