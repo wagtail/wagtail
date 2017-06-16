@@ -33,8 +33,8 @@ def import_finder_class(dotted_path):
 
 
 def _get_config_from_settings():
-    if hasattr(settings, 'WAGTAILEMBEDS_EMBED_FINDERS'):
-        return settings.WAGTAILEMBEDS_EMBED_FINDERS
+    if hasattr(settings, 'WAGTAILEMBEDS_FINDERS'):
+        return settings.WAGTAILEMBEDS_FINDERS
 
     elif hasattr(settings, 'WAGTAILEMBEDS_EMBED_FINDER'):
         finder_name = settings.WAGTAILEMBEDS_EMBED_FINDER
