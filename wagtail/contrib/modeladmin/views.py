@@ -197,12 +197,14 @@ class InstanceSpecificView(WMABaseView):
         super(InstanceSpecificView, self).__init__(*args, **kwargs)
 
     @property
-    def pk_quoted(self):
-        return self.kwargs.get(self.pk_url_kwarg, self.instance_pk_init)
+    def instance_pk(self):
+        return unquote(
+            self.kwargs.get(self.pk_url_kwarg, self.instance_pk_init)
+        )
 
     @property
-    def instance_pk(self):
-        return unquote(self.pk_quoted)
+    def pk_quoted(self):
+        return quote(self.instance_pk)
 
     @cached_property
     def instance(self):
