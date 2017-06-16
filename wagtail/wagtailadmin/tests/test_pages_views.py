@@ -1564,11 +1564,13 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         # preview; the page key was not in the session.
         self.assertContains(
             response,
-            "title>Wagtail - Preview error</title>"
+            "<title>Wagtail - Preview error</title>",
+            html=True
         )
         self.assertContains(
             response,
-            "<h1>Preview error</h1>"
+            "<h1>Preview error</h1>",
+            html=True
         )
 
     @modify_settings(ALLOWED_HOSTS={'append': 'childpage.example.com'})
