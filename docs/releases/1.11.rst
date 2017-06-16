@@ -44,7 +44,9 @@ This work is the product of ``4`` Wagtail sprints, and the efforts of ``16`` peo
 Privacy settings on documents
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Privacy settings can now be configured on collections, to restrict access to documents either by shared password or by user account. See: :ref:`private_pages`. This feature was developed by Ulrich Wagner and Matt Westcott.
+Privacy settings can now be configured on collections, to restrict access to documents either by shared password or by user account. See: :ref:`private_pages`.
+
+This feature was developed by Ulrich Wagner and Matt Westcott. Thank you to `Wharton Research Data Services <https://www.WhartonWRDS.com/>`_ of `The Wharton School <https://www.wharton.upenn.edu>`_ for sponsoring this feature.
 
 Other features
 ~~~~~~~~~~~~~~
