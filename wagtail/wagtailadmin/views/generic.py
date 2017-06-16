@@ -229,7 +229,7 @@ class DeleteView(PermissionCheckedMixin, TemplateResponseMixin, BaseDeleteView):
     def instance(self):
         warnings.warn(
             "instance attribute is deprecated, please use object instead",
-            category=DeprecationWarning
+            category=RemovedInWagtail113Warning
         )
         return self.object
 
@@ -237,7 +237,7 @@ class DeleteView(PermissionCheckedMixin, TemplateResponseMixin, BaseDeleteView):
     def instance(self, instance):
         warnings.warn(
             "instance attribute is deprecated, please use object instead",
-            category=DeprecationWarning
+            category=RemovedInWagtail113Warning
         )
         self.object = instance
 
@@ -268,7 +268,7 @@ class DeleteView(PermissionCheckedMixin, TemplateResponseMixin, BaseDeleteView):
         if context:
             warnings.warn(
                 "get_context() method is deprecated, please use get_context_data() instead",
-                category=DeprecationWarning
+                category=RemovedInWagtail113Warning
             )
         kwargs.update(context)
         return super(DeleteView, self).get_context_data(**kwargs)
