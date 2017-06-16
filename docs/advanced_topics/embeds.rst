@@ -2,28 +2,28 @@
 Embedded content
 ================
 
-Wagtail has built-in functionality for generating embeds for content on external
-websites such as Vimeo, YouTube and Soundcloud. The basic idea is to take a URL
-to a piece of content and generate a HTML embed for that content that can be
-nested on the page.
+Wagtail supports generating embed code from URLs to content on an external
+providers such as Youtube or Twitter. By default, Wagtail will fetch the embed
+code directly from the relevant provider's site using the oEmbed protocol.
 
-The way these HTML embeds are generated is completely configurable. The default
-method is to query the site's `oEmbed`_ endpoint if it has one. Wagtail also
-supports `Embedly`_ and writing custom "embed finders". These finders can be
-chained together.
+Wagtail has a builtin list of the most common providers and this list can be
+changed `with a setting <customising_embed_providers>`_. Wagtail also supports
+fetching embed code using `Embedly`_ and `custom embed finders <custom_embed_finders>`_.
 
 Embedding content on your site
 ==============================
 
-There are a few different ways the embeds module can be called.
+Wagtail's embeds module should work straight out of the box for most providers.
+You can use any of the following methods to call the module:
 
 Rich text
 ---------
 
-Wagtail's default rich text editor has a "media" icon that places embeds
-directly into rich text. You don't have to do anything to enable this, just
-make sure the rich text field's content is being passed through the
-``|richtext`` filter in the template.
+Wagtail's default rich text editor has a "media" icon that allows embeds to be
+placed into rich text. You don't have to do anything to enable this, just make
+sure the rich text field's content is being passed through the ``|richtext``
+filter in the template as this is what calls the embeds module to fetch and
+nest the embed code.
 
 ``EmbedBlock`` StreamField block type
 -------------------------------------
@@ -42,16 +42,15 @@ For example:
 
         embed = EmbedBlock()
 
-
 ``{% embed %}`` tag
 -------------------
 
 Syntax: ``{% embed <url> [max_width=<max width>] %}``
 
-You can nest embeds directly in a template by passing the URL and an optional
-max width argument to the ``{% embed %}`` tag. The ``max_width`` is sent in the
-query when fetching the embed HTML so it can have an effect on the generated
-HTML.
+You can nest embeds into a template by passing the URL and an optional
+``max_width`` argument to the ``{% embed %}`` tag.
+
+The ``max_width`` argument is sent to the provider when fetching the embed code.
 
 .. code-block:: html+Django
 
@@ -68,8 +67,8 @@ From Python
 
 You can also call the internal ``get_embed`` function that takes a URL string
 and returns an ``Embed`` object (see model documentation below). This also
-takes a ``max_width`` keyword argument that is sent in the query when fetching
-the embed HTML so it can have an effect on the generated HTML.
+takes a ``max_width`` keyword argument that is sent to the provider when
+fetching the embed code.
 
 .. code-block:: python
 
@@ -84,11 +83,13 @@ the embed HTML so it can have an effect on the generated HTML.
         # Cannot find embed
         pass
 
+.. _configuring_embed_finders:
+
 Configuring embed "finders"
 ===========================
 
-Embed finders are the modules within Wagtail that generate the embed HTML from
-a URL.
+Embed finders are the modules within Wagtail that are responsible for producing
+embed code from a URL.
 
 Embed finders are configured using the ``WAGTAILEMBEDS_FINDERS`` setting. This
 is a list of finder configurations that are each run in order until one of them
@@ -115,6 +116,8 @@ which are all enabled by default. You can find that provider list at the
 following link:
 
 https://github.com/wagtail/wagtail/blob/master/wagtail/wagtailembeds/oembed_providers.py
+
+.. customising_embed_providers:
 
 Customising the provider list
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -151,10 +154,8 @@ and Youtube. It also adds a custom provider:
 Customising an individual provider
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Multiple finders can be chained together which allows you to add two different
-oEmbed finders that have different providers and options. This can be useful if
-you want to have different behaviour for one particular provider but not the
-others.
+Multiple finders can be chained together. This can be used for customising the
+configuration for one provider without affecting the others.
 
 For example, this is how you can instruct Youtube to return videos in HTTPS
 (which must be done explictly for YouTube):
@@ -179,22 +180,31 @@ For example, this is how you can instruct Youtube to return videos in HTTPS
         }
     ]
 
+.. topic:: How Wagtail uses multiple finders
+
+    If multiple providers can handle a URL (for example, a YouTube video was
+    requested using the configuration above), the topmost finder is chosen to
+    perform the request.
+
+    Wagtail will not try to run any other finder, even if the chosen one didn't
+    return an embed.
+
 .. _Embedly:
 
 Embed.ly
 --------
 
-`Embed.ly <https://embed.ly>`_ is a paid-for service that provides embeds for
-many places that have not implemented the oEmbed protocol.
+`Embed.ly <https://embed.ly>`_ is a paid-for service that can also provide
+embeds for sites that do not implement the oEmbed protocol.
 
-They also provide a couple of helpful features such as giving embeds a
-consistent look and providing a common video playback API which is useful if
-your site allows videos to be hosted with different providers and you need to
-implement custom controls for them.
+They also provide some helpful features such as giving embeds a consistent look
+and a common video playback API which is useful if your site allows videos to
+be hosted on different providers and you need to implement custom controls for
+them.
 
-To configure it, add an embed finder to your ``WAGTAILEMBEDS_FINDERS`` setting
-that uses the ``wagtail.wagtailembeds.finders.oembed`` class and pass your key
-as an option:
+Wagtail has built in support for fetching embeds from Embed.ly.  To use it, add
+an embed finder to your ``WAGTAILEMBEDS_FINDERS`` setting that uses the
+``wagtail.wagtailembeds.finders.oembed`` class and pass it your API key:
 
 .. code-block:: python
 
@@ -205,13 +215,15 @@ as an option:
         }
     ]
 
+.. custom_embed_finders:
+
 Custom embed finder classes
 ---------------------------
 
-For complete control, you can also create custom finder classes which Wagtail
-will call whenever a new embed is placed on a page.
+For complete control, you can create a custom finder class.
 
-For example, here's a stub finder class that could be used as a skeleton:
+Here's a stub finder class that could be used as a skeleton, please read the
+docstrings for details of what each method does:
 
 .. code-block:: python
 
@@ -226,7 +238,7 @@ For example, here's a stub finder class that could be used as a skeleton:
             """
             Returns True if this finder knows how to fetch an embed for the URL.
 
-            This should be done without any side effects (no requests to external servers)
+            This should not have any side effects (no requests to external servers)
             """
             pass
 
@@ -237,6 +249,8 @@ For example, here's a stub finder class that could be used as a skeleton:
 
             This is the part that may make requests to external APIs.
             """
+            # TODO: Perform the request
+
             return {
                 'title': "Title of the content",
                 'author_name': "Author name",
@@ -256,7 +270,7 @@ Once you've implemented all of those methods, you just need to add it to your
     WAGTAILEMBEDS_FINDERS = [
         {
             'class': 'path.to.your.finder.class.here',
-            # Any other options will be passed to the __init__ method
+            # Any other options will be passed as kwargs to the __init__ method
         }
     ]
 
