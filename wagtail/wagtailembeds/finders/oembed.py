@@ -2,12 +2,14 @@ from __future__ import absolute_import, unicode_literals
 
 import json
 import re
+import warnings
 
 from django.utils.six.moves.urllib import request as urllib_request
 from django.utils.six.moves.urllib.error import URLError
 from django.utils.six.moves.urllib.parse import urlencode
 from django.utils.six.moves.urllib.request import Request
 
+from wagtail.utils.deprecation import RemovedInWagtail113Warning
 from wagtail.wagtailembeds.exceptions import EmbedNotFoundException
 from wagtail.wagtailembeds.oembed_providers import all_providers
 
@@ -85,3 +87,12 @@ class OEmbedFinder(EmbedFinder):
 
 
 embed_finder_class = OEmbedFinder
+
+
+def oembed(url, max_width=None):
+    warnings.warn(
+        "The `wagtail.wagtailembeds.finders.oembed.oembed` function is now deprecated. Please use the wagtail.wagtailembeds.finders.oembed.OEmbedFinder` class instead.",
+        category=RemovedInWagtail113Warning
+    )
+
+    return OEmbedFinder().find_embed(url, max_width=max_width)
