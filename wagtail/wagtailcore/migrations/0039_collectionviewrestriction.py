@@ -9,7 +9,7 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailcore', '0036_populate_page_last_published_at'),
+        ('wagtailcore', '0038_make_first_published_at_editable'),
     ]
 
     operations = [
