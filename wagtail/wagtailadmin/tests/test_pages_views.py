@@ -3,6 +3,7 @@ from __future__ import absolute_import, unicode_literals
 import datetime
 import logging
 import os
+from time import time
 
 import django
 import mock
@@ -1549,6 +1550,27 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'tests/simple_page.html')
         self.assertContains(response, "I&#39;ve been edited!")
+
+    def test_preview_on_edit_no_session_key(self):
+        preview_url = reverse('wagtailadmin_pages:preview_on_edit',
+                              args=(self.child_page.id,))
+
+        # get() without corresponding post(), key not set.
+        response = self.client.get(preview_url)
+
+        # Check the HTML response
+        self.assertEqual(response.status_code, 200)
+
+        # We should have an error page because we are unable to
+        # preview; the page key was not in the session.
+        self.assertContains(
+            response,
+            "title>Wagtail - Preview error</title>"
+        )
+        self.assertContains(
+            response,
+            "<h1>Preview error</h1>"
+        )
 
     @modify_settings(ALLOWED_HOSTS={'append': 'childpage.example.com'})
     def test_preview_uses_correct_site(self):
