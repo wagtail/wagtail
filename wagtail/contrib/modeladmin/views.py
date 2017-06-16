@@ -208,8 +208,8 @@ class InstanceSpecificView(WMABaseView):
         Returns an instance of self.model identified by URL parameters in the
         current request. Raises Http404 if no match is found.
         """
-        pk = self.kwargs.get(self.pk_url_kwarg, self.instance_pk)
-        queryset = self.model._default_manager.all().filter(pk=unquote(pk))
+        pk = unquote(self.pk_quoted)
+        queryset = self.model._default_manager.all().filter(pk=pk)
         try:
             # Get the single item from the filtered queryset
             obj = queryset.get()
