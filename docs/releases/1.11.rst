@@ -41,6 +41,11 @@ This work is the product of ``4`` Wagtail sprints, and the efforts of ``16`` peo
  * Ben Enright (UI, UX)
  * Bertrand Bordage (testing, documentation)
 
+Privacy settings on documents
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Privacy settings can now be configured on collections, to restrict access to documents either by shared password or by user account. See: :ref:`private_pages`. This feature was developed by Ulrich Wagner and Matt Westcott.
+
 Other features
 ~~~~~~~~~~~~~~
 
