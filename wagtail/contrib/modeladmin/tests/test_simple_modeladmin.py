@@ -465,7 +465,6 @@ class TestEditorAccess(TestCase):
 
 class TestQuoting(TestCase, WagtailTestUtils):
     fixtures = ['modeladmintest_test.json']
-    expected_status_code = 200
 
     def setUp(self):
         self.login()
@@ -484,3 +483,28 @@ class TestQuoting(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         response = self.client.get('/admin/modeladmintest/token/delete/Irregular_5FName/')
         self.assertEqual(response.status_code, 200)
+
+    def test_instance_specific_pk_quoting(self):
+        response = self.client.get('/admin/modeladmintest/token/edit/Irregular_5FName/')
+        edit_url = response.context['view'].edit_url
+        response = self.client.get(edit_url)
+        self.assertEqual(response.status_code, 200)
+
+
+class TestCustomCopyView(TestCase, WagtailTestUtils):
+    fixtures = ['modeladmintest_test.json']
+
+    def setUp(self):
+        self.login()
+
+    def test_new_view_init_style(self):
+        """
+        The BookModelAdmin class has a custom edit view implemented with a
+        method `old_style_edit_view`, which initialises a view by passing
+        `instance_pk` as a keyword argument to `EditView.as_view()` (now
+        deprecated) instead of passing it to dispatch(). This test will
+        ensures it that method still works until support is removed completely
+        """
+        response = self.client.get('/admin/modeladmintest/book/edit_old/1/')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['instance'], Book.objects.get(id=1))
