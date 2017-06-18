@@ -233,7 +233,7 @@ class InstanceSpecificView(WMABaseView):
         repeat database queries
         """
         if hasattr(self, '_set_instance'):
-            return self._developer_instance
+            return self._set_instance
         if hasattr(self, '_fetched_instance'):
             return self._fetched_instance
         self._fetched_instance = self.get_model_instance()
@@ -243,7 +243,7 @@ class InstanceSpecificView(WMABaseView):
     def instance(self, value):
         warnings.warn(
             "Setting of 'self.instance' is deprecated. You should look at "
-            "overriding the 'get_model_instance()' method instead" %
+            "overriding the 'get_model_instance()' method on '%s' instead" %
             self.__class__.__name__, category=RemovedInWagtail113Warning
         )
         self._set_instance = value
