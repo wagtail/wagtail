@@ -44,6 +44,15 @@ class AuthorModelAdmin(ModelAdmin):
         return attrs
 
 
+class CustomEditView(EditView):
+    def __init__(self, *args, **kwargs):
+        super(CustomEditView, self).__init__(*args, **kwargs)
+        # Deliberatley nonsensical setting of attributes
+        self.instance_pk = -9999
+        self.pk_quoted = 9999
+        self.instance = self.model.objects.get(id__exact=3)
+
+
 class BookModelAdmin(ThumbnailMixin, ModelAdmin):
     model = Book
     menu_order = 300
@@ -61,17 +70,26 @@ class BookModelAdmin(ThumbnailMixin, ModelAdmin):
             'class': 'book',
         }
 
-    def old_style_edit_view(self, request, instance_pk):
+    def old_style_init_edit_view(self, request, instance_pk):
         """To test that passing instance_pk to `as_view` still works"""
         view = EditView.as_view(model_admin=self, instance_pk=instance_pk)
         return view(request)
+
+    def custom_edit_view(self, request, **kwargs):
+        """To test that setting instance_pk, pk_quoted and instance still
+        works"""
+        view = CustomEditView.as_view(model_admin=self)
+        return view(request, **kwargs)
 
     def get_admin_urls_for_registration(self):
         urls = super(BookModelAdmin, self).get_admin_urls_for_registration()
         return urls + (
             url(self.url_helper.get_action_url_pattern('edit_old'),
-                self.old_style_edit_view,
+                self.old_style_init_edit_view,
                 name=self.url_helper.get_action_url_name('edit_old')),
+            url(self.url_helper.get_action_url_pattern('edit_custom'),
+                self.custom_edit_view,
+                name=self.url_helper.get_action_url_name('edit_custom')),
         )
 
 

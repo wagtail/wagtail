@@ -183,7 +183,7 @@ class ModelFormView(WMABaseView, FormView):
 
 class InstanceSpecificView(WMABaseView):
     pk_url_kwarg = 'instance_pk'
-    instance_pk_init = None
+    instance_pk_init = None  # to be removed in 1.13
 
     def __init__(self, *args, **kwargs):
         if 'instance_pk' in kwargs:
@@ -198,21 +198,55 @@ class InstanceSpecificView(WMABaseView):
 
     @property
     def instance_pk(self):
-        return unquote(
+        return getattr(self, '_set_instance_pk', unquote(
             self.kwargs.get(self.pk_url_kwarg, self.instance_pk_init)
+        ))
+
+    @instance_pk.setter
+    def instance_pk(self, value):
+        warnings.warn(
+            "Setting of 'self.instance_pk' is deprecated. You should update "
+            "%s to use a different attribute name and possibly look at "
+            "overriding the 'get_model_instance()' method instead" %
+            self.__class__.__name__, category=RemovedInWagtail113Warning
         )
+        self._set_instance_pk = value
 
     @property
     def pk_quoted(self):
-        return quote(self.instance_pk)
+        return getattr(self, '_set_pk_quoted', quote(self.instance_pk))
 
-    @cached_property
+    @pk_quoted.setter
+    def pk_quoted(self, value):
+        warnings.warn(
+            "Setting of 'self.pk_quoted' is deprecated. You should update "
+            "'%s' to use a different attribute name and possibly look at "
+            "overriding the 'get_model_instance()' method instead" %
+            self.__class__.__name__, category=RemovedInWagtail113Warning
+        )
+        self._set_pk_quoted = value
+
+    @property
     def instance(self):
         """
         Return the result of self.get_model_instance() and cache it to avoid
         repeat database queries
         """
-        return self.get_model_instance()
+        if hasattr(self, '_set_instance'):
+            return self._developer_instance
+        if hasattr(self, '_fetched_instance'):
+            return self._fetched_instance
+        self._fetched_instance = self.get_model_instance()
+        return self._fetched_instance
+
+    @instance.setter
+    def instance(self, value):
+        warnings.warn(
+            "Setting of 'self.instance' is deprecated. You should look at "
+            "overriding the 'get_model_instance()' method instead" %
+            self.__class__.__name__, category=RemovedInWagtail113Warning
+        )
+        self._set_instance = value
 
     def get_model_instance(self):
         """

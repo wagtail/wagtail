@@ -491,20 +491,33 @@ class TestQuoting(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
 
-class TestCustomCopyView(TestCase, WagtailTestUtils):
+class TestCustomBookModelAdminViews(TestCase, WagtailTestUtils):
     fixtures = ['modeladmintest_test.json']
 
     def setUp(self):
         self.login()
 
-    def test_new_view_init_style(self):
+    def test_old_view_init_style(self):
         """
-        The BookModelAdmin class has a custom edit view implemented with a
-        method `old_style_edit_view`, which initialises a view by passing
-        `instance_pk` as a keyword argument to `EditView.as_view()` (now
-        deprecated) instead of passing it to dispatch(). This test will
-        ensures it that method still works until support is removed completely
+        The 'old_style_edit_view()' method on BookModelAdmin initialises
+        EditView by passing `instance_pk` as a keyword argument to `as_view()`
+        (now deprecated) instead of passing it to the view method returned by
+        'as_view'. This test ensures that method still works until support is
+        dropped in wagtail 1.13
         """
         response = self.client.get('/admin/modeladmintest/book/edit_old/1/')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['instance'], Book.objects.get(id=1))
+
+    def test_custom_edit_view(self):
+        """
+        The 'custom_edit_view()' method uses 'CustomEditView', which overrides
+        'self.instance_pk', 'self.pk_quoted' and 'self.instance', which is
+        now deprecated. This test ensures setting of those attributes still
+        works until support is dropped in wagtail 1.13
+        """
+        response = self.client.get('/admin/modeladmintest/book/edit_custom/1/')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['view'].instance_pk, -9999)
+        self.assertEqual(response.context['view'].pk_quoted, 9999)
+        self.assertEqual(response.context['instance'], Book.objects.get(id=3))
