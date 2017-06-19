@@ -16,8 +16,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-04-19 21:08+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2017-05-18 14:13+0000\n"
+"Last-Translator: Luiz Boaretto <lboaretto@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -92,6 +92,12 @@ msgstr "notificações rejeitadas"
 
 msgid "Receive notification when your page edit is rejected"
 msgstr "Receber uma notificação quando a edição da sua página é rejeitada"
+
+msgid "preferred language"
+msgstr "idioma preferido"
+
+msgid "Select language for the admin"
+msgstr "Selecione o idioma para o administrador"
 
 msgid "user profile"
 msgstr "Perfil de usuário"

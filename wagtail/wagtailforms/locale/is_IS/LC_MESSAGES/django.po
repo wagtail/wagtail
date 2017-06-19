@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2016
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2017
 # saevarom <saevar@saevar.is>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-04-19 21:09+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2017-05-05 09:13+0000\n"
+"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -22,6 +22,12 @@ msgstr ""
 
 msgid "{} submissions"
 msgstr "{} innsendingar"
+
+msgid "Date from"
+msgstr "Dags frá"
+
+msgid "Date to"
+msgstr "Dags til"
 
 #, python-format
 msgid "There is another field with the label %s, please change one of them."
@@ -183,6 +189,9 @@ msgstr "Titill"
 
 msgid "Origin"
 msgstr "Uppruni"
+
+msgid "Delete selected submissions"
+msgstr "Eyða völdum innsendingum"
 
 msgid "No form pages have been created."
 msgstr "Engin skráningarform hafa verið búin til"

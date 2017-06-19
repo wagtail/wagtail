@@ -8,6 +8,7 @@
 # Eugene MechanisM <eugene@mechanism.pro>, 2014-2016
 # Matt Westcott <matthew@torchbox.com>, 2015
 # Mikalai Radchuk <radchuk.m@gmail.com>, 2016
+# Rustam Mirzaev <mirus@2x2.pw>, 2017
 # Sergey Komarov <sjkomarov@gmail.com>, 2014
 # gsstver <gsstver@gmail.com>, 2016
 msgid ""
@@ -15,8 +16,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-04-19 21:06+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2017-05-14 23:36+0000\n"
+"Last-Translator: Rustam Mirzaev <mirus@2x2.pw>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -240,6 +241,9 @@ msgstr "Для указания главной области на изобра�
 
 msgid "Current focal point shown"
 msgstr "Показана текущая фокальная точка"
+
+msgid "Remove focal area"
+msgstr "Убрать область фокуса"
 
 msgid "URL Generator"
 msgstr "URL Генератор"

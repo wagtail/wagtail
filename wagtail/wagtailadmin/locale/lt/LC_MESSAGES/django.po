@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-04-19 21:05+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2017-06-01 12:10+0000\n"
+"Last-Translator: Matas Dailyda <matas@dailyda.com>\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
 "language/lt/)\n"
 "MIME-Version: 1.0\n"
@@ -128,6 +128,10 @@ msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
 msgstr "Šis trumpinys jau yra naudojamas tėvinio puslapio kontekste \"%s\""
 
+msgid "You cannot copy a page into itself when copying subpages"
+msgstr ""
+"Jūs negalite kopijuoti puslapio į jį patį kopijuojant vidinius puslapius"
+
 msgid "Visibility"
 msgstr "Matomumas"
 
@@ -177,11 +181,20 @@ msgstr "Pranešimų nustatymai"
 msgid "Choose which email notifications to receive."
 msgstr "Pasirinkite kuriuos elektroninio pašto pranešimus norite gauti."
 
+msgid "Language preferences"
+msgstr "Kalbos nustatymai"
+
+msgid "Choose the language you want to use here."
+msgstr "Pasirinkite kuria kalbą norite naudoti čia."
+
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr ""
 "Čia jūsų slaptažodis negali būti pakeistas. Susisiekite su tinklalapio "
 "administratoriumi."
+
+msgid "Language Preferences"
+msgstr "Kalbos nustatymai"
 
 msgid "Update"
 msgstr "Atnaujinti"
@@ -618,6 +631,10 @@ msgstr "Taip, nebepublikuoti"
 msgid "No, don't unpublish"
 msgstr "Ne, publikuoti"
 
+#, python-format
+msgid "Pages using %(page_class_verbose_name)s"
+msgstr "Puslapiai naudojantys %(page_class_verbose_name)s"
+
 msgid "Pages using"
 msgstr "Puslapiai naudoja"
 
@@ -779,6 +796,9 @@ msgstr "Pridėti vidinį puslapį į '%(title)s'"
 msgid "Add child page"
 msgstr "Pridėti vidinį puslapį"
 
+msgid "Sites menu"
+msgstr "Tinklalapių meniu"
+
 #, python-format
 msgid ""
 "\n"
@@ -813,6 +833,25 @@ msgstr "Pasirinkite %(title)s naują tėvinį puslapį"
 #, python-format
 msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Pasirinkite <span>%(title)s</span> naują tėvinį puslapį"
+
+msgid "Preview error"
+msgstr "Peržiūrėti klaidą"
+
+msgid ""
+"\n"
+"                Impossible to preview this page, some errors are remaining.\n"
+"                Please close this tab, edit the page to fix these errors,\n"
+"                then use preview again.\n"
+"            "
+msgstr ""
+"\n"
+"Neįmanoma peržiūrėti šio puslapio, yra likę kelios klaidos.\n"
+"Prašome uždaryti šį skirtuką ir redaguoti puslapį kad ištaisytumėte "
+"klaidas,\n"
+"ir tik tada bandyti peržiūrėti puslapį dar karta."
+
+msgid "Close"
+msgstr "Uždaryti"
 
 #, python-format
 msgid "Comparing %(title)s"
@@ -1060,6 +1099,63 @@ msgstr "Rodyti naršyklėje"
 msgid "Test"
 msgstr "Testas"
 
+msgid "Catalan"
+msgstr "Katalonų"
+
+msgid "German"
+msgstr "Vokiečių"
+
+msgid "Greek"
+msgstr "Graikų"
+
+msgid "English"
+msgstr "Anglų"
+
+msgid "Spanish"
+msgstr "Ispanų"
+
+msgid "Finnish"
+msgstr "Suomių"
+
+msgid "French"
+msgstr "Prancūzų"
+
+msgid "Galician"
+msgstr "Galisų"
+
+msgid "Icelandic"
+msgstr "Islandų"
+
+msgid "Italian"
+msgstr "Italų"
+
+msgid "Lithuanian"
+msgstr "Lietuvių"
+
+msgid "Norwegian Bokmål"
+msgstr "Norvegų Bokmål"
+
+msgid "Netherlands Dutch"
+msgstr "Nyderlandų olandų"
+
+msgid "Polish"
+msgstr "Lenkų"
+
+msgid "Brazilian Portuguese"
+msgstr "Brazilų portugalų"
+
+msgid "Portuguese"
+msgstr "Portugalų"
+
+msgid "Romanian"
+msgstr "Rumunų"
+
+msgid "Russian"
+msgstr "Rusų"
+
+msgid "Chinese (China)"
+msgstr "Kinų (Kinija)"
+
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Atsiprašome, jūs neturite leidimo pasiekti šios zonos."
 
@@ -1068,6 +1164,9 @@ msgstr "Jūsų slaptažodis buvo sėkmingai atnaujintas!"
 
 msgid "Your preferences have been updated successfully!"
 msgstr "Jūsų nustatymai buvo sėkmingai atnaujinti!"
+
+msgid "Your preferences have been updated."
+msgstr "Jūsų nustatymai buvo atnaujinti."
 
 msgid "You have been successfully logged out."
 msgstr "Jūs sėkmingai atsijungėte."

@@ -254,10 +254,10 @@ Translators
 * Bulgarian: Lyuboslav Petrov
 * Catalan: Antoni Aloy, David Llop, Roger Pons
 * Chinese: hanfeng, Lihan Li, Leway Colin, Orangle Liu
-* Chinese (China): hanfeng, Daniel Hwang, Jian Li, Listeng Teng, Feng Wang, Fred Zeng, Joey Zhao, zhushajun
+* Chinese (China): hanfeng, Daniel Hwang, Jian Li, Listeng Teng, Feng Wang, Fred Zeng, Joey Zhao, Vincent Zhao, zhushajun
 * Chinese (Taiwan): gogobook, Lihan Li, Jp Shieh
 * Croatian (Croatia): Luka Matijević
-* Czech: Ales Dvorak, Ivan Pomykacz, Jiri Stepanek, Marek Turnovec
+* Czech: Ales Dvorak, Ivan Pomykacz, Jiri Stepanek, Marek Turnovec, Stanislav Vasko
 * Danish: Asger Sørensen
 * Dutch: benny_AT_it_digin.com, Bram, Brecht Dervaux, Huib Keemink, Thijs Kramer, Samuel Leeuwenburg, mahulst, Rob Moorman, Michael van Tellingen, Arne Turpyn
 * Dutch (Netherlands): Bram, Franklin Kingma, Maarten Kling, Thijs Kramer
@@ -278,13 +278,13 @@ Translators
 * Lithuanian: Matas Dailyda
 * Mongolian: Delgermurun Purevkhuu
 * Norwegian Bokmål: Eirik Krogstad, Robin Skahjem-Eriksen
-* Persian: Mohammad reza Jelveh, Mohammad Hossein Mojtahedi
+* Persian: Mohammad reza Jelveh, Mohammad Hossein Mojtahedi, Py Zenberg
 * Polish: Mateusz, Miłosz Miśkiewicz, Bartek Sielicki, utek
 * Polish (Poland): Konrad Lalik, Grzegorz Wasilewski
 * Portuguese (Brazil): Claudemiro Alves Feitosa Neto, Bruno Bertoldi, Luiz Boaretto, Gladson Brito, Thiago Cangussu, Gilson Filho, Joao Garcia, João Luiz Lorencetti, Marcio Mazza, Douglas Miranda, Guilherme Nabanete
 * Portuguese (Portugal): Gladson Brito, Thiago Cangussu, Tiago Henriques, Jose Lourenco, Nuno Matos, Douglas Miranda, Manuela Silva
 * Romanian: Dan Braghis
-* Russian: ajk, Andrey Avdey, Daniil, gsstver, Sergey Khalymon, Sergey Komarov, Eugene MechanisM, Mikalai Radchuk, Alexandr Romantsov, Nikita Viktorovich
+* Russian: ajk, Andrey Avdey, Daniil, gsstver, Sergey Khalymon, Sergey Komarov, Eugene MechanisM, Rustam Mirzaev, Mikalai Radchuk, Alexandr Romantsov, Nikita Viktorovich
 * Slovak (Slovakia): Stevo Backor, dellax, Jozef Karabelly
 * Slovenian: Mitja Pagon
 * Spanish: Mauricio Baeza, Daniel Chimeno, fonso, fooflare, Yusuf (Josè) Luis, Joaquín Tita, Unai Zalakain

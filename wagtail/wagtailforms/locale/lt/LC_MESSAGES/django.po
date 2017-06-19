@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-04-19 21:09+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2017-06-01 12:11+0000\n"
+"Last-Translator: Matas Dailyda <matas@dailyda.com>\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
 "language/lt/)\n"
 "MIME-Version: 1.0\n"
@@ -22,6 +22,12 @@ msgstr ""
 
 msgid "{} submissions"
 msgstr "{} pateikimai"
+
+msgid "Date from"
+msgstr "Data nuo"
+
+msgid "Date to"
+msgstr "Data iki"
 
 #, python-format
 msgid "There is another field with the label %s, please change one of them."
@@ -181,6 +187,9 @@ msgstr "Pavadinimas"
 
 msgid "Origin"
 msgstr "Kilmė"
+
+msgid "Delete selected submissions"
+msgstr "Ištrinti pasirinktus pateikimus"
 
 msgid "No form pages have been created."
 msgstr "Jokie formų puslapiai nebuvo sukurti."

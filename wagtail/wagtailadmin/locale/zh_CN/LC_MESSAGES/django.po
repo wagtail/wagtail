@@ -7,7 +7,8 @@
 # Daniel Hwang <danielblinkhw@gmail.com>, 2015
 # Fred Zeng <979738295@qq.com>, 2016
 # hanfeng <appweb.cn@gmail.com>, 2014
-# Listeng, 2016
+# listeng, 2016
+# Vincent Zhao <zhaopu2008@gmail.com>, 2017
 # jszsj <zhushajun@gmail.com>, 2017
 # 飘 赵 <275980464@qq.com>, 2016
 msgid ""
@@ -15,8 +16,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-04-19 21:05+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2017-05-09 18:34+0000\n"
+"Last-Translator: hanfeng <appweb.cn@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -119,6 +120,9 @@ msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
 msgstr "此缩写在父页面\"%s\"环境中已被使用。"
 
+msgid "You cannot copy a page into itself when copying subpages"
+msgstr "你在复制子页面时不能复制当前页面本身"
+
 msgid "Visibility"
 msgstr "是否可见"
 
@@ -166,9 +170,18 @@ msgstr "提醒设置"
 msgid "Choose which email notifications to receive."
 msgstr "选择接收哪些邮件提醒"
 
+msgid "Language preferences"
+msgstr "语言首选项"
+
+msgid "Choose the language you want to use here."
+msgstr "请在这里选择你想使用的语言。"
+
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr "您不能修改密码，请联系管理员。"
+
+msgid "Language Preferences"
+msgstr "语言首选项"
 
 msgid "Update"
 msgstr "更新"
@@ -567,6 +580,10 @@ msgstr "是的。取消发布"
 msgid "No, don't unpublish"
 msgstr "否，不发布"
 
+#, python-format
+msgid "Pages using %(page_class_verbose_name)s"
+msgstr "使用%(page_class_verbose_name)s的页面"
+
 msgid "Pages using"
 msgstr "页面使用"
 
@@ -725,6 +742,9 @@ msgstr "为'%(title)s'添加子页面"
 msgid "Add child page"
 msgstr "添加子页面"
 
+msgid "Sites menu"
+msgstr "站点菜单"
+
 #, python-format
 msgid ""
 "\n"
@@ -759,6 +779,25 @@ msgstr "为 %(title)s选择新父节点"
 #, python-format
 msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "为<span>%(title)s</span>选择新的父节点"
+
+msgid "Preview error"
+msgstr "预览错误"
+
+msgid ""
+"\n"
+"                Impossible to preview this page, some errors are remaining.\n"
+"                Please close this tab, edit the page to fix these errors,\n"
+"                then use preview again.\n"
+"            "
+msgstr ""
+"\n"
+"                无法预览当前页面, 一些错误依然存在。\n"
+"                请关闭当前标签页, 并编辑页面以修正错误,\n"
+"                然后再进行预览。\n"
+"            "
+
+msgid "Close"
+msgstr "关闭"
 
 #, python-format
 msgid "Comparing %(title)s"
@@ -987,6 +1026,63 @@ msgstr "在资源中显示"
 msgid "Test"
 msgstr "测试"
 
+msgid "Catalan"
+msgstr "加泰罗尼亚语"
+
+msgid "German"
+msgstr "德语"
+
+msgid "Greek"
+msgstr "希腊语"
+
+msgid "English"
+msgstr "英语"
+
+msgid "Spanish"
+msgstr "西班牙语"
+
+msgid "Finnish"
+msgstr "芬兰语"
+
+msgid "French"
+msgstr "法语"
+
+msgid "Galician"
+msgstr "加利西亚语"
+
+msgid "Icelandic"
+msgstr "冰岛语"
+
+msgid "Italian"
+msgstr "意大利语"
+
+msgid "Lithuanian"
+msgstr "立陶宛语"
+
+msgid "Norwegian Bokmål"
+msgstr "挪威博克马尔语"
+
+msgid "Netherlands Dutch"
+msgstr "荷兰语"
+
+msgid "Polish"
+msgstr "波兰语"
+
+msgid "Brazilian Portuguese"
+msgstr "巴西葡萄牙语"
+
+msgid "Portuguese"
+msgstr "葡萄牙语"
+
+msgid "Romanian"
+msgstr "罗马尼亚语"
+
+msgid "Russian"
+msgstr "俄语"
+
+msgid "Chinese (China)"
+msgstr "中文 (中国)"
+
 msgid "Sorry, you do not have permission to access this area."
 msgstr "对不起， 你没有权限访问。"
 
@@ -995,6 +1091,9 @@ msgstr "密码成功修改！"
 
 msgid "Your preferences have been updated successfully!"
 msgstr "参数成功更新！"
+
+msgid "Your preferences have been updated."
+msgstr "你的首选项已被更新。"
 
 msgid "You have been successfully logged out."
 msgstr "注销成功"

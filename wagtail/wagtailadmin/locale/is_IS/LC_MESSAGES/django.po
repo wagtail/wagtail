@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-04-19 21:05+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2017-05-05 09:13+0000\n"
+"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -123,6 +123,11 @@ msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
 msgstr "Þessi vefslóð (e.slug) er þegar í notkun innan ramma yfirsíðu \"%s\""
 
+msgid "You cannot copy a page into itself when copying subpages"
+msgstr ""
+"Ekki er hægt að afrita síðu inn undir sjálfa sig þegar verið er að afrita "
+"undirsíður"
+
 msgid "Visibility"
 msgstr "Sýnileiki"
 
@@ -172,11 +177,20 @@ msgstr "Stillingar tilkynninga"
 msgid "Choose which email notifications to receive."
 msgstr "Veldu hvaða tilkynningar verða sendar þér í tölvupósti."
 
+msgid "Language preferences"
+msgstr "Tungumálastillingar"
+
+msgid "Choose the language you want to use here."
+msgstr "Veldu það tungumál sem þú vilt nota hérna."
+
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr ""
 "Ekki er hægt að breyta lykilorðinu þínu hér. Vinsamlegast hafðu samband við "
 "vefstjóra."
+
+msgid "Language Preferences"
+msgstr "Tungumálastiliingar"
 
 msgid "Update"
 msgstr "Uppfæra"
@@ -608,6 +622,10 @@ msgstr "Já, taka úr loftinu"
 msgid "No, don't unpublish"
 msgstr "Nei, ekki taka úr loftinu"
 
+#, python-format
+msgid "Pages using %(page_class_verbose_name)s"
+msgstr "Síður sem nota %(page_class_verbose_name)s"
+
 msgid "Pages using"
 msgstr "Síður sem nota"
 
@@ -773,6 +791,9 @@ msgstr "Bæta undirsíðu við '%(title)s'"
 msgid "Add child page"
 msgstr "Bæta við undirsíðu"
 
+msgid "Sites menu"
+msgstr "Síðuvalmynd"
+
 #, python-format
 msgid ""
 "\n"
@@ -808,6 +829,24 @@ msgstr "Veldu nýja yfirsíðu fyrir %(title)s"
 #, python-format
 msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Veldu nýja yfirsíðu fyrir <span>%(title)s</span>"
+
+msgid "Preview error"
+msgstr "Forskoðunar villa"
+
+msgid ""
+"\n"
+"                Impossible to preview this page, some errors are remaining.\n"
+"                Please close this tab, edit the page to fix these errors,\n"
+"                then use preview again.\n"
+"            "
+msgstr ""
+"\n"
+"Ekki tókst að forskoða þessa síðu, því það eru villur á síðunni.\n"
+"Vinsamlegast lokið þessum flipa, lagið villur á síðunni, \n"
+"og forskoðið svo aftur."
+
+msgid "Close"
+msgstr "Loka"
 
 #, python-format
 msgid "Comparing %(title)s"
@@ -1059,6 +1098,63 @@ msgstr "Sýna í veftré"
 msgid "Test"
 msgstr "Prufa"
 
+msgid "Catalan"
+msgstr "Catalan"
+
+msgid "German"
+msgstr "Þýska"
+
+msgid "Greek"
+msgstr "Gríska"
+
+msgid "English"
+msgstr "Enska"
+
+msgid "Spanish"
+msgstr "Spænska"
+
+msgid "Finnish"
+msgstr "Finnska"
+
+msgid "French"
+msgstr "Franska"
+
+msgid "Galician"
+msgstr "Galiska"
+
+msgid "Icelandic"
+msgstr "Íslenska"
+
+msgid "Italian"
+msgstr "Ítalska"
+
+msgid "Lithuanian"
+msgstr "Litháenska"
+
+msgid "Norwegian Bokmål"
+msgstr "Norska"
+
+msgid "Netherlands Dutch"
+msgstr "Hollenska"
+
+msgid "Polish"
+msgstr "Pólska"
+
+msgid "Brazilian Portuguese"
+msgstr "Brasilísk Portúgalska"
+
+msgid "Portuguese"
+msgstr "Portúgalska"
+
+msgid "Romanian"
+msgstr "Rúmenska"
+
+msgid "Russian"
+msgstr "Rússneska"
+
+msgid "Chinese (China)"
+msgstr "Kínverska (Kína)"
+
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Því miður, þú hefur ekki heimildir til að skoða þetta svæði."
 
@@ -1066,6 +1162,9 @@ msgid "Your password has been changed successfully!"
 msgstr "Tókst að breyta lykilorðinu þínu!"
 
 msgid "Your preferences have been updated successfully!"
+msgstr "Tókst að breyta stillingunum þínum!"
+
+msgid "Your preferences have been updated."
 msgstr "Tókst að breyta stillingunum þínum!"
 
 msgid "You have been successfully logged out."
