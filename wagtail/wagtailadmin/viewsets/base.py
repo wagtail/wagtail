@@ -11,3 +11,6 @@ class ViewSet(object):
 
     def get_urlpatterns(self):
         return []
+
+    def get_url_name(self, view_name):
+        return self.name + ':' + view_name

@@ -18,9 +18,6 @@ class ModelViewSet(ViewSet):
     edit_view_class = generic.EditView
     delete_view_class = generic.DeleteView
 
-    def get_url_name(self, view_name):
-        return self.name + ':' + view_name
-
     @property
     def permission_policy(self):
         return ModelPermissionPolicy(self.model)
