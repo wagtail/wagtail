@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
+"POT-Creation-Date: 2017-06-19 16:55+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,63 +17,63 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: forms.py:51
+#: forms.py:52
 msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
 msgstr ""
 
-#: forms.py:55
+#: forms.py:56
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr ""
 
-#: forms.py:72
+#: forms.py:73
 msgid "A user with that username already exists."
 msgstr ""
 
-#: forms.py:73
+#: forms.py:74
 msgid "The two password fields didn't match."
 msgstr ""
 
-#: forms.py:76
+#: forms.py:77
 msgid "Email"
 msgstr ""
 
-#: forms.py:77
+#: forms.py:78
 msgid "First Name"
 msgstr ""
 
-#: forms.py:78
+#: forms.py:79
 msgid "Last Name"
 msgstr ""
 
-#: forms.py:81
+#: forms.py:82
 msgid "Password"
 msgstr ""
 
-#: forms.py:83
+#: forms.py:84
 msgid "Leave blank if not changing."
 msgstr ""
 
-#: forms.py:85
+#: forms.py:86
 msgid "Password confirmation"
 msgstr ""
 
-#: forms.py:87
+#: forms.py:88
 msgid "Enter the same password as above, for verification."
 msgstr ""
 
-#: forms.py:90 forms.py:191
+#: forms.py:91 forms.py:192
 msgid "Administrator"
 msgstr ""
 
-#: forms.py:91 forms.py:193
+#: forms.py:92 forms.py:194
 msgid "Administrators have full access to manage any object or setting."
 msgstr ""
 
-#: forms.py:187
+#: forms.py:188
 msgid "A group with that name already exists."
 msgstr ""
 
-#: forms.py:291
+#: forms.py:292
 msgid "You cannot have multiple permission records for the same page."
 msgstr ""
 
