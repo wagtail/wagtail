@@ -242,6 +242,7 @@ Contributors
 * John Franey
 * Marc Tudurí
 * Lucas Moeskops
+* Rob van der Linde
 
 Translators
 ===========
