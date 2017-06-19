@@ -573,6 +573,10 @@ class PreviewOnEdit(View):
         page = self.get_page()
         form_class = page.get_edit_handler().get_form_class(page._meta.model)
         parent_page = page.get_parent().specific
+
+        if self.session_key not in self.request.session:
+            # Session key not in session, returning null form
+            return form_class(instance=page, parent_page=parent_page)
         post_data_dict, timestamp = self.request.session[self.session_key]
 
         # convert post_data_dict back into a QueryDict
