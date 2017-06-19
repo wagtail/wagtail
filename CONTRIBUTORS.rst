@@ -243,6 +243,7 @@ Contributors
 * Marc Tudurí
 * Lucas Moeskops
 * Rob van der Linde
+* Paul Kamp
 
 Translators
 ===========
