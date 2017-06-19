@@ -241,6 +241,7 @@ Contributors
 * Alice Rose
 * John Franey
 * Marc Tudurí
+* Lucas Moeskops
 
 Translators
 ===========

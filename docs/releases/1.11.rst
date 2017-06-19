@@ -58,6 +58,7 @@ Other features
  * Added ``last_published_at`` field to the Page model (Matt Westcott)
  * Added ``show_in_menus_default`` flag on page models, to allow "show in menus" to be checked by default (LB (Ben Johnston))
  * "Copy page" form now validates against copying to a destination where the user does not have permission (Henk-Jan van Hasselaar)
+ * Allows reverse relations in ``RelatedFields`` for elasticsearch & PostgreSQL search backends (Lucas Moeskops, Bertrand Bordage)
 
 Bug fixes
 ~~~~~~~~~
