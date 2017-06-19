@@ -242,10 +242,7 @@ class RelatedFields(object):
     def get_value(self, obj):
         field = self.get_field(obj.__class__)
 
-        if isinstance(field, RelatedField):
-            return getattr(obj, self.field_name)
-
-        if isinstance(field, ForeignObjectRel):
+        if isinstance(field, (RelatedField, ForeignObjectRel)):
             return getattr(obj, self.field_name)
 
     def select_on_queryset(self, queryset):
