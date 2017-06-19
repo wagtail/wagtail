@@ -87,14 +87,14 @@ class Index(object):
             yield (unidecode(self.prepare_value(field.get_value(obj))),
                    get_weight(field.boost))
         elif isinstance(field, RelatedFields):
-            sub_obj = getattr(obj, field.field_name)
+            sub_obj = field.get_value(obj)
             if sub_obj is None:
                 return
-            if callable(sub_obj):
-                sub_obj = sub_obj()
             if isinstance(sub_obj, Manager):
                 sub_objs = sub_obj.all()
             else:
+                if callable(sub_obj):
+                    sub_obj = sub_obj()
                 sub_objs = [sub_obj]
             for sub_obj in sub_objs:
                 for sub_field in field.fields:
