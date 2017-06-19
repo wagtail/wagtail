@@ -8,6 +8,7 @@ from wagtail.wagtailadmin.menu import MenuItem, SubmenuMenuItem, settings_menu
 from wagtail.wagtailadmin.navigation import get_explorable_root_page
 from wagtail.wagtailadmin.search import SearchArea
 from wagtail.wagtailadmin.utils import user_has_any_page_permission
+from wagtail.wagtailadmin.viewsets import viewsets
 from wagtail.wagtailadmin.widgets import Button, ButtonWithDropdownFromHook, PageListingButton
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.permissions import collection_permission_policy
@@ -170,3 +171,9 @@ def page_listing_more_buttons(page, page_perms, is_parent=False):
             attrs={'title': _("View revision history for '{title}'").format(title=page.get_admin_display_title())},
             priority=50
         )
+
+
+@hooks.register('register_admin_urls')
+def register_viewsets_urls():
+    viewsets.populate()
+    return viewsets.get_urlpatterns()
