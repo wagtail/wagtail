@@ -90,10 +90,6 @@ class TestElasticsearchSearchBackend(BackendTests, TestCase):
         self.assertEqual(len(results), 1)
         self.assertEqual(results[0].id, obj.id)
 
-    def test_related_objects_search(self):
-        results = self.backend.search("A subobject", models.SearchTest)
-        self.assertEqual(set(results), {self.testa})
-
     def test_ascii_folding(self):
         # Reset the index
         self.reset_index()
