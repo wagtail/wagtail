@@ -20,6 +20,9 @@ class TestServeView(TestCase):
         self.document = models.Document(title="Test document")
         self.document.file.save('example.doc', ContentFile("A boring example document"))
 
+    def tearDown(self):
+        self.document.delete()
+
     def get(self):
         return self.client.get(reverse('wagtaildocs_serve', args=(self.document.id, self.document.filename)))
 
@@ -77,6 +80,9 @@ class TestServeViewWithSendfile(TestCase):
 
         self.document = models.Document(title="Test document")
         self.document.file.save('example.doc', ContentFile("A boring example document"))
+
+    def tearDown(self):
+        self.document.delete()
 
     def get(self):
         return self.client.get(reverse('wagtaildocs_serve', args=(self.document.id, self.document.filename)))
