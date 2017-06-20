@@ -27,7 +27,7 @@ from .utils import Image, get_test_image_file
 try:
     import sendfile  # noqa
     sendfile_mod = True
-except:
+except ImportError:
     sendfile_mod = False
 
 

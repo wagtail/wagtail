@@ -82,6 +82,8 @@ You can also pass a QuerySet into the ``search`` method which allows you to add 
     [<Book: Great Expectations>]
 
 
+.. _wagtailsearch_specifying_fields:
+
 Specifying the fields to search
 -------------------------------
 

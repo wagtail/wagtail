@@ -569,7 +569,7 @@ First, alter ``models.py`` once more:
     # New imports added for ClusterTaggableManager, TaggedItemBase, MultiFieldPanel
 
     from modelcluster.fields import ParentalKey
-    from modelcluster.tags import ClusterTaggableManager
+    from modelcluster.contrib.taggit import ClusterTaggableManager
     from taggit.models import TaggedItemBase
 
     from wagtail.wagtailcore.models import Page, Orderable
@@ -758,7 +758,7 @@ We can now add categories to the ``BlogPage`` model, as a many-to-many field. Th
     from django.db import models
 
     from modelcluster.fields import ParentalKey, ParentalManyToManyField
-    from modelcluster.tags import ClusterTaggableManager
+    from modelcluster.contrib.taggit import ClusterTaggableManager
     from taggit.models import TaggedItemBase
 
     # ...

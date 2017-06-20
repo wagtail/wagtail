@@ -5,13 +5,14 @@
 # Translators:
 # hanfeng <appweb.cn@gmail.com>, 2014-2015
 # hanfeng <appweb.cn@gmail.com>, 2014
+# Vincent Zhao <zhaopu2008@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-06 12:33+0000\n"
-"PO-Revision-Date: 2016-03-27 13:02+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-04-19 21:02+0000\n"
+"PO-Revision-Date: 2017-05-03 13:56+0000\n"
+"Last-Translator: Vincent Zhao <zhaopu2008@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -25,6 +26,9 @@ msgstr "请输入一个有效的URL"
 
 msgid "URL"
 msgstr "URL"
+
+msgid "embed"
+msgstr "嵌入"
 
 msgid "Insert embed"
 msgstr "插入embed"

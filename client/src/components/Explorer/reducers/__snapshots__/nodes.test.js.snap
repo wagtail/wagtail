@@ -1,0 +1,139 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`nodes GET_CHILDREN_FAILURE 1`] = `
+Object {
+  "1": Object {
+    "children": Object {
+      "count": 0,
+      "items": Array [],
+    },
+    "isError": true,
+    "isFetching": false,
+    "meta": Object {
+      "children": Object {},
+    },
+  },
+}
+`;
+
+exports[`nodes GET_CHILDREN_START 1`] = `
+Object {
+  "1": Object {
+    "children": Object {
+      "count": 0,
+      "items": Array [],
+    },
+    "isError": false,
+    "isFetching": true,
+    "meta": Object {
+      "children": Object {},
+    },
+  },
+}
+`;
+
+exports[`nodes GET_CHILDREN_SUCCESS 1`] = `
+Object {
+  "1": Object {
+    "children": Object {
+      "count": 3,
+      "items": Array [
+        3,
+        4,
+        5,
+      ],
+    },
+    "isError": false,
+    "isFetching": false,
+    "meta": Object {
+      "children": Object {},
+    },
+  },
+  "3": Object {
+    "children": Object {
+      "count": 0,
+      "items": Array [],
+    },
+    "id": 3,
+    "isError": false,
+    "isFetching": false,
+    "meta": Object {
+      "children": Object {},
+    },
+  },
+  "4": Object {
+    "children": Object {
+      "count": 0,
+      "items": Array [],
+    },
+    "id": 4,
+    "isError": false,
+    "isFetching": false,
+    "meta": Object {
+      "children": Object {},
+    },
+  },
+  "5": Object {
+    "children": Object {
+      "count": 0,
+      "items": Array [],
+    },
+    "id": 5,
+    "isError": false,
+    "isFetching": false,
+    "meta": Object {
+      "children": Object {},
+    },
+  },
+}
+`;
+
+exports[`nodes GET_PAGE_FAILURE 1`] = `
+Object {
+  "1": Object {
+    "children": Object {
+      "count": 0,
+      "items": Array [],
+    },
+    "isError": true,
+    "isFetching": false,
+    "meta": Object {
+      "children": Object {},
+    },
+  },
+}
+`;
+
+exports[`nodes GET_PAGE_SUCCESS 1`] = `
+Object {
+  "1": Object {
+    "children": Object {
+      "count": 0,
+      "items": Array [],
+    },
+    "isError": false,
+    "isFetching": false,
+    "meta": Object {
+      "children": Object {},
+    },
+  },
+}
+`;
+
+exports[`nodes OPEN_EXPLORER 1`] = `
+Object {
+  "1": Object {
+    "children": Object {
+      "count": 0,
+      "items": Array [],
+    },
+    "isError": false,
+    "isFetching": false,
+    "meta": Object {
+      "children": Object {},
+    },
+  },
+}
+`;
+
+exports[`nodes empty state 1`] = `Object {}`;

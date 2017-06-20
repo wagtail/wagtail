@@ -1,0 +1,89 @@
+.c-explorer__item {
+    display: flex;
+    flex-flow: row nowrap;
+    border-bottom: 1px solid $c-explorer-bg-dark;
+}
+
+.c-explorer__item__link {
+    display: inline-flex;
+    align-items: center;
+    flex-grow: 1;
+    padding: 1.45em 1em;
+    cursor: pointer;
+
+    &:focus {
+        background: $c-explorer-bg-active;
+        color: $color-white;
+        outline: none;
+    }
+
+    // Overrides for default link hover.
+    &:hover {
+        color: $color-white;
+    }
+
+    @include hover {
+        background: $c-explorer-bg-active;
+    }
+
+    @include medium {
+        padding: 1.45em 1.75em;
+    }
+}
+
+.c-explorer__item__link .icon {
+    font-size: 2em;
+    color: $c-explorer-secondary;
+    margin-right: 0.5rem;
+}
+
+.c-explorer__item__title {
+    margin: 0;
+    color: $color-white;
+    display: inline-block;
+}
+
+.c-explorer__item__action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 50px;
+    padding: 0 .5em;
+    line-height: 1;
+    font-size: 2em;
+    cursor: pointer;
+    color: $c-explorer-secondary;
+    border: 0;
+    border-left: solid 1px $c-explorer-bg-dark;
+
+    &:focus {
+        background: $c-explorer-bg-active;
+        color: $color-white;
+        outline: none;
+    }
+
+    // Overrides for default link hover.
+    &:hover {
+        color: $c-explorer-secondary;
+    }
+
+    @include hover {
+        background: $c-explorer-bg-active;
+        color: $color-white;
+    }
+
+    .icon:before {
+        margin-right: 0;
+    }
+}
+
+.c-explorer__item__action--small {
+    font-size: 1.2em;
+}
+
+.c-explorer__meta {
+    margin-left: 0.5rem;
+    color: $c-explorer-secondary;
+    font-size: 12px;
+}

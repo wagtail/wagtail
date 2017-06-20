@@ -1,6 +1,8 @@
+from __future__ import print_function
 import subprocess
 import re
 from collections import defaultdict
+from io import open
 
 from babel import Locale
 
@@ -12,12 +14,12 @@ for file_listing_line in file_listing.stdout:
     filename = file_listing_line.strip()
 
     # extract locale string from filename
-    locale = re.search(r'locale/(\w+)/LC_MESSAGES', filename).group(1)
+    locale = re.search(r'locale/(\w+)/LC_MESSAGES', str(filename)).group(1)
     if locale == 'en':
         continue
 
     # read author list from each file
-    with file(filename) as f:
+    with open(filename, 'rt') as f:
         has_found_translators_heading = False
         for line in f:
             line = line.strip()
@@ -40,7 +42,7 @@ language_names = [
 language_names.sort()
 
 for (language_name, locale) in language_names:
-    print(("%s - %s" % (language_name, locale)).encode('utf-8'))
+    print(("%s - %s" % (language_name, locale)))
     print("-----")
     for author in sorted(authors_by_locale[locale]):
         print(author)

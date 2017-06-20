@@ -231,14 +231,21 @@ class BooleanBlock(FieldBlock):
 
 class DateBlock(FieldBlock):
 
-    def __init__(self, required=True, help_text=None, **kwargs):
+    def __init__(self, required=True, help_text=None, format=None, **kwargs):
         self.field_options = {'required': required, 'help_text': help_text}
+        try:
+            self.field_options['input_formats'] = kwargs.pop('input_formats')
+        except KeyError:
+            pass
+        self.format = format
         super(DateBlock, self).__init__(**kwargs)
 
     @cached_property
     def field(self):
         from wagtail.wagtailadmin.widgets import AdminDateInput
-        field_kwargs = {'widget': AdminDateInput}
+        field_kwargs = {
+            'widget': AdminDateInput(format=self.format),
+        }
         field_kwargs.update(self.field_options)
         return forms.DateField(**field_kwargs)
 
@@ -280,14 +287,17 @@ class TimeBlock(FieldBlock):
 
 class DateTimeBlock(FieldBlock):
 
-    def __init__(self, required=True, help_text=None, **kwargs):
+    def __init__(self, required=True, help_text=None, format=None, **kwargs):
         self.field_options = {'required': required, 'help_text': help_text}
+        self.format = format
         super(DateTimeBlock, self).__init__(**kwargs)
 
     @cached_property
     def field(self):
         from wagtail.wagtailadmin.widgets import AdminDateTimeInput
-        field_kwargs = {'widget': AdminDateTimeInput}
+        field_kwargs = {
+            'widget': AdminDateTimeInput(format=self.format),
+        }
         field_kwargs.update(self.field_options)
         return forms.DateTimeField(**field_kwargs)
 

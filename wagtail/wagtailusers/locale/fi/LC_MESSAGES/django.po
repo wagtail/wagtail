@@ -4,14 +4,14 @@
 #
 # Translators:
 # Aarni Koskela, 2016
-# Eetu Häivälä <eetu.haivala@anders.fi>, 2016
+# Eetu Häivälä <eetu.haivala@anders.fi>, 2016-2017
 # Rauli L. <rauli.laine@iki.fi>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-06 12:33+0000\n"
-"PO-Revision-Date: 2017-02-06 12:40+0000\n"
+"POT-Creation-Date: 2017-04-19 21:02+0000\n"
+"PO-Revision-Date: 2017-04-19 21:08+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
@@ -37,11 +37,14 @@ msgstr "Käyttäjä tällä käyttäjänimellä on jo olemassa."
 msgid "The two password fields didn't match."
 msgstr "Salasanakentät eivät täsmää."
 
-msgid "Administrator"
-msgstr "Ylläpitäjä"
+msgid "Email"
+msgstr "Sähköposti"
 
-msgid "Administrators have full access to manage any object or setting."
-msgstr "Ylläpitäjät voivat hallita mitä tahansa kohdetta tai asetusta."
+msgid "First Name"
+msgstr "Etunimi"
+
+msgid "Last Name"
+msgstr "Sukunimi"
 
 msgid "Password"
 msgstr "Salasana"
@@ -55,14 +58,11 @@ msgstr "Salasanan vahvistus"
 msgid "Enter the same password as above, for verification."
 msgstr "Syötä sama salasana tarkistuksen vuoksi toistamiseen."
 
-msgid "Email"
-msgstr "Sähköposti"
+msgid "Administrator"
+msgstr "Ylläpitäjä"
 
-msgid "First Name"
-msgstr "Etunimi"
-
-msgid "Last Name"
-msgstr "Sukunimi"
+msgid "Administrators have full access to manage any object or setting."
+msgstr "Ylläpitäjät voivat hallita mitä tahansa kohdetta tai asetusta."
 
 msgid "A group with that name already exists."
 msgstr "Samanniminen ryhmä on jo olemassa."
@@ -93,6 +93,24 @@ msgstr "käyttäjäprofiili"
 
 msgid "Delete group"
 msgstr "Poista ryhmä"
+
+#, python-format
+msgid ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> member.\n"
+"            "
+msgid_plural ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> members.\n"
+"            "
+msgstr[0] ""
+"\n"
+"Ryhmässä '%(group_name)s' on <strong>%(group_user_count)s</strong> jäsen."
+msgstr[1] ""
+"\n"
+"Ryhmässä '%(group_name)s' on <strong>%(group_user_count)s</strong> jäsentä."
 
 msgid ""
 "Deleting this group will revoke this group's permissions from all member "

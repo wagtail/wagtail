@@ -8,15 +8,20 @@ from django.conf import settings
 from django.contrib.humanize.templatetags.humanize import intcomma
 from django.contrib.messages.constants import DEFAULT_TAGS as MESSAGE_TAGS
 from django.template.defaultfilters import stringfilter
+from django.template.loader import render_to_string
 from django.utils.html import conditional_escape
 from django.utils.safestring import mark_safe
 
 from wagtail.utils.pagination import DEFAULT_PAGE_KEY, replace_page_in_query
 from wagtail.wagtailadmin.menu import admin_menu
-from wagtail.wagtailadmin.navigation import get_explorable_root_page, get_navigation_menu_items
+from wagtail.wagtailadmin.navigation import get_explorable_root_page
 from wagtail.wagtailadmin.search import admin_search_areas
 from wagtail.wagtailcore import hooks
-from wagtail.wagtailcore.models import Page, PageViewRestriction, UserPagePermissionsProxy
+from wagtail.wagtailcore.models import (
+    CollectionViewRestriction,
+    Page, PageViewRestriction,
+    UserPagePermissionsProxy
+)
 from wagtail.wagtailcore.utils import cautious_slugify as _cautious_slugify
 from wagtail.wagtailcore.utils import camelcase_to_underscore, escape_script
 
@@ -30,18 +35,18 @@ else:
     assignment_tag = register.assignment_tag
 
 
-@register.inclusion_tag('wagtailadmin/shared/explorer_nav.html', takes_context=True)
-def explorer_nav(context):
-    return {
-        'nodes': get_navigation_menu_items(context['request'].user)
-    }
+@register.simple_tag(takes_context=True)
+def menu_search(context):
+    request = context['request']
 
+    search_areas = admin_search_areas.search_items_for_request(request)
+    if not search_areas:
+        return ''
+    search_area = search_areas[0]
 
-@register.inclusion_tag('wagtailadmin/shared/explorer_nav_child.html')
-def explorer_subnav(nodes):
-    return {
-        'nodes': nodes
-    }
+    return render_to_string('wagtailadmin/shared/menu_search.html', {
+        'search_url': search_area.url,
+    })
 
 
 @register.inclusion_tag('wagtailadmin/shared/main_nav.html', takes_context=True)
@@ -95,14 +100,6 @@ def ellipsistrim(value, max_length):
 
 
 @register.filter
-def no_thousand_separator(num):
-    """
-    Prevent USE_THOUSAND_SEPARATOR from automatically inserting a thousand separator on this value
-    """
-    return str(num)
-
-
-@register.filter
 def fieldtype(bound_field):
     try:
         return camelcase_to_underscore(bound_field.field.__class__.__name__)
@@ -138,6 +135,25 @@ def page_permissions(context, page):
 
     # Now retrieve a PagePermissionTester from it, specific to the given page
     return context['user_page_permissions'].for_page(page)
+
+
+@assignment_tag(takes_context=True)
+def test_collection_is_public(context, collection):
+    """
+    Usage: {% test_collection_is_public collection as is_public %}
+    Sets 'is_public' to True iff there are no collection view restrictions in place
+    on this collection.
+    Caches the list of collection view restrictions in the context, to avoid repeated
+    DB queries on repeated calls.
+    """
+    if 'all_collection_view_restrictions' not in context:
+        context['all_collection_view_restrictions'] = CollectionViewRestriction.objects.select_related('collection').values_list(
+            'collection__name', flat=True
+        )
+
+    is_private = collection.name in context['all_collection_view_restrictions']
+
+    return not is_private
 
 
 @assignment_tag(takes_context=True)
@@ -191,6 +207,11 @@ def allow_unicode_slugs():
         return False
     else:
         return getattr(settings, 'WAGTAIL_ALLOW_UNICODE_SLUGS', True)
+
+
+@assignment_tag
+def auto_update_preview():
+    return getattr(settings, 'WAGTAIL_AUTO_UPDATE_PREVIEW', False)
 
 
 class EscapeScriptNode(template.Node):

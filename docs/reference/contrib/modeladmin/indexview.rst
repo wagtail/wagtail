@@ -535,7 +535,7 @@ kind of interactivity using javascript:
 .. _modeladmin_thumbnailmixin:
 
 ----------------------------------------------------
-``wagtal.contrib.modeladmin.options.ThumbnailMixin``
+``wagtail.contrib.modeladmin.mixins.ThumbnailMixin``
 ----------------------------------------------------
 
 If you're using ``wagtailimages.Image`` to define an image for each item in
@@ -547,7 +547,8 @@ change a few attributes to change the thumbnail to your liking, like so:
 .. code-block:: python
 
     from django.db import models
-    from wagtail.contrib.modeladmin.options import ThumbnailMixin, ModelAdmin
+    from wagtail.contrib.modeladmin.mixins import ThumbnailMixin
+    from wagtail.contrib.modeladmin.options import ModelAdmin
 
     class Person(models.Model):
         name = models.CharField(max_length=255)

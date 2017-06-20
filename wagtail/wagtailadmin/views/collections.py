@@ -49,6 +49,7 @@ class Edit(EditView):
     permission_policy = collection_permission_policy
     model = Collection
     form_class = CollectionForm
+    template_name = 'wagtailadmin/collections/edit.html'
     success_message = ugettext_lazy("Collection '{0}' updated.")
     error_message = ugettext_lazy("The collection could not be saved due to errors.")
     delete_item_label = ugettext_lazy("Delete collection")

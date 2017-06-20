@@ -6,7 +6,7 @@
 # Adrien <laadrien@gmail.com>, 2014
 # Axel Haustant, 2016
 # Benoît Vogel <contact@spicy-informatique.com>, 2016-2017
-# Bertrand Bordage <bordage.bertrand@gmail.com>, 2015
+# Bertrand Bordage <bordage.bertrand@gmail.com>, 2015,2017
 # Léo <leo@naeka.fr>, 2016
 # pierre marfoure <pierre@onoffdesign.com>, 2016
 # Tom Dyson <tom@torchbox.com>, 2015
@@ -14,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-06 12:33+0000\n"
-"PO-Revision-Date: 2017-02-12 18:11+0000\n"
-"Last-Translator: Benoît Vogel <contact@spicy-informatique.com>\n"
+"POT-Creation-Date: 2017-04-19 21:02+0000\n"
+"PO-Revision-Date: 2017-04-20 20:25+0000\n"
+"Last-Translator: Bertrand Bordage <bordage.bertrand@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -27,6 +27,12 @@ msgstr ""
 
 msgid "{} submissions"
 msgstr "{} soumissions"
+
+msgid "Date from"
+msgstr "Date depuis le"
+
+msgid "Date to"
+msgstr "Date jusqu’au"
 
 #, python-format
 msgid "There is another field with the label %s, please change one of them."
@@ -124,6 +130,13 @@ msgstr "adresse expéditeur"
 msgid "subject"
 msgstr "sujet"
 
+#, python-format
+msgid "Delete form data %(title)s"
+msgstr "Supprimer les données de formulaire de %(title)s"
+
+msgid "Delete form data"
+msgstr "Supprimer les données de formulaire"
+
 msgid ""
 "\n"
 "                Are you sure you want to delete this form submission?\n"
@@ -177,6 +190,9 @@ msgstr "Titre"
 
 msgid "Origin"
 msgstr "Origine"
+
+msgid "Delete selected submissions"
+msgstr "Supprimer les réponses sélectionnées"
 
 msgid "No form pages have been created."
 msgstr "Aucune page contenant un formulaire n'a été créée."

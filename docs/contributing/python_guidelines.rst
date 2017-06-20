@@ -4,7 +4,11 @@ Python coding guidelines
 PEP8
 ~~~~
 
-We ask that all Python contributions adhere to the `PEP8 <http://www.python.org/dev/peps/pep-0008/>`_ style guide, apart from the restriction on line length (E501). In addition, import lines should be sorted according to `isort <http://timothycrosley.github.io/isort/>`_ rules. If you have installed Wagtail's testing dependencies (``pip install -e .[testing]``), you can check your code by running ``make lint``.
+We ask that all Python contributions adhere to the `PEP8 <http://www.python.org/dev/peps/pep-0008/>`_ style guide, apart from the restriction on line length (E501) and some minor docstring-related issues.
+The list of PEP8 violations to ignore is in the ``tox.ini`` file, under the ``[flake8]`` header.
+You might want to configure the flake8 linter in your editor/IDE to use the configuration in this file.
+
+In addition, import lines should be sorted according to `isort <http://timothycrosley.github.io/isort/>`_ 4.2.5 rules. If you have installed Wagtail's testing dependencies (``pip install -e .[testing]``), you can check your code by running ``make lint``.
 
 
 Python 2 and 3 compatibility

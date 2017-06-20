@@ -1,25 +1,15 @@
 {
-    "extends": "airbnb",
+  "extends": "wagtail",
 
-    "rules": {
-        "indent": [2, 2],
-        "max-len": [1, 120, 4, {"ignoreUrls": true}],
-        "id-length": [1, {"min": 2, "exceptions": ["x", "y", "e", "i", "j", "k", "d", "n", "_", "$"]}],
-        "object-shorthand": [2, "methods"],
-        "no-new": [1],
-        "comma-dangle": [0],
-        "no-multi-spaces": [0],
-        "prefer-template": [0],
-        "no-var": [0],
-        "prefer-arrow-callback": [1],
-        "no-undef": [1],
-        "no-unused-vars": [1],
-        "no-warning-comments": [1, { "terms": ["todo", "fixme", "xxx"], "location": "start" }],
-        "react/sort-comp": [0],
-        "react/jsx-boolean-value": [0],
-        "react/jsx-no-bind": [0],
-        "react/prefer-es6-class": [0, 'never'],
-        "react/jsx-indent-props": [2, 4],
-        "jsx-quotes": [1, "prefer-double"]
+  "env": {
+    "jest": true
+  },
+
+  "settings": {
+    "import/resolver": {
+      "webpack": {
+        "config": "client/webpack/prod.config.js"
+      }
     }
+  }
 }

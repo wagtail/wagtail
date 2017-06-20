@@ -854,12 +854,14 @@ class BaseStreamFieldPanel(BaseFieldPanel):
 
 
 class StreamFieldPanel(object):
-    def __init__(self, field_name):
+    def __init__(self, field_name, classname=''):
         self.field_name = field_name
+        self.classname = classname
 
     def bind_to_model(self, model):
         return type(str('_StreamFieldPanel'), (BaseStreamFieldPanel,), {
             'model': model,
             'field_name': self.field_name,
-            'block_def': model._meta.get_field(self.field_name).stream_block
+            'block_def': model._meta.get_field(self.field_name).stream_block,
+            'classname': self.classname,
         })

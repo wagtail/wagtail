@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2016
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2017
 # saevarom <saevar@saevar.is>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-06 12:33+0000\n"
-"PO-Revision-Date: 2016-10-04 09:26+0000\n"
+"POT-Creation-Date: 2017-04-19 21:02+0000\n"
+"PO-Revision-Date: 2017-05-05 09:13+0000\n"
 "Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
@@ -222,6 +222,9 @@ msgstr ""
 
 msgid "Current focal point shown"
 msgstr "Núverandi fókuspunktur sýndur"
+
+msgid "Remove focal area"
+msgstr "Fjarlægja fókussvæði"
 
 msgid "URL Generator"
 msgstr "Slóð"

@@ -4,7 +4,7 @@
 #
 # Translators:
 # Daniel Manser <me@danielmanser.com>, 2015
-# Ettore Atalan <atalanttore@googlemail.com>, 2015-2016
+# Ettore Atalan <atalanttore@googlemail.com>, 2015-2017
 # Henrik Kröger <hedwig@riseup.net>, 2015-2016
 # hpoul <herbert.transifex@m.poul.at>, 2015
 # Jannis, 2016
@@ -25,9 +25,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-06 12:33+0000\n"
-"PO-Revision-Date: 2017-02-09 10:26+0000\n"
-"Last-Translator: Moritz Pfeiffer <moritz@alp-phone.ch>\n"
+"POT-Creation-Date: 2017-04-19 21:02+0000\n"
+"PO-Revision-Date: 2017-04-20 00:08+0000\n"
+"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -142,6 +142,10 @@ msgstr ""
 "Dieser Kurztitel wird bereits im Rahmen der übergeordneten Seite „%s“ "
 "verwendet"
 
+msgid "You cannot copy a page into itself when copying subpages"
+msgstr ""
+"Sie können beim Kopieren von Unterseiten keine Seite in sich selbst kopieren"
+
 msgid "Visibility"
 msgstr "Sichtbarkeit"
 
@@ -191,8 +195,11 @@ msgstr "Benachrichtigungseinstellungen"
 msgid "Choose which email notifications to receive."
 msgstr "Wählen Sie, welche Emailbenachrichtigungen Sie erhalten möchten!"
 
-msgid "Change Password"
-msgstr "Passwort ändern"
+msgid "Language preferences"
+msgstr "Spracheinstellungen"
+
+msgid "Choose the language you want to use here."
+msgstr "Wählen Sie die Sprache aus, die Sie hier verwenden möchten."
 
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
@@ -200,8 +207,8 @@ msgstr ""
 "Sie können Ihr Passwort hier nicht ändern. Bitte kontaktieren Sie einen "
 "Administrator der Website."
 
-msgid "Notification Preferences"
-msgstr "Benachrichtigungseinstellungen"
+msgid "Language Preferences"
+msgstr "Spracheinstellungen"
 
 msgid "Update"
 msgstr "Update"
@@ -634,6 +641,10 @@ msgstr "Ja, depublizieren"
 msgid "No, don't unpublish"
 msgstr "Nein, nicht depublizieren"
 
+#, python-format
+msgid "Pages using %(page_class_verbose_name)s"
+msgstr "Seiten, die %(page_class_verbose_name)s verwenden"
+
 msgid "Pages using"
 msgstr "Benutzende Seiten"
 
@@ -797,6 +808,9 @@ msgstr "Unterseite zu ‚%(title)s‘ hinzufügen"
 msgid "Add child page"
 msgstr "Unterseite hinzufügen"
 
+msgid "Sites menu"
+msgstr "Seitenmenü"
+
 #, python-format
 msgid ""
 "\n"
@@ -832,6 +846,26 @@ msgstr "Wählen Sie eine neue übergeordnete Seite für %(title)s"
 #, python-format
 msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Wählen Sie eine neue übergeordnete Seite für <span>%(title)s</span>"
+
+msgid "Preview error"
+msgstr "Vorschaufehler"
+
+msgid ""
+"\n"
+"                Impossible to preview this page, some errors are remaining.\n"
+"                Please close this tab, edit the page to fix these errors,\n"
+"                then use preview again.\n"
+"            "
+msgstr ""
+"\n"
+"Eine Vorschau dieser Seite ist unmöglich, da einige Fehler übrig geblieben "
+"sind.\n"
+"Bitte schließen Sie diese Registerkarte, bearbeiten Sie die\n"
+"Seite, um die Fehler zu beheben, und verwenden Sie dann\n"
+"erneut die Vorschau."
+
+msgid "Close"
+msgstr "Schließen"
 
 #, python-format
 msgid "Comparing %(title)s"
@@ -1083,6 +1117,63 @@ msgstr "Im Explorer anzeigen"
 msgid "Test"
 msgstr "Test"
 
+msgid "Catalan"
+msgstr "Katalanisch"
+
+msgid "German"
+msgstr "Deutsch"
+
+msgid "Greek"
+msgstr "Griechisch"
+
+msgid "English"
+msgstr "Englisch"
+
+msgid "Spanish"
+msgstr "Spanisch"
+
+msgid "Finnish"
+msgstr "Finnisch"
+
+msgid "French"
+msgstr "Französisch"
+
+msgid "Galician"
+msgstr "Galicisch"
+
+msgid "Icelandic"
+msgstr "Isländisch"
+
+msgid "Italian"
+msgstr "Italienisch"
+
+msgid "Lithuanian"
+msgstr "Litauisch"
+
+msgid "Norwegian Bokmål"
+msgstr "Norwegische Buchsprache"
+
+msgid "Netherlands Dutch"
+msgstr "Niederländisch"
+
+msgid "Polish"
+msgstr "Polnisch"
+
+msgid "Brazilian Portuguese"
+msgstr "Brasilianisches Portugiesisch"
+
+msgid "Portuguese"
+msgstr "Portugiesisch"
+
+msgid "Romanian"
+msgstr "Rumänisch"
+
+msgid "Russian"
+msgstr "Russisch"
+
+msgid "Chinese (China)"
+msgstr "Chinesisch (China)"
+
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Sie haben leider keinen Zugang zu diesem Bereich."
 
@@ -1090,7 +1181,10 @@ msgid "Your password has been changed successfully!"
 msgstr "Ihr Passwort wurde erfolgreich geändert."
 
 msgid "Your preferences have been updated successfully!"
-msgstr "Ihre Einstellungen wurden gesichert!"
+msgstr "Ihre Einstellungen wurden erfolgreich aktualisiert!"
+
+msgid "Your preferences have been updated."
+msgstr "Ihre Einstellungen wurden aktualisiert."
 
 msgid "You have been successfully logged out."
 msgstr "Sie wurden erfolgreich abgemeldet."

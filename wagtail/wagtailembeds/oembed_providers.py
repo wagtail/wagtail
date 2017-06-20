@@ -82,6 +82,22 @@ OEMBED_ENDPOINTS = {
         "^http://instagr\\.am/p/.+$",
         "^http[s]?://(?:www\\.)?instagram\\.com/p/.+$"
     ],
+    "https://www.facebook.com/plugins/video/oembed.{format}": [
+        "^https://(?:www\\.)?facebook\\.com/.+?/videos/.+$",
+        "^https://(?:www\\.)?facebook\\.com/video\\.php\\?(?:v|id)=.+$",
+    ],
+    "https://www.facebook.com/plugins/post/oembed.{format}": [
+        "^https://(?:www\\.)?facebook\\.com/.+?/(?:posts|activity)/.+$",
+        "^https://(?:www\\.)?facebook\\.com/photo\\.php\\?fbid=.+$",
+        "^https://(?:www\\.)?facebook\\.com/(?:photos|questions)/.+$",
+        "^https://(?:www\\.)?facebook\\.com/permalink\\.php\\?story_fbid=.+$",
+        "^https://(?:www\\.)?facebook\\.com/media/set/?\\?set=.+$",
+        "^https://(?:www\\.)?facebook\\.com/notes/.+?/.+?/.+$",
+
+        # At the moment, not documented on https://developers.facebook.com/docs/plugins/oembed-endpoints
+        # Works for posts with a single photo
+        "^https://(?:www\\.)?facebook\\.com/.+?/photos/.+$",
+    ],
     "https://www.slideshare.net/api/oembed/2": [
         "^http://www\\.slideshare\\.net/.+$"
     ],
@@ -139,8 +155,8 @@ OEMBED_ENDPOINTS = {
     "http://video.yandex.ru/oembed.{format}": [
         "^http://video\\.yandex\\.ru/users/[^#?/]+/view/.+$"
     ],
-    "http://www.mixcloud.com/oembed/": [
-        "^http://www\\.mixcloud\\.com/oembed/[^#?/]+/.+$"
+    "https://www.mixcloud.com/oembed/": [
+        "^https?://(?:www\\.)?mixcloud\\.com/.+$"
     ],
     "http://www.kickstarter.com/services/oembed": [
         "^http(?:s)://[-\\w]+\\.kickstarter\\.com/projects/.+$"
@@ -301,6 +317,9 @@ OEMBED_ENDPOINTS = {
     "http://issuu.com/oembed": [
         "^http(?:s)?://(?:www\\.)?issuu\\.com/[^#?/]+/docs/.+$"
     ],
+    "https://www.tumblr.com/oembed/1.0": [
+        "^http(?:s)?://.+?\\.tumblr\\.com/post/.+$",
+    ]
 }
 
 

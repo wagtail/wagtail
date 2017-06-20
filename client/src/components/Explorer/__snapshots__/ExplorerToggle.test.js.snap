@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ExplorerToggle basic 1`] = `
+<ExplorerToggle
+  onToggle={[Function]}
+  storeSubscription={
+    Subscription {
+      "listeners": Object {
+        "notify": [Function],
+      },
+      "onStateChange": [Function],
+      "parentSub": undefined,
+      "store": Object {
+        "clearActions": [Function],
+        "dispatch": [Function],
+        "getActions": [Function],
+        "getState": [Function],
+        "replaceReducer": [Function],
+        "subscribe": [Function],
+      },
+      "unsubscribe": null,
+    }
+  }
+>
+  <span>
+    To infinity and beyond!
+  </span>
+</ExplorerToggle>
+`;

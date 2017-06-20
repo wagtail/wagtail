@@ -4,6 +4,7 @@
 #
 # Translators:
 # jim dal <dimitrisdal@gmail.com>, 2014
+# Nick Mavrakis <mavrakis.n@gmail.com>, 2017
 # serafeim <serafeim@torchbox.com>, 2014
 # serafeim <serafeim@torchbox.com>, 2014
 # Wasilis Mandratzis-Walz, 2015
@@ -12,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-06 12:33+0000\n"
-"PO-Revision-Date: 2016-09-20 12:43+0000\n"
-"Last-Translator: Yiannis Inglessis <negletios@users.noreply.github.com>\n"
+"POT-Creation-Date: 2017-04-19 21:02+0000\n"
+"PO-Revision-Date: 2017-04-19 21:08+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
 "MIME-Version: 1.0\n"
@@ -46,13 +47,8 @@ msgstr[1] ""
 "Υπάρχουν %(counter)s αποτελέσματα"
 
 #, python-format
-msgid ""
-"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">create one now"
-msgstr ""
-"Δεν έχετε δημιουργήσει κανένα %(snippet_type_name)s αποσπάσμα. Γιατί να μην "
-"το <a href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\"> "
-"δημιουργήσετε τώρα"
+msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
+msgstr "Λυπούμαστε, δεν υπάρχουν snippets με το \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid "Delete %(snippet_type_name)s - %(instance)s"
@@ -132,6 +128,10 @@ msgstr "Κατάσταση"
 
 msgid "Edit this page"
 msgstr "Επεξεργασία αυτής της σελίδας"
+
+#, python-format
+msgid "Search %(snippet_type_name)s"
+msgstr "Αναζήτηση %(snippet_type_name)s"
 
 #, python-brace-format
 msgid "{snippet_type} '{instance}' created."

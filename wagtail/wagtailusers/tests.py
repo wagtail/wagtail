@@ -1,7 +1,5 @@
 from __future__ import absolute_import, unicode_literals
 
-from bs4 import BeautifulSoup
-
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
@@ -756,16 +754,11 @@ class TestGroupEditView(TestCase, WagtailTestUtils):
         # the checkbox for self.existing_permission should be ticked
         response = self.get()
 
-        # Use BeautifulSoup to search for a checkbox element with name="permissions", checked="checked",
-        # value=<existing_permission.id>. Can't use assertContains here because the id attribute is unpredictable
-        soup = BeautifulSoup(response.content, 'html5lib')
-
-        self.assertTrue(
-            soup.find(
-                'input',
-                {'name': 'permissions', 'type': 'checkbox', 'checked': 'checked', 'value': self.existing_permission.id}
-            )
-        )
+        # use allow_extra_attrs because the input will also have an id (with an unpredictable value)
+        self.assertTagInHTML(
+            '<input name="permissions" type="checkbox" checked value="%s">' % self.existing_permission.id,
+            str(response.content),
+            allow_extra_attrs=True)
 
     def test_group_edit_loads_with_page_permissions_shown(self):
         # The test group has one page permission to begin with

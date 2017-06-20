@@ -140,7 +140,7 @@ Contributors
 * Stephen Rice
 * Behzad Nategh
 * Yann Fouillat (Gagaro)
-* Jonny Scholes
+* Jonny Scholev
 * Richard McMillan
 * Johannes Spielmann
 * Franklin Kingma
@@ -214,6 +214,36 @@ Contributors
 * Vorlif
 * Kjartan Sverrisson
 * LB (Ben Johnston)
+* Christine Ho
+* Trent Holliday
+* jacoor
+* hdnpl
+* Tom Hendrikx
+* Ralph Jacobs
+* Wietze Helmantel
+* Patrick Gerken
+* Will Giddens
+* Maarten Kling
+* Huub Bouma
+* Thijs Kramer
+* Ramon de Jezus
+* Ross Curzon-Butler
+* Daniel Chimeno
+* Medhat Assaad
+* Sebastian Bauer
+* Martin Hill
+* Maurice Bartnig
+* Eirikur Ingi Magnusson
+* Harris Lapiroff
+* Hugo van den Berg
+* Olly Willans
+* Ben Enright
+* Alice Rose
+* John Franey
+* Marc Tudurí
+* Lucas Moeskops
+* Rob van der Linde
+* Paul Kamp
 
 Translators
 ===========
@@ -223,11 +253,11 @@ Translators
 * Basque: Unai Zalakain
 * Bulgarian: Lyuboslav Petrov
 * Catalan: Antoni Aloy, David Llop, Roger Pons
-* Chinese: hanfeng, Lihan Li, Leway Colin
-* Chinese (China): hanfeng, Daniel Hwang, Jian Li, Listeng Teng, Feng Wang, Fred Zeng, Joey Zhao, zhushajun
+* Chinese: hanfeng, Lihan Li, Leway Colin, Orangle Liu
+* Chinese (China): hanfeng, Daniel Hwang, Jian Li, Listeng Teng, Feng Wang, Fred Zeng, Joey Zhao, Vincent Zhao, zhushajun
 * Chinese (Taiwan): gogobook, Lihan Li, Jp Shieh
 * Croatian (Croatia): Luka Matijević
-* Czech: Ivan Pomykacz, Jiri Stepanek, Marek Turnovec
+* Czech: Ales Dvorak, Ivan Pomykacz, Jiri Stepanek, Marek Turnovec, Stanislav Vasko
 * Danish: Asger Sørensen
 * Dutch: benny_AT_it_digin.com, Bram, Brecht Dervaux, Huib Keemink, Thijs Kramer, Samuel Leeuwenburg, mahulst, Rob Moorman, Michael van Tellingen, Arne Turpyn
 * Dutch (Netherlands): Bram, Franklin Kingma, Maarten Kling, Thijs Kramer
@@ -236,7 +266,7 @@ Translators
 * Galician: fooflare
 * Georgian: André Bouatchidzé
 * German: Ettore Atalan, Patrick Craston, Henrik Kröger, Tammo van Lessen, Martin Löhle, Wasilis Mandratzis-Walz, Daniel Manser, m0rph3u5, Max Pfeiffer, Moritz Pfeiffer, Herbert Poul, Karl Sander, Tobias Schmidt, Johannes Spielmann, Raphael Stolt, Jannis Vajen, Vorlif, Matthew Westcott
-* Greek: Jim Dal, George Giannoulopoulos, Yiannis Inglessis, Wasilis Mandratzis-Walz, NeotheOne, Serafeim Papastefanos
+* Greek: Jim Dal, George Giannoulopoulos, Yiannis Inglessis, Wasilis Mandratzis-Walz, Nick Mavrakis, NeotheOne, Serafeim Papastefanos
 * Hebrew (Israel): Lior Abazon, bjesus, Yossi Lalum
 * Hungarian: Laszlo Molnar, Kornél Novák Mergulhão
 * Icelandic (Iceland): Arnar Tumi Þorsteinsson, Kjartan Sverrisson, Sævar Öfjörð Magnússon
@@ -248,16 +278,18 @@ Translators
 * Lithuanian: Matas Dailyda
 * Mongolian: Delgermurun Purevkhuu
 * Norwegian Bokmål: Eirik Krogstad, Robin Skahjem-Eriksen
-* Persian: Mohammad reza Jelveh
-* Polish: Mateusz, Miłosz Miśkiewicz, utek
-* Portuguese (Brazil): Claudemiro Alves Feitosa Neto, Luiz Boaretto, Gladson Brito, Thiago Cangussu, Gilson Filho, Joao Garcia, João Luiz Lorencetti, Marcio Mazza, Douglas Miranda, Guilherme Nabanete
+* Persian: Mohammad reza Jelveh, Mohammad Hossein Mojtahedi, Py Zenberg
+* Polish: Mateusz, Miłosz Miśkiewicz, Bartek Sielicki, utek
+* Polish (Poland): Konrad Lalik, Grzegorz Wasilewski
+* Portuguese (Brazil): Claudemiro Alves Feitosa Neto, Bruno Bertoldi, Luiz Boaretto, Gladson Brito, Thiago Cangussu, Gilson Filho, Joao Garcia, João Luiz Lorencetti, Marcio Mazza, Douglas Miranda, Guilherme Nabanete
 * Portuguese (Portugal): Gladson Brito, Thiago Cangussu, Tiago Henriques, Jose Lourenco, Nuno Matos, Douglas Miranda, Manuela Silva
 * Romanian: Dan Braghis
-* Russian: ajk, Andrey Avdey, Daniil, gsstver, Sergey Khalymon, Sergey Komarov, Eugene MechanisM, Mikalai Radchuk, Alexandr Romantsov, Nikita Viktorovich
+* Russian: ajk, Andrey Avdey, Daniil, gsstver, Sergey Khalymon, Sergey Komarov, Eugene MechanisM, Rustam Mirzaev, Mikalai Radchuk, Alexandr Romantsov, Nikita Viktorovich
 * Slovak (Slovakia): Stevo Backor, dellax, Jozef Karabelly
 * Slovenian: Mitja Pagon
 * Spanish: Mauricio Baeza, Daniel Chimeno, fonso, fooflare, Yusuf (Josè) Luis, Joaquín Tita, Unai Zalakain
-* Swedish: André Karlsson, Ludwig Kjellström, Thomas Kunambi, Hannes Lohmander
+* Spanish (Spain): Daniel Chimeno
+* Swedish: Alexander Holmbäck, André Karlsson, Ludwig Kjellström, Thomas Kunambi, Hannes Lohmander
 * Swedish (Sweden): Jon Karlsson, Thomas Kunambi
 * Turkish: Cihad Gündoǧdu
 * Turkish (Turkey): Saadettin Yasir Akel, Cihad Gündoǧdu, Yusuf (Josè) Luis, Ragıp Ünal

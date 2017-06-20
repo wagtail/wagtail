@@ -21,8 +21,8 @@ except ImportError:
 
 
 install_requires = [
-    "Django>=1.8.1,<1.11",
-    "django-modelcluster>=3.0,<4.0",
+    "Django>=1.8.1,<1.12",
+    "django-modelcluster>=3.1,<4.0",
     "django-taggit>=0.20,<1.0",
     "django-treebeard>=3.0,<5.0",
     "djangorestframework>=3.1.3",
@@ -44,11 +44,14 @@ testing_extras = [
     'elasticsearch>=1.0.0,<3.0',
     'Jinja2>=2.8,<3.0',
     'boto3>=1.4,<1.5',
+    'freezegun>=0.3.8',
 
     # For coverage and PEP8 linting
     'coverage>=3.7.0',
     'flake8>=2.2.0',
-    'isort>=4.2.0',
+    'isort==4.2.5',
+    'flake8-blind-except==0.1.1',
+    'flake8-print==2.0.2',
 ]
 
 # Documentation dependencies
@@ -81,13 +84,13 @@ setup(
         'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
         'Framework :: Django',
         'Framework :: Django :: 1.8',
-        'Framework :: Django :: 1.9',
         'Framework :: Django :: 1.10',
+        'Framework :: Django :: 1.11',
         'Topic :: Internet :: WWW/HTTP :: Site Management',
     ],
     install_requires=install_requires,

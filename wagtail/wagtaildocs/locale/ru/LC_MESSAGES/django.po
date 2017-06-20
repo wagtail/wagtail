@@ -7,14 +7,14 @@
 # Eugene MechanisM <eugene@mechanism.pro>, 2014-2016
 # Никита Викторович <hnknta@gmail.com>, 2014
 # Matt Westcott <matthew@torchbox.com>, 2015
-# Mikalai Radchuk <radchuk.m@gmail.com>, 2016
+# Mikalai Radchuk <radchuk.m@gmail.com>, 2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-06 12:33+0000\n"
-"PO-Revision-Date: 2017-02-06 12:38+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-04-19 21:02+0000\n"
+"PO-Revision-Date: 2017-04-20 20:40+0000\n"
+"Last-Translator: Mikalai Radchuk <radchuk.m@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -152,6 +152,10 @@ msgstr "Файл"
 
 msgid "Uploaded"
 msgstr "Загружено"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s назад"
 
 #, python-format
 msgid ""

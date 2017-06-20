@@ -21,7 +21,7 @@ function escapeHtml(text) {
     });
 }
 
-function initTagField(id, autocompleteUrl) {
+function initTagField(id, autocompleteUrl, allowSpaces) {
     $('#' + id).tagit({
         autocomplete: {source: autocompleteUrl},
         preprocessTag: function(val) {
@@ -32,7 +32,9 @@ function initTagField(id, autocompleteUrl) {
             }
 
             return val;
-        }
+        },
+
+        allowSpaces: allowSpaces
     });
 }
 
@@ -50,8 +52,6 @@ function initTagField(id, autocompleteUrl) {
  *      prompting the user even when nothing has been changed.
 */
 
-var dirtyFormCheckIsActive = true;
-
 function enableDirtyFormCheck(formSelector, options) {
     var $form = $(formSelector);
     var confirmationMessage = options.confirmationMessage || ' ';
@@ -59,13 +59,13 @@ function enableDirtyFormCheck(formSelector, options) {
     var initialData = $form.serialize();
     var formSubmitted = false;
 
-    $($form).submit(function() {
+    $form.submit(function() {
         formSubmitted = true;
     });
 
     window.addEventListener('beforeunload', function(event) {
         var displayConfirmation = (
-            dirtyFormCheckIsActive && !formSubmitted && (alwaysDirty || $form.serialize() != initialData)
+            !formSubmitted && (alwaysDirty || $form.serialize() != initialData)
         );
 
         if (displayConfirmation) {
@@ -73,10 +73,6 @@ function enableDirtyFormCheck(formSelector, options) {
             return confirmationMessage;
         }
     });
-}
-
-function disableDirtyFormCheck() {
-    dirtyFormCheckIsActive = false;
 }
 
 $(function() {
@@ -174,7 +170,7 @@ $(function() {
         var searchCurrentIndex = 0;
         var searchNextIndex = 0;
 
-        $(window.headerSearch.termInput).on('input', function() {
+        $(window.headerSearch.termInput).on('keyup cut paste', function() {
             clearTimeout($.data(this, 'timer'));
             var wait = setTimeout(search, 200);
             $(this).data('timer', wait);

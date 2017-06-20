@@ -1,12 +1,14 @@
 from __future__ import absolute_import, unicode_literals
 
+from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.utils.http import urlencode
 
-from wagtail.tests.testapp.models import EventIndex, EventPage, SimplePage
+from wagtail.tests.testapp.models import EventIndex, EventPage, SimplePage, SingleEventPage
 from wagtail.tests.utils import WagtailTestUtils
-from wagtail.wagtailcore.models import Page
+from wagtail.wagtailadmin.views.chooser import can_choose_page
+from wagtail.wagtailcore.models import Page, UserPagePermissionsProxy
 
 
 class TestChooserBrowse(TestCase, WagtailTestUtils):
@@ -131,6 +133,27 @@ class TestChooserBrowseChild(TestCase, WagtailTestUtils):
         self.assertIn(event_index_page.id, pages)
         self.assertFalse(pages[event_index_page.id].can_choose)
         self.assertTrue(pages[event_index_page.id].can_descend)
+
+    def test_with_url_extended_page_type(self):
+        # Add a page that overrides the url path
+        single_event_page = SingleEventPage(
+            title="foo",
+            location='the moon', audience='public',
+            cost='free', date_from='2001-01-01',
+        )
+        self.root_page.add_child(instance=single_event_page)
+
+        # Send request
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/chooser/browse.html')
+
+        page_urls = [
+            page.url
+            for page in response.context['pages']
+        ]
+
+        self.assertIn('/foo/pointless-suffix/', page_urls)
 
     def test_with_blank_page_type(self):
         # a blank page_type parameter should be equivalent to an absent parameter
@@ -533,3 +556,35 @@ class TestChooserEmailLink(TestCase, WagtailTestUtils):
         self.assertContains(response, '"title": "new example"')
         # link text has changed, so tell the caller to use it
         self.assertContains(response, '"prefer_this_title_as_link_text": true')
+
+
+class TestCanChoosePage(TestCase, WagtailTestUtils):
+    fixtures = ['test.json']
+
+    def setUp(self):
+        self.user = self.login()
+        self.permission_proxy = UserPagePermissionsProxy(self.user)
+        self.desired_classes = (Page, )
+
+    def test_can_choose_page(self):
+        homepage = Page.objects.get(url_path='/home/')
+        result = can_choose_page(homepage, self.permission_proxy, self.desired_classes)
+        self.assertTrue(result)
+
+    def test_with_user_no_permission(self):
+        homepage = Page.objects.get(url_path='/home/')
+        # event editor does not have permissions on homepage
+        event_editor = get_user_model().objects.get(username='eventeditor')
+        permission_proxy = UserPagePermissionsProxy(event_editor)
+        result = can_choose_page(homepage, permission_proxy, self.desired_classes, user_perm='copy_to')
+        self.assertFalse(result)
+
+    def test_with_can_choose_root(self):
+        root = Page.objects.get(url_path='/')
+        result = can_choose_page(root, self.permission_proxy, self.desired_classes, can_choose_root=True)
+        self.assertTrue(result)
+
+    def test_with_can_not_choose_root(self):
+        root = Page.objects.get(url_path='/')
+        result = can_choose_page(root, self.permission_proxy, self.desired_classes, can_choose_root=False)
+        self.assertFalse(result)

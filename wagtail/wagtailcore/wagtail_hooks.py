@@ -25,9 +25,9 @@ def check_view_restrictions(page, request, serve_args, serve_kwargs):
     for restriction in page.get_view_restrictions():
         if not restriction.accept_request(request):
             if restriction.restriction_type == PageViewRestriction.PASSWORD:
-                from wagtail.wagtailcore.forms import PasswordPageViewRestrictionForm
-                form = PasswordPageViewRestrictionForm(instance=restriction,
-                                                       initial={'return_url': request.get_full_path()})
+                from wagtail.wagtailcore.forms import PasswordViewRestrictionForm
+                form = PasswordViewRestrictionForm(instance=restriction,
+                                                   initial={'return_url': request.get_full_path()})
                 action_url = reverse('wagtailcore_authenticate_with_password', args=[restriction.id, page.id])
                 return page.serve_password_required_response(request, form, action_url)
 

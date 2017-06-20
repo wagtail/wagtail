@@ -762,6 +762,14 @@ class TestElasticsearch5Mapping(TestCase):
                     'title_filter': {'type': 'keyword', 'include_in_all': False},
                     'content': {'type': 'text', 'include_in_all': True},
                     'callable_indexed_field': {'type': 'text', 'include_in_all': True},
+                    'subobjects': {
+                        'properties': {
+                            'name': {'analyzer': 'edgengram_analyzer',
+                                     'include_in_all': True,
+                                     'search_analyzer': 'standard',
+                                     'type': 'text'}},
+                        'type': 'nested',
+                    },
                     'tags': {
                         'type': 'nested',
                         'properties': {
@@ -797,6 +805,7 @@ class TestElasticsearch5Mapping(TestCase):
             'title_filter': 'Hello',
             'callable_indexed_field': 'Callable',
             'content': '',
+            'subobjects': [],
             'tags': [
                 {
                     'name': 'a tag',
@@ -857,6 +866,14 @@ class TestElasticsearch5MappingInheritance(TestCase):
                     'title_filter': {'type': 'keyword', 'include_in_all': False},
                     'content': {'type': 'text', 'include_in_all': True},
                     'callable_indexed_field': {'type': 'text', 'include_in_all': True},
+                    'subobjects': {
+                        'properties': {
+                            'name': {'analyzer': 'edgengram_analyzer',
+                                     'include_in_all': True,
+                                     'search_analyzer': 'standard',
+                                     'type': 'text'}},
+                        'type': 'nested',
+                    },
                     'tags': {
                         'type': 'nested',
                         'properties': {
@@ -907,6 +924,7 @@ class TestElasticsearch5MappingInheritance(TestCase):
             'title_filter': 'Hello',
             'callable_indexed_field': 'Callable',
             'content': '',
+            'subobjects': [],
             'tags': [
                 {
                     'name': 'a tag',

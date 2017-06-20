@@ -4,14 +4,14 @@
 #
 # Translators:
 # Franklin Kingma <franklin@statix.net>, 2015
-# Maarten Kling <kling.maarten@gmail.com>, 2015
-# Thijs Kramer <thijskramer@gmail.com>, 2015-2016
+# Maarten Kling <kling.maarten@gmail.com>, 2015,2017
+# Thijs Kramer <thijskramer@gmail.com>, 2015-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-06 12:33+0000\n"
-"PO-Revision-Date: 2016-12-06 22:47+0000\n"
+"POT-Creation-Date: 2017-04-19 21:02+0000\n"
+"PO-Revision-Date: 2017-04-19 21:05+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
@@ -20,6 +20,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nl_NL\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#, python-brace-format
+msgid "{label}: this block has no options."
+msgstr "{label}: Dit blok heeft geen opties."
+
+msgid "This block has no options."
+msgstr "Dit blok heeft geen opties."
 
 msgid "Password"
 msgstr "Wachtwoord"
@@ -131,9 +138,6 @@ msgstr "zoekomschrijving"
 msgid "go live date/time"
 msgstr "Publiceer op"
 
-msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
-msgstr "Vul een datum/tijd in het formaat YYYY-MM-DD hh:mm."
-
 msgid "expiry date/time"
 msgstr "verloopdatum/tijd"
 
@@ -209,6 +213,12 @@ msgstr "Publiceren"
 msgid "Publish any page"
 msgstr "Elke pagina publiceren"
 
+msgid "Bulk delete"
+msgstr "Mag meerdere dingen tegelijk verwijderen"
+
+msgid "Delete pages with children"
+msgstr "Verwijder pagina's met onderliggende pagina's"
+
 msgid "Lock"
 msgstr "Vergrendelen"
 
@@ -226,6 +236,18 @@ msgstr "groep pagina machtiging"
 
 msgid "group page permissions"
 msgstr "groep pagina machtigingen"
+
+msgid "Public"
+msgstr "Publiek"
+
+msgid "Private, accessible to logged-in users"
+msgstr "Afgeschermd, toegankelijk voor ingelogde gebruikers"
+
+msgid "Private, accessible with the following password"
+msgstr "Afgeschermd, toegankelijk met het volgende wachtwoord"
+
+msgid "Private, accessible to users in specific groups"
+msgstr "Afgeschermd, toegankelijk voor gebruikers in bepaalde groepen"
 
 msgid "password"
 msgstr "wachtwoord"
@@ -250,6 +272,20 @@ msgstr "machtiging"
 
 msgid "group collection permission"
 msgstr "groepsmachtiging binnen collectie"
+
+msgid "Log in"
+msgstr "Inloggen"
+
+msgid "Your username and password didn't match. Please try again."
+msgstr ""
+"Uw gebruikersnaam en wachtwoord komen niet overeen. Probeer het opnieuw."
+
+msgid ""
+"Your account doesn't have access to this page. To proceed, please log in "
+"with an account that has access."
+msgstr ""
+"Uw account heeft geen rechten op deze pagina. Om verder te gaan, login met "
+"een account met de juiste rechten."
 
 msgid "Password required"
 msgstr "Wachtwoord verplicht"

@@ -11,7 +11,7 @@ There are currently two versions of the API available: v1 and v2. Both versions
 are "stable" so it is recommended to use v2. V1 is only provided for backwards
 compatibility and will be removed from Wagtail soon.
 
-See `RFC 8: Wagtail API <https://github.com/wagtail/wagtail-rfcs/blob/master/accepted/008-wagtail-api.rst#id4>`_
+See `RFC 8: Wagtail API <https://github.com/wagtail/rfcs/blob/master/accepted/008-wagtail-api.md#12---stable-and-unstable-versions>`_
 for full details on our stabilisation policy.
 
 Version 2 (recommended)

@@ -6,58 +6,91 @@
   "engines": {
     "node": ">= 4"
   },
-  "browser": {},
-  "browserify": {
-    "transform": [
-      "browserify-shim"
+  "babel": {
+    "presets": [
+      [
+        "es2015",
+        {
+          "modules": false
+        }
+      ],
+      "react"
+    ],
+    "plugins": [
+      "lodash"
+    ],
+    "env": {
+      "test": {
+        "presets": [
+          "es2015",
+          "react"
+        ]
+      }
+    }
+  },
+  "jest": {
+    "setupFiles": [
+      "./client/tests/stubs.js",
+      "./client/tests/mock-fetch.js"
+    ],
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
     ]
   },
-  "browserify-shim": {},
   "devDependencies": {
-    "babel-cli": "^6.5.1",
-    "babel-core": "^6.5.2",
-    "babel-loader": "^6.2.3",
-    "babel-preset-es2015": "^6.5.0",
-    "babel-preset-react": "^6.5.0",
-    "chai": "^3.5.0",
-    "eslint": "^2.2.0",
-    "eslint-config-airbnb": "^6.0.2",
-    "eslint-plugin-react": "^4.1.0",
-    "glob": "^7.0.0",
+    "babel-core": "^6.24.1",
+    "babel-jest": "^20.0.3",
+    "babel-loader": "^7.0.0",
+    "babel-plugin-lodash": "^3.2.11",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "enzyme": "^2.8.2",
+    "enzyme-to-json": "^1.5.1",
+    "eslint": "^2.9.0",
+    "eslint-config-wagtail": "0.1.1",
+    "eslint-import-resolver-webpack": "^0.8.1",
+    "eslint-plugin-import": "^1.8.1",
+    "eslint-plugin-jsx-a11y": "^1.5.3",
+    "eslint-plugin-react": "^5.2.2",
     "gulp": "~3.8.11",
     "gulp-autoprefixer": "~3.0.2",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "~2.3.1",
     "gulp-sourcemaps": "~1.5.2",
     "gulp-util": "~2.2.14",
-    "isparta": "^4.0.0",
-    "lodash": "^4.5.1",
-    "mocha": "^2.4.5",
+    "jest": "^20.0.4",
     "mustache": "^2.2.1",
-    "redux-devtools": "^3.1.1",
+    "react-addons-perf": "^15.4.2",
+    "react-test-renderer": "^15.5.4",
+    "redux-mock-store": "^1.2.2",
     "require-dir": "^0.3.0",
-    "sinon": "^1.17.3"
+    "webpack": "^2.6.1"
   },
   "dependencies": {
-    "exports-loader": "^0.6.3",
-    "imports-loader": "^0.6.5",
-    "react": "^0.14.7",
-    "react-dom": "^0.14.7",
-    "react-redux": "^4.4.0",
-    "redux": "^3.3.1",
-    "webpack": "^1.12.14",
-    "whatwg-fetch": "^0.11.0"
+    "focus-trap-react": "^3.0.3",
+    "lodash": "^4.17.4",
+    "object-assign": "^4.1.1",
+    "promise": "^7.1.1",
+    "prop-types": "^15.5.10",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "react-redux": "^5.0.5",
+    "react-transition-group": "^1.1.3",
+    "redux": "^3.6.0",
+    "redux-thunk": "^2.2.0",
+    "whatwg-fetch": "^2.0.2"
   },
   "scripts": {
-    "postinstall": "cd ./client; npm install; cd ..",
-    "build": "gulp build; webpack --progress --colors --config ./client/webpack/prod.config.js",
-    "watch": "webpack --progress --colors --config ./client/webpack/dev.config.js & gulp watch",
+    "postinstall": "npm --prefix client install",
+    "build": "gulp build; webpack --config ./client/webpack/prod.config.js",
+    "watch": "webpack --config ./client/webpack/dev.config.js & gulp watch",
     "start": "npm run watch",
     "lint:js": "eslint --max-warnings 16 ./client",
     "lint": "npm run lint:js",
     "test": "npm run test:unit",
-    "test:unit": "env NODE_PATH=$NODE_PATH:$PWD/client/src mocha --compilers js:babel-core/register client/tests/**/*.test.js",
-    "test:unit:coverage": "env NODE_PATH=$NODE_PATH:$PWD/client/src babel-node $(npm bin)/isparta cover node_modules/mocha/bin/_mocha -- client/tests/**/*.test.js",
+    "test:unit": "jest",
+    "test:unit:watch": "jest --watch",
+    "test:unit:coverage": "jest --coverage",
     "component": "node ./client/src/cli/index.js component --dir ./client/src/components/"
   }
 }
