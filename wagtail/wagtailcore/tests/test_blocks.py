@@ -176,6 +176,60 @@ class TestFieldBlock(WagtailTestUtils, SimpleTestCase):
         self.assertIn('pretty.css', ''.join(block.all_media().render_css()))
         self.assertIn('animations.js', ''.join(block.all_media().render_js()))
 
+    def test_prepare_value_called(self):
+        """
+        Check that Field.prepare_value is called before sending the value to
+        the widget for rendering.
+
+        Actual real-world use case: A Youtube field that produces YoutubeVideo
+        instances from IDs, but videos are entered using their full URLs.
+        """
+        class PrefixWrapper(object):
+            prefix = 'http://example.com/'
+
+            def __init__(self, value):
+                self.value = value
+
+            def with_prefix(self):
+                return self.prefix + self.value
+
+            @classmethod
+            def from_prefixed(cls, value):
+                if not value.startswith(cls.prefix):
+                    raise ValueError
+                return cls(value[len(cls.prefix):])
+
+            def __eq__(self, other):
+                return self.value == other.value
+
+        class PrefixField(forms.Field):
+            def clean(self, value):
+                value = super(PrefixField, self).clean(value)
+                return PrefixWrapper.from_prefixed(value)
+
+            def prepare_value(self, value):
+                return value.with_prefix()
+
+        class PrefixedBlock(blocks.FieldBlock):
+            def __init__(self, required=True, help_text='', **kwargs):
+                super(PrefixedBlock, self).__init__(**kwargs)
+                self.field = PrefixField(required=required, help_text=help_text)
+
+        block = PrefixedBlock()
+
+        # Check that the form value is serialized with a prefix correctly
+        value = PrefixWrapper('foo')
+        html = block.render_form(value, 'url')
+        self.assertInHTML(
+            '<input id="url" name="url" placeholder="" type="text" value="{}" />'.format(
+                value.with_prefix()),
+            html)
+
+        # Check that the value was coerced back to a PrefixValue
+        data = {'url': 'http://example.com/bar'}
+        new_value = block.clean(block.value_from_datadict(data, {}, 'url'))
+        self.assertEqual(new_value, PrefixWrapper('bar'))
+
 
 class TestIntegerBlock(unittest.TestCase):
     def test_type(self):

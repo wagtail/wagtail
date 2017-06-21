@@ -4,6 +4,8 @@ Changelog
 1.12 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~
 
+ * Fix: FieldBlocks in StreamField now call the field's `prepare_value` method (Tim Heap)
+
 
 1.11 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~

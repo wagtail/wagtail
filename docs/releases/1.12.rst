@@ -16,6 +16,8 @@ Other features
 Bug fixes
 ~~~~~~~~~
 
+ * FieldBlocks in StreamField now call the field's ``prepare_value`` method (Tim Heap)
+
 
 Upgrade considerations
 ======================
