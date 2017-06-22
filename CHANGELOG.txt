@@ -11,6 +11,7 @@ Changelog
  * Fix: Initial disabled state of InlinePanel add button is now set correctly on non-default tabs (Matthew Downey)
  * Fix: Redirects with unicode characters now work (Rich Brennan)
  * Fix: Prevent explorer view from crashing when page model definitions are missing, allowing the offending pages to be deleted (Matt Westcott)
+ * Fix: Hide the userbar from printed page representation (Eugene Morozov)
 
 
 1.11.1 (07.07.2017)

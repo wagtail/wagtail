@@ -31,6 +31,7 @@ Bug fixes
  * Initial disabled state of InlinePanel add button is now set correctly on non-default tabs (Matthew Downey)
  * Redirects with unicode characters now work (Rich Brennan)
  * Prevent explorer view from crashing when page model definitions are missing, allowing the offending pages to be deleted (Matt Westcott)
+ * Hide the userbar from printed page representation (Eugene Morozov)
 
 
 Upgrade considerations

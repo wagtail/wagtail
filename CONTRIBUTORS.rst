@@ -245,6 +245,7 @@ Contributors
 * Rob van der Linde
 * Paul Kamp
 * dwasyl
+* Eugene Morozov
 
 Translators
 ===========
