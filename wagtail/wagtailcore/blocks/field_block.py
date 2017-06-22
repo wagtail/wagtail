@@ -26,11 +26,12 @@ class FieldBlock(Block):
         return self.field.widget.id_for_label(prefix)
 
     def render_form(self, value, prefix='', errors=None):
-        widget = self.field.widget
+        field = self.field
+        widget = field.widget
 
         widget_attrs = {'id': prefix, 'placeholder': self.label}
 
-        field_value = self.value_for_form(value)
+        field_value = field.prepare_value(self.value_for_form(value))
 
         if hasattr(widget, 'render_with_errors'):
             widget_html = widget.render_with_errors(prefix, field_value, attrs=widget_attrs, errors=errors)
@@ -43,7 +44,7 @@ class FieldBlock(Block):
             'name': self.name,
             'classes': self.meta.classname,
             'widget': widget_html,
-            'field': self.field,
+            'field': field,
             'errors': errors if (not widget_has_rendered_errors) else None
         })
 
