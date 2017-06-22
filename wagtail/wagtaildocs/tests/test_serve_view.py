@@ -1,6 +1,7 @@
 from __future__ import absolute_import, unicode_literals
 
 import os.path
+import time
 import unittest
 
 import django
@@ -21,6 +22,8 @@ class TestServeView(TestCase):
         self.document.file.save('example.doc', ContentFile("A boring example document"))
 
     def tearDown(self):
+        self.document.file.close()
+        time.sleep(1)
         self.document.delete()
 
     def get(self):
@@ -82,6 +85,8 @@ class TestServeViewWithSendfile(TestCase):
         self.document.file.save('example.doc', ContentFile("A boring example document"))
 
     def tearDown(self):
+        self.document.file.close()
+        time.sleep(1)
         self.document.delete()
 
     def get(self):
