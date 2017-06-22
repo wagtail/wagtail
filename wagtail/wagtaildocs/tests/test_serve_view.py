@@ -16,21 +16,12 @@ from wagtail.wagtaildocs import models
 
 
 class TestServeView(TestCase):
-    def __init__(self, *args, **kwargs):
-        super(TestServeView, self).__init__(*args, **kwargs)
-        self.doc_index = 0
-
     def setUp(self):
-        # use a new filename for each test, to prevent failures on flaky filesystems
-        # that can't delete fast enough
-        self.doc_index += 1
         self.document = models.Document(title="Test document")
-        self.document.file.save(
-            'example%d.doc' % self.doc_index,
-            ContentFile("A boring example document")
-        )
+        self.document.file.save('example.doc', ContentFile("A boring example document"))
 
     def tearDown(self):
+        self.document.file.close()
         self.document.delete()
 
     def get(self):
@@ -80,10 +71,6 @@ class TestServeView(TestCase):
 
 
 class TestServeViewWithSendfile(TestCase):
-    def __init__(self, *args, **kwargs):
-        super(TestServeViewWithSendfile, self).__init__(*args, **kwargs)
-        self.doc_index = 0
-
     def setUp(self):
         # Import using a try-catch block to prevent crashes if the
         # django-sendfile module is not installed
@@ -92,16 +79,11 @@ class TestServeViewWithSendfile(TestCase):
         except ImportError:
             raise unittest.SkipTest("django-sendfile not installed")
 
-        # use a new filename for each test, to prevent failures on flaky filesystems
-        # that can't delete fast enough
-        self.doc_index += 1
         self.document = models.Document(title="Test document")
-        self.document.file.save(
-            'example%d.doc' % self.doc_index,
-            ContentFile("A boring example document")
-        )
+        self.document.file.save('example.doc', ContentFile("A boring example document"))
 
     def tearDown(self):
+        self.document.file.close()
         self.document.delete()
 
     def get(self):
