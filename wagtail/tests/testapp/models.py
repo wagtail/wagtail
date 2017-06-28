@@ -30,7 +30,8 @@ from wagtail.wagtailcore.blocks import CharBlock, RichTextBlock
 from wagtail.wagtailcore.fields import RichTextField, StreamField
 from wagtail.wagtailcore.models import Orderable, Page, PageManager
 from wagtail.wagtaildocs.edit_handlers import DocumentChooserPanel
-from wagtail.wagtailforms.models import AbstractEmailForm, AbstractFormField, AbstractFormSubmission
+from wagtail.wagtailforms.blocks import FormFieldBlock
+from wagtail.wagtailforms.models import AbstractForm, AbstractEmailForm, AbstractFormField, AbstractFormSubmission, StreamFieldAbstractFormMixin
 from wagtail.wagtailimages.blocks import ImageChooserBlock
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtailimages.models import AbstractImage, AbstractRendition, Image
@@ -391,6 +392,22 @@ FormPage.content_panels = [
         FieldPanel('from_address', classname="full"),
         FieldPanel('subject', classname="full"),
     ], "Email")
+]
+
+
+class StreamFormPage(StreamFieldAbstractFormMixin, AbstractForm):
+    body = StreamField([
+        ('p', RichTextBlock()),
+        ('field', FormFieldBlock()),
+    ], null=True, blank=True)
+    thanks = StreamField([
+        ('p', RichTextBlock()),
+    ], null=True, blank=True)
+
+StreamFormPage.content_panels = [
+    FieldPanel('title', classname="full title"),
+    StreamFieldPanel('body'),
+    StreamFieldPanel('thanks')
 ]
 
 

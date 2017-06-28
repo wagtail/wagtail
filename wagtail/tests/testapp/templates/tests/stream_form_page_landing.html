@@ -1,0 +1,13 @@
+{% extends "tests/base.html" %}
+{% load wagtailcore_tags %}
+
+{% block content %}
+    <h1>Thank you for your feedback.</h1>
+    {% for block in self.thanks %}
+        {% if block.block_type == 'p' %}
+            {{ block.value|richtext }}
+        {% else %}
+            {{ block }}
+        {% endif %}
+    {% endfor %}
+{% endblock %}

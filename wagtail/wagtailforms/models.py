@@ -14,25 +14,13 @@ from django.utils.translation import ugettext_lazy as _
 from unidecode import unidecode
 
 from wagtail.wagtailadmin.edit_handlers import FieldPanel
+from wagtail.wagtailcore.fields import StreamField
 from wagtail.wagtailadmin.utils import send_mail
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import Orderable, Page, UserPagePermissionsProxy, get_page_models
 
-from .forms import FormBuilder, WagtailAdminFormPageForm
-
-FORM_FIELD_CHOICES = (
-    ('singleline', _('Single line text')),
-    ('multiline', _('Multi-line text')),
-    ('email', _('Email')),
-    ('number', _('Number')),
-    ('url', _('URL')),
-    ('checkbox', _('Checkbox')),
-    ('checkboxes', _('Checkboxes')),
-    ('dropdown', _('Drop down')),
-    ('radio', _('Radio buttons')),
-    ('date', _('Date')),
-    ('datetime', _('Date/time')),
-)
+from .forms import FormBuilder, FormFieldFinder, WagtailAdminFormPageForm
+from .utils import FORM_FIELD_CHOICES 
 
 
 @python_2_unicode_compatible
@@ -308,3 +296,48 @@ class AbstractEmailForm(AbstractForm):
 
     class Meta:
         abstract = True
+
+
+class FakeManager(object):
+    '''
+    Provides fake Django Manager implementation to hack this to work with wagtail.wagtailforms.models.AbstractForm.
+    '''
+
+    def __init__(self, form_page):
+        if isinstance(form_page, Page) and isinstance(form_page, AbstractForm):
+            self.form_page = form_page
+        elif isinstance(form_page, Page) and isinstance(form_page.specific, AbstractForm):
+            self.form_page = form_page.specific
+        else:
+            if isinstance(form_page, Page):
+                raise ValueError('Page must be an instance of wagtail.wagtailforms.models.AbstractForm. Got: ' + str(type(form_page.specific)))
+            else:
+                raise ValueError('Page must be an instance of wagtail.wagtailforms.models.AbstractForm. Got: ' + str(type(form_page)))
+
+    def all(self):
+        return self.form_page.find_streamfield_form_fields()
+
+
+class StreamFieldAbstractFormMixin(object):
+    '''
+    Mixin to add to an AbstractForm subclass to allow pulling form fields out of StreamFields.
+    '''
+    form_field_finder = FormFieldFinder
+
+    def get_form_field_finder(self):
+        return self.form_field_finder()
+
+    def find_streamfield_form_fields(self):
+        # NOTE: cache these?
+        form_fields = []
+        finder = self.get_form_field_finder()
+        # find all stream fields on this class.
+        for field in self.__class__._meta.get_fields():
+            if isinstance(field, StreamField):
+                form_fields += finder.find_form_fields(field.stream_block, getattr(self, field.name))
+
+        return form_fields
+
+    @property
+    def form_fields(self):
+        return FakeManager(self)

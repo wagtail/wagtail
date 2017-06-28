@@ -106,6 +106,92 @@ Displaying form submission information
         ]
 
 
+StreamField Forms
+~~~~~~~~~~~~~~~~~
+
+Inserting form fields in StreamFields allows for a more flexible form builder.
+For example headings and paragraphs of text could be mixed between groups of fields to make forms more user friendly.
+
+Pages that include form fields must inherit from ``wagtail.wagtailforms.models.StreamFieldAbstractFormMixin`` and ``wagtail.wagtailforms.models.AbstractForm``.
+Unlike other classes that inherit from ``wagtail.wagtailforms.models.AbstractForm`` those that inherit from ``wagtail.wagtailforms.models.StreamFieldAbstractFormMixin`` do not require a ``form_fields`` member or a related ``Model`` class to store field information.
+Instead ``wagtail.wagtailforms.models.StreamFieldAbstractFormMixin`` provides a property that provides similar features to what a related class would.
+
+Here is an example of how this might look:
+
+.. code-block:: python
+    
+    from wagtail.wagtailcore.blocks import CharBlock, RichTextBlock
+    from wagtail.wagtailcore.fields import StreamField
+    from wagtail.wagtailforms.models import AbstractForm, StreamFieldAbstractFormMixin
+    from wagtail.wagtailforms.blocks import FormFieldBlock
+    
+    
+    class StreamFieldFormPage(StreamFieldAbstractFormMixin, AbstractForm):
+        body = StreamField([
+            ('h2', CharBlock()),
+            ('h3', CharBlock()),
+            ('p', RichTextBlock()),
+            ('field', FormFieldBlock()),
+        ])
+        thanks = StreamField([
+            ('h2', CharBlock()),
+            ('h3', CharBlock()),
+            ('p', RichTextBlock()),
+        ])
+    
+    StreamFieldFormPage.content_panels = [
+        FieldPanel('title', classname='full title'),
+        StreamFieldPanel('body'),
+        StreamFieldPanel('thank_you_text'),
+    ]
+
+
+Rendering a form in a template requires an additional template tag. 
+Like a normal ``wagtail.wagtailforms.models.AbstractForm`` there is a form instance passed to the template.
+The ``get_form_field`` tag allows the form field instance to be stored in a template variable and used to render the form one field at a time.
+See the example usage below:
+
+.. code-block:: html
+
+    {% load wagtailcore_tags streamfieldforms %}
+    <html>
+    <head><title></title></head>
+    <body>
+        <h1>{{ self.title }}</h1>
+        
+        <form action="{% pageurl page %}" method="POST">
+            {% csrf_token %}
+            
+            {% for block in self.body %}
+                {% if block.block_type == 'h2' %}
+                    <h2 id="{{ block|slugify }}">{{ block }}</h2>
+                {% elif block.block_type == 'h3' %}
+                    <h3>{{ block }}</h3>
+                {% elif block.block_type == 'p' %}
+                    {{ block.value|richtext }}
+                {% elif block.block_type == 'field' %}
+                    {% get_form_field block form as field %}
+                    <div class="form-field">
+                        {{ field.label_tag }}
+                        {{ field }}
+                        {{ field.errors }}
+                    </div>
+                {% else %}
+                    {{ block }}
+                {% endif %}
+            {% endfor %}
+        
+            <input type="submit" class="button"/>
+        </form>
+    </body>
+    </html>
+
+
+When an instance of ``StreamFieldFormPage`` is created the form may be displayed on the page.
+When the form is submitted, it works in the same way as other Form Builder pages by showing a template that ends with ``_landing``.
+Also, all values that are submitted are stored in the same way as other Form Builder pages so that exporting and viewing the submissions in the Wagtail admin work exactly the same way.
+
+
 Index
 ~~~~~
 

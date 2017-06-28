@@ -6,10 +6,10 @@ import json
 from django.core import mail
 from django.test import TestCase
 
-from wagtail.tests.testapp.models import CustomFormPageSubmission, FormField, JadeFormPage
+from wagtail.tests.testapp.models import CustomFormPageSubmission, FormField, JadeFormPage, StreamFormPage
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailcore.models import Page
-from wagtail.wagtailforms.models import FormSubmission
+from wagtail.wagtailforms.models import FormSubmission, FakeManager
 from wagtail.wagtailforms.tests.utils import make_form_page, make_form_page_with_custom_submission
 
 
@@ -402,3 +402,44 @@ class TestNonHtmlExtension(TestCase):
     def test_non_html_extension(self):
         form_page = JadeFormPage(title="test")
         self.assertEqual(form_page.landing_page_template, "tests/form_page_landing.jade")
+
+
+class TestFakeManager(TestCase):
+    def test_init_with_wrong_type(self):
+        with self.assertRaises(ValueError):
+            FakeManager(None)
+
+        class TestClass(object):
+            pass
+
+        with self.assertRaises(ValueError):
+            FakeManager(TestClass())
+
+    def test_init_with_page(self):
+        root_page = Page.objects.get(id=1)
+
+        # try a page that does not have a specific class that inherits from AbstractForm
+        with self.assertRaises(ValueError):
+            FakeManager(root_page)
+
+        page = StreamFormPage()
+        FakeManager(page)
+        # TODO: find a way to test when we have a Page object that has a Page.specific of AbstractForm
+
+    def test_all(self):
+        page = StreamFormPage(body='''[
+            {
+                "type": "field",
+                "value": {
+                    "required": true,
+                    "default_value": "",
+                    "field_type": "singleline",
+                    "label": "Name",
+                    "choices": "",
+                    "help_text": ""
+                }
+            }
+        ]''')
+        manager = FakeManager(page)
+        records = manager.all()
+        self.assertEqual(len(records), 1)

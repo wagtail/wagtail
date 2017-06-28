@@ -1,0 +1,24 @@
+{% extends "tests/base.html" %}
+{% load wagtailcore_tags wagtailforms_tags %}
+
+{% block content %}
+    <p>{{ greeting }}</p>
+    <form action="{% pageurl self %}" method="post">
+        {% csrf_token %}
+        {% for block in self.body %}
+            {% if block.block_type == 'p' %}
+                {{ block.value|richtext }}
+            {% elif block.block_type == 'field' %}
+                {% get_form_field block form as field %}
+                <div class="form-field">
+                    {{ field.label_tag }}
+                    {{ field }}
+                    {{ field.errors }}
+                </div>
+            {% else %}
+                {{ block }}
+            {% endif %}
+        {% endfor %}
+        <input type="submit">
+    </form>
+{% endblock %}

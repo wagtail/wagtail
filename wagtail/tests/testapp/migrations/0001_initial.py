@@ -13,6 +13,7 @@ import wagtail.wagtailcore.blocks
 import wagtail.wagtailcore.fields
 import wagtail.wagtailimages.blocks
 import wagtail.wagtailimages.models
+import wagtail.wagtailforms.blocks
 import wagtail.wagtailsearch.index
 
 
@@ -296,6 +297,18 @@ class Migration(migrations.Migration):
                 ('to_address', models.CharField(blank=True, help_text='Optional - form submissions will be emailed to these addresses. Separate multiple addresses by comma.', max_length=255, verbose_name='to address')),
                 ('from_address', models.CharField(blank=True, max_length=255, verbose_name='from address')),
                 ('subject', models.CharField(blank=True, max_length=255, verbose_name='subject')),
+            ],
+            options={
+                'abstract': False,
+            },
+            bases=('wagtailcore.page',),
+        ),
+        migrations.CreateModel(
+            name='StreamFormPage',
+            fields=[
+                ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
+                ('body', wagtail.wagtailcore.fields.StreamField((('p', wagtail.wagtailcore.blocks.RichTextBlock()), ('field', wagtail.wagtailforms.blocks.FormFieldBlock())), null=True, blank=True)),
+                ('thanks', wagtail.wagtailcore.fields.StreamField((('p', wagtail.wagtailcore.blocks.RichTextBlock()), ), null=True, blank=True)),
             ],
             options={
                 'abstract': False,

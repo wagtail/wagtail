@@ -8,7 +8,7 @@ from django.core.urlresolvers import reverse
 from django.test import TestCase
 
 from wagtail.tests.testapp.models import (
-    CustomFormPageSubmission, FormField, FormFieldWithCustomSubmission, FormPage)
+    CustomFormPageSubmission, FormField, FormFieldWithCustomSubmission, FormPage, StreamFormPage)
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailadmin.edit_handlers import get_form_for_model
 from wagtail.wagtailadmin.forms import WagtailAdminPageForm
@@ -937,3 +937,58 @@ class TestIssue585(TestCase):
             response,
             text="There is another field with the label foo, please change one of them.",
         )
+
+
+class TestStreamFieldFormFull(TestCase):
+
+    def setUp(self):
+        home_page = Page.objects.get(url_path='/home/')
+        self.page = home_page.add_child(instance=StreamFormPage(body='''[
+            {
+                "type": "p",
+                "value": "Please provide your name."
+            }, {
+                "type": "field",
+                "value": {
+                    "required": true,
+                    "default_value": "",
+                    "field_type": "singleline",
+                    "label": "Name",
+                    "choices": "",
+                    "help_text": ""
+                }
+            }
+        ]''', thanks='''[
+            {
+                "type": "p",
+                "value": "Thanks for providing your name."
+            }
+        ]''', slug='stream-form', title='Stream Form Test'))
+        super(TestStreamFieldFormFull, self).setUp()
+
+    def tearDown(self):
+        self.page.delete()
+        super(TestStreamFieldFormFull, self).tearDown()
+
+    def test_form_rendering(self):
+        response = self.client.get('/stream-form/')
+
+        self.assertContains(response, '<input')
+        self.assertContains(response, 'name="name"')
+        self.assertContains(response, 'Please provide your name.')
+        self.assertTemplateUsed(response, 'tests/stream_form_page.html')
+        self.assertTemplateNotUsed(response, 'tests/stream_form_page_landing.html')
+
+    def test_valid_form_post(self):
+        response = self.client.post('/stream-form/', {'name': 'Joe'})
+
+        self.assertContains(response, 'Thanks for providing your name.')
+        self.assertTemplateNotUsed(response, 'tests/stream_form_page.html')
+        self.assertTemplateUsed(response, 'tests/stream_form_page_landing.html')
+
+    def test_invalid_form_post(self):
+        response = self.client.post('/stream-form/', {'name': ''})
+
+        self.assertContains(response, 'This field is required.')
+        self.assertTemplateUsed(response, 'tests/stream_form_page.html')
+        self.assertTemplateNotUsed(response, 'tests/stream_form_page_landing.html')

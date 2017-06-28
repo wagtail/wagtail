@@ -3,9 +3,17 @@ from __future__ import absolute_import, unicode_literals
 from collections import OrderedDict
 
 import django.forms
+from django.utils.six import text_type
 from django.utils.translation import ugettext_lazy as _
+from django.utils.text import slugify
+from unidecode import unidecode
 
 from wagtail.wagtailadmin.forms import WagtailAdminPageForm
+
+from wagtail.wagtailcore.blocks import ListBlock, StreamBlock, StructBlock
+
+from .blocks import AbstractField, FormFieldBlock, FormFieldBlockMixin
+from wagtail.wagtailforms.blocks import FormFieldBlockMixin
 
 
 class BaseForm(django.forms.Form):
@@ -88,15 +96,22 @@ class FormBuilder(object):
         formfields = OrderedDict()
 
         for field in self.fields:
-            options = self.get_field_options(field)
-
-            if field.field_type in self.FIELD_TYPES:
+            if isinstance(field, django.forms.Field):
+                formfields[self.clean_name(field.label)] = field
+            elif field.field_type in self.FIELD_TYPES:
+                options = self.get_field_options(field)
                 formfields[field.clean_name] = self.FIELD_TYPES[field.field_type](self, field, options)
             else:
                 raise Exception("Unrecognised field type: " + field.field_type)
 
         return formfields
-
+    
+    def clean_name(self, value):
+        # unidecode will return an ascii string while slugify wants a
+        # unicode string on the other hand, slugify returns a safe-string
+        # which will be converted to a normal str
+        return str(slugify(text_type(unidecode(value))))
+    
     def get_field_options(self, field):
         options = {}
         options['label'] = field.label
@@ -142,3 +157,79 @@ class WagtailAdminFormPageForm(WagtailAdminPageForm):
                                 'label',
                                 django.forms.ValidationError(_('There is another field with the label %s, please change one of them.' % label))
                             )
+
+
+class FormFieldFinder(object):
+    '''Class that handles finding all nested form fields recursively.
+
+    Adding to this class requires adding new handle methods and overriding the find_form_fields function.
+    If you have a special form field that needs special handling:
+
+        class SpecialFormFieldFinder(FormFieldFinder):
+            def handle_special_form_field_block(self, block, value):
+                return [SpecialAbstractField(**value)]
+
+            def find_form_fields(self, block, value):
+                if isinstance(block, SpecialFormFieldBlock):
+                    return self.handle_special_form_field(block, value)
+                else:
+                    return super(SpecialFormFieldFinder, self).find_form_fields(block, value)
+
+    If you have a special block that does not inherit from StructBlock, StreamBlock, or ListBlock but has child blocks:
+
+        class SpecialFormFieldFinder(FormFieldFinder):
+            def handle_special_block(self, block, value):
+                form_fields = []
+                for val in value:
+                    form_fields += self.find_form_fields(block.block, val)
+                return form_fields
+
+            def find_form_fields(self, block, value):
+                if isinstance(block, SpecialBlock):
+                    return self.handle_special_block(block, value)
+                else:
+                    return super(SpecialFormFieldFinder, self).find_form_fields(block, value)
+    '''
+
+    def handle_form_field_block(self, block, value):
+        '''This is the base case and allows the recursion to stop.'''
+        if isinstance(block, FormFieldBlockMixin):
+            return [block.create_field(value)]
+        else:
+            return [AbstractField(**value)]
+
+    def handle_struct_block(self, block, value):
+        '''Handles looping through StructBlock fields.'''
+        form_fields = []
+        for key in block.child_blocks:
+            form_fields += self.find_form_fields(block.child_blocks[key], value[key])
+        return form_fields
+
+    def handle_stream_block(self, block, value):
+        '''Handles looping through StreamBlock values.'''
+        form_fields = []
+        for val in value:
+            form_fields += self.find_form_fields(val.block, val.value)
+        return form_fields
+
+    def handle_list_block(self, block, value):
+        '''Handles looping through ListBlock values.'''
+        form_fields = []
+        for val in value:
+            form_fields += self.find_form_fields(block.child_block, val)
+        return form_fields
+
+    def find_form_fields(self, block, value):
+        '''Finds all form fields by determining block type and recursively
+        calling various handle methods for each block type.
+        '''
+        if isinstance(block, FormFieldBlockMixin):
+            return self.handle_form_field_block(block, value)
+        elif isinstance(block, StreamBlock):
+            return self.handle_stream_block(block, value)
+        elif isinstance(block, StructBlock):
+            return self.handle_struct_block(block, value)
+        elif isinstance(block, ListBlock):
+            return self.handle_list_block(block, value)
+        else:
+            return []
