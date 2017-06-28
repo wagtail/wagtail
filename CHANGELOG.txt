@@ -27,6 +27,7 @@ Changelog
  * Fix: The lastmod field returned by wagtailsitemaps now shows the last published date rather than the date of the last draft edit (Matt Westcott)
  * Fix: Document chooser upload form no longer renders container elements for hidden fields (Jeffrey Chau)
  * Fix: Prevented exception when visiting a preview URL without initiating the preview (Paul Kamp)
+ * Fix: Respect max_num when setting initial disabled state for InlinePanel add button (Matthew Downey)
 
 
 1.10.1 (19.05.2017)
