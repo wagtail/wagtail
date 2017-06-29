@@ -197,7 +197,7 @@ function InlinePanel(opts) {
 
     self.updateAddButtonState = function() {
         if (opts.maxForms) {
-            var forms = self.formsUl.children('li:visible');
+            var forms = $('> li', self.formsUl).not('.deleted');
             var addButton = $('#' + opts.formsetPrefix + '-ADD');
 
             if (forms.length >= opts.maxForms) {
