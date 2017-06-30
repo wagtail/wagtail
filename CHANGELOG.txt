@@ -7,6 +7,7 @@ Changelog
  * Added multi-select form field to the form builder (dwasyl)
  * Fix: FieldBlocks in StreamField now call the field's `prepare_value` method (Tim Heap)
  * Fix: Initial disabled state of InlinePanel add button is now set correctly on non-default tabs (Matthew Downey)
+ * Fix: Redirects with unicode characters now work (Rich Brennan)
 
 
 1.11 (xx.xx.xxxx) - IN DEVELOPMENT

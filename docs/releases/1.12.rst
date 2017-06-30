@@ -20,6 +20,7 @@ Bug fixes
 
  * FieldBlocks in StreamField now call the field's ``prepare_value`` method (Tim Heap)
  * Initial disabled state of InlinePanel add button is now set correctly on non-default tabs (Matthew Downey)
+ * Redirects with unicode characters now work (Rich Brennan)
 
 
 Upgrade considerations
