@@ -18,7 +18,7 @@ class TestDocumentListing(TestCase):
         return self.client.get(reverse('wagtailapi_v3:documents:listing'), params)
 
     def get_document_id_list(self, content):
-        return [document['id'] for document in content['items']]
+        return [document['meta']['id'] for document in content['items']]
 
 
     # BASIC TESTS
@@ -45,20 +45,20 @@ class TestDocumentListing(TestCase):
         self.assertIn('items', content)
         self.assertIsInstance(content['items'], list)
 
-        # Check that each document has a meta section with type and detail_url attributes
+        # Check that each document has a meta section with id, type and detail_url attributes
         for document in content['items']:
             self.assertIn('meta', document)
             self.assertIsInstance(document['meta'], dict)
-            self.assertEqual(set(document['meta'].keys()), {'type', 'detail_url', 'download_url', 'tags'})
+            self.assertEqual(set(document['meta'].keys()), {'id', 'type', 'detail_url', 'download_url'})
 
             # Type should always be wagtaildocs.Document
             self.assertEqual(document['meta']['type'], 'wagtaildocs.Document')
 
             # Check detail_url
-            self.assertEqual(document['meta']['detail_url'], 'http://localhost/api/v3beta/documents/%d/' % document['id'])
+            self.assertEqual(document['meta']['detail_url'], 'http://localhost/api/v3beta/documents/%d/' % document['meta']['id'])
 
             # Check download_url
-            self.assertTrue(document['meta']['download_url'].startswith('http://localhost/documents/%d/' % document['id']))
+            self.assertTrue(document['meta']['download_url'].startswith('http://localhost/documents/%d/' % document['meta']['id']))
 
 
     # FIELDS
@@ -68,68 +68,61 @@ class TestDocumentListing(TestCase):
         content = json.loads(response.content.decode('UTF-8'))
 
         for document in content['items']:
-            self.assertEqual(set(document.keys()), {'id', 'meta', 'title'})
-            self.assertEqual(set(document['meta'].keys()), {'type', 'detail_url', 'download_url', 'tags'})
+            self.assertEqual(set(document.keys()), {'meta', 'title', 'tags'})
+            self.assertEqual(set(document['meta'].keys()), {'id', 'type', 'detail_url', 'download_url'})
 
     def test_fields(self):
         response = self.get_response(fields='title')
         content = json.loads(response.content.decode('UTF-8'))
 
         for document in content['items']:
-            self.assertEqual(set(document.keys()), {'id', 'meta', 'title'})
-            self.assertEqual(set(document['meta'].keys()), {'type', 'detail_url', 'download_url', 'tags'})
+            self.assertEqual(set(document.keys()), {'meta', 'title', 'tags'})
+            self.assertEqual(set(document['meta'].keys()), {'id', 'type', 'detail_url', 'download_url'})
 
     def test_remove_fields(self):
         response = self.get_response(fields='-title')
         content = json.loads(response.content.decode('UTF-8'))
 
         for document in content['items']:
-            self.assertEqual(set(document.keys()), {'id', 'meta'})
+            self.assertEqual(set(document.keys()), {'meta', 'tags'})
 
     def test_remove_meta_fields(self):
         response = self.get_response(fields='-download_url')
         content = json.loads(response.content.decode('UTF-8'))
 
         for document in content['items']:
-            self.assertEqual(set(document.keys()), {'id', 'meta', 'title'})
-            self.assertEqual(set(document['meta'].keys()), {'type', 'detail_url', 'tags'})
+            self.assertEqual(set(document.keys()), {'meta', 'title', 'tags'})
+            self.assertEqual(set(document['meta'].keys()), {'id', 'type', 'detail_url'})
 
     def test_remove_all_meta_fields(self):
-        response = self.get_response(fields='-type,-detail_url,-tags,-download_url')
+        response = self.get_response(fields='-id,-type,-detail_url,-download_url')
         content = json.loads(response.content.decode('UTF-8'))
 
         for document in content['items']:
-            self.assertEqual(set(document.keys()), {'id', 'title'})
-
-    def test_remove_id_field(self):
-        response = self.get_response(fields='-id')
-        content = json.loads(response.content.decode('UTF-8'))
-
-        for document in content['items']:
-            self.assertEqual(set(document.keys()), {'meta', 'title'})
+            self.assertEqual(set(document.keys()), {'title', 'tags'})
 
     def test_all_fields(self):
         response = self.get_response(fields='*')
         content = json.loads(response.content.decode('UTF-8'))
 
         for document in content['items']:
-            self.assertEqual(set(document.keys()), {'id', 'meta', 'title'})
-            self.assertEqual(set(document['meta'].keys()), {'type', 'detail_url', 'tags', 'download_url'})
+            self.assertEqual(set(document.keys()), {'meta', 'title', 'tags'})
+            self.assertEqual(set(document['meta'].keys()), {'id', 'type', 'detail_url', 'download_url'})
 
     def test_all_fields_then_remove_something(self):
         response = self.get_response(fields='*,-title,-download_url')
         content = json.loads(response.content.decode('UTF-8'))
 
         for document in content['items']:
-            self.assertEqual(set(document.keys()), {'id', 'meta'})
-            self.assertEqual(set(document['meta'].keys()), {'type', 'detail_url', 'tags'})
+            self.assertEqual(set(document.keys()), {'meta', 'tags'})
+            self.assertEqual(set(document['meta'].keys()), {'id', 'type', 'detail_url'})
 
     def test_fields_tags(self):
         response = self.get_response(fields='tags')
         content = json.loads(response.content.decode('UTF-8'))
 
         for document in content['items']:
-            self.assertIsInstance(document['meta']['tags'], list)
+            self.assertIsInstance(document['tags'], list)
 
     def test_star_in_wrong_position_gives_error(self):
         response = self.get_response(fields='title,*')
@@ -367,33 +360,27 @@ class TestDocumentDetail(TestCase):
         # Will crash if the JSON is invalid
         content = json.loads(response.content.decode('UTF-8'))
 
-        # Check the id field
-        self.assertIn('id', content)
-        self.assertEqual(content['id'], 1)
-
         # Check that the meta section is there
-        self.assertIn('meta', content)
         self.assertIsInstance(content['meta'], dict)
 
+        # Check the id field
+        self.assertEqual(content['meta']['id'], 1)
+
         # Check the meta type
-        self.assertIn('type', content['meta'])
         self.assertEqual(content['meta']['type'], 'wagtaildocs.Document')
 
         # Check the meta detail_url
-        self.assertIn('detail_url', content['meta'])
         self.assertEqual(content['meta']['detail_url'], 'http://localhost/api/v3beta/documents/1/')
 
         # Check the meta download_url
-        self.assertIn('download_url', content['meta'])
         self.assertEqual(content['meta']['download_url'], 'http://localhost/documents/1/wagtail_by_markyharky.jpg')
 
         # Check the title field
-        self.assertIn('title', content)
         self.assertEqual(content['title'], "Wagtail by mark Harkin")
 
         # Check the tags field
-        self.assertIn('tags', content['meta'])
-        self.assertEqual(content['meta']['tags'], [])
+        self.assertIn('tags', content)
+        self.assertEqual(content['tags'], [])
 
     def test_tags(self):
         get_document_model().objects.get(id=1).tags.add('hello')
@@ -402,8 +389,7 @@ class TestDocumentDetail(TestCase):
         response = self.get_response(1)
         content = json.loads(response.content.decode('UTF-8'))
 
-        self.assertIn('tags', content['meta'])
-        self.assertEqual(content['meta']['tags'], ['hello', 'world'])
+        self.assertEqual(content['tags'], ['hello', 'world'])
 
     @override_settings(WAGTAILAPI_BASE_URL='http://api.example.com/')
     def test_download_url_with_custom_base_url(self):
@@ -419,7 +405,7 @@ class TestDocumentDetail(TestCase):
         response = self.get_response(2, fields='-title')
         content = json.loads(response.content.decode('UTF-8'))
 
-        self.assertIn('id', set(content.keys()))
+        self.assertIn('id', set(content['meta'].keys()))
         self.assertNotIn('title', set(content.keys()))
 
     def test_remove_meta_fields(self):
@@ -437,11 +423,11 @@ class TestDocumentDetail(TestCase):
         self.assertNotIn('id', set(content.keys()))
 
     def test_remove_all_fields(self):
-        response = self.get_response(2, fields='_,id,type')
+        response = self.get_response(2, fields='_,id,title')
         content = json.loads(response.content.decode('UTF-8'))
 
-        self.assertEqual(set(content.keys()), {'id', 'meta'})
-        self.assertEqual(set(content['meta'].keys()), {'type'})
+        self.assertEqual(set(content.keys()), {'meta', 'title'})
+        self.assertEqual(set(content['meta'].keys()), {'id'})
 
     def test_star_in_wrong_position_gives_error(self):
         response = self.get_response(2, fields='title,*')

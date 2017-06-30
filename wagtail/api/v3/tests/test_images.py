@@ -18,7 +18,7 @@ class TestImageListing(TestCase):
         return self.client.get(reverse('wagtailapi_v3:images:listing'), params)
 
     def get_image_id_list(self, content):
-        return [image['id'] for image in content['items']]
+        return [image['meta']['id'] for image in content['items']]
 
 
     # BASIC TESTS
@@ -45,17 +45,17 @@ class TestImageListing(TestCase):
         self.assertIn('items', content)
         self.assertIsInstance(content['items'], list)
 
-        # Check that each image has a meta section with type and detail_url attributes
+        # Check that each image has a meta section with id, type and detail_url attributes
         for image in content['items']:
             self.assertIn('meta', image)
             self.assertIsInstance(image['meta'], dict)
-            self.assertEqual(set(image['meta'].keys()), {'type', 'detail_url', 'tags'})
+            self.assertEqual(set(image['meta'].keys()), {'id', 'type', 'detail_url'})
 
             # Type should always be wagtailimages.Image
             self.assertEqual(image['meta']['type'], 'wagtailimages.Image')
 
             # Check detail url
-            self.assertEqual(image['meta']['detail_url'], 'http://localhost/api/v3beta/images/%d/' % image['id'])
+            self.assertEqual(image['meta']['detail_url'], 'http://localhost/api/v3beta/images/%d/' % image['meta']['id'])
 
 
     #  FIELDS
@@ -65,70 +65,61 @@ class TestImageListing(TestCase):
         content = json.loads(response.content.decode('UTF-8'))
 
         for image in content['items']:
-            self.assertEqual(set(image.keys()), {'id', 'meta', 'title'})
-            self.assertEqual(set(image['meta'].keys()), {'type', 'detail_url', 'tags'})
+            self.assertEqual(set(image.keys()), {'meta', 'title', 'tags'})
+            self.assertEqual(set(image['meta'].keys()), {'id', 'type', 'detail_url'})
 
     def test_fields(self):
         response = self.get_response(fields='width,height')
         content = json.loads(response.content.decode('UTF-8'))
 
         for image in content['items']:
-            self.assertEqual(set(image.keys()), {'id', 'meta', 'title', 'width', 'height'})
-            self.assertEqual(set(image['meta'].keys()), {'type', 'detail_url', 'tags'})
+            self.assertEqual(set(image.keys()), {'meta', 'title', 'tags', 'width', 'height'})
+            self.assertEqual(set(image['meta'].keys()), {'id', 'type', 'detail_url'})
 
     def test_remove_fields(self):
         response = self.get_response(fields='-title')
         content = json.loads(response.content.decode('UTF-8'))
 
         for image in content['items']:
-            self.assertEqual(set(image.keys()), {'id', 'meta'})
+            self.assertEqual(set(image.keys()), {'meta', 'tags'})
 
     def test_remove_meta_fields(self):
         response = self.get_response(fields='-tags')
         content = json.loads(response.content.decode('UTF-8'))
 
         for image in content['items']:
-            self.assertEqual(set(image.keys()), {'id', 'meta', 'title'})
-            self.assertEqual(set(image['meta'].keys()), {'type', 'detail_url'})
+            self.assertEqual(set(image.keys()), {'meta', 'title'})
+            self.assertEqual(set(image['meta'].keys()), {'id', 'type', 'detail_url'})
 
     def test_remove_all_meta_fields(self):
-        response = self.get_response(fields='-type,-detail_url,-tags')
+        response = self.get_response(fields='-id,-type,-detail_url')
         content = json.loads(response.content.decode('UTF-8'))
 
         for image in content['items']:
-            self.assertEqual(set(image.keys()), {'id', 'title'})
-
-    def test_remove_id_field(self):
-        response = self.get_response(fields='-id')
-        content = json.loads(response.content.decode('UTF-8'))
-
-        for image in content['items']:
-            self.assertEqual(set(image.keys()), {'meta', 'title'})
+            self.assertEqual(set(image.keys()), {'title', 'tags'})
 
     def test_all_fields(self):
         response = self.get_response(fields='*')
         content = json.loads(response.content.decode('UTF-8'))
 
         for image in content['items']:
-            self.assertEqual(set(image.keys()), {'id', 'meta', 'title', 'width', 'height'})
-            self.assertEqual(set(image['meta'].keys()), {'type', 'detail_url', 'tags'})
+            self.assertEqual(set(image.keys()), {'meta', 'title', 'tags', 'width', 'height'})
+            self.assertEqual(set(image['meta'].keys()), {'id', 'type', 'detail_url'})
 
     def test_all_fields_then_remove_something(self):
-        response = self.get_response(fields='*,-title,-tags')
+        response = self.get_response(fields='*,-title,-detail_url')
         content = json.loads(response.content.decode('UTF-8'))
 
         for image in content['items']:
-            self.assertEqual(set(image.keys()), {'id', 'meta', 'width', 'height'})
-            self.assertEqual(set(image['meta'].keys()), {'type', 'detail_url'})
+            self.assertEqual(set(image.keys()), {'meta', 'tags', 'width', 'height'})
+            self.assertEqual(set(image['meta'].keys()), {'id', 'type'})
 
     def test_fields_tags(self):
         response = self.get_response(fields='tags')
         content = json.loads(response.content.decode('UTF-8'))
 
         for image in content['items']:
-            self.assertEqual(set(image.keys()), {'id', 'meta', 'title'})
-            self.assertEqual(set(image['meta'].keys()), {'type', 'detail_url', 'tags'})
-            self.assertIsInstance(image['meta']['tags'], list)
+            self.assertIsInstance(image['tags'], list)
 
     def test_star_in_wrong_position_gives_error(self):
         response = self.get_response(fields='title,*')
@@ -366,35 +357,27 @@ class TestImageDetail(TestCase):
         # Will crash if the JSON is invalid
         content = json.loads(response.content.decode('UTF-8'))
 
-        # Check the id field
-        self.assertIn('id', content)
-        self.assertEqual(content['id'], 5)
-
         # Check that the meta section is there
-        self.assertIn('meta', content)
         self.assertIsInstance(content['meta'], dict)
 
+        # Check the id field
+        self.assertEqual(content['meta']['id'], 5)
+
         # Check the meta type
-        self.assertIn('type', content['meta'])
         self.assertEqual(content['meta']['type'], 'wagtailimages.Image')
 
         # Check the meta detail_url
-        self.assertIn('detail_url', content['meta'])
         self.assertEqual(content['meta']['detail_url'], 'http://localhost/api/v3beta/images/5/')
 
         # Check the title field
-        self.assertIn('title', content)
         self.assertEqual(content['title'], "James Joyce")
 
         # Check the width and height fields
-        self.assertIn('width', content)
-        self.assertIn('height', content)
         self.assertEqual(content['width'], 500)
         self.assertEqual(content['height'], 392)
 
         # Check the tags field
-        self.assertIn('tags', content['meta'])
-        self.assertEqual(content['meta']['tags'], [])
+        self.assertEqual(content['tags'], [])
 
     def test_tags(self):
         image = get_image_model().objects.get(id=5)
@@ -404,8 +387,7 @@ class TestImageDetail(TestCase):
         response = self.get_response(5)
         content = json.loads(response.content.decode('UTF-8'))
 
-        self.assertIn('tags', content['meta'])
-        self.assertEqual(content['meta']['tags'], ['hello', 'world'])
+        self.assertEqual(content['tags'], ['hello', 'world'])
 
     # FIELDS
 
@@ -413,7 +395,7 @@ class TestImageDetail(TestCase):
         response = self.get_response(5, fields='-title')
         content = json.loads(response.content.decode('UTF-8'))
 
-        self.assertIn('id', set(content.keys()))
+        self.assertIn('id', set(content['meta'].keys()))
         self.assertNotIn('title', set(content.keys()))
 
     def test_remove_meta_fields(self):
@@ -431,11 +413,11 @@ class TestImageDetail(TestCase):
         self.assertNotIn('id', set(content.keys()))
 
     def test_remove_all_fields(self):
-        response = self.get_response(5, fields='_,id,type')
+        response = self.get_response(5, fields='_,id,title')
         content = json.loads(response.content.decode('UTF-8'))
 
-        self.assertEqual(set(content.keys()), {'id', 'meta'})
-        self.assertEqual(set(content['meta'].keys()), {'type'})
+        self.assertEqual(set(content.keys()), {'meta', 'title'})
+        self.assertEqual(set(content['meta'].keys()), {'id'})
 
     def test_star_in_wrong_position_gives_error(self):
         response = self.get_response(5, fields='title,*')

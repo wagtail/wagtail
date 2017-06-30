@@ -17,7 +17,7 @@ class TestAdminDocumentListing(AdminAPITestCase, TestDocumentListing):
         return self.client.get(reverse('wagtailadmin_api:documents:listing'), params)
 
     def get_document_id_list(self, content):
-        return [document['id'] for document in content['items']]
+        return [document['meta']['id'] for document in content['items']]
 
 
     # BASIC TESTS
@@ -48,16 +48,16 @@ class TestAdminDocumentListing(AdminAPITestCase, TestDocumentListing):
         for document in content['items']:
             self.assertIn('meta', document)
             self.assertIsInstance(document['meta'], dict)
-            self.assertEqual(set(document['meta'].keys()), {'type', 'detail_url', 'download_url', 'tags'})
+            self.assertEqual(set(document['meta'].keys()), {'id', 'type', 'detail_url', 'download_url'})
 
             # Type should always be wagtaildocs.Document
             self.assertEqual(document['meta']['type'], 'wagtaildocs.Document')
 
             # Check detail_url
-            self.assertEqual(document['meta']['detail_url'], 'http://localhost/admin/api/v3beta/documents/%d/' % document['id'])
+            self.assertEqual(document['meta']['detail_url'], 'http://localhost/admin/api/v3beta/documents/%d/' % document['meta']['id'])
 
             # Check download_url
-            self.assertTrue(document['meta']['download_url'].startswith('http://localhost/documents/%d/' % document['id']))
+            self.assertTrue(document['meta']['download_url'].startswith('http://localhost/documents/%d/' % document['meta']['id']))
 
 
     # FIELDS
@@ -67,8 +67,8 @@ class TestAdminDocumentListing(AdminAPITestCase, TestDocumentListing):
         content = json.loads(response.content.decode('UTF-8'))
 
         for document in content['items']:
-            self.assertEqual(set(document.keys()), {'id', 'meta', 'title'})
-            self.assertEqual(set(document['meta'].keys()), {'type', 'detail_url', 'download_url', 'tags'})
+            self.assertEqual(set(document.keys()), {'meta', 'title', 'tags'})
+            self.assertEqual(set(document['meta'].keys()), {'id', 'type', 'detail_url', 'download_url'})
 
 
 class TestAdminDocumentDetail(AdminAPITestCase, TestDocumentDetail):
@@ -86,13 +86,11 @@ class TestAdminDocumentDetail(AdminAPITestCase, TestDocumentDetail):
         # Will crash if the JSON is invalid
         content = json.loads(response.content.decode('UTF-8'))
 
-        # Check the id field
-        self.assertIn('id', content)
-        self.assertEqual(content['id'], 1)
-
         # Check that the meta section is there
-        self.assertIn('meta', content)
         self.assertIsInstance(content['meta'], dict)
+
+        # Check the id field
+        self.assertEqual(content['meta']['id'], 1)
 
         # Check the meta type
         self.assertIn('type', content['meta'])
@@ -111,5 +109,5 @@ class TestAdminDocumentDetail(AdminAPITestCase, TestDocumentDetail):
         self.assertEqual(content['title'], "Wagtail by mark Harkin")
 
         # Check the tags field
-        self.assertIn('tags', content['meta'])
-        self.assertEqual(content['meta']['tags'], [])
+        self.assertIn('tags', content)
+        self.assertEqual(content['tags'], [])

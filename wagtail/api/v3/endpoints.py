@@ -53,8 +53,8 @@ class BaseAPIEndpoint(GenericViewSet):
         # Required by BrowsableAPIRenderer
         'format',
     ])
-    body_fields = ['id']
-    meta_fields = ['type', 'detail_url']
+    body_fields = []
+    meta_fields = ['id', 'type', 'detail_url']
     listing_default_fields = ['id', 'type', 'detail_url']
     nested_default_fields = ['id', 'type', 'detail_url']
     detail_only_fields = []
@@ -356,13 +356,13 @@ class PagesAPIEndpoint(BaseAPIEndpoint):
     ])
     body_fields = BaseAPIEndpoint.body_fields + [
         'title',
-    ]
-    meta_fields = BaseAPIEndpoint.meta_fields + [
-        'html_url',
         'slug',
         'show_in_menus',
         'seo_title',
         'search_description',
+    ]
+    meta_fields = BaseAPIEndpoint.meta_fields + [
+        'html_url',
         'first_published_at',
         'parent',
     ]

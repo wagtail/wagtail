@@ -133,7 +133,7 @@ class PageParentField(relations.RelatedField):
             return parent
 
     def to_representation(self, value):
-        serializer_class = get_serializer_class(value.__class__, ['id', 'type', 'detail_url', 'html_url', 'title'], meta_fields=['type', 'detail_url', 'html_url'], base=PageSerializer)
+        serializer_class = get_serializer_class(value.__class__, ['id', 'type', 'detail_url', 'html_url', 'title', 'slug'], meta_fields=['id', 'type', 'detail_url', 'html_url'], base=PageSerializer)
         serializer = serializer_class(context=self.context)
         return serializer.to_representation(value)
 
@@ -263,10 +263,6 @@ class BaseSerializer(serializers.ModelSerializer):
         # Split meta fields from core fields
         meta_fields = [field for field in fields if field.field_name in self.meta_fields]
         fields = [field for field in fields if field.field_name not in self.meta_fields]
-
-        # Make sure id is always first. This will be filled in later
-        if 'id' in [field.field_name for field in fields]:
-            data['id'] = None
 
         # Serialise meta fields
         meta = OrderedDict()
