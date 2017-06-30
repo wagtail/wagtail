@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-04-19 21:05+0000\n"
+"POT-Creation-Date: 2017-06-19 16:55+0000\n"
+"PO-Revision-Date: 2017-06-19 16:57+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
@@ -192,6 +192,12 @@ msgstr "Obnovení hesla"
 msgid "Reset your password"
 msgstr "Nastavit nové heslo"
 
+msgid "Edit"
+msgstr "Upravit"
+
+msgid "Pages"
+msgstr "Stránky"
+
 msgid "Dashboard"
 msgstr "Dashboard"
 
@@ -237,14 +243,26 @@ msgstr "Vložit odkaz"
 msgid "Add an external link"
 msgstr "Vložit externí odkaz"
 
+msgid "You can edit the privacy settings on:"
+msgstr "Nastavení viditelnosti můžete změnit zde:"
+
+msgid "Save"
+msgstr "Uložit"
+
+msgid "Privacy"
+msgstr "Viditelnost"
+
+msgid "Public"
+msgstr "Veřejné"
+
+msgid "Private"
+msgstr "Soukromé"
+
 msgid "Name"
 msgstr "Jméno"
 
 msgid "Yes, delete"
 msgstr "Ano, smazat"
-
-msgid "Save"
-msgstr "Uložit"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -278,9 +296,6 @@ msgstr "Schválit"
 
 msgid "Reject"
 msgstr "Zamítnout"
-
-msgid "Edit"
-msgstr "Upravit"
 
 msgid "Preview"
 msgstr "Náhled"
@@ -357,9 +372,6 @@ msgstr "Viditelnost"
 msgid "This page has been made private by a parent page."
 msgstr "Stránka je neveřejná kvůli nastavení nadřazené stránky."
 
-msgid "You can edit the privacy settings on:"
-msgstr "Nastavení viditelnosti můžete změnit zde:"
-
 msgid "Privacy changes apply to all children of this page too."
 msgstr "Nastavení viditelnosti ovlivní i všechny podstránky."
 
@@ -371,15 +383,6 @@ msgstr "Zamknuto"
 
 msgid "Unlocked"
 msgstr "Odemknuto"
-
-msgid "Privacy"
-msgstr "Viditelnost"
-
-msgid "Public"
-msgstr "Veřejné"
-
-msgid "Private"
-msgstr "Soukromé"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -716,9 +719,6 @@ msgstr "Přidat podstránku"
 msgid "Your password has been changed successfully!"
 msgstr "Vaše heslo bylo úspěšně změněno."
 
-msgid "Your preferences have been updated successfully!"
-msgstr "Vaše nastavení bylo uloženo."
-
 msgid "You have been successfully logged out."
 msgstr "Právě jste se úspěšně odhlásili."
 
@@ -792,9 +792,6 @@ msgstr "Stránka '{0}' je nyní uzamčena."
 #, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "Stránka '{0}' je nyní odemčena."
-
-msgid "Pages"
-msgstr "Stránky"
 
 msgid "More"
 msgstr "Více"

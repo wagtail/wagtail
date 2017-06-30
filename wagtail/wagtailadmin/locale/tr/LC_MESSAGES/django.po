@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-04-19 21:05+0000\n"
+"POT-Creation-Date: 2017-06-19 16:55+0000\n"
+"PO-Revision-Date: 2017-06-19 16:57+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
 "tr/)\n"
@@ -165,6 +165,12 @@ msgstr "Şifre sıfırla"
 msgid "Reset your password"
 msgstr "Şifreni sıfırla"
 
+msgid "Edit"
+msgstr "Düzenle"
+
+msgid "Pages"
+msgstr "Sayfalar"
+
 msgid "Dashboard"
 msgstr "Kontrol paneli"
 
@@ -210,6 +216,15 @@ msgstr "Bağlantı ekle"
 msgid "Add an external link"
 msgstr "Bir dış bağlantı ekle"
 
+msgid "Save"
+msgstr "Kaydet"
+
+msgid "Public"
+msgstr "Genel"
+
+msgid "Private"
+msgstr "Gizli"
+
 msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
 msgstr "Bu kolleksiyon silinemedi, çünkü boş değil ve şunları içeriyor:"
@@ -223,9 +238,6 @@ msgstr "%(heading)s ekle"
 
 msgid "Yes, delete"
 msgstr "Evet, sil"
-
-msgid "Save"
-msgstr "Kaydet"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -254,9 +266,6 @@ msgstr "Onayla"
 
 msgid "Reject"
 msgstr "Reddet"
-
-msgid "Edit"
-msgstr "Düzenle"
 
 msgid "Preview"
 msgstr "Önizleme"
@@ -294,12 +303,6 @@ msgstr "Giriş yapılıyor..."
 
 msgid "Page privacy"
 msgstr "Sayfa gizliliği"
-
-msgid "Public"
-msgstr "Genel"
-
-msgid "Private"
-msgstr "Gizli"
 
 #, python-format
 msgid "Delete %(title)s"
@@ -404,9 +407,6 @@ msgstr "Üzgünüm, bu alana erişim yetkiniz yok"
 msgid "Your password has been changed successfully!"
 msgstr "Şifreniz başarıyla değiştirildi!"
 
-msgid "Your preferences have been updated successfully!"
-msgstr "Tercihleriniz başarıyla güncellendi"
-
 msgid "View live"
 msgstr "Canlı göster"
 
@@ -427,9 +427,6 @@ msgstr "Sayfa '{0}' yayından kaldırıldı."
 #, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "Sayfa '{0}' taşındı."
-
-msgid "Pages"
-msgstr "Sayfalar"
 
 msgid "More"
 msgstr "Daha fazla"

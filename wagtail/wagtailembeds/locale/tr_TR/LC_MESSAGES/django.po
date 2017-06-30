@@ -3,15 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Yusuf (Josè) Luis <alagunajs@gmail.com>, 2015
-# Yusuf (Josè) Luis <alagunajs@gmail.com>, 2017
+# José Luis <alagunajs@gmail.com>, 2015
+# José Luis <alagunajs@gmail.com>, 2017
+# José Luis <alagunajs@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-04-07 14:01+0000\n"
-"Last-Translator: Yusuf (Josè) Luis <alagunajs@gmail.com>\n"
+"POT-Creation-Date: 2017-06-19 16:55+0000\n"
+"PO-Revision-Date: 2017-06-29 23:52+0000\n"
+"Last-Translator: José Luis <alagunajs@gmail.com>\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/torchbox/wagtail/"
 "language/tr_TR/)\n"
 "MIME-Version: 1.0\n"
@@ -21,7 +22,19 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Please enter a valid URL"
-msgstr "Lütfen geçerli bir adres girin."
+msgstr "Lütfen geçerli bir adres girin"
 
 msgid "URL"
 msgstr "BKK"
+
+msgid "embed"
+msgstr "Göm"
+
+msgid "Insert embed"
+msgstr "Gömülü kat"
+
+msgid "Insert"
+msgstr "Kat"
+
+msgid "Cannot find an embed for this URL."
+msgstr "Bu BKK için bir gömülü bulunamıyor."

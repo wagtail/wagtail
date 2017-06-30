@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-05-28 16:35+0000\n"
-"Last-Translator: Py Zenberg <pyzenberg@gmail.com>\n"
+"POT-Creation-Date: 2017-06-19 16:55+0000\n"
+"PO-Revision-Date: 2017-06-19 16:57+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
 "fa/)\n"
 "MIME-Version: 1.0\n"
@@ -217,6 +217,12 @@ msgstr "بازنشانی رمزعبور"
 msgid "Reset your password"
 msgstr "رمزعبور را بازنشانی کنید"
 
+msgid "Edit"
+msgstr "تصحیح"
+
+msgid "Pages"
+msgstr "صفحه ها"
+
 msgid "Dashboard"
 msgstr "داشبورد"
 
@@ -291,6 +297,21 @@ msgstr "درج لینک"
 msgid "Add an external link"
 msgstr "لینک بیرونی اضافه کنید"
 
+msgid "You can edit the privacy settings on:"
+msgstr "تنظیمات حریم را می‌توانید اینجا ویرایش کنید:"
+
+msgid "Save"
+msgstr "ذخیره"
+
+msgid "Privacy"
+msgstr "حریم"
+
+msgid "Public"
+msgstr "انتشار"
+
+msgid "Private"
+msgstr "خصوصی"
+
 msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
 msgstr "بدلیل خالی نبودن، مجموعه قابل حذف نیست. حاوی موارد زیر است:"
@@ -312,9 +333,6 @@ msgstr "افزودن %(heading)s"
 
 msgid "Yes, delete"
 msgstr "بله حذف شود"
-
-msgid "Save"
-msgstr "ذخیره"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -350,9 +368,6 @@ msgstr "تایید"
 
 msgid "Reject"
 msgstr "رد"
-
-msgid "Edit"
-msgstr "تصحیح"
 
 msgid "Preview"
 msgstr "نمایش"
@@ -454,9 +469,6 @@ msgstr "حریم صفحه"
 msgid "This page has been made private by a parent page."
 msgstr "این صفحه توسط صفحه والد شخصی شده."
 
-msgid "You can edit the privacy settings on:"
-msgstr "تنظیمات حریم را می‌توانید اینجا ویرایش کنید:"
-
 msgid "Privacy changes apply to all children of this page too."
 msgstr "تغییرات حریم که به همه صفحه های زیرگروه این صفحه اعمال میشود."
 
@@ -468,15 +480,6 @@ msgstr "قفل"
 
 msgid "Unlocked"
 msgstr "گشوده"
-
-msgid "Privacy"
-msgstr "حریم"
-
-msgid "Public"
-msgstr "انتشار"
-
-msgid "Private"
-msgstr "خصوصی"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -1093,9 +1096,6 @@ msgstr "متاسفانه مجوز لازم برای دسترسی به این ن�
 msgid "Your password has been changed successfully!"
 msgstr "رمز عبور شما با موفقیت تغییر یافت!"
 
-msgid "Your preferences have been updated successfully!"
-msgstr "ترجیحات شما با موفقیت بروزرسانی شد!"
-
 msgid "Your preferences have been updated."
 msgstr "ترجیحات شما بروزرسانی شد."
 
@@ -1262,9 +1262,6 @@ msgstr "اولین"
 
 msgid "Latest"
 msgstr "آخرین"
-
-msgid "Pages"
-msgstr "صفحه ها"
 
 #, python-brace-format
 msgid "Edit '{title}'"

@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Yusuf (Josè) Luis <alagunajs@gmail.com>, 2015
+# José Luis <alagunajs@gmail.com>, 2015
 # Ragıp Ünal <ragip@ragipunal.com>, 2015
-# Yusuf (Josè) Luis <alagunajs@gmail.com>, 2016-2017
+# José Luis <alagunajs@gmail.com>, 2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-04-19 21:05+0000\n"
+"POT-Creation-Date: 2017-06-19 16:55+0000\n"
+"PO-Revision-Date: 2017-06-19 16:57+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/torchbox/wagtail/"
 "language/tr_TR/)\n"
@@ -84,6 +84,9 @@ msgstr "Şifre sıfırlama"
 msgid "Reset your password"
 msgstr "Şifreni sıfırla"
 
+msgid "Edit"
+msgstr "Düzenle"
+
 msgid "Dashboard"
 msgstr "Özet Ekran"
 
@@ -93,11 +96,17 @@ msgstr "Menü"
 msgid "Delete"
 msgstr "Sil"
 
-msgid "Yes, delete"
-msgstr "Evet, sil"
-
 msgid "Save"
 msgstr "Kaydet"
+
+msgid "Privacy"
+msgstr "Gizlilik"
+
+msgid "Private"
+msgstr "Özel"
+
+msgid "Yes, delete"
+msgstr "Evet, sil"
 
 msgid "Title"
 msgstr "Başlık"
@@ -107,9 +116,6 @@ msgstr "Düzenlenmiş"
 
 msgid "Edit this page"
 msgstr "Bu sayfa düzenle"
-
-msgid "Edit"
-msgstr "Düzenle"
 
 msgid "Preview"
 msgstr "Önizleme"
@@ -146,12 +152,6 @@ msgstr "Kilitli"
 
 msgid "Unlocked"
 msgstr "Kilitsiz"
-
-msgid "Privacy"
-msgstr "Gizlilik"
-
-msgid "Private"
-msgstr "Özel"
 
 msgid "Move"
 msgstr "Taşı"

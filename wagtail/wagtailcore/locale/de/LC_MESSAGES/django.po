@@ -8,7 +8,7 @@
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 # Matt Westcott <matthew@torchbox.com>, 2015
 # Max Pfeiffer <max.pfeiffer@alp-phone.ch>, 2015
-# Moritz Pfeiffer <moritz@alp-phone.ch>, 2016
+# Moritz Pfeiffer <moritz@alp-phone.ch>, 2016-2017
 # Tammo van Lessen <tvanlessen@gmail.com>, 2015
 # Vorlif <flori@vorlif.org>, 2017
 # Wasilis Mandratzis-Walz, 2015
@@ -16,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-04-19 21:05+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-06-19 16:55+0000\n"
+"PO-Revision-Date: 2017-06-20 07:34+0000\n"
+"Last-Translator: Moritz Pfeiffer <moritz@alp-phone.ch>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -155,6 +155,9 @@ msgstr "Gesperrt"
 msgid "first published at"
 msgstr "Zuerst publiziert am"
 
+msgid "last published at"
+msgstr "zuletzt publiziert am"
+
 msgid "latest revision created at"
 msgstr "Neuste Revision erstellt am"
 
@@ -257,17 +260,32 @@ msgstr "Privat, einsehbar für Benutzer in bestimmten Gruppen"
 msgid "password"
 msgstr "Passwort"
 
+msgid "groups"
+msgstr "Gruppen"
+
+msgid "view restriction"
+msgstr "Ansichtsrestriktion"
+
+msgid "view restrictions"
+msgstr "Ansichtsrestriktionen"
+
 msgid "page view restriction"
 msgstr "Seiten Ansichtsrestriktion"
 
 msgid "page view restrictions"
 msgstr "Seiten Ansichtsrestriktionen"
 
-msgid "name"
-msgstr "Name"
-
 msgid "collection"
 msgstr "Sammlung"
+
+msgid "collection view restriction"
+msgstr "Sammlung Ansichtsrestriktion"
+
+msgid "collection view restrictions"
+msgstr "Sammlung Ansichtsrestriktionen"
+
+msgid "name"
+msgstr "Name"
 
 msgid "collections"
 msgstr "Sammlungen"

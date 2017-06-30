@@ -20,8 +20,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-04-19 21:05+0000\n"
+"POT-Creation-Date: 2017-06-19 16:55+0000\n"
+"PO-Revision-Date: 2017-06-19 16:57+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
@@ -221,6 +221,9 @@ msgstr "Wachtwoord herstel"
 msgid "Reset your password"
 msgstr "Herstel uw wachtwoord"
 
+msgid "Edit"
+msgstr "Wijzigen"
+
 msgid "Dashboard"
 msgstr "Dashboard"
 
@@ -304,14 +307,26 @@ msgstr "Link invoegen"
 msgid "Add an external link"
 msgstr "Voeg een externe link toe"
 
+msgid "You can edit the privacy settings on:"
+msgstr "U kunt de privacyvoorkeuren wijzigen op:"
+
+msgid "Save"
+msgstr "Opslaan"
+
+msgid "Privacy"
+msgstr "Privacy"
+
+msgid "Public"
+msgstr "Publiekelijk"
+
+msgid "Private"
+msgstr "Prive"
+
 msgid "Name"
 msgstr "Naam"
 
 msgid "Yes, delete"
 msgstr "Ja, verwijder"
-
-msgid "Save"
-msgstr "Opslaan"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -347,9 +362,6 @@ msgstr "Goedkeuren"
 
 msgid "Reject"
 msgstr "Afwijzen"
-
-msgid "Edit"
-msgstr "Wijzigen"
 
 msgid "Preview"
 msgstr "Voorbeeld bekijken"
@@ -440,9 +452,6 @@ msgstr "Afscherming van de pagina"
 msgid "This page has been made private by a parent page."
 msgstr "Deze pagina is door een bovenliggende pagina afgeschermd gemaakt."
 
-msgid "You can edit the privacy settings on:"
-msgstr "U kunt de privacyvoorkeuren wijzigen op:"
-
 msgid "Privacy changes apply to all children of this page too."
 msgstr ""
 "Privacywijzigingen hebben ook effect op alle onderliggende pagina's van deze "
@@ -456,15 +465,6 @@ msgstr "Vergrendeld"
 
 msgid "Unlocked"
 msgstr "Ontgrendeld"
-
-msgid "Privacy"
-msgstr "Privacy"
-
-msgid "Public"
-msgstr "Publiekelijk"
-
-msgid "Private"
-msgstr "Prive"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -835,9 +835,6 @@ msgstr "Sorry, u heeft geen toestemming tot dit gedeelte."
 
 msgid "Your password has been changed successfully!"
 msgstr "Uw wachtwoord is succesvol gewijzigd."
-
-msgid "Your preferences have been updated successfully!"
-msgstr "Uw voorkeuren zijn succesvol gewijzigd."
 
 msgid "Collections"
 msgstr "Collecties"

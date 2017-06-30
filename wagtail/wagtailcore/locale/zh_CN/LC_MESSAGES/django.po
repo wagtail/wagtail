@@ -6,14 +6,15 @@
 # hanfeng <appweb.cn@gmail.com>, 2014-2015
 # Daniel Hwang <danielblinkhw@gmail.com>, 2015
 # Fred Zeng <979738295@qq.com>, 2016
+# Vincent Zhao <zhaopu2008@gmail.com>, 2017
 # jszsj <zhushajun@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-04-19 21:05+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-06-19 16:55+0000\n"
+"PO-Revision-Date: 2017-06-20 02:43+0000\n"
+"Last-Translator: Vincent Zhao <zhaopu2008@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -142,6 +143,9 @@ msgstr "已锁定"
 msgid "first published at"
 msgstr "第一次发布于"
 
+msgid "last published at"
+msgstr "最后发布于"
+
 msgid "latest revision created at"
 msgstr "最近修订版本创建于"
 
@@ -244,17 +248,32 @@ msgstr "私有，特定用户组中的用户可访问"
 msgid "password"
 msgstr "密码"
 
+msgid "groups"
+msgstr "组"
+
+msgid "view restriction"
+msgstr "查看约束"
+
+msgid "view restrictions"
+msgstr "查看约束"
+
 msgid "page view restriction"
 msgstr "查看页面权限"
 
 msgid "page view restrictions"
 msgstr "查看页面权限"
 
-msgid "name"
-msgstr "名字"
-
 msgid "collection"
 msgstr "集合"
+
+msgid "collection view restriction"
+msgstr "集合查看约束"
+
+msgid "collection view restrictions"
+msgstr "集合查看约束"
+
+msgid "name"
+msgstr "名字"
 
 msgid "collections"
 msgstr "集合"

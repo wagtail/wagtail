@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-04-19 21:05+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-06-19 16:55+0000\n"
+"PO-Revision-Date: 2017-06-23 18:26+0000\n"
+"Last-Translator: Kyungil Choi <hanpama@gmail.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +19,25 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ko\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+#, python-brace-format
+msgid "{label}: this block has no options."
+msgstr "{label}: 이 블록에는 옵션이 없습니다."
+
+msgid "This block has no options."
+msgstr "이 블록에는 옵션이 없습니다."
+
+msgid "Password"
+msgstr "비밀번호"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr "입력한 비밀번호가 올바르지 않습니다. 다시 시도해 주세요."
+
+msgid "hostname"
+msgstr "호스트명"
+
+msgid "port"
+msgstr "포트"
 
 msgid ""
 "Set this to something other than 80 if you need a specific port number to "
@@ -32,6 +51,9 @@ msgstr ""
 msgid "site name"
 msgstr "사이트 이름"
 
+msgid "Human-readable name for the site."
+msgstr "사람이 읽을 수 있는 사이트명"
+
 msgid "root page"
 msgstr "기본 페이지"
 
@@ -42,8 +64,8 @@ msgid ""
 "If true, this site will handle requests for all other hostnames that do not "
 "have a site entry of their own"
 msgstr ""
-"만약 값이 'true'라면, 이 사이트는 접속 권한이 없는 다른 호스트명을 위한 요청"
-"들을 수행할 것입니다."
+"만약 값이 'true'라면, 이 사이트는 사이트 목록에 등록되지 않은 모든 호스트명으"
+"로의 요청을 맡아 처리하게 됩니다."
 
 msgid "site"
 msgstr "사이트"
@@ -56,14 +78,14 @@ msgid ""
 "%(hostname)s is already configured as the default site. You must unset that "
 "before you can save this site as default."
 msgstr ""
-"%(hostname)s 은 이미 기본 사이트로 설정되었습니다. 이것을 해제하시면, 당신은 "
-"이 사이트를 기본값으로 저장할 수 있습니다."
+"%(hostname)s 항목이 이미 기본 사이트로 설정되어 있습니다. 이 사이트를 기본값"
+"으로 지정하기 위해서는 먼저 이를 해제해야 합니다."
 
 msgid "title"
 msgstr "제목"
 
 msgid "The page title as you'd like it to be seen by the public"
-msgstr "당신이 의도한대로 이 페이지 제목은 모든 사람에게 보여집니다."
+msgstr "모든 이들에게 보여 줄 페이지 제목"
 
 msgid "slug"
 msgstr "슬러그"
@@ -82,7 +104,7 @@ msgid "live"
 msgstr "라이브"
 
 msgid "has unpublished changes"
-msgstr "퍼블리싱 되지 않은 변경 있음"
+msgstr "게시되지 않은 변경 있음"
 
 msgid "URL path"
 msgstr "URL 경로"
@@ -97,7 +119,8 @@ msgid ""
 "Optional. 'Search Engine Friendly' title. This will appear at the top of the "
 "browser window."
 msgstr ""
-"옵션. '검색 엔진에 최적화된' 제목. 이는 브라우저 화면 상단에 나타날 것입니다."
+"선택 사항. '검색 엔진에 최적화된' 제목. 이는 브라우저 화면 상단에 나타날 것입"
+"니다."
 
 msgid "show in menus"
 msgstr "메뉴에 표시"
@@ -122,16 +145,19 @@ msgid "locked"
 msgstr "잠김"
 
 msgid "first published at"
-msgstr "최초 퍼블리싱 일시:"
+msgstr "최초 게시일시:"
+
+msgid "last published at"
+msgstr "최종 게시일시: "
 
 msgid "latest revision created at"
-msgstr "최근에 수정된 일시:"
+msgstr "최근 수정안 작성일:"
 
 msgid "This slug is already in use"
 msgstr "이 슬러그는 이미 사용되고 있습니다"
 
 msgid "scheduled"
-msgstr "스케줄된"
+msgstr "예약됨"
 
 msgid "draft"
 msgstr "초안"
@@ -161,19 +187,19 @@ msgid "content JSON"
 msgstr "컨텐트 JSON"
 
 msgid "approved go live at"
-msgstr "라이브로 가도록 허가된 일시:"
+msgstr "라이브 승인 일시:"
 
 msgid "page revision"
-msgstr "페이지 검토"
+msgstr "페이지 수정안"
 
 msgid "page revisions"
-msgstr "페이지 검토"
+msgstr "페이지 수정안"
 
 msgid "Add"
 msgstr "추가"
 
 msgid "Add/edit pages you own"
-msgstr "당신이 소유한 페이지들 추가/수정"
+msgstr "페이지 추가/수정"
 
 msgid "Edit"
 msgstr "수정"
@@ -182,10 +208,10 @@ msgid "Edit any page"
 msgstr "페이지 수정"
 
 msgid "Publish"
-msgstr "퍼블리시"
+msgstr "게시"
 
 msgid "Publish any page"
-msgstr "페이지 퍼블리싱"
+msgstr "페이지 게시"
 
 msgid "Bulk delete"
 msgstr "한 번에 지우기"
@@ -226,17 +252,32 @@ msgstr "비공개, 특정한 그룹 안의 사용자들이 접근 가능"
 msgid "password"
 msgstr "비밀번호"
 
+msgid "groups"
+msgstr "그룹"
+
+msgid "view restriction"
+msgstr "제한 사항 보기"
+
+msgid "view restrictions"
+msgstr "제한 사항 보기"
+
 msgid "page view restriction"
 msgstr "페이지 보기 제한"
 
 msgid "page view restrictions"
 msgstr "페이지 보기 제한"
 
-msgid "name"
-msgstr "이름"
-
 msgid "collection"
 msgstr "모음"
+
+msgid "collection view restriction"
+msgstr "모음 보기 제한 사항"
+
+msgid "collection view restrictions"
+msgstr "모음 보기 제한 사항"
+
+msgid "name"
+msgstr "이름"
 
 msgid "collections"
 msgstr "모음"

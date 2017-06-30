@@ -4,15 +4,15 @@
 #
 # Translators:
 # Dan Braghis, 2014
-# Dan Braghis, 2014-2016
+# Dan Braghis, 2014-2017
 # Dan Braghis, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-04-19 21:08+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-06-19 16:55+0000\n"
+"PO-Revision-Date: 2017-06-19 20:00+0000\n"
+"Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -52,6 +52,16 @@ msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
 msgstr ""
 "Ne pare rău, nici un fragment nu se potrivește cu \"<em>%(query_string)s</em>"
 "\""
+
+#, python-format
+msgid ""
+"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">create one now</"
+"a>?"
+msgstr ""
+"Nu au fost create %(snippet_type_name)s. De să nu <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">adăugați unul</"
+"a>?"
 
 #, python-format
 msgid "Delete %(snippet_type_name)s - %(instance)s"

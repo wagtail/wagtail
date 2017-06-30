@@ -8,13 +8,14 @@
 # Eugene MechanisM <eugene@mechanism.pro>, 2014-2016
 # Никита Викторович <hnknta@gmail.com>, 2014
 # Sergey Komarov <sjkomarov@gmail.com>, 2014
+# Vassiliy Vorobyov <zuber.kg@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-04-19 21:08+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-06-19 16:55+0000\n"
+"PO-Revision-Date: 2017-06-22 13:26+0000\n"
+"Last-Translator: Vassiliy Vorobyov <zuber.kg@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -93,6 +94,12 @@ msgstr "уведомления при отклонении"
 
 msgid "Receive notification when your page edit is rejected"
 msgstr "Принимать уведомление при отклонении вашей редакции страницы."
+
+msgid "preferred language"
+msgstr "Предпочтительный язык"
+
+msgid "Select language for the admin"
+msgstr "Выберите язык администратора"
 
 msgid "user profile"
 msgstr "профиль пользователя"

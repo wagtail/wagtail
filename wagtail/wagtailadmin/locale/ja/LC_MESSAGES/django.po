@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-04-19 21:05+0000\n"
+"POT-Creation-Date: 2017-06-19 16:55+0000\n"
+"PO-Revision-Date: 2017-06-19 16:57+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
@@ -186,6 +186,12 @@ msgstr "パスワードが再設定されました"
 msgid "Reset your password"
 msgstr "パスワードを再設定"
 
+msgid "Edit"
+msgstr "編集"
+
+msgid "Pages"
+msgstr "ページ"
+
 msgid "Dashboard"
 msgstr "ダッシュボード"
 
@@ -260,15 +266,27 @@ msgstr "リンクを挿入"
 msgid "Add an external link"
 msgstr "外部リンクを追加"
 
+msgid "You can edit the privacy settings on:"
+msgstr "公開設定を編集："
+
+msgid "Save"
+msgstr "保存"
+
+msgid "Privacy"
+msgstr "公開設定"
+
+msgid "Public"
+msgstr "公開"
+
+msgid "Private"
+msgstr "非公開"
+
 #, python-format
 msgid "Add %(heading)s"
 msgstr "%(heading)sを追加"
 
 msgid "Yes, delete"
 msgstr "はい、削除します"
-
-msgid "Save"
-msgstr "保存"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -304,9 +322,6 @@ msgstr "承認"
 
 msgid "Reject"
 msgstr "拒否"
-
-msgid "Edit"
-msgstr "編集"
 
 msgid "Preview"
 msgstr "プレビュー"
@@ -401,9 +416,6 @@ msgstr "ページの公開設定"
 msgid "This page has been made private by a parent page."
 msgstr "このページは親ページにより非公開に設定されています。"
 
-msgid "You can edit the privacy settings on:"
-msgstr "公開設定を編集："
-
 msgid "Privacy changes apply to all children of this page too."
 msgstr "公開設定の変更はすべての孫ページに反映されます。"
 
@@ -415,15 +427,6 @@ msgstr "ロックあり"
 
 msgid "Unlocked"
 msgstr "ロックなし"
-
-msgid "Privacy"
-msgstr "公開設定"
-
-msgid "Public"
-msgstr "公開"
-
-msgid "Private"
-msgstr "非公開"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -803,9 +806,6 @@ msgstr "アクセス権がありません。"
 msgid "Your password has been changed successfully!"
 msgstr "パスワードが変更されました。"
 
-msgid "Your preferences have been updated successfully!"
-msgstr "変更が反映されました。"
-
 #, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "ページ：'{0}' が作成され、公開されました。"
@@ -875,9 +875,6 @@ msgstr "ページ：'{0}' は現在ロックされています。"
 #, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "ページ：'{0}' のロックが解除されました。"
-
-msgid "Pages"
-msgstr "ページ"
 
 msgid "Choose an item"
 msgstr "アイテムを選択"

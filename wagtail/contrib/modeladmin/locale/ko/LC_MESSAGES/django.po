@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-01-22 22:34+0000\n"
+"POT-Creation-Date: 2017-06-19 16:55+0000\n"
+"PO-Revision-Date: 2017-06-23 14:54+0000\n"
 "Last-Translator: Kyungil Choi <hanpama@gmail.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
@@ -99,8 +99,8 @@ msgid ""
 "first remove references from the following objects, then try again:"
 msgstr ""
 "'%(instance_name)s'은 현재 다른 객체에 의해 참조되고 있으며 삭제하는 경우 데"
-"이터 무결성을 손상시키게 됩니다. 이 객체를 잘 삭제하기 위해서는 먼저 다음의 "
-"객체들을 지우고 다시 시도해 주세요."
+"이터 무결성을 손상시키게 되므로 삭제할 수 없습니다. 이 객체를 올바르게 삭제하"
+"기 위해서는 먼저 다음의 객체들을 지우고 다시 시도해 주세요:"
 
 msgid "Go back to listing"
 msgstr "리스트로 돌아가기"
@@ -128,3 +128,92 @@ msgstr "%(name)s 검색"
 
 msgid "Filter"
 msgstr "필터"
+
+#, python-format
+msgid ""
+"No %(name)s have been created yet. One of the following must be created "
+"before you can add any %(name)s:"
+msgstr ""
+"아직 %(name)s 항목이 생성되지 않았습니다. 아래 중 하나는 %(name)s 항목을 추가"
+"하기 전에 먼저 생성되어야 합니다:"
+
+#, python-format
+msgid "No %(name)s have been created yet."
+msgstr "아직 생성된 %(name)s 항목이 없습니다."
+
+#, python-format
+msgid ""
+"\n"
+"                                                Why not <a href=\"%(url)s"
+"\">add one</a>?\n"
+"                                            "
+msgstr ""
+"\n"
+"하나 <a href=\"%(url)s\">추가</a>하는 것은 어떠신가요?"
+
+#, python-format
+msgid "Page %(current_page)s of %(num_pages)s."
+msgstr "%(num_pages)s중 %(current_page)s 페이지"
+
+#, python-format
+msgid "Back to %(model_name)s list"
+msgstr "%(model_name)s 목록으로 돌아가기"
+
+msgid "Previous"
+msgstr "이전"
+
+msgid "Next"
+msgstr "다음"
+
+#, python-brace-format
+msgid "{model_name} '{instance}' created."
+msgstr "{model_name} '{instance}' 생성됨."
+
+#, python-format
+msgid "The %s could not be created due to errors."
+msgstr "%s 생성이 오류로 인해 실패했습니다."
+
+msgid "New"
+msgstr "신규"
+
+#, python-format
+msgid "Create new %s"
+msgstr "새 %s 만들기"
+
+msgid "Editing"
+msgstr "수정"
+
+#, python-format
+msgid "Editing %s"
+msgstr "%s 수정"
+
+#, python-brace-format
+msgid "{model_name} '{instance}' updated."
+msgstr "{model_name} '{instance}' 수정됨."
+
+#, python-format
+msgid "The %s could not be saved due to errors."
+msgstr "%s 저장이 오류로 인해 실패했습니다."
+
+#, python-format
+msgid "Confirm deletion of %s"
+msgstr "%s 삭제 확인"
+
+#, python-format
+msgid ""
+"Are you sure you want to delete this %s? If other things in your site are "
+"related to it, they may also be affected."
+msgstr ""
+"%s 항목을 삭제하는 것이 확실한가요? 사이트의 다른 것들이 연관되어 있다면 이"
+"에 대한 영향이 있을 수 있습니다."
+
+#, python-brace-format
+msgid "{model} '{instance}' deleted."
+msgstr "{model} '{instance}' 삭제됨."
+
+msgid "Inspecting"
+msgstr "분석"
+
+#, python-format
+msgid "Inspecting %s"
+msgstr "%s 분석"

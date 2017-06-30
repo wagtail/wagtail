@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-04-19 21:05+0000\n"
+"POT-Creation-Date: 2017-06-19 16:55+0000\n"
+"PO-Revision-Date: 2017-06-19 16:57+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
@@ -213,6 +213,12 @@ msgstr "Återställ lösenord"
 msgid "Reset your password"
 msgstr "Återställ ditt lösenord"
 
+msgid "Edit"
+msgstr "Editera"
+
+msgid "Pages"
+msgstr "Sidor"
+
 msgid "Dashboard"
 msgstr "Instrumentpanel"
 
@@ -294,6 +300,21 @@ msgstr "Infoga länk"
 msgid "Add an external link"
 msgstr "Infoga extern länk"
 
+msgid "You can edit the privacy settings on:"
+msgstr "Du kan editera sekretessinställningarna på:"
+
+msgid "Save"
+msgstr "Spara"
+
+msgid "Privacy"
+msgstr "Sekretess"
+
+msgid "Public"
+msgstr "Publik"
+
+msgid "Private"
+msgstr "Privat"
+
 msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
 msgstr ""
@@ -316,9 +337,6 @@ msgstr "Lägg till %(heading)s"
 
 msgid "Yes, delete"
 msgstr "Ja, radera"
-
-msgid "Save"
-msgstr "Spara"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -354,9 +372,6 @@ msgstr "Godkänn"
 
 msgid "Reject"
 msgstr "Avvisa"
-
-msgid "Edit"
-msgstr "Editera"
 
 msgid "Preview"
 msgstr "Förhandsgranska"
@@ -464,9 +479,6 @@ msgstr "Sidsekretess"
 msgid "This page has been made private by a parent page."
 msgstr "Denna sida har gjorts privat p.g.a. en huvudsida."
 
-msgid "You can edit the privacy settings on:"
-msgstr "Du kan editera sekretessinställningarna på:"
-
 msgid "Privacy changes apply to all children of this page too."
 msgstr ""
 "Ändring av sekretessinställningar påverkar även alla undersidor till denna "
@@ -480,15 +492,6 @@ msgstr "Låst"
 
 msgid "Unlocked"
 msgstr "Olåst"
-
-msgid "Privacy"
-msgstr "Sekretess"
-
-msgid "Public"
-msgstr "Publik"
-
-msgid "Private"
-msgstr "Privat"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -1064,9 +1067,6 @@ msgstr "Ledsen, du har inte rättigheter att tillträda detta område."
 msgid "Your password has been changed successfully!"
 msgstr "Ditt lösenord har framgångsrikt uppdaterats!"
 
-msgid "Your preferences have been updated successfully!"
-msgstr "Dina inställningar har framgångsrikt uppdaterats!"
-
 msgid "You have been successfully logged out."
 msgstr "Du har framgångsrikt loggats ut."
 
@@ -1230,9 +1230,6 @@ msgstr "Tidigast"
 
 msgid "Latest"
 msgstr "Senast"
-
-msgid "Pages"
-msgstr "Sidor"
 
 #, python-brace-format
 msgid "Edit '{title}'"

@@ -4,15 +4,15 @@
 #
 # Translators:
 # Dan Braghis, 2014
-# Dan Braghis, 2014-2016
+# Dan Braghis, 2014-2017
 # Dan Braghis, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-04-19 21:08+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-06-19 16:55+0000\n"
+"PO-Revision-Date: 2017-06-19 20:02+0000\n"
+"Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -86,11 +86,44 @@ msgstr "notificări respinse"
 msgid "Receive notification when your page edit is rejected"
 msgstr "Primește o notificare când modificărea paginii este respinsă"
 
+msgid "preferred language"
+msgstr "limba preferată"
+
+msgid "Select language for the admin"
+msgstr "Selectați limba pentru interfața de administrare"
+
 msgid "user profile"
 msgstr "profil utilizator"
 
 msgid "Delete group"
 msgstr "Șterge grup"
+
+#, python-format
+msgid ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> member.\n"
+"            "
+msgid_plural ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> members.\n"
+"            "
+msgstr[0] ""
+"\n"
+"                Grupul '%(group_name)s' are <strong>%(group_user_count)s</"
+"strong> membru.\n"
+"            "
+msgstr[1] ""
+"\n"
+"                Grupul '%(group_name)s' are 1%(group_user_count)s1 "
+"utilizatori alocați.\n"
+"            "
+msgstr[2] ""
+"\n"
+"                Grupul '%(group_name)s' are 1%(group_user_count)s1 "
+"utilizatori alocați.\n"
+"            "
 
 msgid ""
 "Deleting this group will revoke this group's permissions from all member "
