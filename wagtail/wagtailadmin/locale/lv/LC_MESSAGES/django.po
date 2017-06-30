@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-04-19 21:05+0000\n"
+"POT-Creation-Date: 2017-06-19 16:55+0000\n"
+"PO-Revision-Date: 2017-06-19 16:57+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/"
 "lv/)\n"
@@ -205,6 +205,12 @@ msgstr "Atjaunot paroli"
 msgid "Reset your password"
 msgstr "Atjaunot paroli"
 
+msgid "Edit"
+msgstr "Labot"
+
+msgid "Pages"
+msgstr "Lapas"
+
 msgid "Dashboard"
 msgstr "Informācijas panelis"
 
@@ -250,6 +256,21 @@ msgstr "Pievienot saiti"
 msgid "Add an external link"
 msgstr "Pievienot ārēju saiti"
 
+msgid "You can edit the privacy settings on:"
+msgstr "Mainīt privātuma iestatījumus:"
+
+msgid "Save"
+msgstr "Saglabāt"
+
+msgid "Privacy"
+msgstr "Privātums"
+
+msgid "Public"
+msgstr "Publisks"
+
+msgid "Private"
+msgstr "Privāts"
+
 msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
 msgstr "Nevar izdzēst šo kolekciju, jo tā nac tukša. Tā satur:"
@@ -263,9 +284,6 @@ msgstr "Pievienot %(heading)s"
 
 msgid "Yes, delete"
 msgstr "Dzēst"
-
-msgid "Save"
-msgstr "Saglabāt"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -298,9 +316,6 @@ msgstr "Apstiprināt"
 
 msgid "Reject"
 msgstr "Noraidīt"
-
-msgid "Edit"
-msgstr "Labot"
 
 msgid "Preview"
 msgstr "Priekšskatīt"
@@ -380,9 +395,6 @@ msgstr "Lapa \"%(page)s\" tika iesniegta moderācijai"
 msgid "Page privacy"
 msgstr "Lapas privātuma iestatījumi"
 
-msgid "You can edit the privacy settings on:"
-msgstr "Mainīt privātuma iestatījumus:"
-
 msgid "Edit lock"
 msgstr "Rediģēt bloķēšanu"
 
@@ -391,15 +403,6 @@ msgstr "Slēgts"
 
 msgid "Unlocked"
 msgstr "Atslēgts"
-
-msgid "Privacy"
-msgstr "Privātums"
-
-msgid "Public"
-msgstr "Publisks"
-
-msgid "Private"
-msgstr "Privāts"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -734,9 +737,6 @@ msgstr "Atvainojiet, jums nav piekļuves tiesību šai zonai."
 msgid "Your password has been changed successfully!"
 msgstr "Parole mainīta veiksmīgi."
 
-msgid "Your preferences have been updated successfully!"
-msgstr "Jūsu iestatījumi ir atjaunoti."
-
 msgid "You have been successfully logged out."
 msgstr "Jūs esat veiksmīgi izgājis no sistēmas."
 
@@ -891,9 +891,6 @@ msgid ""
 msgstr ""
 "Jūs skatāt autora %(user)s <b>%(created_at)s</b> veidotās šīs lapas "
 "iepriekšējās versijas"
-
-msgid "Pages"
-msgstr "Lapas"
 
 msgid "More"
 msgstr "Vairāk"

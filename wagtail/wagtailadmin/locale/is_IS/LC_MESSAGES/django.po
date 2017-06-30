@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-05-05 09:13+0000\n"
-"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>\n"
+"POT-Creation-Date: 2017-06-19 16:55+0000\n"
+"PO-Revision-Date: 2017-06-19 16:57+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -232,6 +232,12 @@ msgstr "Endursetja lykilorð"
 msgid "Reset your password"
 msgstr "Endursettu lykilorðið þitt"
 
+msgid "Edit"
+msgstr "Breyta"
+
+msgid "Pages"
+msgstr "Síður"
+
 msgid "Dashboard"
 msgstr "Yfirlitssíða"
 
@@ -315,6 +321,21 @@ msgstr "Setja inn hlekk"
 msgid "Add an external link"
 msgstr "Bæta við ytri hlekk"
 
+msgid "You can edit the privacy settings on:"
+msgstr "Þú getur breytt aðgengisstilligum á:"
+
+msgid "Save"
+msgstr "Vista"
+
+msgid "Privacy"
+msgstr "Aðgengi"
+
+msgid "Public"
+msgstr "Í birtingu"
+
+msgid "Private"
+msgstr "Prívat"
+
 msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
 msgstr "Ekki er hægt að eyða safni, af því það er ekki tómt. Það inniheldur:"
@@ -336,9 +357,6 @@ msgstr "Bæta við %(heading)s"
 
 msgid "Yes, delete"
 msgstr "Já, eyða"
-
-msgid "Save"
-msgstr "Vista"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -374,9 +392,6 @@ msgstr "Samþykkja"
 
 msgid "Reject"
 msgstr "Hafna"
-
-msgid "Edit"
-msgstr "Breyta"
 
 msgid "Preview"
 msgstr "Forskoða"
@@ -484,9 +499,6 @@ msgstr "Síðu aðgengi"
 msgid "This page has been made private by a parent page."
 msgstr "Þessi síða hefur verið gerð prívat af yfirsíðu sinni."
 
-msgid "You can edit the privacy settings on:"
-msgstr "Þú getur breytt aðgengisstilligum á:"
-
 msgid "Privacy changes apply to all children of this page too."
 msgstr "Aðgengisstillingar eiga við allar undirsíður þessarar síðu líka."
 
@@ -498,15 +510,6 @@ msgstr "Læst"
 
 msgid "Unlocked"
 msgstr "Aflæst"
-
-msgid "Privacy"
-msgstr "Aðgengi"
-
-msgid "Public"
-msgstr "Í birtingu"
-
-msgid "Private"
-msgstr "Prívat"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -1161,9 +1164,6 @@ msgstr "Því miður, þú hefur ekki heimildir til að skoða þetta svæði."
 msgid "Your password has been changed successfully!"
 msgstr "Tókst að breyta lykilorðinu þínu!"
 
-msgid "Your preferences have been updated successfully!"
-msgstr "Tókst að breyta stillingunum þínum!"
-
 msgid "Your preferences have been updated."
 msgstr "Tókst að breyta stillingunum þínum!"
 
@@ -1331,9 +1331,6 @@ msgstr "Fyrsta"
 
 msgid "Latest"
 msgstr "Nýjasta"
-
-msgid "Pages"
-msgstr "Síður"
 
 #, python-brace-format
 msgid "Edit '{title}'"

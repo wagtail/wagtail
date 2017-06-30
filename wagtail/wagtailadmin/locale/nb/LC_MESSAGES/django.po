@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-04-21 07:21+0000\n"
-"Last-Translator: Stein Strindhaug <stein.strindhaug@gmail.com>\n"
+"POT-Creation-Date: 2017-06-19 16:55+0000\n"
+"PO-Revision-Date: 2017-06-19 16:57+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
 "MIME-Version: 1.0\n"
@@ -227,6 +227,12 @@ msgstr "Passordnullstilling"
 msgid "Reset your password"
 msgstr "Nullstill ditt passord"
 
+msgid "Edit"
+msgstr "Redigér"
+
+msgid "Pages"
+msgstr "Sider"
+
 msgid "Dashboard"
 msgstr "Kontrollpanel"
 
@@ -310,6 +316,21 @@ msgstr "Sett inn lenke"
 msgid "Add an external link"
 msgstr "Legg til en ekstern lenke"
 
+msgid "You can edit the privacy settings on:"
+msgstr "Du kan endre sidevernsinnstillingene på:"
+
+msgid "Save"
+msgstr "Lagre"
+
+msgid "Privacy"
+msgstr "Sidevern"
+
+msgid "Public"
+msgstr "Offentlig"
+
+msgid "Private"
+msgstr "Privat"
+
 msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
 msgstr "Samlingen kan ikke slettes, fordi den ikke er tom. Den inneholder:"
@@ -331,9 +352,6 @@ msgstr "Legg til %(heading)s"
 
 msgid "Yes, delete"
 msgstr "Ja, slett"
-
-msgid "Save"
-msgstr "Lagre"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -369,9 +387,6 @@ msgstr "Godkjenn"
 
 msgid "Reject"
 msgstr "Avslå"
-
-msgid "Edit"
-msgstr "Redigér"
 
 msgid "Preview"
 msgstr "Forhåndsvis"
@@ -479,9 +494,6 @@ msgstr "Sidevern"
 msgid "This page has been made private by a parent page."
 msgstr "Denne siden har blitt gjort privat av en foreldreside."
 
-msgid "You can edit the privacy settings on:"
-msgstr "Du kan endre sidevernsinnstillingene på:"
-
 msgid "Privacy changes apply to all children of this page too."
 msgstr "Sidevernsendringer berører også alle undersider av denne siden."
 
@@ -493,15 +505,6 @@ msgstr "Låst"
 
 msgid "Unlocked"
 msgstr "Ulåst"
-
-msgid "Privacy"
-msgstr "Sidevern"
-
-msgid "Public"
-msgstr "Offentlig"
-
-msgid "Private"
-msgstr "Privat"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -1151,9 +1154,6 @@ msgstr "Beklager, du har ikke tilgang på dette området."
 msgid "Your password has been changed successfully!"
 msgstr "Passordet ditt er endret."
 
-msgid "Your preferences have been updated successfully!"
-msgstr "Dine innstillinger har blitt oppdatert."
-
 msgid "Your preferences have been updated."
 msgstr "Dine innstillinger har blitt oppdatert."
 
@@ -1320,9 +1320,6 @@ msgstr "Tidligste"
 
 msgid "Latest"
 msgstr "Siste"
-
-msgid "Pages"
-msgstr "Sider"
 
 #, python-brace-format
 msgid "Edit '{title}'"

@@ -4,13 +4,14 @@
 #
 # Translators:
 # Jihan Chung <jihanchung20@gmail.com>, 2015
+# Kyungil Choi <hanpama@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-04-19 21:09+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-06-19 16:55+0000\n"
+"PO-Revision-Date: 2017-06-23 15:15+0000\n"
+"Last-Translator: Kyungil Choi <hanpama@gmail.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
 "MIME-Version: 1.0\n"
@@ -18,6 +19,21 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ko\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "{} submissions"
+msgstr "{} 제출"
+
+msgid "Date from"
+msgstr "시작일"
+
+msgid "Date to"
+msgstr "종료일"
+
+#, python-format
+msgid "There is another field with the label %s, please change one of them."
+msgstr ""
+"%s 레이블을 사용하는 다른 필드가 있습니다. 그 중 하나는 다른 걸로 바꾸어 주세"
+"요."
 
 msgid "Single line text"
 msgstr "단일 라인 텍스트"
@@ -52,21 +68,89 @@ msgstr "날짜"
 msgid "Date/time"
 msgstr "날짜/시간"
 
+msgid "submit time"
+msgstr "제출 시간"
+
+msgid "form submission"
+msgstr "양식 제출"
+
+msgid "label"
+msgstr "레이블"
+
 msgid "The label of the form field"
-msgstr "양식 폼의 라벨"
+msgstr "양식 폼의 레이블"
+
+msgid "field type"
+msgstr "필드 종류"
+
+msgid "required"
+msgstr "필수"
+
+msgid "choices"
+msgstr "선택지"
 
 msgid ""
 "Comma separated list of choices. Only applicable in checkboxes, radio and "
 "dropdown."
 msgstr ""
-"콤마로 나뉘어져 있는 선택사항들이 있습니다. 오직 체크박스, 라디오버튼, 드롭다"
-"운 형태가 적용 가능합니다."
+"콤마로 선택지의 목록을 나눕니다  체크박스, 라디오 버튼, 드롭다운에 적용됩니"
+"다."
+
+msgid "default value"
+msgstr "기본값"
 
 msgid "Default value. Comma separated values supported for checkboxes."
 msgstr "기본값. 콤마로 분류되는 값들은 체크박스를 지원합니다."
 
+msgid "help text"
+msgstr "도움말"
+
+msgid "Submission date"
+msgstr "제출일"
+
+msgid "to address"
+msgstr "받는 주소"
+
+msgid ""
+"Optional - form submissions will be emailed to these addresses. Separate "
+"multiple addresses by comma."
+msgstr ""
+"선택 사항 - 양식 제출이 이 이메일 주소들로 전송됩니다. 여러 개의 주소는 콤마"
+"로 구분하여 적습니다."
+
+msgid "from address"
+msgstr "보내는 주소"
+
+msgid "subject"
+msgstr "주제"
+
+#, python-format
+msgid "Delete form data %(title)s"
+msgstr "양식 데이터 %(title)s 삭제"
+
+msgid "Delete form data"
+msgstr "양식 데이터 삭제"
+
+msgid ""
+"\n"
+"                Are you sure you want to delete this form submission?\n"
+"            "
+msgid_plural ""
+"\n"
+"                Are you sure you want to delete these form submissions?\n"
+"            "
+msgstr[0] ""
+"\n"
+"이 양식 제출을 삭제하는 것이 확실한가요?"
+
 msgid "Delete"
 msgstr "삭제"
+
+msgid "Total submissions"
+msgstr "전체 제출"
+
+msgid "Latest submission"
+msgstr "최근 제출"
 
 msgid "Forms"
 msgstr "양식"
@@ -96,7 +180,15 @@ msgid "Title"
 msgstr "제목"
 
 msgid "Origin"
-msgstr "오리지날"
+msgstr "원본"
+
+msgid "Delete selected submissions"
+msgstr "선택된 제출 삭제"
 
 msgid "No form pages have been created."
-msgstr "양식용 페이지가 생성되지 않았습니다."
+msgstr "양식 페이지가 생성되지 않았습니다."
+
+#, python-format
+msgid "One submission has been deleted."
+msgid_plural "%(count)d submissions have been deleted."
+msgstr[0] "%(count)d개의 제출이 삭제되었습니다."

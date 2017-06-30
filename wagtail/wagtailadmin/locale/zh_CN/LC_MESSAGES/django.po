@@ -15,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-05-09 18:34+0000\n"
-"Last-Translator: hanfeng <appweb.cn@gmail.com>\n"
+"POT-Creation-Date: 2017-06-19 16:55+0000\n"
+"PO-Revision-Date: 2017-06-20 02:40+0000\n"
+"Last-Translator: Vincent Zhao <zhaopu2008@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -114,6 +114,10 @@ msgid_plural ""
 "%(count)s of the pages being copied are live. Would you like to publish "
 "their copies?"
 msgstr[0] "正在复制的 %(count)s 个页面已是发布状态，你要发布他们的副本吗？"
+
+#, python-format
+msgid "You do not have permission to copy to page \"%(page_title)s\""
+msgstr "你没有权限复制到页面“%(page_title)s”"
 
 #, python-format
 msgid ""
@@ -219,6 +223,33 @@ msgstr "密码已重置。"
 msgid "Reset your password"
 msgstr "重设密码"
 
+msgid "Edit"
+msgstr "编辑"
+
+msgid "Page"
+msgstr "页面"
+
+msgid "Pages"
+msgstr "页面"
+
+msgid "Loading..."
+msgstr "正在载入..."
+
+msgid "No results"
+msgstr "没有结果"
+
+msgid "Server Error"
+msgstr "服务器错误"
+
+msgid "See children"
+msgstr "查看子页面"
+
+msgid "See all"
+msgstr "查看全部"
+
+msgid "Close explorer"
+msgstr "关闭资源管理"
+
 msgid "Dashboard"
 msgstr "控制面板"
 
@@ -293,6 +324,31 @@ msgstr "插入链接"
 msgid "Add an external link"
 msgstr "添加一个外部链接"
 
+msgid "Collection privacy"
+msgstr "集合隐私性"
+
+msgid "This collection has been made private by a parent collection."
+msgstr "这个集合已经被父集合设为隐私。"
+
+msgid "You can edit the privacy settings on:"
+msgstr "你可以在这里修改此配置："
+
+msgid ""
+"Privacy settings determine who is able to view documents in this collection."
+msgstr "隐私性设置决定谁可以查看这个集合中的文档。"
+
+msgid "Save"
+msgstr "保存"
+
+msgid "Privacy"
+msgstr "隐私"
+
+msgid "Public"
+msgstr "公开"
+
+msgid "Private"
+msgstr "私有"
+
 msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
 msgstr "集合非空，不能删除，它包含有："
@@ -313,9 +369,6 @@ msgstr "添加%(heading)s"
 
 msgid "Yes, delete"
 msgstr "是的， 删除"
-
-msgid "Save"
-msgstr "保存"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -349,9 +402,6 @@ msgstr "通过"
 
 msgid "Reject"
 msgstr "拒绝"
-
-msgid "Edit"
-msgstr "编辑"
 
 msgid "Preview"
 msgstr "预览"
@@ -454,9 +504,6 @@ msgstr "页面保护"
 msgid "This page has been made private by a parent page."
 msgstr "此页面已被父节点设置为隐藏。"
 
-msgid "You can edit the privacy settings on:"
-msgstr "你可以在这里修改此配置："
-
 msgid "Privacy changes apply to all children of this page too."
 msgstr "隐私也会应用到此页面的所有子页面。"
 
@@ -468,15 +515,6 @@ msgstr "已锁定"
 
 msgid "Unlocked"
 msgstr "已解锁"
-
-msgid "Privacy"
-msgstr "隐私"
-
-msgid "Public"
-msgstr "公开"
-
-msgid "Private"
-msgstr "私有"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -865,6 +903,9 @@ msgstr "于"
 msgid "Current draft"
 msgstr "当前草稿"
 
+msgid "Live version"
+msgstr "发布版本"
+
 msgid "Review this revision"
 msgstr "查看这个修订"
 
@@ -1065,6 +1106,9 @@ msgstr "挪威博克马尔语"
 msgid "Netherlands Dutch"
 msgstr "荷兰语"
 
+msgid "Persian"
+msgstr "波斯语"
+
 msgid "Polish"
 msgstr "波兰语"
 
@@ -1088,9 +1132,6 @@ msgstr "对不起， 你没有权限访问。"
 
 msgid "Your password has been changed successfully!"
 msgstr "密码成功修改！"
-
-msgid "Your preferences have been updated successfully!"
-msgstr "参数成功更新！"
 
 msgid "Your preferences have been updated."
 msgstr "你的首选项已被更新。"
@@ -1258,9 +1299,6 @@ msgstr "最早的"
 
 msgid "Latest"
 msgstr "最近的"
-
-msgid "Pages"
-msgstr "页面"
 
 #, python-brace-format
 msgid "Edit '{title}'"

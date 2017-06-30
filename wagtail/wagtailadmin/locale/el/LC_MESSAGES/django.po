@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-04-19 21:05+0000\n"
+"POT-Creation-Date: 2017-06-19 16:55+0000\n"
+"PO-Revision-Date: 2017-06-19 16:57+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
@@ -217,6 +217,12 @@ msgstr "Ανανέωση κωδικού"
 msgid "Reset your password"
 msgstr "Ανανεώστε τον κωδικό σας"
 
+msgid "Edit"
+msgstr "Διόρθωση"
+
+msgid "Pages"
+msgstr "Σελίδες"
+
 msgid "Dashboard"
 msgstr "Πίνακας ελέγχου"
 
@@ -300,6 +306,21 @@ msgstr "Εισαγωγή σύνδεσης"
 msgid "Add an external link"
 msgstr "Προσθήκη εξωτερικής σύνδεσης"
 
+msgid "You can edit the privacy settings on:"
+msgstr "Μπορείτε να επεξεργαστείτε τις ρυθμίσεις απορρήτου στο:"
+
+msgid "Save"
+msgstr "Αποθηκευση"
+
+msgid "Privacy"
+msgstr "Ιδιωτικότητα"
+
+msgid "Public"
+msgstr "Δημοσιο"
+
+msgid "Private"
+msgstr "Ιδιωτικό"
+
 msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
 msgstr ""
@@ -323,9 +344,6 @@ msgstr "Προσθήκη %(heading)s"
 
 msgid "Yes, delete"
 msgstr "Ναι, να διαγραφεί"
-
-msgid "Save"
-msgstr "Αποθηκευση"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -361,9 +379,6 @@ msgstr "Έγκριση"
 
 msgid "Reject"
 msgstr "Απόρριψη"
-
-msgid "Edit"
-msgstr "Διόρθωση"
 
 msgid "Preview"
 msgstr "Προεπισκόπηση"
@@ -473,9 +488,6 @@ msgstr "Ιδιωτικοτητα σελιδας"
 msgid "This page has been made private by a parent page."
 msgstr "Αυτή η σελίδα έχει γίνει ιδιωτική από μια κύρια σελίδα."
 
-msgid "You can edit the privacy settings on:"
-msgstr "Μπορείτε να επεξεργαστείτε τις ρυθμίσεις απορρήτου στο:"
-
 msgid "Privacy changes apply to all children of this page too."
 msgstr ""
 "Τυχόν αλλαγές Προστασίας Προσωπικών Δεδομένων θα ισχύουν για όλες τις "
@@ -489,15 +501,6 @@ msgstr "Κλειδωμένο"
 
 msgid "Unlocked"
 msgstr "Ξεκλειδωμενο"
-
-msgid "Privacy"
-msgstr "Ιδιωτικότητα"
-
-msgid "Public"
-msgstr "Δημοσιο"
-
-msgid "Private"
-msgstr "Ιδιωτικό"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -1070,9 +1073,6 @@ msgstr "Δεν έχετε πρόσβαση στην περιοχή."
 msgid "Your password has been changed successfully!"
 msgstr "Ο κωδικός σας αλλάχτηκε με επιτυχία!"
 
-msgid "Your preferences have been updated successfully!"
-msgstr "Οι προτιμήσεις σας έχουν ενημερωθεί επιτυχώς!"
-
 msgid "You have been successfully logged out."
 msgstr "Έχετε αποσυνδεθεί."
 
@@ -1237,9 +1237,6 @@ msgstr "Πιο πρόσφατες"
 
 msgid "Latest"
 msgstr "Τελευταίες"
-
-msgid "Pages"
-msgstr "Σελίδες"
 
 #, python-brace-format
 msgid "Edit '{title}'"

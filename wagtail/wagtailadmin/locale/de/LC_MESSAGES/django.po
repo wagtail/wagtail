@@ -25,9 +25,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-04-20 00:08+0000\n"
-"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
+"POT-Creation-Date: 2017-06-19 16:55+0000\n"
+"PO-Revision-Date: 2017-06-20 07:41+0000\n"
+"Last-Translator: Moritz Pfeiffer <moritz@alp-phone.ch>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -134,6 +134,10 @@ msgstr[0] ""
 msgstr[1] ""
 "Von den kopierten Seiten sind %(count)s bereits veröffentlicht. Möchten Sie "
 "deren Kopien ebenfalls veröffentlichen?"
+
+#, python-format
+msgid "You do not have permission to copy to page \"%(page_title)s\""
+msgstr "Sie sind nicht berechtigt in die Seite \"%(page_title)s\" zu kopieren"
 
 #, python-format
 msgid ""
@@ -247,6 +251,33 @@ msgstr "Passwort zurückgesetzt"
 msgid "Reset your password"
 msgstr "Setzen Sie Ihr Passwort zurück"
 
+msgid "Edit"
+msgstr "Bearbeiten"
+
+msgid "Page"
+msgstr "Seite"
+
+msgid "Pages"
+msgstr "Seiten"
+
+msgid "Loading..."
+msgstr "Laden..."
+
+msgid "No results"
+msgstr "Keine Ergebnisse"
+
+msgid "Server Error"
+msgstr "Server-Fehler"
+
+msgid "See children"
+msgstr "Unterseiten einsehen"
+
+msgid "See all"
+msgstr "Alles einsehen"
+
+msgid "Close explorer"
+msgstr "Explorer schliessen"
+
 msgid "Dashboard"
 msgstr "Dashboard"
 
@@ -330,6 +361,33 @@ msgstr "Link einfügen"
 msgid "Add an external link"
 msgstr "Externen Link hinzufügen"
 
+msgid "Collection privacy"
+msgstr "Sammlungschutz"
+
+msgid "This collection has been made private by a parent collection."
+msgstr "Diese Sammlung wurde durch eine übergeordnete Sammlung geschützt."
+
+msgid "You can edit the privacy settings on:"
+msgstr "Sie können die Schutzeinstellungen hier bearbeiten:"
+
+msgid ""
+"Privacy settings determine who is able to view documents in this collection."
+msgstr ""
+"Schutzeinstellungen legen fest wer Dokumente in dieser Sammlung einsehen "
+"darf."
+
+msgid "Save"
+msgstr "Speichern"
+
+msgid "Privacy"
+msgstr "Schutz"
+
+msgid "Public"
+msgstr "Öffentlich"
+
+msgid "Private"
+msgstr "Geschützt"
+
 msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
 msgstr ""
@@ -353,9 +411,6 @@ msgstr "%(heading)s hinzufügen"
 
 msgid "Yes, delete"
 msgstr "Ja, Löschen"
-
-msgid "Save"
-msgstr "Speichern"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -391,9 +446,6 @@ msgstr "Freischalten"
 
 msgid "Reject"
 msgstr "Ablehnen"
-
-msgid "Edit"
-msgstr "Bearbeiten"
 
 msgid "Preview"
 msgstr "Vorschau"
@@ -503,9 +555,6 @@ msgstr "Seitenschutz"
 msgid "This page has been made private by a parent page."
 msgstr "Diese Seite wurde durch eine Oberseite geschützt."
 
-msgid "You can edit the privacy settings on:"
-msgstr "Sie können die Schutzeinstellungen hier bearbeiten:"
-
 msgid "Privacy changes apply to all children of this page too."
 msgstr "Schutzeinstellungen gelten ebenfalls für alle Unterseiten."
 
@@ -517,15 +566,6 @@ msgstr "Gesperrt"
 
 msgid "Unlocked"
 msgstr "Entsperrt"
-
-msgid "Privacy"
-msgstr "Schutz"
-
-msgid "Public"
-msgstr "Öffentlich"
-
-msgid "Private"
-msgstr "Geschützt"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -947,6 +987,9 @@ msgstr "von"
 msgid "Current draft"
 msgstr "Aktueller Entwurf"
 
+msgid "Live version"
+msgstr "Veröffentlichte Version"
+
 msgid "Review this revision"
 msgstr "Diese Revision begutachten"
 
@@ -1156,6 +1199,9 @@ msgstr "Norwegische Buchsprache"
 msgid "Netherlands Dutch"
 msgstr "Niederländisch"
 
+msgid "Persian"
+msgstr "Persisch"
+
 msgid "Polish"
 msgstr "Polnisch"
 
@@ -1179,9 +1225,6 @@ msgstr "Sie haben leider keinen Zugang zu diesem Bereich."
 
 msgid "Your password has been changed successfully!"
 msgstr "Ihr Passwort wurde erfolgreich geändert."
-
-msgid "Your preferences have been updated successfully!"
-msgstr "Ihre Einstellungen wurden erfolgreich aktualisiert!"
 
 msgid "Your preferences have been updated."
 msgstr "Ihre Einstellungen wurden aktualisiert."
@@ -1356,9 +1399,6 @@ msgstr "Früheste"
 
 msgid "Latest"
 msgstr "Späteste"
-
-msgid "Pages"
-msgstr "Seiten"
 
 #, python-brace-format
 msgid "Edit '{title}'"

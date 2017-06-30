@@ -17,9 +17,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-06-09 12:36+0000\n"
-"Last-Translator: Luiz Boaretto <lboaretto@gmail.com>\n"
+"POT-Creation-Date: 2017-06-19 16:55+0000\n"
+"PO-Revision-Date: 2017-06-19 16:57+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -230,6 +230,12 @@ msgstr "Redefinição de senha"
 msgid "Reset your password"
 msgstr "Redefina sua senha"
 
+msgid "Edit"
+msgstr "Editar"
+
+msgid "Pages"
+msgstr "Páginas"
+
 msgid "Dashboard"
 msgstr "Painel"
 
@@ -315,6 +321,21 @@ msgstr "Insira um link"
 msgid "Add an external link"
 msgstr "Adicione um link externo"
 
+msgid "You can edit the privacy settings on:"
+msgstr "Você pode editar as configurações de privacidade em:"
+
+msgid "Save"
+msgstr "Salvar"
+
+msgid "Privacy"
+msgstr "Particular"
+
+msgid "Public"
+msgstr "Público"
+
+msgid "Private"
+msgstr "Privativo"
+
 msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
 msgstr "Esta coleção não pode ser excluída, porque ela não está vazia. Contém:"
@@ -336,9 +357,6 @@ msgstr "Adicionar %(heading)s"
 
 msgid "Yes, delete"
 msgstr "Sim, remover"
-
-msgid "Save"
-msgstr "Salvar"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -374,9 +392,6 @@ msgstr "Aprovar"
 
 msgid "Reject"
 msgstr "Rejeitar"
-
-msgid "Edit"
-msgstr "Editar"
 
 msgid "Preview"
 msgstr "Pré-visualizar"
@@ -482,9 +497,6 @@ msgstr "Página privada"
 msgid "This page has been made private by a parent page."
 msgstr "Essa página foi feita privativa por uma página raíz."
 
-msgid "You can edit the privacy settings on:"
-msgstr "Você pode editar as configurações de privacidade em:"
-
 msgid "Privacy changes apply to all children of this page too."
 msgstr ""
 "Alterações na privacidade também se aplicam a todas as subpáginas desta "
@@ -498,15 +510,6 @@ msgstr "Bloqueado"
 
 msgid "Unlocked"
 msgstr "Desbloqueado"
-
-msgid "Privacy"
-msgstr "Particular"
-
-msgid "Public"
-msgstr "Público"
-
-msgid "Private"
-msgstr "Privativo"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -1153,9 +1156,6 @@ msgstr "Desculpe, você não tem permissão para acessar esta área."
 msgid "Your password has been changed successfully!"
 msgstr "Sua senha foi alterada com sucesso!"
 
-msgid "Your preferences have been updated successfully!"
-msgstr "Suas preferências foram atualizadas com sucesso!"
-
 msgid "Your preferences have been updated."
 msgstr "Suas preferências foram atualizadas."
 
@@ -1322,9 +1322,6 @@ msgstr "Mais cedo"
 
 msgid "Latest"
 msgstr "Mais recentes"
-
-msgid "Pages"
-msgstr "Páginas"
 
 #, python-brace-format
 msgid "Edit '{title}'"

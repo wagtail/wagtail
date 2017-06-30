@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-04-19 21:05+0000\n"
+"POT-Creation-Date: 2017-06-19 16:55+0000\n"
+"PO-Revision-Date: 2017-06-19 16:57+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (http://www.transifex.com/torchbox/wagtail/language/"
 "zh/)\n"
@@ -119,6 +119,9 @@ msgstr "密码已重置"
 msgid "Reset your password"
 msgstr "重置您的密码"
 
+msgid "Edit"
+msgstr "编辑"
+
 msgid "Dashboard"
 msgstr "仪表板"
 
@@ -161,11 +164,11 @@ msgstr "插入一个链接"
 msgid "Add an external link"
 msgstr "添加一个外部链接"
 
-msgid "Yes, delete"
-msgstr "是的，删除"
-
 msgid "Save"
 msgstr "保存"
+
+msgid "Yes, delete"
+msgstr "是的，删除"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -199,9 +202,6 @@ msgstr "通过"
 
 msgid "Reject"
 msgstr "拒绝"
-
-msgid "Edit"
-msgstr "编辑"
 
 msgid "Preview"
 msgstr "预览"

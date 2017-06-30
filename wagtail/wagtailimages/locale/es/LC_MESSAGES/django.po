@@ -9,16 +9,16 @@
 # Daniel Chimeno <daniel@chimeno.me>, 2015
 # fooflare <amos.oviedo@gmail.com>, 2014
 # Joaquín Tita <carpincho@gmail.com>, 2014
-# Yusuf (Josè) Luis <alagunajs@gmail.com>, 2015-2016
+# José Luis <alagunajs@gmail.com>, 2015-2016
 # Mauricio Baeza <python@amigos.email>, 2015
-# Yusuf (Josè) Luis <alagunajs@gmail.com>, 2016-2017
+# José Luis <alagunajs@gmail.com>, 2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
+"POT-Creation-Date: 2017-06-19 16:55+0000\n"
 "PO-Revision-Date: 2017-04-30 11:45+0000\n"
-"Last-Translator: Yusuf (Josè) Luis <alagunajs@gmail.com>\n"
+"Last-Translator: José Luis <alagunajs@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"

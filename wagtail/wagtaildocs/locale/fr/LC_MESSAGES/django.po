@@ -4,7 +4,7 @@
 #
 # Translators:
 # Benoît Vogel <contact@spicy-informatique.com>, 2017
-# Bertrand Bordage <bordage.bertrand@gmail.com>, 2015-2016
+# Bertrand Bordage <bordage.bertrand@gmail.com>, 2015-2017
 # Léo <leo@naeka.fr>, 2016
 # nahuel, 2014
 # nahuel, 2014
@@ -14,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-02-12 18:01+0000\n"
-"Last-Translator: Benoît Vogel <contact@spicy-informatique.com>\n"
+"POT-Creation-Date: 2017-06-19 16:55+0000\n"
+"PO-Revision-Date: 2017-06-20 09:56+0000\n"
+"Last-Translator: Bertrand Bordage <bordage.bertrand@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -239,6 +239,9 @@ msgstr "Mettre à jour"
 
 msgid "Delete"
 msgstr "Supprimer"
+
+msgid "You need a password to access this document."
+msgstr "Il vous faut un mot de passe pour accéder à ce document."
 
 msgid "Document permissions"
 msgstr "Permissions de document"

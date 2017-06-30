@@ -4,14 +4,15 @@
 #
 # Translators:
 # hanfeng <appweb.cn@gmail.com>, 2014-2015
+# Vincent Zhao <zhaopu2008@gmail.com>, 2017
 # jszsj <zhushajun@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-04-05 03:24+0000\n"
-"Last-Translator: jszsj <zhushajun@gmail.com>\n"
+"POT-Creation-Date: 2017-06-19 16:55+0000\n"
+"PO-Revision-Date: 2017-06-20 02:43+0000\n"
+"Last-Translator: Vincent Zhao <zhaopu2008@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -221,6 +222,9 @@ msgstr "更新"
 
 msgid "Delete"
 msgstr "删除"
+
+msgid "You need a password to access this document."
+msgstr "你需要一个密码来访问这个文档。"
 
 msgid "Document permissions"
 msgstr "文档权限"

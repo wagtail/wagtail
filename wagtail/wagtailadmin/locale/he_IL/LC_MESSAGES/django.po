@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-04-19 21:05+0000\n"
+"POT-Creation-Date: 2017-06-19 16:55+0000\n"
+"PO-Revision-Date: 2017-06-19 16:57+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/torchbox/wagtail/"
 "language/he_IL/)\n"
@@ -182,6 +182,9 @@ msgstr "איתחול סיסמה"
 msgid "Reset your password"
 msgstr "אתחלו את סיסמתכם"
 
+msgid "Edit"
+msgstr "עריכה"
+
 msgid "Dashboard"
 msgstr "לוח מחוונים"
 
@@ -243,6 +246,18 @@ msgstr "הכניסו קישור"
 msgid "Add an external link"
 msgstr "הוסיפו קישור חיצוני"
 
+msgid "You can edit the privacy settings on:"
+msgstr "ניתן לערוך את הגדרת הפרטיות ב:"
+
+msgid "Privacy"
+msgstr "פרטיות"
+
+msgid "Public"
+msgstr "ציבורי"
+
+msgid "Private"
+msgstr "פרטי"
+
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
 msgstr "ברוך הבא לנחליאלי CMS של %(site_name)s"
@@ -275,9 +290,6 @@ msgstr "אשרו"
 
 msgid "Reject"
 msgstr "דחו"
-
-msgid "Edit"
-msgstr "עריכה"
 
 msgid "Preview"
 msgstr "תצוגה מקדימה"
@@ -367,9 +379,6 @@ msgstr "הגדרות פרטיות של העמוד"
 msgid "This page has been made private by a parent page."
 msgstr "עמוד זה הוגדר כפרטי על ידי עמוד הורה"
 
-msgid "You can edit the privacy settings on:"
-msgstr "ניתן לערוך את הגדרת הפרטיות ב:"
-
 msgid "Privacy changes apply to all children of this page too."
 msgstr "שינויי הפרטיות תקפים גם על כל תת-העמודים של עמוד זה."
 
@@ -381,15 +390,6 @@ msgstr "נעול"
 
 msgid "Unlocked"
 msgstr "בלתי נעול"
-
-msgid "Privacy"
-msgstr "פרטיות"
-
-msgid "Public"
-msgstr "ציבורי"
-
-msgid "Private"
-msgstr "פרטי"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -672,9 +672,6 @@ msgstr "הוספת תת-עמוד"
 
 msgid "Your password has been changed successfully!"
 msgstr "סיסמתכם שונתה בהצלחה!"
-
-msgid "Your preferences have been updated successfully!"
-msgstr "העדופיתכם עודכנו בהצלחה!"
 
 #, python-brace-format
 msgid "Page '{0}' created and published."

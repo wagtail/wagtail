@@ -284,14 +284,14 @@ Translators
 * Portuguese (Brazil): Claudemiro Alves Feitosa Neto, Bruno Bertoldi, Luiz Boaretto, Gladson Brito, Thiago Cangussu, Gilson Filho, Joao Garcia, João Luiz Lorencetti, Marcio Mazza, Douglas Miranda, Guilherme Nabanete
 * Portuguese (Portugal): Gladson Brito, Thiago Cangussu, Tiago Henriques, Jose Lourenco, Nuno Matos, Douglas Miranda, Manuela Silva
 * Romanian: Dan Braghis
-* Russian: ajk, Andrey Avdey, Daniil, gsstver, Sergey Khalymon, Sergey Komarov, Eugene MechanisM, Rustam Mirzaev, Mikalai Radchuk, Alexandr Romantsov, Nikita Viktorovich
+* Russian: ajk, Andrey Avdey, Daniil, gsstver, Sergey Khalymon, Sergey Komarov, Eugene MechanisM, Rustam Mirzaev, Mikalai Radchuk, Alexandr Romantsov, Nikita Viktorovich, Vassiliy Vorobyov
 * Slovak (Slovakia): Stevo Backor, dellax, Jozef Karabelly
 * Slovenian: Mitja Pagon
-* Spanish: Mauricio Baeza, Daniel Chimeno, fonso, fooflare, Yusuf (Josè) Luis, Joaquín Tita, Unai Zalakain
+* Spanish: Mauricio Baeza, Daniel Chimeno, fonso, fooflare, José Luis, Joaquín Tita, Unai Zalakain
 * Spanish (Spain): Daniel Chimeno
 * Swedish: Alexander Holmbäck, André Karlsson, Ludwig Kjellström, Thomas Kunambi, Hannes Lohmander
 * Swedish (Sweden): Jon Karlsson, Thomas Kunambi
 * Turkish: Cihad Gündoǧdu
-* Turkish (Turkey): Saadettin Yasir Akel, Cihad Gündoǧdu, Yusuf (Josè) Luis, Ragıp Ünal
+* Turkish (Turkey): Saadettin Yasir Akel, Cihad Gündoǧdu, José Luis, Ragıp Ünal
 * Ukrainian: Mykola Zamkovoi
 * Vietnamese: Luan Nguyen

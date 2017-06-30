@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-04-19 21:05+0000\n"
+"POT-Creation-Date: 2017-06-19 16:55+0000\n"
+"PO-Revision-Date: 2017-06-19 16:57+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
@@ -213,6 +213,12 @@ msgstr "Contrasenya reiniciada"
 msgid "Reset your password"
 msgstr "Reinicia la teva contrasenya "
 
+msgid "Edit"
+msgstr "Edita"
+
+msgid "Pages"
+msgstr "Pàgines"
+
 msgid "Dashboard"
 msgstr "Tauler de control"
 
@@ -300,6 +306,21 @@ msgstr "Insereix un enllaç"
 msgid "Add an external link"
 msgstr "Afegeix un enllaç extern"
 
+msgid "You can edit the privacy settings on:"
+msgstr "Podeu editar la configuració de privadesa a:"
+
+msgid "Save"
+msgstr "Desar"
+
+msgid "Privacy"
+msgstr "Privadesa"
+
+msgid "Public"
+msgstr "Publica"
+
+msgid "Private"
+msgstr "Privada"
+
 msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
 msgstr ""
@@ -322,9 +343,6 @@ msgstr "Afegir %(heading)s"
 
 msgid "Yes, delete"
 msgstr "Sí, eliminar"
-
-msgid "Save"
-msgstr "Desar"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -360,9 +378,6 @@ msgstr "Aprovar"
 
 msgid "Reject"
 msgstr "Rebutjar"
-
-msgid "Edit"
-msgstr "Edita"
 
 msgid "Preview"
 msgstr "Vista prèvia"
@@ -470,9 +485,6 @@ msgstr "Privadesa de la pàgina"
 msgid "This page has been made private by a parent page."
 msgstr "Aquesta pàgina ha estat feta privada per una pàgina pare."
 
-msgid "You can edit the privacy settings on:"
-msgstr "Podeu editar la configuració de privadesa a:"
-
 msgid "Privacy changes apply to all children of this page too."
 msgstr ""
 "Els canvis a la privadesa s'apliquen també a totes les pàgines filles "
@@ -486,15 +498,6 @@ msgstr "Bloquejada"
 
 msgid "Unlocked"
 msgstr "Desbloquejada"
-
-msgid "Privacy"
-msgstr "Privadesa"
-
-msgid "Public"
-msgstr "Publica"
-
-msgid "Private"
-msgstr "Privada"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -1067,9 +1070,6 @@ msgstr "No teniu permís per accedir a aquesta àrea."
 msgid "Your password has been changed successfully!"
 msgstr "S'ha canviat la teva contrasenya!"
 
-msgid "Your preferences have been updated successfully!"
-msgstr "Les vostres preferències han estat actualitzades!"
-
 msgid "You have been successfully logged out."
 msgstr "Heu finalitzat la sessió."
 
@@ -1235,9 +1235,6 @@ msgstr "La més antiga"
 
 msgid "Latest"
 msgstr "L'última"
-
-msgid "Pages"
-msgstr "Pàgines"
 
 #, python-brace-format
 msgid "Edit '{title}'"

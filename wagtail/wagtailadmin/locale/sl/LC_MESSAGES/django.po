@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-04-19 21:05+0000\n"
+"POT-Creation-Date: 2017-06-19 16:55+0000\n"
+"PO-Revision-Date: 2017-06-19 16:57+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
@@ -201,6 +201,12 @@ msgstr "Geslo ponastavljeno"
 msgid "Reset your password"
 msgstr "Ponastavi geslo"
 
+msgid "Edit"
+msgstr "Uredi"
+
+msgid "Pages"
+msgstr "Strani"
+
 msgid "Dashboard"
 msgstr "Nadzorna plošča"
 
@@ -272,6 +278,21 @@ msgstr "Vstavi povezavo"
 msgid "Add an external link"
 msgstr "Dodaj zunanjo povezavo"
 
+msgid "You can edit the privacy settings on:"
+msgstr "Nastavitve zasebnosti lahko uredite tukaj:"
+
+msgid "Save"
+msgstr "Shrani"
+
+msgid "Privacy"
+msgstr "Zasebnost"
+
+msgid "Public"
+msgstr "Javno"
+
+msgid "Private"
+msgstr "Zasebno"
+
 msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
 msgstr "Zbirke ni mogoče izbrisati, ker ni prazna. Vsebuje sledeče:"
@@ -293,9 +314,6 @@ msgstr "Dodaj %(heading)s"
 
 msgid "Yes, delete"
 msgstr "Da, izbriši"
-
-msgid "Save"
-msgstr "Shrani"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -331,9 +349,6 @@ msgstr "Potrdi"
 
 msgid "Reject"
 msgstr "Zavrni"
-
-msgid "Edit"
-msgstr "Uredi"
 
 msgid "Preview"
 msgstr "Predogled"
@@ -444,9 +459,6 @@ msgstr "Zasebnost strani"
 msgid "This page has been made private by a parent page."
 msgstr "Stran je zasebna, ker je kot zasebna označena nadrejena stran."
 
-msgid "You can edit the privacy settings on:"
-msgstr "Nastavitve zasebnosti lahko uredite tukaj:"
-
 msgid "Privacy changes apply to all children of this page too."
 msgstr "Nastavitve zasebnosti veljajo tudi za vse podrejene strani."
 
@@ -458,15 +470,6 @@ msgstr "Zaklenjeno"
 
 msgid "Unlocked"
 msgstr "Odklenjeno"
-
-msgid "Privacy"
-msgstr "Zasebnost"
-
-msgid "Public"
-msgstr "Javno"
-
-msgid "Private"
-msgstr "Zasebno"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -841,9 +844,6 @@ msgstr "Žal nimate dovoljenja za dostop do tega območja."
 msgid "Your password has been changed successfully!"
 msgstr "Vaše geslo je bil uspešno spremenjeno!"
 
-msgid "Your preferences have been updated successfully!"
-msgstr "Vaše nastavitve so bile uspešno posodobljenje!"
-
 msgid "Collections"
 msgstr "Zbirke"
 
@@ -948,9 +948,6 @@ msgstr "Stran '{0}' je sedaj zaklenjena."
 #, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "Stran '{0}' je sedaj odklenjena."
-
-msgid "Pages"
-msgstr "Strani"
 
 msgid "Choose an item"
 msgstr "Izberite element"

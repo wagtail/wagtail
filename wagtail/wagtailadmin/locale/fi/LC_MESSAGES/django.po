@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-04-19 21:05+0000\n"
+"POT-Creation-Date: 2017-06-19 16:55+0000\n"
+"PO-Revision-Date: 2017-06-19 16:57+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
@@ -214,6 +214,12 @@ msgstr "Salasanan palautus"
 msgid "Reset your password"
 msgstr "Palauta salasanasi"
 
+msgid "Edit"
+msgstr "Muokkaa"
+
+msgid "Pages"
+msgstr "Sivut"
+
 msgid "Dashboard"
 msgstr "Kojelauta"
 
@@ -295,6 +301,21 @@ msgstr "Lisää linkki"
 msgid "Add an external link"
 msgstr "Lisää ulkoinen linkki"
 
+msgid "You can edit the privacy settings on:"
+msgstr "Voit muokata yksityisyysasetuksia:"
+
+msgid "Save"
+msgstr "Tallenna"
+
+msgid "Privacy"
+msgstr "Yksityisyys"
+
+msgid "Public"
+msgstr "Julkinen"
+
+msgid "Private"
+msgstr "Yksityinen"
+
 msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
 msgstr ""
@@ -317,9 +338,6 @@ msgstr "Lisää %(heading)s"
 
 msgid "Yes, delete"
 msgstr "Kyllä, poista"
-
-msgid "Save"
-msgstr "Tallenna"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -355,9 +373,6 @@ msgstr "Hyväksy"
 
 msgid "Reject"
 msgstr "Hylkää"
-
-msgid "Edit"
-msgstr "Muokkaa"
 
 msgid "Preview"
 msgstr "Esikatsele"
@@ -463,9 +478,6 @@ msgstr "Sivun yksityisyys"
 msgid "This page has been made private by a parent page."
 msgstr "Tämä sivu on asetettu yksityiseksi isäntäsivulta."
 
-msgid "You can edit the privacy settings on:"
-msgstr "Voit muokata yksityisyysasetuksia:"
-
 msgid "Privacy changes apply to all children of this page too."
 msgstr ""
 "Yksityisyyteen tehtävät muutokset vaikuttavat myös kaikkiin tämän sivun "
@@ -479,15 +491,6 @@ msgstr "Lukittu"
 
 msgid "Unlocked"
 msgstr "Ei lukittu"
-
-msgid "Privacy"
-msgstr "Yksityisyys"
-
-msgid "Public"
-msgstr "Julkinen"
-
-msgid "Private"
-msgstr "Yksityinen"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -968,9 +971,6 @@ msgstr "Pahoittelut, mutta sinulla ei ole pääsyä tähän osioon."
 msgid "Your password has been changed successfully!"
 msgstr "Salasanasi on vaihdettu."
 
-msgid "Your preferences have been updated successfully!"
-msgstr "Asetuksesi on päivitetty."
-
 msgid "You have been successfully logged out."
 msgstr "Olet kirjautunut ulos."
 
@@ -1134,9 +1134,6 @@ msgstr "Aikaisin"
 
 msgid "Latest"
 msgstr "Viimeisin"
-
-msgid "Pages"
-msgstr "Sivut"
 
 #, python-brace-format
 msgid "Edit '{title}'"

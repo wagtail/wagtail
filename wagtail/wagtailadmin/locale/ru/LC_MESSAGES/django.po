@@ -20,8 +20,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-04-19 21:05+0000\n"
+"POT-Creation-Date: 2017-06-19 16:55+0000\n"
+"PO-Revision-Date: 2017-06-19 16:57+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
@@ -235,6 +235,12 @@ msgstr "Восстановление пароля"
 msgid "Reset your password"
 msgstr "Сбросить ваш пароль"
 
+msgid "Edit"
+msgstr "Редактировать"
+
+msgid "Pages"
+msgstr "Страницы"
+
 msgid "Dashboard"
 msgstr "Панель управления"
 
@@ -330,6 +336,21 @@ msgstr "Вставить ссылку"
 msgid "Add an external link"
 msgstr "Добавить внешнюю ссылку"
 
+msgid "You can edit the privacy settings on:"
+msgstr "Вы можете редактировать настройки приватности на:"
+
+msgid "Save"
+msgstr "Сохранить"
+
+msgid "Privacy"
+msgstr "Приватность"
+
+msgid "Public"
+msgstr "Публично"
+
+msgid "Private"
+msgstr "Приватно"
+
 msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
 msgstr ""
@@ -352,9 +373,6 @@ msgstr "Добавить %(heading)s"
 
 msgid "Yes, delete"
 msgstr "Да, удалить"
-
-msgid "Save"
-msgstr "Сохранить"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -390,9 +408,6 @@ msgstr "Одобрить"
 
 msgid "Reject"
 msgstr "Отклонить"
-
-msgid "Edit"
-msgstr "Редактировать"
 
 msgid "Preview"
 msgstr "Предпросмотр"
@@ -504,9 +519,6 @@ msgstr "Приватность страницы"
 msgid "This page has been made private by a parent page."
 msgstr "Страница приватна в соответствии с родительской страницей."
 
-msgid "You can edit the privacy settings on:"
-msgstr "Вы можете редактировать настройки приватности на:"
-
 msgid "Privacy changes apply to all children of this page too."
 msgstr "Изменения приватности также накладываются и на дочерние страницы."
 
@@ -518,15 +530,6 @@ msgstr "Заблокировано"
 
 msgid "Unlocked"
 msgstr "Разблокировано"
-
-msgid "Privacy"
-msgstr "Приватность"
-
-msgid "Public"
-msgstr "Публично"
-
-msgid "Private"
-msgstr "Приватно"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -1051,9 +1054,6 @@ msgstr "Извините, но у вас нет доступа в эту обл�
 msgid "Your password has been changed successfully!"
 msgstr "Ваш пароль был успешно изменен!"
 
-msgid "Your preferences have been updated successfully!"
-msgstr "Ваши настройки были успешно изменены!"
-
 msgid "You have been successfully logged out."
 msgstr "Вы успешно вышли"
 
@@ -1208,9 +1208,6 @@ msgid ""
 msgstr ""
 "Вы просматриваете предыдущую версию этой страницы от <b>%(created_at)s</b> "
 "созданную пользователем %(user)s"
-
-msgid "Pages"
-msgstr "Страницы"
 
 msgid "More"
 msgstr "Больше"

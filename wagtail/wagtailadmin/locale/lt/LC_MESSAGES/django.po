@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-06-01 12:10+0000\n"
+"POT-Creation-Date: 2017-06-19 16:55+0000\n"
+"PO-Revision-Date: 2017-06-23 11:16+0000\n"
 "Last-Translator: Matas Dailyda <matas@dailyda.com>\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
 "language/lt/)\n"
@@ -124,6 +124,10 @@ msgstr[2] ""
 "kopijas?"
 
 #, python-format
+msgid "You do not have permission to copy to page \"%(page_title)s\""
+msgstr "Jūs neturite leidimo kopijuoti į puslapį \"%(page_title)s\""
+
+#, python-format
 msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
 msgstr "Šis trumpinys jau yra naudojamas tėvinio puslapio kontekste \"%s\""
@@ -233,6 +237,33 @@ msgstr "Slaptažodžio atstatymas"
 msgid "Reset your password"
 msgstr "Atstatyti savo slaptažodį"
 
+msgid "Edit"
+msgstr "Redaguoti"
+
+msgid "Page"
+msgstr "Puslapis"
+
+msgid "Pages"
+msgstr "Puslapiai"
+
+msgid "Loading..."
+msgstr "Kraunama..."
+
+msgid "No results"
+msgstr "Nėra rezultatų"
+
+msgid "Server Error"
+msgstr "Serverio klaida"
+
+msgid "See children"
+msgstr "Žiūrėti vidinius"
+
+msgid "See all"
+msgstr "Žiūrėti viską"
+
+msgid "Close explorer"
+msgstr "Uždaryti naršyklę"
+
 msgid "Dashboard"
 msgstr "Prietaisų skydas"
 
@@ -321,6 +352,33 @@ msgstr "Iterpti nuorodą"
 msgid "Add an external link"
 msgstr "Pridėti išorinę nuorodą"
 
+msgid "Collection privacy"
+msgstr "Kolekcijos privatumas"
+
+msgid "This collection has been made private by a parent collection."
+msgstr "Ši kolekcija buvo padaryta privačia pagal pirminę kolekciją."
+
+msgid "You can edit the privacy settings on:"
+msgstr "Jūs galite redaguoti privatumo nustatymus čia:"
+
+msgid ""
+"Privacy settings determine who is able to view documents in this collection."
+msgstr ""
+"Privatumo nustatymai nustato kas galės žiūrėti dokumentus esančius šioje "
+"kolekcijoje."
+
+msgid "Save"
+msgstr "Išsaugoti"
+
+msgid "Privacy"
+msgstr "Privatumas"
+
+msgid "Public"
+msgstr "Viešas"
+
+msgid "Private"
+msgstr "Privatus"
+
 msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
 msgstr "Ši kolekcija negali būti ištrinta, nes ji nėra tuščia. Joje yra:"
@@ -342,9 +400,6 @@ msgstr "Pridėti %(heading)s"
 
 msgid "Yes, delete"
 msgstr "Taip, ištrinti"
-
-msgid "Save"
-msgstr "Išsaugoti"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -380,9 +435,6 @@ msgstr "Patvirtinti"
 
 msgid "Reject"
 msgstr "Atmesti"
-
-msgid "Edit"
-msgstr "Redaguoti"
 
 msgid "Preview"
 msgstr "Peržiūrėti"
@@ -490,9 +542,6 @@ msgstr "Puslapio privatumas"
 msgid "This page has been made private by a parent page."
 msgstr "Šis puslapis buvo padarytas privačiu pagal tėvinį puslapį."
 
-msgid "You can edit the privacy settings on:"
-msgstr "Jūs galite redaguoti privatumo nustatymus čia:"
-
 msgid "Privacy changes apply to all children of this page too."
 msgstr "Privatumo pakeitimai pritaikomi ir visiems vidiniams puslapiams."
 
@@ -504,15 +553,6 @@ msgstr "Užrakinta"
 
 msgid "Unlocked"
 msgstr "Atrakinta"
-
-msgid "Privacy"
-msgstr "Privatumas"
-
-msgid "Public"
-msgstr "Viešas"
-
-msgid "Private"
-msgstr "Privatus"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -931,6 +971,9 @@ msgstr "pagal"
 msgid "Current draft"
 msgstr "Dabartinis juodraštis"
 
+msgid "Live version"
+msgstr "Publikuota versija"
+
 msgid "Review this revision"
 msgstr "Peržiūrėti šią reviziją"
 
@@ -1138,6 +1181,9 @@ msgstr "Norvegų Bokmål"
 msgid "Netherlands Dutch"
 msgstr "Nyderlandų olandų"
 
+msgid "Persian"
+msgstr "Persų"
+
 msgid "Polish"
 msgstr "Lenkų"
 
@@ -1161,9 +1207,6 @@ msgstr "Atsiprašome, jūs neturite leidimo pasiekti šios zonos."
 
 msgid "Your password has been changed successfully!"
 msgstr "Jūsų slaptažodis buvo sėkmingai atnaujintas!"
-
-msgid "Your preferences have been updated successfully!"
-msgstr "Jūsų nustatymai buvo sėkmingai atnaujinti!"
 
 msgid "Your preferences have been updated."
 msgstr "Jūsų nustatymai buvo atnaujinti."
@@ -1331,9 +1374,6 @@ msgstr "Naujausias"
 
 msgid "Latest"
 msgstr "Vėliausias"
-
-msgid "Pages"
-msgstr "Puslapiai"
 
 #, python-brace-format
 msgid "Edit '{title}'"

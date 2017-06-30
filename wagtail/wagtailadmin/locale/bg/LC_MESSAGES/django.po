@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-04-19 21:05+0000\n"
+"POT-Creation-Date: 2017-06-19 16:55+0000\n"
+"PO-Revision-Date: 2017-06-19 16:57+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Bulgarian (http://www.transifex.com/torchbox/wagtail/language/"
 "bg/)\n"
@@ -99,6 +99,9 @@ msgstr "Паролата е възстановена"
 msgid "Reset your password"
 msgstr "Възстановете паролата си"
 
+msgid "Edit"
+msgstr "Редакция"
+
 msgid "Dashboard"
 msgstr "Работно Табло"
 
@@ -169,9 +172,6 @@ msgstr "Одобрете"
 
 msgid "Reject"
 msgstr "Отхвърлете"
-
-msgid "Edit"
-msgstr "Редакция"
 
 msgid "Preview"
 msgstr "Преглед"

@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-04-19 21:05+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-06-19 16:55+0000\n"
+"PO-Revision-Date: 2017-06-19 19:52+0000\n"
+"Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -150,6 +150,9 @@ msgstr "blocat"
 msgid "first published at"
 msgstr "publicată pentru prima dată la"
 
+msgid "last published at"
+msgstr "publicată pentru prima dată la"
+
 msgid "latest revision created at"
 msgstr "ultima revizie creată la"
 
@@ -252,17 +255,32 @@ msgstr "Privat, accesibil utilizatorilor în grupuri specifice"
 msgid "password"
 msgstr "parolă"
 
+msgid "groups"
+msgstr "grupuri"
+
+msgid "view restriction"
+msgstr "vezi restricție"
+
+msgid "view restrictions"
+msgstr "vezi restricții"
+
 msgid "page view restriction"
 msgstr "restricție de vizualizare pagină"
 
 msgid "page view restrictions"
 msgstr "restricții de vizualizare pagină"
 
-msgid "name"
-msgstr "nume"
-
 msgid "collection"
 msgstr "colecție"
+
+msgid "collection view restriction"
+msgstr "restricție de vizualizare colecție"
+
+msgid "collection view restrictions"
+msgstr "restricție de vizualizare colecții"
+
+msgid "name"
+msgstr "nume"
 
 msgid "collections"
 msgstr "colecții"
@@ -279,6 +297,13 @@ msgstr "Logare"
 msgid "Your username and password didn't match. Please try again."
 msgstr ""
 "Numele de utilizator și parola nu corespund. Vă rugăm să încercați din nou."
+
+msgid ""
+"Your account doesn't have access to this page. To proceed, please log in "
+"with an account that has access."
+msgstr ""
+"Nu aveți access la această pagină. Pentru a continua, vă rugăm să vă logați "
+"cu un cont care are acces."
 
 msgid "Password required"
 msgstr "Parolă necesară"

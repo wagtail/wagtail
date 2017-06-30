@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-04-19 21:05+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-06-19 16:55+0000\n"
+"PO-Revision-Date: 2017-06-23 11:17+0000\n"
+"Last-Translator: Matas Dailyda <matas@dailyda.com>\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
 "language/lt/)\n"
 "MIME-Version: 1.0\n"
@@ -148,6 +148,9 @@ msgstr "Užrakintas"
 msgid "first published at"
 msgstr "pirmą kartą publikuotas"
 
+msgid "last published at"
+msgstr "paskutinį kartą publikuota"
+
 msgid "latest revision created at"
 msgstr "paskutinė revizija sukurta"
 
@@ -250,17 +253,32 @@ msgstr "Privatu, pasiekiama specifinėse grupėse esantiems vartotojams"
 msgid "password"
 msgstr "slaptažodis"
 
+msgid "groups"
+msgstr "grupės"
+
+msgid "view restriction"
+msgstr "žiūrėti apribojimą"
+
+msgid "view restrictions"
+msgstr "žiūrėti apribojimus"
+
 msgid "page view restriction"
 msgstr "puslapio peržiūros apribojimas"
 
 msgid "page view restrictions"
 msgstr "puslapio peržiūros apribojimai"
 
-msgid "name"
-msgstr "pavadinimas"
-
 msgid "collection"
 msgstr "kolekcija"
+
+msgid "collection view restriction"
+msgstr "žiūrėti kolekcijos apribojimą"
+
+msgid "collection view restrictions"
+msgstr "žiūrėti kolekcijos apribojimus"
+
+msgid "name"
+msgstr "pavadinimas"
 
 msgid "collections"
 msgstr "kolekcijos"
