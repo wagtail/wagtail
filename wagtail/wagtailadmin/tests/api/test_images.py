@@ -4,7 +4,7 @@ import json
 
 from django.core.urlresolvers import reverse
 
-from wagtail.api.v2.tests.test_images import TestImageDetail, TestImageListing
+from wagtail.api.v3.tests.test_images import TestImageDetail, TestImageListing
 from wagtail.wagtailimages import get_image_model
 from wagtail.wagtailimages.tests.utils import get_test_image_file
 
@@ -15,7 +15,7 @@ class TestAdminImageListing(AdminAPITestCase, TestImageListing):
     fixtures = ['demosite.json']
 
     def get_response(self, **params):
-        return self.client.get(reverse('wagtailadmin_api_v1:images:listing'), params)
+        return self.client.get(reverse('wagtailadmin_api:images:listing'), params)
 
     def get_image_id_list(self, content):
         return [image['id'] for image in content['items']]
@@ -55,7 +55,7 @@ class TestAdminImageListing(AdminAPITestCase, TestImageListing):
             self.assertEqual(image['meta']['type'], 'wagtailimages.Image')
 
             # Check detail url
-            self.assertEqual(image['meta']['detail_url'], 'http://localhost/admin/api/v2beta/images/%d/' % image['id'])
+            self.assertEqual(image['meta']['detail_url'], 'http://localhost/admin/api/v3beta/images/%d/' % image['id'])
 
 
     #  FIELDS
@@ -135,7 +135,7 @@ class TestAdminImageDetail(AdminAPITestCase, TestImageDetail):
     fixtures = ['demosite.json']
 
     def get_response(self, image_id, **params):
-        return self.client.get(reverse('wagtailadmin_api_v1:images:detail', args=(image_id, )), params)
+        return self.client.get(reverse('wagtailadmin_api:images:detail', args=(image_id, )), params)
 
     def test_basic(self):
         response = self.get_response(5)
@@ -160,7 +160,7 @@ class TestAdminImageDetail(AdminAPITestCase, TestImageDetail):
 
         # Check the meta detail_url
         self.assertIn('detail_url', content['meta'])
-        self.assertEqual(content['meta']['detail_url'], 'http://localhost/admin/api/v2beta/images/5/')
+        self.assertEqual(content['meta']['detail_url'], 'http://localhost/admin/api/v3beta/images/5/')
 
         # Check the thumbnail
 

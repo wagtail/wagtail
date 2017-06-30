@@ -4,8 +4,8 @@ from collections import OrderedDict
 
 from rest_framework.fields import Field
 
-from wagtail.api.v2.serializers import PageSerializer
-from wagtail.api.v2.utils import get_full_url
+from wagtail.api.v3.serializers import PageSerializer
+from wagtail.api.v3.utils import get_full_url
 from wagtail.wagtailcore.models import Page
 
 

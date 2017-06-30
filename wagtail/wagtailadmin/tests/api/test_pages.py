@@ -7,7 +7,7 @@ import json
 from django.core.urlresolvers import reverse
 from django.utils import timezone
 
-from wagtail.api.v2.tests.test_pages import TestPageDetail, TestPageListing
+from wagtail.api.v3.tests.test_pages import TestPageDetail, TestPageListing
 from wagtail.tests.demosite import models
 from wagtail.tests.testapp.models import StreamPage
 from wagtail.wagtailcore.models import Page
@@ -24,7 +24,7 @@ class TestAdminPageListing(AdminAPITestCase, TestPageListing):
     fixtures = ['demosite.json']
 
     def get_response(self, **params):
-        return self.client.get(reverse('wagtailadmin_api_v1:pages:listing'), params)
+        return self.client.get(reverse('wagtailadmin_api:pages:listing'), params)
 
     def get_page_id_list(self, content):
         return [page['id'] for page in content['items']]
@@ -171,7 +171,7 @@ class TestAdminPageListing(AdminAPITestCase, TestPageListing):
                 self.assertIsInstance(feed_image['meta'], dict)
                 self.assertEqual(set(feed_image['meta'].keys()), {'type', 'detail_url'})
                 self.assertEqual(feed_image['meta']['type'], 'wagtailimages.Image')
-                self.assertEqual(feed_image['meta']['detail_url'], 'http://localhost/admin/api/v2beta/images/%d/' % feed_image['id'])
+                self.assertEqual(feed_image['meta']['detail_url'], 'http://localhost/admin/api/v3beta/images/%d/' % feed_image['id'])
 
     def test_fields_parent(self):
         response = self.get_response(type='demosite.BlogEntryPage', fields='parent')
@@ -185,7 +185,7 @@ class TestAdminPageListing(AdminAPITestCase, TestPageListing):
                 'id': 5,
                 'meta': {
                     'type': 'demosite.BlogIndexPage',
-                    'detail_url': 'http://localhost/admin/api/v2beta/pages/5/',
+                    'detail_url': 'http://localhost/admin/api/v3beta/pages/5/',
                     'html_url': 'http://localhost/blog-index/',
                 },
                 'title': "Blog index"
@@ -199,7 +199,7 @@ class TestAdminPageListing(AdminAPITestCase, TestPageListing):
             descendants = page['meta']['descendants']
             self.assertEqual(set(descendants.keys()), {'count', 'listing_url'})
             self.assertIsInstance(descendants['count'], int)
-            self.assertEqual(descendants['listing_url'], 'http://localhost/admin/api/v2beta/pages/?descendant_of=%d' % page['id'])
+            self.assertEqual(descendants['listing_url'], 'http://localhost/admin/api/v3beta/pages/?descendant_of=%d' % page['id'])
 
 
     # CHILD OF FILTER
@@ -295,7 +295,7 @@ class TestAdminPageDetail(AdminAPITestCase, TestPageDetail):
     fixtures = ['demosite.json']
 
     def get_response(self, page_id, **params):
-        return self.client.get(reverse('wagtailadmin_api_v1:pages:detail', args=(page_id, )), params)
+        return self.client.get(reverse('wagtailadmin_api:pages:detail', args=(page_id, )), params)
 
     def test_basic(self):
         response = self.get_response(16)
@@ -320,7 +320,7 @@ class TestAdminPageDetail(AdminAPITestCase, TestPageDetail):
 
         # Check the meta detail_url
         self.assertIn('detail_url', content['meta'])
-        self.assertEqual(content['meta']['detail_url'], 'http://localhost/admin/api/v2beta/pages/16/')
+        self.assertEqual(content['meta']['detail_url'], 'http://localhost/admin/api/v3beta/pages/16/')
 
         # Check the meta html_url
         self.assertIn('html_url', content['meta'])
@@ -340,7 +340,7 @@ class TestAdminPageDetail(AdminAPITestCase, TestPageDetail):
         self.assertIn('children', content['meta'])
         self.assertEqual(content['meta']['children'], {
             'count': 0,
-            'listing_url': 'http://localhost/admin/api/v2beta/pages/?child_of=16'
+            'listing_url': 'http://localhost/admin/api/v3beta/pages/?child_of=16'
         })
 
         # Check the parent field
@@ -351,7 +351,7 @@ class TestAdminPageDetail(AdminAPITestCase, TestPageDetail):
         self.assertIsInstance(content['meta']['parent']['meta'], dict)
         self.assertEqual(set(content['meta']['parent']['meta'].keys()), {'type', 'detail_url', 'html_url'})
         self.assertEqual(content['meta']['parent']['meta']['type'], 'demosite.BlogIndexPage')
-        self.assertEqual(content['meta']['parent']['meta']['detail_url'], 'http://localhost/admin/api/v2beta/pages/5/')
+        self.assertEqual(content['meta']['parent']['meta']['detail_url'], 'http://localhost/admin/api/v3beta/pages/5/')
         self.assertEqual(content['meta']['parent']['meta']['html_url'], 'http://localhost/blog-index/')
 
         # Check that the custom fields are included
@@ -375,7 +375,7 @@ class TestAdminPageDetail(AdminAPITestCase, TestPageDetail):
         self.assertIsInstance(content['feed_image']['meta'], dict)
         self.assertEqual(set(content['feed_image']['meta'].keys()), {'type', 'detail_url'})
         self.assertEqual(content['feed_image']['meta']['type'], 'wagtailimages.Image')
-        self.assertEqual(content['feed_image']['meta']['detail_url'], 'http://localhost/admin/api/v2beta/images/7/')
+        self.assertEqual(content['feed_image']['meta']['detail_url'], 'http://localhost/admin/api/v3beta/images/7/')
 
         # Check that the child relations were serialised properly
         self.assertEqual(content['related_links'], [])
@@ -487,7 +487,7 @@ class TestAdminPageDetail(AdminAPITestCase, TestPageDetail):
         self.assertIn('children', content['meta'])
         self.assertEqual(content['meta']['children'], {
             'count': 5,
-            'listing_url': 'http://localhost/admin/api/v2beta/pages/?child_of=2'
+            'listing_url': 'http://localhost/admin/api/v3beta/pages/?child_of=2'
         })
 
     def test_meta_descendants(self):
@@ -498,7 +498,7 @@ class TestAdminPageDetail(AdminAPITestCase, TestPageDetail):
         self.assertIn('descendants', content['meta'])
         self.assertEqual(content['meta']['descendants'], {
             'count': 18,
-            'listing_url': 'http://localhost/admin/api/v2beta/pages/?descendant_of=2'
+            'listing_url': 'http://localhost/admin/api/v3beta/pages/?descendant_of=2'
         })
 
     # FIELDS
@@ -535,7 +535,7 @@ class TestAdminPageDetail(AdminAPITestCase, TestPageDetail):
         self.assertIsInstance(feed_image['meta'], dict)
         self.assertEqual(set(feed_image['meta'].keys()), {'type', 'detail_url'})
         self.assertEqual(feed_image['meta']['type'], 'wagtailimages.Image')
-        self.assertEqual(feed_image['meta']['detail_url'], 'http://localhost/admin/api/v2beta/images/%d/' % feed_image['id'])
+        self.assertEqual(feed_image['meta']['detail_url'], 'http://localhost/admin/api/v3beta/images/%d/' % feed_image['id'])
 
 
 class TestAdminPageDetailWithStreamField(AdminAPITestCase):
@@ -557,7 +557,7 @@ class TestAdminPageDetailWithStreamField(AdminAPITestCase):
     def test_can_fetch_streamfield_content(self):
         stream_page = self.make_stream_page('[{"type": "text", "value": "foo"}]')
 
-        response_url = reverse('wagtailadmin_api_v1:pages:detail', args=(stream_page.id, ))
+        response_url = reverse('wagtailadmin_api:pages:detail', args=(stream_page.id, ))
         response = self.client.get(response_url)
 
         self.assertEqual(response.status_code, 200)
@@ -576,7 +576,7 @@ class TestAdminPageDetailWithStreamField(AdminAPITestCase):
     def test_image_block(self):
         stream_page = self.make_stream_page('[{"type": "image", "value": 1}]')
 
-        response_url = reverse('wagtailadmin_api_v1:pages:detail', args=(stream_page.id, ))
+        response_url = reverse('wagtailadmin_api:pages:detail', args=(stream_page.id, ))
         response = self.client.get(response_url)
         content = json.loads(response.content.decode('utf-8'))
 

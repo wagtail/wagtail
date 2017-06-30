@@ -4,7 +4,7 @@ import json
 
 from django.core.urlresolvers import reverse
 
-from wagtail.api.v2.tests.test_documents import TestDocumentDetail, TestDocumentListing
+from wagtail.api.v3.tests.test_documents import TestDocumentDetail, TestDocumentListing
 from wagtail.wagtaildocs.models import Document
 
 from .utils import AdminAPITestCase
@@ -14,7 +14,7 @@ class TestAdminDocumentListing(AdminAPITestCase, TestDocumentListing):
     fixtures = ['demosite.json']
 
     def get_response(self, **params):
-        return self.client.get(reverse('wagtailadmin_api_v1:documents:listing'), params)
+        return self.client.get(reverse('wagtailadmin_api:documents:listing'), params)
 
     def get_document_id_list(self, content):
         return [document['id'] for document in content['items']]
@@ -54,7 +54,7 @@ class TestAdminDocumentListing(AdminAPITestCase, TestDocumentListing):
             self.assertEqual(document['meta']['type'], 'wagtaildocs.Document')
 
             # Check detail_url
-            self.assertEqual(document['meta']['detail_url'], 'http://localhost/admin/api/v2beta/documents/%d/' % document['id'])
+            self.assertEqual(document['meta']['detail_url'], 'http://localhost/admin/api/v3beta/documents/%d/' % document['id'])
 
             # Check download_url
             self.assertTrue(document['meta']['download_url'].startswith('http://localhost/documents/%d/' % document['id']))
@@ -75,7 +75,7 @@ class TestAdminDocumentDetail(AdminAPITestCase, TestDocumentDetail):
     fixtures = ['demosite.json']
 
     def get_response(self, image_id, **params):
-        return self.client.get(reverse('wagtailadmin_api_v1:documents:detail', args=(image_id, )), params)
+        return self.client.get(reverse('wagtailadmin_api:documents:detail', args=(image_id, )), params)
 
     def test_basic(self):
         response = self.get_response(1)
@@ -100,7 +100,7 @@ class TestAdminDocumentDetail(AdminAPITestCase, TestDocumentDetail):
 
         # Check the meta detail_url
         self.assertIn('detail_url', content['meta'])
-        self.assertEqual(content['meta']['detail_url'], 'http://localhost/admin/api/v2beta/documents/1/')
+        self.assertEqual(content['meta']['detail_url'], 'http://localhost/admin/api/v3beta/documents/1/')
 
         # Check the meta download_url
         self.assertIn('download_url', content['meta'])

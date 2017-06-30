@@ -1,6 +1,6 @@
 from __future__ import absolute_import, unicode_literals
 
-from ..v2.endpoints import ImagesAPIEndpoint
+from ..v3.endpoints import ImagesAPIEndpoint
 from .serializers import AdminImageSerializer
 
 
