@@ -7,7 +7,7 @@ from django.utils.module_loading import import_string
 from django.utils import six
 from django.conf import settings
 
-from wagtail.utils.deprecation import RemovedInWagtail113Warning
+from wagtail.utils.deprecation import RemovedInWagtail114Warning
 
 
 MOVED_FINDERS = {
@@ -40,7 +40,7 @@ def _settings_deprecation_warning(key, suggestion):
     hint = 'WAGTAILEMBEDS_FINDERS = ' + pprint.pformat(suggestion)
     warnings.warn(
         "The `{}` setting is now deprecrated. Please replace this with `{}`".format(key, hint),
-        category=RemovedInWagtail113Warning
+        category=RemovedInWagtail114Warning
     )
 
 

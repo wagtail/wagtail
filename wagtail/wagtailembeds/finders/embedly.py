@@ -4,7 +4,7 @@ import warnings
 
 from django.conf import settings
 
-from wagtail.utils.deprecation import RemovedInWagtail113Warning
+from wagtail.utils.deprecation import RemovedInWagtail114Warning
 from wagtail.wagtailembeds.exceptions import EmbedException, EmbedNotFoundException
 
 from .base import EmbedFinder
@@ -85,7 +85,7 @@ embed_finder_class = EmbedlyFinder
 def embedly(url, max_width=None, key=None):
     warnings.warn(
         "The `wagtail.wagtailembeds.finders.embedly.embedly` function is now deprecated. Please use the wagtail.wagtailembeds.finders.embedly.Embedly` class instead.",
-        category=RemovedInWagtail113Warning
+        category=RemovedInWagtail114Warning
     )
 
     if key is None:
