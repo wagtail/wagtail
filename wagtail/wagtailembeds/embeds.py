@@ -2,8 +2,9 @@ from __future__ import absolute_import, unicode_literals
 
 from datetime import datetime
 
-from wagtail.wagtailembeds.finders import get_finders
-from wagtail.wagtailembeds.models import Embed
+from .exceptions import EmbedUnsupportedProviderException
+from .finders import get_finders
+from .models import Embed
 
 
 def get_embed(url, max_width=None, finder=None):
@@ -19,6 +20,8 @@ def get_embed(url, max_width=None, finder=None):
             for finder in get_finders():
                 if finder.accept(url):
                     return finder.find_embed(url, max_width=max_width)
+
+            raise EmbedUnsupportedProviderException
 
     embed_dict = finder(url, max_width)
 

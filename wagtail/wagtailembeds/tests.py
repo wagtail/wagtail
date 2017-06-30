@@ -16,7 +16,7 @@ from wagtail.wagtailcore import blocks
 from wagtail.wagtailembeds import oembed_providers
 from wagtail.wagtailembeds.blocks import EmbedBlock, EmbedValue
 from wagtail.wagtailembeds.embeds import get_embed
-from wagtail.wagtailembeds.exceptions import EmbedNotFoundException
+from wagtail.wagtailembeds.exceptions import EmbedNotFoundException, EmbedUnsupportedProviderException
 from wagtail.wagtailembeds.finders import get_finders
 from wagtail.wagtailembeds.finders.embedly import EmbedlyFinder as EmbedlyFinder
 from wagtail.wagtailembeds.finders.embedly import AccessDeniedEmbedlyException, EmbedlyException
@@ -239,6 +239,11 @@ class TestEmbeds(TestCase):
         embed = get_embed('www.test.com/1234', max_width=400, finder=no_html_finder)
 
         self.assertEqual(embed.html, '')
+
+    @override_settings(WAGTAILEMBEDS_FINDERS=[])
+    def test_no_finders_available(self):
+        with self.assertRaises(EmbedUnsupportedProviderException):
+            get_embed('www.test.com/1234', max_width=400)
 
 
 class TestChooser(TestCase, WagtailTestUtils):
