@@ -10,7 +10,7 @@ Changelog
  * Fix: Redirects with unicode characters now work (Rich Brennan)
 
 
-1.11 (xx.xx.xxxx) - IN DEVELOPMENT
+1.11 (30.06.2017)
 ~~~~~~~~~~~~~~~~~
 
  * Added a new page explorer menu built with the admin API and React (Karl Hobley, Josh Barr, Thibaud Colas, Janneke Janssen, Rob Moorman, Maurice Bartnig, Jonny Scholes, Matt Westcott, Sævar Öfjörð Magnússon, Eirikur Ingi Magnusson, Harris Lapiroff, Hugo van den Berg, Olly Willans, Andy Babic, Ben Enright, Bertrand Bordage)
