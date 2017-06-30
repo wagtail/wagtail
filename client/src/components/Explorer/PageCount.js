@@ -9,7 +9,7 @@ const PageCount = ({ page }) => {
 
   return (
     <a
-      href={`${ADMIN_URLS.PAGES}${page.id}/`}
+      href={`${ADMIN_URLS.PAGES}${page.meta.id}/`}
       className="c-explorer__see-more"
       tabIndex={0}
     >

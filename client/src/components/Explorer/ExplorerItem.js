@@ -24,7 +24,8 @@ const nextIcon = (
  * and information depending on the metadata of the page.
  */
 const ExplorerItem = ({ item, onClick }) => {
-  const { id, title, meta } = item;
+  const { title, meta } = item;
+  const { id } = meta;
   const hasChildren = meta.children.count > 0;
   const isPublished = meta.status.live && !meta.status.has_unpublished_changes;
 
