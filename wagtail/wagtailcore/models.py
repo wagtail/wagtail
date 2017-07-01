@@ -344,6 +344,27 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
         editable=False
     )
 
+    # The list of fields that shouldn't be considered as part of a page's content.
+    # These fields are not tracked in revisions and are not copied by Page.copy()
+    META_FIELDS = [
+        'pk',
+        'id',
+        'path',
+        'depth',
+        'numchild',
+        'content_type',
+        'live',
+        'has_unpublished_changes',
+        'url_path',
+        'owner',
+        'expired',
+        'locked',
+        'first_published_at',
+        'last_published_at',
+        'latest_revision_created_at',
+        'live_revision',
+    ]
+
     search_fields = [
         index.SearchField('title', partial_match=True, boost=2),
         index.FilterField('id'),
@@ -670,9 +691,19 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
     def save_revision(self, user=None, submitted_for_moderation=False, approved_go_live_at=None, changed=True):
         self.full_clean()
 
+        # Clean meta fields out of JSON
+        data = json.loads(self.to_json())
+        for meta_field in Page.META_FIELDS:
+            # Give an exception to 'pk' as django-modelcluster uses it
+            if meta_field == 'pk':
+                continue
+
+            if meta_field in data:
+                del data[meta_field]
+
         # Create revision
         revision = self.revisions.create(
-            content_json=self.to_json(),
+            content_json=json.dumps(data),
             user=user,
             submitted_for_moderation=submitted_for_moderation,
             approved_go_live_at=approved_go_live_at,
@@ -1072,14 +1103,12 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
         logger.info("Page moved: \"%s\" id=%d path=%s", self.title, self.id, new_url_path)
 
     def copy(self, recursive=False, to=None, update_attrs=None, copy_revisions=True, keep_live=True, user=None):
-        # Fill dict with self.specific values
-        exclude_fields = ['id', 'path', 'depth', 'numchild', 'url_path', 'path']
         specific_self = self.specific
         specific_dict = {}
 
         for field in specific_self._meta.get_fields():
-            # Ignore explicitly excluded fields
-            if field.name in exclude_fields:
+            # Ignore meta fields
+            if field.name in Page.META_FIELDS:
                 continue
 
             # Ignore reverse relations
@@ -1100,12 +1129,12 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
         # New instance from prepared dict values, in case the instance class implements multiple levels inheritance
         page_copy = self.specific_class(**specific_dict)
 
-        if not keep_live:
+        if keep_live:
+            page_copy.live = specific_self.live
+            page_copy.has_unpublished_changes = specific_self.has_unpublished_changes
+        else:
             page_copy.live = False
             page_copy.has_unpublished_changes = True
-            page_copy.live_revision = None
-            page_copy.first_published_at = None
-            page_copy.last_published_at = None
 
         if user:
             page_copy.owner = user
@@ -1463,25 +1492,9 @@ class PageRevision(models.Model):
     def as_page_object(self):
         obj = self.page.specific_class.from_json(self.content_json)
 
-        # Override the possibly-outdated tree parameter fields from this revision object
-        # with up-to-date values
-        obj.pk = self.page.pk
-        obj.path = self.page.path
-        obj.depth = self.page.depth
-        obj.numchild = self.page.numchild
-
-        # Populate url_path based on the revision's current slug and the parent page as determined
-        # by path
-        obj.set_url_path(self.page.get_parent())
-
-        # also copy over other properties which are meaningful for the page as a whole, not a
-        # specific revision of it
-        obj.live = self.page.live
-        obj.has_unpublished_changes = self.page.has_unpublished_changes
-        obj.owner = self.page.owner
-        obj.locked = self.page.locked
-        obj.latest_revision_created_at = self.page.latest_revision_created_at
-        obj.first_published_at = self.page.first_published_at
+        # Restore meta fields from live version
+        for meta_field in Page.META_FIELDS:
+            setattr(obj, meta_field, getattr(self.page, meta_field))
 
         return obj
 
