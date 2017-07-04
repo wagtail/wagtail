@@ -229,7 +229,7 @@ class AbstractForm(Page):
         For example, if you want to save reference to a user.
         """
 
-        self.get_submission_class().objects.create(
+        return self.get_submission_class().objects.create(
             form_data=json.dumps(form.cleaned_data, cls=DjangoJSONEncoder),
             page=self,
         )
