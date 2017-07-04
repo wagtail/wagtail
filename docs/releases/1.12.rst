@@ -7,6 +7,9 @@ Wagtail 1.12 release notes - IN DEVELOPMENT
     :depth: 1
 
 
+Wagtail 1.12 is designated a Long Term Support (LTS) release. Long Term Support releases will continue to receive maintenance updates as necessary to address security and data-loss related issues, up until the next LTS release (typically a period of 8 months). Please note that Wagtail 1.12 will be the last LTS release to support Python 2.
+
+
 What's new
 ==========
 

@@ -1,8 +1,8 @@
 Changelog
 =========
 
-1.12 (xx.xx.xxxx) - IN DEVELOPMENT
-~~~~~~~~~~~~~~~~~
+1.12 LTS (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~~~~
 
  * New class-based configuration for media embeds (Karl Hobley)
  * The admin interface now displays a title of the latest draft (Mikalai Radchuk)
@@ -154,8 +154,8 @@ Changelog
  * Fix: Reduced `Rendition.focal_point_key` field length to prevent migration failure when upgrading to Wagtail 1.8 on MySQL with `utf8` character encoding (Andy Chosak, Matt Westcott)
 
 
-1.8 (15.12.2016)
-~~~~~~~~~~~~~~~~
+1.8 LTS (15.12.2016)
+~~~~~~~~~~~~~~~~~~~~
 
  * New page privacy options (Shawn Makinson, Tom Miller, Luca Perico, Matt Westcott)
  * New 'bulk delete' permission type for deleting pages with children (Matt Westcott)
@@ -443,8 +443,8 @@ Changelog
  * Fix: Fixed erroneous rendering of up arrow icons (Rob Moorman)
 
 
-1.4 (16.03.2016)
-~~~~~~~~~~~~~~~~
+1.4 LTS (16.03.2016)
+~~~~~~~~~~~~~~~~~~~~
 
  * Added support for viewing previous revisions of pages, and previewing or rolling back to earlier versions
  * Introduced collections, for image / document organisation
@@ -807,8 +807,8 @@ Changelog
  * Fixed a regression where images would fail to save when feature detection is active
 
 
-0.8 (05.11.2014)
-~~~~~~~~~~~~~~~~
+0.8 LTS (05.11.2014)
+~~~~~~~~~~~~~~~~~~~~
 
  * Added logging for page operations
  * The save button on the page edit page now redirects the user back to the edit page instead of the explorer
