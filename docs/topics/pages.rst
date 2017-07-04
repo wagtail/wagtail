@@ -104,7 +104,7 @@ Each Wagtail page type is a Django model, represented in the database as a separ
 
 Each page type can have its own set of fields. For example, a news article may have body text and a published date, whereas an event page may need separate fields for venue and start/finish times.
 
-In Wagtail, you can use any Django field class. Most field classes provided by `third party apps <https://code.djangoproject.com/wiki/DjangoResources#Djangoapplicationcomponents>`_ should work as well.
+In Wagtail, you can use any Django field class. Most field classes provided bythird party apps should work as well.
 
 Wagtail also provides a couple of field classes of its own:
 
