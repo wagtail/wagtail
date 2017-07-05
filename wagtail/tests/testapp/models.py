@@ -305,6 +305,9 @@ class SingleEventPage(EventPage):
             # fall back to default routing rules
             return super(SingleEventPage, self).route(request, path_components)
 
+    def get_admin_display_title(self):
+        return "%s (single event)" % super(SingleEventPage, self).get_admin_display_title()
+
 
 SingleEventPage.content_panels = [FieldPanel('excerpt')] + EventPage.content_panels
 

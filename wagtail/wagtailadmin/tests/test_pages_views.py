@@ -250,6 +250,22 @@ class TestPageExplorer(TestCase, WagtailTestUtils):
 
         self.assertContains(response, '/new-event/pointless-suffix/')
 
+    def test_listing_uses_admin_display_title(self):
+        # SingleEventPage has a custom get_admin_display_title method; explorer should
+        # show the custom title rather than the basic database one
+        self.new_event = SingleEventPage(
+            title="New event",
+            location='the moon', audience='public',
+            cost='free', date_from='2001-01-01',
+            latest_revision_created_at=local_datetime(2016, 1, 1)
+        )
+        self.root_page.add_child(instance=self.new_event)
+        response = self.client.get(reverse('wagtailadmin_explore', args=(self.root_page.id, )))
+        self.assertContains(response, 'New event (single event)')
+
+        response = self.client.get(reverse('wagtailadmin_explore', args=(self.new_event.id, )))
+        self.assertContains(response, 'New event (single event)')
+
     def test_parent_page_is_specific(self):
         response = self.client.get(reverse('wagtailadmin_explore', args=(self.child_page.id, )))
         self.assertEqual(response.status_code, 200)
