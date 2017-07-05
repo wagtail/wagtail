@@ -602,6 +602,41 @@ class TestSpecificQuery(TestCase):
         self.assertIn(Page.objects.get(url_path='/home/events/').specific, pages)
         self.assertIn(Page.objects.get(url_path='/home/about-us/').specific, pages)
 
+    def test_deferred_specific_query(self):
+        # Tests the "defer" keyword argument, which defers all specific fields
+        root = Page.objects.get(url_path='/home/')
+
+        with self.assertNumQueries(0):
+            # The query should be lazy.
+            qs = root.get_descendants().specific(defer=True)
+
+        with self.assertNumQueries(4):
+            # This still performs 4 queries (one for each specific class)
+            # even though we're only pulling in fields from the base Page
+            # model.
+            # TODO: Find a way to make this perform a single query
+            pages = list(qs)
+
+        self.assertIsInstance(pages, list)
+        self.assertEqual(len(pages), 7)
+
+        for page in pages:
+            # An instance of the specific page type should be returned,
+            # not wagtailcore.Page.
+            content_type = page.content_type
+            model = content_type.model_class()
+            self.assertIsInstance(page, model)
+
+            # The page should already be the specific type, so this should not
+            # need another database query.
+            with self.assertNumQueries(0):
+                self.assertIs(page, page.specific)
+
+        # Unlike before, the content fields should be now deferred. This means
+        # that accessing them will generate a new query.
+        with self.assertNumQueries(1):
+            pages[1].body
+
 
 class TestFirstCommonAncestor(TestCase):
     """
