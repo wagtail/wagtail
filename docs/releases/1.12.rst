@@ -52,3 +52,16 @@ Old configuration settings for embeds are deprecated
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The configuration settings ``WAGTAILEMBEDS_EMBED_FINDER`` and ``WAGTAILEMBEDS_EMBEDLY_KEY`` have been deprecated in favour of the new ``WAGTAILEMBEDS_FINDERS`` setting. Please see :ref:`configuring_embed_finders` for the new configuration to use.
+
+Custom ``get_admin_display_title`` methods should use ``draft_title``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This release introduces a new ``draft_title`` field on page models, so that page titles as used across the admin interface will correctly reflect any changes that exist in draft. If any of your page models override the ``get_admin_display_title`` method, to customise the display of page titles in the admin, it is recommended that you now update these to base their output on ``draft_title`` rather than ``title``. Alternatively, to preserve backwards compatibility, you can invoke ``super`` on the method, for example:
+
+.. code-block:: python
+
+    def get_admin_display_title(self):
+        return "%(title)s (%(lang)s)" % {
+            'title': super(TranslatablePage, self).get_admin_display_title(),
+            'lang': self.language_code,
+        }
