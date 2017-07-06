@@ -24,7 +24,7 @@ const nextIcon = (
  * and information depending on the metadata of the page.
  */
 const ExplorerItem = ({ item, onClick }) => {
-  const { id, title, meta } = item;
+  const { id, admin_display_title: title, meta } = item;
   const hasChildren = meta.children.count > 0;
   const isPublished = meta.status.live && !meta.status.has_unpublished_changes;
 
@@ -64,7 +64,7 @@ const ExplorerItem = ({ item, onClick }) => {
 ExplorerItem.propTypes = {
   item: PropTypes.shape({
     id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-    title: PropTypes.string.isRequired,
+    admin_display_title: PropTypes.string.isRequired,
     meta: PropTypes.shape({
       status: PropTypes.object.isRequired,
     }).isRequired,
