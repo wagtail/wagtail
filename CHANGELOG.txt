@@ -10,6 +10,7 @@ Changelog
  * Fix: FieldBlocks in StreamField now call the field's `prepare_value` method (Tim Heap)
  * Fix: Initial disabled state of InlinePanel add button is now set correctly on non-default tabs (Matthew Downey)
  * Fix: Redirects with unicode characters now work (Rich Brennan)
+ * Fix: Prevent explorer view from crashing when page model definitions are missing, allowing the offending pages to be deleted (Matt Westcott)
 
 
 1.11 (30.06.2017)
