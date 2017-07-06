@@ -673,3 +673,30 @@ class TestAdminPageDetailWithStreamField(AdminAPITestCase):
         # ForeignKeys in a StreamField shouldn't be translated into dictionary representation
         self.assertEqual(content['body'][0]['type'], 'image')
         self.assertEqual(content['body'][0]['value'], 1)
+
+
+class TestCustomAdminDisplayTitle(AdminAPITestCase):
+    fixtures = ['test.json']
+
+    def setUp(self):
+        super(TestCustomAdminDisplayTitle, self).setUp()
+
+        self.event_page = Page.objects.get(url_path='/home/events/saint-patrick/')
+
+    def test_custom_admin_display_title_shown_on_detail_page(self):
+        api_url = reverse('wagtailadmin_api_v1:pages:detail', args=(self.event_page.id, ))
+        response = self.client.get(api_url)
+        content = json.loads(response.content.decode('utf-8'))
+
+        self.assertEqual(content['title'], "Saint Patrick")
+        self.assertEqual(content['admin_display_title'], "Saint Patrick (single event)")
+
+    def test_custom_admin_display_title_shown_on_listing(self):
+        api_url = reverse('wagtailadmin_api_v1:pages:listing')
+        response = self.client.get(api_url)
+        content = json.loads(response.content.decode('utf-8'))
+
+        matching_items = [item for item in content['items'] if item['id'] == self.event_page.id]
+        self.assertEqual(1, len(matching_items))
+        self.assertEqual(matching_items[0]['title'], "Saint Patrick")
+        self.assertEqual(matching_items[0]['admin_display_title'], "Saint Patrick (single event)")
