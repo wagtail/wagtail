@@ -13,6 +13,12 @@ Changelog
  * Fix: Prevent explorer view from crashing when page model definitions are missing, allowing the offending pages to be deleted (Matt Westcott)
 
 
+1.11.1 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~~
+
+ * Fix: Custom display page titles defined with `get_admin_display_title` are now shown within the page explorer menu (Matt Westcott, Janneke Janssen)
+
+
 1.11 (30.06.2017)
 ~~~~~~~~~~~~~~~~~
 
