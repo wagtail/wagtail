@@ -6,7 +6,7 @@ import ExplorerItem from './ExplorerItem';
 const mockProps = {
   item: {
     id: 5,
-    title: 'test',
+    admin_display_title: 'test',
     meta: {
       latest_revision_created_at: null,
       status: {
