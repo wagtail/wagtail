@@ -22,6 +22,12 @@ Database fields
 
         Human-readable title of the page.
 
+    .. attribute:: draft_title
+
+        (text)
+
+        Human-readable title of the page, incorporating any changes that have been made in a draft edit (in contrast to the ``title`` field, which for published pages will be the title as it exists in the current published version).
+
     .. attribute:: slug
 
         (text)

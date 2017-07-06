@@ -671,7 +671,9 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
 
     def get_admin_display_title(self):
         """
-        Return the title for this page as it should appear in the admin backend.
+        Return the title for this page as it should appear in the admin backend;
+        override this if you wish to display extra contextual information about the page,
+        such as language. By default, returns ``draft_title``.
         """
         return self.draft_title
 
