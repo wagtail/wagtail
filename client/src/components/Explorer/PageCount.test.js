@@ -26,10 +26,4 @@ describe('PageCount', () => {
     props.page.children.count = 5;
     expect(shallow(<PageCount {...props} />)).toMatchSnapshot();
   });
-
-  it('#title', () => {
-    const props = Object.assign({}, mockProps);
-    props.page.title = 'This is an example';
-    expect(shallow(<PageCount {...props} />)).toMatchSnapshot();
-  });
 });
