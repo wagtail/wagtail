@@ -13,6 +13,19 @@ Additionally, patch releases will be issued as needed, to fix bugs and security 
 A feature release will usually stop receiving patch release updates when the next feature release comes out. However, selected feature releases are designated as Long Term Support (LTS) releases, and will continue to receive maintenance updates to address any security and data-loss related issues that arise, up until the next Long Term Support release. Typically, a Long Term Support release will happen once every four feature releases, giving a support period of eight months.
 
 
++-------------------+---------------------------------------+
+| Wagtail release   | LTS support period                    |
++===================+=======================================+
+| 0.8 LTS           | November 2014 - March 2016            |
++-------------------+---------------------------------------+
+| 1.4 LTS           | March 2016 - December 2016            |
++-------------------+---------------------------------------+
+| 1.8 LTS           | December 2016 - August 2017           |
++-------------------+---------------------------------------+
+| 1.12 LTS          | August 2017 - April 2018 (expected)   |
++-------------------+---------------------------------------+
+
+
 Deprecation policy
 ==================
 
