@@ -4,7 +4,7 @@ from wagtail.utils.version import get_semver_version, get_version
 
 # major.minor.patch.release.number
 # release must be one of alpha, beta, rc, or final
-VERSION = (1, 11, 0, 'final', 0)
+VERSION = (1, 11, 1, 'final', 0)
 
 __version__ = get_version(VERSION)
 
