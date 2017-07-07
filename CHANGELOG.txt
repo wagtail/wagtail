@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.11.1 (xx.xx.xxxx) - IN DEVELOPMENT
+1.11.1 (07.07.2017)
 ~~~~~~~~~~~~~~~~~~~
 
  * Fix: Custom display page titles defined with `get_admin_display_title` are now shown within the page explorer menu (Matt Westcott, Janneke Janssen)
