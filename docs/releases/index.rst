@@ -5,6 +5,7 @@ Release notes
    :maxdepth: 1
 
    1.12
+   1.11.1
    1.11
    1.10.1
    1.10

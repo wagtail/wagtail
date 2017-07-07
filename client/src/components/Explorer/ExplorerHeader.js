@@ -20,7 +20,7 @@ const ExplorerHeader = ({ page, depth, onClick }) => {
     >
       <div className="c-explorer__header__inner">
         <Icon name={isRoot ? 'home' : 'arrow-left'} />
-        <span>{page.title || STRINGS.PAGES}</span>
+        <span>{page.admin_display_title || STRINGS.PAGES}</span>
       </div>
     </Button>
   );
@@ -29,7 +29,7 @@ const ExplorerHeader = ({ page, depth, onClick }) => {
 ExplorerHeader.propTypes = {
   page: PropTypes.shape({
     id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    title: PropTypes.string,
+    admin_display_title: PropTypes.string,
   }).isRequired,
   depth: PropTypes.number.isRequired,
   onClick: PropTypes.func.isRequired,

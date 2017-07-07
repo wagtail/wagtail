@@ -24,7 +24,8 @@ describe('ExplorerHeader', () => {
   });
 
   it('#page', () => {
-    expect(shallow(<ExplorerHeader {...mockProps} page={{ id: 'a', title: 'test' }} />)).toMatchSnapshot();
+    const wrapper = shallow(<ExplorerHeader {...mockProps} page={{ id: 'a', admin_display_title: 'test' }} />);
+    expect(wrapper).toMatchSnapshot();
   });
 
   it('#onClick', () => {
