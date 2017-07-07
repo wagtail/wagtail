@@ -7,6 +7,7 @@ Changelog
  * New class-based configuration for media embeds (Karl Hobley)
  * The admin interface now displays a title of the latest draft (Mikalai Radchuk)
  * Added multi-select form field to the form builder (dwasyl)
+ * Display help text for each page type when creating a page in the admin (Vince Salvino)
  * Fix: FieldBlocks in StreamField now call the field's `prepare_value` method (Tim Heap)
  * Fix: Initial disabled state of InlinePanel add button is now set correctly on non-default tabs (Matthew Downey)
  * Fix: Redirects with unicode characters now work (Rich Brennan)
