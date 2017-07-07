@@ -13,7 +13,7 @@
 
         {% if page_types %}
             <ul class="listing">
-                {% for verbose_name, app_label, model_name in page_types %}
+                {% for verbose_name, page_help_text, app_label, model_name in page_types %}
                     <li>
                         <div class="row row-flush">
                             <div class="col6">
@@ -21,7 +21,7 @@
                             </div>
 
                             <small class="col6" style="text-align:right">
-                                <a href="{% url 'wagtailadmin_pages:type_use' app_label model_name %}" class="nolink">{% blocktrans with page_type=verbose_name %}Pages using {{ page_type }}{% endblocktrans %}</a>
+                                <a href="{% url 'wagtailadmin_pages:type_use' app_label model_name %}" class="nolink">{{ page_help_text }}</a>
                             </small>
 
                         </div>

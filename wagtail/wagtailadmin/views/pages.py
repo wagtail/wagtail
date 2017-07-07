@@ -109,7 +109,7 @@ def add_subpage(request, parent_page_id):
         raise PermissionDenied
 
     page_types = [
-        (model.get_verbose_name(), model._meta.app_label, model._meta.model_name)
+        (model.get_verbose_name(), model.get_help_text(), model._meta.app_label, model._meta.model_name)
         for model in type(parent_page).creatable_subpage_models()
         if model.can_create_at(parent_page)
     ]
