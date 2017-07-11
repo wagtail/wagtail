@@ -25,6 +25,7 @@ Changelog
  * Fix: Removed deprecated jQuery ``load`` call from TableBlock initialisation (Jack Paine)
  * Fix: Position of options in mobile nav-menu (Jack Paine)
  * Fix: Center page editor footer regardless of screen width (Jack Paine)
+ * Fix: Change the design of the navbar toggle icon so that it no longer obstructs page headers (Jack Paine)
 
 
 1.11.1 (07.07.2017)

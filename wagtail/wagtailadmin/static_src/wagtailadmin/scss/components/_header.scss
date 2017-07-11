@@ -79,11 +79,6 @@ header {
         }
     }
 
-    // necessary on mobile only to make way for hamburger menu
-    &.nice-padding {
-        padding-left: $desktop-nice-padding;
-    }
-
     label {
         @include visuallyhidden();
     }
@@ -158,5 +153,11 @@ header {
         .col9 {
             @include column(9);
         }
+    }
+}
+
+.header-title {
+    @media screen and (max-width: $breakpoint-mobile) {
+        padding-left: $mobile-nav-indent;
     }
 }
