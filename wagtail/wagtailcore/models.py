@@ -1035,6 +1035,14 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
         # except this doesn't convert any characters to lowercase
         return capfirst(cls._meta.verbose_name)
 
+    @classmethod
+    def get_help_text(cls):
+        """
+        Returns human-readable help text used to describe this page model.
+        If help text is not found, default to verbose name.
+        """
+        return getattr(cls, 'page_help_text', cls.get_verbose_name())
+
     @property
     def status_string(self):
         if not self.live:
