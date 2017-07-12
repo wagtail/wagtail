@@ -9,6 +9,7 @@ from wagtail.tests.testapp.models import SingleEventPage
 from wagtail.tests.testapp.rich_text import CustomRichTextArea
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailadmin.rich_text import HalloRichTextArea, get_rich_text_editor_widget
+from wagtail.wagtailcore.blocks import RichTextBlock
 from wagtail.wagtailcore.models import Page, get_page_models
 from wagtail.wagtailcore.rich_text import RichText
 
@@ -221,3 +222,46 @@ class TestRichTextValue(TestCase):
             '<div class="rich-text"><p>To the <a href="'
             '/foo/pointless-suffix/">moon</a>!</p></div>')
         self.assertEqual(result, expected)
+
+
+@override_settings(WAGTAILADMIN_RICH_TEXT_EDITORS={
+    'default': {
+        'WIDGET': 'wagtail.wagtailadmin.rich_text.HalloRichTextArea'
+    },
+    'custom': {
+        'WIDGET': 'wagtail.wagtailadmin.rich_text.HalloRichTextArea',
+        'OPTIONS': {
+            'plugins': {
+                'halloheadings': {'formatBlocks': ['p']},
+            }
+        }
+    },
+})
+class TestHalloJsWithCustomPluginOptions(BaseRichTextEditHandlerTestCase, WagtailTestUtils):
+
+    def setUp(self):
+        super(TestHalloJsWithCustomPluginOptions, self).setUp()
+
+        # Find root page
+        self.root_page = Page.objects.get(id=2)
+
+        self.login()
+
+    def test_custom_editor_in_rich_text_field(self):
+        response = self.client.get(reverse(
+            'wagtailadmin_pages:add', args=('tests', 'customrichtextfieldpage', self.root_page.id)
+        ))
+
+        # Check status code
+        self.assertEqual(response.status_code, 200)
+
+        # Check that the custom plugin options are being passed in the hallo initialiser
+        self.assertContains(response, 'makeHalloRichTextEditable("id_body", {"halloheadings": {"formatBlocks": ["p"]}});')
+
+    def test_custom_editor_in_rich_text_block(self):
+        block = RichTextBlock(editor='custom')
+
+        form_html = block.render_form(block.to_python("<p>hello</p>"), 'body')
+
+        # Check that the custom plugin options are being passed in the hallo initialiser
+        self.assertIn('makeHalloRichTextEditable("body", {"halloheadings": {"formatBlocks": ["p"]}});', form_html)

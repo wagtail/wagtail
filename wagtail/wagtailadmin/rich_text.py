@@ -16,6 +16,10 @@ class HalloRichTextArea(WidgetWithScript, widgets.Textarea):
     def get_panel(self):
         return RichTextFieldPanel
 
+    def __init__(self, *args, **kwargs):
+        self.options = kwargs.pop('options', None)
+        super(HalloRichTextArea, self).__init__(*args, **kwargs)
+
     def render(self, name, value, attrs=None):
         if value is None:
             translated_value = None
@@ -24,7 +28,16 @@ class HalloRichTextArea(WidgetWithScript, widgets.Textarea):
         return super(HalloRichTextArea, self).render(name, translated_value, attrs)
 
     def render_js_init(self, id_, name, value):
-        return "makeHalloRichTextEditable({0});".format(json.dumps(id_))
+        try:
+            plugins = self.options['plugins']
+        except (TypeError, KeyError):
+            # no plugin list specified, so initialise without a plugins arg
+            # (so that it'll pick up the globally-defined halloPlugins list instead)
+            return "makeHalloRichTextEditable({0});".format(json.dumps(id_))
+
+        return "makeHalloRichTextEditable({0}, {1});".format(
+            json.dumps(id_), json.dumps(plugins)
+        )
 
     def value_from_datadict(self, data, files, name):
         original_value = super(HalloRichTextArea, self).value_from_datadict(data, files, name)
