@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Error 404: Page not found</title>
+
+        <!-- For use of the Ubuntu font: -->
+        <link href="https://fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet">
+
+        <style>
+            body {
+                font-family: 'Roboto', sans-serif;
+                color: #000;
+            }
+
+            #wagtail-bird {
+                position: fixed;
+                right: 50%;
+                transform: translateX(-90px);
+                top: 16%;
+                width: 425px;
+                height: auto;
+                z-index: 10;
+                transition:  all 0.25s cubic-bezier(0.28, 0.15, 0, 2.1);
+            }
+
+            #catchmouse {
+                position: fixed;
+                right: 50%;
+                transform: translateX(-90px);
+                top: 16%;
+                width: 400px;
+                height: 400px;
+                z-index: 100;
+                background-color: rgba(255, 0, 255, 0); //rgba(255, 0, 255, 0.5) to see mouse dectection area
+            }
+
+            #backdrop {
+                position: fixed;
+                top: 0px;
+                left: 0px;
+                width: 100%;
+                height: 100%;
+                z-index: 0;
+                background-color: #fff; //#41b0ac;
+            }
+
+            /* http://nimbupani.com/vignettes-with-css3-box-shadows.html */
+            p.vignette {
+                position: fixed;
+            }
+            p.vignette img {
+                display: block;
+            }
+            p.vignette:after {
+                -moz-box-shadow: inset 0 0 10em #555;
+                -webkit-box-shadow: inset 0 0 10em #555;
+                box-shadow: inset 0 0 10em #555;
+                position: fixed;
+                top: 0px;
+                left: 0px;
+                width: 100%;
+                height: 100%;
+                z-index: 10;
+                content: "";
+            }
+
+            #text-container {
+                position: fixed;
+                left: 50%;
+                transform: translateX(-110px);
+                top: 25%;
+                height: 50%;
+                width: 600px;
+                text-align: center;
+                z-index: 50;
+            }
+
+            #header {
+                position: relative;
+                font-size: 100px;
+                top: -80px;
+            }
+
+            #info {
+                position: relative;
+                font-size: 30px;
+                top: -130px;
+            }
+
+            #goback-link {
+                position: relative;
+                font-size: 25px;
+                top: -135px;
+                background-color: #408080;
+                text-decoration: none;
+                color: #fff;
+                padding-left: 12px;
+                padding-right: 12px;
+                padding-top: 6px;
+                padding-bottom: 6px;
+                border-radius: 20px;
+                cursor: pointer;
+            }
+
+            #wagtail-link {
+                position: fixed;
+                right: 15px;
+                bottom: 15px;
+                font-size: 20px;
+                text-decoration: none;
+                color: rgba(0, 0, 0, 0.8);
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="backdrop"></div>
+
+        <p class="vignette"> <!-- http://nimbupani.com/vignettes-with-css3-box-shadows.html -->
+            <img id="wagtail-bird" src="https://cdn.worldvectorlogo.com/logos/wagtail.svg" />
+        </p>
+
+        <div id="catchmouse"></div>
+
+        <div id="text-container">
+            <h1 id="header">
+                Error 404
+            </h1>
+
+            <p id="info">
+                Our wagtail searched everywhere, but it couldn't find that page.
+            </p>
+
+            <a id="goback-link" onclick="window.history.back();">Click here to go back</a>
+        </div>
+
+        <a id="wagtail-link" href="https://wagtail.io">wagtail: a fresh take on content management.</a>
+
+        <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+        <script>
+            // WAGTAIL NOD:
+            $(function() {
+                $('#catchmouse').hover(function() { // when mouse is hovering...
+                    $('#wagtail-bird').css('transform', 'translateX(-90px) rotate(4deg)');
+                }, function() { // when mouse is no longer hovering...
+                    $('#wagtail-bird').css('transform', 'translateX(-90px) rotate(0deg)');
+                });
+
+                // REMOVE THE BIRD COMPLETELY IF WINDOW IS TINY (E.G. MOBILE):
+                var w = $(window).width();
+                var h = $(window).height();
+                if (w < 1000 || h < 450) {
+                    $('#text-container').css('width', '300px');
+                    $('#text-container').css('transform', 'translateX(-150px)');
+                    $('#header').css('font-size', '50px');
+                    $('#header').css('padding-bottom', '30px');
+                    $('#wagtail-bird').css('opacity', '0');
+                }
+                $(window).resize(function() {
+                    w = $(window).width();
+                    h = $(window).height();
+                    if (w < 1000 || h < 450) {
+                        $('#text-container').css('width', '300px');
+                        $('#text-container').css('transform', 'translateX(-150px)');
+                        $('#header').css('font-size', '50px');
+                        $('#header').css('padding-bottom', '30px');
+                        $('#wagtail-bird').css('opacity', '0');
+                    } else {
+                        $('#text-container').css('width', '600px');
+                        $('#text-container').css('transform', 'translateX(-110px)');
+                        $('#header').css('font-size', '100px');
+                        $('#header').css('padding-bottom', '0px');
+                        $('#wagtail-bird').css('opacity', '1');
+                    }
+                });
+            });
+
+        </script>
+    </body>
+</html>

@@ -6,6 +6,8 @@ from django.db import connection
 from django.db.models import Max
 from django.shortcuts import render
 from django.template.loader import render_to_string
+from django.http import Http404
+from django.contrib.auth.decorators import permission_required
 
 from wagtail.wagtailadmin.navigation import get_explorable_root_page
 from wagtail.wagtailadmin.site_summary import SiteSummaryPanel
@@ -123,3 +125,15 @@ def home(request):
 
 def error_test(request):
     raise Exception("This is a test of the emergency broadcast system.")
+
+
+@permission_required('wagtailadmin.access_admin', login_url='wagtailadmin_login')
+def default(request):
+    """
+    Called whenever a request comes in with the correct prefix (eg /admin/) but
+    doesn't actually correspond to a Wagtail view.
+
+    For authenticated users, it'll raise a 404 error. Anonymous users will be
+    redirected to the login page.
+    """
+    raise Http404
