@@ -86,6 +86,7 @@ urlpatterns += [
     url(r'^', home.default),
 ]
 
+
 # Hook in our own 404 handler
 def display_custom_404(view_func):
     @functools.wraps(view_func)
@@ -96,6 +97,7 @@ def display_custom_404(view_func):
             return page_not_found(request, '', template_name='wagtailadmin/404.html')
 
     return wrapper
+
 
 urlpatterns = decorate_urlpatterns(urlpatterns, display_custom_404)
 
