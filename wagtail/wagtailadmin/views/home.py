@@ -2,18 +2,17 @@ from __future__ import absolute_import, unicode_literals
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.contrib.auth.decorators import permission_required
 from django.db import connection
 from django.db.models import Max
+from django.http import Http404
 from django.shortcuts import render
 from django.template.loader import render_to_string
-from django.http import Http404
-from django.contrib.auth.decorators import permission_required
 
 from wagtail.wagtailadmin.navigation import get_explorable_root_page
 from wagtail.wagtailadmin.site_summary import SiteSummaryPanel
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import Page, PageRevision, UserPagePermissionsProxy
-
 
 User = get_user_model()
 
