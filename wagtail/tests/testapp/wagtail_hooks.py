@@ -90,3 +90,11 @@ def polite_pages_only(parent_page, pages, request):
         pages = pages.filter(slug__startswith='hello')
 
     return pages
+
+
+# register 'blockquote' as a rich text feature supported by a hallo.js plugin
+@hooks.register('register_rich_text_features')
+def register_blockquote_feature(features):
+    features.register_editor_plugin(
+        'hallo', 'blockquote', {'plugin_name': 'halloblockquote'}
+    )
