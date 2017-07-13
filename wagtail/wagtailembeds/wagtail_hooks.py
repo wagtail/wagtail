@@ -5,6 +5,7 @@ from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.core import urlresolvers
 from django.utils.html import format_html
 
+from wagtail.wagtailadmin.rich_text import HalloPlugin
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailembeds import urls
 from wagtail.wagtailembeds.rich_text import MediaEmbedHandler
@@ -29,6 +30,14 @@ def editor_js():
         """,
         static('wagtailembeds/js/hallo-plugins/hallo-wagtailembeds.js'),
         urlresolvers.reverse('wagtailembeds:chooser')
+    )
+
+
+@hooks.register('register_rich_text_features')
+def register_embed_feature(features):
+    features.register_editor_plugin(
+        'hallo', 'embed',
+        HalloPlugin(name='hallowagtailembeds')
     )
 
 

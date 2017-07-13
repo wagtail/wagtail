@@ -265,3 +265,39 @@ class TestHalloJsWithCustomPluginOptions(BaseRichTextEditHandlerTestCase, Wagtai
 
         # Check that the custom plugin options are being passed in the hallo initialiser
         self.assertIn('makeHalloRichTextEditable("body", {"halloheadings": {"formatBlocks": ["p"]}});', form_html)
+
+
+class TestHalloJsWithFeaturesKwarg(BaseRichTextEditHandlerTestCase, WagtailTestUtils):
+
+    def setUp(self):
+        super(TestHalloJsWithFeaturesKwarg, self).setUp()
+
+        # Find root page
+        self.root_page = Page.objects.get(id=2)
+
+        self.login()
+
+    def test_features_list_on_rich_text_field(self):
+        response = self.client.get(reverse(
+            'wagtailadmin_pages:add', args=('tests', 'richtextfieldwithfeaturespage', self.root_page.id)
+        ))
+
+        # Check status code
+        self.assertEqual(response.status_code, 200)
+
+        # Check that the custom plugin options are being passed in the hallo initialiser
+        self.assertContains(response, '"halloblockquote":')
+        self.assertContains(response, '"hallowagtailembeds":')
+        self.assertNotContains(response, '"halloheadings":')
+        self.assertNotContains(response, '"hallowagtailimage":')
+
+    def test_features_list_on_rich_text_block(self):
+        block = RichTextBlock(features=['blockquote', 'embed', 'made-up-feature'])
+
+        form_html = block.render_form(block.to_python("<p>hello</p>"), 'body')
+
+        # Check that the custom plugin options are being passed in the hallo initialiser
+        self.assertIn('"halloblockquote":', form_html)
+        self.assertIn('"hallowagtailembeds":', form_html)
+        self.assertNotIn('"halloheadings":', form_html)
+        self.assertNotIn('"hallowagtailimage":', form_html)

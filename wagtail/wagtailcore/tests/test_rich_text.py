@@ -152,7 +152,7 @@ class TestFeatureRegistry(TestCase):
         # plugin, via the register_rich_text_features hook; test that we can retrieve it here
         features = FeatureRegistry()
         blockquote = features.get_editor_plugin('hallo', 'blockquote')
-        self.assertEqual(blockquote['plugin_name'], 'halloblockquote')
+        self.assertEqual(blockquote.name, 'halloblockquote')
 
     def test_missing_editor_plugin_returns_none(self):
         features = FeatureRegistry()
