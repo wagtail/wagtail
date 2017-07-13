@@ -4,7 +4,8 @@ from django.forms.utils import ErrorList
 from django.utils.translation import ugettext as _
 
 from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
-from wagtail.wagtailembeds.exceptions import EmbedNotFoundException
+from wagtail.wagtailembeds.exceptions import (
+    EmbedNotFoundException, EmbedUnsupportedProviderException)
 from wagtail.wagtailembeds.finders.embedly import AccessDeniedEmbedlyException, EmbedlyException
 from wagtail.wagtailembeds.format import embed_to_editor_html
 from wagtail.wagtailembeds.forms import EmbedForm
@@ -32,7 +33,7 @@ def chooser_upload(request):
                 )
             except AccessDeniedEmbedlyException:
                 error = _("There seems to be a problem with your embedly API key. Please check your settings.")
-            except EmbedNotFoundException:
+            except (EmbedNotFoundException, EmbedUnsupportedProviderException):
                 error = _("Cannot find an embed for this URL.")
             except EmbedlyException:
                 error = _(

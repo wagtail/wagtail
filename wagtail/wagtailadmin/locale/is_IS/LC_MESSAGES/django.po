@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2016
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2017
 # Kjartan Sverrisson <kjartan@wow.is>, 2016
-# saevarom <saevar@saevar.is>, 2015
+# saevarom <saevar@saevar.is>, 2015,2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 22:44+0000\n"
-"PO-Revision-Date: 2016-12-06 22:46+0000\n"
+"POT-Creation-Date: 2017-06-19 16:55+0000\n"
+"PO-Revision-Date: 2017-06-19 16:57+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
@@ -20,6 +20,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: is_IS\n"
 "Plural-Forms: nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);\n"
+
+msgid "None"
+msgstr "Ekkert"
 
 msgid "You do not have permission to access the admin"
 msgstr "Þú ert ekki með réttindi til þess að skoða umsjónarsvæðið"
@@ -120,11 +123,19 @@ msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
 msgstr "Þessi vefslóð (e.slug) er þegar í notkun innan ramma yfirsíðu \"%s\""
 
+msgid "You cannot copy a page into itself when copying subpages"
+msgstr ""
+"Ekki er hægt að afrita síðu inn undir sjálfa sig þegar verið er að afrita "
+"undirsíður"
+
 msgid "Visibility"
 msgstr "Sýnileiki"
 
 msgid "This field is required."
 msgstr "Þennan reit þarf að fylla út."
+
+msgid "Please select at least one group."
+msgstr "Vinsamlegast veljið amk eina grúppu."
 
 msgid "This slug is already in use"
 msgstr "Þessi vefslóð (e.slug) er þegar í notkun"
@@ -166,8 +177,11 @@ msgstr "Stillingar tilkynninga"
 msgid "Choose which email notifications to receive."
 msgstr "Veldu hvaða tilkynningar verða sendar þér í tölvupósti."
 
-msgid "Change Password"
-msgstr "Breyta lykilorði"
+msgid "Language preferences"
+msgstr "Tungumálastillingar"
+
+msgid "Choose the language you want to use here."
+msgstr "Veldu það tungumál sem þú vilt nota hérna."
 
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
@@ -175,8 +189,8 @@ msgstr ""
 "Ekki er hægt að breyta lykilorðinu þínu hér. Vinsamlegast hafðu samband við "
 "vefstjóra."
 
-msgid "Notification Preferences"
-msgstr "Stillingar tilkynninga"
+msgid "Language Preferences"
+msgstr "Tungumálastiliingar"
 
 msgid "Update"
 msgstr "Uppfæra"
@@ -217,6 +231,12 @@ msgstr "Endursetja lykilorð"
 
 msgid "Reset your password"
 msgstr "Endursettu lykilorðið þitt"
+
+msgid "Edit"
+msgstr "Breyta"
+
+msgid "Pages"
+msgstr "Síður"
 
 msgid "Dashboard"
 msgstr "Yfirlitssíða"
@@ -301,6 +321,21 @@ msgstr "Setja inn hlekk"
 msgid "Add an external link"
 msgstr "Bæta við ytri hlekk"
 
+msgid "You can edit the privacy settings on:"
+msgstr "Þú getur breytt aðgengisstilligum á:"
+
+msgid "Save"
+msgstr "Vista"
+
+msgid "Privacy"
+msgstr "Aðgengi"
+
+msgid "Public"
+msgstr "Í birtingu"
+
+msgid "Private"
+msgstr "Prívat"
+
 msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
 msgstr "Ekki er hægt að eyða safni, af því það er ekki tómt. Það inniheldur:"
@@ -322,9 +357,6 @@ msgstr "Bæta við %(heading)s"
 
 msgid "Yes, delete"
 msgstr "Já, eyða"
-
-msgid "Save"
-msgstr "Vista"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -361,11 +393,12 @@ msgstr "Samþykkja"
 msgid "Reject"
 msgstr "Hafna"
 
-msgid "Edit"
-msgstr "Breyta"
-
 msgid "Preview"
 msgstr "Forskoða"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s síðan"
 
 msgid "Your most recent edits"
 msgstr "Síðustu breytingar sem þú hefur gert"
@@ -466,9 +499,6 @@ msgstr "Síðu aðgengi"
 msgid "This page has been made private by a parent page."
 msgstr "Þessi síða hefur verið gerð prívat af yfirsíðu sinni."
 
-msgid "You can edit the privacy settings on:"
-msgstr "Þú getur breytt aðgengisstilligum á:"
-
 msgid "Privacy changes apply to all children of this page too."
 msgstr "Aðgengisstillingar eiga við allar undirsíður þessarar síðu líka."
 
@@ -480,15 +510,6 @@ msgstr "Læst"
 
 msgid "Unlocked"
 msgstr "Aflæst"
-
-msgid "Privacy"
-msgstr "Aðgengi"
-
-msgid "Public"
-msgstr "Í birtingu"
-
-msgid "Private"
-msgstr "Prívat"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -603,6 +624,10 @@ msgstr "Já, taka úr loftinu"
 
 msgid "No, don't unpublish"
 msgstr "Nei, ekki taka úr loftinu"
+
+#, python-format
+msgid "Pages using %(page_class_verbose_name)s"
+msgstr "Síður sem nota %(page_class_verbose_name)s"
 
 msgid "Pages using"
 msgstr "Síður sem nota"
@@ -766,8 +791,11 @@ msgstr "Skoða undirsíður '%(title)s'"
 msgid "Add a child page to '%(title)s'"
 msgstr "Bæta undirsíðu við '%(title)s'"
 
-msgid "Add subpage"
+msgid "Add child page"
 msgstr "Bæta við undirsíðu"
+
+msgid "Sites menu"
+msgstr "Síðuvalmynd"
 
 #, python-format
 msgid ""
@@ -805,6 +833,87 @@ msgstr "Veldu nýja yfirsíðu fyrir %(title)s"
 msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Veldu nýja yfirsíðu fyrir <span>%(title)s</span>"
 
+msgid "Preview error"
+msgstr "Forskoðunar villa"
+
+msgid ""
+"\n"
+"                Impossible to preview this page, some errors are remaining.\n"
+"                Please close this tab, edit the page to fix these errors,\n"
+"                then use preview again.\n"
+"            "
+msgstr ""
+"\n"
+"Ekki tókst að forskoða þessa síðu, því það eru villur á síðunni.\n"
+"Vinsamlegast lokið þessum flipa, lagið villur á síðunni, \n"
+"og forskoðið svo aftur."
+
+msgid "Close"
+msgstr "Loka"
+
+#, python-format
+msgid "Comparing %(title)s"
+msgstr "Bera saman %(title)s"
+
+msgid "Comparing"
+msgstr "Ber saman"
+
+msgid "View revisions"
+msgstr "Skoða útgáfur"
+
+msgid "Fields"
+msgstr "Reitir"
+
+msgid "Changes"
+msgstr "Breytingar"
+
+#, python-format
+msgid ""
+"\n"
+"                                                            Moved down 1 "
+"place.\n"
+"                                                        "
+msgid_plural ""
+"\n"
+"                                                            Moved down "
+"%(counter)s places.\n"
+"                                                        "
+msgstr[0] ""
+"\n"
+"                                                            Færði niður um 1 "
+"sæti.\n"
+"                                                        "
+msgstr[1] ""
+"\n"
+"                                                            Færði niður "
+"%(counter)s sæti.\n"
+"                                                        "
+
+#, python-format
+msgid ""
+"\n"
+"                                                            Moved up 1 "
+"place.\n"
+"                                                        "
+msgid_plural ""
+"\n"
+"                                                            Moved up "
+"%(counter)s places.\n"
+"                                                        "
+msgstr[0] ""
+"\n"
+"                                                            Færði upp um 1 "
+"sæti.\n"
+"                                                        "
+msgstr[1] ""
+"\n"
+"                                                            Færði upp um "
+"%(counter)s sæti.\n"
+"                                                        "
+
+msgid "There are no differences between these two revisions"
+msgstr "Það eru engar breytingar milli þessara útgáfa"
+
 #, python-format
 msgid "Revisions of %(title)s"
 msgstr "Útgáfur af %(title)s"
@@ -824,6 +933,9 @@ msgstr "Núverandi vinnuskjal"
 
 msgid "Review this revision"
 msgstr "Skoða þessa útgáfu"
+
+msgid "Compare with previous revision"
+msgstr "Bera saman við fyrri útgáfur"
 
 msgid "No revisions of this page exist"
 msgstr "Engar útgáfur til af þessari síðu"
@@ -934,6 +1046,9 @@ msgstr[1] "Notað %(useage_count)s sinnum"
 msgid "Edit your account"
 msgstr "Breyta reikningnum þínum"
 
+msgid "Account settings"
+msgstr "Stillingar reiknings"
+
 msgid "Log out"
 msgstr "Útskrá"
 
@@ -953,6 +1068,24 @@ msgstr ""
 "hugbúnaði. Vinsamlegast <a href=\"http://browsehappy.com/\">uppfærðu vafrann "
 "þinn</a>."
 
+msgid ""
+"\n"
+"            Javascript is required to use Wagtail, but it is currently "
+"disabled.<br />\n"
+"            Here are the <a href=\"http://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noopener\">instructions how to enable JavaScript in "
+"your web browser</a>.\n"
+"        "
+msgstr ""
+"\n"
+"            Wagtail þarfnast Javascript til að virka, en það er óvirkjað í "
+"vafranum þínum.<br />\n"
+"            Hérna eru <a href=\"http://www.enable-javascript.com/\" target="
+"\"_blank\" rel=\"noopener\">leiðbeiningar um hvernig á að virkja Javascript "
+"í vafranum.</a>\n"
+"\n"
+"        "
+
 msgid "Go to Wagtail admin interface"
 msgstr "Fara á Wagtail stjórnborð"
 
@@ -968,13 +1101,70 @@ msgstr "Sýna í veftré"
 msgid "Test"
 msgstr "Prufa"
 
+msgid "Catalan"
+msgstr "Catalan"
+
+msgid "German"
+msgstr "Þýska"
+
+msgid "Greek"
+msgstr "Gríska"
+
+msgid "English"
+msgstr "Enska"
+
+msgid "Spanish"
+msgstr "Spænska"
+
+msgid "Finnish"
+msgstr "Finnska"
+
+msgid "French"
+msgstr "Franska"
+
+msgid "Galician"
+msgstr "Galiska"
+
+msgid "Icelandic"
+msgstr "Íslenska"
+
+msgid "Italian"
+msgstr "Ítalska"
+
+msgid "Lithuanian"
+msgstr "Litháenska"
+
+msgid "Norwegian Bokmål"
+msgstr "Norska"
+
+msgid "Netherlands Dutch"
+msgstr "Hollenska"
+
+msgid "Polish"
+msgstr "Pólska"
+
+msgid "Brazilian Portuguese"
+msgstr "Brasilísk Portúgalska"
+
+msgid "Portuguese"
+msgstr "Portúgalska"
+
+msgid "Romanian"
+msgstr "Rúmenska"
+
+msgid "Russian"
+msgstr "Rússneska"
+
+msgid "Chinese (China)"
+msgstr "Kínverska (Kína)"
+
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Því miður, þú hefur ekki heimildir til að skoða þetta svæði."
 
 msgid "Your password has been changed successfully!"
 msgstr "Tókst að breyta lykilorðinu þínu!"
 
-msgid "Your preferences have been updated successfully!"
+msgid "Your preferences have been updated."
 msgstr "Tókst að breyta stillingunum þínum!"
 
 msgid "You have been successfully logged out."
@@ -1076,6 +1266,9 @@ msgstr "Ekki var hægt að vista síðuna, hún er læst"
 msgid "The page could not be saved due to validation errors"
 msgstr "Ekki var hægt að vista síðuna þar sem hún stóðst ekki villuprófanir"
 
+msgid "Compare with live version"
+msgstr "Bera saman við útgáfu í birtingu"
+
 msgid "This page is currently awaiting moderation"
 msgstr "Þessi síða bíður samþykkis til birtingar."
 
@@ -1133,36 +1326,54 @@ msgstr ""
 "Þú ert að skoða útgáfu af þessari síðu frá <b>%(created_at)s</b> eftir "
 "%(user)s"
 
-msgid "Pages"
-msgstr "Síður"
+msgid "Earliest"
+msgstr "Fyrsta"
 
-msgid "Preview draft"
-msgstr "Forskoða uppkast"
-
-msgid "Add child page"
-msgstr "Bæða við undirsíðu"
+msgid "Latest"
+msgstr "Nýjasta"
 
 #, python-brace-format
-msgid "Add a child page to '{0}' "
-msgstr "Bæta við undirsíðu við '{0}'"
+msgid "Edit '{title}'"
+msgstr "Breyta '{title}'"
+
+#, python-brace-format
+msgid "Preview draft version of '{title}'"
+msgstr "Forskoða uppkast af '{title}'"
+
+#, python-brace-format
+msgid "View live version of '{title}'"
+msgstr "Skoða útgáfu af '{title}' í birtingu"
+
+#, python-brace-format
+msgid "Add a child page to '{title}' "
+msgstr "Bæta undirsíðu við '{title}'"
 
 msgid "More"
 msgstr "Meira"
 
-msgid "View more options"
-msgstr "Sjá fleiri valmöguleika"
+#, python-brace-format
+msgid "View more options for '{title}'"
+msgstr "Skoða fleiri valkosti fyrir '{title}'"
 
-msgid "Move this page"
-msgstr "Færa þessa síðu"
+#, python-brace-format
+msgid "Move page '{title}'"
+msgstr "Færa síðu '{title}'"
 
-msgid "Delete this page"
-msgstr "Eyða þessari síðu"
+#, python-brace-format
+msgid "Copy page '{title}'"
+msgstr "Afrita síðu '{title}'"
 
-msgid "Unpublish this page"
-msgstr "Taka þessa síðu úr loftinu"
+#, python-brace-format
+msgid "Delete page '{title}'"
+msgstr "Eyða síðu '{title}'"
 
-msgid "View this page's revision history"
-msgstr "Skoða útgáfusögu þessarar síðu"
+#, python-brace-format
+msgid "Unpublish page '{title}'"
+msgstr "Taka '{title}' úr loftinu"
+
+#, python-brace-format
+msgid "View revision history for '{title}'"
+msgstr "Skoða útgáfusögu '{title}'"
 
 msgid "Choose an item"
 msgstr "Veldu"

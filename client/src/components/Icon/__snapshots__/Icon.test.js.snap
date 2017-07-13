@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Icon #className 1`] = `
+<span>
+  <span
+    aria-hidden={true}
+    className="icon icon-test u-test"
+  />
+</span>
+`;
+
+exports[`Icon #name 1`] = `
+<span>
+  <span
+    aria-hidden={true}
+    className="icon icon-test "
+  />
+</span>
+`;
+
+exports[`Icon #title 1`] = `
+<span>
+  <span
+    aria-hidden={true}
+    className="icon icon-test "
+  />
+  <span
+    className="visuallyhidden"
+  >
+    Test title
+  </span>
+</span>
+`;

@@ -206,28 +206,25 @@ Set the number of days (default 7) that search query logs are kept for; these ar
 Embeds
 ------
 
-Wagtail uses the oEmbed standard with a large but not comprehensive number of "providers" (Youtube, Vimeo, etc.). You can also use a different embed backend by providing an Embedly key or replacing the embed backend by writing your own embed finder function.
+Wagtail supports generating embed code from URLs to content on an external
+providers such as Youtube or Twitter. By default, Wagtail will fetch the embed
+code directly from the relevant provider's site using the oEmbed protocol.
+Wagtail has a builtin list of the most common providers.
+
+The embeds fetching can be fully configured using the ``WAGTAILEMBEDS_FINDERS``
+setting. This is fully documented in :ref:`configuring_embed_finders`.
+
+
+Dashboard
+---------
+
+.. versionadded:: 1.10
 
 .. code-block:: python
 
-  WAGTAILEMBEDS_EMBED_FINDER = 'myapp.embeds.my_embed_finder_function'
+    WAGTAILADMIN_RECENT_EDITS_LIMIT = 5
 
-Use a custom embed finder function, which takes a URL and returns a dict with metadata and embeddable HTML. Refer to the ``wagtail.wagtailemebds.embeds`` module source for more information and examples.
-
-.. code-block:: python
-
-  # not a working key, get your own!
-  WAGTAILEMBEDS_EMBEDLY_KEY = '253e433d59dc4d2xa266e9e0de0cb830'
-
-Providing an API key for the Embedly service will use that as a embed backend, with a more extensive list of providers, as well as analytics and other features. For more information, see `Embedly`_.
-
-.. _Embedly: http://embed.ly/
-
-To use Embedly, you must also install their Python module:
-
-.. code-block:: console
-
-  $ pip install embedly
+This setting lets you change the number of items shown at 'Your most recent edits' on the dashboard.
 
 
 Images
@@ -299,14 +296,22 @@ Wagtail update notifications
 For admins only, Wagtail performs a check on the dashboard to see if newer releases are available. This also provides the Wagtail team with the hostname of your Wagtail site. If you'd rather not receive update notifications, or if you'd like your site to remain unknown, you can disable it with this setting.
 
 
-Private Pages
--------------
+Private pages / documents
+-------------------------
 
 .. code-block:: python
 
   PASSWORD_REQUIRED_TEMPLATE = 'myapp/password_required.html'
 
 This is the path to the Django template which will be used to display the "password required" form when a user accesses a private page. For more details, see the :ref:`private_pages` documentation.
+
+.. code-block:: python
+
+  DOCUMENT_PASSWORD_REQUIRED_TEMPLATE = 'myapp/document_password_required.html'
+
+.. versionadded:: 1.11
+
+As above, but for password restrictions on documents. For more details, see the :ref:`private_pages` documentation.
 
 Case-Insensitive Tags
 ---------------------
@@ -317,6 +322,17 @@ Case-Insensitive Tags
 
 Tags are case-sensitive by default ('music' and 'Music' are treated as distinct tags). In many cases the reverse behaviour is preferable.
 
+Multi-word tags
+---------------
+
+.. versionadded:: 1.10
+
+.. code-block:: python
+
+  TAG_SPACES_ALLOWED = False
+
+Tags can only consist of a single word, no spaces allowed. The default setting is ``True`` (spaces in tags are allowed).
+
 Unicode Page Slugs
 ------------------
 
@@ -325,6 +341,23 @@ Unicode Page Slugs
   WAGTAIL_ALLOW_UNICODE_SLUGS = True
 
 By default, page slugs can contain any alphanumeric characters, including non-Latin alphabets (except on Django 1.8, where only ASCII characters are supported). Set this to False to limit slugs to ASCII characters.
+
+.. _WAGTAIL_AUTO_UPDATE_PREVIEW:
+
+Auto update preview
+-------------------
+
+.. versionadded:: 1.10
+
+.. code-block:: python
+
+  WAGTAIL_AUTO_UPDATE_PREVIEW = False
+
+When enabled, data from an edited page is automatically sent to the server
+on each change, even without saving. That way, users don’t have to click on
+“Preview” to update the content of the preview page. However, the preview page
+tab is not refreshed automatically, users have to do it manually.
+This behaviour is disabled by default.
 
 Custom User Edit Forms
 ----------------------
@@ -363,6 +396,42 @@ When enabled Wagtail shows where a particular image, document or snippet is bein
 .. note::
 
     The usage count only applies to direct (database) references. Using documents, images and snippets within StreamFields or rich text fields will not be taken into account.
+
+Date and DateTime inputs
+------------------------
+
+.. code-block:: python
+
+    WAGTAIL_DATE_FORMAT = '%d.%m.%Y.'
+    WAGTAIL_DATETIME_FORMAT = '%d.%m.%Y. %H:%M'
+
+
+Specifies the date and datetime format to be used in input fields in the Wagtail admin. The format is specified in `Python datetime module syntax <https://docs.python.org/3/library/datetime.html#strftime-strptime-behavior>`_, and must be one of the recognised formats listed in the ``DATE_INPUT_FORMATS`` or ``DATETIME_INPUT_FORMATS`` setting respectively (see `DATE_INPUT_FORMATS <https://docs.djangoproject.com/en/1.10/ref/settings/#std:setting-DATE_INPUT_FORMATS>`_).
+
+.. _WAGTAILADMIN_PERMITTED_LANGUAGES:
+
+Admin languages
+---------------
+
+.. versionadded:: 1.10
+
+Users can choose between several languages for the admin interface
+in the account settings. The list of languages is by default all the available
+languages in Wagtail. To change it, set ``WAGTAILADMIN_PERMITTED_LANGUAGES``:
+
+.. code-block:: python
+
+    WAGTAILADMIN_PERMITTED_LANGUAGES = [('en', 'English'),
+                                        ('pt', 'Portuguese')]
+
+Since the syntax is the same as Django ``LANGUAGES``, you can do this so users
+can only choose between front office languages:
+
+.. code-block:: python
+
+    LANGUAGES = WAGTAILADMIN_PERMITTED_LANGUAGES = [('en', 'English'),
+                                                    ('pt', 'Portuguese')]
+
 
 URL Patterns
 ~~~~~~~~~~~~
@@ -612,7 +681,7 @@ These two files should reside in your project directory (``myproject/myproject/`
 
 .. code-block:: python
 
-  from django.conf.urls import patterns, include, url
+  from django.conf.urls import include, url
   from django.conf.urls.static import static
   from django.views.generic.base import RedirectView
   from django.contrib import admin
@@ -625,7 +694,7 @@ These two files should reside in your project directory (``myproject/myproject/`
   from wagtail.wagtailsearch import urls as wagtailsearch_urls
 
 
-  urlpatterns = patterns('',
+  urlpatterns = [
       url(r'^django-admin/', include(admin.site.urls)),
 
       url(r'^admin/', include(wagtailadmin_urls)),
@@ -635,7 +704,7 @@ These two files should reside in your project directory (``myproject/myproject/`
       # For anything not caught by a more specific rule above, hand over to
       # Wagtail's serving mechanism
       url(r'', include(wagtail_urls)),
-  )
+  ]
 
 
   if settings.DEBUG:
@@ -643,6 +712,6 @@ These two files should reside in your project directory (``myproject/myproject/`
 
       urlpatterns += staticfiles_urlpatterns() # tell gunicorn where static files are in dev mode
       urlpatterns += static(settings.MEDIA_URL + 'images/', document_root=os.path.join(settings.MEDIA_ROOT, 'images'))
-      urlpatterns += patterns('',
-          (r'^favicon\.ico$', RedirectView.as_view(url=settings.STATIC_URL + 'myapp/images/favicon.ico'))
-      )
+      urlpatterns += [
+          url(r'^favicon\.ico$', RedirectView.as_view(url=settings.STATIC_URL + 'myapp/images/favicon.ico'))
+      ]

@@ -35,9 +35,6 @@ from django.views.generic.edit import FormView
 from wagtail.wagtailadmin import messages
 from wagtail.wagtailadmin.edit_handlers import (
     ObjectList, extract_panel_definitions_from_model_class)
-from wagtail.wagtaildocs.models import get_document_model
-from wagtail.wagtailimages import get_image_model
-from wagtail.wagtailimages.models import Filter
 
 from .forms import ParentChooserForm
 
@@ -115,7 +112,8 @@ class ModelFormView(WMABaseView, FormView):
         if hasattr(self.model, 'edit_handler'):
             edit_handler = self.model.edit_handler
         else:
-            panels = extract_panel_definitions_from_model_class(self.model)
+            fields_to_exclude = self.model_admin.get_form_fields_exclude(request=self.request)
+            panels = extract_panel_definitions_from_model_class(self.model, exclude=fields_to_exclude)
             edit_handler = ObjectList(panels)
         return edit_handler.bind_to_model(self.model)
 
@@ -849,7 +847,7 @@ class InspectView(InstanceSpecificView):
         return label
 
     def get_field_display_value(self, field_name, field=None):
-        """ Return a display value for a field """
+        """ Return a display value for a field/attribute """
 
         # First we check for a 'get_fieldname_display' property/method on
         # the model, and return the value of that, if present.
@@ -859,39 +857,47 @@ class InspectView(InstanceSpecificView):
                 return val_funct()
             return val_funct
 
-        # If we have a real field, we can utilise that to try to display
-        # something more useful
-        if field is not None:
-            try:
-                field_type = field.get_internal_type()
-                if (
-                    field_type == 'ForeignKey' and
-                    field.related_model == get_image_model()
-                ):
-                    # The field is an image
-                    return self.get_image_field_display(field_name, field)
+        # Now let's get the attribute value from the instance itself and see if
+        # we can render something useful. raises AttributeError appropriately.
+        val = getattr(self.instance, field_name)
 
-                if (
-                    field_type == 'ForeignKey' and
-                    field.related_model == get_document_model()
-                ):
-                    # The field is a document
-                    return self.get_document_field_display(field_name, field)
+        if isinstance(val, models.Manager):
+            val = val.all()
 
-            except AttributeError:
-                pass
+        if isinstance(val, models.QuerySet):
+            if val.exists():
+                return ', '.join(['%s' % obj for obj in val])
+            return self.model_admin.get_empty_value_display(field_name)
 
-        # Resort to getting the value of 'field_name' from the instance
-        return getattr(self.instance, field_name,
-                       self.model_admin.get_empty_value_display(field_name))
+        # wagtail.wagtailimages might not be installed
+        try:
+            from wagtail.wagtailimages.models import AbstractImage
+            if isinstance(val, AbstractImage):
+                # Render a rendition of the image
+                return self.get_image_field_display(field_name, field)
+        except RuntimeError:
+            pass
+
+        # wagtail.wagtaildocuments might not be installed
+        try:
+            from wagtail.wagtaildocs.models import AbstractDocument
+            if isinstance(val, AbstractDocument):
+                # Render a link to the document
+                return self.get_document_field_display(field_name, field)
+        except RuntimeError:
+            pass
+
+        # Resort to returning the real value or 'empty value'
+        if val or val is False:
+            return val
+        return self.model_admin.get_empty_value_display(field_name)
 
     def get_image_field_display(self, field_name, field):
         """ Render an image """
+        from wagtail.wagtailimages.shortcuts import get_rendition_or_not_found
         image = getattr(self.instance, field_name)
         if image:
-            fltr = Filter(spec='max-400x400')
-            rendition = image.get_rendition(fltr)
-            return rendition.img_tag
+            return get_rendition_or_not_found(image, 'max-400x400').img_tag
         return self.model_admin.get_empty_value_display(field_name)
 
     def get_document_field_display(self, field_name, field):

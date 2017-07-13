@@ -1,0 +1,178 @@
+==========================
+Wagtail 1.10 release notes
+==========================
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+PostgreSQL search engine
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+A new search engine has been added to Wagtail which uses PostgreSQL's built-in
+full-text search functionality. This means that if you use PostgreSQL to manage
+your database, you can now get a good quality search engine without needing
+to install Elasticsearch.
+
+To get started, see :ref:`postgres_search`.
+
+This feature was developed at the Arnhem sprint by Bertrand Bordage, Jaap Roes,
+Arne de Laat and Ramon de Jezus.
+
+
+Django 1.11 and Python 3.6 support
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Wagtail is now compatible with Django 1.11 and Python 3.6. Compatibility fixes were contributed by Tim Graham, Matt Westcott, Mikalai Radchuk and Bertrand Bordage.
+
+
+User language preference
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+Users can now set their preferred language for the Wagtail admin interface under Account Settings → Language Preferences. The list of available languages can be configured via the :ref:`WAGTAILADMIN_PERMITTED_LANGUAGES <WAGTAILADMIN_PERMITTED_LANGUAGES>` setting. This feature was developed by Daniel Chimeno.
+
+
+New admin preview
+~~~~~~~~~~~~~~~~~
+
+Previewing pages in Wagtail admin interface was rewritten
+to make it more robust. In previous versions, preview was broken in several
+scenarios so users often ended up on a blank page with an infinite spinner.
+
+An additional setting was created: :ref:`WAGTAIL_AUTO_UPDATE_PREVIEW <WAGTAIL_AUTO_UPDATE_PREVIEW>`.
+It allows users to see changes done in the editor by refreshing the preview tab
+without having to click again on the preview button.
+
+This was developed by Bertrand Bordage.
+
+
+Other features
+~~~~~~~~~~~~~~
+
+ * Use minified versions of jQuery and jQuery UI in the admin. Total savings without compression 371 KB (Tom Dyson)
+ * Hooks can now specify the order in which they are run (Gagaro)
+ * Added a ``submit_buttons`` block to login template (Gagaro)
+ * Added ``construct_image_chooser_queryset``, ``construct_document_chooser_queryset`` and ``construct_page_chooser_queryset`` hooks (Gagaro)
+ * The homepage created in the project template is now titled "Home" rather than "Homepage" (Karl Hobley)
+ * Signal receivers for custom ``Image`` and ``Rendition`` models are connected automatically (Mike Dingjan)
+ * ``PageChooserBlock`` can now accept a list/tuple of page models as ``target_model`` (Mikalai Radchuk)
+ * Styling tweaks for the ModelAdmin's ``IndexView`` to be more inline with the Wagtail styleguide (Andy Babic)
+ * Added ``.nvmrc`` to the project root for Node versioning support (Janneke Janssen)
+ * Added ``form_fields_exclude`` property to ModelAdmin views (Matheus Bratfisch)
+ * User creation / edit form now enforces password validators set in ``AUTH_PASSWORD_VALIDATORS`` (Bertrand Bordage)
+ * Added support for displaying ``non_field_errors`` when validation fails in the page editor (Matt Westcott)
+ * Added ``WAGTAILADMIN_RECENT_EDITS_LIMIT`` setting to to define the number of your most recent edits on the dashboard (Maarten Kling)
+ * Added link to the full Elasticsearch setup documentation from the Performance page (Matt Westcott)
+ * Tag input fields now accept spaces in tags by default, and can be overridden with the ``TAG_SPACES_ALLOWED`` setting (Kees Hink, Alex Gleason)
+ * Page chooser widgets now display the required page type where relevant (Christine Ho)
+ * Site root pages are now indicated with a globe icon in the explorer listing (Nick Smith, Huub Bouma)
+ * Draft page view is now restricted to users with edit / publish permission over the page (Kees Hink)
+ * Added the option to delete a previously saved focal point on a image (Maarten Kling)
+ * Page explorer menu item, search and summary panel are now hidden for users with no page permissions (Tim Heap)
+ * Added support for custom date and datetime formats in input fields (Bojan Mihelac)
+ * Added support for custom Django REST framework serialiser fields in ``Page.api_fields`` using a new ``APIField`` class (Karl Hobley)
+ * Added ``classname`` argument to ``StreamFieldPanel`` (Christine Ho)
+ * Added ``group`` keyword argument to StreamField blocks for grouping related blocks together in the block menu (Andreas Nüßlein)
+ * Update the sitemap generator to use the Django sitemap module (Michael van Tellingen, Mike Dingjan)
+
+
+Bug fixes
+~~~~~~~~~
+
+ * Marked 'Date from' / 'Date to' strings in wagtailforms for translation (Vorlif)
+ * "File" field label on image edit form is now translated (Stein Strindhaug)
+ * Unreliable preview is now reliable by always opening in a new window (Kjartan Sverrisson)
+ * Fixed placement of ``{{ block.super }}`` in ``snippets/type_index.html`` (LB (Ben Johnston))
+ * Optimised database queries on group edit page (Ashia Zawaduk)
+ * Choosing a popular search term for promoted search results now works correctly after pagination (Janneke Janssen)
+ * IDs used in tabbed interfaces are now namespaced to avoid collisions with other page elements (Janneke Janssen)
+ * Page title not displaying page name when moving a page (Trent Holliday)
+ * The ModelAdmin module can now work without the wagtailimages and wagtaildocs apps installed (Andy Babic)
+ * Cloudflare error handling now handles non-string error responses correctly (hdnpl)
+ * Search indexing now uses a defined query ordering to prevent objects from being skipped (Christian Peters)
+ * Ensure that number localisation is not applied to object IDs within admin templates (Tom Hendrikx)
+ * Paginating with a search present was always returning the 1st page in Internet Explorer 10 & 11 (Ralph Jacobs)
+ * RoutablePageMixin and wagtailforms previews now set the ``request.is_preview`` flag (Wietze Helmantel)
+ * The save and preview buttons in the page editor are now mobile-friendly (Maarten Kling)
+ * Page links within rich text now respect custom URLs defined on specific page models (Gary Krige, Huub Bouma)
+ * Default avatar no longer visible when using a transparent gravatar image (Thijs Kramer)
+ * Scrolling within the datetime picker is now usable again for touchpads (Ralph Jacobs)
+ * List-based fields within form builder form submissions are now displayed as comma-separated strings rather than as Python lists (Christine Ho, Matt Westcott)
+ * The page type usage listing now have a translatable page title (Ramon de Jezus)
+ * Styles for submission filtering form now have a consistent height. (Thijs Kramer)
+ * Slicing a search result set no longer loses the annotation added by ``annotate_score`` (Karl Hobley)
+ * String-based primary keys are now escaped correctly in ModelAdmin URLs (Andreas Nüßlein)
+ * Empty search in the API now works (Morgan Aubert)
+ * ``RichTextBlock`` toolbar now correctly positioned within ``StructBlock`` (Janneke Janssen)
+ * Fixed display of ManyToMany fields and False values on the ModelAdmin inspect view (Andy Babic)
+ * Prevent pages from being recursively copied into themselves (Matheus Bratfisch)
+ * Specifying the full file name in documents URL is mandatory (Morgan Aubert)
+ * Reordering inline forms now works correctly when moving past a deleted form (Janneke Janssen)
+ * Removed erroneous `|safe` filter from search results template in project template (Karl Hobley)
+
+
+Upgrade considerations
+======================
+
+Django 1.9 and Python 3.3 support dropped
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Support for Django 1.9 and Python 3.3 has been dropped in this release; please upgrade from these before upgrading Wagtail. Note that the Django 1.8 release series is still supported, as a Long Term Support release.
+
+
+Dropped support for generating static sites using ``django-medusa``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Django-medusa is no longer maintained, and is incompatible with Django 1.8 and above. An alternative module based on the `django-bakery` package is available as a third-party contribution: https://github.com/moorinteractive/wagtail-bakery.
+
+
+Signals on custom ``Image`` and ``Rendition`` models connected automatically
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Projects using :ref:`custom image models <custom_image_model>` no longer need to set up signal receivers to handle deletion of image files and image feature detection, as these are now handled automatically by Wagtail. The following lines of code should be removed:
+
+.. code-block:: python
+
+    # Delete the source image file when an image is deleted
+    @receiver(post_delete, sender=CustomImage)
+    def image_delete(sender, instance, **kwargs):
+        instance.file.delete(False)
+
+
+    # Delete the rendition image file when a rendition is deleted
+    @receiver(post_delete, sender=CustomRendition)
+    def rendition_delete(sender, instance, **kwargs):
+        instance.file.delete(False)
+
+
+    # Perform image feature detection (if enabled)
+    @receiver(pre_save, sender=CustomImage)
+    def image_feature_detection(sender, instance, **kwargs):
+        if not instance.has_focal_point():
+            instance.set_focal_point(instance.get_suggested_focal_point())
+
+
+Adding / editing users through Wagtail admin no longer sets ``is_staff`` flag
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Previously, the ``is_staff`` flag (which grants access to the Django admin interface) was automatically set for superusers, and reset for other users, when creating and updating users through the Wagtail admin. This behaviour has now been removed, since Wagtail is designed to work independently of the Django admin. If you need to reinstate the old behaviour, you can set up a `pre_save signal handler <https://docs.djangoproject.com/en/1.10/ref/signals/#django.db.models.signals.pre_save>`_ on the User model to set the flag appropriately.
+
+
+Specifying the full file name in documents URL is mandatory
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In previous releases, it was possible to download a document using
+the primary key and a fraction of its file name, or even without file name.
+You could get the same document at the addresses
+``/documents/1/your-file-name.pdf``, ``/documents/1/you`` & ``/documents/1/``.
+
+This feature was supposed to allow shorter URLs but was not used in Wagtail.
+For security reasons, we removed it, so only the full URL works:
+``/documents/1/your-file-name.pdf``
+
+If any of your applications relied on the previous behaviour, you will have to
+rewrite it to take this into account.

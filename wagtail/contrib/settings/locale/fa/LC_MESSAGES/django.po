@@ -1,0 +1,44 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Mohammad Hossein Mojtahedi <Mhm5000@gmail.com>, 2017
+# Py Zenberg <pyzenberg@gmail.com>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-06-19 16:55+0000\n"
+"PO-Revision-Date: 2017-05-28 06:44+0000\n"
+"Last-Translator: Py Zenberg <pyzenberg@gmail.com>\n"
+"Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
+"fa/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fa\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#, python-format
+msgid "Editing %(setting_type_name)s - %(instance)s"
+msgstr "در حال ویرایش %(setting_type_name)s - %(instance)s"
+
+msgid "Editing"
+msgstr "در حال ویرایش"
+
+msgid "Saving..."
+msgstr "در حال ذخیره کردن..."
+
+msgid "Save"
+msgstr "ذخیره"
+
+msgid "Settings"
+msgstr "تنظیمات"
+
+#, python-brace-format
+msgid "{setting_type} updated."
+msgstr "{setting_type} به روز شد."
+
+msgid "The setting could not be saved due to errors."
+msgstr "به دلیل بروز خطا امکان ذخیره تنظیمات وجود ندارد."

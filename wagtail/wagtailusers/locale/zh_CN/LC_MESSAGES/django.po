@@ -6,15 +6,17 @@
 # hanfeng <appweb.cn@gmail.com>, 2014-2015
 # hanfeng <appweb.cn@gmail.com>, 2014
 # Jian Li <kdlijian@gmail.com>, 2015
-# listeng <aosp@163.com>, 2016
-# 沙军 祝 <zhushajun@gmail.com>, 2016
+# listeng, 2016
+# Vincent Zhao <zhaopu2008@gmail.com>, 2017
+# jszsj <zhushajun@gmail.com>, 2017
+# jszsj <zhushajun@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 22:44+0000\n"
-"PO-Revision-Date: 2016-11-02 09:04+0000\n"
-"Last-Translator: 沙军 祝 <zhushajun@gmail.com>\n"
+"POT-Creation-Date: 2017-06-19 16:55+0000\n"
+"PO-Revision-Date: 2017-05-07 14:49+0000\n"
+"Last-Translator: Vincent Zhao <zhaopu2008@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -35,11 +37,14 @@ msgstr "此用户名已被占用"
 msgid "The two password fields didn't match."
 msgstr "密码字段不匹配"
 
-msgid "Administrator"
-msgstr "管理员"
+msgid "Email"
+msgstr "电子邮件"
 
-msgid "Administrators have full access to manage any object or setting."
-msgstr "管理员拥有完全的权限去管理对象和配置"
+msgid "First Name"
+msgstr "名"
+
+msgid "Last Name"
+msgstr "姓"
 
 msgid "Password"
 msgstr "密码"
@@ -53,14 +58,11 @@ msgstr "确认密码"
 msgid "Enter the same password as above, for verification."
 msgstr "键入同样的密码，以备验证。"
 
-msgid "Email"
-msgstr "电子邮件"
+msgid "Administrator"
+msgstr "管理员"
 
-msgid "First Name"
-msgstr "名"
-
-msgid "Last Name"
-msgstr "姓"
+msgid "Administrators have full access to manage any object or setting."
+msgstr "管理员拥有完全的权限去管理对象和配置"
 
 msgid "A group with that name already exists."
 msgstr "此组名已被占用。"
@@ -86,6 +88,12 @@ msgstr "已拒绝通知"
 msgid "Receive notification when your page edit is rejected"
 msgstr "当您的页面编辑动作被拒绝时接收提醒。"
 
+msgid "preferred language"
+msgstr "首选语言"
+
+msgid "Select language for the admin"
+msgstr "为管理员选择语言"
+
 msgid "user profile"
 msgstr "用户资料"
 
@@ -94,9 +102,20 @@ msgstr "删除组"
 
 #, python-format
 msgid ""
-"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> users "
-"assigned."
-msgstr "该组 '%(group_name)s' 有 <strong>%(group_user_count)s</strong> 用户。"
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> member.\n"
+"            "
+msgid_plural ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> members.\n"
+"            "
+msgstr[0] ""
+"\n"
+"                '%(group_name)s' 组有 <strong>%(group_user_count)s</strong> "
+"个成员。\n"
+"            "
 
 msgid ""
 "Deleting this group will revoke this group's permissions from all member "
@@ -230,7 +249,7 @@ msgid "Group '{0}' created."
 msgstr "组 '{0}' 已创建"
 
 msgid "Edit"
-msgstr "已编辑"
+msgstr "编辑"
 
 msgid "The group could not be created due to errors."
 msgstr "无法创建该组。出现错误。"

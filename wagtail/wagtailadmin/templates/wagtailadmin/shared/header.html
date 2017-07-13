@@ -17,11 +17,12 @@
     add_link - if present, display an 'add' button. This is a URL route name (taking no parameters) to be used as the link URL for the button
     add_text - text for the 'add' button
 {% endcomment %}
-<header class="nice-padding {% if merged %}merged{% endif %} {% if tabbed %}tab-merged{% endif %} {% if search_form %}hasform{% endif %}">
-    <div class="row">
+<header class="{% if merged %}merged{% endif %} {% if tabbed %}tab-merged{% endif %} {% if search_form %}hasform{% endif %}">
+    <div class="row nice-padding">
         <div class="left">
-            <div class="col">
-                <h1 class="icon icon-{{ icon }}">{{ title }}{% if subtitle %} <span>{{ subtitle }}</span>{% endif %}</h1>
+            <div class="col header-title">
+                <h1 class="icon icon-{{ icon }}">
+                {{ title }}{% if subtitle %} <span>{{ subtitle }}</span>{% endif %}</h1>
             </div>
             {% if search_url %}
                 <form class="col search-form" action="{% url search_url %}{% if query_parameters %}?{{ query_parameters }}{% endif %}" method="get" novalidate>

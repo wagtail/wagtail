@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Maarten Kling <kling.maarten@gmail.com>, 2015
+# Maarten Kling <kling.maarten@gmail.com>, 2015,2017
 # Thijs Kramer <thijskramer@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 22:44+0000\n"
-"PO-Revision-Date: 2016-11-23 19:14+0000\n"
+"POT-Creation-Date: 2017-06-19 16:55+0000\n"
+"PO-Revision-Date: 2017-04-28 09:18+0000\n"
 "Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
@@ -53,10 +53,12 @@ msgstr ""
 #, python-format
 msgid ""
 "You haven't created any %(snippet_type_name)s snippets. Why not <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">create one now"
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">create one now</"
+"a>?"
 msgstr ""
-"Er is nog geen %(snippet_type_name)s snippet aangemaakt. Waarom <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\">voegt u er niet een toe</a>?"
+"Er is nog geen  %(snippet_type_name)s snippet aangemaakt. Waarom <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">voegt u er niet "
+"een toe</a>?"
 
 #, python-format
 msgid "Delete %(snippet_type_name)s - %(instance)s"

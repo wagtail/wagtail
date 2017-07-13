@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 22:44+0000\n"
-"PO-Revision-Date: 2016-12-06 22:46+0000\n"
+"POT-Creation-Date: 2017-06-19 16:55+0000\n"
+"PO-Revision-Date: 2017-06-19 16:57+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/torchbox/wagtail/"
 "language/he_IL/)\n"
@@ -148,15 +148,9 @@ msgstr "העדפות התראות"
 msgid "Choose which email notifications to receive."
 msgstr "בחרו אילו התראות דואר אלקטרוני לקבל"
 
-msgid "Change Password"
-msgstr "שינוי סיסמה"
-
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr "אי אפשר לשנות את הסיסמה. נא לפנות למנהל האתר."
-
-msgid "Notification Preferences"
-msgstr "העדפות התראות"
 
 msgid "Update"
 msgstr "עדכן"
@@ -187,6 +181,9 @@ msgstr "איתחול סיסמה"
 
 msgid "Reset your password"
 msgstr "אתחלו את סיסמתכם"
+
+msgid "Edit"
+msgstr "עריכה"
 
 msgid "Dashboard"
 msgstr "לוח מחוונים"
@@ -249,6 +246,18 @@ msgstr "הכניסו קישור"
 msgid "Add an external link"
 msgstr "הוסיפו קישור חיצוני"
 
+msgid "You can edit the privacy settings on:"
+msgstr "ניתן לערוך את הגדרת הפרטיות ב:"
+
+msgid "Privacy"
+msgstr "פרטיות"
+
+msgid "Public"
+msgstr "ציבורי"
+
+msgid "Private"
+msgstr "פרטי"
+
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
 msgstr "ברוך הבא לנחליאלי CMS של %(site_name)s"
@@ -281,9 +290,6 @@ msgstr "אשרו"
 
 msgid "Reject"
 msgstr "דחו"
-
-msgid "Edit"
-msgstr "עריכה"
 
 msgid "Preview"
 msgstr "תצוגה מקדימה"
@@ -373,9 +379,6 @@ msgstr "הגדרות פרטיות של העמוד"
 msgid "This page has been made private by a parent page."
 msgstr "עמוד זה הוגדר כפרטי על ידי עמוד הורה"
 
-msgid "You can edit the privacy settings on:"
-msgstr "ניתן לערוך את הגדרת הפרטיות ב:"
-
 msgid "Privacy changes apply to all children of this page too."
 msgstr "שינויי הפרטיות תקפים גם על כל תת-העמודים של עמוד זה."
 
@@ -387,15 +390,6 @@ msgstr "נעול"
 
 msgid "Unlocked"
 msgstr "בלתי נעול"
-
-msgid "Privacy"
-msgstr "פרטיות"
-
-msgid "Public"
-msgstr "ציבורי"
-
-msgid "Private"
-msgstr "פרטי"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -544,8 +538,8 @@ msgstr "מסייר בעמודים שבתוך '%(title)s'"
 msgid "Add a child page to '%(title)s'"
 msgstr "הוספת תת-עמוד אל '%(title)s'"
 
-msgid "Add subpage"
-msgstr "הוספת תת עמוד"
+msgid "Add child page"
+msgstr "הוספת תת-עמוד"
 
 msgid "Previous"
 msgstr "קודם"
@@ -679,9 +673,6 @@ msgstr "הוספת תת-עמוד"
 msgid "Your password has been changed successfully!"
 msgstr "סיסמתכם שונתה בהצלחה!"
 
-msgid "Your preferences have been updated successfully!"
-msgstr "העדופיתכם עודכנו בהצלחה!"
-
 #, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "עמוד {0} נוצר ופורסם"
@@ -751,9 +742,6 @@ msgstr "עמוד {0} נעול כעת"
 #, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "עמוד {0} בלתי נעול כעת"
-
-msgid "Add child page"
-msgstr "הוספת תת-עמוד"
 
 msgid "Choose an item"
 msgstr "בחרו פריט"

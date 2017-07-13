@@ -20,13 +20,13 @@ Clicking on a user's name will open their profile details. From here you can the
 
 Click the 'Roles' tab to edit the level of access your users have. By default there are three roles:
 
-+--------------+--------------+-----------------+-----------------+
-| Role         | Create drafts| Publish content | Access Settings |
-+==============+==============+=================+=================+
-| Editor       |      Yes     |       No        |       No        |
-+--------------+--------------+-----------------+-----------------+
-| Moderator    |      Yes     |       Yes       |       No        |
-+--------------+--------------+-----------------+-----------------+
-| Administrator|      Yes     |       Yes       |       Yes       |
-+--------------+--------------+-----------------+-----------------+
++--------------+--------------------+-----------------+-----------------+
+| Role         | Create/view drafts | Publish content | Access Settings |
++==============+====================+=================+=================+
+| Editor       |      Yes           |       No        |       No        |
++--------------+--------------------+-----------------+-----------------+
+| Moderator    |      Yes           |       Yes       |       No        |
++--------------+--------------------+-----------------+-----------------+
+| Administrator|      Yes           |       Yes       |       Yes       |
++--------------+--------------------+-----------------+-----------------+
 

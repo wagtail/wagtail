@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Thomas Kunambi <kunambi@gmail.com>, 2017
 # Thomas Kunambi <kunambi@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 22:44+0000\n"
-"PO-Revision-Date: 2015-12-05 13:05+0000\n"
+"POT-Creation-Date: 2017-06-19 16:55+0000\n"
+"PO-Revision-Date: 2017-04-18 08:06+0000\n"
 "Last-Translator: Thomas Kunambi <kunambi@gmail.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
@@ -21,6 +22,13 @@ msgstr ""
 
 msgid "Search term(s)/phrase"
 msgstr "Sökterm/-fras"
+
+msgid ""
+"Enter the full search string to match. An exact match is required for your "
+"Promoted Results to be displayed, wildcards are NOT allowed."
+msgstr ""
+"Skriv in fulltextsökningen att matcha mot. En exakt match är nödvändig för "
+"att dina Främjade Resultat ska synas, jokertecken är EJ tillåtna."
 
 msgid "Query Daily Hits"
 msgstr "Dagliga träffar för sökterm"

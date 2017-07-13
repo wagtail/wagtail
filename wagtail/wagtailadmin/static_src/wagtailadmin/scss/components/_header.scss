@@ -9,7 +9,7 @@ header {
         color: $color-white;
     }
 
-    h1, 
+    h1,
     h2 {
         margin: 0;
         color: $color-white;
@@ -29,7 +29,7 @@ header {
     .col {
         float: left;
         margin-right: 2em;
-    }
+        }
 
     .left {
         float: left;
@@ -50,9 +50,16 @@ header {
         margin-bottom: 0;
     }
 
-    &.tab-merged, 
+    &.tab-merged,
     &.no-border {
         border: 0;
+
+        @media screen and (max-width: $breakpoint-mobile) {
+            // To all hamburger menu to be visible
+            padding-left: $desktop-nice-padding;
+            padding-top: 11px;
+        }
+
     }
 
     &.merged.no-border {
@@ -81,7 +88,7 @@ header {
         @include visuallyhidden();
     }
 
-    input[type=text], 
+    input[type=text],
     select {
         border-width: 0;
 
@@ -126,7 +133,7 @@ header {
         .second {
             clear: none;
 
-            .right, 
+            .right,
             .left {
                 float: right;
             }
@@ -150,11 +157,6 @@ header {
 
         .col9 {
             @include column(9);
-        }
-
-        .breadcrumb {
-            margin-left: -($desktop-nice-padding);
-            margin-right: -($desktop-nice-padding);
         }
     }
 }

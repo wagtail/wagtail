@@ -5,13 +5,13 @@ from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy
 
 
-class PasswordPageViewRestrictionForm(forms.Form):
+class PasswordViewRestrictionForm(forms.Form):
     password = forms.CharField(label=ugettext_lazy("Password"), widget=forms.PasswordInput)
     return_url = forms.CharField(widget=forms.HiddenInput)
 
     def __init__(self, *args, **kwargs):
         self.restriction = kwargs.pop('instance')
-        super(PasswordPageViewRestrictionForm, self).__init__(*args, **kwargs)
+        super(PasswordViewRestrictionForm, self).__init__(*args, **kwargs)
 
     def clean_password(self):
         data = self.cleaned_data['password']

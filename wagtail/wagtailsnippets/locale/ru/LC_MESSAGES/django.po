@@ -5,13 +5,14 @@
 # Translators:
 # Eugene MechanisM <eugene@mechanism.pro>, 2014-2015
 # Mikalai Radchuk <radchuk.m@gmail.com>, 2016
+# Vassiliy Vorobyov <zuber.kg@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 22:44+0000\n"
-"PO-Revision-Date: 2016-05-26 13:33+0000\n"
-"Last-Translator: Mikalai Radchuk <radchuk.m@gmail.com>\n"
+"POT-Creation-Date: 2017-06-19 16:55+0000\n"
+"PO-Revision-Date: 2017-06-22 13:25+0000\n"
+"Last-Translator: Vassiliy Vorobyov <zuber.kg@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -57,11 +58,12 @@ msgstr "Извините, нет фрагментов для \"<em>%(query_strin
 #, python-format
 msgid ""
 "You haven't created any %(snippet_type_name)s snippets. Why not <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">create one now"
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">create one now</"
+"a>?"
 msgstr ""
-"Вы еще не создали %(snippet_type_name)s фрагментов. Почему бы не <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">сделать это "
-"сейчас"
+"Вы не создали никаких %(snippet_type_name)s фрагментов. Почему бы не <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">создать прямо "
+"сейчас</a>?"
 
 #, python-format
 msgid "Delete %(snippet_type_name)s - %(instance)s"

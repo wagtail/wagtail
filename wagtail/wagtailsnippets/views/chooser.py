@@ -20,6 +20,11 @@ def choose(request, app_label, model_name):
 
     items = model.objects.all()
 
+    # Preserve the snippet's model-level ordering if specified, but fall back on PK if not
+    # (to ensure pagination is consistent)
+    if not items.ordered:
+        items = items.order_by('pk')
+
     # Search
     is_searchable = class_is_indexed(model)
     is_searching = False

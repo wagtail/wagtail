@@ -1,0 +1,14 @@
+{% load i18n wagtailadmin_tags %}
+
+{% test_collection_is_public collection as is_public %}
+
+{% if not collection.is_root %}
+<div class="privacy-indicator {% if is_public %}public{% else %}private{% endif %}">
+    {% trans "Privacy" %}
+    <a href="{% url 'wagtailadmin_collections:set_privacy' collection.id %}" class="status-tag primary  action-set-privacy">
+        {# labels are shown/hidden in CSS according to the 'private' / 'public' class on view-permission-indicator #}
+        <span class="label-public icon icon-view">{% trans 'Public' %}</span>
+        <span class="label-private icon icon-no-view">{% trans 'Private' %}</span>
+    </a>
+</div>
+{% endif %}

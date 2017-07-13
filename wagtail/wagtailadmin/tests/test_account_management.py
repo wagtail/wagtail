@@ -8,6 +8,8 @@ from django.core.urlresolvers import reverse
 from django.test import TestCase, override_settings
 
 from wagtail.tests.utils import WagtailTestUtils
+from wagtail.wagtailadmin.utils import (
+    WAGTAILADMIN_PROVIDED_LANGUAGES, get_available_admin_languages)
 from wagtail.wagtailusers.models import UserProfile
 
 
@@ -113,6 +115,16 @@ class TestAuthentication(TestCase, WagtailTestUtils):
         # Check that the user was redirected to the login page and that next was set correctly
         self.assertRedirects(response, reverse('wagtailadmin_login') + '?next=' + reverse('wagtailadmin_home'))
 
+    def test_not_logged_in_gives_403_to_ajax_requests(self):
+        """
+        This tests that a not logged in user is given a 403 error on AJAX requests
+        """
+        # Get dashboard
+        response = self.client.get(reverse('wagtailadmin_home'), HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+
+        # AJAX requests should be given a 403 error instead of being redirected
+        self.assertEqual(response.status_code, 403)
+
     def test_not_logged_in_redirect_default_settings(self):
         """
         This does the same as the above test but checks that it
@@ -144,6 +156,21 @@ class TestAuthentication(TestCase, WagtailTestUtils):
         # Check that the user was redirected to the login page and that next was set correctly
         self.assertRedirects(response, reverse('wagtailadmin_login') + '?next=' + reverse('wagtailadmin_home'))
         self.assertContains(response, 'You do not have permission to access the admin')
+
+    def test_logged_in_no_permission_gives_403_to_ajax_requests(self):
+        """
+        This tests that a logged in user without admin access permissions is
+        given a 403 error on ajax requests
+        """
+        # Login as unprivileged user
+        get_user_model().objects.create_user(username='unprivileged', password='123')
+        self.assertTrue(self.client.login(username='unprivileged', password='123'))
+
+        # Get dashboard
+        response = self.client.get(reverse('wagtailadmin_home'), HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+
+        # AJAX requests should be given a 403 error instead of being redirected
+        self.assertEqual(response.status_code, 403)
 
 
 class TestAccountSection(TestCase, WagtailTestUtils):
@@ -274,6 +301,66 @@ class TestAccountSection(TestCase, WagtailTestUtils):
         self.assertFalse(profile.submitted_notifications)
         self.assertFalse(profile.approved_notifications)
         self.assertTrue(profile.rejected_notifications)
+
+    def test_language_preferences_view(self):
+        """
+        This tests that the language preferences view responds with an index page
+        """
+        # Get account page
+        response = self.client.get(reverse('wagtailadmin_account_language_preferences'))
+
+        # Check that the user received an account page
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/account/language_preferences.html')
+
+        # Page should contain a 'Language Preferences' title
+        self.assertContains(response, "Language Preferences")
+
+    def test_language_preferences_view_post(self):
+        """
+        This posts to the language preferences view and checks that the
+        user profile is updated
+        """
+        # Post new values to the language preferences page
+        post_data = {
+            'preferred_language': 'es'
+        }
+        response = self.client.post(reverse('wagtailadmin_account_language_preferences'), post_data)
+
+        # Check that the user was redirected to the account page
+        self.assertRedirects(response, reverse('wagtailadmin_account'))
+
+        profile = UserProfile.get_for_user(get_user_model().objects.get(pk=self.user.pk))
+
+        # Check that the language preferences are stored
+        self.assertEqual(profile.preferred_language, 'es')
+
+    def test_unset_language_preferences(self):
+        # Post new values to the language preferences page
+        post_data = {
+            'preferred_language': ''
+        }
+        response = self.client.post(reverse('wagtailadmin_account_language_preferences'), post_data)
+
+        # Check that the user was redirected to the account page
+        self.assertRedirects(response, reverse('wagtailadmin_account'))
+
+        profile = UserProfile.get_for_user(get_user_model().objects.get(pk=self.user.pk))
+
+        # Check that the language preferences are stored
+        self.assertEqual(profile.preferred_language, '')
+
+    @override_settings(WAGTAILADMIN_PERMITTED_LANGUAGES=[('en', 'English'), ('es', 'Spanish')])
+    def test_available_admin_languages_with_permitted_languages(self):
+        self.assertListEqual(get_available_admin_languages(), [('en', 'English'), ('es', 'Spanish')])
+
+    def test_available_admin_languages_by_default(self):
+        self.assertListEqual(get_available_admin_languages(), WAGTAILADMIN_PROVIDED_LANGUAGES)
+
+    @override_settings(WAGTAILADMIN_PERMITTED_LANGUAGES=[('en', 'English')])
+    def test_not_show_options_if_only_one_language_is_permitted(self):
+        response = self.client.post(reverse('wagtailadmin_account'))
+        self.assertNotContains(response, 'Language Preferences')
 
 
 class TestAccountManagementForNonModerator(TestCase, WagtailTestUtils):

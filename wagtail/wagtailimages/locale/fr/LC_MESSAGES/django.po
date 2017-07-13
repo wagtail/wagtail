@@ -5,7 +5,7 @@
 # Translators:
 # Adrien <laadrien@gmail.com>, 2014
 # Benoît Vogel <contact@spicy-informatique.com>, 2016
-# Bertrand Bordage <bordage.bertrand@gmail.com>, 2015-2016
+# Bertrand Bordage <bordage.bertrand@gmail.com>, 2015-2017
 # Léo <leo@naeka.fr>, 2016
 # nahuel, 2014
 # nahuel, 2014
@@ -15,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 22:44+0000\n"
-"PO-Revision-Date: 2016-09-24 10:29+0000\n"
-"Last-Translator: Benoît Vogel <contact@spicy-informatique.com>\n"
+"POT-Creation-Date: 2017-06-19 16:55+0000\n"
+"PO-Revision-Date: 2017-04-20 20:17+0000\n"
+"Last-Translator: Bertrand Bordage <bordage.bertrand@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -230,6 +230,9 @@ msgstr ""
 
 msgid "Current focal point shown"
 msgstr "Point d'intérêt courant tracé"
+
+msgid "Remove focal area"
+msgstr "Retirer la zone d’intérêt"
 
 msgid "URL Generator"
 msgstr "Générateur d'URL"

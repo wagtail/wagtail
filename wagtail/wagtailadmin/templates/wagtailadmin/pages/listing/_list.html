@@ -1,8 +1,9 @@
 {% load i18n %}
+{% load l10n %}
 {% load wagtailadmin_tags %}
 <table class="listing {% if full_width %}full-width{% endif %} {% block table_classname %}{% endblock %}">
     {% if show_ordering_column %}
-        <col width="50px" />
+        <col width="65px" />
     {% endif %}
     <col />
     {% if show_parent %}
@@ -45,7 +46,7 @@
         {% if pages %}
             {% for page in pages %}
                 {% page_permissions page as page_perms %}
-                <tr {% if ordering == "ord" %}id="page_{{ page.id }}" data-page-title="{{ page.get_admin_display_title }}"{% endif %} class="{% if not page.live %}unpublished{% endif %} {% block page_row_classname %}{% endblock %}">
+                <tr {% if ordering == "ord" %}id="page_{{ page.id|unlocalize }}" data-page-title="{{ page.get_admin_display_title }}"{% endif %} class="{% if not page.live %}unpublished{% endif %} {% block page_row_classname %}{% endblock %}">
                     {% if show_ordering_column %}
                         <td class="ord">{% if orderable and ordering == "ord" %}<div class="handle icon icon-grip text-replace">{% trans 'Drag' %}</div>{% endif %}</td>
                     {% endif %}

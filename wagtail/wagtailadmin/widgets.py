@@ -4,6 +4,7 @@ import itertools
 import json
 from functools import total_ordering
 
+from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.forms import widgets
 from django.forms.utils import flatatt
@@ -16,8 +17,13 @@ from django.utils.translation import ugettext_lazy as _
 from taggit.forms import TagWidget
 
 from wagtail.utils.widgets import WidgetWithScript
+from wagtail.wagtailadmin.datetimepicker import to_datetimepicker_format
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import Page
+
+
+DEFAULT_DATE_FORMAT = '%Y-%m-%d'
+DEFAULT_DATETIME_FORMAT = '%Y-%m-%d %H:%M'
 
 
 class AdminAutoHeightTextInput(WidgetWithScript, widgets.Textarea):
@@ -34,16 +40,21 @@ class AdminAutoHeightTextInput(WidgetWithScript, widgets.Textarea):
 
 
 class AdminDateInput(WidgetWithScript, widgets.DateInput):
-    # Set a default date format to match the one that our JS date picker expects -
-    # it can still be overridden explicitly, but this way it won't be affected by
-    # the DATE_INPUT_FORMATS setting
-    def __init__(self, attrs=None, format='%Y-%m-%d'):
-        super(AdminDateInput, self).__init__(attrs=attrs, format=format)
+    def __init__(self, attrs=None, format=None):
+        fmt = format
+        if fmt is None:
+            fmt = getattr(settings, 'WAGTAIL_DATE_FORMAT', DEFAULT_DATE_FORMAT)
+        self.js_format = to_datetimepicker_format(fmt)
+        super(AdminDateInput, self).__init__(attrs=attrs, format=fmt)
 
     def render_js_init(self, id_, name, value):
+        config = {
+            'dayOfWeekStart': get_format('FIRST_DAY_OF_WEEK'),
+            'format': self.js_format,
+        }
         return 'initDateChooser({0}, {1});'.format(
             json.dumps(id_),
-            json.dumps({'dayOfWeekStart': get_format('FIRST_DAY_OF_WEEK')})
+            json.dumps(config)
         )
 
 
@@ -56,21 +67,31 @@ class AdminTimeInput(WidgetWithScript, widgets.TimeInput):
 
 
 class AdminDateTimeInput(WidgetWithScript, widgets.DateTimeInput):
-    def __init__(self, attrs=None, format='%Y-%m-%d %H:%M'):
-        super(AdminDateTimeInput, self).__init__(attrs=attrs, format=format)
+    def __init__(self, attrs=None, format=None):
+        fmt = format
+        if fmt is None:
+            fmt = getattr(settings, 'WAGTAIL_DATETIME_FORMAT', DEFAULT_DATETIME_FORMAT)
+        self.js_format = to_datetimepicker_format(fmt)
+        super(AdminDateTimeInput, self).__init__(attrs=attrs, format=fmt)
 
     def render_js_init(self, id_, name, value):
+        config = {
+            'dayOfWeekStart': get_format('FIRST_DAY_OF_WEEK'),
+            'format': self.js_format,
+        }
         return 'initDateTimeChooser({0}, {1});'.format(
             json.dumps(id_),
-            json.dumps({'dayOfWeekStart': get_format('FIRST_DAY_OF_WEEK')})
+            json.dumps(config)
         )
 
 
 class AdminTagWidget(WidgetWithScript, TagWidget):
     def render_js_init(self, id_, name, value):
-        return "initTagField({0}, {1});".format(
+        return "initTagField({0}, {1}, {2});".format(
             json.dumps(id_),
-            json.dumps(reverse('wagtailadmin_tag_autocomplete')))
+            json.dumps(reverse('wagtailadmin_tag_autocomplete')),
+            'true' if getattr(settings, 'TAG_SPACES_ALLOWED', True) else 'false',
+        )
 
 
 class AdminChooser(WidgetWithScript, widgets.Input):
@@ -134,9 +155,15 @@ class AdminPageChooser(AdminChooser):
     choose_another_text = _('Choose another page')
     link_to_chosen_text = _('Edit this page')
 
-    def __init__(self, target_models=None, can_choose_root=False, **kwargs):
+    def __init__(self, target_models=None, can_choose_root=False, user_perms=None, **kwargs):
         super(AdminPageChooser, self).__init__(**kwargs)
 
+        if target_models:
+            models = ', '.join([model._meta.verbose_name.title() for model in target_models if model is not Page])
+            if models:
+                self.choose_one_text += ' (' + models + ')'
+
+        self.user_perms = user_perms
         self.target_models = list(target_models or [Page])
         self.can_choose_root = can_choose_root
 
@@ -176,7 +203,7 @@ class AdminPageChooser(AdminChooser):
 
         parent = page.get_parent() if page else None
 
-        return "createPageChooser({id}, {model_names}, {parent}, {can_choose_root});".format(
+        return "createPageChooser({id}, {model_names}, {parent}, {can_choose_root}, {user_perms});".format(
             id=json.dumps(id_),
             model_names=json.dumps([
                 '{app}.{model}'.format(
@@ -185,7 +212,8 @@ class AdminPageChooser(AdminChooser):
                 for model in self.target_models
             ]),
             parent=json.dumps(parent.id if parent else None),
-            can_choose_root=('true' if self.can_choose_root else 'false')
+            can_choose_root=('true' if self.can_choose_root else 'false'),
+            user_perms=json.dumps(self.user_perms),
         )
 
 

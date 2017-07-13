@@ -4,6 +4,7 @@
 #
 # Translators:
 # George Giannoulopoulos <vdotoree@yahoo.gr>, 2015
+# Nick Mavrakis <mavrakis.n@gmail.com>, 2017
 # serafeim <serafeim@torchbox.com>, 2014
 # Wasilis Mandratzis-Walz, 2015
 # Yiannis Inglessis <negletios@users.noreply.github.com>, 2016
@@ -11,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 22:44+0000\n"
-"PO-Revision-Date: 2016-09-20 12:25+0000\n"
-"Last-Translator: Yiannis Inglessis <negletios@users.noreply.github.com>\n"
+"POT-Creation-Date: 2017-06-19 16:55+0000\n"
+"PO-Revision-Date: 2017-03-05 18:57+0000\n"
+"Last-Translator: Nick Mavrakis <mavrakis.n@gmail.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
 "MIME-Version: 1.0\n"
@@ -32,6 +33,15 @@ msgstr "ιστοσελίδα"
 
 msgid "description"
 msgstr "περιγραφή"
+
+msgid "search promotion"
+msgstr "αναζήτηση προώθησης"
+
+msgid "Add search promotion"
+msgstr "Προσθήκη αναζήτησης προώθησης"
+
+msgid "Add search pick"
+msgstr "Προσθήκη search pick"
 
 msgid ""
 "\n"
@@ -116,6 +126,9 @@ msgstr "Προωθημενα αποτελέσματα"
 msgid "Views (past week)"
 msgstr "Εμφανίσεις (την περασμένη εβδομάδα)"
 
+msgid "Edit this promotion"
+msgstr "Επεξεργασία αυτής της προώθησης"
+
 msgid "None"
 msgstr "Καμία"
 
@@ -140,6 +153,17 @@ msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
 msgstr ""
 "Λυπούμαστε, καμία ανακατεύθυνση δε ταιριάζει με το \"<em>%(query_string)s</"
 "em>\""
+
+#, python-format
+msgid ""
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgstr ""
+"Δεν δημιουργήθηκαν προωθημένα αποτελέσματα. Γιατί να μην <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">προσθέσετε ένα</a>;"
+
+msgid "Search promoted results"
+msgstr "Αναζήτηση προωθημένων αποτελεσμάτων"
 
 #, python-brace-format
 msgid "Editor's picks for '{0}' created."

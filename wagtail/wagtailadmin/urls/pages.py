@@ -6,14 +6,11 @@ from wagtail.wagtailadmin.views import page_privacy, pages
 
 urlpatterns = [
     url(r'^add/(\w+)/(\w+)/(\d+)/$', pages.create, name='add'),
-    url(r'^add/(\w+)/(\w+)/(\d+)/preview/$', pages.preview_on_create, name='preview_on_add'),
+    url(r'^add/(\w+)/(\w+)/(\d+)/preview/$', pages.PreviewOnCreate.as_view(), name='preview_on_add'),
     url(r'^usage/(\w+)/(\w+)/$', pages.content_type_use, name='type_use'),
 
     url(r'^(\d+)/edit/$', pages.edit, name='edit'),
-    url(r'^(\d+)/edit/preview/$', pages.preview_on_edit, name='preview_on_edit'),
-
-    url(r'^preview/$', pages.preview, name='preview'),
-    url(r'^preview_loading/$', pages.preview_loading, name='preview_loading'),
+    url(r'^(\d+)/edit/preview/$', pages.PreviewOnEdit.as_view(), name='preview_on_edit'),
 
     url(r'^(\d+)/view_draft/$', pages.view_draft, name='view_draft'),
     url(r'^(\d+)/add_subpage/$', pages.add_subpage, name='add_subpage'),
@@ -41,4 +38,5 @@ urlpatterns = [
     url(r'^(\d+)/revisions/$', pages.revisions_index, name='revisions_index'),
     url(r'^(\d+)/revisions/(\d+)/view/$', pages.revisions_view, name='revisions_view'),
     url(r'^(\d+)/revisions/(\d+)/revert/$', pages.revisions_revert, name='revisions_revert'),
+    url(r'^(\d+)/revisions/compare/(live|earliest|\d+)\.\.\.(live|latest|\d+)/$', pages.revisions_compare, name='revisions_compare'),
 ]

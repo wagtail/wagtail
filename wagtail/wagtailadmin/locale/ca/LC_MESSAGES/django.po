@@ -4,13 +4,14 @@
 #
 # Translators:
 # Antoni Aloy <aaloy@apsl.net>, 2016
-# David Llop <d.lloople@gmail.com>, 2014
+# David Llop, 2014
+# Roger Pons <rogerpons@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 22:44+0000\n"
-"PO-Revision-Date: 2016-12-06 22:46+0000\n"
+"POT-Creation-Date: 2017-06-19 16:55+0000\n"
+"PO-Revision-Date: 2017-06-19 16:57+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
@@ -20,11 +21,26 @@ msgstr ""
 "Language: ca\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "None"
+msgstr "Cap"
+
+msgid "You do not have permission to access the admin"
+msgstr "No teniu permís per accedir a la pàgina d'administració"
+
 msgid "Scheduled publishing"
 msgstr "Planificar la publicació"
 
 msgid "Common page configuration"
 msgstr "Configuració de la pàgina comú"
+
+msgid "Content"
+msgstr "Contingut"
+
+msgid "Promote"
+msgstr "Promoure"
+
+msgid "Settings"
+msgstr "Configuració"
 
 msgid "Search"
 msgstr "Cercar"
@@ -90,14 +106,43 @@ msgstr "Publicar còpies"
 
 #, python-format
 msgid ""
+"%(count)s of the pages being copied is live. Would you like to publish its "
+"copy?"
+msgid_plural ""
+"%(count)s of the pages being copied are live. Would you like to publish "
+"their copies?"
+msgstr[0] ""
+"%(count)s de les pàgines a copiar està en viu. Voleu publicar-ne la còpia?"
+msgstr[1] ""
+"%(count)s de les pàgines a copiar estan en viu. Voleu publicar-ne les còpies?"
+
+#, python-format
+msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
 msgstr "Aquest slug ja està en ús dins el context de la seva plana pare \"%s\""
+
+msgid "Visibility"
+msgstr "Visibilitat"
 
 msgid "This field is required."
 msgstr "Aquest camp és obligatori"
 
+msgid "Please select at least one group."
+msgstr "Seleccioneu com a mínim un grup."
+
 msgid "This slug is already in use"
 msgstr "Aquest llimac ja està en ús"
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr ""
+"La data/hora de pas a en viu ha de ser anterior a la data/hora de caducitat."
+
+msgid "Expiry date/time must be in the future"
+msgstr "La data/hora de caducitat ha d'estar en el futur"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr ""
+"No podeu tenir múltiples registres de permisos per la mateixa col·lecció."
 
 msgid "Account"
 msgstr "Compte"
@@ -126,17 +171,11 @@ msgstr "Preferències de notificació"
 msgid "Choose which email notifications to receive."
 msgstr "Seleccioni quines notificacions de correu vol rebre."
 
-msgid "Change Password"
-msgstr "Canvia la contrasenya"
-
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr ""
 "La teva contrasenya no es pot canviar des d'aquí. Si us plau contacta amb "
 "l'administrador de la web"
-
-msgid "Notification Preferences"
-msgstr "Preferències de notificació"
 
 msgid "Update"
 msgstr "Actualitzar"
@@ -162,11 +201,23 @@ msgstr "Revisa el teu correu"
 msgid "A link to reset your password has been emailed to you."
 msgstr "S'ha enviat un enllaç per reiniciar la contrasenya al teu correu"
 
+msgid "Please follow the link below to reset your password:"
+msgstr "Seguiu l'enllaç inferior per reiniciar la vostra contrasenya:"
+
+msgid "Your username (in case you've forgotten):"
+msgstr "El vostre nom d'usuari (en cas que l'hagueu oblidat):"
+
 msgid "Password reset"
 msgstr "Contrasenya reiniciada"
 
 msgid "Reset your password"
 msgstr "Reinicia la teva contrasenya "
+
+msgid "Edit"
+msgstr "Edita"
+
+msgid "Pages"
+msgstr "Pàgines"
 
 msgid "Dashboard"
 msgstr "Tauler de control"
@@ -198,11 +249,53 @@ msgstr "Enllaç extern"
 msgid "Email link"
 msgstr "Enllaç de correu electrònic"
 
+#, python-format
+msgid ""
+"\n"
+"        There is one match\n"
+"    "
+msgid_plural ""
+"\n"
+"        There are %(counter)s matches\n"
+"    "
+msgstr[0] ""
+"\n"
+"        Hi ha una coincidència\n"
+"    "
+msgstr[1] ""
+"\n"
+"        Hi ha %(counter)s coincidències\n"
+"    "
+
 msgid "Choose"
 msgstr "Seleccionar"
 
 msgid "Choose a page"
 msgstr "Escull una pàgina"
+
+#, python-format
+msgid ""
+"\n"
+"                Only pages of type \"%(type)s\" may be chosen for this "
+"field. Search results will exclude pages of other types.\n"
+"                "
+msgid_plural ""
+"\n"
+"                Only the following page types may be chosen for this field: "
+"%(type)s. Search results will exclude pages of other types.\n"
+"            "
+msgstr[0] ""
+"\n"
+"                Per a aquest camp només pot ser triat el següent tipus de "
+"pàgina: %(type)s. Els resultats de la cerca exclouran pàgines d'altres "
+"tipus..\n"
+"                "
+msgstr[1] ""
+"\n"
+"                Per a aquest camp només poden ser triats els següents tipus "
+"de pàgina: %(type)s. Els resultats de la cerca exclouran pàgines d'altres "
+"tipus..\n"
+"            "
 
 msgid "Add an email link"
 msgstr "Afegeix un enllaç de correu"
@@ -212,6 +305,44 @@ msgstr "Insereix un enllaç"
 
 msgid "Add an external link"
 msgstr "Afegeix un enllaç extern"
+
+msgid "You can edit the privacy settings on:"
+msgstr "Podeu editar la configuració de privadesa a:"
+
+msgid "Save"
+msgstr "Desar"
+
+msgid "Privacy"
+msgstr "Privadesa"
+
+msgid "Public"
+msgstr "Publica"
+
+msgid "Private"
+msgstr "Privada"
+
+msgid ""
+"This collection cannot be deleted, because it is not empty. It contains:"
+msgstr ""
+"Aquesta col·lecció no pot ser eliminada donat que no està buida. Conté:"
+
+msgid "Name"
+msgstr "Nom"
+
+#, python-format
+msgid ""
+"No collections have been created. Why not <a href=\"%(add_collection_url)s"
+"\">add one</a>?"
+msgstr ""
+"No ha estat creada cap col·lecció. Per què no n'<a href="
+"\"%(add_collection_url)s\">afegiu una</a>?"
+
+#, python-format
+msgid "Add %(heading)s"
+msgstr "Afegir %(heading)s"
+
+msgid "Yes, delete"
+msgstr "Sí, eliminar"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -248,11 +379,12 @@ msgstr "Aprovar"
 msgid "Reject"
 msgstr "Rebutjar"
 
-msgid "Edit"
-msgstr "Edita"
-
 msgid "Preview"
 msgstr "Vista prèvia"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "fa %(time_period)s"
 
 msgid "Your most recent edits"
 msgstr "Edicions més recents"
@@ -263,17 +395,49 @@ msgstr "Data"
 msgid "Status"
 msgstr "Estat"
 
+msgid "Draft"
+msgstr "Esborrany"
+
+msgid "Live"
+msgstr "En viu"
+
 msgid "Site summary"
 msgstr "Resum del lloc"
 
+#, python-format
+msgid ""
+"\n"
+"        <span>%(total)s</span> Page\n"
+"    "
+msgid_plural ""
+"\n"
+"        <span>%(total)s</span> Pages\n"
+"    "
+msgstr[0] ""
+"\n"
+"        <span>%(total)s</span> Pàgina\n"
+"    "
+msgstr[1] ""
+"\n"
+"        <span>%(total)s</span> Pàgines\n"
+"    "
+
 msgid "Sign in"
 msgstr "Registra't"
+
+#, python-format
+msgid "Your %(username_field)s and password didn't match. Please try again."
+msgstr ""
+"El vostre %(username_field)s y contrasenya no concorden. Torneu-ho a provar."
 
 msgid "Sign in to Wagtail"
 msgstr "Connecta't a Wagtail"
 
 msgid "Forgotten it?"
 msgstr "Oblidar?"
+
+msgid "Signing in..."
+msgstr "Iniciant sessió..."
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -287,6 +451,13 @@ msgid "The page \"%(title)s\" has been approved"
 msgstr "La pàgina \"%(title)s\" ha sigut aprovada"
 
 #, python-format
+msgid "Hello %(username)s,"
+msgstr "Hola %(username)s,"
+
+msgid "Edit your notification preferences here:"
+msgstr "Editeu les preferències de notificació aquí:"
+
+#, python-format
 msgid "The page \"%(title)s\" has been rejected."
 msgstr "La pàgina \"%(title)s\" ha sigut rebutjada."
 
@@ -297,6 +468,10 @@ msgstr "Pots editar la pàgina aquí:"
 msgid "The page \"%(title)s\" has been rejected"
 msgstr "La pàgina \"%(title)s\" ha sigut rebutjada"
 
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation by %(editor)s."
+msgstr "La pàgina \"%(page)s\" ha estat enviada a moderació per %(editor)s."
+
 msgid "You can preview the page here:"
 msgstr "Pots veure la vista prèvia de la pàgina aquí:"
 
@@ -304,8 +479,25 @@ msgstr "Pots veure la vista prèvia de la pàgina aquí:"
 msgid "The page \"%(page)s\" has been submitted for moderation"
 msgstr "La pàgina \"%(page)s\" ha sigut enviada per moderació"
 
-msgid "Public"
-msgstr "Publica"
+msgid "Page privacy"
+msgstr "Privadesa de la pàgina"
+
+msgid "This page has been made private by a parent page."
+msgstr "Aquesta pàgina ha estat feta privada per una pàgina pare."
+
+msgid "Privacy changes apply to all children of this page too."
+msgstr ""
+"Els canvis a la privadesa s'apliquen també a totes les pàgines filles "
+"d'aquesta pàgina."
+
+msgid "Edit lock"
+msgstr "Editar bloqueig"
+
+msgid "Locked"
+msgstr "Bloquejada"
+
+msgid "Unlocked"
+msgstr "Desbloquejada"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -345,6 +537,22 @@ msgstr[1] ""
 "\n"
 "Això també esborrarà %(descendant_count)s subpàgines més."
 
+msgid "Yes, delete it"
+msgstr "Sí, eliminar-la"
+
+msgid "No, don't delete it"
+msgstr "No eliminar-la"
+
+#, python-format
+msgid ""
+"Alternatively you can <a href=\"%(unpublish_url)s\">unpublish the page</a>. "
+"This removes the page from public view and you can edit or publish it again "
+"later."
+msgstr ""
+"Alternativament, podeu <a href=\"%(unpublish_url)s\">despublicar la pàgina</"
+"a>. Això treurà la pàgina de la visualització pública i us permetrà tornar-"
+"la a editar o publicar més endavant."
+
 #, python-format
 msgid "Move %(title)s"
 msgstr "Mou %(title)s"
@@ -377,11 +585,44 @@ msgstr "Despublica"
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Estàs segur que vols despublicar aquesta pàgina?"
 
+#, python-format
+msgid ""
+"\n"
+"                    This page has one subpage. Unpublish this too\n"
+"                "
+msgid_plural ""
+"\n"
+"                    This page has %(live_descendant_count)s subpages. "
+"Unpublish these too\n"
+"                "
+msgstr[0] ""
+"\n"
+"                    Aquesta pàgina té una subpàgina. Despublicar-la també\n"
+"                "
+msgstr[1] ""
+"\n"
+"                    Aquesta pàgina té %(live_descendant_count)s subpàgines. "
+"Despublicar-les també\n"
+"                "
+
 msgid "Yes, unpublish it"
 msgstr "Si, despublicar"
 
+msgid "No, don't unpublish"
+msgstr "No despublicar-la"
+
 msgid "Pages using"
 msgstr "Pàgines en ús"
+
+#, python-format
+msgid "Copy %(title)s"
+msgstr "Copiar %(title)s"
+
+msgid "Copy"
+msgstr "Copiar"
+
+msgid "Copy this page"
+msgstr "Copiar aquesta pàgina"
 
 #, python-format
 msgid "New %(page_type)s"
@@ -390,14 +631,40 @@ msgstr "Nova %(page_type)s"
 msgid "New"
 msgstr "Nou"
 
+msgid "Saving..."
+msgstr "Desant..."
+
 msgid "Save draft"
 msgstr "Desa esborrany"
+
+msgid "Publishing..."
+msgstr "Publicant..."
 
 msgid "Publish"
 msgstr "Publica"
 
 msgid "Submit for moderation"
 msgstr "Envia per moderació"
+
+msgid "This page has unsaved changes."
+msgstr "Aquesta pàgina té modificacions no desades"
+
+#, python-format
+msgid "Editing %(page_type)s: %(title)s"
+msgstr "Editant %(page_type)s: %(title)s"
+
+#, python-format
+msgid "Editing %(page_type)s <span>%(title)s</span>"
+msgstr "Editant %(page_type)s <span>%(title)s</span>"
+
+msgid "Page locked"
+msgstr "Pàgina bloquejada"
+
+msgid "Replace current draft"
+msgstr "Reemplaçar l'esborrany actual"
+
+msgid "Publish this revision"
+msgstr "Publicar aquesta revisió"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -407,6 +674,9 @@ msgstr "Darrera modificació: %(last_mod)s"
 msgid "by %(modified_by)s"
 msgstr "per %(modified_by)s"
 
+msgid "Revisions"
+msgstr "Revisions"
+
 #, python-format
 msgid "Exploring %(title)s"
 msgstr "Explorant %(title)s"
@@ -414,21 +684,119 @@ msgstr "Explorant %(title)s"
 msgid "Drag"
 msgstr "Agafa"
 
+msgid "Updated"
+msgstr "Actualitzat"
+
+msgid ""
+"\n"
+"                            The root level is where you can add new sites to "
+"your Wagtail installation. Pages created here will not be accessible at any "
+"URL until they are associated with a site.\n"
+"                        "
+msgstr ""
+"\n"
+"                            El nivell arrel és on podeu afegir nous llocs a "
+"la instal·lació de Wagtail. Les pàgines creades aquí no seran accessibles "
+"des de cap URL fins que siguin associades a un lloc.\n"
+"                        "
+
+msgid "Configure a site now."
+msgstr "Configurar un lloc ara."
+
+msgid ""
+"\n"
+"                            If you just want to add pages to an existing "
+"site, create them as children of the homepage instead.\n"
+"                        "
+msgstr ""
+"\n"
+"                            Si només voleu afegir pàgines a un lloc "
+"existent, creeu-les com a filles de la pàgina inicial.\n"
+"                        "
+
+msgid ""
+"\n"
+"                        Pages created here will not be accessible at any "
+"URL. To add pages to an existing site, create them as children of the "
+"homepage.\n"
+"                    "
+msgstr ""
+"\n"
+"                        Les pàgines creades aquí no seran accessibles des de "
+"cap URL. Per afegir pàgines a un lloc existent, creeu-les com a filles de la "
+"pàgina inicial.\n"
+"                    "
+
+msgid ""
+"\n"
+"                        There is no site set up for this location. Pages "
+"created here will not be accessible at any URL until a site is associated "
+"with this location.\n"
+"                    "
+msgstr ""
+"\n"
+"                        No hi ha cap lloc configurat per aquesta ubicació. "
+"Les pàgines creades aquí no seran accessibles des de cap URL fins que un "
+"lloc sigui associat amb aquesta ubicació.\n"
+"                    "
+
+msgid ""
+"\n"
+"                        There is no site record for this location. Pages "
+"created here will not be accessible at any URL.\n"
+"                    "
+msgstr ""
+"\n"
+"                        No hi ha cap registre de lloc per aquesta ubicació. "
+"Les pàgines creades aquí no seran accessibles des de cap URL.\n"
+"                    "
+
+msgid "No pages have been created at this location."
+msgstr "No s'ha creat cap pàgina en aquesta ubicació."
+
+#, python-format
+msgid "Why not <a href=\"%(add_page_url)s\">create one</a>?"
+msgstr "Per què no en <a href=\"%(add_page_url)s\">creeu una</a>?"
+
+msgid "This page is locked to further editing"
+msgstr "Aquesta pàgina està bloquejada per a la seva posterior edició"
+
+#, python-format
+msgid "Explore subpages of '%(title)s'"
+msgstr "Explorar subpàgines de '%(title)s'"
+
 msgid "Explore"
 msgstr "Explora"
+
+#, python-format
+msgid "Explore child pages of '%(title)s'"
+msgstr "Explorar pàgines filles de '%(title)s'"
 
 #, python-format
 msgid "Add a child page to '%(title)s'"
 msgstr "Afegeix una pàgina filla a '%(title)s'"
 
-msgid "Add subpage"
-msgstr "Afegeix subpàgina"
+msgid "Add child page"
+msgstr "Afegeix una pàgina filla"
+
+#, python-format
+msgid ""
+"\n"
+"        Page %(page_number)s of %(num_pages)s.\n"
+"    "
+msgstr ""
+"\n"
+"        Pàgina %(page_number)s de %(num_pages)s.\n"
+"    "
 
 msgid "Previous"
 msgstr "Anterior"
 
 msgid "Next"
 msgstr "Següent"
+
+msgid "This page is protected from public view"
+msgstr "Aquesta pàgina està protegida de la vista pública"
 
 msgid "Disable ordering of child pages"
 msgstr "Desactiva l'ordenació de les pàgines fill"
@@ -448,14 +816,202 @@ msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Selecciona una nova pàgina pare per <span>%(title)s</span>"
 
 #, python-format
+msgid "Comparing %(title)s"
+msgstr "Comparant %(title)s"
+
+msgid "Comparing"
+msgstr "Comparant"
+
+msgid "View revisions"
+msgstr "Veure revisions"
+
+msgid "Fields"
+msgstr "Camps"
+
+msgid "Changes"
+msgstr "Canvis"
+
+#, python-format
+msgid ""
+"\n"
+"                                                            Moved down 1 "
+"place.\n"
+"                                                        "
+msgid_plural ""
+"\n"
+"                                                            Moved down "
+"%(counter)s places.\n"
+"                                                        "
+msgstr[0] ""
+"\n"
+"                                                            Mogut cap avall "
+"1 lloc.\n"
+"                                                        "
+msgstr[1] ""
+"\n"
+"                                                            Mogut cap avall "
+"%(counter)s llocs.\n"
+"                                                        "
+
+#, python-format
+msgid ""
+"\n"
+"                                                            Moved up 1 "
+"place.\n"
+"                                                        "
+msgid_plural ""
+"\n"
+"                                                            Moved up "
+"%(counter)s places.\n"
+"                                                        "
+msgstr[0] ""
+"\n"
+"                                                            Mogut cap amunt "
+"1 lloc.\n"
+"                                                        "
+msgstr[1] ""
+"\n"
+"                                                            Mogut cap amunt "
+"%(counter)s llocs.\n"
+"                                                        "
+
+msgid "There are no differences between these two revisions"
+msgstr "No hi ha diferències entre aquestes dues revisions"
+
+#, python-format
+msgid "Revisions of %(title)s"
+msgstr "Revisions de %(title)s"
+
+msgid "Revisions of"
+msgstr "Revisions de"
+
+msgid "Revision date"
+msgstr "Data de revisió"
+
+msgctxt "points to a user who created a revision"
+msgid "by"
+msgstr "per"
+
+msgid "Current draft"
+msgstr "Esborrany actual"
+
+msgid "Review this revision"
+msgstr "Revisar aquest revisió"
+
+msgid "Compare with previous revision"
+msgstr "Comparar amb la revisió anterior"
+
+msgid "No revisions of this page exist"
+msgstr "No existeix cap revisió per aquesta pàgina"
+
+msgid "No revision of this page exist"
+msgstr "No existeix cap revisió per aquesta pàgina"
+
+#, python-format
+msgid ""
+"\n"
+"                There is one matching page\n"
+"            "
+msgid_plural ""
+"\n"
+"                There are %(counter)s matching pages\n"
+"            "
+msgstr[0] ""
+"\n"
+"                Hi ha una pàgina coincident\n"
+"            "
+msgstr[1] ""
+"\n"
+"                Hi ha %(counter)s pàgines coincidents\n"
+"            "
+
+#, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
 msgstr "Ho sentim, cap pàgina coincideix amb <em>\"%(query_string)s\"</em>"
 
 msgid "Enter a search term above"
 msgstr "Introdueix un terme de cerca abaix"
 
+msgid "No pages use"
+msgstr "No hi ha pàgines que enllacin"
+
+msgid "Collection"
+msgstr "Col·lecció"
+
 msgid "Home"
 msgstr "Inici"
+
+msgid "All collections"
+msgstr "Totes les col·leccions"
+
+msgid "January"
+msgstr "Gener"
+
+msgid "February"
+msgstr "Febrer"
+
+msgid "March"
+msgstr "Març"
+
+msgid "April"
+msgstr "Abril"
+
+msgid "May"
+msgstr "Maig"
+
+msgid "June"
+msgstr "Juny"
+
+msgid "July"
+msgstr "Juliol"
+
+msgid "August"
+msgstr "Agost"
+
+msgid "September"
+msgstr "Setembre"
+
+msgid "October"
+msgstr "Octubre"
+
+msgid "November"
+msgstr "Novembre"
+
+msgid "December"
+msgstr "Desembre"
+
+msgid "Sun"
+msgstr "Dg"
+
+msgid "Mon"
+msgstr "Dl"
+
+msgid "Tue"
+msgstr "Dt"
+
+msgid "Wed"
+msgstr "Dc"
+
+msgid "Thu"
+msgstr "Dj"
+
+msgid "Fri"
+msgstr "Dv"
+
+msgid "Sat"
+msgstr "Ds"
+
+#, python-format
+msgid "Used %(useage_count)s time"
+msgid_plural "Used %(useage_count)s times"
+msgstr[0] "Utilitzat %(useage_count)s vegada"
+msgstr[1] "Utilitzat %(useage_count)s vegades"
+
+msgid "Edit your account"
+msgstr "Modifica el teu compte d'usuari"
+
+msgid "Account settings"
+msgstr "Configuració del compte"
 
 msgid "Log out"
 msgstr "Desconnecta"
@@ -464,15 +1020,158 @@ msgstr "Desconnecta"
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Pàgina %(page_num)s de %(total_pages)s."
 
+msgid "Other searches"
+msgstr "Altres cerques"
+
+msgid ""
+"You are using an <strong>outdated</strong> browser not supported by this "
+"software. Please <a href=\"http://browsehappy.com/\">upgrade your browser</"
+"a>."
+msgstr ""
+"Esteu utilitzant un navegador <strong>obsolet</strong> no compatible amb "
+"aquest programari. <a href=\"http://browsehappy.com/\">Actualitzeu el vostre "
+"navegador</a>."
+
+msgid ""
+"\n"
+"            Javascript is required to use Wagtail, but it is currently "
+"disabled.<br />\n"
+"            Here are the <a href=\"http://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noopener\">instructions how to enable JavaScript in "
+"your web browser</a>.\n"
+"        "
+msgstr ""
+"\n"
+"            Es requereix Javascript per utilitzar Wagtail, però actualment "
+"està deshabilitat.<br />\n"
+"            Aquí teniu les <a href=\"http://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noopener\">instruccions sobre com habilitar "
+"JavaScript al vostre navegador</a>.\n"
+"        "
+
+msgid "Go to Wagtail admin interface"
+msgstr "Anar a la interfície d'administració de Wagtail"
+
+msgid "Go to Wagtail admin"
+msgstr "Anar a l'administració de Wagtail"
+
+msgid "Add a child page"
+msgstr "Afegir una pàgina filla"
+
+msgid "Show in Explorer"
+msgstr "Mostrar a l'Explorer"
+
+msgid "Test"
+msgstr "Provar"
+
+msgid "Sorry, you do not have permission to access this area."
+msgstr "No teniu permís per accedir a aquesta àrea."
+
 msgid "Your password has been changed successfully!"
 msgstr "S'ha canviat la teva contrasenya!"
+
+msgid "You have been successfully logged out."
+msgstr "Heu finalitzat la sessió."
+
+msgid "Collections"
+msgstr "Col·leccions"
+
+msgid "Add a collection"
+msgstr "Afegir una col·lecció"
+
+msgid "Add collection"
+msgstr "Afegir una col·lecció"
+
+#, python-brace-format
+msgid "Collection '{0}' created."
+msgstr "Col·lecció '{0}' creada."
+
+#, python-brace-format
+msgid "Collection '{0}' updated."
+msgstr "Col·lecció '{0}' actualitzada."
+
+msgid "The collection could not be saved due to errors."
+msgstr "La col·lecció no pot ser desada per causa d'errors."
+
+msgid "Delete collection"
+msgstr "Eliminar col·lecció"
+
+#, python-brace-format
+msgid "Collection '{0}' deleted."
+msgstr "Col·lecció '{0}' eliminada."
+
+msgid "Are you sure you want to delete this collection?"
+msgstr "Segur que voleu eliminar aquesta col·lecció?"
+
+msgid "Editing"
+msgstr "Editant"
+
+#, python-brace-format
+msgid "Page '{0}' created and scheduled for publishing."
+msgstr "Pàgina '{0}' creada i programada per a la seva publicació."
+
+#, python-brace-format
+msgid "Page '{0}' created and published."
+msgstr "Pàgina '{0}' creada i publicada."
+
+msgid "View live"
+msgstr "Veure en viu"
+
+#, python-brace-format
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "Pàgina '{0}' creada i enviada a moderació."
+
+msgid "View draft"
+msgstr "Veure esborrany"
+
+msgid "Failed to send notifications to moderators"
+msgstr "Ha fallat l'enviament de notificacions als moderadors"
 
 #, python-brace-format
 msgid "Page '{0}' created."
 msgstr "Pàgina '{0}' creada."
 
+msgid "The page could not be created due to validation errors"
+msgstr "No es pot crear la pàgina per causa d'errors de validació"
+
+#, python-brace-format
+msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
+msgstr ""
+"La tevisió des de {0} de la pàgina '{1}' ha estat programada per a la seva "
+"publicació."
+
+#, python-brace-format
+msgid "Page '{0}' has been scheduled for publishing."
+msgstr "La pàgina '{0}' ha estat programada per a la seva publicació."
+
+#, python-brace-format
+msgid "Revision from {0} of page '{1}' has been published."
+msgstr "La revisió des de {0} de la pàgina '{1}' ha estat publicada."
+
+#, python-brace-format
+msgid "Page '{0}' has been published."
+msgstr "La pàgina '{0}' ha estat publicada."
+
+#, python-brace-format
+msgid "Page '{0}' has been submitted for moderation."
+msgstr "La pàgina '{0}' ha estat enviada a moderació."
+
+#, python-brace-format
+msgid "Page '{0}' has been replaced with revision from {1}."
+msgstr "La pàgina '{0}' ha estat reemplaçada per una revisió des de {1}"
+
+#, python-brace-format
+msgid "Page '{0}' has been updated."
+msgstr "La pàgina '{0}' ha estat actualitzada."
+
+msgid "The page could not be saved as it is locked"
+msgstr "No s'ha pogut desar la pàgina donat que està bloquejada"
+
 msgid "The page could not be saved due to validation errors"
 msgstr "La pàgina no s'ha pogut guardar degut a errors de validació"
+
+msgid "Compare with live version"
+msgstr "Comparar amb la versió en viu"
 
 msgid "This page is currently awaiting moderation"
 msgstr "Aquesta pàgina està esperant moderació"
@@ -490,6 +1189,14 @@ msgid "Page '{0}' moved."
 msgstr "Pàgina '{0}' moguda."
 
 #, python-brace-format
+msgid "Page '{0}' and {1} subpages copied."
+msgstr "La pàgina '{0}' i {1} subpàgines han estat copiades."
+
+#, python-brace-format
+msgid "Page '{0}' copied."
+msgstr "La pàgina '{0}' ha estat copiada."
+
+#, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "La pàgina '{0}' ja no es troba esperant moderació."
 
@@ -497,12 +1204,80 @@ msgstr "La pàgina '{0}' ja no es troba esperant moderació."
 msgid "Page '{0}' published."
 msgstr "Pàgina '{0}' publicada."
 
+msgid "Failed to send approval notifications"
+msgstr "Ha fallat l'enviament de notificacions d'aprovació"
+
 #, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "La pàgina '{0}' ha estat rebutjada per publicació"
 
-msgid "Add child page"
-msgstr "Afegeix una pàgina filla"
+msgid "Failed to send rejection notifications"
+msgstr "Ha fallat l'enviament de notificacions de rebuig"
+
+#, python-brace-format
+msgid "Page '{0}' is now locked."
+msgstr "La pàgina '{0}' ara està bloquejada."
+
+#, python-brace-format
+msgid "Page '{0}' is now unlocked."
+msgstr "La pàgina '{0}' ara està desbloquejada."
+
+#, python-format
+msgid ""
+"You are viewing a previous revision of this page from <b>%(created_at)s</b> "
+"by %(user)s"
+msgstr ""
+"Esteu visualitzant una revisió anterior d'aquesta pàgina de  <b>"
+"%(created_at)s</b> de %(user)s"
+
+msgid "Earliest"
+msgstr "La més antiga"
+
+msgid "Latest"
+msgstr "L'última"
+
+#, python-brace-format
+msgid "Edit '{title}'"
+msgstr "Editar '{title}'"
+
+#, python-brace-format
+msgid "Preview draft version of '{title}'"
+msgstr "Previsualitzar versió esborrany de '{title}'"
+
+#, python-brace-format
+msgid "View live version of '{title}'"
+msgstr "Visualitzar versió en viu de '{title}'"
+
+#, python-brace-format
+msgid "Add a child page to '{title}' "
+msgstr "Afegir una pàgina filla a '{title}'"
+
+msgid "More"
+msgstr "Més"
+
+#, python-brace-format
+msgid "View more options for '{title}'"
+msgstr "Veure més opcions per '{title}'"
+
+#, python-brace-format
+msgid "Move page '{title}'"
+msgstr "Moure pàgina '{title}'"
+
+#, python-brace-format
+msgid "Copy page '{title}'"
+msgstr "Copiar pàgina '{title}'"
+
+#, python-brace-format
+msgid "Delete page '{title}'"
+msgstr "Eliminar pàgina '{title}'"
+
+#, python-brace-format
+msgid "Unpublish page '{title}'"
+msgstr "Despublicar pàgina '{title}'"
+
+#, python-brace-format
+msgid "View revision history for '{title}'"
+msgstr "Visualitzar historial de revisions de '{title}'"
 
 msgid "Choose an item"
 msgstr "Escull un element"
@@ -512,6 +1287,9 @@ msgstr "Escull un altre element"
 
 msgid "Clear choice"
 msgstr "Opció clara"
+
+msgid "Edit this item"
+msgstr "Editar aquest element"
 
 msgid "Choose another page"
 msgstr "Escull una altra pàgina"

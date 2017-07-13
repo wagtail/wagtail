@@ -9,8 +9,7 @@
     }
 
     .breadcrumb {
-        margin-top: -1.2em;
-        margin-bottom: 2em;
+        margin: -1.2em 0 2em;
     }
 
     .modal .breadcrumb {
@@ -27,6 +26,17 @@
 
         .home {
             padding-left: 0;
+        }
+    }
+
+    .header-title {
+        padding-left: 3.1em;
+
+        @media screen and (max-width: $breakpoint-mobile) {
+            padding-left: 0;
+            margin-left: -28px;
+            // Because it's nested within tab-merged which we've given padding
+            // on mobile viewports due to snippets
         }
     }
 }
@@ -56,7 +66,7 @@
         position: relative;
         z-index: 1;
         top: 1em;
-        padding-right: $grid-gutter-width/2;
+        padding-right: $grid-gutter-width / 2;
         margin-top: 4em;
         opacity: 1;
         padding-left: 3em;
@@ -341,6 +351,13 @@
 footer .preview {
     button,
     .button {
+        @media screen and (max-width: $breakpoint-mobile) {
+            width: 100%;
+            margin-top: 2px;
+            margin-bottom: 2px;
+            height: 3em;
+        }
+
         background-color: lighten($color-grey-2, 10%);
         border-color: lighten($color-grey-2, 10%);
 
@@ -400,7 +417,7 @@ footer .preview {
             z-index: 1;
             right: 0;
             top: 1em;
-            padding-right: $grid-gutter-width/2;
+            padding-right: $grid-gutter-width / 2;
             float: right;
             margin-top: 4em;
             opacity: 0;
@@ -414,7 +431,7 @@ footer .preview {
                 width: 100%;
                 padding-left: 6.4em;
             }
-            
+
             &:hover .object-help {
                 opacity: 1;
             }

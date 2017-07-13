@@ -150,3 +150,17 @@ See the following part of the docs to find out more:
 
 See the following part of the docs to find out more:
 :ref:`modeladmin_overriding_views`
+
+.. _modeladmin_form_fields_exclude:
+
+-----------------------------------
+``ModelAdmin.form_fields_exclude``
+-----------------------------------
+
+**Expected value**: A list or tuple of fields names
+
+When using CreateView or EditView to create or update model instances, this
+value will be passed to the edit form, so that any named fields will be
+excluded from the form. This is particularly useful when registering ModelAdmin
+classes for models from third-party apps, where defining panel configurations
+on the Model itself is more complicated.

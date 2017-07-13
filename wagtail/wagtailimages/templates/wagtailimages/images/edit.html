@@ -72,8 +72,11 @@
 
                 <img {{ rendition.attrs }} data-original-width="{{ image.width }}" data-original-height="{{ image.height }}" class="show-transparency">
 
-                <div class="current-focal-point-indicator{% if not image.focal_point %} hidden{% endif %}"></div>
+                <div class="current-focal-point-indicator{% if not image.has_focal_point %} hidden{% endif %}"></div>
+
             </div>
+            <br />
+            <button class="button button-secondary no remove-focal-point">{% trans "Remove focal area" %}</button>
 
         </div>
         <div class="col2 ">

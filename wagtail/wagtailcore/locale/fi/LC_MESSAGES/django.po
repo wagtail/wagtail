@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 22:44+0000\n"
-"PO-Revision-Date: 2016-12-06 22:47+0000\n"
+"POT-Creation-Date: 2017-06-19 16:55+0000\n"
+"PO-Revision-Date: 2017-06-19 16:58+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
@@ -123,9 +123,6 @@ msgstr "hakukuvaus"
 msgid "go live date/time"
 msgstr "julkaisupäivämäärä ja -aika"
 
-msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
-msgstr "Täytä päivämäärä ja aika muodossa VVVV-KK-PP tt:mm"
-
 msgid "expiry date/time"
 msgstr "poistumispäivämäärä ja -aika"
 
@@ -228,11 +225,11 @@ msgstr "sivunkatselurajoitus"
 msgid "page view restrictions"
 msgstr "sivunkatselurajoitukset"
 
-msgid "name"
-msgstr "nimi"
-
 msgid "collection"
 msgstr "kokoelma"
+
+msgid "name"
+msgstr "nimi"
 
 msgid "collections"
 msgstr "kokoelmat"

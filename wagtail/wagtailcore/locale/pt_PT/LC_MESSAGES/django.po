@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 22:44+0000\n"
-"PO-Revision-Date: 2016-12-07 14:29+0000\n"
-"Last-Translator: Tiago Henriques <trinosauro@gmail.com>\n"
+"POT-Creation-Date: 2017-06-19 16:55+0000\n"
+"PO-Revision-Date: 2017-06-19 16:58+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
@@ -139,9 +139,6 @@ msgstr "descrição de pesquisa"
 msgid "go live date/time"
 msgstr "publicar em data/hora"
 
-msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
-msgstr "Por favor adicione uma data-hora no formato YYYY-MM-DD hh:mm."
-
 msgid "expiry date/time"
 msgstr "data/hora final"
 
@@ -262,11 +259,11 @@ msgstr "restrição de visualização de página"
 msgid "page view restrictions"
 msgstr "restrições de visualização de página"
 
-msgid "name"
-msgstr "nome"
-
 msgid "collection"
 msgstr "coleção"
+
+msgid "name"
+msgstr "nome"
 
 msgid "collections"
 msgstr "coleções"

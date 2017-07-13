@@ -2,7 +2,6 @@
 @import 'wagtailadmin/scss/mixins';
 @import 'wagtailadmin/scss/grid';
 
-@import 'wagtailadmin/scss/components/explorer';
 @import 'wagtailadmin/scss/components/icons';
 @import 'wagtailadmin/scss/components/typography';
 @import 'wagtailadmin/scss/components/tabs';
@@ -21,11 +20,7 @@
 
 @import 'wagtailadmin/scss/fonts';
 
-// scss-lint:disable all
-#wagtail {
-    @import '../../../../../client/scss/style';
-}
-// scss-lint:enable all
+@import '../../../../../client/scss/styles';
 
 html {
     background: $color-grey-4;
@@ -43,6 +38,20 @@ body {
 
     &.reordering {
         overflow: visible;
+    }
+
+    &:after {
+        content: '';
+        position: fixed;
+        transition: visibility 0s linear 0s, opacity .2s ease-out;
+        background: rgba(255, 255, 255, 0.5);
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 5;
+        opacity: 0;
+        visibility: hidden;
     }
 }
 
@@ -71,13 +80,9 @@ body {
 
 .wrapper {
     @include clearfix();
+    height: 100vh;
     transition: transform 0.2s ease;
 }
-
-.nav-wrapper {
-    // See components/main-nav.scss
-}
-
 
 .logo {
     display: block;
@@ -101,6 +106,7 @@ body {
 }
 
 .content-wrapper {
+    box-sizing: border-box;
     width: 100%;
     height: 100%; // this has no effect on desktop, but on mobile it helps aesthetics of menu popout action
     float: left;
@@ -113,6 +119,7 @@ body {
     @include row();
     background: $color-white;
     border-top: 0 solid $color-grey-5; // this top border provides space for the floating logo to toggle the menu
+    min-height: 100%;
     padding-bottom: 4em;
     position: relative; // yuk. necessary for positions for jquery ui widgets
 }
@@ -176,28 +183,24 @@ footer {
             }
         }
     }
-}
 
-::-webkit-scrollbar {
-    height: 10px;
-    width: 10px;
-    background: $color-grey-1;
-}
+    @media screen and (max-width: $breakpoint-mobile) {
+        .actions {
+            width: 100%;
+        }
 
-::-webkit-scrollbar-thumb {
-    background: $color-grey-2;
-    -webkit-border-radius: 1ex;
-}
+        .meta p {
+            white-space: normal;
+        }
+    }
 
-::-webkit-scrollbar-corner {
-    background: $color-grey-1;
+    @media screen and (min-width: 90em) {
+        width: 90em;
+    }
 }
 
 .breadcrumb {
     @include unlist();
-}
-
-.breadcrumb {
     @include clearfix();
     overflow: hidden;
     padding-top: 1.4em;
@@ -444,6 +447,8 @@ footer,
     .breadcrumb {
         padding-top: 0;
         background: $color-teal-darker;
+        margin-left: -($desktop-nice-padding);
+        margin-right: -($desktop-nice-padding);
 
         li {
             a,
@@ -468,12 +473,8 @@ footer,
         }
     }
 
-    .explorer {
-        z-index: $explorer-z-index;
-    }
-
     .nav-submenu {
-        z-index: $explorer-z-index;
+        z-index: 500;
     }
 
     // Allows overspill of messages banner onto left menu, but also explorer
@@ -487,27 +488,3 @@ footer,
         z-index: 200;
     }
 }
-
-@media screen and (min-width: 90em) {
-    .wrapper {
-        max-width: $breakpoint-desktop-larger;
-    }
-
-    footer {
-        width: 90em;
-    }
-}
-
-// Transitions (resolution agnostic)
-.content-wrapper,
-.nav-main,
-.nav-toggle,
-footer,
-.logo {
-    // @include transition(all 0.2s ease);
-}
-
-// .nav-main a,
-// a {
-    // @include transition(color 0.2s ease, background-color 0.2s ease);
-// }

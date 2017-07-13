@@ -82,7 +82,6 @@ class TestPageListing(TestCase):
         content = json.loads(response.content.decode('UTF-8'))
         self.assertEqual(content['meta']['total_count'], new_total_count)
 
-
     # TYPE FILTER
 
     def test_type_filter_items_are_all_blog_entries(self):
@@ -188,7 +187,7 @@ class TestPageListing(TestCase):
         content = json.loads(response.content.decode('UTF-8'))
 
         for page in content['items']:
-            self.assertEqual(set(page.keys()), {'id', 'meta', 'title', 'date', 'related_links', 'tags', 'carousel_items', 'body', 'feed_image'})
+            self.assertEqual(set(page.keys()), {'id', 'meta', 'title', 'date', 'related_links', 'tags', 'carousel_items', 'body', 'feed_image', 'feed_image_thumbnail'})
             self.assertEqual(set(page['meta'].keys()), {'type', 'detail_url', 'show_in_menus', 'first_published_at', 'seo_title', 'slug', 'html_url', 'search_description'})
 
     def test_all_fields_then_remove_something(self):
@@ -196,7 +195,7 @@ class TestPageListing(TestCase):
         content = json.loads(response.content.decode('UTF-8'))
 
         for page in content['items']:
-            self.assertEqual(set(page.keys()), {'id', 'meta', 'related_links', 'tags', 'carousel_items', 'body', 'feed_image'})
+            self.assertEqual(set(page.keys()), {'id', 'meta', 'related_links', 'tags', 'carousel_items', 'body', 'feed_image', 'feed_image_thumbnail'})
             self.assertEqual(set(page['meta'].keys()), {'type', 'detail_url', 'show_in_menus', 'first_published_at', 'slug', 'html_url', 'search_description'})
 
     def test_remove_all_fields(self):
@@ -739,6 +738,13 @@ class TestPageListing(TestCase):
 
         self.assertEqual(set(page_id_list), set([16, 18, 19]))
 
+    def test_empty_searches_work(self):
+        response = self.get_response(search='')
+        content = json.loads(response.content.decode('UTF-8'))
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response['Content-type'], 'application/json')
+        self.assertEqual(content['meta']['total_count'], 0)
+
 
 class TestPageDetail(TestCase):
     fixtures = ['demosite.json']
@@ -809,6 +815,12 @@ class TestPageDetail(TestCase):
         self.assertEqual(content['feed_image']['meta']['type'], 'wagtailimages.Image')
         self.assertEqual(content['feed_image']['meta']['detail_url'], 'http://localhost/api/v2beta/images/7/')
 
+        # Check that the feed images' thumbnail was serialised properly
+        self.assertEqual(content['feed_image_thumbnail'], {
+            # This is OK because it tells us it used ImageRenditionField to generate the output
+            'error': 'SourceImageIOError'
+        })
+
         # Check that the child relations were serialised properly
         self.assertEqual(content['related_links'], [])
         for carousel_item in content['carousel_items']:
@@ -838,6 +850,7 @@ class TestPageDetail(TestCase):
             'tags',
             'date',
             'feed_image',
+            'feed_image_thumbnail',
             'carousel_items',
             'related_links',
         ]
@@ -1013,7 +1026,10 @@ class TestPageDetailWithStreamField(TestCase):
         self.assertIn('id', content)
         self.assertEqual(content['id'], stream_page.id)
         self.assertIn('body', content)
-        self.assertEqual(content['body'], [{'type': 'text', 'value': 'foo'}])
+        self.assertEqual(len(content['body']), 1)
+        self.assertEqual(content['body'][0]['type'], 'text')
+        self.assertEqual(content['body'][0]['value'], 'foo')
+        self.assertTrue(content['body'][0]['id'])
 
     def test_image_block(self):
         stream_page = self.make_stream_page('[{"type": "image", "value": 1}]')
@@ -1023,7 +1039,8 @@ class TestPageDetailWithStreamField(TestCase):
         content = json.loads(response.content.decode('utf-8'))
 
         # ForeignKeys in a StreamField shouldn't be translated into dictionary representation
-        self.assertEqual(content['body'], [{'type': 'image', 'value': 1}])
+        self.assertEqual(content['body'][0]['type'], 'image')
+        self.assertEqual(content['body'][0]['value'], 1)
 
     def test_image_block_with_custom_get_api_representation(self):
         stream_page = self.make_stream_page('[{"type": "image", "value": 1}]')
@@ -1035,7 +1052,8 @@ class TestPageDetailWithStreamField(TestCase):
         content = json.loads(response.content.decode('utf-8'))
 
         # the custom get_api_representation returns a dict of id and title for the image
-        self.assertEqual(content['body'], [{'type': 'image', 'value': {'id': 1, 'title': 'A missing image'}}])
+        self.assertEqual(content['body'][0]['type'], 'image')
+        self.assertEqual(content['body'][0]['value'], {'id': 1, 'title': 'A missing image'})
 
 
 @override_settings(
