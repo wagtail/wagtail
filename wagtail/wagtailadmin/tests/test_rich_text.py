@@ -301,3 +301,75 @@ class TestHalloJsWithFeaturesKwarg(BaseRichTextEditHandlerTestCase, WagtailTestU
         self.assertIn('"hallowagtailembeds":', form_html)
         self.assertNotIn('"halloheadings":', form_html)
         self.assertNotIn('"hallowagtailimage":', form_html)
+
+
+@override_settings(WAGTAILADMIN_RICH_TEXT_EDITORS={
+    'default': {
+        'WIDGET': 'wagtail.wagtailadmin.rich_text.HalloRichTextArea',
+        'OPTIONS': {
+            'features': ['blockquote', 'image']
+        }
+    },
+    'custom': {
+        'WIDGET': 'wagtail.wagtailadmin.rich_text.HalloRichTextArea',
+        'OPTIONS': {
+            'features': ['blockquote', 'image']
+        }
+    },
+})
+class TestHalloJsWithCustomFeatureOptions(BaseRichTextEditHandlerTestCase, WagtailTestUtils):
+
+    def setUp(self):
+        super(TestHalloJsWithCustomFeatureOptions, self).setUp()
+
+        # Find root page
+        self.root_page = Page.objects.get(id=2)
+
+        self.login()
+
+    def test_custom_features_option_on_rich_text_field(self):
+        response = self.client.get(reverse(
+            'wagtailadmin_pages:add', args=('tests', 'customrichtextfieldpage', self.root_page.id)
+        ))
+
+        # Check status code
+        self.assertEqual(response.status_code, 200)
+
+        # Check that the custom plugin options are being passed in the hallo initialiser
+        self.assertContains(response, '"halloblockquote":')
+        self.assertContains(response, '"hallowagtailimage":')
+        self.assertNotContains(response, '"halloheadings":')
+        self.assertNotContains(response, '"hallowagtailembeds":')
+
+        # a 'features' list passed on the RichTextField (as we do in richtextfieldwithfeaturespage)
+        # should override the list in OPTIONS
+        response = self.client.get(reverse(
+            'wagtailadmin_pages:add', args=('tests', 'richtextfieldwithfeaturespage', self.root_page.id)
+        ))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, '"halloblockquote":')
+        self.assertContains(response, '"hallowagtailembeds":')
+        self.assertNotContains(response, '"halloheadings":')
+        self.assertNotContains(response, '"hallowagtailimage":')
+
+    def test_custom_features_option_on_rich_text_block(self):
+        block = RichTextBlock(editor='custom')
+
+        form_html = block.render_form(block.to_python("<p>hello</p>"), 'body')
+
+        # Check that the custom plugin options are being passed in the hallo initialiser
+        self.assertIn('"halloblockquote":', form_html)
+        self.assertIn('"hallowagtailimage":', form_html)
+        self.assertNotIn('"hallowagtailembeds":', form_html)
+        self.assertNotIn('"halloheadings":', form_html)
+
+        # a 'features' list passed on the RichTextBlock
+        # should override the list in OPTIONS
+        block = RichTextBlock(editor='custom', features=['blockquote', 'embed'])
+
+        form_html = block.render_form(block.to_python("<p>hello</p>"), 'body')
+
+        self.assertIn('"halloblockquote":', form_html)
+        self.assertIn('"hallowagtailembeds":', form_html)
+        self.assertNotIn('"hallowagtailimage":', form_html)
+        self.assertNotIn('"halloheadings":', form_html)

@@ -97,6 +97,11 @@ def get_rich_text_editor_widget(name='default', features=None):
 
     editor = editor_settings[name]
     options = editor.get('OPTIONS', None)
+
+    if features is None and options is not None:
+        # fall back on 'features' list within OPTIONS, if any
+        features = options.get('features', None)
+
     cls = import_string(editor['WIDGET'])
 
     kwargs = {}
