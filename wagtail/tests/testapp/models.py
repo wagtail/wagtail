@@ -911,6 +911,15 @@ class CustomRichBlockFieldPage(Page):
     ]
 
 
+class RichTextFieldWithFeaturesPage(Page):
+    body = RichTextField(features=['blockquote', 'embed', 'made-up-feature'])
+
+    content_panels = [
+        FieldPanel('title', classname="full title"),
+        FieldPanel('body'),
+    ]
+
+
 # a page that only contains RichTextField within an InlinePanel,
 # to test that the inline child's form media gets pulled through
 class SectionedRichTextPageSection(Orderable):

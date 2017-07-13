@@ -450,9 +450,10 @@ class ChoiceBlock(FieldBlock):
 
 class RichTextBlock(FieldBlock):
 
-    def __init__(self, required=True, help_text=None, editor='default', **kwargs):
+    def __init__(self, required=True, help_text=None, editor='default', features=None, **kwargs):
         self.field_options = {'required': required, 'help_text': help_text}
         self.editor = editor
+        self.features = features
         super(RichTextBlock, self).__init__(**kwargs)
 
     def get_default(self):
@@ -474,7 +475,10 @@ class RichTextBlock(FieldBlock):
     @cached_property
     def field(self):
         from wagtail.wagtailadmin.rich_text import get_rich_text_editor_widget
-        return forms.CharField(widget=get_rich_text_editor_widget(self.editor), **self.field_options)
+        return forms.CharField(
+            widget=get_rich_text_editor_widget(self.editor, features=self.features),
+            **self.field_options
+        )
 
     def value_for_form(self, value):
         # Rich text editors take the source-HTML string as input (and takes care

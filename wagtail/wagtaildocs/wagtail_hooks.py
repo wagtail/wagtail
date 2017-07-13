@@ -10,6 +10,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ungettext
 
 from wagtail.wagtailadmin.menu import MenuItem
+from wagtail.wagtailadmin.rich_text import HalloPlugin
 from wagtail.wagtailadmin.search import SearchArea
 from wagtail.wagtailadmin.site_summary import SummaryItem
 from wagtail.wagtailcore import hooks
@@ -71,6 +72,14 @@ def editor_js():
         </script>
         """,
         urlresolvers.reverse('wagtaildocs:chooser')
+    )
+
+
+@hooks.register('register_rich_text_features')
+def register_embed_feature(features):
+    features.register_editor_plugin(
+        'hallo', 'document-link',
+        HalloPlugin(name='hallowagtaildoclink')
     )
 
 
