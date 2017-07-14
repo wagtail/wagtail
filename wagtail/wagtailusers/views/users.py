@@ -134,7 +134,7 @@ def create(request):
                 messages.button(reverse('wagtailusers_users:edit', args=(user.pk,)), _('Edit'))
             ])
             for fn in hooks.get_hooks('after_create_user'):
-                result = fn(request, user )
+                result = fn(request, user)
                 if hasattr(result, 'status_code'):
                     return result
             return redirect('wagtailusers_users:index')
