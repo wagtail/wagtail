@@ -97,5 +97,9 @@ def polite_pages_only(parent_page, pages, request):
 @hooks.register('register_rich_text_features')
 def register_blockquote_feature(features):
     features.register_editor_plugin(
-        'hallo', 'blockquote', HalloPlugin(name='halloblockquote')
+        'hallo', 'blockquote', HalloPlugin(
+            name='halloblockquote',
+            js=[static('testapp/js/hallo-blockquote.js')],
+            css={'all': [static('testapp/css/hallo-blockquote.css')]},
+        )
     )

@@ -28,10 +28,10 @@ class HalloRichTextArea(WidgetWithScript, widgets.Textarea):
         else:
             # construct a list of plugin objects, by querying the feature registry
             # and keeping the non-null responses from get_editor_plugin
-            self.plugins = filter(None, [
+            self.plugins = list(filter(None, [
                 features.get_editor_plugin('hallo', feature_name)
                 for feature_name in self.features
-            ])
+            ]))
 
         super(HalloRichTextArea, self).__init__(*args, **kwargs)
 
@@ -66,7 +66,7 @@ class HalloRichTextArea(WidgetWithScript, widgets.Textarea):
 
     @property
     def media(self):
-        return Media(js=[
+        media = Media(js=[
             static('wagtailadmin/js/vendor/hallo.js'),
             static('wagtailadmin/js/hallo-bootstrap.js'),
             static('wagtailadmin/js/hallo-plugins/hallo-wagtaillink.js'),
@@ -74,15 +74,27 @@ class HalloRichTextArea(WidgetWithScript, widgets.Textarea):
             static('wagtailadmin/js/hallo-plugins/hallo-requireparagraphs.js'),
         ])
 
+        if self.plugins is not None:
+            for plugin in self.plugins:
+                media += plugin.media
+
+        return media
+
 
 class HalloPlugin(object):
     def __init__(self, **kwargs):
-        self.name = kwargs.pop('name', None)
-        self.options = kwargs.pop('options', {})
+        self.name = kwargs.get('name', None)
+        self.options = kwargs.get('options', {})
+        self.js = kwargs.get('js', None)
+        self.css = kwargs.get('css', None)
 
     def construct_plugins_list(self, plugins):
         if self.name is not None:
             plugins[self.name] = self.options
+
+    @property
+    def media(self):
+        return Media(js=self.js, css=self.css)
 
 
 DEFAULT_RICH_TEXT_EDITORS = {
