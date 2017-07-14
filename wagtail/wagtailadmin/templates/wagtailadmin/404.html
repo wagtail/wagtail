@@ -58,7 +58,7 @@
             $(window).resize(function() {
                 w = $(window).width();
                 h = $(window).height();
-                if (w < 1000 || h < 450) {
+                if (w < 800 || h < 450) { // 800px = $breakpoint-mobile
                     $('#text-container').css('width', '300px');
                     $('#text-container').css('transform', 'translateX(-150px)');
                     $('#header').css('font-size', '50px');
