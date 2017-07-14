@@ -1,0 +1,110 @@
+@import 'wagtailadmin/scss/variables';
+@import 'wagtailadmin/scss/mixins';
+@import 'wagtailadmin/scss/grid';
+
+body {
+    font-family: $font-sans;
+    color: #000;
+}
+
+#wagtail-bird {
+    position: fixed;
+    right: 50%;
+    transform: translateX(-130px);
+    top: 16%;
+    width: 425px;
+    height: auto;
+    z-index: 10;
+    transition:  all 0.25s cubic-bezier(0.28, 0.15, 0, 2.1);
+}
+
+#catchmouse {
+    position: fixed;
+    right: 50%;
+    transform: translateX(-130px);
+    top: 16%;
+    width: 400px;
+    height: 400px;
+    z-index: 100;
+    background-color: rgba(255, 0, 255, 0); //rgba(255, 0, 255, 0.5) to see mouse dectection area
+}
+
+#backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    background-color: #fff; //#41b0ac;
+}
+
+/* http://nimbupani.com/vignettes-with-css3-box-shadows.html */
+p.vignette {
+    position: fixed;
+}
+
+p.vignette img {
+    display: block;
+}
+
+p.vignette:after {
+    -moz-box-shadow: inset 0 0 10em #555;
+    -webkit-box-shadow: inset 0 0 10em #555;
+    box-shadow: inset 0 0 10em #555;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    content: "";
+}
+
+#text-container {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-130px);
+    top: 25%;
+    height: 50%;
+    width: 600px;
+    text-align: center;
+    z-index: 50;
+}
+
+#header {
+    position: relative;
+    font-size: 100px;
+    top: -80px;
+}
+
+#info {
+    position: relative;
+    font-size: 30px;
+    top: -130px;
+    line-height: 125%;
+}
+
+#goback-link {
+    position: relative;
+    font-size: 25px;
+    top: -125px;
+    background-color: #408080;
+    text-decoration: none;
+    color: #fff;
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+#wagtail-link {
+    position: fixed;
+    right: 15px;
+    bottom: 15px;
+    font-size: 20px;
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.8);
+}
