@@ -86,6 +86,13 @@ $positions: (
 }
 
 
+@media print {
+    .#{$namespace}-userbar {
+        display: none;
+    }
+}
+
+
 .#{$namespace}-userbar {
     position: fixed;
     z-index: 9999;
