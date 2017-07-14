@@ -4,7 +4,7 @@
 
 body {
     font-family: $font-sans;
-    color: #000;
+    color: $color-white;
 }
 
 #wagtail-bird {
@@ -15,18 +15,18 @@ body {
     width: 425px;
     height: auto;
     z-index: 10;
-    transition:  all 0.25s cubic-bezier(0.28, 0.15, 0, 2.1);
+    transition: all 0.25s cubic-bezier(0.28, 0.15, 0, 2.1);
 }
 
 #catchmouse {
     position: fixed;
     right: 50%;
-    transform: translateX(-130px);
+    transform: translateX(-180px)  translateY(-10px) rotate(30deg); // rotate to more closely refect bird's shape
     top: 16%;
-    width: 350px;
-    height: 400px;
+    width: 240px;
+    height: 470px;
     z-index: 100;
-    background-color: rgba(255, 0, 255, 0); //rgba(255, 0, 255, 0.5) to see mouse dectection area
+    background-color: rgba(255, 0, 255, 0); // set last value >0 to see mouse dectection area
 }
 
 #backdrop {
@@ -36,7 +36,7 @@ body {
     width: 100%;
     height: 100%;
     z-index: 0;
-    background-color: #fff; //#41b0ac;
+    background-color: $color-teal-darker;
 }
 
 /* http://nimbupani.com/vignettes-with-css3-box-shadows.html */
@@ -49,9 +49,9 @@ p.vignette img {
 }
 
 p.vignette:after {
-    -moz-box-shadow: inset 0 0 10em #555;
-    -webkit-box-shadow: inset 0 0 10em #555;
-    box-shadow: inset 0 0 10em #555;
+    -moz-box-shadow: inset 0 0 10em #444;
+    -webkit-box-shadow: inset 0 0 10em #444;
+    box-shadow: inset 0 0 10em #444;
     position: fixed;
     top: 0;
     left: 0;
@@ -76,6 +76,7 @@ p.vignette:after {
     position: relative;
     font-size: 100px;
     top: -80px;
+    color: $color-white; // override default h1 color
 }
 
 #info {
@@ -89,7 +90,7 @@ p.vignette:after {
     position: relative;
     font-size: 25px;
     top: -125px;
-    background-color: #408080;
+    background-color: $color-teal-dark;
     text-decoration: none;
     color: #fff;
     padding-left: 12px;
@@ -106,5 +107,6 @@ p.vignette:after {
     bottom: 15px;
     font-size: 20px;
     text-decoration: none;
-    color: rgba(0, 0, 0, 0.8);
+    color: $color-white;
+    opaciy: 0.5;
 }
