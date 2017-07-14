@@ -5,7 +5,7 @@
 {% block extra_css %}
     {{ block.super }}
 
-    <link rel="stylesheet" href="{% static 'wagtailadmin/css/layouts/404.scss' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'wagtailadmin/css/layouts/404.css' %}" type="text/css" />
 {% endblock %}
 
 
@@ -13,7 +13,7 @@
     <div id="backdrop"></div>
 
     <p class="vignette">
-        <img id="wagtail-bird" src=".../images/wagtail-logo.svg" />
+        <img id="wagtail-bird" src="{% static 'wagtailadmin/images/wagtail-logo.svg' %}" />
     </p>
 
     <div id="catchmouse"></div>
