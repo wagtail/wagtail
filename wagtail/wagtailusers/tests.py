@@ -303,6 +303,45 @@ class TestUserDeleteView(TestCase, WagtailTestUtils):
         users = get_user_model().objects.filter(username='testsuperuser')
         self.assertEqual(users.count(), 0)
 
+    def test_before_delete_user_hook(self):
+        def hook_func(request, user):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(user.pk, self.test_user.pk)
+
+            return HttpResponse("Overridden!")
+
+        with self.register_hook('before_delete_user', hook_func):
+            response = self.client.get(reverse('wagtailusers_users:delete', args=(self.test_user.pk, )))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+    '''
+    def test_before_delete_page_hook_post(self):
+        def hook_func(request, page):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(page.id, self.child_page.id)
+
+            return HttpResponse("Overridden!")
+
+        with self.register_hook('before_delete_page', hook_func):
+            response = self.client.post(reverse('wagtailadmin_pages:delete', args=(self.child_page.id, )))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+
+    def test_after_delete_page_hook(self):
+        def hook_func(request, page):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(page.id, self.child_page.id)
+
+            return HttpResponse("Overridden!")
+
+        with self.register_hook('after_delete_page', hook_func):
+            response = self.client.post(reverse('wagtailadmin_pages:delete', args=(self.child_page.id, )))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+    '''
 
 class TestUserDeleteViewForNonSuperuser(TestCase, WagtailTestUtils):
     def setUp(self):

@@ -186,11 +186,11 @@ def delete(request, user_id):
 
     if not user_can_delete_user(request.user, user):
         return permission_denied(request)
-
-    for fn in hooks.get_hooks('before_delete_user'):
-        result = fn(request, user)
-        if hasattr(result, 'status_code'):
-            return result
+    if user_can_delete_user(request.user, user):
+        for fn in hooks.get_hooks('before_delete_user'):
+            result = fn(request, user)
+            if hasattr(result, 'status_code'):
+                return result
     if request.method == 'POST':
         user.delete()
         messages.success(request, _("User '{0}' deleted.").format(user))
