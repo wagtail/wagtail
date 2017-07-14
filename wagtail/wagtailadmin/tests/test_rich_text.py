@@ -291,6 +291,10 @@ class TestHalloJsWithFeaturesKwarg(BaseRichTextEditHandlerTestCase, WagtailTestU
         self.assertNotContains(response, '"halloheadings":')
         self.assertNotContains(response, '"hallowagtailimage":')
 
+        # check that media (js/css) from the features is being imported
+        self.assertContains(response, 'testapp/js/hallo-blockquote.js')
+        self.assertContains(response, 'testapp/css/hallo-blockquote.css')
+
     def test_features_list_on_rich_text_block(self):
         block = RichTextBlock(features=['blockquote', 'embed', 'made-up-feature'])
 
@@ -301,6 +305,11 @@ class TestHalloJsWithFeaturesKwarg(BaseRichTextEditHandlerTestCase, WagtailTestU
         self.assertIn('"hallowagtailembeds":', form_html)
         self.assertNotIn('"halloheadings":', form_html)
         self.assertNotIn('"hallowagtailimage":', form_html)
+
+        # check that media (js/css) from the features is being imported
+        media_html = str(block.media)
+        self.assertIn('testapp/js/hallo-blockquote.js', media_html)
+        self.assertIn('testapp/css/hallo-blockquote.css', media_html)
 
 
 @override_settings(WAGTAILADMIN_RICH_TEXT_EDITORS={
