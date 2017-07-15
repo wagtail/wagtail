@@ -28,6 +28,19 @@ class HalloPlugin(object):
         return Media(js=self.js, css=self.css)
 
 
+class HalloFormatPlugin(HalloPlugin):
+    def __init__(self, **kwargs):
+        kwargs.setdefault('name', 'halloformat')
+        self.format_name = kwargs['format_name']
+        super(HalloFormatPlugin, self).__init__(**kwargs)
+
+    def construct_plugins_list(self, plugins):
+        plugins.setdefault(self.name, {'formattings': {
+            'bold': False, 'italic': False, 'strikeThrough': False, 'underline': False
+        }})
+        plugins[self.name]['formattings'][self.format_name] = True
+
+
 # Plugins which are always imported, and cannot be enabled/disabled via 'features'
 CORE_HALLO_PLUGINS = [
     HalloPlugin(name='halloreundo'),
