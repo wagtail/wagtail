@@ -1,6 +1,7 @@
 from __future__ import absolute_import, unicode_literals
 
 import json
+from collections import OrderedDict
 
 from django.conf import settings
 from django.contrib.staticfiles.templatetags.staticfiles import static
@@ -18,6 +19,7 @@ class HalloPlugin(object):
         self.options = kwargs.get('options', {})
         self.js = kwargs.get('js', None)
         self.css = kwargs.get('css', None)
+        self.order = kwargs.get('order', 100)
 
     def construct_plugins_list(self, plugins):
         if self.name is not None:
@@ -31,6 +33,7 @@ class HalloPlugin(object):
 class HalloFormatPlugin(HalloPlugin):
     def __init__(self, **kwargs):
         kwargs.setdefault('name', 'halloformat')
+        kwargs.setdefault('order', 10)
         self.format_name = kwargs['format_name']
         super(HalloFormatPlugin, self).__init__(**kwargs)
 
@@ -44,6 +47,7 @@ class HalloFormatPlugin(HalloPlugin):
 class HalloHeadingPlugin(HalloPlugin):
     def __init__(self, **kwargs):
         kwargs.setdefault('name', 'halloheadings')
+        kwargs.setdefault('order', 20)
         self.element = kwargs.pop('element')
         super(HalloHeadingPlugin, self).__init__(**kwargs)
 
@@ -54,7 +58,7 @@ class HalloHeadingPlugin(HalloPlugin):
 
 # Plugins which are always imported, and cannot be enabled/disabled via 'features'
 CORE_HALLO_PLUGINS = [
-    HalloPlugin(name='halloreundo'),
+    HalloPlugin(name='halloreundo', order=50),
     HalloPlugin(name='hallorequireparagraphs', js=[
         static('wagtailadmin/js/hallo-plugins/hallo-requireparagraphs.js'),
     ])
@@ -86,6 +90,7 @@ class HalloRichTextArea(WidgetWithScript, widgets.Textarea):
             features.get_editor_plugin('hallo', feature_name)
             for feature_name in self.features
         ]))
+        self.plugins.sort(key=lambda plugin: plugin.order)
 
         super(HalloRichTextArea, self).__init__(*args, **kwargs)
 
@@ -106,7 +111,7 @@ class HalloRichTextArea(WidgetWithScript, widgets.Textarea):
             # (so that it'll pick up the globally-defined halloPlugins list instead)
             return "makeHalloRichTextEditable({0});".format(json.dumps(id_))
         else:
-            plugin_data = {}
+            plugin_data = OrderedDict()
             for plugin in self.plugins:
                 plugin.construct_plugins_list(plugin_data)
 
