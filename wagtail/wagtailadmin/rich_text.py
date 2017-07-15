@@ -12,6 +12,31 @@ from wagtail.wagtailadmin.edit_handlers import RichTextFieldPanel
 from wagtail.wagtailcore.rich_text import DbWhitelister, expand_db_html, features
 
 
+class HalloPlugin(object):
+    def __init__(self, **kwargs):
+        self.name = kwargs.get('name', None)
+        self.options = kwargs.get('options', {})
+        self.js = kwargs.get('js', None)
+        self.css = kwargs.get('css', None)
+
+    def construct_plugins_list(self, plugins):
+        if self.name is not None:
+            plugins[self.name] = self.options
+
+    @property
+    def media(self):
+        return Media(js=self.js, css=self.css)
+
+
+# Plugins which are always imported, and cannot be enabled/disabled via 'features'
+CORE_HALLO_PLUGINS = [
+    HalloPlugin(name='halloreundo'),
+    HalloPlugin(name='hallorequireparagraphs', js=[
+        static('wagtailadmin/js/hallo-plugins/hallo-requireparagraphs.js'),
+    ])
+]
+
+
 class HalloRichTextArea(WidgetWithScript, widgets.Textarea):
     # this class's constructor accepts a 'features' kwarg
     accepts_features = True
@@ -33,7 +58,7 @@ class HalloRichTextArea(WidgetWithScript, widgets.Textarea):
 
         # construct a list of plugin objects, by querying the feature registry
         # and keeping the non-null responses from get_editor_plugin
-        self.plugins = list(filter(None, [
+        self.plugins = CORE_HALLO_PLUGINS + list(filter(None, [
             features.get_editor_plugin('hallo', feature_name)
             for feature_name in self.features
         ]))
@@ -78,30 +103,12 @@ class HalloRichTextArea(WidgetWithScript, widgets.Textarea):
             static('wagtailadmin/js/hallo-bootstrap.js'),
             static('wagtailadmin/js/hallo-plugins/hallo-wagtaillink.js'),
             static('wagtailadmin/js/hallo-plugins/hallo-hr.js'),
-            static('wagtailadmin/js/hallo-plugins/hallo-requireparagraphs.js'),
         ])
 
-        if self.plugins is not None:
-            for plugin in self.plugins:
-                media += plugin.media
+        for plugin in self.plugins:
+            media += plugin.media
 
         return media
-
-
-class HalloPlugin(object):
-    def __init__(self, **kwargs):
-        self.name = kwargs.get('name', None)
-        self.options = kwargs.get('options', {})
-        self.js = kwargs.get('js', None)
-        self.css = kwargs.get('css', None)
-
-    def construct_plugins_list(self, plugins):
-        if self.name is not None:
-            plugins[self.name] = self.options
-
-    @property
-    def media(self):
-        return Media(js=self.js, css=self.css)
 
 
 DEFAULT_RICH_TEXT_EDITORS = {
