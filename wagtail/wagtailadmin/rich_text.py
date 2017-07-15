@@ -41,6 +41,17 @@ class HalloFormatPlugin(HalloPlugin):
         plugins[self.name]['formattings'][self.format_name] = True
 
 
+class HalloHeadingPlugin(HalloPlugin):
+    def __init__(self, **kwargs):
+        kwargs.setdefault('name', 'halloheadings')
+        self.element = kwargs.pop('element')
+        super(HalloHeadingPlugin, self).__init__(**kwargs)
+
+    def construct_plugins_list(self, plugins):
+        plugins.setdefault(self.name, {'formatBlocks': []})
+        plugins[self.name]['formatBlocks'].append(self.element)
+
+
 # Plugins which are always imported, and cannot be enabled/disabled via 'features'
 CORE_HALLO_PLUGINS = [
     HalloPlugin(name='halloreundo'),
