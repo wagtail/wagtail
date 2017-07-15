@@ -56,6 +56,20 @@ class HalloHeadingPlugin(HalloPlugin):
         plugins[self.name]['formatBlocks'].append(self.element)
 
 
+class HalloListPlugin(HalloPlugin):
+    def __init__(self, **kwargs):
+        kwargs.setdefault('name', 'hallolists')
+        kwargs.setdefault('order', 40)
+        self.list_type = kwargs['list_type']
+        super(HalloListPlugin, self).__init__(**kwargs)
+
+    def construct_plugins_list(self, plugins):
+        plugins.setdefault(self.name, {'lists': {
+            'ordered': False, 'unordered': False
+        }})
+        plugins[self.name]['lists'][self.list_type] = True
+
+
 # Plugins which are always imported, and cannot be enabled/disabled via 'features'
 CORE_HALLO_PLUGINS = [
     HalloPlugin(name='halloreundo', order=50),
