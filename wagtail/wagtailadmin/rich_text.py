@@ -24,14 +24,19 @@ class HalloRichTextArea(WidgetWithScript, widgets.Textarea):
 
         self.features = kwargs.pop('features', None)
         if self.features is None:
-            self.plugins = None
+            self.features = features.get_default_features()
+
+            # RemovedInWagtail114Warning
+            self.use_legacy_plugin_config = True
         else:
-            # construct a list of plugin objects, by querying the feature registry
-            # and keeping the non-null responses from get_editor_plugin
-            self.plugins = list(filter(None, [
-                features.get_editor_plugin('hallo', feature_name)
-                for feature_name in self.features
-            ]))
+            self.use_legacy_plugin_config = False
+
+        # construct a list of plugin objects, by querying the feature registry
+        # and keeping the non-null responses from get_editor_plugin
+        self.plugins = list(filter(None, [
+            features.get_editor_plugin('hallo', feature_name)
+            for feature_name in self.features
+        ]))
 
         super(HalloRichTextArea, self).__init__(*args, **kwargs)
 
@@ -44,15 +49,17 @@ class HalloRichTextArea(WidgetWithScript, widgets.Textarea):
 
     def render_js_init(self, id_, name, value):
         if self.options is not None and 'plugins' in self.options:
+            # explicit 'plugins' config passed in options, so use that
             plugin_data = self.options['plugins']
-        elif self.plugins is not None:
+        elif self.use_legacy_plugin_config:
+            # RemovedInWagtail114Warning
+            # no feature list specified, so initialise without a plugins arg
+            # (so that it'll pick up the globally-defined halloPlugins list instead)
+            return "makeHalloRichTextEditable({0});".format(json.dumps(id_))
+        else:
             plugin_data = {}
             for plugin in self.plugins:
                 plugin.construct_plugins_list(plugin_data)
-        else:
-            # no plugin list specified, so initialise without a plugins arg
-            # (so that it'll pick up the globally-defined halloPlugins list instead)
-            return "makeHalloRichTextEditable({0});".format(json.dumps(id_))
 
         return "makeHalloRichTextEditable({0}, {1});".format(
             json.dumps(id_), json.dumps(plugin_data)

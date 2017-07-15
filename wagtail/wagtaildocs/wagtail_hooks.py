@@ -57,7 +57,6 @@ def register_documents_menu_item():
 @hooks.register('insert_editor_js')
 def editor_js():
     js_files = [
-        static('wagtaildocs/js/hallo-plugins/hallo-wagtaildoclink.js'),
         static('wagtaildocs/js/document-chooser.js'),
     ]
     js_includes = format_html_join(
@@ -79,8 +78,12 @@ def editor_js():
 def register_embed_feature(features):
     features.register_editor_plugin(
         'hallo', 'document-link',
-        HalloPlugin(name='hallowagtaildoclink')
+        HalloPlugin(
+            name='hallowagtaildoclink',
+            js=[static('wagtaildocs/js/hallo-plugins/hallo-wagtaildoclink.js')],
+        )
     )
+    features.default_features.append('document-link')
 
 
 @hooks.register('register_rich_text_link_handler')

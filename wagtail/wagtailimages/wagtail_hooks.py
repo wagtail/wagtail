@@ -49,7 +49,6 @@ def register_images_menu_item():
 @hooks.register('insert_editor_js')
 def editor_js():
     js_files = [
-        static('wagtailimages/js/hallo-plugins/hallo-wagtailimage.js'),
         static('wagtailimages/js/image-chooser.js'),
     ]
     js_includes = format_html_join(
@@ -71,8 +70,12 @@ def editor_js():
 def register_image_feature(features):
     features.register_editor_plugin(
         'hallo', 'image',
-        HalloPlugin(name='hallowagtailimage')
+        HalloPlugin(
+            name='hallowagtailimage',
+            js=[static('wagtailimages/js/hallo-plugins/hallo-wagtailimage.js')],
+        )
     )
+    features.default_features.append('image')
 
 
 @hooks.register('register_image_operations')

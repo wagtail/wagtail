@@ -22,13 +22,11 @@ def register_admin_urls():
 def editor_js():
     return format_html(
         """
-            <script src="{0}"></script>
             <script>
-                window.chooserUrls.embedsChooser = '{1}';
+                window.chooserUrls.embedsChooser = '{0}';
                 registerHalloPlugin('hallowagtailembeds');
             </script>
         """,
-        static('wagtailembeds/js/hallo-plugins/hallo-wagtailembeds.js'),
         urlresolvers.reverse('wagtailembeds:chooser')
     )
 
@@ -37,8 +35,12 @@ def editor_js():
 def register_embed_feature(features):
     features.register_editor_plugin(
         'hallo', 'embed',
-        HalloPlugin(name='hallowagtailembeds')
+        HalloPlugin(
+            name='hallowagtailembeds',
+            js=[static('wagtailembeds/js/hallo-plugins/hallo-wagtailembeds.js')],
+        )
     )
+    features.default_features.append('embed')
 
 
 @hooks.register('register_rich_text_embed_handler')
