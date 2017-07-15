@@ -188,6 +188,7 @@ def register_core_features(features):
         HalloPlugin(
             name='hallohr',
             js=[static('wagtailadmin/js/hallo-plugins/hallo-hr.js')],
+            order=45,
         )
     )
     features.default_features.append('hr')
