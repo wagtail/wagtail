@@ -101,8 +101,6 @@ class HalloRichTextArea(WidgetWithScript, widgets.Textarea):
         media = Media(js=[
             static('wagtailadmin/js/vendor/hallo.js'),
             static('wagtailadmin/js/hallo-bootstrap.js'),
-            static('wagtailadmin/js/hallo-plugins/hallo-wagtaillink.js'),
-            static('wagtailadmin/js/hallo-plugins/hallo-hr.js'),
         ])
 
         for plugin in self.plugins:
