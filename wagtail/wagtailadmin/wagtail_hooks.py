@@ -7,7 +7,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from wagtail.wagtailadmin.menu import MenuItem, SubmenuMenuItem, settings_menu
 from wagtail.wagtailadmin.navigation import get_explorable_root_page
-from wagtail.wagtailadmin.rich_text import HalloPlugin
+from wagtail.wagtailadmin.rich_text import HalloFormatPlugin, HalloPlugin
 from wagtail.wagtailadmin.search import SearchArea
 from wagtail.wagtailadmin.utils import user_has_any_page_permission
 from wagtail.wagtailadmin.viewsets import viewsets
@@ -200,3 +200,13 @@ def register_core_features(features):
         )
     )
     features.default_features.append('link')
+
+    features.register_editor_plugin(
+        'hallo', 'bold', HalloFormatPlugin(format_name='bold')
+    )
+    features.default_features.append('bold')
+
+    features.register_editor_plugin(
+        'hallo', 'italic', HalloFormatPlugin(format_name='italic')
+    )
+    features.default_features.append('italic')
