@@ -10,7 +10,6 @@ from django.http import HttpRequest, HttpResponse
 from django.test import TestCase, override_settings
 from django.utils import six
 
-from wagtail.tests.testapp.models import (SimplePage)
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
