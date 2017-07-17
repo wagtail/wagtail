@@ -428,7 +428,9 @@ footer,
             from {
                 -webkit-filter: drop-shadow(0 0 0 #ddd);
                 filter: drop-shadow(0 0 0 #ddd);
-            } to {
+            }
+            
+            to {
                 -webkit-filter: drop-shadow(0 0 4px #ddd);
                 filter: drop-shadow(0 0 4px #ddd);
             }
