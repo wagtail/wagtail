@@ -138,16 +138,12 @@ p.vignette:after {
     }
 
     #wagtail-link {
-        opaciy: 0.5;
+        opacity: 0.5;
     }
 }
 
 // MOBILE CHANGES:
 @media screen and (max-width: $breakpoint-mobile) {
-    #wagtail-bird {
-        opacity: 0;
-    }
-
     #text-container {
         width: 300px;
         transform: translateX(-130px);
@@ -166,9 +162,5 @@ p.vignette:after {
     #goback-link {
         -webkit-filter: none;
         filter: none;
-    }
-
-    #wagtail-link {
-        opaciy: 0;
     }
 }
