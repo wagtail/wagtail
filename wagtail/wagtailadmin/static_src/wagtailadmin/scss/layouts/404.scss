@@ -90,7 +90,7 @@ p.vignette:after {
     position: relative;
     font-size: 25px;
     top: -125px;
-    background-color: #2d7878; // slightly lighter than $color-teal-dark so shadow looks better
+    background-color: #2d7878; // slightly lighter than shadow
     text-decoration: none;
     color: #fff;
     padding-left: 12px;
@@ -125,16 +125,16 @@ p.vignette:after {
     #header {
         font-size: 100px;
         padding-bottom: 0px;
-        text-shadow: 4px 4px 4px $color-teal-dark;
+        text-shadow: 4px 4px 4px #1d4d4d;
     }
 
     #info {
-        text-shadow: 2px 2px 2px $color-teal-dark;
+        text-shadow: 2px 2px 2px #1d4d4d;
     }
 
     #goback-link {
-        -webkit-filter: drop-shadow(3px 3px 3px $color-teal-dark);
-        filter: drop-shadow(3px 3px 3px $color-teal-dark);
+        -webkit-filter: drop-shadow(3px 3px 3px #1d4d4d);
+        filter: drop-shadow(3px 3px 3px #1d4d4d);
     }
 
     #wagtail-link {
@@ -144,6 +144,9 @@ p.vignette:after {
 
 // MOBILE CHANGES:
 @media screen and (max-width: $breakpoint-mobile) {
+    #wagtail-bird {
+        opacity: 0;
+    }
     #text-container {
         width: 300px;
         transform: translateX(-130px);
