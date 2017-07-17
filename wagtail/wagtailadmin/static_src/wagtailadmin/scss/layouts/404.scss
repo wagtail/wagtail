@@ -16,6 +16,9 @@ body {
     height: auto;
     z-index: 10;
     transition: all 0.25s cubic-bezier(0.28, 0.15, 0, 2.1);
+    -webkit-filter: drop-shadow(4px 4px 4px #1d4d4d);
+    filter: drop-shadow(4px 4px 4px #1d4d4d);
+    opacity: 1;
 }
 
 #catchmouse {
@@ -49,9 +52,9 @@ p.vignette img {
 }
 
 p.vignette:after {
-    -moz-box-shadow: inset 0 0 10em #444;
-    -webkit-box-shadow: inset 0 0 10em #444;
-    box-shadow: inset 0 0 10em #444;
+    -moz-box-shadow: inset 0 0 10em #333;
+    -webkit-box-shadow: inset 0 0 10em #333;
+    box-shadow: inset 0 0 10em #333;
     position: fixed;
     top: 0;
     left: 0;
@@ -64,17 +67,14 @@ p.vignette:after {
 #text-container {
     position: fixed;
     left: 50%;
-    transform: translateX(-130px);
     top: 25%;
     height: 50%;
-    width: 600px;
     text-align: center;
     z-index: 50;
 }
 
 #header {
     position: relative;
-    font-size: 100px;
     top: -80px;
     color: $color-white; // override default h1 color
 }
@@ -90,13 +90,13 @@ p.vignette:after {
     position: relative;
     font-size: 25px;
     top: -125px;
-    background-color: $color-teal-dark;
+    background-color: #2d7878; // slightly lighter than $color-teal-dark so shadow looks better
     text-decoration: none;
     color: #fff;
     padding-left: 12px;
     padding-right: 12px;
-    padding-top: 6px;
-    padding-bottom: 6px;
+    padding-top: 3px;
+    padding-bottom: 3px;
     border-radius: 20px;
     cursor: pointer;
 }
@@ -108,5 +108,67 @@ p.vignette:after {
     font-size: 20px;
     text-decoration: none;
     color: $color-white;
-    opacity: 0.5;
+    opaciy: 0.5;
+}
+
+// DESKTOP CHANGES:
+@media screen and (min-width: $breakpoint-mobile) {
+    #wagtail-bird {
+        opacity: 1;
+    }
+
+    #text-container {
+        width: 600px;
+        transform: translateX(-150px);
+    }
+
+    #header {
+        font-size: 100px;
+        padding-bottom: 0px;
+        text-shadow: 4px 4px 4px $color-teal-dark;
+    }
+
+    #info {
+        text-shadow: 2px 2px 2px $color-teal-dark;
+    }
+
+    #goback-link {
+        -webkit-filter: drop-shadow(3px 3px 3px $color-teal-dark);
+        filter: drop-shadow(3px 3px 3px $color-teal-dark);
+    }
+
+    #wagtail-link {
+        opaciy: 0.5;
+    }
+}
+
+// MOBILE CHANGES:
+@media screen and (max-width: $breakpoint-mobile) {
+    #wagtail-bird {
+        opacity: 0;
+    }
+
+    #text-container {
+        width: 300px;
+        transform: translateX(-130px);
+    }
+
+    #header {
+        font-size: 50px;
+        padding-bottom: 30px;
+        text-shadow: none;
+    }
+
+    #info {
+        text-shadow: none;
+    }
+
+    #goback-link {
+        -webkit-filter: none;
+        filter: none;
+    }
+
+    #wagtail-link {
+        opaciy: 0;
+    }
 }
