@@ -481,6 +481,42 @@ class TestUserEditView(TestCase, WagtailTestUtils):
         # Should not redirect to index
         self.assertEqual(response.status_code, 200)
 
+    def test_before_edit_user_hook(self):
+        def hook_func(request, user):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(user.pk, self.test_user.pk)
+
+            return HttpResponse("Overridden!")
+
+        with self.register_hook('before_edit_user', hook_func):
+            response = self.client.get(reverse('wagtailusers_users:edit', args=(self.test_user.pk, )))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+
+    def test_before_edit_user_hook_post(self):
+        def hook_func(request, user):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(user.pk, self.test_user.pk)
+
+            return HttpResponse("Overridden!")
+
+        with self.register_hook('before_edit_user', hook_func):
+            post_data = {
+                'username': "testuser",
+                'email': "test@user.com",
+                'first_name': "Edited",
+                'last_name': "User",
+                'password1': "password",
+                'password2': "password",
+            }
+            response = self.client.post(
+                reverse('wagtailusers_users:edit', args=(self.test_user.pk, )), post_data
+            )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+
 
 class TestUserProfileCreation(TestCase, WagtailTestUtils):
     def setUp(self):
