@@ -31,7 +31,8 @@
         <a id="goback-link" onclick="window.history.back();">Click here to go back</a>
     </div>
 
-    <a id="wagtail-link" href="https://wagtail.io">wagtail: a fresh take on content management.</a>
+    <!--<a id="wagtail-link" href="https://wagtail.io">wagtail: a fresh take on content management.</a>-->
+    <!-- uncomment the above line for 'branding' in the bottom right corner -->
 {% endblock %}
 
 
@@ -45,30 +46,19 @@
                 $('#wagtail-bird').css('transform', 'translateX(-130px) rotate(0deg)');
             });
 
-            // REMOVE BIRD IF WINDOW IS TOO SMALL (E.G. MOBILE):
+            // For some reason if you try and change the opacity in the .scss file
+            // it breaks the Wagtail nod script so it must be done using JS
             var w = $(window).width();
             var h = $(window).height();
-            if (w < 1000 || h < 450) {
-                $('#text-container').css('width', '300px');
-                $('#text-container').css('transform', 'translateX(-150px)');
-                $('#header').css('font-size', '50px');
-                $('#header').css('padding-bottom', '30px');
+            if (w < $breakpoint-mobile) {
                 $('#wagtail-bird').css('opacity', '0');
             }
             $(window).resize(function() {
                 w = $(window).width();
                 h = $(window).height();
-                if (w < 800 || h < 450) { // 800px = $breakpoint-mobile
-                    $('#text-container').css('width', '300px');
-                    $('#text-container').css('transform', 'translateX(-150px)');
-                    $('#header').css('font-size', '50px');
-                    $('#header').css('padding-bottom', '30px');
+                if (w < $breakpoint-mobile) {
                     $('#wagtail-bird').css('opacity', '0');
                 } else {
-                    $('#text-container').css('width', '600px');
-                    $('#text-container').css('transform', 'translateX(-130px)');
-                    $('#header').css('font-size', '100px');
-                    $('#header').css('padding-bottom', '0px');
                     $('#wagtail-bird').css('opacity', '1');
                 }
             });
