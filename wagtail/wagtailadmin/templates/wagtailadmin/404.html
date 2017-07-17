@@ -45,23 +45,6 @@
             }, function() { // when mouse is no longer hovering...
                 $('#wagtail-bird').css('transform', 'translateX(-130px) rotate(0deg)');
             });
-
-            // For some reason if you try and change the opacity in the .scss file
-            // it breaks the Wagtail nod script so it must be done using JS
-            var w = $(window).width();
-            var h = $(window).height();
-            if (w < $breakpoint-mobile) {
-                $('#wagtail-bird').css('opacity', '0');
-            }
-            $(window).resize(function() {
-                w = $(window).width();
-                h = $(window).height();
-                if (w < $breakpoint-mobile) {
-                    $('#wagtail-bird').css('opacity', '0');
-                } else {
-                    $('#wagtail-bird').css('opacity', '1');
-                }
-            });
         });
     </script>
 {% endblock %}
