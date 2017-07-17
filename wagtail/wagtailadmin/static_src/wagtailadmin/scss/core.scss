@@ -426,11 +426,11 @@ footer,
 
         @keyframes glow {
             from {
-                -webkit-filter: drop-shadow(0px 0px 0px #fff);
-                filter: drop-shadow(0px 0px 0px #fff);
+                -webkit-filter: drop-shadow(0 0 0 #ddd);
+                filter: drop-shadow(0px 0px 0 #ddd);
             } to {
-                -webkit-filter: drop-shadow(0px 0px 6px #fff);
-                filter: drop-shadow(0px 0px 6px #fff);
+                -webkit-filter: drop-shadow(0 0 4px #ddd);
+                filter: drop-shadow(0 0 4px #ddd);
             }
         }
 
@@ -440,8 +440,8 @@ footer,
 
         img.wagtail-logo:hover {
             transform: rotate(4deg);
-            animation: glow 1.0s forwards;
-            -webkit-animation: glow 1.0s forwards;
+            animation: glow 1s forwards;
+            -webkit-animation: glow 1s forwards;
         }
     }
 
