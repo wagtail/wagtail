@@ -194,7 +194,7 @@ def delete(request, user_id):
     if request.method == 'POST':
         user.delete()
         messages.success(request, _("User '{0}' deleted.").format(user))
-        for fn in hooks.get_hooks('after_create_user'):
+        for fn in hooks.get_hooks('after_delete_user'):
             result = fn(request, user)
             if hasattr(result, 'status_code'):
                 return result
