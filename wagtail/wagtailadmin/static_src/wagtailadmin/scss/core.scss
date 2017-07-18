@@ -185,7 +185,7 @@ footer {
     }
 
     @media screen and (max-width: $breakpoint-mobile) {
-        .actions {
+        .actions, .preview {
             width: 100%;
         }
 
@@ -424,12 +424,26 @@ footer,
             display: block;
         }
 
+        @keyframes glow {
+            from {
+                -webkit-filter: drop-shadow(0 0 0 #ddd);
+                filter: drop-shadow(0 0 0 #ddd);
+            }
+
+            to {
+                -webkit-filter: drop-shadow(0 0 4px #ddd);
+                filter: drop-shadow(0 0 4px #ddd);
+            }
+        }
+
         img.wagtail-logo {
             transition: all 0.25s cubic-bezier(0.28, 0.15, 0, 2.1);
         }
 
         img.wagtail-logo:hover {
             transform: rotate(4deg);
+            animation: glow 1s forwards;
+            -webkit-animation: glow 1s forwards;
         }
     }
 
