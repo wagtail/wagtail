@@ -442,8 +442,8 @@ footer,
 
         img.wagtail-logo:hover {
             transform: rotate(4deg);
-            animation: glow 1s forwards;
             -webkit-animation: glow 1s forwards;
+            animation: glow 1s forwards;
         }
     }
 
