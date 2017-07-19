@@ -9,7 +9,7 @@ class Sitemap(DjangoSitemap):
         self.site = site
 
     def location(self, obj):
-        return obj.full_url
+        return obj.url
 
     def lastmod(self, obj):
         # fall back on latest_revision_created_at if last_published_at is null
