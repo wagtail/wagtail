@@ -163,15 +163,15 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
 
     from wagtail.wagtailcore import hooks
 
-    def admin_view( request ):
-      return HttpResponse( \
-        "I have approximate knowledge of many things!", \
+    def admin_view(request):
+      return HttpResponse(
+        "I have approximate knowledge of many things!",
         content_type="text/plain")
 
     @hooks.register('register_admin_urls')
     def urlconf_time():
       return [
-        url(r'^how_did_you_almost_know_my_name/$', admin_view, name='frank' ),
+        url(r'^how_did_you_almost_know_my_name/$', admin_view, name='frank'),
       ]
 
 
