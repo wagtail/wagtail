@@ -54,9 +54,9 @@ class TestSitemapGenerator(TestCase):
         sitemap = Sitemap(self.site)
         pages = sitemap.items()
 
-        self.assertIn(self.child_page.page_ptr, pages)
-        self.assertNotIn(self.unpublished_child_page.page_ptr, pages)
-        self.assertNotIn(self.protected_child_page.page_ptr, pages)
+        self.assertIn(self.child_page.page_ptr.specific, pages)
+        self.assertNotIn(self.unpublished_child_page.page_ptr.specific, pages)
+        self.assertNotIn(self.protected_child_page.page_ptr.specific, pages)
 
     def test_get_urls(self):
         request = RequestFactory().get('/sitemap.xml')

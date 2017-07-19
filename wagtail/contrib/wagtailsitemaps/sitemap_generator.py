@@ -9,11 +9,9 @@ class Sitemap(DjangoSitemap):
         self.site = site
 
     def location(self, obj):
-        return obj.specific.url
+        return obj.full_url
 
     def lastmod(self, obj):
-        obj = obj.specific
-
         # fall back on latest_revision_created_at if last_published_at is null
         # (for backwards compatibility from before last_published_at was added)
         return (obj.last_published_at or obj.latest_revision_created_at)
@@ -25,14 +23,15 @@ class Sitemap(DjangoSitemap):
             .get_descendants(inclusive=True)
             .live()
             .public()
-            .order_by('path'))
+            .order_by('path')
+            .specific())
 
     def _urls(self, page, protocol, domain):
         urls = []
         last_mods = set()
 
         for item in self.paginator.page(page).object_list:
-            for url_info in item.specific.get_sitemap_urls():
+            for url_info in item.get_sitemap_urls():
                 urls.append(url_info)
                 last_mods.add(url_info.get('lastmod'))
 
