@@ -246,6 +246,7 @@ Contributors
 * Paul Kamp
 * dwasyl
 * Eugene Morozov
+* Levi Adler
 
 Translators
 ===========

@@ -23,6 +23,7 @@ Other features
 
  * The admin interface now displays a title of the latest draft (Mikalai Radchuk)
  * Added multi-select form field to the form builder (dwasyl)
+ * Improved performance of sitemap generation (Levi Adler)
 
 Bug fixes
 ~~~~~~~~~
