@@ -108,6 +108,34 @@ class TestSitemapGenerator(TestCase):
         ][0]
         self.assertEqual(child_page_lastmod, datetime.datetime(2017, 2, 1, 12, 0, 0, tzinfo=pytz.utc))
 
+    def test_latest_lastmod(self):
+        # give the homepage a lastmod
+        self.home_page.last_published_at = datetime.datetime(2017, 3, 1, 12, 0, 0, tzinfo=pytz.utc)
+        self.home_page.save()
+
+        request = RequestFactory().get('/sitemap.xml')
+        req_protocol = request.scheme
+        req_site = get_current_site(request)
+
+        sitemap = Sitemap(self.site)
+        sitemap.get_urls(1, req_site, req_protocol)
+
+        self.assertEqual(sitemap.latest_lastmod, datetime.datetime(2017, 3, 1, 12, 0, 0, tzinfo=pytz.utc))
+
+    def test_latest_lastmod_missing(self):
+        # ensure homepage does not have lastmod
+        self.home_page.last_published_at = None
+        self.home_page.save()
+
+        request = RequestFactory().get('/sitemap.xml')
+        req_protocol = request.scheme
+        req_site = get_current_site(request)
+
+        sitemap = Sitemap(self.site)
+        sitemap.get_urls(1, req_site, req_protocol)
+
+        self.assertFalse(hasattr(sitemap, 'latest_lastmod'))
+
 
 class TestIndexView(TestCase):
     def test_index_view(self):
