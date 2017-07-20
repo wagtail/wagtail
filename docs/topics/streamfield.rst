@@ -792,6 +792,9 @@ To customise the styling of a ``StructBlock`` as it appears in the page editor, 
 
 You can then provide custom CSS for this block, targeted at the specified classname, by using the :ref:`insert_editor_css` hook.
 
+.. Note::
+    Wagtail's editor styling has some built in styling for the `struct-block` class and other related elements. If you specify a value for `form_classname`, it will overwrite the classes that are already applied to `StructBlock`, so you must remember to specify the `struct-block` as well.
+
 For more extensive customisations that require changes to the HTML markup as well, you can override the ``form_template`` attribute in ``Meta`` to specify your own template path. The following variables are available on this template:
 
 ``children``
