@@ -13,6 +13,11 @@ Wagtail 1.12 is designated a Long Term Support (LTS) release. Long Term Support 
 What's new
 ==========
 
+Configurable rich text features
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The feature set provided by the rich text editor can now be configured on a per-field basis, by passing a ``features`` keyword argument; for example, a field can be configured to allow bold / italic formatting and links, but not headings or embedded images or media. For further information, see :ref:`rich_text_features`. This feature was developed by Matt Westcott.
+
 Improved embed configuration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -41,3 +46,8 @@ Old configuration settings for embeds are deprecated
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The configuration settings ``WAGTAILEMBEDS_EMBED_FINDER`` and ``WAGTAILEMBEDS_EMBEDLY_KEY`` have been deprecated in favour of the new ``WAGTAILEMBEDS_FINDERS`` setting. Please see :ref:`configuring_embed_finders` for the new configuration to use.
+
+Registering custom hallo.js plugins directly is deprecated
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The ability to enable / disable ``hallo.js`` plugins by calling ``registerHalloPlugin`` or modifying the ``halloPlugins`` list has been deprecated, and will be removed in Wagtail 1.14. The recommended way of customising the hallo.js editor is now through :ref:`rich text features <rich_text_features>`. For details of how to define a hallo.js plugin as a rich text feature, see :ref:`extending_wysiwyg`.
