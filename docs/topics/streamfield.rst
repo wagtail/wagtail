@@ -187,7 +187,7 @@ RichTextBlock
 
 ``wagtail.wagtailcore.blocks.RichTextBlock``
 
-A WYSIWYG editor for creating formatted text including links, bold / italics etc.
+A WYSIWYG editor for creating formatted text including links, bold / italics etc. The keyword argument ``features`` is accepted, to specify the set of features allowed (see :ref:`rich_text_features`).
 
 RawHTMLBlock
 ~~~~~~~~~~~~
