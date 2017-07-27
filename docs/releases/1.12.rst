@@ -37,6 +37,7 @@ Bug fixes
  * Prevent explorer view from crashing when page model definitions are missing, allowing the offending pages to be deleted (Matt Westcott)
  * Hide the userbar from printed page representation (Eugene Morozov)
  * Prevent the page editor footer content from collapsing into two lines unnecessarily (Jack Paine)
+ * StructBlock values no longer render HTML templates as their ``str`` representation, to prevent infinite loops in debugging / logging tools (Matt Westcott)
 
 Upgrade considerations
 ======================

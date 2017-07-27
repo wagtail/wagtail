@@ -17,6 +17,7 @@ Changelog
  * Fix: Prevent explorer view from crashing when page model definitions are missing, allowing the offending pages to be deleted (Matt Westcott)
  * Fix: Hide the userbar from printed page representation (Eugene Morozov)
  * Fix: Prevent the page editor footer content from collapsing into two lines unnecessarily (Jack Paine)
+ * Fix: StructBlock values no longer render HTML templates as their `str` representation, to prevent infinite loops in debugging / logging tools (Matt Westcott)
 
 
 1.11.1 (07.07.2017)
