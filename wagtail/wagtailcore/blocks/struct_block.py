@@ -9,7 +9,6 @@ from django.forms.utils import ErrorList
 from django.template.loader import render_to_string
 # Must be imported from Django so we get the new implementation of with_metaclass
 from django.utils import six
-from django.utils.encoding import python_2_unicode_compatible
 from django.utils.functional import cached_property
 from django.utils.html import format_html, format_html_join
 
