@@ -194,13 +194,12 @@ class StructBlock(six.with_metaclass(DeclarativeSubBlocksMetaclass, BaseStructBl
     pass
 
 
-@python_2_unicode_compatible  # provide equivalent __unicode__ and __str__ methods on Py2
 class StructValue(collections.OrderedDict):
     def __init__(self, block, *args):
         super(StructValue, self).__init__(*args)
         self.block = block
 
-    def __str__(self):
+    def __html__(self):
         return self.block.render(self)
 
     def render_as_block(self, context=None):

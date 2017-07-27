@@ -1316,16 +1316,35 @@ class TestStructBlock(SimpleTestCase):
 
     def test_render_structvalue(self):
         """
-        The string representation of a StructValue should use the block's template
+        The HTML representation of a StructValue should use the block's template
+        """
+        block = SectionBlock()
+        value = block.to_python({'title': 'Hello', 'body': '<i>italic</i> world'})
+        result = value.__html__()
+        self.assertEqual(result, """<h1>Hello</h1><div class="rich-text"><i>italic</i> world</div>""")
+
+        # value.render_as_block() should be equivalent to value.__html__()
+        result = value.render_as_block()
+        self.assertEqual(result, """<h1>Hello</h1><div class="rich-text"><i>italic</i> world</div>""")
+
+    def test_str_structvalue(self):
+        """
+        The str() representation of a StructValue should NOT render the template, as that's liable
+        to cause an infinite loop if any debugging / logging code attempts to log the fact that
+        it rendered a template with this object in the context:
+        https://github.com/wagtail/wagtail/issues/2874
+        https://github.com/jazzband/django-debug-toolbar/issues/950
         """
         block = SectionBlock()
         value = block.to_python({'title': 'Hello', 'body': '<i>italic</i> world'})
         result = str(value)
-        self.assertEqual(result, """<h1>Hello</h1><div class="rich-text"><i>italic</i> world</div>""")
-
-        # value.render_as_block() should be equivalent to str(value)
-        result = value.render_as_block()
-        self.assertEqual(result, """<h1>Hello</h1><div class="rich-text"><i>italic</i> world</div>""")
+        self.assertNotIn('<h1>', result)
+        # The expected rendering should correspond to the native representation of an OrderedDict:
+        # "StructValue([('title', u'Hello'), ('body', <wagtail.wagtailcore.rich_text.RichText object at 0xb12d5eed>)])"
+        # - give or take some quoting differences between Python versions
+        self.assertIn('StructValue', result)
+        self.assertIn('title', result)
+        self.assertIn('Hello', result)
 
     def test_render_structvalue_with_extra_context(self):
         block = SectionBlock()
