@@ -152,11 +152,10 @@ def create(request):
 def edit(request, user_id):
     user = get_object_or_404(User, pk=user_id)
     can_delete = user_can_delete_user(request.user, user)
-    if can_delete:
-        for fn in hooks.get_hooks('before_edit_user'):
-            result = fn(request, user)
-            if hasattr(result, 'status_code'):
-                return result
+    for fn in hooks.get_hooks('before_edit_user'):
+        result = fn(request, user)
+        if hasattr(result, 'status_code'):
+            return result
     if request.method == 'POST':
         form = get_user_edit_form()(request.POST, request.FILES, instance=user)
         if form.is_valid():
@@ -187,11 +186,11 @@ def delete(request, user_id):
 
     if not user_can_delete_user(request.user, user):
         return permission_denied(request)
-    if user_can_delete_user(request.user, user):
-        for fn in hooks.get_hooks('before_delete_user'):
-            result = fn(request, user)
-            if hasattr(result, 'status_code'):
-                return result
+
+    for fn in hooks.get_hooks('before_delete_user'):
+        result = fn(request, user)
+        if hasattr(result, 'status_code'):
+            return result
     if request.method == 'POST':
         user.delete()
         messages.success(request, _("User '{0}' deleted.").format(user))
