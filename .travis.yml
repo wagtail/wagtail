@@ -1,5 +1,6 @@
 language: python
 cache: pip
+dist: trusty
 
 # Use container-based infrastructure
 sudo: false
