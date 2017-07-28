@@ -2009,6 +2009,75 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             3: ['Enter a valid URL.'],
         })
 
+    def test_min_num_validation_errors(self):
+        class ValidatedBlock(blocks.StreamBlock):
+            char = blocks.CharBlock()
+            url = blocks.URLBlock()
+        block = ValidatedBlock(min_num=1)
+
+        value = blocks.StreamValue(block, [])
+
+        with self.assertRaises(ValidationError) as catcher:
+            block.clean(value)
+        self.assertEqual(catcher.exception.params, {
+            '__all__': [['The minimum number of items is 1']]
+        })
+
+    def test_max_num_validation_errors(self):
+        class ValidatedBlock(blocks.StreamBlock):
+            char = blocks.CharBlock()
+            url = blocks.URLBlock()
+        block = ValidatedBlock(max_num=1)
+
+        value = blocks.StreamValue(block, [
+            ('char', 'foo'),
+            ('char', 'foo'),
+            ('url', 'http://example.com/'),
+            ('url', 'http://example.com/'),
+        ])
+
+        with self.assertRaises(ValidationError) as catcher:
+            block.clean(value)
+        self.assertEqual(catcher.exception.params, {
+            '__all__': [['The maximum number of items is 1']]
+        })
+
+    def test_min_max_fields_min_validation_errors(self):
+        class ValidatedBlock(blocks.StreamBlock):
+            char = blocks.CharBlock()
+            url = blocks.URLBlock()
+        block = ValidatedBlock(min_max_fields={'char': {'min_num': 1}})
+
+        value = blocks.StreamValue(block, [
+            ('url', 'http://example.com/'),
+            ('url', 'http://example.com/'),
+        ])
+
+        with self.assertRaises(ValidationError) as catcher:
+            block.clean(value)
+        self.assertEqual(catcher.exception.params, {
+            '__all__': [['Char: The minimum number of items is 1']]
+        })
+
+    def test_min_max_fields_max_validation_errors(self):
+        class ValidatedBlock(blocks.StreamBlock):
+            char = blocks.CharBlock()
+            url = blocks.URLBlock()
+        block = ValidatedBlock(min_max_fields={'char': {'max_num': 1}})
+
+        value = blocks.StreamValue(block, [
+            ('char', 'foo'),
+            ('char', 'foo'),
+            ('url', 'http://example.com/'),
+            ('url', 'http://example.com/'),
+        ])
+
+        with self.assertRaises(ValidationError) as catcher:
+            block.clean(value)
+        self.assertEqual(catcher.exception.params, {
+            '__all__': [['Char: The maximum number of items is 1']]
+        })
+
     def test_block_level_validation_renders_errors(self):
         block = FooStreamBlock()
 

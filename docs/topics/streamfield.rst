@@ -441,8 +441,9 @@ Since ``StreamField`` accepts an instance of ``StreamBlock`` as a parameter, in 
 .. code-block:: python
 
     class HomePage(Page):
-        carousel = StreamField(CarouselBlock())
+        carousel = StreamField(CarouselBlock(max_num=10, min_max_fields={'video': {'max_num': 2}}))
 
+The keyword arguments ``min_num``, ``max_num`` and ``min_max_fields``` are accepted.
 
 .. _streamfield_personblock_example:
 
