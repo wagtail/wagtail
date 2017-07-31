@@ -443,6 +443,8 @@ Since ``StreamField`` accepts an instance of ``StreamBlock`` as a parameter, in 
     class HomePage(Page):
         carousel = StreamField(CarouselBlock())
 
+``StreamBlock`` accepts ``required`` as a keyword argument or ``Meta`` property; if true (the default), at least one sub-block must be supplied.
+
 
 .. _streamfield_personblock_example:
 
