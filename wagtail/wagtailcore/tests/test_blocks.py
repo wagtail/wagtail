@@ -2051,8 +2051,12 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         with self.assertRaises(ValidationError) as catcher:
             block.clean(value)
         self.assertEqual(catcher.exception.params, {
-            '__all__': [['The minimum number of items is 1']]
+            '__all__': ['The minimum number of items is 1']
         })
+
+        # a value with >= 1 blocks should pass validation
+        value = blocks.StreamValue(block, [('char', 'foo')])
+        self.assertTrue(block.clean(value))
 
     def test_max_num_validation_errors(self):
         class ValidatedBlock(blocks.StreamBlock):
@@ -2070,14 +2074,18 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         with self.assertRaises(ValidationError) as catcher:
             block.clean(value)
         self.assertEqual(catcher.exception.params, {
-            '__all__': [['The maximum number of items is 1']]
+            '__all__': ['The maximum number of items is 1']
         })
 
-    def test_min_max_fields_min_validation_errors(self):
+        # a value with 1 block should pass validation
+        value = blocks.StreamValue(block, [('char', 'foo')])
+        self.assertTrue(block.clean(value))
+
+    def test_block_counts_min_validation_errors(self):
         class ValidatedBlock(blocks.StreamBlock):
             char = blocks.CharBlock()
             url = blocks.URLBlock()
-        block = ValidatedBlock(min_max_fields={'char': {'min_num': 1}})
+        block = ValidatedBlock(block_counts={'char': {'min_num': 1}})
 
         value = blocks.StreamValue(block, [
             ('url', 'http://example.com/'),
@@ -2087,14 +2095,22 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         with self.assertRaises(ValidationError) as catcher:
             block.clean(value)
         self.assertEqual(catcher.exception.params, {
-            '__all__': [['Char: The minimum number of items is 1']]
+            '__all__': ['Char: The minimum number of items is 1']
         })
 
-    def test_min_max_fields_max_validation_errors(self):
+        # a value with 1 char block should pass validation
+        value = blocks.StreamValue(block, [
+            ('url', 'http://example.com/'),
+            ('char', 'foo'),
+            ('url', 'http://example.com/'),
+        ])
+        self.assertTrue(block.clean(value))
+
+    def test_block_counts_max_validation_errors(self):
         class ValidatedBlock(blocks.StreamBlock):
             char = blocks.CharBlock()
             url = blocks.URLBlock()
-        block = ValidatedBlock(min_max_fields={'char': {'max_num': 1}})
+        block = ValidatedBlock(block_counts={'char': {'max_num': 1}})
 
         value = blocks.StreamValue(block, [
             ('char', 'foo'),
@@ -2106,8 +2122,16 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         with self.assertRaises(ValidationError) as catcher:
             block.clean(value)
         self.assertEqual(catcher.exception.params, {
-            '__all__': [['Char: The maximum number of items is 1']]
+            '__all__': ['Char: The maximum number of items is 1']
         })
+
+        # a value with 1 char block should pass validation
+        value = blocks.StreamValue(block, [
+            ('char', 'foo'),
+            ('url', 'http://example.com/'),
+            ('url', 'http://example.com/'),
+        ])
+        self.assertTrue(block.clean(value))
 
     def test_block_level_validation_renders_errors(self):
         block = FooStreamBlock()

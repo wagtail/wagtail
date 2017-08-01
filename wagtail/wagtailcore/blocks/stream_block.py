@@ -36,15 +36,8 @@ class StreamBlockValidationError(ValidationError):
 
 class BaseStreamBlock(Block):
 
-    def __init__(self, local_blocks=None, min_num=None, max_num=None, min_max_fields=None, **kwargs):
+    def __init__(self, local_blocks=None, **kwargs):
         self._constructor_kwargs = kwargs
-
-        # Used to validate the minimum and maximum number of elements in the block
-        self.min_num = min_num
-        self.max_num = max_num
-        if min_max_fields is None:
-            min_max_fields = {}
-        self.min_max_fields = min_max_fields
 
         super(BaseStreamBlock, self).__init__(**kwargs)
 
@@ -201,46 +194,36 @@ class BaseStreamBlock(Block):
             except ValidationError as e:
                 errors[i] = ErrorList([e])
 
-        if self.required and len(value) == 0:
-            non_block_errors.append(ValidationError('This field is required', code='invalid'))
-
-        # Validate that the min_num and max_num has a value
-        # and if it does meet the conditions of the number of components in the block
-        if self.min_num and self.min_num > len(value):
-            non_block_errors.append(ErrorList(
-                [_('The minimum number of items is %s' % self.min_num)]
+        if self.meta.min_num is not None and self.meta.min_num > len(value):
+            non_block_errors.append(ValidationError(
+                _('The minimum number of items is %d') % self.meta.min_num
             ))
-        if self.max_num and self.max_num < len(value):
-            non_block_errors.append(ErrorList(
-                [_('The maximum number of items is %s' % self.max_num)]
+        elif self.required and len(value) == 0:
+            non_block_errors.append(ValidationError(_('This field is required.')))
+
+        if self.meta.max_num is not None and self.meta.max_num < len(value):
+            non_block_errors.append(ValidationError(
+                _('The maximum number of items is %d') % self.meta.max_num
             ))
 
-        if self.min_max_fields:
-            fields = {}
+        if self.meta.block_counts:
+            block_counts = collections.defaultdict(int)
             for item in value:
-                if item.block_type not in self.min_max_fields:
-                    continue
-                if item.block_type not in fields:
-                    fields[item.block_type] = 0
-                fields[item.block_type] += 1
+                block_counts[item.block_type] += 1
 
-            for field in self.min_max_fields:
-                field_title = field.replace('_', ' ').title()
-                max_num = self.min_max_fields[field].get('max_num', None)
-                min_num = self.min_max_fields[field].get('min_num', None)
-                if field in fields:
-                    if min_num and min_num > fields[field]:
-                        non_block_errors.append(ErrorList(
-                            ['{}: {}'.format(field_title, _('The minimum number of items is %s' % min_num))]
-                        ))
-                    if max_num and max_num < fields[field]:
-                        non_block_errors.append(ErrorList(
-                            ['{}: {}'.format(field_title, _('The maximum number of items is %s' % max_num))]
-                        ))
-                elif min_num:
-                        non_block_errors.append(ErrorList(
-                            ['{}: {}'.format(field_title, _('The minimum number of items is %s' % min_num))]
-                        ))
+            for block_name, min_max in self.meta.block_counts.items():
+                block = self.child_blocks[block_name]
+                max_num = min_max.get('max_num', None)
+                min_num = min_max.get('min_num', None)
+                block_count = block_counts[block_name]
+                if min_num is not None and min_num > block_count:
+                    non_block_errors.append(ValidationError(
+                        '{}: {}'.format(block.label, _('The minimum number of items is %d') % min_num)
+                    ))
+                if max_num is not None and max_num < block_count:
+                    non_block_errors.append(ValidationError(
+                        '{}: {}'.format(block.label, _('The maximum number of items is %d') % max_num)
+                    ))
 
         if errors or non_block_errors:
             # The message here is arbitrary - outputting error messages is delegated to the child blocks,
@@ -334,6 +317,9 @@ class BaseStreamBlock(Block):
         icon = "placeholder"
         default = []
         required = True
+        min_num = None
+        max_num = None
+        block_counts = {}
 
 
 class StreamBlock(six.with_metaclass(DeclarativeSubBlocksMetaclass, BaseStreamBlock)):
