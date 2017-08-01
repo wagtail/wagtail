@@ -132,7 +132,7 @@ function initTable(id, tableOptions) {
     // Apply resize after document is finished loading (parent .sequence-member-inner width is set)
     if ('resize' in $(window)) {
         resizeHeight(getHeight());
-        $(window).load(function() {
+        $(window).on('load', function() {
             $(window).resize();
         });
     }
