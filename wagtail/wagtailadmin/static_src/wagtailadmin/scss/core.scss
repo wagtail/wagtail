@@ -424,6 +424,7 @@ footer,
             width: 60px;
             height: 75px;
             position: relative;
+            transition: all 0.25s cubic-bezier(0.28, 0.15, 0, 2.1);
 
             img {
                 left: 0;
@@ -440,6 +441,7 @@ footer,
             img.wagtail-logo-eye {
                 display: inline;
             }
+
             img.wagtail-logo-eyeclosed {
                 display: none;
             }
@@ -447,28 +449,28 @@ footer,
 
 
         // Wagtail animation:
+        @keyframes nod {
+            0% {
+                transform: rotate(2deg);
+            }
+
+            100% {
+                transform: rotate(6deg);
+            }
+        }
+
         .wagtail-logo-container:hover {
-            @keyframes nod {
-                0% {
-                    transform: rotate(2deg);
-                }
+            // 'Nod' animation
+            animation: nod 1.2s forwards;
 
-                100% {
-                    transform: rotate(6deg);
-                }
-            }
-
-            img.wagtail-logo-body {
-                animation: nod 1.2s forwards;
-            }
-
+            // Tail-wag animation
             @keyframes wag {
                 0% {
-                    transform: rotate(2deg);
+                    transform: rotate(-2deg);
                 }
 
                 100% {
-                    transform: rotate(12deg);
+                    transform: rotate(8deg);
                 }
             }
 
@@ -477,13 +479,13 @@ footer,
                 animation-iteration-count: infinite;
             }
 
+            // Change eye shape from . to ^
             img.wagtail-logo-eyeopen {
                 display: none !important; // Override previous style
             }
 
             img.wagtail-logo-eyeclosed {
                 display: inline !important; // Override previous styles
-                animation: nod 1s forwards; // Follow nod
             }
         }
     }
@@ -549,7 +551,7 @@ footer,
     .logo {
         .wagtail-logo-container {
             img {
-                display: none;
+              display: none;
             }
 
             img.wagtail-logo {
