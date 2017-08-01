@@ -6,9 +6,20 @@
         <div class="inner">
             <a href="{% url 'wagtailadmin_home' %}" class="logo" title="Wagtail v.{% wagtail_version %}">
                 {% block branding_logo %}
-                    <img class="wagtail-logo" src="{% static 'wagtailadmin/images/wagtail-logo.svg' %}" alt="Wagtail" width="80" />
+                    {# Mobile-only logo: #}
+                    <div class="wagtail-logo-container__mobile u-hidden@medium">
+                        <img class="wagtail-logo wagtail-logo__full" src="{% static 'wagtailadmin/images/wagtail-logo.svg' %}" alt="Wagtail" width="80" />
+                    </div>
+
+                    {# Desktop logo (animated): #}
+                    <div class="wagtail-logo-container__desktop u-hidden@small">
+                        <img class="wagtail-logo wagtail-logo__body" src="{% static 'wagtailadmin/images/logo-body.svg' %}" alt=""/>
+                        <img class="wagtail-logo wagtail-logo__tail" src="{% static 'wagtailadmin/images/logo-tail.svg' %}" alt="" />
+                        <img class="wagtail-logo wagtail-logo__eye--open" src="{% static 'wagtailadmin/images/logo-eyeopen.svg' %}" alt="" />
+                        <img class="wagtail-logo wagtail-logo__eye--closed" src="{% static 'wagtailadmin/images/logo-eyeclosed.svg' %}" alt="" />
+                    </div>
                 {% endblock %}
-                <span>{% trans "Dashboard" %}</span>
+                <span class="u-hidden@medium">{% trans "Dashboard" %}</span>
             </a>
 
             {% menu_search %}
@@ -36,4 +47,56 @@
             {% block content %}{% endblock %}
         </div>
     </div>
+{% endblock %}
+
+{# Animation easter-egg: #}
+{% block extra_js %}
+    <script>
+        $(function() {
+          var sensitivity = 8; // the amount of times the user must stroke the wagtail to trigger the animation
+
+          var $logoContainer = $('.wagtail-logo-container__desktop');
+          var mouseX = 0;
+          var lastMouseX = 0;
+          var dir = '';
+          var lastDir = '';
+          var dirChangeCount = 0;
+
+          function enableWag() {
+            $logoContainer.removeClass('logo-serious').addClass('logo-playful');
+          }
+
+          function disableWag() {
+            $logoContainer.removeClass('logo-playful').addClass('logo-serious');
+          }
+
+          $logoContainer.mousemove(function(event) {
+            mouseX = event.pageX;
+
+            if (mouseX > lastMouseX) {
+              dir = 'r';
+            } else if (mouseX < lastMouseX) {
+              dir = 'l';
+            }
+
+            if (dir != lastDir && lastDir != '') {
+              dirChangeCount += 1;
+            }
+
+            if (dirChangeCount > sensitivity) {
+              enableWag();
+            }
+
+            lastMouseX = mouseX;
+            lastDir = dir;
+          })
+
+          $logoContainer.mouseleave(function() {
+            dirChangeCount = 0;
+            disableWag();
+          })
+
+          disableWag();
+        })
+    </script>
 {% endblock %}

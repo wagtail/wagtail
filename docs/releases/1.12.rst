@@ -34,6 +34,7 @@ Other features
  * Users can no longer remove their own active / superuser flags through Settings -> Users (Stein Strindhaug, Huub Bouma)
  * The ``process_form_submission`` method of form pages now return the created form submission object (Christine Ho)
  * Added ``WAGTAILUSERS_PASSWORD_ENABLED`` and ``WAGTAILUSERS_PASSWORD_REQUIRED`` settings to permit creating users with no Django-side passwords, to support external authentication setups (Matt Westcott)
+ * Optimised caudal oscillation parameters on logo (Jack Paine)
 
 Bug fixes
 ~~~~~~~~~

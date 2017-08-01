@@ -14,6 +14,7 @@ Changelog
  * Users can no longer remove their own active / superuser flags through Settings -> Users (Stein Strindhaug, Huub Bouma)
  * The `process_form_submission` method of form pages now return the created form submission object (cho-leukeleu)
  * Added `WAGTAILUSERS_PASSWORD_ENABLED` and `WAGTAILUSERS_PASSWORD_REQUIRED` settings to permit creating users with no Django-side passwords, to support external authentication setups (Matt Westcott)
+ * Optimised caudal oscillation parameters on logo (Jack Paine)
  * Fix: FieldBlocks in StreamField now call the field's `prepare_value` method (Tim Heap)
  * Fix: Initial disabled state of InlinePanel add button is now set correctly on non-default tabs (Matthew Downey)
  * Fix: Redirects with unicode characters now work (Rich Brennan)
