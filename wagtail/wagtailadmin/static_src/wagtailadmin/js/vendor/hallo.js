@@ -1678,7 +1678,7 @@
         widget = this;
         thumbId = 1;
         return _.each(tags, function(tag) {
-          return vie.load({
+          return vie.on('load', {
             entity: tag
           }).using('dbpedia').execute().done(function(entities) {
             jQuery('.activitySpinner', this.element).hide();
