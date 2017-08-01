@@ -9,6 +9,7 @@ Changelog
  * Added multi-select form field to the form builder (dwasyl)
  * Improved performance of sitemap generation (Levi Adler)
  * StreamField now respects the `blank` setting; StreamBlock accepts a `required` setting (Loic Teixeira)
+ * StreamBlock now accepts `min_num`, `max_num` and `block_counts` settings to control the minimum and maximum numbers of blocks (Edwar Baron, Matt Westcott)
  * Fix: FieldBlocks in StreamField now call the field's `prepare_value` method (Tim Heap)
  * Fix: Initial disabled state of InlinePanel add button is now set correctly on non-default tabs (Matthew Downey)
  * Fix: Redirects with unicode characters now work (Rich Brennan)
