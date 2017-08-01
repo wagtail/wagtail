@@ -6,6 +6,7 @@ from django.contrib.auth.models import Group, Permission
 from django.core.exceptions import ImproperlyConfigured
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.urlresolvers import reverse
+from django.http import HttpRequest, HttpResponse
 from django.test import TestCase, override_settings
 from django.utils import six
 
@@ -187,6 +188,61 @@ class TestUserCreateView(TestCase, WagtailTestUtils):
         users = get_user_model().objects.filter(username='testuser')
         self.assertEqual(users.count(), 0)
 
+    def test_before_create_user_hook(self):
+        def hook_func(request):
+            self.assertIsInstance(request, HttpRequest)
+            return HttpResponse("Overridden!")
+
+        with self.register_hook('before_create_user', hook_func):
+            response = self.client.get(
+                reverse('wagtailusers_users:add')
+            )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+
+    def test_before_create_user_hook_post(self):
+        def hook_func(request):
+            self.assertIsInstance(request, HttpRequest)
+            return HttpResponse("Overridden!")
+
+        with self.register_hook('before_create_user', hook_func):
+            post_data = {
+                'username': "testuser",
+                'email': "testuser@test.com",
+                'password1': 'password12',
+                'password2': 'password12',
+                'first_name': 'test',
+                'last_name': 'user',
+            }
+            response = self.client.post(
+                reverse('wagtailusers_users:add'),
+                post_data
+            )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+
+    def test_after_create_user_hook(self):
+        def hook_func(request, user):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertIsInstance(user, get_user_model())
+            return HttpResponse("Overridden!")
+
+        with self.register_hook('after_create_user', hook_func):
+            post_data = {
+                'username': "testuser",
+                'email': "testuser@test.com",
+                'password1': 'password12',
+                'password2': 'password12',
+                'first_name': 'test',
+                'last_name': 'user',
+            }
+            response = self.client.post(
+                reverse('wagtailusers_users:add'),
+                post_data
+            )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+
 
 class TestUserDeleteView(TestCase, WagtailTestUtils):
     def setUp(self):
@@ -245,6 +301,45 @@ class TestUserDeleteView(TestCase, WagtailTestUtils):
         # Check that the user was deleted
         users = get_user_model().objects.filter(username='testsuperuser')
         self.assertEqual(users.count(), 0)
+
+    def test_before_delete_user_hook(self):
+        def hook_func(request, user):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(user.pk, self.test_user.pk)
+
+            return HttpResponse("Overridden!")
+
+        with self.register_hook('before_delete_user', hook_func):
+            response = self.client.get(reverse('wagtailusers_users:delete', args=(self.test_user.pk, )))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+
+    def test_before_delete_user_hook_post(self):
+        def hook_func(request, user):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(user.pk, self.test_user.pk)
+
+            return HttpResponse("Overridden!")
+
+        with self.register_hook('before_delete_user', hook_func):
+            response = self.client.post(reverse('wagtailusers_users:delete', args=(self.test_user.pk, )))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+
+    def test_after_delete_user_hook(self):
+        def hook_func(request, user):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(user.username, self.test_user.username)
+
+            return HttpResponse("Overridden!")
+
+        with self.register_hook('after_delete_user', hook_func):
+            response = self.client.post(reverse('wagtailusers_users:delete', args=(self.test_user.pk, )))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
 
 
 class TestUserDeleteViewForNonSuperuser(TestCase, WagtailTestUtils):
@@ -384,6 +479,65 @@ class TestUserEditView(TestCase, WagtailTestUtils):
 
         # Should not redirect to index
         self.assertEqual(response.status_code, 200)
+
+    def test_before_edit_user_hook(self):
+        def hook_func(request, user):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(user.pk, self.test_user.pk)
+
+            return HttpResponse("Overridden!")
+
+        with self.register_hook('before_edit_user', hook_func):
+            response = self.client.get(reverse('wagtailusers_users:edit', args=(self.test_user.pk, )))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+
+    def test_before_edit_user_hook_post(self):
+        def hook_func(request, user):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(user.pk, self.test_user.pk)
+
+            return HttpResponse("Overridden!")
+
+        with self.register_hook('before_edit_user', hook_func):
+            post_data = {
+                'username': "testuser",
+                'email': "test@user.com",
+                'first_name': "Edited",
+                'last_name': "User",
+                'password1': "password",
+                'password2': "password",
+            }
+            response = self.client.post(
+                reverse('wagtailusers_users:edit', args=(self.test_user.pk, )), post_data
+            )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+
+    def test_after_edit_user_hook_post(self):
+        def hook_func(request, user):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(user.pk, self.test_user.pk)
+
+            return HttpResponse("Overridden!")
+
+        with self.register_hook('after_edit_user', hook_func):
+            post_data = {
+                'username': "testuser",
+                'email': "test@user.com",
+                'first_name': "Edited",
+                'last_name': "User",
+                'password1': "password",
+                'password2': "password",
+            }
+            response = self.client.post(
+                reverse('wagtailusers_users:edit', args=(self.test_user.pk, )), post_data
+            )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
 
 
 class TestUserProfileCreation(TestCase, WagtailTestUtils):
