@@ -8,6 +8,7 @@ Changelog
  * The admin interface now displays a title of the latest draft (Mikalai Radchuk)
  * Added multi-select form field to the form builder (dwasyl)
  * Improved performance of sitemap generation (Levi Adler)
+ * StreamField now respects the `blank` setting; StreamBlock accepts a `required` setting (Loic Teixeira)
  * Fix: FieldBlocks in StreamField now call the field's `prepare_value` method (Tim Heap)
  * Fix: Initial disabled state of InlinePanel add button is now set correctly on non-default tabs (Matthew Downey)
  * Fix: Redirects with unicode characters now work (Rich Brennan)
