@@ -437,12 +437,12 @@ footer,
                 display: none; // This is the static logo (mobile only); use the animated one on desktop
              }
 
-             img.wagtail-logo-eye {
-                 display: inline;
-             }
-             img.wagtail-logo-eyeclosed {
-                 display: none;
-             }
+            img.wagtail-logo-eye {
+                display: inline;
+            }
+            img.wagtail-logo-eyeclosed {
+                display: none;
+            }
         }
 
 
@@ -457,6 +457,7 @@ footer,
                     transform: rotate(6deg);
                 }
             }
+
             img.wagtail-logo-body {
                 animation: nod 1.2s forwards;
             }
@@ -470,6 +471,7 @@ footer,
                     transform: rotate(12deg);
                 }
             }
+
             img.wagtail-logo-tail {
                 animation: wag 0.09s alternate;
                 animation-iteration-count: infinite;
@@ -478,6 +480,7 @@ footer,
             img.wagtail-logo-eyeopen {
                 display: none !important; // Override previous style
             }
+
             img.wagtail-logo-eyeclosed {
                 display: inline !important; // Override previous styles
                 animation: nod 1s forwards; // Follow nod
