@@ -14,7 +14,7 @@ Wagtail CMS
 Wagtail is a content management system built on Django. It's focused on user experience,
 and offers precise control for designers and developers.
 
-.. image:: http://i.imgur.com/U5MDa0l.jpg
+.. image:: http://i.imgur.com/hSVerKq.jpg
    :width: 728 px
 
 Features
