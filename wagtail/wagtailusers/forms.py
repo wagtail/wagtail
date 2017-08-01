@@ -166,6 +166,14 @@ class UserCreationForm(UserForm):
 class UserEditForm(UserForm):
     password_required = False
 
+    def __init__(self, *args, **kwargs):
+        editing_self = kwargs.pop('editing_self', False)
+        super(UserEditForm, self).__init__(*args, **kwargs)
+
+        if editing_self:
+            del self.fields["is_active"]
+            del self.fields["is_superuser"]
+
     class Meta:
         model = User
         fields = set([User.USERNAME_FIELD, "is_active"]) | standard_fields | custom_fields
