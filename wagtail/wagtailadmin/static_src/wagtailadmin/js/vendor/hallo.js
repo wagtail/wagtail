@@ -1785,7 +1785,7 @@
         } else {
           uploadUrl = widget.options.uploadUrl;
         }
-        iframe.on('load',  function() {
+        iframe.on('load', function() {
           var imageUrl;
           imageUrl = iframe.get(0).contentWindow.location.href;
           widget.element.hide();
