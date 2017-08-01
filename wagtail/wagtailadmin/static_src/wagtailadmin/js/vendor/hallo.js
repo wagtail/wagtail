@@ -1249,7 +1249,7 @@
         var imageInsert, tmpImg;
         imageInsert = jQuery('<img>');
         tmpImg = new Image();
-        jQuery(tmpImg).on('load',  function() {});
+        jQuery(tmpImg).on('load', function() {});
         tmpImg.src = image.src;
         imageInsert.attr({
           src: tmpImg.src,
