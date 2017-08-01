@@ -417,19 +417,71 @@ footer,
             display: none;
         }
 
-        img {
-            width: 60px;
+        .wagtail-logo-container {
             float: none;
             margin: auto;
             display: block;
+            width: 60px;
+            height: 75px;
+            position: relative;
+
+            img {
+                left: 0;
+                top: 0;
+                width: 60px;
+                position: absolute;
+                transition: all 0.25s cubic-bezier(0.28, 0.15, 0, 2.1);
+            }
+
+            img.wagtail-logo {
+                display: none; // This is the static logo (mobile only); use the animated one on desktop
+             }
+
+             img.wagtail-logo-eye {
+                 display: inline;
+             }
+             img.wagtail-logo-eyeclosed {
+                 display: none;
+             }
         }
 
-        img.wagtail-logo {
-            transition: all 0.25s cubic-bezier(0.28, 0.15, 0, 2.1);
-        }
 
-        img.wagtail-logo:hover {
-            transform: rotate(4deg);
+        // Wagtail animation:
+        .wagtail-logo-container:hover {
+            @keyframes nod {
+                0% {
+                    transform: rotate(2deg);
+                }
+
+                100% {
+                    transform: rotate(6deg);
+                }
+            }
+            img.wagtail-logo-body {
+                animation: nod 1.2s forwards;
+            }
+
+            @keyframes wag {
+                0% {
+                    transform: rotate(2deg);
+                }
+
+                100% {
+                    transform: rotate(12deg);
+                }
+            }
+            img.wagtail-logo-tail {
+                animation: wag 0.09s alternate;
+                animation-iteration-count: infinite;
+            }
+
+            img.wagtail-logo-eyeopen {
+                display: none !important; // Override previous style
+            }
+            img.wagtail-logo-eyeclosed {
+                display: inline !important; // Override previous styles
+                animation: nod 1s forwards; // Follow nod
+            }
         }
     }
 
@@ -486,5 +538,20 @@ footer,
     // footer is z-index: 100, so ensure the navigation sits on top of it.
     .nav-wrapper.submenu-active {
         z-index: 200;
+    }
+}
+
+// Use static logo on mobile:
+@media screen and (max-width: $breakpoint-mobile) {
+    .logo {
+        .wagtail-logo-container {
+            img {
+              display: none;
+            }
+
+            img.wagtail-logo {
+                display: inline !important;
+            }
+        }
     }
 }

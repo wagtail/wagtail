@@ -6,7 +6,13 @@
         <div class="inner">
             <a href="{% url 'wagtailadmin_home' %}" class="logo" title="Wagtail v.{% wagtail_version %}">
                 {% block branding_logo %}
-                    <img class="wagtail-logo" src="{% static 'wagtailadmin/images/wagtail-logo.svg' %}" alt="Wagtail" width="80" />
+                    <div class="wagtail-logo-container">
+                        <img class="wagtail-logo" src="{% static 'wagtailadmin/images/wagtail-logo.svg' %}" alt="Wagtail" width="80" />
+                        <img class="wagtail-logo-body" src="{% static 'wagtailadmin/images/logo-body.svg' %}" />
+                        <img class="wagtail-logo-tail" src="{% static 'wagtailadmin/images/logo-tail.svg' %}" />
+                        <img class="wagtail-logo-eyeopen" src="{% static 'wagtailadmin/images/logo-eyeopen.svg' %}" />
+                        <img class="wagtail-logo-eyeclosed" src="{% static 'wagtailadmin/images/logo-eyeclosed.svg' %}" />
+                    </div>
                 {% endblock %}
                 <span>{% trans "Dashboard" %}</span>
             </a>
