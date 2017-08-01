@@ -1249,7 +1249,7 @@
         var imageInsert, tmpImg;
         imageInsert = jQuery('<img>');
         tmpImg = new Image();
-        jQuery(tmpImg).on('load', function() {});
+        jQuery(tmpImg).on('load',  function() {});
         tmpImg.src = image.src;
         imageInsert.attr({
           src: tmpImg.src,
@@ -1678,7 +1678,7 @@
         widget = this;
         thumbId = 1;
         return _.each(tags, function(tag) {
-          return vie.load({
+          return vie.on('load', {
             entity: tag
           }).using('dbpedia').execute().done(function(entities) {
             jQuery('.activitySpinner', this.element).hide();
@@ -1785,7 +1785,7 @@
         } else {
           uploadUrl = widget.options.uploadUrl;
         }
-        iframe.on('load', function() {
+        iframe.on('load',  function() {
           var imageUrl;
           imageUrl = iframe.get(0).contentWindow.location.href;
           widget.element.hide();

@@ -65,7 +65,7 @@ function(modal) {
         /* pagination links within search results should be AJAX-fetched
         and the result loaded into .page-results (and ajaxified) */
         $('.page-results a.navigate-pages', modal.body).click(function() {
-            $('.page-results', modal.body).load(this.href, ajaxifySearchResults);
+            $('.page-results', modal.body).on('load', this.href, ajaxifySearchResults);
             return false;
         });
     }
