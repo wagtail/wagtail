@@ -38,6 +38,7 @@ Bug fixes
  * Hide the userbar from printed page representation (Eugene Morozov)
  * Prevent the page editor footer content from collapsing into two lines unnecessarily (Jack Paine)
  * StructBlock values no longer render HTML templates as their ``str`` representation, to prevent infinite loops in debugging / logging tools (Matt Westcott)
+ * Removed deprecated jQuery ``load`` call from TableBlock initialisation (Jack Paine)
 
 Upgrade considerations
 ======================
