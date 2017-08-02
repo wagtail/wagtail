@@ -185,7 +185,8 @@ footer {
     }
 
     @media screen and (max-width: $breakpoint-mobile) {
-        .actions {
+        .actions,
+        .preview {
             width: 100%;
         }
 
