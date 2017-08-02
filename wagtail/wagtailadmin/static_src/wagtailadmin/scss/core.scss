@@ -435,8 +435,9 @@ footer,
     }
 
     footer {
-        width: calc(100% - #{$menu-width} - 100px); // [full width] - [width of nav menu] - [2 * width of margin]
         margin-left: 50px;
+        margin-right: 50px;
+        width: calc(100% - #{$menu-width} - 100px); // [full width] - [width of nav menu] - [2 * width of margin]
     }
 
     .content {
