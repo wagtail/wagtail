@@ -57,8 +57,8 @@ describe('ExplorerPanel', () => {
         {...mockProps}
         page={{ children: { items: [1, 2] } }}
         nodes={{
-          1: { id: 1, title: 'Test', meta: { status: {}, type: 'test' } },
-          2: { id: 2, title: 'Foo', meta: { status: {}, type: 'foo' } },
+          1: { title: 'Test', meta: { id: 1, status: {}, type: 'test' } },
+          2: { title: 'Foo', meta: { id: 2, status: {}, type: 'foo' } },
         }}
       />
     ))).toMatchSnapshot();
@@ -103,7 +103,7 @@ describe('ExplorerPanel', () => {
           {...mockProps}
           path={[1]}
           page={{ children: { items: [1] } }}
-          nodes={{ 1: { id: 1, title: 'Test', meta: { status: {}, type: 'test' } } }}
+          nodes={{ 1: { title: 'Test', meta: { id: 1, status: {}, type: 'test' } } }}
         />
       )).find('ExplorerItem').prop('onClick')({
         preventDefault() {},

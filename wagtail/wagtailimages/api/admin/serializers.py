@@ -1,7 +1,7 @@
 from __future__ import absolute_import, unicode_literals
 
 from ..fields import ImageRenditionField
-from ..v2.serializers import ImageSerializer
+from ..v3.serializers import ImageSerializer
 
 
 class AdminImageSerializer(ImageSerializer):

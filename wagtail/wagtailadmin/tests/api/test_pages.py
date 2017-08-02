@@ -7,7 +7,7 @@ import json
 from django.core.urlresolvers import reverse
 from django.utils import timezone
 
-from wagtail.api.v2.tests.test_pages import TestPageDetail, TestPageListing
+from wagtail.api.v3.tests.test_pages import TestPageDetail, TestPageListing
 from wagtail.tests.demosite import models
 from wagtail.tests.testapp.models import StreamPage
 from wagtail.wagtailcore.models import Page
@@ -24,10 +24,10 @@ class TestAdminPageListing(AdminAPITestCase, TestPageListing):
     fixtures = ['demosite.json']
 
     def get_response(self, **params):
-        return self.client.get(reverse('wagtailadmin_api_v1:pages:listing'), params)
+        return self.client.get(reverse('wagtailadmin_api:pages:listing'), params)
 
     def get_page_id_list(self, content):
-        return [page['id'] for page in content['items']]
+        return [page['meta']['id'] for page in content['items']]
 
 
     # BASIC TESTS
@@ -42,23 +42,19 @@ class TestAdminPageListing(AdminAPITestCase, TestPageListing):
         content = json.loads(response.content.decode('UTF-8'))
 
         # Check that the meta section is there
-        self.assertIn('meta', content)
         self.assertIsInstance(content['meta'], dict)
 
         # Check that the total count is there and correct
-        self.assertIn('total_count', content['meta'])
         self.assertIsInstance(content['meta']['total_count'], int)
         self.assertEqual(content['meta']['total_count'], get_total_page_count())
 
         # Check that the items section is there
-        self.assertIn('items', content)
         self.assertIsInstance(content['items'], list)
 
         # Check that each page has a meta section with type, detail_url, html_url, status and children attributes
         for page in content['items']:
-            self.assertIn('meta', page)
             self.assertIsInstance(page['meta'], dict)
-            self.assertEqual(set(page['meta'].keys()), {'type', 'detail_url', 'html_url', 'status', 'children', 'slug', 'first_published_at', 'latest_revision_created_at'})
+            self.assertEqual(set(page['meta'].keys()), {'id', 'type', 'detail_url', 'html_url', 'status', 'children', 'first_published_at', 'latest_revision_created_at'})
 
         # Check the type info
         self.assertIsInstance(content['__types'], dict)
@@ -115,46 +111,55 @@ class TestAdminPageListing(AdminAPITestCase, TestPageListing):
         content = json.loads(response.content.decode('UTF-8'))
 
         for page in content['items']:
-            self.assertEqual(set(page.keys()), {'id', 'meta', 'title'})
-            self.assertEqual(set(page['meta'].keys()), {'type', 'detail_url', 'html_url', 'children', 'status', 'slug', 'first_published_at', 'latest_revision_created_at'})
+            self.assertEqual(set(page.keys()), {'meta', 'title', 'slug'})
+            self.assertEqual(set(page['meta'].keys()), {'id', 'type', 'detail_url', 'html_url', 'children', 'status', 'first_published_at', 'latest_revision_created_at'})
+
+    def test_fields(self):
+        response = self.get_response(type='demosite.BlogEntryPage', fields='title,date,feed_image')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        for page in content['items']:
+            self.assertEqual(set(page.keys()), {'meta', 'title', 'slug', 'date', 'feed_image'})
+            self.assertEqual(set(page['meta'].keys()), {'id', 'type', 'detail_url', 'html_url', 'first_published_at', 'children', 'status', 'latest_revision_created_at'})
 
     def test_remove_meta_fields(self):
         response = self.get_response(fields='-html_url')
         content = json.loads(response.content.decode('UTF-8'))
 
         for page in content['items']:
-            self.assertEqual(set(page.keys()), {'id', 'meta', 'title'})
-            self.assertEqual(set(page['meta'].keys()), {'type', 'detail_url', 'slug', 'first_published_at', 'latest_revision_created_at', 'status', 'children'})
+            self.assertEqual(set(page.keys()), {'meta', 'title', 'slug'})
+            self.assertEqual(set(page['meta'].keys()), {'id', 'type', 'detail_url', 'first_published_at', 'latest_revision_created_at', 'status', 'children'})
 
     def test_remove_all_meta_fields(self):
-        response = self.get_response(fields='-type,-detail_url,-slug,-first_published_at,-html_url,-latest_revision_created_at,-status,-children')
+        response = self.get_response(fields='-id,-type,-detail_url,-first_published_at,-html_url,-latest_revision_created_at,-status,-children')
         content = json.loads(response.content.decode('UTF-8'))
 
         for page in content['items']:
-            self.assertEqual(set(page.keys()), {'id', 'title'})
+            self.assertEqual(set(page.keys()), {'title', 'slug'})
 
     def test_all_fields(self):
         response = self.get_response(type='demosite.BlogEntryPage', fields='*')
         content = json.loads(response.content.decode('UTF-8'))
 
         for page in content['items']:
-            self.assertEqual(set(page.keys()), {'id', 'meta', 'title', 'date', 'related_links', 'tags', 'carousel_items', 'body', 'feed_image', 'feed_image_thumbnail'})
-            self.assertEqual(set(page['meta'].keys()), {'type', 'detail_url', 'show_in_menus', 'first_published_at', 'seo_title', 'slug', 'parent', 'html_url', 'search_description', 'children', 'descendants', 'status', 'latest_revision_created_at'})
+            self.assertEqual(set(page.keys()), {'meta', 'title', 'slug', 'seo_title', 'search_description', 'show_in_menus', 'date', 'related_links', 'tags', 'carousel_items', 'body', 'feed_image', 'feed_image_thumbnail'})
+            self.assertEqual(set(page['meta'].keys()), {'id', 'type', 'detail_url', 'first_published_at', 'parent', 'html_url', 'children', 'descendants', 'status', 'latest_revision_created_at'})
 
     def test_all_fields_then_remove_something(self):
         response = self.get_response(type='demosite.BlogEntryPage', fields='*,-title,-date,-seo_title,-status')
         content = json.loads(response.content.decode('UTF-8'))
 
         for page in content['items']:
-            self.assertEqual(set(page.keys()), {'id', 'meta', 'related_links', 'tags', 'carousel_items', 'body', 'feed_image', 'feed_image_thumbnail'})
-            self.assertEqual(set(page['meta'].keys()), {'type', 'detail_url', 'show_in_menus', 'first_published_at', 'slug', 'parent', 'html_url', 'search_description', 'children', 'descendants', 'latest_revision_created_at'})
+            self.assertEqual(set(page.keys()), {'meta', 'slug', 'show_in_menus', 'search_description', 'related_links', 'tags', 'carousel_items', 'body', 'feed_image', 'feed_image_thumbnail'})
+            self.assertEqual(set(page['meta'].keys()), {'id', 'type', 'detail_url', 'first_published_at', 'parent', 'html_url', 'children', 'descendants', 'latest_revision_created_at'})
 
     def test_all_nested_fields(self):
         response = self.get_response(type='demosite.BlogEntryPage', fields='feed_image(*)')
         content = json.loads(response.content.decode('UTF-8'))
 
         for page in content['items']:
-            self.assertEqual(set(page['feed_image'].keys()), {'id', 'meta', 'title', 'width', 'height', 'thumbnail'})
+            self.assertEqual(set(page['feed_image'].keys()), {'meta', 'title', 'tags', 'width', 'height', 'thumbnail'})
+            self.assertEqual(set(page['feed_image']['meta'].keys()), {'id', 'type', 'detail_url'})
 
     def test_fields_foreign_key(self):
         # Only the base the detail_url is different here from the public API
@@ -166,12 +171,12 @@ class TestAdminPageListing(AdminAPITestCase, TestPageListing):
 
             if feed_image is not None:
                 self.assertIsInstance(feed_image, dict)
-                self.assertEqual(set(feed_image.keys()), {'id', 'meta', 'title'})
-                self.assertIsInstance(feed_image['id'], int)
+                self.assertEqual(set(feed_image.keys()), {'meta', 'title'})
                 self.assertIsInstance(feed_image['meta'], dict)
-                self.assertEqual(set(feed_image['meta'].keys()), {'type', 'detail_url'})
+                self.assertEqual(set(feed_image['meta'].keys()), {'id', 'type', 'detail_url'})
+                self.assertIsInstance(feed_image['meta']['id'], int)
                 self.assertEqual(feed_image['meta']['type'], 'wagtailimages.Image')
-                self.assertEqual(feed_image['meta']['detail_url'], 'http://localhost/admin/api/v2beta/images/%d/' % feed_image['id'])
+                self.assertEqual(feed_image['meta']['detail_url'], 'http://localhost/admin/api/v3beta/images/%d/' % feed_image['meta']['id'])
 
     def test_fields_parent(self):
         response = self.get_response(type='demosite.BlogEntryPage', fields='parent')
@@ -182,13 +187,14 @@ class TestAdminPageListing(AdminAPITestCase, TestPageListing):
 
             # All blog entry pages have the same parent
             self.assertDictEqual(parent, {
-                'id': 5,
                 'meta': {
+                    'id': 5,
                     'type': 'demosite.BlogIndexPage',
-                    'detail_url': 'http://localhost/admin/api/v2beta/pages/5/',
+                    'detail_url': 'http://localhost/admin/api/v3beta/pages/5/',
                     'html_url': 'http://localhost/blog-index/',
                 },
-                'title': "Blog index"
+                'title': "Blog index",
+                'slug': 'blog-index'
             })
 
     def test_fields_descendants(self):
@@ -199,7 +205,37 @@ class TestAdminPageListing(AdminAPITestCase, TestPageListing):
             descendants = page['meta']['descendants']
             self.assertEqual(set(descendants.keys()), {'count', 'listing_url'})
             self.assertIsInstance(descendants['count'], int)
-            self.assertEqual(descendants['listing_url'], 'http://localhost/admin/api/v2beta/pages/?descendant_of=%d' % page['id'])
+            self.assertEqual(descendants['listing_url'], 'http://localhost/admin/api/v3beta/pages/?descendant_of=%d' % page['meta']['id'])
+
+    def test_fields_ordering(self):
+        response = self.get_response(type='demosite.BlogEntryPage', fields='date,title,feed_image,related_links')
+
+        # Will crash if the JSON is invalid
+        content = json.loads(response.content.decode('UTF-8'))
+
+        # Test field order
+        content = json.JSONDecoder(object_pairs_hook=collections.OrderedDict).decode(response.content.decode('UTF-8'))
+        field_order = [
+            'meta',
+            'title',
+            'slug',
+            'date',
+            'feed_image',
+            'related_links',
+        ]
+        self.assertEqual(list(content['items'][0].keys()), field_order)
+
+        meta_field_order = [
+            'id',
+            'type',
+            'detail_url',
+            'html_url',
+            'first_published_at',
+            'latest_revision_created_at',
+            'status',
+            'children',
+        ]
+        self.assertEqual(list(content['items'][0]['meta'].keys()), meta_field_order)
 
 
     # CHILD OF FILTER
@@ -295,7 +331,7 @@ class TestAdminPageDetail(AdminAPITestCase, TestPageDetail):
     fixtures = ['demosite.json']
 
     def get_response(self, page_id, **params):
-        return self.client.get(reverse('wagtailadmin_api_v1:pages:detail', args=(page_id, )), params)
+        return self.client.get(reverse('wagtailadmin_api:pages:detail', args=(page_id, )), params)
 
     def test_basic(self):
         response = self.get_response(16)
@@ -306,29 +342,22 @@ class TestAdminPageDetail(AdminAPITestCase, TestPageDetail):
         # Will crash if the JSON is invalid
         content = json.loads(response.content.decode('UTF-8'))
 
-        # Check the id field
-        self.assertIn('id', content)
-        self.assertEqual(content['id'], 16)
-
         # Check that the meta section is there
-        self.assertIn('meta', content)
         self.assertIsInstance(content['meta'], dict)
 
+        # Check the id field
+        self.assertEqual(content['meta']['id'], 16)
+
         # Check the meta type
-        self.assertIn('type', content['meta'])
         self.assertEqual(content['meta']['type'], 'demosite.BlogEntryPage')
 
         # Check the meta detail_url
-        self.assertIn('detail_url', content['meta'])
-        self.assertEqual(content['meta']['detail_url'], 'http://localhost/admin/api/v2beta/pages/16/')
+        self.assertEqual(content['meta']['detail_url'], 'http://localhost/admin/api/v3beta/pages/16/')
 
         # Check the meta html_url
-        self.assertIn('html_url', content['meta'])
         self.assertEqual(content['meta']['html_url'], 'http://localhost/blog-index/blog-post/')
 
         # Check the meta status
-
-        self.assertIn('status', content['meta'])
         self.assertEqual(content['meta']['status'], {
             'status': 'live',
             'live': True,
@@ -336,22 +365,19 @@ class TestAdminPageDetail(AdminAPITestCase, TestPageDetail):
         })
 
         # Check the meta children
-
-        self.assertIn('children', content['meta'])
         self.assertEqual(content['meta']['children'], {
             'count': 0,
-            'listing_url': 'http://localhost/admin/api/v2beta/pages/?child_of=16'
+            'listing_url': 'http://localhost/admin/api/v3beta/pages/?child_of=16'
         })
 
         # Check the parent field
-        self.assertIn('parent', content['meta'])
         self.assertIsInstance(content['meta']['parent'], dict)
-        self.assertEqual(set(content['meta']['parent'].keys()), {'id', 'meta', 'title'})
-        self.assertEqual(content['meta']['parent']['id'], 5)
+        self.assertEqual(set(content['meta']['parent'].keys()), {'meta', 'title', 'slug'})
         self.assertIsInstance(content['meta']['parent']['meta'], dict)
-        self.assertEqual(set(content['meta']['parent']['meta'].keys()), {'type', 'detail_url', 'html_url'})
+        self.assertEqual(set(content['meta']['parent']['meta'].keys()), {'id', 'type', 'detail_url', 'html_url'})
+        self.assertEqual(content['meta']['parent']['meta']['id'], 5)
         self.assertEqual(content['meta']['parent']['meta']['type'], 'demosite.BlogIndexPage')
-        self.assertEqual(content['meta']['parent']['meta']['detail_url'], 'http://localhost/admin/api/v2beta/pages/5/')
+        self.assertEqual(content['meta']['parent']['meta']['detail_url'], 'http://localhost/admin/api/v3beta/pages/5/')
         self.assertEqual(content['meta']['parent']['meta']['html_url'], 'http://localhost/blog-index/')
 
         # Check that the custom fields are included
@@ -370,18 +396,18 @@ class TestAdminPageDetail(AdminAPITestCase, TestPageDetail):
 
         # Check that the feed image was serialised properly
         self.assertIsInstance(content['feed_image'], dict)
-        self.assertEqual(set(content['feed_image'].keys()), {'id', 'meta', 'title'})
-        self.assertEqual(content['feed_image']['id'], 7)
+        self.assertEqual(set(content['feed_image'].keys()), {'meta', 'title'})
         self.assertIsInstance(content['feed_image']['meta'], dict)
-        self.assertEqual(set(content['feed_image']['meta'].keys()), {'type', 'detail_url'})
+        self.assertEqual(set(content['feed_image']['meta'].keys()), {'id', 'type', 'detail_url'})
+        self.assertEqual(content['feed_image']['meta']['id'], 7)
         self.assertEqual(content['feed_image']['meta']['type'], 'wagtailimages.Image')
-        self.assertEqual(content['feed_image']['meta']['detail_url'], 'http://localhost/admin/api/v2beta/images/7/')
+        self.assertEqual(content['feed_image']['meta']['detail_url'], 'http://localhost/admin/api/v3beta/images/7/')
 
         # Check that the child relations were serialised properly
         self.assertEqual(content['related_links'], [])
         for carousel_item in content['carousel_items']:
-            self.assertEqual(set(carousel_item.keys()), {'id', 'meta', 'embed_url', 'link', 'caption', 'image'})
-            self.assertEqual(set(carousel_item['meta'].keys()), {'type'})
+            self.assertEqual(set(carousel_item.keys()), {'meta', 'embed_url', 'link', 'caption', 'image'})
+            self.assertEqual(set(carousel_item['meta'].keys()), {'id', 'type'})
 
         # Check the type info
         self.assertIsInstance(content['__types'], dict)
@@ -406,9 +432,12 @@ class TestAdminPageDetail(AdminAPITestCase, TestPageDetail):
         # Test field order
         content = json.JSONDecoder(object_pairs_hook=collections.OrderedDict).decode(response.content.decode('UTF-8'))
         field_order = [
-            'id',
             'meta',
             'title',
+            'slug',
+            'show_in_menus',
+            'seo_title',
+            'search_description',
             'body',
             'tags',
             'date',
@@ -419,6 +448,20 @@ class TestAdminPageDetail(AdminAPITestCase, TestPageDetail):
             '__types',
         ]
         self.assertEqual(list(content.keys()), field_order)
+
+        meta_field_order = [
+            'id',
+            'type',
+            'detail_url',
+            'html_url',
+            'first_published_at',
+            'parent',
+            'latest_revision_created_at',
+            'status',
+            'children',
+            'descendants',
+        ]
+        self.assertEqual(list(content['meta'].keys()), meta_field_order)
 
     def test_meta_status_draft(self):
         # Unpublish the page
@@ -487,7 +530,7 @@ class TestAdminPageDetail(AdminAPITestCase, TestPageDetail):
         self.assertIn('children', content['meta'])
         self.assertEqual(content['meta']['children'], {
             'count': 5,
-            'listing_url': 'http://localhost/admin/api/v2beta/pages/?child_of=2'
+            'listing_url': 'http://localhost/admin/api/v3beta/pages/?child_of=2'
         })
 
     def test_meta_descendants(self):
@@ -498,30 +541,31 @@ class TestAdminPageDetail(AdminAPITestCase, TestPageDetail):
         self.assertIn('descendants', content['meta'])
         self.assertEqual(content['meta']['descendants'], {
             'count': 18,
-            'listing_url': 'http://localhost/admin/api/v2beta/pages/?descendant_of=2'
+            'listing_url': 'http://localhost/admin/api/v3beta/pages/?descendant_of=2'
         })
 
     # FIELDS
 
     def test_remove_all_meta_fields(self):
-        response = self.get_response(16, fields='-type,-detail_url,-slug,-first_published_at,-html_url,-descendants,-latest_revision_created_at,-children,-show_in_menus,-seo_title,-parent,-status,-search_description')
+        response = self.get_response(16, fields='-id,-type,-detail_url,-first_published_at,-html_url,-descendants,-latest_revision_created_at,-children,-show_in_menus,-seo_title,-parent,-status,-search_description')
         content = json.loads(response.content.decode('UTF-8'))
 
         self.assertNotIn('meta', set(content.keys()))
-        self.assertIn('id', set(content.keys()))
+        self.assertIn('title', set(content.keys()))
 
     def test_remove_all_fields(self):
-        response = self.get_response(16, fields='_,id,type')
+        response = self.get_response(16, fields='_,id,title')
         content = json.loads(response.content.decode('UTF-8'))
 
-        self.assertEqual(set(content.keys()), {'id', 'meta', '__types'})
-        self.assertEqual(set(content['meta'].keys()), {'type'})
+        self.assertEqual(set(content.keys()), {'meta', 'title', '__types'})
+        self.assertEqual(set(content['meta'].keys()), {'id'})
 
     def test_all_nested_fields(self):
         response = self.get_response(16, fields='feed_image(*)')
         content = json.loads(response.content.decode('UTF-8'))
 
-        self.assertEqual(set(content['feed_image'].keys()), {'id', 'meta', 'title', 'width', 'height', 'thumbnail'})
+        self.assertEqual(set(content['feed_image'].keys()), {'meta', 'title', 'tags', 'width', 'height', 'thumbnail'})
+        self.assertEqual(set(content['feed_image']['meta'].keys()), {'id', 'type', 'detail_url'})
 
     def test_fields_foreign_key(self):
         response = self.get_response(16)
@@ -530,12 +574,12 @@ class TestAdminPageDetail(AdminAPITestCase, TestPageDetail):
         feed_image = content['feed_image']
 
         self.assertIsInstance(feed_image, dict)
-        self.assertEqual(set(feed_image.keys()), {'id', 'meta', 'title'})
-        self.assertIsInstance(feed_image['id'], int)
+        self.assertEqual(set(feed_image.keys()), {'meta', 'title'})
         self.assertIsInstance(feed_image['meta'], dict)
-        self.assertEqual(set(feed_image['meta'].keys()), {'type', 'detail_url'})
+        self.assertEqual(set(feed_image['meta'].keys()), {'id', 'type', 'detail_url'})
+        self.assertIsInstance(feed_image['meta']['id'], int)
         self.assertEqual(feed_image['meta']['type'], 'wagtailimages.Image')
-        self.assertEqual(feed_image['meta']['detail_url'], 'http://localhost/admin/api/v2beta/images/%d/' % feed_image['id'])
+        self.assertEqual(feed_image['meta']['detail_url'], 'http://localhost/admin/api/v3beta/images/%d/' % feed_image['meta']['id'])
 
 
 class TestAdminPageDetailWithStreamField(AdminAPITestCase):
@@ -557,7 +601,7 @@ class TestAdminPageDetailWithStreamField(AdminAPITestCase):
     def test_can_fetch_streamfield_content(self):
         stream_page = self.make_stream_page('[{"type": "text", "value": "foo"}]')
 
-        response_url = reverse('wagtailadmin_api_v1:pages:detail', args=(stream_page.id, ))
+        response_url = reverse('wagtailadmin_api:pages:detail', args=(stream_page.id, ))
         response = self.client.get(response_url)
 
         self.assertEqual(response.status_code, 200)
@@ -565,8 +609,7 @@ class TestAdminPageDetailWithStreamField(AdminAPITestCase):
 
         content = json.loads(response.content.decode('utf-8'))
 
-        self.assertIn('id', content)
-        self.assertEqual(content['id'], stream_page.id)
+        self.assertEqual(content['meta']['id'], stream_page.id)
         self.assertIn('body', content)
         self.assertEqual(len(content['body']), 1)
         self.assertEqual(content['body'][0]['type'], 'text')
@@ -576,7 +619,7 @@ class TestAdminPageDetailWithStreamField(AdminAPITestCase):
     def test_image_block(self):
         stream_page = self.make_stream_page('[{"type": "image", "value": 1}]')
 
-        response_url = reverse('wagtailadmin_api_v1:pages:detail', args=(stream_page.id, ))
+        response_url = reverse('wagtailadmin_api:pages:detail', args=(stream_page.id, ))
         response = self.client.get(response_url)
         content = json.loads(response.content.decode('utf-8'))
 

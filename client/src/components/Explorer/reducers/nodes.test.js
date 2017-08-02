@@ -39,9 +39,9 @@ describe('nodes', () => {
       payload: {
         id: 1,
         items: [
-          { id: 3 },
-          { id: 4 },
-          { id: 5 },
+          { meta: { id: 3 } },
+          { meta: { id: 4 } },
+          { meta: { id: 5 } },
         ],
         meta: {
           total_count: 3,

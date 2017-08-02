@@ -14,7 +14,7 @@ const ExplorerHeader = ({ page, depth, onClick }) => {
 
   return (
     <Button
-      href={page.id ? `${ADMIN_URLS.PAGES}${page.id}/` : ADMIN_URLS.PAGES}
+      href={page.meta.id ? `${ADMIN_URLS.PAGES}${page.meta.id}/` : ADMIN_URLS.PAGES}
       className="c-explorer__header"
       onClick={onClick}
     >

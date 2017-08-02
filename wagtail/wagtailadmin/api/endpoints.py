@@ -2,10 +2,10 @@ from __future__ import absolute_import, unicode_literals
 
 from collections import OrderedDict
 
-from wagtail.api.v2.endpoints import PagesAPIEndpoint
-from wagtail.api.v2.filters import (
+from wagtail.api.v3.endpoints import PagesAPIEndpoint
+from wagtail.api.v3.filters import (
     ChildOfFilter, DescendantOfFilter, FieldsFilter, OrderingFilter, SearchFilter)
-from wagtail.api.v2.utils import BadRequestError, filter_page_type, page_models_from_string
+from wagtail.api.v3.utils import BadRequestError, filter_page_type, page_models_from_string
 from wagtail.wagtailcore.models import Page
 
 from .filters import HasChildrenFilter

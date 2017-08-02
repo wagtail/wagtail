@@ -19,9 +19,9 @@
         (function(document, window) {
             window.wagtailConfig = window.wagtailConfig || {};
             wagtailConfig.ADMIN_API = {
-                PAGES: '{% url "wagtailadmin_api_v1:pages:listing" %}',
-                DOCUMENTS: '{% url "wagtailadmin_api_v1:documents:listing" %}',
-                IMAGES: '{% url "wagtailadmin_api_v1:images:listing" %}',
+                PAGES: '{% url "wagtailadmin_api:pages:listing" %}',
+                DOCUMENTS: '{% url "wagtailadmin_api:documents:listing" %}',
+                IMAGES: '{% url "wagtailadmin_api:images:listing" %}',
                 {# // Use this to add an extra query string on all API requests. #}
                 {# // Example value: '&order=-id' #}
                 EXTRA_CHILDREN_PARAMETERS: '',

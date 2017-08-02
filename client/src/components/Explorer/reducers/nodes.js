@@ -33,7 +33,7 @@ const node = (state = defaultPageState, { type, payload }) => {
       isFetching: false,
       isError: false,
       children: {
-        items: state.children.items.slice().concat(payload.items.map(item => item.id)),
+        items: state.children.items.slice().concat(payload.items.map(item => item.meta.id)),
         count: payload.meta.total_count,
       },
     });
@@ -75,7 +75,7 @@ export default function nodes(state = defaultState, { type, payload }) {
     });
 
     payload.items.forEach((item) => {
-      newState[item.id] = Object.assign({}, defaultPageState, item);
+      newState[item.meta.id] = Object.assign({}, defaultPageState, item);
     });
 
     return newState;

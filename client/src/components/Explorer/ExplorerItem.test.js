@@ -5,9 +5,9 @@ import ExplorerItem from './ExplorerItem';
 
 const mockProps = {
   item: {
-    id: 5,
     title: 'test',
     meta: {
+      id: 5,
       latest_revision_created_at: null,
       status: {
         live: true,
