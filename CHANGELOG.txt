@@ -16,6 +16,7 @@ Changelog
  * Fix: Redirects with unicode characters now work (Rich Brennan)
  * Fix: Prevent explorer view from crashing when page model definitions are missing, allowing the offending pages to be deleted (Matt Westcott)
  * Fix: Hide the userbar from printed page representation (Eugene Morozov)
+ * Fix: Prevent the page editor footer content from collapsing into two lines unnecessarily (Jack Paine)
 
 
 1.11.1 (07.07.2017)
