@@ -5,6 +5,7 @@ from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.http import HttpResponse
 
 from wagtail.wagtailadmin.menu import MenuItem
+from wagtail.wagtailadmin.rich_text import HalloPlugin
 from wagtail.wagtailadmin.search import SearchArea
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.whitelist import allow_without_attributes, attribute_rule, check_url
@@ -90,3 +91,15 @@ def polite_pages_only(parent_page, pages, request):
         pages = pages.filter(slug__startswith='hello')
 
     return pages
+
+
+# register 'blockquote' as a rich text feature supported by a hallo.js plugin
+@hooks.register('register_rich_text_features')
+def register_blockquote_feature(features):
+    features.register_editor_plugin(
+        'hallo', 'blockquote', HalloPlugin(
+            name='halloblockquote',
+            js=[static('testapp/js/hallo-blockquote.js')],
+            css={'all': [static('testapp/css/hallo-blockquote.css')]},
+        )
+    )
