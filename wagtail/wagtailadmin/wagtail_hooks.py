@@ -214,11 +214,11 @@ def register_core_features(features):
     )
     features.default_features.append('italic')
 
-    for element in ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6']:
+    for element in ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']:
         features.register_editor_plugin(
             'hallo', element, HalloHeadingPlugin(element=element)
         )
-    features.default_features.extend(['p', 'h2', 'h3', 'h4'])
+    features.default_features.extend(['h2', 'h3', 'h4'])
 
     features.register_editor_plugin(
         'hallo', 'ol', HalloListPlugin(list_type='ordered')
