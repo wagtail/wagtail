@@ -22,6 +22,7 @@ $footer-submenu: $submenu-color;
     left: $mobile-nice-padding;
     cursor: pointer;
     position: absolute;
+    top: 4px; // to align the icon with neighbouring text
 
     &:before {
         font-size: 40px;
@@ -36,6 +37,7 @@ $footer-submenu: $submenu-color;
     bottom: 0;
     overflow: auto;
     width: 100%;
+    margin-top: 10px;
 
     ul,
     li {
@@ -271,6 +273,7 @@ body.explorer-open {
         position: absolute;
         top: 175px; // WARNING - magic number - the height of the logo plus search box
         margin-bottom: 127px; // WARNING - magic number - the height of the .footer
+        margin-top: 0;
 
         .footer {
             position: fixed;
@@ -471,5 +474,12 @@ body.explorer-open {
         .nav-wrapper {
             width: $menu-width;
         }
+    }
+}
+
+// make way for the navbar toggle icon when in mobile state
+@media screen and (max-width: $breakpoint-mobile) {
+    .avatar {
+        left: 50px;
     }
 }
