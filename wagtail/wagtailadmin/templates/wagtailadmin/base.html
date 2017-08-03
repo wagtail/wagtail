@@ -6,15 +6,20 @@
         <div class="inner">
             <a href="{% url 'wagtailadmin_home' %}" class="logo" title="Wagtail v.{% wagtail_version %}">
                 {% block branding_logo %}
-                    <div class="wagtail-logo-container">
-                        <img class="wagtail-logo" src="{% static 'wagtailadmin/images/wagtail-logo.svg' %}" alt="Wagtail" width="80" />
-                        <img class="wagtail-logo-body" src="{% static 'wagtailadmin/images/logo-body.svg' %}" />
-                        <img class="wagtail-logo-tail" src="{% static 'wagtailadmin/images/logo-tail.svg' %}" />
-                        <img class="wagtail-logo-eyeopen" src="{% static 'wagtailadmin/images/logo-eyeopen.svg' %}" />
-                        <img class="wagtail-logo-eyeclosed" src="{% static 'wagtailadmin/images/logo-eyeclosed.svg' %}" />
+                    {# Mobile-only logo: #}
+                    <div class="wagtail-logo-container__mobile u-hidden@medium">
+                        <img class="wagtail-logo wagtail-logo__full" src="{% static 'wagtailadmin/images/wagtail-logo.svg' %}" alt="Wagtail" width="80" />
+                    </div>
+
+                    {# Desktop logo (animated): #}
+                    <div class="wagtail-logo-container__desktop u-hidden@small">
+                        <img class="wagtail-logo wagtail-logo__body" src="{% static 'wagtailadmin/images/logo-body.svg' %}" alt=""/>
+                        <img class="wagtail-logo wagtail-logo__tail" src="{% static 'wagtailadmin/images/logo-tail.svg' %}" alt="" />
+                        <img class="wagtail-logo wagtail-logo__eye--open" src="{% static 'wagtailadmin/images/logo-eyeopen.svg' %}" alt="" />
+                        <img class="wagtail-logo wagtail-logo__eye--closed" src="{% static 'wagtailadmin/images/logo-eyeclosed.svg' %}" alt="" />
                     </div>
                 {% endblock %}
-                <span>{% trans "Dashboard" %}</span>
+                <span class="u-hidden@medium">{% trans "Dashboard" %}</span>
             </a>
 
             {% menu_search %}
@@ -42,4 +47,24 @@
             {% block content %}{% endblock %}
         </div>
     </div>
+{% endblock %}
+
+{# Animation easter-egg: #}
+{% block extra_js %}
+    <script>
+        $(function() {
+          var addClassTimer;
+
+          $('.wagtail-logo-container__desktop').hover(function() { // when mouse is hovering on logo...
+            addClassTimer = setTimeout(function(){ // ...start a timer...
+              $('.wagtail-logo-container__desktop').removeClass('logo-serious').addClass('logo-playful'); // ...to add the `logo-playful` class to the wagtail logo...
+            }, 2250) // ...after 2250 ms
+          }, function() { // when mouse is no longer hovering...
+            clearTimeout(addClassTimer); // ...clear the timer
+            $('.wagtail-logo-container__desktop').removeClass('logo-playful').addClass('logo-serious'); // ...remove the `logo-playful` class
+          });
+
+          $('.wagtail-logo-container__desktop').removeClass('logo-playful').addClass('logo-serious'); // must be done with jquery for some reason??
+        })
+    </script>
 {% endblock %}

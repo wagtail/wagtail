@@ -1,8 +1,1 @@
-<?xml version="1.0" encoding="utf-8"?>
-<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
-	 width="430px" height="537px" viewBox="0 0 430 537" enable-background="new 0 0 430 537" xml:space="preserve">
-<g>
-	<path clip-path="url(#SVGID_2_)" fill="#231F20" d="M371.838,71.336c0,6.016-4.877,10.893-10.893,10.893
-	s-10.893-4.877-10.893-10.893c0-6.016,4.877-10.893,10.893-10.893S371.838,65.321,371.838,71.336"/>
-</g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="430" height="537" viewBox="0 0 430 537"><path clip-path="url(#SVGID_2_)" fill="#231F20" d="M371.8 71.3c0 6-4.8 11-11 11s-10.7-5-10.7-11 5-11 11-11 10.8 5 10.8 11"/></svg>

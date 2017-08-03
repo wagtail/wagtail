@@ -1,0 +1,109 @@
+@import 'wagtailadmin/scss/variables';
+@import 'wagtailadmin/scss/mixins';
+@import 'wagtailadmin/scss/grid';
+
+.logo {
+    display: block;
+    text-align: left;
+    text-decoration: none;
+    color: #aaa;
+    padding: 0.9em 1.2em;
+    margin: 0;
+    -webkit-font-smoothing: auto;
+}
+
+// Desktop styling (override mobile styling):
+@media screen and (min-width: $breakpoint-mobile) {
+    .logo {
+        margin: 1em auto;
+        text-align: center;
+    }
+}
+
+.wagtail-logo-container__mobile {
+    .wagtail-logo {
+        width: 20px;
+        float: left;
+        border: 0;
+        margin-right: 1em;
+    }
+
+    &:hover {
+        color: $color-white;
+    }
+}
+
+.wagtail-logo-container__desktop {
+    display: block;
+    margin: auto;
+    width: 60px;
+    height: 75px;
+    position: relative;
+    transition: all 0.25s cubic-bezier(0.28, 0.15, 0, 2.1);
+
+    .wagtail-logo {
+        display: block;
+        left: 0;
+        top: 0;
+        width: 60px;
+        position: absolute;
+        transition: inherit;
+
+        &.wagtail-logo__eye--open {
+            display: inline !important; // doesn't work without `!important` for some reason
+        }
+
+        &.wagtail-logo__eye--closed {
+            display: none !important;
+        }
+    }
+
+    // Wagtail 'serious' animation (nod):
+    &.logo-serious {
+        &:hover {
+            transform: rotate(4deg);
+        }
+    }
+
+    // Wagtail 'playful' animation (tail-wag, triggered after 2 seconds of hover):
+    &.logo-playful {
+        &:hover {
+            @keyframes nod {
+                from {
+                    transform: rotate(2deg);
+                }
+
+                to {
+                    transform: rotate(8deg);
+                }
+            }
+
+            @keyframes tail-wag {
+                from {
+                    transform: rotate(-3deg);
+                }
+
+                to {
+                    transform: rotate(7deg);
+                }
+            }
+
+            animation: nod 1.2s forwards;
+
+            .wagtail-logo {
+                &.wagtail-logo__tail {
+                    animation: tail-wag 0.09s alternate;
+                    animation-iteration-count: infinite;
+                }
+
+                &.wagtail-logo__eye--open {
+                    display: none !important;
+                }
+
+                &.wagtail-logo__eye--closed {
+                    display: inline !important;
+                }
+            }
+        }
+    }
+}
