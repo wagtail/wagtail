@@ -72,11 +72,10 @@ This can be achieved by passing a ``features`` keyword argument to ``RichTextFie
 
 .. code-block:: python
 
-    body = RichTextField(features=['p', 'h2', 'h3', 'b', 'i', 'link'])
+    body = RichTextField(features=['h2', 'h3', 'b', 'i', 'link'])
 
 The recognised feature identifiers are as follows (note that add-on modules may add to this list):
 
- * ``p`` - paragraph text (text entered into a rich text field appears in this mode by default, so omitting this from ``features`` is unlikely to be meaningful)
  * ``h1``, ``h2``, ``h3``, ``h4``, ``h5``, ``h6`` - heading elements
  * ``bold``, ``italic`` - bold / italic text
  * ``ol``, ``ul`` - ordered / unordered lists

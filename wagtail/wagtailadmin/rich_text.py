@@ -75,7 +75,8 @@ CORE_HALLO_PLUGINS = [
     HalloPlugin(name='halloreundo', order=50),
     HalloPlugin(name='hallorequireparagraphs', js=[
         static('wagtailadmin/js/hallo-plugins/hallo-requireparagraphs.js'),
-    ])
+    ]),
+    HalloHeadingPlugin(element='p')
 ]
 
 
