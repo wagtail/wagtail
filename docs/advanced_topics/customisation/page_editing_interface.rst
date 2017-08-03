@@ -78,7 +78,7 @@ The recognised feature identifiers are as follows (note that add-on modules may 
 
  * ``p`` - paragraph text (text entered into a rich text field appears in this mode by default, so omitting this from ``features`` is unlikely to be meaningful)
  * ``h1``, ``h2``, ``h3``, ``h4``, ``h5``, ``h6`` - heading elements
- * ``b``, ``i`` - bold / italic text
+ * ``bold``, ``italic`` - bold / italic text
  * ``ol``, ``ul`` - ordered / unordered lists
  * ``hr`` - horizontal rules
  * ``link`` - page, external and email links
