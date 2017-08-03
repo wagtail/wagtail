@@ -53,6 +53,7 @@ Old configuration settings for embeds are deprecated
 
 The configuration settings ``WAGTAILEMBEDS_EMBED_FINDER`` and ``WAGTAILEMBEDS_EMBEDLY_KEY`` have been deprecated in favour of the new ``WAGTAILEMBEDS_FINDERS`` setting. Please see :ref:`configuring_embed_finders` for the new configuration to use.
 
+
 Custom ``get_admin_display_title`` methods should use ``draft_title``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -65,3 +66,9 @@ This release introduces a new ``draft_title`` field on page models, so that page
             'title': super(TranslatablePage, self).get_admin_display_title(),
             'lang': self.language_code,
         }
+
+
+Fixtures for loading pages should include ``draft_title``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In most situations, the new ``draft_title`` field on page models will automatically be populated from the page title. However, this is not the case for pages that are created from fixtures. Projects that use fixtures to load initial data should therefore ensure that a ``draft_title`` field is specified.
