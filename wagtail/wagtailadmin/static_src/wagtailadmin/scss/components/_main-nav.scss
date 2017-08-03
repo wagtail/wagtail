@@ -22,7 +22,6 @@ $footer-submenu: $submenu-color;
     left: $mobile-nice-padding;
     cursor: pointer;
     position: absolute;
-    top: 4px; // to align the icon with neighbouring text
 
     &:before {
         font-size: 40px;
@@ -474,12 +473,5 @@ body.explorer-open {
         .nav-wrapper {
             width: $menu-width;
         }
-    }
-}
-
-// make way for the navbar toggle icon when in mobile state
-@media screen and (max-width: $breakpoint-mobile) {
-    .avatar {
-        left: 50px;
     }
 }
