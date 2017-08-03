@@ -85,27 +85,6 @@ body {
     transition: transform 0.2s ease;
 }
 
-.logo {
-    display: block;
-    text-align: left;
-    text-decoration: none;
-    color: #aaa;
-    padding: 0.9em 1.2em;
-    margin: 0;
-    -webkit-font-smoothing: auto;
-
-    img {
-        width: 20px;
-        float: left;
-        border: 0;
-        margin-right: 1em;
-    }
-
-    &:hover {
-        color: $color-white;
-    }
-}
-
 .content-wrapper {
     box-sizing: border-box;
     width: 100%;
@@ -410,87 +389,6 @@ footer,
         border-bottom-right-radius: 5px;
     }
 
-    .logo {
-        margin: 1em auto;
-        text-align: center;
-
-        span {
-            display: none;
-        }
-
-        .wagtail-logo-container {
-            float: none;
-            margin: auto;
-            display: block;
-            width: 60px;
-            height: 75px;
-            position: relative;
-            transition: all 0.25s cubic-bezier(0.28, 0.15, 0, 2.1);
-
-            img {
-                left: 0;
-                top: 0;
-                width: 60px;
-                position: absolute;
-                transition: all 0.25s cubic-bezier(0.28, 0.15, 0, 2.1);
-            }
-
-            img.wagtail-logo {
-                display: none; // This is the static logo (mobile only); use the animated one on desktop
-             }
-
-            img.wagtail-logo-eye {
-                display: inline;
-            }
-
-            img.wagtail-logo-eyeclosed {
-                display: none;
-            }
-        }
-
-
-        // Wagtail animation:
-        @keyframes nod {
-            0% {
-                transform: rotate(2deg);
-            }
-
-            100% {
-                transform: rotate(6deg);
-            }
-        }
-
-        .wagtail-logo-container:hover {
-            // 'Nod' animation
-            animation: nod 1.2s forwards;
-
-            // Tail-wag animation
-            @keyframes wag {
-                0% {
-                    transform: rotate(-2deg);
-                }
-
-                100% {
-                    transform: rotate(8deg);
-                }
-            }
-
-            img.wagtail-logo-tail {
-                animation: wag 0.09s alternate;
-                animation-iteration-count: infinite;
-            }
-
-            // Change eye shape from . to ^
-            img.wagtail-logo-eyeopen {
-                display: none !important; // Override previous style
-            }
-
-            img.wagtail-logo-eyeclosed {
-                display: inline !important; // Override previous styles
-            }
-        }
-    }
-
     footer {
         width: 80%;
         margin-left: 50px;
@@ -544,20 +442,5 @@ footer,
     // footer is z-index: 100, so ensure the navigation sits on top of it.
     .nav-wrapper.submenu-active {
         z-index: 200;
-    }
-}
-
-// Use static logo on mobile:
-@media screen and (max-width: $breakpoint-mobile) {
-    .logo {
-        .wagtail-logo-container {
-            img {
-                display: none;
-            }
-
-            img.wagtail-logo {
-                display: inline !important;
-            }
-        }
     }
 }
