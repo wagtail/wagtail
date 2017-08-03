@@ -32,11 +32,10 @@ $footer-submenu: $submenu-color;
 }
 
 .nav-main {
-    top: 43px;
+    top: 53px;
     bottom: 0;
     overflow: auto;
     width: 100%;
-    margin-top: 10px;
 
     ul,
     li {
@@ -272,7 +271,6 @@ body.explorer-open {
         position: absolute;
         top: 175px; // WARNING - magic number - the height of the logo plus search box
         margin-bottom: 127px; // WARNING - magic number - the height of the .footer
-        margin-top: 0;
 
         .footer {
             position: fixed;
