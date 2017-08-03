@@ -240,7 +240,7 @@ class TestRichTextValue(TestCase):
         'WIDGET': 'wagtail.wagtailadmin.rich_text.HalloRichTextArea',
         'OPTIONS': {
             'plugins': {
-                'halloheadings': {'formatBlocks': ['p']},
+                'halloheadings': {'formatBlocks': ['p', 'h2']},
             }
         }
     },
@@ -264,7 +264,7 @@ class TestHalloJsWithCustomPluginOptions(BaseRichTextEditHandlerTestCase, Wagtai
         self.assertEqual(response.status_code, 200)
 
         # Check that the custom plugin options are being passed in the hallo initialiser
-        self.assertContains(response, 'makeHalloRichTextEditable("id_body", {"halloheadings": {"formatBlocks": ["p"]}});')
+        self.assertContains(response, 'makeHalloRichTextEditable("id_body", {"halloheadings": {"formatBlocks": ["p", "h2"]}});')
 
     def test_custom_editor_in_rich_text_block(self):
         block = RichTextBlock(editor='custom')
@@ -272,7 +272,7 @@ class TestHalloJsWithCustomPluginOptions(BaseRichTextEditHandlerTestCase, Wagtai
         form_html = block.render_form(block.to_python("<p>hello</p>"), 'body')
 
         # Check that the custom plugin options are being passed in the hallo initialiser
-        self.assertIn('makeHalloRichTextEditable("body", {"halloheadings": {"formatBlocks": ["p"]}});', form_html)
+        self.assertIn('makeHalloRichTextEditable("body", {"halloheadings": {"formatBlocks": ["p", "h2"]}});', form_html)
 
 
 class TestHalloJsWithFeaturesKwarg(BaseRichTextEditHandlerTestCase, WagtailTestUtils):
@@ -296,7 +296,7 @@ class TestHalloJsWithFeaturesKwarg(BaseRichTextEditHandlerTestCase, WagtailTestU
         # Check that the custom plugin options are being passed in the hallo initialiser
         self.assertContains(response, '"halloblockquote":')
         self.assertContains(response, '"hallowagtailembeds":')
-        self.assertNotContains(response, '"halloheadings":')
+        self.assertNotContains(response, '"hallolists":')
         self.assertNotContains(response, '"hallowagtailimage":')
 
         # check that media (js/css) from the features is being imported
@@ -314,7 +314,7 @@ class TestHalloJsWithFeaturesKwarg(BaseRichTextEditHandlerTestCase, WagtailTestU
         # Check that the custom plugin options are being passed in the hallo initialiser
         self.assertIn('"halloblockquote":', form_html)
         self.assertIn('"hallowagtailembeds":', form_html)
-        self.assertNotIn('"halloheadings":', form_html)
+        self.assertNotIn('"hallolists":', form_html)
         self.assertNotIn('"hallowagtailimage":', form_html)
 
         # check that media (js/css) from the features is being imported
@@ -360,7 +360,7 @@ class TestHalloJsWithCustomFeatureOptions(BaseRichTextEditHandlerTestCase, Wagta
         # Check that the custom plugin options are being passed in the hallo initialiser
         self.assertContains(response, '"halloblockquote":')
         self.assertContains(response, '"hallowagtailimage":')
-        self.assertNotContains(response, '"halloheadings":')
+        self.assertNotContains(response, '"hallolists":')
         self.assertNotContains(response, '"hallowagtailembeds":')
 
         # a 'features' list passed on the RichTextField (as we do in richtextfieldwithfeaturespage)
@@ -371,7 +371,7 @@ class TestHalloJsWithCustomFeatureOptions(BaseRichTextEditHandlerTestCase, Wagta
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, '"halloblockquote":')
         self.assertContains(response, '"hallowagtailembeds":')
-        self.assertNotContains(response, '"halloheadings":')
+        self.assertNotContains(response, '"hallolists":')
         self.assertNotContains(response, '"hallowagtailimage":')
 
         # check that media (js/css) from the features is being imported
@@ -390,7 +390,7 @@ class TestHalloJsWithCustomFeatureOptions(BaseRichTextEditHandlerTestCase, Wagta
         self.assertIn('"halloblockquote":', form_html)
         self.assertIn('"hallowagtailimage":', form_html)
         self.assertNotIn('"hallowagtailembeds":', form_html)
-        self.assertNotIn('"halloheadings":', form_html)
+        self.assertNotIn('"hallolists":', form_html)
 
         # a 'features' list passed on the RichTextBlock
         # should override the list in OPTIONS
@@ -401,7 +401,7 @@ class TestHalloJsWithCustomFeatureOptions(BaseRichTextEditHandlerTestCase, Wagta
         self.assertIn('"halloblockquote":', form_html)
         self.assertIn('"hallowagtailembeds":', form_html)
         self.assertNotIn('"hallowagtailimage":', form_html)
-        self.assertNotIn('"halloheadings":', form_html)
+        self.assertNotIn('"hallolists":', form_html)
 
         # check that media (js/css) from the features is being imported
         media_html = str(block.media)
