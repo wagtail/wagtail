@@ -53,14 +53,14 @@
 {% block extra_js %}
     <script>
         $(function() {
-          var sensitivity = 8; // the number of times the user must stroke the wagtail to trigger the animation
+          var sensitivity = 8; // the amount of times the user must stroke the wagtail to trigger the animation
 
           var $logoContainer = $('.wagtail-logo-container__desktop');
           var mouseX = 0;
           var lastMouseX = 0;
           var dir = '';
           var lastDir = '';
-          var dirChanges = 0;
+          var dirChangeCount = 0;
 
           function enableWag() {
             $logoContainer.removeClass('logo-serious').addClass('logo-playful');
@@ -80,10 +80,10 @@
             }
 
             if (dir != lastDir && lastDir != '') {
-              dirChanges = dirChanges + 1;
+              dirChangeCount = dirChangeCount + 1;
             }
 
-            if (dirChanges > sensitivity) {
+            if (dirChangeCount > sensitivity) {
               enableWag();
             }
 
@@ -92,7 +92,7 @@
           })
 
           $logoContainer.mouseleave(function() {
-            dirChanges = 0;
+            dirChangeCount = 0;
             disableWag();
           })
 
