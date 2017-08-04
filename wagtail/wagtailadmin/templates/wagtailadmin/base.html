@@ -53,18 +53,50 @@
 {% block extra_js %}
     <script>
         $(function() {
-          var addClassTimer;
+          var sensitivity = 8; // the amount of times the user must stroke the wagtail to trigger the animation
 
-          $('.wagtail-logo-container__desktop').hover(function() { // when mouse is hovering on logo...
-            addClassTimer = setTimeout(function(){ // ...start a timer...
-              $('.wagtail-logo-container__desktop').removeClass('logo-serious').addClass('logo-playful'); // ...to add the `logo-playful` class to the wagtail logo...
-            }, 2250) // ...after 2250 ms
-          }, function() { // when mouse is no longer hovering...
-            clearTimeout(addClassTimer); // ...clear the timer
-            $('.wagtail-logo-container__desktop').removeClass('logo-playful').addClass('logo-serious'); // ...remove the `logo-playful` class
-          });
+          var $logoContainer = $('.wagtail-logo-container__desktop');
+          var mouseX = 0;
+          var lastMouseX = 0;
+          var dir = '';
+          var lastDir = '';
+          var dirChanges = 0;
 
-          $('.wagtail-logo-container__desktop').removeClass('logo-playful').addClass('logo-serious'); // must be done with jquery for some reason??
+          function enableWag() {
+            $logoContainer.removeClass('logo-serious').addClass('logo-playful');
+          }
+
+          function disableWag() {
+            $logoContainer.removeClass('logo-playful').addClass('logo-serious');
+          }
+
+          $logoContainer.mousemove(function(event) {
+            mouseX = event.pageX;
+
+            if (mouseX > lastMouseX) {
+              dir = 'r';
+            } else if (mouseX < lastMouseX) {
+              dir = 'l';
+            }
+
+            if (dir != lastDir && lastDir != '') {
+              dirChanges = dirChanges + 1;
+            }
+
+            if (dirChanges > sensitivity) {
+              enableWag();
+            }
+
+            lastMouseX = mouseX;
+            lastDir = dir;
+          })
+
+          $logoContainer.mouseleave(function() {
+            dirChanges = 0;
+            disableWag();
+          })
+
+          disableWag();
         })
     </script>
 {% endblock %}
