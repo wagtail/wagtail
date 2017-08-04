@@ -65,7 +65,7 @@
         }
     }
 
-    // Wagtail 'playful' animation (tail-wag, triggered after 2 seconds of hover):
+    // Wagtail 'playful' animation (tail-wag, triggered by JS in base.html):
     &.logo-playful {
         &:hover {
             @keyframes nod {
