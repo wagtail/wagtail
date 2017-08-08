@@ -435,8 +435,9 @@ footer,
     }
 
     footer {
-        width: 80%;
-        margin-left: 50px;
+        margin-left: $desktop-nice-padding;
+        margin-right: $desktop-nice-padding;
+        width: calc(100% - #{$menu-width} - #{2 * $desktop-nice-padding});
     }
 
     .content {
@@ -459,11 +460,6 @@ footer,
                 }
             }
         }
-    }
-
-    footer {
-        width: 80%;
-        margin-left: 50px;
     }
 
 

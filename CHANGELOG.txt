@@ -21,6 +21,7 @@ Changelog
  * Fix: StructBlock values no longer render HTML templates as their `str` representation, to prevent infinite loops in debugging / logging tools (Matt Westcott)
  * Fix: Removed deprecated jQuery ``load`` call from TableBlock initialisation (Jack Paine)
  * Fix: Position of options in mobile nav-menu (Jack Paine)
+ * Fix: Center page editor footer regardless of screen width (Jack Paine)
 
 
 1.11.1 (07.07.2017)
