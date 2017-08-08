@@ -152,7 +152,7 @@ $footer-submenu: $submenu-color;
 .nav-search {
     position: relative;
     padding: 0;
-    margin: 0 1em 1em 1em;
+    margin: 0 1em 1em;
 
     label {
         @include visuallyhidden();
