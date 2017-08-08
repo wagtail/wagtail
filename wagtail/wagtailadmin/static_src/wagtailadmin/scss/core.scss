@@ -437,7 +437,7 @@ footer,
     footer {
         margin-left: $desktop-nice-padding;
         margin-right: $desktop-nice-padding;
-        width: calc(100% - #{$menu-width} - #{2 * $desktop-nice-padding}); // [full width] - [width of nav menu] - [2 * $desktop-nice-padding]
+        width: calc(100% - #{$menu-width} - #{2 * $desktop-nice-padding});
     }
 
     .content {
