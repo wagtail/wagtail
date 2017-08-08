@@ -20,6 +20,7 @@ Changelog
  * Fix: Prevent the page editor footer content from collapsing into two lines unnecessarily (Jack Paine)
  * Fix: StructBlock values no longer render HTML templates as their `str` representation, to prevent infinite loops in debugging / logging tools (Matt Westcott)
  * Fix: Removed deprecated jQuery ``load`` call from TableBlock initialisation (Jack Paine)
+ * Fix: Position of options in mobile nav-menu (Jack Paine)
 
 
 1.11.1 (07.07.2017)

@@ -40,11 +40,12 @@ Bug fixes
  * Prevent the page editor footer content from collapsing into two lines unnecessarily (Jack Paine)
  * StructBlock values no longer render HTML templates as their ``str`` representation, to prevent infinite loops in debugging / logging tools (Matt Westcott)
  * Removed deprecated jQuery ``load`` call from TableBlock initialisation (Jack Paine)
+ * Position of options in mobile nav-menu (Jack Paine)
 
 Upgrade considerations
 ======================
 
-StreamField now defaults to ``blank=False`` 
+StreamField now defaults to ``blank=False``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 StreamField now respects the ``blank`` field setting; when this is false, at least one block must be supplied for the field to pass validation. To match the behaviour of other model fields, ``blank`` defaults to ``False``; if you wish to allow a StreamField to be left empty, you must now add ``blank=True`` to the field.
