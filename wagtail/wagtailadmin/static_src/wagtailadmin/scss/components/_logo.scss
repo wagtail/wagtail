@@ -50,7 +50,7 @@
         transition: inherit;
 
         &.wagtail-logo__eye--open {
-            display: inline !important; // doesn't work without `!important` for some reason
+            display: inline !important; // doesn't work without `!important`, likely a specificity issue
         }
 
         &.wagtail-logo__eye--closed {
