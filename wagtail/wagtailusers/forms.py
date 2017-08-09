@@ -67,7 +67,13 @@ class UsernameForm(forms.ModelForm):
 class UserForm(UsernameForm):
     required_css_class = "required"
 
-    password_required = True
+    @property
+    def password_required(self):
+        return getattr(settings, 'WAGTAILUSERS_PASSWORD_REQUIRED', True)
+
+    @property
+    def password_enabled(self):
+        return getattr(settings, 'WAGTAILUSERS_PASSWORD_ENABLED', True)
 
     error_messages = {
         'duplicate_username': _("A user with that username already exists."),
@@ -95,12 +101,16 @@ class UserForm(UsernameForm):
     def __init__(self, *args, **kwargs):
         super(UserForm, self).__init__(*args, **kwargs)
 
-        if self.password_required:
-            self.fields['password1'].help_text = (
-                mark_safe(password_validators_help_text_html())
-                if django.VERSION >= (1, 9) else '')
-            self.fields['password1'].required = True
-            self.fields['password2'].required = True
+        if self.password_enabled:
+            if self.password_required:
+                self.fields['password1'].help_text = (
+                    mark_safe(password_validators_help_text_html())
+                    if django.VERSION >= (1, 9) else '')
+                self.fields['password1'].required = True
+                self.fields['password2'].required = True
+        else:
+            del self.fields['password1']
+            del self.fields['password2']
 
     # We cannot call this method clean_username since this the name of the
     # username field may be different, so clean_username would not be reliably
@@ -144,9 +154,10 @@ class UserForm(UsernameForm):
     def save(self, commit=True):
         user = super(UserForm, self).save(commit=False)
 
-        password = self.cleaned_data['password1']
-        if password:
-            user.set_password(password)
+        if self.password_enabled:
+            password = self.cleaned_data['password1']
+            if password:
+                user.set_password(password)
 
         if commit:
             user.save()

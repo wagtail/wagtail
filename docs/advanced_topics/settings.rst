@@ -262,6 +262,18 @@ This specifies whether users are allowed to change their passwords (enabled by d
 
 This specifies whether users are allowed to reset their passwords. Defaults to the same as ``WAGTAIL_PASSWORD_MANAGEMENT_ENABLED``.
 
+.. code-block:: python
+
+  WAGTAILUSERS_PASSWORD_ENABLED = True
+
+This specifies whether password fields are shown when creating or editing users through Settings -> Users (enabled by default). Set this to False (along with ``WAGTAIL_PASSWORD_MANAGEMENT_ENABLED`` and ``WAGTAIL_PASSWORD_RESET_ENABLED``) if your users are authenticated through an external system such as LDAP.
+
+.. code-block:: python
+
+  WAGTAILUSERS_PASSWORD_REQUIRED = True
+
+This specifies whether password is a required field when creating a new user. True by default; ignored if ``WAGTAILUSERS_PASSWORD_ENABLED`` is false. If this is set to False, and the password field is left blank when creating a user, then that user will have no usable password, and will not be able to log in unless an alternative authentication system such as LDAP is set up.
+
 
 Email Notifications
 -------------------
