@@ -26,8 +26,12 @@
                         {% include "wagtailadmin/shared/field_as_li.html" with field=form.first_name %}
                         {% include "wagtailadmin/shared/field_as_li.html" with field=form.last_name %}
                         {% block extra_fields %}{% endblock extra_fields %}
-                        {% include "wagtailadmin/shared/field_as_li.html" with field=form.password1 %}
-                        {% include "wagtailadmin/shared/field_as_li.html" with field=form.password2 %}
+                        {% if form.password1 %}
+                            {% include "wagtailadmin/shared/field_as_li.html" with field=form.password1 %}
+                        {% endif %}
+                        {% if form.password2 %}
+                            {% include "wagtailadmin/shared/field_as_li.html" with field=form.password2 %}
+                        {% endif %}
                         {% if form.is_active %}
                             {% include "wagtailadmin/shared/field_as_li.html" with field=form.is_active %}
                         {% endif %}
