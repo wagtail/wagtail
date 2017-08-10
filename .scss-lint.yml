@@ -85,6 +85,9 @@ linters:
     NestingDepth:
         max_depth: 5
 
+    PseudoElement:
+        enabled: false
+
     SelectorDepth:
         enabled: false
 

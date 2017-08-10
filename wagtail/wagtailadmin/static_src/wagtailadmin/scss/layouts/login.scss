@@ -5,8 +5,8 @@
 // overrides default nice padding defined in variables.scss
 $desktop-nice-padding: 100px;
 
-html, 
-body, 
+html,
+body,
 .content-wrapper {
     background-color: $color-grey-1;
     color: $color-grey-3;
@@ -102,7 +102,7 @@ form {
 
         .iconfield .input:before {
             display: none;
-        }   
+        }
 
     // Special full-width, one-off fields i.e a single text or textarea input
     .full input {
