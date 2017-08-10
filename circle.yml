@@ -5,7 +5,7 @@ machine:
 dependencies:
   pre:
     - pip install -e .[testing]
-    - gem install scss-lint
+    - gem install scss_lint
 
 test:
   override:
