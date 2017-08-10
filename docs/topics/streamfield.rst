@@ -122,7 +122,7 @@ DecimalBlock
 
 ``wagtail.wagtailcore.blocks.DecimalBlock``
 
-A single-line decimal input that validates that the value is a valid decimal number. The keyword arguments ``required``, ``max_value``, ``min_value``, ``max_digits`` and ``decimal_places`` are accepted.
+A single-line decimal input that validates that the value is a valid decimal number. The keyword arguments ``required``, ``help_text``, ``max_value``, ``min_value``, ``max_digits`` and ``decimal_places`` are accepted.
 
 For an example of ``DecimalBlock`` in use, see :ref:`streamfield_personblock_example`
 
@@ -139,7 +139,7 @@ A single-line text input that validates a string against a regex expression. The
         'invalid': "Not a valid library card number."
     })
 
-The keyword arguments ``regex``, ``required``, ``max_length``, ``min_length`` and ``error_messages`` are accepted.
+The keyword arguments ``regex``, ``help_text``, ``required``, ``max_length``, ``min_length`` and ``error_messages`` are accepted.
 
 URLBlock
 ~~~~~~~~

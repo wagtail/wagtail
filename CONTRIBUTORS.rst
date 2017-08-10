@@ -248,6 +248,7 @@ Contributors
 * Eugene Morozov
 * Levi Adler
 * Edwar Baron
+* Tomasz Knapik
 
 Translators
 ===========
