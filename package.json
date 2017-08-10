@@ -52,7 +52,7 @@
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "~3.0.2",
     "gulp-rename": "^1.2.2",
-    "gulp-sass": "3.1.0",
+    "gulp-sass": "^3.1.0",
     "gulp-sourcemaps": "~1.5.2",
     "gulp-util": "~2.2.14",
     "jest": "^20.0.4",
