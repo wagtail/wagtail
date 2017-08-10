@@ -82,6 +82,7 @@
     "watch": "webpack --config ./client/webpack/dev.config.js & gulp watch",
     "start": "npm run watch",
     "lint:js": "eslint --max-warnings 16 ./client",
+    "lint:css": "scss-lint",
     "lint": "npm run lint:js",
     "test": "npm run test:unit",
     "test:unit": "jest",

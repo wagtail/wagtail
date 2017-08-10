@@ -48,7 +48,7 @@ Then run the linter from the wagtail project root:
 
 .. code-block:: console
 
-    $ scss-lint
+    $ npm run lint:css
 
 The linter is configured to check your code for adherance to the guidelines below, plus a little more.
 
