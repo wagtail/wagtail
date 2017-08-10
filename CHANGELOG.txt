@@ -4,6 +4,7 @@ Changelog
 1.12 LTS (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~~~~
 
+ * Ability to configure the feature set of rich text fields on a per-field basis (Matt Westcott)
  * New class-based configuration for media embeds (Karl Hobley)
  * The admin interface now displays a title of the latest draft (Mikalai Radchuk)
  * Added multi-select form field to the form builder (dwasyl)
