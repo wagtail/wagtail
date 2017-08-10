@@ -32,7 +32,7 @@ Other features
  * StreamField now respects the ``blank`` setting; StreamBlock accepts a ``required`` setting (Loic Teixeira)
  * StreamBlock now accepts ``min_num``, ``max_num`` and ``block_counts`` settings to control the minimum and maximum numbers of blocks (Edwar Baron, Matt Westcott)
  * Users can no longer remove their own active / superuser flags through Settings -> Users (Stein Strindhaug, Huub Bouma)
- * The ``process_form_submission`` method of form pages now return the created form submission object (cho-leukeleu)
+ * The ``process_form_submission`` method of form pages now return the created form submission object (Christine Ho)
  * Added ``WAGTAILUSERS_PASSWORD_ENABLED`` and ``WAGTAILUSERS_PASSWORD_REQUIRED`` settings to permit creating users with no Django-side passwords, to support external authentication setups (Matt Westcott)
 
 Bug fixes
