@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-10 15:53+0000\n"
+"POT-Creation-Date: 2017-08-10 16:05+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1481,10 +1481,14 @@ msgid "Russian"
 msgstr ""
 
 #: utils.py:48
+msgid "Swedish"
+msgstr ""
+
+#: utils.py:49
 msgid "Chinese (China)"
 msgstr ""
 
-#: utils.py:122
+#: utils.py:123
 msgid "Sorry, you do not have permission to access this area."
 msgstr ""
 
