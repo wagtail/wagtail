@@ -60,7 +60,6 @@
     "react-addons-perf": "^15.4.2",
     "react-test-renderer": "^15.5.4",
     "redux-mock-store": "^1.2.2",
-    "require-dir": "^0.3.0",
     "webpack": "^2.6.1"
   },
   "dependencies": {
