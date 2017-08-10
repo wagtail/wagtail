@@ -6,6 +6,7 @@
 # ajk, 2014
 # Andrey Avdey <talkerbox@live.com>, 2016
 # Eugene MechanisM <eugene@mechanism.pro>, 2014-2016
+# Eugene MechanisM <eugene@mechanism.pro>, 2017
 # Никита Викторович <hnknta@gmail.com>, 2014
 # Sergey Komarov <sjkomarov@gmail.com>, 2014
 # Vassiliy Vorobyov <zuber.kg@gmail.com>, 2017
@@ -14,8 +15,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-06-19 16:55+0000\n"
-"PO-Revision-Date: 2017-06-22 13:26+0000\n"
-"Last-Translator: Vassiliy Vorobyov <zuber.kg@gmail.com>\n"
+"PO-Revision-Date: 2017-07-14 20:12+0000\n"
+"Last-Translator: Eugene MechanisM <eugene@mechanism.pro>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -106,6 +107,38 @@ msgstr "профиль пользователя"
 
 msgid "Delete group"
 msgstr "Удалить группу"
+
+#, python-format
+msgid ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> member.\n"
+"            "
+msgid_plural ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> members.\n"
+"            "
+msgstr[0] ""
+"\n"
+"                В группе '%(group_name)s' состоит <strong>"
+"%(group_user_count)s</strong> пользователь.\n"
+"            "
+msgstr[1] ""
+"\n"
+"                В группе '%(group_name)s' состоит <strong>"
+"%(group_user_count)s</strong> пользователей.\n"
+"            "
+msgstr[2] ""
+"\n"
+"                В группе '%(group_name)s' состоит <strong>"
+"%(group_user_count)s</strong> пользователей.\n"
+"            "
+msgstr[3] ""
+"\n"
+"                В группе '%(group_name)s' состоит <strong>"
+"%(group_user_count)s</strong> пользователей.\n"
+"            "
 
 msgid ""
 "Deleting this group will revoke this group's permissions from all member "

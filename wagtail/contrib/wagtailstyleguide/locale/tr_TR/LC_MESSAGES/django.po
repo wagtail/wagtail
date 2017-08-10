@@ -4,13 +4,14 @@
 #
 # Translators:
 # José Luis <alagunajs@gmail.com>, 2015
+# José Luis <alagunajs@gmail.com>, 2017
 # José Luis <alagunajs@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-06-19 16:55+0000\n"
-"PO-Revision-Date: 2016-04-26 20:48+0000\n"
+"PO-Revision-Date: 2017-06-30 17:44+0000\n"
 "Last-Translator: José Luis <alagunajs@gmail.com>\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/torchbox/wagtail/"
 "language/tr_TR/)\n"
@@ -20,6 +21,9 @@ msgstr ""
 "Language: tr_TR\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
+msgid "Styleguide"
+msgstr "Stil kılavuzu"
+
 msgid "Save"
 msgstr "Kaydet"
 
@@ -27,4 +31,19 @@ msgid "Delete image"
 msgstr "Resim sil"
 
 msgid "Search something"
-msgstr "Arama şey"
+msgstr "Birşey ara"
+
+msgid "Success message"
+msgstr "Başarı mesajı"
+
+msgid "View live"
+msgstr "Canlı gör"
+
+msgid "Edit"
+msgstr "Düzenle"
+
+msgid "Warning message"
+msgstr "Uyarı mesajı"
+
+msgid "Error message"
+msgstr "Hata mesajı"

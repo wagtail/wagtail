@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-06-19 16:55+0000\n"
-"PO-Revision-Date: 2017-06-24 05:58+0000\n"
+"PO-Revision-Date: 2017-07-15 06:49+0000\n"
 "Last-Translator: Kyungil Choi <hanpama@gmail.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
@@ -325,23 +325,23 @@ msgid "Add an external link"
 msgstr "외부 링크 추가"
 
 msgid "Collection privacy"
-msgstr "모음 비공개"
+msgstr "모음 공개 범위"
 
 msgid "This collection has been made private by a parent collection."
 msgstr "이 모음은 상위 모음에 의해 비공개로 설정되었습니다."
 
 msgid "You can edit the privacy settings on:"
-msgstr "비공개 설정을 여기서 바꿀 수 있습니다:"
+msgstr "공개 범위 바꾸기:"
 
 msgid ""
 "Privacy settings determine who is able to view documents in this collection."
-msgstr "비공개 설정을 통해 누가 이 모음을 볼 수 있는지를 정합니다."
+msgstr "공개 범위를 설정하여 누가 이 모음을 볼 수 있는지 정합니다."
 
 msgid "Save"
 msgstr "저장"
 
 msgid "Privacy"
-msgstr "비공개"
+msgstr "공개 범위"
 
 msgid "Public"
 msgstr "공개"
@@ -499,13 +499,13 @@ msgid "The page \"%(page)s\" has been submitted for moderation"
 msgstr "검토를 위해 \"%(page)s\" 페이지가 제출 되었습니다"
 
 msgid "Page privacy"
-msgstr "비공개 페이지"
+msgstr "페이지 공개 범위"
 
 msgid "This page has been made private by a parent page."
 msgstr "이 페이지는 상위 페이지에 의해 비공개로 설정되었습니다"
 
 msgid "Privacy changes apply to all children of this page too."
-msgstr "비공개 설정 변경은 이 페이지에 종속된 모든 하위페이지에 적용됩니다."
+msgstr "공개 범위를 바꾸면 모든 하위페이지에도 함께 적용됩니다."
 
 msgid "Edit lock"
 msgstr "수정 잠금"
@@ -565,7 +565,7 @@ msgid ""
 msgstr ""
 "다른 방법으로서 페이지의 <a href=\"%(unpublish_url)s\">게시를 해제</a>하는 것"
 "도 가능합니다. 다른 사람들의 시점에서는 페이지가 제거된 것처럼 보이며 나중에 "
-"페이지를 수정하거나 다시 퍼블리싱 할 수 있습니다."
+"페이지를 수정하거나 다시 게시할 수 있습니다."
 
 #, python-format
 msgid "Move %(title)s"
@@ -609,8 +609,7 @@ msgid_plural ""
 "                "
 msgstr[0] ""
 "\n"
-"이 페이지에게는 %(live_descendant_count)s개의 하위 페이지가 있습니다. 해당 페"
-"이지들의 게시도 해제해 주세요."
+"%(live_descendant_count)s개의 하위 페이지의 게시도 함께 취소하기"
 
 msgid "Yes, unpublish it"
 msgstr "네, 게시를 해제합니다"

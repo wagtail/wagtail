@@ -5,6 +5,7 @@
 # Translators:
 # André Karlsson <andre@sess.se>, 2017
 # Hannes Lohmander <c.hannes.l@gmail.com>, 2015
+# Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2017
 # Thomas Kunambi <kunambi@gmail.com>, 2016-2017
 # Thomas Kunambi <kunambi@gmail.com>, 2015
 msgid ""
@@ -12,8 +13,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-06-19 16:55+0000\n"
-"PO-Revision-Date: 2017-06-19 16:57+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2017-07-29 04:58+0000\n"
+"Last-Translator: Jim Brouzoulis <jim.brouzoulis@chalmers.se>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -115,14 +116,20 @@ msgid_plural ""
 msgstr[0] ""
 "%(count)s av sidorna som kopieras är live. Vill du publicera kopian?"
 msgstr[1] ""
-"%(count)s av sidorna som kopieras är live. Vill du publicera kopiorna?"
+"%(count)s av sidorna som kopieras är publicerade. Vill du publicera kopiorna?"
+
+#, python-format
+msgid "You do not have permission to copy to page \"%(page_title)s\""
+msgstr "Du har inte behörighet att kopiera till sidan \"%(page_title)s\""
 
 #, python-format
 msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
 msgstr ""
-"Detta URL-fragment är redan i användning inom ramen för sin föräldrasida \"%s"
-"\""
+"Detta URL-fragment är redan i användning inom ramen för sin topp-sida\"%s\""
+
+msgid "You cannot copy a page into itself when copying subpages"
+msgstr "Du kan inte kopiera en sida till sig själv när du kopierar undersidor"
 
 msgid "Visibility"
 msgstr "Synlighet"
@@ -137,7 +144,7 @@ msgid "This slug is already in use"
 msgstr "URL-fragmentet är redan i användning"
 
 msgid "Go live date/time must be before expiry date/time"
-msgstr "Gå-livedatum/-tid måste ske före utgångsdatum/-tid"
+msgstr "Publicera vid datum/-tid måste ske före utgångsdatum/-tid"
 
 msgid "Expiry date/time must be in the future"
 msgstr "Utgångsdatum/-tid måste ske i framtiden"
@@ -172,10 +179,19 @@ msgstr "Notisinställningar"
 msgid "Choose which email notifications to receive."
 msgstr "Välj vilka e-postnotiser du vill ta emot"
 
+msgid "Language preferences"
+msgstr "Språkpreferens"
+
+msgid "Choose the language you want to use here."
+msgstr "Välj det språk du vill använda här."
+
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr ""
 "Ditt lösenord inte inte ändras här. Vänligen kontakta en administratör."
+
+msgid "Language Preferences"
+msgstr "Språkpreferens"
 
 msgid "Update"
 msgstr "Uppdatera"
@@ -216,8 +232,29 @@ msgstr "Återställ ditt lösenord"
 msgid "Edit"
 msgstr "Editera"
 
+msgid "Page"
+msgstr "Sida"
+
 msgid "Pages"
 msgstr "Sidor"
+
+msgid "Loading..."
+msgstr "Laddar..."
+
+msgid "No results"
+msgstr "Inga resultat funna"
+
+msgid "Server Error"
+msgstr "Serverfel"
+
+msgid "See children"
+msgstr "Se barn"
+
+msgid "See all"
+msgstr "Visa alla"
+
+msgid "Close explorer"
+msgstr "Stäng utforskaren"
 
 msgid "Dashboard"
 msgstr "Instrumentpanel"
@@ -300,8 +337,20 @@ msgstr "Infoga länk"
 msgid "Add an external link"
 msgstr "Infoga extern länk"
 
+msgid "Collection privacy"
+msgstr "Sekretess för samlingar"
+
+msgid "This collection has been made private by a parent collection."
+msgstr "Denna samling har gjorts privat p.g.a. en huvudsamling."
+
 msgid "You can edit the privacy settings on:"
 msgstr "Du kan editera sekretessinställningarna på:"
+
+msgid ""
+"Privacy settings determine who is able to view documents in this collection."
+msgstr ""
+"Sekretessinställningarna bestämmer vem som kan se dokument i den här "
+"samlingen. "
 
 msgid "Save"
 msgstr "Spara"
@@ -356,7 +405,7 @@ msgid "Title"
 msgstr "Titel"
 
 msgid "Parent"
-msgstr "Förälder"
+msgstr "Topp"
 
 msgid "Type"
 msgstr "Typ"
@@ -393,7 +442,7 @@ msgid "Draft"
 msgstr "Utkast"
 
 msgid "Live"
-msgstr "Live"
+msgstr "Publicerad"
 
 msgid "Site summary"
 msgstr "Sajtsammanställning"
@@ -608,6 +657,10 @@ msgstr "Ja, avpublicera den"
 msgid "No, don't unpublish"
 msgstr "Nej, avpublicera inte"
 
+#, python-format
+msgid "Pages using %(page_class_verbose_name)s"
+msgstr "Sidor som använder %(page_class_verbose_name)s"
+
 msgid "Pages using"
 msgstr "Sidor som använder"
 
@@ -776,6 +829,9 @@ msgstr "Lägg till en undersida till '%(title)s'"
 msgid "Add child page"
 msgstr "Lägg till undersida"
 
+msgid "Sites menu"
+msgstr "Sajtmeny"
+
 #, python-format
 msgid ""
 "\n"
@@ -806,11 +862,29 @@ msgstr "Aktivera sortering av undersidor"
 
 #, python-format
 msgid "Select a new parent page for %(title)s"
-msgstr "Välj en ny huvudsida för %(title)s"
+msgstr "Välj en ny topp-sida för %(title)s"
 
 #, python-format
 msgid "Select a new parent page for <span>%(title)s</span>"
-msgstr "Välj en ny huvudsida för <span>%(title)s</span>"
+msgstr "Välj en ny topp-sida för <span>%(title)s</span>"
+
+msgid "Preview error"
+msgstr "Fel under förhandsgranskning"
+
+msgid ""
+"\n"
+"                Impossible to preview this page, some errors are remaining.\n"
+"                Please close this tab, edit the page to fix these errors,\n"
+"                then use preview again.\n"
+"            "
+msgstr ""
+"\n"
+"Omöjligt att förhandsgranska den här sidan, några fel återstår. Vänligen "
+"stäng den här fliken, redigera sidan för att åtgärda felen och klicka "
+"därefter på förhandsgranska igen."
+
+msgid "Close"
+msgstr "Stäng"
 
 #, python-format
 msgid "Comparing %(title)s"
@@ -891,6 +965,9 @@ msgstr "av"
 
 msgid "Current draft"
 msgstr "Nuvarande utkast"
+
+msgid "Live version"
+msgstr "Publicerad version"
 
 msgid "Review this revision"
 msgstr "Granska denna revision"
@@ -1061,11 +1138,74 @@ msgstr "Visa i utforskaren"
 msgid "Test"
 msgstr "Test"
 
+msgid "Catalan"
+msgstr "Katalanska"
+
+msgid "German"
+msgstr "Tyska"
+
+msgid "Greek"
+msgstr "Grekiska"
+
+msgid "English"
+msgstr "Enelska"
+
+msgid "Spanish"
+msgstr "Spanska"
+
+msgid "Finnish"
+msgstr "Finska"
+
+msgid "French"
+msgstr "Franska"
+
+msgid "Galician"
+msgstr "Galiciska"
+
+msgid "Icelandic"
+msgstr "Isländska"
+
+msgid "Italian"
+msgstr "Italienska"
+
+msgid "Lithuanian"
+msgstr "Litauiska"
+
+msgid "Norwegian Bokmål"
+msgstr "Norska Bokmål"
+
+msgid "Netherlands Dutch"
+msgstr "Nederländska"
+
+msgid "Persian"
+msgstr "Persiska"
+
+msgid "Polish"
+msgstr "Polska"
+
+msgid "Brazilian Portuguese"
+msgstr "Brasiliansk portugisiska"
+
+msgid "Portuguese"
+msgstr "Portugisiska"
+
+msgid "Romanian"
+msgstr "Romänska"
+
+msgid "Russian"
+msgstr "Ryska"
+
+msgid "Chinese (China)"
+msgstr "Kinesiska"
+
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Ledsen, du har inte rättigheter att tillträda detta område."
 
 msgid "Your password has been changed successfully!"
 msgstr "Ditt lösenord har framgångsrikt uppdaterats!"
+
+msgid "Your preferences have been updated."
+msgstr "Dina inställningar har uppdaterats."
 
 msgid "You have been successfully logged out."
 msgstr "Du har framgångsrikt loggats ut."
@@ -1112,7 +1252,7 @@ msgid "Page '{0}' created and published."
 msgstr "Sida '{0}' skapad och publicerad."
 
 msgid "View live"
-msgstr "Se live"
+msgstr "Visa publicerad"
 
 #, python-brace-format
 msgid "Page '{0}' created and submitted for moderation."
@@ -1166,7 +1306,7 @@ msgid "The page could not be saved due to validation errors"
 msgstr "Sidan kunde inte sparas p.g.a. valideringsfel"
 
 msgid "Compare with live version"
-msgstr "Jämför med live-version"
+msgstr "Jämför med den publicerade versionen"
 
 msgid "This page is currently awaiting moderation"
 msgstr "Sidan väntar på moderering"
@@ -1241,7 +1381,7 @@ msgstr "Förhandsgranska utkastversion av '{title}'"
 
 #, python-brace-format
 msgid "View live version of '{title}'"
-msgstr "Se live-version av '{title}'"
+msgstr "Visa den publicerade versionen av '{title}'"
 
 #, python-brace-format
 msgid "Add a child page to '{title}' "

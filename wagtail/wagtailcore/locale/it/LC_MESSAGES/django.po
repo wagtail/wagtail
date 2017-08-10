@@ -5,14 +5,14 @@
 # Translators:
 # Alessio Di Stasio <aledista@gmail.com>, 2015
 # Edd Baldry <edd.baldry@gmail.com>, 2016
-# Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2016
+# Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-06-19 16:55+0000\n"
-"PO-Revision-Date: 2017-06-19 16:58+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2017-07-18 06:57+0000\n"
+"Last-Translator: Giacomo Ghizzani <giacomo.ghz@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -147,6 +147,9 @@ msgstr "bloccato"
 msgid "first published at"
 msgstr "primo pubblicato a"
 
+msgid "last published at"
+msgstr "ultima pubblicazione il"
+
 msgid "latest revision created at"
 msgstr "ultima revisione creata alle"
 
@@ -248,6 +251,15 @@ msgstr "Privato, accessibile a utenti di gruppi specifici"
 
 msgid "password"
 msgstr "password"
+
+msgid "groups"
+msgstr "gruppi"
+
+msgid "view restriction"
+msgstr "limitazione visualizzazioni"
+
+msgid "view restrictions"
+msgstr "limitazioni visualizzazione"
 
 msgid "page view restriction"
 msgstr "restrizione per la visualizzazione della pagina"

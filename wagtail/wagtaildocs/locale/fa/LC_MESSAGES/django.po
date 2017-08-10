@@ -4,14 +4,15 @@
 #
 # Translators:
 # Mohammad Hossein Mojtahedi <Mhm5000@gmail.com>, 2017
-# Py Zenberg <pyzenberg@gmail.com>, 2017
+# pyzenberg <pyzenberg@gmail.com>, 2017
+# pyzenberg <pyzenberg@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-06-19 16:55+0000\n"
-"PO-Revision-Date: 2017-06-19 16:59+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2017-07-11 09:47+0000\n"
+"Last-Translator: pyzenberg <pyzenberg@gmail.com>\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
 "fa/)\n"
 "MIME-Version: 1.0\n"
@@ -221,6 +222,9 @@ msgstr "بروزرسانی"
 
 msgid "Delete"
 msgstr "حذف"
+
+msgid "You need a password to access this document."
+msgstr "نیاز به یک رمزعبور برای دسترسی به این سند دارید."
 
 msgid "Document permissions"
 msgstr "مجوزهای سند"

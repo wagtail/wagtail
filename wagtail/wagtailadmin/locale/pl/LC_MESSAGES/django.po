@@ -6,6 +6,7 @@
 # Bartek Sielicki <sielickib@student.mini.pw.edu.pl>, 2017
 # utek <mail@utek.pl>, 2014
 # Mateusz <undefined5102@gmail.com>, 2015
+# Miłosz Miśkiewicz, 2017
 # Miłosz Miśkiewicz, 2016-2017
 # utek <mail@utek.pl>, 2014
 msgid ""
@@ -13,8 +14,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-06-19 16:55+0000\n"
-"PO-Revision-Date: 2017-06-19 16:57+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2017-07-11 09:04+0000\n"
+"Last-Translator: Miłosz Miśkiewicz\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -24,6 +25,9 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n"
 "%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
 "%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+
+msgid "None"
+msgstr "Brak"
 
 msgid "You do not have permission to access the admin"
 msgstr "Nie posiadasz praw dostępu do części administracyjnej"
@@ -128,6 +132,10 @@ msgstr[3] ""
 "również ich kopię?"
 
 #, python-format
+msgid "You do not have permission to copy to page \"%(page_title)s\""
+msgstr "Nie posiadasz uprawnień do skopiowania strony \"%(page_title)s\""
+
+#, python-format
 msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
 msgstr "Slug jest już wykorzystywany w kontekście strony nadrzędnej \"%s\""
@@ -180,11 +188,20 @@ msgstr "Ustawienia powiadomień"
 msgid "Choose which email notifications to receive."
 msgstr "Wybierz, które powiadomienia mailowe chcesz otrzymywać"
 
+msgid "Language preferences"
+msgstr "Ustawienia językowe"
+
+msgid "Choose the language you want to use here."
+msgstr "Wybierz język jaki chcesz tutaj wykorzystać"
+
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr ""
 "Twoje hasło nie może być zmienione. Proszę skontaktować się z "
 "administratorem."
+
+msgid "Language Preferences"
+msgstr "Ustawienia Językowe"
 
 msgid "Update"
 msgstr "Uaktualnij"
@@ -225,8 +242,29 @@ msgstr "Zresetuj swoje hasło"
 msgid "Edit"
 msgstr "Edytuj"
 
+msgid "Page"
+msgstr "Strona"
+
 msgid "Pages"
 msgstr "Strony"
+
+msgid "Loading..."
+msgstr "Wczytywanie..."
+
+msgid "No results"
+msgstr "Brak wyników"
+
+msgid "Server Error"
+msgstr "Błąd serwera"
+
+msgid "See children"
+msgstr "Zobacz elementy podrzędne"
+
+msgid "See all"
+msgstr "Zobacz wszystkie"
+
+msgid "Close explorer"
+msgstr "Zamknij przeglądarke"
 
 msgid "Dashboard"
 msgstr "Kokpit"
@@ -324,6 +362,12 @@ msgstr "Wstaw link"
 
 msgid "Add an external link"
 msgstr "Dodaj link zewnętrzny"
+
+msgid "Collection privacy"
+msgstr "Prywatność kolekcji"
+
+msgid "This collection has been made private by a parent collection."
+msgstr "Ta kolekcja została ustawiona jako prywatna przez kolekcję nadrzędną."
 
 msgid "You can edit the privacy settings on:"
 msgstr "Możesz zmieniać ustawienia prywatności na:"
@@ -653,6 +697,10 @@ msgstr "Tak, cofnij publikację"
 msgid "No, don't unpublish"
 msgstr "Anuluj publikację"
 
+#, python-format
+msgid "Pages using %(page_class_verbose_name)s"
+msgstr "Strony wykorzystujące %(page_class_verbose_name)s"
+
 msgid "Pages using"
 msgstr "Strony używające"
 
@@ -816,6 +864,9 @@ msgstr "Dodaj stronę podrzędną do '%(title)s'"
 msgid "Add child page"
 msgstr "Dodaj stronę podrzędną"
 
+msgid "Sites menu"
+msgstr "Menu stron"
+
 #, python-format
 msgid ""
 "\n"
@@ -851,6 +902,25 @@ msgstr "Wybierz nową stronę nadrzędną dla %(title)s"
 #, python-format
 msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Wybierz nową stronę nadrzędną dla <span>%(title)s</span>"
+
+msgid "Preview error"
+msgstr "Błąd podglądu"
+
+msgid ""
+"\n"
+"                Impossible to preview this page, some errors are remaining.\n"
+"                Please close this tab, edit the page to fix these errors,\n"
+"                then use preview again.\n"
+"            "
+msgstr ""
+"\n"
+"                Brak możliwości podglądu tej strony, wystąpiły błędy.\n"
+"                Zamknij tą informację i popraw błędy, a następnie\n"
+"                spróbuj jeszcze raz ją podejrzeć.\n"
+"            "
+
+msgid "Close"
+msgstr "Zamknij"
 
 msgid "Changes"
 msgstr "Zmiany"

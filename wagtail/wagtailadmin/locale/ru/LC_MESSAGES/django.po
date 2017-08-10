@@ -9,7 +9,7 @@
 # Andrey Avdey <talkerbox@live.com>, 2016
 # Daniil <fleepd@gmail.com>, 2015
 # Eugene MechanisM <eugene@mechanism.pro>, 2014-2016
-# Eugene MechanisM <eugene@mechanism.pro>, 2016
+# Eugene MechanisM <eugene@mechanism.pro>, 2016-2017
 # Никита Викторович <hnknta@gmail.com>, 2014
 # Никита Викторович <hnknta@gmail.com>, 2014
 # Matt Westcott <matthew@torchbox.com>, 2015
@@ -21,8 +21,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-06-19 16:55+0000\n"
-"PO-Revision-Date: 2017-06-19 16:57+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2017-07-14 20:05+0000\n"
+"Last-Translator: Eugene MechanisM <eugene@mechanism.pro>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -193,11 +193,20 @@ msgstr "Настройки уведомления"
 msgid "Choose which email notifications to receive."
 msgstr "Выберите какие уведомления принимать на электронную почту."
 
+msgid "Language preferences"
+msgstr "Языковые настройки"
+
+msgid "Choose the language you want to use here."
+msgstr "Выберите язык, который вы хотите использовать."
+
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr ""
 "Ваш пароль не может быть изменен здесь. Пожалуйста, свяжитесь с "
 "администратором сайта."
+
+msgid "Language Preferences"
+msgstr "Языковые настройки"
 
 msgid "Update"
 msgstr "Обновить"
@@ -238,8 +247,23 @@ msgstr "Сбросить ваш пароль"
 msgid "Edit"
 msgstr "Редактировать"
 
+msgid "Page"
+msgstr "Страница"
+
 msgid "Pages"
 msgstr "Страницы"
+
+msgid "Loading..."
+msgstr "Загрузка..."
+
+msgid "No results"
+msgstr "Нет результатов"
+
+msgid "Server Error"
+msgstr "Ошибка Сервера"
+
+msgid "See all"
+msgstr "Смотреть все"
 
 msgid "Dashboard"
 msgstr "Панель управления"
@@ -336,6 +360,9 @@ msgstr "Вставить ссылку"
 msgid "Add an external link"
 msgstr "Добавить внешнюю ссылку"
 
+msgid "Collection privacy"
+msgstr "Приватность коллекции"
+
 msgid "You can edit the privacy settings on:"
 msgstr "Вы можете редактировать настройки приватности на:"
 
@@ -411,6 +438,10 @@ msgstr "Отклонить"
 
 msgid "Preview"
 msgstr "Предпросмотр"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s назад"
 
 msgid "Your most recent edits"
 msgstr "Ваши последние правки"
@@ -858,6 +889,25 @@ msgstr "Выбрать новую родительскую страницу дл
 msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Выбрать новую родительскую страницу для <span>%(title)s</span>"
 
+msgid "Preview error"
+msgstr "Ошибка предпросмотра"
+
+msgid "Close"
+msgstr "Закрыть"
+
+#, python-format
+msgid "Comparing %(title)s"
+msgstr "Сравниваем %(title)s"
+
+msgid "Comparing"
+msgstr "Сравниваем"
+
+msgid "Fields"
+msgstr "Поля"
+
+msgid "Changes"
+msgstr "Изменения"
+
 #, python-format
 msgid "Revisions of %(title)s"
 msgstr "Версии %(title)s"
@@ -877,6 +927,9 @@ msgstr "Черновик"
 
 msgid "Review this revision"
 msgstr "Ревью этой версии"
+
+msgid "Compare with previous revision"
+msgstr "Сравнить с предыдущей ревизией"
 
 msgid "No revisions of this page exist"
 msgstr "Нет других версий этой страницы"
@@ -1048,6 +1101,9 @@ msgstr "Показать Проводник"
 msgid "Test"
 msgstr "Тест"
 
+msgid "Russian"
+msgstr "Русский"
+
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Извините, но у вас нет доступа в эту область."
 
@@ -1208,6 +1264,16 @@ msgid ""
 msgstr ""
 "Вы просматриваете предыдущую версию этой страницы от <b>%(created_at)s</b> "
 "созданную пользователем %(user)s"
+
+msgid "Earliest"
+msgstr "Ранний"
+
+msgid "Latest"
+msgstr "Последний"
+
+#, python-brace-format
+msgid "Edit '{title}'"
+msgstr "Редактировать '{title}'"
 
 msgid "More"
 msgstr "Больше"

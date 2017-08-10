@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2017
 # Thomas Kunambi <kunambi@gmail.com>, 2015,2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-06-19 16:55+0000\n"
-"PO-Revision-Date: 2017-04-19 21:08+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2017-07-28 16:10+0000\n"
+"Last-Translator: Jim Brouzoulis <jim.brouzoulis@chalmers.se>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -83,6 +84,12 @@ msgstr "Nekande notifieringar"
 
 msgid "Receive notification when your page edit is rejected"
 msgstr "Emotta notis när din sideditering är avvisad"
+
+msgid "preferred language"
+msgstr "föredraget språk"
+
+msgid "Select language for the admin"
+msgstr "Välj språk för administratör-delen"
 
 msgid "user profile"
 msgstr "användarprofil"

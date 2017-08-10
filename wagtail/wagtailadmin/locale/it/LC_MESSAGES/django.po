@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-06-19 16:55+0000\n"
-"PO-Revision-Date: 2017-06-19 16:57+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2017-07-18 06:54+0000\n"
+"Last-Translator: Giacomo Ghizzani <giacomo.ghz@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -120,6 +120,10 @@ msgstr[1] ""
 "%(count)s delle pagina copiate sono live. Vuoi pubblicare le loro copie?"
 
 #, python-format
+msgid "You do not have permission to copy to page \"%(page_title)s\""
+msgstr "Non hai il permesso per copiare la pagina \"%(page_title)s\""
+
+#, python-format
 msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
 msgstr "Questo slug è già in uso nel contesto della pagina padre \"%s\""
@@ -173,11 +177,20 @@ msgstr "Preferenze delle notifiche"
 msgid "Choose which email notifications to receive."
 msgstr "Scegli quale notifiche vuoi ricevere via email."
 
+msgid "Language preferences"
+msgstr "Impostazioni lingua"
+
+msgid "Choose the language you want to use here."
+msgstr "Scegli la lingua che vuoi usare qui."
+
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr ""
 "La tua password non può esser cambiata qui. Per favore contatta "
 "l'amministratore del sito"
+
+msgid "Language Preferences"
+msgstr "Impostazioni Lingua"
 
 msgid "Update"
 msgstr "Aggiorna"
@@ -218,8 +231,29 @@ msgstr "Inserisci password"
 msgid "Edit"
 msgstr "Modifica"
 
+msgid "Page"
+msgstr "Pagina"
+
 msgid "Pages"
 msgstr "Pagine"
+
+msgid "Loading..."
+msgstr "Caricamento..."
+
+msgid "No results"
+msgstr "Nessun risultato"
+
+msgid "Server Error"
+msgstr "Errore del Server"
+
+msgid "See children"
+msgstr "Vedi figlio"
+
+msgid "See all"
+msgstr "Vedi tutto"
+
+msgid "Close explorer"
+msgstr "Chiudi explorer"
 
 msgid "Dashboard"
 msgstr "Dashboard"
@@ -306,8 +340,20 @@ msgstr "Inserisci collegamento"
 msgid "Add an external link"
 msgstr "Aggiungi collegamento esterno"
 
+msgid "Collection privacy"
+msgstr "Privacy collezione"
+
+msgid "This collection has been made private by a parent collection."
+msgstr "Questa collezione è stata resa privata dalla collezione padre."
+
 msgid "You can edit the privacy settings on:"
 msgstr "Puoi modificare le tue preferenze di privacy su:"
+
+msgid ""
+"Privacy settings determine who is able to view documents in this collection."
+msgstr ""
+"Impostazioni privacy determinano chi può vedere i documenti in questa "
+"collezione."
 
 msgid "Save"
 msgstr "Salva"
@@ -617,6 +663,10 @@ msgstr "Si, annulla la pubblicazione"
 msgid "No, don't unpublish"
 msgstr "No, non annullare la pubblicazione"
 
+#, python-format
+msgid "Pages using %(page_class_verbose_name)s"
+msgstr "Pagine che usano %(page_class_verbose_name)s"
+
 msgid "Pages using"
 msgstr "Pagina usate"
 
@@ -785,6 +835,9 @@ msgstr "Aggiungi pagina figlio a '%(title)s'"
 msgid "Add child page"
 msgstr "Aggiungi pagina figlio"
 
+msgid "Sites menu"
+msgstr "Menu sito"
+
 #, python-format
 msgid ""
 "\n"
@@ -820,6 +873,27 @@ msgstr "Seleziona una nuova pagina padre per %(title)s"
 #, python-format
 msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Seleziona una nuova pagina padre per <span>%(title)s</span>"
+
+msgid "Preview error"
+msgstr "Errore anteprima"
+
+msgid ""
+"\n"
+"                Impossible to preview this page, some errors are remaining.\n"
+"                Please close this tab, edit the page to fix these errors,\n"
+"                then use preview again.\n"
+"            "
+msgstr ""
+"\n"
+"                Impossibile fare l'anteprima di questa pagina, riscontrati "
+"errori.\n"
+"                Chiudi questo tab, edita questa pagina per correggere gli "
+"errori,\n"
+"                e riprova l'anteprima.\n"
+"            "
+
+msgid "Close"
+msgstr "Chiudi"
 
 #, python-format
 msgid "Comparing %(title)s"
@@ -900,6 +974,9 @@ msgstr "da"
 
 msgid "Current draft"
 msgstr "La bozza corrente"
+
+msgid "Live version"
+msgstr "Live version"
 
 msgid "Review this revision"
 msgstr "Controlla questa revisione"
@@ -1071,11 +1148,74 @@ msgstr "Mostra nell' Explorer"
 msgid "Test"
 msgstr "Test"
 
+msgid "Catalan"
+msgstr "Catalano"
+
+msgid "German"
+msgstr "Tedesco"
+
+msgid "Greek"
+msgstr "Greco"
+
+msgid "English"
+msgstr "Inglese"
+
+msgid "Spanish"
+msgstr "Spagnolo"
+
+msgid "Finnish"
+msgstr "Finnico"
+
+msgid "French"
+msgstr "Francese"
+
+msgid "Galician"
+msgstr "Galician"
+
+msgid "Icelandic"
+msgstr "Icelandic"
+
+msgid "Italian"
+msgstr "Italiano"
+
+msgid "Lithuanian"
+msgstr "Lithuanian"
+
+msgid "Norwegian Bokmål"
+msgstr "Norwegian Bokmål"
+
+msgid "Netherlands Dutch"
+msgstr "Netherlands Dutch"
+
+msgid "Persian"
+msgstr "Persian"
+
+msgid "Polish"
+msgstr "Polish"
+
+msgid "Brazilian Portuguese"
+msgstr "Brazilian Portuguese"
+
+msgid "Portuguese"
+msgstr "Portuguese"
+
+msgid "Romanian"
+msgstr "Romanian"
+
+msgid "Russian"
+msgstr "Russian"
+
+msgid "Chinese (China)"
+msgstr "Chinese (China)"
+
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Spiacente, non hai i permessi per accedere a questa area."
 
 msgid "Your password has been changed successfully!"
 msgstr "La tua password è stato modificata con successo"
+
+msgid "Your preferences have been updated."
+msgstr "Le tue impostazioni sono state aggiornate."
 
 msgid "You have been successfully logged out."
 msgstr "Logout eseguito con successo."

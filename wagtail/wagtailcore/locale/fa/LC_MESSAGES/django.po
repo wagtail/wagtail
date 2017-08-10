@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Py Zenberg <pyzenberg@gmail.com>, 2017
+# pyzenberg <pyzenberg@gmail.com>, 2017
+# pyzenberg <pyzenberg@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-06-19 16:55+0000\n"
-"PO-Revision-Date: 2017-06-19 16:58+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2017-07-11 09:46+0000\n"
+"Last-Translator: pyzenberg <pyzenberg@gmail.com>\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
 "fa/)\n"
 "MIME-Version: 1.0\n"
@@ -147,6 +148,9 @@ msgstr "قفل شده"
 msgid "first published at"
 msgstr "انتشار نخست در"
 
+msgid "last published at"
+msgstr "انتشار قبلی در"
+
 msgid "latest revision created at"
 msgstr "آخرین بازبینی ایجاد شده در"
 
@@ -249,6 +253,15 @@ msgstr "خصوصی، تنها برای اعضای گروه های خاصی قا�
 msgid "password"
 msgstr "رمزعبور"
 
+msgid "groups"
+msgstr "گروه ها"
+
+msgid "view restriction"
+msgstr "دیدن محدودیت"
+
+msgid "view restrictions"
+msgstr "دیدن محدودیت‌ها"
+
 msgid "page view restriction"
 msgstr "نمایش محدودیت صفحه"
 
@@ -257,6 +270,12 @@ msgstr "محدودیت های نمایش صفحه"
 
 msgid "collection"
 msgstr "مجموعه"
+
+msgid "collection view restriction"
+msgstr "محدودیت دیدن مجموعه"
+
+msgid "collection view restrictions"
+msgstr "محدودیت‌های دیدن مجموعه"
 
 msgid "name"
 msgstr "نام"
