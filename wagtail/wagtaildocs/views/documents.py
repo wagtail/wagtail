@@ -11,7 +11,7 @@ from wagtail.wagtailadmin.forms import SearchForm
 from wagtail.wagtailadmin.utils import (
     PermissionPolicyChecker, permission_denied, popular_tags_for_model)
 from wagtail.wagtailcore.models import Collection
-from wagtail.wagtaildocs.forms import get_document_form
+from wagtail.wagtaildocs.forms import get_document_form, get_document_edit_handler
 from wagtail.wagtaildocs.models import get_document_model
 from wagtail.wagtaildocs.permissions import permission_policy
 from wagtail.wagtailsearch import index as search_index
@@ -119,7 +119,9 @@ def add(request):
 @permission_checker.require('change')
 def edit(request, document_id):
     Document = get_document_model()
-    DocumentForm = get_document_form(Document)
+
+    edit_handler_class = get_document_edit_handler(Document)
+    form_class = edit_handler_class.get_form_class(Document)
 
     doc = get_object_or_404(Document, id=document_id)
 
@@ -128,7 +130,7 @@ def edit(request, document_id):
 
     if request.method == 'POST':
         original_file = doc.file
-        form = DocumentForm(request.POST, request.FILES, instance=doc, user=request.user)
+        form = form_class(request.POST, request.FILES, instance=doc, user=request.user)
         if form.is_valid():
             if 'file' in form.changed_data:
                 # if providing a new document file, delete the old one.
@@ -146,8 +148,10 @@ def edit(request, document_id):
             return redirect('wagtaildocs:index')
         else:
             messages.error(request, _("The document could not be saved due to errors."))
+            edit_handler = edit_handler_class(instance=doc, form=form)
     else:
-        form = DocumentForm(instance=doc, user=request.user)
+        form = form_class(instance=doc, user=request.user)
+        edit_handler = edit_handler_class(instance=doc, form=form)
 
     filesize = None
 
@@ -169,6 +173,7 @@ def edit(request, document_id):
     return render(request, "wagtaildocs/documents/edit.html", {
         'document': doc,
         'filesize': filesize,
+        'edit_handler': edit_handler,
         'form': form,
         'user_can_delete': permission_policy.user_has_permission_for_instance(
             request.user, 'delete', doc
