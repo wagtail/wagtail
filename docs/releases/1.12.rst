@@ -27,6 +27,7 @@ Other features
 ~~~~~~~~~~~~~~
 
  * The admin interface now displays a title of the latest draft (Mikalai Radchuk)
+ * ``RoutablePageMixin`` now has a default "index" route (Andreas Nüßlein, Matt Westcott)
  * Added multi-select form field to the form builder (dwasyl)
  * Improved performance of sitemap generation (Levi Adler)
  * StreamField now respects the ``blank`` setting; StreamBlock accepts a ``required`` setting (Loic Teixeira)
@@ -90,3 +91,9 @@ Fixtures for loading pages should include ``draft_title``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 In most situations, the new ``draft_title`` field on page models will automatically be populated from the page title. However, this is not the case for pages that are created from fixtures. Projects that use fixtures to load initial data should therefore ensure that a ``draft_title`` field is specified.
+
+
+``RoutablePageMixin`` now has a default index route
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If you've used ``RoutablePageMixin`` on a Page model, you may have had to manually define an index route to serve the page at its main URL (``r'^$'``) so it behaves like a normal page. Wagtail now defines a default index route so this is no longer required.

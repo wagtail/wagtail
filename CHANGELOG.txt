@@ -7,6 +7,7 @@ Changelog
  * Ability to configure the feature set of rich text fields on a per-field basis (Matt Westcott)
  * New class-based configuration for media embeds (Karl Hobley)
  * The admin interface now displays a title of the latest draft (Mikalai Radchuk)
+ * `RoutablePageMixin` now has a default "index" route (Andreas Nüßlein, Matt Westcott)
  * Added multi-select form field to the form builder (dwasyl)
  * Improved performance of sitemap generation (Levi Adler)
  * StreamField now respects the `blank` setting; StreamBlock accepts a `required` setting (Loic Teixeira)
