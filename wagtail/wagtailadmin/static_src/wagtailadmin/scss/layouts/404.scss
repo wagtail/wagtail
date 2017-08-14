@@ -5,165 +5,115 @@
 body {
     font-family: $font-sans;
     color: $color-white;
-}
 
-#wagtail-bird {
-    position: fixed;
-    right: 50%;
-    transform: translateX(-130px);
-    top: 16%;
-    width: 425px;
-    height: auto;
-    z-index: 10;
-    transition: all 0.25s cubic-bezier(0.28, 0.15, 0, 2.1);
-    -webkit-filter: drop-shadow(4px 4px 4px #1d4d4d);
-    filter: drop-shadow(4px 4px 4px #1d4d4d);
-    opacity: 1;
-}
+    .page404__bg {
+        position: fixed;
 
-#catchmouse {
-    position: fixed;
-    right: 50%;
-    transform: translateX(-180px)  translateY(-10px) rotate(30deg); // rotate to more closely refect bird's shape
-    top: 16%;
-    width: 240px;
-    height: 470px;
-    z-index: 100;
-    background-color: rgba(255, 0, 255, 0); // set last value >0 to see mouse dectection area
-}
+        .page404__wagtail-logo {
+            position: fixed;
+            right: 50%;
+            transform: translateX(-130px);
+            top: 16%;
+            width: 425px;
+            height: auto;
+            z-index: 10;
+            transition: all 0.25s cubic-bezier(0.28, 0.15, 0, 2.1);
+            -webkit-filter: drop-shadow(4px 4px 4px #1d4d4d);
+            filter: drop-shadow(4px 4px 4px #1d4d4d);
+            opacity: 1;
 
-#backdrop {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-    background-color: $color-teal-darker;
-}
+            &:hover {
+                transform: translateX(-130px) rotate(4deg);
+            }
+        }
 
-// http://nimbupani.com/vignettes-with-css3-box-shadows.html
-p.vignette {
-    position: fixed;
-}
+        .page404__text-container {
+            position: fixed;
+            left: 50%;
+            top: 25%;
+            height: 50%;
+            text-align: center;
+            z-index: 50;
+            width: 600px;
+            transform: translateX(-130px);
 
-p.vignette img {
-    display: block;
-}
+            .page404__text--header {
+                position: relative;
+                top: -80px;
+                color: $color-white; // override default h1 color
+                font-size: 100px;
+                padding-bottom: 0px;
+                text-shadow: 4px 4px 4px #1d4d4d;
+            }
 
-p.vignette:after {
-    -moz-box-shadow: inset 0 0 10em #333;
-    -webkit-box-shadow: inset 0 0 10em #333;
-    box-shadow: inset 0 0 10em #333;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 10;
-    content: '';
-}
+            .page404__text--info {
+                position: relative;
+                font-size: 30px;
+                top: -130px;
+                line-height: 125%;
+                text-shadow: 2px 2px 2px #1d4d4d;
+            }
 
-#text-container {
-    position: fixed;
-    left: 50%;
-    top: 25%;
-    height: 50%;
-    text-align: center;
-    z-index: 50;
-}
-
-#header {
-    position: relative;
-    top: -80px;
-    color: $color-white; // override default h1 color
-}
-
-#info {
-    position: relative;
-    font-size: 30px;
-    top: -130px;
-    line-height: 125%;
-}
-
-#goback-link {
-    position: relative;
-    font-size: 25px;
-    top: -125px;
-    background-color: #2d7878; // slightly lighter than shadow
-    text-decoration: none;
-    color: #fff;
-    padding-left: 12px;
-    padding-right: 12px;
-    padding-top: 3px;
-    padding-bottom: 3px;
-    border-radius: 20px;
-    cursor: pointer;
-}
-
-#wagtail-link {
-    position: fixed;
-    right: 15px;
-    bottom: 15px;
-    font-size: 20px;
-    text-decoration: none;
-    color: $color-white;
-    opacity: 0.5;
-}
-
-// DESKTOP CHANGES:
-@media screen and (min-width: $breakpoint-mobile) {
-    #wagtail-bird {
-        opacity: 1;
+            .page404__link--goback {
+                position: relative;
+                font-size: 25px;
+                top: -125px;
+                background-color: #2d7878; // slightly lighter than shadow
+                text-decoration: none;
+                color: #fff;
+                padding-left: 12px;
+                padding-right: 12px;
+                padding-top: 3px;
+                padding-bottom: 3px;
+                border-radius: 20px;
+                cursor: pointer;
+                filter: drop-shadow(3px 3px 3px #1d4d4d);
+            }
+        }
     }
 
-    #text-container {
-        width: 600px;
-        transform: translateX(-130px);
-    }
-
-    #header {
-        font-size: 100px;
-        padding-bottom: 0px;
-        text-shadow: 4px 4px 4px #1d4d4d;
-    }
-
-    #info {
-        text-shadow: 2px 2px 2px #1d4d4d;
-    }
-
-    #goback-link {
-        -webkit-filter: drop-shadow(3px 3px 3px #1d4d4d);
-        filter: drop-shadow(3px 3px 3px #1d4d4d);
-    }
-
-    #wagtail-link {
-        opacity: 0.5;
+    // Subtle vignette:
+    .page404__bg::after {
+        -moz-box-shadow: inset 0 0 10em #333;
+        -webkit-box-shadow: inset 0 0 10em #333;
+        box-shadow: inset 0 0 10em #333;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: $color-teal-darker;
+        content: '';
     }
 }
 
 // MOBILE CHANGES:
 @media screen and (max-width: $breakpoint-mobile) {
-    #wagtail-bird {
-        opacity: 0;
-    }
-    #text-container {
-        width: 300px;
-        transform: translateX(-150px);
-    }
+    body {
+        .page404__bg {
+            .page404__wagtail-logo {
+                opacity: 0;
+            }
 
-    #header {
-        font-size: 50px;
-        padding-bottom: 30px;
-        text-shadow: none;
-    }
+            .page404__text-container {
+                width: 300px;
+                transform: translateX(-150px);
 
-    #info {
-        text-shadow: none;
-    }
+                .page404__text-header {
+                    font-size: 50px;
+                    padding-bottom: 30px;
+                    text-shadow: none;
+                }
 
-    #goback-link {
-        -webkit-filter: none;
-        filter: none;
+                .page404__text-info {
+                    text-shadow: none;
+                }
+
+                .page404__link--goback {
+                    -webkit-filter: none;
+                    filter: none;
+                }
+            }
+        }
     }
 }
