@@ -3,6 +3,7 @@ from __future__ import absolute_import, unicode_literals
 import csv
 import datetime
 
+from django.conf import settings
 from django.core.exceptions import PermissionDenied
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
@@ -68,7 +69,10 @@ def list_submissions(request, page_id):
 
     data_fields = form_page.get_data_fields()
 
-    submissions = form_submission_class.objects.filter(page=form_page).order_by('submit_time')
+    if getattr(settings, "WAGTAIL_FORM_SUBMISSION_SORT_NEWEST_FIRST", False):
+        submissions = form_submission_class.objects.filter(page=form_page).order_by('-submit_time')
+    else:
+        submissions = form_submission_class.objects.filter(page=form_page).order_by('submit_time')
     data_headings = [label for name, label in data_fields]
 
     select_date_form = SelectDateForm(request.GET)

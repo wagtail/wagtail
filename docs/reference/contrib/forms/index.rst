@@ -106,6 +106,17 @@ Displaying form submission information
         ]
 
 
+Form Submission Data View
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The full submission data view for all forms is also accessible via the admin panel. This is sorted by submission date, with the oldest submissions first. This can be changed to newest first with the addition of a line in your settings:
+
+.. code-block:: python
+
+    WAGTAIL_FORM_SUBMISSION_SORT_NEWEST_FIRST = True
+
+The submission data can additionally be filtered by a date range via the admin interface.
+
 Index
 ~~~~~
 
