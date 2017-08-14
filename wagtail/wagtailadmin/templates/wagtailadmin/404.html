@@ -11,40 +11,19 @@
 
 
 {% block furniture %}
-    <div id="backdrop"></div>
+    <div class="page404__bg">
+        <img class="page404__wagtail-logo" src="{% static 'wagtailadmin/images/wagtail-logo.svg' %}" />
 
-    <p class="vignette">
-        <img id="wagtail-bird" src="{% static 'wagtailadmin/images/wagtail-logo.svg' %}" />
-    </p>
+        <div class="page404__text-container">
+            <h1 class="page404__text--header">
+                Error 404
+            </h1>
 
-    <div id="catchmouse"></div>
+            <p class="page404__text--info">
+                Our wagtail searched everywhere, but it couldn't find that page.
+            </p>
 
-    <div id="text-container">
-        <h1 id="header">
-            Error 404
-        </h1>
-
-        <p id="info">
-            Our wagtail searched everywhere, but it couldn't find that page.
-        </p>
-
-        <a id="goback-link" onclick="window.history.back();">Click here to go back</a>
+            <a class="page404__link--goback" onclick="window.history.back();">Click here to go back</a>
+        </div>
     </div>
-
-    <!--<a id="wagtail-link" href="https://wagtail.io">wagtail: a fresh take on content management.</a>-->
-    <!-- uncomment the above line for 'branding' in the bottom right corner -->
-{% endblock %}
-
-
-{% block extra_js %}
-    <script>
-        // WAGTAIL NOD:
-        $(function() {
-            $('#catchmouse').hover(function() { // when mouse is hovering...
-                $('#wagtail-bird').css('transform', 'translateX(-130px) rotate(4deg)');
-            }, function() { // when mouse is no longer hovering...
-                $('#wagtail-bird').css('transform', 'translateX(-130px) rotate(0deg)');
-            });
-        });
-    </script>
 {% endblock %}
