@@ -53,6 +53,7 @@ const ExplorerItem = ({ item, onClick }) => {
         <Button
           className="c-explorer__item__action"
           onClick={onClick}
+          href={`${ADMIN_URLS.PAGES}${id}/`}
         >
           {nextIcon}
         </Button>
