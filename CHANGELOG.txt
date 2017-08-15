@@ -4,6 +4,8 @@ Changelog
 1.13 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~
 
+ * Fix: "Open Link in New Tab" on a right arrow in page explorer should open page list (Emily Horsman)
+
 1.12 LTS (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~~~~
 

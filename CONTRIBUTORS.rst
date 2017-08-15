@@ -249,6 +249,7 @@ Contributors
 * Levi Adler
 * Edwar Baron
 * Tomasz Knapik
+* Emily Horsman
 
 Translators
 ===========

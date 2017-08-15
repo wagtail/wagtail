@@ -18,6 +18,7 @@ Other features
 Bug fixes
 ~~~~~~~~~
 
+ * "Open Link in New Tab" on a right arrow in page explorer should open page list (Emily Horsman)
 
 Upgrade considerations
 ======================
