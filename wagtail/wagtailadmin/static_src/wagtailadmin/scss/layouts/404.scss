@@ -30,12 +30,12 @@ body {
         .page404__text-container {
             position: fixed;
             left: 50%;
+            transform: translateX(-130px);
             top: 25%;
+            width: 600px;
             height: 50%;
             text-align: center;
             z-index: 50;
-            width: 600px;
-            transform: translateX(-130px);
 
             .page404__text--header {
                 position: relative;
@@ -48,16 +48,16 @@ body {
 
             .page404__text--info {
                 position: relative;
-                font-size: 30px;
                 top: -130px;
+                font-size: 30px;
                 line-height: 125%;
                 text-shadow: 2px 2px 2px #1d4d4d;
             }
 
             .page404__link--goback {
                 position: relative;
-                font-size: 25px;
                 top: -125px;
+                font-size: 25px;
                 background-color: #2d7878; // slightly lighter than shadow
                 text-decoration: none;
                 color: #fff;
@@ -74,14 +74,12 @@ body {
 
     // Subtle vignette:
     .page404__bg::after {
-        -moz-box-shadow: inset 0 0 10em #333;
-        -webkit-box-shadow: inset 0 0 10em #333;
-        box-shadow: inset 0 0 10em #333;
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
+        box-shadow: inset 0 0 10em #333;
         background-color: $color-teal-darker;
         content: '';
     }
@@ -110,7 +108,6 @@ body {
                 }
 
                 .page404__link--goback {
-                    -webkit-filter: none;
                     filter: none;
                 }
             }
