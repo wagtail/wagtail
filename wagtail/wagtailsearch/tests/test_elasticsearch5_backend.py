@@ -760,7 +760,7 @@ class TestElasticsearch5Mapping(TestCase):
                     'published_date_filter': {'type': 'date', 'include_in_all': False},
                     'title': {'type': 'text', 'include_in_all': True, 'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard'},
                     'title_filter': {'type': 'keyword', 'include_in_all': False},
-                    'content': {'type': 'text', 'include_in_all': True},
+                    'content': {'type': 'text', 'boost': 2, 'include_in_all': True},
                     'callable_indexed_field': {'type': 'text', 'include_in_all': True},
                     'subobjects': {
                         'properties': {
@@ -864,7 +864,7 @@ class TestElasticsearch5MappingInheritance(TestCase):
                     'published_date_filter': {'type': 'date', 'include_in_all': False},
                     'title': {'type': 'text', 'include_in_all': True, 'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard'},
                     'title_filter': {'type': 'keyword', 'include_in_all': False},
-                    'content': {'type': 'text', 'include_in_all': True},
+                    'content': {'type': 'text', 'boost': 2, 'include_in_all': True},
                     'callable_indexed_field': {'type': 'text', 'include_in_all': True},
                     'subobjects': {
                         'properties': {
