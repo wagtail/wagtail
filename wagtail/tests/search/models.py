@@ -22,7 +22,7 @@ class SearchTest(index.Indexed, models.Model):
         index.RelatedFields('subobjects', [
             index.SearchField('name', partial_match=True),
         ]),
-        index.SearchField('content'),
+        index.SearchField('content', boost=2),
         index.SearchField('callable_indexed_field'),
         index.FilterField('title'),
         index.FilterField('live'),
