@@ -267,6 +267,7 @@ Contributors
 * Philipp Bosch
 * misraX
 * Bruno Alla
+* Christopher Bledsoe (The Motley Fool)
 
 Translators
 ===========
