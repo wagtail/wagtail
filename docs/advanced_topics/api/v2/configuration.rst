@@ -274,4 +274,4 @@ endpoints.
 (default: 20)
 
 This allows you to change the maximum number of results a user can request at a
-time. This applies to all endpoints.
+time. This applies to all endpoints. Set to ``None`` for no limit.

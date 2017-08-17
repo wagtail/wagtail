@@ -7,6 +7,7 @@ Changelog
  * Fix: "Open Link in New Tab" on a right arrow in page explorer should open page list (Emily Horsman)
  * Fix: Using `order_by_relevance=False` when searching with PostgreSQL now works (Mitchel Cabuloy)
  * Fix: Inline panel first and last sorting arrows correctly hidden in non-default tabs (Matt Westcott)
+ * Fix: `WAGTAILAPI_LIMIT_MAX` now accepts None to disable limiting (jcronyn)
 
 1.12 LTS (21.08.2017)
 ~~~~~~~~~~~~~~~~~~~~~

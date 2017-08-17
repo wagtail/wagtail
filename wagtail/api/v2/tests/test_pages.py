@@ -633,6 +633,14 @@ class TestPageListing(TestCase):
         self.assertEqual(response.status_code, 400)
         self.assertEqual(content, {'message': "limit cannot be higher than 20"})
 
+    @override_settings(WAGTAILAPI_LIMIT_MAX=None)
+    def test_limit_max_none_gives_no_errors(self):
+        response = self.get_response(limit=1000000)
+        content = json.loads(response.content.decode('UTF-8'))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(content['items']), get_total_page_count())
+
     @override_settings(WAGTAILAPI_LIMIT_MAX=10)
     def test_limit_maximum_can_be_changed(self):
         response = self.get_response(limit=20)
