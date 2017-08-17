@@ -2983,3 +2983,24 @@ class TestIncludeBlockTag(TestCase):
             'language': 'fr',
         })
         self.assertIn('<body><h1 class="important">bonjour</h1></body>', result)
+
+
+class BlockUsingGetTemplateMethod(blocks.Block):
+    def value_from_datadict(self, data, files, prefix):
+        pass
+
+    def render_form(self, value, prefix='', errors=None):
+        pass
+
+    my_new_template = "my_super_awesome_dynamic_template.html"
+
+    def get_template(self):
+        return self.my_new_template
+
+
+class TestOverriddenGetTemplateBlockTag(TestCase):
+    def test_template_is_overriden_by_get_template(self):
+
+        block = BlockUsingGetTemplateMethod(template='tests/blocks/this_shouldnt_be_used.html')
+        template = block.get_template()
+        self.assertEquals(template, block.my_new_template)

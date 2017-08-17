@@ -250,6 +250,7 @@ Contributors
 * Edwar Baron
 * Tomasz Knapik
 * Emily Horsman
+* Christopher Bledsoe
 
 Translators
 ===========
