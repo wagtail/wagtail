@@ -11,6 +11,7 @@ from django.urls import reverse
 from wagtail.documents import models
 
 
+@override_settings(WAGTAILDOCS_SERVE_METHOD=None)
 class TestServeView(TestCase):
     def setUp(self):
         self.document = models.Document(title="Test document")
@@ -67,6 +68,64 @@ class TestServeView(TestCase):
         _get_sendfile.clear()
 
 
+@override_settings(WAGTAILDOCS_SERVE_METHOD='redirect')
+class TestServeViewWithRedirect(TestCase):
+    def setUp(self):
+        self.document = models.Document(title="Test document")
+        self.document.file.save('example.doc', ContentFile("A boring example document"))
+
+    def tearDown(self):
+        self.document.delete()
+
+    def get(self):
+        return self.client.get(reverse('wagtaildocs_serve', args=(self.document.id, self.document.filename)))
+
+    def test_redirect(self):
+        response = self.get()
+        self.assertRedirects(response, self.document.file.url, fetch_redirect_response=False)
+
+
+@override_settings(WAGTAILDOCS_SERVE_METHOD='direct')
+class TestDirectDocumentUrls(TestCase):
+    def setUp(self):
+        self.document = models.Document(title="Test document")
+        self.document.file.save('example.doc', ContentFile("A boring example document"))
+
+    def tearDown(self):
+        self.document.delete()
+
+    def test_url(self):
+        self.assertEqual(self.document.url, self.document.file.url)
+
+
+@override_settings(
+    WAGTAILDOCS_SERVE_METHOD=None,
+    DEFAULT_FILE_STORAGE='wagtail.tests.dummy_external_storage.DummyExternalStorage'
+)
+class TestServeWithExternalStorage(TestCase):
+    """
+    Test the behaviour of the default serve method when used with a remote storage backend
+    (i.e. one that throws NotImplementedError for the path() method).
+    """
+    def setUp(self):
+        self.document = models.Document(title="Test document")
+        self.document.file.save('example.doc', ContentFile("A boring example document"))
+        self.serve_view_url = reverse('wagtaildocs_serve', args=(self.document.id, self.document.filename))
+
+    def tearDown(self):
+        self.document.delete()
+
+    def test_url(self):
+        # document.url should point to the serve view
+        self.assertEqual(self.document.url, self.serve_view_url)
+
+    def test_redirect(self):
+        # serve view should redirect to the remote URL
+        response = self.client.get(self.serve_view_url)
+        self.assertRedirects(response, self.document.file.url, fetch_redirect_response=False)
+
+
+@override_settings(WAGTAILDOCS_SERVE_METHOD=None)
 class TestServeViewWithSendfile(TestCase):
     def setUp(self):
         # Import using a try-catch block to prevent crashes if the
@@ -124,6 +183,7 @@ class TestServeViewWithSendfile(TestCase):
         self.assertEqual(response['X-Accel-Redirect'], os.path.join(settings.MEDIA_URL, self.document.file.name))
 
 
+@override_settings(WAGTAILDOCS_SERVE_METHOD=None)
 class TestServeWithUnicodeFilename(TestCase):
     def setUp(self):
         self.document = models.Document(title="Test document")
