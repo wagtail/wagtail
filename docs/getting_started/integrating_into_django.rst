@@ -54,6 +54,14 @@ Add a ``WAGTAIL_SITE_NAME`` - this will be displayed on the main dashboard of th
 
     WAGTAIL_SITE_NAME = 'My Example Site'
 
+You can configure the base url (protocol and domain) to be used in the Wagtail admin with the setting ``WAGTAILADMIN_BASE_URL``.
+If not set, there are two fallbacks: request.site.root_url if available, then building a URL from the request object (via ``request.get_host()``.
+This setting was previously named ``BASE_URL``; This is still supported but not preferred.
+
+.. code-block:: python
+
+    WAGTAILADMIN_BASE_URL = 'http://mysite.com'
+
 Various other settings are available to configure Wagtail's behaviour - see :doc:`/advanced_topics/settings`.
 
 URL configuration

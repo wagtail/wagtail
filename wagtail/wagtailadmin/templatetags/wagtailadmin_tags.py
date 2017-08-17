@@ -34,6 +34,12 @@ if django.VERSION >= (1, 9):
 else:
     assignment_tag = register.assignment_tag
 
+BASE_URL = getattr(
+    settings,
+    'WAGTAILADMIN_BASE_URL',
+    getattr(settings, 'BASE_URL', None)
+)
+
 
 @register.simple_tag(takes_context=True)
 def menu_search(context):
@@ -147,7 +153,8 @@ def test_collection_is_public(context, collection):
     DB queries on repeated calls.
     """
     if 'all_collection_view_restrictions' not in context:
-        context['all_collection_view_restrictions'] = CollectionViewRestriction.objects.select_related('collection').values_list(
+        context['all_collection_view_restrictions'] = CollectionViewRestriction.objects.select_related(
+            'collection').values_list(
             'collection__name', flat=True
         )
 
@@ -195,9 +202,20 @@ def usage_count_enabled():
     return getattr(settings, 'WAGTAIL_USAGE_COUNT_ENABLED', False)
 
 
-@assignment_tag
-def base_url_setting():
-    return getattr(settings, 'BASE_URL', None)
+@assignment_tag(takes_context=True)
+def base_url_setting(context):
+    if not BASE_URL:
+        request = context['request']
+        base_url = getattr(request.site, 'root_url', None)
+        if base_url:
+            return base_url
+        if request.is_secure():
+            scheme = 'https://'
+        else:
+            scheme = 'http://'
+        base_url = scheme + request.get_host()
+        return base_url
+    return BASE_URL
 
 
 @assignment_tag

@@ -1,4 +1,5 @@
-{% load i18n %}
+{% load i18n wagtailadmin_tags %}
+
 
 {% block greeting %}
 {% blocktrans with username=user.get_short_name|default:user.get_username %}Hello {{ username }},{% endblocktrans %}
@@ -7,5 +8,5 @@
 {% block content %}
 {% endblock %}
 
-
-{% trans "Edit your notification preferences here:" %} {{ settings.BASE_URL }}{% url 'wagtailadmin_account_notification_preferences' %}
+{% get_base_url as base_url %]
+{% trans "Edit your notification preferences here:" %} {{ base_url }}{% url 'wagtailadmin_account_notification_preferences' %}

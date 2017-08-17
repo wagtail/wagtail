@@ -662,6 +662,10 @@ These two files should reside in your project directory (``myproject/myproject/`
   # which welcomes users upon login to the Wagtail admin.
   WAGTAIL_SITE_NAME = 'My Project'
 
+  # This is the base url (protocal and domain) used by the Wagtail admin.
+  # Previously this (undocumented) setting was named BASE_URL
+  WAGTAILADMIN_BASE_URL = 'http://mysite.com'
+
   # Override the search results template for wagtailsearch
   # WAGTAILSEARCH_RESULTS_TEMPLATE = 'myapp/search_results.html'
   # WAGTAILSEARCH_RESULTS_TEMPLATE_AJAX = 'myapp/includes/search_listing.html'
