@@ -8,5 +8,5 @@
 {% block content %}
 {% endblock %}
 
-{% get_base_url as base_url %]
+{% base_url_setting as base_url %]
 {% trans "Edit your notification preferences here:" %} {{ base_url }}{% url 'wagtailadmin_account_notification_preferences' %}

@@ -3,7 +3,7 @@
 {% load i18n wagtailadmin_tags %}
 
 {% block content %}
-    {% get_base_url as base_url %}
+    {% base_url_setting as base_url %}
     <p>{% blocktrans with page=revision.page|safe editor=revision.user.get_full_name|default:revision.user.get_username %}The page "{{ page }}" has been submitted for moderation by {{ editor }}.{% endblocktrans %}</p>
 
     <p>
