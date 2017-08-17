@@ -40,7 +40,15 @@ def serve(request, document_id, document_filename):
     except NotImplementedError:
         local_path = None
 
-    if local_path:
+    if getattr(settings, 'WAGTAILDOCS_SERVE_METHOD', None) in ('redirect', 'direct'):
+
+        # We don't have a local path to the file, but redirecting to the file's underlying
+        # URL is allowed. Do that to save the cost of delivering the file via Python.
+        # Support the 'direct' case only because this URL will still exist and for backwards
+        # compatibility, should behave sanely if accessed.
+        return redirect(doc.file.url)
+
+    elif local_path:
 
         # Use wagtail.utils.sendfile to serve the file;
         # this provides support for mimetypes, if-modified-since and django-sendfile backends
@@ -60,7 +68,8 @@ def serve(request, document_id, document_filename):
     else:
 
         # We are using a storage backend which does not expose filesystem paths
-        # (e.g. storages.backends.s3boto.S3BotoStorage).
+        # (e.g. storages.backends.s3boto.S3BotoStorage) AND the developer has not allowed
+        # redirecting to the file url directly.
         # Fall back on pre-sendfile behaviour of reading the file content and serving it
         # as a StreamingHttpResponse
 

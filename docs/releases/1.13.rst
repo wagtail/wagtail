@@ -10,6 +10,18 @@ Wagtail 1.13 release notes - IN DEVELOPMENT
 What's new
 ==========
 
+* Added ``WAGTAILDOCS_SERVE_METHOD`` setting, which defaults to ``None``. If set to ``redirect``,
+  when serving documents for download, Wagtail will return a redirect to the browser rather than
+  using Sendfile or serving the document directly via Python. This performance improvement allows
+  custom or centralized file storage backends such as S3 to serve documents directly, rather than
+  requiring that your web server or Python process read and serve the file itself.
+
+  As an alternative for primarily-static sites, ``WAGTAILDOCS_SERVE_METHOD`` can be set to
+  ``direct``. This will cause Wagtail to render the underlying file storage ``url`` directly as the
+  download link for the document, rather than redirecting the user or serving the document via
+  SendFile or Python. **Note:** Using ``WAGTAILDOCS_SERVE_METHOD == 'direct'`` will prevent from
+  running any ``before_serve_document`` hooks or ``document_served`` signals your project has
+  configured.
 
 Other features
 ~~~~~~~~~~~~~~

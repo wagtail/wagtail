@@ -60,7 +60,10 @@ class AbstractDocument(CollectionMember, index.Indexed, models.Model):
 
     @property
     def url(self):
-        return reverse('wagtaildocs_serve', args=[self.id, self.filename])
+        if getattr(settings, 'WAGTAILDOCS_SERVE_METHOD', None) == 'direct':
+            return self.file.url
+        else:
+            return reverse('wagtaildocs_serve', args=[self.id, self.filename])
 
     def get_usage(self):
         return get_object_usage(self)
