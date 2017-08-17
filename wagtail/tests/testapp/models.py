@@ -289,8 +289,8 @@ class SingleEventPage(EventPage):
     )
 
     # Give this page model a custom URL routing scheme
-    def get_url_parts(self):
-        url_parts = super(SingleEventPage, self).get_url_parts()
+    def get_url_parts(self, request=None):
+        url_parts = super(SingleEventPage, self).get_url_parts(request=request)
         if url_parts is None:
             return None
         else:
