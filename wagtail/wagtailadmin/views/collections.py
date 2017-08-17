@@ -80,7 +80,7 @@ class Delete(DeleteView):
 
     def get_collection_contents(self):
         collection_contents = [
-            hook(self.instance)
+            hook(self.object)
             for hook in hooks.get_hooks('describe_collection_contents')
         ]
 
@@ -91,8 +91,8 @@ class Delete(DeleteView):
 
         return list(filter(is_nonempty, collection_contents))
 
-    def get_context(self):
-        context = super(Delete, self).get_context()
+    def get_context_data(self, **kwargs):
+        context = super(Delete, self).get_context_data(**kwargs)
         collection_contents = self.get_collection_contents()
 
         if collection_contents:
@@ -103,13 +103,13 @@ class Delete(DeleteView):
         return context
 
     def post(self, request, instance_id):
-        self.instance = get_object_or_404(self.get_queryset(), id=instance_id)
+        self.object = get_object_or_404(self.get_queryset(), id=instance_id)
         collection_contents = self.get_collection_contents()
 
         if collection_contents:
             # collection is non-empty; refuse to delete it
             return HttpResponseForbidden()
 
-        self.instance.delete()
-        messages.success(request, self.success_message.format(self.instance))
+        self.object.delete()
+        messages.success(request, self.success_message.format(self.object))
         return redirect(self.index_url_name)
