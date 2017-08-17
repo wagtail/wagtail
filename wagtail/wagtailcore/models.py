@@ -2,7 +2,6 @@ from __future__ import absolute_import, unicode_literals
 
 import json
 import logging
-import warnings
 from collections import defaultdict
 from django import VERSION as DJANGO_VERSION
 
@@ -31,13 +30,12 @@ from modelcluster.models import ClusterableModel, get_all_child_relations
 from treebeard.mp_tree import MP_Node
 
 from wagtail.utils.compat import user_is_authenticated
-from wagtail.utils.deprecation import RemovedInWagtail113Warning
 from wagtail.wagtailcore.query import PageQuerySet, TreeQuerySet
 from wagtail.wagtailcore.signals import page_published, page_unpublished
 from wagtail.wagtailcore.sites import get_site_for_hostname
 from wagtail.wagtailcore.url_routing import RouteResult
 from wagtail.wagtailcore.utils import (
-    WAGTAIL_APPEND_SLASH, accepts_kwarg, camelcase_to_underscore, resolve_model_string)
+    WAGTAIL_APPEND_SLASH, camelcase_to_underscore, resolve_model_string)
 from wagtail.wagtailsearch import index
 
 logger = logging.getLogger('wagtail.core')
@@ -573,18 +571,6 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
                 )
             )
 
-        if not accepts_kwarg(cls.relative_url, 'request'):
-            warnings.warn(
-                "%s.relative_url should accept a 'request' keyword argument. "
-                "See http://docs.wagtail.io/en/v1.11/reference/pages/model_reference.html#wagtail.wagtailcore.models.Page.relative_url" % cls,
-                RemovedInWagtail113Warning)
-
-        if not accepts_kwarg(cls.get_url_parts, 'request'):
-            warnings.warn(
-                "%s.get_url_parts should accept a 'request' keyword argument. "
-                "See http://docs.wagtail.io/en/v1.11/reference/pages/model_reference.html#wagtail.wagtailcore.models.Page.get_url_parts" % cls,
-                RemovedInWagtail113Warning)
-
         return errors
 
     def _update_descendant_url_paths(self, old_url_path, new_url_path):
@@ -792,18 +778,6 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
             cache_object._wagtail_cached_site_root_paths = Site.get_site_root_paths()
             return cache_object._wagtail_cached_site_root_paths
 
-    def _safe_get_url_parts(self, request=None):
-        """
-        Backwards-compatibility method to safely call get_url_parts without
-        the new ``request`` kwarg (added in Wagtail 1.11), if needed.
-        """
-        # RemovedInWagtail113Warning - this accepts_kwarg test can be removed when we drop support
-        # for get_url_parts methods which omit the `request` kwarg
-        if accepts_kwarg(self.get_url_parts, 'request'):
-            return self.get_url_parts(request=request)
-        else:
-            return self.get_url_parts()
-
     def get_url_parts(self, request=None):
         """
         Determine the URL for this page and return it as a tuple of
@@ -835,7 +809,7 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
 
     def get_full_url(self, request=None):
         """Return the full URL (including protocol / domain) to this page, or None if it is not routable"""
-        url_parts = self._safe_get_url_parts(request=request)
+        url_parts = self.get_url_parts(request=request)
 
         if url_parts is None:
             # page is not routable
@@ -866,7 +840,7 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
         # copy/pasting the code to the ``relative_url`` method below.
         if current_site is None and request is not None:
             current_site = getattr(request, 'site', None)
-        url_parts = self._safe_get_url_parts(request=request)
+        url_parts = self.get_url_parts(request=request)
 
         if url_parts is None:
             # page is not routable
