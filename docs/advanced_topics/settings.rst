@@ -268,6 +268,24 @@ This setting lets you override the maximum number of pixels an image can have. I
 This setting enables feature detection once OpenCV is installed, see all details on the :ref:`image_feature_detection` documentation.
 
 
+Documents
+---------
+
+.. code-block:: python
+
+  WAGTAILDOCS_SERVE_METHOD = 'redirect'
+
+Determines how document downloads will be served. Normally, requests for documents are sent through a Django view, to perform permission checks (see :ref:`image_document_permissions`) and potentially other housekeeping tasks such as hit counting. To fully protect against users bypassing this check, it needs to happen in the same request where the document is served; however, this incurs a performance hit as the document then needs to be served by the Django server. In particular, this cancels out much of the benefit of hosting documents on external storage, such as S3 or a CDN.
+
+For this reason, Wagtail provides a number of serving methods which trade some of the strictness of the permission check for performance:
+
+ * ``'direct'`` - links to documents point directly to the URL provided by the underlying storage, bypassing the permission check. This is most useful when deploying sites as fully static HTML (e.g. using `wagtail-bakery <https://github.com/wagtail/wagtail-bakery>`_ or `Gatsby <https://www.gatsbyjs.org/>`_).
+ * ``'redirect'`` - links to documents point to a Django view which will check the user's permission; if successful, it will redirect to the URL provided by the underlying storage to allow the document to be downloaded. This is most suitable for remote storage backends such as S3, as it allows the document to be served independently of the Django server. Note that if a user is able to guess the latter URL, they will be able to bypass the permission check; some storage backends may provide configuration options to generate a random or short-lived URL to mitigate this.
+ * ``'serve_view'`` - links to documents point to a Django view which both checks the user's permission, and serves the document. Serving will be handled by `django-sendfile <https://github.com/johnsensible/django-sendfile>`_, if this is installed and supported by your server configuration, or as a streaming response from Django if not. When using this method, it is recommended that you configure your webserver to *disallow* serving documents directly from their location under ``MEDIA_ROOT``, as this would provide a way to bypass the permission check.
+
+If ``WAGTAILDOCS_SERVE_METHOD`` is unspecified or set to ``None``, the default method is ``'redirect'`` when a remote storage backend is in use (i.e. one that exposes a URL but not a local filesystem path), and ``'serve_view'`` otherwise. Finally, some storage backends may not expose a URL at all; in this case, serving will proceed as for ``'serve_view'``.
+
+
 Password Management
 -------------------
 
