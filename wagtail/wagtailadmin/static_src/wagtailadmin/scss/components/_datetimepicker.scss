@@ -191,6 +191,7 @@
             overflow-y: hidden;
 
             &.xdsoft_monthselect {right: -7px;}
+
             &.xdsoft_yearselect {right: 2px;}
 
             > div > .xdsoft_option:hover {
@@ -298,7 +299,9 @@
 }
 
 .xdsoft_noselect::selection { background: transparent; }
+
 .xdsoft_noselect::-moz-selection { background: transparent; }
+
 .xdsoft_datetimepicker.xdsoft_inline {
     display: inline-block;
     position: static;
