@@ -60,6 +60,8 @@
     "react-addons-perf": "^15.4.2",
     "react-test-renderer": "^15.5.4",
     "redux-mock-store": "^1.2.2",
+    "stylelint": "^8.0.0",
+    "stylelint-scss": "^2.0.1",
     "webpack": "^2.6.1"
   },
   "dependencies": {
@@ -82,7 +84,7 @@
     "watch": "webpack --config ./client/webpack/dev.config.js & gulp watch",
     "start": "npm run watch",
     "lint:js": "eslint --max-warnings 16 ./client",
-    "lint:css": "scss-lint",
+    "lint:css": "stylelint **/*.scss",
     "lint": "npm run lint:js",
     "test": "npm run test:unit",
     "test:unit": "jest",

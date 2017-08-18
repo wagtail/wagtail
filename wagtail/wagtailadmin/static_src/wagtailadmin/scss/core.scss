@@ -105,7 +105,6 @@ body {
 }
 
 .page-locked {
-
     .tab-content {
         cursor: not-allowed;
         user-select: none;
@@ -300,9 +299,8 @@ footer {
 // the z-index shouldn't be required.
 
 // .content-wrapper {
-    // z-index: 3;
+// z-index: 3;
 // }
-
 .nav-submenu {
     z-index: 6;
 }

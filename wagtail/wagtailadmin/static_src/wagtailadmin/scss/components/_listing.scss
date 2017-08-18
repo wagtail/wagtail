@@ -1,5 +1,4 @@
 // General listings, like for pages, images or snippets
-
 ul.listing {
     @include unlist();
 }
@@ -524,7 +523,6 @@ table.listing {
 
 
 // listing filters
-
 .listing-filter {
     @include clearfix();
     background-color: $color-grey-5;

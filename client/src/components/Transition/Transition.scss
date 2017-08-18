@@ -35,7 +35,6 @@ $c-transition-duration: 200ms;
 // =============================================================================
 // Pop transition
 // =============================================================================
-
 .c-transition-pop-enter {
     transform: translateX(-100%);
     transition: transform $c-transition-duration ease, opacity $c-transition-duration linear;

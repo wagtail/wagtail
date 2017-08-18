@@ -252,6 +252,7 @@ Contributors
 * Emily Horsman
 * jcronyn
 * Ben Sturmfels
+* Anselm Bradford
 
 Translators
 ===========

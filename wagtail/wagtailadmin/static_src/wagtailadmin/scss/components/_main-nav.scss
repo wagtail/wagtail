@@ -438,7 +438,7 @@ body.explorer-open {
 
 // Media query hacks to detect IE10+ which doesn't support 3d transform of static elements and needs a fallback
 @media all and (-ms-high-contrast: none),
-       all and (-ms-high-contrast: active) {
+    all and (-ms-high-contrast: active) {
     .wrapper {
         @include transition(left 0.2s ease);
         left: 0;
@@ -465,7 +465,7 @@ body.explorer-open {
 }
 
 @media all and (min-width: $breakpoint-mobile) and (-ms-high-contrast: none),
-       all and (min-width: $breakpoint-mobile) and (-ms-high-contrast: active) {
+    all and (min-width: $breakpoint-mobile) and (-ms-high-contrast: active) {
     body.explorer-open {
         .wrapper {
             left: 0;
