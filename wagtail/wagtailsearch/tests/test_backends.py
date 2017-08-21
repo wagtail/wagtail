@@ -200,6 +200,30 @@ class BackendTests(WagtailTestUtils):
             set(unsorted_results),
             {self.testa, self.testb, self.testc.searchtest_ptr})
 
+    def test_same_rank_pages(self):
+        """
+        Checks that results with a same ranking cannot be found multiple times
+        across pages (see issue #3729).
+        """
+        same_rank_objects = set()
+        try:
+            for i in range(10):
+                obj = models.SearchTest.objects.create(title='Rank %s' % i)
+                self.backend.add(obj)
+                same_rank_objects.add(obj)
+            self.refresh_index()
+
+            results = self.backend.search('Rank', models.SearchTest)
+            results_across_pages = set()
+            for i, obj in enumerate(same_rank_objects):
+                results_across_pages.add(results[i:i + 1][0])
+            self.assertSetEqual(results_across_pages, same_rank_objects)
+        finally:
+            for obj in same_rank_objects:
+                self.backend.delete(obj)
+                obj.delete()
+            self.refresh_index()
+
     def test_delete(self):
         # Delete one of the objects
         self.backend.delete(self.testa)
