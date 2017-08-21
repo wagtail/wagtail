@@ -246,12 +246,13 @@ class PostgresSearchQuery(BaseSearchQuery):
 
     def search_in_index(self, queryset, search_query, start, stop):
         index_entries = self.get_in_index_queryset(queryset, search_query)
-        order_sql = ''
         values = ['typed_pk']
         if self.order_by_relevance:
             index_entries = index_entries.rank(search_query)
             values.append('rank')
-            order_sql = 'ORDER BY index_entry.rank DESC'
+            order_sql = 'ORDER BY index_entry.rank DESC, id ASC'
+        else:
+            order_sql = 'ORDER BY id ASC'
         index_sql, index_params = get_sql(
             index_entries.annotate_typed_pk()
             .values(*values)
