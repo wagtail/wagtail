@@ -4,15 +4,16 @@
 #
 # Translators:
 # utek <mail@utek.pl>, 2014
+# Miłosz Miśkiewicz, 2017
 # Miłosz Miśkiewicz, 2016
 # utek <mail@utek.pl>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-19 16:55+0000\n"
-"PO-Revision-Date: 2017-04-19 21:08+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-08-10 16:05+0000\n"
+"PO-Revision-Date: 2017-08-17 07:10+0000\n"
+"Last-Translator: Miłosz Miśkiewicz\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -89,11 +90,42 @@ msgstr "odrzucone notyfikacje"
 msgid "Receive notification when your page edit is rejected"
 msgstr "Otrzymuj powiadomienie gdy twoja zmiana strony została odrzucona"
 
+msgid "preferred language"
+msgstr "preferowany język"
+
+msgid "Select language for the admin"
+msgstr "Wybierz język dla administratora"
+
 msgid "user profile"
 msgstr "profil użytkownika"
 
 msgid "Delete group"
 msgstr "Usuń grupę"
+
+#, python-format
+msgid ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> member.\n"
+"            "
+msgid_plural ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> members.\n"
+"            "
+msgstr[0] ""
+"\n"
+" Grupa '%(group_name)s' ma %(group_user_count)s członka."
+msgstr[1] ""
+"\n"
+" Grupa '%(group_name)s' ma %(group_user_count)s członków."
+msgstr[2] ""
+"\n"
+" Grupa '%(group_name)s' ma %(group_user_count)s członków."
+msgstr[3] ""
+"\n"
+"                Grupa '%(group_name)s' ma <strong>%(group_user_count)s</"
+"strong> członków."
 
 msgid ""
 "Deleting this group will revoke this group's permissions from all member "

@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-19 16:55+0000\n"
-"PO-Revision-Date: 2017-07-29 04:58+0000\n"
+"POT-Creation-Date: 2017-08-10 16:05+0000\n"
+"PO-Revision-Date: 2017-08-14 09:33+0000\n"
 "Last-Translator: Jim Brouzoulis <jim.brouzoulis@chalmers.se>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
@@ -1168,6 +1168,9 @@ msgstr "Isländska"
 msgid "Italian"
 msgstr "Italienska"
 
+msgid "Korean"
+msgstr "Koreanska"
+
 msgid "Lithuanian"
 msgstr "Litauiska"
 
@@ -1194,6 +1197,9 @@ msgstr "Romänska"
 
 msgid "Russian"
 msgstr "Ryska"
+
+msgid "Swedish"
+msgstr "Svenska"
 
 msgid "Chinese (China)"
 msgstr "Kinesiska"
