@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.12 LTS (xx.xx.xxxx) - IN DEVELOPMENT
+1.12 LTS (21.08.2017)
 ~~~~~~~~~~~~~~~~~~~~~
 
  * Ability to configure the feature set of rich text fields on a per-field basis (Matt Westcott)
