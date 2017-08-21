@@ -13,6 +13,6 @@ Whichever way you insert a link, you will be presented with the form displayed b
   * Internal link: A link to an existing page within your website.
   * External link: A link to a page on another website.
   * Email link: A link that will open the user's default email client with the email address prepopulated.
+  * Phone link: A link that will open the user's default client for initiating audio calls, with the phone number prepopulated.
 
 * You can also navigate through the website to find an internal link via the explorer.
-
