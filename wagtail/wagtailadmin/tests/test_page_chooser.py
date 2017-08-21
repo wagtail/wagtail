@@ -558,6 +558,62 @@ class TestChooserEmailLink(TestCase, WagtailTestUtils):
         self.assertContains(response, '"prefer_this_title_as_link_text": true')
 
 
+class TestChooserPhoneLink(TestCase, WagtailTestUtils):
+    def setUp(self):
+        self.login()
+
+    def get(self, params={}):
+        return self.client.get(reverse('wagtailadmin_choose_page_phone_link'), params)
+
+    def post(self, post_data={}, url_params={}):
+        url = reverse('wagtailadmin_choose_page_phone_link')
+        if url_params:
+            url += '?' + urlencode(url_params)
+        return self.client.post(url, post_data)
+
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/chooser/phone_link.html')
+
+    def test_prepopulated_form(self):
+        response = self.get({'link_text': 'Example', 'phone_number': '123456789'})
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Example')
+        self.assertContains(response, '123456789')
+
+    def test_create_link(self):
+        response = self.post({'phone_number': '123456789', 'link_text': 'contact'})
+        self.assertContains(response, '"url": "tel:123456789"')
+        self.assertContains(response, '"title": "contact"')  # When link text is given, it is used
+        self.assertContains(response, '"prefer_this_title_as_link_text": true')
+
+    def test_create_link_without_text(self):
+        response = self.post({'phone_number': '123456789'})
+        self.assertContains(response, '"url": "tel:123456789"')
+        self.assertContains(response, '"title": "123456789"')  # When no link text is given, it uses the email
+        self.assertContains(response, '"prefer_this_title_as_link_text": false')
+
+    def test_notice_changes_to_link_text(self):
+        response = self.post(
+            {'phone_number': '987654321', 'link_text': 'example'},  # POST data
+            {'link_url': '123456789', 'link_text': 'example'}  # GET params - initial data
+        )
+        self.assertContains(response, '"url": "tel:987654321"')
+        self.assertContains(response, '"title": "example"')
+        # no change to link text, so prefer the existing link/selection content where available
+        self.assertContains(response, '"prefer_this_title_as_link_text": false')
+
+        response = self.post(
+            {'phone_number': '987654321', 'link_text': 'new example'},  # POST data
+            {'phone_number': '123456789', 'link_text': 'example'}  # GET params - initial data
+        )
+        self.assertContains(response, '"url": "tel:987654321"')
+        self.assertContains(response, '"title": "new example"')
+        # link text has changed, so tell the caller to use it
+        self.assertContains(response, '"prefer_this_title_as_link_text": true')
+
+
 class TestCanChoosePage(TestCase, WagtailTestUtils):
     fixtures = ['test.json']
 
