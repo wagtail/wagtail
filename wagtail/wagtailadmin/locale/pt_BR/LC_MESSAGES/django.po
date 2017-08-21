@@ -17,9 +17,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-19 16:55+0000\n"
-"PO-Revision-Date: 2017-07-06 06:05+0000\n"
-"Last-Translator: Gladson <gladsonbrito@gmail.com>\n"
+"POT-Creation-Date: 2017-08-10 16:05+0000\n"
+"PO-Revision-Date: 2017-08-10 19:13+0000\n"
+"Last-Translator: Luiz Boaretto <lboaretto@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -1175,6 +1175,9 @@ msgstr "Islandês"
 msgid "Italian"
 msgstr "Italiano"
 
+msgid "Korean"
+msgstr "Coreano"
+
 msgid "Lithuanian"
 msgstr "Lituano"
 
@@ -1201,6 +1204,9 @@ msgstr "Romena"
 
 msgid "Russian"
 msgstr "Russo"
+
+msgid "Swedish"
+msgstr "Sueco"
 
 msgid "Chinese (China)"
 msgstr "Chinês (China)"

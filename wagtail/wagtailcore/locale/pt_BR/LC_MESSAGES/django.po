@@ -15,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-19 16:55+0000\n"
-"PO-Revision-Date: 2017-07-06 06:11+0000\n"
-"Last-Translator: Gladson <gladsonbrito@gmail.com>\n"
+"POT-Creation-Date: 2017-08-10 16:05+0000\n"
+"PO-Revision-Date: 2017-08-10 19:15+0000\n"
+"Last-Translator: Luiz Boaretto <lboaretto@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -32,6 +32,17 @@ msgstr "{label}: este bloco não possui opções."
 
 msgid "This block has no options."
 msgstr "Este bloco não possui opções."
+
+#, python-format
+msgid "The minimum number of items is %d"
+msgstr "O número mínimo de itens é %d"
+
+msgid "This field is required."
+msgstr "Este campo é obrigatório."
+
+#, python-format
+msgid "The maximum number of items is %d"
+msgstr "O número máximo de itens é %d"
 
 msgid "Password"
 msgstr "Senha"

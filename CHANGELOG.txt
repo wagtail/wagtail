@@ -8,7 +8,7 @@ Changelog
  * Fix: Using `order_by_relevance=False` when searching with PostgreSQL now works (Mitchel Cabuloy)
  * Fix: Inline panel first and last sorting arrows correctly hidden in non-default tabs (Matt Westcott)
 
-1.12 LTS (xx.xx.xxxx) - IN DEVELOPMENT
+1.12 LTS (21.08.2017)
 ~~~~~~~~~~~~~~~~~~~~~
 
  * Ability to configure the feature set of rich text fields on a per-field basis (Matt Westcott)
