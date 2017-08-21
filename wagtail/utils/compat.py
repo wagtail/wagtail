@@ -15,3 +15,17 @@ def user_is_anonymous(user):
         return user.is_anonymous
     else:
         return user.is_anonymous()
+
+
+# coreapi is optional
+try:
+    import coreapi
+except ImportError:
+    coreapi = None
+
+
+# coreschema is optional
+try:
+    import coreschema
+except ImportError:
+    coreschema = None

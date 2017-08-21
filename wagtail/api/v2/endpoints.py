@@ -72,7 +72,7 @@ class BaseAPIEndpoint(GenericViewSet):
     def get_queryset(self):
         return self.model.objects.all().order_by('id')
 
-    def listing_view(self, request):
+    def list(self, request):
         queryset = self.get_queryset()
         self.check_query_parameters(queryset)
         queryset = self.filter_queryset(queryset)
@@ -80,7 +80,7 @@ class BaseAPIEndpoint(GenericViewSet):
         serializer = self.get_serializer(queryset, many=True)
         return self.get_paginated_response(serializer.data)
 
-    def detail_view(self, request, pk):
+    def retrieve(self, request, pk):
         instance = self.get_object()
         serializer = self.get_serializer(instance)
         return Response(serializer.data)
@@ -273,7 +273,7 @@ class BaseAPIEndpoint(GenericViewSet):
         request = self.request
 
         # Get model
-        if self.action == 'listing_view':
+        if self.action == 'list':
             model = self.get_queryset().model
         else:
             model = type(self.get_object())
@@ -289,7 +289,7 @@ class BaseAPIEndpoint(GenericViewSet):
             fields_config = []
 
         # Allow "detail_only" (eg parent) fields on detail view
-        if self.action == 'listing_view':
+        if self.action == 'list':
             show_details = False
         else:
             show_details = True
@@ -317,8 +317,8 @@ class BaseAPIEndpoint(GenericViewSet):
         This returns a list of URL patterns for the endpoint
         """
         return [
-            url(r'^$', cls.as_view({'get': 'listing_view'}), name='listing'),
-            url(r'^(?P<pk>\d+)/$', cls.as_view({'get': 'detail_view'}), name='detail'),
+            url(r'^$', cls.as_view({'get': 'list'}), name='listing'),
+            url(r'^(?P<pk>\d+)/$', cls.as_view({'get': 'retrieve'}), name='detail'),
         ]
 
     @classmethod
