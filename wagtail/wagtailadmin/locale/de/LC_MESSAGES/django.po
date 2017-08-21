@@ -25,9 +25,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-19 16:55+0000\n"
-"PO-Revision-Date: 2017-06-20 07:41+0000\n"
-"Last-Translator: Moritz Pfeiffer <moritz@alp-phone.ch>\n"
+"POT-Creation-Date: 2017-08-10 16:05+0000\n"
+"PO-Revision-Date: 2017-08-15 19:04+0000\n"
+"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -1190,6 +1190,9 @@ msgstr "Isländisch"
 msgid "Italian"
 msgstr "Italienisch"
 
+msgid "Korean"
+msgstr "Koreanisch"
+
 msgid "Lithuanian"
 msgstr "Litauisch"
 
@@ -1216,6 +1219,9 @@ msgstr "Rumänisch"
 
 msgid "Russian"
 msgstr "Russisch"
+
+msgid "Swedish"
+msgstr "Schwedisch"
 
 msgid "Chinese (China)"
 msgstr "Chinesisch (China)"
