@@ -9,7 +9,7 @@ Changelog
  * Fix: Inline panel first and last sorting arrows correctly hidden in non-default tabs (Matt Westcott)
  * Fix: In PostgreSQL, new default ordering when ranking of objects is the same (Bertrand Bordage)
 
-1.12 LTS (xx.xx.xxxx) - IN DEVELOPMENT
+1.12 LTS (21.08.2017)
 ~~~~~~~~~~~~~~~~~~~~~
 
  * Ability to configure the feature set of rich text fields on a per-field basis (Matt Westcott)
