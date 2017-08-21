@@ -1,5 +1,5 @@
 {% load i18n wagtailadmin_tags %}
-{% if allow_external_link or allow_email_link or current == 'external' or current == 'email' %}
+{% if allow_external_link or allow_email_link or current == 'external' or current == 'email' or current == 'phone' %}
     <p class="link-types">
         {% if current == 'internal' %}
             <b>{% trans "Internal link" %}</b>
@@ -22,5 +22,12 @@
         {% elif allow_email_link %}
             | <a href="{% url 'wagtailadmin_choose_page_email_link' %}{% querystring p=None parent_page_id=parent_page_id %}">{% trans "Email link" %}</a>
         {% endif %}
+
+        {% if current == 'phone' %}
+            | <b>{% trans "Phone link" %}</b>
+        {% elif allow_phone_link %}
+            | <a href="{% url 'wagtailadmin_choose_page_phone_link' %}{% querystring p=None parent_page_id=parent_page_id %}">{% trans "Phone link" %}</a>
+        {% endif %}
+
     </p>
 {% endif %}

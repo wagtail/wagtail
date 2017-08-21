@@ -37,7 +37,8 @@
                     url = window.chooserUrls.pageChooser;
                     urlParams = {
                         'allow_external_link': true,
-                        'allow_email_link': true
+                        'allow_email_link': true,
+                        'allow_phone_link': true
                     };
 
                     enclosingLink = getEnclosingLink();

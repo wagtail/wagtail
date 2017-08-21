@@ -68,6 +68,11 @@ class EmailLinkChooserForm(forms.Form):
     link_text = forms.CharField(required=False)
 
 
+class PhoneLinkChooserForm(forms.Form):
+    phone_number = forms.CharField(required=True)
+    link_text = forms.CharField(required=False)
+
+
 class LoginForm(AuthenticationForm):
     username = forms.CharField(
         max_length=254,
