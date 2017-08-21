@@ -285,7 +285,7 @@ class PostgresSearchQuery(BaseSearchQuery):
         return self.search_in_fields(queryset, search_query, start, stop)
 
 
-class PostgresSearchResult(BaseSearchResults):
+class PostgresSearchResults(BaseSearchResults):
     def get_config(self):
         queryset = self.query.queryset
         return self.backend.get_index_for_model(
@@ -335,7 +335,7 @@ class PostgresSearchAtomicRebuilder(PostgresSearchRebuilder):
 
 class PostgresSearchBackend(BaseSearchBackend):
     query_class = PostgresSearchQuery
-    results_class = PostgresSearchResult
+    results_class = PostgresSearchResults
     rebuilder_class = PostgresSearchRebuilder
     atomic_rebuilder_class = PostgresSearchAtomicRebuilder
 
