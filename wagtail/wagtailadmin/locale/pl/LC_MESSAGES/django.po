@@ -6,15 +6,16 @@
 # Bartek Sielicki <sielickib@student.mini.pw.edu.pl>, 2017
 # utek <mail@utek.pl>, 2014
 # Mateusz <undefined5102@gmail.com>, 2015
+# Miłosz Miśkiewicz, 2017
 # Miłosz Miśkiewicz, 2016-2017
 # utek <mail@utek.pl>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-19 16:55+0000\n"
-"PO-Revision-Date: 2017-06-19 16:57+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-08-10 16:05+0000\n"
+"PO-Revision-Date: 2017-08-17 07:16+0000\n"
+"Last-Translator: Miłosz Miśkiewicz\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -24,6 +25,9 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n"
 "%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
 "%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+
+msgid "None"
+msgstr "Brak"
 
 msgid "You do not have permission to access the admin"
 msgstr "Nie posiadasz praw dostępu do części administracyjnej"
@@ -128,9 +132,16 @@ msgstr[3] ""
 "również ich kopię?"
 
 #, python-format
+msgid "You do not have permission to copy to page \"%(page_title)s\""
+msgstr "Nie posiadasz uprawnień do skopiowania strony \"%(page_title)s\""
+
+#, python-format
 msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
 msgstr "Slug jest już wykorzystywany w kontekście strony nadrzędnej \"%s\""
+
+msgid "You cannot copy a page into itself when copying subpages"
+msgstr "Nie możesz skopiować strony do siebie samej kiedy kopiujesz podstrony"
 
 msgid "Visibility"
 msgstr "Widoczność"
@@ -180,11 +191,20 @@ msgstr "Ustawienia powiadomień"
 msgid "Choose which email notifications to receive."
 msgstr "Wybierz, które powiadomienia mailowe chcesz otrzymywać"
 
+msgid "Language preferences"
+msgstr "Ustawienia językowe"
+
+msgid "Choose the language you want to use here."
+msgstr "Wybierz język jaki chcesz tutaj wykorzystać"
+
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr ""
 "Twoje hasło nie może być zmienione. Proszę skontaktować się z "
 "administratorem."
+
+msgid "Language Preferences"
+msgstr "Ustawienia Językowe"
 
 msgid "Update"
 msgstr "Uaktualnij"
@@ -225,8 +245,29 @@ msgstr "Zresetuj swoje hasło"
 msgid "Edit"
 msgstr "Edytuj"
 
+msgid "Page"
+msgstr "Strona"
+
 msgid "Pages"
 msgstr "Strony"
+
+msgid "Loading..."
+msgstr "Wczytywanie..."
+
+msgid "No results"
+msgstr "Brak wyników"
+
+msgid "Server Error"
+msgstr "Błąd serwera"
+
+msgid "See children"
+msgstr "Zobacz elementy podrzędne"
+
+msgid "See all"
+msgstr "Zobacz wszystkie"
+
+msgid "Close explorer"
+msgstr "Zamknij przeglądarke"
 
 msgid "Dashboard"
 msgstr "Kokpit"
@@ -325,8 +366,20 @@ msgstr "Wstaw link"
 msgid "Add an external link"
 msgstr "Dodaj link zewnętrzny"
 
+msgid "Collection privacy"
+msgstr "Prywatność kolekcji"
+
+msgid "This collection has been made private by a parent collection."
+msgstr "Ta kolekcja została ustawiona jako prywatna przez kolekcję nadrzędną."
+
 msgid "You can edit the privacy settings on:"
 msgstr "Możesz zmieniać ustawienia prywatności na:"
+
+msgid ""
+"Privacy settings determine who is able to view documents in this collection."
+msgstr ""
+"Ustawienia prywatności określają kto jest upoważniony do zobaczenia "
+"dokumentów w tej kolekcji."
 
 msgid "Save"
 msgstr "Zapisz"
@@ -653,6 +706,10 @@ msgstr "Tak, cofnij publikację"
 msgid "No, don't unpublish"
 msgstr "Anuluj publikację"
 
+#, python-format
+msgid "Pages using %(page_class_verbose_name)s"
+msgstr "Strony wykorzystujące %(page_class_verbose_name)s"
+
 msgid "Pages using"
 msgstr "Strony używające"
 
@@ -816,6 +873,9 @@ msgstr "Dodaj stronę podrzędną do '%(title)s'"
 msgid "Add child page"
 msgstr "Dodaj stronę podrzędną"
 
+msgid "Sites menu"
+msgstr "Menu stron"
+
 #, python-format
 msgid ""
 "\n"
@@ -852,8 +912,93 @@ msgstr "Wybierz nową stronę nadrzędną dla %(title)s"
 msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Wybierz nową stronę nadrzędną dla <span>%(title)s</span>"
 
+msgid "Preview error"
+msgstr "Błąd podglądu"
+
+msgid ""
+"\n"
+"                Impossible to preview this page, some errors are remaining.\n"
+"                Please close this tab, edit the page to fix these errors,\n"
+"                then use preview again.\n"
+"            "
+msgstr ""
+"\n"
+"                Brak możliwości podglądu tej strony, wystąpiły błędy.\n"
+"                Zamknij tą informację i popraw błędy, a następnie\n"
+"                spróbuj jeszcze raz ją podejrzeć.\n"
+"            "
+
+msgid "Close"
+msgstr "Zamknij"
+
+#, python-format
+msgid "Comparing %(title)s"
+msgstr "Porównywanie %(title)s"
+
+msgid "Comparing"
+msgstr "Porównywanie"
+
+msgid "View revisions"
+msgstr "Podgląd rewizji"
+
+msgid "Fields"
+msgstr "Pola"
+
 msgid "Changes"
 msgstr "Zmiany"
+
+#, python-format
+msgid ""
+"\n"
+"                                                            Moved down 1 "
+"place.\n"
+"                                                        "
+msgid_plural ""
+"\n"
+"                                                            Moved down "
+"%(counter)s places.\n"
+"                                                        "
+msgstr[0] ""
+"\n"
+"                                                            Przesunięto w "
+"dół o 1 miejsce."
+msgstr[1] ""
+"\n"
+" Przesunięto w dół o %(counter)s miejsc."
+msgstr[2] ""
+"\n"
+" Przesunięto w dół o %(counter)s miejsc."
+msgstr[3] ""
+"\n"
+"                                                            Przesunięto w "
+"dół o %(counter)s miejsc."
+
+#, python-format
+msgid ""
+"\n"
+"                                                            Moved up 1 "
+"place.\n"
+"                                                        "
+msgid_plural ""
+"\n"
+"                                                            Moved up "
+"%(counter)s places.\n"
+"                                                        "
+msgstr[0] ""
+"\n"
+" Przesunięto w górę o 1 miejsce."
+msgstr[1] ""
+"\n"
+" Przesunięto w górę o %(counter)s miejsc."
+msgstr[2] ""
+"\n"
+" Przesunięto w górę o %(counter)s miejsc."
+msgstr[3] ""
+"\n"
+" Przesunięto w górę o %(counter)s miejsc."
+
+msgid "There are no differences between these two revisions"
+msgstr "Nie ma żadnych różnic pomiędzy tymi dwoma rewizjami"
 
 #, python-format
 msgid "Revisions of %(title)s"
@@ -872,8 +1017,14 @@ msgstr "przez"
 msgid "Current draft"
 msgstr "Aktualny szkic"
 
+msgid "Live version"
+msgstr "Wersja Live"
+
 msgid "Review this revision"
 msgstr "Sprawdź tą rewizję"
+
+msgid "Compare with previous revision"
+msgstr "Porównaj z poprzednią rewizją"
 
 msgid "No revisions of this page exist"
 msgstr "Dla tej strony nie istnieją żadne rewizje"
@@ -1044,11 +1195,80 @@ msgstr "Pokaż w Przeglądarce"
 msgid "Test"
 msgstr "Test"
 
+msgid "Catalan"
+msgstr "Kataloński"
+
+msgid "German"
+msgstr "Niemiecki"
+
+msgid "Greek"
+msgstr "Grecki"
+
+msgid "English"
+msgstr "Angielski"
+
+msgid "Spanish"
+msgstr "Hiszpański"
+
+msgid "Finnish"
+msgstr "Fiński"
+
+msgid "French"
+msgstr "Francuski"
+
+msgid "Galician"
+msgstr "Galicyjski"
+
+msgid "Icelandic"
+msgstr "Islandzki"
+
+msgid "Italian"
+msgstr "Włoski"
+
+msgid "Korean"
+msgstr "Koreański"
+
+msgid "Lithuanian"
+msgstr "Litewski"
+
+msgid "Norwegian Bokmål"
+msgstr "Norweski Bokmål"
+
+msgid "Netherlands Dutch"
+msgstr "Holenderski"
+
+msgid "Persian"
+msgstr "Perski"
+
+msgid "Polish"
+msgstr "Polski"
+
+msgid "Brazilian Portuguese"
+msgstr "Portugalski Brazylijski"
+
+msgid "Portuguese"
+msgstr "Portugalski"
+
+msgid "Romanian"
+msgstr "Rumuński"
+
+msgid "Russian"
+msgstr "Rosyjski"
+
+msgid "Swedish"
+msgstr "Szwedzki"
+
+msgid "Chinese (China)"
+msgstr "Chiński (Chiny)"
+
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Przepraszamy, ale nie posiadasz praw dostępu do tego miejsca."
 
 msgid "Your password has been changed successfully!"
 msgstr "Twoje hasło zostało zmienione poprawnie!"
+
+msgid "Your preferences have been updated."
+msgstr "Twoje ustawienia zostały zaktualizowane."
 
 msgid "You have been successfully logged out."
 msgstr "Zostałeś pomyślnie wylogowany."
@@ -1148,6 +1368,9 @@ msgstr "Nie można zapisać zmian zablokownej strony"
 msgid "The page could not be saved due to validation errors"
 msgstr "Strona nie mogła zostać zapisana z powodu błędów poprawności."
 
+msgid "Compare with live version"
+msgstr "Porównaj z wersją Live"
+
 msgid "This page is currently awaiting moderation"
 msgstr "Ta strona oczekuje na przejrzenie."
 
@@ -1216,6 +1439,14 @@ msgid "Edit '{title}'"
 msgstr "Edytuj '{title}'"
 
 #, python-brace-format
+msgid "Preview draft version of '{title}'"
+msgstr "Podgląd szkicu wersji '{title}'"
+
+#, python-brace-format
+msgid "View live version of '{title}'"
+msgstr "Zobacz wersję Live '{title}'"
+
+#, python-brace-format
 msgid "Add a child page to '{title}' "
 msgstr "Dodaj podstronę do '{title}'"
 
@@ -1237,6 +1468,14 @@ msgstr "Skopiuj stronę '{title}'"
 #, python-brace-format
 msgid "Delete page '{title}'"
 msgstr "Usuń stronę '{title}'"
+
+#, python-brace-format
+msgid "Unpublish page '{title}'"
+msgstr "Odpublikuj stronę '{title}'"
+
+#, python-brace-format
+msgid "View revision history for '{title}'"
+msgstr "Zobacz historię rewizji dla '{title}'"
 
 msgid "Choose an item"
 msgstr "Wybierz rzecz"

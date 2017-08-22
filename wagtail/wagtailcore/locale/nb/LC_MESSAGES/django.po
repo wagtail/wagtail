@@ -4,13 +4,13 @@
 #
 # Translators:
 # Eirik Krogstad <eirikkr@gmail.com>, 2015
-# Stein Strindhaug <stein.strindhaug@gmail.com>, 2016
+# Stein Strindhaug <stein.strindhaug@gmail.com>, 2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-19 16:55+0000\n"
-"PO-Revision-Date: 2017-06-19 16:58+0000\n"
+"POT-Creation-Date: 2017-08-10 16:05+0000\n"
+"PO-Revision-Date: 2017-08-10 15:56+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
@@ -147,6 +147,9 @@ msgstr "låst"
 msgid "first published at"
 msgstr "først publisert"
 
+msgid "last published at"
+msgstr "Sist publisert"
+
 msgid "latest revision created at"
 msgstr "siste utgave opprettet"
 
@@ -249,6 +252,15 @@ msgstr "Privat, tilgjengelig kun for brukere i spesifikke grupper"
 msgid "password"
 msgstr "passord"
 
+msgid "groups"
+msgstr "grupper"
+
+msgid "view restriction"
+msgstr "visningsbegrensning"
+
+msgid "view restrictions"
+msgstr "visningsbegrensninger"
+
 msgid "page view restriction"
 msgstr "visningsbegrensning for side"
 
@@ -257,6 +269,12 @@ msgstr "visningsbegrensninger for sider"
 
 msgid "collection"
 msgstr "samling"
+
+msgid "collection view restriction"
+msgstr "visningsbegrensning for samling"
+
+msgid "collection view restrictions"
+msgstr "visningsbegrensninger for samling"
 
 msgid "name"
 msgstr "navn"

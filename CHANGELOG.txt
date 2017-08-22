@@ -1,16 +1,42 @@
 Changelog
 =========
 
-1.12 LTS (xx.xx.xxxx) - IN DEVELOPMENT
+1.13 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~
+
+ * Fix: "Open Link in New Tab" on a right arrow in page explorer should open page list (Emily Horsman)
+ * Fix: Using `order_by_relevance=False` when searching with PostgreSQL now works (Mitchel Cabuloy)
+ * Fix: Inline panel first and last sorting arrows correctly hidden in non-default tabs (Matt Westcott)
+ * Fix: `WAGTAILAPI_LIMIT_MAX` now accepts None to disable limiting (jcronyn)
+
+1.12 LTS (21.08.2017)
 ~~~~~~~~~~~~~~~~~~~~~
 
+ * Ability to configure the feature set of rich text fields on a per-field basis (Matt Westcott)
  * New class-based configuration for media embeds (Karl Hobley)
  * The admin interface now displays a title of the latest draft (Mikalai Radchuk)
+ * `RoutablePageMixin` now has a default "index" route (Andreas Nüßlein, Matt Westcott)
  * Added multi-select form field to the form builder (dwasyl)
+ * Improved performance of sitemap generation (Levi Adler)
+ * StreamField now respects the `blank` setting; StreamBlock accepts a `required` setting (Loic Teixeira)
+ * StreamBlock now accepts `min_num`, `max_num` and `block_counts` settings to control the minimum and maximum numbers of blocks (Edwar Baron, Matt Westcott)
+ * Users can no longer remove their own active / superuser flags through Settings -> Users (Stein Strindhaug, Huub Bouma)
+ * The `process_form_submission` method of form pages now return the created form submission object (cho-leukeleu)
+ * Added `WAGTAILUSERS_PASSWORD_ENABLED` and `WAGTAILUSERS_PASSWORD_REQUIRED` settings to permit creating users with no Django-side passwords, to support external authentication setups (Matt Westcott)
+ * Added help text parameter to `DecimalBlock` and `RegexBlock` (Tomasz Knapik)
+ * Optimised caudal oscillation parameters on logo (Jack Paine)
  * Fix: FieldBlocks in StreamField now call the field's `prepare_value` method (Tim Heap)
  * Fix: Initial disabled state of InlinePanel add button is now set correctly on non-default tabs (Matthew Downey)
  * Fix: Redirects with unicode characters now work (Rich Brennan)
  * Fix: Prevent explorer view from crashing when page model definitions are missing, allowing the offending pages to be deleted (Matt Westcott)
+ * Fix: Hide the userbar from printed page representation (Eugene Morozov)
+ * Fix: Prevent the page editor footer content from collapsing into two lines unnecessarily (Jack Paine)
+ * Fix: StructBlock values no longer render HTML templates as their `str` representation, to prevent infinite loops in debugging / logging tools (Matt Westcott)
+ * Fix: Removed deprecated jQuery ``load`` call from TableBlock initialisation (Jack Paine)
+ * Fix: Position of options in mobile nav-menu (Jack Paine)
+ * Fix: Center page editor footer regardless of screen width (Jack Paine)
+ * Fix: Change the design of the navbar toggle icon so that it no longer obstructs page headers (Jack Paine)
+ * Fix: Document add/edit forms no longer render container elements for hidden fields (Jeffrey Chau)
 
 
 1.11.1 (07.07.2017)

@@ -1316,16 +1316,35 @@ class TestStructBlock(SimpleTestCase):
 
     def test_render_structvalue(self):
         """
-        The string representation of a StructValue should use the block's template
+        The HTML representation of a StructValue should use the block's template
+        """
+        block = SectionBlock()
+        value = block.to_python({'title': 'Hello', 'body': '<i>italic</i> world'})
+        result = value.__html__()
+        self.assertEqual(result, """<h1>Hello</h1><div class="rich-text"><i>italic</i> world</div>""")
+
+        # value.render_as_block() should be equivalent to value.__html__()
+        result = value.render_as_block()
+        self.assertEqual(result, """<h1>Hello</h1><div class="rich-text"><i>italic</i> world</div>""")
+
+    def test_str_structvalue(self):
+        """
+        The str() representation of a StructValue should NOT render the template, as that's liable
+        to cause an infinite loop if any debugging / logging code attempts to log the fact that
+        it rendered a template with this object in the context:
+        https://github.com/wagtail/wagtail/issues/2874
+        https://github.com/jazzband/django-debug-toolbar/issues/950
         """
         block = SectionBlock()
         value = block.to_python({'title': 'Hello', 'body': '<i>italic</i> world'})
         result = str(value)
-        self.assertEqual(result, """<h1>Hello</h1><div class="rich-text"><i>italic</i> world</div>""")
-
-        # value.render_as_block() should be equivalent to str(value)
-        result = value.render_as_block()
-        self.assertEqual(result, """<h1>Hello</h1><div class="rich-text"><i>italic</i> world</div>""")
+        self.assertNotIn('<h1>', result)
+        # The expected rendering should correspond to the native representation of an OrderedDict:
+        # "StructValue([('title', u'Hello'), ('body', <wagtail.wagtailcore.rich_text.RichText object at 0xb12d5eed>)])"
+        # - give or take some quoting differences between Python versions
+        self.assertIn('StructValue', result)
+        self.assertIn('title', result)
+        self.assertIn('Hello', result)
 
     def test_render_structvalue_with_extra_context(self):
         block = SectionBlock()
@@ -1734,6 +1753,37 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         self.assertEqual(list(block.child_blocks.keys()),
                          ['heading', 'paragraph', 'intro', 'by_line'])
 
+    def test_required_raises_an_exception_if_empty(self):
+        block = blocks.StreamBlock([('paragraph', blocks.CharBlock())], required=True)
+        value = blocks.StreamValue(block, [])
+
+        with self.assertRaises(blocks.StreamBlockValidationError):
+            block.clean(value)
+
+    def test_required_does_not_raise_an_exception_if_not_empty(self):
+        block = blocks.StreamBlock([('paragraph', blocks.CharBlock())], required=True)
+        value = block.to_python([{'type': 'paragraph', 'value': 'Hello'}])
+        try:
+            block.clean(value)
+        except blocks.StreamBlockValidationError:
+            raise self.failureException("%s was raised" % blocks.StreamBlockValidationError)
+
+    def test_not_required_does_not_raise_an_exception_if_empty(self):
+        block = blocks.StreamBlock([('paragraph', blocks.CharBlock())], required=False)
+        value = blocks.StreamValue(block, [])
+
+        try:
+            block.clean(value)
+        except blocks.StreamBlockValidationError:
+            raise self.failureException("%s was raised" % blocks.StreamBlockValidationError)
+
+    def test_required_by_default(self):
+        block = blocks.StreamBlock([('paragraph', blocks.CharBlock())])
+        value = blocks.StreamValue(block, [])
+
+        with self.assertRaises(blocks.StreamBlockValidationError):
+            block.clean(value)
+
     def render_article(self, data):
         class ArticleBlock(blocks.StreamBlock):
             heading = blocks.CharBlock()
@@ -2008,6 +2058,99 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             0: ['This field is required.'],
             3: ['Enter a valid URL.'],
         })
+
+    def test_min_num_validation_errors(self):
+        class ValidatedBlock(blocks.StreamBlock):
+            char = blocks.CharBlock()
+            url = blocks.URLBlock()
+        block = ValidatedBlock(min_num=1)
+
+        value = blocks.StreamValue(block, [])
+
+        with self.assertRaises(ValidationError) as catcher:
+            block.clean(value)
+        self.assertEqual(catcher.exception.params, {
+            '__all__': ['The minimum number of items is 1']
+        })
+
+        # a value with >= 1 blocks should pass validation
+        value = blocks.StreamValue(block, [('char', 'foo')])
+        self.assertTrue(block.clean(value))
+
+    def test_max_num_validation_errors(self):
+        class ValidatedBlock(blocks.StreamBlock):
+            char = blocks.CharBlock()
+            url = blocks.URLBlock()
+        block = ValidatedBlock(max_num=1)
+
+        value = blocks.StreamValue(block, [
+            ('char', 'foo'),
+            ('char', 'foo'),
+            ('url', 'http://example.com/'),
+            ('url', 'http://example.com/'),
+        ])
+
+        with self.assertRaises(ValidationError) as catcher:
+            block.clean(value)
+        self.assertEqual(catcher.exception.params, {
+            '__all__': ['The maximum number of items is 1']
+        })
+
+        # a value with 1 block should pass validation
+        value = blocks.StreamValue(block, [('char', 'foo')])
+        self.assertTrue(block.clean(value))
+
+    def test_block_counts_min_validation_errors(self):
+        class ValidatedBlock(blocks.StreamBlock):
+            char = blocks.CharBlock()
+            url = blocks.URLBlock()
+        block = ValidatedBlock(block_counts={'char': {'min_num': 1}})
+
+        value = blocks.StreamValue(block, [
+            ('url', 'http://example.com/'),
+            ('url', 'http://example.com/'),
+        ])
+
+        with self.assertRaises(ValidationError) as catcher:
+            block.clean(value)
+        self.assertEqual(catcher.exception.params, {
+            '__all__': ['Char: The minimum number of items is 1']
+        })
+
+        # a value with 1 char block should pass validation
+        value = blocks.StreamValue(block, [
+            ('url', 'http://example.com/'),
+            ('char', 'foo'),
+            ('url', 'http://example.com/'),
+        ])
+        self.assertTrue(block.clean(value))
+
+    def test_block_counts_max_validation_errors(self):
+        class ValidatedBlock(blocks.StreamBlock):
+            char = blocks.CharBlock()
+            url = blocks.URLBlock()
+        block = ValidatedBlock(block_counts={'char': {'max_num': 1}})
+
+        value = blocks.StreamValue(block, [
+            ('char', 'foo'),
+            ('char', 'foo'),
+            ('url', 'http://example.com/'),
+            ('url', 'http://example.com/'),
+        ])
+
+        with self.assertRaises(ValidationError) as catcher:
+            block.clean(value)
+        self.assertEqual(catcher.exception.params, {
+            '__all__': ['Char: The maximum number of items is 1']
+        })
+
+        # a value with 1 char block should pass validation
+        value = blocks.StreamValue(block, [
+            ('char', 'foo'),
+            ('url', 'http://example.com/'),
+            ('url', 'http://example.com/'),
+        ])
+        self.assertTrue(block.clean(value))
 
     def test_block_level_validation_renders_errors(self):
         block = FooStreamBlock()

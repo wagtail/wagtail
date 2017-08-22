@@ -9,6 +9,7 @@
 # fooflare <amos.oviedo@gmail.com>, 2014
 # Joaquín Tita <carpincho@gmail.com>, 2014
 # José Luis <alagunajs@gmail.com>, 2015-2016
+# José Luis <alagunajs@gmail.com>, 2017
 # Unai Zalakain <inactive+unaizalakain@transifex.com>, 2014
 # Unai Zalakain <inactive+unaizalakain@transifex.com>, 2014
 # José Luis <alagunajs@gmail.com>, 2016-2017
@@ -16,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-19 16:55+0000\n"
-"PO-Revision-Date: 2017-06-26 20:43+0000\n"
+"POT-Creation-Date: 2017-08-10 16:05+0000\n"
+"PO-Revision-Date: 2017-08-11 08:56+0000\n"
 "Last-Translator: José Luis <alagunajs@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
@@ -33,6 +34,17 @@ msgstr "{label}: este bloque no tiene opciones."
 
 msgid "This block has no options."
 msgstr "Este bloque no tiene opciones."
+
+#, python-format
+msgid "The minimum number of items is %d"
+msgstr "El mínimo número de elementos es %d"
+
+msgid "This field is required."
+msgstr "Este campo es necesario."
+
+#, python-format
+msgid "The maximum number of items is %d"
+msgstr "El máximo número de elementos es %d"
 
 msgid "Password"
 msgstr "Contraseña"

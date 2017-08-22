@@ -30,3 +30,11 @@ class TestDBBackend(BackendTests, TestCase):
         for result in results:
             # DB backend doesn't do scoring, so annotate_score should just add None
             self.assertIsNone(result._score)
+
+    @unittest.expectedFailure
+    def test_boost(self):
+        super(TestDBBackend, self).test_boost()
+
+    @unittest.expectedFailure
+    def test_order_by_relevance(self):
+        super(TestDBBackend, self).test_order_by_relevance()

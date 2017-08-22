@@ -19,8 +19,6 @@ If your language isn't listed on that page, you can easily contribute new langua
 
 Change Wagtail admin language on a per user basis
 =================================================
-.. versionadded:: 1.10
-
 
 Logged-in users can set their preferred language from ``/admin/account/``.
 By default, Wagtail provides a list of languages that have a >= 90% translation coverage.

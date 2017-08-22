@@ -99,6 +99,14 @@ $positions: (
     height: auto;
 }
 
+
+@media print {
+    .#{$namespace}-userbar {
+        display: none;
+    }
+}
+
+
     .#{$namespace}-userbar-trigger {
         display: flex;
         align-items: center;

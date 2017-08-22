@@ -44,7 +44,7 @@ exports[`ExplorerItem children 1`] = `
   <Button
     accessibleLabel={null}
     className="c-explorer__item__action"
-    href="#"
+    href="/admin/pages/5/"
     icon=""
     isLoading={false}
     onClick={[Function]}
@@ -156,7 +156,7 @@ exports[`ExplorerItem should show a publication status if not live 1`] = `
   <Button
     accessibleLabel={null}
     className="c-explorer__item__action"
-    href="#"
+    href="/admin/pages/5/"
     icon=""
     isLoading={false}
     onClick={[Function]}
@@ -229,7 +229,7 @@ exports[`ExplorerItem should show a publication status with unpublished changes 
   <Button
     accessibleLabel={null}
     className="c-explorer__item__action"
-    href="#"
+    href="/admin/pages/5/"
     icon=""
     isLoading={false}
     onClick={[Function]}

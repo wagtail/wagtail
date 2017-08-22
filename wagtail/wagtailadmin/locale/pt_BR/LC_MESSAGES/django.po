@@ -7,7 +7,7 @@
 # Claudemiro Alves Feitosa Neto <dimiro1@gmail.com>, 2015
 # Douglas Miranda <douglasmirandasilva@gmail.com>, 2014-2015
 # Gilson Filho <me@gilsondev.in>, 2014
-# Gladson <gladsonbrito@gmail.com>, 2014
+# Gladson <gladsonbrito@gmail.com>, 2014,2017
 # Guilherme Nabanete <neoheartz@gmail.com>, 2016
 # Joao Garcia <joaosdgarcia@gmail.com>, 2017
 # Luiz Boaretto <lboaretto@gmail.com>, 2016
@@ -17,9 +17,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-19 16:55+0000\n"
-"PO-Revision-Date: 2017-06-19 16:57+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-08-10 16:05+0000\n"
+"PO-Revision-Date: 2017-08-10 19:13+0000\n"
+"Last-Translator: Luiz Boaretto <lboaretto@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -124,6 +124,10 @@ msgstr[0] ""
 msgstr[1] ""
 "%(count)s das páginas que estão sendo copiadas, estão publicadas. Você "
 "gostaria de publicar suas cópias?"
+
+#, python-format
+msgid "You do not have permission to copy to page \"%(page_title)s\""
+msgstr "Você não tem permissão para copiar para a página \"%(page_title)s\""
 
 #, python-format
 msgid ""
@@ -233,8 +237,29 @@ msgstr "Redefina sua senha"
 msgid "Edit"
 msgstr "Editar"
 
+msgid "Page"
+msgstr "Página"
+
 msgid "Pages"
 msgstr "Páginas"
+
+msgid "Loading..."
+msgstr "Carregando..."
+
+msgid "No results"
+msgstr "Nenhum resultado"
+
+msgid "Server Error"
+msgstr "Erro de servidor"
+
+msgid "See children"
+msgstr "Ver filhos"
+
+msgid "See all"
+msgstr "Ver todos"
+
+msgid "Close explorer"
+msgstr "Fechar explorador"
 
 msgid "Dashboard"
 msgstr "Painel"
@@ -321,8 +346,20 @@ msgstr "Insira um link"
 msgid "Add an external link"
 msgstr "Adicione um link externo"
 
+msgid "Collection privacy"
+msgstr "Coleção privada"
+
+msgid "This collection has been made private by a parent collection."
+msgstr "Essa coleção foi feita privativa por uma coleção raíz."
+
 msgid "You can edit the privacy settings on:"
 msgstr "Você pode editar as configurações de privacidade em:"
+
+msgid ""
+"Privacy settings determine who is able to view documents in this collection."
+msgstr ""
+"As configurações de privacidade determinam quem é capaz de visualizar os "
+"documentos nesta coleção."
 
 msgid "Save"
 msgstr "Salvar"
@@ -935,6 +972,9 @@ msgstr "por"
 msgid "Current draft"
 msgstr "Rascunho atual"
 
+msgid "Live version"
+msgstr "Versão ao vivo"
+
 msgid "Review this revision"
 msgstr "Rever esta revisão"
 
@@ -1111,6 +1151,9 @@ msgstr "Catalão"
 msgid "German"
 msgstr "Alemão"
 
+msgid "Greek"
+msgstr "Grego"
+
 msgid "English"
 msgstr "Inglês"
 
@@ -1123,14 +1166,29 @@ msgstr "Finlandês"
 msgid "French"
 msgstr "Francês"
 
+msgid "Galician"
+msgstr "Galego"
+
 msgid "Icelandic"
 msgstr "Islandês"
 
 msgid "Italian"
 msgstr "Italiano"
 
+msgid "Korean"
+msgstr "Coreano"
+
 msgid "Lithuanian"
 msgstr "Lituano"
+
+msgid "Norwegian Bokmål"
+msgstr "Bokmål norueguês"
+
+msgid "Netherlands Dutch"
+msgstr "Holandês"
+
+msgid "Persian"
+msgstr "Persa"
 
 msgid "Polish"
 msgstr "Polonês"
@@ -1146,6 +1204,9 @@ msgstr "Romena"
 
 msgid "Russian"
 msgstr "Russo"
+
+msgid "Swedish"
+msgstr "Sueco"
 
 msgid "Chinese (China)"
 msgstr "Chinês (China)"

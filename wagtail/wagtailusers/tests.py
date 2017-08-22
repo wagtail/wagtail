@@ -20,6 +20,7 @@ from wagtail.wagtailusers.views.users import get_user_creation_form, get_user_ed
 
 
 delete_user_perm_codename = "delete_{0}".format(AUTH_USER_MODEL_NAME.lower())
+change_user_perm_codename = "change_{0}".format(AUTH_USER_MODEL_NAME.lower())
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -122,6 +123,8 @@ class TestUserCreateView(TestCase, WagtailTestUtils):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailusers/users/create.html')
+        self.assertContains(response, 'Password:')
+        self.assertContains(response, 'Password confirmation:')
 
     def test_create(self):
         response = self.post({
@@ -186,6 +189,131 @@ class TestUserCreateView(TestCase, WagtailTestUtils):
         # Check that the user was not created
         users = get_user_model().objects.filter(username='testuser')
         self.assertEqual(users.count(), 0)
+
+    def test_create_with_missing_password(self):
+        """Password should be required by default"""
+        response = self.post({
+            'username': "testuser",
+            'email': "test@user.com",
+            'first_name': "Test",
+            'last_name': "User",
+            'password1': "",
+            'password2': "",
+        })
+
+        # Should remain on page
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailusers/users/create.html')
+
+        self.assertTrue(response.context['form'].errors['password1'])
+
+        # Check that the user was not created
+        users = get_user_model().objects.filter(username='testuser')
+        self.assertEqual(users.count(), 0)
+
+    @override_settings(WAGTAILUSERS_PASSWORD_REQUIRED=False)
+    def test_password_fields_exist_when_not_required(self):
+        """Password fields should still be shown if WAGTAILUSERS_PASSWORD_REQUIRED is False"""
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailusers/users/create.html')
+        self.assertContains(response, 'Password:')
+        self.assertContains(response, 'Password confirmation:')
+
+    @override_settings(WAGTAILUSERS_PASSWORD_REQUIRED=False)
+    def test_create_with_password_not_required(self):
+        """Password should not be required if WAGTAILUSERS_PASSWORD_REQUIRED is False"""
+        response = self.post({
+            'username': "testuser",
+            'email': "test@user.com",
+            'first_name': "Test",
+            'last_name': "User",
+            'password1': "",
+            'password2': "",
+        })
+
+        # Should redirect back to index
+        self.assertRedirects(response, reverse('wagtailusers_users:index'))
+
+        # Check that the user was created
+        users = get_user_model().objects.filter(username='testuser')
+        self.assertEqual(users.count(), 1)
+        self.assertEqual(users.first().email, 'test@user.com')
+        self.assertFalse(users.first().has_usable_password())
+
+    @override_settings(WAGTAILUSERS_PASSWORD_REQUIRED=False)
+    def test_optional_password_is_still_validated(self):
+        """When WAGTAILUSERS_PASSWORD_REQUIRED is False, password validation should still apply if a password _is_ supplied"""
+        response = self.post({
+            'username': "testuser",
+            'email': "test@user.com",
+            'first_name': "Test",
+            'last_name': "User",
+            'password1': "banana",
+            'password2': "kumquat",
+        })
+
+        # Should remain on page
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailusers/users/create.html')
+
+        self.assertTrue(response.context['form'].errors['password2'])
+
+        # Check that the user was not created
+        users = get_user_model().objects.filter(username='testuser')
+        self.assertEqual(users.count(), 0)
+
+    @override_settings(WAGTAILUSERS_PASSWORD_REQUIRED=False)
+    def test_password_still_accepted_when_optional(self):
+        """When WAGTAILUSERS_PASSWORD_REQUIRED is False, we should still allow a password to be set"""
+        response = self.post({
+            'username': "testuser",
+            'email': "test@user.com",
+            'first_name': "Test",
+            'last_name': "User",
+            'password1': "banana",
+            'password2': "banana",
+        })
+
+        # Should redirect back to index
+        self.assertRedirects(response, reverse('wagtailusers_users:index'))
+
+        # Check that the user was created
+        users = get_user_model().objects.filter(username='testuser')
+        self.assertEqual(users.count(), 1)
+        self.assertEqual(users.first().email, 'test@user.com')
+        self.assertTrue(users.first().has_usable_password())
+        self.assertTrue(users.first().check_password('banana'))
+
+    @override_settings(WAGTAILUSERS_PASSWORD_ENABLED=False)
+    def test_password_fields_not_shown_when_disabled(self):
+        """WAGTAILUSERS_PASSWORD_ENABLED=False should cause password fields to be removed"""
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailusers/users/create.html')
+        self.assertNotContains(response, 'Password:')
+        self.assertNotContains(response, 'Password confirmation:')
+
+    @override_settings(WAGTAILUSERS_PASSWORD_ENABLED=False)
+    def test_password_fields_ignored_when_disabled(self):
+        """When WAGTAILUSERS_PASSWORD_REQUIRED is False, users should always be created without a usable password"""
+        response = self.post({
+            'username': "testuser",
+            'email': "test@user.com",
+            'first_name': "Test",
+            'last_name': "User",
+            'password1': "banana",  # not part of the form - should be ignored
+            'password2': "kumquat",  # not part of the form - should be ignored
+        })
+
+        # Should redirect back to index
+        self.assertRedirects(response, reverse('wagtailusers_users:index'))
+
+        # Check that the user was created
+        users = get_user_model().objects.filter(username='testuser')
+        self.assertEqual(users.count(), 1)
+        self.assertEqual(users.first().email, 'test@user.com')
+        self.assertFalse(users.first().has_usable_password())
 
 
 class TestUserDeleteView(TestCase, WagtailTestUtils):
@@ -310,11 +438,13 @@ class TestUserEditView(TestCase, WagtailTestUtils):
         self.test_user = get_user_model().objects.create_user(
             username='testuser',
             email='testuser@email.com',
+            first_name='Original',
+            last_name='User',
             password='password'
         )
 
         # Login
-        self.login()
+        self.current_user = self.login()
 
     def get(self, params={}, user_id=None):
         return self.client.get(reverse('wagtailusers_users:edit', args=(user_id or self.test_user.pk, )), params)
@@ -326,11 +456,72 @@ class TestUserEditView(TestCase, WagtailTestUtils):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailusers/users/edit.html')
+        self.assertContains(response, 'Password:')
+        self.assertContains(response, 'Password confirmation:')
 
     def test_nonexistant_redirect(self):
         self.assertEqual(self.get(user_id=100000).status_code, 404)
 
-    def test_edit(self):
+    def test_simple_post(self):
+        response = self.post({
+            'username': "testuser",
+            'email': "test@user.com",
+            'first_name': "Edited",
+            'last_name': "User",
+            'password1': "newpassword",
+            'password2': "newpassword",
+            'is_active': 'on'
+        })
+        # Should redirect back to index
+        self.assertRedirects(response, reverse('wagtailusers_users:index'))
+
+        # Check that the user was edited
+        user = get_user_model().objects.get(pk=self.test_user.pk)
+        self.assertEqual(user.first_name, 'Edited')
+        self.assertTrue(user.check_password('newpassword'))
+
+    def test_password_optional(self):
+        """Leaving password fields blank should leave it unchanged"""
+        response = self.post({
+            'username': "testuser",
+            'email': "test@user.com",
+            'first_name': "Edited",
+            'last_name': "User",
+            'password1': "",
+            'password2': "",
+            'is_active': 'on'
+        })
+        # Should redirect back to index
+        self.assertRedirects(response, reverse('wagtailusers_users:index'))
+
+        # Check that the user was edited but password is unchanged
+        user = get_user_model().objects.get(pk=self.test_user.pk)
+        self.assertEqual(user.first_name, 'Edited')
+        self.assertTrue(user.check_password('password'))
+
+    def test_validate_password(self):
+        """Password fields should be validated if supplied"""
+        response = self.post({
+            'username': "testuser",
+            'email': "test@user.com",
+            'first_name': "Edited",
+            'last_name': "User",
+            'password1': "banana",
+            'password2': "kumquat",
+            'is_active': 'on'
+        })
+        # Should remain on page
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailusers/users/edit.html')
+
+        self.assertTrue(response.context['form'].errors['password2'])
+
+        # Check that the user was not edited
+        user = get_user_model().objects.get(pk=self.test_user.pk)
+        self.assertEqual(user.first_name, 'Original')
+        self.assertTrue(user.check_password('password'))
+
+    def test_edit_and_deactivate(self):
         response = self.post({
             'username': "testuser",
             'email': "test@user.com",
@@ -338,6 +529,9 @@ class TestUserEditView(TestCase, WagtailTestUtils):
             'last_name': "User",
             'password1': "password",
             'password2': "password",
+            # Leaving out these fields, thus setting them to False:
+            # 'is_active': 'on'
+            # 'is_superuser': 'on',
         })
 
         # Should redirect back to index
@@ -346,6 +540,87 @@ class TestUserEditView(TestCase, WagtailTestUtils):
         # Check that the user was edited
         user = get_user_model().objects.get(pk=self.test_user.pk)
         self.assertEqual(user.first_name, 'Edited')
+        # Check that the user is no longer superuser
+        self.assertEqual(user.is_superuser, False)
+        # Check that the user is no longer active
+        self.assertEqual(user.is_active, False)
+
+    def test_edit_and_make_superuser(self):
+        response = self.post({
+            'username': "testuser",
+            'email': "test@user.com",
+            'first_name': "Edited",
+            'last_name': "User",
+            'password1': "password",
+            'password2': "password",
+            'is_active': 'on',
+            'is_superuser': 'on',
+        })
+
+        # Should redirect back to index
+        self.assertRedirects(response, reverse('wagtailusers_users:index'))
+
+        # Check that the user was edited
+        user = get_user_model().objects.get(pk=self.test_user.pk)
+
+        # Check that the user is now superuser
+        self.assertEqual(user.is_superuser, True)
+        # Check that the user is now active
+        self.assertEqual(user.is_active, True)
+
+    def test_edit_self(self):
+        response = self.post({
+            'username': 'test@email.com',
+            'email': 'test@email.com',
+            'first_name': "Edited Myself",
+            'last_name': "User",
+            # 'password1': "password",
+            # 'password2': "password",
+            'is_active': 'on',
+            'is_superuser': 'on',
+        }, self.current_user.pk)
+
+        # Should redirect back to index
+        self.assertRedirects(response, reverse('wagtailusers_users:index'))
+
+        # Check that the user was edited
+        user = get_user_model().objects.get(pk=self.current_user.pk)
+        self.assertEqual(user.first_name, 'Edited Myself')
+
+        # Check that the user is still superuser
+        self.assertEqual(user.is_superuser, True)
+        # Check that the user is still active
+        self.assertEqual(user.is_active, True)
+
+    def test_cannot_demote_self(self):
+        """
+        check that unsetting a user's own is_active or is_superuser flag has no effect
+        """
+        response = self.post({
+            'username': 'test@email.com',
+            'email': 'test@email.com',
+            'first_name': "Edited Myself",
+            'last_name': "User",
+            # 'password1': "password",
+            # 'password2': "password",
+
+            # failing to submit is_active or is_superuser would unset those flags,
+            # if we didn't explicitly prevent that when editing self
+            # 'is_active': 'on',
+            # 'is_superuser': 'on',
+        }, self.current_user.pk)
+
+        # Should redirect back to index
+        self.assertRedirects(response, reverse('wagtailusers_users:index'))
+
+        # Check that the user was edited
+        user = get_user_model().objects.get(pk=self.current_user.pk)
+        self.assertEqual(user.first_name, 'Edited Myself')
+
+        # Check that the user is still superuser
+        self.assertEqual(user.is_superuser, True)
+        # Check that the user is still active
+        self.assertEqual(user.is_active, True)
 
     @override_settings(
         WAGTAIL_USER_EDIT_FORM='wagtail.wagtailusers.tests.CustomUserEditForm',
@@ -385,6 +660,36 @@ class TestUserEditView(TestCase, WagtailTestUtils):
         # Should not redirect to index
         self.assertEqual(response.status_code, 200)
 
+    @override_settings(WAGTAILUSERS_PASSWORD_ENABLED=False)
+    def test_password_fields_not_shown_when_disabled(self):
+        """WAGTAILUSERS_PASSWORD_ENABLED=False should cause password fields to be removed"""
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailusers/users/edit.html')
+        self.assertNotContains(response, 'Password:')
+        self.assertNotContains(response, 'Password confirmation:')
+
+    @override_settings(WAGTAILUSERS_PASSWORD_ENABLED=False)
+    def test_password_fields_ignored_when_disabled(self):
+        """When WAGTAILUSERS_PASSWORD_REQUIRED is False, existing password should be left unchanged"""
+        response = self.post({
+            'username': "testuser",
+            'email': "test@user.com",
+            'first_name': "Edited",
+            'last_name': "User",
+            'is_active': 'on',
+            'password1': "banana",  # not part of the form - should be ignored
+            'password2': "kumquat",  # not part of the form - should be ignored
+        })
+
+        # Should redirect back to index
+        self.assertRedirects(response, reverse('wagtailusers_users:index'))
+
+        # Check that the user was edited but password is unchanged
+        user = get_user_model().objects.get(pk=self.test_user.pk)
+        self.assertEqual(user.first_name, 'Edited')
+        self.assertTrue(user.check_password('password'))
+
 
 class TestUserProfileCreation(TestCase, WagtailTestUtils):
     def setUp(self):
@@ -404,6 +709,60 @@ class TestUserProfileCreation(TestCase, WagtailTestUtils):
         self.assertIsInstance(UserProfile.get_for_user(self.test_user), UserProfile)
         # and get it from the db too
         self.assertEqual(UserProfile.objects.filter(user=self.test_user).count(), 1)
+
+
+class TestUserEditViewForNonSuperuser(TestCase, WagtailTestUtils):
+    def setUp(self):
+        # create a user with edit permission
+        self.editor_user = get_user_model().objects.create_user(
+            username='editor',
+            email='editor@email.com',
+            password='password'
+        )
+        editors_group = Group.objects.create(name='User editors')
+        editors_group.permissions.add(Permission.objects.get(codename='access_admin'))
+        editors_group.permissions.add(Permission.objects.get(
+            content_type__app_label=AUTH_USER_APP_LABEL, codename=change_user_perm_codename
+        ))
+        self.editor_user.groups.add(editors_group)
+
+        self.client.login(username='editor', password='password')
+
+    def test_user_cannot_escalate_privileges(self):
+        """
+        Check that a non-superuser cannot edit their own is_active or is_superuser flag.
+        (note: this doesn't necessarily guard against other routes to escalating privileges, such
+        as creating a new user with is_superuser=True or adding oneself to a group with additional
+        privileges - the latter will be dealt with by #537)
+        """
+        editors_group = Group.objects.get(name='User editors')
+        post_data = {
+            'username': "editor",
+            'email': "editor@email.com",
+            'first_name': "Escalating",
+            'last_name': "User",
+            'password1': "",
+            'password2': "",
+            'groups': [editors_group.id, ],
+            # These should not be possible without manipulating the form in the DOM:
+            'is_superuser': 'on',
+            'is_active': 'on',
+        }
+        response = self.client.post(
+            reverse('wagtailusers_users:edit', args=(self.editor_user.pk, )),
+            post_data)
+        # Should redirect back to index
+        self.assertRedirects(response, reverse('wagtailusers_users:index'))
+
+        user = get_user_model().objects.get(pk=self.editor_user.pk)
+        # check if user is still in the editors group
+        self.assertTrue(user.groups.filter(name='User editors').exists())
+
+        # check that non-permission-related edits went ahead
+        self.assertEqual(user.first_name, "Escalating")
+
+        # Check that the user did not escalate its is_superuser status
+        self.assertEqual(user.is_superuser, False)
 
 
 class TestGroupIndexView(TestCase, WagtailTestUtils):

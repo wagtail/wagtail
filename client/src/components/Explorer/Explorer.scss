@@ -1,8 +1,10 @@
-$c-explorer-bg: #4C4E4D;
+// scss-lint:disable DeclarationOrder
+
+$c-explorer-bg: #4c4e4d;
 $c-explorer-bg-dark: $color-grey-1;
-$c-explorer-bg-active: rgba(0,0,0,0.425);
+$c-explorer-bg-active: rgba(0, 0, 0, 0.425);
 $c-explorer-secondary: #a5a5a5;
-$c-explorer-easing: cubic-bezier(0.075, 0.820, 0.165, 1.000);
+$c-explorer-easing: cubic-bezier(0.075, 0.82, 0.165, 1);
 $menu-footer-height: 50px;
 
 @import 'ExplorerItem';
@@ -130,7 +132,7 @@ $menu-footer-height: 50px;
 .c-explorer__see-more {
     display: block;
     padding: 1em;
-    background: rgba(0,0,0,0.3);
+    background: rgba(0, 0, 0, 0.3);
     color: $color-white;
 
     &:focus {

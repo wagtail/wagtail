@@ -4,6 +4,7 @@
 #
 # Translators:
 # Hannes Lohmander <c.hannes.l@gmail.com>, 2015
+# Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2017
 # Ludwig Kjellström <ludwig.kjellstrom@amnesty.se>, 2015
 # Thomas Kunambi <kunambi@gmail.com>, 2015-2017
 # Thomas Kunambi <kunambi@gmail.com>, 2015
@@ -11,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-19 16:55+0000\n"
-"PO-Revision-Date: 2017-04-19 21:09+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-08-10 16:05+0000\n"
+"PO-Revision-Date: 2017-08-14 09:40+0000\n"
+"Last-Translator: Jim Brouzoulis <jim.brouzoulis@chalmers.se>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -24,6 +25,12 @@ msgstr ""
 
 msgid "{} submissions"
 msgstr "{} inlämningar"
+
+msgid "Date from"
+msgstr "Datum från"
+
+msgid "Date to"
+msgstr "Datum till"
 
 #, python-format
 msgid "There is another field with the label %s, please change one of them."
@@ -52,6 +59,9 @@ msgstr "Kryssrutor"
 
 msgid "Drop down"
 msgstr "Dropdown"
+
+msgid "Multiple select"
+msgstr "Flervalslista"
 
 msgid "Radio buttons"
 msgstr "Radioknappar"
@@ -180,6 +190,9 @@ msgstr "Titel"
 
 msgid "Origin"
 msgstr "Källa"
+
+msgid "Delete selected submissions"
+msgstr "Radera valda inlämningar"
 
 msgid "No form pages have been created."
 msgstr "Inga formulär har skapats."

@@ -169,10 +169,11 @@ class FloatBlock(FieldBlock):
 
 class DecimalBlock(FieldBlock):
 
-    def __init__(self, required=True, max_value=None, min_value=None,
+    def __init__(self, required=True, help_text=None, max_value=None, min_value=None,
                  max_digits=None, decimal_places=None, *args, **kwargs):
         self.field = forms.DecimalField(
             required=required,
+            help_text=help_text,
             max_value=max_value,
             min_value=min_value,
             max_digits=max_digits,
@@ -186,11 +187,12 @@ class DecimalBlock(FieldBlock):
 
 class RegexBlock(FieldBlock):
 
-    def __init__(self, regex, required=True, max_length=None, min_length=None,
+    def __init__(self, regex, required=True, help_text=None, max_length=None, min_length=None,
                  error_messages=None, *args, **kwargs):
         self.field = forms.RegexField(
             regex=regex,
             required=required,
+            help_text=help_text,
             max_length=max_length,
             min_length=min_length,
             error_messages=error_messages,
@@ -450,9 +452,10 @@ class ChoiceBlock(FieldBlock):
 
 class RichTextBlock(FieldBlock):
 
-    def __init__(self, required=True, help_text=None, editor='default', **kwargs):
+    def __init__(self, required=True, help_text=None, editor='default', features=None, **kwargs):
         self.field_options = {'required': required, 'help_text': help_text}
         self.editor = editor
+        self.features = features
         super(RichTextBlock, self).__init__(**kwargs)
 
     def get_default(self):
@@ -474,7 +477,10 @@ class RichTextBlock(FieldBlock):
     @cached_property
     def field(self):
         from wagtail.wagtailadmin.rich_text import get_rich_text_editor_widget
-        return forms.CharField(widget=get_rich_text_editor_widget(self.editor), **self.field_options)
+        return forms.CharField(
+            widget=get_rich_text_editor_widget(self.editor, features=self.features),
+            **self.field_options
+        )
 
     def value_for_form(self, value):
         # Rich text editors take the source-HTML string as input (and takes care

@@ -4,13 +4,14 @@
 #
 # Translators:
 # Mohammad reza Jelveh <mrj.eleven@gmail.com>, 2015
-# Py Zenberg <pyzenberg@gmail.com>, 2017
+# pyzenberg <pyzenberg@gmail.com>, 2017
+# pyzenberg <pyzenberg@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-19 16:55+0000\n"
-"PO-Revision-Date: 2017-06-19 16:57+0000\n"
+"POT-Creation-Date: 2017-08-10 16:05+0000\n"
+"PO-Revision-Date: 2017-08-10 16:07+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
 "fa/)\n"
@@ -111,6 +112,10 @@ msgid_plural ""
 "their copies?"
 msgstr[0] ""
 "%(count)s صفحه در حال کپی زنده هستند. آیا مایل کپی‌های آنها نیز انتشار یابند؟"
+
+#, python-format
+msgid "You do not have permission to copy to page \"%(page_title)s\""
+msgstr "دسترسی لازم برای کپی صفحه %(page_title)s را ندارید"
 
 #, python-format
 msgid ""
@@ -220,8 +225,29 @@ msgstr "رمزعبور را بازنشانی کنید"
 msgid "Edit"
 msgstr "تصحیح"
 
+msgid "Page"
+msgstr "صفحه"
+
 msgid "Pages"
 msgstr "صفحه ها"
+
+msgid "Loading..."
+msgstr "بارگذاری..."
+
+msgid "No results"
+msgstr "بدون نتیجه"
+
+msgid "Server Error"
+msgstr "خطای سرور"
+
+msgid "See children"
+msgstr "نمایش زیرگروه"
+
+msgid "See all"
+msgstr "نمایش همه"
+
+msgid "Close explorer"
+msgstr "بستن کاوشگر"
 
 msgid "Dashboard"
 msgstr "داشبورد"
@@ -297,8 +323,18 @@ msgstr "درج لینک"
 msgid "Add an external link"
 msgstr "لینک بیرونی اضافه کنید"
 
+msgid "Collection privacy"
+msgstr "حریم مجموعه"
+
+msgid "This collection has been made private by a parent collection."
+msgstr "این مجموعه توسط یک مجموعه والد خصوصی شده است."
+
 msgid "You can edit the privacy settings on:"
 msgstr "تنظیمات حریم را می‌توانید اینجا ویرایش کنید:"
+
+msgid ""
+"Privacy settings determine who is able to view documents in this collection."
+msgstr "تنظیمات حریم تشخیص میدهد که چه کسی میتواند این مجموعه را ببیند"
 
 msgid "Save"
 msgstr "ذخیره"
@@ -871,6 +907,9 @@ msgstr "توسط"
 msgid "Current draft"
 msgstr "پیشنویس فعلی"
 
+msgid "Live version"
+msgstr "نسخه زنده"
+
 msgid "Review this revision"
 msgstr "پیش‌نمایش این بازبینی"
 
@@ -1071,6 +1110,9 @@ msgstr "بوکمال نروژی"
 
 msgid "Netherlands Dutch"
 msgstr "آلمانی هلندی"
+
+msgid "Persian"
+msgstr "فارسی"
 
 msgid "Polish"
 msgstr "لهستانی"

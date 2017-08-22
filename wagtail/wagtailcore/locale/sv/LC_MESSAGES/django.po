@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2017
 # Thomas Kunambi <kunambi@gmail.com>, 2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-19 16:55+0000\n"
-"PO-Revision-Date: 2017-06-19 16:58+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-08-10 16:05+0000\n"
+"PO-Revision-Date: 2017-08-14 09:36+0000\n"
+"Last-Translator: Jim Brouzoulis <jim.brouzoulis@chalmers.se>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -25,6 +26,17 @@ msgstr "{label}: det här blocket har inga inställningar."
 
 msgid "This block has no options."
 msgstr "Detta block har inga inställningar."
+
+#, python-format
+msgid "The minimum number of items is %d"
+msgstr "Det minsta antalet block är %d"
+
+msgid "This field is required."
+msgstr "Det här fältet är obligatoriskt."
+
+#, python-format
+msgid "The maximum number of items is %d"
+msgstr "Det maximala antalet block är %d"
 
 msgid "Password"
 msgstr "Lösenord"
@@ -101,7 +113,7 @@ msgid "content type"
 msgstr "innehållstyp"
 
 msgid "live"
-msgstr "lajv"
+msgstr "publicerad"
 
 msgid "has unpublished changes"
 msgstr "har opublicerade ändringar"
@@ -135,7 +147,7 @@ msgid "search description"
 msgstr "sökbeskrivning"
 
 msgid "go live date/time"
-msgstr "gå lajv datum/tid"
+msgstr "publicera vid datum/tid"
 
 msgid "expiry date/time"
 msgstr "utgångsdatum/tid"
@@ -148,6 +160,9 @@ msgstr "låst"
 
 msgid "first published at"
 msgstr "först publicerad vid"
+
+msgid "last published at"
+msgstr "senast publicerad"
 
 msgid "latest revision created at"
 msgstr "senaste revision skapad vid"
@@ -162,7 +177,7 @@ msgid "draft"
 msgstr "utkast"
 
 msgid "live + draft"
-msgstr "lajv + utkast"
+msgstr "publicerad + utkast"
 
 msgid "Default"
 msgstr "Standard"
@@ -186,7 +201,7 @@ msgid "content JSON"
 msgstr "innehålls JSON"
 
 msgid "approved go live at"
-msgstr "godkänd att gå lajv vid"
+msgstr "godkänd för att publiceras vid"
 
 msgid "page revision"
 msgstr "sidorevision"
@@ -251,6 +266,15 @@ msgstr "Privat, åtkomligen för användare i specifika grupper"
 msgid "password"
 msgstr "lösenord"
 
+msgid "groups"
+msgstr "grupper"
+
+msgid "view restriction"
+msgstr "visningsrestriktion"
+
+msgid "view restrictions"
+msgstr "visningsrestriktioner"
+
 msgid "page view restriction"
 msgstr "Sidovisningsrestriktion"
 
@@ -259,6 +283,12 @@ msgstr "Sidovisningsrestriktioner"
 
 msgid "collection"
 msgstr "samling"
+
+msgid "collection view restriction"
+msgstr "visningsrestriktion för samling"
+
+msgid "collection view restrictions"
+msgstr "visningsrestriktioner för samling"
 
 msgid "name"
 msgstr "namn"

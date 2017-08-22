@@ -29,6 +29,8 @@
                     {% for field in form %}
                         {% if field.name == 'file' %}
                             {% include "wagtaildocs/documents/_file_field_as_li.html" %}
+                        {% elif field.is_hidden %}
+                            {{ field }}
                         {% else %}
                             {% include "wagtailadmin/shared/field_as_li.html" %}
                         {% endif %}

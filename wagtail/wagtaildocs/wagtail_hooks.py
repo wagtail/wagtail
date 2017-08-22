@@ -10,6 +10,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ungettext
 
 from wagtail.wagtailadmin.menu import MenuItem
+from wagtail.wagtailadmin.rich_text import HalloPlugin
 from wagtail.wagtailadmin.search import SearchArea
 from wagtail.wagtailadmin.site_summary import SummaryItem
 from wagtail.wagtailcore import hooks
@@ -56,7 +57,6 @@ def register_documents_menu_item():
 @hooks.register('insert_editor_js')
 def editor_js():
     js_files = [
-        static('wagtaildocs/js/hallo-plugins/hallo-wagtaildoclink.js'),
         static('wagtaildocs/js/document-chooser.js'),
     ]
     js_includes = format_html_join(
@@ -72,6 +72,18 @@ def editor_js():
         """,
         urlresolvers.reverse('wagtaildocs:chooser')
     )
+
+
+@hooks.register('register_rich_text_features')
+def register_embed_feature(features):
+    features.register_editor_plugin(
+        'hallo', 'document-link',
+        HalloPlugin(
+            name='hallowagtaildoclink',
+            js=[static('wagtaildocs/js/hallo-plugins/hallo-wagtaildoclink.js')],
+        )
+    )
+    features.default_features.append('document-link')
 
 
 @hooks.register('register_rich_text_link_handler')

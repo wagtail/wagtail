@@ -34,10 +34,15 @@ class PagesAdminAPIEndpoint(PagesAPIEndpoint):
         'parent',
     ]
 
+    body_fields = PagesAPIEndpoint.body_fields + [
+        'admin_display_title',
+    ]
+
     listing_default_fields = PagesAPIEndpoint.listing_default_fields + [
         'latest_revision_created_at',
         'status',
         'children',
+        'admin_display_title',
     ]
 
     # Allow the parent field to appear on listings
@@ -69,7 +74,7 @@ class PagesAdminAPIEndpoint(PagesAPIEndpoint):
 
         # Hide root page
         # TODO: Add "include_root" flag
-        queryset = queryset.exclude(depth=1)
+        queryset = queryset.exclude(depth=1).specific()
 
         return queryset
 

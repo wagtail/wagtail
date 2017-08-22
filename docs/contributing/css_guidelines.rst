@@ -35,20 +35,20 @@ automatically recompiling when any changes are observed, by running:
 Linting SCSS
 ~~~~~~~~~~~~
 
-Wagtail uses the "scss-lint" Ruby Gem for linting.
+Wagtail uses the "scss_lint" Ruby Gem for linting.
 
 Install it thus:
 
 .. code-block:: console
 
-    $ gem install scss-lint
+    $ gem install scss_lint
 
 
 Then run the linter from the wagtail project root:
 
 .. code-block:: console
 
-    $ scss-lint
+    $ npm run lint:css
 
 The linter is configured to check your code for adherance to the guidelines below, plus a little more.
 

@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Py Zenberg <pyzenberg@gmail.com>, 2017
+# pyzenberg <pyzenberg@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-19 16:55+0000\n"
+"POT-Creation-Date: 2017-08-10 16:05+0000\n"
 "PO-Revision-Date: 2017-05-28 14:51+0000\n"
-"Last-Translator: Py Zenberg <pyzenberg@gmail.com>\n"
+"Last-Translator: pyzenberg <pyzenberg@gmail.com>\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
 "fa/)\n"
 "MIME-Version: 1.0\n"

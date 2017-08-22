@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-19 16:55+0000\n"
+"POT-Creation-Date: 2017-08-10 16:05+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -160,8 +160,8 @@ msgstr ""
 msgid "File not found"
 msgstr ""
 
-#: templates/wagtaildocs/documents/index.html:22 wagtail_hooks.py:48
-#: wagtail_hooks.py:112
+#: templates/wagtaildocs/documents/index.html:22 wagtail_hooks.py:49
+#: wagtail_hooks.py:124
 msgid "Documents"
 msgstr ""
 
@@ -316,7 +316,7 @@ msgstr ""
 msgid "Document '{0}' deleted."
 msgstr ""
 
-#: wagtail_hooks.py:131
+#: wagtail_hooks.py:143
 #, python-format
 msgid "%(count)s document"
 msgid_plural "%(count)s documents"

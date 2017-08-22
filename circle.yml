@@ -5,14 +5,14 @@ machine:
 dependencies:
   pre:
     - pip install -e .[testing]
-    - gem install scss-lint
+    - gem install scss_lint
 
 test:
   override:
     - flake8 wagtail
     - isort --check-only --diff --recursive wagtail
-    - npm run lint
-    - scss-lint
+    - npm run lint:js
+    - npm run lint:css
     - python -u runtests.py
     - npm run test:unit:coverage -- --runInBand
     - npm run build

@@ -1,3 +1,5 @@
+// scss-lint:disable DeclarationOrder
+
 .c-explorer__item {
     display: flex;
     flex-flow: row nowrap;
@@ -73,7 +75,7 @@
         color: $color-white;
     }
 
-    .icon:before {
+    .icon::before {
         margin-right: 0;
     }
 }

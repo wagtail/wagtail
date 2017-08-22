@@ -218,8 +218,6 @@ setting. This is fully documented in :ref:`configuring_embed_finders`.
 Dashboard
 ---------
 
-.. versionadded:: 1.10
-
 .. code-block:: python
 
     WAGTAILADMIN_RECENT_EDITS_LIMIT = 5
@@ -261,6 +259,18 @@ This specifies whether users are allowed to change their passwords (enabled by d
   WAGTAIL_PASSWORD_RESET_ENABLED = True
 
 This specifies whether users are allowed to reset their passwords. Defaults to the same as ``WAGTAIL_PASSWORD_MANAGEMENT_ENABLED``.
+
+.. code-block:: python
+
+  WAGTAILUSERS_PASSWORD_ENABLED = True
+
+This specifies whether password fields are shown when creating or editing users through Settings -> Users (enabled by default). Set this to False (along with ``WAGTAIL_PASSWORD_MANAGEMENT_ENABLED`` and ``WAGTAIL_PASSWORD_RESET_ENABLED``) if your users are authenticated through an external system such as LDAP.
+
+.. code-block:: python
+
+  WAGTAILUSERS_PASSWORD_REQUIRED = True
+
+This specifies whether password is a required field when creating a new user. True by default; ignored if ``WAGTAILUSERS_PASSWORD_ENABLED`` is false. If this is set to False, and the password field is left blank when creating a user, then that user will have no usable password, and will not be able to log in unless an alternative authentication system such as LDAP is set up.
 
 
 Email Notifications
@@ -309,8 +319,6 @@ This is the path to the Django template which will be used to display the "passw
 
   DOCUMENT_PASSWORD_REQUIRED_TEMPLATE = 'myapp/document_password_required.html'
 
-.. versionadded:: 1.11
-
 As above, but for password restrictions on documents. For more details, see the :ref:`private_pages` documentation.
 
 Case-Insensitive Tags
@@ -324,8 +332,6 @@ Tags are case-sensitive by default ('music' and 'Music' are treated as distinct 
 
 Multi-word tags
 ---------------
-
-.. versionadded:: 1.10
 
 .. code-block:: python
 
@@ -346,8 +352,6 @@ By default, page slugs can contain any alphanumeric characters, including non-La
 
 Auto update preview
 -------------------
-
-.. versionadded:: 1.10
 
 .. code-block:: python
 
@@ -412,8 +416,6 @@ Specifies the date and datetime format to be used in input fields in the Wagtail
 
 Admin languages
 ---------------
-
-.. versionadded:: 1.10
 
 Users can choose between several languages for the admin interface
 in the account settings. The list of languages is by default all the available

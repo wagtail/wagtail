@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-19 16:55+0000\n"
+"POT-Creation-Date: 2017-08-10 16:05+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,15 +21,15 @@ msgstr ""
 msgid "{} submissions"
 msgstr ""
 
-#: forms.py:115
+#: forms.py:123
 msgid "Date from"
 msgstr ""
 
-#: forms.py:119
+#: forms.py:127
 msgid "Date to"
 msgstr ""
 
-#: forms.py:143
+#: forms.py:151
 #, python-format
 msgid "There is another field with the label %s, please change one of them."
 msgstr ""
@@ -67,82 +67,86 @@ msgid "Drop down"
 msgstr ""
 
 #: models.py:32
-msgid "Radio buttons"
+msgid "Multiple select"
 msgstr ""
 
 #: models.py:33
-msgid "Date"
+msgid "Radio buttons"
 msgstr ""
 
 #: models.py:34
+msgid "Date"
+msgstr ""
+
+#: models.py:35
 msgid "Date/time"
 msgstr ""
 
-#: models.py:50
+#: models.py:51
 msgid "submit time"
 msgstr ""
 
-#: models.py:70
+#: models.py:71
 msgid "form submission"
 msgstr ""
 
-#: models.py:83
+#: models.py:84
 msgid "label"
 msgstr ""
 
-#: models.py:85
+#: models.py:86
 msgid "The label of the form field"
 msgstr ""
 
-#: models.py:87
+#: models.py:88
 msgid "field type"
 msgstr ""
 
-#: models.py:88
+#: models.py:89
 msgid "required"
 msgstr ""
 
-#: models.py:90
+#: models.py:91
 msgid "choices"
 msgstr ""
 
-#: models.py:92
+#: models.py:93
 msgid ""
 "Comma separated list of choices. Only applicable in checkboxes, radio and "
 "dropdown."
 msgstr ""
 
-#: models.py:95
+#: models.py:96
 msgid "default value"
 msgstr ""
 
-#: models.py:98
+#: models.py:99
 msgid "Default value. Comma separated values supported for checkboxes."
 msgstr ""
 
-#: models.py:100
+#: models.py:101
 msgid "help text"
 msgstr ""
 
-#: models.py:187
+#: models.py:188
 msgid "Submission date"
 msgstr ""
 
-#: models.py:286
+#: models.py:287
 msgid "to address"
 msgstr ""
 
-#: models.py:287
+#: models.py:288
 msgid ""
 "Optional - form submissions will be emailed to these addresses. Separate "
 "multiple addresses by comma."
 msgstr ""
 
-#: models.py:289
+#: models.py:290
 msgid "from address"
 msgstr ""
 
-#: models.py:290
+#: models.py:291
 msgid "subject"
 msgstr ""
 

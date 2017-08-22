@@ -13,6 +13,7 @@ from django.utils import six
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.html import format_html_join
 from django.utils.safestring import mark_safe
+from django.utils.translation import ugettext as _
 
 from wagtail.wagtailcore.utils import escape_script
 
@@ -177,9 +178,14 @@ class BaseStreamBlock(Block):
     def value_omitted_from_data(self, data, files, prefix):
         return ('%s-count' % prefix) not in data
 
+    @property
+    def required(self):
+        return self.meta.required
+
     def clean(self, value):
         cleaned_data = []
         errors = {}
+        non_block_errors = ErrorList()
         for i, child in enumerate(value):  # child is a StreamChild instance
             try:
                 cleaned_data.append(
@@ -188,10 +194,41 @@ class BaseStreamBlock(Block):
             except ValidationError as e:
                 errors[i] = ErrorList([e])
 
-        if errors:
+        if self.meta.min_num is not None and self.meta.min_num > len(value):
+            non_block_errors.append(ValidationError(
+                _('The minimum number of items is %d') % self.meta.min_num
+            ))
+        elif self.required and len(value) == 0:
+            non_block_errors.append(ValidationError(_('This field is required.')))
+
+        if self.meta.max_num is not None and self.meta.max_num < len(value):
+            non_block_errors.append(ValidationError(
+                _('The maximum number of items is %d') % self.meta.max_num
+            ))
+
+        if self.meta.block_counts:
+            block_counts = collections.defaultdict(int)
+            for item in value:
+                block_counts[item.block_type] += 1
+
+            for block_name, min_max in self.meta.block_counts.items():
+                block = self.child_blocks[block_name]
+                max_num = min_max.get('max_num', None)
+                min_num = min_max.get('min_num', None)
+                block_count = block_counts[block_name]
+                if min_num is not None and min_num > block_count:
+                    non_block_errors.append(ValidationError(
+                        '{}: {}'.format(block.label, _('The minimum number of items is %d') % min_num)
+                    ))
+                if max_num is not None and max_num < block_count:
+                    non_block_errors.append(ValidationError(
+                        '{}: {}'.format(block.label, _('The maximum number of items is %d') % max_num)
+                    ))
+
+        if errors or non_block_errors:
             # The message here is arbitrary - outputting error messages is delegated to the child blocks,
             # which only involves the 'params' list
-            raise StreamBlockValidationError(block_errors=errors)
+            raise StreamBlockValidationError(block_errors=errors, non_block_errors=non_block_errors)
 
         return StreamValue(self, cleaned_data)
 
@@ -279,6 +316,10 @@ class BaseStreamBlock(Block):
         # descendant block type
         icon = "placeholder"
         default = []
+        required = True
+        min_num = None
+        max_num = None
+        block_counts = {}
 
 
 class StreamBlock(six.with_metaclass(DeclarativeSubBlocksMetaclass, BaseStreamBlock)):

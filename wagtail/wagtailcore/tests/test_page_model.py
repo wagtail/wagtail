@@ -90,6 +90,19 @@ class TestValidation(TestCase):
         homepage = Page.objects.get(url_path='/home/')
         self.assertEqual(homepage.draft_title, homepage.get_admin_display_title())
 
+    def test_draft_title_is_autopopulated(self):
+        homepage = Page.objects.get(url_path='/home/')
+
+        hello_page = SimplePage(title="Hello world", content="hello")
+        homepage.add_child(instance=hello_page)
+        retrieved_page = Page.objects.get(id=hello_page.id)
+        self.assertEqual(retrieved_page.draft_title, "Hello world")
+
+        hello_page = SimplePage(title="Hello world", draft_title="Hello world edited", content="hello")
+        homepage.add_child(instance=hello_page)
+        retrieved_page = Page.objects.get(id=hello_page.id)
+        self.assertEqual(retrieved_page.draft_title, "Hello world edited")
+
 
 @override_settings(ALLOWED_HOSTS=['localhost', 'events.example.com', 'about.example.com', 'unknown.site.com'])
 class TestSiteRouting(TestCase):

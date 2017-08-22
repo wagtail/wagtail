@@ -774,7 +774,7 @@ class TestElasticsearchMapping(TestCase):
                     'published_date_filter': {'index': 'not_analyzed', 'type': 'date', 'include_in_all': False},
                     'title': {'type': 'string', 'include_in_all': True, 'index_analyzer': 'edgengram_analyzer'},
                     'title_filter': {'index': 'not_analyzed', 'type': 'string', 'include_in_all': False},
-                    'content': {'type': 'string', 'include_in_all': True},
+                    'content': {'type': 'string', 'boost': 2, 'include_in_all': True},
                     'callable_indexed_field': {'type': 'string', 'include_in_all': True},
                     'tags': {
                         'type': 'nested',
@@ -881,7 +881,7 @@ class TestElasticsearchMappingInheritance(TestCase):
                     'published_date_filter': {'index': 'not_analyzed', 'type': 'date', 'include_in_all': False},
                     'title': {'type': 'string', 'include_in_all': True, 'index_analyzer': 'edgengram_analyzer'},
                     'title_filter': {'index': 'not_analyzed', 'type': 'string', 'include_in_all': False},
-                    'content': {'type': 'string', 'include_in_all': True},
+                    'content': {'type': 'string', 'boost': 2, 'include_in_all': True},
                     'callable_indexed_field': {'type': 'string', 'include_in_all': True},
                     'tags': {
                         'type': 'nested',

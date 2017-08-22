@@ -4,15 +4,16 @@
 #
 # Translators:
 # utek <mail@utek.pl>, 2014
+# Miłosz Miśkiewicz, 2017
 # Miłosz Miśkiewicz, 2016
 # utek <mail@utek.pl>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-19 16:55+0000\n"
-"PO-Revision-Date: 2017-04-19 21:06+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-08-10 16:05+0000\n"
+"PO-Revision-Date: 2017-08-17 07:14+0000\n"
+"Last-Translator: Miłosz Miśkiewicz\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -238,6 +239,9 @@ msgstr ""
 
 msgid "Current focal point shown"
 msgstr "Pokazano obecny punkt ogniskowy"
+
+msgid "Remove focal area"
+msgstr "Usuń obszar centralny"
 
 msgid "URL Generator"
 msgstr "Generator adresu URL"

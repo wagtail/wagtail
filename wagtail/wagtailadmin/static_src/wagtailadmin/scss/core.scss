@@ -17,6 +17,7 @@
 @import 'wagtailadmin/scss/components/main-nav';
 @import 'wagtailadmin/scss/components/indicator';
 @import 'wagtailadmin/scss/components/tooltips';
+@import 'wagtailadmin/scss/components/logo';
 
 @import 'wagtailadmin/scss/fonts';
 
@@ -82,27 +83,6 @@ body {
     @include clearfix();
     height: 100vh;
     transition: transform 0.2s ease;
-}
-
-.logo {
-    display: block;
-    text-align: left;
-    text-decoration: none;
-    color: #aaa;
-    padding: 0.9em 1.2em;
-    margin: 0;
-    -webkit-font-smoothing: auto;
-
-    img {
-        width: 20px;
-        float: left;
-        border: 0;
-        margin-right: 1em;
-    }
-
-    &:hover {
-        color: $color-white;
-    }
 }
 
 .content-wrapper {
@@ -185,7 +165,8 @@ footer {
     }
 
     @media screen and (max-width: $breakpoint-mobile) {
-        .actions {
+        .actions,
+        .preview {
             width: 100%;
         }
 
@@ -409,33 +390,10 @@ footer,
         border-bottom-right-radius: 5px;
     }
 
-    .logo {
-        margin: 1em auto;
-        text-align: center;
-
-        span {
-            display: none;
-        }
-
-        img {
-            width: 60px;
-            float: none;
-            margin: auto;
-            display: block;
-        }
-
-        img.wagtail-logo {
-            transition: all 0.25s cubic-bezier(0.28, 0.15, 0, 2.1);
-        }
-
-        img.wagtail-logo:hover {
-            transform: rotate(4deg);
-        }
-    }
-
     footer {
-        width: 80%;
-        margin-left: 50px;
+        margin-left: $desktop-nice-padding;
+        margin-right: $desktop-nice-padding;
+        width: calc(100% - #{$menu-width} - #{2 * $desktop-nice-padding});
     }
 
     .content {
@@ -458,11 +416,6 @@ footer,
                 }
             }
         }
-    }
-
-    footer {
-        width: 80%;
-        margin-left: 50px;
     }
 
 

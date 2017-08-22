@@ -5,7 +5,7 @@
 # Translators:
 # Thiago Cangussu <cng.thg@gmail.com>, 2014
 # Claudemiro Alves Feitosa Neto <dimiro1@gmail.com>, 2015
-# Gladson <gladsonbrito@gmail.com>, 2014
+# Gladson <gladsonbrito@gmail.com>, 2014,2017
 # Joao Garcia <joaosdgarcia@gmail.com>, 2017
 # João Luiz Lorencetti <me@dirtycoder.net>, 2016
 # Luiz Boaretto <lboaretto@gmail.com>, 2016
@@ -15,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-19 16:55+0000\n"
-"PO-Revision-Date: 2017-06-19 16:58+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-08-10 16:05+0000\n"
+"PO-Revision-Date: 2017-08-10 19:15+0000\n"
+"Last-Translator: Luiz Boaretto <lboaretto@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -32,6 +32,17 @@ msgstr "{label}: este bloco não possui opções."
 
 msgid "This block has no options."
 msgstr "Este bloco não possui opções."
+
+#, python-format
+msgid "The minimum number of items is %d"
+msgstr "O número mínimo de itens é %d"
+
+msgid "This field is required."
+msgstr "Este campo é obrigatório."
+
+#, python-format
+msgid "The maximum number of items is %d"
+msgstr "O número máximo de itens é %d"
 
 msgid "Password"
 msgstr "Senha"
@@ -155,6 +166,9 @@ msgstr "trancado"
 msgid "first published at"
 msgstr "publicado pela primeira vez em"
 
+msgid "last published at"
+msgstr "última publicação em"
+
 msgid "latest revision created at"
 msgstr "revisão mais recente criada em"
 
@@ -257,6 +271,15 @@ msgstr "Privado, acessível a usuários em grupos específicos"
 msgid "password"
 msgstr "senha"
 
+msgid "groups"
+msgstr "grupos"
+
+msgid "view restriction"
+msgstr "visualizar restrição"
+
+msgid "view restrictions"
+msgstr "visualizar restrições"
+
 msgid "page view restriction"
 msgstr "restrição de visualização de página"
 
@@ -265,6 +288,12 @@ msgstr "restrições de visualização da página"
 
 msgid "collection"
 msgstr "coleção"
+
+msgid "collection view restriction"
+msgstr "visualizar restrição na coleção"
+
+msgid "collection view restrictions"
+msgstr "visualizar restrições nas coleções"
 
 msgid "name"
 msgstr "nome"

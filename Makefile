@@ -18,6 +18,8 @@ develop: clean-pyc
 lint:
 	flake8 wagtail
 	isort --check-only --diff --recursive wagtail
+	npm run lint:css
+	npm run lint:js
 
 test:
 	python runtests.py

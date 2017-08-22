@@ -45,6 +45,7 @@ WAGTAILADMIN_PROVIDED_LANGUAGES = [
     ('pt-pt', ugettext_lazy('Portuguese')),
     ('ro', ugettext_lazy('Romanian')),
     ('ru', ugettext_lazy('Russian')),
+    ('se', ugettext_lazy('Swedish')),
     ('zh-cn', ugettext_lazy('Chinese (China)')),
 ]
 

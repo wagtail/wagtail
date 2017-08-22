@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-19 16:55+0000\n"
+"POT-Creation-Date: 2017-08-10 16:05+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -287,8 +287,8 @@ msgid "File not found"
 msgstr ""
 
 #: templates/wagtailimages/images/index.html:5
-#: templates/wagtailimages/images/index.html:24 wagtail_hooks.py:43
-#: wagtail_hooks.py:118
+#: templates/wagtailimages/images/index.html:24 wagtail_hooks.py:44
+#: wagtail_hooks.py:130
 msgid "Images"
 msgstr ""
 
@@ -454,7 +454,7 @@ msgstr ""
 msgid "The image could not be created due to errors."
 msgstr ""
 
-#: wagtail_hooks.py:137
+#: wagtail_hooks.py:149
 #, python-format
 msgid "%(count)s image"
 msgid_plural "%(count)s images"

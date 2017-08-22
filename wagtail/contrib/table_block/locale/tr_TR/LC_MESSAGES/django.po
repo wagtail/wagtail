@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# José Luis <alagunajs@gmail.com>, 2017
 # Saadettin Yasir AKEL <yasirakel@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-19 16:55+0000\n"
-"PO-Revision-Date: 2016-10-12 12:54+0000\n"
-"Last-Translator: Saadettin Yasir AKEL <yasirakel@gmail.com>\n"
+"POT-Creation-Date: 2017-08-10 16:05+0000\n"
+"PO-Revision-Date: 2017-06-30 16:45+0000\n"
+"Last-Translator: José Luis <alagunajs@gmail.com>\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/torchbox/wagtail/"
 "language/tr_TR/)\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +21,13 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Row header"
-msgstr "Satır başlığı"
+msgstr "Sütun başlığı"
+
+msgid "Display the first row as a header."
+msgstr "İlk satırı başlık olarak göster"
 
 msgid "Column header"
 msgstr "Sütun başlığı"
+
+msgid "Display the first column as a header."
+msgstr "İlk sütunu başlık olarak göster"

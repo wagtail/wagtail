@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-19 16:55+0000\n"
+"POT-Creation-Date: 2017-08-10 16:05+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,55 +25,55 @@ msgstr ""
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr ""
 
-#: forms.py:73
+#: forms.py:79
 msgid "A user with that username already exists."
 msgstr ""
 
-#: forms.py:74
+#: forms.py:80
 msgid "The two password fields didn't match."
 msgstr ""
 
-#: forms.py:77
+#: forms.py:83
 msgid "Email"
 msgstr ""
 
-#: forms.py:78
+#: forms.py:84
 msgid "First Name"
 msgstr ""
 
-#: forms.py:79
+#: forms.py:85
 msgid "Last Name"
 msgstr ""
 
-#: forms.py:82
+#: forms.py:88
 msgid "Password"
 msgstr ""
 
-#: forms.py:84
+#: forms.py:90
 msgid "Leave blank if not changing."
 msgstr ""
 
-#: forms.py:86
+#: forms.py:92
 msgid "Password confirmation"
 msgstr ""
 
-#: forms.py:88
+#: forms.py:94
 msgid "Enter the same password as above, for verification."
 msgstr ""
 
-#: forms.py:91 forms.py:192
+#: forms.py:97 forms.py:211
 msgid "Administrator"
 msgstr ""
 
-#: forms.py:92 forms.py:194
+#: forms.py:98 forms.py:213
 msgid "Administrators have full access to manage any object or setting."
 msgstr ""
 
-#: forms.py:188
+#: forms.py:207
 msgid "A group with that name already exists."
 msgstr ""
 
-#: forms.py:292
+#: forms.py:311
 msgid "You cannot have multiple permission records for the same page."
 msgstr ""
 
@@ -163,8 +163,8 @@ msgid "Editing"
 msgstr ""
 
 #: templates/wagtailusers/groups/edit.html:33
-#: templates/wagtailusers/users/edit.html:34
-#: templates/wagtailusers/users/edit.html:46
+#: templates/wagtailusers/users/edit.html:41
+#: templates/wagtailusers/users/edit.html:56
 msgid "Save"
 msgstr ""
 
@@ -227,8 +227,8 @@ msgstr ""
 
 #: templates/wagtailusers/users/confirm_delete.html:3
 #: templates/wagtailusers/users/confirm_delete.html:6
-#: templates/wagtailusers/users/edit.html:36
-#: templates/wagtailusers/users/edit.html:48
+#: templates/wagtailusers/users/edit.html:43
+#: templates/wagtailusers/users/edit.html:58
 msgid "Delete user"
 msgstr ""
 
@@ -238,7 +238,7 @@ msgstr ""
 
 #: templates/wagtailusers/users/create.html:4
 #: templates/wagtailusers/users/create.html:7
-#: templates/wagtailusers/users/create.html:39
+#: templates/wagtailusers/users/create.html:43
 msgid "Add user"
 msgstr ""
 
@@ -248,7 +248,7 @@ msgid "Account"
 msgstr ""
 
 #: templates/wagtailusers/users/create.html:12
-#: templates/wagtailusers/users/create.html:32
+#: templates/wagtailusers/users/create.html:36
 #: templates/wagtailusers/users/edit.html:12
 msgid "Roles"
 msgstr ""
@@ -322,7 +322,7 @@ msgid "Group '{0}' created."
 msgstr ""
 
 #: views/groups.py:94 views/groups.py:128 views/users.py:129
-#: views/users.py:152 wagtail_hooks.py:105
+#: views/users.py:153 wagtail_hooks.py:105
 msgid "Edit"
 msgstr ""
 
@@ -357,16 +357,16 @@ msgstr ""
 msgid "The user could not be created due to errors."
 msgstr ""
 
-#: views/users.py:151
+#: views/users.py:152
 #, python-brace-format
 msgid "User '{0}' updated."
 msgstr ""
 
-#: views/users.py:156
+#: views/users.py:157
 msgid "The user could not be saved due to errors."
 msgstr ""
 
-#: views/users.py:176
+#: views/users.py:177
 #, python-brace-format
 msgid "User '{0}' deleted."
 msgstr ""

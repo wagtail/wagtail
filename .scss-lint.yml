@@ -2,7 +2,9 @@
 # SpaceBeforeBrace: search "([^\ ])\{" replace "$1 {"
 # SpaceAfterPropertyColon: search "([^\&]):([^\ \n]*);" replace "$1: $2;"
 
-scss_files: 'wagtail/**/static_src/**/scss/**/*.scss'
+scss_files:
+- wagtail/**/static_src/**/scss/**/*.scss
+- client/**/*.scss
 
 linters:
     BorderZero:
@@ -82,6 +84,9 @@ linters:
 
     NestingDepth:
         max_depth: 5
+
+    PseudoElement:
+        enabled: false
 
     SelectorDepth:
         enabled: false

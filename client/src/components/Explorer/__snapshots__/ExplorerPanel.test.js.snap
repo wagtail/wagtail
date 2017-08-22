@@ -190,12 +190,12 @@ exports[`ExplorerPanel #items 1`] = `
           <ExplorerItem
             item={
               Object {
+                "admin_display_title": "Test",
                 "id": 1,
                 "meta": Object {
                   "status": Object {},
                   "type": "test",
                 },
-                "title": "Test",
               }
             }
             onClick={[Function]}
@@ -203,12 +203,12 @@ exports[`ExplorerPanel #items 1`] = `
           <ExplorerItem
             item={
               Object {
+                "admin_display_title": "Foo",
                 "id": 2,
                 "meta": Object {
                   "status": Object {},
                   "type": "foo",
                 },
-                "title": "Foo",
               }
             }
             onClick={[Function]}

@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-19 16:55+0000\n"
-"PO-Revision-Date: 2017-06-19 16:57+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-08-10 16:05+0000\n"
+"PO-Revision-Date: 2017-08-10 18:41+0000\n"
+"Last-Translator: Stein Strindhaug <stein.strindhaug@gmail.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
 "MIME-Version: 1.0\n"
@@ -117,6 +117,10 @@ msgstr[0] ""
 msgstr[1] ""
 "%(count)s av sidene som blir kopiert er publisert. Vil du publisere kopiene "
 "deres også?"
+
+#, python-format
+msgid "You do not have permission to copy to page \"%(page_title)s\""
+msgstr "Du har ikke tilgang til å kopiere siden «%(page_title)s»"
 
 #, python-format
 msgid ""
@@ -230,8 +234,29 @@ msgstr "Nullstill ditt passord"
 msgid "Edit"
 msgstr "Redigér"
 
+msgid "Page"
+msgstr "Side"
+
 msgid "Pages"
 msgstr "Sider"
+
+msgid "Loading..."
+msgstr "Laster inn..."
+
+msgid "No results"
+msgstr "Ingen resultater"
+
+msgid "Server Error"
+msgstr "Serverfeil"
+
+msgid "See children"
+msgstr "Se undersider"
+
+msgid "See all"
+msgstr "Se alle"
+
+msgid "Close explorer"
+msgstr "Lukk utforsker"
 
 msgid "Dashboard"
 msgstr "Kontrollpanel"
@@ -316,8 +341,20 @@ msgstr "Sett inn lenke"
 msgid "Add an external link"
 msgstr "Legg til en ekstern lenke"
 
+msgid "Collection privacy"
+msgstr "Samlingsvern"
+
+msgid "This collection has been made private by a parent collection."
+msgstr "Denne samlingen har blitt gjort privat av en overordnet samling."
+
 msgid "You can edit the privacy settings on:"
 msgstr "Du kan endre sidevernsinnstillingene på:"
+
+msgid ""
+"Privacy settings determine who is able to view documents in this collection."
+msgstr ""
+"Samlingsvern-innstillingene bestemmer hvem som kan se dokumenter i denne "
+"samlingen."
 
 msgid "Save"
 msgstr "Lagre"
@@ -922,6 +959,9 @@ msgstr "av"
 msgid "Current draft"
 msgstr "Nåværende kladd"
 
+msgid "Live version"
+msgstr "Publisert versjon"
+
 msgid "Review this revision"
 msgstr "Vurder denne revisjonen"
 
@@ -1121,6 +1161,9 @@ msgstr "islandsk"
 msgid "Italian"
 msgstr "italiensk"
 
+msgid "Korean"
+msgstr "Koreansk"
+
 msgid "Lithuanian"
 msgstr "litauisk"
 
@@ -1129,6 +1172,9 @@ msgstr "norsk bokmål"
 
 msgid "Netherlands Dutch"
 msgstr "nederlandsk"
+
+msgid "Persian"
+msgstr "Persisk"
 
 msgid "Polish"
 msgstr "polsk"
@@ -1144,6 +1190,9 @@ msgstr "rumensk"
 
 msgid "Russian"
 msgstr "russisk"
+
+msgid "Swedish"
+msgstr "Svensk"
 
 msgid "Chinese (China)"
 msgstr "kinesisk (Kina)"

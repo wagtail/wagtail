@@ -4,15 +4,16 @@
 #
 # Translators:
 # Alexander Holmbäck <alexander.holmback@creuna.se>, 2017
+# Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2017
 # Thomas Kunambi <kunambi@gmail.com>, 2017
 # Thomas Kunambi <kunambi@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-19 16:55+0000\n"
-"PO-Revision-Date: 2017-04-27 08:39+0000\n"
-"Last-Translator: Alexander Holmbäck <alexander.holmback@creuna.se>\n"
+"POT-Creation-Date: 2017-08-10 16:05+0000\n"
+"PO-Revision-Date: 2017-07-29 04:56+0000\n"
+"Last-Translator: Jim Brouzoulis <jim.brouzoulis@chalmers.se>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -48,6 +49,15 @@ msgstr[1] ""
 #, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
 msgstr "Ledsen, men inga snuttar matchade \"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">create one now</"
+"a>?"
+msgstr ""
+"Du har inte skapat några %(snippet_type_name)s snuttar. Varför inte <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">skapa en nu</a>?"
 
 #, python-format
 msgid "Delete %(snippet_type_name)s - %(instance)s"
@@ -117,7 +127,7 @@ msgid "Usage of"
 msgstr "Användning av"
 
 msgid "Parent"
-msgstr "Förälder"
+msgstr "Topp"
 
 msgid "Type"
 msgstr "Typ"

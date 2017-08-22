@@ -1,7 +1,5 @@
 from __future__ import absolute_import, unicode_literals
 
-import warnings
-
 from django.core.urlresolvers import reverse
 from django.shortcuts import redirect
 from django.utils.translation import ugettext as _
@@ -10,7 +8,6 @@ from django.views.generic.base import TemplateResponseMixin
 from django.views.generic.edit import BaseCreateView, BaseDeleteView, BaseUpdateView
 from django.views.generic.list import BaseListView
 
-from wagtail.utils.deprecation import RemovedInWagtail113Warning
 from wagtail.wagtailadmin import messages
 from wagtail.wagtailadmin.utils import permission_denied
 
@@ -138,22 +135,6 @@ class EditView(PermissionCheckedMixin, TemplateResponseMixin, BaseUpdateView):
     success_message = None
     error_message = None
 
-    @property
-    def instance(self):
-        warnings.warn(
-            "instance attribute is deprecated, please use object instead",
-            category=RemovedInWagtail113Warning
-        )
-        return self.object
-
-    @instance.setter
-    def instance(self, instance):
-        warnings.warn(
-            "instance attribute is deprecated, please use object instead",
-            category=RemovedInWagtail113Warning
-        )
-        self.object = instance
-
     def get_object(self, queryset=None):
         if 'pk' not in self.kwargs:
             self.kwargs['pk'] = self.args[0]
@@ -163,13 +144,13 @@ class EditView(PermissionCheckedMixin, TemplateResponseMixin, BaseUpdateView):
         return self.model.objects.all()
 
     def get_page_subtitle(self):
-        return str(self.instance)
+        return str(self.object)
 
     def get_edit_url(self):
-        return reverse(self.edit_url_name, args=(self.instance.id,))
+        return reverse(self.edit_url_name, args=(self.object.id,))
 
     def get_delete_url(self):
-        return reverse(self.delete_url_name, args=(self.instance.id,))
+        return reverse(self.delete_url_name, args=(self.object.id,))
 
     def get_success_url(self):
         return reverse(self.index_url_name)
@@ -226,22 +207,6 @@ class DeleteView(PermissionCheckedMixin, TemplateResponseMixin, BaseDeleteView):
     permission_required = 'delete'
     success_message = None
 
-    @property
-    def instance(self):
-        warnings.warn(
-            "instance attribute is deprecated, please use object instead",
-            category=RemovedInWagtail113Warning
-        )
-        return self.object
-
-    @instance.setter
-    def instance(self, instance):
-        warnings.warn(
-            "instance attribute is deprecated, please use object instead",
-            category=RemovedInWagtail113Warning
-        )
-        self.object = instance
-
     def get_object(self, queryset=None):
         if 'pk' not in self.kwargs:
             self.kwargs['pk'] = self.args[0]
@@ -254,29 +219,15 @@ class DeleteView(PermissionCheckedMixin, TemplateResponseMixin, BaseDeleteView):
         return self.model.objects.all()
 
     def get_page_subtitle(self):
-        return str(self.instance)
+        return str(self.object)
 
     def get_delete_url(self):
-        return reverse(self.delete_url_name, args=(self.instance.id,))
+        return reverse(self.delete_url_name, args=(self.object.id,))
 
     def get_success_message(self, instance):
         if self.success_message is None:
             return None
         return self.success_message.format(instance)
-
-    def get_context_data(self, **kwargs):
-        context = self.get_context()
-        if context:
-            warnings.warn(
-                "get_context() method is deprecated, please use get_context_data() instead",
-                category=RemovedInWagtail113Warning
-            )
-        kwargs.update(context)
-        return super(DeleteView, self).get_context_data(**kwargs)
-
-    def get_context(self):
-        # Deprecated, use get_context_data instead.
-        return {}
 
     def delete(self, request, *args, **kwargs):
         response = super(DeleteView, self).delete(request, *args, **kwargs)
