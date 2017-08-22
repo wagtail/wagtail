@@ -1,6 +1,7 @@
 @import 'wagtailadmin/scss/variables';
 @import 'wagtailadmin/scss/mixins';
 @import 'wagtailadmin/scss/grid';
+@import 'wagtailadmin/scss/components/logo';
 
 body {
     font-family: $font-sans;
@@ -8,30 +9,29 @@ body {
 
     .page404__bg {
         position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: $color-teal-darker;
 
-        .page404__wagtail-logo {
+        .wagtail-logo-container__desktop {
             position: fixed;
-            right: 50%;
-            transform: translateX(-130px);
-            top: 16%;
+            right: calc(50% + 130px);
+            top: calc(50% - 350px);
             width: 425px;
-            height: auto;
-            z-index: 10;
-            transition: all 0.25s cubic-bezier(0.28, 0.15, 0, 2.1);
-            -webkit-filter: drop-shadow(4px 4px 4px #1d4d4d);
-            filter: drop-shadow(4px 4px 4px #1d4d4d);
-            opacity: 1;
+            height: 563px;
 
-            &:hover {
-                transform: translateX(-130px) rotate(4deg);
+            .wagtail-logo {
+                width: 100%;
+                height: 100%;
             }
         }
 
         .page404__text-container {
             position: fixed;
-            left: 50%;
-            transform: translateX(-130px);
-            top: 25%;
+            left: calc(50% - 130px);
+            top: calc(50% - 250px);
             width: 600px;
             height: 50%;
             text-align: center;
@@ -40,10 +40,9 @@ body {
             .page404__text--header {
                 position: relative;
                 top: -80px;
-                color: $color-white; // override default h1 color
+                color: $color-white;
                 font-size: 100px;
                 padding-bottom: 0;
-                text-shadow: 4px 4px 4px #1d4d4d;
             }
 
             .page404__text--info {
@@ -51,14 +50,13 @@ body {
                 top: -130px;
                 font-size: 30px;
                 line-height: 125%;
-                text-shadow: 2px 2px 2px #1d4d4d;
             }
 
             .page404__link--goback {
                 position: relative;
                 top: -125px;
                 font-size: 25px;
-                background-color: #2d7878; // slightly lighter than shadow
+                background-color: $color-teal-dark;
                 text-decoration: none;
                 color: #fff;
                 padding-left: 12px;
@@ -66,21 +64,8 @@ body {
                 padding-top: 3px;
                 padding-bottom: 3px;
                 border-radius: 20px;
-                filter: drop-shadow(3px 3px 3px #1d4d4d);
             }
         }
-    }
-
-    // Subtle vignette:
-    .page404__bg::after {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        box-shadow: inset 0 0 10em #333;
-        background-color: $color-teal-darker;
-        content: '';
     }
 }
 
@@ -88,22 +73,13 @@ body {
 @media screen and (max-width: $breakpoint-mobile) {
     body {
         .page404__bg {
-            .page404__wagtail-logo {
-                opacity: 0;
-            }
-
             .page404__text-container {
-                width: 300px;
-                transform: translateX(-150px);
+                width: 400px;
+                left: calc(50% - 200px);
 
                 .page404__text--header {
-                    font-size: 50px;
+                    font-size: 60px;
                     padding-bottom: 30px;
-                    text-shadow: none;
-                }
-
-                .page404__text--info {
-                    text-shadow: none;
                 }
 
                 .page404__link--goback {
