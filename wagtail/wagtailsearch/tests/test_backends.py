@@ -217,7 +217,7 @@ class BackendTests(WagtailTestUtils):
             results = self.backend.search('Rank', models.SearchTest)
             results_across_pages = set()
             for i, obj in enumerate(same_rank_objects):
-                results_across_pages.add(results[i:i+1][0])
+                results_across_pages.add(results[i:i + 1][0])
             self.assertSetEqual(results_across_pages, same_rank_objects)
         finally:
             for obj in same_rank_objects:
