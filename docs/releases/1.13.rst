@@ -21,6 +21,7 @@ Bug fixes
  * "Open Link in New Tab" on a right arrow in page explorer should open page list (Emily Horsman)
  * Using ``order_by_relevance=False`` when searching with PostgreSQL now works (Mitchel Cabuloy)
  * Inline panel first and last sorting arrows correctly hidden in non-default tabs (Matt Westcott)
+ * In PostgreSQL, new default ordering when ranking of objects is the same (Bertrand Bordage)
 
 Upgrade considerations
 ======================
