@@ -254,7 +254,6 @@ def delete(request, app_label, model_name, id=None):
     return render(request, 'wagtailsnippets/snippets/confirm_delete.html', {
         'model_opts': model._meta,
         'count': count,
-        'first_instance': instances[0],
         'instances': instances,
     })
 
