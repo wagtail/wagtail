@@ -13,7 +13,7 @@
     <tbody>
         {% for snippet in items %}
             <tr>
-                <td class="select"><input type="checkbox" class="toggle-select-row"/></td>
+                <td class="select"><input type="checkbox" class="toggle-select-row" id="{{ snippet.id }}"/></td>
                 <td class="title">
                     {% if choosing %}
                         <h2><a class="snippet-choice" href="{% url 'wagtailsnippets:chosen' model_opts.app_label model_opts.model_name snippet.id %}">{{ snippet }}</a></h2>
@@ -26,34 +26,51 @@
     </tbody>
 </table>
 {# need to check where this should actually go #}
+{# need to ensure it works when you go 'back' #}
+{# need to ensure it all works when you are viewing search results #}
 <script>
   $( document ).ready(function() {
       $('table.listing input[type="checkbox"]').on('click', function(event) {
           $target = $(event.target);
           value = $target.prop('checked');
           if ( $target.hasClass('toggle-select-row') ) {
-            $row = $($target.closest('tr')[0]);
-            $selectAllCheckbox = $('table.listing input[type="checkbox"].toggle-select-all');
-            if (value === true) {
-              $row.addClass('selected');
-              unchekedCheckboxes = $('table.listing tbody input[type=checkbox]:not(:checked)').length;
-              if (unchekedCheckboxes === 0) {
-                $checkboxes.prop('checked', false);
+              $row = $($target.closest('tr')[0]);
+              $selectAllCheckbox = $('table.listing input[type="checkbox"].toggle-select-all');
+              if (value === true) {
+                  $row.addClass('selected');
+                  unchekedCheckboxes = $('table.listing tbody input[type="checkbox"]:not(:checked)').length;
+                  if (unchekedCheckboxes === 0) {
+                      $selectAllCheckbox.prop('checked', false);
+                  }
+              } else {
+                  $row.removeClass('selected');
+                  $selectAllCheckbox.prop('checked', false);
               }
-            } else {
-              $selectAllCheckbox.prop('checked', false);
-              $row.removeClass('selected');
-            }
           } else if ( $target.hasClass('toggle-select-all') ) {
-            $rows = $('table.listing tr');
-            $checkboxes = $('table.listing input[type="checkbox"]');
-            if (value === true) {
-              $rows.addClass('selected');
-              $checkboxes.prop('checked', true);
-            } else {
-              $rows.removeClass('selected');
-              $checkboxes.prop('checked', false);
-            }
+              $rows = $('table.listing tr');
+              $checkboxes = $('table.listing input[type="checkbox"]');
+              if (value === true) {
+                  $rows.addClass('selected');
+                  $checkboxes.prop('checked', true);
+              } else {
+                  $rows.removeClass('selected');
+                  $checkboxes.prop('checked', false);
+              }
+          }
+          var $chekedCheckboxes = $('table.listing tbody input[type="checkbox"]:checked');
+          var $deleteButton = $('a.button.delete-button');
+          var ids = [];
+          $.map($chekedCheckboxes, function(checkbox) {
+              ids.push(checkbox.id);
+          })
+          if ( ids.length === 0 ) {
+              $deleteButton.addClass('disabled');
+              $deleteButton.attr('href', null);
+          } else {
+              $deleteButton.removeClass('disabled');
+              var url = $deleteButton.data('url');
+              url = url + $.param({id: ids}, true);
+              $deleteButton.attr('href', url);
           }
       });
   });
