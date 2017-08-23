@@ -1,13 +1,32 @@
 {% extends "wagtailadmin/base.html" %}
 {% load i18n %}
-{% block titletag %}{% blocktrans with snippet_type_name=model_opts.verbose_name %}Delete {{ snippet_type_name }} - {{ instance }}{% endblocktrans %}{% endblock %}
+{% block titletag %}
+    {% if count == 1 %}
+      {% blocktrans with snippet_type_name=model_opts.verbose_name %}Delete {{ snippet_type_name }} - {{ first_instance }}{% endblocktrans %}
+    {% else %}
+      {% blocktrans with snippet_type_name=model_opts.verbose_name_plural %}{{ count }} {{ snippet_type_name }}{% endblocktrans %}
+    {% endif %}
+{% endblock %}
 {% block content %}
-    {% trans "Delete" as delete_str %}
-    {% include "wagtailadmin/shared/header.html" with title=delete_str subtitle=instance icon="snippet" %}
+    {% trans "Delete " as delete_str %}
+    {% if count == 1 %}
+        {% include "wagtailadmin/shared/header.html" with title=delete_str subtitle=first_instance icon="snippet" %}
+    {% else %}
+        {% include "wagtailadmin/shared/header.html" with title=delete_str subtitle=model_opts.verbose_name_plural icon="snippet" %}
+    {% endif %}
 
     <div class="nice-padding">
-        <p>{% blocktrans with snippet_type_name=model_opts.verbose_name %}Are you sure you want to delete this {{ snippet_type_name }}?{% endblocktrans %}</p>
-        <form action="{% url 'wagtailsnippets:delete' model_opts.app_label model_opts.model_name instance.id %}" method="POST">
+        {% if count == 1 %}
+            <p>{% blocktrans with snippet_type_name=model_opts.verbose_name %}Are you sure you want to delete this {{ snippet_type_name }}?{% endblocktrans %}</p>
+        {% else %}
+            <p>{% blocktrans with snippet_type_name=model_opts.verbose_name_plural %}Are you sure you want to delete {{ count }} {{ snippet_type_name }}?{% endblocktrans %}</p>
+            <ul>
+                {% for instance in instances %}
+                <li>{% blocktrans %}{{ instance }}{% endblocktrans %}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <form action="{% url 'wagtailsnippets:delete-multiple' model_opts.app_label model_opts.model_name %}?_=0{% for instance in instances %}&id={{ instance.id }}{% endfor%}" method="POST">
             {% csrf_token %}
             <input type="submit" value="{% trans 'Yes, delete' %}" class="button serious" />
         </form>
