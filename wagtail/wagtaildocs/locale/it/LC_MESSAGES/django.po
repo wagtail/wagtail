@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2016
+# Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-01 13:25+0000\n"
-"PO-Revision-Date: 2016-06-24 14:30+0000\n"
+"POT-Creation-Date: 2017-08-10 16:05+0000\n"
+"PO-Revision-Date: 2017-07-18 06:49+0000\n"
 "Last-Translator: Giacomo Ghizzani <giacomo.ghz@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
@@ -144,6 +144,10 @@ msgid "Uploaded"
 msgstr "Caricato"
 
 #, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s fa"
+
+#, python-format
 msgid ""
 "You haven't uploaded any documents in this collection. Why not <a href="
 "\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
@@ -230,6 +234,9 @@ msgstr "Aggiorna"
 
 msgid "Delete"
 msgstr "Elimina"
+
+msgid "You need a password to access this document."
+msgstr "Devi avere una password per accedere a questo documento."
 
 msgid "Document permissions"
 msgstr "Permessi del documento"

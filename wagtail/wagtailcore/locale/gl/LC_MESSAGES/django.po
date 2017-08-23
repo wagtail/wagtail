@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-01 13:25+0000\n"
-"PO-Revision-Date: 2016-05-29 15:37+0000\n"
-"Last-Translator: fooflare <amos.oviedo@gmail.com>\n"
+"POT-Creation-Date: 2017-08-10 16:05+0000\n"
+"PO-Revision-Date: 2017-08-10 15:56+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
 "MIME-Version: 1.0\n"
@@ -122,9 +122,6 @@ msgstr "procurar descripción"
 msgid "go live date/time"
 msgstr "ir en vivo data/hora"
 
-msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
-msgstr "Por favor engade a data-hora na forma YYYY-MM-DD hh:mm."
-
 msgid "expiry date/time"
 msgstr "data/hora de expiración"
 
@@ -227,11 +224,11 @@ msgstr "restrición da vista da páxina"
 msgid "page view restrictions"
 msgstr "restición da vista da páxina"
 
-msgid "name"
-msgstr "nome"
-
 msgid "collection"
 msgstr "colección"
+
+msgid "name"
+msgstr "nome"
 
 msgid "collections"
 msgstr "coleccións"

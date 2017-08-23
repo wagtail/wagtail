@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# David Llop <d.lloople@gmail.com>, 2014
-# David Llop <d.lloople@gmail.com>, 2014
+# David Llop, 2014
+# David Llop, 2014
+# Roger Pons <rogerpons@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-01 13:25+0000\n"
-"PO-Revision-Date: 2016-08-01 13:29+0000\n"
+"POT-Creation-Date: 2017-08-10 16:05+0000\n"
+"PO-Revision-Date: 2017-04-19 21:08+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
@@ -33,8 +34,14 @@ msgstr "Ja existeix un usuari amb aquest nom"
 msgid "The two password fields didn't match."
 msgstr "Les contrasenyes no coincideixen"
 
-msgid "Administrator"
-msgstr "Administrador"
+msgid "Email"
+msgstr "Email"
+
+msgid "First Name"
+msgstr "Nom"
+
+msgid "Last Name"
+msgstr "Cognoms"
 
 msgid "Password"
 msgstr "Contrasenya"
@@ -48,14 +55,81 @@ msgstr "Confirmació de contrasenya"
 msgid "Enter the same password as above, for verification."
 msgstr "Introdueix la mateixa contrasenya, per verificació."
 
-msgid "Email"
-msgstr "Email"
+msgid "Administrator"
+msgstr "Administrador"
 
-msgid "First Name"
-msgstr "Nom"
+msgid "Administrators have full access to manage any object or setting."
+msgstr ""
+"Els administradors tenen accés complet per administrar qualsevol objecte o "
+"paràmetre."
 
-msgid "Last Name"
-msgstr "Cognoms"
+msgid "A group with that name already exists."
+msgstr "Ja existeix un grup amb aquest nom."
+
+msgid "You cannot have multiple permission records for the same page."
+msgstr "No podeu tenir diversos registres de permisos per la mateixa pàgina."
+
+msgid "submitted notifications"
+msgstr "notificacions enviades"
+
+msgid "Receive notification when a page is submitted for moderation"
+msgstr "Rebre una notificació quan una pàgina és enviada a moderació"
+
+msgid "approved notifications"
+msgstr "notificacions aprovades"
+
+msgid "Receive notification when your page edit is approved"
+msgstr "Rebre una notificació quan la teva pàgina és aprovada"
+
+msgid "rejected notifications"
+msgstr "notificacions rebutjades"
+
+msgid "Receive notification when your page edit is rejected"
+msgstr "Rebre una notificació quan l'edició de la teva pàgina és rebutjada"
+
+msgid "user profile"
+msgstr "perfil d'usuari"
+
+msgid "Delete group"
+msgstr "Eliminar grup"
+
+#, python-format
+msgid ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> member.\n"
+"            "
+msgid_plural ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> members.\n"
+"            "
+msgstr[0] ""
+"\n"
+"                El grup '%(group_name)s' té <strong>%(group_user_count)s</"
+"strong> membre.\n"
+"            "
+msgstr[1] ""
+"\n"
+"                El grup '%(group_name)s' té <strong>%(group_user_count)s</"
+"strong> membres.\n"
+"            "
+
+msgid ""
+"Deleting this group will revoke this group's permissions from all member "
+"users."
+msgstr ""
+"L'eliminació d'aquest grup revocarà els seus permisos per a tots els usuaris "
+"membre."
+
+msgid "Are you sure you want to delete this group?"
+msgstr "Segur que voleu eliminar aquest grup?"
+
+msgid "Yes, delete"
+msgstr "Sí, eliminar"
+
+msgid "Add group"
+msgstr "Afegir grup"
 
 msgid "Editing"
 msgstr "Editant"
@@ -63,8 +137,52 @@ msgstr "Editant"
 msgid "Save"
 msgstr "Desa"
 
+msgid "Object permissions"
+msgstr "Permisos d'objecte"
+
 msgid "Name"
 msgstr "Nom"
+
+msgid "Add"
+msgstr "Afegir"
+
+msgid "Change"
+msgstr "Canviar"
+
+msgid "Delete"
+msgstr "Eliminar"
+
+msgid "Other permissions"
+msgstr "Altres permisos"
+
+msgid "Page permissions"
+msgstr "Permisos de pàgina"
+
+msgid "Page"
+msgstr "Pàgina"
+
+msgid "Add a page permission"
+msgstr "Afegir un permís de pàgina"
+
+msgid "groups"
+msgstr "grups"
+
+msgid "Add a group"
+msgstr "Afegir un grup"
+
+#, python-format
+msgid ""
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
+msgstr ""
+"No hi ha cap grup configurat. Per què no n'<a href="
+"\"%(wagtailusers_create_group_url)s\">afegiu un</a>?"
+
+msgid "Delete user"
+msgstr "Eliminar usuari"
+
+msgid "Are you sure you want to delete this user?"
+msgstr "Segur que voleu eliminar aquest usuari?"
 
 msgid "Add user"
 msgstr "fegir usuari"
@@ -127,8 +245,29 @@ msgstr ""
 "No hi han usuaris configurats. Per què no <a href="
 "\"%(wagtailusers_create_url)s\">afegeixes un</a>?"
 
+msgid "Search groups"
+msgstr "Cercar grups"
+
+#, python-brace-format
+msgid "Group '{0}' created."
+msgstr "S'ha creat el grup '{0}'."
+
 msgid "Edit"
 msgstr "Editar"
+
+msgid "The group could not be created due to errors."
+msgstr "No s'ha pogut crear el grup a causa d'errors."
+
+#, python-brace-format
+msgid "Group '{0}' updated."
+msgstr "S'ha actualitzat el grup '{0}'."
+
+msgid "The group could not be saved due to errors."
+msgstr "No s'ha pogut desar el grup a causa d'errors."
+
+#, python-brace-format
+msgid "Group '{0}' deleted."
+msgstr "S'ha eliminat el grup '{0}'."
 
 msgid "Search users"
 msgstr "Cercar usuaris"
@@ -146,3 +285,16 @@ msgstr "Usuari '{0}' actualitzat."
 
 msgid "The user could not be saved due to errors."
 msgstr "No s'ha pogut desar l'usuari degut a errors."
+
+#, python-brace-format
+msgid "User '{0}' deleted."
+msgstr "S'ha eliminat l'usuari '{0}'."
+
+msgid "Groups"
+msgstr "Grups"
+
+msgid "Edit this user"
+msgstr "Editar aquest usuari"
+
+msgid "Delete this user"
+msgstr "Eliminar aquest usuari"

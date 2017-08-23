@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-01 13:25+0000\n"
-"PO-Revision-Date: 2016-08-01 13:28+0000\n"
+"POT-Creation-Date: 2017-08-10 16:05+0000\n"
+"PO-Revision-Date: 2017-08-10 16:07+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
@@ -94,12 +94,6 @@ msgstr "هذه النسخه مباشرة. هل تريد نشر نسخه لها �
 msgid "Publish copies"
 msgstr "انشر النسخ"
 
-msgid "Public"
-msgstr "عمومي"
-
-msgid "Private, accessible with the following password"
-msgstr "حصوصي , قابل للدحول باستعمال كلمة السر الآتية"
-
 msgid "This field is required."
 msgstr "هذا الحقل مقتضى"
 
@@ -124,15 +118,9 @@ msgstr "أفضليات الأبلاغ"
 msgid "Choose which email notifications to receive."
 msgstr "اختر وسيلة الإبلاغ التي تفضلها للاستلام"
 
-msgid "Change Password"
-msgstr "غير كلمة السر"
-
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr "من غير ممكن أن تغير كلمتك السرية هنا , من فضلك اتصل بمدير الموقع"
-
-msgid "Notification Preferences"
-msgstr "أفضليات الإبلاغ"
 
 msgid "Update"
 msgstr "حدث"
@@ -169,6 +157,12 @@ msgstr "أكملت إعادة تثبيت كلمة السر"
 
 msgid "Reset your password"
 msgstr "أعد تثبيت كلمةتك السرية"
+
+msgid "Edit"
+msgstr "تنقيح"
+
+msgid "Pages"
+msgstr "صفحات"
 
 msgid "Dashboard"
 msgstr "لوحة التحكم"
@@ -215,6 +209,18 @@ msgstr "أدخل حلقة"
 msgid "Add an external link"
 msgstr "أضف حلقة خارجية"
 
+msgid "Save"
+msgstr "احفظ"
+
+msgid "Privacy"
+msgstr "نظام السرية"
+
+msgid "Public"
+msgstr "عمومي"
+
+msgid "Private"
+msgstr "خصوصي"
+
 msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
 msgstr "المجموعة لايمكن حذفها. بسبب احتوائها على محتويات:"
@@ -228,9 +234,6 @@ msgstr "أضف %(heading)s"
 
 msgid "Yes, delete"
 msgstr "نعم احذف"
-
-msgid "Save"
-msgstr "احفظ"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -259,9 +262,6 @@ msgstr "موافق"
 
 msgid "Reject"
 msgstr "مرفوض"
-
-msgid "Edit"
-msgstr "تنقيح"
 
 msgid "Preview"
 msgstr "نظر مقدم"
@@ -317,12 +317,6 @@ msgstr "مغلق"
 
 msgid "Unlocked"
 msgstr "غير مغلق"
-
-msgid "Privacy"
-msgstr "نظام السرية"
-
-msgid "Private"
-msgstr "خصوصي"
 
 msgid "Create a page in"
 msgstr "أنشئ صفحة في"
@@ -407,8 +401,8 @@ msgstr "لم تنسأ إي صفحات في هذا الموقع"
 msgid "This page is locked to further editing"
 msgstr "هذه الصفحة مغلقة لأي تنقيح"
 
-msgid "Add subpage"
-msgstr "أضف صفحة تحتية"
+msgid "Add child page"
+msgstr "أضف صفحة لطفل "
 
 msgid "Previous"
 msgstr "سابق"
@@ -430,12 +424,6 @@ msgstr "تسجيل الخروج"
 
 msgid "View live"
 msgstr "انظر في الواقع"
-
-msgid "Pages"
-msgstr "صفحات"
-
-msgid "Add child page"
-msgstr "أضف صفحة لطفل "
 
 msgid "Choose another page"
 msgstr "إختر صفحة أخرى"

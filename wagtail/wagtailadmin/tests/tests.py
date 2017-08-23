@@ -5,6 +5,7 @@ from __future__ import absolute_import, unicode_literals
 import json
 
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import Group, Permission
 from django.core import mail
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.test import TestCase, override_settings
@@ -14,7 +15,7 @@ from taggit.models import Tag
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailadmin.menu import MenuItem
 from wagtail.wagtailadmin.site_summary import PagesSummaryItem
-from wagtail.wagtailadmin.utils import send_mail
+from wagtail.wagtailadmin.utils import send_mail, user_has_any_page_permission
 from wagtail.wagtailcore.models import Page, Site
 
 
@@ -26,6 +27,7 @@ class TestHome(TestCase, WagtailTestUtils):
     def test_simple(self):
         response = self.client.get(reverse('wagtailadmin_home'))
         self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Welcome to the Test Site Wagtail CMS")
 
     def test_admin_menu(self):
         response = self.client.get(reverse('wagtailadmin_home'))
@@ -33,12 +35,18 @@ class TestHome(TestCase, WagtailTestUtils):
         # check that media attached to menu items is correctly pulled in
         self.assertContains(
             response,
-            '<script type="text/javascript" src="/static/wagtailadmin/js/explorer-menu.js"></script>'
+            '<script type="text/javascript" src="/static/testapp/js/kittens.js"></script>'
         )
         # check that custom menu items (including classname / attrs parameters) are pulled in
         self.assertContains(
             response,
             '<a href="http://www.tomroyal.com/teaandkittens/" class="icon icon-kitten" data-fluffy="yes">Kittens!</a>'
+        )
+
+        # Check that the explorer menu item is here, with the right start page.
+        self.assertContains(
+            response,
+            'data-explorer-start-page="1"'
         )
 
         # check that is_shown is respected on menu items
@@ -249,3 +257,46 @@ class TestUserPassesTestPermissionDecorator(TestCase):
 
         response = self.client.get(reverse('testapp_bob_only_zone'))
         self.assertRedirects(response, reverse('wagtailadmin_home'))
+
+    def test_user_fails_test_ajax(self):
+        # create and log in as a user not called Bob
+        get_user_model().objects.create_superuser(first_name='Vic', last_name='Reeves', username='test', email='test@email.com', password='password')
+        self.assertTrue(self.client.login(username='test', password='password'))
+
+        response = self.client.get(reverse('testapp_bob_only_zone'), HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertEqual(response.status_code, 403)
+
+
+class TestUserHasAnyPagePermission(TestCase):
+    def test_superuser(self):
+        user = get_user_model().objects.create_superuser(
+            username='superuser', email='admin@example.com', password='p')
+        self.assertTrue(user_has_any_page_permission(user))
+
+    def test_inactive_superuser(self):
+        user = get_user_model().objects.create_superuser(
+            username='superuser', email='admin@example.com', password='p')
+        user.is_active = False
+        self.assertFalse(user_has_any_page_permission(user))
+
+    def test_editor(self):
+        user = get_user_model().objects.create_user(
+            username='editor', email='ed@example.com', password='p')
+        editors = Group.objects.get(name='Editors')
+        user.groups.add(editors)
+        self.assertTrue(user_has_any_page_permission(user))
+
+    def test_moderator(self):
+        user = get_user_model().objects.create_user(
+            username='moderator', email='mod@example.com', password='p')
+        editors = Group.objects.get(name='Moderators')
+        user.groups.add(editors)
+        self.assertTrue(user_has_any_page_permission(user))
+
+    def test_no_permissions(self):
+        user = get_user_model().objects.create_user(
+            username='pleb', email='pleb@example.com', password='p')
+        user.user_permissions.add(
+            Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+        )
+        self.assertFalse(user_has_any_page_permission(user))

@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-01 13:25+0000\n"
-"PO-Revision-Date: 2016-08-27 17:41+0000\n"
-"Last-Translator: Jose Lourenco <jose@lourenco.ws>\n"
+"POT-Creation-Date: 2017-08-10 16:05+0000\n"
+"PO-Revision-Date: 2017-08-10 15:56+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
@@ -20,6 +20,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pt_PT\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#, python-brace-format
+msgid "{label}: this block has no options."
+msgstr "{label}: este bloco não tem opções."
+
+msgid "This block has no options."
+msgstr "Este bloco não tem opções."
+
+msgid "Password"
+msgstr "Senha"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr "Introduziu uma senha incorreta. Por favor tente novamente."
 
 msgid "hostname"
 msgstr "nome do servidor"
@@ -126,9 +139,6 @@ msgstr "descrição de pesquisa"
 msgid "go live date/time"
 msgstr "publicar em data/hora"
 
-msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
-msgstr "Por favor adicione uma data-hora no formato YYYY-MM-DD hh:mm."
-
 msgid "expiry date/time"
 msgstr "data/hora final"
 
@@ -204,6 +214,12 @@ msgstr "Publicar"
 msgid "Publish any page"
 msgstr "Publicar qualquer página"
 
+msgid "Bulk delete"
+msgstr "Apagar vários"
+
+msgid "Delete pages with children"
+msgstr "Apagar páginas com filhas"
+
 msgid "Lock"
 msgstr "Trancar"
 
@@ -222,6 +238,18 @@ msgstr "permissão de página de grupo"
 msgid "group page permissions"
 msgstr "permissões de página de grupo"
 
+msgid "Public"
+msgstr "Público"
+
+msgid "Private, accessible to logged-in users"
+msgstr "Privado, acessível a utilizadores autenticados"
+
+msgid "Private, accessible with the following password"
+msgstr "Privado, acessível com a seguinte senha"
+
+msgid "Private, accessible to users in specific groups"
+msgstr "Privado, acessível aos utilizadores de grupos específicos"
+
 msgid "password"
 msgstr "senha"
 
@@ -231,11 +259,11 @@ msgstr "restrição de visualização de página"
 msgid "page view restrictions"
 msgstr "restrições de visualização de página"
 
-msgid "name"
-msgstr "nome"
-
 msgid "collection"
 msgstr "coleção"
+
+msgid "name"
+msgstr "nome"
 
 msgid "collections"
 msgstr "coleções"
@@ -245,3 +273,26 @@ msgstr "permissão"
 
 msgid "group collection permission"
 msgstr "permissão de coleção de grupo"
+
+msgid "Log in"
+msgstr "Entrar"
+
+msgid "Your username and password didn't match. Please try again."
+msgstr ""
+"O seu utilizador e senha não estão corretos. Por favor tente novamente."
+
+msgid ""
+"Your account doesn't have access to this page. To proceed, please log in "
+"with an account that has access."
+msgstr ""
+"A sua conta não tem acesso a esta página. Para continuar, por favor utilize "
+"uma conta que tenha acesso."
+
+msgid "Password required"
+msgstr "Senha obrigatória"
+
+msgid "You need a password to access this page."
+msgstr "É preciso uma senha para aceder a esta página."
+
+msgid "Continue"
+msgstr "Continuar"

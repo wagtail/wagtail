@@ -3,14 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Yusuf (Josè) Luis <alagunajs@gmail.com>, 2015
+# José Luis <alagunajs@gmail.com>, 2015
+# José Luis <alagunajs@gmail.com>, 2017
+# José Luis <alagunajs@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-01 13:25+0000\n"
-"PO-Revision-Date: 2015-12-17 13:59+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-08-10 16:05+0000\n"
+"PO-Revision-Date: 2017-06-30 16:21+0000\n"
+"Last-Translator: José Luis <alagunajs@gmail.com>\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/torchbox/wagtail/"
 "language/tr_TR/)\n"
 "MIME-Version: 1.0\n"
@@ -19,5 +21,34 @@ msgstr ""
 "Language: tr_TR\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
+msgid "Please enter a valid URL"
+msgstr "Lütfen geçerli bir adres girin"
+
 msgid "URL"
-msgstr "URL"
+msgstr "BKK"
+
+msgid "embed"
+msgstr "Göm"
+
+msgid "Insert embed"
+msgstr "Gömülü kat"
+
+msgid "Insert"
+msgstr "Kat"
+
+msgid ""
+"There seems to be a problem with your embedly API key. Please check your "
+"settings."
+msgstr ""
+"Embedly API anahtarınızla ilgili bir sorun var gibi görünüyor. Lütfen "
+"ayarlarını kontrol edin."
+
+msgid "Cannot find an embed for this URL."
+msgstr "Bu BKK için bir gömülü bulunamıyor."
+
+msgid ""
+"There seems to be an error with Embedly while trying to embed this URL. "
+"Please try again later."
+msgstr ""
+"Bu BKK'yi katmak denerken Embedly ile ilgili bir hata varmış gibi görünüyor. "
+"Lütfen daha sonra tekrar deneyiniz."

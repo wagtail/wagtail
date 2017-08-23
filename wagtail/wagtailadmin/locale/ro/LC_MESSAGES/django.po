@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Dan Braghis, 2014-2016
+# Dan Braghis, 2014-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-01 13:25+0000\n"
-"PO-Revision-Date: 2016-08-01 14:25+0000\n"
-"Last-Translator: Dan Braghis\n"
+"POT-Creation-Date: 2017-08-10 16:05+0000\n"
+"PO-Revision-Date: 2017-08-10 16:07+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +19,9 @@ msgstr ""
 "Language: ro\n"
 "Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
 "2:1));\n"
+
+msgid "None"
+msgstr "Nici una"
 
 msgid "You do not have permission to access the admin"
 msgstr "Nu aveți permisiunea de a accesa zona de administrare."
@@ -119,18 +122,25 @@ msgstr[2] ""
 "copiile lor?"
 
 #, python-format
+msgid "You do not have permission to copy to page \"%(page_title)s\""
+msgstr "Nu aveți permisiunea de a copia pe pagina \"%(page_title)s\""
+
+#, python-format
 msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
 msgstr "Acest slug este deja folosit în contextul paginii părinte \"%s\""
 
-msgid "Public"
-msgstr "Public"
+msgid "You cannot copy a page into itself when copying subpages"
+msgstr "Nu puteți copia o pagină în sine atunci când copiați subpagini"
 
-msgid "Private, accessible with the following password"
-msgstr "Privat. Accesibil cu parola următoare"
+msgid "Visibility"
+msgstr "Vizibilitate"
 
 msgid "This field is required."
 msgstr "Acest câmp este obligatoriu."
+
+msgid "Please select at least one group."
+msgstr "Selectați cel puțin un grup"
 
 msgid "This slug is already in use"
 msgstr "Această fisă a fost deja folosită"
@@ -173,8 +183,11 @@ msgstr "Preferințe de notificare"
 msgid "Choose which email notifications to receive."
 msgstr "Alege ce notificări să primiți prin e-mail."
 
-msgid "Change Password"
-msgstr "Schimbă parola"
+msgid "Language preferences"
+msgstr "Preferințe limbă"
+
+msgid "Choose the language you want to use here."
+msgstr "Selectați limba dorită"
 
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
@@ -182,8 +195,8 @@ msgstr ""
 "Parola nu poate fi schimbată aici. Vă rugăm să contactați administratorii "
 "sitului."
 
-msgid "Notification Preferences"
-msgstr "Preferințe de notificare"
+msgid "Language Preferences"
+msgstr "Preferințe limbă"
 
 msgid "Update"
 msgstr "Actualizează"
@@ -220,6 +233,33 @@ msgstr "Resetarea parolei"
 
 msgid "Reset your password"
 msgstr "Resetează parola"
+
+msgid "Edit"
+msgstr "Editează"
+
+msgid "Page"
+msgstr "Pagină"
+
+msgid "Pages"
+msgstr "Pagini"
+
+msgid "Loading..."
+msgstr "Se încarcă..."
+
+msgid "No results"
+msgstr "Nici un rezultat"
+
+msgid "Server Error"
+msgstr "Eroare de server"
+
+msgid "See children"
+msgstr "Vezi descendenți"
+
+msgid "See all"
+msgstr "Vezi toate"
+
+msgid "Close explorer"
+msgstr "Închide exploratorul"
 
 msgid "Dashboard"
 msgstr "Bord"
@@ -310,6 +350,33 @@ msgstr "Inserează link"
 msgid "Add an external link"
 msgstr "Adaugă un link extern"
 
+msgid "Collection privacy"
+msgstr "Confidențialitate colecție"
+
+msgid "This collection has been made private by a parent collection."
+msgstr "Această colecție a fost făcută privată de către o colecție părinte."
+
+msgid "You can edit the privacy settings on:"
+msgstr "Puteți edita setările de confidențialitate la:"
+
+msgid ""
+"Privacy settings determine who is able to view documents in this collection."
+msgstr ""
+"Setările de confidențialitate determinp cine poate să vizualizeze "
+"documentele din această colecție"
+
+msgid "Save"
+msgstr "Salvează"
+
+msgid "Privacy"
+msgstr "Confidențialitate"
+
+msgid "Public"
+msgstr "Public"
+
+msgid "Private"
+msgstr "Privat"
+
 msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
 msgstr "Această colecție nu poate fi ștearsă pentru că nu este goală. Conține:"
@@ -331,9 +398,6 @@ msgstr "Adaugă %(heading)s"
 
 msgid "Yes, delete"
 msgstr "Da, șterge"
-
-msgid "Save"
-msgstr "Salvează"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -368,11 +432,12 @@ msgstr "Aprobă"
 msgid "Reject"
 msgstr "Respinge"
 
-msgid "Edit"
-msgstr "Editează"
-
 msgid "Preview"
 msgstr "Examinare"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s în urmă"
 
 msgid "Your most recent edits"
 msgstr "Modificările cele mai recente"
@@ -475,9 +540,6 @@ msgstr "Confidențialitate"
 msgid "This page has been made private by a parent page."
 msgstr "Această pagină a fost făcută privată de către o pagină părinte."
 
-msgid "You can edit the privacy settings on:"
-msgstr "Puteți edita setările de confidențialitate la:"
-
 msgid "Privacy changes apply to all children of this page too."
 msgstr ""
 "Schimbările setărilor de confidențialitate se aplică și pentru toate "
@@ -491,12 +553,6 @@ msgstr "Blocat"
 
 msgid "Unlocked"
 msgstr "Deblocat"
-
-msgid "Privacy"
-msgstr "Confidențialitate"
-
-msgid "Private"
-msgstr "Privat"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -586,11 +642,37 @@ msgstr "Anulează publicarea"
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Sigur doriți să anulați publicarea aceastei pagini?"
 
+#, python-format
+msgid ""
+"\n"
+"                    This page has one subpage. Unpublish this too\n"
+"                "
+msgid_plural ""
+"\n"
+"                    This page has %(live_descendant_count)s subpages. "
+"Unpublish these too\n"
+"                "
+msgstr[0] ""
+"\n"
+"Această pagină are o subpagină. Anulează și publicarea ei"
+msgstr[1] ""
+"\n"
+"Această pagină are %(live_descendant_count)s subpagini. Anulează publicarea "
+"lor"
+msgstr[2] ""
+"\n"
+"Această pagină are %(live_descendant_count)s subpagini. Anulează și "
+"publicarea lor"
+
 msgid "Yes, unpublish it"
 msgstr "Da, anulează publicarea"
 
 msgid "No, don't unpublish"
 msgstr "Nu, nu anulează publicarea"
+
+#, python-format
+msgid "Pages using %(page_class_verbose_name)s"
+msgstr "Pagini folosing %(page_class_verbose_name)s"
 
 msgid "Pages using"
 msgstr "Pagini cu"
@@ -752,8 +834,11 @@ msgstr "Explorează paginile dependente de '%(title)s'"
 msgid "Add a child page to '%(title)s'"
 msgstr "Adaugă o pagină dependentă de '%(title)s'"
 
-msgid "Add subpage"
-msgstr "Adaugă subpagină"
+msgid "Add child page"
+msgstr "Adaugă pagină dependentă"
+
+msgid "Sites menu"
+msgstr "Meniu saituri"
 
 #, python-format
 msgid ""
@@ -790,6 +875,100 @@ msgstr "Alege o pagină de bază nouă pentru %(title)s"
 msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Alege o pagină de bază nouă pentru <span>%(title)s</span>"
 
+msgid "Preview error"
+msgstr "Eroare de previzualizare"
+
+msgid ""
+"\n"
+"                Impossible to preview this page, some errors are remaining.\n"
+"                Please close this tab, edit the page to fix these errors,\n"
+"                then use preview again.\n"
+"            "
+msgstr ""
+"\n"
+"                Imposibil de previzualizat această pagină din cauza erorilor "
+"rămase.\n"
+"                Închideți această filă, editați pagina și corectați erorile, "
+"apoi\n"
+"                folosiți din nou funcția de previzualizare.\n"
+"            "
+
+msgid "Close"
+msgstr "Închideți"
+
+#, python-format
+msgid "Comparing %(title)s"
+msgstr "Comparare %(title)s"
+
+msgid "Comparing"
+msgstr "Comparare"
+
+msgid "View revisions"
+msgstr "Vezi revizii"
+
+msgid "Fields"
+msgstr "Câmpuri"
+
+msgid "Changes"
+msgstr "Modificări"
+
+#, python-format
+msgid ""
+"\n"
+"                                                            Moved down 1 "
+"place.\n"
+"                                                        "
+msgid_plural ""
+"\n"
+"                                                            Moved down "
+"%(counter)s places.\n"
+"                                                        "
+msgstr[0] ""
+"\n"
+"                                                            S-a mutat 1 "
+"poziție în jos.\n"
+"                                                        "
+msgstr[1] ""
+"\n"
+"                                                            S-a mutat "
+"%(counter)s poziții în jos.\n"
+"                                                        "
+msgstr[2] ""
+"\n"
+"                                                            S-a mutat "
+"%(counter)s poziții în jos.\n"
+"                                                        "
+
+#, python-format
+msgid ""
+"\n"
+"                                                            Moved up 1 "
+"place.\n"
+"                                                        "
+msgid_plural ""
+"\n"
+"                                                            Moved up "
+"%(counter)s places.\n"
+"                                                        "
+msgstr[0] ""
+"\n"
+"                                                            S-a mutat 1 "
+"poziție în sus.\n"
+"                                                        "
+msgstr[1] ""
+"\n"
+"                                                            S-a mutat "
+"%(counter)s poziții în sus.\n"
+"                                                        "
+msgstr[2] ""
+"\n"
+"                                                            S-a mutat "
+"%(counter)s poziții în sus.\n"
+"                                                        "
+
+msgid "There are no differences between these two revisions"
+msgstr "Aceste două revizii nu au nici o diferență"
+
 #, python-format
 msgid "Revisions of %(title)s"
 msgstr "Revizii pentru %(title)s"
@@ -807,8 +986,14 @@ msgstr "de către"
 msgid "Current draft"
 msgstr "Ciornă curentă"
 
+msgid "Live version"
+msgstr "Versiune live"
+
 msgid "Review this revision"
 msgstr "Revezi această revizie"
+
+msgid "Compare with previous revision"
+msgstr "Compară cu revizia precedentă"
 
 msgid "No revisions of this page exist"
 msgstr "Această pagină nu are nici o revizie."
@@ -922,6 +1107,9 @@ msgstr[2] "%(useage_count)s utilizări"
 msgid "Edit your account"
 msgstr "Editează contul utilizator"
 
+msgid "Account settings"
+msgstr "Setări cont"
+
 msgid "Log out"
 msgstr "Deconectare"
 
@@ -941,8 +1129,22 @@ msgstr ""
 "această aplicație. Vă rugăm să <a href=\"http://browsehappy.com/"
 "\">actualizați browser-ul</a> Dvstră."
 
-msgid "Javascript is required to use Wagtail, but it is currently disabled"
-msgstr "Wagtail are nevoie de JavaScript, care la moment este dezactivat."
+msgid ""
+"\n"
+"            Javascript is required to use Wagtail, but it is currently "
+"disabled.<br />\n"
+"            Here are the <a href=\"http://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noopener\">instructions how to enable JavaScript in "
+"your web browser</a>.\n"
+"        "
+msgstr ""
+"\n"
+"            Wagtail are nevoie de Javascript, care în prezent e deactivat."
+"<br />\n"
+"            Vezi <a href=\"http://www.enable-javascript.com/\" target="
+"\"_blank\" rel=\"noopener\">instrucțiuni de activare JavaScript în web "
+"browser-ul Dvs</a>.\n"
+"        "
 
 msgid "Go to Wagtail admin interface"
 msgstr "Spre interfața de administrare Wagtail"
@@ -959,14 +1161,74 @@ msgstr "Arată în Explorator"
 msgid "Test"
 msgstr "Test"
 
+msgid "Catalan"
+msgstr "Catalană"
+
+msgid "German"
+msgstr "Germană"
+
+msgid "Greek"
+msgstr "Greacă"
+
+msgid "English"
+msgstr "Engleză"
+
+msgid "Spanish"
+msgstr "Spaniolă"
+
+msgid "Finnish"
+msgstr "Finlandeză"
+
+msgid "French"
+msgstr "Franceză"
+
+msgid "Galician"
+msgstr "Galiciană"
+
+msgid "Icelandic"
+msgstr "Islandeză"
+
+msgid "Italian"
+msgstr "Italiană"
+
+msgid "Lithuanian"
+msgstr "Lituaniană"
+
+msgid "Norwegian Bokmål"
+msgstr "Norvegiană"
+
+msgid "Netherlands Dutch"
+msgstr "Olandeză"
+
+msgid "Persian"
+msgstr "Persiană"
+
+msgid "Polish"
+msgstr "Poloneză"
+
+msgid "Brazilian Portuguese"
+msgstr "Portugheză Braziliană"
+
+msgid "Portuguese"
+msgstr "Portugheză"
+
+msgid "Romanian"
+msgstr "Română"
+
+msgid "Russian"
+msgstr "Rusă"
+
+msgid "Chinese (China)"
+msgstr "Chineză"
+
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Ne pare rău, nu aveți permisiunea de a accesa această zonă."
 
 msgid "Your password has been changed successfully!"
 msgstr "Parola a fost schimbată cu succes!"
 
-msgid "Your preferences have been updated successfully!"
-msgstr "Preferințele au fost schimbare cu success!"
+msgid "Your preferences have been updated."
+msgstr "Preferințele au fost schimbare."
 
 msgid "You have been successfully logged out."
 msgstr "V-ați deconectat cu success."
@@ -1066,6 +1328,9 @@ msgstr "Pagina nu a fost salvată pentru că este blocată"
 msgid "The page could not be saved due to validation errors"
 msgstr "Pagina nu a fost salvată din cauza erorilor de validare."
 
+msgid "Compare with live version"
+msgstr "Compară cu revizia publicată"
+
 msgid "This page is currently awaiting moderation"
 msgstr "Această pagină este în moderare"
 
@@ -1123,36 +1388,54 @@ msgstr ""
 "Sunteți în process de vizualizare a revizie precedente a paginii din <b>"
 "%(created_at)s</b> de către %(user)s"
 
-msgid "Pages"
-msgstr "Pagini"
+msgid "Earliest"
+msgstr "Cea mai veche"
 
-msgid "Preview draft"
-msgstr "Previzualizează ciornă"
-
-msgid "Add child page"
-msgstr "Adaugă pagină dependentă"
+msgid "Latest"
+msgstr "Cea mai recentă"
 
 #, python-brace-format
-msgid "Add a child page to '{0}' "
-msgstr "Adaugă o pagină dependentă de '{0}'"
+msgid "Edit '{title}'"
+msgstr "Editează '{title}'"
+
+#, python-brace-format
+msgid "Preview draft version of '{title}'"
+msgstr "Previzualizează versiunea ciornă a '{title}'"
+
+#, python-brace-format
+msgid "View live version of '{title}'"
+msgstr "Vezi versiunea live a '{title}'"
+
+#, python-brace-format
+msgid "Add a child page to '{title}' "
+msgstr "Adaugă o pagină dependentă de '{title}'"
 
 msgid "More"
 msgstr "Mai mult"
 
-msgid "View more options"
-msgstr "Vezi mai multe opțiuni"
+#, python-brace-format
+msgid "View more options for '{title}'"
+msgstr "Vezi mai multe opțiuni pentru '{title}'"
 
-msgid "Move this page"
-msgstr "Mută această pagină"
+#, python-brace-format
+msgid "Move page '{title}'"
+msgstr "Mutați pagina '{title}'"
 
-msgid "Delete this page"
-msgstr "Șterge această pagină"
+#, python-brace-format
+msgid "Copy page '{title}'"
+msgstr "Copie pagina '{title}'"
 
-msgid "Unpublish this page"
-msgstr "Anulează publicarea acestei pagini"
+#, python-brace-format
+msgid "Delete page '{title}'"
+msgstr "Șterge pagina '{title}'"
 
-msgid "View this page's revision history"
-msgstr "Vezi istoricul reviziilor acestei pagini"
+#, python-brace-format
+msgid "Unpublish page '{title}'"
+msgstr "Anulează publicarea paginii '{title}'"
+
+#, python-brace-format
+msgid "View revision history for '{title}'"
+msgstr "Vezi istoria reviziilor pentru '{title}'"
 
 msgid "Choose an item"
 msgstr "Alege un element"

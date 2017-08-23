@@ -99,6 +99,14 @@ $positions: (
     height: auto;
 }
 
+
+@media print {
+    .#{$namespace}-userbar {
+        display: none;
+    }
+}
+
+
     .#{$namespace}-userbar-trigger {
         display: flex;
         align-items: center;
@@ -330,6 +338,6 @@ $positions: (
 // Active state for the list items comes last.
 
 .#{$namespace}-userbar.is-active .#{$namespace}-userbar__item {
-    transform: translateY(0) !important;
-    opacity: 1 !important;
+    transform: translateY(0);
+    opacity: 1;
 }

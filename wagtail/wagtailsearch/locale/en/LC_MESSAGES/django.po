@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-22 15:51+0100\n"
+"POT-Creation-Date: 2017-08-10 16:05+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,7 +27,7 @@ msgid ""
 "Promoted Results to be displayed, wildcards are NOT allowed."
 msgstr ""
 
-#: models.py:77
+#: models.py:79
 msgid "Query Daily Hits"
 msgstr ""
 
@@ -39,15 +39,15 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
-#: templates/wagtailsearch/queries/chooser/results.html:7
+#: templates/wagtailsearch/queries/chooser/results.html:9
 msgid "Terms"
 msgstr ""
 
-#: templates/wagtailsearch/queries/chooser/results.html:8
+#: templates/wagtailsearch/queries/chooser/results.html:10
 msgid "Views (past week)"
 msgstr ""
 
-#: templates/wagtailsearch/queries/chooser/results.html:22
+#: templates/wagtailsearch/queries/chooser/results.html:24
 msgid "No results found"
 msgstr ""
 

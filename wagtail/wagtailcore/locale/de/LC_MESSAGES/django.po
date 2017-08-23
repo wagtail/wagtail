@@ -3,20 +3,23 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Ettore Atalan <atalanttore@googlemail.com>, 2017
 # Vorlif <flori@vorlif.org>, 2015
 # Henrik Kröger <hedwig@riseup.net>, 2016
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 # Matt Westcott <matthew@torchbox.com>, 2015
 # Max Pfeiffer <max.pfeiffer@alp-phone.ch>, 2015
+# Moritz Pfeiffer <moritz@alp-phone.ch>, 2016-2017
 # Tammo van Lessen <tvanlessen@gmail.com>, 2015
+# Vorlif <flori@vorlif.org>, 2017
 # Wasilis Mandratzis-Walz, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-01 13:25+0000\n"
-"PO-Revision-Date: 2016-03-01 19:14+0000\n"
-"Last-Translator: Henrik Kröger <hedwig@riseup.net>\n"
+"POT-Creation-Date: 2017-08-10 16:05+0000\n"
+"PO-Revision-Date: 2017-08-15 19:04+0000\n"
+"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -24,6 +27,30 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#, python-brace-format
+msgid "{label}: this block has no options."
+msgstr "{label}: dieser Block hat keine Einstellmöglichkeiten."
+
+msgid "This block has no options."
+msgstr "Dieser Block hat keine Einstellmöglichkeiten."
+
+#, python-format
+msgid "The minimum number of items is %d"
+msgstr "Die minimale Anzahl an Elementen ist %d"
+
+msgid "This field is required."
+msgstr "Dieses Feld ist erforderlich."
+
+#, python-format
+msgid "The maximum number of items is %d"
+msgstr "Die maximale Anzahl an Elementen ist %d"
+
+msgid "Password"
+msgstr "Passwort"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr "Das eingegebene Passwort ist falsch. Bitte versuchen Sie es erneut."
 
 msgid "hostname"
 msgstr "Hostname"
@@ -126,13 +153,10 @@ msgid "search description"
 msgstr "Suchbeschreibung"
 
 msgid "go live date/time"
-msgstr "Veröffentlichungszeitpunkt"
-
-msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
-msgstr "Bitte geben ein Datum im Format JJJJ-MM-DD hh:mm:ss ein."
+msgstr "Veröffentlicht ab"
 
 msgid "expiry date/time"
-msgstr "Verfallszeitpunkt"
+msgstr "Veröffentlicht bis"
 
 msgid "expired"
 msgstr "abgelaufen"
@@ -142,6 +166,9 @@ msgstr "Gesperrt"
 
 msgid "first published at"
 msgstr "Zuerst publiziert am"
+
+msgid "last published at"
+msgstr "zuletzt publiziert am"
 
 msgid "latest revision created at"
 msgstr "Neuste Revision erstellt am"
@@ -206,6 +233,12 @@ msgstr "Veröffentlichen"
 msgid "Publish any page"
 msgstr "Jede Seite veröffentlichen"
 
+msgid "Bulk delete"
+msgstr "Alles löschen"
+
+msgid "Delete pages with children"
+msgstr "Seiten inkl. Unterseiten löschen"
+
 msgid "Lock"
 msgstr "Sperren"
 
@@ -224,8 +257,29 @@ msgstr "Gruppen Seitenberechtigung"
 msgid "group page permissions"
 msgstr "Gruppen Seitenberechtigungen"
 
+msgid "Public"
+msgstr "Öffentlich"
+
+msgid "Private, accessible to logged-in users"
+msgstr "Privat, nur für angemeldete Benutzer einsehbar"
+
+msgid "Private, accessible with the following password"
+msgstr "Privat, einsehbar mit folgendem Passwort"
+
+msgid "Private, accessible to users in specific groups"
+msgstr "Privat, einsehbar für Benutzer in bestimmten Gruppen"
+
 msgid "password"
 msgstr "Passwort"
+
+msgid "groups"
+msgstr "Gruppen"
+
+msgid "view restriction"
+msgstr "Ansichtsrestriktion"
+
+msgid "view restrictions"
+msgstr "Ansichtsrestriktionen"
 
 msgid "page view restriction"
 msgstr "Seiten Ansichtsrestriktion"
@@ -233,11 +287,17 @@ msgstr "Seiten Ansichtsrestriktion"
 msgid "page view restrictions"
 msgstr "Seiten Ansichtsrestriktionen"
 
-msgid "name"
-msgstr "Name"
-
 msgid "collection"
 msgstr "Sammlung"
+
+msgid "collection view restriction"
+msgstr "Sammlung Ansichtsrestriktion"
+
+msgid "collection view restrictions"
+msgstr "Sammlung Ansichtsrestriktionen"
+
+msgid "name"
+msgstr "Name"
 
 msgid "collections"
 msgstr "Sammlungen"
@@ -247,3 +307,27 @@ msgstr "Berechtigung"
 
 msgid "group collection permission"
 msgstr "Gruppen Sammlungsberechtigungen"
+
+msgid "Log in"
+msgstr "Anmelden"
+
+msgid "Your username and password didn't match. Please try again."
+msgstr ""
+"Ihr Benutzername und Ihr Passwort wurden nicht erkannt. Bitte versuchen Sie "
+"es erneut!"
+
+msgid ""
+"Your account doesn't have access to this page. To proceed, please log in "
+"with an account that has access."
+msgstr ""
+"Ihr Konto hat keinen Zugang zu dieser Seite. Um fortzufahren melden Sie sich "
+"mit einem Konto an, das Zugang hat."
+
+msgid "Password required"
+msgstr "Passwort erforderlich"
+
+msgid "You need a password to access this page."
+msgstr "Sie benötigen ein Passwort um diese Seite aufzurufen."
+
+msgid "Continue"
+msgstr "Weiter"

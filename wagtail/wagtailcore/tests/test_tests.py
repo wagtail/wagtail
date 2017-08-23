@@ -1,12 +1,64 @@
 from __future__ import absolute_import, unicode_literals
 
+from django.test import TestCase
 from django.utils import six
 
 from wagtail.tests.testapp.models import (
     BusinessChild, BusinessIndex, BusinessNowherePage, BusinessSubIndex, EventIndex, EventPage,
     SimplePage, StreamPage)
-from wagtail.tests.utils import WagtailPageTests
+from wagtail.tests.utils import WagtailPageTests, WagtailTestUtils
 from wagtail.wagtailcore.models import PAGE_MODEL_CLASSES, Page, Site
+
+
+class TestAssertTagInHTML(WagtailTestUtils, TestCase):
+    def test_assert_tag_in_html(self):
+        haystack = """<ul>
+            <li class="normal">hugh</li>
+            <li class="normal">pugh</li>
+            <li class="really important" lang="en"><em>barney</em> mcgrew</li>
+        </ul>"""
+        self.assertTagInHTML('<li lang="en" class="important really">', haystack)
+        self.assertTagInHTML('<li class="normal">', haystack, count=2)
+
+        with self.assertRaises(AssertionError):
+            self.assertTagInHTML('<div lang="en" class="important really">', haystack)
+        with self.assertRaises(AssertionError):
+            self.assertTagInHTML('<li lang="en" class="important really">', haystack, count=2)
+        with self.assertRaises(AssertionError):
+            self.assertTagInHTML('<li lang="en" class="important">', haystack)
+        with self.assertRaises(AssertionError):
+            self.assertTagInHTML('<li lang="en" class="important really" data-extra="boom">', haystack)
+
+    def test_assert_tag_in_html_with_extra_attrs(self):
+        haystack = """<ul>
+            <li class="normal">hugh</li>
+            <li class="normal">pugh</li>
+            <li class="really important" lang="en"><em>barney</em> mcgrew</li>
+        </ul>"""
+        self.assertTagInHTML('<li class="important really">', haystack, allow_extra_attrs=True)
+        self.assertTagInHTML('<li>', haystack, count=3, allow_extra_attrs=True)
+
+        with self.assertRaises(AssertionError):
+            self.assertTagInHTML('<li class="normal" lang="en">', haystack, allow_extra_attrs=True)
+        with self.assertRaises(AssertionError):
+            self.assertTagInHTML('<li class="important really">', haystack, count=2, allow_extra_attrs=True)
+
+    def test_assert_tag_in_template_script(self):
+        haystack = """<html>
+            <script type="text/template">
+                <p class="really important">first template block</p>
+            </script>
+            <script type="text/template">
+                <p class="really important">second template block</p>
+            </script>
+            <p class="normal">not in a script tag</p>
+        </html>"""
+
+        self.assertTagInTemplateScript('<p class="important really">', haystack)
+        self.assertTagInTemplateScript('<p class="important really">', haystack, count=2)
+
+        with self.assertRaises(AssertionError):
+            self.assertTagInTemplateScript('<p class="normal">', haystack)
 
 
 class TestWagtailPageTests(WagtailPageTests):

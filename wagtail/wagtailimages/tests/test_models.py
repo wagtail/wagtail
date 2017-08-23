@@ -208,10 +208,8 @@ class TestRenditions(TestCase):
         self.assertEqual(rendition.height, 300)
 
         # check that the rendition has been recorded under the correct filter,
-        # via both the Rendition.filter_spec attribute (which will come into action
-        # in Wagtail 1.8) and the linked Filter model (which will be retired in 1.8)
+        # via the Rendition.filter_spec attribute (in active use as of Wagtail 1.8)
         self.assertEqual(rendition.filter_spec, 'width-400')
-        self.assertEqual(rendition.filter.spec, 'width-400')
 
     def test_resize_to_max(self):
         rendition = self.image.get_rendition('max-100x100')
@@ -487,8 +485,40 @@ class TestIssue312(TestCase):
             IntegrityError,
             Rendition.objects.create,
             image=rend1.image,
-            filter=rend1.filter,
+            filter_spec=rend1.filter_spec,
             width=rend1.width,
             height=rend1.height,
             focal_point_key=rend1.focal_point_key,
         )
+
+
+class TestFilenameReduction(TestCase):
+    """
+    This tests for a bug which results in filenames without extensions
+    causing an infinite loop
+    """
+    def test_filename_reduction_no_ext(self):
+        # Create an image with a big filename and no extension
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(
+                'thisisaverylongfilename-abcdefghijklmnopqrstuvwxyz-supercalifragilisticexpialidocioussuperlong'
+            )
+        )
+
+        # Saving file will result in infinite loop when bug is present
+        image.save()
+        self.assertEqual("original_images/thisisaverylongfilename-abcdefghijklmnopqrstuvwxyz-supercalifragilisticexpiali", image.file.name)
+
+    # Test for happy path. Long filename with extension
+    def test_filename_reduction_ext(self):
+        # Create an image with a big filename and extensions
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(
+                'thisisaverylongfilename-abcdefghijklmnopqrstuvwxyz-supercalifragilisticexpialidocioussuperlong.png'
+            )
+        )
+
+        image.save()
+        self.assertEqual("original_images/thisisaverylongfilename-abcdefghijklmnopqrstuvwxyz-supercalifragilisticexp.png", image.file.name)

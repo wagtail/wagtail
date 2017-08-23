@@ -5,7 +5,8 @@
 # Translators:
 # Adrien <laadrien@gmail.com>, 2014
 # Axel Haustant, 2016
-# Bertrand Bordage <bordage.bertrand@gmail.com>, 2015
+# Benoît Vogel <contact@spicy-informatique.com>, 2016-2017
+# Bertrand Bordage <bordage.bertrand@gmail.com>, 2015,2017
 # Léo <leo@naeka.fr>, 2016
 # pierre marfoure <pierre@onoffdesign.com>, 2016
 # Tom Dyson <tom@torchbox.com>, 2015
@@ -13,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-01 13:25+0000\n"
-"PO-Revision-Date: 2016-08-11 13:59+0000\n"
-"Last-Translator: Axel Haustant\n"
+"POT-Creation-Date: 2017-08-10 16:05+0000\n"
+"PO-Revision-Date: 2017-08-10 16:00+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -23,6 +24,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "{} submissions"
+msgstr "{} soumissions"
+
+msgid "Date from"
+msgstr "Date depuis le"
+
+msgid "Date to"
+msgstr "Date jusqu’au"
 
 #, python-format
 msgid "There is another field with the label %s, please change one of them."
@@ -101,6 +111,9 @@ msgstr ""
 msgid "help text"
 msgstr "texte d'aide"
 
+msgid "Submission date"
+msgstr "Date de soumission"
+
 msgid "to address"
 msgstr "adresse destinataire"
 
@@ -118,17 +131,35 @@ msgid "subject"
 msgstr "sujet"
 
 #, python-format
-msgid "Delete %(title)s"
-msgstr "Supprimer %(title)s"
+msgid "Delete form data %(title)s"
+msgstr "Supprimer les données de formulaire de %(title)s"
+
+msgid "Delete form data"
+msgstr "Supprimer les données de formulaire"
+
+msgid ""
+"\n"
+"                Are you sure you want to delete this form submission?\n"
+"            "
+msgid_plural ""
+"\n"
+"                Are you sure you want to delete these form submissions?\n"
+"            "
+msgstr[0] ""
+"\n"
+"Êtes-vous sûr(e) de vouloir supprimer cette soumission de formulaire ?"
+msgstr[1] ""
+"\n"
+"Êtes-vous sûr(e) de vouloir supprimer ces soumissions de formulaire ?"
 
 msgid "Delete"
 msgstr "Supprimer"
 
-msgid "Are you sure you want to delete this form submission?"
-msgstr "Êtes-vous sûr(e) de vouloir supprimer cette soumission ?"
+msgid "Total submissions"
+msgstr "Nombre total de soumissions"
 
-msgid "Delete it"
-msgstr "La supprimer"
+msgid "Latest submission"
+msgstr "Soumission la plus récente"
 
 msgid "Forms"
 msgstr "Formulaires"
@@ -160,17 +191,14 @@ msgstr "Titre"
 msgid "Origin"
 msgstr "Origine"
 
-msgid "Submission Date"
-msgstr "Date de soumission"
-
-msgid "Actions"
-msgstr "Actions"
-
-msgid "delete"
-msgstr "supprimer"
+msgid "Delete selected submissions"
+msgstr "Supprimer les réponses sélectionnées"
 
 msgid "No form pages have been created."
 msgstr "Aucune page contenant un formulaire n'a été créée."
 
-msgid "Submission deleted."
-msgstr "Soumission supprimée"
+#, python-format
+msgid "One submission has been deleted."
+msgid_plural "%(count)d submissions have been deleted."
+msgstr[0] "Une soumission a été supprimée."
+msgstr[1] "%(count)d soumissions ont été supprimées."

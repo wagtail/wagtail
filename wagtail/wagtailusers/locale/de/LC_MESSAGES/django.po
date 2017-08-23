@@ -3,22 +3,23 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Ettore Atalan <atalanttore@googlemail.com>, 2016
+# Ettore Atalan <atalanttore@googlemail.com>, 2016-2017
 # Vorlif <flori@vorlif.org>, 2015
 # Henrik Kröger <hedwig@riseup.net>, 2016
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 # M0rph 3u5 <transifex@m0rph3u5.net>, 2014
 # Matt Westcott <matthew@torchbox.com>, 2015
+# Moritz Pfeiffer <moritz@alp-phone.ch>, 2017
 # Tammo van Lessen <tvanlessen@gmail.com>, 2015
 # Wasilis Mandratzis-Walz, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-01 13:25+0000\n"
-"PO-Revision-Date: 2016-08-01 14:28+0000\n"
-"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
+"POT-Creation-Date: 2017-08-10 16:05+0000\n"
+"PO-Revision-Date: 2017-06-20 07:37+0000\n"
+"Last-Translator: Moritz Pfeiffer <moritz@alp-phone.ch>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -30,7 +31,7 @@ msgstr ""
 msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
 msgstr ""
 "Erforderlich. Bis zu 30 Zeichen. Buchstaben, Zahlen und die Sonderzeichen "
-"„@“, „.“, „+“, und „_“."
+"„@“, „.“, „+“, und „_“.vacy"
 
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr ""
@@ -43,13 +44,14 @@ msgstr "Es existiert bereits ein Benutzer mit diesem Benutzernamen."
 msgid "The two password fields didn't match."
 msgstr "Die beiden Passwortfelder stimmen nicht überein."
 
-msgid "Administrator"
-msgstr "Administrator"
+msgid "Email"
+msgstr "Email"
 
-msgid "Administrators have full access to manage any object or setting."
-msgstr ""
-"Administratoren haben vollen Zugang um jedes Objekt und jede Einstellung zu "
-"verwalten."
+msgid "First Name"
+msgstr "Vorname"
+
+msgid "Last Name"
+msgstr "Nachname"
 
 msgid "Password"
 msgstr "Passwort"
@@ -63,14 +65,13 @@ msgstr "Passwort wiederholen"
 msgid "Enter the same password as above, for verification."
 msgstr "Geben Sie das gleiche Passwort wie oben zur Überprüfung ein."
 
-msgid "Email"
-msgstr "Email"
+msgid "Administrator"
+msgstr "Administrator"
 
-msgid "First Name"
-msgstr "Vorname"
-
-msgid "Last Name"
-msgstr "Nachname"
+msgid "Administrators have full access to manage any object or setting."
+msgstr ""
+"Administratoren haben vollen Zugang um jedes Objekt und jede Einstellung zu "
+"verwalten."
 
 msgid "A group with that name already exists."
 msgstr "Es existiert bereits eine Gruppe mit diesem Namen."
@@ -98,6 +99,12 @@ msgstr "Zurückgewiesen-Benachrichtigungen"
 msgid "Receive notification when your page edit is rejected"
 msgstr "Benachrichtung erhalten, wenn Ihre Änderungen abgelehnt wurden"
 
+msgid "preferred language"
+msgstr "bevorzugte Sprache"
+
+msgid "Select language for the admin"
+msgstr "Wählen Sie die Sprache für den Admin aus"
+
 msgid "user profile"
 msgstr "Benutzerprofil"
 
@@ -106,9 +113,21 @@ msgstr "Gruppe löschen"
 
 #, python-format
 msgid ""
-"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> users "
-"assigned."
-msgstr ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> member.\n"
+"            "
+msgid_plural ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> members.\n"
+"            "
+msgstr[0] ""
+"\n"
+"Der Gruppe ‚%(group_name)s‘ ist <strong>%(group_user_count)s</strong> "
+"Benutzer zugeordnet."
+msgstr[1] ""
+"\n"
 "Der Gruppe ‚%(group_name)s‘ sind <strong>%(group_user_count)s</strong> "
 "Benutzer zugeordnet."
 

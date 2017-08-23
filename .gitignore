@@ -10,7 +10,7 @@
 /.tox/
 /venv
 /node_modules/
-npm-debug.log
+npm-debug.log*
 *.idea/
 /*.egg/
 

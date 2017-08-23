@@ -11,6 +11,7 @@
 # mahulst, 2014
 # mahulst, 2014
 # Michael van Tellingen <michaelvantellingen@gmail.com>, 2015
+# Rob Moorman <rob@moori.nl>, 2017
 # Samuel Leeuwenburg, 2014
 # Samuel Leeuwenburg, 2014
 # Thijs Kramer <thijskramer@gmail.com>, 2015
@@ -19,8 +20,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-01 13:25+0000\n"
-"PO-Revision-Date: 2016-08-01 13:28+0000\n"
+"POT-Creation-Date: 2017-08-10 16:05+0000\n"
+"PO-Revision-Date: 2017-08-10 16:07+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
@@ -29,6 +30,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "None"
+msgstr "Geen"
+
+msgid "You do not have permission to access the admin"
+msgstr "U heeft geen permissies om de admin te bereiken"
 
 msgid "Scheduled publishing"
 msgstr "Geplande publicatie"
@@ -126,14 +133,14 @@ msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
 msgstr "Deze slug is al in gebruik onder de bovenliggende pagina \"%s\""
 
-msgid "Public"
-msgstr "Publiekelijk"
-
-msgid "Private, accessible with the following password"
-msgstr "Afgeschermd, toegankelijk met het volgende wachtwoord"
+msgid "Visibility"
+msgstr "Zichtbaarheid"
 
 msgid "This field is required."
 msgstr "Dit veld is verplicht"
+
+msgid "Please select at least one group."
+msgstr "Selecteer minimaal één groep."
 
 msgid "This slug is already in use"
 msgstr "Deze slug is al in gebruik"
@@ -145,6 +152,10 @@ msgstr ""
 
 msgid "Expiry date/time must be in the future"
 msgstr "Vervaldatum moet in de toekomst zijn."
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr ""
+"U kunt niet beschikken over meerdere permissies voor dezelfde collectie."
 
 msgid "Account"
 msgstr "Account"
@@ -173,17 +184,11 @@ msgstr "Notificatievoorkeuren"
 msgid "Choose which email notifications to receive."
 msgstr "Kies welke e-mailnotificaties u wilt ontvangen."
 
-msgid "Change Password"
-msgstr "Wijzig wachtwoord"
-
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr ""
 "Uw wachtwoord kan hier niet gewijzigd worden. Neem contact op met de "
 "beheerder van de site."
-
-msgid "Notification Preferences"
-msgstr "Notificatievoorkeuren"
 
 msgid "Update"
 msgstr "Update"
@@ -215,6 +220,9 @@ msgstr "Wachtwoord herstel"
 
 msgid "Reset your password"
 msgstr "Herstel uw wachtwoord"
+
+msgid "Edit"
+msgstr "Wijzigen"
 
 msgid "Dashboard"
 msgstr "Dashboard"
@@ -299,11 +307,26 @@ msgstr "Link invoegen"
 msgid "Add an external link"
 msgstr "Voeg een externe link toe"
 
-msgid "Yes, delete"
-msgstr "Ja, verwijder"
+msgid "You can edit the privacy settings on:"
+msgstr "U kunt de privacyvoorkeuren wijzigen op:"
 
 msgid "Save"
 msgstr "Opslaan"
+
+msgid "Privacy"
+msgstr "Privacy"
+
+msgid "Public"
+msgstr "Publiekelijk"
+
+msgid "Private"
+msgstr "Prive"
+
+msgid "Name"
+msgstr "Naam"
+
+msgid "Yes, delete"
+msgstr "Ja, verwijder"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -339,9 +362,6 @@ msgstr "Goedkeuren"
 
 msgid "Reject"
 msgstr "Afwijzen"
-
-msgid "Edit"
-msgstr "Wijzigen"
 
 msgid "Preview"
 msgstr "Voorbeeld bekijken"
@@ -432,9 +452,6 @@ msgstr "Afscherming van de pagina"
 msgid "This page has been made private by a parent page."
 msgstr "Deze pagina is door een bovenliggende pagina afgeschermd gemaakt."
 
-msgid "You can edit the privacy settings on:"
-msgstr "U kunt de privacyvoorkeuren wijzigen op:"
-
 msgid "Privacy changes apply to all children of this page too."
 msgstr ""
 "Privacywijzigingen hebben ook effect op alle onderliggende pagina's van deze "
@@ -448,12 +465,6 @@ msgstr "Vergrendeld"
 
 msgid "Unlocked"
 msgstr "Ontgrendeld"
-
-msgid "Privacy"
-msgstr "Privacy"
-
-msgid "Private"
-msgstr "Prive"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -548,8 +559,14 @@ msgstr "Nieuwe %(page_type)s"
 msgid "New"
 msgstr "Nieuwe"
 
+msgid "Saving..."
+msgstr "Bezig met opslaan..."
+
 msgid "Save draft"
 msgstr "Concept opslaan"
+
+msgid "Publishing..."
+msgstr "Bezig met publiceren..."
 
 msgid "Publish"
 msgstr "Publiceer"
@@ -568,6 +585,9 @@ msgstr "Bewerk %(page_type)s <span>%(title)s</span>"
 msgid "Page locked"
 msgstr "Pagina vergrendeld"
 
+msgid "Publish this revision"
+msgstr "Publiceer deze revisie"
+
 #, python-format
 msgid "Last modified: %(last_mod)s"
 msgstr "Laatste gewijzigd: %(last_mod)s"
@@ -575,6 +595,9 @@ msgstr "Laatste gewijzigd: %(last_mod)s"
 #, python-format
 msgid "by %(modified_by)s"
 msgstr "door %(modified_by)s"
+
+msgid "Revisions"
+msgstr "Revisies"
 
 #, python-format
 msgid "Exploring %(title)s"
@@ -611,8 +634,8 @@ msgstr "Bekijk onderliggende pagina's van '%(title)s'"
 msgid "Add a child page to '%(title)s'"
 msgstr "Voeg een onderliggende pagina toe aan '%(title)s'"
 
-msgid "Add subpage"
-msgstr "Voeg onderliggende pagina toe"
+msgid "Add child page"
+msgstr "Voeg een onderliggende pagina toe"
 
 #, python-format
 msgid ""
@@ -650,6 +673,36 @@ msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Selecteer een nieuwe bovenliggende pagina voor <span>%(title)s</span>"
 
 #, python-format
+msgid "Comparing %(title)s"
+msgstr "Vergelijk %(title)s"
+
+msgid "Comparing"
+msgstr "Vegelijken"
+
+msgid "View revisions"
+msgstr "Bekijk revisies"
+
+msgid "Fields"
+msgstr "Velden"
+
+msgid "Changes"
+msgstr "Wijzigingen"
+
+#, python-format
+msgid "Revisions of %(title)s"
+msgstr "Revisies van  %(title)s"
+
+msgid "Revisions of"
+msgstr "Revisies van"
+
+msgid "Revision date"
+msgstr "Revisie datum"
+
+msgctxt "points to a user who created a revision"
+msgid "by"
+msgstr "door"
+
+#, python-format
 msgid ""
 "\n"
 "                There is one matching page\n"
@@ -677,8 +730,14 @@ msgstr "Voer hierboven een zoekterm in"
 msgid "No pages use"
 msgstr "Geen enkele pagina maakt gebruik van"
 
+msgid "Collection"
+msgstr "Collectie"
+
 msgid "Home"
 msgstr "Home"
+
+msgid "All collections"
+msgstr "Alle collecties"
 
 msgid "January"
 msgstr "januari"
@@ -765,11 +824,6 @@ msgstr ""
 "wordt door deze sofware. <a href=\"http://browsehappy.com/\">upgrade uw "
 "browser</a> a.u.b."
 
-msgid "Javascript is required to use Wagtail, but it is currently disabled"
-msgstr ""
-"Javascript is vereist om Wagtail te gebruiken, maar is momenteel "
-"uitgeschakeld"
-
 msgid "Go to Wagtail admin interface"
 msgstr "Ga naar de Wagtail beheer interface"
 
@@ -782,8 +836,8 @@ msgstr "Sorry, u heeft geen toestemming tot dit gedeelte."
 msgid "Your password has been changed successfully!"
 msgstr "Uw wachtwoord is succesvol gewijzigd."
 
-msgid "Your preferences have been updated successfully!"
-msgstr "Uw voorkeuren zijn succesvol gewijzigd."
+msgid "Collections"
+msgstr "Collecties"
 
 #, python-brace-format
 msgid "Page '{0}' created and published."
@@ -854,9 +908,6 @@ msgstr "Pagina '{0}' is vergrendeld."
 #, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "Pagina '{0}' is ontgrendeld."
-
-msgid "Add child page"
-msgstr "Voeg een onderliggende pagina toe"
 
 msgid "Choose an item"
 msgstr "Kies een item"

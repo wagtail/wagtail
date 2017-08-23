@@ -1,16 +1,24 @@
 from __future__ import absolute_import, unicode_literals
 
-import re
 
-OEMBED_ENDPOINTS = {
-    "https://speakerdeck.com/oembed.{format}": [
+speakerdeck = {
+    "endpoint": "https://speakerdeck.com/oembed.{format}",
+    "urls": [
         "^http(?:s)?://speakerdeck\\.com/.+$"
     ],
-    "https://alpha-api.app.net/oembed": [
+}
+
+app_net = {
+    "endpoint": "https://alpha-api.app.net/oembed",
+    "urls": [
         "^http(?:s)?://alpha\\.app\\.net/[^#?/]+/post/.+$",
         "^http(?:s)?://photos\\.app\\.net/[^#?/]+/.+$"
     ],
-    "http://www.youtube.com/oembed": [
+}
+
+youtube = {
+    "endpoint": "http://www.youtube.com/oembed",
+    "urls": [
         "^http(?:s)?://(?:[-\\w]+\\.)?youtube\\.com/watch.+$",
         "^http(?:s)?://(?:[-\\w]+\\.)?youtube\\.com/v/.+$",
         "^http(?:s)?://youtu\\.be/.+$",
@@ -21,309 +29,632 @@ OEMBED_ENDPOINTS = {
         "^http(?:s)?://(?:[-\\w]+\\.)?youtube\\.com/view_play_list.+$",
         "^http(?:s)?://(?:[-\\w]+\\.)?youtube\\.com/playlist.+$"
     ],
-    "http://backend.deviantart.com/oembed": [
+}
+
+deviantart = {
+    "endpoint": "http://backend.deviantart.com/oembed",
+    "urls": [
         "^http://(?:[-\\w]+\\.)?deviantart\\.com/art/.+$",
         "^http://fav\\.me/.+$",
         "^http://sta\\.sh/.+$",
         "^http://(?:[-\\w]+\\.)?deviantart\\.com/[^#?/]+#/d.+$"
     ],
-    "http://blip.tv/oembed/": [
+}
+
+blip_tv = {
+    "endpoint": "http://blip.tv/oembed/",
+    "urls": [
         "^http://[-\\w]+\\.blip\\.tv/.+$"
     ],
-    "http://www.dailymotion.com/api/oembed/": [
+}
+
+dailymotion = {
+    "endpoint": "http://www.dailymotion.com/api/oembed/",
+    "urls": [
         "^http://[-\\w]+\\.dailymotion\\.com/.+$"
     ],
-    "http://www.flickr.com/services/oembed/": [
+}
+
+flikr = {
+    "endpoint": "http://www.flickr.com/services/oembed/",
+    "urls": [
         "^http(?:s)?://[-\\w]+\\.flickr\\.com/photos/.+$",
         "^http(?:s)?://flic\\.kr\\.com/.+$"
     ],
-    "http://www.hulu.com/api/oembed.{format}": [
+}
+
+hulu = {
+    "endpoint": "http://www.hulu.com/api/oembed.{format}",
+    "urls": [
         "^http://www\\.hulu\\.com/watch/.+$"
     ],
-    "http://www.nfb.ca/remote/services/oembed/": [
+}
+
+nfb = {
+    "endpoint": "http://www.nfb.ca/remote/services/oembed/",
+    "urls": [
         "^http://(?:[-\\w]+\\.)?nfb\\.ca/film/.+$"
     ],
-    "http://qik.com/api/oembed.{format}": [
+}
+
+qik = {
+    "endpoint": "http://qik.com/api/oembed.{format}",
+    "urls": [
         "^http://qik\\.com/.+$",
         "^http://qik\\.ly/.+$"
     ],
-    "http://revision3.com/api/oembed/": [
+}
+
+revision3 = {
+    "endpoint": "http://revision3.com/api/oembed/",
+    "urls": [
         "^http://[-\\w]+\\.revision3\\.com/.+$"
     ],
-    "http://www.scribd.com/services/oembed": [
+}
+
+scribd = {
+    "endpoint": "http://www.scribd.com/services/oembed",
+    "urls": [
         "^http://[-\\w]+\\.scribd\\.com/.+$"
     ],
-    "http://www.viddler.com/oembed/": [
+}
+
+viddler = {
+    "endpoint": "http://www.viddler.com/oembed/",
+    "urls": [
         "^http://[-\\w]+\\.viddler\\.com/v/.+$",
         "^http://[-\\w]+\\.viddler\\.com/explore/.+$"
     ],
-    "http://www.vimeo.com/api/oembed.{format}": [
+}
+
+vimeo = {
+    "endpoint": "http://www.vimeo.com/api/oembed.{format}",
+    "urls": [
         "^http(?:s)?://(?:www\\.)?vimeo\\.com/.+$",
         "^http(?:s)?://player\\.vimeo\\.com/.+$"
     ],
-    "http://dotsub.com/services/oembed": [
+}
+
+dotsub = {
+    "endpoint": "http://dotsub.com/services/oembed",
+    "urls": [
         "^http://dotsub\\.com/view/.+$"
     ],
-    "http://www.yfrog.com/api/oembed": [
+}
+
+yfrog = {
+    "endpoint": "http://www.yfrog.com/api/oembed",
+    "urls": [
         "^http(?:s)?://(?:www\\.)?yfrog\\.com/.+$",
         "^http(?:s)?://(?:www\\.)?yfrog\\.us/.+$"
     ],
-    "http://clikthrough.com/services/oembed": [
+}
+
+clickthrough = {
+    "endpoint": "http://clikthrough.com/services/oembed",
+    "urls": [
         "^http(?:s)?://(?:[-\\w]+\\.)?clikthrough\\.com/.+$"
     ],
-    "http://www.kinomap.com/oembed": [
+}
+
+kinomap = {
+    "endpoint": "http://www.kinomap.com/oembed",
+    "urls": [
         "^http://[-\\w]+\\.kinomap\\.com/.+$"
     ],
-    "https://photobucket.com/oembed": [
+}
+
+photobucket = {
+    "endpoint": "https://photobucket.com/oembed",
+    "urls": [
         "^http://(?:[-\\w]+\\.)?photobucket\\.com/albums/.+$",
         "^http://(?:[-\\w]+\\.)?photobucket\\.com/groups/.+$"
     ],
-    "http://api.instagram.com/oembed": [
+}
+
+instagram = {
+    "endpoint": "http://api.instagram.com/oembed",
+    "urls": [
         "^http://instagr\\.am/p/.+$",
         "^http[s]?://(?:www\\.)?instagram\\.com/p/.+$"
     ],
-    "https://www.slideshare.net/api/oembed/2": [
+}
+
+facebook_video = {
+    "endpoint": "https://www.facebook.com/plugins/video/oembed.{format}",
+    "urls": [
+        "^https://(?:www\\.)?facebook\\.com/.+?/videos/.+$",
+        "^https://(?:www\\.)?facebook\\.com/video\\.php\\?(?:v|id)=.+$",
+    ],
+}
+
+facebook_post = {
+    "endpoint": "https://www.facebook.com/plugins/post/oembed.{format}",
+    "urls": [
+        "^https://(?:www\\.)?facebook\\.com/.+?/(?:posts|activity)/.+$",
+        "^https://(?:www\\.)?facebook\\.com/photo\\.php\\?fbid=.+$",
+        "^https://(?:www\\.)?facebook\\.com/(?:photos|questions)/.+$",
+        "^https://(?:www\\.)?facebook\\.com/permalink\\.php\\?story_fbid=.+$",
+        "^https://(?:www\\.)?facebook\\.com/media/set/?\\?set=.+$",
+        "^https://(?:www\\.)?facebook\\.com/notes/.+?/.+?/.+$",
+
+        # At the moment, not documented on https://developers.facebook.com/docs/plugins/oembed-endpoints
+        # Works for posts with a single photo
+        "^https://(?:www\\.)?facebook\\.com/.+?/photos/.+$",
+    ],
+}
+
+slideshare = {
+    "endpoint": "https://www.slideshare.net/api/oembed/2",
+    "urls": [
         "^http://www\\.slideshare\\.net/.+$"
     ],
-    "http://tv.majorleaguegaming.com/oembed": [
+}
+
+major_league_gaming = {
+    "endpoint": "http://tv.majorleaguegaming.com/oembed",
+    "urls": [
         "^http://mlg\\.tv/.+$",
         "^http://tv\\.majorleaguegaming\\.com/.+$"
     ],
-    "http://my.opera.com/service/oembed": [
+}
+
+opera = {
+    "endpoint": "http://my.opera.com/service/oembed",
+    "urls": [
         "^http://my\\.opera\\.com/.+$"
     ],
-    "http://skitch.com/oembed": [
+}
+
+skitch = {
+    "endpoint": "http://skitch.com/oembed",
+    "urls": [
         "^http(?:s)?://(?:www\\.)?skitch\\.com/.+$",
         "^http://skit\\.ch/.+$"
     ],
-    "https://api.twitter.com/1/statuses/oembed.{format}": [
+}
+
+twitter = {
+    "endpoint": "https://api.twitter.com/1/statuses/oembed.{format}",
+    "urls": [
         "^http(?:s)?://twitter\\.com/(?:#!)?[^#?/]+/status/.+$"
     ],
-    "https://soundcloud.com/oembed": [
+}
+
+soundcloud = {
+    "endpoint": "https://soundcloud.com/oembed",
+    "urls": [
         "^https://soundcloud\\.com/[^#?/]+/.+$"
     ],
-    "http://www.collegehumor.com/oembed.{format}": [
+}
+
+collegehumor = {
+    "endpoint": "http://www.collegehumor.com/oembed.{format}",
+    "urls": [
         "^http://(?:www\\.)?collegehumor\\.com/video/.+$",
         "^http://(?:www\\.)?collegehumor\\.com/video:.+$"
     ],
-    "http://www.polleverywhere.com/services/oembed/": [
+}
+
+polleverywhere = {
+    "endpoint": "http://www.polleverywhere.com/services/oembed/",
+    "urls": [
         "^http://www\\.polleverywhere\\.com/polls/.+$",
         "^http://www\\.polleverywhere\\.com/multiple_choice_polls/.+$",
         "^http://www\\.polleverywhere\\.com/free_text_polls/.+$"
     ],
-    "http://www.ifixit.com/Embed": [
+}
+
+ifixit = {
+    "endpoint": "http://www.ifixit.com/Embed",
+    "urls": [
         "^http://www\\.ifixit\\.com/[^#?/]+/[^#?/]+/.+$"
     ],
-    "http://api.smugmug.com/services/oembed/": [
+}
+
+smugmug = {
+    "endpoint": "http://api.smugmug.com/services/oembed/",
+    "urls": [
         "^http(?:s)?://(?:www\\.)?smugmug\\.com/[^#?/]+/.+$"
     ],
-    "https://github.com/api/oembed": [
+}
+
+github_gist = {
+    "endpoint": "https://github.com/api/oembed",
+    "urls": [
         "^http(?:s)?://gist\\.github\\.com/.+$"
     ],
-    "http://animoto.com/services/oembed": [
+}
+
+animoto = {
+    "endpoint": "http://animoto.com/services/oembed",
+    "urls": [
         "^http://animoto\\.com/play/.+$"
     ],
-    "http://www.rdio.com/api/oembed": [
+}
+
+rdio = {
+    "endpoint": "http://www.rdio.com/api/oembed",
+    "urls": [
         "^http://(?:wwww\\.)?rdio\\.com/people/[^#?/]+/playlists/.+$",
         "^http://[-\\w]+\\.rdio\\.com/artist/[^#?/]+/album/.+$"
     ],
-    "http://api.5min.com/oembed.{format}": [
+}
+
+five_min = {
+    "endpoint": "http://api.5min.com/oembed.{format}",
+    "urls": [
         "^http://www\\.5min\\.com/video/.+$"
     ],
-    "http://500px.com/photo/{1}/oembed.{format}": [
+}
+
+five_hundred_px = {
+    "endpoint": "http://500px.com/photo/{1}/oembed.{format}",
+    "urls": [
         "^http://500px\\.com/photo/([^#?/]+)(?:.+)?$"
     ],
-    "http://api.dipdive.com/oembed.{format}": [
+}
+
+dipdive = {
+    "endpoint": "http://api.dipdive.com/oembed.{format}",
+    "urls": [
         "^http://[-\\w]+\\.dipdive\\.com/media/.+$"
     ],
-    "http://video.yandex.ru/oembed.{format}": [
+}
+
+yandex = {
+    "endpoint": "http://video.yandex.ru/oembed.{format}",
+    "urls": [
         "^http://video\\.yandex\\.ru/users/[^#?/]+/view/.+$"
     ],
-    "http://www.mixcloud.com/oembed/": [
-        "^http://www\\.mixcloud\\.com/oembed/[^#?/]+/.+$"
+}
+
+mixcloud = {
+    "endpoint": "https://www.mixcloud.com/oembed/",
+    "urls": [
+        "^https?://(?:www\\.)?mixcloud\\.com/.+$"
     ],
-    "http://www.kickstarter.com/services/oembed": [
+}
+
+kickstarter = {
+    "endpoint": "http://www.kickstarter.com/services/oembed",
+    "urls": [
         "^http(?:s)://[-\\w]+\\.kickstarter\\.com/projects/.+$"
     ],
-    "http://coub.com/api/oembed.{format}": [
+}
+
+coub = {
+    "endpoint": "http://coub.com/api/oembed.{format}",
+    "urls": [
         "^http(?:s)?://coub\\.com/view/.+$",
         "^http(?:s)?://coub\\.com/embed/.+$"
     ],
-    "http://www.screenr.com/api/oembed.{format}": [
+}
+
+screenr = {
+    "endpoint": "http://www.screenr.com/api/oembed.{format}",
+    "urls": [
         "^http://www\\.screenr\\.com/.+$"
     ],
-    "http://www.funnyordie.com/oembed.{format}": [
+}
+
+funny_or_die = {
+    "endpoint": "http://www.funnyordie.com/oembed.{format}",
+    "urls": [
         "^http://www\\.funnyordie\\.com/videos/.+$"
     ],
-    "http://fast.wistia.com/oembed.{format}": [
+}
+
+wistia = {
+    "endpoint": "http://fast.wistia.com/oembed.{format}",
+    "urls": [
         "^https?://([^/]+\.)?(wistia.com|wi.st)/(medias|embed)/.+$"
     ],
-    "http://www.ustream.tv/oembed": [
+}
+
+ustream = {
+    "endpoint": "http://www.ustream.tv/oembed",
+    "urls": [
         "^http(?:s)?://(?:www\\.)?ustream\\.tv/.+$",
         "^http(?:s)?://(?:www\\.)?ustream\\.com/.+$",
         "^http://ustre\\.am/.+$"
     ],
-    "http://wordpress.tv/oembed/": [
+}
+
+wordpress = {
+    "endpoint": "http://wordpress.tv/oembed/",
+    "urls": [
         "^http://wordpress\\.tv/.+$"
     ],
-    "http://polldaddy.com/oembed/": [
+}
+
+polldaddy = {
+    "endpoint": "http://polldaddy.com/oembed/",
+    "urls": [
         "^http(?:s)?://(?:[-\\w]+\\.)?polldaddy\\.com/.+$"
     ],
-    "http://api.bambuser.com/oembed.{format}": [
+}
+
+bambuser = {
+    "endpoint": "http://api.bambuser.com/oembed.{format}",
+    "urls": [
         "^http://bambuser\\.com/channel/[^#?/]+/broadcast/.+$",
         "^http://bambuser\\.com/channel/.+$",
         "^http://bambuser\\.com/v/.+$"
     ],
-    "http://www.ted.com/talks/oembed.{format}": [
+}
+
+ted = {
+    "endpoint": "http://www.ted.com/talks/oembed.{format}",
+    "urls": [
         "^http(?:s)?://(?:www\\.)?ted\\.com/talks/.+$",
         "^http(?:s)?://(?:www\\.)?ted\\.com/talks/lang/[^#?/]+/.+$",
         "^http(?:s)?://(?:www\\.)?ted\\.com/index\\.php/talks/.+$",
         "^http(?:s)?://(?:www\\.)?ted\\.com/index\\.php/talks/lang/[^#?/]+/.+$"
     ],
-    "http://chirb.it/oembed.{format}": [
+}
+
+chirb = {
+    "endpoint": "http://chirb.it/oembed.{format}",
+    "urls": [
         "^http://chirb\\.it/.+$"
     ],
-    "https://www.circuitlab.com/circuit/oembed/": [
+}
+
+circuitlab = {
+    "endpoint": "https://www.circuitlab.com/circuit/oembed/",
+    "urls": [
         "^http(?:s)?://(?:www\\.)?circuitlab\\.com/circuit/.+$"
     ],
-    "http://api.geograph.org.uk/api/oembed": [
+}
+
+geograph_uk = {
+    "endpoint": "http://api.geograph.org.uk/api/oembed",
+    "urls": [
         "^http://(?:[-\\w]+\\.)?geograph\\.org\\.uk/.+$",
         "^http://(?:[-\\w]+\\.)?geograph\\.co\\.uk/.+$",
         "^http://(?:[-\\w]+\\.)?geograph\\.ie/.+$"
     ],
-    "http://geo.hlipp.de/restapi.php/api/oembed": [
+}
+
+hlipp = {
+    "endpoint": "http://geo.hlipp.de/restapi.php/api/oembed",
+    "urls": [
         "^http://geo-en\\.hlipp\\.de/.+$",
         "^http://geo\\.hlipp\\.de/.+$",
         "^http://germany\\.geograph\\.org/.+$"
     ],
-    "http://www.geograph.org.gg/api/oembed": [
+}
+
+geograph_gg = {
+    "endpoint": "http://www.geograph.org.gg/api/oembed",
+    "urls": [
         "^http://(?:[-\\w]+\\.)?geograph\\.org\\.gg/.+$",
         "^http://(?:[-\\w]+\\.)?geograph\\.org\\.je/.+$",
         "^http://channel-islands\\.geograph\\.org/.+$",
         "^http://channel-islands\\.geographs\\.org/.+$",
         "^http://(?:[-\\w]+\\.)?channel\\.geographs\\.org/.+$"
     ],
-    "http://vzaar.com/api/videos/{1}.{format}": [
+}
+
+vzaar = {
+    "endpoint": "http://vzaar.com/api/videos/{1}.{format}",
+    "urls": [
         "^http://(?:www\\.)?vzaar\\.com/videos/([^#?/]+)(?:.+)?$",
         "^http://www\\.vzaar\\.tv/([^#?/]+)(?:.+)?$",
         "^http://vzaar\\.tv/([^#?/]+)(?:.+)?$",
         "^http://vzaar\\.me/([^#?/]+)(?:.+)?$",
         "^http://[-\\w]+\\.vzaar\\.me/([^#?/]+)(?:.+)?$"
     ],
-    "http://api.minoto-video.com/services/oembed.{format}": [
+}
+
+minoto = {
+    "endpoint": "http://api.minoto-video.com/services/oembed.{format}",
+    "urls": [
         "^http://api\\.minoto-video\\.com/publishers/[^#?/]+/videos/.+$",
         "^http://dashboard\\.minoto-video\\.com/main/video/details/.+$",
         "^http://embed\\.minoto-video\\.com/.+$"
     ],
-    "http://www.videojug.com/oembed.{format}": [
+}
+
+videojug = {
+    "endpoint": "http://www.videojug.com/oembed.{format}",
+    "urls": [
         "^http(?:s)?://(?:[-\\w]+\\.)?videojug\\.com/film/.+$",
         "^http(?:s)?://(?:[-\\w]+\\.)?videojug\\.com/payer/.+$",
         "^http(?:s)?://(?:[-\\w]+\\.)?videojug\\.com/interview/.+$"
     ],
-    "http://videos.sapo.pt/oembed": [
+}
+
+sapo = {
+    "endpoint": "http://videos.sapo.pt/oembed",
+    "urls": [
         "^http(?:s)?://videos\\.sapo\\.pt/.+$"
     ],
-    "http://vhx.tv/services/oembed.{format}": [
+}
+
+vhx_tv = {
+    "endpoint": "http://vhx.tv/services/oembed.{format}",
+    "urls": [
         "^http(?:s)?://(?:www\\.)?vhx\\.tv/.+$"
     ],
-    "http://api.justin.tv/api/embed/from_url.{format}": [
+}
+
+justin_tv = {
+    "endpoint": "http://api.justin.tv/api/embed/from_url.{format}",
+    "urls": [
         "^http(?:s)?://(?:www\\.)?justin\\.tv/.+$"
     ],
-    "http://official.fm/services/oembed.{format}": [
+}
+
+official_fm = {
+    "endpoint": "http://official.fm/services/oembed.{format}",
+    "urls": [
         "^http(?:s)?://official\\.fm/.+$"
     ],
-    "http://huffduffer.com/oembed": [
+}
+
+huffduffer = {
+    "endpoint": "http://huffduffer.com/oembed",
+    "urls": [
         "^http(?:s)?://(?:www\\.)?huffduffer\\.com/[^#?/]+/.+$"
     ],
-    "https://embed.spotify.com/oembed/": [
+}
+
+spotify = {
+    "endpoint": "https://embed.spotify.com/oembed/",
+    "urls": [
         "^http(?:s)?://open\\.spotify\\.com/.+$",
         "^http(?:s)?://spoti\\.fi/.+$"
     ],
-    "http://shoudio.com/api/oembed": [
+}
+
+shoudio = {
+    "endpoint": "http://shoudio.com/api/oembed",
+    "urls": [
         "^http://shoudio\\.com/.+$",
         "^http://shoud\\.io/.+$"
     ],
-    "http://api.mobypicture.com/oEmbed": [
+}
+
+mobypicture = {
+    "endpoint": "http://api.mobypicture.com/oEmbed",
+    "urls": [
         "^http(?:s)?://(?:www\\.)?mobypicture\\.com/user/[^#?/]+/view/.+$",
         "^http(?:s)?://(?:www\\.)?moby\\.to/.+$"
     ],
-    "http://www.23hq.com/23/oembed": [
+}
+
+twenty_three_hq = {
+    "endpoint": "http://www.23hq.com/23/oembed",
+    "urls": [
         "^http(?:s)?://(?:www\\.)?23hq\\.com/[^#?/]+/photo/.+$"
     ],
-    "http://gmep.org/oembed.{format}": [
+}
+
+gmep = {
+    "endpoint": "http://gmep.org/oembed.{format}",
+    "urls": [
         "^http(?:s)?://(?:www\\.)?gmep\\.org/.+$",
         "^http(?:s)?://gmep\\.imeducate\\.com/.+$"
     ],
-    "http://oembed.urtak.com/1/oembed": [
+}
+
+urtak = {
+    "endpoint": "http://oembed.urtak.com/1/oembed",
+    "urls": [
         "^http(?:s)?://(?:[-\\w]+\\.)?urtak\\.com/.+$"
     ],
-    "http://cacoo.com/oembed.{format}": [
+}
+
+cacoo = {
+    "endpoint": "http://cacoo.com/oembed.{format}",
+    "urls": [
         "^http(?:s)?://cacoo\\.com/.+$"
     ],
-    "http://api.dailymile.com/oembed": [
+}
+
+dailymile = {
+    "endpoint": "http://api.dailymile.com/oembed",
+    "urls": [
         "^http(?:s)?://(?:www\\.)?dailymile\\.com/people/[^#?/]+/entries/.+$"
     ],
-    "http://www.dipity.com/oembed/timeline/": [
+}
+
+dipity = {
+    "endpoint": "http://www.dipity.com/oembed/timeline/",
+    "urls": [
         "^http(?:s)?://(?:www\\.)?dipity\\.com/timeline/.+$",
         "^http(?:s)?://(?:www\\.)?dipity\\.com/voaweb/.+$"
     ],
-    "https://sketchfab.com/oembed": [
+}
+
+sketchfab = {
+    "endpoint": "https://sketchfab.com/oembed",
+    "urls": [
         "^http(?:s)?://sketchfab\\.com/show/.+$"
     ],
-    "https://api.meetup.com/oembed": [
+}
+
+meetup = {
+    "endpoint": "https://api.meetup.com/oembed",
+    "urls": [
         "^http(?:s)?://(?:www\\.)?meetup\\.com/.+$",
         "^http(?:s)?://(?:www\\.)?meetup\\.ps/.+$"
     ],
-    "https://roomshare.jp/oembed.{format}": [
+}
+
+roomshare = {
+    "endpoint": "https://roomshare.jp/oembed.{format}",
+    "urls": [
         "^http(?:s)?://(?:www\\.)?roomshare\\.jp/(?:en/)?post/.+$"
     ],
-    "http://crowdranking.com/api/oembed.{format}": [
+}
+
+crowd_ranking = {
+    "endpoint": "http://crowdranking.com/api/oembed.{format}",
+    "urls": [
         "^http(?:s)?://crowdranking\\.com/crowdrankings/.+$",
         "^http(?:s)?://crowdranking\\.com/rankings/.+$",
         "^http(?:s)?://crowdranking\\.com/topics/.+$",
         "^http(?:s)?://crowdranking\\.com/widgets/.+$",
         "^http(?:s)?://crowdranking\\.com/r/.+$"
     ],
-    "http://openapi.etsy.com/svc/oembed/": [
+}
+
+etsy = {
+    "endpoint": "http://openapi.etsy.com/svc/oembed/",
+    "urls": [
         "^http(?:s)?://(?:www\\.)?etsy\\.com/listing/.+$"
     ],
-    "https://audioboom.com/publishing/oembed.{format}": [
+}
+
+audioboom = {
+    "endpoint": "https://audioboom.com/publishing/oembed.{format}",
+    "urls": [
         "^http(?:s)?://audioboom\\.com/boos/.+$"
     ],
-    "http://demo.clikthrough.com/services/oembed/": [
+}
+
+clikthrough = {
+    "endpoint": "http://demo.clikthrough.com/services/oembed/",
+    "urls": [
         "^http(?:s)?://demo\\.clikthrough\\.com/theater/video/.+$"
     ],
-    "http://www.ifttt.com/oembed/": [
+}
+
+ifttt = {
+    "endpoint": "http://www.ifttt.com/oembed/",
+    "urls": [
         "^http(?:s)?://ifttt\\.com/recipes/.+$"
     ],
+}
 
-    # Added 11th December 2014 - http://developers.issuu.com/api/oembed.html
-    "http://issuu.com/oembed": [
+issuu = {
+    "endpoint": "http://issuu.com/oembed",
+    "urls": [
         "^http(?:s)?://(?:www\\.)?issuu\\.com/[^#?/]+/docs/.+$"
     ],
 }
 
+tumblr = {
+    "endpoint": "https://www.tumblr.com/oembed/1.0",
+    "urls": [
+        "^http(?:s)?://.+?\\.tumblr\\.com/post/.+$",
+    ]
+}
 
-# Compile endpoints into regular expression objects
-
-def compile_endpoints():
-    endpoints = {}
-    for endpoint in OEMBED_ENDPOINTS.keys():
-        endpoint_key = endpoint.replace('{format}', 'json')
-
-        endpoints[endpoint_key] = []
-        for pattern in OEMBED_ENDPOINTS[endpoint]:
-            endpoints[endpoint_key].append(re.compile(pattern))
-
-    return endpoints
-
-OEMBED_ENDPOINTS_COMPILED = compile_endpoints()
-
-
-def get_oembed_provider(url):
-    for endpoint in OEMBED_ENDPOINTS_COMPILED.keys():
-        for pattern in OEMBED_ENDPOINTS_COMPILED[endpoint]:
-            if re.match(pattern, url):
-                return endpoint
-
-    return
+all_providers = [
+    speakerdeck, app_net, youtube, deviantart, blip_tv, dailymotion, flikr,
+    hulu, nfb, qik, revision3, scribd, viddler, vimeo, dotsub, yfrog,
+    clickthrough, kinomap, photobucket, instagram, facebook_video,
+    facebook_post, slideshare,
+    major_league_gaming, opera, skitch, twitter, soundcloud, collegehumor,
+    polleverywhere, ifixit, smugmug, github_gist, animoto, rdio, five_min,
+    five_hundred_px, dipdive, yandex, mixcloud, kickstarter, coub, screenr,
+    funny_or_die, wistia, ustream, wordpress, polldaddy, bambuser, ted, chirb,
+    circuitlab, geograph_uk, hlipp, geograph_gg, vzaar, minoto, videojug, sapo,
+    vhx_tv, justin_tv, official_fm, huffduffer, spotify, shoudio, mobypicture,
+    twenty_three_hq, gmep, urtak, cacoo, dailymile, dipity, sketchfab, meetup,
+    roomshare, crowd_ranking, etsy, audioboom, clikthrough, ifttt, issuu, tumblr
+]

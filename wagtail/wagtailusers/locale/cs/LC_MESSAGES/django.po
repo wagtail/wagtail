@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-01 13:25+0000\n"
-"PO-Revision-Date: 2016-08-01 13:29+0000\n"
+"POT-Creation-Date: 2017-08-10 16:05+0000\n"
+"PO-Revision-Date: 2017-04-19 21:08+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
@@ -35,8 +35,14 @@ msgstr "Toto uživatelské jméno již existuje."
 msgid "The two password fields didn't match."
 msgstr "Zadaná hesla se neshodují."
 
-msgid "Administrator"
-msgstr "Administrátor"
+msgid "Email"
+msgstr "E-mail"
+
+msgid "First Name"
+msgstr "Jméno"
+
+msgid "Last Name"
+msgstr "Příjmení"
 
 msgid "Password"
 msgstr "Heslo"
@@ -50,14 +56,8 @@ msgstr "Potvrzení hesla"
 msgid "Enter the same password as above, for verification."
 msgstr "Pro zabránění překlepům zadejte heslo ještě jednou."
 
-msgid "Email"
-msgstr "E-mail"
-
-msgid "First Name"
-msgstr "Jméno"
-
-msgid "Last Name"
-msgstr "Příjmení"
+msgid "Administrator"
+msgstr "Administrátor"
 
 msgid "A group with that name already exists."
 msgstr "Skupina s tímto názvem již existuje."
@@ -73,14 +73,6 @@ msgstr "Upozornit, když je vaše stránka zamítnuta"
 
 msgid "Delete group"
 msgstr "Smazat skupinu"
-
-#, python-format
-msgid ""
-"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> users "
-"assigned."
-msgstr ""
-"Skupina \"%(group_name)s\" obsahuje <strong>%(group_user_count)s</strong> "
-"uživatelů."
 
 msgid "Are you sure you want to delete this group?"
 msgstr "Opravdu chcete tuto skupinu smazat?"

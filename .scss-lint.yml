@@ -2,7 +2,9 @@
 # SpaceBeforeBrace: search "([^\ ])\{" replace "$1 {"
 # SpaceAfterPropertyColon: search "([^\&]):([^\ \n]*);" replace "$1: $2;"
 
-scss_files: 'wagtail/**/static_src/**/scss/**/*.scss'
+scss_files:
+- wagtail/**/static_src/**/scss/**/*.scss
+- client/**/*.scss
 
 linters:
     BorderZero:
@@ -83,25 +85,17 @@ linters:
     NestingDepth:
         max_depth: 5
 
+    PseudoElement:
+        enabled: false
+
     SelectorDepth:
         enabled: false
 
+    # There is currently no de facto standard for selector format in Wagtail, due to:
+    # a) the conversion of django field/widget names to underscored class names
+    # b) the use of third party code such as Hallo.js which uses classes with snakeCaseClasses.
     SelectorFormat:
-        convention: hyphenated_BEM
-        ignored_names:
-            - js_class
-        ignored_types:
-            - element
-        # There are regretably quite a few exlusions here, made necessary by
-        # a) the conversion of django field/widget names to underscored class names
-        # b) the use of third party code such as Hallo.js which uses classes with snakeCaseClasses.
-        exclude:
-            - '**/rich-text.scss'
-            - '**/_forms.scss'
-            - '**/_streamfield.scss'
-            - '**/page-editor.scss'
-            - '**/_datetimepicker.scss'
-            - '**/choose_parent_page.scss'
+        convention: '.*'  # allow anything
 
     PlaceholderInExtend:
         enabled: false

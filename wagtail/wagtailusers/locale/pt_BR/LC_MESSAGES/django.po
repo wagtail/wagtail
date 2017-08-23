@@ -9,15 +9,15 @@
 # Gladson <gladsonbrito@gmail.com>, 2014
 # Guilherme Nabanete <neoheartz@gmail.com>, 2016
 # Luiz Boaretto <lboaretto@gmail.com>, 2016
-# Luiz Boaretto <lboaretto@gmail.com>, 2016
+# Luiz Boaretto <lboaretto@gmail.com>, 2016-2017
 # Thiago Cangussu <cangussu.thg@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-01 13:25+0000\n"
-"PO-Revision-Date: 2016-08-10 03:17+0000\n"
-"Last-Translator: Guilherme Nabanete <neoheartz@gmail.com>\n"
+"POT-Creation-Date: 2017-08-10 16:05+0000\n"
+"PO-Revision-Date: 2017-05-18 14:13+0000\n"
+"Last-Translator: Luiz Boaretto <lboaretto@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -40,13 +40,14 @@ msgstr "Um usuário com este nome já existe."
 msgid "The two password fields didn't match."
 msgstr "Os dois campos de senha não coincidem."
 
-msgid "Administrator"
-msgstr "Administrador"
+msgid "Email"
+msgstr "Email"
 
-msgid "Administrators have full access to manage any object or setting."
-msgstr ""
-"Os administradores têm acesso completo para gerenciar qualquer objeto ou "
-"ambiente."
+msgid "First Name"
+msgstr "Primeiro nome"
+
+msgid "Last Name"
+msgstr "Último nome"
 
 msgid "Password"
 msgstr "Senha"
@@ -60,14 +61,13 @@ msgstr "Confirmação de senha"
 msgid "Enter the same password as above, for verification."
 msgstr "Digite a mesma senha como acima, para verificação."
 
-msgid "Email"
-msgstr "Email"
+msgid "Administrator"
+msgstr "Administrador"
 
-msgid "First Name"
-msgstr "Primeiro nome"
-
-msgid "Last Name"
-msgstr "Último nome"
+msgid "Administrators have full access to manage any object or setting."
+msgstr ""
+"Os administradores têm acesso completo para gerenciar qualquer objeto ou "
+"ambiente."
 
 msgid "A group with that name already exists."
 msgstr "Um grupo com este nome já existe."
@@ -93,6 +93,12 @@ msgstr "notificações rejeitadas"
 msgid "Receive notification when your page edit is rejected"
 msgstr "Receber uma notificação quando a edição da sua página é rejeitada"
 
+msgid "preferred language"
+msgstr "idioma preferido"
+
+msgid "Select language for the admin"
+msgstr "Selecione o idioma para o administrador"
+
 msgid "user profile"
 msgstr "Perfil de usuário"
 
@@ -101,11 +107,25 @@ msgstr "Remover grupo"
 
 #, python-format
 msgid ""
-"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> users "
-"assigned."
-msgstr ""
-"O grupo '%(group_name)s' possui <strong>%(group_user_count)s</strong> "
-"usuários."
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> member.\n"
+"            "
+msgid_plural ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> members.\n"
+"            "
+msgstr[0] ""
+"\n"
+"                O grupo '%(group_name)s' tem <strong>%(group_user_count)s</"
+"strong> membro.\n"
+"            "
+msgstr[1] ""
+"\n"
+"                O grupo '%(group_name)s' tem <strong>%(group_user_count)s</"
+"strong> membros.\n"
+"            "
 
 msgid ""
 "Deleting this group will revoke this group's permissions from all member "

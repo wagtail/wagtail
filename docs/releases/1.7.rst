@@ -1,6 +1,6 @@
-==========================================
-Wagtail 1.7 release notes - IN DEVELOPMENT
-==========================================
+=========================
+Wagtail 1.7 release notes
+=========================
 
 .. contents::
     :local:
@@ -17,6 +17,12 @@ Elasticsearch 2 support
 Wagtail now supports Elasticsearch 2. Note that you need to change backend in ``WAGTAILSEARCH_BACKENDS``, if you wish to switch to Elasticsearch 2. This feature was developed by Karl Hobley.
 
 See: :ref:`wagtailsearch_backends_elasticsearch`
+
+
+New image tag options for file type and JPEG compression level
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The ``{% image %}`` tag now supports extra parameters for specifying the image file type and JPEG compression level on a per-tag basis. See :ref:`output_image_format` and :ref:`jpeg_image_quality`. This feature was developed by Karl Hobley.
 
 
 AWS CloudFront support added to cache invalidation module
@@ -47,6 +53,9 @@ Minor features
  * Added ability to annotate search results with score - see :ref:`wagtailsearch_annotating_results_with_score` (Karl Hobley)
  * Added ability to limit access to form submissions - see :ref:`filter_form_submissions_for_user` (Mikalai Radchuk)
  * Added the ability to configure the number of days search logs are kept for, through the :ref:`WAGTAILSEARCH_HITS_MAX_AGE <wagtailsearch_hits_max_age>` setting (Stephen Rice)
+ * ``SnippetChooserBlock`` now supports passing the model name as a string (Nick Smith)
+ * Redesigned account settings / logout area in the sidebar for better clarity (Janneke Janssen)
+ * Pillow's image optimisation is now applied when saving JPEG images (Karl Hobley)
 
 
 Bug fixes
@@ -63,7 +72,11 @@ Bug fixes
  * ``InlinePanel`` now accepts a ``classname`` parameter as per the documentation (emg36, Matt Westcott)
  * Disabled use of escape key to revert content of rich text fields, which could cause accidental data loss (Matt Westcott)
  * Setting ``USE_THOUSAND_SEPARATOR = True`` no longer breaks the rendering of numbers in JS code for InlinePanel (Mattias Loverot, Matt Westcott)
- * `purge_page_from_cache` now purges the url of each managed language when using `i18n_patterns` (PyMan Claudio Marinozzi)
+ * Images / documents pagination now preserves GET parameters (Bojan Mihelac)
+ * Wagtail's UserProfile model now sets a related_name of ``wagtail_userprofile`` to avoid naming collisions with other user profile models (Matt Westcott)
+ * Non-text content is now preserved when adding or editing a link within rich text (Matt Westcott)
+ * Fixed preview when ``SECURE_SSL_REDIRECT = True`` (Aymeric Augustin)
+ * Prevent hang when truncating an image filename without an extension (Ricky Robinett)
 
 
 Upgrade considerations
@@ -98,15 +111,39 @@ The data model for image renditions will be changed in Wagtail 1.8 to eliminate 
 
  * Run ``manage.py makemigrations`` to create the schema migration
  * Run ``manage.py makemigrations --empty myapp`` (replacing ``myapp`` with the name of the app containing the custom image model) to create an empty migration
- * Edit the created migration to contain::
+ * Edit the created migration to contain:
 
-    from wagtail.wagtailimages.utils import get_fill_filter_spec_migrations
+   .. code-block:: python
 
-   and, for the ``operations`` list::
+       from wagtail.wagtailimages.utils import get_fill_filter_spec_migrations
 
-    forward, reverse = get_fill_filter_spec_migrations('myapp', 'CustomRendition')
-    operations = [
-        migrations.RunPython(forward, reverse),
-    ]
+   and, for the ``operations`` list:
+
+   .. code-block:: python
+
+       forward, reverse = get_fill_filter_spec_migrations('myapp', 'CustomRendition')
+       operations = [
+           migrations.RunPython(forward, reverse),
+       ]
 
    replacing ``myapp`` and ``CustomRendition`` with the app and model name for the custom rendition model.
+
+
+``embed`` template filter is now a template tag
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The ``embed`` template filter, used to translate the URL of a media resource (such as a YouTube video) into a corresponding embeddable HTML fragment, has now been converted to a template tag. Any template code such as:
+
+.. code-block:: html+django
+
+    {% load wagtailembeds_tags %}
+    ...
+    {{ my_media_url|embed }}
+
+should now be rewritten as:
+
+.. code-block:: html+django
+
+    {% load wagtailembeds_tags %}
+    ...
+    {% embed my_media_url %}

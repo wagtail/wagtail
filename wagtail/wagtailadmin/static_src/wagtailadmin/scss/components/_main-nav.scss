@@ -1,13 +1,16 @@
 $selected-highlight: darken($color-grey-1, 10%);
 $submenu-color: darken($color-grey-1, 5%);
+$footer-account: $selected-highlight;
+$footer-submenu: $submenu-color;
 
 .nav-wrapper {
     position: relative;
     margin-left: -$menu-width;
     width: $menu-width;
     float: left;
+    display: flex;
+    flex-direction: column;
     height: 100%;
-    min-height: 800px;
     background: $color-grey-1;
 
     .inner {
@@ -16,11 +19,13 @@ $submenu-color: darken($color-grey-1, 5%);
 }
 
 .nav-toggle.icon {
-    left: $mobile-nice-padding;
-    cursor: pointer;
     position: absolute;
+    padding-left: $mobile-nice-padding;
+    cursor: pointer;
 
     &:before {
+        position: relative;
+        top: 3px;
         font-size: 40px;
         color: $color-white;
         line-height: 40px;
@@ -29,11 +34,6 @@ $submenu-color: darken($color-grey-1, 5%);
 }
 
 .nav-main {
-    top: 43px;
-    bottom: 0;
-    overflow: auto;
-    width: 100%;
-
     ul,
     li {
         margin: 0;
@@ -101,18 +101,23 @@ $submenu-color: darken($color-grey-1, 5%);
         }
     }
 
+    .footer-submenu {
+        a {
+            border-left: 3px solid transparent;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+
+            &:before {
+                font-size: 1rem;
+                margin-right: 0.5em;
+                vertical-align: -10%;
+            }
+        }
+    }
+
     .account {
-        @include clearfix();
-
-        .avatar {
-            display: none;
-        }
-
-        em {
-            font-style: normal;
-            float: left;
-            width: 100%;
-        }
+        display: none;
     }
 }
 
@@ -146,16 +151,10 @@ $submenu-color: darken($color-grey-1, 5%);
     }
 }
 
-.explorer {
-    // position: absolute;
-    // margin-top: 70px;
-    font-size: 1em;
-}
-
 .nav-search {
     position: relative;
     padding: 0;
-    margin: 0 1em;
+    margin: 0 1em 1em;
 
     label {
         @include visuallyhidden();
@@ -189,10 +188,13 @@ $submenu-color: darken($color-grey-1, 5%);
     button {
         background-color: transparent;
         position: absolute;
-        top: 0; right: 0; bottom: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
         margin: auto;
         padding: 0;
-        width: 3em; height: 100%;
+        width: 3em;
+        height: 100%;
         overflow: hidden;
 
         &:before {
@@ -212,7 +214,6 @@ $submenu-color: darken($color-grey-1, 5%);
 body.nav-open {
     .wrapper {
         transform: translate3d($menu-width, 0, 0);
-        -webkit-transform: translate3d($menu-width, 0, 0);
     }
 
     .content-wrapper {
@@ -224,52 +225,25 @@ body.nav-open {
     }
 }
 
-.explorer-close {
-    display: none;
-    padding: .9em;
-    border-bottom: 1px solid rgba(200, 200, 200, 0.1);
-    cursor: pointer;
-
-    &:hover {
-        color: $color-white;
-    }
-}
-
 // Explorer open condition, widens navigation area
 body.explorer-open {
     .wrapper {
-        transform: translate3d($menu-width*2, 0, 0);
-        -webkit-transform: translate3d($menu-width*2, 0, 0);
+        transform: translate3d($menu-width-max, 0, 0);
     }
 
     .nav-wrapper {
-        margin-left: -$menu-width*2;
-        width: $menu-width*2;
+        margin-left: -$menu-width-max;
+        width: $menu-width-max;
     }
 
     .nav-main {
         display: none;
-    }
-
-    .explorer {
-        display: block;
-    }
-
-    .explorer-close {
-        display: block;
-    }
-
-    @media screen and (min-width: $breakpoint-mobile) {
-        .explorer-close {
-            display: none;
-        }
     }
 }
 
 @media screen and (min-width: $breakpoint-mobile) {
     .wrapper,
     body.nav-open .wrapper {
-        -webkit-transform: none;
         transform: none;
         padding-left: $menu-width;
     }
@@ -285,6 +259,7 @@ body.explorer-open {
             height: 100%;
             position: fixed;
             width: $menu-width;
+            z-index: 26;
         }
     }
 
@@ -295,34 +270,70 @@ body.explorer-open {
     .nav-main {
         position: absolute;
         top: 175px; // WARNING - magic number - the height of the logo plus search box
-        margin-bottom: 116px; // WARNING - magic number - the height of the .footer
+        bottom: 0;
+        margin-bottom: 127px; // WARNING - magic number - the height of the .footer
+        width: 100%;
+        overflow: auto;
 
         .footer {
-            padding-top: 1em;
             position: fixed;
-            width: $menu-width - 7;
+            width: $menu-width;
             bottom: 0;
         }
 
+        .footer-open .footer-submenu {
+            max-height: 127px; // WARNING - magic number - the height of the .footer
+        }
+
+        .footer-submenu {
+            @include transition(max-height 0.2s ease);
+            background-color: $footer-submenu;
+            overflow: hidden;
+            max-height: 0;
+        }
+
         .account {
-            @include clearfix();
-            padding-right: 0;
-            padding-left: 15px;
+            @include clearfix;
+            background: $footer-account;
+            color: $color-menu-text;
+            text-transform: uppercase;
+            display: block;
+            cursor: pointer;
+
+            &:hover {
+                outline: none;
+                background-color: rgba(100, 100, 100, 0.15);
+                color: $color-white;
+                text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
+            }
 
             .avatar {
-                display: inline-block;
-                padding: 0;
-                margin: 0 0.7em 0 0;
-                border: 0;
                 float: left;
+                margin-right: 0.9em;
 
                 &:before {
-                    text-shadow: none;
+                    color: inherit;
+                    border-color: inherit;
                 }
             }
 
             em {
-                width: 120px;
+                box-sizing: border-box;
+                padding-right: 1.8em;
+                margin-top: 1.2em;
+                font-style: normal;
+                font-weight: 700;
+                width: 110px;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                float: left;
+
+                &:after {
+                    font-size: 1.5em;
+                    position: absolute;
+                    right: 0.25em;
+                }
             }
         }
 
@@ -396,18 +407,6 @@ body.explorer-open {
         }
     }
 
-    .explorer {
-        width: 400px;
-        position: absolute;
-        top: 0;
-        left: 99%;
-        margin-top: 175px; // same as .nav-main minus 1 pixel for border
-    }
-
-    .dl-menu {
-        position: absolute;
-    }
-
     body.nav-open {
         .content-wrapper {
             position: relative;
@@ -415,29 +414,20 @@ body.explorer-open {
     }
 
     body.explorer-open {
+        overflow: hidden;
+
+        &:after {
+            opacity: 1;
+            visibility: visible;
+        }
+
         .wrapper {
-            -webkit-transform: none;
             transform: none;
         }
 
         .nav-wrapper {
             margin-left: 0;
             width: $menu-width;
-        }
-
-        .explorer:before {
-            display: none;
-        }
-
-        .explorer:after {
-            content: '';
-            width: calc(100% - 2px);
-            height: 100%;
-            position: absolute;
-            top: 0;
-            right: 0;
-            z-index: -1;
-            box-shadow: 0 0 2px rgba(255, 255, 255, 0.9);
         }
 
         .nav-main {
@@ -465,11 +455,11 @@ body.explorer-open {
     body.explorer-open {
         .wrapper {
             transform: none;
-            left: $menu-width*2;
+            left: $menu-width-max;
         }
 
         .nav-wrapper {
-            width: $menu-width*2;
+            width: $menu-width-max;
         }
     }
 }

@@ -36,15 +36,20 @@ class MenuItem(with_metaclass(MediaDefiningClass)):
     def is_active(self, request):
         return request.path.startswith(text_type(self.url))
 
-    def render_html(self, request):
-        return render_to_string(self.template, {
+    def get_context(self, request):
+        """Defines context for the template, overridable to use more data"""
+        return {
             'name': self.name,
             'url': self.url,
             'classnames': self.classnames,
             'attr_string': self.attr_string,
             'label': self.label,
             'active': self.is_active(request)
-        }, request=request)
+        }
+
+    def render_html(self, request):
+        context = self.get_context(request)
+        return render_to_string(self.template, context, request=request)
 
 
 class Menu(object):
@@ -114,17 +119,11 @@ class SubmenuMenuItem(MenuItem):
     def is_active(self, request):
         return bool(self.menu.active_menu_items(request))
 
-    def render_html(self, request):
-        return render_to_string(self.template, {
-            'name': self.name,
-            'url': self.url,
-            'classnames': self.classnames,
-            'attr_string': self.attr_string,
-            'menu_html': self.menu.render_html(request),
-            'label': self.label,
-            'request': request,
-            'active': self.is_active(request)
-        }, request=request)
+    def get_context(self, request):
+        context = super(SubmenuMenuItem, self).get_context(request)
+        context['menu_html'] = self.menu.render_html(request)
+        context['request'] = request
+        return context
 
 
 admin_menu = Menu(register_hook_name='register_admin_menu_item', construct_hook_name='construct_main_menu')

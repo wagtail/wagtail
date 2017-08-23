@@ -1,12 +1,15 @@
 from __future__ import absolute_import, unicode_literals
 
+import json
+
 from django.http import Http404
 from django.shortcuts import get_object_or_404, render
 
 from wagtail.utils.pagination import paginate
 from wagtail.wagtailadmin.forms import EmailLinkChooserForm, ExternalLinkChooserForm, SearchForm
 from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
-from wagtail.wagtailcore.models import Page
+from wagtail.wagtailcore import hooks
+from wagtail.wagtailcore.models import Page, UserPagePermissionsProxy
 from wagtail.wagtailcore.utils import resolve_model_string
 
 
@@ -48,41 +51,69 @@ def filter_page_type(queryset, page_models):
     return qs
 
 
+def can_choose_page(page, permission_proxy, desired_classes, can_choose_root=True, user_perm=None):
+    """Returns boolean indicating of the user can choose page.
+    will check if the root page can be selected and if user permissions
+    should be checked.
+    """
+    if not issubclass(page.specific_class or Page, desired_classes) and not desired_classes == (Page, ):
+        return False
+    elif not can_choose_root and page.is_root():
+        return False
+    if user_perm == 'copy_to':
+        return permission_proxy.for_page(page).can_add_subpage()
+
+    return True
+
+
 def browse(request, parent_page_id=None):
+    # A missing or empty page_type parameter indicates 'all page types'
+    # (i.e. descendants of wagtailcore.page)
+    page_type_string = request.GET.get('page_type') or 'wagtailcore.page'
+    user_perm = request.GET.get('user_perms', False)
+
+    try:
+        desired_classes = page_models_from_string(page_type_string)
+    except (ValueError, LookupError):
+        raise Http404
+
     # Find parent page
     if parent_page_id:
         parent_page = get_object_or_404(Page, id=parent_page_id)
-    else:
+    elif desired_classes == (Page,):
+        # Just use the root page
         parent_page = Page.get_first_root_node()
+    else:
+        # Find the highest common ancestor for the specific classes passed in
+        # In many cases, such as selecting an EventPage under an EventIndex,
+        # this will help the administrator find their page quicker.
+        all_desired_pages = filter_page_type(Page.objects.all(), desired_classes)
+        parent_page = all_desired_pages.first_common_ancestor()
 
     # Get children of parent page
-    pages = parent_page.get_children()
+    pages = parent_page.get_children().specific()
+
+    # allow hooks to modify the queryset
+    for hook in hooks.get_hooks('construct_page_chooser_queryset'):
+        pages = hook(pages, request)
 
     # Filter them by page type
-    # A missing or empty page_type parameter indicates 'all page types' (i.e. descendants of wagtailcore.page)
-    page_type_string = request.GET.get('page_type') or 'wagtailcore.page'
-    if page_type_string != 'wagtailcore.page':
-        try:
-            desired_classes = page_models_from_string(page_type_string)
-        except (ValueError, LookupError):
-            raise Http404
-
+    if desired_classes != (Page,):
         # restrict the page listing to just those pages that:
         # - are of the given content type (taking into account class inheritance)
         # - or can be navigated into (i.e. have children)
         choosable_pages = filter_page_type(pages, desired_classes)
         descendable_pages = pages.filter(numchild__gt=0)
         pages = choosable_pages | descendable_pages
-    else:
-        desired_classes = (Page, )
 
     can_choose_root = request.GET.get('can_choose_root', False)
 
+    # Do permission lookups for this user now, instead of for every page.
+    permission_proxy = UserPagePermissionsProxy(request.user)
+
     # Parent page can be chosen if it is a instance of desired_classes
-    parent_page.can_choose = (
-        issubclass(parent_page.specific_class or Page, desired_classes) and
-        (can_choose_root or not parent_page.is_root())
-    )
+    parent_page.can_choose = can_choose_page(
+        parent_page, permission_proxy, desired_classes, can_choose_root, user_perm)
 
     # Pagination
     # We apply pagination first so we don't need to walk the entire list
@@ -91,11 +122,7 @@ def browse(request, parent_page_id=None):
 
     # Annotate each page with can_choose/can_decend flags
     for page in pages:
-        if desired_classes == (Page, ):
-            page.can_choose = True
-        else:
-            page.can_choose = issubclass(page.specific_class or Page, desired_classes)
-
+        page.can_choose = can_choose_page(page, permission_proxy, desired_classes, can_choose_root, user_perm)
         page.can_descend = page.get_children_count()
 
     # Render
@@ -123,15 +150,20 @@ def search(request, parent_page_id=None):
     except (ValueError, LookupError):
         raise Http404
 
+    pages = Page.objects.all()
+    # allow hooks to modify the queryset
+    for hook in hooks.get_hooks('construct_page_chooser_queryset'):
+        pages = hook(pages, request)
+
     search_form = SearchForm(request.GET)
     if search_form.is_valid() and search_form.cleaned_data['q']:
-        pages = Page.objects.exclude(
+        pages = pages.exclude(
             depth=1  # never include root
         )
         pages = filter_page_type(pages, desired_classes)
         pages = pages.search(search_form.cleaned_data['q'], fields=['title'])
     else:
-        pages = Page.objects.none()
+        pages = pages.none()
 
     paginator, pages = paginate(request, pages, per_page=25)
 
@@ -149,23 +181,35 @@ def search(request, parent_page_id=None):
 
 
 def external_link(request):
-    link_text = request.GET.get('link_text', '')
-    link_url = request.GET.get('link_url', '')
+    initial_data = {
+        'url': request.GET.get('link_url', ''),
+        'link_text': request.GET.get('link_text', ''),
+    }
 
     if request.method == 'POST':
-        form = ExternalLinkChooserForm(request.POST)
+        form = ExternalLinkChooserForm(request.POST, initial=initial_data)
 
         if form.is_valid():
+            result = {
+                'url': form.cleaned_data['url'],
+                'title': form.cleaned_data['link_text'].strip() or form.cleaned_data['url'],
+                # If the user has explicitly entered / edited something in the link_text field,
+                # always use that text. If not, we should favour keeping the existing link/selection
+                # text, where applicable.
+                # (Normally this will match the link_text passed in the URL here anyhow,
+                # but that won't account for non-text content such as images.)
+                'prefer_this_title_as_link_text': ('link_text' in form.changed_data),
+            }
+
             return render_modal_workflow(
                 request,
                 None, 'wagtailadmin/chooser/external_link_chosen.js',
                 {
-                    'url': form.cleaned_data['url'],
-                    'link_text': form.cleaned_data['link_text'].strip() or form.cleaned_data['url']
+                    'result_json': json.dumps(result),
                 }
             )
     else:
-        form = ExternalLinkChooserForm(initial={'url': link_url, 'link_text': link_text})
+        form = ExternalLinkChooserForm(initial=initial_data)
 
     return render_modal_workflow(
         request,
@@ -177,23 +221,32 @@ def external_link(request):
 
 
 def email_link(request):
-    link_text = request.GET.get('link_text', '')
-    link_url = request.GET.get('link_url', '')
+    initial_data = {
+        'link_text': request.GET.get('link_text', ''),
+        'email_address': request.GET.get('link_url', ''),
+    }
 
     if request.method == 'POST':
-        form = EmailLinkChooserForm(request.POST)
+        form = EmailLinkChooserForm(request.POST, initial=initial_data)
 
         if form.is_valid():
+            result = {
+                'url': 'mailto:' + form.cleaned_data['email_address'],
+                'title': form.cleaned_data['link_text'].strip() or form.cleaned_data['email_address'],
+                # If the user has explicitly entered / edited something in the link_text field,
+                # always use that text. If not, we should favour keeping the existing link/selection
+                # text, where applicable.
+                'prefer_this_title_as_link_text': ('link_text' in form.changed_data),
+            }
             return render_modal_workflow(
                 request,
                 None, 'wagtailadmin/chooser/external_link_chosen.js',
                 {
-                    'url': 'mailto:' + form.cleaned_data['email_address'],
-                    'link_text': form.cleaned_data['link_text'].strip() or form.cleaned_data['email_address']
+                    'result_json': json.dumps(result),
                 }
             )
     else:
-        form = EmailLinkChooserForm(initial={'email_address': link_url, 'link_text': link_text})
+        form = EmailLinkChooserForm(initial=initial_data)
 
     return render_modal_workflow(
         request,

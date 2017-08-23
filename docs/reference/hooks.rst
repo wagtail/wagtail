@@ -23,6 +23,21 @@ Alternatively, ``hooks.register`` can be called as an ordinary function, passing
 
   hooks.register('name_of_hook', my_hook_function)
 
+If you need your hooks to run in a particular order, you can pass the ``order`` parameter:
+
+.. code-block:: python
+
+  @hooks.register('name_of_hook', order=1)  # This will run after every hook in the wagtail core
+  def my_hook_function(arg1, arg2...)
+      # your code here
+
+  @hooks.register('name_of_hook', order=-1)  # This will run before every hook in the wagtail core
+  def my_other_hook_function(arg1, arg2...)
+      # your code here
+
+  @hooks.register('name_of_hook', order=2)  # This will run after `my_hook_function`
+  def yet_another_hook_function(arg1, arg2...)
+      # your code here
 
 The available hooks are listed below.
 
@@ -68,8 +83,6 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
 
 ``construct_homepage_summary_items``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-  .. versionadded:: 1.0
 
   Add or remove items from the 'site summary' bar on the admin homepage (which shows the number of pages and other object that exist on the site). The callable passed into this hook should take a ``request`` object and a list of ``SummaryItem`` objects to be modified as required. These objects have a ``render()`` method, which returns an HTML string, and an ``order`` property, which is an integer that specifies the order in which the items will appear.
 
@@ -150,15 +163,15 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
 
     from wagtail.wagtailcore import hooks
 
-    def admin_view( request ):
-      return HttpResponse( \
-        "I have approximate knowledge of many things!", \
+    def admin_view(request):
+      return HttpResponse(
+        "I have approximate knowledge of many things!",
         content_type="text/plain")
 
     @hooks.register('register_admin_urls')
     def urlconf_time():
       return [
-        url(r'^how_did_you_almost_know_my_name/$', admin_view, name='frank' ),
+        url(r'^how_did_you_almost_know_my_name/$', admin_view, name='frank'),
       ]
 
 
@@ -455,6 +468,24 @@ Hooks for customising the way users are directed through the process of creating
   Uses the same behavior as ``before_create_page``.
 
 
+.. _after_copy_page:
+
+``after_copy_page``
+~~~~~~~~~~~~~~~~~~~
+
+  Do something with a ``Page`` object after it has been copied pasing in the request, page object and the new copied page. Uses the same behavior as ``after_create_page``.
+
+
+.. _before_copy_page:
+
+``before_copy_page``
+~~~~~~~~~~~~~~~~~~~~~
+
+  Called at the beginning of the "copy page" view passing in the request and the page object.
+
+  Uses the same behavior as ``before_create_page``.
+
+
 .. _construct_wagtail_userbar:
 
 ``construct_wagtail_userbar``
@@ -478,6 +509,66 @@ Hooks for customising the way users are directed through the process of creating
     @hooks.register('construct_wagtail_userbar')
     def add_puppy_link_item(request, items):
         return items.append( UserbarPuppyLinkItem() )
+
+
+Choosers
+--------
+
+.. _construct_page_chooser_queryset:
+
+``construct_page_chooser_queryset``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Called when rendering the page chooser view, to allow the page listing queryset to be customised. The callable passed into the hook will receive the current page queryset and the request object, and must return a Page queryset (either the original one, or a new one).
+
+  .. code-block:: python
+
+    from wagtail.wagtailcore import hooks
+
+    @hooks.register('construct_page_chooser_queryset')
+    def show_my_pages_only(pages, request):
+        # Only show own pages
+        pages = pages.filter(owner=request.user)
+
+        return pages
+
+
+.. _construct_document_chooser_queryset:
+
+``construct_document_chooser_queryset``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Called when rendering the document chooser view, to allow the document listing queryset to be customised. The callable passed into the hook will receive the current document queryset and the request object, and must return a Document queryset (either the original one, or a new one).
+
+  .. code-block:: python
+
+    from wagtail.wagtailcore import hooks
+
+    @hooks.register('construct_document_chooser_queryset')
+    def show_my_uploaded_documents_only(documents, request):
+        # Only show uploaded documents
+        documents = documents.filter(uploaded_by=request.user)
+
+        return documents
+
+
+.. _construct_image_chooser_queryset:
+
+``construct_image_chooser_queryset``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Called when rendering the image chooser view, to allow the image listing queryset to be customised. The callable passed into the hook will receive the current image queryset and the request object, and must return a Document queryset (either the original one, or a new one).
+
+  .. code-block:: python
+
+    from wagtail.wagtailcore import hooks
+
+    @hooks.register('construct_image_chooser_queryset')
+    def show_my_uploaded_images_only(images, request):
+        # Only show uploaded images
+        images = images.filter(uploaded_by=request.user)
+
+        return images
 
 
 Page explorer
@@ -525,6 +616,30 @@ Page explorer
         )
 
   The ``priority`` argument controls the order the buttons are displayed in. Buttons are ordered from low to high priority, so a button with ``priority=10`` will be displayed before a button with ``priority=20``.
+
+
+.. register_page_listing_more_buttons:
+
+``register_page_listing_more_buttons``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Add buttons to the "More" dropdown menu for a page in the page explorer. This works similarly to the ``register_page_listing_buttons`` hook but is useful for lesser-used custom actions that are better suited for the dropdown.
+  
+  This example will add a simple button to the dropdown menu:
+
+  .. code-block:: python
+
+    from wagtail.wagtailadmin import widgets as wagtailadmin_widgets
+
+    @hooks.register('register_page_listing_more_buttons')
+    def page_listing_more_buttons(page, page_perms, is_parent=False):
+        yield wagtailadmin_widgets.PageListingButton(
+            'A dropdown button',
+            '/goes/to/a/url/',
+            priority=10
+        )
+
+  The ``priority`` argument controls the order the buttons are displayed in the dropdown. Buttons are ordered from low to high priority, so a button with ``priority=10`` will be displayed before a button with ``priority=20``.
 
 
 Buttons with dropdown lists
@@ -582,3 +697,14 @@ Page serving
     def block_googlebot(page, request, serve_args, serve_kwargs):
         if request.META.get('HTTP_USER_AGENT') == 'GoogleBot':
             return HttpResponse("<h1>bad googlebot no cookie</h1>")
+
+
+Document serving
+----------------
+
+.. _before_serve_document:
+
+``before_serve_document``
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Called when Wagtail is about to serve a document. The callable passed into the hook will receive the document object and the request object. If the callable returns an ``HttpResponse``, that response will be returned immediately to the user, instead of serving the document.

@@ -1,0 +1,19 @@
+{% load i18n %}
+{% trans "Collection privacy" as title_str %}
+{% include "wagtailadmin/shared/header.html" with title=title_str icon="no-view" %}
+
+<div class="nice-padding">
+    <p class="help-block help-info">{% trans "Privacy settings determine who is able to view documents in this collection." %}</p>
+    <form action="{% url 'wagtailadmin_collections:set_privacy' collection.id %}" method="POST" novalidate>
+        {% csrf_token %}
+        <ul class="fields">
+            {% include "wagtailadmin/shared/field_as_li.html" with field=form.restriction_type %}
+            {% include "wagtailadmin/shared/field_as_li.html" with field=form.password li_classes="password-field" %}
+        </ul>
+        <ul class="fields" id="groups-fields">
+            {% include "wagtailadmin/shared/field_as_li.html" with field=form.groups %}
+        </ul>
+        <input type="submit" value="{% trans "Save" %}" class="button" />
+    </form>
+
+</div>

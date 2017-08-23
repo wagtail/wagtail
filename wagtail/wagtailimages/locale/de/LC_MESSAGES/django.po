@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Ettore Atalan <atalanttore@googlemail.com>, 2017
 # Henrik Kröger <hedwig@riseup.net>, 2016
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014-2015
 # M0rph 3u5 <transifex@m0rph3u5.net>, 2014
@@ -16,9 +17,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-01 13:25+0000\n"
-"PO-Revision-Date: 2016-05-13 06:04+0000\n"
-"Last-Translator: Moritz Pfeiffer <moritz@alp-phone.ch>\n"
+"POT-Creation-Date: 2017-08-10 16:05+0000\n"
+"PO-Revision-Date: 2017-04-20 00:01+0000\n"
+"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -57,6 +58,15 @@ msgstr "Die Datei ist zu groß (%%s). Maximum Dateigröße %s."
 #, python-format
 msgid "This file is too big. Maximum filesize %s."
 msgstr "Die Datei ist zu groß. Maximum Dateigröße %s."
+
+msgid "Full width"
+msgstr "Ganze Breite"
+
+msgid "Left-aligned"
+msgstr "Linksbündig"
+
+msgid "Right-aligned"
+msgstr "Rechtsbündig"
 
 msgid "Filter"
 msgstr "Filter"
@@ -219,6 +229,9 @@ msgstr ""
 
 msgid "Current focal point shown"
 msgstr "Aktueller Fokuspunkt wird angezeigt"
+
+msgid "Remove focal area"
+msgstr "Schwerpunktbereich entfernen"
 
 msgid "URL Generator"
 msgstr "URL Generator"

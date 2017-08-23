@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# David Llop <d.lloople@gmail.com>, 2014
-# Roger Pons <rogerpons@gmail.com>, 2016
+# David Llop, 2014
+# Roger Pons <rogerpons@gmail.com>, 2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-01 13:25+0000\n"
-"PO-Revision-Date: 2016-09-07 18:56+0000\n"
-"Last-Translator: Roger Pons <rogerpons@gmail.com>\n"
+"POT-Creation-Date: 2017-08-10 16:05+0000\n"
+"PO-Revision-Date: 2017-08-10 15:56+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +19,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ca\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#, python-brace-format
+msgid "{label}: this block has no options."
+msgstr "{label}: aquest bloc no té opcions."
+
+msgid "This block has no options."
+msgstr "Aquest bloc no té opcions."
+
+msgid "Password"
+msgstr "Contrasenya"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr "La contrasenya que heu introduït no és correcta. Torneu a provar."
 
 msgid "hostname"
 msgstr "hostname"
@@ -120,8 +133,8 @@ msgstr ""
 msgid "search description"
 msgstr "cercar la descripció"
 
-msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
-msgstr "Afegir una data-hora en el format YYYY-MM-DD hh:mm."
+msgid "go live date/time"
+msgstr "data/hora de pas a en viu"
 
 msgid "expiry date/time"
 msgstr "Data/hora d'expiració"
@@ -198,6 +211,12 @@ msgstr "Publicar"
 msgid "Publish any page"
 msgstr "Publicar una pàgina"
 
+msgid "Bulk delete"
+msgstr "Eliminació en massa"
+
+msgid "Delete pages with children"
+msgstr "Eliminar pàgines amb pàgines filles"
+
 msgid "Lock"
 msgstr "Bloquejar"
 
@@ -216,6 +235,18 @@ msgstr "permís de pàgina de grup"
 msgid "group page permissions"
 msgstr "permisos de pàgina de grup"
 
+msgid "Public"
+msgstr "Pública"
+
+msgid "Private, accessible to logged-in users"
+msgstr "Privada, accessible a usuaris identificats"
+
+msgid "Private, accessible with the following password"
+msgstr "Privada, accessible amb la contrasenya següent"
+
+msgid "Private, accessible to users in specific groups"
+msgstr "Privada, accessible a usuaris de grups específics"
+
 msgid "password"
 msgstr "contrasenya"
 
@@ -225,11 +256,11 @@ msgstr "restrició de visualització de pàgina"
 msgid "page view restrictions"
 msgstr "restriccions de visualització de pàgina"
 
-msgid "name"
-msgstr "nom"
-
 msgid "collection"
 msgstr "col·lecció"
+
+msgid "name"
+msgstr "nom"
 
 msgid "collections"
 msgstr "col·leccions"
@@ -239,3 +270,25 @@ msgstr "permís"
 
 msgid "group collection permission"
 msgstr "permís de col·lecció de grups"
+
+msgid "Log in"
+msgstr "Iniciar sessió"
+
+msgid "Your username and password didn't match. Please try again."
+msgstr "El vostre nom d'usuari i contrasenya no concorden. Torneu a provar."
+
+msgid ""
+"Your account doesn't have access to this page. To proceed, please log in "
+"with an account that has access."
+msgstr ""
+"El vostre compte no té accés a aquesta pàgina. Per procedir, inicieu sessió "
+"amb un compte que hi tingui accés."
+
+msgid "Password required"
+msgstr "Es requereix contrsenya"
+
+msgid "You need a password to access this page."
+msgstr "Necessiteu una contrasenya per accedir a aquesta pàgina."
+
+msgid "Continue"
+msgstr "Continuar"

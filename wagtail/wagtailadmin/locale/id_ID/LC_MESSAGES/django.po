@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-01 13:25+0000\n"
-"PO-Revision-Date: 2016-08-01 13:28+0000\n"
+"POT-Creation-Date: 2017-08-10 16:05+0000\n"
+"PO-Revision-Date: 2017-08-10 16:07+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
 "wagtail/language/id_ID/)\n"
@@ -36,9 +36,6 @@ msgstr[0] "Ini akan menyalin %(count)s subhalaman."
 msgid "Publish copied page"
 msgstr "Terbitkan halaman yang telah disalin"
 
-msgid "Public"
-msgstr "Publik"
-
 msgid "Account"
 msgstr "Akun"
 
@@ -50,9 +47,6 @@ msgstr "Ganti kata sandi"
 
 msgid "Change the password you use to log in."
 msgstr "Ganti kata sandi yang Anda gunakan untuk masuk."
-
-msgid "Change Password"
-msgstr "Ganti Kata Sandi"
 
 msgid "Update"
 msgstr "Perbarui"
@@ -85,6 +79,9 @@ msgstr "Penyetelan ulang kata sandi"
 msgid "Reset your password"
 msgstr "Atur ulang kata sandi Anda"
 
+msgid "Edit"
+msgstr "Ubah"
+
 msgid "Menu"
 msgstr "Menu"
 
@@ -112,11 +109,14 @@ msgstr "Tambahkan tautan email"
 msgid "Insert link"
 msgstr "Sisipkan tautan"
 
-msgid "Yes, delete"
-msgstr "Ya, hapus"
-
 msgid "Save"
 msgstr "Simpan"
+
+msgid "Public"
+msgstr "Publik"
+
+msgid "Yes, delete"
+msgstr "Ya, hapus"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -142,9 +142,6 @@ msgstr "Setujui"
 
 msgid "Reject"
 msgstr "Tolak"
-
-msgid "Edit"
-msgstr "Ubah"
 
 msgid "Preview"
 msgstr "Pratinjau"

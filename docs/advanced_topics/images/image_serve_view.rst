@@ -4,9 +4,11 @@
 Dynamic image serve view
 ========================
 
-Wagtail provides a view for dynamically generating renditions of images. It can
-be called by an external system (eg a blog or mobile app) or used internally as
-an alternative to Wagtail's ``{% image %}`` tag.
+In most cases, developers wanting to generate image renditions in Python should use the ``get_rendition()``
+method. See :ref:`image_renditions`.
+
+If you need to be able to generate image versions for an *external* system such as a blog or mobile app,
+Wagtail provides a view for dynamically generating renditions of images by calling a unique URL.
 
 The view takes an image id, filter spec and security signature in the URL. If
 these parameters are valid, it serves an image file matching that criteria.
@@ -27,6 +29,11 @@ Add an entry for the view into your URLs configuration:
         ...
 
         url(r'^images/([^/]*)/(\d*)/([^/]*)/[^/]*$', ServeView.as_view(), name='wagtailimages_serve'),
+
+        ...
+
+        # Ensure that the wagtailimages_serve line appears above the default Wagtail page serving route
+        url(r'', include(wagtail_urls)),
     ]
 
 Usage
@@ -74,6 +81,16 @@ And here's an example of this being used in a view:
         return render(request, 'display_image.html', {
             'image_url': generate_image_url(image, 'fill-100x100')
         })
+
+
+Image operations can be chained by joining them with a ``|`` character:
+
+.. code-block:: python
+
+        return render(request, 'display_image.html', {
+            'image_url': generate_image_url(image, 'fill-100x100|jpegquality-40')
+        })
+
 
 Advanced configuration
 ======================

@@ -30,9 +30,11 @@ Upgrade considerations
 Orphaned pages may need deleting
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This release fixes a bug with page deletion introduced in 0.8, where deleting a page with child pages will result in those child pages being left behind in the database (unless the child pages are of the same type as the parent). This may cause errors later on when creating new pages in the same position. To identify and delete these orphaned pages, it is recommended that you run the following command (from the project root) after upgrading to 0.8.6::
+This release fixes a bug with page deletion introduced in 0.8, where deleting a page with child pages will result in those child pages being left behind in the database (unless the child pages are of the same type as the parent). This may cause errors later on when creating new pages in the same position. To identify and delete these orphaned pages, it is recommended that you run the following command (from the project root) after upgrading to 0.8.6:
 
-    ./manage.py fixtree
+.. code-block:: console
+
+    $ ./manage.py fixtree
 
 This will output a list of any orphaned pages found, and request confirmation before deleting them.
 

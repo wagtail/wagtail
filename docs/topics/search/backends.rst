@@ -23,8 +23,6 @@ You can configure which backend to use with the ``WAGTAILSEARCH_BACKENDS`` setti
 ``AUTO_UPDATE``
 ===============
 
- .. versionadded:: 1.0
-
 By default, Wagtail will automatically keep all indexes up to date. This could impact performance when editing content, especially if your index is hosted on an external service.
 
 The ``AUTO_UPDATE`` setting allows you to disable this on a per-index basis:
@@ -46,7 +44,8 @@ If you have disabled auto update, you must run the :ref:`update_index` command o
 ``ATOMIC_REBUILD``
 ==================
 
-.. versionadded:: 1.1
+.. warning::
+    This option is not compatible with Elasticsearch 5.4.x due to `a bug in the handling of aliases <https://github.com/elastic/elasticsearch/issues/24644>`_ in this release. Please use a 5.3.x or 5.5.x release instead.
 
 By default (when using the Elasticsearch backend), when the ``update_index`` command is run, Wagtail deletes the index and rebuilds it from scratch. This causes the search engine to not return results until the rebuild is complete and is also risky as you can't rollback if an error occurs.
 
@@ -64,10 +63,6 @@ Database Backend (default)
 
 ``wagtail.wagtailsearch.backends.db``
 
-.. versionchanged:: 1.1
-
-    Before 1.1, the full path to the backend class had to be specified: ``wagtail.wagtailsearch.backends.db.DBSearch``
-
 The database backend is very basic and is intended only to be used in development and on small sites. It cannot order results by relevance, severely hampering its usefulness when searching a large collection of pages.
 
 It also doesn't support:
@@ -78,31 +73,53 @@ It also doesn't support:
 
 If any of these features are important to you, we recommend using Elasticsearch instead.
 
+PostgreSQL Backend
+------------------
+
+``wagtail.contrib.postgres_search.backend``
+
+If you use PostgreSQL for your database and your site has less than
+a million pages, you probably want to use this backend.
+
+See :ref:`postgres_search` for more detail.
+
 
 .. _wagtailsearch_backends_elasticsearch:
 
 Elasticsearch Backend
 ---------------------
 
-``wagtail.wagtailsearch.backends.elasticsearch`` (Elasticsearch 1.x)
-
-``wagtail.wagtailsearch.backends.elasticsearch2`` (Elasticsearch 2.x)
-
-.. versionchanged:: 1.1
-
-    Before 1.1, the full path to the backend class had to be specified: ``wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch``
-
 .. versionchanged:: 1.7
 
     Support for Elasticsearch 2.x was added
 
-Prerequisites are the `Elasticsearch`_ service itself and, via pip, the `elasticsearch-py`_ package:
+.. versionchanged:: 1.8
 
-.. _Elasticsearch: https://www.elastic.co/downloads/past-releases/elasticsearch-1-7-3
+    Support for Elasticsearch 5.x was added
+
+Elasticsearch versions 1, 2 and 5 are supported. Use the appropriate backend for your version:
+
+``wagtail.wagtailsearch.backends.elasticsearch`` (Elasticsearch 1.x)
+
+``wagtail.wagtailsearch.backends.elasticsearch2`` (Elasticsearch 2.x)
+
+``wagtail.wagtailsearch.backends.elasticsearch5`` (Elasticsearch 5.x)
+
+Prerequisites are the `Elasticsearch`_ service itself and, via pip, the `elasticsearch-py`_ package. The major version of the package must match the installed version of Elasticsearch:
+
+.. _Elasticsearch: https://www.elastic.co/downloads/elasticsearch
+
+.. code-block:: console
+
+  $ pip install "elasticsearch>=1.0.0,<2.0.0"  # for Elasticsearch 1.x
+
+.. code-block:: console
+
+  $ pip install "elasticsearch>=2.0.0,<3.0.0"  # for Elasticsearch 2.x
 
 .. code-block:: sh
 
-  pip install elasticsearch
+  pip install "elasticsearch>=5.0.0,<6.0.0"  # for Elasticsearch 5.x
 
 The backend is configured in settings:
 
@@ -114,10 +131,35 @@ The backend is configured in settings:
           'URLS': ['http://localhost:9200'],
           'INDEX': 'wagtail',
           'TIMEOUT': 5,
+          'OPTIONS': {},
+          'INDEX_SETTINGS': {},
       }
   }
 
-Other than ``BACKEND``, the keys are optional and default to the values shown. In addition, any other keys are passed directly to the Elasticsearch constructor as case-sensitive keyword arguments (e.g. ``'max_retries': 1``).
+Other than ``BACKEND``, the keys are optional and default to the values shown. Any defined key in ``OPTIONS`` is passed directly to the Elasticsearch constructor as case-sensitive keyword argument (e.g. ``'max_retries': 1``).
+
+``INDEX_SETTINGS`` is a dictionary used to override the default settings to create the index. The default settings are defined inside the ``ElasticsearchSearchBackend`` class in the module ``wagtail/wagtail/wagtailsearch/backends/elasticsearch.py``. Any new key is added, any existing key, if not a dictionary, is replaced with the new value. Here's a sample on how to configure the number of shards and setting the italian LanguageAnalyzer as the default analyzer:
+
+.. code-block:: python
+
+  WAGTAILSEARCH_BACKENDS = {
+      'default': {
+          ...,
+          'INDEX_SETTINGS': {
+              'settings': {
+                  'index': {
+                      'number_of_shards': 1,
+                      'analysis': {
+                          'analyzer': {
+                              'default': {
+                                  'type': 'italian'
+                              }
+                          }
+                      }
+                  }
+              }
+          }
+      }
 
 If you prefer not to run an Elasticsearch server in development or production, there are many hosted services available, including `Bonsai`_, who offer a free account suitable for testing and development. To use Bonsai:
 
@@ -128,6 +170,35 @@ If you prefer not to run an Elasticsearch server in development or production, t
 
 .. _elasticsearch-py: http://elasticsearch-py.readthedocs.org
 .. _Bonsai: https://bonsai.io/signup
+
+Amazon AWS Elasticsearch
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+The Elasticsearch backend is compatible with `Amazon Elasticsearch Service`_, but requires additional configuration to handle IAM based authentication. This can be done with the `requests-aws4auth`_ package along with the following configuration:
+
+.. code-block:: python
+
+  from elasticsearch import Elasticsearch, RequestsHttpConnection
+  from requests_aws4auth import AWS4Auth
+
+  WAGTAILSEARCH_BACKENDS = {
+      'default': {
+          'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch',
+          'INDEX': 'wagtail',
+          'TIMEOUT': 5,
+          'HOSTS': [{
+            'host': 'YOURCLUSTER.REGION.es.amazonaws.com',
+            'port': 443,
+            'use_ssl': True,
+            'verify_certs': True,
+            'http_auth': AWS4Auth('ACCESS_KEY', 'SECRET_KEY', 'REGION', 'es'),
+          }],
+          'connection_class': RequestsHttpConnection,
+      }
+  }
+
+.. _Amazon Elasticsearch Service: https://aws.amazon.com/elasticsearch-service/
+.. _requests-aws4auth: https://pypi.python.org/pypi/requests-aws4auth
 
 
 Rolling Your Own

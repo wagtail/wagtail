@@ -4,6 +4,7 @@
     "model": "wagtailcore.page",
     "fields": {
         "title": "Root",
+        "draft_title": "Root",
         "numchild": 1,
         "show_in_menus": false,
         "live": true,
@@ -20,6 +21,7 @@
     "model": "wagtailcore.page",
     "fields": {
         "title": "Welcome to testserver!",
+        "draft_title": "Welcome to testserver!",
         "numchild": 1,
         "show_in_menus": false,
         "live": true,
@@ -47,6 +49,7 @@
     "model": "wagtailcore.page",
     "fields": {
         "title": "About us",
+        "draft_title": "About us",
         "numchild": 0,
         "show_in_menus": true,
         "live": true,
@@ -74,6 +77,7 @@
     "model": "wagtailcore.page",
     "fields": {
         "title": "Welcome to example.com!",
+        "draft_title": "Welcome to example.com!",
         "numchild": 1,
         "show_in_menus": false,
         "live": true,
@@ -101,6 +105,7 @@
     "model": "wagtailcore.page",
     "fields": {
         "title": "Content",
+        "draft_title": "Content",
         "numchild": 2,
         "show_in_menus": true,
         "live": true,
@@ -129,6 +134,7 @@
     "model": "wagtailcore.page",
     "fields": {
         "title": "Page 1",
+        "draft_title": "Page 1",
         "numchild": 0,
         "show_in_menus": true,
         "live": true,
@@ -157,6 +163,7 @@
     "model": "wagtailcore.page",
     "fields": {
         "title": "Page 2",
+        "draft_title": "Page 2",
         "numchild": 1,
         "show_in_menus": true,
         "live": true,
@@ -185,6 +192,7 @@
     "model": "wagtailcore.page",
     "fields": {
         "title": "Other Content",
+        "draft_title": "Other Content",
         "numchild": 0,
         "show_in_menus": true,
         "live": true,
@@ -213,6 +221,7 @@
     "model": "wagtailcore.page",
     "fields": {
         "title": "Child 1 of Page 2",
+        "draft_title": "Child 1 of Page 2",
         "numchild": 0,
         "show_in_menus": true,
         "live": true,
@@ -241,6 +250,7 @@
     "model": "wagtailcore.page",
     "fields": {
         "title": "Welcome to example2.com!",
+        "draft_title": "Welcome to example2.com!",
         "numchild": 0,
         "show_in_menus": false,
         "live": true,

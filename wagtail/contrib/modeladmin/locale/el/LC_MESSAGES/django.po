@@ -3,14 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# George Giannoulopoulos <vdotoree@yahoo.gr>, 2017
+# Nick Mavrakis <mavrakis.n@gmail.com>, 2017
 # Yiannis Inglessis <negletios@users.noreply.github.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-01 13:25+0000\n"
-"PO-Revision-Date: 2016-09-20 12:49+0000\n"
-"Last-Translator: Yiannis Inglessis <negletios@users.noreply.github.com>\n"
+"POT-Creation-Date: 2017-08-10 16:05+0000\n"
+"PO-Revision-Date: 2017-03-05 18:46+0000\n"
+"Last-Translator: Nick Mavrakis <mavrakis.n@gmail.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
 "MIME-Version: 1.0\n"
@@ -18,6 +20,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: el\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Parent page"
+msgstr "Κύρια σελίδα"
 
 #, python-format
 msgid "Add %s"
@@ -65,11 +70,96 @@ msgstr "Αντιγραφή του %s"
 msgid "image"
 msgstr "Εικόνα"
 
+msgid "Choose a parent page"
+msgstr "Επιλέξτε μια κύρια σελίδα"
+
+#, python-format
+msgid ""
+"%(plural)s can be added to more than one place within your site. Which of "
+"the following would you like to be the parent of your new page?"
+msgstr ""
+"%(plural)s can be added to more than one place within your site. Which of "
+"the following would you like to be the parent of your new page?"
+
+msgid "Continue"
+msgstr "Επόμενο"
+
+msgid "Saving..."
+msgstr "Γίνεται αποθήκευση..."
+
+msgid "Save"
+msgstr "Αποθήκευση"
+
+#, python-format
+msgid "%(model_name)s could not be deleted"
+msgstr "Το μοντέλο %(model_name)s δεν μπόρεσε να διαγραφεί"
+
+msgid "Go back to listing"
+msgstr "Πίσω στη λίστα"
+
+msgid "Yes, delete"
+msgstr "Ναι, να γίνει διαγραφή"
+
+msgid "Home"
+msgstr "Αρχική"
+
+#, python-format
+msgid " By %(filter_title)s "
+msgstr " Κατά %(filter_title)s "
+
+#, python-format
+msgid "Sorry, there are no %(name)s matching your search parameters."
+msgstr ""
+"Συγνώμη, δεν υπάρχει αντιστοίχηση με το όνομα %(name)s που να ταιριάζει στα "
+"κριτήρια αναζήτησης σας."
+
+msgid "Search for"
+msgstr "Αναζήτηση για"
+
+#, python-format
+msgid "Search %(name)s"
+msgstr "Αναζήτηση %(name)s"
+
+msgid "Filter"
+msgstr "Φίλτρο"
+
+#, python-format
+msgid "No %(name)s have been created yet."
+msgstr "Κανένα %(name)s δεν δημιουργήθηκε ακόμα."
+
+#, python-format
+msgid ""
+"\n"
+"                                                Why not <a href=\"%(url)s"
+"\">add one</a>?\n"
+"                                            "
+msgstr ""
+"\n"
+"                                                Γιατί να μην <a href="
+"\"%(url)s\">προσθέσετε ένα</a>;\n"
+"                                            "
+
+#, python-format
+msgid "Page %(current_page)s of %(num_pages)s."
+msgstr "Σελίδα %(current_page)s από %(num_pages)s."
+
+#, python-format
+msgid "Back to %(model_name)s list"
+msgstr "Πίσω στη λίστα του μοντέλου %(model_name)s"
+
 msgid "Previous"
 msgstr "Προηγούμενο"
 
 msgid "Next"
 msgstr "Επόμενο"
+
+#, python-brace-format
+msgid "{model_name} '{instance}' created."
+msgstr "{model_name} '{instance}' δημιουργήθηκε."
+
+#, python-format
+msgid "The %s could not be created due to errors."
+msgstr "Το %s δεν μπόρεσε να δημιουργηθεί λόγω σφαλμάτων."
 
 msgid "New"
 msgstr "Καινούργιο"
@@ -92,3 +182,27 @@ msgstr "{model_name} '{instance}' ενημερώθηκε."
 #, python-format
 msgid "The %s could not be saved due to errors."
 msgstr "%s δεν μπορεί να αποθηκευτεί λόγω σφαλμάτων."
+
+#, python-format
+msgid "Confirm deletion of %s"
+msgstr "Επιβεβαιώστε τη διαγραφή του %s"
+
+#, python-format
+msgid ""
+"Are you sure you want to delete this %s? If other things in your site are "
+"related to it, they may also be affected."
+msgstr ""
+"Είστε σίγουροι ότι θέλετε να διαγράψετε το %s; Σε περίπτωση που άλλα "
+"πράγματα στο site σας συσχετίζονται με αυτό, τότε μπορεί και αυτά να "
+"επηρρεαστούν."
+
+#, python-brace-format
+msgid "{model} '{instance}' deleted."
+msgstr "{model} '{instance}' διαγράφηκε."
+
+msgid "Inspecting"
+msgstr "Επισκόπηση"
+
+#, python-format
+msgid "Inspecting %s"
+msgstr "Επισκόπηση %s"

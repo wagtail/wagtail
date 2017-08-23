@@ -64,6 +64,9 @@ All block types accept the following optional keyword arguments:
 ``template``
   The path to a Django template that will be used to render this block on the front end. See `Template rendering`_.
 
+``group``
+  The group used to categorize this block, i.e. any blocks with the same group name will be shown together in the editor interface with the group name as a heading.
+
 The basic block types provided by Wagtail are as follows:
 
 CharBlock
@@ -119,7 +122,7 @@ DecimalBlock
 
 ``wagtail.wagtailcore.blocks.DecimalBlock``
 
-A single-line decimal input that validates that the value is a valid decimal number. The keyword arguments ``required``, ``max_value``, ``min_value``, ``max_digits`` and ``decimal_places`` are accepted.
+A single-line decimal input that validates that the value is a valid decimal number. The keyword arguments ``required``, ``help_text``, ``max_value``, ``min_value``, ``max_digits`` and ``decimal_places`` are accepted.
 
 For an example of ``DecimalBlock`` in use, see :ref:`streamfield_personblock_example`
 
@@ -132,11 +135,11 @@ A single-line text input that validates a string against a regex expression. The
 
 .. code-block:: python
 
-    blocks.RegexBlock(regex=r'^[0-9]{3}$', error_message={
+    blocks.RegexBlock(regex=r'^[0-9]{3}$', error_messages={
         'invalid': "Not a valid library card number."
     })
 
-The keyword arguments ``regex``, ``required``, ``max_length``, ``min_length`` and ``error_messages`` are accepted.
+The keyword arguments ``regex``, ``help_text``, ``required``, ``max_length``, ``min_length`` and ``error_messages`` are accepted.
 
 URLBlock
 ~~~~~~~~
@@ -157,7 +160,10 @@ DateBlock
 
 ``wagtail.wagtailcore.blocks.DateBlock``
 
-A date picker. The keyword arguments ``required`` and ``help_text`` are accepted.
+A date picker. The keyword arguments ``required``, ``help_text`` and ``format`` are accepted.
+
+``format`` (default: None)
+  Date format. This must be one of the recognised formats listed in the `DATE_INPUT_FORMATS <https://docs.djangoproject.com/en/1.10/ref/settings/#std:setting-DATE_INPUT_FORMATS>`_ setting. If not specifed Wagtail will use ``WAGTAIL_DATE_FORMAT`` setting with fallback to '%Y-%m-%d'.
 
 TimeBlock
 ~~~~~~~~~
@@ -171,14 +177,17 @@ DateTimeBlock
 
 ``wagtail.wagtailcore.blocks.DateTimeBlock``
 
-A combined date / time picker. The keyword arguments ``required`` and ``help_text`` are accepted.
+A combined date / time picker. The keyword arguments ``required``, ``help_text`` and ``format`` are accepted.
+
+``format`` (default: None)
+  Date format. This must be one of the recognised formats listed in the `DATETIME_INPUT_FORMATS <https://docs.djangoproject.com/en/1.10/ref/settings/#std:setting-DATETIME_INPUT_FORMATS>`_ setting. If not specifed Wagtail will use ``WAGTAIL_DATETIME_FORMAT`` setting with fallback to '%Y-%m-%d %H:%M'.
 
 RichTextBlock
 ~~~~~~~~~~~~~
 
 ``wagtail.wagtailcore.blocks.RichTextBlock``
 
-A WYSIWYG editor for creating formatted text including links, bold / italics etc.
+A WYSIWYG editor for creating formatted text including links, bold / italics etc. The keyword argument ``features`` is accepted, to specify the set of features allowed (see :ref:`rich_text_features`).
 
 RawHTMLBlock
 ~~~~~~~~~~~~
@@ -190,6 +199,14 @@ A text area for entering raw HTML which will be rendered unescaped in the page o
 .. WARNING::
    When this block is in use, there is nothing to prevent editors from inserting malicious scripts into the page, including scripts that would allow the editor to acquire administrator privileges when another administrator views the page. Do not use this block unless your editors are fully trusted.
 
+BlockQuoteBlock
+~~~~~~~~~~~~~~~
+
+``wagtail.wagtailcore.blocks.BlockQuoteBlock``
+
+A text field, the contents of which will be wrapped in an HTML `<blockquote>` tag pair. The keyword arguments ``required``, ``max_length``, ``min_length`` and ``help_text`` are accepted.
+
+
 ChoiceBlock
 ~~~~~~~~~~~
 
@@ -198,7 +215,7 @@ ChoiceBlock
 A dropdown select box for choosing from a list of choices. The following keyword arguments are accepted:
 
 ``choices``
-  A list of choices, in any format accepted by Django's ``choices`` parameter for model fields: https://docs.djangoproject.com/en/stable/ref/models/fields/#field-choices
+  A list of choices, in any format accepted by Django's ``choices`` parameter for model fields (https://docs.djangoproject.com/en/stable/ref/models/fields/#field-choices), or a callable returning such a list.
 
 ``required`` (default: True)
   If true, the field cannot be left blank.
@@ -230,7 +247,7 @@ could be rewritten as a subclass of ChoiceBlock:
             icon = 'cup'
 
 
-``StreamField`` definitions can then refer to ``DrinksChoiceBlock()`` in place of the full ``ChoiceBlock`` definition.
+``StreamField`` definitions can then refer to ``DrinksChoiceBlock()`` in place of the full ``ChoiceBlock`` definition. Note that this only works when ``choices`` is a fixed list, not a callable.
 
 PageChooserBlock
 ~~~~~~~~~~~~~~~~
@@ -241,6 +258,9 @@ A control for selecting a page object, using Wagtail's page browser. The followi
 
 ``required`` (default: True)
   If true, the field cannot be left blank.
+
+``target_model`` (default: Page)
+  Restrict choices to one or more specific page types. Accepts a page model class, model name (as a string), or a list or tuple of these.
 
 ``can_choose_root`` (default: False)
   If true, the editor can choose the tree root as a page. Normally this would be undesirable, since the tree root is never a usable page, but in some specialised cases it may be appropriate. For example, a block providing a feed of related articles could use a PageChooserBlock to select which subsection of the site articles will be taken from, with the root corresponding to 'everywhere'.
@@ -272,6 +292,36 @@ EmbedBlock
 ``wagtail.wagtailembeds.blocks.EmbedBlock``
 
 A field for the editor to enter a URL to a media item (such as a YouTube video) to appear as embedded media on the page. The keyword arguments ``required``, ``max_length``, ``min_length`` and ``help_text`` are accepted.
+
+
+.. _streamfield_staticblock:
+
+StaticBlock
+~~~~~~~~~~~
+
+``wagtail.wagtailcore.blocks.StaticBlock``
+
+A block which doesn't have any fields, thus passes no particular values to its template during rendering. This can be useful if you need the editor to be able to insert some content which is always the same or doesn't need to be configured within the page editor, such as an address, embed code from third-party services, or more complex pieces of code if the template uses template tags.
+
+By default, some default text (which contains the ``label`` keyword argument if you pass it) will be displayed in the editor interface, so that the block doesn't look empty. But you can also customise it entirely by passing a text string as the ``admin_text`` keyword argument instead:
+
+.. code-block:: python
+
+    blocks.StaticBlock(
+        admin_text='Latest posts: no configuration needed.',
+        # or admin_text=mark_safe('<b>Latest posts</b>: no configuration needed.'),
+        template='latest_posts.html')
+
+``StaticBlock`` can also be subclassed to produce a reusable block with the same configuration everywhere it is used:
+
+.. code-block:: python
+
+    class LatestPostsStaticBlock(blocks.StaticBlock):
+        class Meta:
+            icon = 'user'
+            label = 'Latest posts'
+            admin_text = '{label}: configured elsewhere'.format(label=label)
+            template = 'latest_posts.html'
 
 
 Structural block types
@@ -391,7 +441,21 @@ Since ``StreamField`` accepts an instance of ``StreamBlock`` as a parameter, in 
 .. code-block:: python
 
     class HomePage(Page):
-        carousel = StreamField(CarouselBlock())
+        carousel = StreamField(CarouselBlock(max_num=10, block_counts={'video': {'max_num': 2}}))
+
+``StreamBlock`` accepts the following options as either keyword arguments or ``Meta`` properties:
+
+``required`` (default: True)
+  If true, at least one sub-block must be supplied.
+
+``min_num``
+  Minimum number of sub-blocks that the stream must have.
+
+``max_num``
+  Maximum number of sub-blocks that the stream may have.
+
+``block_counts``
+  Specifies the minimum and maximum number of each block type, as a dictionary mapping block names to dicts with (optional) ``min_num`` and ``max_num`` fields.
 
 
 .. _streamfield_personblock_example:
@@ -426,6 +490,8 @@ StreamField provides an HTML representation for the stream content as a whole, a
 
     {% load wagtailcore_tags %}
 
+     ...
+
     {% include_block page.body %}
 
 
@@ -434,6 +500,8 @@ In the default rendering, each block of the stream is wrapped in a ``<div class=
 .. code-block:: html+django
 
     {% load wagtailcore_tags %}
+
+     ...
 
     <article>
         {% for block in page.body %}
@@ -447,6 +515,8 @@ For more control over the rendering of specific block types, each block object p
 .. code-block:: html+django
 
     {% load wagtailcore_tags %}
+
+     ...
 
     <article>
         {% for block in page.body %}
@@ -589,8 +659,8 @@ As well as passing variables from the parent template, block subclasses can pass
         title = blocks.CharBlock(required=True)
         date = blocks.DateBlock(required=True)
 
-        def get_context(self, value):
-            context = super(EventBlock, self).get_context(value)
+        def get_context(self, value, parent_context=None):
+            context = super(EventBlock, self).get_context(value, parent_context=parent_context)
             context['is_happening_today'] = (value['date'] == datetime.date.today())
             return context
 
@@ -598,7 +668,7 @@ As well as passing variables from the parent template, block subclasses can pass
             template = 'myapp/blocks/event.html'
 
 
-In this example, the variable ``is_happening_today`` will be made available within the block template.
+In this example, the variable ``is_happening_today`` will be made available within the block template. The ``parent_context`` keyword argument is available when the block is rendered through an ``{% include_block %}`` tag, and is a dict of variables passed from the calling template.
 
 
 BoundBlocks and values
@@ -736,6 +806,9 @@ To customise the styling of a ``StructBlock`` as it appears in the page editor, 
 
 You can then provide custom CSS for this block, targeted at the specified classname, by using the :ref:`insert_editor_css` hook.
 
+.. Note::
+    Wagtail's editor styling has some built in styling for the ``struct-block`` class and other related elements. If you specify a value for ``form_classname``, it will overwrite the classes that are already applied to ``StructBlock``, so you must remember to specify the ``struct-block`` as well.
+
 For more extensive customisations that require changes to the HTML markup as well, you can override the ``form_template`` attribute in ``Meta`` to specify your own template path. The following variables are available on this template:
 
 ``children``
@@ -834,6 +907,119 @@ If you change an existing RichTextField to a StreamField, and create and run mig
                 ])
                 page.body = raw_text
                 page.save()
+
+
+    class Migration(migrations.Migration):
+
+        dependencies = [
+            # leave the dependency line from the generated migration intact!
+            ('demo', '0001_initial'),
+        ]
+
+        operations = [
+            migrations.RunPython(
+                convert_to_streamfield,
+                convert_to_richtext,
+            ),
+        ]
+
+
+Note that the above migration will work on published Page objects only. If you also need to migrate draft pages and page revisions, then edit your new data migration as in the following example instead:
+
+.. code-block:: python
+
+    # -*- coding: utf-8 -*-
+    from __future__ import unicode_literals
+
+    import json
+
+    from django.core.serializers.json import DjangoJSONEncoder
+    from django.db import migrations, models
+
+    from wagtail.wagtailcore.rich_text import RichText
+
+
+    def page_to_streamfield(page):
+        changed = False
+        if page.body.raw_text and not page.body:
+            page.body = [('rich_text', {'rich_text': RichText(page.body.raw_text)})]
+            changed = True
+        return page, changed
+
+
+    def pagerevision_to_streamfield(revision_data):
+        changed = False
+        body = revision_data.get('body')
+        if body:
+            try:
+                json.loads(body)
+            except ValueError:
+                revision_data['body'] = json.dumps(
+                    [{
+                        "value": {"rich_text": body},
+                        "type": "rich_text"
+                    }],
+                    cls=DjangoJSONEncoder)
+                changed = True
+            else:
+                # It's already valid JSON. Leave it.
+                pass
+        return revision_data, changed
+
+
+    def page_to_richtext(page):
+        changed = False
+        if page.body.raw_text is None:
+            raw_text = ''.join([
+                child.value['rich_text'].source for child in page.body
+                if child.block_type == 'rich_text'
+            ])
+            page.body = raw_text
+            changed = True
+        return page, changed
+
+
+    def pagerevision_to_richtext(revision_data):
+        changed = False
+        body = revision_data.get('body', 'definitely non-JSON string')
+        if body:
+            try:
+                body_data = json.loads(body)
+            except ValueError:
+                # It's not apparently a StreamField. Leave it.
+                pass
+            else:
+                raw_text = ''.join([
+                    child['value']['rich_text'] for child in body_data
+                    if child['type'] == 'rich_text'
+                ])
+                revision_data['body'] = raw_text
+                changed = True
+        return revision_data, changed
+
+
+    def convert(apps, schema_editor, page_converter, pagerevision_converter):
+        BlogPage = apps.get_model("demo", "BlogPage")
+        for page in BlogPage.objects.all():
+
+            page, changed = page_converter(page)
+            if changed:
+                page.save()
+
+            for revision in page.revisions.all():
+                revision_data = json.loads(revision.content_json)
+                revision_data, changed = pagerevision_converter(revision_data)
+                if changed:
+                    revision.content_json = json.dumps(revision_data, cls=DjangoJSONEncoder)
+                    revision.save()
+
+
+    def convert_to_streamfield(apps, schema_editor):
+        return convert(apps, schema_editor, page_to_streamfield, pagerevision_to_streamfield)
+
+
+    def convert_to_richtext(apps, schema_editor):
+        return convert(apps, schema_editor, page_to_richtext, pagerevision_to_richtext)
 
 
     class Migration(migrations.Migration):

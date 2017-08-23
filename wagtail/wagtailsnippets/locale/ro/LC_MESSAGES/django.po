@@ -4,14 +4,14 @@
 #
 # Translators:
 # Dan Braghis, 2014
-# Dan Braghis, 2014-2016
+# Dan Braghis, 2014-2017
 # Dan Braghis, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-01 13:25+0000\n"
-"PO-Revision-Date: 2016-08-01 13:57+0000\n"
+"POT-Creation-Date: 2017-08-10 16:05+0000\n"
+"PO-Revision-Date: 2017-06-19 20:00+0000\n"
 "Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
@@ -56,7 +56,8 @@ msgstr ""
 #, python-format
 msgid ""
 "You haven't created any %(snippet_type_name)s snippets. Why not <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">create one now"
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">create one now</"
+"a>?"
 msgstr ""
 "Nu au fost create %(snippet_type_name)s. De să nu <a href="
 "\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">adăugați unul</"

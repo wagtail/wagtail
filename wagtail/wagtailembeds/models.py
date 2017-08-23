@@ -1,4 +1,4 @@
-from __future__ import absolute_import, unicode_literals
+from __future__ import absolute_import, division, unicode_literals
 
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
@@ -39,6 +39,21 @@ class Embed(models.Model):
     class Meta:
         unique_together = ('url', 'max_width')
         verbose_name = _('embed')
+
+    @property
+    def ratio(self):
+        if self.width and self.height:
+            return self.height / self.width
+
+    @property
+    def ratio_css(self):
+        ratio = self.ratio
+        if ratio:
+            return str(ratio * 100) + "%"
+
+    @property
+    def is_responsive(self):
+        return self.ratio is not None
 
     def __str__(self):
         return self.url

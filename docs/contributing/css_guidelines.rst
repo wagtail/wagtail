@@ -12,14 +12,14 @@ This requires `node.js <http://nodejs.org>`_ to run.
 To install the libraries required for compiling the SCSS,
 run the following from the Wagtail repository root:
 
-.. code-block:: bash
+.. code-block:: console
 
     $ npm install
 
 
 To compile the assets, run:
 
-.. code-block:: bash
+.. code-block:: console
 
     $ npm run build
 
@@ -27,7 +27,7 @@ To compile the assets, run:
 Alternatively, the SCSS files can be monitored,
 automatically recompiling when any changes are observed, by running:
 
-.. code-block:: bash
+.. code-block:: console
 
     $ npm start
 
@@ -35,20 +35,20 @@ automatically recompiling when any changes are observed, by running:
 Linting SCSS
 ~~~~~~~~~~~~
 
-Wagtail uses the "scss-lint" Ruby Gem for linting.
+Wagtail uses the "scss_lint" Ruby Gem for linting.
 
 Install it thus:
 
-.. code-block:: bash
+.. code-block:: console
 
-    $ gem install scss-lint
+    $ gem install scss_lint
 
 
 Then run the linter from the wagtail project root:
 
-.. code-block:: bash
+.. code-block:: console
 
-    $ scss-lint
+    $ npm run lint:css
 
 The linter is configured to check your code for adherance to the guidelines below, plus a little more.
 

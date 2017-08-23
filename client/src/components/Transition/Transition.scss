@@ -1,0 +1,59 @@
+// =============================================================================
+// Transitions
+// =============================================================================
+
+$c-transition-duration: 200ms;
+
+.c-transition-group {
+    position: absolute;
+    width: 100%;
+    top: 0;
+}
+
+.c-transition-push-enter {
+    transform: translateX(100%);
+    transition: transform $c-transition-duration ease, opacity $c-transition-duration linear;
+    opacity: 0;
+}
+
+.c-transition-push-enter-active {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.c-transition-push-leave {
+    transform: translateX(0);
+    transition: transform $c-transition-duration ease, opacity $c-transition-duration linear;
+    opacity: 1;
+}
+
+.c-transition-push-leave-active {
+    transform: translateX(-100%);
+    opacity: 0;
+}
+
+// =============================================================================
+// Pop transition
+// =============================================================================
+
+.c-transition-pop-enter {
+    transform: translateX(-100%);
+    transition: transform $c-transition-duration ease, opacity $c-transition-duration linear;
+    opacity: 0;
+}
+
+.c-transition-pop-enter-active {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.c-transition-pop-leave {
+    transform: translateX(0);
+    transition: transform $c-transition-duration ease, opacity $c-transition-duration linear;
+    opacity: 1;
+}
+
+.c-transition-pop-leave-active {
+    transform: translateX(100%);
+    opacity: 0;
+}

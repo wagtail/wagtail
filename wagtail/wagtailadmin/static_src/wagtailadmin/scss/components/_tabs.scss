@@ -10,6 +10,10 @@
         padding: 0;
         position: relative;
         margin-right: 1px;
+
+        &:first-of-type {
+            padding-left: 1.2em;
+        }
     }
 
     a {
@@ -93,7 +97,7 @@
 
 @media screen and (min-width: $breakpoint-mobile) {
     .tab-nav {
-        // For cases where tab-nav should merge with header 
+        // For cases where tab-nav should merge with header
         &.merged {
             background-color: $color-header-bg;
         }
@@ -118,5 +122,20 @@
     .modal-content .tab-nav li {
         padding: 0;
         min-width: 0;
+
+        &:first-of-type {
+            padding-left: 2.5em;
+        }
+    }
+}
+
+@media screen and (max-width: $breakpoint-mobile) {
+    // To allow tabs on the edit page to be editable
+    .tab-nav li:first-of-type {
+        padding-left: 1.6em;
+    }
+
+    .tab-nav li {
+        width: 25%;
     }
 }

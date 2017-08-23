@@ -5,15 +5,16 @@
 # Translators:
 # Andrey Avdey <talkerbox@live.com>, 2016
 # Eugene MechanisM <eugene@mechanism.pro>, 2014-2015
-# Mikalai Radchuk <radchuk.m@gmail.com>, 2016
+# Eugene MechanisM <eugene@mechanism.pro>, 2017
+# Mikalai Radchuk <radchuk.m@gmail.com>, 2016-2017
 # Sergey Khalymon <sergiykhalimon@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-01 13:25+0000\n"
-"PO-Revision-Date: 2016-08-01 14:02+0000\n"
-"Last-Translator: Andrey Avdey <talkerbox@live.com>\n"
+"POT-Creation-Date: 2017-08-10 16:05+0000\n"
+"PO-Revision-Date: 2017-08-12 09:41+0000\n"
+"Last-Translator: Mikalai Radchuk <radchuk.m@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -23,6 +24,15 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
+
+msgid "{} submissions"
+msgstr "{} добавлений"
+
+msgid "Date from"
+msgstr "Дата от"
+
+msgid "Date to"
+msgstr "Дата до"
 
 #, python-format
 msgid "There is another field with the label %s, please change one of them."
@@ -51,6 +61,9 @@ msgstr "Флажки"
 
 msgid "Drop down"
 msgstr "Выпадающий"
+
+msgid "Multiple select"
+msgstr "Множественный выбор"
 
 msgid "Radio buttons"
 msgstr "Радиокнопки"
@@ -98,6 +111,9 @@ msgstr "Значение по умолчанию. Разделенные зап�
 msgid "help text"
 msgstr "текст подсказки"
 
+msgid "Submission date"
+msgstr "Дата добавлления"
+
 msgid "to address"
 msgstr "адрес назначения"
 
@@ -115,17 +131,45 @@ msgid "subject"
 msgstr "тема"
 
 #, python-format
-msgid "Delete %(title)s"
-msgstr "Удалить %(title)s"
+msgid "Delete form data %(title)s"
+msgstr "Удалить данные формы %(title)s"
+
+msgid "Delete form data"
+msgstr "Удалить данные формы"
+
+msgid ""
+"\n"
+"                Are you sure you want to delete this form submission?\n"
+"            "
+msgid_plural ""
+"\n"
+"                Are you sure you want to delete these form submissions?\n"
+"            "
+msgstr[0] ""
+"\n"
+"                Вы уверены что хотите удалить эту запись формы?\n"
+"            "
+msgstr[1] ""
+"\n"
+"               Вы уверены что хотите удалить эти записи формы?\n"
+"            "
+msgstr[2] ""
+"\n"
+"                Вы уверены что хотите удалить эти записи формы?\n"
+"            "
+msgstr[3] ""
+"\n"
+"                Вы уверены что хотите удалить эти записи формы?\n"
+"            "
 
 msgid "Delete"
 msgstr "Удалить"
 
-msgid "Are you sure you want to delete this form submission?"
-msgstr "Вы уверены, что хотите удалить эту форму?"
+msgid "Total submissions"
+msgstr "Всего добавлений"
 
-msgid "Delete it"
-msgstr "Удалить"
+msgid "Latest submission"
+msgstr "Псоледнее добавление"
 
 msgid "Forms"
 msgstr "Формы"
@@ -157,17 +201,16 @@ msgstr "Заголовок"
 msgid "Origin"
 msgstr "Происхождение"
 
-msgid "Submission Date"
-msgstr "Дата Заполнения"
-
-msgid "Actions"
-msgstr "Действия"
-
-msgid "delete"
-msgstr "удалить"
+msgid "Delete selected submissions"
+msgstr "Удалить выбранные"
 
 msgid "No form pages have been created."
 msgstr "Страниц с формами не было создано."
 
-msgid "Submission deleted."
-msgstr "Форма удалена."
+#, python-format
+msgid "One submission has been deleted."
+msgid_plural "%(count)d submissions have been deleted."
+msgstr[0] "Одно добавление было удалено."
+msgstr[1] "%(count)d добавления было удалено."
+msgstr[2] "%(count)d добавлений было удалено."
+msgstr[3] "%(count)d добавлений было удалено."

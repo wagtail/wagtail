@@ -49,6 +49,33 @@ class TestImageIndexView(TestCase, WagtailTestUtils):
             response = self.get({'p': page})
             self.assertEqual(response.status_code, 200)
 
+    def test_pagination_preserves_other_params(self):
+        root_collection = Collection.get_first_root_node()
+        evil_plans_collection = root_collection.add_child(name="Evil plans")
+
+        for i in range(1, 50):
+            self.image = Image.objects.create(
+                title="Test image %i" % i,
+                file=get_test_image_file(),
+                collection=evil_plans_collection
+            )
+
+        response = self.get({'collection_id': evil_plans_collection.id, 'p': 2})
+        self.assertEqual(response.status_code, 200)
+
+        response_body = response.content.decode('utf8')
+
+        # prev link should exist and include collection_id
+        self.assertTrue(
+            ("?p=1&amp;collection_id=%i" % evil_plans_collection.id) in response_body or
+            ("?collection_id=%i&amp;p=1" % evil_plans_collection.id) in response_body
+        )
+        # next link should exist and include collection_id
+        self.assertTrue(
+            ("?p=3&amp;collection_id=%i" % evil_plans_collection.id) in response_body or
+            ("?collection_id=%i&amp;p=3" % evil_plans_collection.id) in response_body
+        )
+
     def test_ordering(self):
         orderings = ['title', '-created_at']
         for ordering in orderings:
@@ -385,7 +412,7 @@ class TestImageDeleteView(TestCase, WagtailTestUtils):
 
 class TestImageChooserView(TestCase, WagtailTestUtils):
     def setUp(self):
-        self.login()
+        self.user = self.login()
 
     def get(self, params={}):
         return self.client.get(reverse('wagtailimages:chooser'), params)
@@ -424,6 +451,48 @@ class TestImageChooserView(TestCase, WagtailTestUtils):
 
         # Results should not include images that just have 'even' in the title
         self.assertNotContains(response, "Test image 3 is even better")
+
+    def test_construct_queryset_hook_browse(self):
+        image = Image.objects.create(
+            title="Test image shown",
+            file=get_test_image_file(),
+            uploaded_by_user=self.user,
+        )
+        Image.objects.create(
+            title="Test image not shown",
+            file=get_test_image_file(),
+        )
+
+        def filter_images(images, request):
+            # Filter on `uploaded_by_user` because it is
+            # the only default FilterField in search_fields
+            return images.filter(uploaded_by_user=self.user)
+
+        with self.register_hook('construct_image_chooser_queryset', filter_images):
+            response = self.get()
+        self.assertEqual(len(response.context['images']), 1)
+        self.assertEqual(response.context['images'][0], image)
+
+    def test_construct_queryset_hook_search(self):
+        image = Image.objects.create(
+            title="Test image shown",
+            file=get_test_image_file(),
+            uploaded_by_user=self.user,
+        )
+        Image.objects.create(
+            title="Test image not shown",
+            file=get_test_image_file(),
+        )
+
+        def filter_images(images, request):
+            # Filter on `uploaded_by_user` because it is
+            # the only default FilterField in search_fields
+            return images.filter(uploaded_by_user=self.user)
+
+        with self.register_hook('construct_image_chooser_queryset', filter_images):
+            response = self.get({'q': 'Test'})
+        self.assertEqual(len(response.context['images']), 1)
+        self.assertEqual(response.context['images'][0], image)
 
 
 class TestImageChooserChosenView(TestCase, WagtailTestUtils):

@@ -21,7 +21,7 @@ function escapeHtml(text) {
     });
 }
 
-function initTagField(id, autocompleteUrl) {
+function initTagField(id, autocompleteUrl, allowSpaces) {
     $('#' + id).tagit({
         autocomplete: {source: autocompleteUrl},
         preprocessTag: function(val) {
@@ -32,7 +32,9 @@ function initTagField(id, autocompleteUrl) {
             }
 
             return val;
-        }
+        },
+
+        allowSpaces: allowSpaces
     });
 }
 
@@ -50,8 +52,6 @@ function initTagField(id, autocompleteUrl) {
  *      prompting the user even when nothing has been changed.
 */
 
-var dirtyFormCheckIsActive = true;
-
 function enableDirtyFormCheck(formSelector, options) {
     var $form = $(formSelector);
     var confirmationMessage = options.confirmationMessage || ' ';
@@ -59,13 +59,13 @@ function enableDirtyFormCheck(formSelector, options) {
     var initialData = $form.serialize();
     var formSubmitted = false;
 
-    $($form).submit(function() {
+    $form.submit(function() {
         formSubmitted = true;
     });
 
     window.addEventListener('beforeunload', function(event) {
         var displayConfirmation = (
-            dirtyFormCheckIsActive && !formSubmitted && (alwaysDirty || $form.serialize() != initialData)
+            !formSubmitted && (alwaysDirty || $form.serialize() != initialData)
         );
 
         if (displayConfirmation) {
@@ -73,10 +73,6 @@ function enableDirtyFormCheck(formSelector, options) {
             return confirmationMessage;
         }
     });
-}
-
-function disableDirtyFormCheck() {
-    dirtyFormCheckIsActive = false;
 }
 
 $(function() {
@@ -93,12 +89,18 @@ $(function() {
         }
     });
 
+    // Enable toggle to open/close user settings
+    $(document).on('click', '#account-settings', function() {
+        $('#footer').toggleClass('footer-open');
+        $(this).find('em').toggleClass('icon-arrow-down-after icon-arrow-up-after');
+    });
+
     // Resize nav to fit height of window. This is an unimportant bell/whistle to make it look nice
     var fitNav = function() {
         $('.nav-wrapper').css('min-height', $(window).height());
         $('.nav-main').each(function() {
             var thisHeight = $(this).height();
-            var footerHeight = $('.footer', $(this)).height();
+            var footerHeight = $('#footer', $(this)).height();
         });
     };
 
@@ -107,6 +109,55 @@ $(function() {
     $(window).resize(function() {
         fitNav();
     });
+
+    // Logo interactivity
+    function initLogo() {
+        var sensitivity = 8; // the amount of times the user must stroke the wagtail to trigger the animation
+
+        var $logoContainer = $('.wagtail-logo-container__desktop');
+        var mouseX = 0;
+        var lastMouseX = 0;
+        var dir = '';
+        var lastDir = '';
+        var dirChangeCount = 0;
+
+        function enableWag() {
+            $logoContainer.removeClass('logo-serious').addClass('logo-playful');
+        }
+
+        function disableWag() {
+            $logoContainer.removeClass('logo-playful').addClass('logo-serious');
+        }
+
+        $logoContainer.mousemove(function(event) {
+            mouseX = event.pageX;
+
+            if (mouseX > lastMouseX) {
+                dir = 'r';
+            } else if (mouseX < lastMouseX) {
+                dir = 'l';
+            }
+
+            if (dir != lastDir && lastDir != '') {
+                dirChangeCount += 1;
+            }
+
+            if (dirChangeCount > sensitivity) {
+                enableWag();
+            }
+
+            lastMouseX = mouseX;
+            lastDir = dir;
+        });
+
+        $logoContainer.mouseleave(function() {
+            dirChangeCount = 0;
+            disableWag();
+        });
+
+        disableWag();
+    }
+    initLogo();
 
     // Enable nice focus effects on all fields. This enables help text on hover.
     $(document).on('focus mouseover', 'input,textarea,select', function() {
@@ -168,7 +219,7 @@ $(function() {
         var searchCurrentIndex = 0;
         var searchNextIndex = 0;
 
-        $(window.headerSearch.termInput).on('input', function() {
+        $(window.headerSearch.termInput).on('keyup cut paste', function() {
             clearTimeout($.data(this, 'timer'));
             var wait = setTimeout(search, 200);
             $(this).data('timer', wait);
@@ -468,6 +519,3 @@ wagtail = (function(document, window, wagtail) {
     return wagtail;
 
 })(document, window, wagtail);
-
-
-

@@ -5,13 +5,14 @@
 # Translators:
 # hanfeng <appweb.cn@gmail.com>, 2014-2015
 # Feng Wang <wangfeng.w@gmail.com>, 2015
+# Vincent Zhao <zhaopu2008@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-01 13:25+0000\n"
-"PO-Revision-Date: 2016-05-11 20:33+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-08-10 16:05+0000\n"
+"PO-Revision-Date: 2017-05-03 15:24+0000\n"
+"Last-Translator: Vincent Zhao <zhaopu2008@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -49,6 +50,15 @@ msgstr "文件过大 (%%s). 文件大小上限为 %s."
 msgid "This file is too big. Maximum filesize %s."
 msgstr "文件过大. 文件大小上限为 %s."
 
+msgid "Full width"
+msgstr "完整宽度"
+
+msgid "Left-aligned"
+msgstr "左对齐"
+
+msgid "Right-aligned"
+msgstr "右对齐"
+
 msgid "Filter"
 msgstr "过滤器"
 
@@ -76,8 +86,41 @@ msgstr "宽度"
 msgid "Height"
 msgstr "高度"
 
+msgid "Closeness"
+msgstr "接近"
+
+msgid "Add"
+msgstr "新增"
+
+msgid "Add/edit images you own"
+msgstr "增加/编辑所属的图片"
+
 msgid "Edit"
 msgstr "编辑"
+
+msgid "Edit any image"
+msgstr "编辑任意图片"
+
+msgid "title"
+msgstr "标题"
+
+msgid "file"
+msgstr "文件"
+
+msgid "width"
+msgstr "宽度"
+
+msgid "height"
+msgstr "高度"
+
+msgid "created at"
+msgstr "创建于"
+
+msgid "uploaded by user"
+msgstr "用户上传"
+
+msgid "tags"
+msgstr "标签"
 
 msgid "Choose an image"
 msgstr "选择一个图像"
@@ -90,6 +133,9 @@ msgstr "上传"
 
 msgid "Popular tags"
 msgstr "热门标签"
+
+msgid "Uploading..."
+msgstr "正在上传..."
 
 #, python-format
 msgid ""
@@ -164,6 +210,12 @@ msgid ""
 "below."
 msgstr "定义此图像的重要区域，拖动下面的盒子到图像上。"
 
+msgid "Current focal point shown"
+msgstr "显示当前焦点"
+
+msgid "Remove focal area"
+msgstr "删除焦点区域"
+
 msgid "URL Generator"
 msgstr "URL生成器"
 
@@ -182,6 +234,21 @@ msgstr "图像"
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
 msgstr "对不起，没有符合\"<em>%(query_string)s</em>\"的图像。"
+
+#, python-format
+msgid ""
+"You haven't uploaded any images in this collection. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+msgstr ""
+"此集合中还没有图片。为何不 <a href=\"%(wagtailimages_add_image_url)s\">上传一"
+"个</a> ？"
+
+#, python-format
+msgid ""
+"You haven't uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+msgstr ""
+"还没上传图像呢。来<a href=\"%(wagtailimages_add_image_url)s\">上传一个</a>吧?"
 
 msgid "Generating URL"
 msgstr "生成URL"
@@ -232,6 +299,9 @@ msgstr "拖曳多个图像到此区域来快速上传。"
 msgid "Or choose from your computer"
 msgstr "或者打开选择框"
 
+msgid "Add to collection:"
+msgstr "添加到集合："
+
 msgid ""
 "Upload successful. Please update this image with a more appropriate title, "
 "if necessary. You may also delete the image completely if the upload wasn't "
@@ -242,11 +312,26 @@ msgstr ""
 msgid "Sorry, upload failed."
 msgstr "对不起啊，上传失败。"
 
+msgid "Server Error"
+msgstr "服务器错误"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "将此错误报告给你的网络管理员，包含如下信息："
+
+msgid "Image updated."
+msgstr "图片已更新。"
+
 msgid "Update"
 msgstr "更新"
 
 msgid "Delete"
 msgstr "删除"
+
+msgid "Image permissions"
+msgstr "图片权限"
+
+msgid "Add an image permission"
+msgstr "添加一个图片权限"
 
 msgid "Search images"
 msgstr "搜索图片"
@@ -276,6 +361,11 @@ msgstr "图片'{0}'已添加"
 
 msgid "The image could not be created due to errors."
 msgstr "无法创建图像，出现错误。"
+
+#, python-format
+msgid "%(count)s image"
+msgid_plural "%(count)s images"
+msgstr[0] "%(count)s 个图片"
 
 msgid "Choose another image"
 msgstr "选择另一个图像"

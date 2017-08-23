@@ -17,10 +17,12 @@ Wagtail provides some tooling configuration to help check your code meets the
 styleguide. You'll need node.js and npm on your development machine.
 Ensure project dependencies are installed by running ``npm install``
 
+Linting code
+------------
 
-**Linting code**
+.. code-block:: console
 
-``npm run lint:js``
+    $ npm run lint:js
 
 This will lint all the JS in the wagtail project, excluding vendor
 files and compiled libraries.
@@ -29,10 +31,12 @@ Some of the modals are generated via server-side scripts. These include
 template tags that upset the linter, so modal workflow JavaScript is
 excluded from the linter.
 
+Formatting code
+---------------
 
-**Formatting code**
+.. code-block:: console
 
-``npm run format:js``
+    $ npm run format:js
 
 This will perform safe edits to conform your JS code to the styleguide.
 It won't touch the line-length, or convert quotemarks from double to single.
@@ -40,7 +44,8 @@ It won't touch the line-length, or convert quotemarks from double to single.
 Run the linter after you've formatted the code to see what manual fixes
 you need to make to the codebase.
 
-**Changing the linter configuration**
+Changing the linter configuration
+---------------------------------
 
 Under the hood, the tasks use the `JavaScript Code Style <http://jscs.info/>`_ library.
 

@@ -5,7 +5,7 @@ import json
 from django.core.urlresolvers import reverse
 
 from wagtail.api.v2.tests.test_images import TestImageDetail, TestImageListing
-from wagtail.wagtailimages.models import get_image_model
+from wagtail.wagtailimages import get_image_model
 from wagtail.wagtailimages.tests.utils import get_test_image_file
 
 from .utils import AdminAPITestCase
@@ -194,11 +194,9 @@ class TestAdminImageDetail(AdminAPITestCase, TestImageDetail):
         content = json.loads(response.content.decode('UTF-8'))
 
         self.assertIn('thumbnail', content)
-        self.assertEqual(content['thumbnail'], {
-            'url': '/media/images/test.max-165x165.png',
-            'width': 165,
-            'height': 123
-        })
+        self.assertEqual(content['thumbnail']['width'], 165)
+        self.assertEqual(content['thumbnail']['height'], 123)
+        self.assertTrue(content['thumbnail']['url'].startswith('/media/images/test'))
 
         # Check that source_image_error didn't appear
         self.assertNotIn('source_image_error', content['meta'])

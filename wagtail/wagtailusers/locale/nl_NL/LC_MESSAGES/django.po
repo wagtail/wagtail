@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Maarten Kling <kling.maarten@gmail.com>, 2015
+# Maarten Kling <kling.maarten@gmail.com>, 2015,2017
 # Thijs Kramer <thijskramer@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-01 13:25+0000\n"
-"PO-Revision-Date: 2016-08-01 13:29+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-08-10 16:05+0000\n"
+"PO-Revision-Date: 2017-04-28 09:18+0000\n"
+"Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -35,12 +35,14 @@ msgstr "Er bestaat al een gebruiker met deze gebruikersnaam."
 msgid "The two password fields didn't match."
 msgstr "De beide wachtwoorden komen niet overeen."
 
-msgid "Administrator"
-msgstr "Administrator"
+msgid "Email"
+msgstr "E-mail"
 
-msgid "Administrators have full access to manage any object or setting."
-msgstr ""
-"Administrators hebben volledige rechten op ieder object en alle instellingen."
+msgid "First Name"
+msgstr "Voornaam"
+
+msgid "Last Name"
+msgstr "Achternaam"
 
 msgid "Password"
 msgstr "Wachtwoord"
@@ -54,14 +56,12 @@ msgstr "Herhaal wachtwoord"
 msgid "Enter the same password as above, for verification."
 msgstr "Voer ter bevestiging hetzelfde wachtwoord nogmaals in."
 
-msgid "Email"
-msgstr "E-mail"
+msgid "Administrator"
+msgstr "Administrator"
 
-msgid "First Name"
-msgstr "Voornaam"
-
-msgid "Last Name"
-msgstr "Achternaam"
+msgid "Administrators have full access to manage any object or setting."
+msgstr ""
+"Administrators hebben volledige rechten op ieder object en alle instellingen."
 
 msgid "A group with that name already exists."
 msgstr "Er bestaat al een groep met deze naam."
@@ -89,6 +89,12 @@ msgstr "afgekeurde notificaties"
 msgid "Receive notification when your page edit is rejected"
 msgstr "Ontvang notificaties wanneer uw paginawijziging is afgekeurd."
 
+msgid "preferred language"
+msgstr "Voorkeurstaal"
+
+msgid "Select language for the admin"
+msgstr "Selecteer de taal voor de admin"
+
 msgid "user profile"
 msgstr "gebruikersprofiel"
 
@@ -97,9 +103,21 @@ msgstr "Verwijder groep"
 
 #, python-format
 msgid ""
-"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> users "
-"assigned."
-msgstr ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> member.\n"
+"            "
+msgid_plural ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> members.\n"
+"            "
+msgstr[0] ""
+"\n"
+"De groep '%(group_name)s' heeft <strong>%(group_user_count)s</strong> "
+"gebruiker."
+msgstr[1] ""
+"\n"
 "De groep '%(group_name)s' heeft <strong>%(group_user_count)s</strong> "
 "gebruikers."
 
@@ -165,6 +183,12 @@ msgid ""
 msgstr ""
 "Er zijn nog geen groepen geconfigureerd. Waarom <a href="
 "\"%(wagtailusers_create_group_url)s\">voegt u er niet een toe</a>?"
+
+msgid "Delete user"
+msgstr "Verwijder gebruiker"
+
+msgid "Are you sure you want to delete this user?"
+msgstr "Weet u zeker dat u deze gebruiker wilt verwijderen?"
 
 msgid "Add user"
 msgstr "Voeg gebruiker toe"
@@ -270,5 +294,15 @@ msgstr "Gebruiker '{0}' is bijgewerkt."
 msgid "The user could not be saved due to errors."
 msgstr "De gebruiker kon vanwege fouten niet worden opgeslagen."
 
+#, python-brace-format
+msgid "User '{0}' deleted."
+msgstr "Gebruiker '{0}' is verwijderd."
+
 msgid "Groups"
 msgstr "Groepen"
+
+msgid "Edit this user"
+msgstr "Bewerk deze gebruiker"
+
+msgid "Delete this user"
+msgstr "Verwijder deze gebruiker"

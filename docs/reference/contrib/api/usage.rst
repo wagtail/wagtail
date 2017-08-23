@@ -293,8 +293,6 @@ For example, to get all the pages that are direct children of page 7.
 
 **descendant_of**
 
-.. versionadded:: 1.1
-
 Filters the listing to only include descendants of the specified page.
 
 For example, to get all pages underneath the homepage:
@@ -419,7 +417,7 @@ Like filtering, it is also possible to order on database fields. The endpoint ac
 Pagination
 ^^^^^^^^^^
 
-Pagination is done using two query parameters called ``limit`` and ``offset``. ``limit`` sets the number of results to return and ``offset`` is the index of the first result to return. The default and maximum value for ``limit`` is ``20``. The maximum value can be changed using the ``WAGTAILAPI_LIMIT_MAX`` setting.
+Pagination is done using two query parameters called ``limit`` and ``offset``. ``limit`` sets the number of results to return and ``offset`` is the index of the first result to return. The default and maximum value for ``limit`` is ``20``. The maximum value can be changed using the ``WAGTAILAPI_LIMIT_MAX`` setting. Set ``WAGTAILAPI_LIMIT_MAX`` to ``None`` for no maximum value.
 
 .. code-block:: text
 
@@ -581,26 +579,26 @@ This is what a typical response from a ``GET`` request to this listing would loo
     {
         "meta": {
             "total_count": 3
-        }, 
+        },
         "images": [
             {
-                "id": 4, 
+                "id": 4,
                 "meta": {
                     "type": "wagtailimages.Image",
                     "detail_url": "http://api.example.com/api/v1/images/4/"
                 },
                 "title": "Wagtail by Mark Harkin"
-            }, 
+            },
             {
-                "id": 5, 
+                "id": 5,
                 "meta": {
                     "type": "wagtailimages.Image",
                     "detail_url": "http://api.example.com/api/v1/images/5/"
                 },
                 "title": "James Joyce"
-            }, 
+            },
             {
-                "id": 6, 
+                "id": 6,
                 "meta": {
                     "type": "wagtailimages.Image",
                     "detail_url": "http://api.example.com/api/v1/images/6/"
@@ -631,36 +629,36 @@ By default, this will allow you to add the ``width`` and ``height`` fields to yo
     {
         "meta": {
             "total_count": 3
-        }, 
+        },
         "images": [
             {
-                "id": 4, 
+                "id": 4,
                 "meta": {
                     "type": "wagtailimages.Image",
                     "detail_url": "http://api.example.com/api/v1/images/4/"
                 },
-                "title": "Wagtail by Mark Harkin", 
-                "width": 640, 
+                "title": "Wagtail by Mark Harkin",
+                "width": 640,
                 "height": 427
-            }, 
+            },
             {
-                "id": 5, 
+                "id": 5,
                 "meta": {
                     "type": "wagtailimages.Image",
                     "detail_url": "http://api.example.com/api/v1/images/5/"
                 },
-                "title": "James Joyce", 
-                "width": 500, 
+                "title": "James Joyce",
+                "width": 500,
                 "height": 392
-            }, 
+            },
             {
-                "id": 6, 
+                "id": 6,
                 "meta": {
                     "type": "wagtailimages.Image",
                     "detail_url": "http://api.example.com/api/v1/images/6/"
                 },
-                "title": "David Mitchell", 
-                "width": 360, 
+                "title": "David Mitchell",
+                "width": 360,
                 "height": 282
             }
         ]
@@ -682,10 +680,10 @@ Exact matches on field values can be done by using a query parameter with the sa
     {
         "meta": {
             "total_count": 3
-        }, 
+        },
         "images": [
             {
-                "id": 5, 
+                "id": 5,
                 "meta": {
                     "type": "wagtailimages.Image",
                     "detail_url": "http://api.example.com/api/v1/images/5/"
@@ -711,33 +709,33 @@ The images endpoint also accepts the ``order`` parameter which should be set to 
     {
         "meta": {
             "total_count": 3
-        }, 
+        },
         "images": [
             {
-                "id": 6, 
+                "id": 6,
                 "meta": {
                     "type": "wagtailimages.Image",
                     "detail_url": "http://api.example.com/api/v1/images/6/"
                 },
-                "title": "David Mitchell", 
+                "title": "David Mitchell",
                 "width": 360
             },
             {
-                "id": 5, 
+                "id": 5,
                 "meta": {
                     "type": "wagtailimages.Image",
                     "detail_url": "http://api.example.com/api/v1/images/5/"
                 },
-                "title": "James Joyce", 
+                "title": "James Joyce",
                 "width": 500
             },
             {
-                "id": 4, 
+                "id": 4,
                 "meta": {
                     "type": "wagtailimages.Image",
                     "detail_url": "http://api.example.com/api/v1/images/4/"
                 },
-                "title": "Wagtail by Mark Harkin", 
+                "title": "Wagtail by Mark Harkin",
                 "width": 640
             }
         ]
@@ -747,7 +745,8 @@ The images endpoint also accepts the ``order`` parameter which should be set to 
 Pagination
 ^^^^^^^^^^
 
-Pagination is done using two query parameters called ``limit`` and ``offset``. ``limit`` sets the number of results to return and ``offset`` is the index of the first result to return. The default and maximum value for ``limit`` is ``20``. The maximum value can be changed using the ``WAGTAILAPI_LIMIT_MAX`` setting.
+Pagination is done using two query parameters called ``limit`` and ``offset``. ``limit`` sets the number of results to return and ``offset`` is the index of the first result to return. The default and maximum value for ``limit`` is ``20``. The maximum value can be changed using the ``WAGTAILAPI_LIMIT_MAX`` setting. Set ``WAGTAILAPI_LIMIT_MAX`` to ``None`` for no maximum value.
+
 
 .. code-block:: text
 
@@ -762,13 +761,13 @@ Pagination is done using two query parameters called ``limit`` and ``offset``. `
         },
         "images": [
             {
-                "id": 5, 
+                "id": 5,
                 "meta": {
                     "type": "wagtailimages.Image",
                     "detail_url": "http://api.example.com/api/v1/images/5/"
                 },
-                "title": "James Joyce", 
-                "width": 500, 
+                "title": "James Joyce",
+                "width": 500,
                 "height": 392
             }
         ]
@@ -796,13 +795,13 @@ To perform a full-text search, set the ``search`` parameter to the query string 
         },
         "pages": [
             {
-                "id": 5, 
+                "id": 5,
                 "meta": {
                     "type": "wagtailimages.Image",
                     "detail_url": "http://api.example.com/api/v1/images/5/"
                 },
-                "title": "James Joyce", 
-                "width": 500, 
+                "title": "James Joyce",
+                "width": 500,
                 "height": 392
             }
         ]
@@ -826,13 +825,13 @@ This view gives you access to all of the details for a particular image.
     Content-Type: application/json
 
     {
-        "id": 5, 
+        "id": 5,
         "meta": {
             "type": "wagtailimages.Image",
             "detail_url": "http://api.example.com/api/v1/images/5/"
         },
-        "title": "James Joyce", 
-        "width": 500, 
+        "title": "James Joyce",
+        "width": 500,
         "height": 392
     }
 
@@ -862,11 +861,11 @@ This view gives you access to all of the details for a particular document.
     Content-Type: application/json
 
     {
-        "id": 1, 
+        "id": 1,
         "meta": {
             "type": "wagtaildocs.Document",
             "detail_url": "http://api.example.com/api/v1/documents/1/",
             "download_url": "http://api.example.com/documents/1/usage.md"
-        }, 
+        },
         "title": "Wagtail API usage"
     }

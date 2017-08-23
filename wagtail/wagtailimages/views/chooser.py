@@ -9,10 +9,11 @@ from wagtail.utils.pagination import paginate
 from wagtail.wagtailadmin.forms import SearchForm
 from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
 from wagtail.wagtailadmin.utils import PermissionPolicyChecker, popular_tags_for_model
+from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import Collection
+from wagtail.wagtailimages import get_image_model
 from wagtail.wagtailimages.formats import get_image_format
 from wagtail.wagtailimages.forms import ImageInsertionForm, get_image_form
-from wagtail.wagtailimages.models import get_image_model
 from wagtail.wagtailimages.permissions import permission_policy
 from wagtail.wagtailsearch import index as search_index
 
@@ -48,6 +49,10 @@ def chooser(request):
         uploadform = None
 
     images = Image.objects.order_by('-created_at')
+
+    # allow hooks to modify the queryset
+    for hook in hooks.get_hooks('construct_image_chooser_queryset'):
+        images = hook(images, request)
 
     q = None
     if (
@@ -91,16 +96,16 @@ def chooser(request):
 
         paginator, images = paginate(request, images, per_page=12)
 
-    return render_modal_workflow(request, 'wagtailimages/chooser/chooser.html', 'wagtailimages/chooser/chooser.js', {
-        'images': images,
-        'uploadform': uploadform,
-        'searchform': searchform,
-        'is_searching': False,
-        'query_string': q,
-        'will_select_format': request.GET.get('select_format'),
-        'popular_tags': popular_tags_for_model(Image),
-        'collections': collections,
-    })
+        return render_modal_workflow(request, 'wagtailimages/chooser/chooser.html', 'wagtailimages/chooser/chooser.js', {
+            'images': images,
+            'uploadform': uploadform,
+            'searchform': searchform,
+            'is_searching': False,
+            'query_string': q,
+            'will_select_format': request.GET.get('select_format'),
+            'popular_tags': popular_tags_for_model(Image),
+            'collections': collections,
+        })
 
 
 def image_chosen(request, image_id):

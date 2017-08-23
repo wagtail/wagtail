@@ -8,13 +8,13 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ungettext
 
 from wagtail.wagtailadmin.menu import MenuItem
+from wagtail.wagtailadmin.rich_text import HalloPlugin
 from wagtail.wagtailadmin.search import SearchArea
 from wagtail.wagtailadmin.site_summary import SummaryItem
 from wagtail.wagtailcore import hooks
-from wagtail.wagtailimages import admin_urls, image_operations
+from wagtail.wagtailimages import admin_urls, get_image_model, image_operations
 from wagtail.wagtailimages.api.admin.endpoints import ImagesAdminAPIEndpoint
 from wagtail.wagtailimages.forms import GroupImagePermissionFormSet
-from wagtail.wagtailimages.models import get_image_model
 from wagtail.wagtailimages.permissions import permission_policy
 from wagtail.wagtailimages.rich_text import ImageEmbedHandler
 
@@ -49,7 +49,6 @@ def register_images_menu_item():
 @hooks.register('insert_editor_js')
 def editor_js():
     js_files = [
-        static('wagtailimages/js/hallo-plugins/hallo-wagtailimage.js'),
         static('wagtailimages/js/image-chooser.js'),
     ]
     js_includes = format_html_join(
@@ -67,6 +66,18 @@ def editor_js():
     )
 
 
+@hooks.register('register_rich_text_features')
+def register_image_feature(features):
+    features.register_editor_plugin(
+        'hallo', 'image',
+        HalloPlugin(
+            name='hallowagtailimage',
+            js=[static('wagtailimages/js/hallo-plugins/hallo-wagtailimage.js')],
+        )
+    )
+    features.default_features.append('image')
+
+
 @hooks.register('register_image_operations')
 def register_image_operations():
     return [
@@ -76,6 +87,8 @@ def register_image_operations():
         ('max', image_operations.MinMaxOperation),
         ('width', image_operations.WidthHeightOperation),
         ('height', image_operations.WidthHeightOperation),
+        ('jpegquality', image_operations.JPEGQualityOperation),
+        ('format', image_operations.FormatOperation),
     ]
 
 
@@ -92,6 +105,11 @@ class ImagesSummaryItem(SummaryItem):
         return {
             'total_images': get_image_model().objects.count(),
         }
+
+    def is_shown(self):
+        return permission_policy.user_has_any_permission(
+            self.request.user, ['add', 'change', 'delete']
+        )
 
 
 @hooks.register('construct_homepage_summary_items')

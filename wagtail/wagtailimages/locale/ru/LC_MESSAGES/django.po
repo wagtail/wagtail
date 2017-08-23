@@ -4,18 +4,20 @@
 #
 # Translators:
 # ajk, 2014
+# Andrey Avdey <talkerbox@live.com>, 2016
 # Eugene MechanisM <eugene@mechanism.pro>, 2014-2016
 # Matt Westcott <matthew@torchbox.com>, 2015
 # Mikalai Radchuk <radchuk.m@gmail.com>, 2016
+# Rustam Mirzaev <mirus@2x2.pw>, 2017
 # Sergey Komarov <sjkomarov@gmail.com>, 2014
 # gsstver <gsstver@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-01 13:25+0000\n"
-"PO-Revision-Date: 2016-05-26 13:33+0000\n"
-"Last-Translator: Mikalai Radchuk <radchuk.m@gmail.com>\n"
+"POT-Creation-Date: 2017-08-10 16:05+0000\n"
+"PO-Revision-Date: 2017-05-14 23:36+0000\n"
+"Last-Translator: Rustam Mirzaev <mirus@2x2.pw>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -56,6 +58,15 @@ msgstr "Файл слишком большой (%%s). Максимальный �
 #, python-format
 msgid "This file is too big. Maximum filesize %s."
 msgstr "Файл слишком большой. Максимальный размер файла %s."
+
+msgid "Full width"
+msgstr "По ширине"
+
+msgid "Left-aligned"
+msgstr "По левому краю"
+
+msgid "Right-aligned"
+msgstr "По правому краю"
 
 msgid "Filter"
 msgstr "Фильтр"
@@ -230,6 +241,9 @@ msgstr "Для указания главной области на изобра�
 
 msgid "Current focal point shown"
 msgstr "Показана текущая фокальная точка"
+
+msgid "Remove focal area"
+msgstr "Убрать область фокуса"
 
 msgid "URL Generator"
 msgstr "URL Генератор"

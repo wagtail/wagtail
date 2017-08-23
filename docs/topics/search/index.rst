@@ -38,6 +38,6 @@ See :ref:`wagtailsearch_searching`.
 Backends
 ========
 
-Wagtail provides two backends for storing the search index and performing search queries: Elasticsearch and the database. It's also possible to roll your own search backend.
+Wagtail provides three backends for storing the search index and performing search queries: Elasticsearch, the database, and PostgreSQL (Django >=1.10 required). It's also possible to roll your own search backend.
 
 See :ref:`wagtailsearch_backends`

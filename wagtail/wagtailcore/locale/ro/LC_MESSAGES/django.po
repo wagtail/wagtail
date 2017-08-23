@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Dan Braghis, 2014-2016
+# Dan Braghis, 2014-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-01 13:25+0000\n"
-"PO-Revision-Date: 2016-08-01 14:15+0000\n"
-"Last-Translator: Dan Braghis\n"
+"POT-Creation-Date: 2017-08-10 16:05+0000\n"
+"PO-Revision-Date: 2017-08-10 15:56+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +19,19 @@ msgstr ""
 "Language: ro\n"
 "Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
 "2:1));\n"
+
+#, python-brace-format
+msgid "{label}: this block has no options."
+msgstr "{label}: acest block nu are nici o opțiune."
+
+msgid "This block has no options."
+msgstr "Acest bloc nu are nici o opțiune."
+
+msgid "Password"
+msgstr "Parolă"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr "Parola introdusă nu este corectă. Vă rugăm să încercați din nou."
 
 msgid "hostname"
 msgstr "nume gazdă"
@@ -125,9 +138,6 @@ msgstr "descriere pentru căutare"
 msgid "go live date/time"
 msgstr "data/timpul de publicare"
 
-msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
-msgstr "Introduceți data și timpul în format YYYY-MM-DD hh:mm."
-
 msgid "expiry date/time"
 msgstr "data/timpul de expirare"
 
@@ -138,6 +148,9 @@ msgid "locked"
 msgstr "blocat"
 
 msgid "first published at"
+msgstr "publicată pentru prima dată la"
+
+msgid "last published at"
 msgstr "publicată pentru prima dată la"
 
 msgid "latest revision created at"
@@ -203,6 +216,12 @@ msgstr "Publică"
 msgid "Publish any page"
 msgstr "Publică orice pagină"
 
+msgid "Bulk delete"
+msgstr "Șterge în masă"
+
+msgid "Delete pages with children"
+msgstr "Șterge pagini cu descendenți"
+
 msgid "Lock"
 msgstr "Încuie"
 
@@ -221,8 +240,29 @@ msgstr "permisie grup pagină"
 msgid "group page permissions"
 msgstr "permisiuni grup pagină"
 
+msgid "Public"
+msgstr "Public"
+
+msgid "Private, accessible to logged-in users"
+msgstr "Privat. accesibil utlizatorilor autentificați"
+
+msgid "Private, accessible with the following password"
+msgstr "Privat, accesibil cu parola următoare"
+
+msgid "Private, accessible to users in specific groups"
+msgstr "Privat, accesibil utilizatorilor în grupuri specifice"
+
 msgid "password"
 msgstr "parolă"
+
+msgid "groups"
+msgstr "grupuri"
+
+msgid "view restriction"
+msgstr "vezi restricție"
+
+msgid "view restrictions"
+msgstr "vezi restricții"
 
 msgid "page view restriction"
 msgstr "restricție de vizualizare pagină"
@@ -230,11 +270,17 @@ msgstr "restricție de vizualizare pagină"
 msgid "page view restrictions"
 msgstr "restricții de vizualizare pagină"
 
-msgid "name"
-msgstr "nume"
-
 msgid "collection"
 msgstr "colecție"
+
+msgid "collection view restriction"
+msgstr "restricție de vizualizare colecție"
+
+msgid "collection view restrictions"
+msgstr "restricție de vizualizare colecții"
+
+msgid "name"
+msgstr "nume"
 
 msgid "collections"
 msgstr "colecții"
@@ -244,3 +290,26 @@ msgstr "permisiune"
 
 msgid "group collection permission"
 msgstr "permisiune grup colecție"
+
+msgid "Log in"
+msgstr "Logare"
+
+msgid "Your username and password didn't match. Please try again."
+msgstr ""
+"Numele de utilizator și parola nu corespund. Vă rugăm să încercați din nou."
+
+msgid ""
+"Your account doesn't have access to this page. To proceed, please log in "
+"with an account that has access."
+msgstr ""
+"Nu aveți access la această pagină. Pentru a continua, vă rugăm să vă logați "
+"cu un cont care are acces."
+
+msgid "Password required"
+msgstr "Parolă necesară"
+
+msgid "You need a password to access this page."
+msgstr "Aveți nevoie de o parolă pentru a accesa această pagină."
+
+msgid "Continue"
+msgstr "Continuă"

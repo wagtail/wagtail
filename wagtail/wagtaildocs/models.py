@@ -6,9 +6,7 @@ from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.core.urlresolvers import reverse
 from django.db import models
-from django.db.models.signals import post_delete
 from django.dispatch import Signal
-from django.dispatch.dispatcher import receiver
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 from taggit.managers import TaggableManager
@@ -108,13 +106,6 @@ def get_document_model():
             settings.WAGTAILDOCS_DOCUMENT_MODEL
         )
     return document_model
-
-
-# Receive the post_delete signal and delete the file associated with the model instance.
-@receiver(post_delete, sender=Document)
-def document_delete(sender, instance, **kwargs):
-    # Pass false so FileField doesn't save the model.
-    instance.file.delete(False)
 
 
 document_served = Signal(providing_args=['request'])

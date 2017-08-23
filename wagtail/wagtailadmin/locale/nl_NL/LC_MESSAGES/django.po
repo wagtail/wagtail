@@ -4,14 +4,14 @@
 #
 # Translators:
 # Franklin Kingma <franklin@statix.net>, 2015
-# Maarten Kling <kling.maarten@gmail.com>, 2015
-# Thijs Kramer <thijskramer@gmail.com>, 2015-2016
+# Maarten Kling <kling.maarten@gmail.com>, 2015,2017
+# Thijs Kramer <thijskramer@gmail.com>, 2015-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-01 13:25+0000\n"
-"PO-Revision-Date: 2016-08-01 13:28+0000\n"
+"POT-Creation-Date: 2017-08-10 16:05+0000\n"
+"PO-Revision-Date: 2017-08-10 16:07+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
@@ -20,6 +20,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nl_NL\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "None"
+msgstr "Geen"
 
 msgid "You do not have permission to access the admin"
 msgstr "U heeft geen toegang tot de admin."
@@ -117,20 +120,30 @@ msgstr[1] ""
 "kopieën ook publiceren?"
 
 #, python-format
+msgid "You do not have permission to copy to page \"%(page_title)s\""
+msgstr ""
+"Je hebt geen rechten om naar deze pagina te kopiëren \"%(page_title)s\""
+
+#, python-format
 msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
 msgstr ""
 "Er bestaat al een pagina met deze slug binnen de context van de "
 "bovenliggende pagina \"%s\""
 
-msgid "Public"
-msgstr "Openbaar"
+msgid "You cannot copy a page into itself when copying subpages"
+msgstr ""
+"Het is niet mogelijk een pagina naar zichzelf te kopiëren bij het kopiëren "
+"van onderliggende pagina's"
 
-msgid "Private, accessible with the following password"
-msgstr "Privé, toegankelijk met het volgende wachtwoord:"
+msgid "Visibility"
+msgstr "Zichtbaarheid"
 
 msgid "This field is required."
 msgstr "Dit is een verplicht veld."
+
+msgid "Please select at least one group."
+msgstr "Selecteer minimaal één groep."
 
 msgid "This slug is already in use"
 msgstr "Deze slug is al in gebruik"
@@ -173,8 +186,11 @@ msgstr "Notificatievoorkeuren"
 msgid "Choose which email notifications to receive."
 msgstr "Kies hier welke e-mailnotificaties u wilt ontvangen."
 
-msgid "Change Password"
-msgstr "Wijzig wachtwoord"
+msgid "Language preferences"
+msgstr "Taalvoorkeuren"
+
+msgid "Choose the language you want to use here."
+msgstr "Kies de taal die u hier wilt gebruiken."
 
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
@@ -182,8 +198,8 @@ msgstr ""
 "Uw wachtwoord kan hier niet gewijzigd worden. Neem contact op met een "
 "beheerder van deze site."
 
-msgid "Notification Preferences"
-msgstr "Notificatievoorkeuren"
+msgid "Language Preferences"
+msgstr "Taalvoorkeuren"
 
 msgid "Update"
 msgstr "Bijwerken"
@@ -221,6 +237,33 @@ msgstr "Wachtwoord herstel"
 
 msgid "Reset your password"
 msgstr "Reset uw wachtwoord"
+
+msgid "Edit"
+msgstr "Wijzig"
+
+msgid "Page"
+msgstr "Pagina"
+
+msgid "Pages"
+msgstr "Pagina's"
+
+msgid "Loading..."
+msgstr "Laden..."
+
+msgid "No results"
+msgstr "Geen resultaten"
+
+msgid "Server Error"
+msgstr "Server error"
+
+msgid "See children"
+msgstr "Bekijk onderliggende"
+
+msgid "See all"
+msgstr "Zie alles"
+
+msgid "Close explorer"
+msgstr "Sluit verkenner"
 
 msgid "Dashboard"
 msgstr "Dashboard"
@@ -305,6 +348,33 @@ msgstr "Voeg een link toe"
 msgid "Add an external link"
 msgstr "Voeg een externe link toe"
 
+msgid "Collection privacy"
+msgstr "Collectie privacy"
+
+msgid "This collection has been made private by a parent collection."
+msgstr "Deze collectie is privé gemaakt door een bovenliggende collectie."
+
+msgid "You can edit the privacy settings on:"
+msgstr "U kunt de zichtbaarheid wijzigen op de pagina:"
+
+msgid ""
+"Privacy settings determine who is able to view documents in this collection."
+msgstr ""
+"De privacy instellingen bepalen wie documenten in deze collectie mogen "
+"bekijken."
+
+msgid "Save"
+msgstr "Opslaan"
+
+msgid "Privacy"
+msgstr "Privacy"
+
+msgid "Public"
+msgstr "Openbaar"
+
+msgid "Private"
+msgstr "Privé"
+
 msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
 msgstr ""
@@ -328,9 +398,6 @@ msgstr "Voeg %(heading)s toe"
 
 msgid "Yes, delete"
 msgstr "Ja, verwijderen"
-
-msgid "Save"
-msgstr "Opslaan"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -367,11 +434,12 @@ msgstr "Keur goed"
 msgid "Reject"
 msgstr "Keur af"
 
-msgid "Edit"
-msgstr "Wijzig"
-
 msgid "Preview"
 msgstr "Voorbeeld"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s geleden"
 
 msgid "Your most recent edits"
 msgstr "Laatste wijzigingen"
@@ -470,9 +538,6 @@ msgstr "Zichtbaarheid van de pagina"
 msgid "This page has been made private by a parent page."
 msgstr "Deze pagina is privé gemaakt door een bovenliggende pagina."
 
-msgid "You can edit the privacy settings on:"
-msgstr "U kunt de zichtbaarheid wijzigen op de pagina:"
-
 msgid "Privacy changes apply to all children of this page too."
 msgstr ""
 "Wijzigingen in de zichtbaarheid hebben ook effect op alle onderliggende "
@@ -486,12 +551,6 @@ msgstr "Geblokkeerd"
 
 msgid "Unlocked"
 msgstr "Gedeblokkeerd"
-
-msgid "Privacy"
-msgstr "Privacy"
-
-msgid "Private"
-msgstr "Privé"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -531,6 +590,22 @@ msgstr[1] ""
 "\n"
 "Dit zal ook %(descendant_count)s onderliggende pagina's verwijderen."
 
+msgid "Yes, delete it"
+msgstr "Ja, verwijderen"
+
+msgid "No, don't delete it"
+msgstr "Nee, niet verwijderen"
+
+#, python-format
+msgid ""
+"Alternatively you can <a href=\"%(unpublish_url)s\">unpublish the page</a>. "
+"This removes the page from public view and you can edit or publish it again "
+"later."
+msgstr ""
+"U kunt deze pagina ook <a href=\"%(unpublish_url)s\">intrekken</a>. Dit "
+"zorgt ervoor dat de pagina niet meer publiekelijk zichtbaar is en u kunt de "
+"pagina later bewerken of opnieuw publiceren."
+
 #, python-format
 msgid "Move %(title)s"
 msgstr "Verplaats %(title)s"
@@ -555,16 +630,41 @@ msgstr "Ja, verplaats deze pagina"
 
 #, python-format
 msgid "Unpublish %(title)s"
-msgstr "Publicatie ongedaan maken van %(title)s"
+msgstr "Publicatie intrekken van %(title)s"
 
 msgid "Unpublish"
-msgstr "Publicatie ongedaan maken"
+msgstr "Publicatie intrekken"
 
 msgid "Are you sure you want to unpublish this page?"
-msgstr "Weet u zeker dat u de publicatie van deze pagina ongedaan wilt maken?"
+msgstr "Weet u zeker dat u de publicatie van deze pagina wilt intrekken?"
+
+#, python-format
+msgid ""
+"\n"
+"                    This page has one subpage. Unpublish this too\n"
+"                "
+msgid_plural ""
+"\n"
+"                    This page has %(live_descendant_count)s subpages. "
+"Unpublish these too\n"
+"                "
+msgstr[0] ""
+"\n"
+"Deze pagina heeft 1 onderliggende pagina. Maak deze publicatie ook ongedaan."
+msgstr[1] ""
+"\n"
+"Deze pagina heeft %(live_descendant_count)s onderliggende pagina's. Trek de "
+"publicatie van deze pagina's ook in."
 
 msgid "Yes, unpublish it"
-msgstr "Ja, maak publicatie ongedaan"
+msgstr "Ja, trek de publicatie in"
+
+msgid "No, don't unpublish"
+msgstr "Nee, niet de publicatie intrekken"
+
+#, python-format
+msgid "Pages using %(page_class_verbose_name)s"
+msgstr "Pagina's die %(page_class_verbose_name)s gebruiken"
 
 msgid "Pages using"
 msgstr "Pagina's van het type"
@@ -731,8 +831,11 @@ msgstr "Bekijk de onderliggende pagina's van '%(title)s'"
 msgid "Add a child page to '%(title)s'"
 msgstr "Voeg een onderliggende pagina toe aan '%(title)s'"
 
-msgid "Add subpage"
+msgid "Add child page"
 msgstr "Voeg onderliggende pagina toe"
+
+msgid "Sites menu"
+msgstr "Sites menu"
 
 #, python-format
 msgid ""
@@ -769,6 +872,80 @@ msgstr "Kies een nieuwe bovenliggende pagina voor %(title)s"
 msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Kies een nieuwe bovenliggende pagina voor <span>%(title)s</span>"
 
+msgid "Preview error"
+msgstr "Voorbeeld fout"
+
+msgid ""
+"\n"
+"                Impossible to preview this page, some errors are remaining.\n"
+"                Please close this tab, edit the page to fix these errors,\n"
+"                then use preview again.\n"
+"            "
+msgstr ""
+"\n"
+"Het is niet mogelijk om een voorbeeld van deze pagina te bekijken omdat er "
+"nog foutmeldingen zijn.\n"
+"Sluit dit tab, bewerk de pagina om de fouten te verbeteren,\n"
+"en bekijk daarna het voorbeeld opnieuw."
+
+msgid "Close"
+msgstr "Sluit"
+
+#, python-format
+msgid "Comparing %(title)s"
+msgstr "Vergelijk %(title)s"
+
+msgid "Comparing"
+msgstr "Vergelijk"
+
+msgid "View revisions"
+msgstr "Bekijk revisies"
+
+msgid "Fields"
+msgstr "Velden"
+
+msgid "Changes"
+msgstr "Wijzigingen"
+
+#, python-format
+msgid ""
+"\n"
+"                                                            Moved down 1 "
+"place.\n"
+"                                                        "
+msgid_plural ""
+"\n"
+"                                                            Moved down "
+"%(counter)s places.\n"
+"                                                        "
+msgstr[0] ""
+"\n"
+"1 plek naar beneden verplaatst."
+msgstr[1] ""
+"\n"
+"%(counter)s plekken naar beneden verplaatst."
+
+#, python-format
+msgid ""
+"\n"
+"                                                            Moved up 1 "
+"place.\n"
+"                                                        "
+msgid_plural ""
+"\n"
+"                                                            Moved up "
+"%(counter)s places.\n"
+"                                                        "
+msgstr[0] ""
+"\n"
+"1 plek omhoog verplaatst."
+msgstr[1] ""
+"\n"
+"%(counter)s plekken naar boven verplaatst."
+
+msgid "There are no differences between these two revisions"
+msgstr "Er zijn geen verschillen tussen deze twee revisies"
+
 #, python-format
 msgid "Revisions of %(title)s"
 msgstr "Versies van %(title)s"
@@ -786,8 +963,14 @@ msgstr "door"
 msgid "Current draft"
 msgstr "Huidig concept"
 
+msgid "Live version"
+msgstr "Live versie"
+
 msgid "Review this revision"
 msgstr "Herzie deze versie"
+
+msgid "Compare with previous revision"
+msgstr "Vergelijk met vorige revisie"
 
 msgid "No revisions of this page exist"
 msgstr "Er bestaan geen vorige versies van deze pagina"
@@ -897,6 +1080,9 @@ msgstr[1] "%(useage_count)s keer gebruikt"
 msgid "Edit your account"
 msgstr "Wijzig uw account"
 
+msgid "Account settings"
+msgstr "Accountinstellingen"
+
 msgid "Log out"
 msgstr "Uitloggen"
 
@@ -916,10 +1102,20 @@ msgstr ""
 "wordt door deze software. <a href=\"http://browsehappy.com/\">Upgrade uw "
 "browser</a> a.u.b."
 
-msgid "Javascript is required to use Wagtail, but it is currently disabled"
+msgid ""
+"\n"
+"            Javascript is required to use Wagtail, but it is currently "
+"disabled.<br />\n"
+"            Here are the <a href=\"http://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noopener\">instructions how to enable JavaScript in "
+"your web browser</a>.\n"
+"        "
 msgstr ""
-"Javascript is vereist om Wagtail te kunnen gebruiken, maar is momenteel "
-"uitgeschakeld."
+"\n"
+"JavaScript is benodigd voor Wagtail maar is nu uitgeschakeld.<br />\n"
+"<a href=\"http://www.enable-javascript.com/\" target=\"_blank\" rel="
+"\"noopener\">Hier staan de instructies om JavaScript in uw browser aan te "
+"zetten</a>."
 
 msgid "Go to Wagtail admin interface"
 msgstr "Ga naar de Wagtail admin interface"
@@ -936,14 +1132,74 @@ msgstr "Toon in verkenner"
 msgid "Test"
 msgstr "Test"
 
+msgid "Catalan"
+msgstr "Catalaans"
+
+msgid "German"
+msgstr "Duits"
+
+msgid "Greek"
+msgstr "Grieks"
+
+msgid "English"
+msgstr "Engels"
+
+msgid "Spanish"
+msgstr "Spaans"
+
+msgid "Finnish"
+msgstr "Fins"
+
+msgid "French"
+msgstr "Frans"
+
+msgid "Galician"
+msgstr "Galicisch"
+
+msgid "Icelandic"
+msgstr "IJslands"
+
+msgid "Italian"
+msgstr "Italiaans"
+
+msgid "Lithuanian"
+msgstr "Litouws"
+
+msgid "Norwegian Bokmål"
+msgstr "Noors Bokmål"
+
+msgid "Netherlands Dutch"
+msgstr "Nederlands"
+
+msgid "Persian"
+msgstr "Perzisch"
+
+msgid "Polish"
+msgstr "Pools"
+
+msgid "Brazilian Portuguese"
+msgstr "Braziliaans Portugees"
+
+msgid "Portuguese"
+msgstr "Portugees"
+
+msgid "Romanian"
+msgstr "Roemeens"
+
+msgid "Russian"
+msgstr "Russisch"
+
+msgid "Chinese (China)"
+msgstr "Chinees (China)"
+
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Sorry, u heeft geen toegang tot dit gedeelte."
 
 msgid "Your password has been changed successfully!"
 msgstr "Uw wachtwoord is succesvol gewijzigd!"
 
-msgid "Your preferences have been updated successfully!"
-msgstr "Uw voorkeuren zijn succesvol aangepast!"
+msgid "Your preferences have been updated."
+msgstr "Uw voorkeuren zijn aangepast."
 
 msgid "You have been successfully logged out."
 msgstr "U bent succesvol uitgelogd."
@@ -966,7 +1222,7 @@ msgid "Collection '{0}' updated."
 msgstr "Collectie '{0}' is gewijzigd."
 
 msgid "The collection could not be saved due to errors."
-msgstr "De collectie kon niet worden opgeslagen door fouten."
+msgstr "De collectie kon vanwege fouten niet worden opgeslagen."
 
 msgid "Delete collection"
 msgstr "Verwijder collectie"
@@ -1043,6 +1299,9 @@ msgstr "De pagina kan niet worden opgeslagen omdat deze is vergrendeld."
 msgid "The page could not be saved due to validation errors"
 msgstr "Deze pagina kon niet opgeslagen worden vanwege validatiefouten."
 
+msgid "Compare with live version"
+msgstr "Vergelijk met live versie"
+
 msgid "This page is currently awaiting moderation"
 msgstr "Deze pagina is in afwachting van content goedkeuring"
 
@@ -1052,7 +1311,7 @@ msgstr "Pagina '{0}' verwijderd."
 
 #, python-brace-format
 msgid "Page '{0}' unpublished."
-msgstr "Publicatie van pagina '{0}' is ongedaan gemaakt."
+msgstr "Publicatie van pagina '{0}' is ingetrokken."
 
 #, python-brace-format
 msgid "Page '{0}' moved."
@@ -1075,14 +1334,14 @@ msgid "Page '{0}' published."
 msgstr "Pagina '{0}' gepubliceerd."
 
 msgid "Failed to send approval notifications"
-msgstr "Het versturen van goedkeur-notificaties is mislukt"
+msgstr "Het versturen van goedkeuringsnotificaties is mislukt"
 
 #, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "Pagina '{0}' afgewezen voor publicatie."
 
 msgid "Failed to send rejection notifications"
-msgstr "Het versturen van afkeur-notificaties is mislukt"
+msgstr "Het versturen van afkeuringsnotificaties is mislukt"
 
 #, python-brace-format
 msgid "Page '{0}' is now locked."
@@ -1100,36 +1359,54 @@ msgstr ""
 "U bekijkt nu een vorige versie van deze pagina van <b>%(created_at)s</b> "
 "door %(user)s"
 
-msgid "Pages"
-msgstr "Pagina's"
+msgid "Earliest"
+msgstr "Eerste"
 
-msgid "Preview draft"
-msgstr "Bekijk voorbeeld van concept"
-
-msgid "Add child page"
-msgstr "Voeg onderliggende pagina toe"
+msgid "Latest"
+msgstr "Laatste"
 
 #, python-brace-format
-msgid "Add a child page to '{0}' "
-msgstr "Voeg een onderliggende pagina toe aan '{0}'"
+msgid "Edit '{title}'"
+msgstr "Wijzig '{title}'"
+
+#, python-brace-format
+msgid "Preview draft version of '{title}'"
+msgstr "Bekijk conceptversie van '{title}'"
+
+#, python-brace-format
+msgid "View live version of '{title}'"
+msgstr "Bekijk live versie van '{title}'"
+
+#, python-brace-format
+msgid "Add a child page to '{title}' "
+msgstr "Voeg een onderliggende pagina toe aan '{title}'"
 
 msgid "More"
 msgstr "Meer"
 
-msgid "View more options"
-msgstr "Bekijk meer opties"
+#, python-brace-format
+msgid "View more options for '{title}'"
+msgstr "Bekijk meer opties voor '{title}'"
 
-msgid "Move this page"
-msgstr "Verplaats deze pagina"
+#, python-brace-format
+msgid "Move page '{title}'"
+msgstr "Verplaats pagina '{title}'"
 
-msgid "Delete this page"
-msgstr "Verwijder deze pagina"
+#, python-brace-format
+msgid "Copy page '{title}'"
+msgstr "Kopieer pagina '{title}'"
 
-msgid "Unpublish this page"
-msgstr "Maak de publicatie ongedaan van deze pagina"
+#, python-brace-format
+msgid "Delete page '{title}'"
+msgstr "Verwijder pagina '{title}'"
 
-msgid "View this page's revision history"
-msgstr "Bekijk de versiegeschiedenis van deze pagina"
+#, python-brace-format
+msgid "Unpublish page '{title}'"
+msgstr "Publicatie van '{title}' intrekken"
+
+#, python-brace-format
+msgid "View revision history for '{title}'"
+msgstr "Bekijk de versiegeschiedenis van '{title}' "
 
 msgid "Choose an item"
 msgstr "Kies een item"

@@ -18,7 +18,7 @@ Setting this to false will disable full text search. This applies to all endpoin
 
 ``WAGTAILAPI_LIMIT_MAX`` (default: 20)
 
-This allows you to change the maximum number of results a user can request at a time. This applies to all endpoints.
+This allows you to change the maximum number of results a user can request at a time. This applies to all endpoints. Set to ``None`` to remove maximum.
 
 
 Adding more fields to the pages endpoint
@@ -30,7 +30,7 @@ You can add more fields to the pages endpoint by setting an attribute called ``a
 
 .. code-block:: python
 
-    class BlogPage(Page):  
+    class BlogPage(Page):
         posted_by = models.CharField()
         posted_at = models.DateTimeField()
         content = RichTextField()
@@ -48,7 +48,7 @@ This list also supports child relations (which will be nested inside the returne
 
         api_fields = ['link']
 
-    class BlogPage(Page):  
+    class BlogPage(Page):
         posted_by = models.CharField()
         posted_at = models.DateTimeField()
         content = RichTextField()

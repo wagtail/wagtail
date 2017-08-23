@@ -1,8 +1,9 @@
+# coding: utf-8
+
 from __future__ import absolute_import, unicode_literals
 
 import time
 import unittest
-import warnings
 
 from django.conf import settings
 from django.core import management
@@ -12,7 +13,6 @@ from django.utils.six import StringIO
 
 from wagtail.tests.search import models
 from wagtail.tests.utils import WagtailTestUtils
-from wagtail.utils.deprecation import RemovedInWagtail18Warning
 from wagtail.wagtailsearch.backends import (
     InvalidSearchBackendError, get_search_backend, get_search_backends)
 from wagtail.wagtailsearch.backends.base import FieldError
@@ -57,6 +57,7 @@ class BackendTests(WagtailTestUtils):
         testa = models.SearchTest()
         testa.title = "Hello World"
         testa.save()
+        testa.subobjects.create(name='A subobject')
         self.backend.add(testa)
         self.testa = testa
 
@@ -130,10 +131,30 @@ class BackendTests(WagtailTestUtils):
         results = self.backend.search(None, models.SearchTest, filters=dict(live=True))
         self.assertEqual(set(results), {self.testb, self.testc.searchtest_ptr})
 
-    def test_filters_with_in_lookup(self):
+    def test_filters_in_subquery(self):
         live_page_titles = models.SearchTest.objects.filter(live=True).values_list('title', flat=True)
         results = self.backend.search(None, models.SearchTest, filters=dict(title__in=live_page_titles))
         self.assertEqual(set(results), {self.testb, self.testc.searchtest_ptr})
+
+    def test_filters_in_list(self):
+        live_page_titles = ['Hello']
+        results = self.backend.search(None, models.SearchTest,
+                                      filters=dict(title__in=live_page_titles))
+        self.assertEqual(set(results), {self.testb, self.testc.searchtest_ptr})
+
+    def test_filters_in_iterable(self):
+        class CustomIterable:
+            def __init__(self, data):
+                self.data = data
+
+            def __iter__(self):
+                for item in self.data:
+                    yield item
+
+        results = self.backend.search(
+            None, models.SearchTest,
+            filters=dict(title__in=CustomIterable(['World'])))
+        self.assertEqual(set(results), {self.testd.searchtest_ptr})
 
     def test_single_result(self):
         result = self.backend.search(None, models.SearchTest)[0]
@@ -154,6 +175,31 @@ class BackendTests(WagtailTestUtils):
     def test_child_model_with_id_filter(self):
         results = self.backend.search("World", models.SearchTestChild.objects.filter(id=self.testd.id))
         self.assertEqual(set(results), {self.testd})
+
+    def test_related_objects_search(self):
+        results = self.backend.search("A subobject", models.SearchTest)
+        self.assertEqual(set(results), {self.testa})
+
+    def test_boost(self):
+        results = self.backend.search('Hello', models.SearchTest)
+        # The `content` field has more boost, so the object containing “Hello”
+        # should be before the ones having it in the title,
+        # despite the insertion order.
+        self.assertListEqual(
+            list(results), [self.testc.searchtest_ptr, self.testa, self.testb])
+
+    def test_order_by_relevance(self):
+        sorted_results = self.backend.search('Hello', models.SearchTest,
+                                             order_by_relevance=True)
+        self.assertListEqual(
+            list(sorted_results),
+            [self.testc.searchtest_ptr, self.testa, self.testb])
+
+        unsorted_results = self.backend.search('Hello', models.SearchTest,
+                                               order_by_relevance=False)
+        self.assertListEqual(
+            list(unsorted_results),
+            [self.testa, self.testb, self.testc.searchtest_ptr])
 
     def test_delete(self):
         # Delete one of the objects
@@ -202,23 +248,6 @@ class TestBackendLoader(TestCase):
     def test_import_by_full_path(self):
         db = get_search_backend(backend='wagtail.wagtailsearch.backends.db.DatabaseSearchBackend')
         self.assertIsInstance(db, DatabaseSearchBackend)
-
-    def test_import_old_name(self):
-        with warnings.catch_warnings(record=True) as w:
-            warnings.simplefilter('always')
-
-            db = get_search_backend(backend='wagtail.wagtailsearch.backends.db.DBSearch')
-
-        self.assertIsInstance(db, DatabaseSearchBackend)
-
-        self.assertEqual(len(w), 1)
-        self.assertIs(w[0].category, RemovedInWagtail18Warning)
-        self.assertEqual(
-            str(w[0].message),
-            "The 'wagtail.wagtailsearch.backends.db.DBSearch' search backend path has "
-            "changed to 'wagtail.wagtailsearch.backends.db'. Please update the "
-            "WAGTAILSEARCH_BACKENDS setting to use the new path."
-        )
 
     def test_nonexistent_backend_import(self):
         self.assertRaises(

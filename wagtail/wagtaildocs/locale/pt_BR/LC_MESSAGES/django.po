@@ -5,15 +5,16 @@
 # Translators:
 # Thiago Cangussu <cng.thg@gmail.com>, 2014
 # Claudemiro Alves Feitosa Neto <dimiro1@gmail.com>, 2015
-# Luiz Boaretto <lboaretto@gmail.com>, 2016
+# Gladson <gladsonbrito@gmail.com>, 2017
+# Luiz Boaretto <lboaretto@gmail.com>, 2016-2017
 # Thiago Cangussu <cangussu.thg@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-01 13:25+0000\n"
-"PO-Revision-Date: 2016-05-18 22:53+0000\n"
-"Last-Translator: Luiz Boaretto <lboaretto@gmail.com>\n"
+"POT-Creation-Date: 2017-08-10 16:05+0000\n"
+"PO-Revision-Date: 2017-07-06 05:52+0000\n"
+"Last-Translator: Gladson <gladsonbrito@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -147,6 +148,10 @@ msgid "Uploaded"
 msgstr "Enviados"
 
 #, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s atrás"
+
+#, python-format
 msgid ""
 "You haven't uploaded any documents in this collection. Why not <a href="
 "\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
@@ -230,6 +235,9 @@ msgstr "Atualizar"
 
 msgid "Delete"
 msgstr "Excluir"
+
+msgid "You need a password to access this document."
+msgstr "Você precisa de uma senha para acessar este documento."
 
 msgid "Document permissions"
 msgstr "Permissões de documentos"

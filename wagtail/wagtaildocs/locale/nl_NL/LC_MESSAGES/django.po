@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Maarten Kling <kling.maarten@gmail.com>, 2015
+# Maarten Kling <kling.maarten@gmail.com>, 2015,2017
 # Thijs Kramer <thijskramer@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-01 13:25+0000\n"
-"PO-Revision-Date: 2016-06-13 11:11+0000\n"
-"Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
+"POT-Creation-Date: 2017-08-10 16:05+0000\n"
+"PO-Revision-Date: 2017-07-09 10:53+0000\n"
+"Last-Translator: Maarten Kling <kling.maarten@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -147,6 +147,10 @@ msgid "Uploaded"
 msgstr "Geupload"
 
 #, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s geleden"
+
+#, python-format
 msgid ""
 "You haven't uploaded any documents in this collection. Why not <a href="
 "\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
@@ -230,6 +234,9 @@ msgstr "Update"
 
 msgid "Delete"
 msgstr "Verwijderen"
+
+msgid "You need a password to access this document."
+msgstr "U heeft een wachtwoord nodig om dit document te bekijken."
 
 msgid "Document permissions"
 msgstr "Documentmachtigingen"

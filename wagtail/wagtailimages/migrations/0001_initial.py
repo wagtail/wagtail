@@ -63,7 +63,7 @@ class Migration(migrations.Migration):
                 ('file', models.ImageField(width_field='width', upload_to='images', height_field='height')),
                 ('width', models.IntegerField(editable=False)),
                 ('height', models.IntegerField(editable=False)),
-                ('focal_point_key', models.CharField(editable=False, max_length=255, null=True)),
+                ('focal_point_key', models.CharField(editable=False, max_length=18, null=True)),
                 ('filter', models.ForeignKey(on_delete=models.CASCADE, related_name='+', to='wagtailimages.Filter')),
                 ('image', models.ForeignKey(on_delete=models.CASCADE, related_name='renditions', to='wagtailimages.Image')),
             ],

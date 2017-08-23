@@ -15,9 +15,7 @@ from django.core.handlers.base import BaseHandler
 from django.core.handlers.wsgi import WSGIRequest
 from django.core.urlresolvers import reverse
 from django.db import connection, models, transaction
-from django.db.models import Case, IntegerField, Q, When
-from django.db.models.signals import post_delete, post_save, pre_delete
-from django.dispatch.dispatcher import receiver
+from django.db.models import Q
 from django.http import Http404
 from django.template.response import TemplateResponse
 # Must be imported from Django so we get the new implementation of with_metaclass
@@ -26,13 +24,15 @@ from django.utils.encoding import python_2_unicode_compatible
 from django.utils.functional import cached_property
 from django.utils.six import StringIO
 from django.utils.six.moves.urllib.parse import urlparse
-from django.utils.text import slugify
+from django.utils.text import capfirst, slugify
 from django.utils.translation import ugettext_lazy as _
 from modelcluster.models import ClusterableModel, get_all_child_relations
 from treebeard.mp_tree import MP_Node
 
+from wagtail.utils.compat import user_is_authenticated
 from wagtail.wagtailcore.query import PageQuerySet, TreeQuerySet
 from wagtail.wagtailcore.signals import page_published, page_unpublished
+from wagtail.wagtailcore.sites import get_site_for_hostname
 from wagtail.wagtailcore.url_routing import RouteResult
 from wagtail.wagtailcore.utils import (
     WAGTAIL_APPEND_SLASH, camelcase_to_underscore, resolve_model_string)
@@ -41,12 +41,6 @@ from wagtail.wagtailsearch import index
 logger = logging.getLogger('wagtail.core')
 
 PAGE_TEMPLATE_VAR = 'page'
-
-
-MATCH_HOSTNAME_PORT = 0
-MATCH_HOSTNAME_DEFAULT = 1
-MATCH_DEFAULT = 2
-MATCH_HOSTNAME = 3
 
 
 class SiteManager(models.Manager):
@@ -130,42 +124,7 @@ class Site(models.Model):
         except (AttributeError, KeyError):
             port = request.META.get('SERVER_PORT')
 
-        sites = list(Site.objects.annotate(match=Case(
-            # annotate the results by best choice descending
-
-            # put exact hostname+port match first
-            When(hostname=hostname, port=port, then=MATCH_HOSTNAME_PORT),
-
-            # then put hostname+default (better than just hostname or just default)
-            When(hostname=hostname, is_default_site=True, then=MATCH_HOSTNAME_DEFAULT),
-
-            # then match default with different hostname. there is only ever
-            # one default, so order it above (possibly multiple) hostname
-            # matches so we can use sites[0] below to access it
-            When(is_default_site=True, then=MATCH_DEFAULT),
-
-            # because of the filter below, if it's not default then its a hostname match
-            default=MATCH_HOSTNAME,
-
-            output_field=IntegerField(),
-        )).filter(Q(hostname=hostname) | Q(is_default_site=True)).order_by(
-            'match'
-        ).select_related(
-            'root_page'
-        ))
-
-        if sites:
-            # if theres a unique match or hostname (with port or default) match
-            if len(sites) == 1 or sites[0].match in (MATCH_HOSTNAME_PORT, MATCH_HOSTNAME_DEFAULT):
-                return sites[0]
-
-            # if there is a default match with a different hostname, see if
-            # there are many hostname matches. if only 1 then use that instead
-            # otherwise we use the default
-            if sites[0].match == MATCH_DEFAULT:
-                return sites[len(sites) == 2]
-
-        raise Site.DoesNotExist()
+        return get_site_for_hostname(hostname, port)
 
     @property
     def root_url(self):
@@ -215,17 +174,6 @@ class Site(models.Model):
         return result
 
 
-# Clear the wagtail_site_root_paths from the cache whenever Site records are updated
-@receiver(post_save, sender=Site)
-def clear_site_root_paths_on_save(sender, instance, **kwargs):
-    cache.delete('wagtail_site_root_paths')
-
-
-@receiver(post_delete, sender=Site)
-def clear_site_root_paths_on_delete(sender, instance, **kwargs):
-    cache.delete('wagtail_site_root_paths')
-
-
 PAGE_MODEL_CLASSES = []
 
 
@@ -247,6 +195,7 @@ def get_default_page_content_type():
 class BasePageManager(models.Manager):
     def get_queryset(self):
         return PageQuerySet(self.model).order_by('path')
+
 
 PageManager = BasePageManager.from_queryset(PageQuerySet)
 
@@ -301,6 +250,11 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
         max_length=255,
         help_text=_("The page title as you'd like it to be seen by the public")
     )
+    # to reflect title of a current draft in the admin UI
+    draft_title = models.CharField(
+        max_length=255,
+        editable=False
+    )
     # use django 1.9+ SlugField with unicode support
     if DJANGO_VERSION >= (1, 9):
         slug = models.SlugField(
@@ -333,7 +287,7 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
         verbose_name=_('owner'),
         null=True,
         blank=True,
-        editable=False,
+        editable=True,
         on_delete=models.SET_NULL,
         related_name='owned_pages'
     )
@@ -344,6 +298,8 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
         blank=True,
         help_text=_("Optional. 'Search Engine Friendly' title. This will appear at the top of the browser window.")
     )
+
+    show_in_menus_default = False
     show_in_menus = models.BooleanField(
         verbose_name=_('show in menus'),
         default=False,
@@ -353,13 +309,11 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
 
     go_live_at = models.DateTimeField(
         verbose_name=_("go live date/time"),
-        help_text=_("Please add a date-time in the form YYYY-MM-DD hh:mm."),
         blank=True,
         null=True
     )
     expire_at = models.DateTimeField(
         verbose_name=_("expiry date/time"),
-        help_text=_("Please add a date-time in the form YYYY-MM-DD hh:mm."),
         blank=True,
         null=True
     )
@@ -369,13 +323,27 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
 
     first_published_at = models.DateTimeField(
         verbose_name=_('first published at'),
+        blank=True,
         null=True,
-        editable=False,
         db_index=True
+    )
+    last_published_at = models.DateTimeField(
+        verbose_name=_('last published at'),
+        null=True,
+        editable=False
     )
     latest_revision_created_at = models.DateTimeField(
         verbose_name=_('latest revision created at'),
         null=True,
+        editable=False
+    )
+    live_revision = models.ForeignKey(
+        'PageRevision',
+        related_name='+',
+        verbose_name='live revision',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
         editable=False
     )
 
@@ -396,13 +364,24 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
     # Do not allow plain Page instances to be created through the Wagtail admin
     is_creatable = False
 
+    # Define these attributes early to avoid masking errors. (Issue #3078)
+    # The canonical definition is in wagtailadmin.edit_handlers.
+    content_panels = []
+    promote_panels = []
+    settings_panels = []
+
     def __init__(self, *args, **kwargs):
         super(Page, self).__init__(*args, **kwargs)
-        if not self.id and not self.content_type_id:
-            # this model is being newly created rather than retrieved from the db;
-            # set content type to correctly represent the model class that this was
-            # created as
-            self.content_type = ContentType.objects.get_for_model(self)
+        if not self.id:
+            # this model is being newly created
+            # rather than retrieved from the db;
+            if not self.content_type_id:
+                # set content type to correctly represent the model class
+                # that this was created as
+                self.content_type = ContentType.objects.get_for_model(self)
+            if 'show_in_menus' not in kwargs:
+                # if the value is not set on submit refer to the model setting
+                self.show_in_menus = self.show_in_menus_default
 
     def __str__(self):
         return self.title
@@ -465,9 +444,13 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
             if base_slug:
                 self.slug = self._get_autogenerated_slug(base_slug)
 
+        if not self.draft_title:
+            self.draft_title = self.title
+
         super(Page, self).full_clean(*args, **kwargs)
 
     def clean(self):
+        super(Page, self).clean()
         if not Page._slug_is_available(self.slug, self.get_parent(), self):
             raise ValidationError({'slug': _("This slug is already in use")})
 
@@ -560,8 +543,7 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
             errors.append(
                 checks.Error(
                     "Manager does not inherit from PageManager",
-                    hint="Ensure that custom Page managers inherit from {}.{}".format(
-                        PageManager.__module__, PageManager.__name__),
+                    hint="Ensure that custom Page managers inherit from wagtail.wagtailcore.models.PageManager",
                     obj=cls,
                     id='wagtailcore.E002',
                 )
@@ -673,6 +655,14 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
             else:
                 raise Http404
 
+    def get_admin_display_title(self):
+        """
+        Return the title for this page as it should appear in the admin backend;
+        override this if you wish to display extra contextual information about the page,
+        such as language. By default, returns ``draft_title``.
+        """
+        return self.draft_title
+
     def save_revision(self, user=None, submitted_for_moderation=False, approved_go_live_at=None, changed=True):
         self.full_clean()
 
@@ -688,6 +678,9 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
 
         self.latest_revision_created_at = revision.created_at
         update_fields.append('latest_revision_created_at')
+
+        self.draft_title = self.title
+        update_fields.append('draft_title')
 
         if changed:
             self.has_unpublished_changes = True
@@ -728,6 +721,7 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
         if self.live:
             self.live = False
             self.has_unpublished_changes = True
+            self.live_revision = None
 
             if set_expired:
                 self.expired = True
@@ -771,7 +765,20 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
         """
         return (not self.is_leaf()) or self.depth == 2
 
-    def get_url_parts(self):
+    def _get_site_root_paths(self, request=None):
+        """
+        Return ``Site.get_site_root_paths()``, using the cached copy on the
+        request object if available.
+        """
+        # if we have a request, use that to cache site_root_paths; otherwise, use self
+        cache_object = request if request else self
+        try:
+            return cache_object._wagtail_cached_site_root_paths
+        except AttributeError:
+            cache_object._wagtail_cached_site_root_paths = Site.get_site_root_paths()
+            return cache_object._wagtail_cached_site_root_paths
+
+    def get_url_parts(self, request=None):
         """
         Determine the URL for this page and return it as a tuple of
         ``(site_id, site_root_url, page_url_relative_to_site_root)``.
@@ -781,8 +788,14 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
         and ``get_site`` properties and methods; pages with custom URL routing
         should override this method in order to have those operations return
         the custom URLs.
+
+        Accepts an optional keyword argument ``request``, which may be used
+        to avoid repeated database / cache lookups. Typically, a page model
+        that overrides ``get_url_parts`` should not need to deal with
+        ``request`` directly, and should just pass it to the original method
+        when calling ``super``.
         """
-        for (site_id, root_path, root_url) in Site.get_site_root_paths():
+        for (site_id, root_path, root_url) in self._get_site_root_paths(request):
             if self.url_path.startswith(root_path):
                 page_path = reverse('wagtail_serve', args=(self.url_path[len(root_path):],))
 
@@ -794,10 +807,9 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
 
                 return (site_id, root_url, page_path)
 
-    @property
-    def full_url(self):
+    def get_full_url(self, request=None):
         """Return the full URL (including protocol / domain) to this page, or None if it is not routable"""
-        url_parts = self.get_url_parts()
+        url_parts = self.get_url_parts(request=request)
 
         if url_parts is None:
             # page is not routable
@@ -807,8 +819,9 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
 
         return root_url + page_path
 
-    @property
-    def url(self):
+    full_url = property(get_full_url)
+
+    def get_url(self, request=None, current_site=None):
         """
         Return the 'most appropriate' URL for referring to this page from the pages we serve,
         within the Wagtail backend and actual website templates;
@@ -816,8 +829,18 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
         (i.e. we know that whatever the current page is being served from, this link will be on the
         same domain), and the full URL (with domain) if not.
         Return None if the page is not routable.
+
+        Accepts an optional but recommended ``request`` keyword argument that, if provided, will
+        be used to cache site-level URL information (thereby avoiding repeated database / cache
+        lookups) and, via the ``request.site`` attribute, determine whether a relative or full URL
+        is most appropriate.
         """
-        url_parts = self.get_url_parts()
+        # ``current_site`` is purposefully undocumented, as one can simply pass the request and get
+        # a relative URL based on ``request.site``. Nonetheless, support it here to avoid
+        # copy/pasting the code to the ``relative_url`` method below.
+        if current_site is None and request is not None:
+            current_site = getattr(request, 'site', None)
+        url_parts = self.get_url_parts(request=request)
 
         if url_parts is None:
             # page is not routable
@@ -825,30 +848,25 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
 
         site_id, root_url, page_path = url_parts
 
-        if len(Site.get_site_root_paths()) == 1:
-            # we're only running a single site, so a local URL is sufficient
+        if (current_site is not None and site_id == current_site.id) or len(self._get_site_root_paths(request)) == 1:
+            # the site matches OR we're only running a single site, so a local URL is sufficient
             return page_path
         else:
             return root_url + page_path
 
-    def relative_url(self, current_site):
+    url = property(get_url)
+
+    def relative_url(self, current_site, request=None):
         """
         Return the 'most appropriate' URL for this page taking into account the site we're currently on;
         a local URL if the site matches, or a fully qualified one otherwise.
         Return None if the page is not routable.
+
+        Accepts an optional but recommended ``request`` keyword argument that, if provided, will
+        be used to cache site-level URL information (thereby avoiding repeated database / cache
+        lookups).
         """
-        url_parts = self.get_url_parts()
-
-        if url_parts is None:
-            # page is not routable
-            return
-
-        site_id, root_url, page_path = url_parts
-
-        if site_id == current_site.id:
-            return page_path
-        else:
-            return root_url + page_path
+        return self.get_url(request=request, current_site=current_site)
 
     def get_site(self):
         """
@@ -990,11 +1008,11 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
     @classmethod
     def get_verbose_name(cls):
         """
-            Returns the human-readable "verbose name" of this page model e.g "Blog page".
+        Returns the human-readable "verbose name" of this page model e.g "Blog page".
         """
         # This is similar to doing cls._meta.verbose_name.title()
         # except this doesn't convert any characters to lowercase
-        return ' '.join([word[0].upper() + word[1:] for word in cls._meta.verbose_name.split()])
+        return capfirst(cls._meta.verbose_name)
 
     @property
     def status_string(self):
@@ -1072,6 +1090,9 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
         if not keep_live:
             page_copy.live = False
             page_copy.has_unpublished_changes = True
+            page_copy.live_revision = None
+            page_copy.first_published_at = None
+            page_copy.last_published_at = None
 
         if user:
             page_copy.owner = user
@@ -1081,6 +1102,8 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
                 setattr(page_copy, field, value)
 
         if to:
+            if recursive and (to == self or to.is_descendant_of(self)):
+                raise Exception("You cannot copy a tree branch recursively into itself")
             page_copy = to.add_child(instance=page_copy)
         else:
             page_copy = self.add_sibling(instance=page_copy)
@@ -1151,7 +1174,12 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
             for field, value in update_attrs.items():
                 setattr(latest_revision, field, value)
 
-        latest_revision.save_revision(user=user, changed=False)
+        latest_revision_as_page_revision = latest_revision.save_revision(user=user, changed=False)
+        if keep_live:
+            page_copy.live_revision = latest_revision_as_page_revision
+            page_copy.last_published_at = latest_revision_as_page_revision.created_at
+            page_copy.first_published_at = latest_revision_as_page_revision.created_at
+            page_copy.save()
 
         # Log
         logger.info("Page copied: \"%s\" id=%d from=%d", page_copy.title, page_copy.id, self.id)
@@ -1168,6 +1196,8 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
                 )
 
         return page_copy
+
+    copy.alters_data = True
 
     def permissions_for_user(self, user):
         """
@@ -1229,6 +1259,8 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
             'REMOTE_ADDR', 'HTTP_X_FORWARDED_FOR', 'HTTP_COOKIE', 'HTTP_USER_AGENT',
             'wsgi.version', 'wsgi.multithread', 'wsgi.multiprocess', 'wsgi.run_once',
         ]
+        if settings.SECURE_PROXY_SSL_HEADER:
+            HEADERS_FROM_ORIGINAL_REQUEST.append(settings.SECURE_PROXY_SSL_HEADER[0])
         if original_request:
             for header in HEADERS_FROM_ORIGINAL_REQUEST:
                 if header in original_request.META:
@@ -1312,7 +1344,9 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
         return [
             {
                 'location': self.full_url,
-                'lastmod': self.latest_revision_created_at
+                # fall back on latest_revision_created_at if last_published_at is null
+                # (for backwards compatibility from before last_published_at was added)
+                'lastmod': (self.last_published_at or self.latest_revision_created_at),
             }
         ]
 
@@ -1366,19 +1400,6 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
     class Meta:
         verbose_name = _('page')
         verbose_name_plural = _('pages')
-
-
-@receiver(pre_delete, sender=Page)
-def unpublish_page_before_delete(sender, instance, **kwargs):
-    # Make sure pages are unpublished before deleting
-    if instance.live:
-        # Don't bother to save, this page is just about to be deleted!
-        instance.unpublish(commit=False)
-
-
-@receiver(post_delete, sender=Page)
-def log_page_deletion(sender, instance, **kwargs):
-    logger.info("Page deleted: \"%s\" id=%d", instance.title, instance.id)
 
 
 class Orderable(models.Model):
@@ -1442,6 +1463,7 @@ class PageRevision(models.Model):
 
         # also copy over other properties which are meaningful for the page as a whole, not a
         # specific revision of it
+        obj.draft_title = self.page.draft_title
         obj.live = self.page.live
         obj.has_unpublished_changes = self.page.has_unpublished_changes
         obj.owner = self.page.owner
@@ -1489,9 +1511,18 @@ class PageRevision(models.Model):
             page.revisions.update(approved_go_live_at=None)
         page.expired = False  # When a page is published it can't be expired
 
-        # Set first_published_at if the page is being published now
-        if page.live and page.first_published_at is None:
-            page.first_published_at = timezone.now()
+        # Set first_published_at, last_published_at and live_revision
+        # if the page is being published now
+        if page.live:
+            now = timezone.now()
+            page.last_published_at = now
+            page.live_revision = self
+
+            if page.first_published_at is None:
+                page.first_published_at = now
+        else:
+            # Unset live_revision if the page is going live in the future
+            page.live_revision = None
 
         page.save()
         self.submitted_for_moderation = False
@@ -1510,6 +1541,12 @@ class PageRevision(models.Model):
                 page.go_live_at.isoformat()
             )
 
+    def get_previous(self):
+        return self.get_previous_by_created_at(page=self.page)
+
+    def get_next(self):
+        return self.get_next_by_created_at(page=self.page)
+
     def __str__(self):
         return '"' + six.text_type(self.page) + '" at ' + six.text_type(self.created_at)
 
@@ -1522,6 +1559,7 @@ PAGE_PERMISSION_TYPES = [
     ('add', _("Add"), _("Add/edit pages you own")),
     ('edit', _("Edit"), _("Edit any page")),
     ('publish', _("Publish"), _("Publish any page")),
+    ('bulk_delete', _("Bulk delete"), _("Delete pages with children")),
     ('lock', _("Lock"), _("Lock/unlock any page")),
 ]
 
@@ -1656,7 +1694,8 @@ class PagePermissionTester(object):
     def can_add_subpage(self):
         if not self.user.is_active:
             return False
-        if not self.page.specific_class.creatable_subpage_models():
+        specific_class = self.page.specific_class
+        if specific_class is None or not specific_class.creatable_subpage_models():
             return False
         return self.user.is_superuser or ('add' in self.permissions)
 
@@ -1677,21 +1716,34 @@ class PagePermissionTester(object):
         if self.page_is_root:  # root node is not a page and can never be deleted, even by superusers
             return False
 
-        if self.user.is_superuser or ('publish' in self.permissions):
-            # Users with publish permission can unpublish any pages that need to be unpublished to achieve deletion
+        if self.user.is_superuser:
+            # superusers require no further checks
             return True
 
-        elif 'edit' in self.permissions:
-            # user can only delete if there are no live pages in this subtree
-            return (not self.page.live) and (not self.page.get_descendants().filter(live=True).exists())
+        # if the user does not have bulk_delete permission, they may only delete leaf pages
+        if 'bulk_delete' not in self.permissions and not self.page.is_leaf():
+            return False
+
+        if 'edit' in self.permissions:
+            # if the user does not have publish permission, we also need to confirm that there
+            # are no published pages here
+            if 'publish' not in self.permissions:
+                pages_to_delete = self.page.get_descendants(inclusive=True)
+                if pages_to_delete.live().exists():
+                    return False
+
+            return True
 
         elif 'add' in self.permissions:
-            # user can only delete if all pages in this subtree are unpublished and owned by this user
-            return (
-                (not self.page.live) and
-                (self.page.owner_id == self.user.pk) and
-                (not self.page.get_descendants().exclude(live=False, owner=self.user).exists())
-            )
+            pages_to_delete = self.page.get_descendants(inclusive=True)
+            if 'publish' in self.permissions:
+                # we don't care about live state, but all pages must be owned by this user
+                # (i.e. eliminating pages owned by this user must give us the empty set)
+                return not pages_to_delete.exclude(owner=self.user).exists()
+            else:
+                # all pages must be owned by this user and non-live
+                # (i.e. eliminating non-live pages owned by this user must give us the empty set)
+                return not pages_to_delete.exclude(live=False, owner=self.user).exists()
 
         else:
             return False
@@ -1729,7 +1781,8 @@ class PagePermissionTester(object):
         """
         if not self.user.is_active:
             return False
-        if not self.page.specific_class.creatable_subpage_models():
+        specific_class = self.page.specific_class
+        if specific_class is None or not specific_class.creatable_subpage_models():
             return False
 
         return self.user.is_superuser or ('publish' in self.permissions)
@@ -1783,10 +1836,95 @@ class PagePermissionTester(object):
             # no publishing required, so the already-tested 'add' permission is sufficient
             return True
 
+    def can_copy_to(self, destination, recursive=False):
+        # reject the logically impossible cases first
+        # recursive can't copy to the same tree otherwise it will be on infinite loop
+        if recursive and (self.page == destination or destination.is_descendant_of(self.page)):
+            return False
 
-class PageViewRestriction(models.Model):
-    page = models.ForeignKey('Page', verbose_name=_('page'), related_name='view_restrictions', on_delete=models.CASCADE)
-    password = models.CharField(verbose_name=_('password'), max_length=255)
+        # shortcut the trivial 'everything' / 'nothing' permissions
+        if not self.user.is_active:
+            return False
+        if self.user.is_superuser:
+            return True
+
+        # Inspect permissions on the destination
+        destination_perms = self.user_perms.for_page(destination)
+
+        if not destination.specific_class.creatable_subpage_models():
+            return False
+
+        # we always need at least add permission in the target
+        if 'add' not in destination_perms.permissions:
+            return False
+
+        return True
+
+
+class BaseViewRestriction(models.Model):
+    NONE = 'none'
+    PASSWORD = 'password'
+    GROUPS = 'groups'
+    LOGIN = 'login'
+
+    RESTRICTION_CHOICES = (
+        (NONE, _("Public")),
+        (LOGIN, _("Private, accessible to logged-in users")),
+        (PASSWORD, _("Private, accessible with the following password")),
+        (GROUPS, _("Private, accessible to users in specific groups")),
+    )
+
+    restriction_type = models.CharField(
+        max_length=20, choices=RESTRICTION_CHOICES)
+    password = models.CharField(verbose_name=_('password'), max_length=255, blank=True)
+    groups = models.ManyToManyField(Group, verbose_name=_('groups'), blank=True)
+
+    def accept_request(self, request):
+        if self.restriction_type == BaseViewRestriction.PASSWORD:
+            passed_restrictions = request.session.get(self.passed_view_restrictions_session_key, [])
+            if self.id not in passed_restrictions:
+                return False
+
+        elif self.restriction_type == BaseViewRestriction.LOGIN:
+            if not user_is_authenticated(request.user):
+                return False
+
+        elif self.restriction_type == BaseViewRestriction.GROUPS:
+            if not request.user.is_superuser:
+                current_user_groups = request.user.groups.all()
+
+                if not any(group in current_user_groups for group in self.groups.all()):
+                    return False
+
+        return True
+
+    def mark_as_passed(self, request):
+        """
+        Update the session data in the request to mark the user as having passed this
+        view restriction
+        """
+        has_existing_session = (settings.SESSION_COOKIE_NAME in request.COOKIES)
+        passed_restrictions = request.session.setdefault(self.passed_view_restrictions_session_key, [])
+        if self.id not in passed_restrictions:
+            passed_restrictions.append(self.id)
+            request.session[self.passed_view_restrictions_session_key] = passed_restrictions
+        if not has_existing_session:
+            # if this is a session we've created, set it to expire at the end
+            # of the browser session
+            request.session.set_expiry(0)
+
+    class Meta:
+        abstract = True
+        verbose_name = _('view restriction')
+        verbose_name_plural = _('view restrictions')
+
+
+class PageViewRestriction(BaseViewRestriction):
+    page = models.ForeignKey(
+        'Page', verbose_name=_('page'), related_name='view_restrictions', on_delete=models.CASCADE
+    )
+
+    passed_view_restrictions_session_key = 'passed_page_view_restrictions'
 
     class Meta:
         verbose_name = _('page view restriction')
@@ -1797,7 +1935,23 @@ class BaseCollectionManager(models.Manager):
     def get_queryset(self):
         return TreeQuerySet(self.model).order_by('path')
 
+
 CollectionManager = BaseCollectionManager.from_queryset(TreeQuerySet)
+
+
+class CollectionViewRestriction(BaseViewRestriction):
+    collection = models.ForeignKey(
+        'Collection',
+        verbose_name=_('collection'),
+        related_name='view_restrictions',
+        on_delete=models.CASCADE
+    )
+
+    passed_view_restrictions_session_key = 'passed_collection_view_restrictions'
+
+    class Meta:
+        verbose_name = _('collection view restriction')
+        verbose_name_plural = _('collection view restrictions')
 
 
 @python_2_unicode_compatible
@@ -1826,6 +1980,10 @@ class Collection(MP_Node):
 
     def get_prev_siblings(self, inclusive=False):
         return self.get_siblings(inclusive).filter(path__lte=self.path).order_by('-path')
+
+    def get_view_restrictions(self):
+        """Return a query set of all collection view restrictions that apply to this collection"""
+        return CollectionViewRestriction.objects.filter(collection__in=self.get_ancestors(inclusive=True))
 
     class Meta:
         verbose_name = _('collection')

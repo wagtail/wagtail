@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Thomas Kunambi <kunambi@gmail.com>, 2016
+# Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2017
+# Thomas Kunambi <kunambi@gmail.com>, 2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-01 13:25+0000\n"
-"PO-Revision-Date: 2016-01-19 03:23+0000\n"
-"Last-Translator: Thomas Kunambi <kunambi@gmail.com>\n"
+"POT-Creation-Date: 2017-08-10 16:05+0000\n"
+"PO-Revision-Date: 2017-07-29 04:44+0000\n"
+"Last-Translator: Jim Brouzoulis <jim.brouzoulis@chalmers.se>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -31,8 +32,11 @@ msgstr "Radera bild"
 msgid "Search something"
 msgstr "Sök någonting"
 
+msgid "Success message"
+msgstr "OK-meddelande"
+
 msgid "View live"
-msgstr "Se live"
+msgstr "Visa publicerad"
 
 msgid "Edit"
 msgstr "Editera"

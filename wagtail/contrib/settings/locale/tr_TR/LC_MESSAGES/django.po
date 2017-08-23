@@ -3,14 +3,17 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Yusuf (Josè) Luis <alagunajs@gmail.com>, 2016
+# Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2016
+# José Luis <alagunajs@gmail.com>, 2017
+# Saadettin Yasir AKEL <yasirakel@gmail.com>, 2016
+# José Luis <alagunajs@gmail.com>, 2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-01 13:25+0000\n"
-"PO-Revision-Date: 2016-05-11 20:34+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-08-10 16:05+0000\n"
+"PO-Revision-Date: 2017-06-29 21:44+0000\n"
+"Last-Translator: José Luis <alagunajs@gmail.com>\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/torchbox/wagtail/"
 "language/tr_TR/)\n"
 "MIME-Version: 1.0\n"
@@ -21,10 +24,13 @@ msgstr ""
 
 #, python-format
 msgid "Editing %(setting_type_name)s - %(instance)s"
-msgstr "%(setting_type_name)s - %(instance)s düzeltiliyor"
+msgstr "%(setting_type_name)s - %(instance)s düzenliyor"
 
 msgid "Editing"
-msgstr "Düzeltiliyor"
+msgstr "Düzenliyor"
+
+msgid "Saving..."
+msgstr "Kaydediyor..."
 
 msgid "Save"
 msgstr "Kaydet"
@@ -37,4 +43,4 @@ msgid "{setting_type} updated."
 msgstr "{setting_type} güncellendi."
 
 msgid "The setting could not be saved due to errors."
-msgstr "Ayarı hataları nedeniyle kurtarılamadı."
+msgstr "Hata nedeniyle ayar kaydedilemedi."

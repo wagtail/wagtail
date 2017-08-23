@@ -20,7 +20,11 @@ from modelcluster.forms import ClusterForm, ClusterFormMetaclass
 from taggit.managers import TaggableManager
 
 from wagtail.wagtailadmin import widgets
-from wagtail.wagtailcore.models import Collection, GroupCollectionPermission, Page
+from wagtail.wagtailcore.models import (
+    BaseViewRestriction,
+    Collection, CollectionViewRestriction, GroupCollectionPermission,
+    Page, PageViewRestriction
+)
 
 
 class URLOrAbsolutePathValidator(validators.URLValidator):
@@ -118,19 +122,18 @@ class CopyForm(forms.Form):
     def __init__(self, *args, **kwargs):
         # CopyPage must be passed a 'page' kwarg indicating the page to be copied
         self.page = kwargs.pop('page')
+        self.user = kwargs.pop('user', None)
         can_publish = kwargs.pop('can_publish')
         super(CopyForm, self).__init__(*args, **kwargs)
-
         self.fields['new_title'] = forms.CharField(initial=self.page.title, label=_("New title"))
         self.fields['new_slug'] = forms.SlugField(initial=self.page.slug, label=_("New slug"))
         self.fields['new_parent_page'] = forms.ModelChoiceField(
             initial=self.page.get_parent(),
             queryset=Page.objects.all(),
-            widget=widgets.AdminPageChooser(can_choose_root=True),
+            widget=widgets.AdminPageChooser(can_choose_root=True, user_perms='copy_to'),
             label=_("New parent page"),
             help_text=_("This copy will be a child of this given parent page.")
         )
-
         pages_to_copy = self.page.get_descendants(inclusive=True)
         subpage_count = pages_to_copy.count() - 1
         if subpage_count > 0:
@@ -168,6 +171,12 @@ class CopyForm(forms.Form):
         # New parent page given in form or parent of source, if parent_page is empty
         parent_page = cleaned_data.get('new_parent_page') or self.page.get_parent()
 
+        # check if user is allowed to create a page at given location.
+        if not parent_page.permissions_for_user(self.user).can_add_subpage():
+            self._errors['new_parent_page'] = self.error_class([
+                _("You do not have permission to copy to page \"%(page_title)s\"") % {'page_title': parent_page.get_admin_display_title()}
+            ])
+
         # Count the pages with the same slug within the context of our copy's parent page
         if slug and parent_page.get_children().filter(slug=slug).count():
             self._errors['new_slug'] = self.error_class(
@@ -176,24 +185,55 @@ class CopyForm(forms.Form):
             # The slug is no longer valid, hence remove it from cleaned_data
             del cleaned_data['new_slug']
 
-        return cleaned_data
-
-
-class PageViewRestrictionForm(forms.Form):
-    restriction_type = forms.ChoiceField(label=ugettext_lazy("Visibility"), choices=[
-        ('none', ugettext_lazy("Public")),
-        ('password', ugettext_lazy("Private, accessible with the following password")),
-    ], widget=forms.RadioSelect)
-    password = forms.CharField(label=ugettext_lazy("Password"), required=False)
-
-    def clean(self):
-        cleaned_data = super(PageViewRestrictionForm, self).clean()
-
-        if cleaned_data.get('restriction_type') == 'password' and not cleaned_data.get('password'):
-            self._errors["password"] = self.error_class([_('This field is required.')])
-            del cleaned_data['password']
+        # Don't allow recursive copies into self
+        if cleaned_data.get('copy_subpages') and (self.page == parent_page or parent_page.is_descendant_of(self.page)):
+            self._errors['new_parent_page'] = self.error_class(
+                [_("You cannot copy a page into itself when copying subpages")]
+            )
 
         return cleaned_data
+
+
+class BaseViewRestrictionForm(forms.ModelForm):
+    restriction_type = forms.ChoiceField(
+        label=ugettext_lazy("Visibility"), choices=BaseViewRestriction.RESTRICTION_CHOICES,
+        widget=forms.RadioSelect)
+
+    def __init__(self, *args, **kwargs):
+        super(BaseViewRestrictionForm, self).__init__(*args, **kwargs)
+
+        self.fields['groups'].widget = forms.CheckboxSelectMultiple()
+        self.fields['groups'].queryset = Group.objects.all()
+
+    def clean_password(self):
+        password = self.cleaned_data.get('password')
+        if self.cleaned_data.get('restriction_type') == BaseViewRestriction.PASSWORD and not password:
+            raise forms.ValidationError(_("This field is required."), code='invalid')
+        return password
+
+    def clean_groups(self):
+        groups = self.cleaned_data.get('groups')
+        if self.cleaned_data.get('restriction_type') == BaseViewRestriction.GROUPS and not groups:
+            raise forms.ValidationError(_("Please select at least one group."), code='invalid')
+        return groups
+
+    class Meta:
+        model = BaseViewRestriction
+        fields = ('restriction_type', 'password', 'groups')
+
+
+class CollectionViewRestrictionForm(BaseViewRestrictionForm):
+
+    class Meta:
+        model = CollectionViewRestriction
+        fields = ('restriction_type', 'password', 'groups')
+
+
+class PageViewRestrictionForm(BaseViewRestrictionForm):
+
+    class Meta:
+        model = PageViewRestriction
+        fields = ('restriction_type', 'password', 'groups')
 
 
 # Form field properties to override whenever we encounter a model field
@@ -312,6 +352,10 @@ class WagtailAdminPageForm(WagtailAdminModelForm):
         if expire_at and expire_at < timezone.now():
             self.add_error('expire_at', forms.ValidationError(_('Expiry date/time must be in the future')))
 
+        # Don't allow an existing first_published_at to be unset by clearing the field
+        if 'first_published_at' in cleaned_data and not cleaned_data['first_published_at']:
+            del cleaned_data['first_published_at']
+
         return cleaned_data
 
 
@@ -391,8 +435,8 @@ class BaseGroupCollectionMemberPermissionFormSet(forms.BaseFormSet):
 
         for collection, collection_permissions in groupby(
             instance.collection_permissions.filter(
-                permission__in=self.permission_queryset,
-            ).order_by('collection'),
+                permission__in=self.permission_queryset
+            ).select_related('permission__content_type', 'collection').order_by('collection'),
             lambda cp: cp.collection
         ):
             initial_data.append({
@@ -487,7 +531,7 @@ def collection_member_permission_formset_factory(
     permission_queryset = Permission.objects.filter(
         content_type__app_label=model._meta.app_label,
         codename__in=[codename for codename, short_label, long_label in permission_types]
-    )
+    ).select_related('content_type')
 
     if default_prefix is None:
         default_prefix = '%s_permissions' % model._meta.model_name
@@ -499,7 +543,7 @@ def collection_member_permission_formset_factory(
         (i.e. group or user) for a specific collection
         """
         collection = forms.ModelChoiceField(
-            queryset=Collection.objects.all()
+            queryset=Collection.objects.all().prefetch_related('group_permissions')
         )
         permissions = forms.ModelMultipleChoiceField(
             queryset=permission_queryset,

@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2016
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2017
+# saevarom <saevar@saevar.is>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-01 13:25+0000\n"
-"PO-Revision-Date: 2016-08-01 13:29+0000\n"
+"POT-Creation-Date: 2017-08-10 16:05+0000\n"
+"PO-Revision-Date: 2017-08-10 16:00+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
@@ -18,6 +19,21 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: is_IS\n"
 "Plural-Forms: nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);\n"
+
+msgid "{} submissions"
+msgstr "{} innsendingar"
+
+msgid "Date from"
+msgstr "Dags frá"
+
+msgid "Date to"
+msgstr "Dags til"
+
+#, python-format
+msgid "There is another field with the label %s, please change one of them."
+msgstr ""
+"Það er annar reitur sem hefur merkinguna %s, vinsamlegast breyttu öðrum "
+"þeirra."
 
 msgid "Single line text"
 msgstr "Textastrengur"
@@ -91,8 +107,18 @@ msgstr ""
 msgid "help text"
 msgstr "hjálpartexti"
 
+msgid "Submission date"
+msgstr "Dagsetning innsendingar"
+
 msgid "to address"
 msgstr "til"
+
+msgid ""
+"Optional - form submissions will be emailed to these addresses. Separate "
+"multiple addresses by comma."
+msgstr ""
+"Valfrjálst - upplýsingar úr innsendum formum verða send á þessi netföng. "
+"Aðskildu netföng með kommu."
 
 msgid "from address"
 msgstr "frá"
@@ -101,17 +127,38 @@ msgid "subject"
 msgstr "Viðfangslína"
 
 #, python-format
-msgid "Delete %(title)s"
-msgstr "Eyða %(title)s"
+msgid "Delete form data %(title)s"
+msgstr "Eyða gögnum fyrir skráningarform %(title)s"
+
+msgid "Delete form data"
+msgstr "Eyða gögnum skráningarforms"
+
+msgid ""
+"\n"
+"                Are you sure you want to delete this form submission?\n"
+"            "
+msgid_plural ""
+"\n"
+"                Are you sure you want to delete these form submissions?\n"
+"            "
+msgstr[0] ""
+"\n"
+"                Ertu viss um að þú viljir eyða innsendum gögnum þessa "
+"skráningarforms?\n"
+"            "
+msgstr[1] ""
+"\n"
+"                Ertu viss um að þú viljir eyða þessum innsendu gögnum?\n"
+"            "
 
 msgid "Delete"
 msgstr "Eyða"
 
-msgid "Are you sure you want to delete this form submission?"
-msgstr "Ertu viss um að þú viljir eyða þessari innsendingu?"
+msgid "Total submissions"
+msgstr "Heildarfjöldi innsendinga"
 
-msgid "Delete it"
-msgstr "Eyða"
+msgid "Latest submission"
+msgstr "Síðasta innsending"
 
 msgid "Forms"
 msgstr "Skráningarform"
@@ -143,17 +190,14 @@ msgstr "Titill"
 msgid "Origin"
 msgstr "Uppruni"
 
-msgid "Submission Date"
-msgstr "Dagsetning innsendingar"
-
-msgid "Actions"
-msgstr "Aðgerðir"
-
-msgid "delete"
-msgstr "eyða"
+msgid "Delete selected submissions"
+msgstr "Eyða völdum innsendingum"
 
 msgid "No form pages have been created."
 msgstr "Engin skráningarform hafa verið búin til"
 
-msgid "Submission deleted."
-msgstr "Innsendingu eytt."
+#, python-format
+msgid "One submission has been deleted."
+msgid_plural "%(count)d submissions have been deleted."
+msgstr[0] "Einni færslu var eytt."
+msgstr[1] "%(count)d færslum var eytt."

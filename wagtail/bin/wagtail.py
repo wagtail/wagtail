@@ -30,7 +30,7 @@ def create_project(parser, options, args):
                      "Python module and cannot be used as a project "
                      "name. Please try another name." % project_name)
 
-    print("Creating a Wagtail project called %(project_name)s" % {'project_name': project_name})
+    print("Creating a Wagtail project called %(project_name)s" % {'project_name': project_name})  # noqa
 
     # Create the project from the Wagtail template using startapp
 
@@ -52,7 +52,7 @@ def create_project(parser, options, args):
     utility = ManagementUtility(utility_args)
     utility.execute()
 
-    print("Success! %(project_name)s has been created" % {'project_name': project_name})
+    print("Success! %(project_name)s has been created" % {'project_name': project_name})  # noqa
 
 
 COMMANDS = {
@@ -76,6 +76,7 @@ def main():
         COMMANDS[command](parser, options, args)
     else:
         parser.error("Unrecognised command: " + command)
+
 
 if __name__ == "__main__":
     main()

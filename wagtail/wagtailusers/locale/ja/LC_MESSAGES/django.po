@@ -5,14 +5,14 @@
 # Translators:
 # Daigo Shitara <stain.witness@gmail.com>, 2016
 # Sangmin Ahn <gijigae@gmail.com>, 2016
-# takuan_osho <shimizu.taku@gmail.com>, 2015
+# SHIMIZU Taku <shimizu.taku@gmail.com>, 2015
 # 石田秀 <ishidashu@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-01 13:25+0000\n"
-"PO-Revision-Date: 2016-08-01 13:29+0000\n"
+"POT-Creation-Date: 2017-08-10 16:05+0000\n"
+"PO-Revision-Date: 2017-04-19 21:08+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
@@ -35,8 +35,14 @@ msgstr "このユーザ名は既に使用されています。"
 msgid "The two password fields didn't match."
 msgstr "パスワードが一致しませんでした。"
 
-msgid "Administrator"
-msgstr "管理者"
+msgid "Email"
+msgstr "Eメール"
+
+msgid "First Name"
+msgstr "名"
+
+msgid "Last Name"
+msgstr "姓"
 
 msgid "Password"
 msgstr "パスワード"
@@ -50,14 +56,8 @@ msgstr "パスワードを確認"
 msgid "Enter the same password as above, for verification."
 msgstr "確認のため、再度パスワードを入力してください。"
 
-msgid "Email"
-msgstr "Eメール"
-
-msgid "First Name"
-msgstr "名"
-
-msgid "Last Name"
-msgstr "姓"
+msgid "Administrator"
+msgstr "管理者"
 
 msgid "A group with that name already exists."
 msgstr "このグループ名は既に使用されています。"
@@ -88,14 +88,6 @@ msgstr "プロフィール"
 
 msgid "Delete group"
 msgstr "グループを削除"
-
-#, python-format
-msgid ""
-"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> users "
-"assigned."
-msgstr ""
-"グループ %(group_name)s には <strong>%(group_user_count)s</strong>名のユーザ"
-"がいます。"
 
 msgid ""
 "Deleting this group will revoke this group's permissions from all member "

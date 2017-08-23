@@ -6,14 +6,18 @@ import re
 import django
 from django import forms
 from django.core.exceptions import ImproperlyConfigured
+from django.db.models.fields import FieldDoesNotExist
 from django.forms.models import fields_for_model
 from django.template.loader import render_to_string
+from django.utils.functional import curry
 from django.utils.safestring import mark_safe
 from django.utils.six import text_type
 from django.utils.translation import ugettext_lazy
+from taggit.managers import TaggableManager
 
 from wagtail.utils.decorators import cached_classmethod
-from wagtail.wagtailadmin import widgets
+from wagtail.wagtailadmin import compare, widgets
+from wagtail.wagtailcore.fields import RichTextField
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.utils import camelcase_to_underscore, resolve_model_string
 
@@ -199,6 +203,10 @@ class EditHandler(object):
         """
         return mark_safe(self.render_as_object() + self.render_missing_fields())
 
+    @classmethod
+    def get_comparison(cls):
+        return []
+
 
 class BaseCompositeEditHandler(EditHandler):
     """
@@ -249,15 +257,30 @@ class BaseCompositeEditHandler(EditHandler):
     def __init__(self, instance=None, form=None):
         super(BaseCompositeEditHandler, self).__init__(instance=instance, form=form)
 
-        self.children = [
-            handler_class(instance=self.instance, form=self.form)
-            for handler_class in self.__class__.children
-        ]
+        self.children = []
+        for child in self.__class__.children:
+            if not getattr(child, "children", None) and getattr(child, "field_name", None):
+                if self.form._meta.exclude:
+                    if child.field_name in self.form._meta.exclude:
+                        continue
+                if self.form._meta.fields:
+                    if child.field_name not in self.form._meta.fields:
+                        continue
+            self.children.append(child(instance=self.instance, form=self.form))
 
     def render(self):
         return mark_safe(render_to_string(self.template, {
             'self': self
         }))
+
+    @classmethod
+    def get_comparison(cls):
+        comparators = []
+
+        for child in cls.children:
+            comparators.extend(child.get_comparison())
+
+        return comparators
 
 
 class BaseFormEditHandler(BaseCompositeEditHandler):
@@ -318,7 +341,6 @@ class BaseObjectList(BaseFormEditHandler):
 
 
 class ObjectList(object):
-
     def __init__(self, children, heading="", classname="",
                  base_form_class=None):
         self.children = children
@@ -442,8 +464,46 @@ class BaseFieldPanel(EditHandler):
         return mark_safe(render_to_string(self.field_template, context))
 
     @classmethod
-    def required_fields(self):
-        return [self.field_name]
+    def required_fields(cls):
+        return [cls.field_name]
+
+    @classmethod
+    def get_comparison_class(cls):
+        # Hide fields with hidden widget
+        widget_override = cls.widget_overrides().get(cls.field_name, None)
+        if widget_override and widget_override.is_hidden:
+            return
+
+        try:
+            field = cls.model._meta.get_field(cls.field_name)
+
+            if field.choices:
+                return compare.ChoiceFieldComparison
+
+            if field.is_relation:
+                if isinstance(field, TaggableManager):
+                    return compare.TagsFieldComparison
+                elif field.many_to_many:
+                    return compare.M2MFieldComparison
+
+                return compare.ForeignObjectComparison
+
+            if isinstance(field, RichTextField):
+                return compare.RichTextFieldComparison
+        except FieldDoesNotExist:
+            pass
+
+        return compare.FieldComparison
+
+    @classmethod
+    def get_comparison(cls):
+        comparator_class = cls.get_comparison_class()
+
+        if comparator_class:
+            field = cls.model._meta.get_field(cls.field_name)
+            return [curry(comparator_class, field)]
+        else:
+            return []
 
 
 class FieldPanel(object):
@@ -466,7 +526,9 @@ class FieldPanel(object):
 
 
 class BaseRichTextFieldPanel(BaseFieldPanel):
-    pass
+    @classmethod
+    def get_comparison_class(cls):
+        return compare.RichTextFieldComparison
 
 
 class RichTextFieldPanel(object):
@@ -614,6 +676,16 @@ class BaseInlinePanel(EditHandler):
     @classmethod
     def html_declarations(cls):
         return cls.get_child_edit_handler_class().html_declarations()
+
+    @classmethod
+    def get_comparison(cls):
+        field = cls.model._meta.get_field(cls.relation_name)
+        field_comparisons = []
+
+        for panel in cls.get_panel_definitions():
+            field_comparisons.extend(panel.bind_to_model(cls.related.related_model).get_comparison())
+
+        return [curry(compare.ChildRelationComparison, field, field_comparisons)]
 
     def __init__(self, instance=None, form=None):
         super(BaseInlinePanel, self).__init__(instance=instance, form=form)
@@ -771,6 +843,10 @@ class BaseStreamFieldPanel(BaseFieldPanel):
     def html_declarations(cls):
         return cls.block_def.all_html_declarations()
 
+    @classmethod
+    def get_comparison_class(cls):
+        return compare.StreamFieldComparison
+
     def id_for_label(self):
         # a StreamField may consist of many input fields, so it's not meaningful to
         # attach the label to any specific one
@@ -778,12 +854,14 @@ class BaseStreamFieldPanel(BaseFieldPanel):
 
 
 class StreamFieldPanel(object):
-    def __init__(self, field_name):
+    def __init__(self, field_name, classname=''):
         self.field_name = field_name
+        self.classname = classname
 
     def bind_to_model(self, model):
         return type(str('_StreamFieldPanel'), (BaseStreamFieldPanel,), {
             'model': model,
             'field_name': self.field_name,
-            'block_def': model._meta.get_field(self.field_name).stream_block
+            'block_def': model._meta.get_field(self.field_name).stream_block,
+            'classname': self.classname,
         })

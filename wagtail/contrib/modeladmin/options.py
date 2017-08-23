@@ -4,18 +4,16 @@ from django.conf.urls import url
 from django.contrib.auth.models import Permission
 from django.core.exceptions import ImproperlyConfigured
 from django.db.models import Model
-from django.forms.widgets import flatatt
 from django.utils.safestring import mark_safe
-from django.utils.translation import ugettext_lazy as _
 
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import Page
-from wagtail.wagtailimages.models import Filter
 
 from .helpers import (
     AdminURLHelper, ButtonHelper, PageAdminURLHelper, PageButtonHelper, PagePermissionHelper,
     PermissionHelper)
 from .menus import GroupMenuItem, ModelAdminMenuItem, SubMenu
+from .mixins import ThumbnailMixin # NOQA
 from .views import ChooseParentView, CreateView, DeleteView, EditView, IndexView, InspectView
 
 
@@ -25,6 +23,7 @@ class WagtailRegisterable(object):
     ModelAdminGroup instances to be registered with Wagtail's admin area.
     """
     add_to_settings_menu = False
+    exclude_from_explorer = False
 
     def register_with_wagtail(self):
 
@@ -45,43 +44,17 @@ class WagtailRegisterable(object):
         def register_admin_menu_item():
             return self.get_menu_item()
 
+        # Overriding the explorer page queryset is a somewhat 'niche' / experimental
+        # operation, so only attach that hook if we specifically opt into it
+        # by returning True from will_modify_explorer_page_queryset
+        if self.will_modify_explorer_page_queryset():
+            @hooks.register('construct_explorer_page_queryset')
+            def construct_explorer_page_queryset(parent_page, queryset, request):
+                return self.modify_explorer_page_queryset(
+                    parent_page, queryset, request)
 
-class ThumbnailMixin(object):
-    """
-    Mixin class to help display thumbnail images in ModelAdmin listing results.
-    `thumb_image_field_name` must be overridden to name a ForeignKey field on
-    your model, linking to `wagtailimages.Image`.
-    """
-    thumb_image_field_name = 'image'
-    thumb_image_filter_spec = 'fill-100x100'
-    thumb_image_width = 50
-    thumb_classname = 'admin-thumb'
-    thumb_col_header_text = _('image')
-    thumb_default = None
-
-    def admin_thumb(self, obj):
-        try:
-            image = getattr(obj, self.thumb_image_field_name, None)
-        except AttributeError:
-            raise ImproperlyConfigured(
-                u"The `thumb_image_field_name` attribute on your `%s` class "
-                "must name a field on your model." % self.__class__.__name__
-            )
-
-        img_attrs = {
-            'src': self.thumb_default,
-            'width': self.thumb_image_width,
-            'class': self.thumb_classname,
-        }
-        if image:
-            fltr, _ = Filter.objects.get_or_create(
-                spec=self.thumb_image_filter_spec)
-            img_attrs.update({'src': image.get_rendition(fltr).url})
-            return mark_safe('<img{}>'.format(flatatt(img_attrs)))
-        elif self.thumb_default:
-            return mark_safe('<img{}>'.format(flatatt(img_attrs)))
-        return ''
-    admin_thumb.short_description = thumb_col_header_text
+    def will_modify_explorer_page_queryset(self):
+        return False
 
 
 class ModelAdmin(WagtailRegisterable):
@@ -130,6 +103,7 @@ class ModelAdmin(WagtailRegisterable):
     inspect_view_extra_js = []
     form_view_extra_css = []
     form_view_extra_js = []
+    form_fields_exclude = []
 
     def __init__(self, parent=None):
         """
@@ -145,7 +119,6 @@ class ModelAdmin(WagtailRegisterable):
         self.permission_helper = self.get_permission_helper_class()(
             self.model, self.inspect_view_enabled)
         self.url_helper = self.get_url_helper_class()(self.model)
-
 
     def get_permission_helper_class(self):
         """
@@ -259,6 +232,14 @@ class ModelAdmin(WagtailRegisterable):
         """
         return self.search_fields or ()
 
+    def get_extra_attrs_for_row(self, obj, context):
+        """
+        Return a dictionary of HTML attributes to be added to the `<tr>`
+        element for the suppled `obj` when rendering the results table in
+        `index_view`. `data-object-pk` is already added by default.
+        """
+        return {}
+
     def get_extra_class_names_for_field_col(self, obj, field_name):
         """
         Return a list of additional CSS class names to be added to the table
@@ -278,6 +259,12 @@ class ModelAdmin(WagtailRegisterable):
         Must always return a dictionary.
         """
         return {}
+
+    def get_form_fields_exclude(self, request):
+        """
+        Returns a list or tuple of fields names to be excluded from Create/Edit pages.
+        """
+        return self.form_fields_exclude
 
     def get_index_view_extra_css(self):
         css = ['wagtailmodeladmin/css/index.css']
@@ -504,6 +491,14 @@ class ModelAdmin(WagtailRegisterable):
             )
         return urls
 
+    def will_modify_explorer_page_queryset(self):
+        return (self.is_pagemodel and self.exclude_from_explorer)
+
+    def modify_explorer_page_queryset(self, parent_page, queryset, request):
+        if self.is_pagemodel and self.exclude_from_explorer:
+            queryset = queryset.not_type(self.model)
+        return queryset
+
 
 class ModelAdminGroup(WagtailRegisterable):
     """
@@ -578,6 +573,18 @@ class ModelAdminGroup(WagtailRegisterable):
         for instance in self.modeladmin_instances:
             urls += instance.get_admin_urls_for_registration()
         return urls
+
+    def will_modify_explorer_page_queryset(self):
+        return any(
+            instance.will_modify_explorer_page_queryset()
+            for instance in self.modeladmin_instances
+        )
+
+    def modify_explorer_page_queryset(self, parent_page, queryset, request):
+        for instance in self.modeladmin_instances:
+            queryset = instance.modify_explorer_page_queryset(
+                parent_page, queryset, request)
+        return queryset
 
 
 def modeladmin_register(modeladmin_class):

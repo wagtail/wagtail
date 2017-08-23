@@ -4,13 +4,14 @@
 #
 # Translators:
 # Jihan Chung <jihanchung20@gmail.com>, 2015
+# Kyungil Choi <hanpama@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-01 13:25+0000\n"
-"PO-Revision-Date: 2016-05-11 20:33+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-08-10 16:05+0000\n"
+"PO-Revision-Date: 2017-06-23 15:25+0000\n"
+"Last-Translator: Kyungil Choi <hanpama@gmail.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
 "MIME-Version: 1.0\n"
@@ -19,8 +20,35 @@ msgstr ""
 "Language: ko\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
+msgid "Add"
+msgstr "추가"
+
+msgid "Add/edit documents you own"
+msgstr "문서 추가/수정"
+
 msgid "Edit"
 msgstr "수정"
+
+msgid "Edit any document"
+msgstr "문서 수정"
+
+msgid "title"
+msgstr "제목"
+
+msgid "file"
+msgstr "파일"
+
+msgid "created at"
+msgstr "생성된 시간:"
+
+msgid "uploaded by user"
+msgstr "업로드한 사용자:"
+
+msgid "tags"
+msgstr "태그"
+
+msgid "document"
+msgstr "문서"
 
 msgid "Choose a document"
 msgstr "문서 선택"
@@ -30,6 +58,15 @@ msgstr "검색"
 
 msgid "Upload"
 msgstr "업로드"
+
+msgid "Uploading..."
+msgstr "업로드 중..."
+
+msgid "Server Error"
+msgstr "서버 오류"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "이 오류를 다음의 정보와 함께 웹마스터에게 알려 주시기 바랍니다:"
 
 #, python-format
 msgid ""
@@ -102,6 +139,18 @@ msgid "Uploaded"
 msgstr "업로드 된"
 
 #, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s 전"
+
+#, python-format
+msgid ""
+"You haven't uploaded any documents in this collection. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"이 모음에 업로드한 문서가 없습니다. 지금 하나 <a href="
+"\"%(wagtaildocs_add_document_url)s\">업로드</a> 해 보는 건 어떠세요?"
+
+#, python-format
 msgid ""
 "You haven't uploaded any documents. Why not <a href="
 "\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
@@ -141,8 +190,46 @@ msgstr[0] ""
 "\n"
 "<span>%(total)s</span> 문서"
 
+msgid "Add multiple documents"
+msgstr "여러 개의 문서 추가"
+
+msgid "Add documents"
+msgstr "문서 추가"
+
+msgid "Drag and drop documents into this area to upload immediately."
+msgstr "이 영역으로 문서를 드래그 앤 드롭하면 바로 업로드됩니다."
+
+msgid "Or choose from your computer"
+msgstr "또는 컴퓨터에서 선택하세요"
+
+msgid "Add to collection:"
+msgstr "모음에 추가:"
+
+msgid ""
+"Upload successful. Please update this documents with a more appropriate "
+"title, if necessary. You may also delete the document completely if the "
+"upload wasn't required."
+msgstr ""
+"업로드가 성공했습니다. 필요하다면 이 문서의 제목을 더 적절하게 바꾸어 주세"
+"요. 만약 불필요한 업로드였다면 문서를 완전히 삭제하는 것도 가능합니다."
+
+msgid "Sorry, upload failed."
+msgstr "죄송합니다, 업로드가 실패했습니다."
+
+msgid "Update"
+msgstr "수정"
+
 msgid "Delete"
 msgstr "삭제"
+
+msgid "You need a password to access this document."
+msgstr "이 문서에 접근하려면 비밀번호가 필요합니다."
+
+msgid "Document permissions"
+msgstr "문서 권한"
+
+msgid "Add a document permission"
+msgstr "문서 권한 추가"
 
 msgid "Search documents"
 msgstr "문서 검색"
@@ -166,6 +253,11 @@ msgstr ""
 #, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "'{0}' 문서가 삭제 되었습니다."
+
+#, python-format
+msgid "%(count)s document"
+msgid_plural "%(count)s documents"
+msgstr[0] "%(count)s개의 문서"
 
 msgid "Choose another document"
 msgstr "다른 문서 선택"

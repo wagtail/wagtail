@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Nick Mavrakis <mavrakis.n@gmail.com>, 2017
 # serafeim <serafeim@torchbox.com>, 2016
 # George Giannoulopoulos <vdotoree@yahoo.gr>, 2015
 # Wasilis Mandratzis-Walz, 2015
@@ -10,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-01 13:25+0000\n"
-"PO-Revision-Date: 2016-08-01 13:29+0000\n"
+"POT-Creation-Date: 2017-08-10 16:05+0000\n"
+"PO-Revision-Date: 2017-08-10 16:00+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
@@ -20,6 +21,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: el\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "{} submissions"
+msgstr "{} υποβολές"
+
+#, python-format
+msgid "There is another field with the label %s, please change one of them."
+msgstr "Υπάρχει ήδη ένα πεδίο με label %s, παρακαλούμε αλλάξτε ένα από αυτά."
 
 msgid "Single line text"
 msgstr "Ενιαίο κείμενο γραμμής"
@@ -93,8 +101,19 @@ msgstr ""
 msgid "help text"
 msgstr "κείμενο βοήθειας"
 
+msgid "Submission date"
+msgstr "Ημερομηνία υποβολής"
+
 msgid "to address"
 msgstr "διεύθυνση προς"
+
+msgid ""
+"Optional - form submissions will be emailed to these addresses. Separate "
+"multiple addresses by comma."
+msgstr ""
+"Προαιρετικό - οι υποβολές φορμών θα αποστέλλονται με email σε αυτές τις "
+"διευθύνσεις.\n"
+"Διαχωρίστε πολλαπλές διευθύνσεις με κόμμα."
 
 msgid "from address"
 msgstr "διεύθυνση από"
@@ -103,17 +122,38 @@ msgid "subject"
 msgstr "θέμα"
 
 #, python-format
-msgid "Delete %(title)s"
-msgstr "Διαγραφή %(title)s"
+msgid "Delete form data %(title)s"
+msgstr "Διαγραφή δεδομένων φόρμας της σελίδας %(title)s"
+
+msgid "Delete form data"
+msgstr "Διαγραφή δεδομένων φόρμας"
+
+msgid ""
+"\n"
+"                Are you sure you want to delete this form submission?\n"
+"            "
+msgid_plural ""
+"\n"
+"                Are you sure you want to delete these form submissions?\n"
+"            "
+msgstr[0] ""
+"\n"
+"                Are you sure you want to delete this form submission?\n"
+"            "
+msgstr[1] ""
+"\n"
+"                Είστε σίγουροι ότι θέλετε να διαγράψετε αυτές τις υποβολές "
+"φορμών;\n"
+"            "
 
 msgid "Delete"
 msgstr "Διαγραφή"
 
-msgid "Are you sure you want to delete this form submission?"
-msgstr "Θέλετε να διαγράψετε την υποβολή της φόρμας;"
+msgid "Total submissions"
+msgstr "Συνολικές υποβολές"
 
-msgid "Delete it"
-msgstr "Διαγραφή"
+msgid "Latest submission"
+msgstr "Τελευταίες υποβολές"
 
 msgid "Forms"
 msgstr "Φόρμες"
@@ -145,17 +185,11 @@ msgstr "Τίτλος"
 msgid "Origin"
 msgstr "Προέλευση"
 
-msgid "Submission Date"
-msgstr "Ημερομηνία Υποβολής"
-
-msgid "Actions"
-msgstr "Ενέργειες"
-
-msgid "delete"
-msgstr "διαγραφή"
-
 msgid "No form pages have been created."
 msgstr "Δεν έχουν δημιουργηθεί σελίδες μορφής. "
 
-msgid "Submission deleted."
-msgstr "Η υποβολή διαγράφηκε."
+#, python-format
+msgid "One submission has been deleted."
+msgid_plural "%(count)d submissions have been deleted."
+msgstr[0] "One submission has been deleted."
+msgstr[1] "%(count)d υποβολές διαγράφηκαν."

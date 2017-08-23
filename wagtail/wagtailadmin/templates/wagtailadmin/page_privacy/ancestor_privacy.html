@@ -4,5 +4,5 @@
 
 <div class="nice-padding">
     <p>{% trans "This page has been made private by a parent page." %}</p>
-    <p>{% trans "You can edit the privacy settings on:" %} <a href="{% url 'wagtailadmin_pages:edit' page_with_restriction.id %}">{{ page_with_restriction.title }}</a>
+    <p>{% trans "You can edit the privacy settings on:" %} <a href="{% url 'wagtailadmin_pages:edit' page_with_restriction.id %}">{{ page_with_restriction.get_admin_display_title }}</a>
 </div>

@@ -61,6 +61,7 @@ def attribute_rule(allowed_attrs):
 
     return fn
 
+
 allow_without_attributes = attribute_rule({})
 
 

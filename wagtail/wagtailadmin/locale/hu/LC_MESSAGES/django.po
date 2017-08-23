@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Kornél Novák <nkornel@gmail.com>, 2016
+# Kornel Novak Mergulhão <nkornel@gmail.com>, 2016
 # Laszlo Molnar <lazlowmiller@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-01 13:25+0000\n"
-"PO-Revision-Date: 2016-09-21 08:40+0000\n"
-"Last-Translator: Kornél Novák <nkornel@gmail.com>\n"
+"POT-Creation-Date: 2017-08-10 16:05+0000\n"
+"PO-Revision-Date: 2017-08-10 16:07+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
 "MIME-Version: 1.0\n"
@@ -113,12 +113,6 @@ msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
 msgstr "A domain-darabka már használatban van az oldal szülőoldalán \"%s\""
 
-msgid "Public"
-msgstr "Publikus"
-
-msgid "Private, accessible with the following password"
-msgstr "Korlátozott, csak jelszóval elérhető"
-
 msgid "This field is required."
 msgstr "Egy mező megadása szükséges."
 
@@ -152,17 +146,11 @@ msgstr "Értesítési beállítások"
 msgid "Choose which email notifications to receive."
 msgstr "Válassza ki miről szeretne email értesítéseket kapni."
 
-msgid "Change Password"
-msgstr "Jelszó megváltoztatása"
-
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr ""
 "A jelszavát itt nem tudja megváltoztatni. Kérem vegye fel a kapcsolatot az "
 "oldal rendszergazdájával."
-
-msgid "Notification Preferences"
-msgstr "Értesítési beállítások"
 
 msgid "Update"
 msgstr "Frissítés"
@@ -197,6 +185,9 @@ msgstr "Jelszó módosítva"
 
 msgid "Reset your password"
 msgstr "Módosítsa jelszavát"
+
+msgid "Edit"
+msgstr "Szerkeszt"
 
 msgid "Dashboard"
 msgstr "Műszerfal"
@@ -279,6 +270,12 @@ msgstr "Link beszúrása"
 msgid "Add an external link"
 msgstr "Külső link hozzáadása"
 
+msgid "Save"
+msgstr "Mentés"
+
+msgid "Public"
+msgstr "Publikus"
+
 msgid "Name"
 msgstr "Név"
 
@@ -288,9 +285,6 @@ msgstr "%(heading)s hozzáadása"
 
 msgid "Yes, delete"
 msgstr "Törlés megerősítése"
-
-msgid "Save"
-msgstr "Mentés"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -326,9 +320,6 @@ msgstr "Jóváhagy"
 
 msgid "Reject"
 msgstr "Elutasít"
-
-msgid "Edit"
-msgstr "Szerkeszt"
 
 msgid "Preview"
 msgstr "Előnézet"

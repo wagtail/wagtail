@@ -2,7 +2,6 @@
 @import 'wagtailadmin/scss/mixins';
 @import 'wagtailadmin/scss/grid';
 
-@import 'wagtailadmin/scss/components/explorer';
 @import 'wagtailadmin/scss/components/icons';
 @import 'wagtailadmin/scss/components/typography';
 @import 'wagtailadmin/scss/components/tabs';
@@ -18,14 +17,11 @@
 @import 'wagtailadmin/scss/components/main-nav';
 @import 'wagtailadmin/scss/components/indicator';
 @import 'wagtailadmin/scss/components/tooltips';
+@import 'wagtailadmin/scss/components/logo';
 
 @import 'wagtailadmin/scss/fonts';
 
-// scss-lint:disable all
-#wagtail {
-    @import '../../../../../client/scss/style';
-}
-// scss-lint:enable all
+@import '../../../../../client/scss/styles';
 
 html {
     background: $color-grey-4;
@@ -44,6 +40,20 @@ body {
     &.reordering {
         overflow: visible;
     }
+
+    &:after {
+        content: '';
+        position: fixed;
+        transition: visibility 0s linear 0s, opacity .2s ease-out;
+        background: rgba(255, 255, 255, 0.5);
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 5;
+        opacity: 0;
+        visibility: hidden;
+    }
 }
 
 .visuallyvisible {
@@ -61,7 +71,6 @@ body {
     padding: 1em 2em;
     margin: 0;
     position: relative;
-    width: 100%;
     text-align: center;
 
     a {
@@ -72,36 +81,12 @@ body {
 
 .wrapper {
     @include clearfix();
+    height: 100vh;
     transition: transform 0.2s ease;
 }
 
-.nav-wrapper {
-    // See components/main-nav.scss
-}
-
-
-.logo {
-    display: block;
-    text-align: left;
-    text-decoration: none;
-    color: #aaa;
-    padding: 0.9em 1.2em;
-    margin: 0;
-    -webkit-font-smoothing: auto;
-
-    img {
-        width: 20px;
-        float: left;
-        border: 0;
-        margin-right: 1em;
-    }
-
-    &:hover {
-        color: $color-white;
-    }
-}
-
 .content-wrapper {
+    box-sizing: border-box;
     width: 100%;
     height: 100%; // this has no effect on desktop, but on mobile it helps aesthetics of menu popout action
     float: left;
@@ -114,8 +99,21 @@ body {
     @include row();
     background: $color-white;
     border-top: 0 solid $color-grey-5; // this top border provides space for the floating logo to toggle the menu
+    min-height: 100%;
     padding-bottom: 4em;
     position: relative; // yuk. necessary for positions for jquery ui widgets
+}
+
+.page-locked {
+
+    .tab-content {
+        cursor: not-allowed;
+        user-select: none;
+
+        > * {
+            pointer-events: none;
+        }
+    }
 }
 
 footer {
@@ -142,13 +140,13 @@ footer {
 
     .actions {
         width: 250px;
-        margin-right: $grid-gutter-width/2;
+        margin-right: $grid-gutter-width / 2;
     }
 
     .meta {
         float: right;
         text-align: right;
-        padding: 7px $grid-gutter-width/2;
+        padding: 7px $grid-gutter-width / 2;
         font-size: 0.85em;
 
         p {
@@ -165,28 +163,25 @@ footer {
             }
         }
     }
-}
 
-::-webkit-scrollbar {
-    height: 10px;
-    width: 10px;
-    background: $color-grey-1;
-}
+    @media screen and (max-width: $breakpoint-mobile) {
+        .actions,
+        .preview {
+            width: 100%;
+        }
 
-::-webkit-scrollbar-thumb {
-    background: $color-grey-2;
-    -webkit-border-radius: 1ex;
-}
+        .meta p {
+            white-space: normal;
+        }
+    }
 
-::-webkit-scrollbar-corner {
-    background: $color-grey-1;
+    @media screen and (min-width: 90em) {
+        width: 90em;
+    }
 }
 
 .breadcrumb {
     @include unlist();
-}
-
-.breadcrumb {
     @include clearfix();
     overflow: hidden;
     padding-top: 1.4em;
@@ -395,33 +390,10 @@ footer,
         border-bottom-right-radius: 5px;
     }
 
-    .logo {
-        margin: 1em auto;
-        text-align: center;
-
-        span {
-            display: none;
-        }
-
-        img {
-            width: 60px;
-            float: none;
-            margin: auto;
-            display: block;
-        }
-
-        img.wagtail-logo {
-            transition: all 0.25s cubic-bezier(0.28, 0.15, 0, 2.1);
-        }
-
-        img.wagtail-logo:hover {
-            transform: rotate(4deg);
-        }
-    }
-
     footer {
-        width: 80%;
-        margin-left: 50px;
+        margin-left: $desktop-nice-padding;
+        margin-right: $desktop-nice-padding;
+        width: calc(100% - #{$menu-width} - #{2 * $desktop-nice-padding});
     }
 
     .content {
@@ -433,6 +405,8 @@ footer,
     .breadcrumb {
         padding-top: 0;
         background: $color-teal-darker;
+        margin-left: -($desktop-nice-padding);
+        margin-right: -($desktop-nice-padding);
 
         li {
             a,
@@ -444,11 +418,6 @@ footer,
         }
     }
 
-    footer {
-        width: 80%;
-        margin-left: 50px;
-    }
-
 
     // Z-indexes
     .nav-main {
@@ -457,12 +426,8 @@ footer,
         }
     }
 
-    .explorer {
-        z-index: $explorer-z-index;
-    }
-
     .nav-submenu {
-        z-index: $explorer-z-index;
+        z-index: 500;
     }
 
     // Allows overspill of messages banner onto left menu, but also explorer
@@ -476,27 +441,3 @@ footer,
         z-index: 200;
     }
 }
-
-@media screen and (min-width: 90em) {
-    .wrapper {
-        max-width: $breakpoint-desktop-larger;
-    }
-
-    footer {
-        width: 90em;
-    }
-}
-
-// Transitions (resolution agnostic)
-.content-wrapper,
-.nav-main,
-.nav-toggle,
-footer,
-.logo {
-    // @include transition(all 0.2s ease);
-}
-
-// .nav-main a,
-// a {
-    // @include transition(color 0.2s ease, background-color 0.2s ease);
-// }

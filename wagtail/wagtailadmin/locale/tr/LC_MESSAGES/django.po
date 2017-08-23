@@ -4,13 +4,14 @@
 #
 # Translators:
 # Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2016
+# Ragıp Ünal <ragip@ragipunal.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-01 13:25+0000\n"
-"PO-Revision-Date: 2016-09-08 20:29+0000\n"
-"Last-Translator: Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>\n"
+"POT-Creation-Date: 2017-08-10 16:05+0000\n"
+"PO-Revision-Date: 2017-08-10 16:07+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
 "tr/)\n"
 "MIME-Version: 1.0\n"
@@ -90,12 +91,6 @@ msgstr "Bu sayfa yayında. Kopyasını da yayınlamak istermisiniz?"
 msgid "Publish copies"
 msgstr "Kopyaları yayınla"
 
-msgid "Public"
-msgstr "Genel"
-
-msgid "Private, accessible with the following password"
-msgstr "Özel, aşağıdaki parola ile erişilebilir."
-
 msgid "This field is required."
 msgstr "Bu alan zorunludur."
 
@@ -129,15 +124,9 @@ msgstr "Bildirim tercihleri"
 msgid "Choose which email notifications to receive."
 msgstr "Bildirimleri almak için e posta seçin"
 
-msgid "Change Password"
-msgstr "Şifre Değiştir"
-
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr "Şifreniz değiştirilemiyor. Yönetici ile irtibata geçin."
-
-msgid "Notification Preferences"
-msgstr "Bildirim Tercihleri"
 
 msgid "Update"
 msgstr "Güncelle"
@@ -176,6 +165,12 @@ msgstr "Şifre sıfırla"
 msgid "Reset your password"
 msgstr "Şifreni sıfırla"
 
+msgid "Edit"
+msgstr "Düzenle"
+
+msgid "Pages"
+msgstr "Sayfalar"
+
 msgid "Dashboard"
 msgstr "Kontrol paneli"
 
@@ -193,6 +188,9 @@ msgstr "Aşağı taşı"
 
 msgid "Delete"
 msgstr "Sil"
+
+msgid "Explorer"
+msgstr "Keşfedici"
 
 msgid "Internal link"
 msgstr "İç bağlantı"
@@ -218,6 +216,15 @@ msgstr "Bağlantı ekle"
 msgid "Add an external link"
 msgstr "Bir dış bağlantı ekle"
 
+msgid "Save"
+msgstr "Kaydet"
+
+msgid "Public"
+msgstr "Genel"
+
+msgid "Private"
+msgstr "Gizli"
+
 msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
 msgstr "Bu kolleksiyon silinemedi, çünkü boş değil ve şunları içeriyor:"
@@ -231,9 +238,6 @@ msgstr "%(heading)s ekle"
 
 msgid "Yes, delete"
 msgstr "Evet, sil"
-
-msgid "Save"
-msgstr "Kaydet"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -262,9 +266,6 @@ msgstr "Onayla"
 
 msgid "Reject"
 msgstr "Reddet"
-
-msgid "Edit"
-msgstr "Düzenle"
 
 msgid "Preview"
 msgstr "Önizleme"
@@ -307,8 +308,20 @@ msgstr "Sayfa gizliliği"
 msgid "Delete %(title)s"
 msgstr "%(title)s sil"
 
+msgid "Yes, delete it"
+msgstr "Evet, onu sil."
+
+msgid "No, don't delete it"
+msgstr "Hayır, onu silme!"
+
+msgid "Move"
+msgstr "Taşı"
+
 msgid "New"
 msgstr "Yeni"
+
+msgid "Add child page"
+msgstr "Alt sayfa ekle"
 
 msgid "Home"
 msgstr "Ana Sayfa"
@@ -379,9 +392,6 @@ msgstr "Çıkış"
 msgid "Other searches"
 msgstr "Diğer aramalar"
 
-msgid "Javascript is required to use Wagtail, but it is currently disabled"
-msgstr "Wagtail kullanmak için javascript zorunludur fakat etkin değil"
-
 msgid "Go to Wagtail admin interface"
 msgstr "Wagtail yönetici arayüzüne git"
 
@@ -396,9 +406,6 @@ msgstr "Üzgünüm, bu alana erişim yetkiniz yok"
 
 msgid "Your password has been changed successfully!"
 msgstr "Şifreniz başarıyla değiştirildi!"
-
-msgid "Your preferences have been updated successfully!"
-msgstr "Tercihleriniz başarıyla güncellendi"
 
 msgid "View live"
 msgstr "Canlı göster"
@@ -421,33 +428,8 @@ msgstr "Sayfa '{0}' yayından kaldırıldı."
 msgid "Page '{0}' moved."
 msgstr "Sayfa '{0}' taşındı."
 
-msgid "Pages"
-msgstr "Sayfalar"
-
-msgid "Preview draft"
-msgstr "Taslak önizleme"
-
-msgid "Add child page"
-msgstr "Alt sayfa ekle"
-
-#, python-brace-format
-msgid "Add a child page to '{0}' "
-msgstr "'{0}' a bir alt sayfa ekle"
-
 msgid "More"
 msgstr "Daha fazla"
-
-msgid "View more options"
-msgstr "Daha fazla ayar görüntüle"
-
-msgid "Move this page"
-msgstr "Sayfayı taşı"
-
-msgid "Delete this page"
-msgstr "Sayfayı sil"
-
-msgid "Unpublish this page"
-msgstr "Sayfayı yayından kaldır"
 
 msgid "Choose an item"
 msgstr "Bir eleman seçiniz"

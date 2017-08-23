@@ -1,5 +1,6 @@
 from __future__ import absolute_import, unicode_literals
 
+import warnings
 from collections import OrderedDict
 
 from django.conf.urls import url
@@ -10,10 +11,11 @@ from rest_framework.renderers import BrowsableAPIRenderer, JSONRenderer
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
+from wagtail.api import APIField
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.utils import resolve_model_string
 from wagtail.wagtaildocs.models import get_document_model
-from wagtail.wagtailimages.models import get_image_model
+from wagtail.wagtailimages import get_image_model
 
 from .filters import ChildOfFilter, DescendantOfFilter, FieldsFilter, OrderingFilter, SearchFilter
 from .pagination import WagtailPagination
@@ -80,7 +82,23 @@ class BaseAPIEndpoint(GenericViewSet):
         if hasattr(model, 'api_fields'):
             api_fields.extend(model.api_fields)
 
-        return api_fields
+        # Remove any new-style API field configs (only supported in v2)
+        def convert_api_fields(fields):
+            for field in fields:
+                if isinstance(field, APIField):
+                    warnings.warn(
+                        "class-based api_fields are not supported by the v1 API module. "
+                        "Please update the .api_fields attribute of {}.{} or update to the "
+                        "v2 API.".format(model._meta.app_label, model.__name__)
+                    )
+
+                    # Ignore fields with custom serializers
+                    if field.serializer is None:
+                        yield field.name
+                else:
+                    yield field
+
+        return list(convert_api_fields(api_fields))
 
     def check_query_parameters(self, queryset):
         """

@@ -38,6 +38,8 @@ Create a model that inherits from ``BaseSetting``, and register it using the ``r
 
 A 'Social media settings' link will appear in the Wagtail admin 'Settings' menu.
 
+.. _edit_handlers_settings:
+
 Edit handlers
 -------------
 
@@ -56,6 +58,29 @@ Settings use edit handlers much like the rest of Wagtail.  Add a ``panels`` sett
             PageChooserPanel('donate_page'),
             PageChooserPanel('sign_up_page'),
         ]
+
+You can also customize the editor handlers :ref:`like you would do for Page model <customising_the_tabbed_interface>`
+with a custom ``edit_handler`` attribute:
+
+.. code-block:: python
+
+    from wagtail.wagtailadmin.edit_handlers import TabbedInterface, ObjectList
+
+    @register_setting
+    class MySettings(BaseSetting):
+        # ...
+        first_tab_panels = [
+            FieldPanel('field_1'),
+        ]
+        second_tab_panels = [
+            FieldPanel('field_2'),
+        ]
+
+        edit_handler = TabbedInterface([
+            ObjectList(first_tab_panels, heading='First tab'),
+            ObjectList(second_tab_panels, heading='Second tab'),
+        ])
+
 
 Appearance
 ----------

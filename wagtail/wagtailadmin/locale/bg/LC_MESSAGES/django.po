@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-01 13:25+0000\n"
-"PO-Revision-Date: 2016-08-01 13:28+0000\n"
+"POT-Creation-Date: 2017-08-10 16:05+0000\n"
+"PO-Revision-Date: 2017-08-10 16:07+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Bulgarian (http://www.transifex.com/torchbox/wagtail/language/"
 "bg/)\n"
@@ -66,9 +66,6 @@ msgstr "Смени парола"
 msgid "Change the password you use to log in."
 msgstr "Сменете паролата, която ползвате за да влезете."
 
-msgid "Change Password"
-msgstr "Смени парола"
-
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr ""
@@ -101,6 +98,9 @@ msgstr "Паролата е възстановена"
 
 msgid "Reset your password"
 msgstr "Възстановете паролата си"
+
+msgid "Edit"
+msgstr "Редакция"
 
 msgid "Dashboard"
 msgstr "Работно Табло"
@@ -172,9 +172,6 @@ msgstr "Одобрете"
 
 msgid "Reject"
 msgstr "Отхвърлете"
-
-msgid "Edit"
-msgstr "Редакция"
 
 msgid "Preview"
 msgstr "Преглед"
@@ -345,8 +342,8 @@ msgstr "Мениджър"
 msgid "Add a child page to '%(title)s'"
 msgstr "Добавете дъщерна страница към '%(title)s'"
 
-msgid "Add subpage"
-msgstr "Добавете подстраница"
+msgid "Add child page"
+msgstr "Добави дъщерна страница"
 
 msgid "Previous"
 msgstr "Предишно"
@@ -420,9 +417,6 @@ msgstr "Страница '{0}' е публикувана."
 #, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "Страница '{0}' отхвърлена от публикуване."
-
-msgid "Add child page"
-msgstr "Добави дъщерна страница"
 
 msgid "Choose an item"
 msgstr "Изберете обект"

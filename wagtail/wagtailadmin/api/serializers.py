@@ -2,7 +2,7 @@ from __future__ import absolute_import, unicode_literals
 
 from collections import OrderedDict
 
-from rest_framework.fields import Field
+from rest_framework.fields import Field, ReadOnlyField
 
 from wagtail.api.v2.serializers import PageSerializer
 from wagtail.api.v2.utils import get_full_url
@@ -82,3 +82,4 @@ class AdminPageSerializer(PageSerializer):
     status = PageStatusField(read_only=True)
     children = PageChildrenField(read_only=True)
     descendants = PageDescendantsField(read_only=True)
+    admin_display_title = ReadOnlyField(source='get_admin_display_title')

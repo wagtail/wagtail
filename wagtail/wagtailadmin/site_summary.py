@@ -2,6 +2,7 @@ from __future__ import absolute_import, unicode_literals
 
 from django.template.loader import render_to_string
 
+from wagtail.wagtailadmin.utils import user_has_any_page_permission
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import Page, Site
 
@@ -17,6 +18,9 @@ class SummaryItem(object):
 
     def render(self):
         return render_to_string(self.template, self.get_context(), request=self.request)
+
+    def is_shown(self):
+        return True
 
 
 class PagesSummaryItem(SummaryItem):
@@ -40,6 +44,9 @@ class PagesSummaryItem(SummaryItem):
             'total_pages': Page.objects.count() - 1,  # subtract 1 because the root node is not a real page
         }
 
+    def is_shown(self):
+        return user_has_any_page_permission(self.request.user)
+
 
 @hooks.register('construct_homepage_summary_items')
 def add_pages_summary_item(request, items):
@@ -57,6 +64,10 @@ class SiteSummaryPanel(object):
             fn(request, self.summary_items)
 
     def render(self):
+        summary_items = [s for s in self.summary_items if s.is_shown()]
+        if not summary_items:
+            return ''
+
         return render_to_string('wagtailadmin/home/site_summary.html', {
-            'summary_items': sorted(self.summary_items, key=lambda p: p.order),
+            'summary_items': sorted(summary_items, key=lambda p: p.order),
         }, request=self.request)

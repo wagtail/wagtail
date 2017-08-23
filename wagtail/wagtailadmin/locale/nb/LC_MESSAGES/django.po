@@ -5,13 +5,14 @@
 # Translators:
 # Eirik Krogstad <eirikkr@gmail.com>, 2015
 # Robin Skahjem-Eriksen <robinds@student.matnat.uio.no>, 2015
+# Stein Strindhaug <stein.strindhaug@gmail.com>, 2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-01 13:25+0000\n"
-"PO-Revision-Date: 2016-08-01 13:28+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-08-10 16:05+0000\n"
+"PO-Revision-Date: 2017-08-10 18:41+0000\n"
+"Last-Translator: Stein Strindhaug <stein.strindhaug@gmail.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +20,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nb\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "None"
+msgstr "Ingen"
+
+msgid "You do not have permission to access the admin"
+msgstr "Du har ikke tilgang på admin sidene"
 
 msgid "Scheduled publishing"
 msgstr "Planlagt publisering"
@@ -30,7 +37,7 @@ msgid "Content"
 msgstr "Innhold"
 
 msgid "Promote"
-msgstr "Promovér"
+msgstr "Fremming"
 
 msgid "Settings"
 msgstr "Innstillinger"
@@ -40,6 +47,9 @@ msgstr "Søk"
 
 msgid "Search term"
 msgstr "Søkeord"
+
+msgid "URL"
+msgstr "URL"
 
 msgid "Enter password"
 msgstr "Skriv inn passord"
@@ -109,19 +119,26 @@ msgstr[1] ""
 "deres også?"
 
 #, python-format
+msgid "You do not have permission to copy to page \"%(page_title)s\""
+msgstr "Du har ikke tilgang til å kopiere siden «%(page_title)s»"
+
+#, python-format
 msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
 msgstr ""
 "Denne permalenken er allerede i bruk i konteksten til foreldresiden \"%s\""
 
-msgid "Public"
-msgstr "Offentlig"
+msgid "You cannot copy a page into itself when copying subpages"
+msgstr "Du kan ikke kopiere en side inn i seg selv når du kopierer undersider"
 
-msgid "Private, accessible with the following password"
-msgstr "Privat, tilgjengelig med følgende passord"
+msgid "Visibility"
+msgstr "Synlighet"
 
 msgid "This field is required."
 msgstr "Dette feltet er påkrevet."
+
+msgid "Please select at least one group."
+msgstr "Velg minst en gruppe."
 
 msgid "This slug is already in use"
 msgstr "Denne permalenken er allerede i bruk"
@@ -131,6 +148,9 @@ msgstr "Tidspunkt for publisering må være før tidspunkt for avpublisering"
 
 msgid "Expiry date/time must be in the future"
 msgstr "Tidspunkt for avpublisering må være en gang i fremtiden"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr "Du kan ikke ha flere tillatelsesoppføringer for samme samling."
 
 msgid "Account"
 msgstr "Konto"
@@ -159,16 +179,19 @@ msgstr "Varslingsinnstillinger"
 msgid "Choose which email notifications to receive."
 msgstr "Velg hvilke e-postvarsler du vil motta."
 
-msgid "Change Password"
-msgstr "Endre passord"
+msgid "Language preferences"
+msgstr "Språkinnstillinger"
+
+msgid "Choose the language you want to use here."
+msgstr "Velg språket du vil bruke her."
 
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr ""
 "Passordet ditt kan ikke endres her. Kontakt en administrator for nettstedet."
 
-msgid "Notification Preferences"
-msgstr "Varslingsinnstillinger"
+msgid "Language Preferences"
+msgstr "Språkinnstillinger"
 
 msgid "Update"
 msgstr "Oppdatér"
@@ -196,11 +219,44 @@ msgstr ""
 "En lenke for å nullstille passordet ditt har blitt sendt til din e-"
 "postadresse."
 
+msgid "Please follow the link below to reset your password:"
+msgstr "Vennligst følg lenken under for å nullstille ditt passord:"
+
+msgid "Your username (in case you've forgotten):"
+msgstr "Brukernavnet ditt (i tilfelle du hadde glemt det):"
+
 msgid "Password reset"
 msgstr "Passordnullstilling"
 
 msgid "Reset your password"
 msgstr "Nullstill ditt passord"
+
+msgid "Edit"
+msgstr "Redigér"
+
+msgid "Page"
+msgstr "Side"
+
+msgid "Pages"
+msgstr "Sider"
+
+msgid "Loading..."
+msgstr "Laster inn..."
+
+msgid "No results"
+msgstr "Ingen resultater"
+
+msgid "Server Error"
+msgstr "Serverfeil"
+
+msgid "See children"
+msgstr "Se undersider"
+
+msgid "See all"
+msgstr "Se alle"
+
+msgid "Close explorer"
+msgstr "Lukk utforsker"
 
 msgid "Dashboard"
 msgstr "Kontrollpanel"
@@ -285,11 +341,54 @@ msgstr "Sett inn lenke"
 msgid "Add an external link"
 msgstr "Legg til en ekstern lenke"
 
-msgid "Yes, delete"
-msgstr "Ja, slett"
+msgid "Collection privacy"
+msgstr "Samlingsvern"
+
+msgid "This collection has been made private by a parent collection."
+msgstr "Denne samlingen har blitt gjort privat av en overordnet samling."
+
+msgid "You can edit the privacy settings on:"
+msgstr "Du kan endre sidevernsinnstillingene på:"
+
+msgid ""
+"Privacy settings determine who is able to view documents in this collection."
+msgstr ""
+"Samlingsvern-innstillingene bestemmer hvem som kan se dokumenter i denne "
+"samlingen."
 
 msgid "Save"
 msgstr "Lagre"
+
+msgid "Privacy"
+msgstr "Sidevern"
+
+msgid "Public"
+msgstr "Offentlig"
+
+msgid "Private"
+msgstr "Privat"
+
+msgid ""
+"This collection cannot be deleted, because it is not empty. It contains:"
+msgstr "Samlingen kan ikke slettes, fordi den ikke er tom. Den inneholder:"
+
+msgid "Name"
+msgstr "Navn"
+
+#, python-format
+msgid ""
+"No collections have been created. Why not <a href=\"%(add_collection_url)s"
+"\">add one</a>?"
+msgstr ""
+"Ingen samlinger har blitt opprettet. Hvorfor ikke <a href="
+"\"%(add_collection_url)s\">legg til en</a>?"
+
+#, python-format
+msgid "Add %(heading)s"
+msgstr "Legg til %(heading)s"
+
+msgid "Yes, delete"
+msgstr "Ja, slett"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -326,11 +425,12 @@ msgstr "Godkjenn"
 msgid "Reject"
 msgstr "Avslå"
 
-msgid "Edit"
-msgstr "Redigér"
-
 msgid "Preview"
 msgstr "Forhåndsvis"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s siden"
 
 msgid "Your most recent edits"
 msgstr "Dine siste endringer"
@@ -382,6 +482,9 @@ msgstr "Logg inn på Wagtail"
 msgid "Forgotten it?"
 msgstr "Glemt?"
 
+msgid "Signing in..."
+msgstr "Logger inn..."
+
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
 msgstr "Siden \"%(title)s\" har blitt godkjent."
@@ -392,6 +495,10 @@ msgstr "Du kan besøke siden her:"
 #, python-format
 msgid "The page \"%(title)s\" has been approved"
 msgstr "Siden \"%(title)s\" har blitt godkjent"
+
+#, python-format
+msgid "Hello %(username)s,"
+msgstr "Hei %(username)s,"
 
 msgid "Edit your notification preferences here:"
 msgstr "Endre dine varslingsinnstillinger her:"
@@ -407,6 +514,10 @@ msgstr "Du kan redigere siden her:"
 msgid "The page \"%(title)s\" has been rejected"
 msgstr "Siden \"%(title)s\" har blitt avvist"
 
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation by %(editor)s."
+msgstr "Siden \"%(page)s\" har blitt sendt til godkjenning av %(editor)s."
+
 msgid "You can preview the page here:"
 msgstr "Du kan forhåndsvise siden her:"
 
@@ -420,9 +531,6 @@ msgstr "Sidevern"
 msgid "This page has been made private by a parent page."
 msgstr "Denne siden har blitt gjort privat av en foreldreside."
 
-msgid "You can edit the privacy settings on:"
-msgstr "Du kan endre sidevernsinnstillingene på:"
-
 msgid "Privacy changes apply to all children of this page too."
 msgstr "Sidevernsendringer berører også alle undersider av denne siden."
 
@@ -434,12 +542,6 @@ msgstr "Låst"
 
 msgid "Unlocked"
 msgstr "Ulåst"
-
-msgid "Privacy"
-msgstr "Sidevern"
-
-msgid "Private"
-msgstr "Privat"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -481,6 +583,22 @@ msgstr[1] ""
 "Dette vil også slette %(descendant_count)s undersider.\n"
 " "
 
+msgid "Yes, delete it"
+msgstr "Ja, slett den"
+
+msgid "No, don't delete it"
+msgstr "Nei, ikke slett den"
+
+#, python-format
+msgid ""
+"Alternatively you can <a href=\"%(unpublish_url)s\">unpublish the page</a>. "
+"This removes the page from public view and you can edit or publish it again "
+"later."
+msgstr ""
+"Alternativt kan du <a href=\"%(unpublish_url)s\">avpublisere siden</a>. "
+"Dette vil fjerne siden fra offentlig visning, og du kan redigere eller "
+"publisere den igjen senere."
+
 #, python-format
 msgid "Move %(title)s"
 msgstr "Flytt %(title)s"
@@ -513,8 +631,34 @@ msgstr "Avpublisér"
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Er du sikker på at du vil avpublisere denne siden?"
 
+#, python-format
+msgid ""
+"\n"
+"                    This page has one subpage. Unpublish this too\n"
+"                "
+msgid_plural ""
+"\n"
+"                    This page has %(live_descendant_count)s subpages. "
+"Unpublish these too\n"
+"                "
+msgstr[0] ""
+"\n"
+"Denne siden har en underside. Avpubliser denne også"
+msgstr[1] ""
+"\n"
+"                    Denne siden har %(live_descendant_count)s undersider. "
+"Avpubliser disse også\n"
+"                "
+
 msgid "Yes, unpublish it"
 msgstr "Ja, avpubliser den"
+
+msgid "No, don't unpublish"
+msgstr "Nei, ikke avpubliser"
+
+#, python-format
+msgid "Pages using %(page_class_verbose_name)s"
+msgstr "Sider som bruker %(page_class_verbose_name)s"
 
 msgid "Pages using"
 msgstr "Sider som bruker"
@@ -536,14 +680,23 @@ msgstr "Ny %(page_type)s"
 msgid "New"
 msgstr "Ny"
 
+msgid "Saving..."
+msgstr "Lagrer..."
+
 msgid "Save draft"
 msgstr "Lagre kladd"
+
+msgid "Publishing..."
+msgstr "Publiserer..."
 
 msgid "Publish"
 msgstr "Publiser"
 
 msgid "Submit for moderation"
 msgstr "Send til godkjenning"
+
+msgid "This page has unsaved changes."
+msgstr "Denne siden har endringer som ikke er lagret."
 
 #, python-format
 msgid "Editing %(page_type)s: %(title)s"
@@ -556,6 +709,12 @@ msgstr "Redigerer %(page_type)s: <span>%(title)s</span>"
 msgid "Page locked"
 msgstr "Siden er låst"
 
+msgid "Replace current draft"
+msgstr "Erstatt nåværende kladd"
+
+msgid "Publish this revision"
+msgstr "Publiser denne revisjonen"
+
 #, python-format
 msgid "Last modified: %(last_mod)s"
 msgstr "Sist endret: %(last_mod)s"
@@ -563,6 +722,9 @@ msgstr "Sist endret: %(last_mod)s"
 #, python-format
 msgid "by %(modified_by)s"
 msgstr "av %(modified_by)s"
+
+msgid "Revisions"
+msgstr "Revisjoner"
 
 #, python-format
 msgid "Exploring %(title)s"
@@ -573,6 +735,64 @@ msgstr "Dra"
 
 msgid "Updated"
 msgstr "Oppdatert"
+
+msgid ""
+"\n"
+"                            The root level is where you can add new sites to "
+"your Wagtail installation. Pages created here will not be accessible at any "
+"URL until they are associated with a site.\n"
+"                        "
+msgstr ""
+"\n"
+"Rotnivået er der du kan legge til nye nettsteder i Wagtail-installasjonen "
+"din. Sider opprettet her er ikke tilgjengelig på noen URL før de er "
+"tilordnet et nettsted."
+
+msgid "Configure a site now."
+msgstr "Konfigurer et nettsted nå."
+
+msgid ""
+"\n"
+"                            If you just want to add pages to an existing "
+"site, create them as children of the homepage instead.\n"
+"                        "
+msgstr ""
+"\n"
+"Hvis du vil legge til sider på et eksisterende nettsted, legg dem til som "
+"undersider av hjemmesiden isteden."
+
+msgid ""
+"\n"
+"                        Pages created here will not be accessible at any "
+"URL. To add pages to an existing site, create them as children of the "
+"homepage.\n"
+"                    "
+msgstr ""
+"\n"
+"Sider opprettet her vil ikke være tilgjengelig på noen URL. For å legge til "
+"sider på et eksisterende nettsted, legg dem til som undersider av "
+"hjemmesiden."
+
+msgid ""
+"\n"
+"                        There is no site set up for this location. Pages "
+"created here will not be accessible at any URL until a site is associated "
+"with this location.\n"
+"                    "
+msgstr ""
+"\n"
+"Ingen nettsteder er tilordnet dette området. Sider opprettet her vil ikke "
+"være tilgjengelig på noen URL før et nettsted er tilordnet dette området."
+
+msgid ""
+"\n"
+"                        There is no site record for this location. Pages "
+"created here will not be accessible at any URL.\n"
+"                    "
+msgstr ""
+"\n"
+"Ingen nettsteder er tilordnet dette området. Sider opprettet her vil ikke "
+"være tilgjengelig på noen URL."
 
 msgid "No pages have been created at this location."
 msgstr "Ingen sider har blitt opprettet på denne plasseringen."
@@ -599,8 +819,11 @@ msgstr "Utforsk undersider av \"%(title)s\""
 msgid "Add a child page to '%(title)s'"
 msgstr "Legg en underside til \"%(title)s\""
 
-msgid "Add subpage"
+msgid "Add child page"
 msgstr "Legg til underside"
+
+msgid "Sites menu"
+msgstr "Nettsteder-meny"
 
 #, python-format
 msgid ""
@@ -638,6 +861,119 @@ msgstr "Velg en ny forelderside for %(title)s"
 msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Velg en ny forelderside for <span>%(title)s</span>"
 
+msgid "Preview error"
+msgstr "Forhåndsvisningsfeil"
+
+msgid ""
+"\n"
+"                Impossible to preview this page, some errors are remaining.\n"
+"                Please close this tab, edit the page to fix these errors,\n"
+"                then use preview again.\n"
+"            "
+msgstr ""
+"\n"
+"Kan ikke forhåndsvise siden fordi det er feil som må fikses. \n"
+"Lukk denne fanen, rediger siden for å korrigere feilene og bruk "
+"forhåndsvisning på nytt."
+
+msgid "Close"
+msgstr "Lukk"
+
+#, python-format
+msgid "Comparing %(title)s"
+msgstr "Sammenligner %(title)s"
+
+msgid "Comparing"
+msgstr "Sammenligner"
+
+msgid "View revisions"
+msgstr "Vis revisjoner"
+
+msgid "Fields"
+msgstr "Felt"
+
+msgid "Changes"
+msgstr "Endringer"
+
+#, python-format
+msgid ""
+"\n"
+"                                                            Moved down 1 "
+"place.\n"
+"                                                        "
+msgid_plural ""
+"\n"
+"                                                            Moved down "
+"%(counter)s places.\n"
+"                                                        "
+msgstr[0] ""
+"\n"
+"                                                            Flyttet ned 1 "
+"plass.\n"
+"                                                        "
+msgstr[1] ""
+"\n"
+"                                                            Flyttet ned "
+"%(counter)s plasser.\n"
+"                                                        "
+
+#, python-format
+msgid ""
+"\n"
+"                                                            Moved up 1 "
+"place.\n"
+"                                                        "
+msgid_plural ""
+"\n"
+"                                                            Moved up "
+"%(counter)s places.\n"
+"                                                        "
+msgstr[0] ""
+"\n"
+"                                                            Flyttet opp 1 "
+"plass.\n"
+"                                                        "
+msgstr[1] ""
+"\n"
+"                                                            Flyttet opp "
+"%(counter)s plasser.\n"
+"                                                        "
+
+msgid "There are no differences between these two revisions"
+msgstr "Det er ingen forskjeller mellom disse to revisjonene"
+
+#, python-format
+msgid "Revisions of %(title)s"
+msgstr "Revisjoner av %(title)s"
+
+msgid "Revisions of"
+msgstr "Revisjoner av"
+
+msgid "Revision date"
+msgstr "Revisjonsdato"
+
+msgctxt "points to a user who created a revision"
+msgid "by"
+msgstr "av"
+
+msgid "Current draft"
+msgstr "Nåværende kladd"
+
+msgid "Live version"
+msgstr "Publisert versjon"
+
+msgid "Review this revision"
+msgstr "Vurder denne revisjonen"
+
+msgid "Compare with previous revision"
+msgstr "Sammenlign med forrige revisjon"
+
+msgid "No revisions of this page exist"
+msgstr "Det finnes ingen revisjoner av denne siden"
+
+msgid "No revision of this page exist"
+msgstr "Det finnes ingen revisjoner av denne siden"
+
 #, python-format
 msgid ""
 "\n"
@@ -666,44 +1002,50 @@ msgstr "Skriv inn en søkestreng over"
 msgid "No pages use"
 msgstr "Ingen sider bruker"
 
+msgid "Collection"
+msgstr "Samling"
+
 msgid "Home"
 msgstr "Hjem"
 
+msgid "All collections"
+msgstr "Alle samlinger"
+
 msgid "January"
-msgstr "Januar"
+msgstr "januar"
 
 msgid "February"
-msgstr "Februar"
+msgstr "februar"
 
 msgid "March"
-msgstr "Mars"
+msgstr "mars"
 
 msgid "April"
-msgstr "April"
+msgstr "april"
 
 msgid "May"
-msgstr "Mai"
+msgstr "mai"
 
 msgid "June"
-msgstr "Juni"
+msgstr "juni"
 
 msgid "July"
-msgstr "Juli"
+msgstr "juli"
 
 msgid "August"
-msgstr "August"
+msgstr "august"
 
 msgid "September"
-msgstr "September"
+msgstr "september"
 
 msgid "October"
-msgstr "Oktober"
+msgstr "oktober"
 
 msgid "November"
-msgstr "November"
+msgstr "november"
 
 msgid "December"
-msgstr "Desember"
+msgstr "desember"
 
 msgid "Sun"
 msgstr "Søn"
@@ -735,6 +1077,9 @@ msgstr[1] "Brukt %(useage_count)s ganger"
 msgid "Edit your account"
 msgstr "Endre din konto"
 
+msgid "Account settings"
+msgstr "Kontoinnstillinger"
+
 msgid "Log out"
 msgstr "Logg ut"
 
@@ -754,14 +1099,103 @@ msgstr ""
 "programvaren. Vær vennlig å <a href=\"http://browsehappy.com/\">oppgradere "
 "nettleseren din</a>."
 
-msgid "Javascript is required to use Wagtail, but it is currently disabled"
-msgstr "JavaScript er påkrevet for å bruke Wagtail, men er deaktivert"
+msgid ""
+"\n"
+"            Javascript is required to use Wagtail, but it is currently "
+"disabled.<br />\n"
+"            Here are the <a href=\"http://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noopener\">instructions how to enable JavaScript in "
+"your web browser</a>.\n"
+"        "
+msgstr ""
+"\n"
+"            Javascript er påkrevd for å bruke Wagtail, men det er for "
+"øyeblikket deaktivert.<br />\n"
+"            Her finner du <a href=\"http://www.enable-javascript.com/no/\" "
+"target=\"_blank\" rel=\"noopener\">instruksjoner for hvordan man aktiverer "
+"JavaScript i nettleseren</a>.\n"
+"        "
 
 msgid "Go to Wagtail admin interface"
 msgstr "Gå til Wagtail administrasjonsgrensesnitt"
 
+msgid "Go to Wagtail admin"
+msgstr "Gå til Wagtail admin"
+
 msgid "Add a child page"
 msgstr "Legg til en underside"
+
+msgid "Show in Explorer"
+msgstr "Vis i Utforsker"
+
+msgid "Test"
+msgstr "Test"
+
+msgid "Catalan"
+msgstr "katalansk"
+
+msgid "German"
+msgstr "tysk"
+
+msgid "Greek"
+msgstr "gresk"
+
+msgid "English"
+msgstr "engelsk"
+
+msgid "Spanish"
+msgstr "spansk"
+
+msgid "Finnish"
+msgstr "finsk"
+
+msgid "French"
+msgstr "fransk"
+
+msgid "Galician"
+msgstr "galisisk"
+
+msgid "Icelandic"
+msgstr "islandsk"
+
+msgid "Italian"
+msgstr "italiensk"
+
+msgid "Korean"
+msgstr "Koreansk"
+
+msgid "Lithuanian"
+msgstr "litauisk"
+
+msgid "Norwegian Bokmål"
+msgstr "norsk bokmål"
+
+msgid "Netherlands Dutch"
+msgstr "nederlandsk"
+
+msgid "Persian"
+msgstr "Persisk"
+
+msgid "Polish"
+msgstr "polsk"
+
+msgid "Brazilian Portuguese"
+msgstr "brasiliansk portugisisk"
+
+msgid "Portuguese"
+msgstr "portugisisk"
+
+msgid "Romanian"
+msgstr "rumensk"
+
+msgid "Russian"
+msgstr "russisk"
+
+msgid "Swedish"
+msgstr "Svensk"
+
+msgid "Chinese (China)"
+msgstr "kinesisk (Kina)"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Beklager, du har ikke tilgang på dette området."
@@ -769,8 +1203,48 @@ msgstr "Beklager, du har ikke tilgang på dette området."
 msgid "Your password has been changed successfully!"
 msgstr "Passordet ditt er endret."
 
-msgid "Your preferences have been updated successfully!"
+msgid "Your preferences have been updated."
 msgstr "Dine innstillinger har blitt oppdatert."
+
+msgid "You have been successfully logged out."
+msgstr "Du er nå logget ut."
+
+msgid "Collections"
+msgstr "Samlinger"
+
+msgid "Add a collection"
+msgstr "Legg til en samling"
+
+msgid "Add collection"
+msgstr "Legg til samling"
+
+#, python-brace-format
+msgid "Collection '{0}' created."
+msgstr "Samlingen \"{0}\" er opprettet."
+
+#, python-brace-format
+msgid "Collection '{0}' updated."
+msgstr "Samlingen \"{0}\" er oppdatert."
+
+msgid "The collection could not be saved due to errors."
+msgstr "Samlingen kunne ikke lagres grunnet feil."
+
+msgid "Delete collection"
+msgstr "Slett samlingen"
+
+#, python-brace-format
+msgid "Collection '{0}' deleted."
+msgstr "Samlingen \"{0}\" er slettet."
+
+msgid "Are you sure you want to delete this collection?"
+msgstr "Er du sikker på at du vil slette denne samlingen?"
+
+msgid "Editing"
+msgstr "Redigerer"
+
+#, python-brace-format
+msgid "Page '{0}' created and scheduled for publishing."
+msgstr "Siden \"{0}\" er opprettet og planlagt for publisering."
 
 #, python-brace-format
 msgid "Page '{0}' created and published."
@@ -786,6 +1260,9 @@ msgstr "Siden \"{0}\" er opprettet og sendt til godkjenning."
 msgid "View draft"
 msgstr "Vis kladd"
 
+msgid "Failed to send notifications to moderators"
+msgstr "Klarte ikke å sende varsler til moderatorene"
+
 #, python-brace-format
 msgid "Page '{0}' created."
 msgstr "Siden \"{0}\" er opprettet."
@@ -793,11 +1270,42 @@ msgstr "Siden \"{0}\" er opprettet."
 msgid "The page could not be created due to validation errors"
 msgstr "Siden kunne ikke opprettes grunnet valideringsfeil."
 
+#, python-brace-format
+msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
+msgstr "Revisjonen fra {0} av siden «{1}» har blitt planlagt for publisering."
+
+#, python-brace-format
+msgid "Page '{0}' has been scheduled for publishing."
+msgstr "Siden \"{0}\" er planlagt for publisering."
+
+#, python-brace-format
+msgid "Revision from {0} of page '{1}' has been published."
+msgstr "Revisjonen fra {0} av siden «{1}» har blitt publisert."
+
+#, python-brace-format
+msgid "Page '{0}' has been published."
+msgstr "Siden \"{0}\" er publisert."
+
+#, python-brace-format
+msgid "Page '{0}' has been submitted for moderation."
+msgstr "Siden \"{0}\" er sendt til godkjenning."
+
+#, python-brace-format
+msgid "Page '{0}' has been replaced with revision from {1}."
+msgstr "Siden «{0}» har blitt erstattet av revisjonen fra {1}."
+
+#, python-brace-format
+msgid "Page '{0}' has been updated."
+msgstr "Siden \"{0}\" er oppdatert."
+
 msgid "The page could not be saved as it is locked"
 msgstr "Siden kunne ikke lagres fordi den er låst"
 
 msgid "The page could not be saved due to validation errors"
 msgstr "Siden kunne ikke lagres grunnet valideringsfeil"
+
+msgid "Compare with live version"
+msgstr "Sammenlign med publisert versjon"
 
 msgid "This page is currently awaiting moderation"
 msgstr "Denne siden påventer godkjenning"
@@ -830,9 +1338,15 @@ msgstr "Siden \"{0}\" påventer ikke godkjenning."
 msgid "Page '{0}' published."
 msgstr "Siden \"{0}\" er publisert."
 
+msgid "Failed to send approval notifications"
+msgstr "Klarte ikke å sende varsel om godkjenninger"
+
 #, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "Siden \"{0}\" ble avvist for publikasjon."
+
+msgid "Failed to send rejection notifications"
+msgstr "Klarte ikke å sende varsel om avvisninger"
 
 #, python-brace-format
 msgid "Page '{0}' is now locked."
@@ -842,8 +1356,62 @@ msgstr "Siden \"{0}\" er nå låst."
 msgid "Page '{0}' is now unlocked."
 msgstr "Siden \"{0}\" er nå ulåst."
 
-msgid "Add child page"
-msgstr "Legg til underside"
+#, python-format
+msgid ""
+"You are viewing a previous revision of this page from <b>%(created_at)s</b> "
+"by %(user)s"
+msgstr ""
+"Du ser på en tidligere revisjon av denne siden fra <b>%(created_at)s</b> av "
+"%(user)s"
+
+msgid "Earliest"
+msgstr "Tidligste"
+
+msgid "Latest"
+msgstr "Siste"
+
+#, python-brace-format
+msgid "Edit '{title}'"
+msgstr "Endre '{title}'"
+
+#, python-brace-format
+msgid "Preview draft version of '{title}'"
+msgstr "Forhåndsvis kladd av «{title}»"
+
+#, python-brace-format
+msgid "View live version of '{title}'"
+msgstr "Vis publisert versjon av  «{title}»"
+
+#, python-brace-format
+msgid "Add a child page to '{title}' "
+msgstr "Legg til underside til «{title}»"
+
+msgid "More"
+msgstr "Mer"
+
+#, python-brace-format
+msgid "View more options for '{title}'"
+msgstr "Vis flere valgmuligheter for «{title}»"
+
+#, python-brace-format
+msgid "Move page '{title}'"
+msgstr "Flytt siden «{title}»"
+
+#, python-brace-format
+msgid "Copy page '{title}'"
+msgstr "Kopier siden «{title}»"
+
+#, python-brace-format
+msgid "Delete page '{title}'"
+msgstr "Slett siden «{title}»"
+
+#, python-brace-format
+msgid "Unpublish page '{title}'"
+msgstr "Avpublisér siden «{title}»"
+
+#, python-brace-format
+msgid "View revision history for '{title}'"
+msgstr "Vis revisjonshistorikken til siden «{title}»"
 
 msgid "Choose an item"
 msgstr "Velg et element"

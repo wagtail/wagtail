@@ -22,6 +22,12 @@ Database fields
 
         Human-readable title of the page.
 
+    .. attribute:: draft_title
+
+        (text)
+
+        Human-readable title of the page, incorporating any changes that have been made in a draft edit (in contrast to the ``title`` field, which for published pages will be the title as it exists in the current published version).
+
     .. attribute:: slug
 
         (text)
@@ -62,6 +68,12 @@ Database fields
 
         The date/time when the page was first published.
 
+    .. attribute:: last_published_at
+
+        (date/time)
+
+        The date/time when the page was last published.
+
     .. attribute:: seo_title
 
         (text)
@@ -80,12 +92,14 @@ Database fields
 
         Toggles whether the page should be included in site-wide menus.
 
+        Defaults to ``False`` and can be overridden on the model with ``show_in_menus_default = True``.
+
         This is used by the :meth:`~wagtail.wagtailcore.query.PageQuerySet.in_menu` QuerySet filter.
 
 Methods and properties
 ~~~~~~~~~~~~~~~~~~~~~~
 
-In addition to the model fields provided, ``Page`` has many properties and methods that you may wish to reference, use, or override in creating your own models. Those listed here are relatively straightforward to use, but consult the Wagtail source code for a full view of what's possible.
+In addition to the model fields provided, ``Page`` has many properties and methods that you may wish to reference, use, or override in creating your own models.
 
 .. class:: Page
 
@@ -111,9 +125,13 @@ In addition to the model fields provided, ``Page`` has many properties and metho
 
     .. automethod:: get_template
 
+    .. automethod:: get_admin_display_title
+
     .. autoattribute:: preview_modes
 
     .. automethod:: serve_preview
+
+    .. automethod:: get_parent
 
     .. automethod:: get_ancestors
 
@@ -177,6 +195,8 @@ In addition to the model fields provided, ``Page`` has many properties and metho
         This attribute can be set on a model to customise the Page editor form.
         Forms must be a subclass of :class:`~wagtail.wagtailadmin.forms.WagtailAdminPageForm`.
         See :ref:`custom_edit_handler_forms` for more information.
+
+.. _site-model-ref:
 
 ``Site``
 ========

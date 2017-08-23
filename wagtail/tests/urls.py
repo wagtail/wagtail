@@ -5,7 +5,8 @@ from django.conf.urls import include, url
 from wagtail.api.v2.endpoints import PagesAPIEndpoint
 from wagtail.api.v2.router import WagtailAPIRouter
 from wagtail.contrib.wagtailapi import urls as wagtailapi_urls
-from wagtail.contrib.wagtailsitemaps.views import sitemap
+from wagtail.contrib.wagtailsitemaps import views as sitemaps_views
+from wagtail.contrib.wagtailsitemaps import Sitemap
 from wagtail.tests.testapp import urls as testapp_urls
 from wagtail.wagtailadmin import urls as wagtailadmin_urls
 from wagtail.wagtailcore import urls as wagtail_urls
@@ -32,7 +33,13 @@ urlpatterns = [
 
     url(r'^api/', include(wagtailapi_urls)),
     url(r'^api/v2beta/', api_router.urls),
-    url(r'^sitemap\.xml$', sitemap),
+    url(r'^sitemap\.xml$', sitemaps_views.sitemap),
+
+    url(r'^sitemap-index\.xml$', sitemaps_views.index, {
+        'sitemaps': {'pages': Sitemap},
+        'sitemap_url_name': 'sitemap',
+    }),
+    url(r'^sitemap-(?P<section>.+)\.xml$', sitemaps_views.sitemap, name='sitemap'),
 
     url(r'^testapp/', include(testapp_urls)),
 

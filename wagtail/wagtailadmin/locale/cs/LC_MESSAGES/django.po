@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-01 13:25+0000\n"
-"PO-Revision-Date: 2016-08-18 20:31+0000\n"
-"Last-Translator: Marek Turnovec <aesculap@gmail.com>\n"
+"POT-Creation-Date: 2017-08-10 16:05+0000\n"
+"PO-Revision-Date: 2017-08-10 16:07+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -117,12 +117,6 @@ msgid ""
 msgstr ""
 "Tento název pro URL je již použit v kontextu s rodičovskou stránkou \"%s\""
 
-msgid "Public"
-msgstr "Veřejné"
-
-msgid "Private, accessible with the following password"
-msgstr "Soukromé, přístupné pod následujícím heslem"
-
 msgid "This field is required."
 msgstr "Toto pole je povinné."
 
@@ -162,17 +156,11 @@ msgstr "Nastavení notifikací"
 msgid "Choose which email notifications to receive."
 msgstr "Zvolte, které e-mailové notifikace si přejete dostávat."
 
-msgid "Change Password"
-msgstr "Změnit heslo"
-
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr ""
 "Vaše heslo nelze změnit pomocí této stránky. Kontaktujte prosím "
 "administrátora."
-
-msgid "Notification Preferences"
-msgstr "Nastavení notifikací"
 
 msgid "Update"
 msgstr "Uložit"
@@ -203,6 +191,12 @@ msgstr "Obnovení hesla"
 
 msgid "Reset your password"
 msgstr "Nastavit nové heslo"
+
+msgid "Edit"
+msgstr "Upravit"
+
+msgid "Pages"
+msgstr "Stránky"
 
 msgid "Dashboard"
 msgstr "Dashboard"
@@ -249,14 +243,26 @@ msgstr "Vložit odkaz"
 msgid "Add an external link"
 msgstr "Vložit externí odkaz"
 
+msgid "You can edit the privacy settings on:"
+msgstr "Nastavení viditelnosti můžete změnit zde:"
+
+msgid "Save"
+msgstr "Uložit"
+
+msgid "Privacy"
+msgstr "Viditelnost"
+
+msgid "Public"
+msgstr "Veřejné"
+
+msgid "Private"
+msgstr "Soukromé"
+
 msgid "Name"
 msgstr "Jméno"
 
 msgid "Yes, delete"
 msgstr "Ano, smazat"
-
-msgid "Save"
-msgstr "Uložit"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -290,9 +296,6 @@ msgstr "Schválit"
 
 msgid "Reject"
 msgstr "Zamítnout"
-
-msgid "Edit"
-msgstr "Upravit"
 
 msgid "Preview"
 msgstr "Náhled"
@@ -369,9 +372,6 @@ msgstr "Viditelnost"
 msgid "This page has been made private by a parent page."
 msgstr "Stránka je neveřejná kvůli nastavení nadřazené stránky."
 
-msgid "You can edit the privacy settings on:"
-msgstr "Nastavení viditelnosti můžete změnit zde:"
-
 msgid "Privacy changes apply to all children of this page too."
 msgstr "Nastavení viditelnosti ovlivní i všechny podstránky."
 
@@ -383,12 +383,6 @@ msgstr "Zamknuto"
 
 msgid "Unlocked"
 msgstr "Odemknuto"
-
-msgid "Privacy"
-msgstr "Viditelnost"
-
-msgid "Private"
-msgstr "Soukromé"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -562,7 +556,7 @@ msgstr "Zobrazit podstránky \"%(title)s\""
 msgid "Add a child page to '%(title)s'"
 msgstr "Přidat podstránku pod \"%(title)s\""
 
-msgid "Add subpage"
+msgid "Add child page"
 msgstr "Přidat podstránku"
 
 #, python-format
@@ -725,9 +719,6 @@ msgstr "Přidat podstránku"
 msgid "Your password has been changed successfully!"
 msgstr "Vaše heslo bylo úspěšně změněno."
 
-msgid "Your preferences have been updated successfully!"
-msgstr "Vaše nastavení bylo uloženo."
-
 msgid "You have been successfully logged out."
 msgstr "Právě jste se úspěšně odhlásili."
 
@@ -802,26 +793,8 @@ msgstr "Stránka '{0}' je nyní uzamčena."
 msgid "Page '{0}' is now unlocked."
 msgstr "Stránka '{0}' je nyní odemčena."
 
-msgid "Pages"
-msgstr "Stránky"
-
-msgid "Add child page"
-msgstr "Přidat podstránku"
-
 msgid "More"
 msgstr "Více"
-
-msgid "Move this page"
-msgstr "Přesunout tuto stránku"
-
-msgid "Delete this page"
-msgstr "Smazat tuto stránku"
-
-msgid "Unpublish this page"
-msgstr "Zrušit publikaci této stránky"
-
-msgid "View this page's revision history"
-msgstr "Zobrazit revize této stránky"
 
 msgid "Choose an item"
 msgstr "Zvolit položku"

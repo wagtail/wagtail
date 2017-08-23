@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Thomas Kunambi <kunambi@gmail.com>, 2016
+# Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2017
+# Thomas Kunambi <kunambi@gmail.com>, 2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-01 13:25+0000\n"
-"PO-Revision-Date: 2016-03-01 18:57+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-08-10 16:05+0000\n"
+"PO-Revision-Date: 2017-08-14 09:36+0000\n"
+"Last-Translator: Jim Brouzoulis <jim.brouzoulis@chalmers.se>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -18,6 +19,30 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sv\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#, python-brace-format
+msgid "{label}: this block has no options."
+msgstr "{label}: det här blocket har inga inställningar."
+
+msgid "This block has no options."
+msgstr "Detta block har inga inställningar."
+
+#, python-format
+msgid "The minimum number of items is %d"
+msgstr "Det minsta antalet block är %d"
+
+msgid "This field is required."
+msgstr "Det här fältet är obligatoriskt."
+
+#, python-format
+msgid "The maximum number of items is %d"
+msgstr "Det maximala antalet block är %d"
+
+msgid "Password"
+msgstr "Lösenord"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr "Lösenordet du angav är inte korrekt. Vänligen försök igen."
 
 msgid "hostname"
 msgstr "värdnamn"
@@ -88,7 +113,7 @@ msgid "content type"
 msgstr "innehållstyp"
 
 msgid "live"
-msgstr "lajv"
+msgstr "publicerad"
 
 msgid "has unpublished changes"
 msgstr "har opublicerade ändringar"
@@ -122,10 +147,7 @@ msgid "search description"
 msgstr "sökbeskrivning"
 
 msgid "go live date/time"
-msgstr "gå lajv datum/tid"
-
-msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
-msgstr "Vänligen skapa en tid i formatet ÅÅÅÅ-MM-DD tt:mm."
+msgstr "publicera vid datum/tid"
 
 msgid "expiry date/time"
 msgstr "utgångsdatum/tid"
@@ -139,8 +161,14 @@ msgstr "låst"
 msgid "first published at"
 msgstr "först publicerad vid"
 
+msgid "last published at"
+msgstr "senast publicerad"
+
 msgid "latest revision created at"
 msgstr "senaste revision skapad vid"
+
+msgid "This slug is already in use"
+msgstr "Den här sluggen är redan i användning"
 
 msgid "scheduled"
 msgstr "schemalagd"
@@ -149,7 +177,7 @@ msgid "draft"
 msgstr "utkast"
 
 msgid "live + draft"
-msgstr "lajv + utkast"
+msgstr "publicerad + utkast"
 
 msgid "Default"
 msgstr "Standard"
@@ -173,7 +201,7 @@ msgid "content JSON"
 msgstr "innehålls JSON"
 
 msgid "approved go live at"
-msgstr "godkänd att gå lajv vid"
+msgstr "godkänd för att publiceras vid"
 
 msgid "page revision"
 msgstr "sidorevision"
@@ -181,14 +209,32 @@ msgstr "sidorevision"
 msgid "page revisions"
 msgstr "sidorevisioner"
 
+msgid "Add"
+msgstr "Lägg till"
+
 msgid "Add/edit pages you own"
 msgstr "Skapa/editera sidor du äger"
+
+msgid "Edit"
+msgstr "Editera"
 
 msgid "Edit any page"
 msgstr "Editera alla sidor"
 
+msgid "Publish"
+msgstr "Publicera"
+
 msgid "Publish any page"
 msgstr "Publicera alla sidor"
+
+msgid "Bulk delete"
+msgstr "Massradera"
+
+msgid "Delete pages with children"
+msgstr "Radera sidor med undersidor"
+
+msgid "Lock"
+msgstr "Lås"
 
 msgid "Lock/unlock any page"
 msgstr "Lås/upplås alla sidor"
@@ -205,5 +251,75 @@ msgstr "gruppens sidrättighet"
 msgid "group page permissions"
 msgstr "gruppens sidrättigheter"
 
+msgid "Public"
+msgstr "Publik"
+
+msgid "Private, accessible to logged-in users"
+msgstr "Privat, åtkomligen för inloggade användare"
+
+msgid "Private, accessible with the following password"
+msgstr "Privat, åtkomligen med följande lösenord"
+
+msgid "Private, accessible to users in specific groups"
+msgstr "Privat, åtkomligen för användare i specifika grupper"
+
 msgid "password"
 msgstr "lösenord"
+
+msgid "groups"
+msgstr "grupper"
+
+msgid "view restriction"
+msgstr "visningsrestriktion"
+
+msgid "view restrictions"
+msgstr "visningsrestriktioner"
+
+msgid "page view restriction"
+msgstr "Sidovisningsrestriktion"
+
+msgid "page view restrictions"
+msgstr "Sidovisningsrestriktioner"
+
+msgid "collection"
+msgstr "samling"
+
+msgid "collection view restriction"
+msgstr "visningsrestriktion för samling"
+
+msgid "collection view restrictions"
+msgstr "visningsrestriktioner för samling"
+
+msgid "name"
+msgstr "namn"
+
+msgid "collections"
+msgstr "samlingar"
+
+msgid "permission"
+msgstr "rättighet"
+
+msgid "group collection permission"
+msgstr "gruppsamlingsrättighet"
+
+msgid "Log in"
+msgstr "Logga in"
+
+msgid "Your username and password didn't match. Please try again."
+msgstr "Ditt användarnamn och lösenord matchade inte. Vänligen försök igen."
+
+msgid ""
+"Your account doesn't have access to this page. To proceed, please log in "
+"with an account that has access."
+msgstr ""
+"Ditt konto har inte tillgång till den här sidan. För att fortsätta, vänligen "
+"logga in med ett konto som har tillgång."
+
+msgid "Password required"
+msgstr "Lösenord krävs"
+
+msgid "You need a password to access this page."
+msgstr "Du behöver ett lösenord för åtkomst till sidan."
+
+msgid "Continue"
+msgstr "Fortsätt"

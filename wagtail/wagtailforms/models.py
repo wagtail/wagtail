@@ -29,6 +29,7 @@ FORM_FIELD_CHOICES = (
     ('checkbox', _('Checkbox')),
     ('checkboxes', _('Checkboxes')),
     ('dropdown', _('Drop down')),
+    ('multiselect', _('Multiple select')),
     ('radio', _('Radio buttons')),
     ('date', _('Date')),
     ('datetime', _('Date/time')),
@@ -207,6 +208,9 @@ class AbstractForm(Page):
 
         return form_class(*args, **form_params)
 
+    def get_landing_page_template(self, request, *args, **kwargs):
+        return self.landing_page_template
+
     def get_submission_class(self):
         """
         Returns submission class.
@@ -226,7 +230,7 @@ class AbstractForm(Page):
         For example, if you want to save reference to a user.
         """
 
-        self.get_submission_class().objects.create(
+        return self.get_submission_class().objects.create(
             form_data=json.dumps(form.cleaned_data, cls=DjangoJSONEncoder),
             page=self,
         )
@@ -242,7 +246,7 @@ class AbstractForm(Page):
                 # TODO: It is much better to redirect to it
                 return render(
                     request,
-                    self.landing_page_template,
+                    self.get_landing_page_template(request),
                     self.get_context(request)
                 )
         else:
@@ -252,7 +256,7 @@ class AbstractForm(Page):
         context['form'] = form
         return render(
             request,
-            self.template,
+            self.get_template(request),
             context
         )
 
@@ -263,9 +267,11 @@ class AbstractForm(Page):
 
     def serve_preview(self, request, mode):
         if mode == 'landing':
+            request.is_preview = True
+
             return render(
                 request,
-                self.landing_page_template,
+                self.get_landing_page_template(request),
                 self.get_context(request)
             )
         else:
@@ -292,7 +298,13 @@ class AbstractEmailForm(AbstractForm):
 
     def send_mail(self, form):
         addresses = [x.strip() for x in self.to_address.split(',')]
-        content = '\n'.join([x[1].label + ': ' + text_type(form.data.get(x[0])) for x in form.fields.items()])
+        content = []
+        for field in form:
+            value = field.value()
+            if isinstance(value, list):
+                value = ', '.join(value)
+            content.append('{}: {}'.format(field.label, value))
+        content = '\n'.join(content)
         send_mail(self.subject, content, addresses, self.from_address,)
 
     class Meta:

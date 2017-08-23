@@ -88,7 +88,7 @@ This example represents a typical blog post:
 
 .. important::
 
-    Ensure that none of your field names are the same as your class names. This will cause errors due to the way Django handles relations (`read more <https://github.com/torchbox/wagtail/issues/503>`_). In our examples we have avoided this by appending "Page" to each model name.
+    Ensure that none of your field names are the same as your class names. This will cause errors due to the way Django handles relations (`read more <https://github.com/wagtail/wagtail/issues/503>`_). In our examples we have avoided this by appending "Page" to each model name.
 
 
 Writing page models
@@ -104,7 +104,7 @@ Each Wagtail page type is a Django model, represented in the database as a separ
 
 Each page type can have its own set of fields. For example, a news article may have body text and a published date, whereas an event page may need separate fields for venue and start/finish times.
 
-In Wagtail, you can use any Django field class. Most field classes provided by `third party apps <https://code.djangoproject.com/wiki/DjangoResources#Djangoapplicationcomponents>`_ should work as well.
+In Wagtail, you can use any Django field class. Most field classes provided by third party apps should work as well.
 
 Wagtail also provides a couple of field classes of its own:
 
@@ -176,6 +176,8 @@ Customising the page editor interface
 The page editor can be customised further. See :doc:`/advanced_topics/customisation/page_editing_interface`.
 
 
+.. _page_type_business_rules:
+
 Parent page / subpage type rules
 --------------------------------
 
@@ -190,6 +192,49 @@ By default, any page type can be created under any page type and it is not neces
 
 Setting ``parent_page_types`` to an empty list is a good way of preventing a particular page type from being created in the editor interface.
 
+.. _page_urls:
+
+Page URLs
+---------
+
+The most common method of retrieving page URLs is by using the ``{% pageurl %}`` template tag. Since it's called from a template, ``pageurl`` automatically includes the optimizations mentioned below. For more information, see :ref:`pageurl_tag`.
+
+Page models also include several low-level methods for overriding or accessing page URLs.
+
+Customising URL patterns for a page model
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The ``Page.get_url_parts(request)`` method will not typically be called directly, but may be overriden to define custom URL routing for a given page model. It should return a tuple of ``(site_id, root_url, page_path)``, which are used by ``get_url`` and ``get_full_url`` (see below) to construct the given type of page URL.
+
+When overriding ``get_url_parts()``, you should accept ``*args, **kwargs``:
+
+.. code-block:: python
+
+    def get_url_parts(self, *args, **kwargs):
+
+and pass those through at the point where you are calling ``get_url_parts`` on ``super`` (if applicable), e.g.:
+
+.. code-block:: python
+
+    super(MyPageModel, self).get_url_parts(*args, **kwargs)
+
+While you could pass only the ``request`` keyword argument, passing all arguments as-is ensures compatibility with any
+future changes to these method signatures.
+
+For more information, please see :meth:`wagtail.wagtailcore.models.Page.get_url_parts`.
+
+Obtaining URLs for page instances
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The ``Page.get_url(request)`` method can be called whenever a page URL is needed. It defaults to returning local URLs (not including the protocol or domain) if it can detect that the page is on current site (via ``request.site``); otherwise, a full URL including the protocol and domain is returned. Whenever possible, the optional ``request`` argument should be included to enable per-request caching of site-level URL information and facilitate the generation of local URLs.
+
+A common use case for ``get_url(request)`` is in any custom template tag your project may include for generating navigation menus. When writing a such a
+custom template tag, ensure it includes ``takes_context=True`` and use ``context.get('request')`` to safely pass the
+request or ``None`` if no request exists in the context.
+
+For more information, please see :meth:`wagtail.wagtailcore.models.Page.get_url`.
+
+In the event a full URL (including the protocol and domain) is needed, ``Page.get_full_url(request)`` can be used instead. Whenever possible, the optional ``request`` argument should be included to enable per-request caching of site-level URL information. For more information, please see :meth:`wagtail.wagtailcore.models.Page.get_full_url`.
 
 Template rendering
 ==================
@@ -473,7 +518,9 @@ Alternately, if you only need to add extra ``QuerySet`` methods, you can inherit
             today = timezone.localtime(timezone.now()).date()
             return self.filter(start_date__gte=today)
 
+    EventPageManager = PageManager.from_queryset(EventPageQuerySet)
+
     class EventPage(Page):
         start_date = models.DateField()
 
-        objects = PageManager.from_queryset(EventPageQuerySet)
+        objects = EventPageManager()

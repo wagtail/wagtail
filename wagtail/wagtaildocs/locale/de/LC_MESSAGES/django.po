@@ -7,7 +7,7 @@
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 # karlsander <karlsander@gmail.com>, 2014
 # karlsander <karlsander@gmail.com>, 2014
-# Moritz Pfeiffer <moritz@alp-phone.ch>, 2016
+# Moritz Pfeiffer <moritz@alp-phone.ch>, 2016-2017
 # pcraston <patrick@craston.com>, 2014
 # pcraston <patrick@craston.com>, 2014
 # Tammo van Lessen <tvanlessen@gmail.com>, 2015
@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-01 13:25+0000\n"
-"PO-Revision-Date: 2016-05-12 07:15+0000\n"
+"POT-Creation-Date: 2017-08-10 16:05+0000\n"
+"PO-Revision-Date: 2017-06-20 07:25+0000\n"
 "Last-Translator: Moritz Pfeiffer <moritz@alp-phone.ch>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
@@ -154,6 +154,10 @@ msgid "Uploaded"
 msgstr "Hochgeladen"
 
 #, python-format
+msgid "%(time_period)s ago"
+msgstr "vor %(time_period)s"
+
+#, python-format
 msgid ""
 "You haven't uploaded any documents in this collection. Why not <a href="
 "\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
@@ -237,6 +241,9 @@ msgstr "Update"
 
 msgid "Delete"
 msgstr "Löschen"
+
+msgid "You need a password to access this document."
+msgstr "Sie benötigen ein Passwort um dieses Dokument aufzurufen."
 
 msgid "Document permissions"
 msgstr "Dokumenten-Berechtigungen"

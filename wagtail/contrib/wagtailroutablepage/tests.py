@@ -5,7 +5,8 @@ from django.test import RequestFactory, TestCase
 
 from wagtail.contrib.wagtailroutablepage.templatetags.wagtailroutablepage_tags import \
     routablepageurl
-from wagtail.tests.routablepage.models import RoutablePageTest, RoutablePageWithoutIndexRouteTest
+from wagtail.tests.routablepage.models import (
+    RoutablePageTest, RoutablePageWithOverriddenIndexRouteTest)
 from wagtail.wagtailcore.models import Page, Site
 
 
@@ -19,10 +20,10 @@ class TestRoutablePage(TestCase):
             live=True,
         ))
 
-    def test_resolve_main_view(self):
+    def test_resolve_index_route_view(self):
         view, args, kwargs = self.routable_page.resolve_subpage('/')
 
-        self.assertEqual(view, self.routable_page.main)
+        self.assertEqual(view, self.routable_page.index_route)
         self.assertEqual(args, ())
         self.assertEqual(kwargs, {})
 
@@ -54,8 +55,8 @@ class TestRoutablePage(TestCase):
         self.assertEqual(args, ())
         self.assertEqual(kwargs, {})
 
-    def test_reverse_main_view(self):
-        url = self.routable_page.reverse_subpage('main')
+    def test_reverse_index_route_view(self):
+        url = self.routable_page.reverse_subpage('index_route')
 
         self.assertEqual(url, '')
 
@@ -88,25 +89,31 @@ class TestRoutablePage(TestCase):
 
         self.assertEqual(url, 'external-no-arg/')
 
-    def test_get_main_view(self):
+    def test_get_index_route_view(self):
         response = self.client.get(self.routable_page.url)
 
-        self.assertContains(response, "MAIN VIEW")
+        self.assertContains(response, "DEFAULT PAGE TEMPLATE")
 
-    def test_get_routable_page_without_index_route(self):
+    def test_get_routable_page_with_overridden_index_route(self):
         page = self.home_page.add_child(
-            instance=RoutablePageWithoutIndexRouteTest(
-                title="Routable Page without index",
+            instance=RoutablePageWithOverriddenIndexRouteTest(
+                title="Routable Page with overridden index",
                 live=True
             )
         )
         response = self.client.get(page.url)
-        self.assertContains(response, "DEFAULT PAGE TEMPLATE")
+        self.assertContains(response, "OVERRIDDEN INDEX ROUTE")
+        self.assertNotContains(response, "DEFAULT PAGE TEMPLATE")
 
     def test_get_archive_by_year_view(self):
         response = self.client.get(self.routable_page.url + 'archive/year/2014/')
 
         self.assertContains(response, "ARCHIVE BY YEAR: 2014")
+
+    def test_earlier_view_takes_precedence(self):
+        response = self.client.get(self.routable_page.url + 'archive/year/1984/')
+
+        self.assertContains(response, "we were always at war with eastasia")
 
     def test_get_archive_by_author_view(self):
         response = self.client.get(self.routable_page.url + 'archive/author/joe-bloggs/')
@@ -156,9 +163,9 @@ class TestRoutablePageTemplateTag(TestCase):
         self.request.site = Site.find_for_request(self.request)
         self.context = {'request': self.request}
 
-    def test_templatetag_reverse_main_view(self):
+    def test_templatetag_reverse_index_route(self):
         url = routablepageurl(self.context, self.routable_page,
-                              'main')
+                              'index_route')
         self.assertEqual(url, self.routable_page.url)
 
     def test_templatetag_reverse_archive_by_year_view(self):

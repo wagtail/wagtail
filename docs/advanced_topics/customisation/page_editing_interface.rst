@@ -6,8 +6,6 @@ Customising the editing interface
 Customising the tabbed interface
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. versionadded:: 1.0
-
 As standard, Wagtail organises panels for pages into three tabs: 'Content', 'Promote' and 'Settings'. For snippets Wagtail puts all panels into one page. Depending on the requirements of your site, you may wish to customise this for specific page types or snippets - for example, adding an additional tab for sidebar content. This can be done by specifying an ``edit_handler`` attribute on the page or snippet model. For example:
 
 .. code-block:: python
@@ -59,22 +57,98 @@ Wagtail provides a general-purpose WYSIWYG editor for creating rich text content
 
 However, template output from :class:`~wagtail.wagtailcore.fields.RichTextField` is special and need to be filtered to preserve embedded content. See :ref:`rich-text-filter`.
 
-If you're interested in extending the capabilities of the Wagtail WYSIWYG editor (``hallo.js``), See :ref:`extending_wysiwyg`.
+
+.. _rich_text_features:
+
+Limiting features in a rich text field
+--------------------------------------
+
+By default, the rich text editor provides users with a wide variety of options for text formatting and inserting embedded content such as images. However, we may wish to restrict a rich text field to a more limited set of features - for example:
+
+ * The field might be intended for a short text snippet, such as a summary to be pulled out on index pages, where embedded images or videos would be inappropriate;
+ * When page content is defined using :ref:`StreamField <streamfield>`, elements such as headings, images and videos are usually given their own block types, alongside a rich text block type used for ordinary paragraph text; in this case, allowing headings and images to also exist within the rich text content is redundant (and liable to result in inconsistent designs).
+
+This can be achieved by passing a ``features`` keyword argument to ``RichTextField``, with a list of identifiers for the features you wish to allow:
+
+.. code-block:: python
+
+    body = RichTextField(features=['h2', 'h3', 'bold', 'italic', 'link'])
+
+The recognised feature identifiers are as follows (note that add-on modules may add to this list):
+
+ * ``h1``, ``h2``, ``h3``, ``h4``, ``h5``, ``h6`` - heading elements
+ * ``bold``, ``italic`` - bold / italic text
+ * ``ol``, ``ul`` - ordered / unordered lists
+ * ``hr`` - horizontal rules
+ * ``link`` - page, external and email links
+ * ``document-link`` - links to documents
+ * ``image`` - embedded images
+ * ``embed`` - embedded media (see :ref:`embedded_content`)
 
 .. _extending_wysiwyg:
 
 Extending the WYSIWYG Editor (``hallo.js``)
 -------------------------------------------
 
-To inject JavaScript into the Wagtail page editor, see the :ref:`insert_editor_js <insert_editor_js>` hook. Once you have the hook in place and your ``hallo.js`` plugin loads into the Wagtail page editor, use the following JavaScript to register the plugin with ``hallo.js``.
+Wagtail's rich text editor is built on ``hallo.js``, and its functionality can be extended through plugins. For information on developing custom ``hallo.js`` plugins, see the project's page: https://github.com/bergie/hallo
 
-.. code-block:: javascript
+Once the plugin has been created, it should be registered as a rich text feature using the ``register_rich_text_features`` hook. For example, a plugin ``halloblockquote``, implemented in ``myapp/js/hallo-blockquote.js``, that adds support for the ``<blockquote>`` tag, would be registered under the feature name ``blockquote`` as follows:
 
-    registerHalloPlugin(name, opts);
+.. code-block:: python
 
-``hallo.js`` plugin names are prefixed with the ``"IKS."`` namespace, but the ``name`` you pass into ``registerHalloPlugin()`` should be without the prefix. ``opts`` is an object passed into the plugin.
+    from wagtail.wagtailadmin.rich_text import HalloPlugin
+    from wagtail.wagtailcore import hooks
 
-For information on developing custom ``hallo.js`` plugins, see the project's page: https://github.com/bergie/hallo
+    @hooks.register('register_rich_text_features')
+    def register_embed_feature(features):
+        features.register_editor_plugin(
+            'hallo', 'blockquote',
+            HalloPlugin(
+                name='halloblockquote',
+                js=[static('myapp/js/hallo-blockquote.js')],
+            )
+        )
+
+.. note::
+
+    When extending the rich text editor to support a new HTML element, it will also be necessary to update the HTML whitelisting rules, via the :ref:`construct_whitelister_element_rules` hook.
+
+The constructor for ``HalloPlugin`` accepts the following keyword arguments:
+
+ * ``name`` - the plugin name as defined in the Javascript code. ``hallo.js`` plugin names are prefixed with the ``"IKS."`` namespace, but the name passed here should be without the prefix.
+ * ``options`` - a dictionary (or other JSON-serialisable object) of options to be passed to the Javascript plugin code on initialisation
+ * ``js`` - a list of Javascript files to be imported for this plugin, defined in the same way as a `Django form media <https://docs.djangoproject.com/en/1.11/topics/forms/media/>`_ definition
+ * ``css`` - a dictionary of CSS files to be imported for this plugin, defined in the same way as a `Django form media <https://docs.djangoproject.com/en/1.11/topics/forms/media/>`_ definition
+ * ``order`` - an index number (default 100) specifying the order in which plugins should be listed, which in turn determines the order buttons will appear in the toolbar
+
+To have a feature active by default (i.e. on ``RichTextFields`` that do not define an explicit ``features`` list), add it to the ``default_features`` list on the ``features`` object, and use the :ref:`insert_editor_js <insert_editor_js>` hook to insert the Javascript line ``registerHalloPlugin(<plugin_name>, <opts>);``:
+
+.. code-block:: python
+
+    from django.utils.html import format_html
+
+    @hooks.register('register_rich_text_features')
+    def register_blockquote_feature(features):
+        features.register_editor_plugin(
+            'hallo', 'blockquote',
+            # ...
+        )
+        features.default_features.append('blockquote')
+
+    @hooks.register('insert_editor_js')
+    def blockquote_editor_js():
+        return format_html(
+            """
+            <script>
+                registerHalloPlugin('halloblockquote', {});
+            </script>
+            """
+        )
+
+.. note::
+
+    The call to ``registerHalloPlugin`` is required to ensure backwards compatibility; this requirement will be dropped in Wagtail 1.14.
+
 
 .. _rich_text_image_formats:
 
@@ -102,7 +176,7 @@ To begin, import the ``Format`` class, ``register_image_format`` function, and o
   The label used in the chooser form when inserting the image into the :class:`~wagtail.wagtailcore.fields.RichTextField`.
 
 ``classnames``
-  The string to assign to the ``class`` attribute of the generated ``<img>`` tag. 
+  The string to assign to the ``class`` attribute of the generated ``<img>`` tag.
 
   .. note::
     Any class names you provide must have CSS rules matching them written separately, as part of the front end CSS code. Specifying a ``classnames`` value of ``left`` will only ensure that class is output in the generated markup, it won't cause the image to align itself left.
@@ -174,9 +248,9 @@ or to add custom validation logic for your models:
         location = models.CharField()
 
         content_panels = [
-            FieldPanel('given_name'),
-            FieldPanel('family_name'),
-            FieldPanel('bio'),
+            FieldPanel('start_date'),
+            FieldPanel('end_date'),
+            FieldPanel('address'),
         ]
         base_form_class = EventPageForm
 

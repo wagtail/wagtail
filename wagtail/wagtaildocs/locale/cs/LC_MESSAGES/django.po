@@ -4,12 +4,13 @@
 #
 # Translators:
 # Jiri Stepanek <stepiiicz@gmail.com>, 2015
+# Stanislav Vasko <stanislav.vasko@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-01 13:25+0000\n"
-"PO-Revision-Date: 2016-05-11 20:33+0000\n"
+"POT-Creation-Date: 2017-08-10 16:05+0000\n"
+"PO-Revision-Date: 2017-06-19 16:59+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
@@ -19,8 +20,26 @@ msgstr ""
 "Language: cs\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
+msgid "Add"
+msgstr "Přidat"
+
 msgid "Edit"
 msgstr "Upravit"
+
+msgid "file"
+msgstr "soubor"
+
+msgid "created at"
+msgstr "vytvořeno"
+
+msgid "uploaded by user"
+msgstr "nahráno uživatelem"
+
+msgid "tags"
+msgstr "šťítky"
+
+msgid "document"
+msgstr "dokument"
 
 msgid "Choose a document"
 msgstr "Zvolte dokument"
@@ -30,6 +49,12 @@ msgstr "Hledat"
 
 msgid "Upload"
 msgstr "Nahrát"
+
+msgid "Uploading..."
+msgstr "Nahrávám..."
+
+msgid "Server Error"
+msgstr "Chyba serveru"
 
 #, python-format
 msgid ""
@@ -90,6 +115,12 @@ msgstr "Úprava"
 msgid "Save"
 msgstr "Uložit"
 
+msgid "Filesize"
+msgstr "velikost souboru"
+
+msgid "File not found"
+msgstr "Soubor nenalezen"
+
 msgid "Documents"
 msgstr "Dokumenty"
 
@@ -129,6 +160,18 @@ msgstr "Stav"
 msgid "Edit this page"
 msgstr "Upravit stránku"
 
+msgid "Add multiple documents"
+msgstr "Přidat více dokumentů"
+
+msgid "Add documents"
+msgstr "Přidat dokumenty"
+
+msgid "Add to collection:"
+msgstr "Přidat do kolekce:"
+
+msgid "Update"
+msgstr "Aktualizovat"
+
 msgid "Delete"
 msgstr "Smazat"
 
@@ -152,3 +195,6 @@ msgstr "Dokument '{0}' byl smazán."
 
 msgid "Choose another document"
 msgstr "Zvolit jiný dokument"
+
+msgid "Edit this document"
+msgstr "Upravit dokument"

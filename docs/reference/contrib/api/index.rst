@@ -1,5 +1,9 @@
-Wagtail API
-===========
+Wagtail API v1
+==============
+
+.. warning::
+
+    This documentation covers the deprecated version 1 of the API, which is provided for backwards compatibility only. For the current version, see :doc:`/advanced_topics/api/index`
 
 The ``wagtailapi`` module can be used to create a read-only, JSON-based API for public Wagtail content.
 

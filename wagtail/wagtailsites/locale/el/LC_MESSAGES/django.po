@@ -3,15 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Nick Mavrakis <mavrakis.n@gmail.com>, 2017
 # Wasilis Mandratzis-Walz, 2015
 # Yiannis Inglessis <negletios@users.noreply.github.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-01 13:25+0000\n"
-"PO-Revision-Date: 2016-09-20 12:43+0000\n"
-"Last-Translator: Yiannis Inglessis <negletios@users.noreply.github.com>\n"
+"POT-Creation-Date: 2017-08-10 16:05+0000\n"
+"PO-Revision-Date: 2017-03-05 18:54+0000\n"
+"Last-Translator: Nick Mavrakis <mavrakis.n@gmail.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
 "MIME-Version: 1.0\n"
@@ -60,3 +61,16 @@ msgstr "Δημιουργήθηκε ο δικτυακός τόπος '{0}'."
 #, python-brace-format
 msgid "Site '{0}' updated."
 msgstr "Ενημέρωση του δικτυακού τόπου '{0}'."
+
+msgid "The site could not be saved due to errors."
+msgstr "Το site δεν αποθηκεύτηκε λόγω σφαλμάτων"
+
+msgid "Delete site"
+msgstr "Διαγραφή site"
+
+#, python-brace-format
+msgid "Site '{0}' deleted."
+msgstr "Το site '{0}' διαγράφηκε"
+
+msgid "Are you sure you want to delete this site?"
+msgstr "Είστε σίγουροι ότι θέλετε να διαγράψετε αυτό το site;"

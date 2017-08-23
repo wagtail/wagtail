@@ -39,6 +39,7 @@ class TestBackendConfiguration(TestCase):
                 'BACKEND': 'wagtail.contrib.wagtailfrontendcache.backends.CloudflareBackend',
                 'EMAIL': 'test@test.com',
                 'TOKEN': 'this is the token',
+                'ZONEID': 'this is a zone id',
             },
         })
 
@@ -94,6 +95,7 @@ class TestBackendConfiguration(TestCase):
                 'BACKEND': 'wagtail.contrib.wagtailfrontendcache.backends.CloudflareBackend',
                 'EMAIL': 'test@test.com',
                 'TOKEN': 'this is the token',
+                'ZONEID': 'this is a zone id',
             }
         })
 
@@ -109,6 +111,7 @@ class TestBackendConfiguration(TestCase):
                 'BACKEND': 'wagtail.contrib.wagtailfrontendcache.backends.CloudflareBackend',
                 'EMAIL': 'test@test.com',
                 'TOKEN': 'this is the token',
+                'ZONEID': 'this is a zone id',
             }
         }, backends=['cloudflare'])
 

@@ -4,14 +4,14 @@
 #
 # Translators:
 # Dan Braghis, 2014
-# Dan Braghis, 2014-2016
+# Dan Braghis, 2014-2017
 # Dan Braghis, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-01 13:25+0000\n"
-"PO-Revision-Date: 2016-08-01 13:58+0000\n"
+"POT-Creation-Date: 2017-08-10 16:05+0000\n"
+"PO-Revision-Date: 2017-06-19 20:02+0000\n"
 "Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
@@ -34,11 +34,14 @@ msgstr "Un utilizator cu acest nume există deja."
 msgid "The two password fields didn't match."
 msgstr "Câmpurile de parolă nu se potrivesc."
 
-msgid "Administrator"
-msgstr "Administrator"
+msgid "Email"
+msgstr "E-mail"
 
-msgid "Administrators have full access to manage any object or setting."
-msgstr "Administratorii pot gestiona orice obiect sau setare."
+msgid "First Name"
+msgstr "Prenume"
+
+msgid "Last Name"
+msgstr "Nume"
 
 msgid "Password"
 msgstr "Parolă"
@@ -52,14 +55,11 @@ msgstr "Confirmare parolă"
 msgid "Enter the same password as above, for verification."
 msgstr "Introduceți aceeași parolă ca mai sus pentru verificare"
 
-msgid "Email"
-msgstr "E-mail"
+msgid "Administrator"
+msgstr "Administrator"
 
-msgid "First Name"
-msgstr "Prenume"
-
-msgid "Last Name"
-msgstr "Nume"
+msgid "Administrators have full access to manage any object or setting."
+msgstr "Administratorii pot gestiona orice obiect sau setare."
 
 msgid "A group with that name already exists."
 msgstr "Un grup cu acest nume există deja."
@@ -86,6 +86,12 @@ msgstr "notificări respinse"
 msgid "Receive notification when your page edit is rejected"
 msgstr "Primește o notificare când modificărea paginii este respinsă"
 
+msgid "preferred language"
+msgstr "limba preferată"
+
+msgid "Select language for the admin"
+msgstr "Selectați limba pentru interfața de administrare"
+
 msgid "user profile"
 msgstr "profil utilizator"
 
@@ -94,11 +100,30 @@ msgstr "Șterge grup"
 
 #, python-format
 msgid ""
-"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> users "
-"assigned."
-msgstr ""
-"Grupul '%(group_name)s' are <strong>%(group_user_count)s</strong> "
-"utilizatori alocați."
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> member.\n"
+"            "
+msgid_plural ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> members.\n"
+"            "
+msgstr[0] ""
+"\n"
+"                Grupul '%(group_name)s' are <strong>%(group_user_count)s</"
+"strong> membru.\n"
+"            "
+msgstr[1] ""
+"\n"
+"                Grupul '%(group_name)s' are 1%(group_user_count)s1 "
+"utilizatori alocați.\n"
+"            "
+msgstr[2] ""
+"\n"
+"                Grupul '%(group_name)s' are 1%(group_user_count)s1 "
+"utilizatori alocați.\n"
+"            "
 
 msgid ""
 "Deleting this group will revoke this group's permissions from all member "

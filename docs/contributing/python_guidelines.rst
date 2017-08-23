@@ -4,13 +4,17 @@ Python coding guidelines
 PEP8
 ~~~~
 
-We ask that all Python contributions adhere to the `PEP8 <http://www.python.org/dev/peps/pep-0008/>`_ style guide, apart from the restriction on line length (E501). In addition, import lines should be sorted according to `isort <http://timothycrosley.github.io/isort/>`_ rules. If you have installed Wagtail's testing dependencies (``pip install -e .[testing]``), you can check your code by running ``make lint``.
+We ask that all Python contributions adhere to the `PEP8 <http://www.python.org/dev/peps/pep-0008/>`_ style guide, apart from the restriction on line length (E501) and some minor docstring-related issues.
+The list of PEP8 violations to ignore is in the ``tox.ini`` file, under the ``[flake8]`` header.
+You might want to configure the flake8 linter in your editor/IDE to use the configuration in this file.
+
+In addition, import lines should be sorted according to `isort <http://timothycrosley.github.io/isort/>`_ 4.2.5 rules. If you have installed Wagtail's testing dependencies (``pip install -e .[testing]``), you can check your code by running ``make lint``.
 
 
 Python 2 and 3 compatibility
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-All contributions should support Python 2 and 3 and we recommend using the `six <https://pythonhosted.org/six/>`_ compatibility library (use the pip version installed as a dependency, not the version bundled with Django).
+All contributions should support Python 2 and 3 and we recommend using the `six <https://pythonhosted.org/six/>`_ compatibility library (use the version bundled with Django, ``django.utils.six``).
 
 Django compatibility
 ~~~~~~~~~~~~~~~~~~~~
@@ -67,8 +71,8 @@ If a new function has been introduced by Django that you think would be very use
             pass
 
 Tests
-~~~~~ 
+~~~~~
 
-Wagtail has a suite of tests, which we are committed to improving and expanding. See :ref:`testing`. 
+Wagtail has a suite of tests, which we are committed to improving and expanding. See :ref:`testing`.
 
-We run continuous integration at `travis-ci.org/torchbox/wagtail <https://travis-ci.org/torchbox/wagtail>`_ to ensure that no commits or pull requests introduce test failures. If your contributions add functionality to Wagtail, please include the additional tests to cover it; if your contributions alter existing functionality, please update the relevant tests accordingly.
+We run continuous integration at `travis-ci.org/wagtail/wagtail <https://travis-ci.org/wagtail/wagtail>`_ to ensure that no commits or pull requests introduce test failures. If your contributions add functionality to Wagtail, please include the additional tests to cover it; if your contributions alter existing functionality, please update the relevant tests accordingly.

@@ -5,18 +5,19 @@
 # Translators:
 # Thiago Cangussu <cng.thg@gmail.com>, 2014
 # Claudemiro Alves Feitosa Neto <dimiro1@gmail.com>, 2015
-# Gladson <gladsonbrito@gmail.com>, 2014
+# Gladson <gladsonbrito@gmail.com>, 2014,2017
+# Joao Garcia <joaosdgarcia@gmail.com>, 2017
 # João Luiz Lorencetti <me@dirtycoder.net>, 2016
 # Luiz Boaretto <lboaretto@gmail.com>, 2016
-# Luiz Boaretto <lboaretto@gmail.com>, 2016
+# Luiz Boaretto <lboaretto@gmail.com>, 2016-2017
 # Marcio Mazza <marciomazza@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-01 13:25+0000\n"
-"PO-Revision-Date: 2016-07-09 19:48+0000\n"
-"Last-Translator: Marcio Mazza <marciomazza@gmail.com>\n"
+"POT-Creation-Date: 2017-08-10 16:05+0000\n"
+"PO-Revision-Date: 2017-08-10 19:15+0000\n"
+"Last-Translator: Luiz Boaretto <lboaretto@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -24,6 +25,30 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pt_BR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#, python-brace-format
+msgid "{label}: this block has no options."
+msgstr "{label}: este bloco não possui opções."
+
+msgid "This block has no options."
+msgstr "Este bloco não possui opções."
+
+#, python-format
+msgid "The minimum number of items is %d"
+msgstr "O número mínimo de itens é %d"
+
+msgid "This field is required."
+msgstr "Este campo é obrigatório."
+
+#, python-format
+msgid "The maximum number of items is %d"
+msgstr "O número máximo de itens é %d"
+
+msgid "Password"
+msgstr "Senha"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr "A senha que você digitou não está correta. Por favor, tente novamente."
 
 msgid "hostname"
 msgstr "nome do host"
@@ -94,7 +119,7 @@ msgid "content type"
 msgstr "tipo de conteúdo"
 
 msgid "live"
-msgstr "aovivo"
+msgstr "online"
 
 msgid "has unpublished changes"
 msgstr "possui alterações não publicadas"
@@ -129,9 +154,6 @@ msgstr "descrição da busca"
 msgid "go live date/time"
 msgstr "data/hora para publicar"
 
-msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
-msgstr "Por favor adicione a data e hora no formato YYYY-MM-DD hh:mm."
-
 msgid "expiry date/time"
 msgstr "data/hora para expirar"
 
@@ -143,6 +165,9 @@ msgstr "trancado"
 
 msgid "first published at"
 msgstr "publicado pela primeira vez em"
+
+msgid "last published at"
+msgstr "última publicação em"
 
 msgid "latest revision created at"
 msgstr "revisão mais recente criada em"
@@ -157,7 +182,7 @@ msgid "draft"
 msgstr "rascunho"
 
 msgid "live + draft"
-msgstr "aovivo + rascunho"
+msgstr "online + rascunho"
 
 msgid "Default"
 msgstr "Padrão"
@@ -207,6 +232,12 @@ msgstr "Publicar"
 msgid "Publish any page"
 msgstr "Publicar qualquer página"
 
+msgid "Bulk delete"
+msgstr "Deletar em bloco"
+
+msgid "Delete pages with children"
+msgstr "Deletar páginas com filhos"
+
 msgid "Lock"
 msgstr "Travar"
 
@@ -225,8 +256,29 @@ msgstr "grupo de permissão da página"
 msgid "group page permissions"
 msgstr "grupo de permissões da página"
 
+msgid "Public"
+msgstr "Público"
+
+msgid "Private, accessible to logged-in users"
+msgstr "Privado, acessível a usuários logados"
+
+msgid "Private, accessible with the following password"
+msgstr "Privado, acessível com a seguinte senha"
+
+msgid "Private, accessible to users in specific groups"
+msgstr "Privado, acessível a usuários em grupos específicos"
+
 msgid "password"
 msgstr "senha"
+
+msgid "groups"
+msgstr "grupos"
+
+msgid "view restriction"
+msgstr "visualizar restrição"
+
+msgid "view restrictions"
+msgstr "visualizar restrições"
 
 msgid "page view restriction"
 msgstr "restrição de visualização de página"
@@ -234,11 +286,17 @@ msgstr "restrição de visualização de página"
 msgid "page view restrictions"
 msgstr "restrições de visualização da página"
 
-msgid "name"
-msgstr "nome"
-
 msgid "collection"
 msgstr "coleção"
+
+msgid "collection view restriction"
+msgstr "visualizar restrição na coleção"
+
+msgid "collection view restrictions"
+msgstr "visualizar restrições nas coleções"
+
+msgid "name"
+msgstr "nome"
 
 msgid "collections"
 msgstr "coleções"
@@ -248,3 +306,25 @@ msgstr "permissão"
 
 msgid "group collection permission"
 msgstr "grupo de permissão de coleção"
+
+msgid "Log in"
+msgstr "Entrar"
+
+msgid "Your username and password didn't match. Please try again."
+msgstr "Seu usuário e senha não estão corretos. Tente novamente."
+
+msgid ""
+"Your account doesn't have access to this page. To proceed, please log in "
+"with an account that has access."
+msgstr ""
+"Sua conta não possui acesso a esta página. Para continuar, por favor "
+"registre-se com uma conta que possua acesso."
+
+msgid "Password required"
+msgstr "Senha requerida"
+
+msgid "You need a password to access this page."
+msgstr "Você precisa de uma senha para acessar esta página."
+
+msgid "Continue"
+msgstr "Continuar"

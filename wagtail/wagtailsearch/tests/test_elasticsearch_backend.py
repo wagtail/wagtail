@@ -6,7 +6,6 @@ import json
 import os
 import time
 import unittest
-import warnings
 
 import mock
 from django.core import management
@@ -16,7 +15,6 @@ from django.utils.six import StringIO
 from elasticsearch.serializer import JSONSerializer
 
 from wagtail.tests.search import models
-from wagtail.utils.deprecation import RemovedInWagtail18Warning
 from wagtail.wagtailsearch.backends import get_search_backend
 from wagtail.wagtailsearch.backends.elasticsearch import ElasticsearchSearchBackend
 
@@ -151,7 +149,7 @@ class TestElasticsearchSearchBackend(BackendTests, TestCase):
         This tests that punctuation characters are treated the same
         way in both indexing and querying.
 
-        See: https://github.com/torchbox/wagtail/issues/937
+        See: https://github.com/wagtail/wagtail/issues/937
         """
         # Reset the index
         self.reset_index()
@@ -252,6 +250,13 @@ class TestElasticsearchSearchBackend(BackendTests, TestCase):
 
     def test_annotate_score(self):
         results = self.backend.search("Hello", models.SearchTest).annotate_score('_score')
+
+        for result in results:
+            self.assertIsInstance(result._score, float)
+
+    def test_annotate_score_with_slice(self):
+        # #3431 - Annotate score wasn't being passed to new queryset when slicing
+        results = self.backend.search("Hello", models.SearchTest).annotate_score('_score')[:10]
 
         for result in results:
             self.assertIsInstance(result._score, float)
@@ -440,7 +445,7 @@ class TestElasticsearchSearchQuery(TestCase):
         # Check it
         expected_result = {'filtered': {'filter': {'and': [
             {'prefix': {'content_type': 'searchtests_searchtest'}},
-            {'not': {'missing': {'field': 'title_filter'}}}
+            {'exists': {'field': 'title_filter'}}
         ]}, 'query': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
         self.assertDictEqual(query.get_query(), expected_result)
 
@@ -749,6 +754,7 @@ class TestElasticsearchMapping(TestCase):
         self.obj = models.SearchTest(title="Hello")
         self.obj.save()
         self.obj.tags.add("a tag")
+        self.obj.subobjects.create(name="A subobject")
 
     def test_get_document_type(self):
         self.assertEqual(self.es_mapping.get_document_type(), 'searchtests_searchtest')
@@ -761,21 +767,27 @@ class TestElasticsearchMapping(TestCase):
         expected_result = {
             'searchtests_searchtest': {
                 'properties': {
-                    'pk': {'index': 'not_analyzed', 'type': 'string', 'store': 'yes', 'include_in_all': False},
+                    'pk': {'index': 'not_analyzed', 'type': 'string', 'store': True, 'include_in_all': False},
                     'content_type': {'index': 'not_analyzed', 'type': 'string', 'include_in_all': False},
                     '_partials': {'index_analyzer': 'edgengram_analyzer', 'include_in_all': False, 'type': 'string'},
                     'live_filter': {'index': 'not_analyzed', 'type': 'boolean', 'include_in_all': False},
                     'published_date_filter': {'index': 'not_analyzed', 'type': 'date', 'include_in_all': False},
                     'title': {'type': 'string', 'include_in_all': True, 'index_analyzer': 'edgengram_analyzer'},
                     'title_filter': {'index': 'not_analyzed', 'type': 'string', 'include_in_all': False},
-                    'content': {'type': 'string', 'include_in_all': True},
+                    'content': {'type': 'string', 'boost': 2, 'include_in_all': True},
                     'callable_indexed_field': {'type': 'string', 'include_in_all': True},
                     'tags': {
                         'type': 'nested',
                         'properties': {
                             'name': {'type': 'string', 'include_in_all': True, 'index_analyzer': 'edgengram_analyzer'},
                             'slug_filter': {'index': 'not_analyzed', 'type': 'string', 'include_in_all': False},
-                        }
+                        },
+                    },
+                    'subobjects': {
+                        'type': 'nested',
+                        'properties': {
+                            'name': {'type': 'string', 'include_in_all': True, 'index_analyzer': 'edgengram_analyzer'},
+                        },
                     },
                 }
             }
@@ -798,7 +810,7 @@ class TestElasticsearchMapping(TestCase):
         expected_result = {
             'pk': str(self.obj.pk),
             'content_type': 'searchtests_searchtest',
-            '_partials': ['Hello', 'a tag'],
+            '_partials': ['A subobject', 'Hello', 'a tag'],
             'live_filter': False,
             'published_date_filter': None,
             'title': 'Hello',
@@ -809,6 +821,11 @@ class TestElasticsearchMapping(TestCase):
                 {
                     'name': 'a tag',
                     'slug_filter': 'a-tag',
+                }
+            ],
+            'subobjects': [
+                {
+                    'name': 'A subobject'
                 }
             ],
         }
@@ -831,6 +848,7 @@ class TestElasticsearchMappingInheritance(TestCase):
         self.obj = models.SearchTestChild(title="Hello", subtitle="World", page_id=1)
         self.obj.save()
         self.obj.tags.add("a tag")
+        self.obj.subobjects.create(name="A subobject")
 
     def test_get_document_type(self):
         self.assertEqual(self.es_mapping.get_document_type(), 'searchtests_searchtest_searchtests_searchtestchild')
@@ -856,21 +874,27 @@ class TestElasticsearchMappingInheritance(TestCase):
                     },
 
                     # Inherited
-                    'pk': {'index': 'not_analyzed', 'type': 'string', 'store': 'yes', 'include_in_all': False},
+                    'pk': {'index': 'not_analyzed', 'type': 'string', 'store': True, 'include_in_all': False},
                     'content_type': {'index': 'not_analyzed', 'type': 'string', 'include_in_all': False},
                     '_partials': {'index_analyzer': 'edgengram_analyzer', 'include_in_all': False, 'type': 'string'},
                     'live_filter': {'index': 'not_analyzed', 'type': 'boolean', 'include_in_all': False},
                     'published_date_filter': {'index': 'not_analyzed', 'type': 'date', 'include_in_all': False},
                     'title': {'type': 'string', 'include_in_all': True, 'index_analyzer': 'edgengram_analyzer'},
                     'title_filter': {'index': 'not_analyzed', 'type': 'string', 'include_in_all': False},
-                    'content': {'type': 'string', 'include_in_all': True},
+                    'content': {'type': 'string', 'boost': 2, 'include_in_all': True},
                     'callable_indexed_field': {'type': 'string', 'include_in_all': True},
                     'tags': {
                         'type': 'nested',
                         'properties': {
                             'name': {'type': 'string', 'include_in_all': True, 'index_analyzer': 'edgengram_analyzer'},
                             'slug_filter': {'index': 'not_analyzed', 'type': 'string', 'include_in_all': False},
-                        }
+                        },
+                    },
+                    'subobjects': {
+                        'type': 'nested',
+                        'properties': {
+                            'name': {'type': 'string', 'include_in_all': True, 'index_analyzer': 'edgengram_analyzer'},
+                        },
                     },
                 }
             }
@@ -908,7 +932,7 @@ class TestElasticsearchMappingInheritance(TestCase):
 
             # Inherited
             'pk': str(self.obj.pk),
-            '_partials': ['Hello', 'Root', 'World', 'a tag'],
+            '_partials': ['A subobject', 'Hello', 'Root', 'World', 'a tag'],
             'live_filter': False,
             'published_date_filter': None,
             'title': 'Hello',
@@ -919,6 +943,11 @@ class TestElasticsearchMappingInheritance(TestCase):
                 {
                     'name': 'a tag',
                     'slug_filter': 'a-tag',
+                }
+            ],
+            'subobjects': [
+                {
+                    'name': 'A subobject',
                 }
             ],
         }
@@ -982,6 +1011,33 @@ class TestBackendConfiguration(TestCase):
         self.assertEqual(backend.hosts[3]['port'], 443)
         self.assertEqual(backend.hosts[3]['use_ssl'], True)
         self.assertEqual(backend.hosts[3]['url_prefix'], '/hello')
+
+    def test_default_index_settings_override(self):
+        backend = ElasticsearchSearchBackend(params={
+            'INDEX_SETTINGS': {
+                "settings": {  # Already existing key
+                    "number_of_shards": 2,  # New key
+                    "analysis": {  # Already existing key
+                        "analyzer": {  # Already existing key
+                            "edgengram_analyzer": {  # Already existing key
+                                "tokenizer": "standard"  # Key redefinition
+                            }
+                        }
+                    }
+                }
+            }
+        })
+
+        # Check structure
+        self.assertIn("number_of_shards", backend.settings["settings"].keys())
+        self.assertIn("analysis", backend.settings["settings"].keys())
+        self.assertIn("analyzer", backend.settings["settings"]["analysis"].keys())
+        self.assertIn("edgengram_analyzer", backend.settings["settings"]["analysis"]["analyzer"].keys())
+        self.assertIn("tokenizer", backend.settings["settings"]["analysis"]["analyzer"]["edgengram_analyzer"].keys())
+        # Check values
+        self.assertEqual(backend.settings["settings"]["number_of_shards"], 2)
+        self.assertEqual(backend.settings["settings"]["analysis"]["analyzer"]["edgengram_analyzer"]["tokenizer"], "standard")
+        self.assertEqual(backend.settings["settings"]["analysis"]["analyzer"]["edgengram_analyzer"]["type"], "custom")  # Check if a default setting still exists
 
 
 @unittest.skipUnless(os.environ.get('ELASTICSEARCH_URL', False), "ELASTICSEARCH_URL not set")
@@ -1095,16 +1151,3 @@ class TestAtomicRebuilder(TestCase):
 
         # Index should be gone
         self.assertFalse(self.es.indices.exists(current_index_name))
-
-
-class TestOldNameDeprecationWarning(TestCase):
-    def test_old_name_deprecation(self):
-        from wagtail.wagtailsearch.backends.elasticsearch import ElasticSearch
-
-        with warnings.catch_warnings(record=True) as w:
-            warnings.simplefilter('always')
-
-            ElasticSearch({})
-
-        self.assertEqual(len(w), 1)
-        self.assertIs(w[0].category, RemovedInWagtail18Warning)

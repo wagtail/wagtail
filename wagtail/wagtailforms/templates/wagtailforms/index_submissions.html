@@ -23,6 +23,63 @@
                 },
                 lang: 'lang'
             });
+
+            var selectAllCheckbox = document.getElementById('select-all');
+            var deleteButton = document.getElementById('delete-submissions');
+            var selectedSubmissions = {};
+
+            function updateActions() {
+                var submissionCheckboxes = $('input[type=checkbox].select-submission');
+                var someSubmissionsSelected = submissionCheckboxes.is(':checked');
+                var everySubmissionSelected = !submissionCheckboxes.is(':not(:checked)');
+
+                // Select all box state
+                if (everySubmissionSelected) {
+                    // Every submission has been selected
+                    selectAllCheckbox.checked = true;
+                    selectAllCheckbox.indeterminate = false;
+                } else if (someSubmissionsSelected) {
+                    // At least one, but not all submissions have been selected
+                    selectAllCheckbox.checked = false;
+                    selectAllCheckbox.indeterminate = true;
+                } else {
+                    // No submissions have been selected
+                    selectAllCheckbox.checked = false;
+                    selectAllCheckbox.indeterminate = false;
+                }
+
+                // Delete button state
+                if (someSubmissionsSelected) {
+                    deleteButton.classList.remove('disabled')
+                    deleteButton.style.visibility = "visible";
+                } else {
+                    deleteButton.classList.add('disabled')
+                    deleteButton.style.visibility = "hidden";
+                }
+            }
+
+
+            // Event handlers
+
+            $(selectAllCheckbox).on('change', function() {
+                let checked = this.checked;
+
+                // Update checkbox states
+                $('input[type=checkbox].select-submission').each(function() {
+                    this.checked = checked;
+                });
+
+                updateActions();
+            });
+
+            $('input[type=checkbox].select-submission').on('change', function() {
+                updateActions();
+            });
+
+            // initial call to updateActions to bring delete button state in sync with checkboxes
+            // in the case that some checkboxes are pre-checked (which will be the case in some
+            // browsers when using the back button)
+            updateActions();
         });
     </script>
 {% endblock %}
@@ -42,7 +99,7 @@
                                 {% include "wagtailadmin/shared/field_as_li.html" with field=field field_classes="field-small" li_classes="col4" %}
                             {% endfor %}
                             <li class="submit col2">
-                                <button name="action" value="filter" class="button">{% trans 'Filter' %}</button>
+                                <button name="action" value="filter" class="button button-filter">{% trans 'Filter' %}</button>
                             </li>
                         </ul>
                     </div>
@@ -55,10 +112,12 @@
     </header>
     <div class="nice-padding">
         {% if submissions %}
-            {% include "wagtailforms/list_submissions.html" %}
+            <form action="{% url 'wagtailforms:delete_submissions' form_page.id %}" method="get">
+                {% include "wagtailforms/list_submissions.html" %}
 
-            {% include "wagtailadmin/shared/pagination_nav.html" with items=submissions is_searching=False linkurl='-' %}
-            {# Here we pass an invalid non-empty URL name as linkurl to generate pagination links with the URL path omitted #}
+                {% include "wagtailadmin/shared/pagination_nav.html" with items=submissions is_searching=False linkurl='-' %}
+                {# Here we pass an invalid non-empty URL name as linkurl to generate pagination links with the URL path omitted #}
+            </form>
         {% else %}
             <p class="no-results-message">{% blocktrans with title=form_page.title %}There have been no submissions of the '{{ title }}' form.{% endblocktrans %}</p>
         {% endif %}

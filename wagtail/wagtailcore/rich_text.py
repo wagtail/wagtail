@@ -47,7 +47,7 @@ class PageLinkHandler(object):
             else:
                 editor_attrs = ''
 
-            return '<a %shref="%s">' % (editor_attrs, escape(page.url))
+            return '<a %shref="%s">' % (editor_attrs, escape(page.specific.url))
         except Page.DoesNotExist:
             return "<a>"
 
@@ -202,3 +202,62 @@ class RichText(object):
     def __bool__(self):
         return bool(self.source)
     __nonzero__ = __bool__
+
+
+class FeatureRegistry(object):
+    """
+    A central store of information about optional features that can be enabled in rich text
+    editors by passing a ``features`` list to the RichTextField, such as how to
+    whitelist / convert HTML tags, and how to enable the feature on various editors.
+
+    This information may come from diverse sources - for example, wagtailimages might define
+    an 'images' feature and a hallo.js plugin for it, while a third-party module might
+    define a TinyMCE plugin for the same feature. The information is therefore collected into
+    this registry via the 'register_rich_text_features' hook.
+    """
+    def __init__(self):
+        # Has the register_rich_text_features hook been run for this registry?
+        self.has_scanned_for_features = False
+
+        # a dict of dicts, one for each editor (hallo.js, TinyMCE etc); each dict is a mapping
+        # of feature names to 'plugin' objects that define how to implement that feature
+        # (e.g. paths to JS files to import). The API of that plugin object is not defined
+        # here, and is specific to each editor.
+        self.plugins_by_editor = {}
+
+        # a list of feature names that will be applied on rich text areas that do not specify
+        # an explicit `feature` list.
+        # RemovedInWagtail114Warning: Until Wagtail 1.14, features listed here MUST also
+        # update the legacy global halloPlugins list (typically by calling registerHalloPlugin
+        # within an insert_editor_js hook). This is because we special-case rich text areas
+        # without an explicit `feature` list, to use the legacy halloPlugins list instead of
+        # the one constructed using construct_plugins_list; this ensures that any user code
+        # that fiddles with halloPlugins will continue to work until Wagtail 1.14.
+        self.default_features = []
+
+    def get_default_features(self):
+        if not self.has_scanned_for_features:
+            self._scan_for_features()
+
+        return self.default_features
+
+    def _scan_for_features(self):
+        for fn in hooks.get_hooks('register_rich_text_features'):
+            fn(self)
+        self.has_scanned_for_features = True
+
+    def register_editor_plugin(self, editor_name, feature_name, plugin):
+        plugins = self.plugins_by_editor.setdefault(editor_name, {})
+        plugins[feature_name] = plugin
+
+    def get_editor_plugin(self, editor_name, feature_name):
+        if not self.has_scanned_for_features:
+            self._scan_for_features()
+
+        try:
+            return self.plugins_by_editor[editor_name][feature_name]
+        except KeyError:
+            return None
+
+
+features = FeatureRegistry()

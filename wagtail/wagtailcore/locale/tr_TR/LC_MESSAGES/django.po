@@ -3,16 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Yusuf (Josè) Luis <alagunajs@gmail.com>, 2015
+# José Luis <alagunajs@gmail.com>, 2015
 # Ragıp Ünal <ragip@ragipunal.com>, 2015
-# Yusuf (Josè) Luis <alagunajs@gmail.com>, 2016
+# José Luis <alagunajs@gmail.com>, 2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-01 13:25+0000\n"
-"PO-Revision-Date: 2016-04-26 20:59+0000\n"
-"Last-Translator: Yusuf (Josè) Luis <alagunajs@gmail.com>\n"
+"POT-Creation-Date: 2017-08-10 16:05+0000\n"
+"PO-Revision-Date: 2017-08-10 15:56+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/torchbox/wagtail/"
 "language/tr_TR/)\n"
 "MIME-Version: 1.0\n"
@@ -21,8 +21,17 @@ msgstr ""
 "Language: tr_TR\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
+msgid "Password"
+msgstr "Şifre"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr "Girmiş olduğunuz şifre doğru degil. Lütfen tekrar deneyin."
+
 msgid "hostname"
 msgstr "ana bilgisayar adı"
+
+msgid "site name"
+msgstr "Sitesinin adı"
 
 msgid "site"
 msgstr "site"
@@ -30,11 +39,18 @@ msgstr "site"
 msgid "sites"
 msgstr "siteler"
 
+msgid ""
+"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
+"[my-slug]/"
+msgstr ""
+"BKK'larda görüntüleneceği gibi adı sayfanın, örneğin http://domain.com/blog/"
+"[my-slug]/"
+
 msgid "live"
 msgstr "canlı"
 
 msgid "URL path"
-msgstr "URL yol"
+msgstr "BKK yolu"
 
 msgid "latest revision created at"
 msgstr "En son revizyon oluşturulan"
@@ -62,3 +78,9 @@ msgstr "sayfa revizyonları"
 
 msgid "Add/edit pages you own"
 msgstr "Sayfalarına ekle/düzenle"
+
+msgid "password"
+msgstr "şifre"
+
+msgid "Password required"
+msgstr "Şifre gerekli"
