@@ -178,7 +178,7 @@ The Elasticsearch backend is compatible with `Amazon Elasticsearch Service`_, bu
 
 .. code-block:: python
 
-  from elasticsearch import Elasticsearch, RequestsHttpConnection
+  from elasticsearch import RequestsHttpConnection
   from requests_aws4auth import AWS4Auth
 
   WAGTAILSEARCH_BACKENDS = {
