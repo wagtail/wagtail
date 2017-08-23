@@ -18,9 +18,9 @@ body {
         .wagtail-logo-container__desktop {
             position: fixed;
             right: calc(50% + 130px);
-            top: calc(50% - 350px);
-            width: 425px;
-            height: 563px;
+            top: calc(45% - 250px);
+            width: 400px;
+            height: 500px;
 
             .wagtail-logo {
                 width: 100%;
@@ -31,9 +31,8 @@ body {
         .page404__text-container {
             position: fixed;
             left: calc(50% - 130px);
-            top: calc(50% - 250px);
+            top: calc(45% - 150px);
             width: 600px;
-            height: 50%;
             text-align: center;
             z-index: 50;
 
@@ -41,7 +40,7 @@ body {
                 position: relative;
                 top: -80px;
                 color: $color-white;
-                font-size: 100px;
+                font-size: 80px;
                 padding-bottom: 0;
             }
 
@@ -64,6 +63,21 @@ body {
                 padding-top: 3px;
                 padding-bottom: 3px;
                 border-radius: 20px;
+            }
+        }
+    }
+}
+
+// MOBILE CHANGES:
+@media screen and (max-width: $breakpoint-desktop-small) {
+    body {
+        .page404__bg {
+            .wagtail-logo-container__desktop {
+                display: none;
+            }
+
+            .page404__text-container {
+                left: calc(50% - 300px);
             }
         }
     }
