@@ -181,25 +181,24 @@ class BackendTests(WagtailTestUtils):
         self.assertEqual(set(results), {self.testa})
 
     def test_boost(self):
-        results = self.backend.search('Hello', models.SearchTest)
+        results = list(self.backend.search('Hello', models.SearchTest))
         # The `content` field has more boost, so the object containing “Hello”
         # should be before the ones having it in the title,
         # despite the insertion order.
-        self.assertListEqual(
-            list(results), [self.testc.searchtest_ptr, self.testa, self.testb])
+        self.assertEqual(results[0], self.testc.searchtest_ptr)
+        self.assertSetEqual(set(results[1:]), {self.testa, self.testb})
 
     def test_order_by_relevance(self):
-        sorted_results = self.backend.search('Hello', models.SearchTest,
-                                             order_by_relevance=True)
-        self.assertListEqual(
-            list(sorted_results),
-            [self.testc.searchtest_ptr, self.testa, self.testb])
+        sorted_results = list(self.backend.search('Hello', models.SearchTest,
+                                                  order_by_relevance=True))
+        self.assertEqual(sorted_results[0], self.testc.searchtest_ptr)
+        self.assertSetEqual(set(sorted_results[1:]), {self.testa, self.testb})
 
-        unsorted_results = self.backend.search('Hello', models.SearchTest,
-                                               order_by_relevance=False)
-        self.assertListEqual(
-            list(unsorted_results),
-            [self.testa, self.testb, self.testc.searchtest_ptr])
+        unsorted_results = list(self.backend.search('Hello', models.SearchTest,
+                                                    order_by_relevance=False))
+        self.assertSetEqual(
+            set(unsorted_results),
+            {self.testa, self.testb, self.testc.searchtest_ptr})
 
     def test_delete(self):
         # Delete one of the objects
