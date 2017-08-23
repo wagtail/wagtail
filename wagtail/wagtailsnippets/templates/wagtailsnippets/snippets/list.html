@@ -25,3 +25,36 @@
         {% endfor %}
     </tbody>
 </table>
+{# need to check where this should actually go #}
+<script>
+  $( document ).ready(function() {
+      $('table.listing input[type="checkbox"]').on('click', function(event) {
+          $target = $(event.target);
+          value = $target.prop('checked');
+          if ( $target.hasClass('toggle-select-row') ) {
+            $row = $($target.closest('tr')[0]);
+            $selectAllCheckbox = $('table.listing input[type="checkbox"].toggle-select-all');
+            if (value === true) {
+              $row.addClass('selected');
+              unchekedCheckboxes = $('table.listing tbody input[type=checkbox]:not(:checked)').length;
+              if (unchekedCheckboxes === 0) {
+                $checkboxes.prop('checked', false);
+              }
+            } else {
+              $selectAllCheckbox.prop('checked', false);
+              $row.removeClass('selected');
+            }
+          } else if ( $target.hasClass('toggle-select-all') ) {
+            $rows = $('table.listing tr');
+            $checkboxes = $('table.listing input[type="checkbox"]');
+            if (value === true) {
+              $rows.addClass('selected');
+              $checkboxes.prop('checked', true);
+            } else {
+              $rows.removeClass('selected');
+              $checkboxes.prop('checked', false);
+            }
+          }
+      });
+  });
+</script>
