@@ -183,17 +183,19 @@ The Elasticsearch backend is compatible with `Amazon Elasticsearch Service`_, bu
 
   WAGTAILSEARCH_BACKENDS = {
       'default': {
-          'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch',
+          'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch2',
           'INDEX': 'wagtail',
           'TIMEOUT': 5,
           'HOSTS': [{
-            'host': 'YOURCLUSTER.REGION.es.amazonaws.com',
-            'port': 443,
-            'use_ssl': True,
-            'verify_certs': True,
-            'http_auth': AWS4Auth('ACCESS_KEY', 'SECRET_KEY', 'REGION', 'es'),
+              'host': 'YOURCLUSTER.REGION.es.amazonaws.com',
+              'port': 443,
+              'use_ssl': True,
+              'verify_certs': True,
+              'http_auth': AWS4Auth('ACCESS_KEY', 'SECRET_KEY', 'REGION', 'es'),
           }],
-          'connection_class': RequestsHttpConnection,
+          'OPTIONS': {
+              'connection_class': RequestsHttpConnection,
+          },
       }
   }
 
