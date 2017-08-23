@@ -34,7 +34,7 @@
             </div>
             <div class="right col6">
                 {% if can_delete_snippets %}
-                    <a href="#" class="button bicolor icon icon-bin serious disabled">{% blocktrans with snippet_type_name=model_opts.verbose_name_plural %}Delete {{ snippet_type_name }}{% endblocktrans %}</a>
+                    <a class="button bicolor icon icon-bin serious disabled delete-button" data-url="{% url 'wagtailsnippets:delete-multiple' model_opts.app_label model_opts.model_name %}?">{% blocktrans with snippet_type_name=model_opts.verbose_name_plural %}Delete {{ snippet_type_name }}{% endblocktrans %}</a>
                 {% endif %}
                 {% if can_add_snippet %}
                     <a href="{% url 'wagtailsnippets:add' model_opts.app_label model_opts.model_name %}" class="button bicolor icon icon-plus">{% blocktrans with snippet_type_name=model_opts.verbose_name %}Add {{ snippet_type_name }}{% endblocktrans %}</a>
