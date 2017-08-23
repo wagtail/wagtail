@@ -138,9 +138,13 @@ footer {
         float: left;
     }
 
-    .actions {
-        width: 250px;
+    .actions,
+    .preview {
         margin-right: $grid-gutter-width / 2;
+
+        div.dropdown {
+            width: 250px;
+        }
     }
 
     .meta {
