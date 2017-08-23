@@ -141,8 +141,9 @@ footer {
     .actions,
     .preview {
         margin-right: $grid-gutter-width / 2;
+        width: auto;
 
-        div.dropdown {
+        .dropdown {
             width: 250px;
         }
     }
@@ -172,6 +173,10 @@ footer {
         .actions,
         .preview {
             width: 100%;
+
+            .dropdown {
+                width: 100%;
+            }
         }
 
         .meta p {
