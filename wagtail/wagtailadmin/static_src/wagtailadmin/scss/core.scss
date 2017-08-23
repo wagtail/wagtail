@@ -171,8 +171,6 @@ footer {
     @media screen and (max-width: $breakpoint-mobile) {
         .actions {
             width: 100%;
-            text-align: left; // otherwise preview button will have centered text,
-                              // which looks out of place on mobile
 
             .dropdown {
                 width: 100%;
