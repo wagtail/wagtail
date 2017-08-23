@@ -1,16 +1,21 @@
 {% load i18n %}
 <table class="listing">
+    <col width="5%" />
     <col />
-    <col  />
+    <col />
     <col width="16%" />
     <thead>
         <tr class="table-headers">
+            <th><input type="checkbox" id="toggle-select-all"/></th>
             <th>{% trans "Title" %}</th>
         </tr>
     </thead>
     <tbody>
         {% for snippet in items %}
             <tr>
+                <td class="select">
+                    <input type="checkbox" />
+                </td>
                 <td class="title">
                     {% if choosing %}
                         <h2><a class="snippet-choice" href="{% url 'wagtailsnippets:chosen' model_opts.app_label model_opts.model_name snippet.id %}">{{ snippet }}</a></h2>
