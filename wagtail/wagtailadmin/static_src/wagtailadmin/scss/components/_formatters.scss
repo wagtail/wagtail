@@ -37,9 +37,13 @@
             border-radius: 0;
         }
     }
+}
 
-    @media screen and (max-width: $breakpoint-mobile) {
-        left: $mobile-nav-indent;
+.col1 {
+    .avatar {
+        @media screen and (max-width: $breakpoint-mobile) {
+            left: $mobile-nav-indent;
+        }
     }
 }
 
