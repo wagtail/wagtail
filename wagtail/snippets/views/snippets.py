@@ -1,3 +1,5 @@
+from urllib.parse import urlencode
+
 from django.apps import apps
 from django.contrib.admin.utils import quote, unquote
 from django.http import Http404
@@ -221,29 +223,48 @@ def edit(request, app_label, model_name, pk):
     })
 
 
-def delete(request, app_label, model_name, pk):
+def delete(request, app_label, model_name, pk=None):
     model = get_snippet_model_from_url_params(app_label, model_name)
 
     permission = get_permission_name('delete', model)
     if not request.user.has_perm(permission):
         return permission_denied(request)
 
-    instance = get_object_or_404(model, pk=unquote(pk))
+    if pk:
+        instances = [get_object_or_404(model, pk=unquote(pk))]
+    else:
+        ids = request.GET.getlist('id')
+        instances = model.objects.filter(pk__in=ids)
+
+    count = len(instances)
 
     if request.method == 'POST':
-        instance.delete()
-        messages.success(
-            request,
-            _("{snippet_type} '{instance}' deleted.").format(
+        for instance in instances:
+            instance.delete()
+
+        if count == 1:
+            message_content = _("{snippet_type} '{instance}' deleted.").format(
                 snippet_type=capfirst(model._meta.verbose_name_plural),
                 instance=instance
             )
-        )
+        else:
+            message_content = _("{count} {snippet_type} deleted.").format(
+                snippet_type=capfirst(model._meta.verbose_name_plural),
+                count=count
+            )
+
+        messages.success(request, message_content)
+
         return redirect('wagtailsnippets:list', app_label, model_name)
 
     return render(request, 'wagtailsnippets/snippets/confirm_delete.html', {
         'model_opts': model._meta,
-        'instance': instance,
+        'count': count,
+        'instances': instances,
+        'submit_url': (
+            reverse('wagtailsnippets:delete-multiple', args=(app_label, model_name)) +
+            '?' + urlencode([('id', instance.pk) for instance in instances])
+        ),
     })
 
 
