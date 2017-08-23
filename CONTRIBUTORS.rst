@@ -251,6 +251,7 @@ Contributors
 * Tomasz Knapik
 * Emily Horsman
 * jcronyn
+* Ben Sturmfels
 
 Translators
 ===========
