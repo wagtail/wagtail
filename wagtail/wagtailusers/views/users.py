@@ -70,17 +70,18 @@ def index(request):
             is_searching = True
             conditions = Q()
 
-            if 'username' in model_fields:
-                conditions |= Q(username__icontains=q)
+            for term in q.split():
+                if 'username' in model_fields:
+                    conditions |= Q(username__icontains=term)
 
-            if 'first_name' in model_fields:
-                conditions |= Q(first_name__icontains=q)
+                if 'first_name' in model_fields:
+                    conditions |= Q(first_name__icontains=term)
 
-            if 'last_name' in model_fields:
-                conditions |= Q(last_name__icontains=q)
+                if 'last_name' in model_fields:
+                    conditions |= Q(last_name__icontains=term)
 
-            if 'email' in model_fields:
-                conditions |= Q(email__icontains=q)
+                if 'email' in model_fields:
+                    conditions |= Q(email__icontains=term)
 
             users = User.objects.filter(conditions)
     else:
