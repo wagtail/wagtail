@@ -86,7 +86,7 @@ function initDateTimeChooser(id, opts) {
             i18n: {
                 lang: window.dateTimePickerTranslations
             },
-            language: 'lang',
+            lang: 'lang',
             onGenerate: hideCurrent
         }, opts || {}));
     } else {

@@ -10,6 +10,7 @@ Changelog
  * Fix: Inline panel first and last sorting arrows correctly hidden in non-default tabs (Matt Westcott)
  * Fix: `WAGTAILAPI_LIMIT_MAX` now accepts None to disable limiting (jcronyn)
  * Fix: In PostgreSQL, new default ordering when ranking of objects is the same (Bertrand Bordage)
+ * Fix: Enabled translations within date-time chooser widget (Lucas Moeskops)
 
 
 1.12 LTS (21.08.2017)
