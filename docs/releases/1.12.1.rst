@@ -13,5 +13,6 @@ What's new
 Bug fixes
 ~~~~~~~~~
 
-* Prevent home page draft title from displaying as blank (Mikalai Radchuk, Matt Westcott)
-* Fix regression on styling of preview button with more than one preview mode (Jack Paine)
+ * Prevent home page draft title from displaying as blank (Mikalai Radchuk, Matt Westcott)
+ * Fix regression on styling of preview button with more than one preview mode (Jack Paine)
+ * Enabled translations within date-time chooser widget (Lucas Moeskops)
