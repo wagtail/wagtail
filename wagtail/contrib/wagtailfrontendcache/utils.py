@@ -1,10 +1,12 @@
 from __future__ import absolute_import, unicode_literals
 
 import logging
+import re
 
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.utils.module_loading import import_string
+from django.utils.six.moves.urllib.parse import urlparse, urlunparse
 
 logger = logging.getLogger('wagtail.frontendcache')
 
@@ -66,8 +68,34 @@ def purge_page_from_cache(page, backend_settings=None, backends=None):
     if page_url is None:  # nothing to be done if the page has no routable URL
         return
 
+    if settings.USE_I18N:
+        langs_regex = "^/(%s)/" % "|".join([l[0] for l in settings.LANGUAGES])
+
     for backend_name, backend in get_backends(backend_settings=backend_settings, backends=backends).items():
         # Purge cached paths from cache
         for path in page.specific.get_cached_paths():
-            logger.info("[%s] Purging URL: %s", backend_name, page_url + path[1:])
-            backend.purge(page_url + path[1:])
+            if settings.USE_I18N:
+                _purged_urls = []
+                # Purge the given url for each managed language instead of just the one with the current language
+                for isocode, description in settings.LANGUAGES:
+                    up = urlparse(page_url)
+                    new_page_url = urlunparse((up.scheme,
+                                               up.netloc,
+                                               re.sub(langs_regex, "/%s/" % isocode, up.path),
+                                               up.params,
+                                               up.query,
+                                               up.fragment))
+
+                    purge_url = new_page_url + path[1:]
+                    # Check for best performance. True if re.sub found no match
+                    # It happens when i18n_patterns was not used in urls.py to serve content for different languages from different URLs
+                    if purge_url in _purged_urls:
+                        continue
+
+                    logger.info("[%s] Purging URL: %s", backend_name, purge_url)
+                    backend.purge(purge_url)
+
+                    _purged_urls.append(purge_url)
+            else:
+                logger.info("[%s] Purging URL: %s", backend_name, page_url + path[1:])
+                backend.purge(page_url + path[1:])

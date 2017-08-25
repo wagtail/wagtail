@@ -10,6 +10,8 @@ Wagtail 1.13 release notes - IN DEVELOPMENT
 What's new
 ==========
 
+ * `purge_page_from_cache` now purges the url of each managed language when using `i18n_patterns` (PyMan Claudio Marinozzi)
+
 
 Other features
 ~~~~~~~~~~~~~~
