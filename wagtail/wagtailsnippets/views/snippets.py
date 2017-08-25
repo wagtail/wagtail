@@ -255,6 +255,7 @@ def delete(request, app_label, model_name, id=None):
         'model_opts': model._meta,
         'count': count,
         'instances': instances,
+        'ids': [instance.id for instance in instances]
     })
 
 
