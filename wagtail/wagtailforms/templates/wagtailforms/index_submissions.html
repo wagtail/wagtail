@@ -88,7 +88,7 @@
         <form action="" method="get" novalidate>
             <div class="row">
                 <div class="left">
-                    <div class="col">
+                    <div class="col header-title">
                         <h1 class="icon icon-form">
                         {% blocktrans with form_title=form_page.title|capfirst %}Form data <span>{{ form_title }}</span>{% endblocktrans %}
                         </h1>
@@ -123,3 +123,4 @@
         {% endif %}
     </div>
 {% endblock %}
+
