@@ -39,9 +39,10 @@
     }
 }
 
-.col1 {
-    .avatar {
-        @media screen and (max-width: $breakpoint-mobile) {
+// make way for the nav-menu button on mobile
+@media screen and (max-width: $breakpoint-mobile) {
+    .col1 {
+        .avatar {
             left: $mobile-nav-indent;
         }
     }
