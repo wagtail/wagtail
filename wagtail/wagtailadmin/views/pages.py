@@ -874,7 +874,7 @@ def search(request):
         if form.is_valid():
             q = form.cleaned_data['q']
 
-            pages = Page.objects.all().prefetch_related('content_type').search(q)
+            pages = Page.objects.all().prefetch_related('content_type').specific().search(q)
             paginator, pages = paginate(request, pages)
     else:
         form = SearchForm()

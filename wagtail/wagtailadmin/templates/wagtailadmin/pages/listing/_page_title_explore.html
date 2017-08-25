@@ -10,9 +10,9 @@
     {% endif %}
 
     {% if page_perms.can_edit %}
-        <a href="{% url 'wagtailadmin_pages:edit' page.id %}" title="{% trans 'Edit this page' %}">{{ page.get_admin_display_title }}</a>
+        <a href="{% url 'wagtailadmin_pages:edit' page.id %}" title="{% trans 'Edit this page' %}">{{ page.specific.get_admin_display_title }}</a>
     {% else %}
-        {{ page.get_admin_display_title }}
+        {{ page.specific.get_admin_display_title }}
     {% endif %}
 
     {% include "wagtailadmin/pages/listing/_privacy_indicator.html" with page=page %}
