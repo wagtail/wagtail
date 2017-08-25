@@ -60,6 +60,7 @@
             &.icon {
                 padding-right: 5em;
 
+                // stylelint-disable-next-line max-nesting-depth
                 &:before,
                 &:after {
                     right: 1em;
@@ -238,7 +239,7 @@
     display: inline-block;
     vertical-align: middle;
     line-height: 1;
-    margin-top: -.25rem;
+    margin-top: -0.25rem;
 }
 
 .c-dropdown__button {
@@ -254,7 +255,6 @@
     cursor: pointer;
     -webkit-font-smoothing: subpixel-antialiased;
     user-select: none;
-    -webkit-user-select: none;
 }
 
 .c-dropdown__toggle {
@@ -262,22 +262,22 @@
 }
 
 .c-dropdown__menu.c-dropdown__menu {
-    margin-top: .75rem;
-    padding: .75rem 1rem;
+    margin-top: 0.75rem;
+    padding: 0.75rem 1rem;
     min-width: 8rem;
     text-transform: none;
     position: absolute;
     z-index: 1;
-    animation: dropdownIn .1s ease-out backwards;
+    animation: dropdownIn 0.1s ease-out backwards;
     list-style: none;
 }
 
 .c-dropdown__item {
-    margin-bottom: .375rem;
+    margin-bottom: 0.375rem;
 
     &:hover {
         .c-dropdown__indicator {
-            opacity: .6;
+            opacity: 0.6;
         }
     }
 }
@@ -300,7 +300,7 @@
 // =============================================================================
 .u-arrow:before {
     content: '';
-    border: solid .35rem transparent;
+    border: solid 0.35rem transparent;
     display: block;
     position: absolute;
 }

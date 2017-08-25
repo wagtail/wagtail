@@ -62,6 +62,7 @@ select,
     border: 1px solid $color-input-border;
     padding: 0.9em 1.2em;
     background-color: $color-fieldset-hover;
+    // stylelint-disable-next-line property-no-vendor-prefix
     -webkit-appearance: none;
     color: $color-text-input;
     font-size: 1.2em;
@@ -136,6 +137,7 @@ input[type=checkbox] {
 }
 
 input[type=radio] {
+    // stylelint-disable-next-line property-no-vendor-prefix
     -webkit-appearance: radio;
     width: auto;
     position: relative;
@@ -168,6 +170,7 @@ input[type=radio]:checked:before {
 }
 
 input[type=checkbox] {
+    // stylelint-disable-next-line property-no-vendor-prefix
     -webkit-appearance: checkbox;
     width: auto;
     position: relative;
@@ -222,6 +225,7 @@ input[type=checkbox]:checked:before {
     outline: none;
     box-sizing: border-box;
     -webkit-font-smoothing: auto;
+    // stylelint-disable-next-line property-no-vendor-prefix
     -moz-appearance: none;
 
     &:hover {
@@ -362,6 +366,7 @@ input[type=checkbox]:checked:before {
         outline: none;
         box-sizing: border-box;
         -webkit-font-smoothing: auto;
+        // stylelint-disable-next-line property-no-vendor-prefix
         -moz-appearance: none;
     }
 
@@ -452,6 +457,7 @@ input[type=checkbox]:checked:before {
                 height: 1.8rem;
                 width: 1.8rem;
 
+                // stylelint-disable-next-line max-nesting-depth
                 &:before {
                     line-height: 1.7em;
                 }

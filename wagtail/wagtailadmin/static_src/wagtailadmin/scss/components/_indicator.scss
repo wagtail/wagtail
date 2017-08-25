@@ -6,15 +6,15 @@
 // =============================================================================
 // Indicator light
 // =============================================================================
-$c-indicator-size: .625em;
-$c-indicator-margin: .25rem;
+$c-indicator-size: 0.625em;
+$c-indicator-margin: 0.25rem;
 
 .c-indicator {
     display: inline-block;
     border-radius: 50rem;
     width: $c-indicator-size;
     height: $c-indicator-size;
-    margin-top: -.125rem;
+    margin-top: -0.125rem;
     margin-right: $c-indicator-margin;
     font-size: 1rem;
     vertical-align: middle;

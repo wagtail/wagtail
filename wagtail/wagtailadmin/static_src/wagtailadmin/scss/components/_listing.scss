@@ -194,6 +194,7 @@ ul.listing {
                 color: inherit;
                 text-decoration: none;
 
+                // stylelint-disable max-nesting-depth
                 &:hover {
                     color: $color-link;
                 }

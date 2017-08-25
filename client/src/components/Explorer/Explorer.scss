@@ -102,14 +102,14 @@ $menu-footer-height: 50px;
 }
 
 .c-explorer__header__inner {
-    padding: 1em .75em;
+    padding: 1em 0.75em;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 
     .icon {
         color: $c-explorer-secondary;
-        margin-right: .25rem;
+        margin-right: 0.25rem;
         font-size: 1rem;
     }
 

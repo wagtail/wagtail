@@ -216,8 +216,6 @@ a.tag:hover {
             margin: -15px 0 0 -15px;
             font-family: wagtail;
             animation: spin 0.5s infinite linear;
-            -webkit-animation: spin 0.5s infinite linear;
-            -moz-animation: spin 0.5s infinite linear;
             content: '1';
             z-index: 2;
             color: $color-teal;
