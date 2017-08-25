@@ -9,9 +9,12 @@ from wagtail.wagtaildocs.models import get_document_model
 
 TRANSACTION_ON_COMMIT_AVAILABLE = (1, 8) < DJANGO_VERSION[:2]
 if TRANSACTION_ON_COMMIT_AVAILABLE:
-    on_commit_handler = lambda f: transaction.on_commit(f)
+    def on_commit_handler(f):
+        return transaction.on_commit(f)
 else:
-    on_commit_handler = lambda f: f()
+    def on_commit_handler(f):
+        return f()
+
 
 def post_delete_file_cleanup(instance, **kwargs):
     # Pass false so FileField doesn't save the model.
