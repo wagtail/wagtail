@@ -76,7 +76,9 @@ class TestUserIndexView(TestCase, WagtailTestUtils):
         self.test_user = get_user_model().objects.create_user(
             username='testuser',
             email='testuser@email.com',
-            password='password'
+            password='password',
+            first_name='First Name',
+            last_name='Last Name'
         )
         self.login()
 
@@ -101,6 +103,18 @@ class TestUserIndexView(TestCase, WagtailTestUtils):
         response = self.get({'q': "Hello"})
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['query_string'], "Hello")
+
+    def test_search_query_one_field(self):
+        response = self.get({'q': "first name"})
+        self.assertEqual(response.status_code, 200)
+        results = response.context['users'].object_list
+        self.assertIn(self.test_user, results)
+
+    def test_search_query_multiple_fields(self):
+        response = self.get({'q': "first name last name"})
+        self.assertEqual(response.status_code, 200)
+        results = response.context['users'].object_list
+        self.assertIn(self.test_user, results)
 
     def test_pagination(self):
         pages = ['0', '1', '-1', '9999', 'Not a page']
