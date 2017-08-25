@@ -436,6 +436,8 @@ body.explorer-open {
     }
 }
 
+// stylelint-disable scss/media-feature-value-dollar-variable
+
 // Media query hacks to detect IE10+ which doesn't support 3d transform of static elements and needs a fallback
 @media all and (-ms-high-contrast: none),
     all and (-ms-high-contrast: active) {

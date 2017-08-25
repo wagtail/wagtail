@@ -1,7 +1,7 @@
 $zindex-modal-background: 500;
 
 .fade {
-    @include transition(opacity .15s linear);
+    @include transition(opacity 0.15s linear);
     opacity: 0;
 
     &.in {
@@ -14,7 +14,6 @@ $zindex-modal-background: 500;
     overflow: hidden;
 
     .content-wrapper {
-        -webkit-transform: none;
         transform: none;
     }
 }
@@ -104,6 +103,7 @@ $zindex-modal-background: 500;
     }
 
     .header-title {
+        // stylelint-disable-next-line declaration-no-important
         padding-left: 0 !important;
         margin-left: -36px;
     }

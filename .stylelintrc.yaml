@@ -2,6 +2,7 @@ ignoreFiles:
   - node_modules
 plugins:
   - stylelint-scss
+# See https://github.com/stylelint/stylelint/blob/master/docs/user-guide/rules.md
 rules:
   block-closing-brace-newline-after:
     - always
@@ -15,6 +16,7 @@ rules:
   color-hex-length: short
   color-named: never
   color-no-invalid-hex: true
+  comment-no-empty: true
   declaration-bang-space-after: never
   declaration-bang-space-before: always
   declaration-block-no-duplicate-properties: true
@@ -26,17 +28,27 @@ rules:
   declaration-property-value-blacklist:
     - /^border/: [none]
     - severity: error
+  declaration-no-important: true
+  font-family-no-duplicate-names: true
+  function-calc-no-unspaced-operator: true
   function-comma-space-after: always
+  function-linear-gradient-no-nonstandard-direction: true
   function-parentheses-space-inside: never
   function-url-quotes: always
   indentation:
     - 4
     - severity: warning
   length-zero-no-unit: true
-  max-nesting-depth: 5
+  max-nesting-depth: 3
+  media-feature-name-no-unknown: true
+  no-empty-source: true
   no-eol-whitespace: true
+  no-extra-semicolons: true
   no-missing-end-of-source-newline: true
   number-no-trailing-zeros: true
+  number-leading-zero: always
+  property-case: lower
+  property-no-unknown: true
   rule-empty-line-before:
     - always
     - except:
@@ -53,4 +65,14 @@ rules:
       - class
   selector-list-comma-newline-after: always
   selector-max-id: 0
+  selector-pseudo-element-no-unknown: true
+  selector-type-no-unknown: true
+  scss/at-rule-no-unknown: true
+  scss/media-feature-value-dollar-variable: always
+  scss/selector-no-redundant-nesting-selector: true
+  string-no-newline: true
   string-quotes: single
+  unit-no-unknown: true
+  unit-case: lower
+  value-no-vendor-prefix: true
+  property-no-vendor-prefix: true

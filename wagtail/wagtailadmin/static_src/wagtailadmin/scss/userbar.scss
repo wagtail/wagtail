@@ -9,7 +9,7 @@
 
 $size-home-button: 3.5em;
 $position: 2em;
-$width-arrow: .6em;
+$width-arrow: 0.6em;
 $box-shadow-props: 0 0 1px 0 rgba(107, 214, 230, 1);
 $max-items: 12;
 $userbar-radius: 6px;
@@ -88,6 +88,7 @@ $positions: (
 .#{$namespace}-userbar {
     position: fixed;
     z-index: 9999;
+    // stylelint-disable-next-line declaration-no-important
     font-size: initial !important;
     line-height: initial;
     margin: 0;
@@ -105,7 +106,7 @@ $positions: (
     }
 }
 
-
+// stylelint-disable declaration-no-important
 .#{$namespace}-userbar-trigger {
     display: flex;
     align-items: center;
@@ -119,7 +120,7 @@ $positions: (
     color: $color-black;
     padding: 0 !important;
     cursor: pointer;
-    box-shadow: $box-shadow-props, 0 1px 10px 0 rgba(107, 214, 230, .7);
+    box-shadow: $box-shadow-props, 0 1px 10px 0 rgba(107, 214, 230, 0.7);
     transition: all 0.2s ease-in-out;
     font-size: 16px;
     text-decoration: none !important;
@@ -127,7 +128,7 @@ $positions: (
 
     .#{$namespace}-userbar.touch.is-active &,
     .#{$namespace}-userbar.no-touch &:hover {
-        box-shadow: $box-shadow-props, 0 3px 15px 0 rgba(107, 214, 230, .95);
+        box-shadow: $box-shadow-props, 0 3px 15px 0 rgba(107, 214, 230, 0.95);
     }
 
     .#{$namespace}-userbar-help-text {
@@ -137,7 +138,7 @@ $positions: (
     }
 
     &.#{$namespace}-icon:before {
-        transition: color .2s ease;
+        transition: color 0.2s ease;
         font-size: 32px;
         width: auto;
         margin: 0;
@@ -170,13 +171,13 @@ $positions: (
     height: 0;
     opacity: 0;
     border: solid $width-arrow transparent;
-    transition-duration: .15s;
-    transition-timing-function: cubic-bezier(.55, 0, .1, 1);
+    transition-duration: 0.15s;
+    transition-timing-function: cubic-bezier(0.55, 0, 0.1, 1);
 
     .#{$namespace}-userbar.is-active & {
         opacity: 1;
         transform: translateY(0);
-        transition-delay: .3s;
+        transition-delay: 0.3s;
     }
 }
 
@@ -200,8 +201,8 @@ $positions: (
     background-color: $color-grey-1;
     opacity: 0;
     overflow: hidden;
-    transition-duration: .125s;
-    transition-timing-function: cubic-bezier(.55, 0, .1, 1);
+    transition-duration: 0.125s;
+    transition-timing-function: cubic-bezier(0.55, 0, 0.1, 1);
     font-family: 'Open Sans', sans-serif;
     font-size: 16px !important;
     text-decoration: none !important;
@@ -319,7 +320,7 @@ $positions: (
                 }
 
                 &:#{unquote($prop)}(#{$i}) {
-                    transition-delay: .05s * $i;
+                    transition-delay: 0.05s * $i;
                 }
             }
         }
