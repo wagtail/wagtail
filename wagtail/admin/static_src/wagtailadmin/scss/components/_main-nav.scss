@@ -19,11 +19,13 @@ $footer-submenu: $submenu-color;
 }
 
 .nav-toggle.icon {
-    left: $mobile-nice-padding;
-    cursor: pointer;
     position: absolute;
+    padding-left: $mobile-nice-padding;
+    cursor: pointer;
 
     &:before {
+        position: relative;
+        top: 3px;
         font-size: 40px;
         color: $color-white;
         line-height: 40px;
@@ -200,10 +202,13 @@ $footer-submenu: $submenu-color;
     button {
         background-color: transparent;
         position: absolute;
-        top: 0; right: 0; bottom: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
         margin: auto;
         padding: 0;
-        width: 3em; height: 100%;
+        width: 3em;
+        height: 100%;
         overflow: hidden;
 
         &:before {
