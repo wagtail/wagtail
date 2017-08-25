@@ -26,7 +26,7 @@
                 {% endfor %}
             </ul>
         {% endif %}
-        <form action="{% url 'wagtailsnippets:delete-multiple' model_opts.app_label model_opts.model_name %}?_=0{% for instance in instances %}&id={{ instance.id }}{% endfor%}" method="POST">
+        <form action="{% url 'wagtailsnippets:delete-multiple' model_opts.app_label model_opts.model_name %}?{{ ids|join:'&id=' }}" method="POST">
             {% csrf_token %}
             <input type="submit" value="{% trans 'Yes, delete' %}" class="button serious" />
         </form>
