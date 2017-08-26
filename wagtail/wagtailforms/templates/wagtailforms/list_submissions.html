@@ -13,7 +13,9 @@
         <tr>
             <th><input type="checkbox" id="select-all" /></th>
             {% for heading in data_fields_with_ordering %}
-                <th id="{{ heading.name }}" class="{% if heading.ordering %}order-{{ heading.ordering }}{% endif %}">{{ heading.label }}</th>
+                <th id="{{ heading.name }}" class="{% if heading.ordering %}ordered {{ heading.ordering }}{% endif %}">
+                  {% if heading.ordering %}<a href="?order_by={% if heading.ordering == 'ascending' %}-{% endif %}{{ heading.name }}">{{ heading.label }}</a>{% else %}{{ heading.label }}{% endif %}
+                </th>
             {% endfor %}
         </tr>
     </thead>
