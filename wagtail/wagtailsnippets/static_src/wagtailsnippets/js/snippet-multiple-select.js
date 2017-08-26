@@ -1,8 +1,32 @@
-// need to ensure it works when you go 'back'
-// need to ensure it all works when you are viewing search results
-// check if document ready is the best way to do this
-// 
-$( document ).ready(function() {
+function updateDeleteButton() {
+    var $chekedCheckboxes = $('table.listing tbody input[type="checkbox"]:checked');
+    var $deleteButton = $('a.button.delete-button');
+    var ids = [];
+    $.map($chekedCheckboxes, function(checkbox) {
+        ids.push(checkbox.id);
+    })
+    if ( ids.length === 0 ) {
+        $deleteButton.addClass('disabled');
+        $deleteButton.attr('href', null);
+    } else {
+        $deleteButton.removeClass('disabled');
+        var url = $deleteButton.data('url');
+        url = url + $.param({id: ids}, true);
+        $deleteButton.attr('href', url);
+    }
+};
+
+function updateAllRows(value, $rows, $checkboxes) {
+    if (value === true) {
+        $rows.addClass('selected');
+        $checkboxes.prop('checked', true);
+    } else {
+        $rows.removeClass('selected');
+        $checkboxes.prop('checked', false);
+    }
+};
+
+function onCheckboxClick() {
     $('table.listing input[type="checkbox"]').on('click', function(event) {
         $target = $(event.target);
         value = $target.prop('checked');
@@ -22,28 +46,10 @@ $( document ).ready(function() {
         } else if ( $target.hasClass('toggle-select-all') ) {
             $rows = $('table.listing tr');
             $checkboxes = $('table.listing input[type="checkbox"]');
-            if (value === true) {
-                $rows.addClass('selected');
-                $checkboxes.prop('checked', true);
-            } else {
-                $rows.removeClass('selected');
-                $checkboxes.prop('checked', false);
-            }
+            updateAllRows(value, $rows, $checkboxes);
         }
-        var $chekedCheckboxes = $('table.listing tbody input[type="checkbox"]:checked');
-        var $deleteButton = $('a.button.delete-button');
-        var ids = [];
-        $.map($chekedCheckboxes, function(checkbox) {
-            ids.push(checkbox.id);
-        })
-        if ( ids.length === 0 ) {
-            $deleteButton.addClass('disabled');
-            $deleteButton.attr('href', null);
-        } else {
-            $deleteButton.removeClass('disabled');
-            var url = $deleteButton.data('url');
-            url = url + $.param({id: ids}, true);
-            $deleteButton.attr('href', url);
-        }
+        updateDeleteButton();
     });
-});
+};
+
+$( document ).ready(onCheckboxClick);
