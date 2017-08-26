@@ -39,15 +39,6 @@
     }
 }
 
-// make way for the nav-menu button on mobile
-@media screen and (max-width: $breakpoint-mobile) {
-    .col1 {
-        .avatar {
-            left: $mobile-nav-indent;
-        }
-    }
-}
-
 .media-placeholder {
     width: 600px;
     height: 400px;
