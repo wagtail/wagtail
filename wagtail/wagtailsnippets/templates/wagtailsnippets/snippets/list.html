@@ -12,8 +12,8 @@
     </thead>
     <tbody>
         {% for snippet in items %}
-            <tr>
-                {% if can_delete_snippets %}<td class="select"><input type="checkbox" class="toggle-select-row" id="{{ snippet.id }}"/></td>{% endif %}
+            <tr id="{{ snippet.id }}">
+                {% if can_delete_snippets %}<td class="select"><input type="checkbox" class="toggle-select-row"/></td>{% endif %}
                 <td class="title">
                     {% if choosing %}
                         <h2><a class="snippet-choice" href="{% url 'wagtailsnippets:chosen' model_opts.app_label model_opts.model_name snippet.id %}">{{ snippet }}</a></h2>
