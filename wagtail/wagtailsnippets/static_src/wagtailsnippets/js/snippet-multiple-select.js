@@ -1,55 +1,103 @@
-function updateDeleteButton() {
-    var $chekedCheckboxes = $('table.listing tbody input[type="checkbox"]:checked');
+var updateRow = function(id, newValue) {
+    $row = $('table.listing tr#' + id);
+    $checklist = $row.find('input[type=checkbox]');
+    $checklist.prop('checked', newValue);
+    if (newValue) {
+        $row.addClass('selected');
+    } else {
+        $row.removeClass('selected');
+    }
+};
+
+var updateDeleteButton = function(anySelected, newState) {
     var $deleteButton = $('a.button.delete-button');
     var ids = [];
-    $.map($chekedCheckboxes, function(checkbox) {
-        ids.push(checkbox.id);
-    })
-    if ( ids.length === 0 ) {
-        $deleteButton.addClass('disabled');
-        $deleteButton.attr('href', null);
-    } else {
+    $.each(newState, function(id, newValue) {
+        if (newValue) {
+          ids.push(id);
+        }
+    });
+    if (anySelected) {
+        // enable button and add url
         $deleteButton.removeClass('disabled');
         var url = $deleteButton.data('url');
         url = url + $.param({id: ids}, true);
         $deleteButton.attr('href', url);
-    }
-};
-
-function updateAllRows(value, $rows, $checkboxes) {
-    if (value === true) {
-        $rows.addClass('selected');
-        $checkboxes.prop('checked', true);
     } else {
-        $rows.removeClass('selected');
-        $checkboxes.prop('checked', false);
+        // disable button and remove url
+        $deleteButton.addClass('disabled');
+        $deleteButton.attr('href', null);
     }
 };
 
-function onCheckboxClick() {
+var updateSelectAllCheckbox = function(value) {
+    var $selectAllCheckbox = $('table.listing input[type=checkbox].toggle-select-all');
+    $selectAllCheckbox.prop('checked', value);
+};
+
+var buildSelectedState = function() {
+    // prepare the selected state -- {3: true, 4: false}
+    state = {};
+    $rows = $('table.listing tbody tr');
+    $.each($rows, function (index, row) {
+        var $row = $(row);
+        var selected = ($row.hasClass('selected') === true ? true : false);
+        var id = $row.attr('id');
+        state[id] = selected;
+    });
+    return state;
+};
+
+var updateSelectedState = function(state, newValue, idToUpdate) {
+    if (idToUpdate === null) {
+        // update all rows
+        $.each(state, function (id, currentValue) {
+            state[id] = newValue;
+        });
+    } else {
+        // update single row
+        state[idToUpdate] = newValue;
+    }
+    return state;
+};
+
+var updateView = function(newState) {
+      var allSelected = true;
+      var anySelected = false;
+      var countOfUnselected = 0;
+      var countOfSelected = 0;
+
+      // update each row with the new value (selected or not)
+      $.each(newState, function (id, newValue) {
+          updateRow(id, newValue);
+          if (newValue === false) {
+              countOfUnselected += 1;
+          } else {
+              countOfSelected += 1;
+          }
+      });
+
+      // update the main checkbox for select all (if all are true)
+      if (countOfUnselected >= 1) { allSelected = false; }
+      updateSelectAllCheckbox(allSelected);
+
+      // update the delete button
+      if (countOfSelected >= 1) { anySelected = true; }
+      updateDeleteButton(anySelected, newState);
+};
+
+var onListingCheckboxClick = function() {
     $('table.listing input[type="checkbox"]').on('click', function(event) {
-        $target = $(event.target);
-        value = $target.prop('checked');
+        var $target = $(event.target);
+        var setToValue = $target.prop('checked');
+        var currentState = buildSelectedState();
+        var id = null;
         if ( $target.hasClass('toggle-select-row') ) {
-            $row = $($target.closest('tr')[0]);
-            $selectAllCheckbox = $('table.listing input[type="checkbox"].toggle-select-all');
-            if (value === true) {
-                $row.addClass('selected');
-                unchekedCheckboxes = $('table.listing tbody input[type="checkbox"]:not(:checked)').length;
-                if (unchekedCheckboxes === 0) {
-                    $selectAllCheckbox.prop('checked', false);
-                }
-            } else {
-                $row.removeClass('selected');
-                $selectAllCheckbox.prop('checked', false);
-            }
-        } else if ( $target.hasClass('toggle-select-all') ) {
-            $rows = $('table.listing tr');
-            $checkboxes = $('table.listing input[type="checkbox"]');
-            updateAllRows(value, $rows, $checkboxes);
+            id = $($target.closest('tr')[0]).attr('id');
         }
-        updateDeleteButton();
+        var newState = updateSelectedState(currentState, setToValue, id);
+        updateView(newState);
     });
 };
 
-$( document ).ready(onCheckboxClick);
+$( document ).ready(onListingCheckboxClick);
