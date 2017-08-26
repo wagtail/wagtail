@@ -1,19 +1,19 @@
 {% load i18n %}
 <table class="listing">
-    <col width="5%" />
+    {% if can_delete_snippets %}<col width="5%" />{% endif %}
     <col />
     <col />
     <col width="16%" />
     <thead>
         <tr class="table-headers">
-            <th><input type="checkbox" class="toggle-select-all"/></th>
+            {% if can_delete_snippets %}<th><input type="checkbox" class="toggle-select-all"/></th>{% endif %}
             <th>{% trans "Title" %}</th>
         </tr>
     </thead>
     <tbody>
         {% for snippet in items %}
             <tr>
-                <td class="select"><input type="checkbox" class="toggle-select-row" id="{{ snippet.id }}"/></td>
+                {% if can_delete_snippets %}<td class="select"><input type="checkbox" class="toggle-select-row" id="{{ snippet.id }}"/></td>{% endif %}
                 <td class="title">
                     {% if choosing %}
                         <h2><a class="snippet-choice" href="{% url 'wagtailsnippets:chosen' model_opts.app_label model_opts.model_name snippet.id %}">{{ snippet }}</a></h2>
