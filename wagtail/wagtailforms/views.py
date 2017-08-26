@@ -102,9 +102,9 @@ def list_submissions(request, page_id):
         ordering = None
         for order in [o for o in field_ordering if o[1] == name]:
             if order[0] == '-':
-                ordering = 'desc'
+                ordering = 'descending'
             else:
-                ordering = 'asc'
+                ordering = 'ascending'
         data_fields_with_ordering.append({
             "name": name,
             "label": label,
