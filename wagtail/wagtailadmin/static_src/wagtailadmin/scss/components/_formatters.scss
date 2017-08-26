@@ -37,10 +37,6 @@
             border-radius: 0;
         }
     }
-
-    @media screen and (max-width: $breakpoint-mobile) {
-        left: $mobile-nav-indent;
-    }
 }
 
 .media-placeholder {

@@ -12,6 +12,7 @@ Changelog
  * Fix: In PostgreSQL, new default ordering when ranking of objects is the same (Bertrand Bordage)
  * Fix: Enabled translations within date-time chooser widget (Lucas Moeskops)
  * Fix: Fixed overlapping header elements on form submissions view on mobile (Jack Paine)
+ * Fix: Fixed avatar position in footer on mobile (Jack Paine)
 
 
 1.12 LTS (21.08.2017)
