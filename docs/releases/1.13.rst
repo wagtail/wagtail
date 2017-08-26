@@ -27,6 +27,7 @@ Bug fixes
  * In PostgreSQL, new default ordering when ranking of objects is the same (Bertrand Bordage)
  * Enabled translations within date-time chooser widget (Lucas Moeskops)
  * Fixed overlapping header elements on form submissions view on mobile (Jack Paine)
+ * Fixed avatar position in footer on mobile (Jack Paine)
 
 
 Upgrade considerations
