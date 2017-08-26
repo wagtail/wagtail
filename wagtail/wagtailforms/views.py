@@ -169,6 +169,6 @@ def list_submissions(request, page_id):
         'form_page': form_page,
         'select_date_form': select_date_form,
         'submissions': submissions,
-        'data_headings': data_headings,
+        'data_fields_with_ordering': data_fields_with_ordering,
         'data_rows': data_rows
     })
