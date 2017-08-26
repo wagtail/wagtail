@@ -75,9 +75,9 @@ def list_submissions(request, page_id):
             invalid options are simply ignored - no error created
             removes duplicate field definitions
         """
-        default = '-submit_time'
+        default = ('-', 'submit_time')
         valid_fields = ['id', 'submit_time']
-        orderings = []
+        field_ordering = []
         if len(ordering_list) == 0:
             return [default]
         for order in ordering_list:
@@ -86,16 +86,31 @@ def list_submissions(request, page_id):
                 if field_name not in valid_fields:
                     continue  # Invalid field_name, skip it
                 # only add to ordering if the field is not already set
-                if field_name not in [o[1] for o in orderings]:
-                    orderings.append((prefix, field_name))
+                if field_name not in [o[1] for o in field_ordering]:
+                    field_ordering.append((prefix, field_name))
             except (IndexError, ValueError):
                 continue  # Invalid ordering specified, skip it
-        print('ordering', ['%s%s' % (o[0], o[1]) for o in orderings])
-        return ['%s%s' % (o[0], o[1]) for o in orderings]
+        return field_ordering
 
-    order_by = validate_order_by(request.GET.getlist('order_by'))
+    field_ordering = validate_order_by(request.GET.getlist('order_by'))
+    order_by = ['%s%s' % (o[0], o[1]) for o in field_ordering]
 
     submissions = form_submission_class.objects.filter(page=form_page).order_by(*order_by)
+
+    data_fields_with_ordering = []
+    for name, label in data_fields:
+        ordering = None
+        for order in [o for o in field_ordering if o[1] == name]:
+            if order[0] == '-':
+                ordering = 'desc'
+            else:
+                ordering = 'asc'
+        data_fields_with_ordering.append({
+            "name": name,
+            "label": label,
+            "ordering": ordering,
+        })
+
     data_headings = [label for name, label in data_fields]
 
     select_date_form = SelectDateForm(request.GET)
