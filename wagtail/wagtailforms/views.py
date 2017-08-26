@@ -68,7 +68,34 @@ def list_submissions(request, page_id):
 
     data_fields = form_page.get_data_fields()
 
-    submissions = form_submission_class.objects.filter(page=form_page).order_by('submit_time')
+    def validate_order_by(ordering_list):
+        """
+            accepts a list of strings ['-submit_time', 'id']
+            checks these are valid and returns valid options
+            invalid options are simply ignored - no error created
+            removes duplicate field definitions
+        """
+        default = '-submit_time'
+        valid_fields = ['id', 'submit_time']
+        orderings = []
+        if len(ordering_list) == 0:
+            return [default]
+        for order in ordering_list:
+            try:
+                none, prefix, field_name = order.rpartition('-')
+                if field_name not in valid_fields:
+                    continue  # Invalid field_name, skip it
+                # only add to ordering if the field is not already set
+                if field_name not in [o[1] for o in orderings]:
+                    orderings.append((prefix, field_name))
+            except (IndexError, ValueError):
+                continue  # Invalid ordering specified, skip it
+        print('ordering', ['%s%s' % (o[0], o[1]) for o in orderings])
+        return ['%s%s' % (o[0], o[1]) for o in orderings]
+
+    order_by = validate_order_by(request.GET.getlist('order_by'))
+
+    submissions = form_submission_class.objects.filter(page=form_page).order_by(*order_by)
     data_headings = [label for name, label in data_fields]
 
     select_date_form = SelectDateForm(request.GET)
