@@ -35,7 +35,7 @@ automatically recompiling when any changes are observed, by running:
 Linting SCSS
 ~~~~~~~~~~~~
 
-Wagtail uses the `stylelint <https://github.com/stylelint/stylelint>`_ linter.
+Wagtail uses the `stylelint <https://stylelint.io/>`_ linter.
 You'll need Node.js and npm on your development machine.
 Ensure project dependencies are installed by running ``npm install``
 
