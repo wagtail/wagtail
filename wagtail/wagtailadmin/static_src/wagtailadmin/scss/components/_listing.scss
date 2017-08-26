@@ -694,6 +694,7 @@ td.ord {
 table.listing {
     th.ordered {
         color: $color-teal;
+
         &.ascending {
             &:before {
                 content: '\25B2'; // up arrow
@@ -702,6 +703,7 @@ table.listing {
                 vertical-align: middle;
             }
         }
+
         &.descending {
             &:before {
                 content: '\25BC'; // down arrow
@@ -710,5 +712,6 @@ table.listing {
                 vertical-align: middle;
             }
         }
+
     }
 }
