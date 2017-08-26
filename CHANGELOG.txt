@@ -6,6 +6,7 @@ Changelog
 
  * Custom document model is now documented (Emily Horsman)
  * Use minified versions of CSS in the admin by adding minification to the front-end tooling (Vincent Audebert, Thibaud Colas)
+ * Wagtailforms serve view now passes `request.FILES`, for use in custom form handlers (LB (Ben Johnston))
  * Fix: "Open Link in New Tab" on a right arrow in page explorer should open page list (Emily Horsman)
  * Fix: Using `order_by_relevance=False` when searching with PostgreSQL now works (Mitchel Cabuloy)
  * Fix: Inline panel first and last sorting arrows correctly hidden in non-default tabs (Matt Westcott)
