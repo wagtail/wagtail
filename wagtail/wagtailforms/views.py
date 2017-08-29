@@ -68,47 +68,28 @@ def list_submissions(request, page_id):
 
     data_fields = form_page.get_data_fields()
 
-    def validate_order_by(ordering_list):
-        """
-            accepts a list of strings ['-submit_time', 'id']
-            checks these are valid and returns valid options
-            invalid options are simply ignored - no error created
-            removes duplicate field definitions
-        """
-        default = ('-', 'submit_time')
-        valid_fields = ['id', 'submit_time']
-        field_ordering = []
-        if len(ordering_list) == 0:
-            return [default]
-        for order in ordering_list:
-            try:
-                none, prefix, field_name = order.rpartition('-')
-                if field_name not in valid_fields:
-                    continue  # Invalid field_name, skip it
-                # only add to ordering if the field is not already set
-                if field_name not in [o[1] for o in field_ordering]:
-                    field_ordering.append((prefix, field_name))
-            except (IndexError, ValueError):
-                continue  # Invalid ordering specified, skip it
-        return field_ordering
+    ordering = form_page.get_field_ordering(request.GET.getlist('order_by'))
 
-    field_ordering = validate_order_by(request.GET.getlist('order_by'))
-    order_by = ['%s%s' % (o[0], o[1]) for o in field_ordering]
+    # convert ordering tuples to a list of strings like ['-submit_time']
+    ordering_strings = [
+        '%s%s' % ('-' if o[1] == 'descending' else '', o[0])
+        for o in ordering]
 
-    submissions = form_submission_class.objects.filter(page=form_page).order_by(*order_by)
+    if request.GET.get('action') == 'CSV':
+        #  Revert to CSV being sorted submit_time ascending for backwards compatibility
+        submissions = form_submission_class.objects.filter(page=form_page).order_by('submit_time')
+    else:
+        submissions = form_submission_class.objects.filter(page=form_page).order_by(*ordering_strings)
 
     data_fields_with_ordering = []
     for name, label in data_fields:
-        ordering = None
-        for order in [o for o in field_ordering if o[1] == name]:
-            if order[0] == '-':
-                ordering = 'descending'
-            else:
-                ordering = 'ascending'
+        order = None
+        for order_value in [o[1] for o in ordering if o[0] == name]:
+            order = order_value
         data_fields_with_ordering.append({
             "name": name,
             "label": label,
-            "ordering": ordering,
+            "order": order,
         })
 
     data_headings = [label for name, label in data_fields]
