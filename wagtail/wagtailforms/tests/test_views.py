@@ -14,7 +14,7 @@ from wagtail.wagtailadmin.edit_handlers import get_form_for_model
 from wagtail.wagtailadmin.forms import WagtailAdminPageForm
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailforms.edit_handlers import FormSubmissionsPanel
-from wagtail.wagtailforms.models import FormSubmission
+from wagtail.wagtailforms.models import FormSubmission, FormPageWithCustomSubmission
 from wagtail.wagtailforms.tests.utils import make_form_page, make_form_page_with_custom_submission
 
 
@@ -35,6 +35,41 @@ class TestFormResponsesPanel(TestCase):
         self.client.post('/contact-us/', {
             'your-email': 'bob@example.com',
             'your-message': 'hello world',
+            'your-choices': {'foo': '', 'bar': '', 'baz': ''}
+        })
+
+        result = self.panel.render()
+
+        url = reverse('wagtailforms:list_submissions', args=(self.form_page.id,))
+        link = '<a href="{}">1</a>'.format(url)
+
+        self.assertIn(link, result)
+
+    def test_render_without_submissions(self):
+        """The panel should not be shown if the number of submission is zero."""
+        result = self.panel.render()
+
+        self.assertEqual('', result)
+
+
+class TestFormResponsesPanelWithCustomSubmissionClass(TestCase):
+    def setUp(self):
+        # Create a form page
+        self.form_page = make_form_page_with_custom_submission()
+
+        self.FormPageForm = get_form_for_model(
+            FormPageWithCustomSubmission, form_class=WagtailAdminPageForm
+        )
+
+        submissions_panel = FormSubmissionsPanel().bind_to_model(FormPageWithCustomSubmission)
+
+        self.panel = submissions_panel(self.form_page, self.FormPageForm())
+
+    def test_render_with_submissions(self):
+        """Show the panel with the count of submission and a link to the list_submissions view."""
+        self.client.post('/contact-us/', {
+            'your-email': 'email@domain.com',
+            'your-message': 'hi joe',
             'your-choices': {'foo': '', 'bar': '', 'baz': ''}
         })
 
