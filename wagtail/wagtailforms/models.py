@@ -211,6 +211,33 @@ class AbstractForm(Page):
     def get_landing_page_template(self, request, *args, **kwargs):
         return self.landing_page_template
 
+    def get_field_ordering(self, ordering_list, default=('submit_time', 'descending')):
+        """
+            Accepts a list of strings ['-submit_time', 'id']
+            Returns a list of tuples [(field_name, 'ascending'/'descending'), ...]
+            Intented to be used to process ordering via request.GET.getlist('order_by')
+            Checks if the field options are valid, only returns valid, de-duplicated options
+            invalid options are simply ignored - no error created
+        """
+        valid_fields = ['id', 'submit_time']
+        field_ordering = []
+        if len(ordering_list) == 0:
+            return [default]
+        for ordering in ordering_list:
+            try:
+                none, prefix, field_name = ordering.rpartition('-')
+                if field_name not in valid_fields:
+                    continue  # Invalid field_name, skip it
+                # only add to ordering if the field is not already set
+                if field_name not in [order[0] for order in field_ordering]:
+                    asc_desc = 'ascending'
+                    if prefix == '-':
+                        asc_desc = 'descending'
+                    field_ordering.append((field_name, asc_desc))
+            except (IndexError, ValueError):
+                continue  # Invalid ordering specified, skip it
+        return field_ordering
+
     def get_submission_class(self):
         """
         Returns submission class.
