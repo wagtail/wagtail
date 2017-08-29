@@ -8,13 +8,14 @@ from django.core.urlresolvers import reverse
 from django.test import TestCase
 
 from wagtail.tests.testapp.models import (
-    CustomFormPageSubmission, FormField, FormFieldWithCustomSubmission, FormPage)
+    CustomFormPageSubmission, FormField, FormFieldWithCustomSubmission,
+    FormPage, FormPageWithCustomSubmission)
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailadmin.edit_handlers import get_form_for_model
 from wagtail.wagtailadmin.forms import WagtailAdminPageForm
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailforms.edit_handlers import FormSubmissionsPanel
-from wagtail.wagtailforms.models import FormSubmission, FormPageWithCustomSubmission
+from wagtail.wagtailforms.models import FormSubmission
 from wagtail.wagtailforms.tests.utils import make_form_page, make_form_page_with_custom_submission
 
 
@@ -61,17 +62,26 @@ class TestFormResponsesPanelWithCustomSubmissionClass(TestCase):
             FormPageWithCustomSubmission, form_class=WagtailAdminPageForm
         )
 
+        self.test_user = get_user_model().objects.create_user(
+            username='user-n1kola', password='123')
+
         submissions_panel = FormSubmissionsPanel().bind_to_model(FormPageWithCustomSubmission)
 
         self.panel = submissions_panel(self.form_page, self.FormPageForm())
 
     def test_render_with_submissions(self):
         """Show the panel with the count of submission and a link to the list_submissions view."""
-        self.client.post('/contact-us/', {
-            'your-email': 'email@domain.com',
-            'your-message': 'hi joe',
-            'your-choices': {'foo': '', 'bar': '', 'baz': ''}
-        })
+        new_form_submission = CustomFormPageSubmission.objects.create(
+            user=self.test_user,
+            page=self.form_page,
+            form_data=json.dumps({
+                'your-email': 'email@domain.com',
+                'your-message': 'hi joe',
+                'your-choices': {'foo': '', 'bar': '', 'baz': ''}
+            }),
+        )
+        new_form_submission.submit_time = '2017-08-29T12:00:00.000Z'
+        new_form_submission.save()
 
         result = self.panel.render()
 
