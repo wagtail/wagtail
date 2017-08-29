@@ -1,0 +1,16 @@
+=============================================
+Wagtail 1.12.1 release notes - IN DEVELOPMENT
+=============================================
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Bug fixes
+~~~~~~~~~
+
+* Fix regression on styling of preview button with more than one preview mode (Jack Paine)

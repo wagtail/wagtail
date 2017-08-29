@@ -17,6 +17,12 @@ Changelog
  * Fix: Fixed avatar position in footer on mobile (Jack Paine)
 
 
+1.12.1 (xx.xx.20xx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~~
+
+* Fix: Fix regression on styling of preview button with more than one preview mode (Jack Paine)
+
+
 1.12 LTS (21.08.2017)
 ~~~~~~~~~~~~~~~~~~~~~
 
