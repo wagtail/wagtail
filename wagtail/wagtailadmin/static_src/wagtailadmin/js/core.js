@@ -159,6 +159,24 @@ $(function() {
     }
     initLogo();
 
+    // HIGH CONTRAST MODE
+    function applyHighContrastMode() {
+        var useHighContrast = localStorage.getItem('useHighContrast');
+
+        if (useHighContrast == 'true') {
+            $('header, .button, .c-dropdown, .messages').css({
+                'background-color': '#246060',
+                'color': '#fff'
+            });
+
+            $('.button, .messages, .warning, .success').css({
+                'background-color': '#0f2828',
+                'border': '2px solid #000'
+            });
+        };
+    };
+    applyHighContrastMode();
+
     // Enable nice focus effects on all fields. This enables help text on hover.
     $(document).on('focus mouseover', 'input,textarea,select', function() {
         $(this).closest('.field').addClass('focused');

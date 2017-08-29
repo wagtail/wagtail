@@ -128,6 +128,21 @@ def language_preferences(request):
         'form': form,
     })
 
+def accessibility_preferences(request):
+    if request.method == 'POST':
+        form = NotificationPreferencesForm(request.POST, instance=UserProfile.get_for_user(request.user))
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, _("Your preferences have been updated."))
+            return redirect('wagtailadmin_account')
+    else:
+        form = PreferredLanguageForm(instance=UserProfile.get_for_user(request.user))
+
+    return render(request, 'wagtailadmin/account/accessibility_preferences.html', {
+        'form': form,
+    })
+
 
 @sensitive_post_parameters()
 @never_cache

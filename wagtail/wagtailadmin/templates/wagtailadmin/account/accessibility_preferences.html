@@ -1,0 +1,39 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n admin_static %}
+
+{% block titletag %}{% trans "Accessibility Preferences" %}{% endblock %}
+{% block content %}
+    {% trans "Accessibility Preferences" as prefs_str %}
+    {% include "wagtailadmin/shared/header.html" with title=prefs_str %}
+
+    <div class="nice-padding">
+        <form action="{% url 'wagtailadmin_account_notification_preferences' %}" method="POST" novalidate>
+            {% csrf_token %}
+            <input id="highcontrast_toggle" type="checkbox">{% trans "Enable high contrast mode (experimental)" %}<br>
+            <input id="highcontrast_submit" type="submit" value="{% trans 'Update' %}" class="button" style="margin-top: 1.7em;" />
+        </form>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    <script>
+        $(function() {
+            var useHighContrast = localStorage.getItem('useHighContrast');
+            if (useHighContrast == 'true') {
+                $('#highcontrast_toggle').prop('checked', true);
+            };
+
+            $('#highcontrast_submit').click(function() {
+                if ($('#highcontrast_toggle').prop('checked')) {
+                    useHighContrast = 'true';
+                    localStorage.setItem('useHighContrast', useHighContrast);
+                    window.location.reload(true); // hard refresh (ignore cache)
+                } else {
+                    useHighContrast = 'false';
+                    localStorage.setItem('useHighContrast', useHighContrast);
+                    window.location.reload(true); // hard refresh (ignore cache)
+                };
+            });
+        })
+    </script>
+{% endblock %}
