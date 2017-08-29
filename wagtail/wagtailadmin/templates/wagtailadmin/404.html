@@ -6,29 +6,31 @@
 {% block extra_css %}
     {{ block.super }}
 
-    <link rel="stylesheet" href="{% static 'wagtailadmin/css/layouts/404.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'wagtailadmin/css/layouts/404.css' %}" />
 {% endblock %}
 
 
 {% block furniture %}
     <div class="page404__bg">
-        <div class="wagtail-logo-container__desktop u-hidden@small">
-          <img class="wagtail-logo wagtail-logo__body" src="{% static 'wagtailadmin/images/logo-body.svg' %}" alt=""/>
-          <img class="wagtail-logo wagtail-logo__tail" src="{% static 'wagtailadmin/images/logo-tail.svg' %}" alt="" />
-          <img class="wagtail-logo wagtail-logo__eye--open" src="{% static 'wagtailadmin/images/logo-eyeopen.svg' %}" alt="" />
-          <img class="wagtail-logo wagtail-logo__eye--closed" src="{% static 'wagtailadmin/images/logo-eyeclosed.svg' %}" alt="" />
-        </div>
+        <div class="page404__wrapper">
+            <div class="wagtail-logo-container__desktop u-hidden@small">
+              <img class="wagtail-logo wagtail-logo__body" src="{% static 'wagtailadmin/images/logo-body.svg' %}" alt=""/>
+              <img class="wagtail-logo wagtail-logo__tail" src="{% static 'wagtailadmin/images/logo-tail.svg' %}" alt="" />
+              <img class="wagtail-logo wagtail-logo__eye--open" src="{% static 'wagtailadmin/images/logo-eyeopen.svg' %}" alt="" />
+              <img class="wagtail-logo wagtail-logo__eye--closed" src="{% static 'wagtailadmin/images/logo-eyeclosed.svg' %}" alt="" />
+            </div>
 
-        <div class="page404__text-container">
-            <h1 class="page404__text--header">
-                Error 404
-            </h1>
+            <div class="page404__text-container">
+                <h1 class="page404__header">
+                     {% trans "Error 404" %}
+                </h1>
 
-            <p class="page404__text--info">
-                Our wagtail searched everywhere, but it couldn't find that page.
-            </p>
+                <p class="page404__text">
+                    {% trans "Our wagtail searched everywhere, but it couldn't find that page." %}
+                </p>
 
-            <a class="page404__link--goback" href="/admin/">Go to Wagtail admin</a>
+                <a class="page404__link" href="/admin/">{% trans "Go to Wagtail admin" %}</a>
+            </div>
         </div>
     </div>
 {% endblock %}
