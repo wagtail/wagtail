@@ -9,7 +9,7 @@ from django.utils.translation import ugettext as _
 
 from wagtail.wagtailadmin import messages
 from wagtail.wagtailadmin.edit_handlers import (
-    ObjectList, extract_panel_definitions_from_model_class, TabbedInterface)
+    ObjectList, TabbedInterface, extract_panel_definitions_from_model_class)
 from wagtail.wagtailcore.models import Site
 
 from .forms import SiteSwitchForm

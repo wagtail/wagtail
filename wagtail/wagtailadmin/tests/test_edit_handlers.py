@@ -5,7 +5,7 @@ from datetime import date
 import mock
 from django import forms
 from django.core import checks
-from django.core.exceptions import ImproperlyConfigured, FieldDoesNotExist
+from django.core.exceptions import FieldDoesNotExist, ImproperlyConfigured
 from django.test import TestCase, override_settings
 
 from wagtail.tests.testapp.forms import ValidatedPageForm
