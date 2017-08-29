@@ -3,99 +3,81 @@
 @import 'wagtailadmin/scss/grid';
 @import 'wagtailadmin/scss/components/logo';
 
-body {
+.page404__bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: $color-teal-darker;
     font-family: $font-sans;
     color: $color-white;
+}
 
-    .page404__bg {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: $color-teal-darker;
+.page404__wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-        .wagtail-logo-container__desktop {
-            position: fixed;
-            right: calc(50% + 130px);
-            top: calc(45% - 250px);
-            width: 400px;
-            height: 500px;
+.wagtail-logo-container__desktop {
+    float: left;
+    width: 400px;
+    height: 500px;
+}
 
-            .wagtail-logo {
-                width: 100%;
-                height: 100%;
-            }
-        }
+.page404__text-container {
+    float: right;
+    width: 600px;
+    height: 500px;
+    text-align: center;
+}
 
-        .page404__text-container {
-            position: fixed;
-            left: calc(50% - 130px);
-            top: calc(45% - 150px);
-            width: 600px;
-            text-align: center;
-            z-index: 50;
+.page404__header {
+    font-size: 80px;
+    margin-bottom: 0.2em;
+    color: inherit;
+}
 
-            .page404__text--header {
-                position: relative;
-                top: -80px;
-                color: $color-white;
-                font-size: 80px;
-                padding-bottom: 0;
-            }
+.page404__text {
+    font-size: 30px;
+    line-height: 1.25em;
+    color: inherit;
+}
 
-            .page404__text--info {
-                position: relative;
-                top: -130px;
-                font-size: 30px;
-                line-height: 125%;
-            }
-
-            .page404__link--goback {
-                position: relative;
-                top: -125px;
-                font-size: 25px;
-                background-color: $color-teal-dark;
-                text-decoration: none;
-                color: #fff;
-                padding-left: 12px;
-                padding-right: 12px;
-                padding-top: 3px;
-                padding-bottom: 3px;
-                border-radius: 20px;
-            }
-        }
-    }
+.page404__link {
+    font-size: 25px;
+    background-color: $color-teal-dark;
+    text-decoration: none;
+    padding: 0.1em 0.5em;
+    border-radius: 20px;
+    color: inherit;
 }
 
 // SMALL DESKTOP CHANGES:
-@media screen and (max-width: $breakpoint-desktop-small) {
-    body {
-        .page404__bg {
-            .wagtail-logo-container__desktop {
-                display: none;
-            }
+@media screen and (max-width: $breakpoint-desktop-small) { // 900px
+    .wagtail-logo-container__desktop {
+        display: none;
+    }
 
-            .page404__text-container {
-                left: calc(50% - 300px);
-            }
-        }
+    .page404__text-container {
+        left: 50%;
+        transform: translateX(-50%);
     }
 }
 
 // MOBILE CHANGES:
-@media screen and (max-width: $breakpoint-mobile) {
-    body {
-        .page404__bg {
-            .page404__text-container {
-                width: 400px;
-                left: calc(50% - 200px);
+@media screen and (max-width: $breakpoint-mobile) { // 800px
+    .page404__text-container {
+        width: 425px;
+    }
 
-                .page404__text--header {
-                    font-size: 60px;
-                    padding-bottom: 30px;
-                }
-            }
-        }
+    .page404__text--header {
+        font-size: 60px;
+        padding-bottom: 30px;
     }
 }
