@@ -385,22 +385,21 @@ class TestSnippetDeleteMultipleWithThree(TestCase, WagtailTestUtils):
     fixtures = ['test.json']
 
     def setUp(self):
-        Advert.objects.create(text="test_advert")
-        Advert.objects.create(text="test_advert")
-        self.snippets = [
-            Advert.objects.get(id=1),
-            Advert.objects.get(id=2),
-            Advert.objects.get(id=3),
-        ]
+        # first advert is in the fixtures
+        Advert.objects.create(text="Boreas").save()
+        Advert.objects.create(text="Cloud 9").save()
+        self.snippets = Advert.objects.all()
         self.login()
 
     def test_delete_get(self):
+        # tests that the URL is available on get
         url = reverse('wagtailsnippets:delete-multiple', args=('tests', 'advert'))
         url += '?id=%s' % ('&id='.join(['%s' % snippet.id for snippet in self.snippets]))
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 
     def test_delete_post(self):
+        # tests that the URL is available on post and deletes snippets
         url = reverse('wagtailsnippets:delete-multiple', args=('tests', 'advert'))
         url += '?id=%s' % ('&id='.join(['%s' % snippet.id for snippet in self.snippets]))
         response = self.client.post(url)
