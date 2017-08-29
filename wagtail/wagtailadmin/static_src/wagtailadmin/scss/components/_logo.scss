@@ -45,12 +45,13 @@
         display: block;
         left: 0;
         top: 0;
-        width: 60px;
+        width: 100%;
+        height: 100%;
         position: absolute;
         transition: inherit;
 
         &.wagtail-logo__eye--open {
-            display: inline !important; // doesn't work without `!important`, likely a specificity issue
+            display: inline !important; // doesn't work without `!important` for some reason
         }
 
         &.wagtail-logo__eye--closed {
