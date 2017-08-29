@@ -11,6 +11,8 @@ from wagtail.contrib.settings.views import get_setting_edit_handler
 from wagtail.tests.testapp.models import (
     FileUploadSetting, IconSetting, PanelSettings, TabbedSettings, TestSetting)
 from wagtail.tests.utils import WagtailTestUtils
+from wagtail.wagtailadmin.edit_handlers import (
+    ObjectList, FieldPanel, TabbedInterface)
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import Page, Site
 
@@ -227,24 +229,24 @@ class TestEditHandlers(TestCase):
 
     def test_default_model_introspection(self):
         handler = get_setting_edit_handler(TestSetting)
-        self.assertEqual(handler.__name__, '_ObjectList')
+        self.assertIsInstance(handler, ObjectList)
         self.assertEqual(len(handler.children), 2)
         first = handler.children[0]
-        self.assertEqual(first.__name__, '_FieldPanel')
+        self.assertIsInstance(first, FieldPanel)
         self.assertEqual(first.field_name, 'title')
         second = handler.children[1]
-        self.assertEqual(second.__name__, '_FieldPanel')
+        self.assertIsInstance(second, FieldPanel)
         self.assertEqual(second.field_name, 'email')
 
     def test_with_custom_panels(self):
         handler = get_setting_edit_handler(PanelSettings)
-        self.assertEqual(handler.__name__, '_ObjectList')
+        self.assertIsInstance(handler, ObjectList)
         self.assertEqual(len(handler.children), 1)
         first = handler.children[0]
-        self.assertEqual(first.__name__, '_FieldPanel')
+        self.assertIsInstance(first, FieldPanel)
         self.assertEqual(first.field_name, 'title')
 
     def test_with_custom_edit_handler(self):
         handler = get_setting_edit_handler(TabbedSettings)
-        self.assertEqual(handler.__name__, '_TabbedInterface')
+        self.assertIsInstance(handler, TabbedInterface)
         self.assertEqual(len(handler.children), 2)

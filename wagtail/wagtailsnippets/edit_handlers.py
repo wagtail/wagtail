@@ -22,4 +22,5 @@ class SnippetChooserPanel(BaseChooserPanel):
         }))
 
     def on_model_bound(self):
-        self.target_model = self.model._meta.get_field(self.field_name).rel.model
+        super(SnippetChooserPanel, self).on_model_bound()
+        self.target_model = self.db_field.rel.model

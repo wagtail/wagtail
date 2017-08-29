@@ -131,7 +131,7 @@ def create(request, app_label, model_name):
 
     instance = model()
     edit_handler = get_snippet_edit_handler(model)
-    form_class = edit_handler.get_form_class(model)
+    form_class = edit_handler.get_form_class()
 
     if request.method == 'POST':
         form = form_class(request.POST, request.FILES, instance=instance)
@@ -177,7 +177,7 @@ def edit(request, app_label, model_name, id):
 
     instance = get_object_or_404(model, id=id)
     edit_handler = get_snippet_edit_handler(model)
-    form_class = edit_handler.get_form_class(model)
+    form_class = edit_handler.get_form_class()
 
     if request.method == 'POST':
         form = form_class(request.POST, request.FILES, instance=instance)

@@ -363,7 +363,7 @@ class TestSnippetChooserPanel(TestCase, WagtailTestUtils):
             advert=Advert.objects.create(text=self.advert_text))
 
         self.edit_handler = get_snippet_edit_handler(model)
-        self.form_class = self.edit_handler.get_form_class(model)
+        self.form_class = self.edit_handler.get_form_class()
         form = self.form_class(instance=test_snippet)
         edit_handler = self.edit_handler.bind_to_instance(instance=test_snippet,
                                                           form=form)
@@ -373,8 +373,7 @@ class TestSnippetChooserPanel(TestCase, WagtailTestUtils):
             if getattr(panel, 'field_name', None) == 'advert'][0]
 
     def test_create_snippet_chooser_panel_class(self):
-        self.assertEqual(type(self.snippet_chooser_panel).__name__,
-                         '_SnippetChooserPanel')
+        self.assertIsInstance(self.snippet_chooser_panel, SnippetChooserPanel)
 
     def test_render_as_field(self):
         field_html = self.snippet_chooser_panel.render_as_field()
@@ -404,7 +403,7 @@ class TestSnippetChooserPanel(TestCase, WagtailTestUtils):
     def test_target_model_autodetected(self):
         result = SnippetChooserPanel(
             'advert'
-        ).bind_to_model(SnippetChooserModel).target_model()
+        ).bind_to_model(SnippetChooserModel).target_model
         self.assertEqual(result, Advert)
 
 
@@ -688,14 +687,14 @@ class TestDeleteOnlyPermissions(TestCase, WagtailTestUtils):
 
 class TestSnippetEditHandlers(TestCase, WagtailTestUtils):
     def test_standard_edit_handler(self):
-        edit_handler_class = get_snippet_edit_handler(StandardSnippet)
-        form_class = edit_handler_class.get_form_class(StandardSnippet)
+        edit_handler = get_snippet_edit_handler(StandardSnippet)
+        form_class = edit_handler.get_form_class()
         self.assertTrue(issubclass(form_class, WagtailAdminModelForm))
         self.assertFalse(issubclass(form_class, FancySnippetForm))
 
     def test_fancy_edit_handler(self):
-        edit_handler_class = get_snippet_edit_handler(FancySnippet)
-        form_class = edit_handler_class.get_form_class(FancySnippet)
+        edit_handler = get_snippet_edit_handler(FancySnippet)
+        form_class = edit_handler.get_form_class()
         self.assertTrue(issubclass(form_class, WagtailAdminModelForm))
         self.assertTrue(issubclass(form_class, FancySnippetForm))
 

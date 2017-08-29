@@ -62,9 +62,9 @@ def get_form_class_check(app_configs, **kwargs):
 
     for cls in get_page_models():
         edit_handler = cls.get_edit_handler()
-        if not issubclass(edit_handler.get_form_class(cls), WagtailAdminPageForm):
+        if not issubclass(edit_handler.get_form_class(), WagtailAdminPageForm):
             errors.append(Error(
-                "{cls}.get_edit_handler().get_form_class({cls}) does not extend WagtailAdminPageForm".format(
+                "{cls}.get_edit_handler().get_form_class() does not extend WagtailAdminPageForm".format(
                     cls=cls.__name__),
                 hint="Ensure that the EditHandler for {cls} creates a subclass of WagtailAdminPageForm".format(
                     cls=cls.__name__),

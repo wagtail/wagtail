@@ -185,7 +185,7 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
 
     page = page_class(owner=request.user)
     edit_handler = page_class.get_edit_handler()
-    form_class = edit_handler.get_form_class(page_class)
+    form_class = edit_handler.get_form_class()
 
     next_url = get_valid_next_url_from_request(request)
 
@@ -309,7 +309,7 @@ def edit(request, page_id):
             return result
 
     edit_handler = page_class.get_edit_handler()
-    form_class = edit_handler.get_form_class(page_class)
+    form_class = edit_handler.get_form_class()
 
     next_url = get_valid_next_url_from_request(request)
 
@@ -573,7 +573,7 @@ class PreviewOnEdit(View):
 
     def get_form(self):
         page = self.get_page()
-        form_class = page.get_edit_handler().get_form_class(page._meta.model)
+        form_class = page.get_edit_handler().get_form_class()
         parent_page = page.get_parent().specific
 
         if self.session_key not in self.request.session:
@@ -1038,7 +1038,7 @@ def revisions_revert(request, page_id, revision_id):
     page_class = content_type.model_class()
 
     edit_handler = page_class.get_edit_handler()
-    form_class = edit_handler.get_form_class(page_class)
+    form_class = edit_handler.get_form_class()
 
     form = form_class(instance=revision_page)
     edit_handler = edit_handler.bind_to_instance(instance=revision_page,

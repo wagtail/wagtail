@@ -1,6 +1,5 @@
 from __future__ import absolute_import, unicode_literals
 
-import math
 import re
 
 import django
@@ -240,7 +239,7 @@ class BaseCompositeEditHandler(EditHandler):
     Concrete subclasses must attach a 'children' property
     """
 
-    def __init__(self, children, *args, **kwargs):
+    def __init__(self, children=(), *args, **kwargs):
         super(BaseCompositeEditHandler, self).__init__(*args, **kwargs)
         self.children = children
 
@@ -320,25 +319,28 @@ class BaseFormEditHandler(BaseCompositeEditHandler):
     # WagtailAdminModelForm
     base_form_class = None
 
-    def get_form_class(self, model):
+    def get_form_class(self):
         """
         Construct a form class that has all the fields and formsets named in
         the children of this edit handler.
         """
+        if not hasattr(self, 'model'):
+            raise AttributeError(
+                '%s is not bound to a model yet. Use `.bind_to_model(model)` '
+                'before using this method.' % self.__class__.__name__)
         # If a custom form class was passed to the EditHandler, use it.
         # Otherwise, use the base_form_class from the model.
         # If that is not defined, use WagtailAdminModelForm.
-        model_form_class = getattr(model, 'base_form_class', WagtailAdminModelForm)
+        model_form_class = getattr(self.model, 'base_form_class',
+                                   WagtailAdminModelForm)
         base_form_class = self.base_form_class or model_form_class
 
-        form_class = get_form_for_model(
-            model,
+        return get_form_for_model(
+            self.model,
             form_class=base_form_class,
             fields=self.required_fields(),
             formsets=self.required_formsets(),
             widgets=self.widget_overrides())
-
-        return form_class
 
 
 class TabbedInterface(BaseFormEditHandler):
@@ -474,8 +476,7 @@ class FieldPanel(EditHandler):
         comparator_class = self.get_comparison_class()
 
         if comparator_class:
-            field = self.model._meta.get_field(self.field_name)
-            return [curry(comparator_class, field)]
+            return [curry(comparator_class, self.db_field)]
         return []
 
     def on_model_bound(self):
@@ -572,18 +573,18 @@ class PageChooserPanel(BaseChooserPanel):
                 except LookupError:
                     raise ImproperlyConfigured(
                         "{0}.page_type must be of the form 'app_label.model_name', given {1!r}".format(
-                            self.__name__, page_type
+                            self.__class__.__name__, page_type
                         )
                     )
                 except ValueError:
                     raise ImproperlyConfigured(
                         "{0}.page_type refers to model {1!r} that has not been installed".format(
-                            self.__name__, page_type
+                            self.__class__.__name__, page_type
                         )
                     )
 
             return target_models
-        return [self.model._meta.get_field(self.field_name).rel.to]
+        return [self.db_field.rel.to]
 
 
 class InlinePanel(EditHandler):
@@ -639,7 +640,6 @@ class InlinePanel(EditHandler):
         return self.get_child_edit_handler().html_declarations()
 
     def get_comparison(self):
-        field = self.model._meta.get_field(self.relation_name)
         field_comparisons = []
 
         for panel in self.get_panel_definitions():
@@ -647,7 +647,15 @@ class InlinePanel(EditHandler):
                 panel.bind_to_model(self.related.related_model)
                 .get_comparison())
 
-        return [curry(compare.ChildRelationComparison, field, field_comparisons)]
+        return [curry(compare.ChildRelationComparison, self.db_field,
+                      field_comparisons)]
+
+    def on_model_bound(self):
+        self.db_field = self.model._meta.get_field(self.relation_name)
+        manager = getattr(self.model, self.relation_name)
+        self.related = (manager.rel if django.VERSION >= (1, 9)
+                        else manager.related)
+        self.heading = self.label
 
     def on_instance_bound(self):
         self.formset = self.form.formsets[self.relation_name]
@@ -698,23 +706,24 @@ class InlinePanel(EditHandler):
             'can_order': self.formset.can_order,
         }))
 
-    def on_model_bound(self):
-        if django.VERSION >= (1, 9):
-            self.related = getattr(self.model, self.relation_name).rel
-        else:
-            self.related = getattr(self.model, self.relation_name).related
-
 
 # This allows users to include the publishing panel in their own per-model override
 # without having to write these fields out by hand, potentially losing 'classname'
 # and therefore the associated styling of the publishing panel
-def PublishingPanel():
-    return MultiFieldPanel([
-        FieldRowPanel([
-            FieldPanel('go_live_at'),
-            FieldPanel('expire_at'),
-        ], classname="label-above"),
-    ], ugettext_lazy('Scheduled publishing'), classname="publishing")
+class PublishingPanel(MultiFieldPanel):
+    def __init__(self, **kwargs):
+        updated_kwargs = {
+            'children': [
+                FieldRowPanel([
+                    FieldPanel('go_live_at'),
+                    FieldPanel('expire_at'),
+                ], classname="label-above"),
+            ],
+            'heading': ugettext_lazy('Scheduled publishing'),
+            'classname': 'publishing',
+        }
+        updated_kwargs.update(kwargs)
+        super(PublishingPanel, self).__init__(**updated_kwargs)
 
 
 # Now that we've defined EditHandlers, we can set up wagtailcore.Page to have some.

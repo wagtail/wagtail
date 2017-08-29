@@ -23,11 +23,11 @@ class BaseRichTextEditHandlerTestCase(TestCase):
         """
         from wagtail.tests.testapp.models import DefaultRichBlockFieldPage
 
-        block_page_edit_handler = DefaultRichBlockFieldPage.get_edit_handler()
-        if block_page_edit_handler._form_class:
-            rich_text_block = block_page_edit_handler._form_class.base_fields['body'].block.child_blocks['rich_text']
-            if hasattr(rich_text_block, 'field'):
-                del rich_text_block.field
+        rich_text_block = (DefaultRichBlockFieldPage.get_edit_handler()
+                           .get_form_class().base_fields['body'].block
+                           .child_blocks['rich_text'])
+        if hasattr(rich_text_block, 'field'):
+            del rich_text_block.field
 
         for page_class in get_page_models():
             page_class.get_edit_handler.cache_clear()
