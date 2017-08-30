@@ -16,7 +16,7 @@ Changelog
  * Fix: Fixed avatar position in footer on mobile (Jack Paine)
 
 
-1.12.1 (xx.xx.20xx) - IN DEVELOPMENT
+1.12.1 (30.08.2017)
 ~~~~~~~~~~~~~~~~~~~
 
  * Fix: Prevent home page draft title from displaying as blank (Mikalai Radchuk, Matt Westcott)
