@@ -69,6 +69,7 @@
     }
 
     .page404__text-container {
+        float: none;
         left: 50%;
         transform: translateX(-50%);
     }
@@ -80,7 +81,7 @@
         width: 425px;
     }
 
-    .page404__text--header {
+    .page404__header {
         font-size: 60px;
         padding-bottom: 30px;
     }
