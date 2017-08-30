@@ -283,6 +283,7 @@ body.explorer-open {
 
     .nav-main {
         position: relative;
+        top: 0;
         bottom: 0;
         margin-bottom: 127px; // WARNING - magic number - the height of the .footer
         width: 100%;
