@@ -8,11 +8,60 @@ import mock
 
 from django.conf import settings
 from django.core.files.base import ContentFile
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.test.utils import override_settings
 
+from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtaildocs import models
+
+
+class TestEditView(TestCase, WagtailTestUtils):
+    def setUp(self):
+        self.login()
+
+        self.document = models.Document(title='Test')
+        self.document.file.save('test.txt', ContentFile('A test content.'))
+        self.edit_url = reverse('wagtaildocs:edit', args=(self.document.pk,))
+        self.storage = self.document.file.storage
+
+    def update_from_db(self):
+        self.document = models.Document.objects.get(pk=self.document.pk)
+
+    def test_reupload_same_name(self):
+        """
+        Checks that reuploading the document file with the same file name
+        changes the file name, to avoid browser cache issues (see #3816).
+        """
+        new_file = SimpleUploadedFile('test.txt', b'An updated test content.')
+        response = self.client.post(self.edit_url, {
+            'title': self.document.title, 'file': new_file,
+        })
+        self.assertRedirects(response, reverse('wagtaildocs:index'))
+        self.update_from_db()
+        self.assertFalse(self.storage.exists('documents/test.txt'))
+        self.assertTrue(self.storage.exists(self.document.file.name))
+        self.assertNotEqual(self.document.file.name, 'documents/test.txt')
+        self.assertEqual(self.document.file.read(),
+                         b'An updated test content.')
+
+    def test_reupload_different_name(self):
+        """
+        Checks that reuploading the document file with the different file name
+        correctly uses the new file name.
+        """
+        new_file = SimpleUploadedFile('test2.txt', b'An updated test content.')
+        response = self.client.post(self.edit_url, {
+            'title': self.document.title, 'file': new_file,
+        })
+        self.assertRedirects(response, reverse('wagtaildocs:index'))
+        self.update_from_db()
+        self.assertFalse(self.storage.exists('documents/test.txt'))
+        self.assertTrue(self.storage.exists('documents/test2.txt'))
+        self.assertEqual(self.document.file.name, 'documents/test2.txt')
+        self.assertEqual(self.document.file.read(),
+                         b'An updated test content.')
 
 
 class TestServeView(TestCase):
