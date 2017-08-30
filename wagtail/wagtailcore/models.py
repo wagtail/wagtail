@@ -661,7 +661,9 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
         override this if you wish to display extra contextual information about the page,
         such as language. By default, returns ``draft_title``.
         """
-        return self.draft_title
+        # Fall back on title if draft_title is blank (which may happen if the page was created
+        # in a fixture or migration that didn't explicitly handle draft_title)
+        return self.draft_title or self.title
 
     def save_revision(self, user=None, submitted_for_moderation=False, approved_go_live_at=None, changed=True):
         self.full_clean()
