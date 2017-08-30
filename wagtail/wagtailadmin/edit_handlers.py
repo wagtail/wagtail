@@ -386,11 +386,12 @@ class MultiFieldPanel(BaseCompositeEditHandler):
 class FieldPanel(EditHandler):
     TEMPLATE_VAR = 'field_panel'
 
-    def __init__(self, field_name, *args, widget=None, **kwargs):
-        super(FieldPanel, self).__init__(*args, **kwargs)
-        self.field_name = field_name
+    def __init__(self, field_name, *args, **kwargs):
+        widget = kwargs.pop('widget', None)
         if widget is not None:
             self.widget = widget
+        super(FieldPanel, self).__init__(*args, **kwargs)
+        self.field_name = field_name
 
     def clone(self):
         return self.__class__(
