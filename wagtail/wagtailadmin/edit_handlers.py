@@ -346,9 +346,9 @@ class BaseFormEditHandler(BaseCompositeEditHandler):
 class TabbedInterface(BaseFormEditHandler):
     template = "wagtailadmin/edit_handlers/tabbed_interface.html"
 
-    def __init__(self, *args, base_form_class=None, **kwargs):
+    def __init__(self, *args, **kwargs):
+        self.base_form_class = kwargs.pop('base_form_class', None)
         super(TabbedInterface, self).__init__(*args, **kwargs)
-        self.base_form_class = base_form_class
 
     def clone(self):
         new = super(TabbedInterface, self).clone()
