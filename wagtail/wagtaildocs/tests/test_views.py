@@ -35,34 +35,38 @@ class TestEditView(TestCase, WagtailTestUtils):
         Checks that reuploading the document file with the same file name
         changes the file name, to avoid browser cache issues (see #3816).
         """
-        name = 'test_edit_view.txt'
-        new_file = SimpleUploadedFile(name, b'An updated test content.')
+        old_file = self.document.file
+        new_name = self.document.filename
+        new_file = SimpleUploadedFile(new_name, b'An updated test content.')
+
         response = self.client.post(self.edit_url, {
             'title': self.document.title, 'file': new_file,
         })
         self.assertRedirects(response, reverse('wagtaildocs:index'))
         self.update_from_db()
-        self.assertFalse(self.storage.exists('documents/' + name))
+        self.assertFalse(self.storage.exists(old_file.name))
         self.assertTrue(self.storage.exists(self.document.file.name))
-        self.assertNotEqual(self.document.file.name, 'documents/' + name)
+        self.assertNotEqual(self.document.file.name, 'documents/' + new_name)
         self.assertEqual(self.document.file.read(),
                          b'An updated test content.')
 
     def test_reupload_different_name(self):
         """
-        Checks that reuploading the document file with the different file name
+        Checks that reuploading the document file with a different file name
         correctly uses the new file name.
         """
-        name = 'test_reupload_different_name.txt'
-        new_file = SimpleUploadedFile(name, b'An updated test content.')
+        old_file = self.document.file
+        new_name = 'test_reupload_different_name.txt'
+        new_file = SimpleUploadedFile(new_name, b'An updated test content.')
+
         response = self.client.post(self.edit_url, {
             'title': self.document.title, 'file': new_file,
         })
         self.assertRedirects(response, reverse('wagtaildocs:index'))
         self.update_from_db()
-        self.assertFalse(self.storage.exists('documents/test_edit_view.txt'))
-        self.assertTrue(self.storage.exists('documents/' + name))
-        self.assertEqual(self.document.file.name, 'documents/' + name)
+        self.assertFalse(self.storage.exists(old_file.name))
+        self.assertTrue(self.storage.exists(self.document.file.name))
+        self.assertEqual(self.document.file.name, 'documents/' + new_name)
         self.assertEqual(self.document.file.read(),
                          b'An updated test content.')
 
