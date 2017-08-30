@@ -169,7 +169,7 @@ $(function() {
                 'color': '#fff'
             });
 
-            $('.button, .messages, .warning, .success').css({
+            $('.button, .messages, .warning, .c-dropdown, .success').css({
                 'background-color': '#0f2828',
                 'border': '2px solid #000'
             });
