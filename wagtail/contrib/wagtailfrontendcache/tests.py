@@ -1,7 +1,6 @@
 from __future__ import absolute_import, unicode_literals
 
 import mock
-
 from django.core.exceptions import ImproperlyConfigured
 from django.test import TestCase
 from django.test.utils import override_settings
@@ -12,7 +11,9 @@ from wagtail.contrib.wagtailfrontendcache.utils import get_backends
 from wagtail.tests.testapp.models import EventIndex
 from wagtail.wagtailcore.models import Page
 
-from .utils import purge_url_from_cache, purge_urls_from_cache, purge_page_from_cache, purge_pages_from_cache, PurgeBatch
+from .utils import (
+    PurgeBatch, purge_page_from_cache, purge_pages_from_cache, purge_url_from_cache,
+    purge_urls_from_cache)
 
 
 class TestBackendConfiguration(TestCase):
