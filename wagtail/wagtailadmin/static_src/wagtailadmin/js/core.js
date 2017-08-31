@@ -164,19 +164,9 @@ $(function() {
         var useHighContrast = localStorage.getItem('useHighContrast');
 
         if (useHighContrast == 'true') {
-            $('header, .button, .c-dropdown, .messages').css({
-                'background-color': '#246060',
-                'color': '#fff'
-            });
-
-            $('.button, .messages, .warning, .c-dropdown, .success').css({
-                'background-color': '#0f2828',
-                'border': '2px solid #000'
-            });
-
-            $('.listing').css({
-                'color': '#000'
-            });
+            $('body').addClass('high-contrast');
+        } else {
+            $('body').removeClass('high-contrast');
         };
     };
     applyHighContrastMode();
