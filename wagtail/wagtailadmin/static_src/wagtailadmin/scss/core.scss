@@ -466,5 +466,13 @@ body {
         .icon, div.privacy-indicator {
             color: $color-white-hc !important;
         }
+
+        .dropdown {
+            .ul {
+                a {
+                    color: $color-black-hc !important;
+                }
+            }
+        }
     }
 }
