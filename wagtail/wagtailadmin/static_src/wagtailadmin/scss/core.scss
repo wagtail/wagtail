@@ -442,3 +442,22 @@ footer,
         z-index: 200;
     }
 }
+
+// High contrast mode
+body {
+    &.high-contrast {
+        header, .button, .c-dropdown, .messages {
+            background-color: $color-teal-hc !important; // need to remove these `!important` tags
+            color: $color-white-hc !important;
+        }
+
+        .button, .messages, .warning, .success, .c-dropdown {
+            background-color: $color-teal-dark-hc !important;
+            border: 2px solid $color-black-hc !important;
+        }
+
+        .listing {
+            color: $color-black-hc !important;
+        }
+    }
+}
