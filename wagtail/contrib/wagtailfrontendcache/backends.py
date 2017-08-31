@@ -1,8 +1,8 @@
 from __future__ import absolute_import, unicode_literals
 
-from collections import defaultdict
 import logging
 import uuid
+from collections import defaultdict
 
 import requests
 from django.core.exceptions import ImproperlyConfigured
