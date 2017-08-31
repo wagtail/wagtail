@@ -443,10 +443,12 @@ footer,
     }
 }
 
+
+
 // High contrast mode
 body {
     &.high-contrast {
-        header, .button, .c-dropdown, .messages {
+        header, .button, .c-dropdown, .messages, .c-dropdown__button {
             background-color: $color-teal-hc !important; // need to remove these `!important` tags
             color: $color-white-hc !important;
         }
@@ -457,6 +459,10 @@ body {
         }
 
         .listing {
+            color: $color-black-hc !important;
+        }
+
+        .table-headers {
             color: $color-black-hc !important;
         }
     }
