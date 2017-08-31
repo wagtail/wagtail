@@ -92,3 +92,48 @@ def purge_pages_from_cache(pages, backend_settings=None, backends=None):
         urls.extend(_get_page_cached_urls(page))
 
     purge_urls_from_cache(urls, backend_settings, backends)
+
+
+class PurgeBatch(object):
+    """Represents a list of URLs to be purged in a single request"""
+    def __init__(self, urls=None):
+        self.urls = []
+
+        if urls is not None:
+            self.add_urls(urls)
+
+    def add_url(self, url):
+        """Adds a single URL"""
+        self.urls.append(url)
+
+    def add_urls(self, urls):
+        """
+        Adds multiple URLs from an iterable
+
+        This is equivalent to running ``.add_url(url)`` on each URL
+        individually
+        """
+        self.urls.extend(urls)
+
+    def add_page(self, page):
+        """
+        Adds all URLs for the specified page
+
+        This combines the page's full URL with each path that is returned by
+        the page's `.get_cached_paths` method
+        """
+        self.add_urls(_get_page_cached_urls(page))
+
+    def add_pages(self, pages):
+        """
+        Adds multiple pages from a QuerySet or an iterable
+
+        This is equivalent to running ``.add_page(page)`` on each page
+        individually
+        """
+        for page in pages:
+            self.add_page(page)
+
+    def purge(self, backend_settings=None, backends=None):
+        """Performs the purge of all the URLs in this batch"""
+        purge_urls_from_cache(self.urls, backend_settings, backends)
