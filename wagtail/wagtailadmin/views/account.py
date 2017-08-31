@@ -130,7 +130,7 @@ def language_preferences(request):
 
 def accessibility_preferences(request):
     if request.method == 'POST':
-        form = NotificationPreferencesForm(request.POST, instance=UserProfile.get_for_user(request.user))
+        form = NotificationPreferencesForm(request.POST, instance=UserProfile.get_for_user(request.user)) # needs to change
 
         if form.is_valid():
             form.save()
