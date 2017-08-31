@@ -69,14 +69,26 @@ def purge_urls_from_cache(urls, backend_settings=None, backends=None):
         backend.purge_batch(urls)
 
 
-def purge_page_from_cache(page, backend_settings=None, backends=None):
+def _get_page_cached_urls(page):
     page_url = page.full_url
     if page_url is None:  # nothing to be done if the page has no routable URL
-        return
+        return []
 
-    # Purge cached paths from cache
-    urls = [
+    return [
         page_url + path[1:]
         for path in page.specific.get_cached_paths()
     ]
+
+
+def purge_page_from_cache(page, backend_settings=None, backends=None):
+    urls = _get_page_cached_urls(page)
+
+    purge_urls_from_cache(urls, backend_settings, backends)
+
+
+def purge_pages_from_cache(pages, backend_settings=None, backends=None):
+    urls = []
+    for page in pages:
+        urls.extend(_get_page_cached_urls(page))
+
     purge_urls_from_cache(urls, backend_settings, backends)
