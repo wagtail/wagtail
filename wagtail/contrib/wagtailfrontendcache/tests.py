@@ -12,6 +12,8 @@ from wagtail.contrib.wagtailfrontendcache.utils import get_backends
 from wagtail.tests.testapp.models import EventIndex
 from wagtail.wagtailcore.models import Page
 
+from .utils import purge_url_from_cache, purge_urls_from_cache, purge_page_from_cache, purge_pages_from_cache, PurgeBatch
+
 
 class TestBackendConfiguration(TestCase):
     def test_default(self):
@@ -143,7 +145,49 @@ class MockBackend(BaseBackend):
         'BACKEND': 'wagtail.contrib.wagtailfrontendcache.tests.MockBackend',
     },
 })
-class TestCachePurging(TestCase):
+class TestCachePurgingFunctions(TestCase):
+
+    fixtures = ['test.json']
+
+    def test_purge_url_from_cache(self):
+        PURGED_URLS[:] = []  # reset PURGED_URLS to the empty list
+        purge_url_from_cache('http://localhost/foo')
+        self.assertEqual(PURGED_URLS, ['http://localhost/foo'])
+
+    def test_purge_urls_from_cache(self):
+        PURGED_URLS[:] = []  # reset PURGED_URLS to the empty list
+        purge_urls_from_cache(['http://localhost/foo', 'http://localhost/bar'])
+        self.assertEqual(PURGED_URLS, ['http://localhost/foo', 'http://localhost/bar'])
+
+    def test_purge_page_from_cache(self):
+        PURGED_URLS[:] = []  # reset PURGED_URLS to the empty list
+        page = EventIndex.objects.get(url_path='/home/events/')
+        purge_page_from_cache(page)
+        self.assertEqual(PURGED_URLS, ['http://localhost/events/', 'http://localhost/events/past/'])
+
+    def test_purge_pages_from_cache(self):
+        PURGED_URLS[:] = []  # reset PURGED_URLS to the empty list
+        purge_pages_from_cache(EventIndex.objects.all())
+        self.assertEqual(PURGED_URLS, ['http://localhost/events/', 'http://localhost/events/past/'])
+
+    def test_purge_batch(self):
+        PURGED_URLS[:] = []  # reset PURGED_URLS to the empty list
+
+        batch = PurgeBatch()
+        page = EventIndex.objects.get(url_path='/home/events/')
+        batch.add_page(page)
+        batch.add_url('http://localhost/foo')
+        batch.purge()
+
+        self.assertEqual(PURGED_URLS, ['http://localhost/events/', 'http://localhost/events/past/', 'http://localhost/foo'])
+
+
+@override_settings(WAGTAILFRONTENDCACHE={
+    'varnish': {
+        'BACKEND': 'wagtail.contrib.wagtailfrontendcache.tests.MockBackend',
+    },
+})
+class TestCachePurgingSignals(TestCase):
 
     fixtures = ['test.json']
 
@@ -151,13 +195,13 @@ class TestCachePurging(TestCase):
         PURGED_URLS[:] = []  # reset PURGED_URLS to the empty list
         page = EventIndex.objects.get(url_path='/home/events/')
         page.save_revision().publish()
-        self.assertEqual(PURGED_URLS, ['http://localhost/events/'])
+        self.assertEqual(PURGED_URLS, ['http://localhost/events/', 'http://localhost/events/past/'])
 
     def test_purge_on_unpublish(self):
         PURGED_URLS[:] = []  # reset PURGED_URLS to the empty list
         page = EventIndex.objects.get(url_path='/home/events/')
         page.unpublish()
-        self.assertEqual(PURGED_URLS, ['http://localhost/events/'])
+        self.assertEqual(PURGED_URLS, ['http://localhost/events/', 'http://localhost/events/past/'])
 
     def test_purge_with_unroutable_page(self):
         PURGED_URLS[:] = []  # reset PURGED_URLS to the empty list

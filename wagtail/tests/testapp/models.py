@@ -368,6 +368,11 @@ class EventIndex(Page):
             }
         ]
 
+    def get_cached_paths(self):
+        return super(EventIndex, self).get_cached_paths() + [
+            '/past/'
+        ]
+
 
 EventIndex.content_panels = [
     FieldPanel('title', classname="full title"),
