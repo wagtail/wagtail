@@ -447,22 +447,24 @@ footer,
 // High contrast mode
 body {
     &.high-contrast {
-        header, .button, .c-dropdown, .messages, .c-dropdown__button {
+        header, .index, .breadcrumb, .button, .c-dropdown,
+        .messages, .c-dropdown__button, .tab-nav, .dropdown-toggle {
             background-color: $color-teal-hc !important; // need to remove these `!important` tags
             color: $color-white-hc !important;
         }
 
-        .button, .messages, .warning, .success, .c-dropdown, .c-dropdown__button {
+        .button, .messages, .warning, .success, .c-dropdown,
+        .c-dropdown__button, .dropdown-toggle {
             background-color: $color-teal-dark-hc !important;
             border: 2px solid $color-black-hc !important;
         }
 
-        .listing {
+        .listing, .table-headers {
             color: $color-black-hc !important;
         }
 
-        .table-headers {
-            color: $color-black-hc !important;
+        .icon, div.privacy-indicator {
+            color: $color-white-hc !important;
         }
     }
 }
