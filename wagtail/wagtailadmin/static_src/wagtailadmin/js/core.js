@@ -103,12 +103,20 @@ $(function() {
             var footerHeight = $('#footer', $(this)).height();
         });
     };
-
     fitNav();
 
-    $(document).resize(function() {
-        fitNav();
-    });
+    // there's no native listener in jQuery for div height changes, so we must make our own:
+    function checkForContentResize() {
+        var exContentHeight = 0;
+
+        setInterval(function() {
+            if ($('.content').outerHeight() != exContentHeight) {
+                fitNav();
+                exContentHeight = $('.content').outerHeight();
+            }
+        }, 200);
+    }
+    checkForContentResize();
 
     // Logo interactivity
     function initLogo() {
