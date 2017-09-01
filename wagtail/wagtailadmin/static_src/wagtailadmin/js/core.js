@@ -97,7 +97,7 @@ $(function() {
 
     // Resize nav to fit height of content. This is an unimportant bell/whistle to make it look nice
     var fitNav = function() {
-        $('.nav-wrapper').css('min-height', $('.content').height() + 51); // 51 = height of footer
+        $('.nav-wrapper').css('min-height', $('.content').outerHeight()); // include padding/margin in height
         $('.nav-main').each(function() {
             var thisHeight = $(this).height();
             var footerHeight = $('#footer', $(this)).height();
@@ -106,7 +106,7 @@ $(function() {
 
     fitNav();
 
-    $(window).resize(function() {
+    $(document).resize(function() {
         fitNav();
     });
 
