@@ -459,7 +459,7 @@ body {
             border: 2px solid $color-black-hc !important;
         }
 
-        .listing, .table-headers {
+        .listing, .table-headers, dt {
             color: $color-black-hc !important;
         }
 
@@ -469,10 +469,16 @@ body {
 
         .dropdown {
             .ul {
-                a {
+                li {
                     color: $color-black-hc !important;
                 }
             }
+        }
+
+        .tagit, #id_title, #id_file, #id_collection {
+            background-color: $color-white-hc !important;
+            border: 2px solid $color-black-hc !important;
+            color: $color-black-hc !important;
         }
     }
 }
