@@ -16,7 +16,7 @@
 
 .page404__wrapper {
     position: absolute;
-    top: 50%;
+    top: 45%;
     left: 50%;
     transform: translate(-50%, -50%);
     display: flex;
@@ -38,27 +38,28 @@
 }
 
 .page404__header {
-    font-size: 80px;
+    font-size: 80px; 
     margin-bottom: 0.2em;
     color: inherit;
 }
 
 .page404__text {
-    font-size: 30px;
+    font-size: 30px;  // EM EM EM
     line-height: 1.25em;
     color: inherit;
 }
 
-.page404__link {
-    font-size: 25px;
-    background-color: $color-teal-dark;
-    text-decoration: none;
-    padding: 0.1em 0.5em;
-    border-radius: 20px;
+a.button.page404__button { // more specific to override button styles
+    font-size: 1.5em;
+    line-height: 2em;
+    height: 2.5em;
+    padding: 0 0.5em;
+    background-color: $color-teal-darker;
+    border: 4px solid $color-teal;
     color: inherit;
 
     &:hover {
-        color: inherit;
+        background-color: $color-teal;
     }
 }
 
@@ -77,6 +78,5 @@
 
     .page404__header {
         font-size: 60px;
-        padding-bottom: 30px;
     }
 }
