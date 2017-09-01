@@ -16,7 +16,7 @@
 
 .page404__wrapper {
     position: absolute;
-    top: 45%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     display: flex;
@@ -38,18 +38,18 @@
 }
 
 .page404__header {
-    font-size: 80px; 
+    font-size: 6.8em;
     margin-bottom: 0.2em;
     color: inherit;
 }
 
 .page404__text {
-    font-size: 30px;  // EM EM EM
+    font-size: 2.25em;
     line-height: 1.25em;
     color: inherit;
 }
 
-a.button.page404__button { // more specific to override default button styles
+a.button.page404__button { // more specific to override standard button styles
     font-size: 1.5em;
     line-height: 2em;
     height: 2.5em;
@@ -73,10 +73,10 @@ a.button.page404__button { // more specific to override default button styles
 // MOBILE CHANGES:
 @media screen and (max-width: $breakpoint-mobile) { // 800px
     .page404__text-container {
-        width: 425px;
+        width: 400px;
     }
 
     .page404__header {
-        font-size: 60px;
+        font-size: 5em;
     }
 }
