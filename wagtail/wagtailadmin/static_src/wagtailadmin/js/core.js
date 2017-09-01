@@ -95,9 +95,9 @@ $(function() {
         $(this).find('em').toggleClass('icon-arrow-down-after icon-arrow-up-after');
     });
 
-    // Resize nav to fit height of document. This is an unimportant bell/whistle to make it look nice
+    // Resize nav to fit height of content. This is an unimportant bell/whistle to make it look nice
     var fitNav = function() {
-        $('.nav-wrapper').css('min-height', $(document).height());
+        $('.nav-wrapper').css('min-height', $('.content').height() + 64); // 64 = height of footer
         $('.nav-main').each(function() {
             var thisHeight = $(this).height();
             var footerHeight = $('#footer', $(this)).height();
