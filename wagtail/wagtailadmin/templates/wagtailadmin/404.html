@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/admin_base.html" %}
-{% load i18n staticfiles wagtailadmin_tags %}
+{% load wagtailadmin_tags wagtailcore_tags staticfiles i18n %}
 {% block titletag %}{% trans "Error 404: Page not found" %}{% endblock %}
 
 
@@ -24,7 +24,7 @@
                     {% trans "Our wagtail searched everywhere, but it couldn't find that page." %}
                 </p>
 
-                <a class="page404__link" href="/admin/">{% trans "Go to Wagtail admin" %}</a>
+                <a class="page404__button button" href="/admin/">{% trans "Go to Wagtail admin" %}</a>
             </div>
         </div>
     </div>
