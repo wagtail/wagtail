@@ -224,6 +224,13 @@ Dashboard
 This setting lets you change the number of items shown at 'Your most recent edits' on the dashboard.
 
 
+.. code-block:: python
+
+  WAGTAILADMIN_USER_LOGIN_FORM = 'users.forms.LoginForm'
+
+Allows the default ``LoginForm`` to be extended with extra fields.
+
+
 Images
 ------
 

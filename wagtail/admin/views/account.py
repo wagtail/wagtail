@@ -17,6 +17,15 @@ from wagtail.admin.utils import get_available_admin_languages
 from wagtail.core.models import UserPagePermissionsProxy
 from wagtail.users.forms import NotificationPreferencesForm, PreferredLanguageForm
 from wagtail.users.models import UserProfile
+from wagtail.utils.loading import get_custom_form
+
+
+def get_user_login_form():
+    form_setting = 'WAGTAILADMIN_USER_LOGIN_FORM'
+    if hasattr(settings, form_setting):
+        return get_custom_form(form_setting)
+    else:
+        return forms.LoginForm
 
 
 # Helper functions to check password management settings to enable/disable views as appropriate.
@@ -136,7 +145,7 @@ def login(request):
         return auth_views.login(
             request,
             template_name='wagtailadmin/login.html',
-            authentication_form=forms.LoginForm,
+            authentication_form=get_user_login_form(),
             extra_context={
                 'show_password_reset': password_reset_enabled(),
                 'username_field': get_user_model().USERNAME_FIELD,
