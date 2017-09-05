@@ -56,6 +56,20 @@
                         <p class="help"><a href="{% url 'wagtailadmin_password_reset' %}">{% trans "Forgotten it?" %}</a></p>
                     {% endif %}
                 </li>
+
+                {% for field in form %}
+                {% if field.name in form.extra_fields %}
+                <li>
+                    <div class="field">
+                        {% if field.label %}
+                        {{ field.label_tag }}
+                        {% endif %}
+                        <div class="input">{{ field }}</div>
+                    </div>
+                </li>
+                {% endif %}
+                {% endfor %}
+
                 {% comment %}
                     Removed until functionality exists
                     <li class="checkbox">
