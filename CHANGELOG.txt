@@ -19,6 +19,8 @@ Changelog
 1.12.2 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~~
 
+ * Fix: Migration for addition of ``Page.draft_title`` field is now reversible (Venelin Stoykov)
+
 
 1.12.1 (30.08.2017)
 ~~~~~~~~~~~~~~~~~~~
