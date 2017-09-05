@@ -5,8 +5,10 @@ from django.contrib import messages
 from django.contrib.auth import views as auth_views
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
+from django.core.exceptions import ImproperlyConfigured
 from django.http import Http404
 from django.shortcuts import redirect, render
+from django.utils.module_loading import import_string
 from django.utils.translation import ugettext as _
 from django.utils.translation import activate
 from django.views.decorators.cache import never_cache
@@ -17,6 +19,25 @@ from wagtail.admin.utils import get_available_admin_languages
 from wagtail.core.models import UserPagePermissionsProxy
 from wagtail.users.forms import NotificationPreferencesForm, PreferredLanguageForm
 from wagtail.users.models import UserProfile
+
+
+# Helper functions to allow customisation of the user login form
+def get_custom_form(form_setting):
+    try:
+        return import_string(getattr(settings, form_setting))
+    except ImportError:
+        raise ImproperlyConfigured(
+            "%s refers to a form '%s' that is not available" %
+            (form_setting, getattr(settings, form_setting))
+        )
+
+
+def get_user_login_form():
+    form_setting = 'WAGTAILADMIN_USER_LOGIN_FORM'
+    if hasattr(settings, form_setting):
+        return get_custom_form(form_setting)
+    else:
+        return forms.LoginForm
 
 
 # Helper functions to check password management settings to enable/disable views as appropriate.
@@ -136,7 +157,7 @@ def login(request):
         return auth_views.login(
             request,
             template_name='wagtailadmin/login.html',
-            authentication_form=forms.LoginForm,
+            authentication_form=get_user_login_form(),
             extra_context={
                 'show_password_reset': password_reset_enabled(),
                 'username_field': get_user_model().USERNAME_FIELD,
