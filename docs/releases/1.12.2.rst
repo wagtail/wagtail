@@ -13,3 +13,4 @@ What's new
 Bug fixes
 ~~~~~~~~~
 
+ * Migration for addition of ``Page.draft_title`` field is now reversible (Venelin Stoykov)
