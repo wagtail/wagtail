@@ -6,6 +6,7 @@ Release notes
 
    upgrading
    1.13
+   1.12.2
    1.12.1
    1.12
    1.11.1
