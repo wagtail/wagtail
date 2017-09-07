@@ -1,7 +1,6 @@
 from __future__ import absolute_import, unicode_literals
 
 from django.conf.urls import include, url
-from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.core import urlresolvers
 from django.utils.html import format_html
 
@@ -37,7 +36,7 @@ def register_embed_feature(features):
         'hallo', 'embed',
         HalloPlugin(
             name='hallowagtailembeds',
-            js=[static('wagtailembeds/js/hallo-plugins/hallo-wagtailembeds.js')],
+            js=['wagtailembeds/js/hallo-plugins/hallo-wagtailembeds.js'],
         )
     )
     features.default_features.append('embed')

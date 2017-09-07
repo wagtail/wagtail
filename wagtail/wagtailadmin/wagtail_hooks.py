@@ -1,7 +1,6 @@
 from __future__ import absolute_import, unicode_literals
 
 from django.contrib.auth.models import Permission
-from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 
@@ -189,7 +188,7 @@ def register_core_features(features):
         'hallo', 'hr',
         HalloPlugin(
             name='hallohr',
-            js=[static('wagtailadmin/js/hallo-plugins/hallo-hr.js')],
+            js=['wagtailadmin/js/hallo-plugins/hallo-hr.js'],
             order=45,
         )
     )
@@ -199,7 +198,7 @@ def register_core_features(features):
         'hallo', 'link',
         HalloPlugin(
             name='hallowagtaillink',
-            js=[static('wagtailadmin/js/hallo-plugins/hallo-wagtaillink.js')],
+            js=['wagtailadmin/js/hallo-plugins/hallo-wagtaillink.js'],
         )
     )
     features.default_features.append('link')

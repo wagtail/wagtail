@@ -99,7 +99,7 @@ def register_blockquote_feature(features):
     features.register_editor_plugin(
         'hallo', 'blockquote', HalloPlugin(
             name='halloblockquote',
-            js=[static('testapp/js/hallo-blockquote.js')],
-            css={'all': [static('testapp/css/hallo-blockquote.css')]},
+            js=['testapp/js/hallo-blockquote.js'],
+            css={'all': ['testapp/css/hallo-blockquote.css']},
         )
     )

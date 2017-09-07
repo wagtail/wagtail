@@ -80,7 +80,7 @@ def register_embed_feature(features):
         'hallo', 'document-link',
         HalloPlugin(
             name='hallowagtaildoclink',
-            js=[static('wagtaildocs/js/hallo-plugins/hallo-wagtaildoclink.js')],
+            js=['wagtaildocs/js/hallo-plugins/hallo-wagtaildoclink.js'],
         )
     )
     features.default_features.append('document-link')

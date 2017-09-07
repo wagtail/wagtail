@@ -72,7 +72,7 @@ def register_image_feature(features):
         'hallo', 'image',
         HalloPlugin(
             name='hallowagtailimage',
-            js=[static('wagtailimages/js/hallo-plugins/hallo-wagtailimage.js')],
+            js=['wagtailimages/js/hallo-plugins/hallo-wagtailimage.js'],
         )
     )
     features.default_features.append('image')
