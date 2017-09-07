@@ -447,6 +447,17 @@ class TestOembed(TestCase):
         finder = OEmbedFinder(providers=[oembed_providers.twitter])
         self.assertFalse(finder.accept("http://www.youtube.com/watch/"))
 
+    @patch('django.utils.six.moves.urllib.request.urlopen')
+    @patch('json.loads')
+    def test_endpoint_with_format_param(self, loads, urlopen):
+        urlopen.return_value = self.dummy_response
+        loads.return_value = {'type': 'video',
+                              'url': 'http://www.example.com'}
+        result = OEmbedFinder().find_embed("https://vimeo.com/217403396")
+        self.assertEqual(result['type'], 'video')
+        request = urlopen.call_args[0][0]
+        self.assertEqual(request.full_url.split('?')[0], "http://www.vimeo.com/api/oembed.json")
+
 
 class TestEmbedTag(TestCase):
     @patch('wagtail.wagtailembeds.embeds.get_embed')
