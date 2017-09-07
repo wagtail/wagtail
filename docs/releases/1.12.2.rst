@@ -15,3 +15,4 @@ Bug fixes
 
  * Migration for addition of ``Page.draft_title`` field is now reversible (Venelin Stoykov)
  * Fixed failure on application startup when ``ManifestStaticFilesStorage`` is in use and ``collectstatic`` has not yet been run (Matt Westcott)
+ * Fixed handling of Vimeo and other oEmbed providers with a format parameter in the endpoint URL (Mitchel Cabuloy)
