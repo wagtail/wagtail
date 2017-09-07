@@ -22,6 +22,8 @@ The root page (``/``) should detect the browsers language and forward them to th
 
 We must set Django's ``LANGUAGES`` setting so we don't redirect non English/French users to pages that don't exist.
 
+In order for templates to render locale specific data correctly, such as hard-coded, translated strings and dates, you will need to include a custom middleware class that activates the language from the URL path on each request.
+
 
 .. code-block:: python
 
@@ -30,6 +32,12 @@ We must set Django's ``LANGUAGES`` setting so we don't redirect non English/Fren
         ('en', _("English")),
         ('fr', _("French")),
     )
+
+    MIDDLEWARE = [
+        ...
+        'your-app.middleware.LocaleMiddleware',
+        ...
+    ]
 
     # models.py
     from django.utils import translation
@@ -45,6 +53,22 @@ We must set Django's ``LANGUAGES`` setting so we don't redirect non English/Fren
             language = translation.get_language_from_request(request)
 
             return HttpResponseRedirect(self.url + language + '/')
+
+    # your-app.middleware.py
+    from django.utils import translation
+    from django.utils.translation import get_language_from_request
+
+    class LocaleMiddleware(object):
+        """
+        Django 1.10-style middleware
+        """
+        def __init__(self, get_response):
+            self.get_response = get_response
+
+        def __call__(self, request):
+            translation.activate(get_language_from_request(request, check_path=True))
+            response = self.get_response(request)
+            return response
 
 
 Linking pages together
