@@ -105,7 +105,7 @@ Once the plugin has been created, it should be registered as a rich text feature
             'hallo', 'blockquote',
             HalloPlugin(
                 name='halloblockquote',
-                js=[static('myapp/js/hallo-blockquote.js')],
+                js=['myapp/js/hallo-blockquote.js'],
             )
         )
 

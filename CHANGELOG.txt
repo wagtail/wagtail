@@ -19,7 +19,8 @@ Changelog
 1.12.2 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~~
 
- * Fix: Migration for addition of ``Page.draft_title`` field is now reversible (Venelin Stoykov)
+ * Fix: Migration for addition of `Page.draft_title` field is now reversible (Venelin Stoykov)
+ * Fix: Fixed failure on application startup when `ManifestStaticFilesStorage` is in use and `collectstatic` has not yet been run (Matt Westcott)
 
 
 1.12.1 (30.08.2017)

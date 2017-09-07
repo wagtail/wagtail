@@ -4,7 +4,6 @@ import json
 from collections import OrderedDict
 
 from django.conf import settings
-from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.forms import Media, widgets
 from django.utils.module_loading import import_string
 
@@ -74,7 +73,7 @@ class HalloListPlugin(HalloPlugin):
 CORE_HALLO_PLUGINS = [
     HalloPlugin(name='halloreundo', order=50),
     HalloPlugin(name='hallorequireparagraphs', js=[
-        static('wagtailadmin/js/hallo-plugins/hallo-requireparagraphs.js'),
+        'wagtailadmin/js/hallo-plugins/hallo-requireparagraphs.js',
     ]),
     HalloHeadingPlugin(element='p')
 ]
@@ -143,8 +142,8 @@ class HalloRichTextArea(WidgetWithScript, widgets.Textarea):
     @property
     def media(self):
         media = Media(js=[
-            static('wagtailadmin/js/vendor/hallo.js'),
-            static('wagtailadmin/js/hallo-bootstrap.js'),
+            'wagtailadmin/js/vendor/hallo.js',
+            'wagtailadmin/js/hallo-bootstrap.js',
         ])
 
         for plugin in self.plugins:
