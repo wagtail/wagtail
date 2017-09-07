@@ -447,6 +447,10 @@ class TestOembed(TestCase):
         finder = OEmbedFinder(providers=[oembed_providers.twitter])
         self.assertFalse(finder.accept("http://www.youtube.com/watch/"))
 
+    def test_oembed_replaces_format_in_endpoint(self):
+        finder = OEmbedFinder(providers=[oembed_providers.vimeo])
+        self.assertNotIn('{format}', next(iter(finder._endpoints.keys())))
+
 
 class TestEmbedTag(TestCase):
     @patch('wagtail.wagtailembeds.embeds.get_embed')
