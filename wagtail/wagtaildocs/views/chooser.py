@@ -49,6 +49,7 @@ def chooser(request):
         documents = hook(documents, request)
 
     q = None
+    saved_documents = Document.objects.all()
     if 'q' in request.GET or 'p' in request.GET or 'collection_id' in request.GET:
 
         collection_id = request.GET.get('collection_id')
@@ -72,6 +73,7 @@ def chooser(request):
             'documents': documents,
             'query_string': q,
             'is_searching': is_searching,
+            'saved_documents': saved_documents,
         })
     else:
         searchform = SearchForm()
