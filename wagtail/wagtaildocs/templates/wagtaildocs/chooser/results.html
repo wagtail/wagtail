@@ -16,5 +16,10 @@
 
     {% include "wagtailadmin/shared/pagination_nav.html" with items=documents is_ajax=1 %}
 {% else %}
-    <p>{% blocktrans %}Sorry, no documents match "<em>{{ query_string }}</em>"{% endblocktrans %}</p>
+    {% if saved_documents %}
+        <p>{% blocktrans %}Sorry, no documents match "<em>{{ query_string }}</em>"{% endblocktrans %}</p>
+    {% else %}
+        {% url 'wagtaildocs:add_multiple' as wagtaildocs_add_document_url %}
+        <p>{% blocktrans %}You haven't uploaded any documents. Why not <a href="{{ wagtaildocs_add_document_url }}">upload one now</a>?{% endblocktrans %}</p>
+    {% endif %}
 {% endif %}
