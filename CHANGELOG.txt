@@ -7,6 +7,7 @@ Changelog
  * Fix: Migration for addition of `Page.draft_title` field is now reversible (Venelin Stoykov)
  * Fix: Fixed failure on application startup when `ManifestStaticFilesStorage` is in use and `collectstatic` has not yet been run (Matt Westcott)
  * Fix: Fixed handling of Vimeo and other oEmbed providers with a format parameter in the endpoint URL (Mitchel Cabuloy)
+ * Fix: Fixed regression in rendering save button in wagtail.contrib.settings edit view (Matt Westcott)
 
 
 1.12.1 (30.08.2017)
