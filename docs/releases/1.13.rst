@@ -29,6 +29,8 @@ Bug fixes
  * In PostgreSQL, new default ordering when ranking of objects is the same (Bertrand Bordage)
  * Fixed overlapping header elements on form submissions view on mobile (Jack Paine)
  * Fixed avatar position in footer on mobile (Jack Paine)
+ * Custom document models no longer require their own post-delete signal handler (Gordon Pendleton)
+ * Deletion of image / document files now only happens when database transaction has completed (Gordon Pendleton)
 
 
 Upgrade considerations
