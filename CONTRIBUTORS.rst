@@ -250,7 +250,7 @@ Contributors
 * Edwar Baron
 * Tomasz Knapik
 * Emily Horsman
-* Christopher Bledsoe
+* Christopher Bledsoe (The Motley Fool)
 
 Translators
 ===========
