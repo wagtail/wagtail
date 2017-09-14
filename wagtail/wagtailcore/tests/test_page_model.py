@@ -90,6 +90,16 @@ class TestValidation(TestCase):
         homepage = Page.objects.get(url_path='/home/')
         self.assertEqual(homepage.draft_title, homepage.get_admin_display_title())
 
+    def test_get_admin_display_title_with_blank_draft_title(self):
+        # Display title should fall back on the live title if draft_title is blank;
+        # this can happen if the page was created through fixtures or migrations that
+        # didn't explicitly account for draft_title
+        # (since draft_title doesn't get populated automatically on save in those cases)
+        Page.objects.filter(url_path='/home/').update(title='live title', draft_title='')
+        homepage = Page.objects.get(url_path='/home/')
+
+        self.assertEqual(homepage.get_admin_display_title(), 'live title')
+
     def test_draft_title_is_autopopulated(self):
         homepage = Page.objects.get(url_path='/home/')
 

@@ -51,8 +51,10 @@
     "eslint-plugin-react": "^5.2.2",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "~3.0.2",
+    "gulp-cssnano": "^2.1.2",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^3.1.0",
+    "gulp-size": "^2.1.0",
     "gulp-sourcemaps": "~1.5.2",
     "gulp-util": "~2.2.14",
     "jest": "^20.0.4",
@@ -60,6 +62,8 @@
     "react-addons-perf": "^15.4.2",
     "react-test-renderer": "^15.5.4",
     "redux-mock-store": "^1.2.2",
+    "stylelint": "^8.0.0",
+    "stylelint-scss": "^2.0.1",
     "webpack": "^2.6.1"
   },
   "dependencies": {
@@ -79,10 +83,11 @@
   "scripts": {
     "postinstall": "npm --prefix client install",
     "build": "gulp build; webpack --config ./client/webpack/prod.config.js",
+    "dist": "NODE_ENV=production npm run build",
     "watch": "webpack --config ./client/webpack/dev.config.js & gulp watch",
     "start": "npm run watch",
     "lint:js": "eslint --max-warnings 16 ./client",
-    "lint:css": "scss-lint",
+    "lint:css": "stylelint **/*.scss",
     "lint": "npm run lint:js",
     "test": "npm run test:unit",
     "test:unit": "jest",

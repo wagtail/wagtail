@@ -246,12 +246,13 @@ class PostgresSearchQuery(BaseSearchQuery):
 
     def search_in_index(self, queryset, search_query, start, stop):
         index_entries = self.get_in_index_queryset(queryset, search_query)
-        order_sql = ''
         values = ['typed_pk']
         if self.order_by_relevance:
             index_entries = index_entries.rank(search_query)
             values.append('rank')
-            order_sql = 'ORDER BY index_entry.rank DESC'
+            order_sql = 'index_entry.rank DESC, id ASC'
+        else:
+            order_sql = 'id ASC'
         index_sql, index_params = get_sql(
             index_entries.annotate_typed_pk()
             .values(*values)
@@ -262,7 +263,7 @@ class PostgresSearchQuery(BaseSearchQuery):
             SELECT obj.*
             FROM (%s) AS index_entry
             INNER JOIN (%s) AS obj ON obj."%s" = index_entry.typed_pk
-            %s
+            ORDER BY %s
             OFFSET %%s LIMIT %%s;
             """ % (index_sql, model_sql, get_pk_column(model), order_sql)
         limits = (start, None if stop is None else stop - start)
@@ -285,7 +286,7 @@ class PostgresSearchQuery(BaseSearchQuery):
         return self.search_in_fields(queryset, search_query, start, stop)
 
 
-class PostgresSearchResult(BaseSearchResults):
+class PostgresSearchResults(BaseSearchResults):
     def get_config(self):
         queryset = self.query.queryset
         return self.backend.get_index_for_model(
@@ -335,7 +336,7 @@ class PostgresSearchAtomicRebuilder(PostgresSearchRebuilder):
 
 class PostgresSearchBackend(BaseSearchBackend):
     query_class = PostgresSearchQuery
-    results_class = PostgresSearchResult
+    results_class = PostgresSearchResults
     rebuilder_class = PostgresSearchRebuilder
     atomic_rebuilder_class = PostgresSearchAtomicRebuilder
 

@@ -95,7 +95,6 @@ dd {
 }
 
 // Help text formatters
-
 .help-block {
     padding: 1em;
     margin: 1em 0;
@@ -115,48 +114,48 @@ dd {
     }
 }
 
-    .help-info,
-    .help-warning,
-    .help-critical {
-        border-radius: 3px;
-        padding-left: 3.5em;
-        position: relative;
+.help-info,
+.help-warning,
+.help-critical {
+    border-radius: 3px;
+    padding-left: 3.5em;
+    position: relative;
 
-        &:before {
-            font-family: wagtail;
-            position: absolute;
-            left: 1em;
-            top: 0.7em;
-            content: '?';
-            font-size: 1.4em;
-        }
+    &:before {
+        font-family: wagtail;
+        position: absolute;
+        left: 1em;
+        top: 0.7em;
+        content: '?';
+        font-size: 1.4em;
     }
+}
 
-    .help-info {
-        background-color: lighten($color-blue, 30%);
+.help-info {
+    background-color: lighten($color-blue, 30%);
 
-        &:before {
-            color: $color-blue;
-        }
+    &:before {
+        color: $color-blue;
     }
+}
 
-    .help-warning {
-        background-color: lighten($color-orange, 30%);
+.help-warning {
+    background-color: lighten($color-orange, 30%);
 
-        &:before {
-            color: $color-orange;
-            content: '!';
-        }
+    &:before {
+        color: $color-orange;
+        content: '!';
     }
+}
 
-    .help-critical {
-        background-color: lighten($color-red, 40%);
+.help-critical {
+    background-color: lighten($color-red, 40%);
 
-        &:before {
-            color: $color-red;
-            content: '!';
-        }
+    &:before {
+        color: $color-red;
+        content: '!';
     }
+}
 
 .u-para {
     margin-bottom: 1rem;

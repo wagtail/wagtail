@@ -32,7 +32,7 @@ Contributors
 * Jeffrey Hearn
 * Robert Clark
 * Nathan Brizendine
-* thenewguy
+* Gordon Pendleton
 * John-Scott Atlakson
 * Eric Drechsel
 * Alejandro Giacometti
@@ -249,8 +249,12 @@ Contributors
 * Levi Adler
 * Edwar Baron
 * Tomasz Knapik
+* Venelin Stoykov
 * Emily Horsman
 * Christopher Bledsoe (The Motley Fool)
+* jcronyn
+* Ben Sturmfels
+* Anselm Bradford
 
 Translators
 ===========

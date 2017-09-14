@@ -5,7 +5,6 @@ machine:
 dependencies:
   pre:
     - pip install -e .[testing]
-    - gem install scss_lint
 
 test:
   override:
@@ -15,4 +14,4 @@ test:
     - npm run lint:css
     - python -u runtests.py
     - npm run test:unit:coverage -- --runInBand
-    - npm run build
+    - npm run dist

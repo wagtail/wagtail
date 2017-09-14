@@ -41,5 +41,7 @@ var apps = [
 module.exports = {
     apps: apps,
     srcDir: srcDir,
-    destDir: destDir
-}
+    destDir: destDir,
+    // Determines whether the pipeline is used in production or dev mode.
+    isProduction: process.env.NODE_ENV === 'production',
+};

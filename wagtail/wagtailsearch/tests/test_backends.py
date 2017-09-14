@@ -181,25 +181,48 @@ class BackendTests(WagtailTestUtils):
         self.assertEqual(set(results), {self.testa})
 
     def test_boost(self):
-        results = self.backend.search('Hello', models.SearchTest)
+        results = list(self.backend.search('Hello', models.SearchTest))
         # The `content` field has more boost, so the object containing “Hello”
         # should be before the ones having it in the title,
         # despite the insertion order.
-        self.assertListEqual(
-            list(results), [self.testc.searchtest_ptr, self.testa, self.testb])
+        self.assertEqual(results[0], self.testc.searchtest_ptr)
+        self.assertSetEqual(set(results[1:]), {self.testa, self.testb})
 
     def test_order_by_relevance(self):
-        sorted_results = self.backend.search('Hello', models.SearchTest,
-                                             order_by_relevance=True)
-        self.assertListEqual(
-            list(sorted_results),
-            [self.testc.searchtest_ptr, self.testa, self.testb])
+        sorted_results = list(self.backend.search('Hello', models.SearchTest,
+                                                  order_by_relevance=True))
+        self.assertEqual(sorted_results[0], self.testc.searchtest_ptr)
+        self.assertSetEqual(set(sorted_results[1:]), {self.testa, self.testb})
 
-        unsorted_results = self.backend.search('Hello', models.SearchTest,
-                                               order_by_relevance=False)
-        self.assertListEqual(
-            list(unsorted_results),
-            [self.testa, self.testb, self.testc.searchtest_ptr])
+        unsorted_results = list(self.backend.search('Hello', models.SearchTest,
+                                                    order_by_relevance=False))
+        self.assertSetEqual(
+            set(unsorted_results),
+            {self.testa, self.testb, self.testc.searchtest_ptr})
+
+    def test_same_rank_pages(self):
+        """
+        Checks that results with a same ranking cannot be found multiple times
+        across pages (see issue #3729).
+        """
+        same_rank_objects = set()
+        try:
+            for i in range(10):
+                obj = models.SearchTest.objects.create(title='Rank %s' % i)
+                self.backend.add(obj)
+                same_rank_objects.add(obj)
+            self.refresh_index()
+
+            results = self.backend.search('Rank', models.SearchTest)
+            results_across_pages = set()
+            for i, obj in enumerate(same_rank_objects):
+                results_across_pages.add(results[i:i + 1][0])
+            self.assertSetEqual(results_across_pages, same_rank_objects)
+        finally:
+            for obj in same_rank_objects:
+                self.backend.delete(obj)
+                obj.delete()
+            self.refresh_index()
 
     def test_delete(self):
         # Delete one of the objects

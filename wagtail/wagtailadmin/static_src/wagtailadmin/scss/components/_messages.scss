@@ -2,7 +2,6 @@
 // for display on the next page visited. These appear as an animated banner at the top of the page.
 //
 // For inline help text, see typography.scss
-
 .messages {
     position: relative;
     z-index: 5;
@@ -21,10 +20,7 @@
 
     > ul > li {
         // @include nice-padding;
-        padding-top: 1.6em;
-        padding-right: 3em;
-        padding-bottom: 1.6em;
-        padding-left: 1.6em;
+        padding: 1.6em 3em 1.6em 1.6em;
         color: $color-white;
     }
 
