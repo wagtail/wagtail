@@ -49,7 +49,6 @@ def chooser(request):
         documents = hook(documents, request)
 
     q = None
-    
     if 'q' in request.GET or 'p' in request.GET or 'collection_id' in request.GET:
         
         has_documents = Document.objects.exists()
