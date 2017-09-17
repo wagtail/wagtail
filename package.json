@@ -59,6 +59,7 @@
     "gulp-util": "~2.2.14",
     "jest": "^20.0.4",
     "mustache": "^2.2.1",
+    "npm-run-all": "^4.1.1",
     "react-addons-perf": "^15.4.2",
     "react-test-renderer": "^15.5.4",
     "redux-mock-store": "^1.2.2",
