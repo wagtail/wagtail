@@ -42,6 +42,7 @@ Other features
  * Upgraded jQuery to version 3.2.1 (Janneke Janssen)
  * Updated documentation styling (LB (Ben Johnston))
  * Rich text fields now take feature lists into account when whitelisting HTML elements (Matt Westcott)
+ * FormPage lists and Form submission lists in admin now use class based views for easy overriding (Johan Arensman)
 
 Bug fixes
 ~~~~~~~~~
