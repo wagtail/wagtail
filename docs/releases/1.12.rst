@@ -62,6 +62,8 @@ StreamField now defaults to ``blank=False``
 
 StreamField now respects the ``blank`` field setting; when this is false, at least one block must be supplied for the field to pass validation. To match the behaviour of other model fields, ``blank`` defaults to ``False``; if you wish to allow a StreamField to be left empty, you must now add ``blank=True`` to the field.
 
+When passing an explicit ``StreamBlock`` as the top-level block of a StreamField definition, note that the StreamField's ``blank`` keyword argument always takes precedence over the block's ``required`` property, including when it is left as the default value of ``blank=False``. Consequently, setting ``required=False`` on a top-level ``StreamBlock`` has no effect.
+
 
 Old configuration settings for embeds are deprecated
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
