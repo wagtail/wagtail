@@ -47,6 +47,8 @@ The parameter to ``StreamField`` is a list of ``(name, block_type)`` tuples. 'na
 
 This defines the set of available block types that can be used within this field. The author of the page is free to use these blocks as many times as desired, in any order.
 
+``StreamField`` also accepts an optional keyword argument ``blank``, defaulting to false; when this is false, at least one block must be provided for the field to be considered valid.
+
 Basic block types
 -----------------
 
@@ -446,7 +448,7 @@ Since ``StreamField`` accepts an instance of ``StreamBlock`` as a parameter, in 
 ``StreamBlock`` accepts the following options as either keyword arguments or ``Meta`` properties:
 
 ``required`` (default: True)
-  If true, at least one sub-block must be supplied.
+  If true, at least one sub-block must be supplied. This is ignored when using the ``StreamBlock`` as the top-level block of a StreamField; in this case the StreamField's ``blank`` property is respected instead.
 
 ``min_num``
   Minimum number of sub-blocks that the stream must have.
