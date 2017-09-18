@@ -1,12 +1,12 @@
 import csv
 import datetime
 
-from django.views.generic import ListView, TemplateView
 from django.core.exceptions import PermissionDenied
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.utils.encoding import smart_str
 from django.utils.translation import ungettext
+from django.views.generic import ListView, TemplateView
 
 from wagtail.admin import messages
 from wagtail.core.models import Page
