@@ -341,9 +341,9 @@ A block consisting of a fixed group of sub-blocks to be displayed together. Take
 .. code-block:: python
 
     ('person', blocks.StructBlock([
-        ('first_name', blocks.CharBlock(required=True)),
-        ('surname', blocks.CharBlock(required=True)),
-        ('photo', ImageChooserBlock()),
+        ('first_name', blocks.CharBlock()),
+        ('surname', blocks.CharBlock()),
+        ('photo', ImageChooserBlock(required=False)),
         ('biography', blocks.RichTextBlock()),
     ], icon='user'))
 
@@ -353,9 +353,9 @@ Alternatively, the list of sub-blocks can be provided in a subclass of StructBlo
 .. code-block:: python
 
     class PersonBlock(blocks.StructBlock):
-        first_name = blocks.CharBlock(required=True)
-        surname = blocks.CharBlock(required=True)
-        photo = ImageChooserBlock()
+        first_name = blocks.CharBlock()
+        surname = blocks.CharBlock()
+        photo = ImageChooserBlock(required=False)
         biography = blocks.RichTextBlock()
 
         class Meta:
@@ -395,8 +395,8 @@ Any block type is valid as the sub-block type, including structural types:
 .. code-block:: python
 
     ('ingredients_list', blocks.ListBlock(blocks.StructBlock([
-        ('ingredient', blocks.CharBlock(required=True)),
-        ('amount', blocks.CharBlock()),
+        ('ingredient', blocks.CharBlock()),
+        ('amount', blocks.CharBlock(required=False)),
     ])))
 
 
@@ -539,9 +539,9 @@ By default, each block is rendered using simple, minimal HTML markup, or no mark
 
     ('person', blocks.StructBlock(
         [
-            ('first_name', blocks.CharBlock(required=True)),
-            ('surname', blocks.CharBlock(required=True)),
-            ('photo', ImageChooserBlock()),
+            ('first_name', blocks.CharBlock()),
+            ('surname', blocks.CharBlock()),
+            ('photo', ImageChooserBlock(required=False)),
             ('biography', blocks.RichTextBlock()),
         ],
         template='myapp/blocks/person.html',
@@ -554,9 +554,9 @@ Or, when defined as a subclass of StructBlock:
 .. code-block:: python
 
     class PersonBlock(blocks.StructBlock):
-        first_name = blocks.CharBlock(required=True)
-        surname = blocks.CharBlock(required=True)
-        photo = ImageChooserBlock()
+        first_name = blocks.CharBlock()
+        surname = blocks.CharBlock()
+        photo = ImageChooserBlock(required=False)
         biography = blocks.RichTextBlock()
 
         class Meta:
@@ -658,8 +658,8 @@ As well as passing variables from the parent template, block subclasses can pass
     import datetime
 
     class EventBlock(blocks.StructBlock):
-        title = blocks.CharBlock(required=True)
-        date = blocks.DateBlock(required=True)
+        title = blocks.CharBlock()
+        date = blocks.DateBlock()
 
         def get_context(self, value, parent_context=None):
             context = super(EventBlock, self).get_context(value, parent_context=parent_context)
@@ -796,9 +796,9 @@ To customise the styling of a ``StructBlock`` as it appears in the page editor, 
 .. code-block:: python
 
     class PersonBlock(blocks.StructBlock):
-        first_name = blocks.CharBlock(required=True)
-        surname = blocks.CharBlock(required=True)
-        photo = ImageChooserBlock()
+        first_name = blocks.CharBlock()
+        surname = blocks.CharBlock()
+        photo = ImageChooserBlock(required=False)
         biography = blocks.RichTextBlock()
 
         class Meta:
@@ -833,9 +833,9 @@ To add additional variables, you can override the block's ``get_form_context`` m
 .. code-block:: python
 
     class PersonBlock(blocks.StructBlock):
-        first_name = blocks.CharBlock(required=True)
-        surname = blocks.CharBlock(required=True)
-        photo = ImageChooserBlock()
+        first_name = blocks.CharBlock()
+        surname = blocks.CharBlock()
+        photo = ImageChooserBlock(required=False)
         biography = blocks.RichTextBlock()
 
         def get_form_context(self, value, prefix='', errors=None):
