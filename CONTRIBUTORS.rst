@@ -253,6 +253,7 @@ Contributors
 * jcronyn
 * Ben Sturmfels
 * Anselm Bradford
+* Johan Arensman
 
 Translators
 ===========
