@@ -90,7 +90,7 @@ class TestFormsIndex(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, 'wagtailforms/index.html')
 
         # Check that we got the correct page
-        self.assertEqual(response.context['form_pages'].number, 2)
+        self.assertEqual(response.context['page_obj'].number, 2)
 
     def test_forms_index_pagination_invalid(self):
         # Create some more form pages to make pagination kick in
@@ -104,7 +104,7 @@ class TestFormsIndex(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, 'wagtailforms/index.html')
 
         # Check that it got page one
-        self.assertEqual(response.context['form_pages'].number, 1)
+        self.assertEqual(response.context['page_obj'].number, 1)
 
     def test_forms_index_pagination_out_of_range(self):
         # Create some more form pages to make pagination kick in
@@ -272,7 +272,7 @@ class TestFormsSubmissionsList(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, 'wagtailforms/index_submissions.html')
 
         # Check that we got the correct page
-        self.assertEqual(response.context['submissions'].number, 2)
+        self.assertEqual(response.context['page_obj'].number, 2)
 
     def test_list_submissions_pagination_invalid(self):
         self.make_list_submissions()
@@ -730,7 +730,7 @@ class TestCustomFormsSubmissionsList(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, 'wagtailforms/index_submissions.html')
 
         # Check that we got the correct page
-        self.assertEqual(response.context['submissions'].number, 2)
+        self.assertEqual(response.context['page_obj'].number, 2)
 
         # CustomFormPageSubmission have custom field. This field should appear in the listing
         self.assertContains(response, '<th>Username</th>', html=True)
