@@ -114,8 +114,7 @@
         {% if submissions %}
             <form action="{% url 'wagtailforms:delete_submissions' form_page.id %}" method="get">
                 {% include "wagtailforms/list_submissions.html" %}
-
-                {% include "wagtailadmin/shared/pagination_nav.html" with items=submissions is_searching=False %}
+                {% include "wagtailadmin/shared/pagination_nav.html" with items=page_obj is_searching=False linkurl='-' %}
                 {# Here we pass an invalid non-empty URL name as linkurl to generate pagination links with the URL path omitted #}
             </form>
         {% else %}
