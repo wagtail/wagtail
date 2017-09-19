@@ -39,6 +39,7 @@ Bug fixes
  * Fixed Node build scripts to work on Windows (Mikalai Radchuk)
  * Stop breadcrumb home icon from showing as ellipsis in Chrome 60 (Matt Westcott)
  * Prevent ``USE_THOUSAND_SEPARATOR = True`` from breaking the image focal point chooser (Sævar Öfjörð Magnússon)
+ * Removed deprecated ``SessionAuthenticationMiddleware`` from project template (Samir Shah)
 
 Upgrade considerations
 ======================

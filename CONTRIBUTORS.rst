@@ -255,6 +255,7 @@ Contributors
 * Ben Sturmfels
 * Anselm Bradford
 * Mads Jensen
+* Samir Shah
 
 Translators
 ===========
