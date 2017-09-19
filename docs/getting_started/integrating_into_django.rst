@@ -35,7 +35,7 @@ In your settings file, add the following apps to ``INSTALLED_APPS``:
     'modelcluster',
     'taggit',
 
-Add the following entries to ``MIDDLEWARE_CLASSES``:
+Add the following entries to ``MIDDLEWARE``:
 
 .. code-block:: python
 
