@@ -2985,12 +2985,7 @@ class TestIncludeBlockTag(TestCase):
         self.assertIn('<body><h1 class="important">bonjour</h1></body>', result)
 
 
-class BlockUsingGetTemplateMethod(blocks.Block):
-    def value_from_datadict(self, data, files, prefix):
-        pass
-
-    def render_form(self, value, prefix='', errors=None):
-        pass
+class BlockUsingGetTemplateMethod(BaseStructBlock):
 
     my_new_template = "my_super_awesome_dynamic_template.html"
 
