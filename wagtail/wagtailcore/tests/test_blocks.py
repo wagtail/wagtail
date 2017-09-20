@@ -24,7 +24,6 @@ from wagtail.tests.testapp.blocks import SectionBlock
 from wagtail.tests.testapp.models import EventPage, SimplePage
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailcore import blocks
-from wagtail.wagtailcore.blocks import BaseStructBlock
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.rich_text import RichText
 
@@ -2986,7 +2985,7 @@ class TestIncludeBlockTag(TestCase):
         self.assertIn('<body><h1 class="important">bonjour</h1></body>', result)
 
 
-class BlockUsingGetTemplateMethod(BaseStructBlock):
+class BlockUsingGetTemplateMethod(blocks.Block):
 
     my_new_template = "my_super_awesome_dynamic_template.html"
 
