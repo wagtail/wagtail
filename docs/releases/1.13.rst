@@ -17,6 +17,7 @@ Other features
  * :doc:`Custom document model </advanced_topics/documents/custom_document_model>` is now documented (Emily Horsman)
  * Use minified versions of CSS in the admin by adding minification to the front-end tooling (Vincent Audebert, Thibaud Colas)
  * Wagtailforms serve view now passes ``request.FILES``, for use in custom form handlers (LB (Ben Johnston))
+ * Documents are now given new filenames on re-uploading, to avoid old versions being kept in cache (Bertrand Bordage)
 
 
 Bug fixes
