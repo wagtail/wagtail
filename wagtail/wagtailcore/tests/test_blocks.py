@@ -24,6 +24,7 @@ from wagtail.tests.testapp.blocks import SectionBlock
 from wagtail.tests.testapp.models import EventPage, SimplePage
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailcore import blocks
+from wagtail.wagtailcore.blocks import BaseStructBlock
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.rich_text import RichText
 
