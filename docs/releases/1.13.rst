@@ -18,6 +18,7 @@ Other features
  * Use minified versions of CSS in the admin by adding minification to the front-end tooling (Vincent Audebert, Thibaud Colas)
  * Wagtailforms serve view now passes ``request.FILES``, for use in custom form handlers (LB (Ben Johnston))
  * Documents and images are now given new filenames on re-uploading, to avoid old versions being kept in cache (Bertrand Bordage)
+ * Added custom 404 page for admin interface (Jack Paine)
 
 
 Bug fixes
