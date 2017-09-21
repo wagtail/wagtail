@@ -38,6 +38,7 @@ Other features
  * Improve performance of public/not_public queries in ``PageQuerySet`` (Timothy Bautista)
  * Add ``add_redirect`` static method to ``Redirect`` class for programmatic redirect creation (Brylie Christopher Oxley, Lacey Williams Henschel)
  * Add reference documentation for ``wagtail.contrib.redirects`` See :ref:`redirects`. (LB (Ben Johnston))
+ * ``bulk_delete`` page permission is no longer required to move pages, even if those pages have children (Robert Rollins, LB (Ben Johnston))
 
 
 Bug fixes

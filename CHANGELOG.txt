@@ -29,6 +29,7 @@ Changelog
  * Improve performance of public/not_public queries in `PageQuerySet` (Timothy Bautista)
  * Add `add_redirect` static method to `Redirect` class for programmatic redirect creation (Brylie Christopher Oxley, Lacey Williams Henschel)
  * Add reference documentation for `wagtail.contrib.redirects` (LB (Ben Johnston))
+ * `bulk_delete` page permission is no longer required to move pages, even if those pages have children (Robert Rollins, LB (Ben Johnston))
  * Fix: Support IPv6 domain (Alex Gleason, Coen van der Kamp)
  * Fix: Ensure link to add a new user works when no users are visible in the users list (LB (Ben Johnston))
  * Fix: `AbstractEmailForm` saved submission fields are now aligned with the email content fields, `form.cleaned_data` will be used instead of `form.fields` (Haydn Greatnews)

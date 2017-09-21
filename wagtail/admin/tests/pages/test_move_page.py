@@ -1,5 +1,6 @@
 from unittest import mock
 
+from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Permission
 from django.contrib.messages import constants as message_constants
 from django.http import HttpRequest, HttpResponse
@@ -13,6 +14,8 @@ from wagtail.tests.utils import WagtailTestUtils
 
 
 class TestPageMove(TestCase, WagtailTestUtils):
+    fixtures = ['test.json']
+
     def setUp(self):
         # Find root page
         self.root_page = Page.objects.get(id=2)
@@ -35,6 +38,16 @@ class TestPageMove(TestCase, WagtailTestUtils):
         self.test_page_b = SimplePage(title="Hello world!", slug="hello-world", content="hello")
         self.section_c.add_child(instance=self.test_page_b)
 
+        # Add unpublished page to the root with a child page
+        self.unpublished_page = SimplePage(title="Unpublished", slug="unpublished", content="hello")
+        sub_page = SimplePage(title="Sub Page", slug="sub-page", content="child")
+        self.root_page.add_child(instance=self.unpublished_page)
+        self.unpublished_page.add_child(instance=sub_page)
+
+        # unpublish pages last (used to validate the edit only permission)
+        self.unpublished_page.unpublish()
+        sub_page.unpublish()
+
         # Login
         self.user = self.login()
 
@@ -55,6 +68,24 @@ class TestPageMove(TestCase, WagtailTestUtils):
 
         # Check that the user received a 403 response
         self.assertEqual(response.status_code, 403)
+
+    def test_user_without_bulk_delete_permission_can_move(self):
+        # to verify that a user without bulk delete permission is able to move a page with a child page
+
+        self.client.logout()
+        user = get_user_model().objects.get(username='siteeditor')
+        self.login(user)
+
+        # ensure the bulk_delete is not applicable to this user
+        can_bulk_delete = self.test_page_b.permissions_for_user(user).can_delete()
+        self.assertFalse(can_bulk_delete)
+
+        response = self.client.get(
+            reverse('wagtailadmin_pages:move', args=(self.unpublished_page.id, ))
+        )
+
+        self.assertEqual(response.status_code, 200)
+
 
     def test_page_move_confirm(self):
         response = self.client.get(

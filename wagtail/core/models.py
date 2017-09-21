@@ -1994,9 +1994,10 @@ class PagePermissionTester:
             or ('add' in self.permissions and self.page.owner_id == self.user.pk)
         )
 
-    def can_delete(self):
+    def can_delete(self, ignore_bulk=False):
         if not self.user.is_active:
             return False
+
         if self.page_is_root:  # root node is not a page and can never be deleted, even by superusers
             return False
 
@@ -2005,7 +2006,7 @@ class PagePermissionTester:
             return True
 
         # if the user does not have bulk_delete permission, they may only delete leaf pages
-        if 'bulk_delete' not in self.permissions and not self.page.is_leaf():
+        if 'bulk_delete' not in self.permissions and not self.page.is_leaf() and not ignore_bulk:
             return False
 
         if 'edit' in self.permissions:
@@ -2090,7 +2091,7 @@ class PagePermissionTester:
         As such, the permission test for 'can this be moved at all?' should be the same as for deletion.
         (Further constraints will then apply on where it can be moved *to*.)
         """
-        return self.can_delete()
+        return self.can_delete(ignore_bulk=True)
 
     def can_copy(self):
         return not self.page_is_root
