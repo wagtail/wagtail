@@ -64,6 +64,7 @@ a.button.page404__button { // more specific to override standard button styles
 
 // SMALL DESKTOP CHANGES:
 @media screen and (max-width: $breakpoint-desktop-small) { // 900px
+
     .wagtail-logo-container__desktop {
         display: none;
     }
@@ -71,6 +72,7 @@ a.button.page404__button { // more specific to override standard button styles
 
 // MOBILE CHANGES:
 @media screen and (max-width: $breakpoint-mobile) { // 800px
+
     .page404__text-container {
         width: 400px;
     }
