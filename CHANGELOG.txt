@@ -19,6 +19,7 @@ Changelog
  * Fix: Custom document models no longer require their own post-delete signal handler (Gordon Pendleton)
  * Fix: Deletion of image / document files now only happens when database transaction has completed (Gordon Pendleton)
  * Fix: Fixed Node build scripts to work on Windows (Mikalai Radchuk)
+ * Fix: Stop breadcrumb home icon from showing as ellipsis in Chrome 60 (Matt Westcott)
 
 
 1.12.2 (18.09.2017)
