@@ -246,6 +246,7 @@ footer {
                 text-align: center;
                 width: 3em;
                 font-size: 1em;
+                text-overflow: clip;
 
                 &:before {
                     font-size: 1.15rem;
