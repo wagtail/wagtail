@@ -1,5 +1,6 @@
 import functools
 
+import django
 from django.conf.urls import url, include
 from django.views.decorators.cache import cache_control
 from django.views.generic import TemplateView
@@ -94,7 +95,10 @@ def display_custom_404(view_func):
         try:
             return view_func(request, *args, **kwargs)
         except Http404:
-            return page_not_found(request, '', template_name='wagtailadmin/404.html')
+            if django.VERSION < (1, 9):
+                return page_not_found(request, template_name='wagtailadmin/404.html')
+            else:
+                return page_not_found(request, '', template_name='wagtailadmin/404.html')
 
     return wrapper
 
