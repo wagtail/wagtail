@@ -55,6 +55,7 @@ def chooser(request):
         collection_id = request.GET.get('collection_id')
         if collection_id:
             documents = documents.filter(collection=collection_id)
+            has_documents = has_documents.filter(collection=collection_id)
 
         searchform = SearchForm(request.GET)
         if searchform.is_valid():
