@@ -447,7 +447,7 @@ class TestExplorablePageVisibility(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
         self.assertInHTML(
-            """<li class="home"><a href="/admin/pages/" class="icon icon-home text-replace">Home</a></li>""",
+            """<li class="home"><a href="/admin/pages/" class="icon icon-site text-replace">Root</a></li>""",
             str(response.content)
         )
         self.assertInHTML("""<li><a href="/admin/pages/4/">Welcome to example.com!</a></li>""", str(response.content))

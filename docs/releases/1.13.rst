@@ -19,7 +19,7 @@ Other features
  * Wagtailforms serve view now passes ``request.FILES``, for use in custom form handlers (LB (Ben Johnston))
  * Documents and images are now given new filenames on re-uploading, to avoid old versions being kept in cache (Bertrand Bordage)
  * Added custom 404 page for admin interface (Jack Paine)
-
+ * Breadcrumb navigation now uses globe icon to indicate tree root, rather than home icon (Matt Westcott)
 
 Bug fixes
 ~~~~~~~~~
