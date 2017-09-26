@@ -50,8 +50,9 @@ There are a few optional packages which are not installed by default but are rec
 
 
 .. toctree::
-    :maxdepth: 2
+    :maxdepth: 1
 
+    the_zen_of_wagtail
     tutorial
     demo_site
     integrating_into_django
