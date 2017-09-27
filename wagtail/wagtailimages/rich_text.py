@@ -27,8 +27,8 @@ class ImageEmbedHandler(object):
     @staticmethod
     def expand_db_attributes(attrs, for_editor):
         """
-        Given a dict of attributes from the <embed> tag, return the real HTML
-        representation.
+        Given a dict of attributes from the <embed> tag (with < > & escaped as &lt; &gt; &amp;),
+        return the real HTML representation.
         """
         Image = get_image_model()
         try:

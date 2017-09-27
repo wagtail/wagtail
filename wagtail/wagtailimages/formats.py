@@ -18,18 +18,35 @@ class Format(object):
     def editor_attributes(self, image, alt_text):
         """
         Return string of additional attributes to go on the HTML element
-        when outputting this image within a rich text editor field
+        when outputting this image within a rich text editor field.
+
+        Assumes that the alt_text passed here is already escaped
+        (i.e. < > & appear as &lt; &gt; &amp;)
         """
         return 'data-embedtype="image" data-id="%d" data-format="%s" data-alt="%s" ' % (
             image.id, self.name, alt_text
         )
 
     def image_to_editor_html(self, image, alt_text):
+        """
+        Return the HTML representation of the given image
+        as it should be rendered within a rich text editor field.
+
+        Assumes that the alt_text passed here is already escaped
+        (i.e. < > & appear as &lt; &gt; &amp;)
+        """
         return self.image_to_html(
             image, alt_text, self.editor_attributes(image, alt_text)
         )
 
     def image_to_html(self, image, alt_text, extra_attributes=''):
+        """
+        Return the HTML representation of the given image
+        as it should be rendered on a site front-end.
+
+        Assumes that the alt_text passed here is already escaped
+        (i.e. < > & appear as &lt; &gt; &amp;)
+        """
         rendition = get_rendition_or_not_found(image, self.filter_spec)
 
         if self.classnames:

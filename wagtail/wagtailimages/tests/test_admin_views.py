@@ -1,6 +1,7 @@
 from __future__ import absolute_import, unicode_literals
 
 import json
+import re
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
@@ -609,6 +610,9 @@ class TestImageChooserSelectFormatView(TestCase, WagtailTestUtils):
     def get(self, params={}):
         return self.client.get(reverse('wagtailimages:chooser_select_format', args=(self.image.id,)), params)
 
+    def post(self, post_data={}):
+        return self.client.post(reverse('wagtailimages:chooser_select_format', args=(self.image.id,)), post_data)
+
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
@@ -619,6 +623,23 @@ class TestImageChooserSelectFormatView(TestCase, WagtailTestUtils):
         response = self.get(params={'alt_text': "some previous alt text"})
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'value=\\"some previous alt text\\"')
+
+    def test_post_response(self):
+        response = self.post({'format': 'left', 'alt_text': 'Arthur "two sheds" Jackson'})
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response['Content-Type'], 'text/javascript')
+
+        # extract data as json from the code line: modal.respond('imageChosen', {json});
+        match = re.search(r'modal.respond\(\'imageChosen\', ([^\)]+)\);', response.content.decode())
+        self.assertTrue(match)
+        response_json = json.loads(match.group(1))
+
+        self.assertEqual(response_json['id'], self.image.id)
+        self.assertEqual(response_json['title'], "Test image")
+        self.assertEqual(response_json['format'], 'left')
+        self.assertEqual(response_json['alt'], 'Arthur "two sheds" Jackson')
+        self.assertIn('alt="Arthur &quot;two sheds&quot; Jackson"', response_json['html'])
 
 
 class TestImageChooserUploadView(TestCase, WagtailTestUtils):

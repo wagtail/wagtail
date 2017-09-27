@@ -4,6 +4,7 @@ import json
 
 from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404, render
+from django.utils.html import escape
 
 from wagtail.utils.pagination import paginate
 from wagtail.wagtailadmin.forms import SearchForm
@@ -180,7 +181,7 @@ def chooser_select_format(request, image_id):
                     'width': preview_image.width,
                     'height': preview_image.height,
                 },
-                'html': format.image_to_editor_html(image, form.cleaned_data['alt_text']),
+                'html': format.image_to_editor_html(image, escape(form.cleaned_data['alt_text'])),
             })
 
             return render_modal_workflow(
