@@ -21,7 +21,7 @@ class Format(object):
         when outputting this image within a rich text editor field
         """
         return 'data-embedtype="image" data-id="%d" data-format="%s" data-alt="%s" ' % (
-            image.id, self.name, alt_text
+            image.id, escape(self.name), escape(alt_text)
         )
 
     def image_to_editor_html(self, image, alt_text):
@@ -39,7 +39,7 @@ class Format(object):
 
         return '<img %s%ssrc="%s" width="%d" height="%d" alt="%s">' % (
             extra_attributes, class_attr,
-            escape(rendition.url), rendition.width, rendition.height, alt_text
+            escape(rendition.url), rendition.width, rendition.height, escape(alt_text)
         )
 
 

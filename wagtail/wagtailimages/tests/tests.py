@@ -156,7 +156,7 @@ class TestFormat(TestCase):
     def setUp(self):
         # test format
         self.format = Format(
-            'test name',
+            'test"name',
             'test label',
             'test classnames',
             'test filter spec'
@@ -168,34 +168,34 @@ class TestFormat(TestCase):
     def test_editor_attributes(self):
         result = self.format.editor_attributes(
             self.image,
-            'test alt text'
+            'test"alt text'
         )
         self.assertEqual(result,
-                         'data-embedtype="image" data-id="0" data-format="test name" data-alt="test alt text" ')
+                         'data-embedtype="image" data-id="0" data-format="test&quot;name" data-alt="test&quot;alt text" ')
 
     def test_image_to_editor_html(self):
         result = self.format.image_to_editor_html(
             self.image,
-            'test alt text'
+            'test"alt text'
         )
         six.assertRegex(
             self, result,
-            '<img data-embedtype="image" data-id="0" data-format="test name" '
-            'data-alt="test alt text" class="test classnames" src="[^"]+" width="1" height="1" alt="test alt text">',
+            '<img data-embedtype="image" data-id="0" data-format="test&quot;name" '
+            'data-alt="test&quot;alt text" class="test classnames" src="[^"]+" width="1" height="1" alt="test&quot;alt text">',
         )
 
     def test_image_to_html_no_classnames(self):
         self.format.classnames = None
-        result = self.format.image_to_html(self.image, 'test alt text')
+        result = self.format.image_to_html(self.image, 'test"alt text')
         six.assertRegex(
             self, result,
-            '<img src="[^"]+" width="1" height="1" alt="test alt text">'
+            '<img src="[^"]+" width="1" height="1" alt="test&quot;alt text">'
         )
         self.format.classnames = 'test classnames'
 
     def test_get_image_format(self):
         register_image_format(self.format)
-        result = get_image_format('test name')
+        result = get_image_format('test"name')
         self.assertEqual(result, self.format)
 
 

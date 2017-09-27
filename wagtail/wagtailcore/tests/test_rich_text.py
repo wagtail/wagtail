@@ -94,6 +94,13 @@ class TestExtractAttrs(TestCase):
         result = extract_attrs(html)
         self.assertEqual(result, {'foo': 'bar', 'baz': 'quux'})
 
+    def test_extract_attr_with_quote(self):
+        # mock output from Whitelister (baz='qu"ux')
+        soup = BeautifulSoup('<a foo="bar" baz="qu&quot;ux">snowman</a>', 'html5lib')
+        html = soup.a.decode()
+        result = extract_attrs(html)
+        self.assertEqual(result, {'foo': 'bar', 'baz': 'qu"ux'})
+
 
 class TestExpandDbHtml(TestCase):
     def test_expand_db_html_with_linktype(self):
