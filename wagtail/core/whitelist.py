@@ -5,6 +5,7 @@ specific rules.
 import re
 
 from bs4 import BeautifulSoup, Comment, NavigableString, Tag
+from django.utils.html import escape
 
 ALLOWED_URL_SCHEMES = ['http', 'https', 'ftp', 'mailto', 'tel']
 
@@ -96,7 +97,13 @@ class Whitelister:
         attributes"""
         doc = BeautifulSoup(html, 'html5lib')
         cls.clean_node(doc, doc)
-        return doc.decode()
+
+        # Pass strings through django.utils.html.escape when generating the final HTML.
+        # This differs from BeautifulSoup's default EntitySubstitution.substitute_html formatter
+        # in that it escapes " to &quot; as well as escaping < > & - if we don't do this, then
+        # BeautifulSoup will try to be clever and use single-quotes to wrap attribute values,
+        # which confuses our regexp-based db-HTML-to-real-HTML conversion.
+        return doc.decode(formatter=escape)
 
     @classmethod
     def clean_node(cls, doc, node):
