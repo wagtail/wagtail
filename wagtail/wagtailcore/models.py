@@ -358,6 +358,7 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
         index.FilterField('locked'),
         index.FilterField('show_in_menus'),
         index.FilterField('first_published_at'),
+        index.FilterField('last_published_at'),
         index.FilterField('latest_revision_created_at'),
     ]
 

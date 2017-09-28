@@ -22,6 +22,7 @@ Other features
  * Breadcrumb navigation now uses globe icon to indicate tree root, rather than home icon (Matt Westcott)
  * Wagtail now uses React 15.6.2 and above, released under the MIT license (Janneke Janssen)
  * User search in the Wagtail admin UI now works across multiple fields (Will Giddens)
+ * ``Page.last_published_at`` is now a filterable field for search (Mikalai Radchuk)
 
 Bug fixes
 ~~~~~~~~~
