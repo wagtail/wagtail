@@ -108,11 +108,31 @@ class DbWhitelister(Whitelister):
 
         return element_rules
 
+    @cached_property
+    def embed_handlers(self):
+        embed_handlers = {}
+        for hook in hooks.get_hooks('register_rich_text_embed_handler'):
+            handler_name, handler = hook()
+            embed_handlers[handler_name] = handler
+
+        return embed_handlers
+
+    @cached_property
+    def link_handlers(self):
+        link_handlers = {
+            'page': PageLinkHandler,
+        }
+        for hook in hooks.get_hooks('register_rich_text_link_handler'):
+            handler_name, handler = hook()
+            link_handlers[handler_name] = handler
+
+        return link_handlers
+
     def clean_tag_node(self, doc, tag):
         if 'data-embedtype' in tag.attrs:
             embed_type = tag['data-embedtype']
             # fetch the appropriate embed handler for this embedtype
-            embed_handler = get_embed_handler(embed_type)
+            embed_handler = self.embed_handlers[embed_type]
             embed_attrs = embed_handler.get_db_attributes(tag)
             embed_attrs['embedtype'] = embed_type
 
@@ -125,7 +145,7 @@ class DbWhitelister(Whitelister):
                 self.clean_node(doc, child)
 
             link_type = tag['data-linktype']
-            link_handler = get_link_handler(link_type)
+            link_handler = self.link_handlers[link_type]
             link_attrs = link_handler.get_db_attributes(tag)
             link_attrs['linktype'] = link_type
             tag.attrs.clear()
