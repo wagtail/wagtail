@@ -692,6 +692,28 @@ class TestMediaEmbedHandler(TestCase):
         )
         self.assertIn('test html', result)
 
+    def test_called_with_unescaped_url(self):
+        with patch('wagtail.wagtailembeds.embeds.get_embed') as get_embed:
+            get_embed.return_value = Embed(
+                url='http://www.youtube.com/watch/',
+                max_width=None,
+                type='video',
+                html='test html',
+                title='test title',
+                author_name='test author name',
+                provider_name='test provider name',
+                thumbnail_url='htto://test/thumbnail.url',
+                width=1000,
+                height=1000,
+            )
+            result = MediaEmbedHandler.expand_db_attributes(
+                {'url': 'https://www.youtube.com/watch?v=O7D-1RG-VRk&amp;t=25'},
+                False
+            )
+            self.assertIn('test html', result)
+            get_embed.assert_called_with('https://www.youtube.com/watch?v=O7D-1RG-VRk&t=25')
+
+
     @patch('wagtail.wagtailembeds.embeds.get_embed')
     def test_expand_db_attributes_catches_embed_not_found(self, get_embed):
         get_embed.side_effect = EmbedNotFoundException

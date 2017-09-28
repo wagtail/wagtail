@@ -25,14 +25,18 @@ class MediaEmbedHandler(object):
     @staticmethod
     def expand_db_attributes(attrs, for_editor):
         """
-        Given a dict of attributes from the <embed> tag, return the real HTML
+        Given a dict of HTML-escaped attributes from the <embed> tag, return the real HTML
         representation.
         """
+        # The URL is received here in HTML-escaped form;
+        # need to unescape it before it's valid as a URL to look up
+        unescaped_url = attrs['url'].replace('&lt;', '<').replace('&gt;', '>').replace('&quot;', '"').replace('&#39;', "'").replace('&amp;', '&')
+
         if for_editor:
             try:
-                return format.embed_to_editor_html(attrs['url'])
+                return format.embed_to_editor_html(unescaped_url)
             except EmbedException:
                 # Could be replaced with a nice error message
                 return ''
         else:
-            return format.embed_to_frontend_html(attrs['url'])
+            return format.embed_to_frontend_html(unescaped_url)
