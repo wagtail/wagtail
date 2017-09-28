@@ -64,39 +64,41 @@ def attribute_rule(allowed_attrs):
 allow_without_attributes = attribute_rule({})
 
 
-class Whitelister:
-    element_rules = {
-        '[document]': allow_without_attributes,
-        'a': attribute_rule({'href': check_url}),
-        'b': allow_without_attributes,
-        'br': allow_without_attributes,
-        'div': allow_without_attributes,
-        'em': allow_without_attributes,
-        'h1': allow_without_attributes,
-        'h2': allow_without_attributes,
-        'h3': allow_without_attributes,
-        'h4': allow_without_attributes,
-        'h5': allow_without_attributes,
-        'h6': allow_without_attributes,
-        'hr': allow_without_attributes,
-        'i': allow_without_attributes,
-        'img': attribute_rule({'src': check_url, 'width': True, 'height': True,
-                               'alt': True}),
-        'li': allow_without_attributes,
-        'ol': allow_without_attributes,
-        'p': allow_without_attributes,
-        'strong': allow_without_attributes,
-        'sub': allow_without_attributes,
-        'sup': allow_without_attributes,
-        'ul': allow_without_attributes,
-    }
+DEFAULT_ELEMENT_RULES = {
+    '[document]': allow_without_attributes,
+    'a': attribute_rule({'href': check_url}),
+    'b': allow_without_attributes,
+    'br': allow_without_attributes,
+    'div': allow_without_attributes,
+    'em': allow_without_attributes,
+    'h1': allow_without_attributes,
+    'h2': allow_without_attributes,
+    'h3': allow_without_attributes,
+    'h4': allow_without_attributes,
+    'h5': allow_without_attributes,
+    'h6': allow_without_attributes,
+    'hr': allow_without_attributes,
+    'i': allow_without_attributes,
+    'img': attribute_rule({'src': check_url, 'width': True, 'height': True,
+                           'alt': True}),
+    'li': allow_without_attributes,
+    'ol': allow_without_attributes,
+    'p': allow_without_attributes,
+    'strong': allow_without_attributes,
+    'sub': allow_without_attributes,
+    'sup': allow_without_attributes,
+    'ul': allow_without_attributes,
+}
 
-    @classmethod
-    def clean(cls, html):
+
+class Whitelister:
+    element_rules = DEFAULT_ELEMENT_RULES
+
+    def clean(self, html):
         """Clean up an HTML string to contain just the allowed elements /
         attributes"""
         doc = BeautifulSoup(html, 'html5lib')
-        cls.clean_node(doc, doc)
+        self.clean_node(doc, doc)
 
         # Pass strings through django.utils.html.escape when generating the final HTML.
         # This differs from BeautifulSoup's default EntitySubstitution.substitute_html formatter
@@ -105,21 +107,19 @@ class Whitelister:
         # which confuses our regexp-based db-HTML-to-real-HTML conversion.
         return doc.decode(formatter=escape)
 
-    @classmethod
-    def clean_node(cls, doc, node):
+    def clean_node(self, doc, node):
         """Clean a BeautifulSoup document in-place"""
         if isinstance(node, NavigableString):
-            cls.clean_string_node(doc, node)
+            self.clean_string_node(doc, node)
         elif isinstance(node, Tag):
-            cls.clean_tag_node(doc, node)
+            self.clean_tag_node(doc, node)
         # This branch is here in case node is a BeautifulSoup object that does
         # not inherit from NavigableString or Tag. I can't find any examples
         # of such a thing at the moment, so this branch is untested.
         else:  # pragma: no cover
-            cls.clean_unknown_node(doc, node)
+            self.clean_unknown_node(doc, node)
 
-    @classmethod
-    def clean_string_node(cls, doc, node):
+    def clean_string_node(self, doc, node):
         # Remove comments
         if isinstance(node, Comment):
             node.extract()
@@ -128,19 +128,18 @@ class Whitelister:
         # by default, nothing needs to be done to whitelist string nodes
         pass
 
-    @classmethod
-    def clean_tag_node(cls, doc, tag):
+    def clean_tag_node(self, doc, tag):
         # first, whitelist the contents of this tag
 
         # NB tag.contents will change while this iteration is running, so we need
         # to capture the initial state into a static list() and iterate over that
         # to avoid losing our place in the sequence.
         for child in list(tag.contents):
-            cls.clean_node(doc, child)
+            self.clean_node(doc, child)
 
         # see if there is a rule in element_rules for this tag type
         try:
-            rule = cls.element_rules[tag.name]
+            rule = self.element_rules[tag.name]
         except KeyError:
             # don't recognise this tag name, so KILL IT WITH FIRE
             tag.unwrap()
@@ -149,7 +148,6 @@ class Whitelister:
         # apply the rule
         rule(tag)
 
-    @classmethod
-    def clean_unknown_node(cls, doc, node):
+    def clean_unknown_node(self, doc, node):
         # don't know what type of object this is, so KILL IT WITH FIRE
         node.decompose()

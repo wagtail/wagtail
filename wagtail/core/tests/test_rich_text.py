@@ -53,11 +53,14 @@ class TestPageLinkHandler(TestCase):
 
 
 class TestDbWhiteLister(TestCase):
+    def setUp(self):
+        self.whitelister = DbWhitelister()
+
     def test_clean_tag_node_div(self):
         soup = BeautifulSoup('<div>foo</div>', 'html5lib')
         tag = soup.div
         self.assertEqual(tag.name, 'div')
-        DbWhitelister.clean_tag_node(soup, tag)
+        self.whitelister.clean_tag_node(soup, tag)
         self.assertEqual(tag.name, 'p')
 
     def test_clean_tag_node_with_data_embedtype(self):
@@ -66,7 +69,7 @@ class TestDbWhiteLister(TestCase):
             'html5lib'
         )
         tag = soup.p
-        DbWhitelister.clean_tag_node(soup, tag)
+        self.whitelister.clean_tag_node(soup, tag)
         self.assertEqual(str(tag),
                          '<p><embed alt="bar" embedtype="image" format="left" id="1"/></p>')
 
@@ -76,13 +79,13 @@ class TestDbWhiteLister(TestCase):
             'html5lib'
         )
         tag = soup.a
-        DbWhitelister.clean_tag_node(soup, tag)
+        self.whitelister.clean_tag_node(soup, tag)
         self.assertEqual(str(tag), '<a id="1" linktype="document">foo</a>')
 
     def test_clean_tag_node(self):
         soup = BeautifulSoup('<a irrelevant="baz">foo</a>', 'html5lib')
         tag = soup.a
-        DbWhitelister.clean_tag_node(soup, tag)
+        self.whitelister.clean_tag_node(soup, tag)
         self.assertEqual(str(tag), '<a>foo</a>')
 
 

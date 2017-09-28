@@ -6,6 +6,9 @@ from wagtail.core.whitelist import Whitelister
 
 
 class TestDbWhitelister(TestCase):
+    def setUp(self):
+        self.whitelister = DbWhitelister()
+
     def assertHtmlEqual(self, str1, str2):
         """
         Assert that two HTML strings are equal at the DOM level
@@ -18,7 +21,7 @@ class TestDbWhitelister(TestCase):
             '<p>Look at the <a data-linktype="page" data-id="2" href="/">lovely homepage</a>'
             ' of my <a href="http://wagtail.io/">Wagtail</a> site</p>'
         )
-        output_html = DbWhitelister.clean(input_html)
+        output_html = self.whitelister.clean(input_html)
         expected = (
             '<p>Look at the <a linktype="page" id="2">lovely homepage</a>'
             ' of my <a href="http://wagtail.io/">Wagtail</a> site</p>'
@@ -30,7 +33,7 @@ class TestDbWhitelister(TestCase):
             '<p>Look at our <a data-linktype="document" data-id="1" href="/documents/1/brochure.pdf">'
             'horribly oversized brochure</a></p>'
         )
-        output_html = DbWhitelister.clean(input_html)
+        output_html = self.whitelister.clean(input_html)
         expected = '<p>Look at our <a linktype="document" id="1">horribly oversized brochure</a></p>'
         self.assertHtmlEqual(expected, output_html)
 
@@ -41,7 +44,7 @@ class TestDbWhitelister(TestCase):
             '<img src="/media/images/kitten.jpg" width="320" height="200" alt="A cute kitten" />'
             '<figcaption>A kitten, yesterday.</figcaption></figure>'
         )
-        output_html = DbWhitelister.clean(input_html)
+        output_html = self.whitelister.clean(input_html)
         expected = (
             '<p>OMG look at this picture of a kitten:</p><embed embedtype="image" id="5"'
             ' format="image-with-caption" alt="A cute kitten" />'
@@ -54,7 +57,7 @@ class TestDbWhitelister(TestCase):
             '<iframe data-embedtype="media" data-url="https://www.youtube.com/watch?v=dQw4w9WgXcQ" width="640"'
             ' height="480" src="//www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe></p>'
         )
-        output_html = DbWhitelister.clean(input_html)
+        output_html = self.whitelister.clean(input_html)
         expected = (
             '<p>OMG look at this video of a kitten:'
             ' <embed embedtype="media" url="https://www.youtube.com/watch?v=dQw4w9WgXcQ" /></p>'
@@ -69,7 +72,7 @@ class TestDbWhitelister(TestCase):
             ' width="640" height="480"'
             ' src="//www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe></div><p>after</p>'
         )
-        output_html = DbWhitelister.clean(input_html)
+        output_html = self.whitelister.clean(input_html)
         expected = (
             '<p>before</p><p>OMG <b>look</b> at this video of a kitten:'
             ' <embed embedtype="media" url="https://www.youtube.com/watch?v=dQw4w9WgXcQ" /></p><p>after</p>'
@@ -84,7 +87,7 @@ class TestDbWhitelister(TestCase):
             ' target="_blank" tea="darjeeling">'
             'stand in water</a>.</blockquote><p>- <character>Gumby</character></p>'
         )
-        output_html = DbWhitelister.clean(input_html)
+        output_html = self.whitelister.clean(input_html)
         expected = (
             '<blockquote>I would put a tax on all people who'
             ' <a href="https://twitter.com/DMReporter/status/432914941201223680/photo/1"'
@@ -98,7 +101,7 @@ class TestDbWhitelister(TestCase):
             ' <a href="https://twitter.com/DMReporter/status/432914941201223680/photo/1" target="_blank"'
             ' tea="darjeeling">stand in water</a>.</blockquote><p>- <character>Gumby</character></p>'
         )
-        output_html = Whitelister.clean(input_html)
+        output_html = Whitelister().clean(input_html)
         expected = (
             'I would put a tax on all people who'
             ' <a href="https://twitter.com/DMReporter/status/432914941201223680/photo/1">'

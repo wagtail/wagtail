@@ -99,6 +99,8 @@ class HalloRichTextArea(WidgetWithScript, widgets.Textarea):
         ]))
         self.plugins.sort(key=lambda plugin: plugin.order)
 
+        self.whitelister = DbWhitelister()
+
         super().__init__(*args, **kwargs)
 
     def render(self, name, value, attrs=None):
@@ -125,7 +127,7 @@ class HalloRichTextArea(WidgetWithScript, widgets.Textarea):
         original_value = super().value_from_datadict(data, files, name)
         if original_value is None:
             return None
-        return DbWhitelister.clean(original_value)
+        return self.whitelister.clean(original_value)
 
     @property
     def media(self):

@@ -1,11 +1,12 @@
 import re  # parsing HTML with regexes LIKE A BOSS.
 
+from django.utils.functional import cached_property
 from django.utils.html import escape
 from django.utils.safestring import mark_safe
 
 from wagtail.core import hooks
 from wagtail.core.models import Page
-from wagtail.core.whitelist import Whitelister
+from wagtail.core.whitelist import Whitelister, DEFAULT_ELEMENT_RULES
 
 
 # Define a set of 'embed handlers' and 'link handlers'. These handle the translation
@@ -99,20 +100,15 @@ class DbWhitelister(Whitelister):
       determined by the handler for that type defined in LINK_HANDLERS, while keeping the
       element content intact.
     """
-    has_loaded_custom_whitelist_rules = False
+    @cached_property
+    def element_rules(self):
+        element_rules = DEFAULT_ELEMENT_RULES.copy()
+        for fn in hooks.get_hooks('construct_whitelister_element_rules'):
+            element_rules.update(fn())
 
-    @classmethod
-    def clean(cls, html):
-        if not cls.has_loaded_custom_whitelist_rules:
-            for fn in hooks.get_hooks('construct_whitelister_element_rules'):
-                cls.element_rules = cls.element_rules.copy()
-                cls.element_rules.update(fn())
-            cls.has_loaded_custom_whitelist_rules = True
+        return element_rules
 
-        return super(DbWhitelister, cls).clean(html)
-
-    @classmethod
-    def clean_tag_node(cls, doc, tag):
+    def clean_tag_node(self, doc, tag):
         if 'data-embedtype' in tag.attrs:
             embed_type = tag['data-embedtype']
             # fetch the appropriate embed handler for this embedtype
@@ -126,7 +122,7 @@ class DbWhitelister(Whitelister):
         elif tag.name == 'a' and 'data-linktype' in tag.attrs:
             # first, whitelist the contents of this tag
             for child in tag.contents:
-                cls.clean_node(doc, child)
+                self.clean_node(doc, child)
 
             link_type = tag['data-linktype']
             link_handler = get_link_handler(link_type)
@@ -138,7 +134,7 @@ class DbWhitelister(Whitelister):
             if tag.name == 'div':
                 tag.name = 'p'
 
-            super(DbWhitelister, cls).clean_tag_node(doc, tag)
+            super(DbWhitelister, self).clean_tag_node(doc, tag)
 
 
 FIND_A_TAG = re.compile(r'<a(\b[^>]*)>')
