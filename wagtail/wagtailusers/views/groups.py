@@ -55,7 +55,7 @@ class SearchableListMixin(object):
     search_fields = []
 
     def get_search_form(self):
-        if 'q' in self.request.GET:
+        if self.request.GET.get('q'):
             return SearchForm(self.request.GET, placeholder=self.search_box_placeholder)
         else:
             return SearchForm(placeholder=self.search_box_placeholder)
@@ -79,7 +79,7 @@ class SearchableListMixin(object):
     def get_context_data(self, **kwargs):
         if 'search_form' not in kwargs:
             kwargs['search_form'] = self.get_search_form()
-            kwargs['is_searching'] = 'q' in self.request.GET
+            kwargs['is_searching'] = bool(self.request.GET.get('q'))
 
         return super(SearchableListMixin, self).get_context_data(**kwargs)
 
