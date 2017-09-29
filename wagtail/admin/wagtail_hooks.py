@@ -189,7 +189,6 @@ def register_core_features(features):
             order=45,
         )
     )
-    features.default_features.append('hr')
 
     features.register_editor_plugin(
         'hallo', 'link',
@@ -198,30 +197,24 @@ def register_core_features(features):
             js=['wagtailadmin/js/hallo-plugins/hallo-wagtaillink.js'],
         )
     )
-    features.default_features.append('link')
 
     features.register_editor_plugin(
         'hallo', 'bold', HalloFormatPlugin(format_name='bold')
     )
-    features.default_features.append('bold')
 
     features.register_editor_plugin(
         'hallo', 'italic', HalloFormatPlugin(format_name='italic')
     )
-    features.default_features.append('italic')
 
     for element in ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']:
         features.register_editor_plugin(
             'hallo', element, HalloHeadingPlugin(element=element)
         )
-    features.default_features.extend(['h2', 'h3', 'h4'])
 
     features.register_editor_plugin(
         'hallo', 'ol', HalloListPlugin(list_type='ordered')
     )
-    features.default_features.append('ol')
 
     features.register_editor_plugin(
         'hallo', 'ul', HalloListPlugin(list_type='unordered')
     )
-    features.default_features.append('ul')
