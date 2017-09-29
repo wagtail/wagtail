@@ -90,6 +90,9 @@ class HalloRichTextArea(WidgetWithScript, widgets.Textarea):
         self.features = kwargs.pop('features', None)
         if self.features is None:
             self.features = features.get_default_features()
+            self.whitelister = DbWhitelister()
+        else:
+            self.whitelister = DbWhitelister(self.features)
 
         # construct a list of plugin objects, by querying the feature registry
         # and keeping the non-null responses from get_editor_plugin
@@ -98,8 +101,6 @@ class HalloRichTextArea(WidgetWithScript, widgets.Textarea):
             for feature_name in self.features
         ]))
         self.plugins.sort(key=lambda plugin: plugin.order)
-
-        self.whitelister = DbWhitelister()
 
         super().__init__(*args, **kwargs)
 

@@ -407,3 +407,23 @@ class TestHalloJsWithCustomFeatureOptions(BaseRichTextEditHandlerTestCase, Wagta
         self.assertIn('testapp/css/hallo-blockquote.css', media_html)
         # check that we're NOT importing media for the default features we're not using
         self.assertNotIn('wagtaildocs/js/hallo-plugins/hallo-wagtaildoclink.js', media_html)
+
+
+class TestWidgetWhitelisting(TestCase, WagtailTestUtils):
+    def test_default_whitelist(self):
+        widget = HalloRichTextArea()
+
+        # when no feature list is specified, accept elements that are part of the default set
+        # (which includes h2) or registered through the construct_whitelister_element_rules hook
+        # (which includes blockquote in the test environment)
+        result = widget.value_from_datadict({
+            'body': '<h2>heading</h2><script>script</script><blockquote>blockquote</blockquote>'
+        }, {}, 'body')
+        self.assertEqual(result, '<h2>heading</h2>script<blockquote>blockquote</blockquote>')
+
+    def test_custom_whitelist(self):
+        widget = HalloRichTextArea(features=['h1', 'bold', 'somethingijustmadeup'])
+        result = widget.value_from_datadict({
+            'body': '<h1>h1</h1> <h2>h2</h2> <script>script</script> <p><b>bold</b> <i>italic</i></p> <blockquote>blockquote</blockquote>'
+        }, {}, 'body')
+        self.assertEqual(result, '<h1>h1</h1> h2 script <p><b>bold</b> italic</p> blockquote')

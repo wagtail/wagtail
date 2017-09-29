@@ -6,7 +6,7 @@ from django.utils.safestring import mark_safe
 
 from wagtail.core import hooks
 from wagtail.core.models import Page
-from wagtail.core.whitelist import Whitelister, DEFAULT_ELEMENT_RULES
+from wagtail.core.whitelist import allow_without_attributes, Whitelister, DEFAULT_ELEMENT_RULES
 
 
 # Define a set of 'embed handlers' and 'link handlers'. These handle the translation
@@ -100,11 +100,26 @@ class DbWhitelister(Whitelister):
       determined by the handler for that type defined in LINK_HANDLERS, while keeping the
       element content intact.
     """
+    def __init__(self, features=None):
+        self.features = features
+
     @cached_property
     def element_rules(self):
-        element_rules = DEFAULT_ELEMENT_RULES.copy()
-        for fn in hooks.get_hooks('construct_whitelister_element_rules'):
-            element_rules.update(fn())
+        if self.features is None:
+            # use the legacy construct_whitelister_element_rules hook to build up whitelist rules
+            element_rules = DEFAULT_ELEMENT_RULES.copy()
+            for fn in hooks.get_hooks('construct_whitelister_element_rules'):
+                element_rules.update(fn())
+        else:
+            # use the feature registry to build up whitelist rules
+            element_rules = {
+                '[document]': allow_without_attributes,
+                'p': allow_without_attributes,
+                'div': allow_without_attributes,
+                'br': allow_without_attributes,
+            }
+            for feature_name in self.features:
+                element_rules.update(features.get_whitelister_element_rules(feature_name))
 
         return element_rules
 
@@ -242,6 +257,10 @@ class FeatureRegistry:
         # an explicit `feature` list.
         self.default_features = []
 
+        # a mapping of feature names to whitelister element rules that should be merged into
+        # the whitelister element_rules config when the feature is active
+        self.whitelister_element_rules = {}
+
     def get_default_features(self):
         if not self.has_scanned_for_features:
             self._scan_for_features()
@@ -265,6 +284,15 @@ class FeatureRegistry:
             return self.plugins_by_editor[editor_name][feature_name]
         except KeyError:
             return None
+
+    def register_whitelister_element_rules(self, feature_name, ruleset):
+        self.whitelister_element_rules[feature_name] = ruleset
+
+    def get_whitelister_element_rules(self, feature_name):
+        if not self.has_scanned_for_features:
+            self._scan_for_features()
+
+        return self.whitelister_element_rules.get(feature_name, {})
 
 
 features = FeatureRegistry()
