@@ -21,6 +21,7 @@ Changelog
  * Fix: Deletion of image / document files now only happens when database transaction has completed (Gordon Pendleton)
  * Fix: Fixed Node build scripts to work on Windows (Mikalai Radchuk)
  * Fix: Stop breadcrumb home icon from showing as ellipsis in Chrome 60 (Matt Westcott)
+ * Updated React to 15.6.2 due to relicensing (Janneke Janssen)
 
 
 1.12.2 (18.09.2017)
