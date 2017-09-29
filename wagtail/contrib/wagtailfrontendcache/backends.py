@@ -97,15 +97,18 @@ class CloudflareBackend(BaseBackend):
                 if response.status_code != 200:
                     response.raise_for_status()
                 else:
-                    logger.error("Couldn't purge from Cloudflare. Unexpected JSON parse error.")
+                    for url in urls:
+                        logger.error("Couldn't purge '%s' from Cloudflare. Unexpected JSON parse error.", url)
 
         except requests.exceptions.HTTPError as e:
-            logger.error("Couldn't purge from Cloudflare. HTTPError: %d %s", e.response.status_code, e.message)
+            for url in urls:
+                logger.error("Couldn't purge '%s' from Cloudflare. HTTPError: %d %s", url, e.response.status_code, e.message)
             return
 
         if response_json['success'] is False:
             error_messages = ', '.join([str(err['message']) for err in response_json['errors']])
-            logger.error("Couldn't purge from Cloudflare. Cloudflare errors '%s'", error_messages)
+            for url in urls:
+                logger.error("Couldn't purge '%s' from Cloudflare. Cloudflare errors '%s'", url, error_messages)
             return
 
     def purge(self, url):
@@ -166,6 +169,11 @@ class CloudfrontBackend(BaseBackend):
                 }
             )
         except botocore.exceptions.ClientError as e:
-            logger.error(
-                "Couldn't purge from CloudFront. ClientError: %s %s", e.response['Error']['Code'],
-                e.response['Error']['Message'])
+            for path in paths:
+                logger.error(
+                    "Couldn't purge path '%s' from CloudFront (DistributionId=%s). ClientError: %s %s",
+                    path,
+                    distribution_id,
+                    e.response['Error']['Code'],
+                    e.response['Error']['Message']
+                )

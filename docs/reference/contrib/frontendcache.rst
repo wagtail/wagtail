@@ -145,75 +145,18 @@ By default, Wagtail will only purge one URL per page. If your page has more than
             for page_number in range(1, self.get_blog_items().num_pages + 1):
                 yield '/?page=' + str(page_number)
 
-
 Invalidating index pages
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-Another problem is pages that list other pages (such as a blog index) will not
-be purged when a blog entry gets added, changed or deleted. You may want to
-purge the blog index page so the updates are added into the listing quickly.
+Pages that list other pages (such as a blog index) may need to be purged as
+well so any changes to a blog page is also reflected on the index (for example,
+a blog post was added, deleted or its title/thumbnail was changed).
 
-This can be solved by using the ``purge_page_from_cache`` utility function
-which can be found in the ``wagtail.contrib.wagtailfrontendcache.utils`` module.
-
-Let's take the the above BlogIndexPage as an example. We need to register a
-signal handler to run when one of the BlogPages get updated/deleted. This
-signal handler should call the ``purge_page_from_cache`` function on all
-BlogIndexPages that contain the BlogPage being updated/deleted.
-
-
-.. code-block:: python
-
-    # models.py
-    from django.dispatch import receiver
-    from django.db.models.signals import pre_delete
-
-    from wagtail.wagtailcore.signals import page_published
-    from wagtail.contrib.wagtailfrontendcache.utils import purge_page_from_cache
-
-
-    ...
-
-
-    def blog_page_changed(blog_page):
-        # Find the blog index and purge it. Assuming there is just one on the site.
-        blog_index = BlogIndexPage.objects.first()
-        purge_page_from_cache(blog_index)
-
-
-    @receiver(page_published, sender=BlogPage):
-    def blog_published_handler(instance):
-        blog_page_changed(instance)
-
-
-    @receiver(pre_delete, sender=BlogPage)
-    def blog_deleted_handler(instance):
-        blog_page_changed(instance)
-
-
-Invalidating individual URLs
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-``wagtail.contrib.wagtailfrontendcache.utils`` provides a function called ``purge_url_from_cache``. As the name suggests, this purges an individual URL from the cache.
-
-For example, this could be useful for purging a single page of blogs:
-
-.. code-block:: python
-
-    from wagtail.contrib.wagtailfrontendcache.utils import purge_url_from_cache
-
-    # Purge the first page of the blog index
-    purge_url_from_cache(blog_index.url + '?page=1')
-
-
-Invaliding many URLs in batches
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-.. versionadded:: 1.13
-
-If you have many pages/URLs that need to be purged at the same time, it's more
-perfomant to use Wagtail's ``PurgeBatch`` class to build up a list of pages/URLs
-to purge, and purge them all in a single request.
+To purge these pages, we need to write a signal handler that listens for
+Wagtail's ``page_published`` and ``page_unpublished`` signals for blog pages
+(note, ``page_published`` is called both when a page is created and updated).
+This signal handler would trigger the invalidation of the index page using the
+``PurgeBatch`` class which is used to construct and dispatch invalidation requests.
 
 .. code-block:: python
 
@@ -224,9 +167,7 @@ to purge, and purge them all in a single request.
     from wagtail.wagtailcore.signals import page_published
     from wagtail.contrib.wagtailfrontendcache.utils import PurgeBatch
 
-
     ...
-
 
     def blog_page_changed(blog_page):
         # Find all the live BlogIndexPages that contain this blog_page
@@ -249,7 +190,30 @@ to purge, and purge them all in a single request.
         blog_page_changed(instance)
 
 
-All of the methods available on ``PurgeBatch`` are listed bellow:
+Invalidating URLs
+^^^^^^^^^^^^^^^^^
+
+The ``PurgeBatch`` class provides a ``.add_url(url)`` and a ``.add_urls(urls)``
+for adding individual URLs to the purge batch.
+
+For example, this could be useful for purging a single page on a blog index:
+
+.. code-block:: python
+
+    from wagtail.contrib.wagtailfrontendcache.utils import PurgeBatch
+
+    # Purge the first page of the blog index
+    batch = PurgeBatch()
+    batch.add_url(blog_index.url + '?page=1')
+    batch.purge()
+
+
+The ``PurgeBatch`` class
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. versionadded:: 1.13
+
+All of the methods available on ``PurgeBatch`` are listed below:
 
 .. automodule:: wagtail.contrib.wagtailfrontendcache.utils
 .. autoclass:: PurgeBatch

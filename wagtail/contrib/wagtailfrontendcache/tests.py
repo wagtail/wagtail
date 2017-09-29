@@ -150,30 +150,28 @@ class TestCachePurgingFunctions(TestCase):
 
     fixtures = ['test.json']
 
+    def setUp(self):
+        # Reset PURGED_URLS to an empty list
+        PURGED_URLS[:] = []
+
     def test_purge_url_from_cache(self):
-        PURGED_URLS[:] = []  # reset PURGED_URLS to the empty list
         purge_url_from_cache('http://localhost/foo')
         self.assertEqual(PURGED_URLS, ['http://localhost/foo'])
 
     def test_purge_urls_from_cache(self):
-        PURGED_URLS[:] = []  # reset PURGED_URLS to the empty list
         purge_urls_from_cache(['http://localhost/foo', 'http://localhost/bar'])
         self.assertEqual(PURGED_URLS, ['http://localhost/foo', 'http://localhost/bar'])
 
     def test_purge_page_from_cache(self):
-        PURGED_URLS[:] = []  # reset PURGED_URLS to the empty list
         page = EventIndex.objects.get(url_path='/home/events/')
         purge_page_from_cache(page)
         self.assertEqual(PURGED_URLS, ['http://localhost/events/', 'http://localhost/events/past/'])
 
     def test_purge_pages_from_cache(self):
-        PURGED_URLS[:] = []  # reset PURGED_URLS to the empty list
         purge_pages_from_cache(EventIndex.objects.all())
         self.assertEqual(PURGED_URLS, ['http://localhost/events/', 'http://localhost/events/past/'])
 
     def test_purge_batch(self):
-        PURGED_URLS[:] = []  # reset PURGED_URLS to the empty list
-
         batch = PurgeBatch()
         page = EventIndex.objects.get(url_path='/home/events/')
         batch.add_page(page)
@@ -192,22 +190,66 @@ class TestCachePurgingSignals(TestCase):
 
     fixtures = ['test.json']
 
+    def setUp(self):
+        # Reset PURGED_URLS to an empty list
+        PURGED_URLS[:] = []
+
     def test_purge_on_publish(self):
-        PURGED_URLS[:] = []  # reset PURGED_URLS to the empty list
         page = EventIndex.objects.get(url_path='/home/events/')
         page.save_revision().publish()
         self.assertEqual(PURGED_URLS, ['http://localhost/events/', 'http://localhost/events/past/'])
 
     def test_purge_on_unpublish(self):
-        PURGED_URLS[:] = []  # reset PURGED_URLS to the empty list
         page = EventIndex.objects.get(url_path='/home/events/')
         page.unpublish()
         self.assertEqual(PURGED_URLS, ['http://localhost/events/', 'http://localhost/events/past/'])
 
     def test_purge_with_unroutable_page(self):
-        PURGED_URLS[:] = []  # reset PURGED_URLS to the empty list
         root = Page.objects.get(url_path='/')
         page = EventIndex(title='new top-level page')
         root.add_child(instance=page)
         page.save_revision().publish()
         self.assertEqual(PURGED_URLS, [])
+
+
+class TestPurgeBatchClass(TestCase):
+    # Tests the .add_*() methods on PurgeBatch. The .purge() method is tested
+    # by TestCachePurgingFunctions.test_purge_batch above
+
+    fixtures = ['test.json']
+
+    def test_add_url(self):
+        batch = PurgeBatch()
+        batch.add_url('http://localhost/foo')
+
+        self.assertEqual(batch.urls, ['http://localhost/foo'])
+
+    def test_add_urls(self):
+        batch = PurgeBatch()
+        batch.add_urls(['http://localhost/foo', 'http://localhost/bar'])
+
+        self.assertEqual(batch.urls, ['http://localhost/foo', 'http://localhost/bar'])
+
+    def test_add_page(self):
+        page = EventIndex.objects.get(url_path='/home/events/')
+
+        batch = PurgeBatch()
+        batch.add_page(page)
+
+        self.assertEqual(batch.urls, ['http://localhost/events/', 'http://localhost/events/past/'])
+
+    def test_add_pages(self):
+        batch = PurgeBatch()
+        batch.add_pages(EventIndex.objects.all())
+
+        self.assertEqual(batch.urls, ['http://localhost/events/', 'http://localhost/events/past/'])
+
+    def test_multiple_calls(self):
+        page = EventIndex.objects.get(url_path='/home/events/')
+
+        batch = PurgeBatch()
+        batch.add_page(page)
+        batch.add_url('http://localhost/foo')
+        batch.purge()
+
+        self.assertEqual(batch.urls, ['http://localhost/events/', 'http://localhost/events/past/', 'http://localhost/foo'])
