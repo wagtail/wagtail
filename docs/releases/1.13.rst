@@ -20,6 +20,7 @@ Other features
  * Documents and images are now given new filenames on re-uploading, to avoid old versions being kept in cache (Bertrand Bordage)
  * Added custom 404 page for admin interface (Jack Paine)
  * Breadcrumb navigation now uses globe icon to indicate tree root, rather than home icon (Matt Westcott)
+ * Wagtail now uses React 15.6.2 and above, released under the MIT license (Janneke Janssen)
 
 Bug fixes
 ~~~~~~~~~
