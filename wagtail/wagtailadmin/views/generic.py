@@ -56,9 +56,6 @@ class IndexView(PermissionCheckedMixin, TemplateResponseMixin, BaseListView):
     any_permission_required = ['add', 'change', 'delete']
     template_name = None
 
-    def get_queryset(self):
-        return self.model.objects.all()
-
     def get_context_data(self, **kwargs):
         context = super(IndexView, self).get_context_data(**kwargs)
         context['can_add'] = (
@@ -140,9 +137,6 @@ class EditView(PermissionCheckedMixin, TemplateResponseMixin, BaseUpdateView):
             self.kwargs['pk'] = self.args[0]
         return super(EditView, self).get_object(queryset)
 
-    def get_queryset(self):
-        return self.model.objects.all()
-
     def get_page_subtitle(self):
         return str(self.object)
 
@@ -214,9 +208,6 @@ class DeleteView(PermissionCheckedMixin, TemplateResponseMixin, BaseDeleteView):
 
     def get_success_url(self):
         return reverse(self.index_url_name)
-
-    def get_queryset(self):
-        return self.model.objects.all()
 
     def get_page_subtitle(self):
         return str(self.object)
