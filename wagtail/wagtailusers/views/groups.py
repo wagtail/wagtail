@@ -111,6 +111,7 @@ class CreateView(PermissionPanelFormsMixin, generic.CreateView):
         Handle POST requests: instantiate a form instance with the passed
         POST variables and then check if it's valid.
         """
+        # Create an object now so that the permission panel forms have something to link them against
         self.object = Group()
 
         form = self.get_form()
