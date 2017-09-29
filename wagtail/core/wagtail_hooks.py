@@ -31,3 +31,14 @@ def check_view_restrictions(page, request, serve_args, serve_kwargs):
 
             elif restriction.restriction_type in [PageViewRestriction.LOGIN, PageViewRestriction.GROUPS]:
                 return require_wagtail_login(next=request.get_full_path())
+
+
+@hooks.register('register_rich_text_features')
+def register_core_features(features):
+    features.default_features.append('hr')
+    features.default_features.append('link')
+    features.default_features.append('bold')
+    features.default_features.append('italic')
+    features.default_features.extend(['h2', 'h3', 'h4'])
+    features.default_features.append('ol')
+    features.default_features.append('ul')
