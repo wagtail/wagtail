@@ -88,7 +88,7 @@ class CreateView(PermissionCheckedMixin, TemplateResponseMixin, BaseCreateView):
             return None
         return self.success_message.format(instance)
 
-    def get_error_message(self, instance):
+    def get_error_message(self):
         if self.error_message is None:
             return None
         return self.error_message
@@ -111,7 +111,8 @@ class CreateView(PermissionCheckedMixin, TemplateResponseMixin, BaseCreateView):
         return redirect(self.get_success_url())
 
     def form_invalid(self, form):
-        error_message = self.get_error_message(self.object)
+        self.form = form
+        error_message = self.get_error_message()
         if error_message is not None:
             messages.error(self.request, error_message)
         return super(CreateView, self).form_invalid(form)
@@ -156,12 +157,12 @@ class EditView(PermissionCheckedMixin, TemplateResponseMixin, BaseUpdateView):
         """
         return self.form.save()
 
-    def get_success_message(self, instance):
+    def get_success_message(self):
         if self.success_message is None:
             return None
-        return self.success_message.format(instance)
+        return self.success_message.format(self.object)
 
-    def get_error_message(self, instance):
+    def get_error_message(self):
         if self.error_message is None:
             return None
         return self.error_message
@@ -169,7 +170,7 @@ class EditView(PermissionCheckedMixin, TemplateResponseMixin, BaseUpdateView):
     def form_valid(self, form):
         self.form = form
         self.object = self.save_instance()
-        success_message = self.get_success_message(self.object)
+        success_message = self.get_success_message()
         if success_message is not None:
             messages.success(self.request, success_message, buttons=[
                 messages.button(reverse(self.edit_url_name, args=(self.object.id,)), _('Edit'))
@@ -177,7 +178,8 @@ class EditView(PermissionCheckedMixin, TemplateResponseMixin, BaseUpdateView):
         return redirect(self.get_success_url())
 
     def form_invalid(self, form):
-        error_message = self.get_error_message(self.object)
+        self.form = form
+        error_message = self.get_error_message()
         if error_message is not None:
             messages.error(self.request, error_message)
         return super(EditView, self).form_invalid(form)
@@ -215,12 +217,12 @@ class DeleteView(PermissionCheckedMixin, TemplateResponseMixin, BaseDeleteView):
     def get_delete_url(self):
         return reverse(self.delete_url_name, args=(self.object.id,))
 
-    def get_success_message(self, instance):
+    def get_success_message(self):
         if self.success_message is None:
             return None
-        return self.success_message.format(instance)
+        return self.success_message.format(self.object)
 
     def delete(self, request, *args, **kwargs):
         response = super(DeleteView, self).delete(request, *args, **kwargs)
-        messages.success(request, self.success_message.format(self.object))
+        messages.success(request, self.get_success_message())
         return response
