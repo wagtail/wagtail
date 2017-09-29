@@ -75,15 +75,13 @@ def _get_page_cached_urls(page):
         return []
 
     return [
-        page_url + path[1:]
+        page_url + path.lstrip('/')
         for path in page.specific.get_cached_paths()
     ]
 
 
 def purge_page_from_cache(page, backend_settings=None, backends=None):
-    urls = _get_page_cached_urls(page)
-
-    purge_urls_from_cache(urls, backend_settings, backends)
+    purge_pages_from_cache([page], backend_settings=backend_settings, backends=backends)
 
 
 def purge_pages_from_cache(pages, backend_settings=None, backends=None):
@@ -91,7 +89,8 @@ def purge_pages_from_cache(pages, backend_settings=None, backends=None):
     for page in pages:
         urls.extend(_get_page_cached_urls(page))
 
-    purge_urls_from_cache(urls, backend_settings, backends)
+    if urls:
+        purge_urls_from_cache(urls, backend_settings, backends)
 
 
 class PurgeBatch(object):
@@ -135,5 +134,15 @@ class PurgeBatch(object):
             self.add_page(page)
 
     def purge(self, backend_settings=None, backends=None):
-        """Performs the purge of all the URLs in this batch"""
+        """
+        Performs the purge of all the URLs in this batch
+
+        This method takes two optional keyword arguments: backend_settings and backends
+
+        - backend_settings can be used to override the WAGTAILFRONTENDCACHE setting for
+          just this call
+
+        - backends can be set to a list of backend names. When set, the invalidation request
+          will only be sent to these backends
+        """
         purge_urls_from_cache(self.urls, backend_settings, backends)
