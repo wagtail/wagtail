@@ -4,6 +4,7 @@ from django.urls import reverse
 
 from wagtail.core import hooks
 from wagtail.core.models import PageViewRestriction
+from wagtail.core.whitelist import allow_without_attributes, attribute_rule, check_url
 
 
 def require_wagtail_login(next):
@@ -36,9 +37,33 @@ def check_view_restrictions(page, request, serve_args, serve_kwargs):
 @hooks.register('register_rich_text_features')
 def register_core_features(features):
     features.default_features.append('hr')
+    features.register_whitelister_element_rules('hr', {'hr': allow_without_attributes})
+
     features.default_features.append('link')
+    features.register_whitelister_element_rules('link', {'a': attribute_rule({'href': check_url})})
+
     features.default_features.append('bold')
+    features.register_whitelister_element_rules(
+        'bold', {'b': allow_without_attributes, 'strong': allow_without_attributes}
+    )
+
     features.default_features.append('italic')
+    features.register_whitelister_element_rules(
+        'italic', {'i': allow_without_attributes, 'em': allow_without_attributes}
+    )
+
     features.default_features.extend(['h2', 'h3', 'h4'])
+    for element in ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']:
+        features.register_whitelister_element_rules(
+            element, {element: allow_without_attributes}
+        )
+
     features.default_features.append('ol')
+    features.register_whitelister_element_rules(
+        'ol', {'ol': allow_without_attributes, 'li': allow_without_attributes}
+    )
+
     features.default_features.append('ul')
+    features.register_whitelister_element_rules(
+        'ul', {'ul': allow_without_attributes, 'li': allow_without_attributes}
+    )

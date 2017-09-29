@@ -108,3 +108,18 @@ class TestDbWhitelister(TestCase):
             'stand in water</a>.<p>- Gumby</p>'
         )
         self.assertHtmlEqual(expected, output_html)
+
+    def test_whitelist_with_feature_list(self):
+        whitelister = DbWhitelister(features=['h1', 'bold', 'link', 'something_i_just_made_up'])
+        input_html = (
+            '<h1>this heading is allowed</h1> <h2>but not this one</h2> '
+            '<p><b>bold</b> <i>italic</i></p>'
+            '<p><a href="http://torchbox.com">external link</a> <a data-linktype="page" data-id="2" href="/">internal link</a></p>'
+        )
+        output_html = whitelister.clean(input_html)
+        expected = (
+            '<h1>this heading is allowed</h1> but not this one '
+            '<p><b>bold</b> italic</p>'
+            '<p><a href="http://torchbox.com">external link</a> <a linktype="page" id="2">internal link</a></p>'
+        )
+        self.assertHtmlEqual(expected, output_html)
