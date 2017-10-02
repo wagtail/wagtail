@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/base.html" %}
-{% load wagtailimages_tags staticfiles i18n %}
+{% load wagtailimages_tags staticfiles i18n l10n %}
 {% block titletag %}{% blocktrans with title=image.title %}Editing image {{ title }}{% endblocktrans %}{% endblock %}
 {% block extra_css %}
     {{ block.super }}
@@ -70,7 +70,7 @@
                 data-focal-point-width="{{ image.focal_point_width }}"
                 data-focal-point-height="{{ image.focal_point_height }}">
 
-                <img {{ rendition.attrs }} data-original-width="{{ image.width }}" data-original-height="{{ image.height }}" class="show-transparency">
+                <img {{ rendition.attrs }} data-original-width="{{ image.width|unlocalize }}" data-original-height="{{ image.height|unlocalize }}" class="show-transparency">
 
                 <div class="current-focal-point-indicator{% if not image.has_focal_point %} hidden{% endif %}"></div>
 
