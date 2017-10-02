@@ -37,7 +37,7 @@ Bug fixes
  * Deletion of image / document files now only happens when database transaction has completed (Gordon Pendleton)
  * Fixed Node build scripts to work on Windows (Mikalai Radchuk)
  * Stop breadcrumb home icon from showing as ellipsis in Chrome 60 (Matt Westcott)
-
+ * Prevent ``USE_THOUSAND_SEPARATOR = True`` from breaking the image focal point chooser (Sævar Öfjörð Magnússon)
 
 Upgrade considerations
 ======================
