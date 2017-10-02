@@ -10,6 +10,7 @@ Changelog
  * Documents and images are now given new filenames on re-uploading, to avoid old versions being kept in cache (Bertrand Bordage)
  * Added custom 404 page for admin interface (Jack Paine)
  * Breadcrumb navigation now uses globe icon to indicate tree root, rather than home icon (Matt Westcott)
+ * User search in the Wagtail admin UI now works across multiple fields (Will Giddens)
  * Fix: "Open Link in New Tab" on a right arrow in page explorer should open page list (Emily Horsman)
  * Fix: Using `order_by_relevance=False` when searching with PostgreSQL now works (Mitchel Cabuloy)
  * Fix: Inline panel first and last sorting arrows correctly hidden in non-default tabs (Matt Westcott)
