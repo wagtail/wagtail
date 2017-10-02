@@ -254,6 +254,7 @@ Contributors
 * jcronyn
 * Ben Sturmfels
 * Anselm Bradford
+* Mads Jensen
 
 Translators
 ===========
