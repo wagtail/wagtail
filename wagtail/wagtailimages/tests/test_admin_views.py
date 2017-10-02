@@ -459,6 +459,15 @@ class TestImageEditView(TestCase, WagtailTestUtils):
         self.assertNotEqual(self.get_content(new_rendition.file),
                             old_rendition_data)
 
+    @override_settings(USE_L10N=True, USE_THOUSAND_SEPARATOR=True)
+    def test_no_thousand_separators_in_focal_point_editor(self):
+        large_image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(size=(1024, 768)),
+        )
+        response = self.client.get(reverse('wagtailimages:edit', args=(large_image.id,)))
+        self.assertContains(response, 'data-original-width="1024"')
+
 
 class TestImageDeleteView(TestCase, WagtailTestUtils):
     def setUp(self):
