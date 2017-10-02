@@ -248,6 +248,14 @@ class TestElasticsearch5SearchBackend(BackendTests, TestCase):
         results = self.backend.search(None, models.SearchTest)
         self.assertEqual(set(results), set())
 
+    @unittest.expectedFailure
+    def test_boost(self):
+        super(TestElasticsearch5SearchBackend, self).test_boost()
+
+    @unittest.expectedFailure
+    def test_order_by_relevance(self):
+        super(TestElasticsearch5SearchBackend, self).test_order_by_relevance()
+
 
 class TestElasticsearch5SearchQuery(TestCase):
     def assertDictEqual(self, a, b):

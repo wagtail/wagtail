@@ -5,15 +5,16 @@
 # Translators:
 # Bartek Sielicki <sielickib@student.mini.pw.edu.pl>, 2017
 # utek <mail@utek.pl>, 2014
+# Miłosz Miśkiewicz, 2017
 # Miłosz Miśkiewicz, 2016
 # utek <mail@utek.pl>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-19 16:55+0000\n"
-"PO-Revision-Date: 2017-06-19 16:59+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-08-10 16:05+0000\n"
+"PO-Revision-Date: 2017-08-17 07:11+0000\n"
+"Last-Translator: Miłosz Miśkiewicz\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -250,6 +251,9 @@ msgstr "Aktualizacja"
 
 msgid "Delete"
 msgstr "Usuń"
+
+msgid "You need a password to access this document."
+msgstr "Potrzebujesz hasła, aby dostać się do tego dokumentu."
 
 msgid "Document permissions"
 msgstr "Uprawnienia dokumentów"

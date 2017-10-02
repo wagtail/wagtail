@@ -8,7 +8,7 @@ Compiling
 
 The SCSS source files are compiled to CSS using the
 `gulp <http://gulpjs.com/>`_ build system.
-This requires `node.js <http://nodejs.org>`_ to run.
+This requires `Node.js <http://nodejs.org>`_ to run.
 To install the libraries required for compiling the SCSS,
 run the following from the Wagtail repository root:
 
@@ -35,22 +35,25 @@ automatically recompiling when any changes are observed, by running:
 Linting SCSS
 ~~~~~~~~~~~~
 
-Wagtail uses the "scss_lint" Ruby Gem for linting.
+Wagtail uses the `stylelint <https://stylelint.io/>`_ linter.
+You'll need Node.js and npm on your development machine.
+Ensure project dependencies are installed by running ``npm install``
 
-Install it thus:
-
-.. code-block:: console
-
-    $ gem install scss_lint
-
-
-Then run the linter from the wagtail project root:
+Run the linter from the wagtail project root:
 
 .. code-block:: console
 
     $ npm run lint:css
 
-The linter is configured to check your code for adherance to the guidelines below, plus a little more.
+
+The linter is configured to check your code for adherance to the guidelines
+below, plus a little more.
+
+If you want to autofix errors, you can run that command directly with:
+
+.. code-block:: console
+
+    $ npm run lint:css -- --fix
 
 
 Spacing

@@ -300,3 +300,17 @@ class TestUserHasAnyPagePermission(TestCase):
             Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
         )
         self.assertFalse(user_has_any_page_permission(user))
+
+
+class Test404(TestCase, WagtailTestUtils):
+    def test_admin_404_template_used(self):
+        self.login()
+        response = self.client.get('/admin/sdfgdsfgdsfgsdf')
+        self.assertEqual(response.status_code, 404)
+        self.assertTemplateUsed(response, 'wagtailadmin/404.html')
+
+    def test_not_logged_in_redirect(self):
+        response = self.client.get('/admin/sdfgdsfgdsfgsdf')
+
+        # Check that the user was redirected to the login page and that next was set correctly
+        self.assertRedirects(response, reverse('wagtailadmin_login') + '?next=/admin/sdfgdsfgdsfgsdf')

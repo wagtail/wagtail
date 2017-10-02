@@ -72,7 +72,7 @@ This can be achieved by passing a ``features`` keyword argument to ``RichTextFie
 
 .. code-block:: python
 
-    body = RichTextField(features=['h2', 'h3', 'b', 'i', 'link'])
+    body = RichTextField(features=['h2', 'h3', 'bold', 'italic', 'link'])
 
 The recognised feature identifiers are as follows (note that add-on modules may add to this list):
 
@@ -105,7 +105,7 @@ Once the plugin has been created, it should be registered as a rich text feature
             'hallo', 'blockquote',
             HalloPlugin(
                 name='halloblockquote',
-                js=[static('myapp/js/hallo-blockquote.js')],
+                js=['myapp/js/hallo-blockquote.js'],
             )
         )
 

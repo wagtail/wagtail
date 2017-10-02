@@ -153,6 +153,7 @@
                 height: 2.3em;
                 line-height: 2.3em;
 
+                // stylelint-disable-next-line max-nesting-depth
                 &:first-child {
                     border-top-width: 0;
                 }
@@ -191,6 +192,7 @@
             overflow-y: hidden;
 
             &.xdsoft_monthselect {right: -7px;}
+
             &.xdsoft_yearselect {right: 2px;}
 
             > div > .xdsoft_option:hover {
@@ -288,17 +290,13 @@
 }
 
 .xdsoft_noselect {
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    -o-user-select: none;
     user-select: none;
 }
 
 .xdsoft_noselect::selection { background: transparent; }
+
 .xdsoft_noselect::-moz-selection { background: transparent; }
+
 .xdsoft_datetimepicker.xdsoft_inline {
     display: inline-block;
     position: static;
@@ -318,6 +316,7 @@
     cursor: pointer;
 
     > .xdsoft_scroller {
+        // stylelint-disable-next-line declaration-no-important
         background: #ccc !important;
         height: 20px;
         border-radius: 3px;

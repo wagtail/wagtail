@@ -26,12 +26,30 @@ What's new
 Other features
 ~~~~~~~~~~~~~~
 
+ * :doc:`Custom document model </advanced_topics/documents/custom_document_model>` is now documented (Emily Horsman)
+ * Use minified versions of CSS in the admin by adding minification to the front-end tooling (Vincent Audebert, Thibaud Colas)
+ * Wagtailforms serve view now passes ``request.FILES``, for use in custom form handlers (LB (Ben Johnston))
+ * Documents and images are now given new filenames on re-uploading, to avoid old versions being kept in cache (Bertrand Bordage)
+ * Added custom 404 page for admin interface (Jack Paine)
+ * Breadcrumb navigation now uses globe icon to indicate tree root, rather than home icon (Matt Westcott)
+ * Wagtail now uses React 15.6.2 and above, released under the MIT license (Janneke Janssen)
+ * User search in the Wagtail admin UI now works across multiple fields (Will Giddens)
 
 Bug fixes
 ~~~~~~~~~
 
  * "Open Link in New Tab" on a right arrow in page explorer should open page list (Emily Horsman)
- * Fix: Using ``order_by_relevance=False`` when searching with PostgreSQL now works (Mitchel Cabuloy)
+ * Using ``order_by_relevance=False`` when searching with PostgreSQL now works (Mitchel Cabuloy)
+ * Inline panel first and last sorting arrows correctly hidden in non-default tabs (Matt Westcott)
+ * ``WAGTAILAPI_LIMIT_MAX`` now accepts None to disable limiting (jcronyn)
+ * In PostgreSQL, new default ordering when ranking of objects is the same (Bertrand Bordage)
+ * Fixed overlapping header elements on form submissions view on mobile (Jack Paine)
+ * Fixed avatar position in footer on mobile (Jack Paine)
+ * Custom document models no longer require their own post-delete signal handler (Gordon Pendleton)
+ * Deletion of image / document files now only happens when database transaction has completed (Gordon Pendleton)
+ * Fixed Node build scripts to work on Windows (Mikalai Radchuk)
+ * Stop breadcrumb home icon from showing as ellipsis in Chrome 60 (Matt Westcott)
+
 
 Upgrade considerations
 ======================

@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-19 16:55+0000\n"
-"PO-Revision-Date: 2017-07-29 04:47+0000\n"
+"POT-Creation-Date: 2017-08-10 16:05+0000\n"
+"PO-Revision-Date: 2017-08-14 09:36+0000\n"
 "Last-Translator: Jim Brouzoulis <jim.brouzoulis@chalmers.se>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
@@ -26,6 +26,17 @@ msgstr "{label}: det här blocket har inga inställningar."
 
 msgid "This block has no options."
 msgstr "Detta block har inga inställningar."
+
+#, python-format
+msgid "The minimum number of items is %d"
+msgstr "Det minsta antalet block är %d"
+
+msgid "This field is required."
+msgstr "Det här fältet är obligatoriskt."
+
+#, python-format
+msgid "The maximum number of items is %d"
+msgstr "Det maximala antalet block är %d"
 
 msgid "Password"
 msgstr "Lösenord"

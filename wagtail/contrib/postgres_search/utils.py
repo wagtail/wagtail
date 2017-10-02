@@ -6,8 +6,6 @@ from functools import partial, reduce
 
 from django.apps import apps
 from django.db import connections
-from django.db.models import Q
-from django.utils.lru_cache import lru_cache
 from django.utils.six.moves import zip_longest
 
 from wagtail.wagtailsearch.index import Indexed, RelatedFields, SearchField
@@ -68,15 +66,11 @@ def get_descendants_content_types_pks(models, db_alias):
               for descendant_model in get_descendant_models(model)), db_alias)
 
 
-@lru_cache()
 def get_content_types_pks(models, db_alias):
     # We import it locally because this file is loaded before apps are ready.
     from django.contrib.contenttypes.models import ContentType
-    return list(ContentType._default_manager.using(db_alias)
-                .filter(OR([Q(app_label=model._meta.app_label,
-                              model=model._meta.model_name)
-                            for model in models]))
-                .values_list('pk', flat=True))
+    content_types_dict = ContentType.objects.db_manager(db_alias).get_for_models(*models)
+    return [ct.pk for ct in content_types_dict.values()]
 
 
 def get_search_fields(search_fields):

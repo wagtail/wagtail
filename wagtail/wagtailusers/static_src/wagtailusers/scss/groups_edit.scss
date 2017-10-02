@@ -11,6 +11,7 @@
     }
 
     select + span:after {
+        // stylelint-disable-next-line declaration-no-important
         font-size: 2.5em !important;
     }
 }

@@ -44,7 +44,7 @@ body {
     &:after {
         content: '';
         position: fixed;
-        transition: visibility 0s linear 0s, opacity .2s ease-out;
+        transition: visibility 0s linear 0s, opacity 0.2s ease-out;
         background: rgba(255, 255, 255, 0.5);
         width: 100%;
         height: 100%;
@@ -105,7 +105,6 @@ body {
 }
 
 .page-locked {
-
     .tab-content {
         cursor: not-allowed;
         user-select: none;
@@ -143,6 +142,10 @@ footer {
         margin-right: $grid-gutter-width / 2;
     }
 
+    .preview .dropdown {
+        width: 250px;
+    }
+
     .meta {
         float: right;
         text-align: right;
@@ -166,7 +169,8 @@ footer {
 
     @media screen and (max-width: $breakpoint-mobile) {
         .actions,
-        .preview {
+        .preview,
+        .preview .dropdown {
             width: 100%;
         }
 
@@ -175,8 +179,10 @@ footer {
         }
     }
 
-    @media screen and (min-width: 90em) {
-        width: 90em;
+    $width-1440px: 90em;
+
+    @media screen and (min-width: $width-1440px) {
+        width: $width-1440px;
     }
 }
 
@@ -235,10 +241,12 @@ footer {
 
         &.home {
             a {
+                // stylelint-disable max-nesting-depth
                 padding-right: 0;
                 text-align: center;
                 width: 3em;
                 font-size: 1em;
+                text-overflow: clip;
 
                 &:before {
                     font-size: 1.15rem;
@@ -300,9 +308,8 @@ footer {
 // the z-index shouldn't be required.
 
 // .content-wrapper {
-    // z-index: 3;
+// z-index: 3;
 // }
-
 .nav-submenu {
     z-index: 6;
 }

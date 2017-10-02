@@ -144,8 +144,6 @@ fields, you must select the ``blog.BlogPage`` type using the ``?type``
 Custom serialisers
 ------------------
 
-.. versionadded: 1.10
-
 Serialisers_ are used to convert the database representation of a model into
 JSON format. You can override the serialiser for any field using the
 ``serializer`` keyword argument:
@@ -196,8 +194,6 @@ This adds two fields to the API (other fields omitted for brevity):
 
 Images in the API
 -----------------
-
-.. versionadded: 1.10
 
 The :class:`~wagtail.wagtailimages.api.fields.ImageRenditionField` serialiser
 allows you to add renditions of images into your API. It requires an image
@@ -274,4 +270,4 @@ endpoints.
 (default: 20)
 
 This allows you to change the maximum number of results a user can request at a
-time. This applies to all endpoints.
+time. This applies to all endpoints. Set to ``None`` for no limit.
