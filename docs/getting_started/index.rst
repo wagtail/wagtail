@@ -18,7 +18,7 @@ With the above installed, the quickest way to install Wagtail is:
 
 .. code-block:: console
 
-    $ pip install wagtail
+    $ pip install wagtail django django-core
 
 (``sudo`` may be required if installing system-wide or without virtualenv)
 
