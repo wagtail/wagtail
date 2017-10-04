@@ -77,7 +77,9 @@ class TestServeView(TestCase):
         self.document.file.save('example.doc', ContentFile("A boring example document"))
 
     def tearDown(self):
-        self.document.delete()
+        # delete the FieldFile directly because the TestCase does not commit
+        # transactions to trigger transaction.on_commit() in the signal handler
+        self.document.file.delete()
 
     def get(self):
         return self.client.get(reverse('wagtaildocs_serve', args=(self.document.id, self.document.filename)))
