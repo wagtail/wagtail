@@ -149,7 +149,7 @@ Invalidating index pages
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
 Pages that list other pages (such as a blog index) may need to be purged as
-well so any changes to a blog page is also reflected on the index (for example,
+well so any changes to a blog page are also reflected on the index (for example,
 a blog post was added, deleted or its title/thumbnail was changed).
 
 To purge these pages, we need to write a signal handler that listens for
@@ -180,7 +180,7 @@ This signal handler would trigger the invalidation of the index page using the
         batch.purge()
 
 
-    @receiver(page_published, sender=BlogPage):
+    @receiver(page_published, sender=BlogPage)
     def blog_published_handler(instance):
         blog_page_changed(instance)
 
