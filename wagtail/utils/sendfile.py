@@ -86,9 +86,6 @@ def sendfile(request, filename, attachment=False, attachment_filename=None, mime
 
     response['Content-length'] = os.path.getsize(filename)
     response['Content-Type'] = mimetype
-    if not encoding:
-        encoding = guessed_encoding
-    if encoding:
-        response['Content-Encoding'] = encoding
+    response['Content-Encoding'] = encoding or guessed_encoding
 
     return response
