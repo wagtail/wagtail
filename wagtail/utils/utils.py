@@ -1,7 +1,8 @@
 from __future__ import absolute_import, unicode_literals
 
 import collections
-import sys
+
+from django.utils import six
 
 
 def deep_update(source, overrides):
@@ -9,10 +10,7 @@ def deep_update(source, overrides):
 
     Modify ``source`` in place.
     """
-    if sys.version_info >= (3, 0):
-        items = overrides.items()
-    else:
-        items = overrides.iteritems()
+    items = six.iteritems(overrides)
 
     for key, value in items:
         if isinstance(value, collections.Mapping) and value:
