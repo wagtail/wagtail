@@ -27,6 +27,7 @@ Changelog
  * Fix: Stop breadcrumb home icon from showing as ellipsis in Chrome 60 (Matt Westcott)
  * Fix: Prevent `USE_THOUSAND_SEPARATOR = True` from breaking the image focal point chooser (Sævar Öfjörð Magnússon)
  * Fix: Removed deprecated `SessionAuthenticationMiddleware` from project template (Samir Shah)
+ * Fix: Custom display page titles defined with `get_admin_display_title` are now shown in search results (Ben Sturmfels, Matt Westcott)
 
 
 1.12.2 (18.09.2017)
