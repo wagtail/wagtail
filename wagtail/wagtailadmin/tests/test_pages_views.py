@@ -2082,6 +2082,20 @@ class TestPageSearch(TestCase, WagtailTestUtils):
         results = response.context['pages']
         self.assertTrue(any([r.slug == 'root' for r in results]))
 
+    def test_search_uses_admin_display_title_from_specific_class(self):
+        # SingleEventPage has a custom get_admin_display_title method; explorer should
+        # show the custom title rather than the basic database one
+        root_page = Page.objects.get(id=2)
+        new_event = SingleEventPage(
+            title="Lunar event",
+            location='the moon', audience='public',
+            cost='free', date_from='2001-01-01',
+            latest_revision_created_at=local_datetime(2016, 1, 1)
+        )
+        root_page.add_child(instance=new_event)
+        response = self.get({'q': "lunar"})
+        self.assertContains(response, "Lunar event (single event)")
+
     def test_search_no_perms(self):
         self.user.is_superuser = False
         self.user.user_permissions.add(
