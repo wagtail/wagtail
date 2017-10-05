@@ -190,6 +190,8 @@ This signal handler would trigger the invalidation of the index page using the
         blog_page_changed(instance)
 
 
+.. _frontend_cache_invalidating_urls:
+
 Invalidating URLs
 ^^^^^^^^^^^^^^^^^
 
