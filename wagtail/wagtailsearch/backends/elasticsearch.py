@@ -467,19 +467,19 @@ class ElasticsearchSearchResults(BaseSearchResults):
             page = self.backend.es.search(**params)
 
             while True:
-                if len(page['hits']['hits']) == 0:
+                hits = page['hits']['hits']
+                if len(hits) == 0:
                     break
 
                 # Get pks from results
-                pks = [hit['fields']['pk'][0] for hit in page['hits']['hits']]
-                scores = {str(hit['fields']['pk'][0]): hit['_score'] for hit in page['hits']['hits']}
+                pks = [hit['fields']['pk'][0] for hit in hits]
+                scores = {str(hit['fields']['pk'][0]): hit['_score'] for hit in hits}
 
                 # Initialise results dictionary
-                results = dict((str(pk), None) for pk in pks)
+                results = {str(pk): None for pk in pks}
 
                 # Find objects in database and add them to dict
-                queryset = self.query.queryset.filter(pk__in=pks)
-                for obj in queryset:
+                for obj in self.query.queryset.filter(pk__in=pks):
                     results[str(obj.pk)] = obj
 
                     if self._score_field:
@@ -487,8 +487,9 @@ class ElasticsearchSearchResults(BaseSearchResults):
 
                 # Yield results in order given by Elasticsearch
                 for pk in pks:
-                    if results[str(pk)]:
-                        yield results[str(pk)]
+                    result = results[str(pk)]
+                    if result:
+                        yield result
 
                         if limit is not None:
                             limit -= 1
@@ -514,18 +515,17 @@ class ElasticsearchSearchResults(BaseSearchResults):
             })
 
             # Send to Elasticsearch
-            hits = self.backend.es.search(**params)
+            hits = self.backend.es.search(**params)['hits']['hits']
 
             # Get pks from results
-            pks = [hit['fields']['pk'][0] for hit in hits['hits']['hits']]
-            scores = {str(hit['fields']['pk'][0]): hit['_score'] for hit in hits['hits']['hits']}
+            pks = [hit['fields']['pk'][0] for hit in hits]
+            scores = {str(hit['fields']['pk'][0]): hit['_score'] for hit in hits}
 
             # Initialise results dictionary
-            results = dict((str(pk), None) for pk in pks)
+            results = {str(pk): None for pk in pks}
 
             # Find objects in database and add them to dict
-            queryset = self.query.queryset.filter(pk__in=pks)
-            for obj in queryset:
+            for obj in self.query.queryset.filter(pk__in=pks):
                 results[str(obj.pk)] = obj
 
                 if self._score_field:
@@ -533,8 +533,9 @@ class ElasticsearchSearchResults(BaseSearchResults):
 
             # Yield results in order given by Elasticsearch
             for pk in pks:
-                if results[str(pk)]:
-                    yield results[str(pk)]
+                result = results[str(pk)]
+                if result:
+                    yield result
 
     def _do_count(self):
         # Get count
