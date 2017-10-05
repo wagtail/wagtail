@@ -261,11 +261,9 @@ class TestElasticsearchSearchBackend(BackendTests, TestCase):
         for result in results:
             self.assertIsInstance(result._score, float)
 
-    @unittest.expectedFailure
     def test_boost(self):
         super(TestElasticsearchSearchBackend, self).test_boost()
 
-    @unittest.expectedFailure
     def test_order_by_relevance(self):
         super(TestElasticsearchSearchBackend, self).test_order_by_relevance()
 
@@ -777,7 +775,7 @@ class TestElasticsearchMapping(TestCase):
                 'properties': {
                     'pk': {'index': 'not_analyzed', 'type': 'string', 'store': True, 'include_in_all': False},
                     'content_type': {'index': 'not_analyzed', 'type': 'string', 'include_in_all': False},
-                    '_partials': {'index_analyzer': 'edgengram_analyzer', 'include_in_all': False, 'type': 'string'},
+                    '_partials': {'index_analyzer': 'edgengram_analyzer', 'include_in_all': False, 'type': 'string', 'boost': 0.99999},
                     'live_filter': {'index': 'not_analyzed', 'type': 'boolean', 'include_in_all': False},
                     'published_date_filter': {'index': 'not_analyzed', 'type': 'date', 'include_in_all': False},
                     'title': {'type': 'string', 'include_in_all': True, 'index_analyzer': 'edgengram_analyzer'},
@@ -884,7 +882,7 @@ class TestElasticsearchMappingInheritance(TestCase):
                     # Inherited
                     'pk': {'index': 'not_analyzed', 'type': 'string', 'store': True, 'include_in_all': False},
                     'content_type': {'index': 'not_analyzed', 'type': 'string', 'include_in_all': False},
-                    '_partials': {'index_analyzer': 'edgengram_analyzer', 'include_in_all': False, 'type': 'string'},
+                    '_partials': {'index_analyzer': 'edgengram_analyzer', 'include_in_all': False, 'type': 'string', 'boost': 0.99999},
                     'live_filter': {'index': 'not_analyzed', 'type': 'boolean', 'include_in_all': False},
                     'published_date_filter': {'index': 'not_analyzed', 'type': 'date', 'include_in_all': False},
                     'title': {'type': 'string', 'include_in_all': True, 'index_analyzer': 'edgengram_analyzer'},
