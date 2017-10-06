@@ -6,13 +6,14 @@
 # hanfeng <appweb.cn@gmail.com>, 2014-2015
 # hanfeng <appweb.cn@gmail.com>, 2014
 # Vincent Zhao <zhaopu2008@gmail.com>, 2017
+# 汇民 王 <whuim@qq.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-08-10 16:05+0000\n"
-"PO-Revision-Date: 2017-05-07 14:49+0000\n"
-"Last-Translator: Vincent Zhao <zhaopu2008@gmail.com>\n"
+"PO-Revision-Date: 2017-09-20 15:49+0000\n"
+"Last-Translator: 汇民 王 <whuim@qq.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -119,7 +120,7 @@ msgstr[0] ""
 
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
-msgstr "Sorry,没有重定向符合\"<em>%(query_string)s</em>\""
+msgstr "对不起，没有重定向符合\"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""

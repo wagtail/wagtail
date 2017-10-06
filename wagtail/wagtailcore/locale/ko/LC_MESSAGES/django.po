@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-08-10 16:05+0000\n"
-"PO-Revision-Date: 2017-08-10 15:56+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2017-09-25 11:48+0000\n"
+"Last-Translator: Kyungil Choi <hanpama@gmail.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
 "MIME-Version: 1.0\n"
@@ -26,6 +26,17 @@ msgstr "{label}: 이 블록에는 옵션이 없습니다."
 
 msgid "This block has no options."
 msgstr "이 블록에는 옵션이 없습니다."
+
+#, python-format
+msgid "The minimum number of items is %d"
+msgstr "항목은 최소 %d개 이상이어야 합니다"
+
+msgid "This field is required."
+msgstr "이 필드는 필수입니다."
+
+#, python-format
+msgid "The maximum number of items is %d"
+msgstr "항목은 최대 개수는 %d개입니다"
 
 msgid "Password"
 msgstr "비밀번호"
