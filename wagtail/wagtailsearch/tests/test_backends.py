@@ -194,14 +194,13 @@ class BackendTests(WagtailTestUtils):
 
     def test_order_by_relevance(self):
         # True (the default)
-        relevance_results = list(self.backend.search('Hello', models.SearchTest,
-                                                  order_by_relevance=True))
+        relevance_results = list(self.backend.search(
+            'Hello', models.SearchTest, order_by_relevance=True))
         self.assertListEqual(relevance_results, [self.testc.searchtest_ptr, self.testb, self.testa])
 
         # False (falls back to user-defined ordering)
-        custom_ordered_results = list(self.backend.search('Hello',
-                                                    models.SearchTest.objects.order_by('published_date'),
-                                                    order_by_relevance=False))
+        custom_ordered_results = list(self.backend.search(
+            'Hello', models.SearchTest.objects.order_by('published_date'), order_by_relevance=False))
 
         self.assertListEqual(custom_ordered_results, [self.testa, self.testc.searchtest_ptr, self.testb])
 
