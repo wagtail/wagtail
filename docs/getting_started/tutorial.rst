@@ -391,7 +391,7 @@ Change:
 ``{% for post in page.get_children %}`` to ``{% for post in blogpages %}``
 
 Now try unpublishing one of your posts - it should disappear from the blog index
-page. The remaining posts should now be sorted with the most recently modified
+page. The remaining posts should now be sorted with the most recently published
 posts first.
 
 Images
