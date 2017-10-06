@@ -4,13 +4,14 @@
 #
 # Translators:
 # Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2016
+# Zafer Cengiz <asinan@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-08-10 16:05+0000\n"
-"PO-Revision-Date: 2017-08-10 16:00+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2017-09-22 17:30+0000\n"
+"Last-Translator: Zafer Cengiz <asinan@gmail.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
 "tr/)\n"
 "MIME-Version: 1.0\n"
@@ -18,6 +19,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: tr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#, python-format
+msgid "There is another field with the label %s, please change one of them."
+msgstr ""
+"%setiketi içeren başka bir alan var, lütfen bunlardan birini değiştirin. "
 
 msgid "Single line text"
 msgstr "Tek satır yazı"
@@ -42,6 +48,9 @@ msgstr "Onay kutuları"
 
 msgid "Drop down"
 msgstr "Açılır menü"
+
+msgid "Multiple select"
+msgstr "Çoklu seçim"
 
 msgid "Radio buttons"
 msgstr "Çoktan seçmeli"
@@ -89,8 +98,18 @@ msgstr "Varsayılan değer. Virgülle ayrılmış değerler onay kutularını de
 msgid "help text"
 msgstr "yardım metni"
 
+msgid "Submission date"
+msgstr "Teslim tarihi"
+
 msgid "to address"
 msgstr "adrese"
+
+msgid ""
+"Optional - form submissions will be emailed to these addresses. Separate "
+"multiple addresses by comma."
+msgstr ""
+"İsteğe bağlı - Gönderileriniz bu adreslere gönderilecek. Birden fazla adrese "
+"göndermek için virgülle ayırın."
 
 msgid "from address"
 msgstr "adresinden"
@@ -98,8 +117,21 @@ msgstr "adresinden"
 msgid "subject"
 msgstr "konu"
 
+#, python-format
+msgid "Delete form data %(title)s"
+msgstr "%(title)s Sil"
+
+msgid "Delete form data"
+msgstr "Sil"
+
 msgid "Delete"
 msgstr "Sil"
+
+msgid "Total submissions"
+msgstr "Form gönderme"
+
+msgid "Latest submission"
+msgstr "Son dökümanlar"
 
 msgid "Forms"
 msgstr "Formlar"

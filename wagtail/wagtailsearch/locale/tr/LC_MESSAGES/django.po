@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Zafer Cengiz <asinan@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-08-10 16:05+0000\n"
-"PO-Revision-Date: 2014-02-19 21:18+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2017-09-22 17:30+0000\n"
+"Last-Translator: Zafer Cengiz <asinan@gmail.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
 "tr/)\n"
 "MIME-Version: 1.0\n"
@@ -18,8 +19,36 @@ msgstr ""
 "Language: tr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
+msgid "Search term(s)/phrase"
+msgstr "Arama Terim(leri)"
+
+msgid ""
+"Enter the full search string to match. An exact match is required for your "
+"Promoted Results to be displayed, wildcards are NOT allowed."
+msgstr ""
+"Eşlecek olan tam arama terimini girin. Yazdığınız terim bir bütün olarak "
+"aranır ve joker karakterlere izin verilmez. "
+
+msgid "Query Daily Hits"
+msgstr "Günlük hit"
+
+msgid "Popular search terms"
+msgstr "Popüler aramalar"
+
 msgid "Search"
 msgstr "Ara"
 
+msgid "Terms"
+msgstr "Şartlar"
+
+msgid "Views (past week)"
+msgstr "Görüntüle (geçen hafta)"
+
+msgid "No results found"
+msgstr "Bulunamadı"
+
 msgid "Date"
 msgstr "Tarih"
+
+msgid "Choose from popular search terms"
+msgstr "Popüler aramalar"

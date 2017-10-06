@@ -269,7 +269,7 @@ Translators
 * Chinese (China): hanfeng, Daniel Hwang, Jian Li, Listeng Teng, Feng Wang, Fred Zeng, Joey Zhao, Vincent Zhao, zhushajun
 * Chinese (Taiwan): gogobook, Lihan Li, Jp Shieh
 * Croatian (Croatia): Luka Matijević
-* Czech: Ales Dvorak, Ivan Pomykacz, Jiri Stepanek, Marek Turnovec, Stanislav Vasko
+* Czech: Ales Dvorak, Sophy O, Ivan Pomykacz, Jiri Stepanek, Marek Turnovec, Stanislav Vasko
 * Danish: Asger Sørensen
 * Dutch: benny_AT_it_digin.com, Bram, Brecht Dervaux, Huib Keemink, Thijs Kramer, Samuel Leeuwenburg, mahulst, Rob Moorman, Michael van Tellingen, Arne Turpyn
 * Dutch (Netherlands): Bram, Franklin Kingma, Maarten Kling, Thijs Kramer
@@ -282,7 +282,7 @@ Translators
 * Hebrew (Israel): Lior Abazon, bjesus, Yossi Lalum
 * Hungarian: Laszlo Molnar, Kornél Novák Mergulhão
 * Icelandic (Iceland): Arnar Tumi Þorsteinsson, Kjartan Sverrisson, Sævar Öfjörð Magnússon
-* Indonesian (Indonesia): Sutrisno Efendi, Geek Pantura
+* Indonesian (Indonesia): Sutrisno Efendi, Geek Pantura, Ronggo Radityo
 * Italian: Edd Baldry, Claudio Bantaloukas, Gian-Maria Daffre, Giacomo Ghizzani, Carlo Miron, Alessio Di Stasio, Andrea Tagliazucchi
 * Japanese: Sangmin Ahn, Shu Ishida, Daigo Shitara, Shimizu Taku
 * Korean: Kyungil Choi, Jihan Chung
@@ -300,7 +300,8 @@ Translators
 * Slovenian: Mitja Pagon
 * Spanish: Mauricio Baeza, Daniel Chimeno, fonso, fooflare, José Luis, Joaquín Tita, Unai Zalakain
 * Swedish: Jim Brouzoulis, Alexander Holmbäck, André Karlsson, Jon Karlsson, Ludwig Kjellström, Thomas Kunambi, Hannes Lohmander
-* Turkish: Cihad Gündoǧdu
+* Turkish: Zafer Cengiz, Cihad Gündoǧdu, Ragıp Ünal
 * Turkish (Turkey): Saadettin Yasir Akel, Cihad Gündoǧdu, José Luis, Ragıp Ünal
 * Ukrainian: Mykola Zamkovoi
 * Vietnamese: Luan Nguyen
+* Welsh: Adam Hughes
