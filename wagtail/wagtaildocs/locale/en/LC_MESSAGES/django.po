@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-10 16:05+0000\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -67,12 +67,12 @@ msgstr ""
 
 #: templates/wagtaildocs/chooser/chooser.html:9
 #: templates/wagtaildocs/chooser/chooser.html:42
-#: templates/wagtaildocs/documents/add.html:31
+#: templates/wagtaildocs/documents/add.html:35
 msgid "Upload"
 msgstr ""
 
 #: templates/wagtaildocs/chooser/chooser.html:42
-#: templates/wagtaildocs/documents/add.html:31
+#: templates/wagtaildocs/documents/add.html:35
 msgid "Uploading..."
 msgstr ""
 
@@ -127,7 +127,7 @@ msgid "Delete %(title)s"
 msgstr ""
 
 #: templates/wagtaildocs/documents/confirm_delete.html:5
-#: templates/wagtaildocs/documents/edit.html:39
+#: templates/wagtaildocs/documents/edit.html:41
 msgid "Delete document"
 msgstr ""
 
@@ -148,15 +148,15 @@ msgstr ""
 msgid "Editing"
 msgstr ""
 
-#: templates/wagtaildocs/documents/edit.html:37
+#: templates/wagtaildocs/documents/edit.html:39
 msgid "Save"
 msgstr ""
 
-#: templates/wagtaildocs/documents/edit.html:48
+#: templates/wagtaildocs/documents/edit.html:50
 msgid "Filesize"
 msgstr ""
 
-#: templates/wagtaildocs/documents/edit.html:49
+#: templates/wagtaildocs/documents/edit.html:51
 msgid "File not found"
 msgstr ""
 
