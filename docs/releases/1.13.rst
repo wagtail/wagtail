@@ -11,8 +11,8 @@ What's new
 ==========
 
 
-Other features
-~~~~~~~~~~~~~~
+New features
+~~~~~~~~~~~~
 
  * Front-end cache invalidator now supports purging URLs as a batch - see :ref:`frontend_cache_invalidating_urls` (Karl Hobley)
  * :doc:`Custom document model </advanced_topics/documents/custom_document_model>` is now documented (Emily Horsman)
