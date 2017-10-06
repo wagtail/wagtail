@@ -224,6 +224,25 @@ For example, to make the tag always convert the image to a JPEG, use ``format-jp
 
 You may also use ``format-png`` or ``format-gif``.
 
+.. _image_background_color
+
+Background color
+----------------
+
+The PNG and GIF image formats both support transparency, but if you want to
+convert images to JPEG format, the transparency will need to be replaced with a
+solid background color.
+
+By default, Wagtail will set the background to white. But if a white background
+doesn't fit your design, you can specify a color using the ``bgcolor`` filter.
+
+This filter takes a single argument, which is a CSS 3 or 6 digit hex code
+representing the color you would like to use:
+
+.. code-block:: html+Django
+
+    {# Set the image backgrounds to black #}
+    {% image page.photo width-400 bgcolor-000 format-jpeg %}
 
 .. _jpeg_image_quality:
 
