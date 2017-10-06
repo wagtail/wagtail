@@ -2,6 +2,7 @@ import inspect
 
 from wagtail.images.exceptions import InvalidFilterSpecError
 from wagtail.images.rect import Rect
+from wagtail.images.utils import parse_color_string
 
 
 class Operation:
@@ -236,3 +237,11 @@ class FormatOperation(Operation):
 
     def run(self, willow, image, env):
         env['output-format'] = self.format
+
+
+class BackgroundColorOperation(Operation):
+    def construct(self, color_string):
+        self.color = parse_color_string(color_string)
+
+    def run(self, willow, image, env):
+        return willow.set_background_color_rgb(self.color)
