@@ -1674,6 +1674,49 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
         )
         self.assertIn('value="chocolate"', form_html)
 
+    def test_max_num_validation_error(self):
+        block = blocks.ListBlock(blocks.CharBlock(), max_num=1)
+
+        value = [
+            blocks.CharBlock(value='Foo'),
+            blocks.CharBlock(value='Bar')
+        ]
+
+        with self.assertRaises(ValidationError) as catcher:
+            block.clean(value)
+        self.assertEqual(catcher.exception.non_block_errors, ['The maximum number of items is 1'])
+
+    def test_min_num_validation_error(self):
+        block = blocks.ListBlock(blocks.CharBlock(), min_num=3)
+
+        value = [
+            blocks.CharBlock(value='Foo'),
+            blocks.CharBlock(value='Bar')
+        ]
+
+        with self.assertRaises(ValidationError) as catcher:
+            block.clean(value)
+        self.assertEqual(catcher.exception.non_block_errors, ['The minimum number of items is 3'])
+
+    def test_passes_min_and_max_num_validation(self):
+        block = blocks.ListBlock(blocks.CharBlock(), max_num=3, min_num=2)
+
+        value = [
+            blocks.CharBlock(value='Foo'),
+            blocks.CharBlock(value='Bar'),
+            blocks.CharBlock(value='Biz')
+        ]
+
+        result = block.clean(value)
+        self.assertEqual(len(result), 3)
+
+    def test_js_opts_min_max(self):
+        block = blocks.ListBlock(blocks.CharBlock(), max_num=3, min_num=2)
+
+        result = block.js_initializer()
+        self.assertIn("'min_num': (2)", result)
+        self.assertIn("'max_num': (3)", result)
+
 
 class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
     def test_initialisation(self):

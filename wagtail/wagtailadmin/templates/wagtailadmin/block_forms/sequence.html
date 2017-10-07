@@ -17,11 +17,13 @@
 
     {% block header %}{% endblock %}
 
-    {% if block_errors %}
-        {% for error in block_errors %}
-            <div class="help-block help-critical">{{ error }}</div>
-        {% endfor %}
-    {% endif %}
+    <div id="{{ prefix }}-errors">
+      {% if block_errors %}
+          {% for error in block_errors %}
+              <div class="help-block help-critical">{{ error }}</div>
+          {% endfor %}
+      {% endif %}
+    </div>
 
     <div class="sequence-container-inner">
         <ul id="{{ prefix }}-list" class="sequence">

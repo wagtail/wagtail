@@ -7,18 +7,29 @@ from django.forms.utils import ErrorList
 from django.template.loader import render_to_string
 from django.utils.html import format_html, format_html_join
 from django.utils.safestring import mark_safe
+from django.utils.translation import ugettext as _
 
 from wagtail.wagtailcore.utils import escape_script
 
 from .base import Block
 from .utils import js_dict
 
-__all__ = ['ListBlock']
+__all__ = ['ListBlock', 'ListBlockValidationError']
+
+
+class ListBlockValidationError(ValidationError):
+    def __init__(self, block_errors=None, non_block_errors=None):
+        self.block_errors = block_errors
+        self.non_block_errors = non_block_errors
+        super(ListBlockValidationError, self).__init__('Validation error in ListBlock')
 
 
 class ListBlock(Block):
 
-    def __init__(self, child_block, **kwargs):
+    def __init__(self, child_block, max_num=None, min_num=None, **kwargs):
+        self.max_num = max_num
+        self.min_num = min_num
+
         super(ListBlock, self).__init__(**kwargs)
 
         if isinstance(child_block, type):
@@ -65,24 +76,31 @@ class ListBlock(Block):
     def js_initializer(self):
         opts = {'definitionPrefix': "'%s'" % self.definition_prefix}
 
+        if self.min_num:
+            opts['min_num'] = self.min_num
+
+        if self.max_num:
+            opts['max_num'] = self.max_num
+
         if self.child_js_initializer:
             opts['childInitializer'] = self.child_js_initializer
 
         return "ListBlock(%s)" % js_dict(opts)
 
     def render_form(self, value, prefix='', errors=None):
+        non_block_errors = {}
+        block_errors = {}
         if errors:
             if len(errors) > 1:
-                # We rely on ListBlock.clean throwing a single ValidationError with a specially crafted
-                # 'params' attribute that we can pull apart and distribute to the child blocks
+                # We rely on ListBlock.clean throwing a single ListBlockValidationError with a
+                # block_errors field that contains child block errors
                 raise TypeError('ListBlock.render_form unexpectedly received multiple errors')
-            error_list = errors.as_data()[0].params
-        else:
-            error_list = None
+            non_block_errors = errors.as_data()[0].non_block_errors
+            block_errors = errors.as_data()[0].block_errors
 
         list_members_html = [
             self.render_list_member(child_val, "%s-%d" % (prefix, i), i,
-                                    errors=error_list[i] if error_list else None)
+                                    errors=block_errors.get(i))
             for (i, child_val) in enumerate(value)
         ]
 
@@ -90,6 +108,7 @@ class ListBlock(Block):
             'help_text': getattr(self.meta, 'help_text', None),
             'prefix': prefix,
             'list_members_html': list_members_html,
+            'block_errors': non_block_errors,
         })
 
     def value_from_datadict(self, data, files, prefix):
@@ -113,19 +132,27 @@ class ListBlock(Block):
 
     def clean(self, value):
         result = []
-        errors = []
-        for child_val in value:
+        errors = {}
+        for i, child_val in enumerate(value):
             try:
                 result.append(self.child_block.clean(child_val))
             except ValidationError as e:
-                errors.append(ErrorList([e]))
-            else:
-                errors.append(None)
+                errors[i] = ErrorList([e])
 
-        if any(errors):
+        max_num = self.max_num
+        if max_num and max_num < len(value):
+            raise ListBlockValidationError(non_block_errors=ErrorList([
+                ValidationError(_("The maximum number of items is %s" % max_num))]))
+
+        min_num = self.min_num
+        if min_num and min_num > len(value):
+            raise ListBlockValidationError(non_block_errors=ErrorList([
+                ValidationError(_("The minimum number of items is %s" % min_num))]))
+
+        if errors:
             # The message here is arbitrary - outputting error messages is delegated to the child blocks,
-            # which only involves the 'params' list
-            raise ValidationError('Validation error in ListBlock', params=errors)
+            # which only involves the list of block errors
+            raise ListBlockValidationError(block_errors=errors)
 
         return result
 

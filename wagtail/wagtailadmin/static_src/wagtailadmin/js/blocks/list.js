@@ -7,6 +7,9 @@
         var listMemberTemplate = $('#' + opts.definitionPrefix + '-newmember').text();
 
         return function(elementPrefix) {
+            var errorText = $('#' + elementPrefix + '-errors');
+            var addButton = $('#' + elementPrefix + '-add');
+
             var sequence = Sequence({
                 prefix: elementPrefix,
                 onInitializeMember: function(sequenceMember) {
@@ -47,10 +50,47 @@
                 }
             });
 
-            /* initialize 'add' button */
-            $('#' + elementPrefix + '-add').click(function() {
+            var addMember = function() {
                 sequence.insertMemberAtEnd(listMemberTemplate);
-            });
+            }
+
+            /* initialize 'add' button */
+            addButton.click(addMember);
+
+            function checkMinMax(){
+              if (opts.max_num && sequence.getRealCount() >= opts.max_num) {
+                  addButton.addClass('disabled');
+                  addButton.unbind('click', addMember)
+              } else {
+                  addButton.removeClass('disabled');
+                  /* unbind first to ensure we aren't binding multiple times */
+                  addButton.unbind('click', addMember)
+                  addButton.click(addMember);
+              }
+
+              if (opts.min_num && sequence.getRealCount() < opts.min_num){
+                if (!$("#" +  elementPrefix + "-min-error").length) {
+                  errorText.append(
+                    "<div id=\"" + elementPrefix + "-min-error\" class=\"help-block help-critical\">" + opts.min_num + " or more items required</div>");
+                }
+              } else {
+                $("#" +  elementPrefix + "-min-error").remove();
+              }
+            }
+
+            checkMinMax(sequence);
+
+            sequence.__postInsertMember = sequence._postInsertMember;
+            sequence._postInsertMember = function(newMember){
+              sequence.__postInsertMember(newMember);
+              checkMinMax();
+            }
+
+            sequence._deleteMember = sequence.deleteMember;
+            sequence.deleteMember = function(member){
+              sequence._deleteMember(member);
+              checkMinMax();
+            }
         };
     };
 })(jQuery);

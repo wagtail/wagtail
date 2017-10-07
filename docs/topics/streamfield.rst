@@ -399,6 +399,16 @@ Any block type is valid as the sub-block type, including structural types:
         ('amount', blocks.CharBlock(required=False)),
     ])))
 
+The keyword arguments ``max_num`` and ``min_num`` are accepted.
+
+.. code-block:: python
+
+    ('ingredients_list', blocks.ListBlock(
+        blocks.CharBlock(label="Ingredient"),
+        max_num=3,
+        min_num=1
+    ))
+
 
 StreamBlock
 ~~~~~~~~~~~

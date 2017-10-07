@@ -79,6 +79,10 @@ CODE FOR SETTING UP SPECIFIC UI WIDGETS, SUCH AS DELETE BUTTONS OR MENUS, DOES N
             return parseInt(countField.val(), 10);
         };
 
+        self.getRealCount = function() {
+            return members.length;
+        };
+
         function getNewMemberPrefix() {
             /* Update the counter and use it to create a prefix for the new list member */
             var newIndex = self.getCount();
@@ -89,7 +93,7 @@ CODE FOR SETTING UP SPECIFIC UI WIDGETS, SUCH AS DELETE BUTTONS OR MENUS, DOES N
         function setInitialMoveUpDownState(newMember) {
         }
 
-        function postInsertMember(newMember) {
+        self._postInsertMember = function(newMember) {
             /* run any supplied initializer functions */
             if (opts.onInitializeMember) {
                 opts.onInitializeMember(newMember);
@@ -136,7 +140,7 @@ CODE FOR SETTING UP SPECIFIC UI WIDGETS, SUCH AS DELETE BUTTONS OR MENUS, DOES N
             members.splice(index, 0, newMember);
             newMember.setIndex(index);
 
-            postInsertMember(newMember);
+            self._postInsertMember(newMember);
 
             if (index === 0 && opts.onEnableMoveUp) {
                 /* other member can now move up */
@@ -163,7 +167,7 @@ CODE FOR SETTING UP SPECIFIC UI WIDGETS, SUCH AS DELETE BUTTONS OR MENUS, DOES N
             members.splice(index, 0, newMember);
             newMember.setIndex(index);
 
-            postInsertMember(newMember);
+            self._postInsertMember(newMember);
 
             if (index === (members.length - 1) && opts.onEnableMoveDown) {
                 /* other member can now move down */
@@ -193,7 +197,7 @@ CODE FOR SETTING UP SPECIFIC UI WIDGETS, SUCH AS DELETE BUTTONS OR MENUS, DOES N
             members.unshift(newMember);
             newMember.setIndex(0);
 
-            postInsertMember(newMember);
+            self._postInsertMember(newMember);
 
             if (members.length > 1 && opts.onEnableMoveUp) {
                 /* previous first member can now move up */
@@ -214,7 +218,7 @@ CODE FOR SETTING UP SPECIFIC UI WIDGETS, SUCH AS DELETE BUTTONS OR MENUS, DOES N
             newMember.setIndex(members.length);
             members.push(newMember);
 
-            postInsertMember(newMember);
+            self._postInsertMember(newMember);
 
             if (members.length > 1 && opts.onEnableMoveDown) {
                 /* previous last member can now move down */
