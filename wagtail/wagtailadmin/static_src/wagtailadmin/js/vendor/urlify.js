@@ -155,13 +155,19 @@
         if (!allowUnicode) {
             s = downcode(s);
         }
+        var hasUnicodeChars = /[^\u0000-\u007f]/.test(s);
         var removelist = [
             "a", "an", "as", "at", "before", "but", "by", "for", "from", "is",
             "in", "into", "like", "of", "off", "on", "onto", "per", "since",
             "than", "the", "this", "that", "to", "up", "via", "with"
         ];
         var r = new RegExp('\\b(' + removelist.join('|') + ')\\b', 'gi');
-        s = s.replace(r, '');
+        // Javascript RegExp does not identify word boundaries correctly
+        // when dealing with unicode characters. If the string does not
+        // contain unicode chars, it's safe to use the regular expression.
+        if (!hasUnicodeChars) {
+          s = s.replace(r, '');
+        }
         // if downcode doesn't hit, the char will be stripped here
         if (allowUnicode) {
             // Keep Unicode letters including both lowercase and uppercase
