@@ -17,6 +17,8 @@ Other features
 Bug fixes
 ~~~~~~~~~
 
+ * Do not remove stopwords when generating slugs from non-ASCII titles, to avoid issues with incorrect word boundaries (Sævar Öfjörð Magnússon)
+
 
 Upgrade considerations
 ======================

@@ -5,6 +5,7 @@ Changelog
 ~~~~~~~~~~~~~~~~
 
  * Removed support for Python 2.7, Django 1.8 and Django 1.10
+ * Fix: Do not remove stopwords when generating slugs from non-ASCII titles, to avoid issues with incorrect word boundaries (Sævar Öfjörð Magnússon)
 
 
 1.13 (xx.xx.xxxx) - IN DEVELOPMENT
