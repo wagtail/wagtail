@@ -26,7 +26,8 @@ class TestPagePrivacy(TestCase):
         self.assertContains(response, '<form action="%s"' % submit_url)
         self.assertContains(
             response,
-            '<input id="id_return_url" name="return_url" type="hidden" value="/secret-plans/" />'
+            '<input id="id_return_url" name="return_url" type="hidden" value="/secret-plans/" />',
+            html=True
         )
 
         # posting the wrong password should redisplay the password page
@@ -60,7 +61,8 @@ class TestPagePrivacy(TestCase):
         self.assertContains(response, '<form action="%s"' % submit_url)
         self.assertContains(
             response,
-            '<input id="id_return_url" name="return_url" type="hidden" value="/secret-plans/steal-underpants/" />'
+            '<input id="id_return_url" name="return_url" type="hidden" value="/secret-plans/steal-underpants/" />',
+            html=True
         )
 
         # posting the wrong password should redisplay the password page

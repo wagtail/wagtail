@@ -4,14 +4,14 @@
 #
 # Translators:
 # Jihan Chung <jihanchung20@gmail.com>, 2015
-# Kyungil Choi <hanpama@gmail.com>, 2015
+# Kyungil Choi <hanpama@gmail.com>, 2015,2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 22:44+0000\n"
-"PO-Revision-Date: 2016-12-06 22:47+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-06-19 16:55+0000\n"
+"PO-Revision-Date: 2017-06-23 18:26+0000\n"
+"Last-Translator: Kyungil Choi <hanpama@gmail.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +19,25 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ko\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+#, python-brace-format
+msgid "{label}: this block has no options."
+msgstr "{label}: 이 블록에는 옵션이 없습니다."
+
+msgid "This block has no options."
+msgstr "이 블록에는 옵션이 없습니다."
+
+msgid "Password"
+msgstr "비밀번호"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr "입력한 비밀번호가 올바르지 않습니다. 다시 시도해 주세요."
+
+msgid "hostname"
+msgstr "호스트명"
+
+msgid "port"
+msgstr "포트"
 
 msgid ""
 "Set this to something other than 80 if you need a specific port number to "
@@ -29,12 +48,24 @@ msgstr ""
 "포트), 여기에 값을 설정하여 주세요. 요청 핸들링엔 영향을 주지 않습니다(그러므"
 "로 포트 포워딩은 계속 유효합니다)."
 
+msgid "site name"
+msgstr "사이트 이름"
+
+msgid "Human-readable name for the site."
+msgstr "사람이 읽을 수 있는 사이트명"
+
+msgid "root page"
+msgstr "기본 페이지"
+
+msgid "is default site"
+msgstr "기본 사이트임"
+
 msgid ""
 "If true, this site will handle requests for all other hostnames that do not "
 "have a site entry of their own"
 msgstr ""
-"만약 값이 'true'라면, 이 사이트는 접속 권한이 없는 다른 호스트명을 위한 요청"
-"들을 수행할 것입니다."
+"만약 값이 'true'라면, 이 사이트는 사이트 목록에 등록되지 않은 모든 호스트명으"
+"로의 요청을 맡아 처리하게 됩니다."
 
 msgid "site"
 msgstr "사이트"
@@ -47,11 +78,17 @@ msgid ""
 "%(hostname)s is already configured as the default site. You must unset that "
 "before you can save this site as default."
 msgstr ""
-"%(hostname)s 은 이미 기본 사이트로 설정되었습니다. 이것을 해제하시면, 당신은 "
-"이 사이트를 기본값으로 저장할 수 있습니다."
+"%(hostname)s 항목이 이미 기본 사이트로 설정되어 있습니다. 이 사이트를 기본값"
+"으로 지정하기 위해서는 먼저 이를 해제해야 합니다."
+
+msgid "title"
+msgstr "제목"
 
 msgid "The page title as you'd like it to be seen by the public"
-msgstr "당신이 의도한대로 이 페이지 제목은 모든 사람에게 보여집니다."
+msgstr "모든 이들에게 보여 줄 페이지 제목"
+
+msgid "slug"
+msgstr "슬러그"
 
 msgid ""
 "The name of the page as it will appear in URLs e.g http://domain.com/blog/"
@@ -60,30 +97,67 @@ msgstr ""
 "이 페이지의 이름은 URL에 표시될 것입니다. (예:http://domain.com/blog/[my-"
 "slug]/)"
 
+msgid "content type"
+msgstr "콘텐트 타입"
+
 msgid "live"
 msgstr "라이브"
 
+msgid "has unpublished changes"
+msgstr "게시되지 않은 변경 있음"
+
 msgid "URL path"
 msgstr "URL 경로"
+
+msgid "owner"
+msgstr "소유자"
+
+msgid "page title"
+msgstr "페이지 제목"
 
 msgid ""
 "Optional. 'Search Engine Friendly' title. This will appear at the top of the "
 "browser window."
 msgstr ""
-"옵션. '검색 엔진에 최적화된' 제목. 이는 브라우저 화면 상단에 나타날 것입니다."
+"선택 사항. '검색 엔진에 최적화된' 제목. 이는 브라우저 화면 상단에 나타날 것입"
+"니다."
+
+msgid "show in menus"
+msgstr "메뉴에 표시"
 
 msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr "이 페이지에 대한 링크가 자동적으로 생성된 메뉴에 나타날 것입니다."
 
-msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
-msgstr "YYYY-MM-DD hh:mm 의 형태로 날짜-시간을 추가해 주세요"
+msgid "search description"
+msgstr "설명 검색"
+
+msgid "go live date/time"
+msgstr "라이브 날짜/시간으로 이동"
+
+msgid "expiry date/time"
+msgstr "만료 날짜/시간"
 
 msgid "expired"
 msgstr "만료"
 
+msgid "locked"
+msgstr "잠김"
+
+msgid "first published at"
+msgstr "최초 게시일시:"
+
+msgid "last published at"
+msgstr "최종 게시일시: "
+
+msgid "latest revision created at"
+msgstr "최근 수정안 작성일:"
+
+msgid "This slug is already in use"
+msgstr "이 슬러그는 이미 사용되고 있습니다"
+
 msgid "scheduled"
-msgstr "스케줄된"
+msgstr "예약됨"
 
 msgid "draft"
 msgstr "초안"
@@ -100,23 +174,62 @@ msgstr "페이지"
 msgid "pages"
 msgstr "페이지"
 
+msgid "submitted for moderation"
+msgstr "검토를 위해 제출됨"
+
+msgid "created at"
+msgstr "생성된 일시"
+
+msgid "user"
+msgstr "사용자"
+
+msgid "content JSON"
+msgstr "컨텐트 JSON"
+
+msgid "approved go live at"
+msgstr "라이브 승인 일시:"
+
 msgid "page revision"
-msgstr "페이지 검토"
+msgstr "페이지 수정안"
 
 msgid "page revisions"
-msgstr "페이지 검토"
+msgstr "페이지 수정안"
+
+msgid "Add"
+msgstr "추가"
 
 msgid "Add/edit pages you own"
-msgstr "당신이 소유한 페이지들 추가/수정"
+msgstr "페이지 추가/수정"
+
+msgid "Edit"
+msgstr "수정"
 
 msgid "Edit any page"
 msgstr "페이지 수정"
 
+msgid "Publish"
+msgstr "게시"
+
 msgid "Publish any page"
-msgstr "페이지 퍼블리싱"
+msgstr "페이지 게시"
+
+msgid "Bulk delete"
+msgstr "한 번에 지우기"
+
+msgid "Delete pages with children"
+msgstr "하위 페이지들과 함께 지우기"
+
+msgid "Lock"
+msgstr "잠금"
 
 msgid "Lock/unlock any page"
 msgstr "페이지 잠금/잠금해제"
+
+msgid "group"
+msgstr "그룹"
+
+msgid "permission type"
+msgstr "권한 형태"
 
 msgid "group page permission"
 msgstr "그룹 페이지 권한"
@@ -124,8 +237,75 @@ msgstr "그룹 페이지 권한"
 msgid "group page permissions"
 msgstr "그룹 페이지 권한"
 
+msgid "Public"
+msgstr "공개"
+
+msgid "Private, accessible to logged-in users"
+msgstr "비공개, 로그인한 사용자들이 접근 가능"
+
+msgid "Private, accessible with the following password"
+msgstr "비공개, 다음의 비밀번호로 접근 가능"
+
+msgid "Private, accessible to users in specific groups"
+msgstr "비공개, 특정한 그룹 안의 사용자들이 접근 가능"
+
+msgid "password"
+msgstr "비밀번호"
+
+msgid "groups"
+msgstr "그룹"
+
+msgid "view restriction"
+msgstr "제한 사항 보기"
+
+msgid "view restrictions"
+msgstr "제한 사항 보기"
+
 msgid "page view restriction"
 msgstr "페이지 보기 제한"
 
 msgid "page view restrictions"
 msgstr "페이지 보기 제한"
+
+msgid "collection"
+msgstr "모음"
+
+msgid "collection view restriction"
+msgstr "모음 보기 제한 사항"
+
+msgid "collection view restrictions"
+msgstr "모음 보기 제한 사항"
+
+msgid "name"
+msgstr "이름"
+
+msgid "collections"
+msgstr "모음"
+
+msgid "permission"
+msgstr "권한"
+
+msgid "group collection permission"
+msgstr "그룹 모음 권한"
+
+msgid "Log in"
+msgstr "로그인"
+
+msgid "Your username and password didn't match. Please try again."
+msgstr "사용자명과 비밀번호가 일치하지 않습니다. 다시 시도해 주세요."
+
+msgid ""
+"Your account doesn't have access to this page. To proceed, please log in "
+"with an account that has access."
+msgstr ""
+"당신의 계정으로는 이 페이지에 접근할 수 없습니다. 진행하시려면 접근 권한이 있"
+"는 다른 계정으로 로그인하세요."
+
+msgid "Password required"
+msgstr "비밀번호 필요함"
+
+msgid "You need a password to access this page."
+msgstr "이 페이지에 접근하려면 비밀번호가 필요합니다."
+
+msgid "Continue"
+msgstr "계속"

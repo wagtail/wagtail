@@ -4,13 +4,13 @@
 #
 # Translators:
 # Eirik Krogstad <eirikkr@gmail.com>, 2015
-# Stein Strindhaug <stein.strindhaug@gmail.com>, 2016
+# Stein Strindhaug <stein.strindhaug@gmail.com>, 2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 22:44+0000\n"
-"PO-Revision-Date: 2016-11-18 10:52+0000\n"
+"POT-Creation-Date: 2017-06-19 16:55+0000\n"
+"PO-Revision-Date: 2017-04-21 07:24+0000\n"
 "Last-Translator: Stein Strindhaug <stein.strindhaug@gmail.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
@@ -33,13 +33,14 @@ msgstr "En bruker med dette navnet eksisterer allerede."
 msgid "The two password fields didn't match."
 msgstr "Passordfeltene stemmer ikke overens."
 
-msgid "Administrator"
-msgstr "Administrator"
+msgid "Email"
+msgstr "E-post"
 
-msgid "Administrators have full access to manage any object or setting."
-msgstr ""
-"Administratorer har full tilgang til å administrere alle objekter eller "
-"innstillinger."
+msgid "First Name"
+msgstr "Fornavn"
+
+msgid "Last Name"
+msgstr "Etternavn"
 
 msgid "Password"
 msgstr "Passord"
@@ -53,14 +54,13 @@ msgstr "Passord (bekreft)"
 msgid "Enter the same password as above, for verification."
 msgstr "Skriv inn samme passord som over for å verifisere"
 
-msgid "Email"
-msgstr "E-post"
+msgid "Administrator"
+msgstr "Administrator"
 
-msgid "First Name"
-msgstr "Fornavn"
-
-msgid "Last Name"
-msgstr "Etternavn"
+msgid "Administrators have full access to manage any object or setting."
+msgstr ""
+"Administratorer har full tilgang til å administrere alle objekter eller "
+"innstillinger."
 
 msgid "A group with that name already exists."
 msgstr "En gruppe med det navnet eksisterer allerede."
@@ -86,6 +86,12 @@ msgstr "avvisningsvarsel"
 msgid "Receive notification when your page edit is rejected"
 msgstr "Motta varsel når din sideredigering blir avvist"
 
+msgid "preferred language"
+msgstr "foretrukket språk"
+
+msgid "Select language for the admin"
+msgstr "Velg språk for adminsidene"
+
 msgid "user profile"
 msgstr "brukerprofil"
 
@@ -94,10 +100,25 @@ msgstr "Slett gruppe"
 
 #, python-format
 msgid ""
-"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> users "
-"assigned."
-msgstr ""
-"Gruppen \"%(group_name)s\" har <strong>%(group_user_count)s</strong> brukere."
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> member.\n"
+"            "
+msgid_plural ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> members.\n"
+"            "
+msgstr[0] ""
+"\n"
+"                Gruppen «%(group_name)s» har <strong>%(group_user_count)s</"
+"strong> medlem.\n"
+"            "
+msgstr[1] ""
+"\n"
+"                Gruppen «%(group_name)s» har <strong>%(group_user_count)s</"
+"strong> medlemmer.\n"
+"            "
 
 msgid ""
 "Deleting this group will revoke this group's permissions from all member "

@@ -4,14 +4,14 @@
 #
 # Translators:
 # Jihan Chung <jihanchung20@gmail.com>, 2015
-# Kyungil Choi <hanpama@gmail.com>, 2015
+# Kyungil Choi <hanpama@gmail.com>, 2015,2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 22:44+0000\n"
-"PO-Revision-Date: 2016-09-22 15:03+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-06-19 16:55+0000\n"
+"PO-Revision-Date: 2017-06-23 15:06+0000\n"
+"Last-Translator: Kyungil Choi <hanpama@gmail.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
 "MIME-Version: 1.0\n"
@@ -52,26 +52,35 @@ msgid "This file is too big. Maximum filesize %s."
 msgstr ""
 "이 파일 사이즈는 너무 큽니다. 최대 허용 가능한 파일 사이즈는 %s 입니다."
 
+msgid "Full width"
+msgstr "전체 너비"
+
+msgid "Left-aligned"
+msgstr "좌측 정렬"
+
+msgid "Right-aligned"
+msgstr "우측 정렬"
+
 msgid "Filter"
 msgstr "필터"
 
 msgid "Original size"
-msgstr "오리지날 사이즈"
+msgstr "원본 사이즈"
 
 msgid "Resize to width"
-msgstr "너비에 따른 사이즈 조정"
+msgstr "너비에 따라 사이즈 조정"
 
 msgid "Resize to height"
-msgstr "높이에 따른 사이즈 조정"
+msgstr "높이에 따라 사이즈 조정"
 
 msgid "Resize to min"
-msgstr "최소 사이즈에 따른 사이즈 조정"
+msgstr "최소 사이즈에 따라 사이즈 조정"
 
 msgid "Resize to max"
-msgstr "최대 사이즈에 따른 사이즈 조정"
+msgstr "최대 사이즈에 따라 사이즈 조정"
 
 msgid "Resize to fill"
-msgstr "채워넣기 위한 사이즈 조정"
+msgstr "꽉 채우도록 사이즈 조정"
 
 msgid "Width"
 msgstr "너비"
@@ -82,8 +91,38 @@ msgstr "높이"
 msgid "Closeness"
 msgstr " 접근"
 
+msgid "Add"
+msgstr "추가"
+
+msgid "Add/edit images you own"
+msgstr "이미지 추가/수정"
+
 msgid "Edit"
 msgstr "수정"
+
+msgid "Edit any image"
+msgstr "이미지 수정"
+
+msgid "title"
+msgstr "제목"
+
+msgid "file"
+msgstr "파일"
+
+msgid "width"
+msgstr "너비"
+
+msgid "height"
+msgstr "높이"
+
+msgid "created at"
+msgstr "생성된 시간:"
+
+msgid "uploaded by user"
+msgstr "업로드한 사용자:"
+
+msgid "tags"
+msgstr "태그"
 
 msgid "Choose an image"
 msgstr "이미지 선택"
@@ -96,6 +135,9 @@ msgstr "업로드"
 
 msgid "Popular tags"
 msgstr "인기있는 태그"
+
+msgid "Uploading..."
+msgstr "업로드 중..."
 
 #, python-format
 msgid ""
@@ -130,7 +172,7 @@ msgid_plural ""
 "    "
 msgstr[0] ""
 "\n"
-"<span>%(total)s</span> 이미지"
+"<span>%(total)s</span>개의 이미지"
 
 msgid "Change image file:"
 msgstr "이미지 파일 변경"
@@ -161,7 +203,7 @@ msgid "Editing"
 msgstr "수정중"
 
 msgid "Focal point (optional)"
-msgstr "초점 (옵션)"
+msgstr "중요부분 (선택)"
 
 msgid ""
 "To define this image's most important region, drag a box over the image "
@@ -170,7 +212,10 @@ msgstr ""
 "이미지의 중요한 영역을 정하려면, 박스를 이미지로 드래그하여 주시기 바랍니다."
 
 msgid "Current focal point shown"
-msgstr "현재 보여지는 초점"
+msgstr "현재 표시된 중요부분"
+
+msgid "Remove focal area"
+msgstr "중요부분 제거"
 
 msgid "URL Generator"
 msgstr "URL 생성기"
@@ -191,6 +236,22 @@ msgstr "이미지"
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
 msgstr ""
 "죄송합니다. \"<em>%(query_string)s</em>\" 와 연관된 이미지 결과가 없습니다."
+
+#, python-format
+msgid ""
+"You haven't uploaded any images in this collection. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+msgstr ""
+"해당 모음에 업로드한 이미지가 없습니다. 지금 하나 <a href="
+"\"%(wagtailimages_add_image_url)s\">업로드</a> 해 보는 건 어떠세요?"
+
+#, python-format
+msgid ""
+"You haven't uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+msgstr ""
+"업로드한 이미지가 없습니다. 하나 <a href=\"%(wagtailimages_add_image_url)s\">"
+"업로드</a> 해 보는 건 어떠세요?"
 
 msgid "Generating URL"
 msgstr "URL 생성"
@@ -242,22 +303,40 @@ msgstr "이 영역에 이미지를 드래그 앤 드롭하여 바로 업로드�
 msgid "Or choose from your computer"
 msgstr "혹은 당신의 컴퓨터에서 선택하시기 바랍니다"
 
+msgid "Add to collection:"
+msgstr "모음에 추가하기:"
+
 msgid ""
 "Upload successful. Please update this image with a more appropriate title, "
 "if necessary. You may also delete the image completely if the upload wasn't "
 "required."
 msgstr ""
 "성공적으로 업로드 되었습니다. 가능하면 이미지의 제목을 알맞게 변경하여 주시"
-"기 바랍니다. 업로드가 필요없다면 이미지를 완전히 삭제할 수도 있습니다."
+"기 바랍니다. 업로드가 필요하지 않다면 이미지를 완전히 삭제할 수도 있습니다."
 
 msgid "Sorry, upload failed."
 msgstr "죄송합니다, 업로드가 실패하였습니다."
+
+msgid "Server Error"
+msgstr "서버 오류"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "이 오류를 다음의 정보와 함께 웹마스터에게 알려 주시기 바랍니다:"
+
+msgid "Image updated."
+msgstr "이미지 수정됨."
 
 msgid "Update"
 msgstr "업데이트"
 
 msgid "Delete"
 msgstr "삭제"
+
+msgid "Image permissions"
+msgstr "이미지 권한"
+
+msgid "Add an image permission"
+msgstr "이미지 권한 추가"
 
 msgid "Search images"
 msgstr "이미지 검색"
@@ -289,6 +368,11 @@ msgstr "'{0}' 이미지가 추가 되었습니다."
 
 msgid "The image could not be created due to errors."
 msgstr "에러로 인해 이미지가 생성될 수 없습니다."
+
+#, python-format
+msgid "%(count)s image"
+msgid_plural "%(count)s images"
+msgstr[0] "%(count)s개의 이미지"
 
 msgid "Choose another image"
 msgstr "다른 이미지 선택"

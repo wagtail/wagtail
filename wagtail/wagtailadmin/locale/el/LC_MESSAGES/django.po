@@ -4,6 +4,7 @@
 #
 # Translators:
 # jim dal <dimitrisdal@gmail.com>, 2014
+# Nick Mavrakis <mavrakis.n@gmail.com>, 2017
 # serafeim <serafeim@torchbox.com>, 2014
 # serafeim <serafeim@torchbox.com>, 2014,2016
 # Wasilis Mandratzis-Walz, 2015
@@ -12,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 22:44+0000\n"
-"PO-Revision-Date: 2016-12-06 22:46+0000\n"
+"POT-Creation-Date: 2017-06-19 16:55+0000\n"
+"PO-Revision-Date: 2017-06-19 16:57+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
@@ -23,23 +24,26 @@ msgstr ""
 "Language: el\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "None"
+msgstr "None"
+
 msgid "You do not have permission to access the admin"
 msgstr "Δεν έχετε πρόσβαση στη διαχείριση."
 
 msgid "Scheduled publishing"
-msgstr "Προγραμματισμένη δημοσίευση"
+msgstr "Προγραμματισμενη δημοσιευση"
 
 msgid "Common page configuration"
 msgstr "Κοινές ρυθμίσεις σελίδων"
 
 msgid "Content"
-msgstr "Περιεχόμενο"
+msgstr "Περιεχομενο"
 
 msgid "Promote"
-msgstr "Προώθηση"
+msgstr "Προωθηση"
 
 msgid "Settings"
-msgstr "Ρυθμίσεις"
+msgstr "Ρυθμισεις"
 
 msgid "Search"
 msgstr "Αναζήτηση"
@@ -80,11 +84,10 @@ msgid "New slug"
 msgstr "Νέο slug"
 
 msgid "New parent page"
-msgstr "Νέα γονική σελίδα"
+msgstr "Νέα κύρια σελίδα"
 
 msgid "This copy will be a child of this given parent page."
-msgstr ""
-"Το αντίγραφο αυτό θα είναι ένα παιδί αυτής της δεδομένης γονικής σελίδας."
+msgstr "Το αντίγραφο αυτό θα είναι μια υποσελίδα αυτής της κύριας σελίδας."
 
 msgid "Copy subpages"
 msgstr "Αντιγραφή υποσελίδων"
@@ -93,13 +96,13 @@ msgstr "Αντιγραφή υποσελίδων"
 msgid "This will copy %(count)s subpage."
 msgid_plural "This will copy %(count)s subpages."
 msgstr[0] "Αντιγραφή %(count)s υποσελίδας."
-msgstr[1] "Αντιγραφή %(count)s υποσελίδων."
+msgstr[1] "Αυτό θα αντιγράψει %(count)s υποσελίδες."
 
 msgid "Publish copied page"
 msgstr "Δημοσίευση αντιγραμμένης σελίδας"
 
 msgid "This page is live. Would you like to publish its copy as well?"
-msgstr "Αυτή η σελίδα είναι ζωντανή. Θα θέλατε να δημοσιεύθει αντίγραφο της;"
+msgstr "Αυτή η σελίδα είναι live. Θα θέλατε να δημοσιεύθει και αντίγραφο της;"
 
 msgid "Publish copies"
 msgstr "Δημοσίευση αντιγράφων"
@@ -115,26 +118,29 @@ msgstr[0] ""
 "%(count)s των σελίδων που αντιγράφεται είναι ζωντανο. Θέλετε να δημοσιεύει "
 "το αντίγραφο τους;"
 msgstr[1] ""
-"%(count)s των σελίδων που αντιγράφεται είναι ζωντανά. Θέλετε να δημοσιεύουν "
-"τα αντίγραφα τους;"
+"%(count)s από τις σελίδες που αντιγράφονται είναι live. Θέλετε να "
+"δημοσιεύουν τα αντίγραφα τους;"
 
 #, python-format
 msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
-msgstr ""
-"Αυτό το περιθωρίου τυπογραφικού είναι ήδη σε χρήση στο πλαίσιο της γονικής "
-"σελίδας  \"%s\""
+msgstr "Αυτό το slug χρησιμοποιείται ήδη στην κύρια σελίδα \"%s\""
+
+msgid "Visibility"
+msgstr "Ορατότητα"
 
 msgid "This field is required."
-msgstr "Το πεδίο πρέπει να συμπληρωθεί"
+msgstr "Το πεδίο αυτό είναι απαραίτητο"
+
+msgid "Please select at least one group."
+msgstr "Παρακαλούμε επιλέξτε τουλάχιστον μια ομάδα."
 
 msgid "This slug is already in use"
 msgstr "Το slug χρησιμοποιείται"
 
 msgid "Go live date/time must be before expiry date/time"
 msgstr ""
-"Μετάβαση ζωντανής ημερομηνίας/ώρας πρέπει να είναι πριν από την ημερομηνία "
-"λήξης/ώρας"
+"Η live ημερομηνία/ώρα πρέπει να είναι πριν από την ημερομηνία/ώρα λήξης"
 
 msgid "Expiry date/time must be in the future"
 msgstr "Η ημερομηνία/ώρα λήξης πρέπει να είναι μελλοντική"
@@ -164,21 +170,15 @@ msgid "Change the password you use to log in."
 msgstr "Αλλάξτε τον κωδικό σας"
 
 msgid "Notification preferences"
-msgstr "Προτιμήσεις Ειδοποιήσεων"
+msgstr "Προτιμήσεις ειδοποιήσεων"
 
 msgid "Choose which email notifications to receive."
-msgstr "Επιλέξτε ποιες ειδοποιήσεις ηλεκτρονικού ταχυδρομείου θα λαμβάνετε"
-
-msgid "Change Password"
-msgstr "Αλλαγή κωδικού"
+msgstr "Επιλέξτε ποιες ειδοποιήσεις email θα λαμβάνετε."
 
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr ""
 "Ο κωδικός σας δε μπορεί να αλλαχτεί εδώ. Παρακαλώ ενημερώστε το διαχειριστή."
-
-msgid "Notification Preferences"
-msgstr "Προτιμήσεις Ειδοποιήσεων"
 
 msgid "Update"
 msgstr "Ενημέρωση"
@@ -206,8 +206,7 @@ msgstr "Μια σύνδεση για ανανέωση του κωδικού σα
 
 msgid "Please follow the link below to reset your password:"
 msgstr ""
-"Παρακαλούμε ακολουθήστε τη σύνδεση παρακάτω για να επαναφέρετε τον κωδικό "
-"σας:"
+"Παρακαλούμε κλικάρετε στο link παρακάτω για να επαναφέρετε τον κωδικό σας:"
 
 msgid "Your username (in case you've forgotten):"
 msgstr "Το όνομα χρήστη σας (σε περίπτωση που το ξεχάσατε):"
@@ -218,6 +217,12 @@ msgstr "Ανανέωση κωδικού"
 msgid "Reset your password"
 msgstr "Ανανεώστε τον κωδικό σας"
 
+msgid "Edit"
+msgstr "Διόρθωση"
+
+msgid "Pages"
+msgstr "Σελίδες"
+
 msgid "Dashboard"
 msgstr "Πίνακας ελέγχου"
 
@@ -225,7 +230,7 @@ msgid "Menu"
 msgstr "Μενού"
 
 msgid "Add another"
-msgstr "Προσθήκη ένος άλλου"
+msgstr "Προσθήκη νέου/νέας"
 
 msgid "Move up"
 msgstr "Μετακίνηση πάνω"
@@ -301,6 +306,21 @@ msgstr "Εισαγωγή σύνδεσης"
 msgid "Add an external link"
 msgstr "Προσθήκη εξωτερικής σύνδεσης"
 
+msgid "You can edit the privacy settings on:"
+msgstr "Μπορείτε να επεξεργαστείτε τις ρυθμίσεις απορρήτου στο:"
+
+msgid "Save"
+msgstr "Αποθηκευση"
+
+msgid "Privacy"
+msgstr "Ιδιωτικότητα"
+
+msgid "Public"
+msgstr "Δημοσιο"
+
+msgid "Private"
+msgstr "Ιδιωτικό"
+
 msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
 msgstr ""
@@ -324,9 +344,6 @@ msgstr "Προσθήκη %(heading)s"
 
 msgid "Yes, delete"
 msgstr "Ναι, να διαγραφεί"
-
-msgid "Save"
-msgstr "Αποθήκευση"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -363,11 +380,12 @@ msgstr "Έγκριση"
 msgid "Reject"
 msgstr "Απόρριψη"
 
-msgid "Edit"
-msgstr "Διόρθωση"
-
 msgid "Preview"
 msgstr "Προεπισκόπηση"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "πριν από %(time_period)s"
 
 msgid "Your most recent edits"
 msgstr "Οι πιο πρόσφατες διορθώσεις σας"
@@ -379,10 +397,10 @@ msgid "Status"
 msgstr "Κατάσταση"
 
 msgid "Draft"
-msgstr "Σχέδιο"
+msgstr "Draft"
 
 msgid "Live"
-msgstr "Ζωντανά"
+msgstr "Live"
 
 msgid "Site summary"
 msgstr "Κατάσταση site"
@@ -402,8 +420,8 @@ msgstr[0] ""
 "            "
 msgstr[1] ""
 "\n"
-"                <span>%(total)s</span> Σελίδες\n"
-"            "
+"        <span>%(total)s</span> Σελίδες\n"
+"    "
 
 msgid "Sign in"
 msgstr "Είσοδος"
@@ -411,7 +429,8 @@ msgstr "Είσοδος"
 #, python-format
 msgid "Your %(username_field)s and password didn't match. Please try again."
 msgstr ""
-"Το %(username_field)s και ο κωδικός δεν ταιριάζουν. Παρακαλώ δοκιμάστε ξανά."
+"Το %(username_field)s και ο κωδικός δεν ταιριάζουν. Παρακαλούμε δοκιμάστε "
+"ξανά."
 
 msgid "Sign in to Wagtail"
 msgstr "Είσοδος στο Wagtail"
@@ -453,7 +472,8 @@ msgstr "Η σελίδα \"%(title)s\" απορρίφθηκε"
 
 #, python-format
 msgid "The page \"%(page)s\" has been submitted for moderation by %(editor)s."
-msgstr "Η σελίδα \"%(page)s\" έχει υποβληθεί για έλεγχο από τον %(editor)s."
+msgstr ""
+"Η σελίδα \"%(page)s\" έχει υποβληθεί για έλεγχο από τον/την %(editor)s."
 
 msgid "You can preview the page here:"
 msgstr "Μπορείτε να τη δείτε εδώ:"
@@ -463,18 +483,15 @@ msgid "The page \"%(page)s\" has been submitted for moderation"
 msgstr "Η σελίδα \"%(page)s\" στάλθηκε για έλεγχο"
 
 msgid "Page privacy"
-msgstr "Ιδιωτικότητα της σελίδας"
+msgstr "Ιδιωτικοτητα σελιδας"
 
 msgid "This page has been made private by a parent page."
-msgstr "Αυτή η σελίδα έχει γίνει ιδιωτική από σελίδα - γονέα"
-
-msgid "You can edit the privacy settings on:"
-msgstr "Μπορείτε να επεξεργαστείτε τις ρυθμίσεις απορρήτου στο:"
+msgstr "Αυτή η σελίδα έχει γίνει ιδιωτική από μια κύρια σελίδα."
 
 msgid "Privacy changes apply to all children of this page too."
 msgstr ""
-"Αλλαγές Προστασίας Προσωπικών Δεδομένων ισχύουν για όλα τα παιδιά αυτής της "
-"σελίδας επίσης."
+"Τυχόν αλλαγές Προστασίας Προσωπικών Δεδομένων θα ισχύουν για όλες τις "
+"υποσελίδες αυτής της σελίδας."
 
 msgid "Edit lock"
 msgstr "Επεξεργασία κλειδώματος"
@@ -483,16 +500,7 @@ msgid "Locked"
 msgstr "Κλειδωμένο"
 
 msgid "Unlocked"
-msgstr "Ξεκλειδωμένο"
-
-msgid "Privacy"
-msgstr "Ιδιωτικότητα"
-
-msgid "Public"
-msgstr "Δημόσια"
-
-msgid "Private"
-msgstr "Ιδιωτική"
+msgstr "Ξεκλειδωμενο"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -536,10 +544,10 @@ msgstr[1] ""
 "                "
 
 msgid "Yes, delete it"
-msgstr "Ναι, διαγράψτε το"
+msgstr "Ναι, να διαγραφεί"
 
 msgid "No, don't delete it"
-msgstr "Όχι, μην το διαγράψετε"
+msgstr "Όχι, να μην διαγραφεί"
 
 #, python-format
 msgid ""
@@ -548,9 +556,8 @@ msgid ""
 "later."
 msgstr ""
 "Εναλλακτικά μπορείτε να κάνετε <a href=\"%(unpublish_url)s\">κατάργηση "
-"δημοσίευσης της σελίδας </a>. Αυτό θα αφαιρέσει την σελίδα από την "
-"ιστοσελίδα σας, αλλά θα μπορείτε να την επεξεργαστείτε και να την "
-"δημοσιεύσετε αργότερα."
+"δημοσίευσης της σελίδας</a>. Αυτό θα αφαιρέσει την σελίδα από την ιστοσελίδα "
+"σας, αλλά θα μπορείτε να την επεξεργαστείτε και να την δημοσιεύσετε αργότερα."
 
 #, python-format
 msgid "Move %(title)s"
@@ -584,11 +591,32 @@ msgstr "Αποέκδοση"
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Είστε σίγουρος ότι θέλετε να αποεκδόσετε αυτή τη σελίδα;"
 
+#, python-format
+msgid ""
+"\n"
+"                    This page has one subpage. Unpublish this too\n"
+"                "
+msgid_plural ""
+"\n"
+"                    This page has %(live_descendant_count)s subpages. "
+"Unpublish these too\n"
+"                "
+msgstr[0] ""
+"\n"
+"                    Αυτή η σελίδα έχει μία υποσελίδα. Κατάργηση δημοσίευσης "
+"και αυτής\n"
+"                "
+msgstr[1] ""
+"\n"
+"                    Αυτή η σελίδα έχει %(live_descendant_count)s υποσελίδες. "
+"Κατάργηση δημοσίευσης και αυτών\n"
+"                "
+
 msgid "Yes, unpublish it"
 msgstr "Ναι, να αποεκδοθεί"
 
 msgid "No, don't unpublish"
-msgstr "Όχι, να μην γίνει κατάργηση δημοσίευσης  "
+msgstr "Όχι, να μην γίνει κατάργηση της δημοσίευσης  "
 
 msgid "Pages using"
 msgstr "Οι σελίδες που το χρησιμοποιούν"
@@ -611,7 +639,7 @@ msgid "New"
 msgstr "Νέο"
 
 msgid "Saving..."
-msgstr "Γίνεται αποθήκευση..."
+msgstr "Αποθήκευση..."
 
 msgid "Save draft"
 msgstr "Αποθήκευση σχεδίου"
@@ -640,7 +668,7 @@ msgid "Page locked"
 msgstr "Σελίδα κλειδωμένη"
 
 msgid "Replace current draft"
-msgstr "Αντικατάσταση σχεδίου"
+msgstr "Αντικατάσταση του τρέχοντος draft"
 
 msgid "Publish this revision"
 msgstr "Δημοσίευση της αναθεώρησης"
@@ -664,7 +692,7 @@ msgid "Drag"
 msgstr "Τραβήξτε"
 
 msgid "Updated"
-msgstr "Ενημέρωση"
+msgstr "Ενημερωθηκε"
 
 msgid ""
 "\n"
@@ -689,7 +717,7 @@ msgid ""
 msgstr ""
 "\n"
 "Αν θέλετε απλώς να προσθέσετε σελίδες σε ένα υπάρχον site θα πρέπει απλώς να "
-"τις δημιουργήσετε ως παιδιά της αρχικής σελίδας."
+"τις δημιουργήσετε ως υποσελίδες της αρχικής σελίδας."
 
 msgid ""
 "\n"
@@ -700,8 +728,8 @@ msgid ""
 msgstr ""
 "\n"
 "Οι σελίδες που προστίθενται εδώ δε θα είναι προσβάσιμες μέσω κάποιου URL. "
-"Για να προσθέσετε σελίδες σε ένα υπάρχον site δημιουργήστε τις ως παιδιά της "
-"αρχικής σελίδας."
+"Για να προσθέσετε σελίδες σε ένα υπάρχον site δημιουργήστε τις ως υποσελίδες "
+"της αρχικής σελίδας."
 
 msgid ""
 "\n"
@@ -751,8 +779,8 @@ msgstr "Εξερεύνηση των σελίδων - παιδιών του '%(ti
 msgid "Add a child page to '%(title)s'"
 msgstr "Προσθήκη σελίδας - παιδί στην '%(title)s'"
 
-msgid "Add subpage"
-msgstr "Προσθήκη υποσελίδας"
+msgid "Add child page"
+msgstr "Προσθήκη σελίδας-παιδί"
 
 #, python-format
 msgid ""
@@ -790,6 +818,69 @@ msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Επιλογή νέας πατρικής σελίδας για την <span>%(title)s</span>"
 
 #, python-format
+msgid "Comparing %(title)s"
+msgstr "Σύγκριση %(title)s"
+
+msgid "Comparing"
+msgstr "Σύγκριση"
+
+msgid "View revisions"
+msgstr "Προβολή αναθεωρήσεων"
+
+msgid "Fields"
+msgstr "Πεδία"
+
+msgid "Changes"
+msgstr "Αλλαγές"
+
+#, python-format
+msgid ""
+"\n"
+"                                                            Moved down 1 "
+"place.\n"
+"                                                        "
+msgid_plural ""
+"\n"
+"                                                            Moved down "
+"%(counter)s places.\n"
+"                                                        "
+msgstr[0] ""
+"\n"
+"                                                            Μετακινήθηκε "
+"κάτω κατά 1.\n"
+"                                                        "
+msgstr[1] ""
+"\n"
+"                                                            Μετακινήθηκε "
+"κάτω κατά %(counter)s.\n"
+"                                                        "
+
+#, python-format
+msgid ""
+"\n"
+"                                                            Moved up 1 "
+"place.\n"
+"                                                        "
+msgid_plural ""
+"\n"
+"                                                            Moved up "
+"%(counter)s places.\n"
+"                                                        "
+msgstr[0] ""
+"\n"
+"                                                            Μετακινήθηκε "
+"πάνω κατά 1.\n"
+"                                                        "
+msgstr[1] ""
+"\n"
+"                                                            Μετακινήθηκε "
+"πάνω κατά %(counter)s.\n"
+"                                                        "
+
+msgid "There are no differences between these two revisions"
+msgstr "Δεν υπάρχουν διαφορές μεταξύ αυτών των δύο αναθεωρήσεων"
+
+#, python-format
 msgid "Revisions of %(title)s"
 msgstr "Αναθεωρήσεις του %(title)s"
 
@@ -808,6 +899,9 @@ msgstr "Τρέχον σχέδιο"
 
 msgid "Review this revision"
 msgstr "Εμφάνιση της αναθεωρησης"
+
+msgid "Compare with previous revision"
+msgstr "Σύγκριση με προηγούμενη αναθεώρηση"
 
 msgid "No revisions of this page exist"
 msgstr "Δεν υπάρχουν αναθεωρήσεις της σελίδας"
@@ -917,6 +1011,9 @@ msgstr[1] "Χρησιμοποιήθηκε %(useage_count)s φορές"
 msgid "Edit your account"
 msgstr "Επεξεργαστείτε το λογαριασμό σας"
 
+msgid "Account settings"
+msgstr "Ρυθμίσεις λογαριασμού"
+
 msgid "Log out"
 msgstr "Αποσύνδεση"
 
@@ -937,6 +1034,24 @@ msgstr ""
 "πρόγραμμα περιήγησης σας μεσω της σελιδας <a href=\"http://browsehappy.com/"
 "\"></a>."
 
+msgid ""
+"\n"
+"            Javascript is required to use Wagtail, but it is currently "
+"disabled.<br />\n"
+"            Here are the <a href=\"http://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noopener\">instructions how to enable JavaScript in "
+"your web browser</a>.\n"
+"        "
+msgstr ""
+"\n"
+"            Για να χρησιμοποιήσετε το Wagtail θα πρέπει να είναι "
+"ενεργοποιημένη η Javascript στον browser σας. Τώρα είναι απενεργοποιημένη."
+"<br />\n"
+"            <a href=\"http://www.enable-javascript.com/\" target=\"_blank\" "
+"rel=\"noopener\">Εδώ θα βρείτε οδηγίες</a> για το πως να ενεργοποιήσετε την "
+"JavaScript στον browser σας.\n"
+"        "
+
 msgid "Go to Wagtail admin interface"
 msgstr "Πηγαίνετε στο Wagtail περιβάλλον του διαχειριστή"
 
@@ -944,7 +1059,7 @@ msgid "Go to Wagtail admin"
 msgstr "Πηγαίνετε στη διαχείριση του Wagtail"
 
 msgid "Add a child page"
-msgstr "Προσθήκη υφιστάμενης σελίδας"
+msgstr "Προσθέστε μια υποσελίδα"
 
 msgid "Show in Explorer"
 msgstr "Εμφάνιση στον εξερευνητή"
@@ -957,9 +1072,6 @@ msgstr "Δεν έχετε πρόσβαση στην περιοχή."
 
 msgid "Your password has been changed successfully!"
 msgstr "Ο κωδικός σας αλλάχτηκε με επιτυχία!"
-
-msgid "Your preferences have been updated successfully!"
-msgstr "Οι προτιμήσεις σας έχουν ενημερωθεί επιτυχώς!"
 
 msgid "You have been successfully logged out."
 msgstr "Έχετε αποσυνδεθεί."
@@ -979,7 +1091,7 @@ msgstr "Η συλλογή '{0}' δημιουργήθηκε."
 
 #, python-brace-format
 msgid "Collection '{0}' updated."
-msgstr "Η συλλογή '{0}' ανανεώθηκε."
+msgstr "Η συλλογή '{0}' ενημερώθηκε."
 
 msgid "The collection could not be saved due to errors."
 msgstr "Δεν ήταν δυνατή η αποθήκευση της συλλογής."
@@ -1006,7 +1118,7 @@ msgid "Page '{0}' created and published."
 msgstr "Η σελίδα '{0}' δημιουργήθηκε και δημοσιεύθηκε."
 
 msgid "View live"
-msgstr "Εμφάνιση στο site"
+msgstr "Εμφανιση στο site"
 
 #, python-brace-format
 msgid "Page '{0}' created and submitted for moderation."
@@ -1027,11 +1139,12 @@ msgstr "Η σελίδα δεν δημιοιυργήθηκε λόγω σφαλμ�
 
 #, python-brace-format
 msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
-msgstr "Η αναθεωρηση της {0} της σελίδα '{1}' προγραμματίστηκε προς έκδοση."
+msgstr ""
+"Η αναθεωρηση της {0} της σελίδας '{1}' προγραμματίστηκε για δημοσίευση."
 
 #, python-brace-format
 msgid "Page '{0}' has been scheduled for publishing."
-msgstr "Η σελίδα '{0}' προγραμματίστηκε προς έκδοση."
+msgstr "Η σελίδα '{0}' προγραμματίστηκε για δημοσίευση."
 
 #, python-brace-format
 msgid "Revision from {0} of page '{1}' has been published."
@@ -1051,13 +1164,16 @@ msgstr "Η σελίδα '{0}' αντικαταστάθηκε με την ανα�
 
 #, python-brace-format
 msgid "Page '{0}' has been updated."
-msgstr "Η σελίδα '{0}' ανανεώθηκε."
+msgstr "Η σελίδα '{0}' ενημερώθηκε."
 
 msgid "The page could not be saved as it is locked"
 msgstr "Η σελίδα δεν μπορεί να αποθηκευτεί καθώς είναι κλειδωμένη"
 
 msgid "The page could not be saved due to validation errors"
 msgstr "Δε ήταν δυνατή η αποθήκευση της σελίδας λόγω σφαλμάτων ελέγχου"
+
+msgid "Compare with live version"
+msgstr "Σύγκριση με την live έκδοση"
 
 msgid "This page is currently awaiting moderation"
 msgstr "Η σελίδα είναι προς έλεγχο"
@@ -1116,36 +1232,54 @@ msgstr ""
 "Εμφανίζεται παλαιά αναθεώρηση της σελίδας που δημιουργήθηκε στις <b>"
 "%(created_at)s</b> από το χρήστη %(user)s"
 
-msgid "Pages"
-msgstr "Σελίδες"
+msgid "Earliest"
+msgstr "Πιο πρόσφατες"
 
-msgid "Preview draft"
-msgstr "Προεπισκόπηση σχεδίου"
-
-msgid "Add child page"
-msgstr "Προσθήκη σελίδας-παιδί"
+msgid "Latest"
+msgstr "Τελευταίες"
 
 #, python-brace-format
-msgid "Add a child page to '{0}' "
-msgstr "Προσθήκη σελίδας-παιδί στο '{0}'"
+msgid "Edit '{title}'"
+msgstr "Επεξεργασία '{title}'"
+
+#, python-brace-format
+msgid "Preview draft version of '{title}'"
+msgstr "Προεπισκόπιση της draft έκδοσης της σελίδας '{title}'"
+
+#, python-brace-format
+msgid "View live version of '{title}'"
+msgstr "Προβολή της live έκδοσης της σελίδας '{title}'"
+
+#, python-brace-format
+msgid "Add a child page to '{title}' "
+msgstr "Προσθήκη υποσελίδας στη σελίδα '{title}'"
 
 msgid "More"
-msgstr "Περισσότερα"
+msgstr "Περισσοτερα"
 
-msgid "View more options"
-msgstr "Εμφάνιση περισσότερων επιλογών"
+#, python-brace-format
+msgid "View more options for '{title}'"
+msgstr "Δείτε περισσότερες επιλογές για τη σελίδα '{title}'"
 
-msgid "Move this page"
-msgstr "Μετακίνηση της σελίδας"
+#, python-brace-format
+msgid "Move page '{title}'"
+msgstr "Μετακίνηση της σελίδας '{title}'"
 
-msgid "Delete this page"
-msgstr "Διαγραφή της σελίδας"
+#, python-brace-format
+msgid "Copy page '{title}'"
+msgstr "Αντιγραφή της σελίδας '{title}'"
 
-msgid "Unpublish this page"
-msgstr "Από-έκδοση της σελίδας"
+#, python-brace-format
+msgid "Delete page '{title}'"
+msgstr "Διαγραφή της σελίδας '{title}'"
 
-msgid "View this page's revision history"
-msgstr "Εμφάνιση του ιστορικού αναθεωρήσεων της σελίδας"
+#, python-brace-format
+msgid "Unpublish page '{title}'"
+msgstr "Κατάργηση δημοσίευσης της σελίδας '{title}'"
+
+#, python-brace-format
+msgid "View revision history for '{title}'"
+msgstr "Προβολή του ιστορικού αναθεωρήσεων της σελίδας '{title}'"
 
 msgid "Choose an item"
 msgstr "Επιλέξατε αντικείμενο"

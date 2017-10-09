@@ -5,12 +5,13 @@
 # Translators:
 # hanfeng <appweb.cn@gmail.com>, 2014
 # Leway Colin <colin4124@gmail.com>, 2016
+# Orangle Liu <orangleliu@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 22:44+0000\n"
-"PO-Revision-Date: 2016-12-06 22:46+0000\n"
+"POT-Creation-Date: 2017-06-19 16:55+0000\n"
+"PO-Revision-Date: 2017-06-19 16:57+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (http://www.transifex.com/torchbox/wagtail/language/"
 "zh/)\n"
@@ -19,6 +20,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: zh\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "You do not have permission to access the admin"
+msgstr "您没有进入后台的权限"
+
+msgid "Content"
+msgstr "内容"
+
+msgid "Settings"
+msgstr "设置"
 
 msgid "Search"
 msgstr "搜索"
@@ -43,6 +53,9 @@ msgstr "对不起，你不能在此够重置你的密码，因为您的账号是
 msgid "This email address is not recognised."
 msgstr "没有找到这个电子邮件地址。"
 
+msgid "New title"
+msgstr "新标题"
+
 msgid "This slug is already in use"
 msgstr "这个唯一的地址已被占用"
 
@@ -66,15 +79,18 @@ msgstr "修改密码"
 msgid "Change the password you use to log in."
 msgstr "修改您用于登录的密码。"
 
+msgid "Notification preferences"
+msgstr "通知偏好"
+
 msgid "Choose which email notifications to receive."
 msgstr "请选择接收邮件提醒的方式"
-
-msgid "Change Password"
-msgstr "修改密码"
 
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr "您的密码不能在此更改。请联系网站管理员。"
+
+msgid "Update"
+msgstr "更新"
 
 msgid "Reset password"
 msgstr "重置密码"
@@ -103,6 +119,9 @@ msgstr "密码已重置"
 msgid "Reset your password"
 msgstr "重置您的密码"
 
+msgid "Edit"
+msgstr "编辑"
+
 msgid "Dashboard"
 msgstr "仪表板"
 
@@ -130,6 +149,9 @@ msgstr "外部链接"
 msgid "Email link"
 msgstr "电子邮件链接"
 
+msgid "Choose"
+msgstr "选择"
+
 msgid "Choose a page"
 msgstr "选择一个页面"
 
@@ -144,6 +166,9 @@ msgstr "添加一个外部链接"
 
 msgid "Save"
 msgstr "保存"
+
+msgid "Yes, delete"
+msgstr "是的，删除"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -166,6 +191,9 @@ msgstr "上一级"
 msgid "Type"
 msgstr "类型"
 
+msgid "Edited"
+msgstr "已编辑"
+
 msgid "Edit this page"
 msgstr "编辑这个页面"
 
@@ -174,9 +202,6 @@ msgstr "通过"
 
 msgid "Reject"
 msgstr "拒绝"
-
-msgid "Edit"
-msgstr "编辑"
 
 msgid "Preview"
 msgstr "预览"
@@ -190,6 +215,9 @@ msgstr "日期"
 msgid "Status"
 msgstr "状态"
 
+msgid "Draft"
+msgstr "草稿"
+
 msgid "Site summary"
 msgstr "网站摘要"
 
@@ -202,6 +230,9 @@ msgstr "登录Wagtail"
 msgid "Forgotten it?"
 msgstr "忘记了？"
 
+msgid "Signing in..."
+msgstr "您好 "
+
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
 msgstr "这个页面 \"%(title)s\" 已经被通过"
@@ -212,6 +243,13 @@ msgstr "你可以在此查看这个页面"
 #, python-format
 msgid "The page \"%(title)s\" has been approved"
 msgstr "这个页面 \"%(title)s\" 已经被通过"
+
+#, python-format
+msgid "Hello %(username)s,"
+msgstr "您好 %(username)s,"
+
+msgid "Edit your notification preferences here:"
+msgstr "在这里编辑您的通知偏好"
 
 #, python-format
 msgid "The page \"%(title)s\" has been rejected."
@@ -230,6 +268,9 @@ msgstr "你可以在此预览这页："
 #, python-format
 msgid "The page \"%(page)s\" has been submitted for moderation"
 msgstr "这个页面 \"%(page)s\" 已经提交审核"
+
+msgid "Page privacy"
+msgstr "页面隐私"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -329,7 +370,7 @@ msgstr "浏览"
 msgid "Add a child page to '%(title)s'"
 msgstr "添加子页面至'%(title)s'"
 
-msgid "Add subpage"
+msgid "Add child page"
 msgstr "添加子页面"
 
 msgid "Previous"
@@ -461,9 +502,6 @@ msgstr "第 '{0}' 页已发布。"
 #, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "第 '{0}' 页已被拒绝发布。"
-
-msgid "Add child page"
-msgstr "添加子页面"
 
 msgid "Choose an item"
 msgstr "选择一个选项"

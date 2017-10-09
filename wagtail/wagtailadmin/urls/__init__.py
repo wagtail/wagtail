@@ -18,8 +18,6 @@ urlpatterns = [
 
     url(r'^failwhale/$', home.error_test, name='wagtailadmin_error_test'),
 
-    url(r'^explorer-nav/$', pages.explorer_nav, name='wagtailadmin_explorer_nav'),
-
     # TODO: Move into wagtailadmin_pages namespace
     url(r'^pages/$', pages.index, name='wagtailadmin_explore_root'),
     url(r'^pages/(\d+)/$', pages.index, name='wagtailadmin_explore'),
@@ -43,6 +41,11 @@ urlpatterns = [
         r'^account/notification_preferences/$',
         account.notification_preferences,
         name='wagtailadmin_account_notification_preferences'
+    ),
+    url(
+        r'^account/language_preferences/$',
+        account.language_preferences,
+        name='wagtailadmin_account_language_preferences'
     ),
     url(r'^logout/$', account.logout, name='wagtailadmin_logout'),
 ]

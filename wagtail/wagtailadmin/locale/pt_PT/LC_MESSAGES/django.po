@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 22:44+0000\n"
-"PO-Revision-Date: 2016-12-07 14:29+0000\n"
-"Last-Translator: Tiago Henriques <trinosauro@gmail.com>\n"
+"POT-Creation-Date: 2017-06-19 16:55+0000\n"
+"PO-Revision-Date: 2017-06-19 16:57+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
@@ -172,17 +172,11 @@ msgstr "Preferências de notificação"
 msgid "Choose which email notifications to receive."
 msgstr "Escolha quais as notificações de e-mail a receber."
 
-msgid "Change Password"
-msgstr "Alterar Senha"
-
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr ""
 "A sua senha não pode ser alterada aqui. Por favor contacte um administrador "
 "do site."
-
-msgid "Notification Preferences"
-msgstr "Preferências de notificação"
 
 msgid "Update"
 msgstr "Atualizar"
@@ -219,6 +213,12 @@ msgstr "Reinicializar senha"
 
 msgid "Reset your password"
 msgstr "Reinicialize a sua senha"
+
+msgid "Edit"
+msgstr "Alterar"
+
+msgid "Pages"
+msgstr "Páginas"
 
 msgid "Dashboard"
 msgstr "Painel de controlo"
@@ -303,6 +303,21 @@ msgstr "Inserir link"
 msgid "Add an external link"
 msgstr "Adicionar link externo"
 
+msgid "You can edit the privacy settings on:"
+msgstr "Pode alterar as definições de privacidade em:"
+
+msgid "Save"
+msgstr "Guardar"
+
+msgid "Privacy"
+msgstr "Privacidade"
+
+msgid "Public"
+msgstr "Público"
+
+msgid "Private"
+msgstr "Privada"
+
 msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
 msgstr "A coleção não pode ser apagada, dado não estar vazia. Contém:"
@@ -324,9 +339,6 @@ msgstr "Adicionar %(heading)s"
 
 msgid "Yes, delete"
 msgstr "Sim, apagar"
-
-msgid "Save"
-msgstr "Guardar"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -362,9 +374,6 @@ msgstr "Aprovar"
 
 msgid "Reject"
 msgstr "Rejeitar"
-
-msgid "Edit"
-msgstr "Alterar"
 
 msgid "Preview"
 msgstr "Visualizar"
@@ -468,9 +477,6 @@ msgstr "Privacidade da página"
 msgid "This page has been made private by a parent page."
 msgstr "Esta página foi tornada privada por uma página-mãe"
 
-msgid "You can edit the privacy settings on:"
-msgstr "Pode alterar as definições de privacidade em:"
-
 msgid "Privacy changes apply to all children of this page too."
 msgstr ""
 "As alterações de privacidade aplicam-se a todas as páginas-filha desta "
@@ -484,15 +490,6 @@ msgstr "Trancada"
 
 msgid "Unlocked"
 msgstr "Destrancada"
-
-msgid "Privacy"
-msgstr "Privacidade"
-
-msgid "Public"
-msgstr "Público"
-
-msgid "Private"
-msgstr "Privada"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -773,7 +770,7 @@ msgstr "Explorar as páginas-filha de '%(title)s'"
 msgid "Add a child page to '%(title)s'"
 msgstr "Adicionar página-filha a %(title)s"
 
-msgid "Add subpage"
+msgid "Add child page"
 msgstr "Adicionar página-filha"
 
 #, python-format
@@ -1000,9 +997,6 @@ msgstr "Desculpe, não tem permissão para aceder a esta área."
 msgid "Your password has been changed successfully!"
 msgstr "A sua senha foi alterada com sucesso!"
 
-msgid "Your preferences have been updated successfully!"
-msgstr "As suas preferências foram atualizadas com sucesso!"
-
 msgid "You have been successfully logged out."
 msgstr "A sua sessão foi terminada com sucesso."
 
@@ -1158,36 +1152,8 @@ msgstr ""
 "Está a visualizar uma versão anterior desta página de <b>%(created_at)s</b> "
 "por %(user)s"
 
-msgid "Pages"
-msgstr "Páginas"
-
-msgid "Preview draft"
-msgstr "Visualizar rascunho"
-
-msgid "Add child page"
-msgstr "Adicionar página-filha"
-
-#, python-brace-format
-msgid "Add a child page to '{0}' "
-msgstr "Adicionar página-filha a '{0}'"
-
 msgid "More"
 msgstr "Mais"
-
-msgid "View more options"
-msgstr "Ver mais opções"
-
-msgid "Move this page"
-msgstr "Mover esta página"
-
-msgid "Delete this page"
-msgstr "Apagar esta página"
-
-msgid "Unpublish this page"
-msgstr "Despublicar esta página"
-
-msgid "View this page's revision history"
-msgstr "Ver o histórico de versões desta página"
 
 msgid "Choose an item"
 msgstr "Escolher um item"

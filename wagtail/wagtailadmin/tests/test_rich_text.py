@@ -5,10 +5,12 @@ from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.test.utils import override_settings
 
+from wagtail.tests.testapp.models import SingleEventPage
 from wagtail.tests.testapp.rich_text import CustomRichTextArea
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailadmin.rich_text import HalloRichTextArea, get_rich_text_editor_widget
 from wagtail.wagtailcore.models import Page, get_page_models
+from wagtail.wagtailcore.rich_text import RichText
 
 
 class BaseRichTextEditHandlerTestCase(TestCase):
@@ -194,3 +196,28 @@ class TestCustomDefaultRichText(BaseRichTextEditHandlerTestCase, WagtailTestUtil
         # Check that hallo (default editor by now) was replaced with fake editor
         self.assertNotContains(response, 'makeHalloRichTextEditable("__PREFIX__-value");')
         self.assertContains(response, 'customEditorInitScript("__PREFIX__-value");')
+
+
+class TestRichTextValue(TestCase):
+
+    def setUp(self):
+        self.root_page = Page.objects.get(id=2)
+
+        self.single_event_page = SingleEventPage(
+            title="foo",
+            location='the moon', audience='public',
+            cost='free', date_from='2001-01-01',
+        )
+        self.root_page.add_child(instance=self.single_event_page)
+
+
+    def test_render(self):
+        text = '<p>To the <a linktype="page" id="{}">moon</a>!</p>'.format(
+            self.single_event_page.id
+        )
+        value = RichText(text)
+        result = str(value)
+        expected = (
+            '<div class="rich-text"><p>To the <a href="'
+            '/foo/pointless-suffix/">moon</a>!</p></div>')
+        self.assertEqual(result, expected)

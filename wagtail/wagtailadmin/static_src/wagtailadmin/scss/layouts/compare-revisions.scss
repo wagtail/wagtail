@@ -1,0 +1,64 @@
+@import 'wagtailadmin/scss/variables';
+
+$color-addition-dark: #a6f3a6;
+$color-addition-light: #ebffeb;
+$color-deletion-dark: #f8cbcb;
+$color-deletion-light: #ffebeb;
+
+.comparison {
+    &__child-object {
+        border-top: 1px dashed $color-grey-4;
+        padding: 1em;
+
+        &:first-child {
+            border-top: 0;
+        }
+
+        &.addition {
+            background-color: $color-addition-light;
+        }
+
+        &.deletion {
+            background-color: $color-deletion-light;
+        }
+    }
+
+    &__list {
+        margin-top: 0;
+        margin-bottom: -1em;
+    }
+
+    span.addition {
+        background-color: $color-addition-dark;
+    }
+
+    span.deletion {
+        background-color: $color-deletion-dark;
+    }
+
+    .preview-image {
+        display: inline-block;
+
+        &.addition,
+        &.deletion {
+            padding: 5px;
+            margin-right: 5px;
+            border-style: solid;
+            border-width: 1px;
+        }
+
+        &.addition {
+            background-color: $color-addition-light;
+            border-color: $color-addition-dark;
+        }
+
+        &.deletion {
+            background-color: $color-deletion-light;
+            border-color: $color-deletion-dark;
+        }
+
+        img {
+            display: block;
+        }
+    }
+}

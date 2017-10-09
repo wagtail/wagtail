@@ -1,5 +1,7 @@
 {% extends "wagtailadmin/base.html" %}
-{% load i18n staticfiles %}
+{% load i18n %}
+{% load l10n %}
+{% load staticfiles %}
 {% block titletag %}{% trans "Add multiple documents" %}{% endblock %}
 {% block extra_css %}
     {{ block.super }}
@@ -28,7 +30,7 @@
                         <div class="field-content">
                             <select id="id_adddocument_collection" name="collection">
                                 {% for collection in collections %}
-                                    <option value="{{ collection.id }}">{{ collection.name }}</option>
+                                    <option value="{{ collection.id|unlocalize }}">{{ collection.name }}</option>
                                 {% endfor %}
                             </select>
                         </div>

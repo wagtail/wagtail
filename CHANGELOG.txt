@@ -1,9 +1,133 @@
 Changelog
 =========
 
-1.9 (xx.xx.xxxx) - IN DEVELOPMENT
+1.12 LTS (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~~~~
+
+ * New class-based configuration for media embeds (Karl Hobley)
+ * The admin interface now displays a title of the latest draft (Mikalai Radchuk)
+ * Added multi-select form field to the form builder (dwasyl)
+ * Fix: FieldBlocks in StreamField now call the field's `prepare_value` method (Tim Heap)
+ * Fix: Initial disabled state of InlinePanel add button is now set correctly on non-default tabs (Matthew Downey)
+ * Fix: Redirects with unicode characters now work (Rich Brennan)
+ * Fix: Prevent explorer view from crashing when page model definitions are missing, allowing the offending pages to be deleted (Matt Westcott)
+
+
+1.11.1 (07.07.2017)
+~~~~~~~~~~~~~~~~~~~
+
+ * Fix: Custom display page titles defined with `get_admin_display_title` are now shown within the page explorer menu (Matt Westcott, Janneke Janssen)
+
+
+1.11 (30.06.2017)
+~~~~~~~~~~~~~~~~~
+
+ * Added a new page explorer menu built with the admin API and React (Karl Hobley, Josh Barr, Thibaud Colas, Janneke Janssen, Rob Moorman, Maurice Bartnig, Jonny Scholes, Matt Westcott, Sævar Öfjörð Magnússon, Eirikur Ingi Magnusson, Harris Lapiroff, Hugo van den Berg, Olly Willans, Andy Babic, Ben Enright, Bertrand Bordage)
+ * Added privacy settings for documents (Ulrich Wagner, Matt Westcott)
+ * Optimised page URL generation by caching site paths in the request scope (Tobias McNulty, Matt Westcott)
+ * The current live version of a page is now tracked on the revision listing view (Matheus Bratfisch)
+ * Each block created in a `StreamField` is now assigned a globally unique identifier (Matt Westcott)
+ * Mixcloud oEmbed pattern has been updated (Alice Rose)
+ * Added `last_published_at` field to the Page model (Matt Westcott)
+ * Added `show_in_menus_default` flag on page models, to allow "show in menus" to be checked by default (LB (Ben Johnston))
+ * "Copy page" form now validates against copying to a destination where the user does not have permission (Henk-Jan van Hasselaar)
+ * Allows reverse relations in `RelatedFields` for elasticsearch & PostgreSQL search backends (Lucas Moeskops, Bertrand Bordage)
+ * Added oEmbed support for Facebook (Mikalai Radchuk)
+ * Added oEmbed support for Tumblr (Mikalai Radchuk)
+ * Fix: Unauthenticated AJAX requests to admin views now return 403 rather than redirecting to the login page (Karl Hobley)
+ * Fix: `TableBlock` options `afterChange`, `afterCreateCol`, `afterCreateRow`, `afterRemoveCol`, `afterRemoveRow` and `contextMenu` can now be overridden (Loic Teixeira)
+ * Fix: The lastmod field returned by wagtailsitemaps now shows the last published date rather than the date of the last draft edit (Matt Westcott)
+ * Fix: Document chooser upload form no longer renders container elements for hidden fields (Jeffrey Chau)
+ * Fix: Prevented exception when visiting a preview URL without initiating the preview (Paul Kamp)
+
+
+1.10.1 (19.05.2017)
+~~~~~~~~~~~~~~~~~~~
+
+ * Fix: Fix admin page preview that was broken 24 hours after previewing a page (Martin Hill)
+ * Fix: Removed territory-specific translations for Spanish, Polish, Swedish, Russian and Chinese (Taiwan) that block more complete translations from being used (Matt Westcott)
+
+
+1.10 (03.05.2017)
+~~~~~~~~~~~~~~~~~
+
+ * Added PostgreSQL search engine (Bertrand Bordage, Jaap Roes, Arne de Laat, Ramon de Jezus)
+ * Django 1.11 support (Tim Graham, Matt Westcott, Mikalai Radchuk, Bertrand Bordage)
+ * Dropped Django 1.9 and Python 3.3 support; note that Django 1.8.x is still supported
+ * Added user-preferred admin language along with `WAGTAILADMIN_PERMITTED_LANGUAGES` (Daniel Chimeno)
+ * Added `WAGTAIL_AUTO_UPDATE_PREVIEW` setting that when set to `True`, allows the preview window to be refreshed when changes have been made in the editor (Bertrand Bordage)
+ * Dropped support for generating static sites using django-medusa
+ * Use minified versions of jQuery and jQuery UI in the admin. Total savings without compression 371 KB (Tom Dyson)
+ * Hooks can now specify the order in which they are run (Gagaro)
+ * Added a `submit_buttons` block to login template (Gagaro)
+ * Added `construct_image_chooser_queryset`, `construct_document_chooser_queryset` and `construct_page_chooser_queryset` hooks (Gagaro)
+ * The homepage created in the project template is now titled "Home" rather than "Homepage" (Karl Hobley)
+ * Signal receivers for custom `Image` and `Rendition` models are connected automatically (Mike Dingjan)
+ * `PageChooserBlock` can now accept a list/tuple of page models as `target_model` (Mikalai Radchuk)
+ * Styling tweaks for the ModelAdmin's `IndexView` to be more inline with the Wagtail styleguide (Andy Babic)
+ * Added `.nvmrc` to the project root for Node versioning support (Janneke Janssen)
+ * Added `form_fields_exclude` property to ModelAdmin views (Matheus Bratfisch)
+ * User creation / edit form now enforces password validators set in `AUTH_PASSWORD_VALIDATORS` (Bertrand Bordage)
+ * Added support for showing `non_field_errors` when validation fails in the page editor (Matt Westcott)
+ * Added `WAGTAILADMIN_RECENT_EDITS_LIMIT` setting to to define the number of your most recent edits on the dashboard (Maarten Kling)
+ * Creating / editing users through the Wagtail admin no longer modifies the `is_staff` flag (Matt Westcott)
+ * Added link to the full Elasticsearch setup documentation from the Performance page (Matt Westcott)
+ * Tag input fields now accept spaces in tags by default, and can be overridden with the `TAG_SPACES_ALLOWED` setting (Kees Hink, Alex Gleason)
+ * Page chooser widgets now display the required page type where relevant (Christine Ho)
+ * Site root pages are now indicated with a globe icon in the explorer listing (Nick Smith, Huub Bouma)
+ * Draft page view is now restricted to users with edit / publish permission over the page (Kees Hink)
+ * Added the option to delete a previously saved focal point on a image (Maarten Kling)
+ * Page explorer menu item, search and summary panel are now hidden for users with no page permissions (Tim Heap)
+ * Added support for custom date and datetime formats in input fields (Bojan Mihelac)
+ * Added support for custom Django REST framework serialiser fields in `Page.api_fields` using a new `APIField` class (Karl Hobley)
+ * Added `classname` argument to `StreamFieldPanel` (Christine Ho)
+ * Added `group` keyword argument to StreamField blocks for grouping related blocks together in the block menu (Andreas Nüßlein)
+ * Update the sitemap generator to use the Django sitemap module (Michael van Tellingen, Mike Dingjan)
+ * Fix: Marked 'Date from' / 'Date to' strings in wagtailforms for translation (Vorlif)
+ * Fix: "File" field label on image edit form is now translated (Stein Strindhaug)
+ * Fix: Unreliable preview is now reliable by always opening in a new window (Kjartan Sverrisson)
+ * Fix: Fixed placement of `{{ block.super }}` in `snippets/type_index.html` (LB (Ben Johnston))
+ * Fix: Optimised database queries on group edit page (Ashia Zawaduk)
+ * Fix: Choosing a popular search term for promoted search results now works correctly after pagination (Janneke Janssen)
+ * Fix: IDs used in tabbed interfaces are now namespaced to avoid collisions with other page elements (Janneke Janssen)
+ * Fix: Page title not displaying page name when moving a page (Trent Holliday)
+ * Fix: The ModelAdmin module can now work without the wagtailimages and wagtaildocs apps installed (Andy Babic)
+ * Fix: Cloudflare error handling now handles non-string error responses correctly (hdnpl)
+ * Fix: Search indexing now uses a defined query ordering to prevent objects from being skipped (Christian Peters)
+ * Fix: Ensure that number localisation is not applied to object IDs within admin templates (Tom Hendrikx)
+ * Fix: Paginating with a search present was always returning the 1st page in Internet Explorer 10 & 11 (Ralph Jacobs)
+ * Fix: RoutablePageMixin and wagtailforms previews now set the `request.is_preview` flag (Wietze Helmantel)
+ * Fix: The save and preview buttons in the page editor are now mobile-friendly (Maarten Kling)
+ * Fix: Page links within rich text now respect custom URLs defined on specific page models (Gary Krige, Huub Bouma)
+ * Fix: Default avatar no longer visible when using a transparent gravatar image (Thijs Kramer)
+ * Fix: Scrolling within the datetime picker is now usable again for touchpads (Ralph Jacobs)
+ * Fix: List-based fields within form builder form submissions are now displayed as comma-separated strings rather than as Python lists (Christine Ho, Matt Westcott)
+ * Fix: The page type usage listing now have a translatable page title (Ramon de Jezus)
+ * Fix: Styles for submission filtering form now have a consistent height. (Thijs Kramer)
+ * Fix: Custom user models with a primary key type requiring `get_db_prep_value` conversion are now supported (thenewguy)
+ * Fix: Slicing a search result set no longer loses the annotation added by `annotate_score` (Karl Hobley)
+ * Fix: String-based primary keys are now escaped correctly in ModelAdmin URLs (Andreas Nüßlein)
+ * Fix: Empty search in the API now works (Morgan Aubert)
+ * Fix: `RichTextBlock` toolbar now correctly positioned within `StructBlock` (Janneke Janssen)
+ * Fix: Fixed display of ManyToMany fields and False values on the ModelAdmin inspect view (Andy Babic)
+ * Fix: Prevent pages from being recursively copied into themselves (Matheus Bratfisch)
+ * Fix: Specifying the full file name in documents URL is mandatory (Morgan Aubert)
+ * Fix: Reordering inline forms now works correctly when moving past a deleted form (Janneke Janssen)
+ * Fix: Removed erroneous ``|safe`` filter from search results template in project template (Karl Hobley)
+
+
+1.9.1 (21.04.2017)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Removed erroneous `|safe` filter from search results template in project template (Karl Hobley)
+ * Fix: Prevent pages from being recursively copied into themselves (Matheus Bratfisch)
+
+
+1.9 (16.02.2017)
 ~~~~~~~~~~~~~~~~
 
+ * Added support for comparing page revisions (Karl Hobley, Janneke Janssen, Matt Westcott)
+ * Added support for many-to-many relations on page models (Thejaswi Puthraya, Matt Westcott)
  * Form builder form submissions can now be bulk-deleted (Karl Hobley)
  * `get_context` methods on StreamField blocks can now access variables from the parent context (Mikael Svensson, Peter Baumgartner)
  * Updated admin dashboard welcome message for multi-tenanted installations (Jeffrey Chau)
@@ -19,6 +143,16 @@ Changelog
  * Fix: Help text for StreamField is now visible and does not cover block controls (Stein Strindhaug)
  * Fix: "X minutes ago" timestamps are now marked for translation (Janneke Janssen, Matt Westcott)
  * Fix: Avoid indexing unsaved field content on `save(update_fields=[...])` operations (Matt Westcott)
+ * Fix: Corrected ordering of arguments passed to ModelAdmin `get_extra_class_names_for_field_col` / `get_extra_attrs_for_field_col` methods (Andy Babic)
+ * `pageurl` / `slugurl` tags now function when request.site is not available (Tobias McNulty, Matt Westcott)
+
+
+1.8.2 (21.04.2017)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Removed erroneous `|safe` filter from search results template in project template (Karl Hobley)
+ * Fix: Avoid indexing unsaved field content on `save(update_fields=[...])` operations (Matt Westcott)
+ * Fix: Prevent pages from being recursively copied into themselves (Matheus Bratfisch)
 
 
 1.8.1 (26.01.2017)
@@ -27,8 +161,8 @@ Changelog
  * Fix: Reduced `Rendition.focal_point_key` field length to prevent migration failure when upgrading to Wagtail 1.8 on MySQL with `utf8` character encoding (Andy Chosak, Matt Westcott)
 
 
-1.8 (15.12.2016)
-~~~~~~~~~~~~~~~~
+1.8 LTS (15.12.2016)
+~~~~~~~~~~~~~~~~~~~~
 
  * New page privacy options (Shawn Makinson, Tom Miller, Luca Perico, Matt Westcott)
  * New 'bulk delete' permission type for deleting pages with children (Matt Westcott)
@@ -316,8 +450,8 @@ Changelog
  * Fix: Fixed erroneous rendering of up arrow icons (Rob Moorman)
 
 
-1.4 (16.03.2016)
-~~~~~~~~~~~~~~~~
+1.4 LTS (16.03.2016)
+~~~~~~~~~~~~~~~~~~~~
 
  * Added support for viewing previous revisions of pages, and previewing or rolling back to earlier versions
  * Introduced collections, for image / document organisation
@@ -680,8 +814,8 @@ Changelog
  * Fixed a regression where images would fail to save when feature detection is active
 
 
-0.8 (05.11.2014)
-~~~~~~~~~~~~~~~~
+0.8 LTS (05.11.2014)
+~~~~~~~~~~~~~~~~~~~~
 
  * Added logging for page operations
  * The save button on the page edit page now redirects the user back to the edit page instead of the explorer

@@ -1,6 +1,6 @@
 {% extends "wagtailadmin/base.html" %}
 {% load i18n %}
-{% block titletag %}{% blocktrans with title=page.get_admin_display_title %}Move {{ title }}{% endblocktrans %}{% endblock %}
+{% block titletag %}{% blocktrans with title=page_to_move.get_admin_display_title %}Move {{ title }}{% endblocktrans %}{% endblock %}
 {% block content %}
     {% trans "Move" as move_str %}
     {% include "wagtailadmin/shared/header.html" with title=move_str subtitle=page_to_move.get_admin_display_title icon="doc-empty-inverse" %}

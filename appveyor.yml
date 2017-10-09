@@ -1,0 +1,20 @@
+services:
+  - mssql2016
+
+environment:
+  matrix:
+    - TOXENV: py27-dj18-sqlite-noelasticsearch
+    - TOXENV: py27-dj110-sqlite-noelasticsearch
+    - TOXENV: py35-dj18-sqlite-noelasticsearch
+    - TOXENV: py35-dj110-sqlite-noelasticsearch
+
+matrix:
+  fast_finish: true
+
+install:
+  - C:\Python36\python -m pip install tox
+
+build: false  # Not a C# project
+
+test_script:
+  - C:\Python36\scripts\tox

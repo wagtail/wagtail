@@ -11,6 +11,7 @@ from django.template.loader import render_to_string
 from django.utils import six
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.functional import cached_property
+from django.utils.html import format_html, format_html_join
 
 from .base import Block, DeclarativeSubBlocksMetaclass
 from .utils import js_dict
@@ -175,9 +176,12 @@ class BaseStructBlock(Block):
 
         return errors
 
+    def render_basic(self, value, context=None):
+        return format_html('<dl>\n{}\n</dl>', format_html_join(
+            '\n', '    <dt>{}</dt>\n    <dd>{}</dd>', value.items()))
+
     class Meta:
         default = {}
-        template = "wagtailadmin/blocks/struct.html"
         form_classname = 'struct-block'
         form_template = 'wagtailadmin/block_forms/struct.html'
         # No icon specified here, because that depends on the purpose that the

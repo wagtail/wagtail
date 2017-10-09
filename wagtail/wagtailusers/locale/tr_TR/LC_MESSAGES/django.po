@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Yusuf (Josè) Luis <alagunajs@gmail.com>, 2015
+# José Luis <alagunajs@gmail.com>, 2015
 # Ragıp Ünal <ragip@ragipunal.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 22:44+0000\n"
-"PO-Revision-Date: 2016-08-01 13:29+0000\n"
+"POT-Creation-Date: 2017-06-19 16:55+0000\n"
+"PO-Revision-Date: 2017-04-19 21:08+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/torchbox/wagtail/"
 "language/tr_TR/)\n"
@@ -20,12 +20,6 @@ msgstr ""
 "Language: tr_TR\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-msgid "Administrator"
-msgstr "Yönetici"
-
-msgid "Password"
-msgstr "Şifre"
-
 msgid "Email"
 msgstr "Eposta"
 
@@ -34,6 +28,12 @@ msgstr "Adı"
 
 msgid "Last Name"
 msgstr "Soyadı"
+
+msgid "Password"
+msgstr "Şifre"
+
+msgid "Administrator"
+msgstr "Yönetici"
 
 msgid "Delete group"
 msgstr "Grubu sil"

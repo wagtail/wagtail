@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
 
 from django.core.urlresolvers import reverse
@@ -84,6 +85,19 @@ class TestRedirects(TestCase):
         normalise_path('//////hello/world')
         normalise_path('!#@%$*')
         normalise_path('C:\\Program Files (x86)\\Some random program\\file.txt')
+
+    def test_unicode_path_normalisation(self):
+        normalise_path = models.Redirect.normalise_path
+
+        self.assertEqual(
+            '/here/tésting-ünicode',  # stays the same
+            normalise_path('/here/tésting-ünicode')
+        )
+
+        self.assertNotEqual(  # Doesn't remove unicode characters
+            '/here/testing-unicode',
+            normalise_path('/here/tésting-ünicode')
+        )
 
     def test_basic_redirect(self):
         # Create a redirect
@@ -241,6 +255,24 @@ class TestRedirects(TestCase):
         response = self.client.get('/xmas/', HTTP_HOST='other.example.com')
         self.assertRedirects(response, 'http://localhost/events/christmas/', status_code=301, fetch_redirect_response=False)
 
+    def test_redirect_with_unicode_in_url(self):
+        redirect = models.Redirect(old_path='/tésting-ünicode', redirect_link='/redirectto')
+        redirect.save()
+
+        # Navigate to it
+        response = self.client.get('/tésting-ünicode/')
+
+        self.assertRedirects(response, '/redirectto', status_code=301, fetch_redirect_response=False)
+
+    def test_redirect_with_encoded_url(self):
+        redirect = models.Redirect(old_path='/t%C3%A9sting-%C3%BCnicode', redirect_link='/redirectto')
+        redirect.save()
+
+        # Navigate to it
+        response = self.client.get('/t%C3%A9sting-%C3%BCnicode/')
+
+        self.assertRedirects(response, '/redirectto', status_code=301, fetch_redirect_response=False)
+
 
 class TestRedirectsIndexView(TestCase, WagtailTestUtils):
     def setUp(self):
@@ -264,6 +296,16 @@ class TestRedirectsIndexView(TestCase, WagtailTestUtils):
         for page in pages:
             response = self.get({'p': page})
             self.assertEqual(response.status_code, 200)
+
+    def test_listing_order(self):
+        for i in range(0, 10):
+            models.Redirect.objects.create(old_path="/redirect%d" % i, redirect_link="http://torchbox.com/")
+
+        models.Redirect.objects.create(old_path="/aaargh", redirect_link="http://torchbox.com/")
+
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['redirects'][0].old_path, "/aaargh")
 
 
 class TestRedirectsAddView(TestCase, WagtailTestUtils):

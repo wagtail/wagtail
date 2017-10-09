@@ -4,8 +4,9 @@
     :target: https://pypi.python.org/pypi/wagtail/
 .. image:: https://img.shields.io/pypi/v/wagtail.svg
     :target: https://pypi.python.org/pypi/wagtail/
-.. image:: https://coveralls.io/repos/torchbox/wagtail/badge.svg?branch=master
-    :target: https://coveralls.io/r/torchbox/wagtail?branch=master
+.. image:: http://codecov.io/github/wagtail/wagtail/coverage.svg?branch=master
+    :target: http://codecov.io/github/wagtail/wagtail?branch=master
+
 
 Wagtail CMS
 ===========
@@ -31,7 +32,6 @@ Features
 * Workflow support
 * An extensible `form builder <http://docs.wagtail.io/en/latest/reference/contrib/forms.html>`_
 * Multi-site and multi-language support
-* Optional `static site generation <http://docs.wagtail.io/en/latest/reference/contrib/staticsitegen.html>`_
 * Excellent `test coverage <https://coveralls.io/r/torchbox/wagtail?branch=master>`_
 
 Find out more at `wagtail.io <http://wagtail.io/>`_.
@@ -70,9 +70,17 @@ Commercial Support
 ~~~~~~~~~~~~~~~~~~
 Wagtail is sponsored by `Torchbox <https://torchbox.com/>`_. If you need help implementing or hosting Wagtail, please contact us: hello@torchbox.com.
 
+Thanks
+~~~~~~
+We thank `BrowserStack <https://www.browserstack.com/>`_, who provide the project with free access to their live web-based browser testing tool, and automated Selenium cloud testing.
+
+.. image:: https://cdn.rawgit.com/wagtail/wagtail/master/.github/browserstack-logo.svg
+    :target: https://www.browserstack.com/
+    :width: 219 px
+
 Compatibility
 ~~~~~~~~~~~~~
-Wagtail supports Django 1.8.1+ on Python 2.7, 3.3, 3.4 and 3.5. Supported database backends are PostgreSQL, MySQL and SQLite.
+Wagtail supports Django 1.8.x, 1.10.x and 1.11.x, on Python 2.7, 3.4, 3.5 and 3.6. Supported database backends are PostgreSQL, MySQL and SQLite.
 
 Contributing
 ~~~~~~~~~~~~

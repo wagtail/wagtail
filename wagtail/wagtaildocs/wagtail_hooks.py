@@ -1,8 +1,10 @@
 from __future__ import absolute_import, unicode_literals
 
+from django.conf import settings
 from django.conf.urls import include, url
 from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.core import urlresolvers
+from django.template.response import TemplateResponse
 from django.utils.html import format_html, format_html_join
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ungettext
@@ -11,6 +13,8 @@ from wagtail.wagtailadmin.menu import MenuItem
 from wagtail.wagtailadmin.search import SearchArea
 from wagtail.wagtailadmin.site_summary import SummaryItem
 from wagtail.wagtailcore import hooks
+from wagtail.wagtailcore.models import BaseViewRestriction
+from wagtail.wagtailcore.wagtail_hooks import require_wagtail_login
 from wagtail.wagtaildocs import admin_urls
 from wagtail.wagtaildocs.api.admin.endpoints import DocumentsAdminAPIEndpoint
 from wagtail.wagtaildocs.forms import GroupDocumentPermissionFormSet
@@ -84,6 +88,11 @@ class DocumentsSummaryItem(SummaryItem):
             'total_docs': get_document_model().objects.count(),
         }
 
+    def is_shown(self):
+        return permission_policy.user_has_any_permission(
+            self.request.user, ['add', 'change', 'delete']
+        )
+
 
 @hooks.register('construct_homepage_summary_items')
 def add_documents_summary_item(request, items):
@@ -125,3 +134,32 @@ def describe_collection_docs(collection):
             ) % {'count': docs_count},
             'url': url,
         }
+
+
+@hooks.register('before_serve_document')
+def check_view_restrictions(document, request):
+    """
+    Check whether there are any view restrictions on this document which are
+    not fulfilled by the given request object. If there are, return an
+    HttpResponse that will notify the user of that restriction (and possibly
+    include a password / login form that will allow them to proceed). If
+    there are no such restrictions, return None
+    """
+    for restriction in document.collection.get_view_restrictions():
+        if not restriction.accept_request(request):
+            if restriction.restriction_type == BaseViewRestriction.PASSWORD:
+                from wagtail.wagtailcore.forms import PasswordViewRestrictionForm
+                form = PasswordViewRestrictionForm(instance=restriction,
+                                                   initial={'return_url': request.get_full_path()})
+                action_url = urlresolvers.reverse('wagtaildocs_authenticate_with_password', args=[restriction.id])
+
+                password_required_template = getattr(settings, 'DOCUMENT_PASSWORD_REQUIRED_TEMPLATE', 'wagtaildocs/password_required.html')
+
+                context = {
+                    'form': form,
+                    'action_url': action_url
+                }
+                return TemplateResponse(request, password_required_template, context)
+
+            elif restriction.restriction_type in [BaseViewRestriction.LOGIN, BaseViewRestriction.GROUPS]:
+                return require_wagtail_login(next=request.get_full_path())

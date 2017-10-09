@@ -4,7 +4,7 @@
 #
 # Translators:
 # Aarni Koskela, 2016
-# Eetu Häivälä <eetu.haivala@anders.fi>, 2016
+# Eetu Häivälä <eetu.haivala@anders.fi>, 2016-2017
 # Juha Yrjölä <juha.yrjola@iki.fi>, 2016
 # Niklas Jerva <niklas.jerva@gmail.com>, 2016
 # Rauli L. <rauli.laine@iki.fi>, 2016
@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 22:44+0000\n"
-"PO-Revision-Date: 2016-12-06 22:46+0000\n"
+"POT-Creation-Date: 2017-06-19 16:55+0000\n"
+"PO-Revision-Date: 2017-06-19 16:57+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
@@ -22,6 +22,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fi\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "None"
+msgstr "Ei mitään"
 
 msgid "You do not have permission to access the admin"
 msgstr "Sinulla ei ole oikeuksia käyttää hallintaa"
@@ -121,8 +124,14 @@ msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
 msgstr "Lyhytnimi on jo käytössä isäntäsivun \"%s\" alla"
 
+msgid "Visibility"
+msgstr "Näkyvyys"
+
 msgid "This field is required."
 msgstr "Tämä kenttä on pakollinen."
+
+msgid "Please select at least one group."
+msgstr "Valitse vähintään yksi ryhmä."
 
 msgid "This slug is already in use"
 msgstr "Lyhytnimi on jo käytössä"
@@ -163,17 +172,11 @@ msgstr "Ilmoitusasetukset"
 msgid "Choose which email notifications to receive."
 msgstr "Valitse mitä sähköposti-ilmoituksia saat."
 
-msgid "Change Password"
-msgstr "Vaihda Salasana"
-
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr ""
 "Salasanaasi ei voi muuttaa täällä. Ole hyvä ja ota yhteys sivuston "
 "ylläpitäjään."
-
-msgid "Notification Preferences"
-msgstr "Ilmoitusasetukset"
 
 msgid "Update"
 msgstr "Päivitä"
@@ -210,6 +213,12 @@ msgstr "Salasanan palautus"
 
 msgid "Reset your password"
 msgstr "Palauta salasanasi"
+
+msgid "Edit"
+msgstr "Muokkaa"
+
+msgid "Pages"
+msgstr "Sivut"
 
 msgid "Dashboard"
 msgstr "Kojelauta"
@@ -292,6 +301,21 @@ msgstr "Lisää linkki"
 msgid "Add an external link"
 msgstr "Lisää ulkoinen linkki"
 
+msgid "You can edit the privacy settings on:"
+msgstr "Voit muokata yksityisyysasetuksia:"
+
+msgid "Save"
+msgstr "Tallenna"
+
+msgid "Privacy"
+msgstr "Yksityisyys"
+
+msgid "Public"
+msgstr "Julkinen"
+
+msgid "Private"
+msgstr "Yksityinen"
+
 msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
 msgstr ""
@@ -314,9 +338,6 @@ msgstr "Lisää %(heading)s"
 
 msgid "Yes, delete"
 msgstr "Kyllä, poista"
-
-msgid "Save"
-msgstr "Tallenna"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -353,11 +374,12 @@ msgstr "Hyväksy"
 msgid "Reject"
 msgstr "Hylkää"
 
-msgid "Edit"
-msgstr "Muokkaa"
-
 msgid "Preview"
 msgstr "Esikatsele"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s sitten"
 
 msgid "Your most recent edits"
 msgstr "Tuoreimmat muokkauksesi"
@@ -456,9 +478,6 @@ msgstr "Sivun yksityisyys"
 msgid "This page has been made private by a parent page."
 msgstr "Tämä sivu on asetettu yksityiseksi isäntäsivulta."
 
-msgid "You can edit the privacy settings on:"
-msgstr "Voit muokata yksityisyysasetuksia:"
-
 msgid "Privacy changes apply to all children of this page too."
 msgstr ""
 "Yksityisyyteen tehtävät muutokset vaikuttavat myös kaikkiin tämän sivun "
@@ -472,15 +491,6 @@ msgstr "Lukittu"
 
 msgid "Unlocked"
 msgstr "Ei lukittu"
-
-msgid "Privacy"
-msgstr "Yksityisyys"
-
-msgid "Public"
-msgstr "Julkinen"
-
-msgid "Private"
-msgstr "Yksityinen"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -732,7 +742,7 @@ msgstr "Selaa sivun %(title)s alasivuja"
 msgid "Add a child page to '%(title)s'"
 msgstr "Lisää alasivu sivulle '%(title)s'"
 
-msgid "Add subpage"
+msgid "Add child page"
 msgstr "Lisää alasivu"
 
 #, python-format
@@ -771,6 +781,25 @@ msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Valitse uusi isäntäsivu sivulle <span>%(title)s</span>"
 
 #, python-format
+msgid "Comparing %(title)s"
+msgstr "Vertaillaan %(title)s"
+
+msgid "Comparing"
+msgstr "Vertaillaan"
+
+msgid "View revisions"
+msgstr "Tarkastele revisioita"
+
+msgid "Fields"
+msgstr "Kentät"
+
+msgid "Changes"
+msgstr "Muutokset"
+
+msgid "There are no differences between these two revisions"
+msgstr "Revisioiden välillä ei ole eroavaisuuksia"
+
+#, python-format
 msgid "Revisions of %(title)s"
 msgstr "Kohteen %(title)s versiot"
 
@@ -789,6 +818,9 @@ msgstr "Nykyinen luonnos"
 
 msgid "Review this revision"
 msgstr "Tarkastele tätä versiota"
+
+msgid "Compare with previous revision"
+msgstr "Vertaile edellisen revision kanssa"
 
 msgid "No revisions of this page exist"
 msgstr "Tästä sivusta ei ole versioita"
@@ -897,6 +929,9 @@ msgstr[1] "Käytetty %(useage_count)s kertaa"
 msgid "Edit your account"
 msgstr "Muokkaa tiliäsi"
 
+msgid "Account settings"
+msgstr "Tiliasetukset"
+
 msgid "Log out"
 msgstr "Kirjaudu ulos"
 
@@ -935,9 +970,6 @@ msgstr "Pahoittelut, mutta sinulla ei ole pääsyä tähän osioon."
 
 msgid "Your password has been changed successfully!"
 msgstr "Salasanasi on vaihdettu."
-
-msgid "Your preferences have been updated successfully!"
-msgstr "Asetuksesi on päivitetty."
 
 msgid "You have been successfully logged out."
 msgstr "Olet kirjautunut ulos."
@@ -1037,6 +1069,9 @@ msgstr "Sivua ei voitu tallentaa, sillä se on lukittu"
 msgid "The page could not be saved due to validation errors"
 msgstr "Sivua ei voitu tallentaa validointivirheiden vuoksi"
 
+msgid "Compare with live version"
+msgstr "Vertaile julkaistun version kanssa"
+
 msgid "This page is currently awaiting moderation"
 msgstr "Sivu odottaa parhaillaan tarkastusta"
 
@@ -1094,36 +1129,18 @@ msgstr ""
 "Katselet tämän sivun aiempaa versiota (luotu <b>%(created_at)s</b>, käyttäjä "
 "%(user)s)"
 
-msgid "Pages"
-msgstr "Sivut"
+msgid "Earliest"
+msgstr "Aikaisin"
 
-msgid "Preview draft"
-msgstr "Esikatsele luonnosta"
-
-msgid "Add child page"
-msgstr "Lisää alasivu"
+msgid "Latest"
+msgstr "Viimeisin"
 
 #, python-brace-format
-msgid "Add a child page to '{0}' "
-msgstr "Lisää alasivu kohteelle '{0}'"
+msgid "Edit '{title}'"
+msgstr "Muokkaa '{title}'"
 
 msgid "More"
 msgstr "Lisää"
-
-msgid "View more options"
-msgstr "Näytä lisää vaihtoehtoja"
-
-msgid "Move this page"
-msgstr "Siirrä tämä sivu"
-
-msgid "Delete this page"
-msgstr "Poista tämä sivu"
-
-msgid "Unpublish this page"
-msgstr "Piilota tämä sivu"
-
-msgid "View this page's revision history"
-msgstr "Katso tämän sivun versiohistoria"
 
 msgid "Choose an item"
 msgstr "Valitse vaihtoehto"

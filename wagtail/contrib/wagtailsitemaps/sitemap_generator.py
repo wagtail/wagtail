@@ -1,23 +1,41 @@
 from __future__ import absolute_import, unicode_literals
 
-from django.template.loader import render_to_string
+from django.contrib.sitemaps import Sitemap as DjangoSitemap
 
 
-class Sitemap(object):
-    template = 'wagtailsitemaps/sitemap.xml'
+class Sitemap(DjangoSitemap):
 
-    def __init__(self, site):
+    def __init__(self, site=None):
         self.site = site
 
-    def get_pages(self):
-        return self.site.root_page.get_descendants(inclusive=True).live().public().order_by('path')
+    def location(self, obj):
+        return obj.specific.url
 
-    def get_urls(self):
-        for page in self.get_pages():
-            for url in page.specific.get_sitemap_urls():
-                yield url
+    def lastmod(self, obj):
+        obj = obj.specific
 
-    def render(self):
-        return render_to_string(self.template, {
-            'urlset': self.get_urls()
-        })
+        # fall back on latest_revision_created_at if last_published_at is null
+        # (for backwards compatibility from before last_published_at was added)
+        return (obj.last_published_at or obj.latest_revision_created_at)
+
+    def items(self):
+        return (
+            self.site
+            .root_page
+            .get_descendants(inclusive=True)
+            .live()
+            .public()
+            .order_by('path'))
+
+    def _urls(self, page, protocol, domain):
+        urls = []
+        last_mods = set()
+
+        for item in self.paginator.page(page).object_list:
+            for url_info in item.specific.get_sitemap_urls():
+                urls.append(url_info)
+                last_mods.add(url_info.get('lastmod'))
+
+        if None not in last_mods:
+            self.latest_lastmod = max(last_mods)
+        return urls

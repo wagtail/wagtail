@@ -18,6 +18,6 @@
          <p>{% blocktrans %}Sorry, no snippets match "<em>{{ query_string }}</em>"{% endblocktrans %}</p>
     {% else %}
         {% url 'wagtailsnippets:add' model_opts.app_label model_opts.model_name as wagtailsnippets_create_snippet_url %}
-        <p>{% blocktrans with snippet_type_name=model_opts.verbose_name %}You haven't created any {{ snippet_type_name }} snippets. Why not <a href="{{ wagtailsnippets_create_snippet_url }}" target="_blank">create one now{% endblocktrans %}</p>
+        <p>{% blocktrans with snippet_type_name=model_opts.verbose_name %}You haven't created any {{ snippet_type_name }} snippets. Why not <a href="{{ wagtailsnippets_create_snippet_url }}" target="_blank">create one now</a>?{% endblocktrans %}</p>
     {% endif %}
 {% endif %}

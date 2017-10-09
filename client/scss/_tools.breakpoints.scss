@@ -1,0 +1,14 @@
+$breakpoint-small: $breakpoint-mobile - 0.0625em;
+$breakpoint-medium: $breakpoint-mobile;
+
+@mixin small {
+    @media only screen and (max-width: $breakpoint-small) {
+        @content;
+    }
+}
+
+@mixin medium {
+    @media only screen and (min-width: $breakpoint-medium) {
+        @content;
+    }
+}

@@ -1,4 +1,6 @@
-{% load i18n wagtailadmin_tags %}
+{% load i18n %}
+{% load l10n %}
+{% load wagtailadmin_tags %}
 <table class="listing chooser">
     <col width="50%"/>
     <col width="50%"/>
@@ -13,7 +15,7 @@
             {% for query in queries %}
                 <tr>
                     <td class="title">
-                        <h2><a class="choose-query" href="#{{ query.id }}" data-id="{{ query.id }}" data-querystring="{{ query.query_string }}">{{ query.query_string }}</a></h2>
+                        <h2><a class="choose-query" href="#{{ query.id|unlocalize }}" data-id="{{ query.id|unlocalize }}" data-querystring="{{ query.query_string }}">{{ query.query_string }}</a></h2>
                     </td>
                     <td>{{ query.hits }}</td>
                 </tr>

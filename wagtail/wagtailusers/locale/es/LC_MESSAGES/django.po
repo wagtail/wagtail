@@ -5,19 +5,20 @@
 # Translators:
 # fooflare <amos.oviedo@gmail.com>, 2014
 # fooflare <amos.oviedo@gmail.com>, 2014
+# Daniel Chimeno <daniel@chimeno.me>, 2017
 # Daniel Chimeno <daniel@chimeno.me>, 2015-2016
 # fooflare <amos.oviedo@gmail.com>, 2014
-# Yusuf (Josè) Luis <alagunajs@gmail.com>, 2015-2016
+# José Luis <alagunajs@gmail.com>, 2015-2016
 # Mauricio Baeza <python@amigos.email>, 2015
 # Mauricio Baeza <python@amigos.email>, 2014
-# Yusuf (Josè) Luis <alagunajs@gmail.com>, 2016
+# José Luis <alagunajs@gmail.com>, 2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 22:44+0000\n"
-"PO-Revision-Date: 2016-08-01 19:25+0000\n"
-"Last-Translator: Yusuf (Josè) Luis <alagunajs@gmail.com>\n"
+"POT-Creation-Date: 2017-06-19 16:55+0000\n"
+"PO-Revision-Date: 2017-05-05 17:38+0000\n"
+"Last-Translator: José Luis <alagunajs@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -40,13 +41,14 @@ msgstr "Un usuario con ese nombre ya existe."
 msgid "The two password fields didn't match."
 msgstr "Los dos campos de contraseña no coinciden."
 
-msgid "Administrator"
-msgstr "Administrador"
+msgid "Email"
+msgstr "Correo electrónico"
 
-msgid "Administrators have full access to manage any object or setting."
-msgstr ""
-"Los administradores tienen la capacidad de gestionar cualquier objeto o "
-"configuración."
+msgid "First Name"
+msgstr "Nombre"
+
+msgid "Last Name"
+msgstr "Apellidos"
 
 msgid "Password"
 msgstr "Contraseña"
@@ -60,14 +62,13 @@ msgstr "Confirmación de contraseña"
 msgid "Enter the same password as above, for verification."
 msgstr "Introduce la misma contraseña que arriba, para verificación."
 
-msgid "Email"
-msgstr "Correo electrónico"
+msgid "Administrator"
+msgstr "Administrador"
 
-msgid "First Name"
-msgstr "Nombres"
-
-msgid "Last Name"
-msgstr "Apellidos"
+msgid "Administrators have full access to manage any object or setting."
+msgstr ""
+"Los administradores tienen la capacidad de gestionar cualquier objeto o "
+"configuración."
 
 msgid "A group with that name already exists."
 msgstr "Ya existe un grupo con este nombre."
@@ -93,6 +94,12 @@ msgstr "Notificaciones rechazadas"
 msgid "Receive notification when your page edit is rejected"
 msgstr "Recibir una notificación cuando su página editada es rechazada"
 
+msgid "preferred language"
+msgstr "idioma preferido"
+
+msgid "Select language for the admin"
+msgstr "Seleccione el idioma para el administrador"
+
 msgid "user profile"
 msgstr "Perfil de usuario"
 
@@ -101,11 +108,25 @@ msgstr "Eliminar grupo"
 
 #, python-format
 msgid ""
-"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> users "
-"assigned."
-msgstr ""
-"El grupo '%(group_name)s' tiene <strong>%(group_user_count)s</strong> "
-"usuarios asignados."
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> member.\n"
+"            "
+msgid_plural ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> members.\n"
+"            "
+msgstr[0] ""
+"\n"
+"                El grupo '%(group_name)s' tienes <strong>"
+"%(group_user_count)s</strong> miembro.\n"
+"            "
+msgstr[1] ""
+"\n"
+"                El grupo '%(group_name)s' tiene <strong>"
+"%(group_user_count)s</strong> miembros.\n"
+"            "
 
 msgid ""
 "Deleting this group will revoke this group's permissions from all member "

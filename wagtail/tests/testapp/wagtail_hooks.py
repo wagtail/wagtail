@@ -1,5 +1,7 @@
 from __future__ import absolute_import, unicode_literals
 
+from django import forms
+from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.http import HttpResponse
 
 from wagtail.wagtailadmin.menu import MenuItem
@@ -42,6 +44,10 @@ hooks.register('before_serve_page', block_googlebot)
 
 
 class KittensMenuItem(MenuItem):
+    @property
+    def media(self):
+        return forms.Media(js=[static('testapp/js/kittens.js')])
+
     def is_shown(self, request):
         return not request.GET.get('hide-kittens', False)
 

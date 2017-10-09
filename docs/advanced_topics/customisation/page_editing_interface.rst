@@ -172,9 +172,9 @@ or to add custom validation logic for your models:
         location = models.CharField()
 
         content_panels = [
-            FieldPanel('given_name'),
-            FieldPanel('family_name'),
-            FieldPanel('bio'),
+            FieldPanel('start_date'),
+            FieldPanel('end_date'),
+            FieldPanel('address'),
         ]
         base_form_class = EventPageForm
 

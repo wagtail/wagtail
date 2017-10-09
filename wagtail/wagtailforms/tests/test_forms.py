@@ -74,6 +74,14 @@ class TestFormBuilder(TestCase):
         FormField.objects.create(
             page=self.form_page,
             sort_order=2,
+            label="Your favourite text editors",
+            field_type='multiselect',
+            required=True,
+            choices='vim,nano,emacs',
+        )
+        FormField.objects.create(
+            page=self.form_page,
+            sort_order=2,
             label="Your favourite Python IDEs",
             field_type='dropdown',
             required=True,
@@ -129,6 +137,7 @@ class TestFormBuilder(TestCase):
         self.assertIn('your-email', field_names)
         self.assertIn('your-homepage', field_names)
         self.assertIn('your-favourite-number', field_names)
+        self.assertIn('your-favourite-text-editors', field_names)
         self.assertIn('your-favourite-python-ides', field_names)
         self.assertIn('your-favourite-python-ide', field_names)
         self.assertIn('your-choices', field_names)
@@ -143,6 +152,7 @@ class TestFormBuilder(TestCase):
         self.assertIsInstance(form_class.base_fields['your-email'], forms.EmailField)
         self.assertIsInstance(form_class.base_fields['your-homepage'], forms.URLField)
         self.assertIsInstance(form_class.base_fields['your-favourite-number'], forms.DecimalField)
+        self.assertIsInstance(form_class.base_fields['your-favourite-text-editors'], forms.MultipleChoiceField)
         self.assertIsInstance(form_class.base_fields['your-favourite-python-ides'], forms.ChoiceField)
         self.assertIsInstance(form_class.base_fields['your-favourite-python-ide'], forms.ChoiceField)
         self.assertIsInstance(form_class.base_fields['your-choices'], forms.MultipleChoiceField)

@@ -54,6 +54,16 @@ class TestSnippetListView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailsnippets/snippets/type_index.html')
 
+    def test_ordering(self):
+        """
+        Listing should be ordered by PK if no ordering has been set on the model
+        """
+        for i in range(10, 0, -1):
+            Advert.objects.create(pk=i, text="advert %d" % i)
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['items'][0].text, "advert 1")
+
     def test_simple_pagination(self):
 
         pages = ['0', '1', '-1', '9999', 'Not a page']
@@ -67,6 +77,28 @@ class TestSnippetListView(TestCase, WagtailTestUtils):
 
     def test_not_searchable(self):
         self.assertFalse(self.get().context['is_searchable'])
+
+
+class TestModelOrdering(TestCase, WagtailTestUtils):
+    def setUp(self):
+        for i in range(1, 10):
+            AdvertWithTabbedInterface.objects.create(text="advert %d" % i)
+        AdvertWithTabbedInterface.objects.create(text="aaaadvert")
+        self.login()
+
+    def test_listing_respects_model_ordering(self):
+        response = self.client.get(
+            reverse('wagtailsnippets:list', args=('tests', 'advertwithtabbedinterface'))
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['items'][0].text, "aaaadvert")
+
+    def test_chooser_respects_model_ordering(self):
+        response = self.client.get(
+            reverse('wagtailsnippets:choose', args=('tests', 'advertwithtabbedinterface'))
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['items'][0].text, "aaaadvert")
 
 
 class TestSnippetListViewWithSearchableSnippet(TestCase, WagtailTestUtils):
@@ -133,8 +165,8 @@ class TestSnippetCreateView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailsnippets/snippets/create.html')
         self.assertNotContains(response, '<ul class="tab-nav merged">')
-        self.assertNotContains(response, '<a href="#advert" class="active">Advert</a>', html=True)
-        self.assertNotContains(response, '<a href="#other" class="">Other</a>', html=True)
+        self.assertNotContains(response, '<a href="#tab-advert" class="active">Advert</a>', html=True)
+        self.assertNotContains(response, '<a href="#tab-other" class="">Other</a>', html=True)
 
     def test_snippet_with_tabbed_interface(self):
         response = self.client.get(reverse('wagtailsnippets:add',
@@ -143,8 +175,8 @@ class TestSnippetCreateView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailsnippets/snippets/create.html')
         self.assertContains(response, '<ul class="tab-nav merged">')
-        self.assertContains(response, '<a href="#advert" class="active">Advert</a>', html=True)
-        self.assertContains(response, '<a href="#other" class="">Other</a>', html=True)
+        self.assertContains(response, '<a href="#tab-advert" class="active">Advert</a>', html=True)
+        self.assertContains(response, '<a href="#tab-other" class="">Other</a>', html=True)
 
     def test_create_invalid(self):
         response = self.post(post_data={'foo': 'bar'})
@@ -275,8 +307,8 @@ class TestEditTabbedSnippet(BaseTestSnippetEditView):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailsnippets/snippets/edit.html')
         self.assertContains(response, '<ul class="tab-nav merged">')
-        self.assertContains(response, '<a href="#advert" class="active">Advert</a>', html=True)
-        self.assertContains(response, '<a href="#other" class="">Other</a>', html=True)
+        self.assertContains(response, '<a href="#tab-advert" class="active">Advert</a>', html=True)
+        self.assertContains(response, '<a href="#tab-other" class="">Other</a>', html=True)
 
 
 class TestEditFileUploadSnippet(BaseTestSnippetEditView):
@@ -429,6 +461,17 @@ class TestSnippetChoose(TestCase, WagtailTestUtils):
     def test_simple(self):
         response = self.get()
         self.assertTemplateUsed(response, 'wagtailsnippets/chooser/choose.html')
+
+    def test_ordering(self):
+        """
+        Listing should be ordered by PK if no ordering has been set on the model
+        """
+        Advert.objects.all().delete()
+        for i in range(10, 0, -1):
+            Advert.objects.create(pk=i, text="advert %d" % i)
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['items'][0].text, "advert 1")
 
     def test_simple_pagination(self):
 
@@ -699,13 +742,13 @@ class TestSnippetChooserBlock(TestCase):
         block = SnippetChooserBlock(Advert, help_text="pick an advert, any advert")
 
         empty_form_html = block.render_form(None, 'advert')
-        self.assertIn('<input id="advert" name="advert" placeholder="" type="hidden" />', empty_form_html)
+        self.assertInHTML('<input id="advert" name="advert" placeholder="" type="hidden" />', empty_form_html)
         self.assertIn('createSnippetChooser("advert", "tests/advert");', empty_form_html)
 
         test_advert = Advert.objects.get(text='test_advert')
         test_advert_form_html = block.render_form(test_advert, 'advert')
         expected_html = '<input id="advert" name="advert" placeholder="" type="hidden" value="%d" />' % test_advert.id
-        self.assertIn(expected_html, test_advert_form_html)
+        self.assertInHTML(expected_html, test_advert_form_html)
         self.assertIn("pick an advert, any advert", test_advert_form_html)
 
     def test_form_response(self):

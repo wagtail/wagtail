@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.test import TestCase
 
-from wagtail.tests.testapp.models import BusinessIndex
+from wagtail.tests.testapp.models import BusinessIndex, EventCategory, EventPage
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailcore.models import GroupPagePermission, Page
 
@@ -119,11 +119,34 @@ class TestInspectView(TestCase, WagtailTestUtils):
 
     def test_title_present(self):
         """
-        The page title should appear twice. Once in the header, and once
-        more in the field listing
+        The page title should appear three times. Once in the header, and two times
+        in the field listing (as the actual title and as the draft title)
         """
         response = self.get(4)
-        self.assertContains(response, 'Christmas', 2)
+        self.assertContains(response, 'Christmas', 3)
+
+    def test_manytomany_output(self):
+        """
+        Because ManyToMany fields are output InspectView by default, the
+        `categories` for the event should output as a comma separated list
+        once populated.
+        """
+        eventpage = EventPage.objects.get(pk=4)
+        free_category = EventCategory.objects.create(name='Free')
+        child_friendly_category = EventCategory.objects.create(name='Child-friendly')
+        eventpage.categories = (free_category, child_friendly_category)
+        eventpage.save()
+        response = self.get(4)
+        self.assertContains(response, '<dd>Free, Child-friendly</dd>', html=True)
+
+    def test_false_values_displayed(self):
+        """
+        Boolean fields with False values should display False, rather than the
+        value of `get_empty_value_display()`. For this page, those should be
+        `locked`, `expired` and `has_unpublished_changes`
+        """
+        response = self.get(4)
+        self.assertContains(response, '<dd>False</dd>', count=3, html=True)
 
     def test_location_present(self):
         """
@@ -207,13 +230,22 @@ class TestChooseParentViewForNonSuperuser(TestCase, WagtailTestUtils):
 
     def setUp(self):
         homepage = Page.objects.get(url_path='/home/')
-        business_index = BusinessIndex(title='Public Business Index')
+        business_index = BusinessIndex(
+            title='Public Business Index',
+            draft_title='Public Business Index',
+        )
         homepage.add_child(instance=business_index)
 
-        another_business_index = BusinessIndex(title='Another Business Index')
+        another_business_index = BusinessIndex(
+            title='Another Business Index',
+            draft_title='Another Business Index',
+        )
         homepage.add_child(instance=another_business_index)
 
-        secret_business_index = BusinessIndex(title='Private Business Index')
+        secret_business_index = BusinessIndex(
+            title='Private Business Index',
+            draft_title='Private Business Index',
+        )
         homepage.add_child(instance=secret_business_index)
 
         business_editors = Group.objects.create(name='Business editors')

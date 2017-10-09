@@ -47,7 +47,7 @@ class PageLinkHandler(object):
             else:
                 editor_attrs = ''
 
-            return '<a %shref="%s">' % (editor_attrs, escape(page.url))
+            return '<a %shref="%s">' % (editor_attrs, escape(page.specific.url))
         except Page.DoesNotExist:
             return "<a>"
 

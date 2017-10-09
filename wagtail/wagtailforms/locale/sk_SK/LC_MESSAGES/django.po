@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# karabellyj <jozefkarabelly@gmail.com>, 2017
 # dellax <michalnebbia@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 22:44+0000\n"
-"PO-Revision-Date: 2016-09-22 15:05+0000\n"
+"POT-Creation-Date: 2017-06-19 16:55+0000\n"
+"PO-Revision-Date: 2017-04-19 21:09+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
@@ -18,6 +19,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sk_SK\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+
+msgid "Single line text"
+msgstr "Jednoriadkový text"
 
 msgid "Multi-line text"
 msgstr "Viac riadkový text"
@@ -43,15 +47,20 @@ msgstr "Dátum"
 msgid "Date/time"
 msgstr "Dátum/čas"
 
-#, python-format
-msgid "Delete %(title)s"
-msgstr "Zmazať %(title)s"
+msgid "label"
+msgstr "štítok"
+
+msgid "The label of the form field"
+msgstr "Štítok poľa formuláru"
+
+msgid "field type"
+msgstr "typ poľa"
+
+msgid "default value"
+msgstr "predvolená hodnota"
 
 msgid "Delete"
 msgstr "Vymazať"
-
-msgid "Delete it"
-msgstr "Zmazať"
 
 msgid "Forms"
 msgstr "Formuláre"
@@ -68,5 +77,5 @@ msgstr "Stiahnuť CSV"
 msgid "Title"
 msgstr "Titulok"
 
-msgid "Actions"
-msgstr "Akcie"
+msgid "No form pages have been created."
+msgstr "Žiadne formuláre neboli vytvorené."

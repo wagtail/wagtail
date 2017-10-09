@@ -12,11 +12,34 @@ from .models import Author, Book, Publisher, Token, VenuePage
 class AuthorModelAdmin(ModelAdmin):
     model = Author
     menu_order = 200
-    list_display = ('name', 'date_of_birth')
+    list_display = ('name', 'first_book', 'last_book', 'date_of_birth')
     list_filter = ('date_of_birth', )
     search_fields = ('name', )
     inspect_view_enabled = True
     inspect_view_fields = ('name', )
+
+    def last_book(self, obj):
+        # For testing use of modeladmin methods in list_display
+        book = obj.book_set.last()
+        if book:
+            return book.title
+        return ''
+
+    def get_extra_class_names_for_field_col(self, obj, field_name):
+        class_names = super(
+            AuthorModelAdmin, self
+        ).get_extra_class_names_for_field_col(field_name, obj)
+        if field_name == 'first_book':
+            class_names.append('for-author-%s' % obj.pk)
+        return class_names
+
+    def get_extra_attrs_for_field_col(self, obj, field_name):
+        attrs = super(AuthorModelAdmin, self).get_extra_attrs_for_field_col(
+            field_name, obj
+        )
+        if field_name == 'last_book':
+            attrs['data-for_author'] = obj.id
+        return attrs
 
 
 class BookModelAdmin(ThumbnailMixin, ModelAdmin):

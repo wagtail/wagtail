@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# David Llop <d.lloople@gmail.com>, 2014
+# David Llop, 2014
+# Roger Pons <rogerpons@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 22:44+0000\n"
-"PO-Revision-Date: 2016-05-11 20:33+0000\n"
+"POT-Creation-Date: 2017-06-19 16:55+0000\n"
+"PO-Revision-Date: 2017-06-19 16:59+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
@@ -19,8 +20,35 @@ msgstr ""
 "Language: ca\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "Add"
+msgstr "Afegir"
+
+msgid "Add/edit documents you own"
+msgstr "Afegir/editar documents propis"
+
 msgid "Edit"
 msgstr "Editar"
+
+msgid "Edit any document"
+msgstr "Editar algun document"
+
+msgid "title"
+msgstr "títol"
+
+msgid "file"
+msgstr "fitxer"
+
+msgid "created at"
+msgstr "creat el"
+
+msgid "uploaded by user"
+msgstr "pujat per l'usuari"
+
+msgid "tags"
+msgstr "etiquetes"
+
+msgid "document"
+msgstr "document"
 
 msgid "Choose a document"
 msgstr "Escull un document"
@@ -30,6 +58,17 @@ msgstr "Cercar"
 
 msgid "Upload"
 msgstr "Pujar"
+
+msgid "Uploading..."
+msgstr "Pujant..."
+
+msgid "Server Error"
+msgstr "Error del servidor"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr ""
+"Informeu d'aquest error a l'administrador del lloc web amb la següent "
+"informació:"
 
 #, python-format
 msgid ""
@@ -86,6 +125,12 @@ msgstr "Editant"
 msgid "Save"
 msgstr "Desar"
 
+msgid "Filesize"
+msgstr "Mida del fitxer"
+
+msgid "File not found"
+msgstr "No s'ha trobat el fitxer"
+
 msgid "Documents"
 msgstr "Documents"
 
@@ -97,6 +142,18 @@ msgstr "Arxiu"
 
 msgid "Uploaded"
 msgstr "Pujat"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "fa %(time_period)s"
+
+#, python-format
+msgid ""
+"You haven't uploaded any documents in this collection. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"No heu pujat cap document a aquesta col·lecció. Per què no en  <a href="
+"\"%(wagtaildocs_add_document_url)s\">pugeu un ara</a>?"
 
 #, python-format
 msgid ""
@@ -125,6 +182,65 @@ msgstr "Estat"
 msgid "Edit this page"
 msgstr "Editar aquesta plana"
 
+#, python-format
+msgid ""
+"\n"
+"        <span>%(total)s</span> Document\n"
+"    "
+msgid_plural ""
+"\n"
+"        <span>%(total)s</span> Documents\n"
+"    "
+msgstr[0] ""
+"\n"
+"        <span>%(total)s</span> Document\n"
+"    "
+msgstr[1] ""
+"\n"
+"        <span>%(total)s</span> Documents\n"
+"    "
+
+msgid "Add multiple documents"
+msgstr "Afegir diversos documents"
+
+msgid "Add documents"
+msgstr "Afegir documents"
+
+msgid "Drag and drop documents into this area to upload immediately."
+msgstr ""
+"Arrossegueu i deixeu anar documents en aquesta àrea per pujar-los "
+"immediatament."
+
+msgid "Or choose from your computer"
+msgstr "O trieu del vostre ordinador"
+
+msgid "Add to collection:"
+msgstr "Afegir a la col·lecció:"
+
+msgid ""
+"Upload successful. Please update this documents with a more appropriate "
+"title, if necessary. You may also delete the document completely if the "
+"upload wasn't required."
+msgstr ""
+"Pujada finalitzada correctament. Actualitzeu aquests documents amb un títol "
+"més adequat, si s'escau. També podeu eliminar del tot el document si la "
+"pujada no era requerida."
+
+msgid "Sorry, upload failed."
+msgstr "La pujada ha fallat."
+
+msgid "Update"
+msgstr "Actualitzar"
+
+msgid "Delete"
+msgstr "Eliminar"
+
+msgid "Document permissions"
+msgstr "Permisos de document"
+
+msgid "Add a document permission"
+msgstr "Afegir un permís de document"
+
 msgid "Search documents"
 msgstr "Cercar documents"
 
@@ -139,9 +255,22 @@ msgstr "El document no s'ha pogut desar."
 msgid "Document '{0}' updated"
 msgstr "Document '{0}' actualitzat"
 
+msgid ""
+"The file could not be found. Please change the source or delete the document"
+msgstr "No s'ha trobat el fitxer. Canvieu l'origen o elimineu el document."
+
 #, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Document '{0}' esborrat."
 
+#, python-format
+msgid "%(count)s document"
+msgid_plural "%(count)s documents"
+msgstr[0] "%(count)s document"
+msgstr[1] "%(count)s documents"
+
 msgid "Choose another document"
 msgstr "Escull un altre document"
+
+msgid "Edit this document"
+msgstr "Editar aquest document"

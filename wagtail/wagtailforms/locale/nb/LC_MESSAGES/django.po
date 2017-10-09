@@ -4,13 +4,13 @@
 #
 # Translators:
 # Eirik Krogstad <eirikkr@gmail.com>, 2015
-# Stein Strindhaug <stein.strindhaug@gmail.com>, 2016
+# Stein Strindhaug <stein.strindhaug@gmail.com>, 2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 22:44+0000\n"
-"PO-Revision-Date: 2016-11-18 11:56+0000\n"
+"POT-Creation-Date: 2017-06-19 16:55+0000\n"
+"PO-Revision-Date: 2017-04-21 07:22+0000\n"
 "Last-Translator: Stein Strindhaug <stein.strindhaug@gmail.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
@@ -22,6 +22,12 @@ msgstr ""
 
 msgid "{} submissions"
 msgstr "{} innsendinger"
+
+msgid "Date from"
+msgstr "Fra-dato"
+
+msgid "Date to"
+msgstr "Til-dato"
 
 #, python-format
 msgid "There is another field with the label %s, please change one of them."
@@ -117,17 +123,31 @@ msgid "subject"
 msgstr "emne"
 
 #, python-format
-msgid "Delete %(title)s"
-msgstr "Slett %(title)s"
+msgid "Delete form data %(title)s"
+msgstr "Slett skjemadata for %(title)s"
+
+msgid "Delete form data"
+msgstr "Slett skjemadata"
+
+msgid ""
+"\n"
+"                Are you sure you want to delete this form submission?\n"
+"            "
+msgid_plural ""
+"\n"
+"                Are you sure you want to delete these form submissions?\n"
+"            "
+msgstr[0] ""
+"\n"
+"                Er du sikker på at du vil slette dette innsendte skjemaet?\n"
+"            "
+msgstr[1] ""
+"\n"
+"                Er du sikker på at du vil slette disse innsendte skjemaene?\n"
+"            "
 
 msgid "Delete"
 msgstr "Slett"
-
-msgid "Are you sure you want to delete this form submission?"
-msgstr "Er du sikker på at du vil slette dette innsendte skjemaet?"
-
-msgid "Delete it"
-msgstr "Slett det"
 
 msgid "Total submissions"
 msgstr "Alle innsendinger"
@@ -165,14 +185,14 @@ msgstr "Tittel"
 msgid "Origin"
 msgstr "Opphav"
 
-msgid "Actions"
-msgstr "Handlinger"
-
-msgid "delete"
-msgstr "slett"
+msgid "Delete selected submissions"
+msgstr "Slett valgte innsendinger"
 
 msgid "No form pages have been created."
 msgstr "Ingen skjemasider har blitt opprettet."
 
-msgid "Submission deleted."
-msgstr "Innsendt skjema slettet."
+#, python-format
+msgid "One submission has been deleted."
+msgid_plural "%(count)d submissions have been deleted."
+msgstr[0] "Ett innsendt skjema ble slettet."
+msgstr[1] "%(count)d innsendte skjema ble slettet."
