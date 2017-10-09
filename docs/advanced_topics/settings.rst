@@ -668,10 +668,6 @@ These two files should reside in your project directory (``myproject/myproject/`
   # Wagtail email notification format
   # WAGTAILADMIN_NOTIFICATION_USE_HTML = True
 
-  # If you want to use Embedly for embeds, supply a key
-  # (this key doesn't work, get your own!)
-  # WAGTAILEMBEDS_EMBEDLY_KEY = '253e433d59dc4d2xa266e9e0de0cb830'
-
   # Reverse the default case-sensitive handling of tags
   TAGGIT_CASE_INSENSITIVE = True
 
