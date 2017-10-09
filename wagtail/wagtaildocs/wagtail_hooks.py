@@ -67,7 +67,6 @@ def editor_js():
         """
         <script>
             window.chooserUrls.documentChooser = '{0}';
-            registerHalloPlugin('hallowagtaildoclink');
         </script>
         """,
         urlresolvers.reverse('wagtaildocs:chooser')

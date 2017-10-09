@@ -93,11 +93,6 @@ class HalloRichTextArea(WidgetWithScript, widgets.Textarea):
         if self.features is None:
             self.features = features.get_default_features()
 
-            # RemovedInWagtail114Warning
-            self.use_legacy_plugin_config = True
-        else:
-            self.use_legacy_plugin_config = False
-
         # construct a list of plugin objects, by querying the feature registry
         # and keeping the non-null responses from get_editor_plugin
         self.plugins = CORE_HALLO_PLUGINS + list(filter(None, [
@@ -119,11 +114,6 @@ class HalloRichTextArea(WidgetWithScript, widgets.Textarea):
         if self.options is not None and 'plugins' in self.options:
             # explicit 'plugins' config passed in options, so use that
             plugin_data = self.options['plugins']
-        elif self.use_legacy_plugin_config:
-            # RemovedInWagtail114Warning
-            # no feature list specified, so initialise without a plugins arg
-            # (so that it'll pick up the globally-defined halloPlugins list instead)
-            return "makeHalloRichTextEditable({0});".format(json.dumps(id_))
         else:
             plugin_data = OrderedDict()
             for plugin in self.plugins:

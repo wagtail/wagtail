@@ -227,12 +227,6 @@ class FeatureRegistry(object):
 
         # a list of feature names that will be applied on rich text areas that do not specify
         # an explicit `feature` list.
-        # RemovedInWagtail114Warning: Until Wagtail 1.14, features listed here MUST also
-        # update the legacy global halloPlugins list (typically by calling registerHalloPlugin
-        # within an insert_editor_js hook). This is because we special-case rich text areas
-        # without an explicit `feature` list, to use the legacy halloPlugins list instead of
-        # the one constructed using construct_plugins_list; this ensures that any user code
-        # that fiddles with halloPlugins will continue to work until Wagtail 1.14.
         self.default_features = []
 
     def get_default_features(self):
