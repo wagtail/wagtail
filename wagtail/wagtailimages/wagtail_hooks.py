@@ -59,7 +59,6 @@ def editor_js():
         """
         <script>
             window.chooserUrls.imageChooser = '{0}';
-            registerHalloPlugin('hallowagtailimage');
         </script>
         """,
         urlresolvers.reverse('wagtailimages:chooser')

@@ -32,8 +32,8 @@ function makeHalloRichTextEditable(id, plugins) {
     richText.hallo({
         toolbar: 'halloToolbarFixed',
         toolbarCssClass: (closestObj.hasClass('full')) ? 'full' : (closestObj.hasClass('stream-field') && isRoot) ? 'stream-field' : '',
-        /* use the passed-in plugins arg if specified, otherwise use the global halloPlugins var */
-        plugins: plugins || halloPlugins
+        /* use the passed-in plugins arg */
+        plugins: plugins
     }).bind('hallomodified', function(event, data) {
         input.val(data.content);
         if (!removeStylingPending) {

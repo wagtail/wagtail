@@ -23,7 +23,6 @@ def editor_js():
         """
             <script>
                 window.chooserUrls.embedsChooser = '{0}';
-                registerHalloPlugin('hallowagtailembeds');
             </script>
         """,
         urlresolvers.reverse('wagtailembeds:chooser')
