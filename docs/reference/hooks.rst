@@ -348,7 +348,7 @@ Hooks for customising the editing interface for pages and snippets.
     @hooks.register('insert_editor_js')
     def editor_js():
         js_files = [
-            'demo/js/hallo-plugins/hallo-demo-plugin.js',
+            'demo/js/jquery.raptorize.1.0.js',
         ]
         js_includes = format_html_join('\n', '<script src="{0}{1}"></script>',
             ((settings.STATIC_URL, filename) for filename in js_files)
@@ -356,7 +356,9 @@ Hooks for customising the editing interface for pages and snippets.
         return js_includes + format_html(
             """
             <script>
-                registerHalloPlugin('demoeditor');
+                $(function() {
+                    $('button').raptorize();
+                });
             </script>
             """
         )
