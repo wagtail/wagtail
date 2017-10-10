@@ -207,7 +207,7 @@ Most of this should be familiar, but we'll explain ``get_children`` a bit later.
 Note the ``pageurl`` tag, which is similar to Django's ``url`` tag but
 takes a Wagtail Page object as an argument.
 
-In the Wagtail admin, create a ``BlogIndexPage`` under the Homepage,
+In the Wagtail admin, create a ``BlogIndexPage`` as a child of the Homepage,
 make sure it has the slug "blog" on the Promote tab, and publish it.
 You should now be able to access the url ``/blog`` on your site
 (note how the slug from the Promote tab defines the page URL).
@@ -662,7 +662,7 @@ admin, and so that you can manipulate its contents by returning
 a queryset from its ``get_context()`` method.
 
 Migrate this in, then create a new ``BlogTagIndexPage`` in the admin.
-You'll probably want to create the new page/view under Homepage,
+You'll probably want to create the new page/view as a child of Homepage,
 parallel to your Blog index. Give it the slug "tags" on the Promote tab.
 
 Access ``/tags`` and Django will tell you what you probably already knew:
