@@ -301,10 +301,7 @@ class WagtailPageTests(WagtailTestUtils, TestCase):
                 child_model._meta.app_label, child_model._meta.model_name, errors))
             raise self.failureException(msg)
 
-        if django.VERSION >= (1, 9):
-            explore_url = reverse('wagtailadmin_explore', args=[parent.pk])
-        else:
-            explore_url = 'http://testserver' + reverse('wagtailadmin_explore', args=[parent.pk])
+        explore_url = reverse('wagtailadmin_explore', args=[parent.pk])
         if response.redirect_chain != [(explore_url, 302)]:
             msg = self._formatMessage(msg, 'Creating a page %s.%s didnt redirect the user to the explorer, but to %s' % (
                 child_model._meta.app_label, child_model._meta.model_name,

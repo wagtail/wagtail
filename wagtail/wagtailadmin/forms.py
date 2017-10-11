@@ -321,13 +321,6 @@ class WagtailAdminPageForm(WagtailAdminModelForm):
         super(WagtailAdminPageForm, self).__init__(data, files, *args, **kwargs)
         self.parent_page = parent_page
 
-    if django.VERSION < (1, 9):
-        def clean_title(self):
-            return self.cleaned_data['title'].strip()
-
-        def clean_seo_title(self):
-            return self.cleaned_data['seo_title'].strip()
-
     def clean(self):
 
         cleaned_data = super(WagtailAdminPageForm, self).clean()

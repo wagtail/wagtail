@@ -4,7 +4,7 @@ Getting started
 Wagtail is built on the `Django web framework <https://www.djangoproject.com/>`_, so this document assumes you've already got the essentials installed. But if not, those essentials are:
 
  * `Python <https://www.python.org/downloads/>`_
- * `pip <https://pip.pypa.io/en/latest/installing.html>`_ (Note that pip is included by default with Python 2.7.9 and later and Python 3.4 and later)
+ * `pip <https://pip.pypa.io/en/latest/installing.html>`_ (Note that pip is included by default with Python 3.4 and later)
 
 We'd also recommend Virtualenv, which provides isolated Python environments:
 

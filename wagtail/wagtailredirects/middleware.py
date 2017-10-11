@@ -2,16 +2,11 @@ from __future__ import absolute_import, unicode_literals
 
 import django
 from django import http
+from django.utils.deprecation import MiddlewareMixin
 from django.utils.encoding import uri_to_iri
 from django.utils.six.moves.urllib.parse import urlparse
 
 from wagtail.wagtailredirects import models
-
-
-if django.VERSION >= (1, 10):
-    from django.utils.deprecation import MiddlewareMixin
-else:
-    MiddlewareMixin = object
 
 
 def _get_redirect(request, path):

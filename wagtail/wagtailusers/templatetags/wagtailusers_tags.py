@@ -43,20 +43,10 @@ def format_permissions(permission_bound_field):
 
     # iterate over permission_bound_field to build a lookup of individual renderable
     # checkbox objects
-    if django.VERSION < (1, 11):
-        # On Django <1.11, iterating over the BoundField returns a sequence of CheckboxChoiceInput objects,
-        # whose ID is available as .choice_value
-        checkboxes_by_id = {
-            int(checkbox.choice_value): checkbox
-            for checkbox in permission_bound_field
-        }
-    else:
-        # On Django >=1.11, iterating over the BoundField returns a sequence of BoundWidget objects,
-        # whose ID is available as .data['value']
-        checkboxes_by_id = {
-            int(checkbox.data['value']): checkbox
-            for checkbox in permission_bound_field
-        }
+    checkboxes_by_id = {
+        int(checkbox.data['value']): checkbox
+        for checkbox in permission_bound_field
+    }
 
     object_perms = []
     other_perms = []
