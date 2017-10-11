@@ -88,31 +88,17 @@ TEMPLATES = [
     },
 ]
 
-if django.VERSION >= (1, 10):
-    MIDDLEWARE = (
-        'django.middleware.common.CommonMiddleware',
-        'django.contrib.sessions.middleware.SessionMiddleware',
-        'django.middleware.csrf.CsrfViewMiddleware',
-        'django.contrib.auth.middleware.AuthenticationMiddleware',
-        'django.contrib.messages.middleware.MessageMiddleware',
-        'django.middleware.clickjacking.XFrameOptionsMiddleware',
+MIDDLEWARE = (
+    'django.middleware.common.CommonMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
-        'wagtail.wagtailcore.middleware.SiteMiddleware',
-        'wagtail.wagtailredirects.middleware.RedirectMiddleware',
-    )
-else:
-    MIDDLEWARE_CLASSES = (
-        'django.middleware.common.CommonMiddleware',
-        'django.contrib.sessions.middleware.SessionMiddleware',
-        'django.middleware.csrf.CsrfViewMiddleware',
-        'django.contrib.auth.middleware.AuthenticationMiddleware',
-        'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
-        'django.contrib.messages.middleware.MessageMiddleware',
-        'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
-        'wagtail.wagtailcore.middleware.SiteMiddleware',
-        'wagtail.wagtailredirects.middleware.RedirectMiddleware',
-    )
+    'wagtail.wagtailcore.middleware.SiteMiddleware',
+    'wagtail.wagtailredirects.middleware.RedirectMiddleware',
+)
 
 INSTALLED_APPS = (
     # Install wagtailredirects with its appconfig
@@ -183,10 +169,7 @@ WAGTAILSEARCH_BACKENDS = {
 
 AUTH_USER_MODEL = 'customuser.CustomUser'
 
-if django.VERSION >= (1, 10) and os.environ.get('DATABASE_ENGINE') in (
-        # Remove next line when Django 1.8 support is dropped.
-        'django.db.backends.postgresql_psycopg2',
-        'django.db.backends.postgresql'):
+if os.environ.get('DATABASE_ENGINE') == 'django.db.backends.postgresql':
     INSTALLED_APPS += ('wagtail.contrib.postgres_search',)
     WAGTAILSEARCH_BACKENDS['postgresql'] = {
         'BACKEND': 'wagtail.contrib.postgres_search.backend',

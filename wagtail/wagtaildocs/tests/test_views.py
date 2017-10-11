@@ -159,9 +159,6 @@ class TestServeViewWithSendfile(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response['X-Sendfile'], self.document.file.path)
 
-    @unittest.skipIf(
-        django.VERSION < (1, 9), "Fails on Django 1.8"
-    )  # Under Django 1.8. It adds "http://" to beginning of Location when it shouldn't
     @override_settings(
         SENDFILE_BACKEND='sendfile.backends.mod_wsgi',
         SENDFILE_ROOT=settings.MEDIA_ROOT,

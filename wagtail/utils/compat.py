@@ -3,15 +3,11 @@ from __future__ import absolute_import, unicode_literals
 import django
 
 
+# TODO: This compat function is now obsolete
 def user_is_authenticated(user):
-    if django.VERSION >= (1, 10):
-        return user.is_authenticated
-    else:
-        return user.is_authenticated()
+    return user.is_authenticated
 
 
+# TODO: This compat function is now obsolete
 def user_is_anonymous(user):
-    if django.VERSION >= (1, 10):
-        return user.is_anonymous
-    else:
-        return user.is_anonymous()
+    return user.is_anonymous
