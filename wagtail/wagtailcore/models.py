@@ -30,7 +30,6 @@ from django.utils.translation import ugettext_lazy as _
 from modelcluster.models import ClusterableModel, get_all_child_relations
 from treebeard.mp_tree import MP_Node
 
-from wagtail.utils.compat import user_is_authenticated
 from wagtail.wagtailcore.query import PageQuerySet, TreeQuerySet
 from wagtail.wagtailcore.signals import page_published, page_unpublished
 from wagtail.wagtailcore.sites import get_site_for_hostname
@@ -1878,7 +1877,7 @@ class BaseViewRestriction(models.Model):
                 return False
 
         elif self.restriction_type == BaseViewRestriction.LOGIN:
-            if not user_is_authenticated(request.user):
+            if not request.user.is_authenticated:
                 return False
 
         elif self.restriction_type == BaseViewRestriction.GROUPS:
