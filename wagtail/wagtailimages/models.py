@@ -5,7 +5,6 @@ import os.path
 from collections import OrderedDict
 from contextlib import contextmanager
 
-import django
 from django.conf import settings
 from django.core import checks
 from django.core.files import File

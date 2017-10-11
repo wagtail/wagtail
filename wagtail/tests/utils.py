@@ -4,7 +4,6 @@ import sys
 import warnings
 from contextlib import contextmanager
 
-import django
 from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse
 from django.test import TestCase

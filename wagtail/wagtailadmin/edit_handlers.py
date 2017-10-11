@@ -3,7 +3,6 @@ from __future__ import absolute_import, unicode_literals
 import math
 import re
 
-import django
 from django import forms
 from django.core.exceptions import ImproperlyConfigured
 from django.db.models.fields import FieldDoesNotExist

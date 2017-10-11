@@ -9,7 +9,6 @@ from datetime import date, datetime
 from decimal import Decimal
 
 # non-standard import name for ugettext_lazy, to prevent strings from being picked up for translation
-import django
 from django import forms
 from django.core.exceptions import ValidationError
 from django.forms.utils import ErrorList

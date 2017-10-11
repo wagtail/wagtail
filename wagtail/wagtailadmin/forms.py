@@ -3,7 +3,6 @@ from __future__ import absolute_import, unicode_literals
 import copy
 from itertools import groupby
 
-import django
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm

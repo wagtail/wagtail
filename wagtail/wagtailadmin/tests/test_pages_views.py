@@ -4,7 +4,6 @@ import datetime
 import logging
 import os
 
-import django
 import mock
 from django.conf import settings
 from django.contrib.auth import get_user_model

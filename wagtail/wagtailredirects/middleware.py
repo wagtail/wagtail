@@ -1,6 +1,5 @@
 from __future__ import absolute_import, unicode_literals
 
-import django
 from django import http
 from django.utils.deprecation import MiddlewareMixin
 from django.utils.encoding import uri_to_iri
