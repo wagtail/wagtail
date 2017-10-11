@@ -4,7 +4,6 @@ from django.conf.urls import include, url
 
 from wagtail.api.v2.endpoints import PagesAPIEndpoint
 from wagtail.api.v2.router import WagtailAPIRouter
-from wagtail.contrib.wagtailapi import urls as wagtailapi_urls
 from wagtail.contrib.wagtailsitemaps import views as sitemaps_views
 from wagtail.contrib.wagtailsitemaps import Sitemap
 from wagtail.tests.testapp import urls as testapp_urls
@@ -31,7 +30,6 @@ urlpatterns = [
     url(r'^testimages/', include(wagtailimages_test_urls)),
     url(r'^images/', include(wagtailimages_urls)),
 
-    url(r'^api/', include(wagtailapi_urls)),
     url(r'^api/v2beta/', api_router.urls),
     url(r'^sitemap\.xml$', sitemaps_views.sitemap),
 
