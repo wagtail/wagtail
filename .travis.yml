@@ -14,32 +14,18 @@ addons:
 
 matrix:
   include:
-   - env: TOXENV=py35-dj18-postgres-noelasticsearch
-     python: 3.5
-   - env: TOXENV=py34-dj110-postgres-noelasticsearch
+   - env: TOXENV=py34-dj111-postgres-noelasticsearch
      python: 3.4
-   - env: TOXENV=py34-dj110-sqlite-noelasticsearch
+   - env: TOXENV=py34-dj111-sqlite-noelasticsearch
      python: 3.4
-   - env: TOXENV=py34-dj110-mysql-noelasticsearch
+   - env: TOXENV=py34-dj111-postgres-elasticsearch INSTALL_ELASTICSEARCH1=yes
      python: 3.4
-   - env: TOXENV=py35-dj110-sqlite-noelasticsearch
-     python: 3.5
-   - env: TOXENV=py35-dj110-postgres-noelasticsearch
-     python: 3.5
-   - env: TOXENV=py35-dj110-mysql-noelasticsearch
-     python: 3.5
-   - env: TOXENV=py35-dj110-postgres-elasticsearch INSTALL_ELASTICSEARCH1=yes
-     python: 3.5
-     sudo: true
-   - env: TOXENV=py35-dj110-postgres-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
-     python: 3.5
-     sudo: true
-   - env: TOXENV=py35-dj110-postgres-elasticsearch5 INSTALL_ELASTICSEARCH5=yes
-     python: 3.5
      sudo: true
    - env: TOXENV=py35-dj111-postgres-noelasticsearch
      python: 3.5
-   - env: TOXENV=py35-dj111-postgres-elasticsearch INSTALL_ELASTICSEARCH1=yes
+   - env: TOXENV=py35-dj111-mysql-noelasticsearch
+     python: 3.5
+   - env: TOXENV=py35-dj111-postgres-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
      python: 3.5
      sudo: true
    - env: TOXENV=py36-dj111-sqlite-noelasticsearch
@@ -58,11 +44,9 @@ matrix:
      python: 3.6
      sudo: true
   allow_failures:
-    # Ignore failures on Elasticsearch tests because ES on Travis is intermittently flaky;
-    - env: TOXENV=py35-dj110-postgres-elasticsearch INSTALL_ELASTICSEARCH1=yes
-    - env: TOXENV=py35-dj110-postgres-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
-    - env: TOXENV=py35-dj110-postgres-elasticsearch5 INSTALL_ELASTICSEARCH5=yes
-    - env: TOXENV=py35-dj111-postgres-elasticsearch INSTALL_ELASTICSEARCH1=yes
+    # Ignore failures on Elasticsearch tests because ES on Travis is intermittently flaky
+    - env: TOXENV=py34-dj111-postgres-elasticsearch INSTALL_ELASTICSEARCH1=yes
+    - env: TOXENV=py35-dj111-postgres-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
     - env: TOXENV=py36-dj111-postgres-elasticsearch INSTALL_ELASTICSEARCH1=yes
     - env: TOXENV=py36-dj111-postgres-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
     - env: TOXENV=py36-dj111-postgres-elasticsearch5 INSTALL_ELASTICSEARCH5=yes
