@@ -38,11 +38,8 @@ def items_for_result(view, result):
                 boolean = getattr(attr, 'boolean', False)
                 if boolean or not value:
                     allow_tags = True
-                if django.VERSION >= (1, 9):
-                    result_repr = display_for_value(
-                        value, empty_value_display, boolean)
-                else:
-                    result_repr = display_for_value(value, boolean)
+                result_repr = display_for_value(
+                    value, empty_value_display, boolean)
 
                 # Strip HTML tags in the resulting text, except if the
                 # function has an "allow_tags" attribute set to True.
@@ -58,11 +55,8 @@ def items_for_result(view, result):
                     else:
                         result_repr = field_val
                 else:
-                    if django.VERSION >= (1, 9):
-                        result_repr = display_for_field(
-                            value, f, empty_value_display)
-                    else:
-                        result_repr = display_for_field(value, f)
+                    result_repr = display_for_field(
+                        value, f, empty_value_display)
 
                 if isinstance(f, (
                     models.DateField, models.TimeField, models.ForeignKey)

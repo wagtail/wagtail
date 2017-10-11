@@ -8,13 +8,8 @@ from wagtail.wagtailsearch.models import Query
 
 register = template.Library()
 
-if django.VERSION >= (1, 9):
-    assignment_tag = register.simple_tag
-else:
-    assignment_tag = register.assignment_tag
 
-
-@assignment_tag
+@register.simple_tag
 def get_search_promotions(search_query):
     if search_query:
         return Query.get(search_query).editors_picks.all()
