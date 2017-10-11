@@ -14,7 +14,6 @@ from django.utils.translation import activate
 from django.views.decorators.cache import never_cache
 from django.views.decorators.debug import sensitive_post_parameters
 
-from wagtail.utils.compat import user_is_authenticated
 from wagtail.wagtailadmin import forms
 from wagtail.wagtailadmin.utils import get_available_admin_languages
 from wagtail.wagtailcore.models import UserPagePermissionsProxy
@@ -132,7 +131,7 @@ def language_preferences(request):
 @sensitive_post_parameters()
 @never_cache
 def login(request):
-    if user_is_authenticated(request.user) and request.user.has_perm('wagtailadmin.access_admin'):
+    if request.user.is_authenticated and request.user.has_perm('wagtailadmin.access_admin'):
         return redirect('wagtailadmin_home')
     else:
         from django.contrib.auth import get_user_model
