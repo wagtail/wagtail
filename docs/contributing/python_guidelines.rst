@@ -10,12 +10,6 @@ You might want to configure the flake8 linter in your editor/IDE to use the conf
 
 In addition, import lines should be sorted according to `isort <http://timothycrosley.github.io/isort/>`_ 4.2.5 rules. If you have installed Wagtail's testing dependencies (``pip install -e .[testing]``), you can check your code by running ``make lint``.
 
-
-Python 2 and 3 compatibility
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-All contributions should support Python 2 and 3 and we recommend using the `six <https://pythonhosted.org/six/>`_ compatibility library (use the version bundled with Django, ``django.utils.six``).
-
 Django compatibility
 ~~~~~~~~~~~~~~~~~~~~
 
