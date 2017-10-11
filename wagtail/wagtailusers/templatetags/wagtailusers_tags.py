@@ -2,7 +2,6 @@ from __future__ import absolute_import, unicode_literals
 
 import itertools
 
-import django
 from django import template
 from wagtail.wagtailcore import hooks
 

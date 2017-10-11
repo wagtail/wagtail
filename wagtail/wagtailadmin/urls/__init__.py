@@ -1,6 +1,5 @@
 import functools
 
-import django
 from django.conf.urls import url, include
 from django.views.decorators.cache import cache_control
 from django.views.generic import TemplateView

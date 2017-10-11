@@ -2,7 +2,6 @@ from __future__ import absolute_import, unicode_literals
 
 from itertools import groupby
 
-import django
 from django import forms
 from django.conf import settings
 from django.contrib.auth import get_user_model
