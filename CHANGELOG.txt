@@ -4,6 +4,8 @@ Changelog
 2.0 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
+ * Removed support for Python 2.7, Django 1.8 and Django 1.10
+
 
 1.13 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~
