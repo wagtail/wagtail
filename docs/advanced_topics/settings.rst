@@ -552,7 +552,7 @@ These two files should reside in your project directory (``myproject/myproject/`
       },
   ]
 
-  WSGI_APPLICATION = 'wagtaildemo.wsgi.application'
+  WSGI_APPLICATION = 'myproject.wsgi.application'
 
   # Database
 
