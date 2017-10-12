@@ -3,7 +3,6 @@ from __future__ import absolute_import, unicode_literals
 import json
 import logging
 from collections import defaultdict
-from django import VERSION as DJANGO_VERSION
 
 from django.conf import settings
 from django.contrib.auth.models import Group, Permission
@@ -205,11 +204,6 @@ class PageBase(models.base.ModelBase):
     def __init__(cls, name, bases, dct):
         super(PageBase, cls).__init__(name, bases, dct)
 
-        if DJANGO_VERSION < (1, 10) and getattr(cls, '_deferred', False):
-            # this is an internal class built for Django's deferred-attribute mechanism;
-            # don't proceed with all this page type registration stuff
-            return
-
         if 'template' not in dct:
             # Define a default template path derived from the app name and model name
             cls.template = "%s/%s.html" % (cls._meta.app_label, camelcase_to_underscore(name))
@@ -255,20 +249,12 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
         max_length=255,
         editable=False
     )
-    # use django 1.9+ SlugField with unicode support
-    if DJANGO_VERSION >= (1, 9):
-        slug = models.SlugField(
-            verbose_name=_('slug'),
-            allow_unicode=True,
-            max_length=255,
-            help_text=_("The name of the page as it will appear in URLs e.g http://domain.com/blog/[my-slug]/")
-        )
-    else:
-        slug = models.SlugField(
-            verbose_name=_('slug'),
-            max_length=255,
-            help_text=_("The name of the page as it will appear in URLs e.g http://domain.com/blog/[my-slug]/")
-        )
+    slug = models.SlugField(
+        verbose_name=_('slug'),
+        allow_unicode=True,
+        max_length=255,
+        help_text=_("The name of the page as it will appear in URLs e.g http://domain.com/blog/[my-slug]/")
+    )
     content_type = models.ForeignKey(
         'contenttypes.ContentType',
         verbose_name=_('content type'),
@@ -436,10 +422,7 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
 
         if not self.slug:
             # Try to auto-populate slug from title
-            if DJANGO_VERSION >= (1, 9):
-                base_slug = slugify(self.title, allow_unicode=True)
-            else:
-                base_slug = slugify(self.title)
+            base_slug = slugify(self.title, allow_unicode=True)
 
             # only proceed if we get a non-empty base slug back from slugify
             if base_slug:
