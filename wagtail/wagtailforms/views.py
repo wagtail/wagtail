@@ -72,8 +72,8 @@ def list_submissions(request, page_id):
 
     # convert ordering tuples to a list of strings like ['-submit_time']
     ordering_strings = [
-        '%s%s' % ('-' if o[1] == 'descending' else '', o[0])
-        for o in ordering]
+        '%s%s' % ('-' if order_str[1] == 'descending' else '', order_str[0])
+        for order_str in ordering]
 
     if request.GET.get('action') == 'CSV':
         #  Revert to CSV being sorted submit_time ascending for backwards compatibility
