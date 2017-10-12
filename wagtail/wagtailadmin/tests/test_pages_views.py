@@ -3957,11 +3957,9 @@ class TestRecentEditsPanel(TestCase, WagtailTestUtils):
 
 class TestIssue2994(TestCase, WagtailTestUtils):
     """
-    When submitting the add/edit page form, Django 1.10.1 fails to update StreamFields
-    that have a default value, because it notices the lack of postdata field
-    with a name exactly matching the field name and wrongly assumes that the field has
-    been omitted from the form. To avoid this in Django 1.10.1, we need to set
-    dont_use_model_field_default_for_empty_data=True on the widget; in Django >=1.10.2,
+    In contrast to most "standard" form fields, StreamField form widgets generally won't
+    provide a postdata field with a name exactly matching the field name. To prevent Django
+    from wrongly interpreting this as the field being omitted from the form,
     we need to provide a custom value_omitted_from_data method.
     """
     def setUp(self):

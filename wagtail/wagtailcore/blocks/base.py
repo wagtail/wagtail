@@ -487,11 +487,6 @@ class DeclarativeSubBlocksMetaclass(BaseBlock):
 class BlockWidget(forms.Widget):
     """Wraps a block object as a widget so that it can be incorporated into a Django form"""
 
-    # Flag used by Django 1.10.1 (only) to indicate that this widget will not necessarily submit
-    # a postdata item with a name that matches the field name -
-    # see https://github.com/django/django/pull/7068, https://github.com/wagtail/wagtail/issues/2994
-    dont_use_model_field_default_for_empty_data = True
-
     def __init__(self, block_def, attrs=None):
         super(BlockWidget, self).__init__(attrs=attrs)
         self.block_def = block_def
