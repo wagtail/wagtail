@@ -4,7 +4,6 @@ import datetime
 import logging
 import os
 
-import django
 import mock
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -447,7 +446,7 @@ class TestExplorablePageVisibility(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
         self.assertInHTML(
-            """<li class="home"><a href="/admin/pages/" class="icon icon-home text-replace">Home</a></li>""",
+            """<li class="home"><a href="/admin/pages/" class="icon icon-site text-replace">Root</a></li>""",
             str(response.content)
         )
         self.assertInHTML("""<li><a href="/admin/pages/4/">Welcome to example.com!</a></li>""", str(response.content))
@@ -957,10 +956,7 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         )
 
         # Check that a form error was raised
-        if django.VERSION >= (1, 9):
-            self.assertFormError(response, 'form', 'title', "This field is required.")
-        else:
-            self.assertFormError(response, 'form', 'title', "This field cannot be blank.")
+        self.assertFormError(response, 'form', 'title', "This field is required.")
 
     def test_whitespace_titles_with_tab(self):
         post_data = {
@@ -972,10 +968,7 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         response = self.client.post(reverse('wagtailadmin_pages:add', args=('tests', 'simplepage', self.root_page.id)), post_data)
 
         # Check that a form error was raised
-        if django.VERSION >= (1, 9):
-            self.assertFormError(response, 'form', 'title', "This field is required.")
-        else:
-            self.assertFormError(response, 'form', 'title', "This field cannot be blank.")
+        self.assertFormError(response, 'form', 'title', "This field is required.")
 
     def test_whitespace_titles_with_tab_in_seo_title(self):
         post_data = {
@@ -2081,6 +2074,20 @@ class TestPageSearch(TestCase, WagtailTestUtils):
         # 'pages' list in the response should contain root
         results = response.context['pages']
         self.assertTrue(any([r.slug == 'root' for r in results]))
+
+    def test_search_uses_admin_display_title_from_specific_class(self):
+        # SingleEventPage has a custom get_admin_display_title method; explorer should
+        # show the custom title rather than the basic database one
+        root_page = Page.objects.get(id=2)
+        new_event = SingleEventPage(
+            title="Lunar event",
+            location='the moon', audience='public',
+            cost='free', date_from='2001-01-01',
+            latest_revision_created_at=local_datetime(2016, 1, 1)
+        )
+        root_page.add_child(instance=new_event)
+        response = self.get({'q': "lunar"})
+        self.assertContains(response, "Lunar event (single event)")
 
     def test_search_no_perms(self):
         self.user.is_superuser = False

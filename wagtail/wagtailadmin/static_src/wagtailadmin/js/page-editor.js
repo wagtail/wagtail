@@ -1,19 +1,10 @@
 'use strict';
 
-// registerHalloPlugin must be implemented here so it can be used by plugins
-// hooked in with insert_editor_js (and hallo-bootstrap.js runs too late)
-var halloPlugins = {
-    halloformat: {},
-    halloheadings: {formatBlocks: ['p', 'h2', 'h3', 'h4', 'h5']},
-    hallolists: {},
-    hallohr: {},
-    halloreundo: {},
-    hallowagtaillink: {},
-    hallorequireparagraphs: {}
-};
-
+var halloPlugins = {};
 function registerHalloPlugin(name, opts) {
-    halloPlugins[name] = (opts || {});
+    /* Obsolete - used on Wagtail <1.12 to register plugins for the hallo.js editor.
+    Defined here so that third-party plugins can continue to call it to provide Wagtail <1.12
+    compatibility, without throwing an error on later versions. */
 }
 
 // Compare two date objects. Ignore minutes and seconds.
@@ -86,7 +77,7 @@ function initDateTimeChooser(id, opts) {
             i18n: {
                 lang: window.dateTimePickerTranslations
             },
-            language: 'lang',
+            lang: 'lang',
             onGenerate: hideCurrent
         }, opts || {}));
     } else {

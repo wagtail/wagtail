@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-10 16:05+0000\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -115,7 +115,8 @@ msgstr ""
 
 #: templates/wagtailusers/groups/confirm_delete.html:3
 #: templates/wagtailusers/groups/confirm_delete.html:6
-#: templates/wagtailusers/groups/edit.html:36
+#: templates/wagtailusers/groups/edit.html:36 views/groups.py:133
+#: views/groups.py:159
 msgid "Delete group"
 msgstr ""
 
@@ -140,7 +141,7 @@ msgid ""
 "users."
 msgstr ""
 
-#: templates/wagtailusers/groups/confirm_delete.html:23
+#: templates/wagtailusers/groups/confirm_delete.html:23 views/groups.py:160
 msgid "Are you sure you want to delete this group?"
 msgstr ""
 
@@ -151,7 +152,7 @@ msgstr ""
 
 #: templates/wagtailusers/groups/create.html:4
 #: templates/wagtailusers/groups/create.html:14
-#: templates/wagtailusers/groups/create.html:31
+#: templates/wagtailusers/groups/create.html:31 views/groups.py:105
 msgid "Add group"
 msgstr ""
 
@@ -189,7 +190,7 @@ msgstr ""
 
 #: templates/wagtailusers/groups/includes/formatted_permissions.html:14
 #: templates/wagtailusers/groups/includes/page_permissions_form.html:13
-#: wagtail_hooks.py:107
+#: wagtail_hooks.py:112
 msgid "Delete"
 msgstr ""
 
@@ -214,11 +215,16 @@ msgstr ""
 msgid "groups"
 msgstr ""
 
-#: templates/wagtailusers/groups/index.html:18
+#: templates/wagtailusers/groups/index.html:18 views/groups.py:89
 msgid "Add a group"
 msgstr ""
 
-#: templates/wagtailusers/groups/results.html:9
+#: templates/wagtailusers/groups/results.html:8
+#, python-format
+msgid "Sorry, no groups match \"%(query)s\""
+msgstr ""
+
+#: templates/wagtailusers/groups/results.html:11
 #, python-format
 msgid ""
 "There are no groups configured. Why not <a href="
@@ -254,8 +260,8 @@ msgid "Roles"
 msgstr ""
 
 #: templates/wagtailusers/users/index.html:4
-#: templates/wagtailusers/users/index.html:17 wagtail_hooks.py:47
-#: wagtail_hooks.py:97
+#: templates/wagtailusers/users/index.html:17 wagtail_hooks.py:52
+#: wagtail_hooks.py:102
 msgid "Users"
 msgstr ""
 
@@ -312,25 +318,24 @@ msgid ""
 "\">add some</a>?"
 msgstr ""
 
-#: views/groups.py:36 views/groups.py:43
+#: views/groups.py:54
+msgid "Search"
+msgstr ""
+
+#: views/groups.py:88 wagtail_hooks.py:71
+msgid "Groups"
+msgstr ""
+
+#: views/groups.py:90
 msgid "Search groups"
 msgstr ""
 
-#: views/groups.py:93
+#: views/groups.py:106
 #, python-brace-format
 msgid "Group '{0}' created."
 msgstr ""
 
-#: views/groups.py:94 views/groups.py:128 views/users.py:129
-#: views/users.py:153 wagtail_hooks.py:105
-msgid "Edit"
-msgstr ""
-
-#: views/groups.py:98
-msgid "The group could not be created due to errors."
-msgstr ""
-
-#: views/groups.py:127
+#: views/groups.py:131
 #, python-brace-format
 msgid "Group '{0}' updated."
 msgstr ""
@@ -339,46 +344,46 @@ msgstr ""
 msgid "The group could not be saved due to errors."
 msgstr ""
 
-#: views/groups.py:153
+#: views/groups.py:158
 #, python-brace-format
 msgid "Group '{0}' deleted."
 msgstr ""
 
-#: views/users.py:67 views/users.py:87
+#: views/users.py:67 views/users.py:88
 msgid "Search users"
 msgstr ""
 
-#: views/users.py:128
+#: views/users.py:129
 #, python-brace-format
 msgid "User '{0}' created."
 msgstr ""
 
-#: views/users.py:133
+#: views/users.py:130 views/users.py:154 wagtail_hooks.py:110
+msgid "Edit"
+msgstr ""
+
+#: views/users.py:134
 msgid "The user could not be created due to errors."
 msgstr ""
 
-#: views/users.py:152
+#: views/users.py:153
 #, python-brace-format
 msgid "User '{0}' updated."
 msgstr ""
 
-#: views/users.py:157
+#: views/users.py:158
 msgid "The user could not be saved due to errors."
 msgstr ""
 
-#: views/users.py:177
+#: views/users.py:178
 #, python-brace-format
 msgid "User '{0}' deleted."
 msgstr ""
 
-#: wagtail_hooks.py:66
-msgid "Groups"
-msgstr ""
-
-#: wagtail_hooks.py:105
+#: wagtail_hooks.py:110
 msgid "Edit this user"
 msgstr ""
 
-#: wagtail_hooks.py:107
+#: wagtail_hooks.py:112
 msgid "Delete this user"
 msgstr ""

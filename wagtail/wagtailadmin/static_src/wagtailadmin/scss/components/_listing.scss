@@ -1,5 +1,4 @@
 // General listings, like for pages, images or snippets
-
 ul.listing {
     @include unlist();
 }
@@ -195,6 +194,7 @@ ul.listing {
                 color: inherit;
                 text-decoration: none;
 
+                // stylelint-disable max-nesting-depth
                 &:hover {
                     color: $color-link;
                 }
@@ -524,7 +524,6 @@ table.listing {
 
 
 // listing filters
-
 .listing-filter {
     @include clearfix();
     background-color: $color-grey-5;

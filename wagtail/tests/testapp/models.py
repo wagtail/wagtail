@@ -28,8 +28,9 @@ from wagtail.wagtailadmin.forms import WagtailAdminPageForm
 from wagtail.wagtailadmin.utils import send_mail
 from wagtail.wagtailcore.blocks import CharBlock, RichTextBlock
 from wagtail.wagtailcore.fields import RichTextField, StreamField
-from wagtail.wagtailcore.models import Orderable, Page, PageManager
+from wagtail.wagtailcore.models import Orderable, Page, PageManager, PageQuerySet
 from wagtail.wagtaildocs.edit_handlers import DocumentChooserPanel
+from wagtail.wagtaildocs.models import AbstractDocument, Document
 from wagtail.wagtailforms.models import AbstractEmailForm, AbstractFormField, AbstractFormSubmission
 from wagtail.wagtailimages.blocks import ImageChooserBlock
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
@@ -368,6 +369,11 @@ class EventIndex(Page):
             }
         ]
 
+    def get_cached_paths(self):
+        return super(EventIndex, self).get_cached_paths() + [
+            '/past/'
+        ]
+
 
 EventIndex.content_panels = [
     FieldPanel('title', classname="full title"),
@@ -673,6 +679,10 @@ class CustomRendition(AbstractRendition):
         )
 
 
+class CustomDocument(AbstractDocument):
+    admin_form_fields = Document.admin_form_fields
+
+
 class StreamModel(models.Model):
     body = StreamField([
         ('text', CharBlock()),
@@ -841,8 +851,12 @@ class CustomImageFilePath(AbstractImage):
         return os.path.join(folder_name, checksum[:3], filename)
 
 
-class CustomManager(PageManager):
-    pass
+class CustomPageQuerySet(PageQuerySet):
+    def about_spam(self):
+        return self.filter(title__contains='spam')
+
+
+CustomManager = PageManager.from_queryset(CustomPageQuerySet)
 
 
 class CustomManagerPage(Page):

@@ -15,7 +15,8 @@ from django.core.handlers.base import BaseHandler
 from django.core.handlers.wsgi import WSGIRequest
 from django.core.urlresolvers import reverse
 from django.db import connection, models, transaction
-from django.db.models import Q
+from django.db.models import Q, Value
+from django.db.models.functions import Concat, Substr
 from django.http import Http404
 from django.template.response import TemplateResponse
 # Must be imported from Django so we get the new implementation of with_metaclass
@@ -29,7 +30,6 @@ from django.utils.translation import ugettext_lazy as _
 from modelcluster.models import ClusterableModel, get_all_child_relations
 from treebeard.mp_tree import MP_Node
 
-from wagtail.utils.compat import user_is_authenticated
 from wagtail.wagtailcore.query import PageQuerySet, TreeQuerySet
 from wagtail.wagtailcore.signals import page_published, page_unpublished
 from wagtail.wagtailcore.sites import get_site_for_hostname
@@ -194,7 +194,7 @@ def get_default_page_content_type():
 
 class BasePageManager(models.Manager):
     def get_queryset(self):
-        return PageQuerySet(self.model).order_by('path')
+        return self._queryset_class(self.model).order_by('path')
 
 
 PageManager = BasePageManager.from_queryset(PageQuerySet)
@@ -358,6 +358,7 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
         index.FilterField('locked'),
         index.FilterField('show_in_menus'),
         index.FilterField('first_published_at'),
+        index.FilterField('last_published_at'),
         index.FilterField('latest_revision_created_at'),
     ]
 
@@ -574,32 +575,20 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
         return errors
 
     def _update_descendant_url_paths(self, old_url_path, new_url_path):
-        cursor = connection.cursor()
-        if connection.vendor == 'sqlite':
-            update_statement = """
-                UPDATE wagtailcore_page
-                SET url_path = %s || substr(url_path, %s)
-                WHERE path LIKE %s AND id <> %s
-            """
-        elif connection.vendor == 'mysql':
-            update_statement = """
-                UPDATE wagtailcore_page
-                SET url_path= CONCAT(%s, substring(url_path, %s))
-                WHERE path LIKE %s AND id <> %s
-            """
-        elif connection.vendor in ('mssql', 'microsoft'):
-            update_statement = """
+        if connection.vendor in ('mssql', 'microsoft'):
+            cursor = connection.cursor()
+            cursor.execute("""
                 UPDATE wagtailcore_page
                 SET url_path= CONCAT(%s, (SUBSTRING(url_path, 0, %s)))
                 WHERE path LIKE %s AND id <> %s
-            """
+            """, [new_url_path, len(old_url_path) + 1, self.path + '%', self.id])
         else:
-            update_statement = """
-                UPDATE wagtailcore_page
-                SET url_path = %s || substring(url_path from %s)
-                WHERE path LIKE %s AND id <> %s
-            """
-        cursor.execute(update_statement, [new_url_path, len(old_url_path) + 1, self.path + '%', self.id])
+            (Page.objects
+                .filter(path__startswith=self.path)
+                .exclude(pk=self.pk)
+                .update(url_path=Concat(
+                    Value(new_url_path),
+                    Substr('url_path', len(old_url_path) + 1))))
 
     #: Return this page in its most specific subclassed form.
     @cached_property
@@ -661,7 +650,9 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
         override this if you wish to display extra contextual information about the page,
         such as language. By default, returns ``draft_title``.
         """
-        return self.draft_title
+        # Fall back on title if draft_title is blank (which may happen if the page was created
+        # in a fixture or migration that didn't explicitly handle draft_title)
+        return self.draft_title or self.title
 
     def save_revision(self, user=None, submitted_for_moderation=False, approved_go_live_at=None, changed=True):
         self.full_clean()
@@ -1886,7 +1877,7 @@ class BaseViewRestriction(models.Model):
                 return False
 
         elif self.restriction_type == BaseViewRestriction.LOGIN:
-            if not user_is_authenticated(request.user):
+            if not request.user.is_authenticated:
                 return False
 
         elif self.restriction_type == BaseViewRestriction.GROUPS:

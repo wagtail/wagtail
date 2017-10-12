@@ -258,6 +258,19 @@ class TestChooserSearch(TestCase, WagtailTestUtils):
         self.assertContains(response, "There is one match")
         self.assertContains(response, "foobarbaz")
 
+    def test_result_uses_custom_admin_display_title(self):
+        single_event_page = SingleEventPage(
+            title="Lunar event",
+            location='the moon', audience='public',
+            cost='free', date_from='2001-01-01',
+        )
+        self.root_page.add_child(instance=single_event_page)
+
+        response = self.get({'q': "lunar"})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/chooser/_search_results.html')
+        self.assertContains(response, "Lunar event (single event)")
+
     def test_search_no_results(self):
         response = self.get({'q': "quux"})
         self.assertEqual(response.status_code, 200)

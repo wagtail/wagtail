@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-08-10 16:05+0000\n"
-"PO-Revision-Date: 2017-08-10 16:07+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2017-09-25 11:44+0000\n"
+"Last-Translator: Kyungil Choi <hanpama@gmail.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
 "MIME-Version: 1.0\n"
@@ -1095,6 +1095,9 @@ msgstr "아이슬란드어"
 msgid "Italian"
 msgstr "이탈리아어"
 
+msgid "Korean"
+msgstr "한국어"
+
 msgid "Lithuanian"
 msgstr "리투아니아어"
 
@@ -1121,6 +1124,9 @@ msgstr "로마니아어"
 
 msgid "Russian"
 msgstr "러시아어"
+
+msgid "Swedish"
+msgstr "스웨덴어"
 
 msgid "Chinese (China)"
 msgstr "중국어 (중국)"

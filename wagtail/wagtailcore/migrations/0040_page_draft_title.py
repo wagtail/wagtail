@@ -25,5 +25,5 @@ class Migration(migrations.Migration):
             field=models.CharField(default='', editable=False, max_length=255),
             preserve_default=False,
         ),
-        migrations.RunPython(draft_title),
+        migrations.RunPython(draft_title, migrations.RunPython.noop),
     ]

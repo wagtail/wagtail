@@ -11,8 +11,9 @@ from wagtail.wagtailadmin.menu import MenuItem
 from wagtail.wagtailadmin.search import SearchArea
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
-from wagtail.wagtailusers.urls import groups, users
+from wagtail.wagtailusers.urls import users
 from wagtail.wagtailusers.utils import user_can_delete_user
+from wagtail.wagtailusers.views.groups import GroupViewSet
 from wagtail.wagtailusers.widgets import UserListingButton
 
 
@@ -20,8 +21,12 @@ from wagtail.wagtailusers.widgets import UserListingButton
 def register_admin_urls():
     return [
         url(r'^users/', include(users, app_name='wagtailusers_users', namespace='wagtailusers_users')),
-        url(r'^groups/', include(groups, app_name='wagtailusers_groups', namespace='wagtailusers_groups')),
     ]
+
+
+@hooks.register('register_admin_viewset')
+def register_viewset():
+    return GroupViewSet('wagtailusers_groups', url_prefix='groups')
 
 
 # Typically we would check the permission 'auth.change_user' (and 'auth.add_user' /

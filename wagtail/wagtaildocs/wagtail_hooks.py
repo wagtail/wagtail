@@ -67,7 +67,6 @@ def editor_js():
         """
         <script>
             window.chooserUrls.documentChooser = '{0}';
-            registerHalloPlugin('hallowagtaildoclink');
         </script>
         """,
         urlresolvers.reverse('wagtaildocs:chooser')
@@ -80,7 +79,7 @@ def register_embed_feature(features):
         'hallo', 'document-link',
         HalloPlugin(
             name='hallowagtaildoclink',
-            js=[static('wagtaildocs/js/hallo-plugins/hallo-wagtaildoclink.js')],
+            js=['wagtaildocs/js/hallo-plugins/hallo-wagtaildoclink.js'],
         )
     )
     features.default_features.append('document-link')

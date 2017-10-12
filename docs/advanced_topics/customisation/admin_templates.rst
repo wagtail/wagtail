@@ -43,6 +43,8 @@ To replace the default logo, create a template file ``dashboard/templates/wagtai
         <img src="{% static 'images/custom-logo.svg' %}" alt="Custom Project" width="80" />
     {% endblock %}
 
+The logo also appears on the admin 404 error page; to replace it there too, create a template file ``dashboard/templates/wagtailadmin/404.html`` that overrides the ``branding_logo`` block.
+
 ``branding_favicon``
 --------------------
 

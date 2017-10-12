@@ -11,7 +11,7 @@
 
         {% search_other %}
 
-        {% include "wagtailadmin/pages/listing/_list_explore.html" with show_parent=1 allow_navigation=0 %}
+        {% include "wagtailadmin/pages/listing/_list_explore.html" with show_parent=1 %}
 
         {% url 'wagtailadmin_pages:search' as pagination_base_url %}
         {% paginate pages base_url=pagination_base_url %}

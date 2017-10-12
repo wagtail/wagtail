@@ -9,7 +9,6 @@ from datetime import date, datetime
 from decimal import Decimal
 
 # non-standard import name for ugettext_lazy, to prevent strings from being picked up for translation
-import django
 from django import forms
 from django.core.exceptions import ValidationError
 from django.forms.utils import ErrorList
@@ -809,7 +808,6 @@ class TestRawHTMLBlock(unittest.TestCase):
         self.assertEqual(result, '<blink>BÖÖM</blink>')
         self.assertIsInstance(result, SafeData)
 
-    @unittest.skipIf(django.VERSION < (1, 10, 2), "value_omitted_from_data is not available")
     def test_value_omitted_from_data(self):
         block = blocks.RawHTMLBlock()
         self.assertFalse(block.value_omitted_from_data({'rawhtml': 'ohai'}, {}, 'rawhtml'))
@@ -1253,7 +1251,6 @@ class TestStructBlock(SimpleTestCase):
         self.assertTrue(isinstance(struct_val, blocks.StructValue))
         self.assertTrue(isinstance(struct_val.bound_blocks['link'].block, blocks.URLBlock))
 
-    @unittest.skipIf(django.VERSION < (1, 10, 2), "value_omitted_from_data is not available")
     def test_value_omitted_from_data(self):
         block = blocks.StructBlock([
             ('title', blocks.CharBlock()),
@@ -1598,7 +1595,6 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
 
         self.assertEqual(content, ["Wagtail", "Django"])
 
-    @unittest.skipIf(django.VERSION < (1, 10, 2), "value_omitted_from_data is not available")
     def test_value_omitted_from_data(self):
         block = blocks.ListBlock(blocks.CharBlock())
 
@@ -2024,7 +2020,6 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             html
         )
 
-    @unittest.skipIf(django.VERSION < (1, 10, 2), "value_omitted_from_data is not available")
     def test_value_omitted_from_data(self):
         block = blocks.StreamBlock([
             ('heading', blocks.CharBlock()),

@@ -3,7 +3,6 @@ from __future__ import absolute_import, unicode_literals
 import math
 import re
 
-import django
 from django import forms
 from django.core.exceptions import ImproperlyConfigured
 from django.db.models.fields import FieldDoesNotExist
@@ -748,10 +747,7 @@ class InlinePanel(object):
         self.classname = classname
 
     def bind_to_model(self, model):
-        if django.VERSION >= (1, 9):
-            related = getattr(model, self.relation_name).rel
-        else:
-            related = getattr(model, self.relation_name).related
+        related = getattr(model, self.relation_name).rel
 
         return type(str('_InlinePanel'), (BaseInlinePanel,), {
             'model': model,

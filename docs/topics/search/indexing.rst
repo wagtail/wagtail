@@ -53,7 +53,7 @@ Indexing extra fields
 
 .. warning::
 
-    Indexing extra fields is only supported with ElasticSearch as your backend. If you're using the database backend, any other fields you define via ``search_fields`` will be ignored.
+    Indexing extra fields is not supported by the database backend. If you're using the database backend, any other fields you define via ``search_fields`` will be ignored.
 
 
 Fields must be explicitly added to the ``search_fields`` property of your ``Page``-derived model, in order for you to be able to search/filter on them. This is done by overriding ``search_fields`` to append a list of extra ``SearchField``/``FilterField`` objects to it.

@@ -130,12 +130,12 @@ def edit(request, document_id):
         original_file = doc.file
         form = DocumentForm(request.POST, request.FILES, instance=doc, user=request.user)
         if form.is_valid():
+            doc = form.save()
             if 'file' in form.changed_data:
                 # if providing a new document file, delete the old one.
                 # NB Doing this via original_file.delete() clears the file field,
                 # which definitely isn't what we want...
                 original_file.storage.delete(original_file.name)
-            doc = form.save()
 
             # Reindex the document to make sure all tags are indexed
             search_index.insert_or_update_object(doc)

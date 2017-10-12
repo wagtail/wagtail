@@ -85,7 +85,7 @@ class AnotherSearchTestChild(SearchTest):
 
 
 class SearchTestSubObject(models.Model):
-    parent = models.ForeignKey(SearchTest, related_name='subobjects')
+    parent = models.ForeignKey(SearchTest, related_name='subobjects', on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
 
     def __str__(self):

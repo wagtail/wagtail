@@ -79,91 +79,6 @@ class TestGetFinders(TestCase):
         self.assertIsInstance(finders[0], OEmbedFinder)
         self.assertEqual(finders[0].options, {'foo': 'bar'})
 
-    @override_settings(WAGTAILEMBEDS_FINDERS=[
-        {
-            'class': 'wagtail.wagtailembeds.finders.embedly',
-        }
-    ], WAGTAILEMBEDS_EMBEDLY_KEY='bar')
-    def test_new_find_embedly_still_uses_old_key_setting(self):
-        finders = get_finders()
-
-        self.assertEqual(len(finders), 1)
-        self.assertIsInstance(finders[0], EmbedlyFinder)
-        self.assertEqual(finders[0].get_key(), 'bar')
-
-    @override_settings(WAGTAILEMBEDS_FINDERS=[
-        {
-            'class': 'wagtail.wagtailembeds.finders.embedly',
-            'key': 'foo',
-        }
-    ], WAGTAILEMBEDS_EMBEDLY_KEY='bar')
-    def test_new_find_embedly_key_setting_precedence(self):
-        finders = get_finders()
-
-        self.assertEqual(len(finders), 1)
-        self.assertIsInstance(finders[0], EmbedlyFinder)
-        self.assertEqual(finders[0].get_key(), 'foo')
-
-    # Old settings
-
-    @override_settings(WAGTAILEMBEDS_EMBEDLY_KEY='test')
-    def test_defaults_to_embedly_when_embedly_key_set(self):
-        finders = get_finders()
-
-        self.assertEqual(len(finders), 1)
-        self.assertIsInstance(finders[0], EmbedlyFinder)
-        self.assertEqual(finders[0].get_key(), 'test')
-
-    @override_settings(WAGTAILEMBEDS_EMBED_FINDER='wagtail.wagtailembeds.finders.embedly.embedly')
-    def test_old_find_embedly(self):
-        finders = get_finders()
-
-        self.assertEqual(len(finders), 1)
-        self.assertIsInstance(finders[0], EmbedlyFinder)
-
-    @override_settings(WAGTAILEMBEDS_EMBED_FINDER='wagtail.wagtailembeds.finders.oembed.oembed')
-    def test_old_find_oembed(self):
-        finders = get_finders()
-
-        self.assertEqual(len(finders), 1)
-        self.assertIsInstance(finders[0], OEmbedFinder)
-
-    @override_settings(WAGTAILEMBEDS_EMBED_FINDER='wagtail.wagtailembeds.finders.embedly')
-    def test_old_find_embedly_from_module(self):
-        finders = get_finders()
-
-        self.assertEqual(len(finders), 1)
-        self.assertIsInstance(finders[0], EmbedlyFinder)
-
-    @override_settings(WAGTAILEMBEDS_EMBED_FINDER='wagtail.wagtailembeds.finders.oembed')
-    def test_old_find_oembed_from_module(self):
-        finders = get_finders()
-
-        self.assertEqual(len(finders), 1)
-        self.assertIsInstance(finders[0], OEmbedFinder)
-
-    @override_settings(WAGTAILEMBEDS_EMBED_FINDER='wagtail.wagtailembeds.embeds.embedly')
-    def test_old_find_old_embedly(self):
-        finders = get_finders()
-
-        self.assertEqual(len(finders), 1)
-        self.assertIsInstance(finders[0], EmbedlyFinder)
-
-    @override_settings(WAGTAILEMBEDS_EMBED_FINDER='wagtail.wagtailembeds.embeds.oembed')
-    def test_old_find_old_oembed(self):
-        finders = get_finders()
-
-        self.assertEqual(len(finders), 1)
-        self.assertIsInstance(finders[0], OEmbedFinder)
-
-    @override_settings(WAGTAILEMBEDS_EMBEDLY_KEY='test', WAGTAILEMBEDS_EMBED_FINDER='wagtail.wagtailembeds.finders.oembed.oembed')
-    def test_old_find_oembed_when_embedly_key_set(self):
-        # WAGTAILEMBEDS_EMBED_FINDER always takes precedence
-        finders = get_finders()
-
-        self.assertEqual(len(finders), 1)
-        self.assertIsInstance(finders[0], OEmbedFinder)
-
 
 class TestEmbeds(TestCase):
     def setUp(self):
@@ -446,6 +361,17 @@ class TestOembed(TestCase):
     def test_oembed_doesnt_accept_unknown_provider(self):
         finder = OEmbedFinder(providers=[oembed_providers.twitter])
         self.assertFalse(finder.accept("http://www.youtube.com/watch/"))
+
+    @patch('django.utils.six.moves.urllib.request.urlopen')
+    @patch('json.loads')
+    def test_endpoint_with_format_param(self, loads, urlopen):
+        urlopen.return_value = self.dummy_response
+        loads.return_value = {'type': 'video',
+                              'url': 'http://www.example.com'}
+        result = OEmbedFinder().find_embed("https://vimeo.com/217403396")
+        self.assertEqual(result['type'], 'video')
+        request = urlopen.call_args[0][0]
+        self.assertEqual(request.get_full_url().split('?')[0], "http://www.vimeo.com/api/oembed.json")
 
 
 class TestEmbedTag(TestCase):

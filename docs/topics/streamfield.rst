@@ -47,6 +47,8 @@ The parameter to ``StreamField`` is a list of ``(name, block_type)`` tuples. 'na
 
 This defines the set of available block types that can be used within this field. The author of the page is free to use these blocks as many times as desired, in any order.
 
+``StreamField`` also accepts an optional keyword argument ``blank``, defaulting to false; when this is false, at least one block must be provided for the field to be considered valid.
+
 Basic block types
 -----------------
 
@@ -90,14 +92,14 @@ TextBlock
 
 ``wagtail.wagtailcore.blocks.TextBlock``
 
-A multi-line text input. As with ``CharBlock``, the keyword arguments ``required``, ``max_length``, ``min_length`` and ``help_text`` are accepted.
+A multi-line text input. As with ``CharBlock``, the keyword arguments ``required`` (default: True), ``max_length``, ``min_length`` and ``help_text`` are accepted.
 
 EmailBlock
 ~~~~~~~~~~
 
 ``wagtail.wagtailcore.blocks.EmailBlock``
 
-A single-line email input that validates that the email is a valid Email Address. The keyword arguments ``required`` and ``help_text`` are accepted.
+A single-line email input that validates that the email is a valid Email Address. The keyword arguments ``required`` (default: True) and ``help_text`` are accepted.
 
 For an example of ``EmailBlock`` in use, see :ref:`streamfield_personblock_example`
 
@@ -106,7 +108,7 @@ IntegerBlock
 
 ``wagtail.wagtailcore.blocks.IntegerBlock``
 
-A single-line integer input that validates that the integer is a valid whole number. The keyword arguments ``required``, ``max_value``, ``min_value`` and ``help_text`` are accepted.
+A single-line integer input that validates that the integer is a valid whole number. The keyword arguments ``required`` (default: True), ``max_value``, ``min_value`` and ``help_text`` are accepted.
 
 For an example of ``IntegerBlock`` in use, see :ref:`streamfield_personblock_example`
 
@@ -115,14 +117,14 @@ FloatBlock
 
 ``wagtail.wagtailcore.blocks.FloatBlock``
 
-A single-line Float input that validates that the value is a valid floating point number. The keyword arguments ``required``, ``max_value`` and ``min_value``  are accepted.
+A single-line Float input that validates that the value is a valid floating point number. The keyword arguments ``required`` (default: True), ``max_value`` and ``min_value``  are accepted.
 
 DecimalBlock
 ~~~~~~~~~~~~
 
 ``wagtail.wagtailcore.blocks.DecimalBlock``
 
-A single-line decimal input that validates that the value is a valid decimal number. The keyword arguments ``required``, ``help_text``, ``max_value``, ``min_value``, ``max_digits`` and ``decimal_places`` are accepted.
+A single-line decimal input that validates that the value is a valid decimal number. The keyword arguments ``required`` (default: True), ``help_text``, ``max_value``, ``min_value``, ``max_digits`` and ``decimal_places`` are accepted.
 
 For an example of ``DecimalBlock`` in use, see :ref:`streamfield_personblock_example`
 
@@ -139,14 +141,14 @@ A single-line text input that validates a string against a regex expression. The
         'invalid': "Not a valid library card number."
     })
 
-The keyword arguments ``regex``, ``help_text``, ``required``, ``max_length``, ``min_length`` and ``error_messages`` are accepted.
+The keyword arguments ``regex``, ``help_text``, ``required`` (default: True), ``max_length``, ``min_length`` and ``error_messages`` are accepted.
 
 URLBlock
 ~~~~~~~~
 
 ``wagtail.wagtailcore.blocks.URLBlock``
 
-A single-line text input that validates that the string is a valid URL. The keyword arguments ``required``, ``max_length``, ``min_length`` and ``help_text`` are accepted.
+A single-line text input that validates that the string is a valid URL. The keyword arguments ``required`` (default: True), ``max_length``, ``min_length`` and ``help_text`` are accepted.
 
 BooleanBlock
 ~~~~~~~~~~~~
@@ -160,7 +162,7 @@ DateBlock
 
 ``wagtail.wagtailcore.blocks.DateBlock``
 
-A date picker. The keyword arguments ``required``, ``help_text`` and ``format`` are accepted.
+A date picker. The keyword arguments ``required`` (default: True), ``help_text`` and ``format`` are accepted.
 
 ``format`` (default: None)
   Date format. This must be one of the recognised formats listed in the `DATE_INPUT_FORMATS <https://docs.djangoproject.com/en/1.10/ref/settings/#std:setting-DATE_INPUT_FORMATS>`_ setting. If not specifed Wagtail will use ``WAGTAIL_DATE_FORMAT`` setting with fallback to '%Y-%m-%d'.
@@ -170,14 +172,14 @@ TimeBlock
 
 ``wagtail.wagtailcore.blocks.TimeBlock``
 
-A time picker. The keyword arguments ``required`` and ``help_text`` are accepted.
+A time picker. The keyword arguments ``required`` (default: True) and ``help_text`` are accepted.
 
 DateTimeBlock
 ~~~~~~~~~~~~~
 
 ``wagtail.wagtailcore.blocks.DateTimeBlock``
 
-A combined date / time picker. The keyword arguments ``required``, ``help_text`` and ``format`` are accepted.
+A combined date / time picker. The keyword arguments ``required`` (default: True), ``help_text`` and ``format`` are accepted.
 
 ``format`` (default: None)
   Date format. This must be one of the recognised formats listed in the `DATETIME_INPUT_FORMATS <https://docs.djangoproject.com/en/1.10/ref/settings/#std:setting-DATETIME_INPUT_FORMATS>`_ setting. If not specifed Wagtail will use ``WAGTAIL_DATETIME_FORMAT`` setting with fallback to '%Y-%m-%d %H:%M'.
@@ -194,7 +196,7 @@ RawHTMLBlock
 
 ``wagtail.wagtailcore.blocks.RawHTMLBlock``
 
-A text area for entering raw HTML which will be rendered unescaped in the page output. The keyword arguments ``required``, ``max_length``, ``min_length`` and ``help_text`` are accepted.
+A text area for entering raw HTML which will be rendered unescaped in the page output. The keyword arguments ``required`` (default: True), ``max_length``, ``min_length`` and ``help_text`` are accepted.
 
 .. WARNING::
    When this block is in use, there is nothing to prevent editors from inserting malicious scripts into the page, including scripts that would allow the editor to acquire administrator privileges when another administrator views the page. Do not use this block unless your editors are fully trusted.
@@ -204,7 +206,7 @@ BlockQuoteBlock
 
 ``wagtail.wagtailcore.blocks.BlockQuoteBlock``
 
-A text field, the contents of which will be wrapped in an HTML `<blockquote>` tag pair. The keyword arguments ``required``, ``max_length``, ``min_length`` and ``help_text`` are accepted.
+A text field, the contents of which will be wrapped in an HTML `<blockquote>` tag pair. The keyword arguments ``required`` (default: True), ``max_length``, ``min_length`` and ``help_text`` are accepted.
 
 
 ChoiceBlock
@@ -270,28 +272,28 @@ DocumentChooserBlock
 
 ``wagtail.wagtaildocs.blocks.DocumentChooserBlock``
 
-A control to allow the editor to select an existing document object, or upload a new one. The keyword argument ``required`` is accepted.
+A control to allow the editor to select an existing document object, or upload a new one. The keyword argument ``required`` (default: True) is accepted.
 
 ImageChooserBlock
 ~~~~~~~~~~~~~~~~~
 
 ``wagtail.wagtailimages.blocks.ImageChooserBlock``
 
-A control to allow the editor to select an existing image, or upload a new one. The keyword argument ``required`` is accepted.
+A control to allow the editor to select an existing image, or upload a new one. The keyword argument ``required`` (default: True) is accepted.
 
 SnippetChooserBlock
 ~~~~~~~~~~~~~~~~~~~
 
 ``wagtail.wagtailsnippets.blocks.SnippetChooserBlock``
 
-A control to allow the editor to select a snippet object. Requires one positional argument: the snippet class to choose from. The keyword argument ``required`` is accepted.
+A control to allow the editor to select a snippet object. Requires one positional argument: the snippet class to choose from. The keyword argument ``required`` (default: True) is accepted.
 
 EmbedBlock
 ~~~~~~~~~~
 
 ``wagtail.wagtailembeds.blocks.EmbedBlock``
 
-A field for the editor to enter a URL to a media item (such as a YouTube video) to appear as embedded media on the page. The keyword arguments ``required``, ``max_length``, ``min_length`` and ``help_text`` are accepted.
+A field for the editor to enter a URL to a media item (such as a YouTube video) to appear as embedded media on the page. The keyword arguments ``required`` (default: True), ``max_length``, ``min_length`` and ``help_text`` are accepted.
 
 
 .. _streamfield_staticblock:
@@ -339,9 +341,9 @@ A block consisting of a fixed group of sub-blocks to be displayed together. Take
 .. code-block:: python
 
     ('person', blocks.StructBlock([
-        ('first_name', blocks.CharBlock(required=True)),
-        ('surname', blocks.CharBlock(required=True)),
-        ('photo', ImageChooserBlock()),
+        ('first_name', blocks.CharBlock()),
+        ('surname', blocks.CharBlock()),
+        ('photo', ImageChooserBlock(required=False)),
         ('biography', blocks.RichTextBlock()),
     ], icon='user'))
 
@@ -351,9 +353,9 @@ Alternatively, the list of sub-blocks can be provided in a subclass of StructBlo
 .. code-block:: python
 
     class PersonBlock(blocks.StructBlock):
-        first_name = blocks.CharBlock(required=True)
-        surname = blocks.CharBlock(required=True)
-        photo = ImageChooserBlock()
+        first_name = blocks.CharBlock()
+        surname = blocks.CharBlock()
+        photo = ImageChooserBlock(required=False)
         biography = blocks.RichTextBlock()
 
         class Meta:
@@ -393,8 +395,8 @@ Any block type is valid as the sub-block type, including structural types:
 .. code-block:: python
 
     ('ingredients_list', blocks.ListBlock(blocks.StructBlock([
-        ('ingredient', blocks.CharBlock(required=True)),
-        ('amount', blocks.CharBlock()),
+        ('ingredient', blocks.CharBlock()),
+        ('amount', blocks.CharBlock(required=False)),
     ])))
 
 
@@ -446,7 +448,7 @@ Since ``StreamField`` accepts an instance of ``StreamBlock`` as a parameter, in 
 ``StreamBlock`` accepts the following options as either keyword arguments or ``Meta`` properties:
 
 ``required`` (default: True)
-  If true, at least one sub-block must be supplied.
+  If true, at least one sub-block must be supplied. This is ignored when using the ``StreamBlock`` as the top-level block of a StreamField; in this case the StreamField's ``blank`` property is respected instead.
 
 ``min_num``
   Minimum number of sub-blocks that the stream must have.
@@ -537,9 +539,9 @@ By default, each block is rendered using simple, minimal HTML markup, or no mark
 
     ('person', blocks.StructBlock(
         [
-            ('first_name', blocks.CharBlock(required=True)),
-            ('surname', blocks.CharBlock(required=True)),
-            ('photo', ImageChooserBlock()),
+            ('first_name', blocks.CharBlock()),
+            ('surname', blocks.CharBlock()),
+            ('photo', ImageChooserBlock(required=False)),
             ('biography', blocks.RichTextBlock()),
         ],
         template='myapp/blocks/person.html',
@@ -552,9 +554,9 @@ Or, when defined as a subclass of StructBlock:
 .. code-block:: python
 
     class PersonBlock(blocks.StructBlock):
-        first_name = blocks.CharBlock(required=True)
-        surname = blocks.CharBlock(required=True)
-        photo = ImageChooserBlock()
+        first_name = blocks.CharBlock()
+        surname = blocks.CharBlock()
+        photo = ImageChooserBlock(required=False)
         biography = blocks.RichTextBlock()
 
         class Meta:
@@ -656,8 +658,8 @@ As well as passing variables from the parent template, block subclasses can pass
     import datetime
 
     class EventBlock(blocks.StructBlock):
-        title = blocks.CharBlock(required=True)
-        date = blocks.DateBlock(required=True)
+        title = blocks.CharBlock()
+        date = blocks.DateBlock()
 
         def get_context(self, value, parent_context=None):
             context = super(EventBlock, self).get_context(value, parent_context=parent_context)
@@ -794,9 +796,9 @@ To customise the styling of a ``StructBlock`` as it appears in the page editor, 
 .. code-block:: python
 
     class PersonBlock(blocks.StructBlock):
-        first_name = blocks.CharBlock(required=True)
-        surname = blocks.CharBlock(required=True)
-        photo = ImageChooserBlock()
+        first_name = blocks.CharBlock()
+        surname = blocks.CharBlock()
+        photo = ImageChooserBlock(required=False)
         biography = blocks.RichTextBlock()
 
         class Meta:
@@ -831,9 +833,9 @@ To add additional variables, you can override the block's ``get_form_context`` m
 .. code-block:: python
 
     class PersonBlock(blocks.StructBlock):
-        first_name = blocks.CharBlock(required=True)
-        surname = blocks.CharBlock(required=True)
-        photo = ImageChooserBlock()
+        first_name = blocks.CharBlock()
+        surname = blocks.CharBlock()
+        photo = ImageChooserBlock(required=False)
         biography = blocks.RichTextBlock()
 
         def get_form_context(self, value, prefix='', errors=None):
