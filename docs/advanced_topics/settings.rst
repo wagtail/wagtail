@@ -345,7 +345,7 @@ Unicode Page Slugs
 
   WAGTAIL_ALLOW_UNICODE_SLUGS = True
 
-By default, page slugs can contain any alphanumeric characters, including non-Latin alphabets (except on Django 1.8, where only ASCII characters are supported). Set this to False to limit slugs to ASCII characters.
+By default, page slugs can contain any alphanumeric characters, including non-Latin alphabets. Set this to False to limit slugs to ASCII characters.
 
 .. _WAGTAIL_AUTO_UPDATE_PREVIEW:
 
