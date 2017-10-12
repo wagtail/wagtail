@@ -335,6 +335,8 @@ def edit(request, page_id):
                 user=request.user,
                 submitted_for_moderation=is_submitting,
             )
+            # store submitted go_live_at for messgaing below
+            go_live_at = page.go_live_at
 
             # Publish
             if is_publishing:
@@ -345,7 +347,7 @@ def edit(request, page_id):
 
             # Notifications
             if is_publishing:
-                if page.go_live_at and page.go_live_at > timezone.now():
+                if go_live_at and go_live_at > timezone.now():
                     # Page has been scheduled for publishing in the future
 
                     if is_reverting:
