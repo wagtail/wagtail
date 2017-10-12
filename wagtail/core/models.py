@@ -1466,14 +1466,17 @@ class PageRevision(models.Model):
     def publish(self):
         page = self.as_page_object()
         if page.go_live_at and page.go_live_at > timezone.now():
-            # if we have a go_live in the future don't make the page live
-            page.live = False
             page.has_unpublished_changes = True
             # Instead set the approved_go_live_at of this revision
             self.approved_go_live_at = page.go_live_at
             self.save()
             # And clear the the approved_go_live_at of any other revisions
             page.revisions.exclude(id=self.id).update(approved_go_live_at=None)
+            # if we are updating a currently live page skip the rest
+            if page.live_revision:
+                return
+            # if we have a go_live in the future don't make the page live
+            page.live = False
         else:
             page.live = True
             # at this point, the page has unpublished changes iff there are newer revisions than this one
@@ -1565,6 +1568,7 @@ class GroupPagePermission(models.Model):
 class UserPagePermissionsProxy:
     """Helper object that encapsulates all the page permission rules that this user has
     across the page hierarchy."""
+
     def __init__(self, user):
         self.user = user
 
