@@ -300,6 +300,33 @@ class TestFormsSubmissionsList(TestCase, WagtailTestUtils):
         # Check that we got the last page
         self.assertEqual(response.context['submissions'].number, response.context['submissions'].paginator.num_pages)
 
+    def test_list_submissions_default_order(self):
+        response = self.client.get(reverse(
+            'wagtailforms:list_submissions', args=(self.form_page.id,)))
+        # check default ordering, most recent responses first
+        first_row_values = response.context['data_rows'][0]['fields']
+        self.assertTrue('this is a fairly new message' in first_row_values)
+
+    def test_list_submissions_url_params_ordering_recent_first(self):
+        response = self.client.get(reverse(
+            'wagtailforms:list_submissions',
+            args=(self.form_page.id,)),
+            {'order_by': '-submit_time'}
+        )
+        # check ordering matches '-submit_time' (most recent first)
+        first_row_values = response.context['data_rows'][0]['fields']
+        self.assertTrue('this is a fairly new message' in first_row_values)
+
+    def test_list_submissions_url_params_ordering_oldest_first(self):
+        response = self.client.get(reverse(
+            'wagtailforms:list_submissions',
+            args=(self.form_page.id,)),
+            {'order_by': 'submit_time'}
+        )
+        # check ordering matches 'submit_time' (oldest first)
+        first_row_values = response.context['data_rows'][0]['fields']
+        self.assertTrue('this is a really old message' in first_row_values)
+
 
 class TestFormsSubmissionsExport(TestCase, WagtailTestUtils):
     def setUp(self):
