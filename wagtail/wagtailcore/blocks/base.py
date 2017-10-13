@@ -404,12 +404,6 @@ class Block(six.with_metaclass(BaseBlock, object)):
     def __ne__(self, other):
         return not self.__eq__(other)
 
-    # Making block instances hashable in a way that's consistent with __eq__ is non-trivial, because
-    # self.deconstruct() is liable to contain unhashable data (e.g. lists and dicts). So let's set
-    # Block to be explicitly unhashable - Python 3 will do this automatically when defining __eq__,
-    # but Python 2 won't, and we'd like the behaviour to be consistent on both.
-    __hash__ = None
-
 
 class BoundBlock(object):
     def __init__(self, block, value, prefix=None, errors=None):
