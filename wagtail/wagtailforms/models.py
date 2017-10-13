@@ -7,7 +7,6 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
 from django.shortcuts import render
-from django.utils.encoding import python_2_unicode_compatible
 from django.utils.six import text_type
 from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _
@@ -36,7 +35,6 @@ FORM_FIELD_CHOICES = (
 )
 
 
-@python_2_unicode_compatible
 class AbstractFormSubmission(models.Model):
     """
     Data for a form submission.

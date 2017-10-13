@@ -7,7 +7,7 @@ from django.db import DEFAULT_DB_ALIAS, NotSupportedError, connections, transact
 from django.db.models import F, Manager, TextField, Value
 from django.db.models.constants import LOOKUP_SEP
 from django.db.models.functions import Cast
-from django.utils.encoding import force_text, python_2_unicode_compatible
+from django.utils.encoding import force_text
 from django.utils.six import string_types
 
 from wagtail.wagtailsearch.backends.base import (
@@ -35,7 +35,6 @@ def get_pk_column(model):
     return model._meta.pk.get_attname_column()[1]
 
 
-@python_2_unicode_compatible
 class Index(object):
     def __init__(self, backend, model, db_alias=None):
         self.backend = backend

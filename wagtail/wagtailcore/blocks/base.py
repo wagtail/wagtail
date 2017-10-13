@@ -8,7 +8,7 @@ from django.core import checks
 from django.core.exceptions import ImproperlyConfigured
 from django.template.loader import render_to_string
 from django.utils import six
-from django.utils.encoding import force_text, python_2_unicode_compatible
+from django.utils.encoding import force_text
 from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
 
@@ -411,7 +411,6 @@ class Block(six.with_metaclass(BaseBlock, object)):
     __hash__ = None
 
 
-@python_2_unicode_compatible
 class BoundBlock(object):
     def __init__(self, block, value, prefix=None, errors=None):
         self.block = block

@@ -7,7 +7,7 @@ from django.db.models import (
     CASCADE, AutoField, BigAutoField, BigIntegerField, F, ForeignKey, IntegerField, Model, QuerySet,
     TextField)
 from django.db.models.functions import Cast
-from django.utils.encoding import force_text, python_2_unicode_compatible
+from django.utils.encoding import force_text
 from django.utils.translation import ugettext_lazy as _
 
 from .utils import WEIGHTS_VALUES, get_descendants_content_types_pks
@@ -47,7 +47,6 @@ class IndexQuerySet(QuerySet):
         return self.annotate_typed_pk().values_list('typed_pk', flat=True)
 
 
-@python_2_unicode_compatible
 class IndexEntry(Model):
     content_type = ForeignKey(ContentType, on_delete=CASCADE)
     # We do not use an IntegerField since primary keys are not always integers.
