@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-10 16:05+0000\n"
-"PO-Revision-Date: 2017-09-22 18:24+0000\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"PO-Revision-Date: 2017-10-06 15:11+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/"
 "lv/)\n"
@@ -164,12 +164,6 @@ msgstr "Meklēt grupas"
 msgid "Group '{0}' created."
 msgstr "Grupa '{0}' izveidota"
 
-msgid "Edit"
-msgstr "Labot"
-
-msgid "The group could not be created due to errors."
-msgstr "Grupa nevārēja tikt izveidota kļūdu dēļ."
-
 #, python-brace-format
 msgid "Group '{0}' updated."
 msgstr "Grupa '{0}' atjaunota."
@@ -187,6 +181,9 @@ msgstr "Meklēt lietotājus"
 #, python-brace-format
 msgid "User '{0}' created."
 msgstr "Grupa '{0}' izveidota."
+
+msgid "Edit"
+msgstr "Labot"
 
 msgid "The user could not be created due to errors."
 msgstr "Lietotāju nevarēja izveidot kļūdu dēļ."

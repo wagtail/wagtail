@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-10 16:05+0000\n"
-"PO-Revision-Date: 2017-09-20 15:49+0000\n"
-"Last-Translator: Jim Brouzoulis <jim.brouzoulis@chalmers.se>\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"PO-Revision-Date: 2017-10-06 15:06+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -151,6 +151,9 @@ msgstr "Utgångsdatum/-tid måste ske i framtiden"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Du kan inte ha multipla rättigheter för samma kollektion"
+
+msgid "Go to Wagtail admin"
+msgstr "Gå till Wagtail admin"
 
 msgid "Account"
 msgstr "Konto"
@@ -1125,9 +1128,6 @@ msgstr ""
 
 msgid "Go to Wagtail admin interface"
 msgstr "Gå till Wagtail admingränssnitt"
-
-msgid "Go to Wagtail admin"
-msgstr "Gå till Wagtail admin"
 
 msgid "Add a child page"
 msgstr "Lägg till en undersida"

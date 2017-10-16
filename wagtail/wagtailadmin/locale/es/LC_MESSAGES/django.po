@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-10 16:05+0000\n"
-"PO-Revision-Date: 2017-09-20 00:30+0000\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"PO-Revision-Date: 2017-10-09 12:48+0000\n"
 "Last-Translator: José Luis <alagunajs@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
@@ -158,6 +158,18 @@ msgstr "La fecha/tiempo de expiración debe ser en el futuro"
 msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
 "No puedes tener múltiples permisos de registro para una misma colección."
+
+msgid "Error 404: Page not found"
+msgstr "Error 404: Página no encontrada."
+
+msgid "Error 404"
+msgstr "Error 404"
+
+msgid "The requested page could not be found."
+msgstr "La página solicitada no pudo ser encontrada."
+
+msgid "Go to Wagtail admin"
+msgstr "Ir al Administrador Wagtail"
 
 msgid "Account"
 msgstr "Cuenta"
@@ -1013,6 +1025,9 @@ msgstr "Páginas sin uso"
 msgid "Collection"
 msgstr "Colección"
 
+msgid "Root"
+msgstr "Raíz"
+
 msgid "Home"
 msgstr "Hogar"
 
@@ -1126,9 +1141,6 @@ msgstr ""
 
 msgid "Go to Wagtail admin interface"
 msgstr "Ir a la interface de admin Wagtail"
-
-msgid "Go to Wagtail admin"
-msgstr "Ir al Administrador Wagtail"
 
 msgid "Add a child page"
 msgstr "Añadir página hija"

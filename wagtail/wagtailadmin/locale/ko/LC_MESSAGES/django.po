@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-10 16:05+0000\n"
-"PO-Revision-Date: 2017-09-25 11:44+0000\n"
-"Last-Translator: Kyungil Choi <hanpama@gmail.com>\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"PO-Revision-Date: 2017-10-06 15:06+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
 "MIME-Version: 1.0\n"
@@ -146,6 +146,9 @@ msgstr "만료 날짜는 현재 이후의 날짜 및 시간이어야 합니다"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "같은 모음에 대해서 여러 개의 권한을 설정할 수는 없습니다."
+
+msgid "Go to Wagtail admin"
+msgstr "웨그테일 관리자로 이동"
 
 msgid "Account"
 msgstr "계정"
@@ -1052,9 +1055,6 @@ msgstr ""
 
 msgid "Go to Wagtail admin interface"
 msgstr "웨그테일 관리자 페이지로 이동"
-
-msgid "Go to Wagtail admin"
-msgstr "웨그테일 관리자로 이동"
 
 msgid "Add a child page"
 msgstr "하위페이지 추가"
