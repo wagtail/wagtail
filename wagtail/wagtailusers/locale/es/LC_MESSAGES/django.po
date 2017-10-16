@@ -9,6 +9,7 @@
 # Daniel Chimeno <daniel@chimeno.me>, 2015-2016
 # fooflare <amos.oviedo@gmail.com>, 2014
 # José Luis <alagunajs@gmail.com>, 2015-2016
+# José Luis <alagunajs@gmail.com>, 2017
 # Mauricio Baeza <python@amigos.email>, 2015
 # Mauricio Baeza <python@amigos.email>, 2014
 # José Luis <alagunajs@gmail.com>, 2016-2017
@@ -16,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-10 16:05+0000\n"
-"PO-Revision-Date: 2017-09-20 00:30+0000\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"PO-Revision-Date: 2017-10-09 12:48+0000\n"
 "Last-Translator: José Luis <alagunajs@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
@@ -184,6 +185,10 @@ msgid "Add a group"
 msgstr "Agregar un grupo"
 
 #, python-format
+msgid "Sorry, no groups match \"%(query)s\""
+msgstr "Lo sentimos, ningún grupo coincide con \"%(query)s\""
+
+#, python-format
 msgid ""
 "There are no groups configured. Why not <a href="
 "\"%(wagtailusers_create_group_url)s\">add some</a>?"
@@ -260,18 +265,18 @@ msgstr ""
 "No hay usuarios configurados. ¿Por qué no <a href="
 "\"%(wagtailusers_create_url)s\">añadir alguno</a>?"
 
+msgid "Search"
+msgstr "Buscar"
+
+msgid "Groups"
+msgstr "Grupos"
+
 msgid "Search groups"
 msgstr "Buscar grupos"
 
 #, python-brace-format
 msgid "Group '{0}' created."
 msgstr "Grupo '{0}' creado."
-
-msgid "Edit"
-msgstr "Editar"
-
-msgid "The group could not be created due to errors."
-msgstr "El grupo no pudo crearse debido a errores."
 
 #, python-brace-format
 msgid "Group '{0}' updated."
@@ -291,6 +296,9 @@ msgstr "Buscar usuarios"
 msgid "User '{0}' created."
 msgstr "Usuario '{0}' creado."
 
+msgid "Edit"
+msgstr "Editar"
+
 msgid "The user could not be created due to errors."
 msgstr "El usuario no pudo ser creado debido a errores."
 
@@ -304,9 +312,6 @@ msgstr "El usuario no pudo ser guardado debido a errores."
 #, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "Usuario '{0}' eliminado."
-
-msgid "Groups"
-msgstr "Grupos"
 
 msgid "Edit this user"
 msgstr "Editar este usuario"

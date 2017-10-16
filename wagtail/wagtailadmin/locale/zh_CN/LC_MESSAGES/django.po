@@ -16,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-10 16:05+0000\n"
-"PO-Revision-Date: 2017-09-23 20:18+0000\n"
-"Last-Translator: 汇民 王 <whuim@qq.com>\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"PO-Revision-Date: 2017-10-06 15:06+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -148,6 +148,9 @@ msgstr "过期日期/时间必须是未来时间。"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "对于同一个集合你不能设置多重权限"
+
+msgid "Go to Wagtail admin"
+msgstr "转到管理界面"
 
 msgid "Account"
 msgstr "帐号"
@@ -1054,9 +1057,6 @@ msgstr ""
 "        "
 
 msgid "Go to Wagtail admin interface"
-msgstr "转到管理界面"
-
-msgid "Go to Wagtail admin"
 msgstr "转到管理界面"
 
 msgid "Add a child page"
