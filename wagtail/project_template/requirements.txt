@@ -1,2 +1,2 @@
 Django>=1.11,<1.12
-wagtail==1.13rc1
+wagtail>=1.13,<1.14
