@@ -396,6 +396,8 @@ Usage for images, documents and snippets
 
 When enabled Wagtail shows where a particular image, document or snippet is being used on your site (disabled by default). A link will appear on the edit page showing you which pages they have been used on.
 
+This link is also shown on the delete page, above the "Delete" button.
+
 .. note::
 
     The usage count only applies to direct (database) references. Using documents, images and snippets within StreamFields or rich text fields will not be taken into account.

@@ -14,6 +14,7 @@ Other features
 ~~~~~~~~~~~~~~
 
  * Added hidden field to the form builder (Ross Crawford-d'Heureuse)
+ * Image usage count now shows on delete confirmation page when WAGTAIL_USAGE_COUNT_ENABLED is active (Kees Hink)
 
 
 Bug fixes

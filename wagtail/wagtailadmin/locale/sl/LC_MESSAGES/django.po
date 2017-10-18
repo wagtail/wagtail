@@ -797,12 +797,12 @@ msgid "Sat"
 msgstr "Sob"
 
 #, python-format
-msgid "Used %(useage_count)s time"
-msgid_plural "Used %(useage_count)s times"
-msgstr[0] "Število uporab: %(useage_count)s"
-msgstr[1] "Število uporab: %(useage_count)s"
-msgstr[2] "Število uporab: %(useage_count)s"
-msgstr[3] "Število uporab: %(useage_count)s"
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Število uporab: %(usage_count)s"
+msgstr[1] "Število uporab: %(usage_count)s"
+msgstr[2] "Število uporab: %(usage_count)s"
+msgstr[3] "Število uporab: %(usage_count)s"
 
 msgid "Edit your account"
 msgstr "Uredite vaš račun"

@@ -1006,10 +1006,10 @@ msgid "Sat"
 msgstr "Σαβ"
 
 #, python-format
-msgid "Used %(useage_count)s time"
-msgid_plural "Used %(useage_count)s times"
-msgstr[0] "Χρησιμοποιήθηκε %(useage_count)s φορά"
-msgstr[1] "Χρησιμοποιήθηκε %(useage_count)s φορές"
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Χρησιμοποιήθηκε %(usage_count)s φορά"
+msgstr[1] "Χρησιμοποιήθηκε %(usage_count)s φορές"
 
 msgid "Edit your account"
 msgstr "Επεξεργαστείτε το λογαριασμό σας"

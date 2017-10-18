@@ -1065,9 +1065,9 @@ msgid "Sat"
 msgstr "Sab"
 
 #, python-format
-msgid "Used %(useage_count)s time"
-msgid_plural "Used %(useage_count)s times"
-msgstr[0] "Digunakan %(useage_count)s kali"
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Digunakan %(usage_count)s kali"
 
 msgid "Edit your account"
 msgstr "Ubah akun Anda"

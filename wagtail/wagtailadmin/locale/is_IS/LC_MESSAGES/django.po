@@ -1041,10 +1041,10 @@ msgid "Sat"
 msgstr "Lau"
 
 #, python-format
-msgid "Used %(useage_count)s time"
-msgid_plural "Used %(useage_count)s times"
-msgstr[0] "Notað %(useage_count)s sinni"
-msgstr[1] "Notað %(useage_count)s sinnum"
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Notað %(usage_count)s sinni"
+msgstr[1] "Notað %(usage_count)s sinnum"
 
 msgid "Edit your account"
 msgstr "Breyta reikningnum þínum"

@@ -1005,10 +1005,10 @@ msgid "Sat"
 msgstr "Ds"
 
 #, python-format
-msgid "Used %(useage_count)s time"
-msgid_plural "Used %(useage_count)s times"
-msgstr[0] "Utilitzat %(useage_count)s vegada"
-msgstr[1] "Utilitzat %(useage_count)s vegades"
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Utilitzat %(usage_count)s vegada"
+msgstr[1] "Utilitzat %(usage_count)s vegades"
 
 msgid "Edit your account"
 msgstr "Modifica el teu compte d'usuari"

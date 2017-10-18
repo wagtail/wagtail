@@ -691,11 +691,11 @@ msgid "Sat"
 msgstr "S"
 
 #, python-format
-msgid "Used %(useage_count)s time"
-msgid_plural "Used %(useage_count)s times"
-msgstr[0] "Lietots %(useage_count)s reizi"
-msgstr[1] "Lietots %(useage_count)s reizi"
-msgstr[2] "Lietots %(useage_count)s reizes"
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Lietots %(usage_count)s reizi"
+msgstr[1] "Lietots %(usage_count)s reizi"
+msgstr[2] "Lietots %(usage_count)s reizes"
 
 msgid "Edit your account"
 msgstr "Mainīt konta iestatījumus"

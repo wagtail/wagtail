@@ -1085,11 +1085,11 @@ msgid "Sat"
 msgstr "Šeš"
 
 #, python-format
-msgid "Used %(useage_count)s time"
-msgid_plural "Used %(useage_count)s times"
-msgstr[0] "Panaudota %(useage_count)s kartą"
-msgstr[1] "Panaudota %(useage_count)s kartus"
-msgstr[2] "Panaudota %(useage_count)s kartų"
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Panaudota %(usage_count)s kartą"
+msgstr[1] "Panaudota %(usage_count)s kartus"
+msgstr[2] "Panaudota %(usage_count)s kartų"
 
 msgid "Edit your account"
 msgstr "Redaguoti savo vartotoją"

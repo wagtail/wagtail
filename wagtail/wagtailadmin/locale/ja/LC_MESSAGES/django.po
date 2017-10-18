@@ -765,9 +765,9 @@ msgid "Sat"
 msgstr "土曜"
 
 #, python-format
-msgid "Used %(useage_count)s time"
-msgid_plural "Used %(useage_count)s times"
-msgstr[0] "%(useage_count)s回使用"
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)s回使用"
 
 msgid "Edit your account"
 msgstr "アカウント設定"

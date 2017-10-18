@@ -797,10 +797,10 @@ msgid "Sat"
 msgstr "Za"
 
 #, python-format
-msgid "Used %(useage_count)s time"
-msgid_plural "Used %(useage_count)s times"
-msgstr[0] "%(useage_count)s keer gebruikt"
-msgstr[1] "%(useage_count)s keer gebruikt"
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)s keer gebruikt"
+msgstr[1] "%(usage_count)s keer gebruikt"
 
 msgid "Edit your account"
 msgstr "Bewerk uw account"

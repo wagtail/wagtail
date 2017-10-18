@@ -932,10 +932,10 @@ msgid "Sat"
 msgstr "Sáb"
 
 #, python-format
-msgid "Used %(useage_count)s time"
-msgid_plural "Used %(useage_count)s times"
-msgstr[0] "Usado %(useage_count)s vez"
-msgstr[1] "%(useage_count)s utilizações"
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Usado %(usage_count)s vez"
+msgstr[1] "%(usage_count)s utilizações"
 
 msgid "Edit your account"
 msgstr "Alterar a sua conta"

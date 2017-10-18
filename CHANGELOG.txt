@@ -6,6 +6,7 @@ Changelog
 
  * Removed support for Python 2.7, Django 1.8 and Django 1.10
  * Added hidden field to the form builder (Ross Crawford-d'Heureuse)
+ * Image usage count now shows on delete confirmation page when WAGTAIL_USAGE_COUNT_ENABLED is active (Kees Hink)
  * Fix: Do not remove stopwords when generating slugs from non-ASCII titles, to avoid issues with incorrect word boundaries (Sævar Öfjörð Magnússon)
 
 
