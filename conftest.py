@@ -33,7 +33,7 @@ def pytest_configure(config):
         pass
 
     if config.getoption('postgres'):
-        os.environ['DATABASE_ENGINE'] = 'django.db.backends.postgresql_psycopg2'
+        os.environ['DATABASE_ENGINE'] = 'django.db.backends.postgresql'
 
     # Setup django after processing the pytest arguments so that the env
     # variables are available in the settings

@@ -558,7 +558,7 @@ These two files should reside in your project directory (``myproject/myproject/`
 
   DATABASES = {
       'default': {
-          'ENGINE': 'django.db.backends.postgresql_psycopg2',
+          'ENGINE': 'django.db.backends.postgresql',
           'NAME': 'myprojectdb',
           'USER': 'postgres',
           'PASSWORD': '',

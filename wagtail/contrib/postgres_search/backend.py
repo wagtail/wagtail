@@ -168,10 +168,10 @@ class Index(object):
             obj._object_id = force_text(obj.pk)
             obj._body_ = self.prepare_body(obj)
         connection = connections[self.db_alias]
-        if connection.pg_version >= 90500:  # PostgreSQL >= 9.5
-            self.add_items_upsert(connection, content_type_pk, objs, config)
-        else:
-            self.add_items_update_then_create(content_type_pk, objs, config)
+        # if connection.pg_version >= 90500:  # PostgreSQL >= 9.5
+        #     self.add_items_upsert(connection, content_type_pk, objs, config)
+        # else:
+        self.add_items_update_then_create(content_type_pk, objs, config)
 
     def __str__(self):
         return self.name
