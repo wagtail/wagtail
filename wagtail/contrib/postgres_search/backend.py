@@ -17,7 +17,7 @@ from wagtail.wagtailsearch.index import RelatedFields, SearchField
 from .models import IndexEntry
 from .utils import (
     ADD, AND, OR, WEIGHTS_VALUES, get_content_types_pks, get_postgresql_connections, get_weight,
-    keyword_split, unidecode)
+    keyword_split, unidecode, get_descendants_content_types_pks)
 
 
 # TODO: Add autocomplete.
@@ -64,9 +64,11 @@ class Index(object):
         existing_pks = (self.model._default_manager.using(self.db_alias)
                         .annotate(object_id=Cast('pk', TextField()))
                         .values('object_id'))
-        stale_entries = (IndexEntry._default_manager.using(self.db_alias)
-                         .for_models(self.model)
-                         .exclude(object_id__in=existing_pks))
+        content_type_ids = get_descendants_content_types_pks(self.model)
+        stale_entries = (
+            IndexEntry._default_manager.using(self.db_alias)
+            .filter(content_type_id__in=content_type_ids)
+            .exclude(object_id__in=existing_pks))
         stale_entries.delete()
 
     def get_config(self):
@@ -160,7 +162,7 @@ class Index(object):
         index_entries.bulk_create(to_be_created)
 
     def add_items(self, model, objs):
-        content_type_pk = get_content_types_pks((model,), self.db_alias)[0]
+        content_type_pk = get_content_types_pks(model)
         config = self.get_config()
         for obj in objs:
             obj._object_id = force_text(obj.pk)
@@ -188,27 +190,6 @@ class PostgresSearchQuery(BaseSearchQuery):
         if not search_terms:
             return SearchQuery('')
         return combine(SearchQuery(q, config=config) for q in search_terms)
-
-    def get_base_queryset(self):
-        # Removes order for performance’s sake.
-        return self.queryset.order_by()
-
-    def get_in_index_queryset(self, queryset, search_query):
-        return (IndexEntry._default_manager.using(get_db_alias(queryset))
-                .for_models(queryset.model).filter(body_search=search_query))
-
-    def get_in_index_count(self, queryset, search_query):
-        index_sql, index_params = get_sql(
-            self.get_in_index_queryset(queryset, search_query).pks())
-        model_sql, model_params = get_sql(queryset)
-        sql = """
-            SELECT COUNT(*)
-            FROM (%s) AS index_entry
-            INNER JOIN (%s) AS obj ON obj."%s" = index_entry.typed_pk;
-            """ % (index_sql, model_sql, get_pk_column(queryset.model))
-        with connections[get_db_alias(queryset)].cursor() as cursor:
-            cursor.execute(sql, index_params + model_params)
-            return cursor.fetchone()[0]
 
     def get_boost(self, field_name, fields=None):
         if fields is None:
@@ -238,37 +219,17 @@ class PostgresSearchQuery(BaseSearchQuery):
             .filter(_search_=search_query))
 
     def search_count(self, config):
-        queryset = self.get_base_queryset()
-        search_query = self.get_search_query(config=config)
-        if self.fields is None:
-            return self.get_in_index_count(queryset, search_query)
-        return self.get_in_fields_queryset(queryset, search_query).count()
+        return self.search(config, None, None).count()
 
     def search_in_index(self, queryset, search_query, start, stop):
-        index_entries = self.get_in_index_queryset(queryset, search_query)
-        values = ['typed_pk']
+        queryset = queryset.filter(index_entries__body_search=search_query)
         if self.order_by_relevance:
-            index_entries = index_entries.rank(search_query)
-            values.append('rank')
-            order_sql = 'index_entry.rank DESC, id ASC'
-        else:
-            order_sql = 'id ASC'
-        index_sql, index_params = get_sql(
-            index_entries.annotate_typed_pk()
-            .values(*values)
-        )
-        model_sql, model_params = get_sql(queryset)
-        model = queryset.model
-        sql = """
-            SELECT obj.*
-            FROM (%s) AS index_entry
-            INNER JOIN (%s) AS obj ON obj."%s" = index_entry.typed_pk
-            ORDER BY %s
-            OFFSET %%s LIMIT %%s;
-            """ % (index_sql, model_sql, get_pk_column(model), order_sql)
-        limits = (start, None if stop is None else stop - start)
-        return model._default_manager.using(get_db_alias(queryset)).raw(
-            sql, index_params + model_params + limits)
+            queryset = queryset.annotate(
+                rank=SearchRank(
+                    F('index_entries__body_search'), search_query,
+                    weights='{' + ','.join(map(str, WEIGHTS_VALUES)) + '}')
+            ).order_by('rank')
+        return queryset[start:stop]
 
     def search_in_fields(self, queryset, search_query, start, stop):
         return (self.get_in_fields_queryset(queryset, search_query)
@@ -277,13 +238,12 @@ class PostgresSearchQuery(BaseSearchQuery):
                 .order_by('-_rank_'))[start:stop]
 
     def search(self, config, start, stop):
-        queryset = self.get_base_queryset()
         if self.query_string is None:
-            return queryset[start:stop]
+            return self.queryset[start:stop]
         search_query = self.get_search_query(config=config)
         if self.fields is None:
-            return self.search_in_index(queryset, search_query, start, stop)
-        return self.search_in_fields(queryset, search_query, start, stop)
+            return self.search_in_index(self.queryset, search_query, start, stop)
+        return self.search_in_fields(self.queryset, search_query, start, stop)
 
 
 class PostgresSearchResults(BaseSearchResults):
@@ -345,6 +305,7 @@ class PostgresSearchBackend(BaseSearchBackend):
         self.params = params
         if params.get('ATOMIC_REBUILD', False):
             self.rebuilder_class = self.atomic_rebuilder_class
+        IndexEntry.add_generic_relations()
 
     def get_index_for_model(self, model, db_alias=None):
         return Index(self, model, db_alias)
@@ -370,7 +331,7 @@ class PostgresSearchBackend(BaseSearchBackend):
             self.get_index_for_object(obj_list[0]).add_items(model, obj_list)
 
     def delete(self, obj):
-        IndexEntry._default_manager.for_object(obj).delete()
+        obj.index_entries.delete()
 
 
 SearchBackend = PostgresSearchBackend
