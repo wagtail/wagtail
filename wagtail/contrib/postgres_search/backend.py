@@ -195,38 +195,25 @@ class PostgresSearchQuery(BaseSearchQuery):
                     return self.get_boost(sub_field_name, field.fields)
                 return field.boost
 
-    def get_in_fields_queryset(self, queryset, search_query):
-        return (
-            queryset.annotate(
-                _search_=ADD(
-                    SearchVector(field, config=search_query.config,
-                                 weight=get_weight(self.get_boost(field)))
-                    for field in self.fields))
-            .filter(_search_=search_query))
-
-    def search_in_index(self, queryset, search_query, start, stop):
-        queryset = queryset.filter(index_entries__body_search=search_query)
-        if self.order_by_relevance:
-            queryset = queryset.annotate(
-                rank=SearchRank(
-                    F('index_entries__body_search'), search_query,
-                    weights='{' + ','.join(map(str, WEIGHTS_VALUES)) + '}')
-            ).order_by('rank')
-        return queryset[start:stop]
-
-    def search_in_fields(self, queryset, search_query, start, stop):
-        return (self.get_in_fields_queryset(queryset, search_query)
-                .annotate(_rank_=SearchRank(F('_search_'), search_query,
-                                            weights=WEIGHTS_VALUES))
-                .order_by('-_rank_'))[start:stop]
-
     def search(self, config, start, stop):
         if self.query_string is None:
             return self.queryset[start:stop]
         search_query = self.get_search_query(config=config)
         if self.fields is None:
-            return self.search_in_index(self.queryset, search_query, start, stop)
-        return self.search_in_fields(self.queryset, search_query, start, stop)
+            search_annotation = F('index_entries__body_search')
+        else:
+            search_annotation = ADD(
+                SearchVector(field, config=search_query.config,
+                             weight=get_weight(self.get_boost(field)))
+                for field in self.fields)
+        queryset = (self.queryset.annotate(_search_=search_annotation)
+                    .filter(_search_=search_query))
+        if self.order_by_relevance:
+            queryset = queryset.annotate(
+                _rank_=SearchRank(F('_search_'), search_query,
+                                  weights=WEIGHTS_VALUES)
+            ).order_by('-_rank_')
+        return queryset[start:stop]
 
     def search_count(self, config):
         return self.search(config, None, None).count()
