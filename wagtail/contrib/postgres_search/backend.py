@@ -212,11 +212,11 @@ class PostgresSearchQuery(BaseSearchQuery):
             queryset = queryset.annotate(
                 _rank_=SearchRank(F('_search_'), search_query,
                                   weights=WEIGHTS_VALUES)
-            ).order_by('-_rank_')
+            ).order_by('-_rank_', '-pk')
+        elif not queryset.query.order_by:
+            # Adds a default ordering to avoid issue #3729.
+            queryset = queryset.order_by('-pk')
         return queryset[start:stop]
-
-    def search_count(self, config):
-        return self.search(config, None, None).count()
 
 
 class PostgresSearchResults(BaseSearchResults):
@@ -230,7 +230,7 @@ class PostgresSearchResults(BaseSearchResults):
                                       self.start, self.stop))
 
     def _do_count(self):
-        return self.query.search_count(self.get_config())
+        return self.query.search(self.get_config(), None, None).count()
 
 
 class PostgresSearchRebuilder:
