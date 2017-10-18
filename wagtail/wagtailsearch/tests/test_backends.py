@@ -23,6 +23,8 @@ from wagtail.wagtailsearch.management.commands.update_index import group_models_
 class BackendTests(WagtailTestUtils):
     # To test a specific backend, subclass BackendTests and define self.backend_path.
 
+    fixtures = ['search']
+
     def setUp(self):
         # Search WAGTAILSEARCH_BACKENDS for an entry that uses the given backend path
         for backend_name, backend_conf in settings.WAGTAILSEARCH_BACKENDS.items():
@@ -38,7 +40,7 @@ class BackendTests(WagtailTestUtils):
 
     def reset_index(self):
         if self.backend.rebuilder_class:
-            for index, indexed_models in group_models_by_index(self.backend, [models.SearchTest, models.SearchTestChild]).items():
+            for index, indexed_models in group_models_by_index(self.backend, [models.Author, models.Book, models.Novel]).items():
                 rebuilder = self.backend.rebuilder_class(index)
                 index = rebuilder.start()
                 for model in indexed_models:
@@ -46,7 +48,11 @@ class BackendTests(WagtailTestUtils):
                 rebuilder.finish()
 
     def refresh_index(self):
-        index = self.backend.get_index_for_model(models.SearchTest)
+        index = self.backend.get_index_for_model(models.Author)
+        if index:
+            index.refresh()
+
+        index = self.backend.get_index_for_model(models.Book)
         if index:
             index.refresh()
 

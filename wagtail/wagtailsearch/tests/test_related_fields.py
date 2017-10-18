@@ -2,33 +2,34 @@ from __future__ import absolute_import, unicode_literals
 
 from django.test import TestCase
 
-from wagtail.tests.search.models import SearchTest, SearchTestChild
+from wagtail.tests.search.models import Book, Novel
 from wagtail.tests.testapp.models import Advert, ManyToManyBlogPage
 from wagtail.wagtailsearch import index
 
 
 class TestSelectOnQuerySet(TestCase):
     def test_select_on_queryset_with_foreign_key(self):
-        fields = index.RelatedFields('page', [
-            index.SearchField('title'),
+        fields = index.RelatedFields('protagonist', [
+            index.SearchField('name'),
         ])
 
-        queryset = fields.select_on_queryset(SearchTestChild.objects.all())
+        queryset = fields.select_on_queryset(Novel.objects.all())
 
         # ForeignKey should be select_related
         self.assertFalse(queryset._prefetch_related_lookups)
-        self.assertIn('page', queryset.query.select_related)
+        print(queryset.query.select_related)
+        self.assertIn('protagonist', queryset.query.select_related)
 
     def test_select_on_queryset_with_one_to_one(self):
-        fields = index.RelatedFields('searchtest_ptr', [
+        fields = index.RelatedFields('book_ptr', [
             index.SearchField('title'),
         ])
 
-        queryset = fields.select_on_queryset(SearchTestChild.objects.all())
+        queryset = fields.select_on_queryset(Novel.objects.all())
 
         # OneToOneField should be select_related
         self.assertFalse(queryset._prefetch_related_lookups)
-        self.assertIn('searchtest_ptr', queryset.query.select_related)
+        self.assertIn('book_ptr', queryset.query.select_related)
 
     def test_select_on_queryset_with_many_to_many(self):
         fields = index.RelatedFields('adverts', [
@@ -55,15 +56,15 @@ class TestSelectOnQuerySet(TestCase):
         self.assertFalse(queryset.query.select_related)
 
     def test_select_on_queryset_with_reverse_one_to_one(self):
-        fields = index.RelatedFields('searchtestchild', [
+        fields = index.RelatedFields('novel', [
             index.SearchField('subtitle'),
         ])
 
-        queryset = fields.select_on_queryset(SearchTest.objects.all())
+        queryset = fields.select_on_queryset(Book.objects.all())
 
         # reverse OneToOneField should be select_related
         self.assertFalse(queryset._prefetch_related_lookups)
-        self.assertIn('searchtestchild', queryset.query.select_related)
+        self.assertIn('novel', queryset.query.select_related)
 
     def test_select_on_queryset_with_reverse_many_to_many(self):
         fields = index.RelatedFields('manytomanyblogpage', [
@@ -81,7 +82,7 @@ class TestSelectOnQuerySet(TestCase):
             index.SearchField('name'),
         ])
 
-        queryset = fields.select_on_queryset(SearchTestChild.objects.all())
+        queryset = fields.select_on_queryset(Novel.objects.all())
 
         # Tags should be prefetch_related
         self.assertIn('tags', queryset._prefetch_related_lookups)

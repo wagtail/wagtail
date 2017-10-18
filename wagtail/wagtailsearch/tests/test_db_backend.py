@@ -25,7 +25,7 @@ class TestDBBackend(BackendTests, TestCase):
         super(TestDBBackend, self).test_update_index_command()
 
     def test_annotate_score(self):
-        results = self.backend.search("Hello", models.SearchTest).annotate_score('_score')
+        results = self.backend.search("Python", models.Book).annotate_score('_score')
 
         for result in results:
             # DB backend doesn't do scoring, so annotate_score should just add None
