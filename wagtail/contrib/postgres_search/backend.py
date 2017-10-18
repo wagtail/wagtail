@@ -16,7 +16,7 @@ from wagtail.wagtailsearch.index import RelatedFields, SearchField
 
 from .models import IndexEntry
 from .utils import (
-    ADD, AND, OR, WEIGHTS_VALUES, get_content_types_pks, get_descendants_content_types_pks,
+    ADD, AND, OR, WEIGHTS_VALUES, get_content_types_pk, get_descendants_content_types_pks,
     get_postgresql_connections, get_weight, keyword_split, unidecode)
 
 
@@ -162,7 +162,7 @@ class Index(object):
         index_entries.bulk_create(to_be_created)
 
     def add_items(self, model, objs):
-        content_type_pk = get_content_types_pks(model)
+        content_type_pk = get_content_types_pk(model)
         config = self.get_config()
         for obj in objs:
             obj._object_id = force_text(obj.pk)
