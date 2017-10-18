@@ -23,18 +23,6 @@ from .utils import (
 # TODO: Add autocomplete.
 
 
-def get_db_alias(queryset):
-    return queryset._db or DEFAULT_DB_ALIAS
-
-
-def get_sql(queryset):
-    return queryset.query.get_compiler(get_db_alias(queryset)).as_sql()
-
-
-def get_pk_column(model):
-    return model._meta.pk.get_attname_column()[1]
-
-
 @python_2_unicode_compatible
 class Index(object):
     def __init__(self, backend, model, db_alias=None):
@@ -208,8 +196,6 @@ class PostgresSearchQuery(BaseSearchQuery):
                 return field.boost
 
     def get_in_fields_queryset(self, queryset, search_query):
-        if not self.fields:
-            return queryset.none()
         return (
             queryset.annotate(
                 _search_=ADD(
@@ -217,9 +203,6 @@ class PostgresSearchQuery(BaseSearchQuery):
                                  weight=get_weight(self.get_boost(field)))
                     for field in self.fields))
             .filter(_search_=search_query))
-
-    def search_count(self, config):
-        return self.search(config, None, None).count()
 
     def search_in_index(self, queryset, search_query, start, stop):
         queryset = queryset.filter(index_entries__body_search=search_query)
@@ -244,6 +227,9 @@ class PostgresSearchQuery(BaseSearchQuery):
         if self.fields is None:
             return self.search_in_index(self.queryset, search_query, start, stop)
         return self.search_in_fields(self.queryset, search_query, start, stop)
+
+    def search_count(self, config):
+        return self.search(config, None, None).count()
 
 
 class PostgresSearchResults(BaseSearchResults):
