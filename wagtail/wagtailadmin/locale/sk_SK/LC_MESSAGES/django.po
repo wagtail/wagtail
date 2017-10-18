@@ -822,11 +822,11 @@ msgid "Sat"
 msgstr "So"
 
 #, python-format
-msgid "Used %(useage_count)s time"
-msgid_plural "Used %(useage_count)s times"
-msgstr[0] "Použité %(useage_count)s krát"
-msgstr[1] "Použité %(useage_count)s krát"
-msgstr[2] "Použité %(useage_count)s krát"
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Použité %(usage_count)s krát"
+msgstr[1] "Použité %(usage_count)s krát"
+msgstr[2] "Použité %(usage_count)s krát"
 
 msgid "Edit your account"
 msgstr "Upraviť váš účet"

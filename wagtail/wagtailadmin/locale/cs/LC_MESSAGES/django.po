@@ -694,11 +694,11 @@ msgid "Sat"
 msgstr "so"
 
 #, python-format
-msgid "Used %(useage_count)s time"
-msgid_plural "Used %(useage_count)s times"
-msgstr[0] "Použito %(useage_count)s-krát"
-msgstr[1] "Použito %(useage_count)s-krát"
-msgstr[2] "Použito %(useage_count)s-krát"
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Použito %(usage_count)s-krát"
+msgstr[1] "Použito %(usage_count)s-krát"
+msgstr[2] "Použito %(usage_count)s-krát"
 
 msgid "Log out"
 msgstr "Odhlásit"

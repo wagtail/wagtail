@@ -1072,10 +1072,10 @@ msgid "Sat"
 msgstr "Lør"
 
 #, python-format
-msgid "Used %(useage_count)s time"
-msgid_plural "Used %(useage_count)s times"
-msgstr[0] "Brukt %(useage_count)s gang"
-msgstr[1] "Brukt %(useage_count)s ganger"
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Brukt %(usage_count)s gang"
+msgstr[1] "Brukt %(usage_count)s ganger"
 
 msgid "Edit your account"
 msgstr "Endre din konto"

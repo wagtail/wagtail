@@ -1082,10 +1082,10 @@ msgid "Sat"
 msgstr "Sam"
 
 #, python-format
-msgid "Used %(useage_count)s time"
-msgid_plural "Used %(useage_count)s times"
-msgstr[0] "Utilisé %(useage_count)s fois"
-msgstr[1] "Utilisé %(useage_count)s fois"
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Utilisé %(usage_count)s fois"
+msgstr[1] "Utilisé %(usage_count)s fois"
 
 msgid "Edit your account"
 msgstr "Modifiez votre compte"

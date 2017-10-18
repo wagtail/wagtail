@@ -1162,12 +1162,12 @@ msgid "Sat"
 msgstr "Сб"
 
 #, python-format
-msgid "Used %(useage_count)s time"
-msgid_plural "Used %(useage_count)s times"
-msgstr[0] "Использовано %(useage_count)s раз"
-msgstr[1] "Использовано %(useage_count)s раз"
-msgstr[2] "Использовано %(useage_count)s раз"
-msgstr[3] "Использовано %(useage_count)s раз"
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Использовано %(usage_count)s раз"
+msgstr[1] "Использовано %(usage_count)s раз"
+msgstr[2] "Использовано %(usage_count)s раз"
+msgstr[3] "Использовано %(usage_count)s раз"
 
 msgid "Edit your account"
 msgstr "Редактировать ваш аккаунт"

@@ -891,10 +891,10 @@ msgid "Sat"
 msgstr "Sa"
 
 #, python-format
-msgid "Used %(useage_count)s time"
-msgid_plural "Used %(useage_count)s times"
-msgstr[0] "Usado %(useage_count)s vez"
-msgstr[1] "Usado %(useage_count)s veces"
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Usado %(usage_count)s vez"
+msgstr[1] "Usado %(usage_count)s veces"
 
 msgid "Edit your account"
 msgstr "Editar a túa conta"

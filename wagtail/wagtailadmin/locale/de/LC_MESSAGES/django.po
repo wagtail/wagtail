@@ -1113,10 +1113,10 @@ msgid "Sat"
 msgstr "Sa"
 
 #, python-format
-msgid "Used %(useage_count)s time"
-msgid_plural "Used %(useage_count)s times"
-msgstr[0] "%(useage_count)s mal benutzt"
-msgstr[1] "%(useage_count)s mal benutzt"
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)s mal benutzt"
+msgstr[1] "%(usage_count)s mal benutzt"
 
 msgid "Edit your account"
 msgstr "Bearbeiten Sie Ihr Konto"

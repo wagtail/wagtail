@@ -924,10 +924,10 @@ msgid "Sat"
 msgstr "La"
 
 #, python-format
-msgid "Used %(useage_count)s time"
-msgid_plural "Used %(useage_count)s times"
-msgstr[0] "Käytetty %(useage_count)s kerran"
-msgstr[1] "Käytetty %(useage_count)s kertaa"
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Käytetty %(usage_count)s kerran"
+msgstr[1] "Käytetty %(usage_count)s kertaa"
 
 msgid "Edit your account"
 msgstr "Muokkaa tiliäsi"
