@@ -36,56 +36,56 @@ class TestElasticsearch5SearchQuery(TestCase):
 
     def test_simple(self):
         # Create a query
-        query = self.query_class(models.SearchTest.objects.all(), "Hello")
+        query = self.query_class(models.Book.objects.all(), "Hello")
 
         # Check it
         expected_result = {'bool': {
-            'filter': {'match': {'content_type': 'searchtests.SearchTest'}},
+            'filter': {'match': {'content_type': 'searchtests.Book'}},
             'must': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}
         }}
         self.assertDictEqual(query.get_query(), expected_result)
 
     def test_none_query_string(self):
         # Create a query
-        query = self.query_class(models.SearchTest.objects.all(), None)
+        query = self.query_class(models.Book.objects.all(), None)
 
         # Check it
         expected_result = {'bool': {
-            'filter': {'match': {'content_type': 'searchtests.SearchTest'}},
+            'filter': {'match': {'content_type': 'searchtests.Book'}},
             'must': {'match_all': {}}
         }}
         self.assertDictEqual(query.get_query(), expected_result)
 
     def test_and_operator(self):
         # Create a query
-        query = self.query_class(models.SearchTest.objects.all(), "Hello", operator='and')
+        query = self.query_class(models.Book.objects.all(), "Hello", operator='and')
 
         # Check it
         expected_result = {'bool': {
-            'filter': {'match': {'content_type': 'searchtests.SearchTest'}},
+            'filter': {'match': {'content_type': 'searchtests.Book'}},
             'must': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials'], 'operator': 'and'}}
         }}
         self.assertDictEqual(query.get_query(), expected_result)
 
     def test_filter(self):
         # Create a query
-        query = self.query_class(models.SearchTest.objects.filter(title="Test"), "Hello")
+        query = self.query_class(models.Book.objects.filter(title="Test"), "Hello")
 
         # Check it
         expected_result = {'bool': {'filter': [
-            {'match': {'content_type': 'searchtests.SearchTest'}},
+            {'match': {'content_type': 'searchtests.Book'}},
             {'term': {'title_filter': 'Test'}}
         ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
         self.assertDictEqual(query.get_query(), expected_result)
 
     def test_and_filter(self):
         # Create a query
-        query = self.query_class(models.SearchTest.objects.filter(title="Test", live=True), "Hello")
+        query = self.query_class(models.Book.objects.filter(title="Test", publication_date=datetime.date(2017, 10, 18)), "Hello")
 
         # Check it
         expected_result = {'bool': {'filter': [
-            {'match': {'content_type': 'searchtests.SearchTest'}},
-            {'bool': {'must': [{'term': {'live_filter': True}}, {'term': {'title_filter': 'Test'}}]}}
+            {'match': {'content_type': 'searchtests.Book'}},
+            {'bool': {'must': [{'term': {'publication_date_filter': '2017-10-18'}}, {'term': {'title_filter': 'Test'}}]}}
         ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
 
         # Make sure field filters are sorted (as they can be in any order which may cause false positives)
@@ -97,7 +97,7 @@ class TestElasticsearch5SearchQuery(TestCase):
 
     def test_or_filter(self):
         # Create a query
-        query = self.query_class(models.SearchTest.objects.filter(Q(title="Test") | Q(live=True)), "Hello")
+        query = self.query_class(models.Book.objects.filter(Q(title="Test") | Q(publication_date=datetime.date(2017, 10, 18))), "Hello")
 
         # Make sure field filters are sorted (as they can be in any order which may cause false positives)
         query = query.get_query()
@@ -106,51 +106,51 @@ class TestElasticsearch5SearchQuery(TestCase):
 
         # Check it
         expected_result = {'bool': {'filter': [
-            {'match': {'content_type': 'searchtests.SearchTest'}},
-            {'bool': {'should': [{'term': {'live_filter': True}}, {'term': {'title_filter': 'Test'}}]}}
+            {'match': {'content_type': 'searchtests.Book'}},
+            {'bool': {'should': [{'term': {'publication_date_filter': '2017-10-18'}}, {'term': {'title_filter': 'Test'}}]}}
         ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
         self.assertDictEqual(query, expected_result)
 
     def test_negated_filter(self):
         # Create a query
-        query = self.query_class(models.SearchTest.objects.exclude(live=True), "Hello")
+        query = self.query_class(models.Book.objects.exclude(publication_date=datetime.date(2017, 10, 18)), "Hello")
 
         # Check it
         expected_result = {'bool': {'filter': [
-            {'match': {'content_type': 'searchtests.SearchTest'}},
-            {'bool': {'mustNot': {'term': {'live_filter': True}}}}
+            {'match': {'content_type': 'searchtests.Book'}},
+            {'bool': {'mustNot': {'term': {'publication_date_filter': '2017-10-18'}}}}
         ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
         self.assertDictEqual(query.get_query(), expected_result)
 
     def test_fields(self):
         # Create a query
-        query = self.query_class(models.SearchTest.objects.all(), "Hello", fields=['title'])
+        query = self.query_class(models.Book.objects.all(), "Hello", fields=['title'])
 
         # Check it
         expected_result = {'bool': {
-            'filter': {'match': {'content_type': 'searchtests.SearchTest'}},
+            'filter': {'match': {'content_type': 'searchtests.Book'}},
             'must': {'match': {'title': 'Hello'}}
         }}
         self.assertDictEqual(query.get_query(), expected_result)
 
     def test_fields_with_and_operator(self):
         # Create a query
-        query = self.query_class(models.SearchTest.objects.all(), "Hello", fields=['title'], operator='and')
+        query = self.query_class(models.Book.objects.all(), "Hello", fields=['title'], operator='and')
 
         # Check it
         expected_result = {'bool': {
-            'filter': {'match': {'content_type': 'searchtests.SearchTest'}},
+            'filter': {'match': {'content_type': 'searchtests.Book'}},
             'must': {'match': {'title': {'query': 'Hello', 'operator': 'and'}}}
         }}
         self.assertDictEqual(query.get_query(), expected_result)
 
     def test_multiple_fields(self):
         # Create a query
-        query = self.query_class(models.SearchTest.objects.all(), "Hello", fields=['title', 'content'])
+        query = self.query_class(models.Book.objects.all(), "Hello", fields=['title', 'content'])
 
         # Check it
         expected_result = {'bool': {
-            'filter': {'match': {'content_type': 'searchtests.SearchTest'}},
+            'filter': {'match': {'content_type': 'searchtests.Book'}},
             'must': {'multi_match': {'fields': ['title', 'content'], 'query': 'Hello'}}
         }}
         self.assertDictEqual(query.get_query(), expected_result)
@@ -158,67 +158,67 @@ class TestElasticsearch5SearchQuery(TestCase):
     def test_multiple_fields_with_and_operator(self):
         # Create a query
         query = self.query_class(
-            models.SearchTest.objects.all(), "Hello", fields=['title', 'content'], operator='and'
+            models.Book.objects.all(), "Hello", fields=['title', 'content'], operator='and'
         )
 
         # Check it
         expected_result = {'bool': {
-            'filter': {'match': {'content_type': 'searchtests.SearchTest'}},
+            'filter': {'match': {'content_type': 'searchtests.Book'}},
             'must': {'multi_match': {'fields': ['title', 'content'], 'query': 'Hello', 'operator': 'and'}}
         }}
         self.assertDictEqual(query.get_query(), expected_result)
 
     def test_exact_lookup(self):
         # Create a query
-        query = self.query_class(models.SearchTest.objects.filter(title__exact="Test"), "Hello")
+        query = self.query_class(models.Book.objects.filter(title__exact="Test"), "Hello")
 
         # Check it
         expected_result = {'bool': {'filter': [
-            {'match': {'content_type': 'searchtests.SearchTest'}},
+            {'match': {'content_type': 'searchtests.Book'}},
             {'term': {'title_filter': 'Test'}}
         ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
         self.assertDictEqual(query.get_query(), expected_result)
 
     def test_none_lookup(self):
         # Create a query
-        query = self.query_class(models.SearchTest.objects.filter(title=None), "Hello")
+        query = self.query_class(models.Book.objects.filter(title=None), "Hello")
 
         # Check it
         expected_result = {'bool': {'filter': [
-            {'match': {'content_type': 'searchtests.SearchTest'}},
+            {'match': {'content_type': 'searchtests.Book'}},
             {'missing': {'field': 'title_filter'}}
         ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
         self.assertDictEqual(query.get_query(), expected_result)
 
     def test_isnull_true_lookup(self):
         # Create a query
-        query = self.query_class(models.SearchTest.objects.filter(title__isnull=True), "Hello")
+        query = self.query_class(models.Book.objects.filter(title__isnull=True), "Hello")
 
         # Check it
         expected_result = {'bool': {'filter': [
-            {'match': {'content_type': 'searchtests.SearchTest'}},
+            {'match': {'content_type': 'searchtests.Book'}},
             {'missing': {'field': 'title_filter'}}
         ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
         self.assertDictEqual(query.get_query(), expected_result)
 
     def test_isnull_false_lookup(self):
         # Create a query
-        query = self.query_class(models.SearchTest.objects.filter(title__isnull=False), "Hello")
+        query = self.query_class(models.Book.objects.filter(title__isnull=False), "Hello")
 
         # Check it
         expected_result = {'bool': {'filter': [
-            {'match': {'content_type': 'searchtests.SearchTest'}},
+            {'match': {'content_type': 'searchtests.Book'}},
             {'exists': {'field': 'title_filter'}}
         ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
         self.assertDictEqual(query.get_query(), expected_result)
 
     def test_startswith_lookup(self):
         # Create a query
-        query = self.query_class(models.SearchTest.objects.filter(title__startswith="Test"), "Hello")
+        query = self.query_class(models.Book.objects.filter(title__startswith="Test"), "Hello")
 
         # Check it
         expected_result = {'bool': {'filter': [
-            {'match': {'content_type': 'searchtests.SearchTest'}},
+            {'match': {'content_type': 'searchtests.Book'}},
             {'prefix': {'title_filter': 'Test'}}
         ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
         self.assertDictEqual(query.get_query(), expected_result)
@@ -228,52 +228,52 @@ class TestElasticsearch5SearchQuery(TestCase):
 
         # Create a query
         query = self.query_class(
-            models.SearchTest.objects.filter(published_date__gt=datetime.datetime(2014, 4, 29)), "Hello"
+            models.Book.objects.filter(publication_date__gt=datetime.datetime(2014, 4, 29)), "Hello"
         )
 
         # Check it
         expected_result = {'bool': {'filter': [
-            {'match': {'content_type': 'searchtests.SearchTest'}},
-            {'range': {'published_date_filter': {'gt': '2014-04-29'}}}
+            {'match': {'content_type': 'searchtests.Book'}},
+            {'range': {'publication_date_filter': {'gt': '2014-04-29'}}}
         ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
         self.assertDictEqual(query.get_query(), expected_result)
 
     def test_lt_lookup(self):
         # Create a query
         query = self.query_class(
-            models.SearchTest.objects.filter(published_date__lt=datetime.datetime(2014, 4, 29)), "Hello"
+            models.Book.objects.filter(publication_date__lt=datetime.datetime(2014, 4, 29)), "Hello"
         )
 
         # Check it
         expected_result = {'bool': {'filter': [
-            {'match': {'content_type': 'searchtests.SearchTest'}},
-            {'range': {'published_date_filter': {'lt': '2014-04-29'}}}
+            {'match': {'content_type': 'searchtests.Book'}},
+            {'range': {'publication_date_filter': {'lt': '2014-04-29'}}}
         ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
         self.assertDictEqual(query.get_query(), expected_result)
 
     def test_gte_lookup(self):
         # Create a query
         query = self.query_class(
-            models.SearchTest.objects.filter(published_date__gte=datetime.datetime(2014, 4, 29)), "Hello"
+            models.Book.objects.filter(publication_date__gte=datetime.datetime(2014, 4, 29)), "Hello"
         )
 
         # Check it
         expected_result = {'bool': {'filter': [
-            {'match': {'content_type': 'searchtests.SearchTest'}},
-            {'range': {'published_date_filter': {'gte': '2014-04-29'}}}
+            {'match': {'content_type': 'searchtests.Book'}},
+            {'range': {'publication_date_filter': {'gte': '2014-04-29'}}}
         ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
         self.assertDictEqual(query.get_query(), expected_result)
 
     def test_lte_lookup(self):
         # Create a query
         query = self.query_class(
-            models.SearchTest.objects.filter(published_date__lte=datetime.datetime(2014, 4, 29)), "Hello"
+            models.Book.objects.filter(publication_date__lte=datetime.datetime(2014, 4, 29)), "Hello"
         )
 
         # Check it
         expected_result = {'bool': {'filter': [
-            {'match': {'content_type': 'searchtests.SearchTest'}},
-            {'range': {'published_date_filter': {'lte': '2014-04-29'}}}
+            {'match': {'content_type': 'searchtests.Book'}},
+            {'range': {'publication_date_filter': {'lte': '2014-04-29'}}}
         ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
         self.assertDictEqual(query.get_query(), expected_result)
 
@@ -283,64 +283,60 @@ class TestElasticsearch5SearchQuery(TestCase):
 
         # Create a query
         query = self.query_class(
-            models.SearchTest.objects.filter(published_date__range=(start_date, end_date)), "Hello"
+            models.Book.objects.filter(publication_date__range=(start_date, end_date)), "Hello"
         )
 
         # Check it
         expected_result = {'bool': {'filter': [
-            {'match': {'content_type': 'searchtests.SearchTest'}},
-            {'range': {'published_date_filter': {'gte': '2014-04-29', 'lte': '2014-08-19'}}}
+            {'match': {'content_type': 'searchtests.Book'}},
+            {'range': {'publication_date_filter': {'gte': '2014-04-29', 'lte': '2014-08-19'}}}
         ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
         self.assertDictEqual(query.get_query(), expected_result)
 
     def test_custom_ordering(self):
         # Create a query
         query = self.query_class(
-            models.SearchTest.objects.order_by('published_date'), "Hello", order_by_relevance=False
+            models.Book.objects.order_by('publication_date'), "Hello", order_by_relevance=False
         )
 
         # Check it
-        expected_result = [{'published_date_filter': 'asc'}]
+        expected_result = [{'publication_date_filter': 'asc'}]
         self.assertDictEqual(query.get_sort(), expected_result)
 
     def test_custom_ordering_reversed(self):
         # Create a query
         query = self.query_class(
-            models.SearchTest.objects.order_by('-published_date'), "Hello", order_by_relevance=False
+            models.Book.objects.order_by('-publication_date'), "Hello", order_by_relevance=False
         )
 
         # Check it
-        expected_result = [{'published_date_filter': 'desc'}]
+        expected_result = [{'publication_date_filter': 'desc'}]
         self.assertDictEqual(query.get_sort(), expected_result)
 
     def test_custom_ordering_multiple(self):
         # Create a query
         query = self.query_class(
-            models.SearchTest.objects.order_by('published_date', 'live'), "Hello", order_by_relevance=False
+            models.Book.objects.order_by('publication_date', 'number_of_pages'), "Hello", order_by_relevance=False
         )
 
         # Check it
-        expected_result = [{'published_date_filter': 'asc'}, {'live_filter': 'asc'}]
+        expected_result = [{'publication_date_filter': 'asc'}, {'number_of_pages_filter': 'asc'}]
         self.assertDictEqual(query.get_sort(), expected_result)
 
 
 class TestElasticsearch5SearchResults(TestCase):
+    fixtures = ['search']
+
     def assertDictEqual(self, a, b):
         default = JSONSerializer().default
         self.assertEqual(
             json.dumps(a, sort_keys=True, default=default), json.dumps
         )
 
-    def setUp(self):
-        self.objects = []
-
-        for i in range(3):
-            self.objects.append(models.SearchTest.objects.create(title=str(i)))
-
     def get_results(self):
         backend = Elasticsearch5SearchBackend({})
         query = mock.MagicMock()
-        query.queryset = models.SearchTest.objects.all()
+        query.queryset = models.Book.objects.all()
         query.get_query.return_value = 'QUERY'
         query.get_sort.return_value = None
         return backend.results_class(backend, query)
@@ -351,10 +347,10 @@ class TestElasticsearch5SearchResults(TestCase):
             'hits': {
                 'hits': [
                     {
-                        '_id': 'searchtests_searchtest:' + str(result),
+                        '_id': 'searchtests_book:' + str(result),
                         '_index': 'wagtail',
                         '_score': 1,
-                        '_type': 'searchtests_searchtest',
+                        '_type': 'searchtests_book',
                         'fields': {
                             'pk': [str(result)],
                         }
@@ -380,13 +376,13 @@ class TestElasticsearch5SearchResults(TestCase):
             body={'query': 'QUERY'},
             _source=False,
             stored_fields='pk',
-            index='wagtail__searchtests_searchtest'
+            index='wagtail__searchtests_book'
         )
 
     @mock.patch('elasticsearch.Elasticsearch.search')
     def test_get_single_item(self, search):
         # Need to return something to prevent index error
-        search.return_value = self.construct_search_response([self.objects[0].id])
+        search.return_value = self.construct_search_response([1])
         results = self.get_results()
 
         results[10]  # Performs search
@@ -396,7 +392,7 @@ class TestElasticsearch5SearchResults(TestCase):
             body={'query': 'QUERY'},
             _source=False,
             stored_fields='pk',
-            index='wagtail__searchtests_searchtest',
+            index='wagtail__searchtests_book',
             size=1
         )
 
@@ -412,7 +408,7 @@ class TestElasticsearch5SearchResults(TestCase):
             body={'query': 'QUERY'},
             _source=False,
             stored_fields='pk',
-            index='wagtail__searchtests_searchtest',
+            index='wagtail__searchtests_book',
             size=3
         )
 
@@ -428,14 +424,14 @@ class TestElasticsearch5SearchResults(TestCase):
             body={'query': 'QUERY'},
             _source=False,
             stored_fields='pk',
-            index='wagtail__searchtests_searchtest',
+            index='wagtail__searchtests_book',
             size=10
         )
 
     @mock.patch('elasticsearch.Elasticsearch.search')
     def test_slice_results_and_get_item(self, search):
         # Need to return something to prevent index error
-        search.return_value = self.construct_search_response([self.objects[0].id])
+        search.return_value = self.construct_search_response([1])
         results = self.get_results()[10:]
 
         results[10]  # Performs search
@@ -445,64 +441,66 @@ class TestElasticsearch5SearchResults(TestCase):
             body={'query': 'QUERY'},
             _source=False,
             stored_fields='pk',
-            index='wagtail__searchtests_searchtest',
+            index='wagtail__searchtests_book',
             size=1
         )
 
     @mock.patch('elasticsearch.Elasticsearch.search')
     def test_result_returned(self, search):
-        search.return_value = self.construct_search_response([self.objects[0].id])
+        search.return_value = self.construct_search_response([1])
         results = self.get_results()
 
-        self.assertEqual(results[0], self.objects[0])
+        self.assertEqual(results[0], models.Book.objects.get(id=1))
 
     @mock.patch('elasticsearch.Elasticsearch.search')
     def test_len_1(self, search):
-        search.return_value = self.construct_search_response([self.objects[0].id])
+        search.return_value = self.construct_search_response([1])
         results = self.get_results()
 
         self.assertEqual(len(results), 1)
 
     @mock.patch('elasticsearch.Elasticsearch.search')
     def test_len_2(self, search):
-        search.return_value = self.construct_search_response([self.objects[0].id, self.objects[1].id])
+        search.return_value = self.construct_search_response([1, 2])
         results = self.get_results()
 
         self.assertEqual(len(results), 2)
 
     @mock.patch('elasticsearch.Elasticsearch.search')
     def test_duplicate_results(self, search):  # Duplicates will not be removed
-        search.return_value = self.construct_search_response([self.objects[0].id, self.objects[0].id])
+        search.return_value = self.construct_search_response([1, 1])
         results = list(self.get_results())  # Must cast to list so we only create one query
 
         self.assertEqual(len(results), 2)
-        self.assertEqual(results[0], self.objects[0])
-        self.assertEqual(results[1], self.objects[0])
+        self.assertEqual(results[0], models.Book.objects.get(id=1))
+        self.assertEqual(results[1], models.Book.objects.get(id=1))
 
     @mock.patch('elasticsearch.Elasticsearch.search')
     def test_result_order(self, search):
         search.return_value = self.construct_search_response(
-            [self.objects[0].id, self.objects[1].id, self.objects[2].id]
+            [1, 2, 3]
         )
         results = list(self.get_results())  # Must cast to list so we only create one query
 
-        self.assertEqual(results[0], self.objects[0])
-        self.assertEqual(results[1], self.objects[1])
-        self.assertEqual(results[2], self.objects[2])
+        self.assertEqual(results[0], models.Book.objects.get(id=1))
+        self.assertEqual(results[1], models.Book.objects.get(id=2))
+        self.assertEqual(results[2], models.Book.objects.get(id=3))
 
     @mock.patch('elasticsearch.Elasticsearch.search')
     def test_result_order_2(self, search):
         search.return_value = self.construct_search_response(
-            [self.objects[2].id, self.objects[1].id, self.objects[0].id]
+            [3, 2, 1]
         )
         results = list(self.get_results())  # Must cast to list so we only create one query
 
-        self.assertEqual(results[0], self.objects[2])
-        self.assertEqual(results[1], self.objects[1])
-        self.assertEqual(results[2], self.objects[0])
+        self.assertEqual(results[0], models.Book.objects.get(id=3))
+        self.assertEqual(results[1], models.Book.objects.get(id=2))
+        self.assertEqual(results[2], models.Book.objects.get(id=1))
 
 
 class TestElasticsearch5Mapping(TestCase):
+    fixtures = ['search']
+
     def assertDictEqual(self, a, b):
         default = JSONSerializer().default
         self.assertEqual(
@@ -511,15 +509,13 @@ class TestElasticsearch5Mapping(TestCase):
 
     def setUp(self):
         # Create ES mapping
-        self.es_mapping = Elasticsearch5SearchBackend.mapping_class(models.SearchTest)
+        self.es_mapping = Elasticsearch5SearchBackend.mapping_class(models.Book)
 
         # Create ES document
-        self.obj = models.SearchTest(title="Hello")
-        self.obj.save()
-        self.obj.tags.add("a tag")
+        self.obj = models.Book.objects.get(id=4)
 
     def test_get_document_type(self):
-        self.assertEqual(self.es_mapping.get_document_type(), 'searchtests_searchtest')
+        self.assertEqual(self.es_mapping.get_document_type(), 'searchtests_book')
 
     def test_get_mapping(self):
         # Build mapping
@@ -527,32 +523,29 @@ class TestElasticsearch5Mapping(TestCase):
 
         # Check
         expected_result = {
-            'searchtests_searchtest': {
+            'searchtests_book': {
                 'properties': {
                     'pk': {'type': 'keyword', 'store': True, 'include_in_all': False},
                     'content_type': {'type': 'keyword', 'include_in_all': False},
                     '_partials': {'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard', 'include_in_all': False, 'type': 'text'},
-                    'live_filter': {'type': 'boolean', 'include_in_all': False},
-                    'published_date_filter': {'type': 'date', 'include_in_all': False},
-                    'title': {'type': 'text', 'include_in_all': True, 'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard'},
+                    'title': {'type': 'text', 'boost': 2.0, 'include_in_all': True, 'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard'},
                     'title_filter': {'type': 'keyword', 'include_in_all': False},
-                    'content': {'type': 'text', 'boost': 2, 'include_in_all': True},
-                    'callable_indexed_field': {'type': 'text', 'include_in_all': True},
-                    'subobjects': {
-                        'properties': {
-                            'name': {'analyzer': 'edgengram_analyzer',
-                                     'include_in_all': True,
-                                     'search_analyzer': 'standard',
-                                     'type': 'text'}},
+                    'authors': {
                         'type': 'nested',
+                        'properties': {
+                            'name': {'type': 'text', 'include_in_all': True},
+                            'date_of_birth_filter': {'type': 'date', 'include_in_all': False},
+                        },
                     },
+                    'publication_date_filter': {'type': 'date', 'include_in_all': False},
+                    'number_of_pages_filter': {'type': 'integer', 'include_in_all': False},
                     'tags': {
                         'type': 'nested',
                         'properties': {
-                            'name': {'type': 'text', 'include_in_all': True, 'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard'},
+                            'name': {'type': 'text', 'include_in_all': True},
                             'slug_filter': {'type': 'keyword', 'include_in_all': False},
-                        }
-                    },
+                        },
+                    }
                 }
             }
         }
@@ -560,7 +553,7 @@ class TestElasticsearch5Mapping(TestCase):
         self.assertDictEqual(mapping, expected_result)
 
     def test_get_document_id(self):
-        self.assertEqual(self.es_mapping.get_document_id(self.obj), 'searchtests_searchtest:' + str(self.obj.pk))
+        self.assertEqual(self.es_mapping.get_document_id(self.obj), 'searchtests_book:' + str(self.obj.pk))
 
     def test_get_document(self):
         # Get document
@@ -572,28 +565,28 @@ class TestElasticsearch5Mapping(TestCase):
 
         # Check
         expected_result = {
-            'pk': str(self.obj.pk),
-            'content_type': ['searchtests.SearchTest'],
-            '_partials': ['Hello', 'a tag'],
-            'live_filter': False,
-            'published_date_filter': None,
-            'title': 'Hello',
-            'title_filter': 'Hello',
-            'callable_indexed_field': 'Callable',
-            'content': '',
-            'subobjects': [],
-            'tags': [
+            'pk': '4',
+            'content_type': ["searchtests.Book"],
+            '_partials': ['The Fellowship of the Ring'],
+            'title': 'The Fellowship of the Ring',
+            'title_filter': 'The Fellowship of the Ring',
+            'authors': [
                 {
-                    'name': 'a tag',
-                    'slug_filter': 'a-tag',
+                    'name': 'J. R. R. Tolkien',
+                    'date_of_birth_filter': datetime.date(1892, 1, 3)
                 }
             ],
+            'publication_date_filter': datetime.date(1954, 7, 29),
+            'number_of_pages_filter': 423,
+            'tags': []
         }
 
         self.assertDictEqual(document, expected_result)
 
 
 class TestElasticsearch5MappingInheritance(TestCase):
+    fixtures = ['search']
+
     def assertDictEqual(self, a, b):
         default = JSONSerializer().default
         self.assertEqual(
@@ -602,15 +595,12 @@ class TestElasticsearch5MappingInheritance(TestCase):
 
     def setUp(self):
         # Create ES mapping
-        self.es_mapping = Elasticsearch5SearchBackend.mapping_class(models.SearchTestChild)
+        self.es_mapping = Elasticsearch5SearchBackend.mapping_class(models.Novel)
 
-        # Create ES document
-        self.obj = models.SearchTestChild(title="Hello", subtitle="World", page_id=1)
-        self.obj.save()
-        self.obj.tags.add("a tag")
+        self.obj = models.Novel.objects.get(id=4)
 
     def test_get_document_type(self):
-        self.assertEqual(self.es_mapping.get_document_type(), 'searchtests_searchtest_searchtests_searchtestchild')
+        self.assertEqual(self.es_mapping.get_document_type(), 'searchtests_book_searchtests_novel')
 
     def test_get_mapping(self):
         # Build mapping
@@ -618,17 +608,20 @@ class TestElasticsearch5MappingInheritance(TestCase):
 
         # Check
         expected_result = {
-            'searchtests_searchtest_searchtests_searchtestchild': {
+            'searchtests_book_searchtests_novel': {
                 'properties': {
                     # New
-                    'searchtests_searchtestchild__extra_content': {'type': 'text', 'include_in_all': True},
-                    'searchtests_searchtestchild__subtitle': {'type': 'text', 'include_in_all': True, 'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard'},
-                    'searchtests_searchtestchild__page': {
+                    'searchtests_novel__setting': {'type': 'text', 'include_in_all': True, 'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard'},
+                    'searchtests_novel__protagonist': {
                         'type': 'nested',
                         'properties': {
-                            'title': {'type': 'text', 'include_in_all': True, 'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard'},
-                            'search_description': {'type': 'text', 'include_in_all': True},
-                            'live_filter': {'type': 'boolean', 'include_in_all': False},
+                            'name': {'type': 'text', 'boost': 0.5, 'include_in_all': True}
+                        }
+                    },
+                    'searchtests_novel__characters': {
+                        'type': 'nested',
+                        'properties': {
+                            'name': {'type': 'text', 'boost': 0.25, 'include_in_all': True}
                         }
                     },
 
@@ -636,27 +629,24 @@ class TestElasticsearch5MappingInheritance(TestCase):
                     'pk': {'type': 'keyword', 'store': True, 'include_in_all': False},
                     'content_type': {'type': 'keyword', 'include_in_all': False},
                     '_partials': {'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard', 'include_in_all': False, 'type': 'text'},
-                    'live_filter': {'type': 'boolean', 'include_in_all': False},
-                    'published_date_filter': {'type': 'date', 'include_in_all': False},
-                    'title': {'type': 'text', 'include_in_all': True, 'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard'},
+                    'title': {'type': 'text', 'boost': 2.0, 'include_in_all': True, 'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard'},
                     'title_filter': {'type': 'keyword', 'include_in_all': False},
-                    'content': {'type': 'text', 'boost': 2, 'include_in_all': True},
-                    'callable_indexed_field': {'type': 'text', 'include_in_all': True},
-                    'subobjects': {
-                        'properties': {
-                            'name': {'analyzer': 'edgengram_analyzer',
-                                     'include_in_all': True,
-                                     'search_analyzer': 'standard',
-                                     'type': 'text'}},
+                    'authors': {
                         'type': 'nested',
+                        'properties': {
+                            'name': {'type': 'text', 'include_in_all': True},
+                            'date_of_birth_filter': {'type': 'date', 'include_in_all': False},
+                        },
                     },
+                    'publication_date_filter': {'type': 'date', 'include_in_all': False},
+                    'number_of_pages_filter': {'type': 'integer', 'include_in_all': False},
                     'tags': {
                         'type': 'nested',
                         'properties': {
-                            'name': {'type': 'text', 'include_in_all': True, 'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard'},
+                            'name': {'type': 'text', 'include_in_all': True},
                             'slug_filter': {'type': 'keyword', 'include_in_all': False},
-                        }
-                    },
+                        },
+                    }
                 }
             }
         }
@@ -667,7 +657,7 @@ class TestElasticsearch5MappingInheritance(TestCase):
         # This must be tests_searchtest instead of 'tests_searchtest_tests_searchtestchild'
         # as it uses the contents base content type name.
         # This prevents the same object being accidentally indexed twice.
-        self.assertEqual(self.es_mapping.get_document_id(self.obj), 'searchtests_searchtest:' + str(self.obj.pk))
+        self.assertEqual(self.es_mapping.get_document_id(self.obj), 'searchtests_book:' + str(self.obj.pk))
 
     def test_get_document(self):
         # Build document
@@ -680,33 +670,39 @@ class TestElasticsearch5MappingInheritance(TestCase):
         # Check
         expected_result = {
             # New
-            'searchtests_searchtestchild__extra_content': '',
-            'searchtests_searchtestchild__subtitle': 'World',
-            'searchtests_searchtestchild__page': {
-                'title': 'Root',
-                'search_description': '',
-                'live_filter': True,
+            'searchtests_novel__setting': "Middle Earth",
+            'searchtests_novel__protagonist':                 {
+                'name': "Frodo Baggins"
             },
-
-            # Changed
-            'content_type': ['searchtests.SearchTestChild', 'searchtests.SearchTest'],
-
-            # Inherited
-            'pk': str(self.obj.pk),
-            '_partials': ['Hello', 'Root', 'World', 'a tag'],
-            'live_filter': False,
-            'published_date_filter': None,
-            'title': 'Hello',
-            'title_filter': 'Hello',
-            'callable_indexed_field': 'Callable',
-            'content': '',
-            'subobjects': [],
-            'tags': [
+            'searchtests_novel__characters': [
                 {
-                    'name': 'a tag',
-                    'slug_filter': 'a-tag',
+                    'name': "Gandalf"
+                },
+                {
+                    'name': "Bilbo Baggins"
+                },
+                {
+                    'name': "Frodo Baggins"
                 }
             ],
+
+            # Changed
+            'content_type': ["searchtests.Novel", "searchtests.Book"],
+            '_partials': ['Middle Earth', 'The Fellowship of the Ring'],
+
+            # Inherited
+            'pk': '4',
+            'title': 'The Fellowship of the Ring',
+            'title_filter': 'The Fellowship of the Ring',
+            'authors': [
+                {
+                    'name': 'J. R. R. Tolkien',
+                    'date_of_birth_filter': datetime.date(1892, 1, 3)
+                }
+            ],
+            'publication_date_filter': datetime.date(1954, 7, 29),
+            'number_of_pages_filter': 423,
+            'tags': []
         }
 
         self.assertDictEqual(document, expected_result)
