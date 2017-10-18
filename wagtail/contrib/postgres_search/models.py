@@ -4,8 +4,7 @@ from django.apps import apps
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.postgres.search import SearchVectorField
-from django.db.models import (
-    CASCADE, ForeignKey, Model, TextField)
+from django.db.models import CASCADE, ForeignKey, Model, TextField
 from django.db.models.functions import Cast
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
