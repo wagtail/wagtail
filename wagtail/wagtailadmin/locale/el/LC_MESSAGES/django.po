@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-10 16:05+0000\n"
-"PO-Revision-Date: 2017-09-23 19:35+0000\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"PO-Revision-Date: 2017-10-06 15:06+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
@@ -147,6 +147,9 @@ msgstr "Η ημερομηνία/ώρα λήξης πρέπει να είναι �
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Δε μπορείτε να έχετε πολλαπλά δικαιώματα για την ίδια συλλογή"
+
+msgid "Go to Wagtail admin"
+msgstr "Πηγαίνετε στη διαχείριση του Wagtail"
 
 msgid "Account"
 msgstr "Λογαριασμός"
@@ -1003,10 +1006,10 @@ msgid "Sat"
 msgstr "Σαβ"
 
 #, python-format
-msgid "Used %(useage_count)s time"
-msgid_plural "Used %(useage_count)s times"
-msgstr[0] "Χρησιμοποιήθηκε %(useage_count)s φορά"
-msgstr[1] "Χρησιμοποιήθηκε %(useage_count)s φορές"
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Χρησιμοποιήθηκε %(usage_count)s φορά"
+msgstr[1] "Χρησιμοποιήθηκε %(usage_count)s φορές"
 
 msgid "Edit your account"
 msgstr "Επεξεργαστείτε το λογαριασμό σας"
@@ -1054,9 +1057,6 @@ msgstr ""
 
 msgid "Go to Wagtail admin interface"
 msgstr "Πηγαίνετε στο Wagtail περιβάλλον του διαχειριστή"
-
-msgid "Go to Wagtail admin"
-msgstr "Πηγαίνετε στη διαχείριση του Wagtail"
 
 msgid "Add a child page"
 msgstr "Προσθέστε μια υποσελίδα"

@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-10 16:05+0000\n"
-"PO-Revision-Date: 2017-09-20 15:49+0000\n"
-"Last-Translator: Jim Brouzoulis <jim.brouzoulis@chalmers.se>\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"PO-Revision-Date: 2017-10-06 15:11+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -251,18 +251,15 @@ msgstr ""
 "Det finns inga användare konfigurerade. Varför inte <a href="
 "\"%(wagtailusers_create_url)s\">skapa några</a>?"
 
+msgid "Groups"
+msgstr "Grupper"
+
 msgid "Search groups"
 msgstr "Sök grupper"
 
 #, python-brace-format
 msgid "Group '{0}' created."
 msgstr "Grupp '{0}' skapad."
-
-msgid "Edit"
-msgstr "Editera"
-
-msgid "The group could not be created due to errors."
-msgstr "Gruppen kunde inte skapas p.g.a. fel."
 
 #, python-brace-format
 msgid "Group '{0}' updated."
@@ -282,6 +279,9 @@ msgstr "Sök användare"
 msgid "User '{0}' created."
 msgstr "Användaren '{0}' skapad."
 
+msgid "Edit"
+msgstr "Editera"
+
 msgid "The user could not be created due to errors."
 msgstr "Användaren kunde inte skapas p.g.a. fel."
 
@@ -295,9 +295,6 @@ msgstr "Användaren kunde inte sparas p.g.a. fel."
 #, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "Användare '{0}' raderad."
-
-msgid "Groups"
-msgstr "Grupper"
 
 msgid "Edit this user"
 msgstr "Editera användaren"

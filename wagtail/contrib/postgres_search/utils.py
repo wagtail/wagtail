@@ -60,17 +60,17 @@ def get_descendant_models(model):
     return descendant_models
 
 
-def get_descendants_content_types_pks(models, db_alias):
-    return get_content_types_pks(
-        tuple(descendant_model for model in models
-              for descendant_model in get_descendant_models(model)), db_alias)
+def get_descendants_content_types_pks(model):
+    from django.contrib.contenttypes.models import ContentType
+    return [ct.pk for ct in
+            ContentType.objects.get_for_models(*get_descendant_models(model))
+            .values()]
 
 
-def get_content_types_pks(models, db_alias):
+def get_content_types_pk(model):
     # We import it locally because this file is loaded before apps are ready.
     from django.contrib.contenttypes.models import ContentType
-    content_types_dict = ContentType.objects.db_manager(db_alias).get_for_models(*models)
-    return [ct.pk for ct in content_types_dict.values()]
+    return ContentType.objects.get_for_model(model).pk
 
 
 def get_search_fields(search_fields):

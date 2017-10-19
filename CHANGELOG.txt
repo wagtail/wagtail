@@ -4,8 +4,13 @@ Changelog
 2.0 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
+ * Removed support for Python 2.7, Django 1.8 and Django 1.10
+ * Added hidden field to the form builder (Ross Crawford-d'Heureuse)
+ * Image usage count now shows on delete confirmation page when WAGTAIL_USAGE_COUNT_ENABLED is active (Kees Hink)
+ * Fix: Do not remove stopwords when generating slugs from non-ASCII titles, to avoid issues with incorrect word boundaries (Sævar Öfjörð Magnússon)
 
-1.13 (xx.xx.xxxx) - IN DEVELOPMENT
+
+1.13 (16.10.2017)
 ~~~~~~~~~~~~~~~~~
 
  * Front-end cache invalidator now supports purging URLs as a batch (Karl Hobley)

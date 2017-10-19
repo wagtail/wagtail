@@ -5,7 +5,6 @@ import os.path
 from collections import OrderedDict
 from contextlib import contextmanager
 
-import django
 from django.conf import settings
 from django.core import checks
 from django.core.files import File
@@ -249,10 +248,7 @@ class AbstractImage(CollectionMember, index.Indexed, models.Model):
     @classmethod
     def get_rendition_model(cls):
         """ Get the Rendition model for this Image model """
-        if django.VERSION >= (1, 9):
-            return cls.renditions.rel.related_model
-        else:
-            return cls.renditions.related.related_model
+        return cls.renditions.rel.related_model
 
     def get_rendition(self, filter):
         if isinstance(filter, string_types):

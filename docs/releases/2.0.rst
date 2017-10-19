@@ -13,10 +13,20 @@ What's new
 Other features
 ~~~~~~~~~~~~~~
 
+ * Added hidden field to the form builder (Ross Crawford-d'Heureuse)
+ * Image usage count now shows on delete confirmation page when WAGTAIL_USAGE_COUNT_ENABLED is active (Kees Hink)
+
 
 Bug fixes
 ~~~~~~~~~
 
+ * Do not remove stopwords when generating slugs from non-ASCII titles, to avoid issues with incorrect word boundaries (Sævar Öfjörð Magnússon)
+
 
 Upgrade considerations
 ======================
+
+Removed support for Python 2.7, Django 1.8 and Django 1.10
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Python 2.7, Django 1.8 and Django 1.10 are no longer supported in this release. You are advised to upgrade your project to Python 3 and Django 1.11 before upgrading to Wagtail 2.0.

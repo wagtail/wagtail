@@ -6,7 +6,6 @@ from django.core.urlresolvers import reverse
 from django.utils.translation import activate as activate_lang
 from django.utils.translation import ugettext as _
 
-from wagtail.utils.compat import user_is_anonymous
 from wagtail.wagtailadmin import messages
 
 
@@ -22,7 +21,7 @@ def require_admin_access(view_func):
     def decorated_view(request, *args, **kwargs):
         user = request.user
 
-        if user_is_anonymous(user):
+        if user.is_anonymous:
             return reject_request(request)
 
         if user.has_perms(['wagtailadmin.access_admin']):

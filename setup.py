@@ -21,11 +21,11 @@ except ImportError:
 
 
 install_requires = [
-    "Django>=1.8.1,<1.12",
+    "Django>=1.11,<1.12",
     "django-modelcluster>=3.1,<4.0",
     "django-taggit>=0.20,<1.0",
     "django-treebeard>=3.0,<5.0",
-    "djangorestframework>=3.1.3,<3.7",  # 3.7 drops Django 1.8 support
+    "djangorestframework>=3.1.3,<4.0",
     "Pillow>=2.6.1",
     "beautifulsoup4>=4.5.1",
     "html5lib>=0.999,<1",
@@ -81,15 +81,11 @@ setup(
         'License :: OSI Approved :: BSD License',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
-        'Programming Language :: Python :: 2',
-        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Framework :: Django',
-        'Framework :: Django :: 1.8',
-        'Framework :: Django :: 1.10',
         'Framework :: Django :: 1.11',
         'Topic :: Internet :: WWW/HTTP :: Site Management',
     ],

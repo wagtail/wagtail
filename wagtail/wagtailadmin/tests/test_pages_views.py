@@ -4,7 +4,6 @@ import datetime
 import logging
 import os
 
-import django
 import mock
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -957,10 +956,7 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         )
 
         # Check that a form error was raised
-        if django.VERSION >= (1, 9):
-            self.assertFormError(response, 'form', 'title', "This field is required.")
-        else:
-            self.assertFormError(response, 'form', 'title', "This field cannot be blank.")
+        self.assertFormError(response, 'form', 'title', "This field is required.")
 
     def test_whitespace_titles_with_tab(self):
         post_data = {
@@ -972,10 +968,7 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         response = self.client.post(reverse('wagtailadmin_pages:add', args=('tests', 'simplepage', self.root_page.id)), post_data)
 
         # Check that a form error was raised
-        if django.VERSION >= (1, 9):
-            self.assertFormError(response, 'form', 'title', "This field is required.")
-        else:
-            self.assertFormError(response, 'form', 'title', "This field cannot be blank.")
+        self.assertFormError(response, 'form', 'title', "This field is required.")
 
     def test_whitespace_titles_with_tab_in_seo_title(self):
         post_data = {

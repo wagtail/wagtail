@@ -14,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-10 16:05+0000\n"
-"PO-Revision-Date: 2017-09-20 01:01+0000\n"
-"Last-Translator: Eugene MechanisM <eugene@mechanism.pro>\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"PO-Revision-Date: 2017-10-06 15:11+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -277,18 +277,15 @@ msgstr ""
 "Нету настроенных пользователей. Почему бы не <a href="
 "\"%(wagtailusers_create_url)s\">добавить</a>?"
 
+msgid "Groups"
+msgstr "Группы"
+
 msgid "Search groups"
 msgstr "Поиск групп"
 
 #, python-brace-format
 msgid "Group '{0}' created."
 msgstr "Группа '{0}' создана."
-
-msgid "Edit"
-msgstr "Править"
-
-msgid "The group could not be created due to errors."
-msgstr "Группа не может быть создана из-за ошибок."
 
 #, python-brace-format
 msgid "Group '{0}' updated."
@@ -308,6 +305,9 @@ msgstr "Поиск пользователей"
 msgid "User '{0}' created."
 msgstr "Пользователь '{0}' создан."
 
+msgid "Edit"
+msgstr "Править"
+
 msgid "The user could not be created due to errors."
 msgstr "Пользователь не может быть создан из-за ошибок."
 
@@ -321,9 +321,6 @@ msgstr "Пользователь но может быть сохранен из-
 #, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "Пользователь '{0}' удалён."
-
-msgid "Groups"
-msgstr "Группы"
 
 msgid "Edit this user"
 msgstr "Редактировать этого пользователя"

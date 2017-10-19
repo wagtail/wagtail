@@ -2,7 +2,6 @@ from __future__ import absolute_import, unicode_literals
 
 import itertools
 
-import django
 from django import template
 from django.conf import settings
 from django.contrib.humanize.templatetags.humanize import intcomma
@@ -28,11 +27,6 @@ from wagtail.wagtailcore.utils import camelcase_to_underscore, escape_script
 register = template.Library()
 
 register.filter('intcomma', intcomma)
-
-if django.VERSION >= (1, 9):
-    assignment_tag = register.simple_tag
-else:
-    assignment_tag = register.assignment_tag
 
 
 @register.simple_tag(takes_context=True)
@@ -121,7 +115,7 @@ def widgettype(bound_field):
             return ""
 
 
-@assignment_tag(takes_context=True)
+@register.simple_tag(takes_context=True)
 def page_permissions(context, page):
     """
     Usage: {% page_permissions page as page_perms %}
@@ -137,7 +131,7 @@ def page_permissions(context, page):
     return context['user_page_permissions'].for_page(page)
 
 
-@assignment_tag(takes_context=True)
+@register.simple_tag(takes_context=True)
 def test_collection_is_public(context, collection):
     """
     Usage: {% test_collection_is_public collection as is_public %}
@@ -156,7 +150,7 @@ def test_collection_is_public(context, collection):
     return not is_private
 
 
-@assignment_tag(takes_context=True)
+@register.simple_tag(takes_context=True)
 def test_page_is_public(context, page):
     """
     Usage: {% test_page_is_public page as is_public %}
@@ -190,26 +184,22 @@ def hook_output(hook_name):
     return mark_safe(''.join(snippets))
 
 
-@assignment_tag
+@register.simple_tag
 def usage_count_enabled():
     return getattr(settings, 'WAGTAIL_USAGE_COUNT_ENABLED', False)
 
 
-@assignment_tag
+@register.simple_tag
 def base_url_setting():
     return getattr(settings, 'BASE_URL', None)
 
 
-@assignment_tag
+@register.simple_tag
 def allow_unicode_slugs():
-    if django.VERSION < (1, 9):
-        # Unicode slugs are unsupported on Django 1.8
-        return False
-    else:
-        return getattr(settings, 'WAGTAIL_ALLOW_UNICODE_SLUGS', True)
+    return getattr(settings, 'WAGTAIL_ALLOW_UNICODE_SLUGS', True)
 
 
-@assignment_tag
+@register.simple_tag
 def auto_update_preview():
     return getattr(settings, 'WAGTAIL_AUTO_UPDATE_PREVIEW', False)
 
