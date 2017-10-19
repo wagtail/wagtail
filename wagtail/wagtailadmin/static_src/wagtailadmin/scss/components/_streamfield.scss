@@ -144,6 +144,7 @@ li.sequence-member {
 
 // This horridly specific selector ensures text inputs, rich text fields and textareas
 // that are direct children of highest level sequence should be borderless and full-width
+// Which is almost a terrible idea @TODO
 .block_field > .field-content > .input > .sequence-container > .sequence-container-inner > .sequence > .sequence-member > .sequence-member-inner {
     > .widget-text_input input,
     > .widget-hallo_rich_text_area .richtext,
