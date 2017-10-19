@@ -18,10 +18,11 @@ from wagtail.tests.search import models
 from wagtail.wagtailsearch.backends import get_search_backend
 from wagtail.wagtailsearch.backends.elasticsearch import ElasticsearchSearchBackend
 
+from .elasticsearch_common_tests import ElasticsearchCommonSearchBackendTests
 from .test_backends import BackendTests
 
 
-class TestElasticsearchSearchBackend(BackendTests, TestCase):
+class TestElasticsearchSearchBackend(BackendTests, ElasticsearchCommonSearchBackendTests, TestCase):
     backend_path = 'wagtail.wagtailsearch.backends.elasticsearch'
 
     # Broken
