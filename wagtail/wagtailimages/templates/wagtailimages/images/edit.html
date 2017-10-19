@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/base.html" %}
-{% load wagtailimages_tags staticfiles i18n l10n %}
+{% load wagtailimages_tags wagtailadmin_tags staticfiles i18n l10n %}
 {% block titletag %}{% blocktrans with title=image.title %}Editing image {{ title }}{% endblocktrans %}{% endblock %}
 {% block extra_css %}
     {{ block.super }}
@@ -29,7 +29,7 @@
 
 {% block content %}
     {% trans "Editing" as editing_str %}
-    {% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=image.title icon="image" usage_object=image %}
+    {% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=image.title icon="image" %}
 
     <div class="row row-flush nice-padding">
 
@@ -92,6 +92,14 @@
                 <dd>{{ original_image.width }}x{{ original_image.height }}</dd>
                 <dt>{% trans "Filesize" %}</dt>
                 <dd>{% if filesize %}{{ filesize|filesizeformat }}{% else %}{% trans "File not found" %}{% endif %}</dd>
+
+                {% usage_count_enabled as uc_enabled %}
+                {% if uc_enabled %}
+                    <dt>{% trans "Usage" %}</dt>
+                    <dd>
+                        <a href="{{ image.usage_url }}">{% blocktrans count usage_count=image.get_usage.count %}Used {{ usage_count }} time{% plural %}Used {{ usage_count }} times{% endblocktrans %}</a>
+                    </dd>
+                {% endif %}
             </dl>
         </div>
     </div>

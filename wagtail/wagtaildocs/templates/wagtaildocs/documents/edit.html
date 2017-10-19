@@ -1,6 +1,6 @@
 {% extends "wagtailadmin/base.html" %}
 {% load i18n %}
-{% load wagtailimages_tags %}
+{% load wagtailimages_tags wagtailadmin_tags %}
 {% block titletag %}{% blocktrans with title=document.title %}Editing {{ title }}{% endblocktrans %}{% endblock %}
 
 {% block extra_js %}
@@ -18,7 +18,7 @@
 
 {% block content %}
     {% trans "Editing" as editing_str %}
-    {% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=document.title icon="doc-full-inverse" usage_object=document %}
+    {% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=document.title icon="doc-full-inverse" %}
 
     <div class="row row-flush nice-padding">
 
@@ -49,6 +49,14 @@
                 {% if document.file %}
                     <dt>{% trans "Filesize" %}</dt>
                     <dd>{% if filesize %}{{ filesize|filesizeformat }}{% else %}{% trans "File not found" %}{% endif %}</dd>
+                {% endif %}
+
+                {% usage_count_enabled as uc_enabled %}
+                {% if uc_enabled %}
+                    <dt>{% trans "Usage" %}</dt>
+                    <dd>
+                        <a href="{{ image.usage_url }}">{% blocktrans count usage_count=document.get_usage.count %}Used {{ usage_count }} time{% plural %}Used {{ usage_count }} times{% endblocktrans %}</a>
+                    </dd>
                 {% endif %}
             </dl>
         </div>
