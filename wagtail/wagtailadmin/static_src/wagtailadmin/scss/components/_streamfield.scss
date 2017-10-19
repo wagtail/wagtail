@@ -93,19 +93,31 @@ li.sequence-member {
 li.sequence-member {
     .sequence-type-stream {
         .sequence-member {
-           border: 1px solid $color-teal; 
-           &:first-child {
-            border-top-right-radius: 3px;
-            border-top-left-radius: 3px;
-           }
-           &:last-child {
-            border-bottom-right-radius: 3px;
-            border-bottom-left-radius: 3px;
-           }
+            // Second level nested Streamfield
+            border: 1px solid $color-teal; 
+            &:first-child {
+                border-top-right-radius: 3px;
+                border-top-left-radius: 3px;
+                border-bottom: 1px transparent;
+            }
+            &:last-child {
+                border-bottom-right-radius: 3px;
+                border-bottom-left-radius: 3px;
+            }
+                .sequence-member-inner {
+                    .sequence-member {
+                        // Third level nested Streamfield
+                        border-color: $color-grey-3;
+                    .sequence-member-inner {
+                        .sequence-member {
+                            border-color: $color-teal;
+                    }    
+                }
+            }
         }
     }
 }
-// Image chooser as direct descendant of top-level streamfield has special display
+
 .sequence-member-inner > .widget-admin_image_chooser {
     label {
         display: none;
