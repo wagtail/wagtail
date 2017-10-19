@@ -147,33 +147,27 @@ li.sequence-member {
 // Controls for ordering and deletion of items in a sequence
 .sequence-controls {
     @include transition(opacity 0.2s ease);
-    background-color: $color-input-focus;
-    border-radius: 2px 0 0;
-    border-width: 1px 1px 0;
-    border: 1px solid darken($color-input-focus, 10%);
     height: 30px;
     overflow: visible;
     padding: 0 0 0 1em;
     position: absolute;
     right: 0;
-    top: -30px;
     width: 100%;
     z-index: 1;
 
     h3 {
-        margin: 0;
-        font-size: 0.7rem;
         display: inline-block;
+        font-size: 0.8rem;
         line-height: 1.8rem;
+        margin: 0;
 
         label {
-            color: $color-teal;
-            font-weight: normal;
-            text-transform: uppercase;
             float: none;
-            width: auto;
-            padding: 0;
+            font-weight: bold;
             margin: 0;
+            padding: 0;
+            text-transform: uppercase;
+            width: auto;
         }
     }
 
