@@ -40,11 +40,6 @@ class TestDBBackend(BackendTests, TestCase):
     def test_order_by_non_filterable_field(self):
         super(TestDBBackend, self).test_order_by_non_filterable_field()
 
-    # Broken
-    @unittest.expectedFailure
-    def test_single_result(self):
-        super(TestDBBackend, self).test_single_result()
-
     # Doesn't support the index API used in this test
     @unittest.expectedFailure
     def test_same_rank_pages(self):

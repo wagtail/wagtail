@@ -56,8 +56,3 @@ class TestPostgresSearchBackend(BackendTests, TestCase):
     @unittest.expectedFailure
     def test_order_by_non_filterable_field(self):
         super(TestPostgresSearchBackend, self).test_order_by_non_filterable_field()
-
-    # Broken
-    @unittest.expectedFailure
-    def test_single_result(self):
-        super(TestPostgresSearchBackend, self).test_single_result()

@@ -331,16 +331,10 @@ class BackendTests(WagtailTestUtils):
     # SLICING TESTS
 
     def test_single_result(self):
-        # Note: different to test_ranking as that casts the results to the list before doing a key lookup
-        # This test sends the key IDs back into Elasticsearch, performing two separate queries
-        results = self.backend.search("JavaScript Definitive", models.Book, operator='or')
-        self.assertEqual(set(r.title for r in results), {
-            "JavaScript: The good parts",
-            "JavaScript: The Definitive Guide"
-        })
+        results = self.backend.search(None, models.Novel.objects.order_by('number_of_pages'), order_by_relevance=False)
 
-        self.assertEqual(results[0].title, "JavaScript: The Definitive Guide")
-        self.assertEqual(results[1].title, "JavaScript: The good parts")
+        self.assertEqual(results[0].title, "Foundation")
+        self.assertEqual(results[1].title, "The Hobbit")
 
     def test_limit(self):
         # Note: we need consistant ordering for this test
