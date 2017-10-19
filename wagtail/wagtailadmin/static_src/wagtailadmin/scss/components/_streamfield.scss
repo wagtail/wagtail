@@ -8,19 +8,7 @@ li.sequence-member {
     position: relative;
     border: 1px solid transparent;
     border-width: 1px 0;
-
-    &:hover {
-        background-color: $color-input-focus;
-        border-color: darken($color-input-focus, 10%);
-
-        .sequence-member-inner {
-            > .struct-block > label,
-            > .char_field > label,
-            .sequence > label {
-                opacity: 1;
-            }
-        }
-    }
+    
     // Note this inherits .oject-help from page-editor.scss
     .object-help {
         font-style: italic;
