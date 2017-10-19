@@ -123,7 +123,7 @@ class ElasticsearchMapping(object):
         fields = {
             'pk': dict(type=self.keyword_type, store=True, include_in_all=False),
             'content_type': dict(type=self.keyword_type, include_in_all=False),
-            '_partials': dict(type=self.text_type, include_in_all=False),
+            '_partials': dict(type=self.text_type, include_in_all=False, boost=0.99999),
         }
         fields['_partials'].update(self.edgengram_analyzer_config)
 

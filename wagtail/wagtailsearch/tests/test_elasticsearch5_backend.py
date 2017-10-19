@@ -248,11 +248,9 @@ class TestElasticsearch5SearchBackend(BackendTests, TestCase):
         results = self.backend.search(None, models.SearchTest)
         self.assertEqual(set(results), set())
 
-    @unittest.expectedFailure
     def test_boost(self):
         super(TestElasticsearch5SearchBackend, self).test_boost()
 
-    @unittest.expectedFailure
     def test_order_by_relevance(self):
         super(TestElasticsearch5SearchBackend, self).test_order_by_relevance()
 
@@ -763,7 +761,7 @@ class TestElasticsearch5Mapping(TestCase):
                 'properties': {
                     'pk': {'type': 'keyword', 'store': True, 'include_in_all': False},
                     'content_type': {'type': 'keyword', 'include_in_all': False},
-                    '_partials': {'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard', 'include_in_all': False, 'type': 'text'},
+                    '_partials': {'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard', 'include_in_all': False, 'type': 'text', 'boost': 0.99999},
                     'live_filter': {'type': 'boolean', 'include_in_all': False},
                     'published_date_filter': {'type': 'date', 'include_in_all': False},
                     'title': {'type': 'text', 'include_in_all': True, 'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard'},
@@ -867,7 +865,7 @@ class TestElasticsearch5MappingInheritance(TestCase):
                     # Inherited
                     'pk': {'type': 'keyword', 'store': True, 'include_in_all': False},
                     'content_type': {'type': 'keyword', 'include_in_all': False},
-                    '_partials': {'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard', 'include_in_all': False, 'type': 'text'},
+                    '_partials': {'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard', 'include_in_all': False, 'type': 'text', 'boost': 0.99999},
                     'live_filter': {'type': 'boolean', 'include_in_all': False},
                     'published_date_filter': {'type': 'date', 'include_in_all': False},
                     'title': {'type': 'text', 'include_in_all': True, 'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard'},

@@ -2,6 +2,7 @@
 
 from __future__ import absolute_import, unicode_literals
 
+import datetime
 import time
 import unittest
 
@@ -58,12 +59,14 @@ class BackendTests(WagtailTestUtils):
         testa.title = "Hello World"
         testa.save()
         testa.subobjects.create(name='A subobject')
+        testa.published_date = datetime.date(2017, 9, 12)
         self.backend.add(testa)
         self.testa = testa
 
         testb = models.SearchTest()
         testb.title = "Hello"
         testb.live = True
+        testb.published_date = datetime.date(2017, 10, 23)
         testb.save()
         self.backend.add(testb)
         self.testb = testb
@@ -73,6 +76,7 @@ class BackendTests(WagtailTestUtils):
         testc.live = True
         testc.content = "Hello"
         testc.subtitle = "Foo"
+        testc.published_date = datetime.date(2017, 10, 11)
         testc.save()
         self.backend.add(testc)
         self.testc = testc
@@ -189,16 +193,16 @@ class BackendTests(WagtailTestUtils):
         self.assertSetEqual(set(results[1:]), {self.testa, self.testb})
 
     def test_order_by_relevance(self):
-        sorted_results = list(self.backend.search('Hello', models.SearchTest,
-                                                  order_by_relevance=True))
-        self.assertEqual(sorted_results[0], self.testc.searchtest_ptr)
-        self.assertSetEqual(set(sorted_results[1:]), {self.testa, self.testb})
+        # True (the default)
+        relevance_results = list(self.backend.search(
+            'Hello', models.SearchTest, order_by_relevance=True))
+        self.assertListEqual(relevance_results, [self.testc.searchtest_ptr, self.testb, self.testa])
 
-        unsorted_results = list(self.backend.search('Hello', models.SearchTest,
-                                                    order_by_relevance=False))
-        self.assertSetEqual(
-            set(unsorted_results),
-            {self.testa, self.testb, self.testc.searchtest_ptr})
+        # False (falls back to user-defined ordering)
+        custom_ordered_results = list(self.backend.search(
+            'Hello', models.SearchTest.objects.order_by('published_date'), order_by_relevance=False))
+
+        self.assertListEqual(custom_ordered_results, [self.testa, self.testc.searchtest_ptr, self.testb])
 
     def test_same_rank_pages(self):
         """
