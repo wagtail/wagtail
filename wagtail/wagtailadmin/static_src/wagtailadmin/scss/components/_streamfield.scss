@@ -32,6 +32,10 @@ li.sequence-member {
         padding-right: 0;
     }
 
+    .struct-block label {
+        display: block;
+        float: none;
+    }
     .struct-block .sequence-container {
         @include column(9);
         padding-left: 0;
@@ -160,7 +164,7 @@ li.sequence-member {
         font-size: 0.8rem;
         line-height: 1.8rem;
         margin: 0;
-        padding: 0 20px
+        padding: 0 20px;
 
         label {
             float: none;
