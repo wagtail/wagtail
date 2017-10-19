@@ -120,3 +120,7 @@ def get_weight(boost):
         if boost >= max_boost:
             return weight
     return weight
+
+
+def get_sql_weights():
+    return '{' + ','.join(map(str, WEIGHTS_VALUES)) + '}'
