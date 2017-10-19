@@ -98,13 +98,14 @@ li.sequence-member {
     .sequence-type-stream {
         .sequence-member {
             // Second level nested Streamfield
-            border: 1px solid $color-teal; 
+            border: 1px solid $color-teal;
+            border-bottom: 1px transparent;
             &:first-child {
                 border-top-right-radius: 3px;
                 border-top-left-radius: 3px;
-                border-bottom: 1px transparent;
             }
             &:last-child {
+                border-bottom: 1px solid $color-teal;
                 border-bottom-right-radius: 3px;
                 border-bottom-left-radius: 3px;
             }
@@ -219,6 +220,11 @@ li.sequence-member {
         }
         &:hover {
             color: $color-teal-dark;
+        }
+        &.icon-bin {
+            &:hover {
+                color: $color-red;
+            }
         }
     }
 
