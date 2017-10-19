@@ -198,20 +198,26 @@ class PostgresSearchQuery(BaseSearchQuery):
         if self.query_string is None:
             return self.queryset[start:stop]
         search_query = self.get_search_query(config=config)
+        queryset = self.queryset
+        query = queryset.query
         if self.fields is None:
-            search_annotation = F('index_entries__body_search')
+            vector = F('index_entries__body_search')
         else:
-            search_annotation = ADD(
+            vector = ADD(
                 SearchVector(field, config=search_query.config,
                              weight=get_weight(self.get_boost(field)))
                 for field in self.fields)
-        queryset = (self.queryset.annotate(_search_=search_annotation)
-                    .filter(_search_=search_query))
+        vector = vector.resolve_expression(query)
+        search_query = search_query.resolve_expression(query)
+        lookup = IndexEntry._meta.get_field('body_search').get_lookup('exact')(
+            vector, search_query)
+        query.where.add(lookup, 'AND')
         if self.order_by_relevance:
-            queryset = queryset.annotate(
-                _rank_=SearchRank(F('_search_'), search_query,
-                                  weights=WEIGHTS_VALUES)
-            ).order_by('-_rank_', '-pk')
+            # Due to a Django bug, arrays are not automatically converted here.
+            converted_weights = '{' + ','.join(map(str, WEIGHTS_VALUES)) + '}'
+            queryset = queryset.order_by(SearchRank(vector, search_query,
+                                                    weights=converted_weights).desc(),
+                                         '-pk')
         elif not queryset.query.order_by:
             # Adds a default ordering to avoid issue #3729.
             queryset = queryset.order_by('-pk')
