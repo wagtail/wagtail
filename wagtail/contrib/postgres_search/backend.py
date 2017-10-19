@@ -59,9 +59,6 @@ class Index(object):
             .exclude(object_id__in=existing_pks))
         stale_entries.delete()
 
-    def get_config(self):
-        return self.backend.params.get('SEARCH_CONFIG')
-
     def prepare_value(self, value):
         if isinstance(value, string_types):
             return value
@@ -150,7 +147,7 @@ class Index(object):
 
     def add_items(self, model, objs):
         content_type_pk = get_content_types_pk(model)
-        config = self.get_config()
+        config = self.backend.get_config()
         for obj in objs:
             obj._object_id = force_text(obj.pk)
             obj._body_ = self.prepare_body(obj)
@@ -225,17 +222,12 @@ class PostgresSearchQuery(BaseSearchQuery):
 
 
 class PostgresSearchResults(BaseSearchResults):
-    def get_config(self):
-        queryset = self.query.queryset
-        return self.backend.get_index_for_model(
-            queryset.model, queryset._db).get_config()
-
     def _do_search(self):
-        return list(self.query.search(self.get_config(),
+        return list(self.query.search(self.backend.get_config(),
                                       self.start, self.stop))
 
     def _do_count(self):
-        return self.query.search(self.get_config(), None, None).count()
+        return self.query.search(self.backend.get_config(), None, None).count()
 
 
 class PostgresSearchRebuilder:
@@ -284,6 +276,9 @@ class PostgresSearchBackend(BaseSearchBackend):
         if params.get('ATOMIC_REBUILD', False):
             self.rebuilder_class = self.atomic_rebuilder_class
         IndexEntry.add_generic_relations()
+
+    def get_config(self):
+        return self.params.get('SEARCH_CONFIG')
 
     def get_index_for_model(self, model, db_alias=None):
         return Index(self, model, db_alias)
