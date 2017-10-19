@@ -30,6 +30,8 @@ li.sequence-member {
     .struct-block label {
         display: block;
         float: none;
+        text-transform: uppercase;
+        width: 100%;
     }
     .struct-block .sequence-container {
         @include column(9);
@@ -87,6 +89,22 @@ li.sequence-member {
     }
 }
 
+// We're going down
+li.sequence-member {
+    .sequence-type-stream {
+        .sequence-member {
+           border: 1px solid $color-teal; 
+           &:first-child {
+            border-top-right-radius: 3px;
+            border-top-left-radius: 3px;
+           }
+           &:last-child {
+            border-bottom-right-radius: 3px;
+            border-bottom-left-radius: 3px;
+           }
+        }
+    }
+}
 // Image chooser as direct descendant of top-level streamfield has special display
 .sequence-member-inner > .widget-admin_image_chooser {
     label {
@@ -157,7 +175,7 @@ li.sequence-member {
         display: inline-block;
         font-size: 0.8rem;
         line-height: 1.8rem;
-        padding: 0 16px;
+        padding: 0 20px;
 
         label {
             float: none;
@@ -182,11 +200,6 @@ li.sequence-member {
     // .buttons only exists for menus in stream_member.html
     .button-group {
         float: right;
-    }
-
-    &:hover .buttons,
-    &:hover label {
-        opacity: 1;
     }
 
     .disabled {
