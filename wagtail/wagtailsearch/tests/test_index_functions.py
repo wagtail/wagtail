@@ -168,7 +168,7 @@ class TestSignalHandlers(TestCase, WagtailTestUtils):
 
         backend().reset_mock()
         obj.title = "Updated test"
-        publication_date = date(2001, 10, 19)
+        obj.publication_date = date(2001, 10, 19)
         obj.save(update_fields=['title'])
 
         backend().add.assert_called_once()

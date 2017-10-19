@@ -4,8 +4,6 @@ import unittest
 
 from django.test import TestCase
 
-from wagtail.tests.search import models
-
 from .test_backends import BackendTests
 
 

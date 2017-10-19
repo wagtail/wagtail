@@ -4,14 +4,11 @@ from __future__ import absolute_import, unicode_literals
 import datetime
 import json
 import os
-import time
 import unittest
 
 import mock
-from django.core import management
 from django.db.models import Q
 from django.test import TestCase
-from django.utils.six import StringIO
 from elasticsearch.serializer import JSONSerializer
 
 from wagtail.tests.search import models
@@ -687,7 +684,7 @@ class TestElasticsearch2MappingInheritance(TestCase):
         expected_result = {
             # New
             'searchtests_novel__setting': "Middle Earth",
-            'searchtests_novel__protagonist':                 {
+            'searchtests_novel__protagonist': {
                 'name': "Frodo Baggins"
             },
             'searchtests_novel__characters': [

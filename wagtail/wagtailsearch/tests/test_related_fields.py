@@ -17,7 +17,6 @@ class TestSelectOnQuerySet(TestCase):
 
         # ForeignKey should be select_related
         self.assertFalse(queryset._prefetch_related_lookups)
-        print(queryset.query.select_related)
         self.assertIn('protagonist', queryset.query.select_related)
 
     def test_select_on_queryset_with_one_to_one(self):

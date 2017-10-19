@@ -2,9 +2,8 @@
 
 from __future__ import absolute_import, unicode_literals
 
-from datetime import date
-import time
 import unittest
+from datetime import date
 
 from django.conf import settings
 from django.core import management
@@ -18,7 +17,6 @@ from wagtail.wagtailsearch.backends import (
     InvalidSearchBackendError, get_search_backend, get_search_backends)
 from wagtail.wagtailsearch.backends.base import FieldError
 from wagtail.wagtailsearch.backends.db import DatabaseSearchBackend
-from wagtail.wagtailsearch.management.commands.update_index import group_models_by_index
 
 
 class BackendTests(WagtailTestUtils):
@@ -407,7 +405,7 @@ class BackendTests(WagtailTestUtils):
 
     def test_delete(self):
         # Delete foundation
-        obj = models.Book.objects.filter(title="Foundation").delete()
+        models.Book.objects.filter(title="Foundation").delete()
 
         # Refresh the index
         # Note: The delete signal handler should've removed the book, but we still need to refresh the index manually
