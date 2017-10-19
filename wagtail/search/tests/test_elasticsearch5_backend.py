@@ -25,11 +25,6 @@ class TestElasticsearch5SearchBackend(BackendTests, ElasticsearchCommonSearchBac
 
     # Broken
     @unittest.expectedFailure
-    def test_filter_in_values_list_subquery(self):
-        super(TestElasticsearch5SearchBackend, self).test_filter_in_values_list_subquery()
-
-    # Broken
-    @unittest.expectedFailure
     def test_order_by_non_filterable_field(self):
         super(TestElasticsearch5SearchBackend, self).test_order_by_non_filterable_field()
 
