@@ -55,7 +55,7 @@ def get_available_admin_languages():
 
 
 def get_object_usage(obj):
-    "Returns a queryset of pages that link to a particular object"
+    """Returns a queryset of pages that link to a particular object"""
 
     pages = Page.objects.none()
 

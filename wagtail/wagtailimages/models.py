@@ -247,7 +247,7 @@ class AbstractImage(CollectionMember, index.Indexed, models.Model):
 
     @classmethod
     def get_rendition_model(cls):
-        """ Get the Rendition model for this Image model """
+        """Get the Rendition model for this Image model."""
         return cls.renditions.rel.related_model
 
     def get_rendition(self, filter):
