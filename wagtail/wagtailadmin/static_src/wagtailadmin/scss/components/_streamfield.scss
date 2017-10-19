@@ -21,9 +21,16 @@ li.sequence-member {
             }
         }
     }
-
-    &:hover .object-help {
+    // Note this inherits .oject-help from page-editor.scss
+    .object-help {
+        font-style: italic;
         opacity: 1;
+        margin-top: 15px;
+        padding-left: 20px;
+        width: 100%;
+        &::before {
+            display: none;
+        }
     }
 
     .struct-block .fields {
@@ -42,7 +49,7 @@ li.sequence-member {
         padding-right: 0;
 
         .sequence-member-inner {
-            padding: 1.5em 0;
+            padding: 36px 20px;
         }
     }
 
@@ -61,7 +68,7 @@ li.sequence-member {
     .sequence-member-inner {
         @include clearfix;
         position: relative;
-        padding: 1.5em 50px;
+        padding: 36px 20px;
 
         .sequence-member {
             border: 0;
