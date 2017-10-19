@@ -5,7 +5,7 @@ import json
 
 from django.db import DEFAULT_DB_ALIAS, models
 from django.db.models.sql import Query
-from django.db.models.sql.constants import SINGLE
+from django.db.models.sql.constants import MULTI
 from django.utils.crypto import get_random_string
 from django.utils.six.moves.urllib.parse import urlparse
 from elasticsearch import Elasticsearch, NotFoundError
@@ -280,8 +280,11 @@ class ElasticsearchSearchQuery(BaseSearchQuery):
         if lookup == 'in':
             if isinstance(value, Query):
                 db_alias = self.queryset._db or DEFAULT_DB_ALIAS
-                value = (value.get_compiler(db_alias)
-                         .execute_sql(result_type=SINGLE))
+                value = next(value.get_compiler(db_alias)
+                                  .execute_sql(result_type=MULTI))
+
+                value = [r[0] for r in value]
+
             elif not isinstance(value, list):
                 value = list(value)
             return {
