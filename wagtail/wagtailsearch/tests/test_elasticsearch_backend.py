@@ -679,6 +679,10 @@ class TestElasticsearchMappingInheritance(TestCase):
         if '_partials' in document:
             document['_partials'].sort()
 
+        # Sort characters
+        if 'characters' in document:
+            document['characters'].sort(key=lambda c: c['name'])
+
         # Check
         expected_result = {
             # New
@@ -688,13 +692,13 @@ class TestElasticsearchMappingInheritance(TestCase):
             },
             'characters': [
                 {
-                    'name': "Gandalf"
-                },
-                {
                     'name': "Bilbo Baggins"
                 },
                 {
                     'name': "Frodo Baggins"
+                },
+                {
+                    'name': "Gandalf"
                 }
             ],
 
