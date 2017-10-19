@@ -10,7 +10,7 @@ from django.db.models.functions import Cast
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 
-from ...wagtailsearch.index import Indexed
+from ...wagtailsearch.index import class_is_indexed
 from .utils import get_descendants_content_types_pks
 
 
@@ -66,6 +66,6 @@ class IndexEntry(Model):
     @classmethod
     def add_generic_relations(cls):
         for model in apps.get_models():
-            if issubclass(model, Indexed):
+            if class_is_indexed(model):
                 TextIDGenericRelation(cls).contribute_to_class(model,
                                                                'index_entries')
