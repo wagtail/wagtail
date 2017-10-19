@@ -59,30 +59,5 @@ class TestPostgresSearchBackend(BackendTests, TestCase):
 
     # Broken
     @unittest.expectedFailure
-    def test_delete(self):
-        super(TestPostgresSearchBackend, self).test_delete()
-
-    # order_by_relevance not implemented
-    @unittest.expectedFailure
-    def test_order_by_relevance(self):
-        super(TestPostgresSearchBackend, self).test_order_by_relevance()
-
-    # Requires order_by_relevance
-    @unittest.expectedFailure
     def test_single_result(self):
         super(TestPostgresSearchBackend, self).test_single_result()
-
-    # Requires order_by_relevance
-    @unittest.expectedFailure
-    def test_limit(self):
-        super(TestPostgresSearchBackend, self).test_limit()
-
-    # Requires order_by_relevance
-    @unittest.expectedFailure
-    def test_offset(self):
-        super(TestPostgresSearchBackend, self).test_offset()
-
-    # Requires order_by_relevance
-    @unittest.expectedFailure
-    def test_offset_and_limit(self):
-        super(TestPostgresSearchBackend, self).test_offset_and_limit()
