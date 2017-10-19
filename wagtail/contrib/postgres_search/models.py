@@ -3,6 +3,7 @@ from __future__ import absolute_import, unicode_literals
 from django.apps import apps
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
+from django.contrib.postgres.indexes import GinIndex
 from django.contrib.postgres.search import SearchVectorField
 from django.db.models import CASCADE, ForeignKey, Model, TextField
 from django.db.models.functions import Cast
@@ -53,7 +54,7 @@ class IndexEntry(Model):
         unique_together = ('content_type', 'object_id')
         verbose_name = _('index entry')
         verbose_name_plural = _('index entries')
-        # TODO: Move here the GIN index from the migration.
+        indexes = [GinIndex(['body_search'])]
 
     def __str__(self):
         return '%s: %s' % (self.content_type.name, self.content_object)
