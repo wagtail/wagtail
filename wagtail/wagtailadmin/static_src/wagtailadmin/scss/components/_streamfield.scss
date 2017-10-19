@@ -6,8 +6,12 @@ ul.sequence {
 li.sequence-member {
     @include clearfix;
     position: relative;
-    border: 1px solid $color-grey-4;
+    border: solid $color-grey-4;
     border-width: 1px 0;
+
+    &:first-child {
+        border-top: 0px;
+    }
 
     // Note this inherits .oject-help from page-editor.scss
     .object-help {
@@ -111,7 +115,8 @@ li.sequence-member {
                     .sequence-member-inner {
                         .sequence-member {
                             border-color: $color-teal;
-                    }    
+                       }    
+                    }
                 }
             }
         }
@@ -199,19 +204,28 @@ li.sequence-member {
         }
     }
 
+    // overrides form.scss
     button.icon.text-replace {
+        background-color: transparent;
+        border: 0px;
+        color: $color-teal;
+        padding: 0 20px;
         width: 1.8rem;
         height: 1.8rem;
 
-        &:before {
+        &::before {
             line-height: 1.3em;
             font-size: 0.9rem;
+        }
+        &:hover {
+            color: $color-teal-dark;
         }
     }
 
     // .buttons only exists for menus in stream_member.html
     .button-group {
         float: right;
+        padding: 12px 20px;
     }
 
     .disabled {
