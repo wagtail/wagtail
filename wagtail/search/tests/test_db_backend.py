@@ -33,11 +33,6 @@ class TestDBBackend(BackendTests, TestCase):
     def test_search_callable_field(self):
         super().test_search_callable_field()
 
-    # Broken
-    @unittest.expectedFailure
-    def test_order_by_non_filterable_field(self):
-        super().test_order_by_non_filterable_field()
-
     # Doesn't support the index API used in this test
     @unittest.expectedFailure
     def test_same_rank_pages(self):

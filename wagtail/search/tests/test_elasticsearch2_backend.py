@@ -21,11 +21,6 @@ class TestElasticsearch2SearchBackend(BackendTests, ElasticsearchCommonSearchBac
 
     # Broken
     @unittest.expectedFailure
-    def test_order_by_non_filterable_field(self):
-        super(TestElasticsearch2SearchBackend, self).test_order_by_non_filterable_field()
-
-    # Broken
-    @unittest.expectedFailure
     def test_delete(self):
         super(TestElasticsearch2SearchBackend, self).test_delete()
 

@@ -462,18 +462,9 @@ class Elasticsearch2SearchQuery(BaseSearchQuery):
 
         # Get queryset and make sure its ordered
         if self.queryset.ordered:
-            order_by_fields = self.queryset.query.order_by
             sort = []
 
-            for order_by_field in order_by_fields:
-                reverse = False
-                field_name = order_by_field
-
-                if order_by_field.startswith('-'):
-                    reverse = True
-                    field_name = order_by_field[1:]
-
-                field = self._get_filterable_field(field_name)
+            for reverse, field in self._get_order_by():
                 column_name = self.mapping.get_field_column_name(field)
 
                 sort.append({
