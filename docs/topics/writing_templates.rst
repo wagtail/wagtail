@@ -176,7 +176,7 @@ Takes any ``slug`` as defined in a page's "Promote" tab and returns the URL for 
 
     {% load wagtailcore_tags %}
     ...
-    <a href="{% slugurl page.your_slug %}">
+    <a href="{% slugurl 'your_slug' %}">
 
 
 .. _static_tag:
