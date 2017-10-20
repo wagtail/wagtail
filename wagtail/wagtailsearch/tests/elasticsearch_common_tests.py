@@ -157,3 +157,17 @@ class ElasticsearchCommonSearchBackendTests(object):
 
         results = self.backend.search(None, models.Book)[10:120]
         self.assertEqual(len(results), 110)
+
+    def test_slice_to_next_page(self):
+        # ES scroll API doesn't support offset. The implementation has an optimisation
+        # which will skip the first page if the first result is on the second page
+        books = []
+        for i in range(150):
+            books.append(models.Book.objects.create(title="Book {}".format(i), publication_date=date(2017, 10, 21), number_of_pages=i))
+
+        index = self.backend.get_index_for_model(models.Book)
+        index.add_items(models.Book, books)
+        index.refresh()
+
+        results = self.backend.search(None, models.Book)[110:]
+        self.assertEqual(len(results), 53)
