@@ -2,8 +2,9 @@ from __future__ import absolute_import, unicode_literals
 
 import hashlib
 import os.path
-from collections import OrderedDict
+from collections import defaultdict, OrderedDict
 from contextlib import contextmanager
+from itertools import chain
 
 from django.conf import settings
 from django.core import checks
@@ -22,9 +23,12 @@ from willow.image import Image as WillowImage
 
 from wagtail.wagtailadmin.utils import get_object_usage
 from wagtail.wagtailcore import hooks
+from wagtail.wagtailcore.blocks import StructBlock
+from wagtail.wagtailcore.fields import StreamField
 from wagtail.wagtailcore.models import CollectionMember
 from wagtail.wagtailimages.exceptions import InvalidFilterSpecError
 from wagtail.wagtailimages.rect import Rect
+from wagtail.wagtailadmin.utils import get_page_models
 from wagtail.wagtailsearch import index
 from wagtail.wagtailsearch.queryset import SearchableQuerySetMixin
 
@@ -60,6 +64,33 @@ def get_rendition_upload_to(instance, filename):
     subclasses can override it.
     """
     return instance.get_upload_to(filename)
+
+
+def get_image_streamfield_models():
+    """Returns Page models having a StreamField possibly containing Images.
+
+    Returns a dictionary {Model: [field_name, ...], ...}
+    """
+    # runtime import b/c import on startup doesn't work
+    from wagtail.wagtailimages.blocks import ImageChooserBlock
+
+    image_streamfield_models = defaultdict(list)
+    page_models = get_page_models()
+    for page_model in page_models:
+        for field in page_model._meta.get_fields():
+            if isinstance(field, StreamField):
+                # Check if can contain Image
+                for block in field.stream_block.all_blocks():
+                    if isinstance(block, ImageChooserBlock):
+                        image_streamfield_models[page_model].append(field.name)
+    return image_streamfield_models
+
+
+class FakeQuerySet(list):
+    """Intended to use as a drop-in replacement for QuerySet objects in templates."""
+
+    def count(self):
+        return len(self)
 
 
 @python_2_unicode_compatible
@@ -129,8 +160,41 @@ class AbstractImage(CollectionMember, index.Indexed, models.Model):
 
         return full_path
 
+
+    def get_streamfield_usage(self):
+        """Returns a list of Pages where image is used in a StreamField.
+
+        Huge performance improvements are likely possible.
+        """
+        streamfield_usage = []
+        streamfield_models = get_image_streamfield_models()
+        for page_model, field_names in streamfield_models.items():
+            for page in page_model.objects.all():
+                for field_name in field_names:
+                    for block in getattr(page, field_name):
+                        # TODO allow image at any level (recursive nesting)
+                        if isinstance(block.block, StructBlock):
+                            # TODO check only blocks having Image-y content
+                            if self in block.value.values():
+                                streamfield_usage.append(page)
+        return streamfield_usage
+
     def get_usage(self):
-        return get_object_usage(self)
+        """Return Pages where Image is used.
+
+        If IMAGE_USAGE_SEARCHES_STREAMFIELDS was set, this also returns
+        StreamFields containing the image.
+
+        This method usually returns a QuerySet object (for the Page model),
+        but that can't work if IMAGE_USAGE_SEARCHES_STREAMFIELDS is True:
+        The StreamField is in a custom model, so we have to chain querysets
+        for different models.
+        For this we use a FakeQuerySet that has everything the templates need.
+        """
+        usage = get_object_usage(self)
+        if getattr(settings, 'IMAGE_USAGE_SEARCHES_STREAMFIELDS', False):
+            usage = FakeQuerySet(chain(usage, self.get_streamfield_usage()))
+        return usage
 
     @property
     def usage_url(self):

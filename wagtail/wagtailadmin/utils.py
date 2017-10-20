@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
 
+import inspect
 import logging
 from functools import wraps
 
@@ -16,6 +17,7 @@ from django.utils.translation import ugettext as _
 from django.utils.translation import override, ugettext_lazy
 from modelcluster.fields import ParentalKey
 from taggit.models import Tag
+import django.apps
 
 from wagtail.wagtailcore.models import GroupPagePermission, Page, PageRevision
 from wagtail.wagtailusers.models import UserProfile
@@ -173,6 +175,13 @@ def any_permission_required(*perms):
         return False
 
     return user_passes_test(test)
+
+
+def get_page_models():
+    """List all models subclassing Wagtail Page."""
+    for model in django.apps.apps.get_models():
+        if Page in inspect.getmro(Page):
+            yield model
 
 
 class PermissionPolicyChecker(object):

@@ -402,6 +402,15 @@ This link is also shown on the delete page, above the "Delete" button.
 
     The usage count only applies to direct (database) references. Using documents, images and snippets within StreamFields or rich text fields will not be taken into account.
 
+.. code-block:: python
+
+    IMAGE_USAGE_SEARCHES_STREAMFIELDS = True
+
+When enabled, Wagtail image usage will also search StreamField content.
+
+This is disabled by default, because it uses a database query that would take very long on sites with many pages.
+
+
 Date and DateTime inputs
 ------------------------
 
