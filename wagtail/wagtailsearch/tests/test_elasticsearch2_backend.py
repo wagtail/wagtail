@@ -27,7 +27,7 @@ class TestElasticsearch2SearchBackend(BackendTests, ElasticsearchCommonSearchBac
     def test_search_all(self):
         # Searches on None should return everything in the index
         results = self.backend.search(None, models.Book)[:100]
-        self.assertEqual(set(results), set(models.Book.objects.all()))
+        self.assertSetEqual(set(results), set(models.Book.objects.all()))
 
     # Broken
     @unittest.expectedFailure

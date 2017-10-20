@@ -30,20 +30,20 @@ class ElasticsearchCommonSearchBackendTests(object):
     def test_partial_search(self):
         results = self.backend.search("Java", models.Book)
 
-        self.assertEqual(set(r.title for r in results), {
+        self.assertUnsortedListEqual([r.title for r in results], [
             "JavaScript: The Definitive Guide",
             "JavaScript: The good parts"
-        })
+        ])
 
     def test_child_partial_search(self):
         # Note: Expands to "Westeros". Which is in a field on Novel.setting
         results = self.backend.search("Wes", models.Book)
 
-        self.assertEqual(set(r.title for r in results), {
+        self.assertUnsortedListEqual([r.title for r in results], [
             "A Game of Thrones",
             "A Storm of Swords",
             "A Clash of Kings"
-        })
+        ])
 
     def test_ascii_folding(self):
         book = models.Book.objects.create(
@@ -58,22 +58,22 @@ class ElasticsearchCommonSearchBackendTests(object):
 
         results = self.backend.search("Hello", models.Book)
 
-        self.assertEqual(set(r.title for r in results), {
+        self.assertUnsortedListEqual([r.title for r in results], [
             "Ĥéllø"
-        })
+        ])
 
     def test_query_analyser(self):
         # This is testing that fields that use edgengram_analyzer as their index analyser do not
         # have it also as their query analyser
         results = self.backend.search("JavaScript", models.Book)
-        self.assertEqual(set(r.title for r in results), {
+        self.assertUnsortedListEqual([r.title for r in results], [
             "JavaScript: The Definitive Guide",
             "JavaScript: The good parts"
-        })
+        ])
 
         # Even though they both start with "Java", this should not match the "JavaScript" books
         results = self.backend.search("JavaBeans", models.Book)
-        self.assertEqual(set(r.title for r in results), set())
+        self.assertSetEqual(set(r.title for r in results), set())
 
     def test_search_with_hyphen(self):
         """
@@ -93,17 +93,17 @@ class ElasticsearchCommonSearchBackendTests(object):
         index.refresh()
 
         results = self.backend.search("Half-Blood", models.Book)
-        self.assertEqual(set(r.title for r in results), {
+        self.assertUnsortedListEqual([r.title for r in results], [
             "Harry Potter and the Half-Blood Prince",
-        })
+        ])
 
     def test_and_operator_with_single_field(self):
         # Testing for bug #1859
         results = self.backend.search("JavaScript", models.Book, operator='and', fields=['title'])
-        self.assertEqual(set(r.title for r in results), {
+        self.assertUnsortedListEqual([r.title for r in results], [
             "JavaScript: The Definitive Guide",
             "JavaScript: The good parts"
-        })
+        ])
 
     def test_update_index_command_schema_only(self):
         management.call_command(
@@ -112,7 +112,7 @@ class ElasticsearchCommonSearchBackendTests(object):
 
         # This should not give any results
         results = self.backend.search(None, models.Book)
-        self.assertEqual(set(results), set())
+        self.assertSetEqual(set(results), set())
 
     def test_annotate_score(self):
         results = self.backend.search("JavaScript", models.Book).annotate_score('_score')
