@@ -816,7 +816,6 @@ class TestBackendConfiguration(TestCase):
 
 
 @unittest.skipUnless(os.environ.get('ELASTICSEARCH_URL', False), "ELASTICSEARCH_URL not set")
-@unittest.skipUnless(os.environ.get('ELASTICSEARCH_VERSION', '1') == '1', "ELASTICSEARCH_VERSION not set to 1")
 class TestRebuilder(TestCase):
     def assertDictEqual(self, a, b):
         default = JSONSerializer().default
@@ -863,7 +862,6 @@ class TestRebuilder(TestCase):
 
 
 @unittest.skipUnless(os.environ.get('ELASTICSEARCH_URL', False), "ELASTICSEARCH_URL not set")
-@unittest.skipUnless(os.environ.get('ELASTICSEARCH_VERSION', '1') == '1', "ELASTICSEARCH_VERSION not set to 1")
 class TestAtomicRebuilder(TestCase):
     def setUp(self):
         self.backend = get_search_backend('elasticsearch')
