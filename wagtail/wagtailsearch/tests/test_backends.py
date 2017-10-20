@@ -337,7 +337,7 @@ class BackendTests(WagtailTestUtils):
         self.assertEqual(results[1].title, "The Hobbit")
 
     def test_limit(self):
-        # Note: we need consistant ordering for this test
+        # Note: we need consistent ordering for this test
         results = self.backend.search(None, models.Novel.objects.order_by('number_of_pages'), order_by_relevance=False)
 
         # Limit the results
@@ -350,7 +350,7 @@ class BackendTests(WagtailTestUtils):
         ])
 
     def test_offset(self):
-        # Note: we need consistant ordering for this test
+        # Note: we need consistent ordering for this test
         results = self.backend.search(None, models.Novel.objects.order_by('number_of_pages'), order_by_relevance=False)
 
         # Offset the results
@@ -365,7 +365,7 @@ class BackendTests(WagtailTestUtils):
         ])
 
     def test_offset_and_limit(self):
-        # Note: we need consistant ordering for this test
+        # Note: we need consistent ordering for this test
         results = self.backend.search(None, models.Novel.objects.order_by('number_of_pages'), order_by_relevance=False)
 
         # Offset the results
@@ -412,7 +412,7 @@ class BackendTests(WagtailTestUtils):
         # the object still exists in the index but not in the database (in that case, just two objects would be returned
         # instead of three).
 
-        # Note: we need consistant ordering for this test
+        # Note: we need consistent ordering for this test
         results = self.backend.search(None, models.Novel.objects.order_by('number_of_pages'), order_by_relevance=False)
 
         # Limit the results
