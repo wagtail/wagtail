@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 import datetime
 import json
-import unittest
 
 import mock
 from django.db.models import Q
@@ -17,11 +16,6 @@ from .test_backends import BackendTests
 
 class TestElasticsearch5SearchBackend(BackendTests, ElasticsearchCommonSearchBackendTests, TestCase):
     backend_path = 'wagtail.search.backends.elasticsearch5'
-
-    # Broken
-    @unittest.expectedFailure
-    def test_delete(self):
-        super(TestElasticsearch5SearchBackend, self).test_delete()
 
 
 class TestElasticsearch5SearchQuery(TestCase):
