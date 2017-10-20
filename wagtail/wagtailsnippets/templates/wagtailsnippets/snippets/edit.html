@@ -7,25 +7,28 @@
 
     <div class="row row-flush">
 
+        {% usage_count_enabled as uc_enabled %}
+        {% if uc_enabled %}
         <div class="col10 divider-after">
+        {% else %}
+        <div class="col12">
+        {% endif %}
             <form action="{% url 'wagtailsnippets:edit' model_opts.app_label model_opts.model_name instance.id %}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
                 {% csrf_token %}
                 {{ edit_handler.render_form_content }}
             </form>
         </div>
 
+        {% if uc_enabled %}
         <div class="col2 ">
             <dl>
-                {% usage_count_enabled as uc_enabled %}
-                {% if uc_enabled %}
                     <dt>{% trans "Usage" %}</dt>
                     <dd>
                         <a href="{{ instance.usage_url }}">{% blocktrans count usage_count=instance.get_usage.count %}Used {{ usage_count }} time{% plural %}Used {{ usage_count }} times{% endblocktrans %}</a>
                     </dd>
-                {% endif %}
             </dl>
         </div>
-
+        {% endif %}
     </div>
 
     <footer>
