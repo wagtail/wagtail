@@ -22,6 +22,12 @@ from .test_backends import BackendTests
 class TestElasticsearchSearchBackend(BackendTests, ElasticsearchCommonSearchBackendTests, TestCase):
     backend_path = 'wagtail.wagtailsearch.backends.elasticsearch'
 
+    # TODO: we have to put [:100] on the end of the query due to issue #3431
+    def test_search_all(self):
+        # Searches on None should return everything in the index
+        results = self.backend.search(None, models.Book)[:100]
+        self.assertEqual(set(results), set(models.Book.objects.all()))
+
     # Broken
     @unittest.expectedFailure
     def test_filter_in_values_list_subquery(self):

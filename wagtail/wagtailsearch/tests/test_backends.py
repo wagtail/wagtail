@@ -57,8 +57,7 @@ class BackendTests(WagtailTestUtils):
 
     def test_search_all(self):
         # Searches on None should return everything in the index
-        # TODO: we have to put [:100] on the end due to issue #3431
-        results = self.backend.search(None, models.Book)[:100]
+        results = self.backend.search(None, models.Book)
         self.assertEqual(set(results), set(models.Book.objects.all()))
 
     def test_ranking(self):
