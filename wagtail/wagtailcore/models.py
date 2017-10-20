@@ -351,6 +351,7 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
 
     search_fields = [
         index.SearchField('title', partial_match=True, boost=2),
+        index.FilterField('title'),
         index.FilterField('id'),
         index.FilterField('live'),
         index.FilterField('owner'),
