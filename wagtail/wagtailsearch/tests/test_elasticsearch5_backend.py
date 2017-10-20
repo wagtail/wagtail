@@ -418,7 +418,7 @@ class TestElasticsearch5SearchQuery(TestCase):
         # Check it
         expected_result = {'bool': {'filter': [
             {'match': {'content_type': 'searchtests.SearchTest'}},
-            {'missing': {'field': 'title_filter'}}
+            {'bool': {'mustNot': {'exists': {'field': 'title_filter'}}}}
         ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
         self.assertDictEqual(query.get_query(), expected_result)
 
@@ -429,7 +429,7 @@ class TestElasticsearch5SearchQuery(TestCase):
         # Check it
         expected_result = {'bool': {'filter': [
             {'match': {'content_type': 'searchtests.SearchTest'}},
-            {'missing': {'field': 'title_filter'}}
+            {'bool': {'mustNot': {'exists': {'field': 'title_filter'}}}}
         ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
         self.assertDictEqual(query.get_query(), expected_result)
 
