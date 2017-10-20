@@ -58,7 +58,7 @@ select,
     box-sizing: border-box;
     border-radius: 6px;
     width: 100%;
-    font-family: 'Roboto Slab', Georgia, serif;
+    font-family: $font-serif;
     border: 1px solid $color-input-border;
     padding: 0.9em 1.2em;
     background-color: $color-fieldset-hover;
