@@ -3,7 +3,6 @@ from __future__ import absolute_import, unicode_literals
 
 import datetime
 import json
-import os
 import unittest
 
 import mock
@@ -12,7 +11,6 @@ from django.test import TestCase
 from elasticsearch.serializer import JSONSerializer
 
 from wagtail.tests.search import models
-from wagtail.wagtailsearch.backends import get_search_backend
 from wagtail.wagtailsearch.backends.elasticsearch5 import Elasticsearch5SearchBackend
 
 from .elasticsearch_common_tests import ElasticsearchCommonSearchBackendTests
