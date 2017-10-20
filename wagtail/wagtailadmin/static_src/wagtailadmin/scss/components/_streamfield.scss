@@ -259,9 +259,9 @@ li.sequence-member {
         border-radius: 50px;
         position: absolute;
         top: -0.5em;
-        left: 0;
+        left: 16px;
         right: 0;
-        margin: 0 auto;
+        margin: 0;
         cursor: pointer;
         font-size: 1.7em;
         width: 1em;
@@ -403,8 +403,8 @@ li.sequence-member {
 }
 
 .sequence-member .stream-menu-closed {
-    opacity: 0;
-    visibility: hidden;
+    // opacity: 0;
+    // visibility: hidden;
 }
 
 .sequence-member:hover {
