@@ -276,7 +276,9 @@ class Elasticsearch2SearchQuery(BaseSearchQuery):
 
                 fields.append(field_name)
 
-            self.fields = fields
+            self.remapped_fields = fields
+        else:
+            self.remapped_fields = None
 
     def _process_lookup(self, field, lookup, value):
         column_name = self.mapping.get_field_column_name(field)
@@ -371,7 +373,7 @@ class Elasticsearch2SearchQuery(BaseSearchQuery):
 
     def get_inner_query(self):
         if self.query_string is not None:
-            fields = self.fields or ['_all', '_partials']
+            fields = self.remapped_fields or ['_all', '_partials']
 
             if len(fields) == 1:
                 if self.operator == 'or':
