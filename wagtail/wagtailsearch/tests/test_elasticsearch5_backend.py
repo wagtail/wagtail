@@ -388,7 +388,6 @@ class TestElasticsearch5SearchResults(TestCase):
         list(results)  # Performs search
 
         search.assert_any_call(
-            from_=0,
             body={'query': 'QUERY'},
             _source=False,
             stored_fields='pk',

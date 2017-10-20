@@ -477,7 +477,6 @@ class ElasticsearchSearchResults(BaseSearchResults):
             'index': self.backend.get_index_for_model(self.query.queryset.model).name,
             'body': self._get_es_body(),
             '_source': False,
-            'from_': self.start,
             self.fields_param_name: 'pk',
         }
 
@@ -486,6 +485,9 @@ class ElasticsearchSearchResults(BaseSearchResults):
                 'scroll': '2m',
                 'size': PAGE_SIZE,
             })
+
+            # The scroll API doesn't support offset, manually skip the first results
+            skip = self.start
 
             # Send to Elasticsearch
             page = self.backend.es.search(**params)
@@ -497,17 +499,24 @@ class ElasticsearchSearchResults(BaseSearchResults):
                     break
 
                 # Get results
-                for result in self._get_results_from_hits(hits):
+                if skip < len(hits):
+                    for result in self._get_results_from_hits(hits):
+                        if limit is not None and limit == 0:
+                            break
+
+                        if skip == 0:
+                            yield result
+
+                            if limit is not None:
+                                limit -= 1
+                        else:
+                            skip -= 1
+
                     if limit is not None and limit == 0:
                         break
-
-                    yield result
-
-                    if limit is not None:
-                        limit -= 1
-
-                if limit is not None and limit == 0:
-                    break
+                else:
+                    # Skip whole page
+                    skip -= len(hits)
 
                 # Fetch next page of results
                 if '_scroll_id' not in page:
@@ -520,6 +529,7 @@ class ElasticsearchSearchResults(BaseSearchResults):
                 self.backend.es.clear_scroll(scroll_id=page['_scroll_id'])
         else:
             params.update({
+                'from_': self.start,
                 'size': limit or PAGE_SIZE,
             })
 
