@@ -24,6 +24,11 @@ class TestElasticsearch5SearchBackend(BackendTests, ElasticsearchCommonSearchBac
 
     # Broken
     @unittest.expectedFailure
+    def test_filter_isnull_true(self):
+        super(TestElasticsearch5SearchBackend, self).test_filter_isnull_true()
+
+    # Broken
+    @unittest.expectedFailure
     def test_filter_in_values_list_subquery(self):
         super(TestElasticsearch5SearchBackend, self).test_filter_in_values_list_subquery()
 
