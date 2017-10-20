@@ -127,11 +127,7 @@ li.sequence-member {
         display: block;
         float: none;
         width: 100%;
-        text-align: center;
         max-width: 500px;
-        margin: auto;
-        border-bottom: 2px solid $color-grey-4;
-        padding: 1em;
     }
 
     .chooser {
@@ -149,7 +145,7 @@ li.sequence-member {
 
         .preview-image {
             float: none;
-            margin: 0;
+            margin: 0 5px;
         }
     }
 
