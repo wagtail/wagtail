@@ -26,7 +26,7 @@ li.sequence-member {
     }
 
     .struct-block .fields {
-        @include column(10);
+        width: 100%;
         padding-left: 0;
         padding-right: 0;
     }
@@ -38,7 +38,7 @@ li.sequence-member {
         width: 100%;
     }
     .struct-block .sequence-container {
-        @include column(9);
+        width: 100%;
         padding-left: 0;
         padding-right: 0;
 
@@ -70,21 +70,14 @@ li.sequence-member {
 
         // sequences within sequences, such as a ListBlock within StructBlock
         > .sequence .sequence-inner {
-            @include column(10);
-            padding-left: 0;
-            padding-right: 0;
+            width: 100%;
         }
 
         .sequence-type-list .sequence-container-inner {
-            @include column(10);
-            padding-left: 0;
-            padding-right: 0;
+            width: 100%;
         }
 
         .sequence-type-list .sequence-member-inner {
-            padding: 0;
-            padding-top: 0.5em;
-            padding-bottom: 1.2em;
         }
     }
 
@@ -94,8 +87,9 @@ li.sequence-member {
 }
 
 // We're going down
+// @TODO this should really be within the `li.sequence-member` above
 li.sequence-member {
-    .sequence-type-stream {
+    .sequence-type-stream, .sequence-type-list {
         .sequence-member {
             // Second level nested Streamfield
             border: 1px solid $color-teal;
@@ -126,7 +120,7 @@ li.sequence-member {
 
 .sequence-member-inner > .widget-admin_image_chooser {
     label {
-        display: none;
+        // display: none;
     }
 
     .field-content {
@@ -213,6 +207,8 @@ li.sequence-member {
         padding: 0 20px;
         width: 1.8rem;
         height: 1.8rem;
+        // We float right to ensure control consistency on listblocks
+        float: right;
 
         &::before {
             line-height: 1.3em;
