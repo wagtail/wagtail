@@ -7,6 +7,7 @@ from taggit.managers import TaggableManager
 
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailsearch.backends import get_search_backend
+from wagtail.wagtailsearch.backends.base import FilterFieldError, OrderByFieldError
 
 from .utils import BadRequestError, pages_for_site, parse_boolean
 
@@ -118,7 +119,12 @@ class SearchFilter(BaseFilterBackend):
             order_by_relevance = 'order' not in request.GET
 
             sb = get_search_backend()
-            queryset = sb.search(search_query, queryset, operator=search_operator, order_by_relevance=order_by_relevance)
+            try:
+                queryset = sb.search(search_query, queryset, operator=search_operator, order_by_relevance=order_by_relevance)
+            except FilterFieldError as e:
+                raise BadRequestError("cannot filter by '{}' while searching (field is not indexed)".format(e.field_name))
+            except OrderByFieldError as e:
+                raise BadRequestError("cannot order by '{}' while searching (field is not indexed)".format(e.field_name))
 
         return queryset
 
