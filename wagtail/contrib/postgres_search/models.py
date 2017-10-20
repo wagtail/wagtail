@@ -5,7 +5,7 @@ from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelatio
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.postgres.indexes import GinIndex
 from django.contrib.postgres.search import SearchQuery, SearchVectorField
-from django.db.models import CASCADE, ForeignKey, Model, TextField
+from django.db.models import CASCADE, ForeignKey, Model, TextField, FloatField
 from django.db.models.functions import Cast
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
@@ -52,7 +52,8 @@ class IndexEntry(Model):
     object_id = TextField()
     content_object = GenericForeignKey()
 
-    # TODO: Add per-object boosting.
+    boost = FloatField(default=1)
+
     autocomplete = SearchVectorField()
     body = SearchVectorField()
 

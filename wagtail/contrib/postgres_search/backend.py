@@ -87,6 +87,7 @@ class Index(object):
 
     def prepare_obj(self, obj):
         obj._object_id_ = force_text(obj.pk)
+        obj._boost_ = obj.get_search_boost()
         obj._autocomplete_ = []
         obj._body_ = []
         for field in self.search_fields:
@@ -109,7 +110,7 @@ class Index(object):
                         else "to_tsvector('%s', %%s)" % config)
         sql_template = 'setweight(%s, %%s)' % sql_template
         for obj in objs:
-            data_params.extend((content_type_pk, obj._object_id_))
+            data_params.extend((content_type_pk, obj._object_id_, obj._boost_))
             if obj._autocomplete_:
                 autocomplete_sql.append('||'.join(sql_template
                                                   for _ in obj._autocomplete_))
@@ -121,15 +122,16 @@ class Index(object):
                 data_params.extend([v for t in obj._body_ for v in t])
             else:
                 body_sql.append("''::tsvector")
-        data_sql = ', '.join(['(%%s, %%s, %s, %s)' % (a, b)
+        data_sql = ', '.join(['(%%s, %%s, %%s, %s, %s)' % (a, b)
                               for a, b in zip(autocomplete_sql, body_sql)])
         with connection.cursor() as cursor:
             cursor.execute("""
                 INSERT INTO %s
-                (content_type_id, object_id, autocomplete, body)
+                (content_type_id, object_id, boost, autocomplete, body)
                 (VALUES %s)
                 ON CONFLICT (content_type_id, object_id)
-                DO UPDATE SET autocomplete = EXCLUDED.autocomplete,
+                DO UPDATE SET boost = EXCLUDED.boost,
+                              autocomplete = EXCLUDED.autocomplete,
                               body = EXCLUDED.body
                 """ % (IndexEntry._meta.db_table, data_sql), data_params)
 
@@ -154,14 +156,15 @@ class Index(object):
         for indexed_id in indexed_ids:
             obj = ids_and_objs[indexed_id]
             index_entries_for_ct.filter(object_id=obj._object_id_) \
-                .update(autocomplete=obj._autocomplete_, body=obj._body_)
+                .update(boost=obj._boost_,
+                        autocomplete=obj._autocomplete_, body=obj._body_)
         to_be_created = []
         for object_id in ids_and_objs:
             if object_id not in indexed_ids:
                 obj = ids_and_objs[object_id]
                 to_be_created.append(IndexEntry(
-                    content_type_id=content_type_pk,
-                    object_id=object_id,
+                    content_type_id=content_type_pk, object_id=object_id,
+                    boost=obj._boost_,
                     autocomplete=obj._autocomplete_, body=obj._body_))
         index_entries.bulk_create(to_be_created)
 
@@ -252,6 +255,7 @@ class PostgresSearchQuery(BaseSearchQuery):
             if self.fields is None
             else self.search_in_fields(self.queryset, search_query))
         if self.order_by_relevance:
+            rank_expression *= F('index_entries__boost')
             queryset = queryset.order_by(rank_expression.desc(), '-pk')
         elif not queryset.query.order_by:
             # Adds a default ordering to avoid issue #3729.
