@@ -699,6 +699,23 @@ class TestPageListing(TestCase):
 
         self.assertEqual(set(page_id_list), set([16, 18, 19]))
 
+    def test_search_with_filter(self):
+        response = self.get_response(title="Another blog post", search='blog', order='title')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        page_id_list = self.get_page_id_list(content)
+
+        self.assertEqual(page_id_list, [19])
+
+    def test_search_with_filter_on_non_filterable_field(self):
+        response = self.get_response(type='demosite.BlogEntryPage', body="foo", search='blog', order='title')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(content, {
+            'message': "cannot filter by 'body' while searching (field is not indexed)"
+        })
+
     def test_search_with_order(self):
         response = self.get_response(search='blog', order='title')
         content = json.loads(response.content.decode('UTF-8'))
@@ -706,6 +723,15 @@ class TestPageListing(TestCase):
         page_id_list = self.get_page_id_list(content)
 
         self.assertEqual(page_id_list, [19, 5, 16, 18])
+
+    def test_search_with_order_on_non_filterable_field(self):
+        response = self.get_response(type='demosite.BlogEntryPage', search='blog', order='body')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(content, {
+            'message': "cannot order by 'body' while searching (field is not indexed)"
+        })
 
     @override_settings(WAGTAILAPI_SEARCH_ENABLED=False)
     def test_search_when_disabled_gives_error(self):
