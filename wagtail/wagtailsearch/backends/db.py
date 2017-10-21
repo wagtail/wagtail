@@ -89,9 +89,6 @@ class DatabaseSearchBackend(BaseSearchBackend):
     query_class = DatabaseSearchQuery
     results_class = DatabaseSearchResults
 
-    def __init__(self, params):
-        super(DatabaseSearchBackend, self).__init__(params)
-
     def reset_index(self):
         pass  # Not needed
 
