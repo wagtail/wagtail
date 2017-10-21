@@ -376,9 +376,6 @@ class PreferredLanguageForm(forms.ModelForm):
         choices=lambda: sorted(BLANK_CHOICE_DASH + get_available_admin_languages(), key=lambda l: l[1])
     )
 
-    def __init__(self, *args, **kwargs):
-        super(PreferredLanguageForm, self).__init__(*args, **kwargs)
-
     class Meta:
         model = UserProfile
         fields = ("preferred_language",)
