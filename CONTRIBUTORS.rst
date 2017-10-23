@@ -258,6 +258,7 @@ Contributors
 * Samir Shah
 * Patrick Woods
 * Ross Crawford-d'Heureuse
+* rifuso
 
 Translators
 ===========
