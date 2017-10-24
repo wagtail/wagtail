@@ -593,3 +593,4 @@ def modeladmin_register(modeladmin_class):
     """
     instance = modeladmin_class()
     instance.register_with_wagtail()
+    return modeladmin_class
