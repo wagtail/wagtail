@@ -251,6 +251,7 @@ Contributors
 * Tomasz Knapik
 * Venelin Stoykov
 * Emily Horsman
+* Christopher Bledsoe (The Motley Fool)
 * jcronyn
 * Ben Sturmfels
 * Anselm Bradford
