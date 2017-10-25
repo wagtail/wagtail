@@ -3,6 +3,7 @@ from __future__ import absolute_import, unicode_literals
 import datetime
 import logging
 import os
+from itertools import chain
 
 import mock
 from django.conf import settings
@@ -15,7 +16,7 @@ from django.core.files.base import ContentFile
 from django.core.urlresolvers import reverse
 from django.db.models.signals import post_delete, pre_delete
 from django.http import HttpRequest, HttpResponse
-from django.test import TestCase, modify_settings
+from django.test import TestCase, modify_settings, override_settings
 from django.utils import formats, timezone
 from django.utils.dateparse import parse_date
 
@@ -3176,6 +3177,24 @@ class TestNotificationPreferences(TestCase, WagtailTestUtils):
         self.assertIn(self.moderator2.email, email_to)
         self.assertIn(user1.email, email_to)
         self.assertIn(user2.email, email_to)
+
+    @override_settings(WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS=False)
+    def test_disable_superuser_notification(self):
+        # Add one of the superusers to the moderator group
+        self.moderator.groups.add(Group.objects.get(name='Moderators'))
+
+        response = self.submit()
+
+        # Should be redirected to explorer page
+        self.assertEqual(response.status_code, 302)
+
+        # Check that the non-moderators superusers are not being notified
+        expected_emails = 1
+        self.assertEqual(len(mail.outbox), expected_emails)
+        # Use chain as the 'to' field is a list of recipients
+        email_to = list(chain.from_iterable([m.to for m in mail.outbox]))
+        self.assertIn(self.moderator.email, email_to)
+        self.assertNotIn(self.moderator2.email, email_to)
 
     @mock.patch('wagtail.wagtailadmin.utils.django_send_mail', side_effect=IOError('Server down'))
     def test_email_send_error(self, mock_fn):

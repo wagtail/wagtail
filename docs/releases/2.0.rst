@@ -16,6 +16,7 @@ Other features
  * Elasticsearch scroll API is now used when fetching more than 100 search results (Karl Hobley)
  * Added hidden field to the form builder (Ross Crawford-d'Heureuse)
  * Image usage count now shows on delete confirmation page when WAGTAIL_USAGE_COUNT_ENABLED is active (Kees Hink)
+ * Email notifications for content moderation may exclude superusers when disabling ``WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS`` (Bruno Alla)
 
 
 Bug fixes
