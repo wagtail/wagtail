@@ -2,6 +2,7 @@ from __future__ import absolute_import, unicode_literals
 
 import operator
 import sys
+import warnings
 from collections import OrderedDict
 from functools import reduce
 
@@ -19,7 +20,8 @@ from django.db.models.constants import LOOKUP_SEP
 from django.db.models.fields import FieldDoesNotExist
 from django.db.models.fields.related import ForeignObjectRel, ManyToManyField
 from django.db.models.sql.constants import QUERY_TERMS
-from django.shortcuts import get_object_or_404, redirect
+from django.http import Http404
+from django.shortcuts import redirect
 from django.template.defaultfilters import filesizeformat
 from django.utils import six
 from django.utils.decorators import method_decorator
@@ -32,6 +34,7 @@ from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
 
+from wagtail.utils.deprecation import RemovedInWagtail113Warning
 from wagtail.wagtailadmin import messages
 from wagtail.wagtailadmin.edit_handlers import (
     ObjectList, extract_panel_definitions_from_model_class)
@@ -48,7 +51,8 @@ class WMABaseView(TemplateView):
     page_title = ''
     page_subtitle = ''
 
-    def __init__(self, model_admin):
+    def __init__(self, model_admin, *args, **kwargs):
+        super(WMABaseView, self).__init__(*args, **kwargs)
         self.model_admin = model_admin
         self.model = model_admin.model
         self.opts = self.model._meta
@@ -178,20 +182,85 @@ class ModelFormView(WMABaseView, FormView):
 
 
 class InstanceSpecificView(WMABaseView):
+    pk_url_kwarg = 'instance_pk'
+    instance_pk_init = None  # to be removed in 1.13
 
-    instance_pk = None
-    pk_quoted = None
-    instance = None
+    def __init__(self, *args, **kwargs):
+        if 'instance_pk' in kwargs:
+            kwargs['instance_pk_init'] = kwargs.pop('instance_pk')
+            warnings.warn(
+                "'instance_pk' should no longer be passed to %s's as_view() "
+                "method. It should be passed as a keyword argument to "
+                "the 'view' method returned by as_view() instead" %
+                self.__class__.__name__, category=RemovedInWagtail113Warning
+            )
+        super(InstanceSpecificView, self).__init__(*args, **kwargs)
 
-    def __init__(self, model_admin, instance_pk):
-        super(InstanceSpecificView, self).__init__(model_admin)
-        self.instance_pk = unquote(instance_pk)
-        self.pk_quoted = quote(self.instance_pk)
-        filter_kwargs = {}
-        filter_kwargs[self.pk_attname] = self.instance_pk
-        object_qs = model_admin.model._default_manager.get_queryset().filter(
-            **filter_kwargs)
-        self.instance = get_object_or_404(object_qs)
+    @property
+    def instance_pk(self):
+        return getattr(self, '_set_instance_pk', unquote(
+            self.kwargs.get(self.pk_url_kwarg, self.instance_pk_init)
+        ))
+
+    @instance_pk.setter
+    def instance_pk(self, value):
+        warnings.warn(
+            "Setting of 'self.instance_pk' is deprecated. You should update "
+            "%s to use a different attribute name and possibly look at "
+            "overriding the 'get_model_instance()' method instead" %
+            self.__class__.__name__, category=RemovedInWagtail113Warning
+        )
+        self._set_instance_pk = value
+
+    @property
+    def pk_quoted(self):
+        return getattr(self, '_set_pk_quoted', quote(self.instance_pk))
+
+    @pk_quoted.setter
+    def pk_quoted(self, value):
+        warnings.warn(
+            "Setting of 'self.pk_quoted' is deprecated. You should update "
+            "'%s' to use a different attribute name and possibly look at "
+            "overriding the 'get_model_instance()' method instead" %
+            self.__class__.__name__, category=RemovedInWagtail113Warning
+        )
+        self._set_pk_quoted = value
+
+    @property
+    def instance(self):
+        """
+        Return the result of self.get_model_instance() and cache it to avoid
+        repeat database queries
+        """
+        if hasattr(self, '_set_instance'):
+            return self._set_instance
+        if hasattr(self, '_fetched_instance'):
+            return self._fetched_instance
+        self._fetched_instance = self.get_model_instance()
+        return self._fetched_instance
+
+    @instance.setter
+    def instance(self, value):
+        warnings.warn(
+            "Setting of 'self.instance' is deprecated. You should look at "
+            "overriding the 'get_model_instance()' method on '%s' instead" %
+            self.__class__.__name__, category=RemovedInWagtail113Warning
+        )
+        self._set_instance = value
+
+    def get_model_instance(self):
+        """
+        Returns an instance of self.model identified by URL parameters in the
+        current request. Raises Http404 if no match is found.
+        """
+        queryset = self.model._default_manager.all().filter(pk=self.instance_pk)
+        try:
+            # Get the single item from the filtered queryset
+            obj = queryset.get()
+        except self.model.DoesNotExist:
+            raise Http404(_("No %(verbose_name)s found matching the query") %
+                          {'verbose_name': self.verbose_name})
+        return obj
 
     def get_page_subtitle(self):
         return self.instance
@@ -205,7 +274,9 @@ class InstanceSpecificView(WMABaseView):
         return self.url_helper.get_action_url('delete', self.pk_quoted)
 
     def get_context_data(self, **kwargs):
-        context = {'instance': self.instance}
+        context = {
+            'instance': self.instance
+        }
         context.update(kwargs)
         return super(InstanceSpecificView, self).get_context_data(**context)
 
@@ -698,6 +769,9 @@ class EditView(ModelFormView, InstanceSpecificView):
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
         if self.is_pagemodel:
+            # pre-fetch the instance to ensure potential Http404 exceptions
+            # are raised before redirecting
+            self.instance
             return redirect(
                 self.url_helper.get_action_url('edit', self.pk_quoted)
             )

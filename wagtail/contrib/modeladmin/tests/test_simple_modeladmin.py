@@ -465,7 +465,6 @@ class TestEditorAccess(TestCase):
 
 class TestQuoting(TestCase, WagtailTestUtils):
     fixtures = ['modeladmintest_test.json']
-    expected_status_code = 200
 
     def setUp(self):
         self.login()
@@ -484,3 +483,41 @@ class TestQuoting(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         response = self.client.get('/admin/modeladmintest/token/delete/Irregular_5FName/')
         self.assertEqual(response.status_code, 200)
+
+    def test_instance_specific_pk_quoting(self):
+        response = self.client.get('/admin/modeladmintest/token/edit/Irregular_5FName/')
+        edit_url = response.context['view'].edit_url
+        response = self.client.get(edit_url)
+        self.assertEqual(response.status_code, 200)
+
+
+class TestCustomBookModelAdminViews(TestCase, WagtailTestUtils):
+    fixtures = ['modeladmintest_test.json']
+
+    def setUp(self):
+        self.login()
+
+    def test_old_view_init_style(self):
+        """
+        The 'old_style_edit_view()' method on BookModelAdmin initialises
+        EditView by passing `instance_pk` as a keyword argument to `as_view()`
+        (now deprecated) instead of passing it to the view method returned by
+        'as_view'. This test ensures that method still works until support is
+        dropped in wagtail 1.13
+        """
+        response = self.client.get('/admin/modeladmintest/book/edit_old/1/')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['instance'], Book.objects.get(id=1))
+
+    def test_custom_edit_view(self):
+        """
+        The 'custom_edit_view()' method uses 'CustomEditView', which overrides
+        'self.instance_pk', 'self.pk_quoted' and 'self.instance', which is
+        now deprecated. This test ensures setting of those attributes still
+        works until support is dropped in wagtail 1.13
+        """
+        response = self.client.get('/admin/modeladmintest/book/edit_custom/1/')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['view'].instance_pk, -9999)
+        self.assertEqual(response.context['view'].pk_quoted, 9999)
+        self.assertEqual(response.context['instance'], Book.objects.get(id=3))
