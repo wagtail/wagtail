@@ -18,6 +18,7 @@ The Snippets menu
 * You can access the Snippets menu by clicking on the 'Snippets' link in the left-hand menu bar.
 * To add or edit a snippet, click on the snippet type you are interested in (often help text will be included to help you in selecting the right type)
 * Click on an individual snippet to edit, or click 'Add ...' in the top right to add a new snippet
+* If you have permission to delete this snippet type, you can select one or more snippets with the tickbox on the left and then by clicking the delete button near the top right
 
 .. Warning::
     Editing a snippet will change it on all of the pages on which it has been used. In the top-right of the Snippet edit screen you will see a label saying how many times the snippet has been used. Clicking this label will display a listing of all of these pages.
