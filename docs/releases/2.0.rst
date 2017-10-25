@@ -14,6 +14,7 @@ Other features
 ~~~~~~~~~~~~~~
 
  * Elasticsearch scroll API is now used when fetching more than 100 search results (Karl Hobley)
+ * ``purge_page_from_cache`` now purges the url of each managed language when using ``i18n_patterns`` (PyMan Claudio Marinozzi)
  * Added hidden field to the form builder (Ross Crawford-d'Heureuse)
  * Image usage count now shows on delete confirmation page when WAGTAIL_USAGE_COUNT_ENABLED is active (Kees Hink)
 
