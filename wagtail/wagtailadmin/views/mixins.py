@@ -3,11 +3,13 @@ from __future__ import absolute_import, unicode_literals
 from django.utils.translation import ugettext as _
 
 from wagtail.wagtailadmin.forms import SearchForm
+from wagtail.wagtailsearch.backends import get_search_backend
+from wagtail.wagtailsearch.index import class_is_indexed
 
 
 class SearchableListMixin(object):
     search_box_placeholder = _("Search")
-    search_fields = []
+    search_fields = None
 
     def get_search_form(self):
         if self.request.GET.get('q'):
@@ -22,12 +24,16 @@ class SearchableListMixin(object):
         if search_form.is_valid():
             q = search_form.cleaned_data['q']
 
-            filters = {
-                field + '__icontains': q
-                for field in self.search_fields
-            }
+            if class_is_indexed(queryset.model):
+                search_backend = get_search_backend()
+                queryset = search_backend.search(q, queryset, fields=self.search_fields)
+            else:
+                filters = {
+                    field + '__icontains': q
+                    for field in self.search_fields or []
+                }
 
-            queryset = queryset.filter(**filters)
+                queryset = queryset.filter(**filters)
 
         return queryset
 
