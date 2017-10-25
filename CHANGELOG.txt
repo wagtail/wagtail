@@ -8,7 +8,8 @@ Changelog
  * Added hidden field to the form builder (Ross Crawford-d'Heureuse)
  * Image usage count now shows on delete confirmation page when WAGTAIL_USAGE_COUNT_ENABLED is active (Kees Hink)
  * Fix: Do not remove stopwords when generating slugs from non-ASCII titles, to avoid issues with incorrect word boundaries (Sævar Öfjörð Magnússon)
-
+ * Fix: The PostgreSQL search backend now preserves ordering of the `QuerySet` when searching with `order_by_relevance=False` (Bertrand Bordage)
+ * Fix: Using `modeladmin_register` as a decorator no longer replaces the decorated class with `None` (Tim Heap)
 
 1.13 (16.10.2017)
 ~~~~~~~~~~~~~~~~~

@@ -21,6 +21,8 @@ Bug fixes
 ~~~~~~~~~
 
  * Do not remove stopwords when generating slugs from non-ASCII titles, to avoid issues with incorrect word boundaries (Sævar Öfjörð Magnússon)
+ * The PostgreSQL search backend now preserves ordering of the ``QuerySet`` when searching with ``order_by_relevance=False`` (Bertrand Bordage)
+ * Using ``modeladmin_register`` as a decorator no longer replaces the decorated class with ``None`` (Tim Heap)
 
 
 Upgrade considerations
