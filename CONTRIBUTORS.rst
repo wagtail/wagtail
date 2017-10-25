@@ -266,6 +266,7 @@ Contributors
 * Michael Palmer
 * Philipp Bosch
 * misraX
+* Bruno Alla
 
 Translators
 ===========

@@ -51,6 +51,8 @@ Other features
  * FormPage lists and Form submission lists in admin now use class based views for easy overriding (Johan Arensman)
  * Form submission csv exports now have the export date in the filename and can be customized (Johan Arensman)
  * FormBuilder class now uses bound methods for field generation, adding custom fields is now easier and documented (LB (Ben Johnston))
+ * Added ``WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS`` setting to determine whether superusers are included in moderation email notifications (Bruno Alla)
+
 
 Bug fixes
 ~~~~~~~~~
