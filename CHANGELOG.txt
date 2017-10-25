@@ -24,6 +24,7 @@ Changelog
  * Add new `wagtail_icon` template tag to facilitate making admin icons accessible (Sander Tuit)
  * Set `ALLOWED_HOSTS` in the project template to allow any host in development (Tom Dyson)
  * Expose reusable client-side code to build Draftail extensions (Thibaud Colas)
+ * Added `WAGTAILFRONTENDCACHE_LANGUAGES` setting to specify the languages whose URLs are to be purged when using `i18n_patterns` (PyMan Claudio Marinozzi)
  * Fix: Status button on 'edit page' now links to the correct URL when live and draft slug differ (LB (Ben Johnston))
  * Fix: Image title text in the gallery and in the chooser now wraps for long filenames (LB (Ben Johnston), Luiz Boaretto)
  * Fix: Move image editor action buttons to the bottom of the form on mobile (Julian Gallo)
