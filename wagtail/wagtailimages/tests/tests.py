@@ -184,6 +184,17 @@ class TestFormat(TestCase):
             'data-alt="test alt text" class="test classnames" src="[^"]+" width="1" height="1" alt="test alt text">',
         )
 
+    def test_image_to_editor_html_with_quoting(self):
+        result = self.format.image_to_editor_html(
+            self.image,
+            'Arthur &quot;two sheds&quot; Jackson'
+        )
+        six.assertRegex(
+            self, result,
+            '<img data-embedtype="image" data-id="0" data-format="test name" '
+            'data-alt="Arthur &quot;two sheds&quot; Jackson" class="test classnames" src="[^"]+" width="1" height="1" alt="Arthur &quot;two sheds&quot; Jackson">',
+        )
+
     def test_image_to_html_no_classnames(self):
         self.format.classnames = None
         result = self.format.image_to_html(self.image, 'test alt text')
@@ -192,6 +203,13 @@ class TestFormat(TestCase):
             '<img src="[^"]+" width="1" height="1" alt="test alt text">'
         )
         self.format.classnames = 'test classnames'
+
+    def test_image_to_html_with_quoting(self):
+        result = self.format.image_to_html(self.image, 'Arthur &quot;two sheds&quot; Jackson')
+        six.assertRegex(
+            self, result,
+            '<img class="test classnames" src="[^"]+" width="1" height="1" alt="Arthur &quot;two sheds&quot; Jackson">'
+        )
 
     def test_get_image_format(self):
         register_image_format(self.format)

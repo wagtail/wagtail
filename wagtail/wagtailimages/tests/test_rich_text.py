@@ -38,6 +38,26 @@ class TestImageEmbedHandler(TestCase):
         )
         self.assertIn('<img class="richtext-image left"', result)
 
+    def test_expand_db_attributes_with_missing_alt(self):
+        Image.objects.create(id=1, title='Test', file=get_test_image_file())
+        result = ImageEmbedHandler.expand_db_attributes(
+            {'id': 1,
+             'format': 'left'},
+            False
+        )
+        self.assertIn('<img class="richtext-image left"', result)
+        self.assertIn('alt=""', result)
+
+    def test_expand_db_attributes_leaves_quoting_intact(self):
+        Image.objects.create(id=1, title='Test', file=get_test_image_file())
+        result = ImageEmbedHandler.expand_db_attributes(
+            {'id': 1,
+             'alt': 'Arthur &quot;two sheds&quot; Jackson',
+             'format': 'left'},
+            False
+        )
+        self.assertIn('alt="Arthur &quot;two sheds&quot; Jackson"', result)
+
     def test_expand_db_attributes_for_editor(self):
         Image.objects.create(id=1, title='Test', file=get_test_image_file())
         result = ImageEmbedHandler.expand_db_attributes(
@@ -50,3 +70,29 @@ class TestImageEmbedHandler(TestCase):
             '<img data-embedtype="image" data-id="1" data-format="left" '
             'data-alt="test-alt" class="richtext-image left"', result
         )
+
+    def test_expand_db_attributes_for_editor_with_missing_alt(self):
+        Image.objects.create(id=1, title='Test', file=get_test_image_file())
+        result = ImageEmbedHandler.expand_db_attributes(
+            {'id': 1,
+             'format': 'left'},
+            True
+        )
+        self.assertIn(
+            '<img data-embedtype="image" data-id="1" data-format="left" '
+            'data-alt="" class="richtext-image left"', result
+        )
+
+    def test_expand_db_attributes_for_editor_leaves_quoting_intact(self):
+        Image.objects.create(id=1, title='Test', file=get_test_image_file())
+        result = ImageEmbedHandler.expand_db_attributes(
+            {'id': 1,
+             'alt': 'Arthur &quot;two sheds&quot; Jackson',
+             'format': 'left'},
+            True
+        )
+        self.assertIn(
+            '<img data-embedtype="image" data-id="1" data-format="left" '
+            'data-alt="Arthur &quot;two sheds&quot; Jackson" class="richtext-image left"', result
+        )
+        self.assertIn('alt="Arthur &quot;two sheds&quot; Jackson"', result)

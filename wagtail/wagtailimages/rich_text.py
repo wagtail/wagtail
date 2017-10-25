@@ -27,8 +27,8 @@ class ImageEmbedHandler(object):
     @staticmethod
     def expand_db_attributes(attrs, for_editor):
         """
-        Given a dict of attributes from the <embed> tag, return the real HTML
-        representation.
+        Given a dict of attributes from the <embed> tag (with < > & escaped as &lt; &gt; &amp;),
+        return the real HTML representation.
         """
         Image = get_image_model()
         try:
@@ -39,6 +39,6 @@ class ImageEmbedHandler(object):
         image_format = get_image_format(attrs['format'])
 
         if for_editor:
-            return image_format.image_to_editor_html(image, attrs['alt'])
+            return image_format.image_to_editor_html(image, attrs.get('alt', ''))
         else:
-            return image_format.image_to_html(image, attrs['alt'])
+            return image_format.image_to_html(image, attrs.get('alt', ''))

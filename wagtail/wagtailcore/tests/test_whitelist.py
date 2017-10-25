@@ -145,3 +145,8 @@ class TestWhitelister(TestCase):
         string = '<b>snowman Yorkshire<!--[if gte mso 10]>MS word junk<![endif]--></b>'
         cleaned_string = Whitelister.clean(string)
         self.assertEqual(cleaned_string, '<b>snowman Yorkshire</b>')
+
+    def test_quoting(self):
+        string = '<img alt="Arthur &quot;two sheds&quot; Jackson" sheds="2">'
+        cleaned_string = Whitelister.clean(string)
+        self.assertEqual(cleaned_string, '<img alt="Arthur &quot;two sheds&quot; Jackson"/>')
