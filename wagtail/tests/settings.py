@@ -187,6 +187,13 @@ if 'ELASTICSEARCH_URL' in os.environ:
         'TIMEOUT': 10,
         'max_retries': 1,
         'AUTO_UPDATE': False,
+        'INDEX_SETTINGS': {
+            'settings': {
+                'index': {
+                    'number_of_shards': 1
+                }
+            }
+        }
     }
 
 

@@ -17,7 +17,6 @@ from wagtail.wagtailimages.views.serve import generate_signature
 from .utils import Image, get_test_image_file
 
 # Get the chars that Django considers safe to leave unescaped in a URL
-# This list changed in Django 1.8:  https://github.com/django/django/commit/e167e96cfea670422ca75d0b35fe7c4195f25b63
 urlquote_safechars = RFC3986_SUBDELIMS + str('/~:@')
 
 
@@ -481,10 +480,19 @@ class TestImageDeleteView(TestCase, WagtailTestUtils):
     def post(self, post_data={}):
         return self.client.post(reverse('wagtailimages:delete', args=(self.image.id,)), post_data)
 
+    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=False)
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailimages/images/confirm_delete.html')
+        self.assertNotIn('Used ', str(response.content))
+
+    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
+    def test_usage_link(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailimages/images/confirm_delete.html')
+        self.assertIn('Used 0 times', str(response.content))
 
     def test_delete(self):
         response = self.post()

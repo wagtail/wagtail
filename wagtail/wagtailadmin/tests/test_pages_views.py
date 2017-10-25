@@ -1161,14 +1161,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         # Check the new file exists
         file_page = FilePage.objects.get()
 
-        # In Django < 1.10 the file_field.name starts with ./ whereas in 1.10 it is the basename;
-        # we test against os.path.basename(file_page.file_field.name) so that both possibilities
-        # are handled. os.path.basename can be removed when support for Django <= 1.9 is dropped.
-
-        # (hello, future person grepping for the string `if DJANGO_VERSION < (1, 10)`)
-
-        self.assertEqual(os.path.basename(file_page.file_field.name),
-                         os.path.basename(file_upload.name))
+        self.assertEqual(file_page.file_field.name, file_upload.name)
         self.assertTrue(os.path.exists(file_page.file_field.path))
         self.assertEqual(file_page.file_field.read(), b"A new file")
 
@@ -1196,16 +1189,9 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         # Publish the draft just created
         FilePage.objects.get().get_latest_revision().publish()
 
-        # In Django < 1.10 the file_field.name starts with ./ whereas in 1.10 it is the basename;
-        # we test against os.path.basename(file_page.file_field.name) so that both possibilities
-        # are handled. os.path.basename can be removed when support for Django <= 1.9 is dropped.
-
-        # (hello, future person grepping for the string `if DJANGO_VERSION < (1, 10)`)
-
         # Get the file page, check the file is set
         file_page = FilePage.objects.get()
-        self.assertEqual(os.path.basename(file_page.file_field.name),
-                         os.path.basename(file_upload.name))
+        self.assertEqual(file_page.file_field.name, file_upload.name)
         self.assertTrue(os.path.exists(file_page.file_field.path))
         self.assertEqual(file_page.file_field.read(), b"A new file")
 
@@ -3971,11 +3957,9 @@ class TestRecentEditsPanel(TestCase, WagtailTestUtils):
 
 class TestIssue2994(TestCase, WagtailTestUtils):
     """
-    When submitting the add/edit page form, Django 1.10.1 fails to update StreamFields
-    that have a default value, because it notices the lack of postdata field
-    with a name exactly matching the field name and wrongly assumes that the field has
-    been omitted from the form. To avoid this in Django 1.10.1, we need to set
-    dont_use_model_field_default_for_empty_data=True on the widget; in Django >=1.10.2,
+    In contrast to most "standard" form fields, StreamField form widgets generally won't
+    provide a postdata field with a name exactly matching the field name. To prevent Django
+    from wrongly interpreting this as the field being omitted from the form,
     we need to provide a custom value_omitted_from_data method.
     """
     def setUp(self):

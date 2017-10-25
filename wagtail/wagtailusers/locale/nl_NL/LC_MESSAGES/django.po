@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-10 16:05+0000\n"
-"PO-Revision-Date: 2017-09-23 20:27+0000\n"
-"Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"PO-Revision-Date: 2017-10-06 15:11+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -253,18 +253,15 @@ msgstr ""
 "Er zijn geen gebruikers ingesteld. Waarom <a href="
 "\"%(wagtailusers_create_url)s\">voegt u er niet een toe</a>?"
 
+msgid "Groups"
+msgstr "Groepen"
+
 msgid "Search groups"
 msgstr "Zoek groepen"
 
 #, python-brace-format
 msgid "Group '{0}' created."
 msgstr "Groep '{0}' aangemaakt."
-
-msgid "Edit"
-msgstr "Wijzig"
-
-msgid "The group could not be created due to errors."
-msgstr "De groep kon vanwege fouten niet worden aangemaakt."
 
 #, python-brace-format
 msgid "Group '{0}' updated."
@@ -284,6 +281,9 @@ msgstr "Zoek gebruikers"
 msgid "User '{0}' created."
 msgstr "Gebruiker '{0}' aangemaakt."
 
+msgid "Edit"
+msgstr "Wijzig"
+
 msgid "The user could not be created due to errors."
 msgstr "De gebruiker kon vanwege fouten niet worden aangemaakt."
 
@@ -297,9 +297,6 @@ msgstr "De gebruiker kon vanwege fouten niet worden opgeslagen."
 #, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "Gebruiker '{0}' is verwijderd."
-
-msgid "Groups"
-msgstr "Groepen"
 
 msgid "Edit this user"
 msgstr "Bewerk deze gebruiker"

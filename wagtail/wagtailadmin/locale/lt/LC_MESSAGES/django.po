@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-10 16:05+0000\n"
-"PO-Revision-Date: 2017-09-23 10:48+0000\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"PO-Revision-Date: 2017-10-06 15:06+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
 "language/lt/)\n"
@@ -157,6 +157,9 @@ msgstr "Galiojimo pabaigos data/laikas turi būti ateityje"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Jūs negalite turėti daugybinių leidimų įrašų tai pačiai kolekcijai."
+
+msgid "Go to Wagtail admin"
+msgstr "Eiti į Wagtail administravimą"
 
 msgid "Account"
 msgstr "Vartotojas"
@@ -1082,11 +1085,11 @@ msgid "Sat"
 msgstr "Šeš"
 
 #, python-format
-msgid "Used %(useage_count)s time"
-msgid_plural "Used %(useage_count)s times"
-msgstr[0] "Panaudota %(useage_count)s kartą"
-msgstr[1] "Panaudota %(useage_count)s kartus"
-msgstr[2] "Panaudota %(useage_count)s kartų"
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Panaudota %(usage_count)s kartą"
+msgstr[1] "Panaudota %(usage_count)s kartus"
+msgstr[2] "Panaudota %(usage_count)s kartų"
 
 msgid "Edit your account"
 msgstr "Redaguoti savo vartotoją"
@@ -1129,9 +1132,6 @@ msgstr ""
 
 msgid "Go to Wagtail admin interface"
 msgstr "Eiti į Wagtail administravimo sąsają."
-
-msgid "Go to Wagtail admin"
-msgstr "Eiti į Wagtail administravimą"
 
 msgid "Add a child page"
 msgstr "Pridėti vidinį puslapį"

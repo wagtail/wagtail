@@ -439,41 +439,106 @@ class ElasticsearchSearchResults(BaseSearchResults):
 
         return body
 
-    def _do_search(self):
-        # Params for elasticsearch query
-        params = dict(
-            index=self.backend.get_index_for_model(self.query.queryset.model).name,
-            body=self._get_es_body(),
-            _source=False,
-            from_=self.start,
-        )
-
-        params[self.fields_param_name] = 'pk'
-
-        # Add size if set
-        if self.stop is not None:
-            params['size'] = self.stop - self.start
-
-        # Send to Elasticsearch
-        hits = self.backend.es.search(**params)
-
+    def _get_results_from_hits(self, hits):
+        """
+        Yields Django model instances from a page of hits returned by Elasticsearch
+        """
         # Get pks from results
-        pks = [hit['fields']['pk'][0] for hit in hits['hits']['hits']]
-        scores = {str(hit['fields']['pk'][0]): hit['_score'] for hit in hits['hits']['hits']}
+        pks = [hit['fields']['pk'][0] for hit in hits]
+        scores = {str(hit['fields']['pk'][0]): hit['_score'] for hit in hits}
 
         # Initialise results dictionary
-        results = dict((str(pk), None) for pk in pks)
+        results = {str(pk): None for pk in pks}
 
         # Find objects in database and add them to dict
-        queryset = self.query.queryset.filter(pk__in=pks)
-        for obj in queryset:
+        for obj in self.query.queryset.filter(pk__in=pks):
             results[str(obj.pk)] = obj
 
             if self._score_field:
                 setattr(obj, self._score_field, scores.get(str(obj.pk)))
 
-        # Return results in order given by Elasticsearch
-        return [results[str(pk)] for pk in pks if results[str(pk)]]
+        # Yield results in order given by Elasticsearch
+        for pk in pks:
+            result = results[str(pk)]
+            if result:
+                yield result
+
+    def _do_search(self):
+        PAGE_SIZE = 100
+
+        if self.stop is not None:
+            limit = self.stop - self.start
+        else:
+            limit = None
+
+        use_scroll = limit is None or limit > PAGE_SIZE
+
+        params = {
+            'index': self.backend.get_index_for_model(self.query.queryset.model).name,
+            'body': self._get_es_body(),
+            '_source': False,
+            self.fields_param_name: 'pk',
+        }
+
+        if use_scroll:
+            params.update({
+                'scroll': '2m',
+                'size': PAGE_SIZE,
+            })
+
+            # The scroll API doesn't support offset, manually skip the first results
+            skip = self.start
+
+            # Send to Elasticsearch
+            page = self.backend.es.search(**params)
+
+            while True:
+                hits = page['hits']['hits']
+
+                if len(hits) == 0:
+                    break
+
+                # Get results
+                if skip < len(hits):
+                    for result in self._get_results_from_hits(hits):
+                        if limit is not None and limit == 0:
+                            break
+
+                        if skip == 0:
+                            yield result
+
+                            if limit is not None:
+                                limit -= 1
+                        else:
+                            skip -= 1
+
+                    if limit is not None and limit == 0:
+                        break
+                else:
+                    # Skip whole page
+                    skip -= len(hits)
+
+                # Fetch next page of results
+                if '_scroll_id' not in page:
+                    break
+
+                page = self.backend.es.scroll(scroll_id=page['_scroll_id'], scroll='2m')
+
+            # Clear the scroll
+            if '_scroll_id' in page:
+                self.backend.es.clear_scroll(scroll_id=page['_scroll_id'])
+        else:
+            params.update({
+                'from_': self.start,
+                'size': limit or PAGE_SIZE,
+            })
+
+            # Send to Elasticsearch
+            hits = self.backend.es.search(**params)['hits']['hits']
+
+            # Get results
+            for result in self._get_results_from_hits(hits):
+                yield result
 
     def _do_count(self):
         # Get count

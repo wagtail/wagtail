@@ -76,6 +76,9 @@ class FormBuilder(object):
     def create_checkbox_field(self, field, options):
         return django.forms.BooleanField(**options)
 
+    def create_hidden_field(self, field, options):
+        return django.forms.CharField(widget=django.forms.HiddenInput, **options)
+
     FIELD_TYPES = {
         'singleline': create_singleline_field,
         'multiline': create_multiline_field,
@@ -89,6 +92,7 @@ class FormBuilder(object):
         'radio': create_radio_field,
         'checkboxes': create_checkboxes_field,
         'checkbox': create_checkbox_field,
+        'hidden': create_hidden_field,
     }
 
     @property

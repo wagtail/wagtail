@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-10 16:05+0000\n"
-"PO-Revision-Date: 2017-09-22 18:24+0000\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"PO-Revision-Date: 2017-10-06 15:06+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/"
 "lv/)\n"
@@ -137,6 +137,9 @@ msgstr "Beigu datumam/laikam jābūt nākotnē"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Vienai kolekcijai nevar būt vairāki tiesību ieraksti."
+
+msgid "Go to Wagtail admin"
+msgstr "Doties uz Wagtail administrāciju"
 
 msgid "Account"
 msgstr "Konts"
@@ -688,11 +691,11 @@ msgid "Sat"
 msgstr "S"
 
 #, python-format
-msgid "Used %(useage_count)s time"
-msgid_plural "Used %(useage_count)s times"
-msgstr[0] "Lietots %(useage_count)s reizi"
-msgstr[1] "Lietots %(useage_count)s reizi"
-msgstr[2] "Lietots %(useage_count)s reizes"
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Lietots %(usage_count)s reizi"
+msgstr[1] "Lietots %(usage_count)s reizi"
+msgstr[2] "Lietots %(usage_count)s reizes"
 
 msgid "Edit your account"
 msgstr "Mainīt konta iestatījumus"
@@ -718,9 +721,6 @@ msgstr ""
 
 msgid "Go to Wagtail admin interface"
 msgstr "Doties uz Wagtail administrācijas intefeisu"
-
-msgid "Go to Wagtail admin"
-msgstr "Doties uz Wagtail administrāciju"
 
 msgid "Add a child page"
 msgstr "Pievienot apakšlapu"

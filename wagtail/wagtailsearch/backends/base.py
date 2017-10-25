@@ -135,7 +135,7 @@ class BaseSearchResults(object):
 
     def results(self):
         if self._results_cache is None:
-            self._results_cache = self._do_search()
+            self._results_cache = list(self._do_search())
         return self._results_cache
 
     def count(self):

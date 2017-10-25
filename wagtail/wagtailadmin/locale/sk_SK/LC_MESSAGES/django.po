@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-10 16:05+0000\n"
-"PO-Revision-Date: 2017-09-20 15:49+0000\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"PO-Revision-Date: 2017-10-06 15:06+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
@@ -142,6 +142,9 @@ msgstr "Dátum expirácie musí byť v budúcnosti"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Nemôžete mať viac prístupových záznamov pre tú istú kolekciu."
+
+msgid "Go to Wagtail admin"
+msgstr "Choď do administrátorskej časti"
 
 msgid "Account"
 msgstr "Účet"
@@ -819,11 +822,11 @@ msgid "Sat"
 msgstr "So"
 
 #, python-format
-msgid "Used %(useage_count)s time"
-msgid_plural "Used %(useage_count)s times"
-msgstr[0] "Použité %(useage_count)s krát"
-msgstr[1] "Použité %(useage_count)s krát"
-msgstr[2] "Použité %(useage_count)s krát"
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Použité %(usage_count)s krát"
+msgstr[1] "Použité %(usage_count)s krát"
+msgstr[2] "Použité %(usage_count)s krát"
 
 msgid "Edit your account"
 msgstr "Upraviť váš účet"
@@ -869,9 +872,6 @@ msgstr ""
 
 msgid "Go to Wagtail admin interface"
 msgstr "Pokračovať do administrátorskej časti"
-
-msgid "Go to Wagtail admin"
-msgstr "Choď do administrátorskej časti"
 
 msgid "Add a child page"
 msgstr "Pridať podstránku"

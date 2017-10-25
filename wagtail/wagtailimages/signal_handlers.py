@@ -1,6 +1,5 @@
 from __future__ import absolute_import, unicode_literals
 
-from django import VERSION as DJANGO_VERSION
 from django.conf import settings
 from django.db import transaction
 from django.db.models.signals import post_delete, pre_save
@@ -8,18 +7,9 @@ from django.db.models.signals import post_delete, pre_save
 from wagtail.wagtailimages import get_image_model
 
 
-TRANSACTION_ON_COMMIT_AVAILABLE = (1, 8) < DJANGO_VERSION[:2]
-if TRANSACTION_ON_COMMIT_AVAILABLE:
-    def on_commit_handler(f):
-        return transaction.on_commit(f)
-else:
-    def on_commit_handler(f):
-        return f()
-
-
 def post_delete_file_cleanup(instance, **kwargs):
     # Pass false so FileField doesn't save the model.
-    on_commit_handler(lambda: instance.file.delete(False))
+    transaction.on_commit(lambda: instance.file.delete(False))
 
 
 def pre_save_image_feature_detection(instance, **kwargs):

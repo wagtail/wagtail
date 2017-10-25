@@ -345,7 +345,7 @@ Unicode Page Slugs
 
   WAGTAIL_ALLOW_UNICODE_SLUGS = True
 
-By default, page slugs can contain any alphanumeric characters, including non-Latin alphabets (except on Django 1.8, where only ASCII characters are supported). Set this to False to limit slugs to ASCII characters.
+By default, page slugs can contain any alphanumeric characters, including non-Latin alphabets. Set this to False to limit slugs to ASCII characters.
 
 .. _WAGTAIL_AUTO_UPDATE_PREVIEW:
 
@@ -395,6 +395,8 @@ Usage for images, documents and snippets
     WAGTAIL_USAGE_COUNT_ENABLED = True
 
 When enabled Wagtail shows where a particular image, document or snippet is being used on your site (disabled by default). A link will appear on the edit page showing you which pages they have been used on.
+
+This link is also shown on the delete page, above the "Delete" button.
 
 .. note::
 
@@ -558,7 +560,7 @@ These two files should reside in your project directory (``myproject/myproject/`
 
   DATABASES = {
       'default': {
-          'ENGINE': 'django.db.backends.postgresql_psycopg2',
+          'ENGINE': 'django.db.backends.postgresql',
           'NAME': 'myprojectdb',
           'USER': 'postgres',
           'PASSWORD': '',

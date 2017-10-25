@@ -1,50 +1,42 @@
 from __future__ import absolute_import, unicode_literals
 
-from django.contrib.contenttypes.fields import GenericForeignKey
+from django.apps import apps
+from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
-from django.contrib.postgres.search import SearchRank, SearchVectorField
-from django.db.models import (
-    CASCADE, AutoField, BigAutoField, BigIntegerField, F, ForeignKey, IntegerField, Model, QuerySet,
-    TextField)
+from django.contrib.postgres.indexes import GinIndex
+from django.contrib.postgres.search import SearchVectorField
+from django.db.models import CASCADE, ForeignKey, Model, TextField
 from django.db.models.functions import Cast
-from django.utils.encoding import force_text
 from django.utils.translation import ugettext_lazy as _
 
-from .utils import WEIGHTS_VALUES, get_descendants_content_types_pks
+from ...wagtailsearch.index import class_is_indexed
+from .utils import get_descendants_content_types_pks
 
 
-class IndexQuerySet(QuerySet):
-    def for_models(self, *models):
-        if not models:
-            return self.none()
-        return self.filter(
-            content_type_id__in=get_descendants_content_types_pks(models,
-                                                                  self._db))
+class TextIDGenericRelation(GenericRelation):
+    def get_content_type_lookup(self, alias, remote_alias):
+        field = self.remote_field.model._meta.get_field(
+            self.content_type_field_name)
+        return field.get_lookup('in')(
+            field.get_col(remote_alias),
+            get_descendants_content_types_pks(self.model))
 
-    def for_object(self, obj):
-        db_alias = obj._state.db
-        return (self.using(db_alias).for_models(obj._meta.model)
-                .filter(object_id=force_text(obj.pk)))
+    def get_object_id_lookup(self, alias, remote_alias):
+        from_field = self.remote_field.model._meta.get_field(
+            self.object_id_field_name)
+        to_field = self.model._meta.pk
+        return from_field.get_lookup('exact')(
+            from_field.get_col(remote_alias),
+            Cast(to_field.get_col(alias), from_field))
 
-    def add_rank(self, search_query):
-        return self.annotate(
-            rank=SearchRank(
-                F('body_search'), search_query,
-                weights='{' + ','.join(map(str, WEIGHTS_VALUES)) + '}'))
+    def get_extra_restriction(self, where_class, alias, remote_alias):
+        cond = where_class()
+        cond.add(self.get_content_type_lookup(alias, remote_alias), 'AND')
+        cond.add(self.get_object_id_lookup(alias, remote_alias), 'AND')
+        return cond
 
-    def rank(self, search_query):
-        return self.add_rank(search_query).order_by('-rank')
-
-    def annotate_typed_pk(self):
-        cast_field = self.model._meta.pk
-        if isinstance(cast_field, BigAutoField):
-            cast_field = BigIntegerField()
-        elif isinstance(cast_field, AutoField):
-            cast_field = IntegerField()
-        return self.annotate(typed_pk=Cast('object_id', cast_field))
-
-    def pks(self):
-        return self.annotate_typed_pk().values_list('typed_pk', flat=True)
+    def resolve_related_fields(self):
+        return []
 
 
 class IndexEntry(Model):
@@ -56,13 +48,11 @@ class IndexEntry(Model):
     # TODO: Add per-object boosting.
     body_search = SearchVectorField()
 
-    objects = IndexQuerySet.as_manager()
-
     class Meta:
         unique_together = ('content_type', 'object_id')
         verbose_name = _('index entry')
         verbose_name_plural = _('index entries')
-        # TODO: Move here the GIN index from the migration.
+        indexes = [GinIndex(['body_search'])]
 
     def __str__(self):
         return '%s: %s' % (self.content_type.name, self.content_object)
@@ -70,3 +60,10 @@ class IndexEntry(Model):
     @property
     def model(self):
         return self.content_type.model
+
+    @classmethod
+    def add_generic_relations(cls):
+        for model in apps.get_models():
+            if class_is_indexed(model):
+                TextIDGenericRelation(cls).contribute_to_class(model,
+                                                               'index_entries')

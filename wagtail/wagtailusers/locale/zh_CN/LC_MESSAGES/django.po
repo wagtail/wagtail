@@ -15,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-10 16:05+0000\n"
-"PO-Revision-Date: 2017-09-20 15:49+0000\n"
-"Last-Translator: 汇民 王 <whuim@qq.com>\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"PO-Revision-Date: 2017-10-06 15:11+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -242,18 +242,15 @@ msgid ""
 msgstr ""
 "还没用户呢。为啥不<a href=\"%(wagtailusers_create_url)s\">创建</a>试试?"
 
+msgid "Groups"
+msgstr "组"
+
 msgid "Search groups"
 msgstr "搜索组"
 
 #, python-brace-format
 msgid "Group '{0}' created."
 msgstr "组 '{0}' 已创建"
-
-msgid "Edit"
-msgstr "编辑"
-
-msgid "The group could not be created due to errors."
-msgstr "无法创建该组。出现错误。"
 
 #, python-brace-format
 msgid "Group '{0}' updated."
@@ -273,6 +270,9 @@ msgstr "搜索用户"
 msgid "User '{0}' created."
 msgstr "用户 '{0}'已创建"
 
+msgid "Edit"
+msgstr "编辑"
+
 msgid "The user could not be created due to errors."
 msgstr "无法创建用户。出现错误。"
 
@@ -286,9 +286,6 @@ msgstr "无法保存用户。出现错误。"
 #, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "用户 '{0}' 已删除。"
-
-msgid "Groups"
-msgstr "组"
 
 msgid "Edit this user"
 msgstr "编辑此用户"

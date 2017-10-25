@@ -256,6 +256,9 @@ Contributors
 * Anselm Bradford
 * Mads Jensen
 * Samir Shah
+* Patrick Woods
+* Ross Crawford-d'Heureuse
+* rifuso
 
 Translators
 ===========
@@ -279,7 +282,7 @@ Translators
 * Georgian: André Bouatchidzé
 * German: Ettore Atalan, Patrick Craston, Henrik Kröger, Tammo van Lessen, Martin Löhle, Wasilis Mandratzis-Walz, Daniel Manser, m0rph3u5, Max Pfeiffer, Moritz Pfeiffer, Herbert Poul, Karl Sander, Tobias Schmidt, Johannes Spielmann, Raphael Stolt, Jannis Vajen, Vorlif, Matthew Westcott
 * Greek: Jim Dal, George Giannoulopoulos, Yiannis Inglessis, Wasilis Mandratzis-Walz, Nick Mavrakis, NeotheOne, Serafeim Papastefanos
-* Hebrew (Israel): Lior Abazon, bjesus, Yossi Lalum
+* Hebrew (Israel): Lior Abazon, bjesus, Yossi Lalum, Oleg Sverdlov
 * Hungarian: Laszlo Molnar, Kornél Novák Mergulhão
 * Icelandic (Iceland): Arnar Tumi Þorsteinsson, Kjartan Sverrisson, Sævar Öfjörð Magnússon
 * Indonesian (Indonesia): Sutrisno Efendi, Geek Pantura, Ronggo Radityo

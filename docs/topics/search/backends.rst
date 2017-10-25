@@ -149,11 +149,11 @@ Other than ``BACKEND``, the keys are optional and default to the values shown. A
               'settings': {
                   'index': {
                       'number_of_shards': 1,
-                      'analysis': {
-                          'analyzer': {
-                              'default': {
-                                  'type': 'italian'
-                              }
+                  },
+                  'analysis': {
+                      'analyzer': {
+                          'default': {
+                              'type': 'italian'
                           }
                       }
                   }

@@ -1,7 +1,5 @@
 from __future__ import absolute_import, unicode_literals
 
-import unittest
-
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.core.files.base import ContentFile
@@ -131,29 +129,12 @@ class TestFilesDeletedForDefaultModels(TransactionTestCase):
             numchild=0,
         )
 
-    def test_oncommit_available(self):
-        self.assertEqual(hasattr(transaction, 'on_commit'), signal_handlers.TRANSACTION_ON_COMMIT_AVAILABLE)
-
-    @unittest.skipUnless(signal_handlers.TRANSACTION_ON_COMMIT_AVAILABLE, 'is required for this test')
     def test_document_file_deleted_oncommit(self):
         with transaction.atomic():
             document = get_document_model().objects.create(title="Test Image", file=get_test_image_file())
             self.assertTrue(document.file.storage.exists(document.file.name))
             document.delete()
             self.assertTrue(document.file.storage.exists(document.file.name))
-        self.assertFalse(document.file.storage.exists(document.file.name))
-
-    @unittest.skipIf(signal_handlers.TRANSACTION_ON_COMMIT_AVAILABLE, 'duplicate')
-    def test_document_file_deleted(self):
-        '''
-            this test duplicates `test_image_file_deleted_oncommit` for
-            django 1.8 support and can be removed once django 1.8 is no longer
-            supported
-        '''
-        with transaction.atomic():
-            document = get_document_model().objects.create(title="Test Image", file=get_test_image_file())
-            self.assertTrue(document.file.storage.exists(document.file.name))
-            document.delete()
         self.assertFalse(document.file.storage.exists(document.file.name))
 
 

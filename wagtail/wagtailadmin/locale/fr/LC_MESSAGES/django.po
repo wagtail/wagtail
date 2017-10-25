@@ -22,9 +22,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-10 16:05+0000\n"
-"PO-Revision-Date: 2017-09-20 00:33+0000\n"
-"Last-Translator: Sophy O <sophy.ouch@erudit.org>\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"PO-Revision-Date: 2017-10-06 15:06+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -163,6 +163,9 @@ msgstr "La date d'expiration doit être dans le futur"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Vous ne pouvez avoir plusieurs permissions pour la même collection."
+
+msgid "Go to Wagtail admin"
+msgstr "Aller sur l’administration de Wagtail"
 
 msgid "Account"
 msgstr "Compte"
@@ -1079,10 +1082,10 @@ msgid "Sat"
 msgstr "Sam"
 
 #, python-format
-msgid "Used %(useage_count)s time"
-msgid_plural "Used %(useage_count)s times"
-msgstr[0] "Utilisé %(useage_count)s fois"
-msgstr[1] "Utilisé %(useage_count)s fois"
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Utilisé %(usage_count)s fois"
+msgstr[1] "Utilisé %(usage_count)s fois"
 
 msgid "Edit your account"
 msgstr "Modifiez votre compte"
@@ -1127,9 +1130,6 @@ msgstr ""
 
 msgid "Go to Wagtail admin interface"
 msgstr "Aller sur l'interface d'administration de Wagtail"
-
-msgid "Go to Wagtail admin"
-msgstr "Aller sur l’administration de Wagtail"
 
 msgid "Add a child page"
 msgstr "Ajouter une sous-page"

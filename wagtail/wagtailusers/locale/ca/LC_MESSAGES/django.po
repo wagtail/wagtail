@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-10 16:05+0000\n"
-"PO-Revision-Date: 2017-09-23 19:35+0000\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"PO-Revision-Date: 2017-10-06 15:11+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
@@ -245,18 +245,15 @@ msgstr ""
 "No hi han usuaris configurats. Per què no <a href="
 "\"%(wagtailusers_create_url)s\">afegeixes un</a>?"
 
+msgid "Groups"
+msgstr "Grups"
+
 msgid "Search groups"
 msgstr "Cercar grups"
 
 #, python-brace-format
 msgid "Group '{0}' created."
 msgstr "S'ha creat el grup '{0}'."
-
-msgid "Edit"
-msgstr "Editar"
-
-msgid "The group could not be created due to errors."
-msgstr "No s'ha pogut crear el grup a causa d'errors."
 
 #, python-brace-format
 msgid "Group '{0}' updated."
@@ -276,6 +273,9 @@ msgstr "Cercar usuaris"
 msgid "User '{0}' created."
 msgstr "Usuari '{0}' creat."
 
+msgid "Edit"
+msgstr "Editar"
+
 msgid "The user could not be created due to errors."
 msgstr "No s'ha pogut crear l'usuari degut a errors."
 
@@ -289,9 +289,6 @@ msgstr "No s'ha pogut desar l'usuari degut a errors."
 #, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "S'ha eliminat l'usuari '{0}'."
-
-msgid "Groups"
-msgstr "Grups"
 
 msgid "Edit this user"
 msgstr "Editar aquest usuari"
