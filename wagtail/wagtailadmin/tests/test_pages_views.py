@@ -3188,7 +3188,7 @@ class TestNotificationPreferences(TestCase, WagtailTestUtils):
         # Should be redirected to explorer page
         self.assertEqual(response.status_code, 302)
 
-        # Check that the non-moderators superusers are not being notified
+        # Check that the non-moderator superuser is not being notified
         expected_emails = 1
         self.assertEqual(len(mail.outbox), expected_emails)
         # Use chain as the 'to' field is a list of recipients
