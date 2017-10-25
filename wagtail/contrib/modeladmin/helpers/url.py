@@ -1,5 +1,6 @@
 from __future__ import absolute_import, unicode_literals
 
+from django.contrib.admin.utils import quote
 from django.core.urlresolvers import reverse
 from django.utils.functional import cached_property
 from django.utils.http import urlquote
@@ -35,6 +36,12 @@ class AdminURLHelper(object):
             return reverse(self.get_action_url_name(action))
         url_name = self.get_action_url_name(action)
         return reverse(url_name, args=args, kwargs=kwargs)
+
+    def get_action_url_for_obj(self, action, obj, *args, **kwargs):
+        if obj is None:
+            return self.get_action_url(action, *args, **kwargs)
+        args = (quote(getattr(obj, self.opts.pk.attname)),) + args
+        return self.get_action_url(action, *args, **kwargs)
 
     @cached_property
     def index_url(self):
