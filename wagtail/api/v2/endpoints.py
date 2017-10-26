@@ -396,7 +396,11 @@ class PagesAPIEndpoint(BaseAPIEndpoint):
         queryset = queryset.public().live()
 
         # Filter by site
-        queryset = queryset.descendant_of(request.site.root_page, inclusive=True)
+        if request.site:
+            queryset = queryset.descendant_of(request.site.root_page, inclusive=True)
+        else:
+            # No sites configured
+            queryset = queryset.none()
 
         return queryset
 

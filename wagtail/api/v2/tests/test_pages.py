@@ -11,7 +11,7 @@ from django.urls import reverse
 from wagtail.api.v2 import signal_handlers
 from wagtail.tests.demosite import models
 from wagtail.tests.testapp.models import StreamPage
-from wagtail.wagtailcore.models import Page
+from wagtail.wagtailcore.models import Page, Site
 
 
 def get_total_page_count():
@@ -752,6 +752,14 @@ class TestPageListing(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response['Content-type'], 'application/json')
         self.assertEqual(content['meta']['total_count'], 0)
+
+    # REGRESSION TESTS
+
+    def test_issue_3967(self):
+        # The API crashed whenever the listing view was called without a site configured
+        Site.objects.all().delete()
+        response = self.get_response()
+        self.assertEqual(response.status_code, 200)
 
 
 class TestPageDetail(TestCase):
