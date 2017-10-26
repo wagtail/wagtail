@@ -11,7 +11,6 @@ from django.core.files import File
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.forms.utils import flatatt
-from django.utils.encoding import python_2_unicode_compatible
 from django.utils.functional import cached_property
 from django.utils.safestring import mark_safe
 from django.utils.six import BytesIO, string_types, text_type
@@ -62,7 +61,6 @@ def get_rendition_upload_to(instance, filename):
     return instance.get_upload_to(filename)
 
 
-@python_2_unicode_compatible
 class AbstractImage(CollectionMember, index.Indexed, models.Model):
     title = models.CharField(max_length=255, verbose_name=_('title'))
     file = models.ImageField(

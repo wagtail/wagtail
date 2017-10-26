@@ -20,7 +20,6 @@ from django.http import Http404
 from django.template.response import TemplateResponse
 # Must be imported from Django so we get the new implementation of with_metaclass
 from django.utils import six, timezone
-from django.utils.encoding import python_2_unicode_compatible
 from django.utils.functional import cached_property
 from django.utils.six import StringIO
 from django.utils.six.moves.urllib.parse import urlparse
@@ -47,7 +46,6 @@ class SiteManager(models.Manager):
         return self.get(hostname=hostname, port=port)
 
 
-@python_2_unicode_compatible
 class Site(models.Model):
     hostname = models.CharField(verbose_name=_('hostname'), max_length=255, db_index=True)
     port = models.IntegerField(
@@ -237,7 +235,6 @@ class AbstractPage(MP_Node):
         abstract = True
 
 
-@python_2_unicode_compatible
 class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, ClusterableModel)):
     title = models.CharField(
         verbose_name=_('title'),
@@ -1390,7 +1387,6 @@ class SubmittedRevisionsManager(models.Manager):
         return super(SubmittedRevisionsManager, self).get_queryset().filter(submitted_for_moderation=True)
 
 
-@python_2_unicode_compatible
 class PageRevision(models.Model):
     page = models.ForeignKey('Page', verbose_name=_('page'), related_name='revisions', on_delete=models.CASCADE)
     submitted_for_moderation = models.BooleanField(
@@ -1543,7 +1539,6 @@ PAGE_PERMISSION_TYPE_CHOICES = [
 ]
 
 
-@python_2_unicode_compatible
 class GroupPagePermission(models.Model):
     group = models.ForeignKey(Group, verbose_name=_('group'), related_name='page_permissions', on_delete=models.CASCADE)
     page = models.ForeignKey('Page', verbose_name=_('page'), related_name='group_permissions', on_delete=models.CASCADE)
@@ -1928,7 +1923,6 @@ class CollectionViewRestriction(BaseViewRestriction):
         verbose_name_plural = _('collection view restrictions')
 
 
-@python_2_unicode_compatible
 class Collection(MP_Node):
     """
     A location in which resources such as images and documents can be grouped
@@ -1988,7 +1982,6 @@ class CollectionMember(models.Model):
         abstract = True
 
 
-@python_2_unicode_compatible
 class GroupCollectionPermission(models.Model):
     """
     A rule indicating that a group has permission for some action (e.g. "create document")

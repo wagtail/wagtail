@@ -1,13 +1,11 @@
 from __future__ import absolute_import, unicode_literals
 
 from django.db import models
-from django.utils.encoding import python_2_unicode_compatible
 
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailsearch import index
 
 
-@python_2_unicode_compatible
 class Author(models.Model):
     name = models.CharField(max_length=255)
     date_of_birth = models.DateField()
@@ -23,7 +21,6 @@ class Author(models.Model):
         return ''
 
 
-@python_2_unicode_compatible
 class Book(models.Model, index.Indexed):
     author = models.ForeignKey(Author, on_delete=models.PROTECT)
     title = models.CharField(max_length=255)
@@ -33,7 +30,6 @@ class Book(models.Model, index.Indexed):
         return self.title
 
 
-@python_2_unicode_compatible
 class Token(models.Model):
     key = models.CharField(max_length=40, primary_key=True)
 
@@ -41,7 +37,6 @@ class Token(models.Model):
         return self.key
 
 
-@python_2_unicode_compatible
 class Publisher(models.Model):
     name = models.CharField(max_length=50)
     headquartered_in = models.CharField(max_length=50, null=True, blank=True)

@@ -9,7 +9,6 @@ from django.core.urlresolvers import reverse
 from django.forms import widgets
 from django.forms.utils import flatatt
 from django.template.loader import render_to_string
-from django.utils.encoding import python_2_unicode_compatible
 from django.utils.formats import get_format
 from django.utils.functional import cached_property
 from django.utils.html import format_html
@@ -217,7 +216,6 @@ class AdminPageChooser(AdminChooser):
         )
 
 
-@python_2_unicode_compatible
 @total_ordering
 class Button(object):
     show = True
