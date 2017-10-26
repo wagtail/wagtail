@@ -35,6 +35,7 @@ class Sitemap(DjangoSitemap):
                 urls.append(url_info)
                 last_mods.add(url_info.get('lastmod'))
 
-        if None not in last_mods:
+        # last_mods might be empty if the whole site is private
+        if last_mods and None not in last_mods:
             self.latest_lastmod = max(last_mods)
         return urls
