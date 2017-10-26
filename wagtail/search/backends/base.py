@@ -1,12 +1,15 @@
 
 from warnings import warn
 
+import warnings
+
 from django.db.models.lookups import Lookup
 from django.db.models.query import QuerySet
 from django.db.models.sql.where import SubqueryConstraint, WhereNode
 
 from wagtail.search.index import class_is_indexed
 from wagtail.search.query import MATCH_ALL, PlainText
+from wagtail.utils.deprecation import RemovedInWagtail22Warning
 
 
 class FilterError(Exception):
@@ -321,10 +324,22 @@ class BaseSearchBackend:
         if filters:
             queryset = queryset.filter(**filters)
 
+            warnings.warn(
+                "The 'filters' argument on the 'search()' method is deprecated. "
+                "Please apply the filters to the base queryset instead.",
+                category=RemovedInWagtail22Warning
+            )
+
         # Prefetch related
         if prefetch_related:
             for prefetch in prefetch_related:
                 queryset = queryset.prefetch_related(prefetch)
+
+            warnings.warn(
+                "The 'prefetch_related' argument on the 'search()' method is deprecated. "
+                "Please add prefetch_related to the base queryset instead.",
+                category=RemovedInWagtail22Warning
+            )
 
         # Search
         search_query = self.query_compiler_class(
