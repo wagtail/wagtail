@@ -1,10 +1,12 @@
 from __future__ import absolute_import, unicode_literals
 
 import logging
+import re
 
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.utils.module_loading import import_string
+from django.utils.six.moves.urllib.parse import urlparse, urlunparse
 
 logger = logging.getLogger('wagtail.frontendcache')
 
@@ -56,12 +58,36 @@ def get_backends(backend_settings=None, backends=None):
 
 
 def purge_url_from_cache(url, backend_settings=None, backends=None):
-    for backend_name, backend in get_backends(backend_settings, backends).items():
-        logger.info("[%s] Purging URL: %s", backend_name, url)
-        backend.purge(url)
+    purge_urls_from_cache([url], backend_settings=backend_settings, backends=backends)
 
 
 def purge_urls_from_cache(urls, backend_settings=None, backends=None):
+    if settings.USE_I18N:
+        langs_regex = "^/(%s)/" % "|".join([l[0] for l in settings.LANGUAGES])
+        new_urls = []
+
+        # Purge the given url for each managed language
+        for isocode, description in settings.LANGUAGES:
+            for url in urls:
+                up = urlparse(url)
+                new_url = urlunparse((
+                    up.scheme,
+                    up.netloc,
+                    re.sub(langs_regex, "/%s/" % isocode, up.path),
+                    up.params,
+                    up.query,
+                    up.fragment
+                ))
+
+                # Check for best performance. True if re.sub found no match
+                # It happens when i18n_patterns was not used in urls.py to serve content for different languages from different URLs
+                if new_url in new_urls:
+                    continue
+
+                new_urls.append(new_url)
+
+        urls = new_urls
+
     for backend_name, backend in get_backends(backend_settings, backends).items():
         for url in urls:
             logger.info("[%s] Purging URL: %s", backend_name, url)
