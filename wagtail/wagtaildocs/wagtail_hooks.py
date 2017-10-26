@@ -27,7 +27,7 @@ from wagtail.wagtaildocs.rich_text import DocumentLinkHandler
 @hooks.register('register_admin_urls')
 def register_admin_urls():
     return [
-        url(r'^documents/', include(admin_urls, app_name='wagtaildocs', namespace='wagtaildocs')),
+        url(r'^documents/', include(admin_urls, namespace='wagtaildocs')),
     ]
 
 

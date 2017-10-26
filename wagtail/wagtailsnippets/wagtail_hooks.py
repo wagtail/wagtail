@@ -18,7 +18,7 @@ from wagtail.wagtailsnippets.permissions import user_can_edit_snippets
 @hooks.register('register_admin_urls')
 def register_admin_urls():
     return [
-        url(r'^snippets/', include(urls, app_name='wagtailsnippets', namespace='wagtailsnippets')),
+        url(r'^snippets/', include(urls, namespace='wagtailsnippets')),
     ]
 
 

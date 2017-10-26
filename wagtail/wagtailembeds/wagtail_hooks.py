@@ -13,7 +13,7 @@ from wagtail.wagtailembeds.rich_text import MediaEmbedHandler
 @hooks.register('register_admin_urls')
 def register_admin_urls():
     return [
-        url(r'^embeds/', include(urls, app_name='wagtailembeds', namespace='wagtailembeds')),
+        url(r'^embeds/', include(urls, namespace='wagtailembeds')),
     ]
 
 
