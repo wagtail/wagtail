@@ -71,7 +71,7 @@ class Book(index.Indexed, models.Model):
 
 class Character(models.Model):
     name = models.CharField(max_length=255)
-    novel = models.ForeignKey('Novel', related_name='characters')
+    novel = models.ForeignKey('Novel', related_name='characters', on_delete=models.CASCADE)
 
     search_fields = [
         index.SearchField('name'),
@@ -83,7 +83,7 @@ class Character(models.Model):
 
 class Novel(Book):
     setting = models.CharField(max_length=255)
-    protagonist = models.OneToOneField(Character, related_name='+', null=True)
+    protagonist = models.OneToOneField(Character, related_name='+', null=True, on_delete=models.SET_NULL)
 
     search_fields = Book.search_fields + [
         index.SearchField('setting', partial_match=True),
