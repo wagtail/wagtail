@@ -1,5 +1,6 @@
 from __future__ import absolute_import, unicode_literals
 
+import mock
 from django.core.urlresolvers import NoReverseMatch
 from django.test import RequestFactory, TestCase
 
@@ -185,3 +186,11 @@ class TestRoutablePageTemplateTag(TestCase):
                               'external_view', 'joe-bloggs')
 
         self.assertEqual(url, self.routable_page.url + 'external/joe-bloggs/')
+
+    def test_templatetag_reverse_external_view_without_append_slash(self):
+        with mock.patch('wagtail.wagtailcore.models.WAGTAIL_APPEND_SLASH', False):
+            url = routablepageurl(self.context, self.routable_page,
+                                  'external_view', 'joe-bloggs')
+            expected = self.routable_page.url + '/' + 'external/joe-bloggs/'
+
+        self.assertEqual(url, expected)
