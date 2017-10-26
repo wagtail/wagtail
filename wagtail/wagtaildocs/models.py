@@ -7,7 +7,6 @@ from django.core.exceptions import ImproperlyConfigured
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.dispatch import Signal
-from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 from taggit.managers import TaggableManager
 
@@ -21,7 +20,6 @@ class DocumentQuerySet(SearchableQuerySetMixin, models.QuerySet):
     pass
 
 
-@python_2_unicode_compatible
 class AbstractDocument(CollectionMember, index.Indexed, models.Model):
     title = models.CharField(max_length=255, verbose_name=_('title'))
     file = models.FileField(upload_to='documents', verbose_name=_('file'))

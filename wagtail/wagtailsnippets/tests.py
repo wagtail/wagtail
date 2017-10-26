@@ -352,6 +352,13 @@ class TestSnippetDelete(TestCase, WagtailTestUtils):
         # Check that the page is gone
         self.assertEqual(Advert.objects.filter(text='test_advert').count(), 0)
 
+    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
+    def test_usage_link(self):
+        response = self.client.get(reverse('wagtailsnippets:delete', args=('tests', 'advert', self.test_snippet.id, )))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailsnippets/snippets/confirm_delete.html')
+        self.assertIn('Used 2 times', str(response.content))
+
 
 class TestSnippetChooserPanel(TestCase, WagtailTestUtils):
     fixtures = ['test.json']

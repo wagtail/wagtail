@@ -12,7 +12,6 @@ from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
 from django.shortcuts import render
-from django.utils.encoding import python_2_unicode_compatible
 from django.utils.six import text_type
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
@@ -199,7 +198,6 @@ class EventPageSpeaker(Orderable, LinkFields):
     ]
 
 
-@python_2_unicode_compatible
 class EventCategory(models.Model):
     name = models.CharField("Name", max_length=255)
 
@@ -519,7 +517,6 @@ class AdvertTag(TaggedItemBase):
     content_object = ParentalKey('Advert', related_name='tagged_items', on_delete=models.CASCADE)
 
 
-@python_2_unicode_compatible
 class Advert(ClusterableModel):
     url = models.URLField(null=True, blank=True)
     text = models.CharField(max_length=255)
@@ -539,7 +536,6 @@ class Advert(ClusterableModel):
 register_snippet(Advert)
 
 
-@python_2_unicode_compatible
 class AdvertWithTabbedInterface(models.Model):
     url = models.URLField(null=True, blank=True)
     text = models.CharField(max_length=255)

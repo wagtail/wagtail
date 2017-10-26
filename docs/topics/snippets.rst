@@ -16,7 +16,6 @@ Here's an example snippet model:
 .. code-block:: python
 
   from django.db import models
-  from django.utils.encoding import python_2_unicode_compatible
 
   from wagtail.wagtailadmin.edit_handlers import FieldPanel
   from wagtail.wagtailsnippets.models import register_snippet
@@ -24,7 +23,6 @@ Here's an example snippet model:
   ...
 
   @register_snippet
-  @python_2_unicode_compatible  # provide equivalent __unicode__ and __str__ methods on Python 2
   class Advert(models.Model):
       url = models.URLField(null=True, blank=True)
       text = models.CharField(max_length=255)

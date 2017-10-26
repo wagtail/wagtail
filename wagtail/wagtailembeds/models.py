@@ -1,7 +1,6 @@
 from __future__ import absolute_import, division, unicode_literals
 
 from django.db import models
-from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 
 EMBED_TYPES = (
@@ -12,7 +11,6 @@ EMBED_TYPES = (
 )
 
 
-@python_2_unicode_compatible
 class Embed(models.Model):
     """
     When embed code is fetched from a provider (eg, youtube) we cache that code
