@@ -13,6 +13,8 @@ What's new
 Other features
 ~~~~~~~~~~~~~~
 
+ * Moved Wagtail API v1 implementation (``wagtail.contrib.api``) to an `external app <https://github.com/wagtail/wagtailapi_legacy>`_ (Karl Hobley)
+ * Implement ordering by date in form submission view (LB (Ben Johnston))
  * Elasticsearch scroll API is now used when fetching more than 100 search results (Karl Hobley)
  * Added hidden field to the form builder (Ross Crawford-d'Heureuse)
  * Image usage count now shows on delete confirmation page when WAGTAIL_USAGE_COUNT_ENABLED is active (Kees Hink)
@@ -24,6 +26,7 @@ Bug fixes
  * Do not remove stopwords when generating slugs from non-ASCII titles, to avoid issues with incorrect word boundaries (Sævar Öfjörð Magnússon)
  * The PostgreSQL search backend now preserves ordering of the ``QuerySet`` when searching with ``order_by_relevance=False`` (Bertrand Bordage)
  * Using ``modeladmin_register`` as a decorator no longer replaces the decorated class with ``None`` (Tim Heap)
+ * Fixed crash in XML sitemap generator when all pages on the site are private (Stein Strindhaug)
 
 
 Upgrade considerations
