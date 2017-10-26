@@ -4,13 +4,12 @@ import os.path
 import unittest
 
 import mock
-
 from django.conf import settings
 from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import SimpleUploadedFile
-from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.test.utils import override_settings
+from django.urls import reverse
 
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtaildocs import models

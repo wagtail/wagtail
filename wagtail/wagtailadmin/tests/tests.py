@@ -7,8 +7,8 @@ import json
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.core import mail
-from django.core.urlresolvers import reverse, reverse_lazy
 from django.test import TestCase, override_settings
+from django.urls import reverse, reverse_lazy
 from django.utils.translation import ugettext_lazy as _
 from taggit.models import Tag
 

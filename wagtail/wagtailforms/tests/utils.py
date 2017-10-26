@@ -2,9 +2,7 @@
 from __future__ import absolute_import, unicode_literals
 
 from wagtail.tests.testapp.models import (
-    FormField, FormFieldWithCustomSubmission,
-    FormPage, FormPageWithCustomSubmission
-)
+    FormField, FormFieldWithCustomSubmission, FormPage, FormPageWithCustomSubmission)
 from wagtail.wagtailcore.models import Page
 
 

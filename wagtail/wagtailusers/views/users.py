@@ -3,9 +3,9 @@ from __future__ import absolute_import, unicode_literals
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ImproperlyConfigured
-from django.core.urlresolvers import reverse
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse
 from django.utils.module_loading import import_string
 from django.utils.translation import ugettext as _
 from django.views.decorators.vary import vary_on_headers

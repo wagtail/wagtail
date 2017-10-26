@@ -8,9 +8,10 @@ from contextlib import contextmanager
 from django.conf import settings
 from django.core import checks
 from django.core.files import File
-from django.core.urlresolvers import reverse
 from django.db import models
 from django.forms.utils import flatatt
+
+from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.safestring import mark_safe
 from django.utils.six import BytesIO, string_types, text_type

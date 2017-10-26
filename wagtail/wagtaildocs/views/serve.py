@@ -3,10 +3,10 @@ from __future__ import absolute_import, unicode_literals
 from wsgiref.util import FileWrapper
 
 from django.conf import settings
-from django.core.urlresolvers import reverse
 from django.http import Http404, HttpResponse, StreamingHttpResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
+from django.urls import reverse
 
 from wagtail.utils import sendfile_streaming_backend
 from wagtail.utils.sendfile import sendfile

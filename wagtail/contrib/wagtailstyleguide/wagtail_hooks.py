@@ -1,7 +1,7 @@
 from __future__ import absolute_import, unicode_literals
 
 from django.conf.urls import url
-from django.core import urlresolvers
+from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 
 from wagtail.wagtailadmin.menu import MenuItem
@@ -21,7 +21,7 @@ def register_admin_urls():
 def register_styleguide_menu_item():
     return MenuItem(
         _('Styleguide'),
-        urlresolvers.reverse('wagtailstyleguide'),
+        reverse('wagtailstyleguide'),
         classnames='icon icon-image',
         order=1000
     )

@@ -2,8 +2,8 @@ from __future__ import absolute_import, unicode_literals
 
 import json
 
-from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404, render
+from django.urls import reverse
 from django.utils.six import text_type
 from django.utils.translation import ugettext as _
 

@@ -2,7 +2,7 @@ from __future__ import absolute_import, unicode_literals
 
 from collections import OrderedDict
 
-from django.core.urlresolvers import NoReverseMatch
+from django.urls.exceptions import NoReverseMatch
 from modelcluster.models import get_all_child_relations
 from rest_framework import relations, serializers
 from rest_framework.fields import Field, SkipField

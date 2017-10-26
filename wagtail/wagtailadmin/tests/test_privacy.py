@@ -1,8 +1,8 @@
 from __future__ import absolute_import, unicode_literals
 
 from django.contrib.auth.models import Group
-from django.core.urlresolvers import reverse
 from django.test import TestCase
+from django.urls import reverse
 
 from wagtail.tests.testapp.models import SimplePage
 from wagtail.tests.utils import WagtailTestUtils

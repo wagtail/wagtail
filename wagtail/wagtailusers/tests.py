@@ -5,8 +5,8 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.core.exceptions import ImproperlyConfigured
 from django.core.files.uploadedfile import SimpleUploadedFile
-from django.core.urlresolvers import reverse
 from django.test import TestCase, override_settings
+from django.urls import reverse
 from django.utils import six
 
 from wagtail.tests.utils import WagtailTestUtils
@@ -17,7 +17,6 @@ from wagtail.wagtailcore.models import (
 from wagtail.wagtailusers.forms import UserCreationForm, UserEditForm
 from wagtail.wagtailusers.models import UserProfile
 from wagtail.wagtailusers.views.users import get_user_creation_form, get_user_edit_form
-
 
 delete_user_perm_codename = "delete_{0}".format(AUTH_USER_MODEL_NAME.lower())
 change_user_perm_codename = "change_{0}".format(AUTH_USER_MODEL_NAME.lower())

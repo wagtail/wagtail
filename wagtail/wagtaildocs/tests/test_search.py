@@ -3,9 +3,9 @@ from __future__ import absolute_import, unicode_literals
 import unittest
 
 from django.core.files.base import ContentFile
-from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.test.utils import override_settings
+from django.urls import reverse
 from django.utils.six import b
 
 from wagtail.tests.utils import WagtailTestUtils

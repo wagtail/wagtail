@@ -2,8 +2,8 @@ from __future__ import absolute_import, unicode_literals
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Permission
-from django.core.urlresolvers import reverse
 from django.test import TestCase, override_settings
+from django.urls import reverse
 from django.utils.text import capfirst
 
 from wagtail.contrib.settings.registry import SettingMenuItem

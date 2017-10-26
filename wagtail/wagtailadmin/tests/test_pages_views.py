@@ -12,18 +12,19 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.messages import constants as message_constants
 from django.core import mail, paginator
 from django.core.files.base import ContentFile
-from django.core.urlresolvers import reverse
 from django.db.models.signals import post_delete, pre_delete
 from django.http import HttpRequest, HttpResponse
 from django.test import TestCase, modify_settings
+from django.urls import reverse
 from django.utils import formats, timezone
 from django.utils.dateparse import parse_date
-
 from freezegun import freeze_time
+
 from wagtail.tests.testapp.models import (
     EVENT_AUDIENCE_CHOICES, Advert, AdvertPlacement, BusinessChild, BusinessIndex, BusinessSubIndex,
-    DefaultStreamPage, EventCategory, EventPage, EventPageCarouselItem, FilePage, ManyToManyBlogPage,
-    SimplePage, SingleEventPage, SingletonPage, StandardChild, StandardIndex, TaggedPage)
+    DefaultStreamPage, EventCategory, EventPage, EventPageCarouselItem, FilePage,
+    ManyToManyBlogPage, SimplePage, SingleEventPage, SingletonPage, StandardChild, StandardIndex,
+    TaggedPage)
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailadmin.views.home import RecentEditsPanel
 from wagtail.wagtailadmin.views.pages import PreviewOnEdit

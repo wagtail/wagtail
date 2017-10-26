@@ -1,14 +1,15 @@
 from __future__ import absolute_import, unicode_literals
+
 from time import time
 
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
-from django.core.urlresolvers import reverse
 from django.db.models import Count
 from django.http import Http404, HttpResponse, JsonResponse
 from django.http.request import QueryDict
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template.loader import render_to_string
+from django.urls import reverse
 from django.utils import timezone
 from django.utils.http import is_safe_url, urlquote
 from django.utils.safestring import mark_safe

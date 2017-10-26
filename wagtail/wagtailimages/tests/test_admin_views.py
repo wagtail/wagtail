@@ -5,9 +5,9 @@ import json
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.core.files.uploadedfile import SimpleUploadedFile
-from django.core.urlresolvers import reverse
 from django.template.defaultfilters import filesizeformat
 from django.test import TestCase, override_settings
+from django.urls import reverse
 from django.utils.http import RFC3986_SUBDELIMS, urlquote
 
 from wagtail.tests.utils import WagtailTestUtils

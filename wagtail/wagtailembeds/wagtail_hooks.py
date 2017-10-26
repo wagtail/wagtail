@@ -1,7 +1,7 @@
 from __future__ import absolute_import, unicode_literals
 
 from django.conf.urls import include, url
-from django.core import urlresolvers
+from django.urls import reverse
 from django.utils.html import format_html
 
 from wagtail.wagtailadmin.rich_text import HalloPlugin
@@ -25,7 +25,7 @@ def editor_js():
                 window.chooserUrls.embedsChooser = '{0}';
             </script>
         """,
-        urlresolvers.reverse('wagtailembeds:chooser')
+        reverse('wagtailembeds:chooser')
     )
 
 

@@ -2,9 +2,8 @@ from __future__ import absolute_import, unicode_literals
 
 from django.conf.urls import include, url
 from django.contrib.auth.models import Permission
-from django.core import urlresolvers
-from django.core.urlresolvers import reverse
 from django.db.models import Q
+from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 
 from wagtail.wagtailadmin.menu import MenuItem
@@ -50,7 +49,7 @@ class UsersMenuItem(MenuItem):
 def register_users_menu_item():
     return UsersMenuItem(
         _('Users'),
-        urlresolvers.reverse('wagtailusers_users:index'),
+        reverse('wagtailusers_users:index'),
         classnames='icon icon-user',
         order=600
     )
@@ -69,7 +68,7 @@ class GroupsMenuItem(MenuItem):
 def register_groups_menu_item():
     return GroupsMenuItem(
         _('Groups'),
-        urlresolvers.reverse('wagtailusers_groups:index'),
+        reverse('wagtailusers_groups:index'),
         classnames='icon icon-group',
         order=601
     )
@@ -99,7 +98,7 @@ class UsersSearchArea(SearchArea):
 @hooks.register('register_admin_search_area')
 def register_users_search_area():
     return UsersSearchArea(
-        _('Users'), urlresolvers.reverse('wagtailusers_users:index'),
+        _('Users'), reverse('wagtailusers_users:index'),
         name='users',
         classnames='icon icon-user',
         order=600)

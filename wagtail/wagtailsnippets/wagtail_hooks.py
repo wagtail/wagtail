@@ -4,7 +4,7 @@ from django.conf.urls import include, url
 from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.staticfiles.templatetags.staticfiles import static
-from django.core import urlresolvers
+from django.urls import reverse
 from django.utils.html import format_html
 from django.utils.translation import ugettext_lazy as _
 
@@ -31,7 +31,7 @@ class SnippetsMenuItem(MenuItem):
 def register_snippets_menu_item():
     return SnippetsMenuItem(
         _('Snippets'),
-        urlresolvers.reverse('wagtailsnippets:index'),
+        reverse('wagtailsnippets:index'),
         classnames='icon icon-snippet',
         order=500
     )
@@ -45,7 +45,7 @@ def editor_js():
             <script>window.chooserUrls.snippetChooser = '{1}';</script>
         """,
         static('wagtailsnippets/js/snippet-chooser.js'),
-        urlresolvers.reverse('wagtailsnippets:choose_generic')
+        reverse('wagtailsnippets:choose_generic')
     )
 
 
