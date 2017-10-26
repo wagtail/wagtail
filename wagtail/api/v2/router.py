@@ -72,7 +72,7 @@ class WagtailAPIRouter(object):
         for name, class_ in self._endpoints.items():
             pattern = url(
                 r'^{}/'.format(name),
-                include(class_.get_urlpatterns(), namespace=name)
+                include((class_.get_urlpatterns(), name), namespace=name)
             )
             urlpatterns.append(pattern)
 

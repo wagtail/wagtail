@@ -14,7 +14,7 @@ from wagtail.wagtailredirects.permissions import permission_policy
 @hooks.register('register_admin_urls')
 def register_admin_urls():
     return [
-        url(r'^redirects/', include(urls, app_name='wagtailredirects', namespace='wagtailredirects')),
+        url(r'^redirects/', include(urls, namespace='wagtailredirects')),
     ]
 
 

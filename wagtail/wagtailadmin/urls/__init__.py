@@ -29,7 +29,7 @@ urlpatterns = [
     url(r'^pages/$', pages.index, name='wagtailadmin_explore_root'),
     url(r'^pages/(\d+)/$', pages.index, name='wagtailadmin_explore'),
 
-    url(r'^pages/', include(wagtailadmin_pages_urls, app_name='wagtailadmin_pages', namespace='wagtailadmin_pages')),
+    url(r'^pages/', include(wagtailadmin_pages_urls, namespace='wagtailadmin_pages')),
 
     # TODO: Move into wagtailadmin_pages namespace
     url(r'^choose-page/$', chooser.browse, name='wagtailadmin_choose_page'),

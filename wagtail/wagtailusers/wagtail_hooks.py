@@ -19,7 +19,7 @@ from wagtail.wagtailusers.widgets import UserListingButton
 @hooks.register('register_admin_urls')
 def register_admin_urls():
     return [
-        url(r'^users/', include(users, app_name='wagtailusers_users', namespace='wagtailusers_users')),
+        url(r'^users/', include(users, namespace='wagtailusers_users')),
     ]
 
 

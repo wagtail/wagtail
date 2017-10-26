@@ -13,7 +13,7 @@ from wagtail.wagtailforms.models import get_forms_for_user
 @hooks.register('register_admin_urls')
 def register_admin_urls():
     return [
-        url(r'^forms/', include(urls, app_name='wagtailforms', namespace='wagtailforms')),
+        url(r'^forms/', include(urls, namespace='wagtailforms')),
     ]
 
 

@@ -25,7 +25,7 @@ class ViewSetRegistry(object):
             if vs_urlpatterns:
                 urlpatterns.append(url(
                     r'^{}/'.format(viewset.url_prefix),
-                    include(vs_urlpatterns, namespace=viewset.name)
+                    include((vs_urlpatterns, viewset.name), namespace=viewset.name)
                 ))
 
         return urlpatterns

@@ -22,7 +22,7 @@ from wagtail.wagtailimages.rich_text import ImageEmbedHandler
 @hooks.register('register_admin_urls')
 def register_admin_urls():
     return [
-        url(r'^images/', include(admin_urls, namespace='wagtailimages', app_name='wagtailimages')),
+        url(r'^images/', include(admin_urls, namespace='wagtailimages')),
     ]
 
 
