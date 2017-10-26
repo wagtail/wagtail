@@ -48,7 +48,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('book_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='searchtests.Book')),
                 ('setting', models.CharField(max_length=255)),
-                ('protagonist', models.OneToOneField(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='+', to='searchtests.Character')),
+                ('protagonist', models.OneToOneField(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='searchtests.Character')),
             ],
             bases=('searchtests.book',),
         ),
