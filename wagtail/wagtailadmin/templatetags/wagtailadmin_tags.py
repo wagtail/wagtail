@@ -17,10 +17,7 @@ from wagtail.wagtailadmin.navigation import get_explorable_root_page
 from wagtail.wagtailadmin.search import admin_search_areas
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import (
-    CollectionViewRestriction,
-    Page, PageViewRestriction,
-    UserPagePermissionsProxy
-)
+    CollectionViewRestriction, Page, PageViewRestriction, UserPagePermissionsProxy)
 from wagtail.wagtailcore.utils import cautious_slugify as _cautious_slugify
 from wagtail.wagtailcore.utils import camelcase_to_underscore, escape_script
 

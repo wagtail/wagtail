@@ -1,14 +1,13 @@
 from __future__ import absolute_import, unicode_literals
 
 from django.contrib.auth.models import Permission
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 
 from wagtail.wagtailadmin.menu import MenuItem, SubmenuMenuItem, settings_menu
 from wagtail.wagtailadmin.navigation import get_explorable_root_page
 from wagtail.wagtailadmin.rich_text import (
-    HalloFormatPlugin, HalloHeadingPlugin, HalloListPlugin, HalloPlugin
-)
+    HalloFormatPlugin, HalloHeadingPlugin, HalloListPlugin, HalloPlugin)
 from wagtail.wagtailadmin.search import SearchArea
 from wagtail.wagtailadmin.utils import user_has_any_page_permission
 from wagtail.wagtailadmin.viewsets import viewsets

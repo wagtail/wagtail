@@ -2,7 +2,7 @@ from __future__ import absolute_import, unicode_literals
 
 import json
 
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
 from wagtail.api.v2.tests.test_images import TestImageDetail, TestImageListing
 from wagtail.wagtailimages import get_image_model

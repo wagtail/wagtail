@@ -6,8 +6,8 @@ import django.utils.six.moves.urllib.request
 from bs4 import BeautifulSoup
 from django import template
 from django.core.exceptions import ValidationError
-from django.core.urlresolvers import reverse
 from django.test import TestCase, override_settings
+from django.urls import reverse
 from django.utils.six.moves.urllib.error import URLError
 from mock import patch
 

@@ -1,8 +1,8 @@
 from __future__ import absolute_import, unicode_literals
 
 from django.core import mail
-from django.core.urlresolvers import reverse
 from django.test import TestCase, override_settings
+from django.urls import reverse
 
 from wagtail.tests.utils import WagtailTestUtils
 
@@ -13,11 +13,11 @@ class TestUserPasswordReset(TestCase, WagtailTestUtils):
     # need to clear urlresolver caches before/after tests, because we override ROOT_URLCONF
     # in some tests here
     def setUp(self):
-        from django.core.urlresolvers import clear_url_caches
+        from django.urls import clear_url_caches
         clear_url_caches()
 
     def tearDown(self):
-        from django.core.urlresolvers import clear_url_caches
+        from django.urls import clear_url_caches
         clear_url_caches()
 
     def test_login_has_password_reset_option(self):

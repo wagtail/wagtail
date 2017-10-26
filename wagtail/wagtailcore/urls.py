@@ -7,7 +7,6 @@ from django.contrib.auth import views as auth_views
 from wagtail.wagtailcore import views
 from wagtail.wagtailcore.utils import WAGTAIL_APPEND_SLASH
 
-
 if WAGTAIL_APPEND_SLASH:
     # If WAGTAIL_APPEND_SLASH is True (the default value), we match a
     # (possibly empty) list of path segments ending in slashes.

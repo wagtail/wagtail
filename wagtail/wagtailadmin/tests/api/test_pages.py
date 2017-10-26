@@ -4,7 +4,7 @@ import collections
 import datetime
 import json
 
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.utils import timezone
 
 from wagtail.api.v2.tests.test_pages import TestPageDetail, TestPageListing

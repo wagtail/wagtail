@@ -1,8 +1,8 @@
 from __future__ import absolute_import, unicode_literals
 
 from datetime import date
-import mock
 
+import mock
 from django.test import TestCase, override_settings
 
 from wagtail.tests.search import models

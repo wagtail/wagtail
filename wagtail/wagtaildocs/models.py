@@ -4,9 +4,9 @@ import os.path
 
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
-from django.core.urlresolvers import reverse
 from django.db import models
 from django.dispatch import Signal
+from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 from taggit.managers import TaggableManager
 

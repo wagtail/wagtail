@@ -5,10 +5,10 @@ import json
 from functools import total_ordering
 
 from django.conf import settings
-from django.core.urlresolvers import reverse
 from django.forms import widgets
 from django.forms.utils import flatatt
 from django.template.loader import render_to_string
+from django.urls import reverse
 from django.utils.formats import get_format
 from django.utils.functional import cached_property
 from django.utils.html import format_html
@@ -19,7 +19,6 @@ from wagtail.utils.widgets import WidgetWithScript
 from wagtail.wagtailadmin.datetimepicker import to_datetimepicker_format
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import Page
-
 
 DEFAULT_DATE_FORMAT = '%Y-%m-%d'
 DEFAULT_DATETIME_FORMAT = '%Y-%m-%d %H:%M'

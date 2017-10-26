@@ -12,12 +12,12 @@ from django.core.cache import cache
 from django.core.exceptions import ValidationError
 from django.core.handlers.base import BaseHandler
 from django.core.handlers.wsgi import WSGIRequest
-from django.core.urlresolvers import reverse
 from django.db import connection, models, transaction
 from django.db.models import Q, Value
 from django.db.models.functions import Concat, Substr
 from django.http import Http404
 from django.template.response import TemplateResponse
+from django.urls import reverse
 # Must be imported from Django so we get the new implementation of with_metaclass
 from django.utils import six, timezone
 from django.utils.functional import cached_property

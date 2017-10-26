@@ -5,9 +5,9 @@ from django.contrib.auth.models import Permission
 from django.core.exceptions import ValidationError
 from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import SimpleUploadedFile
-from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.test.utils import override_settings
+from django.urls import reverse
 from taggit.models import Tag
 
 from wagtail.tests.snippets.forms import FancySnippetForm

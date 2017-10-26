@@ -12,16 +12,14 @@ from django.http import Http404, HttpRequest
 from django.test import Client, TestCase
 from django.test.client import RequestFactory
 from django.test.utils import override_settings
-
 from freezegun import freeze_time
 
 from wagtail.tests.testapp.models import (
     AbstractPage, Advert, AlwaysShowInMenusPage, BlogCategory, BlogCategoryBlogPage, BusinessChild,
-    BusinessIndex, BusinessNowherePage, BusinessSubIndex,
-    CustomManager, CustomManagerPage, CustomPageQuerySet,
-    EventIndex, EventPage, GenericSnippetPage, ManyToManyBlogPage, MTIBasePage, MTIChildPage,
-    MyCustomPage, OneToOnePage, SimplePage, SingleEventPage, SingletonPage, StandardIndex,
-    TaggedPage)
+    BusinessIndex, BusinessNowherePage, BusinessSubIndex, CustomManager, CustomManagerPage,
+    CustomPageQuerySet, EventIndex, EventPage, GenericSnippetPage, ManyToManyBlogPage, MTIBasePage,
+    MTIChildPage, MyCustomPage, OneToOnePage, SimplePage, SingleEventPage, SingletonPage,
+    StandardIndex, TaggedPage)
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailcore.models import Page, PageManager, Site, get_page_models
 
@@ -224,11 +222,11 @@ class TestRouting(TestCase):
     # need to clear urlresolver caches before/after tests, because we override ROOT_URLCONF
     # in some tests here
     def setUp(self):
-        from django.core.urlresolvers import clear_url_caches
+        from django.urls import clear_url_caches
         clear_url_caches()
 
     def tearDown(self):
-        from django.core.urlresolvers import clear_url_caches
+        from django.urls import clear_url_caches
         clear_url_caches()
 
     def test_urls(self):
@@ -399,11 +397,11 @@ class TestServeView(TestCase):
 
         # also need to clear urlresolver caches before/after tests, because we override
         # ROOT_URLCONF in some tests here
-        from django.core.urlresolvers import clear_url_caches
+        from django.urls import clear_url_caches
         clear_url_caches()
 
     def tearDown(self):
-        from django.core.urlresolvers import clear_url_caches
+        from django.urls import clear_url_caches
         clear_url_caches()
 
     def test_serve(self):

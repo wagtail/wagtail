@@ -4,8 +4,8 @@ from __future__ import absolute_import, unicode_literals
 import json
 
 from django.contrib.auth import get_user_model
-from django.core.urlresolvers import reverse
 from django.test import TestCase
+from django.urls import reverse
 
 from wagtail.tests.testapp.models import (
     CustomFormPageSubmission, FormField, FormFieldWithCustomSubmission, FormPage)

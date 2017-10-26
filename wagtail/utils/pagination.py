@@ -4,7 +4,6 @@ from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.utils.http import urlencode
 from django.utils.six.moves.urllib.parse import parse_qs
 
-
 DEFAULT_PAGE_KEY = 'p'
 
 

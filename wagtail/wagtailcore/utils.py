@@ -11,7 +11,6 @@ from django.utils.encoding import force_text
 from django.utils.six import string_types
 from django.utils.text import slugify
 
-
 WAGTAIL_APPEND_SLASH = getattr(settings, 'WAGTAIL_APPEND_SLASH', True)
 
 

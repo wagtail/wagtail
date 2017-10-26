@@ -2,7 +2,7 @@ from __future__ import absolute_import, unicode_literals
 
 from django.conf import settings
 from django.contrib.auth.views import redirect_to_login
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import PageViewRestriction

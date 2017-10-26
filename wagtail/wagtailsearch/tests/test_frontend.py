@@ -1,8 +1,8 @@
 from __future__ import absolute_import, unicode_literals
 
 from django.core import paginator
-from django.core.urlresolvers import reverse
 from django.test import TestCase
+from django.urls import reverse
 
 from wagtail.tests.testapp.models import EventPage
 from wagtail.wagtailcore.models import Page
