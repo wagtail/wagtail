@@ -327,7 +327,7 @@ class PageSerializer(BaseSerializer):
         if relation_info.to_many:
             model = getattr(self.Meta, 'model')
             child_relations = {
-                child_relation.field.rel.related_name: child_relation.related_model
+                child_relation.field.remote_field.related_name: child_relation.related_model
                 for child_relation in get_all_child_relations(model)
             }
 
