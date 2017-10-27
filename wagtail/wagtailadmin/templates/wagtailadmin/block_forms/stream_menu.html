@@ -6,7 +6,7 @@
             {% if child_blocks.grouper %}<h3>{{child_blocks.grouper}}</h3>{% endif %}
             <ul>
                 {% for child_block in child_blocks.list %}
-                    <li><button type="button" class="button action-add-block-{{ child_block.name }} icon icon-{{ child_block.meta.icon }}"><span>{{ child_block.label }}</span></button></li>
+                    <li><button type="button" class="button action-add-block-{{ child_block.name }}"><div class="icon icon-{{ child_block.meta.icon }}"></div><span>{{ child_block.label }}</span></button></li>
                 {% endfor %}
             </ul>
         {% endfor %}
