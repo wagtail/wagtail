@@ -3,13 +3,13 @@ from __future__ import absolute_import, unicode_literals
 import datetime
 
 from django.core import management
-from django.test import TestCase
+from django.test import SimpleTestCase, TestCase
 from django.utils.six import StringIO
 
 from wagtail.contrib.wagtailsearchpromotions.models import SearchPromotion
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailsearch import models
-from wagtail.wagtailsearch.utils import normalise_query_string
+from wagtail.wagtailsearch.utils import normalise_query_string, separate_filters_from_query
 
 
 class TestHitCounter(TestCase):
@@ -176,3 +176,47 @@ class TestQueryChooserView(TestCase, WagtailTestUtils):
         for page in pages:
             response = self.get({'p': page})
             self.assertEqual(response.status_code, 200)
+
+
+class TestSeparateFiltersFromQuery(SimpleTestCase):
+    def test_only_query(self):
+        filters, query = separate_filters_from_query('hello world')
+
+        self.assertDictEqual(filters, {})
+        self.assertEquals(query, 'hello world')
+
+    def test_filter(self):
+        filters, query = separate_filters_from_query('author:foo')
+
+        self.assertDictEqual(filters, {'author': 'foo'})
+        self.assertEquals(query, '')
+
+    def test_filter_with_quotation_mark(self):
+        filters, query = separate_filters_from_query('author:"foo bar"')
+
+        self.assertDictEqual(filters, {'author': 'foo bar'})
+        self.assertEquals(query, '')
+
+    def test_filter_and_query(self):
+        filters, query = separate_filters_from_query('author:foo hello world')
+
+        self.assertDictEqual(filters, {'author': 'foo'})
+        self.assertEquals(query, 'hello world')
+
+    def test_filter_with_quotation_mark_and_query(self):
+        filters, query = separate_filters_from_query('author:"foo bar" hello world')
+
+        self.assertDictEqual(filters, {'author': 'foo bar'})
+        self.assertEquals(query, 'hello world')
+
+    def test_filter_with_unclosed_quotation_mark_and_query(self):
+        filters, query = separate_filters_from_query('author:"foo bar hello world')
+
+        self.assertDictEqual(filters, {})
+        self.assertEquals(query, 'author:"foo bar hello world')
+
+    def test_two_filters_and_query(self):
+        filters, query = separate_filters_from_query('author:"foo bar" hello world bar:beer')
+
+        self.assertDictEqual(filters, {'author': 'foo bar', 'bar': 'beer'})
+        self.assertEquals(query, 'hello world')
