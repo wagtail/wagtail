@@ -3837,6 +3837,120 @@ class TestIssue2492(TestCase, WagtailTestUtils):
             break
 
 
+class TestIssue3982(TestCase, WagtailTestUtils):
+    """
+    Pages that are not associated with a site, and thus do not have a live URL,
+    should not display a "View live" link in the flash message after being
+    edited.
+    """
+
+    def setUp(self):
+        super().setUp()
+        self.login()
+
+    def _create_page(self, parent):
+        response = self.client.post(
+            reverse('wagtailadmin_pages:add', args=('tests', 'simplepage', parent.pk)),
+            {'title': "Hello, world!", 'content': "Some content", 'slug': 'hello-world', 'action-publish': "publish"},
+            follow=True)
+        self.assertRedirects(response, reverse('wagtailadmin_explore', args=(parent.pk,)))
+        page = SimplePage.objects.get()
+        self.assertTrue(page.live)
+        return response, page
+
+    def test_create_accessible(self):
+        """
+        Create a page under the site root, check the flash message has a valid
+        "View live" button.
+        """
+        response, page = self._create_page(Page.objects.get(pk=2))
+        self.assertIsNotNone(page.url)
+        self.assertTrue(any(
+            'View live' in message.message and page.url in message.message
+            for message in response.context['messages']))
+
+    def test_create_inaccessible(self):
+        """
+        Create a page outside of the site root, check the flash message does
+        not have a "View live" button.
+        """
+        response, page = self._create_page(Page.objects.get(pk=1))
+        self.assertIsNone(page.url)
+        self.assertFalse(any(
+            'View live' in message.message
+            for message in response.context['messages']))
+
+    def _edit_page(self, parent):
+        page = parent.add_child(instance=SimplePage(title='Hello, world!', content='Some content'))
+        response = self.client.post(
+            reverse('wagtailadmin_pages:edit', args=(page.pk,)),
+            {'title': "Hello, world!", 'content': "Some content", 'slug': 'hello-world', 'action-publish': "publish"},
+            follow=True)
+        self.assertRedirects(response, reverse('wagtailadmin_explore', args=(parent.pk,)))
+        page = SimplePage.objects.get(pk=page.pk)
+        self.assertTrue(page.live)
+        return response, page
+
+    def test_edit_accessible(self):
+        """
+        Edit a page under the site root, check the flash message has a valid
+        "View live" button.
+        """
+        response, page = self._edit_page(Page.objects.get(pk=2))
+        self.assertIsNotNone(page.url)
+        self.assertTrue(any(
+            'View live' in message.message and page.url in message.message
+            for message in response.context['messages']))
+
+    def test_edit_inaccessible(self):
+        """
+        Edit a page outside of the site root, check the flash message does
+        not have a "View live" button.
+        """
+        response, page = self._edit_page(Page.objects.get(pk=1))
+        self.assertIsNone(page.url)
+        self.assertFalse(any(
+            'View live' in message.message
+            for message in response.context['messages']))
+
+    def _approve_page(self, parent):
+        response = self.client.post(
+            reverse('wagtailadmin_pages:add', args=('tests', 'simplepage', parent.pk)),
+            {'title': "Hello, world!", 'content': "Some content", 'slug': 'hello-world', 'action-submit': "submit"},
+            follow=True)
+        self.assertRedirects(response, reverse('wagtailadmin_explore', args=(parent.pk,)))
+        page = SimplePage.objects.get()
+        self.assertFalse(page.live)
+        revision = PageRevision.objects.get(page=page)
+        response = self.client.post(reverse('wagtailadmin_pages:approve_moderation', args=(revision.pk,)), follow=True)
+        page = SimplePage.objects.get()
+        self.assertTrue(page.live)
+        self.assertRedirects(response, reverse('wagtailadmin_home'))
+        return response, page
+
+    def test_approve_accessible(self):
+        """
+        Edit a page under the site root, check the flash message has a valid
+        "View live" button.
+        """
+        response, page = self._approve_page(Page.objects.get(pk=2))
+        self.assertIsNotNone(page.url)
+        self.assertTrue(any(
+            'View live' in message.message and page.url in message.message
+            for message in response.context['messages']))
+
+    def test_approve_inaccessible(self):
+        """
+        Edit a page outside of the site root, check the flash message does
+        not have a "View live" button.
+        """
+        response, page = self._approve_page(Page.objects.get(pk=1))
+        self.assertIsNone(page.url)
+        self.assertFalse(any(
+            'View live' in message.message
+            for message in response.context['messages']))
+
+
 class TestInlinePanelMedia(TestCase, WagtailTestUtils):
     """
     Test that form media required by InlinePanels is correctly pulled in to the edit page
