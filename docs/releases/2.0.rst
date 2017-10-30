@@ -21,6 +21,8 @@ Other features
  * Usage count now shows on delete confirmation page when WAGTAIL_USAGE_COUNT_ENABLED is active (Kees Hink)
  * Added usage count to snippets (Kees Hink)
  * Moved usage count to the sidebar on the edit page (Kees Hink)
+ * Email notifications for content moderation may exclude superusers when disabling ``WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS`` (Bruno Alla)
+
 
 Bug fixes
 ~~~~~~~~~

@@ -259,6 +259,7 @@ Contributors
 * Patrick Woods
 * Ross Crawford-d'Heureuse
 * rifuso
+* Bruno Alla
 
 Translators
 ===========

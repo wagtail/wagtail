@@ -292,6 +292,14 @@ Email Notifications format
 
 Notification emails are sent in `text/plain` by default, change this to use HTML formatting.
 
+Email Notifications to superusers
+---------------------------------
+
+.. code-block:: python
+
+  WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS = False
+
+Notification emails are sent to moderators and superusers by default. You can change this to exclude superusers and only notify moderators.
 
 .. _update_notifications:
 

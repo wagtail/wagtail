@@ -215,7 +215,8 @@ def send_notification(page_revision_id, notification, excluded_user_id):
     # Get list of recipients
     if notification == 'submitted':
         # Get list of publishers
-        recipients = users_with_page_permission(revision.page, 'publish')
+        include_superusers = getattr(settings, 'WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS', True)
+        recipients = users_with_page_permission(revision.page, 'publish', include_superusers)
     elif notification in ['rejected', 'approved']:
         # Get submitter
         recipients = [revision.user]
