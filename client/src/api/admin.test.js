@@ -20,23 +20,23 @@ describe('admin API', () => {
   describe('getPageChildren', () => {
     it('works', () => {
       getPageChildren(3);
-      expect(client.get).toBeCalledWith(`${ADMIN_API.PAGES}?child_of=3`);
+      expect(client.get).toBeCalledWith(`${ADMIN_API.PAGES}?child_of=3&for_explorer=1`);
     });
 
     it('#fields', () => {
       getPageChildren(3, { fields: ['title', 'latest_revision_created_at'] });
       // eslint-disable-next-line max-len
-      expect(client.get).toBeCalledWith(`${ADMIN_API.PAGES}?child_of=3&fields=title%2Clatest_revision_created_at`);
+      expect(client.get).toBeCalledWith(`${ADMIN_API.PAGES}?child_of=3&for_explorer=1&fields=title%2Clatest_revision_created_at`);
     });
 
     it('#onlyWithChildren', () => {
       getPageChildren(3, { onlyWithChildren: true });
-      expect(client.get).toBeCalledWith(`${ADMIN_API.PAGES}?child_of=3&has_children=1`);
+      expect(client.get).toBeCalledWith(`${ADMIN_API.PAGES}?child_of=3&for_explorer=1&has_children=1`);
     });
 
     it('#offset', () => {
       getPageChildren(3, { offset: 5 });
-      expect(client.get).toBeCalledWith(`${ADMIN_API.PAGES}?child_of=3&offset=5`);
+      expect(client.get).toBeCalledWith(`${ADMIN_API.PAGES}?child_of=3&for_explorer=1&offset=5`);
     });
   });
 

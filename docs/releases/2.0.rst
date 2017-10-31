@@ -21,6 +21,7 @@ Other features
  * Usage count now shows on delete confirmation page when WAGTAIL_USAGE_COUNT_ENABLED is active (Kees Hink)
  * Added usage count to snippets (Kees Hink)
  * Moved usage count to the sidebar on the edit page (Kees Hink)
+ * Explorer menu now reflects customisations to the page listing made via the `construct_explorer_page_queryset` hook and `ModelAdmin.exclude_from_explorer` property (Tim Heap)
 
 Bug fixes
 ~~~~~~~~~
