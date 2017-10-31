@@ -1670,6 +1670,46 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
         )
         self.assertIn('value="chocolate"', form_html)
 
+    def test_max_length_validation_error(self):
+        block = blocks.ListBlock(blocks.CharBlock(), max_length=1)
+
+        value = [
+            blocks.CharBlock(value='Foo'),
+            blocks.CharBlock(value='Bar')
+        ]
+
+        with self.assertRaises(ValidationError) as catcher:
+            block.clean(value)
+        self.assertEqual(catcher.exception.params, {
+            '__all__': ['The maximum number of items is 1'],
+        })
+
+    def test_min_length_validation_error(self):
+        block = blocks.ListBlock(blocks.CharBlock(), min_length=3)
+
+        value = [
+            blocks.CharBlock(value='Foo'),
+            blocks.CharBlock(value='Bar')
+        ]
+
+        with self.assertRaises(ValidationError) as catcher:
+            block.clean(value)
+        self.assertEqual(catcher.exception.params, {
+            '__all__': ['The minimum number of items is 3'],
+        })
+
+    def test_passes_min_and_max_length_validation(self):
+        block = blocks.ListBlock(blocks.CharBlock(), max_length=3, min_length=2)
+
+        value = [
+            blocks.CharBlock(value='Foo'),
+            blocks.CharBlock(value='Bar'),
+            blocks.CharBlock(value='Biz')
+        ]
+
+        result = block.clean(value)
+        self.assertEqual(len(result), 3)
+
 
 class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
     def test_initialisation(self):
