@@ -4,7 +4,7 @@ Authors
 * Matthew Westcott (Torchbox) twitter: @gasmanic
 * David Cranwell (Torchbox) twitter: @davecranwell
 * Karl Hobley (Torchbox) twitter: @kaedroho
-* Tim Heap (Takeflight)
+* Tim Heap (Takeflight, Squareweave)
 * Josh Barr (Springload)
 
 Contributors
