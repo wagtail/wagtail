@@ -18,10 +18,15 @@ li.sequence-member {
         font-style: italic;
         opacity: 1;
         margin-top: 0px;
+        max-width: 650px;
         padding-left: 20px;
         width: 100%;
         &::before {
             display: none;
+        }
+        @media screen and (max-width: $breakpoint-mobile) {
+            margin: -20px 0 30px;
+            padding-left: 0px;
         }
     }
 
@@ -439,8 +444,3 @@ li.sequence-member {
     }
 }
 
-@media screen and (min-width: $breakpoint-mobile) {
-    .object li.sequence-member:hover .object-help {
-        opacity: 1;
-    }
-}
