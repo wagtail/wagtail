@@ -140,6 +140,21 @@ class SimplePage(Page):
     ]
 
 
+# Page with Excluded Fields when copied
+class PageWithExcludedCopyField(Page):
+    content = models.TextField()
+
+    # Exclude this field from being copied
+    special_field = models.CharField(max_length=255, default='Very Special')
+    exclude_fields_in_copy = ['special_field']
+
+    content_panels = [
+        FieldPanel('title', classname="full title"),
+        FieldPanel('special_field'),
+        FieldPanel('content'),
+    ]
+
+
 class PageWithOldStyleRouteMethod(Page):
     """
     Prior to Wagtail 0.4, the route() method on Page returned an HttpResponse
