@@ -348,6 +348,9 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
     # Do not allow plain Page instances to be created through the Wagtail admin
     is_creatable = False
 
+    # An array of additional field names that will not be included when a Page is copied.
+    exclude_fields_in_copy = []
+
     # Define these attributes early to avoid masking errors. (Issue #3078)
     # The canonical definition is in wagtailadmin.edit_handlers.
     content_panels = []
