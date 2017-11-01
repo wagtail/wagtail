@@ -1039,6 +1039,21 @@ class TestCopyPage(TestCase):
 
         self.assertNotEqual(page.id, new_page.id)
 
+    def test_copy_page_with_additional_excluded_fields(self):
+
+        homepage = Page.objects.get(url_path='/home/')
+        page = PageWithExcludedCopyField(
+            title='Discovery',
+            slug='disco',
+            special_field='Context is for Kings')
+        new_page = page.copy(to=homepage)
+
+        self.assertEqual(page.title, new_page.title)
+        self.assertNotEqual(page.id, new_page.id)
+        self.assertNotEqual(page.path, new_page.path)
+        # special_field is in the list to be excluded
+        self.assertNotEqual(page.special_field, new_page.special_field)
+
 
 class TestSubpageTypeBusinessRules(TestCase, WagtailTestUtils):
     def test_allowed_subpage_models(self):
