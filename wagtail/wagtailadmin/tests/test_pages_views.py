@@ -1650,6 +1650,30 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         self.assertNotContains(response, "This title only exists on the live database record")
         self.assertContains(response, "Some content with a draft edit")
 
+    def test_editor_page_shows_live_url_in_status_when_draft_edits_exist(self):
+        # If a page has draft edits (ie. page has unpublished changes)
+        # that affect the URL (eg. slug) we  should still ensure the
+        # status button at the top of the page links to the live URL
+
+        self.child_page.content = "Some content with a draft edit"
+        self.child_page.slug = "revised-slug-in-draft-only"  # live version contains 'hello-world'
+        self.child_page.save_revision()
+
+        response = self.client.get(reverse('wagtailadmin_pages:edit', args=(self.child_page.id, )))
+
+        link_to_draft = '<a href="/revised-slug-in-draft-only/" target="_blank" class="status-tag primary">live + draft</a>'
+        link_to_live = '<a href="/hello-world/" target="_blank" class="status-tag primary">live + draft</a>'
+        input_field_for_draft_slug = '<input type="text" name="slug" value="revised-slug-in-draft-only" id="id_slug" maxlength="255" required />'
+        input_field_for_live_slug = '<input type="text" name="slug" value="hello-world" id="id_slug" maxlength="255" required />'
+
+        # Status Link should be the live page (not revision)
+        self.assertContains(response, link_to_live, html=True)
+        self.assertNotContains(response, link_to_draft, html=True)
+
+        # Editing input for slug should be the draft revision
+        self.assertContains(response, input_field_for_draft_slug, html=True)
+        self.assertNotContains(response, input_field_for_live_slug, html=True)
+
     def test_before_edit_page_hook(self):
         def hook_func(request, page):
             self.assertIsInstance(request, HttpRequest)
