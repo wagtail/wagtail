@@ -1,20 +1,29 @@
-Authors
-=======
+Core team
+=========
 
-* Matthew Westcott (Torchbox) twitter: @gasmanic
-* David Cranwell (Torchbox) twitter: @davecranwell
-* Karl Hobley (Torchbox) twitter: @kaedroho
+* Matthew Westcott (Torchbox)
+* Karl Hobley (Torchbox)
+* Tom Dyson (Torchbox)
 * Tim Heap (Takeflight, Squareweave)
-* Josh Barr (Springload)
+* Mikalai Radchuk (Torchbox)
+* Thibaud Colas (Springload)
+* Janneke Janssen (Lukkien)
+* Mike Dingjan (Lab Digital)
+* Rob Moorman (Moor Interactive)
+* Bertrand Bordage (NoriPyt)
+* Emily Horsman (Little Weaver)
+* Loïc Teixeira (Springload)
+* Andy Chosak (consumerfinance.gov)
+* Will Barton (consumerfinance.gov)
 
 Contributors
 ============
 
-* Helen Chapman helen.chapman@torchbox.com
-* Balazs Endresz balazs.endresz@torchbox.com
-* Neal Todd neal.todd@torchbox.com
-* Paul Hallett (twilio) hello@phalt.co
-* Tom Dyson
+* David Cranwell
+* Helen Chapman
+* Balazs Endresz
+* Neal Todd
+* Paul Hallett
 * Serafeim Papastefanos
 * Łukasz Bołdys
 * peterarenot
@@ -73,6 +82,7 @@ Contributors
 * Alex Gleason
 * Ryan Pineo
 * Petr Vacha
+* Josh Barr
 * Sævar Öfjörð Magnússon
 * Ashia Zawaduk
 * Denis Voskvitsov
@@ -102,7 +112,6 @@ Contributors
 * Matt Fozard
 * Chris Rogers
 * Josh Schneier
-* Mikalai Radchuk
 * Charlie Choiniere
 * Nigel Fletton
 * Kait Crawford
@@ -111,15 +120,11 @@ Contributors
 * Gareth Price
 * Liam Brenner
 * Nicolas Kuttler
-* Mike Dingjan
-* Loic Teixeira
 * Juha Kujala
 * Eirik Krogstad
-* Rob Moorman
 * Matthijs Melissen
 * Jonas Lergell
 * Danielle Madeley
-* Janneke Janssen
 * Roel Bruggink
 * Yannick Chabbert
 * Andy Babic
@@ -146,12 +151,10 @@ Contributors
 * Franklin Kingma
 * Ludolf Takens
 * Oktay Altay
-* Bertrand Bordage
 * Paul J Stevens
 * kakulukia
 * Raphael Stolt
 * Tim Graham
-* Thibaud Colas
 * Tobias Schmidt
 * Chris Darko
 * Aymeric Augustin
@@ -205,7 +208,6 @@ Contributors
 * Mikael Svensson
 * Peter Baumgartner
 * Matheus Bratfisch
-* Andy Chosak
 * Kevin Whinnery
 * Martey Dodoo
 * David Ray
@@ -250,7 +252,6 @@ Contributors
 * Edwar Baron
 * Tomasz Knapik
 * Venelin Stoykov
-* Emily Horsman
 * jcronyn
 * Ben Sturmfels
 * Anselm Bradford
