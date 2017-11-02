@@ -48,7 +48,7 @@ li.sequence-member {
         padding-right: 0;
 
         .sequence-member-inner {
-            padding: 16px 20px 20px 16px;
+            padding: 20px 30px 50px 20px;
         }
     }
 
@@ -67,7 +67,7 @@ li.sequence-member {
     .sequence-member-inner {
         @include clearfix;
         position: relative;
-        padding: 36px 20px;
+        padding: 20px 30px 50px 20px;
 
         .sequence-member {
             border: 0;
@@ -88,6 +88,9 @@ li.sequence-member {
 
     .fields > li {
         position: relative;
+        &:last-child {
+            padding-bottom: 0;
+        }
     }
 }
 
@@ -228,7 +231,7 @@ li.sequence-member {
     // .buttons only exists for menus in stream_member.html
     .button-group {
         float: right;
-        padding: 8px 12px;
+        padding: 8px 24px;
     }
 
     .disabled {
