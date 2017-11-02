@@ -70,7 +70,30 @@ li.sequence-member {
         padding: 20px 30px 50px 20px;
 
         .sequence-member {
-            border: 0;
+        // Second level nested Streamfield
+        border: 1px solid $color-teal;
+        border-bottom: 1px transparent;
+        &:first-child {
+            border-top-right-radius: 3px;
+            border-top-left-radius: 3px;
+        }
+        &:last-child {
+            border-bottom: 1px solid $color-teal;
+            border-bottom-right-radius: 3px;
+            border-bottom-left-radius: 3px;
+        }
+        .sequence-member-inner {
+            .sequence-member {
+                // Third level nested Streamfield
+                border-color: $color-grey-3;
+                .sequence-member-inner {
+                // Fourth level nested Streamfield
+                .sequence-member {
+                    border-color: $color-teal;
+                       }    
+                    }
+                }
+            }
         }
 
         // sequences within sequences, such as a ListBlock within StructBlock
@@ -94,43 +117,7 @@ li.sequence-member {
     }
 }
 
-// We're going down
-// @TODO this should really be within the `li.sequence-member` above
-li.sequence-member {
-    .sequence-type-stream, .sequence-type-list {
-        .sequence-member {
-            // Second level nested Streamfield
-            border: 1px solid $color-teal;
-            border-bottom: 1px transparent;
-            &:first-child {
-                border-top-right-radius: 3px;
-                border-top-left-radius: 3px;
-            }
-            &:last-child {
-                border-bottom: 1px solid $color-teal;
-                border-bottom-right-radius: 3px;
-                border-bottom-left-radius: 3px;
-            }
-                .sequence-member-inner {
-                    .sequence-member {
-                        // Third level nested Streamfield
-                        border-color: $color-grey-3;
-                    .sequence-member-inner {
-                        .sequence-member {
-                            border-color: $color-teal;
-                       }    
-                    }
-                }
-            }
-        }
-    }
-}
-
 .sequence-member-inner > .widget-admin_image_chooser {
-    label {
-        // display: none;
-    }
-
     .field-content {
         display: block;
         float: none;
@@ -431,8 +418,6 @@ li.sequence-member {
 }
 
 .sequence-member .stream-menu-closed {
-    // opacity: 0;
-    // visibility: hidden;
 }
 
 .sequence-member:hover {
