@@ -145,7 +145,8 @@ class PageWithExcludedCopyField(Page):
     content = models.TextField()
 
     # Exclude this field from being copied
-    special_field = models.CharField(max_length=255, default='Very Special')
+    special_field = models.CharField(
+        blank=True, max_length=255, default='Very Special')
     exclude_fields_in_copy = ['special_field']
 
     content_panels = [
