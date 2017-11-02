@@ -1045,6 +1045,7 @@ class TestCopyPage(TestCase):
         page = PageWithExcludedCopyField(
             title='Discovery',
             slug='disco',
+            content='NCC-1031',
             special_field='Context is for Kings')
         new_page = page.copy(to=homepage)
 
