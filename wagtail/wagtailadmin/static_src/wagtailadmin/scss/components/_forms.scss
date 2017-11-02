@@ -199,20 +199,20 @@ input[type=checkbox]:checked:before {
 }
 
 // @todo this is a bad hack and we should be dealing with this in field_block.py
-textarea[placeholder="Html"] {
-    font-family: monospace;
-    font-size: 1.4em;
-    line-height: 1.3em;
-    border: 1px solid #e6e6e6!important;
-    padding: 0.9em 1.2em!important;
-    background-color: #fafafa!important;
-}
+// textarea[placeholder="Html"] {
+//     font-family: monospace;
+//     font-size: 1.4em;
+//     line-height: 1.3em;
+//     border: 1px solid #e6e6e6!important;
+//     padding: 0.9em 1.2em!important;
+//     background-color: #fafafa!important;
+// }
 
-input[placeholder="Regexblock"] {
-    border: 1px solid #e6e6e6!important;
-    padding: 0.9em 1.2em!important;
-    background-color: #fafafa!important;
-}
+// input[placeholder="Regexblock"] {
+//     border: 1px solid #e6e6e6!important;
+//     padding: 0.9em 1.2em!important;
+//     background-color: #fafafa!important;
+// }
 
 // Core button style
 // Note that these styles include methods to render buttons the same x-browser, described here:

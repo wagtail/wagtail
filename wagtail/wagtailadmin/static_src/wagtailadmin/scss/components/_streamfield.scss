@@ -10,23 +10,24 @@ li.sequence-member {
     border-width: 1px 0;
 
     &:first-child {
-        border-top: 0px;
+        border-top: 0;
     }
 
     // Note this inherits .oject-help from page-editor.scss
     .object-help {
         font-style: italic;
         opacity: 1;
-        margin-top: 0px;
+        margin-top: 0;
         max-width: 650px;
         padding-left: 20px;
         width: 100%;
+
         &::before {
             display: none;
         }
         @media screen and (max-width: $breakpoint-mobile) {
             margin: -20px 0 30px;
-            padding-left: 0px;
+            padding-left: 0;
         }
     }
 
@@ -42,6 +43,7 @@ li.sequence-member {
         text-transform: uppercase;
         width: 100%;
     }
+
     .struct-block .sequence-container {
         width: 100%;
         padding-left: 0;
@@ -70,29 +72,29 @@ li.sequence-member {
         padding: 20px 30px 50px 20px;
 
         .sequence-member {
-        // Second level nested Streamfield
-        border: 1px solid $color-teal;
-        border-bottom: 1px transparent;
-        &:first-child {
-            border-top-right-radius: 3px;
-            border-top-left-radius: 3px;
-        }
-        &:last-child {
-            border-bottom: 1px solid $color-teal;
-            border-bottom-right-radius: 3px;
-            border-bottom-left-radius: 3px;
-        }
-        .sequence-member-inner {
-            .sequence-member {
+            // Second level nested Streamfield
+            border: 1px solid $color-teal;
+            border-bottom: 1px transparent;
+
+            &:first-child {
+                border-top-right-radius: 3px;
+                border-top-left-radius: 3px;
+            }
+
+            &:last-child {
+                border-bottom: 1px solid $color-teal;
+                border-bottom-right-radius: 3px;
+                border-bottom-left-radius: 3px;
+            }
+
+            .sequence-member-inner .sequence-member {
                 // Third level nested Streamfield
                 border-color: $color-grey-3;
-                .sequence-member-inner {
+            }
+
+            .sequence-member-inner .sequence-member .sequence-member-inner .sequence-member {
                 // Fourth level nested Streamfield
-                .sequence-member {
-                    border-color: $color-teal;
-                       }    
-                    }
-                }
+                border-color: $color-teal;
             }
         }
 
@@ -104,13 +106,11 @@ li.sequence-member {
         .sequence-type-list .sequence-container-inner {
             width: 100%;
         }
-
-        .sequence-type-list .sequence-member-inner {
-        }
     }
 
     .fields > li {
         position: relative;
+
         &:last-child {
             padding-bottom: 0;
         }
@@ -193,7 +193,7 @@ li.sequence-member {
     // overrides form.scss
     button.icon.text-replace {
         background-color: transparent;
-        border: 0px;
+        border: 0;
         color: $color-teal;
         padding: 0 20px;
         width: 1.8rem;
@@ -205,9 +205,11 @@ li.sequence-member {
             line-height: 1.3em;
             font-size: 0.9rem;
         }
+
         &:hover {
             color: $color-teal-dark;
         }
+
         &.icon-bin {
             &:hover {
                 color: $color-red;
@@ -307,7 +309,7 @@ li.sequence-member {
         padding-right: 0;
         padding-left: 0;
         text-align: left;
-        padding-bottom: 0em;
+        padding-bottom: 0;
         margin-bottom: 1em;
     }
 
@@ -322,6 +324,7 @@ li.sequence-member {
         padding: 0;
         outline: #43b1b0;
         overflow: visible;
+
         span {
             text-transform: uppercase;
             white-space: pre-wrap;
@@ -334,6 +337,7 @@ li.sequence-member {
             text-align: left;
             margin: 5px;
         }
+
         &::before {
             display: inline-block;
             font-family: wagtail;
@@ -347,6 +351,7 @@ li.sequence-member {
             border-radius: 8px;
             margin: 0 auto 5px;
         }
+
         h3 {
             padding: 0.5em 3.8em;
             width: 100%;
@@ -357,9 +362,11 @@ li.sequence-member {
         &:focus {
             background-color: transparent;
             color: inherit;
+
             span {
                 color: $color-black;
             }
+
             &::before {
                 background-color: $color-teal;
                 color: $color-white;
@@ -415,9 +422,6 @@ li.sequence-member {
 
 .sequence-member .stream-menu {
     margin: auto auto 0;
-}
-
-.sequence-member .stream-menu-closed {
 }
 
 .sequence-member:hover {
