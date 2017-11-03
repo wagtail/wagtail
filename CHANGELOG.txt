@@ -14,6 +14,7 @@ Changelog
  * Added usage count to snippets (Kees Hink)
  * Moved usage count to the sidebar on the edit page (Kees Hink)
  * Explorer menu now reflects customisations to the page listing made via the `construct_explorer_page_queryset` hook and `ModelAdmin.exclude_from_explorer` property (Tim Heap)
+ * "Choose another image" button changed to "Change image" to avoid ambiguity (Edd Baldry)
  * Fix: Do not remove stopwords when generating slugs from non-ASCII titles, to avoid issues with incorrect word boundaries (Sævar Öfjörð Magnússon)
  * Fix: The PostgreSQL search backend now preserves ordering of the `QuerySet` when searching with `order_by_relevance=False` (Bertrand Bordage)
  * Fix: Using `modeladmin_register` as a decorator no longer replaces the decorated class with `None` (Tim Heap)

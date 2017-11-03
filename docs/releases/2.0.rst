@@ -22,6 +22,7 @@ Other features
  * Added usage count to snippets (Kees Hink)
  * Moved usage count to the sidebar on the edit page (Kees Hink)
  * Explorer menu now reflects customisations to the page listing made via the `construct_explorer_page_queryset` hook and `ModelAdmin.exclude_from_explorer` property (Tim Heap)
+ * "Choose another image" button changed to "Change image" to avoid ambiguity (Edd Baldry)
 
 Bug fixes
 ~~~~~~~~~
