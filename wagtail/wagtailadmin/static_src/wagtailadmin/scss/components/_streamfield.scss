@@ -15,11 +15,14 @@ li.sequence-member {
 
     // Note this inherits .oject-help from page-editor.scss
     .object-help {
+        display: block;
+        float: none;
         font-style: italic;
-        opacity: 1;
-        margin-top: 0;
+        margin: 0;
         max-width: 650px;
-        padding-left: 20px;
+        opacity: 1;
+        padding-left: 0;
+        position: relative;
         width: 100%;
 
         &::before {
