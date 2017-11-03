@@ -14,3 +14,4 @@ Bug fixes
 ~~~~~~~~~
 
  * API listing views no longer fail when no site records are defined (Karl Hobley)
+ * Fixed crash in XML sitemap generator when all pages on the site are private (Stein Strindhaug)
