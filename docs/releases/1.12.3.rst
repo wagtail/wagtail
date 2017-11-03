@@ -14,3 +14,4 @@ Bug fixes
 ~~~~~~~~~
 
  * API listing views no longer fail when no site records are defined (Karl Hobley)
+ * Pinned Django REST Framework to <3.7 to restore Django 1.8 compatibility (Matt Westcott)
