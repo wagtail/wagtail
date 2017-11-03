@@ -50,6 +50,7 @@ Changelog
  * Fix: Removed deprecated `SessionAuthenticationMiddleware` from project template (Samir Shah)
  * Fix: Custom display page titles defined with `get_admin_display_title` are now shown in search results (Ben Sturmfels, Matt Westcott)
  * Fix: Custom PageManagers now return the correct PageQuerySet subclass (Matt Westcott)
+ * Fix: API listing views no longer fail when no site records are defined (Karl Hobley)
 
 
 1.12.2 (18.09.2017)
