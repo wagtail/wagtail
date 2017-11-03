@@ -1,0 +1,16 @@
+=============================================
+Wagtail 1.13.1 release notes - IN DEVELOPMENT
+=============================================
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Bug fixes
+~~~~~~~~~
+
+ * API listing views no longer fail when no site records are defined (Karl Hobley)

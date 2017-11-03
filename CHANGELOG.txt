@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.13.1 (xx.xx.20xx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~~
+
+ * Fix: API listing views no longer fail when no site records are defined (Karl Hobley)
+
+
 1.13 (16.10.2017)
 ~~~~~~~~~~~~~~~~~
 
