@@ -295,34 +295,40 @@ li.sequence-member {
         transform: translate3d(0, 0, 0) scale(1);
         visibility: visible;
         opacity: 1;
-        padding: 1em 3.5em 1em;
-        column-count: 3;
+        padding: 1em 2em 1em;
+        display: flex;
+        flex-flow: row wrap;
         overflow: hidden;
     }
 
     li {
         box-sizing: border-box;
-        display: block;
+        display: flex;
+        flex-direction: column;
         float: none;
-        width: auto;
-        min-width: 15em;
-        padding-right: 0;
-        padding-left: 0;
+        width: 8em;
+        padding: 1em 0;
         text-align: left;
-        padding-bottom: 0;
-        margin-bottom: 1em;
+        margin: 1em;
+    }
+
+    h3 {
+        padding: 0.5em 0;
+        margin: 2em 3em 0;
+        border-bottom: 1px solid $color-menu-text;
+        padding-bottom: 1em;
     }
 
     button {
         @include transition(all 0.4s ease);
         background-color: transparent;
         border: 0;
-        color: #333;
+        color: $color-grey-1;
         height: auto;
         display: block;
         width: auto;
         padding: 0;
-        outline: #43b1b0;
+        outline: $color-teal;
         overflow: visible;
 
         span {
@@ -335,13 +341,13 @@ li.sequence-member {
             box-sizing: border-box;
             line-height: 0;
             text-align: left;
-            margin: 5px;
+            margin: 0px 5px 5px;
         }
 
         &::before {
-            display: inline-block;
+            display: block;
             font-family: wagtail;
-            font-size: 1em;
+            font-size: 1.2em;
             width: 2em;
             height: 2em;
             line-height: 2em;
@@ -349,13 +355,7 @@ li.sequence-member {
             border: 1px solid $color-grey-3;
             color: $color-grey-2;
             border-radius: 8px;
-            margin: 0 auto 5px;
-        }
-
-        h3 {
-            padding: 0.5em 3.8em;
-            width: 100%;
-            background-color: #ddd;
+            margin: 0 auto 12px;
         }
 
         &:hover,
@@ -407,7 +407,7 @@ li.sequence-member {
 
     @media screen and (min-width: $breakpoint-mobile) {
         li {
-            @include column(2);
+            //@include column(2);
 
             &:nth-child(4n+1) {
                 clear: none;
