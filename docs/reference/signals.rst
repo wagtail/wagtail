@@ -7,10 +7,7 @@ Wagtail's :ref:`page-revision-model-ref` and :ref:`page-model-ref` implement
 `Signals <https://docs.djangoproject.com/en/1.8/topics/signals/>`__ from ``django.dispatch``.
 Signals are useful for creating side-effects from page publish/unpublish events.
 
-Primarily, these are used by the :doc:`Frontend Cache <./contrib/frontendcache>` contrib module
-and the :doc:`./contrib/api/index`. You could also use signals to send
-publish notifications to a messaging service, or ``POST`` messages to another
-app that's consuming the API, such as a static site generator.
+For example, you could use signals to send publish notifications to a messaging service, or ``POST`` messages to another app that's consuming the API, such as a static site generator.
 
 
 page_published
