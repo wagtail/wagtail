@@ -341,7 +341,7 @@ li.sequence-member {
             box-sizing: border-box;
             line-height: 0;
             text-align: left;
-            margin: 0px 5px 5px;
+            margin: 0 5px 5px;
         }
 
         &::before {
@@ -407,8 +407,6 @@ li.sequence-member {
 
     @media screen and (min-width: $breakpoint-mobile) {
         li {
-            //@include column(2);
-
             &:nth-child(4n+1) {
                 clear: none;
             }
