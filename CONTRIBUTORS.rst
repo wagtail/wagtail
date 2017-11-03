@@ -260,6 +260,7 @@ Contributors
 * Patrick Woods
 * Ross Crawford-d'Heureuse
 * rifuso
+* Jon Carmack
 
 Translators
 ===========
