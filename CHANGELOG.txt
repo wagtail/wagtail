@@ -21,6 +21,13 @@ Changelog
  * Fix: The `{% routablepageurl %}` template tag no longer generates invalid URLs when the `WAGTAIL_APPEND_SLASH` setting was set to `False` (Venelin Stoykov)
  * Fix: The "View live" button is no longer shown if the page doesn't have a routable URL (Tim Heap)
 
+
+1.13.1 (xx.xx.20xx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~~
+
+ * Fix: API listing views no longer fail when no site records are defined (Karl Hobley)
+
+
 1.13 (16.10.2017)
 ~~~~~~~~~~~~~~~~~
 
