@@ -1050,7 +1050,7 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
                 continue
 
             # Ignore parent links (page_ptr)
-            if isinstance(field, models.OneToOneField) and field.rel.parent_link:
+            if isinstance(field, models.OneToOneField) and field.remote_field.parent_link:
                 continue
 
             specific_dict[field.name] = getattr(specific_self, field.name)
