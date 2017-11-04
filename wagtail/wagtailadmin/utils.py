@@ -76,7 +76,7 @@ def get_object_usage(obj):
             # if the relation is between obj and an object that has a page as a
             # property, return the page
             for f in related_model._meta.fields:
-                if isinstance(f, ParentalKey) and issubclass(f.rel.to, Page):
+                if isinstance(f, ParentalKey) and issubclass(f.remote_field.model, Page):
                     pages |= Page.objects.filter(
                         id__in=related_model._base_manager.filter(
                             **{
