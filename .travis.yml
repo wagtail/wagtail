@@ -18,9 +18,6 @@ matrix:
      python: 3.4
    - env: TOXENV=py34-dj111-sqlite-noelasticsearch
      python: 3.4
-   - env: TOXENV=py34-dj111-postgres-elasticsearch INSTALL_ELASTICSEARCH1=yes
-     python: 3.4
-     sudo: true
    - env: TOXENV=py35-dj111-postgres-noelasticsearch
      python: 3.5
    - env: TOXENV=py35-dj111-mysql-noelasticsearch
@@ -34,9 +31,6 @@ matrix:
      python: 3.6
    - env: TOXENV=py36-dj111-mysql-noelasticsearch
      python: 3.6
-   - env: TOXENV=py36-dj111-postgres-elasticsearch INSTALL_ELASTICSEARCH1=yes
-     python: 3.6
-     sudo: true
    - env: TOXENV=py36-dj111-postgres-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
      python: 3.6
      sudo: true
@@ -45,9 +39,7 @@ matrix:
      sudo: true
   allow_failures:
     # Ignore failures on Elasticsearch tests because ES on Travis is intermittently flaky
-    - env: TOXENV=py34-dj111-postgres-elasticsearch INSTALL_ELASTICSEARCH1=yes
     - env: TOXENV=py35-dj111-postgres-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
-    - env: TOXENV=py36-dj111-postgres-elasticsearch INSTALL_ELASTICSEARCH1=yes
     - env: TOXENV=py36-dj111-postgres-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
     - env: TOXENV=py36-dj111-postgres-elasticsearch5 INSTALL_ELASTICSEARCH5=yes
 
@@ -58,7 +50,6 @@ services:
 # Package installation
 install:
   - pip install tox codecov
-  - 'if [[ -n "$INSTALL_ELASTICSEARCH1" ]]; then ./scripts/travis/install_elasticsearch1.sh; fi'
   - 'if [[ -n "$INSTALL_ELASTICSEARCH2" ]]; then ./scripts/travis/install_elasticsearch2.sh; fi'
   - 'if [[ -n "$INSTALL_ELASTICSEARCH5" ]]; then ./scripts/travis/install_elasticsearch5.sh; fi'
 
