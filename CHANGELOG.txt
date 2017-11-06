@@ -5,6 +5,7 @@ Changelog
 ~~~~~~~~~~~~~~~~
 
  * Removed support for Python 2.7, Django 1.8 and Django 1.10
+ * Removed support for Elasticsearch 1.x
  * Moved Wagtail API v1 implementation (`wagtail.contrib.api`) to an external app (https://github.com/wagtail/wagtailapi_legacy) (Karl Hobley)
  * The page chooser now searches all fields of a page, instead of just the title (Bertrand Bordage)
  * Implement ordering by date in form submission view (LB (Ben Johnston))
