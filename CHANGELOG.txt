@@ -24,6 +24,7 @@ Changelog
  * Fix: The `{% routablepageurl %}` template tag no longer generates invalid URLs when the `WAGTAIL_APPEND_SLASH` setting was set to `False` (Venelin Stoykov)
  * Fix: The "View live" button is no longer shown if the page doesn't have a routable URL (Tim Heap)
  * Fix: Fixed rendering of border on dropdown arrow buttons on Chrome (Bertrand Bordage)
+ * Fix: Fixed incorrect z-index on userbar causing it to appear behind page content (Stein Strindhaug)
 
 
 1.13.1 (xx.xx.20xx) - IN DEVELOPMENT

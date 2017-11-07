@@ -36,6 +36,7 @@ Bug fixes
  * The "View live" button is no longer shown if the page doesn't have a routable URL (Tim Heap)
  * API listing views no longer fail when no site records are defined (Karl Hobley)
  * Fixed rendering of border on dropdown arrow buttons on Chrome (Bertrand Bordage)
+ * Fixed incorrect z-index on userbar causing it to appear behind page content (Stein Strindhaug)
 
 
 Upgrade considerations
