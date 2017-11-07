@@ -32,6 +32,7 @@ Changelog
 
  * Fix: API listing views no longer fail when no site records are defined (Karl Hobley)
  * Fix: Fixed crash in XML sitemap generator when all pages on the site are private (Stein Strindhaug)
+ * Fix: Fixed incorrect z-index on userbar causing it to appear behind page content (Stein Strindhaug)
 
 
 1.13 (16.10.2017)
