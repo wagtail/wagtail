@@ -1025,7 +1025,7 @@ class TestSnippetChosenWithCustomPrimaryKey(TestCase, WagtailTestUtils):
 
     def get(self, pk, params=None):
         return self.client.get(reverse('wagtailsnippets:chosen',
-                                       args=('tests', 'advertwithcustomprimarykey', pk)),
+                                       args=('tests', 'advertwithcustomprimarykey', quote(pk))),
                                params or {})
 
     def test_choose_a_page(self):
