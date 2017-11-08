@@ -3,6 +3,7 @@ from __future__ import absolute_import, unicode_literals
 import json
 import logging
 from collections import defaultdict
+from urllib.parse import urlparse
 
 from django.conf import settings
 from django.contrib.auth.models import Group, Permission
@@ -22,7 +23,6 @@ from django.urls import reverse
 from django.utils import six, timezone
 from django.utils.functional import cached_property
 from django.utils.six import StringIO
-from django.utils.six.moves.urllib.parse import urlparse
 from django.utils.text import capfirst, slugify
 from django.utils.translation import ugettext_lazy as _
 from modelcluster.models import ClusterableModel, get_all_child_relations

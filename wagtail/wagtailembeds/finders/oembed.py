@@ -3,10 +3,10 @@ from __future__ import absolute_import, unicode_literals
 import json
 import re
 
-from django.utils.six.moves.urllib import request as urllib_request
-from django.utils.six.moves.urllib.error import URLError
-from django.utils.six.moves.urllib.parse import urlencode
-from django.utils.six.moves.urllib.request import Request
+from urllib import request as urllib_request
+from urllib.error import URLError
+from urllib.parse import urlencode
+from urllib.request import Request
 
 from wagtail.wagtailembeds.exceptions import EmbedNotFoundException
 from wagtail.wagtailembeds.oembed_providers import all_providers
