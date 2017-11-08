@@ -2,6 +2,7 @@ import itertools
 
 from django import template
 from django.conf import settings
+from django.contrib.admin.utils import quote
 from django.contrib.humanize.templatetags.humanize import intcomma
 from django.contrib.messages.constants import DEFAULT_TAGS as MESSAGE_TAGS
 from django.template.defaultfilters import stringfilter
@@ -365,3 +366,8 @@ def replace_page_param(query, page_number, page_key='p'):
 @register.filter('abs')
 def _abs(val):
     return abs(val)
+
+
+@register.filter
+def admin_urlquote(value):
+    return quote(value)
