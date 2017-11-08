@@ -11,7 +11,6 @@ from django.db.migrations.loader import MigrationLoader
 from django.db.migrations.questioner import MigrationQuestioner
 from django.db.migrations.state import ProjectState
 from django.test import TestCase
-from django.utils.six import iteritems
 
 
 class TestForMigrations(TestCase):
@@ -24,7 +23,7 @@ class TestForMigrations(TestCase):
 
         conflicts = dict(
             (app_label, conflict)
-            for app_label, conflict in iteritems(loader.detect_conflicts())
+            for app_label, conflict in loader.detect_conflicts().items()
             if app_label in app_labels
         )
 

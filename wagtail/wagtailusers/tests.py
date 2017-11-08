@@ -8,7 +8,6 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from django.http import HttpRequest, HttpResponse
 from django.test import TestCase, override_settings
 from django.urls import reverse
-from django.utils import six
 
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailcore import hooks
@@ -975,7 +974,7 @@ class TestGroupCreateView(TestCase, WagtailTestUtils):
             'image_permissions-MAX_NUM_FORMS': ['1000'],
             'image_permissions-INITIAL_FORMS': ['0'],
         }
-        for k, v in six.iteritems(post_defaults):
+        for k, v in post_defaults.items():
             post_data[k] = post_data.get(k, v)
         return self.client.post(reverse('wagtailusers_groups:add'), post_data)
 
@@ -1132,7 +1131,7 @@ class TestGroupEditView(TestCase, WagtailTestUtils):
             'image_permissions-MAX_NUM_FORMS': ['1000'],
             'image_permissions-INITIAL_FORMS': ['0'],
         }
-        for k, v in six.iteritems(post_defaults):
+        for k, v in post_defaults.items():
             post_data[k] = post_data.get(k, v)
         return self.client.post(reverse(
             'wagtailusers_groups:edit', args=(group_id or self.test_group.pk, )), post_data)
