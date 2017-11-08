@@ -90,3 +90,9 @@ class MultiSectionRichTextSnippet(ClusterableModel):
     panels = [
         InlinePanel('sections'),
     ]
+
+
+@register_snippet
+class StandardSnippetWithCustomPrimaryKey(models.Model):
+    snippet_id = models.CharField(max_length=255, primary_key=True)
+    text = models.CharField(max_length=255)

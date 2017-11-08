@@ -536,6 +536,22 @@ class Advert(ClusterableModel):
 register_snippet(Advert)
 
 
+class AdvertWithCustomPrimaryKey(ClusterableModel):
+    advert_id = models.CharField(max_length=255, primary_key=True)
+    url = models.URLField(null=True, blank=True)
+    text = models.CharField(max_length=255)
+
+    panels = [
+        FieldPanel('url'),
+        FieldPanel('text'),
+    ]
+
+    def __str__(self):
+        return self.text
+
+register_snippet(AdvertWithCustomPrimaryKey)
+
+
 class AdvertWithTabbedInterface(models.Model):
     url = models.URLField(null=True, blank=True)
     text = models.CharField(max_length=255)
@@ -654,6 +670,14 @@ class SnippetChooserModel(models.Model):
 
     panels = [
         SnippetChooserPanel('advert'),
+    ]
+
+
+class SnippetChooserModelWithCustomPrimaryKey(models.Model):
+    advertwithcustomprimarykey = models.ForeignKey(AdvertWithCustomPrimaryKey, help_text='help text', on_delete=models.CASCADE)
+
+    panels = [
+        SnippetChooserPanel('advertwithcustomprimarykey'),
     ]
 
 

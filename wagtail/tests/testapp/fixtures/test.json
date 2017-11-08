@@ -1002,5 +1002,13 @@
         "numchild": 0,
         "name": "Group protected"
     }
+},
+{
+  "pk": "advert_01",
+  "model": "tests.advertwithcustomprimarykey",
+  "fields": {
+      "text": "test_advert",
+      "url": "http://www.example.com"
+      }
 }
 ]
