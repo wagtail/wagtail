@@ -549,6 +549,7 @@ class AdvertWithCustomPrimaryKey(ClusterableModel):
     def __str__(self):
         return self.text
 
+
 register_snippet(AdvertWithCustomPrimaryKey)
 
 

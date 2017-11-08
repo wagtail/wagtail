@@ -168,8 +168,6 @@ def create(request, app_label, model_name):
 
 
 def edit(request, app_label, model_name, pk):
-    print app_label, model_name, pk
-
     model = get_snippet_model_from_url_params(app_label, model_name)
 
     permission = get_permission_name('change', model)

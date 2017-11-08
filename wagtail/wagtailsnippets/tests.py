@@ -1,8 +1,8 @@
 from __future__ import absolute_import, unicode_literals
 
+from django.contrib.admin.utils import quote
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Permission
-from django.contrib.admin.utils import quote
 from django.core.exceptions import ValidationError
 from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import SimpleUploadedFile
@@ -14,10 +14,10 @@ from taggit.models import Tag
 from wagtail.tests.snippets.forms import FancySnippetForm
 from wagtail.tests.snippets.models import (
     AlphaSnippet, FancySnippet, FileUploadSnippet, RegisterDecorator, RegisterFunction,
-    SearchableSnippet, StandardSnippet, ZuluSnippet, StandardSnippetWithCustomPrimaryKey)
+    SearchableSnippet, StandardSnippet, StandardSnippetWithCustomPrimaryKey, ZuluSnippet)
 from wagtail.tests.testapp.models import (
-    Advert, AdvertWithTabbedInterface, SnippetChooserModel,
-    AdvertWithCustomPrimaryKey, SnippetChooserModelWithCustomPrimaryKey)
+    Advert, AdvertWithCustomPrimaryKey, AdvertWithTabbedInterface, SnippetChooserModel,
+    SnippetChooserModelWithCustomPrimaryKey)
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailadmin.forms import WagtailAdminModelForm
 from wagtail.wagtailcore.models import Page
@@ -842,7 +842,7 @@ class TestSnippetViewWithCustomPrimaryKey(TestCase, WagtailTestUtils):
 
     def test_edit(self):
         response = self.post(self.snippet_a, post_data={'text': 'Edited snippet',
-                                        'snippet_id': 'snippet_id_edited'})
+                             'snippet_id': 'snippet_id_edited'})
         self.assertRedirects(response, reverse('wagtailsnippets:list', args=('snippetstests', 'standardsnippetwithcustomprimarykey')))
 
         snippets = StandardSnippetWithCustomPrimaryKey.objects.all()
@@ -851,7 +851,7 @@ class TestSnippetViewWithCustomPrimaryKey(TestCase, WagtailTestUtils):
 
     def test_create(self):
         response = self.create(self.snippet_a, post_data={'text': 'test snippet',
-                                        'snippet_id': 'snippet_02'})
+                               'snippet_id': 'snippet_02'})
         self.assertRedirects(response, reverse('wagtailsnippets:list', args=('snippetstests', 'standardsnippetwithcustomprimarykey')))
 
         snippets = StandardSnippetWithCustomPrimaryKey.objects.all()
