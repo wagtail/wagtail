@@ -2,12 +2,12 @@ from __future__ import absolute_import, unicode_literals
 
 import copy
 import json
+from urllib.parse import urlparse
 
 from django.db import DEFAULT_DB_ALIAS, models
 from django.db.models.sql import Query
 from django.db.models.sql.constants import SINGLE
 from django.utils.crypto import get_random_string
-from django.utils.six.moves.urllib.parse import urlparse
 from elasticsearch import Elasticsearch, NotFoundError
 from elasticsearch.helpers import bulk
 

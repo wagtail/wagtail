@@ -1,7 +1,8 @@
 from __future__ import absolute_import, unicode_literals
 
+from urllib.parse import urlparse
+
 from django.conf import settings
-from django.utils.six.moves.urllib.parse import urlparse
 
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.utils import resolve_model_string
