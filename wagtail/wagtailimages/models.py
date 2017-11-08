@@ -14,7 +14,7 @@ from django.forms.utils import flatatt
 from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.safestring import mark_safe
-from django.utils.six import BytesIO, string_types, text_type
+from django.utils.six import BytesIO, string_types
 from django.utils.translation import ugettext_lazy as _
 from taggit.managers import TaggableManager
 from unidecode import unidecode
@@ -168,7 +168,7 @@ class AbstractImage(CollectionMember, index.Indexed, models.Model):
         except IOError as e:
             # re-throw this as a SourceImageIOError so that calling code can distinguish
             # these from IOErrors elsewhere in the process
-            raise SourceImageIOError(text_type(e))
+            raise SourceImageIOError(str(e))
 
         # Seek to beginning
         image_file.seek(0)
