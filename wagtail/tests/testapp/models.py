@@ -12,7 +12,6 @@ from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
 from django.shortcuts import render
-from django.utils.six import text_type
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.models import ClusterableModel
@@ -463,7 +462,7 @@ class FormPageWithCustomSubmission(AbstractEmailForm):
 
         if self.to_address:
             addresses = [x.strip() for x in self.to_address.split(',')]
-            content = '\n'.join([x[1].label + ': ' + text_type(form.data.get(x[0])) for x in form.fields.items()])
+            content = '\n'.join([x[1].label + ': ' + str(form.data.get(x[0])) for x in form.fields.items()])
             send_mail(self.subject, content, addresses, self.from_address,)
 
     def serve(self, request, *args, **kwargs):

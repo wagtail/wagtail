@@ -10,7 +10,6 @@ from django.forms.models import fields_for_model
 from django.template.loader import render_to_string
 from django.utils.functional import curry
 from django.utils.safestring import mark_safe
-from django.utils.six import text_type
 from django.utils.translation import ugettext_lazy
 from taggit.managers import TaggableManager
 
@@ -188,7 +187,7 @@ class EditHandler(object):
         """
         rendered_fields = self.required_fields()
         missing_fields_html = [
-            text_type(self.form[field_name])
+            str(self.form[field_name])
             for field_name in self.form.fields
             if field_name not in rendered_fields
         ]

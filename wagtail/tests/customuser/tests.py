@@ -4,7 +4,6 @@ import json
 
 from django.db import connections
 from django.test import TestCase
-from django.utils.six import text_type
 
 from wagtail.tests.utils import WagtailTestUtils
 
@@ -21,7 +20,7 @@ class TestConvertedValueField(TestCase, WagtailTestUtils):
 
     def test_db_value_is_different(self):
         self.assertEqual(self.user.pk, self.pk_db_value)
-        self.assertNotEqual(text_type(self.user.pk), text_type(self.pk_db_value))
+        self.assertNotEqual(str(self.user.pk), str(self.pk_db_value))
 
     def test_custom_user_primary_key_is_hashable(self):
         hash(self.user.pk)
