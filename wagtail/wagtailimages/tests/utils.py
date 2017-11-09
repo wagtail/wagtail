@@ -1,8 +1,9 @@
 from __future__ import absolute_import, unicode_literals
 
+from io import BytesIO
+
 import PIL.Image
 from django.core.files.images import ImageFile
-from django.utils.six import BytesIO
 
 from wagtail.wagtailimages import get_image_model
 
