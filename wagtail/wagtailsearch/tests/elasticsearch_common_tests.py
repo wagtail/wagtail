@@ -1,9 +1,9 @@
 from __future__ import absolute_import, unicode_literals
 
 from datetime import date
+from io import StringIO
 
 from django.core import management
-from django.utils.six import StringIO
 
 from wagtail.tests.search import models
 
