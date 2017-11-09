@@ -56,6 +56,18 @@ def image(parser, token):
         # attributes are not valid when using the 'as img' form of the tag
         is_valid = False
 
+    if len(filter_specs) == 0:
+        # there must always be at least one filter spec provided
+        is_valid = False
+
+    if len(bits) == 0:
+        # no resize rule provided eg. {% image page.image %}
+        raise template.TemplateSyntaxError(
+            "no resize rule provided. "
+            "'image' tag should be of the form {% image self.photo max-320x200 [ custom-attr=\"value\" ... ] %} "
+            "or {% image self.photo max-320x200 as img %}"
+        )
+
     if is_valid:
         return ImageNode(image_expr, '|'.join(filter_specs), attrs=attrs, output_var_name=output_var_name)
     else:
