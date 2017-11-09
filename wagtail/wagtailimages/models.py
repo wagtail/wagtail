@@ -4,6 +4,7 @@ import hashlib
 import os.path
 from collections import OrderedDict
 from contextlib import contextmanager
+from io import BytesIO
 
 from django.conf import settings
 from django.core import checks
@@ -14,7 +15,6 @@ from django.forms.utils import flatatt
 from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.safestring import mark_safe
-from django.utils.six import BytesIO
 from django.utils.translation import ugettext_lazy as _
 from taggit.managers import TaggableManager
 from unidecode import unidecode
