@@ -264,6 +264,7 @@ Contributors
 * Martin Sandström
 * Adrian Turjak
 * Michael Palmer
+* Philipp Bosch
 
 Translators
 ===========
