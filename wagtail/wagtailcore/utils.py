@@ -8,7 +8,6 @@ from django.apps import apps
 from django.conf import settings
 from django.db.models import Model
 from django.utils.encoding import force_text
-from django.utils.six import string_types
 from django.utils.text import slugify
 
 WAGTAIL_APPEND_SLASH = getattr(settings, 'WAGTAIL_APPEND_SLASH', True)
@@ -27,7 +26,7 @@ def resolve_model_string(model_string, default_app=None):
     Raises a LookupError if a model can not be found, or ValueError if passed
     something that is neither a model or a string.
     """
-    if isinstance(model_string, string_types):
+    if isinstance(model_string, str):
         try:
             app_label, model_name = model_string.split(".")
         except ValueError:

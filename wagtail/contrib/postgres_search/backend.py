@@ -8,7 +8,6 @@ from django.db.models import F, Manager, TextField, Value
 from django.db.models.constants import LOOKUP_SEP
 from django.db.models.functions import Cast
 from django.utils.encoding import force_text
-from django.utils.six import string_types
 
 from wagtail.wagtailsearch.backends.base import (
     BaseSearchBackend, BaseSearchQuery, BaseSearchResults)
@@ -59,7 +58,7 @@ class Index(object):
         stale_entries.delete()
 
     def prepare_value(self, value):
-        if isinstance(value, string_types):
+        if isinstance(value, str):
             return value
         if isinstance(value, list):
             return ', '.join(self.prepare_value(item) for item in value)
