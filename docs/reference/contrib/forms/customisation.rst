@@ -553,3 +553,64 @@ Next, you need to transform your template to display the results:
 
 
 You can also show the results on the landing page.
+
+
+Custom ``send_mail`` method
+---------------------------
+
+If you want to change the content of the email that is sent when a form submits you can override the ``send_mail`` method.
+
+
+To do this, you need to:
+
+* Ensure you have your form model defined that extends ``wagtail.wagtailforms.models.AbstractEmailForm``.
+* In your models.py file, import the ``wagtail.wagtailadmin.utils.send_mail`` function.
+* Override the ``send_mail`` methodd in your page model.
+
+Example:
+
+.. code-block:: python
+
+    from datetime import date
+    # ... additional wagtail imports
+    from wagtail.wagtailadmin.utils import send_mail
+    from wagtail.wagtailforms.models import AbstractEmailForm
+
+
+    class FormPage(AbstractEmailForm):
+        # ... fields, content_panels, etc
+
+        def send_mail(self, form):
+            # `self` is the FormPage, `form` is the form's POST data on submit
+
+            # Email addresses are parsed from the FormPage's addresses field
+            addresses = [x.strip() for x in self.to_address.split(',')]
+
+            # Subject can be adjusted, be sure to include the form's defined subject field
+            submitted_date_str = date.today().strftime('%x')
+            subject = self.subject + " - " + submitted_date_str # add date to email subject
+
+            content = []
+
+            # Add a title (not part of original method)
+            content.append('{}: {}'.format('Form', self.title))
+
+            for field in form:
+                # add the value of each field as a new line
+                value = field.value()
+                if isinstance(value, list):
+                    value = ', '.join(value)
+                content.append('{}: {}'.format(field.label, value))
+
+            # Add a link to the form page
+            content.append('{}: {}'.format('Submitted Via', self.full_url))
+
+            # Add the date the form was submitted
+            content.append('{}: {}'.format('Submitted on', submitted_date_str))
+
+            # Content is joined with a new line to separate each text line
+            content = '\n'.join(content)
+
+            # wagtail.wagtailadmin.utils - send_mail function is called
+            # This function extends the Django default send_mail function
+            send_mail(self.subject, content, addresses, self.from_address)
