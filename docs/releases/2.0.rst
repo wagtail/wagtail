@@ -24,6 +24,7 @@ Other features
  * Explorer menu now reflects customisations to the page listing made via the `construct_explorer_page_queryset` hook and `ModelAdmin.exclude_from_explorer` property (Tim Heap)
  * "Choose another image" button changed to "Change image" to avoid ambiguity (Edd Baldry)
  * Added hooks ``before_create_user``, ``after_create_user``, ``before_delete_user``, ``after_delete_user``, ``before_edit_user``, ``after_edit_user`` (Jon Carmack)
+ * Added ``exclude_fields_in_copy`` property to Page to define fields that should not be included on page copy (LB (Ben Johnston))
 
 Bug fixes
 ~~~~~~~~~
