@@ -1,5 +1,6 @@
 from __future__ import absolute_import, unicode_literals
 
+import datetime
 import time
 import unittest
 
@@ -54,6 +55,7 @@ class BackendTests(WagtailTestUtils):
         # Create a test database
         testa = models.SearchTest()
         testa.title = "Hello World"
+        testa.published_date = datetime.date(2015, 10, 11)
         testa.save()
         testa.subobjects.create(name='A subobject')
         self.backend.add(testa)
@@ -128,6 +130,14 @@ class BackendTests(WagtailTestUtils):
     def test_filters(self):
         results = self.backend.search(None, models.SearchTest, filters=dict(live=True))
         self.assertEqual(set(results), {self.testb, self.testc.searchtest_ptr})
+
+    def test_filter_isnull_true(self):
+        results = self.backend.search(None, models.SearchTest, filters=dict(published_date__isnull=True))
+        self.assertEqual(set(results), {self.testb, self.testc.searchtest_ptr, self.testd.searchtest_ptr})
+
+    def test_filter_isnull_false(self):
+        results = self.backend.search(None, models.SearchTest, filters=dict(published_date__isnull=False))
+        self.assertEqual(set(results), {self.testa})
 
     def test_filters_in_subquery(self):
         live_page_titles = models.SearchTest.objects.filter(live=True).values_list('title', flat=True)
