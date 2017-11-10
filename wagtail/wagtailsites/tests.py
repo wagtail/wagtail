@@ -4,7 +4,6 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Permission
 from django.test import TestCase
 from django.urls import reverse
-from django.utils import six
 
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailcore.models import Page, Site
@@ -139,7 +138,7 @@ class TestSiteEditView(TestCase, WagtailTestUtils):
             'port': site.port,
             'root_page': site.root_page.id,
         }
-        for k, v in six.iteritems(post_defaults):
+        for k, v in post_defaults.items():
             post_data[k] = post_data.get(k, v)
         if 'default' in post_data:
             if post_data['default']:  # only include the is_default_site key if we want to set it

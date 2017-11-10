@@ -5,6 +5,7 @@ Changelog
 ~~~~~~~~~~~~~~~~
 
  * Removed support for Python 2.7, Django 1.8 and Django 1.10
+ * Removed support for Elasticsearch 1.x
  * Moved Wagtail API v1 implementation (`wagtail.contrib.api`) to an external app (https://github.com/wagtail/wagtailapi_legacy) (Karl Hobley)
  * The page chooser now searches all fields of a page, instead of just the title (Bertrand Bordage)
  * Implement ordering by date in form submission view (LB (Ben Johnston))
@@ -16,6 +17,7 @@ Changelog
  * Explorer menu now reflects customisations to the page listing made via the `construct_explorer_page_queryset` hook and `ModelAdmin.exclude_from_explorer` property (Tim Heap)
  * "Choose another image" button changed to "Change image" to avoid ambiguity (Edd Baldry)
  * Added hooks `before_create_user`, `after_create_user`, `before_delete_user`, `after_delete_user`, `before_edit_user`, `after_edit_user` (Jon Carmack)
+ * Added `exclude_fields_in_copy` property to Page to define fields that should not be included on page copy (LB (Ben Johnston))
  * Fix: Do not remove stopwords when generating slugs from non-ASCII titles, to avoid issues with incorrect word boundaries (Sævar Öfjörð Magnússon)
  * Fix: The PostgreSQL search backend now preserves ordering of the `QuerySet` when searching with `order_by_relevance=False` (Bertrand Bordage)
  * Fix: Using `modeladmin_register` as a decorator no longer replaces the decorated class with `None` (Tim Heap)
@@ -23,6 +25,7 @@ Changelog
  * Fix: The `{% routablepageurl %}` template tag no longer generates invalid URLs when the `WAGTAIL_APPEND_SLASH` setting was set to `False` (Venelin Stoykov)
  * Fix: The "View live" button is no longer shown if the page doesn't have a routable URL (Tim Heap)
  * Fix: Fixed rendering of border on dropdown arrow buttons on Chrome (Bertrand Bordage)
+ * Fix: Fixed incorrect z-index on userbar causing it to appear behind page content (Stein Strindhaug)
 
 
 1.13.1 (xx.xx.20xx) - IN DEVELOPMENT
@@ -30,6 +33,7 @@ Changelog
 
  * Fix: API listing views no longer fail when no site records are defined (Karl Hobley)
  * Fix: Fixed crash in XML sitemap generator when all pages on the site are private (Stein Strindhaug)
+ * Fix: Fixed incorrect z-index on userbar causing it to appear behind page content (Stein Strindhaug)
 
 
 1.13 (16.10.2017)

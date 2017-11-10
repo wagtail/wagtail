@@ -1,9 +1,10 @@
 from __future__ import absolute_import, unicode_literals
 
+from urllib.parse import urlparse
+
 from django import http
 from django.utils.deprecation import MiddlewareMixin
 from django.utils.encoding import uri_to_iri
-from django.utils.six.moves.urllib.parse import urlparse
 
 from wagtail.wagtailredirects import models
 

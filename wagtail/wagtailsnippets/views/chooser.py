@@ -5,7 +5,6 @@ import json
 from django.contrib.admin.utils import unquote
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
-from django.utils.six import text_type
 from django.utils.translation import ugettext as _
 
 from wagtail.utils.pagination import paginate
@@ -78,8 +77,8 @@ def chosen(request, app_label, model_name, pk):
     item = get_object_or_404(model, pk=unquote(pk))
 
     snippet_json = json.dumps({
-        'id': item.pk,
-        'string': text_type(item),
+        'id': item.id,
+        'string': str(item),
         'edit_link': reverse('wagtailsnippets:edit', args=(
             app_label, model_name, item.pk))
     })

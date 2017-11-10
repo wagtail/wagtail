@@ -4,7 +4,6 @@ Core team
 * Matthew Westcott (Torchbox)
 * Karl Hobley (Torchbox)
 * Tom Dyson (Torchbox)
-* Tim Heap (Takeflight, Squareweave)
 * Mikalai Radchuk (Torchbox)
 * Thibaud Colas (Springload)
 * Janneke Janssen (Lukkien)
@@ -40,6 +39,7 @@ Contributors
 * Tom Talbot
 * Jeffrey Hearn
 * Robert Clark
+* Tim Heap
 * Nathan Brizendine
 * Gordon Pendleton
 * John-Scott Atlakson

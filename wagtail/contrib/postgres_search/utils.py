@@ -3,10 +3,10 @@ from __future__ import absolute_import, division, unicode_literals
 import operator
 import re
 from functools import partial, reduce
+from itertools import zip_longest
 
 from django.apps import apps
 from django.db import connections
-from django.utils.six.moves import zip_longest
 
 from wagtail.wagtailsearch.index import Indexed, RelatedFields, SearchField
 

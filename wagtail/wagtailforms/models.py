@@ -7,7 +7,6 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
 from django.shortcuts import render
-from django.utils.six import text_type
 from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _
 from unidecode import unidecode
@@ -104,7 +103,7 @@ class AbstractFormField(Orderable):
         # unidecode will return an ascii string while slugify wants a
         # unicode string on the other hand, slugify returns a safe-string
         # which will be converted to a normal str
-        return str(slugify(text_type(unidecode(self.label))))
+        return str(slugify(str(unidecode(self.label))))
 
     panels = [
         FieldPanel('label'),

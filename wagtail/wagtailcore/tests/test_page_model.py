@@ -15,10 +15,11 @@ from django.test.utils import override_settings
 from freezegun import freeze_time
 
 from wagtail.tests.testapp.models import (
-    AbstractPage, Advert, AlwaysShowInMenusPage, BlogCategory, BlogCategoryBlogPage, BusinessChild,
-    BusinessIndex, BusinessNowherePage, BusinessSubIndex, CustomManager, CustomManagerPage,
-    CustomPageQuerySet, EventIndex, EventPage, GenericSnippetPage, ManyToManyBlogPage, MTIBasePage,
-    MTIChildPage, MyCustomPage, OneToOnePage, SimplePage, SingleEventPage, SingletonPage,
+    AbstractPage, Advert, AlwaysShowInMenusPage, BlogCategory, BlogCategoryBlogPage,
+    BusinessChild, BusinessIndex, BusinessNowherePage, BusinessSubIndex, CustomManager,
+    CustomManagerPage, CustomPageQuerySet, EventIndex, EventPage, GenericSnippetPage,
+    ManyToManyBlogPage, MTIBasePage, MTIChildPage, MyCustomPage, OneToOnePage,
+    PageWithExcludedCopyField, SimplePage, SingleEventPage, SingletonPage,
     StandardIndex, TaggedPage)
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailcore.models import Page, PageManager, Site, get_page_models
@@ -1037,6 +1038,22 @@ class TestCopyPage(TestCase):
         new_page = page.copy(to=homepage)
 
         self.assertNotEqual(page.id, new_page.id)
+
+    def test_copy_page_with_additional_excluded_fields(self):
+
+        homepage = Page.objects.get(url_path='/home/')
+        page = PageWithExcludedCopyField(
+            title='Discovery',
+            slug='disco',
+            content='NCC-1031',
+            special_field='Context is for Kings')
+        new_page = page.copy(to=homepage)
+
+        self.assertEqual(page.title, new_page.title)
+        self.assertNotEqual(page.id, new_page.id)
+        self.assertNotEqual(page.path, new_page.path)
+        # special_field is in the list to be excluded
+        self.assertNotEqual(page.special_field, new_page.special_field)
 
 
 class TestSubpageTypeBusinessRules(TestCase, WagtailTestUtils):

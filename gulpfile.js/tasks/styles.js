@@ -26,6 +26,7 @@ var cssnanoConfig = {
     discardUnused: {
         fontFace: false,
     },
+    zindex: false,
 };
 
 gulp.task('styles', ['styles:sass', 'styles:css', 'styles:assets']);

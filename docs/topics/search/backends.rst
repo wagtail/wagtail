@@ -97,9 +97,7 @@ Elasticsearch Backend
 
     Support for Elasticsearch 5.x was added
 
-Elasticsearch versions 1, 2 and 5 are supported. Use the appropriate backend for your version:
-
-``wagtail.wagtailsearch.backends.elasticsearch`` (Elasticsearch 1.x)
+Elasticsearch versions 2 and 5 are supported. Use the appropriate backend for your version:
 
 ``wagtail.wagtailsearch.backends.elasticsearch2`` (Elasticsearch 2.x)
 
@@ -108,10 +106,6 @@ Elasticsearch versions 1, 2 and 5 are supported. Use the appropriate backend for
 Prerequisites are the `Elasticsearch`_ service itself and, via pip, the `elasticsearch-py`_ package. The major version of the package must match the installed version of Elasticsearch:
 
 .. _Elasticsearch: https://www.elastic.co/downloads/elasticsearch
-
-.. code-block:: console
-
-  $ pip install "elasticsearch>=1.0.0,<2.0.0"  # for Elasticsearch 1.x
 
 .. code-block:: console
 

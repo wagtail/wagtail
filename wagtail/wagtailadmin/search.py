@@ -5,7 +5,7 @@ from django.forms.utils import flatatt
 from django.template.loader import render_to_string
 from django.utils.functional import cached_property, total_ordering
 from django.utils.safestring import mark_safe
-from django.utils.six import text_type, with_metaclass
+from django.utils.six import with_metaclass
 from django.utils.text import slugify
 
 from wagtail.wagtailadmin.forms import SearchForm
@@ -20,7 +20,7 @@ class SearchArea(with_metaclass(MediaDefiningClass)):
         self.label = label
         self.url = url
         self.classnames = classnames
-        self.name = (name or slugify(text_type(label)))
+        self.name = (name or slugify(str(label)))
         self.order = order
 
         if attrs:

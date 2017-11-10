@@ -3,12 +3,12 @@ from __future__ import absolute_import, unicode_literals
 import logging
 import uuid
 from collections import defaultdict
+from urllib.error import HTTPError, URLError
+from urllib.parse import urlparse, urlunparse
+from urllib.request import Request, urlopen
 
 import requests
 from django.core.exceptions import ImproperlyConfigured
-from django.utils.six.moves.urllib.error import HTTPError, URLError
-from django.utils.six.moves.urllib.parse import urlparse, urlunparse
-from django.utils.six.moves.urllib.request import Request, urlopen
 
 from wagtail import __version__
 
