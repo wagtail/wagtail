@@ -280,10 +280,8 @@ class ElasticsearchSearchQuery(BaseSearchQuery):
         if lookup == 'in':
             if isinstance(value, Query):
                 db_alias = self.queryset._db or DEFAULT_DB_ALIAS
-                value = next(value.get_compiler(db_alias)
-                                  .execute_sql(result_type=MULTI))
-
-                value = [r[0] for r in value]
+                resultset = value.get_compiler(db_alias).execute_sql(result_type=MULTI)
+                value = [row[0] for chunk in resultset for row in chunk]
 
             elif not isinstance(value, list):
                 value = list(value)
