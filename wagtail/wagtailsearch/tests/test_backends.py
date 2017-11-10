@@ -67,7 +67,7 @@ class BackendTests(WagtailTestUtils):
         self.testb = testb
 
         testc = models.SearchTestChild()
-        testc.title = "Hello"
+        testc.title = "Hello Kitty"
         testc.live = True
         testc.content = "Hello"
         testc.subtitle = "Foo"
@@ -135,7 +135,7 @@ class BackendTests(WagtailTestUtils):
         self.assertEqual(set(results), {self.testb, self.testc.searchtest_ptr})
 
     def test_filters_in_list(self):
-        live_page_titles = ['Hello']
+        live_page_titles = ['Hello', 'Hello Kitty']
         results = self.backend.search(None, models.SearchTest,
                                       filters=dict(title__in=live_page_titles))
         self.assertEqual(set(results), {self.testb, self.testc.searchtest_ptr})
