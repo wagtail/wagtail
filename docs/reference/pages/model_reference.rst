@@ -101,6 +101,11 @@ Methods and properties
 
 In addition to the model fields provided, ``Page`` has many properties and methods that you may wish to reference, use, or override in creating your own models.
 
+.. note::
+
+    See also `django-treebeard <http://django-treebeard.readthedocs.io/en/latest/index.html>`_'s `node API <http://django-treebeard.readthedocs.io/en/latest/api.html>`_. ``Page`` is a subclass of `materialized path tree <http://django-treebeard.readthedocs.io/en/latest/mp_tree.html>`_ nodes.
+
+
 .. class:: Page
 
     .. autoattribute:: specific
