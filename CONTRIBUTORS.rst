@@ -256,6 +256,7 @@ Contributors
 * Anselm Bradford
 * Mads Jensen
 * Samir Shah
+* Martin Sandström
 
 Translators
 ===========
