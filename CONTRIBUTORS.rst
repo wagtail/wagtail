@@ -261,6 +261,7 @@ Contributors
 * Ross Crawford-d'Heureuse
 * rifuso
 * Jon Carmack
+* Martin Sandström
 
 Translators
 ===========
