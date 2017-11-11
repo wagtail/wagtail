@@ -250,6 +250,7 @@ Contributors
 * Edwar Baron
 * Tomasz Knapik
 * Venelin Stoykov
+* Martin Sandström
 
 Translators
 ===========
