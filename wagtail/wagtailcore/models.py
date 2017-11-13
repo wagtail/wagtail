@@ -11,12 +11,13 @@ from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
 from django.core import checks
 from django.core.cache import cache
-from django.core.exceptions import ValidationError
+from django.core.exceptions import ImproperlyConfigured, ValidationError
 from django.core.handlers.base import BaseHandler
 from django.core.handlers.wsgi import WSGIRequest
 from django.db import connection, models, transaction
 from django.db.models import Q, Value
 from django.db.models.functions import Concat, Substr
+from django.db.models.signals import pre_delete, pre_save
 from django.http import Http404
 from django.template.response import TemplateResponse
 from django.urls import reverse
@@ -30,7 +31,6 @@ from treebeard.mp_tree import MP_Node
 
 from wagtail.wagtailcore.query import PageQuerySet, TreeQuerySet
 from wagtail.wagtailcore.signals import page_published, page_unpublished
-from wagtail.wagtailcore.sites import get_site_for_hostname
 from wagtail.wagtailcore.url_routing import RouteResult
 from wagtail.wagtailcore.utils import (
     WAGTAIL_APPEND_SLASH, camelcase_to_underscore, resolve_model_string)
@@ -41,7 +41,92 @@ logger = logging.getLogger('wagtail.core')
 PAGE_TEMPLATE_VAR = 'page'
 
 
+SITE_CACHE = {}
+
+
+def clear_site_cache(*args, **kwargs):
+    """
+    Clear the cache (if primed) each time a site is saved or deleted.
+    """
+    global SITE_CACHE
+    SITE_CACHE = {}
+
+
 class SiteManager(models.Manager):
+
+    @staticmethod
+    def get_hostname_and_port_from_request(request):
+        """Reliably extract 'hostname' and 'port' values from the supplied
+        ``HttpRequest`` instance (without raising exceptions), and return them
+        as a tuple.
+        """
+        try:
+            hostname = request.get_host().split(':')[0]
+        except KeyError:
+            hostname = None
+        try:
+            port = request.get_port()
+        except KeyError:
+            port = None
+        return hostname, port
+
+    def get_default(self):
+        """Returns the 'default' ``Site`` or raise an exception in no site is
+        set as the default. The result is cached."""
+        if 'default' not in SITE_CACHE:
+            try:
+                SITE_CACHE['default'] = self.get(is_default_site=True)
+            except Site.DoesNotExist:
+                raise ImproperlyConfigured(
+                    "No default site could be identified. Please set "
+                    "'is_default_site' to True to assign a site as the "
+                    "default"
+                )
+        return SITE_CACHE['default']
+
+    def get_for_request(self, request):
+        """Return the site responsible for dealing with the supplied
+        ``HttpRequest`` instance. The result is cached."""
+        hostname, port = self.get_hostname_and_port_from_request(request)
+        key = "%s:%s" % (hostname, port)
+
+        if key in SITE_CACHE:
+            return SITE_CACHE[key]
+
+        if hostname:
+            if port:
+                try:
+                    # Try to find a site matching both hostname and port
+                    SITE_CACHE[key] = self.get(hostname=hostname, port=port)
+                    return SITE_CACHE[key]
+                except Site.DoesNotExist:
+                    pass
+
+            try:
+                # If there's only one site matching the hostname, use that,
+                # since there's no ambiguity
+                SITE_CACHE[key] = self.get(hostname=hostname)
+                return SITE_CACHE[key]
+            except(Site.DoesNotExist, Site.MultipleObjectsReturned):
+                pass
+
+        # Fall back to using default site
+        SITE_CACHE[key] = self.get_default()
+        return SITE_CACHE[key]
+
+    def get_current(self, request=None):
+        """Return the site responsible for dealing with a ``HttpRequest``
+        instance, or the default site if no ``HttpRequest`` is provided. The
+        result is cached.
+        """
+        if request:
+            return self.get_for_request(request)
+        return self.get_default()
+
+    def clear_cache(self):
+        """Clear the ``Site`` object cache."""
+        clear_site_cache()
+
     def get_by_natural_key(self, hostname, port):
         return self.get(hostname=hostname, port=port)
 
@@ -95,33 +180,9 @@ class Site(models.Model):
                 (" [default]" if self.is_default_site else "")
             )
 
-    @staticmethod
-    def find_for_request(request):
-        """
-        Find the site object responsible for responding to this HTTP
-        request object. Try:
-
-        * unique hostname first
-        * then hostname and port
-        * if there is no matching hostname at all, or no matching
-          hostname:port combination, fall back to the unique default site,
-          or raise an exception
-
-        NB this means that high-numbered ports on an extant hostname may
-        still be routed to a different hostname which is set as the default
-        """
-
-        try:
-            hostname = request.get_host().split(':')[0]
-        except KeyError:
-            hostname = None
-
-        try:
-            port = request.get_port()
-        except (AttributeError, KeyError):
-            port = request.META.get('SERVER_PORT')
-
-        return get_site_for_hostname(hostname, port)
+    @classmethod
+    def find_for_request(cls, request):
+        return cls.objects.get_current(request)
 
     @property
     def root_url(self):
@@ -169,6 +230,10 @@ class Site(models.Model):
             cache.set('wagtail_site_root_paths', result, 3600)
 
         return result
+
+
+pre_save.connect(clear_site_cache, sender=Site)
+pre_delete.connect(clear_site_cache, sender=Site)
 
 
 PAGE_MODEL_CLASSES = []

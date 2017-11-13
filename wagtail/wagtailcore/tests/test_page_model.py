@@ -133,11 +133,31 @@ class TestSiteRouting(TestCase):
         self.unrecognised_port = '8000'
         self.unrecognised_hostname = 'unknown.site.com'
 
+    def test_sitemanager_get_current_no_request(self):
+        # When get_current() receives no request, it should return the default
+        with self.assertNumQueries(1):
+            self.assertEqual(Site.objects.get_current(), self.default_site)
+
+        # Confirm that the cache is working, and giving us the same result
+        with self.assertNumQueries(0):
+            self.assertEqual(Site.objects.get_current(), self.default_site)
+
+        # Confirm that a site update, clears the cache, and we're back to
+        # making queries to get the same result
+        self.default_site.site_name = 'Default'
+        self.default_site.save()
+        with self.assertNumQueries(1):
+            self.assertEqual(Site.objects.get_current(), self.default_site)
+
     def test_no_host_header_routes_to_default_site(self):
         # requests without a Host: header should be directed to the default site
         request = HttpRequest()
         request.path = '/'
         with self.assertNumQueries(1):
+            self.assertEqual(Site.find_for_request(request), self.default_site)
+
+        # Confirm retry gives same result but doesn't hit the database again
+        with self.assertNumQueries(0):
             self.assertEqual(Site.find_for_request(request), self.default_site)
 
     def test_valid_headers_route_to_specific_site(self):
@@ -149,6 +169,10 @@ class TestSiteRouting(TestCase):
         with self.assertNumQueries(1):
             self.assertEqual(Site.find_for_request(request), self.events_site)
 
+        # Confirm retry gives same result but doesn't hit the database again
+        with self.assertNumQueries(0):
+            self.assertEqual(Site.find_for_request(request), self.events_site)
+
     def test_ports_in_request_headers_are_respected(self):
         # ports in the Host: header should be respected
         request = HttpRequest()
@@ -158,13 +182,27 @@ class TestSiteRouting(TestCase):
         with self.assertNumQueries(1):
             self.assertEqual(Site.find_for_request(request), self.alternate_port_events_site)
 
+        # Confirm retry gives same result but doesn't hit the database again
+        with self.assertNumQueries(0):
+            self.assertEqual(Site.find_for_request(request), self.alternate_port_events_site)
+
     def test_unrecognised_host_header_routes_to_default_site(self):
         # requests with an unrecognised Host: header should be directed to the default site
         request = HttpRequest()
         request.path = '/'
         request.META['HTTP_HOST'] = self.unrecognised_hostname
         request.META['SERVER_PORT'] = '80'
-        with self.assertNumQueries(1):
+        with self.assertNumQueries(3):
+            self.assertEqual(Site.find_for_request(request), self.default_site)
+
+        # Confirm retry gives same result but doesn't hit the database again
+        with self.assertNumQueries(0):
+            self.assertEqual(Site.find_for_request(request), self.default_site)
+
+        # Confirm 'SiteManager.clear_cache()' clears the cache, and that we're
+        # back to making queries to get the same result
+        Site.objects.clear_cache()
+        with self.assertNumQueries(3):
             self.assertEqual(Site.find_for_request(request), self.default_site)
 
     def test_unrecognised_port_and_default_host_routes_to_default_site(self):
@@ -173,7 +211,11 @@ class TestSiteRouting(TestCase):
         request.path = '/'
         request.META['HTTP_HOST'] = self.default_site.hostname
         request.META['SERVER_PORT'] = self.unrecognised_port
-        with self.assertNumQueries(1):
+        with self.assertNumQueries(3):
+            self.assertEqual(Site.find_for_request(request), self.default_site)
+
+        # Confirm retry gives same result but doesn't hit the database again
+        with self.assertNumQueries(0):
             self.assertEqual(Site.find_for_request(request), self.default_site)
 
     def test_unrecognised_port_and_unrecognised_host_routes_to_default_site(self):
@@ -183,7 +225,11 @@ class TestSiteRouting(TestCase):
         request.path = '/'
         request.META['HTTP_HOST'] = self.unrecognised_hostname
         request.META['SERVER_PORT'] = self.unrecognised_port
-        with self.assertNumQueries(1):
+        with self.assertNumQueries(3):
+            self.assertEqual(Site.find_for_request(request), self.default_site)
+
+        # Confirm retry gives same result but doesn't hit the database again
+        with self.assertNumQueries(0):
             self.assertEqual(Site.find_for_request(request), self.default_site)
 
     def test_unrecognised_port_on_known_hostname_routes_there_if_no_ambiguity(self):
@@ -193,7 +239,11 @@ class TestSiteRouting(TestCase):
         request.path = '/'
         request.META['HTTP_HOST'] = self.about_site.hostname
         request.META['SERVER_PORT'] = self.unrecognised_port
-        with self.assertNumQueries(1):
+        with self.assertNumQueries(2):
+            self.assertEqual(Site.find_for_request(request), self.about_site)
+
+        # Confirm retry gives same result but doesn't hit the database again
+        with self.assertNumQueries(0):
             self.assertEqual(Site.find_for_request(request), self.about_site)
 
     def test_unrecognised_port_on_known_hostname_routes_to_default_site_if_ambiguity(self):
@@ -204,7 +254,11 @@ class TestSiteRouting(TestCase):
         request.path = '/'
         request.META['HTTP_HOST'] = self.events_site.hostname
         request.META['SERVER_PORT'] = self.unrecognised_port
-        with self.assertNumQueries(1):
+        with self.assertNumQueries(3):
+            self.assertEqual(Site.find_for_request(request), self.default_site)
+
+        # Confirm retry gives same result but doesn't hit the database again
+        with self.assertNumQueries(0):
             self.assertEqual(Site.find_for_request(request), self.default_site)
 
     def test_port_in_http_host_header_is_ignored(self):
@@ -214,6 +268,10 @@ class TestSiteRouting(TestCase):
         request.META['HTTP_HOST'] = "%s:%s" % (self.events_site.hostname, self.events_site.port)
         request.META['SERVER_PORT'] = self.alternate_port_events_site.port
         with self.assertNumQueries(1):
+            self.assertEqual(Site.find_for_request(request), self.alternate_port_events_site)
+
+        # Confirm retry gives same result but doesn't hit the database again
+        with self.assertNumQueries(0):
             self.assertEqual(Site.find_for_request(request), self.alternate_port_events_site)
 
 
