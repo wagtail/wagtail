@@ -11,7 +11,7 @@ from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
 from django.core import checks
 from django.core.cache import cache
-from django.core.exceptions import ImproperlyConfigured, ValidationError
+from django.core.exceptions import ValidationError
 from django.core.handlers.base import BaseHandler
 from django.core.handlers.wsgi import WSGIRequest
 from django.db import connection, models, transaction
@@ -74,14 +74,7 @@ class SiteManager(models.Manager):
         """Returns the 'default' ``Site`` or raise an exception in no site is
         set as the default. The result is cached."""
         if 'default' not in SITE_CACHE:
-            try:
-                SITE_CACHE['default'] = self.get(is_default_site=True)
-            except Site.DoesNotExist:
-                raise ImproperlyConfigured(
-                    "No default site could be identified. Please set "
-                    "'is_default_site' to True to assign a site as the "
-                    "default"
-                )
+            SITE_CACHE['default'] = self.get(is_default_site=True)
         return SITE_CACHE['default']
 
     def get_for_request(self, request):
