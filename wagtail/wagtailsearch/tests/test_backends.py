@@ -164,6 +164,10 @@ class BackendTests(WagtailTestUtils):
             filters=dict(title__in=CustomIterable(['World'])))
         self.assertEqual(set(results), {self.testd.searchtest_ptr})
 
+    def test_preserve_queryset_order(self):
+        results = self.backend.search("Hello", models.SearchTest.objects.order_by('-title'), order_by_relevance=False)
+        self.assertEqual(list(results), [self.testa, self.testc.searchtest_ptr, self.testb])
+
     def test_single_result(self):
         result = self.backend.search(None, models.SearchTest)[0]
         self.assertIsInstance(result, models.SearchTest)
