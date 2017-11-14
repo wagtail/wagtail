@@ -271,9 +271,12 @@ class PostgresSearchQuery(BaseSearchQuery):
             sql, index_params + model_params + limits)
 
     def search_in_fields(self, queryset, search_query, start, stop):
+        # Due to a Django bug, arrays are not automatically converted here.
+        converted_weights = '{' + ','.join(map(str, WEIGHTS_VALUES)) + '}'
+
         return (self.get_in_fields_queryset(queryset, search_query)
                 .annotate(_rank_=SearchRank(F('_search_'), search_query,
-                                            weights=WEIGHTS_VALUES))
+                                            weights=converted_weights))
                 .order_by('-_rank_'))[start:stop]
 
     def search(self, config, start, stop):
