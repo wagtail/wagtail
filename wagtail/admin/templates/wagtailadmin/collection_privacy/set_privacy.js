@@ -1,5 +1,5 @@
 function(modal) {
-    $('form', modal.body).submit(function() {
+    $('form', modal.body).on('submit', function() {
         modal.postForm(this.action, $(this).serialize());
         return false;
     });

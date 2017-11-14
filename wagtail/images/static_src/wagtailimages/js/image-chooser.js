@@ -4,7 +4,7 @@ function createImageChooser(id) {
     var input = $('#' + id);
     var editLink = chooserElement.find('.edit-link');
 
-    $('.action-choose', chooserElement).click(function() {
+    $('.action-choose', chooserElement).on('click', function() {
         ModalWorkflow({
             url: window.chooserUrls.imageChooser,
             responses: {
@@ -23,7 +23,7 @@ function createImageChooser(id) {
         });
     });
 
-    $('.action-clear', chooserElement).click(function() {
+    $('.action-clear', chooserElement).on('click', function() {
         input.val('');
         chooserElement.addClass('blank');
     });

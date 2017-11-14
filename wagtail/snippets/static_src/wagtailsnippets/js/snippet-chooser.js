@@ -4,7 +4,7 @@ function createSnippetChooser(id, modelString) {
     var input = $('#' + id);
     var editLink = chooserElement.find('.edit-link');
 
-    $('.action-choose', chooserElement).click(function() {
+    $('.action-choose', chooserElement).on('click', function() {
         ModalWorkflow({
             url: window.chooserUrls.snippetChooser + modelString + '/',
             responses: {
@@ -18,7 +18,7 @@ function createSnippetChooser(id, modelString) {
         });
     });
 
-    $('.action-clear', chooserElement).click(function() {
+    $('.action-clear', chooserElement).on('click', function() {
         input.val('');
         chooserElement.addClass('blank');
     });

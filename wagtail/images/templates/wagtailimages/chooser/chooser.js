@@ -7,12 +7,12 @@ function(modal) {
     var currentTag;
 
     function ajaxifyLinks (context) {
-        $('.listing a', context).click(function() {
+        $('.listing a', context).on('click', function() {
             modal.loadUrl(this.href);
             return false;
         });
 
-        $('.pagination a', context).click(function() {
+        $('.pagination a', context).on('click', function() {
             var page = this.getAttribute("data-page");
             setPage(page);
             return false;
@@ -56,7 +56,7 @@ function(modal) {
 
     ajaxifyLinks(modal.body);
 
-    $('form.image-upload', modal.body).submit(function() {
+    $('form.image-upload', modal.body).on('submit', function() {
         var formdata = new FormData(this);
 
         if ($('#id_title', modal.body).val() == '') {
@@ -91,7 +91,7 @@ function(modal) {
         $(this).data('timer', wait);
     });
     $('#collection_chooser_collection_id').change(search);
-    $('a.suggested-tag').click(function() {
+    $('a.suggested-tag').on('click', function() {
         currentTag = $(this).text();
         $('#id_q').val('');
         fetchResults({

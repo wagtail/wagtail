@@ -37,12 +37,12 @@ function ModalWorkflow(opts) {
         $(formSelector).each(function() {
             var action = this.action;
             if (this.method.toLowerCase() == 'get') {
-                $(this).submit(function() {
+                $(this).on('submit', function() {
                     self.loadUrl(action, $(this).serialize());
                     return false;
                 });
             } else {
-                $(this).submit(function() {
+                $(this).on('submit', function() {
                     self.postForm(action, $(this).serialize());
                     return false;
                 });

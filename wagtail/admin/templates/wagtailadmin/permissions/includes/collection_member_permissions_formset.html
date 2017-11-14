@@ -60,7 +60,7 @@
             onInit: function(index) {
                 var deleteInputId = 'id_{{ formset.prefix }}-' + index + '-DELETE';
                 var childId = 'inline_child_{{ formset.prefix }}-' + index;
-                $('#' + deleteInputId + '-button').click(function() {
+                $('#' + deleteInputId + '-button').on('click', function() {
                     /* set 'deleted' form field to true */
                     $('#' + deleteInputId).val('1');
                     $('#' + childId).fadeOut();

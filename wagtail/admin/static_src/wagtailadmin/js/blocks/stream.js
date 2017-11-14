@@ -48,7 +48,7 @@
         };
 
         /* set up show/hide on click behaviour */
-        self.container.click(function(e) {
+        self.container.on('click', function(e) {
             e.preventDefault();
             self.toggle();
         });
@@ -56,7 +56,7 @@
         /* set up button behaviour */
         $.each(opts.childBlocks, function(i, childBlock) {
             var button = self.container.find('.action-add-block-' + childBlock.name);
-            button.click(function() {
+            button.on('click', function() {
                 if (opts.onChooseBlock) opts.onChooseBlock(childBlock);
             });
         });
@@ -90,16 +90,16 @@
                     }
 
                     /* initialize delete button */
-                    $('#' + sequenceMember.prefix + '-delete').click(function() {
+                    $('#' + sequenceMember.prefix + '-delete').on('click', function() {
                         sequenceMember.delete();
                     });
 
                     /* initialise move up/down buttons */
-                    $('#' + sequenceMember.prefix + '-moveup').click(function() {
+                    $('#' + sequenceMember.prefix + '-moveup').on('click', function() {
                         sequenceMember.moveUp();
                     });
 
-                    $('#' + sequenceMember.prefix + '-movedown').click(function() {
+                    $('#' + sequenceMember.prefix + '-movedown').on('click', function() {
                         sequenceMember.moveDown();
                     });
 

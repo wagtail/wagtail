@@ -3,7 +3,7 @@ function(modal) {
 
         $('.listing a.choose-query', context).click(chooseQuery);
 
-        $('.pagination a', context).click(function() {
+        $('.pagination a', context).on('click', function() {
             var page = this.getAttribute("data-page");
             setPage(page);
             return false;

@@ -59,7 +59,7 @@ function enableDirtyFormCheck(formSelector, options) {
     var initialData = $form.serialize();
     var formSubmitted = false;
 
-    $form.submit(function() {
+    $form.on('submit', function() {
         formSubmitted = true;
     });
 
@@ -129,7 +129,7 @@ $(function() {
             $logoContainer.removeClass('logo-playful').addClass('logo-serious');
         }
 
-        $logoContainer.mousemove(function(event) {
+        $logoContainer.on('mousemove', function(event) {
             mouseX = event.pageX;
 
             if (mouseX > lastMouseX) {
@@ -150,7 +150,7 @@ $(function() {
             lastDir = dir;
         });
 
-        $logoContainer.mouseleave(function() {
+        $logoContainer.on('mouseleave', function() {
             dirChangeCount = 0;
             disableWag();
         });

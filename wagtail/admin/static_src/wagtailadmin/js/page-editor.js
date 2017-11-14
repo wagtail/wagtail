@@ -106,7 +106,7 @@ function InlinePanel(opts) {
         //mark container as having children to identify fields in use from those not
         self.setHasContent();
 
-        $('#' + deleteInputId + '-button').click(function() {
+        $('#' + deleteInputId + '-button').on('click', function() {
             /* set 'deleted' form field to true */
             $('#' + deleteInputId).val('1');
             $('#' + childId).addClass('deleted').slideUp(function() {
@@ -117,7 +117,7 @@ function InlinePanel(opts) {
         });
 
         if (opts.canOrder) {
-            $('#' + prefix + '-move-up').click(function() {
+            $('#' + prefix + '-move-up').on('click', function() {
                 var currentChild = $('#' + childId);
                 var currentChildOrderElem = currentChild.find('input[name$="-ORDER"]');
                 var currentChildOrder = currentChildOrderElem.val();
@@ -138,7 +138,7 @@ function InlinePanel(opts) {
                 self.updateMoveButtonDisabledStates();
             });
 
-            $('#' + prefix + '-move-down').click(function() {
+            $('#' + prefix + '-move-down').on('click', function() {
                 var currentChild = $('#' + childId);
                 var currentChildOrderElem = currentChild.find('input[name$="-ORDER"]');
                 var currentChildOrder = currentChildOrderElem.val();
@@ -283,7 +283,7 @@ function initSlugAutoPopulate() {
 }
 
 function initSlugCleaning() {
-    $('#id_slug').blur(function() {
+    $('#id_slug').on('blur', function() {
         // if a user has just set the slug themselves, don't remove stop words etc, just illegal characters
         $(this).val(cleanForSlug($(this).val(), false));
     });
@@ -317,7 +317,7 @@ function initCollapsibleBlocks() {
             $fieldset.hide();
         }
 
-        $li.find('> h2').click(function() {
+        $li.find('> h2').on('click', function() {
             if (!$li.hasClass('collapsed')) {
                 $li.addClass('collapsed');
                 $fieldset.hide('slow');
@@ -390,7 +390,7 @@ $(function() {
         }
     });
 
-    $previewButton.click(function(e) {
+    $previewButton.on('click', function(e) {
         e.preventDefault();
         var $this = $(this);
         var $icon = $this.filter('.icon'),

@@ -16,16 +16,16 @@
                     }
 
                     /* initialise delete button */
-                    $('#' + sequenceMember.prefix + '-delete').click(function() {
+                    $('#' + sequenceMember.prefix + '-delete').on('click', function() {
                         sequenceMember.delete();
                     });
 
                     /* initialise move up/down buttons */
-                    $('#' + sequenceMember.prefix + '-moveup').click(function() {
+                    $('#' + sequenceMember.prefix + '-moveup').on('click', function() {
                         sequenceMember.moveUp();
                     });
 
-                    $('#' + sequenceMember.prefix + '-movedown').click(function() {
+                    $('#' + sequenceMember.prefix + '-movedown').on('click', function() {
                         sequenceMember.moveDown();
                     });
                 },
@@ -48,7 +48,7 @@
             });
 
             /* initialize 'add' button */
-            $('#' + elementPrefix + '-add').click(function() {
+            $('#' + elementPrefix + '-add').on('click', function() {
                 sequence.insertMemberAtEnd(listMemberTemplate);
             });
         };

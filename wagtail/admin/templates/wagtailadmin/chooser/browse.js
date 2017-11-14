@@ -1,6 +1,6 @@
 function(modal) {
     /* Set up link-types links to open in the modal */
-    $('.link-types a', modal.body).click(function() {
+    $('.link-types a', modal.body).on('click', function() {
         modal.loadUrl(this.href);
         return false;
     });
@@ -55,7 +55,7 @@ function(modal) {
     /* Set up behaviour of choose-page links in the newly-loaded search results,
     to pass control back to the calling page */
     function ajaxifySearchResults() {
-        $('.page-results a.choose-page', modal.body).click(function() {
+        $('.page-results a.choose-page', modal.body).on('click', function() {
             var pageData = $(this).data();
             modal.respond('pageChosen', $(this).data());
             modal.close();
@@ -64,7 +64,7 @@ function(modal) {
         });
         /* pagination links within search results should be AJAX-fetched
         and the result loaded into .page-results (and ajaxified) */
-        $('.page-results a.navigate-pages', modal.body).click(function() {
+        $('.page-results a.navigate-pages', modal.body).on('click', function() {
             $('.page-results', modal.body).load(this.href, ajaxifySearchResults);
             return false;
         });
@@ -72,13 +72,13 @@ function(modal) {
 
     function ajaxifyBrowseResults() {
         /* Set up page navigation links to open in the modal */
-        $('.page-results a.navigate-pages', modal.body).click(function() {
+        $('.page-results a.navigate-pages', modal.body).on('click', function() {
             modal.loadUrl(this.href);
             return false;
         });
 
         /* Set up behaviour of choose-page links, to pass control back to the calling page */
-        $('a.choose-page', modal.body).click(function() {
+        $('a.choose-page', modal.body).on('click', function() {
             var pageData = $(this).data();
             pageData.parentId = {{ parent_page.id }};
             modal.respond('pageChosen', $(this).data());
