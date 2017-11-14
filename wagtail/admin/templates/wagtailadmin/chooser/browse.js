@@ -93,5 +93,5 @@ function(modal) {
     Focus on the search box when opening the modal.
     FIXME: this doesn't seem to have any effect (at least on Chrome)
     */
-    $('#id_q', modal.body).focus();
+    $('#id_q', modal.body).trigger('focus');
 }

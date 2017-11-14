@@ -386,7 +386,7 @@ $(function() {
             $form.on('change keyup DOMSubtreeModified', function () {
                 clearTimeout(autoUpdatePreviewDataTimeout);
                 autoUpdatePreviewDataTimeout = setTimeout(setPreviewData, 1000);
-            }).change();
+            }).trigger('change');
         }
     });
 

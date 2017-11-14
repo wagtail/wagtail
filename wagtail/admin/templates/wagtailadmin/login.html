@@ -83,7 +83,7 @@
 {{ block.super }}
 <script>
     $(function(){
-        $('form input[name=username]').focus();
+        $('form input[name=username]').trigger('focus');
     })
 </script>
 {% endblock %}
