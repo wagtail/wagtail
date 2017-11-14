@@ -133,22 +133,6 @@ class TestSiteRouting(TestCase):
         self.unrecognised_port = '8000'
         self.unrecognised_hostname = 'unknown.site.com'
 
-    def test_sitemanager_get_current_no_request(self):
-        # When get_current() receives no request, it should return the default
-        with self.assertNumQueries(1):
-            self.assertEqual(Site.objects.get_current(), self.default_site)
-
-        # Confirm that the cache is working, and giving us the same result
-        with self.assertNumQueries(0):
-            self.assertEqual(Site.objects.get_current(), self.default_site)
-
-        # Confirm that a site update, clears the cache, and we're back to
-        # making queries to get the same result
-        self.default_site.site_name = 'Default'
-        self.default_site.save()
-        with self.assertNumQueries(1):
-            self.assertEqual(Site.objects.get_current(), self.default_site)
-
     def test_no_host_header_routes_to_default_site(self):
         # requests without a Host: header should be directed to the default site
         request = HttpRequest()
