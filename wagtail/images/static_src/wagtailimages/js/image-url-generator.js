@@ -68,13 +68,13 @@ $(function() {
                 });
         }
 
-        $form.change($.debounce(500, formChangeHandler));
-        $form.keyup($.debounce(500, formChangeHandler));
+        $form.trigger('change', $.debounce(500, formChangeHandler));
+        $form.trigger('keyup', $.debounce(500, formChangeHandler));
         formChangeHandler();
 
         // When the user clicks the URL, automatically select the whole thing (for easier copying)
         $result.on('click', function() {
-            $(this).select();
+            $(this).trigger('select');
         });
     });
 });

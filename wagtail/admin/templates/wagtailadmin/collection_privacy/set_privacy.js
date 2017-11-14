@@ -23,5 +23,5 @@ function(modal) {
     }
     refreshFormFields();
 
-    $("input[name='restriction_type']", modal.body).change(refreshFormFields);
+    $("input[name='restriction_type']", modal.body).trigger('change', refreshFormFields);
 }

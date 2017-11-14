@@ -75,7 +75,7 @@
 
     <script>
         $(function(){
-            $('#page-edit-form .tab-content section.active input').first().focus();
+            $('#page-edit-form .tab-content section.active input').first().trigger('focus');
 
             /* Make user confirm before leaving the editor if there are unsaved changes */
             {% trans "This page has unsaved changes." as confirmation_message %}

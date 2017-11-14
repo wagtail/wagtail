@@ -90,7 +90,7 @@ function(modal) {
         var wait = setTimeout(search, 200);
         $(this).data('timer', wait);
     });
-    $('#collection_chooser_collection_id').change(search);
+    $('#collection_chooser_collection_id').trigger('change', search);
     $('a.suggested-tag').on('click', function() {
         currentTag = $(this).text();
         $('#id_q').val('');

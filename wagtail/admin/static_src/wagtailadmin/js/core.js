@@ -180,7 +180,7 @@ $(function() {
 
     $(document).on('click', '.tab-toggle', function(e) {
         e.preventDefault();
-        $('.tab-nav a[href="' + $(this).attr('href') + '"]').click();
+        $('.tab-nav a[href="' + $(this).attr('href') + '"]').trigger('click');
     });
 
     $('.dropdown').each(function() {
