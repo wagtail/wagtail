@@ -106,7 +106,7 @@ $(function() {
 
     fitNav();
 
-    $(window).resize(function() {
+    $(window).on('resize', function() {
         fitNav();
     });
 
