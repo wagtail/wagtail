@@ -34,6 +34,9 @@ class PageSearchTests(object):
         if index:
             index.refresh()
 
+    def test_order_by_title(self):
+        list(Page.objects.order_by('title').search('blah', order_by_relevance=False, backend=self.backend_name))
+
     def test_search_specific_queryset(self):
         list(Page.objects.specific().search('bread', backend=self.backend_name))
 
