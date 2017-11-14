@@ -107,15 +107,6 @@ class SiteManager(models.Manager):
         SITE_CACHE[key] = self.get_default()
         return SITE_CACHE[key]
 
-    def get_current(self, request=None):
-        """Return the site responsible for dealing with a ``HttpRequest``
-        instance, or the default site if no ``HttpRequest`` is provided. The
-        result is cached.
-        """
-        if request:
-            return self.get_for_request(request)
-        return self.get_default()
-
     def clear_cache(self):
         """Clear the ``Site`` object cache."""
         clear_site_cache()
@@ -175,7 +166,7 @@ class Site(models.Model):
 
     @classmethod
     def find_for_request(cls, request):
-        return cls.objects.get_current(request)
+        return cls.objects.get_for_request(request)
 
     @property
     def root_url(self):
