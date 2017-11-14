@@ -83,7 +83,7 @@ function(modal) {
         $(this).data('timer', wait);
     });
 
-    $('#collection_chooser_collection_id').trigger('change', search);
+    $('#collection_chooser_collection_id').on('change', search);
 
     {% url 'wagtailadmin_tag_autocomplete' as autocomplete_url %}
     $('#id_tags', modal.body).tagit({

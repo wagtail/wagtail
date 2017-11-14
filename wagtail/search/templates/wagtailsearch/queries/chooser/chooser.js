@@ -1,7 +1,7 @@
 function(modal) {
     function ajaxifyLinks (context) {
 
-        $('.listing a.choose-query', context).trigger('click', chooseQuery);
+        $('.listing a.choose-query', context).on('click', chooseQuery);
 
         $('.pagination a', context).on('click', function() {
             var page = this.getAttribute("data-page");
