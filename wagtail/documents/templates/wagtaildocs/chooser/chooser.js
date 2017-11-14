@@ -1,12 +1,12 @@
 {% load i18n %}
 function(modal) {
     function ajaxifyLinks (context) {
-        $('a.document-choice', context).click(function() {
+        $('a.document-choice', context).on('click', function() {
             modal.loadUrl(this.href);
             return false;
         });
 
-        $('.pagination a', context).click(function() {
+        $('.pagination a', context).on('click', function() {
             var page = this.getAttribute("data-page");
             setPage(page);
             return false;
@@ -49,7 +49,7 @@ function(modal) {
 
     ajaxifyLinks(modal.body);
 
-    $('form.document-upload', modal.body).submit(function() {
+    $('form.document-upload', modal.body).on('submit', function() {
         var formdata = new FormData(this);
 
         $.ajax({

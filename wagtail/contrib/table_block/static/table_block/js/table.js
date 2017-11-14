@@ -85,11 +85,11 @@ function initTable(id, tableOptions) {
         persist();
     };
 
-    tableHeaderCheckbox.change(function() {
+    tableHeaderCheckbox.on('change', function() {
         persist();
     });
 
-    colHeaderCheckbox.change(function() {
+    colHeaderCheckbox.on('change', function() {
         persist();
     });
 

@@ -1,5 +1,5 @@
 function(modal) {
-    $('form', modal.body).submit(function() {
+    $('form', modal.body).on('submit', function() {
         var formdata = new FormData(this);
 
         $.post(this.action, $(this).serialize(), function(response){

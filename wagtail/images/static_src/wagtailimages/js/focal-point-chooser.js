@@ -75,7 +75,7 @@ $(function() {
         setupJcrop.apply(this, params)
     }));
 
-    $('.remove-focal-point').click(function() {
+    $('.remove-focal-point').on('click', function() {
         jcropapi.destroy();
         $image.removeAttr('style');
         $('.jcrop-holder').remove();

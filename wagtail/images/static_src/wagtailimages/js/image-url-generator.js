@@ -73,7 +73,7 @@ $(function() {
         formChangeHandler();
 
         // When the user clicks the URL, automatically select the whole thing (for easier copying)
-        $result.click(function() {
+        $result.on('click', function() {
             $(this).select();
         });
     });
