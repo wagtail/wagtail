@@ -17,7 +17,6 @@ from django.core.handlers.wsgi import WSGIRequest
 from django.db import connection, models, transaction
 from django.db.models import Q, Value
 from django.db.models.functions import Concat, Substr
-from django.db.models.signals import pre_delete, pre_save
 from django.http import Http404
 from django.template.response import TemplateResponse
 from django.urls import reverse
@@ -44,10 +43,8 @@ PAGE_TEMPLATE_VAR = 'page'
 SITE_CACHE = {}
 
 
-def clear_site_cache(*args, **kwargs):
-    """
-    Clear the cache (if primed) each time a site is saved or deleted.
-    """
+def clear_site_cache():
+    """Clear the ``Site`` object cache."""
     global SITE_CACHE
     SITE_CACHE = {}
 
@@ -108,7 +105,6 @@ class SiteManager(models.Manager):
         return SITE_CACHE[key]
 
     def clear_cache(self):
-        """Clear the ``Site`` object cache."""
         clear_site_cache()
 
     def get_by_natural_key(self, hostname, port):
@@ -214,10 +210,6 @@ class Site(models.Model):
             cache.set('wagtail_site_root_paths', result, 3600)
 
         return result
-
-
-pre_save.connect(clear_site_cache, sender=Site)
-pre_delete.connect(clear_site_cache, sender=Site)
 
 
 PAGE_MODEL_CLASSES = []
