@@ -21,6 +21,7 @@ Bug fixes
 ~~~~~~~~~
 
  * Handle all exceptions from ``Image.get_file_size`` (Andrew Plummer)
+ * Fix display of breadcrumbs in ModelAdmin (LB (Ben Johnston))
 
 Upgrade considerations
 ======================

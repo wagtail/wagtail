@@ -1,11 +1,12 @@
 {% extends "wagtailadmin/base.html" %}
-{% load i18n admin_static %}
+{% load i18n modeladmin_tags admin_static %}
 
 {% block titletag %}{{ view.get_meta_title }}{% endblock %}
 
 {% block extra_css %}
     {% include "wagtailadmin/pages/_editor_css.html" %}
     <link rel="stylesheet" href="{% static 'wagtailmodeladmin/css/choose_parent_page.css' %}" type="text/css"/>
+    <link rel="stylesheet" href="{% static 'wagtailmodeladmin/css/breadcrumbs_page.css' %}" type="text/css"/>
 {% endblock %}
 
 {% block extra_js %}
@@ -14,12 +15,12 @@
 
 
 {% block content %}
-<div>
 
-    {% block header %}
-        {% include "modeladmin/includes/breadcrumb.html" %}
-        {% include "wagtailadmin/shared/header.html" with title=view.get_page_title subtitle=view.get_page_subtitle icon=view.header_icon %}
-    {% endblock %}
+{% block header %}
+    {% include "modeladmin/includes/header_with_breadcrumb.html" with title=view.get_page_title subtitle=view.get_page_subtitle icon=view.header_icon tabbed=True %}
+{% endblock %}
+
+<div>
 
     <div class="nice-padding">
         <h2>{% blocktrans %}Choose a parent page{% endblocktrans %}</h2>
