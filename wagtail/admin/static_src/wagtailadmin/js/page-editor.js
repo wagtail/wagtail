@@ -406,7 +406,7 @@ $(function() {
                 window.focus();
                 previewWindow.close();
                 // TODO: Stop sending the form, as it removes file data.
-                $form.submit();
+                $form.trigger('submit');
             }
         }).fail(function () {
             alert('Error while sending preview data.');

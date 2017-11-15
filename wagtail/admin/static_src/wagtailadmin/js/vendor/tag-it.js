@@ -187,7 +187,7 @@
                         // Sets the focus() to the input field, if the user
                         // clicks anywhere inside the UL. This is needed
                         // because the input field needs to be of a small size.
-                        that.tagInput.focus();
+                        that.tagInput.trigger('focus');
                     }
                 });
 

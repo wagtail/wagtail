@@ -12,7 +12,7 @@
 
         $(function() {
             $('#collection_chooser_collection_id').on('change', function() {
-                this.form.submit();
+                this.form.trigger('submit');
             })
         });
     </script>
