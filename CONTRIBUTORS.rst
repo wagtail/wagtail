@@ -14,6 +14,7 @@ Core team
 * Loïc Teixeira (Springload)
 * Andy Chosak (consumerfinance.gov)
 * Will Barton (consumerfinance.gov)
+* LB Johnston
 
 Contributors
 ============
@@ -215,7 +216,6 @@ Contributors
 * Tobias McNulty
 * Vorlif
 * Kjartan Sverrisson
-* LB (Ben Johnston)
 * Christine Ho
 * Trent Holliday
 * jacoor
