@@ -34,26 +34,26 @@ function makeHalloRichTextEditable(id, plugins) {
         toolbarCssClass: (closestObj.hasClass('full')) ? 'full' : (closestObj.hasClass('stream-field') && isRoot) ? 'stream-field' : '',
         /* use the passed-in plugins arg */
         plugins: plugins
-    }).bind('hallomodified', function(event, data) {
+    }).on('hallomodified', function(event, data) {
         input.val(data.content);
         if (!removeStylingPending) {
             setTimeout(removeStyling, 100);
             removeStylingPending = true;
         }
-    }).bind('paste drop', function(event, data) {
+    }).on('paste drop', function(event, data) {
         setTimeout(function() {
             removeStyling();
             setModified();
         }, 1);
     /* Animate the fields open when you click into them. */
-    }).bind('halloactivated', function(event, data) {
+    }).on('halloactivated', function(event, data) {
         $(event.target).addClass('expanded', 200, function(e) {
             /* Hallo's toolbar will reposition itself on the scroll event.
             This is useful since animating the fields can cause it to be
             positioned badly initially. */
             $(window).trigger('scroll');
         });
-    }).bind('hallodeactivated', function(event, data) {
+    }).on('hallodeactivated', function(event, data) {
         $(event.target).removeClass('expanded', 200, function(e) {
             $(window).trigger('scroll');
         });

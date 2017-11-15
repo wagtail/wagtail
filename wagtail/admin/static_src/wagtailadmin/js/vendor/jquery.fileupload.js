@@ -394,7 +394,7 @@
             // Accesss to the native XHR object is required to add event listeners
             // for the upload progress event:
             if (xhr.upload) {
-                $(xhr.upload).bind('progress', function (e) {
+                $(xhr.upload).on('progress', function (e) {
                     var oe = e.originalEvent;
                     // Make sure the progress event properties get copied over:
                     e.lengthComputable = oe.lengthComputable;
@@ -1022,7 +1022,7 @@
             // without loosing the file input value:
             input.after(inputClone).detach();
             // Avoid memory leaks with the detached file input:
-            $.cleanData(input.unbind('remove'));
+            $.cleanData(input.off('remove'));
             // Replace the original file input element in the fileInput
             // elements set with the clone, which has been copied including
             // event handlers:
