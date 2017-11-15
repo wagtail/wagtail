@@ -184,6 +184,12 @@ def result_row_value_display(context, index):
     return context
 
 
+@register.inclusion_tag(
+    "modeladmin/includes/breadcrumb.html", takes_context=True)
+def breadcrumb(context):
+    return context
+
+
 @register.filter
 def get_content_type_for_obj(obj):
     return obj.__class__._meta.verbose_name
