@@ -36,7 +36,7 @@ $(function() {
                 if ((that._trigger('added', e, data) !== false) &&
                         (options.autoUpload || data.autoUpload) &&
                         data.autoUpload !== false) {
-                    data.submit()
+                    data.trigger('submit')
                 }
             }).fail(function() {
                 if (data.files.error) {

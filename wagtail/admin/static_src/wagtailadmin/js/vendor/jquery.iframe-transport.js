@@ -145,7 +145,7 @@
                             // Remove the HTML5 form attribute from the input(s):
                             options.fileInput.removeAttr('form');
                         }
-                        form.submit();
+                        form.trigger('submit');
                         // Insert the file input fields at their original location
                         // by replacing the clones with the originals:
                         if (fileInputClones && fileInputClones.length) {

@@ -180,9 +180,9 @@
             // Listeners for this callback can also be bound the following way:
             // .bind('fileuploadadd', func);
             //
-            // data.submit() returns a Promise object and allows to attach additional
+            // data.trigger('submit') returns a Promise object and allows to attach additional
             // handlers using jQuery's Deferred callbacks:
-            // data.submit().done(func).fail(func).always(func);
+            // data.trigger('submit').done(func).fail(func).always(func);
             add: function (e, data) {
                 if (e.isDefaultPrevented()) {
                     return false;
@@ -190,7 +190,7 @@
                 if (data.autoUpload || (data.autoUpload !== false &&
                         $(this).fileupload('option', 'autoUpload'))) {
                     data.process().done(function () {
-                        data.submit();
+                        data.trigger('submit');
                     });
                 }
             },
