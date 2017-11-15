@@ -293,9 +293,9 @@
                 // while tagSource is left null by default.
                 autocompleteOptions.source = this.options.tagSource || autocompleteOptions.source;
 
-                this.tagInput.autocomplete(autocompleteOptions).bind('autocompleteopen', function(event, ui) {
+                this.tagInput.autocomplete(autocompleteOptions).on('autocompleteopen', function(event, ui) {
                     that.tagInput.data('autocomplete-open', true);
-                }).bind('autocompleteclose', function(event, ui) {
+                }).on('autocompleteclose', function(event, ui) {
                     that.tagInput.data('autocomplete-open', false)
                 });
             }

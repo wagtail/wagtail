@@ -6,7 +6,7 @@ $(function() {
     }
 
     // prevents browser default drag/drop
-    $(document).bind('drop dragover', function(e) {
+    $(document).on('drop dragover', function(e) {
         e.preventDefault();
     });
 
