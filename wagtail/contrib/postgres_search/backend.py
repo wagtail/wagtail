@@ -169,7 +169,7 @@ class PostgresSearchQuery(BaseSearchQuery):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.search_fields = self.queryset.model.get_search_fields()
+        self.search_fields = self.queryset.model.get_searchable_search_fields()
 
     def get_search_query(self, config):
         combine = OR if self.operator == 'or' else AND
