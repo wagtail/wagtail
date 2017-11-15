@@ -565,7 +565,7 @@ To do this, you need to:
 
 * Ensure you have your form model defined that extends ``wagtail.wagtailforms.models.AbstractEmailForm``.
 * In your models.py file, import the ``wagtail.wagtailadmin.utils.send_mail`` function.
-* Override the ``send_mail`` methodd in your page model.
+* Override the ``send_mail`` method in your page model.
 
 Example:
 
