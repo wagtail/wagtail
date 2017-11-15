@@ -180,7 +180,7 @@ class PostgresSearchQuery(BaseSearchQuery):
 
     def __init__(self, *args, **kwargs):
         super(PostgresSearchQuery, self).__init__(*args, **kwargs)
-        self.search_fields = self.queryset.model.get_search_fields()
+        self.search_fields = self.queryset.model.get_searchable_search_fields()
 
     def get_search_query(self, config):
         combine = OR if self.operator == 'or' else AND
@@ -246,11 +246,15 @@ class PostgresSearchQuery(BaseSearchQuery):
 
     def search_in_index(self, queryset, search_query, start, stop):
         index_entries = self.get_in_index_queryset(queryset, search_query)
+        order_sql = ''
+        values = ['typed_pk']
         if self.order_by_relevance:
             index_entries = index_entries.rank(search_query)
+            values.append('rank')
+            order_sql = 'ORDER BY index_entry.rank DESC'
         index_sql, index_params = get_sql(
             index_entries.annotate_typed_pk()
-            .values('typed_pk', 'rank')
+            .values(*values)
         )
         model_sql, model_params = get_sql(queryset)
         model = queryset.model
@@ -258,17 +262,20 @@ class PostgresSearchQuery(BaseSearchQuery):
             SELECT obj.*
             FROM (%s) AS index_entry
             INNER JOIN (%s) AS obj ON obj."%s" = index_entry.typed_pk
-            ORDER BY index_entry.rank DESC
+            %s
             OFFSET %%s LIMIT %%s;
-            """ % (index_sql, model_sql, get_pk_column(model))
+            """ % (index_sql, model_sql, get_pk_column(model), order_sql)
         limits = (start, None if stop is None else stop - start)
         return model._default_manager.using(get_db_alias(queryset)).raw(
             sql, index_params + model_params + limits)
 
     def search_in_fields(self, queryset, search_query, start, stop):
+        # Due to a Django bug, arrays are not automatically converted here.
+        converted_weights = '{' + ','.join(map(str, WEIGHTS_VALUES)) + '}'
+
         return (self.get_in_fields_queryset(queryset, search_query)
                 .annotate(_rank_=SearchRank(F('_search_'), search_query,
-                                            weights=WEIGHTS_VALUES))
+                                            weights=converted_weights))
                 .order_by('-_rank_'))[start:stop]
 
     def search(self, config, start, stop):
