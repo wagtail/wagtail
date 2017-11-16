@@ -34,7 +34,7 @@ class TestFormSubmission(TestCase):
             'your-email': 'bob',
             'your-message': 'hello world',
             'your-choices': ''
-        })
+        }, follow=True)
 
         # Check response
         self.assertContains(response, "Enter a valid email address.")
@@ -46,7 +46,7 @@ class TestFormSubmission(TestCase):
             'your-email': 'bob@example.com',
             'your-message': 'hello world',
             'your-choices': {'foo': '', 'bar': '', 'baz': ''}
-        })
+        }, follow=True)
 
         # Check response
         self.assertContains(response, "Thank you for your feedback.")
@@ -88,7 +88,7 @@ class TestFormSubmission(TestCase):
             'your-email': 'bob@example.com',
             'your-message': 'hello world',
             'your-choices': {'foo': 'on', 'bar': 'on', 'baz': 'on'}
-        })
+        }, follow=True)
 
         # Check response
         self.assertContains(response, "Thank you for your feedback.")
@@ -116,7 +116,7 @@ class TestFormSubmission(TestCase):
             'your-email': 'bob@example.com',
             'your-message': 'hello world',
             'your-choices': {},
-        })
+        }, follow=True)
 
         # Check response
         self.assertContains(response, "Thank you for your feedback.")
@@ -168,7 +168,7 @@ class TestFormWithCustomSubmission(TestCase, WagtailTestUtils):
             'your-email': 'bob',
             'your-message': 'hello world',
             'your-choices': ''
-        })
+        }, follow=True)
 
         # Check response
         self.assertContains(response, "Enter a valid email address.")
@@ -180,7 +180,7 @@ class TestFormWithCustomSubmission(TestCase, WagtailTestUtils):
             'your-email': 'bob@example.com',
             'your-message': 'hello world',
             'your-choices': {'foo': '', 'bar': '', 'baz': ''}
-        })
+        }, follow=True)
 
         # Check response
         self.assertContains(response, "Thank you for your patience!")
@@ -207,7 +207,7 @@ class TestFormWithCustomSubmission(TestCase, WagtailTestUtils):
             'your-email': 'bob@example.com',
             'your-message': 'hello world',
             'your-choices': {'foo': '', 'bar': '', 'baz': ''}
-        })
+        }, follow=True)
 
         # Check response
         self.assertTemplateNotUsed(response, 'tests/form_page_with_custom_submission.html')
@@ -225,7 +225,7 @@ class TestFormWithCustomSubmission(TestCase, WagtailTestUtils):
             'your-email': 'bob@example.com',
             'your-message': 'hello world',
             'your-choices': {'foo': '', 'bar': '', 'baz': ''}
-        })
+        }, follow=True)
 
         # Check response
         self.assertTemplateUsed(response, 'tests/form_page_with_custom_submission.html')
@@ -246,7 +246,7 @@ class TestFormWithCustomSubmission(TestCase, WagtailTestUtils):
             'your-email': 'bob@example.com',
             'your-message': 'こんにちは、世界',
             'your-choices': {'foo': '', 'bar': '', 'baz': ''}
-        })
+        }, follow=True)
 
         # Check the email
         self.assertEqual(len(mail.outbox), 1)
@@ -262,7 +262,7 @@ class TestFormWithCustomSubmission(TestCase, WagtailTestUtils):
             'your-email': 'bob@example.com',
             'your-message': 'hello world',
             'your-choices': {'foo': 'on', 'bar': 'on', 'baz': 'on'}
-        })
+        }, follow=True)
 
         # Check response
         self.assertContains(response, "Thank you for your patience!")
@@ -283,7 +283,7 @@ class TestFormWithCustomSubmission(TestCase, WagtailTestUtils):
             'your-email': 'bob@example.com',
             'your-message': 'hello world',
             'your-choices': {},
-        })
+        }, follow=True)
 
         # Check response
         self.assertContains(response, "Thank you for your patience!")
@@ -305,7 +305,7 @@ class TestFormSubmissionWithMultipleRecipients(TestCase):
             'your-email': 'bob@example.com',
             'your-message': 'hello world',
             'your-choices': {'foo': '', 'bar': '', 'baz': ''}
-        })
+        }, follow=True)
 
         # Check response
         self.assertContains(response, "Thank you for your feedback.")
@@ -342,7 +342,7 @@ class TestFormSubmissionWithMultipleRecipientsAndWithCustomSubmission(TestCase, 
             'your-email': 'bob@example.com',
             'your-message': 'hello world',
             'your-choices': {'foo': '', 'bar': '', 'baz': ''}
-        })
+        }, follow=True)
 
         # Check response
         self.assertContains(response, "Thank you for your patience!")
@@ -387,7 +387,7 @@ class TestIssue798(TestCase):
             'your-message': 'hello world',
             'your-choices': {'foo': '', 'bar': '', 'baz': ''},
             'your-favourite-number': '7.3',
-        })
+        }, follow=True)
 
         # Check response
         self.assertTemplateUsed(response, 'tests/form_page_landing.html')
