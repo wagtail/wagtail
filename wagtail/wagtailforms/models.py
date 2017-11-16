@@ -6,7 +6,7 @@ import os
 from django.contrib.contenttypes.models import ContentType
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _
 from unidecode import unidecode
@@ -159,6 +159,16 @@ class AbstractForm(Page):
 
     base_form_class = WagtailAdminFormPageForm
 
+    receipt_page_redirect = models.ForeignKey(
+        'wagtailcore.Page',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        verbose_name=_("Redirect to"),
+        help_text=_("Optional page to redirect to after sucessfully submitting the form.")
+    )
+
     def __init__(self, *args, **kwargs):
         super(AbstractForm, self).__init__(*args, **kwargs)
         if not hasattr(self, 'landing_page_template'):
@@ -262,12 +272,14 @@ class AbstractForm(Page):
 
     def render_landing_page(self, request, *args, **kwargs):
         """
-        Renders the landing page.
+        Renders the landing page OR if a receipt_page_redirect is chosen redirects to this page.
 
         You can override this method to return a different HttpResponse as
-        landing page. E.g. you could return a redirect to a separate page.
+        landing page.
         """
-        # TODO: It is much better to redirect to it
+        if self.receipt_page_redirect:
+            return redirect(self.receipt_page_redirect.url, permanent=False)
+
         return render(
             request,
             self.get_landing_page_template(request),
