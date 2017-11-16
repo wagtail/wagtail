@@ -482,7 +482,7 @@ class FormPageWithCustomSubmission(AbstractEmailForm):
             send_mail(self.subject, content, addresses, self.from_address,)
 
     def serve(self, request, *args, **kwargs):
-        if self.get_submission_class().objects.filter(page=self, user__pk=request.user.pk).exists():
+        if not request.GET.get('success') and self.get_submission_class().objects.filter(page=self, user__pk=request.user.pk).exists():
             return render(
                 request,
                 self.template,

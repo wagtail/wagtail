@@ -6,7 +6,7 @@ import os
 from django.contrib.contenttypes.models import ContentType
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _
 from unidecode import unidecode
@@ -267,7 +267,6 @@ class AbstractForm(Page):
         You can override this method to return a different HttpResponse as
         landing page. E.g. you could return a redirect to a separate page.
         """
-        # TODO: It is much better to redirect to it
         return render(
             request,
             self.get_landing_page_template(request),
@@ -280,9 +279,12 @@ class AbstractForm(Page):
 
             if form.is_valid():
                 self.process_form_submission(form)
+                return redirect(self.url + '?success=True', permanent=False)
+        else:
+            if request.GET.get('success'):
                 # Forwarding args and kwargs just in case for flexibility
                 return self.render_landing_page(request, *args, **kwargs)
-        else:
+
             form = self.get_form(page=self, user=request.user)
 
         context = self.get_context(request)
