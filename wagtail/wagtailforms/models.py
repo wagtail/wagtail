@@ -6,7 +6,7 @@ import os
 from django.contrib.contenttypes.models import ContentType
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect, render
 from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _
 from unidecode import unidecode
