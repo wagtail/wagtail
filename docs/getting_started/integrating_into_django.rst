@@ -28,7 +28,7 @@ In your settings file, add the following apps to ``INSTALLED_APPS``:
     'wagtail.wagtailsnippets',
     'wagtail.wagtaildocs',
     'wagtail.wagtailimages',
-    'wagtail.wagtailsearch',
+    'wagtail.search',
     'wagtail.wagtailadmin',
     'wagtail.wagtailcore',
 

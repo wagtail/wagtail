@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from django.conf import settings
 from django.db import migrations, models
 
-import wagtail.wagtailsearch.index
+import wagtail.search.index
 
 
 def set_page_path_collation(apps, schema_editor):
@@ -96,7 +96,7 @@ class Migration(migrations.Migration):
             options={
                 'abstract': False,
             },
-            bases=(wagtail.wagtailsearch.index.Indexed, models.Model),
+            bases=(wagtail.search.index.Indexed, models.Model),
         ),
         migrations.RunPython(
             set_page_path_collation, migrations.RunPython.noop

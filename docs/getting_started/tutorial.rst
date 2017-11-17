@@ -221,7 +221,7 @@ Now we need a model and template for our blog posts. In ``blog/models.py``:
     from wagtail.wagtailcore.models import Page
     from wagtail.wagtailcore.fields import RichTextField
     from wagtail.wagtailadmin.edit_handlers import FieldPanel
-    from wagtail.wagtailsearch import index
+    from wagtail.search import index
 
 
     # Keep the definition of BlogIndexPage, and add:
@@ -413,7 +413,7 @@ Add a new ``BlogPageGalleryImage`` model to ``models.py``:
     from wagtail.wagtailcore.fields import RichTextField
     from wagtail.wagtailadmin.edit_handlers import FieldPanel, InlinePanel
     from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
-    from wagtail.wagtailsearch import index
+    from wagtail.search import index
 
 
     # ... (Keep the definition of BlogIndexPage, and update BlogPage:)
@@ -576,7 +576,7 @@ First, alter ``models.py`` once more:
     from wagtail.wagtailcore.fields import RichTextField
     from wagtail.wagtailadmin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
     from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
-    from wagtail.wagtailsearch import index
+    from wagtail.search import index
 
 
     # ... (Keep the definition of BlogIndexPage)

@@ -34,7 +34,7 @@ from wagtail.wagtailcore.sites import get_site_for_hostname
 from wagtail.wagtailcore.url_routing import RouteResult
 from wagtail.wagtailcore.utils import (
     WAGTAIL_APPEND_SLASH, camelcase_to_underscore, resolve_model_string)
-from wagtail.wagtailsearch import index
+from wagtail.search import index
 
 logger = logging.getLogger('wagtail.core')
 

@@ -593,7 +593,7 @@ class TestSpecificQuery(TestCase):
         # 1276 - The database search backend didn't return results with the
         # specific type when searching a specific queryset.
 
-        pages = list(Page.objects.specific().live().in_menu().search(None, backend='wagtail.wagtailsearch.backends.db'))
+        pages = list(Page.objects.specific().live().in_menu().search(None, backend='wagtail.search.backends.db'))
 
         # Check that each page is in the queryset with the correct type.
         # We don't care about order here

@@ -12,8 +12,8 @@ from taggit.managers import TaggableManager
 
 from wagtail.wagtailadmin.utils import get_object_usage
 from wagtail.wagtailcore.models import CollectionMember
-from wagtail.wagtailsearch import index
-from wagtail.wagtailsearch.queryset import SearchableQuerySetMixin
+from wagtail.search import index
+from wagtail.search.queryset import SearchableQuerySetMixin
 
 
 class DocumentQuerySet(SearchableQuerySetMixin, models.QuerySet):

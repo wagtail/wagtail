@@ -7,7 +7,7 @@ from taggit.managers import TaggableManager
 
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import Page
-from wagtail.wagtailsearch.backends import get_search_backend
+from wagtail.search.backends import get_search_backend
 
 from .utils import BadRequestError, pages_for_site, parse_boolean
 

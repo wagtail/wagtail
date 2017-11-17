@@ -3,8 +3,8 @@ from __future__ import absolute_import, unicode_literals
 from django.utils.translation import ugettext as _
 
 from wagtail.wagtailadmin.forms import SearchForm
-from wagtail.wagtailsearch.backends import get_search_backend
-from wagtail.wagtailsearch.index import class_is_indexed
+from wagtail.search.backends import get_search_backend
+from wagtail.search.index import class_is_indexed
 
 
 class SearchableListMixin(object):

@@ -61,7 +61,7 @@ Wagtail's document and image models provide a ``search`` method on their QuerySe
 .. code-block:: python
 
     >>> from myapp.models import Book
-    >>> from wagtail.wagtailsearch.backends import get_search_backend
+    >>> from wagtail.search.backends import get_search_backend
 
     # Search books
     >>> s = get_search_backend()
@@ -74,7 +74,7 @@ You can also pass a QuerySet into the ``search`` method which allows you to add 
 .. code-block:: python
 
     >>> from myapp.models import Book
-    >>> from wagtail.wagtailsearch.backends import get_search_backend
+    >>> from wagtail.search.backends import get_search_backend
 
     # Search books
     >>> s = get_search_backend()
@@ -207,7 +207,7 @@ Here's an example Django view that could be used to add a "search" page to your 
     from django.shortcuts import render
 
     from wagtail.wagtailcore.models import Page
-    from wagtail.wagtailsearch.models import Query
+    from wagtail.search.models import Query
 
 
     def search(request):

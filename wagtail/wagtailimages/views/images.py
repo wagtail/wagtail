@@ -21,7 +21,7 @@ from wagtail.wagtailimages.forms import URLGeneratorForm, get_image_form
 from wagtail.wagtailimages.models import Filter
 from wagtail.wagtailimages.permissions import permission_policy
 from wagtail.wagtailimages.views.serve import generate_signature
-from wagtail.wagtailsearch import index as search_index
+from wagtail.search import index as search_index
 
 permission_checker = PermissionPolicyChecker(permission_policy)
 

@@ -119,7 +119,7 @@ INSTALLED_APPS = (
     'wagtail.contrib.modeladmin',
     'wagtail.contrib.table_block',
     'wagtail.wagtailforms',
-    'wagtail.wagtailsearch',
+    'wagtail.search',
     'wagtail.wagtailembeds',
     'wagtail.wagtailimages',
     'wagtail.wagtailsites',
@@ -160,7 +160,7 @@ PASSWORD_HASHERS = (
 
 WAGTAILSEARCH_BACKENDS = {
     'default': {
-        'BACKEND': 'wagtail.wagtailsearch.backends.db',
+        'BACKEND': 'wagtail.search.backends.db',
     }
 }
 
@@ -174,9 +174,9 @@ if os.environ.get('DATABASE_ENGINE') == 'django.db.backends.postgresql':
 
 if 'ELASTICSEARCH_URL' in os.environ:
     if os.environ.get('ELASTICSEARCH_VERSION') == '5':
-        backend = 'wagtail.wagtailsearch.backends.elasticsearch5'
+        backend = 'wagtail.search.backends.elasticsearch5'
     elif os.environ.get('ELASTICSEARCH_VERSION') == '2':
-        backend = 'wagtail.wagtailsearch.backends.elasticsearch2'
+        backend = 'wagtail.search.backends.elasticsearch2'
 
     WAGTAILSEARCH_BACKENDS['elasticsearch'] = {
         'BACKEND': backend,

@@ -68,7 +68,7 @@ Apps (``settings.py``)
     'wagtail.wagtailsnippets',
     'wagtail.wagtaildocs',
     'wagtail.wagtailimages',
-    'wagtail.wagtailsearch',
+    'wagtail.search',
     'wagtail.wagtailadmin',
     'wagtail.wagtailcore',
 
@@ -179,7 +179,7 @@ Search
 
   WAGTAILSEARCH_BACKENDS = {
       'default': {
-          'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch2',
+          'BACKEND': 'wagtail.search.backends.elasticsearch2',
           'INDEX': 'myapp'
       }
   }
@@ -450,7 +450,7 @@ URL Patterns
   from wagtail.wagtailcore import urls as wagtail_urls
   from wagtail.wagtailadmin import urls as wagtailadmin_urls
   from wagtail.wagtaildocs import urls as wagtaildocs_urls
-  from wagtail.wagtailsearch import urls as wagtailsearch_urls
+  from wagtail.search import urls as wagtailsearch_urls
 
   urlpatterns = [
       url(r'^django-admin/', include(admin.site.urls)),
@@ -510,7 +510,7 @@ These two files should reside in your project directory (``myproject/myproject/`
       'wagtail.wagtailsnippets',
       'wagtail.wagtaildocs',
       'wagtail.wagtailimages',
-      'wagtail.wagtailsearch',
+      'wagtail.search',
       'wagtail.wagtailadmin',
       'wagtail.wagtailcore',
 
@@ -663,7 +663,7 @@ These two files should reside in your project directory (``myproject/myproject/`
   # Replace the search backend
   #WAGTAILSEARCH_BACKENDS = {
   #  'default': {
-  #    'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch2',
+  #    'BACKEND': 'wagtail.search.backends.elasticsearch2',
   #    'INDEX': 'myapp'
   #  }
   #}
@@ -693,7 +693,7 @@ These two files should reside in your project directory (``myproject/myproject/`
   from wagtail.wagtailcore import urls as wagtail_urls
   from wagtail.wagtailadmin import urls as wagtailadmin_urls
   from wagtail.wagtaildocs import urls as wagtaildocs_urls
-  from wagtail.wagtailsearch import urls as wagtailsearch_urls
+  from wagtail.search import urls as wagtailsearch_urls
 
 
   urlpatterns = [

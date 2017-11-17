@@ -14,7 +14,7 @@ from wagtail.wagtaildocs.api.v2.endpoints import DocumentsAPIEndpoint
 from wagtail.wagtailimages import urls as wagtailimages_urls
 from wagtail.wagtailimages.api.v2.endpoints import ImagesAPIEndpoint
 from wagtail.wagtailimages.tests import urls as wagtailimages_test_urls
-from wagtail.wagtailsearch import urls as wagtailsearch_urls
+from wagtail.search import urls as wagtailsearch_urls
 
 api_router = WagtailAPIRouter('wagtailapi_v2')
 api_router.register_endpoint('pages', PagesAPIEndpoint)

@@ -10,7 +10,7 @@ from django.db.models.functions import Length, Substr
 from django.db.models.query import BaseIterable
 from treebeard.mp_tree import MP_NodeQuerySet
 
-from wagtail.wagtailsearch.queryset import SearchableQuerySetMixin
+from wagtail.search.queryset import SearchableQuerySetMixin
 
 
 class TreeQuerySet(MP_NodeQuerySet):
