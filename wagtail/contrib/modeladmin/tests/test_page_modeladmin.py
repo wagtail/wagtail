@@ -337,7 +337,7 @@ class TestHeaderBreadcrumbs(TestCase, WagtailTestUtils):
 
         # check that the breadcrumbs are after the header opening tag
         content_str = str(response.content)
-        position_of_header = content_str.index('<header') # intentionally not closing tag
+        position_of_header = content_str.index('<header')  # intentionally not closing tag
         position_of_breadcrumbs = content_str.index('<ul class="breadcrumb">')
         self.assertLess(position_of_header, position_of_breadcrumbs)
 
@@ -353,6 +353,6 @@ class TestHeaderBreadcrumbs(TestCase, WagtailTestUtils):
 
         # check that the breadcrumbs are after the header opening tag
         content_str = str(response.content)
-        position_of_header = content_str.index('<header') # intentionally not closing tag
+        position_of_header = content_str.index('<header')  # intentionally not closing tag
         position_of_breadcrumbs = content_str.index('<ul class="breadcrumb">')
         self.assertLess(position_of_header, position_of_breadcrumbs)
