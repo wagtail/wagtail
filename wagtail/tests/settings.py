@@ -118,7 +118,7 @@ INSTALLED_APPS = (
     'wagtail.contrib.settings',
     'wagtail.contrib.modeladmin',
     'wagtail.contrib.table_block',
-    'wagtail.wagtailforms',
+    'wagtail.contrib.forms',
     'wagtail.wagtailsearch',
     'wagtail.wagtailembeds',
     'wagtail.wagtailimages',

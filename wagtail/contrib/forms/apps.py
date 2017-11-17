@@ -4,6 +4,6 @@ from django.apps import AppConfig
 
 
 class WagtailFormsAppConfig(AppConfig):
-    name = 'wagtail.wagtailforms'
+    name = 'wagtail.contrib.forms'
     label = 'wagtailforms'
     verbose_name = "Wagtail forms"

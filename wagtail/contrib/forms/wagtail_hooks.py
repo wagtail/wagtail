@@ -6,8 +6,8 @@ from django.utils.translation import ugettext_lazy as _
 
 from wagtail.wagtailadmin.menu import MenuItem
 from wagtail.wagtailcore import hooks
-from wagtail.wagtailforms import urls
-from wagtail.wagtailforms.models import get_forms_for_user
+from wagtail.contrib.forms import urls
+from wagtail.contrib.forms.models import get_forms_for_user
 
 
 @hooks.register('register_admin_urls')

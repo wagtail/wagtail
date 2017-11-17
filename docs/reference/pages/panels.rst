@@ -163,17 +163,17 @@ ImageChooserPanel
 FormSubmissionsPanel
 --------------------
 
-.. module:: wagtail.wagtailforms.edit_handlers
+.. module:: wagtail.contrib.forms.edit_handlers
 
 .. class:: FormSubmissionsPanel
 
-    This panel adds a single, read-only section in the edit interface for pages implementing the :class:`~wagtail.wagtailforms.models.AbstractForm` model.
+    This panel adds a single, read-only section in the edit interface for pages implementing the :class:`~wagtail.contrib.forms.models.AbstractForm` model.
     It includes the number of total submissions for the given form and also a link to the listing of submissions.
 
     .. code-block:: python
 
-        from wagtail.wagtailforms.models import AbstractForm
-        from wagtail.wagtailforms.edit_handlers import FormSubmissionsPanel
+        from wagtail.contrib.forms.models import AbstractForm
+        from wagtail.contrib.forms.edit_handlers import FormSubmissionsPanel
 
         class ContactFormPage(AbstractForm):
             content_panels = [

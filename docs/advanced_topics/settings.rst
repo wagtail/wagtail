@@ -60,7 +60,7 @@ Apps (``settings.py``)
 
     'myapp',  # your own app
 
-    'wagtail.wagtailforms',
+    'wagtail.contrib.forms',
     'wagtail.wagtailredirects',
     'wagtail.wagtailembeds',
     'wagtail.sites',
@@ -502,7 +502,7 @@ These two files should reside in your project directory (``myproject/myproject/`
   INSTALLED_APPS = [
       'myapp',
 
-      'wagtail.wagtailforms',
+      'wagtail.contrib.forms',
       'wagtail.wagtailredirects',
       'wagtail.wagtailembeds',
       'wagtail.sites',

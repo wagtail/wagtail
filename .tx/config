@@ -56,8 +56,8 @@ source_lang = en
 type = PO
 
 [wagtail.wagtailforms]
-file_filter = wagtail/wagtailforms/locale/<lang>/LC_MESSAGES/django.po
-source_file = wagtail/wagtailforms/locale/en/LC_MESSAGES/django.po
+file_filter = wagtail/contrib/forms/locale/<lang>/LC_MESSAGES/django.po
+source_file = wagtail/contrib/forms/locale/en/LC_MESSAGES/django.po
 source_lang = en
 type = PO
 

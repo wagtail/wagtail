@@ -29,7 +29,7 @@ from wagtail.wagtailcore.fields import RichTextField, StreamField
 from wagtail.wagtailcore.models import Orderable, Page, PageManager, PageQuerySet
 from wagtail.wagtaildocs.edit_handlers import DocumentChooserPanel
 from wagtail.wagtaildocs.models import AbstractDocument, Document
-from wagtail.wagtailforms.models import AbstractEmailForm, AbstractFormField, AbstractFormSubmission
+from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField, AbstractFormSubmission
 from wagtail.wagtailimages.blocks import ImageChooserBlock
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtailimages.models import AbstractImage, AbstractRendition, Image
