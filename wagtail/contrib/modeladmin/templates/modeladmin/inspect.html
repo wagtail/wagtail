@@ -16,7 +16,7 @@
 
     {% block header %}
         {% breadcrumb %}
-        {% include "wagtailadmin/shared/header.html" with title=view.get_page_title subtitle=view.get_page_subtitle icon=view.header_icon %}
+          {% include "wagtailadmin/shared/header.html" with title=view.get_page_title subtitle=view.get_page_subtitle icon=view.header_icon tabbed=True %}
     {% endblock %}
 
     <div>
