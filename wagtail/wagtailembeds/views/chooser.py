@@ -3,7 +3,7 @@ from __future__ import absolute_import, unicode_literals
 from django.forms.utils import ErrorList
 from django.utils.translation import ugettext as _
 
-from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
+from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.wagtailembeds.exceptions import (
     EmbedNotFoundException, EmbedUnsupportedProviderException)
 from wagtail.wagtailembeds.finders.embedly import AccessDeniedEmbedlyException, EmbedlyException

@@ -9,7 +9,7 @@ from taggit.models import TaggedItemBase
 
 from wagtail.api import APIField
 from wagtail.utils.pagination import paginate
-from wagtail.wagtailadmin.edit_handlers import (
+from wagtail.admin.edit_handlers import (
     FieldPanel, InlinePanel, MultiFieldPanel, PageChooserPanel)
 from wagtail.core.fields import RichTextField
 from wagtail.core.models import Orderable, Page

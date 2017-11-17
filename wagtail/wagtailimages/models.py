@@ -20,7 +20,7 @@ from taggit.managers import TaggableManager
 from unidecode import unidecode
 from willow.image import Image as WillowImage
 
-from wagtail.wagtailadmin.utils import get_object_usage
+from wagtail.admin.utils import get_object_usage
 from wagtail.core import hooks
 from wagtail.core.models import CollectionMember
 from wagtail.wagtailimages.exceptions import InvalidFilterSpecError

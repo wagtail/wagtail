@@ -22,7 +22,7 @@ Using StreamField
     from wagtail.core.models import Page
     from wagtail.core.fields import StreamField
     from wagtail.core import blocks
-    from wagtail.wagtailadmin.edit_handlers import FieldPanel, StreamFieldPanel
+    from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
     from wagtail.wagtailimages.blocks import ImageChooserBlock
 
     class BlogPage(Page):

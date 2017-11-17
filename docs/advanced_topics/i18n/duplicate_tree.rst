@@ -59,7 +59,7 @@ Here's an example of how this could be implemented (with English as the main lan
 .. code-block:: python
 
     from wagtail.core.models import Page
-    from wagtail.wagtailadmin.edit_handlers import MultiFieldPanel, PageChooserPanel
+    from wagtail.admin.edit_handlers import MultiFieldPanel, PageChooserPanel
 
 
     class TranslatablePageMixin(models.Model):

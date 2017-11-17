@@ -17,7 +17,7 @@ Here's an example snippet model:
 
   from django.db import models
 
-  from wagtail.wagtailadmin.edit_handlers import FieldPanel
+  from wagtail.admin.edit_handlers import FieldPanel
   from wagtail.wagtailsnippets.models import register_snippet
 
   ...

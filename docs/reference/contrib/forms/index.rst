@@ -29,7 +29,7 @@ Within the ``models.py`` of one of your apps, create a model that extends ``wagt
 .. code-block:: python
 
     from modelcluster.fields import ParentalKey
-    from wagtail.wagtailadmin.edit_handlers import (
+    from wagtail.admin.edit_handlers import (
         FieldPanel, FieldRowPanel,
         InlinePanel, MultiFieldPanel
     )
