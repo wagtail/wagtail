@@ -25,7 +25,7 @@ def get_backends(backend_settings=None, backends=None):
         if cache_location is not None:
             backend_settings = {
                 'default': {
-                    'BACKEND': 'wagtail.contrib.wagtailfrontendcache.backends.HTTPBackend',
+                    'BACKEND': 'wagtail.contrib.frontend_cache.backends.HTTPBackend',
                     'LOCATION': cache_location,
                 },
             }
