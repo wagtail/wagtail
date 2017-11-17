@@ -12,8 +12,8 @@ from django.utils.translation import ungettext
 from wagtail.utils.pagination import paginate
 from wagtail.admin import messages
 from wagtail.core.models import Page
-from wagtail.wagtailforms.forms import SelectDateForm
-from wagtail.wagtailforms.models import get_forms_for_user
+from wagtail.contrib.forms.forms import SelectDateForm
+from wagtail.contrib.forms.models import get_forms_for_user
 
 
 def index(request):

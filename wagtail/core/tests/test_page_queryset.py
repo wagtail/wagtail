@@ -304,7 +304,7 @@ class TestPageQuerySet(TestCase):
         self.assertTrue(pages.filter(id=event.id).exists())
 
     def test_type_includes_subclasses(self):
-        from wagtail.wagtailforms.models import AbstractEmailForm
+        from wagtail.contrib.forms.models import AbstractEmailForm
         pages = Page.objects.type(AbstractEmailForm)
 
         # Check that all objects are instances of AbstractEmailForm
