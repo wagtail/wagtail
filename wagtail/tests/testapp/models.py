@@ -27,8 +27,8 @@ from wagtail.admin.utils import send_mail
 from wagtail.core.blocks import CharBlock, RichTextBlock
 from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core.models import Orderable, Page, PageManager, PageQuerySet
-from wagtail.wagtaildocs.edit_handlers import DocumentChooserPanel
-from wagtail.wagtaildocs.models import AbstractDocument, Document
+from wagtail.documents.edit_handlers import DocumentChooserPanel
+from wagtail.documents.models import AbstractDocument, Document
 from wagtail.wagtailforms.models import AbstractEmailForm, AbstractFormField, AbstractFormSubmission
 from wagtail.wagtailimages.blocks import ImageChooserBlock
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel

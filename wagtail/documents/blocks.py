@@ -9,12 +9,12 @@ from wagtail.core.blocks import ChooserBlock
 class DocumentChooserBlock(ChooserBlock):
     @cached_property
     def target_model(self):
-        from wagtail.wagtaildocs.models import get_document_model
+        from wagtail.documents.models import get_document_model
         return get_document_model()
 
     @cached_property
     def widget(self):
-        from wagtail.wagtaildocs.widgets import AdminDocumentChooser
+        from wagtail.documents.widgets import AdminDocumentChooser
         return AdminDocumentChooser
 
     def render_basic(self, value, context=None):
