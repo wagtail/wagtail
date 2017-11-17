@@ -5,7 +5,7 @@ from django import forms
 from django.test import TestCase
 
 from wagtail.tests.testapp.models import FormField, FormPage
-from wagtail.wagtailcore.models import Page
+from wagtail.core.models import Page
 from wagtail.wagtailforms.forms import FormBuilder
 
 

@@ -6,7 +6,7 @@ from django.urls import reverse
 
 from wagtail.tests.testapp.models import SimplePage
 from wagtail.tests.utils import WagtailTestUtils
-from wagtail.wagtailcore.models import Page, PageViewRestriction
+from wagtail.core.models import Page, PageViewRestriction
 
 
 class TestSetPrivacyView(TestCase, WagtailTestUtils):

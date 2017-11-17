@@ -15,11 +15,11 @@ from wagtail.utils.pagination import DEFAULT_PAGE_KEY, replace_page_in_query
 from wagtail.wagtailadmin.menu import admin_menu
 from wagtail.wagtailadmin.navigation import get_explorable_root_page
 from wagtail.wagtailadmin.search import admin_search_areas
-from wagtail.wagtailcore import hooks
-from wagtail.wagtailcore.models import (
+from wagtail.core import hooks
+from wagtail.core.models import (
     CollectionViewRestriction, Page, PageViewRestriction, UserPagePermissionsProxy)
-from wagtail.wagtailcore.utils import cautious_slugify as _cautious_slugify
-from wagtail.wagtailcore.utils import camelcase_to_underscore, escape_script
+from wagtail.core.utils import cautious_slugify as _cautious_slugify
+from wagtail.core.utils import camelcase_to_underscore, escape_script
 
 register = template.Library()
 

@@ -8,7 +8,7 @@ from rest_framework import relations, serializers
 from rest_framework.fields import Field, SkipField
 from taggit.managers import _TaggableManager
 
-from wagtail.wagtailcore import fields as wagtailcore_fields
+from wagtail.core import fields as wagtailcore_fields
 
 from .utils import get_full_url, pages_for_site
 

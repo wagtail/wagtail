@@ -37,7 +37,7 @@ Middleware (``settings.py``)
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
 
-    'wagtail.wagtailcore.middleware.SiteMiddleware',
+    'wagtail.core.middleware.SiteMiddleware',
 
     'wagtail.wagtailredirects.middleware.RedirectMiddleware',
   ]
@@ -70,7 +70,7 @@ Apps (``settings.py``)
     'wagtail.wagtailimages',
     'wagtail.wagtailsearch',
     'wagtail.wagtailadmin',
-    'wagtail.wagtailcore',
+    'wagtail.core',
 
     'taggit',
     'modelcluster',
@@ -447,7 +447,7 @@ URL Patterns
 
   from django.contrib import admin
 
-  from wagtail.wagtailcore import urls as wagtail_urls
+  from wagtail.core import urls as wagtail_urls
   from wagtail.wagtailadmin import urls as wagtailadmin_urls
   from wagtail.wagtaildocs import urls as wagtaildocs_urls
   from wagtail.wagtailsearch import urls as wagtailsearch_urls
@@ -512,7 +512,7 @@ These two files should reside in your project directory (``myproject/myproject/`
       'wagtail.wagtailimages',
       'wagtail.wagtailsearch',
       'wagtail.wagtailadmin',
-      'wagtail.wagtailcore',
+      'wagtail.core',
 
       'taggit',
       'modelcluster',
@@ -534,7 +534,7 @@ These two files should reside in your project directory (``myproject/myproject/`
       'django.middleware.clickjacking.XFrameOptionsMiddleware',
       'django.middleware.security.SecurityMiddleware',
 
-      'wagtail.wagtailcore.middleware.SiteMiddleware',
+      'wagtail.core.middleware.SiteMiddleware',
       'wagtail.wagtailredirects.middleware.RedirectMiddleware',
   ]
 
@@ -690,7 +690,7 @@ These two files should reside in your project directory (``myproject/myproject/`
   from django.conf import settings
   import os.path
 
-  from wagtail.wagtailcore import urls as wagtail_urls
+  from wagtail.core import urls as wagtail_urls
   from wagtail.wagtailadmin import urls as wagtailadmin_urls
   from wagtail.wagtaildocs import urls as wagtaildocs_urls
   from wagtail.wagtailsearch import urls as wagtailsearch_urls

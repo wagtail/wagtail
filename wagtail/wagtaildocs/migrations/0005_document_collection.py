@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 
 from django.db import migrations, models
 
-import wagtail.wagtailcore.models
+import wagtail.core.models
 
 
 class Migration(migrations.Migration):
@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='document',
             name='collection',
-            field=models.ForeignKey(related_name='+', to='wagtailcore.Collection', verbose_name='collection', default=wagtail.wagtailcore.models.get_root_collection_id, on_delete=models.CASCADE),
+            field=models.ForeignKey(related_name='+', to='wagtailcore.Collection', verbose_name='collection', default=wagtail.core.models.get_root_collection_id, on_delete=models.CASCADE),
             preserve_default=True,
         ),
     ]

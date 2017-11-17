@@ -25,7 +25,7 @@ example showing how you might notify your team when something is published:
 
 .. code-block:: python
 
-    from wagtail.wagtailcore.signals import page_published
+    from wagtail.core.signals import page_published
     import urllib
     import urllib2
 
@@ -58,7 +58,7 @@ wish to do something when a new blog post is published:
 
 .. code-block:: python
 
-    from wagtail.wagtailcore.signals import page_published
+    from wagtail.core.signals import page_published
     from mysite.models import BlogPostPage
 
     # Do something clever for each model type
@@ -69,7 +69,7 @@ wish to do something when a new blog post is published:
     # Register listeners for each page model class
     page_published.connect(receiver, sender=BlogPostPage)
 
-Wagtail provides access to a list of registered page types through the ``get_page_models()`` function in ``wagtail.wagtailcore.models``.
+Wagtail provides access to a list of registered page types through the ``get_page_models()`` function in ``wagtail.core.models``.
 
 Read the `Django documentation <https://docs.djangoproject.com/en/1.8/topics/signals/#connecting-to-specific-signals>`__ for more information about specifying senders.
 

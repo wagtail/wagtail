@@ -17,7 +17,7 @@ from django.utils.translation import override, ugettext_lazy
 from modelcluster.fields import ParentalKey
 from taggit.models import Tag
 
-from wagtail.wagtailcore.models import GroupPagePermission, Page, PageRevision
+from wagtail.core.models import GroupPagePermission, Page, PageRevision
 from wagtail.wagtailusers.models import UserProfile
 
 logger = logging.getLogger('wagtail.admin')

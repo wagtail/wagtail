@@ -13,8 +13,8 @@ from unidecode import unidecode
 
 from wagtail.wagtailadmin.edit_handlers import FieldPanel
 from wagtail.wagtailadmin.utils import send_mail
-from wagtail.wagtailcore import hooks
-from wagtail.wagtailcore.models import Orderable, Page, UserPagePermissionsProxy, get_page_models
+from wagtail.core import hooks
+from wagtail.core.models import Orderable, Page, UserPagePermissionsProxy, get_page_models
 
 from .forms import FormBuilder, WagtailAdminFormPageForm
 

@@ -5,7 +5,7 @@ from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.http import JsonResponse
 from django.shortcuts import render
 
-from wagtail.wagtailcore import models
+from wagtail.core import models
 from wagtail.wagtailsearch.models import Query
 
 

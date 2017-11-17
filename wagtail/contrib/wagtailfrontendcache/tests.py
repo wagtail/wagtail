@@ -9,7 +9,7 @@ from wagtail.contrib.wagtailfrontendcache.backends import (
     BaseBackend, CloudflareBackend, CloudfrontBackend, HTTPBackend)
 from wagtail.contrib.wagtailfrontendcache.utils import get_backends
 from wagtail.tests.testapp.models import EventIndex
-from wagtail.wagtailcore.models import Page
+from wagtail.core.models import Page
 
 from .utils import (
     PurgeBatch, purge_page_from_cache, purge_pages_from_cache, purge_url_from_cache,

@@ -9,7 +9,7 @@ from django.utils.module_loading import import_string
 
 from wagtail.utils.widgets import WidgetWithScript
 from wagtail.wagtailadmin.edit_handlers import RichTextFieldPanel
-from wagtail.wagtailcore.rich_text import DbWhitelister, expand_db_html, features
+from wagtail.core.rich_text import DbWhitelister, expand_db_html, features
 
 
 class HalloPlugin(object):

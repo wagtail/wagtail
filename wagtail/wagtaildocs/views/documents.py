@@ -10,7 +10,7 @@ from wagtail.wagtailadmin import messages
 from wagtail.wagtailadmin.forms import SearchForm
 from wagtail.wagtailadmin.utils import (
     PermissionPolicyChecker, permission_denied, popular_tags_for_model)
-from wagtail.wagtailcore.models import Collection
+from wagtail.core.models import Collection
 from wagtail.wagtaildocs.forms import get_document_form
 from wagtail.wagtaildocs.models import get_document_model
 from wagtail.wagtaildocs.permissions import permission_policy

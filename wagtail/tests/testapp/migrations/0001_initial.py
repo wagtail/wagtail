@@ -9,8 +9,8 @@ import taggit.managers
 from django.conf import settings
 from django.db import migrations, models
 
-import wagtail.wagtailcore.blocks
-import wagtail.wagtailcore.fields
+import wagtail.core.blocks
+import wagtail.core.fields
 import wagtail.wagtailimages.blocks
 import wagtail.wagtailimages.models
 import wagtail.wagtailsearch.index
@@ -183,7 +183,7 @@ class Migration(migrations.Migration):
             name='EventIndex',
             fields=[
                 ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
-                ('intro', wagtail.wagtailcore.fields.RichTextField(blank=True)),
+                ('intro', wagtail.core.fields.RichTextField(blank=True)),
             ],
             options={
                 'abstract': False,
@@ -200,7 +200,7 @@ class Migration(migrations.Migration):
                 ('time_to', models.TimeField(blank=True, null=True, verbose_name='End time')),
                 ('audience', models.CharField(choices=[('public', 'Public'), ('private', 'Private')], max_length=255)),
                 ('location', models.CharField(max_length=255)),
-                ('body', wagtail.wagtailcore.fields.RichTextField(blank=True)),
+                ('body', wagtail.core.fields.RichTextField(blank=True)),
                 ('cost', models.CharField(max_length=255)),
                 ('signup_link', models.URLField(blank=True)),
             ],
@@ -328,7 +328,7 @@ class Migration(migrations.Migration):
             name='ManyToManyBlogPage',
             fields=[
                 ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
-                ('body', wagtail.wagtailcore.fields.RichTextField(blank=True)),
+                ('body', wagtail.core.fields.RichTextField(blank=True)),
                 ('adverts', models.ManyToManyField(blank=True, to='tests.Advert')),
                 ('blog_categories', models.ManyToManyField(blank=True, through='tests.BlogCategoryBlogPage', to='tests.BlogCategory')),
             ],
@@ -436,14 +436,14 @@ class Migration(migrations.Migration):
             name='StreamModel',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('body', wagtail.wagtailcore.fields.StreamField((('text', wagtail.wagtailcore.blocks.CharBlock()), ('rich_text', wagtail.wagtailcore.blocks.RichTextBlock()), ('image', wagtail.wagtailimages.blocks.ImageChooserBlock())))),
+                ('body', wagtail.core.fields.StreamField((('text', wagtail.core.blocks.CharBlock()), ('rich_text', wagtail.core.blocks.RichTextBlock()), ('image', wagtail.wagtailimages.blocks.ImageChooserBlock())))),
             ],
         ),
         migrations.CreateModel(
             name='StreamPage',
             fields=[
                 ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
-                ('body', wagtail.wagtailcore.fields.StreamField((('text', wagtail.wagtailcore.blocks.CharBlock()), ('rich_text', wagtail.wagtailcore.blocks.RichTextBlock()), ('image', wagtail.wagtailimages.blocks.ImageChooserBlock())))),
+                ('body', wagtail.core.fields.StreamField((('text', wagtail.core.blocks.CharBlock()), ('rich_text', wagtail.core.blocks.RichTextBlock()), ('image', wagtail.wagtailimages.blocks.ImageChooserBlock())))),
             ],
             options={
                 'abstract': False,

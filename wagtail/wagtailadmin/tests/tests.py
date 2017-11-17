@@ -16,7 +16,7 @@ from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailadmin.menu import MenuItem
 from wagtail.wagtailadmin.site_summary import PagesSummaryItem
 from wagtail.wagtailadmin.utils import send_mail, user_has_any_page_permission
-from wagtail.wagtailcore.models import Page, Site
+from wagtail.core.models import Page, Site
 
 
 class TestHome(TestCase, WagtailTestUtils):

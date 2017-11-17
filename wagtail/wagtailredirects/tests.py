@@ -5,7 +5,7 @@ from django.test import TestCase, override_settings
 from django.urls import reverse
 
 from wagtail.tests.utils import WagtailTestUtils
-from wagtail.wagtailcore.models import Page, Site
+from wagtail.core.models import Page, Site
 from wagtail.wagtailredirects import models
 
 

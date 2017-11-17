@@ -129,7 +129,7 @@ To attach multiple adverts to a page, the ``SnippetChooserPanel`` can be placed 
 
   from django.db import models
 
-  from wagtail.wagtailcore.models import Page, Orderable
+  from wagtail.core.models import Page, Orderable
   from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
 
   from modelcluster.fields import ParentalKey

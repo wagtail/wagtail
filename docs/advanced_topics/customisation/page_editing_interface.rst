@@ -38,11 +38,11 @@ As standard, Wagtail organises panels for pages into three tabs: 'Content', 'Pro
 Rich Text (HTML)
 ~~~~~~~~~~~~~~~~
 
-Wagtail provides a general-purpose WYSIWYG editor for creating rich text content (HTML) and embedding media such as images, video, and documents. To include this in your models, use the :class:`~wagtail.wagtailcore.fields.RichTextField` function when defining a model field:
+Wagtail provides a general-purpose WYSIWYG editor for creating rich text content (HTML) and embedding media such as images, video, and documents. To include this in your models, use the :class:`~wagtail.core.fields.RichTextField` function when defining a model field:
 
 .. code-block:: python
 
-    from wagtail.wagtailcore.fields import RichTextField
+    from wagtail.core.fields import RichTextField
     from wagtail.wagtailadmin.edit_handlers import FieldPanel
 
 
@@ -53,9 +53,9 @@ Wagtail provides a general-purpose WYSIWYG editor for creating rich text content
             FieldPanel('body', classname="full"),
         ]
 
-:class:`~wagtail.wagtailcore.fields.RichTextField` inherits from Django's basic ``TextField`` field, so you can pass any field parameters into :class:`~wagtail.wagtailcore.fields.RichTextField` as if using a normal Django field. This field does not need a special panel and can be defined with ``FieldPanel``.
+:class:`~wagtail.core.fields.RichTextField` inherits from Django's basic ``TextField`` field, so you can pass any field parameters into :class:`~wagtail.core.fields.RichTextField` as if using a normal Django field. This field does not need a special panel and can be defined with ``FieldPanel``.
 
-However, template output from :class:`~wagtail.wagtailcore.fields.RichTextField` is special and need to be filtered to preserve embedded content. See :ref:`rich-text-filter`.
+However, template output from :class:`~wagtail.core.fields.RichTextField` is special and need to be filtered to preserve embedded content. See :ref:`rich-text-filter`.
 
 
 .. _rich_text_features:
@@ -97,7 +97,7 @@ Once the plugin has been created, it should be registered as a rich text feature
 .. code-block:: python
 
     from wagtail.wagtailadmin.rich_text import HalloPlugin
-    from wagtail.wagtailcore import hooks
+    from wagtail.core import hooks
 
     @hooks.register('register_rich_text_features')
     def register_embed_feature(features):
@@ -141,7 +141,7 @@ To have a feature active by default (i.e. on ``RichTextFields`` that do not defi
 Image Formats in the Rich Text Editor
 -------------------------------------
 
-On loading, Wagtail will search for any app with the file ``image_formats.py`` and execute the contents. This provides a way to customise the formatting options shown to the editor when inserting images in the :class:`~wagtail.wagtailcore.fields.RichTextField` editor.
+On loading, Wagtail will search for any app with the file ``image_formats.py`` and execute the contents. This provides a way to customise the formatting options shown to the editor when inserting images in the :class:`~wagtail.core.fields.RichTextField` editor.
 
 As an example, add a "thumbnail" format:
 
@@ -159,7 +159,7 @@ To begin, import the ``Format`` class, ``register_image_format`` function, and o
   The unique key used to identify the format. To unregister this format, call ``unregister_image_format`` with this string as the only argument.
 
 ``label``
-  The label used in the chooser form when inserting the image into the :class:`~wagtail.wagtailcore.fields.RichTextField`.
+  The label used in the chooser form when inserting the image into the :class:`~wagtail.core.fields.RichTextField`.
 
 ``classnames``
   The string to assign to the ``class`` attribute of the generated ``<img>`` tag.
@@ -197,7 +197,7 @@ or to add custom validation logic for your models:
     import geocoder  # not in Wagtail, for example only - http://geocoder.readthedocs.io/
     from wagtail.wagtailadmin.edit_handlers import FieldPanel
     from wagtail.wagtailadmin.forms import WagtailAdminPageForm
-    from wagtail.wagtailcore.models import Page
+    from wagtail.core.models import Page
 
 
     class EventPageForm(WagtailAdminPageForm):

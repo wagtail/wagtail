@@ -24,7 +24,7 @@ Django needs to be configured to support Jinja2 templates. As the Wagtail admin 
             'APP_DIRS': True,
             'OPTIONS': {
                 'extensions': [
-                    'wagtail.wagtailcore.jinja2tags.core',
+                    'wagtail.core.jinja2tags.core',
                     'wagtail.wagtailadmin.jinja2tags.userbar',
                     'wagtail.wagtailimages.jinja2tags.images',
                 ],

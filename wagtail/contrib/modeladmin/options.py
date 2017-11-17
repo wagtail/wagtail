@@ -6,8 +6,8 @@ from django.core.exceptions import ImproperlyConfigured
 from django.db.models import Model
 from django.utils.safestring import mark_safe
 
-from wagtail.wagtailcore import hooks
-from wagtail.wagtailcore.models import Page
+from wagtail.core import hooks
+from wagtail.core.models import Page
 
 from .helpers import (
     AdminURLHelper, ButtonHelper, PageAdminURLHelper, PageButtonHelper, PagePermissionHelper,

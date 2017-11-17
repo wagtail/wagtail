@@ -6,7 +6,7 @@ from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 
 from wagtail.wagtailadmin.menu import MenuItem
-from wagtail.wagtailcore import hooks
+from wagtail.core import hooks
 from wagtail.wagtailredirects import urls
 from wagtail.wagtailredirects.permissions import permission_policy
 

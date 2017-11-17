@@ -7,9 +7,9 @@ from django.utils.translation import ugettext_lazy
 from wagtail.wagtailadmin import messages
 from wagtail.wagtailadmin.forms import CollectionForm
 from wagtail.wagtailadmin.views.generic import CreateView, DeleteView, EditView, IndexView
-from wagtail.wagtailcore import hooks
-from wagtail.wagtailcore.models import Collection
-from wagtail.wagtailcore.permissions import collection_permission_policy
+from wagtail.core import hooks
+from wagtail.core.models import Collection
+from wagtail.core.permissions import collection_permission_policy
 
 
 class Index(IndexView):

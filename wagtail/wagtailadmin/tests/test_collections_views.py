@@ -4,7 +4,7 @@ from django.test import TestCase
 from django.urls import reverse
 
 from wagtail.tests.utils import WagtailTestUtils
-from wagtail.wagtailcore.models import Collection
+from wagtail.core.models import Collection
 from wagtail.wagtaildocs.models import Document
 
 

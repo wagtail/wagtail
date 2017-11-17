@@ -2,7 +2,7 @@ from __future__ import absolute_import, unicode_literals
 
 from django.template import Library
 
-from wagtail.wagtailcore.models import Site
+from wagtail.core.models import Site
 
 from ..context_processors import SettingsProxy
 

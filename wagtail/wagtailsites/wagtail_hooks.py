@@ -5,8 +5,8 @@ from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 
 from wagtail.wagtailadmin.menu import MenuItem
-from wagtail.wagtailcore import hooks
-from wagtail.wagtailcore.permissions import site_permission_policy
+from wagtail.core import hooks
+from wagtail.core.permissions import site_permission_policy
 
 from .views import SiteViewSet
 

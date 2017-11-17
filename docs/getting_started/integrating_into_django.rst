@@ -30,7 +30,7 @@ In your settings file, add the following apps to ``INSTALLED_APPS``:
     'wagtail.wagtailimages',
     'wagtail.wagtailsearch',
     'wagtail.wagtailadmin',
-    'wagtail.wagtailcore',
+    'wagtail.core',
 
     'modelcluster',
     'taggit',
@@ -39,7 +39,7 @@ Add the following entries to ``MIDDLEWARE``:
 
 .. code-block:: python
 
-    'wagtail.wagtailcore.middleware.SiteMiddleware',
+    'wagtail.core.middleware.SiteMiddleware',
     'wagtail.wagtailredirects.middleware.RedirectMiddleware',
 
 Add a ``STATIC_ROOT`` setting, if your project does not have one already:
@@ -65,7 +65,7 @@ Now make the following additions to your ``urls.py`` file:
 
     from wagtail.wagtailadmin import urls as wagtailadmin_urls
     from wagtail.wagtaildocs import urls as wagtaildocs_urls
-    from wagtail.wagtailcore import urls as wagtail_urls
+    from wagtail.core import urls as wagtail_urls
 
     urlpatterns = [
         ...
