@@ -9,8 +9,8 @@ from wagtail.contrib.wagtailsitemaps import Sitemap
 from wagtail.tests.testapp import urls as testapp_urls
 from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.core import urls as wagtail_urls
-from wagtail.wagtaildocs import urls as wagtaildocs_urls
-from wagtail.wagtaildocs.api.v2.endpoints import DocumentsAPIEndpoint
+from wagtail.documents import urls as wagtaildocs_urls
+from wagtail.documents.api.v2.endpoints import DocumentsAPIEndpoint
 from wagtail.wagtailimages import urls as wagtailimages_urls
 from wagtail.wagtailimages.api.v2.endpoints import ImagesAPIEndpoint
 from wagtail.wagtailimages.tests import urls as wagtailimages_test_urls

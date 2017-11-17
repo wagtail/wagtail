@@ -8,8 +8,8 @@ from django.test import TestCase, TransactionTestCase
 from django.test.utils import override_settings
 
 from wagtail.core.models import Collection, GroupCollectionPermission
-from wagtail.wagtaildocs import models, signal_handlers
-from wagtail.wagtaildocs.models import get_document_model
+from wagtail.documents import models, signal_handlers
+from wagtail.documents.models import get_document_model
 from wagtail.wagtailimages.tests.utils import get_test_image_file
 
 

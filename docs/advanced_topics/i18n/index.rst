@@ -88,7 +88,7 @@ This feature is enabled through the project's root URL configuration. Just put t
     from django.contrib import admin
 
     from wagtail.admin import urls as wagtailadmin_urls
-    from wagtail.wagtaildocs import urls as wagtaildocs_urls
+    from wagtail.documents import urls as wagtaildocs_urls
     from wagtail.core import urls as wagtail_urls
 
 

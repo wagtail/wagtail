@@ -13,7 +13,7 @@ from wagtail.admin.edit_handlers import (
     FieldPanel, InlinePanel, MultiFieldPanel, PageChooserPanel)
 from wagtail.core.fields import RichTextField
 from wagtail.core.models import Orderable, Page
-from wagtail.wagtaildocs.edit_handlers import DocumentChooserPanel
+from wagtail.documents.edit_handlers import DocumentChooserPanel
 from wagtail.wagtailimages.api.fields import ImageRenditionField
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtailsearch import index

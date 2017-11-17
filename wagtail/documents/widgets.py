@@ -6,7 +6,7 @@ from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
 
 from wagtail.admin.widgets import AdminChooser
-from wagtail.wagtaildocs.models import get_document_model
+from wagtail.documents.models import get_document_model
 
 
 class AdminDocumentChooser(AdminChooser):

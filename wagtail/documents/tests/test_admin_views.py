@@ -14,7 +14,7 @@ from django.utils.six import b
 from wagtail.tests.testapp.models import EventPage, EventPageRelatedLink
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.core.models import Collection, GroupCollectionPermission, Page
-from wagtail.wagtaildocs import models
+from wagtail.documents import models
 
 
 class TestDocumentIndexView(TestCase, WagtailTestUtils):

@@ -13,7 +13,7 @@ from wagtail.utils.sendfile import sendfile
 from wagtail.core import hooks
 from wagtail.core.forms import PasswordViewRestrictionForm
 from wagtail.core.models import CollectionViewRestriction
-from wagtail.wagtaildocs.models import document_served, get_document_model
+from wagtail.documents.models import document_served, get_document_model
 
 
 def serve(request, document_id, document_filename):

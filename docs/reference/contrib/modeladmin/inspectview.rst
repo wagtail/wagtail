@@ -37,7 +37,7 @@ instance of ``wagtailimages.models.Image`` (or a custom model that subclasses
 ``wagtailimages.models.AbstractImage``), a thumbnail of that image will be
 rendered.
 
-If you have `wagtail.wagtaildocs` installed, and the value happens to be an
+If you have `wagtail.documents` installed, and the value happens to be an
 instance of `wagtaildocs.models.Document` (or a custom model that subclasses
 ``wagtaildocs.models.AbstractDocument``), a link to that document will be
 rendered, along with the document title, file extension and size.

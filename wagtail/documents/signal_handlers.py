@@ -3,7 +3,7 @@ from __future__ import absolute_import, unicode_literals
 from django.db import transaction
 from django.db.models.signals import post_delete
 
-from wagtail.wagtaildocs.models import get_document_model
+from wagtail.documents.models import get_document_model
 
 
 def post_delete_file_cleanup(instance, **kwargs):

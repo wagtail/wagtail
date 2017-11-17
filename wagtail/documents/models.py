@@ -69,7 +69,7 @@ class AbstractDocument(CollectionMember, index.Indexed, models.Model):
                        args=(self.id,))
 
     def is_editable_by_user(self, user):
-        from wagtail.wagtaildocs.permissions import permission_policy
+        from wagtail.documents.permissions import permission_policy
         return permission_policy.user_has_permission_for_instance(user, 'change', self)
 
     class Meta:
@@ -89,7 +89,7 @@ class Document(AbstractDocument):
 def get_document_model():
     """
     Get the document model from the ``WAGTAILDOCS_DOCUMENT_MODEL`` setting.
-    Defauts to the standard :class:`~wagtail.wagtaildocs.models.Document` model
+    Defauts to the standard :class:`~wagtail.documents.models.Document` model
     if no custom model is defined.
     """
     from django.conf import settings

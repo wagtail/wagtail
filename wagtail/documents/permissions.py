@@ -1,7 +1,7 @@
 from __future__ import absolute_import, unicode_literals
 
 from wagtail.core.permission_policies.collections import CollectionOwnershipPermissionPolicy
-from wagtail.wagtaildocs.models import Document, get_document_model
+from wagtail.documents.models import Document, get_document_model
 
 permission_policy = CollectionOwnershipPermissionPolicy(
     get_document_model(),
