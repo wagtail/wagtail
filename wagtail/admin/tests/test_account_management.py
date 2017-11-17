@@ -10,7 +10,7 @@ from django.urls import reverse
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.admin.utils import (
     WAGTAILADMIN_PROVIDED_LANGUAGES, get_available_admin_languages)
-from wagtail.wagtailusers.models import UserProfile
+from wagtail.users.models import UserProfile
 
 
 class TestAuthentication(TestCase, WagtailTestUtils):

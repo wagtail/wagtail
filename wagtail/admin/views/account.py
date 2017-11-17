@@ -17,8 +17,8 @@ from django.views.decorators.debug import sensitive_post_parameters
 from wagtail.admin import forms
 from wagtail.admin.utils import get_available_admin_languages
 from wagtail.core.models import UserPagePermissionsProxy
-from wagtail.wagtailusers.forms import NotificationPreferencesForm, PreferredLanguageForm
-from wagtail.wagtailusers.models import UserProfile
+from wagtail.users.forms import NotificationPreferencesForm, PreferredLanguageForm
+from wagtail.users.models import UserProfile
 
 
 # Helper functions to check password management settings to enable/disable views as appropriate.

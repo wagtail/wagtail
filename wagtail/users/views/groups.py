@@ -6,7 +6,7 @@ from django.utils.translation import ugettext as _
 from wagtail.admin.views import generic, mixins
 from wagtail.admin.viewsets.model import ModelViewSet
 from wagtail.core import hooks
-from wagtail.wagtailusers.forms import GroupForm, GroupPagePermissionFormSet
+from wagtail.users.forms import GroupForm, GroupPagePermissionFormSet
 
 _permission_panel_classes = None
 
