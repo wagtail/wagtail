@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 import django.db.models.deletion
 from django.db import migrations, models
 
-import wagtail.contrib.wagtailroutablepage.models
+import wagtail.contrib.routable_page.models
 
 
 class Migration(migrations.Migration):
@@ -25,6 +25,6 @@ class Migration(migrations.Migration):
             options={
                 'abstract': False,
             },
-            bases=(wagtail.contrib.wagtailroutablepage.models.RoutablePageMixin, 'wagtailcore.page'),
+            bases=(wagtail.contrib.routable_page.models.RoutablePageMixin, 'wagtailcore.page'),
         ),
     ]
