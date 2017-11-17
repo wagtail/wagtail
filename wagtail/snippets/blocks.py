@@ -17,7 +17,7 @@ class SnippetChooserBlock(ChooserBlock):
 
     @cached_property
     def widget(self):
-        from wagtail.wagtailsnippets.widgets import AdminSnippetChooser
+        from wagtail.snippets.widgets import AdminSnippetChooser
         return AdminSnippetChooser(self.target_model)
 
     class Meta:

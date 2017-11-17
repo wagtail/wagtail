@@ -2,7 +2,7 @@ from __future__ import absolute_import, unicode_literals
 
 from django.contrib.auth import get_permission_codename
 
-from wagtail.wagtailsnippets.models import get_snippet_models
+from wagtail.snippets.models import get_snippet_models
 
 
 def get_permission_name(action, model):

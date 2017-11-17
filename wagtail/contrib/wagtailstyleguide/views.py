@@ -13,7 +13,7 @@ from wagtail.admin.widgets import (
 from wagtail.core.models import Page
 from wagtail.documents.widgets import AdminDocumentChooser
 from wagtail.images.widgets import AdminImageChooser
-from wagtail.wagtailsnippets.widgets import AdminSnippetChooser
+from wagtail.snippets.widgets import AdminSnippetChooser
 
 
 class ExampleForm(forms.Form):
