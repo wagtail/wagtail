@@ -11,7 +11,7 @@ from django.core.exceptions import ValidationError
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.models import ClusterableModel
@@ -428,6 +428,48 @@ class JadeFormPage(AbstractEmailForm):
 
 JadeFormPage.content_panels = [
     FieldPanel('title', classname="full title"),
+    InlinePanel('form_fields', label="Form fields"),
+    MultiFieldPanel([
+        FieldPanel('to_address', classname="full"),
+        FieldPanel('from_address', classname="full"),
+        FieldPanel('subject', classname="full"),
+    ], "Email")
+]
+
+
+# Form page that redirects to a different page
+
+class RedirectFormField(AbstractFormField):
+    page = ParentalKey('FormPageWithRedirect', related_name='form_fields', on_delete=models.CASCADE)
+
+
+class FormPageWithRedirect(AbstractEmailForm):
+    thank_you_redirect_page = models.ForeignKey(
+        'wagtailcore.Page',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
+
+    def get_context(self, request):
+        context = super(FormPageWithRedirect, self).get_context(request)
+        context['greeting'] = "hello world"
+        return context
+
+    def render_landing_page(self, request, form_submission=None, *args, **kwargs):
+        """
+        Renders the landing page OR if a receipt_page_redirect is chosen redirects to this page.
+        """
+        if self.thank_you_redirect_page:
+            return redirect(self.thank_you_redirect_page.url, permanent=False)
+
+        return super(FormPageWithRedirect, self).render_landing_page(request, form_submission, *args, **kwargs)
+
+
+FormPageWithRedirect.content_panels = [
+    FieldPanel('title', classname="full title"),
+    PageChooserPanel('thank_you_redirect_page'),
     InlinePanel('form_fields', label="Form fields"),
     MultiFieldPanel([
         FieldPanel('to_address', classname="full"),
