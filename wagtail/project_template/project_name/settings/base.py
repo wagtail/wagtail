@@ -32,7 +32,7 @@ INSTALLED_APPS = [
     'wagtail.wagtailforms',
     'wagtail.wagtailredirects',
     'wagtail.embeds',
-    'wagtail.wagtailsites',
+    'wagtail.sites',
     'wagtail.wagtailusers',
     'wagtail.wagtailsnippets',
     'wagtail.documents',
