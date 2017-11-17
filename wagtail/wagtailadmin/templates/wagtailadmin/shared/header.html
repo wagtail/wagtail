@@ -18,6 +18,7 @@
     add_text - text for the 'add' button
 {% endcomment %}
 <header class="{% if merged %}merged{% endif %} {% if tabbed %}tab-merged{% endif %} {% if search_form %}hasform{% endif %}">
+    {% block breadcrumb %}{% endblock %}
     <div class="row nice-padding">
         <div class="left">
             <div class="col header-title">
