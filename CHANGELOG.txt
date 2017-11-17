@@ -8,6 +8,9 @@ Changelog
  * Fix: Fixed crash in XML sitemap generator when all pages on the site are private (Stein Strindhaug)
  * Fix: Fixed incorrect z-index on userbar causing it to appear behind page content (Stein Strindhaug)
  * Fix: Fixed error in Postgres search backend when searching specific fields of a specific() Page queryset (Bertrand Bordage, Matt Westcott)
+ * Fix: Fixed error on Elasticsearch backend when passing a queryset as an `__in` filter (Karl Hobley, Matt Westcott)
+ * Fix: `__isnull` filters no longer fail on Elasticsearch 5 (Karl Hobley)
+ * Fix: Prevented intermittent failures on Postgres search backend when a field is defined as both a `SearchField` and a `FilterField` (Matt Westcott)
 
 
 1.13 (16.10.2017)
