@@ -6,7 +6,7 @@ from wagtail.wagtailadmin.views import generic
 from wagtail.wagtailadmin.viewsets.model import ModelViewSet
 from wagtail.wagtailcore.models import Site
 from wagtail.wagtailcore.permissions import site_permission_policy
-from wagtail.wagtailsites.forms import SiteForm
+from wagtail.sites.forms import SiteForm
 
 
 class IndexView(generic.IndexView):
