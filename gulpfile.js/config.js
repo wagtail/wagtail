@@ -25,7 +25,7 @@ App.prototype.scssSources = function() {
 var apps = [
     new App('wagtail/admin'),
     new App('wagtail/documents'),
-    new App('wagtail/wagtailembeds'),
+    new App('wagtail/embeds'),
     new App('wagtail/wagtailimages'),
     new App('wagtail/wagtailsnippets'),
     new App('wagtail/wagtailusers'),
