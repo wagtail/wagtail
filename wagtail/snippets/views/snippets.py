@@ -15,8 +15,8 @@ from wagtail.wagtailadmin.forms import SearchForm
 from wagtail.wagtailadmin.utils import permission_denied
 from wagtail.wagtailsearch.backends import get_search_backend
 from wagtail.wagtailsearch.index import class_is_indexed
-from wagtail.wagtailsnippets.models import get_snippet_models
-from wagtail.wagtailsnippets.permissions import get_permission_name, user_can_edit_snippet_type
+from wagtail.snippets.models import get_snippet_models
+from wagtail.snippets.permissions import get_permission_name, user_can_edit_snippet_type
 
 
 # == Helper functions ==

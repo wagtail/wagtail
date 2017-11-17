@@ -284,7 +284,7 @@ A control to allow the editor to select an existing image, or upload a new one. 
 SnippetChooserBlock
 ~~~~~~~~~~~~~~~~~~~
 
-``wagtail.wagtailsnippets.blocks.SnippetChooserBlock``
+``wagtail.snippets.blocks.SnippetChooserBlock``
 
 A control to allow the editor to select a snippet object. Requires one positional argument: the snippet class to choose from. The keyword argument ``required`` (default: True) is accepted.
 

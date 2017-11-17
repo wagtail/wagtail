@@ -18,10 +18,10 @@ from wagtail.tests.testapp.models import Advert, AdvertWithTabbedInterface, Snip
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailadmin.forms import WagtailAdminModelForm
 from wagtail.wagtailcore.models import Page
-from wagtail.wagtailsnippets.blocks import SnippetChooserBlock
-from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
-from wagtail.wagtailsnippets.models import SNIPPET_MODELS, register_snippet
-from wagtail.wagtailsnippets.views.snippets import get_snippet_edit_handler
+from wagtail.snippets.blocks import SnippetChooserBlock
+from wagtail.snippets.edit_handlers import SnippetChooserPanel
+from wagtail.snippets.models import SNIPPET_MODELS, register_snippet
+from wagtail.snippets.views.snippets import get_snippet_edit_handler
 
 
 class TestSnippetIndexView(TestCase, WagtailTestUtils):
