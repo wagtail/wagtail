@@ -6,7 +6,7 @@ from io import StringIO
 from django.core import management
 from django.test import SimpleTestCase, TestCase
 
-from wagtail.contrib.wagtailsearchpromotions.models import SearchPromotion
+from wagtail.contrib.search_promotions.models import SearchPromotion
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.search import models
 from wagtail.search.utils import normalise_query_string, separate_filters_from_query
