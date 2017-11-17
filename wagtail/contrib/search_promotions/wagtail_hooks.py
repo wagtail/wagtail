@@ -5,7 +5,7 @@ from django.contrib.auth.models import Permission
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 
-from wagtail.contrib.wagtailsearchpromotions import admin_urls
+from wagtail.contrib.search_promotions import admin_urls
 from wagtail.admin.menu import MenuItem
 from wagtail.core import hooks
 
