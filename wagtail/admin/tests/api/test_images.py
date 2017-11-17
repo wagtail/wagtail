@@ -5,8 +5,8 @@ import json
 from django.urls import reverse
 
 from wagtail.api.v2.tests.test_images import TestImageDetail, TestImageListing
-from wagtail.wagtailimages import get_image_model
-from wagtail.wagtailimages.tests.utils import get_test_image_file
+from wagtail.images import get_image_model
+from wagtail.images.tests.utils import get_test_image_file
 
 from .utils import AdminAPITestCase
 

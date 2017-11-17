@@ -14,8 +14,8 @@ from wagtail.admin.edit_handlers import (
 from wagtail.core.fields import RichTextField
 from wagtail.core.models import Orderable, Page
 from wagtail.documents.edit_handlers import DocumentChooserPanel
-from wagtail.wagtailimages.api.fields import ImageRenditionField
-from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
+from wagtail.images.api.fields import ImageRenditionField
+from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.wagtailsearch import index
 
 

@@ -21,9 +21,9 @@ class ThumbnailMixin(object):
     thumb_default = None
 
     def __init__(self, *args, **kwargs):
-        if 'wagtail.wagtailimages' not in settings.INSTALLED_APPS:
+        if 'wagtail.images' not in settings.INSTALLED_APPS:
             raise ImproperlyConfigured(
-                u"The `wagtail.wagtailimages` app must be installed in order "
+                u"The `wagtail.images` app must be installed in order "
                 "to use the `ThumbnailMixin` class."
             )
         super(ThumbnailMixin, self).__init__(*args, **kwargs)
@@ -48,7 +48,7 @@ class ThumbnailMixin(object):
             return ''
 
         # try to get a rendition of the image to use
-        from wagtail.wagtailimages.shortcuts import get_rendition_or_not_found
+        from wagtail.images.shortcuts import get_rendition_or_not_found
         spec = self.thumb_image_filter_spec
         rendition = get_rendition_or_not_found(image, spec)
         img_attrs.update({'src': rendition.url})

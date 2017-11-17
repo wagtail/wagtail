@@ -32,7 +32,7 @@ or attribute on the instance that you'd like ``InpectView`` to render.
 
 A sensible value will be rendered for most field types.
 
-If you have ``wagtail.wagtailimages`` installed, and the value happens to be an
+If you have ``wagtail.images`` installed, and the value happens to be an
 instance of ``wagtailimages.models.Image`` (or a custom model that subclasses
 ``wagtailimages.models.AbstractImage``), a thumbnail of that image will be
 rendered.

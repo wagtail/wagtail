@@ -26,7 +26,7 @@ var apps = [
     new App('wagtail/admin'),
     new App('wagtail/documents'),
     new App('wagtail/embeds'),
-    new App('wagtail/wagtailimages'),
+    new App('wagtail/images'),
     new App('wagtail/wagtailsnippets'),
     new App('wagtail/wagtailusers'),
     new App('wagtail/contrib/wagtailstyleguide'),
