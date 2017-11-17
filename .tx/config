@@ -32,8 +32,8 @@ source_lang = en
 type = PO
 
 [wagtail.wagtailredirects]
-file_filter = wagtail/wagtailredirects/locale/<lang>/LC_MESSAGES/django.po
-source_file = wagtail/wagtailredirects/locale/en/LC_MESSAGES/django.po
+file_filter = wagtail/contrib/redirects/locale/<lang>/LC_MESSAGES/django.po
+source_file = wagtail/contrib/redirects/locale/en/LC_MESSAGES/django.po
 source_lang = en
 type = PO
 

@@ -6,7 +6,7 @@ from django.urls import reverse
 
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.core.models import Page, Site
-from wagtail.wagtailredirects import models
+from wagtail.contrib.redirects import models
 
 
 @override_settings(ALLOWED_HOSTS=['testserver', 'localhost', 'test.example.com', 'other.example.com'])

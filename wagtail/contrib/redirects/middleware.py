@@ -6,7 +6,7 @@ from django import http
 from django.utils.deprecation import MiddlewareMixin
 from django.utils.encoding import uri_to_iri
 
-from wagtail.wagtailredirects import models
+from wagtail.contrib.redirects import models
 
 
 def _get_redirect(request, path):
