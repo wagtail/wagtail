@@ -111,7 +111,7 @@ INSTALLED_APPS = (
     'wagtail.tests.routablepage',
     'wagtail.tests.search',
     'wagtail.tests.modeladmintest',
-    'wagtail.contrib.wagtailstyleguide',
+    'wagtail.contrib.styleguide',
     'wagtail.contrib.routable_page',
     'wagtail.contrib.frontend_cache',
     'wagtail.contrib.search_promotions',
