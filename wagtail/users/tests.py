@@ -14,9 +14,9 @@ from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
 from wagtail.wagtailcore.models import (
     Collection, GroupCollectionPermission, GroupPagePermission, Page)
-from wagtail.wagtailusers.forms import UserCreationForm, UserEditForm
-from wagtail.wagtailusers.models import UserProfile
-from wagtail.wagtailusers.views.users import get_user_creation_form, get_user_edit_form
+from wagtail.users.forms import UserCreationForm, UserEditForm
+from wagtail.users.models import UserProfile
+from wagtail.users.views.users import get_user_creation_form, get_user_edit_form
 
 delete_user_perm_codename = "delete_{0}".format(AUTH_USER_MODEL_NAME.lower())
 change_user_perm_codename = "change_{0}".format(AUTH_USER_MODEL_NAME.lower())
@@ -43,27 +43,27 @@ class TestUserFormHelpers(TestCase):
         self.assertIs(user_form, UserCreationForm)
 
     @override_settings(
-        WAGTAIL_USER_CREATION_FORM='wagtail.wagtailusers.tests.CustomUserCreationForm'
+        WAGTAIL_USER_CREATION_FORM='wagtail.users.tests.CustomUserCreationForm'
     )
     def test_get_user_creation_form_with_custom_form(self):
         user_form = get_user_creation_form()
         self.assertIs(user_form, CustomUserCreationForm)
 
     @override_settings(
-        WAGTAIL_USER_EDIT_FORM='wagtail.wagtailusers.tests.CustomUserEditForm'
+        WAGTAIL_USER_EDIT_FORM='wagtail.users.tests.CustomUserEditForm'
     )
     def test_get_user_edit_form_with_custom_form(self):
         user_form = get_user_edit_form()
         self.assertIs(user_form, CustomUserEditForm)
 
     @override_settings(
-        WAGTAIL_USER_CREATION_FORM='wagtail.wagtailusers.tests.CustomUserCreationFormDoesNotExist'
+        WAGTAIL_USER_CREATION_FORM='wagtail.users.tests.CustomUserCreationFormDoesNotExist'
     )
     def test_get_user_creation_form_with_invalid_form(self):
         self.assertRaises(ImproperlyConfigured, get_user_creation_form)
 
     @override_settings(
-        WAGTAIL_USER_EDIT_FORM='wagtail.wagtailusers.tests.CustomUserEditFormDoesNotExist'
+        WAGTAIL_USER_EDIT_FORM='wagtail.users.tests.CustomUserEditFormDoesNotExist'
     )
     def test_get_user_edit_form_with_invalid_form(self):
         self.assertRaises(ImproperlyConfigured, get_user_edit_form)
@@ -158,7 +158,7 @@ class TestUserCreateView(TestCase, WagtailTestUtils):
         self.assertEqual(users.first().email, 'test@user.com')
 
     @override_settings(
-        WAGTAIL_USER_CREATION_FORM='wagtail.wagtailusers.tests.CustomUserCreationForm',
+        WAGTAIL_USER_CREATION_FORM='wagtail.users.tests.CustomUserCreationForm',
         WAGTAIL_USER_CUSTOM_FIELDS=['country', 'document'],
     )
     def test_create_with_custom_form(self):
@@ -730,7 +730,7 @@ class TestUserEditView(TestCase, WagtailTestUtils):
         self.assertEqual(user.is_active, True)
 
     @override_settings(
-        WAGTAIL_USER_EDIT_FORM='wagtail.wagtailusers.tests.CustomUserEditForm',
+        WAGTAIL_USER_EDIT_FORM='wagtail.users.tests.CustomUserEditForm',
     )
     def test_edit_with_custom_form(self):
         response = self.post({

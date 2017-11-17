@@ -17,8 +17,8 @@ from wagtail.wagtailadmin.utils import (
     any_permission_required, permission_denied, permission_required)
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
-from wagtail.wagtailusers.forms import UserCreationForm, UserEditForm
-from wagtail.wagtailusers.utils import user_can_delete_user
+from wagtail.users.forms import UserCreationForm, UserEditForm
+from wagtail.users.utils import user_can_delete_user
 
 User = get_user_model()
 

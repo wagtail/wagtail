@@ -123,7 +123,7 @@ INSTALLED_APPS = (
     'wagtail.wagtailembeds',
     'wagtail.wagtailimages',
     'wagtail.sites',
-    'wagtail.wagtailusers',
+    'wagtail.users',
     'wagtail.snippets',
     'wagtail.wagtaildocs',
     'wagtail.wagtailadmin',

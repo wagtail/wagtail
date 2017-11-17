@@ -20,7 +20,7 @@ from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import (
     PAGE_PERMISSION_TYPE_CHOICES, PAGE_PERMISSION_TYPES, GroupPagePermission, Page,
     UserPagePermissionsProxy)
-from wagtail.wagtailusers.models import UserProfile
+from wagtail.users.models import UserProfile
 
 User = get_user_model()
 

@@ -28,7 +28,7 @@ var apps = [
     new App('wagtail/wagtailembeds'),
     new App('wagtail/wagtailimages'),
     new App('wagtail/snippets'),
-    new App('wagtail/wagtailusers'),
+    new App('wagtail/users'),
     new App('wagtail/contrib/wagtailstyleguide'),
     new App('wagtail/contrib/settings', {
         'appName': 'wagtailsettings',

@@ -10,10 +10,10 @@ from wagtail.wagtailadmin.menu import MenuItem
 from wagtail.wagtailadmin.search import SearchArea
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
-from wagtail.wagtailusers.urls import users
-from wagtail.wagtailusers.utils import user_can_delete_user
-from wagtail.wagtailusers.views.groups import GroupViewSet
-from wagtail.wagtailusers.widgets import UserListingButton
+from wagtail.users.urls import users
+from wagtail.users.utils import user_can_delete_user
+from wagtail.users.views.groups import GroupViewSet
+from wagtail.users.widgets import UserListingButton
 
 
 @hooks.register('register_admin_urls')

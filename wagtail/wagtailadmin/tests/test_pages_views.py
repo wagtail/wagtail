@@ -31,7 +31,7 @@ from wagtail.wagtailadmin.views.pages import PreviewOnEdit
 from wagtail.wagtailcore.models import GroupPagePermission, Page, PageRevision, Site
 from wagtail.wagtailcore.signals import page_published, page_unpublished
 from wagtail.wagtailsearch.index import SearchField
-from wagtail.wagtailusers.models import UserProfile
+from wagtail.users.models import UserProfile
 
 
 def submittable_timestamp(timestamp):
