@@ -511,5 +511,4 @@ class TestHeaderBreadcrumbs(TestCase, WagtailTestUtils):
         content_str = str(response.content)
         position_of_header_close = content_str.index('</header>')
         position_of_breadcrumbs = content_str.index('<ul class="breadcrumb">')
-        print('position_of_header_close', position_of_header_close, 'position_of_breadcrumbs', position_of_breadcrumbs)
         self.assertGreater(position_of_header_close, position_of_breadcrumbs)
