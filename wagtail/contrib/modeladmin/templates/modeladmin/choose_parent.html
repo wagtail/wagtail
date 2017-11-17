@@ -17,10 +17,7 @@
 {% block content %}
 
     {% block header %}
-        {% inject_into_include '<div class="row nice-padding">' %}
-          {% breadcrumb %}
-          {% include "wagtailadmin/shared/header.html" with title=view.get_page_title subtitle=view.get_page_subtitle icon=view.header_icon tabbed=True %}
-        {% end_inject_into_include %}
+        {% include "modeladmin/includes/header_with_breadcrumb.html" with title=view.get_page_title subtitle=view.get_page_subtitle icon=view.header_icon tabbed=True %}
     {% endblock %}
 
     <div>
