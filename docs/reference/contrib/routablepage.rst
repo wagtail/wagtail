@@ -30,13 +30,13 @@ Add ``"wagtail.contrib.wagtailroutablepage"`` to your INSTALLED_APPS:
 The basics
 ==========
 
-To use ``RoutablePageMixin``, you need to make your class inherit from both :class:`wagtail.contrib.wagtailroutablepage.models.RoutablePageMixin` and :class:`wagtail.wagtailcore.models.Page`, then define some view methods and decorate them with ``wagtail.contrib.wagtailroutablepage.models.route``.
+To use ``RoutablePageMixin``, you need to make your class inherit from both :class:`wagtail.contrib.wagtailroutablepage.models.RoutablePageMixin` and :class:`wagtail.core.models.Page`, then define some view methods and decorate them with ``wagtail.contrib.wagtailroutablepage.models.route``.
 
 Here's an example of an ``EventPage`` with three views:
 
 .. code-block:: python
 
-    from wagtail.wagtailcore.models import Page
+    from wagtail.core.models import Page
     from wagtail.contrib.wagtailroutablepage.models import RoutablePageMixin, route
 
 
@@ -77,7 +77,7 @@ Reversing URLs
     >>> event_page.reverse_subpage('events_for_year', args=(2015, ))
     'year/2015/'
 
-This method only returns the part of the URL within the page. To get the full URL, you must append it to the values of either the :attr:`~wagtail.wagtailcore.models.Page.url` or the :attr:`~wagtail.wagtailcore.models.Page.full_url` attribute on your page:
+This method only returns the part of the URL within the page. To get the full URL, you must append it to the values of either the :attr:`~wagtail.core.models.Page.url` or the :attr:`~wagtail.core.models.Page.full_url` attribute on your page:
 
 .. code-block:: python
 
@@ -94,7 +94,7 @@ The route name defaults to the name of the view. You can override this name with
 
 .. code-block:: python
 
-    from wagtail.wagtailcore.models import Page
+    from wagtail.core.models import Page
     from wagtail.contrib.wagtailroutablepage.models import RoutablePageMixin, route
 
 

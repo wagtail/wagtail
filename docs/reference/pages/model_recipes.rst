@@ -4,10 +4,10 @@
 Recipes
 =======
 
-Overriding the :meth:`~wagtail.wagtailcore.models.Page.serve` Method
+Overriding the :meth:`~wagtail.core.models.Page.serve` Method
 --------------------------------------------------------------------
 
-Wagtail defaults to serving :class:`~wagtail.wagtailcore.models.Page`-derived models by passing a reference to the page object to a Django HTML template matching the model's name, but suppose you wanted to serve something other than HTML? You can override the :meth:`~wagtail.wagtailcore.models.Page.serve` method provided by the :class:`~wagtail.wagtailcore.models.Page` class and handle the Django request and response more directly.
+Wagtail defaults to serving :class:`~wagtail.core.models.Page`-derived models by passing a reference to the page object to a Django HTML template matching the model's name, but suppose you wanted to serve something other than HTML? You can override the :meth:`~wagtail.core.models.Page.serve` method provided by the :class:`~wagtail.core.models.Page` class and handle the Django request and response more directly.
 
 Consider this example from the Wagtail demo site's ``models.py``, which serves an ``EventPage`` object as an iCal file if the ``format`` variable is set in the request:
 
@@ -34,14 +34,14 @@ Consider this example from the Wagtail demo site's ``models.py``, which serves a
                 # Display event page as usual
                 return super(EventPage, self).serve(request)
 
-:meth:`~wagtail.wagtailcore.models.Page.serve` takes a Django request object and returns a Django response object. Wagtail returns a ``TemplateResponse`` object with the template and context which it generates, which allows middleware to function as intended, so keep in mind that a simpler response object like a ``HttpResponse`` will not receive these benefits.
+:meth:`~wagtail.core.models.Page.serve` takes a Django request object and returns a Django response object. Wagtail returns a ``TemplateResponse`` object with the template and context which it generates, which allows middleware to function as intended, so keep in mind that a simpler response object like a ``HttpResponse`` will not receive these benefits.
 
 With this strategy, you could use Django or Python utilities to render your model in JSON or XML or any other format you'd like.
 
 
 .. _overriding_route_method:
 
-Adding Endpoints with Custom :meth:`~wagtail.wagtailcore.models.Page.route` Methods
+Adding Endpoints with Custom :meth:`~wagtail.core.models.Page.route` Methods
 -----------------------------------------------------------------------------------
 
 .. note::
@@ -80,20 +80,20 @@ Wagtail routes requests by iterating over the path components (separated with a 
                     # the page matches the request, but isn't published, so 404
                     raise Http404
 
-:meth:`~wagtail.wagtailcore.models.Page.route` takes the current object (``self``), the ``request`` object, and a list of the remaining ``path_components`` from the request URL. It either continues delegating routing by calling :meth:`~wagtail.wagtailcore.models.Page.route` again on one of its children in the Wagtail tree, or ends the routing process by returning a ``RouteResult`` object or raising a 404 error.
+:meth:`~wagtail.core.models.Page.route` takes the current object (``self``), the ``request`` object, and a list of the remaining ``path_components`` from the request URL. It either continues delegating routing by calling :meth:`~wagtail.core.models.Page.route` again on one of its children in the Wagtail tree, or ends the routing process by returning a ``RouteResult`` object or raising a 404 error.
 
-The ``RouteResult`` object (defined in wagtail.wagtailcore.url_routing) encapsulates all the information Wagtail needs to call a page's :meth:`~wagtail.wagtailcore.models.Page.serve` method and return a final response: this information consists of the page object, and any additional ``args``/``kwargs`` to be passed to :meth:`~wagtail.wagtailcore.models.Page.serve`.
+The ``RouteResult`` object (defined in wagtail.core.url_routing) encapsulates all the information Wagtail needs to call a page's :meth:`~wagtail.core.models.Page.serve` method and return a final response: this information consists of the page object, and any additional ``args``/``kwargs`` to be passed to :meth:`~wagtail.core.models.Page.serve`.
 
-By overriding the :meth:`~wagtail.wagtailcore.models.Page.route` method, we could create custom endpoints for each object in the Wagtail tree. One use case might be using an alternate template when encountering the ``print/`` endpoint in the path. Another might be a REST API which interacts with the current object. Just to see what's involved, lets make a simple model which prints out all of its child path components.
+By overriding the :meth:`~wagtail.core.models.Page.route` method, we could create custom endpoints for each object in the Wagtail tree. One use case might be using an alternate template when encountering the ``print/`` endpoint in the path. Another might be a REST API which interacts with the current object. Just to see what's involved, lets make a simple model which prints out all of its child path components.
 
 First, ``models.py``:
 
 .. code-block:: python
 
     from django.shortcuts import render
-    from wagtail.wagtailcore.url_routing import RouteResult
+    from wagtail.core.url_routing import RouteResult
     from django.http.response import Http404
-    from wagtail.wagtailcore.models import Page
+    from wagtail.core.models import Page
 
     ...
 

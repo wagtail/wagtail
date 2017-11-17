@@ -77,7 +77,7 @@ TEMPLATES = [
         ],
         'OPTIONS': {
             'extensions': [
-                'wagtail.wagtailcore.jinja2tags.core',
+                'wagtail.core.jinja2tags.core',
                 'wagtail.wagtailadmin.jinja2tags.userbar',
                 'wagtail.wagtailimages.jinja2tags.images',
                 'wagtail.contrib.settings.jinja2tags.settings',
@@ -94,7 +94,7 @@ MIDDLEWARE = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
-    'wagtail.wagtailcore.middleware.SiteMiddleware',
+    'wagtail.core.middleware.SiteMiddleware',
     'wagtail.wagtailredirects.middleware.RedirectMiddleware',
 )
 
@@ -128,7 +128,7 @@ INSTALLED_APPS = (
     'wagtail.wagtaildocs',
     'wagtail.wagtailadmin',
     'wagtail.api.v2',
-    'wagtail.wagtailcore',
+    'wagtail.core',
 
     'taggit',
     'rest_framework',

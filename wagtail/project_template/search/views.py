@@ -3,7 +3,7 @@ from __future__ import absolute_import, unicode_literals
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.shortcuts import render
 
-from wagtail.wagtailcore.models import Page
+from wagtail.core.models import Page
 from wagtail.wagtailsearch.models import Query
 
 

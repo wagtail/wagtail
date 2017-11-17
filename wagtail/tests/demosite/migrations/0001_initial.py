@@ -6,7 +6,7 @@ import modelcluster.contrib.taggit
 import modelcluster.fields
 from django.db import migrations, models
 
-import wagtail.wagtailcore.fields
+import wagtail.core.fields
 
 
 class Migration(migrations.Migration):
@@ -33,7 +33,7 @@ class Migration(migrations.Migration):
                         primary_key=True
                     )
                 ),
-                ('body', wagtail.wagtailcore.fields.RichTextField()),
+                ('body', wagtail.core.fields.RichTextField()),
                 ('date', models.DateField(verbose_name='Post date')),
                 (
                     'feed_image',
@@ -143,7 +143,7 @@ class Migration(migrations.Migration):
                         primary_key=True
                     )
                 ),
-                ('intro', wagtail.wagtailcore.fields.RichTextField(blank=True)),
+                ('intro', wagtail.core.fields.RichTextField(blank=True)),
             ],
             options={
                 'abstract': False,
@@ -195,7 +195,7 @@ class Migration(migrations.Migration):
                         primary_key=True
                     )
                 ),
-                ('body', wagtail.wagtailcore.fields.RichTextField(blank=True)),
+                ('body', wagtail.core.fields.RichTextField(blank=True)),
                 (
                     'feed_image',
                     models.ForeignKey(
@@ -226,7 +226,7 @@ class Migration(migrations.Migration):
                         primary_key=True
                     )
                 ),
-                ('intro', wagtail.wagtailcore.fields.RichTextField(blank=True)),
+                ('intro', wagtail.core.fields.RichTextField(blank=True)),
             ],
             options={
                 'abstract': False,
@@ -285,7 +285,7 @@ class Migration(migrations.Migration):
                 ('time_to', models.TimeField(null=True, verbose_name='End time', blank=True)),
                 ('audience', models.CharField(choices=[('public', 'Public'), ('private', 'Private')], max_length=255)),
                 ('location', models.CharField(max_length=255)),
-                ('body', wagtail.wagtailcore.fields.RichTextField(blank=True)),
+                ('body', wagtail.core.fields.RichTextField(blank=True)),
                 ('cost', models.CharField(max_length=255)),
                 ('signup_link', models.URLField(blank=True)),
                 (
@@ -390,7 +390,7 @@ class Migration(migrations.Migration):
                         related_name='+',
                         primary_key=True
                     )),
-                ('body', wagtail.wagtailcore.fields.RichTextField(blank=True)),
+                ('body', wagtail.core.fields.RichTextField(blank=True)),
             ],
             options={
                 'verbose_name': 'Homepage',
@@ -465,8 +465,8 @@ class Migration(migrations.Migration):
                 ),
                 ('first_name', models.CharField(max_length=255)),
                 ('last_name', models.CharField(max_length=255)),
-                ('intro', wagtail.wagtailcore.fields.RichTextField(blank=True)),
-                ('biography', wagtail.wagtailcore.fields.RichTextField(blank=True)),
+                ('intro', wagtail.core.fields.RichTextField(blank=True)),
+                ('biography', wagtail.core.fields.RichTextField(blank=True)),
                 (
                     'feed_image',
                     models.ForeignKey(
@@ -524,7 +524,7 @@ class Migration(migrations.Migration):
                         primary_key=True
                     )
                 ),
-                ('intro', wagtail.wagtailcore.fields.RichTextField(blank=True)),
+                ('intro', wagtail.core.fields.RichTextField(blank=True)),
                 ('feed_image',
                     models.ForeignKey(
                         to='wagtailimages.Image',
@@ -567,8 +567,8 @@ class Migration(migrations.Migration):
                         to='wagtailcore.Page', serialize=False, parent_link=True, related_name='+', primary_key=True
                     )
                 ),
-                ('intro', wagtail.wagtailcore.fields.RichTextField(blank=True)),
-                ('body', wagtail.wagtailcore.fields.RichTextField(blank=True)),
+                ('intro', wagtail.core.fields.RichTextField(blank=True)),
+                ('body', wagtail.core.fields.RichTextField(blank=True)),
                 (
                     'feed_image',
                     models.ForeignKey(

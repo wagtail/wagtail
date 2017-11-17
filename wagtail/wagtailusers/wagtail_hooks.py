@@ -8,8 +8,8 @@ from django.utils.translation import ugettext_lazy as _
 
 from wagtail.wagtailadmin.menu import MenuItem
 from wagtail.wagtailadmin.search import SearchArea
-from wagtail.wagtailcore import hooks
-from wagtail.wagtailcore.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
+from wagtail.core import hooks
+from wagtail.core.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
 from wagtail.wagtailusers.urls import users
 from wagtail.wagtailusers.utils import user_can_delete_user
 from wagtail.wagtailusers.views.groups import GroupViewSet

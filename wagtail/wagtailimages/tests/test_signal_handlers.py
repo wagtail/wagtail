@@ -3,7 +3,7 @@ from __future__ import absolute_import, unicode_literals
 from django.db import transaction
 from django.test import TransactionTestCase, override_settings
 
-from wagtail.wagtailcore.models import Collection
+from wagtail.core.models import Collection
 from wagtail.wagtailimages import get_image_model, signal_handlers
 from wagtail.wagtailimages.tests.utils import get_test_image_file
 

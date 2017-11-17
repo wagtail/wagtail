@@ -105,7 +105,7 @@ class WagtailTestUtils(object):
 
     @contextmanager
     def register_hook(self, hook_name, fn, order=0):
-        from wagtail.wagtailcore import hooks
+        from wagtail.core import hooks
 
         hooks.register(hook_name, fn, order)
         try:

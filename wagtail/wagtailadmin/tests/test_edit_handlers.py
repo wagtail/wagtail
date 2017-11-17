@@ -18,7 +18,7 @@ from wagtail.wagtailadmin.edit_handlers import (
 from wagtail.wagtailadmin.forms import WagtailAdminModelForm, WagtailAdminPageForm
 from wagtail.wagtailadmin.rich_text import HalloRichTextArea
 from wagtail.wagtailadmin.widgets import AdminAutoHeightTextInput, AdminDateInput, AdminPageChooser
-from wagtail.wagtailcore.models import Page, Site
+from wagtail.core.models import Page, Site
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 
 

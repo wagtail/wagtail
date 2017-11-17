@@ -11,7 +11,7 @@ from django.urls import reverse
 from django.utils.http import RFC3986_SUBDELIMS, urlquote
 
 from wagtail.tests.utils import WagtailTestUtils
-from wagtail.wagtailcore.models import Collection, GroupCollectionPermission
+from wagtail.core.models import Collection, GroupCollectionPermission
 from wagtail.wagtailimages.views.serve import generate_signature
 
 from .utils import Image, get_test_image_file

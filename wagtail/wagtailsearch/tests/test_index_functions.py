@@ -8,7 +8,7 @@ from django.test import TestCase, override_settings
 from wagtail.tests.search import models
 from wagtail.tests.testapp.models import SimplePage
 from wagtail.tests.utils import WagtailTestUtils
-from wagtail.wagtailcore.models import Page
+from wagtail.core.models import Page
 from wagtail.wagtailsearch import index
 
 

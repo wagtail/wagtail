@@ -28,8 +28,8 @@ from wagtail.tests.testapp.models import (
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailadmin.views.home import RecentEditsPanel
 from wagtail.wagtailadmin.views.pages import PreviewOnEdit
-from wagtail.wagtailcore.models import GroupPagePermission, Page, PageRevision, Site
-from wagtail.wagtailcore.signals import page_published, page_unpublished
+from wagtail.core.models import GroupPagePermission, Page, PageRevision, Site
+from wagtail.core.signals import page_published, page_unpublished
 from wagtail.wagtailsearch.index import SearchField
 from wagtail.wagtailusers.models import UserProfile
 

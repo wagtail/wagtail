@@ -8,7 +8,7 @@ from django.test import TestCase
 
 from wagtail.tests.testapp.models import CustomFormPageSubmission, FormField, JadeFormPage
 from wagtail.tests.utils import WagtailTestUtils
-from wagtail.wagtailcore.models import Page
+from wagtail.core.models import Page
 from wagtail.wagtailforms.models import FormSubmission
 from wagtail.wagtailforms.tests.utils import make_form_page, make_form_page_with_custom_submission
 

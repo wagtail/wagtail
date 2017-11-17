@@ -5,8 +5,8 @@ from django.http import Http404
 from django.template.response import TemplateResponse
 from django.urls.resolvers import RegexURLResolver
 
-from wagtail.wagtailcore.models import Page
-from wagtail.wagtailcore.url_routing import RouteResult
+from wagtail.core.models import Page
+from wagtail.core.url_routing import RouteResult
 
 _creation_counter = 0
 

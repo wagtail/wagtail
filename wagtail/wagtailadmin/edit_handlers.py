@@ -15,9 +15,9 @@ from taggit.managers import TaggableManager
 
 from wagtail.utils.decorators import cached_classmethod
 from wagtail.wagtailadmin import compare, widgets
-from wagtail.wagtailcore.fields import RichTextField
-from wagtail.wagtailcore.models import Page
-from wagtail.wagtailcore.utils import camelcase_to_underscore, resolve_model_string
+from wagtail.core.fields import RichTextField
+from wagtail.core.models import Page
+from wagtail.core.utils import camelcase_to_underscore, resolve_model_string
 
 # DIRECT_FORM_FIELD_OVERRIDES, FORM_FIELD_OVERRIDES are imported for backwards
 # compatibility, as people are likely importing them from here and then

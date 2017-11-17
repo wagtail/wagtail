@@ -5,7 +5,7 @@ from io import BytesIO
 from django.test import TestCase, override_settings
 from mock import Mock, patch
 
-from wagtail.wagtailcore import hooks
+from wagtail.core import hooks
 from wagtail.wagtailimages import image_operations
 from wagtail.wagtailimages.exceptions import InvalidFilterSpecError
 from wagtail.wagtailimages.models import Filter, Image

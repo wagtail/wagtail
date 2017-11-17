@@ -15,7 +15,7 @@ from wagtail.wagtailadmin.utils import permission_denied
 class PermissionCheckedMixin(object):
     """
     Mixin for class-based views to enforce permission checks according to
-    a permission policy (see wagtail.wagtailcore.permission_policies).
+    a permission policy (see wagtail.core.permission_policies).
 
     To take advantage of this, subclasses should set the class property:
     * permission_policy (a policy object)

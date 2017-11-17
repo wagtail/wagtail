@@ -13,9 +13,9 @@ from wagtail.wagtailadmin.menu import MenuItem
 from wagtail.wagtailadmin.rich_text import HalloPlugin
 from wagtail.wagtailadmin.search import SearchArea
 from wagtail.wagtailadmin.site_summary import SummaryItem
-from wagtail.wagtailcore import hooks
-from wagtail.wagtailcore.models import BaseViewRestriction
-from wagtail.wagtailcore.wagtail_hooks import require_wagtail_login
+from wagtail.core import hooks
+from wagtail.core.models import BaseViewRestriction
+from wagtail.core.wagtail_hooks import require_wagtail_login
 from wagtail.wagtaildocs import admin_urls
 from wagtail.wagtaildocs.api.admin.endpoints import DocumentsAdminAPIEndpoint
 from wagtail.wagtaildocs.forms import GroupDocumentPermissionFormSet
@@ -159,7 +159,7 @@ def check_view_restrictions(document, request):
     for restriction in document.collection.get_view_restrictions():
         if not restriction.accept_request(request):
             if restriction.restriction_type == BaseViewRestriction.PASSWORD:
-                from wagtail.wagtailcore.forms import PasswordViewRestrictionForm
+                from wagtail.core.forms import PasswordViewRestrictionForm
                 form = PasswordViewRestrictionForm(instance=restriction,
                                                    initial={'return_url': request.get_full_path()})
                 action_url = reverse('wagtaildocs_authenticate_with_password', args=[restriction.id])

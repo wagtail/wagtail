@@ -9,9 +9,9 @@ from wagtail.tests.testapp.models import SingleEventPage
 from wagtail.tests.testapp.rich_text import CustomRichTextArea
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailadmin.rich_text import HalloRichTextArea, get_rich_text_editor_widget
-from wagtail.wagtailcore.blocks import RichTextBlock
-from wagtail.wagtailcore.models import Page, get_page_models
-from wagtail.wagtailcore.rich_text import RichText
+from wagtail.core.blocks import RichTextBlock
+from wagtail.core.models import Page, get_page_models
+from wagtail.core.rich_text import RichText
 
 
 class BaseRichTextEditHandlerTestCase(TestCase):

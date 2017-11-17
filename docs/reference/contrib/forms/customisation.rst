@@ -18,7 +18,7 @@ You can do this as shown below.
         FieldPanel, FieldRowPanel,
         InlinePanel, MultiFieldPanel
     )
-    from wagtail.wagtailcore.fields import RichTextField
+    from wagtail.core.fields import RichTextField
     from wagtail.wagtailforms.models import AbstractEmailForm, AbstractFormField
 
 
@@ -69,7 +69,7 @@ Example:
         FieldPanel, FieldRowPanel,
         InlinePanel, MultiFieldPanel
     )
-    from wagtail.wagtailcore.fields import RichTextField
+    from wagtail.core.fields import RichTextField
     from wagtail.wagtailforms.models import AbstractEmailForm, AbstractFormField, AbstractFormSubmission
 
 
@@ -130,7 +130,7 @@ The following example shows how to add a username to the CSV export:
         FieldPanel, FieldRowPanel,
         InlinePanel, MultiFieldPanel
     )
-    from wagtail.wagtailcore.fields import RichTextField
+    from wagtail.core.fields import RichTextField
     from wagtail.wagtailforms.models import AbstractEmailForm, AbstractFormField, AbstractFormSubmission
 
 
@@ -208,7 +208,7 @@ Example:
         FieldPanel, FieldRowPanel,
         InlinePanel, MultiFieldPanel
     )
-    from wagtail.wagtailcore.fields import RichTextField
+    from wagtail.core.fields import RichTextField
     from wagtail.wagtailforms.models import AbstractEmailForm, AbstractFormField, AbstractFormSubmission
 
 
@@ -304,7 +304,7 @@ The following example shows how to create a multi-step form.
         FieldPanel, FieldRowPanel,
         InlinePanel, MultiFieldPanel
     )
-    from wagtail.wagtailcore.fields import RichTextField
+    from wagtail.core.fields import RichTextField
     from wagtail.wagtailforms.models import AbstractEmailForm, AbstractFormField
 
 
@@ -455,7 +455,7 @@ First, you need to collect results as shown below:
         FieldPanel, FieldRowPanel,
         InlinePanel, MultiFieldPanel
     )
-    from wagtail.wagtailcore.fields import RichTextField
+    from wagtail.core.fields import RichTextField
     from wagtail.wagtailforms.models import AbstractEmailForm, AbstractFormField
 
 

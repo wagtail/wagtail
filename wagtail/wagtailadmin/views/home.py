@@ -11,8 +11,8 @@ from django.template.loader import render_to_string
 
 from wagtail.wagtailadmin.navigation import get_explorable_root_page
 from wagtail.wagtailadmin.site_summary import SiteSummaryPanel
-from wagtail.wagtailcore import hooks
-from wagtail.wagtailcore.models import Page, PageRevision, UserPagePermissionsProxy
+from wagtail.core import hooks
+from wagtail.core.models import Page, PageRevision, UserPagePermissionsProxy
 
 User = get_user_model()
 

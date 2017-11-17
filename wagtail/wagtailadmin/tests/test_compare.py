@@ -9,7 +9,7 @@ from django.utils.safestring import SafeText
 from wagtail.tests.testapp.models import (
     EventCategory, EventPage, EventPageSpeaker, SimplePage, StreamPage, TaggedPage)
 from wagtail.wagtailadmin import compare
-from wagtail.wagtailcore.blocks import StreamValue
+from wagtail.core.blocks import StreamValue
 from wagtail.wagtailimages import get_image_model
 from wagtail.wagtailimages.tests.utils import get_test_image_file
 
