@@ -46,7 +46,7 @@ Adding Endpoints with Custom :meth:`~wagtail.core.models.Page.route` Methods
 
 .. note::
 
-    A much simpler way of adding more endpoints to pages is provided by the :mod:`~wagtail.contrib.wagtailroutablepage` module.
+    A much simpler way of adding more endpoints to pages is provided by the :mod:`~wagtail.contrib.routable_page` module.
 
 Wagtail routes requests by iterating over the path components (separated with a forward slash ``/``), finding matching objects based on their slug, and delegating further routing to that object's model class. The Wagtail source is very instructive in figuring out what's happening. This is the default ``route()`` method of the ``Page`` class:
 
