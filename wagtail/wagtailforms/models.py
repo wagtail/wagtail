@@ -260,18 +260,19 @@ class AbstractForm(Page):
             page=self,
         )
 
-    def render_landing_page(self, request, *args, **kwargs):
+    def render_landing_page(self, request, form_submission, *args, **kwargs):
         """
         Renders the landing page.
 
         You can override this method to return a different HttpResponse as
         landing page. E.g. you could return a redirect to a separate page.
         """
-        # TODO: It is much better to redirect to it
+        context = self.get_context(request)
+        context['form_submission'] = form_submission
         return render(
             request,
             self.get_landing_page_template(request),
-            self.get_context(request)
+            context
         )
 
     def serve(self, request, *args, **kwargs):
@@ -279,9 +280,9 @@ class AbstractForm(Page):
             form = self.get_form(request.POST, request.FILES, page=self, user=request.user)
 
             if form.is_valid():
-                self.process_form_submission(form)
+                form_submission = self.process_form_submission(form)
                 # Forwarding args and kwargs just in case for flexibility
-                return self.render_landing_page(request, *args, **kwargs)
+                return self.render_landing_page(request, form_submission, *args, **kwargs)
         else:
             form = self.get_form(page=self, user=request.user)
 
