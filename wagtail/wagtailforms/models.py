@@ -260,7 +260,7 @@ class AbstractForm(Page):
             page=self,
         )
 
-    def render_landing_page(self, request, form_submission, *args, **kwargs):
+    def render_landing_page(self, request, form_submission=None, *args, **kwargs):
         """
         Renders the landing page.
 
@@ -302,12 +302,7 @@ class AbstractForm(Page):
     def serve_preview(self, request, mode):
         if mode == 'landing':
             request.is_preview = True
-
-            return render(
-                request,
-                self.get_landing_page_template(request),
-                self.get_context(request)
-            )
+            return self.render_landing_page(request)
         else:
             return super(AbstractForm, self).serve_preview(request, mode)
 
