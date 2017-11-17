@@ -29,7 +29,7 @@ var apps = [
     new App('wagtail/images'),
     new App('wagtail/snippets'),
     new App('wagtail/users'),
-    new App('wagtail/contrib/wagtailstyleguide'),
+    new App('wagtail/contrib/styleguide'),
     new App('wagtail/contrib/settings', {
         'appName': 'wagtailsettings',
     }),
