@@ -6,8 +6,8 @@ from django.utils.html import format_html
 
 from wagtail.admin.rich_text import HalloPlugin
 from wagtail.core import hooks
-from wagtail.wagtailembeds import urls
-from wagtail.wagtailembeds.rich_text import MediaEmbedHandler
+from wagtail.embeds import urls
+from wagtail.embeds.rich_text import MediaEmbedHandler
 
 
 @hooks.register('register_admin_urls')

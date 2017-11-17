@@ -8,8 +8,8 @@ from urllib.error import URLError
 from urllib.parse import urlencode
 from urllib.request import Request
 
-from wagtail.wagtailembeds.exceptions import EmbedNotFoundException
-from wagtail.wagtailembeds.oembed_providers import all_providers
+from wagtail.embeds.exceptions import EmbedNotFoundException
+from wagtail.embeds.oembed_providers import all_providers
 
 from .base import EmbedFinder
 

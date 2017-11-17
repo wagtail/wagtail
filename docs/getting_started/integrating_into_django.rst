@@ -22,7 +22,7 @@ In your settings file, add the following apps to ``INSTALLED_APPS``:
 
     'wagtail.wagtailforms',
     'wagtail.wagtailredirects',
-    'wagtail.wagtailembeds',
+    'wagtail.embeds',
     'wagtail.wagtailsites',
     'wagtail.wagtailusers',
     'wagtail.wagtailsnippets',

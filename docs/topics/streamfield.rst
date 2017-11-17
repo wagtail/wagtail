@@ -291,7 +291,7 @@ A control to allow the editor to select a snippet object. Requires one positiona
 EmbedBlock
 ~~~~~~~~~~
 
-``wagtail.wagtailembeds.blocks.EmbedBlock``
+``wagtail.embeds.blocks.EmbedBlock``
 
 A field for the editor to enter a URL to a media item (such as a YouTube video) to appear as embedded media on the page. The keyword arguments ``required`` (default: True), ``max_length``, ``min_length`` and ``help_text`` are accepted.
 

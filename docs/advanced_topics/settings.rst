@@ -62,7 +62,7 @@ Apps (``settings.py``)
 
     'wagtail.wagtailforms',
     'wagtail.wagtailredirects',
-    'wagtail.wagtailembeds',
+    'wagtail.embeds',
     'wagtail.wagtailsites',
     'wagtail.wagtailusers',
     'wagtail.wagtailsnippets',
@@ -504,7 +504,7 @@ These two files should reside in your project directory (``myproject/myproject/`
 
       'wagtail.wagtailforms',
       'wagtail.wagtailredirects',
-      'wagtail.wagtailembeds',
+      'wagtail.embeds',
       'wagtail.wagtailsites',
       'wagtail.wagtailusers',
       'wagtail.wagtailsnippets',
