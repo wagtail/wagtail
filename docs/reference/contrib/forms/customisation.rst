@@ -19,7 +19,7 @@ You can do this as shown below.
         InlinePanel, MultiFieldPanel
     )
     from wagtail.core.fields import RichTextField
-    from wagtail.wagtailforms.models import AbstractEmailForm, AbstractFormField
+    from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField
 
 
     class FormField(AbstractFormField):
@@ -52,7 +52,7 @@ Custom form submission model
 If you need to save additional data, you can use a custom form submission model.
 To do this, you need to:
 
-* Define a model that extends ``wagtail.wagtailforms.models.AbstractFormSubmission``.
+* Define a model that extends ``wagtail.contrib.forms.models.AbstractFormSubmission``.
 * Override the ``get_submission_class`` and ``process_form_submission`` methods in your page model.
 
 Example:
@@ -70,7 +70,7 @@ Example:
         InlinePanel, MultiFieldPanel
     )
     from wagtail.core.fields import RichTextField
-    from wagtail.wagtailforms.models import AbstractEmailForm, AbstractFormField, AbstractFormSubmission
+    from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField, AbstractFormSubmission
 
 
     class FormField(AbstractFormField):
@@ -131,7 +131,7 @@ The following example shows how to add a username to the CSV export:
         InlinePanel, MultiFieldPanel
     )
     from wagtail.core.fields import RichTextField
-    from wagtail.wagtailforms.models import AbstractEmailForm, AbstractFormField, AbstractFormSubmission
+    from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField, AbstractFormSubmission
 
 
     class FormField(AbstractFormField):
@@ -209,7 +209,7 @@ Example:
         InlinePanel, MultiFieldPanel
     )
     from wagtail.core.fields import RichTextField
-    from wagtail.wagtailforms.models import AbstractEmailForm, AbstractFormField, AbstractFormSubmission
+    from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField, AbstractFormSubmission
 
 
     class FormField(AbstractFormField):
@@ -305,7 +305,7 @@ The following example shows how to create a multi-step form.
         InlinePanel, MultiFieldPanel
     )
     from wagtail.core.fields import RichTextField
-    from wagtail.wagtailforms.models import AbstractEmailForm, AbstractFormField
+    from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField
 
 
     class FormField(AbstractFormField):
@@ -456,7 +456,7 @@ First, you need to collect results as shown below:
         InlinePanel, MultiFieldPanel
     )
     from wagtail.core.fields import RichTextField
-    from wagtail.wagtailforms.models import AbstractEmailForm, AbstractFormField
+    from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField
 
 
     class FormField(AbstractFormField):
