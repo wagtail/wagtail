@@ -29,7 +29,7 @@ Changelog
  * Fix: Fixed incorrect z-index on userbar causing it to appear behind page content (Stein Strindhaug)
 
 
-1.13.1 (xx.xx.20xx) - IN DEVELOPMENT
+1.13.1 (17.11.2017)
 ~~~~~~~~~~~~~~~~~~~
 
  * Fix: API listing views no longer fail when no site records are defined (Karl Hobley)
