@@ -1,6 +1,6 @@
 from __future__ import absolute_import, unicode_literals
 
-from wagtail.wagtailadmin.widgets import Button
+from wagtail.admin.widgets import Button
 
 
 class UserListingButton(Button):

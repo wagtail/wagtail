@@ -7,7 +7,7 @@ from wagtail.api.v2.router import WagtailAPIRouter
 from wagtail.contrib.wagtailsitemaps import views as sitemaps_views
 from wagtail.contrib.wagtailsitemaps import Sitemap
 from wagtail.tests.testapp import urls as testapp_urls
-from wagtail.wagtailadmin import urls as wagtailadmin_urls
+from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.core import urls as wagtail_urls
 from wagtail.wagtaildocs import urls as wagtaildocs_urls
 from wagtail.wagtaildocs.api.v2.endpoints import DocumentsAPIEndpoint

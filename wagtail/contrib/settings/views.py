@@ -7,8 +7,8 @@ from django.utils.lru_cache import lru_cache
 from django.utils.text import capfirst
 from django.utils.translation import ugettext as _
 
-from wagtail.wagtailadmin import messages
-from wagtail.wagtailadmin.edit_handlers import (
+from wagtail.admin import messages
+from wagtail.admin.edit_handlers import (
     ObjectList, extract_panel_definitions_from_model_class)
 from wagtail.core.models import Site
 

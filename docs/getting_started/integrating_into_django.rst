@@ -29,7 +29,7 @@ In your settings file, add the following apps to ``INSTALLED_APPS``:
     'wagtail.wagtaildocs',
     'wagtail.wagtailimages',
     'wagtail.wagtailsearch',
-    'wagtail.wagtailadmin',
+    'wagtail.admin',
     'wagtail.core',
 
     'modelcluster',
@@ -63,7 +63,7 @@ Now make the following additions to your ``urls.py`` file:
 
 .. code-block:: python
 
-    from wagtail.wagtailadmin import urls as wagtailadmin_urls
+    from wagtail.admin import urls as wagtailadmin_urls
     from wagtail.wagtaildocs import urls as wagtaildocs_urls
     from wagtail.core import urls as wagtail_urls
 

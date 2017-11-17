@@ -4,8 +4,8 @@ from django import forms
 from django.forms.models import modelform_factory
 from django.utils.translation import ugettext_lazy as _
 
-from wagtail.wagtailadmin import widgets
-from wagtail.wagtailadmin.forms import (
+from wagtail.admin import widgets
+from wagtail.admin.forms import (
     BaseCollectionMemberForm, collection_member_permission_formset_factory)
 from wagtail.wagtaildocs.models import Document
 from wagtail.wagtaildocs.permissions import permission_policy as documents_permission_policy

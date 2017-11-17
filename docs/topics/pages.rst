@@ -28,7 +28,7 @@ This example represents a typical blog post:
 
     from wagtail.core.models import Page, Orderable
     from wagtail.core.fields import RichTextField
-    from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, InlinePanel
+    from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, InlinePanel
     from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
     from wagtail.wagtailsearch import index
 
@@ -143,22 +143,22 @@ Here's a summary of the ``EditHandler`` classes that Wagtail provides out of the
 
 These allow editing of model fields. The ``FieldPanel`` class will choose the correct widget based on the type of the field, though ``StreamField`` fields need to use a specialised panel class.
 
- - :class:`~wagtail.wagtailadmin.edit_handlers.FieldPanel`
- - :class:`~wagtail.wagtailadmin.edit_handlers.StreamFieldPanel`
+ - :class:`~wagtail.admin.edit_handlers.FieldPanel`
+ - :class:`~wagtail.admin.edit_handlers.StreamFieldPanel`
 
 **Structural**
 
 These are used for structuring fields in the interface.
 
- - :class:`~wagtail.wagtailadmin.edit_handlers.MultiFieldPanel` - For grouping similar fields together
- - :class:`~wagtail.wagtailadmin.edit_handlers.InlinePanel` - For inlining child models
- - :class:`~wagtail.wagtailadmin.edit_handlers.FieldRowPanel` - For organising multiple fields into a single row
+ - :class:`~wagtail.admin.edit_handlers.MultiFieldPanel` - For grouping similar fields together
+ - :class:`~wagtail.admin.edit_handlers.InlinePanel` - For inlining child models
+ - :class:`~wagtail.admin.edit_handlers.FieldRowPanel` - For organising multiple fields into a single row
 
 **Chooser**
 
 ``ForeignKey`` fields to certain models can use one of the below ``ChooserPanel`` classes. These add a nice modal chooser interface, and the image/document choosers also allow uploading new files without leaving the page editor.
 
- - :class:`~wagtail.wagtailadmin.edit_handlers.PageChooserPanel`
+ - :class:`~wagtail.admin.edit_handlers.PageChooserPanel`
  - :class:`~wagtail.wagtailimages.edit_handlers.ImageChooserPanel`
  - :class:`~wagtail.wagtaildocs.edit_handlers.DocumentChooserPanel`
  - :class:`~wagtail.wagtailsnippets.edit_handlers.SnippetChooserPanel`
@@ -393,7 +393,7 @@ For example, the following inline model can be used to add related links (a list
             FieldPanel('url'),
         ]
 
-To add this to the admin interface, use the :class:`~wagtail.wagtailadmin.edit_handlers.InlinePanel` edit panel class:
+To add this to the admin interface, use the :class:`~wagtail.admin.edit_handlers.InlinePanel` edit panel class:
 
 .. code-block:: python
 

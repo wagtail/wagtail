@@ -2,8 +2,8 @@ from __future__ import absolute_import, unicode_literals
 
 from django.template.loader import render_to_string
 
-from wagtail.wagtailadmin.compare import ForeignObjectComparison
-from wagtail.wagtailadmin.edit_handlers import BaseChooserPanel
+from wagtail.admin.compare import ForeignObjectComparison
+from wagtail.admin.edit_handlers import BaseChooserPanel
 
 from .widgets import AdminImageChooser
 

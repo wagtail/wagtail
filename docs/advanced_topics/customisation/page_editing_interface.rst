@@ -10,7 +10,7 @@ As standard, Wagtail organises panels for pages into three tabs: 'Content', 'Pro
 
 .. code-block:: python
 
-    from wagtail.wagtailadmin.edit_handlers import TabbedInterface, ObjectList
+    from wagtail.admin.edit_handlers import TabbedInterface, ObjectList
 
     class BlogPage(Page):
         # field definitions omitted
@@ -43,7 +43,7 @@ Wagtail provides a general-purpose WYSIWYG editor for creating rich text content
 .. code-block:: python
 
     from wagtail.core.fields import RichTextField
-    from wagtail.wagtailadmin.edit_handlers import FieldPanel
+    from wagtail.admin.edit_handlers import FieldPanel
 
 
     class BookPage(Page):
@@ -96,7 +96,7 @@ Once the plugin has been created, it should be registered as a rich text feature
 
 .. code-block:: python
 
-    from wagtail.wagtailadmin.rich_text import HalloPlugin
+    from wagtail.admin.rich_text import HalloPlugin
     from wagtail.core import hooks
 
     @hooks.register('register_rich_text_features')
@@ -178,15 +178,15 @@ To unregister, call ``unregister_image_format`` with the string of the ``name`` 
 Customising generated forms
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. class:: wagtail.wagtailadmin.forms.WagtailAdminModelForm
-.. class:: wagtail.wagtailadmin.forms.WagtailAdminPageForm
+.. class:: wagtail.admin.forms.WagtailAdminModelForm
+.. class:: wagtail.admin.forms.WagtailAdminPageForm
 
 Wagtail automatically generates forms using the panels configured on the model.
-By default, this form subclasses :class:`~wagtail.wagtailadmin.forms.WagtailAdminModelForm`,
-or :class:`~wagtail.wagtailadmin.forms.WagtailAdminPageForm` for pages.
+By default, this form subclasses :class:`~wagtail.admin.forms.WagtailAdminModelForm`,
+or :class:`~wagtail.admin.forms.WagtailAdminPageForm` for pages.
 A custom base form class can be configured by setting the :attr:`base_form_class` attribute on any model.
-Custom forms for snippets must subclass :class:`~wagtail.wagtailadmin.forms.WagtailAdminModelForm`,
-and custom forms for pages must subclass :class:`~wagtail.wagtailadmin.forms.WagtailAdminPageForm`.
+Custom forms for snippets must subclass :class:`~wagtail.admin.forms.WagtailAdminModelForm`,
+and custom forms for pages must subclass :class:`~wagtail.admin.forms.WagtailAdminPageForm`.
 
 This can be used to add non-model fields to the form, to automatically generate field content,
 or to add custom validation logic for your models:
@@ -195,8 +195,8 @@ or to add custom validation logic for your models:
 
     from django import forms
     import geocoder  # not in Wagtail, for example only - http://geocoder.readthedocs.io/
-    from wagtail.wagtailadmin.edit_handlers import FieldPanel
-    from wagtail.wagtailadmin.forms import WagtailAdminPageForm
+    from wagtail.admin.edit_handlers import FieldPanel
+    from wagtail.admin.forms import WagtailAdminPageForm
     from wagtail.core.models import Page
 
 

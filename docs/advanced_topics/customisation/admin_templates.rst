@@ -4,7 +4,7 @@ Customising admin templates
 
 In your projects with Wagtail, you may wish to replace elements such as the Wagtail logo within the admin interface with your own branding. This can be done through Django's template inheritance mechanism.
 
-You need to create a ``templates/wagtailadmin/`` folder within one of your apps - this may be an existing one, or a new one created for this purpose, for example, ``dashboard``. This app must be registered in ``INSTALLED_APPS`` before ``wagtail.wagtailadmin``:
+You need to create a ``templates/wagtailadmin/`` folder within one of your apps - this may be an existing one, or a new one created for this purpose, for example, ``dashboard``. This app must be registered in ``INSTALLED_APPS`` before ``wagtail.admin``:
 
 .. code-block:: python
 
@@ -14,7 +14,7 @@ You need to create a ``templates/wagtailadmin/`` folder within one of your apps 
         'dashboard',
 
         'wagtail.core',
-        'wagtail.wagtailadmin',
+        'wagtail.admin',
 
         # ...
     )

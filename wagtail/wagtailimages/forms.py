@@ -5,8 +5,8 @@ from django.forms.models import modelform_factory
 from django.utils.text import capfirst
 from django.utils.translation import ugettext as _
 
-from wagtail.wagtailadmin import widgets
-from wagtail.wagtailadmin.forms import (
+from wagtail.admin import widgets
+from wagtail.admin.forms import (
     BaseCollectionMemberForm, collection_member_permission_formset_factory)
 from wagtail.wagtailimages.fields import WagtailImageField
 from wagtail.wagtailimages.formats import get_image_formats

@@ -1,6 +1,6 @@
 from __future__ import absolute_import, unicode_literals
 
-from wagtail.wagtailadmin.menu import Menu, MenuItem, SubmenuMenuItem
+from wagtail.admin.menu import Menu, MenuItem, SubmenuMenuItem
 
 
 class ModelAdminMenuItem(MenuItem):
