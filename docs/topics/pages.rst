@@ -30,7 +30,7 @@ This example represents a typical blog post:
     from wagtail.core.fields import RichTextField
     from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, InlinePanel
     from wagtail.images.edit_handlers import ImageChooserPanel
-    from wagtail.wagtailsearch import index
+    from wagtail.search import index
 
 
     class BlogPage(Page):

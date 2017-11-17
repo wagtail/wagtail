@@ -38,8 +38,8 @@ source_lang = en
 type = PO
 
 [wagtail.wagtailsearch]
-file_filter = wagtail/wagtailsearch/locale/<lang>/LC_MESSAGES/django.po
-source_file = wagtail/wagtailsearch/locale/en/LC_MESSAGES/django.po
+file_filter = wagtail/search/locale/<lang>/LC_MESSAGES/django.po
+source_file = wagtail/search/locale/en/LC_MESSAGES/django.po
 source_lang = en
 type = PO
 

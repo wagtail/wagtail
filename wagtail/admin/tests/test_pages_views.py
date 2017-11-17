@@ -30,7 +30,7 @@ from wagtail.admin.views.home import RecentEditsPanel
 from wagtail.admin.views.pages import PreviewOnEdit
 from wagtail.core.models import GroupPagePermission, Page, PageRevision, Site
 from wagtail.core.signals import page_published, page_unpublished
-from wagtail.wagtailsearch.index import SearchField
+from wagtail.search.index import SearchField
 from wagtail.wagtailusers.models import UserProfile
 
 

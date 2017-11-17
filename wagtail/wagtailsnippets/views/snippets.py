@@ -13,8 +13,8 @@ from wagtail.admin.edit_handlers import (
     ObjectList, extract_panel_definitions_from_model_class)
 from wagtail.admin.forms import SearchForm
 from wagtail.admin.utils import permission_denied
-from wagtail.wagtailsearch.backends import get_search_backend
-from wagtail.wagtailsearch.index import class_is_indexed
+from wagtail.search.backends import get_search_backend
+from wagtail.search.index import class_is_indexed
 from wagtail.wagtailsnippets.models import get_snippet_models
 from wagtail.wagtailsnippets.permissions import get_permission_name, user_can_edit_snippet_type
 

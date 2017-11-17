@@ -10,8 +10,8 @@ from wagtail.utils.pagination import paginate
 from wagtail.admin import messages
 from wagtail.admin.forms import SearchForm
 from wagtail.admin.utils import any_permission_required, permission_required
-from wagtail.wagtailsearch import forms as search_forms
-from wagtail.wagtailsearch.models import Query
+from wagtail.search import forms as search_forms
+from wagtail.search.models import Query
 
 
 @any_permission_required(

@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 
 from django.db import migrations, models
 import django.db.models.deletion
-import wagtail.wagtailsearch.index
+import wagtail.search.index
 
 
 class Migration(migrations.Migration):
@@ -30,6 +30,6 @@ class Migration(migrations.Migration):
                 ('title', models.CharField(max_length=255)),
                 ('author', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='modeladmintest.Author')),
             ],
-            bases=(models.Model, wagtail.wagtailsearch.index.Indexed),
+            bases=(models.Model, wagtail.search.index.Indexed),
         ),
     ]

@@ -8,7 +8,7 @@ Promoted search results
 
 .. versionchanged:: 1.1
 
-    Before Wagtail 1.1, promoted search results were implemented in the :mod:`wagtail.wagtailsearch` core module and called "editors picks".
+    Before Wagtail 1.1, promoted search results were implemented in the :mod:`wagtail.search` core module and called "editors picks".
 
 The ``searchpromotions`` module provides the models and user interface for managing "Promoted search results" and displaying them in a search results page.
 
