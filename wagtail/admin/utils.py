@@ -18,7 +18,7 @@ from modelcluster.fields import ParentalKey
 from taggit.models import Tag
 
 from wagtail.core.models import GroupPagePermission, Page, PageRevision
-from wagtail.wagtailusers.models import UserProfile
+from wagtail.users.models import UserProfile
 
 logger = logging.getLogger('wagtail.admin')
 
