@@ -14,8 +14,8 @@ from wagtail.core import blocks
 from wagtail.core.blocks import StreamValue
 from wagtail.core.fields import StreamField
 from wagtail.core.rich_text import RichText
-from wagtail.wagtailimages.models import Image
-from wagtail.wagtailimages.tests.utils import get_test_image_file
+from wagtail.images.models import Image
+from wagtail.images.tests.utils import get_test_image_file
 
 
 class TestLazyStreamField(TestCase):

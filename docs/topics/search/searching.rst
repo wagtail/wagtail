@@ -50,7 +50,7 @@ Wagtail's document and image models provide a ``search`` method on their QuerySe
 
 .. code-block:: python
 
-    >>> from wagtail.wagtailimages.models import Image
+    >>> from wagtail.images.models import Image
 
     >>> Image.objects.filter(uploaded_by_user=user).search("Hello")
     [<Image: Hello>, <Image: Hello world!>]
