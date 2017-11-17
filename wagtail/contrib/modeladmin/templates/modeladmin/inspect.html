@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/base.html" %}
-{% load i18n modeladmin_tags %}
+{% load i18n modeladmin_tags admin_static %}
 
 {% block titletag %}{{ view.get_meta_title }}{% endblock %}
 
@@ -15,8 +15,10 @@
 {% block content %}
 
     {% block header %}
-        {% breadcrumb %}
+        {% inject_into_include '<div class="row nice-padding">' %}
+          {% breadcrumb %}
           {% include "wagtailadmin/shared/header.html" with title=view.get_page_title subtitle=view.get_page_subtitle icon=view.header_icon tabbed=True %}
+        {% end_inject_into_include %}
     {% endblock %}
 
     <div>
