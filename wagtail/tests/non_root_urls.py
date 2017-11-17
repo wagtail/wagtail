@@ -7,7 +7,7 @@ from django.conf.urls import include, url
 
 from wagtail.wagtailadmin import urls as wagtailadmin_urls
 from wagtail.wagtailcore import urls as wagtail_urls
-from wagtail.wagtaildocs import urls as wagtaildocs_urls
+from wagtail.documents import urls as wagtaildocs_urls
 from wagtail.wagtailimages import urls as wagtailimages_urls
 from wagtail.wagtailsearch import urls as wagtailsearch_urls
 

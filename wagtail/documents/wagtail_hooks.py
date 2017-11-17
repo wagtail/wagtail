@@ -16,12 +16,12 @@ from wagtail.wagtailadmin.site_summary import SummaryItem
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import BaseViewRestriction
 from wagtail.wagtailcore.wagtail_hooks import require_wagtail_login
-from wagtail.wagtaildocs import admin_urls
-from wagtail.wagtaildocs.api.admin.endpoints import DocumentsAdminAPIEndpoint
-from wagtail.wagtaildocs.forms import GroupDocumentPermissionFormSet
-from wagtail.wagtaildocs.models import get_document_model
-from wagtail.wagtaildocs.permissions import permission_policy
-from wagtail.wagtaildocs.rich_text import DocumentLinkHandler
+from wagtail.documents import admin_urls
+from wagtail.documents.api.admin.endpoints import DocumentsAdminAPIEndpoint
+from wagtail.documents.forms import GroupDocumentPermissionFormSet
+from wagtail.documents.models import get_document_model
+from wagtail.documents.permissions import permission_policy
+from wagtail.documents.rich_text import DocumentLinkHandler
 
 
 @hooks.register('register_admin_urls')

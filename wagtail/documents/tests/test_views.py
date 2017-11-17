@@ -12,7 +12,7 @@ from django.test.utils import override_settings
 from django.urls import reverse
 
 from wagtail.tests.utils import WagtailTestUtils
-from wagtail.wagtaildocs import models
+from wagtail.documents import models
 
 
 class TestEditView(TestCase, WagtailTestUtils):

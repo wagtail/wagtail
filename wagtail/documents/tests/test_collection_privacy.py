@@ -7,7 +7,7 @@ from django.urls import reverse
 from django.utils.six import b
 
 from wagtail.wagtailcore.models import Collection, CollectionViewRestriction
-from wagtail.wagtaildocs.models import Document
+from wagtail.documents.models import Document
 
 try:
     from urllib.parse import quote

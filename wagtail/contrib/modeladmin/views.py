@@ -880,7 +880,7 @@ class InspectView(InstanceSpecificView):
 
         # wagtail.wagtaildocuments might not be installed
         try:
-            from wagtail.wagtaildocs.models import AbstractDocument
+            from wagtail.documents.models import AbstractDocument
             if isinstance(val, AbstractDocument):
                 # Render a link to the document
                 return self.get_document_field_display(field_name, field)

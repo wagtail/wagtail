@@ -270,7 +270,7 @@ A control for selecting a page object, using Wagtail's page browser. The followi
 DocumentChooserBlock
 ~~~~~~~~~~~~~~~~~~~~
 
-``wagtail.wagtaildocs.blocks.DocumentChooserBlock``
+``wagtail.documents.blocks.DocumentChooserBlock``
 
 A control to allow the editor to select an existing document object, or upload a new one. The keyword argument ``required`` (default: True) is accepted.
 
