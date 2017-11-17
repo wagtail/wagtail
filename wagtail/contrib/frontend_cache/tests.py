@@ -5,9 +5,9 @@ from django.core.exceptions import ImproperlyConfigured
 from django.test import TestCase
 from django.test.utils import override_settings
 
-from wagtail.contrib.wagtailfrontendcache.backends import (
+from wagtail.contrib.frontend_cache.backends import (
     BaseBackend, CloudflareBackend, CloudfrontBackend, HTTPBackend)
-from wagtail.contrib.wagtailfrontendcache.utils import get_backends
+from wagtail.contrib.frontend_cache.utils import get_backends
 from wagtail.tests.testapp.models import EventIndex
 from wagtail.core.models import Page
 
@@ -25,7 +25,7 @@ class TestBackendConfiguration(TestCase):
     def test_varnish(self):
         backends = get_backends(backend_settings={
             'varnish': {
-                'BACKEND': 'wagtail.contrib.wagtailfrontendcache.backends.HTTPBackend',
+                'BACKEND': 'wagtail.contrib.frontend_cache.backends.HTTPBackend',
                 'LOCATION': 'http://localhost:8000',
             },
         })
@@ -39,7 +39,7 @@ class TestBackendConfiguration(TestCase):
     def test_cloudflare(self):
         backends = get_backends(backend_settings={
             'cloudflare': {
-                'BACKEND': 'wagtail.contrib.wagtailfrontendcache.backends.CloudflareBackend',
+                'BACKEND': 'wagtail.contrib.frontend_cache.backends.CloudflareBackend',
                 'EMAIL': 'test@test.com',
                 'TOKEN': 'this is the token',
                 'ZONEID': 'this is a zone id',
@@ -55,7 +55,7 @@ class TestBackendConfiguration(TestCase):
     def test_cloudfront(self):
         backends = get_backends(backend_settings={
             'cloudfront': {
-                'BACKEND': 'wagtail.contrib.wagtailfrontendcache.backends.CloudfrontBackend',
+                'BACKEND': 'wagtail.contrib.frontend_cache.backends.CloudfrontBackend',
                 'DISTRIBUTION_ID': 'frontend',
             },
         })
@@ -69,15 +69,15 @@ class TestBackendConfiguration(TestCase):
         with self.assertRaises(ImproperlyConfigured):
             get_backends(backend_settings={
                 'cloudfront': {
-                    'BACKEND': 'wagtail.contrib.wagtailfrontendcache.backends.CloudfrontBackend',
+                    'BACKEND': 'wagtail.contrib.frontend_cache.backends.CloudfrontBackend',
                 },
             })
 
-    @mock.patch('wagtail.contrib.wagtailfrontendcache.backends.CloudfrontBackend._create_invalidation')
+    @mock.patch('wagtail.contrib.frontend_cache.backends.CloudfrontBackend._create_invalidation')
     def test_cloudfront_distribution_id_mapping(self, _create_invalidation):
         backends = get_backends(backend_settings={
             'cloudfront': {
-                'BACKEND': 'wagtail.contrib.wagtailfrontendcache.backends.CloudfrontBackend',
+                'BACKEND': 'wagtail.contrib.frontend_cache.backends.CloudfrontBackend',
                 'DISTRIBUTION_ID': {
                     'www.wagtail.io': 'frontend',
                 }
@@ -91,11 +91,11 @@ class TestBackendConfiguration(TestCase):
     def test_multiple(self):
         backends = get_backends(backend_settings={
             'varnish': {
-                'BACKEND': 'wagtail.contrib.wagtailfrontendcache.backends.HTTPBackend',
+                'BACKEND': 'wagtail.contrib.frontend_cache.backends.HTTPBackend',
                 'LOCATION': 'http://localhost:8000/',
             },
             'cloudflare': {
-                'BACKEND': 'wagtail.contrib.wagtailfrontendcache.backends.CloudflareBackend',
+                'BACKEND': 'wagtail.contrib.frontend_cache.backends.CloudflareBackend',
                 'EMAIL': 'test@test.com',
                 'TOKEN': 'this is the token',
                 'ZONEID': 'this is a zone id',
@@ -107,11 +107,11 @@ class TestBackendConfiguration(TestCase):
     def test_filter(self):
         backends = get_backends(backend_settings={
             'varnish': {
-                'BACKEND': 'wagtail.contrib.wagtailfrontendcache.backends.HTTPBackend',
+                'BACKEND': 'wagtail.contrib.frontend_cache.backends.HTTPBackend',
                 'LOCATION': 'http://localhost:8000/',
             },
             'cloudflare': {
-                'BACKEND': 'wagtail.contrib.wagtailfrontendcache.backends.CloudflareBackend',
+                'BACKEND': 'wagtail.contrib.frontend_cache.backends.CloudflareBackend',
                 'EMAIL': 'test@test.com',
                 'TOKEN': 'this is the token',
                 'ZONEID': 'this is a zone id',
@@ -143,7 +143,7 @@ class MockBackend(BaseBackend):
 
 @override_settings(WAGTAILFRONTENDCACHE={
     'varnish': {
-        'BACKEND': 'wagtail.contrib.wagtailfrontendcache.tests.MockBackend',
+        'BACKEND': 'wagtail.contrib.frontend_cache.tests.MockBackend',
     },
 })
 class TestCachePurgingFunctions(TestCase):
@@ -183,7 +183,7 @@ class TestCachePurgingFunctions(TestCase):
 
 @override_settings(WAGTAILFRONTENDCACHE={
     'varnish': {
-        'BACKEND': 'wagtail.contrib.wagtailfrontendcache.tests.MockBackend',
+        'BACKEND': 'wagtail.contrib.frontend_cache.tests.MockBackend',
     },
 })
 class TestCachePurgingSignals(TestCase):
