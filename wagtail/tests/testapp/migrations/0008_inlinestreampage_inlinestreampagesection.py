@@ -7,7 +7,7 @@ import django.db.models.deletion
 import modelcluster.fields
 import wagtail.wagtailcore.blocks
 import wagtail.wagtailcore.fields
-import wagtail.wagtailimages.blocks
+import wagtail.images.blocks
 
 
 class Migration(migrations.Migration):
@@ -33,7 +33,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('sort_order', models.IntegerField(blank=True, editable=False, null=True)),
-                ('body', wagtail.wagtailcore.fields.StreamField((('text', wagtail.wagtailcore.blocks.CharBlock()), ('rich_text', wagtail.wagtailcore.blocks.RichTextBlock()), ('image', wagtail.wagtailimages.blocks.ImageChooserBlock())))),
+                ('body', wagtail.wagtailcore.fields.StreamField((('text', wagtail.wagtailcore.blocks.CharBlock()), ('rich_text', wagtail.wagtailcore.blocks.RichTextBlock()), ('image', wagtail.images.blocks.ImageChooserBlock())))),
                 ('page', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='sections', to='tests.InlineStreamPage')),
             ],
             options={

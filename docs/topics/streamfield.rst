@@ -23,7 +23,7 @@ Using StreamField
     from wagtail.wagtailcore.fields import StreamField
     from wagtail.wagtailcore import blocks
     from wagtail.wagtailadmin.edit_handlers import FieldPanel, StreamFieldPanel
-    from wagtail.wagtailimages.blocks import ImageChooserBlock
+    from wagtail.images.blocks import ImageChooserBlock
 
     class BlogPage(Page):
         author = models.CharField(max_length=255)
@@ -277,7 +277,7 @@ A control to allow the editor to select an existing document object, or upload a
 ImageChooserBlock
 ~~~~~~~~~~~~~~~~~
 
-``wagtail.wagtailimages.blocks.ImageChooserBlock``
+``wagtail.images.blocks.ImageChooserBlock``
 
 A control to allow the editor to select an existing image, or upload a new one. The keyword argument ``required`` (default: True) is accepted.
 

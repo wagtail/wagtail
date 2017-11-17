@@ -129,16 +129,16 @@ PageChooserPanel
 ImageChooserPanel
 -----------------
 
-.. module:: wagtail.wagtailimages.edit_handlers
+.. module:: wagtail.images.edit_handlers
 
 .. class:: ImageChooserPanel(field_name)
 
-    Wagtail includes a unified image library, which you can access in your models through the :class:`~wagtail.wagtailimages.models.Image` model and the ``ImageChooserPanel`` chooser. Here's how:
+    Wagtail includes a unified image library, which you can access in your models through the :class:`~wagtail.images.models.Image` model and the ``ImageChooserPanel`` chooser. Here's how:
 
     .. code-block:: python
 
-      from wagtail.wagtailimages.models import Image
-      from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
+      from wagtail.images.models import Image
+      from wagtail.images.edit_handlers import ImageChooserPanel
 
 
       class BookPage(Page):

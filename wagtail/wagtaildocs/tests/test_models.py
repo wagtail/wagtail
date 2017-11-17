@@ -10,7 +10,7 @@ from django.test.utils import override_settings
 from wagtail.wagtailcore.models import Collection, GroupCollectionPermission
 from wagtail.wagtaildocs import models, signal_handlers
 from wagtail.wagtaildocs.models import get_document_model
-from wagtail.wagtailimages.tests.utils import get_test_image_file
+from wagtail.images.tests.utils import get_test_image_file
 
 
 class TestDocumentQuerySet(TestCase):

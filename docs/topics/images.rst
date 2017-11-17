@@ -253,7 +253,7 @@ done from the Django shell:
 .. code-block:: python
 
     # Replace this with your custom rendition model if you use one
-    >>> from wagtail.wagtailimages.models import Rendition
+    >>> from wagtail.images.models import Rendition
     >>> Rendition.objects.all().delete()
 
 Changing per-tag

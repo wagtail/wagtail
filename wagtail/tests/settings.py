@@ -79,7 +79,7 @@ TEMPLATES = [
             'extensions': [
                 'wagtail.wagtailcore.jinja2tags.core',
                 'wagtail.wagtailadmin.jinja2tags.userbar',
-                'wagtail.wagtailimages.jinja2tags.images',
+                'wagtail.images.jinja2tags.images',
                 'wagtail.contrib.settings.jinja2tags.settings',
             ],
         },
@@ -121,7 +121,7 @@ INSTALLED_APPS = (
     'wagtail.wagtailforms',
     'wagtail.wagtailsearch',
     'wagtail.wagtailembeds',
-    'wagtail.wagtailimages',
+    'wagtail.images',
     'wagtail.wagtailsites',
     'wagtail.wagtailusers',
     'wagtail.wagtailsnippets',

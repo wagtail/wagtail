@@ -11,9 +11,9 @@ from wagtail.wagtailadmin import urls as wagtailadmin_urls
 from wagtail.wagtailcore import urls as wagtail_urls
 from wagtail.wagtaildocs import urls as wagtaildocs_urls
 from wagtail.wagtaildocs.api.v2.endpoints import DocumentsAPIEndpoint
-from wagtail.wagtailimages import urls as wagtailimages_urls
-from wagtail.wagtailimages.api.v2.endpoints import ImagesAPIEndpoint
-from wagtail.wagtailimages.tests import urls as wagtailimages_test_urls
+from wagtail.images import urls as wagtailimages_urls
+from wagtail.images.api.v2.endpoints import ImagesAPIEndpoint
+from wagtail.images.tests import urls as wagtailimages_test_urls
 from wagtail.wagtailsearch import urls as wagtailsearch_urls
 
 api_router = WagtailAPIRouter('wagtailapi_v2')

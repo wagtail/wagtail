@@ -12,7 +12,7 @@ from wagtail.wagtailadmin.widgets import (
     AdminAutoHeightTextInput, AdminDateInput, AdminDateTimeInput, AdminPageChooser, AdminTimeInput)
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtaildocs.widgets import AdminDocumentChooser
-from wagtail.wagtailimages.widgets import AdminImageChooser
+from wagtail.images.widgets import AdminImageChooser
 from wagtail.wagtailsnippets.widgets import AdminSnippetChooser
 
 

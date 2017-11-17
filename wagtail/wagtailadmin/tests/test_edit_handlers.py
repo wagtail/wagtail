@@ -19,7 +19,7 @@ from wagtail.wagtailadmin.forms import WagtailAdminModelForm, WagtailAdminPageFo
 from wagtail.wagtailadmin.rich_text import HalloRichTextArea
 from wagtail.wagtailadmin.widgets import AdminAutoHeightTextInput, AdminDateInput, AdminPageChooser
 from wagtail.wagtailcore.models import Page, Site
-from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
+from wagtail.images.edit_handlers import ImageChooserPanel
 
 
 class TestGetFormForModel(TestCase):
