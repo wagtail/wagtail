@@ -5,8 +5,8 @@ from django.urls import reverse
 
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailadmin import widgets as wagtailadmin_widgets
-from wagtail.wagtailcore import hooks
-from wagtail.wagtailcore.models import Page
+from wagtail.core import hooks
+from wagtail.core.models import Page
 
 
 class TestButtonsHooks(TestCase, WagtailTestUtils):

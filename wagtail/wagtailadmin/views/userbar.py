@@ -5,8 +5,8 @@ from django.shortcuts import render
 
 from wagtail.wagtailadmin.userbar import (
     AddPageItem, ApproveModerationEditPageItem, EditPageItem, RejectModerationEditPageItem)
-from wagtail.wagtailcore import hooks
-from wagtail.wagtailcore.models import Page, PageRevision
+from wagtail.core import hooks
+from wagtail.core.models import Page, PageRevision
 
 
 @permission_required('wagtailadmin.access_admin', raise_exception=True)

@@ -784,19 +784,19 @@ class TestBackendConfiguration(TestCase):
 
 class TestGetModelRoot(TestCase):
     def test_root_model(self):
-        from wagtail.wagtailcore.models import Page
+        from wagtail.core.models import Page
 
         self.assertEqual(get_model_root(Page), Page)
 
     def test_child_model(self):
-        from wagtail.wagtailcore.models import Page
+        from wagtail.core.models import Page
         from wagtail.tests.testapp.models import SimplePage
 
         self.assertEqual(get_model_root(SimplePage), Page)
 
     def test_grandchild_model(self):
         # MTIChildPage inherits from MTIBasePage which inherits from Page
-        from wagtail.wagtailcore.models import Page
+        from wagtail.core.models import Page
         from wagtail.tests.testapp.models import MTIChildPage
 
         self.assertEqual(get_model_root(MTIChildPage), Page)

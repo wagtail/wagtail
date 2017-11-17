@@ -17,8 +17,8 @@ from taggit.forms import TagWidget
 
 from wagtail.utils.widgets import WidgetWithScript
 from wagtail.wagtailadmin.datetimepicker import to_datetimepicker_format
-from wagtail.wagtailcore import hooks
-from wagtail.wagtailcore.models import Page
+from wagtail.core import hooks
+from wagtail.core.models import Page
 
 DEFAULT_DATE_FORMAT = '%Y-%m-%d'
 DEFAULT_DATETIME_FORMAT = '%Y-%m-%d %H:%M'

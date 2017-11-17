@@ -12,7 +12,7 @@ from django.urls import reverse
 from mock import patch
 
 from wagtail.tests.utils import WagtailTestUtils
-from wagtail.wagtailcore import blocks
+from wagtail.core import blocks
 from wagtail.wagtailembeds import oembed_providers
 from wagtail.wagtailembeds.blocks import EmbedBlock, EmbedValue
 from wagtail.wagtailembeds.embeds import get_embed

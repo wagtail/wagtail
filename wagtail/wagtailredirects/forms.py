@@ -4,7 +4,7 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _
 
 from wagtail.wagtailadmin.widgets import AdminPageChooser
-from wagtail.wagtailcore.models import Site
+from wagtail.core.models import Site
 from wagtail.wagtailredirects.models import Redirect
 
 

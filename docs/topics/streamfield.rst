@@ -19,9 +19,9 @@ Using StreamField
 
     from django.db import models
 
-    from wagtail.wagtailcore.models import Page
-    from wagtail.wagtailcore.fields import StreamField
-    from wagtail.wagtailcore import blocks
+    from wagtail.core.models import Page
+    from wagtail.core.fields import StreamField
+    from wagtail.core import blocks
     from wagtail.wagtailadmin.edit_handlers import FieldPanel, StreamFieldPanel
     from wagtail.wagtailimages.blocks import ImageChooserBlock
 
@@ -74,7 +74,7 @@ The basic block types provided by Wagtail are as follows:
 CharBlock
 ~~~~~~~~~
 
-``wagtail.wagtailcore.blocks.CharBlock``
+``wagtail.core.blocks.CharBlock``
 
 A single-line text input. The following keyword arguments are accepted:
 
@@ -90,14 +90,14 @@ A single-line text input. The following keyword arguments are accepted:
 TextBlock
 ~~~~~~~~~
 
-``wagtail.wagtailcore.blocks.TextBlock``
+``wagtail.core.blocks.TextBlock``
 
 A multi-line text input. As with ``CharBlock``, the keyword arguments ``required`` (default: True), ``max_length``, ``min_length`` and ``help_text`` are accepted.
 
 EmailBlock
 ~~~~~~~~~~
 
-``wagtail.wagtailcore.blocks.EmailBlock``
+``wagtail.core.blocks.EmailBlock``
 
 A single-line email input that validates that the email is a valid Email Address. The keyword arguments ``required`` (default: True) and ``help_text`` are accepted.
 
@@ -106,7 +106,7 @@ For an example of ``EmailBlock`` in use, see :ref:`streamfield_personblock_examp
 IntegerBlock
 ~~~~~~~~~~~~
 
-``wagtail.wagtailcore.blocks.IntegerBlock``
+``wagtail.core.blocks.IntegerBlock``
 
 A single-line integer input that validates that the integer is a valid whole number. The keyword arguments ``required`` (default: True), ``max_value``, ``min_value`` and ``help_text`` are accepted.
 
@@ -115,14 +115,14 @@ For an example of ``IntegerBlock`` in use, see :ref:`streamfield_personblock_exa
 FloatBlock
 ~~~~~~~~~~
 
-``wagtail.wagtailcore.blocks.FloatBlock``
+``wagtail.core.blocks.FloatBlock``
 
 A single-line Float input that validates that the value is a valid floating point number. The keyword arguments ``required`` (default: True), ``max_value`` and ``min_value``  are accepted.
 
 DecimalBlock
 ~~~~~~~~~~~~
 
-``wagtail.wagtailcore.blocks.DecimalBlock``
+``wagtail.core.blocks.DecimalBlock``
 
 A single-line decimal input that validates that the value is a valid decimal number. The keyword arguments ``required`` (default: True), ``help_text``, ``max_value``, ``min_value``, ``max_digits`` and ``decimal_places`` are accepted.
 
@@ -131,7 +131,7 @@ For an example of ``DecimalBlock`` in use, see :ref:`streamfield_personblock_exa
 RegexBlock
 ~~~~~~~~~~
 
-``wagtail.wagtailcore.blocks.RegexBlock``
+``wagtail.core.blocks.RegexBlock``
 
 A single-line text input that validates a string against a regex expression. The regular expression used for validation must be supplied as the first argument, or as the keyword argument ``regex``. To customise the message text used to indicate a validation error, pass a dictionary as the keyword argument ``error_messages`` containing either or both of the keys ``required`` (for the message shown on an empty value) or ``invalid`` (for the message shown on a non-matching value):
 
@@ -146,21 +146,21 @@ The keyword arguments ``regex``, ``help_text``, ``required`` (default: True), ``
 URLBlock
 ~~~~~~~~
 
-``wagtail.wagtailcore.blocks.URLBlock``
+``wagtail.core.blocks.URLBlock``
 
 A single-line text input that validates that the string is a valid URL. The keyword arguments ``required`` (default: True), ``max_length``, ``min_length`` and ``help_text`` are accepted.
 
 BooleanBlock
 ~~~~~~~~~~~~
 
-``wagtail.wagtailcore.blocks.BooleanBlock``
+``wagtail.core.blocks.BooleanBlock``
 
 A checkbox. The keyword arguments ``required`` and ``help_text`` are accepted. As with Django's ``BooleanField``, a value of ``required=True`` (the default) indicates that the checkbox must be ticked in order to proceed. For a checkbox that can be ticked or unticked, you must explicitly pass in ``required=False``.
 
 DateBlock
 ~~~~~~~~~
 
-``wagtail.wagtailcore.blocks.DateBlock``
+``wagtail.core.blocks.DateBlock``
 
 A date picker. The keyword arguments ``required`` (default: True), ``help_text`` and ``format`` are accepted.
 
@@ -170,14 +170,14 @@ A date picker. The keyword arguments ``required`` (default: True), ``help_text``
 TimeBlock
 ~~~~~~~~~
 
-``wagtail.wagtailcore.blocks.TimeBlock``
+``wagtail.core.blocks.TimeBlock``
 
 A time picker. The keyword arguments ``required`` (default: True) and ``help_text`` are accepted.
 
 DateTimeBlock
 ~~~~~~~~~~~~~
 
-``wagtail.wagtailcore.blocks.DateTimeBlock``
+``wagtail.core.blocks.DateTimeBlock``
 
 A combined date / time picker. The keyword arguments ``required`` (default: True), ``help_text`` and ``format`` are accepted.
 
@@ -187,14 +187,14 @@ A combined date / time picker. The keyword arguments ``required`` (default: True
 RichTextBlock
 ~~~~~~~~~~~~~
 
-``wagtail.wagtailcore.blocks.RichTextBlock``
+``wagtail.core.blocks.RichTextBlock``
 
 A WYSIWYG editor for creating formatted text including links, bold / italics etc. The keyword argument ``features`` is accepted, to specify the set of features allowed (see :ref:`rich_text_features`).
 
 RawHTMLBlock
 ~~~~~~~~~~~~
 
-``wagtail.wagtailcore.blocks.RawHTMLBlock``
+``wagtail.core.blocks.RawHTMLBlock``
 
 A text area for entering raw HTML which will be rendered unescaped in the page output. The keyword arguments ``required`` (default: True), ``max_length``, ``min_length`` and ``help_text`` are accepted.
 
@@ -204,7 +204,7 @@ A text area for entering raw HTML which will be rendered unescaped in the page o
 BlockQuoteBlock
 ~~~~~~~~~~~~~~~
 
-``wagtail.wagtailcore.blocks.BlockQuoteBlock``
+``wagtail.core.blocks.BlockQuoteBlock``
 
 A text field, the contents of which will be wrapped in an HTML `<blockquote>` tag pair. The keyword arguments ``required`` (default: True), ``max_length``, ``min_length`` and ``help_text`` are accepted.
 
@@ -212,7 +212,7 @@ A text field, the contents of which will be wrapped in an HTML `<blockquote>` ta
 ChoiceBlock
 ~~~~~~~~~~~
 
-``wagtail.wagtailcore.blocks.ChoiceBlock``
+``wagtail.core.blocks.ChoiceBlock``
 
 A dropdown select box for choosing from a list of choices. The following keyword arguments are accepted:
 
@@ -254,7 +254,7 @@ could be rewritten as a subclass of ChoiceBlock:
 PageChooserBlock
 ~~~~~~~~~~~~~~~~
 
-``wagtail.wagtailcore.blocks.PageChooserBlock``
+``wagtail.core.blocks.PageChooserBlock``
 
 A control for selecting a page object, using Wagtail's page browser. The following keyword arguments are accepted:
 
@@ -301,7 +301,7 @@ A field for the editor to enter a URL to a media item (such as a YouTube video) 
 StaticBlock
 ~~~~~~~~~~~
 
-``wagtail.wagtailcore.blocks.StaticBlock``
+``wagtail.core.blocks.StaticBlock``
 
 A block which doesn't have any fields, thus passes no particular values to its template during rendering. This can be useful if you need the editor to be able to insert some content which is always the same or doesn't need to be configured within the page editor, such as an address, embed code from third-party services, or more complex pieces of code if the template uses template tags.
 
@@ -334,7 +334,7 @@ In addition to the basic block types above, it is possible to define new block t
 StructBlock
 ~~~~~~~~~~~
 
-``wagtail.wagtailcore.blocks.StructBlock``
+``wagtail.core.blocks.StructBlock``
 
 A block consisting of a fixed group of sub-blocks to be displayed together. Takes a list of ``(name, block_definition)`` tuples as its first argument:
 
@@ -381,7 +381,7 @@ Further options are available for customising the display of a ``StructBlock`` w
 ListBlock
 ~~~~~~~~~
 
-``wagtail.wagtailcore.blocks.ListBlock``
+``wagtail.core.blocks.ListBlock``
 
 A block consisting of many sub-blocks, all of the same type. The editor can add an unlimited number of sub-blocks, and re-order and delete them. Takes the definition of the sub-block as its first argument:
 
@@ -403,7 +403,7 @@ Any block type is valid as the sub-block type, including structural types:
 StreamBlock
 ~~~~~~~~~~~
 
-``wagtail.wagtailcore.blocks.StreamBlock``
+``wagtail.core.blocks.StreamBlock``
 
 A block consisting of a sequence of sub-blocks of different types, which can be mixed and reordered at will. Used as the overall mechanism of the StreamField itself, but can also be nested or used within other structural block types. Takes a list of ``(name, block_definition)`` tuples as its first argument:
 
@@ -469,7 +469,7 @@ This example demonstrates how the basic block types introduced above can be comb
 
 .. code-block:: python
 
-    from wagtail.wagtailcore import blocks
+    from wagtail.core import blocks
 
     class PersonBlock(blocks.StructBlock):
         name = blocks.CharBlock()
@@ -853,7 +853,7 @@ Custom block types
 
 If you need to implement a custom UI, or handle a datatype that is not provided by Wagtail's built-in block types (and cannot built up as a structure of existing fields), it is possible to define your own custom block types. For further guidance, refer to the source code of Wagtail's built-in block classes.
 
-For block types that simply wrap an existing Django form field, Wagtail provides an abstract class ``wagtail.wagtailcore.blocks.FieldBlock`` as a helper. Subclasses just need to set a ``field`` property that returns the form field object:
+For block types that simply wrap an existing Django form field, Wagtail provides an abstract class ``wagtail.core.blocks.FieldBlock`` as a helper. Subclasses just need to set a ``field`` property that returns the form field object:
 
 .. code-block:: python
 
@@ -888,7 +888,7 @@ If you change an existing RichTextField to a StreamField, and create and run mig
     from __future__ import unicode_literals
 
     from django.db import models, migrations
-    from wagtail.wagtailcore.rich_text import RichText
+    from wagtail.core.rich_text import RichText
 
 
     def convert_to_streamfield(apps, schema_editor):
@@ -938,7 +938,7 @@ Note that the above migration will work on published Page objects only. If you a
     from django.core.serializers.json import DjangoJSONEncoder
     from django.db import migrations, models
 
-    from wagtail.wagtailcore.rich_text import RichText
+    from wagtail.core.rich_text import RichText
 
 
     def page_to_streamfield(page):

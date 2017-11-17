@@ -8,7 +8,7 @@ from wagtail.contrib.wagtailroutablepage.templatetags.wagtailroutablepage_tags i
     routablepageurl
 from wagtail.tests.routablepage.models import (
     RoutablePageTest, RoutablePageWithOverriddenIndexRouteTest)
-from wagtail.wagtailcore.models import Page, Site
+from wagtail.core.models import Page, Site
 
 
 class TestRoutablePage(TestCase):
@@ -188,7 +188,7 @@ class TestRoutablePageTemplateTag(TestCase):
         self.assertEqual(url, self.routable_page.url + 'external/joe-bloggs/')
 
     def test_templatetag_reverse_external_view_without_append_slash(self):
-        with mock.patch('wagtail.wagtailcore.models.WAGTAIL_APPEND_SLASH', False):
+        with mock.patch('wagtail.core.models.WAGTAIL_APPEND_SLASH', False):
             url = routablepageurl(self.context, self.routable_page,
                                   'external_view', 'joe-bloggs')
             expected = self.routable_page.url + '/' + 'external/joe-bloggs/'

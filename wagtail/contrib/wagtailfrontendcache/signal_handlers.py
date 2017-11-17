@@ -3,7 +3,7 @@ from __future__ import absolute_import, unicode_literals
 from django.apps import apps
 
 from wagtail.contrib.wagtailfrontendcache.utils import purge_page_from_cache
-from wagtail.wagtailcore.signals import page_published, page_unpublished
+from wagtail.core.signals import page_published, page_unpublished
 
 
 def page_published_signal_handler(instance, **kwargs):

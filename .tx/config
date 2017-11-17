@@ -8,8 +8,8 @@ source_lang = en
 type = PO
 
 [wagtail.wagtailcore]
-file_filter = wagtail/wagtailcore/locale/<lang>/LC_MESSAGES/django.po
-source_file = wagtail/wagtailcore/locale/en/LC_MESSAGES/django.po
+file_filter = wagtail/core/locale/<lang>/LC_MESSAGES/django.po
+source_file = wagtail/core/locale/en/LC_MESSAGES/django.po
 source_lang = en
 type = PO
 

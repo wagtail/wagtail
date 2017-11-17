@@ -8,7 +8,7 @@ from django.utils.http import urlencode
 from wagtail.tests.testapp.models import EventIndex, EventPage, SimplePage, SingleEventPage
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailadmin.views.chooser import can_choose_page
-from wagtail.wagtailcore.models import Page, UserPagePermissionsProxy
+from wagtail.core.models import Page, UserPagePermissionsProxy
 
 
 class TestChooserBrowse(TestCase, WagtailTestUtils):

@@ -8,7 +8,7 @@ from django.utils import translation
 from django.utils.functional import cached_property
 
 from wagtail.utils.widgets import WidgetWithScript
-from wagtail.wagtailcore.blocks import FieldBlock
+from wagtail.core.blocks import FieldBlock
 
 
 class TableInput(WidgetWithScript, forms.HiddenInput):

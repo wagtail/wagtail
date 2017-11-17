@@ -5,7 +5,7 @@ from django.test import TestCase
 
 from wagtail.tests.testapp.models import TestSetting
 from wagtail.tests.utils import WagtailTestUtils
-from wagtail.wagtailcore.models import Page, Site
+from wagtail.core.models import Page, Site
 
 
 class TemplateTestCase(TestCase, WagtailTestUtils):

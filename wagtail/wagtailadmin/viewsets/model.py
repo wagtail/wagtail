@@ -5,7 +5,7 @@ from django.core.exceptions import ImproperlyConfigured
 from django.forms.models import modelform_factory
 
 from wagtail.wagtailadmin.views import generic
-from wagtail.wagtailcore.permissions import ModelPermissionPolicy
+from wagtail.core.permissions import ModelPermissionPolicy
 
 from .base import ViewSet
 

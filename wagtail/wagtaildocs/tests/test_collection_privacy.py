@@ -6,7 +6,7 @@ from django.test import TestCase
 from django.urls import reverse
 from django.utils.six import b
 
-from wagtail.wagtailcore.models import Collection, CollectionViewRestriction
+from wagtail.core.models import Collection, CollectionViewRestriction
 from wagtail.wagtaildocs.models import Document
 
 try:

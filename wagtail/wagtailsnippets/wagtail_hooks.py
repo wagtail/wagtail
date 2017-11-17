@@ -9,7 +9,7 @@ from django.utils.html import format_html
 from django.utils.translation import ugettext_lazy as _
 
 from wagtail.wagtailadmin.menu import MenuItem
-from wagtail.wagtailcore import hooks
+from wagtail.core import hooks
 from wagtail.wagtailsnippets import urls
 from wagtail.wagtailsnippets.models import get_snippet_models
 from wagtail.wagtailsnippets.permissions import user_can_edit_snippets

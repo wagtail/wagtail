@@ -19,7 +19,7 @@ from modelcluster.forms import ClusterForm, ClusterFormMetaclass
 from taggit.managers import TaggableManager
 
 from wagtail.wagtailadmin import widgets
-from wagtail.wagtailcore.models import (
+from wagtail.core.models import (
     BaseViewRestriction, Collection, CollectionViewRestriction, GroupCollectionPermission, Page,
     PageViewRestriction)
 

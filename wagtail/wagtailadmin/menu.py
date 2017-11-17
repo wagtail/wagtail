@@ -8,7 +8,7 @@ from django.utils.safestring import mark_safe
 from django.utils.six import with_metaclass
 from django.utils.text import slugify
 
-from wagtail.wagtailcore import hooks
+from wagtail.core import hooks
 
 
 class MenuItem(with_metaclass(MediaDefiningClass)):

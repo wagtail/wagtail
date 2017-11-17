@@ -12,8 +12,8 @@ from wagtail.wagtailadmin.search import SearchArea
 from wagtail.wagtailadmin.utils import user_has_any_page_permission
 from wagtail.wagtailadmin.viewsets import viewsets
 from wagtail.wagtailadmin.widgets import Button, ButtonWithDropdownFromHook, PageListingButton
-from wagtail.wagtailcore import hooks
-from wagtail.wagtailcore.permissions import collection_permission_policy
+from wagtail.core import hooks
+from wagtail.core.permissions import collection_permission_policy
 
 
 class ExplorerMenuItem(MenuItem):

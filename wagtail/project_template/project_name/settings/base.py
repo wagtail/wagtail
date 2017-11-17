@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'wagtail.wagtailimages',
     'wagtail.wagtailsearch',
     'wagtail.wagtailadmin',
-    'wagtail.wagtailcore',
+    'wagtail.core',
 
     'modelcluster',
     'taggit',
@@ -61,7 +61,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
 
-    'wagtail.wagtailcore.middleware.SiteMiddleware',
+    'wagtail.core.middleware.SiteMiddleware',
     'wagtail.wagtailredirects.middleware.RedirectMiddleware',
 ]
 
