@@ -9,9 +9,9 @@ from wagtail.utils.pagination import paginate
 from wagtail.wagtailadmin import messages
 from wagtail.wagtailadmin.forms import SearchForm
 from wagtail.wagtailadmin.utils import PermissionPolicyChecker, permission_denied
-from wagtail.wagtailredirects import models
-from wagtail.wagtailredirects.forms import RedirectForm
-from wagtail.wagtailredirects.permissions import permission_policy
+from wagtail.contrib.redirects import models
+from wagtail.contrib.redirects.forms import RedirectForm
+from wagtail.contrib.redirects.permissions import permission_policy
 
 permission_checker = PermissionPolicyChecker(permission_policy)
 

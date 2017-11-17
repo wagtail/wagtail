@@ -39,7 +39,7 @@ Middleware (``settings.py``)
 
     'wagtail.wagtailcore.middleware.SiteMiddleware',
 
-    'wagtail.wagtailredirects.middleware.RedirectMiddleware',
+    'wagtail.contrib.redirects.middleware.RedirectMiddleware',
   ]
 
 Wagtail requires several common Django middleware modules to work and cover basic security. Wagtail provides its own middleware to cover these tasks:
@@ -61,7 +61,7 @@ Apps (``settings.py``)
     'myapp',  # your own app
 
     'wagtail.contrib.forms',
-    'wagtail.wagtailredirects',
+    'wagtail.contrib.redirects',
     'wagtail.wagtailembeds',
     'wagtail.sites',
     'wagtail.users',
@@ -503,7 +503,7 @@ These two files should reside in your project directory (``myproject/myproject/`
       'myapp',
 
       'wagtail.contrib.forms',
-      'wagtail.wagtailredirects',
+      'wagtail.contrib.redirects',
       'wagtail.wagtailembeds',
       'wagtail.sites',
       'wagtail.users',
@@ -535,7 +535,7 @@ These two files should reside in your project directory (``myproject/myproject/`
       'django.middleware.security.SecurityMiddleware',
 
       'wagtail.wagtailcore.middleware.SiteMiddleware',
-      'wagtail.wagtailredirects.middleware.RedirectMiddleware',
+      'wagtail.contrib.redirects.middleware.RedirectMiddleware',
   ]
 
   ROOT_URLCONF = 'myproject.urls'

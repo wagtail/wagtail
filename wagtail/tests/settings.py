@@ -95,14 +95,14 @@ MIDDLEWARE = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
     'wagtail.wagtailcore.middleware.SiteMiddleware',
-    'wagtail.wagtailredirects.middleware.RedirectMiddleware',
+    'wagtail.contrib.redirects.middleware.RedirectMiddleware',
 )
 
 INSTALLED_APPS = (
     # Install wagtailredirects with its appconfig
     # Theres nothing special about wagtailredirects, we just need to have one
     # app which uses AppConfigs to test that hooks load properly
-    'wagtail.wagtailredirects.apps.WagtailRedirectsAppConfig',
+    'wagtail.contrib.redirects.apps.WagtailRedirectsAppConfig',
 
     'wagtail.tests.testapp',
     'wagtail.tests.demosite',

@@ -30,7 +30,7 @@ INSTALLED_APPS = [
     'search',
 
     'wagtail.contrib.forms',
-    'wagtail.wagtailredirects',
+    'wagtail.contrib.redirects',
     'wagtail.wagtailembeds',
     'wagtail.sites',
     'wagtail.users',
@@ -62,7 +62,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
 
     'wagtail.wagtailcore.middleware.SiteMiddleware',
-    'wagtail.wagtailredirects.middleware.RedirectMiddleware',
+    'wagtail.contrib.redirects.middleware.RedirectMiddleware',
 ]
 
 ROOT_URLCONF = '{{ project_name }}.urls'
