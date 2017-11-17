@@ -1,7 +1,7 @@
 from __future__ import absolute_import, unicode_literals
 
-from wagtail.wagtailembeds import format
-from wagtail.wagtailembeds.exceptions import EmbedException
+from wagtail.embeds import format
+from wagtail.embeds.exceptions import EmbedException
 
 
 class MediaEmbedHandler(object):

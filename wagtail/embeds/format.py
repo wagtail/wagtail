@@ -2,8 +2,8 @@ from __future__ import absolute_import, unicode_literals
 
 from django.template.loader import render_to_string
 
-from wagtail.wagtailembeds import embeds
-from wagtail.wagtailembeds.exceptions import EmbedException
+from wagtail.embeds import embeds
+from wagtail.embeds.exceptions import EmbedException
 
 
 def embed_to_frontend_html(url):

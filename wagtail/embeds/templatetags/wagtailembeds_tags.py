@@ -3,8 +3,8 @@ from __future__ import absolute_import, unicode_literals
 from django import template
 from django.utils.safestring import mark_safe
 
-from wagtail.wagtailembeds import embeds
-from wagtail.wagtailembeds.exceptions import EmbedException
+from wagtail.embeds import embeds
+from wagtail.embeds.exceptions import EmbedException
 
 register = template.Library()
 
