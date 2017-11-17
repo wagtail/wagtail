@@ -44,7 +44,7 @@ Changelog
  * Fix: Custom PageManagers now return the correct PageQuerySet subclass (Matt Westcott)
 
 
-1.12.3 (xx.xx.20xx) - IN DEVELOPMENT
+1.12.3 (17.11.2017)
 ~~~~~~~~~~~~~~~~~~~
 
  * Fix: API listing views no longer fail when no site records are defined (Karl Hobley)
