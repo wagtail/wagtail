@@ -127,7 +127,7 @@ class TextBlock(FieldBlock):
 
     @cached_property
     def field(self):
-        from wagtail.wagtailadmin.widgets import AdminAutoHeightTextInput
+        from wagtail.admin.widgets import AdminAutoHeightTextInput
         field_kwargs = {'widget': AdminAutoHeightTextInput(attrs={'rows': self.rows})}
         field_kwargs.update(self.field_options)
         return forms.CharField(**field_kwargs)
@@ -244,7 +244,7 @@ class DateBlock(FieldBlock):
 
     @cached_property
     def field(self):
-        from wagtail.wagtailadmin.widgets import AdminDateInput
+        from wagtail.admin.widgets import AdminDateInput
         field_kwargs = {
             'widget': AdminDateInput(format=self.format),
         }
@@ -272,7 +272,7 @@ class TimeBlock(FieldBlock):
 
     @cached_property
     def field(self):
-        from wagtail.wagtailadmin.widgets import AdminTimeInput
+        from wagtail.admin.widgets import AdminTimeInput
         field_kwargs = {'widget': AdminTimeInput}
         field_kwargs.update(self.field_options)
         return forms.TimeField(**field_kwargs)
@@ -296,7 +296,7 @@ class DateTimeBlock(FieldBlock):
 
     @cached_property
     def field(self):
-        from wagtail.wagtailadmin.widgets import AdminDateTimeInput
+        from wagtail.admin.widgets import AdminDateTimeInput
         field_kwargs = {
             'widget': AdminDateTimeInput(format=self.format),
         }
@@ -475,7 +475,7 @@ class RichTextBlock(FieldBlock):
 
     @cached_property
     def field(self):
-        from wagtail.wagtailadmin.rich_text import get_rich_text_editor_widget
+        from wagtail.admin.rich_text import get_rich_text_editor_widget
         return forms.CharField(
             widget=get_rich_text_editor_widget(self.editor, features=self.features),
             **self.field_options
@@ -637,7 +637,7 @@ class PageChooserBlock(ChooserBlock):
 
     @cached_property
     def widget(self):
-        from wagtail.wagtailadmin.widgets import AdminPageChooser
+        from wagtail.admin.widgets import AdminPageChooser
         return AdminPageChooser(target_models=self.target_models,
                                 can_choose_root=self.can_choose_root)
 

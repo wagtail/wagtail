@@ -5,7 +5,7 @@ from collections import OrderedDict
 import django.forms
 from django.utils.translation import ugettext_lazy as _
 
-from wagtail.wagtailadmin.forms import WagtailAdminPageForm
+from wagtail.admin.forms import WagtailAdminPageForm
 
 
 class BaseForm(django.forms.Form):

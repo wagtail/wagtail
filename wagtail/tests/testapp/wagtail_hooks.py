@@ -4,9 +4,9 @@ from django import forms
 from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.http import HttpResponse
 
-from wagtail.wagtailadmin.menu import MenuItem
-from wagtail.wagtailadmin.rich_text import HalloPlugin
-from wagtail.wagtailadmin.search import SearchArea
+from wagtail.admin.menu import MenuItem
+from wagtail.admin.rich_text import HalloPlugin
+from wagtail.admin.search import SearchArea
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.whitelist import allow_without_attributes, attribute_rule, check_url
 

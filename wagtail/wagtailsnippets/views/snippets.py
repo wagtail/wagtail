@@ -8,11 +8,11 @@ from django.utils.text import capfirst
 from django.utils.translation import ugettext as _
 
 from wagtail.utils.pagination import paginate
-from wagtail.wagtailadmin import messages
-from wagtail.wagtailadmin.edit_handlers import (
+from wagtail.admin import messages
+from wagtail.admin.edit_handlers import (
     ObjectList, extract_panel_definitions_from_model_class)
-from wagtail.wagtailadmin.forms import SearchForm
-from wagtail.wagtailadmin.utils import permission_denied
+from wagtail.admin.forms import SearchForm
+from wagtail.admin.utils import permission_denied
 from wagtail.wagtailsearch.backends import get_search_backend
 from wagtail.wagtailsearch.index import class_is_indexed
 from wagtail.wagtailsnippets.models import get_snippet_models

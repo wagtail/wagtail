@@ -16,7 +16,7 @@ from wagtail.tests.snippets.models import (
     SearchableSnippet, StandardSnippet, ZuluSnippet)
 from wagtail.tests.testapp.models import Advert, AdvertWithTabbedInterface, SnippetChooserModel
 from wagtail.tests.utils import WagtailTestUtils
-from wagtail.wagtailadmin.forms import WagtailAdminModelForm
+from wagtail.admin.forms import WagtailAdminModelForm
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailsnippets.blocks import SnippetChooserBlock
 from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel

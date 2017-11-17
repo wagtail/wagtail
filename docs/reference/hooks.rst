@@ -126,7 +126,7 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
 ``register_admin_menu_item``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  Add an item to the Wagtail admin menu. The callable passed to this hook must return an instance of ``wagtail.wagtailadmin.menu.MenuItem``. New items can be constructed from the ``MenuItem`` class by passing in a ``label`` which will be the text in the menu item, and the URL of the admin page you want the menu item to link to (usually by calling ``reverse()`` on the admin view you've set up). Additionally, the following keyword arguments are accepted:
+  Add an item to the Wagtail admin menu. The callable passed to this hook must return an instance of ``wagtail.admin.menu.MenuItem``. New items can be constructed from the ``MenuItem`` class by passing in a ``label`` which will be the text in the menu item, and the URL of the admin page you want the menu item to link to (usually by calling ``reverse()`` on the admin view you've set up). Additionally, the following keyword arguments are accepted:
 
   :name: an internal name used to identify the menu item; defaults to the slugified form of the label.
   :classnames: additional classnames applied to the link, used to give it an icon
@@ -140,7 +140,7 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
     from django.urls import reverse
 
     from wagtail.wagtailcore import hooks
-    from wagtail.wagtailadmin.menu import MenuItem
+    from wagtail.admin.menu import MenuItem
 
     @hooks.register('register_admin_menu_item')
     def register_frank_menu_item():
@@ -196,7 +196,7 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
 ``register_admin_search_area``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  Add an item to the Wagtail admin search "Other Searches". Behaviour of this hook is similar to ``register_admin_menu_item``. The callable passed to this hook must return an instance of ``wagtail.wagtailadmin.search.SearchArea``. New items can be constructed from the ``SearchArea`` class by passing the following parameters:
+  Add an item to the Wagtail admin search "Other Searches". Behaviour of this hook is similar to ``register_admin_menu_item``. The callable passed to this hook must return an instance of ``wagtail.admin.search.SearchArea``. New items can be constructed from the ``SearchArea`` class by passing the following parameters:
 
   :label: text displayed in the "Other Searches" option box.
   :name: an internal name used to identify the search option; defaults to the slugified form of the label.
@@ -216,7 +216,7 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
 
     from django.urls import reverse
     from wagtail.wagtailcore import hooks
-    from wagtail.wagtailadmin.search import SearchArea
+    from wagtail.admin.search import SearchArea
 
     @hooks.register('register_admin_search_area')
     def register_frank_search_area():
@@ -691,7 +691,7 @@ Page explorer
 
   .. code-block:: python
 
-    from wagtail.wagtailadmin import widgets as wagtailadmin_widgets
+    from wagtail.admin import widgets as wagtailadmin_widgets
 
     @hooks.register('register_page_listing_buttons')
     def page_listing_buttons(page, page_perms, is_parent=False):
@@ -715,7 +715,7 @@ Page explorer
 
   .. code-block:: python
 
-    from wagtail.wagtailadmin import widgets as wagtailadmin_widgets
+    from wagtail.admin import widgets as wagtailadmin_widgets
 
     @hooks.register('register_page_listing_more_buttons')
     def page_listing_more_buttons(page, page_perms, is_parent=False):

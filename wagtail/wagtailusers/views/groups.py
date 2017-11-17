@@ -3,8 +3,8 @@ from __future__ import absolute_import, unicode_literals
 from django.contrib.auth.models import Group
 from django.utils.translation import ugettext as _
 
-from wagtail.wagtailadmin.views import generic, mixins
-from wagtail.wagtailadmin.viewsets.model import ModelViewSet
+from wagtail.admin.views import generic, mixins
+from wagtail.admin.viewsets.model import ModelViewSet
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailusers.forms import GroupForm, GroupPagePermissionFormSet
 

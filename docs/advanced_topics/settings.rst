@@ -69,7 +69,7 @@ Apps (``settings.py``)
     'wagtail.wagtaildocs',
     'wagtail.wagtailimages',
     'wagtail.wagtailsearch',
-    'wagtail.wagtailadmin',
+    'wagtail.admin',
     'wagtail.wagtailcore',
 
     'taggit',
@@ -448,7 +448,7 @@ URL Patterns
   from django.contrib import admin
 
   from wagtail.wagtailcore import urls as wagtail_urls
-  from wagtail.wagtailadmin import urls as wagtailadmin_urls
+  from wagtail.admin import urls as wagtailadmin_urls
   from wagtail.wagtaildocs import urls as wagtaildocs_urls
   from wagtail.wagtailsearch import urls as wagtailsearch_urls
 
@@ -511,7 +511,7 @@ These two files should reside in your project directory (``myproject/myproject/`
       'wagtail.wagtaildocs',
       'wagtail.wagtailimages',
       'wagtail.wagtailsearch',
-      'wagtail.wagtailadmin',
+      'wagtail.admin',
       'wagtail.wagtailcore',
 
       'taggit',
@@ -691,7 +691,7 @@ These two files should reside in your project directory (``myproject/myproject/`
   import os.path
 
   from wagtail.wagtailcore import urls as wagtail_urls
-  from wagtail.wagtailadmin import urls as wagtailadmin_urls
+  from wagtail.admin import urls as wagtailadmin_urls
   from wagtail.wagtaildocs import urls as wagtaildocs_urls
   from wagtail.wagtailsearch import urls as wagtailsearch_urls
 

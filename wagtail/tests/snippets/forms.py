@@ -1,6 +1,6 @@
 from __future__ import absolute_import, unicode_literals
 
-from wagtail.wagtailadmin.forms import WagtailAdminModelForm
+from wagtail.admin.forms import WagtailAdminModelForm
 
 
 class FancySnippetForm(WagtailAdminModelForm):

@@ -5,7 +5,7 @@ from django.contrib.auth.models import Permission
 from django.urls import reverse
 from django.utils.text import capfirst
 
-from wagtail.wagtailadmin.menu import MenuItem
+from wagtail.admin.menu import MenuItem
 from wagtail.wagtailcore import hooks
 
 from .permissions import user_can_edit_setting_type

@@ -6,9 +6,9 @@ from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 
 from wagtail.utils.pagination import paginate
-from wagtail.wagtailadmin.forms import SearchForm
-from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
-from wagtail.wagtailadmin.utils import PermissionPolicyChecker
+from wagtail.admin.forms import SearchForm
+from wagtail.admin.modal_workflow import render_modal_workflow
+from wagtail.admin.utils import PermissionPolicyChecker
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import Collection
 from wagtail.wagtaildocs.forms import get_document_form
