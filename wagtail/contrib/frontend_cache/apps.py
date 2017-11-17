@@ -2,11 +2,11 @@ from __future__ import absolute_import, unicode_literals
 
 from django.apps import AppConfig
 
-from wagtail.contrib.wagtailfrontendcache.signal_handlers import register_signal_handlers
+from wagtail.contrib.frontend_cache.signal_handlers import register_signal_handlers
 
 
 class WagtailFrontendCacheAppConfig(AppConfig):
-    name = 'wagtail.contrib.wagtailfrontendcache'
+    name = 'wagtail.contrib.frontend_cache'
     label = 'wagtailfrontendcache'
     verbose_name = "Wagtail frontend cache"
 
