@@ -2,7 +2,7 @@ from __future__ import absolute_import, unicode_literals
 
 from django.conf.urls import url
 
-from wagtail.wagtailsnippets.views import chooser, snippets
+from wagtail.snippets.views import chooser, snippets
 
 app_name = 'wagtailsnippets'
 urlpatterns = [

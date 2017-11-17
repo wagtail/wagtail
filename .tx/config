@@ -44,8 +44,8 @@ source_lang = en
 type = PO
 
 [wagtail.wagtailsnippets]
-file_filter = wagtail/wagtailsnippets/locale/<lang>/LC_MESSAGES/django.po
-source_file = wagtail/wagtailsnippets/locale/en/LC_MESSAGES/django.po
+file_filter = wagtail/snippets/locale/<lang>/LC_MESSAGES/django.po
+source_file = wagtail/snippets/locale/en/LC_MESSAGES/django.po
 source_lang = en
 type = PO
 

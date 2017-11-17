@@ -217,7 +217,7 @@ SnippetChooserPanel
 
     Before Wagtail 1.1, it was necessary to pass the snippet model class as a second parameter to ``SnippetChooserPanel``. This is now automatically picked up from the field.
 
-.. module:: wagtail.wagtailsnippets.edit_handlers
+.. module:: wagtail.snippets.edit_handlers
 
 .. class:: SnippetChooserPanel(field_name, snippet_type=None)
 
@@ -225,7 +225,7 @@ SnippetChooserPanel
 
     .. code-block:: python
 
-      from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
+      from wagtail.snippets.edit_handlers import SnippetChooserPanel
 
       class BookPage(Page):
           advert = models.ForeignKey(

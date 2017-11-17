@@ -161,7 +161,7 @@ These are used for structuring fields in the interface.
  - :class:`~wagtail.admin.edit_handlers.PageChooserPanel`
  - :class:`~wagtail.images.edit_handlers.ImageChooserPanel`
  - :class:`~wagtail.documents.edit_handlers.DocumentChooserPanel`
- - :class:`~wagtail.wagtailsnippets.edit_handlers.SnippetChooserPanel`
+ - :class:`~wagtail.snippets.edit_handlers.SnippetChooserPanel`
 
 .. note::
 
