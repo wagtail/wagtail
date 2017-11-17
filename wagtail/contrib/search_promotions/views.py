@@ -5,7 +5,7 @@ from django.urls import reverse
 from django.utils.translation import ugettext as _
 from django.views.decorators.vary import vary_on_headers
 
-from wagtail.contrib.wagtailsearchpromotions import forms
+from wagtail.contrib.search_promotions import forms
 from wagtail.utils.pagination import paginate
 from wagtail.wagtailadmin import messages
 from wagtail.wagtailadmin.forms import SearchForm

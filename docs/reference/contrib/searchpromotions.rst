@@ -4,7 +4,7 @@
 Promoted search results
 =======================
 
-.. module:: wagtail.contrib.wagtailsearchpromotions
+.. module:: wagtail.contrib.search_promotions
 
 .. versionchanged:: 1.1
 
@@ -18,7 +18,7 @@ The ``searchpromotions`` module provides the models and user interface for manag
 Installation
 ============
 
-The ``searchpromotions`` module is not enabled by default. To install it, add ``wagtail.contrib.wagtailsearchpromotions`` to ``INSTALLED_APPS`` in your project's Django settings file.
+The ``searchpromotions`` module is not enabled by default. To install it, add ``wagtail.contrib.search_promotions`` to ``INSTALLED_APPS`` in your project's Django settings file.
 
 
 .. code-block:: python
@@ -26,7 +26,7 @@ The ``searchpromotions`` module is not enabled by default. To install it, add ``
     INSTALLED_APPS = [
         ...
 
-        'wagtail.contrib.wagtailsearchpromotions',
+        'wagtail.contrib.search_promotions',
     ]
 
 This app contains migrations so make sure you run the ``migrate`` django-admin command after installing.
