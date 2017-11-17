@@ -5,7 +5,7 @@ import django.db.models.deletion
 from django.conf import settings
 from django.db import migrations, models
 
-import wagtail.wagtailsearch.index
+import wagtail.search.index
 
 
 def initial_data(apps, schema_editor):
@@ -238,7 +238,7 @@ class Migration(migrations.Migration):
             options={
                 'abstract': False,
             },
-            bases=(wagtail.wagtailsearch.index.Indexed, models.Model),
+            bases=(wagtail.search.index.Indexed, models.Model),
         ),
         migrations.RunPython(
             set_page_path_collation, migrations.RunPython.noop

@@ -180,13 +180,13 @@ These child objects are now accessible through the page's ``advert_placements`` 
 Making Snippets Searchable
 --------------------------
 
-If a snippet model inherits from ``wagtail.wagtailsearch.index.Indexed``, as described in :ref:`wagtailsearch_indexing_models`, Wagtail will automatically add a search box to the chooser interface for that snippet type. For example, the ``Advert`` snippet could be made searchable as follows:
+If a snippet model inherits from ``wagtail.search.index.Indexed``, as described in :ref:`wagtailsearch_indexing_models`, Wagtail will automatically add a search box to the chooser interface for that snippet type. For example, the ``Advert`` snippet could be made searchable as follows:
 
 .. code-block:: python
 
   ...
 
-  from wagtail.wagtailsearch import index
+  from wagtail.search import index
 
   ...
 

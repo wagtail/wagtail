@@ -6,7 +6,7 @@ from modelcluster.models import ClusterableModel
 
 from wagtail.admin.edit_handlers import FieldPanel, InlinePanel
 from wagtail.core.fields import RichTextField
-from wagtail.wagtailsearch import index
+from wagtail.search import index
 from wagtail.wagtailsnippets.models import register_snippet
 
 from .forms import FancySnippetForm

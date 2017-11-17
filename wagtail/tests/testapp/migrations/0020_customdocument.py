@@ -7,7 +7,7 @@ from django.db import migrations, models
 import django.db.models.deletion
 import taggit.managers
 import wagtail.core.models
-import wagtail.wagtailsearch.index
+import wagtail.search.index
 
 
 class Migration(migrations.Migration):
@@ -35,6 +35,6 @@ class Migration(migrations.Migration):
                 'abstract': False,
                 'verbose_name': 'document',
             },
-            bases=(wagtail.wagtailsearch.index.Indexed, models.Model),
+            bases=(wagtail.search.index.Indexed, models.Model),
         ),
     ]

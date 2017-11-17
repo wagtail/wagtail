@@ -25,8 +25,8 @@ from wagtail.core import hooks
 from wagtail.core.models import CollectionMember
 from wagtail.images.exceptions import InvalidFilterSpecError
 from wagtail.images.rect import Rect
-from wagtail.wagtailsearch import index
-from wagtail.wagtailsearch.queryset import SearchableQuerySetMixin
+from wagtail.search import index
+from wagtail.search.queryset import SearchableQuerySetMixin
 
 
 class SourceImageIOError(IOError):

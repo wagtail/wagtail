@@ -9,9 +9,9 @@ from django.db.models.constants import LOOKUP_SEP
 from django.db.models.functions import Cast
 from django.utils.encoding import force_text
 
-from wagtail.wagtailsearch.backends.base import (
+from wagtail.search.backends.base import (
     BaseSearchBackend, BaseSearchQuery, BaseSearchResults)
-from wagtail.wagtailsearch.index import RelatedFields, SearchField
+from wagtail.search.index import RelatedFields, SearchField
 
 from .models import IndexEntry
 from .utils import (

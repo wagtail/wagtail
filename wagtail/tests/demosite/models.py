@@ -16,7 +16,7 @@ from wagtail.core.models import Orderable, Page
 from wagtail.documents.edit_handlers import DocumentChooserPanel
 from wagtail.images.api.fields import ImageRenditionField
 from wagtail.images.edit_handlers import ImageChooserPanel
-from wagtail.wagtailsearch import index
+from wagtail.search import index
 
 
 # ABSTRACT MODELS

@@ -8,7 +8,7 @@ from itertools import zip_longest
 from django.apps import apps
 from django.db import connections
 
-from wagtail.wagtailsearch.index import Indexed, RelatedFields, SearchField
+from wagtail.search.index import Indexed, RelatedFields, SearchField
 
 try:
     # Only use the GPLv2 licensed unidecode if it's installed.
