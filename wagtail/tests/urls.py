@@ -4,8 +4,8 @@ from django.conf.urls import include, url
 
 from wagtail.api.v2.endpoints import PagesAPIEndpoint
 from wagtail.api.v2.router import WagtailAPIRouter
-from wagtail.contrib.wagtailsitemaps import views as sitemaps_views
-from wagtail.contrib.wagtailsitemaps import Sitemap
+from wagtail.contrib.sitemaps import views as sitemaps_views
+from wagtail.contrib.sitemaps import Sitemap
 from wagtail.tests.testapp import urls as testapp_urls
 from wagtail.wagtailadmin import urls as wagtailadmin_urls
 from wagtail.wagtailcore import urls as wagtail_urls

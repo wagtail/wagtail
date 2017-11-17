@@ -4,7 +4,7 @@ Sitemap generator
 =================
 
 This document describes how to create XML sitemaps for your Wagtail website
-using the ``wagtail.contrib.wagtailsitemaps`` module.
+using the ``wagtail.contrib.sitemaps`` module.
 
 
 .. note::
@@ -12,9 +12,9 @@ using the ``wagtail.contrib.wagtailsitemaps`` module.
     As of Wagtail 1.10 the Django contrib sitemap app is used to generate
     sitemaps.  However since Wagtail requires the Site instance to be available
     during the sitemap generation you will have to use the views from the
-    ``wagtail.contrib.wagtailsitemaps.views`` module instead of the views
-    provided by Django (``django.contrib.sitemaps.views``). 
-    
+    ``wagtail.contrib.sitemaps.views`` module instead of the views
+    provided by Django (``django.contrib.sitemaps.views``).
+
     The usage of these views is otherwise identical, which means that
     customisation and caching of the sitemaps are done using the default Django
     patterns.  See the Django documentation for in-depth information.
@@ -37,12 +37,12 @@ Django settings file:
 
 
 Then, in ``urls.py``, you need to add a link to the
-``wagtail.contrib.wagtailsitemaps.views.sitemap`` view which generates the
+``wagtail.contrib.sitemaps.views.sitemap`` view which generates the
 sitemap:
 
 .. code-block:: python
 
-    from wagtail.contrib.wagtailsitemaps.views import sitemap
+    from wagtail.contrib.sitemaps.views import sitemap
 
     urlpatterns = [
         ...
