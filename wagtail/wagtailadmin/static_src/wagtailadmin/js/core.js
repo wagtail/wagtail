@@ -230,26 +230,41 @@ $(function() {
 
         function search() {
             var workingClasses = 'icon-spinner';
-
-            $(window.headerSearch.termInput).parent().addClass(workingClasses);
-            searchNextIndex++;
-            var index = searchNextIndex;
-            $.ajax({
-                url: window.headerSearch.url,
-                data: {q: $(window.headerSearch.termInput).val()},
-                success: function(data, status) {
-                    if (index > searchCurrentIndex) {
-                        searchCurrentIndex = index;
-                        $(window.headerSearch.targetOutput).html(data).slideDown(800);
-                        window.history.pushState(null, 'Search results', '?q=' + $(window.headerSearch.termInput).val());
+            var newQuery = $(window.headerSearch.termInput).val();
+            var currentQuery = getURLParam('q');
+            if (! currentQuery) { currentQuery = ""; }
+            // only do the query if it has changed for trimmed queries
+            // eg. " " === "" and "firstword " ==== "firstword"
+            if (currentQuery.trim() !== newQuery.trim()) {
+                $(window.headerSearch.termInput).parent().addClass(workingClasses);
+                searchNextIndex++;
+                var index = searchNextIndex;
+                $.ajax({
+                    url: window.headerSearch.url,
+                    data: {q: newQuery},
+                    success: function(data, status) {
+                        if (index > searchCurrentIndex) {
+                            searchCurrentIndex = index;
+                            $(window.headerSearch.targetOutput).html(data).slideDown(800);
+                            window.history.pushState(null, 'Search results', '?q=' + newQuery);
+                        }
+                    },
+                    complete: function() {
+                        $(window.headerSearch.termInput).parent().removeClass(workingClasses);
                     }
-                },
-
-                complete: function() {
-                    $(window.headerSearch.termInput).parent().removeClass(workingClasses);
-                }
-            });
+                });
+            }
         }
+
+        getURLParam = function(name) {
+            var results = new RegExp('[\?&]' + name + '=([^]*)').exec(window.location.href);
+            if (results == null) {
+                return null;
+            } else {
+                return results[1] || null;
+            }
+        }
+
     }
 
     /* Functions that need to run/rerun when active tabs are changed */
