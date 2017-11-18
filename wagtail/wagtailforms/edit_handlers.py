@@ -11,8 +11,8 @@ class BaseFormSubmissionsPanel(EditHandler):
     template = "wagtailforms/edit_handlers/form_responses_panel.html"
 
     def render(self):
-        from .models import FormSubmission
-        submissions = FormSubmission.objects.filter(page=self.instance)
+        form_submission_class = self.model().get_submission_class()
+        submissions = form_submission_class.objects.filter(page=self.instance)
         submission_count = submissions.count()
 
         if not submission_count:
