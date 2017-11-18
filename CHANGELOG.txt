@@ -34,6 +34,7 @@ Changelog
  * Fix: PostgreSQL search backend now removes duplicate page instances from the database (Bertrand Bordage)
  * Fix: `FormSubmissionsPanel` now recognises custom form submission classes (LB (Ben Johnston))
  * Fix: Prevent the footer and revisions link from unnecessarily collapsing on mobile (Jack Paine)
+ * Fix: Empty searches were activated when paginating through images and documents (LB (Ben Johnston))
 
 
 1.13.1 (17.11.2017)
