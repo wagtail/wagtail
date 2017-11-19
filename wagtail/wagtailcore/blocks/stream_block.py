@@ -145,6 +145,7 @@ class BaseStreamBlock(Block):
             'child_blocks': sorted(self.child_blocks.values(), key=lambda child_block: child_block.meta.group),
             'header_menu_prefix': '%s-before' % prefix,
             'block_errors': error_dict.get(NON_FIELD_ERRORS),
+            'classes': self.meta.classname,
         })
 
     def value_from_datadict(self, data, files, prefix):
