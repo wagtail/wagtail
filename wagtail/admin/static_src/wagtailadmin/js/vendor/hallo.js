@@ -130,7 +130,7 @@
         return this._trigger("enabled", null);
       },
       activate: function() {
-        return this.element.focus();
+        return this.element.trigger('focus');
       },
       containsSelection: function() {
         var range;
@@ -400,7 +400,7 @@
           return event.data.turnOff();
         } else {
           return setTimeout(function() {
-            return jQuery(event.data.element).focus();
+            return jQuery(event.data.element).trigger('focus');
           }, 300);
         }
       },
@@ -921,7 +921,7 @@
         this.options.dialog.dialog("open");
         this.options.dialog.on('dialogclose', function() {
           jQuery('label', _this.button).removeClass('ui-state-active');
-          _this.options.editable.element.focus();
+          _this.options.editable.element.trigger('focus');
           return _this.options.editable.keepActivated(false);
         });
         this.options.dialog.html(jQuery("<textarea>").addClass('html_source'));
@@ -1087,7 +1087,7 @@
         this.options.dialog.dialog("open");
         return this.options.dialog.on('dialogclose', function() {
           jQuery('label', _this.button).removeClass('ui-state-active');
-          _this.options.editable.element.focus();
+          _this.options.editable.element.trigger('focus');
           return _this.options.editable.keepActivated(false);
         });
       },
@@ -1931,7 +1931,7 @@
         this.options.dialog.dialog("open");
         if (this.$image) {
           this.options.dialog.dialog("option", "title", this.texts.title_properties);
-          jQuery(document).keyup(function(e) {
+          jQuery(document).on('keyup', function(e) {
             if (e.keyCode === 46 || e.keyCode === 8) {
               jQuery(document).off();
               widget._closeDialog();
@@ -1956,7 +1956,7 @@
           var scrollbar_pos;
           jQuery('label', _this.button).removeClass('ui-state-active');
           scrollbar_pos = jQuery(document).scrollTop();
-          _this.options.editable.element.focus();
+          _this.options.editable.element.trigger('focus');
           jQuery(document).scrollTop(scrollbar_pos);
           return _this.options.editable.keepActivated(false);
         });
@@ -2078,24 +2078,24 @@
               return false;
             }
             widget.$image.css('float', 'left');
-            jQuery('#hallo_img_properties #hallo_img_float_right').removeAttr('checked');
-            return jQuery('#hallo_img_properties #hallo_img_unfloat').removeAttr('checked');
+            jQuery('#hallo_img_properties #hallo_img_float_right').prop('checked', false);
+            return jQuery('#hallo_img_properties #hallo_img_unfloat').prop('checked', false);
           });
           jQuery('#hallo_img_properties #hallo_img_float_right').on('click', function() {
             if (!this.checked) {
               return false;
             }
             widget.$image.css('float', 'right');
-            jQuery('#hallo_img_properties #hallo_img_unfloat').removeAttr('checked');
-            return jQuery('#hallo_img_properties #hallo_img_float_left').removeAttr('checked');
+            jQuery('#hallo_img_properties #hallo_img_unfloat').prop('checked', false);
+            return jQuery('#hallo_img_properties #hallo_img_float_left').prop('checked', false);
           });
           return jQuery('#hallo_img_properties #hallo_img_unfloat').on('click', function() {
             if (!this.checked) {
               return false;
             }
             widget.$image.css('float', 'none');
-            jQuery('#hallo_img_properties #hallo_img_float_right').removeAttr('checked');
-            return jQuery('#hallo_img_properties #hallo_img_float_left').removeAttr('checked');
+            jQuery('#hallo_img_properties #hallo_img_float_right').prop('checked', false);
+            return jQuery('#hallo_img_properties #hallo_img_float_left').prop('checked', false);
           });
         } else {
           if (!this.options.insert_file_dialog_ui_url) {
@@ -2183,7 +2183,7 @@
       bindIndicator: function(indicator) {
         var _this = this;
         indicator.on('click', function() {
-          return _this.options.editable.element.focus();
+          return _this.options.editable.element.trigger('focus');
         });
         this.element.on('halloactivated', function() {
           return indicator.hide();
@@ -2191,12 +2191,12 @@
         this.element.on('hallodisabled', function() {
           return indicator.remove();
         });
-        return this.options.editable.element.hover(function() {
+        return this.options.editable.element.on('mouseenter', function() {
           if (jQuery(this).hasClass('inEditMode')) {
             return;
           }
           return indicator.show();
-        }, function(data) {
+        }).on('mouseleave', function(data) {
           if (jQuery(this).hasClass('inEditMode')) {
             return;
           }
@@ -2357,7 +2357,7 @@
             dialog.on('dialogclose', function() {
               widget.options.editable.restoreSelection(widget.lastSelection);
               jQuery('label', buttonHolder).removeClass('ui-state-active');
-              widget.options.editable.element.focus();
+              widget.options.editable.element.trigger('focus');
               return widget.options.editable.keepActivated(false);
             });
             return false;
@@ -3068,7 +3068,7 @@
         });
       },
       enable: function() {
-        return this.button.removeAttr('disabled');
+        return this.button.prop('disabled', false);
       },
       disable: function() {
         return this.button.attr('disabled', 'true');
