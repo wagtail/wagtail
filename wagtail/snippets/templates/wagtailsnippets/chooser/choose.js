@@ -45,7 +45,7 @@ function initModal(modal) {
         return false;
     }
 
-    $('form.snippet-search', modal.body).submit(search);
+    $('form.snippet-search', modal.body).on('submit', search);
 
     $('#id_q').on('input', function() {
         clearTimeout($.data(this, 'timer'));
