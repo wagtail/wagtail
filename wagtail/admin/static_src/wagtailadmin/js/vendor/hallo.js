@@ -894,7 +894,7 @@
         });
         $buttonset.append($buttonHolder);
         this.button = $buttonHolder;
-        this.button.click(function() {
+        this.button.on('click', function() {
           if (widget.options.dialog.dialog("isOpen")) {
             widget._closeDialog();
           } else {
@@ -1049,7 +1049,7 @@
             "margin-left": left
           });
         });
-        return jQuery('.nav li', this.options.dialog).first().click();
+        return jQuery('.nav li', this.options.dialog).first().trigger('click');
       },
       _openDialog: function() {
         var cleanUp, editableEl, getActive, suggestionSelector, toolbarEl, widget, xposition, yposition,
@@ -1558,14 +1558,14 @@
         if (results.offset < results.total) {
           jQuery('.pager-next', container).show();
         }
-        jQuery('.pager-prev', container).click(function(event) {
+        jQuery('.pager-prev', container).on('click', function(event) {
           var offset;
           offset = results.offset - _this.options.limit;
           return _this.options.searchCallback(query, _this.options.limit, offset, function(results) {
             return _this._showResults(results);
           });
         });
-        return jQuery('.pager-next', container).click(function(event) {
+        return jQuery('.pager-next', container).on('click', function(event) {
           var offset;
           offset = results.offset + _this.options.limit;
           return _this.options.searchCallback(query, _this.options.limit, offset, function(results) {
@@ -1882,7 +1882,7 @@
         });
         $buttonset.append($buttonHolder);
         this.button = $buttonHolder;
-        this.button.click(function() {
+        this.button.on('click', function() {
           if (widget.options.dialog.dialog("isOpen")) {
             widget._closeDialog();
           } else {
@@ -2056,24 +2056,24 @@
           if (jQuery('#hallo_img_file_select_title').length > 0) {
             jQuery('#hallo_img_file_select_title').text(this.texts.chage_image);
           }
-          jQuery('#hallo_img_properties #hallo_img_source').keyup(function() {
+          jQuery('#hallo_img_properties #hallo_img_source').on('keyup', function() {
             return widget.$image.attr('src', this.value);
           });
-          jQuery('#hallo_img_properties #hallo_img_alt').keyup(function() {
+          jQuery('#hallo_img_properties #hallo_img_alt').on('keyup', function() {
             return widget.$image.attr('alt', this.value);
           });
-          jQuery('#hallo_img_properties #hallo_img_padding').keyup(function() {
+          jQuery('#hallo_img_properties #hallo_img_padding').on('keyup', function() {
             return widget.$image.css('padding', this.value);
           });
-          jQuery('#hallo_img_properties #hallo_img_height').keyup(function() {
+          jQuery('#hallo_img_properties #hallo_img_height').on('keyup', function() {
             widget.$image.css('height', this.value);
             return widget.$image.attr('height', this.value);
           });
-          jQuery('#hallo_img_properties #hallo_img_width').keyup(function() {
+          jQuery('#hallo_img_properties #hallo_img_width').on('keyup', function() {
             widget.$image.css('width', this.value);
             return widget.$image.attr('width', this.value);
           });
-          jQuery('#hallo_img_properties #hallo_img_float_left').click(function() {
+          jQuery('#hallo_img_properties #hallo_img_float_left').on('click', function() {
             if (!this.checked) {
               return false;
             }
@@ -2081,7 +2081,7 @@
             jQuery('#hallo_img_properties #hallo_img_float_right').removeAttr('checked');
             return jQuery('#hallo_img_properties #hallo_img_unfloat').removeAttr('checked');
           });
-          jQuery('#hallo_img_properties #hallo_img_float_right').click(function() {
+          jQuery('#hallo_img_properties #hallo_img_float_right').on('click', function() {
             if (!this.checked) {
               return false;
             }
@@ -2089,7 +2089,7 @@
             jQuery('#hallo_img_properties #hallo_img_unfloat').removeAttr('checked');
             return jQuery('#hallo_img_properties #hallo_img_float_left').removeAttr('checked');
           });
-          return jQuery('#hallo_img_properties #hallo_img_unfloat').click(function() {
+          return jQuery('#hallo_img_properties #hallo_img_unfloat').on('click', function() {
             if (!this.checked) {
               return false;
             }
@@ -2101,7 +2101,7 @@
           if (!this.options.insert_file_dialog_ui_url) {
             button = "<button id=\"insert_image_btn\">" + this.texts.insert + "</button>";
             $img_properties.after(button);
-            return jQuery('#insert_image_btn').click(function() {
+            return jQuery('#insert_image_btn').on('click', function() {
               var $img_source;
               $img_source = jQuery('#hallo_img_properties #hallo_img_source');
               return widget._insert_image($img_source.val());
@@ -2322,7 +2322,7 @@
           widget.options.editable.element.trigger('change');
           return false;
         };
-        dialog.find("input[type=submit]").click(dialogSubmitCb);
+        dialog.find("input[type=submit]").on('click', dialogSubmitCb);
         buttonset = jQuery("<span class=\"" + widget.widgetName + "\"></span>");
         buttonize = function(type) {
           var button, buttonHolder, id;
@@ -2623,7 +2623,7 @@
         this.toolbar = this.options.toolbar;
         jQuery(this.options.parentElement).append(this.toolbar);
         this._bindEvents();
-        return jQuery(window).resize(function(event) {
+        return jQuery(window).on('resize', function(event) {
           return _this._updatePosition(_this._getPosition(event));
         });
       },
@@ -2756,10 +2756,10 @@
         this.toolbar.show();
         jQuery(this.options.parentElement).append(this.toolbar);
         this._bindEvents();
-        jQuery(window).resize(function(event) {
+        jQuery(window).on('resize', function(event) {
           return _this.setPosition();
         });
-        jQuery(window).scroll(function(event) {
+        jQuery(window).on('scroll', function(event) {
           return _this.setPosition();
         });
         if (this.options.parentElement === 'body') {
@@ -2853,7 +2853,7 @@
         this.toolbar = this.options.toolbar;
         jQuery(this.options.parentElement).append(this.toolbar);
         this._bindEvents();
-        return jQuery(window).resize(function(event) {
+        return jQuery(window).on('resize', function(event) {
           return _this._updatePosition(_this._getPosition(event));
         });
       },
