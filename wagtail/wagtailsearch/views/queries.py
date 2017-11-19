@@ -3,8 +3,8 @@ from __future__ import absolute_import, unicode_literals
 from django.shortcuts import render
 
 from wagtail.utils.pagination import paginate
-from wagtail.wagtailadmin.forms import SearchForm
-from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
+from wagtail.admin.forms import SearchForm
+from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.wagtailsearch import models
 from wagtail.wagtailsearch.utils import normalise_query_string
 

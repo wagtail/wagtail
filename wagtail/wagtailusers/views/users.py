@@ -11,9 +11,9 @@ from django.utils.translation import ugettext as _
 from django.views.decorators.vary import vary_on_headers
 
 from wagtail.utils.pagination import paginate
-from wagtail.wagtailadmin import messages
-from wagtail.wagtailadmin.forms import SearchForm
-from wagtail.wagtailadmin.utils import (
+from wagtail.admin import messages
+from wagtail.admin.forms import SearchForm
+from wagtail.admin.utils import (
     any_permission_required, permission_denied, permission_required)
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME

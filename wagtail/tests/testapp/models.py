@@ -19,11 +19,11 @@ from taggit.managers import TaggableManager
 from taggit.models import TaggedItemBase
 
 from wagtail.contrib.settings.models import BaseSetting, register_setting
-from wagtail.wagtailadmin.edit_handlers import (
+from wagtail.admin.edit_handlers import (
     FieldPanel, InlinePanel, MultiFieldPanel, ObjectList, PageChooserPanel, StreamFieldPanel,
     TabbedInterface)
-from wagtail.wagtailadmin.forms import WagtailAdminPageForm
-from wagtail.wagtailadmin.utils import send_mail
+from wagtail.admin.forms import WagtailAdminPageForm
+from wagtail.admin.utils import send_mail
 from wagtail.wagtailcore.blocks import CharBlock, RichTextBlock
 from wagtail.wagtailcore.fields import RichTextField, StreamField
 from wagtail.wagtailcore.models import Orderable, Page, PageManager, PageQuerySet

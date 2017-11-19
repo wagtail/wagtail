@@ -210,7 +210,7 @@ In addition to the model fields provided, ``Page`` has many properties and metho
 
         The form class used as a base for editing Pages of this type in the Wagtail page editor.
         This attribute can be set on a model to customise the Page editor form.
-        Forms must be a subclass of :class:`~wagtail.wagtailadmin.forms.WagtailAdminPageForm`.
+        Forms must be a subclass of :class:`~wagtail.admin.forms.WagtailAdminPageForm`.
         See :ref:`custom_edit_handler_forms` for more information.
 
 .. _site-model-ref:

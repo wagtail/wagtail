@@ -5,7 +5,7 @@ import json
 from django.forms import Media, widgets
 
 from wagtail.utils.widgets import WidgetWithScript
-from wagtail.wagtailadmin.edit_handlers import RichTextFieldPanel
+from wagtail.admin.edit_handlers import RichTextFieldPanel
 
 
 class CustomRichTextArea(WidgetWithScript, widgets.Textarea):

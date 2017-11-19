@@ -9,10 +9,10 @@ from django.utils.html import format_html, format_html_join
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ungettext
 
-from wagtail.wagtailadmin.menu import MenuItem
-from wagtail.wagtailadmin.rich_text import HalloPlugin
-from wagtail.wagtailadmin.search import SearchArea
-from wagtail.wagtailadmin.site_summary import SummaryItem
+from wagtail.admin.menu import MenuItem
+from wagtail.admin.rich_text import HalloPlugin
+from wagtail.admin.search import SearchArea
+from wagtail.admin.site_summary import SummaryItem
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import BaseViewRestriction
 from wagtail.wagtailcore.wagtail_hooks import require_wagtail_login

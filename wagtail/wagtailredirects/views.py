@@ -6,9 +6,9 @@ from django.utils.translation import ugettext as _
 from django.views.decorators.vary import vary_on_headers
 
 from wagtail.utils.pagination import paginate
-from wagtail.wagtailadmin import messages
-from wagtail.wagtailadmin.forms import SearchForm
-from wagtail.wagtailadmin.utils import PermissionPolicyChecker, permission_denied
+from wagtail.admin import messages
+from wagtail.admin.forms import SearchForm
+from wagtail.admin.utils import PermissionPolicyChecker, permission_denied
 from wagtail.wagtailredirects import models
 from wagtail.wagtailredirects.forms import RedirectForm
 from wagtail.wagtailredirects.permissions import permission_policy

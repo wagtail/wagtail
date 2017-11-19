@@ -11,8 +11,8 @@ from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _
 from unidecode import unidecode
 
-from wagtail.wagtailadmin.edit_handlers import FieldPanel
-from wagtail.wagtailadmin.utils import send_mail
+from wagtail.admin.edit_handlers import FieldPanel
+from wagtail.admin.utils import send_mail
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import Orderable, Page, UserPagePermissionsProxy, get_page_models
 

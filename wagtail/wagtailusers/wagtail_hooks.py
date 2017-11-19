@@ -6,8 +6,8 @@ from django.db.models import Q
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 
-from wagtail.wagtailadmin.menu import MenuItem
-from wagtail.wagtailadmin.search import SearchArea
+from wagtail.admin.menu import MenuItem
+from wagtail.admin.search import SearchArea
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
 from wagtail.wagtailusers.urls import users
