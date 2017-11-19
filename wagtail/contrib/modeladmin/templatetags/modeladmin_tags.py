@@ -182,3 +182,8 @@ def result_row_value_display(context, index):
         'closing_tag': closing_tag,
     })
     return context
+
+
+@register.filter
+def get_content_type_for_obj(obj):
+    return obj.__class__._meta.verbose_name
