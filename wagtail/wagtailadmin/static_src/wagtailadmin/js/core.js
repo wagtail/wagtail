@@ -255,16 +255,18 @@ $(function() {
                       }
                 });
             }
+      };
 
-            getURLParam = function(name) {
-                var results = new RegExp('[\?&]' + name + '=([^]*)').exec(window.location.href);
-                if (results == null) {
-                    return null;
-                } else {
-                    return results[1] || null;
-                }
+      getURLParam = function(name) {
+          var results = new RegExp('[\?&]' + name + '=([^]*)').exec(window.location.href);
+          if (results == null) {
+              return null;
+          } else {
+              return results[1] || null;
+          }
+      };
 
-        }
+    }
 
     /* Functions that need to run/rerun when active tabs are changed */
     $(document).on('shown.bs.tab', function(e) {
