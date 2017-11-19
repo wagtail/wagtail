@@ -81,6 +81,13 @@ an argument to ``runtests.py``
 
     $ python runtests.py wagtail.wagtailcore.tests.test_blocks.TestIntegerBlock
 
+**Running migrations for the test app models**
+
+You can create migrations for the test app by running the following from the Wagtail root.
+
+.. code-block:: console
+    $ django-admin.py makemigrations --settings=wagtail.tests.settings
+
 
 **Testing against PostgreSQL**
 
