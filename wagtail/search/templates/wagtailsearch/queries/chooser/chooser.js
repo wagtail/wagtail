@@ -49,7 +49,7 @@ function(modal) {
 
     ajaxifyLinks(modal.body);
 
-    $('form.query-search', modal.body).submit(search);
+    $('form.query-search', modal.body).on('submit', search);
 
     $('#id_q').on('input', function() {
         clearTimeout($.data(this, 'timer'));

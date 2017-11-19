@@ -75,7 +75,7 @@ function(modal) {
         return false;
     });
 
-    $('form.document-search', modal.body).submit(search);
+    $('form.document-search', modal.body).on('submit', search);
 
     $('#id_q').on('input', function() {
         clearTimeout($.data(this, 'timer'));
