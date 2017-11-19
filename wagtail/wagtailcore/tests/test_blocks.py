@@ -1670,6 +1670,32 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
         )
         self.assertIn('value="chocolate"', form_html)
 
+    def render_form_with_classname(self, classname):
+        class LinkBlock(blocks.StructBlock):
+            title = blocks.CharBlock()
+            link = blocks.URLBlock()
+
+        block = blocks.ListBlock(LinkBlock, classname=classname)
+
+        html = block.render_form([
+            {
+                'title': "Wagtail",
+                'link': 'http://www.wagtail.io',
+            },
+            {
+                'title': "Django",
+                'link': 'http://www.djangoproject.com',
+            },
+        ], prefix='links')
+
+        return html
+
+    def test_render_with_classname(self):
+        html = self.render_form_with_classname('special-list-class')
+        print(html)
+        # class should exist 2 times, once for template, once for actual
+        self.assertEqual(html.count('special-list-class'), 1)
+
 
 class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
     def test_initialisation(self):
