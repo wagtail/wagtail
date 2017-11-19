@@ -121,7 +121,7 @@
                 this.options.singleFieldNode = this.element;
                 this.element.css('display', 'none');
             } else {
-                this.tagList = this.element.find('ul, ol').andSelf().last();
+                this.tagList = this.element.find('ul, ol').addBack().last();
             }
 
             this.tagInput = $('<input type="text" />').addClass('ui-widget-content');
