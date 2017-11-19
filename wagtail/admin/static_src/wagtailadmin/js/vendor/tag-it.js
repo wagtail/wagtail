@@ -176,7 +176,7 @@
                 .addClass('ui-widget ui-widget-content ui-corner-all')
                 // Create the input field.
                 .append($('<li class="tagit-new"></li>').append(this.tagInput))
-                .click(function(e) {
+                .on('click', function(e) {
                     var target = $(e.target);
                     if (target.hasClass('tagit-label')) {
                         var tag = target.closest('.tagit-choice');
@@ -222,7 +222,7 @@
 
             // Events.
             this.tagInput
-                .keydown(function(event) {
+                .on('keydown', function(event) {
                     // Backspace is not detected within a keypress, so it must use keydown.
                     if (event.which == $.ui.keyCode.BACKSPACE && that.tagInput.val() === '') {
                         var tag = that._lastTag();
@@ -270,7 +270,7 @@
                             that.createTag(that._cleanedInput());
                         }
                     }
-                }).blur(function(e){
+                }).on('blur', function(e){
                     // Create a tag when the element loses focus.
                     // If autocomplete is enabled and suggestion was clicked, don't add it.
                     if (!that.tagInput.data('autocomplete-open')) {
@@ -435,7 +435,7 @@
                 var removeTag = $('<a><span class="text-icon">\xd7</span></a>') // \xd7 is an X
                     .addClass('tagit-close')
                     .append(removeTagIcon)
-                    .click(function(e) {
+                    .on('click', function(e) {
                         // Removes a tag when the little 'x' is clicked.
                         that.removeTag(tag);
                     });
