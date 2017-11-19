@@ -1,7 +1,7 @@
 {% extends "wagtailadmin/block_forms/sequence.html" %}
 {% load i18n %}
 
-{% block sequence_type_class %}list{% endblock %}
+{% block sequence_type_class %}list{% if classes %} {{ classes }}{% endif %}{% endblock %}
 
 {% block header %}
     {% if help_text %}
