@@ -3,5 +3,10 @@
 {% block content %}
     <p>{{ greeting }}</p>
     <p>Thank you for your feedback.</p>
-    <pre>{{ form_submission.get_data }}</pre>
+
+    <ul>
+      {% for key, value in form_submission.get_data.items %}
+        <li>{{ key }}: {{ value }}</li>
+      {% endfor %}
+    </ul>
 {% endblock %}

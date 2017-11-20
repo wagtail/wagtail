@@ -57,12 +57,8 @@ class TestFormSubmission(TestCase):
         # check that variables defined in get_context are passed through to the template (#1429)
         self.assertContains(response, "<p>hello world</p>")
 
-        # check the form submission is added to the context
-
-        # print("\n", response.content, "\n")
-        # TODO this is ugly,
-        # Need to output something more sensible from the form_submission and test for this.
-        self.assertContains(response, "&#39;your-email&#39;: &#39;bob@example.com&#39")
+        # check the default form_submission is added to the context
+        self.assertContains(response, "<li>your-email: bob@example.com</li>")
 
         # Check that an email was sent
         self.assertEqual(len(mail.outbox), 1)
@@ -197,6 +193,9 @@ class TestFormWithCustomSubmission(TestCase, WagtailTestUtils):
 
         # check that variables defined in get_context are passed through to the template (#1429)
         self.assertContains(response, "<p>hello world</p>")
+
+        # check that the custom form_submission is added to the context
+        self.assertContains(response, "<p>Username: test@email.com</p>")
 
         # Check that an email was sent
         self.assertEqual(len(mail.outbox), 1)

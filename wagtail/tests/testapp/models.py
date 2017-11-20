@@ -513,7 +513,7 @@ class FormPageWithCustomSubmission(AbstractEmailForm):
         return CustomFormPageSubmission
 
     def process_form_submission(self, form):
-        self.get_submission_class().objects.create(
+        form_submission = self.get_submission_class().objects.create(
             form_data=json.dumps(form.cleaned_data, cls=DjangoJSONEncoder),
             page=self, user=form.user
         )
@@ -522,6 +522,9 @@ class FormPageWithCustomSubmission(AbstractEmailForm):
             addresses = [x.strip() for x in self.to_address.split(',')]
             content = '\n'.join([x[1].label + ': ' + str(form.data.get(x[0])) for x in form.fields.items()])
             send_mail(self.subject, content, addresses, self.from_address,)
+
+        # process_form_submission should now return the created form_submission
+        return form_submission
 
     def serve(self, request, *args, **kwargs):
         if self.get_submission_class().objects.filter(page=self, user__pk=request.user.pk).exists():
