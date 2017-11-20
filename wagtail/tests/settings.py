@@ -95,14 +95,14 @@ MIDDLEWARE = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
     'wagtail.wagtailcore.middleware.SiteMiddleware',
-    'wagtail.wagtailredirects.middleware.RedirectMiddleware',
+    'wagtail.contrib.redirects.middleware.RedirectMiddleware',
 )
 
 INSTALLED_APPS = (
     # Install wagtailredirects with its appconfig
     # Theres nothing special about wagtailredirects, we just need to have one
     # app which uses AppConfigs to test that hooks load properly
-    'wagtail.wagtailredirects.apps.WagtailRedirectsAppConfig',
+    'wagtail.contrib.redirects.apps.WagtailRedirectsAppConfig',
 
     'wagtail.tests.testapp',
     'wagtail.tests.demosite',
@@ -111,20 +111,20 @@ INSTALLED_APPS = (
     'wagtail.tests.routablepage',
     'wagtail.tests.search',
     'wagtail.tests.modeladmintest',
-    'wagtail.contrib.wagtailstyleguide',
-    'wagtail.contrib.wagtailroutablepage',
-    'wagtail.contrib.wagtailfrontendcache',
-    'wagtail.contrib.wagtailsearchpromotions',
+    'wagtail.contrib.styleguide',
+    'wagtail.contrib.routable_page',
+    'wagtail.contrib.frontend_cache',
+    'wagtail.contrib.search_promotions',
     'wagtail.contrib.settings',
     'wagtail.contrib.modeladmin',
     'wagtail.contrib.table_block',
-    'wagtail.wagtailforms',
+    'wagtail.contrib.forms',
     'wagtail.wagtailsearch',
     'wagtail.wagtailembeds',
     'wagtail.wagtailimages',
-    'wagtail.wagtailsites',
-    'wagtail.wagtailusers',
-    'wagtail.wagtailsnippets',
+    'wagtail.sites',
+    'wagtail.users',
+    'wagtail.snippets',
     'wagtail.wagtaildocs',
     'wagtail.wagtailadmin',
     'wagtail.api.v2',

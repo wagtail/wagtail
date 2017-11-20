@@ -39,7 +39,7 @@ Middleware (``settings.py``)
 
     'wagtail.wagtailcore.middleware.SiteMiddleware',
 
-    'wagtail.wagtailredirects.middleware.RedirectMiddleware',
+    'wagtail.contrib.redirects.middleware.RedirectMiddleware',
   ]
 
 Wagtail requires several common Django middleware modules to work and cover basic security. Wagtail provides its own middleware to cover these tasks:
@@ -60,12 +60,12 @@ Apps (``settings.py``)
 
     'myapp',  # your own app
 
-    'wagtail.wagtailforms',
-    'wagtail.wagtailredirects',
+    'wagtail.contrib.forms',
+    'wagtail.contrib.redirects',
     'wagtail.wagtailembeds',
-    'wagtail.wagtailsites',
-    'wagtail.wagtailusers',
-    'wagtail.wagtailsnippets',
+    'wagtail.sites',
+    'wagtail.users',
+    'wagtail.snippets',
     'wagtail.wagtaildocs',
     'wagtail.wagtailimages',
     'wagtail.wagtailsearch',
@@ -502,12 +502,12 @@ These two files should reside in your project directory (``myproject/myproject/`
   INSTALLED_APPS = [
       'myapp',
 
-      'wagtail.wagtailforms',
-      'wagtail.wagtailredirects',
+      'wagtail.contrib.forms',
+      'wagtail.contrib.redirects',
       'wagtail.wagtailembeds',
-      'wagtail.wagtailsites',
-      'wagtail.wagtailusers',
-      'wagtail.wagtailsnippets',
+      'wagtail.sites',
+      'wagtail.users',
+      'wagtail.snippets',
       'wagtail.wagtaildocs',
       'wagtail.wagtailimages',
       'wagtail.wagtailsearch',
@@ -535,7 +535,7 @@ These two files should reside in your project directory (``myproject/myproject/`
       'django.middleware.security.SecurityMiddleware',
 
       'wagtail.wagtailcore.middleware.SiteMiddleware',
-      'wagtail.wagtailredirects.middleware.RedirectMiddleware',
+      'wagtail.contrib.redirects.middleware.RedirectMiddleware',
   ]
 
   ROOT_URLCONF = 'myproject.urls'

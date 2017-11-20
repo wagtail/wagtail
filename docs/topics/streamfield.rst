@@ -61,7 +61,7 @@ All block types accept the following optional keyword arguments:
   The label to display in the editor interface when referring to this block - defaults to a prettified version of the block name (or, in a context where no name is assigned - such as within a ``ListBlock`` - the empty string).
 
 ``icon``
-  The name of the icon to display for this block type in the menu of available block types. For a list of icon names, see the Wagtail style guide, which can be enabled by adding ``wagtail.contrib.wagtailstyleguide`` to your project's ``INSTALLED_APPS``.
+  The name of the icon to display for this block type in the menu of available block types. For a list of icon names, see the Wagtail style guide, which can be enabled by adding ``wagtail.contrib.styleguide`` to your project's ``INSTALLED_APPS``.
 
 ``template``
   The path to a Django template that will be used to render this block on the front end. See `Template rendering`_.
@@ -284,7 +284,7 @@ A control to allow the editor to select an existing image, or upload a new one. 
 SnippetChooserBlock
 ~~~~~~~~~~~~~~~~~~~
 
-``wagtail.wagtailsnippets.blocks.SnippetChooserBlock``
+``wagtail.snippets.blocks.SnippetChooserBlock``
 
 A control to allow the editor to select a snippet object. Requires one positional argument: the snippet class to choose from. The keyword argument ``required`` (default: True) is accepted.
 

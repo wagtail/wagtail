@@ -29,12 +29,12 @@ INSTALLED_APPS = [
     'home',
     'search',
 
-    'wagtail.wagtailforms',
-    'wagtail.wagtailredirects',
+    'wagtail.contrib.forms',
+    'wagtail.contrib.redirects',
     'wagtail.wagtailembeds',
-    'wagtail.wagtailsites',
-    'wagtail.wagtailusers',
-    'wagtail.wagtailsnippets',
+    'wagtail.sites',
+    'wagtail.users',
+    'wagtail.snippets',
     'wagtail.wagtaildocs',
     'wagtail.wagtailimages',
     'wagtail.wagtailsearch',
@@ -62,7 +62,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
 
     'wagtail.wagtailcore.middleware.SiteMiddleware',
-    'wagtail.wagtailredirects.middleware.RedirectMiddleware',
+    'wagtail.contrib.redirects.middleware.RedirectMiddleware',
 ]
 
 ROOT_URLCONF = '{{ project_name }}.urls'

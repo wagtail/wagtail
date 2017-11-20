@@ -14,13 +14,13 @@ The ``wagtailforms`` module allows you to set up single-page forms, such as a 'C
 Usage
 ~~~~~
 
-Add ``wagtail.wagtailforms`` to your ``INSTALLED_APPS``:
+Add ``wagtail.contrib.forms`` to your ``INSTALLED_APPS``:
 
 .. code-block:: python
 
     INSTALLED_APPS = [
        ...
-       'wagtail.wagtailforms',
+       'wagtail.contrib.forms',
     ]
 
 Within the ``models.py`` of one of your apps, create a model that extends ``wagtailforms.models.AbstractEmailForm``:
@@ -34,7 +34,7 @@ Within the ``models.py`` of one of your apps, create a model that extends ``wagt
         InlinePanel, MultiFieldPanel
     )
     from wagtail.wagtailcore.fields import RichTextField
-    from wagtail.wagtailforms.models import AbstractEmailForm, AbstractFormField
+    from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField
 
 
     class FormField(AbstractFormField):
@@ -94,7 +94,7 @@ Displaying form submission information
 
 .. code-block:: python
 
-    from wagtail.wagtailforms.edit_handlers import FormSubmissionsPanel
+    from wagtail.contrib.forms.edit_handlers import FormSubmissionsPanel
 
     class FormPage(AbstractEmailForm):
         # ...

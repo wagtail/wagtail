@@ -32,8 +32,8 @@ source_lang = en
 type = PO
 
 [wagtail.wagtailredirects]
-file_filter = wagtail/wagtailredirects/locale/<lang>/LC_MESSAGES/django.po
-source_file = wagtail/wagtailredirects/locale/en/LC_MESSAGES/django.po
+file_filter = wagtail/contrib/redirects/locale/<lang>/LC_MESSAGES/django.po
+source_file = wagtail/contrib/redirects/locale/en/LC_MESSAGES/django.po
 source_lang = en
 type = PO
 
@@ -44,38 +44,38 @@ source_lang = en
 type = PO
 
 [wagtail.wagtailsnippets]
-file_filter = wagtail/wagtailsnippets/locale/<lang>/LC_MESSAGES/django.po
-source_file = wagtail/wagtailsnippets/locale/en/LC_MESSAGES/django.po
+file_filter = wagtail/snippets/locale/<lang>/LC_MESSAGES/django.po
+source_file = wagtail/snippets/locale/en/LC_MESSAGES/django.po
 source_lang = en
 type = PO
 
 [wagtail.wagtailusers]
-file_filter = wagtail/wagtailusers/locale/<lang>/LC_MESSAGES/django.po
-source_file = wagtail/wagtailusers/locale/en/LC_MESSAGES/django.po
+file_filter = wagtail/users/locale/<lang>/LC_MESSAGES/django.po
+source_file = wagtail/users/locale/en/LC_MESSAGES/django.po
 source_lang = en
 type = PO
 
 [wagtail.wagtailforms]
-file_filter = wagtail/wagtailforms/locale/<lang>/LC_MESSAGES/django.po
-source_file = wagtail/wagtailforms/locale/en/LC_MESSAGES/django.po
+file_filter = wagtail/contrib/forms/locale/<lang>/LC_MESSAGES/django.po
+source_file = wagtail/contrib/forms/locale/en/LC_MESSAGES/django.po
 source_lang = en
 type = PO
 
 [wagtail.wagtailsites]
-file_filter = wagtail/wagtailsites/locale/<lang>/LC_MESSAGES/django.po
-source_file = wagtail/wagtailsites/locale/en/LC_MESSAGES/django.po
+file_filter = wagtail/sites/locale/<lang>/LC_MESSAGES/django.po
+source_file = wagtail/sites/locale/en/LC_MESSAGES/django.po
 source_lang = en
 type = PO
 
 [wagtail.wagtailsearchpromotions]
-file_filter = wagtail/contrib/wagtailsearchpromotions/locale/<lang>/LC_MESSAGES/django.po
-source_file = wagtail/contrib/wagtailsearchpromotions/locale/en/LC_MESSAGES/django.po
+file_filter = wagtail/contrib/search_promotions/locale/<lang>/LC_MESSAGES/django.po
+source_file = wagtail/contrib/search_promotions/locale/en/LC_MESSAGES/django.po
 source_lang = en
 type = PO
 
 [wagtail.wagtailstyleguide]
-file_filter = wagtail/contrib/wagtailstyleguide/locale/<lang>/LC_MESSAGES/django.po
-source_file = wagtail/contrib/wagtailstyleguide/locale/en/LC_MESSAGES/django.po
+file_filter = wagtail/contrib/styleguide/locale/<lang>/LC_MESSAGES/django.po
+source_file = wagtail/contrib/styleguide/locale/en/LC_MESSAGES/django.po
 source_lang = en
 type = PO
 

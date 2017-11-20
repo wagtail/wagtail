@@ -20,12 +20,12 @@ In your settings file, add the following apps to ``INSTALLED_APPS``:
 
 .. code-block:: python
 
-    'wagtail.wagtailforms',
-    'wagtail.wagtailredirects',
+    'wagtail.contrib.forms',
+    'wagtail.contrib.redirects',
     'wagtail.wagtailembeds',
-    'wagtail.wagtailsites',
-    'wagtail.wagtailusers',
-    'wagtail.wagtailsnippets',
+    'wagtail.sites',
+    'wagtail.users',
+    'wagtail.snippets',
     'wagtail.wagtaildocs',
     'wagtail.wagtailimages',
     'wagtail.wagtailsearch',
@@ -40,7 +40,7 @@ Add the following entries to ``MIDDLEWARE``:
 .. code-block:: python
 
     'wagtail.wagtailcore.middleware.SiteMiddleware',
-    'wagtail.wagtailredirects.middleware.RedirectMiddleware',
+    'wagtail.contrib.redirects.middleware.RedirectMiddleware',
 
 Add a ``STATIC_ROOT`` setting, if your project does not have one already:
 
