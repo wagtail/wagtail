@@ -1,6 +1,7 @@
 from __future__ import absolute_import, unicode_literals
 
 from django.conf import settings
+from django.contrib.auth.models import Permission
 from django.contrib.auth.views import redirect_to_login
 from django.urls import reverse
 
@@ -33,3 +34,11 @@ def check_view_restrictions(page, request, serve_args, serve_kwargs):
 
             elif restriction.restriction_type in [PageViewRestriction.LOGIN, PageViewRestriction.GROUPS]:
                 return require_wagtail_login(next=request.get_full_path())
+
+
+@hooks.register('register_permissions')
+def register_collection_permissions():
+    return Permission.objects.filter(
+        content_type__app_label='wagtailcore',
+        codename__in=['add_collection', 'change_collection', 'delete_collection']
+    )
