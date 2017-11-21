@@ -1449,6 +1449,8 @@ class TestPageEdit(TestCase, WagtailTestUtils):
             "A page scheduled for future publishing should have has_unpublished_changes=True"
         )
 
+        self.assertEqual(child_page_new.status_string, "scheduled")
+
     def test_edit_post_publish_now_an_already_scheduled_unpublished_page(self):
         # Unpublish the page
         self.child_page.live = False
@@ -1472,8 +1474,10 @@ class TestPageEdit(TestCase, WagtailTestUtils):
 
         child_page_new = SimplePage.objects.get(id=self.child_page.id)
 
-        # The page should not be live anymore
+        # The page should not be live
         self.assertFalse(child_page_new.live)
+
+        self.assertEqual(child_page_new.status_string, "scheduled")
 
         # Instead a revision with approved_go_live_at should now exist
         self.assertTrue(
@@ -1531,6 +1535,8 @@ class TestPageEdit(TestCase, WagtailTestUtils):
 
         # The page should still be live
         self.assertTrue(child_page_new.live)
+
+        self.assertEqual(child_page_new.status_string, "live + scheduled")
 
         # Instead a revision with approved_go_live_at should now exist
         self.assertTrue(

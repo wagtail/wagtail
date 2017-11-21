@@ -995,7 +995,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             else:
                 return _("draft")
         else:
-            if self.has_unpublished_changes:
+            if self.approved_schedule:
+                return _("live + scheduled")
+            elif self.has_unpublished_changes:
                 return _("live + draft")
             else:
                 return _("live")
