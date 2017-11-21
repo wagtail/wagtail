@@ -1416,7 +1416,11 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         # first_published_at should be 3 days ago.
         self.assertEqual(new_delta.days, -3)
 
-    def test_edit_post_publish_scheduled(self):
+    def test_edit_post_publish_scheduled_unpublished_page(self):
+        # Unpublish the page
+        self.child_page.live = False
+        self.child_page.save()
+
         go_live_at = timezone.now() + datetime.timedelta(days=1)
         expire_at = timezone.now() + datetime.timedelta(days=2)
         post_data = {
@@ -1449,7 +1453,11 @@ class TestPageEdit(TestCase, WagtailTestUtils):
             "A page scheduled for future publishing should have has_unpublished_changes=True"
         )
 
-    def test_edit_post_publish_now_an_already_scheduled(self):
+    def test_edit_post_publish_now_an_already_scheduled_unpublished_page(self):
+        # Unpublish the page
+        self.child_page.live = False
+        self.child_page.save()
+
         # First let's publish a page with a go_live_at in the future
         go_live_at = timezone.now() + datetime.timedelta(days=1)
         expire_at = timezone.now() + datetime.timedelta(days=2)
