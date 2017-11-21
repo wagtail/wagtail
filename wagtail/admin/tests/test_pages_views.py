@@ -1392,8 +1392,6 @@ class TestPageEdit(TestCase, WagtailTestUtils):
 
         initial_delta = self.child_page.first_published_at - timezone.now()
 
-        go_live_at = timezone.now() + datetime.timedelta(days=1)
-        expire_at = timezone.now() + datetime.timedelta(days=2)
         first_published_at = timezone.now() - datetime.timedelta(days=2)
 
         post_data = {
@@ -1401,8 +1399,6 @@ class TestPageEdit(TestCase, WagtailTestUtils):
             'body': "Some content",
             'slug': 'hello-again-world',
             'action-publish': "Publish",
-            'go_live_at': submittable_timestamp(go_live_at),
-            'expire_at': submittable_timestamp(expire_at),
             'first_published_at': submittable_timestamp(first_published_at),
         }
         self.client.post(reverse('wagtailadmin_pages:edit', args=(self.child_page.id, )), post_data)
