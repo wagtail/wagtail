@@ -5,10 +5,10 @@ import unittest
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.core.files.uploadedfile import SimpleUploadedFile
-from django.core.urlresolvers import reverse
 from django.db.utils import IntegrityError
 from django.test import TestCase
 from django.test.utils import override_settings
+from django.urls import reverse
 from willow.image import Image as WillowImage
 
 from wagtail.tests.testapp.models import EventPage, EventPageCarouselItem

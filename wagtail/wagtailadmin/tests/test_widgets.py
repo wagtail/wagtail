@@ -34,7 +34,13 @@ class TestAdminPageChooserWidget(TestCase):
         widget = widgets.AdminPageChooser()
 
         js_init = widget.render_js_init('test-id', 'test', None)
-        self.assertEqual(js_init, "createPageChooser(\"test-id\", [\"wagtailcore.page\"], null, false);")
+        self.assertEqual(js_init, "createPageChooser(\"test-id\", [\"wagtailcore.page\"], null, false, null);")
+
+    def test_render_js_init_with_user_perm(self):
+        widget = widgets.AdminPageChooser(user_perms='copy_to')
+
+        js_init = widget.render_js_init('test-id', 'test', None)
+        self.assertEqual(js_init, "createPageChooser(\"test-id\", [\"wagtailcore.page\"], null, false, \"copy_to\");")
 
     def test_render_html_with_value(self):
         widget = widgets.AdminPageChooser()
@@ -47,7 +53,7 @@ class TestAdminPageChooserWidget(TestCase):
 
         js_init = widget.render_js_init('test-id', 'test', self.child_page)
         self.assertEqual(
-            js_init, "createPageChooser(\"test-id\", [\"wagtailcore.page\"], %d, false);" % self.root_page.id
+            js_init, "createPageChooser(\"test-id\", [\"wagtailcore.page\"], %d, false, null);" % self.root_page.id
         )
 
     # def test_render_html_init_with_content_type omitted as HTML does not
@@ -57,7 +63,7 @@ class TestAdminPageChooserWidget(TestCase):
         widget = widgets.AdminPageChooser(target_models=[SimplePage])
 
         js_init = widget.render_js_init('test-id', 'test', None)
-        self.assertEqual(js_init, "createPageChooser(\"test-id\", [\"tests.simplepage\"], null, false);")
+        self.assertEqual(js_init, "createPageChooser(\"test-id\", [\"tests.simplepage\"], null, false, null);")
 
         html = widget.render_html('test', self.child_page, {})
         self.assertIn(">Choose a page (Simple Page)<", html)
@@ -68,7 +74,7 @@ class TestAdminPageChooserWidget(TestCase):
 
         js_init = widget.render_js_init('test-id', 'test', None)
         self.assertEqual(
-            js_init, "createPageChooser(\"test-id\", [\"tests.simplepage\", \"tests.eventpage\"], null, false);"
+            js_init, "createPageChooser(\"test-id\", [\"tests.simplepage\", \"tests.eventpage\"], null, false, null);"
         )
 
         html = widget.render_html('test', self.child_page, {})
@@ -79,7 +85,7 @@ class TestAdminPageChooserWidget(TestCase):
 
         js_init = widget.render_js_init('test-id', 'test', self.child_page)
         self.assertEqual(
-            js_init, "createPageChooser(\"test-id\", [\"wagtailcore.page\"], %d, true);" % self.root_page.id
+            js_init, "createPageChooser(\"test-id\", [\"wagtailcore.page\"], %d, true, null);" % self.root_page.id
         )
 
 

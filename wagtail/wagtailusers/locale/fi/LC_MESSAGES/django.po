@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-04-19 21:08+0000\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"PO-Revision-Date: 2017-10-06 15:11+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
@@ -244,18 +244,15 @@ msgstr ""
 "Yhtään käyttäjää ei ole asetettu. Mikset vaikka <a href="
 "\"%(wagtailusers_create_url)s\">lisäisi joitakin nyt</a>?"
 
+msgid "Groups"
+msgstr "Ryhmät"
+
 msgid "Search groups"
 msgstr "Hae ryhmiä"
 
 #, python-brace-format
 msgid "Group '{0}' created."
 msgstr "Ryhmä '{0}' luotu."
-
-msgid "Edit"
-msgstr "Muokkaa"
-
-msgid "The group could not be created due to errors."
-msgstr "Ryhmää ei voitu luoda virheiden vuoksi."
 
 #, python-brace-format
 msgid "Group '{0}' updated."
@@ -275,6 +272,9 @@ msgstr "Hae käyttäjiä"
 msgid "User '{0}' created."
 msgstr "Käyttäjä '{0}' luotu."
 
+msgid "Edit"
+msgstr "Muokkaa"
+
 msgid "The user could not be created due to errors."
 msgstr "Käyttäjää ei voitu luoda virheiden vuoksi."
 
@@ -288,9 +288,6 @@ msgstr "Käyttäjää ei voitu tallentaa virheiden vuoksi."
 #, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "Käyttäjä '{0}' poistettu."
-
-msgid "Groups"
-msgstr "Ryhmät"
 
 msgid "Edit this user"
 msgstr "Muokkaa tätä käyttäjää"

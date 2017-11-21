@@ -9,7 +9,6 @@ from datetime import date, datetime
 from decimal import Decimal
 
 # non-standard import name for ugettext_lazy, to prevent strings from being picked up for translation
-import django
 from django import forms
 from django.core.exceptions import ValidationError
 from django.forms.utils import ErrorList
@@ -175,6 +174,60 @@ class TestFieldBlock(WagtailTestUtils, SimpleTestCase):
         block = CalenderBlock()
         self.assertIn('pretty.css', ''.join(block.all_media().render_css()))
         self.assertIn('animations.js', ''.join(block.all_media().render_js()))
+
+    def test_prepare_value_called(self):
+        """
+        Check that Field.prepare_value is called before sending the value to
+        the widget for rendering.
+
+        Actual real-world use case: A Youtube field that produces YoutubeVideo
+        instances from IDs, but videos are entered using their full URLs.
+        """
+        class PrefixWrapper(object):
+            prefix = 'http://example.com/'
+
+            def __init__(self, value):
+                self.value = value
+
+            def with_prefix(self):
+                return self.prefix + self.value
+
+            @classmethod
+            def from_prefixed(cls, value):
+                if not value.startswith(cls.prefix):
+                    raise ValueError
+                return cls(value[len(cls.prefix):])
+
+            def __eq__(self, other):
+                return self.value == other.value
+
+        class PrefixField(forms.Field):
+            def clean(self, value):
+                value = super(PrefixField, self).clean(value)
+                return PrefixWrapper.from_prefixed(value)
+
+            def prepare_value(self, value):
+                return value.with_prefix()
+
+        class PrefixedBlock(blocks.FieldBlock):
+            def __init__(self, required=True, help_text='', **kwargs):
+                super(PrefixedBlock, self).__init__(**kwargs)
+                self.field = PrefixField(required=required, help_text=help_text)
+
+        block = PrefixedBlock()
+
+        # Check that the form value is serialized with a prefix correctly
+        value = PrefixWrapper('foo')
+        html = block.render_form(value, 'url')
+        self.assertInHTML(
+            '<input id="url" name="url" placeholder="" type="text" value="{}" />'.format(
+                value.with_prefix()),
+            html)
+
+        # Check that the value was coerced back to a PrefixValue
+        data = {'url': 'http://example.com/bar'}
+        new_value = block.clean(block.value_from_datadict(data, {}, 'url'))
+        self.assertEqual(new_value, PrefixWrapper('bar'))
 
 
 class TestIntegerBlock(unittest.TestCase):
@@ -755,7 +808,6 @@ class TestRawHTMLBlock(unittest.TestCase):
         self.assertEqual(result, '<blink>BÖÖM</blink>')
         self.assertIsInstance(result, SafeData)
 
-    @unittest.skipIf(django.VERSION < (1, 10, 2), "value_omitted_from_data is not available")
     def test_value_omitted_from_data(self):
         block = blocks.RawHTMLBlock()
         self.assertFalse(block.value_omitted_from_data({'rawhtml': 'ohai'}, {}, 'rawhtml'))
@@ -1199,7 +1251,6 @@ class TestStructBlock(SimpleTestCase):
         self.assertTrue(isinstance(struct_val, blocks.StructValue))
         self.assertTrue(isinstance(struct_val.bound_blocks['link'].block, blocks.URLBlock))
 
-    @unittest.skipIf(django.VERSION < (1, 10, 2), "value_omitted_from_data is not available")
     def test_value_omitted_from_data(self):
         block = blocks.StructBlock([
             ('title', blocks.CharBlock()),
@@ -1262,16 +1313,35 @@ class TestStructBlock(SimpleTestCase):
 
     def test_render_structvalue(self):
         """
-        The string representation of a StructValue should use the block's template
+        The HTML representation of a StructValue should use the block's template
+        """
+        block = SectionBlock()
+        value = block.to_python({'title': 'Hello', 'body': '<i>italic</i> world'})
+        result = value.__html__()
+        self.assertEqual(result, """<h1>Hello</h1><div class="rich-text"><i>italic</i> world</div>""")
+
+        # value.render_as_block() should be equivalent to value.__html__()
+        result = value.render_as_block()
+        self.assertEqual(result, """<h1>Hello</h1><div class="rich-text"><i>italic</i> world</div>""")
+
+    def test_str_structvalue(self):
+        """
+        The str() representation of a StructValue should NOT render the template, as that's liable
+        to cause an infinite loop if any debugging / logging code attempts to log the fact that
+        it rendered a template with this object in the context:
+        https://github.com/wagtail/wagtail/issues/2874
+        https://github.com/jazzband/django-debug-toolbar/issues/950
         """
         block = SectionBlock()
         value = block.to_python({'title': 'Hello', 'body': '<i>italic</i> world'})
         result = str(value)
-        self.assertEqual(result, """<h1>Hello</h1><div class="rich-text"><i>italic</i> world</div>""")
-
-        # value.render_as_block() should be equivalent to str(value)
-        result = value.render_as_block()
-        self.assertEqual(result, """<h1>Hello</h1><div class="rich-text"><i>italic</i> world</div>""")
+        self.assertNotIn('<h1>', result)
+        # The expected rendering should correspond to the native representation of an OrderedDict:
+        # "StructValue([('title', u'Hello'), ('body', <wagtail.wagtailcore.rich_text.RichText object at 0xb12d5eed>)])"
+        # - give or take some quoting differences between Python versions
+        self.assertIn('StructValue', result)
+        self.assertIn('title', result)
+        self.assertIn('Hello', result)
 
     def test_render_structvalue_with_extra_context(self):
         block = SectionBlock()
@@ -1525,7 +1595,6 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
 
         self.assertEqual(content, ["Wagtail", "Django"])
 
-    @unittest.skipIf(django.VERSION < (1, 10, 2), "value_omitted_from_data is not available")
     def test_value_omitted_from_data(self):
         block = blocks.ListBlock(blocks.CharBlock())
 
@@ -1680,6 +1749,37 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         self.assertEqual(list(block.child_blocks.keys()),
                          ['heading', 'paragraph', 'intro', 'by_line'])
 
+    def test_required_raises_an_exception_if_empty(self):
+        block = blocks.StreamBlock([('paragraph', blocks.CharBlock())], required=True)
+        value = blocks.StreamValue(block, [])
+
+        with self.assertRaises(blocks.StreamBlockValidationError):
+            block.clean(value)
+
+    def test_required_does_not_raise_an_exception_if_not_empty(self):
+        block = blocks.StreamBlock([('paragraph', blocks.CharBlock())], required=True)
+        value = block.to_python([{'type': 'paragraph', 'value': 'Hello'}])
+        try:
+            block.clean(value)
+        except blocks.StreamBlockValidationError:
+            raise self.failureException("%s was raised" % blocks.StreamBlockValidationError)
+
+    def test_not_required_does_not_raise_an_exception_if_empty(self):
+        block = blocks.StreamBlock([('paragraph', blocks.CharBlock())], required=False)
+        value = blocks.StreamValue(block, [])
+
+        try:
+            block.clean(value)
+        except blocks.StreamBlockValidationError:
+            raise self.failureException("%s was raised" % blocks.StreamBlockValidationError)
+
+    def test_required_by_default(self):
+        block = blocks.StreamBlock([('paragraph', blocks.CharBlock())])
+        value = blocks.StreamValue(block, [])
+
+        with self.assertRaises(blocks.StreamBlockValidationError):
+            block.clean(value)
+
     def render_article(self, data):
         class ArticleBlock(blocks.StreamBlock):
             heading = blocks.CharBlock()
@@ -1707,7 +1807,7 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         api_representation = block.get_api_representation(
             block.to_python([
                 {'type': 'language', 'value': 'en'},
-                {'type': 'author', 'value': 'wagtail'},
+                {'type': 'author', 'value': 'wagtail', 'id': '111111'},
             ]),
             context={
                 'en': 'English',
@@ -1717,8 +1817,8 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
 
         self.assertListEqual(
             api_representation, [
-                {'type': 'language', 'value': 'English'},
-                {'type': 'author', 'value': 'Wagtail!'},
+                {'type': 'language', 'value': 'English', 'id': None},
+                {'type': 'author', 'value': 'Wagtail!', 'id': '111111'},
             ]
         )
 
@@ -1846,6 +1946,7 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             {
                 'type': 'heading',
                 'value': "My title",
+                'id': '123123123',
             },
             {
                 'type': 'paragraph',
@@ -1880,6 +1981,13 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         self.assertIn('<input type="hidden" id="myarticle-1-order" name="myarticle-1-order" value="1">', html)
         self.assertIn('<input type="hidden" id="myarticle-2-order" name="myarticle-2-order" value="2">', html)
 
+    def test_render_form_id_fields(self):
+        html = self.render_form()
+
+        self.assertIn('<input type="hidden" id="myarticle-0-id" name="myarticle-0-id" value="123123123">', html)
+        self.assertIn('<input type="hidden" id="myarticle-1-id" name="myarticle-1-id" value="">', html)
+        self.assertIn('<input type="hidden" id="myarticle-2-id" name="myarticle-2-id" value="">', html)
+
     def test_render_form_type_fields(self):
         html = self.render_form()
 
@@ -1912,7 +2020,6 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             html
         )
 
-    @unittest.skipIf(django.VERSION < (1, 10, 2), "value_omitted_from_data is not available")
     def test_value_omitted_from_data(self):
         block = blocks.StreamBlock([
             ('heading', blocks.CharBlock()),
@@ -1933,24 +2040,12 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             url = blocks.URLBlock()
         block = ValidatedBlock()
 
-        value = [
-            blocks.BoundBlock(
-                block=block.child_blocks['char'],
-                value='',
-            ),
-            blocks.BoundBlock(
-                block=block.child_blocks['char'],
-                value='foo',
-            ),
-            blocks.BoundBlock(
-                block=block.child_blocks['url'],
-                value='http://example.com/',
-            ),
-            blocks.BoundBlock(
-                block=block.child_blocks['url'],
-                value='not a url',
-            ),
-        ]
+        value = blocks.StreamValue(block, [
+            ('char', ''),
+            ('char', 'foo'),
+            ('url', 'http://example.com/'),
+            ('url', 'not a url'),
+        ])
 
         with self.assertRaises(ValidationError) as catcher:
             block.clean(value)
@@ -1958,6 +2053,99 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             0: ['This field is required.'],
             3: ['Enter a valid URL.'],
         })
+
+    def test_min_num_validation_errors(self):
+        class ValidatedBlock(blocks.StreamBlock):
+            char = blocks.CharBlock()
+            url = blocks.URLBlock()
+        block = ValidatedBlock(min_num=1)
+
+        value = blocks.StreamValue(block, [])
+
+        with self.assertRaises(ValidationError) as catcher:
+            block.clean(value)
+        self.assertEqual(catcher.exception.params, {
+            '__all__': ['The minimum number of items is 1']
+        })
+
+        # a value with >= 1 blocks should pass validation
+        value = blocks.StreamValue(block, [('char', 'foo')])
+        self.assertTrue(block.clean(value))
+
+    def test_max_num_validation_errors(self):
+        class ValidatedBlock(blocks.StreamBlock):
+            char = blocks.CharBlock()
+            url = blocks.URLBlock()
+        block = ValidatedBlock(max_num=1)
+
+        value = blocks.StreamValue(block, [
+            ('char', 'foo'),
+            ('char', 'foo'),
+            ('url', 'http://example.com/'),
+            ('url', 'http://example.com/'),
+        ])
+
+        with self.assertRaises(ValidationError) as catcher:
+            block.clean(value)
+        self.assertEqual(catcher.exception.params, {
+            '__all__': ['The maximum number of items is 1']
+        })
+
+        # a value with 1 block should pass validation
+        value = blocks.StreamValue(block, [('char', 'foo')])
+        self.assertTrue(block.clean(value))
+
+    def test_block_counts_min_validation_errors(self):
+        class ValidatedBlock(blocks.StreamBlock):
+            char = blocks.CharBlock()
+            url = blocks.URLBlock()
+        block = ValidatedBlock(block_counts={'char': {'min_num': 1}})
+
+        value = blocks.StreamValue(block, [
+            ('url', 'http://example.com/'),
+            ('url', 'http://example.com/'),
+        ])
+
+        with self.assertRaises(ValidationError) as catcher:
+            block.clean(value)
+        self.assertEqual(catcher.exception.params, {
+            '__all__': ['Char: The minimum number of items is 1']
+        })
+
+        # a value with 1 char block should pass validation
+        value = blocks.StreamValue(block, [
+            ('url', 'http://example.com/'),
+            ('char', 'foo'),
+            ('url', 'http://example.com/'),
+        ])
+        self.assertTrue(block.clean(value))
+
+    def test_block_counts_max_validation_errors(self):
+        class ValidatedBlock(blocks.StreamBlock):
+            char = blocks.CharBlock()
+            url = blocks.URLBlock()
+        block = ValidatedBlock(block_counts={'char': {'max_num': 1}})
+
+        value = blocks.StreamValue(block, [
+            ('char', 'foo'),
+            ('char', 'foo'),
+            ('url', 'http://example.com/'),
+            ('url', 'http://example.com/'),
+        ])
+
+        with self.assertRaises(ValidationError) as catcher:
+            block.clean(value)
+        self.assertEqual(catcher.exception.params, {
+            '__all__': ['Char: The maximum number of items is 1']
+        })
+
+        # a value with 1 char block should pass validation
+        value = blocks.StreamValue(block, [
+            ('char', 'foo'),
+            ('url', 'http://example.com/'),
+            ('url', 'http://example.com/'),
+        ])
+        self.assertTrue(block.clean(value))
 
     def test_block_level_validation_renders_errors(self):
         block = FooStreamBlock()
@@ -2015,6 +2203,8 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         block = ArticleBlock()
         html = block.html_declarations()
 
+        self.assertTagInTemplateScript('<input type="hidden" id="__PREFIX__-id" name="__PREFIX__-id" value="" />', html)
+        self.assertTagInTemplateScript('<input type="hidden" id="__PREFIX__-type" name="__PREFIX__-type" value="heading" />', html)
         self.assertTagInTemplateScript('<input id="__PREFIX__-value" name="__PREFIX__-value" placeholder="Heading" type="text" />', html)
         self.assertTagInTemplateScript(
             '<input id="__PREFIX__-value" name="__PREFIX__-value" placeholder="Paragraph" type="text" />',
@@ -2081,11 +2271,13 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
                 'article-%d-deleted' % i: '',
                 'article-%d-order' % i: str(2 - i),
                 'article-%d-type' % i: 'heading',
-                'article-%d-value' % i: "heading %d" % i
+                'article-%d-value' % i: "heading %d" % i,
+                'article-%d-id' % i: "000%d" % i,
             })
 
         block_value = block.value_from_datadict(post_data, {}, 'article')
         self.assertEqual(block_value[2].value, "heading 0")
+        self.assertEqual(block_value[2].id, "0000")
 
     def test_ordering_in_form_submission_is_numeric(self):
         class ArticleBlock(blocks.StreamBlock):
@@ -2234,6 +2426,62 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         self.assertIn('<h3>group1</h3>', html)
         self.assertIn('<h3>group2</h3>', html)
 
+    def test_value_from_datadict(self):
+        class ArticleBlock(blocks.StreamBlock):
+            heading = blocks.CharBlock()
+            paragraph = blocks.CharBlock()
+
+        block = ArticleBlock()
+
+        value = block.value_from_datadict({
+            'foo-count': '3',
+            'foo-0-deleted': '',
+            'foo-0-order': '2',
+            'foo-0-type': 'heading',
+            'foo-0-id': '0000',
+            'foo-0-value': 'this is my heading',
+            'foo-1-deleted': '1',
+            'foo-1-order': '1',
+            'foo-1-type': 'heading',
+            'foo-1-id': '0001',
+            'foo-1-value': 'a deleted heading',
+            'foo-2-deleted': '',
+            'foo-2-order': '0',
+            'foo-2-type': 'paragraph',
+            'foo-2-id': '',
+            'foo-2-value': '<p>this is a paragraph</p>',
+        }, {}, prefix='foo')
+
+        self.assertEqual(len(value), 2)
+        self.assertEqual(value[0].block_type, 'paragraph')
+        self.assertEqual(value[0].id, '')
+        self.assertEqual(value[0].value, '<p>this is a paragraph</p>')
+
+        self.assertEqual(value[1].block_type, 'heading')
+        self.assertEqual(value[1].id, '0000')
+        self.assertEqual(value[1].value, 'this is my heading')
+
+    def test_get_prep_value(self):
+        class ArticleBlock(blocks.StreamBlock):
+            heading = blocks.CharBlock()
+            paragraph = blocks.CharBlock()
+
+        block = ArticleBlock()
+
+        value = blocks.StreamValue(block, [
+            ('heading', 'this is my heading', '0000'),
+            ('paragraph', '<p>this is a paragraph</p>')
+        ])
+        jsonish_value = block.get_prep_value(value)
+
+        self.assertEqual(len(jsonish_value), 2)
+        self.assertEqual(jsonish_value[0], {'type': 'heading', 'value': 'this is my heading', 'id': '0000'})
+        self.assertEqual(jsonish_value[1]['type'], 'paragraph')
+        self.assertEqual(jsonish_value[1]['value'], '<p>this is a paragraph</p>')
+        # get_prep_value should assign a new (random and non-empty) ID to this block, as it didn't
+        # have one already
+        self.assertTrue(jsonish_value[1]['id'])
+
 
 class TestPageChooserBlock(TestCase):
     fixtures = ['test.json']
@@ -2263,7 +2511,7 @@ class TestPageChooserBlock(TestCase):
 
         empty_form_html = block.render_form(None, 'page')
         self.assertInHTML('<input id="page" name="page" placeholder="" type="hidden" />', empty_form_html)
-        self.assertIn('createPageChooser("page", ["wagtailcore.page"], null, false);', empty_form_html)
+        self.assertIn('createPageChooser("page", ["wagtailcore.page"], null, false, null);', empty_form_html)
 
         christmas_page = Page.objects.get(slug='christmas')
         christmas_form_html = block.render_form(christmas_page, 'page')
@@ -2274,32 +2522,32 @@ class TestPageChooserBlock(TestCase):
     def test_form_render_with_target_model_default(self):
         block = blocks.PageChooserBlock()
         empty_form_html = block.render_form(None, 'page')
-        self.assertIn('createPageChooser("page", ["wagtailcore.page"], null, false);', empty_form_html)
+        self.assertIn('createPageChooser("page", ["wagtailcore.page"], null, false, null);', empty_form_html)
 
     def test_form_render_with_target_model_string(self):
         block = blocks.PageChooserBlock(help_text="pick a page, any page", target_model='tests.SimplePage')
         empty_form_html = block.render_form(None, 'page')
-        self.assertIn('createPageChooser("page", ["tests.simplepage"], null, false);', empty_form_html)
+        self.assertIn('createPageChooser("page", ["tests.simplepage"], null, false, null);', empty_form_html)
 
     def test_form_render_with_target_model_literal(self):
         block = blocks.PageChooserBlock(help_text="pick a page, any page", target_model=SimplePage)
         empty_form_html = block.render_form(None, 'page')
-        self.assertIn('createPageChooser("page", ["tests.simplepage"], null, false);', empty_form_html)
+        self.assertIn('createPageChooser("page", ["tests.simplepage"], null, false, null);', empty_form_html)
 
     def test_form_render_with_target_model_multiple_strings(self):
         block = blocks.PageChooserBlock(help_text="pick a page, any page", target_model=['tests.SimplePage', 'tests.EventPage'])
         empty_form_html = block.render_form(None, 'page')
-        self.assertIn('createPageChooser("page", ["tests.simplepage", "tests.eventpage"], null, false);', empty_form_html)
+        self.assertIn('createPageChooser("page", ["tests.simplepage", "tests.eventpage"], null, false, null);', empty_form_html)
 
     def test_form_render_with_target_model_multiple_literals(self):
         block = blocks.PageChooserBlock(help_text="pick a page, any page", target_model=[SimplePage, EventPage])
         empty_form_html = block.render_form(None, 'page')
-        self.assertIn('createPageChooser("page", ["tests.simplepage", "tests.eventpage"], null, false);', empty_form_html)
+        self.assertIn('createPageChooser("page", ["tests.simplepage", "tests.eventpage"], null, false, null);', empty_form_html)
 
     def test_form_render_with_can_choose_root(self):
         block = blocks.PageChooserBlock(help_text="pick a page, any page", can_choose_root=True)
         empty_form_html = block.render_form(None, 'page')
-        self.assertIn('createPageChooser("page", ["wagtailcore.page"], null, true);', empty_form_html)
+        self.assertIn('createPageChooser("page", ["wagtailcore.page"], null, true, null);', empty_form_html)
 
     def test_form_response(self):
         block = blocks.PageChooserBlock()

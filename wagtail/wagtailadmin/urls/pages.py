@@ -4,6 +4,7 @@ from django.conf.urls import url
 
 from wagtail.wagtailadmin.views import page_privacy, pages
 
+app_name = 'wagtailadmin_pages'
 urlpatterns = [
     url(r'^add/(\w+)/(\w+)/(\d+)/$', pages.create, name='add'),
     url(r'^add/(\w+)/(\w+)/(\d+)/preview/$', pages.PreviewOnCreate.as_view(), name='preview_on_add'),

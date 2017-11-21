@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-04-19 21:05+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"PO-Revision-Date: 2017-09-23 20:27+0000\n"
+"Last-Translator: Maarten Kling <kling.maarten@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -27,6 +27,17 @@ msgstr "{label}: Dit blok heeft geen opties."
 
 msgid "This block has no options."
 msgstr "Dit blok heeft geen opties."
+
+#, python-format
+msgid "The minimum number of items is %d"
+msgstr "Het minimale aantal items is %d"
+
+msgid "This field is required."
+msgstr "Dit veld is verplicht."
+
+#, python-format
+msgid "The maximum number of items is %d"
+msgstr "Het maximale aantal items is %d"
 
 msgid "Password"
 msgstr "Wachtwoord"
@@ -150,6 +161,9 @@ msgstr "geblokkeerd"
 msgid "first published at"
 msgstr "voor het eerst gepubliceerd op"
 
+msgid "last published at"
+msgstr "voor het laatst gepubliceerd op"
+
 msgid "latest revision created at"
 msgstr "meest recente versie aangemaakt op"
 
@@ -252,17 +266,32 @@ msgstr "Afgeschermd, toegankelijk voor gebruikers in bepaalde groepen"
 msgid "password"
 msgstr "wachtwoord"
 
+msgid "groups"
+msgstr "groepen"
+
+msgid "view restriction"
+msgstr "bekijk restrictie"
+
+msgid "view restrictions"
+msgstr "bekijk restricties"
+
 msgid "page view restriction"
 msgstr "pagina weergave recht"
 
 msgid "page view restrictions"
 msgstr "pagina weergave rechten"
 
-msgid "name"
-msgstr "naam"
-
 msgid "collection"
 msgstr "collectie"
+
+msgid "collection view restriction"
+msgstr "collectie bekijk restrictie"
+
+msgid "collection view restrictions"
+msgstr "collectie bekijk restricties"
+
+msgid "name"
+msgstr "naam"
 
 msgid "collections"
 msgstr "collecties"

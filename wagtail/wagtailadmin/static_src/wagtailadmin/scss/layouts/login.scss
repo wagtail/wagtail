@@ -5,8 +5,8 @@
 // overrides default nice padding defined in variables.scss
 $desktop-nice-padding: 100px;
 
-html, 
-body, 
+html,
+body,
 .content-wrapper {
     background-color: $color-grey-1;
     color: $color-grey-3;
@@ -49,82 +49,79 @@ form {
     }
 }
 
-    label {
-        width: auto;
-        color: $color-white;
-    }
+label {
+    width: auto;
+    color: $color-white;
+}
 
-    .button {
-        font-size: 1.5em;
-        padding: 1.1em 2.4em;
-        height: 3.5em;
-    }
+.button {
+    font-size: 1.5em;
+    padding: 1.1em 2.4em;
+    height: 3.5em;
+}
 
-    input[type=checkbox]:before {
-        background-color: #333;
-        color: #555;
-        border: 1px solid #555;
-    }
+input[type=checkbox]:before {
+    background-color: #333;
+    color: #555;
+    border: 1px solid #555;
+}
 
-    .fields {
-        max-width: none;
-    }
+.fields {
+    max-width: none;
+}
 
-        .fields li {
-            padding: 1em 0;
+.fields li {
+    padding: 1em 0;
 
-            &.full {
-                position: relative;
-                padding: 0;
+    &.full {
+        position: relative;
+        padding: 0;
 
-                label {
-                    display: none;
-                }
-
-                input {
-                    border-top: 1px dashed $color-input-border;
-                }
-            }
-
-            &:first-child input {
-                border: 0;
-            }
-        }
-
-        .fields .checkbox {
-            padding-top: 2em;
-            padding-bottom: 2em;
-        }
-
-        .field {
-            padding: 0;
-        }
-
-        .iconfield .input:before {
+        label {
             display: none;
-        }   
+        }
 
-    // Special full-width, one-off fields i.e a single text or textarea input
-    .full input {
-        border-radius: 0;
-        padding-left: $mobile-nice-padding;
-        padding-right: $mobile-nice-padding;
-        font-weight: 300;
+        input {
+            border-top: 1px dashed $color-input-border;
+        }
+    }
+
+    &:first-child input {
         border: 0;
-        padding-top: 1.5em;
-        padding-bottom: 1.5em;
-        font-size: 1.6em;
-        line-height: 1.6em;
     }
+}
 
-    .help {
-        opacity: 1;
-        position: absolute;
-        font-size: 1.3em;
-        top: 50%;
-        margin-top: -0.5em;
-        right: 5%;
-    }
+.fields .checkbox {
+    padding-top: 2em;
+    padding-bottom: 2em;
+}
+
+.field {
+    padding: 0;
+}
+
+.iconfield .input:before {
+    display: none;
+}
+
+// Special full-width, one-off fields i.e a single text or textarea input
+.full input {
+    border-radius: 0;
+    font-weight: 300;
+    border: 0;
+    padding: 1.5em $mobile-nice-padding 1.5em $mobile-nice-padding;
+    font-size: 1.6em;
+    line-height: 1.6em;
+}
+
+.help {
+    opacity: 1;
+    position: absolute;
+    font-size: 1.3em;
+    top: 50%;
+    margin-top: -0.5em;
+    right: 5%;
+}
 
 .messages {
     margin: 1em 0;

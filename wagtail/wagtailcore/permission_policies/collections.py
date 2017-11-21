@@ -5,7 +5,6 @@ from django.contrib.auth.models import Group, Permission
 from django.core.exceptions import FieldDoesNotExist, ImproperlyConfigured
 from django.db.models import Q
 
-from wagtail.utils.compat import user_is_authenticated
 from wagtail.wagtailcore.models import Collection, GroupCollectionPermission
 
 from .base import BaseDjangoAuthPermissionPolicy
@@ -29,7 +28,7 @@ class CollectionPermissionLookupMixin(object):
         If collection is specified, only consider GroupCollectionPermission records
         that apply to that collection.
         """
-        if not (user.is_active and user_is_authenticated(user)):
+        if not (user.is_active and user.is_authenticated):
             return False
 
         if user.is_superuser:
@@ -165,7 +164,7 @@ class CollectionPermissionPolicy(CollectionPermissionLookupMixin, BaseDjangoAuth
         Return a queryset of all instances of this model for which the given user has
         permission to perform any of the given actions
         """
-        if not (user.is_active and user_is_authenticated(user)):
+        if not (user.is_active and user.is_authenticated):
             return self.model.objects.none()
         elif user.is_superuser:
             return self.model.objects.all()
@@ -192,7 +191,7 @@ class CollectionPermissionPolicy(CollectionPermissionLookupMixin, BaseDjangoAuth
             # in any collection
             return Collection.objects.all()
 
-        elif not user_is_authenticated(user):
+        elif not user.is_authenticated:
             return Collection.objects.none()
 
         else:
@@ -275,7 +274,7 @@ class CollectionOwnershipPermissionPolicy(
             # active superusers can perform any action (including unrecognised ones)
             # on any instance
             return self.model.objects.all()
-        elif not user_is_authenticated(user):
+        elif not user.is_authenticated:
             return self.model.objects.none()
         elif 'change' in actions or 'delete' in actions:
             # return instances which are:
@@ -333,7 +332,7 @@ class CollectionOwnershipPermissionPolicy(
             # in any collection
             return Collection.objects.all()
 
-        elif not user_is_authenticated(user):
+        elif not user.is_authenticated:
             return Collection.objects.none()
 
         elif 'change' in actions or 'delete' in actions:

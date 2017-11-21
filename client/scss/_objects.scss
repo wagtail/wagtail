@@ -1,1 +1,7 @@
-@import 'objects/o.icon';
+.o-pill {
+    display: inline-block;
+    padding: 0.2em 0.5em;
+    border-radius: 0.25em;
+    vertical-align: middle;
+    line-height: 1.5;
+}

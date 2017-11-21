@@ -3,11 +3,11 @@ from __future__ import absolute_import, unicode_literals
 import posixpath
 from collections import defaultdict
 
-from django import VERSION as DJANGO_VERSION
 from django.apps import apps
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import CharField, Q
 from django.db.models.functions import Length, Substr
+from django.db.models.query import BaseIterable
 from treebeard.mp_tree import MP_NodeQuerySet
 
 from wagtail.wagtailsearch.queryset import SearchableQuerySetMixin
@@ -343,12 +343,9 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
         This efficiently gets all the specific pages for the queryset, using
         the minimum number of queries.
         """
-        if DJANGO_VERSION >= (1, 9):
-            clone = self._clone()
-            clone._iterable_class = SpecificIterable
-            return clone
-        else:
-            return self._clone(klass=SpecificQuerySet)
+        clone = self._clone()
+        clone._iterable_class = SpecificIterable
+        return clone
 
     def in_site(self, site):
         """
@@ -376,7 +373,9 @@ def specific_iterator(qs):
     # Get the specific instances of all pages, one model class at a time.
     pages_by_type = {}
     for content_type, pks in pks_by_type.items():
-        model = content_types[content_type].model_class()
+        # look up model class for this content type, falling back on the original
+        # model (i.e. Page) if the more specific one is missing
+        model = content_types[content_type].model_class() or qs.model
         pages = model.objects.filter(pk__in=pks)
         pages_by_type[content_type] = {page.pk: page for page in pages}
 
@@ -385,17 +384,6 @@ def specific_iterator(qs):
         yield pages_by_type[content_type][pk]
 
 
-# Django 1.9 changed how extending QuerySets with different iterators behaved
-# considerably, in a way that is not easily compatible between the two versions
-if DJANGO_VERSION >= (1, 9):
-    from django.db.models.query import BaseIterable
-
-    class SpecificIterable(BaseIterable):
-        def __iter__(self):
-            return specific_iterator(self.queryset)
-
-else:
-    from django.db.models.query import QuerySet
-
-    class SpecificQuerySet(QuerySet):
-        iterator = specific_iterator
+class SpecificIterable(BaseIterable):
+    def __iter__(self):
+        return specific_iterator(self.queryset)

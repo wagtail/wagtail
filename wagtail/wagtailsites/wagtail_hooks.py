@@ -1,21 +1,19 @@
 from __future__ import absolute_import, unicode_literals
 
-from django.conf.urls import include, url
 from django.contrib.auth.models import Permission
-from django.core import urlresolvers
+from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 
 from wagtail.wagtailadmin.menu import MenuItem
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.permissions import site_permission_policy
-from wagtail.wagtailsites import urls
+
+from .views import SiteViewSet
 
 
-@hooks.register('register_admin_urls')
-def register_admin_urls():
-    return [
-        url(r'^sites/', include(urls, app_name='wagtailsites', namespace='wagtailsites')),
-    ]
+@hooks.register('register_admin_viewset')
+def register_viewset():
+    return SiteViewSet('wagtailsites', url_prefix='sites')
 
 
 class SitesMenuItem(MenuItem):
@@ -27,7 +25,7 @@ class SitesMenuItem(MenuItem):
 
 @hooks.register('register_settings_menu_item')
 def register_sites_menu_item():
-    return SitesMenuItem(_('Sites'), urlresolvers.reverse('wagtailsites:index'),
+    return SitesMenuItem(_('Sites'), reverse('wagtailsites:index'),
                          classnames='icon icon-site', order=602)
 
 

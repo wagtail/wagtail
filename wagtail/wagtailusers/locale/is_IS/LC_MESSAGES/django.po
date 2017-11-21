@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2016
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2017
 # saevarom <saevar@saevar.is>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-04-19 21:08+0000\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"PO-Revision-Date: 2017-10-06 15:11+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
@@ -86,6 +86,12 @@ msgstr "höfnunar tilkynningar"
 
 msgid "Receive notification when your page edit is rejected"
 msgstr "Fá sendar tilkynningar þegar breytingar sem þú gerir á síðu er hafnað"
+
+msgid "preferred language"
+msgstr "kjör tungumál"
+
+msgid "Select language for the admin"
+msgstr "Veldu tungumál fyrir kerfisstjórn"
 
 msgid "user profile"
 msgstr "uppsetning notanda"
@@ -248,18 +254,15 @@ msgstr ""
 "Það eru engir notendur til. Hví ekki að <a href=\"%(wagtailusers_create_url)s"
 "\">bæta við nokkrum</a>?"
 
+msgid "Groups"
+msgstr "Hópar"
+
 msgid "Search groups"
 msgstr "Leita í hópum"
 
 #, python-brace-format
 msgid "Group '{0}' created."
 msgstr "Hópur '{0}' búinn til."
-
-msgid "Edit"
-msgstr "Breyta"
-
-msgid "The group could not be created due to errors."
-msgstr "Ekki var hægt að búa hópinn til þar sem hann stóðst ekki villuprófanir"
 
 #, python-brace-format
 msgid "Group '{0}' updated."
@@ -279,6 +282,9 @@ msgstr "Leita í notendum"
 msgid "User '{0}' created."
 msgstr "Notandi '{0}' búinn til."
 
+msgid "Edit"
+msgstr "Breyta"
+
 msgid "The user could not be created due to errors."
 msgstr ""
 "Ekki var hægt að búa til notandann þar sem hann stóðst ekki villuprófanir"
@@ -294,9 +300,6 @@ msgstr ""
 #, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "Notanda '{0}' eytt."
-
-msgid "Groups"
-msgstr "Hópar"
 
 msgid "Edit this user"
 msgstr "Breyta þessum notanda"

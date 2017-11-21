@@ -32,7 +32,11 @@
                 {% csrf_token %}
                 <ul class="fields">
                     {% for field in uploadform %}
-                        {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
+                        {% if field.is_hidden %}
+                            {{ field }}
+                        {% else %}
+                            {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
+                        {% endif %}
                     {% endfor %}
                     <li>
                         <button type="submit" class="button button-longrunning" data-clicked-text="{% trans 'Uploading...' %}"><span class="icon icon-spinner"></span><em>{% trans 'Upload' %}</em></button>

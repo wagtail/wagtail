@@ -8,7 +8,6 @@ from django.db import models
 from django.template import Context, Template, engines
 from django.test import TestCase
 from django.utils.safestring import SafeText
-from django.utils.six import text_type
 
 from wagtail.tests.testapp.models import StreamModel
 from wagtail.wagtailcore import blocks
@@ -189,7 +188,7 @@ class TestStreamFieldRenderingBase(TestCase):
 
 class TestStreamFieldRendering(TestStreamFieldRenderingBase):
     def test_to_string(self):
-        rendered = text_type(self.instance.body)
+        rendered = str(self.instance.body)
         self.assertHTMLEqual(rendered, self.expected)
         self.assertIsInstance(rendered, SafeText)
 
@@ -221,3 +220,13 @@ class TestStreamFieldJinjaRendering(TestStreamFieldRenderingBase):
         rendered = self.render('{{ instance.body }}', {
             'instance': self.instance})
         self.assertHTMLEqual(rendered, self.expected)
+
+
+class TestRequiredStreamField(TestCase):
+    def test_non_blank_field_is_required(self):
+        field = StreamField([('paragraph', blocks.CharBlock())], blank=False)
+        self.assertTrue(field.stream_block.required)
+
+    def test_blank_field_is_not_required(self):
+        field = StreamField([('paragraph', blocks.CharBlock())], blank=True)
+        self.assertFalse(field.stream_block.required)

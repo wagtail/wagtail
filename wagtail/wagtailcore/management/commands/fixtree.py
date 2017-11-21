@@ -6,7 +6,6 @@ import operator
 from django.core.management.base import BaseCommand
 from django.db import models
 from django.db.models import Q
-from django.utils import six
 
 from wagtail.wagtailcore.models import Page
 
@@ -71,7 +70,7 @@ class Command(BaseCommand):
             self.stdout.write('')
 
             if options.get('interactive', True):
-                yes_or_no = six.moves.input("Delete these pages? [y/N] ")
+                yes_or_no = input("Delete these pages? [y/N] ")
                 delete_orphans = yes_or_no.lower().startswith('y')
                 self.stdout.write('')
             else:

@@ -1,18 +1,21 @@
 {
-  "name": "wagtail",
+  "name": "wagtail-client",
+  "version": "0.1.0",
+  "repository": "https://github.com/wagtail/wagtail",
+  "description": "Wagtail's client side code",
   "license": "BSD-3-Clause",
   "author": "Wagtail",
-  "version": "0.0.2",
+  "main": "src/index.js",
   "bin": {
     "wagtail": "./src/cli/index.js"
   },
-  "scripts": {
-    "test": "npm test"
-  },
-  "main": "src/index.js",
-  "description": "Wagtail's client side code",
+  "files": [
+    "src/index.js"
+  ],
+  "devDependencies": {},
   "dependencies": {
     "mustache": "^2.2.1",
     "yargs": "^4.2.0"
-  }
+  },
+  "scripts": {}
 }

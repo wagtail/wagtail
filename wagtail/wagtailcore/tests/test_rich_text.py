@@ -6,7 +6,7 @@ from mock import patch
 
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.rich_text import (
-    DbWhitelister, PageLinkHandler, RichText, expand_db_html, extract_attrs)
+    DbWhitelister, FeatureRegistry, PageLinkHandler, RichText, expand_db_html, extract_attrs)
 
 
 class TestPageLinkHandler(TestCase):
@@ -106,18 +106,10 @@ class TestExpandDbHtml(TestCase):
         result = expand_db_html(html)
         self.assertEqual(result, '<a id="1">foo</a>')
 
-    @patch('wagtail.wagtailembeds.finders.oembed.find_embed')
-    def test_expand_db_html_with_embed(self, oembed):
-        oembed.return_value = {
-            'title': 'test title',
-            'author_name': 'test author name',
-            'provider_name': 'test provider name',
-            'type': 'test type',
-            'thumbnail_url': 'test thumbnail url',
-            'width': 'test width',
-            'height': 'test height',
-            'html': 'test html'
-        }
+    @patch('wagtail.wagtailembeds.embeds.get_embed')
+    def test_expand_db_html_with_embed(self, get_embed):
+        from wagtail.wagtailembeds.models import Embed
+        get_embed.return_value = Embed(html='test html')
         html = '<embed embedtype="media" url="http://www.youtube.com/watch" />'
         result = expand_db_html(html)
         self.assertIn('test html', result)
@@ -152,3 +144,21 @@ class TestRichTextValue(TestCase):
 
         value = RichText('<p>wagtail</p>')
         self.assertTrue(value)
+
+
+class TestFeatureRegistry(TestCase):
+    def test_register_rich_text_features_hook(self):
+        # testapp/wagtail_hooks.py defines a 'blockquote' rich text feature with a hallo.js
+        # plugin, via the register_rich_text_features hook; test that we can retrieve it here
+        features = FeatureRegistry()
+        blockquote = features.get_editor_plugin('hallo', 'blockquote')
+        self.assertEqual(blockquote.name, 'halloblockquote')
+
+    def test_missing_editor_plugin_returns_none(self):
+        features = FeatureRegistry()
+        self.assertIsNone(
+            features.get_editor_plugin('made_up_editor', 'blockquote')
+        )
+        self.assertIsNone(
+            features.get_editor_plugin('hallo', 'made_up_feature')
+        )

@@ -56,18 +56,93 @@ def get_backends(backend_settings=None, backends=None):
 
 
 def purge_url_from_cache(url, backend_settings=None, backends=None):
-    for backend_name, backend in get_backends(backend_settings=backend_settings, backends=backends).items():
+    for backend_name, backend in get_backends(backend_settings, backends).items():
         logger.info("[%s] Purging URL: %s", backend_name, url)
         backend.purge(url)
 
 
-def purge_page_from_cache(page, backend_settings=None, backends=None):
+def purge_urls_from_cache(urls, backend_settings=None, backends=None):
+    for backend_name, backend in get_backends(backend_settings, backends).items():
+        for url in urls:
+            logger.info("[%s] Purging URL: %s", backend_name, url)
+
+        backend.purge_batch(urls)
+
+
+def _get_page_cached_urls(page):
     page_url = page.full_url
     if page_url is None:  # nothing to be done if the page has no routable URL
-        return
+        return []
 
-    for backend_name, backend in get_backends(backend_settings=backend_settings, backends=backends).items():
-        # Purge cached paths from cache
-        for path in page.specific.get_cached_paths():
-            logger.info("[%s] Purging URL: %s", backend_name, page_url + path[1:])
-            backend.purge(page_url + path[1:])
+    return [
+        page_url + path.lstrip('/')
+        for path in page.specific.get_cached_paths()
+    ]
+
+
+def purge_page_from_cache(page, backend_settings=None, backends=None):
+    purge_pages_from_cache([page], backend_settings=backend_settings, backends=backends)
+
+
+def purge_pages_from_cache(pages, backend_settings=None, backends=None):
+    urls = []
+    for page in pages:
+        urls.extend(_get_page_cached_urls(page))
+
+    if urls:
+        purge_urls_from_cache(urls, backend_settings, backends)
+
+
+class PurgeBatch(object):
+    """Represents a list of URLs to be purged in a single request"""
+    def __init__(self, urls=None):
+        self.urls = []
+
+        if urls is not None:
+            self.add_urls(urls)
+
+    def add_url(self, url):
+        """Adds a single URL"""
+        self.urls.append(url)
+
+    def add_urls(self, urls):
+        """
+        Adds multiple URLs from an iterable
+
+        This is equivalent to running ``.add_url(url)`` on each URL
+        individually
+        """
+        self.urls.extend(urls)
+
+    def add_page(self, page):
+        """
+        Adds all URLs for the specified page
+
+        This combines the page's full URL with each path that is returned by
+        the page's `.get_cached_paths` method
+        """
+        self.add_urls(_get_page_cached_urls(page))
+
+    def add_pages(self, pages):
+        """
+        Adds multiple pages from a QuerySet or an iterable
+
+        This is equivalent to running ``.add_page(page)`` on each page
+        individually
+        """
+        for page in pages:
+            self.add_page(page)
+
+    def purge(self, backend_settings=None, backends=None):
+        """
+        Performs the purge of all the URLs in this batch
+
+        This method takes two optional keyword arguments: backend_settings and backends
+
+        - backend_settings can be used to override the WAGTAILFRONTENDCACHE setting for
+          just this call
+
+        - backends can be set to a list of backend names. When set, the invalidation request
+          will only be sent to these backends
+        """
+        purge_urls_from_cache(self.urls, backend_settings, backends)

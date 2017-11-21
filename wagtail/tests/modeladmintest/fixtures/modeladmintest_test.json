@@ -75,6 +75,7 @@
     "model": "wagtailcore.page",
     "fields": {
         "title": "Root",
+        "draft_title": "Root",
         "numchild": 1,
         "show_in_menus": false,
         "live": true,
@@ -91,6 +92,7 @@
     "model": "wagtailcore.page",
     "fields": {
         "title": "Welcome to the Wagtail test site!",
+        "draft_title": "Welcome to the Wagtail test site!",
         "numchild": 5,
         "show_in_menus": false,
         "live": true,
@@ -107,6 +109,7 @@
     "model": "wagtailcore.page",
     "fields": {
         "title": "Events",
+        "draft_title": "Events",
         "numchild": 4,
         "show_in_menus": true,
         "live": true,
@@ -130,6 +133,7 @@
     "model": "wagtailcore.page",
     "fields": {
         "title": "Christmas",
+        "draft_title": "Christmas",
         "numchild": 3,
         "show_in_menus": true,
         "live": true,
@@ -156,6 +160,7 @@
     "model": "wagtailcore.page",
     "fields": {
         "title": "Santa's Grotto",
+        "draft_title": "Santa's Grotto",
         "numchild": 0,
         "show_in_menus": true,
         "live": true,
@@ -179,6 +184,7 @@
     "model": "wagtailcore.page",
     "fields": {
         "title": "Santa's Workshop",
+        "draft_title": "Santa's Workshop",
         "numchild": 0,
         "show_in_menus": true,
         "live": true,
@@ -202,6 +208,7 @@
     "model": "wagtailcore.page",
     "fields": {
         "title": "Claim your free present!",
+        "draft_title": "Claim your free present!",
         "numchild": 0,
         "show_in_menus": true,
         "live": true,

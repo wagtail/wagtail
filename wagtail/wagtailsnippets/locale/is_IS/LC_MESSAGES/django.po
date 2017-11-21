@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2016
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2017
 # saevarom <saevar@saevar.is>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-04-19 21:08+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"PO-Revision-Date: 2017-09-22 11:14+0000\n"
+"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -46,6 +46,16 @@ msgstr[1] ""
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
 msgstr ""
 "Því miður finnast engin snifsi sem passa við \"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">create one now</"
+"a>?"
+msgstr ""
+"Þú hefur ekki búið til nein %(snippet_type_name)s snifsi. Er ekki málið að  "
+"<a href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">búa til "
+"eitt núna</a>?"
 
 #, python-format
 msgid "Delete %(snippet_type_name)s - %(instance)s"

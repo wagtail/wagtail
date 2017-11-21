@@ -97,7 +97,7 @@
 
 @media screen and (min-width: $breakpoint-mobile) {
     .tab-nav {
-        // For cases where tab-nav should merge with header 
+        // For cases where tab-nav should merge with header
         &.merged {
             background-color: $color-header-bg;
         }

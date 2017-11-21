@@ -16,6 +16,8 @@ Pull requests
 
 If you're a Python or Django developer, `fork it <https://github.com/wagtail/wagtail/>`_ and read the :ref:`developing docs <developing>` to get stuck in! We welcome all contributions, whether they solve problems which are specific to you or they address existing issues. If you're stuck for ideas, pick something from the `issue list <https://github.com/wagtail/wagtail/issues?state=open>`_, or email us directly on `hello@wagtail.io <mailto:hello@wagtail.io>`_ if you'd like us to suggest something!
 
+For large-scale changes, we'd generally recommend breaking them down into smaller pull requests that achieve a single well-defined task and can be reviewed individually. If this isn't possible, we recommend opening a pull request on the `Wagtail RFCs <https://github.com/wagtail/rfcs/>`_ repository, so that there's a chance for the community to discuss the change before it gets implemented.
+
 .. toctree::
     :maxdepth: 2
 

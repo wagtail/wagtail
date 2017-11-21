@@ -9,7 +9,6 @@ from django.forms.utils import ErrorList
 from django.template.loader import render_to_string
 # Must be imported from Django so we get the new implementation of with_metaclass
 from django.utils import six
-from django.utils.encoding import python_2_unicode_compatible
 from django.utils.functional import cached_property
 from django.utils.html import format_html, format_html_join
 
@@ -194,13 +193,12 @@ class StructBlock(six.with_metaclass(DeclarativeSubBlocksMetaclass, BaseStructBl
     pass
 
 
-@python_2_unicode_compatible  # provide equivalent __unicode__ and __str__ methods on Py2
 class StructValue(collections.OrderedDict):
     def __init__(self, block, *args):
         super(StructValue, self).__init__(*args)
         self.block = block
 
-    def __str__(self):
+    def __html__(self):
         return self.block.render(self)
 
     def render_as_block(self, context=None):

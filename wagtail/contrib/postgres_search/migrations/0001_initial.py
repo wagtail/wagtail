@@ -44,5 +44,11 @@ class Migration(migrations.Migration):
             'CREATE INDEX {0}_body_search ON {0} '
             'USING GIN(body_search);'.format(table),
             'DROP INDEX {}_body_search;'.format(table),
+            state_operations=[migrations.AddIndex(
+                model_name='indexentry',
+                index=django.contrib.postgres.indexes.GinIndex(
+                    fields=['body_search'],
+                    name='postgres_se_body_se_70ba1a_gin'),
+            )],
         ),
     ]

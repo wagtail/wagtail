@@ -1,35 +1,43 @@
 from __future__ import absolute_import, unicode_literals
 
-from django import forms
 from django.contrib.auth.models import Permission
-from django.contrib.staticfiles.templatetags.staticfiles import static
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 
 from wagtail.wagtailadmin.menu import MenuItem, SubmenuMenuItem, settings_menu
+from wagtail.wagtailadmin.navigation import get_explorable_root_page
+from wagtail.wagtailadmin.rich_text import (
+    HalloFormatPlugin, HalloHeadingPlugin, HalloListPlugin, HalloPlugin)
 from wagtail.wagtailadmin.search import SearchArea
 from wagtail.wagtailadmin.utils import user_has_any_page_permission
+from wagtail.wagtailadmin.viewsets import viewsets
 from wagtail.wagtailadmin.widgets import Button, ButtonWithDropdownFromHook, PageListingButton
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.permissions import collection_permission_policy
 
 
 class ExplorerMenuItem(MenuItem):
-    @property
-    def media(self):
-        return forms.Media(js=[static('wagtailadmin/js/explorer-menu.js')])
+    template = 'wagtailadmin/shared/explorer_menu_item.html'
 
     def is_shown(self, request):
         return user_has_any_page_permission(request.user)
+
+    def get_context(self, request):
+        context = super(ExplorerMenuItem, self).get_context(request)
+        start_page = get_explorable_root_page(request.user)
+
+        if start_page:
+            context['start_page_id'] = start_page.id
+
+        return context
 
 
 @hooks.register('register_admin_menu_item')
 def register_explorer_menu_item():
     return ExplorerMenuItem(
-        _('Explorer'), reverse('wagtailadmin_explore_root'),
+        _('Pages'), reverse('wagtailadmin_explore_root'),
         name='explorer',
-        classnames='icon icon-folder-open-inverse dl-trigger',
-        attrs={'data-explorer-menu-url': reverse('wagtailadmin_explorer_nav')},
+        classnames='icon icon-folder-open-inverse',
         order=100)
 
 
@@ -165,3 +173,57 @@ def page_listing_more_buttons(page, page_perms, is_parent=False):
             attrs={'title': _("View revision history for '{title}'").format(title=page.get_admin_display_title())},
             priority=50
         )
+
+
+@hooks.register('register_admin_urls')
+def register_viewsets_urls():
+    viewsets.populate()
+    return viewsets.get_urlpatterns()
+
+
+@hooks.register('register_rich_text_features')
+def register_core_features(features):
+    features.register_editor_plugin(
+        'hallo', 'hr',
+        HalloPlugin(
+            name='hallohr',
+            js=['wagtailadmin/js/hallo-plugins/hallo-hr.js'],
+            order=45,
+        )
+    )
+    features.default_features.append('hr')
+
+    features.register_editor_plugin(
+        'hallo', 'link',
+        HalloPlugin(
+            name='hallowagtaillink',
+            js=['wagtailadmin/js/hallo-plugins/hallo-wagtaillink.js'],
+        )
+    )
+    features.default_features.append('link')
+
+    features.register_editor_plugin(
+        'hallo', 'bold', HalloFormatPlugin(format_name='bold')
+    )
+    features.default_features.append('bold')
+
+    features.register_editor_plugin(
+        'hallo', 'italic', HalloFormatPlugin(format_name='italic')
+    )
+    features.default_features.append('italic')
+
+    for element in ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']:
+        features.register_editor_plugin(
+            'hallo', element, HalloHeadingPlugin(element=element)
+        )
+    features.default_features.extend(['h2', 'h3', 'h4'])
+
+    features.register_editor_plugin(
+        'hallo', 'ol', HalloListPlugin(list_type='ordered')
+    )
+    features.default_features.append('ol')
+
+    features.register_editor_plugin(
+        'hallo', 'ul', HalloListPlugin(list_type='unordered')
+    )
+    features.default_features.append('ul')

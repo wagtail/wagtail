@@ -8,8 +8,9 @@ $footer-submenu: $submenu-color;
     margin-left: -$menu-width;
     width: $menu-width;
     float: left;
+    display: flex;
+    flex-direction: column;
     height: 100%;
-    min-height: 800px;
     background: $color-grey-1;
 
     .inner {
@@ -18,11 +19,13 @@ $footer-submenu: $submenu-color;
 }
 
 .nav-toggle.icon {
-    left: $mobile-nice-padding;
-    cursor: pointer;
     position: absolute;
+    padding-left: $mobile-nice-padding;
+    cursor: pointer;
 
     &:before {
+        position: relative;
+        top: 3px;
         font-size: 40px;
         color: $color-white;
         line-height: 40px;
@@ -31,11 +34,6 @@ $footer-submenu: $submenu-color;
 }
 
 .nav-main {
-    top: 43px;
-    bottom: 0;
-    overflow: auto;
-    width: 100%;
-
     ul,
     li {
         margin: 0;
@@ -153,16 +151,10 @@ $footer-submenu: $submenu-color;
     }
 }
 
-.explorer {
-    // position: absolute;
-    // margin-top: 70px;
-    font-size: 1em;
-}
-
 .nav-search {
     position: relative;
     padding: 0;
-    margin: 0 1em;
+    margin: 0 1em 1em;
 
     label {
         @include visuallyhidden();
@@ -196,10 +188,13 @@ $footer-submenu: $submenu-color;
     button {
         background-color: transparent;
         position: absolute;
-        top: 0; right: 0; bottom: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
         margin: auto;
         padding: 0;
-        width: 3em; height: 100%;
+        width: 3em;
+        height: 100%;
         overflow: hidden;
 
         &:before {
@@ -219,7 +214,6 @@ $footer-submenu: $submenu-color;
 body.nav-open {
     .wrapper {
         transform: translate3d($menu-width, 0, 0);
-        -webkit-transform: translate3d($menu-width, 0, 0);
     }
 
     .content-wrapper {
@@ -231,52 +225,25 @@ body.nav-open {
     }
 }
 
-.explorer-close {
-    display: none;
-    padding: .9em;
-    border-bottom: 1px solid rgba(200, 200, 200, 0.1);
-    cursor: pointer;
-
-    &:hover {
-        color: $color-white;
-    }
-}
-
 // Explorer open condition, widens navigation area
 body.explorer-open {
     .wrapper {
-        transform: translate3d($menu-width*2, 0, 0);
-        -webkit-transform: translate3d($menu-width*2, 0, 0);
+        transform: translate3d($menu-width-max, 0, 0);
     }
 
     .nav-wrapper {
-        margin-left: -$menu-width*2;
-        width: $menu-width*2;
+        margin-left: -$menu-width-max;
+        width: $menu-width-max;
     }
 
     .nav-main {
         display: none;
-    }
-
-    .explorer {
-        display: block;
-    }
-
-    .explorer-close {
-        display: block;
-    }
-
-    @media screen and (min-width: $breakpoint-mobile) {
-        .explorer-close {
-            display: none;
-        }
     }
 }
 
 @media screen and (min-width: $breakpoint-mobile) {
     .wrapper,
     body.nav-open .wrapper {
-        -webkit-transform: none;
         transform: none;
         padding-left: $menu-width;
     }
@@ -292,6 +259,7 @@ body.explorer-open {
             height: 100%;
             position: fixed;
             width: $menu-width;
+            z-index: 26;
         }
     }
 
@@ -302,7 +270,10 @@ body.explorer-open {
     .nav-main {
         position: absolute;
         top: 175px; // WARNING - magic number - the height of the logo plus search box
+        bottom: 0;
         margin-bottom: 127px; // WARNING - magic number - the height of the .footer
+        width: 100%;
+        overflow: auto;
 
         .footer {
             position: fixed;
@@ -436,18 +407,6 @@ body.explorer-open {
         }
     }
 
-    .explorer {
-        width: 400px;
-        position: absolute;
-        top: 0;
-        left: 99%;
-        margin-top: 175px; // same as .nav-main minus 1 pixel for border
-    }
-
-    .dl-menu {
-        position: absolute;
-    }
-
     body.nav-open {
         .content-wrapper {
             position: relative;
@@ -455,8 +414,14 @@ body.explorer-open {
     }
 
     body.explorer-open {
+        overflow: hidden;
+
+        &:after {
+            opacity: 1;
+            visibility: visible;
+        }
+
         .wrapper {
-            -webkit-transform: none;
             transform: none;
         }
 
@@ -465,30 +430,17 @@ body.explorer-open {
             width: $menu-width;
         }
 
-        .explorer:before {
-            display: none;
-        }
-
-        .explorer:after {
-            content: '';
-            width: calc(100% - 2px);
-            height: 100%;
-            position: absolute;
-            top: 0;
-            right: 0;
-            z-index: -1;
-            box-shadow: 0 0 2px rgba(255, 255, 255, 0.9);
-        }
-
         .nav-main {
             display: block;
         }
     }
 }
 
+// stylelint-disable scss/media-feature-value-dollar-variable
+
 // Media query hacks to detect IE10+ which doesn't support 3d transform of static elements and needs a fallback
 @media all and (-ms-high-contrast: none),
-       all and (-ms-high-contrast: active) {
+    all and (-ms-high-contrast: active) {
     .wrapper {
         @include transition(left 0.2s ease);
         left: 0;
@@ -505,17 +457,17 @@ body.explorer-open {
     body.explorer-open {
         .wrapper {
             transform: none;
-            left: $menu-width*2;
+            left: $menu-width-max;
         }
 
         .nav-wrapper {
-            width: $menu-width*2;
+            width: $menu-width-max;
         }
     }
 }
 
 @media all and (min-width: $breakpoint-mobile) and (-ms-high-contrast: none),
-       all and (min-width: $breakpoint-mobile) and (-ms-high-contrast: active) {
+    all and (min-width: $breakpoint-mobile) and (-ms-high-contrast: active) {
     body.explorer-open {
         .wrapper {
             left: 0;

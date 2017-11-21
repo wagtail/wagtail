@@ -4,14 +4,14 @@ import collections
 import json
 
 import mock
-from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.test.utils import override_settings
+from django.urls import reverse
 
 from wagtail.api.v2 import signal_handlers
 from wagtail.tests.demosite import models
 from wagtail.tests.testapp.models import StreamPage
-from wagtail.wagtailcore.models import Page
+from wagtail.wagtailcore.models import Page, Site
 
 
 def get_total_page_count():
@@ -633,6 +633,14 @@ class TestPageListing(TestCase):
         self.assertEqual(response.status_code, 400)
         self.assertEqual(content, {'message': "limit cannot be higher than 20"})
 
+    @override_settings(WAGTAILAPI_LIMIT_MAX=None)
+    def test_limit_max_none_gives_no_errors(self):
+        response = self.get_response(limit=1000000)
+        content = json.loads(response.content.decode('UTF-8'))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(content['items']), get_total_page_count())
+
     @override_settings(WAGTAILAPI_LIMIT_MAX=10)
     def test_limit_maximum_can_be_changed(self):
         response = self.get_response(limit=20)
@@ -744,6 +752,14 @@ class TestPageListing(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response['Content-type'], 'application/json')
         self.assertEqual(content['meta']['total_count'], 0)
+
+    # REGRESSION TESTS
+
+    def test_issue_3967(self):
+        # The API crashed whenever the listing view was called without a site configured
+        Site.objects.all().delete()
+        response = self.get_response()
+        self.assertEqual(response.status_code, 200)
 
 
 class TestPageDetail(TestCase):
@@ -1026,7 +1042,10 @@ class TestPageDetailWithStreamField(TestCase):
         self.assertIn('id', content)
         self.assertEqual(content['id'], stream_page.id)
         self.assertIn('body', content)
-        self.assertEqual(content['body'], [{'type': 'text', 'value': 'foo'}])
+        self.assertEqual(len(content['body']), 1)
+        self.assertEqual(content['body'][0]['type'], 'text')
+        self.assertEqual(content['body'][0]['value'], 'foo')
+        self.assertTrue(content['body'][0]['id'])
 
     def test_image_block(self):
         stream_page = self.make_stream_page('[{"type": "image", "value": 1}]')
@@ -1036,7 +1055,8 @@ class TestPageDetailWithStreamField(TestCase):
         content = json.loads(response.content.decode('utf-8'))
 
         # ForeignKeys in a StreamField shouldn't be translated into dictionary representation
-        self.assertEqual(content['body'], [{'type': 'image', 'value': 1}])
+        self.assertEqual(content['body'][0]['type'], 'image')
+        self.assertEqual(content['body'][0]['value'], 1)
 
     def test_image_block_with_custom_get_api_representation(self):
         stream_page = self.make_stream_page('[{"type": "image", "value": 1}]')
@@ -1048,7 +1068,8 @@ class TestPageDetailWithStreamField(TestCase):
         content = json.loads(response.content.decode('utf-8'))
 
         # the custom get_api_representation returns a dict of id and title for the image
-        self.assertEqual(content['body'], [{'type': 'image', 'value': {'id': 1, 'title': 'A missing image'}}])
+        self.assertEqual(content['body'][0]['type'], 'image')
+        self.assertEqual(content['body'][0]['value'], {'id': 1, 'title': 'A missing image'})
 
 
 @override_settings(

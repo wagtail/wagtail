@@ -2,7 +2,6 @@ from __future__ import absolute_import, unicode_literals
 
 import itertools
 
-import django
 from django import template
 from django.conf import settings
 from django.contrib.humanize.templatetags.humanize import intcomma
@@ -14,35 +13,17 @@ from django.utils.safestring import mark_safe
 
 from wagtail.utils.pagination import DEFAULT_PAGE_KEY, replace_page_in_query
 from wagtail.wagtailadmin.menu import admin_menu
-from wagtail.wagtailadmin.navigation import get_explorable_root_page, get_navigation_menu_items
+from wagtail.wagtailadmin.navigation import get_explorable_root_page
 from wagtail.wagtailadmin.search import admin_search_areas
 from wagtail.wagtailcore import hooks
-from wagtail.wagtailcore.models import Page, PageViewRestriction, UserPagePermissionsProxy
+from wagtail.wagtailcore.models import (
+    CollectionViewRestriction, Page, PageViewRestriction, UserPagePermissionsProxy)
 from wagtail.wagtailcore.utils import cautious_slugify as _cautious_slugify
 from wagtail.wagtailcore.utils import camelcase_to_underscore, escape_script
 
 register = template.Library()
 
 register.filter('intcomma', intcomma)
-
-if django.VERSION >= (1, 9):
-    assignment_tag = register.simple_tag
-else:
-    assignment_tag = register.assignment_tag
-
-
-@register.inclusion_tag('wagtailadmin/shared/explorer_nav.html', takes_context=True)
-def explorer_nav(context):
-    return {
-        'nodes': get_navigation_menu_items(context['request'].user)
-    }
-
-
-@register.inclusion_tag('wagtailadmin/shared/explorer_nav_child.html')
-def explorer_subnav(nodes):
-    return {
-        'nodes': nodes
-    }
 
 
 @register.simple_tag(takes_context=True)
@@ -131,7 +112,7 @@ def widgettype(bound_field):
             return ""
 
 
-@assignment_tag(takes_context=True)
+@register.simple_tag(takes_context=True)
 def page_permissions(context, page):
     """
     Usage: {% page_permissions page as page_perms %}
@@ -147,7 +128,26 @@ def page_permissions(context, page):
     return context['user_page_permissions'].for_page(page)
 
 
-@assignment_tag(takes_context=True)
+@register.simple_tag(takes_context=True)
+def test_collection_is_public(context, collection):
+    """
+    Usage: {% test_collection_is_public collection as is_public %}
+    Sets 'is_public' to True iff there are no collection view restrictions in place
+    on this collection.
+    Caches the list of collection view restrictions in the context, to avoid repeated
+    DB queries on repeated calls.
+    """
+    if 'all_collection_view_restrictions' not in context:
+        context['all_collection_view_restrictions'] = CollectionViewRestriction.objects.select_related('collection').values_list(
+            'collection__name', flat=True
+        )
+
+    is_private = collection.name in context['all_collection_view_restrictions']
+
+    return not is_private
+
+
+@register.simple_tag(takes_context=True)
 def test_page_is_public(context, page):
     """
     Usage: {% test_page_is_public page as is_public %}
@@ -181,26 +181,22 @@ def hook_output(hook_name):
     return mark_safe(''.join(snippets))
 
 
-@assignment_tag
+@register.simple_tag
 def usage_count_enabled():
     return getattr(settings, 'WAGTAIL_USAGE_COUNT_ENABLED', False)
 
 
-@assignment_tag
+@register.simple_tag
 def base_url_setting():
     return getattr(settings, 'BASE_URL', None)
 
 
-@assignment_tag
+@register.simple_tag
 def allow_unicode_slugs():
-    if django.VERSION < (1, 9):
-        # Unicode slugs are unsupported on Django 1.8
-        return False
-    else:
-        return getattr(settings, 'WAGTAIL_ALLOW_UNICODE_SLUGS', True)
+    return getattr(settings, 'WAGTAIL_ALLOW_UNICODE_SLUGS', True)
 
 
-@assignment_tag
+@register.simple_tag
 def auto_update_preview():
     return getattr(settings, 'WAGTAIL_AUTO_UPDATE_PREVIEW', False)
 

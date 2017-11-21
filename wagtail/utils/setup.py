@@ -16,7 +16,7 @@ class assets_mixin(object):
 
     def compile_assets(self):
         try:
-            subprocess.check_call(['npm', 'run', 'build'])
+            subprocess.check_call(['npm', 'run', 'dist'])
         except (OSError, subprocess.CalledProcessError) as e:
             print('Error compiling assets: ' + str(e))  # noqa
             raise SystemExit(1)
@@ -45,9 +45,7 @@ class assets_mixin(object):
 
         try:
             with io.open(path, 'w', encoding='utf-8') as f:
-                from django.utils import six
-
-                f.write(six.text_type(json.dumps(package, indent=2, ensure_ascii=False)))
+                f.write(str(json.dumps(package, indent=2, ensure_ascii=False)))
         except (IOError) as e:
             print('Error setting the version for front-end assets: ' + str(e))  # noqa
             raise SystemExit(1)

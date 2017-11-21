@@ -1,0 +1,40 @@
+// stylelint-disable declaration-no-important
+.u-hidden {
+    display: none !important;
+}
+
+.u-hidden\@medium {
+    @include medium {
+        display: none !important;
+    }
+}
+
+.u-hidden\@small {
+    @include small {
+        display: none !important;
+    }
+}
+
+.u-inline\@medium {
+    @include medium {
+        display: inline !important;
+    }
+}
+
+.u-inline\@small {
+    @include small {
+        display: inline !important;
+    }
+}
+
+.u-block\@medium {
+    @include medium {
+        display: block !important;
+    }
+}
+
+.u-block\@small {
+    @include small {
+        display: block !important;
+    }
+}

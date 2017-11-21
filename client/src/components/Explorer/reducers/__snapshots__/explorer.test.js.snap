@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`explorer OPEN_EXPLORER 1`] = `
+Object {
+  "isVisible": true,
+  "path": Array [
+    1,
+  ],
+}
+`;
+
+exports[`explorer POP_PAGE 1`] = `
+Object {
+  "isVisible": false,
+  "path": Array [],
+}
+`;
+
+exports[`explorer PUSH_PAGE 1`] = `
+Object {
+  "isVisible": false,
+  "path": Array [
+    100,
+  ],
+}
+`;

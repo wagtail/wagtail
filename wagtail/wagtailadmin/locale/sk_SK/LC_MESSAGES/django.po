@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-04-19 21:05+0000\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"PO-Revision-Date: 2017-10-06 15:06+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
@@ -143,6 +143,9 @@ msgstr "Dátum expirácie musí byť v budúcnosti"
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Nemôžete mať viac prístupových záznamov pre tú istú kolekciu."
 
+msgid "Go to Wagtail admin"
+msgstr "Choď do administrátorskej časti"
+
 msgid "Account"
 msgstr "Účet"
 
@@ -211,6 +214,12 @@ msgstr "Obnova hesla"
 msgid "Reset your password"
 msgstr "Resetovanie vášho hesla"
 
+msgid "Edit"
+msgstr "Upraviť"
+
+msgid "Pages"
+msgstr "Stránky"
+
 msgid "Dashboard"
 msgstr "Nástenka"
 
@@ -275,6 +284,21 @@ msgstr "Vložiť odkaz"
 msgid "Add an external link"
 msgstr "Pridať externý odkaz"
 
+msgid "You can edit the privacy settings on:"
+msgstr "Nastavenie súkromia môžete zmeniť na:"
+
+msgid "Save"
+msgstr "Uložiť"
+
+msgid "Privacy"
+msgstr "Súkromie"
+
+msgid "Public"
+msgstr "Verejná"
+
+msgid "Private"
+msgstr "Privátne"
+
 msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
 msgstr "Táto kolekcia nemôže byť zmazaná, pretože nie je prázdna. Obsahuje:"
@@ -296,9 +320,6 @@ msgstr "Pridať %(heading)s"
 
 msgid "Yes, delete"
 msgstr "Áno, zmazať"
-
-msgid "Save"
-msgstr "Uložiť"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -334,9 +355,6 @@ msgstr "Schváliť"
 
 msgid "Reject"
 msgstr "Odmietnuť"
-
-msgid "Edit"
-msgstr "Upraviť"
 
 msgid "Preview"
 msgstr "Náhľad"
@@ -440,9 +458,6 @@ msgstr "Nastavenie súkromia stránky"
 msgid "This page has been made private by a parent page."
 msgstr "Táto stránka bola zmenená na súkromnú svojou rodičovskou stránkou."
 
-msgid "You can edit the privacy settings on:"
-msgstr "Nastavenie súkromia môžete zmeniť na:"
-
 msgid "Privacy changes apply to all children of this page too."
 msgstr "Zmeny súkromia tejto stránky sa prejavia tiež všetkým jej podstránkam."
 
@@ -454,15 +469,6 @@ msgstr "Zamknuté"
 
 msgid "Unlocked"
 msgstr "Odomknuté"
-
-msgid "Privacy"
-msgstr "Súkromie"
-
-msgid "Public"
-msgstr "Verejná"
-
-msgid "Private"
-msgstr "Privátne"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -816,11 +822,11 @@ msgid "Sat"
 msgstr "So"
 
 #, python-format
-msgid "Used %(useage_count)s time"
-msgid_plural "Used %(useage_count)s times"
-msgstr[0] "Použité %(useage_count)s krát"
-msgstr[1] "Použité %(useage_count)s krát"
-msgstr[2] "Použité %(useage_count)s krát"
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Použité %(usage_count)s krát"
+msgstr[1] "Použité %(usage_count)s krát"
+msgstr[2] "Použité %(usage_count)s krát"
 
 msgid "Edit your account"
 msgstr "Upraviť váš účet"
@@ -867,9 +873,6 @@ msgstr ""
 msgid "Go to Wagtail admin interface"
 msgstr "Pokračovať do administrátorskej časti"
 
-msgid "Go to Wagtail admin"
-msgstr "Choď do administrátorskej časti"
-
 msgid "Add a child page"
 msgstr "Pridať podstránku"
 
@@ -884,9 +887,6 @@ msgstr "Prepáčte, ale na prístup k tejto časti nemáte oprávnenia"
 
 msgid "Your password has been changed successfully!"
 msgstr "Vaše heslo bolo úspešne zmenené"
-
-msgid "Your preferences have been updated successfully!"
-msgstr "Vaše preferencie boli úspešne aktualizované!"
 
 msgid "You have been successfully logged out."
 msgstr "Boli ste úspešne odhlásení."
@@ -1051,9 +1051,6 @@ msgstr "Najstaršie"
 
 msgid "Latest"
 msgstr "Najnovšie"
-
-msgid "Pages"
-msgstr "Stránky"
 
 #, python-brace-format
 msgid "Edit '{title}'"

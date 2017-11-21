@@ -4,7 +4,8 @@ from collections import OrderedDict
 
 from wagtail.api.v2.endpoints import PagesAPIEndpoint
 from wagtail.api.v2.filters import (
-    ChildOfFilter, DescendantOfFilter, FieldsFilter, OrderingFilter, SearchFilter)
+    ChildOfFilter, DescendantOfFilter, FieldsFilter, ForExplorerFilter, OrderingFilter,
+    SearchFilter)
 from wagtail.api.v2.utils import BadRequestError, filter_page_type, page_models_from_string
 from wagtail.wagtailcore.models import Page
 
@@ -21,6 +22,7 @@ class PagesAdminAPIEndpoint(PagesAPIEndpoint):
         FieldsFilter,
         ChildOfFilter,
         DescendantOfFilter,
+        ForExplorerFilter,
         HasChildrenFilter,
         OrderingFilter,
         SearchFilter,
@@ -34,16 +36,22 @@ class PagesAdminAPIEndpoint(PagesAPIEndpoint):
         'parent',
     ]
 
+    body_fields = PagesAPIEndpoint.body_fields + [
+        'admin_display_title',
+    ]
+
     listing_default_fields = PagesAPIEndpoint.listing_default_fields + [
         'latest_revision_created_at',
         'status',
         'children',
+        'admin_display_title',
     ]
 
     # Allow the parent field to appear on listings
     detail_only_fields = []
 
     known_query_parameters = PagesAPIEndpoint.known_query_parameters.union([
+        'for_explorer',
         'has_children'
     ])
 
@@ -69,7 +77,7 @@ class PagesAdminAPIEndpoint(PagesAPIEndpoint):
 
         # Hide root page
         # TODO: Add "include_root" flag
-        queryset = queryset.exclude(depth=1)
+        queryset = queryset.exclude(depth=1).specific()
 
         return queryset
 

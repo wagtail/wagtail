@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2016
+# Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-04-19 21:08+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"PO-Revision-Date: 2017-09-21 21:56+0000\n"
+"Last-Translator: Giacomo Ghizzani <giacomo.ghz@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -47,6 +47,16 @@ msgstr[1] ""
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
 msgstr ""
 "Spiacente, nessun snippets corrispondente a \"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">create one now</"
+"a>?"
+msgstr ""
+"Non hai creato nessun %(snippet_type_name)s snippet. Perché non ne <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">crei uno "
+"adesso</a>?"
 
 #, python-format
 msgid "Delete %(snippet_type_name)s - %(instance)s"

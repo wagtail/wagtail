@@ -1,0 +1,17 @@
+machine:
+  python:
+    version: 3.6.1
+
+dependencies:
+  pre:
+    - pip install -e .[testing]
+
+test:
+  override:
+    - flake8 wagtail
+    - isort --check-only --diff --recursive wagtail
+    - npm run lint:js
+    - npm run lint:css
+    - python -u runtests.py
+    - npm run test:unit:coverage -- --runInBand
+    - npm run dist

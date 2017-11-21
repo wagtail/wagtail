@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-04-19 21:05+0000\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"PO-Revision-Date: 2017-10-06 15:06+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
@@ -126,6 +126,9 @@ msgstr "Управління файлами"
 msgid "Choose a page"
 msgstr "Оберіть сторінку"
 
+msgid "Public"
+msgstr "Відкритий "
+
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
 msgstr "Ласкаво просимо до %(site_name)s Wagtail CMS"
@@ -138,9 +141,6 @@ msgstr "Увійдіть до Wagtail"
 
 msgid "Forgotten it?"
 msgstr "Забули це?"
-
-msgid "Public"
-msgstr "Відкритий "
 
 msgid "Choose another page"
 msgstr "Оберіть іншу сторінку"

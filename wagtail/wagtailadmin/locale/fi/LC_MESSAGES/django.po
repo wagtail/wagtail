@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-04-19 21:05+0000\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"PO-Revision-Date: 2017-10-06 15:06+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
@@ -145,6 +145,9 @@ msgstr "Julkaisun päättymisajankohdan täytyy olla tulevaisuudessa."
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Yhdelle kokoelmalle ei voi olla useampaa pääsyoikeusasetusta."
 
+msgid "Go to Wagtail admin"
+msgstr "Siirry Wagtailin hallintaan"
+
 msgid "Account"
 msgstr "Tili"
 
@@ -213,6 +216,12 @@ msgstr "Salasanan palautus"
 
 msgid "Reset your password"
 msgstr "Palauta salasanasi"
+
+msgid "Edit"
+msgstr "Muokkaa"
+
+msgid "Pages"
+msgstr "Sivut"
 
 msgid "Dashboard"
 msgstr "Kojelauta"
@@ -295,6 +304,21 @@ msgstr "Lisää linkki"
 msgid "Add an external link"
 msgstr "Lisää ulkoinen linkki"
 
+msgid "You can edit the privacy settings on:"
+msgstr "Voit muokata yksityisyysasetuksia:"
+
+msgid "Save"
+msgstr "Tallenna"
+
+msgid "Privacy"
+msgstr "Yksityisyys"
+
+msgid "Public"
+msgstr "Julkinen"
+
+msgid "Private"
+msgstr "Yksityinen"
+
 msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
 msgstr ""
@@ -317,9 +341,6 @@ msgstr "Lisää %(heading)s"
 
 msgid "Yes, delete"
 msgstr "Kyllä, poista"
-
-msgid "Save"
-msgstr "Tallenna"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -355,9 +376,6 @@ msgstr "Hyväksy"
 
 msgid "Reject"
 msgstr "Hylkää"
-
-msgid "Edit"
-msgstr "Muokkaa"
 
 msgid "Preview"
 msgstr "Esikatsele"
@@ -463,9 +481,6 @@ msgstr "Sivun yksityisyys"
 msgid "This page has been made private by a parent page."
 msgstr "Tämä sivu on asetettu yksityiseksi isäntäsivulta."
 
-msgid "You can edit the privacy settings on:"
-msgstr "Voit muokata yksityisyysasetuksia:"
-
 msgid "Privacy changes apply to all children of this page too."
 msgstr ""
 "Yksityisyyteen tehtävät muutokset vaikuttavat myös kaikkiin tämän sivun "
@@ -479,15 +494,6 @@ msgstr "Lukittu"
 
 msgid "Unlocked"
 msgstr "Ei lukittu"
-
-msgid "Privacy"
-msgstr "Yksityisyys"
-
-msgid "Public"
-msgstr "Julkinen"
-
-msgid "Private"
-msgstr "Yksityinen"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -918,10 +924,10 @@ msgid "Sat"
 msgstr "La"
 
 #, python-format
-msgid "Used %(useage_count)s time"
-msgid_plural "Used %(useage_count)s times"
-msgstr[0] "Käytetty %(useage_count)s kerran"
-msgstr[1] "Käytetty %(useage_count)s kertaa"
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Käytetty %(usage_count)s kerran"
+msgstr[1] "Käytetty %(usage_count)s kertaa"
 
 msgid "Edit your account"
 msgstr "Muokkaa tiliäsi"
@@ -950,9 +956,6 @@ msgstr ""
 msgid "Go to Wagtail admin interface"
 msgstr "Siirry Wagtailin hallintaan"
 
-msgid "Go to Wagtail admin"
-msgstr "Siirry Wagtailin hallintaan"
-
 msgid "Add a child page"
 msgstr "Lisää alasivu"
 
@@ -967,9 +970,6 @@ msgstr "Pahoittelut, mutta sinulla ei ole pääsyä tähän osioon."
 
 msgid "Your password has been changed successfully!"
 msgstr "Salasanasi on vaihdettu."
-
-msgid "Your preferences have been updated successfully!"
-msgstr "Asetuksesi on päivitetty."
 
 msgid "You have been successfully logged out."
 msgstr "Olet kirjautunut ulos."
@@ -1134,9 +1134,6 @@ msgstr "Aikaisin"
 
 msgid "Latest"
 msgstr "Viimeisin"
-
-msgid "Pages"
-msgstr "Sivut"
 
 #, python-brace-format
 msgid "Edit '{title}'"

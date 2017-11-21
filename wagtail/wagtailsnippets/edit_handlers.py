@@ -20,7 +20,7 @@ class BaseSnippetChooserPanel(BaseChooserPanel):
     @classmethod
     def target_model(cls):
         if cls._target_model is None:
-            cls._target_model = cls.model._meta.get_field(cls.field_name).rel.model
+            cls._target_model = cls.model._meta.get_field(cls.field_name).remote_field.model
 
         return cls._target_model
 

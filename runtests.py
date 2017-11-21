@@ -17,19 +17,17 @@ def make_parser():
     parser = argparse.ArgumentParser()
     parser.add_argument('--deprecation', choices=['all', 'pending', 'imminent', 'none'], default='imminent')
     parser.add_argument('--postgres', action='store_true')
-    parser.add_argument('--elasticsearch', action='store_true')
     parser.add_argument('--elasticsearch2', action='store_true')
     parser.add_argument('--elasticsearch5', action='store_true')
-    parser.add_argument('rest', nargs='*')
     return parser
 
 
 def parse_args(args=None):
-    return make_parser().parse_args(args)
+    return make_parser().parse_known_args(args)
 
 
 def runtests():
-    args = parse_args()
+    args, rest = parse_args()
 
     only_wagtail = r'^wagtail(\.|$)'
     if args.deprecation == 'all':
@@ -48,25 +46,22 @@ def runtests():
         pass
 
     if args.postgres:
-        os.environ['DATABASE_ENGINE'] = 'django.db.backends.postgresql_psycopg2'
+        os.environ['DATABASE_ENGINE'] = 'django.db.backends.postgresql'
 
-    if args.elasticsearch:
-        os.environ.setdefault('ELASTICSEARCH_URL', 'http://localhost:9200')
-        os.environ.setdefault('ELASTICSEARCH_VERSION', '1')
-
-        if args.elasticsearch2:
-            raise RuntimeError("You cannot test both Elasticsearch 1 and 2 together")
-    elif args.elasticsearch2:
+    if args.elasticsearch2:
         os.environ.setdefault('ELASTICSEARCH_URL', 'http://localhost:9200')
         os.environ.setdefault('ELASTICSEARCH_VERSION', '2')
     elif args.elasticsearch5:
         os.environ.setdefault('ELASTICSEARCH_URL', 'http://localhost:9200')
         os.environ.setdefault('ELASTICSEARCH_VERSION', '5')
+
+        if args.elasticsearch2:
+            raise RuntimeError("You cannot test both Elasticsearch 2 and 5 together")
     elif 'ELASTICSEARCH_URL' in os.environ:
         # forcibly delete the ELASTICSEARCH_URL setting to skip those tests
         del os.environ['ELASTICSEARCH_URL']
 
-    argv = [sys.argv[0], 'test'] + args.rest
+    argv = [sys.argv[0], 'test'] + rest
     try:
         execute_from_command_line(argv)
     finally:

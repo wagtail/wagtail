@@ -1,6 +1,6 @@
 'use strict';
 
-function makeHalloRichTextEditable(id) {
+function makeHalloRichTextEditable(id, plugins) {
     var input = $('#' + id);
     var richText = $('<div class="richtext"></div>').html(input.val());
     richText.insertBefore(input);
@@ -32,7 +32,8 @@ function makeHalloRichTextEditable(id) {
     richText.hallo({
         toolbar: 'halloToolbarFixed',
         toolbarCssClass: (closestObj.hasClass('full')) ? 'full' : (closestObj.hasClass('stream-field') && isRoot) ? 'stream-field' : '',
-        plugins: halloPlugins
+        /* use the passed-in plugins arg */
+        plugins: plugins
     }).bind('hallomodified', function(event, data) {
         input.val(data.content);
         if (!removeStylingPending) {

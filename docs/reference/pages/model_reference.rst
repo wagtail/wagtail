@@ -22,6 +22,12 @@ Database fields
 
         Human-readable title of the page.
 
+    .. attribute:: draft_title
+
+        (text)
+
+        Human-readable title of the page, incorporating any changes that have been made in a draft edit (in contrast to the ``title`` field, which for published pages will be the title as it exists in the current published version).
+
     .. attribute:: slug
 
         (text)
@@ -62,6 +68,12 @@ Database fields
 
         The date/time when the page was first published.
 
+    .. attribute:: last_published_at
+
+        (date/time)
+
+        The date/time when the page was last published.
+
     .. attribute:: seo_title
 
         (text)
@@ -80,12 +92,19 @@ Database fields
 
         Toggles whether the page should be included in site-wide menus.
 
+        Defaults to ``False`` and can be overridden on the model with ``show_in_menus_default = True``.
+
         This is used by the :meth:`~wagtail.wagtailcore.query.PageQuerySet.in_menu` QuerySet filter.
 
 Methods and properties
 ~~~~~~~~~~~~~~~~~~~~~~
 
 In addition to the model fields provided, ``Page`` has many properties and methods that you may wish to reference, use, or override in creating your own models.
+
+.. note::
+
+    See also `django-treebeard <http://django-treebeard.readthedocs.io/en/latest/index.html>`_'s `node API <http://django-treebeard.readthedocs.io/en/latest/api.html>`_. ``Page`` is a subclass of `materialized path tree <http://django-treebeard.readthedocs.io/en/latest/mp_tree.html>`_ nodes.
+
 
 .. class:: Page
 
@@ -174,6 +193,18 @@ In addition to the model fields provided, ``Page`` has many properties and metho
     .. attribute:: is_creatable
 
         Controls if this page can be created through the Wagtail administration. Defaults to True, and is not inherited by subclasses. This is useful when using `multi-table inheritance <https://docs.djangoproject.com/en/1.8/topics/db/models/#multi-table-inheritance>`_, to stop the base model from being created as an actual page.
+
+    .. attribute:: exclude_fields_in_copy
+
+        An array of field names that will not be included when a Page is copied.
+        Useful when you have relations that do not use `ClusterableModel` or should not be copied.
+
+        .. code-block:: python
+
+            class BlogPage(Page):
+                exclude_fields_in_copy = ['special_relation', 'custom_uuid']
+
+        The following fields will always be excluded in a copy - `['id', 'path', 'depth', 'numchild', 'url_path', 'path']`.
 
     .. attribute:: base_form_class
 

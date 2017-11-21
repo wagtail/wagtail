@@ -4,14 +4,14 @@
 #
 # Translators:
 # Matt Westcott <matthew@torchbox.com>, 2016
-# Yusuf (Josè) Luis <alagunajs@gmail.com>, 2016
+# José Luis <alagunajs@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2016-05-18 22:11+0000\n"
-"Last-Translator: Yusuf (Josè) Luis <alagunajs@gmail.com>\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"PO-Revision-Date: 2017-09-22 23:19+0000\n"
+"Last-Translator: José Luis <alagunajs@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"

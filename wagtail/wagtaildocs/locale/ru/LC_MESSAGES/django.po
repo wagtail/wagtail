@@ -5,6 +5,7 @@
 # Translators:
 # Andrey Avdey <talkerbox@live.com>, 2016
 # Eugene MechanisM <eugene@mechanism.pro>, 2014-2016
+# Eugene MechanisM <eugene@mechanism.pro>, 2017
 # Никита Викторович <hnknta@gmail.com>, 2014
 # Matt Westcott <matthew@torchbox.com>, 2015
 # Mikalai Radchuk <radchuk.m@gmail.com>, 2016-2017
@@ -12,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-04-20 20:40+0000\n"
-"Last-Translator: Mikalai Radchuk <radchuk.m@gmail.com>\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"PO-Revision-Date: 2017-09-20 01:01+0000\n"
+"Last-Translator: Eugene MechanisM <eugene@mechanism.pro>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -250,6 +251,9 @@ msgstr "Обновить"
 
 msgid "Delete"
 msgstr "Удалить"
+
+msgid "You need a password to access this document."
+msgstr "Вы должны ввести пароль, чтобы получить доступ к этому документу."
 
 msgid "Document permissions"
 msgstr "Доступ к документу"

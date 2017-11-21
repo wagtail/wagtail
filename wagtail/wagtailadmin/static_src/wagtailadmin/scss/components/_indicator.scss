@@ -6,15 +6,15 @@
 // =============================================================================
 // Indicator light
 // =============================================================================
-$c-indicator-size: .625em;
-$c-indicator-margin: .25rem;
+$c-indicator-size: 0.625em;
+$c-indicator-margin: 0.25rem;
 
 .c-indicator {
     display: inline-block;
     border-radius: 50rem;
     width: $c-indicator-size;
     height: $c-indicator-size;
-    margin-top: -.125rem;
+    margin-top: -0.125rem;
     margin-right: $c-indicator-margin;
     font-size: 1rem;
     vertical-align: middle;
@@ -23,8 +23,6 @@ $c-indicator-margin: .25rem;
 // =============================================================================
 // States
 // =============================================================================
-
-
 .is-absent .c-indicator {
     background: $color-state-absent;
 }
@@ -44,7 +42,7 @@ $c-indicator-margin: .25rem;
 
     &:before {
         content: '';
-        width: $c-indicator-size/2;
+        width: $c-indicator-size / 2;
         height: $c-indicator-size;
         position: absolute;
         top: 0;

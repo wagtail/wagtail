@@ -52,6 +52,13 @@ class FormBuilder(object):
         )
         return django.forms.ChoiceField(**options)
 
+    def create_multiselect_field(self, field, options):
+        options['choices'] = map(
+            lambda x: (x.strip(), x.strip()),
+            field.choices.split(',')
+        )
+        return django.forms.MultipleChoiceField(**options)
+
     def create_radio_field(self, field, options):
         options['choices'] = map(
             lambda x: (x.strip(), x.strip()),
@@ -69,6 +76,9 @@ class FormBuilder(object):
     def create_checkbox_field(self, field, options):
         return django.forms.BooleanField(**options)
 
+    def create_hidden_field(self, field, options):
+        return django.forms.CharField(widget=django.forms.HiddenInput, **options)
+
     FIELD_TYPES = {
         'singleline': create_singleline_field,
         'multiline': create_multiline_field,
@@ -78,9 +88,11 @@ class FormBuilder(object):
         'url': create_url_field,
         'number': create_number_field,
         'dropdown': create_dropdown_field,
+        'multiselect': create_multiselect_field,
         'radio': create_radio_field,
         'checkboxes': create_checkboxes_field,
         'checkbox': create_checkbox_field,
+        'hidden': create_hidden_field,
     }
 
     @property

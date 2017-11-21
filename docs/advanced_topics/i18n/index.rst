@@ -19,8 +19,6 @@ If your language isn't listed on that page, you can easily contribute new langua
 
 Change Wagtail admin language on a per user basis
 =================================================
-.. versionadded:: 1.10
-
 
 Logged-in users can set their preferred language from ``/admin/account/``.
 By default, Wagtail provides a list of languages that have a >= 90% translation coverage.
@@ -55,11 +53,11 @@ Enabling multiple language support
 
 Firstly, make sure the `USE_I18N <https://docs.djangoproject.com/en/1.8/ref/settings/#use-i18n>`_ Django setting is set to ``True``.
 
-To enable multi-language support, add ``django.middleware.locale.LocaleMiddleware`` to your ``MIDDLEWARE_CLASSES``:
+To enable multi-language support, add ``django.middleware.locale.LocaleMiddleware`` to your ``MIDDLEWARE``:
 
 .. code-block:: python
 
-    MIDDLEWARE_CLASSES = (
+    MIDDLEWARE = (
         ...
 
         'django.middleware.locale.LocaleMiddleware',

@@ -6,6 +6,8 @@ Advanced topics
     :maxdepth: 2
 
     images/index
+    documents/index
+    embeds
     settings
     deploying
     performance

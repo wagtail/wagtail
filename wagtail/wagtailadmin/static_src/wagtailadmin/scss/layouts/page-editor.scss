@@ -284,6 +284,7 @@
                 font-size: 0; // helps fake the effect of t.ext-replace class, which can't be used here.
                 width: 2em;
 
+                // stylelint-disable max-nesting-depth
                 &:before {
                     position: relative;
                     padding: 0;

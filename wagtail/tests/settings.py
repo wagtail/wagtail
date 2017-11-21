@@ -2,8 +2,6 @@ from __future__ import absolute_import, unicode_literals
 
 import os
 
-import django
-
 DEBUG = False
 WAGTAIL_ROOT = os.path.dirname(os.path.dirname(__file__))
 STATIC_ROOT = os.path.join(WAGTAIL_ROOT, 'tests', 'test-static')
@@ -32,6 +30,12 @@ if DATABASES['default']['ENGINE'] == 'sql_server.pyodbc':
         'driver': 'SQL Server Native Client 11.0',
         'MARS_Connection': 'True',
     }
+
+
+# explicitly set charset / collation to utf8 on mysql
+if DATABASES['default']['ENGINE'] == 'django.db.backends.mysql':
+    DATABASES['default']['TEST']['CHARSET'] = 'utf8'
+    DATABASES['default']['TEST']['COLLATION'] = 'utf8_general_ci'
 
 
 SECRET_KEY = 'not needed'
@@ -82,32 +86,17 @@ TEMPLATES = [
     },
 ]
 
-if django.VERSION >= (1, 10):
-    MIDDLEWARE = (
-        'django.middleware.common.CommonMiddleware',
-        'django.contrib.sessions.middleware.SessionMiddleware',
-        'django.middleware.csrf.CsrfViewMiddleware',
-        'django.contrib.auth.middleware.AuthenticationMiddleware',
-        'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
-        'django.contrib.messages.middleware.MessageMiddleware',
-        'django.middleware.clickjacking.XFrameOptionsMiddleware',
+MIDDLEWARE = (
+    'django.middleware.common.CommonMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
-        'wagtail.wagtailcore.middleware.SiteMiddleware',
-        'wagtail.wagtailredirects.middleware.RedirectMiddleware',
-    )
-else:
-    MIDDLEWARE_CLASSES = (
-        'django.middleware.common.CommonMiddleware',
-        'django.contrib.sessions.middleware.SessionMiddleware',
-        'django.middleware.csrf.CsrfViewMiddleware',
-        'django.contrib.auth.middleware.AuthenticationMiddleware',
-        'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
-        'django.contrib.messages.middleware.MessageMiddleware',
-        'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
-        'wagtail.wagtailcore.middleware.SiteMiddleware',
-        'wagtail.wagtailredirects.middleware.RedirectMiddleware',
-    )
+    'wagtail.wagtailcore.middleware.SiteMiddleware',
+    'wagtail.wagtailredirects.middleware.RedirectMiddleware',
+)
 
 INSTALLED_APPS = (
     # Install wagtailredirects with its appconfig
@@ -125,7 +114,6 @@ INSTALLED_APPS = (
     'wagtail.contrib.wagtailstyleguide',
     'wagtail.contrib.wagtailroutablepage',
     'wagtail.contrib.wagtailfrontendcache',
-    'wagtail.contrib.wagtailapi',
     'wagtail.contrib.wagtailsearchpromotions',
     'wagtail.contrib.settings',
     'wagtail.contrib.modeladmin',
@@ -178,10 +166,7 @@ WAGTAILSEARCH_BACKENDS = {
 
 AUTH_USER_MODEL = 'customuser.CustomUser'
 
-if django.VERSION >= (1, 10) and os.environ.get('DATABASE_ENGINE') in (
-        # Remove next line when Django 1.8 support is dropped.
-        'django.db.backends.postgresql_psycopg2',
-        'django.db.backends.postgresql'):
+if os.environ.get('DATABASE_ENGINE') == 'django.db.backends.postgresql':
     INSTALLED_APPS += ('wagtail.contrib.postgres_search',)
     WAGTAILSEARCH_BACKENDS['postgresql'] = {
         'BACKEND': 'wagtail.contrib.postgres_search.backend',
@@ -192,8 +177,6 @@ if 'ELASTICSEARCH_URL' in os.environ:
         backend = 'wagtail.wagtailsearch.backends.elasticsearch5'
     elif os.environ.get('ELASTICSEARCH_VERSION') == '2':
         backend = 'wagtail.wagtailsearch.backends.elasticsearch2'
-    else:
-        backend = 'wagtail.wagtailsearch.backends.elasticsearch'
 
     WAGTAILSEARCH_BACKENDS['elasticsearch'] = {
         'BACKEND': backend,
@@ -201,6 +184,13 @@ if 'ELASTICSEARCH_URL' in os.environ:
         'TIMEOUT': 10,
         'max_retries': 1,
         'AUTO_UPDATE': False,
+        'INDEX_SETTINGS': {
+            'settings': {
+                'index': {
+                    'number_of_shards': 1
+                }
+            }
+        }
     }
 
 

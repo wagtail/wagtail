@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-04-19 21:08+0000\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"PO-Revision-Date: 2017-10-06 15:11+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
@@ -21,11 +21,10 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
-msgstr ""
-"필수사항. 15 자 이하로 작성하여야 하며 문자, 숫자 및 @/./+/-/_ 만 가능합니다."
+msgstr "필수사항. 15자 이하. 문자, 숫자 및 @/./+/-/_ 만 가능."
 
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
-msgstr "이 값은 오직 문자, 숫자 및 @/./+/-/_ 로 포함하였을 것입니다."
+msgstr "이 값에는 오직 문자, 숫자 및 @/./+/-/_ 만 포함될 수 있습니다."
 
 msgid "A user with that username already exists."
 msgstr "이 사용자명은 이미 사용되고 있습니다."
@@ -46,7 +45,7 @@ msgid "Password"
 msgstr "비밀번호"
 
 msgid "Leave blank if not changing."
-msgstr "변경되지 않았으면 빈칸으로 남겨 두시기 바랍니다"
+msgstr "변경되지 않았으면 빈 칸으로 남겨 두시기 바랍니다"
 
 msgid "Password confirmation"
 msgstr "비밀번호 확인"
@@ -64,7 +63,7 @@ msgid "A group with that name already exists."
 msgstr "해당 이름의 그룹은 이미 사용되고 있습니다."
 
 msgid "You cannot have multiple permission records for the same page."
-msgstr "동일한 페이지에 여러 권한 레코드를 갖는 것은 불가능합니다."
+msgstr "같은 페이지에 대해서 여러 개의 권한을 설정할 수는 없습니다."
 
 msgid "submitted notifications"
 msgstr "제출 알림"
@@ -84,16 +83,37 @@ msgstr "거절 알림"
 msgid "Receive notification when your page edit is rejected"
 msgstr "당신의 페이지 수정 건이 거절되었을 때 알림을 받습니다"
 
+msgid "preferred language"
+msgstr "선호하는 언어"
+
+msgid "Select language for the admin"
+msgstr "관리자에서 사용할 언어를 선택하세요"
+
 msgid "user profile"
 msgstr "사용자 프로필"
 
 msgid "Delete group"
 msgstr "그룹 삭제"
 
+#, python-format
+msgid ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> member.\n"
+"            "
+msgid_plural ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> members.\n"
+"            "
+msgstr[0] ""
+"\n"
+"  %(group_name)s 그룹에는 %(group_user_count)s명의 구성원이 있습니다."
+
 msgid ""
 "Deleting this group will revoke this group's permissions from all member "
 "users."
-msgstr "이 그룹을 지우면 모든 구성원들의 그룹 권한이 폐지됩니다."
+msgstr "이 그룹을 지우면 그룹 안의 모든 구성원들의 권한도 없어집니다."
 
 msgid "Are you sure you want to delete this group?"
 msgstr "이 그룹을 정말 삭제할까요?"
@@ -215,18 +235,15 @@ msgstr ""
 "사용자가 설정되어 있지 않습니다. 지금 사용자를 <a href="
 "\"%(wagtailusers_create_url)s\">추가 하는건 어떨까요?"
 
+msgid "Groups"
+msgstr "그룹"
+
 msgid "Search groups"
 msgstr "그룹 검색"
 
 #, python-brace-format
 msgid "Group '{0}' created."
 msgstr "'{0}' 그룹이 생성 되었습니다."
-
-msgid "Edit"
-msgstr "수정"
-
-msgid "The group could not be created due to errors."
-msgstr "에러로 인해 그룹이 생성될 수 없습니다."
 
 #, python-brace-format
 msgid "Group '{0}' updated."
@@ -246,6 +263,9 @@ msgstr "사용자 검색"
 msgid "User '{0}' created."
 msgstr "'{0}' 사용자가 생성되었습니다"
 
+msgid "Edit"
+msgstr "수정"
+
 msgid "The user could not be created due to errors."
 msgstr "에러로 인해 사용자를 생성할 수 없습니다."
 
@@ -259,9 +279,6 @@ msgstr "에러로 인해 사용자를 저장할 수 없습니다."
 #, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "'{0}' 사용자가 삭제되었습니다."
-
-msgid "Groups"
-msgstr "그룹"
 
 msgid "Edit this user"
 msgstr "이 사용자를 수정"

@@ -1,0 +1,335 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ExplorerPanel #isError 1`] = `
+<FocusTrap
+  _createFocusTrap={[Function]}
+  active={true}
+  className="explorer"
+  focusTrapOptions={
+    Object {
+      "initialFocus": ".c-explorer__close",
+      "onDeactivate": [Function],
+    }
+  }
+  paused={false}
+  tag="nav"
+>
+  <Button
+    accessibleLabel={null}
+    className="c-explorer__close u-hidden"
+    href="#"
+    icon=""
+    isLoading={false}
+    onClick={[Function]}
+    preventDefault={true}
+    target={null}
+  >
+    Close explorer
+  </Button>
+  <Transition
+    className="c-explorer"
+    component="div"
+    duration={210}
+    name="push"
+  >
+    <div
+      className="c-transition-group"
+    >
+      <ExplorerHeader
+        depth={0}
+        onClick={[Function]}
+        page={
+          Object {
+            "children": Object {
+              "items": Array [],
+            },
+            "isError": true,
+          }
+        }
+      />
+      <div
+        className="c-explorer__drawer"
+      >
+        <div />
+        <div
+          className="c-explorer__placeholder"
+        >
+          Server Error
+        </div>
+      </div>
+      <PageCount
+        page={
+          Object {
+            "children": Object {
+              "items": Array [],
+            },
+            "isError": true,
+          }
+        }
+      />
+    </div>
+  </Transition>
+</FocusTrap>
+`;
+
+exports[`ExplorerPanel #isFetching 1`] = `
+<FocusTrap
+  _createFocusTrap={[Function]}
+  active={true}
+  className="explorer"
+  focusTrapOptions={
+    Object {
+      "initialFocus": ".c-explorer__close",
+      "onDeactivate": [Function],
+    }
+  }
+  paused={true}
+  tag="nav"
+>
+  <Button
+    accessibleLabel={null}
+    className="c-explorer__close u-hidden"
+    href="#"
+    icon=""
+    isLoading={false}
+    onClick={[Function]}
+    preventDefault={true}
+    target={null}
+  >
+    Close explorer
+  </Button>
+  <Transition
+    className="c-explorer"
+    component="div"
+    duration={210}
+    name="push"
+  >
+    <div
+      className="c-transition-group"
+    >
+      <ExplorerHeader
+        depth={0}
+        onClick={[Function]}
+        page={
+          Object {
+            "children": Object {
+              "items": Array [],
+            },
+            "isFetching": true,
+          }
+        }
+      />
+      <div
+        className="c-explorer__drawer"
+      >
+        <div />
+        <div
+          className="c-explorer__placeholder"
+        >
+          <LoadingSpinner />
+        </div>
+      </div>
+    </div>
+  </Transition>
+</FocusTrap>
+`;
+
+exports[`ExplorerPanel #items 1`] = `
+<FocusTrap
+  _createFocusTrap={[Function]}
+  active={true}
+  className="explorer"
+  focusTrapOptions={
+    Object {
+      "initialFocus": ".c-explorer__close",
+      "onDeactivate": [Function],
+    }
+  }
+  paused={false}
+  tag="nav"
+>
+  <Button
+    accessibleLabel={null}
+    className="c-explorer__close u-hidden"
+    href="#"
+    icon=""
+    isLoading={false}
+    onClick={[Function]}
+    preventDefault={true}
+    target={null}
+  >
+    Close explorer
+  </Button>
+  <Transition
+    className="c-explorer"
+    component="div"
+    duration={210}
+    name="push"
+  >
+    <div
+      className="c-transition-group"
+    >
+      <ExplorerHeader
+        depth={0}
+        onClick={[Function]}
+        page={
+          Object {
+            "children": Object {
+              "items": Array [
+                1,
+                2,
+              ],
+            },
+          }
+        }
+      />
+      <div
+        className="c-explorer__drawer"
+      >
+        <div>
+          <ExplorerItem
+            item={
+              Object {
+                "admin_display_title": "Test",
+                "id": 1,
+                "meta": Object {
+                  "status": Object {},
+                  "type": "test",
+                },
+              }
+            }
+            onClick={[Function]}
+          />
+          <ExplorerItem
+            item={
+              Object {
+                "admin_display_title": "Foo",
+                "id": 2,
+                "meta": Object {
+                  "status": Object {},
+                  "type": "foo",
+                },
+              }
+            }
+            onClick={[Function]}
+          />
+        </div>
+      </div>
+    </div>
+  </Transition>
+</FocusTrap>
+`;
+
+exports[`ExplorerPanel no children 1`] = `
+<FocusTrap
+  _createFocusTrap={[Function]}
+  active={true}
+  className="explorer"
+  focusTrapOptions={
+    Object {
+      "initialFocus": ".c-explorer__close",
+      "onDeactivate": [Function],
+    }
+  }
+  paused={false}
+  tag="nav"
+>
+  <Button
+    accessibleLabel={null}
+    className="c-explorer__close u-hidden"
+    href="#"
+    icon=""
+    isLoading={false}
+    onClick={[Function]}
+    preventDefault={true}
+    target={null}
+  >
+    Close explorer
+  </Button>
+  <Transition
+    className="c-explorer"
+    component="div"
+    duration={210}
+    name="push"
+  >
+    <div
+      className="c-transition-group"
+    >
+      <ExplorerHeader
+        depth={0}
+        onClick={[Function]}
+        page={
+          Object {
+            "children": Object {},
+          }
+        }
+      />
+      <div
+        className="c-explorer__drawer"
+      >
+        <div
+          className="c-explorer__placeholder"
+        >
+          No results
+        </div>
+      </div>
+    </div>
+  </Transition>
+</FocusTrap>
+`;
+
+exports[`ExplorerPanel renders 1`] = `
+<FocusTrap
+  _createFocusTrap={[Function]}
+  active={true}
+  className="explorer"
+  focusTrapOptions={
+    Object {
+      "initialFocus": ".c-explorer__close",
+      "onDeactivate": [Function],
+    }
+  }
+  paused={false}
+  tag="nav"
+>
+  <Button
+    accessibleLabel={null}
+    className="c-explorer__close u-hidden"
+    href="#"
+    icon=""
+    isLoading={false}
+    onClick={[Function]}
+    preventDefault={true}
+    target={null}
+  >
+    Close explorer
+  </Button>
+  <Transition
+    className="c-explorer"
+    component="div"
+    duration={210}
+    name="push"
+  >
+    <div
+      className="c-transition-group"
+    >
+      <ExplorerHeader
+        depth={0}
+        onClick={[Function]}
+        page={
+          Object {
+            "children": Object {
+              "items": Array [],
+            },
+          }
+        }
+      />
+      <div
+        className="c-explorer__drawer"
+      >
+        <div />
+      </div>
+    </div>
+  </Transition>
+</FocusTrap>
+`;

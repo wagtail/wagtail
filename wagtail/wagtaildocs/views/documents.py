@@ -1,7 +1,7 @@
 from __future__ import absolute_import, unicode_literals
 
-from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse
 from django.utils.translation import ugettext as _
 from django.views.decorators.vary import vary_on_headers
 
@@ -130,12 +130,12 @@ def edit(request, document_id):
         original_file = doc.file
         form = DocumentForm(request.POST, request.FILES, instance=doc, user=request.user)
         if form.is_valid():
+            doc = form.save()
             if 'file' in form.changed_data:
                 # if providing a new document file, delete the old one.
                 # NB Doing this via original_file.delete() clears the file field,
                 # which definitely isn't what we want...
                 original_file.storage.delete(original_file.name)
-            doc = form.save()
 
             # Reindex the document to make sure all tags are indexed
             search_index.insert_or_update_object(doc)

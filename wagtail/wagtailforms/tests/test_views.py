@@ -4,8 +4,8 @@ from __future__ import absolute_import, unicode_literals
 import json
 
 from django.contrib.auth import get_user_model
-from django.core.urlresolvers import reverse
 from django.test import TestCase
+from django.urls import reverse
 
 from wagtail.tests.testapp.models import (
     CustomFormPageSubmission, FormField, FormFieldWithCustomSubmission, FormPage)
@@ -299,6 +299,33 @@ class TestFormsSubmissionsList(TestCase, WagtailTestUtils):
 
         # Check that we got the last page
         self.assertEqual(response.context['submissions'].number, response.context['submissions'].paginator.num_pages)
+
+    def test_list_submissions_default_order(self):
+        response = self.client.get(reverse(
+            'wagtailforms:list_submissions', args=(self.form_page.id,)))
+        # check default ordering, most recent responses first
+        first_row_values = response.context['data_rows'][0]['fields']
+        self.assertTrue('this is a fairly new message' in first_row_values)
+
+    def test_list_submissions_url_params_ordering_recent_first(self):
+        response = self.client.get(reverse(
+            'wagtailforms:list_submissions',
+            args=(self.form_page.id,)),
+            {'order_by': '-submit_time'}
+        )
+        # check ordering matches '-submit_time' (most recent first)
+        first_row_values = response.context['data_rows'][0]['fields']
+        self.assertTrue('this is a fairly new message' in first_row_values)
+
+    def test_list_submissions_url_params_ordering_oldest_first(self):
+        response = self.client.get(reverse(
+            'wagtailforms:list_submissions',
+            args=(self.form_page.id,)),
+            {'order_by': 'submit_time'}
+        )
+        # check ordering matches 'submit_time' (oldest first)
+        first_row_values = response.context['data_rows'][0]['fields']
+        self.assertTrue('this is a really old message' in first_row_values)
 
 
 class TestFormsSubmissionsExport(TestCase, WagtailTestUtils):
@@ -673,7 +700,7 @@ class TestCustomFormsSubmissionsList(TestCase, WagtailTestUtils):
         self.assertEqual(len(response.context['data_rows']), 2)
 
         # CustomFormPageSubmission have custom field. This field should appear in the listing
-        self.assertContains(response, '<th>Username</th>', html=True)
+        self.assertContains(response, '<th id="username" class="">Username</th>', html=True)
         self.assertContains(response, '<td>user-m1kola</td>', html=True)
         self.assertContains(response, '<td>user-john</td>', html=True)
 
@@ -688,7 +715,7 @@ class TestCustomFormsSubmissionsList(TestCase, WagtailTestUtils):
         self.assertEqual(len(response.context['data_rows']), 1)
 
         # CustomFormPageSubmission have custom field. This field should appear in the listing
-        self.assertContains(response, '<th>Username</th>', html=True)
+        self.assertContains(response, '<th id="username" class="">Username</th>', html=True)
         self.assertContains(response, '<td>user-m1kola</td>', html=True)
 
     def test_list_submissions_filtering_date_to(self):
@@ -702,7 +729,7 @@ class TestCustomFormsSubmissionsList(TestCase, WagtailTestUtils):
         self.assertEqual(len(response.context['data_rows']), 1)
 
         # CustomFormPageSubmission have custom field. This field should appear in the listing
-        self.assertContains(response, '<th>Username</th>', html=True)
+        self.assertContains(response, '<th id="username" class="">Username</th>', html=True)
         self.assertContains(response, '<td>user-john</td>', html=True)
 
     def test_list_submissions_filtering_range(self):
@@ -717,7 +744,7 @@ class TestCustomFormsSubmissionsList(TestCase, WagtailTestUtils):
         self.assertEqual(len(response.context['data_rows']), 1)
 
         # CustomFormPageSubmission have custom field. This field should appear in the listing
-        self.assertContains(response, '<th>Username</th>', html=True)
+        self.assertContains(response, '<th id="username" class="">Username</th>', html=True)
         self.assertContains(response, '<td>user-m1kola</td>', html=True)
 
     def test_list_submissions_pagination(self):
@@ -733,7 +760,7 @@ class TestCustomFormsSubmissionsList(TestCase, WagtailTestUtils):
         self.assertEqual(response.context['submissions'].number, 2)
 
         # CustomFormPageSubmission have custom field. This field should appear in the listing
-        self.assertContains(response, '<th>Username</th>', html=True)
+        self.assertContains(response, '<th id="username" class="">Username</th>', html=True)
         self.assertContains(response, 'generated-username-', count=20)
 
     def test_list_submissions_pagination_invalid(self):

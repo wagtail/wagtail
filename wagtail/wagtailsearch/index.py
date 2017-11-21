@@ -11,7 +11,6 @@ from django.db.models.fields.related import ForeignObjectRel, OneToOneRel, Relat
 
 from wagtail.wagtailsearch.backends import get_search_backends_with_name
 
-
 logger = logging.getLogger('wagtail.search.index')
 
 
@@ -242,7 +241,7 @@ class RelatedFields(object):
     def get_value(self, obj):
         field = self.get_field(obj.__class__)
 
-        if isinstance(field, RelatedField):
+        if isinstance(field, (RelatedField, ForeignObjectRel)):
             return getattr(obj, self.field_name)
 
     def select_on_queryset(self, queryset):

@@ -119,11 +119,11 @@ class TestInspectView(TestCase, WagtailTestUtils):
 
     def test_title_present(self):
         """
-        The page title should appear twice. Once in the header, and once
-        more in the field listing
+        The page title should appear three times. Once in the header, and two times
+        in the field listing (as the actual title and as the draft title)
         """
         response = self.get(4)
-        self.assertContains(response, 'Christmas', 2)
+        self.assertContains(response, 'Christmas', 3)
 
     def test_manytomany_output(self):
         """
@@ -230,13 +230,22 @@ class TestChooseParentViewForNonSuperuser(TestCase, WagtailTestUtils):
 
     def setUp(self):
         homepage = Page.objects.get(url_path='/home/')
-        business_index = BusinessIndex(title='Public Business Index')
+        business_index = BusinessIndex(
+            title='Public Business Index',
+            draft_title='Public Business Index',
+        )
         homepage.add_child(instance=business_index)
 
-        another_business_index = BusinessIndex(title='Another Business Index')
+        another_business_index = BusinessIndex(
+            title='Another Business Index',
+            draft_title='Another Business Index',
+        )
         homepage.add_child(instance=another_business_index)
 
-        secret_business_index = BusinessIndex(title='Private Business Index')
+        secret_business_index = BusinessIndex(
+            title='Private Business Index',
+            draft_title='Private Business Index',
+        )
         homepage.add_child(instance=secret_business_index)
 
         business_editors = Group.objects.create(name='Business editors')

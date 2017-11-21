@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django import VERSION as DJANGO_VERSION
 from django.db import migrations
 
 
@@ -15,8 +14,7 @@ def initial_data(apps, schema_editor):
     # Create page content type
     page_content_type, created = ContentType.objects.get_or_create(
         model='page',
-        app_label='wagtailcore',
-        defaults={'name': 'page'} if DJANGO_VERSION < (1, 8) else {}
+        app_label='wagtailcore'
     )
 
     # Create root page

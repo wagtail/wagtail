@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-04-19 21:05+0000\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"PO-Revision-Date: 2017-10-06 15:06+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
@@ -123,6 +123,11 @@ msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
 msgstr "Þessi vefslóð (e.slug) er þegar í notkun innan ramma yfirsíðu \"%s\""
 
+msgid "You cannot copy a page into itself when copying subpages"
+msgstr ""
+"Ekki er hægt að afrita síðu inn undir sjálfa sig þegar verið er að afrita "
+"undirsíður"
+
 msgid "Visibility"
 msgstr "Sýnileiki"
 
@@ -145,6 +150,9 @@ msgstr "Dagsetning afbirtingar verður að vera í framtíðinni"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Þú getur ekki haft margar heimildafærslur fyrir sama safnið"
+
+msgid "Go to Wagtail admin"
+msgstr "Fara í stjórnkerfi Wagtail"
 
 msgid "Account"
 msgstr "Reikningur"
@@ -172,11 +180,20 @@ msgstr "Stillingar tilkynninga"
 msgid "Choose which email notifications to receive."
 msgstr "Veldu hvaða tilkynningar verða sendar þér í tölvupósti."
 
+msgid "Language preferences"
+msgstr "Tungumálastillingar"
+
+msgid "Choose the language you want to use here."
+msgstr "Veldu það tungumál sem þú vilt nota hérna."
+
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr ""
 "Ekki er hægt að breyta lykilorðinu þínu hér. Vinsamlegast hafðu samband við "
 "vefstjóra."
+
+msgid "Language Preferences"
+msgstr "Tungumálastiliingar"
 
 msgid "Update"
 msgstr "Uppfæra"
@@ -217,6 +234,12 @@ msgstr "Endursetja lykilorð"
 
 msgid "Reset your password"
 msgstr "Endursettu lykilorðið þitt"
+
+msgid "Edit"
+msgstr "Breyta"
+
+msgid "Pages"
+msgstr "Síður"
 
 msgid "Dashboard"
 msgstr "Yfirlitssíða"
@@ -301,6 +324,21 @@ msgstr "Setja inn hlekk"
 msgid "Add an external link"
 msgstr "Bæta við ytri hlekk"
 
+msgid "You can edit the privacy settings on:"
+msgstr "Þú getur breytt aðgengisstilligum á:"
+
+msgid "Save"
+msgstr "Vista"
+
+msgid "Privacy"
+msgstr "Aðgengi"
+
+msgid "Public"
+msgstr "Í birtingu"
+
+msgid "Private"
+msgstr "Prívat"
+
 msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
 msgstr "Ekki er hægt að eyða safni, af því það er ekki tómt. Það inniheldur:"
@@ -322,9 +360,6 @@ msgstr "Bæta við %(heading)s"
 
 msgid "Yes, delete"
 msgstr "Já, eyða"
-
-msgid "Save"
-msgstr "Vista"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -360,9 +395,6 @@ msgstr "Samþykkja"
 
 msgid "Reject"
 msgstr "Hafna"
-
-msgid "Edit"
-msgstr "Breyta"
 
 msgid "Preview"
 msgstr "Forskoða"
@@ -470,9 +502,6 @@ msgstr "Síðu aðgengi"
 msgid "This page has been made private by a parent page."
 msgstr "Þessi síða hefur verið gerð prívat af yfirsíðu sinni."
 
-msgid "You can edit the privacy settings on:"
-msgstr "Þú getur breytt aðgengisstilligum á:"
-
 msgid "Privacy changes apply to all children of this page too."
 msgstr "Aðgengisstillingar eiga við allar undirsíður þessarar síðu líka."
 
@@ -484,15 +513,6 @@ msgstr "Læst"
 
 msgid "Unlocked"
 msgstr "Aflæst"
-
-msgid "Privacy"
-msgstr "Aðgengi"
-
-msgid "Public"
-msgstr "Í birtingu"
-
-msgid "Private"
-msgstr "Prívat"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -607,6 +627,10 @@ msgstr "Já, taka úr loftinu"
 
 msgid "No, don't unpublish"
 msgstr "Nei, ekki taka úr loftinu"
+
+#, python-format
+msgid "Pages using %(page_class_verbose_name)s"
+msgstr "Síður sem nota %(page_class_verbose_name)s"
 
 msgid "Pages using"
 msgstr "Síður sem nota"
@@ -773,6 +797,9 @@ msgstr "Bæta undirsíðu við '%(title)s'"
 msgid "Add child page"
 msgstr "Bæta við undirsíðu"
 
+msgid "Sites menu"
+msgstr "Síðuvalmynd"
+
 #, python-format
 msgid ""
 "\n"
@@ -808,6 +835,24 @@ msgstr "Veldu nýja yfirsíðu fyrir %(title)s"
 #, python-format
 msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Veldu nýja yfirsíðu fyrir <span>%(title)s</span>"
+
+msgid "Preview error"
+msgstr "Forskoðunar villa"
+
+msgid ""
+"\n"
+"                Impossible to preview this page, some errors are remaining.\n"
+"                Please close this tab, edit the page to fix these errors,\n"
+"                then use preview again.\n"
+"            "
+msgstr ""
+"\n"
+"Ekki tókst að forskoða þessa síðu, því það eru villur á síðunni.\n"
+"Vinsamlegast lokið þessum flipa, lagið villur á síðunni, \n"
+"og forskoðið svo aftur."
+
+msgid "Close"
+msgstr "Loka"
 
 #, python-format
 msgid "Comparing %(title)s"
@@ -996,10 +1041,10 @@ msgid "Sat"
 msgstr "Lau"
 
 #, python-format
-msgid "Used %(useage_count)s time"
-msgid_plural "Used %(useage_count)s times"
-msgstr[0] "Notað %(useage_count)s sinni"
-msgstr[1] "Notað %(useage_count)s sinnum"
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Notað %(usage_count)s sinni"
+msgstr[1] "Notað %(usage_count)s sinnum"
 
 msgid "Edit your account"
 msgstr "Breyta reikningnum þínum"
@@ -1047,9 +1092,6 @@ msgstr ""
 msgid "Go to Wagtail admin interface"
 msgstr "Fara á Wagtail stjórnborð"
 
-msgid "Go to Wagtail admin"
-msgstr "Fara í stjórnkerfi Wagtail"
-
 msgid "Add a child page"
 msgstr "Bæta við undirsíðu"
 
@@ -1059,13 +1101,70 @@ msgstr "Sýna í veftré"
 msgid "Test"
 msgstr "Prufa"
 
+msgid "Catalan"
+msgstr "Catalan"
+
+msgid "German"
+msgstr "Þýska"
+
+msgid "Greek"
+msgstr "Gríska"
+
+msgid "English"
+msgstr "Enska"
+
+msgid "Spanish"
+msgstr "Spænska"
+
+msgid "Finnish"
+msgstr "Finnska"
+
+msgid "French"
+msgstr "Franska"
+
+msgid "Galician"
+msgstr "Galiska"
+
+msgid "Icelandic"
+msgstr "Íslenska"
+
+msgid "Italian"
+msgstr "Ítalska"
+
+msgid "Lithuanian"
+msgstr "Litháenska"
+
+msgid "Norwegian Bokmål"
+msgstr "Norska"
+
+msgid "Netherlands Dutch"
+msgstr "Hollenska"
+
+msgid "Polish"
+msgstr "Pólska"
+
+msgid "Brazilian Portuguese"
+msgstr "Brasilísk Portúgalska"
+
+msgid "Portuguese"
+msgstr "Portúgalska"
+
+msgid "Romanian"
+msgstr "Rúmenska"
+
+msgid "Russian"
+msgstr "Rússneska"
+
+msgid "Chinese (China)"
+msgstr "Kínverska (Kína)"
+
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Því miður, þú hefur ekki heimildir til að skoða þetta svæði."
 
 msgid "Your password has been changed successfully!"
 msgstr "Tókst að breyta lykilorðinu þínu!"
 
-msgid "Your preferences have been updated successfully!"
+msgid "Your preferences have been updated."
 msgstr "Tókst að breyta stillingunum þínum!"
 
 msgid "You have been successfully logged out."
@@ -1232,9 +1331,6 @@ msgstr "Fyrsta"
 
 msgid "Latest"
 msgstr "Nýjasta"
-
-msgid "Pages"
-msgstr "Síður"
 
 #, python-brace-format
 msgid "Edit '{title}'"

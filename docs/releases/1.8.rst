@@ -6,6 +6,8 @@ Wagtail 1.8 release notes
     :local:
     :depth: 1
 
+Wagtail 1.8 is designated a Long Term Support (LTS) release. Long Term Support releases will continue to receive maintenance updates as necessary to address security and data-loss related issues, up until the next LTS release (typically a period of 8 months).
+
 
 What's new
 ==========

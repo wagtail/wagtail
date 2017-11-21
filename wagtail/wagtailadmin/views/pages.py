@@ -1,14 +1,15 @@
 from __future__ import absolute_import, unicode_literals
+
 from time import time
 
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
-from django.core.urlresolvers import reverse
 from django.db.models import Count
 from django.http import Http404, HttpResponse, JsonResponse
 from django.http.request import QueryDict
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template.loader import render_to_string
+from django.urls import reverse
 from django.utils import timezone
 from django.utils.http import is_safe_url, urlquote
 from django.utils.safestring import mark_safe
@@ -20,7 +21,6 @@ from django.views.generic import View
 from wagtail.utils.pagination import paginate
 from wagtail.wagtailadmin import messages, signals
 from wagtail.wagtailadmin.forms import CopyForm, SearchForm
-from wagtail.wagtailadmin.navigation import get_navigation_menu_items
 from wagtail.wagtailadmin.utils import (
     send_notification, user_has_any_page_permission, user_passes_test)
 from wagtail.wagtailcore import hooks
@@ -32,13 +32,6 @@ def get_valid_next_url_from_request(request):
     if not next_url or not is_safe_url(url=next_url, host=request.get_host()):
         return ''
     return next_url
-
-
-@user_passes_test(user_has_any_page_permission)
-def explorer_nav(request):
-    return render(request, 'wagtailadmin/shared/explorer_nav.html', {
-        'nodes': get_navigation_menu_items(request.user),
-    })
 
 
 @user_passes_test(user_has_any_page_permission)
@@ -230,10 +223,11 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
                         messages.button(reverse('wagtailadmin_pages:edit', args=(page.id,)), _('Edit'))
                     ])
                 else:
-                    messages.success(request, _("Page '{0}' created and published.").format(page.get_admin_display_title()), buttons=[
-                        messages.button(page.url, _('View live'), new_window=True),
-                        messages.button(reverse('wagtailadmin_pages:edit', args=(page.id,)), _('Edit'))
-                    ])
+                    buttons = []
+                    if page.url is not None:
+                        buttons.append(messages.button(page.url, _('View live'), new_window=True))
+                    buttons.append(messages.button(reverse('wagtailadmin_pages:edit', args=(page.id,)), _('Edit')))
+                    messages.success(request, _("Page '{0}' created and published.").format(page.get_admin_display_title()), buttons=buttons)
             elif is_submitting:
                 messages.success(
                     request,
@@ -394,17 +388,11 @@ def edit(request, page_id):
                             page.get_admin_display_title()
                         )
 
-                    messages.success(request, message, buttons=[
-                        messages.button(
-                            page.url,
-                            _('View live'),
-                            new_window=True
-                        ),
-                        messages.button(
-                            reverse('wagtailadmin_pages:edit', args=(page_id,)),
-                            _('Edit')
-                        )
-                    ])
+                    buttons = []
+                    if page.url is not None:
+                        buttons.append(messages.button(page.url, _('View live'), new_window=True))
+                    buttons.append(messages.button(reverse('wagtailadmin_pages:edit', args=(page_id,)), _('Edit')))
+                    messages.success(request, message, buttons=buttons)
 
             elif is_submitting:
 
@@ -581,6 +569,10 @@ class PreviewOnEdit(View):
         page = self.get_page()
         form_class = page.get_edit_handler().get_form_class(page._meta.model)
         parent_page = page.get_parent().specific
+
+        if self.session_key not in self.request.session:
+            # Session key not in session, returning null form
+            return form_class(instance=page, parent_page=parent_page)
         post_data_dict, timestamp = self.request.session[self.session_key]
 
         # convert post_data_dict back into a QueryDict
@@ -802,7 +794,7 @@ def copy(request, page_id):
     can_publish = parent_page.permissions_for_user(request.user).can_publish_subpage()
 
     # Create the form
-    form = CopyForm(request.POST or None, page=page, can_publish=can_publish)
+    form = CopyForm(request.POST or None, user=request.user, page=page, can_publish=can_publish)
 
     next_url = get_valid_next_url_from_request(request)
 
@@ -878,7 +870,7 @@ def search(request):
         if form.is_valid():
             q = form.cleaned_data['q']
 
-            pages = Page.objects.all().prefetch_related('content_type').search(q)
+            pages = Page.objects.all().prefetch_related('content_type').specific().search(q)
             paginator, pages = paginate(request, pages)
     else:
         form = SearchForm()
@@ -909,10 +901,14 @@ def approve_moderation(request, revision_id):
 
     if request.method == 'POST':
         revision.approve_moderation()
-        messages.success(request, _("Page '{0}' published.").format(revision.page.get_admin_display_title()), buttons=[
-            messages.button(revision.page.url, _('View live'), new_window=True),
-            messages.button(reverse('wagtailadmin_pages:edit', args=(revision.page.id,)), _('Edit'))
-        ])
+
+        message = _("Page '{0}' published.").format(revision.page.get_admin_display_title())
+        buttons = []
+        if revision.page.url is not None:
+            buttons.append(messages.button(revision.page.url, _('View live'), new_window=True))
+        buttons.append(messages.button(reverse('wagtailadmin_pages:edit', args=(revision.page.id,)), _('Edit')))
+        messages.success(request, message, buttons=buttons)
+
         if not send_notification(revision.id, 'approved', request.user.pk):
             messages.error(request, _("Failed to send approval notifications"))
 

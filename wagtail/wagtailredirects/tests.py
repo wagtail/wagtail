@@ -1,7 +1,8 @@
+# -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
 
-from django.core.urlresolvers import reverse
 from django.test import TestCase, override_settings
+from django.urls import reverse
 
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailcore.models import Page, Site
@@ -85,6 +86,19 @@ class TestRedirects(TestCase):
         normalise_path('!#@%$*')
         normalise_path('C:\\Program Files (x86)\\Some random program\\file.txt')
 
+    def test_unicode_path_normalisation(self):
+        normalise_path = models.Redirect.normalise_path
+
+        self.assertEqual(
+            '/here/tésting-ünicode',  # stays the same
+            normalise_path('/here/tésting-ünicode')
+        )
+
+        self.assertNotEqual(  # Doesn't remove unicode characters
+            '/here/testing-unicode',
+            normalise_path('/here/tésting-ünicode')
+        )
+
     def test_basic_redirect(self):
         # Create a redirect
         redirect = models.Redirect(old_path='/redirectme', redirect_link='/redirectto')
@@ -132,7 +146,9 @@ class TestRedirects(TestCase):
         models.Redirect.objects.create(old_path='/xmas', redirect_page=christmas_page)
 
         response = self.client.get('/xmas/', HTTP_HOST='test.example.com')
-        self.assertRedirects(response, 'http://test.example.com/events/christmas/', status_code=301, fetch_redirect_response=False)
+        # Only one site defined, so redirect should return a local URL
+        # (to keep things working if Site records haven't been configured correctly)
+        self.assertRedirects(response, '/events/christmas/', status_code=301, fetch_redirect_response=False)
 
     def test_redirect_from_any_site(self):
         contact_page = Page.objects.get(url_path='/home/contact-us/')
@@ -205,7 +221,7 @@ class TestRedirects(TestCase):
 
         response = self.client.get('/xmas/', HTTP_HOST='other.example.com')
         # the redirect which matched was /site-specific
-        self.assertRedirects(response, 'http://other.example.com/site-specific', status_code=301, fetch_redirect_response=False)
+        self.assertRedirects(response, '/site-specific', status_code=301, fetch_redirect_response=False)
 
     def test_duplicate_redirects_with_query_string_when_match_is_for_specific_with_qs(self):
         contact_page = Page.objects.get(url_path='/home/contact-us/')
@@ -221,12 +237,12 @@ class TestRedirects(TestCase):
 
         response = self.client.get('/xmas/?foo=Bar', HTTP_HOST='other.example.com')
         # the redirect which matched was /site-specific-with-query-string
-        self.assertRedirects(response, 'http://other.example.com/site-specific-with-query-string', status_code=301, fetch_redirect_response=False)
+        self.assertRedirects(response, '/site-specific-with-query-string', status_code=301, fetch_redirect_response=False)
 
         # now use a non-matching query string
         response = self.client.get('/xmas/?foo=Baz', HTTP_HOST='other.example.com')
         # the redirect which matched was /site-specific
-        self.assertRedirects(response, 'http://other.example.com/site-specific', status_code=301, fetch_redirect_response=False)
+        self.assertRedirects(response, '/site-specific', status_code=301, fetch_redirect_response=False)
 
     def test_duplicate_page_redirects_when_match_is_for_specific(self):
         contact_page = Page.objects.get(url_path='/home/contact-us/')
@@ -240,6 +256,24 @@ class TestRedirects(TestCase):
         # request for specific site gets the christmas_page redirect, not accessible from other.example.com
         response = self.client.get('/xmas/', HTTP_HOST='other.example.com')
         self.assertRedirects(response, 'http://localhost/events/christmas/', status_code=301, fetch_redirect_response=False)
+
+    def test_redirect_with_unicode_in_url(self):
+        redirect = models.Redirect(old_path='/tésting-ünicode', redirect_link='/redirectto')
+        redirect.save()
+
+        # Navigate to it
+        response = self.client.get('/tésting-ünicode/')
+
+        self.assertRedirects(response, '/redirectto', status_code=301, fetch_redirect_response=False)
+
+    def test_redirect_with_encoded_url(self):
+        redirect = models.Redirect(old_path='/t%C3%A9sting-%C3%BCnicode', redirect_link='/redirectto')
+        redirect.save()
+
+        # Navigate to it
+        response = self.client.get('/t%C3%A9sting-%C3%BCnicode/')
+
+        self.assertRedirects(response, '/redirectto', status_code=301, fetch_redirect_response=False)
 
 
 class TestRedirectsIndexView(TestCase, WagtailTestUtils):

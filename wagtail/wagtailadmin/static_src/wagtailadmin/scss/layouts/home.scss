@@ -12,6 +12,12 @@ header {
         width: 50px;
         margin-right: 1em;
         padding: 0;
+
+        // make way for the nav-menu button on mobile
+        @media screen and (max-width: $breakpoint-mobile) {
+            position: relative;
+            left: $mobile-nav-indent;
+        }
     }
 
     h1,

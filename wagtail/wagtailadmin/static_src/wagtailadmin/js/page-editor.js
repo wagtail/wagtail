@@ -1,19 +1,10 @@
 'use strict';
 
-// registerHalloPlugin must be implemented here so it can be used by plugins
-// hooked in with insert_editor_js (and hallo-bootstrap.js runs too late)
-var halloPlugins = {
-    halloformat: {},
-    halloheadings: {formatBlocks: ['p', 'h2', 'h3', 'h4', 'h5']},
-    hallolists: {},
-    hallohr: {},
-    halloreundo: {},
-    hallowagtaillink: {},
-    hallorequireparagraphs: {}
-};
-
+var halloPlugins = {};
 function registerHalloPlugin(name, opts) {
-    halloPlugins[name] = (opts || {});
+    /* Obsolete - used on Wagtail <1.12 to register plugins for the hallo.js editor.
+    Defined here so that third-party plugins can continue to call it to provide Wagtail <1.12
+    compatibility, without throwing an error on later versions. */
 }
 
 // Compare two date objects. Ignore minutes and seconds.
@@ -86,7 +77,7 @@ function initDateTimeChooser(id, opts) {
             i18n: {
                 lang: window.dateTimePickerTranslations
             },
-            language: 'lang',
+            lang: 'lang',
             onGenerate: hideCurrent
         }, opts || {}));
     } else {
@@ -187,7 +178,7 @@ function InlinePanel(opts) {
 
     self.updateMoveButtonDisabledStates = function() {
         if (opts.canOrder) {
-            var forms = self.formsUl.children('li:visible');
+            var forms = self.formsUl.children('li:not(.deleted)');
             forms.each(function(i) {
                 $('ul.controls .inline-child-move-up', this).toggleClass('disabled', i === 0).toggleClass('enabled', i !== 0);
                 $('ul.controls .inline-child-move-down', this).toggleClass('disabled', i === forms.length - 1).toggleClass('enabled', i != forms.length - 1);
@@ -197,7 +188,7 @@ function InlinePanel(opts) {
 
     self.updateAddButtonState = function() {
         if (opts.maxForms) {
-            var forms = self.formsUl.children('li:visible');
+            var forms = $('> li', self.formsUl).not('.deleted');
             var addButton = $('#' + opts.formsetPrefix + '-ADD');
 
             if (forms.length >= opts.maxForms) {
@@ -210,7 +201,7 @@ function InlinePanel(opts) {
 
     self.animateSwap = function(item1, item2) {
         var parent = self.formsUl;
-        var children = parent.children('li:visible');
+        var children = parent.children('li:not(.deleted)');
 
         // Apply moving class to container (ul.multiple) so it can assist absolute positioning of it's children
         // Also set it's relatively calculated height to be an absolute one, to prevent the container collapsing while its children go absolute

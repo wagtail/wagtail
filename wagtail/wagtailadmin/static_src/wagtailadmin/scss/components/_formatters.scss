@@ -45,7 +45,7 @@
     background-color: #ccc;
     padding: 5px;
 
-    h3, 
+    h3,
     p {
         margin: 0;
     }
@@ -123,7 +123,7 @@ form.status-tag:hover {
 }
 
 .privacy-indicator {
-    .label-private, 
+    .label-private,
     .label-public {
         &:before {
             font-size: 1.5em;
@@ -132,7 +132,7 @@ form.status-tag:hover {
     }
 
     &.public {
-        .label-private { 
+        .label-private {
             display: none;
         }
     }
@@ -187,7 +187,7 @@ a.tag:hover {
     &.loading {
         position: relative;
 
-        &:before, 
+        &:before,
         &:after {
             position: absolute;
             display: block;
@@ -195,7 +195,7 @@ a.tag:hover {
 
         &:before {
             content: '';
-            top: -5px; 
+            top: -5px;
             left: -5px;
             bottom: -5px;
             right: -5px;
@@ -212,8 +212,6 @@ a.tag:hover {
             margin: -15px 0 0 -15px;
             font-family: wagtail;
             animation: spin 0.5s infinite linear;
-            -webkit-animation: spin 0.5s infinite linear;
-            -moz-animation: spin 0.5s infinite linear;
             content: '1';
             z-index: 2;
             color: $color-teal;

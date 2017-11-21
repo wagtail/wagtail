@@ -4,6 +4,7 @@
     "model": "wagtailcore.page",
     "fields": {
         "title": "Root",
+        "draft_title": "Root",
         "numchild": 1,
         "show_in_menus": false,
         "live": true,
@@ -20,6 +21,7 @@
     "model": "wagtailcore.page",
     "fields": {
         "title": "Welcome to the Wagtail test site!",
+        "draft_title": "Welcome to the Wagtail test site!",
         "numchild": 5,
         "show_in_menus": false,
         "live": true,
@@ -36,6 +38,7 @@
     "model": "wagtailcore.page",
     "fields": {
         "title": "Events",
+        "draft_title": "Events",
         "numchild": 4,
         "show_in_menus": true,
         "live": true,
@@ -59,6 +62,7 @@
     "model": "wagtailcore.page",
     "fields": {
         "title": "Christmas",
+        "draft_title": "Christmas",
         "numchild": 0,
         "show_in_menus": true,
         "live": true,
@@ -100,6 +104,7 @@
     "model": "wagtailcore.page",
     "fields": {
         "title": "Tentative Unpublished Event",
+        "draft_title": "Tentative Unpublished Event",
         "numchild": 0,
         "show_in_menus": true,
         "live": false,
@@ -128,6 +133,7 @@
     "model": "wagtailcore.page",
     "fields": {
         "title": "Someone Else's Event",
+        "draft_title": "Someone Else's Event",
         "numchild": 0,
         "show_in_menus": true,
         "live": false,
@@ -156,6 +162,7 @@
     "model": "wagtailcore.page",
     "fields": {
         "title": "About us",
+        "draft_title": "About us",
         "numchild": 0,
         "show_in_menus": true,
         "live": true,
@@ -179,6 +186,7 @@
     "model": "wagtailcore.page",
     "fields": {
         "title": "Other events",
+        "draft_title": "Other events",
         "numchild": 1,
         "show_in_menus": true,
         "live": true,
@@ -202,6 +210,7 @@
     "model": "wagtailcore.page",
     "fields": {
         "title": "Special event",
+        "draft_title": "Special event",
         "numchild": 0,
         "show_in_menus": false,
         "live": true,

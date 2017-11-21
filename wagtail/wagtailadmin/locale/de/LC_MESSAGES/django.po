@@ -25,8 +25,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-04-20 00:08+0000\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"PO-Revision-Date: 2017-10-06 18:34+0000\n"
 "Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
@@ -136,6 +136,10 @@ msgstr[1] ""
 "deren Kopien ebenfalls veröffentlichen?"
 
 #, python-format
+msgid "You do not have permission to copy to page \"%(page_title)s\""
+msgstr "Sie sind nicht berechtigt in die Seite \"%(page_title)s\" zu kopieren"
+
+#, python-format
 msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
 msgstr ""
@@ -167,6 +171,18 @@ msgstr "Das Verfallsdatum muss in der Zukunft sein"
 msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
 "Sie können nicht mehrere Berechtigungseinträge für dieselbe Sammlung haben."
+
+msgid "Error 404: Page not found"
+msgstr "Fehler 404: Seite nicht gefunden"
+
+msgid "Error 404"
+msgstr "Fehler 404"
+
+msgid "The requested page could not be found."
+msgstr "Die angeforderte Seite konnte nicht gefunden werden."
+
+msgid "Go to Wagtail admin"
+msgstr "Zum Wagtail Admin-Interface"
 
 msgid "Account"
 msgstr "Benutzerkonto"
@@ -246,6 +262,33 @@ msgstr "Passwort zurückgesetzt"
 
 msgid "Reset your password"
 msgstr "Setzen Sie Ihr Passwort zurück"
+
+msgid "Edit"
+msgstr "Bearbeiten"
+
+msgid "Page"
+msgstr "Seite"
+
+msgid "Pages"
+msgstr "Seiten"
+
+msgid "Loading..."
+msgstr "Laden..."
+
+msgid "No results"
+msgstr "Keine Ergebnisse"
+
+msgid "Server Error"
+msgstr "Server-Fehler"
+
+msgid "See children"
+msgstr "Unterseiten einsehen"
+
+msgid "See all"
+msgstr "Alles einsehen"
+
+msgid "Close explorer"
+msgstr "Explorer schliessen"
 
 msgid "Dashboard"
 msgstr "Dashboard"
@@ -330,6 +373,33 @@ msgstr "Link einfügen"
 msgid "Add an external link"
 msgstr "Externen Link hinzufügen"
 
+msgid "Collection privacy"
+msgstr "Sammlungschutz"
+
+msgid "This collection has been made private by a parent collection."
+msgstr "Diese Sammlung wurde durch eine übergeordnete Sammlung geschützt."
+
+msgid "You can edit the privacy settings on:"
+msgstr "Sie können die Schutzeinstellungen hier bearbeiten:"
+
+msgid ""
+"Privacy settings determine who is able to view documents in this collection."
+msgstr ""
+"Schutzeinstellungen legen fest wer Dokumente in dieser Sammlung einsehen "
+"darf."
+
+msgid "Save"
+msgstr "Speichern"
+
+msgid "Privacy"
+msgstr "Schutz"
+
+msgid "Public"
+msgstr "Öffentlich"
+
+msgid "Private"
+msgstr "Geschützt"
+
 msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
 msgstr ""
@@ -353,9 +423,6 @@ msgstr "%(heading)s hinzufügen"
 
 msgid "Yes, delete"
 msgstr "Ja, Löschen"
-
-msgid "Save"
-msgstr "Speichern"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -391,9 +458,6 @@ msgstr "Freischalten"
 
 msgid "Reject"
 msgstr "Ablehnen"
-
-msgid "Edit"
-msgstr "Bearbeiten"
 
 msgid "Preview"
 msgstr "Vorschau"
@@ -503,9 +567,6 @@ msgstr "Seitenschutz"
 msgid "This page has been made private by a parent page."
 msgstr "Diese Seite wurde durch eine Oberseite geschützt."
 
-msgid "You can edit the privacy settings on:"
-msgstr "Sie können die Schutzeinstellungen hier bearbeiten:"
-
 msgid "Privacy changes apply to all children of this page too."
 msgstr "Schutzeinstellungen gelten ebenfalls für alle Unterseiten."
 
@@ -517,15 +578,6 @@ msgstr "Gesperrt"
 
 msgid "Unlocked"
 msgstr "Entsperrt"
-
-msgid "Privacy"
-msgstr "Schutz"
-
-msgid "Public"
-msgstr "Öffentlich"
-
-msgid "Private"
-msgstr "Geschützt"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -947,6 +999,9 @@ msgstr "von"
 msgid "Current draft"
 msgstr "Aktueller Entwurf"
 
+msgid "Live version"
+msgstr "Veröffentlichte Version"
+
 msgid "Review this revision"
 msgstr "Diese Revision begutachten"
 
@@ -990,6 +1045,9 @@ msgstr "Keine Seite benutzt "
 
 msgid "Collection"
 msgstr "Sammlung"
+
+msgid "Root"
+msgstr "Ursprung"
 
 msgid "Home"
 msgstr "Home"
@@ -1055,10 +1113,10 @@ msgid "Sat"
 msgstr "Sa"
 
 #, python-format
-msgid "Used %(useage_count)s time"
-msgid_plural "Used %(useage_count)s times"
-msgstr[0] "%(useage_count)s mal benutzt"
-msgstr[1] "%(useage_count)s mal benutzt"
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)s mal benutzt"
+msgstr[1] "%(usage_count)s mal benutzt"
 
 msgid "Edit your account"
 msgstr "Bearbeiten Sie Ihr Konto"
@@ -1105,9 +1163,6 @@ msgstr ""
 msgid "Go to Wagtail admin interface"
 msgstr "Zum Wagtail Admin-Interface"
 
-msgid "Go to Wagtail admin"
-msgstr "Zum Wagtail Admin-Interface"
-
 msgid "Add a child page"
 msgstr "Unterseite hinzufügen"
 
@@ -1147,6 +1202,9 @@ msgstr "Isländisch"
 msgid "Italian"
 msgstr "Italienisch"
 
+msgid "Korean"
+msgstr "Koreanisch"
+
 msgid "Lithuanian"
 msgstr "Litauisch"
 
@@ -1155,6 +1213,9 @@ msgstr "Norwegische Buchsprache"
 
 msgid "Netherlands Dutch"
 msgstr "Niederländisch"
+
+msgid "Persian"
+msgstr "Persisch"
 
 msgid "Polish"
 msgstr "Polnisch"
@@ -1171,6 +1232,9 @@ msgstr "Rumänisch"
 msgid "Russian"
 msgstr "Russisch"
 
+msgid "Swedish"
+msgstr "Schwedisch"
+
 msgid "Chinese (China)"
 msgstr "Chinesisch (China)"
 
@@ -1179,9 +1243,6 @@ msgstr "Sie haben leider keinen Zugang zu diesem Bereich."
 
 msgid "Your password has been changed successfully!"
 msgstr "Ihr Passwort wurde erfolgreich geändert."
-
-msgid "Your preferences have been updated successfully!"
-msgstr "Ihre Einstellungen wurden erfolgreich aktualisiert!"
 
 msgid "Your preferences have been updated."
 msgstr "Ihre Einstellungen wurden aktualisiert."
@@ -1356,9 +1417,6 @@ msgstr "Früheste"
 
 msgid "Latest"
 msgstr "Späteste"
-
-msgid "Pages"
-msgstr "Seiten"
 
 #, python-brace-format
 msgid "Edit '{title}'"

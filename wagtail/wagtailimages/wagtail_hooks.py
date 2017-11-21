@@ -2,12 +2,13 @@ from __future__ import absolute_import, unicode_literals
 
 from django.conf.urls import include, url
 from django.contrib.staticfiles.templatetags.staticfiles import static
-from django.core import urlresolvers
+from django.urls import reverse
 from django.utils.html import format_html, format_html_join
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ungettext
 
 from wagtail.wagtailadmin.menu import MenuItem
+from wagtail.wagtailadmin.rich_text import HalloPlugin
 from wagtail.wagtailadmin.search import SearchArea
 from wagtail.wagtailadmin.site_summary import SummaryItem
 from wagtail.wagtailcore import hooks
@@ -21,7 +22,7 @@ from wagtail.wagtailimages.rich_text import ImageEmbedHandler
 @hooks.register('register_admin_urls')
 def register_admin_urls():
     return [
-        url(r'^images/', include(admin_urls, namespace='wagtailimages', app_name='wagtailimages')),
+        url(r'^images/', include(admin_urls, namespace='wagtailimages')),
     ]
 
 
@@ -40,7 +41,7 @@ class ImagesMenuItem(MenuItem):
 @hooks.register('register_admin_menu_item')
 def register_images_menu_item():
     return ImagesMenuItem(
-        _('Images'), urlresolvers.reverse('wagtailimages:index'),
+        _('Images'), reverse('wagtailimages:index'),
         name='images', classnames='icon icon-image', order=300
     )
 
@@ -48,7 +49,6 @@ def register_images_menu_item():
 @hooks.register('insert_editor_js')
 def editor_js():
     js_files = [
-        static('wagtailimages/js/hallo-plugins/hallo-wagtailimage.js'),
         static('wagtailimages/js/image-chooser.js'),
     ]
     js_includes = format_html_join(
@@ -59,11 +59,22 @@ def editor_js():
         """
         <script>
             window.chooserUrls.imageChooser = '{0}';
-            registerHalloPlugin('hallowagtailimage');
         </script>
         """,
-        urlresolvers.reverse('wagtailimages:chooser')
+        reverse('wagtailimages:chooser')
     )
+
+
+@hooks.register('register_rich_text_features')
+def register_image_feature(features):
+    features.register_editor_plugin(
+        'hallo', 'image',
+        HalloPlugin(
+            name='hallowagtailimage',
+            js=['wagtailimages/js/hallo-plugins/hallo-wagtailimage.js'],
+        )
+    )
+    features.default_features.append('image')
 
 
 @hooks.register('register_image_operations')
@@ -115,7 +126,7 @@ class ImagesSearchArea(SearchArea):
 @hooks.register('register_admin_search_area')
 def register_images_search_area():
     return ImagesSearchArea(
-        _('Images'), urlresolvers.reverse('wagtailimages:index'),
+        _('Images'), reverse('wagtailimages:index'),
         name='images',
         classnames='icon icon-image',
         order=200)
@@ -130,7 +141,7 @@ def register_image_permissions_panel():
 def describe_collection_docs(collection):
     images_count = get_image_model().objects.filter(collection=collection).count()
     if images_count:
-        url = urlresolvers.reverse('wagtailimages:index') + ('?collection_id=%d' % collection.id)
+        url = reverse('wagtailimages:index') + ('?collection_id=%d' % collection.id)
         return {
             'count': images_count,
             'count_text': ungettext(
