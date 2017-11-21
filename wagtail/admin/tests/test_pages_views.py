@@ -1508,6 +1508,122 @@ class TestPageEdit(TestCase, WagtailTestUtils):
             PageRevision.objects.filter(page=child_page_new).exclude(approved_go_live_at__isnull=True).exists()
         )
 
+    def test_edit_post_publish_scheduled_published_page(self):
+        # Page is live
+        self.child_page.live = True
+        self.child_page.save()
+
+        live_revision = self.child_page.live_revision
+        original_title = self.child_page.title
+
+        go_live_at = timezone.now() + datetime.timedelta(days=1)
+        expire_at = timezone.now() + datetime.timedelta(days=2)
+        post_data = {
+            'title': "I've been edited!",
+            'content': "Some content",
+            'slug': 'hello-world',
+            'action-publish': "Publish",
+            'go_live_at': submittable_timestamp(go_live_at),
+            'expire_at': submittable_timestamp(expire_at),
+        }
+        response = self.client.post(reverse('wagtailadmin_pages:edit', args=(self.child_page.id, )), post_data)
+
+        # Should be redirected to explorer page
+        self.assertEqual(response.status_code, 302)
+
+        child_page_new = SimplePage.objects.get(id=self.child_page.id)
+
+        # The page should still be live
+        self.assertTrue(child_page_new.live)
+
+        # Instead a revision with approved_go_live_at should now exist
+        self.assertTrue(
+            PageRevision.objects.filter(page=child_page_new).exclude(approved_go_live_at__isnull=True).exists()
+        )
+
+        # The page SHOULD have the "has_unpublished_changes" flag set,
+        # because the changes are not visible as a live page yet
+        self.assertTrue(
+            child_page_new.has_unpublished_changes,
+            "A page scheduled for future publishing should have has_unpublished_changes=True"
+        )
+
+        self.assertNotEqual(
+            child_page_new.get_latest_revision(), live_revision,
+            "A page scheduled for future publishing should have a new revision, that is not the live revision"
+        )
+
+        self.assertEqual(
+            child_page_new.title, original_title,
+            "A live page with scheduled revisions should still have original content"
+        )
+
+    def test_edit_post_publish_now_an_already_scheduled_published_page(self):
+        # Unpublish the page
+        self.child_page.live = True
+        self.child_page.save()
+
+        original_title = self.child_page.title
+        # First let's publish a page with a go_live_at in the future
+        go_live_at = timezone.now() + datetime.timedelta(days=1)
+        expire_at = timezone.now() + datetime.timedelta(days=2)
+        post_data = {
+            'title': "I've been edited!",
+            'content': "Some content",
+            'slug': 'hello-world',
+            'action-publish': "Publish",
+            'go_live_at': submittable_timestamp(go_live_at),
+            'expire_at': submittable_timestamp(expire_at),
+        }
+        response = self.client.post(reverse('wagtailadmin_pages:edit', args=(self.child_page.id, )), post_data)
+
+        # Should be redirected to edit page
+        self.assertEqual(response.status_code, 302)
+
+        child_page_new = SimplePage.objects.get(id=self.child_page.id)
+
+        # The page should still be live
+        self.assertTrue(child_page_new.live)
+
+        # Instead a revision with approved_go_live_at should now exist
+        self.assertTrue(
+            PageRevision.objects.filter(page=child_page_new).exclude(approved_go_live_at__isnull=True).exists()
+        )
+
+        self.assertEqual(
+            child_page_new.title, original_title,
+            "A live page with scheduled revisions should still have original content"
+        )
+
+        # Now, let's edit it and publish it right now
+        go_live_at = timezone.now()
+        post_data = {
+            'title': "I've been edited!",
+            'content': "Some content",
+            'slug': 'hello-world',
+            'action-publish': "Publish",
+            'go_live_at': "",
+        }
+        response = self.client.post(reverse('wagtailadmin_pages:edit', args=(self.child_page.id, )), post_data)
+
+        # Should be redirected to edit page
+        self.assertEqual(response.status_code, 302)
+
+        child_page_new = SimplePage.objects.get(id=self.child_page.id)
+
+        # The page should be live now
+        self.assertTrue(child_page_new.live)
+
+        # And a revision with approved_go_live_at should not exist
+        self.assertFalse(
+            PageRevision.objects.filter(page=child_page_new).exclude(approved_go_live_at__isnull=True).exists()
+        )
+
+        self.assertEqual(
+            child_page_new.title, post_data['title'],
+            "A published page should have the new title"
+        )
+
     def test_page_edit_post_submit(self):
         # Create a moderator user for testing email
         get_user_model().objects.create_superuser('moderator', 'moderator@email.com', 'password')
