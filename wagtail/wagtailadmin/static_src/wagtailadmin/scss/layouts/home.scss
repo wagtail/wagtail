@@ -53,18 +53,20 @@ header {
                 opacity: 0.2;
                 font-size: 6em;
                 float: left;
+            }
+        }
 
-                @media screen and (max-width: $breakpoint-desktop-large) {
-                    font-size: 5em;
-                }
+        li:before {
+            @media screen and (max-width: $breakpoint-desktop-large) {
+                font-size: 5em;
+            }
 
-                @media screen and (max-width: $breakpoint-desktop-small) {
-                    font-size: 4.5em;
-                }
+            @media screen and (max-width: $breakpoint-desktop-small) {
+                font-size: 4.5em;
+            }
 
-                @media screen and (max-width: $breakpoint-mobile) {
-                    font-size: 4em;
-                }
+            @media screen and (max-width: $breakpoint-mobile) {
+                font-size: 4em;
             }
         }
 
