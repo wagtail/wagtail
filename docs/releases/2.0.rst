@@ -61,6 +61,7 @@ Other features
  * Added a basic Dockerfile to the project template (Tom Dyson)
  * StreamField blocks now allow custom ``get_template`` methods for overriding templates in instances (Christopher Bledsoe)
  * Simplified edit handler API (Florent Osmont, Bertrand Bordage)
+ * Made 'add/change/delete collection' permissions configurable from the group edit page (Matt Westcott)
 
 
 Bug fixes

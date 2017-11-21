@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.contrib.auth.models import Permission
 from django.contrib.auth.views import redirect_to_login
 from django.urls import reverse
 
@@ -50,3 +51,11 @@ def register_core_features(features):
     features.default_features.append('ol')
 
     features.default_features.append('ul')
+
+
+@hooks.register('register_permissions')
+def register_collection_permissions():
+    return Permission.objects.filter(
+        content_type__app_label='wagtailcore',
+        codename__in=['add_collection', 'change_collection', 'delete_collection']
+    )
