@@ -39,14 +39,7 @@ logger = logging.getLogger('wagtail.core')
 
 PAGE_TEMPLATE_VAR = 'page'
 
-
-SITE_CACHE = {}
-
-
-def clear_site_cache():
-    """Clear the ``Site`` object cache."""
-    global SITE_CACHE
-    SITE_CACHE = {}
+REQUEST_SITE_CACHE = {}
 
 
 class SiteManager(models.Manager):
@@ -70,9 +63,9 @@ class SiteManager(models.Manager):
     def get_default(self):
         """Returns the 'default' ``Site`` or raise an exception in no site is
         set as the default. The result is cached."""
-        if 'default' not in SITE_CACHE:
-            SITE_CACHE['default'] = self.get(is_default_site=True)
-        return SITE_CACHE['default']
+        if 'default' not in REQUEST_SITE_CACHE:
+            REQUEST_SITE_CACHE['default'] = self.get(is_default_site=True)
+        return REQUEST_SITE_CACHE['default']
 
     def get_for_request(self, request):
         """Return the site responsible for dealing with the supplied
@@ -80,32 +73,34 @@ class SiteManager(models.Manager):
         hostname, port = self.get_hostname_and_port_from_request(request)
         key = "%s:%s" % (hostname, port)
 
-        if key in SITE_CACHE:
-            return SITE_CACHE[key]
+        if key in REQUEST_SITE_CACHE:
+            return REQUEST_SITE_CACHE[key]
 
         if hostname:
             if port:
                 try:
                     # Try to find a site matching both hostname and port
-                    SITE_CACHE[key] = self.get(hostname=hostname, port=port)
-                    return SITE_CACHE[key]
+                    REQUEST_SITE_CACHE[key] = self.get(hostname=hostname, port=port)
+                    return REQUEST_SITE_CACHE[key]
                 except Site.DoesNotExist:
                     pass
 
             try:
                 # If there's only one site matching the hostname, use that,
                 # since there's no ambiguity
-                SITE_CACHE[key] = self.get(hostname=hostname)
-                return SITE_CACHE[key]
+                REQUEST_SITE_CACHE[key] = self.get(hostname=hostname)
+                return REQUEST_SITE_CACHE[key]
             except(Site.DoesNotExist, Site.MultipleObjectsReturned):
                 pass
 
         # Fall back to using default site
-        SITE_CACHE[key] = self.get_default()
-        return SITE_CACHE[key]
+        REQUEST_SITE_CACHE[key] = self.get_default()
+        return REQUEST_SITE_CACHE[key]
 
-    def clear_cache(self):
-        clear_site_cache()
+    def clear_request_site_cache(self):
+        """Clear the ``Site`` object cache."""
+        global REQUEST_SITE_CACHE
+        REQUEST_SITE_CACHE = {}
 
     def get_by_natural_key(self, hostname, port):
         return self.get(hostname=hostname, port=port)
