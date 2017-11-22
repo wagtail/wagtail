@@ -239,3 +239,36 @@ To do this, inherit from ``index.Indexed`` and add some ``search_fields`` to the
     >>> roald_dahl = Author.objects.get(name="Roald Dahl")
     >>> s.search("chocolate factory", Book.objects.filter(author=roald_dahl))
     [<Book: Charlie and the chocolate factory>]
+
+
+Row boosting
+============
+
+.. warning::
+
+    This feature is only supported in :ref:`postgres_search` for now.
+
+You can easily boost some objects in search using the simple `get_search_boost`
+model method. This method must return a ``float``. By default it returns ``1``,
+meaning that the object’s boost is neutral.
+
+.. code-block:: python
+
+    from wagtail.wagtailcore.models import Page
+
+    class Event(Page):
+        def get_search_boost(self):
+            return 2 if 'urgent' self.title.lower() else 1
+
+Here, events with the term “urgent” in their title will have two times more
+weight in results, and therefore will be put forward.
+
+You can easily give a boost to all instances of a model by always returning
+the same number. And you can fine-tune this boost using math functions.
+For example, if you store the number of views of an object, you can give it
+more boost as people see it more and attenuate the boost with a square root
+function.
+
+Use numbers between 0 and 1 to reduce the weight of results. Since this boost
+is multiplied by the relevance, a boost of 0.1 divides by 10 the weight
+of the object, while 10 multiplies it by 10.
