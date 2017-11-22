@@ -82,8 +82,7 @@ class Index(object):
                 sub_objs = [sub_obj]
             for sub_obj in sub_objs:
                 for sub_field in field.fields:
-                    for value in self.prepare_field(sub_obj, sub_field):
-                        yield value
+                    yield from self.prepare_field(sub_obj, sub_field)
 
     def prepare_obj(self, obj):
         obj._object_id_ = force_text(obj.pk)
@@ -167,7 +166,7 @@ class Index(object):
 
     def add_items(self, model, objs):
         content_type_pk = get_content_type_pk(model)
-        config = self.backend.get_config()
+        config = self.backend.config
         for obj in objs:
             self.prepare_obj(obj)
         connection = connections[self.db_alias]
@@ -231,6 +230,8 @@ class PostgresSearchQuery(BaseSearchQuery):
         return queryset, self.get_index_rank_expression(search_query)
 
     def search_in_fields(self, queryset, search_query):
+        # TODO: Search in an indexed version of fields,
+        #       instead of fields themselves.
         query = queryset.query
         vector = ADD(
             SearchVector(field, config=search_query.config,
@@ -272,11 +273,11 @@ class PostgresAutocompleteQuery(PostgresSearchQuery):
 
 class PostgresSearchResults(BaseSearchResults):
     def _do_search(self):
-        return list(self.query.search(self.backend.get_config(),
+        return list(self.query.search(self.backend.config,
                                       self.start, self.stop))
 
     def _do_count(self):
-        return self.query.search(self.backend.get_config(), None, None).count()
+        return self.query.search(self.backend.config, None, None).count()
 
 
 class PostgresSearchRebuilder:
@@ -322,13 +323,10 @@ class PostgresSearchBackend(BaseSearchBackend):
 
     def __init__(self, params):
         super(PostgresSearchBackend, self).__init__(params)
-        self.params = params
+        self.config = params.get('SEARCH_CONFIG')
         if params.get('ATOMIC_REBUILD', False):
             self.rebuilder_class = self.atomic_rebuilder_class
         IndexEntry.add_generic_relations()
-
-    def get_config(self):
-        return self.params.get('SEARCH_CONFIG')
 
     def get_index_for_model(self, model, db_alias=None):
         return Index(self, model, db_alias)
