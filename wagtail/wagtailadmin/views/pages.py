@@ -589,7 +589,8 @@ class PreviewOnEdit(View):
     def get(self, request, *args, **kwargs):
         page = self.get_page()
 
-        post_data, timestamp = self.request.session.get(self.session_key)
+        post_data, timestamp = self.request.session.get(self.session_key,
+                                                        (None, None))
         if not isinstance(post_data, str):
             post_data = ''
         form = self.get_form(page, QueryDict(post_data))
