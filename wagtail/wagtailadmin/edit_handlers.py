@@ -138,8 +138,7 @@ class EditHandler(object):
         pass
 
     def bind_to_instance(self, instance=None, form=None):
-        new = (self.bind_to_model(self.model) if hasattr(self, 'model')
-               else self.clone())
+        new = self.bind_to_model(self.model)
 
         if not instance:
             raise ValueError("EditHandler did not receive an instance object")
