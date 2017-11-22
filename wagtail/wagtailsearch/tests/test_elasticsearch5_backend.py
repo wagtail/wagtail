@@ -40,6 +40,10 @@ class TestElasticsearch5SearchBackend(BackendTests, ElasticsearchCommonSearchBac
     def test_delete(self):
         super(TestElasticsearch5SearchBackend, self).test_delete()
 
+    @unittest.expectedFailure
+    def test_row_boost(self):
+        super().test_row_boost()
+
 
 class TestElasticsearch5SearchQuery(TestCase):
     def assertDictEqual(self, a, b):

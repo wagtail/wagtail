@@ -44,3 +44,7 @@ class TestDBBackend(BackendTests, TestCase):
     @unittest.expectedFailure
     def test_same_rank_pages(self):
         super(TestDBBackend, self).test_same_rank_pages()
+
+    @unittest.expectedFailure
+    def test_row_boost(self):
+        super().test_row_boost()
