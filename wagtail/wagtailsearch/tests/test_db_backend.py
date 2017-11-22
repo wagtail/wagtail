@@ -38,3 +38,7 @@ class TestDBBackend(BackendTests, TestCase):
     @unittest.expectedFailure
     def test_order_by_relevance(self):
         super(TestDBBackend, self).test_order_by_relevance()
+
+    @unittest.expectedFailure
+    def test_row_boost(self):
+        super().test_row_boost()

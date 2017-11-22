@@ -269,6 +269,10 @@ class TestElasticsearchSearchBackend(BackendTests, TestCase):
     def test_order_by_relevance(self):
         super(TestElasticsearchSearchBackend, self).test_order_by_relevance()
 
+    @unittest.expectedFailure
+    def test_row_boost(self):
+        super().test_row_boost()
+
 
 class TestElasticsearchSearchQuery(TestCase):
     def assertDictEqual(self, a, b):

@@ -54,6 +54,9 @@ class SearchTest(index.Indexed, models.Model):
         # Return the child if there is one, otherwise return self
         return child or self
 
+    def get_search_boost(self):
+        return 5 if '[boosted]' in self.title else 1
+
     def __str__(self):
         return self.title
 

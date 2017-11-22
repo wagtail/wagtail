@@ -224,6 +224,17 @@ class BackendTests(WagtailTestUtils):
                 obj.delete()
             self.refresh_index()
 
+    def test_row_boost(self):
+        boosted = models.SearchTest.objects.create(title='[boosted] Hello')
+        results = self.backend.search('Hello', models.SearchTest)
+        self.assertEqual(boosted.get_search_boost(), 5)
+        self.assertEqual(results[0], boosted)
+        boosted.title = '[busted] Hello'
+        boosted.save()
+        results = self.backend.search('Hello', models.SearchTest)
+        self.assertEqual(boosted.get_search_boost(), 1)
+        self.assertNotEqual(results[0], boosted)
+
     def test_delete(self):
         # Delete one of the objects
         self.backend.delete(self.testa)
