@@ -821,6 +821,16 @@ class TestInlinePanel(TestCase, WagtailTestUtils):
 
         self.assertIn('maxForms: 1000', panel.render_js_init())
 
+    def test_bind_instance_without_model_bound(self):
+        title_object_list = ObjectList([
+            FieldPanel('title'),
+        ])
+        EventPageForm = title_object_list.get_form_class()
+        event_page = EventPage.objects.get(slug='christmas')
+        form = EventPageForm(instance=event_page)
+        title_object_list = title_object_list.bind_to_instance(
+            instance=event_page, form=form)
+        self.assertEqual(title_object_list.model, EventPage)
 
     def test_invalid_inlinepanel_declaration(self):
         with self.ignore_deprecation_warnings():
