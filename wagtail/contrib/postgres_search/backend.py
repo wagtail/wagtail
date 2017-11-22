@@ -352,7 +352,8 @@ class PostgresSearchBackend(BaseSearchBackend):
             self.get_index_for_object(obj_list[0]).add_items(model, obj_list)
 
     def delete(self, obj):
-        obj.index_entries.all().delete()
+        for connection in get_postgresql_connections():
+            obj.index_entries.using(connection.alias).delete()
 
     def autocomplete(self, query_string, model_or_queryset, fields=None,
                      filters=None, prefetch_related=None, operator=None,
