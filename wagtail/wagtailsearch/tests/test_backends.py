@@ -404,13 +404,13 @@ class BackendTests(WagtailTestUtils):
         self.assertSetEqual(results_across_pages, same_rank_objects)
 
     def test_row_boost(self):
-        boosted = models.SearchTest.objects.create(title='[boosted] Hello')
-        results = self.backend.search('Hello', models.SearchTest)
+        boosted = models.Book.objects.create(title='[boosted] Javascript')
+        results = self.backend.search('Javascript', models.Book)
         self.assertEqual(boosted.get_search_boost(), 5)
         self.assertEqual(results[0], boosted)
-        boosted.title = '[busted] Hello'
+        boosted.title = '[busted] Javascript'
         boosted.save()
-        results = self.backend.search('Hello', models.SearchTest)
+        results = self.backend.search('Javascript', models.Book)
         self.assertEqual(boosted.get_search_boost(), 1)
         self.assertNotEqual(results[0], boosted)
 
