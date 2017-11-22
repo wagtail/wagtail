@@ -39,6 +39,7 @@ Bug fixes
  * API listing views no longer fail when no site records are defined (Karl Hobley)
  * Fixed rendering of border on dropdown arrow buttons on Chrome (Bertrand Bordage)
  * Fixed incorrect z-index on userbar causing it to appear behind page content (Stein Strindhaug)
+ * Form submissions pagination no longer looses date filter when changing page (Bertrand Bordage)
 
 
 Upgrade considerations
