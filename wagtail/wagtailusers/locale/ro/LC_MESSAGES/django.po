@@ -4,14 +4,14 @@
 #
 # Translators:
 # Dan Braghis, 2014
-# Dan Braghis, 2014-2016
+# Dan Braghis, 2014-2017
 # Dan Braghis, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-04-19 21:08+0000\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"PO-Revision-Date: 2017-10-06 15:11+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
@@ -86,11 +86,44 @@ msgstr "notificări respinse"
 msgid "Receive notification when your page edit is rejected"
 msgstr "Primește o notificare când modificărea paginii este respinsă"
 
+msgid "preferred language"
+msgstr "limba preferată"
+
+msgid "Select language for the admin"
+msgstr "Selectați limba pentru interfața de administrare"
+
 msgid "user profile"
 msgstr "profil utilizator"
 
 msgid "Delete group"
 msgstr "Șterge grup"
+
+#, python-format
+msgid ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> member.\n"
+"            "
+msgid_plural ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> members.\n"
+"            "
+msgstr[0] ""
+"\n"
+"                Grupul '%(group_name)s' are <strong>%(group_user_count)s</"
+"strong> membru.\n"
+"            "
+msgstr[1] ""
+"\n"
+"                Grupul '%(group_name)s' are 1%(group_user_count)s1 "
+"utilizatori alocați.\n"
+"            "
+msgstr[2] ""
+"\n"
+"                Grupul '%(group_name)s' are 1%(group_user_count)s1 "
+"utilizatori alocați.\n"
+"            "
 
 msgid ""
 "Deleting this group will revoke this group's permissions from all member "
@@ -226,18 +259,15 @@ msgstr ""
 "Nu există nici un utilizator. De ce să nu <a href="
 "\"%(wagtailusers_create_url)s\">adăugați câțiva</a>?"
 
+msgid "Groups"
+msgstr "Grupuri"
+
 msgid "Search groups"
 msgstr "Caută grupuri"
 
 #, python-brace-format
 msgid "Group '{0}' created."
 msgstr "Grupul '{0}' a fost creat."
-
-msgid "Edit"
-msgstr "Editează"
-
-msgid "The group could not be created due to errors."
-msgstr "Grupul nu a fost creat din cauza erorilor."
 
 #, python-brace-format
 msgid "Group '{0}' updated."
@@ -257,6 +287,9 @@ msgstr "Caută utilizatori"
 msgid "User '{0}' created."
 msgstr "Utilizatorul '{0}' a fost creat."
 
+msgid "Edit"
+msgstr "Editează"
+
 msgid "The user could not be created due to errors."
 msgstr "Utilizatorul nu a fost creat din cauza erorilor."
 
@@ -270,9 +303,6 @@ msgstr "Utilizatorul nu a fost salvat din cauza erorilor."
 #, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "Utilizatorul '{0}' a fost șters."
-
-msgid "Groups"
-msgstr "Grupuri"
 
 msgid "Edit this user"
 msgstr "Editează acest utlizator"

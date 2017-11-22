@@ -3,7 +3,6 @@ from __future__ import absolute_import, unicode_literals
 import math
 import re
 
-import django
 from django import forms
 from django.core.exceptions import ImproperlyConfigured
 from django.db.models.fields import FieldDoesNotExist
@@ -11,7 +10,6 @@ from django.forms.models import fields_for_model
 from django.template.loader import render_to_string
 from django.utils.functional import curry
 from django.utils.safestring import mark_safe
-from django.utils.six import text_type
 from django.utils.translation import ugettext_lazy
 from taggit.managers import TaggableManager
 
@@ -189,7 +187,7 @@ class EditHandler(object):
         """
         rendered_fields = self.required_fields()
         missing_fields_html = [
-            text_type(self.form[field_name])
+            str(self.form[field_name])
             for field_name in self.form.fields
             if field_name not in rendered_fields
         ]
@@ -556,7 +554,7 @@ class BaseChooserPanel(BaseFieldPanel):
 
     def get_chosen_item(self):
         field = self.instance._meta.get_field(self.field_name)
-        related_model = field.rel.model
+        related_model = field.remote_field.model
         try:
             return getattr(self.instance, self.field_name)
         except related_model.DoesNotExist:
@@ -607,7 +605,7 @@ class BasePageChooserPanel(BaseChooserPanel):
 
             return target_models
         else:
-            return [cls.model._meta.get_field(cls.field_name).rel.to]
+            return [cls.model._meta.get_field(cls.field_name).remote_field.model]
 
 
 class PageChooserPanel(object):
@@ -748,10 +746,7 @@ class InlinePanel(object):
         self.classname = classname
 
     def bind_to_model(self, model):
-        if django.VERSION >= (1, 9):
-            related = getattr(model, self.relation_name).rel
-        else:
-            related = getattr(model, self.relation_name).related
+        related = getattr(model, self.relation_name).rel
 
         return type(str('_InlinePanel'), (BaseInlinePanel,), {
             'model': model,

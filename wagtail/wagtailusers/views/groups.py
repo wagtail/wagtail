@@ -1,15 +1,10 @@
 from __future__ import absolute_import, unicode_literals
 
 from django.contrib.auth.models import Group
-from django.core.urlresolvers import reverse
-from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.translation import ugettext as _
-from django.views.decorators.vary import vary_on_headers
 
-from wagtail.utils.pagination import paginate
-from wagtail.wagtailadmin import messages
-from wagtail.wagtailadmin.forms import SearchForm
-from wagtail.wagtailadmin.utils import any_permission_required, permission_required
+from wagtail.wagtailadmin.views import generic, mixins
+from wagtail.wagtailadmin.viewsets.model import ModelViewSet
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailusers.forms import GroupForm, GroupPagePermissionFormSet
 
@@ -26,133 +21,119 @@ def get_permission_panel_classes():
     return _permission_panel_classes
 
 
-@any_permission_required('auth.add_group', 'auth.change_group', 'auth.delete_group')
-@vary_on_headers('X-Requested-With')
-def index(request):
-    q = None
-    is_searching = False
+class PermissionPanelFormsMixin(object):
+    def get_permission_panel_form_kwargs(self, cls):
+        kwargs = {}
 
-    if 'q' in request.GET:
-        form = SearchForm(request.GET, placeholder=_("Search groups"))
-        if form.is_valid():
-            q = form.cleaned_data['q']
+        if self.request.method in ('POST', 'PUT'):
+            kwargs.update({
+                'data': self.request.POST,
+                'files': self.request.FILES,
+            })
 
-            is_searching = True
-            groups = Group.objects.filter(name__icontains=q)
-    else:
-        form = SearchForm(placeholder=_("Search groups"))
+        if hasattr(self, 'object'):
+            kwargs.update({'instance': self.object})
 
-    if not is_searching:
-        groups = Group.objects
+        return kwargs
 
-    groups = groups.order_by('name')
-
-    if 'ordering' in request.GET:
-        ordering = request.GET['ordering']
-
-        if ordering in ['name', 'username']:
-            if ordering != 'name':
-                groups = groups.order_by(ordering)
-    else:
-        ordering = 'name'
-
-    paginator, groups = paginate(request, groups)
-
-    if request.is_ajax():
-        return render(request, "wagtailusers/groups/results.html", {
-            'groups': groups,
-            'is_searching': is_searching,
-            'query_string': q,
-            'ordering': ordering,
-        })
-    else:
-        return render(request, "wagtailusers/groups/index.html", {
-            'search_form': form,
-            'groups': groups,
-            'is_searching': is_searching,
-            'ordering': ordering,
-            'query_string': q,
-        })
-
-
-@permission_required('auth.add_group')
-def create(request):
-    group = Group()
-    if request.method == 'POST':
-        form = GroupForm(request.POST, instance=group)
-        permission_panels = [
-            cls(request.POST, instance=group)
+    def get_permission_panel_forms(self):
+        return [
+            cls(**self.get_permission_panel_form_kwargs(cls))
             for cls in get_permission_panel_classes()
         ]
+
+    def get_context_data(self, **kwargs):
+        if 'permission_panels' not in kwargs:
+            kwargs['permission_panels'] = self.get_permission_panel_forms()
+
+        return super(PermissionPanelFormsMixin, self).get_context_data(**kwargs)
+
+
+class IndexView(mixins.SearchableListMixin, generic.IndexView):
+    page_title = _("Groups")
+    add_item_label = _("Add a group")
+    search_box_placeholder = _("Search groups")
+    search_fields = ['name']
+    context_object_name = 'groups'
+    paginate_by = 20
+    page_kwarg = 'p'
+    ordering = ['name']
+
+    def get_template_names(self):
+        if self.request.is_ajax():
+            return ['wagtailusers/groups/results.html']
+        else:
+            return ['wagtailusers/groups/index.html']
+
+
+class CreateView(PermissionPanelFormsMixin, generic.CreateView):
+    page_title = _("Add group")
+    success_message = _("Group '{0}' created.")
+    template_name = 'wagtailusers/groups/create.html'
+
+    def post(self, request, *args, **kwargs):
+        """
+        Handle POST requests: instantiate a form instance with the passed
+        POST variables and then check if it's valid.
+        """
+        # Create an object now so that the permission panel forms have something to link them against
+        self.object = Group()
+
+        form = self.get_form()
+        permission_panels = self.get_permission_panel_forms()
         if form.is_valid() and all(panel.is_valid() for panel in permission_panels):
-            form.save()
+            response = self.form_valid(form)
 
             for panel in permission_panels:
                 panel.save()
 
-            messages.success(request, _("Group '{0}' created.").format(group), buttons=[
-                messages.button(reverse('wagtailusers_groups:edit', args=(group.id,)), _('Edit'))
-            ])
-            return redirect('wagtailusers_groups:index')
+            return response
         else:
-            messages.error(request, _("The group could not be created due to errors."))
-    else:
-        form = GroupForm(instance=group)
-        permission_panels = [
-            cls(instance=group)
-            for cls in get_permission_panel_classes()
-        ]
-
-    return render(request, 'wagtailusers/groups/create.html', {
-        'form': form,
-        'permission_panels': permission_panels,
-    })
+            return self.form_invalid(form)
 
 
-@permission_required('auth.change_group')
-def edit(request, group_id):
-    group = get_object_or_404(Group, id=group_id)
-    if request.method == 'POST':
-        form = GroupForm(request.POST, instance=group)
-        permission_panels = [
-            cls(request.POST, instance=group)
-            for cls in get_permission_panel_classes()
-        ]
+class EditView(PermissionPanelFormsMixin, generic.EditView):
+    success_message = _("Group '{0}' updated.")
+    error_message = _("The group could not be saved due to errors.")
+    delete_item_label = _("Delete group")
+    context_object_name = 'group'
+    template_name = 'wagtailusers/groups/edit.html'
+
+    def post(self, request, *args, **kwargs):
+        """
+        Handle POST requests: instantiate a form instance with the passed
+        POST variables and then check if it's valid.
+        """
+        self.object = self.get_object()
+
+        form = self.get_form()
+        permission_panels = self.get_permission_panel_forms()
         if form.is_valid() and all(panel.is_valid() for panel in permission_panels):
-            form.save()
+            response = self.form_valid(form)
 
             for panel in permission_panels:
                 panel.save()
 
-            messages.success(request, _("Group '{0}' updated.").format(group), buttons=[
-                messages.button(reverse('wagtailusers_groups:edit', args=(group.id,)), _('Edit'))
-            ])
-            return redirect('wagtailusers_groups:index')
+            return response
         else:
-            messages.error(request, _("The group could not be saved due to errors."))
-    else:
-        form = GroupForm(instance=group)
-        permission_panels = [
-            cls(instance=group)
-            for cls in get_permission_panel_classes()
-        ]
-
-    return render(request, 'wagtailusers/groups/edit.html', {
-        'group': group,
-        'form': form,
-        'permission_panels': permission_panels,
-    })
+            return self.form_invalid(form)
 
 
-@permission_required('auth.delete_group')
-def delete(request, group_id):
-    group = get_object_or_404(Group, id=group_id)
+class DeleteView(generic.DeleteView):
+    success_message = _("Group '{0}' deleted.")
+    page_title = _("Delete group")
+    confirmation_message = _("Are you sure you want to delete this group?")
+    template_name = 'wagtailusers/groups/confirm_delete.html'
 
-    if request.method == 'POST':
-        group.delete()
-        messages.success(request, _("Group '{0}' deleted.").format(group.name))
-        return redirect('wagtailusers_groups:index')
 
-    return render(request, "wagtailusers/groups/confirm_delete.html", {
-        'group': group,
-    })
+class GroupViewSet(ModelViewSet):
+    icon = 'group'
+    model = Group
+
+    index_view_class = IndexView
+    add_view_class = CreateView
+    edit_view_class = EditView
+    delete_view_class = DeleteView
+
+    def get_form_class(self, for_update=False):
+        return GroupForm

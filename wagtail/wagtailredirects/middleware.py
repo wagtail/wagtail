@@ -1,19 +1,15 @@
 from __future__ import absolute_import, unicode_literals
 
-import django
+from urllib.parse import urlparse
+
 from django import http
-from django.utils.six.moves.urllib.parse import urlparse
+from django.utils.deprecation import MiddlewareMixin
+from django.utils.encoding import uri_to_iri
 
 from wagtail.wagtailredirects import models
 
 
-if django.VERSION >= (1, 10):
-    from django.utils.deprecation import MiddlewareMixin
-else:
-    MiddlewareMixin = object
-
-
-def get_redirect(request, path):
+def _get_redirect(request, path):
     try:
         return models.Redirect.get_for_site(request.site).get(old_path=path)
     except models.Redirect.MultipleObjectsReturned:
@@ -21,6 +17,14 @@ def get_redirect(request, path):
         return models.Redirect.objects.get(site=request.site, old_path=path)
     except models.Redirect.DoesNotExist:
         return None
+
+
+def get_redirect(request, path):
+    redirect = _get_redirect(request, path)
+    if not redirect:
+        # try unencoding the path
+        redirect = _get_redirect(request, uri_to_iri(path))
+    return redirect
 
 
 # Originally pinched from: https://github.com/django/django/blob/master/django/contrib/redirects/middleware.py

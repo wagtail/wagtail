@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PageCount plural 1`] = `
+<a
+  className="c-explorer__see-more"
+  href="/admin/pages/1/"
+  tabIndex={0}
+>
+  See all
+  <span>
+     5 pages
+  </span>
+  <Icon
+    className={null}
+    name="arrow-right"
+    title={null}
+  />
+</a>
+`;
+
+exports[`PageCount works 1`] = `
+<a
+  className="c-explorer__see-more"
+  href="/admin/pages/1/"
+  tabIndex={0}
+>
+  See all
+  <span>
+     1 page
+  </span>
+  <Icon
+    className={null}
+    name="arrow-right"
+    title={null}
+  />
+</a>
+`;

@@ -1,11 +1,8 @@
 from __future__ import absolute_import, unicode_literals
 
-from django.utils.encoding import python_2_unicode_compatible
-
 from .registry import registry
 
 
-@python_2_unicode_compatible
 class SettingsProxy(dict):
     """
     Get a SettingModuleProxy for an app using proxy['app_label']
@@ -21,7 +18,6 @@ class SettingsProxy(dict):
         return 'SettingsProxy'
 
 
-@python_2_unicode_compatible
 class SettingModuleProxy(dict):
     """
     Get a setting instance using proxy['modelname']

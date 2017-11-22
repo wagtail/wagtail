@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,17 +37,17 @@ msgstr ""
 msgid "Insert"
 msgstr ""
 
-#: views/chooser.py:34
+#: views/chooser.py:35
 msgid ""
 "There seems to be a problem with your embedly API key. Please check your "
 "settings."
 msgstr ""
 
-#: views/chooser.py:36
+#: views/chooser.py:37
 msgid "Cannot find an embed for this URL."
 msgstr ""
 
-#: views/chooser.py:39
+#: views/chooser.py:40
 msgid ""
 "There seems to be an error with Embedly while trying to embed this URL. "
 "Please try again later."

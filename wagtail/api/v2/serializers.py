@@ -2,7 +2,7 @@ from __future__ import absolute_import, unicode_literals
 
 from collections import OrderedDict
 
-from django.core.urlresolvers import NoReverseMatch
+from django.urls.exceptions import NoReverseMatch
 from modelcluster.models import get_all_child_relations
 from rest_framework import relations, serializers
 from rest_framework.fields import Field, SkipField
@@ -327,7 +327,7 @@ class PageSerializer(BaseSerializer):
         if relation_info.to_many:
             model = getattr(self.Meta, 'model')
             child_relations = {
-                child_relation.field.rel.related_name: child_relation.related_model
+                child_relation.field.remote_field.related_name: child_relation.related_model
                 for child_relation in get_all_child_relations(model)
             }
 

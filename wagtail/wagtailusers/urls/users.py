@@ -4,6 +4,7 @@ from django.conf.urls import url
 
 from wagtail.wagtailusers.views import users
 
+app_name = 'wagtailusers_users'
 urlpatterns = [
     url(r'^$', users.index, name='index'),
     url(r'^add/$', users.create, name='add'),

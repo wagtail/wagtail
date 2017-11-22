@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-04-28 09:24+0000\n"
-"Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"PO-Revision-Date: 2017-10-14 07:00+0000\n"
+"Last-Translator: Maarten Kling <kling.maarten@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -120,6 +120,11 @@ msgstr[1] ""
 "kopieën ook publiceren?"
 
 #, python-format
+msgid "You do not have permission to copy to page \"%(page_title)s\""
+msgstr ""
+"Je hebt geen rechten om naar deze pagina te kopiëren \"%(page_title)s\""
+
+#, python-format
 msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
 msgstr ""
@@ -153,6 +158,18 @@ msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
 "Het is niet mogelijk om meerdere machtigingen voor dezelfde collectie in te "
 "stellen."
+
+msgid "Error 404: Page not found"
+msgstr "Error 404: Pagina niet gevonden"
+
+msgid "Error 404"
+msgstr "Error 404"
+
+msgid "The requested page could not be found."
+msgstr "De pagina kon niet worden gevonden."
+
+msgid "Go to Wagtail admin"
+msgstr "Ga naar de Wagtail admin"
 
 msgid "Account"
 msgstr "Account"
@@ -232,6 +249,33 @@ msgstr "Wachtwoord herstel"
 
 msgid "Reset your password"
 msgstr "Reset uw wachtwoord"
+
+msgid "Edit"
+msgstr "Wijzig"
+
+msgid "Page"
+msgstr "Pagina"
+
+msgid "Pages"
+msgstr "Pagina's"
+
+msgid "Loading..."
+msgstr "Laden..."
+
+msgid "No results"
+msgstr "Geen resultaten"
+
+msgid "Server Error"
+msgstr "Server error"
+
+msgid "See children"
+msgstr "Bekijk onderliggende"
+
+msgid "See all"
+msgstr "Zie alles"
+
+msgid "Close explorer"
+msgstr "Sluit verkenner"
 
 msgid "Dashboard"
 msgstr "Dashboard"
@@ -316,6 +360,33 @@ msgstr "Voeg een link toe"
 msgid "Add an external link"
 msgstr "Voeg een externe link toe"
 
+msgid "Collection privacy"
+msgstr "Collectie privacy"
+
+msgid "This collection has been made private by a parent collection."
+msgstr "Deze collectie is privé gemaakt door een bovenliggende collectie."
+
+msgid "You can edit the privacy settings on:"
+msgstr "U kunt de zichtbaarheid wijzigen op de pagina:"
+
+msgid ""
+"Privacy settings determine who is able to view documents in this collection."
+msgstr ""
+"De privacy instellingen bepalen wie documenten in deze collectie mogen "
+"bekijken."
+
+msgid "Save"
+msgstr "Opslaan"
+
+msgid "Privacy"
+msgstr "Privacy"
+
+msgid "Public"
+msgstr "Openbaar"
+
+msgid "Private"
+msgstr "Privé"
+
 msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
 msgstr ""
@@ -339,9 +410,6 @@ msgstr "Voeg %(heading)s toe"
 
 msgid "Yes, delete"
 msgstr "Ja, verwijderen"
-
-msgid "Save"
-msgstr "Opslaan"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -377,9 +445,6 @@ msgstr "Keur goed"
 
 msgid "Reject"
 msgstr "Keur af"
-
-msgid "Edit"
-msgstr "Wijzig"
 
 msgid "Preview"
 msgstr "Voorbeeld"
@@ -485,9 +550,6 @@ msgstr "Zichtbaarheid van de pagina"
 msgid "This page has been made private by a parent page."
 msgstr "Deze pagina is privé gemaakt door een bovenliggende pagina."
 
-msgid "You can edit the privacy settings on:"
-msgstr "U kunt de zichtbaarheid wijzigen op de pagina:"
-
 msgid "Privacy changes apply to all children of this page too."
 msgstr ""
 "Wijzigingen in de zichtbaarheid hebben ook effect op alle onderliggende "
@@ -501,15 +563,6 @@ msgstr "Geblokkeerd"
 
 msgid "Unlocked"
 msgstr "Gedeblokkeerd"
-
-msgid "Privacy"
-msgstr "Privacy"
-
-msgid "Public"
-msgstr "Openbaar"
-
-msgid "Private"
-msgstr "Privé"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -922,6 +975,9 @@ msgstr "door"
 msgid "Current draft"
 msgstr "Huidig concept"
 
+msgid "Live version"
+msgstr "Live versie"
+
 msgid "Review this revision"
 msgstr "Herzie deze versie"
 
@@ -963,6 +1019,9 @@ msgstr "Geen pagina's maken gebruik van"
 
 msgid "Collection"
 msgstr "Collectie"
+
+msgid "Root"
+msgstr "Root"
 
 msgid "Home"
 msgstr "Home"
@@ -1028,10 +1087,10 @@ msgid "Sat"
 msgstr "Za"
 
 #, python-format
-msgid "Used %(useage_count)s time"
-msgid_plural "Used %(useage_count)s times"
-msgstr[0] "%(useage_count)s keer gebruikt"
-msgstr[1] "%(useage_count)s keer gebruikt"
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)s keer gebruikt"
+msgstr[1] "%(usage_count)s keer gebruikt"
 
 msgid "Edit your account"
 msgstr "Wijzig uw account"
@@ -1076,9 +1135,6 @@ msgstr ""
 msgid "Go to Wagtail admin interface"
 msgstr "Ga naar de Wagtail admin interface"
 
-msgid "Go to Wagtail admin"
-msgstr "Ga naar de Wagtail admin"
-
 msgid "Add a child page"
 msgstr "Voeg een onderliggende pagina toe"
 
@@ -1118,6 +1174,9 @@ msgstr "IJslands"
 msgid "Italian"
 msgstr "Italiaans"
 
+msgid "Korean"
+msgstr "Koreaans"
+
 msgid "Lithuanian"
 msgstr "Litouws"
 
@@ -1126,6 +1185,9 @@ msgstr "Noors Bokmål"
 
 msgid "Netherlands Dutch"
 msgstr "Nederlands"
+
+msgid "Persian"
+msgstr "Perzisch"
 
 msgid "Polish"
 msgstr "Pools"
@@ -1142,6 +1204,9 @@ msgstr "Roemeens"
 msgid "Russian"
 msgstr "Russisch"
 
+msgid "Swedish"
+msgstr "Zweeds"
+
 msgid "Chinese (China)"
 msgstr "Chinees (China)"
 
@@ -1150,9 +1215,6 @@ msgstr "Sorry, u heeft geen toegang tot dit gedeelte."
 
 msgid "Your password has been changed successfully!"
 msgstr "Uw wachtwoord is succesvol gewijzigd!"
-
-msgid "Your preferences have been updated successfully!"
-msgstr "Uw voorkeuren zijn succesvol aangepast!"
 
 msgid "Your preferences have been updated."
 msgstr "Uw voorkeuren zijn aangepast."
@@ -1320,9 +1382,6 @@ msgstr "Eerste"
 
 msgid "Latest"
 msgstr "Laatste"
-
-msgid "Pages"
-msgstr "Pagina's"
 
 #, python-brace-format
 msgid "Edit '{title}'"

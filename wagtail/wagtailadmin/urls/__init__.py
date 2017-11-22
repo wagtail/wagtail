@@ -1,5 +1,10 @@
+import functools
+
 from django.conf.urls import url, include
 from django.views.decorators.cache import cache_control
+from django.views.generic import TemplateView
+from django.http import Http404
+from django.views.defaults import page_not_found
 
 from wagtail.wagtailadmin.urls import pages as wagtailadmin_pages_urls
 from wagtail.wagtailadmin.urls import collections as wagtailadmin_collections_urls
@@ -14,17 +19,17 @@ from wagtail.wagtailadmin.decorators import require_admin_access
 urlpatterns = [
     url(r'^$', home.home, name='wagtailadmin_home'),
 
+    url(r'^test404/$', TemplateView.as_view(template_name='wagtailadmin/404.html')),
+
     url(r'api/', include(api_urls)),
 
     url(r'^failwhale/$', home.error_test, name='wagtailadmin_error_test'),
-
-    url(r'^explorer-nav/$', pages.explorer_nav, name='wagtailadmin_explorer_nav'),
 
     # TODO: Move into wagtailadmin_pages namespace
     url(r'^pages/$', pages.index, name='wagtailadmin_explore_root'),
     url(r'^pages/(\d+)/$', pages.index, name='wagtailadmin_explore'),
 
-    url(r'^pages/', include(wagtailadmin_pages_urls, app_name='wagtailadmin_pages', namespace='wagtailadmin_pages')),
+    url(r'^pages/', include(wagtailadmin_pages_urls, namespace='wagtailadmin_pages')),
 
     # TODO: Move into wagtailadmin_pages namespace
     url(r'^choose-page/$', chooser.browse, name='wagtailadmin_choose_page'),
@@ -75,7 +80,27 @@ urlpatterns += [
 
     # Password reset
     url(r'^password_reset/', include(wagtailadmin_password_reset_urls)),
+
+    # Default view (will show 404 page)
+    # This must be the last URL in this file!
+    url(r'^', home.default),
 ]
+
+
+# Hook in our own 404 handler
+def display_custom_404(view_func):
+    @functools.wraps(view_func)
+    def wrapper(request, *args, **kwargs):
+        try:
+            return view_func(request, *args, **kwargs)
+        except Http404:
+            return page_not_found(request, '', template_name='wagtailadmin/404.html')
+
+    return wrapper
+
+
+urlpatterns = decorate_urlpatterns(urlpatterns, display_custom_404)
+
 
 # Decorate all views with cache settings to prevent caching
 urlpatterns = decorate_urlpatterns(

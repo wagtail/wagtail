@@ -6,14 +6,15 @@
 # hanfeng <appweb.cn@gmail.com>, 2014-2015
 # Fred Zeng <979738295@qq.com>, 2016
 # hanfeng <appweb.cn@gmail.com>, 2014
+# Vincent Zhao <zhaopu2008@gmail.com>, 2017
 # jszsj <zhushajun@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-04-19 21:08+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"PO-Revision-Date: 2017-09-20 15:49+0000\n"
+"Last-Translator: Vincent Zhao <zhaopu2008@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -45,6 +46,15 @@ msgstr[0] ""
 #, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
 msgstr "对不起，没有匹配 \"<em>%(query_string)s</em>\" 的片段"
+
+#, python-format
+msgid ""
+"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">create one now</"
+"a>?"
+msgstr ""
+"还没有创建 %(snippet_type_name)s 片段。为何不 <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">创建一个</a>？"
 
 #, python-format
 msgid "Delete %(snippet_type_name)s - %(instance)s"

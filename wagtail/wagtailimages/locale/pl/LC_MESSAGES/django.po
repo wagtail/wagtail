@@ -4,15 +4,16 @@
 #
 # Translators:
 # utek <mail@utek.pl>, 2014
+# Miłosz Miśkiewicz, 2017
 # Miłosz Miśkiewicz, 2016
 # utek <mail@utek.pl>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-04-19 21:06+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"PO-Revision-Date: 2017-09-23 19:35+0000\n"
+"Last-Translator: Miłosz Miśkiewicz\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +21,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pl\n"
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n"
-"%100<12 || n%100>=14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
+"%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
 "%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
 msgid "GIF, JPEG, PNG"
@@ -238,6 +239,9 @@ msgstr ""
 
 msgid "Current focal point shown"
 msgstr "Pokazano obecny punkt ogniskowy"
+
+msgid "Remove focal area"
+msgstr "Usuń obszar centralny"
 
 msgid "URL Generator"
 msgstr "Generator adresu URL"

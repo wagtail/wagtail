@@ -4,13 +4,14 @@
 #
 # Translators:
 # Mohammad Hossein Mojtahedi <Mhm5000@gmail.com>, 2017
+# pyzenberg <pyzenberg@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-04-19 07:58+0000\n"
-"Last-Translator: Mohammad Hossein Mojtahedi <Mhm5000@gmail.com>\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"PO-Revision-Date: 2017-09-22 21:00+0000\n"
+"Last-Translator: pyzenberg <pyzenberg@gmail.com>\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
 "fa/)\n"
 "MIME-Version: 1.0\n"
@@ -38,3 +39,6 @@ msgstr "تنظیمات"
 #, python-brace-format
 msgid "{setting_type} updated."
 msgstr "{setting_type} به روز شد."
+
+msgid "The setting could not be saved due to errors."
+msgstr "به دلیل بروز خطا امکان ذخیره تنظیمات وجود ندارد."

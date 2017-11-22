@@ -6,15 +6,15 @@
 # ajk, 2014
 # Andrey Avdey <talkerbox@live.com>, 2016
 # Eugene MechanisM <eugene@mechanism.pro>, 2014-2016
-# Mikalai Radchuk <radchuk.m@gmail.com>, 2016
+# Mikalai Radchuk <radchuk.m@gmail.com>, 2016-2017
 # Sergey Khalymon <sergiykhalimon@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-04-19 21:05+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"PO-Revision-Date: 2017-09-20 01:01+0000\n"
+"Last-Translator: Mikalai Radchuk <radchuk.m@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -31,6 +31,17 @@ msgstr "{label}: этот блок не имеет опций."
 
 msgid "This block has no options."
 msgstr "Этот блок не имеет опций."
+
+#, python-format
+msgid "The minimum number of items is %d"
+msgstr "Минимальное количество элементов: %d"
+
+msgid "This field is required."
+msgstr "Требуется заполнить это поле."
+
+#, python-format
+msgid "The maximum number of items is %d"
+msgstr "Максимальное количество элементов: %d"
 
 msgid "Password"
 msgstr "Пароль"
@@ -154,6 +165,9 @@ msgstr "заблокировано"
 msgid "first published at"
 msgstr "впервые опубликовано"
 
+msgid "last published at"
+msgstr "последний раз публиковалась"
+
 msgid "latest revision created at"
 msgstr "последняя версия создана"
 
@@ -256,17 +270,32 @@ msgstr "Приватно, доступно для пользователей и�
 msgid "password"
 msgstr "пароль"
 
+msgid "groups"
+msgstr "группы"
+
+msgid "view restriction"
+msgstr "ограничение на просмотр"
+
+msgid "view restrictions"
+msgstr "ограничения на просмотр"
+
 msgid "page view restriction"
 msgstr "ограничение на просмотр страницы"
 
 msgid "page view restrictions"
 msgstr "ограничения на просмотр страниц"
 
-msgid "name"
-msgstr "имя"
-
 msgid "collection"
 msgstr "коллекция"
+
+msgid "collection view restriction"
+msgstr "ограничение на просмотр коллекции"
+
+msgid "collection view restrictions"
+msgstr "ограничения на просмотр коллекции"
+
+msgid "name"
+msgstr "имя"
 
 msgid "collections"
 msgstr "коллекции"

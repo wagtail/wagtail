@@ -28,12 +28,11 @@ Middleware (``settings.py``)
 
 .. code-block:: python
 
-  MIDDLEWARE_CLASSES = [
+  MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
@@ -206,34 +205,17 @@ Set the number of days (default 7) that search query logs are kept for; these ar
 Embeds
 ------
 
-Wagtail uses the oEmbed standard with a large but not comprehensive number of "providers" (Youtube, Vimeo, etc.). You can also use a different embed backend by providing an Embedly key or replacing the embed backend by writing your own embed finder function.
+Wagtail supports generating embed code from URLs to content on an external
+providers such as Youtube or Twitter. By default, Wagtail will fetch the embed
+code directly from the relevant provider's site using the oEmbed protocol.
+Wagtail has a builtin list of the most common providers.
 
-.. code-block:: python
-
-  WAGTAILEMBEDS_EMBED_FINDER = 'myapp.embeds.my_embed_finder_function'
-
-Use a custom embed finder function, which takes a URL and returns a dict with metadata and embeddable HTML. Refer to the ``wagtail.wagtailemebds.embeds`` module source for more information and examples.
-
-.. code-block:: python
-
-  # not a working key, get your own!
-  WAGTAILEMBEDS_EMBEDLY_KEY = '253e433d59dc4d2xa266e9e0de0cb830'
-
-Providing an API key for the Embedly service will use that as a embed backend, with a more extensive list of providers, as well as analytics and other features. For more information, see `Embedly`_.
-
-.. _Embedly: http://embed.ly/
-
-To use Embedly, you must also install their Python module:
-
-.. code-block:: console
-
-  $ pip install embedly
+The embeds fetching can be fully configured using the ``WAGTAILEMBEDS_FINDERS``
+setting. This is fully documented in :ref:`configuring_embed_finders`.
 
 
 Dashboard
 ---------
-
-.. versionadded:: 1.10
 
 .. code-block:: python
 
@@ -277,6 +259,18 @@ This specifies whether users are allowed to change their passwords (enabled by d
 
 This specifies whether users are allowed to reset their passwords. Defaults to the same as ``WAGTAIL_PASSWORD_MANAGEMENT_ENABLED``.
 
+.. code-block:: python
+
+  WAGTAILUSERS_PASSWORD_ENABLED = True
+
+This specifies whether password fields are shown when creating or editing users through Settings -> Users (enabled by default). Set this to False (along with ``WAGTAIL_PASSWORD_MANAGEMENT_ENABLED`` and ``WAGTAIL_PASSWORD_RESET_ENABLED``) if your users are authenticated through an external system such as LDAP.
+
+.. code-block:: python
+
+  WAGTAILUSERS_PASSWORD_REQUIRED = True
+
+This specifies whether password is a required field when creating a new user. True by default; ignored if ``WAGTAILUSERS_PASSWORD_ENABLED`` is false. If this is set to False, and the password field is left blank when creating a user, then that user will have no usable password, and will not be able to log in unless an alternative authentication system such as LDAP is set up.
+
 
 Email Notifications
 -------------------
@@ -311,14 +305,20 @@ Wagtail update notifications
 For admins only, Wagtail performs a check on the dashboard to see if newer releases are available. This also provides the Wagtail team with the hostname of your Wagtail site. If you'd rather not receive update notifications, or if you'd like your site to remain unknown, you can disable it with this setting.
 
 
-Private Pages
--------------
+Private pages / documents
+-------------------------
 
 .. code-block:: python
 
   PASSWORD_REQUIRED_TEMPLATE = 'myapp/password_required.html'
 
 This is the path to the Django template which will be used to display the "password required" form when a user accesses a private page. For more details, see the :ref:`private_pages` documentation.
+
+.. code-block:: python
+
+  DOCUMENT_PASSWORD_REQUIRED_TEMPLATE = 'myapp/document_password_required.html'
+
+As above, but for password restrictions on documents. For more details, see the :ref:`private_pages` documentation.
 
 Case-Insensitive Tags
 ---------------------
@@ -331,8 +331,6 @@ Tags are case-sensitive by default ('music' and 'Music' are treated as distinct 
 
 Multi-word tags
 ---------------
-
-.. versionadded:: 1.10
 
 .. code-block:: python
 
@@ -347,14 +345,12 @@ Unicode Page Slugs
 
   WAGTAIL_ALLOW_UNICODE_SLUGS = True
 
-By default, page slugs can contain any alphanumeric characters, including non-Latin alphabets (except on Django 1.8, where only ASCII characters are supported). Set this to False to limit slugs to ASCII characters.
+By default, page slugs can contain any alphanumeric characters, including non-Latin alphabets. Set this to False to limit slugs to ASCII characters.
 
 .. _WAGTAIL_AUTO_UPDATE_PREVIEW:
 
 Auto update preview
 -------------------
-
-.. versionadded:: 1.10
 
 .. code-block:: python
 
@@ -398,7 +394,13 @@ Usage for images, documents and snippets
 
     WAGTAIL_USAGE_COUNT_ENABLED = True
 
-When enabled Wagtail shows where a particular image, document or snippet is being used on your site (disabled by default). A link will appear on the edit page showing you which pages they have been used on.
+When enabled Wagtail shows where a particular image, document or snippet is being used on your site.
+This is disabled by default because it generates a query which may run slowly on sites with large numbers of pages.
+
+A link will appear on the edit page (in the rightmost column) showing you how many times the item is used.
+Clicking this link takes you to the "Usage" page, which shows you where the snippet, document or image is used.
+
+The link is also shown on the delete page, above the "Delete" button.
 
 .. note::
 
@@ -419,8 +421,6 @@ Specifies the date and datetime format to be used in input fields in the Wagtail
 
 Admin languages
 ---------------
-
-.. versionadded:: 1.10
 
 Users can choose between several languages for the admin interface
 in the account settings. The list of languages is by default all the available
@@ -525,12 +525,11 @@ These two files should reside in your project directory (``myproject/myproject/`
   ]
 
 
-  MIDDLEWARE_CLASSES = [
+  MIDDLEWARE = [
       'django.contrib.sessions.middleware.SessionMiddleware',
       'django.middleware.common.CommonMiddleware',
       'django.middleware.csrf.CsrfViewMiddleware',
       'django.contrib.auth.middleware.AuthenticationMiddleware',
-      'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
       'django.contrib.messages.middleware.MessageMiddleware',
       'django.middleware.clickjacking.XFrameOptionsMiddleware',
       'django.middleware.security.SecurityMiddleware',
@@ -559,13 +558,13 @@ These two files should reside in your project directory (``myproject/myproject/`
       },
   ]
 
-  WSGI_APPLICATION = 'wagtaildemo.wsgi.application'
+  WSGI_APPLICATION = 'myproject.wsgi.application'
 
   # Database
 
   DATABASES = {
       'default': {
-          'ENGINE': 'django.db.backends.postgresql_psycopg2',
+          'ENGINE': 'django.db.backends.postgresql',
           'NAME': 'myprojectdb',
           'USER': 'postgres',
           'PASSWORD': '',
@@ -674,10 +673,6 @@ These two files should reside in your project directory (``myproject/myproject/`
 
   # Wagtail email notification format
   # WAGTAILADMIN_NOTIFICATION_USE_HTML = True
-
-  # If you want to use Embedly for embeds, supply a key
-  # (this key doesn't work, get your own!)
-  # WAGTAILEMBEDS_EMBEDLY_KEY = '253e433d59dc4d2xa266e9e0de0cb830'
 
   # Reverse the default case-sensitive handling of tags
   TAGGIT_CASE_INSENSITIVE = True

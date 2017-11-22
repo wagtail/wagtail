@@ -2,26 +2,30 @@ from __future__ import absolute_import, unicode_literals
 
 from django.conf.urls import include, url
 from django.contrib.auth.models import Permission
-from django.core import urlresolvers
-from django.core.urlresolvers import reverse
 from django.db.models import Q
+from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 
 from wagtail.wagtailadmin.menu import MenuItem
 from wagtail.wagtailadmin.search import SearchArea
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
-from wagtail.wagtailusers.urls import groups, users
+from wagtail.wagtailusers.urls import users
 from wagtail.wagtailusers.utils import user_can_delete_user
+from wagtail.wagtailusers.views.groups import GroupViewSet
 from wagtail.wagtailusers.widgets import UserListingButton
 
 
 @hooks.register('register_admin_urls')
 def register_admin_urls():
     return [
-        url(r'^users/', include(users, app_name='wagtailusers_users', namespace='wagtailusers_users')),
-        url(r'^groups/', include(groups, app_name='wagtailusers_groups', namespace='wagtailusers_groups')),
+        url(r'^users/', include(users, namespace='wagtailusers_users')),
     ]
+
+
+@hooks.register('register_admin_viewset')
+def register_viewset():
+    return GroupViewSet('wagtailusers_groups', url_prefix='groups')
 
 
 # Typically we would check the permission 'auth.change_user' (and 'auth.add_user' /
@@ -45,7 +49,7 @@ class UsersMenuItem(MenuItem):
 def register_users_menu_item():
     return UsersMenuItem(
         _('Users'),
-        urlresolvers.reverse('wagtailusers_users:index'),
+        reverse('wagtailusers_users:index'),
         classnames='icon icon-user',
         order=600
     )
@@ -64,7 +68,7 @@ class GroupsMenuItem(MenuItem):
 def register_groups_menu_item():
     return GroupsMenuItem(
         _('Groups'),
-        urlresolvers.reverse('wagtailusers_groups:index'),
+        reverse('wagtailusers_groups:index'),
         classnames='icon icon-group',
         order=601
     )
@@ -94,7 +98,7 @@ class UsersSearchArea(SearchArea):
 @hooks.register('register_admin_search_area')
 def register_users_search_area():
     return UsersSearchArea(
-        _('Users'), urlresolvers.reverse('wagtailusers_users:index'),
+        _('Users'), reverse('wagtailusers_users:index'),
         name='users',
         classnames='icon icon-user',
         order=600)

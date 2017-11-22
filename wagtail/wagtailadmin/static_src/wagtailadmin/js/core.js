@@ -110,6 +110,55 @@ $(function() {
         fitNav();
     });
 
+    // Logo interactivity
+    function initLogo() {
+        var sensitivity = 8; // the amount of times the user must stroke the wagtail to trigger the animation
+
+        var $logoContainer = $('.wagtail-logo-container__desktop');
+        var mouseX = 0;
+        var lastMouseX = 0;
+        var dir = '';
+        var lastDir = '';
+        var dirChangeCount = 0;
+
+        function enableWag() {
+            $logoContainer.removeClass('logo-serious').addClass('logo-playful');
+        }
+
+        function disableWag() {
+            $logoContainer.removeClass('logo-playful').addClass('logo-serious');
+        }
+
+        $logoContainer.mousemove(function(event) {
+            mouseX = event.pageX;
+
+            if (mouseX > lastMouseX) {
+                dir = 'r';
+            } else if (mouseX < lastMouseX) {
+                dir = 'l';
+            }
+
+            if (dir != lastDir && lastDir != '') {
+                dirChangeCount += 1;
+            }
+
+            if (dirChangeCount > sensitivity) {
+                enableWag();
+            }
+
+            lastMouseX = mouseX;
+            lastDir = dir;
+        });
+
+        $logoContainer.mouseleave(function() {
+            dirChangeCount = 0;
+            disableWag();
+        });
+
+        disableWag();
+    }
+    initLogo();
+
     // Enable nice focus effects on all fields. This enables help text on hover.
     $(document).on('focus mouseover', 'input,textarea,select', function() {
         $(this).closest('.field').addClass('focused');

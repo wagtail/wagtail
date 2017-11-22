@@ -107,9 +107,17 @@
     @font-face {
         font-family: '#{$fontname}';
         src: url('#{$font-root}#{$filestub}.woff2') format('woff2'),
-           url('#{$font-root}#{$filestub}.woff') format('woff'),
-           url('#{$font-root}#{$filestub}.ttf') format('truetype');
+            url('#{$font-root}#{$filestub}.woff') format('woff'),
+            url('#{$font-root}#{$filestub}.ttf') format('truetype');
         font-weight: $weight;
         font-style: $style;
+    }
+}
+
+// Applies given rules on hover, except for touch screens.
+// Relies on feature detection to add a no-touch class on the html element.
+@mixin hover {
+    .no-touch &:hover {
+        @content;
     }
 }

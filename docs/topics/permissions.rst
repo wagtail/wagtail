@@ -33,6 +33,9 @@ The full set of available permission types is as follows:
 
 Drafts can be viewed only if the user has either Edit or Publish permission.
 
+
+.. _image_document_permissions:
+
 Image / document permissions
 ----------------------------
 

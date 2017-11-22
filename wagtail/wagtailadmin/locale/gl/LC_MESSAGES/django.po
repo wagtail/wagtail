@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-04-19 21:05+0000\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"PO-Revision-Date: 2017-10-06 15:06+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
@@ -136,6 +136,9 @@ msgstr "A data/tempo de expiración debe ser no futuro"
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Non podes ter múltiples rexistros de permisos para a mesma colección."
 
+msgid "Go to Wagtail admin"
+msgstr "Ir ao administrador de Wagtail"
+
 msgid "Account"
 msgstr "Conta"
 
@@ -206,6 +209,12 @@ msgstr "Restablecer contrasinal"
 
 msgid "Reset your password"
 msgstr "Restablecer o teu contrasinal"
+
+msgid "Edit"
+msgstr "Editar"
+
+msgid "Pages"
+msgstr "Páxinas"
 
 msgid "Dashboard"
 msgstr "Panel de control"
@@ -292,6 +301,21 @@ msgstr "Inserta unha ligazón"
 msgid "Add an external link"
 msgstr "Engade unha ligazón externa"
 
+msgid "You can edit the privacy settings on:"
+msgstr "Podes editar a configuración de privacidade en:"
+
+msgid "Save"
+msgstr "Gardar"
+
+msgid "Privacy"
+msgstr "Privacidade"
+
+msgid "Public"
+msgstr "Público"
+
+msgid "Private"
+msgstr "Privado"
+
 msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
 msgstr ""
@@ -314,9 +338,6 @@ msgstr "Engadir %(heading)s"
 
 msgid "Yes, delete"
 msgstr "Si, eliminar"
-
-msgid "Save"
-msgstr "Gardar"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -352,9 +373,6 @@ msgstr "Aprobar"
 
 msgid "Reject"
 msgstr "Rexeitar"
-
-msgid "Edit"
-msgstr "Editar"
 
 msgid "Preview"
 msgstr "Previsualizar"
@@ -459,9 +477,6 @@ msgstr "Privacidade da páxina"
 msgid "This page has been made private by a parent page."
 msgstr "Esta páxina foi feita privada por unha páxina pai."
 
-msgid "You can edit the privacy settings on:"
-msgstr "Podes editar a configuración de privacidade en:"
-
 msgid "Privacy changes apply to all children of this page too."
 msgstr ""
 "Os cambios de privacidade aplícanse a todas as fillas desta páxina tamén."
@@ -474,15 +489,6 @@ msgstr "Bloqueada"
 
 msgid "Unlocked"
 msgstr "Desbloqueada"
-
-msgid "Privacy"
-msgstr "Privacidade"
-
-msgid "Public"
-msgstr "Público"
-
-msgid "Private"
-msgstr "Privado"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -885,10 +891,10 @@ msgid "Sat"
 msgstr "Sa"
 
 #, python-format
-msgid "Used %(useage_count)s time"
-msgid_plural "Used %(useage_count)s times"
-msgstr[0] "Usado %(useage_count)s vez"
-msgstr[1] "Usado %(useage_count)s veces"
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Usado %(usage_count)s vez"
+msgstr[1] "Usado %(usage_count)s veces"
 
 msgid "Edit your account"
 msgstr "Editar a túa conta"
@@ -915,9 +921,6 @@ msgstr ""
 msgid "Go to Wagtail admin interface"
 msgstr "Ir á interfaz de administrador de Wagtail"
 
-msgid "Go to Wagtail admin"
-msgstr "Ir ao administrador de Wagtail"
-
 msgid "Add a child page"
 msgstr "Engadir unha páxina filla"
 
@@ -932,9 +935,6 @@ msgstr "Síntoo, non tes permiso para acceder a esta área"
 
 msgid "Your password has been changed successfully!"
 msgstr "¡O teu contrasinal foi cambiado correctamente!"
-
-msgid "Your preferences have been updated successfully!"
-msgstr "¡As túas preferencias foron actualizadas correctamente!"
 
 msgid "You have been successfully logged out."
 msgstr "Fuches desconectado correctamente."
@@ -1090,9 +1090,6 @@ msgid ""
 msgstr ""
 "Estás a ver unha revisión previa desta páxina dende <b>%(created_at)s</b> "
 "por %(user)s"
-
-msgid "Pages"
-msgstr "Páxinas"
 
 msgid "More"
 msgstr "Máis"

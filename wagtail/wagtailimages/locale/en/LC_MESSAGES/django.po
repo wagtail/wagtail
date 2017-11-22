@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -113,7 +113,7 @@ msgstr ""
 msgid "Add/edit images you own"
 msgstr ""
 
-#: forms.py:91 views/images.py:258
+#: forms.py:91 views/images.py:259
 msgid "Edit"
 msgstr ""
 
@@ -287,8 +287,8 @@ msgid "File not found"
 msgstr ""
 
 #: templates/wagtailimages/images/index.html:5
-#: templates/wagtailimages/images/index.html:24 wagtail_hooks.py:43
-#: wagtail_hooks.py:118
+#: templates/wagtailimages/images/index.html:24 wagtail_hooks.py:44
+#: wagtail_hooks.py:130
 msgid "Images"
 msgstr ""
 
@@ -405,7 +405,7 @@ msgstr ""
 msgid "Update"
 msgstr ""
 
-#: templates/wagtailimages/multiple/edit_form.html:15 views/images.py:139
+#: templates/wagtailimages/multiple/edit_form.html:15 views/images.py:140
 msgid "Delete"
 msgstr ""
 
@@ -421,40 +421,40 @@ msgstr ""
 msgid "Search images"
 msgstr ""
 
-#: views/images.py:117
+#: views/images.py:118
 #, python-brace-format
 msgid "Image '{0}' updated."
 msgstr ""
 
-#: views/images.py:118
+#: views/images.py:119
 msgid "Edit again"
 msgstr ""
 
-#: views/images.py:122
+#: views/images.py:123
 msgid "The image could not be saved due to errors."
 msgstr ""
 
-#: views/images.py:137
+#: views/images.py:138
 msgid ""
 "The source image file could not be found. Please change the source or delete "
 "the image."
 msgstr ""
 
-#: views/images.py:232
+#: views/images.py:233
 #, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr ""
 
-#: views/images.py:257
+#: views/images.py:258
 #, python-brace-format
 msgid "Image '{0}' added."
 msgstr ""
 
-#: views/images.py:262
+#: views/images.py:263
 msgid "The image could not be created due to errors."
 msgstr ""
 
-#: wagtail_hooks.py:137
+#: wagtail_hooks.py:149
 #, python-format
 msgid "%(count)s image"
 msgid_plural "%(count)s images"

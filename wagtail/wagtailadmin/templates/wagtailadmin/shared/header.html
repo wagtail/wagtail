@@ -1,4 +1,4 @@
-{% load i18n wagtailadmin_tags %}
+{% load i18n %}
 {% comment %}
 
     Variables accepted by this template:
@@ -36,12 +36,6 @@
             {% endif %}
         </div>
         <div class="right">
-            {% usage_count_enabled as uc_enabled %}
-            {% if uc_enabled and usage_object %}
-                <div class="usagecount">
-                    <a href="{{ usage_object.usage_url }}">{% blocktrans count useage_count=usage_object.get_usage.count %}Used {{ useage_count }} time{% plural %}Used {{ useage_count }} times{% endblocktrans %}</a>
-                </div>
-            {% endif %}
             {% if add_link %}
                 <div class="addbutton">
                     <a href="{% url add_link %}" class="button bicolor icon icon-plus">{{ add_text }}</a>

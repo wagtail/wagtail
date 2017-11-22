@@ -19,7 +19,7 @@
     margin-left: $mobile-nice-padding;
 }
 
-// stream-field is added to hallotoolbar when invoked on a field within a stream-field 
+// stream-field is added to hallotoolbar when invoked on a field within a stream-field
 .hallotoolbar.stream-field {
     margin-top: -1em;
     margin-left: 0;
@@ -108,7 +108,6 @@
     // Set some reasonable default heading styles. These can be overridden in site-specific custom CSS
     // to make them better reflect their appearance on the front-end (however, it's arguably better for editors
     // NOT to be thinking about a specific visual appearance when they choose heading levels...)
-
     h1,
     h2,
     h3,
@@ -146,19 +145,16 @@
         border-left: 0;
     }
 
-    
+
     // These styles correspond to the image formats defined in wagtailimages/formats.py,
     // so that images displayed in the rich text field receive more or less the same
     // styling that they would receive on the site front-end.
-    // 
+    //
     // Wagtail installations that define their own image formats (in a myapp.image_formats module)
     // should ideally use the insert_editor_css hook to pass in their own custom CSS to have those
     // images render within the rich text area in the same styles that would appear on the front-end.
-
-
     .richtext-image {
         margin-top: 3px; // close as possible to match line-height space above p
-
         img {
             width: 100%;
         }

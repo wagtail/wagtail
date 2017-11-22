@@ -68,7 +68,30 @@ def list_submissions(request, page_id):
 
     data_fields = form_page.get_data_fields()
 
-    submissions = form_submission_class.objects.filter(page=form_page).order_by('submit_time')
+    ordering = form_page.get_field_ordering(request.GET.getlist('order_by'))
+
+    # convert ordering tuples to a list of strings like ['-submit_time']
+    ordering_strings = [
+        '%s%s' % ('-' if order_str[1] == 'descending' else '', order_str[0])
+        for order_str in ordering]
+
+    if request.GET.get('action') == 'CSV':
+        #  Revert to CSV being sorted submit_time ascending for backwards compatibility
+        submissions = form_submission_class.objects.filter(page=form_page).order_by('submit_time')
+    else:
+        submissions = form_submission_class.objects.filter(page=form_page).order_by(*ordering_strings)
+
+    data_fields_with_ordering = []
+    for name, label in data_fields:
+        order = None
+        for order_value in [o[1] for o in ordering if o[0] == name]:
+            order = order_value
+        data_fields_with_ordering.append({
+            "name": name,
+            "label": label,
+            "order": order,
+        })
+
     data_headings = [label for name, label in data_fields]
 
     select_date_form = SelectDateForm(request.GET)
@@ -127,6 +150,6 @@ def list_submissions(request, page_id):
         'form_page': form_page,
         'select_date_form': select_date_form,
         'submissions': submissions,
-        'data_headings': data_headings,
+        'data_fields_with_ordering': data_fields_with_ordering,
         'data_rows': data_rows
     })

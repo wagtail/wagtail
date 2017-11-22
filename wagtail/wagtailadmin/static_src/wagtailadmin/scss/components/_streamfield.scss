@@ -41,8 +41,8 @@ li.sequence-member {
             padding: 1.5em 0;
         }
     }
-    
-    // Copied from page-editor.scss    
+
+    // Copied from page-editor.scss
     .struct-block li.required > label:after {
         content: '*';
         color: $color-red;
@@ -131,12 +131,12 @@ li.sequence-member {
 }
 
 
-// This horridly specific selector ensures text inputs, rich text fields and textareas 
+// This horridly specific selector ensures text inputs, rich text fields and textareas
 // that are direct children of highest level sequence should be borderless and full-width
 .block_field > .field-content > .input > .sequence-container > .sequence-container-inner > .sequence > .sequence-member > .sequence-member-inner {
     > .widget-text_input input,
     > .widget-hallo_rich_text_area .richtext,
-    > .widget-textarea textarea { 
+    > .widget-textarea textarea {
         border: 0;
         padding: 0;
         background-color: transparent;
@@ -153,7 +153,7 @@ li.sequence-member {
     opacity: 0;
     visibility: hidden;
     position: absolute;
-    top: -30px; 
+    top: -30px;
     right: 0;
     z-index: 1;
     overflow: visible;
@@ -201,7 +201,7 @@ li.sequence-member {
 
     .disabled {
         display: none;
-    }       
+    }
 }
 
 // list controls are slightly different as they require closer proximity to their associated fields
@@ -219,7 +219,7 @@ li.sequence-member {
     margin-top: 1.5em;
 }
 
-// Menu of other blocks to be added at each position 
+// Menu of other blocks to be added at each position
 .stream-menu {
     @include transition(all 0.2s ease);
     box-shadow: inset 0 0 45px rgba(0, 0, 0, 0.3);

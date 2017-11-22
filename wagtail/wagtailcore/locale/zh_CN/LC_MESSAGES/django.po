@@ -6,14 +6,16 @@
 # hanfeng <appweb.cn@gmail.com>, 2014-2015
 # Daniel Hwang <danielblinkhw@gmail.com>, 2015
 # Fred Zeng <979738295@qq.com>, 2016
+# Vincent Zhao <zhaopu2008@gmail.com>, 2017
 # jszsj <zhushajun@gmail.com>, 2017
+# 汇民 王 <whuim@qq.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-04-19 21:05+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"PO-Revision-Date: 2017-09-20 15:49+0000\n"
+"Last-Translator: 汇民 王 <whuim@qq.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -28,6 +30,17 @@ msgstr "{label}: 这个区块没有选项"
 
 msgid "This block has no options."
 msgstr "这个区块没有选项"
+
+#, python-format
+msgid "The minimum number of items is %d"
+msgstr "条目的最小数是%d"
+
+msgid "This field is required."
+msgstr "必需字段。"
+
+#, python-format
+msgid "The maximum number of items is %d"
+msgstr "条目的最大数是%d"
 
 msgid "Password"
 msgstr "密码"
@@ -84,7 +97,7 @@ msgid "title"
 msgstr "标题"
 
 msgid "The page title as you'd like it to be seen by the public"
-msgstr "页面标题，向公众展示。"
+msgstr "你想让公众看到的页面标题"
 
 msgid "slug"
 msgstr "缩略名"
@@ -128,10 +141,10 @@ msgid "search description"
 msgstr "搜索描述"
 
 msgid "go live date/time"
-msgstr "发布 日期/时间"
+msgstr "发布日期/时间"
 
 msgid "expiry date/time"
-msgstr "过期 日期/时间"
+msgstr "过期日期/时间"
 
 msgid "expired"
 msgstr "已过期"
@@ -141,6 +154,9 @@ msgstr "已锁定"
 
 msgid "first published at"
 msgstr "第一次发布于"
+
+msgid "last published at"
+msgstr "最后发布于"
 
 msgid "latest revision created at"
 msgstr "最近修订版本创建于"
@@ -155,7 +171,7 @@ msgid "draft"
 msgstr "草稿"
 
 msgid "live + draft"
-msgstr "上线+草稿"
+msgstr "发布+草稿"
 
 msgid "Default"
 msgstr "默认"
@@ -170,7 +186,7 @@ msgid "submitted for moderation"
 msgstr "已提交审核"
 
 msgid "created at"
-msgstr "创建于"
+msgstr "创建时间"
 
 msgid "user"
 msgstr "用户"
@@ -179,7 +195,7 @@ msgid "content JSON"
 msgstr "内容JSON"
 
 msgid "approved go live at"
-msgstr "批准上线于"
+msgstr "批准发布时间"
 
 msgid "page revision"
 msgstr "页版本"
@@ -191,7 +207,7 @@ msgid "Add"
 msgstr "添加"
 
 msgid "Add/edit pages you own"
-msgstr "增加/编辑所属的页面"
+msgstr "添加/编辑所属的页面"
 
 msgid "Edit"
 msgstr "编辑"
@@ -244,17 +260,32 @@ msgstr "私有，特定用户组中的用户可访问"
 msgid "password"
 msgstr "密码"
 
+msgid "groups"
+msgstr "组"
+
+msgid "view restriction"
+msgstr "查看限制"
+
+msgid "view restrictions"
+msgstr "查看限制"
+
 msgid "page view restriction"
-msgstr "查看页面权限"
+msgstr "查看页面限制"
 
 msgid "page view restrictions"
-msgstr "查看页面权限"
-
-msgid "name"
-msgstr "名字"
+msgstr "查看页面限制"
 
 msgid "collection"
 msgstr "集合"
+
+msgid "collection view restriction"
+msgstr "集合查看限制"
+
+msgid "collection view restrictions"
+msgstr "集合查看限制"
+
+msgid "name"
+msgstr "名字"
 
 msgid "collections"
 msgstr "集合"

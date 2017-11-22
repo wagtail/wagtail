@@ -4,14 +4,11 @@
 PostgreSQL search engine
 ========================
 
-.. versionadded:: 1.10
-
 This contrib module provides a search engine backend for Wagtail using
 `PostgreSQL full-text search capabilities <https://www.postgresql.org/docs/current/static/textsearch.html>`_.
 
 .. warning::
 
-    | You need to use Django 1.10 or more to be able to use this backend.
     | You can only use this module to index data from a PostgreSQL database.
 
 **Features**:

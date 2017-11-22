@@ -3,10 +3,7 @@ services:
 
 environment:
   matrix:
-    - TOXENV: py27-dj18-sqlite-noelasticsearch
-    - TOXENV: py27-dj110-sqlite-noelasticsearch
-    - TOXENV: py35-dj18-sqlite-noelasticsearch
-    - TOXENV: py35-dj110-sqlite-noelasticsearch
+    - TOXENV: py35-dj111-sqlite-noelasticsearch
 
 matrix:
   fast_finish: true

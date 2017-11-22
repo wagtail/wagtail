@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-04-19 21:05+0000\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"PO-Revision-Date: 2017-10-06 15:06+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/torchbox/wagtail/"
 "language/hr_HR/)\n"
@@ -77,6 +77,9 @@ msgstr "Lozinke nisu jednake. Pokušajte ponovno."
 msgid "Check your email"
 msgstr "Provjerite svoj email"
 
+msgid "Edit"
+msgstr "Uredi"
+
 msgid "Dashboard"
 msgstr "Kontrolna ploča"
 
@@ -101,6 +104,9 @@ msgstr "Odaberite stranicu"
 msgid "Add an external link"
 msgstr "Dodaj vanjsku poveznicu"
 
+msgid "Public"
+msgstr "Javno"
+
 msgid "Title"
 msgstr "Naslov"
 
@@ -115,9 +121,6 @@ msgstr "Odobri"
 
 msgid "Reject"
 msgstr "Odbij"
-
-msgid "Edit"
-msgstr "Uredi"
 
 msgid "Preview"
 msgstr "Pregled"
@@ -139,6 +142,3 @@ msgstr "Sažetak"
 
 msgid "Sign in"
 msgstr "Prijavi se"
-
-msgid "Public"
-msgstr "Javno"

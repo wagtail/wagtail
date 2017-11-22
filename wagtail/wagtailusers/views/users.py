@@ -3,9 +3,9 @@ from __future__ import absolute_import, unicode_literals
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ImproperlyConfigured
-from django.core.urlresolvers import reverse
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse
 from django.utils.module_loading import import_string
 from django.utils.translation import ugettext as _
 from django.views.decorators.vary import vary_on_headers
@@ -15,6 +15,7 @@ from wagtail.wagtailadmin import messages
 from wagtail.wagtailadmin.forms import SearchForm
 from wagtail.wagtailadmin.utils import (
     any_permission_required, permission_denied, permission_required)
+from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
 from wagtail.wagtailusers.forms import UserCreationForm, UserEditForm
 from wagtail.wagtailusers.utils import user_can_delete_user
@@ -70,17 +71,18 @@ def index(request):
             is_searching = True
             conditions = Q()
 
-            if 'username' in model_fields:
-                conditions |= Q(username__icontains=q)
+            for term in q.split():
+                if 'username' in model_fields:
+                    conditions |= Q(username__icontains=term)
 
-            if 'first_name' in model_fields:
-                conditions |= Q(first_name__icontains=q)
+                if 'first_name' in model_fields:
+                    conditions |= Q(first_name__icontains=term)
 
-            if 'last_name' in model_fields:
-                conditions |= Q(last_name__icontains=q)
+                if 'last_name' in model_fields:
+                    conditions |= Q(last_name__icontains=term)
 
-            if 'email' in model_fields:
-                conditions |= Q(email__icontains=q)
+                if 'email' in model_fields:
+                    conditions |= Q(email__icontains=term)
 
             users = User.objects.filter(conditions)
     else:
@@ -121,6 +123,10 @@ def index(request):
 
 @permission_required(add_user_perm)
 def create(request):
+    for fn in hooks.get_hooks('before_create_user'):
+        result = fn(request)
+        if hasattr(result, 'status_code'):
+            return result
     if request.method == 'POST':
         form = get_user_creation_form()(request.POST, request.FILES)
         if form.is_valid():
@@ -128,6 +134,10 @@ def create(request):
             messages.success(request, _("User '{0}' created.").format(user), buttons=[
                 messages.button(reverse('wagtailusers_users:edit', args=(user.pk,)), _('Edit'))
             ])
+            for fn in hooks.get_hooks('after_create_user'):
+                result = fn(request, user)
+                if hasattr(result, 'status_code'):
+                    return result
             return redirect('wagtailusers_users:index')
         else:
             messages.error(request, _("The user could not be created due to errors."))
@@ -143,19 +153,28 @@ def create(request):
 def edit(request, user_id):
     user = get_object_or_404(User, pk=user_id)
     can_delete = user_can_delete_user(request.user, user)
+    editing_self = request.user == user
 
+    for fn in hooks.get_hooks('before_edit_user'):
+        result = fn(request, user)
+        if hasattr(result, 'status_code'):
+            return result
     if request.method == 'POST':
-        form = get_user_edit_form()(request.POST, request.FILES, instance=user)
+        form = get_user_edit_form()(request.POST, request.FILES, instance=user, editing_self=editing_self)
         if form.is_valid():
             user = form.save()
             messages.success(request, _("User '{0}' updated.").format(user), buttons=[
                 messages.button(reverse('wagtailusers_users:edit', args=(user.pk,)), _('Edit'))
             ])
+            for fn in hooks.get_hooks('after_edit_user'):
+                result = fn(request, user)
+                if hasattr(result, 'status_code'):
+                    return result
             return redirect('wagtailusers_users:index')
         else:
             messages.error(request, _("The user could not be saved due to errors."))
     else:
-        form = get_user_edit_form()(instance=user)
+        form = get_user_edit_form()(instance=user, editing_self=editing_self)
 
     return render(request, 'wagtailusers/users/edit.html', {
         'user': user,
@@ -171,9 +190,17 @@ def delete(request, user_id):
     if not user_can_delete_user(request.user, user):
         return permission_denied(request)
 
+    for fn in hooks.get_hooks('before_delete_user'):
+        result = fn(request, user)
+        if hasattr(result, 'status_code'):
+            return result
     if request.method == 'POST':
         user.delete()
         messages.success(request, _("User '{0}' deleted.").format(user))
+        for fn in hooks.get_hooks('after_delete_user'):
+            result = fn(request, user)
+            if hasattr(result, 'status_code'):
+                return result
         return redirect('wagtailusers_users:index')
 
     return render(request, "wagtailusers/users/confirm_delete.html", {

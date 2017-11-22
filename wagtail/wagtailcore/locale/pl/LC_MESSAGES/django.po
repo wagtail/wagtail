@@ -4,15 +4,16 @@
 #
 # Translators:
 # utek <mail@utek.pl>, 2014
+# Miłosz Miśkiewicz, 2017
 # Miłosz Miśkiewicz, 2016-2017
 # utek <mail@utek.pl>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-04-19 21:05+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"PO-Revision-Date: 2017-09-23 19:35+0000\n"
+"Last-Translator: Miłosz Miśkiewicz\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +21,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pl\n"
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n"
-"%100<12 || n%100>=14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
+"%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
 "%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
 #, python-brace-format
@@ -29,6 +30,17 @@ msgstr "{label}: ten blok nie posiada opcji."
 
 msgid "This block has no options."
 msgstr "Ten block nie posiada opcji."
+
+#, python-format
+msgid "The minimum number of items is %d"
+msgstr "Minimalna ilość elementów to %d"
+
+msgid "This field is required."
+msgstr "To pole jest wymagane."
+
+#, python-format
+msgid "The maximum number of items is %d"
+msgstr "Maksymalna ilość elementów to %d"
 
 msgid "Password"
 msgstr "Hasło"
@@ -151,6 +163,9 @@ msgstr "zablokowany"
 msgid "first published at"
 msgstr "pierwsza publikacja w dniu"
 
+msgid "last published at"
+msgstr "ostatnio opublikowany"
+
 msgid "latest revision created at"
 msgstr "ostatnia rewizja utworzona"
 
@@ -253,17 +268,32 @@ msgstr "Prywatne, dostępne dla wybranych grup"
 msgid "password"
 msgstr "hasło"
 
+msgid "groups"
+msgstr "grupy"
+
+msgid "view restriction"
+msgstr "restrykcja widoczności"
+
+msgid "view restrictions"
+msgstr "restrykcje widoczności"
+
 msgid "page view restriction"
 msgstr "restrykcja wyświetlenia strony"
 
 msgid "page view restrictions"
 msgstr "restrykcje wyświetlenia strony"
 
-msgid "name"
-msgstr "nazwa"
-
 msgid "collection"
 msgstr "kolekcja"
+
+msgid "collection view restriction"
+msgstr "restrykcja widoczności kolekcji"
+
+msgid "collection view restrictions"
+msgstr "restrykcje widoczności kolekcji"
+
+msgid "name"
+msgstr "nazwa"
 
 msgid "collections"
 msgstr "kolekcje"

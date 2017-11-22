@@ -1,20 +1,29 @@
-Authors
-=======
+Core team
+=========
 
-* Matthew Westcott (Torchbox) twitter: @gasmanic
-* David Cranwell (Torchbox) twitter: @davecranwell
-* Karl Hobley (Torchbox) twitter: @kaedroho
-* Tim Heap (Takeflight)
-* Josh Barr (Springload)
+* Matthew Westcott (Torchbox)
+* Karl Hobley (Torchbox)
+* Tom Dyson (Torchbox)
+* Mikalai Radchuk (Torchbox)
+* Thibaud Colas (Springload)
+* Janneke Janssen (Lukkien)
+* Mike Dingjan (Lab Digital)
+* Rob Moorman (Moor Interactive)
+* Bertrand Bordage (NoriPyt)
+* Emily Horsman (Little Weaver)
+* Loïc Teixeira (Springload)
+* Andy Chosak (consumerfinance.gov)
+* Will Barton (consumerfinance.gov)
+* LB Johnston
 
 Contributors
 ============
 
-* Helen Chapman helen.chapman@torchbox.com
-* Balazs Endresz balazs.endresz@torchbox.com
-* Neal Todd neal.todd@torchbox.com
-* Paul Hallett (twilio) hello@phalt.co
-* Tom Dyson
+* David Cranwell
+* Helen Chapman
+* Balazs Endresz
+* Neal Todd
+* Paul Hallett
 * Serafeim Papastefanos
 * Łukasz Bołdys
 * peterarenot
@@ -31,8 +40,9 @@ Contributors
 * Tom Talbot
 * Jeffrey Hearn
 * Robert Clark
+* Tim Heap
 * Nathan Brizendine
-* thenewguy
+* Gordon Pendleton
 * John-Scott Atlakson
 * Eric Drechsel
 * Alejandro Giacometti
@@ -73,6 +83,7 @@ Contributors
 * Alex Gleason
 * Ryan Pineo
 * Petr Vacha
+* Josh Barr
 * Sævar Öfjörð Magnússon
 * Ashia Zawaduk
 * Denis Voskvitsov
@@ -102,7 +113,6 @@ Contributors
 * Matt Fozard
 * Chris Rogers
 * Josh Schneier
-* Mikalai Radchuk
 * Charlie Choiniere
 * Nigel Fletton
 * Kait Crawford
@@ -111,15 +121,11 @@ Contributors
 * Gareth Price
 * Liam Brenner
 * Nicolas Kuttler
-* Mike Dingjan
-* Loic Teixeira
 * Juha Kujala
 * Eirik Krogstad
-* Rob Moorman
 * Matthijs Melissen
 * Jonas Lergell
 * Danielle Madeley
-* Janneke Janssen
 * Roel Bruggink
 * Yannick Chabbert
 * Andy Babic
@@ -140,18 +146,16 @@ Contributors
 * Stephen Rice
 * Behzad Nategh
 * Yann Fouillat (Gagaro)
-* Jonny Scholes
+* Jonny Scholev
 * Richard McMillan
 * Johannes Spielmann
 * Franklin Kingma
 * Ludolf Takens
 * Oktay Altay
-* Bertrand Bordage
 * Paul J Stevens
 * kakulukia
 * Raphael Stolt
 * Tim Graham
-* Thibaud Colas
 * Tobias Schmidt
 * Chris Darko
 * Aymeric Augustin
@@ -205,7 +209,6 @@ Contributors
 * Mikael Svensson
 * Peter Baumgartner
 * Matheus Bratfisch
-* Andy Chosak
 * Kevin Whinnery
 * Martey Dodoo
 * David Ray
@@ -213,7 +216,6 @@ Contributors
 * Tobias McNulty
 * Vorlif
 * Kjartan Sverrisson
-* LB (Ben Johnston)
 * Christine Ho
 * Trent Holliday
 * jacoor
@@ -231,6 +233,35 @@ Contributors
 * Daniel Chimeno
 * Medhat Assaad
 * Sebastian Bauer
+* Martin Hill
+* Maurice Bartnig
+* Eirikur Ingi Magnusson
+* Harris Lapiroff
+* Hugo van den Berg
+* Olly Willans
+* Ben Enright
+* Alice Rose
+* John Franey
+* Marc Tudurí
+* Lucas Moeskops
+* Rob van der Linde
+* Paul Kamp
+* dwasyl
+* Eugene Morozov
+* Levi Adler
+* Edwar Baron
+* Tomasz Knapik
+* Venelin Stoykov
+* jcronyn
+* Ben Sturmfels
+* Anselm Bradford
+* Mads Jensen
+* Samir Shah
+* Patrick Woods
+* Ross Crawford-d'Heureuse
+* rifuso
+* Jon Carmack
+* Martin Sandström
 
 Translators
 ===========
@@ -241,10 +272,10 @@ Translators
 * Bulgarian: Lyuboslav Petrov
 * Catalan: Antoni Aloy, David Llop, Roger Pons
 * Chinese: hanfeng, Lihan Li, Leway Colin, Orangle Liu
-* Chinese (China): hanfeng, Daniel Hwang, Jian Li, Listeng Teng, Feng Wang, Fred Zeng, Joey Zhao, zhushajun
+* Chinese (China): hanfeng, Daniel Hwang, Jian Li, Listeng Teng, Feng Wang, Fred Zeng, Joey Zhao, Vincent Zhao, zhushajun
 * Chinese (Taiwan): gogobook, Lihan Li, Jp Shieh
 * Croatian (Croatia): Luka Matijević
-* Czech: Ales Dvorak, Ivan Pomykacz, Jiri Stepanek, Marek Turnovec
+* Czech: Ales Dvorak, Sophy O, Ivan Pomykacz, Jiri Stepanek, Marek Turnovec, Stanislav Vasko
 * Danish: Asger Sørensen
 * Dutch: benny_AT_it_digin.com, Bram, Brecht Dervaux, Huib Keemink, Thijs Kramer, Samuel Leeuwenburg, mahulst, Rob Moorman, Michael van Tellingen, Arne Turpyn
 * Dutch (Netherlands): Bram, Franklin Kingma, Maarten Kling, Thijs Kramer
@@ -254,10 +285,10 @@ Translators
 * Georgian: André Bouatchidzé
 * German: Ettore Atalan, Patrick Craston, Henrik Kröger, Tammo van Lessen, Martin Löhle, Wasilis Mandratzis-Walz, Daniel Manser, m0rph3u5, Max Pfeiffer, Moritz Pfeiffer, Herbert Poul, Karl Sander, Tobias Schmidt, Johannes Spielmann, Raphael Stolt, Jannis Vajen, Vorlif, Matthew Westcott
 * Greek: Jim Dal, George Giannoulopoulos, Yiannis Inglessis, Wasilis Mandratzis-Walz, Nick Mavrakis, NeotheOne, Serafeim Papastefanos
-* Hebrew (Israel): Lior Abazon, bjesus, Yossi Lalum
+* Hebrew (Israel): Lior Abazon, bjesus, Yossi Lalum, Oleg Sverdlov
 * Hungarian: Laszlo Molnar, Kornél Novák Mergulhão
 * Icelandic (Iceland): Arnar Tumi Þorsteinsson, Kjartan Sverrisson, Sævar Öfjörð Magnússon
-* Indonesian (Indonesia): Sutrisno Efendi, Geek Pantura
+* Indonesian (Indonesia): Sutrisno Efendi, Geek Pantura, Ronggo Radityo
 * Italian: Edd Baldry, Claudio Bantaloukas, Gian-Maria Daffre, Giacomo Ghizzani, Carlo Miron, Alessio Di Stasio, Andrea Tagliazucchi
 * Japanese: Sangmin Ahn, Shu Ishida, Daigo Shitara, Shimizu Taku
 * Korean: Kyungil Choi, Jihan Chung
@@ -265,20 +296,18 @@ Translators
 * Lithuanian: Matas Dailyda
 * Mongolian: Delgermurun Purevkhuu
 * Norwegian Bokmål: Eirik Krogstad, Robin Skahjem-Eriksen
-* Persian: Mohammad reza Jelveh, Mohammad Hossein Mojtahedi
-* Polish: Mateusz, Miłosz Miśkiewicz, Bartek Sielicki, utek
-* Polish (Poland): Konrad Lalik, Grzegorz Wasilewski
+* Persian: Mohammad reza Jelveh, Mohammad Hossein Mojtahedi, Py Zenberg
+* Polish: Konrad Lalik, Mateusz, Miłosz Miśkiewicz, Bartek Sielicki, utek, Grzegorz Wasilewski
 * Portuguese (Brazil): Claudemiro Alves Feitosa Neto, Bruno Bertoldi, Luiz Boaretto, Gladson Brito, Thiago Cangussu, Gilson Filho, Joao Garcia, João Luiz Lorencetti, Marcio Mazza, Douglas Miranda, Guilherme Nabanete
 * Portuguese (Portugal): Gladson Brito, Thiago Cangussu, Tiago Henriques, Jose Lourenco, Nuno Matos, Douglas Miranda, Manuela Silva
 * Romanian: Dan Braghis
-* Russian: ajk, Andrey Avdey, Daniil, gsstver, Sergey Khalymon, Sergey Komarov, Eugene MechanisM, Mikalai Radchuk, Alexandr Romantsov, Nikita Viktorovich
+* Russian: ajk, Andrey Avdey, Daniil, gsstver, Sergey Khalymon, Sergey Komarov, Eugene MechanisM, Rustam Mirzaev, Mikalai Radchuk, Alexandr Romantsov, Nikita Viktorovich, Vassiliy Vorobyov
 * Slovak (Slovakia): Stevo Backor, dellax, Jozef Karabelly
 * Slovenian: Mitja Pagon
-* Spanish: Mauricio Baeza, Daniel Chimeno, fonso, fooflare, Yusuf (Josè) Luis, Joaquín Tita, Unai Zalakain
-* Spanish (Spain): Daniel Chimeno
-* Swedish: Alexander Holmbäck, André Karlsson, Ludwig Kjellström, Thomas Kunambi, Hannes Lohmander
-* Swedish (Sweden): Jon Karlsson, Thomas Kunambi
-* Turkish: Cihad Gündoǧdu
-* Turkish (Turkey): Saadettin Yasir Akel, Cihad Gündoǧdu, Yusuf (Josè) Luis, Ragıp Ünal
+* Spanish: Mauricio Baeza, Daniel Chimeno, fonso, fooflare, José Luis, Joaquín Tita, Unai Zalakain
+* Swedish: Jim Brouzoulis, Alexander Holmbäck, André Karlsson, Jon Karlsson, Ludwig Kjellström, Thomas Kunambi, Hannes Lohmander
+* Turkish: Zafer Cengiz, Cihad Gündoǧdu, Ragıp Ünal
+* Turkish (Turkey): Saadettin Yasir Akel, Cihad Gündoǧdu, José Luis, Ragıp Ünal
 * Ukrainian: Mykola Zamkovoi
 * Vietnamese: Luan Nguyen
+* Welsh: Adam Hughes

@@ -16,14 +16,15 @@
 # nahuel, 2014
 # pierre marfoure <pierre@onoffdesign.com>, 2016
 # Sebastien Andrivet <sebastien@andrivet.com>, 2016
+# Sophy O <sophy.ouch@erudit.org>, 2017
 # Tom Dyson <tom@torchbox.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-04-20 21:03+0000\n"
-"Last-Translator: Bertrand Bordage <bordage.bertrand@gmail.com>\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"PO-Revision-Date: 2017-10-06 15:06+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -128,6 +129,11 @@ msgstr[1] ""
 "%(count)s des pages à copier sont publiées. Voulez-vous publier leur copie ?"
 
 #, python-format
+msgid "You do not have permission to copy to page \"%(page_title)s\""
+msgstr ""
+"Vous n’avez pas la permission de copier vers la page « %(page_title)s »"
+
+#, python-format
 msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
 msgstr "Ce slug est déjà utilisé dans le contexte de sa page parent \"%s\""
@@ -157,6 +163,9 @@ msgstr "La date d'expiration doit être dans le futur"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Vous ne pouvez avoir plusieurs permissions pour la même collection."
+
+msgid "Go to Wagtail admin"
+msgstr "Aller sur l’administration de Wagtail"
 
 msgid "Account"
 msgstr "Compte"
@@ -235,6 +244,33 @@ msgstr "Réinitialisation de mot de passe"
 
 msgid "Reset your password"
 msgstr "Réinitialisez votre mot de passe"
+
+msgid "Edit"
+msgstr "Modifier"
+
+msgid "Page"
+msgstr "Page"
+
+msgid "Pages"
+msgstr "Pages"
+
+msgid "Loading..."
+msgstr "Chargement…"
+
+msgid "No results"
+msgstr "Aucun résultat"
+
+msgid "Server Error"
+msgstr "Erreur de serveur"
+
+msgid "See children"
+msgstr "Voir les enfants"
+
+msgid "See all"
+msgstr "Tout voir"
+
+msgid "Close explorer"
+msgstr "Fermer l’explorateur"
 
 msgid "Dashboard"
 msgstr "Tableau de bord"
@@ -319,6 +355,33 @@ msgstr "Insérer un lien"
 msgid "Add an external link"
 msgstr "Ajouter un lien externe"
 
+msgid "Collection privacy"
+msgstr "Confidentialité de la collection"
+
+msgid "This collection has been made private by a parent collection."
+msgstr "Cette collection a été rendue privée par une collection parente."
+
+msgid "You can edit the privacy settings on:"
+msgstr "Vous pouvez modifier les paramètres de confidentialité sur :"
+
+msgid ""
+"Privacy settings determine who is able to view documents in this collection."
+msgstr ""
+"Les paramètres de confidentialité déterminent qui est autorisé à voir les "
+"documents de cette collection."
+
+msgid "Save"
+msgstr "Sauvegarder"
+
+msgid "Privacy"
+msgstr "Confidentialité"
+
+msgid "Public"
+msgstr "Public"
+
+msgid "Private"
+msgstr "Privée"
+
 msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
 msgstr ""
@@ -342,9 +405,6 @@ msgstr "Ajouter %(heading)s"
 
 msgid "Yes, delete"
 msgstr "Oui, supprimer"
-
-msgid "Save"
-msgstr "Sauvegarder"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -380,9 +440,6 @@ msgstr "Approuver"
 
 msgid "Reject"
 msgstr "Rejeter"
-
-msgid "Edit"
-msgstr "Modifier"
 
 msgid "Preview"
 msgstr "Prévisualisation"
@@ -491,9 +548,6 @@ msgstr "Page privée"
 msgid "This page has been made private by a parent page."
 msgstr "Cette page a été rendue privée par une page parente."
 
-msgid "You can edit the privacy settings on:"
-msgstr "Vous pouvez modifier les paramètres de confidentialité sur :"
-
 msgid "Privacy changes apply to all children of this page too."
 msgstr ""
 "Les changements de confidentialité s'appliquent également à toutes les sous-"
@@ -507,15 +561,6 @@ msgstr "Verrouillé"
 
 msgid "Unlocked"
 msgstr "Déverrouillé"
-
-msgid "Privacy"
-msgstr "Confidentialité"
-
-msgid "Public"
-msgstr "Public"
-
-msgid "Private"
-msgstr "Privée"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -928,6 +973,9 @@ msgstr "par"
 msgid "Current draft"
 msgstr "Brouillon actuel"
 
+msgid "Live version"
+msgstr "Version publique"
+
 msgid "Review this revision"
 msgstr "Passer en revue cette version"
 
@@ -1034,10 +1082,10 @@ msgid "Sat"
 msgstr "Sam"
 
 #, python-format
-msgid "Used %(useage_count)s time"
-msgid_plural "Used %(useage_count)s times"
-msgstr[0] "Utilisé %(useage_count)s fois"
-msgstr[1] "Utilisé %(useage_count)s fois"
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Utilisé %(usage_count)s fois"
+msgstr[1] "Utilisé %(usage_count)s fois"
 
 msgid "Edit your account"
 msgstr "Modifiez votre compte"
@@ -1083,9 +1131,6 @@ msgstr ""
 msgid "Go to Wagtail admin interface"
 msgstr "Aller sur l'interface d'administration de Wagtail"
 
-msgid "Go to Wagtail admin"
-msgstr "Aller sur l’administration de Wagtail"
-
 msgid "Add a child page"
 msgstr "Ajouter une sous-page"
 
@@ -1125,6 +1170,9 @@ msgstr "islandais"
 msgid "Italian"
 msgstr "italien"
 
+msgid "Korean"
+msgstr "coréen"
+
 msgid "Lithuanian"
 msgstr "lituanien"
 
@@ -1133,6 +1181,9 @@ msgstr "norvégien bokmål"
 
 msgid "Netherlands Dutch"
 msgstr "néerlandais"
+
+msgid "Persian"
+msgstr "Persan"
 
 msgid "Polish"
 msgstr "polonais"
@@ -1149,6 +1200,9 @@ msgstr "roumain"
 msgid "Russian"
 msgstr "russe"
 
+msgid "Swedish"
+msgstr "suédois"
+
 msgid "Chinese (China)"
 msgstr "chinois (Chine)"
 
@@ -1157,9 +1211,6 @@ msgstr "Désolé, vous n'avez pas les autorisations pour accéder à cette zone.
 
 msgid "Your password has been changed successfully!"
 msgstr "Votre mot de passe a été changé avec succès !"
-
-msgid "Your preferences have been updated successfully!"
-msgstr "Vos préférences ont été mises à jour avec succès !"
 
 msgid "Your preferences have been updated."
 msgstr "Vos préférences ont été mises à jour."
@@ -1328,9 +1379,6 @@ msgstr "Première"
 
 msgid "Latest"
 msgstr "Dernière"
-
-msgid "Pages"
-msgstr "Pages"
 
 #, python-brace-format
 msgid "Edit '{title}'"

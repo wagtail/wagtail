@@ -11,12 +11,11 @@ Snippets lack many of the features of pages, such as being orderable in the Wagt
 Snippet Models
 --------------
 
-Here's an example snippet from the Wagtail demo website:
+Here's an example snippet model:
 
 .. code-block:: python
 
   from django.db import models
-  from django.utils.encoding import python_2_unicode_compatible
 
   from wagtail.wagtailadmin.edit_handlers import FieldPanel
   from wagtail.wagtailsnippets.models import register_snippet
@@ -24,7 +23,6 @@ Here's an example snippet from the Wagtail demo website:
   ...
 
   @register_snippet
-  @python_2_unicode_compatible  # provide equivalent __unicode__ and __str__ methods on Python 2
   class Advert(models.Model):
       url = models.URLField(null=True, blank=True)
       text = models.CharField(max_length=255)
@@ -46,14 +44,14 @@ Including Snippets in Template Tags
 
 The simplest way to make your snippets available to templates is with a template tag. This is mostly done with vanilla Django, so perhaps reviewing Django's documentation for `django custom template tags`_ will be more helpful. We'll go over the basics, though, and point out any considerations to make for Wagtail.
 
-First, add a new python file to a ``templatetags`` folder within your app. The demo website, for instance uses the path ``wagtaildemo/demo/templatetags/demo_tags.py``. We'll need to load some Django modules and our app's models, and ready the ``register`` decorator:
+First, add a new python file to a ``templatetags`` folder within your app - for example, ``myproject/demo/templatetags/demo_tags.py``. We'll need to load some Django modules and our app's models, and ready the ``register`` decorator:
 
 .. _django custom template tags: https://docs.djangoproject.com/en/dev/howto/custom-template-tags/
 
 .. code-block:: python
 
   from django import template
-  from demo.models import *
+  from demo.models import Advert
 
   register = template.Library()
 

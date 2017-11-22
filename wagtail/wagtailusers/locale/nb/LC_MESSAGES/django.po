@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-04-21 07:24+0000\n"
-"Last-Translator: Stein Strindhaug <stein.strindhaug@gmail.com>\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"PO-Revision-Date: 2017-10-06 15:11+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
 "MIME-Version: 1.0\n"
@@ -250,18 +250,15 @@ msgstr ""
 "Det er ingen brukere konfigurert. Hvorfor ikke <a href="
 "\"%(wagtailusers_create_url)s\">legge til noen</a>?"
 
+msgid "Groups"
+msgstr "Grupper"
+
 msgid "Search groups"
 msgstr "Søk i grupper"
 
 #, python-brace-format
 msgid "Group '{0}' created."
 msgstr "Gruppa \"{0}\" er opprettet."
-
-msgid "Edit"
-msgstr "Endre"
-
-msgid "The group could not be created due to errors."
-msgstr "Gruppa kunne ikke lagres grunnet feil."
 
 #, python-brace-format
 msgid "Group '{0}' updated."
@@ -281,6 +278,9 @@ msgstr "Søk blant brukere"
 msgid "User '{0}' created."
 msgstr "Brukeren \"{0}\" er opprettet."
 
+msgid "Edit"
+msgstr "Endre"
+
 msgid "The user could not be created due to errors."
 msgstr "Brukeren kunne ikke opprettes grunnet feil."
 
@@ -294,9 +294,6 @@ msgstr "Brukeren kunne ikke lagres grunnet feil."
 #, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "Brukeren \"{0}\" er slettet."
-
-msgid "Groups"
-msgstr "Grupper"
 
 msgid "Edit this user"
 msgstr "Rediger denne brukeren"

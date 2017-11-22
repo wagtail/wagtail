@@ -1,8 +1,9 @@
 from __future__ import absolute_import, unicode_literals
 
 from django.conf.urls import url
-from django.core.urlresolvers import RegexURLResolver
 from django.http import Http404
+from django.template.response import TemplateResponse
+from django.urls.resolvers import RegexURLResolver
 
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.url_routing import RouteResult
@@ -35,18 +36,36 @@ class RoutablePageMixin(object):
     This class can be mixed in to a Page model, allowing extra routes to be
     added to it.
     """
+    @route(r'^$')
+    def index_route(self, request, *args, **kwargs):
+        request.is_preview = getattr(request, 'is_preview', False)
+
+        return TemplateResponse(
+            request,
+            self.get_template(request, *args, **kwargs),
+            self.get_context(request, *args, **kwargs)
+        )
+
     @classmethod
     def get_subpage_urls(cls):
         routes = []
-        for attr in dir(cls):
-            val = getattr(cls, attr, None)
-            if hasattr(val, '_routablepage_routes'):
-                routes.extend(val._routablepage_routes)
 
-        return tuple([
-            route[0]
-            for route in sorted(routes, key=lambda route: route[1])
-        ])
+        # Loop over this class's defined routes, in method resolution order.
+        # Routes defined in the immediate class take precedence, followed by
+        # immediate superclass and so on
+        for klass in cls.__mro__:
+            routes_for_class = []
+            for val in klass.__dict__.values():
+                if hasattr(val, '_routablepage_routes'):
+                    routes_for_class.extend(val._routablepage_routes)
+
+            # sort routes by _creation_counter so that ones earlier in the class definition
+            # take precedence
+            routes_for_class.sort(key=lambda route: route[1])
+
+            routes.extend(route[0] for route in routes_for_class)
+
+        return tuple(routes)
 
     @classmethod
     def get_resolver(cls):

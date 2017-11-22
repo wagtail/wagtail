@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-04-19 21:05+0000\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"PO-Revision-Date: 2017-10-06 15:06+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
@@ -158,6 +158,12 @@ msgstr "أكملت إعادة تثبيت كلمة السر"
 msgid "Reset your password"
 msgstr "أعد تثبيت كلمةتك السرية"
 
+msgid "Edit"
+msgstr "تنقيح"
+
+msgid "Pages"
+msgstr "صفحات"
+
 msgid "Dashboard"
 msgstr "لوحة التحكم"
 
@@ -203,6 +209,18 @@ msgstr "أدخل حلقة"
 msgid "Add an external link"
 msgstr "أضف حلقة خارجية"
 
+msgid "Save"
+msgstr "احفظ"
+
+msgid "Privacy"
+msgstr "نظام السرية"
+
+msgid "Public"
+msgstr "عمومي"
+
+msgid "Private"
+msgstr "خصوصي"
+
 msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
 msgstr "المجموعة لايمكن حذفها. بسبب احتوائها على محتويات:"
@@ -216,9 +234,6 @@ msgstr "أضف %(heading)s"
 
 msgid "Yes, delete"
 msgstr "نعم احذف"
-
-msgid "Save"
-msgstr "احفظ"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -247,9 +262,6 @@ msgstr "موافق"
 
 msgid "Reject"
 msgstr "مرفوض"
-
-msgid "Edit"
-msgstr "تنقيح"
 
 msgid "Preview"
 msgstr "نظر مقدم"
@@ -305,15 +317,6 @@ msgstr "مغلق"
 
 msgid "Unlocked"
 msgstr "غير مغلق"
-
-msgid "Privacy"
-msgstr "نظام السرية"
-
-msgid "Public"
-msgstr "عمومي"
-
-msgid "Private"
-msgstr "خصوصي"
 
 msgid "Create a page in"
 msgstr "أنشئ صفحة في"
@@ -421,9 +424,6 @@ msgstr "تسجيل الخروج"
 
 msgid "View live"
 msgstr "انظر في الواقع"
-
-msgid "Pages"
-msgstr "صفحات"
 
 msgid "Choose another page"
 msgstr "إختر صفحة أخرى"

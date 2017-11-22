@@ -5,10 +5,10 @@ import json
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.core.files.uploadedfile import SimpleUploadedFile
-from django.core.urlresolvers import reverse
 from django.template.defaultfilters import filesizeformat
 from django.test import TestCase, override_settings
-from django.utils.http import urlquote
+from django.urls import reverse
+from django.utils.http import RFC3986_SUBDELIMS, urlquote
 
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailcore.models import Collection, GroupCollectionPermission
@@ -17,12 +17,7 @@ from wagtail.wagtailimages.views.serve import generate_signature
 from .utils import Image, get_test_image_file
 
 # Get the chars that Django considers safe to leave unescaped in a URL
-# This list changed in Django 1.8:  https://github.com/django/django/commit/e167e96cfea670422ca75d0b35fe7c4195f25b63
-try:
-    from django.utils.http import RFC3986_SUBDELIMS
-    urlquote_safechars = RFC3986_SUBDELIMS + str('/~:@')
-except ImportError:  # < Django 1,8
-    urlquote_safechars = '/'
+urlquote_safechars = RFC3986_SUBDELIMS + str('/~:@')
 
 
 class TestImageIndexView(TestCase, WagtailTestUtils):
@@ -283,6 +278,11 @@ class TestImageEditView(TestCase, WagtailTestUtils):
             file=get_test_image_file(),
         )
 
+        self.storage = self.image.file.storage
+
+    def update_from_db(self):
+        self.image = Image.objects.get(pk=self.image.pk)
+
     def get(self, params={}):
         return self.client.get(reverse('wagtailimages:edit', args=(self.image.id,)), params)
 
@@ -327,9 +327,8 @@ class TestImageEditView(TestCase, WagtailTestUtils):
         # Should redirect back to index
         self.assertRedirects(response, reverse('wagtailimages:index'))
 
-        # Check that the image was edited
-        image = Image.objects.get(id=self.image.id)
-        self.assertEqual(image.title, "Edited")
+        self.update_from_db()
+        self.assertEqual(self.image.title, "Edited")
 
     def test_edit_with_new_image_file(self):
         file_content = get_test_image_file().file.getvalue()
@@ -346,9 +345,8 @@ class TestImageEditView(TestCase, WagtailTestUtils):
         # Should redirect back to index
         self.assertRedirects(response, reverse('wagtailimages:index'))
 
-        # Check that the image file size changed (assume it changed to the correct value)
-        image = Image.objects.get(id=self.image.id)
-        self.assertNotEqual(image.file_size, 100000)
+        self.update_from_db()
+        self.assertNotEqual(self.image.file_size, 100000)
 
     @override_settings(DEFAULT_FILE_STORAGE='wagtail.tests.dummy_external_storage.DummyExternalStorage')
     def test_edit_with_new_image_file_and_external_storage(self):
@@ -366,9 +364,8 @@ class TestImageEditView(TestCase, WagtailTestUtils):
         # Should redirect back to index
         self.assertRedirects(response, reverse('wagtailimages:index'))
 
-        # Check that the image file size changed (assume it changed to the correct value)
-        image = Image.objects.get(id=self.image.id)
-        self.assertNotEqual(image.file_size, 100000)
+        self.update_from_db()
+        self.assertNotEqual(self.image.file_size, 100000)
 
     def test_with_missing_image_file(self):
         self.image.file.delete(False)
@@ -376,6 +373,95 @@ class TestImageEditView(TestCase, WagtailTestUtils):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailimages/images/edit.html')
+
+    def get_content(self, f=None):
+        if f is None:
+            f = self.image.file
+        try:
+            if f.closed:
+                f.open('rb')
+            return f.read()
+        finally:
+            f.close()
+
+    def test_reupload_same_name(self):
+        """
+        Checks that reuploading the image file with the same file name
+        changes the file name, to avoid browser cache issues (see #3817).
+        """
+        old_file = self.image.file
+        old_size = self.image.file_size
+        old_data = self.get_content()
+
+        old_rendition = self.image.get_rendition('fill-5x5')
+        old_rendition_data = self.get_content(old_rendition.file)
+
+        new_name = self.image.filename
+        new_file = SimpleUploadedFile(
+            new_name, get_test_image_file(colour='red').file.getvalue())
+        new_size = new_file.size
+
+        response = self.post({
+            'title': self.image.title, 'file': new_file,
+        })
+        self.assertRedirects(response, reverse('wagtailimages:index'))
+        self.update_from_db()
+        self.assertFalse(self.storage.exists(old_file.name))
+        self.assertTrue(self.storage.exists(self.image.file.name))
+        self.assertNotEqual(self.image.file.name,
+                            'original_images/' + new_name)
+        self.assertNotEqual(self.image.file_size, old_size)
+        self.assertEqual(self.image.file_size, new_size)
+        self.assertNotEqual(self.get_content(), old_data)
+
+        new_rendition = self.image.get_rendition('fill-5x5')
+        self.assertNotEqual(old_rendition.file.name, new_rendition.file.name)
+        self.assertNotEqual(self.get_content(new_rendition.file),
+                            old_rendition_data)
+
+    def test_reupload_different_name(self):
+        """
+        Checks that reuploading the image file with a different file name
+        correctly uses the new file name.
+        """
+        old_file = self.image.file
+        old_size = self.image.file_size
+        old_data = self.get_content()
+
+        old_rendition = self.image.get_rendition('fill-5x5')
+        old_rendition_data = self.get_content(old_rendition.file)
+
+        new_name = 'test_reupload_different_name.png'
+        new_file = SimpleUploadedFile(
+            new_name, get_test_image_file(colour='red').file.getvalue())
+        new_size = new_file.size
+
+        response = self.post({
+            'title': self.image.title, 'file': new_file,
+        })
+        self.assertRedirects(response, reverse('wagtailimages:index'))
+        self.update_from_db()
+        self.assertFalse(self.storage.exists(old_file.name))
+        self.assertTrue(self.storage.exists(self.image.file.name))
+        self.assertEqual(self.image.file.name,
+                         'original_images/' + new_name)
+        self.assertNotEqual(self.image.file_size, old_size)
+        self.assertEqual(self.image.file_size, new_size)
+        self.assertNotEqual(self.get_content(), old_data)
+
+        new_rendition = self.image.get_rendition('fill-5x5')
+        self.assertNotEqual(old_rendition.file.name, new_rendition.file.name)
+        self.assertNotEqual(self.get_content(new_rendition.file),
+                            old_rendition_data)
+
+    @override_settings(USE_L10N=True, USE_THOUSAND_SEPARATOR=True)
+    def test_no_thousand_separators_in_focal_point_editor(self):
+        large_image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(size=(1024, 768)),
+        )
+        response = self.client.get(reverse('wagtailimages:edit', args=(large_image.id,)))
+        self.assertContains(response, 'data-original-width="1024"')
 
 
 class TestImageDeleteView(TestCase, WagtailTestUtils):
@@ -394,10 +480,19 @@ class TestImageDeleteView(TestCase, WagtailTestUtils):
     def post(self, post_data={}):
         return self.client.post(reverse('wagtailimages:delete', args=(self.image.id,)), post_data)
 
+    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=False)
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailimages/images/confirm_delete.html')
+        self.assertNotIn('Used ', str(response.content))
+
+    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
+    def test_usage_link(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailimages/images/confirm_delete.html')
+        self.assertIn('Used 0 times', str(response.content))
 
     def test_delete(self):
         response = self.post()

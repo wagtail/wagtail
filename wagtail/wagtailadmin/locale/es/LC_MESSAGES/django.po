@@ -7,18 +7,19 @@
 # Daniel Chimeno <daniel@chimeno.me>, 2016
 # fooflare <amos.oviedo@gmail.com>, 2014
 # Joaquín Tita <carpincho@gmail.com>, 2014
-# Yusuf (Josè) Luis <alagunajs@gmail.com>, 2015-2016
+# José Luis <alagunajs@gmail.com>, 2015-2016
+# José Luis <alagunajs@gmail.com>, 2017
 # Matt Westcott <matthew@torchbox.com>, 2016
 # Mauricio Baeza <python@amigos.email>, 2015
 # Unai Zalakain <inactive+unaizalakain@transifex.com>, 2014
-# Yusuf (Josè) Luis <alagunajs@gmail.com>, 2016-2017
+# José Luis <alagunajs@gmail.com>, 2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-04-30 12:01+0000\n"
-"Last-Translator: Yusuf (Josè) Luis <alagunajs@gmail.com>\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"PO-Revision-Date: 2017-10-09 12:48+0000\n"
+"Last-Translator: José Luis <alagunajs@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -123,6 +124,10 @@ msgstr[1] ""
 "%(count)s de las páginas copiadas es en vivo. Quiere publicar sus copias?"
 
 #, python-format
+msgid "You do not have permission to copy to page \"%(page_title)s\""
+msgstr "No tiene permisos para copiar a página \"%(page_title)s\""
+
+#, python-format
 msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
 msgstr ""
@@ -153,6 +158,18 @@ msgstr "La fecha/tiempo de expiración debe ser en el futuro"
 msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
 "No puedes tener múltiples permisos de registro para una misma colección."
+
+msgid "Error 404: Page not found"
+msgstr "Error 404: Página no encontrada."
+
+msgid "Error 404"
+msgstr "Error 404"
+
+msgid "The requested page could not be found."
+msgstr "La página solicitada no pudo ser encontrada."
+
+msgid "Go to Wagtail admin"
+msgstr "Ir al Administrador Wagtail"
 
 msgid "Account"
 msgstr "Cuenta"
@@ -233,6 +250,33 @@ msgstr "Restablecer contraseña"
 
 msgid "Reset your password"
 msgstr "Restablecer tu contraseña"
+
+msgid "Edit"
+msgstr "Editar"
+
+msgid "Page"
+msgstr "Página"
+
+msgid "Pages"
+msgstr "Páginas"
+
+msgid "Loading..."
+msgstr "Cargando..."
+
+msgid "No results"
+msgstr "Sin resultados"
+
+msgid "Server Error"
+msgstr "Error de servidor"
+
+msgid "See children"
+msgstr "Ver hijos"
+
+msgid "See all"
+msgstr "Ver todo"
+
+msgid "Close explorer"
+msgstr "Cerrar explorador"
 
 msgid "Dashboard"
 msgstr "Panel de control"
@@ -317,6 +361,33 @@ msgstr "Inserta un enlace"
 msgid "Add an external link"
 msgstr "Añade un enlace externo"
 
+msgid "Collection privacy"
+msgstr "Privacidad de la Colección"
+
+msgid "This collection has been made private by a parent collection."
+msgstr "Ésta colección ha sido hecha privada por una colección pariente."
+
+msgid "You can edit the privacy settings on:"
+msgstr "Puede editar los ajustes de privacidad sobre:"
+
+msgid ""
+"Privacy settings determine who is able to view documents in this collection."
+msgstr ""
+"Las opciones de privacidad determinan quién es capaz de ver un documento en "
+"esta colección."
+
+msgid "Save"
+msgstr "Guardar"
+
+msgid "Privacy"
+msgstr "Privacidad"
+
+msgid "Public"
+msgstr "Público"
+
+msgid "Private"
+msgstr "Privado"
+
 msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
 msgstr "Esta colección no puede ser borrada, por que no está vacía. Contiene:"
@@ -338,9 +409,6 @@ msgstr "Añadir %(heading)s"
 
 msgid "Yes, delete"
 msgstr "Sí, eliminar"
-
-msgid "Save"
-msgstr "Guardar"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -376,9 +444,6 @@ msgstr "Aprobar"
 
 msgid "Reject"
 msgstr "Rechazar"
-
-msgid "Edit"
-msgstr "Editar"
 
 msgid "Preview"
 msgstr "Previsualizar"
@@ -488,9 +553,6 @@ msgstr "Privacidad de la página"
 msgid "This page has been made private by a parent page."
 msgstr "Esta página fue convertida en privada por una página padre."
 
-msgid "You can edit the privacy settings on:"
-msgstr "Puede editar los ajustes de privacidad sobre:"
-
 msgid "Privacy changes apply to all children of this page too."
 msgstr "Los cambios de privacidad se aplican a todos los hijos de esta página."
 
@@ -502,15 +564,6 @@ msgstr "Bloqueada"
 
 msgid "Unlocked"
 msgstr "Desbloqueada"
-
-msgid "Privacy"
-msgstr "Privacidad"
-
-msgid "Public"
-msgstr "Público"
-
-msgid "Private"
-msgstr "Privado"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -928,6 +981,9 @@ msgstr "por"
 msgid "Current draft"
 msgstr "Borrador actual"
 
+msgid "Live version"
+msgstr "Versión en vivo"
+
 msgid "Review this revision"
 msgstr "Resumen de esta revision"
 
@@ -968,6 +1024,9 @@ msgstr "Páginas sin uso"
 
 msgid "Collection"
 msgstr "Colección"
+
+msgid "Root"
+msgstr "Raíz"
 
 msgid "Home"
 msgstr "Hogar"
@@ -1033,10 +1092,10 @@ msgid "Sat"
 msgstr "Sáb"
 
 #, python-format
-msgid "Used %(useage_count)s time"
-msgid_plural "Used %(useage_count)s times"
-msgstr[0] "Utilizado  %(useage_count)s vez"
-msgstr[1] "Utilizado %(useage_count)s veces"
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Utilizado  %(usage_count)s vez"
+msgstr[1] "Utilizado %(usage_count)s veces"
 
 msgid "Edit your account"
 msgstr "Editar tu cuenta"
@@ -1083,9 +1142,6 @@ msgstr ""
 msgid "Go to Wagtail admin interface"
 msgstr "Ir a la interface de admin Wagtail"
 
-msgid "Go to Wagtail admin"
-msgstr "Ir al Administrador Wagtail"
-
 msgid "Add a child page"
 msgstr "Añadir página hija"
 
@@ -1125,6 +1181,9 @@ msgstr "Islandés"
 msgid "Italian"
 msgstr "Italiano"
 
+msgid "Korean"
+msgstr "Coreano"
+
 msgid "Lithuanian"
 msgstr "Lituano"
 
@@ -1133,6 +1192,9 @@ msgstr "Holandés Bokmål"
 
 msgid "Netherlands Dutch"
 msgstr "Holandés"
+
+msgid "Persian"
+msgstr "Persa"
 
 msgid "Polish"
 msgstr "Polaco"
@@ -1149,6 +1211,9 @@ msgstr "Rumano"
 msgid "Russian"
 msgstr "Ruso"
 
+msgid "Swedish"
+msgstr "Sueco"
+
 msgid "Chinese (China)"
 msgstr "Chino (China)"
 
@@ -1157,9 +1222,6 @@ msgstr "Lo sentimos, no tienes permisos para acceder a esta área."
 
 msgid "Your password has been changed successfully!"
 msgstr "¡Tu contraseña ha sido cambiada con éxito!"
-
-msgid "Your preferences have been updated successfully!"
-msgstr "¡Sus preferencias han sido actualizadas exitosamente!"
 
 msgid "Your preferences have been updated."
 msgstr "Sus preferencias han sido actualizadas."
@@ -1328,9 +1390,6 @@ msgstr "Primeros"
 
 msgid "Latest"
 msgstr "Últimos"
-
-msgid "Pages"
-msgstr "Páginas"
 
 #, python-brace-format
 msgid "Edit '{title}'"

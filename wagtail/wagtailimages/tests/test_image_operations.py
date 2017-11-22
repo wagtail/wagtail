@@ -1,7 +1,8 @@
 from __future__ import absolute_import, unicode_literals
 
+from io import BytesIO
+
 from django.test import TestCase, override_settings
-from django.utils.six import BytesIO
 from mock import Mock, patch
 
 from wagtail.wagtailcore import hooks

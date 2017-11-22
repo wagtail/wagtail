@@ -23,12 +23,12 @@ def patch_search_fields(model, new_search_fields):
 
 class TestContentTypeNames(TestCase):
     def test_base_content_type_name(self):
-        name = models.SearchTestChild.indexed_get_toplevel_content_type()
-        self.assertEqual(name, 'searchtests_searchtest')
+        name = models.Novel.indexed_get_toplevel_content_type()
+        self.assertEqual(name, 'searchtests_book')
 
     def test_qualified_content_type_name(self):
-        name = models.SearchTestChild.indexed_get_content_type()
-        self.assertEqual(name, 'searchtests_searchtest_searchtests_searchtestchild')
+        name = models.Novel.indexed_get_content_type()
+        self.assertEqual(name, 'searchtests_book_searchtests_novel')
 
 
 class TestSearchFields(TestCase):
@@ -85,12 +85,12 @@ class TestSearchFields(TestCase):
         self.assertEqual(len(cls.get_filterable_search_fields()), 1)
 
     def test_checking_search_fields(self):
-        with patch_search_fields(models.SearchTest, models.SearchTest.search_fields + [index.SearchField('foo')]):
+        with patch_search_fields(models.Book, models.Book.search_fields + [index.SearchField('foo')]):
             expected_errors = [
                 checks.Warning(
-                    "SearchTest.search_fields contains field 'foo' but it doesn't exist",
-                    obj=models.SearchTest
+                    "Book.search_fields contains field 'foo' but it doesn't exist",
+                    obj=models.Book
                 )
             ]
-            errors = models.SearchTest.check()
+            errors = models.Book.check()
             self.assertEqual(errors, expected_errors)

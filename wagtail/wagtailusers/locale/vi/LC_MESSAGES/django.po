@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-04-19 21:08+0000\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"PO-Revision-Date: 2017-10-06 15:11+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Vietnamese (http://www.transifex.com/torchbox/wagtail/"
 "language/vi/)\n"
@@ -122,9 +122,6 @@ msgstr "Tìm nhóm"
 #, python-brace-format
 msgid "Group '{0}' created."
 msgstr "Nhóm '{0}' đã được tạo."
-
-msgid "The group could not be created due to errors."
-msgstr "Nhóm không tạo được vì lỗi."
 
 #, python-brace-format
 msgid "Group '{0}' updated."

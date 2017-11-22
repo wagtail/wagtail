@@ -1,10 +1,12 @@
 from __future__ import absolute_import, unicode_literals
 
-from django.core.urlresolvers import reverse
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import redirect
+from django.urls import reverse
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy
-from django.views.generic.base import View
+from django.views.generic.base import TemplateResponseMixin
+from django.views.generic.edit import BaseCreateView, BaseDeleteView, BaseUpdateView
+from django.views.generic.list import BaseListView
 
 from wagtail.wagtailadmin import messages
 from wagtail.wagtailadmin.utils import permission_denied
@@ -44,7 +46,7 @@ class PermissionCheckedMixin(object):
         return super(PermissionCheckedMixin, self).dispatch(request, *args, **kwargs)
 
 
-class IndexView(PermissionCheckedMixin, View):
+class IndexView(PermissionCheckedMixin, TemplateResponseMixin, BaseListView):
     model = None
     header_icon = ''
     index_url_name = None
@@ -54,27 +56,16 @@ class IndexView(PermissionCheckedMixin, View):
     any_permission_required = ['add', 'change', 'delete']
     template_name = None
 
-    def get_queryset(self):
-        return self.model.objects.all()
-
-    def get(self, request):
-        object_list = self.get_queryset()
-
-        context = {
-            'view': self,
-            'object_list': object_list,
-            'can_add': (
-                self.permission_policy is None or
-                self.permission_policy.user_has_permission(self.request.user, 'add')
-            ),
-        }
-        if self.context_object_name:
-            context[self.context_object_name] = object_list
-
-        return render(request, self.template_name, context)
+    def get_context_data(self, **kwargs):
+        context = super(IndexView, self).get_context_data(**kwargs)
+        context['can_add'] = (
+            self.permission_policy is None or
+            self.permission_policy.user_has_permission(self.request.user, 'add')
+        )
+        return context
 
 
-class CreateView(PermissionCheckedMixin, View):
+class CreateView(PermissionCheckedMixin, TemplateResponseMixin, BaseCreateView):
     model = None
     form_class = None
     header_icon = ''
@@ -83,13 +74,24 @@ class CreateView(PermissionCheckedMixin, View):
     edit_url_name = None
     template_name = 'wagtailadmin/generic/create.html'
     permission_required = 'add'
+    success_message = None
+    error_message = None
 
     def get_add_url(self):
         return reverse(self.add_url_name)
 
-    def get(self, request):
-        self.form = self.form_class()
-        return self.render_to_response()
+    def get_success_url(self):
+        return reverse(self.index_url_name)
+
+    def get_success_message(self, instance):
+        if self.success_message is None:
+            return None
+        return self.success_message.format(instance)
+
+    def get_error_message(self):
+        if self.error_message is None:
+            return None
+        return self.error_message
 
     def save_instance(self):
         """
@@ -98,26 +100,25 @@ class CreateView(PermissionCheckedMixin, View):
         """
         return self.form.save()
 
-    def post(self, request):
-        self.form = self.form_class(request.POST)
-        if self.form.is_valid():
-            instance = self.save_instance()
-
-            messages.success(request, self.success_message.format(instance), buttons=[
-                messages.button(reverse(self.edit_url_name, args=(instance.id,)), _('Edit'))
+    def form_valid(self, form):
+        self.form = form
+        self.object = self.save_instance()
+        success_message = self.get_success_message(self.object)
+        if success_message is not None:
+            messages.success(self.request, success_message, buttons=[
+                messages.button(reverse(self.edit_url_name, args=(self.object.id,)), _('Edit'))
             ])
-            return redirect(self.index_url_name)
-        else:
-            return self.render_to_response()
+        return redirect(self.get_success_url())
 
-    def render_to_response(self):
-        return render(self.request, self.template_name, {
-            'view': self,
-            'form': self.form,
-        })
+    def form_invalid(self, form):
+        self.form = form
+        error_message = self.get_error_message()
+        if error_message is not None:
+            messages.error(self.request, error_message)
+        return super(CreateView, self).form_invalid(form)
 
 
-class EditView(PermissionCheckedMixin, View):
+class EditView(PermissionCheckedMixin, TemplateResponseMixin, BaseUpdateView):
     model = None
     form_class = None
     header_icon = ''
@@ -128,18 +129,26 @@ class EditView(PermissionCheckedMixin, View):
     context_object_name = None
     template_name = 'wagtailadmin/generic/edit.html'
     permission_required = 'change'
+    delete_item_label = ugettext_lazy("Delete")
+    success_message = None
+    error_message = None
 
-    def get_queryset(self):
-        return self.model.objects.all()
+    def get_object(self, queryset=None):
+        if 'pk' not in self.kwargs:
+            self.kwargs['pk'] = self.args[0]
+        return super(EditView, self).get_object(queryset)
 
     def get_page_subtitle(self):
-        return str(self.instance)
+        return str(self.object)
 
     def get_edit_url(self):
-        return reverse(self.edit_url_name, args=(self.instance.id,))
+        return reverse(self.edit_url_name, args=(self.object.id,))
 
     def get_delete_url(self):
-        return reverse(self.delete_url_name, args=(self.instance.id,))
+        return reverse(self.delete_url_name, args=(self.object.id,))
+
+    def get_success_url(self):
+        return reverse(self.index_url_name)
 
     def save_instance(self):
         """
@@ -148,42 +157,43 @@ class EditView(PermissionCheckedMixin, View):
         """
         return self.form.save()
 
-    def get(self, request, instance_id):
-        self.instance = get_object_or_404(self.get_queryset(), id=instance_id)
-        self.form = self.form_class(instance=self.instance)
-        return self.render_to_response()
+    def get_success_message(self):
+        if self.success_message is None:
+            return None
+        return self.success_message.format(self.object)
 
-    def post(self, request, instance_id):
-        self.instance = get_object_or_404(self.get_queryset(), id=instance_id)
-        self.form = self.form_class(request.POST, instance=self.instance)
-        if self.form.is_valid():
-            self.save_instance()
-            messages.success(request, self.success_message.format(self.instance), buttons=[
-                messages.button(reverse(self.edit_url_name, args=(self.instance.id,)), _('Edit'))
+    def get_error_message(self):
+        if self.error_message is None:
+            return None
+        return self.error_message
+
+    def form_valid(self, form):
+        self.form = form
+        self.object = self.save_instance()
+        success_message = self.get_success_message()
+        if success_message is not None:
+            messages.success(self.request, success_message, buttons=[
+                messages.button(reverse(self.edit_url_name, args=(self.object.id,)), _('Edit'))
             ])
-            return redirect(self.index_url_name)
-        else:
-            messages.error(request, self.error_message)
+        return redirect(self.get_success_url())
 
-        return self.render_to_response()
+    def form_invalid(self, form):
+        self.form = form
+        error_message = self.get_error_message()
+        if error_message is not None:
+            messages.error(self.request, error_message)
+        return super(EditView, self).form_invalid(form)
 
-    def render_to_response(self):
-        context = {
-            'view': self,
-            'object': self.instance,
-            'form': self.form,
-            'can_delete': (
-                self.permission_policy is None or
-                self.permission_policy.user_has_permission(self.request.user, 'delete')
-            ),
-        }
-        if self.context_object_name:
-            context[self.context_object_name] = self.instance
-
-        return render(self.request, self.template_name, context)
+    def get_context_data(self, **kwargs):
+        context = super(EditView, self).get_context_data(**kwargs)
+        context['can_delete'] = (
+            self.permission_policy is None or
+            self.permission_policy.user_has_permission(self.request.user, 'delete')
+        ),
+        return context
 
 
-class DeleteView(PermissionCheckedMixin, View):
+class DeleteView(PermissionCheckedMixin, TemplateResponseMixin, BaseDeleteView):
     model = None
     header_icon = ''
     index_url_name = None
@@ -191,35 +201,28 @@ class DeleteView(PermissionCheckedMixin, View):
     template_name = 'wagtailadmin/generic/confirm_delete.html'
     context_object_name = None
     permission_required = 'delete'
+    success_message = None
 
-    def get_queryset(self):
-        return self.model.objects.all()
+    def get_object(self, queryset=None):
+        if 'pk' not in self.kwargs:
+            self.kwargs['pk'] = self.args[0]
+        return super(DeleteView, self).get_object(queryset)
+
+    def get_success_url(self):
+        return reverse(self.index_url_name)
 
     def get_page_subtitle(self):
-        return str(self.instance)
+        return str(self.object)
 
     def get_delete_url(self):
-        return reverse(self.delete_url_name, args=(self.instance.id,))
+        return reverse(self.delete_url_name, args=(self.object.id,))
 
-    def get_context(self):
-        context = {
-            'view': self,
-            'object': self.instance,
-        }
-        if self.context_object_name:
-            context[self.context_object_name] = self.instance
+    def get_success_message(self):
+        if self.success_message is None:
+            return None
+        return self.success_message.format(self.object)
 
-        return context
-
-    def get(self, request, instance_id):
-        self.instance = get_object_or_404(self.get_queryset(), id=instance_id)
-
-        context = self.get_context()
-
-        return render(request, self.template_name, context)
-
-    def post(self, request, instance_id):
-        self.instance = get_object_or_404(self.get_queryset(), id=instance_id)
-        self.instance.delete()
-        messages.success(request, self.success_message.format(self.instance))
-        return redirect(self.index_url_name)
+    def delete(self, request, *args, **kwargs):
+        response = super(DeleteView, self).delete(request, *args, **kwargs)
+        messages.success(request, self.get_success_message())
+        return response

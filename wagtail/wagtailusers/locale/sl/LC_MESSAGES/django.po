@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-04-19 21:08+0000\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"PO-Revision-Date: 2017-10-06 15:11+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
@@ -225,18 +225,15 @@ msgstr ""
 "Dodan ni še noben uporabnik. Zakaj ga ne bi <a href="
 "\"%(wagtailusers_create_url)s\">dodali</a>?"
 
+msgid "Groups"
+msgstr "Skupine"
+
 msgid "Search groups"
 msgstr "Iskanje po skupinah"
 
 #, python-brace-format
 msgid "Group '{0}' created."
 msgstr "Skupina '{0}' ustvarjena."
-
-msgid "Edit"
-msgstr "Uredi"
-
-msgid "The group could not be created due to errors."
-msgstr "Skupine, zaradi napak, ni bilo možno ustvariti."
 
 #, python-brace-format
 msgid "Group '{0}' updated."
@@ -256,6 +253,9 @@ msgstr "Iskanje po uporabnikih"
 msgid "User '{0}' created."
 msgstr "Uporabnik '{0}' ustvarjen."
 
+msgid "Edit"
+msgstr "Uredi"
+
 msgid "The user could not be created due to errors."
 msgstr "Uporabnika, zaradi napak, ni bilo možno ustvariti."
 
@@ -265,6 +265,3 @@ msgstr "Uporabnik '{0}' posodobljen."
 
 msgid "The user could not be saved due to errors."
 msgstr "Uporabnika, zaradi napak, ni bilo možno shraniti."
-
-msgid "Groups"
-msgstr "Skupine"

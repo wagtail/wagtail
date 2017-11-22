@@ -35,14 +35,17 @@ WAGTAILADMIN_PROVIDED_LANGUAGES = [
     ('gl', ugettext_lazy('Galician')),
     ('is-is', ugettext_lazy('Icelandic')),
     ('it', ugettext_lazy('Italian')),
+    ('ko', ugettext_lazy('Korean')),
     ('lt', ugettext_lazy('Lithuanian')),
     ('nb', ugettext_lazy('Norwegian Bokmål')),
     ('nl-nl', ugettext_lazy('Netherlands Dutch')),
+    ('fa', ugettext_lazy('Persian')),
     ('pl', ugettext_lazy('Polish')),
     ('pt-br', ugettext_lazy('Brazilian Portuguese')),
     ('pt-pt', ugettext_lazy('Portuguese')),
     ('ro', ugettext_lazy('Romanian')),
     ('ru', ugettext_lazy('Russian')),
+    ('se', ugettext_lazy('Swedish')),
     ('zh-cn', ugettext_lazy('Chinese (China)')),
 ]
 
@@ -73,7 +76,7 @@ def get_object_usage(obj):
             # if the relation is between obj and an object that has a page as a
             # property, return the page
             for f in related_model._meta.fields:
-                if isinstance(f, ParentalKey) and issubclass(f.rel.to, Page):
+                if isinstance(f, ParentalKey) and issubclass(f.remote_field.model, Page):
                     pages |= Page.objects.filter(
                         id__in=related_model._base_manager.filter(
                             **{

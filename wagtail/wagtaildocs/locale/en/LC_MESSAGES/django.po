@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -66,13 +66,13 @@ msgid "Search"
 msgstr ""
 
 #: templates/wagtaildocs/chooser/chooser.html:9
-#: templates/wagtaildocs/chooser/chooser.html:38
-#: templates/wagtaildocs/documents/add.html:31
+#: templates/wagtaildocs/chooser/chooser.html:42
+#: templates/wagtaildocs/documents/add.html:35
 msgid "Upload"
 msgstr ""
 
-#: templates/wagtaildocs/chooser/chooser.html:38
-#: templates/wagtaildocs/documents/add.html:31
+#: templates/wagtaildocs/chooser/chooser.html:42
+#: templates/wagtaildocs/documents/add.html:35
 msgid "Uploading..."
 msgstr ""
 
@@ -127,7 +127,7 @@ msgid "Delete %(title)s"
 msgstr ""
 
 #: templates/wagtaildocs/documents/confirm_delete.html:5
-#: templates/wagtaildocs/documents/edit.html:39
+#: templates/wagtaildocs/documents/edit.html:41
 msgid "Delete document"
 msgstr ""
 
@@ -148,20 +148,20 @@ msgstr ""
 msgid "Editing"
 msgstr ""
 
-#: templates/wagtaildocs/documents/edit.html:37
+#: templates/wagtaildocs/documents/edit.html:39
 msgid "Save"
 msgstr ""
 
-#: templates/wagtaildocs/documents/edit.html:48
+#: templates/wagtaildocs/documents/edit.html:50
 msgid "Filesize"
 msgstr ""
 
-#: templates/wagtaildocs/documents/edit.html:49
+#: templates/wagtaildocs/documents/edit.html:51
 msgid "File not found"
 msgstr ""
 
-#: templates/wagtaildocs/documents/index.html:22 wagtail_hooks.py:44
-#: wagtail_hooks.py:108
+#: templates/wagtaildocs/documents/index.html:22 wagtail_hooks.py:49
+#: wagtail_hooks.py:124
 msgid "Documents"
 msgstr ""
 
@@ -276,6 +276,10 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
+#: templates/wagtaildocs/password_required.html:5
+msgid "You need a password to access this document."
+msgstr ""
+
 #: templates/wagtaildocs/permissions/includes/document_permissions_formset.html:4
 msgid "Document permissions"
 msgstr ""
@@ -312,7 +316,7 @@ msgstr ""
 msgid "Document '{0}' deleted."
 msgstr ""
 
-#: wagtail_hooks.py:127
+#: wagtail_hooks.py:143
 #, python-format
 msgid "%(count)s document"
 msgid_plural "%(count)s documents"

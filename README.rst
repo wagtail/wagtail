@@ -14,7 +14,7 @@ Wagtail CMS
 Wagtail is a content management system built on Django. It's focused on user experience,
 and offers precise control for designers and developers.
 
-.. image:: http://i.imgur.com/U5MDa0l.jpg
+.. image:: http://i.imgur.com/hSVerKq.jpg
    :width: 728 px
 
 Features
@@ -30,7 +30,7 @@ Features
 * Straightforward integration with existing Django apps
 * Simple, configurable permissions
 * Workflow support
-* An extensible `form builder <http://docs.wagtail.io/en/latest/reference/contrib/forms.html>`_
+* An extensible `form builder <http://docs.wagtail.io/en/latest/reference/contrib/forms/index.html>`_
 * Multi-site and multi-language support
 * Excellent `test coverage <https://coveralls.io/r/torchbox/wagtail?branch=master>`_
 
@@ -80,7 +80,7 @@ We thank `BrowserStack <https://www.browserstack.com/>`_, who provide the projec
 
 Compatibility
 ~~~~~~~~~~~~~
-Wagtail supports Django 1.8.x, 1.10.x and 1.11.x, on Python 2.7, 3.4, 3.5 and 3.6. Supported database backends are PostgreSQL, MySQL and SQLite.
+Wagtail supports Django 1.11.x on Python 3.4, 3.5 and 3.6. Supported database backends are PostgreSQL, MySQL and SQLite.
 
 Contributing
 ~~~~~~~~~~~~

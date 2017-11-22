@@ -4,6 +4,7 @@ from django.conf.urls import url
 
 from wagtail.wagtailimages.views import chooser, images, multiple
 
+app_name = 'wagtailimages'
 urlpatterns = [
     url(r'^$', images.index, name='index'),
     url(r'^(\d+)/$', images.edit, name='edit'),

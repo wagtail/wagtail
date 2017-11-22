@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-04-19 21:05+0000\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"PO-Revision-Date: 2017-10-06 15:06+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
@@ -186,6 +186,9 @@ msgstr "Jelszó módosítva"
 msgid "Reset your password"
 msgstr "Módosítsa jelszavát"
 
+msgid "Edit"
+msgstr "Szerkeszt"
+
 msgid "Dashboard"
 msgstr "Műszerfal"
 
@@ -267,6 +270,12 @@ msgstr "Link beszúrása"
 msgid "Add an external link"
 msgstr "Külső link hozzáadása"
 
+msgid "Save"
+msgstr "Mentés"
+
+msgid "Public"
+msgstr "Publikus"
+
 msgid "Name"
 msgstr "Név"
 
@@ -276,9 +285,6 @@ msgstr "%(heading)s hozzáadása"
 
 msgid "Yes, delete"
 msgstr "Törlés megerősítése"
-
-msgid "Save"
-msgstr "Mentés"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -314,9 +320,6 @@ msgstr "Jóváhagy"
 
 msgid "Reject"
 msgstr "Elutasít"
-
-msgid "Edit"
-msgstr "Szerkeszt"
 
 msgid "Preview"
 msgstr "Előnézet"
@@ -414,9 +417,6 @@ msgstr "Az oldal hozzáferése"
 
 msgid "Locked"
 msgstr "Zárolt"
-
-msgid "Public"
-msgstr "Publikus"
 
 #, python-format
 msgid "Delete %(title)s"

@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-04-19 21:08+0000\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"PO-Revision-Date: 2017-10-06 15:11+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
 "tr/)\n"
@@ -141,15 +141,15 @@ msgstr "Pasif"
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
 msgstr "Üzgünüm,  \"<em>%(query_string)s</em>\" ile eşleşen kullanıcı yok."
 
+msgid "Groups"
+msgstr "Gruplar"
+
 msgid "Search groups"
 msgstr "Grupları ara"
 
 #, python-brace-format
 msgid "Group '{0}' created."
 msgstr "'{0}' grubu oluşturuldu."
-
-msgid "Edit"
-msgstr "Düzenle"
 
 #, python-brace-format
 msgid "Group '{0}' updated."
@@ -158,8 +158,8 @@ msgstr "'{0}' grup güncellendi."
 msgid "Search users"
 msgstr "Kullanıcıları ara"
 
-msgid "Groups"
-msgstr "Gruplar"
+msgid "Edit"
+msgstr "Düzenle"
 
 msgid "Delete this user"
 msgstr "Kullanıcıyı sil"

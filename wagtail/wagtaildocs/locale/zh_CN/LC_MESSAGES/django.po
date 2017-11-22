@@ -4,14 +4,16 @@
 #
 # Translators:
 # hanfeng <appweb.cn@gmail.com>, 2014-2015
+# Vincent Zhao <zhaopu2008@gmail.com>, 2017
 # jszsj <zhushajun@gmail.com>, 2017
+# 汇民 王 <whuim@qq.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-04-05 03:24+0000\n"
-"Last-Translator: jszsj <zhushajun@gmail.com>\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"PO-Revision-Date: 2017-09-20 15:49+0000\n"
+"Last-Translator: 汇民 王 <whuim@qq.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -24,7 +26,7 @@ msgid "Add"
 msgstr "添加"
 
 msgid "Add/edit documents you own"
-msgstr "增加/编辑所属的文档"
+msgstr "添加/编辑所属的文档"
 
 msgid "Edit"
 msgstr "编辑"
@@ -42,7 +44,7 @@ msgid "created at"
 msgstr "创建于"
 
 msgid "uploaded by user"
-msgstr "上传用户"
+msgstr "用户上传"
 
 msgid "tags"
 msgstr "标签"
@@ -93,10 +95,10 @@ msgid "Change document:"
 msgstr "修改文档："
 
 msgid "Add a document"
-msgstr "增加文档"
+msgstr "添加一个文档"
 
 msgid "Add document"
-msgstr "增加文档"
+msgstr "添加文档"
 
 #, python-format
 msgid "Delete %(title)s"
@@ -156,7 +158,8 @@ msgid ""
 "You haven't uploaded any documents. Why not <a href="
 "\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"还没有文档呢。<a href=\"%(wagtaildocs_add_document_url)s\">上传一个</a>吧？"
+"一个文档都没有呢，现在<a href=\"%(wagtaildocs_add_document_url)s\">上传一个</"
+"a> ？"
 
 #, python-format
 msgid "Usage of %(title)s"
@@ -166,7 +169,7 @@ msgid "Usage of"
 msgstr "使用情况"
 
 msgid "Parent"
-msgstr "父节点"
+msgstr "上一级"
 
 msgid "Type"
 msgstr "类型"
@@ -175,7 +178,7 @@ msgid "Status"
 msgstr "状态"
 
 msgid "Edit this page"
-msgstr "编辑页面"
+msgstr "编辑此页面"
 
 #, python-format
 msgid ""
@@ -192,16 +195,16 @@ msgstr[0] ""
 "    "
 
 msgid "Add multiple documents"
-msgstr "增加多个文档"
+msgstr "添加多个文档"
 
 msgid "Add documents"
-msgstr "增加文档"
+msgstr "添加多个文档"
 
 msgid "Drag and drop documents into this area to upload immediately."
-msgstr "拖曳多个文档到此区域来快速上传。"
+msgstr "拖曳多个文档到此区域即可上传。"
 
 msgid "Or choose from your computer"
-msgstr "或者打开选择框"
+msgstr "或者打开本地文件选择框"
 
 msgid "Add to collection:"
 msgstr "添加到集合："
@@ -211,7 +214,8 @@ msgid ""
 "title, if necessary. You may also delete the document completely if the "
 "upload wasn't required."
 msgstr ""
-"上传成功。如有必要，可为文档填写更合适的标题。如果不需要的话，也可以删除。"
+"上传成功。如有必要，可为文档填写更合适的标题。如果不需要本次上传的文档，也可"
+"以彻底删除它们。"
 
 msgid "Sorry, upload failed."
 msgstr "对不起，上传失败。"
@@ -221,6 +225,9 @@ msgstr "更新"
 
 msgid "Delete"
 msgstr "删除"
+
+msgid "You need a password to access this document."
+msgstr "你需要一个密码来访问这个文档。"
 
 msgid "Document permissions"
 msgstr "文档权限"

@@ -74,6 +74,14 @@ class TestFormBuilder(TestCase):
         FormField.objects.create(
             page=self.form_page,
             sort_order=2,
+            label="Your favourite text editors",
+            field_type='multiselect',
+            required=True,
+            choices='vim,nano,emacs',
+        )
+        FormField.objects.create(
+            page=self.form_page,
+            sort_order=2,
             label="Your favourite Python IDEs",
             field_type='dropdown',
             required=True,
@@ -103,6 +111,13 @@ class TestFormBuilder(TestCase):
             field_type='checkbox',
             required=True,
         )
+        FormField.objects.create(
+            page=self.form_page,
+            sort_order=1,
+            label="A Hidden Field",
+            field_type='hidden',
+            required=False,
+        )
 
         # Create a form builder
         self.fb = FormBuilder(self.form_page.get_form_fields())
@@ -122,10 +137,12 @@ class TestFormBuilder(TestCase):
         self.assertIn('your-email', field_names)
         self.assertIn('your-homepage', field_names)
         self.assertIn('your-favourite-number', field_names)
+        self.assertIn('your-favourite-text-editors', field_names)
         self.assertIn('your-favourite-python-ides', field_names)
         self.assertIn('your-favourite-python-ide', field_names)
         self.assertIn('your-choices', field_names)
         self.assertIn('i-agree-to-the-terms-of-use', field_names)
+        self.assertIn('a-hidden-field', field_names)
 
         # All fields have proper type
         self.assertIsInstance(form_class.base_fields['your-name'], forms.CharField)
@@ -135,12 +152,15 @@ class TestFormBuilder(TestCase):
         self.assertIsInstance(form_class.base_fields['your-email'], forms.EmailField)
         self.assertIsInstance(form_class.base_fields['your-homepage'], forms.URLField)
         self.assertIsInstance(form_class.base_fields['your-favourite-number'], forms.DecimalField)
+        self.assertIsInstance(form_class.base_fields['your-favourite-text-editors'], forms.MultipleChoiceField)
         self.assertIsInstance(form_class.base_fields['your-favourite-python-ides'], forms.ChoiceField)
         self.assertIsInstance(form_class.base_fields['your-favourite-python-ide'], forms.ChoiceField)
         self.assertIsInstance(form_class.base_fields['your-choices'], forms.MultipleChoiceField)
         self.assertIsInstance(form_class.base_fields['i-agree-to-the-terms-of-use'], forms.BooleanField)
+        self.assertIsInstance(form_class.base_fields['a-hidden-field'], forms.CharField)
 
         # Some fields have non-default widgets
         self.assertIsInstance(form_class.base_fields['your-message'].widget, forms.Textarea)
         self.assertIsInstance(form_class.base_fields['your-favourite-python-ide'].widget, forms.RadioSelect)
         self.assertIsInstance(form_class.base_fields['your-choices'].widget, forms.CheckboxSelectMultiple)
+        self.assertIsInstance(form_class.base_fields['a-hidden-field'].widget, forms.HiddenInput)

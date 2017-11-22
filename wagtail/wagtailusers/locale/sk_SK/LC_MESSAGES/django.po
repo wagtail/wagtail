@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 21:02+0000\n"
-"PO-Revision-Date: 2017-04-19 21:08+0000\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"PO-Revision-Date: 2017-10-06 15:11+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
@@ -219,18 +219,15 @@ msgstr ""
 "Zatiaľ nie sú vytvorení žiadni používatelia. Prečo nejakých ne<a href="
 "\"%(wagtailusers_create_url)s\">vytvoriť</a>?"
 
+msgid "Groups"
+msgstr "Skupiny"
+
 msgid "Search groups"
 msgstr "Hľadať skupiny"
 
 #, python-brace-format
 msgid "Group '{0}' created."
 msgstr "Skupina '{0}' bola vytvorená."
-
-msgid "Edit"
-msgstr "Upraviť"
-
-msgid "The group could not be created due to errors."
-msgstr "Skupina nemôže byť vytvorená kvôli chybám."
 
 #, python-brace-format
 msgid "Group '{0}' updated."
@@ -250,6 +247,9 @@ msgstr "Hľadať používateľov"
 msgid "User '{0}' created."
 msgstr "Používateľ '{0}' bol vytvorený."
 
+msgid "Edit"
+msgstr "Upraviť"
+
 msgid "The user could not be created due to errors."
 msgstr "Používateľ nemôže byť vytvorený kvôli chybám."
 
@@ -259,6 +259,3 @@ msgstr "Používateľ '{0}' bol aktualizovaný."
 
 msgid "The user could not be saved due to errors."
 msgstr "Používateľ nemôže byť uložený kvôli chybám."
-
-msgid "Groups"
-msgstr "Skupiny"

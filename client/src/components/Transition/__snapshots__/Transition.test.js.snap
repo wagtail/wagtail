@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Transition basic 1`] = `
+<CSSTransitionGroup
+  className={null}
+  component="div"
+  transitionAppear={false}
+  transitionEnter={true}
+  transitionEnterTimeout={210}
+  transitionLeave={true}
+  transitionLeaveTimeout={210}
+  transitionName="c-transition-push"
+/>
+`;
