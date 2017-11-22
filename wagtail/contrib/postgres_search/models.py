@@ -16,7 +16,16 @@ from .utils import get_descendants_content_types_pks
 
 class SearchAutocomplete(SearchQuery):
     def as_sql(self, compiler, connection):
-        return "to_tsquery(''%s':*')", [self.value]
+        params = [self.value]
+        if self.config:
+            config_sql, config_params = compiler.compile(self.config)
+            template = "to_tsquery({}::regconfig, ''%s':*')".format(config_sql)
+            params = config_params + [self.value]
+        else:
+            template = "to_tsquery(''%s':*')"
+        if self.invert:
+            template = '!!({})'.format(template)
+        return template, params
 
 
 class TextIDGenericRelation(GenericRelation):

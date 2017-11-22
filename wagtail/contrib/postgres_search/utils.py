@@ -67,7 +67,7 @@ def get_descendants_content_types_pks(model):
             .values()]
 
 
-def get_content_types_pk(model):
+def get_content_type_pk(model):
     # We import it locally because this file is loaded before apps are ready.
     from django.contrib.contenttypes.models import ContentType
     return ContentType.objects.get_for_model(model).pk
@@ -111,6 +111,16 @@ def determine_boosts_weights(boosts=()):
     boost_step = (max_boost - min_boost) / (WEIGHTS_COUNT - 1)
     return [(max_boost - (i * boost_step), weight)
             for i, weight in enumerate(WEIGHTS)]
+
+
+def set_weights():
+    BOOSTS_WEIGHTS.extend(determine_boosts_weights())
+    min_weight = BOOSTS_WEIGHTS[-1][0]
+    if min_weight <= 0:
+        min_weight = 0.1
+    max_weight = BOOSTS_WEIGHTS[0][0]
+    WEIGHTS_VALUES.extend([min_weight + (1 - min_weight) * v / max_weight
+                           for v, w in reversed(BOOSTS_WEIGHTS)])
 
 
 def get_weight(boost):
