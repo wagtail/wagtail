@@ -584,19 +584,12 @@ class PreviewOnEdit(View):
         parent_page = page.get_parent().specific
         return form_class(query_dict, instance=page, parent_page=parent_page)
 
-    @staticmethod
-    def is_form_valid(form):
-        try:
-            return form.is_valid()
-        except ValidationError:
-            return False
-
     def post(self, request, *args, **kwargs):
         # TODO: Handle request.FILES.
         request.session[self.session_key] = request.POST.urlencode(), time()
         self.remove_old_preview_data()
         form = self.get_form(self.get_page(), request.POST)
-        return JsonResponse({'is_valid': self.is_form_valid(form)})
+        return JsonResponse({'is_valid': form.is_valid()})
 
     def error_response(self, page):
         return render(self.request, 'wagtailadmin/pages/preview_error.html',
@@ -610,7 +603,7 @@ class PreviewOnEdit(View):
             post_data = ''
         form = self.get_form(page, QueryDict(post_data))
 
-        if not self.is_form_valid(form):
+        if not form.is_valid():
             return self.error_response(page)
 
         form.save(commit=False)
@@ -646,7 +639,7 @@ class PreviewOnCreate(PreviewOnEdit):
 
     def get_form(self, page, query_dict):
         form = super(PreviewOnCreate, self).get_form(page, query_dict)
-        if self.is_form_valid(form):
+        if form.is_valid():
             # Ensures our unsaved page has a suitable url.
             form.instance.set_url_path(form.parent_page)
 
