@@ -4,13 +4,14 @@
 #
 # Translators:
 # geek pantura <geekpantura@gmail.com>, 2016
+# Ronggo Radityo <radityo3000@yahoo.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-10 16:05+0000\n"
-"PO-Revision-Date: 2017-06-19 16:59+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"PO-Revision-Date: 2017-10-10 05:43+0000\n"
+"Last-Translator: Ronggo Radityo <radityo3000@yahoo.com>\n"
 "Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
 "wagtail/language/id_ID/)\n"
 "MIME-Version: 1.0\n"
@@ -29,7 +30,7 @@ msgid "Edit"
 msgstr "Ubah"
 
 msgid "Edit any document"
-msgstr "Pembaharuan tiap dokumen"
+msgstr "Ubah dokumen manapun"
 
 msgid "title"
 msgstr "Judul"
@@ -38,10 +39,10 @@ msgid "file"
 msgstr "Berkas"
 
 msgid "created at"
-msgstr "Dibuat pada waktu"
+msgstr "Dibuat pada"
 
 msgid "uploaded by user"
-msgstr "Diuggah oleh pengguna"
+msgstr "Diunggah oleh pengguna"
 
 msgid "tags"
 msgstr "Penanda"

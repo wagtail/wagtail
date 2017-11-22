@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-10 16:05+0000\n"
-"PO-Revision-Date: 2017-05-28 15:34+0000\n"
-"Last-Translator: pyzenberg <pyzenberg@gmail.com>\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"PO-Revision-Date: 2017-10-06 15:11+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
 "fa/)\n"
 "MIME-Version: 1.0\n"
@@ -234,18 +234,15 @@ msgstr ""
 "هیچ کاربری پیکربندی نشده. میتوانید یکی را الان <a href="
 "\"%(wagtailusers_create_url)s\">اضافه</a> کنید."
 
+msgid "Groups"
+msgstr "گروه ها"
+
 msgid "Search groups"
 msgstr "جستجوی گروه‌ها"
 
 #, python-brace-format
 msgid "Group '{0}' created."
 msgstr "گروه '{0}' ایجاد شد."
-
-msgid "Edit"
-msgstr "ویرایش"
-
-msgid "The group could not be created due to errors."
-msgstr "گروه به دلیل بروز خطا ایجاد نشد."
 
 #, python-brace-format
 msgid "Group '{0}' updated."
@@ -265,6 +262,9 @@ msgstr "جستجوی کاربران"
 msgid "User '{0}' created."
 msgstr "کاربر '{0}' ایجاد شد."
 
+msgid "Edit"
+msgstr "ویرایش"
+
 msgid "The user could not be created due to errors."
 msgstr "به دلیل بروز خطا کاربر ایجاد نشد"
 
@@ -278,9 +278,6 @@ msgstr "به دلیل بروز خطا کاربر ذخیره نشد"
 #, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "کاربر '{0}' حذف شد."
-
-msgid "Groups"
-msgstr "گروه ها"
 
 msgid "Edit this user"
 msgstr "ویرایش این کاربر"

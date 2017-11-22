@@ -3,7 +3,6 @@ from __future__ import absolute_import, unicode_literals
 import copy
 from itertools import groupby
 
-import django
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm
@@ -21,10 +20,8 @@ from taggit.managers import TaggableManager
 
 from wagtail.wagtailadmin import widgets
 from wagtail.wagtailcore.models import (
-    BaseViewRestriction,
-    Collection, CollectionViewRestriction, GroupCollectionPermission,
-    Page, PageViewRestriction
-)
+    BaseViewRestriction, Collection, CollectionViewRestriction, GroupCollectionPermission, Page,
+    PageViewRestriction)
 
 
 class URLOrAbsolutePathValidator(validators.URLValidator):
@@ -320,13 +317,6 @@ class WagtailAdminPageForm(WagtailAdminModelForm):
     def __init__(self, data=None, files=None, parent_page=None, *args, **kwargs):
         super(WagtailAdminPageForm, self).__init__(data, files, *args, **kwargs)
         self.parent_page = parent_page
-
-    if django.VERSION < (1, 9):
-        def clean_title(self):
-            return self.cleaned_data['title'].strip()
-
-        def clean_seo_title(self):
-            return self.cleaned_data['seo_title'].strip()
 
     def clean(self):
 

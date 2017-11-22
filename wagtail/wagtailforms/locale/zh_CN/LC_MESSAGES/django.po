@@ -9,13 +9,14 @@
 # listeng, 2016
 # Vincent Zhao <zhaopu2008@gmail.com>, 2017
 # jszsj <zhushajun@gmail.com>, 2017
+# 汇民 王 <whuim@qq.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-10 16:05+0000\n"
-"PO-Revision-Date: 2017-08-10 16:00+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"PO-Revision-Date: 2017-09-20 15:49+0000\n"
+"Last-Translator: 汇民 王 <whuim@qq.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -47,19 +48,22 @@ msgid "Email"
 msgstr "电子邮件"
 
 msgid "Number"
-msgstr "数量"
+msgstr "数字"
 
 msgid "URL"
 msgstr "URL"
 
 msgid "Checkbox"
-msgstr "复选框"
+msgstr "检查框"
 
 msgid "Checkboxes"
-msgstr "复选框"
+msgstr "多选框"
 
 msgid "Drop down"
-msgstr "下拉"
+msgstr "下拉列表框"
+
+msgid "Multiple select"
+msgstr "多选列表框"
 
 msgid "Radio buttons"
 msgstr "单选按钮"
@@ -94,13 +98,13 @@ msgstr "选项"
 msgid ""
 "Comma separated list of choices. Only applicable in checkboxes, radio and "
 "dropdown."
-msgstr "使用逗号分隔多个选项。只能用于复选框、单选框和下拉框"
+msgstr "使用逗号分隔多个选项。只能用于多选框、单选按钮和下拉列表框。"
 
 msgid "default value"
 msgstr "默认值"
 
 msgid "Default value. Comma separated values supported for checkboxes."
-msgstr "默认值。复选框支持使用逗号分隔。"
+msgstr "默认值。多选框支持使用逗号分隔多个值。"
 
 msgid "help text"
 msgstr "帮助文本"

@@ -6,87 +6,104 @@ from taggit.managers import TaggableManager
 from wagtail.wagtailsearch import index
 
 
-class SearchTest(index.Indexed, models.Model):
+class Author(index.Indexed, models.Model):
+    name = models.CharField(max_length=255)
+    date_of_birth = models.DateField(null=True)
+
+    search_fields = [
+        index.SearchField('name'),
+        index.FilterField('date_of_birth'),
+    ]
+
+    def __str__(self):
+        return self.name
+
+
+class Book(index.Indexed, models.Model):
     title = models.CharField(max_length=255)
-    content = models.TextField()
-    live = models.BooleanField(default=False)
-    published_date = models.DateField(null=True)
+    authors = models.ManyToManyField(Author, related_name='books')
+    publication_date = models.DateField()
+    number_of_pages = models.IntegerField()
     tags = TaggableManager()
 
     search_fields = [
-        index.SearchField('title', partial_match=True),
+        index.SearchField('title', partial_match=True, boost=2.0),
+        index.FilterField('title'),
+        index.RelatedFields('authors', Author.search_fields),
+        index.FilterField('publication_date'),
+        index.FilterField('number_of_pages'),
         index.RelatedFields('tags', [
-            index.SearchField('name', partial_match=True),
+            index.SearchField('name'),
             index.FilterField('slug'),
         ]),
-        index.RelatedFields('subobjects', [
-            index.SearchField('name', partial_match=True),
-        ]),
-        index.SearchField('content', boost=2),
-        index.SearchField('callable_indexed_field'),
-        index.FilterField('title'),
-        index.FilterField('live'),
-        index.FilterField('published_date'),
     ]
-
-    def callable_indexed_field(self):
-        return "Callable"
 
     @classmethod
     def get_indexed_objects(cls):
-        indexed_objects = super(SearchTest, cls).get_indexed_objects()
+        indexed_objects = super(Book, cls).get_indexed_objects()
 
-        # Exclude SearchTests that have a SearchTestChild to stop update_index creating duplicates
-        if cls is SearchTest:
+        # Don't index books using Book class that they have a more specific type
+        if cls is Book:
             indexed_objects = indexed_objects.exclude(
-                id__in=SearchTestChild.objects.all().values_list('searchtest_ptr_id', flat=True)
+                id__in=Novel.objects.values_list('book_ptr_id', flat=True)
             )
 
-        # Exclude SearchTests that have the title "Don't index me!"
+            indexed_objects = indexed_objects.exclude(
+                id__in=ProgrammingGuide.objects.values_list('book_ptr_id', flat=True)
+            )
+
+        # Exclude Books that have the title "Don't index me!"
         indexed_objects = indexed_objects.exclude(title="Don't index me!")
 
         return indexed_objects
 
     def get_indexed_instance(self):
-        # Check if there is a SearchTestChild that descends from this
-        child = SearchTestChild.objects.filter(searchtest_ptr_id=self.id).first()
+        # Check if this object is a Novel or ProgrammingGuide and return the specific object
+        novel = Novel.objects.filter(book_ptr_id=self.id).first()
+        programming_guide = ProgrammingGuide.objects.filter(book_ptr_id=self.id).first()
 
-        # Return the child if there is one, otherwise return self
-        return child or self
+        # Return the novel/programming guide object if there is one, otherwise return self
+        return novel or programming_guide or self
 
     def __str__(self):
         return self.title
 
 
-class SearchTestChild(SearchTest):
-    subtitle = models.CharField(max_length=255, null=True, blank=True)
-    extra_content = models.TextField()
-    page = models.ForeignKey('wagtailcore.Page', null=True, blank=True, on_delete=models.SET_NULL)
+class Character(models.Model):
+    name = models.CharField(max_length=255)
+    novel = models.ForeignKey('Novel', related_name='characters', on_delete=models.CASCADE)
 
-    search_fields = SearchTest.search_fields + [
-        index.SearchField('subtitle', partial_match=True),
-        index.SearchField('extra_content'),
-        index.RelatedFields('page', [
-            index.SearchField('title', partial_match=True),
-            index.SearchField('search_description'),
-            index.FilterField('live'),
+    search_fields = [
+        index.SearchField('name'),
+    ]
+
+    def __str__(self):
+        return self.name
+
+
+class Novel(Book):
+    setting = models.CharField(max_length=255)
+    protagonist = models.OneToOneField(Character, related_name='+', null=True, on_delete=models.SET_NULL)
+
+    search_fields = Book.search_fields + [
+        index.SearchField('setting', partial_match=True),
+        index.RelatedFields('characters', [
+            index.SearchField('name', boost=0.25),
+        ]),
+        index.RelatedFields('protagonist', [
+            index.SearchField('name', boost=0.5),
         ]),
     ]
 
 
-class AnotherSearchTestChild(SearchTest):
-    # Checks that having the same field name in two child models with different
-    # search configuration doesn't give an error
-    subtitle = models.CharField(max_length=255, null=True, blank=True)
+class ProgrammingGuide(Book):
+    programming_language = models.CharField(max_length=255, choices=[
+        ('py', "Python"),
+        ('js', "Javascript"),
+        ('rs', "Rust"),
+    ])
 
-    search_fields = SearchTest.search_fields + [
-        index.SearchField('subtitle', boost=10),
+    search_fields = Book.search_fields + [
+        index.SearchField('get_programming_language_display'),
+        index.FilterField('programming_language'),
     ]
-
-
-class SearchTestSubObject(models.Model):
-    parent = models.ForeignKey(SearchTest, related_name='subobjects')
-    name = models.CharField(max_length=255)
-
-    def __str__(self):
-        return self.name

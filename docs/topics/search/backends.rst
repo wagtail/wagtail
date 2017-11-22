@@ -45,7 +45,7 @@ If you have disabled auto update, you must run the :ref:`update_index` command o
 ==================
 
 .. warning::
-    This option is not compatible with Elasticsearch 5.4.x due to `a bug in the handling of aliases <https://github.com/elastic/elasticsearch/issues/24644>`_ in this release. Please use a 5.3.x or 5.5.x release instead.
+    This option may not work on Elasticsearch version 5.4 and above, due to `a bug in the handling of aliases <https://github.com/elastic/elasticsearch/issues/24644>`_ affecting these releases.
 
 By default (when using the Elasticsearch backend), when the ``update_index`` command is run, Wagtail deletes the index and rebuilds it from scratch. This causes the search engine to not return results until the rebuild is complete and is also risky as you can't rollback if an error occurs.
 
@@ -97,9 +97,7 @@ Elasticsearch Backend
 
     Support for Elasticsearch 5.x was added
 
-Elasticsearch versions 1, 2 and 5 are supported. Use the appropriate backend for your version:
-
-``wagtail.wagtailsearch.backends.elasticsearch`` (Elasticsearch 1.x)
+Elasticsearch versions 2 and 5 are supported. Use the appropriate backend for your version:
 
 ``wagtail.wagtailsearch.backends.elasticsearch2`` (Elasticsearch 2.x)
 
@@ -108,10 +106,6 @@ Elasticsearch versions 1, 2 and 5 are supported. Use the appropriate backend for
 Prerequisites are the `Elasticsearch`_ service itself and, via pip, the `elasticsearch-py`_ package. The major version of the package must match the installed version of Elasticsearch:
 
 .. _Elasticsearch: https://www.elastic.co/downloads/elasticsearch
-
-.. code-block:: console
-
-  $ pip install "elasticsearch>=1.0.0,<2.0.0"  # for Elasticsearch 1.x
 
 .. code-block:: console
 
@@ -149,11 +143,11 @@ Other than ``BACKEND``, the keys are optional and default to the values shown. A
               'settings': {
                   'index': {
                       'number_of_shards': 1,
-                      'analysis': {
-                          'analyzer': {
-                              'default': {
-                                  'type': 'italian'
-                              }
+                  },
+                  'analysis': {
+                      'analyzer': {
+                          'default': {
+                              'type': 'italian'
                           }
                       }
                   }
@@ -178,22 +172,24 @@ The Elasticsearch backend is compatible with `Amazon Elasticsearch Service`_, bu
 
 .. code-block:: python
 
-  from elasticsearch import Elasticsearch, RequestsHttpConnection
+  from elasticsearch import RequestsHttpConnection
   from requests_aws4auth import AWS4Auth
 
   WAGTAILSEARCH_BACKENDS = {
       'default': {
-          'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch',
+          'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch2',
           'INDEX': 'wagtail',
           'TIMEOUT': 5,
           'HOSTS': [{
-            'host': 'YOURCLUSTER.REGION.es.amazonaws.com',
-            'port': 443,
-            'use_ssl': True,
-            'verify_certs': True,
-            'http_auth': AWS4Auth('ACCESS_KEY', 'SECRET_KEY', 'REGION', 'es'),
+              'host': 'YOURCLUSTER.REGION.es.amazonaws.com',
+              'port': 443,
+              'use_ssl': True,
+              'verify_certs': True,
+              'http_auth': AWS4Auth('ACCESS_KEY', 'SECRET_KEY', 'REGION', 'es'),
           }],
-          'connection_class': RequestsHttpConnection,
+          'OPTIONS': {
+              'connection_class': RequestsHttpConnection,
+          },
       }
   }
 

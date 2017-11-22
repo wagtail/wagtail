@@ -5,9 +5,9 @@ from django.contrib.auth.models import Permission
 from django.core.exceptions import ValidationError
 from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import SimpleUploadedFile
-from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.test.utils import override_settings
+from django.urls import reverse
 from taggit.models import Tag
 
 from wagtail.tests.snippets.forms import FancySnippetForm
@@ -351,6 +351,13 @@ class TestSnippetDelete(TestCase, WagtailTestUtils):
 
         # Check that the page is gone
         self.assertEqual(Advert.objects.filter(text='test_advert').count(), 0)
+
+    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
+    def test_usage_link(self):
+        response = self.client.get(reverse('wagtailsnippets:delete', args=('tests', 'advert', self.test_snippet.id, )))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailsnippets/snippets/confirm_delete.html')
+        self.assertIn('Used 2 times', str(response.content))
 
 
 class TestSnippetChooserPanel(TestCase, WagtailTestUtils):

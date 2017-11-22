@@ -2,11 +2,10 @@ from __future__ import absolute_import, unicode_literals
 
 from collections import OrderedDict
 
-from django.apps import apps
 from django.conf.urls import url
 from django.core.exceptions import FieldDoesNotExist
-from django.core.urlresolvers import reverse
 from django.http import Http404
+from django.urls import reverse
 from modelcluster.fields import ParentalKey
 from rest_framework import status
 from rest_framework.renderers import BrowsableAPIRenderer, JSONRenderer
@@ -26,13 +25,7 @@ from .utils import (
 
 
 class BaseAPIEndpoint(GenericViewSet):
-    renderer_classes = [JSONRenderer]
-
-    # The BrowsableAPIRenderer requires rest_framework to be installed
-    # Remove this check in Wagtail 1.4 as rest_framework will be required
-    # RemovedInWagtail14Warning
-    if apps.is_installed('rest_framework'):
-        renderer_classes.append(BrowsableAPIRenderer)
+    renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
 
     pagination_class = WagtailPagination
     base_serializer_class = BaseSerializer
@@ -403,7 +396,11 @@ class PagesAPIEndpoint(BaseAPIEndpoint):
         queryset = queryset.public().live()
 
         # Filter by site
-        queryset = queryset.descendant_of(request.site.root_page, inclusive=True)
+        if request.site:
+            queryset = queryset.descendant_of(request.site.root_page, inclusive=True)
+        else:
+            # No sites configured
+            queryset = queryset.none()
 
         return queryset
 

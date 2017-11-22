@@ -310,13 +310,13 @@ class IndexView(WMABaseView):
                 # Lookups on non-existent fields are ok, since they're ignored
                 # later.
                 return True
-            if hasattr(field, 'rel'):
-                if field.rel is None:
+            if hasattr(field, 'remote_field'):
+                if field.remote_field is None:
                     # This property or relation doesn't exist, but it's allowed
                     # since it's ignored in ChangeList.get_filters().
                     return True
-                model = field.rel.to
-                rel_name = field.rel.get_related_field().name
+                model = field.remote_field.model
+                rel_name = field.remote_field.get_related_field().name
             elif isinstance(field, ForeignObjectRel):
                 model = field.model
                 rel_name = model._meta.pk.name

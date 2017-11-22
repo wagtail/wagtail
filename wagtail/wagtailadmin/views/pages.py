@@ -1,14 +1,15 @@
 from __future__ import absolute_import, unicode_literals
+
 from time import time
 
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
-from django.core.urlresolvers import reverse
 from django.db.models import Count
 from django.http import Http404, HttpResponse, JsonResponse
 from django.http.request import QueryDict
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template.loader import render_to_string
+from django.urls import reverse
 from django.utils import timezone
 from django.utils.http import is_safe_url, urlquote
 from django.utils.safestring import mark_safe
@@ -222,10 +223,11 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
                         messages.button(reverse('wagtailadmin_pages:edit', args=(page.id,)), _('Edit'))
                     ])
                 else:
-                    messages.success(request, _("Page '{0}' created and published.").format(page.get_admin_display_title()), buttons=[
-                        messages.button(page.url, _('View live'), new_window=True),
-                        messages.button(reverse('wagtailadmin_pages:edit', args=(page.id,)), _('Edit'))
-                    ])
+                    buttons = []
+                    if page.url is not None:
+                        buttons.append(messages.button(page.url, _('View live'), new_window=True))
+                    buttons.append(messages.button(reverse('wagtailadmin_pages:edit', args=(page.id,)), _('Edit')))
+                    messages.success(request, _("Page '{0}' created and published.").format(page.get_admin_display_title()), buttons=buttons)
             elif is_submitting:
                 messages.success(
                     request,
@@ -387,17 +389,11 @@ def edit(request, page_id):
                             page.get_admin_display_title()
                         )
 
-                    messages.success(request, message, buttons=[
-                        messages.button(
-                            page.url,
-                            _('View live'),
-                            new_window=True
-                        ),
-                        messages.button(
-                            reverse('wagtailadmin_pages:edit', args=(page_id,)),
-                            _('Edit')
-                        )
-                    ])
+                    buttons = []
+                    if page.url is not None:
+                        buttons.append(messages.button(page.url, _('View live'), new_window=True))
+                    buttons.append(messages.button(reverse('wagtailadmin_pages:edit', args=(page_id,)), _('Edit')))
+                    messages.success(request, message, buttons=buttons)
 
             elif is_submitting:
 
@@ -876,7 +872,7 @@ def search(request):
         if form.is_valid():
             q = form.cleaned_data['q']
 
-            pages = Page.objects.all().prefetch_related('content_type').search(q)
+            pages = Page.objects.all().prefetch_related('content_type').specific().search(q)
             paginator, pages = paginate(request, pages)
     else:
         form = SearchForm()
@@ -907,10 +903,14 @@ def approve_moderation(request, revision_id):
 
     if request.method == 'POST':
         revision.approve_moderation()
-        messages.success(request, _("Page '{0}' published.").format(revision.page.get_admin_display_title()), buttons=[
-            messages.button(revision.page.url, _('View live'), new_window=True),
-            messages.button(reverse('wagtailadmin_pages:edit', args=(revision.page.id,)), _('Edit'))
-        ])
+
+        message = _("Page '{0}' published.").format(revision.page.get_admin_display_title())
+        buttons = []
+        if revision.page.url is not None:
+            buttons.append(messages.button(revision.page.url, _('View live'), new_window=True))
+        buttons.append(messages.button(reverse('wagtailadmin_pages:edit', args=(revision.page.id,)), _('Edit')))
+        messages.success(request, message, buttons=buttons)
+
         if not send_notification(revision.id, 'approved', request.user.pk):
             messages.error(request, _("Failed to send approval notifications"))
 

@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-10 16:05+0000\n"
-"PO-Revision-Date: 2017-07-18 06:53+0000\n"
-"Last-Translator: Giacomo Ghizzani <giacomo.ghz@gmail.com>\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"PO-Revision-Date: 2017-10-06 15:11+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -253,18 +253,15 @@ msgstr ""
 "Non ci sono utenti configurati. Perché non <a href="
 "\"%(wagtailusers_create_url)s\">ne aggiungi qualcuno</a>?"
 
+msgid "Groups"
+msgstr "Gruppi"
+
 msgid "Search groups"
 msgstr "Cerca gruppi"
 
 #, python-brace-format
 msgid "Group '{0}' created."
 msgstr "Gruppo '{0}' creato."
-
-msgid "Edit"
-msgstr "Modifica"
-
-msgid "The group could not be created due to errors."
-msgstr "Il gruppo non può essere creato a causa di errori."
 
 #, python-brace-format
 msgid "Group '{0}' updated."
@@ -284,6 +281,9 @@ msgstr "Cerca utenti"
 msgid "User '{0}' created."
 msgstr "Utente '{0}' creato."
 
+msgid "Edit"
+msgstr "Modifica"
+
 msgid "The user could not be created due to errors."
 msgstr "L'utente non può essere creato a causa di errori."
 
@@ -297,9 +297,6 @@ msgstr "L'utente non può essere salvato a causa di errori."
 #, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "Utente '{0}' eliminato."
-
-msgid "Groups"
-msgstr "Gruppi"
 
 msgid "Edit this user"
 msgstr "Modifica questo utente"

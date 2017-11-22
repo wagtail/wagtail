@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-10 16:05+0000\n"
-"PO-Revision-Date: 2017-06-23 14:20+0000\n"
-"Last-Translator: Kyungil Choi <hanpama@gmail.com>\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"PO-Revision-Date: 2017-10-06 15:11+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
 "MIME-Version: 1.0\n"
@@ -235,18 +235,15 @@ msgstr ""
 "사용자가 설정되어 있지 않습니다. 지금 사용자를 <a href="
 "\"%(wagtailusers_create_url)s\">추가 하는건 어떨까요?"
 
+msgid "Groups"
+msgstr "그룹"
+
 msgid "Search groups"
 msgstr "그룹 검색"
 
 #, python-brace-format
 msgid "Group '{0}' created."
 msgstr "'{0}' 그룹이 생성 되었습니다."
-
-msgid "Edit"
-msgstr "수정"
-
-msgid "The group could not be created due to errors."
-msgstr "에러로 인해 그룹이 생성될 수 없습니다."
 
 #, python-brace-format
 msgid "Group '{0}' updated."
@@ -266,6 +263,9 @@ msgstr "사용자 검색"
 msgid "User '{0}' created."
 msgstr "'{0}' 사용자가 생성되었습니다"
 
+msgid "Edit"
+msgstr "수정"
+
 msgid "The user could not be created due to errors."
 msgstr "에러로 인해 사용자를 생성할 수 없습니다."
 
@@ -279,9 +279,6 @@ msgstr "에러로 인해 사용자를 저장할 수 없습니다."
 #, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "'{0}' 사용자가 삭제되었습니다."
-
-msgid "Groups"
-msgstr "그룹"
 
 msgid "Edit this user"
 msgstr "이 사용자를 수정"

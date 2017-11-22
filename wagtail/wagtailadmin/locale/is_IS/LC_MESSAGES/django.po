@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-10 16:05+0000\n"
-"PO-Revision-Date: 2017-08-10 16:07+0000\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"PO-Revision-Date: 2017-10-06 15:06+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
@@ -150,6 +150,9 @@ msgstr "Dagsetning afbirtingar verður að vera í framtíðinni"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Þú getur ekki haft margar heimildafærslur fyrir sama safnið"
+
+msgid "Go to Wagtail admin"
+msgstr "Fara í stjórnkerfi Wagtail"
 
 msgid "Account"
 msgstr "Reikningur"
@@ -1038,10 +1041,10 @@ msgid "Sat"
 msgstr "Lau"
 
 #, python-format
-msgid "Used %(useage_count)s time"
-msgid_plural "Used %(useage_count)s times"
-msgstr[0] "Notað %(useage_count)s sinni"
-msgstr[1] "Notað %(useage_count)s sinnum"
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Notað %(usage_count)s sinni"
+msgstr[1] "Notað %(usage_count)s sinnum"
 
 msgid "Edit your account"
 msgstr "Breyta reikningnum þínum"
@@ -1088,9 +1091,6 @@ msgstr ""
 
 msgid "Go to Wagtail admin interface"
 msgstr "Fara á Wagtail stjórnborð"
-
-msgid "Go to Wagtail admin"
-msgstr "Fara í stjórnkerfi Wagtail"
 
 msgid "Add a child page"
 msgstr "Bæta við undirsíðu"

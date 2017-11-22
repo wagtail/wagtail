@@ -12,15 +12,15 @@ from django.http import Http404, HttpRequest
 from django.test import Client, TestCase
 from django.test.client import RequestFactory
 from django.test.utils import override_settings
-
 from freezegun import freeze_time
 
 from wagtail.tests.testapp.models import (
-    AbstractPage, Advert, AlwaysShowInMenusPage, BlogCategory, BlogCategoryBlogPage, BusinessChild,
-    BusinessIndex, BusinessNowherePage, BusinessSubIndex, CustomManager, CustomManagerPage,
-    EventIndex, EventPage, GenericSnippetPage, ManyToManyBlogPage, MTIBasePage, MTIChildPage,
-    MyCustomPage, OneToOnePage, SimplePage, SingleEventPage, SingletonPage, StandardIndex,
-    TaggedPage)
+    AbstractPage, Advert, AlwaysShowInMenusPage, BlogCategory, BlogCategoryBlogPage,
+    BusinessChild, BusinessIndex, BusinessNowherePage, BusinessSubIndex, CustomManager,
+    CustomManagerPage, CustomPageQuerySet, EventIndex, EventPage, GenericSnippetPage,
+    ManyToManyBlogPage, MTIBasePage, MTIChildPage, MyCustomPage, OneToOnePage,
+    PageWithExcludedCopyField, SimplePage, SingleEventPage, SingletonPage,
+    StandardIndex, TaggedPage)
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailcore.models import Page, PageManager, Site, get_page_models
 
@@ -89,6 +89,16 @@ class TestValidation(TestCase):
     def test_get_admin_display_title(self):
         homepage = Page.objects.get(url_path='/home/')
         self.assertEqual(homepage.draft_title, homepage.get_admin_display_title())
+
+    def test_get_admin_display_title_with_blank_draft_title(self):
+        # Display title should fall back on the live title if draft_title is blank;
+        # this can happen if the page was created through fixtures or migrations that
+        # didn't explicitly account for draft_title
+        # (since draft_title doesn't get populated automatically on save in those cases)
+        Page.objects.filter(url_path='/home/').update(title='live title', draft_title='')
+        homepage = Page.objects.get(url_path='/home/')
+
+        self.assertEqual(homepage.get_admin_display_title(), 'live title')
 
     def test_draft_title_is_autopopulated(self):
         homepage = Page.objects.get(url_path='/home/')
@@ -213,11 +223,11 @@ class TestRouting(TestCase):
     # need to clear urlresolver caches before/after tests, because we override ROOT_URLCONF
     # in some tests here
     def setUp(self):
-        from django.core.urlresolvers import clear_url_caches
+        from django.urls import clear_url_caches
         clear_url_caches()
 
     def tearDown(self):
-        from django.core.urlresolvers import clear_url_caches
+        from django.urls import clear_url_caches
         clear_url_caches()
 
     def test_urls(self):
@@ -388,11 +398,11 @@ class TestServeView(TestCase):
 
         # also need to clear urlresolver caches before/after tests, because we override
         # ROOT_URLCONF in some tests here
-        from django.core.urlresolvers import clear_url_caches
+        from django.urls import clear_url_caches
         clear_url_caches()
 
     def tearDown(self):
-        from django.core.urlresolvers import clear_url_caches
+        from django.urls import clear_url_caches
         clear_url_caches()
 
     def test_serve(self):
@@ -1029,6 +1039,22 @@ class TestCopyPage(TestCase):
 
         self.assertNotEqual(page.id, new_page.id)
 
+    def test_copy_page_with_additional_excluded_fields(self):
+
+        homepage = Page.objects.get(url_path='/home/')
+        page = PageWithExcludedCopyField(
+            title='Discovery',
+            slug='disco',
+            content='NCC-1031',
+            special_field='Context is for Kings')
+        new_page = page.copy(to=homepage)
+
+        self.assertEqual(page.title, new_page.title)
+        self.assertNotEqual(page.id, new_page.id)
+        self.assertNotEqual(page.path, new_page.path)
+        # special_field is in the list to be excluded
+        self.assertNotEqual(page.special_field, new_page.special_field)
+
 
 class TestSubpageTypeBusinessRules(TestCase, WagtailTestUtils):
     def test_allowed_subpage_models(self):
@@ -1256,6 +1282,17 @@ class TestPageManager(TestCase):
         custom Manager inherits from PageManager.
         """
         self.assertIs(type(CustomManagerPage.objects), CustomManager)
+
+    def test_custom_page_queryset(self):
+        """
+        Managers that are constructed from a custom PageQuerySet
+        (via PageManager.from_queryset(CustomPageQuerySet)) should return
+        querysets of that type
+        """
+        self.assertIs(type(CustomManagerPage.objects.all()), CustomPageQuerySet)
+        self.assertIs(type(CustomManagerPage.objects.about_spam()), CustomPageQuerySet)
+        self.assertIs(type(CustomManagerPage.objects.all().about_spam()), CustomPageQuerySet)
+        self.assertIs(type(CustomManagerPage.objects.about_spam().all()), CustomPageQuerySet)
 
     def test_abstract_base_page_manager(self):
         """

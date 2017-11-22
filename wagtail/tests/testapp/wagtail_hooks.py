@@ -93,13 +93,19 @@ def polite_pages_only(parent_page, pages, request):
     return pages
 
 
+@hooks.register('construct_explorer_page_queryset')
+def hide_hidden_pages(parent_page, pages, request):
+    # Pages with 'hidden' in their title are hidden. Magic!
+    return pages.exclude(title__icontains='hidden')
+
+
 # register 'blockquote' as a rich text feature supported by a hallo.js plugin
 @hooks.register('register_rich_text_features')
 def register_blockquote_feature(features):
     features.register_editor_plugin(
         'hallo', 'blockquote', HalloPlugin(
             name='halloblockquote',
-            js=[static('testapp/js/hallo-blockquote.js')],
-            css={'all': [static('testapp/css/hallo-blockquote.css')]},
+            js=['testapp/js/hallo-blockquote.js'],
+            css={'all': ['testapp/css/hallo-blockquote.css']},
         )
     )

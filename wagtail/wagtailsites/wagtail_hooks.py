@@ -1,7 +1,7 @@
 from __future__ import absolute_import, unicode_literals
 
 from django.contrib.auth.models import Permission
-from django.core import urlresolvers
+from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 
 from wagtail.wagtailadmin.menu import MenuItem
@@ -25,7 +25,7 @@ class SitesMenuItem(MenuItem):
 
 @hooks.register('register_settings_menu_item')
 def register_sites_menu_item():
-    return SitesMenuItem(_('Sites'), urlresolvers.reverse('wagtailsites:index'),
+    return SitesMenuItem(_('Sites'), reverse('wagtailsites:index'),
                          classnames='icon icon-site', order=602)
 
 

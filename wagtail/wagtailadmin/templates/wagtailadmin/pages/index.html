@@ -14,7 +14,7 @@
         {% csrf_token %}
 
         {% page_permissions parent_page as parent_page_perms %}
-        {% include "wagtailadmin/pages/listing/_list_explore.html" with sortable=1 allow_navigation=1 full_width=1 show_ordering_column=1 parent_page=parent_page orderable=parent_page_perms.can_reorder_children %}
+        {% include "wagtailadmin/pages/listing/_list_explore.html" with sortable=1 full_width=1 show_ordering_column=1 parent_page=parent_page orderable=parent_page_perms.can_reorder_children %}
 
         {% if do_paginate %}
             {% url 'wagtailadmin_explore' parent_page.id as pagination_base_url %}

@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-10 16:05+0000\n"
-"PO-Revision-Date: 2017-04-19 21:08+0000\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"PO-Revision-Date: 2017-10-06 15:11+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
@@ -253,18 +253,15 @@ msgstr ""
 "Δεν έχουν [προστεθεί χρήστες. Θέλετε να <a href=\"%(wagtailusers_create_url)s"
 "\">προσθέσετε μερικούς</a>?"
 
+msgid "Groups"
+msgstr "Ομάδες"
+
 msgid "Search groups"
 msgstr "Αναζήτηση ομαδων"
 
 #, python-brace-format
 msgid "Group '{0}' created."
 msgstr "Η ομαδα '{0}' δημιουργήθηκε."
-
-msgid "Edit"
-msgstr "Επεξεργασία"
-
-msgid "The group could not be created due to errors."
-msgstr "Δεν ήταν δυνατή η αποθήκευση της ομαδας."
 
 #, python-brace-format
 msgid "Group '{0}' updated."
@@ -284,6 +281,9 @@ msgstr "Αναζήτηση χρηστών"
 msgid "User '{0}' created."
 msgstr "Ο χρήστης '{0}' δημιουργήθηκε."
 
+msgid "Edit"
+msgstr "Επεξεργασία"
+
 msgid "The user could not be created due to errors."
 msgstr "Δεν ήταν δυνατή η δημιουργία του χρήστη."
 
@@ -297,9 +297,6 @@ msgstr "Δεν ήταν δυνατή η ενημέρωση των στοιχεί
 #, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "Ο χρήστης '{0}' διαγράφηκε."
-
-msgid "Groups"
-msgstr "Ομάδες"
 
 msgid "Edit this user"
 msgstr "Επεξεργασία αυτού του χρήστη"

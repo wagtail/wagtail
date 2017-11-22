@@ -11,7 +11,7 @@ from wagtail.wagtailimages import get_image_model
 
 class AdminImageChooser(AdminChooser):
     choose_one_text = _('Choose an image')
-    choose_another_text = _('Choose another image')
+    choose_another_text = _('Change image')
     link_to_chosen_text = _('Edit this image')
 
     def __init__(self, **kwargs):

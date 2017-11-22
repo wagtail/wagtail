@@ -4,7 +4,6 @@ import json
 from collections import OrderedDict
 
 from django.conf import settings
-from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.forms import Media, widgets
 from django.utils.module_loading import import_string
 
@@ -74,7 +73,7 @@ class HalloListPlugin(HalloPlugin):
 CORE_HALLO_PLUGINS = [
     HalloPlugin(name='halloreundo', order=50),
     HalloPlugin(name='hallorequireparagraphs', js=[
-        static('wagtailadmin/js/hallo-plugins/hallo-requireparagraphs.js'),
+        'wagtailadmin/js/hallo-plugins/hallo-requireparagraphs.js',
     ]),
     HalloHeadingPlugin(element='p')
 ]
@@ -93,11 +92,6 @@ class HalloRichTextArea(WidgetWithScript, widgets.Textarea):
         self.features = kwargs.pop('features', None)
         if self.features is None:
             self.features = features.get_default_features()
-
-            # RemovedInWagtail114Warning
-            self.use_legacy_plugin_config = True
-        else:
-            self.use_legacy_plugin_config = False
 
         # construct a list of plugin objects, by querying the feature registry
         # and keeping the non-null responses from get_editor_plugin
@@ -120,11 +114,6 @@ class HalloRichTextArea(WidgetWithScript, widgets.Textarea):
         if self.options is not None and 'plugins' in self.options:
             # explicit 'plugins' config passed in options, so use that
             plugin_data = self.options['plugins']
-        elif self.use_legacy_plugin_config:
-            # RemovedInWagtail114Warning
-            # no feature list specified, so initialise without a plugins arg
-            # (so that it'll pick up the globally-defined halloPlugins list instead)
-            return "makeHalloRichTextEditable({0});".format(json.dumps(id_))
         else:
             plugin_data = OrderedDict()
             for plugin in self.plugins:
@@ -143,8 +132,8 @@ class HalloRichTextArea(WidgetWithScript, widgets.Textarea):
     @property
     def media(self):
         media = Media(js=[
-            static('wagtailadmin/js/vendor/hallo.js'),
-            static('wagtailadmin/js/hallo-bootstrap.js'),
+            'wagtailadmin/js/vendor/hallo.js',
+            'wagtailadmin/js/hallo-bootstrap.js',
         ])
 
         for plugin in self.plugins:

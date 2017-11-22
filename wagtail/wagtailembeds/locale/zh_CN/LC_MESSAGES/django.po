@@ -6,13 +6,14 @@
 # hanfeng <appweb.cn@gmail.com>, 2014-2015
 # hanfeng <appweb.cn@gmail.com>, 2014
 # Vincent Zhao <zhaopu2008@gmail.com>, 2017
+# 汇民 王 <whuim@qq.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-10 16:05+0000\n"
-"PO-Revision-Date: 2017-05-03 13:56+0000\n"
-"Last-Translator: Vincent Zhao <zhaopu2008@gmail.com>\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"PO-Revision-Date: 2017-09-20 15:49+0000\n"
+"Last-Translator: 汇民 王 <whuim@qq.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -28,10 +29,10 @@ msgid "URL"
 msgstr "URL"
 
 msgid "embed"
-msgstr "嵌入"
+msgstr "内嵌元素"
 
 msgid "Insert embed"
-msgstr "插入embed"
+msgstr "插入内嵌元素"
 
 msgid "Insert"
 msgstr "插入"
@@ -39,12 +40,12 @@ msgstr "插入"
 msgid ""
 "There seems to be a problem with your embedly API key. Please check your "
 "settings."
-msgstr "embedly API key有问题，请检查设置"
+msgstr "内嵌元素API的键可能有问题，请检查设置。"
 
 msgid "Cannot find an embed for this URL."
-msgstr "无法在URL中找到embed"
+msgstr "在这个URL中没有找到内嵌元素。"
 
 msgid ""
 "There seems to be an error with Embedly while trying to embed this URL. "
 "Please try again later."
-msgstr "在执行嵌入此URL时出现错误，请稍后再试。"
+msgstr "在将内嵌元素嵌入到此URL时出现错误，请稍后再试。"

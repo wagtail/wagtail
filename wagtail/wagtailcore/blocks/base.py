@@ -8,7 +8,7 @@ from django.core import checks
 from django.core.exceptions import ImproperlyConfigured
 from django.template.loader import render_to_string
 from django.utils import six
-from django.utils.encoding import force_text, python_2_unicode_compatible
+from django.utils.encoding import force_text
 from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
 
@@ -404,14 +404,7 @@ class Block(six.with_metaclass(BaseBlock, object)):
     def __ne__(self, other):
         return not self.__eq__(other)
 
-    # Making block instances hashable in a way that's consistent with __eq__ is non-trivial, because
-    # self.deconstruct() is liable to contain unhashable data (e.g. lists and dicts). So let's set
-    # Block to be explicitly unhashable - Python 3 will do this automatically when defining __eq__,
-    # but Python 2 won't, and we'd like the behaviour to be consistent on both.
-    __hash__ = None
 
-
-@python_2_unicode_compatible
 class BoundBlock(object):
     def __init__(self, block, value, prefix=None, errors=None):
         self.block = block
@@ -486,11 +479,6 @@ class DeclarativeSubBlocksMetaclass(BaseBlock):
 
 class BlockWidget(forms.Widget):
     """Wraps a block object as a widget so that it can be incorporated into a Django form"""
-
-    # Flag used by Django 1.10.1 (only) to indicate that this widget will not necessarily submit
-    # a postdata item with a name that matches the field name -
-    # see https://github.com/django/django/pull/7068, https://github.com/wagtail/wagtail/issues/2994
-    dont_use_model_field_default_for_empty_data = True
 
     def __init__(self, block_def, attrs=None):
         super(BlockWidget, self).__init__(attrs=attrs)

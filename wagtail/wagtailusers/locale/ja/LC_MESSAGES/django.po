@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-10 16:05+0000\n"
-"PO-Revision-Date: 2017-04-19 21:08+0000\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"PO-Revision-Date: 2017-10-06 15:11+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
@@ -217,12 +217,6 @@ msgstr "グループを検索"
 msgid "Group '{0}' created."
 msgstr "グループ '{0}' が作成されました。"
 
-msgid "Edit"
-msgstr "編集"
-
-msgid "The group could not be created due to errors."
-msgstr "このグループはエラーにより作成されませんでした。"
-
 #, python-brace-format
 msgid "Group '{0}' updated."
 msgstr "グループ '{0}' が更新されました。"
@@ -240,6 +234,9 @@ msgstr "ユーザを検索"
 #, python-brace-format
 msgid "User '{0}' created."
 msgstr "ユーザ '{0}' が作成されました。"
+
+msgid "Edit"
+msgstr "編集"
 
 msgid "The user could not be created due to errors."
 msgstr "このユーザはエラーにより作成されませんでした。"

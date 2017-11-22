@@ -1,13 +1,106 @@
 Changelog
 =========
 
-1.13 (xx.xx.xxxx) - IN DEVELOPMENT
+2.0 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~
+
+ * Removed support for Python 2.7, Django 1.8 and Django 1.10
+ * Removed support for Elasticsearch 1.x
+ * Moved Wagtail API v1 implementation (`wagtail.contrib.api`) to an external app (https://github.com/wagtail/wagtailapi_legacy) (Karl Hobley)
+ * The page chooser now searches all fields of a page, instead of just the title (Bertrand Bordage)
+ * Implement ordering by date in form submission view (LB (Ben Johnston))
+ * Elasticsearch scroll API is now used when fetching more than 100 search results (Karl Hobley)
+ * Added hidden field to the form builder (Ross Crawford-d'Heureuse)
+ * Usage count now shows on delete confirmation page when WAGTAIL_USAGE_COUNT_ENABLED is active (Kees Hink)
+ * Added usage count to snippets (Kees Hink)
+ * Moved usage count to the sidebar on the edit page (Kees Hink)
+ * Explorer menu now reflects customisations to the page listing made via the `construct_explorer_page_queryset` hook and `ModelAdmin.exclude_from_explorer` property (Tim Heap)
+ * "Choose another image" button changed to "Change image" to avoid ambiguity (Edd Baldry)
+ * Added hooks `before_create_user`, `after_create_user`, `before_delete_user`, `after_delete_user`, `before_edit_user`, `after_edit_user` (Jon Carmack)
+ * Added `exclude_fields_in_copy` property to Page to define fields that should not be included on page copy (LB (Ben Johnston))
+ * Improved error message on incorrect `{% image %}` tag syntax (LB (Ben Johnston))
+ * Fix: Do not remove stopwords when generating slugs from non-ASCII titles, to avoid issues with incorrect word boundaries (Sævar Öfjörð Magnússon)
+ * Fix: The PostgreSQL search backend now preserves ordering of the `QuerySet` when searching with `order_by_relevance=False` (Bertrand Bordage)
+ * Fix: Using `modeladmin_register` as a decorator no longer replaces the decorated class with `None` (Tim Heap)
+ * Fix: Fixed crash in XML sitemap generator when all pages on the site are private (Stein Strindhaug)
+ * Fix: The `{% routablepageurl %}` template tag no longer generates invalid URLs when the `WAGTAIL_APPEND_SLASH` setting was set to `False` (Venelin Stoykov)
+ * Fix: The "View live" button is no longer shown if the page doesn't have a routable URL (Tim Heap)
+ * Fix: Fixed rendering of border on dropdown arrow buttons on Chrome (Bertrand Bordage)
+ * Fix: Fixed incorrect z-index on userbar causing it to appear behind page content (Stein Strindhaug)
+
+
+1.13.1 (17.11.2017)
+~~~~~~~~~~~~~~~~~~~
+
+ * Fix: API listing views no longer fail when no site records are defined (Karl Hobley)
+ * Fix: Fixed crash in XML sitemap generator when all pages on the site are private (Stein Strindhaug)
+ * Fix: Fixed incorrect z-index on userbar causing it to appear behind page content (Stein Strindhaug)
+ * Fix: Fixed error in Postgres search backend when searching specific fields of a specific() Page queryset (Bertrand Bordage, Matt Westcott)
+ * Fix: Fixed error on Elasticsearch backend when passing a queryset as an `__in` filter (Karl Hobley, Matt Westcott)
+ * Fix: `__isnull` filters no longer fail on Elasticsearch 5 (Karl Hobley)
+ * Fix: Prevented intermittent failures on Postgres search backend when a field is defined as both a `SearchField` and a `FilterField` (Matt Westcott)
+
+
+1.13 (16.10.2017)
 ~~~~~~~~~~~~~~~~~
 
+ * Front-end cache invalidator now supports purging URLs as a batch (Karl Hobley)
+ * Custom document model is now documented (Emily Horsman)
+ * Use minified versions of CSS in the admin by adding minification to the front-end tooling (Vincent Audebert, Thibaud Colas)
+ * Wagtailforms serve view now passes `request.FILES`, for use in custom form handlers (LB (Ben Johnston))
+ * Documents and images are now given new filenames on re-uploading, to avoid old versions being kept in cache (Bertrand Bordage)
+ * Added custom 404 page for admin interface (Jack Paine)
+ * Breadcrumb navigation now uses globe icon to indicate tree root, rather than home icon (Matt Westcott)
+ * Updated React to 15.6.2 due to relicensing (Janneke Janssen)
+ * User search in the Wagtail admin UI now works across multiple fields (Will Giddens)
+ * `Page.last_published_at` is now a filterable field for search (Mikalai Radchuk)
+ * Page search results and usage listings now include navigation links (Matt Westcott)
  * Fix: "Open Link in New Tab" on a right arrow in page explorer should open page list (Emily Horsman)
  * Fix: Using `order_by_relevance=False` when searching with PostgreSQL now works (Mitchel Cabuloy)
  * Fix: Inline panel first and last sorting arrows correctly hidden in non-default tabs (Matt Westcott)
  * Fix: `WAGTAILAPI_LIMIT_MAX` now accepts None to disable limiting (jcronyn)
+ * Fix: In PostgreSQL, new default ordering when ranking of objects is the same (Bertrand Bordage)
+ * Fix: Fixed overlapping header elements on form submissions view on mobile (Jack Paine)
+ * Fix: Fixed avatar position in footer on mobile (Jack Paine)
+ * Fix: Custom document models no longer require their own post-delete signal handler (Gordon Pendleton)
+ * Fix: Deletion of image / document files now only happens when database transaction has completed (Gordon Pendleton)
+ * Fix: Fixed Node build scripts to work on Windows (Mikalai Radchuk)
+ * Fix: Stop breadcrumb home icon from showing as ellipsis in Chrome 60 (Matt Westcott)
+ * Fix: Prevent `USE_THOUSAND_SEPARATOR = True` from breaking the image focal point chooser (Sævar Öfjörð Magnússon)
+ * Fix: Removed deprecated `SessionAuthenticationMiddleware` from project template (Samir Shah)
+ * Fix: Custom display page titles defined with `get_admin_display_title` are now shown in search results (Ben Sturmfels, Matt Westcott)
+ * Fix: Custom PageManagers now return the correct PageQuerySet subclass (Matt Westcott)
+ * Fix: API listing views no longer fail when no site records are defined (Karl Hobley)
+
+
+1.12.3 (17.11.2017)
+~~~~~~~~~~~~~~~~~~~
+
+ * Fix: API listing views no longer fail when no site records are defined (Karl Hobley)
+ * Fix: Pinned Django REST Framework to <3.7 to restore Django 1.8 compatibility (Matt Westcott)
+ * Fix: Fixed crash in XML sitemap generator when all pages on the site are private (Stein Strindhaug)
+ * Fix: Fixed error in Postgres search backend when searching specific fields of a specific() Page queryset (Bertrand Bordage, Matt Westcott)
+ * Fix: Fixed error on Elasticsearch backend when passing a queryset as an `__in` filter (Karl Hobley, Matt Westcott)
+ * Fix: `__isnull` filters no longer fail on Elasticsearch 5 (Karl Hobley)
+ * Fix: Prevented intermittent failures on Postgres search backend when a field is defined as both a `SearchField` and a `FilterField` (Matt Westcott)
+
+
+1.12.2 (18.09.2017)
+~~~~~~~~~~~~~~~~~~~
+
+ * Fix: Migration for addition of `Page.draft_title` field is now reversible (Venelin Stoykov)
+ * Fix: Fixed failure on application startup when `ManifestStaticFilesStorage` is in use and `collectstatic` has not yet been run (Matt Westcott)
+ * Fix: Fixed handling of Vimeo and other oEmbed providers with a format parameter in the endpoint URL (Mitchel Cabuloy)
+ * Fix: Fixed regression in rendering save button in wagtail.contrib.settings edit view (Matt Westcott)
+
+
+1.12.1 (30.08.2017)
+~~~~~~~~~~~~~~~~~~~
+
+ * Fix: Prevent home page draft title from displaying as blank (Mikalai Radchuk, Matt Westcott)
+ * Fix: Fix regression on styling of preview button with more than one preview mode (Jack Paine)
+ * Fix: Enabled translations within date-time chooser widget (Lucas Moeskops)
+
 
 1.12 LTS (21.08.2017)
 ~~~~~~~~~~~~~~~~~~~~~

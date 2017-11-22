@@ -28,12 +28,11 @@ Middleware (``settings.py``)
 
 .. code-block:: python
 
-  MIDDLEWARE_CLASSES = [
+  MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
@@ -346,7 +345,7 @@ Unicode Page Slugs
 
   WAGTAIL_ALLOW_UNICODE_SLUGS = True
 
-By default, page slugs can contain any alphanumeric characters, including non-Latin alphabets (except on Django 1.8, where only ASCII characters are supported). Set this to False to limit slugs to ASCII characters.
+By default, page slugs can contain any alphanumeric characters, including non-Latin alphabets. Set this to False to limit slugs to ASCII characters.
 
 .. _WAGTAIL_AUTO_UPDATE_PREVIEW:
 
@@ -395,7 +394,13 @@ Usage for images, documents and snippets
 
     WAGTAIL_USAGE_COUNT_ENABLED = True
 
-When enabled Wagtail shows where a particular image, document or snippet is being used on your site (disabled by default). A link will appear on the edit page showing you which pages they have been used on.
+When enabled Wagtail shows where a particular image, document or snippet is being used on your site.
+This is disabled by default because it generates a query which may run slowly on sites with large numbers of pages.
+
+A link will appear on the edit page (in the rightmost column) showing you how many times the item is used.
+Clicking this link takes you to the "Usage" page, which shows you where the snippet, document or image is used.
+
+The link is also shown on the delete page, above the "Delete" button.
 
 .. note::
 
@@ -520,12 +525,11 @@ These two files should reside in your project directory (``myproject/myproject/`
   ]
 
 
-  MIDDLEWARE_CLASSES = [
+  MIDDLEWARE = [
       'django.contrib.sessions.middleware.SessionMiddleware',
       'django.middleware.common.CommonMiddleware',
       'django.middleware.csrf.CsrfViewMiddleware',
       'django.contrib.auth.middleware.AuthenticationMiddleware',
-      'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
       'django.contrib.messages.middleware.MessageMiddleware',
       'django.middleware.clickjacking.XFrameOptionsMiddleware',
       'django.middleware.security.SecurityMiddleware',
@@ -554,13 +558,13 @@ These two files should reside in your project directory (``myproject/myproject/`
       },
   ]
 
-  WSGI_APPLICATION = 'wagtaildemo.wsgi.application'
+  WSGI_APPLICATION = 'myproject.wsgi.application'
 
   # Database
 
   DATABASES = {
       'default': {
-          'ENGINE': 'django.db.backends.postgresql_psycopg2',
+          'ENGINE': 'django.db.backends.postgresql',
           'NAME': 'myprojectdb',
           'USER': 'postgres',
           'PASSWORD': '',
@@ -669,10 +673,6 @@ These two files should reside in your project directory (``myproject/myproject/`
 
   # Wagtail email notification format
   # WAGTAILADMIN_NOTIFICATION_USE_HTML = True
-
-  # If you want to use Embedly for embeds, supply a key
-  # (this key doesn't work, get your own!)
-  # WAGTAILEMBEDS_EMBEDLY_KEY = '253e433d59dc4d2xa266e9e0de0cb830'
 
   # Reverse the default case-sensitive handling of tags
   TAGGIT_CASE_INSENSITIVE = True

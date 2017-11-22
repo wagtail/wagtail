@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-10 16:05+0000\n"
-"PO-Revision-Date: 2017-04-19 21:08+0000\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"PO-Revision-Date: 2017-10-06 15:11+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
@@ -219,18 +219,15 @@ msgstr ""
 "Non hai usuarios configurados. ¿Por qué non <a href="
 "\"%(wagtailusers_create_url)s\">engadir algún</a>?"
 
+msgid "Groups"
+msgstr "Grupos"
+
 msgid "Search groups"
 msgstr "Procurar grupos"
 
 #, python-brace-format
 msgid "Group '{0}' created."
 msgstr "Grupo '{0}' creado."
-
-msgid "Edit"
-msgstr "Editar"
-
-msgid "The group could not be created due to errors."
-msgstr "O grupo non puido ser creado debido a erros."
 
 #, python-brace-format
 msgid "Group '{0}' updated."
@@ -250,6 +247,9 @@ msgstr "Buscar usuarios"
 msgid "User '{0}' created."
 msgstr "Usuario '{0}' creado."
 
+msgid "Edit"
+msgstr "Editar"
+
 msgid "The user could not be created due to errors."
 msgstr "O usuario non puido ser creado debido a erros."
 
@@ -259,6 +259,3 @@ msgstr "Usuario '{0}' actualizado."
 
 msgid "The user could not be saved due to errors."
 msgstr "O usuario non puido ser gardado debido a erros."
-
-msgid "Groups"
-msgstr "Grupos"

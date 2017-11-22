@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-10 16:05+0000\n"
-"PO-Revision-Date: 2017-08-10 16:07+0000\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"PO-Revision-Date: 2017-10-06 15:06+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
@@ -144,6 +144,9 @@ msgstr "Julkaisun päättymisajankohdan täytyy olla tulevaisuudessa."
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Yhdelle kokoelmalle ei voi olla useampaa pääsyoikeusasetusta."
+
+msgid "Go to Wagtail admin"
+msgstr "Siirry Wagtailin hallintaan"
 
 msgid "Account"
 msgstr "Tili"
@@ -921,10 +924,10 @@ msgid "Sat"
 msgstr "La"
 
 #, python-format
-msgid "Used %(useage_count)s time"
-msgid_plural "Used %(useage_count)s times"
-msgstr[0] "Käytetty %(useage_count)s kerran"
-msgstr[1] "Käytetty %(useage_count)s kertaa"
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Käytetty %(usage_count)s kerran"
+msgstr[1] "Käytetty %(usage_count)s kertaa"
 
 msgid "Edit your account"
 msgstr "Muokkaa tiliäsi"
@@ -951,9 +954,6 @@ msgstr ""
 "tue. Ole hyvä ja <a href=\"http://browsehappy.com/\">päivitä selaimesi</a>."
 
 msgid "Go to Wagtail admin interface"
-msgstr "Siirry Wagtailin hallintaan"
-
-msgid "Go to Wagtail admin"
 msgstr "Siirry Wagtailin hallintaan"
 
 msgid "Add a child page"

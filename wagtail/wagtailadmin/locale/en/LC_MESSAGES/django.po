@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-10 16:05+0000\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -41,7 +41,7 @@ msgstr ""
 msgid "Promote"
 msgstr ""
 
-#: edit_handlers.py:821 wagtail_hooks.py:53
+#: edit_handlers.py:821 wagtail_hooks.py:52
 msgid "Settings"
 msgstr ""
 
@@ -181,6 +181,23 @@ msgstr ""
 msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
 
+#: templates/wagtailadmin/404.html:3
+msgid "Error 404: Page not found"
+msgstr ""
+
+#: templates/wagtailadmin/404.html:22
+msgid "Error 404"
+msgstr ""
+
+#: templates/wagtailadmin/404.html:26
+msgid "The requested page could not be found."
+msgstr ""
+
+#: templates/wagtailadmin/404.html:29
+#: templates/wagtailadmin/userbar/item_admin.html:6
+msgid "Go to Wagtail admin"
+msgstr ""
+
 #: templates/wagtailadmin/account/account.html:4
 #: templates/wagtailadmin/account/account.html:6
 msgid "Account"
@@ -293,11 +310,11 @@ msgstr ""
 #: templates/wagtailadmin/admin_base.html:31
 #: templates/wagtailadmin/home/pages_for_moderation.html:42
 #: templates/wagtailadmin/home/recent_edits.html:28
-#: templates/wagtailadmin/pages/revisions/list.html:29 views/generic.py:115
-#: views/generic.py:200 views/pages.py:222 views/pages.py:227
+#: templates/wagtailadmin/pages/revisions/list.html:29 views/generic.py:109
+#: views/generic.py:176 views/pages.py:222 views/pages.py:227
 #: views/pages.py:241 views/pages.py:368 views/pages.py:397 views/pages.py:417
 #: views/pages.py:678 views/pages.py:740 views/pages.py:910 views/pages.py:930
-#: wagtail_hooks.py:94
+#: wagtail_hooks.py:93
 msgid "Edit"
 msgstr ""
 
@@ -305,8 +322,8 @@ msgstr ""
 msgid "Page"
 msgstr ""
 
-#: templates/wagtailadmin/admin_base.html:33 wagtail_hooks.py:40
-#: wagtail_hooks.py:64
+#: templates/wagtailadmin/admin_base.html:33 wagtail_hooks.py:39
+#: wagtail_hooks.py:63
 msgid "Pages"
 msgstr ""
 
@@ -334,11 +351,11 @@ msgstr ""
 msgid "Close explorer"
 msgstr ""
 
-#: templates/wagtailadmin/base.html:22 templates/wagtailadmin/home.html:3
+#: templates/wagtailadmin/base.html:17 templates/wagtailadmin/home.html:3
 msgid "Dashboard"
 msgstr ""
 
-#: templates/wagtailadmin/base.html:45
+#: templates/wagtailadmin/base.html:40
 msgid "Menu"
 msgstr ""
 
@@ -364,7 +381,7 @@ msgstr ""
 #: templates/wagtailadmin/pages/confirm_delete.html:6
 #: templates/wagtailadmin/pages/edit.html:52
 #: templates/wagtailadmin/permissions/includes/collection_member_permissions_form.html:13
-#: views/generic.py:137 wagtail_hooks.py:159
+#: views/generic.py:132 wagtail_hooks.py:158
 msgid "Delete"
 msgstr ""
 
@@ -791,7 +808,7 @@ msgstr ""
 msgid "Move %(title)s"
 msgstr ""
 
-#: templates/wagtailadmin/pages/confirm_move.html:5 wagtail_hooks.py:145
+#: templates/wagtailadmin/pages/confirm_move.html:5 wagtail_hooks.py:144
 msgid "Move"
 msgstr ""
 
@@ -817,7 +834,7 @@ msgid "Unpublish %(title)s"
 msgstr ""
 
 #: templates/wagtailadmin/pages/confirm_unpublish.html:5
-#: templates/wagtailadmin/pages/edit.html:49 wagtail_hooks.py:166
+#: templates/wagtailadmin/pages/edit.html:49 wagtail_hooks.py:165
 msgid "Unpublish"
 msgstr ""
 
@@ -861,7 +878,7 @@ msgstr ""
 msgid "Copy %(title)s"
 msgstr ""
 
-#: templates/wagtailadmin/pages/copy.html:5 wagtail_hooks.py:152
+#: templates/wagtailadmin/pages/copy.html:5 wagtail_hooks.py:151
 msgid "Copy"
 msgstr ""
 
@@ -940,7 +957,7 @@ msgstr ""
 msgid "by %(modified_by)s"
 msgstr ""
 
-#: templates/wagtailadmin/pages/edit.html:94 wagtail_hooks.py:173
+#: templates/wagtailadmin/pages/edit.html:94 wagtail_hooks.py:172
 msgid "Revisions"
 msgstr ""
 
@@ -1028,23 +1045,23 @@ msgid "Explore subpages of '%(title)s'"
 msgstr ""
 
 #: templates/wagtailadmin/pages/listing/_navigation_choose.html:9
-#: templates/wagtailadmin/pages/listing/_navigation_explore.html:10
+#: templates/wagtailadmin/pages/listing/_navigation_explore.html:9
 #: templates/wagtailadmin/pages/listing/_navigation_move.html:9
 msgid "Explore"
 msgstr ""
 
-#: templates/wagtailadmin/pages/listing/_navigation_explore.html:10
+#: templates/wagtailadmin/pages/listing/_navigation_explore.html:9
 #, python-format
 msgid "Explore child pages of '%(title)s'"
 msgstr ""
 
-#: templates/wagtailadmin/pages/listing/_navigation_explore.html:12
+#: templates/wagtailadmin/pages/listing/_navigation_explore.html:11
 #, python-format
 msgid "Add a child page to '%(title)s'"
 msgstr ""
 
-#: templates/wagtailadmin/pages/listing/_navigation_explore.html:12
-#: wagtail_hooks.py:116 wagtail_hooks.py:124
+#: templates/wagtailadmin/pages/listing/_navigation_explore.html:11
+#: wagtail_hooks.py:115 wagtail_hooks.py:123
 msgid "Add child page"
 msgstr ""
 
@@ -1250,6 +1267,10 @@ msgid "Collection"
 msgstr ""
 
 #: templates/wagtailadmin/shared/breadcrumb.html:7
+msgid "Root"
+msgstr ""
+
+#: templates/wagtailadmin/shared/breadcrumb.html:10
 #: templates/wagtailadmin/shared/chooser_breadcrumb.html:6
 msgid "Home"
 msgstr ""
@@ -1336,8 +1357,8 @@ msgstr ""
 
 #: templates/wagtailadmin/shared/header.html:42
 #, python-format
-msgid "Used %(useage_count)s time"
-msgid_plural "Used %(useage_count)s times"
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
 msgstr[0] ""
 msgstr[1] ""
 
@@ -1382,10 +1403,6 @@ msgstr ""
 
 #: templates/wagtailadmin/userbar/base.html:8
 msgid "Go to Wagtail admin interface"
-msgstr ""
-
-#: templates/wagtailadmin/userbar/item_admin.html:6
-msgid "Go to Wagtail admin"
 msgstr ""
 
 #: templates/wagtailadmin/userbar/item_page_add.html:6
@@ -1504,7 +1521,7 @@ msgstr ""
 msgid "You have been successfully logged out."
 msgstr ""
 
-#: views/collections.py:21 wagtail_hooks.py:87
+#: views/collections.py:21 wagtail_hooks.py:86
 msgid "Collections"
 msgstr ""
 
@@ -1543,7 +1560,7 @@ msgstr ""
 msgid "Are you sure you want to delete this collection?"
 msgstr ""
 
-#: views/generic.py:133
+#: views/generic.py:128
 msgid "Editing"
 msgstr ""
 
@@ -1558,7 +1575,7 @@ msgid "Page '{0}' created and published."
 msgstr ""
 
 #: views/pages.py:226 views/pages.py:392 views/pages.py:909
-#: wagtail_hooks.py:108
+#: wagtail_hooks.py:107
 msgid "View live"
 msgstr ""
 
@@ -1567,7 +1584,7 @@ msgstr ""
 msgid "Page '{0}' created and submitted for moderation."
 msgstr ""
 
-#: views/pages.py:236 views/pages.py:412 wagtail_hooks.py:101
+#: views/pages.py:236 views/pages.py:412 wagtail_hooks.py:100
 msgid "View draft"
 msgstr ""
 
@@ -1708,56 +1725,56 @@ msgstr ""
 msgid "Latest"
 msgstr ""
 
-#: wagtail_hooks.py:96
+#: wagtail_hooks.py:95
 #, python-brace-format
 msgid "Edit '{title}'"
 msgstr ""
 
-#: wagtail_hooks.py:103
+#: wagtail_hooks.py:102
 #, python-brace-format
 msgid "Preview draft version of '{title}'"
 msgstr ""
 
-#: wagtail_hooks.py:110
+#: wagtail_hooks.py:109
 #, python-brace-format
 msgid "View live version of '{title}'"
 msgstr ""
 
-#: wagtail_hooks.py:118 wagtail_hooks.py:126
+#: wagtail_hooks.py:117 wagtail_hooks.py:125
 #, python-brace-format
 msgid "Add a child page to '{title}' "
 msgstr ""
 
-#: wagtail_hooks.py:131
+#: wagtail_hooks.py:130
 msgid "More"
 msgstr ""
 
-#: wagtail_hooks.py:136
+#: wagtail_hooks.py:135
 #, python-brace-format
 msgid "View more options for '{title}'"
 msgstr ""
 
-#: wagtail_hooks.py:147
+#: wagtail_hooks.py:146
 #, python-brace-format
 msgid "Move page '{title}'"
 msgstr ""
 
-#: wagtail_hooks.py:154
+#: wagtail_hooks.py:153
 #, python-brace-format
 msgid "Copy page '{title}'"
 msgstr ""
 
-#: wagtail_hooks.py:161
+#: wagtail_hooks.py:160
 #, python-brace-format
 msgid "Delete page '{title}'"
 msgstr ""
 
-#: wagtail_hooks.py:168
+#: wagtail_hooks.py:167
 #, python-brace-format
 msgid "Unpublish page '{title}'"
 msgstr ""
 
-#: wagtail_hooks.py:175
+#: wagtail_hooks.py:174
 #, python-brace-format
 msgid "View revision history for '{title}'"
 msgstr ""

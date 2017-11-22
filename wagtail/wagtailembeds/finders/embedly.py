@@ -1,10 +1,5 @@
 from __future__ import absolute_import, unicode_literals
 
-import warnings
-
-from django.conf import settings
-
-from wagtail.utils.deprecation import RemovedInWagtail114Warning
 from wagtail.wagtailembeds.exceptions import EmbedException, EmbedNotFoundException
 
 from .base import EmbedFinder
@@ -26,10 +21,7 @@ class EmbedlyFinder(EmbedFinder):
             self.key = key
 
     def get_key(self):
-        if self.key:
-            return self.key
-
-        return getattr(settings, 'WAGTAILEMBEDS_EMBEDLY_KEY', None)
+        return self.key
 
     def accept(self, url):
         # We don't really know what embedly supports so accept everything
@@ -80,15 +72,3 @@ class EmbedlyFinder(EmbedFinder):
 
 
 embed_finder_class = EmbedlyFinder
-
-
-def embedly(url, max_width=None, key=None):
-    warnings.warn(
-        "The `wagtail.wagtailembeds.finders.embedly.embedly` function is now deprecated. Please use the wagtail.wagtailembeds.finders.embedly.Embedly` class instead.",
-        category=RemovedInWagtail114Warning
-    )
-
-    if key is None:
-        key = settings.WAGTAILEMBEDS_EMBEDLY_KEY
-
-    return EmbedlyFinder(key=key).find_embed(url, max_width=max_width)

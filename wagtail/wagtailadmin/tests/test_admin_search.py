@@ -4,9 +4,9 @@ Tests for the search box in the admin side menu, and the custom search hooks.
 from __future__ import absolute_import, unicode_literals
 
 from django.contrib.auth.models import Permission
-from django.core.urlresolvers import reverse
 from django.template import Context, Template
 from django.test import RequestFactory, TestCase
+from django.urls import reverse
 
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailadmin.utils import user_has_any_page_permission

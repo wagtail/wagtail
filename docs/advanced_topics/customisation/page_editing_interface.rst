@@ -105,7 +105,7 @@ Once the plugin has been created, it should be registered as a rich text feature
             'hallo', 'blockquote',
             HalloPlugin(
                 name='halloblockquote',
-                js=[static('myapp/js/hallo-blockquote.js')],
+                js=['myapp/js/hallo-blockquote.js'],
             )
         )
 
@@ -121,7 +121,7 @@ The constructor for ``HalloPlugin`` accepts the following keyword arguments:
  * ``css`` - a dictionary of CSS files to be imported for this plugin, defined in the same way as a `Django form media <https://docs.djangoproject.com/en/1.11/topics/forms/media/>`_ definition
  * ``order`` - an index number (default 100) specifying the order in which plugins should be listed, which in turn determines the order buttons will appear in the toolbar
 
-To have a feature active by default (i.e. on ``RichTextFields`` that do not define an explicit ``features`` list), add it to the ``default_features`` list on the ``features`` object, and use the :ref:`insert_editor_js <insert_editor_js>` hook to insert the Javascript line ``registerHalloPlugin(<plugin_name>, <opts>);``:
+To have a feature active by default (i.e. on ``RichTextFields`` that do not define an explicit ``features`` list), add it to the ``default_features`` list on the ``features`` object:
 
 .. code-block:: python
 
@@ -134,20 +134,6 @@ To have a feature active by default (i.e. on ``RichTextFields`` that do not defi
             # ...
         )
         features.default_features.append('blockquote')
-
-    @hooks.register('insert_editor_js')
-    def blockquote_editor_js():
-        return format_html(
-            """
-            <script>
-                registerHalloPlugin('halloblockquote', {});
-            </script>
-            """
-        )
-
-.. note::
-
-    The call to ``registerHalloPlugin`` is required to ensure backwards compatibility; this requirement will be dropped in Wagtail 1.14.
 
 
 .. _rich_text_image_formats:

@@ -1,7 +1,6 @@
 // These are the generic stylings for forms of any type.
 // If you're styling something specific to the page editing interface,
 // it probably ought to go in layouts/page-editor.scss
-
 form {
     ul,
 
@@ -63,6 +62,7 @@ select,
     border: 1px solid $color-input-border;
     padding: 0.9em 1.2em;
     background-color: $color-fieldset-hover;
+    // stylelint-disable-next-line property-no-vendor-prefix
     -webkit-appearance: none;
     color: $color-text-input;
     font-size: 1.2em;
@@ -117,7 +117,6 @@ select,
         font-size: 3em;
         pointer-events: none;
         color: $color-grey-3;
-        background-color: $color-fieldset-hover;
         margin: 0 1px 1px 0;
 
         .ie & {
@@ -137,6 +136,7 @@ input[type=checkbox] {
 }
 
 input[type=radio] {
+    // stylelint-disable-next-line property-no-vendor-prefix
     -webkit-appearance: radio;
     width: auto;
     position: relative;
@@ -169,6 +169,7 @@ input[type=radio]:checked:before {
 }
 
 input[type=checkbox] {
+    // stylelint-disable-next-line property-no-vendor-prefix
     -webkit-appearance: checkbox;
     width: auto;
     position: relative;
@@ -223,6 +224,7 @@ input[type=checkbox]:checked:before {
     outline: none;
     box-sizing: border-box;
     -webkit-font-smoothing: auto;
+    // stylelint-disable-next-line property-no-vendor-prefix
     -moz-appearance: none;
 
     &:hover {
@@ -338,7 +340,7 @@ input[type=checkbox]:checked:before {
     // + input[type=reset],
     // + input[type=button],
     + .button {
-    // + button {
+        // + button {
         margin-left: 1em;
     }
 
@@ -363,6 +365,7 @@ input[type=checkbox]:checked:before {
         outline: none;
         box-sizing: border-box;
         -webkit-font-smoothing: auto;
+        // stylelint-disable-next-line property-no-vendor-prefix
         -moz-appearance: none;
     }
 
@@ -453,6 +456,7 @@ input[type=checkbox]:checked:before {
                 height: 1.8rem;
                 width: 1.8rem;
 
+                // stylelint-disable-next-line max-nesting-depth
                 &:before {
                     line-height: 1.7em;
                 }
@@ -488,107 +492,107 @@ input[type=checkbox]:checked:before {
     font-size: 0.95em;
 }
 
-    .button-secondary {
-        color: $color-button;
-        background-color: transparent;
+.button-secondary {
+    color: $color-button;
+    background-color: transparent;
+}
+
+// Buttons which are only an icon
+.button.icon.text-replace {
+    font-size: 0; // unavoidable duplication of setting in icons.scss
+    width: 1.8rem;
+    height: 1.8rem;
+
+    &:before {
+        line-height: 1.7em;
     }
+}
 
-    // Buttons which are only an icon
-    .button.icon.text-replace {
-        font-size: 0; // unavoidable duplication of setting in icons.scss
-        width: 1.8rem;
-        height: 1.8rem;
+.button-neutral {
+    color: $color-grey-2;
 
-        &:before {
-            line-height: 1.7em;
-        }
+    &:hover {
+        color: $color-teal;
     }
+}
 
-    .button-neutral {
-        color: $color-grey-2;
+.yes {
+    background-color: $color-button-yes;
+    border: 1px solid $color-button-yes;
 
-        &:hover {
-            color: $color-teal;
-        }
-    }
-
-    .yes {
-        background-color: $color-button-yes;
+    &.button-secondary {
         border: 1px solid $color-button-yes;
-
-        &.button-secondary {
-            border: 1px solid $color-button-yes;
-            color: $color-button-yes;
-            background-color: transparent;
-        }
-
-        &:hover {
-            color: $color-white;
-            border-color: transparent;
-            background-color: $color-button-yes-hover;
-        }
-
-        &.button-nobg:hover {
-            color: $color-button-yes;
-            background-color: transparent;
-        }
-    }
-
-    .no,
-    .serious {
-        background-color: $color-button-no;
-        border: 1px solid $color-button-no;
-
-        &.button-secondary {
-            border: 1px solid $color-button-no;
-            color: $color-button-no;
-            background-color: transparent;
-        }
-
-        &:hover {
-            color: $color-white;
-            border-color: transparent;
-            background-color: $color-button-no-hover;
-        }
-
-        &.button-nobg:hover {
-            color: $color-button-no;
-            background-color: transparent;
-        }
-    }
-
-    .button-nobg {
-        border: 0;
+        color: $color-button-yes;
         background-color: transparent;
     }
 
-    .bicolor {
-        border: 0;
-        padding-left: 3.5em;
-
-        &:before {
-            font-size: 1rem;
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 2em;
-            line-height: 1.85em;
-            height: 100%;
-            text-align: center;
-            background-color: rgba(0, 0, 0, 0.2);
-            display: block;
-        }
+    &:hover {
+        color: $color-white;
+        border-color: transparent;
+        background-color: $color-button-yes-hover;
     }
 
-    .button-small.bicolor {
-        padding-left: 3.5em;
-
-        &:before {
-            width: 2em;
-            font-size: 0.8rem;
-            line-height: 1.65em;
-        }
+    &.button-nobg:hover {
+        color: $color-button-yes;
+        background-color: transparent;
     }
+}
+
+.no,
+.serious {
+    background-color: $color-button-no;
+    border: 1px solid $color-button-no;
+
+    &.button-secondary {
+        border: 1px solid $color-button-no;
+        color: $color-button-no;
+        background-color: transparent;
+    }
+
+    &:hover {
+        color: $color-white;
+        border-color: transparent;
+        background-color: $color-button-no-hover;
+    }
+
+    &.button-nobg:hover {
+        color: $color-button-no;
+        background-color: transparent;
+    }
+}
+
+.button-nobg {
+    border: 0;
+    background-color: transparent;
+}
+
+.bicolor {
+    border: 0;
+    padding-left: 3.5em;
+
+    &:before {
+        font-size: 1rem;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 2em;
+        line-height: 1.85em;
+        height: 100%;
+        text-align: center;
+        background-color: rgba(0, 0, 0, 0.2);
+        display: block;
+    }
+}
+
+.button-small.bicolor {
+    padding-left: 3.5em;
+
+    &:before {
+        width: 2em;
+        font-size: 0.8rem;
+        line-height: 1.65em;
+    }
+}
 
 
 a.button {
@@ -776,7 +780,6 @@ li.focused > .help {
 
 // This is expected to go on the parent of the input/select/textarea
 // so in most cases .input
-
 .iconfield, // generic
 .date_field,
 .time_field,
@@ -889,7 +892,6 @@ li.focused > .help {
 }
 
 // field sizing and alignment
-
 .field-small {
     input,
     textarea,
@@ -944,7 +946,6 @@ li.inline:first-child {
 // all the design for a UI in a single place, but should that be a series of overrides to
 // the css provided from an app? If so, perhaps those two previous less files should be
 // re-instated and then overriden here? hmm.
-
 .chooser {
     // We show the 'chosen' state...
     @include clearfix();
@@ -994,6 +995,7 @@ li.inline:first-child {
     // ...unless the .page-chooser has the 'blank' class set
     &.blank {
         .chosen { display: none; }
+
         .unchosen { display: block; }
     }
 }

@@ -5,7 +5,7 @@ from django.forms import Media, MediaDefiningClass
 from django.forms.utils import flatatt
 from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
-from django.utils.six import text_type, with_metaclass
+from django.utils.six import with_metaclass
 from django.utils.text import slugify
 
 from wagtail.wagtailcore import hooks
@@ -18,7 +18,7 @@ class MenuItem(with_metaclass(MediaDefiningClass)):
         self.label = label
         self.url = url
         self.classnames = classnames
-        self.name = (name or slugify(text_type(label)))
+        self.name = (name or slugify(str(label)))
         self.order = order
 
         if attrs:
@@ -34,7 +34,7 @@ class MenuItem(with_metaclass(MediaDefiningClass)):
         return True
 
     def is_active(self, request):
-        return request.path.startswith(text_type(self.url))
+        return request.path.startswith(str(self.url))
 
     def get_context(self, request):
         """Defines context for the template, overridable to use more data"""

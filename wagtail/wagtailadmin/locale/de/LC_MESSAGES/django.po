@@ -25,8 +25,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-10 16:05+0000\n"
-"PO-Revision-Date: 2017-08-15 19:04+0000\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"PO-Revision-Date: 2017-10-06 18:34+0000\n"
 "Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
@@ -171,6 +171,18 @@ msgstr "Das Verfallsdatum muss in der Zukunft sein"
 msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
 "Sie können nicht mehrere Berechtigungseinträge für dieselbe Sammlung haben."
+
+msgid "Error 404: Page not found"
+msgstr "Fehler 404: Seite nicht gefunden"
+
+msgid "Error 404"
+msgstr "Fehler 404"
+
+msgid "The requested page could not be found."
+msgstr "Die angeforderte Seite konnte nicht gefunden werden."
+
+msgid "Go to Wagtail admin"
+msgstr "Zum Wagtail Admin-Interface"
 
 msgid "Account"
 msgstr "Benutzerkonto"
@@ -1034,6 +1046,9 @@ msgstr "Keine Seite benutzt "
 msgid "Collection"
 msgstr "Sammlung"
 
+msgid "Root"
+msgstr "Ursprung"
+
 msgid "Home"
 msgstr "Home"
 
@@ -1098,10 +1113,10 @@ msgid "Sat"
 msgstr "Sa"
 
 #, python-format
-msgid "Used %(useage_count)s time"
-msgid_plural "Used %(useage_count)s times"
-msgstr[0] "%(useage_count)s mal benutzt"
-msgstr[1] "%(useage_count)s mal benutzt"
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)s mal benutzt"
+msgstr[1] "%(usage_count)s mal benutzt"
 
 msgid "Edit your account"
 msgstr "Bearbeiten Sie Ihr Konto"
@@ -1146,9 +1161,6 @@ msgstr ""
 "        "
 
 msgid "Go to Wagtail admin interface"
-msgstr "Zum Wagtail Admin-Interface"
-
-msgid "Go to Wagtail admin"
 msgstr "Zum Wagtail Admin-Interface"
 
 msgid "Add a child page"

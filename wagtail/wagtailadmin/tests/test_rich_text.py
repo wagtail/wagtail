@@ -1,9 +1,9 @@
 from __future__ import absolute_import, unicode_literals
 
 from django.conf import settings
-from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.test.utils import override_settings
+from django.urls import reverse
 
 from wagtail.tests.testapp.models import SingleEventPage
 from wagtail.tests.testapp.rich_text import CustomRichTextArea
@@ -102,7 +102,7 @@ class TestDefaultRichText(BaseRichTextEditHandlerTestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
         # Check that hallo (default editor by now)
-        self.assertContains(response, 'makeHalloRichTextEditable("id_body");')
+        self.assertContains(response, 'makeHalloRichTextEditable("id_body",')
 
         # check that media for the default hallo features (but not others) is being imported
         self.assertContains(response, 'wagtaildocs/js/hallo-plugins/hallo-wagtaildoclink.js')
@@ -117,7 +117,7 @@ class TestDefaultRichText(BaseRichTextEditHandlerTestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
         # Check that hallo (default editor by now)
-        self.assertContains(response, 'makeHalloRichTextEditable("__PREFIX__-value");')
+        self.assertContains(response, 'makeHalloRichTextEditable("__PREFIX__-value",')
 
         # check that media for the default hallo features (but not others) is being imported
         self.assertContains(response, 'wagtaildocs/js/hallo-plugins/hallo-wagtaildoclink.js')

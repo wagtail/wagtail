@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-10 16:05+0000\n"
-"PO-Revision-Date: 2017-08-10 15:56+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"PO-Revision-Date: 2017-09-21 10:18+0000\n"
+"Last-Translator: Stein Strindhaug <stein.strindhaug@gmail.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
 "MIME-Version: 1.0\n"
@@ -26,6 +26,17 @@ msgstr "{label}: denne blokken har ingen alternativer."
 
 msgid "This block has no options."
 msgstr "Denne blokken har ingen alternativer."
+
+#, python-format
+msgid "The minimum number of items is %d"
+msgstr "De må være minst %d elementer"
+
+msgid "This field is required."
+msgstr "Dette feltet er påkrevet."
+
+#, python-format
+msgid "The maximum number of items is %d"
+msgstr "De må være maks %d elementer"
 
 msgid "Password"
 msgstr "Passord"

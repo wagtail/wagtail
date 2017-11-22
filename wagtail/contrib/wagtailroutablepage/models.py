@@ -1,9 +1,9 @@
 from __future__ import absolute_import, unicode_literals
 
 from django.conf.urls import url
-from django.core.urlresolvers import RegexURLResolver
 from django.http import Http404
 from django.template.response import TemplateResponse
+from django.urls.resolvers import RegexURLResolver
 
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.url_routing import RouteResult

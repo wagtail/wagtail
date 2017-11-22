@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-10 16:05+0000\n"
-"PO-Revision-Date: 2017-08-10 16:07+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"PO-Revision-Date: 2017-10-14 07:00+0000\n"
+"Last-Translator: Maarten Kling <kling.maarten@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -158,6 +158,18 @@ msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
 "Het is niet mogelijk om meerdere machtigingen voor dezelfde collectie in te "
 "stellen."
+
+msgid "Error 404: Page not found"
+msgstr "Error 404: Pagina niet gevonden"
+
+msgid "Error 404"
+msgstr "Error 404"
+
+msgid "The requested page could not be found."
+msgstr "De pagina kon niet worden gevonden."
+
+msgid "Go to Wagtail admin"
+msgstr "Ga naar de Wagtail admin"
 
 msgid "Account"
 msgstr "Account"
@@ -1008,6 +1020,9 @@ msgstr "Geen pagina's maken gebruik van"
 msgid "Collection"
 msgstr "Collectie"
 
+msgid "Root"
+msgstr "Root"
+
 msgid "Home"
 msgstr "Home"
 
@@ -1072,10 +1087,10 @@ msgid "Sat"
 msgstr "Za"
 
 #, python-format
-msgid "Used %(useage_count)s time"
-msgid_plural "Used %(useage_count)s times"
-msgstr[0] "%(useage_count)s keer gebruikt"
-msgstr[1] "%(useage_count)s keer gebruikt"
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)s keer gebruikt"
+msgstr[1] "%(usage_count)s keer gebruikt"
 
 msgid "Edit your account"
 msgstr "Wijzig uw account"
@@ -1120,9 +1135,6 @@ msgstr ""
 msgid "Go to Wagtail admin interface"
 msgstr "Ga naar de Wagtail admin interface"
 
-msgid "Go to Wagtail admin"
-msgstr "Ga naar de Wagtail admin"
-
 msgid "Add a child page"
 msgstr "Voeg een onderliggende pagina toe"
 
@@ -1162,6 +1174,9 @@ msgstr "IJslands"
 msgid "Italian"
 msgstr "Italiaans"
 
+msgid "Korean"
+msgstr "Koreaans"
+
 msgid "Lithuanian"
 msgstr "Litouws"
 
@@ -1188,6 +1203,9 @@ msgstr "Roemeens"
 
 msgid "Russian"
 msgstr "Russisch"
+
+msgid "Swedish"
+msgstr "Zweeds"
 
 msgid "Chinese (China)"
 msgstr "Chinees (China)"

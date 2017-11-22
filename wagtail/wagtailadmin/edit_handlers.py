@@ -2,7 +2,6 @@ from __future__ import absolute_import, unicode_literals
 
 import re
 
-import django
 from django import forms
 from django.core.exceptions import ImproperlyConfigured
 from django.db.models.fields import FieldDoesNotExist
@@ -11,7 +10,6 @@ from django.template.loader import render_to_string
 from django.utils.encoding import force_text
 from django.utils.functional import curry
 from django.utils.safestring import mark_safe
-from django.utils.six import text_type
 from django.utils.translation import ugettext_lazy
 from taggit.managers import TaggableManager
 
@@ -214,7 +212,7 @@ class EditHandler(object):
         """
         rendered_fields = self.required_fields()
         missing_fields_html = [
-            text_type(self.form[field_name])
+            str(self.form[field_name])
             for field_name in self.form.fields
             if field_name not in rendered_fields
         ]
@@ -516,7 +514,7 @@ class BaseChooserPanel(FieldPanel):
 
     def get_chosen_item(self):
         field = self.instance._meta.get_field(self.field_name)
-        related_model = field.rel.model
+        related_model = field.remote_field.model
         try:
             return getattr(self.instance, self.field_name)
         except related_model.DoesNotExist:
@@ -584,7 +582,7 @@ class PageChooserPanel(BaseChooserPanel):
                     )
 
             return target_models
-        return [self.db_field.rel.to]
+        return [self.db_field.remote_field.model]
 
 
 class InlinePanel(EditHandler):
@@ -653,8 +651,7 @@ class InlinePanel(EditHandler):
     def on_model_bound(self):
         self.db_field = self.model._meta.get_field(self.relation_name)
         manager = getattr(self.model, self.relation_name)
-        self.related = (manager.rel if django.VERSION >= (1, 9)
-                        else manager.related)
+        self.related = manager.rel
         self.heading = self.label
 
     def on_instance_bound(self):

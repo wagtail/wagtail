@@ -59,9 +59,6 @@ Template create.html:
       {% include "wagtailadmin/shared/field_as_li.html" with field=form.status %}
   {% endblock extra_fields %}
 
-.. note::
-   Using ``{% extends %}`` in this way on a template you're currently overriding is only supported in Django 1.9 and above. On Django 1.8, you will need to use `django-overextends <https://github.com/stephenmcd/django-overextends>`_ instead.
-
 Template edit.html:
 
 .. code-block:: html+django

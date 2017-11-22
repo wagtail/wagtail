@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-10 16:05+0000\n"
-"PO-Revision-Date: 2017-04-19 21:08+0000\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"PO-Revision-Date: 2017-10-06 15:11+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
@@ -164,18 +164,15 @@ msgstr "فعال"
 msgid "Inactive"
 msgstr "غير فعال"
 
+msgid "Groups"
+msgstr "مجموعات"
+
 msgid "Search groups"
 msgstr "جماعات للبحث"
 
 #, python-brace-format
 msgid "Group '{0}' created."
 msgstr "تم إنشاء المجموعة '{0}'."
-
-msgid "Edit"
-msgstr "تنقيح"
-
-msgid "The group could not be created due to errors."
-msgstr "من غير الممكن إنشاء المجموعة بسبب أخطاء"
 
 #, python-brace-format
 msgid "Group '{0}' updated."
@@ -195,6 +192,9 @@ msgstr "ابحث عن المستخدمين"
 msgid "User '{0}' created."
 msgstr "تم إنشاء المستخدم '{0}'."
 
+msgid "Edit"
+msgstr "تنقيح"
+
 msgid "The user could not be created due to errors."
 msgstr "من غير الممكن إنشاء الحساب بسبب أخطاء"
 
@@ -208,9 +208,6 @@ msgstr "من غير الممكن حفظ المستخدم بسبب أخطاء"
 #, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "تم حذف المستخدم '{0}'."
-
-msgid "Groups"
-msgstr "مجموعات"
 
 msgid "Edit this user"
 msgstr "عدل هذا المستخدم"

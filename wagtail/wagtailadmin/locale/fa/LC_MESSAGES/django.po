@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-10 16:05+0000\n"
-"PO-Revision-Date: 2017-08-10 16:07+0000\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"PO-Revision-Date: 2017-10-06 15:06+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
 "fa/)\n"
@@ -145,6 +145,9 @@ msgstr "تاریخ/ساعت انقضا باید در آینده باشد"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "نمی‌توانید چند رکورد مجوز برای یک مجموعه معین داشته باشید."
+
+msgid "Go to Wagtail admin"
+msgstr "رفتن به رابط راهبری وگتیل"
 
 msgid "Account"
 msgstr "حساب"
@@ -1012,9 +1015,9 @@ msgid "Sat"
 msgstr "شنبه"
 
 #, python-format
-msgid "Used %(useage_count)s time"
-msgid_plural "Used %(useage_count)s times"
-msgstr[0] "%(useage_count)s بار استفاده شد"
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)s بار استفاده شد"
 
 msgid "Edit your account"
 msgstr "ویرایش حساب شما"
@@ -1058,9 +1061,6 @@ msgstr ""
 "است."
 
 msgid "Go to Wagtail admin interface"
-msgstr "رفتن به رابط راهبری وگتیل"
-
-msgid "Go to Wagtail admin"
 msgstr "رفتن به رابط راهبری وگتیل"
 
 msgid "Add a child page"

@@ -1,8 +1,7 @@
 from __future__ import absolute_import, unicode_literals
 
 from django.conf.urls import include, url
-from django.contrib.staticfiles.templatetags.staticfiles import static
-from django.core import urlresolvers
+from django.urls import reverse
 from django.utils.html import format_html
 
 from wagtail.wagtailadmin.rich_text import HalloPlugin
@@ -14,7 +13,7 @@ from wagtail.wagtailembeds.rich_text import MediaEmbedHandler
 @hooks.register('register_admin_urls')
 def register_admin_urls():
     return [
-        url(r'^embeds/', include(urls, app_name='wagtailembeds', namespace='wagtailembeds')),
+        url(r'^embeds/', include(urls, namespace='wagtailembeds')),
     ]
 
 
@@ -24,10 +23,9 @@ def editor_js():
         """
             <script>
                 window.chooserUrls.embedsChooser = '{0}';
-                registerHalloPlugin('hallowagtailembeds');
             </script>
         """,
-        urlresolvers.reverse('wagtailembeds:chooser')
+        reverse('wagtailembeds:chooser')
     )
 
 
@@ -37,7 +35,7 @@ def register_embed_feature(features):
         'hallo', 'embed',
         HalloPlugin(
             name='hallowagtailembeds',
-            js=[static('wagtailembeds/js/hallo-plugins/hallo-wagtailembeds.js')],
+            js=['wagtailembeds/js/hallo-plugins/hallo-wagtailembeds.js'],
         )
     )
     features.default_features.append('embed')

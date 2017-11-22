@@ -4,9 +4,6 @@ Customising admin templates
 
 In your projects with Wagtail, you may wish to replace elements such as the Wagtail logo within the admin interface with your own branding. This can be done through Django's template inheritance mechanism.
 
-.. note::
-   Using ``{% extends %}`` in this way on a template you're currently overriding is only supported in Django 1.9 and above. On Django 1.8, you will need to use `django-overextends <https://github.com/stephenmcd/django-overextends>`_ instead.
-
 You need to create a ``templates/wagtailadmin/`` folder within one of your apps - this may be an existing one, or a new one created for this purpose, for example, ``dashboard``. This app must be registered in ``INSTALLED_APPS`` before ``wagtail.wagtailadmin``:
 
 .. code-block:: python
@@ -42,6 +39,8 @@ To replace the default logo, create a template file ``dashboard/templates/wagtai
     {% block branding_logo %}
         <img src="{% static 'images/custom-logo.svg' %}" alt="Custom Project" width="80" />
     {% endblock %}
+
+The logo also appears on the admin 404 error page; to replace it there too, create a template file ``dashboard/templates/wagtailadmin/404.html`` that overrides the ``branding_logo`` block.
 
 ``branding_favicon``
 --------------------

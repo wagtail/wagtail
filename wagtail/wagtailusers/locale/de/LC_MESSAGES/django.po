@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-10 16:05+0000\n"
-"PO-Revision-Date: 2017-06-20 07:37+0000\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"PO-Revision-Date: 2017-10-16 06:52+0000\n"
 "Last-Translator: Moritz Pfeiffer <moritz@alp-phone.ch>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
@@ -187,6 +187,10 @@ msgid "Add a group"
 msgstr "Eine Gruppe hinzufügen"
 
 #, python-format
+msgid "Sorry, no groups match \"%(query)s\""
+msgstr "Es gibt leider keine Gruppen zum Suchbegriff \"%(query)s\""
+
+#, python-format
 msgid ""
 "There are no groups configured. Why not <a href="
 "\"%(wagtailusers_create_group_url)s\">add some</a>?"
@@ -264,18 +268,18 @@ msgstr ""
 "Es gibt zur Zeit noch keine Benutzer. <a href=\"%(wagtailusers_create_url)s"
 "\">Legen Sie doch einen an!</a>"
 
+msgid "Search"
+msgstr "Suche"
+
+msgid "Groups"
+msgstr "Gruppen"
+
 msgid "Search groups"
 msgstr "Gruppe suchen"
 
 #, python-brace-format
 msgid "Group '{0}' created."
 msgstr "Gruppe ‚{0}‘ erstellt."
-
-msgid "Edit"
-msgstr "Bearbeiten"
-
-msgid "The group could not be created due to errors."
-msgstr "Aufgrund von Fehlern konnte die Gruppe nicht erstellt werden."
 
 #, python-brace-format
 msgid "Group '{0}' updated."
@@ -295,6 +299,9 @@ msgstr "Benutzer suchen"
 msgid "User '{0}' created."
 msgstr "Benutzer ‚{0}‘ erstellt."
 
+msgid "Edit"
+msgstr "Bearbeiten"
+
 msgid "The user could not be created due to errors."
 msgstr "Aufgrund von Fehlern konnte der Benutzer nicht erstellt werden."
 
@@ -308,9 +315,6 @@ msgstr "Aufgrund von Fehlern konnte der Benutzer nicht gespeichert werden."
 #, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "Benutzer '{0}' gelöscht."
-
-msgid "Groups"
-msgstr "Gruppen"
 
 msgid "Edit this user"
 msgstr "Diesen Benutzer bearbeiten"

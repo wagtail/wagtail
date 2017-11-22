@@ -5,7 +5,7 @@ Development
 
 Setting up a local copy of `the Wagtail git repository <https://github.com/wagtail/wagtail>`_ is slightly more involved than running a release package of Wagtail, as it requires `Node.js <https://nodejs.org/>`_ and NPM for building Javascript and CSS assets. (This is not required when running a release version, as the compiled assets are included in the release package.)
 
-If you're happy to develop on a virtual machine, the `vagrant-wagtail-develop <https://github.com/wagtail/vagrant-wagtail-develop>`_ setup script is the fastest way to get up and running. This will provide you with a running instance of the `Wagtail demo site <https://github.com/wagtail/wagtaildemo/>`_, with the Wagtail and wagtaildemo codebases available as shared folders for editing on your host machine.
+If you're happy to develop on a virtual machine, the `vagrant-wagtail-develop <https://github.com/wagtail/vagrant-wagtail-develop>`_ setup script is the fastest way to get up and running. This will provide you with a running instance of the `Wagtail Bakery demo site <https://github.com/wagtail/bakerydemo/>`_, with the Wagtail and bakerydemo codebases available as shared folders for editing on your host machine.
 
 (Build scripts for other platforms would be very much welcomed - if you create one, please let us know via the `Wagtail Developers group <https://groups.google.com/forum/#!forum/wagtail-developers>`_!)
 
@@ -51,7 +51,7 @@ Compile the assets:
 
     $ npm run build
 
-Any Wagtail sites you start up in this virtualenv will now run against this development instance of Wagtail. We recommend using the `Wagtail demo site <https://github.com/wagtail/wagtaildemo/>`_ as a basis for developing Wagtail.
+Any Wagtail sites you start up in this virtualenv will now run against this development instance of Wagtail. We recommend using the `Wagtail Bakery demo site <https://github.com/wagtail/bakerydemo/>`_ as a basis for developing Wagtail.
 
 .. _testing:
 
@@ -80,6 +80,13 @@ an argument to ``runtests.py``
 .. code-block:: console
 
     $ python runtests.py wagtail.wagtailcore.tests.test_blocks.TestIntegerBlock
+
+**Running migrations for the test app models**
+
+You can create migrations for the test app by running the following from the Wagtail root.
+
+.. code-block:: console
+    $ django-admin.py makemigrations --settings=wagtail.tests.settings
 
 
 **Testing against PostgreSQL**
@@ -194,10 +201,7 @@ To start this simple server, run the following commands:
 .. code-block:: console
 
     $ cd docs/_build/html/
-    $ # Python 2
-    $ python2 -mSimpleHTTPServer 8080
-    $ # Python 3
-    $ python3 -mhttp.server 8080
+    $ python -mhttp.server 8080
 
 Now you can open <http://localhost:8080/> in your web browser to see the compiled documentation.
 

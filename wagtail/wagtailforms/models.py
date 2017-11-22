@@ -7,8 +7,6 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
 from django.shortcuts import render
-from django.utils.encoding import python_2_unicode_compatible
-from django.utils.six import text_type
 from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _
 from unidecode import unidecode
@@ -33,10 +31,10 @@ FORM_FIELD_CHOICES = (
     ('radio', _('Radio buttons')),
     ('date', _('Date')),
     ('datetime', _('Date/time')),
+    ('hidden', _('Hidden field')),
 )
 
 
-@python_2_unicode_compatible
 class AbstractFormSubmission(models.Model):
     """
     Data for a form submission.
@@ -105,7 +103,7 @@ class AbstractFormField(Orderable):
         # unidecode will return an ascii string while slugify wants a
         # unicode string on the other hand, slugify returns a safe-string
         # which will be converted to a normal str
-        return str(slugify(text_type(unidecode(self.label))))
+        return str(slugify(str(unidecode(self.label))))
 
     panels = [
         FieldPanel('label'),
@@ -211,6 +209,33 @@ class AbstractForm(Page):
     def get_landing_page_template(self, request, *args, **kwargs):
         return self.landing_page_template
 
+    def get_field_ordering(self, ordering_list, default=('submit_time', 'descending')):
+        """
+            Accepts a list of strings ['-submit_time', 'id']
+            Returns a list of tuples [(field_name, 'ascending'/'descending'), ...]
+            Intented to be used to process ordering via request.GET.getlist('order_by')
+            Checks if the field options are valid, only returns valid, de-duplicated options
+            invalid options are simply ignored - no error created
+        """
+        valid_fields = ['id', 'submit_time']
+        field_ordering = []
+        if len(ordering_list) == 0:
+            return [default]
+        for ordering in ordering_list:
+            try:
+                none, prefix, field_name = ordering.rpartition('-')
+                if field_name not in valid_fields:
+                    continue  # Invalid field_name, skip it
+                # only add to ordering if the field is not already set
+                if field_name not in [order[0] for order in field_ordering]:
+                    asc_desc = 'ascending'
+                    if prefix == '-':
+                        asc_desc = 'descending'
+                    field_ordering.append((field_name, asc_desc))
+            except (IndexError, ValueError):
+                continue  # Invalid ordering specified, skip it
+        return field_ordering
+
     def get_submission_class(self):
         """
         Returns submission class.
@@ -237,7 +262,7 @@ class AbstractForm(Page):
 
     def serve(self, request, *args, **kwargs):
         if request.method == 'POST':
-            form = self.get_form(request.POST, page=self, user=request.user)
+            form = self.get_form(request.POST, request.FILES, page=self, user=request.user)
 
             if form.is_valid():
                 self.process_form_submission(form)

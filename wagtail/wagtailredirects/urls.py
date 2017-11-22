@@ -4,6 +4,7 @@ from django.conf.urls import url
 
 from wagtail.wagtailredirects import views
 
+app_name = 'wagtailredirects'
 urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^add/$', views.add, name='add'),

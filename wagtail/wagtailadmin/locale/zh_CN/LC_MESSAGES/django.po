@@ -10,13 +10,14 @@
 # listeng, 2016
 # Vincent Zhao <zhaopu2008@gmail.com>, 2017
 # jszsj <zhushajun@gmail.com>, 2017
+# 汇民 王 <whuim@qq.com>, 2017
 # 飘 赵 <275980464@qq.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-10 16:05+0000\n"
-"PO-Revision-Date: 2017-08-10 16:07+0000\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"PO-Revision-Date: 2017-10-06 15:06+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
@@ -81,7 +82,7 @@ msgid "New title"
 msgstr "新标题"
 
 msgid "New slug"
-msgstr "新"
+msgstr "新缩略名"
 
 msgid "New parent page"
 msgstr "新父页面"
@@ -122,7 +123,7 @@ msgstr "你没有权限复制到页面“%(page_title)s”"
 #, python-format
 msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
-msgstr "此缩写在父页面\"%s\"环境中已被使用。"
+msgstr "此缩略名在其父页面\"%s\"上下文中已被使用。"
 
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "你在复制子页面时不能复制当前页面本身"
@@ -148,19 +149,22 @@ msgstr "过期日期/时间必须是未来时间。"
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "对于同一个集合你不能设置多重权限"
 
+msgid "Go to Wagtail admin"
+msgstr "转到管理界面"
+
 msgid "Account"
 msgstr "帐号"
 
 msgid "Set gravatar"
-msgstr "设置gravatar"
+msgstr "设置gravatar（全球通用头像）"
 
 msgid ""
 "Your avatar image is provided by Gravatar and is connected to your email "
 "address. With a Gravatar account you can set an avatar for any number of "
 "other email addresses you use."
 msgstr ""
-"您的头像是由Gravatar提供，与您的电邮地址关联。拥有Gravatar帐号，你可以为你的"
-"多个电邮地址设置头像。"
+"您的头像是由Gravatar提供，与您的邮件地址关联。只需一个Gravatar帐号，你就可以"
+"为你使用的任意多个邮件地址设置头像。"
 
 msgid "Change password"
 msgstr "修改密码"
@@ -278,7 +282,7 @@ msgid "External link"
 msgstr "外部链接"
 
 msgid "Email link"
-msgstr "电子邮件连接"
+msgstr "电子邮件链接"
 
 #, python-format
 msgid ""
@@ -316,7 +320,7 @@ msgstr[0] ""
 "这里只能选择 \"%(type)s\"类型的页面。搜索结果会过滤掉其它类型。"
 
 msgid "Add an email link"
-msgstr "添加一个电邮链接"
+msgstr "添加一个电子邮件链接"
 
 msgid "Insert link"
 msgstr "插入链接"
@@ -325,23 +329,23 @@ msgid "Add an external link"
 msgstr "添加一个外部链接"
 
 msgid "Collection privacy"
-msgstr "集合隐私性"
+msgstr "集合私有设置"
 
 msgid "This collection has been made private by a parent collection."
-msgstr "这个集合已经被父集合设为隐私。"
+msgstr "这个集合已经被父集合设为私有。"
 
 msgid "You can edit the privacy settings on:"
-msgstr "你可以在这里修改此配置："
+msgstr "你可以在这里修改此私有设置："
 
 msgid ""
 "Privacy settings determine who is able to view documents in this collection."
-msgstr "隐私性设置决定谁可以查看这个集合中的文档。"
+msgstr "私有设置决定谁可以查看这个集合中的文档。"
 
 msgid "Save"
 msgstr "保存"
 
 msgid "Privacy"
-msgstr "隐私"
+msgstr "私有设置"
 
 msgid "Public"
 msgstr "公开"
@@ -372,7 +376,7 @@ msgstr "是的， 删除"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
-msgstr "欢迎使用 %(site_name)s  Wagtail CMS"
+msgstr "欢迎使用 %(site_name)s  Wagtail 内容管理系统"
 
 msgid ""
 "This is your dashboard on which helpful information about content you've "
@@ -386,7 +390,7 @@ msgid "Title"
 msgstr "标题"
 
 msgid "Parent"
-msgstr "父节点"
+msgstr "上一级"
 
 msgid "Type"
 msgstr "类型"
@@ -423,7 +427,7 @@ msgid "Draft"
 msgstr "草稿"
 
 msgid "Live"
-msgstr "预览"
+msgstr "发布"
 
 msgid "Site summary"
 msgstr "网站摘要"
@@ -499,13 +503,13 @@ msgid "The page \"%(page)s\" has been submitted for moderation"
 msgstr "页面\"%(page)s\"已提交审核"
 
 msgid "Page privacy"
-msgstr "页面保护"
+msgstr "页面私有设置"
 
 msgid "This page has been made private by a parent page."
-msgstr "此页面已被父节点设置为隐藏。"
+msgstr "此页面已被父节点设置为私有。"
 
 msgid "Privacy changes apply to all children of this page too."
-msgstr "隐私也会应用到此页面的所有子页面。"
+msgstr "私有设置也会应用到此页面的所有子页面。"
 
 msgid "Edit lock"
 msgstr "编辑锁定"
@@ -535,7 +539,7 @@ msgid "Delete %(title)s"
 msgstr "删除%(title)s"
 
 msgid "Are you sure you want to delete this page?"
-msgstr "确认删除？"
+msgstr "确定要删除此页面吗？"
 
 #, python-format
 msgid ""
@@ -549,13 +553,13 @@ msgid_plural ""
 "                "
 msgstr[0] ""
 "\n"
-"这也会删除 %(descendant_count)s 个子页面。"
+"这还会删除 %(descendant_count)s 个子页面。"
 
 msgid "Yes, delete it"
-msgstr "确认删除"
+msgstr "是，删除此页面"
 
 msgid "No, don't delete it"
-msgstr "不，不要删除"
+msgstr "否，不删除此页面"
 
 #, python-format
 msgid ""
@@ -594,7 +598,7 @@ msgid "Unpublish"
 msgstr "取消发布"
 
 msgid "Are you sure you want to unpublish this page?"
-msgstr "确认取消发布此页面？"
+msgstr "此页面确定要取消发布吗？"
 
 #, python-format
 msgid ""
@@ -608,15 +612,15 @@ msgid_plural ""
 "                "
 msgstr[0] ""
 "\n"
-"                    此页面有 %(live_descendant_count)s 个子页面。他们也会被取"
-"消发布\n"
+"                    此页面有 %(live_descendant_count)s 个子页面。它们也都会被"
+"取消发布\n"
 "                "
 
 msgid "Yes, unpublish it"
-msgstr "是的。取消发布"
+msgstr "是，取消发布"
 
 msgid "No, don't unpublish"
-msgstr "否，不发布"
+msgstr "否，不取消发布"
 
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
@@ -683,7 +687,7 @@ msgstr "上一次编辑： %(last_mod)s"
 
 #, python-format
 msgid "by %(modified_by)s"
-msgstr "被 %(modified_by)s"
+msgstr "按%(modified_by)s"
 
 msgid "Revisions"
 msgstr "修订"
@@ -711,7 +715,7 @@ msgstr ""
 "                        "
 
 msgid "Configure a site now."
-msgstr "现在配置站点"
+msgstr "现在配置一个站点。"
 
 msgid ""
 "\n"
@@ -720,7 +724,7 @@ msgid ""
 "                        "
 msgstr ""
 "\n"
-"如果你是想给已存在的站点添加一个页面，请给首页添加一个子页面。"
+"如果你只是想给已有的站点添加一个页面，请直接在首页中添加子页面。"
 
 msgid ""
 "\n"
@@ -730,8 +734,8 @@ msgid ""
 "                    "
 msgstr ""
 "\n"
-"在这里创建的页面将无法通过URL访问，如果你是想给已存在的站点添加一个页面，请给"
-"首页添加一个子页面。"
+"在这里创建的页面将无法通过URL访问，如果想给已有的站点添加页面，请在首页中添加"
+"子页面。"
 
 msgid ""
 "\n"
@@ -741,7 +745,7 @@ msgid ""
 "                    "
 msgstr ""
 "\n"
-"当前位置没有配置站点，页面将无法访问。"
+"当前位置没有配置站点，在这里创建的页面将无法通过任何URL访问。"
 
 msgid ""
 "\n"
@@ -753,11 +757,11 @@ msgstr ""
 "当前位置没有配置站点，页面将无法访问。"
 
 msgid "No pages have been created at this location."
-msgstr "该位置还没有创建页面。"
+msgstr "这个位置还没有创建页面。"
 
 #, python-format
 msgid "Why not <a href=\"%(add_page_url)s\">create one</a>?"
-msgstr "为啥不<a href=\"%(add_page_url)s\">创建一个</a>?"
+msgstr "要不<a href=\"%(add_page_url)s\">创建一个</a>?"
 
 msgid "This page is locked to further editing"
 msgstr "此页面已锁定，无法编辑"
@@ -790,7 +794,7 @@ msgid ""
 "    "
 msgstr ""
 "\n"
-"页面 %(page_number)s / %(num_pages)s。"
+"第 %(page_number)s 页 共 %(num_pages)s 页。"
 
 msgid "Previous"
 msgstr "上一个"
@@ -898,7 +902,7 @@ msgstr "修订时间"
 
 msgctxt "points to a user who created a revision"
 msgid "by"
-msgstr "于"
+msgstr "修订人"
 
 msgid "Current draft"
 msgstr "当前草稿"
@@ -933,10 +937,10 @@ msgstr[0] ""
 
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
-msgstr "Sorry,没有符合<em>\"%(query_string)s\"</em>的页面"
+msgstr "对不起，没有符合<em>\"%(query_string)s\"</em>的页面"
 
 msgid "Enter a search term above"
-msgstr "输入检索词"
+msgstr "输入上面的搜索条件"
 
 msgid "No pages use"
 msgstr "没有页面使用"
@@ -945,7 +949,7 @@ msgid "Collection"
 msgstr "集合"
 
 msgid "Home"
-msgstr "起始页"
+msgstr "主页"
 
 msgid "All collections"
 msgstr "所有集合"
@@ -1008,9 +1012,9 @@ msgid "Sat"
 msgstr "周六"
 
 #, python-format
-msgid "Used %(useage_count)s time"
-msgid_plural "Used %(useage_count)s times"
-msgstr[0] "已使用%(useage_count)s次"
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "已使用%(usage_count)s次"
 
 msgid "Edit your account"
 msgstr "编辑账户"
@@ -1023,7 +1027,7 @@ msgstr "注销"
 
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "页面 %(page_num)s / %(total_pages)s."
+msgstr "第 %(page_num)s 页，共 %(total_pages)s 页。"
 
 msgid "Other searches"
 msgstr "其它搜索"
@@ -1055,14 +1059,11 @@ msgstr ""
 msgid "Go to Wagtail admin interface"
 msgstr "转到管理界面"
 
-msgid "Go to Wagtail admin"
-msgstr "转到管理界面"
-
 msgid "Add a child page"
 msgstr "添加子页面"
 
 msgid "Show in Explorer"
-msgstr "在资源中显示"
+msgstr "在资源管理器中显示"
 
 msgid "Test"
 msgstr "测试"
@@ -1097,6 +1098,9 @@ msgstr "冰岛语"
 msgid "Italian"
 msgstr "意大利语"
 
+msgid "Korean"
+msgstr "韩国语"
+
 msgid "Lithuanian"
 msgstr "立陶宛语"
 
@@ -1123,6 +1127,9 @@ msgstr "罗马尼亚语"
 
 msgid "Russian"
 msgstr "俄语"
+
+msgid "Swedish"
+msgstr "瑞典语"
 
 msgid "Chinese (China)"
 msgstr "中文 (中国)"
@@ -1350,7 +1357,7 @@ msgid "Choose another item"
 msgstr "选择其它项"
 
 msgid "Clear choice"
-msgstr "取消选择"
+msgstr "清除选择"
 
 msgid "Edit this item"
 msgstr "编辑此项"

@@ -5,6 +5,7 @@ from django.db import models
 from rest_framework.filters import BaseFilterBackend
 from taggit.managers import TaggableManager
 
+from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailsearch.backends import get_search_backend
 
@@ -150,7 +151,7 @@ class ChildOfFilter(BaseFilterBackend):
                 raise BadRequestError("parent page doesn't exist")
 
             queryset = queryset.child_of(parent_page)
-            queryset._filtered_by_child_of = True
+            queryset._filtered_by_child_of = parent_page
 
         return queryset
 
@@ -181,7 +182,7 @@ class DescendantOfFilter(BaseFilterBackend):
 
     def filter_queryset(self, request, queryset, view):
         if 'descendant_of' in request.GET:
-            if getattr(queryset, '_filtered_by_child_of', False):
+            if hasattr(queryset, '_filtered_by_child_of'):
                 raise BadRequestError("filtering by descendant_of with child_of is not supported")
             try:
                 parent_page_id = int(request.GET['descendant_of'])
@@ -212,3 +213,16 @@ class RestrictedDescendantOfFilter(DescendantOfFilter):
     def get_page_by_id(self, request, page_id):
         site_pages = pages_for_site(request.site)
         return site_pages.get(id=page_id)
+
+
+class ForExplorerFilter(BaseFilterBackend):
+    def filter_queryset(self, request, queryset, view):
+        if request.GET.get('for_explorer'):
+            if not hasattr(queryset, '_filtered_by_child_of'):
+                raise BadRequestError("filtering by for_explorer without child_of is not supported")
+
+            parent_page = queryset._filtered_by_child_of
+            for hook in hooks.get_hooks('construct_explorer_page_queryset'):
+                queryset = hook(parent_page, queryset, request)
+
+        return queryset

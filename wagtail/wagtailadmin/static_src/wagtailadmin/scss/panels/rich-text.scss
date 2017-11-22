@@ -108,7 +108,6 @@
     // Set some reasonable default heading styles. These can be overridden in site-specific custom CSS
     // to make them better reflect their appearance on the front-end (however, it's arguably better for editors
     // NOT to be thinking about a specific visual appearance when they choose heading levels...)
-
     h1,
     h2,
     h3,
@@ -154,11 +153,8 @@
     // Wagtail installations that define their own image formats (in a myapp.image_formats module)
     // should ideally use the insert_editor_css hook to pass in their own custom CSS to have those
     // images render within the rich text area in the same styles that would appear on the front-end.
-
-
     .richtext-image {
         margin-top: 3px; // close as possible to match line-height space above p
-
         img {
             width: 100%;
         }
