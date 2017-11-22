@@ -11,6 +11,8 @@ The syntax for the tag is thus:
 
     {% image [image] [resize-rule] %}
 
+**Both the image and resize rule must be passed to the template tag.**
+
 For example:
 
 .. code-block:: html+django

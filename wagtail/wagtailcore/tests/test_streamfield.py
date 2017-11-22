@@ -8,7 +8,6 @@ from django.db import models
 from django.template import Context, Template, engines
 from django.test import TestCase
 from django.utils.safestring import SafeText
-from django.utils.six import text_type
 
 from wagtail.tests.testapp.models import StreamModel
 from wagtail.wagtailcore import blocks
@@ -189,7 +188,7 @@ class TestStreamFieldRenderingBase(TestCase):
 
 class TestStreamFieldRendering(TestStreamFieldRenderingBase):
     def test_to_string(self):
-        rendered = text_type(self.instance.body)
+        rendered = str(self.instance.body)
         self.assertHTMLEqual(rendered, self.expected)
         self.assertIsInstance(rendered, SafeText)
 

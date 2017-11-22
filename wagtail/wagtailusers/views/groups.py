@@ -3,8 +3,7 @@ from __future__ import absolute_import, unicode_literals
 from django.contrib.auth.models import Group
 from django.utils.translation import ugettext as _
 
-from wagtail.wagtailadmin.forms import SearchForm
-from wagtail.wagtailadmin.views import generic
+from wagtail.wagtailadmin.views import generic, mixins
 from wagtail.wagtailadmin.viewsets.model import ModelViewSet
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailusers.forms import GroupForm, GroupPagePermissionFormSet
@@ -50,41 +49,7 @@ class PermissionPanelFormsMixin(object):
         return super(PermissionPanelFormsMixin, self).get_context_data(**kwargs)
 
 
-class SearchableListMixin(object):
-    search_box_placeholder = _("Search")
-    search_fields = []
-
-    def get_search_form(self):
-        if self.request.GET.get('q'):
-            return SearchForm(self.request.GET, placeholder=self.search_box_placeholder)
-        else:
-            return SearchForm(placeholder=self.search_box_placeholder)
-
-    def get_queryset(self):
-        queryset = super(SearchableListMixin, self).get_queryset()
-        search_form = self.get_search_form()
-
-        if search_form.is_valid():
-            q = search_form.cleaned_data['q']
-
-            filters = {
-                field + '__icontains': q
-                for field in self.search_fields
-            }
-
-            queryset = queryset.filter(**filters)
-
-        return queryset
-
-    def get_context_data(self, **kwargs):
-        if 'search_form' not in kwargs:
-            kwargs['search_form'] = self.get_search_form()
-            kwargs['is_searching'] = bool(self.request.GET.get('q'))
-
-        return super(SearchableListMixin, self).get_context_data(**kwargs)
-
-
-class IndexView(SearchableListMixin, generic.IndexView):
+class IndexView(mixins.SearchableListMixin, generic.IndexView):
     page_title = _("Groups")
     add_item_label = _("Add a group")
     search_box_placeholder = _("Search groups")

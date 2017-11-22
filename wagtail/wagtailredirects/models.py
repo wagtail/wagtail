@@ -1,7 +1,8 @@
 from __future__ import absolute_import, unicode_literals
 
+from urllib.parse import urlparse
+
 from django.db import models
-from django.utils.six.moves.urllib.parse import urlparse
 from django.utils.translation import ugettext_lazy as _
 
 

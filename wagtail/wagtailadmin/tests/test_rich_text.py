@@ -1,9 +1,9 @@
 from __future__ import absolute_import, unicode_literals
 
 from django.conf import settings
-from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.test.utils import override_settings
+from django.urls import reverse
 
 from wagtail.tests.testapp.models import SingleEventPage
 from wagtail.tests.testapp.rich_text import CustomRichTextArea

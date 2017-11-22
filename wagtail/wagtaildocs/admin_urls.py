@@ -4,6 +4,7 @@ from django.conf.urls import url
 
 from wagtail.wagtaildocs.views import chooser, documents, multiple
 
+app_name = 'wagtaildocs'
 urlpatterns = [
     url(r'^$', documents.index, name='index'),
     url(r'^add/$', documents.add, name='add'),

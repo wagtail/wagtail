@@ -11,7 +11,6 @@ from django.core.exceptions import ImproperlyConfigured, PermissionDenied
 from django.http import HttpResponse, HttpResponsePermanentRedirect, StreamingHttpResponse
 from django.shortcuts import get_object_or_404
 from django.utils.decorators import classonlymethod
-from django.utils.six import text_type
 from django.views.generic import View
 
 from wagtail.utils.sendfile import sendfile
@@ -25,7 +24,7 @@ def generate_signature(image_id, filter_spec, key=None):
         key = settings.SECRET_KEY
 
     # Key must be a bytes object
-    if isinstance(key, text_type):
+    if isinstance(key, str):
         key = key.encode()
 
     # Based on libthumbor hmac generation

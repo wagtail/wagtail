@@ -12,8 +12,6 @@ from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
 from django.shortcuts import render
-from django.utils.encoding import python_2_unicode_compatible
-from django.utils.six import text_type
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.models import ClusterableModel
@@ -141,6 +139,22 @@ class SimplePage(Page):
     ]
 
 
+# Page with Excluded Fields when copied
+class PageWithExcludedCopyField(Page):
+    content = models.TextField()
+
+    # Exclude this field from being copied
+    special_field = models.CharField(
+        blank=True, max_length=255, default='Very Special')
+    exclude_fields_in_copy = ['special_field']
+
+    content_panels = [
+        FieldPanel('title', classname="full title"),
+        FieldPanel('special_field'),
+        FieldPanel('content'),
+    ]
+
+
 class PageWithOldStyleRouteMethod(Page):
     """
     Prior to Wagtail 0.4, the route() method on Page returned an HttpResponse
@@ -199,7 +213,6 @@ class EventPageSpeaker(Orderable, LinkFields):
     ]
 
 
-@python_2_unicode_compatible
 class EventCategory(models.Model):
     name = models.CharField("Name", max_length=255)
 
@@ -465,7 +478,7 @@ class FormPageWithCustomSubmission(AbstractEmailForm):
 
         if self.to_address:
             addresses = [x.strip() for x in self.to_address.split(',')]
-            content = '\n'.join([x[1].label + ': ' + text_type(form.data.get(x[0])) for x in form.fields.items()])
+            content = '\n'.join([x[1].label + ': ' + str(form.data.get(x[0])) for x in form.fields.items()])
             send_mail(self.subject, content, addresses, self.from_address,)
 
     def serve(self, request, *args, **kwargs):
@@ -519,7 +532,6 @@ class AdvertTag(TaggedItemBase):
     content_object = ParentalKey('Advert', related_name='tagged_items', on_delete=models.CASCADE)
 
 
-@python_2_unicode_compatible
 class Advert(ClusterableModel):
     url = models.URLField(null=True, blank=True)
     text = models.CharField(max_length=255)
@@ -539,7 +551,6 @@ class Advert(ClusterableModel):
 register_snippet(Advert)
 
 
-@python_2_unicode_compatible
 class AdvertWithTabbedInterface(models.Model):
     url = models.URLField(null=True, blank=True)
     text = models.CharField(max_length=255)

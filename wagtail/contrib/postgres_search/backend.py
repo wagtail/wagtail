@@ -7,8 +7,7 @@ from django.db import DEFAULT_DB_ALIAS, NotSupportedError, connections, transact
 from django.db.models import F, Manager, Q, TextField, Value
 from django.db.models.constants import LOOKUP_SEP
 from django.db.models.functions import Cast
-from django.utils.encoding import force_text, python_2_unicode_compatible
-from django.utils.six import string_types
+from django.utils.encoding import force_text
 
 from wagtail.wagtailsearch.backends.base import (
     BaseSearchBackend, BaseSearchQuery, BaseSearchResults)
@@ -20,7 +19,6 @@ from .utils import (
     get_postgresql_connections, get_sql_weights, get_weight, keyword_split, unidecode)
 
 
-@python_2_unicode_compatible
 class Index(object):
     def __init__(self, backend, model, db_alias=None):
         self.backend = backend
@@ -57,7 +55,7 @@ class Index(object):
         stale_entries.delete()
 
     def prepare_value(self, value):
-        if isinstance(value, string_types):
+        if isinstance(value, str):
             return value
         if isinstance(value, list):
             return ', '.join(self.prepare_value(item) for item in value)

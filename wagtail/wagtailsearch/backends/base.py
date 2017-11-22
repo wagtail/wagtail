@@ -4,7 +4,6 @@ from __future__ import absolute_import, unicode_literals
 from django.db.models.lookups import Lookup
 from django.db.models.query import QuerySet
 from django.db.models.sql.where import SubqueryConstraint, WhereNode
-from django.utils.six import text_type
 
 from wagtail.wagtailsearch.index import class_is_indexed
 
@@ -62,7 +61,7 @@ class BaseSearchQuery(object):
         if result is None:
             raise FilterError(
                 'Could not apply filter on search results: "' + field_attname + '__' +
-                lookup + ' = ' + text_type(value) + '". Lookup "' + lookup + '"" not recognised.'
+                lookup + ' = ' + str(value) + '". Lookup "' + lookup + '"" not recognised.'
             )
 
         return result
@@ -139,7 +138,7 @@ class BaseSearchResults(object):
 
     def results(self):
         if self._results_cache is None:
-            self._results_cache = self._do_search()
+            self._results_cache = list(self._do_search())
         return self._results_cache
 
     def count(self):

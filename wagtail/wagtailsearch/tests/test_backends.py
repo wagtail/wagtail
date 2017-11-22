@@ -2,14 +2,14 @@
 
 from __future__ import absolute_import, unicode_literals
 
-import time
 import unittest
+from datetime import date
+from io import StringIO
 
 from django.conf import settings
 from django.core import management
 from django.test import TestCase
 from django.test.utils import override_settings
-from django.utils.six import StringIO
 
 from wagtail.tests.search import models
 from wagtail.tests.utils import WagtailTestUtils
@@ -17,11 +17,12 @@ from wagtail.wagtailsearch.backends import (
     InvalidSearchBackendError, get_search_backend, get_search_backends)
 from wagtail.wagtailsearch.backends.base import FieldError
 from wagtail.wagtailsearch.backends.db import DatabaseSearchBackend
-from wagtail.wagtailsearch.management.commands.update_index import group_models_by_index
 
 
 class BackendTests(WagtailTestUtils):
     # To test a specific backend, subclass BackendTests and define self.backend_path.
+
+    fixtures = ['search']
 
     def setUp(self):
         # Search WAGTAILSEARCH_BACKENDS for an entry that uses the given backend path
@@ -34,195 +35,373 @@ class BackendTests(WagtailTestUtils):
             # no conf entry found - skip tests for this backend
             raise unittest.SkipTest("No WAGTAILSEARCH_BACKENDS entry for the backend %s" % self.backend_path)
 
-        self.load_test_data()
+        management.call_command('update_index', backend_name=self.backend_name, interactive=False, stdout=StringIO())
 
-    def reset_index(self):
-        if self.backend.rebuilder_class:
-            for index, indexed_models in group_models_by_index(self.backend, [models.SearchTest, models.SearchTestChild]).items():
-                rebuilder = self.backend.rebuilder_class(index)
-                index = rebuilder.start()
-                for model in indexed_models:
-                    index.add_model(model)
-                rebuilder.finish()
+    def assertUnsortedListEqual(self, a, b):
+        """
+        Checks two results lists are equal while not taking into account the ordering.
 
-    def refresh_index(self):
-        index = self.backend.get_index_for_model(models.SearchTest)
-        if index:
-            index.refresh()
+        Note: This is different to assertSetEqual in that duplicate results are taken
+        into account.
+        """
+        self.assertListEqual(list(sorted(a)), list(sorted(b)))
 
-    def load_test_data(self):
-        self.reset_index()
+    # SEARCH TESTS
 
-        # Create a test database
-        testa = models.SearchTest()
-        testa.title = "Hello World"
-        testa.save()
-        testa.subobjects.create(name='A subobject')
-        self.backend.add(testa)
-        self.testa = testa
+    def test_search_simple(self):
+        results = self.backend.search("JavaScript", models.Book)
+        self.assertUnsortedListEqual([r.title for r in results], [
+            "JavaScript: The good parts",
+            "JavaScript: The Definitive Guide"
+        ])
 
-        testb = models.SearchTest()
-        testb.title = "Hello"
-        testb.live = True
-        testb.save()
-        self.backend.add(testb)
-        self.testb = testb
+    def test_search_count(self):
+        results = self.backend.search("JavaScript", models.Book)
+        self.assertEqual(results.count(), 2)
 
-        testc = models.SearchTestChild()
-        testc.title = "Hello"
-        testc.live = True
-        testc.content = "Hello"
-        testc.subtitle = "Foo"
-        testc.save()
-        self.backend.add(testc)
-        self.testc = testc
+    def test_search_blank(self):
+        # Blank searches should never return anything
+        results = self.backend.search("", models.Book)
+        self.assertSetEqual(set(results), set())
 
-        testd = models.SearchTestChild()
-        testd.title = "World"
-        testd.subtitle = "Foo"
-        testd.save()
-        self.backend.add(testd)
-        self.testd = testd
+    def test_search_all(self):
+        # Searches on None should return everything in the index
+        results = self.backend.search(None, models.Book)
+        self.assertSetEqual(set(results), set(models.Book.objects.all()))
 
-        self.refresh_index()
+    def test_ranking(self):
+        # Note: also tests the "or" operator
+        results = list(self.backend.search("JavaScript Definitive", models.Book, operator='or'))
+        self.assertUnsortedListEqual([r.title for r in results], [
+            "JavaScript: The good parts",
+            "JavaScript: The Definitive Guide"
+        ])
 
-    def test_blank_search(self):
-        results = self.backend.search("", models.SearchTest)
-        self.assertEqual(set(results), set())
+        # "JavaScript: The Definitive Guide" should be first
+        self.assertEqual(results[0].title, "JavaScript: The Definitive Guide")
 
-    def test_search(self):
-        results = self.backend.search("Hello", models.SearchTest)
-        self.assertEqual(set(results), {self.testa, self.testb, self.testc.searchtest_ptr})
+    def test_search_and_operator(self):
+        # Should not return "JavaScript: The good parts" as it does not have "Definitive"
+        results = self.backend.search("JavaScript Definitive", models.Book, operator='and')
+        self.assertUnsortedListEqual([r.title for r in results], [
+            "JavaScript: The Definitive Guide"
+        ])
 
-        results = self.backend.search("World", models.SearchTest)
-        self.assertEqual(set(results), {self.testa, self.testd.searchtest_ptr})
+    def test_search_on_child_class(self):
+        # Searches on a child class should only return results that have the child class as well
+        # and all results should be instances of the child class
+        results = self.backend.search(None, models.Novel)
+        self.assertSetEqual(set(results), set(models.Novel.objects.all()))
 
-    def test_individual_field(self):
-        results = self.backend.search("Hello", models.SearchTest, fields=['content'])
-        self.assertEqual(set(results), {self.testc.searchtest_ptr})
+    def test_search_child_class_field_from_parent(self):
+        # Searches the Book model for content that exists in the Novel model
+        # Note: "Westeros" only occurs in the Novel.setting field
+        # All results should be instances of the parent class
+        results = self.backend.search("Westeros", models.Book)
 
-    def test_individual_field_in_child_class(self):
-        results = self.backend.search("Foo", models.SearchTestChild, fields=['subtitle'])
-        self.assertEqual(set(results), {self.testc, self.testd})
+        self.assertUnsortedListEqual([r.title for r in results], [
+            "A Game of Thrones",
+            "A Clash of Kings",
+            "A Storm of Swords"
+        ])
 
-    def test_unknown_field_gives_error(self):
-        self.assertRaises(FieldError, self.backend.search, "Hello Bar", models.SearchTestChild, fields=['unknown'])
+        self.assertIsInstance(results[0], models.Book)
 
-    def test_child_field_from_parent_gives_error(self):
-        self.assertRaises(FieldError, self.backend.search, "Hello", models.SearchTest, fields=['subtitle'])
+    def test_search_on_individual_field(self):
+        # The following query shouldn't search the Novel.setting field so none
+        # of the Novels set in "Westeros" should be returned
+        results = self.backend.search("Westeros Hobbit", models.Book, fields=['title'], operator='or')
 
-    def test_operator_or(self):
-        # All records that match any term should be returned
-        results = self.backend.search("Hello world", models.SearchTest, operator='or')
+        self.assertUnsortedListEqual([r.title for r in results], [
+            "The Hobbit"
+        ])
 
-        self.assertEqual(set(results), {self.testa, self.testb, self.testc.searchtest_ptr, self.testd.searchtest_ptr})
+    def test_search_on_unknown_field(self):
+        with self.assertRaises(FieldError):
+            list(self.backend.search("Westeros Hobbit", models.Book, fields=['unknown'], operator='or'))
 
-    def test_operator_and(self):
-        # Records must match all search terms to be returned
-        results = self.backend.search("Hello world", models.SearchTest, operator='and')
+    def test_search_on_non_searchable_field(self):
+        with self.assertRaises(FieldError):
+            list(self.backend.search("Westeros Hobbit", models.Book, fields=['number_of_pages'], operator='or'))
 
-        self.assertEqual(set(results), {self.testa})
+    def test_search_on_related_fields(self):
+        results = self.backend.search("Bilbo Baggins", models.Novel)
 
-    def test_callable_indexed_field(self):
-        results = self.backend.search("Callable", models.SearchTest)
-        self.assertEqual(set(results), {self.testa, self.testb, self.testc.searchtest_ptr, self.testd.searchtest_ptr})
+        self.assertUnsortedListEqual([r.title for r in results], [
+            "The Hobbit",
+            "The Fellowship of the Ring",
+            "The Two Towers",
+            "The Return of the King"
+        ])
 
-    def test_filters(self):
-        results = self.backend.search(None, models.SearchTest, filters=dict(live=True))
-        self.assertEqual(set(results), {self.testb, self.testc.searchtest_ptr})
+    def test_search_boosting_on_related_fields(self):
+        # Bilbo Baggins is the protagonist of "The Hobbit" but not any of the "Lord of the Rings" novels.
+        # As the protagonist has more boost than other characters, "The Hobbit" should always be returned
+        # first
+        results = list(self.backend.search("Bilbo Baggins", models.Novel))
 
-    def test_filters_in_subquery(self):
-        live_page_titles = models.SearchTest.objects.filter(live=True).values_list('title', flat=True)
-        results = self.backend.search(None, models.SearchTest, filters=dict(title__in=live_page_titles))
-        self.assertEqual(set(results), {self.testb, self.testc.searchtest_ptr})
+        self.assertEqual(results[0].title, "The Hobbit")
 
-    def test_filters_in_list(self):
-        live_page_titles = ['Hello']
-        results = self.backend.search(None, models.SearchTest,
-                                      filters=dict(title__in=live_page_titles))
-        self.assertEqual(set(results), {self.testb, self.testc.searchtest_ptr})
+        # The remaining results should be scored equally so their rank is undefined
+        self.assertUnsortedListEqual([r.title for r in results[1:]], [
+            "The Fellowship of the Ring",
+            "The Two Towers",
+            "The Return of the King"
+        ])
 
-    def test_filters_in_iterable(self):
-        class CustomIterable:
-            def __init__(self, data):
-                self.data = data
+    def test_search_callable_field(self):
+        # "Django Two scoops" only mentions "Python" in its "get_programming_language_display"
+        # callable field
+        results = self.backend.search("Python", models.Book)
 
-            def __iter__(self):
-                for item in self.data:
-                    yield item
+        self.assertUnsortedListEqual([r.title for r in results], [
+            "Learning Python",
+            "Two Scoops of Django 1.11"
+        ])
 
+    # FILTERING TESTS
+
+    def test_filter_exact_value(self):
+        results = self.backend.search(None, models.Book.objects.filter(number_of_pages=440))
+
+        self.assertUnsortedListEqual([r.title for r in results], [
+            "The Return of the King",
+            "The Rust Programming Language"
+        ])
+
+    def test_filter_exact_value_on_parent_model_field(self):
+        results = self.backend.search(None, models.Novel.objects.filter(number_of_pages=440))
+
+        self.assertUnsortedListEqual([r.title for r in results], [
+            "The Return of the King"
+        ])
+
+    def test_filter_lt(self):
+        results = self.backend.search(None, models.Book.objects.filter(number_of_pages__lt=440))
+
+        self.assertUnsortedListEqual([r.title for r in results], [
+            "The Hobbit",
+            "JavaScript: The good parts",
+            "The Fellowship of the Ring",
+            "Foundation",
+            "The Two Towers"
+        ])
+
+    def test_filter_lte(self):
+        results = self.backend.search(None, models.Book.objects.filter(number_of_pages__lte=440))
+
+        self.assertUnsortedListEqual([r.title for r in results], [
+            "The Return of the King",
+            "The Rust Programming Language",
+            "The Hobbit",
+            "JavaScript: The good parts",
+            "The Fellowship of the Ring",
+            "Foundation",
+            "The Two Towers"
+        ])
+
+    def test_filter_gt(self):
+        results = self.backend.search(None, models.Book.objects.filter(number_of_pages__gt=440))
+
+        self.assertUnsortedListEqual([r.title for r in results], [
+            "JavaScript: The Definitive Guide",
+            "Learning Python",
+            "A Clash of Kings",
+            "A Game of Thrones",
+            "Two Scoops of Django 1.11",
+            "A Storm of Swords"
+        ])
+
+    def test_filter_gte(self):
+        results = self.backend.search(None, models.Book.objects.filter(number_of_pages__gte=440))
+
+        self.assertUnsortedListEqual([r.title for r in results], [
+            "The Return of the King",
+            "The Rust Programming Language",
+            "JavaScript: The Definitive Guide",
+            "Learning Python",
+            "A Clash of Kings",
+            "A Game of Thrones",
+            "Two Scoops of Django 1.11",
+            "A Storm of Swords"
+        ])
+
+    def test_filter_in_list(self):
+        results = self.backend.search(None, models.Book.objects.filter(number_of_pages__in=[440, 1160]))
+
+        self.assertUnsortedListEqual([r.title for r in results], [
+            "The Return of the King",
+            "The Rust Programming Language",
+            "Learning Python"
+        ])
+
+    def test_filter_in_iterable(self):
+        results = self.backend.search(None, models.Book.objects.filter(number_of_pages__in=iter([440, 1160])))
+
+        self.assertUnsortedListEqual([r.title for r in results], [
+            "The Return of the King",
+            "The Rust Programming Language",
+            "Learning Python"
+        ])
+
+    def test_filter_in_values_list_subquery(self):
+        values = models.Book.objects.filter(number_of_pages__lt=440).values_list('number_of_pages', flat=True)
+        results = self.backend.search(None, models.Book.objects.filter(number_of_pages__in=values))
+
+        self.assertUnsortedListEqual([r.title for r in results], [
+            "The Hobbit",
+            "JavaScript: The good parts",
+            "The Fellowship of the Ring",
+            "Foundation",
+            "The Two Towers"
+        ])
+
+    def test_filter_isnull_true(self):
+        # Note: We don't know the birth dates of any of the programming guide authors
+        results = self.backend.search(None, models.Author.objects.filter(date_of_birth__isnull=True))
+
+        self.assertUnsortedListEqual([r.name for r in results], [
+            "David Ascher",
+            "Mark Lutz",
+            "David Flanagan",
+            "Douglas Crockford",
+            "Daniel Roy Greenfeld",
+            "Audrey Roy Greenfeld",
+            "Carol Nichols",
+            "Steve Klabnik"
+        ])
+
+    def test_filter_isnull_false(self):
+        # Note: We know the birth dates of all of the novel authors
+        results = self.backend.search(None, models.Author.objects.filter(date_of_birth__isnull=False))
+
+        self.assertUnsortedListEqual([r.name for r in results], [
+            "Isaac Asimov",
+            "George R.R. Martin",
+            "J. R. R. Tolkien"
+        ])
+
+    def test_filter_prefix(self):
+        results = self.backend.search(None, models.Book.objects.filter(title__startswith="Th"))
+
+        self.assertUnsortedListEqual([r.title for r in results], [
+            "The Hobbit",
+            "The Fellowship of the Ring",
+            "The Two Towers",
+            "The Return of the King",
+            "The Rust Programming Language"
+        ])
+
+    def test_filter_and_operator(self):
         results = self.backend.search(
-            None, models.SearchTest,
-            filters=dict(title__in=CustomIterable(['World'])))
-        self.assertEqual(set(results), {self.testd.searchtest_ptr})
+            None, models.Book.objects.filter(number_of_pages=440) & models.Book.objects.filter(publication_date=date(1955, 10, 20)))
 
-    def test_single_result(self):
-        result = self.backend.search(None, models.SearchTest)[0]
-        self.assertIsInstance(result, models.SearchTest)
+        self.assertUnsortedListEqual([r.title for r in results], [
+            "The Return of the King"
+        ])
 
-    def test_sliced_results(self):
-        sliced_results = self.backend.search(None, models.SearchTest)[1:3]
+    def test_filter_or_operator(self):
+        results = self.backend.search(None, models.Book.objects.filter(number_of_pages=440) | models.Book.objects.filter(number_of_pages=1160))
 
-        self.assertEqual(len(sliced_results), 2)
+        self.assertUnsortedListEqual([r.title for r in results], [
+            "Learning Python",
+            "The Return of the King",
+            "The Rust Programming Language"
+        ])
 
-        for result in sliced_results:
-            self.assertIsInstance(result, models.SearchTest)
+    def test_filter_on_non_filterable_field(self):
+        with self.assertRaises(FieldError):
+            list(self.backend.search(None, models.Author.objects.filter(name__startswith="Issac")))
 
-    def test_child_model(self):
-        results = self.backend.search(None, models.SearchTestChild)
-        self.assertEqual(set(results), {self.testc, self.testd})
-
-    def test_child_model_with_id_filter(self):
-        results = self.backend.search("World", models.SearchTestChild.objects.filter(id=self.testd.id))
-        self.assertEqual(set(results), {self.testd})
-
-    def test_related_objects_search(self):
-        results = self.backend.search("A subobject", models.SearchTest)
-        self.assertEqual(set(results), {self.testa})
-
-    def test_boost(self):
-        results = list(self.backend.search('Hello', models.SearchTest))
-        # The `content` field has more boost, so the object containing “Hello”
-        # should be before the ones having it in the title,
-        # despite the insertion order.
-        self.assertEqual(results[0], self.testc.searchtest_ptr)
-        self.assertSetEqual(set(results[1:]), {self.testa, self.testb})
+    # ORDER BY RELEVANCE
 
     def test_order_by_relevance(self):
-        sorted_results = list(self.backend.search('Hello', models.SearchTest,
-                                                  order_by_relevance=True))
-        self.assertEqual(sorted_results[0], self.testc.searchtest_ptr)
-        self.assertSetEqual(set(sorted_results[1:]), {self.testa, self.testb})
+        results = self.backend.search(None, models.Novel.objects.order_by('number_of_pages'), order_by_relevance=False)
 
-        unsorted_results = list(self.backend.search('Hello', models.SearchTest,
-                                                    order_by_relevance=False))
-        self.assertSetEqual(
-            set(unsorted_results),
-            {self.testa, self.testb, self.testc.searchtest_ptr})
+        # Ordering should be set to "number_of_pages"
+        self.assertEqual([r.title for r in results], [
+            "Foundation",
+            "The Hobbit",
+            "The Two Towers",
+            "The Fellowship of the Ring",
+            "The Return of the King",
+            "A Game of Thrones",
+            "A Clash of Kings",
+            "A Storm of Swords"
+        ])
+
+    def test_order_by_non_filterable_field(self):
+        with self.assertRaises(FieldError):
+            list(self.backend.search(None, models.Author.objects.order_by('name'), order_by_relevance=False))
+
+    # SLICING TESTS
+
+    def test_single_result(self):
+        results = self.backend.search(None, models.Novel.objects.order_by('number_of_pages'), order_by_relevance=False)
+
+        self.assertEqual(results[0].title, "Foundation")
+        self.assertEqual(results[1].title, "The Hobbit")
+
+    def test_limit(self):
+        # Note: we need consistent ordering for this test
+        results = self.backend.search(None, models.Novel.objects.order_by('number_of_pages'), order_by_relevance=False)
+
+        # Limit the results
+        results = results[:3]
+
+        self.assertListEqual([r.title for r in results], [
+            "Foundation",
+            "The Hobbit",
+            "The Two Towers"
+        ])
+
+    def test_offset(self):
+        # Note: we need consistent ordering for this test
+        results = self.backend.search(None, models.Novel.objects.order_by('number_of_pages'), order_by_relevance=False)
+
+        # Offset the results
+        results = results[3:]
+
+        self.assertListEqual(list(r.title for r in results), [
+            "The Fellowship of the Ring",
+            "The Return of the King",
+            "A Game of Thrones",
+            "A Clash of Kings",
+            "A Storm of Swords"
+        ])
+
+    def test_offset_and_limit(self):
+        # Note: we need consistent ordering for this test
+        results = self.backend.search(None, models.Novel.objects.order_by('number_of_pages'), order_by_relevance=False)
+
+        # Offset the results
+        results = results[3:6]
+
+        self.assertListEqual([r.title for r in results], [
+            "The Fellowship of the Ring",
+            "The Return of the King",
+            "A Game of Thrones"
+        ])
+
+    # MISC TESTS
 
     def test_same_rank_pages(self):
-        """
-        Checks that results with a same ranking cannot be found multiple times
-        across pages (see issue #3729).
-        """
+        # Checks that results with a same ranking cannot be found multiple times
+        # across pages (see issue #3729).
         same_rank_objects = set()
-        try:
-            for i in range(10):
-                obj = models.SearchTest.objects.create(title='Rank %s' % i)
-                self.backend.add(obj)
-                same_rank_objects.add(obj)
-            self.refresh_index()
 
-            results = self.backend.search('Rank', models.SearchTest)
-            results_across_pages = set()
-            for i, obj in enumerate(same_rank_objects):
-                results_across_pages.add(results[i:i + 1][0])
-            self.assertSetEqual(results_across_pages, same_rank_objects)
-        finally:
-            for obj in same_rank_objects:
-                self.backend.delete(obj)
-                obj.delete()
-            self.refresh_index()
+        index = self.backend.get_index_for_model(models.Book)
+        for i in range(10):
+            obj = models.Book.objects.create(title='Rank %s' % i, publication_date=date(2017, 10, 18), number_of_pages=100)
+            index.add_item(obj)
+            same_rank_objects.add(obj)
+        index.refresh()
+
+        results = self.backend.search('Rank', models.Book)
+        results_across_pages = set()
+        for i, obj in enumerate(same_rank_objects):
+            results_across_pages.add(results[i:i + 1][0])
+        self.assertSetEqual(results_across_pages, same_rank_objects)
 
     def test_row_boost(self):
         boosted = models.SearchTest.objects.create(title='[boosted] Hello')
@@ -236,33 +415,31 @@ class BackendTests(WagtailTestUtils):
         self.assertNotEqual(results[0], boosted)
 
     def test_delete(self):
-        # Delete one of the objects
-        self.backend.delete(self.testa)
-        self.testa.delete()
-        self.refresh_index()
+        # Delete foundation
+        models.Book.objects.filter(title="Foundation").delete()
 
-        results = self.backend.search(None, models.SearchTest)
-        self.assertEqual(set(results), {self.testb, self.testc.searchtest_ptr, self.testd.searchtest_ptr})
+        # Refresh the index
+        # Note: The delete signal handler should've removed the book, but we still need to refresh the index manually
+        index = self.backend.get_index_for_model(models.Book)
+        if index:
+            index.refresh()
 
-    def test_update_index_command(self):
-        # Reset the index, this should clear out the index
-        self.reset_index()
+        # To test that the book was deleted from the index as well, we will perform the slicing check from an earlier
+        # test where "Foundation" was the first result. We need to test it this way so we can pick up the case where
+        # the object still exists in the index but not in the database (in that case, just two objects would be returned
+        # instead of three).
 
-        # Give Elasticsearch some time to catch up...
-        time.sleep(1)
+        # Note: we need consistent ordering for this test
+        results = self.backend.search(None, models.Novel.objects.order_by('number_of_pages'), order_by_relevance=False)
 
-        results = self.backend.search(None, models.SearchTest)
-        self.assertEqual(set(results), set())
+        # Limit the results
+        results = results[:3]
 
-        # Run update_index command
-        with self.ignore_deprecation_warnings():
-            # ignore any DeprecationWarnings thrown by models with old-style indexed_fields definitions
-            management.call_command(
-                'update_index', backend_name=self.backend_name, interactive=False, stdout=StringIO()
-            )
-
-        results = self.backend.search(None, models.SearchTest)
-        self.assertEqual(set(results), {self.testa, self.testb, self.testc.searchtest_ptr, self.testd.searchtest_ptr})
+        self.assertEqual(list(r.title for r in results), [
+            "The Hobbit",
+            "The Two Towers",
+            "The Fellowship of the Ring"
+        ])
 
 
 @override_settings(

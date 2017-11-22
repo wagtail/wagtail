@@ -6,9 +6,9 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import SimpleUploadedFile
-from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.test.utils import override_settings
+from django.urls import reverse
 from django.utils.six import b
 
 from wagtail.tests.testapp.models import EventPage, EventPageRelatedLink
@@ -295,6 +295,13 @@ class TestDocumentDeleteView(TestCase, WagtailTestUtils):
 
         # Document should be deleted
         self.assertFalse(models.Document.objects.filter(id=self.document.id).exists())
+
+    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
+    def test_usage_link(self):
+        response = self.client.get(reverse('wagtaildocs:delete', args=(self.document.id,)))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtaildocs/documents/confirm_delete.html')
+        self.assertIn('Used 0 times', str(response.content))
 
 
 class TestMultipleDocumentUploader(TestCase, WagtailTestUtils):

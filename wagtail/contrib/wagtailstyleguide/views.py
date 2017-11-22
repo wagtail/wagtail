@@ -4,6 +4,7 @@ from django import forms
 from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.utils.translation import ugettext as _
+
 from wagtail.wagtailadmin import messages
 from wagtail.wagtailadmin.forms import SearchForm
 from wagtail.wagtailadmin.rich_text import get_rich_text_editor_widget

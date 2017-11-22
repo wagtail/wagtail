@@ -1,7 +1,8 @@
 from __future__ import absolute_import, unicode_literals
 
-import mock
+from datetime import date
 
+import mock
 from django.test import TestCase, override_settings
 
 from wagtail.tests.search import models
@@ -12,38 +13,33 @@ from wagtail.wagtailsearch import index
 
 
 class TestGetIndexedInstance(TestCase):
+    fixtures = ['search']
+
     def test_gets_instance(self):
-        obj = models.SearchTest(
-            title="Hello",
-            live=True,
-        )
-        obj.save()
+        obj = models.Author.objects.get(id=1)
 
         # Should just return the object
         indexed_instance = index.get_indexed_instance(obj)
         self.assertEqual(indexed_instance, obj)
 
     def test_gets_specific_class(self):
-        obj = models.SearchTestChild(
-            title="Hello",
-            live=True,
-        )
-        obj.save()
+        obj = models.Novel.objects.get(id=1)
 
         # Running the command with the parent class should find the specific class again
-        indexed_instance = index.get_indexed_instance(obj.searchtest_ptr)
+        indexed_instance = index.get_indexed_instance(obj.book_ptr)
         self.assertEqual(indexed_instance, obj)
 
     def test_blocks_not_in_indexed_objects(self):
-        obj = models.SearchTestChild(
+        obj = models.Novel(
             title="Don't index me!",
-            live=True,
+            publication_date=date(2017, 10, 18),
+            number_of_pages=100
         )
         obj.save()
 
         # We've told it not to index anything with the title "Don't index me"
         # get_indexed_instance should return None
-        indexed_instance = index.get_indexed_instance(obj.searchtest_ptr)
+        indexed_instance = index.get_indexed_instance(obj.book_ptr)
         self.assertEqual(indexed_instance, None)
 
 
@@ -55,7 +51,7 @@ class TestGetIndexedInstance(TestCase):
 })
 class TestInsertOrUpdateObject(TestCase, WagtailTestUtils):
     def test_inserts_object(self, backend):
-        obj = models.SearchTest.objects.create(title="Test")
+        obj = models.Book.objects.create(title="Test", publication_date=date(2017, 10, 18), number_of_pages=100)
         backend().reset_mock()
 
         index.insert_or_update_object(obj)
@@ -63,7 +59,7 @@ class TestInsertOrUpdateObject(TestCase, WagtailTestUtils):
         backend().add.assert_called_with(obj)
 
     def test_doesnt_insert_unsaved_object(self, backend):
-        obj = models.SearchTest(title="Test")
+        obj = models.Book(title="Test", publication_date=date(2017, 10, 18), number_of_pages=100)
         backend().reset_mock()
 
         index.insert_or_update_object(obj)
@@ -85,7 +81,7 @@ class TestInsertOrUpdateObject(TestCase, WagtailTestUtils):
         backend().add.assert_called_with(page)
 
     def test_catches_index_error(self, backend):
-        obj = models.SearchTest.objects.create(title="Test")
+        obj = models.Book.objects.create(title="Test", publication_date=date(2017, 10, 18), number_of_pages=100)
 
         backend().add.side_effect = ValueError("Test")
         backend().reset_mock()
@@ -94,7 +90,7 @@ class TestInsertOrUpdateObject(TestCase, WagtailTestUtils):
             index.insert_or_update_object(obj)
 
         self.assertEqual(len(cm.output), 1)
-        self.assertIn("Exception raised while adding <SearchTest: Test> into the 'default' search backend", cm.output[0])
+        self.assertIn("Exception raised while adding <Book: Test> into the 'default' search backend", cm.output[0])
         self.assertIn("Traceback (most recent call last):", cm.output[0])
         self.assertIn("ValueError: Test", cm.output[0])
 
@@ -107,7 +103,7 @@ class TestInsertOrUpdateObject(TestCase, WagtailTestUtils):
 })
 class TestRemoveObject(TestCase, WagtailTestUtils):
     def test_removes_object(self, backend):
-        obj = models.SearchTest.objects.create(title="Test")
+        obj = models.Book.objects.create(title="Test", publication_date=date(2017, 10, 18), number_of_pages=100)
         backend().reset_mock()
 
         index.remove_object(obj)
@@ -115,7 +111,7 @@ class TestRemoveObject(TestCase, WagtailTestUtils):
         backend().delete.assert_called_with(obj)
 
     def test_removes_unsaved_object(self, backend):
-        obj = models.SearchTest(title="Test")
+        obj = models.Book(title="Test", publication_date=date(2017, 10, 18), number_of_pages=100)
         backend().reset_mock()
 
         index.remove_object(obj)
@@ -123,7 +119,7 @@ class TestRemoveObject(TestCase, WagtailTestUtils):
         backend().delete.assert_called_with(obj)
 
     def test_catches_index_error(self, backend):
-        obj = models.SearchTest.objects.create(title="Test")
+        obj = models.Book.objects.create(title="Test", publication_date=date(2017, 10, 18), number_of_pages=100)
         backend().reset_mock()
 
         backend().delete.side_effect = ValueError("Test")
@@ -132,7 +128,7 @@ class TestRemoveObject(TestCase, WagtailTestUtils):
             index.remove_object(obj)
 
         self.assertEqual(len(cm.output), 1)
-        self.assertIn("Exception raised while deleting <SearchTest: Test> from the 'default' search backend", cm.output[0])
+        self.assertIn("Exception raised while deleting <Book: Test> from the 'default' search backend", cm.output[0])
         self.assertIn("Traceback (most recent call last):", cm.output[0])
         self.assertIn("ValueError: Test", cm.output[0])
 
@@ -146,11 +142,11 @@ class TestRemoveObject(TestCase, WagtailTestUtils):
 class TestSignalHandlers(TestCase, WagtailTestUtils):
     def test_index_on_create(self, backend):
         backend().reset_mock()
-        obj = models.SearchTest.objects.create(title="Test", content="This is the content")
+        obj = models.Book.objects.create(title="Test", publication_date=date(2017, 10, 18), number_of_pages=100)
         backend().add.assert_called_with(obj)
 
     def test_index_on_update(self, backend):
-        obj = models.SearchTest.objects.create(title="Test", content="This is the content")
+        obj = models.Book.objects.create(title="Test", publication_date=date(2017, 10, 18), number_of_pages=100)
 
         backend().reset_mock()
         obj.title = "Updated test"
@@ -161,21 +157,21 @@ class TestSignalHandlers(TestCase, WagtailTestUtils):
         self.assertEqual(indexed_object.title, "Updated test")
 
     def test_index_on_delete(self, backend):
-        obj = models.SearchTest.objects.create(title="Test", content="This is the content")
+        obj = models.Book.objects.create(title="Test", publication_date=date(2017, 10, 18), number_of_pages=100)
 
         backend().reset_mock()
         obj.delete()
         backend().delete.assert_called_with(obj)
 
     def test_do_not_index_fields_omitted_from_update_fields(self, backend):
-        obj = models.SearchTest.objects.create(title="Test", content="This is the original content")
+        obj = models.Book.objects.create(title="Test", publication_date=date(2017, 10, 18), number_of_pages=100)
 
         backend().reset_mock()
         obj.title = "Updated test"
-        obj.content = "This is the updated content"
+        obj.publication_date = date(2001, 10, 19)
         obj.save(update_fields=['title'])
 
         backend().add.assert_called_once()
         indexed_object = backend().add.call_args[0][0]
         self.assertEqual(indexed_object.title, "Updated test")
-        self.assertEqual(indexed_object.content, "This is the original content")
+        self.assertEqual(indexed_object.publication_date, date(2017, 10, 18))

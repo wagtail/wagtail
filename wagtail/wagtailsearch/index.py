@@ -11,7 +11,6 @@ from django.db.models.fields.related import ForeignObjectRel, OneToOneRel, Relat
 
 from wagtail.wagtailsearch.backends import get_search_backends_with_name
 
-
 logger = logging.getLogger('wagtail.search.index')
 
 

@@ -1,12 +1,9 @@
 from __future__ import absolute_import, unicode_literals
 
-from django.utils.encoding import python_2_unicode_compatible
-
 from wagtail.wagtailcore import blocks
 from wagtail.wagtailembeds.format import embed_to_frontend_html
 
 
-@python_2_unicode_compatible
 class EmbedValue(object):
     """
     Native value of an EmbedBlock. Should, at minimum, have a 'url' property

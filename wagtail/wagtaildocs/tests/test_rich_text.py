@@ -1,7 +1,6 @@
 from __future__ import absolute_import, unicode_literals
 
 from bs4 import BeautifulSoup
-
 from django.test import TestCase
 
 from wagtail.wagtaildocs.rich_text import DocumentLinkHandler

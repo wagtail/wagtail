@@ -162,7 +162,7 @@ def search(request, parent_page_id=None):
         )
         pages = filter_page_type(pages, desired_classes)
         pages = pages.specific()
-        pages = pages.search(search_form.cleaned_data['q'], fields=['title'])
+        pages = pages.search(search_form.cleaned_data['q'])
     else:
         pages = pages.none()
 

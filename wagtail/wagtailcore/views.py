@@ -1,8 +1,8 @@
 from __future__ import absolute_import, unicode_literals
 
-from django.core.urlresolvers import reverse
 from django.http import Http404, HttpResponse
 from django.shortcuts import get_object_or_404, redirect
+from django.urls import reverse
 
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.forms import PasswordViewRestrictionForm

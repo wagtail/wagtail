@@ -62,4 +62,6 @@ def validation_error(request, message, form, buttons=None):
 
 
 def button(url, text, new_window=False):
+    if url is None:
+        raise ValueError("Button URLs must not be None")
     return url, text, new_window

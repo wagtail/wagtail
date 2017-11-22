@@ -4,7 +4,8 @@ from collections import OrderedDict
 
 from wagtail.api.v2.endpoints import PagesAPIEndpoint
 from wagtail.api.v2.filters import (
-    ChildOfFilter, DescendantOfFilter, FieldsFilter, OrderingFilter, SearchFilter)
+    ChildOfFilter, DescendantOfFilter, FieldsFilter, ForExplorerFilter, OrderingFilter,
+    SearchFilter)
 from wagtail.api.v2.utils import BadRequestError, filter_page_type, page_models_from_string
 from wagtail.wagtailcore.models import Page
 
@@ -21,6 +22,7 @@ class PagesAdminAPIEndpoint(PagesAPIEndpoint):
         FieldsFilter,
         ChildOfFilter,
         DescendantOfFilter,
+        ForExplorerFilter,
         HasChildrenFilter,
         OrderingFilter,
         SearchFilter,
@@ -49,6 +51,7 @@ class PagesAdminAPIEndpoint(PagesAPIEndpoint):
     detail_only_fields = []
 
     known_query_parameters = PagesAPIEndpoint.known_query_parameters.union([
+        'for_explorer',
         'has_children'
     ])
 

@@ -137,7 +137,7 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
 
   .. code-block:: python
 
-    from django.core.urlresolvers import reverse
+    from django.urls import reverse
 
     from wagtail.wagtailcore import hooks
     from wagtail.wagtailadmin.menu import MenuItem
@@ -214,7 +214,7 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
 
   .. code-block:: python
 
-    from django.core.urlresolvers import reverse
+    from django.urls import reverse
     from wagtail.wagtailcore import hooks
     from wagtail.wagtailadmin.search import SearchArea
 
@@ -513,6 +513,90 @@ Hooks for customising the way users are directed through the process of creating
         return items.append( UserbarPuppyLinkItem() )
 
 
+Admin workflow
+--------------
+Hooks for customising the way admins are directed through the process of editing users.
+
+
+.. _after_create_user:
+
+``after_create_user``
+~~~~~~~~~~~~~~~~~~~~~
+
+  Do something with a ``User`` object after it has been saved to the database.  The callable passed to this hook should take a ``request`` object and a ``user`` object. The function does not have to return anything, but if an object with a ``status_code`` property is returned, Wagtail will use it as a response object. By default, Wagtail will instead redirect to the User index page.
+
+  .. code-block:: python
+
+    from django.http import HttpResponse
+
+    from wagtail.wagtailcore import hooks
+
+    @hooks.register('after_create_user')
+    def do_after_page_create(request, user):
+        return HttpResponse("Congrats on creating a new user!", content_type="text/plain")
+
+
+.. _before_create_user:
+
+``before_create_user``
+~~~~~~~~~~~~~~~~~~~~~~
+
+  Called at the beginning of the "create user" view passing in the request.
+
+  The function does not have to return anything, but if an object with a ``status_code`` property is returned, Wagtail will use it as a response object and skip the rest of the view.
+
+  Unlike, ``after_create_user``, this is run both for both ``GET`` and ``POST`` requests.
+
+  This can be used to completely override the user editor on a per-view basis:
+
+  .. code-block:: python
+
+    from wagtail.wagtailcore import hooks
+
+    from .models import AwesomePage
+    from .admin_views import edit_awesome_page
+
+    @hooks.register('before_create_user')
+    def before_create_page(request):
+        return HttpResponse("A user creation form", content_type="text/plain")
+
+
+
+.. _after_delete_user:
+
+``after_delete_user``
+~~~~~~~~~~~~~~~~~~~~~
+
+  Do something after a ``User`` object is deleted. Uses the same behavior as ``after_create_user``.
+
+
+.. _before_delete_user:
+
+``before_delete_user``
+~~~~~~~~~~~~~~~~~~~~~~
+
+  Called at the beginning of the "delete user" view passing in the request and the user object.
+
+  Uses the same behavior as ``before_create_user``.
+
+
+.. _after_edit_user:
+
+``after_edit_user``
+~~~~~~~~~~~~~~~~~~~
+
+  Do something with a ``User`` object after it has been updated. Uses the same behavior as ``after_create_user``.
+
+
+.. _before_edit_user:
+
+``before_edit_user``
+~~~~~~~~~~~~~~~~~~~~~
+
+  Called at the beginning of the "edit user" view passing in the request and the user object.
+
+  Uses the same behavior as ``before_create_user``.
+
 Choosers
 --------
 
@@ -626,7 +710,7 @@ Page explorer
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   Add buttons to the "More" dropdown menu for a page in the page explorer. This works similarly to the ``register_page_listing_buttons`` hook but is useful for lesser-used custom actions that are better suited for the dropdown.
-  
+
   This example will add a simple button to the dropdown menu:
 
   .. code-block:: python

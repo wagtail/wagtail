@@ -2,10 +2,10 @@ from __future__ import absolute_import, unicode_literals
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
-from django.core.urlresolvers import reverse
 from django.template import Context, Template
 from django.test import TestCase
 from django.test.client import RequestFactory
+from django.urls import reverse
 
 from wagtail.tests.testapp.models import BusinessChild, BusinessIndex
 from wagtail.tests.utils import WagtailTestUtils
