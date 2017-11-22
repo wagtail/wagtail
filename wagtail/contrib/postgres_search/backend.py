@@ -16,7 +16,7 @@ from wagtail.wagtailsearch.index import RelatedFields, SearchField
 
 from .models import IndexEntry, SearchAutocomplete
 from .utils import (
-    ADD, AND, OR, get_content_types_pk, get_descendants_content_types_pks,
+    ADD, AND, OR, get_content_type_pk, get_descendants_content_types_pks,
     get_postgresql_connections, get_sql_weights, get_weight, keyword_split, unidecode)
 
 
@@ -166,7 +166,7 @@ class Index(object):
         index_entries.bulk_create(to_be_created)
 
     def add_items(self, model, objs):
-        content_type_pk = get_content_types_pk(model)
+        content_type_pk = get_content_type_pk(model)
         config = self.backend.get_config()
         for obj in objs:
             self.prepare_obj(obj)

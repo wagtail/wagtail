@@ -67,7 +67,7 @@ def get_descendants_content_types_pks(model):
             .values()]
 
 
-def get_content_types_pk(model):
+def get_content_type_pk(model):
     # We import it locally because this file is loaded before apps are ready.
     from django.contrib.contenttypes.models import ContentType
     return ContentType.objects.get_for_model(model).pk
