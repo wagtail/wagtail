@@ -15,7 +15,7 @@ class Elasticsearch5Index(Elasticsearch2Index):
     pass
 
 
-class Elasticsearch5SearchQuery(Elasticsearch2SearchQueryCompiler):
+class Elasticsearch5SearchQueryCompiler(Elasticsearch2SearchQueryCompiler):
     mapping_class = Elasticsearch5Mapping
 
     def _connect_filters(self, filters, connector, negated):
@@ -77,7 +77,7 @@ class Elasticsearch5SearchResults(Elasticsearch2SearchResults):
 class Elasticsearch5SearchBackend(Elasticsearch2SearchBackend):
     mapping_class = Elasticsearch5Mapping
     index_class = Elasticsearch5Index
-    query_compiler_class = Elasticsearch5SearchQuery
+    query_compiler_class = Elasticsearch5SearchQueryCompiler
     results_class = Elasticsearch5SearchResults
 
 
