@@ -16,10 +16,11 @@ from wagtail.wagtailsearch.backends.base import (
     BaseSearchBackend, BaseSearchQueryCompiler, BaseSearchResults)
 from wagtail.wagtailsearch.index import RelatedFields, SearchField
 from wagtail.wagtailsearch.query import And, MatchAll, Not, Or, PlainText, Term
+from wagtail.wagtailsearch.utils import ADD, AND, OR
 
 from .models import IndexEntry
 from .utils import (
-    ADD, AND, OR, WEIGHTS_VALUES, get_ancestors_content_types_pks, get_content_type_pk,
+    WEIGHTS_VALUES, get_ancestors_content_types_pks, get_content_type_pk,
     get_descendants_content_types_pks, get_postgresql_connections, get_weight, unidecode)
 
 

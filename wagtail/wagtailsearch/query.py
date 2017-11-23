@@ -52,7 +52,8 @@ class PlainText(SearchQuery):
 
     def to_combined_terms(self):
         return self.OPERATORS[self.operator]([
-            Term(term) for term in self.query_string.split()])
+            Term(term, boost=self.boost)
+            for term in self.query_string.split()])
 
 
 class Term(SearchQuery):

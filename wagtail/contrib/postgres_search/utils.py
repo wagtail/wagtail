@@ -1,7 +1,5 @@
 from __future__ import absolute_import, division, unicode_literals
 
-import operator
-from functools import partial, reduce
 from itertools import zip_longest
 
 from django.apps import apps
@@ -20,14 +18,6 @@ except ImportError:
 def get_postgresql_connections():
     return [connection for connection in connections.all()
             if connection.vendor == 'postgresql']
-
-
-# Reduce any iterable to a single value using a logical OR e.g. (a | b | ...)
-OR = partial(reduce, operator.or_)
-# Reduce any iterable to a single value using a logical AND e.g. (a & b & ...)
-AND = partial(reduce, operator.and_)
-# Reduce any iterable to a single value using an addition
-ADD = partial(reduce, operator.add)
 
 
 def get_descendant_models(model):

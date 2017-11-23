@@ -447,7 +447,7 @@ class BackendTests(WagtailTestUtils):
                              'JavaScript: The good parts'})
 
         # Multiple word
-        results = self.backend.search(Term('Javascript Guide'),
+        results = self.backend.search(Term('Definitive Guide'),
                                       models.Book.objects.all())
         self.assertSetEqual({r.title for r in results},
                             {'JavaScript: The Definitive Guide'})
