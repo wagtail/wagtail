@@ -6,6 +6,7 @@ from io import StringIO
 from django.core import management
 
 from wagtail.tests.search import models
+from wagtail.wagtailsearch.query import MATCH_ALL
 
 
 class ElasticsearchCommonSearchBackendTests(object):
@@ -111,7 +112,7 @@ class ElasticsearchCommonSearchBackendTests(object):
         )
 
         # This should not give any results
-        results = self.backend.search(None, models.Book)
+        results = self.backend.search(MATCH_ALL, models.Book)
         self.assertSetEqual(set(results), set())
 
     def test_annotate_score(self):
@@ -129,7 +130,7 @@ class ElasticsearchCommonSearchBackendTests(object):
 
     def test_more_than_ten_results(self):
         # #3431 reported that Elasticsearch only sends back 10 results if the results set is not sliced
-        results = self.backend.search(None, models.Book)
+        results = self.backend.search(MATCH_ALL, models.Book)
 
         self.assertEqual(len(results), 13)
 
@@ -143,7 +144,7 @@ class ElasticsearchCommonSearchBackendTests(object):
         index.add_items(models.Book, books)
         index.refresh()
 
-        results = self.backend.search(None, models.Book)
+        results = self.backend.search(MATCH_ALL, models.Book)
         self.assertEqual(len(results), 163)
 
     def test_slice_more_than_one_hundred_results(self):
@@ -155,7 +156,7 @@ class ElasticsearchCommonSearchBackendTests(object):
         index.add_items(models.Book, books)
         index.refresh()
 
-        results = self.backend.search(None, models.Book)[10:120]
+        results = self.backend.search(MATCH_ALL, models.Book)[10:120]
         self.assertEqual(len(results), 110)
 
     def test_slice_to_next_page(self):
@@ -169,5 +170,5 @@ class ElasticsearchCommonSearchBackendTests(object):
         index.add_items(models.Book, books)
         index.refresh()
 
-        results = self.backend.search(None, models.Book)[110:]
+        results = self.backend.search(MATCH_ALL, models.Book)[110:]
         self.assertEqual(len(results), 53)

@@ -12,6 +12,7 @@ from elasticsearch.serializer import JSONSerializer
 
 from wagtail.tests.search import models
 from wagtail.wagtailsearch.backends.elasticsearch5 import Elasticsearch5SearchBackend
+from wagtail.wagtailsearch.query import MATCH_ALL
 
 from .elasticsearch_common_tests import ElasticsearchCommonSearchBackendTests
 from .test_backends import BackendTests
@@ -61,9 +62,9 @@ class TestElasticsearch5SearchQuery(TestCase):
         }}
         self.assertDictEqual(query.get_query(), expected_result)
 
-    def test_none_query_string(self):
+    def test_match_all(self):
         # Create a query
-        query = self.query_class(models.Book.objects.all(), None)
+        query = self.query_class(models.Book.objects.all(), MATCH_ALL)
 
         # Check it
         expected_result = {'bool': {
