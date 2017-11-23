@@ -4,7 +4,7 @@ from __future__ import absolute_import, unicode_literals
 
 from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
 from django.db import DEFAULT_DB_ALIAS, NotSupportedError, connections, transaction
-from django.db.models import F, Manager, TextField, Value
+from django.db.models import F, Manager, Q, TextField, Value
 from django.db.models.constants import LOOKUP_SEP
 from django.db.models.functions import Cast
 from django.utils.encoding import force_text
@@ -13,14 +13,11 @@ from wagtail.wagtailsearch.backends.base import (
     BaseSearchBackend, BaseSearchQuery, BaseSearchResults)
 from wagtail.wagtailsearch.index import RelatedFields, SearchField
 
-from .models import IndexEntry
+from .models import IndexEntry, SearchAutocomplete
 from .utils import (
-    ADD, AND, OR, WEIGHTS_VALUES, get_ancestors_content_types_pks, get_content_type_pk,
-    get_descendants_content_types_pks, get_postgresql_connections, get_weight, keyword_split,
-    unidecode)
-
-
-# TODO: Add autocomplete.
+    ADD, AND, OR, get_ancestors_content_types_pks, get_content_type_pk,
+    get_descendants_content_types_pks, get_postgresql_connections, get_sql_weights,
+    get_weight, keyword_split, unidecode)
 
 
 class Index(object):
@@ -84,46 +81,68 @@ class Index(object):
                 sub_objs = [sub_obj]
             for sub_obj in sub_objs:
                 for sub_field in field.fields:
-                    for value in self.prepare_field(sub_obj, sub_field):
-                        yield value
+                    yield from self.prepare_field(sub_obj, sub_field)
 
-    def prepare_body(self, obj):
-        return [(value, boost) for field in self.search_fields
-                for value, boost in self.prepare_field(obj, field)]
+    def prepare_obj(self, obj):
+        obj._object_id_ = force_text(obj.pk)
+        obj._autocomplete_ = []
+        obj._body_ = []
+        for field in self.search_fields:
+            is_autocomplete = (isinstance(field, SearchField) and
+                               field.partial_match)
+            for value_and_boost in self.prepare_field(obj, field):
+                if is_autocomplete:
+                    obj._autocomplete_.append(value_and_boost)
+                else:
+                    obj._body_.append(value_and_boost)
 
     def add_item(self, obj):
         self.add_items(self.model, [obj])
 
     def add_items_upsert(self, connection, content_type_pk, objs, config):
-        vectors_sql = []
+        autocomplete_sql = []
+        body_sql = []
         data_params = []
         sql_template = ('to_tsvector(%s)' if config is None
                         else "to_tsvector('%s', %%s)" % config)
         sql_template = 'setweight(%s, %%s)' % sql_template
         for obj in objs:
-            data_params.extend((content_type_pk, obj._object_id))
+            data_params.extend((content_type_pk, obj._object_id_))
+            if obj._autocomplete_:
+                autocomplete_sql.append('||'.join(sql_template
+                                                  for _ in obj._autocomplete_))
+                data_params.extend([v for t in obj._autocomplete_ for v in t])
+            else:
+                autocomplete_sql.append("''::tsvector")
             if obj._body_:
-                vectors_sql.append('||'.join(sql_template for _ in obj._body_))
+                body_sql.append('||'.join(sql_template for _ in obj._body_))
                 data_params.extend([v for t in obj._body_ for v in t])
             else:
-                vectors_sql.append("''::tsvector")
-        data_sql = ', '.join(['(%%s, %%s, %s)' % s for s in vectors_sql])
+                body_sql.append("''::tsvector")
+        data_sql = ', '.join(['(%%s, %%s, %s, %s)' % (a, b)
+                              for a, b in zip(autocomplete_sql, body_sql)])
         with connection.cursor() as cursor:
             cursor.execute("""
-                INSERT INTO %s(content_type_id, object_id, body_search)
+                INSERT INTO %s
+                (content_type_id, object_id, autocomplete, body)
                 (VALUES %s)
                 ON CONFLICT (content_type_id, object_id)
-                DO UPDATE SET body_search = EXCLUDED.body_search
+                DO UPDATE SET autocomplete = EXCLUDED.autocomplete,
+                              body = EXCLUDED.body
                 """ % (IndexEntry._meta.db_table, data_sql), data_params)
 
     def add_items_update_then_create(self, content_type_pk, objs, config):
         ids_and_objs = {}
         for obj in objs:
-            obj._search_vector = (
+            obj._autocomplete_ = (
+                ADD([SearchVector(Value(text), weight=weight, config=config)
+                     for text, weight in obj._autocomplete_])
+                if obj._autocomplete_ else SearchVector(Value('')))
+            obj._body_ = (
                 ADD([SearchVector(Value(text), weight=weight, config=config)
                      for text, weight in obj._body_])
                 if obj._body_ else SearchVector(Value('')))
-            ids_and_objs[obj._object_id] = obj
+            ids_and_objs[obj._object_id_] = obj
         index_entries_for_ct = self.index_entries.filter(
             content_type_id=content_type_pk)
         indexed_ids = frozenset(
@@ -131,30 +150,29 @@ class Index(object):
             .values_list('object_id', flat=True))
         for indexed_id in indexed_ids:
             obj = ids_and_objs[indexed_id]
-            index_entries_for_ct.filter(object_id=obj._object_id) \
-                .update(body_search=obj._search_vector)
+            index_entries_for_ct.filter(object_id=obj._object_id_) \
+                .update(autocomplete=obj._autocomplete_, body=obj._body_)
         to_be_created = []
         for object_id in ids_and_objs:
             if object_id not in indexed_ids:
+                obj = ids_and_objs[object_id]
                 to_be_created.append(IndexEntry(
                     content_type_id=content_type_pk,
                     object_id=object_id,
-                    body_search=ids_and_objs[object_id]._search_vector,
-                ))
+                    autocomplete=obj._autocomplete_, body=obj._body_))
         self.index_entries.bulk_create(to_be_created)
 
     def add_items(self, model, objs):
         content_type_pk = get_content_type_pk(model)
-        config = self.backend.get_config()
+        config = self.backend.config
         for obj in objs:
-            obj._object_id = force_text(obj.pk)
-            obj._body_ = self.prepare_body(obj)
+            self.prepare_obj(obj)
 
         # Removes index entries of an ancestor model in case the descendant
         # model instance was created since.
         self.index_entries.filter(
             content_type_id__in=get_ancestors_content_types_pks(model)
-        ).filter(object_id__in=[obj._object_id for obj in objs]).delete()
+        ).filter(object_id__in=[obj._object_id_ for obj in objs]).delete()
 
         connection = connections[self.db_alias]
         if connection.pg_version >= 90500:  # PostgreSQL >= 9.5
@@ -168,17 +186,19 @@ class Index(object):
 
 class PostgresSearchQuery(BaseSearchQuery):
     DEFAULT_OPERATOR = 'and'
+    expr_class = SearchQuery
 
     def __init__(self, *args, **kwargs):
         super(PostgresSearchQuery, self).__init__(*args, **kwargs)
         self.search_fields = self.queryset.model.get_search_fields()
+        self.sql_weights = get_sql_weights()
 
     def get_search_query(self, config):
         combine = OR if self.operator == 'or' else AND
         search_terms = keyword_split(unidecode(self.query_string))
         if not search_terms:
-            return SearchQuery('')
-        return combine(SearchQuery(q, config=config) for q in search_terms)
+            return self.expr_class('')
+        return combine(self.expr_class(q, config=config) for q in search_terms)
 
     def get_boost(self, field_name, fields=None):
         if fields is None:
@@ -196,43 +216,73 @@ class PostgresSearchQuery(BaseSearchQuery):
                     return self.get_boost(sub_field_name, field.fields)
                 return field.boost
 
+    def filter_queryset(self, queryset, search_query):
+        return queryset.filter(Q(index_entries__autocomplete=search_query) |
+                               Q(index_entries__body=search_query))
+
+    def build_rank_expression(self, vector, search_query):
+        return SearchRank(vector, search_query,
+                          weights=self.sql_weights)
+
+    def get_index_rank_expression(self, search_query):
+        return (self.build_rank_expression(F('index_entries__autocomplete'),
+                                           search_query) +
+                self.build_rank_expression(F('index_entries__body'),
+                                           search_query))
+
+    def search_in_index(self, queryset, search_query):
+        queryset = self.filter_queryset(queryset, search_query)
+        return queryset, self.get_index_rank_expression(search_query)
+
+    def search_in_fields(self, queryset, search_query):
+        # TODO: Search in an indexed version of fields,
+        #       instead of fields themselves.
+        query = queryset.query
+        vector = ADD(
+            SearchVector(field, config=search_query.config,
+                         weight=get_weight(self.get_boost(field)))
+            for field in self.fields)
+        vector = vector.resolve_expression(query)
+        search_query = search_query.resolve_expression(query)
+        lookup = IndexEntry._meta.get_field('body').get_lookup('exact')(
+            vector, search_query)
+        query.where.add(lookup, 'AND')
+        return queryset, self.build_rank_expression(vector, search_query)
+
     def search(self, config, start, stop):
         if self.query_string is None:
             return self.queryset[start:stop]
         search_query = self.get_search_query(config=config)
-        queryset = self.queryset
-        query = queryset.query
-        if self.fields is None:
-            vector = F('index_entries__body_search')
-        else:
-            vector = ADD(
-                SearchVector(field, config=search_query.config,
-                             weight=get_weight(self.get_boost(field)))
-                for field in self.fields)
-        vector = vector.resolve_expression(query)
-        search_query = search_query.resolve_expression(query)
-        lookup = IndexEntry._meta.get_field('body_search').get_lookup('exact')(
-            vector, search_query)
-        query.where.add(lookup, 'AND')
+        queryset, rank_expression = (
+            self.search_in_index(self.queryset, search_query)
+            if self.fields is None
+            else self.search_in_fields(self.queryset, search_query))
         if self.order_by_relevance:
-            # Due to a Django bug, arrays are not automatically converted here.
-            converted_weights = '{' + ','.join(map(str, WEIGHTS_VALUES)) + '}'
-            queryset = queryset.order_by(SearchRank(vector, search_query,
-                                                    weights=converted_weights).desc(),
-                                         '-pk')
+            queryset = queryset.order_by(rank_expression.desc(), '-pk')
         elif not queryset.query.order_by:
             # Adds a default ordering to avoid issue #3729.
             queryset = queryset.order_by('-pk')
         return queryset[start:stop]
 
 
+class PostgresAutocompleteQuery(PostgresSearchQuery):
+    expr_class = SearchAutocomplete
+
+    def filter_queryset(self, queryset, search_query):
+        return queryset.filter(index_entries__autocomplete=search_query)
+
+    def get_index_rank_expression(self, search_query):
+        return self.build_rank_expression(F('index_entries__autocomplete'),
+                                          search_query)
+
+
 class PostgresSearchResults(BaseSearchResults):
     def _do_search(self):
-        return list(self.query.search(self.backend.get_config(),
+        return list(self.query.search(self.backend.config,
                                       self.start, self.stop))
 
     def _do_count(self):
-        return self.query.search(self.backend.get_config(), None, None).count()
+        return self.query.search(self.backend.config, None, None).count()
 
 
 class PostgresSearchRebuilder:
@@ -271,19 +321,17 @@ class PostgresSearchAtomicRebuilder(PostgresSearchRebuilder):
 
 class PostgresSearchBackend(BaseSearchBackend):
     query_class = PostgresSearchQuery
+    autocomplete_query_class = PostgresAutocompleteQuery
     results_class = PostgresSearchResults
     rebuilder_class = PostgresSearchRebuilder
     atomic_rebuilder_class = PostgresSearchAtomicRebuilder
 
     def __init__(self, params):
         super(PostgresSearchBackend, self).__init__(params)
-        self.params = params
+        self.config = params.get('SEARCH_CONFIG')
         if params.get('ATOMIC_REBUILD', False):
             self.rebuilder_class = self.atomic_rebuilder_class
         IndexEntry.add_generic_relations()
-
-    def get_config(self):
-        return self.params.get('SEARCH_CONFIG')
 
     def get_index_for_model(self, model, db_alias=None):
         return Index(self, model, db_alias)
@@ -309,7 +357,18 @@ class PostgresSearchBackend(BaseSearchBackend):
             self.get_index_for_object(obj_list[0]).add_items(model, obj_list)
 
     def delete(self, obj):
-        obj.index_entries.all().delete()
+        for connection in get_postgresql_connections():
+            obj.index_entries.using(connection.alias).delete()
+
+    def autocomplete(self, query_string, model_or_queryset, fields=None,
+                     filters=None, prefetch_related=None, operator=None,
+                     order_by_relevance=True):
+        args, kwargs = self.get_search_params(
+            query_string, model_or_queryset, fields=fields, filters=filters,
+            prefetch_related=prefetch_related, operator=operator,
+            order_by_relevance=order_by_relevance)
+        return self.results_class(
+            self, self.autocomplete_query_class(*args, **kwargs))
 
 
 SearchBackend = PostgresSearchBackend

@@ -126,6 +126,16 @@ def determine_boosts_weights(boosts=()):
             for i, weight in enumerate(WEIGHTS)]
 
 
+def set_weights():
+    BOOSTS_WEIGHTS.extend(determine_boosts_weights())
+    min_weight = BOOSTS_WEIGHTS[-1][0]
+    if min_weight <= 0:
+        min_weight = 0.1
+    max_weight = BOOSTS_WEIGHTS[0][0]
+    WEIGHTS_VALUES.extend([min_weight + (1 - min_weight) * v / max_weight
+                           for v, w in reversed(BOOSTS_WEIGHTS)])
+
+
 def get_weight(boost):
     if boost is None:
         return WEIGHTS[-1]
@@ -133,3 +143,7 @@ def get_weight(boost):
         if boost >= max_boost:
             return weight
     return weight
+
+
+def get_sql_weights():
+    return '{' + ','.join(map(str, WEIGHTS_VALUES)) + '}'

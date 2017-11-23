@@ -16,7 +16,7 @@ class TestPostgresSearchBackend(BackendTests, TestCase):
     def test_weights(self):
         self.assertListEqual(BOOSTS_WEIGHTS,
                              [(10, 'A'), (2, 'B'), (0.5, 'C'), (0.25, 'D')])
-        self.assertListEqual(WEIGHTS_VALUES, [0.025, 0.05, 0.2, 1.0])
+        self.assertListEqual(WEIGHTS_VALUES, [0.26875, 0.2875, 0.4, 1.0])
 
         self.assertEqual(get_weight(15), 'A')
         self.assertEqual(get_weight(10), 'A')

@@ -16,6 +16,10 @@ class FieldError(Exception):
     pass
 
 
+class EmptySearch(Exception):
+    pass
+
+
 class BaseSearchQuery(object):
     DEFAULT_OPERATOR = 'or'
 
@@ -231,8 +235,29 @@ class BaseSearchBackend(object):
     def delete(self, obj):
         raise NotImplementedError
 
-    def search(self, query_string, model_or_queryset, fields=None, filters=None,
-               prefetch_related=None, operator=None, order_by_relevance=True):
+    def check_fields(self, model, fields):
+        """
+        Checks `fields` are all indexed as `SearchField`s.
+        """
+        if not fields:
+            return
+
+        allowed_fields = {field.field_name for field in
+                          model.get_searchable_search_fields()}
+
+        for field_name in fields:
+            if field_name not in allowed_fields:
+                raise FieldError(
+                    "Cannot search with field {0}. Please add "
+                    "index.SearchField('{0}') to {1}.search_fields."
+                    .format(field_name, model.__name__))
+
+    def check_operator(self, operator):
+        if not (operator is None or operator.lower() in ('or', 'and')):
+            raise ValueError("operator must be either 'or' or 'and'")
+
+    def get_search_params(self, query_string, model_or_queryset, fields=None, filters=None,
+                          prefetch_related=None, operator=None, order_by_relevance=True):
         # Find model/queryset
         if isinstance(model_or_queryset, QuerySet):
             model = model_or_queryset.model
@@ -241,24 +266,10 @@ class BaseSearchBackend(object):
             model = model_or_queryset
             queryset = model_or_queryset.objects.all()
 
-        # Model must be a class that is in the index
-        if not class_is_indexed(model):
-            return EmptySearchResults()
+        if query_string == '' or not class_is_indexed(model):
+            raise EmptySearch
 
-        # Check that theres still a query string after the clean up
-        if query_string == "":
-            return EmptySearchResults()
-
-        # Only fields that are indexed as a SearchField can be passed in fields
-        if fields:
-            allowed_fields = {field.field_name for field in model.get_searchable_search_fields()}
-
-            for field_name in fields:
-                if field_name not in allowed_fields:
-                    raise FieldError(
-                        'Cannot search with field "' + field_name + '". Please add index.SearchField(\'' +
-                        field_name + '\') to ' + model.__name__ + '.search_fields.'
-                    )
+        self.check_fields(model, fields)
 
         # Apply filters to queryset
         if filters:
@@ -269,14 +280,19 @@ class BaseSearchBackend(object):
             for prefetch in prefetch_related:
                 queryset = queryset.prefetch_related(prefetch)
 
-        # Check operator
-        if operator is not None:
-            operator = operator.lower()
-            if operator not in ['or', 'and']:
-                raise ValueError("operator must be either 'or' or 'and'")
+        self.check_operator(operator)
 
-        # Search
-        search_query = self.query_class(
-            queryset, query_string, fields=fields, operator=operator, order_by_relevance=order_by_relevance
-        )
-        return self.results_class(self, search_query)
+        return (queryset, query_string), {
+            'fields': fields, 'operator': operator,
+            'order_by_relevance': order_by_relevance}
+
+    def search(self, query_string, model_or_queryset, fields=None, filters=None,
+               prefetch_related=None, operator=None, order_by_relevance=True):
+        try:
+            args, kwargs = self.get_search_params(
+                query_string, model_or_queryset, fields=fields, filters=filters,
+                prefetch_related=prefetch_related, operator=operator,
+                order_by_relevance=order_by_relevance)
+        except EmptySearch:
+            return EmptySearchResults()
+        return self.results_class(self, self.query_class(*args, **kwargs))
