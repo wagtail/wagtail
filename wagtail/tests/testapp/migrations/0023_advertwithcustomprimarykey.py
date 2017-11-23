@@ -8,7 +8,7 @@ import django
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('tests', '0021_hidden_form_field'),
+        ('tests', '0022_pagewithexcludedcopyfield'),
     ]
 
     operations = [
