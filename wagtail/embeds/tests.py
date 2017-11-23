@@ -11,6 +11,7 @@ from mock import patch
 
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.core import blocks
+from wagtail.core.rich_text import expand_db_html
 from wagtail.embeds import oembed_providers
 from wagtail.embeds.blocks import EmbedBlock, EmbedValue
 from wagtail.embeds.embeds import get_embed
@@ -615,3 +616,22 @@ class TestMediaEmbedHandler(TestCase):
         )
 
         self.assertEqual(result, '')
+
+    @patch('wagtail.embeds.embeds.get_embed')
+    def test_expand_html_escaping_end_to_end(self, get_embed):
+        get_embed.return_value = Embed(
+            url='http://www.youtube.com/watch/',
+            max_width=None,
+            type='video',
+            html='test html',
+            title='test title',
+            author_name='test author name',
+            provider_name='test provider name',
+            thumbnail_url='htto://test/thumbnail.url',
+            width=1000,
+            height=1000,
+        )
+
+        result = expand_db_html('<p>1 2 <embed embedtype="media" url="https://www.youtube.com/watch?v=O7D-1RG-VRk&amp;t=25" /> 3 4</p>')
+        self.assertIn('test html', result)
+        get_embed.assert_called_with('https://www.youtube.com/watch?v=O7D-1RG-VRk&t=25')
