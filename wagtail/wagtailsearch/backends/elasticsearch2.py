@@ -16,6 +16,7 @@ from wagtail.wagtailsearch.backends.base import (
     BaseSearchBackend, BaseSearchQuery, BaseSearchResults)
 from wagtail.wagtailsearch.index import (
     FilterField, Indexed, RelatedFields, SearchField, class_is_indexed)
+from wagtail.wagtailsearch.query import MatchAll, PlainText
 
 
 def get_model_root(model):
@@ -371,40 +372,35 @@ class Elasticsearch2SearchQuery(BaseSearchQuery):
             return filter_out
 
     def get_inner_query(self):
-        if self.query_string is not None:
-            fields = self.fields or ['_all', '_partials']
+        if isinstance(self.query, MatchAll):
+            return {'match_all': {}}
 
-            if len(fields) == 1:
-                if self.operator == 'or':
-                    query = {
-                        'match': {
-                            fields[0]: self.query_string,
-                        }
-                    }
-                else:
-                    query = {
-                        'match': {
-                            fields[0]: {
-                                'query': self.query_string,
-                                'operator': self.operator,
-                            }
-                        }
-                    }
-            else:
-                query = {
-                    'multi_match': {
-                        'query': self.query_string,
-                        'fields': fields,
-                    }
+        if not isinstance(self.query, PlainText):
+            raise NotImplementedError(
+                '%s is not supported by the Elasticsearch search backend.'
+                % self.query.__class__)
+
+        fields = self.fields or ['_all', '_partials']
+        operator = self.query.operator
+
+        if len(fields) == 1:
+            field = fields[0]
+            query = {
+                'match': {
+                    field: self.query.query_string,
                 }
-
-                if self.operator != 'or':
-                    query['multi_match']['operator'] = self.operator
+            }
+            if operator != 'or':
+                query['match'][field]['operator'] = operator
         else:
             query = {
-                'match_all': {}
+                'multi_match': {
+                    'query': self.query.query_string,
+                    'fields': fields,
+                }
             }
-
+            if operator != 'or':
+                query['multi_match']['operator'] = operator
         return query
 
     def get_content_type_filter(self):

@@ -1,11 +1,14 @@
 
 from __future__ import absolute_import, unicode_literals
 
+from warnings import warn
+
 from django.db.models.lookups import Lookup
 from django.db.models.query import QuerySet
 from django.db.models.sql.where import SubqueryConstraint, WhereNode
 
 from wagtail.wagtailsearch.index import class_is_indexed
+from wagtail.wagtailsearch.query import MATCH_ALL, PlainText
 
 
 class FilterError(Exception):
@@ -19,11 +22,17 @@ class FieldError(Exception):
 class BaseSearchQuery(object):
     DEFAULT_OPERATOR = 'or'
 
-    def __init__(self, queryset, query_string, fields=None, operator=None, order_by_relevance=True):
+    def __init__(self, queryset, query, fields=None, operator=None, order_by_relevance=True):
         self.queryset = queryset
-        self.query_string = query_string
+        if query is None:
+            warn('Querying `None` is deprecated, use `MATCH_ALL` instead.',
+                 DeprecationWarning)
+            query = MATCH_ALL
+        elif isinstance(query, str):
+            query = PlainText(query,
+                              operator=operator or self.DEFAULT_OPERATOR)
+        self.query = query
         self.fields = fields
-        self.operator = operator or self.DEFAULT_OPERATOR
         self.order_by_relevance = order_by_relevance
 
     def _get_filterable_field(self, field_attname):

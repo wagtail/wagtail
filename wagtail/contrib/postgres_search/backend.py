@@ -12,6 +12,7 @@ from django.utils.encoding import force_text
 from wagtail.wagtailsearch.backends.base import (
     BaseSearchBackend, BaseSearchQuery, BaseSearchResults)
 from wagtail.wagtailsearch.index import RelatedFields, SearchField
+from wagtail.wagtailsearch.query import MatchAll, PlainText
 
 from .models import IndexEntry
 from .utils import (
@@ -174,8 +175,8 @@ class PostgresSearchQuery(BaseSearchQuery):
         self.search_fields = self.queryset.model.get_search_fields()
 
     def get_search_query(self, config):
-        combine = OR if self.operator == 'or' else AND
-        search_terms = keyword_split(unidecode(self.query_string))
+        combine = OR if self.query.operator == 'or' else AND
+        search_terms = keyword_split(unidecode(self.query.query_string))
         if not search_terms:
             return SearchQuery('')
         return combine(SearchQuery(q, config=config) for q in search_terms)
@@ -197,8 +198,14 @@ class PostgresSearchQuery(BaseSearchQuery):
                 return field.boost
 
     def search(self, config, start, stop):
-        if self.query_string is None:
+        if isinstance(self.query, MatchAll):
             return self.queryset[start:stop]
+
+        if not isinstance(self.query, PlainText):
+            raise NotImplementedError(
+                '%s is not supported by the PostgreSQL search backend.'
+                % self.query.__class__)
+
         search_query = self.get_search_query(config=config)
         queryset = self.queryset
         query = queryset.query

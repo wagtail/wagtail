@@ -17,6 +17,7 @@ from wagtail.wagtailsearch.backends import (
     InvalidSearchBackendError, get_search_backend, get_search_backends)
 from wagtail.wagtailsearch.backends.base import FieldError
 from wagtail.wagtailsearch.backends.db import DatabaseSearchBackend
+from wagtail.wagtailsearch.query import MATCH_ALL
 
 
 class BackendTests(WagtailTestUtils):
@@ -65,8 +66,7 @@ class BackendTests(WagtailTestUtils):
         self.assertSetEqual(set(results), set())
 
     def test_search_all(self):
-        # Searches on None should return everything in the index
-        results = self.backend.search(None, models.Book)
+        results = self.backend.search(MATCH_ALL, models.Book)
         self.assertSetEqual(set(results), set(models.Book.objects.all()))
 
     def test_ranking(self):
@@ -90,7 +90,7 @@ class BackendTests(WagtailTestUtils):
     def test_search_on_child_class(self):
         # Searches on a child class should only return results that have the child class as well
         # and all results should be instances of the child class
-        results = self.backend.search(None, models.Novel)
+        results = self.backend.search(MATCH_ALL, models.Novel)
         self.assertSetEqual(set(results), set(models.Novel.objects.all()))
 
     def test_search_child_class_field_from_parent(self):
@@ -162,7 +162,7 @@ class BackendTests(WagtailTestUtils):
     # FILTERING TESTS
 
     def test_filter_exact_value(self):
-        results = self.backend.search(None, models.Book.objects.filter(number_of_pages=440))
+        results = self.backend.search(MATCH_ALL, models.Book.objects.filter(number_of_pages=440))
 
         self.assertUnsortedListEqual([r.title for r in results], [
             "The Return of the King",
@@ -170,14 +170,14 @@ class BackendTests(WagtailTestUtils):
         ])
 
     def test_filter_exact_value_on_parent_model_field(self):
-        results = self.backend.search(None, models.Novel.objects.filter(number_of_pages=440))
+        results = self.backend.search(MATCH_ALL, models.Novel.objects.filter(number_of_pages=440))
 
         self.assertUnsortedListEqual([r.title for r in results], [
             "The Return of the King"
         ])
 
     def test_filter_lt(self):
-        results = self.backend.search(None, models.Book.objects.filter(number_of_pages__lt=440))
+        results = self.backend.search(MATCH_ALL, models.Book.objects.filter(number_of_pages__lt=440))
 
         self.assertUnsortedListEqual([r.title for r in results], [
             "The Hobbit",
@@ -188,7 +188,7 @@ class BackendTests(WagtailTestUtils):
         ])
 
     def test_filter_lte(self):
-        results = self.backend.search(None, models.Book.objects.filter(number_of_pages__lte=440))
+        results = self.backend.search(MATCH_ALL, models.Book.objects.filter(number_of_pages__lte=440))
 
         self.assertUnsortedListEqual([r.title for r in results], [
             "The Return of the King",
@@ -201,7 +201,7 @@ class BackendTests(WagtailTestUtils):
         ])
 
     def test_filter_gt(self):
-        results = self.backend.search(None, models.Book.objects.filter(number_of_pages__gt=440))
+        results = self.backend.search(MATCH_ALL, models.Book.objects.filter(number_of_pages__gt=440))
 
         self.assertUnsortedListEqual([r.title for r in results], [
             "JavaScript: The Definitive Guide",
@@ -213,7 +213,7 @@ class BackendTests(WagtailTestUtils):
         ])
 
     def test_filter_gte(self):
-        results = self.backend.search(None, models.Book.objects.filter(number_of_pages__gte=440))
+        results = self.backend.search(MATCH_ALL, models.Book.objects.filter(number_of_pages__gte=440))
 
         self.assertUnsortedListEqual([r.title for r in results], [
             "The Return of the King",
@@ -227,7 +227,7 @@ class BackendTests(WagtailTestUtils):
         ])
 
     def test_filter_in_list(self):
-        results = self.backend.search(None, models.Book.objects.filter(number_of_pages__in=[440, 1160]))
+        results = self.backend.search(MATCH_ALL, models.Book.objects.filter(number_of_pages__in=[440, 1160]))
 
         self.assertUnsortedListEqual([r.title for r in results], [
             "The Return of the King",
@@ -236,7 +236,7 @@ class BackendTests(WagtailTestUtils):
         ])
 
     def test_filter_in_iterable(self):
-        results = self.backend.search(None, models.Book.objects.filter(number_of_pages__in=iter([440, 1160])))
+        results = self.backend.search(MATCH_ALL, models.Book.objects.filter(number_of_pages__in=iter([440, 1160])))
 
         self.assertUnsortedListEqual([r.title for r in results], [
             "The Return of the King",
@@ -246,7 +246,7 @@ class BackendTests(WagtailTestUtils):
 
     def test_filter_in_values_list_subquery(self):
         values = models.Book.objects.filter(number_of_pages__lt=440).values_list('number_of_pages', flat=True)
-        results = self.backend.search(None, models.Book.objects.filter(number_of_pages__in=values))
+        results = self.backend.search(MATCH_ALL, models.Book.objects.filter(number_of_pages__in=values))
 
         self.assertUnsortedListEqual([r.title for r in results], [
             "The Hobbit",
@@ -258,7 +258,7 @@ class BackendTests(WagtailTestUtils):
 
     def test_filter_isnull_true(self):
         # Note: We don't know the birth dates of any of the programming guide authors
-        results = self.backend.search(None, models.Author.objects.filter(date_of_birth__isnull=True))
+        results = self.backend.search(MATCH_ALL, models.Author.objects.filter(date_of_birth__isnull=True))
 
         self.assertUnsortedListEqual([r.name for r in results], [
             "David Ascher",
@@ -273,7 +273,7 @@ class BackendTests(WagtailTestUtils):
 
     def test_filter_isnull_false(self):
         # Note: We know the birth dates of all of the novel authors
-        results = self.backend.search(None, models.Author.objects.filter(date_of_birth__isnull=False))
+        results = self.backend.search(MATCH_ALL, models.Author.objects.filter(date_of_birth__isnull=False))
 
         self.assertUnsortedListEqual([r.name for r in results], [
             "Isaac Asimov",
@@ -282,7 +282,7 @@ class BackendTests(WagtailTestUtils):
         ])
 
     def test_filter_prefix(self):
-        results = self.backend.search(None, models.Book.objects.filter(title__startswith="Th"))
+        results = self.backend.search(MATCH_ALL, models.Book.objects.filter(title__startswith="Th"))
 
         self.assertUnsortedListEqual([r.title for r in results], [
             "The Hobbit",
@@ -294,14 +294,14 @@ class BackendTests(WagtailTestUtils):
 
     def test_filter_and_operator(self):
         results = self.backend.search(
-            None, models.Book.objects.filter(number_of_pages=440) & models.Book.objects.filter(publication_date=date(1955, 10, 20)))
+            MATCH_ALL, models.Book.objects.filter(number_of_pages=440) & models.Book.objects.filter(publication_date=date(1955, 10, 20)))
 
         self.assertUnsortedListEqual([r.title for r in results], [
             "The Return of the King"
         ])
 
     def test_filter_or_operator(self):
-        results = self.backend.search(None, models.Book.objects.filter(number_of_pages=440) | models.Book.objects.filter(number_of_pages=1160))
+        results = self.backend.search(MATCH_ALL, models.Book.objects.filter(number_of_pages=440) | models.Book.objects.filter(number_of_pages=1160))
 
         self.assertUnsortedListEqual([r.title for r in results], [
             "Learning Python",
@@ -311,12 +311,12 @@ class BackendTests(WagtailTestUtils):
 
     def test_filter_on_non_filterable_field(self):
         with self.assertRaises(FieldError):
-            list(self.backend.search(None, models.Author.objects.filter(name__startswith="Issac")))
+            list(self.backend.search(MATCH_ALL, models.Author.objects.filter(name__startswith="Issac")))
 
     # ORDER BY RELEVANCE
 
     def test_order_by_relevance(self):
-        results = self.backend.search(None, models.Novel.objects.order_by('number_of_pages'), order_by_relevance=False)
+        results = self.backend.search(MATCH_ALL, models.Novel.objects.order_by('number_of_pages'), order_by_relevance=False)
 
         # Ordering should be set to "number_of_pages"
         self.assertEqual([r.title for r in results], [
@@ -332,19 +332,19 @@ class BackendTests(WagtailTestUtils):
 
     def test_order_by_non_filterable_field(self):
         with self.assertRaises(FieldError):
-            list(self.backend.search(None, models.Author.objects.order_by('name'), order_by_relevance=False))
+            list(self.backend.search(MATCH_ALL, models.Author.objects.order_by('name'), order_by_relevance=False))
 
     # SLICING TESTS
 
     def test_single_result(self):
-        results = self.backend.search(None, models.Novel.objects.order_by('number_of_pages'), order_by_relevance=False)
+        results = self.backend.search(MATCH_ALL, models.Novel.objects.order_by('number_of_pages'), order_by_relevance=False)
 
         self.assertEqual(results[0].title, "Foundation")
         self.assertEqual(results[1].title, "The Hobbit")
 
     def test_limit(self):
         # Note: we need consistent ordering for this test
-        results = self.backend.search(None, models.Novel.objects.order_by('number_of_pages'), order_by_relevance=False)
+        results = self.backend.search(MATCH_ALL, models.Novel.objects.order_by('number_of_pages'), order_by_relevance=False)
 
         # Limit the results
         results = results[:3]
@@ -357,7 +357,7 @@ class BackendTests(WagtailTestUtils):
 
     def test_offset(self):
         # Note: we need consistent ordering for this test
-        results = self.backend.search(None, models.Novel.objects.order_by('number_of_pages'), order_by_relevance=False)
+        results = self.backend.search(MATCH_ALL, models.Novel.objects.order_by('number_of_pages'), order_by_relevance=False)
 
         # Offset the results
         results = results[3:]
@@ -372,7 +372,7 @@ class BackendTests(WagtailTestUtils):
 
     def test_offset_and_limit(self):
         # Note: we need consistent ordering for this test
-        results = self.backend.search(None, models.Novel.objects.order_by('number_of_pages'), order_by_relevance=False)
+        results = self.backend.search(MATCH_ALL, models.Novel.objects.order_by('number_of_pages'), order_by_relevance=False)
 
         # Offset the results
         results = results[3:6]
@@ -419,7 +419,7 @@ class BackendTests(WagtailTestUtils):
         # instead of three).
 
         # Note: we need consistent ordering for this test
-        results = self.backend.search(None, models.Novel.objects.order_by('number_of_pages'), order_by_relevance=False)
+        results = self.backend.search(MATCH_ALL, models.Novel.objects.order_by('number_of_pages'), order_by_relevance=False)
 
         # Limit the results
         results = results[:3]

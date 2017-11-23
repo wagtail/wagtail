@@ -5,6 +5,7 @@ from django.db.models.expressions import Value
 
 from wagtail.wagtailsearch.backends.base import (
     BaseSearchBackend, BaseSearchQuery, BaseSearchResults)
+from wagtail.wagtailsearch.query import MatchAll, PlainText
 
 
 class DatabaseSearchQuery(BaseSearchQuery):
@@ -36,32 +37,41 @@ class DatabaseSearchQuery(BaseSearchQuery):
         q = models.Q()
         model = self.queryset.model
 
-        if self.query_string is not None:
-            # Get fields
-            fields = self.fields or [field.field_name for field in model.get_searchable_search_fields()]
+        if isinstance(self.query, MatchAll):
+            return q
 
-            # Get terms
-            terms = self.query_string.split()
-            if not terms:
-                return model.objects.none()
+        if not isinstance(self.query, PlainText):
+            raise NotImplementedError(
+                '%s is not supported by the database search backend.'
+                % self.query.__class__)
 
-            # Filter by terms
-            for term in terms:
-                term_query = models.Q()
-                for field_name in fields:
-                    # Check if the field exists (this will filter out indexed callables)
-                    try:
-                        model._meta.get_field(field_name)
-                    except models.fields.FieldDoesNotExist:
-                        continue
+        # Get fields
+        fields = self.fields or [field.field_name for field in model.get_searchable_search_fields()]
 
-                    # Filter on this field
-                    term_query |= models.Q(**{'%s__icontains' % field_name: term})
+        # Get terms
+        terms = self.query.query_string.split()
+        if not terms:
+            return model.objects.none()
 
-                if self.operator == 'or':
-                    q |= term_query
-                elif self.operator == 'and':
-                    q &= term_query
+        # Filter by terms
+        for term in terms:
+            term_query = models.Q()
+            for field_name in fields:
+                # Check if the field exists (this will filter out indexed callables)
+                try:
+                    model._meta.get_field(field_name)
+                except models.fields.FieldDoesNotExist:
+                    continue
+
+                # Filter on this field
+                term_query |= models.Q(**{'%s__icontains' % field_name: term})
+
+            operator = self.query.operator
+
+            if operator == 'or':
+                q |= term_query
+            elif operator == 'and':
+                q &= term_query
 
         return q
 
