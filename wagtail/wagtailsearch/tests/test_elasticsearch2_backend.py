@@ -38,7 +38,7 @@ class TestElasticsearch2SearchBackend(BackendTests, ElasticsearchCommonSearchBac
         super(TestElasticsearch2SearchBackend, self).test_delete()
 
     #
-    # Query classes
+    # Basic query classes
     #
 
     # Not implemented yet
@@ -65,6 +65,15 @@ class TestElasticsearch2SearchBackend(BackendTests, ElasticsearchCommonSearchBac
     @unittest.expectedFailure
     def test_operators_combination(self):
         super().test_operators_combination()
+
+    #
+    # Shortcut query classes
+    #
+
+    # Not implemented yet
+    @unittest.expectedFailure
+    def test_filter_query(self):
+        super().test_filter_query()
 
 
 class TestElasticsearch2SearchQuery(TestCase):

@@ -17,7 +17,7 @@ from wagtail.wagtailsearch.backends import (
     InvalidSearchBackendError, get_search_backend, get_search_backends)
 from wagtail.wagtailsearch.backends.base import FieldError
 from wagtail.wagtailsearch.backends.db import DatabaseSearchBackend
-from wagtail.wagtailsearch.query import MATCH_ALL, And, Not, Or, PlainText, Term
+from wagtail.wagtailsearch.query import MATCH_ALL, And, Boost, Filter, Not, Or, PlainText, Term
 
 
 class BackendTests(WagtailTestUtils):
@@ -431,7 +431,7 @@ class BackendTests(WagtailTestUtils):
         ])
 
     #
-    # Query classes
+    # Basic query classes
     #
 
     def test_match_all(self):
@@ -448,29 +448,6 @@ class BackendTests(WagtailTestUtils):
 
         # Multiple word
         results = self.backend.search(Term('Definitive Guide'),
-                                      models.Book.objects.all())
-        self.assertSetEqual({r.title for r in results},
-                            {'JavaScript: The Definitive Guide'})
-
-    def test_plain_text(self):
-        # Single word
-        results = self.backend.search(PlainText('Javascript'),
-                                      models.Book.objects.all())
-        self.assertSetEqual({r.title for r in results},
-                            {'JavaScript: The Definitive Guide',
-                             'JavaScript: The good parts'})
-
-        # Multiple words (OR operator)
-        results = self.backend.search(PlainText('Javascript Definitive',
-                                                operator='or'),
-                                      models.Book.objects.all())
-        self.assertSetEqual({r.title for r in results},
-                            {'JavaScript: The Definitive Guide',
-                             'JavaScript: The good parts'})
-
-        # Multiple words (AND operator)
-        results = self.backend.search(PlainText('Javascript Definitive',
-                                                operator='and'),
                                       models.Book.objects.all())
         self.assertSetEqual({r.title for r in results},
                             {'JavaScript: The Definitive Guide'})
@@ -533,6 +510,114 @@ class BackendTests(WagtailTestUtils):
                              'The Two Towers',
                              'The Rust Programming Language',
                              'Two Scoops of Django 1.11'})
+
+    #
+    # Shortcut query classes
+    #
+
+    def test_plain_text(self):
+        # Single word
+        results = self.backend.search(PlainText('Javascript'),
+                                      models.Book.objects.all())
+        self.assertSetEqual({r.title for r in results},
+                            {'JavaScript: The Definitive Guide',
+                             'JavaScript: The good parts'})
+
+        # Multiple words (OR operator)
+        results = self.backend.search(PlainText('Javascript Definitive',
+                                                operator='or'),
+                                      models.Book.objects.all())
+        self.assertSetEqual({r.title for r in results},
+                            {'JavaScript: The Definitive Guide',
+                             'JavaScript: The good parts'})
+
+        # Multiple words (AND operator)
+        results = self.backend.search(PlainText('Javascript Definitive',
+                                                operator='and'),
+                                      models.Book.objects.all())
+        self.assertSetEqual({r.title for r in results},
+                            {'JavaScript: The Definitive Guide'})
+
+    def test_filter_equivalent(self):
+        filter = Filter(Term('Javascript'))
+        term = filter.child
+        self.assertIsInstance(term, Term)
+        self.assertEqual(term.term, 'Javascript')
+
+        filter = Filter(Term('Javascript'), include=Term('Definitive'))
+        and_obj = filter.child
+        self.assertIsInstance(and_obj, And)
+        javascript = and_obj.children[0]
+        self.assertIsInstance(javascript, Term)
+        self.assertEqual(javascript.term, 'Javascript')
+        definitive = and_obj.children[1]
+        self.assertIsInstance(definitive, Term)
+        self.assertEqual(definitive.term, 'Definitive')
+
+        filter = Filter(Term('Javascript'),
+                        include=Term('Definitive'), exclude=Term('Guide'))
+        and_obj1 = filter.child
+        self.assertIsInstance(and_obj1, And)
+        and_obj2 = and_obj1.children[0]
+        javascript = and_obj2.children[0]
+        self.assertIsInstance(javascript, Term)
+        self.assertEqual(javascript.term, 'Javascript')
+        definitive = and_obj2.children[1]
+        self.assertIsInstance(definitive, Term)
+        self.assertEqual(definitive.term, 'Definitive')
+        not_obj = and_obj1.children[1]
+        self.assertIsInstance(not_obj, Not)
+        guide = not_obj.child
+        self.assertEqual(guide.term, 'Guide')
+
+    def test_filter_query(self):
+        results = self.backend.search(Filter(Term('Javascript')),
+                                      models.Book.objects.all())
+        self.assertSetEqual({r.title for r in results},
+                            {'JavaScript: The Definitive Guide',
+                             'JavaScript: The good parts'})
+
+        results = self.backend.search(Filter(Term('Javascript'),
+                                             include=Term('Definitive')),
+                                      models.Book.objects.all())
+        self.assertSetEqual({r.title for r in results},
+                            {'JavaScript: The Definitive Guide'})
+
+        results = self.backend.search(Filter(Term('Javascript'),
+                                             include=Term('Definitive'),
+                                             exclude=Term('Guide')),
+                                      models.Book.objects.all())
+        self.assertSetEqual({r.title for r in results}, set())
+
+    def test_boost_equivalent(self):
+        boost = Boost(Term('Guide'), 5)
+        equivalent = boost.children[0]
+        self.assertIsInstance(equivalent, Term)
+        self.assertAlmostEqual(equivalent.boost, 5)
+
+        boost = Boost(Term('Guide', boost=0.5), 5)
+        equivalent = boost.children[0]
+        self.assertIsInstance(equivalent, Term)
+        self.assertAlmostEqual(equivalent.boost, 2.5)
+
+        boost = Boost(Boost(Term('Guide', 0.1), 3), 5)
+        sub_boost = boost.children[0]
+        self.assertIsInstance(sub_boost, Boost)
+        sub_boost = sub_boost.children[0]
+        self.assertIsInstance(sub_boost, Term)
+        self.assertAlmostEqual(sub_boost.boost, 1.5)
+
+        boost = Boost(And([Boost(Term('Guide', 0.1), 3), Term('Two', 2)]), 5)
+        and_obj = boost.children[0]
+        self.assertIsInstance(and_obj, And)
+        sub_boost = and_obj.children[0]
+        self.assertIsInstance(sub_boost, Boost)
+        guide = sub_boost.children[0]
+        self.assertIsInstance(guide, Term)
+        self.assertAlmostEqual(guide.boost, 1.5)
+        two = and_obj.children[1]
+        self.assertIsInstance(two, Term)
+        self.assertAlmostEqual(two.boost, 10)
 
 
 @override_settings(

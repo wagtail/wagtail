@@ -15,7 +15,7 @@ from django.utils.encoding import force_text
 from wagtail.wagtailsearch.backends.base import (
     BaseSearchBackend, BaseSearchQueryCompiler, BaseSearchResults)
 from wagtail.wagtailsearch.index import RelatedFields, SearchField
-from wagtail.wagtailsearch.query import And, MatchAll, Not, Or, PlainText, Term
+from wagtail.wagtailsearch.query import And, MatchAll, Not, Or, SearchQueryShortcut, Term
 from wagtail.wagtailsearch.utils import ADD, AND, OR
 
 from .models import IndexEntry
@@ -181,8 +181,8 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
         if query is None:
             query = self.query
 
-        if isinstance(query, PlainText):
-            return self.build_database_query(query.to_combined_terms(), config)
+        if isinstance(query, SearchQueryShortcut):
+            return self.build_database_query(query.get_equivalent(), config)
         if isinstance(query, Term):
             # TODO: Find a way to use the term boosting.
             if query.boost != 1:
