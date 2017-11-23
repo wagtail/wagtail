@@ -21,9 +21,10 @@ from django.utils.dateparse import parse_date
 
 from freezegun import freeze_time
 from wagtail.tests.testapp.models import (
-    EVENT_AUDIENCE_CHOICES, Advert, AdvertPlacement, BusinessChild, BusinessIndex, BusinessSubIndex,
-    DefaultStreamPage, EventCategory, EventPage, EventPageCarouselItem, FilePage, ManyToManyBlogPage,
-    SimplePage, SingleEventPage, SingletonPage, StandardChild, StandardIndex, TaggedPage)
+    EVENT_AUDIENCE_CHOICES, Advert, AdvertPlacement, BusinessChild, BusinessIndex,
+    BusinessSubIndex, DefaultStreamPage, EventCategory, EventPage, EventPageCarouselItem,
+    FilePage, FormClassAdditionalFieldPage, ManyToManyBlogPage, SimplePage,
+    SingleEventPage, SingletonPage, StandardChild, StandardIndex, TaggedPage)
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailadmin.views.home import RecentEditsPanel
 from wagtail.wagtailadmin.views.pages import PreviewOnEdit
@@ -3737,6 +3738,72 @@ class TestCompareRevisions(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
         self.assertContains(response, '<span class="deletion">Last Christmas I gave you my heart, but the very next day you gave it away</span><span class="addition">This year, to save me from tears, I&#39;ll just feed it to the dog</span>')
+
+
+class TestCompareRevisionsWithNonModelField(TestCase, WagtailTestUtils):
+    """
+    Tests if form fields defined in the base_form_class will not be included.
+
+    in revisions view as they are not actually on the model.
+    Flagged in issue #3737
+    Note: Actual tests for comparison classes can be found in test_compare.py
+    """
+
+    fixtures = ['test.json']
+    # FormClassAdditionalFieldPage
+
+    def setUp(self):
+        # Find root page
+        self.root_page = Page.objects.get(id=2)
+
+        # Add child page of class with base_form_class override
+        # non model field is 'code'
+        self.test_page = FormClassAdditionalFieldPage(
+            title='A Statement',
+            slug='a-statement',
+            location='Early Morning Cafe, Mainland, NZ',
+            body="<p>hello</p>"
+        )
+        self.root_page.add_child(instance=self.test_page)
+
+        # add new revision
+        self.test_page.title = 'Statement'
+        self.test_page.location = 'Victory Monument, Bangkok'
+        self.test_page.body = (
+            "<p>I would like very much to go into the forrest.</p>"
+        )
+        self.test_page_revision = self.test_page.save_revision()
+        self.test_page_revision.created_at = local_datetime(2017, 10, 15)
+        self.test_page_revision.save()
+
+        # add another new revision
+        self.test_page.title = 'True Statement'
+        self.test_page.location = 'Victory Monument, Bangkok'
+        self.test_page.body = (
+            "<p>I would like very much to go into the forest.</p>"
+        )
+        self.test_page_revision_new = self.test_page.save_revision()
+        self.test_page_revision_new.created_at = local_datetime(2017, 10, 16)
+        self.test_page_revision_new.save()
+
+        self.login()
+
+    def test_base_form_class_used(self):
+        """First ensure that the non-model field is appearing in edit."""
+        edit_url = reverse('wagtailadmin_pages:add', args=('tests', 'formclassadditionalfieldpage', self.test_page.id))
+        response = self.client.get(edit_url)
+        self.assertContains(response, '<input type="text" name="code" required id="id_code" maxlength="5" />', html=True)
+
+    def test_compare_revisions(self):
+        """Confirm that the non-model field is not shown in revision."""
+        compare_url = reverse(
+            'wagtailadmin_pages:revisions_compare',
+            args=(self.test_page.id, self.test_page_revision.id, self.test_page_revision_new.id)
+        )
+        response = self.client.get(compare_url)
+        self.assertContains(response, '<span class="deletion">forrest.</span><span class="addition">forest.</span>')
+        # should not contain the field defined in the formclass used
+        self.assertNotContains(response, '<h2>Code:</h2>')
 
 
 class TestIssue2599(TestCase, WagtailTestUtils):
