@@ -10,7 +10,7 @@ from django.db.models.functions import Cast
 from django.utils.encoding import force_text
 
 from wagtail.wagtailsearch.backends.base import (
-    BaseSearchBackend, BaseSearchQuery, BaseSearchResults)
+    BaseSearchBackend, SearchQueryCompiler, BaseSearchResults)
 from wagtail.wagtailsearch.index import RelatedFields, SearchField
 from wagtail.wagtailsearch.query import MatchAll, PlainText
 
@@ -167,11 +167,11 @@ class Index(object):
         return self.name
 
 
-class PostgresSearchQuery(BaseSearchQuery):
+class PostgresSearchQueryCompiler(SearchQueryCompiler):
     DEFAULT_OPERATOR = 'and'
 
     def __init__(self, *args, **kwargs):
-        super(PostgresSearchQuery, self).__init__(*args, **kwargs)
+        super(PostgresSearchQueryCompiler, self).__init__(*args, **kwargs)
         self.search_fields = self.queryset.model.get_search_fields()
 
     def get_search_query(self, config):
@@ -235,11 +235,11 @@ class PostgresSearchQuery(BaseSearchQuery):
 
 class PostgresSearchResults(BaseSearchResults):
     def _do_search(self):
-        return list(self.query.search(self.backend.get_config(),
-                                      self.start, self.stop))
+        return list(self.query_compiler.search(self.backend.get_config(),
+                                               self.start, self.stop))
 
     def _do_count(self):
-        return self.query.search(self.backend.get_config(), None, None).count()
+        return self.query_compiler.search(self.backend.get_config(), None, None).count()
 
 
 class PostgresSearchRebuilder:
@@ -277,7 +277,7 @@ class PostgresSearchAtomicRebuilder(PostgresSearchRebuilder):
 
 
 class PostgresSearchBackend(BaseSearchBackend):
-    query_class = PostgresSearchQuery
+    query_compiler_class = PostgresSearchQueryCompiler
     results_class = PostgresSearchResults
     rebuilder_class = PostgresSearchRebuilder
     atomic_rebuilder_class = PostgresSearchAtomicRebuilder

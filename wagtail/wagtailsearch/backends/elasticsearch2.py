@@ -13,7 +13,7 @@ from elasticsearch.helpers import bulk
 
 from wagtail.utils.utils import deep_update
 from wagtail.wagtailsearch.backends.base import (
-    BaseSearchBackend, BaseSearchQuery, BaseSearchResults)
+    BaseSearchBackend, SearchQueryCompiler, BaseSearchResults)
 from wagtail.wagtailsearch.index import (
     FilterField, Indexed, RelatedFields, SearchField, class_is_indexed)
 from wagtail.wagtailsearch.query import MatchAll, PlainText
@@ -261,12 +261,12 @@ class Elasticsearch2Mapping(object):
         return '<ElasticsearchMapping: %s>' % (self.model.__name__, )
 
 
-class Elasticsearch2SearchQuery(BaseSearchQuery):
+class Elasticsearch2SearchQueryCompiler(SearchQueryCompiler):
     mapping_class = Elasticsearch2Mapping
     DEFAULT_OPERATOR = 'or'
 
     def __init__(self, *args, **kwargs):
-        super(Elasticsearch2SearchQuery, self).__init__(*args, **kwargs)
+        super(Elasticsearch2SearchQueryCompiler, self).__init__(*args, **kwargs)
         self.mapping = self.mapping_class(self.queryset.model)
 
         # Convert field names into index column names
@@ -496,11 +496,11 @@ class Elasticsearch2SearchResults(BaseSearchResults):
 
     def _get_es_body(self, for_count=False):
         body = {
-            'query': self.query.get_query()
+            'query': self.query_compiler.get_query()
         }
 
         if not for_count:
-            sort = self.query.get_sort()
+            sort = self.query_compiler.get_sort()
 
             if sort is not None:
                 body['sort'] = sort
@@ -519,7 +519,7 @@ class Elasticsearch2SearchResults(BaseSearchResults):
         results = {str(pk): None for pk in pks}
 
         # Find objects in database and add them to dict
-        for obj in self.query.queryset.filter(pk__in=pks):
+        for obj in self.query_compiler.queryset.filter(pk__in=pks):
             results[str(obj.pk)] = obj
 
             if self._score_field:
@@ -542,7 +542,7 @@ class Elasticsearch2SearchResults(BaseSearchResults):
         use_scroll = limit is None or limit > PAGE_SIZE
 
         params = {
-            'index': self.backend.get_index_for_model(self.query.queryset.model).name,
+            'index': self.backend.get_index_for_model(self.query_compiler.queryset.model).name,
             'body': self._get_es_body(),
             '_source': False,
             self.fields_param_name: 'pk',
@@ -611,7 +611,7 @@ class Elasticsearch2SearchResults(BaseSearchResults):
     def _do_count(self):
         # Get count
         hit_count = self.backend.es.count(
-            index=self.backend.get_index_for_model(self.query.queryset.model).name,
+            index=self.backend.get_index_for_model(self.query_compiler.queryset.model).name,
             body=self._get_es_body(for_count=True),
         )['count']
 
@@ -819,7 +819,7 @@ class ElasticsearchAtomicIndexRebuilder(ElasticsearchIndexRebuilder):
 
 class Elasticsearch2SearchBackend(BaseSearchBackend):
     index_class = Elasticsearch2Index
-    query_class = Elasticsearch2SearchQuery
+    query_compiler_class = Elasticsearch2SearchQueryCompiler
     results_class = Elasticsearch2SearchResults
     mapping_class = Elasticsearch2Mapping
     basic_rebuilder_class = ElasticsearchIndexRebuilder

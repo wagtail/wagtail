@@ -19,7 +19,7 @@ class FieldError(Exception):
     pass
 
 
-class BaseSearchQuery(object):
+class SearchQueryCompiler(object):
     DEFAULT_OPERATOR = 'or'
 
     def __init__(self, queryset, query, fields=None, operator=None, order_by_relevance=True):
@@ -104,9 +104,9 @@ class BaseSearchQuery(object):
 
 
 class BaseSearchResults(object):
-    def __init__(self, backend, query, prefetch_related=None):
+    def __init__(self, backend, query_compiler, prefetch_related=None):
         self.backend = backend
-        self.query = query
+        self.query_compiler = query_compiler
         self.prefetch_related = prefetch_related
         self.start = 0
         self.stop = None
@@ -129,7 +129,8 @@ class BaseSearchResults(object):
 
     def _clone(self):
         klass = self.__class__
-        new = klass(self.backend, self.query, prefetch_related=self.prefetch_related)
+        new = klass(self.backend, self.query_compiler,
+                    prefetch_related=self.prefetch_related)
         new.start = self.start
         new.stop = self.stop
         new._score_field = self._score_field
@@ -209,7 +210,7 @@ class EmptySearchResults(BaseSearchResults):
 
 
 class BaseSearchBackend(object):
-    query_class = None
+    query_compiler_class = None
     results_class = None
     rebuilder_class = None
 
@@ -285,7 +286,7 @@ class BaseSearchBackend(object):
                 raise ValueError("operator must be either 'or' or 'and'")
 
         # Search
-        search_query = self.query_class(
+        search_query = self.query_compiler_class(
             queryset, query_string, fields=fields, operator=operator, order_by_relevance=order_by_relevance
         )
         return self.results_class(self, search_query)

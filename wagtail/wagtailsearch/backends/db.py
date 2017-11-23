@@ -4,11 +4,11 @@ from django.db import models
 from django.db.models.expressions import Value
 
 from wagtail.wagtailsearch.backends.base import (
-    BaseSearchBackend, BaseSearchQuery, BaseSearchResults)
+    BaseSearchBackend, SearchQueryCompiler, BaseSearchResults)
 from wagtail.wagtailsearch.query import MatchAll, PlainText
 
 
-class DatabaseSearchQuery(BaseSearchQuery):
+class DatabaseSearchQueryCompiler(SearchQueryCompiler):
     DEFAULT_OPERATOR = 'and'
 
     def _process_lookup(self, field, lookup, value):
@@ -78,8 +78,8 @@ class DatabaseSearchQuery(BaseSearchQuery):
 
 class DatabaseSearchResults(BaseSearchResults):
     def get_queryset(self):
-        queryset = self.query.queryset
-        q = self.query.get_extra_q()
+        queryset = self.query_compiler.queryset
+        q = self.query_compiler.get_extra_q()
 
         return queryset.filter(q).distinct()[self.start:self.stop]
 
@@ -96,7 +96,7 @@ class DatabaseSearchResults(BaseSearchResults):
 
 
 class DatabaseSearchBackend(BaseSearchBackend):
-    query_class = DatabaseSearchQuery
+    query_compiler_class = DatabaseSearchQueryCompiler
     results_class = DatabaseSearchResults
 
     def reset_index(self):

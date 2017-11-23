@@ -2,7 +2,7 @@ from __future__ import absolute_import, unicode_literals
 
 from .elasticsearch2 import (
     Elasticsearch2Index, Elasticsearch2Mapping, Elasticsearch2SearchBackend,
-    Elasticsearch2SearchQuery, Elasticsearch2SearchResults)
+    Elasticsearch2SearchQueryCompiler, Elasticsearch2SearchResults)
 
 
 class Elasticsearch5Mapping(Elasticsearch2Mapping):
@@ -15,7 +15,7 @@ class Elasticsearch5Index(Elasticsearch2Index):
     pass
 
 
-class Elasticsearch5SearchQuery(Elasticsearch2SearchQuery):
+class Elasticsearch5SearchQuery(Elasticsearch2SearchQueryCompiler):
     mapping_class = Elasticsearch5Mapping
 
     def _connect_filters(self, filters, connector, negated):
@@ -77,7 +77,7 @@ class Elasticsearch5SearchResults(Elasticsearch2SearchResults):
 class Elasticsearch5SearchBackend(Elasticsearch2SearchBackend):
     mapping_class = Elasticsearch5Mapping
     index_class = Elasticsearch5Index
-    query_class = Elasticsearch5SearchQuery
+    query_compiler_class = Elasticsearch5SearchQuery
     results_class = Elasticsearch5SearchResults
 
 
