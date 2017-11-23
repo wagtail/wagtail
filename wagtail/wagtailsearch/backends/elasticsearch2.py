@@ -384,23 +384,29 @@ class Elasticsearch2SearchQuery(BaseSearchQuery):
         operator = self.query.operator
 
         if len(fields) == 1:
-            field = fields[0]
-            query = {
+            if operator == 'or':
+                return {
+                    'match': {
+                        fields[0]: self.query.query_string,
+                    }
+                }
+            return {
                 'match': {
-                    field: self.query.query_string,
+                    fields[0]: {
+                        'query': self.query.query_string,
+                        'operator': operator,
+                    }
                 }
             }
-            if operator != 'or':
-                query['match'][field]['operator'] = operator
-        else:
-            query = {
-                'multi_match': {
-                    'query': self.query.query_string,
-                    'fields': fields,
-                }
+
+        query = {
+            'multi_match': {
+                'query': self.query.query_string,
+                'fields': fields,
             }
-            if operator != 'or':
-                query['multi_match']['operator'] = operator
+        }
+        if operator != 'or':
+            query['multi_match']['operator'] = operator
         return query
 
     def get_content_type_filter(self):
