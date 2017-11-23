@@ -29,6 +29,7 @@ Changelog
  * Fix: Fixed rendering of border on dropdown arrow buttons on Chrome (Bertrand Bordage)
  * Fix: Fixed incorrect z-index on userbar causing it to appear behind page content (Stein Strindhaug)
  * Fix: Form submissions pagination no longer looses date filter when changing page (Bertrand Bordage)
+ * Fix: PostgreSQL search backend now removes duplicate page instances from the database (Bertrand Bordage)
 
 
 1.13.1 (17.11.2017)
