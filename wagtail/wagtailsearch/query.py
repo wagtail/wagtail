@@ -24,7 +24,7 @@ class Or(SearchQueryOperator):
 
 
 class Not(SearchQueryOperator):
-    def __init__(self, subquery):
+    def __init__(self, subquery: SearchQuery):
         self.subquery = subquery
 
 
@@ -33,39 +33,41 @@ class MatchAll(SearchQuery):
 
 
 class PlainText(SearchQuery):
-    def __init__(self, query_string, operator=None, boost=1.0):
+    def __init__(self, query_string: str, operator: str = None,
+                 boost: float = 1.0):
         self.query_string = query_string
         self.operator = operator
         self.boost = boost
 
 
 class Term(SearchQuery):
-    def __init__(self, term, boost=1.0):
+    def __init__(self, term: str, boost: float = 1.0):
         self.term = term
         self.boost = boost
 
 
 class Prefix(SearchQuery):
-    def __init__(self, prefix, boost=1.0):
+    def __init__(self, prefix: str, boost: float = 1.0):
         self.prefix = prefix
         self.boost = boost
 
 
 class Fuzzy(SearchQuery):
-    def __init__(self, term, max_distance=3, boost=1.0):
+    def __init__(self, term: str, max_distance: float = 3, boost: float = 1.0):
         self.term = term
         self.max_distance = max_distance
         self.boost = boost
 
 
 class Boost(SearchQuery):
-    def __init__(self, query, boost):
+    def __init__(self, query: SearchQuery, boost: float):
         self.query = query
         self.boost = boost
 
 
 class Filter(SearchQuery):
-    def __init__(self, query, include=None, exclude=None):
+    def __init__(self, query: SearchQuery,
+                 include: SearchQuery = None, exclude: SearchQuery = None):
         self.query = query
         self.include = include
         self.exclude = exclude
