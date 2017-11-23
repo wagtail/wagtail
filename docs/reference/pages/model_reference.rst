@@ -101,6 +101,11 @@ Methods and properties
 
 In addition to the model fields provided, ``Page`` has many properties and methods that you may wish to reference, use, or override in creating your own models.
 
+.. note::
+
+    See also `django-treebeard <http://django-treebeard.readthedocs.io/en/latest/index.html>`_'s `node API <http://django-treebeard.readthedocs.io/en/latest/api.html>`_. ``Page`` is a subclass of `materialized path tree <http://django-treebeard.readthedocs.io/en/latest/mp_tree.html>`_ nodes.
+
+
 .. class:: Page
 
     .. autoattribute:: specific
@@ -188,6 +193,18 @@ In addition to the model fields provided, ``Page`` has many properties and metho
     .. attribute:: is_creatable
 
         Controls if this page can be created through the Wagtail administration. Defaults to True, and is not inherited by subclasses. This is useful when using `multi-table inheritance <https://docs.djangoproject.com/en/1.8/topics/db/models/#multi-table-inheritance>`_, to stop the base model from being created as an actual page.
+
+    .. attribute:: exclude_fields_in_copy
+
+        An array of field names that will not be included when a Page is copied.
+        Useful when you have relations that do not use `ClusterableModel` or should not be copied.
+
+        .. code-block:: python
+
+            class BlogPage(Page):
+                exclude_fields_in_copy = ['special_relation', 'custom_uuid']
+
+        The following fields will always be excluded in a copy - `['id', 'path', 'depth', 'numchild', 'url_path', 'path']`.
 
     .. attribute:: base_form_class
 

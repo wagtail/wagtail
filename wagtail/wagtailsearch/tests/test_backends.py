@@ -4,12 +4,12 @@ from __future__ import absolute_import, unicode_literals
 
 import unittest
 from datetime import date
+from io import StringIO
 
 from django.conf import settings
 from django.core import management
 from django.test import TestCase
 from django.test.utils import override_settings
-from django.utils.six import StringIO
 
 from wagtail.tests.search import models
 from wagtail.tests.utils import WagtailTestUtils

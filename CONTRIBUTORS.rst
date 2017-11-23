@@ -4,7 +4,6 @@ Core team
 * Matthew Westcott (Torchbox)
 * Karl Hobley (Torchbox)
 * Tom Dyson (Torchbox)
-* Tim Heap (Takeflight, Squareweave)
 * Mikalai Radchuk (Torchbox)
 * Thibaud Colas (Springload)
 * Janneke Janssen (Lukkien)
@@ -15,6 +14,7 @@ Core team
 * Loïc Teixeira (Springload)
 * Andy Chosak (consumerfinance.gov)
 * Will Barton (consumerfinance.gov)
+* LB Johnston
 
 Contributors
 ============
@@ -40,6 +40,7 @@ Contributors
 * Tom Talbot
 * Jeffrey Hearn
 * Robert Clark
+* Tim Heap
 * Nathan Brizendine
 * Gordon Pendleton
 * John-Scott Atlakson
@@ -215,7 +216,6 @@ Contributors
 * Tobias McNulty
 * Vorlif
 * Kjartan Sverrisson
-* LB (Ben Johnston)
 * Christine Ho
 * Trent Holliday
 * jacoor
@@ -261,6 +261,7 @@ Contributors
 * Ross Crawford-d'Heureuse
 * rifuso
 * Jon Carmack
+* Martin Sandström
 
 Translators
 ===========

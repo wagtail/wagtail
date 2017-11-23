@@ -177,8 +177,6 @@ if 'ELASTICSEARCH_URL' in os.environ:
         backend = 'wagtail.wagtailsearch.backends.elasticsearch5'
     elif os.environ.get('ELASTICSEARCH_VERSION') == '2':
         backend = 'wagtail.wagtailsearch.backends.elasticsearch2'
-    else:
-        backend = 'wagtail.wagtailsearch.backends.elasticsearch'
 
     WAGTAILSEARCH_BACKENDS['elasticsearch'] = {
         'BACKEND': backend,

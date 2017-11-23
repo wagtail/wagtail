@@ -1,10 +1,10 @@
 from __future__ import absolute_import, unicode_literals
 
 import datetime
+from io import StringIO
 
 from django.core import management
 from django.test import SimpleTestCase, TestCase
-from django.utils.six import StringIO
 
 from wagtail.contrib.wagtailsearchpromotions.models import SearchPromotion
 from wagtail.tests.utils import WagtailTestUtils

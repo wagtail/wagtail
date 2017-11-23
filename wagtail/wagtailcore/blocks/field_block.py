@@ -6,7 +6,6 @@ from django import forms
 from django.db.models.fields import BLANK_CHOICE_DASH
 from django.forms.fields import CallableChoiceIterator
 from django.template.loader import render_to_string
-from django.utils import six
 from django.utils.dateparse import parse_date, parse_datetime, parse_time
 from django.utils.encoding import force_text
 from django.utils.functional import cached_property
@@ -515,11 +514,11 @@ class RawHTMLBlock(FieldBlock):
     def get_prep_value(self, value):
         # explicitly convert to a plain string, just in case we're using some serialisation method
         # that doesn't cope with SafeText values correctly
-        return six.text_type(value)
+        return str(value)
 
     def value_for_form(self, value):
         # need to explicitly mark as unsafe, or it'll output unescaped HTML in the textarea
-        return six.text_type(value)
+        return str(value)
 
     def value_from_form(self, value):
         return mark_safe(value)

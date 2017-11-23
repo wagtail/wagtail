@@ -123,6 +123,33 @@ class TestImageTag(TestCase):
             context = template.Context({'image_obj': self.image})
             temp.render(context)
 
+    def test_no_image_filter_provided(self):
+        # if image template gets the image but no filters
+        with self.assertRaises(template.TemplateSyntaxError):
+            temp = template.Template(
+                '{% load wagtailimages_tags %}{% image image_obj %}'
+            )
+            context = template.Context({'image_obj': self.image})
+            temp.render(context)
+
+    def test_no_image_filter_provided_when_using_as(self):
+        # if image template gets the image but no filters
+        with self.assertRaises(template.TemplateSyntaxError):
+            temp = template.Template(
+                '{% load wagtailimages_tags %}{% image image_obj as foo %}'
+            )
+            context = template.Context({'image_obj': self.image})
+            temp.render(context)
+
+    def test_no_image_filter_provided_but_attributes_provided(self):
+        # if image template gets the image but no filters
+        with self.assertRaises(template.TemplateSyntaxError):
+            temp = template.Template(
+                '{% load wagtailimages_tags %}{% image image_obj class="cover-image"%}'
+            )
+            context = template.Context({'image_obj': self.image})
+            temp.render(context)
+
 
 class TestMissingImage(TestCase):
     """

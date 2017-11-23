@@ -8,7 +8,6 @@ from django.db.models import F, Manager, TextField, Value
 from django.db.models.constants import LOOKUP_SEP
 from django.db.models.functions import Cast
 from django.utils.encoding import force_text
-from django.utils.six import string_types
 
 from wagtail.wagtailsearch.backends.base import (
     BaseSearchBackend, BaseSearchQuery, BaseSearchResults)
@@ -16,8 +15,9 @@ from wagtail.wagtailsearch.index import RelatedFields, SearchField
 
 from .models import IndexEntry
 from .utils import (
-    ADD, AND, OR, WEIGHTS_VALUES, get_content_types_pk, get_descendants_content_types_pks,
-    get_postgresql_connections, get_weight, keyword_split, unidecode)
+    ADD, AND, OR, WEIGHTS_VALUES, get_ancestors_content_types_pks, get_content_type_pk,
+    get_descendants_content_types_pks, get_postgresql_connections, get_weight, keyword_split,
+    unidecode)
 
 
 # TODO: Add autocomplete.
@@ -34,6 +34,7 @@ class Index(object):
                 'You must select a PostgreSQL database '
                 'to use PostgreSQL search.')
         self.db_alias = db_alias
+        self.index_entries = IndexEntry._default_manager.using(self.db_alias)
         self.name = model._meta.label
         self.search_fields = self.model.get_search_fields()
 
@@ -53,13 +54,12 @@ class Index(object):
                         .values('object_id'))
         content_type_ids = get_descendants_content_types_pks(self.model)
         stale_entries = (
-            IndexEntry._default_manager.using(self.db_alias)
-            .filter(content_type_id__in=content_type_ids)
+            self.index_entries.filter(content_type_id__in=content_type_ids)
             .exclude(object_id__in=existing_pks))
         stale_entries.delete()
 
     def prepare_value(self, value):
-        if isinstance(value, string_types):
+        if isinstance(value, str):
             return value
         if isinstance(value, list):
             return ', '.join(self.prepare_value(item) for item in value)
@@ -124,8 +124,7 @@ class Index(object):
                      for text, weight in obj._body_])
                 if obj._body_ else SearchVector(Value('')))
             ids_and_objs[obj._object_id] = obj
-        index_entries = IndexEntry._default_manager.using(self.db_alias)
-        index_entries_for_ct = index_entries.filter(
+        index_entries_for_ct = self.index_entries.filter(
             content_type_id=content_type_pk)
         indexed_ids = frozenset(
             index_entries_for_ct.filter(object_id__in=ids_and_objs)
@@ -142,14 +141,21 @@ class Index(object):
                     object_id=object_id,
                     body_search=ids_and_objs[object_id]._search_vector,
                 ))
-        index_entries.bulk_create(to_be_created)
+        self.index_entries.bulk_create(to_be_created)
 
     def add_items(self, model, objs):
-        content_type_pk = get_content_types_pk(model)
+        content_type_pk = get_content_type_pk(model)
         config = self.backend.get_config()
         for obj in objs:
             obj._object_id = force_text(obj.pk)
             obj._body_ = self.prepare_body(obj)
+
+        # Removes index entries of an ancestor model in case the descendant
+        # model instance was created since.
+        self.index_entries.filter(
+            content_type_id__in=get_ancestors_content_types_pks(model)
+        ).filter(object_id__in=[obj._object_id for obj in objs]).delete()
+
         connection = connections[self.db_alias]
         if connection.pg_version >= 90500:  # PostgreSQL >= 9.5
             self.add_items_upsert(connection, content_type_pk, objs, config)

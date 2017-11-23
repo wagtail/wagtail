@@ -4,7 +4,6 @@ import json
 
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
-from django.utils.six import string_types
 
 from wagtail.wagtailcore.blocks import Block, BlockField, StreamBlock, StreamValue
 
@@ -68,7 +67,7 @@ class StreamField(models.Field):
             return StreamValue(self.stream_block, [])
         elif isinstance(value, StreamValue):
             return value
-        elif isinstance(value, string_types):
+        elif isinstance(value, str):
             try:
                 unpacked_value = json.loads(value)
             except ValueError:

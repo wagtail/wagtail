@@ -1,7 +1,6 @@
 from __future__ import absolute_import, unicode_literals
 
 from django.test import TestCase
-from django.utils import six
 
 from wagtail.tests.testapp.models import (
     BusinessChild, BusinessIndex, BusinessNowherePage, BusinessSubIndex, EventIndex, EventPage,
@@ -66,12 +65,6 @@ class TestWagtailPageTests(WagtailPageTests):
         super(TestWagtailPageTests, self).setUp()
         site = Site.objects.get(is_default_site=True)
         self.root = site.root_page.specific
-
-    def assertRaisesRegex(self, *args, **kwargs):
-        if six.PY3:
-            return super(TestWagtailPageTests, self).assertRaisesRegex(*args, **kwargs)
-        else:
-            return self.assertRaisesRegexp(*args, **kwargs)
 
     def test_assert_can_create_at(self):
         # It should be possible to create an EventPage under an EventIndex,

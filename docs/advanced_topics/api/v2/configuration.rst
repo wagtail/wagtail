@@ -204,7 +204,7 @@ For example:
 
 .. code-block:: python
 
-    from wagtail.wagtailimages.api.fields.ImageRenditionField
+    from wagtail.wagtailimages.api.fields import ImageRenditionField
 
     class BlogPage(Page):
         ...

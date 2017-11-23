@@ -565,33 +565,21 @@ class PreviewOnEdit(View):
         return get_object_or_404(Page,
                                  id=self.args[0]).get_latest_revision_as_page()
 
-    def get_form(self):
-        page = self.get_page()
+    def get_form(self, page, query_dict):
         form_class = page.get_edit_handler().get_form_class(page._meta.model)
         parent_page = page.get_parent().specific
 
         if self.session_key not in self.request.session:
             # Session key not in session, returning null form
             return form_class(instance=page, parent_page=parent_page)
-        post_data_dict, timestamp = self.request.session[self.session_key]
 
-        # convert post_data_dict back into a QueryDict
-        post_data = QueryDict('', mutable=True)
-        for k, v in post_data_dict.items():
-            post_data.setlist(k, v)
-
-        return form_class(post_data, instance=page, parent_page=parent_page)
+        return form_class(query_dict, instance=page, parent_page=parent_page)
 
     def post(self, request, *args, **kwargs):
         # TODO: Handle request.FILES.
-
-        # Convert request.POST to a plain dict (rather than a QueryDict) so that it can be
-        # stored without data loss in session data
-        post_data_dict = dict(request.POST.lists())
-
-        request.session[self.session_key] = post_data_dict, time()
+        request.session[self.session_key] = request.POST.urlencode(), time()
         self.remove_old_preview_data()
-        form = self.get_form()
+        form = self.get_form(self.get_page(), request.POST)
         return JsonResponse({'is_valid': form.is_valid()})
 
     def error_response(self, page):
@@ -599,20 +587,21 @@ class PreviewOnEdit(View):
                       {'page': page})
 
     def get(self, request, *args, **kwargs):
-        # Receive the form submission that would typically be posted
-        # to the view. If submission is valid, return the rendered page;
-        # if not, re-render the edit form
-        form = self.get_form()
-        page = form.instance
+        page = self.get_page()
 
-        if form.is_valid():
-            form.save(commit=False)
+        post_data, timestamp = self.request.session.get(self.session_key,
+                                                        (None, None))
+        if not isinstance(post_data, str):
+            post_data = ''
+        form = self.get_form(page, QueryDict(post_data))
 
-            preview_mode = request.GET.get('mode', page.default_preview_mode)
-            return page.serve_preview(page.dummy_request(request),
-                                      preview_mode)
+        if not form.is_valid():
+            return self.error_response(page)
 
-        return self.error_response(page)
+        form.save(commit=False)
+        preview_mode = request.GET.get('mode', page.default_preview_mode)
+        return page.serve_preview(page.dummy_request(request),
+                                  preview_mode)
 
 
 class PreviewOnCreate(PreviewOnEdit):
@@ -640,8 +629,8 @@ class PreviewOnCreate(PreviewOnEdit):
         page.path = Page._get_children_path_interval(parent_page.path)[1]
         return page
 
-    def get_form(self):
-        form = super(PreviewOnCreate, self).get_form()
+    def get_form(self, page, query_dict):
+        form = super(PreviewOnCreate, self).get_form(page, query_dict)
         if form.is_valid():
             # Ensures our unsaved page has a suitable url.
             form.instance.set_url_path(form.parent_page)

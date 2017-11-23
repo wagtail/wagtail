@@ -4,6 +4,7 @@ import hashlib
 import os.path
 from collections import OrderedDict
 from contextlib import contextmanager
+from io import BytesIO
 
 from django.conf import settings
 from django.core import checks
@@ -14,7 +15,6 @@ from django.forms.utils import flatatt
 from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.safestring import mark_safe
-from django.utils.six import BytesIO, string_types, text_type
 from django.utils.translation import ugettext_lazy as _
 from taggit.managers import TaggableManager
 from unidecode import unidecode
@@ -168,7 +168,7 @@ class AbstractImage(CollectionMember, index.Indexed, models.Model):
         except IOError as e:
             # re-throw this as a SourceImageIOError so that calling code can distinguish
             # these from IOErrors elsewhere in the process
-            raise SourceImageIOError(text_type(e))
+            raise SourceImageIOError(str(e))
 
         # Seek to beginning
         image_file.seek(0)
@@ -250,7 +250,7 @@ class AbstractImage(CollectionMember, index.Indexed, models.Model):
         return cls.renditions.rel.related_model
 
     def get_rendition(self, filter):
-        if isinstance(filter, string_types):
+        if isinstance(filter, str):
             filter = Filter(spec=filter)
 
         cache_key = filter.get_cache_key(self)
