@@ -1,3 +1,6 @@
+from __future__ import absolute_import, unicode_literals
+
+
 class SearchQuery:
     def __and__(self, other):
         return And([self, other])

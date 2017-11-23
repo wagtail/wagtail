@@ -10,7 +10,7 @@ from django.db.models.functions import Cast
 from django.utils.encoding import force_text
 
 from wagtail.wagtailsearch.backends.base import (
-    BaseSearchBackend, SearchQueryCompiler, BaseSearchResults)
+    BaseSearchBackend, BaseSearchQueryCompiler, BaseSearchResults)
 from wagtail.wagtailsearch.index import RelatedFields, SearchField
 from wagtail.wagtailsearch.query import MatchAll, PlainText
 
@@ -167,7 +167,7 @@ class Index(object):
         return self.name
 
 
-class PostgresSearchQueryCompiler(SearchQueryCompiler):
+class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
     DEFAULT_OPERATOR = 'and'
 
     def __init__(self, *args, **kwargs):

@@ -4,11 +4,11 @@ from django.db import models
 from django.db.models.expressions import Value
 
 from wagtail.wagtailsearch.backends.base import (
-    BaseSearchBackend, SearchQueryCompiler, BaseSearchResults)
+    BaseSearchBackend, BaseSearchQueryCompiler, BaseSearchResults)
 from wagtail.wagtailsearch.query import MatchAll, PlainText
 
 
-class DatabaseSearchQueryCompiler(SearchQueryCompiler):
+class DatabaseSearchQueryCompiler(BaseSearchQueryCompiler):
     DEFAULT_OPERATOR = 'and'
 
     def _process_lookup(self, field, lookup, value):

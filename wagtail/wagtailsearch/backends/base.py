@@ -19,7 +19,7 @@ class FieldError(Exception):
     pass
 
 
-class SearchQueryCompiler(object):
+class BaseSearchQueryCompiler(object):
     DEFAULT_OPERATOR = 'or'
 
     def __init__(self, queryset, query, fields=None, operator=None, order_by_relevance=True):

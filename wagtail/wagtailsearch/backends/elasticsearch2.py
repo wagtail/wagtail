@@ -13,7 +13,7 @@ from elasticsearch.helpers import bulk
 
 from wagtail.utils.utils import deep_update
 from wagtail.wagtailsearch.backends.base import (
-    BaseSearchBackend, SearchQueryCompiler, BaseSearchResults)
+    BaseSearchBackend, BaseSearchQueryCompiler, BaseSearchResults)
 from wagtail.wagtailsearch.index import (
     FilterField, Indexed, RelatedFields, SearchField, class_is_indexed)
 from wagtail.wagtailsearch.query import MatchAll, PlainText
@@ -261,7 +261,7 @@ class Elasticsearch2Mapping(object):
         return '<ElasticsearchMapping: %s>' % (self.model.__name__, )
 
 
-class Elasticsearch2SearchQueryCompiler(SearchQueryCompiler):
+class Elasticsearch2SearchQueryCompiler(BaseSearchQueryCompiler):
     mapping_class = Elasticsearch2Mapping
     DEFAULT_OPERATOR = 'or'
 
