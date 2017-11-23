@@ -499,8 +499,11 @@ class BaseFieldPanel(EditHandler):
         comparator_class = cls.get_comparison_class()
 
         if comparator_class:
-            field = cls.model._meta.get_field(cls.field_name)
-            return [curry(comparator_class, field)]
+            try:
+                field = cls.model._meta.get_field(cls.field_name)
+                return [curry(comparator_class, field)]
+            except FieldDoesNotExist:
+                return []
         else:
             return []
 
