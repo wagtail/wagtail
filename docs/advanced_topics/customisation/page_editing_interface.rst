@@ -194,6 +194,7 @@ or to add custom validation logic for your models:
 .. code-block:: python
 
     from django import forms
+    import geocoder  # not in Wagtail, for example only - http://geocoder.readthedocs.io/
     from wagtail.wagtailadmin.edit_handlers import FieldPanel
     from wagtail.wagtailadmin.forms import WagtailAdminPageForm
     from wagtail.wagtailcore.models import Page
@@ -220,7 +221,7 @@ or to add custom validation logic for your models:
             page.duration = (page.end_date - page.start_date).days
 
             # Fetch the location by geocoding the address
-            page.location = geocoder.get_coordinates(self.cleaned_data['address'])
+            page.location = geocoder.arcgis(self.cleaned_data['address'])
 
             if commit:
                 page.save()
@@ -231,9 +232,10 @@ or to add custom validation logic for your models:
         start_date = models.DateField()
         end_date = models.DateField()
         duration = models.IntegerField()
-        location = models.CharField()
+        location = models.CharField(max_length=255)
 
         content_panels = [
+            FieldPanel('title'),
             FieldPanel('start_date'),
             FieldPanel('end_date'),
             FieldPanel('address'),
