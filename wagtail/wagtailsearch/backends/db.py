@@ -42,8 +42,8 @@ class DatabaseSearchQueryCompiler(BaseSearchQueryCompiler):
 
         if not isinstance(self.query, PlainText):
             raise NotImplementedError(
-                '%s is not supported by the database search backend.'
-                % self.query.__class__)
+                '`%s` is not supported by the database search backend.'
+                % self.query.__class__.__name__)
 
         # Get fields
         fields = self.fields or [field.field_name for field in model.get_searchable_search_fields()]

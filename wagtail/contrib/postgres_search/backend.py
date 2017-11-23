@@ -2,7 +2,10 @@
 
 from __future__ import absolute_import, unicode_literals
 
-from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
+from warnings import warn
+
+from django.contrib.postgres.search import SearchQuery as PostgresSearchQuery
+from django.contrib.postgres.search import SearchRank, SearchVector
 from django.db import DEFAULT_DB_ALIAS, NotSupportedError, connections, transaction
 from django.db.models import F, Manager, TextField, Value
 from django.db.models.constants import LOOKUP_SEP
@@ -12,13 +15,12 @@ from django.utils.encoding import force_text
 from wagtail.wagtailsearch.backends.base import (
     BaseSearchBackend, BaseSearchQueryCompiler, BaseSearchResults)
 from wagtail.wagtailsearch.index import RelatedFields, SearchField
-from wagtail.wagtailsearch.query import MatchAll, PlainText
+from wagtail.wagtailsearch.query import And, MatchAll, Not, Or, PlainText, Term
 
 from .models import IndexEntry
 from .utils import (
     ADD, AND, OR, WEIGHTS_VALUES, get_ancestors_content_types_pks, get_content_type_pk,
-    get_descendants_content_types_pks, get_postgresql_connections, get_weight, keyword_split,
-    unidecode)
+    get_descendants_content_types_pks, get_postgresql_connections, get_weight, unidecode)
 
 
 # TODO: Add autocomplete.
@@ -174,12 +176,29 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
         super(PostgresSearchQueryCompiler, self).__init__(*args, **kwargs)
         self.search_fields = self.queryset.model.get_search_fields()
 
-    def get_search_query(self, config):
-        combine = OR if self.query.operator == 'or' else AND
-        search_terms = keyword_split(unidecode(self.query.query_string))
-        if not search_terms:
-            return SearchQuery('')
-        return combine(SearchQuery(q, config=config) for q in search_terms)
+    def build_database_query(self, query=None, config=None):
+        if query is None:
+            query = self.query
+
+        if isinstance(query, PlainText):
+            return self.build_database_query(query.to_combined_terms(), config)
+        if isinstance(query, Term):
+            # TODO: Find a way to use the term boosting.
+            if query.boost != 1:
+                warn('PostgreSQL search backend '
+                     'does not support term boosting for now.')
+            return PostgresSearchQuery(unidecode(query.term), config=config)
+        if isinstance(query, Not):
+            return ~self.build_database_query(query.subquery, config)
+        if isinstance(query, And):
+            return AND(self.build_database_query(subquery, config)
+                       for subquery in query.subqueries)
+        if isinstance(query, Or):
+            return OR(self.build_database_query(subquery, config)
+                      for subquery in query.subqueries)
+        raise NotImplementedError(
+            '`%s` is not supported by the PostgreSQL search backend.'
+            % self.query.__class__.__name__)
 
     def get_boost(self, field_name, fields=None):
         if fields is None:
@@ -198,15 +217,11 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
                 return field.boost
 
     def search(self, config, start, stop):
+        # TODO: Handle MatchAll nested inside other search query classes.
         if isinstance(self.query, MatchAll):
             return self.queryset[start:stop]
 
-        if not isinstance(self.query, PlainText):
-            raise NotImplementedError(
-                '%s is not supported by the PostgreSQL search backend.'
-                % self.query.__class__)
-
-        search_query = self.get_search_query(config=config)
+        search_query = self.build_database_query(config=config)
         queryset = self.queryset
         query = queryset.query
         if self.fields is None:

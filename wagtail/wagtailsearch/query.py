@@ -36,27 +36,39 @@ class MatchAll(SearchQuery):
 
 
 class PlainText(SearchQuery):
-    def __init__(self, query_string: str, operator: str = None,
-                 boost: float = 1.0):
+    OPERATORS = {
+        'and': And,
+        'or': Or,
+    }
+    DEFAULT_OPERATOR = 'and'
+
+    def __init__(self, query_string: str, operator: str = DEFAULT_OPERATOR,
+                 boost: float = 1):
         self.query_string = query_string
+        if operator.lower() not in self.OPERATORS:
+            raise ValueError("`operator` must be either 'or' or 'and'.")
         self.operator = operator
         self.boost = boost
 
+    def to_combined_terms(self):
+        return self.OPERATORS[self.operator]([
+            Term(term) for term in self.query_string.split()])
+
 
 class Term(SearchQuery):
-    def __init__(self, term: str, boost: float = 1.0):
+    def __init__(self, term: str, boost: float = 1):
         self.term = term
         self.boost = boost
 
 
 class Prefix(SearchQuery):
-    def __init__(self, prefix: str, boost: float = 1.0):
+    def __init__(self, prefix: str, boost: float = 1):
         self.prefix = prefix
         self.boost = boost
 
 
 class Fuzzy(SearchQuery):
-    def __init__(self, term: str, max_distance: float = 3, boost: float = 1.0):
+    def __init__(self, term: str, max_distance: float = 3, boost: float = 1):
         self.term = term
         self.max_distance = max_distance
         self.boost = boost

@@ -377,8 +377,8 @@ class Elasticsearch2SearchQueryCompiler(BaseSearchQueryCompiler):
 
         if not isinstance(self.query, PlainText):
             raise NotImplementedError(
-                '%s is not supported by the Elasticsearch search backend.'
-                % self.query.__class__)
+                '`%s` is not supported by the Elasticsearch search backend.'
+                % self.query.__class__.__name__)
 
         fields = self.fields or ['_all', '_partials']
         operator = self.query.operator

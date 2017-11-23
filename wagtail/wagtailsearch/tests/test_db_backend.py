@@ -44,3 +44,27 @@ class TestDBBackend(BackendTests, TestCase):
     @unittest.expectedFailure
     def test_same_rank_pages(self):
         super(TestDBBackend, self).test_same_rank_pages()
+
+    #
+    # Query classes
+    #
+
+    # Not implemented yet
+    @unittest.expectedFailure
+    def test_term(self):
+        super().test_term()
+
+    # Not implemented yet
+    @unittest.expectedFailure
+    def test_and(self):
+        super().test_and()
+
+    # Not implemented yet
+    @unittest.expectedFailure
+    def test_or(self):
+        super().test_or()
+
+    # Not implemented yet
+    @unittest.expectedFailure
+    def test_not(self):
+        super().test_not()

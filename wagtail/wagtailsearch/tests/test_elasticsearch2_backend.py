@@ -37,6 +37,30 @@ class TestElasticsearch2SearchBackend(BackendTests, ElasticsearchCommonSearchBac
     def test_delete(self):
         super(TestElasticsearch2SearchBackend, self).test_delete()
 
+    #
+    # Query classes
+    #
+
+    # Not implemented yet
+    @unittest.expectedFailure
+    def test_term(self):
+        super().test_term()
+
+    # Not implemented yet
+    @unittest.expectedFailure
+    def test_and(self):
+        super().test_and()
+
+    # Not implemented yet
+    @unittest.expectedFailure
+    def test_or(self):
+        super().test_or()
+
+    # Not implemented yet
+    @unittest.expectedFailure
+    def test_not(self):
+        super().test_not()
+
 
 class TestElasticsearch2SearchQuery(TestCase):
     def assertDictEqual(self, a, b):

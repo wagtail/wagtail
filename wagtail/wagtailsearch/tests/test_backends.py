@@ -17,7 +17,7 @@ from wagtail.wagtailsearch.backends import (
     InvalidSearchBackendError, get_search_backend, get_search_backends)
 from wagtail.wagtailsearch.backends.base import FieldError
 from wagtail.wagtailsearch.backends.db import DatabaseSearchBackend
-from wagtail.wagtailsearch.query import MATCH_ALL
+from wagtail.wagtailsearch.query import MATCH_ALL, And, Not, Or, PlainText, Term
 
 
 class BackendTests(WagtailTestUtils):
@@ -429,6 +429,87 @@ class BackendTests(WagtailTestUtils):
             "The Two Towers",
             "The Fellowship of the Ring"
         ])
+
+    #
+    # Query classes
+    #
+
+    def test_match_all(self):
+        results = self.backend.search(MATCH_ALL, models.Book.objects.all())
+        self.assertEqual(len(results), 13)
+
+    def test_term(self):
+        # Single word
+        results = self.backend.search(Term('Javascript'),
+                                      models.Book.objects.all())
+        self.assertSetEqual({r.title for r in results},
+                            {'JavaScript: The Definitive Guide',
+                             'JavaScript: The good parts'})
+
+        # Multiple word
+        results = self.backend.search(Term('Javascript Guide'),
+                                      models.Book.objects.all())
+        self.assertSetEqual({r.title for r in results},
+                            {'JavaScript: The Definitive Guide'})
+
+    def test_plain_text(self):
+        # Single word
+        results = self.backend.search(PlainText('Javascript'),
+                                      models.Book.objects.all())
+        self.assertSetEqual({r.title for r in results},
+                            {'JavaScript: The Definitive Guide',
+                             'JavaScript: The good parts'})
+
+        # Multiple words (OR operator)
+        results = self.backend.search(PlainText('Javascript Definitive',
+                                                operator='or'),
+                                      models.Book.objects.all())
+        self.assertSetEqual({r.title for r in results},
+                            {'JavaScript: The Definitive Guide',
+                             'JavaScript: The good parts'})
+
+        # Multiple words (AND operator)
+        results = self.backend.search(PlainText('Javascript Definitive',
+                                                operator='and'),
+                                      models.Book.objects.all())
+        self.assertSetEqual({r.title for r in results},
+                            {'JavaScript: The Definitive Guide'})
+
+    def test_and(self):
+        results = self.backend.search(And([Term('Javascript'),
+                                           Term('Definitive')]),
+                                      models.Book.objects.all())
+        self.assertSetEqual({r.title for r in results},
+                            {'JavaScript: The Definitive Guide'})
+
+    def test_or(self):
+        results = self.backend.search(Or([Term('Hobbit'), Term('Towers')]),
+                                      models.Book.objects.all())
+        self.assertSetEqual({r.title for r in results},
+                            {'The Hobbit', 'The Two Towers'})
+
+    def test_not(self):
+        all_other_titles = {
+            'A Clash of Kings',
+            'A Game of Thrones',
+            'A Storm of Swords',
+            'Foundation',
+            'Learning Python',
+            'The Hobbit',
+            'The Two Towers',
+            'The Fellowship of the Ring',
+            'The Return of the King',
+            'The Rust Programming Language',
+            'Two Scoops of Django 1.11',
+        }
+
+        results = self.backend.search(Not(PlainText('Javascript')),
+                                      models.Book.objects.all())
+        self.assertSetEqual({r.title for r in results}, all_other_titles)
+
+        results = self.backend.search(~PlainText('Javascript'),
+                                      models.Book.objects.all())
+        self.assertSetEqual({r.title for r in results}, all_other_titles)
 
 
 @override_settings(
