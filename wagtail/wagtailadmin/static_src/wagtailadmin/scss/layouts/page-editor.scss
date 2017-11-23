@@ -217,6 +217,7 @@
         > fieldset {
             width: 100%;
             max-width: none;
+            min-width: auto;
         }
 
         .block_field > .field-content {
@@ -345,7 +346,6 @@
 .title textarea,
 .title .richtext {
     font-size: 2em;
-    font-family: $font-serif;
 }
 
 // Footer control bar for perfoming actions on the page
@@ -423,19 +423,6 @@ footer .preview {
             margin-top: 4em;
             opacity: 0;
             padding-left: 3em;
-        }
-
-        &.stream-field {
-            .object-help {
-                opacity: 0;
-                position: relative;
-                width: 100%;
-                padding-left: 6.4em;
-            }
-
-            &:hover .object-help {
-                opacity: 1;
-            }
         }
 
         &.full {
