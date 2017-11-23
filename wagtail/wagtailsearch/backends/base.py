@@ -241,7 +241,7 @@ class BaseSearchBackend(object):
     def delete(self, obj):
         raise NotImplementedError
 
-    def search(self, query_string, model_or_queryset, fields=None, filters=None,
+    def search(self, query, model_or_queryset, fields=None, filters=None,
                prefetch_related=None, operator=None, order_by_relevance=True):
         # Find model/queryset
         if isinstance(model_or_queryset, QuerySet):
@@ -256,7 +256,7 @@ class BaseSearchBackend(object):
             return EmptySearchResults()
 
         # Check that theres still a query string after the clean up
-        if query_string == "":
+        if query == "":
             return EmptySearchResults()
 
         # Only fields that are indexed as a SearchField can be passed in fields
@@ -287,6 +287,6 @@ class BaseSearchBackend(object):
 
         # Search
         search_query = self.query_compiler_class(
-            queryset, query_string, fields=fields, operator=operator, order_by_relevance=order_by_relevance
+            queryset, query, fields=fields, operator=operator, order_by_relevance=order_by_relevance
         )
         return self.results_class(self, search_query)
