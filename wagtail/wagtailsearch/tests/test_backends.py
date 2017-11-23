@@ -523,9 +523,9 @@ class BackendTests(WagtailTestUtils):
 
     def test_operators_combination(self):
         results = self.backend.search(
-            ((Term('Javascript') & ~Term('Definitive'))
-             | Term('Python') | Term('Rust'))
-            | Term('Two'),
+            ((Term('Javascript') & ~Term('Definitive')) |
+             Term('Python') | Term('Rust')) |
+            Term('Two'),
             models.Book.objects.all())
         self.assertSetEqual({r.title for r in results},
                             {'JavaScript: The good parts',
