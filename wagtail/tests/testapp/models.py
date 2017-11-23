@@ -38,7 +38,7 @@ from wagtail.wagtailsearch import index
 from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
 from wagtail.wagtailsnippets.models import register_snippet
 
-from .forms import ValidatedPageForm
+from .forms import FormClassAdditionalFieldPageForm, ValidatedPageForm
 
 EVENT_AUDIENCE_CHOICES = (
     ('public', "Public"),
@@ -276,6 +276,24 @@ EventPage.promote_panels = [
     MultiFieldPanel(COMMON_PANELS, "Common page configuration"),
     ImageChooserPanel('feed_image'),
 ]
+
+
+# Override the standard WagtailAdminPageForm to add field that is not in model
+# so that we can test additional potential issues like comparing versions
+
+
+class FormClassAdditionalFieldPage(Page):
+    location = models.CharField(max_length=255)
+    body = RichTextField(blank=True)
+
+    content_panels = [
+        FieldPanel('title', classname="full title"),
+        FieldPanel('location'),
+        FieldPanel('body'),
+        FieldPanel('code'),  # not in model, see set base_form_class
+    ]
+
+    base_form_class = FormClassAdditionalFieldPageForm
 
 
 # Just to be able to test multi table inheritance
