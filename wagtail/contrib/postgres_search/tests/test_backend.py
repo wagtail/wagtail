@@ -42,11 +42,6 @@ class TestPostgresSearchBackend(BackendTests, TestCase):
                              [(4, 'A'), (2, 'B'), (0, 'C'), (-2, 'D')])
 
     # Broken
-    @unittest.expectedFailure
-    def test_search_count(self):
-        super(TestPostgresSearchBackend, self).test_search_count()
-
-    # Broken
     # Note: This is applying the filter, but should be raising the FieldError instead
     @unittest.expectedFailure
     def test_filter_on_non_filterable_field(self):
