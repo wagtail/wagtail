@@ -172,7 +172,7 @@ class Index(object):
         # model instance was created since.
         self.index_entries.filter(
             content_type_id__in=get_ancestors_content_types_pks(model)
-        ).filter(object_id__in=[obj._object_id for obj in objs]).delete()
+        ).filter(object_id__in=[obj._object_id_ for obj in objs]).delete()
 
         connection = connections[self.db_alias]
         if connection.pg_version >= 90500:  # PostgreSQL >= 9.5

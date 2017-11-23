@@ -16,7 +16,7 @@ class TestPostgresSearchBackend(BackendTests, TestCase):
     def test_weights(self):
         self.assertListEqual(BOOSTS_WEIGHTS,
                              [(10, 'A'), (2, 'B'), (0.5, 'C'), (0.25, 'D')])
-        self.assertListEqual(WEIGHTS_VALUES, [0.025, 0.05, 0.2, 1.0])
+        self.assertListEqual(WEIGHTS_VALUES, [0.26875, 0.2875, 0.4, 1.0])
 
         self.assertEqual(get_weight(15), 'A')
         self.assertEqual(get_weight(10), 'A')
@@ -40,11 +40,6 @@ class TestPostgresSearchBackend(BackendTests, TestCase):
                              [(6, 'A'), (4, 'B'), (2, 'C'), (0, 'D')])
         self.assertListEqual(determine_boosts_weights([-2, -1, 0, 1, 2, 3, 4]),
                              [(4, 'A'), (2, 'B'), (0, 'C'), (-2, 'D')])
-
-    # Broken
-    @unittest.expectedFailure
-    def test_search_count(self):
-        super(TestPostgresSearchBackend, self).test_search_count()
 
     # Broken
     # Note: This is applying the filter, but should be raising the FieldError instead
