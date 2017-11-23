@@ -198,7 +198,7 @@ class TestElasticsearch5SearchQuery(TestCase):
 
     def test_none_lookup(self):
         # Create a query
-        query = self.query_compiler_class(models.Book.objects.filter(title=None), "Hello")
+        query_compiler = self.query_compiler_class(models.Book.objects.filter(title=None), "Hello")
 
         # Check it
         expected_result = {'bool': {'filter': [
