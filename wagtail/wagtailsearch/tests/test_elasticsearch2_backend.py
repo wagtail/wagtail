@@ -61,6 +61,11 @@ class TestElasticsearch2SearchBackend(BackendTests, ElasticsearchCommonSearchBac
     def test_not(self):
         super().test_not()
 
+    # Not implemented yet
+    @unittest.expectedFailure
+    def test_operators_combination(self):
+        super().test_operators_combination()
+
 
 class TestElasticsearch2SearchQuery(TestCase):
     def assertDictEqual(self, a, b):

@@ -482,8 +482,18 @@ class BackendTests(WagtailTestUtils):
         self.assertSetEqual({r.title for r in results},
                             {'JavaScript: The Definitive Guide'})
 
+        results = self.backend.search(Term('Javascript') & Term('Definitive'),
+                                      models.Book.objects.all())
+        self.assertSetEqual({r.title for r in results},
+                            {'JavaScript: The Definitive Guide'})
+
     def test_or(self):
         results = self.backend.search(Or([Term('Hobbit'), Term('Towers')]),
+                                      models.Book.objects.all())
+        self.assertSetEqual({r.title for r in results},
+                            {'The Hobbit', 'The Two Towers'})
+
+        results = self.backend.search(Term('Hobbit') | Term('Towers'),
                                       models.Book.objects.all())
         self.assertSetEqual({r.title for r in results},
                             {'The Hobbit', 'The Two Towers'})
@@ -503,13 +513,26 @@ class BackendTests(WagtailTestUtils):
             'Two Scoops of Django 1.11',
         }
 
-        results = self.backend.search(Not(PlainText('Javascript')),
+        results = self.backend.search(Not(Term('Javascript')),
                                       models.Book.objects.all())
         self.assertSetEqual({r.title for r in results}, all_other_titles)
 
-        results = self.backend.search(~PlainText('Javascript'),
+        results = self.backend.search(~Term('Javascript'),
                                       models.Book.objects.all())
         self.assertSetEqual({r.title for r in results}, all_other_titles)
+
+    def test_operators_combination(self):
+        results = self.backend.search(
+            ((Term('Javascript') & ~Term('Definitive'))
+             | Term('Python') | Term('Rust'))
+            | Term('Two'),
+            models.Book.objects.all())
+        self.assertSetEqual({r.title for r in results},
+                            {'JavaScript: The good parts',
+                             'Learning Python',
+                             'The Two Towers',
+                             'The Rust Programming Language',
+                             'Two Scoops of Django 1.11'})
 
 
 @override_settings(

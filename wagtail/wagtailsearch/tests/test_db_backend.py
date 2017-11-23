@@ -68,3 +68,8 @@ class TestDBBackend(BackendTests, TestCase):
     @unittest.expectedFailure
     def test_not(self):
         super().test_not()
+
+    # Not implemented yet
+    @unittest.expectedFailure
+    def test_operators_combination(self):
+        super().test_operators_combination()
