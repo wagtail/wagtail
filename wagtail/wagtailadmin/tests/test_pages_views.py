@@ -12,18 +12,19 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.messages import constants as message_constants
 from django.core import mail, paginator
 from django.core.files.base import ContentFile
-from django.core.urlresolvers import reverse
 from django.db.models.signals import post_delete, pre_delete
 from django.http import HttpRequest, HttpResponse
 from django.test import TestCase, modify_settings
+from django.urls import reverse
 from django.utils import formats, timezone
 from django.utils.dateparse import parse_date
-
 from freezegun import freeze_time
+
 from wagtail.tests.testapp.models import (
     EVENT_AUDIENCE_CHOICES, Advert, AdvertPlacement, BusinessChild, BusinessIndex, BusinessSubIndex,
-    DefaultStreamPage, EventCategory, EventPage, EventPageCarouselItem, FilePage, ManyToManyBlogPage,
-    SimplePage, SingleEventPage, SingletonPage, StandardChild, StandardIndex, TaggedPage)
+    DefaultStreamPage, EventCategory, EventPage, EventPageCarouselItem, FilePage,
+    ManyToManyBlogPage, SimplePage, SingleEventPage, SingletonPage, StandardChild, StandardIndex,
+    TaggedPage)
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailadmin.views.home import RecentEditsPanel
 from wagtail.wagtailadmin.views.pages import PreviewOnEdit
@@ -1161,14 +1162,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         # Check the new file exists
         file_page = FilePage.objects.get()
 
-        # In Django < 1.10 the file_field.name starts with ./ whereas in 1.10 it is the basename;
-        # we test against os.path.basename(file_page.file_field.name) so that both possibilities
-        # are handled. os.path.basename can be removed when support for Django <= 1.9 is dropped.
-
-        # (hello, future person grepping for the string `if DJANGO_VERSION < (1, 10)`)
-
-        self.assertEqual(os.path.basename(file_page.file_field.name),
-                         os.path.basename(file_upload.name))
+        self.assertEqual(file_page.file_field.name, file_upload.name)
         self.assertTrue(os.path.exists(file_page.file_field.path))
         self.assertEqual(file_page.file_field.read(), b"A new file")
 
@@ -1196,16 +1190,9 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         # Publish the draft just created
         FilePage.objects.get().get_latest_revision().publish()
 
-        # In Django < 1.10 the file_field.name starts with ./ whereas in 1.10 it is the basename;
-        # we test against os.path.basename(file_page.file_field.name) so that both possibilities
-        # are handled. os.path.basename can be removed when support for Django <= 1.9 is dropped.
-
-        # (hello, future person grepping for the string `if DJANGO_VERSION < (1, 10)`)
-
         # Get the file page, check the file is set
         file_page = FilePage.objects.get()
-        self.assertEqual(os.path.basename(file_page.file_field.name),
-                         os.path.basename(file_upload.name))
+        self.assertEqual(file_page.file_field.name, file_upload.name)
         self.assertTrue(os.path.exists(file_page.file_field.path))
         self.assertEqual(file_page.file_field.read(), b"A new file")
 
@@ -3851,6 +3838,120 @@ class TestIssue2492(TestCase, WagtailTestUtils):
             break
 
 
+class TestIssue3982(TestCase, WagtailTestUtils):
+    """
+    Pages that are not associated with a site, and thus do not have a live URL,
+    should not display a "View live" link in the flash message after being
+    edited.
+    """
+
+    def setUp(self):
+        super().setUp()
+        self.login()
+
+    def _create_page(self, parent):
+        response = self.client.post(
+            reverse('wagtailadmin_pages:add', args=('tests', 'simplepage', parent.pk)),
+            {'title': "Hello, world!", 'content': "Some content", 'slug': 'hello-world', 'action-publish': "publish"},
+            follow=True)
+        self.assertRedirects(response, reverse('wagtailadmin_explore', args=(parent.pk,)))
+        page = SimplePage.objects.get()
+        self.assertTrue(page.live)
+        return response, page
+
+    def test_create_accessible(self):
+        """
+        Create a page under the site root, check the flash message has a valid
+        "View live" button.
+        """
+        response, page = self._create_page(Page.objects.get(pk=2))
+        self.assertIsNotNone(page.url)
+        self.assertTrue(any(
+            'View live' in message.message and page.url in message.message
+            for message in response.context['messages']))
+
+    def test_create_inaccessible(self):
+        """
+        Create a page outside of the site root, check the flash message does
+        not have a "View live" button.
+        """
+        response, page = self._create_page(Page.objects.get(pk=1))
+        self.assertIsNone(page.url)
+        self.assertFalse(any(
+            'View live' in message.message
+            for message in response.context['messages']))
+
+    def _edit_page(self, parent):
+        page = parent.add_child(instance=SimplePage(title='Hello, world!', content='Some content'))
+        response = self.client.post(
+            reverse('wagtailadmin_pages:edit', args=(page.pk,)),
+            {'title': "Hello, world!", 'content': "Some content", 'slug': 'hello-world', 'action-publish': "publish"},
+            follow=True)
+        self.assertRedirects(response, reverse('wagtailadmin_explore', args=(parent.pk,)))
+        page = SimplePage.objects.get(pk=page.pk)
+        self.assertTrue(page.live)
+        return response, page
+
+    def test_edit_accessible(self):
+        """
+        Edit a page under the site root, check the flash message has a valid
+        "View live" button.
+        """
+        response, page = self._edit_page(Page.objects.get(pk=2))
+        self.assertIsNotNone(page.url)
+        self.assertTrue(any(
+            'View live' in message.message and page.url in message.message
+            for message in response.context['messages']))
+
+    def test_edit_inaccessible(self):
+        """
+        Edit a page outside of the site root, check the flash message does
+        not have a "View live" button.
+        """
+        response, page = self._edit_page(Page.objects.get(pk=1))
+        self.assertIsNone(page.url)
+        self.assertFalse(any(
+            'View live' in message.message
+            for message in response.context['messages']))
+
+    def _approve_page(self, parent):
+        response = self.client.post(
+            reverse('wagtailadmin_pages:add', args=('tests', 'simplepage', parent.pk)),
+            {'title': "Hello, world!", 'content': "Some content", 'slug': 'hello-world', 'action-submit': "submit"},
+            follow=True)
+        self.assertRedirects(response, reverse('wagtailadmin_explore', args=(parent.pk,)))
+        page = SimplePage.objects.get()
+        self.assertFalse(page.live)
+        revision = PageRevision.objects.get(page=page)
+        response = self.client.post(reverse('wagtailadmin_pages:approve_moderation', args=(revision.pk,)), follow=True)
+        page = SimplePage.objects.get()
+        self.assertTrue(page.live)
+        self.assertRedirects(response, reverse('wagtailadmin_home'))
+        return response, page
+
+    def test_approve_accessible(self):
+        """
+        Edit a page under the site root, check the flash message has a valid
+        "View live" button.
+        """
+        response, page = self._approve_page(Page.objects.get(pk=2))
+        self.assertIsNotNone(page.url)
+        self.assertTrue(any(
+            'View live' in message.message and page.url in message.message
+            for message in response.context['messages']))
+
+    def test_approve_inaccessible(self):
+        """
+        Edit a page outside of the site root, check the flash message does
+        not have a "View live" button.
+        """
+        response, page = self._approve_page(Page.objects.get(pk=1))
+        self.assertIsNone(page.url)
+        self.assertFalse(any(
+            'View live' in message.message
+            for message in response.context['messages']))
+
+
 class TestInlinePanelMedia(TestCase, WagtailTestUtils):
     """
     Test that form media required by InlinePanels is correctly pulled in to the edit page
@@ -3971,11 +4072,9 @@ class TestRecentEditsPanel(TestCase, WagtailTestUtils):
 
 class TestIssue2994(TestCase, WagtailTestUtils):
     """
-    When submitting the add/edit page form, Django 1.10.1 fails to update StreamFields
-    that have a default value, because it notices the lack of postdata field
-    with a name exactly matching the field name and wrongly assumes that the field has
-    been omitted from the form. To avoid this in Django 1.10.1, we need to set
-    dont_use_model_field_default_for_empty_data=True on the widget; in Django >=1.10.2,
+    In contrast to most "standard" form fields, StreamField form widgets generally won't
+    provide a postdata field with a name exactly matching the field name. To prevent Django
+    from wrongly interpreting this as the field being omitted from the form,
     we need to provide a custom value_omitted_from_data method.
     """
     def setUp(self):

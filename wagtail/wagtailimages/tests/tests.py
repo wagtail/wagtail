@@ -6,8 +6,8 @@ import unittest
 from django import forms, template
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
-from django.core.urlresolvers import reverse
 from django.test import TestCase, override_settings
+from django.urls import reverse
 from django.utils import six
 from mock import MagicMock
 from taggit.forms import TagField, TagWidget
@@ -119,6 +119,33 @@ class TestImageTag(TestCase):
             temp = template.Template(
                 '{% load wagtailimages_tags %}{% image image_obj fill-200x200'
                 ' as test_img this_one_should_not_be_there %}<img {{ test_img.attrs }} />'
+            )
+            context = template.Context({'image_obj': self.image})
+            temp.render(context)
+
+    def test_no_image_filter_provided(self):
+        # if image template gets the image but no filters
+        with self.assertRaises(template.TemplateSyntaxError):
+            temp = template.Template(
+                '{% load wagtailimages_tags %}{% image image_obj %}'
+            )
+            context = template.Context({'image_obj': self.image})
+            temp.render(context)
+
+    def test_no_image_filter_provided_when_using_as(self):
+        # if image template gets the image but no filters
+        with self.assertRaises(template.TemplateSyntaxError):
+            temp = template.Template(
+                '{% load wagtailimages_tags %}{% image image_obj as foo %}'
+            )
+            context = template.Context({'image_obj': self.image})
+            temp.render(context)
+
+    def test_no_image_filter_provided_but_attributes_provided(self):
+        # if image template gets the image but no filters
+        with self.assertRaises(template.TemplateSyntaxError):
+            temp = template.Template(
+                '{% load wagtailimages_tags %}{% image image_obj class="cover-image"%}'
             )
             context = template.Context({'image_obj': self.image})
             temp.render(context)
@@ -276,7 +303,7 @@ class TestFrontendServeView(TestCase):
         signature = generate_signature(self.image.id, 'fill-800x600')
         response = self.client.get(reverse('wagtailimages_serve_action_redirect', args=(signature, self.image.id, 'fill-800x600')))
 
-        expected_redirect_url = 'http://testserver/media/images/{filename[0]}.2e16d0ba.fill-800x600{filename[1]}'.format(
+        expected_redirect_url = '/media/images/{filename[0]}.2e16d0ba.fill-800x600{filename[1]}'.format(
             filename=os.path.splitext(os.path.basename(self.image.file.path))
         )
 

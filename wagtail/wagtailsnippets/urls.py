@@ -4,6 +4,7 @@ from django.conf.urls import url
 
 from wagtail.wagtailsnippets.views import chooser, snippets
 
+app_name = 'wagtailsnippets'
 urlpatterns = [
     url(r'^$', snippets.index, name='index'),
 

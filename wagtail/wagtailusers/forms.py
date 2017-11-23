@@ -7,8 +7,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.contrib.auth.password_validation import (
-    password_validators_help_text_html, validate_password
-)
+    password_validators_help_text_html, validate_password)
 from django.db import transaction
 from django.db.models.fields import BLANK_CHOICE_DASH
 from django.template.loader import render_to_string
@@ -22,7 +21,6 @@ from wagtail.wagtailcore.models import (
     PAGE_PERMISSION_TYPE_CHOICES, PAGE_PERMISSION_TYPES, GroupPagePermission, Page,
     UserPagePermissionsProxy)
 from wagtail.wagtailusers.models import UserProfile
-
 
 User = get_user_model()
 
@@ -375,9 +373,6 @@ class PreferredLanguageForm(forms.ModelForm):
         required=False,
         choices=lambda: sorted(BLANK_CHOICE_DASH + get_available_admin_languages(), key=lambda l: l[1])
     )
-
-    def __init__(self, *args, **kwargs):
-        super(PreferredLanguageForm, self).__init__(*args, **kwargs)
 
     class Meta:
         model = UserProfile

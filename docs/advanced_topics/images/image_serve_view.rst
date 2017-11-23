@@ -59,7 +59,7 @@ block the initial response while rendering like the ``{% image %}`` tag does.
 
 .. code-block:: python
 
-    from django.core.urlresolvers import reverse
+    from django.urls import reverse
     from wagtail.wagtailimages.views.serve import generate_signature
 
     def generate_image_url(image, filter_spec):

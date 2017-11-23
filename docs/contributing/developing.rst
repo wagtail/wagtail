@@ -81,6 +81,13 @@ an argument to ``runtests.py``
 
     $ python runtests.py wagtail.wagtailcore.tests.test_blocks.TestIntegerBlock
 
+**Running migrations for the test app models**
+
+You can create migrations for the test app by running the following from the Wagtail root.
+
+.. code-block:: console
+    $ django-admin.py makemigrations --settings=wagtail.tests.settings
+
 
 **Testing against PostgreSQL**
 
@@ -194,10 +201,7 @@ To start this simple server, run the following commands:
 .. code-block:: console
 
     $ cd docs/_build/html/
-    $ # Python 2
-    $ python2 -mSimpleHTTPServer 8080
-    $ # Python 3
-    $ python3 -mhttp.server 8080
+    $ python -mhttp.server 8080
 
 Now you can open <http://localhost:8080/> in your web browser to see the compiled documentation.
 

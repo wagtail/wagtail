@@ -10,9 +10,9 @@
 from __future__ import absolute_import, unicode_literals
 
 import hashlib
+from urllib.parse import urlencode
 
 from django import template
-from django.utils.six.moves.urllib.parse import urlencode
 
 register = template.Library()
 

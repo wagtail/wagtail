@@ -7,7 +7,6 @@ from django.contrib.postgres.indexes import GinIndex
 from django.contrib.postgres.search import SearchQuery, SearchVectorField
 from django.db.models import CASCADE, ForeignKey, Model, TextField
 from django.db.models.functions import Cast
-from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 
 from ...wagtailsearch.index import class_is_indexed
@@ -54,7 +53,6 @@ class TextIDGenericRelation(GenericRelation):
         return []
 
 
-@python_2_unicode_compatible
 class IndexEntry(Model):
     content_type = ForeignKey(ContentType, on_delete=CASCADE)
     # We do not use an IntegerField since primary keys are not always integers.

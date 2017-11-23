@@ -689,3 +689,28 @@ td.ord {
         margin-top: -28px;
     }
 }
+
+table.listing {
+    th.ordered {
+        color: $color-teal;
+
+        &.ascending {
+            &:before {
+                content: '\25B2'; // up arrow
+                display: inline-block;
+                height: 100%;
+                vertical-align: middle;
+            }
+        }
+
+        &.descending {
+            &:before {
+                content: '\25BC'; // down arrow
+                display: inline-block;
+                height: 100%;
+                vertical-align: middle;
+            }
+        }
+
+    }
+}

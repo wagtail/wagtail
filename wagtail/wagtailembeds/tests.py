@@ -1,14 +1,14 @@
 from __future__ import absolute_import, division, unicode_literals
 
 import unittest
+import urllib.request
+from urllib.error import URLError
 
-import django.utils.six.moves.urllib.request
 from bs4 import BeautifulSoup
 from django import template
 from django.core.exceptions import ValidationError
-from django.core.urlresolvers import reverse
 from django.test import TestCase, override_settings
-from django.utils.six.moves.urllib.error import URLError
+from django.urls import reverse
 from mock import patch
 
 from wagtail.tests.utils import WagtailTestUtils
@@ -312,11 +312,11 @@ class TestOembed(TestCase):
 
     def test_oembed_invalid_request(self):
         config = {'side_effect': URLError('foo')}
-        with patch.object(django.utils.six.moves.urllib.request, 'urlopen', **config):
+        with patch.object(urllib.request, 'urlopen', **config):
             self.assertRaises(EmbedNotFoundException, OEmbedFinder().find_embed,
                               "http://www.youtube.com/watch/")
 
-    @patch('django.utils.six.moves.urllib.request.urlopen')
+    @patch('urllib.request.urlopen')
     @patch('json.loads')
     def test_oembed_photo_request(self, loads, urlopen):
         urlopen.return_value = self.dummy_response
@@ -327,7 +327,7 @@ class TestOembed(TestCase):
         self.assertEqual(result['html'], '<img src="http://www.example.com" />')
         loads.assert_called_with("foo")
 
-    @patch('django.utils.six.moves.urllib.request.urlopen')
+    @patch('urllib.request.urlopen')
     @patch('json.loads')
     def test_oembed_return_values(self, loads, urlopen):
         urlopen.return_value = self.dummy_response
@@ -362,7 +362,7 @@ class TestOembed(TestCase):
         finder = OEmbedFinder(providers=[oembed_providers.twitter])
         self.assertFalse(finder.accept("http://www.youtube.com/watch/"))
 
-    @patch('django.utils.six.moves.urllib.request.urlopen')
+    @patch('urllib.request.urlopen')
     @patch('json.loads')
     def test_endpoint_with_format_param(self, loads, urlopen):
         urlopen.return_value = self.dummy_response

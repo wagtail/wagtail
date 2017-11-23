@@ -13,14 +13,35 @@ What's new
 Other features
 ~~~~~~~~~~~~~~
 
+ * Moved Wagtail API v1 implementation (``wagtail.contrib.api``) to an `external app <https://github.com/wagtail/wagtailapi_legacy>`_ (Karl Hobley)
+ * The page chooser now searches all fields of a page, instead of just the title (Bertrand Bordage)
+ * Implement ordering by date in form submission view (LB (Ben Johnston))
+ * Elasticsearch scroll API is now used when fetching more than 100 search results (Karl Hobley)
  * Added hidden field to the form builder (Ross Crawford-d'Heureuse)
- * Image usage count now shows on delete confirmation page when WAGTAIL_USAGE_COUNT_ENABLED is active (Kees Hink)
-
+ * Usage count now shows on delete confirmation page when WAGTAIL_USAGE_COUNT_ENABLED is active (Kees Hink)
+ * Added usage count to snippets (Kees Hink)
+ * Moved usage count to the sidebar on the edit page (Kees Hink)
+ * Explorer menu now reflects customisations to the page listing made via the `construct_explorer_page_queryset` hook and `ModelAdmin.exclude_from_explorer` property (Tim Heap)
+ * "Choose another image" button changed to "Change image" to avoid ambiguity (Edd Baldry)
+ * Added hooks ``before_create_user``, ``after_create_user``, ``before_delete_user``, ``after_delete_user``, ``before_edit_user``, ``after_edit_user`` (Jon Carmack)
+ * Added ``exclude_fields_in_copy`` property to Page to define fields that should not be included on page copy (LB (Ben Johnston))
+ * Improved error message on incorrect ``{% image %}`` tag syntax (LB (Ben Johnston))
+ * Optimized preview data storage (Bertrand Bordage)
 
 Bug fixes
 ~~~~~~~~~
 
  * Do not remove stopwords when generating slugs from non-ASCII titles, to avoid issues with incorrect word boundaries (Sævar Öfjörð Magnússon)
+ * The PostgreSQL search backend now preserves ordering of the ``QuerySet`` when searching with ``order_by_relevance=False`` (Bertrand Bordage)
+ * Using ``modeladmin_register`` as a decorator no longer replaces the decorated class with ``None`` (Tim Heap)
+ * Fixed crash in XML sitemap generator when all pages on the site are private (Stein Strindhaug)
+ * The ``{% routablepageurl %}`` template tag no longer generates invalid URLs when the ``WAGTAIL_APPEND_SLASH`` setting was set to ``False`` (Venelin Stoykov)
+ * The "View live" button is no longer shown if the page doesn't have a routable URL (Tim Heap)
+ * API listing views no longer fail when no site records are defined (Karl Hobley)
+ * Fixed rendering of border on dropdown arrow buttons on Chrome (Bertrand Bordage)
+ * Fixed incorrect z-index on userbar causing it to appear behind page content (Stein Strindhaug)
+ * Form submissions pagination no longer looses date filter when changing page (Bertrand Bordage)
+ * PostgreSQL search backend now removes duplicate page instances from the database (Bertrand Bordage)
 
 
 Upgrade considerations
@@ -30,3 +51,8 @@ Removed support for Python 2.7, Django 1.8 and Django 1.10
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Python 2.7, Django 1.8 and Django 1.10 are no longer supported in this release. You are advised to upgrade your project to Python 3 and Django 1.11 before upgrading to Wagtail 2.0.
+
+Removed support for Elasticsearch 1.x
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Elasticsearch 1.x is no longer supported in this release. Please upgrade to a 2.x or 5.x release of Elasticsearch before upgrading to Wagtail 2.0.

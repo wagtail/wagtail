@@ -10,7 +10,6 @@ from django.forms.utils import ErrorList
 from django.template.loader import render_to_string
 # Must be imported from Django so we get the new implementation of with_metaclass
 from django.utils import six
-from django.utils.encoding import python_2_unicode_compatible
 from django.utils.html import format_html_join
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as _
@@ -326,7 +325,6 @@ class StreamBlock(six.with_metaclass(DeclarativeSubBlocksMetaclass, BaseStreamBl
     pass
 
 
-@python_2_unicode_compatible  # provide equivalent __unicode__ and __str__ methods on Py2
 class StreamValue(collections.Sequence):
     """
     Custom type used to represent the value of a StreamBlock; behaves as a sequence of BoundBlocks

@@ -13,7 +13,7 @@ from .helpers import (
     AdminURLHelper, ButtonHelper, PageAdminURLHelper, PageButtonHelper, PagePermissionHelper,
     PermissionHelper)
 from .menus import GroupMenuItem, ModelAdminMenuItem, SubMenu
-from .mixins import ThumbnailMixin # NOQA
+from .mixins import ThumbnailMixin  # NOQA
 from .views import ChooseParentView, CreateView, DeleteView, EditView, IndexView, InspectView
 
 
@@ -593,3 +593,4 @@ def modeladmin_register(modeladmin_class):
     """
     instance = modeladmin_class()
     instance.register_with_wagtail()
+    return modeladmin_class

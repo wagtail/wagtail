@@ -1,12 +1,12 @@
 from __future__ import absolute_import, unicode_literals
 
 from datetime import timedelta
+from io import StringIO
 
 from django.core import management
 from django.db import models
 from django.test import TestCase
 from django.utils import timezone
-from django.utils.six import StringIO
 
 from wagtail.tests.testapp.models import EventPage, SimplePage
 from wagtail.wagtailcore.models import Page, PageRevision

@@ -20,10 +20,8 @@ from taggit.managers import TaggableManager
 
 from wagtail.wagtailadmin import widgets
 from wagtail.wagtailcore.models import (
-    BaseViewRestriction,
-    Collection, CollectionViewRestriction, GroupCollectionPermission,
-    Page, PageViewRestriction
-)
+    BaseViewRestriction, Collection, CollectionViewRestriction, GroupCollectionPermission, Page,
+    PageViewRestriction)
 
 
 class URLOrAbsolutePathValidator(validators.URLValidator):

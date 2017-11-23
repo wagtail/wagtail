@@ -2,8 +2,8 @@ from __future__ import absolute_import, unicode_literals
 
 from django.contrib.auth.models import Group
 from django.core.files.base import ContentFile
-from django.core.urlresolvers import reverse
 from django.test import TestCase
+from django.urls import reverse
 from django.utils.six import b
 
 from wagtail.wagtailcore.models import Collection, CollectionViewRestriction

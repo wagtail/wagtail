@@ -5,9 +5,9 @@ import json
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.core.files.uploadedfile import SimpleUploadedFile
-from django.core.urlresolvers import reverse
 from django.template.defaultfilters import filesizeformat
 from django.test import TestCase, override_settings
+from django.urls import reverse
 from django.utils.http import RFC3986_SUBDELIMS, urlquote
 
 from wagtail.tests.utils import WagtailTestUtils
@@ -17,7 +17,6 @@ from wagtail.wagtailimages.views.serve import generate_signature
 from .utils import Image, get_test_image_file
 
 # Get the chars that Django considers safe to leave unescaped in a URL
-# This list changed in Django 1.8:  https://github.com/django/django/commit/e167e96cfea670422ca75d0b35fe7c4195f25b63
 urlquote_safechars = RFC3986_SUBDELIMS + str('/~:@')
 
 

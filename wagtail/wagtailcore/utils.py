@@ -2,16 +2,13 @@ from __future__ import absolute_import, unicode_literals
 
 import inspect
 import re
-import sys
 import unicodedata
 
 from django.apps import apps
 from django.conf import settings
 from django.db.models import Model
 from django.utils.encoding import force_text
-from django.utils.six import string_types
 from django.utils.text import slugify
-
 
 WAGTAIL_APPEND_SLASH = getattr(settings, 'WAGTAIL_APPEND_SLASH', True)
 
@@ -29,7 +26,7 @@ def resolve_model_string(model_string, default_app=None):
     Raises a LookupError if a model can not be found, or ValueError if passed
     something that is neither a model or a string.
     """
-    if isinstance(model_string, string_types):
+    if isinstance(model_string, str):
         try:
             app_label, model_name = model_string.split(".")
         except ValueError:
@@ -102,14 +99,9 @@ def accepts_kwarg(func, kwarg):
     """
     Determine whether the callable `func` has a signature that accepts the keyword argument `kwarg`
     """
-    if sys.version_info >= (3, 3):
-        signature = inspect.signature(func)
-        try:
-            signature.bind_partial(**{kwarg: None})
-            return True
-        except TypeError:
-            return False
-    else:
-        # Fall back on inspect.getargspec, available on Python 2.7 but deprecated since 3.5
-        argspec = inspect.getargspec(func)
-        return (kwarg in argspec.args) or (argspec.keywords is not None)
+    signature = inspect.signature(func)
+    try:
+        signature.bind_partial(**{kwarg: None})
+        return True
+    except TypeError:
+        return False

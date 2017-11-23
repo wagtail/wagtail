@@ -114,7 +114,6 @@ INSTALLED_APPS = (
     'wagtail.contrib.wagtailstyleguide',
     'wagtail.contrib.wagtailroutablepage',
     'wagtail.contrib.wagtailfrontendcache',
-    'wagtail.contrib.wagtailapi',
     'wagtail.contrib.wagtailsearchpromotions',
     'wagtail.contrib.settings',
     'wagtail.contrib.modeladmin',
@@ -178,8 +177,6 @@ if 'ELASTICSEARCH_URL' in os.environ:
         backend = 'wagtail.wagtailsearch.backends.elasticsearch5'
     elif os.environ.get('ELASTICSEARCH_VERSION') == '2':
         backend = 'wagtail.wagtailsearch.backends.elasticsearch2'
-    else:
-        backend = 'wagtail.wagtailsearch.backends.elasticsearch'
 
     WAGTAILSEARCH_BACKENDS['elasticsearch'] = {
         'BACKEND': backend,
@@ -187,6 +184,13 @@ if 'ELASTICSEARCH_URL' in os.environ:
         'TIMEOUT': 10,
         'max_retries': 1,
         'AUTO_UPDATE': False,
+        'INDEX_SETTINGS': {
+            'settings': {
+                'index': {
+                    'number_of_shards': 1
+                }
+            }
+        }
     }
 
 
