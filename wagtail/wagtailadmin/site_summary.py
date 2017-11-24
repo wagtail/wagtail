@@ -3,8 +3,8 @@ from __future__ import absolute_import, unicode_literals
 from django.template.loader import render_to_string
 
 from wagtail.wagtailadmin.utils import user_has_any_page_permission
-from wagtail.wagtailcore import hooks
-from wagtail.wagtailcore.models import Page, Site
+from wagtail.core import hooks
+from wagtail.core.models import Page, Site
 
 
 class SummaryItem(object):

@@ -4,7 +4,7 @@ import itertools
 
 from django import template
 
-from wagtail.wagtailcore import hooks
+from wagtail.core import hooks
 
 register = template.Library()
 

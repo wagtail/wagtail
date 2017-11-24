@@ -12,7 +12,7 @@ from wagtail.tests.testapp.models import (
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailadmin.edit_handlers import get_form_for_model
 from wagtail.wagtailadmin.forms import WagtailAdminPageForm
-from wagtail.wagtailcore.models import Page
+from wagtail.core.models import Page
 from wagtail.wagtailforms.edit_handlers import FormSubmissionsPanel
 from wagtail.wagtailforms.models import FormSubmission
 from wagtail.wagtailforms.tests.utils import make_form_page, make_form_page_with_custom_submission

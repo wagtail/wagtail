@@ -11,7 +11,7 @@ from django.utils.translation import ugettext_lazy as _
 from taggit.managers import TaggableManager
 
 from wagtail.wagtailadmin.utils import get_object_usage
-from wagtail.wagtailcore.models import CollectionMember
+from wagtail.core.models import CollectionMember
 from wagtail.wagtailsearch import index
 from wagtail.wagtailsearch.queryset import SearchableQuerySetMixin
 

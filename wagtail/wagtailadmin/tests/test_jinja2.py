@@ -5,7 +5,7 @@ from django.contrib.auth.models import AnonymousUser
 from django.template import engines
 from django.test import TestCase
 
-from wagtail.wagtailcore.models import PAGE_TEMPLATE_VAR, Page, Site
+from wagtail.core.models import PAGE_TEMPLATE_VAR, Page, Site
 
 
 class TestCoreJinja(TestCase):

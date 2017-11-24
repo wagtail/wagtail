@@ -9,7 +9,7 @@ from django.urls import reverse
 
 from wagtail.tests.testapp.models import BusinessChild, BusinessIndex
 from wagtail.tests.utils import WagtailTestUtils
-from wagtail.wagtailcore.models import PAGE_TEMPLATE_VAR, Page, Site
+from wagtail.core.models import PAGE_TEMPLATE_VAR, Page, Site
 
 
 class TestUserbarTag(TestCase):

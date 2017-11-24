@@ -11,7 +11,7 @@ from wagtail.wagtailadmin.urls import collections as wagtailadmin_collections_ur
 from wagtail.wagtailadmin.urls import password_reset as wagtailadmin_password_reset_urls
 from wagtail.wagtailadmin.views import account, chooser, home, pages, tags, userbar
 from wagtail.wagtailadmin.api import urls as api_urls
-from wagtail.wagtailcore import hooks
+from wagtail.core import hooks
 from wagtail.utils.urlpatterns import decorate_urlpatterns
 from wagtail.wagtailadmin.decorators import require_admin_access
 

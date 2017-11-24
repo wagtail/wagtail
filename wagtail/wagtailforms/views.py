@@ -11,7 +11,7 @@ from django.utils.translation import ungettext
 
 from wagtail.utils.pagination import paginate
 from wagtail.wagtailadmin import messages
-from wagtail.wagtailcore.models import Page
+from wagtail.core.models import Page
 from wagtail.wagtailforms.forms import SelectDateForm
 from wagtail.wagtailforms.models import get_forms_for_user
 

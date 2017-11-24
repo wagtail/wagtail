@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404
 
 from wagtail.wagtailadmin.forms import PageViewRestrictionForm
 from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
-from wagtail.wagtailcore.models import Page, PageViewRestriction
+from wagtail.core.models import Page, PageViewRestriction
 
 
 def set_privacy(request, page_id):

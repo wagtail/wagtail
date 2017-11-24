@@ -4,8 +4,8 @@ from __future__ import unicode_literals
 
 from django.db import migrations
 import wagtail.tests.testapp.models
-import wagtail.wagtailcore.blocks
-import wagtail.wagtailcore.fields
+import wagtail.core.blocks
+import wagtail.core.fields
 
 
 class Migration(migrations.Migration):
@@ -18,6 +18,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='streampage',
             name='body',
-            field=wagtail.wagtailcore.fields.StreamField([('text', wagtail.wagtailcore.blocks.CharBlock()), ('rich_text', wagtail.wagtailcore.blocks.RichTextBlock()), ('image', wagtail.tests.testapp.models.ExtendedImageChooserBlock())]),
+            field=wagtail.core.fields.StreamField([('text', wagtail.core.blocks.CharBlock()), ('rich_text', wagtail.core.blocks.RichTextBlock()), ('image', wagtail.tests.testapp.models.ExtendedImageChooserBlock())]),
         ),
     ]

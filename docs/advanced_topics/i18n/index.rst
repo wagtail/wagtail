@@ -89,7 +89,7 @@ This feature is enabled through the project's root URL configuration. Just put t
 
     from wagtail.wagtailadmin import urls as wagtailadmin_urls
     from wagtail.wagtaildocs import urls as wagtaildocs_urls
-    from wagtail.wagtailcore import urls as wagtail_urls
+    from wagtail.core import urls as wagtail_urls
 
 
     urlpatterns = [

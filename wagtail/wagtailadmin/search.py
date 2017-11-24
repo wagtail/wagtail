@@ -9,7 +9,7 @@ from django.utils.six import with_metaclass
 from django.utils.text import slugify
 
 from wagtail.wagtailadmin.forms import SearchForm
-from wagtail.wagtailcore import hooks
+from wagtail.core import hooks
 
 
 @total_ordering

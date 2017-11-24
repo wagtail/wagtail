@@ -6,7 +6,7 @@ from django.test import TestCase
 
 from wagtail.tests.testapp.models import BusinessIndex, EventCategory, EventPage
 from wagtail.tests.utils import WagtailTestUtils
-from wagtail.wagtailcore.models import GroupPagePermission, Page
+from wagtail.core.models import GroupPagePermission, Page
 
 
 class TestIndexView(TestCase, WagtailTestUtils):

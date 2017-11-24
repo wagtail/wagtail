@@ -71,8 +71,8 @@ Edit ``home/models.py`` as follows, to add a ``body`` field to the model:
 
     from django.db import models
 
-    from wagtail.wagtailcore.models import Page
-    from wagtail.wagtailcore.fields import RichTextField
+    from wagtail.core.models import Page
+    from wagtail.core.fields import RichTextField
     from wagtail.wagtailadmin.edit_handlers import FieldPanel
 
 
@@ -164,8 +164,8 @@ Lets start with a simple index page for our blog. In ``blog/models.py``:
 
 .. code-block:: python
 
-    from wagtail.wagtailcore.models import Page
-    from wagtail.wagtailcore.fields import RichTextField
+    from wagtail.core.models import Page
+    from wagtail.core.fields import RichTextField
     from wagtail.wagtailadmin.edit_handlers import FieldPanel
 
 
@@ -218,8 +218,8 @@ Now we need a model and template for our blog posts. In ``blog/models.py``:
 
     from django.db import models
 
-    from wagtail.wagtailcore.models import Page
-    from wagtail.wagtailcore.fields import RichTextField
+    from wagtail.core.models import Page
+    from wagtail.core.fields import RichTextField
     from wagtail.wagtailadmin.edit_handlers import FieldPanel
     from wagtail.wagtailsearch import index
 
@@ -409,8 +409,8 @@ Add a new ``BlogPageGalleryImage`` model to ``models.py``:
 
     from modelcluster.fields import ParentalKey
 
-    from wagtail.wagtailcore.models import Page, Orderable
-    from wagtail.wagtailcore.fields import RichTextField
+    from wagtail.core.models import Page, Orderable
+    from wagtail.core.fields import RichTextField
     from wagtail.wagtailadmin.edit_handlers import FieldPanel, InlinePanel
     from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
     from wagtail.wagtailsearch import index
@@ -572,8 +572,8 @@ First, alter ``models.py`` once more:
     from modelcluster.contrib.taggit import ClusterTaggableManager
     from taggit.models import TaggedItemBase
 
-    from wagtail.wagtailcore.models import Page, Orderable
-    from wagtail.wagtailcore.fields import RichTextField
+    from wagtail.core.models import Page, Orderable
+    from wagtail.core.fields import RichTextField
     from wagtail.wagtailadmin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
     from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
     from wagtail.wagtailsearch import index

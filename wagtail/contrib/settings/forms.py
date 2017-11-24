@@ -3,7 +3,7 @@ from __future__ import absolute_import, unicode_literals
 from django import forms
 from django.urls import reverse
 
-from wagtail.wagtailcore.models import Site
+from wagtail.core.models import Site
 
 
 class SiteSwitchForm(forms.Form):

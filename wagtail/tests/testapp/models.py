@@ -24,9 +24,9 @@ from wagtail.wagtailadmin.edit_handlers import (
     TabbedInterface)
 from wagtail.wagtailadmin.forms import WagtailAdminPageForm
 from wagtail.wagtailadmin.utils import send_mail
-from wagtail.wagtailcore.blocks import CharBlock, RichTextBlock
-from wagtail.wagtailcore.fields import RichTextField, StreamField
-from wagtail.wagtailcore.models import Orderable, Page, PageManager, PageQuerySet
+from wagtail.core.blocks import CharBlock, RichTextBlock
+from wagtail.core.fields import RichTextField, StreamField
+from wagtail.core.models import Orderable, Page, PageManager, PageQuerySet
 from wagtail.wagtaildocs.edit_handlers import DocumentChooserPanel
 from wagtail.wagtaildocs.models import AbstractDocument, Document
 from wagtail.wagtailforms.models import AbstractEmailForm, AbstractFormField, AbstractFormSubmission

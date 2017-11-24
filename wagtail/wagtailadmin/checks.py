@@ -35,7 +35,7 @@ def css_install_check(app_configs, **kwargs):
 @register()
 def base_form_class_check(app_configs, **kwargs):
     from wagtail.wagtailadmin.forms import WagtailAdminPageForm
-    from wagtail.wagtailcore.models import get_page_models
+    from wagtail.core.models import get_page_models
 
     errors = []
 
@@ -56,7 +56,7 @@ def base_form_class_check(app_configs, **kwargs):
 @register()
 def get_form_class_check(app_configs, **kwargs):
     from wagtail.wagtailadmin.forms import WagtailAdminPageForm
-    from wagtail.wagtailcore.models import get_page_models
+    from wagtail.core.models import get_page_models
 
     errors = []
 

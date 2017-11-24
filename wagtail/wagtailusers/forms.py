@@ -16,8 +16,8 @@ from django.utils.translation import ugettext_lazy as _
 
 from wagtail.wagtailadmin.utils import get_available_admin_languages
 from wagtail.wagtailadmin.widgets import AdminPageChooser
-from wagtail.wagtailcore import hooks
-from wagtail.wagtailcore.models import (
+from wagtail.core import hooks
+from wagtail.core.models import (
     PAGE_PERMISSION_TYPE_CHOICES, PAGE_PERMISSION_TYPES, GroupPagePermission, Page,
     UserPagePermissionsProxy)
 from wagtail.wagtailusers.models import UserProfile

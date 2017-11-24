@@ -2,8 +2,8 @@ from __future__ import absolute_import, unicode_literals
 
 from django.utils.functional import cached_property
 
-from wagtail.wagtailcore.blocks import ChooserBlock
-from wagtail.wagtailcore.utils import resolve_model_string
+from wagtail.core.blocks import ChooserBlock
+from wagtail.core.utils import resolve_model_string
 
 
 class SnippetChooserBlock(ChooserBlock):

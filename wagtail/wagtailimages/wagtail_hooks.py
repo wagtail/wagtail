@@ -11,7 +11,7 @@ from wagtail.wagtailadmin.menu import MenuItem
 from wagtail.wagtailadmin.rich_text import HalloPlugin
 from wagtail.wagtailadmin.search import SearchArea
 from wagtail.wagtailadmin.site_summary import SummaryItem
-from wagtail.wagtailcore import hooks
+from wagtail.core import hooks
 from wagtail.wagtailimages import admin_urls, get_image_model, image_operations
 from wagtail.wagtailimages.api.admin.endpoints import ImagesAdminAPIEndpoint
 from wagtail.wagtailimages.forms import GroupImagePermissionFormSet

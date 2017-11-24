@@ -10,7 +10,7 @@ from django.urls import reverse
 
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailadmin.utils import user_has_any_page_permission
-from wagtail.wagtailcore.models import Site
+from wagtail.core.models import Site
 
 
 class BaseSearchAreaTestCase(WagtailTestUtils, TestCase):

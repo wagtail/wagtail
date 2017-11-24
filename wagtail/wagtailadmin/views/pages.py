@@ -23,8 +23,8 @@ from wagtail.wagtailadmin import messages, signals
 from wagtail.wagtailadmin.forms import CopyForm, SearchForm
 from wagtail.wagtailadmin.utils import (
     send_notification, user_has_any_page_permission, user_passes_test)
-from wagtail.wagtailcore import hooks
-from wagtail.wagtailcore.models import Page, PageRevision, UserPagePermissionsProxy
+from wagtail.core import hooks
+from wagtail.core.models import Page, PageRevision, UserPagePermissionsProxy
 
 
 def get_valid_next_url_from_request(request):

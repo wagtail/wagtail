@@ -7,7 +7,7 @@ from django.core import serializers
 from django.template import engines
 from django.test import TestCase
 
-from wagtail.wagtailcore.models import Site
+from wagtail.core.models import Site
 
 from .utils import Image, get_test_image_file
 

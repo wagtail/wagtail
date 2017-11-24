@@ -1,6 +1,6 @@
 from django.conf.urls import url, include
 
-from wagtail.wagtailcore import hooks
+from wagtail.core import hooks
 
 
 class ViewSetRegistry(object):

@@ -10,7 +10,7 @@ Registering functions with a Wagtail hook is done through the ``@hooks.register`
 
 .. code-block:: python
 
-  from wagtail.wagtailcore import hooks
+  from wagtail.core import hooks
 
   @hooks.register('name_of_hook')
   def my_hook_function(arg1, arg2...)
@@ -62,7 +62,7 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
 
     from django.utils.safestring import mark_safe
 
-    from wagtail.wagtailcore import hooks
+    from wagtail.core import hooks
 
     class WelcomePanel(object):
         order = 50
@@ -96,7 +96,7 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
 
   .. code-block:: python
 
-    from wagtail.wagtailcore import hooks
+    from wagtail.core import hooks
 
     @hooks.register('construct_main_menu')
     def hide_explorer_menu_item_from_frank(request, menu_items):
@@ -139,7 +139,7 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
 
     from django.urls import reverse
 
-    from wagtail.wagtailcore import hooks
+    from wagtail.core import hooks
     from wagtail.wagtailadmin.menu import MenuItem
 
     @hooks.register('register_admin_menu_item')
@@ -161,7 +161,7 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
     from django.http import HttpResponse
     from django.conf.urls import url
 
-    from wagtail.wagtailcore import hooks
+    from wagtail.core import hooks
 
     def admin_view(request):
       return HttpResponse(
@@ -215,7 +215,7 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
   .. code-block:: python
 
     from django.urls import reverse
-    from wagtail.wagtailcore import hooks
+    from wagtail.core import hooks
     from wagtail.wagtailadmin.search import SearchArea
 
     @hooks.register('register_admin_search_area')
@@ -248,7 +248,7 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
 
   .. code-block:: python
 
-    from wagtail.wagtailcore import hooks
+    from wagtail.core import hooks
 
 
     @hooks.register('filter_form_submissions_for_user')
@@ -273,14 +273,14 @@ Hooks for customising the editing interface for pages and snippets.
 
   Customise the rules that define which HTML elements are allowed in rich text areas. By default only a limited set of HTML elements and attributes are whitelisted - all others are stripped out. The callables passed into this hook must return a dict, which maps element names to handler functions that will perform some kind of manipulation of the element. These handler functions receive the element as a `BeautifulSoup <http://www.crummy.com/software/BeautifulSoup/bs4/doc/>`_ Tag object.
 
-  The ``wagtail.wagtailcore.whitelist`` module provides a few helper functions to assist in defining these handlers: ``allow_without_attributes``, a handler which preserves the element but strips out all of its attributes, and ``attribute_rule`` which accepts a dict specifying how to handle each attribute, and returns a handler function. This dict will map attribute names to either True (indicating that the attribute should be kept), False (indicating that it should be dropped), or a callable (which takes the initial attribute value and returns either a final value for the attribute, or None to drop the attribute).
+  The ``wagtail.core.whitelist`` module provides a few helper functions to assist in defining these handlers: ``allow_without_attributes``, a handler which preserves the element but strips out all of its attributes, and ``attribute_rule`` which accepts a dict specifying how to handle each attribute, and returns a handler function. This dict will map attribute names to either True (indicating that the attribute should be kept), False (indicating that it should be dropped), or a callable (which takes the initial attribute value and returns either a final value for the attribute, or None to drop the attribute).
 
   For example, the following hook function will add the ``<blockquote>`` element to the whitelist, and allow the ``target`` attribute on ``<a>`` elements:
 
   .. code-block:: python
 
-    from wagtail.wagtailcore import hooks
-    from wagtail.wagtailcore.whitelist import attribute_rule, check_url, allow_without_attributes
+    from wagtail.core import hooks
+    from wagtail.core.whitelist import attribute_rule, check_url, allow_without_attributes
 
     @hooks.register('construct_whitelister_element_rules')
     def whitelister_element_rules():
@@ -302,7 +302,7 @@ Hooks for customising the editing interface for pages and snippets.
     from django.contrib.staticfiles.templatetags.staticfiles import static
     from django.utils.html import format_html
 
-    from wagtail.wagtailcore import hooks
+    from wagtail.core import hooks
 
     @hooks.register('insert_editor_css')
     def editor_css():
@@ -324,7 +324,7 @@ Hooks for customising the editing interface for pages and snippets.
     from django.utils.html import format_html
     from django.contrib.staticfiles.templatetags.staticfiles import static
 
-    from wagtail.wagtailcore import hooks
+    from wagtail.core import hooks
 
     @hooks.register('insert_global_admin_css')
     def global_admin_css():
@@ -343,7 +343,7 @@ Hooks for customising the editing interface for pages and snippets.
     from django.utils.html import format_html, format_html_join
     from django.conf import settings
 
-    from wagtail.wagtailcore import hooks
+    from wagtail.core import hooks
 
     @hooks.register('insert_editor_js')
     def editor_js():
@@ -375,7 +375,7 @@ Hooks for customising the editing interface for pages and snippets.
 
     from django.utils.html import format_html
 
-    from wagtail.wagtailcore import hooks
+    from wagtail.core import hooks
 
     @hooks.register('insert_global_admin_js')
     def global_admin_js():
@@ -401,7 +401,7 @@ Hooks for customising the way users are directed through the process of creating
 
     from django.http import HttpResponse
 
-    from wagtail.wagtailcore import hooks
+    from wagtail.core import hooks
 
     @hooks.register('after_create_page')
     def do_after_page_create(request, page):
@@ -423,7 +423,7 @@ Hooks for customising the way users are directed through the process of creating
 
   .. code-block:: python
 
-    from wagtail.wagtailcore import hooks
+    from wagtail.core import hooks
 
     from .models import AwesomePage
     from .admin_views import edit_awesome_page
@@ -501,7 +501,7 @@ Hooks for customising the way users are directed through the process of creating
 
   .. code-block:: python
 
-    from wagtail.wagtailcore import hooks
+    from wagtail.core import hooks
 
     class UserbarPuppyLinkItem(object):
         def render(self, request):
@@ -529,7 +529,7 @@ Hooks for customising the way admins are directed through the process of editing
 
     from django.http import HttpResponse
 
-    from wagtail.wagtailcore import hooks
+    from wagtail.core import hooks
 
     @hooks.register('after_create_user')
     def do_after_page_create(request, user):
@@ -551,7 +551,7 @@ Hooks for customising the way admins are directed through the process of editing
 
   .. code-block:: python
 
-    from wagtail.wagtailcore import hooks
+    from wagtail.core import hooks
 
     from .models import AwesomePage
     from .admin_views import edit_awesome_page
@@ -609,7 +609,7 @@ Choosers
 
   .. code-block:: python
 
-    from wagtail.wagtailcore import hooks
+    from wagtail.core import hooks
 
     @hooks.register('construct_page_chooser_queryset')
     def show_my_pages_only(pages, request):
@@ -628,7 +628,7 @@ Choosers
 
   .. code-block:: python
 
-    from wagtail.wagtailcore import hooks
+    from wagtail.core import hooks
 
     @hooks.register('construct_document_chooser_queryset')
     def show_my_uploaded_documents_only(documents, request):
@@ -647,7 +647,7 @@ Choosers
 
   .. code-block:: python
 
-    from wagtail.wagtailcore import hooks
+    from wagtail.core import hooks
 
     @hooks.register('construct_image_chooser_queryset')
     def show_my_uploaded_images_only(images, request):
@@ -669,7 +669,7 @@ Page explorer
 
   .. code-block:: python
 
-    from wagtail.wagtailcore import hooks
+    from wagtail.core import hooks
 
     @hooks.register('construct_explorer_page_queryset')
     def show_my_profile_only(parent_page, pages, request):
@@ -777,7 +777,7 @@ Page serving
 
   .. code-block:: python
 
-    from wagtail.wagtailcore import hooks
+    from wagtail.core import hooks
 
     @hooks.register('before_serve_page')
     def block_googlebot(page, request, serve_args, serve_kwargs):

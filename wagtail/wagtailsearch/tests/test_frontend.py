@@ -5,7 +5,7 @@ from django.test import TestCase
 from django.urls import reverse
 
 from wagtail.tests.testapp.models import EventPage
-from wagtail.wagtailcore.models import Page
+from wagtail.core.models import Page
 from wagtail.wagtailsearch.models import Query
 
 
