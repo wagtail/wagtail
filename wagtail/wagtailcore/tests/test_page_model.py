@@ -183,9 +183,9 @@ class TestSiteRouting(TestCase):
         with self.assertNumQueries(0):
             self.assertEqual(Site.find_for_request(request), self.default_site)
 
-        # Confirm 'SiteManager.clear_request_site_cache()' clears the cache,
+        # Confirm 'SiteManager.clear_site_cache()' clears the cache,
         # and that we're back to making queries to get the same result
-        Site.objects.clear_request_site_cache()
+        Site.objects.clear_site_cache()
         with self.assertNumQueries(3):
             self.assertEqual(Site.find_for_request(request), self.default_site)
 

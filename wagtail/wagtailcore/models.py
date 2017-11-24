@@ -39,7 +39,8 @@ logger = logging.getLogger('wagtail.core')
 
 PAGE_TEMPLATE_VAR = 'page'
 
-REQUEST_SITE_CACHE = {}
+SITE_CACHE = {}
+REQUEST_SITE_MATCH_CACHE = {}
 
 
 class SiteManager(models.Manager):
@@ -60,12 +61,33 @@ class SiteManager(models.Manager):
             port = None
         return hostname, port
 
+    @staticmethod
+    def clear_site_cache():
+        global SITE_CACHE
+        global REQUEST_SITE_MATCH_CACHE
+        SITE_CACHE = {}
+        REQUEST_SITE_MATCH_CACHE = {}
+
+    def _get_by_id(self, site_id):
+        if site_id not in SITE_CACHE:
+            site = self.get(pk=site_id)
+            SITE_CACHE[site_id] = site
+        return SITE_CACHE[site_id]
+
+    def _cache_and_return_match(self, site, match_cache_key):
+        SITE_CACHE[site.pk] = site
+        REQUEST_SITE_MATCH_CACHE[match_cache_key] = site.pk
+        return SITE_CACHE[site.pk]
+
     def get_default(self):
         """Returns the 'default' ``Site`` or raise an exception in no site is
         set as the default. The result is cached."""
-        if 'default' not in REQUEST_SITE_CACHE:
-            REQUEST_SITE_CACHE['default'] = self.get(is_default_site=True)
-        return REQUEST_SITE_CACHE['default']
+        key = 'default'
+        if key in REQUEST_SITE_MATCH_CACHE:
+            return self._get_by_id(REQUEST_SITE_MATCH_CACHE['default'])
+
+        match = self.get(is_default_site=True)
+        return self._cache_and_return_match(match, key)
 
     def get_for_request(self, request):
         """Return the site responsible for dealing with the supplied
@@ -73,34 +95,29 @@ class SiteManager(models.Manager):
         hostname, port = self.get_hostname_and_port_from_request(request)
         key = "%s:%s" % (hostname, port)
 
-        if key in REQUEST_SITE_CACHE:
-            return REQUEST_SITE_CACHE[key]
+        if key in REQUEST_SITE_MATCH_CACHE:
+            return self._get_by_id(REQUEST_SITE_MATCH_CACHE[key])
 
         if hostname:
             if port:
                 try:
                     # Try to find a site matching both hostname and port
-                    REQUEST_SITE_CACHE[key] = self.get(hostname=hostname, port=port)
-                    return REQUEST_SITE_CACHE[key]
+                    match = self.get(hostname=hostname, port=port)
+                    return self._cache_and_return_match(match, key)
                 except Site.DoesNotExist:
                     pass
 
             try:
                 # If there's only one site matching the hostname, use that,
                 # since there's no ambiguity
-                REQUEST_SITE_CACHE[key] = self.get(hostname=hostname)
-                return REQUEST_SITE_CACHE[key]
+                match = self.get(hostname=hostname)
+                return self._cache_and_return_match(match, key)
             except(Site.DoesNotExist, Site.MultipleObjectsReturned):
                 pass
 
         # Fall back to using default site
-        REQUEST_SITE_CACHE[key] = self.get_default()
-        return REQUEST_SITE_CACHE[key]
-
-    def clear_request_site_cache(self):
-        """Clear the ``Site`` object cache."""
-        global REQUEST_SITE_CACHE
-        REQUEST_SITE_CACHE = {}
+        match = self.get_default()
+        return self._cache_and_return_match(match, key)
 
     def get_by_natural_key(self, hostname, port):
         return self.get(hostname=hostname, port=port)
