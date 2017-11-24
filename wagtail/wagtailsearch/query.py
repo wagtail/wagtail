@@ -59,7 +59,7 @@ class SearchQueryShortcut(SearchQuery):
         raise NotImplementedError
 
     def get_children(self):
-        return self.get_equivalent(),
+        yield self.get_equivalent()
 
 #
 # Operators
