@@ -5,7 +5,7 @@ import json
 from django.urls import reverse
 
 from wagtail.api.v2.tests.test_documents import TestDocumentDetail, TestDocumentListing
-from wagtail.wagtaildocs.models import Document
+from wagtail.documents.models import Document
 
 from .utils import AdminAPITestCase
 

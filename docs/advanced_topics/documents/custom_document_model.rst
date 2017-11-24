@@ -8,7 +8,7 @@ additional fields.
 You need to complete the following steps in your project to do this:
 
  - Create a new document model that inherits from
-   ``wagtail.wagtaildocs.models.AbstractDocument``. This is where you would
+   ``wagtail.documents.models.AbstractDocument``. This is where you would
    add additional fields.
  - Point ``WAGTAILDOCS_DOCUMENT_MODEL`` to the new model.
 
@@ -17,7 +17,7 @@ Here's an example:
 .. code-block:: python
 
     # models.py
-    from wagtail.wagtaildocs.models import Document, AbstractDocument
+    from wagtail.documents.models import Document, AbstractDocument
 
     class CustomDocument(AbstractDocument):
         # Custom field example:
@@ -62,6 +62,6 @@ Then in your settings module:
 Referring to the document model
 ===============================
 
-.. module:: wagtail.wagtaildocs.models
+.. module:: wagtail.documents.models
 
 .. autofunction:: get_document_model
