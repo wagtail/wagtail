@@ -7,20 +7,28 @@
             {% if parent_page_id %}
                 <a href="{% url 'wagtailadmin_choose_page_child' parent_page_id %}{% querystring p=None parent_page_id=None %}">{% trans "Internal link" %}</a>
             {% else %}
-                <a href="{% url 'wagtailadmin_choose_page' %}{% querystring p=None parent_page_id=None %}">{% trans "Internal link" %}</a>
+                <a href="{% url 'wagtailadmin_choose_page' %}{% querystring p=None parent_page_id=None link_url=None link_text=None %}">{% trans "Internal link" %}</a>
             {% endif %}
         {% endif %}
 
         {% if current == 'external' %}
             | <b>{% trans "External link" %}</b>
         {% elif allow_external_link %}
-            | <a href="{% url 'wagtailadmin_choose_page_external_link' %}{% querystring p=None parent_page_id=parent_page_id %}">{% trans "External link" %}</a>
+            {% if current == 'internal' %}
+                | <a href="{% url 'wagtailadmin_choose_page_external_link' %}{% querystring p=None parent_page_id=parent_page_id %}">{% trans "External link" %}</a>
+            {% else %}
+                | <a href="{% url 'wagtailadmin_choose_page_external_link' %}{% querystring p=None parent_page_id=parent_page_id link_url=None link_text=None %}">{% trans "External link" %}</a>           
+            {% endif %}
         {% endif %}
 
         {% if current == 'email' %}
             | <b>{% trans "Email link" %}</b>
         {% elif allow_email_link %}
-            | <a href="{% url 'wagtailadmin_choose_page_email_link' %}{% querystring p=None parent_page_id=parent_page_id %}">{% trans "Email link" %}</a>
+            {% if current == 'internal' %}
+                | <a href="{% url 'wagtailadmin_choose_page_email_link' %}{% querystring p=None parent_page_id=parent_page_id %}">{% trans "Email link" %}</a>
+            {% else %}
+                | <a href="{% url 'wagtailadmin_choose_page_email_link' %}{% querystring p=None parent_page_id=parent_page_id link_url=None link_text=None %}">{% trans "Email link" %}</a>
+            {% endif %}
         {% endif %}
     </p>
 {% endif %}
