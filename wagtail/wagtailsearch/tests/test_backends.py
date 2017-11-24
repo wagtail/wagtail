@@ -538,6 +538,36 @@ class BackendTests(WagtailTestUtils):
         self.assertSetEqual({r.title for r in results},
                             {'JavaScript: The Definitive Guide'})
 
+    def test_plain_text_operator_case(self):
+        results = self.backend.search(PlainText('Guide', operator='AND'),
+                                      models.Book.objects.all())
+        self.assertSetEqual({r.title for r in results},
+                            {'JavaScript: The Definitive Guide'})
+
+        results = self.backend.search(PlainText('Guide', operator='aNd'),
+                                      models.Book.objects.all())
+        self.assertSetEqual({r.title for r in results},
+                            {'JavaScript: The Definitive Guide'})
+
+        results = self.backend.search('Guide', models.Book.objects.all(),
+                                      operator='AND')
+        self.assertSetEqual({r.title for r in results},
+                            {'JavaScript: The Definitive Guide'})
+
+        results = self.backend.search('Guide', models.Book.objects.all(),
+                                      operator='aNd')
+        self.assertSetEqual({r.title for r in results},
+                            {'JavaScript: The Definitive Guide'})
+
+    def test_plain_text_invalid_operator(self):
+        with self.assertRaises(ValueError):
+            self.backend.search(PlainText('Guide', operator='xor'),
+                                models.Book.objects.all())
+
+        with self.assertRaises(ValueError):
+            self.backend.search('Guide', models.Book.objects.all(),
+                                operator='xor')
+
     def test_filter_equivalent(self):
         filter = Filter(Term('Javascript'))
         term = filter.child

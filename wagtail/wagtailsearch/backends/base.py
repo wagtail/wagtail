@@ -279,12 +279,6 @@ class BaseSearchBackend(object):
             for prefetch in prefetch_related:
                 queryset = queryset.prefetch_related(prefetch)
 
-        # Check operator
-        if operator is not None:
-            operator = operator.lower()
-            if operator not in ['or', 'and']:
-                raise ValueError("operator must be either 'or' or 'and'")
-
         # Search
         search_query = self.query_compiler_class(
             queryset, query, fields=fields, operator=operator, order_by_relevance=order_by_relevance

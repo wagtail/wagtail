@@ -138,9 +138,9 @@ class PlainText(SearchQueryShortcut):
     def __init__(self, query_string: str, operator: str = DEFAULT_OPERATOR,
                  boost: float = 1):
         self.query_string = query_string
-        if operator.lower() not in self.OPERATORS:
+        self.operator = operator.lower()
+        if self.operator not in self.OPERATORS:
             raise ValueError("`operator` must be either 'or' or 'and'.")
-        self.operator = operator
         self.boost = boost
 
     def apply(self, func):
