@@ -1035,7 +1035,7 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
     def copy(self, recursive=False, to=None, update_attrs=None, copy_revisions=True, keep_live=True, user=None):
         # Fill dict with self.specific values
         specific_self = self.specific
-        default_exclude_fields = ['id', 'path', 'depth', 'numchild', 'url_path', 'path']
+        default_exclude_fields = ['id', 'path', 'depth', 'numchild', 'url_path', 'path', 'index_entries']
         exclude_fields = default_exclude_fields + specific_self.exclude_fields_in_copy
         specific_dict = {}
 

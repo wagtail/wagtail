@@ -209,7 +209,8 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
         else:
             sub_field_name = None
         for field in fields:
-            if field.field_name == field_name:
+            if isinstance(field, SearchField) \
+                    and field.field_name == field_name:
                 # Note: Searching on a specific related field using
                 # `.search(fields=…)` is not yet supported by Wagtail.
                 # This method anticipates by already implementing it.

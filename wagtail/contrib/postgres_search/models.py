@@ -14,6 +14,8 @@ from .utils import get_descendants_content_types_pks
 
 
 class TextIDGenericRelation(GenericRelation):
+    auto_created = True
+
     def get_content_type_lookup(self, alias, remote_alias):
         field = self.remote_field.model._meta.get_field(
             self.content_type_field_name)
