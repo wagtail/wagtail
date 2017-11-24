@@ -56,6 +56,20 @@ header {
             }
         }
 
+        li:before {
+            @media screen and (max-width: $breakpoint-desktop-large) {
+                font-size: 5em;
+            }
+
+            @media screen and (max-width: $breakpoint-desktop-small) {
+                font-size: 4.5em;
+            }
+
+            @media screen and (max-width: $breakpoint-mobile) {
+                font-size: 4em;
+            }
+        }
+
         a {
             position: relative;
             display: block;
@@ -69,6 +83,18 @@ header {
             font-size: 4em;
             line-height: 1em;
             font-weight: 300;
+
+            @media screen and (max-width: $breakpoint-desktop-large) {
+                font-size: 3em;
+            }
+
+            @media screen and (max-width: $breakpoint-desktop-small) {
+                font-size: 2.5em;
+            }
+
+            @media screen and (max-width: $breakpoint-mobile) {
+                font-size: 2em;
+            }
         }
     }
 
