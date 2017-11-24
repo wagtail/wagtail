@@ -1,5 +1,6 @@
 {% extends "wagtailadmin/base.html" %}
-{% load wagtailadmin_tags i18n staticfiles gravatar %}
+
+{% load wagtailadmin_tags wagtailadmin_ui_tags i18n staticfiles gravatar %}
 
 {% block extra_css %}
     {{ block.super }}
@@ -233,65 +234,63 @@
             <h2>Buttons</h2>
             <p class="help-block help-warning">Do not use <code>{% filter force_escape|lower %}<input type="button">{% endfilter %}</code> use <code>{% filter force_escape|lower %}<button type="button">{% endfilter %}</code> instead. This addresses inconsistencies between rendering of buttons x-browser.</p>
 
-
             <p>Buttons must have interaction possible (i.e be an input or button element) to get a suitable hover cursor</p>
-
+            {% wuibutton %}button link{% endwuibutton %}
             <h3>Regular buttons</h3>
+            {% wuibutton element="a" %}button link{% endwuibutton %}
+            {% wuibutton element="button" %}button element{% endwuibutton %}
 
-            <a href="#" class="button">button link</a>
-            <button class="button">button element</button>
+            <h3>Regular button with href and name</h3>
+            {% wuibutton element="a" href="http://wagtail.io" %}link with href{% endwuibutton %}
+            {% wuibutton element="button" name="foobar" %}button with name{% endwuibutton %}
 
             <h3>Secondary buttons</h3>
-
-            <a href="#" class="button button-secondary">button link</a>
-            <button class="button button-secondary">button element</button>
+            {% wuibutton element="a" kind="secondary" %}button link{% endwuibutton %}
+            {% wuibutton element="button" kind="secondary" %}button element{% endwuibutton %}
 
             <h3>Small buttons</h3>
-
-            <a href="#" class="button button-small">button link</a>
-            <button class="button button-small">button element</button>
+            {% wuibutton element="a" small=True %}button link{% endwuibutton %}
+            {% wuibutton element="button" small=True %}button element{% endwuibutton %}
 
             <h4>(secondary)</h4>
-            <a href="#" class="button button-small button-secondary">button link</a>
-            <button class="button button-small button-secondary">button element</button>
+            {% wuibutton element="a" kind="secondary" small=True %}button link{% endwuibutton %}
+            {% wuibutton element="button" kind="secondary" small=True %}button element{% endwuibutton %}
 
             <h3>Disabled buttons</h3>
-
-            <a href="#" class="button disabled">button link</a>
-            <button class="button button-small disabled">button element</button>
+            {% wuibutton element="a" disabled=True %}button link{% endwuibutton %}
+            {% wuibutton element="button" small=True disabled=True %}button element{% endwuibutton %}
 
             <h3>Bi-color icon buttons with text</h3>
             <p>Note that <code>input</code> elements are not supported by any icon buttons.</p>
 
-            <a href="#" class="button bicolor icon icon-plus">button link</a>
-            <button class="button bicolor icon icon-plus">button element</button>
+            {% wuibutton element="a" icon="plus" icon_bicolor=True %}button link{% endwuibutton %}
+            {% wuibutton element="button" icon="plus" icon_bicolor=True %}button element{% endwuibutton %}
 
             <h4>(small)</h4>
-
-            <a href="#" class="button button-small bicolor icon icon-plus">button link</a>
-            <button class="button button-small bicolor icon icon-plus">button element</button>
+            {% wuibutton element="a" icon="plus" icon_bicolor=True small=True %}button link{% endwuibutton %}
+            {% wuibutton element="button" icon="plus" icon_bicolor=True small=True %}button element{% endwuibutton %}
 
             <h3>Icon buttons without text</h3>
 
-            <a href="#" class="button text-replace icon icon-cog">button link</a>
-            <button class="button text-replace icon icon-cog">button element</button>
+            {% wuibutton element="a" icon="cog" icon_only=True %}button link{% endwuibutton %}
+            {% wuibutton element="button" icon="cog" icon_only=True %}button element{% endwuibutton %}
 
             <h4>(small)</h4>
 
-            <a href="#" class="button button-small text-replace icon icon-cog">button link</a>
-            <button class="button button-small text-replace icon icon-cog">button element</button>
+            {% wuibutton element="a" icon="cog" icon_only=True small=True %}button link{% endwuibutton %}
+            {% wuibutton element="button" icon="cog" icon_only=True small=True %}button element{% endwuibutton %}
 
             <h3>Colour signifiers</h3>
 
             <h4>Positive</h4>
 
-            <a href="#" class="button yes">yes</a>
-            <a href="#" class="button button-small yes">yes</a>
+            {% wuibutton element="a" scheme="yes" %}yes{% endwuibutton %}
+            {% wuibutton element="a" scheme="yes" small=True %}yes{% endwuibutton %}
 
             <h4>Negative</h4>
 
-            <a href="#" class="button no">No</a>
-            <a href="#" class="button button-small no">No</a>
+            {% wuibutton element="a" scheme="no" %}no{% endwuibutton %}
+            {% wuibutton element="a" scheme="no" small=True %}no{% endwuibutton %}
 
             <h3>Buttons with internal loading indicators (currently only <code>button</code> supported)</h3>
             <p class="help-block help-warning">Note that in some browsers, clicking these buttons minutely affects the appearance of Dropdown buttons, below. This is yet to be resolved.</p>
@@ -318,11 +317,10 @@
 
             <h3>Mixtures</h3>
 
-            <button class="button icon text-replace yes icon-tick">A proper button</button>
-            <a href="#" class="button icon text-replace white icon-cog">A link button</a>
-            <span class="button icon text-replace no icon-bin">A non-link button</span>
-            <a href="#" class="button bicolor disabled icon icon-tick">button link</a>
-
+            {% wuibutton element="button" icon="tick" scheme="yes" icon_only=True %}A link button{% endwuibutton %}
+            {% wuibutton element="a" icon="cog" icon_only=True %}A link button{% endwuibutton %}
+            {% wuibutton element="span" icon="bin" scheme="no" icon_only=True %}A non-link button{% endwuibutton %}
+            {% wuibutton element="a" icon="tick" icon_bicolor=True disabled=True %}Button link{% endwuibutton %}
         </section>
 
         <section id="button-groups">
