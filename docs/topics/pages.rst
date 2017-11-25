@@ -29,7 +29,7 @@ This example represents a typical blog post:
     from wagtail.wagtailcore.models import Page, Orderable
     from wagtail.wagtailcore.fields import RichTextField
     from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, InlinePanel
-    from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
+    from wagtail.images.edit_handlers import ImageChooserPanel
     from wagtail.wagtailsearch import index
 
 
@@ -159,7 +159,7 @@ These are used for structuring fields in the interface.
 ``ForeignKey`` fields to certain models can use one of the below ``ChooserPanel`` classes. These add a nice modal chooser interface, and the image/document choosers also allow uploading new files without leaving the page editor.
 
  - :class:`~wagtail.wagtailadmin.edit_handlers.PageChooserPanel`
- - :class:`~wagtail.wagtailimages.edit_handlers.ImageChooserPanel`
+ - :class:`~wagtail.images.edit_handlers.ImageChooserPanel`
  - :class:`~wagtail.wagtaildocs.edit_handlers.DocumentChooserPanel`
  - :class:`~wagtail.wagtailsnippets.edit_handlers.SnippetChooserPanel`
 

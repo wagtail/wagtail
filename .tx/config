@@ -20,8 +20,8 @@ source_lang = en
 type = PO
 
 [wagtail.wagtailimages]
-file_filter = wagtail/wagtailimages/locale/<lang>/LC_MESSAGES/django.po
-source_file = wagtail/wagtailimages/locale/en/LC_MESSAGES/django.po
+file_filter = wagtail/images/locale/<lang>/LC_MESSAGES/django.po
+source_file = wagtail/images/locale/en/LC_MESSAGES/django.po
 source_lang = en
 type = PO
 

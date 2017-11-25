@@ -7,7 +7,7 @@ from wagtail.contrib.wagtailfrontendcache.utils import purge_url_from_cache
 from wagtail.wagtailcore.models import get_page_models
 from wagtail.wagtailcore.signals import page_published, page_unpublished
 from wagtail.wagtaildocs.models import get_document_model
-from wagtail.wagtailimages import get_image_model
+from wagtail.images import get_image_model
 
 from .utils import get_base_url
 
