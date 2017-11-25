@@ -484,3 +484,31 @@ class TestQuoting(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         response = self.client.get('/admin/modeladmintest/token/delete/Irregular_5FName/')
         self.assertEqual(response.status_code, 200)
+
+
+class TestHeaderBreadcrumbs(TestCase, WagtailTestUtils):
+    """
+        Test that the <ul class="breadcrumbs">... is inserted within the
+        <header> tag for potential future regression.
+        See https://github.com/wagtail/wagtail/issues/3889
+    """
+    fixtures = ['modeladmintest_test.json']
+
+    def setUp(self):
+        self.login()
+
+    def test_choose_inspect_model(self):
+        response = self.client.get('/admin/modeladmintest/author/inspect/1/')
+
+        # check correct templates were used
+        self.assertTemplateUsed(response, 'modeladmin/includes/breadcrumb.html')
+        self.assertTemplateUsed(response, 'wagtailadmin/shared/header.html')
+
+        # check that home breadcrumb link exists
+        self.assertContains(response, '<li class="home"><a href="/admin/" class="icon icon-home text-replace">Home</a></li>', html=True)
+
+        # check that the breadcrumbs are before the first header closing tag
+        content_str = str(response.content)
+        position_of_header_close = content_str.index('</header>')
+        position_of_breadcrumbs = content_str.index('<ul class="breadcrumb">')
+        self.assertGreater(position_of_header_close, position_of_breadcrumbs)

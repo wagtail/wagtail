@@ -1,0 +1,11 @@
+@import 'wagtailadmin/scss/variables';
+
+.breadcrumb {
+    margin: -1.2em 0 2em;
+}
+
+@media screen and (min-width: $breakpoint-mobile) {
+    .breadcrumb {
+        margin-top: -1.8em;
+    }
+}

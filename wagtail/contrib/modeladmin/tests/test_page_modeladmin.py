@@ -312,3 +312,47 @@ class TestModeratorAccess(TestCase):
     def test_delete_permitted(self):
         response = self.client.get('/admin/tests/eventpage/delete/4/')
         self.assertEqual(response.status_code, self.expected_status_code)
+
+
+class TestHeaderBreadcrumbs(TestCase, WagtailTestUtils):
+    """
+        Test that the <ul class="breadcrumbs">... is inserted within the
+        <header> tag for potential future regression.
+        See https://github.com/wagtail/wagtail/issues/3889
+    """
+    fixtures = ['test_specific.json']
+
+    def setUp(self):
+        self.login()
+
+    def test_choose_parent_page(self):
+        response = self.client.get('/admin/tests/eventpage/choose_parent/')
+
+        # check correct templates were used
+        self.assertTemplateUsed(response, 'modeladmin/includes/breadcrumb.html')
+        self.assertTemplateUsed(response, 'wagtailadmin/shared/header.html')
+
+        # check that home breadcrumb link exists
+        self.assertContains(response, '<li class="home"><a href="/admin/" class="icon icon-home text-replace">Home</a></li>', html=True)
+
+        # check that the breadcrumbs are after the header opening tag
+        content_str = str(response.content)
+        position_of_header = content_str.index('<header')  # intentionally not closing tag
+        position_of_breadcrumbs = content_str.index('<ul class="breadcrumb">')
+        self.assertLess(position_of_header, position_of_breadcrumbs)
+
+    def test_choose_inspect_page(self):
+        response = self.client.get('/admin/tests/eventpage/inspect/4/')
+
+        # check correct templates were used
+        self.assertTemplateUsed(response, 'modeladmin/includes/breadcrumb.html')
+        self.assertTemplateUsed(response, 'wagtailadmin/shared/header.html')
+
+        # check that home breadcrumb link exists
+        self.assertContains(response, '<li class="home"><a href="/admin/" class="icon icon-home text-replace">Home</a></li>', html=True)
+
+        # check that the breadcrumbs are after the header opening tag
+        content_str = str(response.content)
+        position_of_header = content_str.index('<header')  # intentionally not closing tag
+        position_of_breadcrumbs = content_str.index('<ul class="breadcrumb">')
+        self.assertLess(position_of_header, position_of_breadcrumbs)
