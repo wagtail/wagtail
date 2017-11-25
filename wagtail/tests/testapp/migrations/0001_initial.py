@@ -13,7 +13,7 @@ import wagtail.wagtailcore.blocks
 import wagtail.wagtailcore.fields
 import wagtail.wagtailimages.blocks
 import wagtail.wagtailimages.models
-import wagtail.wagtailsearch.index
+import wagtail.search.index
 
 
 class Migration(migrations.Migration):
@@ -145,7 +145,7 @@ class Migration(migrations.Migration):
             options={
                 'abstract': False,
             },
-            bases=(models.Model, wagtail.wagtailsearch.index.Indexed),
+            bases=(models.Model, wagtail.search.index.Indexed),
         ),
         migrations.CreateModel(
             name='CustomImageFilePath',
@@ -167,7 +167,7 @@ class Migration(migrations.Migration):
             options={
                 'abstract': False,
             },
-            bases=(models.Model, wagtail.wagtailsearch.index.Indexed),
+            bases=(models.Model, wagtail.search.index.Indexed),
         ),
         migrations.CreateModel(
             name='CustomManagerPage',

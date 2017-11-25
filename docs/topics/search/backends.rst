@@ -13,7 +13,7 @@ You can configure which backend to use with the ``WAGTAILSEARCH_BACKENDS`` setti
 
   WAGTAILSEARCH_BACKENDS = {
       'default': {
-          'BACKEND': 'wagtail.wagtailsearch.backends.db',
+          'BACKEND': 'wagtail.search.backends.db',
       }
   }
 
@@ -61,7 +61,7 @@ Here's a list of backends that Wagtail supports out of the box.
 Database Backend (default)
 --------------------------
 
-``wagtail.wagtailsearch.backends.db``
+``wagtail.search.backends.db``
 
 The database backend is very basic and is intended only to be used in development and on small sites. It cannot order results by relevance, severely hampering its usefulness when searching a large collection of pages.
 
@@ -99,9 +99,9 @@ Elasticsearch Backend
 
 Elasticsearch versions 2 and 5 are supported. Use the appropriate backend for your version:
 
-``wagtail.wagtailsearch.backends.elasticsearch2`` (Elasticsearch 2.x)
+``wagtail.search.backends.elasticsearch2`` (Elasticsearch 2.x)
 
-``wagtail.wagtailsearch.backends.elasticsearch5`` (Elasticsearch 5.x)
+``wagtail.search.backends.elasticsearch5`` (Elasticsearch 5.x)
 
 Prerequisites are the `Elasticsearch`_ service itself and, via pip, the `elasticsearch-py`_ package. The major version of the package must match the installed version of Elasticsearch:
 
@@ -121,7 +121,7 @@ The backend is configured in settings:
 
   WAGTAILSEARCH_BACKENDS = {
       'default': {
-          'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch2',
+          'BACKEND': 'wagtail.search.backends.elasticsearch2',
           'URLS': ['http://localhost:9200'],
           'INDEX': 'wagtail',
           'TIMEOUT': 5,
@@ -177,7 +177,7 @@ The Elasticsearch backend is compatible with `Amazon Elasticsearch Service`_, bu
 
   WAGTAILSEARCH_BACKENDS = {
       'default': {
-          'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch2',
+          'BACKEND': 'wagtail.search.backends.elasticsearch2',
           'INDEX': 'wagtail',
           'TIMEOUT': 5,
           'HOSTS': [{

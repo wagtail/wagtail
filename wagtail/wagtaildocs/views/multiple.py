@@ -9,7 +9,7 @@ from django.views.decorators.http import require_POST
 from django.views.decorators.vary import vary_on_headers
 
 from wagtail.wagtailadmin.utils import PermissionPolicyChecker
-from wagtail.wagtailsearch.backends import get_search_backends
+from wagtail.search.backends import get_search_backends
 
 from ..forms import get_document_form, get_document_multi_form
 from ..models import get_document_model

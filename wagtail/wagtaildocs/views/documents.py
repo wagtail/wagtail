@@ -14,7 +14,7 @@ from wagtail.wagtailcore.models import Collection
 from wagtail.wagtaildocs.forms import get_document_form
 from wagtail.wagtaildocs.models import get_document_model
 from wagtail.wagtaildocs.permissions import permission_policy
-from wagtail.wagtailsearch import index as search_index
+from wagtail.search import index as search_index
 
 permission_checker = PermissionPolicyChecker(permission_policy)
 

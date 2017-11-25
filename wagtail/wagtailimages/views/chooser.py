@@ -15,7 +15,7 @@ from wagtail.wagtailimages import get_image_model
 from wagtail.wagtailimages.formats import get_image_format
 from wagtail.wagtailimages.forms import ImageInsertionForm, get_image_form
 from wagtail.wagtailimages.permissions import permission_policy
-from wagtail.wagtailsearch import index as search_index
+from wagtail.search import index as search_index
 
 permission_checker = PermissionPolicyChecker(permission_policy)
 

@@ -13,7 +13,7 @@ from wagtail.wagtailimages import get_image_model
 from wagtail.wagtailimages.fields import ALLOWED_EXTENSIONS
 from wagtail.wagtailimages.forms import get_image_form
 from wagtail.wagtailimages.permissions import permission_policy
-from wagtail.wagtailsearch.backends import get_search_backends
+from wagtail.search.backends import get_search_backends
 
 permission_checker = PermissionPolicyChecker(permission_policy)
 
