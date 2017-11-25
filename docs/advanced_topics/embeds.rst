@@ -30,14 +30,14 @@ nest the embed code.
 ``EmbedBlock`` StreamField block type
 -------------------------------------
 
-The :class:`~wagtail.wagtailembeds.block.EmbedBlock` block type allows embeds
+The :class:`~wagtail.embeds.block.EmbedBlock` block type allows embeds
 to be placed into a ``StreamField``.
 
 For example:
 
 .. code-block:: python
 
-    from wagtail.wagtailembeds.blocks import EmbedBlock
+    from wagtail.embeds.blocks import EmbedBlock
 
     class MyStreamField(blocks.StreamBlock):
         ...
@@ -74,8 +74,8 @@ fetching the embed code.
 
 .. code-block:: python
 
-    from wagtail.wagtailembeds.embeds import get_embed
-    from wagtail.wagtailembeds.exceptions import EmbedException
+    from wagtail.embeds.embeds import get_embed
+    from wagtail.embeds.exceptions import EmbedException
 
     try:
         embed = get_embed('https://www.youtube.com/watch?v=SJXMTtvCxRo')
@@ -103,7 +103,7 @@ The default configuration is:
 
     WAGTAILEMBEDS_FINDERS = [
         {
-            'class': 'wagtail.wagtailembeds.finders.oembed'
+            'class': 'wagtail.embeds.finders.oembed'
         }
     ]
 
@@ -132,7 +132,7 @@ and Youtube. It also adds a custom provider:
 
 .. code-block:: python
 
-    from wagtail.wagtailembeds.oembed_providers import youtube, vimeo
+    from wagtail.embeds.oembed_providers import youtube, vimeo
 
     # Add a custom provider
     # Your custom provider must support oEmbed for this to work. You should be
@@ -148,7 +148,7 @@ and Youtube. It also adds a custom provider:
 
     WAGTAILEMBEDS_FINDERS = [
         {
-            'class': 'wagtail.wagtailembeds.finders.oembed',
+            'class': 'wagtail.embeds.finders.oembed',
             'providers': [youtube, vimeo, my_custom_provider],
         }
     ]
@@ -164,21 +164,21 @@ For example, this is how you can instruct Youtube to return videos in HTTPS
 
 .. code-block:: python
 
-    from wagtail.wagtailembeds.oembed_providers import youtube
+    from wagtail.embeds.oembed_providers import youtube
 
 
     WAGTAILEMBEDS_FINDERS = [
         # Fetches YouTube videos but puts ``?scheme=https`` in the GET parameters
         # when calling YouTube's oEmbed endpoint
         {
-            'class': 'wagtail.wagtailembeds.finders.oembed',
+            'class': 'wagtail.embeds.finders.oembed',
             'providers': [youtube],
             'options': {'scheme': 'https'}
         },
 
         # Handles all other oEmbed providers the default way
         {
-            'class': 'wagtail.wagtailembeds.finders.oembed',
+            'class': 'wagtail.embeds.finders.oembed',
         }
     ]
 
@@ -206,13 +206,13 @@ them.
 
 Wagtail has built in support for fetching embeds from Embed.ly.  To use it, add
 an embed finder to your ``WAGTAILEMBEDS_FINDERS`` setting that uses the
-``wagtail.wagtailembeds.finders.oembed`` class and pass it your API key:
+``wagtail.embeds.finders.oembed`` class and pass it your API key:
 
 .. code-block:: python
 
     WAGTAILEMBEDS_FINDERS = [
         {
-            'class': 'wagtail.wagtailembeds.finders.embedly',
+            'class': 'wagtail.embeds.finders.embedly',
             'key': 'YOUR EMBED.LY KEY HERE'
         }
     ]
@@ -229,7 +229,7 @@ docstrings for details of what each method does:
 
 .. code-block:: python
 
-    from wagtail.wagtailembeds.finders.base import EmbedFinder
+    from wagtail.embeds.finders.base import EmbedFinder
 
 
     class ExampleFinder(EmbedFinder):
@@ -279,7 +279,7 @@ Once you've implemented all of those methods, you just need to add it to your
 The ``Embed`` model
 ===================
 
-.. class:: wagtail.wagtailembeds.models.Embed
+.. class:: wagtail.embeds.models.Embed
 
     Embeds are fetched only once and stored in the database so subsequent requests
     for an individual embed do not hit the embed finders again.

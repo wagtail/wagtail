@@ -26,8 +26,8 @@ source_lang = en
 type = PO
 
 [wagtail.wagtailembeds]
-file_filter = wagtail/wagtailembeds/locale/<lang>/LC_MESSAGES/django.po
-source_file = wagtail/wagtailembeds/locale/en/LC_MESSAGES/django.po
+file_filter = wagtail/embeds/locale/<lang>/LC_MESSAGES/django.po
+source_file = wagtail/embeds/locale/en/LC_MESSAGES/django.po
 source_lang = en
 type = PO
 

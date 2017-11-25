@@ -6,7 +6,7 @@ from .finders import get_finders
 
 
 class WagtailEmbedsAppConfig(AppConfig):
-    name = 'wagtail.wagtailembeds'
+    name = 'wagtail.embeds'
     label = 'wagtailembeds'
     verbose_name = "Wagtail embeds"
 

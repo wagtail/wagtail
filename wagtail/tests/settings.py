@@ -120,7 +120,7 @@ INSTALLED_APPS = (
     'wagtail.contrib.table_block',
     'wagtail.wagtailforms',
     'wagtail.wagtailsearch',
-    'wagtail.wagtailembeds',
+    'wagtail.embeds',
     'wagtail.wagtailimages',
     'wagtail.wagtailsites',
     'wagtail.wagtailusers',
