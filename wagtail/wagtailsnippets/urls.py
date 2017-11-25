@@ -10,11 +10,11 @@ urlpatterns = [
 
     url(r'^choose/$', chooser.choose, name='choose_generic'),
     url(r'^choose/(\w+)/(\w+)/$', chooser.choose, name='choose'),
-    url(r'^choose/(\w+)/(\w+)/(\d+)/$', chooser.chosen, name='chosen'),
+    url(r'^choose/(\w+)/(\w+)/([^/]+?)/$', chooser.chosen, name='chosen'),
 
     url(r'^(\w+)/(\w+)/$', snippets.list, name='list'),
     url(r'^(\w+)/(\w+)/add/$', snippets.create, name='add'),
-    url(r'^(\w+)/(\w+)/(\d+)/$', snippets.edit, name='edit'),
-    url(r'^(\w+)/(\w+)/(\d+)/delete/$', snippets.delete, name='delete'),
-    url(r'^(\w+)/(\w+)/(\d+)/usage/$', snippets.usage, name='usage'),
+    url(r'^(\w+)/(\w+)/([^/]+?)/$', snippets.edit, name='edit'),
+    url(r'^(\w+)/(\w+)/([^/]+?)/delete/$', snippets.delete, name='delete'),
+    url(r'^(\w+)/(\w+)/([^/]+?)/usage/$', snippets.usage, name='usage'),
 ]

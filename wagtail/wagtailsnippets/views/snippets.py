@@ -1,6 +1,7 @@
 from __future__ import absolute_import, unicode_literals
 
 from django.apps import apps
+from django.contrib.admin.utils import quote, unquote
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
@@ -147,7 +148,7 @@ def create(request, app_label, model_name):
                 ),
                 buttons=[
                     messages.button(reverse(
-                        'wagtailsnippets:edit', args=(app_label, model_name, instance.id)
+                        'wagtailsnippets:edit', args=(app_label, model_name, instance.pk)
                     ), _('Edit'))
                 ]
             )
@@ -166,14 +167,14 @@ def create(request, app_label, model_name):
     })
 
 
-def edit(request, app_label, model_name, id):
+def edit(request, app_label, model_name, pk):
     model = get_snippet_model_from_url_params(app_label, model_name)
 
     permission = get_permission_name('change', model)
     if not request.user.has_perm(permission):
         return permission_denied(request)
 
-    instance = get_object_or_404(model, id=id)
+    instance = get_object_or_404(model, pk=unquote(pk))
     edit_handler_class = get_snippet_edit_handler(model)
     form_class = edit_handler_class.get_form_class(model)
 
@@ -191,7 +192,7 @@ def edit(request, app_label, model_name, id):
                 ),
                 buttons=[
                     messages.button(reverse(
-                        'wagtailsnippets:edit', args=(app_label, model_name, instance.id)
+                        'wagtailsnippets:edit', args=(app_label, model_name, quote(instance.pk))
                     ), _('Edit'))
                 ]
             )
@@ -211,14 +212,14 @@ def edit(request, app_label, model_name, id):
     })
 
 
-def delete(request, app_label, model_name, id):
+def delete(request, app_label, model_name, pk):
     model = get_snippet_model_from_url_params(app_label, model_name)
 
     permission = get_permission_name('delete', model)
     if not request.user.has_perm(permission):
         return permission_denied(request)
 
-    instance = get_object_or_404(model, id=id)
+    instance = get_object_or_404(model, pk=unquote(pk))
 
     if request.method == 'POST':
         instance.delete()
@@ -237,9 +238,9 @@ def delete(request, app_label, model_name, id):
     })
 
 
-def usage(request, app_label, model_name, id):
+def usage(request, app_label, model_name, pk):
     model = get_snippet_model_from_url_params(app_label, model_name)
-    instance = get_object_or_404(model, id=id)
+    instance = get_object_or_404(model, pk=unquote(pk))
 
     paginator, used_by = paginate(request, instance.get_usage())
 

@@ -1,4 +1,5 @@
 {% extends "wagtailadmin/widgets/chooser.html" %}
+{% load admin_urls %}
 
 {% block chooser_class %}snippet-chooser{% endblock %}
 
@@ -6,4 +7,4 @@
     <span class="title">{{ item }}</span>
 {% endblock %}
 
-{% block edit_chosen_item_url %}{% if item %}{% url 'wagtailsnippets:edit' model_opts.app_label model_opts.model_name item.id %}{% endif %}{% endblock %}
+{% block edit_chosen_item_url %}{% if item %}{% url 'wagtailsnippets:edit' model_opts.app_label model_opts.model_name item.pk|admin_urlquote %}{% endif %}{% endblock %}
