@@ -398,9 +398,6 @@ class Block(metaclass=BaseBlock):
 
         return (self.name == other.name) and (self.deconstruct() == other.deconstruct())
 
-    def __ne__(self, other):
-        return not self.__eq__(other)
-
 
 class BoundBlock(object):
     def __init__(self, block, value, prefix=None, errors=None):

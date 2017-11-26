@@ -15,9 +15,6 @@ class Vector(object):
     def __eq__(self, other):
         return tuple(self) == tuple(other)
 
-    def __ne__(self, other):
-        return not (self == other)
-
     def __repr__(self):
         return 'Vector(x: %d, y: %d)' % (
             self.x, self.y
@@ -165,9 +162,6 @@ class Rect(object):
 
     def __eq__(self, other):
         return tuple(self) == tuple(other)
-
-    def __ne__(self, other):
-        return not (self == other)
 
     def __repr__(self):
         return 'Rect(left: %d, top: %d, right: %d, bottom: %d)' % (
