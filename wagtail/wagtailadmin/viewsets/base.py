@@ -1,5 +1,3 @@
-from __future__ import absolute_import, unicode_literals
-
 
 class ViewSet(object):
     def __init__(self, name, **kwargs):

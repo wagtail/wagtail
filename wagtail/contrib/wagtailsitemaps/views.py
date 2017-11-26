@@ -1,5 +1,3 @@
-from __future__ import absolute_import, unicode_literals
-
 from django.contrib.sitemaps import views as sitemap_views
 
 from .sitemap_generator import Sitemap

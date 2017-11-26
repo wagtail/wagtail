@@ -1,5 +1,3 @@
-from __future__ import absolute_import, unicode_literals
-
 from urllib.parse import parse_qs
 
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator

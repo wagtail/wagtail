@@ -1,8 +1,6 @@
-from __future__ import absolute_import, unicode_literals
-
-
 # Helper functions for migrating the Rendition.filter foreign key to the filter_spec field,
 # and the corresponding reverse migration
+
 
 def get_fill_filter_spec_migrations(app_name, rendition_model_name):
 

@@ -1,5 +1,3 @@
-from __future__ import absolute_import, unicode_literals
-
 from rest_framework.fields import Field
 
 from wagtail.api.v2.serializers import BaseSerializer

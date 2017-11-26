@@ -1,5 +1,3 @@
-from __future__ import absolute_import, unicode_literals
-
 from django import forms
 from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.core.exceptions import ValidationError

@@ -1,5 +1,3 @@
-from __future__ import absolute_import, division, unicode_literals
-
 from django.apps import AppConfig
 from django.core.checks import Error, Tags, register
 

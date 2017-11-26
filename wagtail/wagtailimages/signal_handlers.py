@@ -1,5 +1,3 @@
-from __future__ import absolute_import, unicode_literals
-
 from django.conf import settings
 from django.db import transaction
 from django.db.models.signals import post_delete, pre_save

@@ -1,5 +1,3 @@
-from __future__ import absolute_import, unicode_literals
-
 from wagtail.wagtailembeds.exceptions import EmbedException, EmbedNotFoundException
 
 from .base import EmbedFinder

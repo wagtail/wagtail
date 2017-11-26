@@ -1,5 +1,3 @@
-from __future__ import absolute_import, unicode_literals
-
 from django import forms
 from django.forms.models import modelform_factory
 from django.utils.text import capfirst

@@ -1,5 +1,3 @@
-from __future__ import absolute_import, unicode_literals
-
 from django import template
 from django.template.defaulttags import token_kwargs
 from django.utils.encoding import force_text

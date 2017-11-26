@@ -1,5 +1,3 @@
-from __future__ import absolute_import, unicode_literals
-
 speakerdeck = {
     "endpoint": "https://speakerdeck.com/oembed.{format}",
     "urls": [

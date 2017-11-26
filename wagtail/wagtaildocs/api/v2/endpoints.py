@@ -1,5 +1,3 @@
-from __future__ import absolute_import, unicode_literals
-
 from wagtail.api.v2.endpoints import BaseAPIEndpoint
 from wagtail.api.v2.filters import FieldsFilter, OrderingFilter, SearchFilter
 

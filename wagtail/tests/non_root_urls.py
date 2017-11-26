@@ -1,8 +1,6 @@
 """An alternative urlconf module where Wagtail front-end URLs
 are rooted at '/site/' rather than '/'"""
 
-from __future__ import absolute_import, unicode_literals
-
 from django.conf.urls import include, url
 
 from wagtail.wagtailadmin import urls as wagtailadmin_urls
