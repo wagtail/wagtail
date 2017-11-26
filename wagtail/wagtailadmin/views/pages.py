@@ -489,8 +489,15 @@ def edit(request, page_id):
 
         messages.warning(request, _("This page is currently awaiting moderation"), buttons=buttons)
 
+    # Page status needs to present the version of the page containing the correct live URL
+    if page.has_unpublished_changes:
+        page_for_status = latest_revision.page
+    else:
+        page_for_status = page
+
     return render(request, 'wagtailadmin/pages/edit.html', {
         'page': page,
+        'page_for_status': page_for_status,
         'content_type': content_type,
         'edit_handler': edit_handler,
         'errors_debug': errors_debug,
