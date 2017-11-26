@@ -20,8 +20,7 @@ from django.db.models.functions import Concat, Substr
 from django.http import Http404
 from django.template.response import TemplateResponse
 from django.urls import reverse
-# Must be imported from Django so we get the new implementation of with_metaclass
-from django.utils import six, timezone
+from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.text import capfirst, slugify
 from django.utils.translation import ugettext_lazy as _
@@ -235,7 +234,7 @@ class AbstractPage(MP_Node):
         abstract = True
 
 
-class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, ClusterableModel)):
+class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     title = models.CharField(
         verbose_name=_('title'),
         max_length=255,
