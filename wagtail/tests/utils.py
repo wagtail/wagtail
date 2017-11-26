@@ -8,7 +8,6 @@ from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.test.testcases import assert_and_parse_html
 from django.urls import reverse
-from django.utils import six
 from django.utils.text import slugify
 
 from wagtail.tests.assert_logs import _AssertLogsContext

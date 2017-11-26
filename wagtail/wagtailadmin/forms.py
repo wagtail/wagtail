@@ -12,7 +12,6 @@ from django.db import models, transaction
 from django.forms.widgets import TextInput
 from django.template.loader import render_to_string
 from django.utils import timezone
-from django.utils.six import with_metaclass
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy, ungettext
 from modelcluster.forms import ClusterForm, ClusterFormMetaclass
@@ -293,7 +292,7 @@ class WagtailAdminModelFormMetaclass(ClusterFormMetaclass):
         return new_class
 
 
-class WagtailAdminModelForm(with_metaclass(WagtailAdminModelFormMetaclass, ClusterForm)):
+class WagtailAdminModelForm(ClusterForm, metaclass=WagtailAdminModelFormMetaclass):
     @property
     def media(self):
         # Include media from formsets forms. This allow StreamField in InlinePanel for example.
