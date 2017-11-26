@@ -1,5 +1,3 @@
-from __future__ import absolute_import, unicode_literals
-
 from wagtail.contrib.modeladmin.options import (
     ModelAdmin, ModelAdminGroup, ThumbnailMixin, modeladmin_register)
 from wagtail.contrib.modeladmin.views import CreateView

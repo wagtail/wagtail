@@ -1,5 +1,3 @@
-from __future__ import absolute_import, unicode_literals
-
 from django.apps import apps
 
 from wagtail.contrib.wagtailfrontendcache.utils import purge_page_from_cache

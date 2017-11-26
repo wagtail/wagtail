@@ -1,5 +1,3 @@
-from __future__ import absolute_import, unicode_literals
-
 from django.forms.utils import ErrorList
 from django.utils.translation import ugettext as _
 

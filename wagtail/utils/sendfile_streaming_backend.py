@@ -1,8 +1,6 @@
 # Sendfile "streaming" backend
 # This is based on sendfiles builtin "simple" backend but uses a StreamingHttpResponse
 
-from __future__ import absolute_import, unicode_literals
-
 import os
 import re
 import stat

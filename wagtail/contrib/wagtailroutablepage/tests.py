@@ -1,5 +1,3 @@
-from __future__ import absolute_import, unicode_literals
-
 import mock
 from django.test import RequestFactory, TestCase
 from django.urls.exceptions import NoReverseMatch

@@ -1,5 +1,3 @@
-from __future__ import absolute_import, unicode_literals
-
 from django.contrib import messages
 from django.core.exceptions import NON_FIELD_ERRORS
 from django.template.loader import render_to_string

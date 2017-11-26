@@ -1,5 +1,3 @@
-from __future__ import absolute_import, unicode_literals
-
 from django.utils.deprecation import MiddlewareMixin
 
 from wagtail.wagtailcore.models import Site

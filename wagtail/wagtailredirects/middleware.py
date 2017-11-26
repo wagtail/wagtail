@@ -1,5 +1,3 @@
-from __future__ import absolute_import, unicode_literals
-
 from urllib.parse import urlparse
 
 from django import http

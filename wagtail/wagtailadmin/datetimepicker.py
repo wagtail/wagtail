@@ -1,8 +1,7 @@
-from __future__ import absolute_import, unicode_literals
-
-
 # Adapted from https://djangosnippets.org/snippets/10563/
 # original author bernd-wechner
+
+
 def to_datetimepicker_format(python_format_string):
     """
     Given a python datetime format string, attempts to convert it to

@@ -1,5 +1,3 @@
-from __future__ import absolute_import, unicode_literals
-
 
 class APIField(object):
     def __init__(self, name, serializer=None):

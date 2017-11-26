@@ -1,8 +1,6 @@
 """
 Tests for the search box in the admin side menu, and the custom search hooks.
 """
-from __future__ import absolute_import, unicode_literals
-
 from django.contrib.auth.models import Permission
 from django.template import Context, Template
 from django.test import RequestFactory, TestCase

@@ -1,5 +1,3 @@
-from __future__ import absolute_import, unicode_literals
-
 from django import template
 from django.core.cache import cache
 from django.http import HttpRequest

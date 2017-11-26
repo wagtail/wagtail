@@ -67,8 +67,6 @@ Edit ``home/models.py`` as follows, to add a ``body`` field to the model:
 
 .. code-block:: python
 
-    from __future__ import unicode_literals
-
     from django.db import models
 
     from wagtail.wagtailcore.models import Page
