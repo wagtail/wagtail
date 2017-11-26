@@ -5,7 +5,6 @@ from django.forms.utils import flatatt
 from django.template.loader import render_to_string
 from django.utils.functional import cached_property, total_ordering
 from django.utils.safestring import mark_safe
-from django.utils.six import with_metaclass
 from django.utils.text import slugify
 
 from wagtail.admin.forms import SearchForm
@@ -13,7 +12,7 @@ from wagtail.core import hooks
 
 
 @total_ordering
-class SearchArea(with_metaclass(MediaDefiningClass)):
+class SearchArea(metaclass=MediaDefiningClass):
     template = 'wagtailadmin/shared/search_area.html'
 
     def __init__(self, label, url, name=None, classnames='', attrs=None, order=1000):

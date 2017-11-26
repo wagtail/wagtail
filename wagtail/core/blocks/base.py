@@ -7,7 +7,6 @@ from django import forms
 from django.core import checks
 from django.core.exceptions import ImproperlyConfigured
 from django.template.loader import render_to_string
-from django.utils import six
 from django.utils.encoding import force_text
 from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
@@ -39,7 +38,7 @@ class BaseBlock(type):
         return cls
 
 
-class Block(six.with_metaclass(BaseBlock, object)):
+class Block(metaclass=BaseBlock):
     name = ''
     creation_counter = 0
 

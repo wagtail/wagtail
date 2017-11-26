@@ -8,8 +8,6 @@ from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.core.exceptions import NON_FIELD_ERRORS, ValidationError
 from django.forms.utils import ErrorList
 from django.template.loader import render_to_string
-# Must be imported from Django so we get the new implementation of with_metaclass
-from django.utils import six
 from django.utils.html import format_html_join
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as _
@@ -321,7 +319,7 @@ class BaseStreamBlock(Block):
         block_counts = {}
 
 
-class StreamBlock(six.with_metaclass(DeclarativeSubBlocksMetaclass, BaseStreamBlock)):
+class StreamBlock(BaseStreamBlock, metaclass=DeclarativeSubBlocksMetaclass):
     pass
 
 

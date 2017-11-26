@@ -7,8 +7,6 @@ from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.core.exceptions import ValidationError
 from django.forms.utils import ErrorList
 from django.template.loader import render_to_string
-# Must be imported from Django so we get the new implementation of with_metaclass
-from django.utils import six
 from django.utils.functional import cached_property
 from django.utils.html import format_html, format_html_join
 
@@ -189,7 +187,7 @@ class BaseStructBlock(Block):
         icon = "placeholder"
 
 
-class StructBlock(six.with_metaclass(DeclarativeSubBlocksMetaclass, BaseStructBlock)):
+class StructBlock(BaseStructBlock, metaclass=DeclarativeSubBlocksMetaclass):
     pass
 
 

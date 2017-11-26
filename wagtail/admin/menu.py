@@ -5,13 +5,12 @@ from django.forms import Media, MediaDefiningClass
 from django.forms.utils import flatatt
 from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
-from django.utils.six import with_metaclass
 from django.utils.text import slugify
 
 from wagtail.core import hooks
 
 
-class MenuItem(with_metaclass(MediaDefiningClass)):
+class MenuItem(metaclass=MediaDefiningClass):
     template = 'wagtailadmin/shared/menu_item.html'
 
     def __init__(self, label, url, name=None, classnames='', attrs=None, order=1000):
