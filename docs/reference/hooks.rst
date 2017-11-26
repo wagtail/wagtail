@@ -64,7 +64,7 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
 
     from wagtail.core import hooks
 
-    class WelcomePanel(object):
+    class WelcomePanel:
         order = 50
 
         def render(self):
@@ -503,7 +503,7 @@ Hooks for customising the way users are directed through the process of creating
 
     from wagtail.core import hooks
 
-    class UserbarPuppyLinkItem(object):
+    class UserbarPuppyLinkItem:
         def render(self, request):
             return '<li><a href="http://cuteoverload.com/tag/puppehs/" ' \
                 + 'target="_parent" class="action icon icon-wagtail">Puppies!</a></li>'

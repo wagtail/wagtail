@@ -3,7 +3,7 @@ from django.utils.html import escape
 from wagtail.documents.models import get_document_model
 
 
-class DocumentLinkHandler(object):
+class DocumentLinkHandler:
     @staticmethod
     def get_db_attributes(tag):
         return {'id': tag['data-id']}

@@ -29,7 +29,7 @@ def route(pattern, name=None):
     return decorator
 
 
-class RoutablePageMixin(object):
+class RoutablePageMixin:
     """
     This class can be mixed in to a Page model, allowing extra routes to be
     added to it.

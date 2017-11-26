@@ -214,7 +214,7 @@ class AdminPageChooser(AdminChooser):
 
 
 @total_ordering
-class Button(object):
+class Button:
     show = True
 
     def __init__(self, label, url, classes=set(), attrs={}, priority=1000):

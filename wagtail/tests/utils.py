@@ -11,7 +11,7 @@ from django.utils.text import slugify
 from wagtail.tests.assert_logs import _AssertLogsContext
 
 
-class WagtailTestUtils(object):
+class WagtailTestUtils:
 
     @staticmethod
     def create_test_user():

@@ -5,7 +5,7 @@ from collections import namedtuple
 # Implementation of TestCase.assertLogs for pre-3.4 Python versions.
 # Borrowed from https://github.com/django/django/pull/3467/commits/1b4f10963628bb68246c193f1124a1f7b6e4c696
 
-class _BaseTestCaseContext(object):
+class _BaseTestCaseContext:
     def __init__(self, test_case):
         self.test_case = test_case
 

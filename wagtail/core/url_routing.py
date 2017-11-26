@@ -1,5 +1,5 @@
 
-class RouteResult(object):
+class RouteResult:
     """
     An object to be returned from Page.route, which encapsulates
     all the information necessary to serve an HTTP response. Analogous to

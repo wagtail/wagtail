@@ -5,7 +5,7 @@ from django.contrib.contenttypes.models import ContentType
 from wagtail.core.models import Page, UserPagePermissionsProxy
 
 
-class PermissionHelper(object):
+class PermissionHelper:
     """
     Provides permission-related helper functions to help determine what a
     user can do with a 'typical' model (where permissions are granted

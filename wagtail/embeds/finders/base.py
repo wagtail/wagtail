@@ -1,5 +1,5 @@
 
-class EmbedFinder(object):
+class EmbedFinder:
     def accept(self, url):
         return False
 

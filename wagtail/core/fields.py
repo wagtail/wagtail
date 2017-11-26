@@ -21,7 +21,7 @@ class RichTextField(models.TextField):
 
 
 # https://github.com/django/django/blob/64200c14e0072ba0ffef86da46b2ea82fd1e019a/django/db/models/fields/subclassing.py#L31-L44
-class Creator(object):
+class Creator:
     """
     A placeholder class that provides a way to set the attribute on the model.
     """

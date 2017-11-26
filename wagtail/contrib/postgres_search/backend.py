@@ -21,7 +21,7 @@ from .utils import (
 # TODO: Add autocomplete.
 
 
-class Index(object):
+class Index:
     def __init__(self, backend, model, db_alias=None):
         self.backend = backend
         self.model = model

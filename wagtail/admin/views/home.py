@@ -17,7 +17,7 @@ User = get_user_model()
 
 # Panels for the homepage
 
-class UpgradeNotificationPanel(object):
+class UpgradeNotificationPanel:
     name = 'upgrade_notification'
     order = 100
 
@@ -31,7 +31,7 @@ class UpgradeNotificationPanel(object):
             return ""
 
 
-class PagesForModerationPanel(object):
+class PagesForModerationPanel:
     name = 'pages_for_moderation'
     order = 200
 
@@ -47,7 +47,7 @@ class PagesForModerationPanel(object):
         }, request=self.request)
 
 
-class RecentEditsPanel(object):
+class RecentEditsPanel:
     name = 'recent_edits'
     order = 300
 

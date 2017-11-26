@@ -10,7 +10,7 @@ from wagtail.images.models import Filter, Image
 from wagtail.images.tests.utils import get_test_image_file, get_test_image_file_jpeg
 
 
-class WillowOperationRecorder(object):
+class WillowOperationRecorder:
     """
     This class pretends to be a Willow image but instead, it records
     the operations that have been performed on the image for testing

@@ -149,7 +149,7 @@ class TestPageEditHandlers(TestCase):
 
     @clear_edit_handler(ValidatedPage)
     def test_check_invalid_base_form_class(self):
-        class BadFormClass(object):
+        class BadFormClass:
             pass
 
         invalid_base_form = checks.Error(

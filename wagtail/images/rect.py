@@ -1,7 +1,7 @@
 import math
 
 
-class Vector(object):
+class Vector:
     def __init__(self, x, y):
         self.x = x
         self.y = y
@@ -24,7 +24,7 @@ class Vector(object):
         )
 
 
-class Rect(object):
+class Rect:
     def __init__(self, left, top, right, bottom):
         self.left = left
         self.top = top

@@ -2,7 +2,7 @@ from wagtail.embeds import format
 from wagtail.embeds.exceptions import EmbedException
 
 
-class MediaEmbedHandler(object):
+class MediaEmbedHandler:
     """
     MediaEmbedHandler will be invoked whenever we encounter an element in HTML content
     with an attribute of data-embedtype="media". The resulting element in the database

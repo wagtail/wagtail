@@ -6,7 +6,7 @@ from django.db.models import Q
 from django.utils.functional import cached_property
 
 
-class BasePermissionPolicy(object):
+class BasePermissionPolicy:
     """
     A 'permission policy' is an object that handles all decisions about the actions
     users are allowed to perform on a given model. The mechanism by which it does this

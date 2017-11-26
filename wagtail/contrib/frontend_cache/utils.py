@@ -91,7 +91,7 @@ def purge_pages_from_cache(pages, backend_settings=None, backends=None):
         purge_urls_from_cache(urls, backend_settings, backends)
 
 
-class PurgeBatch(object):
+class PurgeBatch:
     """Represents a list of URLs to be purged in a single request"""
     def __init__(self, urls=None):
         self.urls = []

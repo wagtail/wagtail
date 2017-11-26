@@ -18,7 +18,7 @@ class BaseImageChooserPanel(BaseChooserPanel):
         return ImageFieldComparison
 
 
-class ImageChooserPanel(object):
+class ImageChooserPanel:
     def __init__(self, field_name):
         self.field_name = field_name
 

@@ -15,7 +15,7 @@ from wagtail.core.whitelist import Whitelister
 # to DB representation and back again.
 
 
-class PageLinkHandler(object):
+class PageLinkHandler:
     """
     PageLinkHandler will be invoked whenever we encounter an <a> element in HTML content
     with an attribute of data-linktype="page". The resulting element in the database
@@ -179,7 +179,7 @@ def expand_db_html(html, for_editor=False):
     return html
 
 
-class RichText(object):
+class RichText:
     """
     A custom object used to represent a renderable rich text value.
     Provides a 'source' property to access the original source code,
@@ -200,7 +200,7 @@ class RichText(object):
     __nonzero__ = __bool__
 
 
-class FeatureRegistry(object):
+class FeatureRegistry:
     """
     A central store of information about optional features that can be enabled in rich text
     editors by passing a ``features`` list to the RichTextField, such as how to

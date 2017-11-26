@@ -2,7 +2,7 @@ from wagtail.core import blocks
 from wagtail.embeds.format import embed_to_frontend_html
 
 
-class EmbedValue(object):
+class EmbedValue:
     """
     Native value of an EmbedBlock. Should, at minimum, have a 'url' property
     and render as the embed HTML when rendered in a template.

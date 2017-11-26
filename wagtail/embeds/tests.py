@@ -300,7 +300,7 @@ class TestEmbedly(TestCase):
 
 class TestOembed(TestCase):
     def setUp(self):
-        class DummyResponse(object):
+        class DummyResponse:
             def read(self):
                 return b"foo"
         self.dummy_response = DummyResponse()

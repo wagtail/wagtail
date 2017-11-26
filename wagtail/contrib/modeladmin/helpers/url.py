@@ -3,7 +3,7 @@ from django.utils.functional import cached_property
 from django.utils.http import urlquote
 
 
-class AdminURLHelper(object):
+class AdminURLHelper:
 
     def __init__(self, model):
         self.model = model

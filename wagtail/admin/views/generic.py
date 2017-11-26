@@ -10,7 +10,7 @@ from wagtail.admin import messages
 from wagtail.admin.utils import permission_denied
 
 
-class PermissionCheckedMixin(object):
+class PermissionCheckedMixin:
     """
     Mixin for class-based views to enforce permission checks according to
     a permission policy (see wagtail.core.permission_policies).

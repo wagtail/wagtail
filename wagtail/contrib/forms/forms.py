@@ -16,7 +16,7 @@ class BaseForm(django.forms.Form):
         super(BaseForm, self).__init__(*args, **kwargs)
 
 
-class FormBuilder(object):
+class FormBuilder:
     def __init__(self, fields):
         self.fields = fields
 

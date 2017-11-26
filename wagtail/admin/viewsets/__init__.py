@@ -3,7 +3,7 @@ from django.conf.urls import url, include
 from wagtail.core import hooks
 
 
-class ViewSetRegistry(object):
+class ViewSetRegistry:
     def __init__(self):
         self.viewsets = []
 

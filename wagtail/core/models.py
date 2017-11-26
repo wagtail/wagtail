@@ -1562,7 +1562,7 @@ class GroupPagePermission(models.Model):
         )
 
 
-class UserPagePermissionsProxy(object):
+class UserPagePermissionsProxy:
     """Helper object that encapsulates all the page permission rules that this user has
     across the page hierarchy."""
     def __init__(self, user):
@@ -1648,7 +1648,7 @@ class UserPagePermissionsProxy(object):
         return self.publishable_pages().exists()
 
 
-class PagePermissionTester(object):
+class PagePermissionTester:
     def __init__(self, user_perms, page):
         self.user = user_perms.user
         self.user_perms = user_perms

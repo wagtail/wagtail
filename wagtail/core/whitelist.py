@@ -63,7 +63,7 @@ def attribute_rule(allowed_attrs):
 allow_without_attributes = attribute_rule({})
 
 
-class Whitelister(object):
+class Whitelister:
     element_rules = {
         '[document]': allow_without_attributes,
         'a': attribute_rule({'href': check_url}),

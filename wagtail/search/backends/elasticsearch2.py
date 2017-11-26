@@ -40,7 +40,7 @@ def get_model_root(model):
     return model
 
 
-class Elasticsearch2Mapping(object):
+class Elasticsearch2Mapping:
     type_map = {
         'AutoField': 'integer',
         'BinaryField': 'binary',
@@ -619,7 +619,7 @@ class Elasticsearch2SearchResults(BaseSearchResults):
         return max(hit_count, 0)
 
 
-class Elasticsearch2Index(object):
+class Elasticsearch2Index:
     def __init__(self, backend, name):
         self.backend = backend
         self.es = backend.es
@@ -739,7 +739,7 @@ class Elasticsearch2Index(object):
         self.put()
 
 
-class ElasticsearchIndexRebuilder(object):
+class ElasticsearchIndexRebuilder:
     def __init__(self, index):
         self.index = index
 
