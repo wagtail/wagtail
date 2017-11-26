@@ -125,7 +125,7 @@ class ModelFormView(WMABaseView, FormView):
         return getattr(self, 'instance', None) or self.model()
 
     def get_form_kwargs(self):
-        kwargs = FormView.get_form_kwargs(self)
+        kwargs = super(ModelFormView, self).get_form_kwargs()
         kwargs.update({'instance': self.get_instance()})
         return kwargs
 
