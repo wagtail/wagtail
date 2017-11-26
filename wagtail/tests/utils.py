@@ -43,9 +43,6 @@ class WagtailTestUtils(object):
 
         return user
 
-    def assertRegex(self, *args, **kwargs):
-        six.assertRegex(self, *args, **kwargs)
-
     @staticmethod
     @contextmanager
     def ignore_deprecation_warnings():
