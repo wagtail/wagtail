@@ -1,5 +1,3 @@
-from __future__ import absolute_import, unicode_literals
-
 from django.conf.urls import url
 from django.core.exceptions import ImproperlyConfigured
 from django.forms.models import modelform_factory

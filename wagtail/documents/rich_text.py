@@ -1,5 +1,3 @@
-from __future__ import absolute_import, unicode_literals
-
 from django.utils.html import escape
 
 from wagtail.documents.models import get_document_model

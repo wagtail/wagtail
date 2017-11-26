@@ -1,5 +1,3 @@
-from __future__ import absolute_import, unicode_literals
-
 from collections import OrderedDict
 
 from wagtail.api.v2.endpoints import PagesAPIEndpoint

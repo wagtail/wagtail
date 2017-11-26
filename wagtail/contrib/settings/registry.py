@@ -1,5 +1,3 @@
-from __future__ import absolute_import, unicode_literals
-
 from django.apps import apps
 from django.contrib.auth.models import Permission
 from django.urls import reverse

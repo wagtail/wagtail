@@ -1,5 +1,3 @@
-from __future__ import absolute_import, unicode_literals
-
 from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect
 from django.utils.translation import ugettext_lazy

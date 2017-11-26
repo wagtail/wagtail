@@ -1,5 +1,3 @@
-from __future__ import absolute_import, unicode_literals
-
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse

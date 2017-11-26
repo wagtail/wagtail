@@ -3,8 +3,6 @@ Check that all changes to Wagtail models have had migrations created. If there
 are outstanding model changes that need migrations, fail the tests.
 """
 
-from __future__ import absolute_import, unicode_literals
-
 from django.apps import apps
 from django.db.migrations.autodetector import MigrationAutodetector
 from django.db.migrations.loader import MigrationLoader

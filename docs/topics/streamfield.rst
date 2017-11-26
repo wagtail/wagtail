@@ -885,8 +885,6 @@ If you change an existing RichTextField to a StreamField, and create and run mig
 .. code-block:: python
 
     # -*- coding: utf-8 -*-
-    from __future__ import unicode_literals
-
     from django.db import models, migrations
     from wagtail.core.rich_text import RichText
 
@@ -931,8 +929,6 @@ Note that the above migration will work on published Page objects only. If you a
 .. code-block:: python
 
     # -*- coding: utf-8 -*-
-    from __future__ import unicode_literals
-
     import json
 
     from django.core.serializers.json import DjangoJSONEncoder

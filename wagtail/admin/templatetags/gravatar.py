@@ -7,8 +7,6 @@
 # <img src="{% gravatar_url sometemplatevariable %}">
 # just make sure to update the "default" image path below
 
-from __future__ import absolute_import, unicode_literals
-
 import hashlib
 from urllib.parse import urlencode
 

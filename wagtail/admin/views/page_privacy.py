@@ -1,5 +1,3 @@
-from __future__ import absolute_import, unicode_literals
-
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404
 

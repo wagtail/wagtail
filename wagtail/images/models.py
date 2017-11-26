@@ -1,5 +1,3 @@
-from __future__ import absolute_import, unicode_literals
-
 import hashlib
 import os.path
 from collections import OrderedDict

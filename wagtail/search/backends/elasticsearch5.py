@@ -1,5 +1,3 @@
-from __future__ import absolute_import, unicode_literals
-
 from .elasticsearch2 import (
     Elasticsearch2Index, Elasticsearch2Mapping, Elasticsearch2SearchBackend,
     Elasticsearch2SearchQuery, Elasticsearch2SearchResults)

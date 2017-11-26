@@ -1,5 +1,3 @@
-from __future__ import absolute_import, unicode_literals
-
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.forms.utils import flatatt

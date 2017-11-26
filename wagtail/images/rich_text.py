@@ -1,5 +1,3 @@
-from __future__ import absolute_import, unicode_literals
-
 from wagtail.images import get_image_model
 from wagtail.images.formats import get_image_format
 

@@ -1,5 +1,3 @@
-from __future__ import absolute_import, unicode_literals
-
 from django import forms
 from django.core.paginator import Paginator
 from django.shortcuts import render

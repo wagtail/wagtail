@@ -1,5 +1,3 @@
-from __future__ import absolute_import, unicode_literals
-
 from io import BytesIO
 
 import PIL.Image

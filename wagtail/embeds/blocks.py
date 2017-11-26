@@ -1,5 +1,3 @@
-from __future__ import absolute_import, unicode_literals
-
 from wagtail.core import blocks
 from wagtail.embeds.format import embed_to_frontend_html
 

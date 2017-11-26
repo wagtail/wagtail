@@ -1,5 +1,3 @@
-from __future__ import absolute_import, unicode_literals
-
 import itertools
 
 from django import template

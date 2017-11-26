@@ -5,8 +5,6 @@
 #  - Calling .path on the storage or image file raises NotImplementedError
 #  - File.open() after the file has been closed raises an error
 
-from __future__ import absolute_import, unicode_literals
-
 from django.core.files.base import File
 from django.core.files.storage import FileSystemStorage, Storage
 from django.utils.deconstruct import deconstructible

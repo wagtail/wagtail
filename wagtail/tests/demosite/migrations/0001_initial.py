@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
 import django.db.models.deletion
 import modelcluster.contrib.taggit
 import modelcluster.fields

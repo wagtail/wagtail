@@ -1,5 +1,3 @@
-from __future__ import absolute_import, unicode_literals
-
 
 def do_not_use_static_url(request):
     def exception():

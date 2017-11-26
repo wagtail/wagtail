@@ -1,5 +1,3 @@
-from __future__ import absolute_import, unicode_literals
-
 from django import template
 
 from wagtail.contrib.search_promotions.models import SearchPromotion
