@@ -181,7 +181,7 @@ class TestFieldBlock(WagtailTestUtils, SimpleTestCase):
         Actual real-world use case: A Youtube field that produces YoutubeVideo
         instances from IDs, but videos are entered using their full URLs.
         """
-        class PrefixWrapper(object):
+        class PrefixWrapper:
             prefix = 'http://example.com/'
 
             def __init__(self, value):

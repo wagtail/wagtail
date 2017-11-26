@@ -10,7 +10,7 @@ from wagtail.images.models import Image
 from wagtail.images.tests.utils import get_test_image_file
 
 
-class PermissionPolicyTestUtils(object):
+class PermissionPolicyTestUtils:
     def assertResultSetEqual(self, actual, expected):
         self.assertEqual(set(actual), set(expected))
 

@@ -19,7 +19,7 @@ def get_permission_panel_classes():
     return _permission_panel_classes
 
 
-class PermissionPanelFormsMixin(object):
+class PermissionPanelFormsMixin:
     def get_permission_panel_form_kwargs(self, cls):
         kwargs = {}
 

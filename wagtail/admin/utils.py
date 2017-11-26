@@ -173,7 +173,7 @@ def any_permission_required(*perms):
     return user_passes_test(test)
 
 
-class PermissionPolicyChecker(object):
+class PermissionPolicyChecker:
     """
     Provides a view decorator that enforces the given permission policy,
     returning the wagtailadmin 'permission denied' response if permission not granted

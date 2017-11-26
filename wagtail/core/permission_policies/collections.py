@@ -8,7 +8,7 @@ from wagtail.core.models import Collection, GroupCollectionPermission
 from .base import BaseDjangoAuthPermissionPolicy
 
 
-class CollectionPermissionLookupMixin(object):
+class CollectionPermissionLookupMixin:
     def _get_permission_objects_for_actions(self, actions):
         """
         Get a queryset of the Permission objects for the given actions

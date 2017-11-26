@@ -171,7 +171,7 @@ Copy this into your project and make sure it's imported in any ``models.py`` fil
 
     from django.utils import translation
 
-    class TranslatedField(object):
+    class TranslatedField:
         def __init__(self, en_field, fr_field):
             self.en_field = en_field
             self.fr_field = fr_field

@@ -11,7 +11,7 @@ class BaseDocumentChooserPanel(BaseChooserPanel):
         return {cls.field_name: AdminDocumentChooser}
 
 
-class DocumentChooserPanel(object):
+class DocumentChooserPanel:
     def __init__(self, field_name):
         self.field_name = field_name
 

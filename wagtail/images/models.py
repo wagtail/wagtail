@@ -328,7 +328,7 @@ class Image(AbstractImage):
     )
 
 
-class Filter(object):
+class Filter:
     """
     Represents one or more operations that can be applied to an Image to produce a rendition
     appropriate for final display on the website. Usually this would be a resize operation,

@@ -23,7 +23,7 @@ class BaseFormSubmissionsPanel(EditHandler):
         }))
 
 
-class FormSubmissionsPanel(object):
+class FormSubmissionsPanel:
     def __init__(self, heading=None):
         self.heading = heading
 

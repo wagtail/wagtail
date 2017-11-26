@@ -49,7 +49,7 @@ class MenuItem(metaclass=MediaDefiningClass):
         return render_to_string(self.template, context, request=request)
 
 
-class Menu(object):
+class Menu:
     def __init__(self, register_hook_name, construct_hook_name=None):
         self.register_hook_name = register_hook_name
         self.construct_hook_name = construct_hook_name

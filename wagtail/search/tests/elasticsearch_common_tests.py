@@ -6,7 +6,7 @@ from django.core import management
 from wagtail.tests.search import models
 
 
-class ElasticsearchCommonSearchBackendTests(object):
+class ElasticsearchCommonSearchBackendTests:
     def test_search_with_spaces_only(self):
         # Search for some space characters and hope it doesn't crash
         results = self.backend.search("   ", models.Book)

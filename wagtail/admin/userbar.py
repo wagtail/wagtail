@@ -1,7 +1,7 @@
 from django.template.loader import render_to_string
 
 
-class BaseItem(object):
+class BaseItem:
     template = 'wagtailadmin/userbar/item_base.html'
 
     def render(self, request):

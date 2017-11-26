@@ -2,7 +2,7 @@ from wagtail.images import get_image_model
 from wagtail.images.formats import get_image_format
 
 
-class ImageEmbedHandler(object):
+class ImageEmbedHandler:
     """
     ImageEmbedHandler will be invoked whenever we encounter an element in HTML content
     with an attribute of data-embedtype="image". The resulting element in the database

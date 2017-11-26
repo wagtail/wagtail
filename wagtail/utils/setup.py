@@ -10,7 +10,7 @@ from setuptools.command.sdist import sdist as base_sdist
 from wagtail import __semver__
 
 
-class assets_mixin(object):
+class assets_mixin:
 
     def compile_assets(self):
         try:

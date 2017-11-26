@@ -6,7 +6,7 @@ from wagtail.utils.apps import get_app_submodules
 from .shortcuts import get_rendition_or_not_found
 
 
-class Format(object):
+class Format:
     def __init__(self, name, label, classnames, filter_spec):
         self.name = name
         self.label = label

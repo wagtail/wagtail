@@ -85,7 +85,7 @@ def extract_panel_definitions_from_model_class(model, exclude=None):
     return panels
 
 
-class EditHandler(object):
+class EditHandler:
     """
     Abstract class providing sensible default behaviours for objects implementing
     the EditHandler API
@@ -319,7 +319,7 @@ class BaseTabbedInterface(BaseFormEditHandler):
     template = "wagtailadmin/edit_handlers/tabbed_interface.html"
 
 
-class TabbedInterface(object):
+class TabbedInterface:
     def __init__(self, children, base_form_class=None):
         self.children = children
         self.base_form_class = base_form_class
@@ -336,7 +336,7 @@ class BaseObjectList(BaseFormEditHandler):
     template = "wagtailadmin/edit_handlers/object_list.html"
 
 
-class ObjectList(object):
+class ObjectList:
     def __init__(self, children, heading="", classname="",
                  base_form_class=None):
         self.children = children
@@ -358,7 +358,7 @@ class BaseFieldRowPanel(BaseCompositeEditHandler):
     template = "wagtailadmin/edit_handlers/field_row_panel.html"
 
 
-class FieldRowPanel(object):
+class FieldRowPanel:
     def __init__(self, children, classname=""):
         self.children = children
         self.classname = classname
@@ -389,7 +389,7 @@ class BaseMultiFieldPanel(BaseCompositeEditHandler):
         return classes
 
 
-class MultiFieldPanel(object):
+class MultiFieldPanel:
     def __init__(self, children, heading="", classname=""):
         self.children = children
         self.heading = heading
@@ -502,7 +502,7 @@ class BaseFieldPanel(EditHandler):
             return []
 
 
-class FieldPanel(object):
+class FieldPanel:
     def __init__(self, field_name, classname="", widget=None):
         self.field_name = field_name
         self.classname = classname
@@ -527,7 +527,7 @@ class BaseRichTextFieldPanel(BaseFieldPanel):
         return compare.RichTextFieldComparison
 
 
-class RichTextFieldPanel(object):
+class RichTextFieldPanel:
     def __init__(self, field_name):
         self.field_name = field_name
 
@@ -606,7 +606,7 @@ class BasePageChooserPanel(BaseChooserPanel):
             return [cls.model._meta.get_field(cls.field_name).remote_field.model]
 
 
-class PageChooserPanel(object):
+class PageChooserPanel:
     def __init__(self, field_name, page_type=None, can_choose_root=False):
         self.field_name = field_name
 
@@ -733,7 +733,7 @@ class BaseInlinePanel(EditHandler):
         }))
 
 
-class InlinePanel(object):
+class InlinePanel:
     def __init__(self, relation_name, panels=None, classname='', label='', help_text='', min_num=None, max_num=None):
         self.relation_name = relation_name
         self.panels = panels
@@ -846,7 +846,7 @@ class BaseStreamFieldPanel(BaseFieldPanel):
         return ""
 
 
-class StreamFieldPanel(object):
+class StreamFieldPanel:
     def __init__(self, field_name, classname=''):
         self.field_name = field_name
         self.classname = classname

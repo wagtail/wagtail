@@ -5,7 +5,7 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 
 
-class ThumbnailMixin(object):
+class ThumbnailMixin:
     """
     Mixin class to help display thumbnail images in ModelAdmin listing results.
     `thumb_image_field_name` must be overridden to name a ForeignKey field on

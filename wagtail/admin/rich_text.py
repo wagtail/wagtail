@@ -10,7 +10,7 @@ from wagtail.admin.edit_handlers import RichTextFieldPanel
 from wagtail.core.rich_text import DbWhitelister, expand_db_html, features
 
 
-class HalloPlugin(object):
+class HalloPlugin:
     def __init__(self, **kwargs):
         self.name = kwargs.get('name', None)
         self.options = kwargs.get('options', {})

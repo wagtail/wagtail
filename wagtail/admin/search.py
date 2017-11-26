@@ -56,7 +56,7 @@ class SearchArea(metaclass=MediaDefiningClass):
         }, request=request)
 
 
-class Search(object):
+class Search:
     def __init__(self, register_hook_name, construct_hook_name=None):
         self.register_hook_name = register_hook_name
         self.construct_hook_name = construct_hook_name

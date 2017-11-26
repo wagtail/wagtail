@@ -5,7 +5,7 @@ from wagtail.search.backends import get_search_backend
 from wagtail.search.index import class_is_indexed
 
 
-class SearchableListMixin(object):
+class SearchableListMixin:
     search_box_placeholder = _("Search")
     search_fields = None
 

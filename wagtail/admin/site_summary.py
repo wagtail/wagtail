@@ -5,7 +5,7 @@ from wagtail.core import hooks
 from wagtail.core.models import Page, Site
 
 
-class SummaryItem(object):
+class SummaryItem:
     order = 100
 
     def __init__(self, request):
@@ -51,7 +51,7 @@ def add_pages_summary_item(request, items):
     items.append(PagesSummaryItem(request))
 
 
-class SiteSummaryPanel(object):
+class SiteSummaryPanel:
     name = 'site_summary'
     order = 100
 

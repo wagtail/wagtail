@@ -12,7 +12,7 @@ from wagtail.search.backends import get_search_backends_with_name
 logger = logging.getLogger('wagtail.search.index')
 
 
-class Indexed(object):
+class Indexed:
     @classmethod
     def indexed_get_parent(cls, require_model=True):
         for base in cls.__bases__:
@@ -161,7 +161,7 @@ def remove_object(instance):
                 logger.exception("Exception raised while deleting %r from the '%s' search backend", indexed_instance, backend_name)
 
 
-class BaseField(object):
+class BaseField:
     def __init__(self, field_name, **kwargs):
         self.field_name = field_name
         self.kwargs = kwargs
@@ -224,7 +224,7 @@ class FilterField(BaseField):
     pass
 
 
-class RelatedFields(object):
+class RelatedFields:
     def __init__(self, field_name, fields):
         self.field_name = field_name
         self.fields = fields

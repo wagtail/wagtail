@@ -14,7 +14,7 @@ class FieldError(Exception):
     pass
 
 
-class BaseSearchQuery(object):
+class BaseSearchQuery:
     DEFAULT_OPERATOR = 'or'
 
     def __init__(self, queryset, query_string, fields=None, operator=None, order_by_relevance=True):
@@ -92,7 +92,7 @@ class BaseSearchQuery(object):
         return self._get_filters_from_where_node(self.queryset.query.where)
 
 
-class BaseSearchResults(object):
+class BaseSearchResults:
     def __init__(self, backend, query, prefetch_related=None):
         self.backend = backend
         self.query = query
@@ -197,7 +197,7 @@ class EmptySearchResults(BaseSearchResults):
         return 0
 
 
-class BaseSearchBackend(object):
+class BaseSearchBackend:
     query_class = None
     results_class = None
     rebuilder_class = None

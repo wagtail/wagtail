@@ -18,7 +18,7 @@ class PurgeRequest(Request):
         return 'PURGE'
 
 
-class BaseBackend(object):
+class BaseBackend:
     def purge(self, url):
         raise NotImplementedError
 

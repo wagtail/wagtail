@@ -4,7 +4,7 @@ from wagtail.images.exceptions import InvalidFilterSpecError
 from wagtail.images.rect import Rect
 
 
-class Operation(object):
+class Operation:
     def __init__(self, method, *args):
         self.method = method
         self.args = args

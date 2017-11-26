@@ -1,5 +1,5 @@
 
-class ViewSet(object):
+class ViewSet:
     def __init__(self, name, **kwargs):
         self.name = name
         self.url_prefix = kwargs.pop('url_prefix', self.name)

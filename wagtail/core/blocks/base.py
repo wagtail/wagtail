@@ -42,7 +42,7 @@ class Block(metaclass=BaseBlock):
 
     TEMPLATE_VAR = 'value'
 
-    class Meta(object):
+    class Meta:
         label = None
         icon = "placeholder"
         classname = None
@@ -402,7 +402,7 @@ class Block(metaclass=BaseBlock):
         return not self.__eq__(other)
 
 
-class BoundBlock(object):
+class BoundBlock:
     def __init__(self, block, value, prefix=None, errors=None):
         self.block = block
         self.value = value

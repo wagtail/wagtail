@@ -15,7 +15,7 @@ from .mixins import ThumbnailMixin  # NOQA
 from .views import ChooseParentView, CreateView, DeleteView, EditView, IndexView, InspectView
 
 
-class WagtailRegisterable(object):
+class WagtailRegisterable:
     """
     Base class, providing a more convenient way for ModelAdmin or
     ModelAdminGroup instances to be registered with Wagtail's admin area.

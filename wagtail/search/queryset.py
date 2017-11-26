@@ -1,7 +1,7 @@
 from wagtail.search.backends import get_search_backend
 
 
-class SearchableQuerySetMixin(object):
+class SearchableQuerySetMixin:
     def search(self, query_string, fields=None,
                operator=None, order_by_relevance=True, backend='default'):
         """
