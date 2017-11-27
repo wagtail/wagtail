@@ -251,18 +251,18 @@ $(function() {
                     },
                     complete: function() {
                         $(window.headerSearch.termInput).parent().removeClass(workingClasses);
-                      }
+                    }
                 });
             }
-      };
+        };
 
-      getURLParam = function(name) {
-          var results = new RegExp('[\?&]' + name + '=([^]*)').exec(window.location.search);
-          if (results) {
-              return results[1];
-          }
-          return '';
-      }
+        getURLParam = function(name) {
+            var results = new RegExp('[\?&]' + name + '=([^]*)').exec(window.location.search);
+            if (results) {
+                return results[1];
+            }
+            return '';
+        }
 
     }
 
