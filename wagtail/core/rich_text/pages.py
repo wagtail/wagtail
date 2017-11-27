@@ -20,18 +20,23 @@ class PageLinkHandler:
         return {'id': tag['data-id']}
 
     @staticmethod
-    def expand_db_attributes(attrs, for_editor):
+    def expand_db_attributes(attrs):
+        try:
+            page = Page.objects.get(id=attrs['id'])
+            return '<a href="%s">' % escape(page.specific.url)
+        except Page.DoesNotExist:
+            return "<a>"
+
+    @staticmethod
+    def expand_db_attributes_for_editor(attrs):
         try:
             page = Page.objects.get(id=attrs['id'])
 
-            if for_editor:
-                editor_attrs = 'data-linktype="page" data-id="%d" ' % page.id
-                parent_page = page.get_parent()
-                if parent_page:
-                    editor_attrs += 'data-parent-id="%d" ' % parent_page.id
-            else:
-                editor_attrs = ''
+            attrs = 'data-linktype="page" data-id="%d" ' % page.id
+            parent_page = page.get_parent()
+            if parent_page:
+                attrs += 'data-parent-id="%d" ' % parent_page.id
 
-            return '<a %shref="%s">' % (editor_attrs, escape(page.specific.url))
+            return '<a %shref="%s">' % (attrs, escape(page.specific.url))
         except Page.DoesNotExist:
             return "<a>"

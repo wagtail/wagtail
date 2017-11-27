@@ -168,12 +168,18 @@ def expand_db_html(html, for_editor=False):
             # return unchanged
             return m.group(0)
         handler = get_link_handler(attrs['linktype'])
-        return handler.expand_db_attributes(attrs, for_editor)
+        if for_editor:
+            return handler.expand_db_attributes_for_editor(attrs)
+        else:
+            return handler.expand_db_attributes(attrs)
 
     def replace_embed_tag(m):
         attrs = extract_attrs(m.group(1))
         handler = get_embed_handler(attrs['embedtype'])
-        return handler.expand_db_attributes(attrs, for_editor)
+        if for_editor:
+            return handler.expand_db_attributes_for_editor(attrs)
+        else:
+            return handler.expand_db_attributes(attrs)
 
     html = FIND_A_TAG.sub(replace_a_tag, html)
     html = FIND_EMBED_TAG.sub(replace_embed_tag, html)

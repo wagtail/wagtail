@@ -9,16 +9,19 @@ class DocumentLinkHandler:
         return {'id': tag['data-id']}
 
     @staticmethod
-    def expand_db_attributes(attrs, for_editor):
+    def expand_db_attributes(attrs):
         Document = get_document_model()
         try:
             doc = Document.objects.get(id=attrs['id'])
+            return '<a href="%s">' % escape(doc.url)
+        except Document.DoesNotExist:
+            return "<a>"
 
-            if for_editor:
-                editor_attrs = 'data-linktype="document" data-id="%d" ' % doc.id
-            else:
-                editor_attrs = ''
-
-            return '<a %shref="%s">' % (editor_attrs, escape(doc.url))
+    @staticmethod
+    def expand_db_attributes_for_editor(attrs):
+        Document = get_document_model()
+        try:
+            doc = Document.objects.get(id=attrs['id'])
+            return '<a data-linktype="document" data-id="%d" href="%s">' % (doc.id, escape(doc.url))
         except Document.DoesNotExist:
             return "<a>"

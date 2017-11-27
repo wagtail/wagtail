@@ -23,10 +23,25 @@ class ImageEmbedHandler:
         }
 
     @staticmethod
-    def expand_db_attributes(attrs, for_editor):
+    def expand_db_attributes(attrs):
         """
         Given a dict of attributes from the <embed> tag, return the real HTML
-        representation.
+        representation for use on the front-end.
+        """
+        Image = get_image_model()
+        try:
+            image = Image.objects.get(id=attrs['id'])
+        except Image.DoesNotExist:
+            return "<img>"
+
+        image_format = get_image_format(attrs['format'])
+        return image_format.image_to_html(image, attrs.get('alt', ''))
+
+    @staticmethod
+    def expand_db_attributes_for_editor(attrs):
+        """
+        Given a dict of attributes from the <embed> tag, return the real HTML
+        representation for use within the editor.
         """
         Image = get_image_model()
         try:
@@ -36,7 +51,4 @@ class ImageEmbedHandler:
 
         image_format = get_image_format(attrs['format'])
 
-        if for_editor:
-            return image_format.image_to_editor_html(image, attrs.get('alt', ''))
-        else:
-            return image_format.image_to_html(image, attrs.get('alt', ''))
+        return image_format.image_to_editor_html(image, attrs.get('alt', ''))
