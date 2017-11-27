@@ -233,7 +233,6 @@ $(function() {
 
             var newQuery = $(window.headerSearch.termInput).val();
             var currentQuery = getURLParam('q');
-            if (! currentQuery) { currentQuery = ""; }
             // only do the query if it has changed for trimmed queries
             // eg. " " === "" and "firstword " ==== "firstword"
             if (currentQuery.trim() !== newQuery.trim()) {
@@ -258,13 +257,12 @@ $(function() {
       };
 
       getURLParam = function(name) {
-          var results = new RegExp('[\?&]' + name + '=([^]*)').exec(window.location.href);
-          if (results == null) {
-              return null;
-          } else {
-              return results[1] || null;
+          var results = new RegExp('[\?&]' + name + '=([^]*)').exec(window.location.search);
+          if (results) {
+              return results[1];
           }
-      };
+          return '';
+      }
 
     }
 
