@@ -122,7 +122,7 @@ class PermissionPolicyTestCase(PermissionPolicyTestUtils, TestCase):
 
 class TestCollectionPermissionPolicy(PermissionPolicyTestCase):
     def setUp(self):
-        super(TestCollectionPermissionPolicy, self).setUp()
+        super().setUp()
         self.policy = CollectionPermissionPolicy(Document)
 
     def test_user_has_permission(self):
@@ -512,7 +512,7 @@ class TestCollectionPermissionPolicy(PermissionPolicyTestCase):
 
 class TestCollectionOwnershipPermissionPolicy(PermissionPolicyTestCase):
     def setUp(self):
-        super(TestCollectionOwnershipPermissionPolicy, self).setUp()
+        super().setUp()
         self.policy = CollectionOwnershipPermissionPolicy(
             Document, owner_field_name='uploaded_by_user',
         )

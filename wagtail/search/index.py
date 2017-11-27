@@ -215,7 +215,7 @@ class BaseField:
 
 class SearchField(BaseField):
     def __init__(self, field_name, boost=None, partial_match=False, **kwargs):
-        super(SearchField, self).__init__(field_name, **kwargs)
+        super().__init__(field_name, **kwargs)
         self.boost = boost
         self.partial_match = partial_match
 

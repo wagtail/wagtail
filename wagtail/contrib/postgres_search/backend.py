@@ -168,7 +168,7 @@ class PostgresSearchQuery(BaseSearchQuery):
     DEFAULT_OPERATOR = 'and'
 
     def __init__(self, *args, **kwargs):
-        super(PostgresSearchQuery, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.search_fields = self.queryset.model.get_search_fields()
 
     def get_search_query(self, config):
@@ -247,14 +247,14 @@ class PostgresSearchRebuilder:
 
 class PostgresSearchAtomicRebuilder(PostgresSearchRebuilder):
     def __init__(self, index):
-        super(PostgresSearchAtomicRebuilder, self).__init__(index)
+        super().__init__(index)
         self.transaction = transaction.atomic(using=index.db_alias)
         self.transaction_opened = False
 
     def start(self):
         self.transaction.__enter__()
         self.transaction_opened = True
-        return super(PostgresSearchAtomicRebuilder, self).start()
+        return super().start()
 
     def finish(self):
         self.transaction.__exit__(None, None, None)
@@ -274,7 +274,7 @@ class PostgresSearchBackend(BaseSearchBackend):
     atomic_rebuilder_class = PostgresSearchAtomicRebuilder
 
     def __init__(self, params):
-        super(PostgresSearchBackend, self).__init__(params)
+        super().__init__(params)
         self.params = params
         if params.get('ATOMIC_REBUILD', False):
             self.rebuilder_class = self.atomic_rebuilder_class

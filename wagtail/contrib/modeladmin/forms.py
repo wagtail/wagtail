@@ -24,5 +24,5 @@ class ParentChooserForm(forms.Form):
 
     def __init__(self, valid_parents_qs, *args, **kwargs):
         self.valid_parents_qs = valid_parents_qs
-        super(ParentChooserForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.fields['parent_page'].queryset = self.valid_parents_qs

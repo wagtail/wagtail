@@ -91,11 +91,11 @@ class PagesAdminAPIEndpoint(PagesAPIEndpoint):
         return types
 
     def listing_view(self, request):
-        response = super(PagesAdminAPIEndpoint, self).listing_view(request)
+        response = super().listing_view(request)
         response.data['__types'] = self.get_type_info()
         return response
 
     def detail_view(self, request, pk):
-        response = super(PagesAdminAPIEndpoint, self).detail_view(request, pk)
+        response = super().detail_view(request, pk)
         response.data['__types'] = self.get_type_info()
         return response

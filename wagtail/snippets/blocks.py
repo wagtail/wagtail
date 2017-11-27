@@ -6,7 +6,7 @@ from wagtail.core.utils import resolve_model_string
 
 class SnippetChooserBlock(ChooserBlock):
     def __init__(self, target_model, **kwargs):
-        super(SnippetChooserBlock, self).__init__(**kwargs)
+        super().__init__(**kwargs)
         self._target_model = target_model
 
     @cached_property

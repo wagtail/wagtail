@@ -24,7 +24,7 @@ class ThumbnailMixin:
                 u"The `wagtail.images` app must be installed in order "
                 "to use the `ThumbnailMixin` class."
             )
-        super(ThumbnailMixin, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     def admin_thumb(self, obj):
         try:

@@ -132,7 +132,7 @@ class EditHandler:
     def classes(self):
         """
         Additional CSS classnames to add to whatever kind of object this is at output.
-        Subclasses of EditHandler should override this, invoking super(B, self).classes() to
+        Subclasses of EditHandler should override this, invoking super().classes() to
         append more classes specific to the situation.
         """
 
@@ -251,7 +251,7 @@ class BaseCompositeEditHandler(EditHandler):
         return mark_safe(''.join([c.html_declarations() for c in cls.children]))
 
     def __init__(self, instance=None, form=None):
-        super(BaseCompositeEditHandler, self).__init__(instance=instance, form=form)
+        super().__init__(instance=instance, form=form)
 
         self.children = []
         for child in self.__class__.children:
@@ -383,7 +383,7 @@ class BaseMultiFieldPanel(BaseCompositeEditHandler):
     template = "wagtailadmin/edit_handlers/multi_field_panel.html"
 
     def classes(self):
-        classes = super(BaseMultiFieldPanel, self).classes()
+        classes = super().classes()
         classes.append("multi-field")
 
         return classes
@@ -417,14 +417,14 @@ class BaseFieldPanel(EditHandler):
             return {}
 
     def __init__(self, instance=None, form=None):
-        super(BaseFieldPanel, self).__init__(instance=instance, form=form)
+        super().__init__(instance=instance, form=form)
         self.bound_field = self.form[self.field_name]
 
         self.heading = self.bound_field.label
         self.help_text = self.bound_field.help_text
 
     def classes(self):
-        classes = super(BaseFieldPanel, self).classes()
+        classes = super().classes()
 
         if self.bound_field.field.required:
             classes.append("required")
@@ -684,7 +684,7 @@ class BaseInlinePanel(EditHandler):
         return [curry(compare.ChildRelationComparison, field, field_comparisons)]
 
     def __init__(self, instance=None, form=None):
-        super(BaseInlinePanel, self).__init__(instance=instance, form=form)
+        super().__init__(instance=instance, form=form)
 
         self.formset = form.formsets[self.__class__.relation_name]
 
@@ -822,7 +822,7 @@ Page.get_edit_handler = get_edit_handler
 
 class BaseStreamFieldPanel(BaseFieldPanel):
     def classes(self):
-        classes = super(BaseStreamFieldPanel, self).classes()
+        classes = super().classes()
         classes.append("stream-field")
 
         # In case of a validation error, BlockWidget will take care of outputting the error on the

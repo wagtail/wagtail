@@ -666,7 +666,7 @@ class TestAdminPageDetailWithStreamField(AdminAPITestCase):
     fixtures = ['test.json']
 
     def setUp(self):
-        super(TestAdminPageDetailWithStreamField, self).setUp()
+        super().setUp()
 
         self.homepage = Page.objects.get(url_path='/home/')
 
@@ -713,7 +713,7 @@ class TestCustomAdminDisplayTitle(AdminAPITestCase):
     fixtures = ['test.json']
 
     def setUp(self):
-        super(TestCustomAdminDisplayTitle, self).setUp()
+        super().setUp()
 
         self.event_page = Page.objects.get(url_path='/home/events/saint-patrick/')
 

@@ -30,7 +30,7 @@ class URLOrAbsolutePathValidator(validators.URLValidator):
         if URLOrAbsolutePathValidator.is_absolute_path(value):
             return None
         else:
-            return super(URLOrAbsolutePathValidator, self).__call__(value)
+            return super().__call__(value)
 
 
 class URLOrAbsolutePathField(forms.URLField):
@@ -39,14 +39,14 @@ class URLOrAbsolutePathField(forms.URLField):
 
     def to_python(self, value):
         if not URLOrAbsolutePathValidator.is_absolute_path(value):
-            value = super(URLOrAbsolutePathField, self).to_python(value)
+            value = super().to_python(value)
         return value
 
 
 class SearchForm(forms.Form):
     def __init__(self, *args, **kwargs):
         placeholder = kwargs.pop('placeholder', _("Search"))
-        super(SearchForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.fields['q'].widget.attrs = {'placeholder': placeholder}
 
     q = forms.CharField(label=ugettext_lazy("Search term"), widget=forms.TextInput())
@@ -74,7 +74,7 @@ class LoginForm(AuthenticationForm):
     )
 
     def __init__(self, request=None, *args, **kwargs):
-        super(LoginForm, self).__init__(request=request, *args, **kwargs)
+        super().__init__(request=request, *args, **kwargs)
         self.fields['username'].widget.attrs['placeholder'] = ugettext_lazy("Enter your %s") \
             % self.username_field.verbose_name
 
@@ -83,7 +83,7 @@ class PasswordResetForm(PasswordResetForm):
     email = forms.EmailField(label=ugettext_lazy("Enter your email address to reset your password"), max_length=254)
 
     def clean(self):
-        cleaned_data = super(PasswordResetForm, self).clean()
+        cleaned_data = super().clean()
 
         # Find users of this email address
         UserModel = get_user_model()
@@ -118,7 +118,7 @@ class CopyForm(forms.Form):
         self.page = kwargs.pop('page')
         self.user = kwargs.pop('user', None)
         can_publish = kwargs.pop('can_publish')
-        super(CopyForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.fields['new_title'] = forms.CharField(initial=self.page.title, label=_("New title"))
         self.fields['new_slug'] = forms.SlugField(initial=self.page.slug, label=_("New slug"))
         self.fields['new_parent_page'] = forms.ModelChoiceField(
@@ -157,7 +157,7 @@ class CopyForm(forms.Form):
                 )
 
     def clean(self):
-        cleaned_data = super(CopyForm, self).clean()
+        cleaned_data = super().clean()
 
         # Make sure the slug isn't already in use
         slug = cleaned_data.get('new_slug')
@@ -194,7 +194,7 @@ class BaseViewRestrictionForm(forms.ModelForm):
         widget=forms.RadioSelect)
 
     def __init__(self, *args, **kwargs):
-        super(BaseViewRestrictionForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
         self.fields['groups'].widget = forms.CheckboxSelectMultiple()
         self.fields['groups'].queryset = Group.objects.all()
@@ -294,7 +294,7 @@ class WagtailAdminModelForm(ClusterForm, metaclass=WagtailAdminModelFormMetaclas
     @property
     def media(self):
         # Include media from formsets forms. This allow StreamField in InlinePanel for example.
-        media = super(WagtailAdminModelForm, self).media
+        media = super().media
         for formset in self.formsets.values():
             media += formset.media
         return media
@@ -312,12 +312,12 @@ class WagtailAdminPageForm(WagtailAdminModelForm):
         exclude = ['content_type', 'path', 'depth', 'numchild']
 
     def __init__(self, data=None, files=None, parent_page=None, *args, **kwargs):
-        super(WagtailAdminPageForm, self).__init__(data, files, *args, **kwargs)
+        super().__init__(data, files, *args, **kwargs)
         self.parent_page = parent_page
 
     def clean(self):
 
-        cleaned_data = super(WagtailAdminPageForm, self).clean()
+        cleaned_data = super().clean()
         if 'slug' in self.cleaned_data:
             if not Page._slug_is_available(
                 cleaned_data['slug'], self.parent_page, self.instance
@@ -365,7 +365,7 @@ class BaseCollectionMemberForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         user = kwargs.pop('user', None)
 
-        super(BaseCollectionMemberForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
         if user is None:
             self.collections = Collection.objects.all()
@@ -396,7 +396,7 @@ class BaseCollectionMemberForm(forms.ModelForm):
             # populate the instance's collection field with the one available collection
             self.instance.collection = self.collections[0]
 
-        return super(BaseCollectionMemberForm, self).save(commit=commit)
+        return super().save(commit=commit)
 
 
 class BaseGroupCollectionMemberPermissionFormSet(forms.BaseFormSet):
@@ -431,7 +431,7 @@ class BaseGroupCollectionMemberPermissionFormSet(forms.BaseFormSet):
                 'permissions': [cp.permission for cp in collection_permissions]
             })
 
-        super(BaseGroupCollectionMemberPermissionFormSet, self).__init__(
+        super().__init__(
             data, files, initial=initial_data, prefix=prefix
         )
         for form in self.forms:
@@ -439,7 +439,7 @@ class BaseGroupCollectionMemberPermissionFormSet(forms.BaseFormSet):
 
     @property
     def empty_form(self):
-        empty_form = super(BaseGroupCollectionMemberPermissionFormSet, self).empty_form
+        empty_form = super().empty_form
         empty_form.fields['DELETE'].widget = forms.HiddenInput()
         return empty_form
 

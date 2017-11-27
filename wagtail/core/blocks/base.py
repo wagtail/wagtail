@@ -475,7 +475,7 @@ class BlockWidget(forms.Widget):
     """Wraps a block object as a widget so that it can be incorporated into a Django form"""
 
     def __init__(self, block_def, attrs=None):
-        super(BlockWidget, self).__init__(attrs=attrs)
+        super().__init__(attrs=attrs)
         self.block_def = block_def
 
     def render_with_errors(self, name, value, attrs=None, errors=None):
@@ -518,7 +518,7 @@ class BlockField(forms.Field):
         if 'widget' not in kwargs:
             kwargs['widget'] = BlockWidget(block)
 
-        super(BlockField, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
     def clean(self, value):
         return self.block.clean(value)

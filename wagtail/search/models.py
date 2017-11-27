@@ -15,7 +15,7 @@ class Query(models.Model):
         # Normalise query string
         self.query_string = normalise_query_string(self.query_string)
 
-        super(Query, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
     def add_hit(self, date=None):
         if date is None:

@@ -30,7 +30,7 @@ class FooStreamBlock(blocks.StreamBlock):
     error = 'At least one block must say "foo"'
 
     def clean(self, value):
-        value = super(FooStreamBlock, self).clean(value)
+        value = super().clean(value)
         if not any(block.value == 'foo' for block in value):
             raise blocks.StreamBlockValidationError(non_block_errors=ErrorList([self.error]))
         return value
@@ -201,7 +201,7 @@ class TestFieldBlock(WagtailTestUtils, SimpleTestCase):
 
         class PrefixField(forms.Field):
             def clean(self, value):
-                value = super(PrefixField, self).clean(value)
+                value = super().clean(value)
                 return PrefixWrapper.from_prefixed(value)
 
             def prepare_value(self, value):
@@ -209,7 +209,7 @@ class TestFieldBlock(WagtailTestUtils, SimpleTestCase):
 
         class PrefixedBlock(blocks.FieldBlock):
             def __init__(self, required=True, help_text='', **kwargs):
-                super(PrefixedBlock, self).__init__(**kwargs)
+                super().__init__(**kwargs)
                 self.field = PrefixField(required=required, help_text=help_text)
 
         block = PrefixedBlock()

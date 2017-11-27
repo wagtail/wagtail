@@ -16,7 +16,7 @@ from wagtail.snippets.widgets import AdminSnippetChooser
 
 class ExampleForm(forms.Form):
     def __init__(self, *args, **kwargs):
-        super(ExampleForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.fields['page_chooser'].widget = AdminPageChooser()
         self.fields['image_chooser'].widget = AdminImageChooser()
         self.fields['document_chooser'].widget = AdminDocumentChooser()

@@ -239,7 +239,7 @@ class TestSnippetEditView(BaseTestSnippetEditView):
     fixtures = ['test.json']
 
     def setUp(self):
-        super(TestSnippetEditView, self).setUp()
+        super().setUp()
         self.test_snippet = Advert.objects.get(id=1)
 
     def test_simple(self):
@@ -293,7 +293,7 @@ class TestSnippetEditView(BaseTestSnippetEditView):
 class TestEditTabbedSnippet(BaseTestSnippetEditView):
 
     def setUp(self):
-        super(TestEditTabbedSnippet, self).setUp()
+        super().setUp()
         self.test_snippet = AdvertWithTabbedInterface.objects.create(
             text="test_advert",
             url="http://www.example.com",
@@ -312,7 +312,7 @@ class TestEditTabbedSnippet(BaseTestSnippetEditView):
 class TestEditFileUploadSnippet(BaseTestSnippetEditView):
 
     def setUp(self):
-        super(TestEditFileUploadSnippet, self).setUp()
+        super().setUp()
         self.test_snippet = FileUploadSnippet.objects.create(
             file=ContentFile(b"Simple text document", 'test.txt'))
 

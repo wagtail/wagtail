@@ -6,7 +6,7 @@ from .templatetags.wagtailuserbar import wagtailuserbar
 
 class WagtailUserbarExtension(Extension):
     def __init__(self, environment):
-        super(WagtailUserbarExtension, self).__init__(environment)
+        super().__init__(environment)
 
         self.environment.globals.update({
             'wagtailuserbar': jinja2.contextfunction(wagtailuserbar),

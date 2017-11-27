@@ -26,7 +26,7 @@ class ImageRenditionField(Field):
     """
     def __init__(self, filter_spec, *args, **kwargs):
         self.filter_spec = filter_spec
-        super(ImageRenditionField, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     def to_representation(self, image):
         try:

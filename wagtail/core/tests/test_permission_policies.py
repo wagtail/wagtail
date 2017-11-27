@@ -170,7 +170,7 @@ class PermissionPolicyTestCase(PermissionPolicyTestUtils, TestCase):
 
 class TestBlanketPermissionPolicy(PermissionPolicyTestCase):
     def setUp(self):
-        super(TestBlanketPermissionPolicy, self).setUp()
+        super().setUp()
         self.policy = BlanketPermissionPolicy(Image)
 
         self.active_users = [
@@ -273,7 +273,7 @@ class TestBlanketPermissionPolicy(PermissionPolicyTestCase):
 
 class TestAuthenticationOnlyPermissionPolicy(PermissionPolicyTestCase):
     def setUp(self):
-        super(TestAuthenticationOnlyPermissionPolicy, self).setUp()
+        super().setUp()
         self.policy = AuthenticationOnlyPermissionPolicy(Image)
 
     def test_user_has_permission(self):
@@ -498,7 +498,7 @@ class TestAuthenticationOnlyPermissionPolicy(PermissionPolicyTestCase):
 
 class TestModelPermissionPolicy(PermissionPolicyTestCase):
     def setUp(self):
-        super(TestModelPermissionPolicy, self).setUp()
+        super().setUp()
         self.policy = ModelPermissionPolicy(Image)
 
     def test_user_has_permission(self):
@@ -872,7 +872,7 @@ class TestModelPermissionPolicy(PermissionPolicyTestCase):
 
 class TestOwnershipPermissionPolicy(PermissionPolicyTestCase):
     def setUp(self):
-        super(TestOwnershipPermissionPolicy, self).setUp()
+        super().setUp()
         self.policy = OwnershipPermissionPolicy(Image, owner_field_name='uploaded_by_user')
 
     def test_user_has_permission(self):

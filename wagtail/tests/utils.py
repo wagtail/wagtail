@@ -225,7 +225,7 @@ class WagtailPageTests(WagtailTestUtils, TestCase):
     A set of asserts to help write tests for your own Wagtail site.
     """
     def setUp(self):
-        super(WagtailPageTests, self).setUp()
+        super().setUp()
         self.login()
 
     def _testCanCreateAt(self, parent_model, child_model):

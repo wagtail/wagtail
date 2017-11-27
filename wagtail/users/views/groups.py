@@ -44,7 +44,7 @@ class PermissionPanelFormsMixin:
         if 'permission_panels' not in kwargs:
             kwargs['permission_panels'] = self.get_permission_panel_forms()
 
-        return super(PermissionPanelFormsMixin, self).get_context_data(**kwargs)
+        return super().get_context_data(**kwargs)
 
 
 class IndexView(mixins.SearchableListMixin, generic.IndexView):

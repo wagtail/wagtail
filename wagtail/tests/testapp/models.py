@@ -223,7 +223,7 @@ class EventCategory(models.Model):
 
 class EventPageForm(WagtailAdminPageForm):
     def clean(self):
-        cleaned_data = super(EventPageForm, self).clean()
+        cleaned_data = super().clean()
 
         # Make sure that the event starts before it ends
         start_date = cleaned_data['date_from']
@@ -302,7 +302,7 @@ class SingleEventPage(EventPage):
 
     # Give this page model a custom URL routing scheme
     def get_url_parts(self, request=None):
-        url_parts = super(SingleEventPage, self).get_url_parts(request=request)
+        url_parts = super().get_url_parts(request=request)
         if url_parts is None:
             return None
         else:
@@ -312,13 +312,13 @@ class SingleEventPage(EventPage):
     def route(self, request, path_components):
         if path_components == ['pointless-suffix']:
             # treat this as equivalent to a request for this page
-            return super(SingleEventPage, self).route(request, [])
+            return super().route(request, [])
         else:
             # fall back to default routing rules
-            return super(SingleEventPage, self).route(request, path_components)
+            return super().route(request, path_components)
 
     def get_admin_display_title(self):
-        return "%s (single event)" % super(SingleEventPage, self).get_admin_display_title()
+        return "%s (single event)" % super().get_admin_display_title()
 
 
 SingleEventPage.content_panels = [FieldPanel('excerpt')] + EventPage.content_panels
@@ -346,7 +346,7 @@ class EventIndex(Page):
             events = paginator.page(paginator.num_pages)
 
         # Update context
-        context = super(EventIndex, self).get_context(request)
+        context = super().get_context(request)
         context['events'] = events
         return context
 
@@ -357,7 +357,7 @@ class EventIndex(Page):
             except (TypeError, ValueError):
                 pass
 
-        return super(EventIndex, self).route(request, path_components)
+        return super().route(request, path_components)
 
     def get_static_site_paths(self):
         # Get page count
@@ -368,12 +368,12 @@ class EventIndex(Page):
             yield '/%d/' % (page + 1)
 
         # Yield from superclass
-        for path in super(EventIndex, self).get_static_site_paths():
+        for path in super().get_static_site_paths():
             yield path
 
     def get_sitemap_urls(self):
         # Add past events url to sitemap
-        return super(EventIndex, self).get_sitemap_urls() + [
+        return super().get_sitemap_urls() + [
             {
                 'location': self.full_url + 'past/',
                 'lastmod': self.latest_revision_created_at
@@ -381,7 +381,7 @@ class EventIndex(Page):
         ]
 
     def get_cached_paths(self):
-        return super(EventIndex, self).get_cached_paths() + [
+        return super().get_cached_paths() + [
             '/past/'
         ]
 
@@ -398,7 +398,7 @@ class FormField(AbstractFormField):
 
 class FormPage(AbstractEmailForm):
     def get_context(self, request):
-        context = super(FormPage, self).get_context(request)
+        context = super().get_context(request)
         context['greeting'] = "hello world"
         return context
 
@@ -450,7 +450,7 @@ class FormPageWithCustomSubmission(AbstractEmailForm):
     thank_you_text = RichTextField(blank=True)
 
     def get_context(self, request, *args, **kwargs):
-        context = super(FormPageWithCustomSubmission, self).get_context(request)
+        context = super().get_context(request)
         context['greeting'] = "hello world"
         return context
 
@@ -461,7 +461,7 @@ class FormPageWithCustomSubmission(AbstractEmailForm):
         data_fields = [
             ('username', 'Username'),
         ]
-        data_fields += super(FormPageWithCustomSubmission, self).get_data_fields()
+        data_fields += super().get_data_fields()
 
         return data_fields
 
@@ -487,7 +487,7 @@ class FormPageWithCustomSubmission(AbstractEmailForm):
                 self.get_context(request)
             )
 
-        return super(FormPageWithCustomSubmission, self).serve(request, *args, **kwargs)
+        return super().serve(request, *args, **kwargs)
 
 
 FormPageWithCustomSubmission.content_panels = [
@@ -511,7 +511,7 @@ class CustomFormPageSubmission(AbstractFormSubmission):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     def get_data(self):
-        form_data = super(CustomFormPageSubmission, self).get_data()
+        form_data = super().get_data()
         form_data.update({
             'username': self.user.username,
         })
@@ -707,7 +707,7 @@ class ExtendedImageChooserBlock(ImageChooserBlock):
     otherwise, it returns the default value.
     """
     def get_api_representation(self, value, context=None):
-        image_id = super(ExtendedImageChooserBlock, self).get_api_representation(value, context=context)
+        image_id = super().get_api_representation(value, context=context)
         if 'request' in context and context['request'].query_params.get('extended', False):
             return {
                 'id': image_id,
@@ -839,7 +839,7 @@ class CustomImageFilePath(AbstractImage):
         different contents - this isn't guaranteed as we're only using
         the first three characters of the checksum.
         """
-        original_filepath = super(CustomImageFilePath, self).get_upload_to(filename)
+        original_filepath = super().get_upload_to(filename)
         folder_name, filename = original_filepath.split(os.path.sep)
 
         # Ensure that we consume the entire file, we can't guarantee that

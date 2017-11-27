@@ -105,7 +105,7 @@ class CharBlock(FieldBlock):
             max_length=max_length,
             min_length=min_length
         )
-        super(CharBlock, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
     def get_searchable_content(self, value):
         return [force_text(value)]
@@ -121,7 +121,7 @@ class TextBlock(FieldBlock):
             'min_length': min_length
         }
         self.rows = rows
-        super(TextBlock, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
     @cached_property
     def field(self):
@@ -158,7 +158,7 @@ class FloatBlock(FieldBlock):
             max_value=max_value,
             min_value=min_value,
         )
-        super(FloatBlock, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     class Meta:
         icon = "plus-inverse"
@@ -176,7 +176,7 @@ class DecimalBlock(FieldBlock):
             max_digits=max_digits,
             decimal_places=decimal_places,
         )
-        super(DecimalBlock, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     class Meta:
         icon = "plus-inverse"
@@ -194,7 +194,7 @@ class RegexBlock(FieldBlock):
             min_length=min_length,
             error_messages=error_messages,
         )
-        super(RegexBlock, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     class Meta:
         icon = "code"
@@ -209,7 +209,7 @@ class URLBlock(FieldBlock):
             max_length=max_length,
             min_length=min_length
         )
-        super(URLBlock, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
     class Meta:
         icon = "site"
@@ -223,7 +223,7 @@ class BooleanBlock(FieldBlock):
         # conditions" box). To get the conventional yes/no behaviour, you must explicitly pass
         # required=False.
         self.field = forms.BooleanField(required=required, help_text=help_text)
-        super(BooleanBlock, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
     class Meta:
         icon = "tick-inverse"
@@ -238,7 +238,7 @@ class DateBlock(FieldBlock):
         except KeyError:
             pass
         self.format = format
-        super(DateBlock, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
     @cached_property
     def field(self):
@@ -266,7 +266,7 @@ class TimeBlock(FieldBlock):
 
     def __init__(self, required=True, help_text=None, **kwargs):
         self.field_options = {'required': required, 'help_text': help_text}
-        super(TimeBlock, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
     @cached_property
     def field(self):
@@ -290,7 +290,7 @@ class DateTimeBlock(FieldBlock):
     def __init__(self, required=True, help_text=None, format=None, **kwargs):
         self.field_options = {'required': required, 'help_text': help_text}
         self.format = format
-        super(DateTimeBlock, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
     @cached_property
     def field(self):
@@ -317,7 +317,7 @@ class EmailBlock(FieldBlock):
             required=required,
             help_text=help_text,
         )
-        super(EmailBlock, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
     class Meta:
         icon = "mail"
@@ -333,7 +333,7 @@ class IntegerBlock(FieldBlock):
             min_value=min_value,
             max_value=max_value
         )
-        super(IntegerBlock, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
     class Meta:
         icon = "plus-inverse"
@@ -376,7 +376,7 @@ class ChoiceBlock(FieldBlock):
         callable_choices = self.get_callable_choices(choices, blank_choice=not(default and required))
 
         self.field = forms.ChoiceField(choices=callable_choices, required=required, help_text=help_text)
-        super(ChoiceBlock, self).__init__(default=default, **kwargs)
+        super().__init__(default=default, **kwargs)
 
     def get_callable_choices(self, choices, blank_choice=True):
         """
@@ -453,7 +453,7 @@ class RichTextBlock(FieldBlock):
         self.field_options = {'required': required, 'help_text': help_text}
         self.editor = editor
         self.features = features
-        super(RichTextBlock, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
     def get_default(self):
         if isinstance(self.meta.default, RichText):
@@ -501,7 +501,7 @@ class RawHTMLBlock(FieldBlock):
         self.field = forms.CharField(
             required=required, help_text=help_text, max_length=max_length, min_length=min_length,
             widget=forms.Textarea)
-        super(RawHTMLBlock, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
     def get_default(self):
         return mark_safe(self.meta.default or '')
@@ -530,7 +530,7 @@ class ChooserBlock(FieldBlock):
     def __init__(self, required=True, help_text=None, **kwargs):
         self._required = required
         self._help_text = help_text
-        super(ChooserBlock, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
     """Abstract superclass for fields that implement a chooser interface (page, image, snippet etc)"""
     @cached_property
@@ -584,7 +584,7 @@ class ChooserBlock(FieldBlock):
         # around that...
         if isinstance(value, self.target_model):
             value = value.pk
-        return super(ChooserBlock, self).clean(value)
+        return super().clean(value)
 
     class Meta:
         # No icon specified here, because that depends on the purpose that the
@@ -607,7 +607,7 @@ class PageChooserBlock(ChooserBlock):
 
         self._target_models = target_model
         self.can_choose_root = can_choose_root
-        super(PageChooserBlock, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
     @cached_property
     def target_model(self):
@@ -646,7 +646,7 @@ class PageChooserBlock(ChooserBlock):
             return ''
 
     def deconstruct(self):
-        name, args, kwargs = super(PageChooserBlock, self).deconstruct()
+        name, args, kwargs = super().deconstruct()
 
         if 'target_model' in kwargs:
             target_models = []

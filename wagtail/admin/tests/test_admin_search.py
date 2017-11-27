@@ -31,7 +31,7 @@ class BaseSearchAreaTestCase(WagtailTestUtils, TestCase):
 
 class TestSearchAreas(BaseSearchAreaTestCase):
     def setUp(self):
-        super(TestSearchAreas, self).setUp()
+        super().setUp()
         self.user = self.login()
 
     def test_other_searches(self):
@@ -78,7 +78,7 @@ class TestSearchAreaNoPagePermissions(BaseSearchAreaTestCase):
         self.assertFalse(user_has_any_page_permission(self.user))
 
     def create_test_user(self):
-        user = super(TestSearchAreaNoPagePermissions, self).create_test_user()
+        user = super().create_test_user()
         user.is_superuser = False
         user.user_permissions.add(
             Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')

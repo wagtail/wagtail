@@ -43,9 +43,9 @@ class TestPostgresSearchBackend(BackendTests, TestCase):
     # Note: This is applying the filter, but should be raising the FieldError instead
     @unittest.expectedFailure
     def test_filter_on_non_filterable_field(self):
-        super(TestPostgresSearchBackend, self).test_filter_on_non_filterable_field()
+        super().test_filter_on_non_filterable_field()
 
     # Broken
     @unittest.expectedFailure
     def test_order_by_non_filterable_field(self):
-        super(TestPostgresSearchBackend, self).test_order_by_non_filterable_field()
+        super().test_order_by_non_filterable_field()

@@ -9,7 +9,7 @@ class PasswordViewRestrictionForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         self.restriction = kwargs.pop('instance')
-        super(PasswordViewRestrictionForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     def clean_password(self):
         data = self.cleaned_data['password']

@@ -355,7 +355,7 @@ class BlogIndexPage(Page):
         paginator, entries = paginate(request, entries, page_key='page', per_page=10)
 
         # Update template context
-        context = super(BlogIndexPage, self).get_context(request)
+        context = super().get_context(request)
         context['entries'] = entries
         return context
 

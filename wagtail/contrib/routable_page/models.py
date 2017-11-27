@@ -108,7 +108,7 @@ class RoutablePageMixin:
             except Http404:
                 pass
 
-        return super(RoutablePageMixin, self).route(request, path_components)
+        return super().route(request, path_components)
 
     def serve(self, request, view=None, args=None, kwargs=None):
         if args is None:
@@ -116,7 +116,7 @@ class RoutablePageMixin:
         if kwargs is None:
             kwargs = {}
         if view is None:
-            return super(RoutablePageMixin, self).serve(request, *args, **kwargs)
+            return super().serve(request, *args, **kwargs)
         return view(request, *args, **kwargs)
 
     def serve_preview(self, request, mode_name):

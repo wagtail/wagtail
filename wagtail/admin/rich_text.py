@@ -32,7 +32,7 @@ class HalloFormatPlugin(HalloPlugin):
         kwargs.setdefault('name', 'halloformat')
         kwargs.setdefault('order', 10)
         self.format_name = kwargs['format_name']
-        super(HalloFormatPlugin, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
     def construct_plugins_list(self, plugins):
         plugins.setdefault(self.name, {'formattings': {
@@ -46,7 +46,7 @@ class HalloHeadingPlugin(HalloPlugin):
         kwargs.setdefault('name', 'halloheadings')
         kwargs.setdefault('order', 20)
         self.element = kwargs.pop('element')
-        super(HalloHeadingPlugin, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
     def construct_plugins_list(self, plugins):
         plugins.setdefault(self.name, {'formatBlocks': []})
@@ -58,7 +58,7 @@ class HalloListPlugin(HalloPlugin):
         kwargs.setdefault('name', 'hallolists')
         kwargs.setdefault('order', 40)
         self.list_type = kwargs['list_type']
-        super(HalloListPlugin, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
     def construct_plugins_list(self, plugins):
         plugins.setdefault(self.name, {'lists': {
@@ -99,14 +99,14 @@ class HalloRichTextArea(WidgetWithScript, widgets.Textarea):
         ]))
         self.plugins.sort(key=lambda plugin: plugin.order)
 
-        super(HalloRichTextArea, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     def render(self, name, value, attrs=None):
         if value is None:
             translated_value = None
         else:
             translated_value = expand_db_html(value, for_editor=True)
-        return super(HalloRichTextArea, self).render(name, translated_value, attrs)
+        return super().render(name, translated_value, attrs)
 
     def render_js_init(self, id_, name, value):
         if self.options is not None and 'plugins' in self.options:
@@ -122,7 +122,7 @@ class HalloRichTextArea(WidgetWithScript, widgets.Textarea):
         )
 
     def value_from_datadict(self, data, files, name):
-        original_value = super(HalloRichTextArea, self).value_from_datadict(data, files, name)
+        original_value = super().value_from_datadict(data, files, name)
         if original_value is None:
             return None
         return DbWhitelister.clean(original_value)

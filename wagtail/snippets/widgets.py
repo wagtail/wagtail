@@ -15,12 +15,12 @@ class AdminSnippetChooser(AdminChooser):
         self.choose_another_text = _('Choose another %s') % name
         self.link_to_chosen_text = _('Edit this %s') % name
 
-        super(AdminSnippetChooser, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
     def render_html(self, name, value, attrs):
         instance, value = self.get_instance_and_id(self.target_model, value)
 
-        original_field_html = super(AdminSnippetChooser, self).render_html(name, value, attrs)
+        original_field_html = super().render_html(name, value, attrs)
 
         return render_to_string("wagtailsnippets/widgets/snippet_chooser.html", {
             'widget': self,

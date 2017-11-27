@@ -207,7 +207,7 @@ class CollectionOwnershipPermissionPolicy(
     (see permission_policies.base.OwnershipPermissionPolicy)
     """
     def __init__(self, model, auth_model=None, owner_field_name='owner'):
-        super(CollectionOwnershipPermissionPolicy, self).__init__(model, auth_model=auth_model)
+        super().__init__(model, auth_model=auth_model)
         self.owner_field_name = owner_field_name
 
         # make sure owner_field_name is a field that exists on the model
