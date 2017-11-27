@@ -208,7 +208,7 @@ class TestStreamFieldDjangoRendering(TestStreamFieldRenderingBase):
 
 class TestStreamFieldJinjaRendering(TestStreamFieldRenderingBase):
     def setUp(self):
-        super(TestStreamFieldJinjaRendering, self).setUp()
+        super().setUp()
         self.engine = engines['jinja2']
 
     def render(self, string, context):

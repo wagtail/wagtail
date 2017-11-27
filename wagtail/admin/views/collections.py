@@ -90,7 +90,7 @@ class Delete(DeleteView):
         return list(filter(is_nonempty, collection_contents))
 
     def get_context_data(self, **kwargs):
-        context = super(Delete, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         collection_contents = self.get_collection_contents()
 
         if collection_contents:

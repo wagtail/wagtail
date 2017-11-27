@@ -203,7 +203,7 @@ class EscapeScriptNode(template.Node):
     TAG_NAME = 'escapescript'
 
     def __init__(self, nodelist):
-        super(EscapeScriptNode, self).__init__()
+        super().__init__()
         self.nodelist = nodelist
 
     def render(self, context):

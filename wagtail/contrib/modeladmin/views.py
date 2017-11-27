@@ -68,7 +68,7 @@ class WMABaseView(TemplateView):
             raise PermissionDenied
         button_helper_class = self.model_admin.get_button_helper_class()
         self.button_helper = button_helper_class(self, request)
-        return super(WMABaseView, self).dispatch(request, *args, **kwargs)
+        return super().dispatch(request, *args, **kwargs)
 
     @cached_property
     def menu_icon(self):
@@ -101,7 +101,7 @@ class WMABaseView(TemplateView):
             'model_admin': self.model_admin,
         }
         context.update(kwargs)
-        return super(WMABaseView, self).get_context_data(**context)
+        return super().get_context_data(**context)
 
 
 class ModelFormView(WMABaseView, FormView):
@@ -125,7 +125,7 @@ class ModelFormView(WMABaseView, FormView):
         return getattr(self, 'instance', None) or self.model()
 
     def get_form_kwargs(self):
-        kwargs = super(ModelFormView, self).get_form_kwargs()
+        kwargs = super().get_form_kwargs()
         kwargs.update({'instance': self.get_instance()})
         return kwargs
 
@@ -146,7 +146,7 @@ class ModelFormView(WMABaseView, FormView):
             'form': form,
         }
         context.update(kwargs)
-        return super(ModelFormView, self).get_context_data(**context)
+        return super().get_context_data(**context)
 
     def get_success_message(self, instance):
         return _("{model_name} '{instance}' created.").format(
@@ -182,7 +182,7 @@ class InstanceSpecificView(WMABaseView):
     instance = None
 
     def __init__(self, model_admin, instance_pk):
-        super(InstanceSpecificView, self).__init__(model_admin)
+        super().__init__(model_admin)
         self.instance_pk = unquote(instance_pk)
         self.pk_quoted = quote(self.instance_pk)
         filter_kwargs = {}
@@ -205,7 +205,7 @@ class InstanceSpecificView(WMABaseView):
     def get_context_data(self, **kwargs):
         context = {'instance': self.instance}
         context.update(kwargs)
-        return super(InstanceSpecificView, self).get_context_data(**context)
+        return super().get_context_data(**context)
 
 
 class IndexView(WMABaseView):
@@ -244,7 +244,7 @@ class IndexView(WMABaseView):
         self.query = request.GET.get(self.SEARCH_VAR, '')
         self.queryset = self.get_queryset(request)
 
-        return super(IndexView, self).dispatch(request, *args, **kwargs)
+        return super().dispatch(request, *args, **kwargs)
 
     @property
     def media(self):
@@ -646,7 +646,7 @@ class IndexView(WMABaseView):
             })
 
         context.update(kwargs)
-        return super(IndexView, self).get_context_data(**context)
+        return super().get_context_data(**context)
 
     def get_template_names(self):
         return self.model_admin.get_index_template()
@@ -675,7 +675,7 @@ class CreateView(ModelFormView):
             # The page can be added in multiple places, so redirect to the
             # choose_parent view so that the parent can be specified
             return redirect(self.url_helper.get_action_url('choose_parent'))
-        return super(CreateView, self).dispatch(request, *args, **kwargs)
+        return super().dispatch(request, *args, **kwargs)
 
     def get_meta_title(self):
         return _('Create new %s') % self.verbose_name
@@ -699,7 +699,7 @@ class EditView(ModelFormView, InstanceSpecificView):
             return redirect(
                 self.url_helper.get_action_url('edit', self.pk_quoted)
             )
-        return super(EditView, self).dispatch(request, *args, **kwargs)
+        return super().dispatch(request, *args, **kwargs)
 
     def get_meta_title(self):
         return _('Editing %s') % self.verbose_name
@@ -714,7 +714,7 @@ class EditView(ModelFormView, InstanceSpecificView):
                 self.request.user, self.instance)
         }
         context.update(kwargs)
-        return super(EditView, self).get_context_data(**context)
+        return super().get_context_data(**context)
 
     def get_error_message(self):
         name = self.verbose_name
@@ -728,7 +728,7 @@ class ChooseParentView(WMABaseView):
     def dispatch(self, request, *args, **kwargs):
         if not self.permission_helper.user_can_create(request.user):
             raise PermissionDenied
-        return super(ChooseParentView, self).dispatch(request, *args, **kwargs)
+        return super().dispatch(request, *args, **kwargs)
 
     def get_page_title(self):
         return _('Add %s') % self.verbose_name
@@ -775,7 +775,7 @@ class DeleteView(InstanceSpecificView):
             return redirect(
                 self.url_helper.get_action_url('delete', self.pk_quoted)
             )
-        return super(DeleteView, self).dispatch(request, *args, **kwargs)
+        return super().dispatch(request, *args, **kwargs)
 
     def get_meta_title(self):
         return _('Confirm deletion of %s') % self.verbose_name
@@ -943,7 +943,7 @@ class InspectView(InstanceSpecificView):
                 self.instance, exclude=['inspect']),
         }
         context.update(kwargs)
-        return super(InspectView, self).get_context_data(**context)
+        return super().get_context_data(**context)
 
     def get_template_names(self):
         return self.model_admin.get_inspect_template()

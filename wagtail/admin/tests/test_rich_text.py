@@ -31,12 +31,12 @@ class BaseRichTextEditHandlerTestCase(TestCase):
             page_class.get_edit_handler.cache_clear()
 
     def setUp(self):
-        super(BaseRichTextEditHandlerTestCase, self).setUp()
+        super().setUp()
         self._clear_edit_handler_cache()
 
     def tearDown(self):
         self._clear_edit_handler_cache()
-        super(BaseRichTextEditHandlerTestCase, self).tearDown()
+        super().tearDown()
 
 
 class TestGetRichTextEditorWidget(TestCase):
@@ -81,7 +81,7 @@ class TestGetRichTextEditorWidget(TestCase):
 class TestDefaultRichText(BaseRichTextEditHandlerTestCase, WagtailTestUtils):
 
     def setUp(self):
-        super(TestDefaultRichText, self).setUp()
+        super().setUp()
         # Find root page
         self.root_page = Page.objects.get(id=2)
 
@@ -130,7 +130,7 @@ class TestDefaultRichText(BaseRichTextEditHandlerTestCase, WagtailTestUtils):
 class TestOverriddenDefaultRichText(BaseRichTextEditHandlerTestCase, WagtailTestUtils):
 
     def setUp(self):
-        super(TestOverriddenDefaultRichText, self).setUp()
+        super().setUp()
 
         # Find root page
         self.root_page = Page.objects.get(id=2)
@@ -173,7 +173,7 @@ class TestOverriddenDefaultRichText(BaseRichTextEditHandlerTestCase, WagtailTest
 class TestCustomDefaultRichText(BaseRichTextEditHandlerTestCase, WagtailTestUtils):
 
     def setUp(self):
-        super(TestCustomDefaultRichText, self).setUp()
+        super().setUp()
 
         # Find root page
         self.root_page = Page.objects.get(id=2)
@@ -246,7 +246,7 @@ class TestRichTextValue(TestCase):
 class TestHalloJsWithCustomPluginOptions(BaseRichTextEditHandlerTestCase, WagtailTestUtils):
 
     def setUp(self):
-        super(TestHalloJsWithCustomPluginOptions, self).setUp()
+        super().setUp()
 
         # Find root page
         self.root_page = Page.objects.get(id=2)
@@ -276,7 +276,7 @@ class TestHalloJsWithCustomPluginOptions(BaseRichTextEditHandlerTestCase, Wagtai
 class TestHalloJsWithFeaturesKwarg(BaseRichTextEditHandlerTestCase, WagtailTestUtils):
 
     def setUp(self):
-        super(TestHalloJsWithFeaturesKwarg, self).setUp()
+        super().setUp()
 
         # Find root page
         self.root_page = Page.objects.get(id=2)
@@ -340,7 +340,7 @@ class TestHalloJsWithFeaturesKwarg(BaseRichTextEditHandlerTestCase, WagtailTestU
 class TestHalloJsWithCustomFeatureOptions(BaseRichTextEditHandlerTestCase, WagtailTestUtils):
 
     def setUp(self):
-        super(TestHalloJsWithCustomFeatureOptions, self).setUp()
+        super().setUp()
 
         # Find root page
         self.root_page = Page.objects.get(id=2)

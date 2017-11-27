@@ -38,7 +38,7 @@ class UsernameForm(forms.ModelForm):
     something else, don't touch it.
     """
     def __init__(self, *args, **kwargs):
-        super(UsernameForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         if User.USERNAME_FIELD == 'username':
             field = self.fields['username']
             field.regex = r"^[\w.@+-]+$"
@@ -92,7 +92,7 @@ class UserForm(UsernameForm):
                     'or setting.'))
 
     def __init__(self, *args, **kwargs):
-        super(UserForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
         if self.password_enabled:
             if self.password_required:
@@ -139,11 +139,11 @@ class UserForm(UsernameForm):
         return password2
 
     def _clean_fields(self):
-        super(UserForm, self)._clean_fields()
+        super()._clean_fields()
         self._clean_username()
 
     def save(self, commit=True):
-        user = super(UserForm, self).save(commit=False)
+        user = super().save(commit=False)
 
         if self.password_enabled:
             password = self.cleaned_data['password1']
@@ -170,7 +170,7 @@ class UserEditForm(UserForm):
 
     def __init__(self, *args, **kwargs):
         editing_self = kwargs.pop('editing_self', False)
-        super(UserEditForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
         if editing_self:
             del self.fields["is_active"]
@@ -186,7 +186,7 @@ class UserEditForm(UserForm):
 
 class GroupForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
-        super(GroupForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.registered_permissions = Permission.objects.none()
         for fn in hooks.get_hooks('register_permissions'):
             self.registered_permissions = self.registered_permissions | fn()
@@ -232,7 +232,7 @@ class GroupForm(forms.ModelForm):
         except ValueError:
             # this form is not bound; we're probably creating a new group
             untouchable_permissions = []
-        group = super(GroupForm, self).save()
+        group = super().save()
         group.permissions.add(*untouchable_permissions)
         return group
 
@@ -272,7 +272,7 @@ class BaseGroupPagePermissionFormSet(forms.BaseFormSet):
                 'permission_types': [pp.permission_type for pp in page_permissions]
             })
 
-        super(BaseGroupPagePermissionFormSet, self).__init__(
+        super().__init__(
             data, files, initial=initial_data, prefix=prefix
         )
         for form in self.forms:
@@ -280,7 +280,7 @@ class BaseGroupPagePermissionFormSet(forms.BaseFormSet):
 
     @property
     def empty_form(self):
-        empty_form = super(BaseGroupPagePermissionFormSet, self).empty_form
+        empty_form = super().empty_form
         empty_form.fields['DELETE'].widget = forms.HiddenInput()
         return empty_form
 
@@ -353,7 +353,7 @@ GroupPagePermissionFormSet = forms.formset_factory(
 
 class NotificationPreferencesForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
-        super(NotificationPreferencesForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         user_perms = UserPagePermissionsProxy(self.instance.user)
         if not user_perms.can_publish_pages():
             del self.fields['submitted_notifications']

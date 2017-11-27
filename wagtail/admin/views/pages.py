@@ -628,7 +628,7 @@ class PreviewOnCreate(PreviewOnEdit):
         return page
 
     def get_form(self, page, query_dict):
-        form = super(PreviewOnCreate, self).get_form(page, query_dict)
+        form = super().get_form(page, query_dict)
         if form.is_valid():
             # Ensures our unsaved page has a suitable url.
             form.instance.set_url_path(form.parent_page)

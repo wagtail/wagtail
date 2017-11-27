@@ -41,7 +41,7 @@ class PermissionCheckedMixin:
                 ):
                     return permission_denied(request)
 
-        return super(PermissionCheckedMixin, self).dispatch(request, *args, **kwargs)
+        return super().dispatch(request, *args, **kwargs)
 
 
 class IndexView(PermissionCheckedMixin, TemplateResponseMixin, BaseListView):
@@ -55,7 +55,7 @@ class IndexView(PermissionCheckedMixin, TemplateResponseMixin, BaseListView):
     template_name = None
 
     def get_context_data(self, **kwargs):
-        context = super(IndexView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context['can_add'] = (
             self.permission_policy is None or
             self.permission_policy.user_has_permission(self.request.user, 'add')
@@ -113,7 +113,7 @@ class CreateView(PermissionCheckedMixin, TemplateResponseMixin, BaseCreateView):
         error_message = self.get_error_message()
         if error_message is not None:
             messages.error(self.request, error_message)
-        return super(CreateView, self).form_invalid(form)
+        return super().form_invalid(form)
 
 
 class EditView(PermissionCheckedMixin, TemplateResponseMixin, BaseUpdateView):
@@ -134,7 +134,7 @@ class EditView(PermissionCheckedMixin, TemplateResponseMixin, BaseUpdateView):
     def get_object(self, queryset=None):
         if 'pk' not in self.kwargs:
             self.kwargs['pk'] = self.args[0]
-        return super(EditView, self).get_object(queryset)
+        return super().get_object(queryset)
 
     def get_page_subtitle(self):
         return str(self.object)
@@ -180,10 +180,10 @@ class EditView(PermissionCheckedMixin, TemplateResponseMixin, BaseUpdateView):
         error_message = self.get_error_message()
         if error_message is not None:
             messages.error(self.request, error_message)
-        return super(EditView, self).form_invalid(form)
+        return super().form_invalid(form)
 
     def get_context_data(self, **kwargs):
-        context = super(EditView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context['can_delete'] = (
             self.permission_policy is None or
             self.permission_policy.user_has_permission(self.request.user, 'delete')
@@ -204,7 +204,7 @@ class DeleteView(PermissionCheckedMixin, TemplateResponseMixin, BaseDeleteView):
     def get_object(self, queryset=None):
         if 'pk' not in self.kwargs:
             self.kwargs['pk'] = self.args[0]
-        return super(DeleteView, self).get_object(queryset)
+        return super().get_object(queryset)
 
     def get_success_url(self):
         return reverse(self.index_url_name)
@@ -221,6 +221,6 @@ class DeleteView(PermissionCheckedMixin, TemplateResponseMixin, BaseDeleteView):
         return self.success_message.format(self.object)
 
     def delete(self, request, *args, **kwargs):
-        response = super(DeleteView, self).delete(request, *args, **kwargs)
+        response = super().delete(request, *args, **kwargs)
         messages.success(request, self.get_success_message())
         return response

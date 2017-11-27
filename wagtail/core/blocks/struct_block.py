@@ -19,7 +19,7 @@ class BaseStructBlock(Block):
     def __init__(self, local_blocks=None, **kwargs):
         self._constructor_kwargs = kwargs
 
-        super(BaseStructBlock, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
         # create a local (shallow) copy of base_blocks so that it can be supplemented by local_blocks
         self.child_blocks = self.base_blocks.copy()
@@ -164,7 +164,7 @@ class BaseStructBlock(Block):
         return (path, args, kwargs)
 
     def check(self, **kwargs):
-        errors = super(BaseStructBlock, self).check(**kwargs)
+        errors = super().check(**kwargs)
         for name, child_block in self.child_blocks.items():
             errors.extend(child_block.check(**kwargs))
             errors.extend(child_block._check_name(**kwargs))
@@ -191,7 +191,7 @@ class StructBlock(BaseStructBlock, metaclass=DeclarativeSubBlocksMetaclass):
 
 class StructValue(collections.OrderedDict):
     def __init__(self, block, *args):
-        super(StructValue, self).__init__(*args)
+        super().__init__(*args)
         self.block = block
 
     def __html__(self):

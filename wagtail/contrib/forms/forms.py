@@ -13,7 +13,7 @@ class BaseForm(django.forms.Form):
         self.user = kwargs.pop('user', None)
         self.page = kwargs.pop('page', None)
 
-        super(BaseForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
 
 class FormBuilder:
@@ -134,7 +134,7 @@ class WagtailAdminFormPageForm(WagtailAdminPageForm):
 
     def clean(self):
 
-        super(WagtailAdminFormPageForm, self).clean()
+        super().clean()
 
         # Check for dupe form field labels - fixes #585
         if 'form_fields' in self.formsets:

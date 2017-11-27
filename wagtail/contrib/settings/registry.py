@@ -19,7 +19,7 @@ class SettingMenuItem(MenuItem):
             classnames = icon_classes
 
         self.model = model
-        super(SettingMenuItem, self).__init__(
+        super().__init__(
             label=capfirst(model._meta.verbose_name),
             url=reverse('wagtailsettings:edit', args=[
                 model._meta.app_label, model._meta.model_name]),

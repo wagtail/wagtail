@@ -21,7 +21,7 @@ class ExplorerMenuItem(MenuItem):
         return user_has_any_page_permission(request.user)
 
     def get_context(self, request):
-        context = super(ExplorerMenuItem, self).get_context(request)
+        context = super().get_context(request)
         start_page = get_explorable_root_page(request.user)
 
         if start_page:
@@ -56,7 +56,7 @@ def register_permissions():
 
 class PageSearchArea(SearchArea):
     def __init__(self):
-        super(PageSearchArea, self).__init__(
+        super().__init__(
             _('Pages'), reverse('wagtailadmin_pages:search'),
             name='pages',
             classnames='icon icon-folder-open-inverse',

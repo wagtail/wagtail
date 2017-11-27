@@ -130,7 +130,7 @@ class Site(models.Model):
             return 'http://%s:%d' % (self.hostname, self.port)
 
     def clean_fields(self, exclude=None):
-        super(Site, self).clean_fields(exclude)
+        super().clean_fields(exclude)
         # Only one site can have the is_default_site flag set
         try:
             default = Site.objects.get(is_default_site=True)
@@ -355,7 +355,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     settings_panels = []
 
     def __init__(self, *args, **kwargs):
-        super(Page, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         if not self.id:
             # this model is being newly created
             # rather than retrieved from the db;
@@ -428,10 +428,10 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         if not self.draft_title:
             self.draft_title = self.title
 
-        super(Page, self).full_clean(*args, **kwargs)
+        super().full_clean(*args, **kwargs)
 
     def clean(self):
-        super(Page, self).clean()
+        super().clean()
         if not Page._slug_is_available(self.slug, self.get_parent(), self):
             raise ValidationError({'slug': _("This slug is already in use")})
 
@@ -461,7 +461,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                     old_url_path = old_record.url_path
                     new_url_path = self.url_path
 
-        result = super(Page, self).save(*args, **kwargs)
+        result = super().save(*args, **kwargs)
 
         if update_descendant_url_paths:
             self._update_descendant_url_paths(old_url_path, new_url_path)
@@ -490,7 +490,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         # child pages that are not instances of SpecificPage
         if type(self) is Page:
             # this is a Page instance, so carry on as we were
-            return super(Page, self).delete(*args, **kwargs)
+            return super().delete(*args, **kwargs)
         else:
             # retrieve an actual Page instance and delete that instead of self
             return Page.objects.get(id=self.id).delete(*args, **kwargs)
@@ -1018,7 +1018,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         Extension to the treebeard 'move' method to ensure that url_path is updated too.
         """
         old_url_path = Page.objects.get(id=self.id).url_path
-        super(Page, self).move(target, pos=pos)
+        super().move(target, pos=pos)
         # treebeard's move method doesn't actually update the in-memory instance, so we need to work
         # with a freshly loaded one now
         new_self = Page.objects.get(id=self.id)
@@ -1385,7 +1385,7 @@ class Orderable(models.Model):
 
 class SubmittedRevisionsManager(models.Manager):
     def get_queryset(self):
-        return super(SubmittedRevisionsManager, self).get_queryset().filter(submitted_for_moderation=True)
+        return super().get_queryset().filter(submitted_for_moderation=True)
 
 
 class PageRevision(models.Model):
@@ -1413,7 +1413,7 @@ class PageRevision(models.Model):
         if self.created_at is None:
             self.created_at = timezone.now()
 
-        super(PageRevision, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
         if self.submitted_for_moderation:
             # ensure that all other revisions of this page have the 'submitted for moderation' flag unset
             self.page.revisions.exclude(id=self.id).update(submitted_for_moderation=False)

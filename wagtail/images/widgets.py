@@ -13,12 +13,12 @@ class AdminImageChooser(AdminChooser):
     link_to_chosen_text = _('Edit this image')
 
     def __init__(self, **kwargs):
-        super(AdminImageChooser, self).__init__(**kwargs)
+        super().__init__(**kwargs)
         self.image_model = get_image_model()
 
     def render_html(self, name, value, attrs):
         instance, value = self.get_instance_and_id(self.image_model, value)
-        original_field_html = super(AdminImageChooser, self).render_html(name, value, attrs)
+        original_field_html = super().render_html(name, value, attrs)
 
         return render_to_string("wagtailimages/widgets/image_chooser.html", {
             'widget': self,

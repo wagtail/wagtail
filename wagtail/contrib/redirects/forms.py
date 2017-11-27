@@ -12,7 +12,7 @@ class RedirectForm(forms.ModelForm):
     )
 
     def __init__(self, *args, **kwargs):
-        super(RedirectForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.fields['redirect_page'].widget = AdminPageChooser()
 
     required_css_class = "required"
@@ -22,7 +22,7 @@ class RedirectForm(forms.ModelForm):
         The unique_together condition on the model is ignored if site is None, so need to
         check for duplicates manually
         """
-        cleaned_data = super(RedirectForm, self).clean()
+        cleaned_data = super().clean()
 
         if cleaned_data.get('site') is None:
             old_path = cleaned_data.get('old_path')

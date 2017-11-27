@@ -50,5 +50,4 @@ class PageAdminURLHelper(AdminURLHelper):
             url_name = 'wagtailadmin_pages:%s' % action
             target_url = reverse(url_name, args=args, kwargs=kwargs)
             return '%s?next=%s' % (target_url, urlquote(self.index_url))
-        return super(PageAdminURLHelper, self).get_action_url(action, *args,
-                                                              **kwargs)
+        return super().get_action_url(action, *args, **kwargs)

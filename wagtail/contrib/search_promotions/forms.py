@@ -11,7 +11,7 @@ class SearchPromotionForm(forms.ModelForm):
     sort_order = forms.IntegerField(required=False)
 
     def __init__(self, *args, **kwargs):
-        super(SearchPromotionForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.fields['page'].widget = AdminPageChooser()
 
     class Meta:
@@ -33,7 +33,7 @@ class SearchPromotionsFormSet(SearchPromotionsFormSetBase):
     minimum_forms_message = _("Please specify at least one recommendation for this search term.")
 
     def add_fields(self, form, *args, **kwargs):
-        super(SearchPromotionsFormSet, self).add_fields(form, *args, **kwargs)
+        super().add_fields(form, *args, **kwargs)
 
         # Hide delete and order fields
         form.fields['DELETE'].widget = forms.HiddenInput()

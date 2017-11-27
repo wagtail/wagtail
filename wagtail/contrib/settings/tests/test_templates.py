@@ -156,7 +156,7 @@ class TestTemplateTag(TemplateTestCase):
 class TestSettingsJinja(TemplateTestCase):
 
     def setUp(self):
-        super(TestSettingsJinja, self).setUp()
+        super().setUp()
         self.engine = engines['jinja2']
 
     def render(self, string, context=None, request_context=True):

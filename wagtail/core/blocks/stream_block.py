@@ -25,7 +25,7 @@ class StreamBlockValidationError(ValidationError):
             params.update(block_errors)
         if non_block_errors:
             params[NON_FIELD_ERRORS] = non_block_errors
-        super(StreamBlockValidationError, self).__init__(
+        super().__init__(
             'Validation error in StreamBlock', params=params)
 
 
@@ -34,7 +34,7 @@ class BaseStreamBlock(Block):
     def __init__(self, local_blocks=None, **kwargs):
         self._constructor_kwargs = kwargs
 
-        super(BaseStreamBlock, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
         # create a local (shallow) copy of base_blocks so that it can be supplemented by local_blocks
         self.child_blocks = self.base_blocks.copy()
@@ -298,7 +298,7 @@ class BaseStreamBlock(Block):
         return (path, args, kwargs)
 
     def check(self, **kwargs):
-        errors = super(BaseStreamBlock, self).check(**kwargs)
+        errors = super().check(**kwargs)
         for name, child_block in self.child_blocks.items():
             errors.extend(child_block.check(**kwargs))
             errors.extend(child_block._check_name(**kwargs))

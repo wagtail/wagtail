@@ -17,7 +17,7 @@ def image(image, filterspec, **attrs):
 
 class WagtailImagesExtension(Extension):
     def __init__(self, environment):
-        super(WagtailImagesExtension, self).__init__(environment)
+        super().__init__(environment)
 
         self.environment.globals.update({
             'image': image,

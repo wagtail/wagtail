@@ -13,7 +13,7 @@ class SearchableListMixin:
         return SearchForm(self.request.GET if self.request.GET.get('q') else None, placeholder=self.search_box_placeholder)
 
     def get_queryset(self):
-        queryset = super(SearchableListMixin, self).get_queryset()
+        queryset = super().get_queryset()
         search_form = self.get_search_form()
 
         if search_form.is_valid():
@@ -37,4 +37,4 @@ class SearchableListMixin:
             kwargs['search_form'] = self.get_search_form()
             kwargs['is_searching'] = bool(self.request.GET.get('q'))
 
-        return super(SearchableListMixin, self).get_context_data(**kwargs)
+        return super().get_context_data(**kwargs)

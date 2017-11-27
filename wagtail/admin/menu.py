@@ -103,7 +103,7 @@ class SubmenuMenuItem(MenuItem):
     """A MenuItem which wraps an inner Menu object"""
     def __init__(self, label, menu, **kwargs):
         self.menu = menu
-        super(SubmenuMenuItem, self).__init__(label, '#', **kwargs)
+        super().__init__(label, '#', **kwargs)
 
     @property
     def media(self):
@@ -117,7 +117,7 @@ class SubmenuMenuItem(MenuItem):
         return bool(self.menu.active_menu_items(request))
 
     def get_context(self, request):
-        context = super(SubmenuMenuItem, self).get_context(request)
+        context = super().get_context(request)
         context['menu_html'] = self.menu.render_html(request)
         context['request'] = request
         return context

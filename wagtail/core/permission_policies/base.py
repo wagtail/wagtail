@@ -171,7 +171,7 @@ class BaseDjangoAuthPermissionPolicy(BasePermissionPolicy):
         # swappable models are in use - for example, an interface for editing user
         # records might use a custom User model but will typically still refer to the
         # permission records for auth.user.
-        super(BaseDjangoAuthPermissionPolicy, self).__init__(model)
+        super().__init__(model)
         self.auth_model = auth_model or self.model
         self.app_label = self.auth_model._meta.app_label
         self.model_name = self.auth_model._meta.model_name
@@ -247,7 +247,7 @@ class OwnershipPermissionPolicy(BaseDjangoAuthPermissionPolicy):
     (unless the user is an active superuser, in which case they can do everything).
     """
     def __init__(self, model, auth_model=None, owner_field_name='owner'):
-        super(OwnershipPermissionPolicy, self).__init__(model, auth_model=auth_model)
+        super().__init__(model, auth_model=auth_model)
         self.owner_field_name = owner_field_name
 
         # make sure owner_field_name is a field that exists on the model

@@ -17,7 +17,7 @@ __all__ = ['ListBlock']
 class ListBlock(Block):
 
     def __init__(self, child_block, **kwargs):
-        super(ListBlock, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
         if isinstance(child_block, type):
             # child_block was passed as a class, so convert it to a block instance
@@ -167,7 +167,7 @@ class ListBlock(Block):
         return content
 
     def check(self, **kwargs):
-        errors = super(ListBlock, self).check(**kwargs)
+        errors = super().check(**kwargs)
         errors.extend(self.child_block.check(**kwargs))
         return errors
 

@@ -11,13 +11,13 @@ class RichTextField(models.TextField):
         self.editor = kwargs.pop('editor', 'default')
         self.features = kwargs.pop('features', None)
         # TODO: preserve 'editor' and 'features' when deconstructing for migrations
-        super(RichTextField, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     def formfield(self, **kwargs):
         from wagtail.admin.rich_text import get_rich_text_editor_widget
         defaults = {'widget': get_rich_text_editor_widget(self.editor, features=self.features)}
         defaults.update(kwargs)
-        return super(RichTextField, self).formfield(**defaults)
+        return super().formfield(**defaults)
 
 
 # https://github.com/django/django/blob/64200c14e0072ba0ffef86da46b2ea82fd1e019a/django/db/models/fields/subclassing.py#L31-L44
@@ -39,7 +39,7 @@ class Creator:
 
 class StreamField(models.Field):
     def __init__(self, block_types, **kwargs):
-        super(StreamField, self).__init__(**kwargs)
+        super().__init__(**kwargs)
         if isinstance(block_types, Block):
             self.stream_block = block_types
         elif isinstance(block_types, type):
@@ -55,7 +55,7 @@ class StreamField(models.Field):
         return StreamFieldPanel
 
     def deconstruct(self):
-        name, path, _, kwargs = super(StreamField, self).deconstruct()
+        name, path, _, kwargs = super().deconstruct()
         block_types = self.stream_block.child_blocks.items()
         args = [block_types]
         return name, path, args, kwargs
@@ -115,7 +115,7 @@ class StreamField(models.Field):
         """
         defaults = {'form_class': BlockField, 'block': self.stream_block}
         defaults.update(kwargs)
-        return super(StreamField, self).formfield(**defaults)
+        return super().formfield(**defaults)
 
     def value_to_string(self, obj):
         value = self.value_from_object(obj)
@@ -125,12 +125,12 @@ class StreamField(models.Field):
         return self.stream_block.get_searchable_content(value)
 
     def check(self, **kwargs):
-        errors = super(StreamField, self).check(**kwargs)
+        errors = super().check(**kwargs)
         errors.extend(self.stream_block.check(field=self, **kwargs))
         return errors
 
     def contribute_to_class(self, cls, name, **kwargs):
-        super(StreamField, self).contribute_to_class(cls, name, **kwargs)
+        super().contribute_to_class(cls, name, **kwargs)
 
         # Add Creator descriptor to allow the field to be set from a list or a
         # JSON string.

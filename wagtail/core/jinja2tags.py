@@ -9,7 +9,7 @@ class WagtailCoreExtension(Extension):
     tags = {'include_block'}
 
     def __init__(self, environment):
-        super(WagtailCoreExtension, self).__init__(environment)
+        super().__init__(environment)
 
         self.environment.globals.update({
             'pageurl': jinja2.contextfunction(pageurl),

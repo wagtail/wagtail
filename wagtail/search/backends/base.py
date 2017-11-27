@@ -185,7 +185,7 @@ class BaseSearchResults:
 
 class EmptySearchResults(BaseSearchResults):
     def __init__(self):
-        return super(EmptySearchResults, self).__init__(None, None)
+        return super().__init__(None, None)
 
     def _clone(self):
         return self.__class__()

@@ -158,7 +158,7 @@ class AbstractForm(Page):
     base_form_class = WagtailAdminFormPageForm
 
     def __init__(self, *args, **kwargs):
-        super(AbstractForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         if not hasattr(self, 'landing_page_template'):
             name, ext = os.path.splitext(self.template)
             self.landing_page_template = name + '_landing' + ext
@@ -298,7 +298,7 @@ class AbstractForm(Page):
                 self.get_context(request)
             )
         else:
-            return super(AbstractForm, self).serve_preview(request, mode)
+            return super().serve_preview(request, mode)
 
 
 class AbstractEmailForm(AbstractForm):
@@ -314,7 +314,7 @@ class AbstractEmailForm(AbstractForm):
     subject = models.CharField(verbose_name=_('subject'), max_length=255, blank=True)
 
     def process_form_submission(self, form):
-        submission = super(AbstractEmailForm, self).process_form_submission(form)
+        submission = super().process_form_submission(form)
         if self.to_address:
             self.send_mail(form)
         return submission
