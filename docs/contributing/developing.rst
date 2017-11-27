@@ -86,6 +86,7 @@ an argument to ``runtests.py``
 You can create migrations for the test app by running the following from the Wagtail root.
 
 .. code-block:: console
+
     $ django-admin.py makemigrations --settings=wagtail.tests.settings
 
 
