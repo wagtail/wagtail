@@ -11,11 +11,11 @@ logger = logging.getLogger('wagtail.core')
 
 
 # Clear the wagtail_site_root_paths from the cache whenever Site records are updated.
-def post_save_site_signal_handler(sender, instance, **kwargs):
+def post_save_site_signal_handler(instance, update_fields=None, **kwargs):
     cache.delete('wagtail_site_root_paths')
 
 
-def post_delete_site_signal_handler(sender, instance, **kwargs):
+def post_delete_site_signal_handler(instance, **kwargs):
     cache.delete('wagtail_site_root_paths')
 
 
@@ -30,20 +30,20 @@ def post_delete_page_log_deletion(sender, instance, **kwargs):
     logger.info("Page deleted: \"%s\" id=%d", instance.title, instance.id)
 
 
-def rebuild_site_cache_post_site_save(sender, instance, **kwargs):
+def rebuild_site_cache_post_site_save(instance, **kwargs):
     Site.objects.rebuild_site_cache()
 
 
-def rebuild_site_cache_post_site_delete(sender, instance, **kwargs):
+def rebuild_site_cache_post_site_delete(instance, **kwargs):
     Site.objects.rebuild_site_cache(deleted_site=instance)
 
 
-def rebuild_site_cache_post_site_root_update(sender, instance, **kwargs):
+def rebuild_site_cache_post_site_root_update(instance, **kwargs):
     if instance.sites_rooted_here.all().exists():
         Site.objects.rebuild_site_cache()
 
 
-def clear_site_cache_pre_site_root_delete(sender, instance, **kwargs):
+def clear_site_cache_pre_site_root_delete(instance, **kwargs):
     if instance.sites_rooted_here.all().exists():
         # Cache will be rebuilt next time Site.get_for_request() is used
         Site.objects.clear_site_cache()
