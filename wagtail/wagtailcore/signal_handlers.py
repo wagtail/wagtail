@@ -3,7 +3,7 @@ from __future__ import absolute_import, unicode_literals
 import logging
 
 from django.core.cache import cache
-from django.db.models.signals import post_delete, post_save, pre_save, pre_delete
+from django.db.models.signals import post_delete, post_save, pre_delete
 
 from wagtail.wagtailcore.models import Page, Site
 
