@@ -2,6 +2,7 @@ from __future__ import absolute_import, unicode_literals
 
 import json
 import logging
+import warnings
 from collections import defaultdict
 from io import StringIO
 from urllib.parse import urlparse
@@ -10,7 +11,8 @@ from django.conf import settings
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
 from django.core import checks
-from django.core.cache import cache
+from django.core.cache import cache, caches
+from django.core.cache.backends.locmem import LocMemCache
 from django.core.exceptions import ValidationError
 from django.core.handlers.base import BaseHandler
 from django.core.handlers.wsgi import WSGIRequest
@@ -30,6 +32,7 @@ from treebeard.mp_tree import MP_Node
 
 from wagtail.wagtailcore.query import PageQuerySet, TreeQuerySet
 from wagtail.wagtailcore.signals import page_published, page_unpublished
+from wagtail.wagtailcore.sites import get_site_for_hostname
 from wagtail.wagtailcore.url_routing import RouteResult
 from wagtail.wagtailcore.utils import (
     WAGTAIL_APPEND_SLASH, camelcase_to_underscore, resolve_model_string)
@@ -38,13 +41,29 @@ from wagtail.wagtailsearch import index
 logger = logging.getLogger('wagtail.core')
 
 PAGE_TEMPLATE_VAR = 'page'
+SITE_CACHE_KEY_PREFIX = '_wagtailcore.sites'
+SITE_CACHE_POPULATED_KEY = '%s:__populated__' % SITE_CACHE_KEY_PREFIX
+SITE_CACHE_DEFAULT_KEY = '%s:__default__' % SITE_CACHE_KEY_PREFIX
 
-SITE_CACHE = {}
-REQUEST_SITE_MATCH_CACHE = {}
-DEFAULT_SITE_KEY = '__default__'
+
+def site_cache_enabled():
+    enabled = getattr(settings, 'WAGTAIL_SITE_CACHE_ENABLED', False)
+    if isinstance(caches['default'], LocMemCache):
+        msg = ("WAGTAIL_SITE_CACHE_ENABLED is set to True, but LocMemCache is "
+               "set as the default cache backend. This is okay for local "
+               "development, but unsuitable for any other environment.")
+        warnings.warn(msg)
+    return enabled
 
 
 class SiteManager(models.Manager):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.hostname_only_match_ports = getattr(
+            settings, 'WAGTAIL_SITE_ALLOW_HOSTNAME_ONLY_MATCHES_FOR_PORTS',
+            (80, 443, 8000, 8080)
+        )
 
     @staticmethod
     def get_hostname_and_port_from_request(request):
@@ -62,59 +81,91 @@ class SiteManager(models.Manager):
             port = None
         return hostname, port
 
-    @staticmethod
-    def clear_site_cache():
-        SITE_CACHE.clear()
-        REQUEST_SITE_MATCH_CACHE.clear()
+    def _get_cache_keys_for_site(self, site):
+        """
+        Returns a list of key strings to be used when populating cache values
+        for the provided site.
+        """
+        keys = [
+            '%s:%s:%s' % (SITE_CACHE_KEY_PREFIX, site.port, site.hostname),
+        ]
+        if site.is_default_site:
+            keys.append(SITE_CACHE_DEFAULT_KEY)
+        return keys
 
-    def _get_by_id(self, site_id):
-        if site_id not in SITE_CACHE:
-            SITE_CACHE[site_id] = self.get(pk=site_id)
-        return SITE_CACHE[site_id]
+    def _get_extended_cache_keys_for_site(self, site):
+        """
+        Returns a list of key strings to use when populating cache values for a
+        site with a unique hostname, allowing it to be matched to requests
+        when the hostname matches, but the request's port value differs.
+        Also used when identifying keys for each site when clearing the cache.
+        """
+        keys = [
+            '%s:%s:%s' % (SITE_CACHE_KEY_PREFIX, port, site.hostname)
+            for port in self.hostname_only_match_ports
+        ]
+        if site.port not in self.hostname_only_match_ports:
+            keys.append(
+                '%s:%s:%s' % (SITE_CACHE_KEY_PREFIX, site.port, site.hostname)
+            )
+        keys.append('%s:%s' % (SITE_CACHE_KEY_PREFIX, site.hostname))
+        return keys
 
-    def _cache_and_return_site(self, site, cache_key):
-        SITE_CACHE[site.pk] = site
-        REQUEST_SITE_MATCH_CACHE[cache_key] = site.pk
-        return site
+    def clear_site_cache(self, deleted_site=None):
+        keys = set([SITE_CACHE_POPULATED_KEY, SITE_CACHE_DEFAULT_KEY])
+        if deleted_site:
+            keys.update(self._get_extended_cache_keys_for_site(deleted_site))
+        for site in self.all().only('hostname', 'port'):
+            keys.update(self._get_extended_cache_keys_for_site(site))
+        cache.delete_many(keys)
+        return keys
 
-    def get_default(self):
+    def rebuild_site_cache(self, clear_first=True, deleted_site=None):
+        if clear_first:
+            self.clear_site_cache(deleted_site)
+        if not site_cache_enabled():
+            return
+        cache_vals = {SITE_CACHE_POPULATED_KEY: True}
+        hostname_unique_sites = {}
+        for site in self.all().select_related('root_page'):
+            cache_vals.update({
+                key: site for key in self._get_cache_keys_for_site(site)
+            })
+            if site.hostname in hostname_unique_sites:
+                del hostname_unique_sites[site.hostname]
+            else:
+                hostname_unique_sites[site.hostname] = site
+
+        for hostname, site in hostname_unique_sites.items():
+            # A single site is defined for this hostname, so set
+            # additional cache keys to ensure the same site is returned
+            # when the hostname matches but port differs
+            cache_vals.update({
+                k: site for k in self._get_extended_cache_keys_for_site(site)
+            })
+        cache.set_many(cache_vals, None)
+        return cache_vals
+
+    def get_default_site(self):
         """Return the 'default' ``Site`` or raise an exception if no site is
-        set as the default. The result is cached."""
-        if DEFAULT_SITE_KEY in REQUEST_SITE_MATCH_CACHE:
-            return self._get_by_id(REQUEST_SITE_MATCH_CACHE[DEFAULT_SITE_KEY])
-
-        site = self.get(is_default_site=True)
-        return self._cache_and_return_site(site, DEFAULT_SITE_KEY)
+        set as the default"""
+        if site_cache_enabled():
+            return cache.get(SITE_CACHE_DEFAULT_KEY)
+        return self.get(is_default_site=True)
 
     def get_for_request(self, request):
         """Return the site responsible for dealing with the supplied
-        ``HttpRequest`` instance. The result is cached."""
+        ``HttpRequest`` instance"""
         hostname, port = self.get_hostname_and_port_from_request(request)
-        key = "%s:%s" % (hostname, port)
-
-        if key in REQUEST_SITE_MATCH_CACHE:
-            return self._get_by_id(REQUEST_SITE_MATCH_CACHE[key])
-
-        if hostname:
-            if port:
-                try:
-                    # Try to find a site matching both hostname and port
-                    site = self.get(hostname=hostname, port=port)
-                    return self._cache_and_return_site(site, key)
-                except Site.DoesNotExist:
-                    pass
-
-            try:
-                # If there's only one site matching the hostname, use that,
-                # since there's no ambiguity
-                site = self.get(hostname=hostname)
-                return self._cache_and_return_site(site, key)
-            except(Site.DoesNotExist, Site.MultipleObjectsReturned):
-                pass
-
-        # Fall back to using default site
-        site = self.get_default()
-        return self._cache_and_return_site(site, key)
+        if site_cache_enabled():
+            if not cache.get(SITE_CACHE_POPULATED_KEY):
+                self.rebuild_site_cache(clear_first=False)
+            if port is None:
+                key = "%s:%s" % (SITE_CACHE_KEY_PREFIX, hostname)
+            else:
+                key = "%s:%s:%s" % (SITE_CACHE_KEY_PREFIX, port, hostname)
+            return cache.get(key) or self.get_default_site()
+        return get_site_for_hostname(hostname, port)
 
     def get_by_natural_key(self, hostname, port):
         return self.get(hostname=hostname, port=port)
