@@ -21,16 +21,21 @@ class MediaEmbedHandler:
         }
 
     @staticmethod
-    def expand_db_attributes(attrs, for_editor):
+    def expand_db_attributes(attrs):
         """
         Given a dict of attributes from the <embed> tag, return the real HTML
-        representation.
+        representation for use on the front-end.
         """
-        if for_editor:
-            try:
-                return format.embed_to_editor_html(attrs['url'])
-            except EmbedException:
-                # Could be replaced with a nice error message
-                return ''
-        else:
-            return format.embed_to_frontend_html(attrs['url'])
+        return format.embed_to_frontend_html(attrs['url'])
+
+    @staticmethod
+    def expand_db_attributes_for_editor(attrs):
+        """
+        Given a dict of attributes from the <embed> tag, return the real HTML
+        representation for use within the editor.
+        """
+        try:
+            return format.embed_to_editor_html(attrs['url'])
+        except EmbedException:
+            # Could be replaced with a nice error message
+            return ''

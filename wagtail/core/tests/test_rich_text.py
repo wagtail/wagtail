@@ -20,37 +20,25 @@ class TestPageLinkHandler(TestCase):
                          {'id': 'test-id'})
 
     def test_expand_db_attributes_page_does_not_exist(self):
-        result = PageLinkHandler.expand_db_attributes(
-            {'id': 0},
-            False
-        )
+        result = PageLinkHandler.expand_db_attributes({'id': 0})
         self.assertEqual(result, '<a>')
 
     def test_expand_db_attributes_for_editor(self):
-        result = PageLinkHandler.expand_db_attributes(
-            {'id': 1},
-            True
-        )
+        result = PageLinkHandler.expand_db_attributes_for_editor({'id': 1})
         self.assertEqual(
             result,
             '<a data-linktype="page" data-id="1" href="None">'
         )
 
         events_page_id = Page.objects.get(url_path='/home/events/').pk
-        result = PageLinkHandler.expand_db_attributes(
-            {'id': events_page_id},
-            True
-        )
+        result = PageLinkHandler.expand_db_attributes_for_editor({'id': events_page_id})
         self.assertEqual(
             result,
             '<a data-linktype="page" data-id="%d" data-parent-id="2" href="/events/">' % events_page_id
         )
 
     def test_expand_db_attributes_not_for_editor(self):
-        result = PageLinkHandler.expand_db_attributes(
-            {'id': 1},
-            False
-        )
+        result = PageLinkHandler.expand_db_attributes({'id': 1})
         self.assertEqual(result, '<a href="None">')
 
 

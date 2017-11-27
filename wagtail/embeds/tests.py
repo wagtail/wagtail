@@ -557,9 +557,8 @@ class TestMediaEmbedHandler(TestCase):
             height=1000,
         )
 
-        result = MediaEmbedHandler.expand_db_attributes(
-            {'url': 'http://www.youtube.com/watch/'},
-            True
+        result = MediaEmbedHandler.expand_db_attributes_for_editor(
+            {'url': 'http://www.youtube.com/watch/'}
         )
         self.assertIn(
             (
@@ -578,9 +577,8 @@ class TestMediaEmbedHandler(TestCase):
     def test_test_expand_db_attributes_for_editor_catches_embed_not_found(self, get_embed):
         get_embed.side_effect = EmbedNotFoundException
 
-        result = MediaEmbedHandler.expand_db_attributes(
+        result = MediaEmbedHandler.expand_db_attributes_for_editor(
             {'url': 'http://www.youtube.com/watch/'},
-            True
         )
 
         self.assertEqual(result, '')
@@ -601,8 +599,7 @@ class TestMediaEmbedHandler(TestCase):
         )
 
         result = MediaEmbedHandler.expand_db_attributes(
-            {'url': 'http://www.youtube.com/watch/'},
-            False
+            {'url': 'http://www.youtube.com/watch/'}
         )
         self.assertIn('test html', result)
 
@@ -611,8 +608,7 @@ class TestMediaEmbedHandler(TestCase):
         get_embed.side_effect = EmbedNotFoundException
 
         result = MediaEmbedHandler.expand_db_attributes(
-            {'url': 'http://www.youtube.com/watch/'},
-            False
+            {'url': 'http://www.youtube.com/watch/'}
         )
 
         self.assertEqual(result, '')
