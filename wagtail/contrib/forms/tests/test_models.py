@@ -4,11 +4,12 @@ import json
 from django.core import mail
 from django.test import TestCase
 
+from wagtail.contrib.forms.models import FormSubmission
+from wagtail.contrib.forms.tests.utils import (
+    make_form_page, make_form_page_with_custom_submission, make_form_page_with_redirect)
+from wagtail.core.models import Page
 from wagtail.tests.testapp.models import CustomFormPageSubmission, FormField, JadeFormPage
 from wagtail.tests.utils import WagtailTestUtils
-from wagtail.core.models import Page
-from wagtail.contrib.forms.models import FormSubmission
-from wagtail.contrib.forms.tests.utils import make_form_page, make_form_page_with_custom_submission
 
 
 class TestFormSubmission(TestCase):
@@ -53,6 +54,9 @@ class TestFormSubmission(TestCase):
 
         # check that variables defined in get_context are passed through to the template (#1429)
         self.assertContains(response, "<p>hello world</p>")
+
+        # check the default form_submission is added to the context
+        self.assertContains(response, "<li>your-email: bob@example.com</li>")
 
         # Check that an email was sent
         self.assertEqual(len(mail.outbox), 1)
@@ -187,6 +191,9 @@ class TestFormWithCustomSubmission(TestCase, WagtailTestUtils):
 
         # check that variables defined in get_context are passed through to the template (#1429)
         self.assertContains(response, "<p>hello world</p>")
+
+        # check that the custom form_submission is added to the context
+        self.assertContains(response, "<p>Username: test@email.com</p>")
 
         # Check that an email was sent
         self.assertEqual(len(mail.outbox), 1)
@@ -363,6 +370,34 @@ class TestFormSubmissionWithMultipleRecipientsAndWithCustomSubmission(TestCase, 
         self.assertTrue(
             CustomFormPageSubmission.objects.filter(page=form_page, form_data__contains='hello world').exists()
         )
+
+
+class TestFormWithRedirect(TestCase):
+    def setUp(self):
+        # Create a form page
+        self.form_page = make_form_page_with_redirect(to_address='to@email.com, another@email.com')
+
+    def test_post_valid_form(self):
+        response = self.client.post('/contact-us/', {
+            'your-email': 'bob@example.com',
+            'your-message': 'hello world',
+            'your-choices': {'foo': '', 'bar': '', 'baz': ''}
+        })
+
+        # Check response
+        self.assertRedirects(response, '/')
+
+        # Check that one email was sent, but to two recipients
+        self.assertEqual(len(mail.outbox), 1)
+
+        self.assertEqual(mail.outbox[0].subject, "The subject")
+        self.assertIn("Your message: hello world", mail.outbox[0].body)
+        self.assertEqual(mail.outbox[0].from_email, 'from@email.com')
+        self.assertEqual(set(mail.outbox[0].to), {'to@email.com', 'another@email.com'})
+
+        # Check that form submission was saved correctly
+        form_page = Page.objects.get(url_path='/home/contact-us/')
+        self.assertTrue(FormSubmission.objects.filter(page=form_page, form_data__contains='hello world').exists())
 
 
 class TestIssue798(TestCase):

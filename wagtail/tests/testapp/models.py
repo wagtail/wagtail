@@ -9,7 +9,7 @@ from django.core.exceptions import ValidationError
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.models import ClusterableModel
@@ -435,6 +435,48 @@ JadeFormPage.content_panels = [
 ]
 
 
+# Form page that redirects to a different page
+
+class RedirectFormField(AbstractFormField):
+    page = ParentalKey('FormPageWithRedirect', related_name='form_fields', on_delete=models.CASCADE)
+
+
+class FormPageWithRedirect(AbstractEmailForm):
+    thank_you_redirect_page = models.ForeignKey(
+        'wagtailcore.Page',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
+
+    def get_context(self, request):
+        context = super(FormPageWithRedirect, self).get_context(request)
+        context['greeting'] = "hello world"
+        return context
+
+    def render_landing_page(self, request, form_submission=None, *args, **kwargs):
+        """
+        Renders the landing page OR if a receipt_page_redirect is chosen redirects to this page.
+        """
+        if self.thank_you_redirect_page:
+            return redirect(self.thank_you_redirect_page.url, permanent=False)
+
+        return super(FormPageWithRedirect, self).render_landing_page(request, form_submission, *args, **kwargs)
+
+
+FormPageWithRedirect.content_panels = [
+    FieldPanel('title', classname="full title"),
+    PageChooserPanel('thank_you_redirect_page'),
+    InlinePanel('form_fields', label="Form fields"),
+    MultiFieldPanel([
+        FieldPanel('to_address', classname="full"),
+        FieldPanel('from_address', classname="full"),
+        FieldPanel('subject', classname="full"),
+    ], "Email")
+]
+
+
 # FormPage with a custom FormSubmission
 
 class FormPageWithCustomSubmission(AbstractEmailForm):
@@ -469,7 +511,7 @@ class FormPageWithCustomSubmission(AbstractEmailForm):
         return CustomFormPageSubmission
 
     def process_form_submission(self, form):
-        self.get_submission_class().objects.create(
+        form_submission = self.get_submission_class().objects.create(
             form_data=json.dumps(form.cleaned_data, cls=DjangoJSONEncoder),
             page=self, user=form.user
         )
@@ -478,6 +520,9 @@ class FormPageWithCustomSubmission(AbstractEmailForm):
             addresses = [x.strip() for x in self.to_address.split(',')]
             content = '\n'.join([x[1].label + ': ' + str(form.data.get(x[0])) for x in form.fields.items()])
             send_mail(self.subject, content, addresses, self.from_address,)
+
+        # process_form_submission should now return the created form_submission
+        return form_submission
 
     def serve(self, request, *args, **kwargs):
         if self.get_submission_class().objects.filter(page=self, user__pk=request.user.pk).exists():
