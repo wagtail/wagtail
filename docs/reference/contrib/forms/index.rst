@@ -82,7 +82,7 @@ You now need to create two templates named ``form_page.html`` and ``form_page_la
         </body>
     </html>
 
-``form_page_landing.html`` is a regular Wagtail template, displayed after the user makes a successful form submission. If you want to dynamically override the landing page template, you can do so with the ``get_landing_page_template`` method (in the same way that you would with ``get_template``).
+``form_page_landing.html`` is a regular Wagtail template, displayed after the user makes a successful form submission, `form_submission` will available in this template. If you want to dynamically override the landing page template, you can do so with the ``get_landing_page_template`` method (in the same way that you would with ``get_template``).
 
 
 .. _wagtailforms_formsubmissionpanel:
