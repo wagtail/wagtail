@@ -43,6 +43,7 @@ logger = logging.getLogger('wagtail.core')
 PAGE_TEMPLATE_VAR = 'page'
 SITE_CACHE_KEY_PREFIX = '_wagtailcore.sites'
 SITE_CACHE_POPULATED_KEY = '%s:__populated__' % SITE_CACHE_KEY_PREFIX
+SITE_CACHE_KEY_INDEX_KEY = '%s:__keys__' % SITE_CACHE_KEY_PREFIX
 SITE_CACHE_DEFAULT_KEY = '%s:__default__' % SITE_CACHE_KEY_PREFIX
 
 
@@ -98,7 +99,6 @@ class SiteManager(models.Manager):
         Returns a list of key strings to use when populating cache values for a
         site with a unique hostname, allowing it to be matched to requests
         when the hostname matches, but the request's port value differs.
-        Also used when identifying keys for each site when clearing the cache.
         """
         keys = [
             '%s:%s:%s' % (SITE_CACHE_KEY_PREFIX, port, site.hostname)
@@ -111,20 +111,18 @@ class SiteManager(models.Manager):
         keys.append('%s:%s' % (SITE_CACHE_KEY_PREFIX, site.hostname))
         return keys
 
-    def clear_site_cache(self, deleted_site=None):
-        keys = set([SITE_CACHE_POPULATED_KEY, SITE_CACHE_DEFAULT_KEY])
-        if deleted_site:
-            keys.update(self._get_extended_cache_keys_for_site(deleted_site))
-        for site in self.all().only('hostname', 'port'):
-            keys.update(self._get_extended_cache_keys_for_site(site))
-        cache.delete_many(keys)
-        return keys
+    def clear_site_cache(self):
+        delete_keys = cache.get(SITE_CACHE_KEY_INDEX_KEY)
+        if delete_keys:
+            # Clear the cached key index also
+            delete_keys.add(SITE_CACHE_KEY_INDEX_KEY)
+            cache.delete_many(delete_keys)
 
-    def rebuild_site_cache(self, clear_first=True, deleted_site=None):
-        if clear_first:
-            self.clear_site_cache(deleted_site)
+    def rebuild_site_cache(self, clear_first=True):
         if not site_cache_enabled():
             return
+        if clear_first:
+            self.clear_site_cache()
         cache_vals = {SITE_CACHE_POPULATED_KEY: True}
         hostname_unique_sites = {}
         for site in self.all().select_related('root_page'):
@@ -143,8 +141,10 @@ class SiteManager(models.Manager):
             cache_vals.update({
                 k: site for k in self._get_extended_cache_keys_for_site(site)
             })
+
+        # Store used keys in the cache to help with invalidation
+        cache_vals[SITE_CACHE_KEY_INDEX_KEY] = set(cache_vals.keys())
         cache.set_many(cache_vals, None)
-        return cache_vals
 
     def get_default_site(self):
         """Return the 'default' ``Site`` or raise an exception if no site is
