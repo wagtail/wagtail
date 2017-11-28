@@ -383,15 +383,10 @@ The following example shows how to create a multi-step form.
                             # Perform validation again for whole form.
                             # After successful validation, save data into DB,
                             # and remove from the session.
-                            self.process_form_submission(form)
+                            form_submission = self.process_form_submission(form)
                             del request.session[session_key_data]
-
-                            # Render the landing page
-                            return render(
-                                request,
-                                self.landing_page_template,
-                                self.get_context(request)
-                            )
+                            # render the landing page
+                            return self.render_landing_page(request, form_submission, *args, **kwargs)
                 else:
                     # If data for step is invalid
                     # we will need to display form again with errors,
@@ -553,3 +548,59 @@ Next, you need to transform your template to display the results:
 
 
 You can also show the results on the landing page.
+
+
+Custom landing page redirect
+----------------------------
+
+You can override the ``render_landing_page`` method on your `FormPage` to change what is rendered when a form submits.
+
+In this example below we have added a `thank_you_page` field that enables custom redirects after a form submits to the selected page.
+
+When overriding the ``render_landing_page`` method, we check if there is a linked `thank_you_page` and then redirect to it if it exists.
+
+Finally, we add a URL param of `id` based on the ``form_submission`` if it exists.
+
+.. code-block:: python
+
+    from django.shortcuts import redirect
+    from wagtail.wagtailadmin.edit_handlers import (
+        FieldPanel, FieldRowPanel, InlinePanel, MultiFieldPanel, PageChooserPanel)
+    from wagtail.contrib.forms.models import AbstractEmailForm
+
+    class FormPage(AbstractEmailForm):
+
+        # intro, thank_you_text, ...
+
+        thank_you_page = models.ForeignKey(
+            'wagtailcore.Page',
+            null=True,
+            blank=True,
+            on_delete=models.SET_NULL,
+            related_name='+',
+        )
+
+        def render_landing_page(self, request, form_submission=None, *args, **kwargs):
+            if self.thank_you_page:
+                url = self.thank_you_page.url
+                # if a form_submission instance is available, append the id to URL
+                # when previewing landing page, there will not be a form_submission instance
+                if form_submission:
+                  url += '?id=%s' % form_submission.id
+                return redirect(url, permanent=False)
+            # if no thank_you_page is set, render default landing page
+            return super(FormPage, self).render_landing_page(request, form_submission, *args, **kwargs)
+
+        content_panels = AbstractEmailForm.content_panels + [
+            FieldPanel('intro', classname='full'),
+            InlinePanel('form_fields'),
+            FieldPanel('thank_you_text', classname='full'),
+            PageChooserPanel('thank_you_page'),
+            MultiFieldPanel([
+                FieldRowPanel([
+                    FieldPanel('from_address', classname='col6'),
+                    FieldPanel('to_address', classname='col6'),
+                ]),
+                FieldPanel('subject'),
+            ], 'Email'),
+        ]
