@@ -1,8 +1,45 @@
 from bs4 import BeautifulSoup
 from django.test import TestCase
 
-from wagtail.core.rich_text import DbWhitelister
+from wagtail.admin.rich_text.converters.editor_html import DbWhitelister
 from wagtail.core.whitelist import Whitelister
+
+
+class TestDbWhitelisterMethods(TestCase):
+    def setUp(self):
+        self.whitelister = DbWhitelister()
+
+    def test_clean_tag_node_div(self):
+        soup = BeautifulSoup('<div>foo</div>', 'html5lib')
+        tag = soup.div
+        self.assertEqual(tag.name, 'div')
+        self.whitelister.clean_tag_node(soup, tag)
+        self.assertEqual(tag.name, 'p')
+
+    def test_clean_tag_node_with_data_embedtype(self):
+        soup = BeautifulSoup(
+            '<p><a data-embedtype="image" data-id=1 data-format="left" data-alt="bar" irrelevant="baz">foo</a></p>',
+            'html5lib'
+        )
+        tag = soup.p
+        self.whitelister.clean_tag_node(soup, tag)
+        self.assertEqual(str(tag),
+                         '<p><embed alt="bar" embedtype="image" format="left" id="1"/></p>')
+
+    def test_clean_tag_node_with_data_linktype(self):
+        soup = BeautifulSoup(
+            '<a data-linktype="document" data-id="1" irrelevant="baz">foo</a>',
+            'html5lib'
+        )
+        tag = soup.a
+        self.whitelister.clean_tag_node(soup, tag)
+        self.assertEqual(str(tag), '<a id="1" linktype="document">foo</a>')
+
+    def test_clean_tag_node(self):
+        soup = BeautifulSoup('<a irrelevant="baz">foo</a>', 'html5lib')
+        tag = soup.a
+        self.whitelister.clean_tag_node(soup, tag)
+        self.assertEqual(str(tag), '<a>foo</a>')
 
 
 class TestDbWhitelister(TestCase):
