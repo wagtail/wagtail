@@ -31,6 +31,7 @@ Changelog
  * Rich text fields now take feature lists into account when whitelisting HTML elements (Matt Westcott)
  * FormPage lists and Form submission lists in admin now use class based views for easy overriding (Johan Arensman)
  * Form submission csv exports now have the export date in the filename and can be customized (Johan Arensman)
+ * FormBuilder class now uses bound methods for field generation, adding custom fields is now easier and documented (LB (Ben) Johnston)
  * Fix: Do not remove stopwords when generating slugs from non-ASCII titles, to avoid issues with incorrect word boundaries (Sævar Öfjörð Magnússon)
  * Fix: The PostgreSQL search backend now preserves ordering of the `QuerySet` when searching with `order_by_relevance=False` (Bertrand Bordage)
  * Fix: Using `modeladmin_register` as a decorator no longer replaces the decorated class with `None` (Tim Heap)

@@ -12,9 +12,9 @@ from wagtail.contrib.forms.models import FormSubmission
 from wagtail.contrib.forms.tests.utils import make_form_page, make_form_page_with_custom_submission
 from wagtail.core.models import Page
 from wagtail.tests.testapp.models import (
-    CustomFormPageSubmission, FormField, FormFieldForCustomListViewPage,
-    FormFieldWithCustomSubmission, FormPage, FormPageWithCustomSubmission,
-    FormPageWithCustomSubmissionListView)
+    CustomFormPageSubmission, ExtendedFormField, FormField, FormFieldForCustomListViewPage,
+    FormFieldWithCustomSubmission, FormPage, FormPageWithCustomFormBuilder,
+    FormPageWithCustomSubmission, FormPageWithCustomSubmissionListView)
 from wagtail.tests.utils import WagtailTestUtils
 
 
@@ -1130,6 +1130,61 @@ class TestFormsWithCustomSubmissionsList(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtailforms:list_submissions', args=(self.form_page.id,)))
         first_row_values = response.context['data_rows'][0]['fields']
         self.assertTrue('Old chocolate idea' in first_row_values)
+
+
+class TestFormsWithCustomFormBuilderSubmissionsList(TestCase, WagtailTestUtils):
+
+    def setUp(self):
+        home_page = Page.objects.get(url_path='/home/')
+        form_page = home_page.add_child(
+            instance=FormPageWithCustomFormBuilder(
+                title='Support Request',
+                slug='support-request',
+                to_address='it@jenkins.com',
+                from_address='support@jenkins.com',
+                subject='Support Request Submitted',
+            )
+        )
+        ExtendedFormField.objects.create(
+            page=form_page,
+            sort_order=1,
+            label='Name',
+            field_type='singleline',  # singleline field will be max_length 120
+            required=True,
+        )
+        ExtendedFormField.objects.create(
+            page=form_page,
+            sort_order=1,
+            label='Device IP Address',
+            field_type='ipaddress',
+            required=True,
+        )
+
+        for i in range(20):
+            submission = FormSubmission.objects.create(
+                page=form_page,
+                form_data=json.dumps({
+                    'name': 'John %s' % i,
+                    'device-ip-address': '192.0.2.%s' % i,
+                }),
+            )
+            submission.save()
+        self.form_page = form_page
+        # Login
+        self.login()
+
+    def test_list_submissions(self):
+        response = self.client.get(
+            reverse('wagtailforms:list_submissions', args=(self.form_page.id,)))
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailforms/index_submissions.html')
+        self.assertEqual(len(response.context['data_rows']), 20)
+
+        # check display of list values within form submissions
+        self.assertContains(response, '192.0.2.1')
+        self.assertContains(response, '192.0.2.15')
 
 
 class TestIssue585(TestCase):
