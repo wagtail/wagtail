@@ -609,21 +609,7 @@ Finally, we add a URL param of `id` based on the ``form_submission`` if it exist
 Adding Custom Field Types
 -------------------------
 
-Here is how you can add a custom field type, beyond the built in form field choices:
-* `singleline`
-* `multiline`
-* `email`
-* `number`
-* `url`
-* `checkbox`
-* `checkboxes`
-* `dropdown`
-* `multiselect`
-* `radio`
-* `date`
-* `datetime`
-* `hidden`
-
+Here is how you can add a custom field type, beyond the built in form field choices.
 
 Extend the default ``FORM_FIELD_CHOICES`` by importing and creating a new tuple that has our additional field added, the added items need to be tuples like ('field_type_key', 'Nice Field Label').
 
@@ -637,6 +623,7 @@ Add the ``form_builder`` attribute to your ``FormPage`` method so that this exte
 Example code below where we have added a new ``ipaddress`` field type.
 
 .. code-block:: python
+
     from django.db import models
     from modelcluster.fields import ParentalKey
     from wagtail.contrib.forms.forms import FormBuilder
