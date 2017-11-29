@@ -72,7 +72,7 @@ def editor_js():
 
 
 @hooks.register('register_rich_text_features')
-def register_embed_feature(features):
+def register_document_feature(features):
     features.register_editor_plugin(
         'hallo', 'document-link',
         HalloPlugin(
@@ -80,12 +80,8 @@ def register_embed_feature(features):
             js=['wagtaildocs/js/hallo-plugins/hallo-wagtaildoclink.js'],
         )
     )
+    features.register_link_handler_rules('document-link', {'document': DocumentLinkHandler})
     features.default_features.append('document-link')
-
-
-@hooks.register('register_rich_text_link_handler')
-def register_document_link_handler():
-    return ('document', DocumentLinkHandler)
 
 
 class DocumentsSummaryItem(SummaryItem):

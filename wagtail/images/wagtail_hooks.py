@@ -72,6 +72,7 @@ def register_image_feature(features):
             js=['wagtailimages/js/hallo-plugins/hallo-wagtailimage.js'],
         )
     )
+    features.register_embed_handler_rules('image', {'image': ImageEmbedHandler})
     features.default_features.append('image')
 
 
@@ -88,11 +89,6 @@ def register_image_operations():
         ('format', image_operations.FormatOperation),
         ('bgcolor', image_operations.BackgroundColorOperation),
     ]
-
-
-@hooks.register('register_rich_text_embed_handler')
-def register_image_embed_handler():
-    return ('image', ImageEmbedHandler)
 
 
 class ImagesSummaryItem(SummaryItem):

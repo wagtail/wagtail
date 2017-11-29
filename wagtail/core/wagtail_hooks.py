@@ -35,11 +35,6 @@ def check_view_restrictions(page, request, serve_args, serve_kwargs):
                 return require_wagtail_login(next=request.get_full_path())
 
 
-@hooks.register('register_rich_text_link_handler')
-def register_page_link_handler():
-    return ('page', PageLinkHandler)
-
-
 @hooks.register('register_rich_text_features')
 def register_core_features(features):
     features.default_features.append('hr')
@@ -47,6 +42,7 @@ def register_core_features(features):
 
     features.default_features.append('link')
     features.register_whitelister_element_rules('link', {'a': attribute_rule({'href': check_url})})
+    features.register_link_handler_rules('link', {'page': PageLinkHandler})
 
     features.default_features.append('bold')
     features.register_whitelister_element_rules(
