@@ -2,6 +2,7 @@ import hashlib
 import json
 import os
 
+from django import forms
 from django.conf import settings
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
@@ -27,7 +28,9 @@ from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core.models import Orderable, Page, PageManager, PageQuerySet
 from wagtail.documents.edit_handlers import DocumentChooserPanel
 from wagtail.documents.models import AbstractDocument, Document
-from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField, AbstractFormSubmission
+from wagtail.contrib.forms.forms import FormBuilder
+from wagtail.contrib.forms.models import (
+    AbstractEmailForm, AbstractFormField, AbstractFormSubmission, FORM_FIELD_CHOICES)
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.images.models import AbstractImage, AbstractRendition, Image
@@ -562,6 +565,53 @@ class CustomFormPageSubmission(AbstractFormSubmission):
         })
 
         return form_data
+
+
+# FormPage with cutom FormBuilder
+
+
+EXTENDED_CHOICES = FORM_FIELD_CHOICES + (('ipaddress', 'IP Address'),)
+
+
+class ExtendedFormField(AbstractFormField):
+    """Override the field_type field with extended choices."""
+    page = ParentalKey(
+        'FormPageWithCustomFormBuilder', related_name='form_fields')
+    field_type = models.CharField(
+        verbose_name='field type', max_length=16, choices=EXTENDED_CHOICES)
+
+
+class CustomFormBuilder(FormBuilder):
+    """
+    A custom FormBuilder that has an 'ipaddress' field with
+    customised create_singleline_field with shorter max_length
+    """
+
+    def create_singleline_field(self, field, options):
+        options['max_length'] = 120  # usual default is 255
+        return forms.CharField(**options)
+
+    def create_ipaddress_field(self, field, options):
+        return forms.GenericIPAddressField(**options)
+
+
+class FormPageWithCustomFormBuilder(AbstractEmailForm):
+    """
+    A Form page that has a custom form builder and uses a custom
+    form field model with additional field_type choices.
+    """
+
+    form_builder = CustomFormBuilder
+
+    content_panels = [
+        FieldPanel('title', classname="full title"),
+        InlinePanel('form_fields', label="Form fields"),
+        MultiFieldPanel([
+            FieldPanel('to_address', classname="full"),
+            FieldPanel('from_address', classname="full"),
+            FieldPanel('subject', classname="full"),
+        ], "Email")
+    ]
 
 
 # Snippets

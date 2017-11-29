@@ -8,7 +8,8 @@ from wagtail.contrib.forms.models import FormSubmission
 from wagtail.contrib.forms.tests.utils import (
     make_form_page, make_form_page_with_custom_submission, make_form_page_with_redirect)
 from wagtail.core.models import Page
-from wagtail.tests.testapp.models import CustomFormPageSubmission, FormField, JadeFormPage
+from wagtail.tests.testapp.models import (
+    CustomFormPageSubmission, ExtendedFormField, FormField, FormPageWithCustomFormBuilder, JadeFormPage)
 from wagtail.tests.utils import WagtailTestUtils
 
 
@@ -398,6 +399,82 @@ class TestFormWithRedirect(TestCase):
         # Check that form submission was saved correctly
         form_page = Page.objects.get(url_path='/home/contact-us/')
         self.assertTrue(FormSubmission.objects.filter(page=form_page, form_data__contains='hello world').exists())
+
+
+class TestFormPageWithCustomFormBuilder(TestCase, WagtailTestUtils):
+
+    def setUp(self):
+
+        home_page = Page.objects.get(url_path='/home/')
+        form_page = home_page.add_child(
+            instance=FormPageWithCustomFormBuilder(
+                title='Support Request',
+                slug='support-request',
+                to_address='it@jenkins.com',
+                from_address='support@jenkins.com',
+                subject='Support Request Submitted',
+            )
+        )
+        print('form_page.url', form_page.url)
+        ExtendedFormField.objects.create(
+            page=form_page,
+            sort_order=1,
+            label='Name',
+            field_type='singleline',  # singleline field will be max_length 120
+            required=True,
+        )
+        ExtendedFormField.objects.create(
+            page=form_page,
+            sort_order=1,
+            label='Device IP Address',
+            field_type='ipaddress',
+            required=True,
+        )
+
+    def test_get_form(self):
+        response = self.client.get('/support-request/')
+
+        # Check response
+        self.assertTemplateUsed(response, 'tests/form_page_with_custom_form_builder.html')
+        self.assertTemplateNotUsed(response, 'tests/form_page_with_custom_form_builder_landing.html')
+        self.assertContains(response, '<title>Support Request</title>', html=True)
+        # check that max_length attribute has been passed into form
+        self.assertContains(response, '<input type="text" name="name" required maxlength="120" id="id_name" />', html=True)
+        # check ip address field has rendered
+        self.assertContains(response, '<input type="text" name="device-ip-address" required id="id_device-ip-address" />', html=True)
+
+    def test_post_invalid_form(self):
+        response = self.client.post('/support-request/', {
+            'name': 'very long name longer than 120 characters' * 3,  # invalid
+            'device-ip-address': '192.0.2.30',  # valid
+        })
+        # Check response with invalid character count
+        self.assertContains(response, 'Ensure this value has at most 120 characters (it has 123)')
+        self.assertTemplateUsed(response, 'tests/form_page_with_custom_form_builder.html')
+        self.assertTemplateNotUsed(response, 'tests/form_page_with_custom_form_builder_landing.html')
+
+        response = self.client.post('/support-request/', {
+            'name': 'Ron Johnson',  # valid
+            'device-ip-address': '3300.192.0.2.30',  # invalid
+        })
+        # Check response with invalid character count
+        print('response.content', response.content)
+        self.assertContains(response, 'Enter a valid IPv4 or IPv6 address.')
+        self.assertTemplateUsed(response, 'tests/form_page_with_custom_form_builder.html')
+        self.assertTemplateNotUsed(response, 'tests/form_page_with_custom_form_builder_landing.html')
+
+    def test_post_valid_form(self):
+        response = self.client.post('/support-request/', {
+            'name': 'Ron Johnson',
+            'device-ip-address': '192.0.2.30',
+        })
+
+        # Check response
+        self.assertContains(response, 'Thank you for submitting a Support Request.')
+        self.assertContains(response, 'Ron Johnson')
+        self.assertContains(response, '192.0.2.30')
+        self.assertTemplateNotUsed(response, 'tests/form_page_with_custom_form_builder.html')
+        self.assertTemplateUsed(response, 'tests/form_page_with_custom_form_builder_landing.html')
 
 
 class TestIssue798(TestCase):
