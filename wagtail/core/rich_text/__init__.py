@@ -1,57 +1,14 @@
-import re  # parsing HTML with regexes LIKE A BOSS.
-
 from django.utils.functional import cached_property
 from django.utils.safestring import mark_safe
 
 from wagtail.core import hooks
 from wagtail.core.rich_text.feature_registry import FeatureRegistry
 from wagtail.core.rich_text.pages import PageLinkHandler
+from wagtail.core.rich_text.rewriters import EmbedRewriter, LinkRewriter, MultiRuleRewriter
 from wagtail.core.whitelist import allow_without_attributes, Whitelister, DEFAULT_ELEMENT_RULES
 
 
 features = FeatureRegistry()
-
-
-# Define a set of 'embed handlers' and 'link handlers'. These handle the translation
-# of 'special' HTML elements in rich text - ones which we do not want to include
-# verbatim in the DB representation because they embed information which is stored
-# elsewhere in the database and is liable to change - from real HTML representation
-# to DB representation and back again.
-
-
-EMBED_HANDLERS = {}
-LINK_HANDLERS = {
-    'page': PageLinkHandler,
-}
-
-has_loaded_embed_handlers = False
-has_loaded_link_handlers = False
-
-
-def get_embed_handler(embed_type):
-    global EMBED_HANDLERS, has_loaded_embed_handlers
-
-    if not has_loaded_embed_handlers:
-        for hook in hooks.get_hooks('register_rich_text_embed_handler'):
-            handler_name, handler = hook()
-            EMBED_HANDLERS[handler_name] = handler
-
-        has_loaded_embed_handlers = True
-
-    return EMBED_HANDLERS[embed_type]
-
-
-def get_link_handler(link_type):
-    global LINK_HANDLERS, has_loaded_link_handlers
-
-    if not has_loaded_link_handlers:
-        for hook in hooks.get_hooks('register_rich_text_link_handler'):
-            handler_name, handler = hook()
-            LINK_HANDLERS[handler_name] = handler
-
-        has_loaded_link_handlers = True
-
-    return LINK_HANDLERS[link_type]
 
 
 class DbWhitelister(Whitelister):
@@ -64,9 +21,9 @@ class DbWhitelister(Whitelister):
       the whitelist ruleset (e.g. to permit additional HTML elements beyond those in the base
       Whitelister module);
     * replaces any element with a 'data-embedtype' attribute with an <embed> element, with
-      attributes supplied by the handler for that type as defined in EMBED_HANDLERS;
+      attributes supplied by the handler for that type as defined in embed_handlers;
     * rewrites the attributes of any <a> element with a 'data-linktype' attribute, as
-      determined by the handler for that type defined in LINK_HANDLERS, while keeping the
+      determined by the handler for that type defined in link_handlers, while keeping the
       element content intact.
     """
     def __init__(self, features=None):
@@ -141,20 +98,12 @@ class DbWhitelister(Whitelister):
             super(DbWhitelister, self).clean_tag_node(doc, tag)
 
 
-FIND_A_TAG = re.compile(r'<a(\b[^>]*)>')
-FIND_EMBED_TAG = re.compile(r'<embed(\b[^>]*)/>')
-FIND_ATTRS = re.compile(r'([\w-]+)\="([^"]*)"')
+# Rewriter functions to be built up on first call to expand_db_html, using the utility classes
+# from wagtail.core.rich_text.rewriters along with the register_rich_text_embed_handler /
+# register_rich_text_link_handler hooks
 
-
-def extract_attrs(attr_string):
-    """
-    helper method to extract tag attributes, as a dict of un-escaped strings
-    """
-    attributes = {}
-    for name, val in FIND_ATTRS.findall(attr_string):
-        val = val.replace('&lt;', '<').replace('&gt;', '>').replace('&quot;', '"').replace('&amp;', '&')
-        attributes[name] = val
-    return attributes
+FRONTEND_REWRITER = None
+EDITOR_REWRITER = None
 
 
 def expand_db_html(html, for_editor=False):
@@ -162,28 +111,45 @@ def expand_db_html(html, for_editor=False):
     Expand database-representation HTML into proper HTML usable in either
     templates or the rich text editor
     """
-    def replace_a_tag(m):
-        attrs = extract_attrs(m.group(1))
-        if 'linktype' not in attrs:
-            # return unchanged
-            return m.group(0)
-        handler = get_link_handler(attrs['linktype'])
-        if for_editor:
-            return handler.expand_db_attributes_for_editor(attrs)
-        else:
-            return handler.expand_db_attributes(attrs)
+    global FRONTEND_REWRITER, EDITOR_REWRITER
 
-    def replace_embed_tag(m):
-        attrs = extract_attrs(m.group(1))
-        handler = get_embed_handler(attrs['embedtype'])
-        if for_editor:
-            return handler.expand_db_attributes_for_editor(attrs)
-        else:
-            return handler.expand_db_attributes(attrs)
+    if for_editor:
 
-    html = FIND_A_TAG.sub(replace_a_tag, html)
-    html = FIND_EMBED_TAG.sub(replace_embed_tag, html)
-    return html
+        if EDITOR_REWRITER is None:
+            embed_rules = {}
+            for hook in hooks.get_hooks('register_rich_text_embed_handler'):
+                handler_name, handler = hook()
+                embed_rules[handler_name] = handler.expand_db_attributes_for_editor
+
+            link_rules = {}
+            for hook in hooks.get_hooks('register_rich_text_link_handler'):
+                handler_name, handler = hook()
+                link_rules[handler_name] = handler.expand_db_attributes_for_editor
+
+            EDITOR_REWRITER = MultiRuleRewriter([
+                LinkRewriter(link_rules), EmbedRewriter(embed_rules)
+            ])
+
+        return EDITOR_REWRITER(html)
+
+    else:
+
+        if FRONTEND_REWRITER is None:
+            embed_rules = {}
+            for hook in hooks.get_hooks('register_rich_text_embed_handler'):
+                handler_name, handler = hook()
+                embed_rules[handler_name] = handler.expand_db_attributes
+
+            link_rules = {}
+            for hook in hooks.get_hooks('register_rich_text_link_handler'):
+                handler_name, handler = hook()
+                link_rules[handler_name] = handler.expand_db_attributes
+
+            FRONTEND_REWRITER = MultiRuleRewriter([
+                LinkRewriter(link_rules), EmbedRewriter(embed_rules)
+            ])
+
+        return FRONTEND_REWRITER(html)
 
 
 class RichText:

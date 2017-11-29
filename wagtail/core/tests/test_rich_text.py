@@ -4,9 +4,10 @@ from mock import patch
 
 from wagtail.core.models import Page
 from wagtail.core.rich_text import (
-    DbWhitelister, RichText, expand_db_html, extract_attrs)
+    DbWhitelister, RichText, expand_db_html)
 from wagtail.core.rich_text.feature_registry import FeatureRegistry
 from wagtail.core.rich_text.pages import PageLinkHandler
+from wagtail.core.rich_text.rewriters import extract_attrs
 
 
 class TestPageLinkHandler(TestCase):
