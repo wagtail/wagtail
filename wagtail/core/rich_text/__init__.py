@@ -7,60 +7,36 @@ from wagtail.core.rich_text.rewriters import EmbedRewriter, LinkRewriter, MultiR
 features = FeatureRegistry()
 
 
-# Rewriter functions to be built up on first call to expand_db_html, using the utility classes
+# Rewriter function to be built up on first call to expand_db_html, using the utility classes
 # from wagtail.core.rich_text.rewriters along with the embed handlers / link handlers registered
 # with the feature registry
 
 FRONTEND_REWRITER = None
-EDITOR_REWRITER = None
 
 
-def expand_db_html(html, for_editor=False):
+def expand_db_html(html):
     """
-    Expand database-representation HTML into proper HTML usable in either
-    templates or the rich text editor
+    Expand database-representation HTML into proper HTML usable on front-end templates
     """
-    global FRONTEND_REWRITER, EDITOR_REWRITER
+    global FRONTEND_REWRITER
 
-    if for_editor:
+    if FRONTEND_REWRITER is None:
+        embed_handlers = features.get_all_embed_handler_rules()
+        embed_rules = {
+            handler_name: handler.expand_db_attributes
+            for handler_name, handler in embed_handlers.items()
+        }
+        link_handlers = features.get_all_link_handler_rules()
+        link_rules = {
+            handler_name: handler.expand_db_attributes
+            for handler_name, handler in link_handlers.items()
+        }
 
-        if EDITOR_REWRITER is None:
-            embed_handlers = features.get_all_embed_handler_rules()
-            embed_rules = {
-                handler_name: handler.expand_db_attributes_for_editor
-                for handler_name, handler in embed_handlers.items()
-            }
-            link_handlers = features.get_all_link_handler_rules()
-            link_rules = {
-                handler_name: handler.expand_db_attributes_for_editor
-                for handler_name, handler in link_handlers.items()
-            }
+        FRONTEND_REWRITER = MultiRuleRewriter([
+            LinkRewriter(link_rules), EmbedRewriter(embed_rules)
+        ])
 
-            EDITOR_REWRITER = MultiRuleRewriter([
-                LinkRewriter(link_rules), EmbedRewriter(embed_rules)
-            ])
-
-        return EDITOR_REWRITER(html)
-
-    else:
-
-        if FRONTEND_REWRITER is None:
-            embed_handlers = features.get_all_embed_handler_rules()
-            embed_rules = {
-                handler_name: handler.expand_db_attributes
-                for handler_name, handler in embed_handlers.items()
-            }
-            link_handlers = features.get_all_link_handler_rules()
-            link_rules = {
-                handler_name: handler.expand_db_attributes
-                for handler_name, handler in link_handlers.items()
-            }
-
-            FRONTEND_REWRITER = MultiRuleRewriter([
-                LinkRewriter(link_rules), EmbedRewriter(embed_rules)
-            ])
-
-        return FRONTEND_REWRITER(html)
+    return FRONTEND_REWRITER(html)
 
 
 class RichText:

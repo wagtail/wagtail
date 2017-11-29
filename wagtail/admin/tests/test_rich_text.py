@@ -1,3 +1,5 @@
+from bs4 import BeautifulSoup
+
 from django.conf import settings
 from django.test import TestCase
 from django.test.utils import override_settings
@@ -459,3 +461,33 @@ class TestWidgetWhitelisting(TestCase, WagtailTestUtils):
             'body': '<p>image <img src="foo" data-embedtype="image" data-id="123" data-format="left" data-alt="test alt" /> embed <span data-embedtype="media" data-url="https://www.youtube.com/watch?v=vwyuB8QKzBI">blah</span></p>'
         }, {}, 'body')
         self.assertHTMLEqual(result, '<p>image <embed embedtype="image" id="123" format="left" alt="test alt" /> embed </p>')
+
+
+class TestWidgetRendering(TestCase, WagtailTestUtils):
+    fixtures = ['test.json']
+
+    def test_default_features(self):
+        widget = HalloRichTextArea()
+
+        result = widget.render(
+            'foo',
+            '<p>a <a linktype="page" id="3">page</a> and a <a linktype="document" id="1">document</a></p>',
+            {'id': 'id_foo'},
+        )
+        soup = BeautifulSoup(result, 'html.parser')
+        result_value = soup.textarea.string
+
+        self.assertHTMLEqual(result_value, '<p>a <a data-linktype="page" data-id="3" data-parent-id="2" href="/events/">page</a> and a <a data-linktype="document" data-id="1" href="/documents/1/test.pdf">document</a></p>')
+
+    def test_custom_features(self):
+        widget = HalloRichTextArea(features=['h1', 'link', 'somethingijustmadeup'])
+
+        result = widget.render(
+            'foo',
+            '<p>a <a linktype="page" id="3">page</a> and a <a linktype="document" id="1">document</a></p>',
+            {'id': 'id_foo'},
+        )
+        soup = BeautifulSoup(result, 'html.parser')
+        result_value = soup.textarea.string
+
+        self.assertHTMLEqual(result_value, '<p>a <a data-linktype="page" data-id="3" data-parent-id="2" href="/events/">page</a> and a <a>document</a></p>')

@@ -2,6 +2,7 @@ from django.utils.functional import cached_property
 
 from wagtail.core import hooks
 from wagtail.core.rich_text import features
+from wagtail.core.rich_text.rewriters import EmbedRewriter, LinkRewriter, MultiRuleRewriter
 from wagtail.core.whitelist import allow_without_attributes, Whitelister, DEFAULT_ELEMENT_RULES
 
 
@@ -108,3 +109,37 @@ class DbWhitelister(Whitelister):
                 tag.name = 'p'
 
             super(DbWhitelister, self).clean_tag_node(doc, tag)
+
+
+class EditorHTMLConverter:
+    def __init__(self, features=None):
+        self.features = features
+        self.whitelister = DbWhitelister(features)
+
+    def to_database_format(self, html):
+        return self.whitelister.clean(html)
+
+    @cached_property
+    def html_rewriter(self):
+        if self.features is None:
+            feature_list = features.get_default_features()
+        else:
+            feature_list = self.features
+
+        embed_rules = {}
+        link_rules = {}
+        for feature in feature_list:
+            embed_handlers = features.get_embed_handler_rules(feature)
+            for handler_name, handler in embed_handlers.items():
+                embed_rules[handler_name] = handler.expand_db_attributes_for_editor
+
+            link_handlers = features.get_link_handler_rules(feature)
+            for handler_name, handler in link_handlers.items():
+                link_rules[handler_name] = handler.expand_db_attributes_for_editor
+
+        return MultiRuleRewriter([
+            LinkRewriter(link_rules), EmbedRewriter(embed_rules)
+        ])
+
+    def from_database_format(self, html):
+        return self.html_rewriter(html)
