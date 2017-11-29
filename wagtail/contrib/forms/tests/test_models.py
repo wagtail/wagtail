@@ -415,7 +415,6 @@ class TestFormPageWithCustomFormBuilder(TestCase, WagtailTestUtils):
                 subject='Support Request Submitted',
             )
         )
-        print('form_page.url', form_page.url)
         ExtendedFormField.objects.create(
             page=form_page,
             sort_order=1,
@@ -458,7 +457,6 @@ class TestFormPageWithCustomFormBuilder(TestCase, WagtailTestUtils):
             'device-ip-address': '3300.192.0.2.30',  # invalid
         })
         # Check response with invalid character count
-        print('response.content', response.content)
         self.assertContains(response, 'Enter a valid IPv4 or IPv6 address.')
         self.assertTemplateUsed(response, 'tests/form_page_with_custom_form_builder.html')
         self.assertTemplateNotUsed(response, 'tests/form_page_with_custom_form_builder_landing.html')
