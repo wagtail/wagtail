@@ -7,8 +7,8 @@ from django.utils.module_loading import import_string
 
 from wagtail.utils.widgets import WidgetWithScript
 from wagtail.admin.edit_handlers import RichTextFieldPanel
-from wagtail.admin.rich_text.converters.editor_html import DbWhitelister
-from wagtail.core.rich_text import expand_db_html, features
+from wagtail.admin.rich_text.converters.editor_html import EditorHTMLConverter
+from wagtail.core.rich_text import features
 
 
 class HalloPlugin:
@@ -91,9 +91,9 @@ class HalloRichTextArea(WidgetWithScript, widgets.Textarea):
         self.features = kwargs.pop('features', None)
         if self.features is None:
             self.features = features.get_default_features()
-            self.whitelister = DbWhitelister()
+            self.converter = EditorHTMLConverter()
         else:
-            self.whitelister = DbWhitelister(self.features)
+            self.converter = EditorHTMLConverter(self.features)
 
         # construct a list of plugin objects, by querying the feature registry
         # and keeping the non-null responses from get_editor_plugin
@@ -109,7 +109,7 @@ class HalloRichTextArea(WidgetWithScript, widgets.Textarea):
         if value is None:
             translated_value = None
         else:
-            translated_value = expand_db_html(value, for_editor=True)
+            translated_value = self.converter.from_database_format(value)
         return super().render(name, translated_value, attrs)
 
     def render_js_init(self, id_, name, value):
@@ -129,7 +129,7 @@ class HalloRichTextArea(WidgetWithScript, widgets.Textarea):
         original_value = super().value_from_datadict(data, files, name)
         if original_value is None:
             return None
-        return self.whitelister.clean(original_value)
+        return self.converter.to_database_format(original_value)
 
     @property
     def media(self):
