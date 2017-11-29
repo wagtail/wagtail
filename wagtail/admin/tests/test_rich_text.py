@@ -427,3 +427,35 @@ class TestWidgetWhitelisting(TestCase, WagtailTestUtils):
             'body': '<h1>h1</h1> <h2>h2</h2> <script>script</script> <p><b>bold</b> <i>italic</i></p> <blockquote>blockquote</blockquote>'
         }, {}, 'body')
         self.assertEqual(result, '<h1>h1</h1> h2 script <p><b>bold</b> italic</p> blockquote')
+
+    def test_link_conversion_with_default_whitelist(self):
+        widget = HalloRichTextArea()
+
+        result = widget.value_from_datadict({
+            'body': '<p>a <a href="/foo" data-linktype="page" data-id="123">page</a>, <a href="/foo" data-linktype="squirrel" data-id="234">a squirrel</a> and a <a href="/foo" data-linktype="document" data-id="345">document</a></p>'
+        }, {}, 'body')
+        self.assertHTMLEqual(result, '<p>a <a linktype="page" id="123">page</a>, a squirrel and a <a linktype="document" id="345">document</a></p>')
+
+    def test_link_conversion_with_custom_whitelist(self):
+        widget = HalloRichTextArea(features=['h1', 'bold', 'link', 'somethingijustmadeup'])
+
+        result = widget.value_from_datadict({
+            'body': '<p>a <a href="/foo" data-linktype="page" data-id="123">page</a>, <a href="/foo" data-linktype="squirrel" data-id="234">a squirrel</a> and a <a href="/foo" data-linktype="document" data-id="345">document</a></p>'
+        }, {}, 'body')
+        self.assertHTMLEqual(result, '<p>a <a linktype="page" id="123">page</a>, a squirrel and a document</p>')
+
+    def test_embed_conversion_with_default_whitelist(self):
+        widget = HalloRichTextArea()
+
+        result = widget.value_from_datadict({
+            'body': '<p>image <img src="foo" data-embedtype="image" data-id="123" data-format="left" data-alt="test alt" /> embed <span data-embedtype="media" data-url="https://www.youtube.com/watch?v=vwyuB8QKzBI">blah</span> badger <span data-embedtype="badger" data-colour="black-and-white">badger</span></p>'
+        }, {}, 'body')
+        self.assertHTMLEqual(result, '<p>image <embed embedtype="image" id="123" format="left" alt="test alt" /> embed <embed embedtype="media" url="https://www.youtube.com/watch?v=vwyuB8QKzBI" /> badger </p>')
+
+    def test_embed_conversion_with_custom_whitelist(self):
+        widget = HalloRichTextArea(features=['h1', 'bold', 'image', 'somethingijustmadeup'])
+
+        result = widget.value_from_datadict({
+            'body': '<p>image <img src="foo" data-embedtype="image" data-id="123" data-format="left" data-alt="test alt" /> embed <span data-embedtype="media" data-url="https://www.youtube.com/watch?v=vwyuB8QKzBI">blah</span></p>'
+        }, {}, 'body')
+        self.assertHTMLEqual(result, '<p>image <embed embedtype="image" id="123" format="left" alt="test alt" /> embed </p>')

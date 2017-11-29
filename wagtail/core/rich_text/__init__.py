@@ -3,7 +3,6 @@ from django.utils.safestring import mark_safe
 
 from wagtail.core import hooks
 from wagtail.core.rich_text.feature_registry import FeatureRegistry
-from wagtail.core.rich_text.pages import PageLinkHandler
 from wagtail.core.rich_text.rewriters import EmbedRewriter, LinkRewriter, MultiRuleRewriter
 from wagtail.core.whitelist import allow_without_attributes, Whitelister, DEFAULT_ELEMENT_RULES
 
@@ -51,21 +50,27 @@ class DbWhitelister(Whitelister):
 
     @cached_property
     def embed_handlers(self):
+        if self.features is None:
+            feature_list = features.get_default_features()
+        else:
+            feature_list = self.features
+
         embed_handlers = {}
-        for hook in hooks.get_hooks('register_rich_text_embed_handler'):
-            handler_name, handler = hook()
-            embed_handlers[handler_name] = handler
+        for feature in feature_list:
+            embed_handlers.update(features.get_embed_handler_rules(feature))
 
         return embed_handlers
 
     @cached_property
     def link_handlers(self):
-        link_handlers = {
-            'page': PageLinkHandler,
-        }
-        for hook in hooks.get_hooks('register_rich_text_link_handler'):
-            handler_name, handler = hook()
-            link_handlers[handler_name] = handler
+        if self.features is None:
+            feature_list = features.get_default_features()
+        else:
+            feature_list = self.features
+
+        link_handlers = {}
+        for feature in feature_list:
+            link_handlers.update(features.get_link_handler_rules(feature))
 
         return link_handlers
 
@@ -73,7 +78,13 @@ class DbWhitelister(Whitelister):
         if 'data-embedtype' in tag.attrs:
             embed_type = tag['data-embedtype']
             # fetch the appropriate embed handler for this embedtype
-            embed_handler = self.embed_handlers[embed_type]
+            try:
+                embed_handler = self.embed_handlers[embed_type]
+            except KeyError:
+                # discard embeds with unrecognised embedtypes
+                tag.decompose()
+                return
+
             embed_attrs = embed_handler.get_db_attributes(tag)
             embed_attrs['embedtype'] = embed_type
 
@@ -86,7 +97,13 @@ class DbWhitelister(Whitelister):
                 self.clean_node(doc, child)
 
             link_type = tag['data-linktype']
-            link_handler = self.link_handlers[link_type]
+            try:
+                link_handler = self.link_handlers[link_type]
+            except KeyError:
+                # discard links with unrecognised linktypes
+                tag.unwrap()
+                return
+
             link_attrs = link_handler.get_db_attributes(tag)
             link_attrs['linktype'] = link_type
             tag.attrs.clear()
@@ -99,8 +116,8 @@ class DbWhitelister(Whitelister):
 
 
 # Rewriter functions to be built up on first call to expand_db_html, using the utility classes
-# from wagtail.core.rich_text.rewriters along with the register_rich_text_embed_handler /
-# register_rich_text_link_handler hooks
+# from wagtail.core.rich_text.rewriters along with the embed handlers / link handlers registered
+# with the feature registry
 
 FRONTEND_REWRITER = None
 EDITOR_REWRITER = None
@@ -116,15 +133,16 @@ def expand_db_html(html, for_editor=False):
     if for_editor:
 
         if EDITOR_REWRITER is None:
-            embed_rules = {}
-            for hook in hooks.get_hooks('register_rich_text_embed_handler'):
-                handler_name, handler = hook()
-                embed_rules[handler_name] = handler.expand_db_attributes_for_editor
-
-            link_rules = {}
-            for hook in hooks.get_hooks('register_rich_text_link_handler'):
-                handler_name, handler = hook()
-                link_rules[handler_name] = handler.expand_db_attributes_for_editor
+            embed_handlers = features.get_all_embed_handler_rules()
+            embed_rules = {
+                handler_name: handler.expand_db_attributes_for_editor
+                for handler_name, handler in embed_handlers.items()
+            }
+            link_handlers = features.get_all_link_handler_rules()
+            link_rules = {
+                handler_name: handler.expand_db_attributes_for_editor
+                for handler_name, handler in link_handlers.items()
+            }
 
             EDITOR_REWRITER = MultiRuleRewriter([
                 LinkRewriter(link_rules), EmbedRewriter(embed_rules)
@@ -135,15 +153,16 @@ def expand_db_html(html, for_editor=False):
     else:
 
         if FRONTEND_REWRITER is None:
-            embed_rules = {}
-            for hook in hooks.get_hooks('register_rich_text_embed_handler'):
-                handler_name, handler = hook()
-                embed_rules[handler_name] = handler.expand_db_attributes
-
-            link_rules = {}
-            for hook in hooks.get_hooks('register_rich_text_link_handler'):
-                handler_name, handler = hook()
-                link_rules[handler_name] = handler.expand_db_attributes
+            embed_handlers = features.get_all_embed_handler_rules()
+            embed_rules = {
+                handler_name: handler.expand_db_attributes
+                for handler_name, handler in embed_handlers.items()
+            }
+            link_handlers = features.get_all_link_handler_rules()
+            link_rules = {
+                handler_name: handler.expand_db_attributes
+                for handler_name, handler in link_handlers.items()
+            }
 
             FRONTEND_REWRITER = MultiRuleRewriter([
                 LinkRewriter(link_rules), EmbedRewriter(embed_rules)

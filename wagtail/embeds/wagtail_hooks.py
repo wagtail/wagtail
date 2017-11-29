@@ -36,9 +36,5 @@ def register_embed_feature(features):
             js=['wagtailembeds/js/hallo-plugins/hallo-wagtailembeds.js'],
         )
     )
+    features.register_embed_handler_rules('embed', {'media': MediaEmbedHandler})
     features.default_features.append('embed')
-
-
-@hooks.register('register_rich_text_embed_handler')
-def register_media_embed_handler():
-    return ('media', MediaEmbedHandler)
