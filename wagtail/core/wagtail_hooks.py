@@ -4,6 +4,7 @@ from django.urls import reverse
 
 from wagtail.core import hooks
 from wagtail.core.models import PageViewRestriction
+from wagtail.core.rich_text.pages import PageLinkHandler
 from wagtail.core.whitelist import allow_without_attributes, attribute_rule, check_url
 
 
@@ -32,6 +33,11 @@ def check_view_restrictions(page, request, serve_args, serve_kwargs):
 
             elif restriction.restriction_type in [PageViewRestriction.LOGIN, PageViewRestriction.GROUPS]:
                 return require_wagtail_login(next=request.get_full_path())
+
+
+@hooks.register('register_rich_text_link_handler')
+def register_page_link_handler():
+    return ('page', PageLinkHandler)
 
 
 @hooks.register('register_rich_text_features')
