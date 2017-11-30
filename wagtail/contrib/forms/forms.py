@@ -79,7 +79,7 @@ class FormBuilder:
 
     def get_create_field_function(self, type):
         """
-            Takes string of field type returns a Django Form Field Instance.
+            Takes string of field type and returns a Django Form Field Instance.
             Assumes form field creation functions are in the format:
             'create_fieldtype_field'
         """
