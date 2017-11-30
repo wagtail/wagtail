@@ -1,11 +1,9 @@
 # coding: utf-8
-from __future__ import absolute_import, unicode_literals
-
 import unittest
 
 from django.test import TestCase
 
-from wagtail.wagtailsearch.tests.test_backends import BackendTests
+from wagtail.search.tests.test_backends import BackendTests
 
 from ..utils import BOOSTS_WEIGHTS, WEIGHTS_VALUES, determine_boosts_weights, get_weight
 
@@ -45,9 +43,9 @@ class TestPostgresSearchBackend(BackendTests, TestCase):
     # Note: This is applying the filter, but should be raising the FieldError instead
     @unittest.expectedFailure
     def test_filter_on_non_filterable_field(self):
-        super(TestPostgresSearchBackend, self).test_filter_on_non_filterable_field()
+        super().test_filter_on_non_filterable_field()
 
     # Broken
     @unittest.expectedFailure
     def test_order_by_non_filterable_field(self):
-        super(TestPostgresSearchBackend, self).test_order_by_non_filterable_field()
+        super().test_order_by_non_filterable_field()

@@ -23,19 +23,15 @@ App.prototype.scssSources = function() {
 
 // All the Wagtail apps that contain static files
 var apps = [
-    new App('wagtail/wagtailadmin'),
-    new App('wagtail/wagtaildocs'),
-    new App('wagtail/wagtailembeds'),
-    new App('wagtail/wagtailimages'),
-    new App('wagtail/wagtailsnippets'),
-    new App('wagtail/wagtailusers'),
-    new App('wagtail/contrib/wagtailstyleguide'),
-    new App('wagtail/contrib/settings', {
-        'appName': 'wagtailsettings',
-    }),
-    new App('wagtail/contrib/modeladmin', {
-        'appName': 'wagtailmodeladmin',
-    }),
+    new App('wagtail/admin', {'appName': 'wagtailadmin'}),
+    new App('wagtail/documents', {'appName': 'wagtaildocs'}),
+    new App('wagtail/embeds', {'appName': 'wagtailembeds'}),
+    new App('wagtail/images', {'appName': 'wagtailimages'}),
+    new App('wagtail/snippets', {'appName': 'wagtailimages'}),
+    new App('wagtail/users', {'appName': 'wagtailusers'}),
+    new App('wagtail/contrib/styleguide', {'appName': 'wagtailstyleguide'}),
+    new App('wagtail/contrib/settings', {'appName': 'wagtailsettings'}),
+    new App('wagtail/contrib/modeladmin', {'appName': 'wagtailmodeladmin'}),
 ];
 
 module.exports = {

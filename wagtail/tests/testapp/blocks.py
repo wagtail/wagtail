@@ -1,6 +1,4 @@
-from __future__ import absolute_import, unicode_literals
-
-from wagtail.wagtailcore import blocks
+from wagtail.core import blocks
 
 
 class LinkBlock(blocks.StructBlock):
@@ -8,12 +6,12 @@ class LinkBlock(blocks.StructBlock):
     url = blocks.URLBlock()
 
     def get_context(self, value, parent_context=None):
-        context = super(LinkBlock, self).get_context(value, parent_context)
+        context = super().get_context(value, parent_context)
         context['classname'] = parent_context['classname'] if value['title'] == 'Torchbox' else 'normal'
         return context
 
     def get_form_context(self, value, prefix='', errors=None):
-        context = super(LinkBlock, self).get_form_context(value, prefix=prefix, errors=errors)
+        context = super().get_form_context(value, prefix=prefix, errors=errors)
         context['extra_var'] = "Hello from get_form_context!"
         return context
 

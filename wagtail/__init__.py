@@ -1,5 +1,3 @@
-from __future__ import absolute_import, unicode_literals
-
 from wagtail.utils.version import get_semver_version, get_version
 
 # major.minor.patch.release.number

@@ -32,12 +32,12 @@ or attribute on the instance that you'd like ``InpectView`` to render.
 
 A sensible value will be rendered for most field types.
 
-If you have ``wagtail.wagtailimages`` installed, and the value happens to be an
+If you have ``wagtail.images`` installed, and the value happens to be an
 instance of ``wagtailimages.models.Image`` (or a custom model that subclasses
 ``wagtailimages.models.AbstractImage``), a thumbnail of that image will be
 rendered.
 
-If you have `wagtail.wagtaildocs` installed, and the value happens to be an
+If you have `wagtail.documents` installed, and the value happens to be an
 instance of `wagtaildocs.models.Document` (or a custom model that subclasses
 ``wagtaildocs.models.AbstractDocument``), a link to that document will be
 rendered, along with the document title, file extension and size.

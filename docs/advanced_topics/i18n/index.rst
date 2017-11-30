@@ -87,9 +87,9 @@ This feature is enabled through the project's root URL configuration. Just put t
     from django.conf import settings
     from django.contrib import admin
 
-    from wagtail.wagtailadmin import urls as wagtailadmin_urls
-    from wagtail.wagtaildocs import urls as wagtaildocs_urls
-    from wagtail.wagtailcore import urls as wagtail_urls
+    from wagtail.admin import urls as wagtailadmin_urls
+    from wagtail.documents import urls as wagtaildocs_urls
+    from wagtail.core import urls as wagtail_urls
 
 
     urlpatterns = [
@@ -171,7 +171,7 @@ Copy this into your project and make sure it's imported in any ``models.py`` fil
 
     from django.utils import translation
 
-    class TranslatedField(object):
+    class TranslatedField:
         def __init__(self, en_field, fr_field):
             self.en_field = en_field
             self.fr_field = fr_field

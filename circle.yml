@@ -9,7 +9,7 @@ dependencies:
 test:
   override:
     - flake8 wagtail
-    - isort --check-only --diff --recursive wagtail
+#    - isort --check-only --diff --recursive wagtail
     - npm run lint:js
     - npm run lint:css
     - python -u runtests.py

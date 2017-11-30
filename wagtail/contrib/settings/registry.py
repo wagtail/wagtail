@@ -1,12 +1,10 @@
-from __future__ import absolute_import, unicode_literals
-
 from django.apps import apps
 from django.contrib.auth.models import Permission
 from django.urls import reverse
 from django.utils.text import capfirst
 
-from wagtail.wagtailadmin.menu import MenuItem
-from wagtail.wagtailcore import hooks
+from wagtail.admin.menu import MenuItem
+from wagtail.core import hooks
 
 from .permissions import user_can_edit_setting_type
 
@@ -21,7 +19,7 @@ class SettingMenuItem(MenuItem):
             classnames = icon_classes
 
         self.model = model
-        super(SettingMenuItem, self).__init__(
+        super().__init__(
             label=capfirst(model._meta.verbose_name),
             url=reverse('wagtailsettings:edit', args=[
                 model._meta.app_label, model._meta.model_name]),

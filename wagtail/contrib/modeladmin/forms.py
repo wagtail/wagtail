@@ -1,10 +1,8 @@
-from __future__ import absolute_import, unicode_literals
-
 from django import forms
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as _
 
-from wagtail.wagtailcore.models import Page
+from wagtail.core.models import Page
 
 
 class PageChoiceField(forms.ModelChoiceField):
@@ -26,5 +24,5 @@ class ParentChooserForm(forms.Form):
 
     def __init__(self, valid_parents_qs, *args, **kwargs):
         self.valid_parents_qs = valid_parents_qs
-        super(ParentChooserForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.fields['parent_page'].queryset = self.valid_parents_qs

@@ -2,7 +2,7 @@
 Model Reference
 ===============
 
-.. automodule:: wagtail.wagtailcore.models
+.. automodule:: wagtail.core.models
 
 This document contains reference information for the model classes inside the ``wagtailcore`` module.
 
@@ -94,7 +94,7 @@ Database fields
 
         Defaults to ``False`` and can be overridden on the model with ``show_in_menus_default = True``.
 
-        This is used by the :meth:`~wagtail.wagtailcore.query.PageQuerySet.in_menu` QuerySet filter.
+        This is used by the :meth:`~wagtail.core.query.PageQuerySet.in_menu` QuerySet filter.
 
 Methods and properties
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -210,7 +210,7 @@ In addition to the model fields provided, ``Page`` has many properties and metho
 
         The form class used as a base for editing Pages of this type in the Wagtail page editor.
         This attribute can be set on a model to customise the Page editor form.
-        Forms must be a subclass of :class:`~wagtail.wagtailadmin.forms.WagtailAdminPageForm`.
+        Forms must be a subclass of :class:`~wagtail.admin.forms.WagtailAdminPageForm`.
         See :ref:`custom_edit_handler_forms` for more information.
 
 .. _site-model-ref:
@@ -220,7 +220,7 @@ In addition to the model fields provided, ``Page`` has many properties and metho
 
 The ``Site`` model is useful for multi-site installations as it allows an administrator to configure which part of the tree to use for each hostname that the server responds on.
 
-This configuration is used by the :class:`~wagtail.wagtailcore.middleware.SiteMiddleware` middleware class which checks each request against this configuration and appends the Site object to the Django request object.
+This configuration is used by the :class:`~wagtail.core.middleware.SiteMiddleware` middleware class which checks each request against this configuration and appends the Site object to the Django request object.
 
 Database fields
 ~~~~~~~~~~~~~~~
@@ -255,7 +255,7 @@ Database fields
 
     .. attribute:: root_page
 
-        (foreign key to :class:`~wagtail.wagtailcore.models.Page`)
+        (foreign key to :class:`~wagtail.core.models.Page`)
 
         This is a link to the root page of the site. This page will be what appears at the ``/`` URL on the site and would usually be a homepage.
 
@@ -293,9 +293,9 @@ Methods and properties
 
 Every time a page is edited a new ``PageRevision`` is created and saved to the database. It can be used to find the full history of all changes that have been made to a page and it also provides a place for new changes to be kept before going live.
 
- - Revisions can be created from any :class:`~wagtail.wagtailcore.models.Page` object by calling its :meth:`~Page.save_revision` method
+ - Revisions can be created from any :class:`~wagtail.core.models.Page` object by calling its :meth:`~Page.save_revision` method
  - The content of the page is JSON-serialised and stored in the :attr:`~PageRevision.content_json` field
- - You can retrieve a ``PageRevision`` as a :class:`~wagtail.wagtailcore.models.Page` object by calling the :meth:`~PageRevision.as_page_object` method
+ - You can retrieve a ``PageRevision`` as a :class:`~wagtail.core.models.Page` object by calling the :meth:`~PageRevision.as_page_object` method
 
 Database fields
 ~~~~~~~~~~~~~~~
@@ -304,7 +304,7 @@ Database fields
 
     .. attribute:: page
 
-        (foreign key to :class:`~wagtail.wagtailcore.models.Page`)
+        (foreign key to :class:`~wagtail.core.models.Page`)
 
     .. attribute:: submitted_for_moderation
 
@@ -362,7 +362,7 @@ Methods and properties
 
     .. automethod:: as_page_object
 
-        This method retrieves this revision as an instance of its :class:`~wagtail.wagtailcore.models.Page` subclass.
+        This method retrieves this revision as an instance of its :class:`~wagtail.core.models.Page` subclass.
 
     .. automethod:: approve_moderation
 
@@ -394,7 +394,7 @@ Database fields
 
     .. attribute:: page
 
-        (foreign key to :class:`~wagtail.wagtailcore.models.Page`)
+        (foreign key to :class:`~wagtail.core.models.Page`)
 
     .. attribute:: permission_type
 
@@ -410,7 +410,7 @@ Database fields
 
     .. attribute:: page
 
-        (foreign key to :class:`~wagtail.wagtailcore.models.Page`)
+        (foreign key to :class:`~wagtail.core.models.Page`)
 
     .. attribute:: password
 

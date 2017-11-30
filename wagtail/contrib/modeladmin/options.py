@@ -1,13 +1,11 @@
-from __future__ import absolute_import, unicode_literals
-
 from django.conf.urls import url
 from django.contrib.auth.models import Permission
 from django.core.exceptions import ImproperlyConfigured
 from django.db.models import Model
 from django.utils.safestring import mark_safe
 
-from wagtail.wagtailcore import hooks
-from wagtail.wagtailcore.models import Page
+from wagtail.core import hooks
+from wagtail.core.models import Page
 
 from .helpers import (
     AdminURLHelper, ButtonHelper, PageAdminURLHelper, PageButtonHelper, PagePermissionHelper,
@@ -17,7 +15,7 @@ from .mixins import ThumbnailMixin  # NOQA
 from .views import ChooseParentView, CreateView, DeleteView, EditView, IndexView, InspectView
 
 
-class WagtailRegisterable(object):
+class WagtailRegisterable:
     """
     Base class, providing a more convenient way for ModelAdmin or
     ModelAdminGroup instances to be registered with Wagtail's admin area.
@@ -453,7 +451,7 @@ class ModelAdmin(WagtailRegisterable):
         for a model to be assigned to groups in settings. This is only required
         if the model isn't a Page model, and isn't registered as a Snippet
         """
-        from wagtail.wagtailsnippets.models import SNIPPET_MODELS
+        from wagtail.snippets.models import SNIPPET_MODELS
         if not self.is_pagemodel and self.model not in SNIPPET_MODELS:
             return self.permission_helper.get_all_model_permissions()
         return Permission.objects.none()

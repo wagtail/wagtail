@@ -1,7 +1,3 @@
-# coding: utf-8
-
-from __future__ import absolute_import, unicode_literals
-
 from warnings import warn
 
 from django.contrib.postgres.search import SearchQuery as PostgresSearchQuery
@@ -12,11 +8,11 @@ from django.db.models.constants import LOOKUP_SEP
 from django.db.models.functions import Cast
 from django.utils.encoding import force_text
 
-from wagtail.wagtailsearch.backends.base import (
+from wagtail.search.backends.base import (
     BaseSearchBackend, BaseSearchQueryCompiler, BaseSearchResults)
-from wagtail.wagtailsearch.index import RelatedFields, SearchField
-from wagtail.wagtailsearch.query import And, MatchAll, Not, Or, SearchQueryShortcut, Term
-from wagtail.wagtailsearch.utils import ADD, AND, OR
+from wagtail.search.index import RelatedFields, SearchField
+from wagtail.search.query import And, MatchAll, Not, Or, SearchQueryShortcut, Term
+from wagtail.search.utils import ADD, AND, OR
 
 from .models import IndexEntry
 from .utils import (
@@ -27,7 +23,7 @@ from .utils import (
 # TODO: Add autocomplete.
 
 
-class Index(object):
+class Index:
     def __init__(self, backend, model, db_alias=None):
         self.backend = backend
         self.model = model
@@ -174,7 +170,7 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
     DEFAULT_OPERATOR = 'and'
 
     def __init__(self, *args, **kwargs):
-        super(PostgresSearchQueryCompiler, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.search_fields = self.queryset.model.get_search_fields()
 
     def build_database_query(self, query=None, config=None):
@@ -273,14 +269,14 @@ class PostgresSearchRebuilder:
 
 class PostgresSearchAtomicRebuilder(PostgresSearchRebuilder):
     def __init__(self, index):
-        super(PostgresSearchAtomicRebuilder, self).__init__(index)
+        super().__init__(index)
         self.transaction = transaction.atomic(using=index.db_alias)
         self.transaction_opened = False
 
     def start(self):
         self.transaction.__enter__()
         self.transaction_opened = True
-        return super(PostgresSearchAtomicRebuilder, self).start()
+        return super().start()
 
     def finish(self):
         self.transaction.__exit__(None, None, None)
@@ -300,7 +296,7 @@ class PostgresSearchBackend(BaseSearchBackend):
     atomic_rebuilder_class = PostgresSearchAtomicRebuilder
 
     def __init__(self, params):
-        super(PostgresSearchBackend, self).__init__(params)
+        super().__init__(params)
         self.params = params
         if params.get('ATOMIC_REBUILD', False):
             self.rebuilder_class = self.atomic_rebuilder_class

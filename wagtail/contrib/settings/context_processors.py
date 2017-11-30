@@ -1,5 +1,3 @@
-from __future__ import absolute_import, unicode_literals
-
 from .registry import registry
 
 
@@ -29,7 +27,7 @@ class SettingModuleProxy(dict):
     def __getitem__(self, model_name):
         """ Get a setting instance for a model """
         # Model names are treated as case-insensitive
-        return super(SettingModuleProxy, self).__getitem__(model_name.lower())
+        return super().__getitem__(model_name.lower())
 
     def __missing__(self, model_name):
         """ Get and cache settings that have not been looked up yet """

@@ -1,5 +1,3 @@
-from __future__ import absolute_import, unicode_literals
-
 import hashlib
 import json
 import os
@@ -11,7 +9,7 @@ from django.core.exceptions import ValidationError
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.models import ClusterableModel
@@ -19,23 +17,23 @@ from taggit.managers import TaggableManager
 from taggit.models import TaggedItemBase
 
 from wagtail.contrib.settings.models import BaseSetting, register_setting
-from wagtail.wagtailadmin.edit_handlers import (
+from wagtail.admin.edit_handlers import (
     FieldPanel, InlinePanel, MultiFieldPanel, ObjectList, PageChooserPanel, StreamFieldPanel,
     TabbedInterface)
-from wagtail.wagtailadmin.forms import WagtailAdminPageForm
-from wagtail.wagtailadmin.utils import send_mail
-from wagtail.wagtailcore.blocks import CharBlock, RichTextBlock
-from wagtail.wagtailcore.fields import RichTextField, StreamField
-from wagtail.wagtailcore.models import Orderable, Page, PageManager, PageQuerySet
-from wagtail.wagtaildocs.edit_handlers import DocumentChooserPanel
-from wagtail.wagtaildocs.models import AbstractDocument, Document
-from wagtail.wagtailforms.models import AbstractEmailForm, AbstractFormField, AbstractFormSubmission
-from wagtail.wagtailimages.blocks import ImageChooserBlock
-from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
-from wagtail.wagtailimages.models import AbstractImage, AbstractRendition, Image
-from wagtail.wagtailsearch import index
-from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
-from wagtail.wagtailsnippets.models import register_snippet
+from wagtail.admin.forms import WagtailAdminPageForm
+from wagtail.admin.utils import send_mail
+from wagtail.core.blocks import CharBlock, RichTextBlock
+from wagtail.core.fields import RichTextField, StreamField
+from wagtail.core.models import Orderable, Page, PageManager, PageQuerySet
+from wagtail.documents.edit_handlers import DocumentChooserPanel
+from wagtail.documents.models import AbstractDocument, Document
+from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField, AbstractFormSubmission
+from wagtail.images.blocks import ImageChooserBlock
+from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.images.models import AbstractImage, AbstractRendition, Image
+from wagtail.search import index
+from wagtail.snippets.edit_handlers import SnippetChooserPanel
+from wagtail.snippets.models import register_snippet
 
 from .forms import ValidatedPageForm
 
@@ -225,7 +223,7 @@ class EventCategory(models.Model):
 
 class EventPageForm(WagtailAdminPageForm):
     def clean(self):
-        cleaned_data = super(EventPageForm, self).clean()
+        cleaned_data = super().clean()
 
         # Make sure that the event starts before it ends
         start_date = cleaned_data['date_from']
@@ -304,7 +302,7 @@ class SingleEventPage(EventPage):
 
     # Give this page model a custom URL routing scheme
     def get_url_parts(self, request=None):
-        url_parts = super(SingleEventPage, self).get_url_parts(request=request)
+        url_parts = super().get_url_parts(request=request)
         if url_parts is None:
             return None
         else:
@@ -314,13 +312,13 @@ class SingleEventPage(EventPage):
     def route(self, request, path_components):
         if path_components == ['pointless-suffix']:
             # treat this as equivalent to a request for this page
-            return super(SingleEventPage, self).route(request, [])
+            return super().route(request, [])
         else:
             # fall back to default routing rules
-            return super(SingleEventPage, self).route(request, path_components)
+            return super().route(request, path_components)
 
     def get_admin_display_title(self):
-        return "%s (single event)" % super(SingleEventPage, self).get_admin_display_title()
+        return "%s (single event)" % super().get_admin_display_title()
 
 
 SingleEventPage.content_panels = [FieldPanel('excerpt')] + EventPage.content_panels
@@ -348,7 +346,7 @@ class EventIndex(Page):
             events = paginator.page(paginator.num_pages)
 
         # Update context
-        context = super(EventIndex, self).get_context(request)
+        context = super().get_context(request)
         context['events'] = events
         return context
 
@@ -359,7 +357,7 @@ class EventIndex(Page):
             except (TypeError, ValueError):
                 pass
 
-        return super(EventIndex, self).route(request, path_components)
+        return super().route(request, path_components)
 
     def get_static_site_paths(self):
         # Get page count
@@ -370,12 +368,12 @@ class EventIndex(Page):
             yield '/%d/' % (page + 1)
 
         # Yield from superclass
-        for path in super(EventIndex, self).get_static_site_paths():
+        for path in super().get_static_site_paths():
             yield path
 
     def get_sitemap_urls(self):
         # Add past events url to sitemap
-        return super(EventIndex, self).get_sitemap_urls() + [
+        return super().get_sitemap_urls() + [
             {
                 'location': self.full_url + 'past/',
                 'lastmod': self.latest_revision_created_at
@@ -383,7 +381,7 @@ class EventIndex(Page):
         ]
 
     def get_cached_paths(self):
-        return super(EventIndex, self).get_cached_paths() + [
+        return super().get_cached_paths() + [
             '/past/'
         ]
 
@@ -400,7 +398,7 @@ class FormField(AbstractFormField):
 
 class FormPage(AbstractEmailForm):
     def get_context(self, request):
-        context = super(FormPage, self).get_context(request)
+        context = super().get_context(request)
         context['greeting'] = "hello world"
         return context
 
@@ -437,6 +435,48 @@ JadeFormPage.content_panels = [
 ]
 
 
+# Form page that redirects to a different page
+
+class RedirectFormField(AbstractFormField):
+    page = ParentalKey('FormPageWithRedirect', related_name='form_fields', on_delete=models.CASCADE)
+
+
+class FormPageWithRedirect(AbstractEmailForm):
+    thank_you_redirect_page = models.ForeignKey(
+        'wagtailcore.Page',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
+
+    def get_context(self, request):
+        context = super(FormPageWithRedirect, self).get_context(request)
+        context['greeting'] = "hello world"
+        return context
+
+    def render_landing_page(self, request, form_submission=None, *args, **kwargs):
+        """
+        Renders the landing page OR if a receipt_page_redirect is chosen redirects to this page.
+        """
+        if self.thank_you_redirect_page:
+            return redirect(self.thank_you_redirect_page.url, permanent=False)
+
+        return super(FormPageWithRedirect, self).render_landing_page(request, form_submission, *args, **kwargs)
+
+
+FormPageWithRedirect.content_panels = [
+    FieldPanel('title', classname="full title"),
+    PageChooserPanel('thank_you_redirect_page'),
+    InlinePanel('form_fields', label="Form fields"),
+    MultiFieldPanel([
+        FieldPanel('to_address', classname="full"),
+        FieldPanel('from_address', classname="full"),
+        FieldPanel('subject', classname="full"),
+    ], "Email")
+]
+
+
 # FormPage with a custom FormSubmission
 
 class FormPageWithCustomSubmission(AbstractEmailForm):
@@ -452,7 +492,7 @@ class FormPageWithCustomSubmission(AbstractEmailForm):
     thank_you_text = RichTextField(blank=True)
 
     def get_context(self, request, *args, **kwargs):
-        context = super(FormPageWithCustomSubmission, self).get_context(request)
+        context = super().get_context(request)
         context['greeting'] = "hello world"
         return context
 
@@ -463,7 +503,7 @@ class FormPageWithCustomSubmission(AbstractEmailForm):
         data_fields = [
             ('username', 'Username'),
         ]
-        data_fields += super(FormPageWithCustomSubmission, self).get_data_fields()
+        data_fields += super().get_data_fields()
 
         return data_fields
 
@@ -471,7 +511,7 @@ class FormPageWithCustomSubmission(AbstractEmailForm):
         return CustomFormPageSubmission
 
     def process_form_submission(self, form):
-        self.get_submission_class().objects.create(
+        form_submission = self.get_submission_class().objects.create(
             form_data=json.dumps(form.cleaned_data, cls=DjangoJSONEncoder),
             page=self, user=form.user
         )
@@ -481,6 +521,9 @@ class FormPageWithCustomSubmission(AbstractEmailForm):
             content = '\n'.join([x[1].label + ': ' + str(form.data.get(x[0])) for x in form.fields.items()])
             send_mail(self.subject, content, addresses, self.from_address,)
 
+        # process_form_submission should now return the created form_submission
+        return form_submission
+
     def serve(self, request, *args, **kwargs):
         if self.get_submission_class().objects.filter(page=self, user__pk=request.user.pk).exists():
             return render(
@@ -489,7 +532,7 @@ class FormPageWithCustomSubmission(AbstractEmailForm):
                 self.get_context(request)
             )
 
-        return super(FormPageWithCustomSubmission, self).serve(request, *args, **kwargs)
+        return super().serve(request, *args, **kwargs)
 
 
 FormPageWithCustomSubmission.content_panels = [
@@ -513,7 +556,7 @@ class CustomFormPageSubmission(AbstractFormSubmission):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     def get_data(self):
-        form_data = super(CustomFormPageSubmission, self).get_data()
+        form_data = super().get_data()
         form_data.update({
             'username': self.user.username,
         })
@@ -709,7 +752,7 @@ class ExtendedImageChooserBlock(ImageChooserBlock):
     otherwise, it returns the default value.
     """
     def get_api_representation(self, value, context=None):
-        image_id = super(ExtendedImageChooserBlock, self).get_api_representation(value, context=context)
+        image_id = super().get_api_representation(value, context=context)
         if 'request' in context and context['request'].query_params.get('extended', False):
             return {
                 'id': image_id,
@@ -841,7 +884,7 @@ class CustomImageFilePath(AbstractImage):
         different contents - this isn't guaranteed as we're only using
         the first three characters of the checksum.
         """
-        original_filepath = super(CustomImageFilePath, self).get_upload_to(filename)
+        original_filepath = super().get_upload_to(filename)
         folder_name, filename = original_filepath.split(os.path.sep)
 
         # Ensure that we consume the entire file, we can't guarantee that

@@ -35,7 +35,7 @@ We must set Django's ``LANGUAGES`` setting so we don't redirect non English/Fren
     from django.utils import translation
     from django.http import HttpResponseRedirect
 
-    from wagtail.wagtailcore.models import Page
+    from wagtail.core.models import Page
 
 
     class LanguageRedirectionPage(Page):
@@ -58,8 +58,8 @@ Here's an example of how this could be implemented (with English as the main lan
 
 .. code-block:: python
 
-    from wagtail.wagtailcore.models import Page
-    from wagtail.wagtailadmin.edit_handlers import MultiFieldPanel, PageChooserPanel
+    from wagtail.core.models import Page
+    from wagtail.admin.edit_handlers import MultiFieldPanel, PageChooserPanel
 
 
     class TranslatablePageMixin(models.Model):

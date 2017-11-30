@@ -1,5 +1,3 @@
-from __future__ import absolute_import, unicode_literals
-
 import operator
 import sys
 from collections import OrderedDict
@@ -32,8 +30,8 @@ from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
 
-from wagtail.wagtailadmin import messages
-from wagtail.wagtailadmin.edit_handlers import (
+from wagtail.admin import messages
+from wagtail.admin.edit_handlers import (
     ObjectList, extract_panel_definitions_from_model_class)
 
 from .forms import ParentChooserForm
@@ -70,7 +68,7 @@ class WMABaseView(TemplateView):
             raise PermissionDenied
         button_helper_class = self.model_admin.get_button_helper_class()
         self.button_helper = button_helper_class(self, request)
-        return super(WMABaseView, self).dispatch(request, *args, **kwargs)
+        return super().dispatch(request, *args, **kwargs)
 
     @cached_property
     def menu_icon(self):
@@ -103,7 +101,7 @@ class WMABaseView(TemplateView):
             'model_admin': self.model_admin,
         }
         context.update(kwargs)
-        return super(WMABaseView, self).get_context_data(**context)
+        return super().get_context_data(**context)
 
 
 class ModelFormView(WMABaseView, FormView):
@@ -127,7 +125,7 @@ class ModelFormView(WMABaseView, FormView):
         return getattr(self, 'instance', None) or self.model()
 
     def get_form_kwargs(self):
-        kwargs = FormView.get_form_kwargs(self)
+        kwargs = super().get_form_kwargs()
         kwargs.update({'instance': self.get_instance()})
         return kwargs
 
@@ -148,7 +146,7 @@ class ModelFormView(WMABaseView, FormView):
             'form': form,
         }
         context.update(kwargs)
-        return super(ModelFormView, self).get_context_data(**context)
+        return super().get_context_data(**context)
 
     def get_success_message(self, instance):
         return _("{model_name} '{instance}' created.").format(
@@ -184,7 +182,7 @@ class InstanceSpecificView(WMABaseView):
     instance = None
 
     def __init__(self, model_admin, instance_pk):
-        super(InstanceSpecificView, self).__init__(model_admin)
+        super().__init__(model_admin)
         self.instance_pk = unquote(instance_pk)
         self.pk_quoted = quote(self.instance_pk)
         filter_kwargs = {}
@@ -207,7 +205,7 @@ class InstanceSpecificView(WMABaseView):
     def get_context_data(self, **kwargs):
         context = {'instance': self.instance}
         context.update(kwargs)
-        return super(InstanceSpecificView, self).get_context_data(**context)
+        return super().get_context_data(**context)
 
 
 class IndexView(WMABaseView):
@@ -246,7 +244,7 @@ class IndexView(WMABaseView):
         self.query = request.GET.get(self.SEARCH_VAR, '')
         self.queryset = self.get_queryset(request)
 
-        return super(IndexView, self).dispatch(request, *args, **kwargs)
+        return super().dispatch(request, *args, **kwargs)
 
     @property
     def media(self):
@@ -648,7 +646,7 @@ class IndexView(WMABaseView):
             })
 
         context.update(kwargs)
-        return super(IndexView, self).get_context_data(**context)
+        return super().get_context_data(**context)
 
     def get_template_names(self):
         return self.model_admin.get_index_template()
@@ -677,7 +675,7 @@ class CreateView(ModelFormView):
             # The page can be added in multiple places, so redirect to the
             # choose_parent view so that the parent can be specified
             return redirect(self.url_helper.get_action_url('choose_parent'))
-        return super(CreateView, self).dispatch(request, *args, **kwargs)
+        return super().dispatch(request, *args, **kwargs)
 
     def get_meta_title(self):
         return _('Create new %s') % self.verbose_name
@@ -701,7 +699,7 @@ class EditView(ModelFormView, InstanceSpecificView):
             return redirect(
                 self.url_helper.get_action_url('edit', self.pk_quoted)
             )
-        return super(EditView, self).dispatch(request, *args, **kwargs)
+        return super().dispatch(request, *args, **kwargs)
 
     def get_meta_title(self):
         return _('Editing %s') % self.verbose_name
@@ -716,7 +714,7 @@ class EditView(ModelFormView, InstanceSpecificView):
                 self.request.user, self.instance)
         }
         context.update(kwargs)
-        return super(EditView, self).get_context_data(**context)
+        return super().get_context_data(**context)
 
     def get_error_message(self):
         name = self.verbose_name
@@ -730,7 +728,7 @@ class ChooseParentView(WMABaseView):
     def dispatch(self, request, *args, **kwargs):
         if not self.permission_helper.user_can_create(request.user):
             raise PermissionDenied
-        return super(ChooseParentView, self).dispatch(request, *args, **kwargs)
+        return super().dispatch(request, *args, **kwargs)
 
     def get_page_title(self):
         return _('Add %s') % self.verbose_name
@@ -777,7 +775,7 @@ class DeleteView(InstanceSpecificView):
             return redirect(
                 self.url_helper.get_action_url('delete', self.pk_quoted)
             )
-        return super(DeleteView, self).dispatch(request, *args, **kwargs)
+        return super().dispatch(request, *args, **kwargs)
 
     def get_meta_title(self):
         return _('Confirm deletion of %s') % self.verbose_name
@@ -869,9 +867,9 @@ class InspectView(InstanceSpecificView):
                 return ', '.join(['%s' % obj for obj in val])
             return self.model_admin.get_empty_value_display(field_name)
 
-        # wagtail.wagtailimages might not be installed
+        # wagtail.images might not be installed
         try:
-            from wagtail.wagtailimages.models import AbstractImage
+            from wagtail.images.models import AbstractImage
             if isinstance(val, AbstractImage):
                 # Render a rendition of the image
                 return self.get_image_field_display(field_name, field)
@@ -880,7 +878,7 @@ class InspectView(InstanceSpecificView):
 
         # wagtail.wagtaildocuments might not be installed
         try:
-            from wagtail.wagtaildocs.models import AbstractDocument
+            from wagtail.documents.models import AbstractDocument
             if isinstance(val, AbstractDocument):
                 # Render a link to the document
                 return self.get_document_field_display(field_name, field)
@@ -894,7 +892,7 @@ class InspectView(InstanceSpecificView):
 
     def get_image_field_display(self, field_name, field):
         """ Render an image """
-        from wagtail.wagtailimages.shortcuts import get_rendition_or_not_found
+        from wagtail.images.shortcuts import get_rendition_or_not_found
         image = getattr(self.instance, field_name)
         if image:
             return get_rendition_or_not_found(image, 'max-400x400').img_tag
@@ -945,7 +943,7 @@ class InspectView(InstanceSpecificView):
                 self.instance, exclude=['inspect']),
         }
         context.update(kwargs)
-        return super(InspectView, self).get_context_data(**context)
+        return super().get_context_data(**context)
 
     def get_template_names(self):
         return self.model_admin.get_inspect_template()

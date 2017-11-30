@@ -11,7 +11,7 @@ To install the styleguide module on your site, add it to the list of ``INSTALLED
 
     INSTALLED_APPS = (
         ...
-        'wagtail.contrib.wagtailstyleguide',
+        'wagtail.contrib.styleguide',
         ...
     )
 

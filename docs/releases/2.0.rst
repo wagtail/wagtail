@@ -10,6 +10,12 @@ Wagtail 2.0 release notes - IN DEVELOPMENT
 What's new
 ==========
 
+Reorganised modules
+~~~~~~~~~~~~~~~~~~~
+
+The modules that make up Wagtail have been renamed and reorganised, to avoid the repetition in names like ``wagtail.wagtailcore.models`` (originally an artefact of app naming limitations in Django 1.6) and to improve consistency. While this will require some up-front work to upgrade existing Wagtail sites, we believe that this will be a long-term improvement to the developer experience, improving readability of code and reducing errors. This change was implemented by Karl Hobley and Matt Westcott.
+
+
 Other features
 ~~~~~~~~~~~~~~
 
@@ -27,6 +33,7 @@ Other features
  * Added ``exclude_fields_in_copy`` property to Page to define fields that should not be included on page copy (LB (Ben Johnston))
  * Improved error message on incorrect ``{% image %}`` tag syntax (LB (Ben Johnston))
  * Optimized preview data storage (Bertrand Bordage)
+ * Added `render_landing_page` method to `AbstractForm` to be easily overridden and pass `form_submission` to landing page context (Stein Strindhaug)
 
 Bug fixes
 ~~~~~~~~~
@@ -51,6 +58,63 @@ Removed support for Python 2.7, Django 1.8 and Django 1.10
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Python 2.7, Django 1.8 and Django 1.10 are no longer supported in this release. You are advised to upgrade your project to Python 3 and Django 1.11 before upgrading to Wagtail 2.0.
+
+
+Wagtail module path updates
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Many of the module paths within Wagtail have been reorganised:
+
++-----------------------------------------+-----------------------------------+-----------------------------------+
+| Old name                                | New name                          | Notes                             |
++=========================================+===================================+===================================+
+| wagtail.wagtailcore                     | wagtail.core                      |                                   |
++-----------------------------------------+-----------------------------------+-----------------------------------+
+| wagtail.wagtailadmin                    | wagtail.admin                     |                                   |
++-----------------------------------------+-----------------------------------+-----------------------------------+
+| wagtail.wagtaildocs                     | wagtail.documents                 | 'documents' no longer abbreviated |
++-----------------------------------------+-----------------------------------+-----------------------------------+
+| wagtail.wagtailembeds                   | wagtail.embeds                    |                                   |
++-----------------------------------------+-----------------------------------+-----------------------------------+
+| wagtail.wagtailimages                   | wagtail.images                    |                                   |
++-----------------------------------------+-----------------------------------+-----------------------------------+
+| wagtail.wagtailsearch                   | wagtail.search                    |                                   |
++-----------------------------------------+-----------------------------------+-----------------------------------+
+| wagtail.wagtailsites                    | wagtail.sites                     |                                   |
++-----------------------------------------+-----------------------------------+-----------------------------------+
+| wagtail.wagtailsnippets                 | wagtail.snippets                  |                                   |
++-----------------------------------------+-----------------------------------+-----------------------------------+
+| wagtail.wagtailusers                    | wagtail.users                     |                                   |
++-----------------------------------------+-----------------------------------+-----------------------------------+
+| wagtail.wagtailforms                    | wagtail.contrib.forms             | Moved into 'contrib'              |
++-----------------------------------------+-----------------------------------+-----------------------------------+
+| wagtail.wagtailredirects                | wagtail.contrib.redirects         | Moved into 'contrib'              |
++-----------------------------------------+-----------------------------------+-----------------------------------+
+| wagtail.contrib.wagtailapi              | *removed*                         | API v1, removed in this release   |
++-----------------------------------------+-----------------------------------+-----------------------------------+
+| wagtail.contrib.wagtailfrontendcache    | wagtail.contrib.frontend_cache    | Underscore added                  |
++-----------------------------------------+-----------------------------------+-----------------------------------+
+| wagtail.contrib.wagtailroutablepage     | wagtail.contrib.routable_page     | Underscore added                  |
++-----------------------------------------+-----------------------------------+-----------------------------------+
+| wagtail.contrib.wagtailsearchpromotions | wagtail.contrib.search_promotions | Underscore added                  |
++-----------------------------------------+-----------------------------------+-----------------------------------+
+| wagtail.contrib.wagtailsitemaps         | wagtail.contrib.sitemaps          |                                   |
++-----------------------------------------+-----------------------------------+-----------------------------------+
+| wagtail.contrib.wagtailstyleguide       | wagtail.contrib.styleguide        |                                   |
++-----------------------------------------+-----------------------------------+-----------------------------------+
+
+References to these module paths within your Wagtail project need to be updated when you upgrade to Wagtail 2.0. This includes:
+
+* ``import`` lines
+* Paths specified in settings, such as ``INSTALLED_APPS``, ``MIDDLEWARE`` and ``WAGTAILSEARCH_BACKENDS``
+* Fields and blocks referenced within migrations, such as ``wagtail.wagtailcore.fields.StreamField`` and ``wagtail.wagtailcore.blocks.RichTextBlock``
+
+However, app names that are *not* part of a dotted module path should be left unchanged - in this case, the ``wagtail`` prefix is still required to distinguish them from other apps that might exist in the project with names such as ``admin`` or ``images``. The following should be left unchanged:
+
+* App labels used in database table names, content types or permissions
+* Paths to templates and static files, e.g. when :ref:`overriding admin templates with custom branding <custom_branding>`
+* Template tag library names, e.g. ``{% load wagtailcore_tags %}``
+
 
 Removed support for Elasticsearch 1.x
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

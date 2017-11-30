@@ -1,13 +1,11 @@
-from __future__ import absolute_import, unicode_literals
-
 from django.conf import settings
 from django.db import models
 from rest_framework.filters import BaseFilterBackend
 from taggit.managers import TaggableManager
 
-from wagtail.wagtailcore import hooks
-from wagtail.wagtailcore.models import Page
-from wagtail.wagtailsearch.backends import get_search_backend
+from wagtail.core import hooks
+from wagtail.core.models import Page
+from wagtail.search.backends import get_search_backend
 
 from .utils import BadRequestError, pages_for_site, parse_boolean
 
