@@ -604,3 +604,64 @@ Finally, we add a URL param of `id` based on the ``form_submission`` if it exist
                 FieldPanel('subject'),
             ], 'Email'),
         ]
+
+
+Adding a custom field type
+--------------------------
+
+First, make the new field type available in the page editor by changing your ``FormField`` model.
+
+* Create a new set of choices which includes the original ``FORM_FIELD_CHOICES`` along with new field types you want to make avaialable.
+* Each choice must contain a unique key and a human readable name of the field. eg. ``('slug', 'URL Slug')``
+* Override the ``field_type`` field in your ``FormField`` model with ``choices`` attribute using these choices.
+* You will need to run ``./manage.py makemigrations`` and ``./manage.py migrate`` after this step.
+
+
+Then, create and use a new form builder class.
+
+* Define a new form builder class that extends the ``FormBuilder`` class.
+* Add a method that will return a created Django form field for the new field type.
+* Its name must be in the format: ``create_<field_type_key>_field``. eg. ``create_slug_field``
+* Override the ``form_builder`` attribute in your form page model to use your new form builder class.
+
+Example:
+
+.. code-block:: python
+
+    from django import forms
+    from django.db import models
+    from modelcluster.fields import ParentalKey
+    from wagtail.contrib.forms.forms import FormBuilder
+    from wagtail.contrib.forms.models import (
+      AbstractEmailForm, AbstractFormField, FORM_FIELD_CHOICES)
+
+
+    class FormField(AbstractFormField):
+        # extend the built in field type choices
+        # our field type key will be 'ipaddress'
+        CHOICES = FORM_FIELD_CHOICES + (('ipaddress', 'IP Address'),)
+
+        page = ParentalKey('FormPage', related_name='form_fields')
+        # override the field_type field with extended choices
+        field_type = models.CharField(
+            verbose_name='field type',
+            max_length=16,
+            # use the choices tuple defined above
+            choices=CHOICES
+        )
+
+
+    class CustomFormBuilder(FormBuilder):
+        # create a function that returns an instanced Django form field
+        # function name must match create_<field_type_key>_field
+        def create_ipaddress_field(self, field, options):
+            # return `forms.GenericIPAddressField(**options)` not `forms.SlugField`
+            # returns created a form field with the options passed in
+            return forms.GenericIPAddressField(**options)
+
+
+    class FormPage(AbstractEmailForm):
+        # intro, thank_you_text, edit_handlers, etc...
+
+        # use custom form builder defined above
+        form_builder = CustomFormBuilder

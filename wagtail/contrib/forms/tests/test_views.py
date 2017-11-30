@@ -6,7 +6,8 @@ from django.test import TestCase
 from django.urls import reverse
 
 from wagtail.tests.testapp.models import (
-    CustomFormPageSubmission, FormField, FormFieldWithCustomSubmission, FormPage)
+    CustomFormPageSubmission, ExtendedFormField, FormField, FormFieldWithCustomSubmission,
+    FormPage, FormPageWithCustomFormBuilder)
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.admin.edit_handlers import get_form_for_model
 from wagtail.admin.forms import WagtailAdminPageForm
@@ -922,6 +923,62 @@ class TestDeleteCustomFormSubmission(TestCase):
 
         # Check that the deletion has not happened
         self.assertEqual(CustomFormPageSubmission.objects.count(), 2)
+
+
+class TestFormsWithCustomFormBuilderSubmissionsList(TestCase, WagtailTestUtils):
+
+    def setUp(self):
+        home_page = Page.objects.get(url_path='/home/')
+        form_page = home_page.add_child(
+            instance=FormPageWithCustomFormBuilder(
+                title='Support Request',
+                slug='support-request',
+                to_address='it@jenkins.com',
+                from_address='support@jenkins.com',
+                subject='Support Request Submitted',
+            )
+        )
+        ExtendedFormField.objects.create(
+            page=form_page,
+            sort_order=1,
+            label='Name',
+            field_type='singleline',  # singleline field will be max_length 120
+            required=True,
+        )
+        ExtendedFormField.objects.create(
+            page=form_page,
+            sort_order=1,
+            label='Device IP Address',
+            field_type='ipaddress',
+            required=True,
+        )
+
+        for i in range(20):
+            submission = FormSubmission.objects.create(
+                page=form_page,
+                form_data=json.dumps({
+                    'name': 'John %s' % i,
+                    'device-ip-address': '192.0.2.%s' % i,
+                }),
+            )
+            submission.save()
+
+        self.form_page = form_page
+        # Login
+        self.login()
+
+    def test_list_submissions(self):
+        response = self.client.get(
+            reverse('wagtailforms:list_submissions', args=(self.form_page.id,)))
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailforms/index_submissions.html')
+        self.assertEqual(len(response.context['data_rows']), 20)
+
+        # check display of list values within form submissions
+        self.assertContains(response, '192.0.2.1')
+        self.assertContains(response, '192.0.2.15')
 
 
 class TestIssue585(TestCase):

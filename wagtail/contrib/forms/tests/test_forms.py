@@ -2,9 +2,10 @@
 from django import forms
 from django.test import TestCase
 
-from wagtail.tests.testapp.models import FormField, FormPage
-from wagtail.core.models import Page
 from wagtail.contrib.forms.forms import FormBuilder
+from wagtail.core.models import Page
+from wagtail.tests.testapp.models import (
+    ExtendedFormField, FormField, FormPage, FormPageWithCustomFormBuilder)
 
 
 class TestFormBuilder(TestCase):
@@ -162,3 +163,51 @@ class TestFormBuilder(TestCase):
         self.assertIsInstance(form_class.base_fields['your-favourite-python-ide'].widget, forms.RadioSelect)
         self.assertIsInstance(form_class.base_fields['your-choices'].widget, forms.CheckboxSelectMultiple)
         self.assertIsInstance(form_class.base_fields['a-hidden-field'].widget, forms.HiddenInput)
+
+
+class TestCustomFormBuilder(TestCase):
+    def setUp(self):
+        # Create a form page
+        home_page = Page.objects.get(url_path='/home/')
+
+        self.form_page = home_page.add_child(
+            instance=FormPageWithCustomFormBuilder(
+                title='IT Support Request',
+                slug='it-support-request',
+                to_address='it@jenkins.com',
+                from_address='support@jenkins.com',
+                subject='Support Request Submitted',
+            )
+        )
+        ExtendedFormField.objects.create(
+            page=self.form_page,
+            sort_order=1,
+            label='Name',
+            field_type='singleline',
+            required=True,
+        )
+
+    def test_using_custom_form_builder(self):
+        """Tests that charfield max_length is 120 characters."""
+        form_class = self.form_page.get_form_class()
+        form = form_class()
+        # check name field exists
+        self.assertIsInstance(form.base_fields['name'], forms.CharField)
+        # check max_length is set
+        self.assertEqual(form.base_fields['name'].max_length, 120)
+
+
+    def test_adding_custom_field(self):
+        """Tests that we can add the ipaddress field, which is an extended choice."""
+        ExtendedFormField.objects.create(
+            page=self.form_page,
+            sort_order=1,
+            label='Device IP Address',
+            field_type='ipaddress',
+            required=True,
+        )
+        form_class = self.form_page.get_form_class()
+        form = form_class()
+        # check ip address field used
+        self.assertIsInstance(
+            form.base_fields['device-ip-address'], forms.GenericIPAddressField)
