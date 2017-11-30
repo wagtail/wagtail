@@ -434,7 +434,7 @@ class Migration(migrations.Migration):
             name='StreamModel',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('body', wagtail.core.fields.StreamField((('text', wagtail.core.blocks.CharBlock()), ('rich_text', wagtail.core.blocks.RichTextBlock()), ('image', wagtail.images.blocks.ImageChooserBlock())))),
+                ('body', wagtail.core.fields.StreamField((('text', wagtail.core.blocks.CharBlock()), ('rich_text', wagtail.core.blocks.RichTextBlock()), ('image', wagtail.images.blocks.ImageChooserBlock()), ('struct', wagtail.core.blocks.StructBlock([('image', wagtail.images.blocks.ImageChooserBlock()), ('image_list', wagtail.core.blocks.ListBlock(wagtail.images.blocks.ImageChooserBlock())), ('struct_list', wagtail.core.blocks.ListBlock(wagtail.core.blocks.StructBlock([('image', wagtail.images.blocks.ImageChooserBlock())])))]))))),
             ],
         ),
         migrations.CreateModel(
