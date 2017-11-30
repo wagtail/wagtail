@@ -10,7 +10,6 @@ from django.db import models, transaction
 from django.forms.widgets import TextInput
 from django.template.loader import render_to_string
 from django.utils import timezone
-from django.utils.functional import cached_property
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy, ungettext
 from modelcluster.forms import ClusterForm, ClusterFormMetaclass
