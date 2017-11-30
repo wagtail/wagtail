@@ -21,6 +21,7 @@ Changelog
  * Improved error message on incorrect `{% image %}` tag syntax (LB (Ben Johnston))
  * Optimized preview data storage (Bertrand Bordage)
  * Added `render_landing_page` method to `AbstractForm` to be easily overridden and pass `form_submission` to landing page context (Stein Strindhaug)
+ * Added `heading` kwarg to `InlinePanel` to allow heading to be set independently of button label (Adrian Turjak)
  * Fix: Do not remove stopwords when generating slugs from non-ASCII titles, to avoid issues with incorrect word boundaries (Sævar Öfjörð Magnússon)
  * Fix: The PostgreSQL search backend now preserves ordering of the `QuerySet` when searching with `order_by_relevance=False` (Bertrand Bordage)
  * Fix: Using `modeladmin_register` as a decorator no longer replaces the decorated class with `None` (Tim Heap)

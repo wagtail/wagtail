@@ -280,7 +280,7 @@ EventPage.content_panels = [
     FieldPanel('signup_link'),
     InlinePanel('carousel_items', label="Carousel items"),
     FieldPanel('body', classname="full"),
-    InlinePanel('speakers', label="Speakers"),
+    InlinePanel('speakers', label="Speakers", heading="Speaker lineup"),
     InlinePanel('related_links', label="Related links"),
     FieldPanel('categories'),
 ]

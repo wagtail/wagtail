@@ -262,6 +262,7 @@ Contributors
 * rifuso
 * Jon Carmack
 * Martin Sandström
+* Adrian Turjak
 
 Translators
 ===========
