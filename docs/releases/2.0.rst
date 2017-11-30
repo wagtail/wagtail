@@ -33,8 +33,8 @@ Other features
  * Added ``exclude_fields_in_copy`` property to Page to define fields that should not be included on page copy (LB (Ben Johnston))
  * Improved error message on incorrect ``{% image %}`` tag syntax (LB (Ben Johnston))
  * Optimized preview data storage (Bertrand Bordage)
- * Added `render_landing_page` method to `AbstractForm` to be easily overridden and pass `form_submission` to landing page context (Stein Strindhaug)
- * Added `heading` kwarg to `InlinePanel` to allow heading to be set independently of button label (Adrian Turjak)
+ * Added ``render_landing_page`` method to ``AbstractForm`` to be easily overridden and pass ``form_submission`` to landing page context (Stein Strindhaug)
+ * Added ``heading`` kwarg to ``InlinePanel`` to allow heading to be set independently of button label (Adrian Turjak)
 
 Bug fixes
 ~~~~~~~~~
