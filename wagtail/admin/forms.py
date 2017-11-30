@@ -66,12 +66,11 @@ class LoginForm(AuthenticationForm):
     username = forms.CharField(
         max_length=254, widget=forms.TextInput(attrs={'tabindex': '1'}))
 
-    password = forms.CharField(widget=forms.PasswordInput(
-        attrs={
+    password = forms.CharField(
+        widget=forms.PasswordInput(attrs={
             'tabindex': '2',
             'placeholder': ugettext_lazy("Enter password"),
-        })
-    )
+        }))
 
     def __init__(self, request=None, *args, **kwargs):
         super().__init__(request=request, *args, **kwargs)
