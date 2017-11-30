@@ -21,6 +21,7 @@
                             </span>
                             {% if revision == page.get_latest_revision %}({% trans 'Current draft' %}){% endif %}
                             {% if revision == page.live_revision %}({% trans 'Live version' %}){% endif %}
+			    {% if revision.approved_go_live_at %}({% trans 'Scheduled for' %} {{ revision.approved_go_live_at }}) {% endif %}
                         </h2>
 
                         <ul class="actions">

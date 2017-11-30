@@ -389,7 +389,6 @@ class TestPageExplorerSignposting(TestCase, WagtailTestUtils):
         self.assertNotContains(response, "Pages created here will not be accessible")
 
 
-
 class TestExplorablePageVisibility(TestCase, WagtailTestUtils):
     """
     Test the way that the Explorable Pages functionality manifests within the Explorer.
@@ -3786,6 +3785,17 @@ class TestRevisions(TestCase, WagtailTestUtils):
         self.assertContains(response, "Replace current draft")
         self.assertContains(response, "Publish this revision")
 
+    def test_scheduled_revision(self):
+        self.last_christmas_revision.publish()
+        self.this_christmas_revision.approved_go_live_at = local_datetime(2014, 12, 26)
+        self.this_christmas_revision.save()
+        response = self.client.get(
+            reverse('wagtailadmin_pages:revisions_index', args=(self.christmas_event.id, ))
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Scheduled for')
+        self.assertContains(response, formats.localize(parse_date('2014-12-26')))
+
 
 class TestCompareRevisions(TestCase, WagtailTestUtils):
     # Actual tests for the comparison classes can be found in test_compare.py
@@ -3871,6 +3881,7 @@ class TestIssue2599(TestCase, WagtailTestUtils):
     one more than numchild - however, index numbers are not reassigned on page deletion, so
     this can result in a path that collides with an existing page (which is invalid).
     """
+
     def test_issue_2599(self):
         homepage = Page.objects.get(id=2)
 
@@ -3916,6 +3927,7 @@ class TestIssue2492(TestCase, WagtailTestUtils):
     This test ensures that the specific_class url method is called
     when the 'view live' message button is created.
     """
+
     def setUp(self):
         self.root_page = Page.objects.get(id=2)
         child_page = SingleEventPage(
@@ -4080,6 +4092,7 @@ class TestInlinePanelMedia(TestCase, WagtailTestUtils):
     """
     Test that form media required by InlinePanels is correctly pulled in to the edit page
     """
+
     def test_inline_panel_media(self):
         homepage = Page.objects.get(id=2)
         self.login()
@@ -4099,6 +4112,7 @@ class TestInlineStreamField(TestCase, WagtailTestUtils):
     """
     Test that streamfields inside an inline child work
     """
+
     def test_inline_streamfield(self):
         homepage = Page.objects.get(id=2)
         self.login()
@@ -4201,6 +4215,7 @@ class TestIssue2994(TestCase, WagtailTestUtils):
     from wrongly interpreting this as the field being omitted from the form,
     we need to provide a custom value_omitted_from_data method.
     """
+
     def setUp(self):
         self.root_page = Page.objects.get(id=2)
         self.user = self.login()
