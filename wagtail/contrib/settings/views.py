@@ -1,5 +1,3 @@
-from __future__ import absolute_import, unicode_literals
-
 from django.core.exceptions import PermissionDenied
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
@@ -7,10 +5,10 @@ from django.utils.lru_cache import lru_cache
 from django.utils.text import capfirst
 from django.utils.translation import ugettext as _
 
-from wagtail.wagtailadmin import messages
-from wagtail.wagtailadmin.edit_handlers import (
+from wagtail.admin import messages
+from wagtail.admin.edit_handlers import (
     ObjectList, extract_panel_definitions_from_model_class)
-from wagtail.wagtailcore.models import Site
+from wagtail.core.models import Site
 
 from .forms import SiteSwitchForm
 from .permissions import user_can_edit_setting_type

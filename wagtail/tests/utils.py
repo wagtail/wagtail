@@ -1,20 +1,17 @@
-from __future__ import absolute_import, unicode_literals
-
 import sys
 import warnings
 from contextlib import contextmanager
 
 from django.contrib.auth import get_user_model
-from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.test.testcases import assert_and_parse_html
-from django.utils import six
+from django.urls import reverse
 from django.utils.text import slugify
 
 from wagtail.tests.assert_logs import _AssertLogsContext
 
 
-class WagtailTestUtils(object):
+class WagtailTestUtils:
 
     @staticmethod
     def create_test_user():
@@ -42,9 +39,6 @@ class WagtailTestUtils(object):
         )
 
         return user
-
-    def assertRegex(self, *args, **kwargs):
-        six.assertRegex(self, *args, **kwargs)
 
     @staticmethod
     @contextmanager
@@ -105,7 +99,7 @@ class WagtailTestUtils(object):
 
     @contextmanager
     def register_hook(self, hook_name, fn, order=0):
-        from wagtail.wagtailcore import hooks
+        from wagtail.core import hooks
 
         hooks.register(hook_name, fn, order)
         try:
@@ -231,7 +225,7 @@ class WagtailPageTests(WagtailTestUtils, TestCase):
     A set of asserts to help write tests for your own Wagtail site.
     """
     def setUp(self):
-        super(WagtailPageTests, self).setUp()
+        super().setUp()
         self.login()
 
     def _testCanCreateAt(self, parent_model, child_model):

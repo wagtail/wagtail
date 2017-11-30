@@ -38,7 +38,7 @@ Search on QuerySet with Elasticsearch
 
 It's now possible to perform searches with Elasticsearch on ``PageQuerySet`` objects:
 
-    >>> from wagtail.wagtailcore.models import Page
+    >>> from wagtail.core.models import Page
     >>> Page.objects.live().descendant_of(events_index).search("Hello")
     [<Page: Event 1>, <Page: Event 2>]
 
@@ -196,7 +196,7 @@ Wagtailadmins ``hooks`` module has moved to wagtailcore
 
 If you use any ``wagtail_hooks.py`` files in your project, you may have an import like: ``from wagtail.wagtailadmin import hooks``
 
-Change this to: ``from wagtail.wagtailcore import hooks``
+Change this to: ``from wagtail.core import hooks``
 
 
 Miscellaneous

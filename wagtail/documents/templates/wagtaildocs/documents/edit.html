@@ -1,0 +1,67 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n %}
+{% load wagtailimages_tags wagtailadmin_tags %}
+{% block titletag %}{% blocktrans with title=document.title %}Editing {{ title }}{% endblocktrans %}{% endblock %}
+
+{% block extra_js %}
+    {{ block.super }}
+
+    {% url 'wagtailadmin_tag_autocomplete' as autocomplete_url %}
+    <script>
+        $(function() {
+            $('#id_tags').tagit({
+                autocomplete: {source: "{{ autocomplete_url|addslashes }}"}
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block content %}
+    {% trans "Editing" as editing_str %}
+    {% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=document.title icon="doc-full-inverse" %}
+
+    <div class="row row-flush nice-padding">
+
+        <div class="col10 divider-after">
+            <form action="{% url 'wagtaildocs:edit' document.id %}" method="POST" enctype="multipart/form-data" novalidate>
+                {% csrf_token %}
+                <ul class="fields">
+                    {% for field in form %}
+                        {% if field.name == 'file' %}
+                            {% include "wagtaildocs/documents/_file_field_as_li.html" %}
+                        {% elif field.is_hidden %}
+                            {{ field }}
+                        {% else %}
+                            {% include "wagtailadmin/shared/field_as_li.html" %}
+                        {% endif %}
+                    {% endfor %}
+                    <li>
+                        <input type="submit" value="{% trans 'Save' %}" class="button" />
+                        {% if user_can_delete %}
+                            <a href="{% url 'wagtaildocs:delete' document.id %}" class="button button-secondary no">{% trans "Delete document" %}</a>
+                        {% endif %}
+                    </li>
+                </ul>
+            </form>
+        </div>
+        <div class="col2">
+            <dl>
+                {% if document.file %}
+                    <dt>{% trans "Filesize" %}</dt>
+                    <dd>{% if filesize %}{{ filesize|filesizeformat }}{% else %}{% trans "File not found" %}{% endif %}</dd>
+                {% endif %}
+
+                {% usage_count_enabled as uc_enabled %}
+                {% if uc_enabled %}
+                    <dt>{% trans "Usage" %}</dt>
+                    <dd>
+                        <a href="{{ image.usage_url }}">{% blocktrans count usage_count=document.get_usage.count %}Used {{ usage_count }} time{% plural %}Used {{ usage_count }} times{% endblocktrans %}</a>
+                    </dd>
+                {% endif %}
+            </dl>
+        </div>
+    </div>
+
+
+    </div>
+{% endblock %}

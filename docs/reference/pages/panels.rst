@@ -3,7 +3,7 @@
 Available panel types
 =====================
 
-.. module:: wagtail.wagtailadmin.edit_handlers
+.. module:: wagtail.admin.edit_handlers
 
 FieldPanel
 ----------
@@ -35,7 +35,7 @@ MultiFieldPanel
 
 .. class:: MultiFieldPanel(children, heading="", classname=None)
 
-    This panel condenses several :class:`~wagtail.wagtailadmin.edit_handlers.FieldPanel` s or choosers, from a ``list`` or ``tuple``, under a single ``heading`` string.
+    This panel condenses several :class:`~wagtail.admin.edit_handlers.FieldPanel` s or choosers, from a ``list`` or ``tuple``, under a single ``heading`` string.
 
     .. attribute:: MultiFieldPanel.children
 
@@ -96,12 +96,12 @@ PageChooserPanel
 
 .. class:: PageChooserPanel(field_name, page_type=None, can_choose_root=False)
 
-    You can explicitly link :class:`~wagtail.wagtailcore.models.Page`-derived models together using the :class:`~wagtail.wagtailcore.models.Page` model and ``PageChooserPanel``.
+    You can explicitly link :class:`~wagtail.core.models.Page`-derived models together using the :class:`~wagtail.core.models.Page` model and ``PageChooserPanel``.
 
     .. code-block:: python
 
-        from wagtail.wagtailcore.models import Page
-        from wagtail.wagtailadmin.edit_handlers import PageChooserPanel
+        from wagtail.core.models import Page
+        from wagtail.admin.edit_handlers import PageChooserPanel
 
 
         class BookPage(Page):
@@ -129,16 +129,16 @@ PageChooserPanel
 ImageChooserPanel
 -----------------
 
-.. module:: wagtail.wagtailimages.edit_handlers
+.. module:: wagtail.images.edit_handlers
 
 .. class:: ImageChooserPanel(field_name)
 
-    Wagtail includes a unified image library, which you can access in your models through the :class:`~wagtail.wagtailimages.models.Image` model and the ``ImageChooserPanel`` chooser. Here's how:
+    Wagtail includes a unified image library, which you can access in your models through the :class:`~wagtail.images.models.Image` model and the ``ImageChooserPanel`` chooser. Here's how:
 
     .. code-block:: python
 
-      from wagtail.wagtailimages.models import Image
-      from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
+      from wagtail.images.models import Image
+      from wagtail.images.edit_handlers import ImageChooserPanel
 
 
       class BookPage(Page):
@@ -163,17 +163,17 @@ ImageChooserPanel
 FormSubmissionsPanel
 --------------------
 
-.. module:: wagtail.wagtailforms.edit_handlers
+.. module:: wagtail.contrib.forms.edit_handlers
 
 .. class:: FormSubmissionsPanel
 
-    This panel adds a single, read-only section in the edit interface for pages implementing the :class:`~wagtail.wagtailforms.models.AbstractForm` model.
+    This panel adds a single, read-only section in the edit interface for pages implementing the :class:`~wagtail.contrib.forms.models.AbstractForm` model.
     It includes the number of total submissions for the given form and also a link to the listing of submissions.
 
     .. code-block:: python
 
-        from wagtail.wagtailforms.models import AbstractForm
-        from wagtail.wagtailforms.edit_handlers import FormSubmissionsPanel
+        from wagtail.contrib.forms.models import AbstractForm
+        from wagtail.contrib.forms.edit_handlers import FormSubmissionsPanel
 
         class ContactFormPage(AbstractForm):
             content_panels = [
@@ -183,16 +183,16 @@ FormSubmissionsPanel
 DocumentChooserPanel
 --------------------
 
-.. module:: wagtail.wagtaildocs.edit_handlers
+.. module:: wagtail.documents.edit_handlers
 
 .. class:: DocumentChooserPanel(field_name)
 
-    For files in other formats, Wagtail provides a generic file store through the :class:`~wagtail.wagtaildocs.models.Document` model:
+    For files in other formats, Wagtail provides a generic file store through the :class:`~wagtail.documents.models.Document` model:
 
     .. code-block:: python
 
-      from wagtail.wagtaildocs.models import Document
-      from wagtail.wagtaildocs.edit_handlers import DocumentChooserPanel
+      from wagtail.documents.models import Document
+      from wagtail.documents.edit_handlers import DocumentChooserPanel
 
 
       class BookPage(Page):
@@ -217,7 +217,7 @@ SnippetChooserPanel
 
     Before Wagtail 1.1, it was necessary to pass the snippet model class as a second parameter to ``SnippetChooserPanel``. This is now automatically picked up from the field.
 
-.. module:: wagtail.wagtailsnippets.edit_handlers
+.. module:: wagtail.snippets.edit_handlers
 
 .. class:: SnippetChooserPanel(field_name, snippet_type=None)
 
@@ -225,7 +225,7 @@ SnippetChooserPanel
 
     .. code-block:: python
 
-      from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
+      from wagtail.snippets.edit_handlers import SnippetChooserPanel
 
       class BookPage(Page):
           advert = models.ForeignKey(
@@ -246,7 +246,7 @@ SnippetChooserPanel
 Built-in Fields and Choosers
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Django's field types are automatically recognised and provided with an appropriate widget for input. Just define that field the normal Django way and pass the field name into :class:`~wagtail.wagtailadmin.edit_handlers.FieldPanel` when defining your panels. Wagtail will take care of the rest.
+Django's field types are automatically recognised and provided with an appropriate widget for input. Just define that field the normal Django way and pass the field name into :class:`~wagtail.admin.edit_handlers.FieldPanel` when defining your panels. Wagtail will take care of the rest.
 
 Here are some Wagtail-specific types that you might include as fields in your models.
 
@@ -262,7 +262,7 @@ By adding CSS classes to your panel definitions or adding extra parameters to yo
 Full-Width Input
 ----------------
 
-Use ``classname="full"`` to make a field (input element) stretch the full width of the Wagtail page editor. This will not work if the field is encapsulated in a :class:`~wagtail.wagtailadmin.edit_handlers.MultiFieldPanel`, which places its child fields into a formset.
+Use ``classname="full"`` to make a field (input element) stretch the full width of the Wagtail page editor. This will not work if the field is encapsulated in a :class:`~wagtail.admin.edit_handlers.MultiFieldPanel`, which places its child fields into a formset.
 
 
 Titles
@@ -294,11 +294,11 @@ Inline Panels and Model Clusters
 
 The ``django-modelcluster`` module allows for streamlined relation of extra models to a Wagtail page. For instance, you can create objects related through a ``ForeignKey`` relationship on the fly and save them to a draft revision of a ``Page`` object. Normally, your related objects "cluster" would need to be created beforehand (or asynchronously) before linking them to a Page.
 
-Let's look at the example of adding related links to a :class:`~wagtail.wagtailcore.models.Page`-derived model. We want to be able to add as many as we like, assign an order, and do all of this without leaving the page editing screen.
+Let's look at the example of adding related links to a :class:`~wagtail.core.models.Page`-derived model. We want to be able to add as many as we like, assign an order, and do all of this without leaving the page editing screen.
 
 .. code-block:: python
 
-  from wagtail.wagtailcore.models import Orderable, Page
+  from wagtail.core.models import Orderable, Page
   from modelcluster.fields import ParentalKey
 
   # The abstract model for related links, complete with panels
@@ -327,7 +327,7 @@ Let's look at the example of adding related links to a :class:`~wagtail.wagtailc
       InlinePanel('related_links', label="Related Links"),
     ]
 
-The ``RelatedLink`` class is a vanilla Django abstract model. The ``BookPageRelatedLinks`` model extends it with capability for being ordered in the Wagtail interface via the ``Orderable`` class as well as adding a ``page`` property which links the model to the ``BookPage`` model we're adding the related links objects to. Finally, in the panel definitions for ``BookPage``, we'll add an :class:`~wagtail.wagtailadmin.edit_handlers.InlinePanel` to provide an interface for it all. Let's look again at the parameters that :class:`~wagtail.wagtailadmin.edit_handlers.InlinePanel` accepts:
+The ``RelatedLink`` class is a vanilla Django abstract model. The ``BookPageRelatedLinks`` model extends it with capability for being ordered in the Wagtail interface via the ``Orderable`` class as well as adding a ``page`` property which links the model to the ``BookPage`` model we're adding the related links objects to. Finally, in the panel definitions for ``BookPage``, we'll add an :class:`~wagtail.admin.edit_handlers.InlinePanel` to provide an interface for it all. Let's look again at the parameters that :class:`~wagtail.admin.edit_handlers.InlinePanel` accepts:
 
 .. code-block:: python
 
@@ -337,7 +337,7 @@ The ``relation_name`` is the ``related_name`` label given to the cluster's ``Par
 
 .. versionchanged:: 1.0
 
-    In previous versions, it was necessary to pass the base model as the first parameter to :class:`~wagtail.wagtailadmin.edit_handlers.InlinePanel`; this is no longer required.
+    In previous versions, it was necessary to pass the base model as the first parameter to :class:`~wagtail.admin.edit_handlers.InlinePanel`; this is no longer required.
 
 For another example of using model clusters, see :ref:`tagging`
 

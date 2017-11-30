@@ -91,7 +91,7 @@ You have three possible values that can be used in list_display:
 A few special cases to note about ``list_display``:
 
 -   If the field is a ``ForeignKey``, Django will display the output of
-    ``__str__()`` (``__unicode__()`` on Python 2) of the related object.
+    ``__str__()`` of the related object.
 
 -   If the string provided is a method of the model or ``ModelAdmin`` class,
     Django will HTML-escape the output by default. To escape user input and
@@ -163,7 +163,7 @@ A few special cases to note about ``list_display``:
                 return super(self, PersonAdmin).get_empty_value_display(field_name)
 
 
-    The ``__str__()`` (``__unicode__()`` on Python 2) method is just as valid
+    The ``__str__()`` method is just as valid
     in ``list_display`` as any other model method, so it’s perfectly OK to do
     this:
 

@@ -20,27 +20,27 @@ This document describes how to configure Wagtail to purge old versions of pages 
 Setting it up
 -------------
 
-Firstly, add ``"wagtail.contrib.wagtailfrontendcache"`` to your INSTALLED_APPS:
+Firstly, add ``"wagtail.contrib.frontend_cache"`` to your INSTALLED_APPS:
 
  .. code-block:: python
 
      INSTALLED_APPS = [
         ...
 
-        "wagtail.contrib.wagtailfrontendcache"
+        "wagtail.contrib.frontend_cache"
      ]
 
 .. versionchanged:: 0.8
 
     Signal handlers are now automatically registered
 
-The ``wagtailfrontendcache`` module provides a set of signal handlers which will automatically purge the cache whenever a page is published or deleted. These signal handlers are automatically registered when the ``wagtail.contrib.wagtailfrontendcache`` app is loaded.
+The ``wagtailfrontendcache`` module provides a set of signal handlers which will automatically purge the cache whenever a page is published or deleted. These signal handlers are automatically registered when the ``wagtail.contrib.frontend_cache`` app is loaded.
 
 
 Varnish/Squid
 ^^^^^^^^^^^^^
 
-Add a new item into the ``WAGTAILFRONTENDCACHE`` setting and set the ``BACKEND`` parameter to ``wagtail.contrib.wagtailfrontendcache.backends.HTTPBackend``. This backend requires an extra parameter ``LOCATION`` which points to where the cache is running (this must be a direct connection to the server and cannot go through another proxy).
+Add a new item into the ``WAGTAILFRONTENDCACHE`` setting and set the ``BACKEND`` parameter to ``wagtail.contrib.frontend_cache.backends.HTTPBackend``. This backend requires an extra parameter ``LOCATION`` which points to where the cache is running (this must be a direct connection to the server and cannot go through another proxy).
 
 .. code-block:: python
 
@@ -48,7 +48,7 @@ Add a new item into the ``WAGTAILFRONTENDCACHE`` setting and set the ``BACKEND``
 
     WAGTAILFRONTENDCACHE = {
         'varnish': {
-            'BACKEND': 'wagtail.contrib.wagtailfrontendcache.backends.HTTPBackend',
+            'BACKEND': 'wagtail.contrib.frontend_cache.backends.HTTPBackend',
             'LOCATION': 'http://localhost:8000',
         },
     }
@@ -67,7 +67,7 @@ Cloudflare
 
 Firstly, you need to register an account with Cloudflare if you haven't already got one. You can do this here: `Cloudflare Sign up <https://www.cloudflare.com/sign-up>`_
 
-Add an item into the ``WAGTAILFRONTENDCACHE`` and set the ``BACKEND`` parameter to ``wagtail.contrib.wagtailfrontendcache.backends.CloudflareBackend``. This backend requires three extra parameters, ``EMAIL`` (your Cloudflare account email), ``TOKEN`` (your API token from Cloudflare), and ``ZONEID`` (for zone id for your domain, see below).
+Add an item into the ``WAGTAILFRONTENDCACHE`` and set the ``BACKEND`` parameter to ``wagtail.contrib.frontend_cache.backends.CloudflareBackend``. This backend requires three extra parameters, ``EMAIL`` (your Cloudflare account email), ``TOKEN`` (your API token from Cloudflare), and ``ZONEID`` (for zone id for your domain, see below).
 
 To find the ``ZONEID`` for your domain, read the `Cloudflare API Documentation <https://api.cloudflare.com/#getting-started-resource-ids>`_
 
@@ -78,7 +78,7 @@ To find the ``ZONEID`` for your domain, read the `Cloudflare API Documentation <
 
     WAGTAILFRONTENDCACHE = {
         'cloudflare': {
-            'BACKEND': 'wagtail.contrib.wagtailfrontendcache.backends.CloudflareBackend',
+            'BACKEND': 'wagtail.contrib.frontend_cache.backends.CloudflareBackend',
             'EMAIL': 'your-cloudflare-email-address@example.com',
             'TOKEN': 'your cloudflare api token',
             'ZONEID': 'your cloudflare domain zone id',
@@ -92,13 +92,13 @@ Amazon CloudFront
 
 Within Amazon Web Services you will need at least one CloudFront web distribution. If you don't have one, you can get one here: `CloudFront getting started <https://aws.amazon.com/cloudfront/>`_
 
-Add an item into the ``WAGTAILFRONTENDCACHE`` and set the ``BACKEND`` parameter to ``wagtail.contrib.wagtailfrontendcache.backends.CloudfrontBackend``. This backend requires one extra parameter, ``DISTRIBUTION_ID`` (your CloudFront generated distribution id).
+Add an item into the ``WAGTAILFRONTENDCACHE`` and set the ``BACKEND`` parameter to ``wagtail.contrib.frontend_cache.backends.CloudfrontBackend``. This backend requires one extra parameter, ``DISTRIBUTION_ID`` (your CloudFront generated distribution id).
 
 .. code-block:: python
 
     WAGTAILFRONTENDCACHE = {
         'cloudfront': {
-            'BACKEND': 'wagtail.contrib.wagtailfrontendcache.backends.CloudfrontBackend',
+            'BACKEND': 'wagtail.contrib.frontend_cache.backends.CloudfrontBackend',
             'DISTRIBUTION_ID': 'your-distribution-id',
         },
     }
@@ -111,7 +111,7 @@ In case you run multiple sites with Wagtail and each site has its CloudFront dis
 
     WAGTAILFRONTENDCACHE = {
         'cloudfront': {
-            'BACKEND': 'wagtail.contrib.wagtailfrontendcache.backends.CloudfrontBackend',
+            'BACKEND': 'wagtail.contrib.frontend_cache.backends.CloudfrontBackend',
             'DISTRIBUTION_ID': {
                 'www.wagtail.io': 'your-distribution-id',
                 'www.madewithwagtail.org': 'your-distribution-id',
@@ -164,8 +164,8 @@ This signal handler would trigger the invalidation of the index page using the
     from django.dispatch import receiver
     from django.db.models.signals import pre_delete
 
-    from wagtail.wagtailcore.signals import page_published
-    from wagtail.contrib.wagtailfrontendcache.utils import PurgeBatch
+    from wagtail.core.signals import page_published
+    from wagtail.contrib.frontend_cache.utils import PurgeBatch
 
     ...
 
@@ -202,7 +202,7 @@ For example, this could be useful for purging a single page on a blog index:
 
 .. code-block:: python
 
-    from wagtail.contrib.wagtailfrontendcache.utils import PurgeBatch
+    from wagtail.contrib.frontend_cache.utils import PurgeBatch
 
     # Purge the first page of the blog index
     batch = PurgeBatch()
@@ -217,7 +217,7 @@ The ``PurgeBatch`` class
 
 All of the methods available on ``PurgeBatch`` are listed below:
 
-.. automodule:: wagtail.contrib.wagtailfrontendcache.utils
+.. automodule:: wagtail.contrib.frontend_cache.utils
 .. autoclass:: PurgeBatch
 
     .. automethod:: add_url

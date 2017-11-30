@@ -1,11 +1,9 @@
-from __future__ import absolute_import, unicode_literals
-
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.template.response import TemplateResponse
 
-from wagtail.wagtailadmin import messages
-from wagtail.wagtailadmin.utils import user_passes_test
+from wagtail.admin import messages
+from wagtail.admin.utils import user_passes_test
 
 
 def user_is_called_bob(user):

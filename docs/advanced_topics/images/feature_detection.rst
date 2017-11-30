@@ -79,7 +79,7 @@ You can manually run feature detection on all images by running the following co
 
  .. code-block:: python
 
-    from wagtail.wagtailimages.models import Image
+    from wagtail.images.models import Image
 
     for image in Image.objects.all():
         if not image.has_focal_point():

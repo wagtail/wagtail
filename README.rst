@@ -30,7 +30,7 @@ Features
 * Straightforward integration with existing Django apps
 * Simple, configurable permissions
 * Workflow support
-* An extensible `form builder <http://docs.wagtail.io/en/latest/reference/contrib/forms.html>`_
+* An extensible `form builder <http://docs.wagtail.io/en/latest/reference/contrib/forms/index.html>`_
 * Multi-site and multi-language support
 * Excellent `test coverage <https://coveralls.io/r/torchbox/wagtail?branch=master>`_
 
@@ -64,7 +64,7 @@ Community Support
 ~~~~~~~~~~~~~~~~~
 There is an active community of Wagtail users and developers responding to questions on `Stack Overflow <http://stackoverflow.com/questions/tagged/wagtail>`_. When posting questions, please read Stack Overflow's advice on `how to ask questions <http://stackoverflow.com/help/how-to-ask>`_ and remember to tag your question with "wagtail".
 
-For topics and discussions that do not fit Stack Overflow's question-and-answer format, there is also a `Wagtail Support mailing list <https://groups.google.com/forum/#!forum/wagtail>`_.
+For topics and discussions that do not fit Stack Overflow's question-and-answer format, there is also a `Wagtail Support mailing list <https://groups.google.com/forum/#!forum/wagtail>`_ and a `Slack workspace <https://github.com/wagtail/wagtail/wiki/Slack>`_.
 
 Commercial Support
 ~~~~~~~~~~~~~~~~~~

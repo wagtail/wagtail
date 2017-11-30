@@ -1,14 +1,11 @@
-from __future__ import absolute_import, unicode_literals
-
 from django.db import models
-from django.utils.encoding import python_2_unicode_compatible
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
 
-from wagtail.wagtailadmin.edit_handlers import FieldPanel, InlinePanel
-from wagtail.wagtailcore.fields import RichTextField
-from wagtail.wagtailsearch import index
-from wagtail.wagtailsnippets.models import register_snippet
+from wagtail.admin.edit_handlers import FieldPanel, InlinePanel
+from wagtail.core.fields import RichTextField
+from wagtail.search import index
+from wagtail.snippets.models import register_snippet
 
 from .forms import FancySnippetForm
 
@@ -19,7 +16,6 @@ from .forms import FancySnippetForm
 # to ensure specific [in]correct register ordering
 
 # AlphaSnippet is registered during TestSnippetOrdering
-@python_2_unicode_compatible
 class AlphaSnippet(models.Model):
     text = models.CharField(max_length=255)
 
@@ -28,7 +24,6 @@ class AlphaSnippet(models.Model):
 
 
 # ZuluSnippet is registered during TestSnippetOrdering
-@python_2_unicode_compatible
 class ZuluSnippet(models.Model):
     text = models.CharField(max_length=255)
 

@@ -1,8 +1,4 @@
-from __future__ import absolute_import, unicode_literals
-
 import collections
-
-from django.utils import six
 
 
 def deep_update(source, overrides):
@@ -10,9 +6,7 @@ def deep_update(source, overrides):
 
     Modify ``source`` in place.
     """
-    items = six.iteritems(overrides)
-
-    for key, value in items:
+    for key, value in overrides.items():
         if isinstance(value, collections.Mapping) and value:
             returned = deep_update(source.get(key, {}), value)
             source[key] = returned

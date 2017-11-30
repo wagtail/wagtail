@@ -1,9 +1,7 @@
-from __future__ import absolute_import, unicode_literals
-
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Permission
-from django.core.urlresolvers import reverse
 from django.test import TestCase, override_settings
+from django.urls import reverse
 from django.utils.text import capfirst
 
 from wagtail.contrib.settings.registry import SettingMenuItem
@@ -11,8 +9,8 @@ from wagtail.contrib.settings.views import get_setting_edit_handler
 from wagtail.tests.testapp.models import (
     FileUploadSetting, IconSetting, PanelSettings, TabbedSettings, TestSetting)
 from wagtail.tests.utils import WagtailTestUtils
-from wagtail.wagtailcore import hooks
-from wagtail.wagtailcore.models import Page, Site
+from wagtail.core import hooks
+from wagtail.core.models import Page, Site
 
 
 class TestSettingMenu(TestCase, WagtailTestUtils):
@@ -142,7 +140,7 @@ class TestMultiSite(BaseTestSettingView):
         """
         start_url = reverse('wagtailsettings:edit', args=[
             'tests', 'testsetting'])
-        dest_url = 'http://testserver' + reverse('wagtailsettings:edit', args=[
+        dest_url = reverse('wagtailsettings:edit', args=[
             'tests', 'testsetting', self.default_site.pk])
         response = self.client.get(start_url, follow=True)
         self.assertRedirects(response, dest_url, status_code=302, fetch_redirect_response=False)
@@ -154,7 +152,7 @@ class TestMultiSite(BaseTestSettingView):
         """
         start_url = reverse('wagtailsettings:edit', args=[
             'tests', 'testsetting'])
-        dest_url = 'http://example.com' + reverse('wagtailsettings:edit', args=[
+        dest_url = reverse('wagtailsettings:edit', args=[
             'tests', 'testsetting', self.other_site.pk])
         response = self.client.get(start_url, follow=True, HTTP_HOST=self.other_site.hostname)
         self.assertRedirects(response, dest_url, status_code=302, fetch_redirect_response=False)

@@ -16,15 +16,13 @@ Here's an example snippet model:
 .. code-block:: python
 
   from django.db import models
-  from django.utils.encoding import python_2_unicode_compatible
 
-  from wagtail.wagtailadmin.edit_handlers import FieldPanel
-  from wagtail.wagtailsnippets.models import register_snippet
+  from wagtail.admin.edit_handlers import FieldPanel
+  from wagtail.snippets.models import register_snippet
 
   ...
 
   @register_snippet
-  @python_2_unicode_compatible  # provide equivalent __unicode__ and __str__ methods on Python 2
   class Advert(models.Model):
       url = models.URLField(null=True, blank=True)
       text = models.CharField(max_length=255)
@@ -105,7 +103,7 @@ In the above example, the list of adverts is a fixed list, displayed independent
 
 .. code-block:: python
 
-  from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
+  from wagtail.snippets.edit_handlers import SnippetChooserPanel
   # ...
   class BookPage(Page):
       advert = models.ForeignKey(
@@ -131,8 +129,8 @@ To attach multiple adverts to a page, the ``SnippetChooserPanel`` can be placed 
 
   from django.db import models
 
-  from wagtail.wagtailcore.models import Page, Orderable
-  from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
+  from wagtail.core.models import Page, Orderable
+  from wagtail.snippets.edit_handlers import SnippetChooserPanel
 
   from modelcluster.fields import ParentalKey
 
@@ -182,13 +180,13 @@ These child objects are now accessible through the page's ``advert_placements`` 
 Making Snippets Searchable
 --------------------------
 
-If a snippet model inherits from ``wagtail.wagtailsearch.index.Indexed``, as described in :ref:`wagtailsearch_indexing_models`, Wagtail will automatically add a search box to the chooser interface for that snippet type. For example, the ``Advert`` snippet could be made searchable as follows:
+If a snippet model inherits from ``wagtail.search.index.Indexed``, as described in :ref:`wagtailsearch_indexing_models`, Wagtail will automatically add a search box to the chooser interface for that snippet type. For example, the ``Advert`` snippet could be made searchable as follows:
 
 .. code-block:: python
 
   ...
 
-  from wagtail.wagtailsearch import index
+  from wagtail.search import index
 
   ...
 

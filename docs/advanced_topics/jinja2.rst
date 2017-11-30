@@ -13,7 +13,7 @@ Configuring Django
 
     Jinja2 tags were moved from "templatetags" into "jinja2tags" to separate them from Django template tags.
 
-Django needs to be configured to support Jinja2 templates. As the Wagtail admin is written using regular Django templates, Django has to be configured to use both templating engines. Wagtail supports the Jinja2 backend that ships with Django 1.8 and above. Add the following configuration to the ``TEMPLATES`` setting for your app:
+Django needs to be configured to support Jinja2 templates. As the Wagtail admin is written using regular Django templates, Django has to be configured to use both templating engines. Add the following configuration to the ``TEMPLATES`` setting for your app:
 
 .. code-block:: python
 
@@ -24,9 +24,9 @@ Django needs to be configured to support Jinja2 templates. As the Wagtail admin 
             'APP_DIRS': True,
             'OPTIONS': {
                 'extensions': [
-                    'wagtail.wagtailcore.jinja2tags.core',
-                    'wagtail.wagtailadmin.jinja2tags.userbar',
-                    'wagtail.wagtailimages.jinja2tags.images',
+                    'wagtail.core.jinja2tags.core',
+                    'wagtail.admin.jinja2tags.userbar',
+                    'wagtail.images.jinja2tags.images',
                 ],
             },
         }

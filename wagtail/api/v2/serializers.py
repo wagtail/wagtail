@@ -1,14 +1,12 @@
-from __future__ import absolute_import, unicode_literals
-
 from collections import OrderedDict
 
-from django.core.urlresolvers import NoReverseMatch
+from django.urls.exceptions import NoReverseMatch
 from modelcluster.models import get_all_child_relations
 from rest_framework import relations, serializers
 from rest_framework.fields import Field, SkipField
 from taggit.managers import _TaggableManager
 
-from wagtail.wagtailcore import fields as wagtailcore_fields
+from wagtail.core import fields as wagtailcore_fields
 
 from .utils import get_full_url, pages_for_site
 
@@ -109,7 +107,7 @@ class RelatedField(relations.RelatedField):
     """
     def __init__(self, *args, **kwargs):
         self.serializer_class = kwargs.pop('serializer_class')
-        super(RelatedField, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     def to_representation(self, value):
         serializer = self.serializer_class(context=self.context)
@@ -178,7 +176,7 @@ class ChildRelationField(Field):
     """
     def __init__(self, *args, **kwargs):
         self.serializer_class = kwargs.pop('serializer_class')
-        super(ChildRelationField, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     def to_representation(self, value):
         serializer = self.serializer_class(context=self.context)
@@ -308,10 +306,10 @@ class BaseSerializer(serializers.ModelSerializer):
         if isinstance(field, _TaggableManager):
             return TagsField, {}
 
-        return super(BaseSerializer, self).build_property_field(field_name, model_class)
+        return super().build_property_field(field_name, model_class)
 
     def build_relational_field(self, field_name, relation_info):
-        field_class, field_kwargs = super(BaseSerializer, self).build_relational_field(field_name, relation_info)
+        field_class, field_kwargs = super().build_relational_field(field_name, relation_info)
         field_kwargs['serializer_class'] = self.child_serializer_classes[field_name]
         return field_class, field_kwargs
 
@@ -327,14 +325,14 @@ class PageSerializer(BaseSerializer):
         if relation_info.to_many:
             model = getattr(self.Meta, 'model')
             child_relations = {
-                child_relation.field.rel.related_name: child_relation.related_model
+                child_relation.field.remote_field.related_name: child_relation.related_model
                 for child_relation in get_all_child_relations(model)
             }
 
             if field_name in child_relations and field_name in self.child_serializer_classes:
                 return ChildRelationField, {'serializer_class': self.child_serializer_classes[field_name]}
 
-        return super(PageSerializer, self).build_relational_field(field_name, relation_info)
+        return super().build_relational_field(field_name, relation_info)
 
 
 def get_serializer_class(model, field_names, meta_fields, field_serializer_overrides=None, child_serializer_classes=None, base=BaseSerializer):

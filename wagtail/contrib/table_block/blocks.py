@@ -1,5 +1,3 @@
-from __future__ import absolute_import, unicode_literals
-
 import json
 
 from django import forms
@@ -8,17 +6,17 @@ from django.utils import translation
 from django.utils.functional import cached_property
 
 from wagtail.utils.widgets import WidgetWithScript
-from wagtail.wagtailcore.blocks import FieldBlock
+from wagtail.core.blocks import FieldBlock
 
 
 class TableInput(WidgetWithScript, forms.HiddenInput):
 
     def __init__(self, table_options=None, attrs=None):
         self.table_options = table_options
-        super(TableInput, self).__init__(attrs=attrs)
+        super().__init__(attrs=attrs)
 
     def render(self, name, value, attrs=None):
-        original_field_html = super(TableInput, self).render(name, value, attrs)
+        original_field_html = super().render(name, value, attrs)
         return render_to_string("table_block/widgets/table.html", {
             'original_field_html': original_field_html,
             'attrs': attrs,
@@ -59,7 +57,7 @@ class TableBlock(FieldBlock):
         if table_options is not None:
             default_table_options.update(table_options)
         self.table_options = default_table_options
-        super(TableBlock, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
     @cached_property
     def field(self):

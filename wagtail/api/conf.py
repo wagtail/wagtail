@@ -1,7 +1,5 @@
-from __future__ import absolute_import, unicode_literals
 
-
-class APIField(object):
+class APIField:
     def __init__(self, name, serializer=None):
         self.name = name
         self.serializer = serializer

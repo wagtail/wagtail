@@ -14,13 +14,13 @@ The ``wagtailforms`` module allows you to set up single-page forms, such as a 'C
 Usage
 ~~~~~
 
-Add ``wagtail.wagtailforms`` to your ``INSTALLED_APPS``:
+Add ``wagtail.contrib.forms`` to your ``INSTALLED_APPS``:
 
 .. code-block:: python
 
     INSTALLED_APPS = [
        ...
-       'wagtail.wagtailforms',
+       'wagtail.contrib.forms',
     ]
 
 Within the ``models.py`` of one of your apps, create a model that extends ``wagtailforms.models.AbstractEmailForm``:
@@ -29,12 +29,12 @@ Within the ``models.py`` of one of your apps, create a model that extends ``wagt
 .. code-block:: python
 
     from modelcluster.fields import ParentalKey
-    from wagtail.wagtailadmin.edit_handlers import (
+    from wagtail.admin.edit_handlers import (
         FieldPanel, FieldRowPanel,
         InlinePanel, MultiFieldPanel
     )
-    from wagtail.wagtailcore.fields import RichTextField
-    from wagtail.wagtailforms.models import AbstractEmailForm, AbstractFormField
+    from wagtail.core.fields import RichTextField
+    from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField
 
 
     class FormField(AbstractFormField):
@@ -82,7 +82,7 @@ You now need to create two templates named ``form_page.html`` and ``form_page_la
         </body>
     </html>
 
-``form_page_landing.html`` is a regular Wagtail template, displayed after the user makes a successful form submission. If you want to dynamically override the landing page template, you can do so with the ``get_landing_page_template`` method (in the same way that you would with ``get_template``).
+``form_page_landing.html`` is a regular Wagtail template, displayed after the user makes a successful form submission, `form_submission` will available in this template. If you want to dynamically override the landing page template, you can do so with the ``get_landing_page_template`` method (in the same way that you would with ``get_template``).
 
 
 .. _wagtailforms_formsubmissionpanel:
@@ -94,7 +94,7 @@ Displaying form submission information
 
 .. code-block:: python
 
-    from wagtail.wagtailforms.edit_handlers import FormSubmissionsPanel
+    from wagtail.contrib.forms.edit_handlers import FormSubmissionsPanel
 
     class FormPage(AbstractEmailForm):
         # ...

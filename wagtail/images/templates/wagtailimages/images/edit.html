@@ -1,0 +1,106 @@
+{% extends "wagtailadmin/base.html" %}
+{% load wagtailimages_tags wagtailadmin_tags staticfiles i18n l10n %}
+{% block titletag %}{% blocktrans with title=image.title %}Editing image {{ title }}{% endblocktrans %}{% endblock %}
+{% block extra_css %}
+    {{ block.super }}
+
+    <!-- Focal point chooser -->
+    <link rel="stylesheet" href="{% static 'wagtailimages/css/vendor/jquery.Jcrop.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'wagtailimages/css/focal-point-chooser.css' %}" type="text/css">
+{% endblock %}
+
+{% block extra_js %}
+    {{ block.super }}
+
+    {% url 'wagtailadmin_tag_autocomplete' as autocomplete_url %}
+    <script>
+        $(function() {
+            $('#id_tags').tagit({
+                autocomplete: {source: "{{ autocomplete_url|addslashes }}"}
+            });
+        });
+    </script>
+
+    <!-- Focal point chooser -->
+    <script src="{% static 'wagtailadmin/js/vendor/jquery.ba-throttle-debounce.min.js' %}"></script>
+    <script src="{% static 'wagtailimages/js/vendor/jquery.Jcrop.min.js' %}"></script>
+    <script src="{% static 'wagtailimages/js/focal-point-chooser.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+    {% trans "Editing" as editing_str %}
+    {% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=image.title icon="image" %}
+
+    <div class="row row-flush nice-padding">
+
+        <div class="col5">
+            <form action="{% url 'wagtailimages:edit' image.id %}" method="POST" enctype="multipart/form-data" novalidate>
+                {% csrf_token %}
+                <ul class="fields">
+                    {% for field in form %}
+
+                        {% if field.name == 'file' %}
+                            {% include "wagtailimages/images/_file_field_as_li.html" %}
+                        {% elif field.is_hidden %}
+                            {{ field }}
+                        {% else %}
+                            {% include "wagtailadmin/shared/field_as_li.html" %}
+                        {% endif %}
+
+                    {% endfor %}
+                    <li>
+                        <input type="submit" value="{% trans 'Save' %}" class="button" />
+                        {% if user_can_delete %}
+                            <a href="{% url 'wagtailimages:delete' image.id %}" class="button button-secondary no">{% trans "Delete image" %}</a>
+                        {% endif %}
+                    </li>
+                </ul>
+            </form>
+        </div>
+        <div class="col5 divider-after">
+            <h2 class="label">{% trans "Focal point (optional)" %}</h2>
+            <p>{% trans "To define this image's most important region, drag a box over the image below." %} {% if image.focal_point %}({% trans "Current focal point shown" %}){% endif %}</p>
+
+            {% image image max-800x600 as rendition %}
+
+            <div class="focal-point-chooser"
+                style="max-width: {{ rendition.width }}px; max-height: {{ rendition.height }}px;"
+                data-focal-point-x="{{ image.focal_point_x }}"
+                data-focal-point-y="{{ image.focal_point_y }}"
+                data-focal-point-width="{{ image.focal_point_width }}"
+                data-focal-point-height="{{ image.focal_point_height }}">
+
+                <img {{ rendition.attrs }} data-original-width="{{ image.width|unlocalize }}" data-original-height="{{ image.height|unlocalize }}" class="show-transparency">
+
+                <div class="current-focal-point-indicator{% if not image.has_focal_point %} hidden{% endif %}"></div>
+
+            </div>
+            <br />
+            <button class="button button-secondary no remove-focal-point">{% trans "Remove focal area" %}</button>
+
+        </div>
+        <div class="col2 ">
+            {% if url_generator_enabled %}
+                <a href="{% url 'wagtailimages:url_generator' image.id %}" class="button bicolor icon icon-link">{% trans "URL Generator" %}</a>
+                <hr />
+            {% endif %}
+
+            {% image image original as original_image %}
+
+            <dl>
+                <dt>{% trans "Max dimensions" %}</dt>
+                <dd>{{ original_image.width }}x{{ original_image.height }}</dd>
+                <dt>{% trans "Filesize" %}</dt>
+                <dd>{% if filesize %}{{ filesize|filesizeformat }}{% else %}{% trans "File not found" %}{% endif %}</dd>
+
+                {% usage_count_enabled as uc_enabled %}
+                {% if uc_enabled %}
+                    <dt>{% trans "Usage" %}</dt>
+                    <dd>
+                        <a href="{{ image.usage_url }}">{% blocktrans count usage_count=image.get_usage.count %}Used {{ usage_count }} time{% plural %}Used {{ usage_count }} times{% endblocktrans %}</a>
+                    </dd>
+                {% endif %}
+            </dl>
+        </div>
+    </div>
+{% endblock %}

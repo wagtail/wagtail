@@ -1,5 +1,3 @@
-from __future__ import absolute_import, unicode_literals
-
 from wagtail.contrib.modeladmin.options import (
     ModelAdmin, ModelAdminGroup, ThumbnailMixin, modeladmin_register)
 from wagtail.contrib.modeladmin.views import CreateView
@@ -34,7 +32,7 @@ class AuthorModelAdmin(ModelAdmin):
         return class_names
 
     def get_extra_attrs_for_field_col(self, obj, field_name):
-        attrs = super(AuthorModelAdmin, self).get_extra_attrs_for_field_col(
+        attrs = super().get_extra_attrs_for_field_col(
             field_name, obj
         )
         if field_name == 'last_book':

@@ -1,14 +1,12 @@
-from __future__ import absolute_import, division, unicode_literals
-
 import operator
 import re
 from functools import partial, reduce
+from itertools import zip_longest
 
 from django.apps import apps
 from django.db import connections
-from django.utils.six.moves import zip_longest
 
-from wagtail.wagtailsearch.index import Indexed, RelatedFields, SearchField
+from wagtail.search.index import Indexed, RelatedFields, SearchField
 
 try:
     # Only use the GPLv2 licensed unidecode if it's installed.
@@ -60,17 +58,30 @@ def get_descendant_models(model):
     return descendant_models
 
 
+def get_content_type_pk(model):
+    # We import it locally because this file is loaded before apps are ready.
+    from django.contrib.contenttypes.models import ContentType
+    return ContentType.objects.get_for_model(model).pk
+
+
+def get_ancestors_content_types_pks(model):
+    """
+    Returns content types ids for the ancestors of this model, excluding it.
+    """
+    from django.contrib.contenttypes.models import ContentType
+    return [ct.pk for ct in
+            ContentType.objects.get_for_models(*model._meta.get_parent_list())
+            .values()]
+
+
 def get_descendants_content_types_pks(model):
+    """
+    Returns content types ids for the descendants of this model, including it.
+    """
     from django.contrib.contenttypes.models import ContentType
     return [ct.pk for ct in
             ContentType.objects.get_for_models(*get_descendant_models(model))
             .values()]
-
-
-def get_content_types_pk(model):
-    # We import it locally because this file is loaded before apps are ready.
-    from django.contrib.contenttypes.models import ContentType
-    return ContentType.objects.get_for_model(model).pk
 
 
 def get_search_fields(search_fields):

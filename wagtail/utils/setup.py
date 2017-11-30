@@ -1,5 +1,3 @@
-from __future__ import absolute_import, print_function, unicode_literals
-
 import io
 import json
 import os
@@ -12,7 +10,7 @@ from setuptools.command.sdist import sdist as base_sdist
 from wagtail import __semver__
 
 
-class assets_mixin(object):
+class assets_mixin:
 
     def compile_assets(self):
         try:
@@ -45,9 +43,7 @@ class assets_mixin(object):
 
         try:
             with io.open(path, 'w', encoding='utf-8') as f:
-                from django.utils import six
-
-                f.write(six.text_type(json.dumps(package, indent=2, ensure_ascii=False)))
+                f.write(str(json.dumps(package, indent=2, ensure_ascii=False)))
         except (IOError) as e:
             print('Error setting the version for front-end assets: ' + str(e))  # noqa
             raise SystemExit(1)

@@ -11,6 +11,8 @@ The syntax for the tag is thus:
 
     {% image [image] [resize-rule] %}
 
+**Both the image and resize rule must be passed to the template tag.**
+
 For example:
 
 .. code-block:: html+django
@@ -251,7 +253,7 @@ done from the Django shell:
 .. code-block:: python
 
     # Replace this with your custom rendition model if you use one
-    >>> from wagtail.wagtailimages.models import Rendition
+    >>> from wagtail.images.models import Rendition
     >>> Rendition.objects.all().delete()
 
 Changing per-tag

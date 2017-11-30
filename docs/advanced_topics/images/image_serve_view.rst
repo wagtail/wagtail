@@ -23,7 +23,7 @@ Add an entry for the view into your URLs configuration:
 
  .. code-block:: python
 
-    from wagtail.wagtailimages.views.serve import ServeView
+    from wagtail.images.views.serve import ServeView
 
     urlpatterns = [
         ...
@@ -59,8 +59,8 @@ block the initial response while rendering like the ``{% image %}`` tag does.
 
 .. code-block:: python
 
-    from django.core.urlresolvers import reverse
-    from wagtail.wagtailimages.views.serve import generate_signature
+    from django.urls import reverse
+    from wagtail.images.views.serve import generate_signature
 
     def generate_image_url(image, filter_spec):
         signature = generate_signature(image.id, filter_spec)
@@ -109,7 +109,7 @@ method in your urls configuration:
 
 .. code-block:: python
 
-   from wagtail.wagtailimages.views.serve import ServeView
+   from wagtail.images.views.serve import ServeView
 
    urlpatterns = [
        ...
@@ -138,7 +138,7 @@ This view can be used out of the box:
 
 .. code-block:: python
 
-   from wagtail.wagtailimages.views.serve import SendFileView
+   from wagtail.images.views.serve import SendFileView
 
    urlpatterns = [
        ...
@@ -151,7 +151,7 @@ setting:
 
 .. code-block:: python
 
-    from wagtail.wagtailimages.views.serve import SendFileView
+    from wagtail.images.views.serve import SendFileView
     from project.sendfile_backends import MyCustomBackend
 
     class MySendFileView(SendFileView):
@@ -163,7 +163,7 @@ is to be authenticated (e.g. for Django >= 1.9):
 .. code-block:: python
 
     from django.contrib.auth.mixins import LoginRequiredMixin
-    from wagtail.wagtailimages.views.serve import SendFileView
+    from wagtail.images.views.serve import SendFileView
 
     class PrivateSendFileView(LoginRequiredMixin, SendFileView):
         raise_exception = True
