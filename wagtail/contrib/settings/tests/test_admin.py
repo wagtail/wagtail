@@ -1,5 +1,3 @@
-from __future__ import absolute_import, unicode_literals
-
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Permission
 from django.test import TestCase, override_settings
@@ -11,9 +9,9 @@ from wagtail.contrib.settings.views import get_setting_edit_handler
 from wagtail.tests.testapp.models import (
     FileUploadSetting, IconSetting, PanelSettings, TabbedSettings, TestSetting)
 from wagtail.tests.utils import WagtailTestUtils
-from wagtail.wagtailadmin.edit_handlers import FieldPanel, ObjectList, TabbedInterface
-from wagtail.wagtailcore import hooks
-from wagtail.wagtailcore.models import Page, Site
+from wagtail.admin.edit_handlers import FieldPanel, ObjectList, TabbedInterface
+from wagtail.core import hooks
+from wagtail.core.models import Page, Site
 
 
 class TestSettingMenu(TestCase, WagtailTestUtils):

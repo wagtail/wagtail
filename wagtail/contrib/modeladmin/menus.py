@@ -1,6 +1,4 @@
-from __future__ import absolute_import, unicode_literals
-
-from wagtail.wagtailadmin.menu import Menu, MenuItem, SubmenuMenuItem
+from wagtail.admin.menu import Menu, MenuItem, SubmenuMenuItem
 
 
 class ModelAdminMenuItem(MenuItem):
@@ -12,7 +10,7 @@ class ModelAdminMenuItem(MenuItem):
         self.model_admin = model_admin
         url = model_admin.url_helper.index_url
         classnames = 'icon icon-%s' % model_admin.get_menu_icon()
-        super(ModelAdminMenuItem, self).__init__(
+        super().__init__(
             label=model_admin.get_menu_label(), url=url,
             classnames=classnames, order=order)
 
@@ -28,7 +26,7 @@ class GroupMenuItem(SubmenuMenuItem):
     """
     def __init__(self, modeladmingroup, order, menu):
         classnames = 'icon icon-%s' % modeladmingroup.get_menu_icon()
-        super(GroupMenuItem, self).__init__(
+        super().__init__(
             label=modeladmingroup.get_menu_label(), menu=menu,
             classnames=classnames, order=order, )
 

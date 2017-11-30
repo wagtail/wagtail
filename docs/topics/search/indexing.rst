@@ -28,7 +28,7 @@ Signal handlers
 
     Signal handlers are now automatically registered
 
-``wagtailsearch`` provides some signal handlers which bind to the save/delete signals of all indexed models. This would automatically add and delete them from all backends you have registered in ``WAGTAILSEARCH_BACKENDS``. These signal handlers are automatically registered when the ``wagtail.wagtailsearch`` app is loaded.
+``wagtailsearch`` provides some signal handlers which bind to the save/delete signals of all indexed models. This would automatically add and delete them from all backends you have registered in ``WAGTAILSEARCH_BACKENDS``. These signal handlers are automatically registered when the ``wagtail.search`` app is loaded.
 
 
 The ``update_index`` command
@@ -67,7 +67,7 @@ This creates an ``EventPage`` model with two fields: ``description`` and ``date`
 
 .. code-block:: python
 
-    from wagtail.wagtailsearch import index
+    from wagtail.search import index
     from django.utils import timezone
 
     class EventPage(Page):
@@ -170,7 +170,7 @@ One use for this is indexing the ``get_*_display`` methods Django creates automa
 
 .. code-block:: python
 
-    from wagtail.wagtailsearch import index
+    from wagtail.search import index
 
     class EventPage(Page):
         IS_PRIVATE_CHOICES = (
@@ -214,7 +214,7 @@ To do this, inherit from ``index.Indexed`` and add some ``search_fields`` to the
 
 .. code-block:: python
 
-    from wagtail.wagtailsearch import index
+    from wagtail.search import index
 
     class Book(index.Indexed, models.Model):
         title = models.CharField(max_length=255)
@@ -232,7 +232,7 @@ To do this, inherit from ``index.Indexed`` and add some ``search_fields`` to the
         ]
 
     # As this model doesn't have a search method in its QuerySet, we have to call search directly on the backend
-    >>> from wagtail.wagtailsearch.backends import get_search_backend
+    >>> from wagtail.search.backends import get_search_backend
     >>> s = get_search_backend()
 
     # Run a search for a book by Roald Dahl

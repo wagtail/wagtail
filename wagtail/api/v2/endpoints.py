@@ -1,5 +1,3 @@
-from __future__ import absolute_import, unicode_literals
-
 from collections import OrderedDict
 
 from django.conf.urls import url
@@ -13,7 +11,7 @@ from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
 from wagtail.api import APIField
-from wagtail.wagtailcore.models import Page
+from wagtail.core.models import Page
 
 from .filters import (
     FieldsFilter, OrderingFilter, RestrictedChildOfFilter, RestrictedDescendantOfFilter,
@@ -54,7 +52,7 @@ class BaseAPIEndpoint(GenericViewSet):
     name = None  # Set on subclass.
 
     def __init__(self, *args, **kwargs):
-        super(BaseAPIEndpoint, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
         # seen_types is a mapping of type name strings (format: "app_label.ModelName")
         # to model classes. When an object is serialised in the API, its model
@@ -85,7 +83,7 @@ class BaseAPIEndpoint(GenericViewSet):
         elif isinstance(exc, BadRequestError):
             data = {'message': str(exc)}
             return Response(data, status=status.HTTP_400_BAD_REQUEST)
-        return super(BaseAPIEndpoint, self).handle_exception(exc)
+        return super().handle_exception(exc)
 
     @classmethod
     def _convert_api_fields(cls, fields):
@@ -300,7 +298,7 @@ class BaseAPIEndpoint(GenericViewSet):
         }
 
     def get_renderer_context(self):
-        context = super(BaseAPIEndpoint, self).get_renderer_context()
+        context = super().get_renderer_context()
         context['indent'] = 4
         return context
 
@@ -405,5 +403,5 @@ class PagesAPIEndpoint(BaseAPIEndpoint):
         return queryset
 
     def get_object(self):
-        base = super(PagesAPIEndpoint, self).get_object()
+        base = super().get_object()
         return base.specific

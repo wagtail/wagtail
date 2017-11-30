@@ -64,7 +64,7 @@ with a custom ``edit_handler`` attribute:
 
 .. code-block:: python
 
-    from wagtail.wagtailadmin.edit_handlers import TabbedInterface, ObjectList
+    from wagtail.admin.edit_handlers import TabbedInterface, ObjectList
 
     @register_setting
     class MySettings(BaseSetting):

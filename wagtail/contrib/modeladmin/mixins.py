@@ -1,5 +1,3 @@
-from __future__ import absolute_import, unicode_literals
-
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.forms.utils import flatatt
@@ -7,7 +5,7 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 
 
-class ThumbnailMixin(object):
+class ThumbnailMixin:
     """
     Mixin class to help display thumbnail images in ModelAdmin listing results.
     `thumb_image_field_name` must be overridden to name a ForeignKey field on
@@ -21,12 +19,12 @@ class ThumbnailMixin(object):
     thumb_default = None
 
     def __init__(self, *args, **kwargs):
-        if 'wagtail.wagtailimages' not in settings.INSTALLED_APPS:
+        if 'wagtail.images' not in settings.INSTALLED_APPS:
             raise ImproperlyConfigured(
-                u"The `wagtail.wagtailimages` app must be installed in order "
+                u"The `wagtail.images` app must be installed in order "
                 "to use the `ThumbnailMixin` class."
             )
-        super(ThumbnailMixin, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     def admin_thumb(self, obj):
         try:
@@ -48,7 +46,7 @@ class ThumbnailMixin(object):
             return ''
 
         # try to get a rendition of the image to use
-        from wagtail.wagtailimages.shortcuts import get_rendition_or_not_found
+        from wagtail.images.shortcuts import get_rendition_or_not_found
         spec = self.thumb_image_filter_spec
         rendition = get_rendition_or_not_found(image, spec)
         img_attrs.update({'src': rendition.url})

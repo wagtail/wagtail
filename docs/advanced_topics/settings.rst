@@ -37,9 +37,9 @@ Middleware (``settings.py``)
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
 
-    'wagtail.wagtailcore.middleware.SiteMiddleware',
+    'wagtail.core.middleware.SiteMiddleware',
 
-    'wagtail.wagtailredirects.middleware.RedirectMiddleware',
+    'wagtail.contrib.redirects.middleware.RedirectMiddleware',
   ]
 
 Wagtail requires several common Django middleware modules to work and cover basic security. Wagtail provides its own middleware to cover these tasks:
@@ -60,17 +60,17 @@ Apps (``settings.py``)
 
     'myapp',  # your own app
 
-    'wagtail.wagtailforms',
-    'wagtail.wagtailredirects',
-    'wagtail.wagtailembeds',
-    'wagtail.wagtailsites',
-    'wagtail.wagtailusers',
-    'wagtail.wagtailsnippets',
-    'wagtail.wagtaildocs',
-    'wagtail.wagtailimages',
-    'wagtail.wagtailsearch',
-    'wagtail.wagtailadmin',
-    'wagtail.wagtailcore',
+    'wagtail.contrib.forms',
+    'wagtail.contrib.redirects',
+    'wagtail.embeds',
+    'wagtail.sites',
+    'wagtail.users',
+    'wagtail.snippets',
+    'wagtail.documents',
+    'wagtail.images',
+    'wagtail.search',
+    'wagtail.admin',
+    'wagtail.core',
 
     'taggit',
     'modelcluster',
@@ -179,7 +179,7 @@ Search
 
   WAGTAILSEARCH_BACKENDS = {
       'default': {
-          'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch2',
+          'BACKEND': 'wagtail.search.backends.elasticsearch2',
           'INDEX': 'myapp'
       }
   }
@@ -447,10 +447,10 @@ URL Patterns
 
   from django.contrib import admin
 
-  from wagtail.wagtailcore import urls as wagtail_urls
-  from wagtail.wagtailadmin import urls as wagtailadmin_urls
-  from wagtail.wagtaildocs import urls as wagtaildocs_urls
-  from wagtail.wagtailsearch import urls as wagtailsearch_urls
+  from wagtail.core import urls as wagtail_urls
+  from wagtail.admin import urls as wagtailadmin_urls
+  from wagtail.documents import urls as wagtaildocs_urls
+  from wagtail.search import urls as wagtailsearch_urls
 
   urlpatterns = [
       url(r'^django-admin/', include(admin.site.urls)),
@@ -502,17 +502,17 @@ These two files should reside in your project directory (``myproject/myproject/`
   INSTALLED_APPS = [
       'myapp',
 
-      'wagtail.wagtailforms',
-      'wagtail.wagtailredirects',
-      'wagtail.wagtailembeds',
-      'wagtail.wagtailsites',
-      'wagtail.wagtailusers',
-      'wagtail.wagtailsnippets',
-      'wagtail.wagtaildocs',
-      'wagtail.wagtailimages',
-      'wagtail.wagtailsearch',
-      'wagtail.wagtailadmin',
-      'wagtail.wagtailcore',
+      'wagtail.contrib.forms',
+      'wagtail.contrib.redirects',
+      'wagtail.embeds',
+      'wagtail.sites',
+      'wagtail.users',
+      'wagtail.snippets',
+      'wagtail.documents',
+      'wagtail.images',
+      'wagtail.search',
+      'wagtail.admin',
+      'wagtail.core',
 
       'taggit',
       'modelcluster',
@@ -534,8 +534,8 @@ These two files should reside in your project directory (``myproject/myproject/`
       'django.middleware.clickjacking.XFrameOptionsMiddleware',
       'django.middleware.security.SecurityMiddleware',
 
-      'wagtail.wagtailcore.middleware.SiteMiddleware',
-      'wagtail.wagtailredirects.middleware.RedirectMiddleware',
+      'wagtail.core.middleware.SiteMiddleware',
+      'wagtail.contrib.redirects.middleware.RedirectMiddleware',
   ]
 
   ROOT_URLCONF = 'myproject.urls'
@@ -663,7 +663,7 @@ These two files should reside in your project directory (``myproject/myproject/`
   # Replace the search backend
   #WAGTAILSEARCH_BACKENDS = {
   #  'default': {
-  #    'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch2',
+  #    'BACKEND': 'wagtail.search.backends.elasticsearch2',
   #    'INDEX': 'myapp'
   #  }
   #}
@@ -690,10 +690,10 @@ These two files should reside in your project directory (``myproject/myproject/`
   from django.conf import settings
   import os.path
 
-  from wagtail.wagtailcore import urls as wagtail_urls
-  from wagtail.wagtailadmin import urls as wagtailadmin_urls
-  from wagtail.wagtaildocs import urls as wagtaildocs_urls
-  from wagtail.wagtailsearch import urls as wagtailsearch_urls
+  from wagtail.core import urls as wagtail_urls
+  from wagtail.admin import urls as wagtailadmin_urls
+  from wagtail.documents import urls as wagtaildocs_urls
+  from wagtail.search import urls as wagtailsearch_urls
 
 
   urlpatterns = [

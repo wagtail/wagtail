@@ -1,5 +1,3 @@
-from __future__ import absolute_import, unicode_literals
-
 import collections
 import json
 
@@ -11,7 +9,7 @@ from django.urls import reverse
 from wagtail.api.v2 import signal_handlers
 from wagtail.tests.demosite import models
 from wagtail.tests.testapp.models import StreamPage
-from wagtail.wagtailcore.models import Page, Site
+from wagtail.core.models import Page, Site
 
 
 def get_total_page_count():
@@ -1075,13 +1073,13 @@ class TestPageDetailWithStreamField(TestCase):
 @override_settings(
     WAGTAILFRONTENDCACHE={
         'varnish': {
-            'BACKEND': 'wagtail.contrib.wagtailfrontendcache.backends.HTTPBackend',
+            'BACKEND': 'wagtail.contrib.frontend_cache.backends.HTTPBackend',
             'LOCATION': 'http://localhost:8000',
         },
     },
     WAGTAILAPI_BASE_URL='http://api.example.com',
 )
-@mock.patch('wagtail.contrib.wagtailfrontendcache.backends.HTTPBackend.purge')
+@mock.patch('wagtail.contrib.frontend_cache.backends.HTTPBackend.purge')
 class TestPageCacheInvalidation(TestCase):
     fixtures = ['demosite.json']
 
