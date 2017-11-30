@@ -12,43 +12,44 @@ class StreamFieldCollector:
     def __init__(self, field):
         self.field = field
 
-    def find_block_type(self, block_type, blocks=None, block_path=None):
-        if blocks is None:
-            blocks = [self.field.stream_block]
-        if block_path is None:
-            block_path = [self.field.stream_block]
-        for block in blocks:
-            current_path = block_path + [block]
-            if isinstance(block, block_type):
-                return current_path
-            elif isinstance(block, (StreamBlock, StructBlock)):
-                return self.find_block_type(
-                    block_type, block.child_blocks.values(),
-                    block_path=current_path)
-            elif isinstance(block, ListBlock):
-                return self.find_block_type(block_type, [block.child_block],
-                                            block_path=current_path)
-
-    def find_values(self, value, block_path):
-        block_path = block_path[1:]
-        if len(block_path) == 1:
-            last_block = block_path[0]
-            if isinstance(value, StreamValue.StreamChild):
-                if last_block.name == value.block.name:
-                    yield value.value
-            elif isinstance(value, StructValue):
-                if last_block.name in value:
-                    yield value[last_block.name]
+    def block_tree_paths(self, block, ancestors=()):
+        if isinstance(block, (StreamBlock, StructBlock)):
+            for child_block in block.child_blocks.values():
+                yield from self.block_tree_paths(child_block,
+                                                 ancestors + (block,))
+        elif isinstance(block, ListBlock):
+            yield from self.block_tree_paths(block.child_block,
+                                             ancestors + (block,))
         else:
-            if isinstance(value, StreamValue):
-                for item in value:
-                    yield from self.find_values(item, block_path)
-            elif isinstance(value, StreamValue.StreamChild):
-                if value.block.name == value.block.name:
-                    yield from self.find_values(value.value, block_path)
-            else:
-                warn('Unexpected StreamField value: <%s: %s>'
-                     % (type(value), str(value)[:30]))
+            yield ancestors + (block,)
+
+    def find_block_type(self, block_type):
+        for block_path in self.block_tree_paths(self.field.stream_block):
+            if isinstance(block_path[-1], block_type):
+                yield block_path
+
+    def find_values(self, stream, block_path):
+        if not block_path:
+            yield stream
+            return
+        current_block, *block_path = block_path
+        if isinstance(current_block, StreamBlock) \
+                and isinstance(stream, StreamValue):
+            for sub_value in stream:
+                yield from self.find_values(sub_value, block_path)
+        elif isinstance(stream, StreamValue.StreamChild):
+            if stream.block == current_block:
+                yield from self.find_values(stream.value, block_path)
+        elif isinstance(stream, StructValue):
+            if current_block.name in stream:
+                yield from self.find_values(stream[current_block.name],
+                                            block_path)
+        elif current_block.name == '' and isinstance(stream, list):
+            for sub_value in stream:
+                yield from self.find_values(sub_value, block_path)
+        else:
+            warn('Unexpected StreamField value: <%s: %s>'
+                 % (type(stream), str(stream)[:30]))
 
 
 class ModelStreamFieldsCollector:
@@ -66,7 +67,7 @@ class ModelStreamFieldsCollector:
             return str(value)
         if isinstance(value, bool):
             return 'true' if value else 'false'
-        if isinstance(value, None):
+        if value is None:
             return 'null'
         return '"%s"' % re.escape(str(value).replace('"', r'\"')
                                   .replace('|', r'\|'))
@@ -74,26 +75,28 @@ class ModelStreamFieldsCollector:
     def find_objects_for(self, block_type, searched_values=()):
         if not self.fields:
             return
-        block_paths_per_field = [c.find_block_type(block_type)
+        block_paths_per_field = [list(c.find_block_type(block_type))
                                  for c in self.field_collectors]
         filters = Q()
-        for field, block_path in zip(self.fields, block_paths_per_field):
+        for field, block_paths in zip(self.fields, block_paths_per_field):
+            last_blocks = [[block for block in block_path if block.name][-1]
+                           for block_path in block_paths]
             block_filter = Q(**{field.attname + '__regex': r'"(%s)"'
-                                % '|'.join([block.name for block in block_path
-                                            if getattr(block, 'name', '')])})
+                                % '|'.join({block.name for block in last_blocks})})
             value_filter = (
-                Q(**{field.attname + '__regex': '(%s)'
+                Q(**{field.attname + '__regex': r'(%s)'
                      % '|'.join(self.prepare_value(v)
                                 for v in searched_values)})
                 if searched_values else Q())
             filters |= block_filter & value_filter
         for obj in self.model._default_manager.filter(filters):
-            for collector, block_path in zip(self.field_collectors,
-                                             block_paths_per_field):
-                for found_value in collector.find_values(
-                        getattr(obj, collector.field.attname), block_path):
-                    if not searched_values or found_value in searched_values:
-                        yield obj, found_value
+            for collector, block_paths in zip(self.field_collectors,
+                                              block_paths_per_field):
+                for block_path in block_paths:
+                    for found_value in collector.find_values(
+                            getattr(obj, collector.field.attname), block_path):
+                        if not searched_values or found_value in searched_values:
+                            yield obj, found_value
 
 
 def get_all_uses(block_type, searched_values=()):
