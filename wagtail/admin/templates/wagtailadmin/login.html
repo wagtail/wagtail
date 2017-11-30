@@ -57,18 +57,16 @@
                     {% endif %}
                 </li>
 
-                {% for field in form %}
-                {% if field.name in form.extra_fields %}
-                <li>
-                    <div class="field">
-                        {% if field.label %}
-                        {{ field.label_tag }}
-                        {% endif %}
-                        <div class="input">{{ field }}</div>
+                {% block extra_fields %}
+                {% for field_name, field in form.extra_fields %}
+                <li class="full">
+                    {{ field.label_tag }}
+                    <div class="field iconfield">
+                        {{ field }}
                     </div>
                 </li>
-                {% endif %}
                 {% endfor %}
+                {% endblock extra_fields %}
 
                 {% comment %}
                     Removed until functionality exists

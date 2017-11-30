@@ -80,9 +80,11 @@ class LoginForm(AuthenticationForm):
         self.fields['username'].widget.attrs['placeholder'] = (
             ugettext_lazy("Enter your %s") % self.username_field.verbose_name)
 
-    @cached_property
+    @property
     def extra_fields(self):
-        return set(self.fields.keys()) - set(['username', 'password'])
+        for field_name, field in self.fields.items():
+            if field_name not in ['username', 'password']:
+                yield field_name, field
 
 
 class PasswordResetForm(PasswordResetForm):
@@ -128,20 +130,12 @@ class CopyForm(forms.Form):
         self.user = kwargs.pop('user', None)
         can_publish = kwargs.pop('can_publish')
 
-
-<< << << < HEAD
         super().__init__(*args, **kwargs)
         self.fields['new_title'] = forms.CharField(
             initial=self.page.title, label=_("New title"))
         self.fields['new_slug'] = forms.SlugField(
             initial=self.page.slug, label=_("New slug"))
-== == == =
-        super(CopyForm, self).__init__(*args, **kwargs)
-        self.fields['new_title'] = forms.CharField(
-            initial=self.page.title, label=_("New title"))
-        self.fields['new_slug'] = forms.SlugField(
-            initial=self.page.slug, label=_("New slug"))
->>>>>> > Update form to identify all the ``extra_fields``
+
         self.fields['new_parent_page'] = forms.ModelChoiceField(
             initial=self.page.get_parent(),
             queryset=Page.objects.all(),
@@ -340,12 +334,7 @@ class WagtailAdminPageForm(WagtailAdminModelForm):
         exclude = ['content_type', 'path', 'depth', 'numchild']
 
     def __init__(self, data=None, files=None, parent_page=None, *args, **kwargs):
-<<<<<<< HEAD
         super().__init__(data, files, *args, **kwargs)
-=======
-        super(WagtailAdminPageForm, self).__init__(
-            data, files, *args, **kwargs)
->>>>>>> Update form to identify all the ``extra_fields``
         self.parent_page = parent_page
 
     def clean(self):
@@ -479,12 +468,7 @@ class BaseGroupCollectionMemberPermissionFormSet(forms.BaseFormSet):
 
     @property
     def empty_form(self):
-<<<<<<< HEAD
         empty_form = super().empty_form
-=======
-        empty_form = super(
-            BaseGroupCollectionMemberPermissionFormSet, self).empty_form
->>>>>>> Update form to identify all the ``extra_fields``
         empty_form.fields['DELETE'].widget = forms.HiddenInput()
         return empty_form
 
