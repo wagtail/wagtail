@@ -611,8 +611,8 @@ Adding a custom field type
 
 First, make the new field type available in the page editor by changing your ``FormField`` model.
 
-* Create a new set of choices which includes the original ``FORM_FIELD_CHOICES`` along with new field types you want to make avaialable.
-* Each choice must contain a unique key and a human readable name of the field. eg. ``('slug', 'URL Slug')``
+* Create a new set of choices which includes the original ``FORM_FIELD_CHOICES`` along with new field types you want to make available.
+* Each choice must contain a unique key and a human readable name of the field, e.g. ``('slug', 'URL Slug')``
 * Override the ``field_type`` field in your ``FormField`` model with ``choices`` attribute using these choices.
 * You will need to run ``./manage.py makemigrations`` and ``./manage.py migrate`` after this step.
 
@@ -621,7 +621,7 @@ Then, create and use a new form builder class.
 
 * Define a new form builder class that extends the ``FormBuilder`` class.
 * Add a method that will return a created Django form field for the new field type.
-* Its name must be in the format: ``create_<field_type_key>_field``. eg. ``create_slug_field``
+* Its name must be in the format: ``create_<field_type_key>_field``, e.g. ``create_slug_field``
 * Override the ``form_builder`` attribute in your form page model to use your new form builder class.
 
 Example:
