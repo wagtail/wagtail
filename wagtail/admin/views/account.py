@@ -44,8 +44,7 @@ def password_reset_enabled():
 
 def account(request):
     user_perms = UserPagePermissionsProxy(request.user)
-    show_notification_preferences = user_perms.can_edit_pages(
-    ) or user_perms.can_publish_pages()
+    show_notification_preferences = user_perms.can_edit_pages() or user_perms.can_publish_pages()
 
     return render(request, 'wagtailadmin/account/account.html', {
         'show_change_password': password_management_enabled() and request.user.has_usable_password(),
@@ -68,8 +67,7 @@ def change_password(request):
                 form.save()
                 update_session_auth_hash(request, form.user)
 
-                messages.success(request, _(
-                    "Your password has been changed successfully!"))
+                messages.success(request, _("Your password has been changed successfully!"))
                 return redirect('wagtailadmin_account')
         else:
             form = PasswordChangeForm(request.user)
@@ -93,24 +91,20 @@ def _wrap_password_reset_view(view_func):
 
 password_reset = _wrap_password_reset_view(auth_views.password_reset)
 password_reset_done = _wrap_password_reset_view(auth_views.password_reset_done)
-password_reset_confirm = _wrap_password_reset_view(
-    auth_views.password_reset_confirm)
-password_reset_complete = _wrap_password_reset_view(
-    auth_views.password_reset_complete)
+password_reset_confirm = _wrap_password_reset_view(auth_views.password_reset_confirm)
+password_reset_complete = _wrap_password_reset_view(auth_views.password_reset_complete)
 
 
 def notification_preferences(request):
     if request.method == 'POST':
-        form = NotificationPreferencesForm(
-            request.POST, instance=UserProfile.get_for_user(request.user))
+        form = NotificationPreferencesForm(request.POST, instance=UserProfile.get_for_user(request.user))
 
         if form.is_valid():
             form.save()
             messages.success(request, _("Your preferences have been updated."))
             return redirect('wagtailadmin_account')
     else:
-        form = NotificationPreferencesForm(
-            instance=UserProfile.get_for_user(request.user))
+        form = NotificationPreferencesForm(instance=UserProfile.get_for_user(request.user))
 
     # quick-and-dirty catch-all in case the form has been rendered with no
     # fields, as the user has no customisable permissions
@@ -124,8 +118,7 @@ def notification_preferences(request):
 
 def language_preferences(request):
     if request.method == 'POST':
-        form = PreferredLanguageForm(
-            request.POST, instance=UserProfile.get_for_user(request.user))
+        form = PreferredLanguageForm(request.POST, instance=UserProfile.get_for_user(request.user))
 
         if form.is_valid():
             user_profile = form.save()
@@ -135,8 +128,7 @@ def language_preferences(request):
             messages.success(request, _("Your preferences have been updated."))
             return redirect('wagtailadmin_account')
     else:
-        form = PreferredLanguageForm(
-            instance=UserProfile.get_for_user(request.user))
+        form = PreferredLanguageForm(instance=UserProfile.get_for_user(request.user))
 
     return render(request, 'wagtailadmin/account/language_preferences.html', {
         'form': form,

@@ -49,8 +49,7 @@ class SearchForm(forms.Form):
         super().__init__(*args, **kwargs)
         self.fields['q'].widget.attrs = {'placeholder': placeholder}
 
-    q = forms.CharField(label=ugettext_lazy(
-        "Search term"), widget=forms.TextInput())
+    q = forms.CharField(label=ugettext_lazy("Search term"), widget=forms.TextInput())
 
 
 class ExternalLinkChooserForm(forms.Form):
@@ -75,7 +74,7 @@ class LoginForm(AuthenticationForm):
     )
 
     def __init__(self, request=None, *args, **kwargs):
-        super(LoginForm, self).__init__(request=request, *args, **kwargs)
+        super().__init__(request=request, *args, **kwargs)
         self.fields['username'].widget.attrs['placeholder'] = (
             ugettext_lazy("Enter your %s") % self.username_field.verbose_name)
 
@@ -87,8 +86,7 @@ class LoginForm(AuthenticationForm):
 
 
 class PasswordResetForm(PasswordResetForm):
-    email = forms.EmailField(label=ugettext_lazy(
-        "Enter your email address to reset your password"), max_length=254)
+    email = forms.EmailField(label=ugettext_lazy("Enter your email address to reset your password"), max_length=254)
 
     def clean(self):
         cleaned_data = super().clean()
@@ -98,8 +96,7 @@ class PasswordResetForm(PasswordResetForm):
         email = cleaned_data.get('email')
         if not email:
             raise forms.ValidationError(_("Please fill your email address."))
-        active_users = UserModel._default_manager.filter(
-            email__iexact=email, is_active=True)
+        active_users = UserModel._default_manager.filter(email__iexact=email, is_active=True)
 
         if active_users.exists():
             # Check if all users of the email address are LDAP users (and give an error if they are)
@@ -116,8 +113,7 @@ class PasswordResetForm(PasswordResetForm):
                 )
         else:
             # No user accounts exist
-            raise forms.ValidationError(
-                _("This email address is not recognised."))
+            raise forms.ValidationError(_("This email address is not recognised."))
 
         return cleaned_data
 
@@ -128,18 +124,13 @@ class CopyForm(forms.Form):
         self.page = kwargs.pop('page')
         self.user = kwargs.pop('user', None)
         can_publish = kwargs.pop('can_publish')
-
         super().__init__(*args, **kwargs)
-        self.fields['new_title'] = forms.CharField(
-            initial=self.page.title, label=_("New title"))
-        self.fields['new_slug'] = forms.SlugField(
-            initial=self.page.slug, label=_("New slug"))
-
+        self.fields['new_title'] = forms.CharField(initial=self.page.title, label=_("New title"))
+        self.fields['new_slug'] = forms.SlugField(initial=self.page.slug, label=_("New slug"))
         self.fields['new_parent_page'] = forms.ModelChoiceField(
             initial=self.page.get_parent(),
             queryset=Page.objects.all(),
-            widget=widgets.AdminPageChooser(
-                can_choose_root=True, user_perms='copy_to'),
+            widget=widgets.AdminPageChooser(can_choose_root=True, user_perms='copy_to'),
             label=_("New parent page"),
             help_text=_("This copy will be a child of this given parent page.")
         )
@@ -159,8 +150,7 @@ class CopyForm(forms.Form):
                 # In the specific case that there are no subpages, customise the field label and help text
                 if subpage_count == 0:
                     label = _("Publish copied page")
-                    help_text = _(
-                        "This page is live. Would you like to publish its copy as well?")
+                    help_text = _("This page is live. Would you like to publish its copy as well?")
                 else:
                     label = _("Publish copies")
                     help_text = ungettext(
@@ -179,14 +169,12 @@ class CopyForm(forms.Form):
         slug = cleaned_data.get('new_slug')
 
         # New parent page given in form or parent of source, if parent_page is empty
-        parent_page = cleaned_data.get(
-            'new_parent_page') or self.page.get_parent()
+        parent_page = cleaned_data.get('new_parent_page') or self.page.get_parent()
 
         # check if user is allowed to create a page at given location.
         if not parent_page.permissions_for_user(self.user).can_add_subpage():
             self._errors['new_parent_page'] = self.error_class([
-                _("You do not have permission to copy to page \"%(page_title)s\"") % {
-                    'page_title': parent_page.get_admin_display_title()}
+                _("You do not have permission to copy to page \"%(page_title)s\"") % {'page_title': parent_page.get_admin_display_title()}
             ])
 
         # Count the pages with the same slug within the context of our copy's parent page
@@ -220,15 +208,13 @@ class BaseViewRestrictionForm(forms.ModelForm):
     def clean_password(self):
         password = self.cleaned_data.get('password')
         if self.cleaned_data.get('restriction_type') == BaseViewRestriction.PASSWORD and not password:
-            raise forms.ValidationError(
-                _("This field is required."), code='invalid')
+            raise forms.ValidationError(_("This field is required."), code='invalid')
         return password
 
     def clean_groups(self):
         groups = self.cleaned_data.get('groups')
         if self.cleaned_data.get('restriction_type') == BaseViewRestriction.GROUPS and not groups:
-            raise forms.ValidationError(
-                _("Please select at least one group."), code='invalid')
+            raise forms.ValidationError(_("Please select at least one group."), code='invalid')
         return groups
 
     class Meta:
@@ -306,8 +292,7 @@ class WagtailAdminModelFormMetaclass(ClusterFormMetaclass):
         if 'formfield_callback' not in attrs or attrs['formfield_callback'] is None:
             attrs['formfield_callback'] = formfield_for_dbfield
 
-        new_class = super(WagtailAdminModelFormMetaclass,
-                          cls).__new__(cls, name, bases, attrs)
+        new_class = super(WagtailAdminModelFormMetaclass, cls).__new__(cls, name, bases, attrs)
         return new_class
 
 
@@ -343,8 +328,7 @@ class WagtailAdminPageForm(WagtailAdminModelForm):
             if not Page._slug_is_available(
                 cleaned_data['slug'], self.parent_page, self.instance
             ):
-                self.add_error('slug', forms.ValidationError(
-                    _("This slug is already in use")))
+                self.add_error('slug', forms.ValidationError(_("This slug is already in use")))
 
         # Check scheduled publishing fields
         go_live_at = cleaned_data.get('go_live_at')
@@ -359,8 +343,7 @@ class WagtailAdminPageForm(WagtailAdminModelForm):
 
         # Expire at must be in the future
         if expire_at and expire_at < timezone.now():
-            self.add_error('expire_at', forms.ValidationError(
-                _('Expiry date/time must be in the future')))
+            self.add_error('expire_at', forms.ValidationError(_('Expiry date/time must be in the future')))
 
         # Don't allow an existing first_published_at to be unset by clearing the field
         if 'first_published_at' in cleaned_data and not cleaned_data['first_published_at']:
@@ -385,7 +368,6 @@ class BaseCollectionMemberForm(forms.ModelForm):
 
     Subclasses must define a 'permission_policy' attribute.
     """
-
     def __init__(self, *args, **kwargs):
         user = kwargs.pop('user', None)
 
@@ -395,22 +377,19 @@ class BaseCollectionMemberForm(forms.ModelForm):
             self.collections = Collection.objects.all()
         else:
             self.collections = (
-                self.permission_policy.collections_user_has_permission_for(
-                    user, 'add')
+                self.permission_policy.collections_user_has_permission_for(user, 'add')
             )
 
         if self.instance.pk:
             # editing an existing document; ensure that the list of available collections
             # includes its current collection
             self.collections = (
-                self.collections | Collection.objects.filter(
-                    id=self.instance.collection_id)
+                self.collections | Collection.objects.filter(id=self.instance.collection_id)
             )
 
         if len(self.collections) == 0:
             raise Exception(
-                "Cannot construct %s for a user with no collection permissions" % type(
-                    self)
+                "Cannot construct %s for a user with no collection permissions" % type(self)
             )
         elif len(self.collections) == 1:
             # don't show collection field if only one collection is available
@@ -436,7 +415,6 @@ class BaseGroupCollectionMemberPermissionFormSet(forms.BaseFormSet):
     default_prefix - prefix to use on form fields if one is not specified in __init__
     template = template filename
     """
-
     def __init__(self, data=None, files=None, instance=None, prefix=None):
         if prefix is None:
             prefix = self.default_prefix
@@ -507,8 +485,7 @@ class BaseGroupCollectionMemberPermissionFormSet(forms.BaseFormSet):
         final_permission_records = set()
         for form in forms_to_save:
             for permission in form.cleaned_data['permissions']:
-                final_permission_records.add(
-                    (form.cleaned_data['collection'], permission))
+                final_permission_records.add((form.cleaned_data['collection'], permission))
 
         # fetch the group's existing collection permission records for this model,
         # and from that, build a list of records to be created / deleted
@@ -523,8 +500,7 @@ class BaseGroupCollectionMemberPermissionFormSet(forms.BaseFormSet):
             else:
                 permission_ids_to_delete.append(cp.id)
 
-        self.instance.collection_permissions.filter(
-            id__in=permission_ids_to_delete).delete()
+        self.instance.collection_permissions.filter(id__in=permission_ids_to_delete).delete()
 
         permissions_to_add = final_permission_records - permission_records_to_keep
         GroupCollectionPermission.objects.bulk_create([
@@ -547,8 +523,7 @@ def collection_member_permission_formset_factory(
 
     permission_queryset = Permission.objects.filter(
         content_type__app_label=model._meta.app_label,
-        codename__in=[codename for codename,
-                      short_label, long_label in permission_types]
+        codename__in=[codename for codename, short_label, long_label in permission_types]
     ).select_related('content_type')
 
     if default_prefix is None:
