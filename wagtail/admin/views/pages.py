@@ -1114,3 +1114,7 @@ def revisions_compare(request, page_id, revision_id_a, revision_id_b):
         'revision_b': revision_b,
         'comparison': comparison,
     })
+
+
+def revisions_unschedule(request, revision_id):
+    pass

@@ -36,6 +36,9 @@
                                 <li><a href="{% url 'wagtailadmin_pages:revisions_compare' page.id previous_revision.id revision.id %}" class="button button-small button-secondary">{% trans 'Compare with previous revision' %}</a></li>
                             {% endif %}
                             {% endwith %}
+			    {% if revision.approved_go_live_at %}
+				<li><a href="{% url 'wagtailadmin_pages:revisions_unschedule' page.id revision.id %}" class="button button-small button-secondary">{% trans 'Cancel scheduled publish' %}</a></li>
+			    {% endif %}
                         </ul>
                     </td>
                 </tr>
