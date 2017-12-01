@@ -3789,12 +3789,17 @@ class TestRevisions(TestCase, WagtailTestUtils):
         self.last_christmas_revision.publish()
         self.this_christmas_revision.approved_go_live_at = local_datetime(2014, 12, 26)
         self.this_christmas_revision.save()
+        this_christmas_unschedule_url = reverse(
+            'wagtailadmin_pages:revisions_unschedule',
+            args=(self.christmas_event.id, self.this_christmas_revision.id)
+        )
         response = self.client.get(
             reverse('wagtailadmin_pages:revisions_index', args=(self.christmas_event.id, ))
         )
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'Scheduled for')
         self.assertContains(response, formats.localize(parse_date('2014-12-26')))
+        self.assertContains(response, this_christmas_unschedule_url)
 
 
 class TestCompareRevisions(TestCase, WagtailTestUtils):

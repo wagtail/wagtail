@@ -37,5 +37,6 @@ urlpatterns = [
     url(r'^(\d+)/revisions/$', pages.revisions_index, name='revisions_index'),
     url(r'^(\d+)/revisions/(\d+)/view/$', pages.revisions_view, name='revisions_view'),
     url(r'^(\d+)/revisions/(\d+)/revert/$', pages.revisions_revert, name='revisions_revert'),
+    url(r'^(\d+)/revisions/(\d+)/unschedule/$', pages.revisions_unschedule, name='revisions_unschedule'),
     url(r'^(\d+)/revisions/compare/(live|earliest|\d+)\.\.\.(live|latest|\d+)/$', pages.revisions_compare, name='revisions_compare'),
 ]
