@@ -51,6 +51,7 @@ Bug fixes
  * Form submissions pagination no longer looses date filter when changing page (Bertrand Bordage)
  * PostgreSQL search backend now removes duplicate page instances from the database (Bertrand Bordage)
  * ``FormSubmissionsPanel`` now recognises custom form submission classes (LB (Ben Johnston))
+ * Prevent the footer and revisions link from unnecessarily collapsing on mobile (Jack Paine)
 
 
 Upgrade considerations
