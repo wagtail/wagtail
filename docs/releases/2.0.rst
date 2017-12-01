@@ -53,6 +53,7 @@ Bug fixes
  * ``FormSubmissionsPanel`` now recognises custom form submission classes (LB (Ben Johnston))
  * Prevent the footer and revisions link from unnecessarily collapsing on mobile (Jack Paine)
  * Empty searches were activated when paginating through images and documents (LB (Ben Johnston))
+ * Summary numbers of pages, images and documents were not responsive when greater than 4 digits (Michael Palmer)
 
 
 Upgrade considerations

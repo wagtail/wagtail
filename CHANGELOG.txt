@@ -35,6 +35,7 @@ Changelog
  * Fix: `FormSubmissionsPanel` now recognises custom form submission classes (LB (Ben Johnston))
  * Fix: Prevent the footer and revisions link from unnecessarily collapsing on mobile (Jack Paine)
  * Fix: Empty searches were activated when paginating through images and documents (LB (Ben Johnston))
+ * Fix: Summary numbers of pages, images and documents were not responsive when greater than 4 digits (Michael Palmer)
 
 
 1.13.1 (17.11.2017)
