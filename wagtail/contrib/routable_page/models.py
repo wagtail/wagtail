@@ -1,10 +1,17 @@
+import django
 from django.conf.urls import url
 from django.http import Http404
 from django.template.response import TemplateResponse
-from django.urls.resolvers import RegexURLResolver
 
 from wagtail.core.models import Page
 from wagtail.core.url_routing import RouteResult
+
+if django.VERSION >= (2, 0):
+    from django.urls import URLResolver
+    from django.urls.resolvers import RegexPattern
+else:
+    from django.urls.resolvers import RegexURLResolver
+
 
 _creation_counter = 0
 
@@ -69,7 +76,10 @@ class RoutablePageMixin:
     def get_resolver(cls):
         if '_routablepage_urlresolver' not in cls.__dict__:
             subpage_urls = cls.get_subpage_urls()
-            cls._routablepage_urlresolver = RegexURLResolver(r'^/', subpage_urls)
+            if django.VERSION >= (2, 0):
+                cls._routablepage_urlresolver = URLResolver(RegexPattern(r'^/'), subpage_urls)
+            else:  # Django 1.11 fallback
+                cls._routablepage_urlresolver = RegexURLResolver(r'^/', subpage_urls)
 
         return cls._routablepage_urlresolver
 
