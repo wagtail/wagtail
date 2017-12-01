@@ -52,7 +52,7 @@ $(function() {
                 if ((that._trigger('added', e, data) !== false) &&
                         (options.autoUpload || data.autoUpload) &&
                         data.autoUpload !== false) {
-                    data.trigger('submit')
+                    data.submit()
                 }
             }).fail(function() {
                 if (data.files.error) {
