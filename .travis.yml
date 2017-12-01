@@ -31,17 +31,24 @@ matrix:
      python: 3.6
    - env: TOXENV=py36-dj111-mysql-noelasticsearch
      python: 3.6
+   - env: TOXENV=py36-dj20-postgres-noelasticsearch
+     python: 3.6
    - env: TOXENV=py36-dj111-postgres-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
      python: 3.6
      sudo: true
    - env: TOXENV=py36-dj111-postgres-elasticsearch5 INSTALL_ELASTICSEARCH5=yes
      python: 3.6
      sudo: true
+   - env: TOXENV=py36-dj20-postgres-elasticsearch5 INSTALL_ELASTICSEARCH5=yes
+     python: 3.6
+     sudo: true
   allow_failures:
+    - env: TOXENV=py36-dj20-postgres-noelasticsearch
     # Ignore failures on Elasticsearch tests because ES on Travis is intermittently flaky
     - env: TOXENV=py35-dj111-postgres-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
     - env: TOXENV=py36-dj111-postgres-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
     - env: TOXENV=py36-dj111-postgres-elasticsearch5 INSTALL_ELASTICSEARCH5=yes
+    - env: TOXENV=py36-dj20-postgres-elasticsearch5 INSTALL_ELASTICSEARCH5=yes
 
 # Services
 services:
