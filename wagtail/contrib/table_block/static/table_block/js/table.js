@@ -39,7 +39,7 @@ function initTable(id, tableOptions) {
     }
 
     try {
-        dataForForm = $.parseJSON(hiddenStreamInput.val());
+        dataForForm = JSON.parse(hiddenStreamInput.val());
     } catch (e) {
         // do nothing
     }
