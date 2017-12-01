@@ -25,7 +25,7 @@
 <script src="{% static 'wagtailadmin/js/privacy-switch.js' %}"></script>
 <script src="{% static 'wagtailadmin/js/vendor/bootstrap-tooltip.js' %}"></script>
 
-{% hook_output 'insert_editor_js' %}
+{% include "wagtailadmin/shared/hook_output.html" with name="insert_editor_js" %}
 
 {% include "wagtailadmin/shared/datetimepicker_translations.html" %}
 
