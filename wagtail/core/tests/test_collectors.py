@@ -49,29 +49,29 @@ class ModelStreamFieldCollectorTest(TestCase):
     def test_empty(self):
         with self.assertNumQueries(1):
             usages = self.get_image_usages(self.image0)
-        self.assertListEqual(usages, [])
+            self.assertListEqual(usages, [])
 
     def test_single_root(self):
         with self.assertNumQueries(2):
             usages = self.get_image_usages(self.image1)
-        self.assertListEqual(usages, [(self.obj1, self.image1)])
+            self.assertListEqual(usages, [(self.obj1, self.image1)])
 
     def test_multiple_roots(self):
         with self.assertNumQueries(2):
             usages = self.get_image_usages(self.image2)
-        self.assertListEqual(usages, [(self.obj2, self.image2)])
+            self.assertListEqual(usages, [(self.obj2, self.image2)])
 
     def test_simple_struct(self):
         with self.assertNumQueries(2):
             usages = self.get_image_usages(self.image3)
-        self.assertListEqual(usages, [(self.obj3, self.image3)])
+            self.assertListEqual(usages, [(self.obj3, self.image3)])
 
     def test_list(self):
         with self.assertNumQueries(2):
             usages = self.get_image_usages(self.image4)
-        self.assertListEqual(usages, [(self.obj4, self.image4)])
+            self.assertListEqual(usages, [(self.obj4, self.image4)])
 
     def test_nested_structs(self):
         with self.assertNumQueries(2):
             usages = self.get_image_usages(self.image5)
-        self.assertListEqual(usages, [(self.obj5, self.image5)])
+            self.assertListEqual(usages, [(self.obj5, self.image5)])
