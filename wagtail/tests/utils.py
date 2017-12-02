@@ -69,7 +69,7 @@ class WagtailTestUtils:
         The bug was fixed in Python 3.4.2.
         """
         key = "__warningregistry__"
-        for mod in list(sys.modules.values()):
+        for mod in sys.modules.values():
             if hasattr(mod, key):
                 getattr(mod, key).clear()
 

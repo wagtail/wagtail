@@ -439,7 +439,7 @@ class DeclarativeSubBlocksMetaclass(BaseBlock):
         # Collect sub-blocks declared on the current class.
         # These are available on the class as `declared_blocks`
         current_blocks = []
-        for key, value in list(attrs.items()):
+        for key, value in attrs.items():
             if isinstance(value, Block):
                 current_blocks.append((key, value))
                 value.set_name(key)

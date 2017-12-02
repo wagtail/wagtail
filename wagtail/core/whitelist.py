@@ -41,7 +41,7 @@ def attribute_rule(allowed_attrs):
     * if the lookup returns a truthy value, keep the attribute; if falsy, drop it
     """
     def fn(tag):
-        for attr, val in list(tag.attrs.items()):
+        for attr, val in tag.attrs.items():
             rule = allowed_attrs.get(attr)
             if rule:
                 if callable(rule):
