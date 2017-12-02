@@ -2,10 +2,8 @@
 # Based on the Django cache framework
 # https://github.com/django/django/blob/5d263dee304fdaf95e18d2f0619d6925984a7f02/django/core/cache/__init__.py
 
-import sys
 from importlib import import_module
 
-from django.utils import six
 from django.utils.module_loading import import_string
 from django.core.exceptions import ImproperlyConfigured
 from django.conf import settings
@@ -46,7 +44,7 @@ def import_backend(dotted_path):
             # Old
             return import_string(dotted_path)
         except ImportError:
-            six.reraise(ImportError, e, sys.exc_info()[2])
+            raise ImportError from e
 
 
 def get_search_backend(backend='default', **kwargs):
