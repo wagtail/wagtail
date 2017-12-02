@@ -137,7 +137,7 @@ class TestGarbageCollectCommand(TestCase):
             SearchPromotion.objects.create(query=q, page_id=1, sort_order=0, description='Test')
             promoted_querie_ids.append(q.id)
 
-        management.call_command('search_garbage_collect', interactive=False, stdout=StringIO())
+        management.call_command('search_garbage_collect', stdout=StringIO())
 
         self.assertFalse(models.Query.objects.filter(id__in=querie_ids_to_be_deleted).exists())
         self.assertFalse(models.QueryDailyHits.objects.filter(
