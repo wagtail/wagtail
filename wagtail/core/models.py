@@ -505,7 +505,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
         # get names of foreign keys pointing to parent classes (such as page_ptr)
         field_exceptions = [field.name
-                            for model in [cls] + list(cls._meta.get_parent_list())
+                            for model in [cls] + cls._meta.get_parent_list()
                             for field in model._meta.parents.values() if field]
 
         for field in cls._meta.fields:
