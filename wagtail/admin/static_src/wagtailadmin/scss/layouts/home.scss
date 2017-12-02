@@ -48,11 +48,23 @@ header {
         li {
             @include column(4);
             margin-bottom: 2em;
+        }
 
-            &:before {
-                opacity: 0.2;
-                font-size: 6em;
-                float: left;
+        li:before {
+            opacity: 0.2;
+            font-size: 6em;
+            float: left;
+
+            @media screen and (max-width: $breakpoint-desktop-large) {
+                font-size: 5em;
+            }
+
+            @media screen and (max-width: $breakpoint-desktop-small) {
+                font-size: 4.5em;
+            }
+
+            @media screen and (max-width: $breakpoint-mobile) {
+                font-size: 4em;
             }
         }
 
@@ -69,6 +81,18 @@ header {
             font-size: 4em;
             line-height: 1em;
             font-weight: 300;
+
+            @media screen and (max-width: $breakpoint-desktop-large) {
+                font-size: 3em;
+            }
+
+            @media screen and (max-width: $breakpoint-desktop-small) {
+                font-size: 2.5em;
+            }
+
+            @media screen and (max-width: $breakpoint-mobile) {
+                font-size: 2em;
+            }
         }
     }
 

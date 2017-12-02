@@ -174,8 +174,15 @@ footer {
             width: 100%;
         }
 
-        .meta p {
-            white-space: normal;
+        .meta {
+            p {
+                white-space: normal;
+                width: 100%;
+            }
+
+            .avatar {
+                left: auto;
+            }
         }
     }
 

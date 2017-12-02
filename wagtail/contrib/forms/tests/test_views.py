@@ -6,7 +6,8 @@ from django.test import TestCase
 from django.urls import reverse
 
 from wagtail.tests.testapp.models import (
-    CustomFormPageSubmission, FormField, FormFieldWithCustomSubmission, FormPage)
+    CustomFormPageSubmission, FormField, FormFieldWithCustomSubmission,
+    FormPage, FormPageWithCustomSubmission)
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.admin.edit_handlers import get_form_for_model
 from wagtail.admin.forms import WagtailAdminPageForm
@@ -35,6 +36,50 @@ class TestFormResponsesPanel(TestCase):
             'your-message': 'hello world',
             'your-choices': {'foo': '', 'bar': '', 'baz': ''}
         })
+
+        result = self.panel.render()
+
+        url = reverse('wagtailforms:list_submissions', args=(self.form_page.id,))
+        link = '<a href="{}">1</a>'.format(url)
+
+        self.assertIn(link, result)
+
+    def test_render_without_submissions(self):
+        """The panel should not be shown if the number of submission is zero."""
+        result = self.panel.render()
+
+        self.assertEqual('', result)
+
+
+class TestFormResponsesPanelWithCustomSubmissionClass(TestCase):
+    def setUp(self):
+        # Create a form page
+        self.form_page = make_form_page_with_custom_submission()
+
+        self.FormPageForm = get_form_for_model(
+            FormPageWithCustomSubmission, form_class=WagtailAdminPageForm
+        )
+
+        self.test_user = get_user_model().objects.create_user(
+            username='user-n1kola', password='123')
+
+        submissions_panel = FormSubmissionsPanel().bind_to_model(FormPageWithCustomSubmission)
+
+        self.panel = submissions_panel(self.form_page, self.FormPageForm())
+
+    def test_render_with_submissions(self):
+        """Show the panel with the count of submission and a link to the list_submissions view."""
+        new_form_submission = CustomFormPageSubmission.objects.create(
+            user=self.test_user,
+            page=self.form_page,
+            form_data=json.dumps({
+                'your-email': 'email@domain.com',
+                'your-message': 'hi joe',
+                'your-choices': {'foo': '', 'bar': '', 'baz': ''}
+            }),
+        )
+        new_form_submission.submit_time = '2017-08-29T12:00:00.000Z'
+        new_form_submission.save()
 
         result = self.panel.render()
 
