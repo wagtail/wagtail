@@ -33,7 +33,8 @@ Other features
  * Added ``exclude_fields_in_copy`` property to Page to define fields that should not be included on page copy (LB (Ben Johnston))
  * Improved error message on incorrect ``{% image %}`` tag syntax (LB (Ben Johnston))
  * Optimized preview data storage (Bertrand Bordage)
- * Added `render_landing_page` method to `AbstractForm` to be easily overridden and pass `form_submission` to landing page context (Stein Strindhaug)
+ * Added ``render_landing_page`` method to ``AbstractForm`` to be easily overridden and pass ``form_submission`` to landing page context (Stein Strindhaug)
+ * Added ``heading`` kwarg to ``InlinePanel`` to allow heading to be set independently of button label (Adrian Turjak)
 
 Bug fixes
 ~~~~~~~~~
@@ -49,6 +50,10 @@ Bug fixes
  * Fixed incorrect z-index on userbar causing it to appear behind page content (Stein Strindhaug)
  * Form submissions pagination no longer looses date filter when changing page (Bertrand Bordage)
  * PostgreSQL search backend now removes duplicate page instances from the database (Bertrand Bordage)
+ * ``FormSubmissionsPanel`` now recognises custom form submission classes (LB (Ben Johnston))
+ * Prevent the footer and revisions link from unnecessarily collapsing on mobile (Jack Paine)
+ * Empty searches were activated when paginating through images and documents (LB (Ben Johnston))
+ * Summary numbers of pages, images and documents were not responsive when greater than 4 digits (Michael Palmer)
 
 
 Upgrade considerations

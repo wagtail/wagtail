@@ -584,11 +584,12 @@ class PageChooserPanel(BaseChooserPanel):
 
 
 class InlinePanel(EditHandler):
-    def __init__(self, relation_name, panels=None, label='',
+    def __init__(self, relation_name, panels=None, heading='', label='',
                  min_num=None, max_num=None, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.relation_name = relation_name
         self.panels = panels
+        self.heading = heading or label
         self.label = label
         self.min_num = min_num
         self.max_num = max_num
@@ -597,6 +598,7 @@ class InlinePanel(EditHandler):
         return self.__class__(
             relation_name=self.relation_name,
             panels=self.panels,
+            heading=self.heading,
             label=self.label,
             help_text=self.help_text,
             min_num=self.min_num,
@@ -650,7 +652,6 @@ class InlinePanel(EditHandler):
         self.db_field = self.model._meta.get_field(self.relation_name)
         manager = getattr(self.model, self.relation_name)
         self.related = manager.rel
-        self.heading = self.label
 
     def on_instance_bound(self):
         self.formset = self.form.formsets[self.relation_name]

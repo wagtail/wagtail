@@ -1243,6 +1243,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
         request = WSGIRequest(dummy_values)
 
+        # Add a flag to let middleware know that this is a dummy request.
+        request.is_dummy = True
+
         # Apply middleware to the request
         # Note that Django makes sure only one of the middleware settings are
         # used in a project
