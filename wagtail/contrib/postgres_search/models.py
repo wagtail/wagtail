@@ -50,7 +50,7 @@ class IndexEntry(Model):
         unique_together = ('content_type', 'object_id')
         verbose_name = _('index entry')
         verbose_name_plural = _('index entries')
-        indexes = [GinIndex(['body_search'])]
+        indexes = [GinIndex(fields=['body_search'])]
 
     def __str__(self):
         return '%s: %s' % (self.content_type.name, self.content_object)
