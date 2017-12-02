@@ -25,6 +25,14 @@ class ModelStreamFieldCollectorTest(TestCase):
                                            file=get_test_image_file())
         self.image6 = Image.objects.create(title='Test image 6',
                                            file=get_test_image_file())
+        self.image7 = Image.objects.create(title='Test image 7',
+                                           file=get_test_image_file())
+        self.image8 = Image.objects.create(title='Test image 8',
+                                           file=get_test_image_file())
+        self.image9 = Image.objects.create(title='Test image 9',
+                                           file=get_test_image_file())
+        self.image10 = Image.objects.create(title='Test image 10',
+                                            file=get_test_image_file())
 
         self.obj_empty = StreamModel.objects.create()
         self.obj_text = StreamModel.objects.create(body=[
@@ -41,6 +49,23 @@ class ModelStreamFieldCollectorTest(TestCase):
             ('struct', {'image_list': [self.image4]})])
         self.obj5 = StreamModel.objects.create(body=[
             ('struct', {'struct_list': [{'image': self.image5}]})])
+        self.obj6 = StreamModel.objects.create(body=[
+            ('text', 'foo'),
+            ('image', self.image6),
+            ('struct', {
+                'image': self.image7,
+                'image_list': [self.image8],
+                'struct_list': [{'image': self.image9}]}),
+            ('image', self.image10),
+            ('text', 'bar')])
+        self.obj7 = StreamModel.objects.create(body=[
+            ('image', self.image9)])
+        self.obj8 = StreamModel.objects.create(body=[
+            ('struct', {'image': self.image8})])
+        self.obj9 = StreamModel.objects.create(body=[
+            ('struct', {'image_list': [self.image7]})])
+        self.obj10 = StreamModel.objects.create(body=[
+            ('struct', {'struct_list': [{'image': self.image6}]})])
 
     def get_image_usages(self, *images):
         return list(self.collector.find_objects_for(ImageChooserBlock,
@@ -75,3 +100,34 @@ class ModelStreamFieldCollectorTest(TestCase):
         with self.assertNumQueries(2):
             usages = self.get_image_usages(self.image5)
             self.assertListEqual(usages, [(self.obj5, self.image5)])
+
+    def test_multiple(self):
+        with self.assertNumQueries(6):
+            usages = self.get_image_usages(self.image6)
+            self.assertListEqual(usages, [(self.obj6, self.image6),
+                                          (self.obj10, self.image6)])
+        with self.assertNumQueries(6):
+            usages = self.get_image_usages(self.image7)
+            self.assertListEqual(usages, [(self.obj6, self.image7),
+                                          (self.obj9, self.image7)])
+        with self.assertNumQueries(6):
+            usages = self.get_image_usages(self.image8)
+            self.assertListEqual(usages, [(self.obj6, self.image8),
+                                          (self.obj8, self.image8)])
+        with self.assertNumQueries(6):
+            usages = self.get_image_usages(self.image9)
+            self.assertListEqual(usages, [(self.obj6, self.image9),
+                                          (self.obj7, self.image9)])
+        with self.assertNumQueries(9):
+            usages = self.get_image_usages(self.image6, self.image7,
+                                           self.image8, self.image9,
+                                           self.image10)
+            self.assertListEqual(usages, [(self.obj6, self.image6),
+                                          (self.obj6, self.image10),
+                                          (self.obj6, self.image7),
+                                          (self.obj6, self.image8),
+                                          (self.obj6, self.image9),
+                                          (self.obj7, self.image9),
+                                          (self.obj8, self.image8),
+                                          (self.obj9, self.image7),
+                                          (self.obj10, self.image6)])
