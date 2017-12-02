@@ -66,7 +66,8 @@ class TestFormResponsesPanelWithCustomSubmissionClass(TestCase):
 
         submissions_panel = FormSubmissionsPanel().bind_to_model(FormPageWithCustomSubmission)
 
-        self.panel = submissions_panel(self.form_page, self.FormPageForm())
+        self.panel = submissions_panel.bind_to_instance(self.form_page,
+                                                        self.FormPageForm())
 
     def test_render_with_submissions(self):
         """Show the panel with the count of submission and a link to the list_submissions view."""
