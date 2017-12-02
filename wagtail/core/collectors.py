@@ -81,10 +81,10 @@ class ModelStreamFieldsCollector:
         for field, block_paths in zip(self.fields, block_paths_per_field):
             last_blocks = [[block for block in block_path if block.name][-1]
                            for block_path in block_paths]
-            block_filter = Q(**{field.attname + '__regex': r'"(?:%s)"'
+            block_filter = Q(**{field.attname + '__regex': r'"(%s)"'
                                 % '|'.join({block.name for block in last_blocks})})
             value_filter = (
-                Q(**{field.attname + '__regex': r'[\[\s:](?:%s)[\]\s,\}]'
+                Q(**{field.attname + '__regex': r'[\[\s:](%s)[\]\s,\}]'
                      % '|'.join(self.prepare_value(v)
                                 for v in searched_values)})
                 if searched_values else Q())
