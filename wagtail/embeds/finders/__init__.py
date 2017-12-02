@@ -1,8 +1,6 @@
-import sys
 from importlib import import_module
 
 from django.utils.module_loading import import_string
-from django.utils import six
 from django.conf import settings
 
 
@@ -21,7 +19,7 @@ def import_finder_class(dotted_path):
         try:
             return import_string(dotted_path)
         except ImportError:
-            six.reraise(ImportError, e, sys.exc_info()[2])
+            raise ImportError from e
 
 
 def _get_config_from_settings():

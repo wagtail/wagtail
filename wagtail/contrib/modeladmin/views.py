@@ -1,5 +1,4 @@
 import operator
-import sys
 from collections import OrderedDict
 from functools import reduce
 
@@ -19,7 +18,6 @@ from django.db.models.fields.related import ForeignObjectRel, ManyToManyField
 from django.db.models.sql.constants import QUERY_TERMS
 from django.shortcuts import get_object_or_404, redirect
 from django.template.defaultfilters import filesizeformat
-from django.utils import six
 from django.utils.decorators import method_decorator
 from django.utils.encoding import force_text
 from django.utils.functional import cached_property
@@ -405,10 +403,7 @@ class IndexView(WMABaseView):
                 filter_specs, bool(filter_specs), lookup_params, use_distinct
             )
         except FieldDoesNotExist as e:
-            six.reraise(
-                IncorrectLookupParameters,
-                IncorrectLookupParameters(e),
-                sys.exc_info()[2])
+            raise IncorrectLookupParameters from e
 
     def get_query_string(self, new_params=None, remove=None):
         if new_params is None:
