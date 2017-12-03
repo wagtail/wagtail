@@ -1,7 +1,11 @@
-from django.test import TestCase
+import json
+
+from django.test import SimpleTestCase, TestCase
+from django.utils import translation
 from django.utils.html import escape
 
-from wagtail.contrib.table_block.blocks import TableBlock
+from wagtail.contrib.table_block.blocks import DEFAULT_TABLE_OPTIONS, TableBlock
+from wagtail.tests.utils import WagtailTestUtils
 
 
 def tiny_escape(val):
@@ -193,3 +197,117 @@ class TestTableBlock(TestTableBlockRenderingBase):
         })
         self.assertIn("Test 1", result)
         self.assertIn("<div>A fascinating table.</div>", result)
+
+
+class TestTableBlockForm(WagtailTestUtils, SimpleTestCase):
+
+    def setUp(self):
+        # test value for table data
+        self.value = {
+            'first_row_is_table_header': True,
+            'first_col_is_header': True,
+            'data': [
+                ['Ship', 'Type', 'Status'],
+                ['Galactica', 'Battlestar', 'Active'],
+                ['Valkyrie', 'Battlestar', 'Destroyed'],
+                ['Cylon Basestar', 'Basestar', 'Active'],
+                ['Brenik', 'Small Military Vessel', 'Destroyed'],
+            ]
+        }
+        # set language from testing envrionment
+        language = translation.get_language()
+        if language is not None and len(language) > 2:
+            language = language[:2]
+
+        self.default_table_options = DEFAULT_TABLE_OPTIONS.copy()
+        self.default_table_options['language'] = language
+
+    def test_default_table_options(self):
+        """
+        Test options without any custom table_options provided.
+        """
+        block = TableBlock()
+        # check that default_table_options created correctly
+        self.assertEqual(block.table_options, block.get_table_options())
+        # check that default_table_options used on self
+        self.assertEqual(self.default_table_options, block.table_options)
+        # check a few individual keys from DEFAULT_TABLE_OPTIONS
+        self.assertEqual(DEFAULT_TABLE_OPTIONS['startRows'], block.get_table_options()['startRows'])
+        self.assertEqual(DEFAULT_TABLE_OPTIONS['startRows'], block.table_options['startRows'])
+        self.assertEqual(DEFAULT_TABLE_OPTIONS['colHeaders'], block.get_table_options()['colHeaders'])
+        self.assertEqual(DEFAULT_TABLE_OPTIONS['colHeaders'], block.table_options['colHeaders'])
+        self.assertEqual(DEFAULT_TABLE_OPTIONS['contextMenu'], block.get_table_options()['contextMenu'])
+        self.assertEqual(DEFAULT_TABLE_OPTIONS['contextMenu'], block.table_options['contextMenu'])
+        self.assertEqual(DEFAULT_TABLE_OPTIONS['colHeaders'], block.get_table_options()['colHeaders'])
+        self.assertEqual(DEFAULT_TABLE_OPTIONS['colHeaders'], block.table_options['colHeaders'])
+        self.assertEqual(DEFAULT_TABLE_OPTIONS['stretchH'], block.get_table_options()['stretchH'])
+        self.assertEqual(DEFAULT_TABLE_OPTIONS['stretchH'], block.table_options['stretchH'])
+
+    def test_table_options_language(self):
+        """
+        Test that the envrionment's language is used if no language provided.
+        """
+        # default must always contain a language value
+        block = TableBlock()
+        self.assertIn('language', block.table_options)
+        # French
+        translation.activate('fr-fr')
+        block_fr = TableBlock()
+        self.assertEqual('fr', block_fr.table_options['language'])
+        translation.activate('it')
+        # Italian
+        block_it = TableBlock()
+        self.assertEqual('it', block_it.table_options['language'])
+        # table_options with language provided, different to envrionment
+        block_with_lang = TableBlock(table_options={'language': 'ja'})
+        self.assertNotEqual('it', block_with_lang.table_options['language'])
+        self.assertEqual('ja', block_with_lang.table_options['language'])
+        translation.activate('en')
+
+    def test_table_options_context_menu(self):
+        """
+        Test how contextMenu is set to default.
+        """
+        default_context_menu = list(DEFAULT_TABLE_OPTIONS['contextMenu'])  # create copy
+        # confirm the default is correct
+        table_options = TableBlock().table_options
+        self.assertEqual(table_options['contextMenu'], default_context_menu)
+        # confirm that when custom option is True, default is still used
+        table_options_menu_true = TableBlock(table_options={'contextMenu': True}).table_options
+        self.assertEqual(table_options_menu_true['contextMenu'], default_context_menu)
+        # confirm menu is removed if False is passed in
+        table_options_menu_false = TableBlock(table_options={'contextMenu': False}).table_options
+        self.assertEqual(table_options_menu_false['contextMenu'], False)
+        # confirm if list passed in, it is used
+        table_options_menu_list = TableBlock(table_options={'contextMenu': ['undo', 'redo']}).table_options
+        self.assertEqual(table_options_menu_list['contextMenu'], ['undo', 'redo'])
+        # test if empty array passed in
+        table_options_menu_list = TableBlock(table_options={'contextMenu': []}).table_options
+        self.assertEqual(table_options_menu_list['contextMenu'], [])
+
+    def test_table_options_others(self):
+        """
+        Test simple options overrides get passed correctly.
+        """
+        block_1_opts = TableBlock(table_options={'startRows': 5, 'startCols': 2}).table_options
+        self.assertEqual(block_1_opts['startRows'], 5)
+        self.assertEqual(block_1_opts['startCols'], 2)
+
+        block_2_opts = TableBlock(table_options={'stretchH': 'none'}).table_options
+        self.assertEqual(block_2_opts['stretchH'], 'none')
+
+        # check value that is not part of the defaults
+        block_3_opts = TableBlock(table_options={'allowEmpty': False}).table_options
+        self.assertEqual(block_3_opts['allowEmpty'], False)
+
+
+    def test_tableblock_render_form(self):
+        """
+        Test the rendered form field generated by TableBlock.
+        """
+        block = TableBlock()
+        html = block.render_form(value=self.value)
+        self.assertIn('<script>initTable', html)
+        self.assertIn('<div class="field char_field widget-table_input">', html)
+        # check that options render in the init function
+        self.assertIn(json.dumps(block.table_options), html)

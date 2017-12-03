@@ -99,19 +99,7 @@ function initTable(id, tableOptions) {
         afterCreateRow: structureEvent,
         afterRemoveCol: structureEvent,
         afterRemoveRow: structureEvent,
-        contextMenu: [
-            'row_above',
-            'row_below',
-            '---------',
-            'col_left',
-            'col_right',
-            '---------',
-            'remove_row',
-            'remove_col',
-            '---------',
-            'undo',
-            'redo'
-        ]
+        // contextMenu set via init, from server defaults
     };
 
     if (dataForForm !== null && dataForForm.hasOwnProperty('data')) {
