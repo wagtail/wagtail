@@ -225,16 +225,16 @@ class TestFormat(TestCase):
 
 class TestSignatureGeneration(TestCase):
     def test_signature_generation(self):
-        self.assertEqual(generate_signature(100, 'fill-800x600'), b'xnZOzQyUg6pkfciqcfRJRosOrGg=')
+        self.assertEqual(generate_signature(100, 'fill-800x600'), 'xnZOzQyUg6pkfciqcfRJRosOrGg=')
 
     def test_signature_verification(self):
-        self.assertTrue(verify_signature(b'xnZOzQyUg6pkfciqcfRJRosOrGg=', 100, 'fill-800x600'))
+        self.assertTrue(verify_signature('xnZOzQyUg6pkfciqcfRJRosOrGg=', 100, 'fill-800x600'))
 
     def test_signature_changes_on_image_id(self):
-        self.assertFalse(verify_signature(b'xnZOzQyUg6pkfciqcfRJRosOrGg=', 200, 'fill-800x600'))
+        self.assertFalse(verify_signature('xnZOzQyUg6pkfciqcfRJRosOrGg=', 200, 'fill-800x600'))
 
     def test_signature_changes_on_filter_spec(self):
-        self.assertFalse(verify_signature(b'xnZOzQyUg6pkfciqcfRJRosOrGg=', 100, 'fill-800x700'))
+        self.assertFalse(verify_signature('xnZOzQyUg6pkfciqcfRJRosOrGg=', 100, 'fill-800x700'))
 
 
 class TestFrontendServeView(TestCase):
