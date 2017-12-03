@@ -21,7 +21,7 @@ except ImportError:
 
 
 install_requires = [
-    "Django>=1.11,<1.12",
+    "Django>=1.11,<2.1",
     "django-modelcluster>=3.1,<4.0",
     "django-taggit>=0.20,<1.0",
     "django-treebeard>=3.0,<5.0",
@@ -87,6 +87,7 @@ setup(
         'Programming Language :: Python :: 3.6',
         'Framework :: Django',
         'Framework :: Django :: 1.11',
+        'Framework :: Django :: 2.0',
         'Topic :: Internet :: WWW/HTTP :: Site Management',
     ],
     install_requires=install_requires,

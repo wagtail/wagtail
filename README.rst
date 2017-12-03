@@ -80,7 +80,7 @@ We thank `BrowserStack <https://www.browserstack.com/>`_, who provide the projec
 
 Compatibility
 ~~~~~~~~~~~~~
-Wagtail supports Django 1.11.x on Python 3.4, 3.5 and 3.6. Supported database backends are PostgreSQL, MySQL and SQLite.
+Wagtail supports Django 1.11.x and 2.0 on Python 3.4, 3.5 and 3.6. Supported database backends are PostgreSQL, MySQL and SQLite.
 
 Contributing
 ~~~~~~~~~~~~
