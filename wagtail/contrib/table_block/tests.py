@@ -1,10 +1,13 @@
 import json
 
 from django.test import SimpleTestCase, TestCase
+from django.urls import reverse
 from django.utils import translation
 from django.utils.html import escape
 
 from wagtail.contrib.table_block.blocks import DEFAULT_TABLE_OPTIONS, TableBlock
+from wagtail.core.models import Page
+from wagtail.tests.testapp.models import TableBlockStreamPage
 from wagtail.tests.utils import WagtailTestUtils
 
 
@@ -311,3 +314,49 @@ class TestTableBlockForm(WagtailTestUtils, SimpleTestCase):
         self.assertIn('<div class="field char_field widget-table_input">', html)
         # check that options render in the init function
         self.assertIn(json.dumps(block.table_options), html)
+
+    def test_searchable_content(self):
+        """
+        Test searchable content is created correctly.
+        """
+        block = TableBlock()
+        search_content = block.get_searchable_content(value=self.value)
+        self.assertIn('Galactica', search_content)
+        self.assertIn('Brenik', search_content)
+
+
+class TestTableBlockPageEdit(TestCase, WagtailTestUtils):
+    def setUp(self):
+        self.value = {
+            'first_row_is_table_header': True,
+            'first_col_is_header': True,
+            'data': [
+                ['Ship', 'Type', 'Status'],
+                ['Galactica', 'Battlestar', 'Active'],
+                ['Valkyrie', 'Battlestar', 'Destroyed'],
+                ['Cylon Basestar', 'Basestar', 'Active'],
+                ['Brenik', 'Small Military Vessel', 'Destroyed'],
+            ]
+        }
+        self.root_page = Page.objects.get(id=2)
+        table_block_page_instance = TableBlockStreamPage(
+            title='Ships',
+            table=json.dumps([{'type': 'table', 'value': self.value}])
+        )
+        self.table_block_page = self.root_page.add_child(instance=table_block_page_instance)
+        self.user = self.login()
+
+    def test_page_edit_page_view(self):
+        """
+        Test that edit page loads with saved table data and correct init function.
+        """
+        response = self.client.get(reverse('wagtailadmin_pages:edit', args=(self.table_block_page.id,)))
+        # check page + field renders
+        self.assertContains(response, '<div class="field char_field widget-table_input fieldname-table">')
+        # check data
+        self.assertContains(response, 'Battlestar')
+        self.assertContains(response, 'Galactica')
+        # check init
+        self.assertContains(response, 'initTable("table-0-value"')
+        self.assertContains(response, 'minSpareRows')
+        self.assertContains(response, 'startRows')
