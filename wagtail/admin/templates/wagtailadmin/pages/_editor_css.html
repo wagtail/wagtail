@@ -7,6 +7,6 @@
 <link rel="stylesheet" href="{% static 'wagtailadmin/css/layouts/page-editor.css' %}" type="text/css" />
 <link rel="stylesheet" href="{% static 'wagtailadmin/css/panels/rich-text.css' %}" type="text/css" />
 
-{% hook_output 'insert_editor_css' %}
+{% include "wagtailadmin/shared/hook_output.html" with name="insert_editor_css" %}
 
 {{ edit_handler.form.media.css }}

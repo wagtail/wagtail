@@ -1,0 +1,11 @@
+{% comment %}
+    The hook_output tag is used in a separate template include
+    in order to avoid issues related to Django suppressing exceptions.
+    This additional include will not be necessary starting with Django 2.1.
+    See https://github.com/wagtail/wagtail/issues/4080
+{% endcomment %}
+
+{% load wagtailadmin_tags %}
+
+<!-- hook_output {{ name }} -->
+{% hook_output name %}
