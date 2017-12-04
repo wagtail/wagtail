@@ -114,8 +114,9 @@ References to these module paths within your Wagtail project need to be updated 
 * Paths specified in settings, such as ``INSTALLED_APPS``, ``MIDDLEWARE`` and ``WAGTAILSEARCH_BACKENDS``
 * Fields and blocks referenced within migrations, such as ``wagtail.wagtailcore.fields.StreamField`` and ``wagtail.wagtailcore.blocks.RichTextBlock``
 
-However, app names that are *not* part of a dotted module path should be left unchanged - in this case, the ``wagtail`` prefix is still required to distinguish them from other apps that might exist in the project with names such as ``admin`` or ``images``. The following should be left unchanged:
+However, note that this only applies to dotted module paths beginning with ``wagtail.``. App names that are *not* part of a dotted module path should be left unchanged - in this case, the ``wagtail`` prefix is still required to avoid clashing with other apps that might exist in the project with names such as ``admin`` or ``images``. The following should be left unchanged:
 
+* Foreign keys specifying a model as ``'app_name.ModelName'``, e.g. ``models.ForeignKey('wagtailimages.Image',...)``
 * App labels used in database table names, content types or permissions
 * Paths to templates and static files, e.g. when :ref:`overriding admin templates with custom branding <custom_branding>`
 * Template tag library names, e.g. ``{% load wagtailcore_tags %}``
