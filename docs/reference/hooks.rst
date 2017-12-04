@@ -739,6 +739,8 @@ Buttons with dropdown lists
   This example shows how Wagtail's default admin dropdown is implemented. You can also see how to register buttons conditionally, in this case by evaluating the ``page_perms``:
 
   .. code-block:: python
+  
+    from wagtail.wagtailadmin import widgets as wagtailadmin_widgets
 
     @hooks.register('register_page_listing_buttons')
     def page_custom_listing_buttons(page, page_perms, is_parent=False):
@@ -754,11 +756,11 @@ Buttons with dropdown lists
     @hooks.register('my_button_dropdown_hook')
     def page_custom_listing_more_buttons(page, page_perms, is_parent=False):
         if page_perms.can_move():
-            yield Button('Move', reverse('wagtailadmin_pages:move', args=[page.id]), priority=10)
+            yield wagtailadmin_widgets.Button('Move', reverse('wagtailadmin_pages:move', args=[page.id]), priority=10)
         if page_perms.can_delete():
-            yield Button('Delete', reverse('wagtailadmin_pages:delete', args=[page.id]), priority=30)
+            yield wagtailadmin_widgets.Button('Delete', reverse('wagtailadmin_pages:delete', args=[page.id]), priority=30)
         if page_perms.can_unpublish():
-            yield Button('Unpublish', reverse('wagtailadmin_pages:unpublish', args=[page.id]), priority=40)
+            yield wagtailadmin_widgets.Button('Unpublish', reverse('wagtailadmin_pages:unpublish', args=[page.id]), priority=40)
 
 
 
