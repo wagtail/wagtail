@@ -84,7 +84,7 @@ class ModelStreamFieldsCollector:
             block_filter = Q(**{field.attname + '__regex': r'"(%s)"'
                                 % '|'.join({block.name for block in last_blocks})})
             value_filter = (
-                Q(**{field.attname + '__regex': r'[\[ \t\n:](%s)[\] \t\n,\}]'
+                Q(**{field.attname + '__regex': r'[[ \t\n:](%s)[] \t\n,}]'
                      % '|'.join(self.prepare_value(v)
                                 for v in searched_values)})
                 if searched_values else Q())
