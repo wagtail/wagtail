@@ -1,0 +1,34 @@
+html  {
+    background-color: #e6e6e6; /*$color-grey-4*/
+}
+
+body.wy-body-for-nav {
+    -webkit-font-smoothing: antialiased; /* Do not remove! */
+    font-family: Open Sans, Arial, sans-serif;
+    line-height: 1.5em;
+    color: #666; /*$color-text-base*/
+}
+
+div.wy-nav-side {
+    background-color: #333;  /*color-grey-1*/
+}
+
+div.wy-side-nav-search {
+    background-color: #43b1b0; /*color-teal*/
+}
+
+.wy-nav-top {
+    background-color: #43b1b0; /*color-teal*/
+}
+
+.wy-side-nav-search>a:hover, .wy-side-nav-search .wy-dropdown>a:hover {
+    background: None; /*background for logo*/
+}
+
+.wy-side-nav-search>div.version {
+    color: white;
+}
+
+.wy-side-nav-search input[type=text] {
+    border-color: #d9d9d9; /*color-grey-3*/
+}
