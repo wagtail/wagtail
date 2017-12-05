@@ -3,7 +3,7 @@
 // Give each block element eg. paragraph some spacing so we don't end up
 // with empty paragraphs in code when user double enters because they think
 // there are no paragraphs.
-div[data-block="true"] {
+div[data-block='true'] {
     margin: 0.75rem 0;
 }
 

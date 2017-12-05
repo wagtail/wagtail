@@ -1,6 +1,7 @@
 import ModalSource from './ModalSource';
 
 const $ = global.jQuery;
+const ModalWorkflow = global.ModalWorkflow;
 
 // Plaster over Wagtail internals.
 const buildInitialUrl = (entity, openAtParentId, canChooseRoot, pageTypes) => {
@@ -87,7 +88,8 @@ class LinkSource extends ModalSource {
 
     $(document.body).on('hidden.bs.modal', this.onClose);
 
-    global.ModalWorkflow({
+    // eslint-disable-next-line new-cap
+    ModalWorkflow({
       url,
       urlParams,
       responses: {
