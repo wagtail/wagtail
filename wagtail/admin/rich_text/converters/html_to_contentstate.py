@@ -58,7 +58,6 @@ class BlockElementHandler(object):
         self.block_type = block_type
 
     def create_block(self, name, attrs, state, contentstate):
-        assert state.current_block is None, "%s element found nested inside another block" % name
         return Block(self.block_type, depth=state.list_depth)
 
     def handle_starttag(self, name, attrs, state, contentstate):
@@ -248,7 +247,14 @@ class HtmlToContentStateHandler(HTMLParser):
 
     def handle_data(self, content):
         if self.state.current_block is None:
-            assert not content.strip(), "Bare text content found at the top level: %r" % content
+            content = content.strip()
+            if content:
+                # create a new paragraph block for this content
+                block = Block('unstyled', depth=self.state.list_depth)
+                self.contentstate.blocks.append(block)
+                self.state.current_block = block
+            else:
+                # ignore top-level whitespace
+                return
 
-        else:
-            self.state.current_block.text += content
+        self.state.current_block.text += content

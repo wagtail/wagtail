@@ -53,6 +53,7 @@ class TestHtmlToContentState(TestCase):
         result = json.loads(converter.from_database_format(
             '''
             <foo>Hello world!</foo>
+            <foo>I said hello world!</foo>
             <p>Goodbye world!</p>
             '''
         ))
@@ -60,6 +61,29 @@ class TestHtmlToContentState(TestCase):
             'entityMap': {},
             'blocks': [
                 {'inlineStyleRanges': [], 'text': 'Hello world!', 'depth': 0, 'type': 'unstyled', 'key': '00000', 'entityRanges': []},
+                {'inlineStyleRanges': [], 'text': 'I said hello world!', 'depth': 0, 'type': 'unstyled', 'key': '00000', 'entityRanges': []},
                 {'inlineStyleRanges': [], 'text': 'Goodbye world!', 'depth': 0, 'type': 'unstyled', 'key': '00000', 'entityRanges': []},
+            ]
+        })
+
+    def test_bare_text_becomes_paragraph(self):
+        converter = ContentstateConverter(features=[])
+        result = json.loads(converter.from_database_format(
+            '''
+            before
+            <p>paragraph</p>
+            between
+            <p>paragraph</p>
+            after
+            '''
+        ))
+        self.assertContentStateEqual(result, {
+            'entityMap': {},
+            'blocks': [
+                {'inlineStyleRanges': [], 'text': 'before', 'depth': 0, 'type': 'unstyled', 'key': '00000', 'entityRanges': []},
+                {'inlineStyleRanges': [], 'text': 'paragraph', 'depth': 0, 'type': 'unstyled', 'key': '00000', 'entityRanges': []},
+                {'inlineStyleRanges': [], 'text': 'between', 'depth': 0, 'type': 'unstyled', 'key': '00000', 'entityRanges': []},
+                {'inlineStyleRanges': [], 'text': 'paragraph', 'depth': 0, 'type': 'unstyled', 'key': '00000', 'entityRanges': []},
+                {'inlineStyleRanges': [], 'text': 'after', 'depth': 0, 'type': 'unstyled', 'key': '00000', 'entityRanges': []},
             ]
         })
