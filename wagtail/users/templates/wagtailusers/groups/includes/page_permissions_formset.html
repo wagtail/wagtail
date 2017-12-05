@@ -12,11 +12,13 @@
 {% endif %}
 
 <table class="listing page-permissions-listing">
-    <col />
-    {% for i in formset.permission_types %}
-        <col width="15%" />
-    {% endfor %}
-    <col />
+    <colgroup>
+        <col />
+        {% for i in formset.permission_types %}
+            <col width="15%" />
+        {% endfor %}
+        <col />
+    </colgroup>
     <thead>
         <tr>
             <th>{% trans "Page" %}</th>

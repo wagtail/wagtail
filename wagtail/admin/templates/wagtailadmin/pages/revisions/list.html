@@ -2,8 +2,9 @@
 {% load l10n %}
 
 <table class="listing">
-    <col width="100%" />
-
+    <colgroup>
+        <col width="100%" />
+    </colgroup>
     <thead>
         <tr>
             <th><a href="{% url 'wagtailadmin_pages:revisions_index' page.id %}?ordering={% if ordering == "created_at" %}-{% endif %}created_at" class="icon icon-arrow-{% if ordering == "created_at" %}up-after{% elif ordering == "-created_at" %}down-after{% else %}down-after{% endif %} {% if ordering == "created_at" or ordering == "-created_at" %}teal{% endif %}">{% trans 'Revision date' %}</a></th>

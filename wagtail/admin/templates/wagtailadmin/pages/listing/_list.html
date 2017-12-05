@@ -2,17 +2,19 @@
 {% load l10n %}
 {% load wagtailadmin_tags %}
 <table class="listing {% if full_width %}full-width{% endif %} {% block table_classname %}{% endblock %}">
-    {% if show_ordering_column %}
-        <col width="65px" />
-    {% endif %}
-    <col />
-    {% if show_parent %}
+    <colgroup>
+        {% if show_ordering_column %}
+            <col width="65px" />
+        {% endif %}
         <col />
-    {% endif %}
-    <col width="12%" />
-    <col width="12%" />
-    <col width="12%" />
-    <col width="10%" />
+        {% if show_parent %}
+            <col />
+        {% endif %}
+        <col width="12%" />
+        <col width="12%" />
+        <col width="12%" />
+        <col width="10%" />
+    </colgroup>
     <thead>
         {% block pre_parent_page_headers %}
         {% endblock %}
