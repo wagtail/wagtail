@@ -69,6 +69,8 @@
     "webpack": "^3.10.0"
   },
   "dependencies": {
+    "draft-js": "^0.10.4",
+    "draftail": "^0.9.1",
     "focus-trap-react": "^3.1.0",
     "lodash": "^4.17.4",
     "object-assign": "^4.1.1",
