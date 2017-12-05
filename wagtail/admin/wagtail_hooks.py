@@ -9,9 +9,10 @@ from wagtail.admin.rich_text import (
 from wagtail.admin.search import SearchArea
 from wagtail.admin.utils import user_has_any_page_permission
 from wagtail.admin.viewsets import viewsets
-from wagtail.admin.widgets import Button, ButtonWithDropdownFromHook, PageListingButton
+from wagtail.admin.widgets import (
+    Button, ButtonWithDropdownFromHook, CollectionListingButton, PageListingButton)
 from wagtail.core import hooks
-from wagtail.core.permissions import collection_permission_policy
+from wagtail.core.models import UserCollectionPermissionsProxy
 
 
 class ExplorerMenuItem(MenuItem):
@@ -73,14 +74,46 @@ def register_pages_search_area():
 
 class CollectionsMenuItem(MenuItem):
     def is_shown(self, request):
-        return collection_permission_policy.user_has_any_permission(
-            request.user, ['add', 'change', 'delete']
+        collection_perms = UserCollectionPermissionsProxy(request.user)
+        return (
+            collection_perms.can_add_child_collections() or
+            collection_perms.can_bulk_delete_collections() or
+            collection_perms.can_edit_collections()
         )
 
 
 @hooks.register('register_settings_menu_item')
 def register_collections_menu_item():
     return CollectionsMenuItem(_('Collections'), reverse('wagtailadmin_collections:index'), classnames='icon icon-folder-open-1', order=700)
+
+
+@hooks.register('register_collection_listing_buttons')
+def collection_listing_buttons(collection, collection_perms, is_parent=False):
+    if collection_perms.can_edit():
+        yield CollectionListingButton(
+            _('Edit'),
+            reverse('wagtailadmin_collections:edit', args=(collection.pk, )),
+            attrs={'title': _("Edit '{name}'").format(name=collection.name)},
+            priority=10,
+        )
+    if collection_perms.can_add():
+        add_child_button = CollectionListingButton(
+            _('Add Child'),
+            reverse('wagtailadmin_collections:add_child', args=(collection.pk, )),
+            attrs={'title': _("Add child collection to '{name}'").format(name=collection.name)},
+            priority=20,
+        )
+        if is_parent:
+            add_child_button.classes = {'button', 'button-small', 'bicolor', 'icon', 'white', 'icon-plus'}
+        yield add_child_button
+    if collection_perms.can_delete():
+        yield CollectionListingButton(
+            _('Delete'),
+            reverse('wagtailadmin_collections:delete', args=(collection.pk,)),
+            attrs={'title': _("Delete '{name}'").format(name=collection.name)},
+            classes={'button', 'button-secondary', 'button-small', 'no'},
+            priority=40,
+        )
 
 
 @hooks.register('register_page_listing_buttons')
