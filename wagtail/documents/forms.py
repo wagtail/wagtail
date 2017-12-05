@@ -27,6 +27,7 @@ def get_document_form(model):
         form=BaseDocumentForm,
         fields=fields,
         widgets={
+            'collection': widgets.AdminCollectionWidget,
             'tags': widgets.AdminTagWidget,
             'file': forms.FileInput()
         })
@@ -38,6 +39,7 @@ def get_document_multi_form(model):
         form=BaseDocumentForm,
         fields=['title', 'collection', 'tags'],
         widgets={
+            'collection': widgets.AdminCollectionWidget,
             'tags': widgets.AdminTagWidget,
             'file': forms.FileInput()
         })
