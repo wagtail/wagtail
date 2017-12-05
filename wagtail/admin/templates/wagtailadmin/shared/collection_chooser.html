@@ -1,19 +1,26 @@
 {% load i18n %}
 {% load l10n %}
 
+{% if not enable_widget_mode %}
 <li>
     <div class="field choice_field select">
-        <label for="collection_chooser_collection_id">{% trans "Collection" %}:</label>
+        <label for="collection_chooser_collection_id">{% trans label %}:</label>
         <div class="field-content">
             <div class="input">
-                <select id="collection_chooser_collection_id" name="collection_id">
-                    <option value="">{% trans "All collections" %}</option>
-                    {% for collection in collections %}
-                        <option value="{{ collection.id|unlocalize }}" {% if collection == current_collection %}selected="selected"{% endif %}>{{ collection.name }}</option>
+{% endif %}
+                <select id="collection_chooser_collection_id" name="{{ field_name }}">
+                    {% if show_all_collections %}
+                        <option value="">{% trans "All collections" %}</option>
+                    {% endif %}
+                    {% for collection_id, collection_name in collection_choices %}
+                        <option value="{{ collection_id|unlocalize }}" {% if collection_id == selected_collection %}selected="selected"{% endif %}>{{ collection_name }}</option>
                     {% endfor %}
                 </select>
                 <span></span>
+
+{% if not enable_widget_mode %}
             </div>
         </div>
     </div>
 </li>
+{% endif %}

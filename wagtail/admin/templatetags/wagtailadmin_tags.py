@@ -11,11 +11,12 @@ from django.utils.safestring import mark_safe
 
 from wagtail.utils.pagination import DEFAULT_PAGE_KEY, replace_page_in_query
 from wagtail.admin.menu import admin_menu
-from wagtail.admin.navigation import get_explorable_root_page
+from wagtail.admin.navigation import get_explorable_root_page, get_explorable_root_collection
 from wagtail.admin.search import admin_search_areas
 from wagtail.core import hooks
 from wagtail.core.models import (
-    CollectionViewRestriction, Page, PageViewRestriction, UserPagePermissionsProxy)
+    Collection, CollectionViewRestriction, Page, PageViewRestriction, UserCollectionPermissionsProxy,
+    UserPagePermissionsProxy)
 from wagtail.core.utils import cautious_slugify as _cautious_slugify
 from wagtail.core.utils import camelcase_to_underscore, escape_script
 
@@ -60,6 +61,21 @@ def explorer_breadcrumb(context, page, include_self=False):
 
     return {
         'pages': page.get_ancestors(inclusive=include_self).descendant_of(cca, inclusive=True)
+    }
+
+
+@register.inclusion_tag('wagtailadmin/collections/breadcrumb.html', takes_context=True)
+def collection_breadcrumb(context, collection, include_self=False):
+    user = context['request'].user
+
+    # find the closest common ancestor of the collections that this user has direct explore permission
+    # (i.e. add/edit/publish/lock) over; this will be the root of the breadcrumb
+    cca = get_explorable_root_collection(user)
+    if not cca:
+        return {'collections': Collection.objects.none()}
+
+    return {
+        'collections': collection.get_ancestors(inclusive=include_self).descendant_of(cca, inclusive=True)
     }
 
 
@@ -124,6 +140,22 @@ def page_permissions(context, page):
 
     # Now retrieve a PagePermissionTester from it, specific to the given page
     return context['user_page_permissions'].for_page(page)
+
+
+@register.simple_tag(takes_context=True)
+def collection_permissions(context, collection):
+    """
+    Usage: {% collection_permissions collection as collection_perms %}
+    Sets the variable 'collection_perms' to a CollectionPermissionTester object that can be queried to find out
+    what actions the current logged-in user can perform on the given collection.
+    """
+    # Create a UserCollectionPermissionsProxy object to represent the user's global permissions, and
+    # cache it in the context for the duration of the page request, if one does not exist already
+    if 'user_collection_permissions' not in context:
+        context['user_collection_permissions'] = UserCollectionPermissionsProxy(context['request'].user)
+
+    # Now retrieve a CollectionPermissionTester from it, specific to the given collection
+    return context['user_collection_permissions'].for_collection(collection)
 
 
 @register.simple_tag(takes_context=True)
@@ -341,6 +373,17 @@ def page_listing_buttons(context, page, page_perms, is_parent=False):
     return {'page': page, 'buttons': buttons}
 
 
+@register.inclusion_tag("wagtailadmin/pages/listing/_buttons.html",
+                        takes_context=True)
+def collection_listing_buttons(context, collection, is_parent=False):
+    button_hooks = hooks.get_hooks('register_collection_listing_buttons')
+    collection_perms = collection.permissions_for_user(context['request'].user)
+    buttons = sorted(itertools.chain.from_iterable(
+        hook(collection, collection_perms, is_parent)
+        for hook in button_hooks))
+    return {'collection': collection, 'buttons': buttons}
+
+
 @register.simple_tag
 def message_tags(message):
     level_tag = MESSAGE_TAGS.get(message.level)
@@ -365,3 +408,60 @@ def replace_page_param(query, page_number, page_key='p'):
 @register.filter('abs')
 def _abs(val):
     return abs(val)
+
+
+@register.inclusion_tag('wagtailadmin/shared/collection_chooser.html', takes_context=True)
+def collection_chooser(context, collections, label='Collection', selected_collection=None, show_all_collections=True,
+                       field_name='collection_id', enable_widget_mode=False):
+    """
+    Render the select field for choosing a collection. Represents the hierarchy by prefixing the names with `--`.
+
+    Takes the following params:
+
+    collections
+        The iterable of collections that should be displayed to the user.
+
+    label
+        The label that should be shown next to the select field.
+
+    selected_collection
+        The primary key of the collection that should be used as the selected value.
+
+    show_all_collections
+        Whether or not the "All collections" option should be shown.
+
+    field_name
+        The value to use for the `name` attribute on the collection field.
+
+    enable_widget_mode
+        Used when rendering the collection options from the collection admin widget. When True, the label
+        and html surrounding the select field will be removed.
+
+    """
+    choices = []
+    for collection in collections:
+        name_prefix = ''
+        if collection.depth > 1:
+            name_prefix = '--' * (collection.depth - 1)
+        collection_name = '{depth_marks} {name}'.format(depth_marks=name_prefix, name=collection.name)
+        choices.append((collection.pk, collection_name))
+
+    # Attempt to convert selected_collection to an int
+    if selected_collection is not None and not isinstance(selected_collection, int):
+        if not isinstance(selected_collection, str) and len(selected_collection) == 1:
+            selected_collection = selected_collection[0]
+
+        try:
+            selected_collection = int(selected_collection)
+        except ValueError:
+            pass
+
+    context.update({
+        'collection_choices': choices,
+        'selected_collection': selected_collection,
+        'label': label,
+        'show_all_collections': show_all_collections,
+        'field_name': field_name,
+        'enable_widget_mode': enable_widget_mode,
+    })
+    return context

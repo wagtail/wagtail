@@ -1,0 +1,39 @@
+{% load i18n wagtailadmin_tags %}
+
+<div>
+    {% if collections %}
+        <table class="{% block table_classes %}listing full-width{% endblock %}">
+            <thead>
+                <tr class="table-headers">
+                    <th class="title">
+                        {% trans "Name" %}
+                    </th>
+                    <th></th>
+                </tr>
+                {% block after_table_header %}{% endblock %}
+            </thead>
+            <tbody>
+                {% block content_before_list %}{% endblock %}
+                {% for collection in collections %}
+                    <tr class="{% block collection_row_classname %}{% endblock %}">
+                        <td class="title">
+                            <h2>
+                                {% block listing_title %}
+                                    {{ collection }}
+                                {% endblock %}
+                            </h2>
+                            {% block after_listing_title %}
+                            {% endblock %}
+                        </td>
+                        {% block collection_navigation %}
+                        {% endblock %}
+                    </tr>
+                {% endfor %}
+                {% block content_after_list %}{% endblock %}
+            </tbody>
+        </table>
+    {% else %}
+        {% url 'wagtailadmin_collections:add' parent_collection.pk as add_collection_url %}
+        <p class="no-results-message">{% blocktrans %}No collections have been created. Why not <a href="{{ add_collection_url }}">add one</a>?{% endblocktrans %}</p>
+    {% endif %}
+</div>
