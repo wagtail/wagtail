@@ -1,0 +1,29 @@
+@import '../../../../node_modules/draftail/dist/draftail';
+
+// Give each block element eg. paragraph some spacing so we don't end up
+// with empty paragraphs in code when user double enters because they think
+// there are no paragraphs.
+div[data-block="true"] {
+    margin: 0.75rem 0;
+}
+
+/* Override Wagtail styles. */
+.DraftEditor-editorContainer h2 {
+    text-transform: none;
+}
+
+/* Override Wagtail styles. */
+.DraftEditor-editorContainer h3,
+.DraftEditor-editorContainer h4,
+.DraftEditor-editorContainer h5,
+.DraftEditor-editorContainer h6 {
+    font-weight: bold;
+}
+
+/* Get rid of cray number 6 that appears above h2 elements in draft editor. */
+.object.collapsible .DraftEditor-editorContainer h2:before,
+.object.collapsible .DraftEditor-editorContainer h2 label:before {
+    // TODO Assess whether !important is necessary.
+    // stylelint-disable declaration-no-important
+    content: none !important;
+}

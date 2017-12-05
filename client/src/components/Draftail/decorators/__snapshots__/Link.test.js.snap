@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Link renders 1`] = `
+<span
+  className="RichEditor-link"
+  data-tooltip="1"
+>
+  <Icon
+    className=""
+    name="icon-link"
+    title={null}
+  />
+  <span>
+    Test children
+  </span>
+</span>
+`;
+
+exports[`Link renders email 1`] = `
+<span
+  className="RichEditor-link"
+  data-tooltip="2"
+>
+  <Icon
+    className=""
+    name="icon-mail"
+    title={null}
+  />
+  <span>
+    Test children
+  </span>
+</span>
+`;
