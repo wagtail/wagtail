@@ -5,9 +5,10 @@ from django.forms import Media, widgets
 from wagtail.admin.edit_handlers import RichTextFieldPanel
 from wagtail.admin.rich_text.converters.contentstate import ContentstateConverter
 from wagtail.core.rich_text import features
+from wagtail.utils.widgets import WidgetWithScript
 
 
-class DraftailRichTextArea(widgets.Textarea):
+class DraftailRichTextArea(WidgetWithScript, widgets.Textarea):
     # this class's constructor accepts a 'features' kwarg
     accepts_features = True
 
@@ -47,5 +48,5 @@ class DraftailRichTextArea(widgets.Textarea):
         return Media(js=[
             'wagtailadmin/js/draftail.js',
         ], css={
-            'all': ['wagtailadmin/css/panels/dratail.css']
+            'all': ['wagtailadmin/css/panels/draftail.css']
         })

@@ -16,7 +16,7 @@ export const initEditor = (fieldName, options = {}) => {
     field.value = JSON.stringify(rawContentState || {});
   };
 
-  if (options.entityTypes) {
+  if (options && options.entityTypes) {
     // eslint-disable-next-line no-param-reassign
     options.entityTypes = options.entityTypes.map(entity => Object.assign(entity, {
       source: registry.getSource(entity.source),
