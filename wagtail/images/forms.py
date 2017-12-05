@@ -44,6 +44,7 @@ def get_image_form(model):
         # so that when editing, we don't get the 'currently: ...' banner which is
         # a bit pointless here
         widgets={
+            'collection': widgets.AdminCollectionWidget,
             'tags': widgets.AdminTagWidget,
             'file': forms.FileInput(),
             'focal_point_x': forms.HiddenInput(attrs={'class': 'focal_point_x'}),

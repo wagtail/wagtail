@@ -3,6 +3,7 @@
 {% load l10n %}
 {% load staticfiles %}
 {% load wagtailimages_tags %}
+{% load wagtailadmin_tags %}
 {% block titletag %}{% trans "Add multiple images" %}{% endblock %}
 {% block extra_css %}
     {{ block.super }}
@@ -26,16 +27,7 @@
                 </div>
                 {% csrf_token %}
                 {% if collections %}
-                    <div class="field">
-                        <label for="id_addimage_collection">{% trans "Add to collection:" %}</label>
-                        <div class="field-content">
-                            <select id="id_addimage_collection" name="collection">
-                                {% for collection in collections %}
-                                    <option value="{{ collection.id|unlocalize }}">{{ collection.name }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                    </div>
+                    {% collection_chooser collections label="Add to collection" show_all_collections=False field_name='collection' %}
                 {% endif %}
             </form>
         </div>
