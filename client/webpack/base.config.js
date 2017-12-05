@@ -20,6 +20,7 @@ module.exports = function exports() {
   };
 
   entry[getOutputPath('admin', 'wagtailadmin')] = getEntryPath('admin', 'wagtailadmin.entry.js');
+  entry[getOutputPath('admin', 'draftail')] = getEntryPath('admin', 'draftail.entry.js');
 
   return {
     entry: entry,
