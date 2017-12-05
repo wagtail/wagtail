@@ -235,15 +235,10 @@ class TestTableBlockForm(WagtailTestUtils, SimpleTestCase):
         # check that default_table_options used on self
         self.assertEqual(self.default_table_options, block.table_options)
         # check a few individual keys from DEFAULT_TABLE_OPTIONS
-        self.assertEqual(DEFAULT_TABLE_OPTIONS['startRows'], block.get_table_options()['startRows'])
         self.assertEqual(DEFAULT_TABLE_OPTIONS['startRows'], block.table_options['startRows'])
-        self.assertEqual(DEFAULT_TABLE_OPTIONS['colHeaders'], block.get_table_options()['colHeaders'])
         self.assertEqual(DEFAULT_TABLE_OPTIONS['colHeaders'], block.table_options['colHeaders'])
-        self.assertEqual(DEFAULT_TABLE_OPTIONS['contextMenu'], block.get_table_options()['contextMenu'])
         self.assertEqual(DEFAULT_TABLE_OPTIONS['contextMenu'], block.table_options['contextMenu'])
-        self.assertEqual(DEFAULT_TABLE_OPTIONS['colHeaders'], block.get_table_options()['colHeaders'])
-        self.assertEqual(DEFAULT_TABLE_OPTIONS['colHeaders'], block.table_options['colHeaders'])
-        self.assertEqual(DEFAULT_TABLE_OPTIONS['stretchH'], block.get_table_options()['stretchH'])
+        self.assertEqual(DEFAULT_TABLE_OPTIONS['editor'], block.table_options['editor'])
         self.assertEqual(DEFAULT_TABLE_OPTIONS['stretchH'], block.table_options['stretchH'])
 
     def test_table_options_language(self):
@@ -313,7 +308,9 @@ class TestTableBlockForm(WagtailTestUtils, SimpleTestCase):
         self.assertIn('<script>initTable', html)
         self.assertIn('<div class="field char_field widget-table_input">', html)
         # check that options render in the init function
-        self.assertIn(json.dumps(block.table_options), html)
+        self.assertIn('"editor": "text"', html)
+        self.assertIn('"autoColumnSize": false', html)
+        self.assertIn('"stretchH": "all"', html)
 
     def test_searchable_content(self):
         """
