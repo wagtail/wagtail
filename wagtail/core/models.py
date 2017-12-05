@@ -1957,9 +1957,206 @@ class Collection(MP_Node):
         """Return a query set of all collection view restrictions that apply to this collection"""
         return CollectionViewRestriction.objects.filter(collection__in=self.get_ancestors(inclusive=True))
 
+    def permissions_for_user(self, user):
+        """Get a `CollectionPermissionTester` instance for the user and the current collection instance."""
+        return UserCollectionPermissionsProxy(user).for_collection(self)
+
     class Meta:
         verbose_name = _('collection')
         verbose_name_plural = _('collections')
+
+
+COLLECTION_PERMISSION_TYPES = [
+    ('add', _("Add"), _("Add/edit collections you own")),
+    ('edit', _("Edit"), _("Edit any collection")),
+    ('bulk_delete', _("Bulk delete"), _("Delete collections with children")),
+]
+
+COLLECTION_PERMISSION_TYPE_CHOICES = [
+    (identifier, long_label)
+    for identifier, short_label, long_label in COLLECTION_PERMISSION_TYPES
+]
+
+
+class GroupCollectionManagementPermission(models.Model):
+    group = models.ForeignKey(
+        Group,
+        verbose_name=_('group'),
+        related_name='collection_manage_permissions',
+        on_delete=models.CASCADE
+    )
+    collection = models.ForeignKey(
+        'Collection',
+        verbose_name=_('page'),
+        related_name='group_manage_permissions',
+        on_delete=models.CASCADE
+    )
+    permission_type = models.CharField(
+        verbose_name=_('permission type'),
+        max_length=20,
+        choices=COLLECTION_PERMISSION_TYPE_CHOICES
+    )
+
+    class Meta:
+        unique_together = ('group', 'collection', 'permission_type')
+        verbose_name = _('group manage collection permission')
+        verbose_name_plural = _('group manage collection permissions')
+
+    def __str__(self):
+        return "Group %d ('%s') has permission '%s' on collection %d ('%s')" % (
+            self.group.id, self.group,
+            self.permission_type,
+            self.collection.id, self.collection
+        )
+
+
+class UserCollectionPermissionsProxy(object):
+    def __init__(self, user):
+        self.user = user
+
+        if user.is_active and not user.is_superuser:
+            self.permissions = GroupCollectionManagementPermission.objects.filter(
+                group__user=self.user
+            ).select_related('collection')
+
+    def for_collection(self, collection):
+        """Return a CollectionPermissionTester object that can be used to query whether this user has
+        permission to perform specific tasks on the given collection"""
+        return CollectionPermissionTester(self, collection)
+
+    def editable_collections(self):
+        """Return a queryset of the collections that this user has permission to edit."""
+        # Deal with the trivial cases first...
+        if not self.user.is_active:
+            return Collection.objects.none()
+        if self.user.is_superuser:
+            return Collection.objects.all()
+
+        editable_pages = Collection.objects.none()
+
+        for perm in self.permissions.filter(permission_type='edit'):
+            # user has edit permission on any subpage of perm.page
+            # (including perm.page itself) regardless of owner
+            editable_pages |= Collection.objects.descendant_of(perm.collection, inclusive=True)
+
+        return editable_pages
+
+    def addable_collections(self):
+        """Return a queryset of the collections that this user has permission to add children collections to."""
+        if not self.user.is_active:
+            return Collection.objects.none()
+        if self.user.is_superuser:
+            return Collection.objects.all()
+
+        addable_collections = Collection.objects.none()
+
+        for perm in self.permissions.filter(permission_type='add'):
+            addable_collections |= Collection.objects.descendant_of(perm.collection, inclusive=True)
+
+        return addable_collections
+
+    def bulk_deletable_collections(self):
+        """Return a queryset of the collections that this user has permission to bulk delete."""
+        if not self.user.is_active:
+            return Collection.objects.none()
+        if self.user.is_superuser:
+            return Collection.objects.all()
+
+        deletable_collections = Collection.objects.none()
+
+        for perm in self.permissions.filter(permission_type='bulk_delete'):
+            deletable_collections |= Collection.objects.descendant_of(perm.collection, inclusive=True)
+
+        return deletable_collections
+
+    def can_edit_collections(self):
+        """Return True if the user has permission to edit any collections"""
+        return self.editable_collections().exists()
+
+    def can_add_child_collections(self):
+        """Return True if the user has permission to add children collections to any collection."""
+        return self.addable_collections().exists()
+
+    def can_bulk_delete_collections(self):
+        """Return True if the user has permission to bulk delete any collections."""
+        return self.bulk_deletable_collections().exists()
+
+
+class CollectionPermissionTester(object):
+    """Helper object to check the permissions that a User has on a particular Collection."""
+
+    def __init__(self, user_perms, collection):
+        self.user_perms = user_perms
+        self.user = user_perms.user
+        self.collection = collection
+        if self.user.is_active and not self.user.is_superuser:
+            group_permission = GroupCollectionManagementPermission.objects.filter(
+                group__user=self.user
+            ).select_related('collection')
+            self.permissions = set(
+                perm.permission_type for perm in group_permission
+                if self.collection.path.startswith(perm.collection.path)
+            )
+
+    def can_add(self):
+        if not self.user.is_active:
+            return False
+        return self.user.is_superuser or ('add' in self.permissions)
+
+    def can_edit(self):
+        if not self.user.is_active:
+            return False
+
+        # Don't allow the root collection to be edited
+        if self.collection.is_root():
+            return False
+
+        return self.user.is_superuser or ('edit' in self.permissions)
+
+    def can_delete(self):
+        if not self.user.is_active:
+            return False
+
+        # Don't allow the root collection to be deleted
+        if self.collection.is_root():
+            return False
+
+        if self.user.is_superuser:
+            return True
+
+        if 'bulk_delete' in self.permissions:
+            return True
+
+        # if the user does not have bulk_delete permission, they may only delete leaf collections
+        if not self.collection.is_leaf():
+            return False
+
+        # Allow anyone with add/edit permissions to delete collections that are leaf nodes
+        return self.can_add() or self.can_edit()
+
+    def can_move(self):
+        # If the user can delete the collection then they can move it this means that in order
+        # for a parent collection to be moved a long with its children, the user must
+        # have the `bulk_delete` permission.
+        return self.can_delete()
+
+    def can_move_to(self, destination):
+        if self.collection == destination or destination.is_descendant_of(self.collection):
+            return False
+
+        if not self.user.is_active:
+            return False
+        if self.user.is_superuser:
+            return True
+
+        # check that the collection can be moved at all
+        if not self.can_move():
+            return False
+
+        # Make sure the user has `add` permissions on the destination collection
+        destination_perms = self.user_perms.for_collection(destination)
+
+        return 'add' in destination_perms.permissions
 
 
 def get_root_collection_id():
