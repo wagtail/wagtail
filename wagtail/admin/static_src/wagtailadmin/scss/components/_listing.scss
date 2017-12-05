@@ -714,3 +714,69 @@ table.listing {
 
     }
 }
+
+.collection-explorer {
+
+    header {
+        .breadcrumb {
+            margin-left: 0;
+        }
+    }
+
+    .listing {
+        .index {
+            background: $color-teal;
+            padding-left: 25px;
+            padding-top: 0.83em;
+
+            h2 {
+                color: $color-white;
+                font-size: 1.8em;
+                font-weight: 500;
+
+                a {
+                    color: $color-white;
+                }
+
+                a:hover {
+                    color: $color-white;
+                }
+            }
+
+            .actions {
+                padding-bottom: 1.5em;
+            }
+
+            .button {
+                background-color: transparent;
+                color: $color-white;
+                border-color: $color-teal-darker;
+
+                &:hover {
+                    color: $color-white;
+                    background: $color-teal-darker;
+                }
+
+                &.bicolor {
+                    background: $color-teal-darker;
+                }
+            }
+        }
+
+        .no-results-message {
+            padding: 1.2em 1em;
+        }
+
+        .children {
+            width: 12em;
+        }
+
+        .title {
+            h2 {
+                a::before {
+                    padding-right: 0.7em;
+                }
+            }
+        }
+    }
+}
