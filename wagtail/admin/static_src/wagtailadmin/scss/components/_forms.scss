@@ -1190,7 +1190,8 @@ button {
         }
 
         // Horrid specificity war
-        .model_choice_field.select & {
+        .model_choice_field.select &,
+        .model_choice_field.admin_collection_widget & {
             padding-top: 1.2em;
         }
     }
