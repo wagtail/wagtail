@@ -384,7 +384,10 @@ def specific_iterator(qs):
 
     # Yield all of the pages, in the order they occurred in the original query.
     for pk, content_type in pks_and_types:
-        yield pages_by_type[content_type][pk]
+        try:
+            yield pages_by_type[content_type][pk]
+        except KeyError:
+            continue
 
 
 # Django 1.9 changed how extending QuerySets with different iterators behaved
