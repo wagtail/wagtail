@@ -10,7 +10,7 @@ class HandlerState(object):
         self.current_block = None
         self.current_inline_styles = []
         self.current_entity_ranges = []
-        self.depth = 0
+        self.list_depth = 0
         self.list_item_type = None
         self.pushed_states = []
 
@@ -19,7 +19,7 @@ class HandlerState(object):
             'current_block': self.current_block,
             'current_inline_styles': self.current_inline_styles,
             'current_entity_ranges': self.current_entity_ranges,
-            'depth': self.depth,
+            'list_depth': self.list_depth,
             'list_item_type': self.list_item_type
         })
 
@@ -28,7 +28,7 @@ class HandlerState(object):
         self.current_block = last_state['current_block']
         self.current_inline_styles = last_state['current_inline_styles']
         self.current_entity_ranges = last_state['current_entity_ranges']
-        self.depth = last_state['depth']
+        self.list_depth = last_state['list_depth']
         self.list_item_type = last_state['list_item_type']
 
 
@@ -45,7 +45,7 @@ class ListElementHandler(object):
             pass
         else:
             # start the next nesting level
-            state.depth += 1
+            state.list_depth += 1
 
         state.list_item_type = self.list_item_type
 
@@ -59,7 +59,7 @@ class BlockElementHandler(object):
 
     def create_block(self, name, attrs, state, contentstate):
         assert state.current_block is None, "%s element found nested inside another block" % name
-        return Block(self.block_type, depth=state.depth)
+        return Block(self.block_type, depth=state.list_depth)
 
     def handle_starttag(self, name, attrs, state, contentstate):
         block = self.create_block(name, dict(attrs), state, contentstate)
@@ -80,7 +80,7 @@ class ListItemElementHandler(BlockElementHandler):
 
     def create_block(self, name, attrs, state, contentstate):
         assert state.list_item_type is not None, "%s element found outside of an enclosing list element" % name
-        return Block(state.list_item_type, depth=state.depth)
+        return Block(state.list_item_type, depth=state.list_depth)
 
 
 class InlineStyleElementHandler(object):
@@ -131,7 +131,7 @@ class AtomicBlockEntityElementHandler(object):
         entity = self.create_entity(name, dict(attrs), state, contentstate)
         key = contentstate.add_entity(entity)
 
-        block = Block('atomic', depth=state.depth)
+        block = Block('atomic', depth=state.list_depth)
         contentstate.blocks.append(block)
         block.text = ' '
         entity_range = EntityRange(key)
@@ -208,6 +208,7 @@ class HtmlToContentStateHandler(HTMLParser):
     def reset(self):
         self.state = HandlerState()
         self.contentstate = ContentState()
+        self.element_depth = 0  # number of unclosed start tags encountered, including the one currently being handled
         super().reset()
 
     def add_block(self, block):
@@ -215,20 +216,35 @@ class HtmlToContentStateHandler(HTMLParser):
         self.current_block = block
 
     def handle_starttag(self, name, attrs):
+        self.element_depth += 1
         try:
             element_handler = self.element_handlers[name]
         except KeyError:
-            return  # ignore unrecognised elements
+            if self.element_depth == 1:
+                # treat unrecognised top-level elements as paragraphs
+                element_handler = self.element_handlers['p']
+            else:
+                # ignore unrecognised elements below the top-level
+                element_handler = None
 
-        element_handler.handle_starttag(name, attrs, self.state, self.contentstate)
+        if element_handler:
+            element_handler.handle_starttag(name, attrs, self.state, self.contentstate)
 
     def handle_endtag(self, name):
         try:
             element_handler = self.element_handlers[name]
         except KeyError:
-            return  # ignore unrecognised elements
+            if self.element_depth == 1:
+                # treat unrecognised top-level elements as paragraphs
+                element_handler = self.element_handlers['p']
+            else:
+                # ignore unrecognised elements below the top-level
+                element_handler = None
 
-        element_handler.handle_endtag(name, self.state, self.contentstate)
+        if element_handler:
+            element_handler.handle_endtag(name, self.state, self.contentstate)
+
+        self.element_depth -= 1
 
     def handle_data(self, content):
         if self.state.current_block is None:
