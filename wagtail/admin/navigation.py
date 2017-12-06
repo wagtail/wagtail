@@ -21,7 +21,7 @@ def get_collections_with_direct_explore_permission(user):
     else:
         return Collection.objects.filter(
             group_manage_permissions__group__in=user.groups.all(),
-            group_manage_permissions__permission_type__in=['add', 'edit']
+            group_manage_permissions__permission_type__in=['add', 'edit', 'bulk_delete']
         ).distinct()
 
 
