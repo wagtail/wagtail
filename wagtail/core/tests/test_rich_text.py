@@ -31,7 +31,7 @@ class TestPageLinkHandler(TestCase):
         )
         self.assertEqual(
             result,
-            '<a data-linktype="page" data-id="1" href="None">'
+            '<a data-id="1" data-linktype="page" href="None">'
         )
 
         events_page_id = Page.objects.get(url_path='/home/events/').pk
@@ -41,7 +41,7 @@ class TestPageLinkHandler(TestCase):
         )
         self.assertEqual(
             result,
-            '<a data-linktype="page" data-id="%d" data-parent-id="2" href="/events/">' % events_page_id
+            '<a data-id="%d" data-linktype="page" data-parent-id="2" href="/events/">' % events_page_id
         )
 
     def test_expand_db_attributes_not_for_editor(self):

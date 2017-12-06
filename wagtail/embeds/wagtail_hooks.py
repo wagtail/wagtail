@@ -41,4 +41,4 @@ def register_embed_feature(features):
 
 @hooks.register('register_rich_text_embed_handler')
 def register_media_embed_handler():
-    return ('media', MediaEmbedHandler)
+    return MediaEmbedHandler
