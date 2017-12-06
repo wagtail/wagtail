@@ -214,16 +214,18 @@ class ModelStreamFieldsCollector:
                             yield obj, found_value
 
 
-def get_all_uses(obj, using=DEFAULT_DB_ALIAS):
+def get_all_uses(*objects, using=DEFAULT_DB_ALIAS):
     collector = NestedObjects(using)
-    collector.collect((obj,))
-    obj_base_key = get_obj_base_key(obj)
-    for objects in collector.data.values():
-        for related_object in objects:
-            if get_obj_base_key(related_object) != obj_base_key:
-                yield related_object, obj
+    collector.collect(objects)
+    original_objects_keys = {get_obj_base_key(obj) for obj in objects}
+    for related_objects in collector.data.values():
+        for related_object in related_objects:
+            if get_obj_base_key(related_object) not in original_objects_keys:
+                yield related_object
     for model in apps.get_models():
-        yield from ModelRichTextCollector(
-            model, using=using).find_objects(obj)
-        yield from ModelStreamFieldsCollector(
-            model, using=using).find_objects(obj)
+        for related_object, obj in chain(
+                ModelRichTextCollector(model,
+                                       using=using).find_objects(*objects),
+                ModelStreamFieldsCollector(model,
+                                           using=using).find_objects(*objects)):
+            yield related_object

@@ -60,52 +60,63 @@ class ModelRichTextCollectorTest(TestCase):
         return list(self.collector.find_objects(*objects))
 
     def test_empty(self):
-        uses = self.get_uses(self.obj0)
-        self.assertListEqual(uses, [])
+        with self.assertNumQueries(1):
+            uses = self.get_uses(self.obj0)
+            self.assertListEqual(uses, [])
 
     def test_simple(self):
-        uses = self.get_uses(self.obj1)
-        self.assertListEqual(uses, [(self.obj2, self.obj1)])
+        with self.assertNumQueries(3):
+            uses = self.get_uses(self.obj1)
+            self.assertListEqual(uses, [(self.obj2, self.obj1)])
 
     def test_wrapped_and_swapped(self):
-        uses = self.get_uses(self.obj2)
-        self.assertListEqual(uses, [(self.obj3, self.obj2)])
+        with self.assertNumQueries(3):
+            uses = self.get_uses(self.obj2)
+            self.assertListEqual(uses, [(self.obj3, self.obj2)])
 
-        uses = self.get_uses(self.obj3)
-        self.assertListEqual(uses, [(self.obj4, self.obj3)])
+        with self.assertNumQueries(3):
+            uses = self.get_uses(self.obj3)
+            self.assertListEqual(uses, [(self.obj4, self.obj3)])
 
     def test_nested(self):
-        uses = self.get_uses(self.obj4)
-        self.assertListEqual(uses, [(self.obj5, self.obj4)])
+        with self.assertNumQueries(3):
+            uses = self.get_uses(self.obj4)
+            self.assertListEqual(uses, [(self.obj5, self.obj4)])
 
     def test_multiple(self):
-        uses = self.get_uses()
-        self.assertListEqual(uses, [(self.obj2, self.obj1),
-                                    (self.obj3, self.obj2),
-                                    (self.obj4, self.obj3),
-                                    (self.obj5, self.obj4),
-                                    (self.obj7, self.obj5),
-                                    (self.obj7, self.obj6),
-                                    (self.obj8, self.image),
-                                    (self.obj9, self.document),
-                                    (self.obj10, self.video)])
+        with self.assertNumQueries(16):
+            uses = self.get_uses()
+            self.assertListEqual(uses, [(self.obj2, self.obj1),
+                                        (self.obj3, self.obj2),
+                                        (self.obj4, self.obj3),
+                                        (self.obj5, self.obj4),
+                                        (self.obj7, self.obj5),
+                                        (self.obj7, self.obj6),
+                                        (self.obj8, self.image),
+                                        (self.obj9, self.document),
+                                        (self.obj10, self.video)])
 
-        uses = self.get_uses(self.obj5)
-        self.assertListEqual(uses, [(self.obj7, self.obj5)])
+        with self.assertNumQueries(5):
+            uses = self.get_uses(self.obj5)
+            self.assertListEqual(uses, [(self.obj7, self.obj5)])
 
-        uses = self.get_uses(self.obj5, self.obj6)
-        self.assertListEqual(uses, [(self.obj7, self.obj5),
-                                    (self.obj7, self.obj6)])
+        with self.assertNumQueries(5):
+            uses = self.get_uses(self.obj5, self.obj6)
+            self.assertListEqual(uses, [(self.obj7, self.obj5),
+                                        (self.obj7, self.obj6)])
 
     def test_other_types(self):
-        uses = self.get_uses(self.image)
-        self.assertListEqual(uses, [(self.obj8, self.image)])
+        with self.assertNumQueries(2):
+            uses = self.get_uses(self.image)
+            self.assertListEqual(uses, [(self.obj8, self.image)])
 
-        uses = self.get_uses(self.document)
-        self.assertListEqual(uses, [(self.obj9, self.document)])
+        with self.assertNumQueries(2):
+            uses = self.get_uses(self.document)
+            self.assertListEqual(uses, [(self.obj9, self.document)])
 
-        uses = self.get_uses(self.video)
-        self.assertListEqual(uses, [(self.obj10, self.video)])
+        with self.assertNumQueries(2):
+            uses = self.get_uses(self.video)
+            self.assertListEqual(uses, [(self.obj10, self.video)])
 
 
 class ModelStreamFieldCollectorTest(TestCase):
@@ -264,22 +275,38 @@ class GetAllUsesTest(TestCase):
         self.obj3 = create_page('<p>Nothing worth of interest.</p>')
         self.obj4 = create_page('<p><a linktype="page" id="%s">3</a></p>'
                                 % self.obj3.pk)
-        self.obj5 = Image.objects.create(title='Test image',
+        self.obj5 = Image.objects.create(title='Test image 1',
                                          file=get_test_image_file())
         self.obj6 = StreamModel.objects.create(body=[('image', self.obj5)])
+        self.obj7 = Image.objects.create(title='Test image',
+                                         file=get_test_image_file())
+        self.obj8 = self.obj7.get_rendition('original')
+        self.obj9 = StreamModel.objects.create(body=[('image', self.obj7)])
+        self.obj10 = create_page(
+            '<p><embed alt="bodyline" embedtype="image" '
+            'format="centered" id="%s"/></p>' % self.obj7.pk)
 
     def test_empty(self):
-        uses = list(get_all_uses(self.obj0))
-        self.assertListEqual(uses, [])
+        with self.assertNumQueries(53):
+            uses = list(get_all_uses(self.obj0))
+            self.assertListEqual(uses, [])
 
     def test_foreign_key(self):
-        uses = list(get_all_uses(self.obj1))
-        self.assertListEqual(uses, [(self.obj2, self.obj1)])
+        with self.assertNumQueries(53):
+            uses = list(get_all_uses(self.obj1))
+            self.assertListEqual(uses, [self.obj2])
 
     def test_rich_text(self):
-        uses = list(get_all_uses(self.obj3))
-        self.assertListEqual(uses, [(self.obj4, self.obj3)])
+        with self.assertNumQueries(55):
+            uses = list(get_all_uses(self.obj3))
+            self.assertListEqual(uses, [self.obj4])
 
     def test_streamfield(self):
-        uses = list(get_all_uses(self.obj3))
-        self.assertListEqual(uses, [(self.obj4, self.obj3)])
+        with self.assertNumQueries(55):
+            uses = list(get_all_uses(self.obj3))
+            self.assertListEqual(uses, [self.obj4])
+
+    def test_multiple(self):
+        with self.assertNumQueries(47):
+            uses = list(get_all_uses(self.obj7))
+            self.assertListEqual(uses, [self.obj8, self.obj9, self.obj10])
