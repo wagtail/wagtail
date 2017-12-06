@@ -2,11 +2,14 @@ from django.contrib.auth.models import Permission
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 
+from draftjs_exporter.constants import BLOCK_TYPES, ENTITY_TYPES, INLINE_STYLES
+
 from wagtail.admin.menu import MenuItem, SubmenuMenuItem, settings_menu
 from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.admin.rich_text import (
     HalloFormatPlugin, HalloHeadingPlugin, HalloListPlugin, HalloPlugin)
 from wagtail.admin.rich_text.converters.editor_html import LinkTypeRule, WhitelistRule
+import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 from wagtail.admin.search import SearchArea
 from wagtail.admin.utils import user_has_any_page_permission
 from wagtail.admin.viewsets import viewsets
@@ -184,6 +187,7 @@ def register_viewsets_urls():
 
 @hooks.register('register_rich_text_features')
 def register_core_features(features):
+    # Hallo.js
     features.register_editor_plugin(
         'hallo', 'hr',
         HalloPlugin(
@@ -247,3 +251,86 @@ def register_core_features(features):
         WhitelistRule('ul', allow_without_attributes),
         WhitelistRule('li', allow_without_attributes),
     ])
+
+    # Draftail
+    features.register_editor_plugin(
+        'draftail', 'hr', draftail_features.BooleanFeature('enableHorizontalRule')
+    )
+
+    features.register_editor_plugin(
+        'draftail', 'br', draftail_features.BooleanFeature('enableLineBreak')
+    )
+
+    features.register_editor_plugin(
+        'draftail', 'h1', draftail_features.BlockFeature({'label': 'H1', 'type': BLOCK_TYPES.HEADER_ONE})
+    )
+    features.register_editor_plugin(
+        'draftail', 'h2', draftail_features.BlockFeature({'label': 'H2', 'type': BLOCK_TYPES.HEADER_TWO})
+    )
+    features.register_editor_plugin(
+        'draftail', 'h3', draftail_features.BlockFeature({'label': 'H3', 'type': BLOCK_TYPES.HEADER_THREE})
+    )
+    features.register_editor_plugin(
+        'draftail', 'h4', draftail_features.BlockFeature({'label': 'H4', 'type': BLOCK_TYPES.HEADER_FOUR})
+    )
+    features.register_editor_plugin(
+        'draftail', 'h5', draftail_features.BlockFeature({'label': 'H5', 'type': BLOCK_TYPES.HEADER_FIVE})
+    )
+    features.register_editor_plugin(
+        'draftail', 'h6', draftail_features.BlockFeature({'label': 'H6', 'type': BLOCK_TYPES.HEADER_SIX})
+    )
+    features.register_editor_plugin(
+        'draftail', 'ul', draftail_features.BlockFeature({
+            'label': 'UL', 'type': BLOCK_TYPES.UNORDERED_LIST_ITEM, 'icon': 'icon-list-ul'
+        })
+    )
+    features.register_editor_plugin(
+        'draftail', 'ol', draftail_features.BlockFeature({
+            'label': 'OL', 'type': BLOCK_TYPES.ORDERED_LIST_ITEM, 'icon': 'icon-list-ol'
+        })
+    )
+
+    features.register_editor_plugin(
+        'draftail', 'bold', draftail_features.InlineStyleFeature({
+            'label': 'Bold', 'type': INLINE_STYLES.BOLD, 'icon': 'icon-bold'
+        })
+    )
+    features.register_editor_plugin(
+        'draftail', 'italic', draftail_features.InlineStyleFeature({
+            'label': 'Italic', 'type': INLINE_STYLES.ITALIC, 'icon': 'icon-italic'
+        })
+    )
+
+    features.register_editor_plugin(
+        'draftail', 'link', draftail_features.EntityFeature({
+            'label': 'Link',
+            'type': ENTITY_TYPES.LINK,
+            'icon': 'icon-link',
+            'source': 'LinkSource',
+            'decorator': 'Link',
+        })
+    )
+
+    features.register_editor_plugin(
+        'draftail', 'document-link', draftail_features.EntityFeature({
+            'label': 'Document',
+            'type': ENTITY_TYPES.DOCUMENT,
+            'icon': 'icon-doc-full',
+            'source': 'DocumentSource',
+            'decorator': 'Document',
+        })
+    )
+
+    features.register_editor_plugin(
+        'draftail', 'image', draftail_features.ImageFeature()
+    )
+
+    features.register_editor_plugin(
+        'draftail', 'embed', draftail_features.EntityFeature({
+            'label': 'Embed',
+            'type': ENTITY_TYPES.EMBED,
+            'icon': 'icon-media',
+            'source': 'EmbedSource',
+            'decorator': 'Embed',
+        })
+    )

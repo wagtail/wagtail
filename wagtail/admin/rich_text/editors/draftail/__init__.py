@@ -4,7 +4,7 @@ from django.forms import Media, widgets
 
 from wagtail.admin.edit_handlers import RichTextFieldPanel
 from wagtail.admin.rich_text.converters.contentstate import ContentstateConverter
-from wagtail.core.rich_text import features
+from wagtail.core.rich_text import features as feature_registry
 from wagtail.utils.widgets import WidgetWithScript
 
 
@@ -16,11 +16,18 @@ class DraftailRichTextArea(WidgetWithScript, widgets.Textarea):
         return RichTextFieldPanel
 
     def __init__(self, *args, **kwargs):
-        self.options = kwargs.pop('options', None)
+        # note: this constructor will receive an 'options' kwarg taken from the WAGTAILADMIN_RICH_TEXT_EDITORS setting,
+        # but we don't currently recognise any options from there (other than 'features', which is passed here as a separate kwarg)
+        self.options = {}
 
         self.features = kwargs.pop('features', None)
         if self.features is None:
-            self.features = features.get_default_features()
+            self.features = feature_registry.get_default_features()
+
+        for feature in self.features:
+            plugin = feature_registry.get_editor_plugin('draftail', feature)
+            if plugin:
+                plugin.construct_options(self.options)
 
         self.converter = ContentstateConverter(self.features)
 
