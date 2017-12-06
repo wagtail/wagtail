@@ -16,7 +16,9 @@
                         <option value="{{ collection_id|unlocalize }}" {% if collection_id == selected_collection %}selected="selected"{% endif %}>{{ collection_name }}</option>
                     {% endfor %}
                 </select>
+                {% if not enable_widget_mode %}
                 <span></span>
+                {% endif %}
 
 {% if not enable_widget_mode %}
             </div>
