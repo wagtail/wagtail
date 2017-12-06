@@ -55,6 +55,7 @@ Bug fixes
  * Empty searches were activated when paginating through images and documents (LB (Ben Johnston))
  * Summary numbers of pages, images and documents were not responsive when greater than 4 digits (Michael Palmer)
  * Project template now has password validators enabled by default (Matt Westcott)
+ * Alignment options correctly removed from ``TableBlock`` context menu (LB (Ben Johnston))
 
 
 Upgrade considerations
