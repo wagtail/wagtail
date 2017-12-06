@@ -394,6 +394,10 @@ class Filter:
                 else:
                     quality = 85
 
+                # If the image has an alpha channel, give it a white background
+                if willow.has_alpha():
+                    willow = willow.set_background_color_rgb((255, 255, 255))
+
                 return willow.save_as_jpeg(output, quality=quality, progressive=True, optimize=True)
             elif output_format == 'png':
                 return willow.save_as_png(output)
