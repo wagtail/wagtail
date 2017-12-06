@@ -139,6 +139,7 @@ class TestHtmlToContentState(TestCase):
                 },
             ]
         })
+
     def test_inline_styles_depend_on_features(self):
         converter = ContentstateConverter(features=['italic', 'just-made-it-up'])
         result = json.loads(converter.from_database_format(
@@ -210,5 +211,24 @@ class TestHtmlToContentState(TestCase):
                 {'inlineStyleRanges': [], 'text': 'Plain', 'depth': 1, 'type': 'unordered-list-item', 'key': '00000', 'entityRanges': []},
                 {'inlineStyleRanges': [], 'text': 'Self-raising', 'depth': 1, 'type': 'unordered-list-item', 'key': '00000', 'entityRanges': []},
                 {'inlineStyleRanges': [], 'text': 'Eggs', 'depth': 0, 'type': 'unordered-list-item', 'key': '00000', 'entityRanges': []},
+            ]
+        })
+
+    def test_external_link(self):
+        converter = ContentstateConverter(features=['link'])
+        result = json.loads(converter.from_database_format(
+            '''
+            <p>an <a href="http://wagtail.io">external</a> link</p>
+            '''
+        ))
+        self.assertContentStateEqual(result, {
+            'entityMap': {
+                '0': {'mutability': 'MUTABLE', 'type': 'LINK', 'data': {'url': 'http://wagtail.io'}}
+            },
+            'blocks': [
+                {
+                    'inlineStyleRanges': [], 'text': 'an external link', 'depth': 0, 'type': 'unstyled', 'key': '00000',
+                    'entityRanges': [{'offset': 3, 'length': 8, 'key': 0}]
+                },
             ]
         })
