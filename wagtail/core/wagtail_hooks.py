@@ -3,6 +3,7 @@ from django.contrib.auth.views import redirect_to_login
 from django.urls import reverse
 
 from wagtail.core import hooks
+from wagtail.core.forms import GroupCollectionPermissionFormSet
 from wagtail.core.models import PageViewRestriction
 
 
@@ -31,3 +32,8 @@ def check_view_restrictions(page, request, serve_args, serve_kwargs):
 
             elif restriction.restriction_type in [PageViewRestriction.LOGIN, PageViewRestriction.GROUPS]:
                 return require_wagtail_login(next=request.get_full_path())
+
+
+@hooks.register('register_group_permission_panel')
+def register_collection_management_permissions_panel():
+    return GroupCollectionPermissionFormSet

@@ -370,6 +370,7 @@ class BaseCollectionMemberForm(forms.ModelForm):
         if user is None:
             self.collections = Collection.objects.all()
         else:
+            # TODO: Make sure this still works as intended
             self.collections = (
                 self.permission_policy.collections_user_has_permission_for(user, 'add')
             )
@@ -530,7 +531,8 @@ def collection_member_permission_formset_factory(
         (i.e. group or user) for a specific collection
         """
         collection = forms.ModelChoiceField(
-            queryset=Collection.objects.all().prefetch_related('group_permissions')
+            queryset=Collection.objects.all().prefetch_related('group_permissions'),
+            widget=widgets.AdminCollectionWidget,
         )
         permissions = forms.ModelMultipleChoiceField(
             queryset=permission_queryset,
