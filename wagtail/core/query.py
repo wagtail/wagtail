@@ -148,8 +148,8 @@ class TreeQuerySet(MP_NodeQuerySet):
             # selected to order the results, which makes `.distinct()` works.
             paths = self.order_by() \
                 .annotate(parent_path=Substr(
-                'path', 1, Length('path') - self.model.steplen,
-                output_field=CharField(max_length=255))) \
+                    'path', 1, Length('path') - self.model.steplen,
+                    output_field=CharField(max_length=255))) \
                 .values_list('parent_path', flat=True) \
                 .distinct()
 
