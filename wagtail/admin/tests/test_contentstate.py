@@ -87,3 +87,128 @@ class TestHtmlToContentState(TestCase):
                 {'inlineStyleRanges': [], 'text': 'after', 'depth': 0, 'type': 'unstyled', 'key': '00000', 'entityRanges': []},
             ]
         })
+
+    def test_ignore_unrecognised_tags_in_blocks(self):
+        converter = ContentstateConverter(features=[])
+        result = json.loads(converter.from_database_format(
+            '''
+            <p>Hello <foo>frabjuous</foo> world!</p>
+            '''
+        ))
+        self.assertContentStateEqual(result, {
+            'entityMap': {},
+            'blocks': [
+                {'inlineStyleRanges': [], 'text': 'Hello frabjuous world!', 'depth': 0, 'type': 'unstyled', 'key': '00000', 'entityRanges': []},
+            ]
+        })
+
+    def test_inline_styles(self):
+        converter = ContentstateConverter(features=['bold', 'italic'])
+        result = json.loads(converter.from_database_format(
+            '''
+            <p>You <b>do <em>not</em> talk</b> about Fight Club.</p>
+            '''
+        ))
+        self.assertContentStateEqual(result, {
+            'entityMap': {},
+            'blocks': [
+                {
+                    'inlineStyleRanges': [
+                        {'offset': 4, 'length': 11, 'style': 'BOLD'}, {'offset': 7, 'length': 3, 'style': 'ITALIC'}
+                    ],
+                    'text': 'You do not talk about Fight Club.', 'depth': 0, 'type': 'unstyled', 'key': '00000', 'entityRanges': []
+                },
+            ]
+        })
+
+    def test_inline_styles_at_top_level(self):
+        converter = ContentstateConverter(features=['bold', 'italic'])
+        result = json.loads(converter.from_database_format(
+            '''
+            You <b>do <em>not</em> talk</b> about Fight Club.
+            '''
+        ))
+        self.assertContentStateEqual(result, {
+            'entityMap': {},
+            'blocks': [
+                {
+                    'inlineStyleRanges': [
+                        {'offset': 4, 'length': 11, 'style': 'BOLD'}, {'offset': 7, 'length': 3, 'style': 'ITALIC'}
+                    ],
+                    'text': 'You do not talk about Fight Club.', 'depth': 0, 'type': 'unstyled', 'key': '00000', 'entityRanges': []
+                },
+            ]
+        })
+    def test_inline_styles_depend_on_features(self):
+        converter = ContentstateConverter(features=['italic', 'just-made-it-up'])
+        result = json.loads(converter.from_database_format(
+            '''
+            <p>You <b>do <em>not</em> talk</b> about Fight Club.</p>
+            '''
+        ))
+        self.assertContentStateEqual(result, {
+            'entityMap': {},
+            'blocks': [
+                {
+                    'inlineStyleRanges': [
+                        {'offset': 7, 'length': 3, 'style': 'ITALIC'}
+                    ],
+                    'text': 'You do not talk about Fight Club.', 'depth': 0, 'type': 'unstyled', 'key': '00000', 'entityRanges': []
+                },
+            ]
+        })
+
+    def test_ordered_list(self):
+        converter = ContentstateConverter(features=['h1', 'ol', 'bold', 'italic'])
+        result = json.loads(converter.from_database_format(
+            '''
+            <h1>The rules of Fight Club</h1>
+            <ol>
+                <li>You do not talk about Fight Club.</li>
+                <li>You <b>do <em>not</em> talk</b> about Fight Club.</li>
+            </ol>
+            '''
+        ))
+        self.assertContentStateEqual(result, {
+            'entityMap': {},
+            'blocks': [
+                {'inlineStyleRanges': [], 'text': 'The rules of Fight Club', 'depth': 0, 'type': 'header-one', 'key': '00000', 'entityRanges': []},
+                {'inlineStyleRanges': [], 'text': 'You do not talk about Fight Club.', 'depth': 0, 'type': 'ordered-list-item', 'key': '00000', 'entityRanges': []},
+                {
+                    'inlineStyleRanges': [
+                        {'offset': 4, 'length': 11, 'style': 'BOLD'}, {'offset': 7, 'length': 3, 'style': 'ITALIC'}
+                    ],
+                    'text': 'You do not talk about Fight Club.', 'depth': 0, 'type': 'ordered-list-item', 'key': '00000', 'entityRanges': []
+                },
+            ]
+        })
+
+    def test_nested_list(self):
+        converter = ContentstateConverter(features=['h1', 'ul'])
+        result = json.loads(converter.from_database_format(
+            '''
+            <h1>Shopping list</h1>
+            <ul>
+                <li>Milk</li>
+                <li>
+                    Flour
+                    <ul>
+                        <li>Plain</li>
+                        <li>Self-raising</li>
+                    </ul>
+                </li>
+                <li>Eggs</li>
+            </ul>
+            '''
+        ))
+        self.assertContentStateEqual(result, {
+            'entityMap': {},
+            'blocks': [
+                {'inlineStyleRanges': [], 'text': 'Shopping list', 'depth': 0, 'type': 'header-one', 'key': '00000', 'entityRanges': []},
+                {'inlineStyleRanges': [], 'text': 'Milk', 'depth': 0, 'type': 'unordered-list-item', 'key': '00000', 'entityRanges': []},
+                {'inlineStyleRanges': [], 'text': 'Flour', 'depth': 0, 'type': 'unordered-list-item', 'key': '00000', 'entityRanges': []},
+                {'inlineStyleRanges': [], 'text': 'Plain', 'depth': 1, 'type': 'unordered-list-item', 'key': '00000', 'entityRanges': []},
+                {'inlineStyleRanges': [], 'text': 'Self-raising', 'depth': 1, 'type': 'unordered-list-item', 'key': '00000', 'entityRanges': []},
+                {'inlineStyleRanges': [], 'text': 'Eggs', 'depth': 0, 'type': 'unordered-list-item', 'key': '00000', 'entityRanges': []},
+            ]
+        })
