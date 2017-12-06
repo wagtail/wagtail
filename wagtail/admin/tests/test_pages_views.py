@@ -3879,6 +3879,100 @@ class TestCompareRevisions(TestCase, WagtailTestUtils):
         self.assertContains(response, '<span class="deletion">Last Christmas I gave you my heart, but the very next day you gave it away</span><span class="addition">This year, to save me from tears, I&#39;ll just feed it to the dog</span>')
 
 
+class TestRevisionsUnschedule(TestCase, WagtailTestUtils):
+    fixtures = ['test.json']
+
+    def setUp(self):
+        self.christmas_event = EventPage.objects.get(url_path='/home/events/christmas/')
+        self.christmas_event.title = "Last Christmas"
+        self.christmas_event.date_from = '2013-12-25'
+        self.christmas_event.body = (
+            "<p>Last Christmas I gave you my heart, "
+            "but the very next day you gave it away</p>"
+        )
+        self.last_christmas_revision = self.christmas_event.save_revision()
+        self.last_christmas_revision.created_at = local_datetime(2013, 12, 25)
+        self.last_christmas_revision.save()
+        self.last_christmas_revision.publish()
+
+        self.christmas_event.title = "This Christmas"
+        self.christmas_event.date_from = '2014-12-25'
+        self.christmas_event.body = (
+            "<p>This year, to save me from tears, "
+            "I'll give it to someone special</p>"
+        )
+        self.this_christmas_revision = self.christmas_event.save_revision()
+        self.this_christmas_revision.created_at = local_datetime(2014, 12, 24)
+        self.this_christmas_revision.save()
+
+        self.this_christmas_revision.approved_go_live_at = local_datetime(2014, 12, 25)
+        self.this_christmas_revision.save()
+
+        self.user = self.login()
+
+    def test_unschedule_view(self):
+        """
+        This tests that the unschedule view responds with a confirm page
+        """
+        response = self.client.get(reverse('wagtailadmin_pages:revisions_unschedule', args=(self.christmas_event.id, self.this_christmas_revision.id)))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/pages/revisions/confirm_unschedule.html')
+
+    def test_unschedule_view_invalid_page_id(self):
+        """
+        This tests that the unschedule view returns an error if the page id is invalid
+        """
+        # Get unschedule page
+        response = self.client.get(reverse('wagtailadmin_pages:revisions_unschedule', args=(12345, 67894)))
+
+        # Check that the user received a 404 response
+        self.assertEqual(response.status_code, 404)
+
+    def test_unschedule_view_invalid_revision_id(self):
+        """
+        This tests that the unschedule view returns an error if the page id is invalid
+        """
+        # Get unschedule page
+        response = self.client.get(reverse('wagtailadmin_pages:revisions_unschedule', args=(self.christmas_event.id, 67894)))
+
+        # Check that the user received a 404 response
+        self.assertEqual(response.status_code, 404)
+
+    def test_unschedule_view_bad_permissions(self):
+        """
+        This tests that the unschedule view doesn't allow users without publish permissions
+        """
+        # Remove privileges from user
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+        )
+        self.user.save()
+
+        # Get unschedule page
+        response = self.client.get(reverse('wagtailadmin_pages:revisions_unschedule', args=(self.christmas_event.id, self.this_christmas_revision.id)))
+
+        # Check that the user received a 403 response
+        self.assertEqual(response.status_code, 403)
+
+    def test_unschedule_view_post(self):
+        """
+        This posts to the unschedule view and checks that the revision was unscheduled
+        """
+
+        # Post to the unschedule page
+        response = self.client.post(reverse('wagtailadmin_pages:revisions_unschedule', args=(self.christmas_event.id, self.this_christmas_revision.id)))
+
+        # Should be redirected to revisions index page
+        self.assertRedirects(response, reverse('wagtailadmin_pages:revisions_index', args=(self.christmas_event.id, )))
+
+        # Check that the page has no approved_schedule
+        self.assertFalse(EventPage.objects.get(id=self.christmas_event.id).approved_schedule)
+
+        # Check that the approved_go_live_at has been cleared from the revision
+        self.assertIsNone(self.christmas_event.revisions.get(id=self.this_christmas_revision.id).approved_go_live_at)
+
+
 class TestIssue2599(TestCase, WagtailTestUtils):
     """
     When previewing a page on creation, we need to assign it a path value consistent with its

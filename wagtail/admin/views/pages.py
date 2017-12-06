@@ -335,7 +335,7 @@ def edit(request, page_id):
                 user=request.user,
                 submitted_for_moderation=is_submitting,
             )
-            # store submitted go_live_at for messgaing below
+            # store submitted go_live_at for messaging below
             go_live_at = page.go_live_at
 
             # Publish
@@ -1113,5 +1113,34 @@ def revisions_compare(request, page_id, revision_id_a, revision_id_b):
     })
 
 
-def revisions_unschedule(request, revision_id):
-    pass
+def revisions_unschedule(request, page_id, revision_id):
+    page = get_object_or_404(Page, id=page_id).specific
+
+    user_perms = UserPagePermissionsProxy(request.user)
+    if not user_perms.for_page(page).can_unpublish():
+        raise PermissionDenied
+
+    revision = get_object_or_404(page.revisions, id=revision_id)
+
+    next_url = get_valid_next_url_from_request(request)
+
+    subtitle = _('revision {0} of "{1}"').format(revision.id, page.get_admin_display_title())
+
+    if request.method == 'POST':
+        revision.approved_go_live_at = None
+        revision.save(update_fields=['approved_go_live_at'])
+
+        messages.success(request, _('Revision {0} of "{1}" unscheduled.').format(revision.id, page.get_admin_display_title()), buttons=[
+            messages.button(reverse('wagtailadmin_pages:edit', args=(page.id,)), _('Edit'))
+        ])
+
+        if next_url:
+            return redirect(next_url)
+        return redirect('wagtailadmin_pages:revisions_index', page.id)
+
+    return render(request, 'wagtailadmin/pages/revisions/confirm_unschedule.html', {
+        'page': page,
+        'revision': revision,
+        'next': next_url,
+        'subtitle': subtitle
+    })

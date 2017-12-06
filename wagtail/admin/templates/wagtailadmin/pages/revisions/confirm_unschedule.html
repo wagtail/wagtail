@@ -1,0 +1,21 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n %}
+{% block titletag %}{% blocktrans with title=page.get_admin_display_title %}Unschedule Revision {{ revision.id }} for {{ title }}{% endblocktrans %}{% endblock %}
+{% block content %}
+    {% trans "Unschedule" as unschedule_str %}
+    {% include "wagtailadmin/shared/header.html" with title=unschedule_str subtitle=subtitle icon="doc-empty-inverse" %}
+
+    <div class="nice-padding">
+        <p>{% trans "Are you sure you want to unschedule this revision?" %}</p>
+        <form action="{% url 'wagtailadmin_pages:revisions_unschedule' page.id revision.id %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ next }}">
+            <ul class="fields">
+                <li>
+                    <input type="submit" value="{% trans 'Yes, unschedule' %}" class="button">
+                    <a href="{% if next %}{{ next }}{% else %}{% url 'wagtailadmin_pages:revisions_index' page.id %}{% endif %}" class="button button-secondary">{% trans "No, don't unschedule" %}</a>
+                </li>
+            </ul>
+        </form>
+    </div>
+{% endblock %}
