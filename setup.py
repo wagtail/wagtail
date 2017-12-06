@@ -26,10 +26,10 @@ install_requires = [
     "django-taggit>=0.20,<1.0",
     "django-treebeard>=3.0,<5.0",
     "djangorestframework>=3.1.3,<4.0",
-    "Pillow>=2.6.1",
-    "beautifulsoup4>=4.5.1",
+    "Pillow>=2.6.1,<5.0",
+    "beautifulsoup4>=4.5.1,<5.0",
     "html5lib>=0.999,<1",
-    "Unidecode>=0.04.14",
+    "Unidecode>=0.04.14,<1.0",
     "Willow>=1.0,<1.1",
     "requests>=2.11.1,<3.0",
 ]
