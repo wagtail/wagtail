@@ -227,7 +227,10 @@ class HtmlToContentStateHandler(HTMLParser):
     def reset(self):
         self.state = HandlerState()
         self.contentstate = ContentState()
-        self.element_depth = 0  # number of unclosed start tags encountered, including the one currently being handled
+
+        # stack of (name, handler) tuples for the elements we're currently inside
+        self.open_elements = []
+
         super().reset()
 
     def add_block(self, block):
@@ -236,35 +239,26 @@ class HtmlToContentStateHandler(HTMLParser):
         self.state.leading_whitespace = 'strip'
 
     def handle_starttag(self, name, attrs):
-        self.element_depth += 1
         try:
             element_handler = self.element_handlers[name]
         except KeyError:
-            if self.element_depth == 1:
+            if not self.open_elements:
                 # treat unrecognised top-level elements as paragraphs
                 element_handler = self.element_handlers['p']
             else:
                 # ignore unrecognised elements below the top-level
                 element_handler = None
+
+        self.open_elements.append((name, element_handler))
 
         if element_handler:
             element_handler.handle_starttag(name, attrs, self.state, self.contentstate)
 
     def handle_endtag(self, name):
-        try:
-            element_handler = self.element_handlers[name]
-        except KeyError:
-            if self.element_depth == 1:
-                # treat unrecognised top-level elements as paragraphs
-                element_handler = self.element_handlers['p']
-            else:
-                # ignore unrecognised elements below the top-level
-                element_handler = None
-
+        expected_name, element_handler = self.open_elements.pop()
+        assert name == expected_name, "Unmatched tags: expected %s, got %s" % (expected_name, name)
         if element_handler:
             element_handler.handle_endtag(name, self.state, self.contentstate)
-
-        self.element_depth -= 1
 
     def handle_data(self, content):
         # normalise whitespace sequences to a single space
