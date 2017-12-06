@@ -1065,7 +1065,7 @@ class TestGenerateURLView(TestCase, WagtailTestUtils):
         self.assertEqual(set(content_json.keys()), set(['url', 'preview_url']))
 
         expected_url = 'http://localhost/images/%(signature)s/%(image_id)d/fill-800x600/' % {
-            'signature': urlquote(generate_signature(self.image.id, 'fill-800x600').decode(), safe=urlquote_safechars),
+            'signature': urlquote(generate_signature(self.image.id, 'fill-800x600'), safe=urlquote_safechars),
             'image_id': self.image.id,
         }
         self.assertEqual(content_json['url'], expected_url)
