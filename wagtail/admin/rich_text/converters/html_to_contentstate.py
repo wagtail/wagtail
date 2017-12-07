@@ -213,6 +213,11 @@ class ImageElementHandler(AtomicBlockEntityElementHandler):
         return Entity('IMAGE', 'IMMUTABLE', {'altText': attrs.get('alt'), 'id': attrs['id'], 'format': attrs['format']})
 
 
+class MediaEmbedElementHandler(AtomicBlockEntityElementHandler):
+    def create_entity(self, name, attrs, state, contentstate):
+        return Entity('EMBED', 'IMMUTABLE', {'url': attrs['url']})
+
+
 ELEMENT_HANDLERS_BY_FEATURE = {
     'ol': {
         'ol': ListElementHandler('ordered-list-item'),
@@ -257,6 +262,9 @@ ELEMENT_HANDLERS_BY_FEATURE = {
     },
     'image': {
         'embed[embedtype="image"]': ImageElementHandler(),
+    },
+    'embed': {
+        'embed[embedtype="media"]': MediaEmbedElementHandler(),
     },
 }
 

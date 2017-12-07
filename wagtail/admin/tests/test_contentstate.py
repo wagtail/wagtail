@@ -345,3 +345,26 @@ class TestHtmlToContentState(TestCase):
                 }
             }
         })
+
+    def test_media_embed(self):
+        converter = ContentstateConverter(features=['embed'])
+        result = json.loads(converter.from_database_format(
+            '''
+            <p>before</p>
+            <embed embedtype="media" url="https://www.youtube.com/watch?v=Kh0Y2hVe_bw" />
+            <p>after</p>
+            '''
+        ))
+        self.assertContentStateEqual(result, {
+            'blocks': [
+                {'key': '00000', 'inlineStyleRanges': [], 'entityRanges': [], 'depth': 0, 'text': 'before', 'type': 'unstyled'},
+                {'key': '00000', 'inlineStyleRanges': [], 'entityRanges': [{'key': 0, 'offset': 0, 'length': 1}], 'depth': 0, 'text': ' ', 'type': 'atomic'},
+                {'key': '00000', 'inlineStyleRanges': [], 'entityRanges': [], 'depth': 0, 'text': 'after', 'type': 'unstyled'}
+            ],
+            'entityMap': {
+                '0': {
+                    'data': {'url': 'https://www.youtube.com/watch?v=Kh0Y2hVe_bw'},
+                    'mutability': 'IMMUTABLE', 'type': 'EMBED'
+                }
+            }
+        })
