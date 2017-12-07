@@ -5,7 +5,7 @@ from mock import patch
 from wagtail.core.models import Page
 from wagtail.core.rich_text import RichText, expand_db_html
 from wagtail.core.rich_text.feature_registry import FeatureRegistry
-from wagtail.core.rich_text.pages import PageLinkHandler
+from wagtail.core.rich_text.pages import PageLinkHandler, page_linktype_handler
 from wagtail.core.rich_text.rewriters import extract_attrs
 
 
@@ -20,7 +20,7 @@ class TestPageLinkHandler(TestCase):
                          {'id': 'test-id'})
 
     def test_expand_db_attributes_page_does_not_exist(self):
-        result = PageLinkHandler.expand_db_attributes({'id': 0})
+        result = page_linktype_handler({'id': 0})
         self.assertEqual(result, '<a>')
 
     def test_expand_db_attributes_for_editor(self):
@@ -38,7 +38,7 @@ class TestPageLinkHandler(TestCase):
         )
 
     def test_expand_db_attributes_not_for_editor(self):
-        result = PageLinkHandler.expand_db_attributes({'id': 1})
+        result = page_linktype_handler({'id': 1})
         self.assertEqual(result, '<a href="None">')
 
 
