@@ -7,6 +7,7 @@ from wagtail.documents.models import Document
 
 
 class TestCollectionsIndexView(TestCase, WagtailTestUtils):
+    # TODO: Need to test index view for other collections besides root
     def setUp(self):
         self.login()
 
@@ -34,38 +35,42 @@ class TestCollectionsIndexView(TestCase, WagtailTestUtils):
 
 
 class TestAddCollection(TestCase, WagtailTestUtils):
+    # TODO: Check that the collection gets added to the correct parent besides Root
     def setUp(self):
         self.login()
+        self.root_collection = Collection.get_first_root_node()
 
-    def get(self, params={}):
-        return self.client.get(reverse('wagtailadmin_collections:add'), params)
+    def get(self, parent_id, params={}):
+        return self.client.get(reverse('wagtailadmin_collections:add_child', args=(parent_id, )), params)
 
-    def post(self, post_data={}):
-        return self.client.post(reverse('wagtailadmin_collections:add'), post_data)
+    def post(self, parent_id, post_data={}):
+        return self.client.post(reverse('wagtailadmin_collections:add_child', args=(parent_id, )), post_data)
 
     def test_get(self):
-        response = self.get()
+        response = self.get(self.root_collection.pk)
         self.assertEqual(response.status_code, 200)
 
     def test_post(self):
-        response = self.post({
+        response = self.post(self.root_collection.pk, {
             'name': "Holiday snaps",
         })
 
         # Should redirect back to index
-        self.assertRedirects(response, reverse('wagtailadmin_collections:index'))
+        self.assertRedirects(response, reverse(
+            'wagtailadmin_collections:parent_index', args=(self.root_collection.pk, )
+        ))
 
         # Check that the collection was created and is a child of root
         self.assertEqual(Collection.objects.filter(name="Holiday snaps").count(), 1)
 
-        root_collection = Collection.get_first_root_node()
         self.assertEqual(
             Collection.objects.get(name="Holiday snaps").get_parent(),
-            root_collection
+            self.root_collection
         )
 
 
 class TestEditCollection(TestCase, WagtailTestUtils):
+    # TODO: Add tests for editing collections that are children of collections other than Root
     def setUp(self):
         self.login()
         self.root_collection = Collection.get_first_root_node()
@@ -89,7 +94,7 @@ class TestEditCollection(TestCase, WagtailTestUtils):
 
     def test_cannot_edit_root_collection(self):
         response = self.get(collection_id=self.root_collection.id)
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.status_code, 403)
 
     def test_get_nonexistent_collection(self):
         response = self.get(collection_id=100000)
@@ -101,7 +106,9 @@ class TestEditCollection(TestCase, WagtailTestUtils):
         })
 
         # Should redirect back to index
-        self.assertRedirects(response, reverse('wagtailadmin_collections:index'))
+        self.assertRedirects(response, reverse(
+            'wagtailadmin_collections:parent_index', args=(self.root_collection.pk, )
+        ))
 
         # Check that the collection was edited
         self.assertEqual(
@@ -111,6 +118,7 @@ class TestEditCollection(TestCase, WagtailTestUtils):
 
 
 class TestDeleteCollection(TestCase, WagtailTestUtils):
+    # TODO: Test for collection inheritance changes
     def setUp(self):
         self.login()
         self.root_collection = Collection.get_first_root_node()
@@ -135,7 +143,7 @@ class TestDeleteCollection(TestCase, WagtailTestUtils):
 
     def test_cannot_delete_root_collection(self):
         response = self.get(collection_id=self.root_collection.id)
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.status_code, 403)
 
     def test_get_nonexistent_collection(self):
         response = self.get(collection_id=100000)
@@ -154,7 +162,9 @@ class TestDeleteCollection(TestCase, WagtailTestUtils):
         response = self.post()
 
         # Should redirect back to index
-        self.assertRedirects(response, reverse('wagtailadmin_collections:index'))
+        self.assertRedirects(response, reverse(
+            'wagtailadmin_collections:parent_index', args=(self.root_collection.pk, )
+        ))
 
         # Check that the collection was deleted
         with self.assertRaises(Collection.DoesNotExist):
