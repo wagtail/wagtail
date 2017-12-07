@@ -21,7 +21,7 @@ class MediaEmbedHandler:
         }
 
     @staticmethod
-    def expand_db_attributes_for_editor(attrs):
+    def expand_db_attributes(attrs):
         """
         Given a dict of attributes from the <embed> tag, return the real HTML
         representation for use within the editor.

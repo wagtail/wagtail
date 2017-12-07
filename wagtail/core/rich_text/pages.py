@@ -20,7 +20,7 @@ class PageLinkHandler:
         return {'id': tag['data-id']}
 
     @staticmethod
-    def expand_db_attributes_for_editor(attrs):
+    def expand_db_attributes(attrs):
         try:
             page = Page.objects.get(id=attrs['id'])
 
