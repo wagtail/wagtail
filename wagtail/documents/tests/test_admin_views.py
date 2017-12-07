@@ -341,7 +341,7 @@ class TestMultipleDocumentUploader(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, 'wagtaildocs/multiple/add.html')
 
         # collection chooser should exisst
-        self.assertContains(response, '<label for="id_adddocument_collection">')
+        self.assertContains(response, '<label for="collection_chooser_collection_id">')
         self.assertContains(response, 'Evil plans')
 
     def test_add_post(self):
