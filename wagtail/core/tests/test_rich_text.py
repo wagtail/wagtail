@@ -24,14 +24,14 @@ class TestPageLinkHandler(TestCase):
         self.assertEqual(result, '<a>')
 
     def test_expand_db_attributes_for_editor(self):
-        result = PageLinkHandler.expand_db_attributes_for_editor({'id': 1})
+        result = PageLinkHandler.expand_db_attributes({'id': 1})
         self.assertEqual(
             result,
             '<a data-linktype="page" data-id="1" href="None">'
         )
 
         events_page_id = Page.objects.get(url_path='/home/events/').pk
-        result = PageLinkHandler.expand_db_attributes_for_editor({'id': events_page_id})
+        result = PageLinkHandler.expand_db_attributes({'id': events_page_id})
         self.assertEqual(
             result,
             '<a data-linktype="page" data-id="%d" data-parent-id="2" href="/events/">' % events_page_id

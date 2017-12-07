@@ -9,7 +9,7 @@ class DocumentLinkHandler:
         return {'id': tag['data-id']}
 
     @staticmethod
-    def expand_db_attributes_for_editor(attrs):
+    def expand_db_attributes(attrs):
         Document = get_document_model()
         try:
             doc = Document.objects.get(id=attrs['id'])

@@ -52,7 +52,7 @@ class TestImageEmbedHandler(TestCase):
 
     def test_expand_db_attributes_for_editor(self):
         Image.objects.create(id=1, title='Test', file=get_test_image_file())
-        result = ImageEmbedHandler.expand_db_attributes_for_editor(
+        result = ImageEmbedHandler.expand_db_attributes(
             {'id': 1,
              'alt': 'test-alt',
              'format': 'left'},
@@ -64,7 +64,7 @@ class TestImageEmbedHandler(TestCase):
 
     def test_expand_db_attributes_for_editor_escapes_alt_text(self):
         Image.objects.create(id=1, title='Test', file=get_test_image_file())
-        result = ImageEmbedHandler.expand_db_attributes_for_editor(
+        result = ImageEmbedHandler.expand_db_attributes(
             {'id': 1,
              'alt': 'Arthur "two sheds" Jackson',
              'format': 'left'},
@@ -77,7 +77,7 @@ class TestImageEmbedHandler(TestCase):
 
     def test_expand_db_attributes_for_editor_with_missing_alt(self):
         Image.objects.create(id=1, title='Test', file=get_test_image_file())
-        result = ImageEmbedHandler.expand_db_attributes_for_editor(
+        result = ImageEmbedHandler.expand_db_attributes(
             {'id': 1,
              'format': 'left'},
         )

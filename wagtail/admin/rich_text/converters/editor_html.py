@@ -131,11 +131,11 @@ class EditorHTMLConverter:
         for feature in feature_list:
             embed_handlers = features.get_embed_handler_rules(feature)
             for handler_name, handler in embed_handlers.items():
-                embed_rules[handler_name] = handler.expand_db_attributes_for_editor
+                embed_rules[handler_name] = handler.expand_db_attributes
 
             link_handlers = features.get_link_handler_rules(feature)
             for handler_name, handler in link_handlers.items():
-                link_rules[handler_name] = handler.expand_db_attributes_for_editor
+                link_rules[handler_name] = handler.expand_db_attributes
 
         return MultiRuleRewriter([
             LinkRewriter(link_rules), EmbedRewriter(embed_rules)

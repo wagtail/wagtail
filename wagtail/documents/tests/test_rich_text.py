@@ -19,7 +19,7 @@ class TestDocumentRichTextLinkHandler(TestCase):
         self.assertEqual(result, '<a>')
 
     def test_expand_db_attributes_for_editor(self):
-        result = DocumentLinkHandler.expand_db_attributes_for_editor({'id': 1})
+        result = DocumentLinkHandler.expand_db_attributes({'id': 1})
         self.assertEqual(result,
                          '<a data-linktype="document" data-id="1" href="/documents/1/test.pdf">')
 
