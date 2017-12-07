@@ -4,6 +4,8 @@ import re
 from wagtail.admin.rich_text.converters.contentstate_models import (
     Block, ContentState, Entity, EntityRange, InlineStyleRange
 )
+from wagtail.admin.rich_text.converters.html_ruleset import HTMLRuleset
+from wagtail.core.models import Page
 
 
 class HandlerState(object):
@@ -127,7 +129,7 @@ class LinkElementHandler(object):
 
         attrs = dict(attrs)
 
-        entity = Entity(self.entity_type, 'MUTABLE', {'url': attrs['href']})
+        entity = Entity(self.entity_type, 'MUTABLE', self.get_attribute_data(attrs))
         key = contentstate.add_entity(entity)
 
         entity_range = EntityRange(key)
@@ -135,9 +137,38 @@ class LinkElementHandler(object):
         state.current_block.entity_ranges.append(entity_range)
         state.current_entity_ranges.append(entity_range)
 
+    def get_attribute_data(self, attrs):
+        return {}
+
     def handle_endtag(self, name, state, contentstate):
         entity_range = state.current_entity_ranges.pop()
         entity_range.length = len(state.current_block.text) - entity_range.offset
+
+
+class ExternalLinkElementHandler(LinkElementHandler):
+    def get_attribute_data(self, attrs):
+        return {'linkType': 'external', 'url': attrs['href']}
+
+
+class PageLinkElementHandler(LinkElementHandler):
+    def get_attribute_data(self, attrs):
+        try:
+            page = Page.objects.get(id=attrs['id']).specific
+        except Page.DoesNotExist:
+            return {}
+
+        data = {
+            'linkType': 'page',
+            'id': page.id,
+            'url': page.url,
+            'title': page.title,
+        }
+
+        parent_page = page.get_parent()
+        if parent_page:
+            data['parentId'] = parent_page.id
+
+        return data
 
 
 class AtomicBlockEntityElementHandler(object):
@@ -203,7 +234,8 @@ ELEMENT_HANDLERS_BY_FEATURE = {
         'strong': InlineStyleElementHandler('BOLD'),
     },
     'link': {
-        'a': LinkElementHandler('LINK'),
+        'a[href]': ExternalLinkElementHandler('LINK'),
+        'a[linktype="page"]': PageLinkElementHandler('LINK'),
     },
     # 'img': ImageElementHandler(),
 }
@@ -211,16 +243,17 @@ ELEMENT_HANDLERS_BY_FEATURE = {
 
 class HtmlToContentStateHandler(HTMLParser):
     def __init__(self, features=None):
-        self.element_handlers = {
-            'p': BlockElementHandler('unstyled'),
-        }
+        self.paragraph_handler = BlockElementHandler('unstyled')
+        self.element_handlers = HTMLRuleset({
+            'p': self.paragraph_handler
+        })
         if features is not None:
             for feature in features:
                 try:
                     feature_element_handlers = ELEMENT_HANDLERS_BY_FEATURE[feature]
                 except KeyError:
                     continue
-                self.element_handlers.update(feature_element_handlers)
+                self.element_handlers.add_rules(feature_element_handlers)
 
         super().__init__()
 
@@ -239,15 +272,11 @@ class HtmlToContentStateHandler(HTMLParser):
         self.state.leading_whitespace = 'strip'
 
     def handle_starttag(self, name, attrs):
-        try:
-            element_handler = self.element_handlers[name]
-        except KeyError:
-            if not self.open_elements:
-                # treat unrecognised top-level elements as paragraphs
-                element_handler = self.element_handlers['p']
-            else:
-                # ignore unrecognised elements below the top-level
-                element_handler = None
+        element_handler = self.element_handlers.match(name, dict(attrs))
+
+        if element_handler is None and not self.open_elements:
+            # treat unrecognised top-level elements as paragraphs
+            element_handler = self.paragraph_handler
 
         self.open_elements.append((name, element_handler))
 

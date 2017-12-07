@@ -28,6 +28,8 @@ def content_state_equal(v1, v2):
 
 
 class TestHtmlToContentState(TestCase):
+    fixtures = ['test.json']
+
     def assertContentStateEqual(self, v1, v2):
         "Assert that two contentState structures are equal, ignoring 'key' properties"
         self.assertTrue(content_state_equal(v1, v2), "%r does not match %r" % (v1, v2))
@@ -223,11 +225,55 @@ class TestHtmlToContentState(TestCase):
         ))
         self.assertContentStateEqual(result, {
             'entityMap': {
-                '0': {'mutability': 'MUTABLE', 'type': 'LINK', 'data': {'url': 'http://wagtail.io'}}
+                '0': {'mutability': 'MUTABLE', 'type': 'LINK', 'data': {'url': 'http://wagtail.io', 'linkType': 'external'}}
             },
             'blocks': [
                 {
                     'inlineStyleRanges': [], 'text': 'an external link', 'depth': 0, 'type': 'unstyled', 'key': '00000',
+                    'entityRanges': [{'offset': 3, 'length': 8, 'key': 0}]
+                },
+            ]
+        })
+
+    def test_page_link(self):
+        converter = ContentstateConverter(features=['link'])
+        result = json.loads(converter.from_database_format(
+            '''
+            <p>an <a linktype="page" id="3">internal</a> link</p>
+            '''
+        ))
+        self.assertContentStateEqual(result, {
+            'entityMap': {
+                '0': {
+                    'mutability': 'MUTABLE', 'type': 'LINK',
+                    'data': {'id': 3, 'linkType': 'page', 'title': 'Events', 'url': '/events/', 'parentId': 2}
+                }
+            },
+            'blocks': [
+                {
+                    'inlineStyleRanges': [], 'text': 'an internal link', 'depth': 0, 'type': 'unstyled', 'key': '00000',
+                    'entityRanges': [{'offset': 3, 'length': 8, 'key': 0}]
+                },
+            ]
+        })
+
+    def test_broken_page_link(self):
+        converter = ContentstateConverter(features=['link'])
+        result = json.loads(converter.from_database_format(
+            '''
+            <p>an <a linktype="page" id="9999">internal</a> link</p>
+            '''
+        ))
+        self.assertContentStateEqual(result, {
+            'entityMap': {
+                '0': {
+                    'mutability': 'MUTABLE', 'type': 'LINK',
+                    'data': {}
+                }
+            },
+            'blocks': [
+                {
+                    'inlineStyleRanges': [], 'text': 'an internal link', 'depth': 0, 'type': 'unstyled', 'key': '00000',
                     'entityRanges': [{'offset': 3, 'length': 8, 'key': 0}]
                 },
             ]
