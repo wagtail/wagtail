@@ -278,3 +278,47 @@ class TestHtmlToContentState(TestCase):
                 },
             ]
         })
+
+    def test_document_link(self):
+        converter = ContentstateConverter(features=['document-link'])
+        result = json.loads(converter.from_database_format(
+            '''
+            <p>a <a linktype="document" id="1">document</a> link</p>
+            '''
+        ))
+        self.assertContentStateEqual(result, {
+            'entityMap': {
+                '0': {
+                    'mutability': 'MUTABLE', 'type': 'DOCUMENT',
+                    'data': {'id': 1, 'url': '/documents/1/test.pdf'}
+                }
+            },
+            'blocks': [
+                {
+                    'inlineStyleRanges': [], 'text': 'a document link', 'depth': 0, 'type': 'unstyled', 'key': '00000',
+                    'entityRanges': [{'offset': 2, 'length': 8, 'key': 0}]
+                },
+            ]
+        })
+
+    def test_broken_document_link(self):
+        converter = ContentstateConverter(features=['document-link'])
+        result = json.loads(converter.from_database_format(
+            '''
+            <p>a <a linktype="document" id="9999">document</a> link</p>
+            '''
+        ))
+        self.assertContentStateEqual(result, {
+            'entityMap': {
+                '0': {
+                    'mutability': 'MUTABLE', 'type': 'DOCUMENT',
+                    'data': {}
+                }
+            },
+            'blocks': [
+                {
+                    'inlineStyleRanges': [], 'text': 'a document link', 'depth': 0, 'type': 'unstyled', 'key': '00000',
+                    'entityRanges': [{'offset': 2, 'length': 8, 'key': 0}]
+                },
+            ]
+        })
