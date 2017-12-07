@@ -4,7 +4,7 @@ from django.urls import reverse
 
 from wagtail.core import hooks
 from wagtail.core.models import PageViewRestriction
-from wagtail.core.rich_text.pages import PageLinkHandler
+from wagtail.core.rich_text.pages import PageLinkHandler, page_linktype_handler
 from wagtail.core.whitelist import allow_without_attributes, attribute_rule, check_url
 
 
@@ -42,6 +42,7 @@ def register_core_features(features):
 
     features.default_features.append('link')
     features.register_whitelister_element_rules('link', {'a': attribute_rule({'href': check_url})})
+    features.register_link_type('page', page_linktype_handler)
     features.register_link_handler_rules('link', {'page': PageLinkHandler})
 
     features.default_features.append('bold')

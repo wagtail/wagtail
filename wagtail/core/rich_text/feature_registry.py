@@ -26,6 +26,17 @@ class FeatureRegistry:
         # an explicit `feature` list.
         self.default_features = []
 
+        # a mapping of linktype names to rewriter functions for converting database representations
+        # of links (e.g. <a linktype="page" id="123">) into front-end HTML. Each rewriter function
+        # takes a dict of attributes, and returns the rewritten opening tag as a string
+        self.link_types = {}
+
+        # a mapping of embedtype names to rewriter functions for converting database representations
+        # of embedded content (e.g. <embed embedtype="image" id="123" format="left" alt="foo">)
+        # into front-end HTML. Each rewriter function takes a dict of attributes, and returns an
+        # HTML fragment to replace it with
+        self.embed_types = {}
+
         # a mapping of feature names to whitelister element rules that should be merged into
         # the whitelister element_rules config when the feature is active
         self.whitelister_element_rules = {}
@@ -62,6 +73,22 @@ class FeatureRegistry:
         except KeyError:
             return None
 
+    def register_link_type(self, link_type, handler):
+        self.link_types[link_type] = handler
+
+    def get_link_types(self):
+        if not self.has_scanned_for_features:
+            self._scan_for_features()
+        return self.link_types
+
+    def register_embed_type(self, embed_type, handler):
+        self.embed_types[embed_type] = handler
+
+    def get_embed_types(self):
+        if not self.has_scanned_for_features:
+            self._scan_for_features()
+        return self.embed_types
+
     def register_whitelister_element_rules(self, feature_name, ruleset):
         self.whitelister_element_rules[feature_name] = ruleset
 
@@ -80,20 +107,6 @@ class FeatureRegistry:
 
         return self.embed_handler_rules.get(feature_name, {})
 
-    def get_all_embed_handler_rules(self):
-        """
-        Return a dictionary of embedtypes to embed handlers, collated from all the
-        registered embed handler rules
-        """
-        if not self.has_scanned_for_features:
-            self._scan_for_features()
-
-        collated_ruleset = {}
-        for ruleset in self.embed_handler_rules.values():
-            collated_ruleset.update(ruleset)
-
-        return collated_ruleset
-
     def register_link_handler_rules(self, feature_name, ruleset):
         self.link_handler_rules[feature_name] = ruleset
 
@@ -102,17 +115,3 @@ class FeatureRegistry:
             self._scan_for_features()
 
         return self.link_handler_rules.get(feature_name, {})
-
-    def get_all_link_handler_rules(self):
-        """
-        Return a dictionary of linktypes to link handlers, collated from all the
-        registered link handler rules
-        """
-        if not self.has_scanned_for_features:
-            self._scan_for_features()
-
-        collated_ruleset = {}
-        for ruleset in self.link_handler_rules.values():
-            collated_ruleset.update(ruleset)
-
-        return collated_ruleset

@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 from django.test import TestCase
 
-from wagtail.images.rich_text import ImageEmbedHandler
+from wagtail.images.rich_text import ImageEmbedHandler, image_embedtype_handler
 
 from .utils import Image, get_test_image_file
 
@@ -20,12 +20,12 @@ class TestImageEmbedHandler(TestCase):
                           'format': 'test-format'})
 
     def test_expand_db_attributes_image_does_not_exist(self):
-        result = ImageEmbedHandler.expand_db_attributes({'id': 0})
+        result = image_embedtype_handler({'id': 0})
         self.assertEqual(result, '<img>')
 
     def test_expand_db_attributes_not_for_editor(self):
         Image.objects.create(id=1, title='Test', file=get_test_image_file())
-        result = ImageEmbedHandler.expand_db_attributes(
+        result = image_embedtype_handler(
             {'id': 1,
              'alt': 'test-alt',
              'format': 'left'}
@@ -34,7 +34,7 @@ class TestImageEmbedHandler(TestCase):
 
     def test_expand_db_attributes_escapes_alt_text(self):
         Image.objects.create(id=1, title='Test', file=get_test_image_file())
-        result = ImageEmbedHandler.expand_db_attributes(
+        result = image_embedtype_handler(
             {'id': 1,
              'alt': 'Arthur "two sheds" Jackson',
              'format': 'left'},
@@ -43,7 +43,7 @@ class TestImageEmbedHandler(TestCase):
 
     def test_expand_db_attributes_with_missing_alt(self):
         Image.objects.create(id=1, title='Test', file=get_test_image_file())
-        result = ImageEmbedHandler.expand_db_attributes(
+        result = image_embedtype_handler(
             {'id': 1,
              'format': 'left'},
         )

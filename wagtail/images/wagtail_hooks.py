@@ -14,7 +14,7 @@ from wagtail.images import admin_urls, get_image_model, image_operations
 from wagtail.images.api.admin.endpoints import ImagesAdminAPIEndpoint
 from wagtail.images.forms import GroupImagePermissionFormSet
 from wagtail.images.permissions import permission_policy
-from wagtail.images.rich_text import ImageEmbedHandler
+from wagtail.images.rich_text import ImageEmbedHandler, image_embedtype_handler
 
 
 @hooks.register('register_admin_urls')
@@ -65,6 +65,7 @@ def editor_js():
 
 @hooks.register('register_rich_text_features')
 def register_image_feature(features):
+    features.register_embed_type('image', image_embedtype_handler)
     features.register_editor_plugin(
         'hallo', 'image',
         HalloPlugin(

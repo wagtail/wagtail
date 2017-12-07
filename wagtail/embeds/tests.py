@@ -22,7 +22,7 @@ from wagtail.embeds.finders.embedly import EmbedlyFinder as EmbedlyFinder
 from wagtail.embeds.finders.embedly import AccessDeniedEmbedlyException, EmbedlyException
 from wagtail.embeds.finders.oembed import OEmbedFinder as OEmbedFinder
 from wagtail.embeds.models import Embed
-from wagtail.embeds.rich_text import MediaEmbedHandler
+from wagtail.embeds.rich_text import MediaEmbedHandler, media_embedtype_handler
 from wagtail.embeds.templatetags.wagtailembeds_tags import embed_tag
 
 try:
@@ -598,7 +598,7 @@ class TestMediaEmbedHandler(TestCase):
             height=1000,
         )
 
-        result = MediaEmbedHandler.expand_db_attributes(
+        result = media_embedtype_handler(
             {'url': 'http://www.youtube.com/watch/'}
         )
         self.assertIn('test html', result)
@@ -607,7 +607,7 @@ class TestMediaEmbedHandler(TestCase):
     def test_expand_db_attributes_catches_embed_not_found(self, get_embed):
         get_embed.side_effect = EmbedNotFoundException
 
-        result = MediaEmbedHandler.expand_db_attributes(
+        result = media_embedtype_handler(
             {'url': 'http://www.youtube.com/watch/'}
         )
 
