@@ -6,8 +6,9 @@ from django.test import TestCase
 from django.urls import reverse
 
 from wagtail.tests.testapp.models import (
-    CustomFormPageSubmission, FormField, FormFieldWithCustomSubmission,
-    FormPage, FormPageWithCustomSubmission)
+    CustomFormPageSubmission, FormField, FormFieldForCustomListViewPage,
+    FormFieldWithCustomSubmission, FormPage, FormPageWithCustomSubmission,
+    FormPageWithCustomSubmissionListView)
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.admin.edit_handlers import get_form_for_model
 from wagtail.admin.forms import WagtailAdminPageForm
@@ -19,6 +20,7 @@ from wagtail.contrib.forms.tests.utils import make_form_page, make_form_page_wit
 
 class TestFormResponsesPanel(TestCase):
     def setUp(self):
+
         self.form_page = make_form_page()
 
         self.FormPageForm = get_form_for_model(
@@ -966,6 +968,146 @@ class TestDeleteCustomFormSubmission(TestCase):
 
         # Check that the deletion has not happened
         self.assertEqual(CustomFormPageSubmission.objects.count(), 2)
+
+
+class TestFormsWithCustomSubmissionsList(TestCase, WagtailTestUtils):
+
+    def create_test_user_without_admin(self, username):
+        return get_user_model().objects.create_user(username=username, password='123')
+
+    def setUp(self):
+        # Create a form page
+
+        home_page = Page.objects.get(url_path='/home/')
+        self.form_page = home_page.add_child(
+            instance=FormPageWithCustomSubmissionListView(
+                title='Willy Wonka Chocolate Ideas',
+                slug='willy-wonka-chocolate-ideas',
+                to_address='willy@wonka.com',
+                from_address='info@wonka.com',
+                subject='Chocolate Idea Submitted!'
+            )
+        )
+        FormFieldForCustomListViewPage.objects.create(
+            page=self.form_page, sort_order=1, label='Your email', field_type='email', required=True,
+        )
+        FormFieldForCustomListViewPage.objects.create(
+            page=self.form_page, sort_order=1, label='Chocolate', field_type='singleline', required=True,
+        )
+        FormFieldForCustomListViewPage.objects.create(
+            page=self.form_page, sort_order=1, label='Ingredients', field_type='multiline', required=True,
+        )
+        self.choices = ['What is chocolate?', 'Mediocre', 'Much excitement', 'Wet my pants excited!']
+        FormFieldForCustomListViewPage.objects.create(
+            page=self.form_page, sort_order=1, label='Your Excitement', field_type='radio', required=True,
+            choices=','.join(self.choices),
+        )
+
+        self.test_user_1 = self.create_test_user_without_admin('user-chocolate-maniac')
+        self.test_user_2 = self.create_test_user_without_admin('user-chocolate-guy')
+
+        # add a couple of initial form submissions for testing ordering
+        new_form_submission = CustomFormPageSubmission.objects.create(
+            page=self.form_page,
+            user=self.test_user_1,
+            form_data=json.dumps({
+                'your-email': 'new@example.com',
+                'chocolate': 'White Chocolate',
+                'ingredients': 'White colouring',
+                'your-excitement': self.choices[2],
+            }),
+        )
+        new_form_submission.submit_time = '2017-10-01T12:00:00.000Z'
+        new_form_submission.save()
+
+        old_form_submission = CustomFormPageSubmission.objects.create(
+            page=self.form_page,
+            user=self.test_user_2,
+            form_data=json.dumps({
+                'your-email': 'old@example.com',
+                'chocolate': 'Dark Chocolate',
+                'ingredients': 'Charcoal',
+                'your-excitement': self.choices[0],
+            }),
+        )
+        old_form_submission.submit_time = '2017-01-01T12:00:00.000Z'
+        old_form_submission.save()
+
+        self.login()
+
+    def make_list_submissions(self):
+        """ Make 100 submissions to test pagination on the forms submissions page """
+        for i in range(120):
+            submission = CustomFormPageSubmission(
+                page=self.form_page,
+                user=self.test_user_1,
+                form_data=json.dumps({
+                    'your-email': "foo-%s@bar.com" % i,
+                    'chocolate': 'Chocolate No.%s' % i,
+                    'your-excitement': self.choices[3],
+                }),
+            )
+            submission.save()
+
+    def test_list_submissions(self):
+        response = self.client.get(reverse('wagtailforms:list_submissions', args=(self.form_page.id,)))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailforms/index_submissions.html')
+        self.assertEqual(len(response.context['data_rows']), 2)
+
+        # check display of list values within form submissions
+        self.assertContains(response, 'Much excitement')
+        self.assertContains(response, 'White Chocolate')
+        self.assertContains(response, 'Dark Chocolate')
+
+    def test_list_submissions_pagination(self):
+        self.make_list_submissions()
+
+        response = self.client.get(reverse('wagtailforms:list_submissions', args=(self.form_page.id,)), {'p': 2})
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailforms/index_submissions.html')
+
+        # test that paginate by 50 is working, should be 3 max pages (~120 values)
+        self.assertContains(response, 'Page 2 of 3')
+        self.assertContains(response, 'Wet my pants excited!', count=50)
+        self.assertEqual(response.context['page_obj'].number, 2)
+
+    def test_list_submissions_csv_export(self):
+        response = self.client.get(
+            reverse('wagtailforms:list_submissions', args=(self.form_page.id,)),
+            {'action': 'CSV'}
+        )
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        data_lines = response.content.decode().split("\n")
+        self.assertIn('filename=%s-export' % self.form_page.slug, response.get('Content-Disposition'))
+        self.assertEqual(data_lines[0], 'Username,Submission date,Your email,Chocolate,Ingredients,Your Excitement\r')
+        # first result should be the most recent as order_csv has been reversed
+        self.assertEqual(data_lines[1], 'user-chocolate-maniac,2017-10-01 12:00:00+00:00,new@example.com,White Chocolate,White colouring,Much excitement\r')
+        self.assertEqual(data_lines[2], 'user-chocolate-guy,2017-01-01 12:00:00+00:00,old@example.com,Dark Chocolate,Charcoal,What is chocolate?\r')
+
+    def test_list_submissions_ordering(self):
+        form_submission = CustomFormPageSubmission.objects.create(
+            page=self.form_page,
+            user=self.create_test_user_without_admin('user-aaa-aaa'),
+            form_data=json.dumps({
+                'your-email': 'new@example.com',
+                'chocolate': 'Old chocolate idea',
+                'ingredients': 'Sugar',
+                'your-excitement': self.choices[2],
+            }),
+        )
+        form_submission.submit_time = '2016-01-01T12:00:00.000Z'
+        form_submission.save()
+
+        # check ordering matches default which is overriden to be 'submit_time' (oldest first)
+        response = self.client.get(reverse('wagtailforms:list_submissions', args=(self.form_page.id,)))
+        first_row_values = response.context['data_rows'][0]['fields']
+        self.assertTrue('Old chocolate idea' in first_row_values)
 
 
 class TestIssue585(TestCase):

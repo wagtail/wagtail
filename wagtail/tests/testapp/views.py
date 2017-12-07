@@ -4,6 +4,7 @@ from django.template.response import TemplateResponse
 
 from wagtail.admin import messages
 from wagtail.admin.utils import user_passes_test
+from wagtail.contrib.forms.views import ListSubmissionsView
 
 
 def user_is_called_bob(user):
@@ -22,3 +23,14 @@ def message_test(request):
         return redirect('testapp_message_test')
     else:
         return TemplateResponse(request, 'wagtailadmin/base.html')
+
+
+class CustomListSubmissionsView(ListSubmissionsView):
+    paginate_by = 50
+    ordering = ('submit_time',)
+    ordering_csv = ('-submit_time',)
+
+    def get_csv_filename(self):
+        """ Returns the filename for CSV file with page title at start"""
+        filename = super().get_csv_filename()
+        return self.form_page.slug + '-' + filename
