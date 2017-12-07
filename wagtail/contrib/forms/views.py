@@ -183,8 +183,8 @@ class ListSubmissionsView(SafePaginateListView):
             default_ordering = self.ordering or ()
         if isinstance(default_ordering, str):
             default_ordering = (default_ordering,)
-        all_ordering = list(default_ordering) + self.request.GET.getlist('order_by')
-        for order in all_ordering:
+        ordering_strs = self.request.GET.getlist('order_by') or list(default_ordering)
+        for order in ordering_strs:
             try:
                 _, prefix, field_name = order.rpartition('-')
                 if field_name in orderable_fields:
