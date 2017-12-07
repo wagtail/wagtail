@@ -210,7 +210,7 @@ class AtomicBlockEntityElementHandler(object):
 
 class ImageElementHandler(AtomicBlockEntityElementHandler):
     def create_entity(self, name, attrs, state, contentstate):
-        return Entity('IMAGE', 'IMMUTABLE', {'altText': attrs.get('alt'), 'src': attrs['src']})
+        return Entity('IMAGE', 'IMMUTABLE', {'altText': attrs.get('alt'), 'id': attrs['id'], 'format': attrs['format']})
 
 
 ELEMENT_HANDLERS_BY_FEATURE = {
@@ -255,7 +255,9 @@ ELEMENT_HANDLERS_BY_FEATURE = {
     'document-link': {
         'a[linktype="document"]': DocumentLinkElementHandler('DOCUMENT'),
     },
-    # 'img': ImageElementHandler(),
+    'image': {
+        'embed[embedtype="image"]': ImageElementHandler(),
+    },
 }
 
 

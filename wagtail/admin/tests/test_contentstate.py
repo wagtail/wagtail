@@ -322,3 +322,26 @@ class TestHtmlToContentState(TestCase):
                 },
             ]
         })
+
+    def test_image_embed(self):
+        converter = ContentstateConverter(features=['image'])
+        result = json.loads(converter.from_database_format(
+            '''
+            <p>before</p>
+            <embed embedtype="image" alt="an image" id="1" format="left" />
+            <p>after</p>
+            '''
+        ))
+        self.assertContentStateEqual(result, {
+            'blocks': [
+                {'key': '00000', 'inlineStyleRanges': [], 'entityRanges': [], 'depth': 0, 'text': 'before', 'type': 'unstyled'},
+                {'key': '00000', 'inlineStyleRanges': [], 'entityRanges': [{'key': 0, 'offset': 0, 'length': 1}], 'depth': 0, 'text': ' ', 'type': 'atomic'},
+                {'key': '00000', 'inlineStyleRanges': [], 'entityRanges': [], 'depth': 0, 'text': 'after', 'type': 'unstyled'}
+            ],
+            'entityMap': {
+                '0': {
+                    'data': {'format': 'left', 'altText': 'an image', 'id': '1'},
+                    'mutability': 'IMMUTABLE', 'type': 'IMAGE'
+                }
+            }
+        })
