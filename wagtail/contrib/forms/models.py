@@ -244,6 +244,16 @@ class AbstractForm(Page):
 
         return FormSubmission
 
+    def get_list_submissions_view_class(self):
+        """
+        Returns list submissions view class.
+
+        You can override this method to provide custom view class.
+        Your class must be inherited from ListSubmissionsView.
+        """
+        from wagtail.contrib.forms.views import ListSubmissionsView
+        return ListSubmissionsView
+
     def process_form_submission(self, form):
         """
         Accepts form instance with submitted data, user and page.

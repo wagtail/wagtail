@@ -161,7 +161,7 @@ class TestFormsIndex(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, 'wagtailforms/index.html')
 
         # Check that it got the last page
-        self.assertEqual(response.context['form_pages'].number, response.context['form_pages'].paginator.num_pages)
+        self.assertEqual(response.context['page_obj'].number, response.context['paginator'].num_pages)
 
     def test_cannot_see_forms_without_permission(self):
         # Login with as a user without permission to see forms
@@ -329,7 +329,7 @@ class TestFormsSubmissionsList(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, 'wagtailforms/index_submissions.html')
 
         # Check that we got page one
-        self.assertEqual(response.context['submissions'].number, 1)
+        self.assertEqual(response.context['page_obj'].number, 1)
 
     def test_list_submissions_pagination_out_of_range(self):
         self.make_list_submissions()
@@ -341,7 +341,7 @@ class TestFormsSubmissionsList(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, 'wagtailforms/index_submissions.html')
 
         # Check that we got the last page
-        self.assertEqual(response.context['submissions'].number, response.context['submissions'].paginator.num_pages)
+        self.assertEqual(response.context['page_obj'].number, response.context['paginator'].num_pages)
 
     def test_list_submissions_default_order(self):
         response = self.client.get(reverse(
@@ -818,7 +818,7 @@ class TestCustomFormsSubmissionsList(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, 'wagtailforms/index_submissions.html')
 
         # Check that we got page one
-        self.assertEqual(response.context['submissions'].number, 1)
+        self.assertEqual(response.context['page_obj'].number, 1)
 
     def test_list_submissions_pagination_out_of_range(self):
         self.make_list_submissions()
@@ -831,8 +831,7 @@ class TestCustomFormsSubmissionsList(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, 'wagtailforms/index_submissions.html')
 
         # Check that we got the last page
-        self.assertEqual(response.context['submissions'].number,
-                         response.context['submissions'].paginator.num_pages)
+        self.assertEqual(response.context['page_obj'].number, response.context['paginator'].num_pages)
 
 
 class TestDeleteFormSubmission(TestCase, WagtailTestUtils):

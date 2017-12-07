@@ -2,6 +2,7 @@ import csv
 import datetime
 
 from django.core.exceptions import PermissionDenied
+from django.core.paginator import InvalidPage
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.utils.encoding import smart_str
@@ -9,50 +10,91 @@ from django.utils.translation import ungettext
 from django.views.generic import ListView, TemplateView
 
 from wagtail.admin import messages
-from wagtail.core.models import Page
 from wagtail.contrib.forms.forms import SelectDateForm
 from wagtail.contrib.forms.models import get_forms_for_user
+from wagtail.core.models import Page
 
 
-class ListFormPages(ListView):
-    """ Lists the available form pages for the current user. """
+def get_list_submissions_view(request, *args, **kwargs):
+    """ Call the form page's list submissions view class """
+    page_id = kwargs.get('page_id')
+    form_page = get_object_or_404(Page, id=page_id).specific
+    list_submissions_view = form_page.get_list_submissions_view_class().as_view()
+    return list_submissions_view(request, form_page=form_page, *args, **kwargs)
+
+
+class SafePaginateListView(ListView):
+    """ Listing view with safe pagination, allowing incorrect or out of range values """
+    def paginate_queryset(self, queryset, page_size):
+        """Paginate the queryset if needed with nice defaults on invalid param."""
+        paginator = self.get_paginator(
+            queryset,
+            page_size,
+            orphans=self.get_paginate_orphans(),
+            allow_empty_first_page=self.get_allow_empty()
+        )
+        page_kwarg = self.page_kwarg
+        page_request = self.kwargs.get(page_kwarg) or self.request.GET.get(page_kwarg) or 0
+        try:
+            page_number = int(page_request)
+        except ValueError:
+            if page_request == 'last':
+                page_number = paginator.num_pages
+            else:
+                page_number = 0
+        try:
+            if page_number > paginator.num_pages:
+                page_number = paginator.num_pages  # page out of range, show last page
+            page = paginator.page(page_number)
+            return (paginator, page, page.object_list, page.has_other_pages())
+        except InvalidPage:
+            page = paginator.page(1)
+            return (paginator, page, page.object_list, page.has_other_pages())
+        return super().paginage_queryset(queryset, page_size)
+
+
+class ListFormPagesView(SafePaginateListView):
+    """ Lists the available form pages for the current user """
     template_name = 'wagtailforms/index.html'
     context_object_name = 'form_pages'
     paginate_by = 20
     page_kwarg = 'p'
 
     def get_queryset(self):
-        return get_forms_for_user(self.request.user)
+        """ Return the queryset of form pages for this view """
+        queryset = get_forms_for_user(self.request.user)
+        ordering = self.get_ordering()
+        if ordering:
+            if isinstance(ordering, str):
+                ordering = (ordering,)
+            queryset = queryset.order_by(*ordering)
+        return queryset
 
 
-class DeleteSubmissions(TemplateView):
+class DeleteSubmissionsView(TemplateView):
     """ Delete the selected submissions """
     template_name = 'wagtailforms/confirm_delete.html'
-
     page = None
     submissions = None
-
     success_url = 'wagtailforms:list_submissions'
 
     def get_queryset(self):
         """ Returns a queryset for the selected submissions """
         submission_ids = self.request.GET.getlist('selected-submissions')
-        return self.page.get_submission_class()._default_manager.filter(id__in=submission_ids)
+        submission_class = self.page.get_submission_class()
+        return submission_class._default_manager.filter(id__in=submission_ids)
 
     def handle_delete(self, submissions):
         """ Deletes the given queryset """
         count = submissions.count()
         submissions.delete()
-
         messages.success(
             self.request,
             ungettext(
                 'One submission has been deleted.',
                 '%(count)d submissions have been deleted.',
                 count
-            ) % {
-                'count': count,
-            }
+            ) % {'count': count}
         )
 
     def get_success_url(self):
@@ -60,7 +102,7 @@ class DeleteSubmissions(TemplateView):
         return self.success_url
 
     def dispatch(self, request, *args, **kwargs):
-        """ Check permissions, set the page, set submissions, handle delete """
+        """ Check permissions, set the page and submissions, handle delete """
         page_id = kwargs.get('page_id')
 
         if not get_forms_for_user(self.request.user).filter(id=page_id).exists():
@@ -74,10 +116,11 @@ class DeleteSubmissions(TemplateView):
             self.handle_delete(self.submissions)
             return redirect(self.get_success_url(), page_id)
 
-        return super(DeleteSubmissions, self).dispatch(request, *args, **kwargs)
+        return super().dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
-        context = super(DeleteSubmissions, self).get_context_data(**kwargs)
+        """ Get the context for this view """
+        context = super().get_context_data(**kwargs)
 
         context.update({
             'page': self.page,
@@ -87,73 +130,80 @@ class DeleteSubmissions(TemplateView):
         return context
 
 
-class ListSubmissions(ListView):
-    """ Lists submissions for the provided page """
+class ListSubmissionsView(SafePaginateListView):
+    """ Lists submissions for the provided form page """
     template_name = 'wagtailforms/index_submissions.html'
     context_object_name = 'submissions'
     paginate_by = 20
     page_kwarg = 'p'
-
     form_page = None
+    ordering = ('-submit_time',)
+    ordering_csv = ('submit_time',)  # keep legacy CSV ordering
+    orderable_fields = ('id', 'submit_time',)  # used to validate ordering in URL
     select_date_form = None
 
     def dispatch(self, request, *args, **kwargs):
         """ Check permissions and set the form page """
-        page_id = self.kwargs.get('page_id')
 
-        if not get_forms_for_user(self.request.user).filter(id=page_id).exists():
+        self.form_page = kwargs.get('form_page')
+
+        if not get_forms_for_user(request.user).filter(pk=self.form_page.id).exists():
             raise PermissionDenied
 
-        self.form_page = get_object_or_404(Page, id=page_id).specific
+        self.is_csv_export = (self.request.GET.get('action') == 'CSV')
 
-        return super(ListSubmissions, self).dispatch(request, *args, **kwargs)
+        return super().dispatch(request, *args, **kwargs)
 
     def get_queryset(self):
-        """ Returns the form submissions queryset and applies filter_queryset() """
-        form_submission_class = self.form_page.get_submission_class()
+        """ Return queryset of form submissions with filter and order_by applied """
+        submission_class = self.form_page.get_submission_class()
+        queryset = submission_class._default_manager.filter(page=self.form_page)
 
-        submissions = form_submission_class.objects.filter(page=self.form_page).order_by('submit_time')
+        filtering = self.get_filtering()
+        if filtering:
+            if isinstance(filtering, dict):
+                queryset = queryset.filter(**filtering)
 
-        return self.filter_queryset(submissions)
+        ordering = self.get_ordering()
+        if ordering:
+            if isinstance(ordering, str):
+                ordering = (ordering,)
+            queryset = queryset.order_by(*ordering)
 
+        return queryset
 
-# ordering = form_page.get_field_ordering(request.GET.getlist('order_by'))
-#
-# # convert ordering tuples to a list of strings like ['-submit_time']
-# ordering_strings = [
-#     '%s%s' % ('-' if order_str[1] == 'descending' else '', order_str[0])
-#     for order_str in ordering]
-#
-# if request.GET.get('action') == 'CSV':
-#     #  Revert to CSV being sorted submit_time ascending for backwards compatibility
-#     submissions = form_submission_class.objects.filter(page=form_page).order_by('submit_time')
-# else:
-#     submissions = form_submission_class.objects.filter(page=form_page).order_by(*ordering_strings)
-#
-# data_fields_with_ordering = []
-# for name, label in data_fields:
-#     order = None
-#     for order_value in [o[1] for o in ordering if o[0] == name]:
-#         order = order_value
-#     data_fields_with_ordering.append({
-#         "name": name,
-#         "label": label,
-#         "order": order,
-#     })
-#
-# data_headings = [label for name, label in data_fields]
+    def get_validated_ordering(self):
+        """ Return a dict of field names with ordering labels if ordering is valid """
+        orderable_fields = self.orderable_fields or ()
+        ordering = dict()
+        if self.is_csv_export:
+            #  Revert to CSV order_by submit_time ascending for backwards compatibility
+            default_ordering = self.ordering_csv or ()
+        else:
+            default_ordering = self.ordering or ()
+        if isinstance(default_ordering, str):
+            default_ordering = (default_ordering,)
+        all_ordering = list(default_ordering) + self.request.GET.getlist('order_by')
+        for order in all_ordering:
+            try:
+                _, prefix, field_name = order.rpartition('-')
+                if field_name in orderable_fields:
+                    ordering[field_name] = (
+                        prefix, 'descending' if prefix == '-' else 'ascending'
+                    )
+            except (IndexError, ValueError):
+                continue  # invalid ordering specified, skip it
+        return ordering
 
-    def filter_queryset(self, submissions):
-        """ Filters the given queryset using the SelectDateForm """
+    def get_ordering(self):
+        """ Return the field or fields to use for ordering the queryset """
+        ordering = self.get_validated_ordering()
+        return [values[0] + name for name, values in ordering.items()]
+
+    def get_filtering(self):
+        """ Return filering as a dict for submissions queryset """
         self.select_date_form = SelectDateForm(self.request.GET)
-
-        ordering = form_page.get_field_ordering(request.GET.getlist('order_by'))
-
-        # convert ordering tuples to a list of strings like ['-submit_time']
-        ordering_strings = [
-            '%s%s' % ('-' if order_str[1] == 'descending' else '', order_str[0])
-            for order_str in ordering]
-
+        filter = dict()
         if self.select_date_form.is_valid():
             date_from = self.select_date_form.cleaned_data.get('date_from')
             date_to = self.select_date_form.cleaned_data.get('date_to')
@@ -162,13 +212,12 @@ class ListSubmissions(ListView):
             if date_to:
                 date_to += datetime.timedelta(days=1)
             if date_from and date_to:
-                submissions = submissions.filter(submit_time__range=[date_from, date_to])
+                filter = dict(submit_time__range=[date_from, date_to])
             elif date_from and not date_to:
-                submissions = submissions.filter(submit_time__gte=date_from)
+                filter = dict(submit_time__gte=date_from)
             elif not date_from and date_to:
-                submissions = submissions.filter(submit_time__lte=date_to)
-
-        return submissions
+                filter = dict(submit_time__lte=date_to)
+        return filter
 
     def get_csv_filename(self):
         """ Returns the filename for the generated CSV file """
@@ -178,40 +227,45 @@ class ListSubmissions(ListView):
 
     def get_csv_response(self, context):
         """ Returns a CSV response """
+        filename = self.get_csv_filename()
         response = HttpResponse(content_type='text/csv; charset=utf-8')
-        response['Content-Disposition'] = 'attachment;filename={}'.format(self.get_csv_filename())
-
-        # Prevents UnicodeEncodeError for labels with non-ansi symbols
-        data_headings = [smart_str(label) for label in context['data_headings']]
+        response['Content-Disposition'] = 'attachment;filename={}'.format(filename)
 
         writer = csv.writer(response)
-        writer.writerow(data_headings)
-        for s in context[self.context_object_name]:
-            data_row = []
-            form_data = s.get_data()
-            for name, label in context['data_fields']:
-                val = form_data.get(name)
-                if isinstance(val, list):
-                    val = ', '.join(val)
-                data_row.append(smart_str(val))
+        writer.writerow(context['data_headings'])
+        for data_row in context['data_rows']:
             writer.writerow(data_row)
         return response
 
     def render_to_response(self, context, **response_kwargs):
-        if self.request.GET.get('action') == 'CSV':
+        if self.is_csv_export:
             return self.get_csv_response(context)
-        return super(ListSubmissions, self).render_to_response(context, **response_kwargs)
+        return super().render_to_response(context, **response_kwargs)
 
     def get_context_data(self, **kwargs):
-        context = super(ListSubmissions, self).get_context_data(**kwargs)
-
+        """ Return context for view, handle CSV or normal output """
+        context = super().get_context_data(**kwargs)
+        submissions = context[self.context_object_name].all()  # force queryset into list
         data_fields = self.form_page.get_data_fields()
-        data_headings = [label for name, label in data_fields]
+        data_rows = []
 
-        if self.request.GET.get('action') != 'CSV':
-            data_rows = []
-            for s in context[self.context_object_name]:
-                form_data = s.get_data()
+        if self.is_csv_export:
+            # Build data_rows as list of lists containing formatted data values
+            # Using smart_str prevents UnicodeEncodeError for values with non-ansi symbols
+            for submission in submissions:
+                form_data = submission.get_data()
+                data_row = []
+                for name, label in data_fields:
+                    val = form_data.get(name)
+                    if isinstance(val, list):
+                        val = ', '.join(val)
+                    data_row.append(smart_str(val))
+                data_rows.append(data_row)
+            data_headings = [smart_str(label) for name, label in data_fields]
+        else:
+            # Build data_rows as list of dicts containing model_id and fields
+            for submission in submissions:
+                form_data = submission.get_data()
                 data_row = []
                 for name, label in data_fields:
                     val = form_data.get(name)
@@ -219,16 +273,33 @@ class ListSubmissions(ListView):
                         val = ', '.join(val)
                     data_row.append(val)
                 data_rows.append({
-                    'model_id': s.id,
+                    'model_id': submission.id,
                     'fields': data_row
                 })
-            context['data_rows'] = data_rows
+            # Build data_headings as list of dicts containing model_id and fields
+            ordering_by_field = self.get_validated_ordering()
+            orderable_fields = self.orderable_fields
+            data_headings = []
+            for name, label in data_fields:
+                order_label = None
+                if name in orderable_fields:
+                    order = ordering_by_field.get(name)
+                    if order:
+                        order_label = order[1]  # 'ascending' or 'descending'
+                    else:
+                        order_label = 'orderable'  # not ordered yet but can be
+                data_headings.append({
+                    'name': name,
+                    'label': label,
+                    'order': order_label,
+                })
 
         context.update({
             'form_page': self.form_page,
             'select_date_form': self.select_date_form,
             'data_headings': data_headings,
-            'data_fields': data_fields
+            'data_rows': data_rows,
+            'submissions': submissions,
         })
 
         return context
