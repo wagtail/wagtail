@@ -1,13 +1,13 @@
 from bs4 import BeautifulSoup
 from django.test import TestCase
 
-from wagtail.admin.rich_text.converters.editor_html import DbWhitelister
+from wagtail.admin.rich_text.converters.editor_html import EditorHTMLConverter
 from wagtail.core.whitelist import Whitelister
 
 
 class TestDbWhitelisterMethods(TestCase):
     def setUp(self):
-        self.whitelister = DbWhitelister()
+        self.whitelister = EditorHTMLConverter().whitelister
 
     def test_clean_tag_node_div(self):
         soup = BeautifulSoup('<div>foo</div>', 'html5lib')
@@ -44,7 +44,7 @@ class TestDbWhitelisterMethods(TestCase):
 
 class TestDbWhitelister(TestCase):
     def setUp(self):
-        self.whitelister = DbWhitelister()
+        self.whitelister = EditorHTMLConverter().whitelister
 
     def assertHtmlEqual(self, str1, str2):
         """
@@ -147,13 +147,13 @@ class TestDbWhitelister(TestCase):
         self.assertHtmlEqual(expected, output_html)
 
     def test_whitelist_with_feature_list(self):
-        whitelister = DbWhitelister(features=['h1', 'bold', 'link', 'something_i_just_made_up'])
+        converter = EditorHTMLConverter(features=['h1', 'bold', 'link', 'something_i_just_made_up'])
         input_html = (
             '<h1>this heading is allowed</h1> <h2>but not this one</h2> '
             '<p><b>bold</b> <i>italic</i></p>'
             '<p><a href="http://torchbox.com">external link</a> <a data-linktype="page" data-id="2" href="/">internal link</a></p>'
         )
-        output_html = whitelister.clean(input_html)
+        output_html = converter.to_database_format(input_html)
         expected = (
             '<h1>this heading is allowed</h1> but not this one '
             '<p><b>bold</b> italic</p>'

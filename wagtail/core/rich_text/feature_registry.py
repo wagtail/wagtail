@@ -37,9 +37,12 @@ class FeatureRegistry:
         # HTML fragment to replace it with
         self.embed_types = {}
 
-        # a mapping of feature names to whitelister element rules that should be merged into
-        # the whitelister element_rules config when the feature is active
-        self.whitelister_element_rules = {}
+        # a dict of dicts, one for each converter backend (editorhtml, contentstate etc);
+        # each dict is a mapping of feature names to 'rule' objects that define how to convert
+        # that feature's elements between editor representation and database representation
+        # (e.g. elements to whitelist, functions for transferring attributes).
+        # The API of that rule object is not defined here, and is specific to each converter backend.
+        self.converter_rules_by_converter = {}
 
         # a mapping of feature names to embed_handler rules that should be merged into the
         # list of recognised embedtypes when the feature is active
@@ -89,14 +92,18 @@ class FeatureRegistry:
             self._scan_for_features()
         return self.embed_types
 
-    def register_whitelister_element_rules(self, feature_name, ruleset):
-        self.whitelister_element_rules[feature_name] = ruleset
+    def register_converter_rule(self, converter_name, feature_name, rule):
+        rules = self.converter_rules_by_converter.setdefault(converter_name, {})
+        rules[feature_name] = rule
 
-    def get_whitelister_element_rules(self, feature_name):
+    def get_converter_rule(self, converter_name, feature_name):
         if not self.has_scanned_for_features:
             self._scan_for_features()
 
-        return self.whitelister_element_rules.get(feature_name, {})
+        try:
+            return self.converter_rules_by_converter[converter_name][feature_name]
+        except KeyError:
+            return None
 
     def register_embed_handler_rules(self, feature_name, ruleset):
         self.embed_handler_rules[feature_name] = ruleset

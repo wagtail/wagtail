@@ -1,9 +1,28 @@
+import warnings
+
 from django.utils.functional import cached_property
 
 from wagtail.core import hooks
-from wagtail.core.rich_text import features
+from wagtail.core.rich_text import features as feature_registry
 from wagtail.core.rich_text.rewriters import EmbedRewriter, LinkRewriter, MultiRuleRewriter
-from wagtail.core.whitelist import allow_without_attributes, Whitelister, DEFAULT_ELEMENT_RULES
+from wagtail.core.whitelist import allow_without_attributes, Whitelister
+from wagtail.utils.deprecation import RemovedInWagtail22Warning
+
+
+class WhitelistRule:
+    def __init__(self, element, handler):
+        self.element = element
+        self.handler = handler
+
+
+# Whitelist rules which are always active regardless of the rich text features that are enabled
+
+BASE_WHITELIST_RULES = {
+    '[document]': allow_without_attributes,
+    'p': allow_without_attributes,
+    'div': allow_without_attributes,
+    'br': allow_without_attributes,
+}
 
 
 class DbWhitelister(Whitelister):
@@ -21,52 +40,39 @@ class DbWhitelister(Whitelister):
       determined by the handler for that type defined in link_handlers, while keeping the
       element content intact.
     """
-    def __init__(self, features=None):
+    def __init__(self, converter_rules, features):
+        self.element_rules = BASE_WHITELIST_RULES.copy()
+        for rule in converter_rules:
+            if isinstance(rule, WhitelistRule):
+                self.element_rules[rule.element] = rule.handler
+
+        # apply legacy construct_whitelister_element_rules hooks to the assembled list
+        construct_whitelist_hooks = hooks.get_hooks('construct_whitelister_element_rules')
+        if construct_whitelist_hooks:
+            warnings.warn(
+                'The construct_whitelister_element_rules hook is deprecated and will be removed '
+                'in Wagtail 2.2. Use register_rich_text_features instead',
+                RemovedInWagtail22Warning
+            )
+
+            for fn in construct_whitelist_hooks:
+                self.element_rules.update(fn())
+
         self.features = features
 
     @cached_property
-    def element_rules(self):
-        if self.features is None:
-            # use the legacy construct_whitelister_element_rules hook to build up whitelist rules
-            element_rules = DEFAULT_ELEMENT_RULES.copy()
-            for fn in hooks.get_hooks('construct_whitelister_element_rules'):
-                element_rules.update(fn())
-        else:
-            # use the feature registry to build up whitelist rules
-            element_rules = {
-                '[document]': allow_without_attributes,
-                'p': allow_without_attributes,
-                'div': allow_without_attributes,
-                'br': allow_without_attributes,
-            }
-            for feature_name in self.features:
-                element_rules.update(features.get_whitelister_element_rules(feature_name))
-
-        return element_rules
-
-    @cached_property
     def embed_handlers(self):
-        if self.features is None:
-            feature_list = features.get_default_features()
-        else:
-            feature_list = self.features
-
         embed_handlers = {}
-        for feature in feature_list:
-            embed_handlers.update(features.get_embed_handler_rules(feature))
+        for feature in self.features:
+            embed_handlers.update(feature_registry.get_embed_handler_rules(feature))
 
         return embed_handlers
 
     @cached_property
     def link_handlers(self):
-        if self.features is None:
-            feature_list = features.get_default_features()
-        else:
-            feature_list = self.features
-
         link_handlers = {}
-        for feature in feature_list:
-            link_handlers.update(features.get_link_handler_rules(feature))
+        for feature in self.features:
+            link_handlers.update(feature_registry.get_link_handler_rules(feature))
 
         return link_handlers
 
@@ -113,27 +119,36 @@ class DbWhitelister(Whitelister):
 
 class EditorHTMLConverter:
     def __init__(self, features=None):
-        self.features = features
-        self.whitelister = DbWhitelister(features)
+        if features is None:
+            self.features = feature_registry.get_default_features()
+        else:
+            self.features = features
+
+        self.converter_rules = []
+        for feature in self.features:
+            rule = feature_registry.get_converter_rule('editorhtml', feature)
+            if rule is not None:
+                # rule should be a list of WhitelistRule() instances - append this to
+                # the master converter_rules list
+                self.converter_rules.extend(rule)
+
+    @cached_property
+    def whitelister(self):
+        return DbWhitelister(self.converter_rules, self.features)
 
     def to_database_format(self, html):
         return self.whitelister.clean(html)
 
     @cached_property
     def html_rewriter(self):
-        if self.features is None:
-            feature_list = features.get_default_features()
-        else:
-            feature_list = self.features
-
         embed_rules = {}
         link_rules = {}
-        for feature in feature_list:
-            embed_handlers = features.get_embed_handler_rules(feature)
+        for feature in self.features:
+            embed_handlers = feature_registry.get_embed_handler_rules(feature)
             for handler_name, handler in embed_handlers.items():
                 embed_rules[handler_name] = handler.expand_db_attributes
 
-            link_handlers = features.get_link_handler_rules(feature)
+            link_handlers = feature_registry.get_link_handler_rules(feature)
             for handler_name, handler in link_handlers.items():
                 link_rules[handler_name] = handler.expand_db_attributes
 
