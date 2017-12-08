@@ -2,6 +2,7 @@ from django.conf import settings
 from django.contrib.auth.views import redirect_to_login
 from django.urls import reverse
 
+from wagtail.admin.rich_text.converters.editor_html import WhitelistRule
 from wagtail.core import hooks
 from wagtail.core.models import PageViewRestriction
 from wagtail.core.rich_text.pages import PageLinkHandler, page_linktype_handler
@@ -38,35 +39,43 @@ def check_view_restrictions(page, request, serve_args, serve_kwargs):
 @hooks.register('register_rich_text_features')
 def register_core_features(features):
     features.default_features.append('hr')
-    features.register_whitelister_element_rules('hr', {'hr': allow_without_attributes})
+    features.register_converter_rule('editorhtml', 'hr', [
+        WhitelistRule('hr', allow_without_attributes)
+    ])
 
     features.default_features.append('link')
-    features.register_whitelister_element_rules('link', {'a': attribute_rule({'href': check_url})})
+    features.register_converter_rule('editorhtml', 'link', [
+        WhitelistRule('a', attribute_rule({'href': check_url}))
+    ])
     features.register_link_type('page', page_linktype_handler)
     features.register_link_handler_rules('link', {'page': PageLinkHandler})
 
     features.default_features.append('bold')
-    features.register_whitelister_element_rules(
-        'bold', {'b': allow_without_attributes, 'strong': allow_without_attributes}
-    )
+    features.register_converter_rule('editorhtml', 'bold', [
+        WhitelistRule('b', allow_without_attributes),
+        WhitelistRule('strong', allow_without_attributes),
+    ])
 
     features.default_features.append('italic')
-    features.register_whitelister_element_rules(
-        'italic', {'i': allow_without_attributes, 'em': allow_without_attributes}
-    )
+    features.register_converter_rule('editorhtml', 'italic', [
+        WhitelistRule('i', allow_without_attributes),
+        WhitelistRule('em', allow_without_attributes),
+    ])
 
     features.default_features.extend(['h2', 'h3', 'h4'])
     for element in ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']:
-        features.register_whitelister_element_rules(
-            element, {element: allow_without_attributes}
-        )
+        features.register_converter_rule('editorhtml', element, [
+            WhitelistRule(element, allow_without_attributes)
+        ])
 
     features.default_features.append('ol')
-    features.register_whitelister_element_rules(
-        'ol', {'ol': allow_without_attributes, 'li': allow_without_attributes}
-    )
+    features.register_converter_rule('editorhtml', 'ol', [
+        WhitelistRule('ol', allow_without_attributes),
+        WhitelistRule('li', allow_without_attributes),
+    ])
 
     features.default_features.append('ul')
-    features.register_whitelister_element_rules(
-        'ul', {'ul': allow_without_attributes, 'li': allow_without_attributes}
-    )
+    features.register_converter_rule('editorhtml', 'ul', [
+        WhitelistRule('ul', allow_without_attributes),
+        WhitelistRule('li', allow_without_attributes),
+    ])
