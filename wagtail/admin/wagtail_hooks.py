@@ -6,12 +6,15 @@ from wagtail.admin.menu import MenuItem, SubmenuMenuItem, settings_menu
 from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.admin.rich_text import (
     HalloFormatPlugin, HalloHeadingPlugin, HalloListPlugin, HalloPlugin)
+from wagtail.admin.rich_text.converters.editor_html import LinkTypeRule, WhitelistRule
 from wagtail.admin.search import SearchArea
 from wagtail.admin.utils import user_has_any_page_permission
 from wagtail.admin.viewsets import viewsets
 from wagtail.admin.widgets import Button, ButtonWithDropdownFromHook, PageListingButton
 from wagtail.core import hooks
 from wagtail.core.permissions import collection_permission_policy
+from wagtail.core.rich_text.pages import PageLinkHandler
+from wagtail.core.whitelist import allow_without_attributes, attribute_rule, check_url
 
 
 class ExplorerMenuItem(MenuItem):
@@ -189,6 +192,9 @@ def register_core_features(features):
             order=45,
         )
     )
+    features.register_converter_rule('editorhtml', 'hr', [
+        WhitelistRule('hr', allow_without_attributes)
+    ])
 
     features.register_editor_plugin(
         'hallo', 'link',
@@ -197,24 +203,47 @@ def register_core_features(features):
             js=['wagtailadmin/js/hallo-plugins/hallo-wagtaillink.js'],
         )
     )
+    features.register_converter_rule('editorhtml', 'link', [
+        WhitelistRule('a', attribute_rule({'href': check_url})),
+        LinkTypeRule('page', PageLinkHandler),
+    ])
 
     features.register_editor_plugin(
         'hallo', 'bold', HalloFormatPlugin(format_name='bold')
     )
+    features.register_converter_rule('editorhtml', 'bold', [
+        WhitelistRule('b', allow_without_attributes),
+        WhitelistRule('strong', allow_without_attributes),
+    ])
 
     features.register_editor_plugin(
         'hallo', 'italic', HalloFormatPlugin(format_name='italic')
     )
+    features.register_converter_rule('editorhtml', 'italic', [
+        WhitelistRule('i', allow_without_attributes),
+        WhitelistRule('em', allow_without_attributes),
+    ])
 
     for element in ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']:
         features.register_editor_plugin(
             'hallo', element, HalloHeadingPlugin(element=element)
         )
+        features.register_converter_rule('editorhtml', element, [
+            WhitelistRule(element, allow_without_attributes)
+        ])
 
     features.register_editor_plugin(
         'hallo', 'ol', HalloListPlugin(list_type='ordered')
     )
+    features.register_converter_rule('editorhtml', 'ol', [
+        WhitelistRule('ol', allow_without_attributes),
+        WhitelistRule('li', allow_without_attributes),
+    ])
 
     features.register_editor_plugin(
         'hallo', 'ul', HalloListPlugin(list_type='unordered')
     )
+    features.register_converter_rule('editorhtml', 'ul', [
+        WhitelistRule('ul', allow_without_attributes),
+        WhitelistRule('li', allow_without_attributes),
+    ])
