@@ -2,7 +2,7 @@ from django.conf import settings
 from django.contrib.auth.views import redirect_to_login
 from django.urls import reverse
 
-from wagtail.admin.rich_text.converters.editor_html import WhitelistRule
+from wagtail.admin.rich_text.converters.editor_html import LinkTypeRule, WhitelistRule
 from wagtail.core import hooks
 from wagtail.core.models import PageViewRestriction
 from wagtail.core.rich_text.pages import PageLinkHandler, page_linktype_handler
@@ -45,10 +45,10 @@ def register_core_features(features):
 
     features.default_features.append('link')
     features.register_converter_rule('editorhtml', 'link', [
-        WhitelistRule('a', attribute_rule({'href': check_url}))
+        WhitelistRule('a', attribute_rule({'href': check_url})),
+        LinkTypeRule('page', PageLinkHandler),
     ])
     features.register_link_type('page', page_linktype_handler)
-    features.register_link_handler_rules('link', {'page': PageLinkHandler})
 
     features.default_features.append('bold')
     features.register_converter_rule('editorhtml', 'bold', [

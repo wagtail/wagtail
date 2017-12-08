@@ -44,14 +44,6 @@ class FeatureRegistry:
         # The API of that rule object is not defined here, and is specific to each converter backend.
         self.converter_rules_by_converter = {}
 
-        # a mapping of feature names to embed_handler rules that should be merged into the
-        # list of recognised embedtypes when the feature is active
-        self.embed_handler_rules = {}
-
-        # a mapping of feature names to link_handler rules that should be merged into the
-        # list of recognised linktypes when the feature is active
-        self.link_handler_rules = {}
-
     def get_default_features(self):
         if not self.has_scanned_for_features:
             self._scan_for_features()
@@ -104,21 +96,3 @@ class FeatureRegistry:
             return self.converter_rules_by_converter[converter_name][feature_name]
         except KeyError:
             return None
-
-    def register_embed_handler_rules(self, feature_name, ruleset):
-        self.embed_handler_rules[feature_name] = ruleset
-
-    def get_embed_handler_rules(self, feature_name):
-        if not self.has_scanned_for_features:
-            self._scan_for_features()
-
-        return self.embed_handler_rules.get(feature_name, {})
-
-    def register_link_handler_rules(self, feature_name, ruleset):
-        self.link_handler_rules[feature_name] = ruleset
-
-    def get_link_handler_rules(self, feature_name):
-        if not self.has_scanned_for_features:
-            self._scan_for_features()
-
-        return self.link_handler_rules.get(feature_name, {})
