@@ -7,6 +7,7 @@ from django.utils.translation import ungettext
 
 from wagtail.admin.menu import MenuItem
 from wagtail.admin.rich_text import HalloPlugin
+from wagtail.admin.rich_text.converters.editor_html import EmbedTypeRule
 from wagtail.admin.search import SearchArea
 from wagtail.admin.site_summary import SummaryItem
 from wagtail.core import hooks
@@ -65,7 +66,10 @@ def editor_js():
 
 @hooks.register('register_rich_text_features')
 def register_image_feature(features):
+    # define a handler for converting <embed embedtype="image"> tags into frontend HTML
     features.register_embed_type('image', image_embedtype_handler)
+
+    # define a hallo.js plugin to use when the 'image' feature is active
     features.register_editor_plugin(
         'hallo', 'image',
         HalloPlugin(
@@ -73,7 +77,14 @@ def register_image_feature(features):
             js=['wagtailimages/js/hallo-plugins/hallo-wagtailimage.js'],
         )
     )
-    features.register_embed_handler_rules('image', {'image': ImageEmbedHandler})
+
+    # define how to convert between editorhtml's representation of images and
+    # the database representation
+    features.register_converter_rule('editorhtml', 'image', [
+        EmbedTypeRule('image', ImageEmbedHandler)
+    ])
+
+    # add 'image' to the set of on-by-default rich text features
     features.default_features.append('image')
 
 

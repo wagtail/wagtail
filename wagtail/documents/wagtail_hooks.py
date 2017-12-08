@@ -9,6 +9,7 @@ from django.utils.translation import ungettext
 
 from wagtail.admin.menu import MenuItem
 from wagtail.admin.rich_text import HalloPlugin
+from wagtail.admin.rich_text.converters.editor_html import LinkTypeRule
 from wagtail.admin.search import SearchArea
 from wagtail.admin.site_summary import SummaryItem
 from wagtail.core import hooks
@@ -81,7 +82,9 @@ def register_document_feature(features):
             js=['wagtaildocs/js/hallo-plugins/hallo-wagtaildoclink.js'],
         )
     )
-    features.register_link_handler_rules('document-link', {'document': DocumentLinkHandler})
+    features.register_converter_rule('editorhtml', 'document-link', [
+        LinkTypeRule('document', DocumentLinkHandler),
+    ])
     features.default_features.append('document-link')
 
 
