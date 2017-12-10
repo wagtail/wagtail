@@ -24,8 +24,9 @@ li.sequence-member {
         &::before {
             display: none;
         }
+
         @media screen and (max-width: $breakpoint-mobile) {
-            margin: -20px 0 30px;
+            top: 0;
             padding-left: 0;
         }
     }
