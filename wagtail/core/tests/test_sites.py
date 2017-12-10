@@ -56,41 +56,6 @@ class TestSiteNameDisplay(TestCase):
         self.assertEqual(site.__str__(), 'example.com:8080 [default]')
 
 
-@override_settings(ALLOWED_HOSTS=['example.com', 'unknown.com'])
-class TestFindSiteForRequest(TestCase):
-    def setUp(self):
-        self.default_site = Site.objects.get()
-        self.site = Site.objects.create(hostname='example.com', port=80, root_page=Page.objects.get(pk=2))
-
-    def test_default(self):
-        request = HttpRequest()
-        self.assertEqual(Site.find_for_request(request), self.default_site)
-
-    def test_with_host(self):
-        request = HttpRequest()
-        request.META = {'HTTP_HOST': 'example.com'}
-        self.assertEqual(Site.find_for_request(request), self.site)
-
-    def test_with_unknown_host(self):
-        request = HttpRequest()
-        request.META = {'HTTP_HOST': 'unknown.com'}
-        self.assertEqual(Site.find_for_request(request), self.default_site)
-
-    def test_with_server_name(self):
-        request = HttpRequest()
-        request.META = {
-            'SERVER_NAME': 'example.com',
-            'SERVER_PORT': 80
-        }
-        self.assertEqual(Site.find_for_request(request), self.site)
-
-    def test_with_x_forwarded_host(self):
-        with self.settings(USE_X_FORWARDED_HOST=True):
-            request = HttpRequest()
-            request.META = {'HTTP_X_FORWARDED_HOST': 'example.com'}
-            self.assertEqual(Site.find_for_request(request), self.site)
-
-
 @override_settings(ALLOWED_HOSTS=['localhost', 'events.example.com', 'about.example.com', 'unknown.site.com'])
 class TestSiteRouting(TestCase):
     fixtures = ['test.json']
@@ -109,6 +74,25 @@ class TestSiteRouting(TestCase):
         self.alternate_port_default_site = Site.objects.create(hostname=self.default_site.hostname, port='8765', root_page=self.default_site.root_page)
         self.unrecognised_port = '8000'
         self.unrecognised_hostname = 'unknown.site.com'
+
+    def test_with_host(self):
+        request = HttpRequest()
+        request.META = {'HTTP_HOST': 'about.example.com'}
+        self.assertEqual(Site.find_for_request(request), self.about_site)
+
+    def test_with_server_name(self):
+        request = HttpRequest()
+        request.META = {
+            'SERVER_NAME': 'about.example.com',
+            'SERVER_PORT': 80
+        }
+        self.assertEqual(Site.find_for_request(request), self.about_site)
+
+    @override_settings(USE_X_FORWARDED_HOST=True)
+    def test_with_x_forwarded_host(self):
+        request = HttpRequest()
+        request.META = {'HTTP_X_FORWARDED_HOST': 'about.example.com'}
+        self.assertEqual(Site.find_for_request(request), self.about_site)
 
     def test_no_host_header_routes_to_default_site(self):
         # requests without a Host: header should be directed to the default site
