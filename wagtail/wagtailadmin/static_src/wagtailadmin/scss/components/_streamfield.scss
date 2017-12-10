@@ -86,11 +86,6 @@ li.sequence-member {
             }
         }
 
-        // sequences within sequences, such as a ListBlock within StructBlock
-        > .sequence .sequence-inner {
-            width: 100%;
-        }
-
         .sequence-type-list .sequence-container-inner {
             width: 100%;
         }
