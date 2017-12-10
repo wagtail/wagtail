@@ -106,6 +106,12 @@ class SiteManager(models.Manager):
             cache.delete_many(keys)
 
     def populate_cache(self):
+        """
+        Fetches all ``Site`` objects using a single database query and
+        populates the cache in such a way that any future calls to
+        'get_for_request' won't require any further queries (unless the cache
+        is cleared for some reason)
+        """
         if not site_cache_enabled():
             return
         # Create a dictionary of keys and values to add to the cache
