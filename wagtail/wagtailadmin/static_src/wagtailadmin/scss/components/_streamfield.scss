@@ -10,7 +10,7 @@ li.sequence-member {
     border-width: 1px 0;
 
     &:first-child {
-        border-top: 0;
+        border: solid $transparent;
     }
 
     // Note this inherits .oject-help from page-editor.scss
