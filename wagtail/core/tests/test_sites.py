@@ -1,3 +1,5 @@
+import warnings
+
 from django.core.exceptions import ValidationError
 from django.http.request import HttpRequest
 from django.test import TestCase, override_settings
@@ -59,6 +61,7 @@ class TestSiteNameDisplay(TestCase):
 @override_settings(ALLOWED_HOSTS=['localhost', 'events.example.com', 'about.example.com', 'unknown.site.com'])
 class TestSiteRouting(TestCase):
     fixtures = ['test.json']
+    find_for_request_queries_expected = 1
 
     def setUp(self):
         self.default_site = Site.objects.get(is_default_site=True)
@@ -98,7 +101,7 @@ class TestSiteRouting(TestCase):
         # requests without a Host: header should be directed to the default site
         request = HttpRequest()
         request.path = '/'
-        with self.assertNumQueries(1):
+        with self.assertNumQueries(self.find_for_request_queries_expected):
             self.assertEqual(Site.find_for_request(request), self.default_site)
 
     def test_valid_headers_route_to_specific_site(self):
@@ -107,7 +110,7 @@ class TestSiteRouting(TestCase):
         request.path = '/'
         request.META['HTTP_HOST'] = self.events_site.hostname
         request.META['SERVER_PORT'] = self.events_site.port
-        with self.assertNumQueries(1):
+        with self.assertNumQueries(self.find_for_request_queries_expected):
             self.assertEqual(Site.find_for_request(request), self.events_site)
 
     def test_ports_in_request_headers_are_respected(self):
@@ -116,7 +119,7 @@ class TestSiteRouting(TestCase):
         request.path = '/'
         request.META['HTTP_HOST'] = self.alternate_port_events_site.hostname
         request.META['SERVER_PORT'] = self.alternate_port_events_site.port
-        with self.assertNumQueries(1):
+        with self.assertNumQueries(self.find_for_request_queries_expected):
             self.assertEqual(Site.find_for_request(request), self.alternate_port_events_site)
 
     def test_unrecognised_host_header_routes_to_default_site(self):
@@ -125,7 +128,7 @@ class TestSiteRouting(TestCase):
         request.path = '/'
         request.META['HTTP_HOST'] = self.unrecognised_hostname
         request.META['SERVER_PORT'] = '80'
-        with self.assertNumQueries(1):
+        with self.assertNumQueries(self.find_for_request_queries_expected):
             self.assertEqual(Site.find_for_request(request), self.default_site)
 
     def test_unrecognised_port_and_default_host_routes_to_default_site(self):
@@ -134,7 +137,7 @@ class TestSiteRouting(TestCase):
         request.path = '/'
         request.META['HTTP_HOST'] = self.default_site.hostname
         request.META['SERVER_PORT'] = self.unrecognised_port
-        with self.assertNumQueries(1):
+        with self.assertNumQueries(self.find_for_request_queries_expected):
             self.assertEqual(Site.find_for_request(request), self.default_site)
 
     def test_unrecognised_port_and_unrecognised_host_routes_to_default_site(self):
@@ -144,7 +147,7 @@ class TestSiteRouting(TestCase):
         request.path = '/'
         request.META['HTTP_HOST'] = self.unrecognised_hostname
         request.META['SERVER_PORT'] = self.unrecognised_port
-        with self.assertNumQueries(1):
+        with self.assertNumQueries(self.find_for_request_queries_expected):
             self.assertEqual(Site.find_for_request(request), self.default_site)
 
     def test_unrecognised_port_on_known_hostname_routes_there_if_no_ambiguity(self):
@@ -154,7 +157,7 @@ class TestSiteRouting(TestCase):
         request.path = '/'
         request.META['HTTP_HOST'] = self.about_site.hostname
         request.META['SERVER_PORT'] = self.unrecognised_port
-        with self.assertNumQueries(1):
+        with self.assertNumQueries(self.find_for_request_queries_expected):
             self.assertEqual(Site.find_for_request(request), self.about_site)
 
     def test_unrecognised_port_on_known_hostname_routes_to_default_site_if_ambiguity(self):
@@ -165,7 +168,7 @@ class TestSiteRouting(TestCase):
         request.path = '/'
         request.META['HTTP_HOST'] = self.events_site.hostname
         request.META['SERVER_PORT'] = self.unrecognised_port
-        with self.assertNumQueries(1):
+        with self.assertNumQueries(self.find_for_request_queries_expected):
             self.assertEqual(Site.find_for_request(request), self.default_site)
 
     def test_port_in_http_host_header_is_ignored(self):
@@ -174,8 +177,50 @@ class TestSiteRouting(TestCase):
         request.path = '/'
         request.META['HTTP_HOST'] = "%s:%s" % (self.events_site.hostname, self.events_site.port)
         request.META['SERVER_PORT'] = self.alternate_port_events_site.port
-        with self.assertNumQueries(1):
+        with self.assertNumQueries(self.find_for_request_queries_expected):
             self.assertEqual(Site.find_for_request(request), self.alternate_port_events_site)
+
+
+@override_settings(
+    WAGTAIL_SITE_CACHE_ENABLED=True,
+    CACHES={
+        'default': {
+            'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+            'LOCATION': 'unique-snowflake',
+        },
+    },
+    ALLOWED_HOSTS=['localhost', 'events.example.com', 'about.example.com', 'unknown.site.com']
+)
+class TestSiteRoutingCachingEnabled(TestSiteRouting):
+    find_for_request_queries_expected = 0
+
+    def setUp(self):
+        super().setUp()
+        Site.objects.populate_cache()
+
+    def test_locmemcache_warning(self):
+        from wagtail.core.models import warn_about_locmemcache
+        with warnings.catch_warnings(record=True) as w:
+            warnings.simplefilter("always")
+            warn_about_locmemcache()
+            self.assertEqual(len(w), 1)
+            self.assertTrue(issubclass(w[-1].category, UserWarning), True)
+            self.assertTrue(
+                "WAGTAIL_SITE_CACHE_ENABLED is set to True, but LocMemCache "
+                "is set as the default cache backend" in str(w[-1].message)
+            )
+
+    def test_clearing_cache_results_in_find_for_request_populating(self):
+        Site.objects.clear_cache()
+        request = HttpRequest()
+        request.META = {'HTTP_HOST': 'about.example.com'}
+        with self.assertNumQueries(1):
+            # Should be one query to populate the cache again
+            self.assertEqual(Site.find_for_request(request), self.about_site)
+        with self.assertNumQueries(0):
+            # Calling the same method again should create no queries now that
+            # the cache is populated
+            self.assertEqual(Site.find_for_request(request), self.about_site)
 
 
 class TestDefaultSite(TestCase):
