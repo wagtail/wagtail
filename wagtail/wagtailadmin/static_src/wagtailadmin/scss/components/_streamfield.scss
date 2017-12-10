@@ -9,10 +9,6 @@ li.sequence-member {
     border: solid $color-grey-4;
     border-width: 1px 0;
 
-    &:first-child {
-        border: solid $transparent;
-    }
-
     // Note this inherits .oject-help from page-editor.scss
     .object-help {
         display: block;
