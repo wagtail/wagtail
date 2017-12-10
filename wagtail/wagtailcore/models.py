@@ -721,7 +721,10 @@ class Page(six.with_metaclass(PageBase, AbstractPage, index.Indexed, Clusterable
             if commit:
                 self.save()
 
-            page_unpublished.send(sender=self.specific_class, instance=self.specific)
+            try:
+                page_unpublished.send(sender=self.specific_class, instance=self.specific)
+            except self.specific_class.DoesNotExist:
+                logger.warning("No specific inheritor when unpublishing: \"%s\" id=%d", self.title, self.id)
 
             logger.info("Page unpublished: \"%s\" id=%d", self.title, self.id)
 
