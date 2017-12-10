@@ -36,13 +36,6 @@ li.sequence-member {
         padding-right: 0;
     }
 
-    .struct-block label {
-        display: block;
-        float: none;
-        text-transform: uppercase;
-        width: 100%;
-    }
-
     .struct-block .sequence-container {
         width: 100%;
         padding-left: 0;
@@ -114,6 +107,12 @@ li.sequence-member {
             padding-bottom: 0;
         }
     }
+}
+
+.sequence-type-stream .fields > li > label {
+    display: block;
+    float: none;
+    text-transform: uppercase;
 }
 
 .sequence-member-inner > .widget-admin_image_chooser {
