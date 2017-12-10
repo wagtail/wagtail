@@ -1,5 +1,6 @@
 import json
 import logging
+import warnings
 from collections import defaultdict
 from io import StringIO
 from urllib.parse import urlparse
@@ -8,7 +9,8 @@ from django.conf import settings
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
 from django.core import checks
-from django.core.cache import cache
+from django.core.cache import cache, caches
+from django.core.cache.backends.locmem import LocMemCache
 from django.core.exceptions import ValidationError
 from django.core.handlers.base import BaseHandler
 from django.core.handlers.wsgi import WSGIRequest
@@ -36,9 +38,129 @@ from wagtail.search import index
 logger = logging.getLogger('wagtail.core')
 
 PAGE_TEMPLATE_VAR = 'page'
+SITE_CACHE_KEY_PREFIX = '_wagtail.core.sites'
+SITE_CACHE_DEFAULT_KEY = '%s:__default__' % SITE_CACHE_KEY_PREFIX
+SITE_CACHE_KEYSET_KEY = '%s:__keyset__' % SITE_CACHE_KEY_PREFIX
+SITE_CACHE_POPULATED_KEY = '%s:__populated__' % SITE_CACHE_KEY_PREFIX
+
+
+def site_cache_enabled():
+    return getattr(settings, 'WAGTAIL_SITE_CACHE_ENABLED', False)
+
+
+def site_cache_match_ports():
+    return getattr(settings, 'WAGTAIL_SITE_CACHE_MATCH_PORTS',
+                   (80, 443, 8000, 8080))
+
+
+def warn_about_locmemcache():
+    msg = (
+        "WAGTAIL_SITE_CACHE_ENABLED is set to True, but LocMemCache is set as "
+        "the default cache backend. This is fine for local development or "
+        "testing, but unsuitable for any environment where the project runs "
+        "in more than one process")
+    if site_cache_enabled() and isinstance(caches['default'], LocMemCache):
+        warnings.warn(msg)
+
+warn_about_locmemcache()
 
 
 class SiteManager(models.Manager):
+
+    @staticmethod
+    def get_hostname_and_port_from_request(request):
+        """Reliably extract 'hostname' and 'port' values from the supplied
+        ``HttpRequest`` instance (without raising exceptions), and return them
+        as a tuple.
+        """
+        try:
+            hostname = request.get_host().split(':')[0]
+        except KeyError:
+            hostname = None
+        try:
+            port = request.get_port()
+        except KeyError:
+            port = None
+        return hostname, port
+
+    def _make_cache_key(self, *vals):
+        return '%s:%s' % (
+            SITE_CACHE_KEY_PREFIX, ':'.join(str(v) for v in vals)
+        )
+
+    def _get_cache_keys_for_unique_hostname(self, hostname):
+        keys = [self._make_cache_key(hostname, port)
+                for port in site_cache_match_ports()]
+        return keys + [self._make_cache_key(hostname, None)]
+
+    @property
+    def cache_is_populated(self):
+        return cache.get(SITE_CACHE_POPULATED_KEY)
+
+    def clear_cache(self):
+        if not site_cache_enabled():
+            return
+        keys = cache.get(SITE_CACHE_KEYSET_KEY)
+        if keys:
+            keys.add(SITE_CACHE_KEYSET_KEY)
+            cache.delete_many(keys)
+
+    def populate_cache(self):
+        if not site_cache_enabled():
+            return
+        # Create a dictionary of keys and values to add to the cache
+        cache_vals = {SITE_CACHE_POPULATED_KEY: True}
+        unique_hostname_sites = {}
+        for site in self.all().select_related('root_page'):
+
+            if site.hostname in unique_hostname_sites:
+                del unique_hostname_sites[site.hostname]
+            else:
+                unique_hostname_sites[site.hostname] = site
+
+            cache_vals[self._make_cache_key(site.hostname, site.port)] = site
+            if site.is_default_site:
+                cache_vals[SITE_CACHE_DEFAULT_KEY] = site
+
+        for hostname, site in unique_hostname_sites.items():
+            # If a site has a unique hostname, use additional keys to allow
+            # it to be matched to requests where the extracted 'port' differs
+            # to the site's stored 'port' value
+            cache_vals.update({
+                k: site for k in self._get_cache_keys_for_unique_hostname(hostname)
+            })
+
+        # Include a set of used keys in the cache to use for invalidation
+        cache_vals[SITE_CACHE_KEYSET_KEY] = set(cache_vals.keys())
+
+        cache.set_many(cache_vals, None)
+
+    def repopulate_cache(self):
+        """Clear any existing site cache values before populating again"""
+        self.clear_cache()
+        self.populate_cache()
+
+    def get_default_site(self):
+        """
+        Return the 'default' ``Site`` or raise an exception if no site is
+        set as the default
+        """
+        if site_cache_enabled():
+            return cache.get(SITE_CACHE_DEFAULT_KEY)
+        return self.get(is_default_site=True)
+
+    def get_for_request(self, request):
+        """Return the site responsible for dealing with the supplied
+        ``HttpRequest`` instance"""
+        hostname, port = self.get_hostname_and_port_from_request(request)
+        if not site_cache_enabled():
+            return get_site_for_hostname(hostname, port)
+        if not self.cache_is_populated:
+            self.populate_cache()
+        return cache.get(
+            self._make_cache_key(hostname, port)
+        ) or self.get_default_site()
+
     def get_by_natural_key(self, hostname, port):
         return self.get(hostname=hostname, port=port)
 
@@ -92,33 +214,9 @@ class Site(models.Model):
                 (" [default]" if self.is_default_site else "")
             )
 
-    @staticmethod
-    def find_for_request(request):
-        """
-        Find the site object responsible for responding to this HTTP
-        request object. Try:
-
-        * unique hostname first
-        * then hostname and port
-        * if there is no matching hostname at all, or no matching
-          hostname:port combination, fall back to the unique default site,
-          or raise an exception
-
-        NB this means that high-numbered ports on an extant hostname may
-        still be routed to a different hostname which is set as the default
-        """
-
-        try:
-            hostname = request.get_host().split(':')[0]
-        except KeyError:
-            hostname = None
-
-        try:
-            port = request.get_port()
-        except (AttributeError, KeyError):
-            port = request.META.get('SERVER_PORT')
-
-        return get_site_for_hostname(hostname, port)
+    @classmethod
+    def find_for_request(cls, request):
+        return cls.objects.get_for_request(request)
 
     @property
     def root_url(self):

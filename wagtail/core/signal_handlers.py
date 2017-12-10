@@ -28,9 +28,21 @@ def post_delete_page_log_deletion(sender, instance, **kwargs):
     logger.info("Page deleted: \"%s\" id=%d", instance.title, instance.id)
 
 
+def repopulate_site_cache_when_sites_change(instance, **kwargs):
+    Site.objects.repopulate_cache()
+
+
+def repopulate_site_cache_when_site_root_updated(instance, **kwargs):
+    if instance.sites_rooted_here.all().exists():
+        Site.objects.repopulate_cache()
+
+
 def register_signal_handlers():
     post_save.connect(post_save_site_signal_handler, sender=Site)
+    post_save.connect(repopulate_site_cache_when_sites_change, sender=Site)
     post_delete.connect(post_delete_site_signal_handler, sender=Site)
+    post_delete.connect(repopulate_site_cache_when_sites_change, sender=Site)
 
     pre_delete.connect(pre_delete_page_unpublish, sender=Page)
     post_delete.connect(post_delete_page_log_deletion, sender=Page)
+    post_save.connect(repopulate_site_cache_when_site_root_updated, sender=Page)
