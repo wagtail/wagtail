@@ -233,7 +233,7 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
     def first_common_ancestor(self, include_self=False, strict=False):
         """
         Find the first ancestor that all pages in this queryset have in common.
-        For example, consider a page heirarchy like::
+        For example, consider a page hierarchy like::
 
             - Home/
                 - Foo Event Index/
