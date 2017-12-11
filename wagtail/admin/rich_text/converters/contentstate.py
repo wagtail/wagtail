@@ -2,12 +2,13 @@ import json
 import logging
 import re
 
-from draftjs_exporter.constants import BLOCK_TYPES, ENTITY_TYPES, INLINE_STYLES
+from draftjs_exporter.constants import BLOCK_TYPES, ENTITY_TYPES
 from draftjs_exporter.defaults import render_children
 from draftjs_exporter.dom import DOM
 from draftjs_exporter.html import HTML as HTMLExporter
 
 from wagtail.admin.rich_text.converters.html_to_contentstate import HtmlToContentStateHandler
+from wagtail.core.rich_text import features as feature_registry
 
 
 def Image(props):
@@ -85,55 +86,6 @@ def EntityFallback(props):
     return None
 
 
-EXPORTER_CONFIG_BY_FEATURE = {
-    'h1': {
-        'block_map': {BLOCK_TYPES.HEADER_ONE: 'h1'}
-    },
-    'h2': {
-        'block_map': {BLOCK_TYPES.HEADER_TWO: 'h2'}
-    },
-    'h3': {
-        'block_map': {BLOCK_TYPES.HEADER_THREE: 'h3'}
-    },
-    'h4': {
-        'block_map': {BLOCK_TYPES.HEADER_FOUR: 'h4'}
-    },
-    'h5': {
-        'block_map': {BLOCK_TYPES.HEADER_FIVE: 'h5'}
-    },
-    'h6': {
-        'block_map': {BLOCK_TYPES.HEADER_SIX: 'h6'}
-    },
-    'bold': {
-        'style_map': {INLINE_STYLES.BOLD: 'b'}
-    },
-    'italic': {
-        'style_map': {INLINE_STYLES.ITALIC: 'i'}
-    },
-    'ol': {
-        'block_map': {BLOCK_TYPES.ORDERED_LIST_ITEM: {'element': 'li', 'wrapper': 'ol'}}
-    },
-    'ul': {
-        'block_map': {BLOCK_TYPES.UNORDERED_LIST_ITEM: {'element': 'li', 'wrapper': 'ul'}}
-    },
-    'hr': {
-        'entity_decorators': {ENTITY_TYPES.HORIZONTAL_RULE: lambda props: DOM.create_element('hr')}
-    },
-    'link': {
-        'entity_decorators': {ENTITY_TYPES.LINK: Link}
-    },
-    'document-link': {
-        'entity_decorators': {ENTITY_TYPES.DOCUMENT: Document}
-    },
-    'image': {
-        'entity_decorators': {ENTITY_TYPES.IMAGE: Image}
-    },
-    'embed': {
-        'entity_decorators': {ENTITY_TYPES.EMBED: Embed}
-    },
-}
-
-
 class ContentstateConverter():
     def __init__(self, features=None):
         self.features = features
@@ -156,10 +108,12 @@ class ContentstateConverter():
         }
 
         for feature in self.features:
-            feature_config = EXPORTER_CONFIG_BY_FEATURE.get(feature, {})
-            exporter_config['block_map'].update(feature_config.get('block_map', {}))
-            exporter_config['style_map'].update(feature_config.get('style_map', {}))
-            exporter_config['entity_decorators'].update(feature_config.get('entity_decorators', {}))
+            rule = feature_registry.get_converter_rule('contentstate', feature)
+            if rule is not None:
+                feature_config = rule['to_database_format']
+                exporter_config['block_map'].update(feature_config.get('block_map', {}))
+                exporter_config['style_map'].update(feature_config.get('style_map', {}))
+                exporter_config['entity_decorators'].update(feature_config.get('entity_decorators', {}))
 
         self.exporter = HTMLExporter(exporter_config)
 

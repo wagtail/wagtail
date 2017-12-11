@@ -7,9 +7,14 @@ from django.utils.html import format_html, format_html_join
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ungettext
 
+from draftjs_exporter.constants import ENTITY_TYPES
+
 from wagtail.admin.menu import MenuItem
 from wagtail.admin.rich_text import HalloPlugin
+from wagtail.admin.rich_text.converters.contentstate import Document as DocumentEntity
 from wagtail.admin.rich_text.converters.editor_html import LinkTypeRule
+from wagtail.admin.rich_text.converters.html_to_contentstate import DocumentLinkElementHandler
+import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 from wagtail.admin.search import SearchArea
 from wagtail.admin.site_summary import SummaryItem
 from wagtail.core import hooks
@@ -75,6 +80,7 @@ def editor_js():
 @hooks.register('register_rich_text_features')
 def register_document_feature(features):
     features.register_link_type('document', document_linktype_handler)
+
     features.register_editor_plugin(
         'hallo', 'document-link',
         HalloPlugin(
@@ -82,9 +88,28 @@ def register_document_feature(features):
             js=['wagtaildocs/js/hallo-plugins/hallo-wagtaildoclink.js'],
         )
     )
+    features.register_editor_plugin(
+        'draftail', 'document-link', draftail_features.EntityFeature({
+            'label': 'Document',
+            'type': ENTITY_TYPES.DOCUMENT,
+            'icon': 'icon-doc-full',
+            'source': 'DocumentSource',
+            'decorator': 'Document',
+        })
+    )
+
     features.register_converter_rule('editorhtml', 'document-link', [
         LinkTypeRule('document', DocumentLinkHandler),
     ])
+    features.register_converter_rule('contentstate', 'document-link', {
+        'from_database_format': {
+            'a[linktype="document"]': DocumentLinkElementHandler('DOCUMENT'),
+        },
+        'to_database_format': {
+            'entity_decorators': {ENTITY_TYPES.DOCUMENT: DocumentEntity}
+        }
+    })
+
     features.default_features.append('document-link')
 
 

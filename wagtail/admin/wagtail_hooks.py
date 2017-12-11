@@ -3,12 +3,18 @@ from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 
 from draftjs_exporter.constants import BLOCK_TYPES, ENTITY_TYPES, INLINE_STYLES
+from draftjs_exporter.dom import DOM
 
 from wagtail.admin.menu import MenuItem, SubmenuMenuItem, settings_menu
 from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.admin.rich_text import (
     HalloFormatPlugin, HalloHeadingPlugin, HalloListPlugin, HalloPlugin)
+from wagtail.admin.rich_text.converters.contentstate import Link
 from wagtail.admin.rich_text.converters.editor_html import LinkTypeRule, WhitelistRule
+from wagtail.admin.rich_text.converters.html_to_contentstate import (
+    BlockElementHandler, ExternalLinkElementHandler, HorizontalRuleHandler, InlineStyleElementHandler,
+    ListElementHandler, ListItemElementHandler, PageLinkElementHandler
+)
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 from wagtail.admin.search import SearchArea
 from wagtail.admin.utils import user_has_any_page_permission
@@ -256,50 +262,138 @@ def register_core_features(features):
     features.register_editor_plugin(
         'draftail', 'hr', draftail_features.BooleanFeature('enableHorizontalRule')
     )
-
-    features.register_editor_plugin(
-        'draftail', 'br', draftail_features.BooleanFeature('enableLineBreak')
-    )
+    features.register_converter_rule('contentstate', 'hr', {
+        'from_database_format': {
+            'hr': HorizontalRuleHandler(),
+        },
+        'to_database_format': {
+            'entity_decorators': {ENTITY_TYPES.HORIZONTAL_RULE: lambda props: DOM.create_element('hr')}
+        }
+    })
 
     features.register_editor_plugin(
         'draftail', 'h1', draftail_features.BlockFeature({'label': 'H1', 'type': BLOCK_TYPES.HEADER_ONE})
     )
+    features.register_converter_rule('contentstate', 'h1', {
+        'from_database_format': {
+            'h1': BlockElementHandler('header-one'),
+        },
+        'to_database_format': {
+            'block_map': {BLOCK_TYPES.HEADER_ONE: 'h1'}
+        }
+    })
     features.register_editor_plugin(
         'draftail', 'h2', draftail_features.BlockFeature({'label': 'H2', 'type': BLOCK_TYPES.HEADER_TWO})
     )
+    features.register_converter_rule('contentstate', 'h2', {
+        'from_database_format': {
+            'h2': BlockElementHandler('header-two'),
+        },
+        'to_database_format': {
+            'block_map': {BLOCK_TYPES.HEADER_TWO: 'h2'}
+        }
+    })
     features.register_editor_plugin(
         'draftail', 'h3', draftail_features.BlockFeature({'label': 'H3', 'type': BLOCK_TYPES.HEADER_THREE})
     )
+    features.register_converter_rule('contentstate', 'h3', {
+        'from_database_format': {
+            'h3': BlockElementHandler('header-three'),
+        },
+        'to_database_format': {
+            'block_map': {BLOCK_TYPES.HEADER_THREE: 'h3'}
+        }
+    })
     features.register_editor_plugin(
         'draftail', 'h4', draftail_features.BlockFeature({'label': 'H4', 'type': BLOCK_TYPES.HEADER_FOUR})
     )
+    features.register_converter_rule('contentstate', 'h4', {
+        'from_database_format': {
+            'h4': BlockElementHandler('header-four'),
+        },
+        'to_database_format': {
+            'block_map': {BLOCK_TYPES.HEADER_FOUR: 'h4'}
+        }
+    })
     features.register_editor_plugin(
         'draftail', 'h5', draftail_features.BlockFeature({'label': 'H5', 'type': BLOCK_TYPES.HEADER_FIVE})
     )
+    features.register_converter_rule('contentstate', 'h5', {
+        'from_database_format': {
+            'h5': BlockElementHandler('header-five'),
+        },
+        'to_database_format': {
+            'block_map': {BLOCK_TYPES.HEADER_FIVE: 'h5'}
+        }
+    })
     features.register_editor_plugin(
         'draftail', 'h6', draftail_features.BlockFeature({'label': 'H6', 'type': BLOCK_TYPES.HEADER_SIX})
     )
+    features.register_converter_rule('contentstate', 'h6', {
+        'from_database_format': {
+            'h6': BlockElementHandler('header-six'),
+        },
+        'to_database_format': {
+            'block_map': {BLOCK_TYPES.HEADER_SIX: 'h6'}
+        }
+    })
     features.register_editor_plugin(
         'draftail', 'ul', draftail_features.BlockFeature({
             'label': 'UL', 'type': BLOCK_TYPES.UNORDERED_LIST_ITEM, 'icon': 'icon-list-ul'
         })
     )
+    features.register_converter_rule('contentstate', 'ul', {
+        'from_database_format': {
+            'ul': ListElementHandler('unordered-list-item'),
+            'li': ListItemElementHandler(),
+        },
+        'to_database_format': {
+            'block_map': {BLOCK_TYPES.UNORDERED_LIST_ITEM: {'element': 'li', 'wrapper': 'ul'}}
+        }
+    })
     features.register_editor_plugin(
         'draftail', 'ol', draftail_features.BlockFeature({
             'label': 'OL', 'type': BLOCK_TYPES.ORDERED_LIST_ITEM, 'icon': 'icon-list-ol'
         })
     )
+    features.register_converter_rule('contentstate', 'ol', {
+        'from_database_format': {
+            'ol': ListElementHandler('ordered-list-item'),
+            'li': ListItemElementHandler(),
+        },
+        'to_database_format': {
+            'block_map': {BLOCK_TYPES.ORDERED_LIST_ITEM: {'element': 'li', 'wrapper': 'ol'}}
+        }
+    })
 
     features.register_editor_plugin(
         'draftail', 'bold', draftail_features.InlineStyleFeature({
             'label': 'Bold', 'type': INLINE_STYLES.BOLD, 'icon': 'icon-bold'
         })
     )
+    features.register_converter_rule('contentstate', 'bold', {
+        'from_database_format': {
+            'b': InlineStyleElementHandler('BOLD'),
+            'strong': InlineStyleElementHandler('BOLD'),
+        },
+        'to_database_format': {
+            'style_map': {INLINE_STYLES.BOLD: 'b'}
+        }
+    })
     features.register_editor_plugin(
         'draftail', 'italic', draftail_features.InlineStyleFeature({
             'label': 'Italic', 'type': INLINE_STYLES.ITALIC, 'icon': 'icon-italic'
         })
     )
+    features.register_converter_rule('contentstate', 'italic', {
+        'from_database_format': {
+            'i': InlineStyleElementHandler('ITALIC'),
+            'em': InlineStyleElementHandler('ITALIC'),
+        },
+        'to_database_format': {
+            'style_map': {INLINE_STYLES.ITALIC: 'i'}
+        }
+    })
 
     features.register_editor_plugin(
         'draftail', 'link', draftail_features.EntityFeature({
@@ -310,27 +404,12 @@ def register_core_features(features):
             'decorator': 'Link',
         })
     )
-
-    features.register_editor_plugin(
-        'draftail', 'document-link', draftail_features.EntityFeature({
-            'label': 'Document',
-            'type': ENTITY_TYPES.DOCUMENT,
-            'icon': 'icon-doc-full',
-            'source': 'DocumentSource',
-            'decorator': 'Document',
-        })
-    )
-
-    features.register_editor_plugin(
-        'draftail', 'image', draftail_features.ImageFeature()
-    )
-
-    features.register_editor_plugin(
-        'draftail', 'embed', draftail_features.EntityFeature({
-            'label': 'Embed',
-            'type': ENTITY_TYPES.EMBED,
-            'icon': 'icon-media',
-            'source': 'EmbedSource',
-            'decorator': 'Embed',
-        })
-    )
+    features.register_converter_rule('contentstate', 'link', {
+        'from_database_format': {
+            'a[href]': ExternalLinkElementHandler('LINK'),
+            'a[linktype="page"]': PageLinkElementHandler('LINK'),
+        },
+        'to_database_format': {
+            'entity_decorators': {ENTITY_TYPES.LINK: Link}
+        }
+    })

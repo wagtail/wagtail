@@ -5,9 +5,14 @@ from django.utils.html import format_html, format_html_join
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ungettext
 
+from draftjs_exporter.constants import ENTITY_TYPES
+
 from wagtail.admin.menu import MenuItem
 from wagtail.admin.rich_text import HalloPlugin
+from wagtail.admin.rich_text.converters.contentstate import Image as ImageEntity
 from wagtail.admin.rich_text.converters.editor_html import EmbedTypeRule
+from wagtail.admin.rich_text.converters.html_to_contentstate import ImageElementHandler
+import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 from wagtail.admin.search import SearchArea
 from wagtail.admin.site_summary import SummaryItem
 from wagtail.core import hooks
@@ -83,6 +88,22 @@ def register_image_feature(features):
     features.register_converter_rule('editorhtml', 'image', [
         EmbedTypeRule('image', ImageEmbedHandler)
     ])
+
+    # define a draftail plugin to use when the 'image' feature is active
+    features.register_editor_plugin(
+        'draftail', 'image', draftail_features.ImageFeature()
+    )
+
+    # define how to convert between contentstate's representation of images and
+    # the database representation
+    features.register_converter_rule('contentstate', 'image', {
+        'from_database_format': {
+            'embed[embedtype="image"]': ImageElementHandler(),
+        },
+        'to_database_format': {
+            'entity_decorators': {ENTITY_TYPES.IMAGE: ImageEntity}
+        }
+    })
 
     # add 'image' to the set of on-by-default rich text features
     features.default_features.append('image')

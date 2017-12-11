@@ -5,6 +5,7 @@ from wagtail.admin.rich_text.converters.contentstate_models import (
     Block, ContentState, Entity, EntityRange, InlineStyleRange
 )
 from wagtail.admin.rich_text.converters.html_ruleset import HTMLRuleset
+from wagtail.core.rich_text import features as feature_registry
 from wagtail.core.models import Page
 from wagtail.documents.models import get_document_model
 
@@ -226,60 +227,6 @@ class HorizontalRuleHandler(AtomicBlockEntityElementHandler):
         return Entity('HORIZONTAL_RULE', 'IMMUTABLE', {})
 
 
-ELEMENT_HANDLERS_BY_FEATURE = {
-    'ol': {
-        'ol': ListElementHandler('ordered-list-item'),
-        'li': ListItemElementHandler(),
-    },
-    'ul': {
-        'ul': ListElementHandler('unordered-list-item'),
-        'li': ListItemElementHandler(),
-    },
-    'h1': {
-        'h1': BlockElementHandler('header-one'),
-    },
-    'h2': {
-        'h2': BlockElementHandler('header-two'),
-    },
-    'h3': {
-        'h3': BlockElementHandler('header-three'),
-    },
-    'h4': {
-        'h4': BlockElementHandler('header-four'),
-    },
-    'h5': {
-        'h5': BlockElementHandler('header-five'),
-    },
-    'h6': {
-        'h6': BlockElementHandler('header-six'),
-    },
-    'italic': {
-        'i': InlineStyleElementHandler('ITALIC'),
-        'em': InlineStyleElementHandler('ITALIC'),
-    },
-    'bold': {
-        'b': InlineStyleElementHandler('BOLD'),
-        'strong': InlineStyleElementHandler('BOLD'),
-    },
-    'link': {
-        'a[href]': ExternalLinkElementHandler('LINK'),
-        'a[linktype="page"]': PageLinkElementHandler('LINK'),
-    },
-    'document-link': {
-        'a[linktype="document"]': DocumentLinkElementHandler('DOCUMENT'),
-    },
-    'image': {
-        'embed[embedtype="image"]': ImageElementHandler(),
-    },
-    'embed': {
-        'embed[embedtype="media"]': MediaEmbedElementHandler(),
-    },
-    'hr': {
-        'hr': HorizontalRuleHandler(),
-    },
-}
-
-
 class HtmlToContentStateHandler(HTMLParser):
     def __init__(self, features=None):
         self.paragraph_handler = BlockElementHandler('unstyled')
@@ -288,11 +235,9 @@ class HtmlToContentStateHandler(HTMLParser):
         })
         if features is not None:
             for feature in features:
-                try:
-                    feature_element_handlers = ELEMENT_HANDLERS_BY_FEATURE[feature]
-                except KeyError:
-                    continue
-                self.element_handlers.add_rules(feature_element_handlers)
+                rule = feature_registry.get_converter_rule('contentstate', feature)
+                if rule is not None:
+                    self.element_handlers.add_rules(rule['from_database_format'])
 
         super().__init__()
 

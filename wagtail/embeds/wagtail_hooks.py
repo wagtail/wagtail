@@ -2,8 +2,13 @@ from django.conf.urls import include, url
 from django.urls import reverse
 from django.utils.html import format_html
 
+from draftjs_exporter.constants import ENTITY_TYPES
+
 from wagtail.admin.rich_text import HalloPlugin
+from wagtail.admin.rich_text.converters.contentstate import Embed as EmbedEntity
 from wagtail.admin.rich_text.converters.editor_html import EmbedTypeRule
+from wagtail.admin.rich_text.converters.html_to_contentstate import MediaEmbedElementHandler
+import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 from wagtail.core import hooks
 from wagtail.embeds import urls
 from wagtail.embeds.rich_text import MediaEmbedHandler, media_embedtype_handler
@@ -47,6 +52,28 @@ def register_embed_feature(features):
     features.register_converter_rule('editorhtml', 'embed', [
         EmbedTypeRule('media', MediaEmbedHandler)
     ])
+
+    # define a draftail plugin to use when the 'embed' feature is active
+    features.register_editor_plugin(
+        'draftail', 'embed', draftail_features.EntityFeature({
+            'label': 'Embed',
+            'type': ENTITY_TYPES.EMBED,
+            'icon': 'icon-media',
+            'source': 'EmbedSource',
+            'decorator': 'Embed',
+        })
+    )
+
+    # define how to convert between contentstate's representation of embeds and
+    # the database representation
+    features.register_converter_rule('contentstate', 'embed', {
+        'from_database_format': {
+            'embed[embedtype="media"]': MediaEmbedElementHandler(),
+        },
+        'to_database_format': {
+            'entity_decorators': {ENTITY_TYPES.EMBED: EmbedEntity}
+        }
+    })
 
     # add 'embed' to the set of on-by-default rich text features
     features.default_features.append('embed')
