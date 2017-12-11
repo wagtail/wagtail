@@ -47,6 +47,12 @@ The available resizing methods are as follows:
 
         The longest edge will be reduced to the matching dimension specified. For example, a portrait image of width 1000 and height 2000, treated with the ``max-1000x500`` rule (a landscape layout) would result in the image being shrunk so the *height* was 500 pixels and the width was 250.
 
+        .. figure:: ../_static/images/image_filter_max.png
+          :alt: Example of max filter on an image.
+
+          Exmple: The image will keep its proportions but fit within the max (green line) dimensions provided.
+
+
     ``min``
         (takes two dimensions)
 
@@ -57,6 +63,12 @@ The available resizing methods are as follows:
         **Cover** the given dimensions.
 
         This may result in an image slightly **larger** than the dimensions you specify. A square image of width 2000 and height 2000, treated with the ``min-500x200`` rule would have its height and width changed to 500, i.e matching the *width* of the resize-rule, but greater than the height.
+
+        .. figure:: ../_static/images/image_filter_min.png
+          :alt: Example of min filter on an image.
+
+          Example: The image will keep its proportions while filling at least the min (green line) dimensions provided.
+
 
     ``width``
         (takes one dimension)
@@ -89,6 +101,12 @@ The available resizing methods are as follows:
 
         This resize-rule will crop to the image's focal point if it has been set. If not, it will crop to the centre of the image.
 
+        .. figure:: ../_static/images/image_filter_fill.png
+          :alt: Example of fill filter on an image.
+
+          Example: The image is scaled and also cropped (red line) to fit as much of the image as possible within the provided dimensions.
+
+
         **On images that won't upscale**
 
         It's possible to request an image with ``fill`` dimensions that the image can't support without upscaling. e.g. an image of width 400 and height 200 requested with ``fill-400x400``. In this situation the *ratio of the requested fill* will be matched, but the dimension will not. So that example 400x200 image (a 2:1 ratio) could become 200x200 (a 1:1 ratio, matching the resize-rule).
@@ -108,6 +126,17 @@ The available resizing methods are as follows:
         This will crop the image as much as it can, without cropping into the focal point.
 
         If you find that ``-c100`` is too close, you can try ``-c75`` or ``-c50``. Any whole number from 0 to 100 is accepted.
+
+        .. figure:: ../_static/images/image_filter_fill_focal.png
+          :alt: Example of fill filter on an image with a focal point set.
+
+          Example: The focal point is set off centre so the image is scaled and also cropped like fill, however the center point of the crop is positioned closer the focal point.
+
+        .. figure:: ../_static/images/image_filter_fill_focal_close.png
+          :alt: Example of fill and closeness filter on an image with a focal point set.
+
+          Example: With ``-c75`` set, the final crop will be closer to the focal point.
+
 
     ``original``
         (takes no dimensions)
