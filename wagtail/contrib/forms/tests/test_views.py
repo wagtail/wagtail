@@ -992,14 +992,14 @@ class TestFormsWithCustomSubmissionsList(TestCase, WagtailTestUtils):
             page=self.form_page, sort_order=1, label='Your email', field_type='email', required=True,
         )
         FormFieldForCustomListViewPage.objects.create(
-            page=self.form_page, sort_order=1, label='Chocolate', field_type='singleline', required=True,
+            page=self.form_page, sort_order=2, label='Chocolate', field_type='singleline', required=True,
         )
         FormFieldForCustomListViewPage.objects.create(
-            page=self.form_page, sort_order=1, label='Ingredients', field_type='multiline', required=True,
+            page=self.form_page, sort_order=3, label='Ingredients', field_type='multiline', required=True,
         )
         self.choices = ['What is chocolate?', 'Mediocre', 'Much excitement', 'Wet my pants excited!']
         FormFieldForCustomListViewPage.objects.create(
-            page=self.form_page, sort_order=1, label='Your Excitement', field_type='radio', required=True,
+            page=self.form_page, sort_order=4, label='Your Excitement', field_type='radio', required=True,
             choices=','.join(self.choices),
         )
 
@@ -1085,7 +1085,7 @@ class TestFormsWithCustomSubmissionsList(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         data_lines = response.content.decode().split("\n")
         self.assertIn('filename=%s-export' % self.form_page.slug, response.get('Content-Disposition'))
-        self.assertEqual(data_lines[0], 'Username,Submission date,Your Excitement,Ingredients,Chocolate,Your email\r')
+        self.assertEqual(data_lines[0], 'Username,Submission date,Your email,Chocolate,Ingredients,Your Excitement\r')
         # first result should be the most recent as order_csv has been reversed
         self.assertEqual(data_lines[1], 'user-chocolate-maniac,2017-10-01 12:00:00+00:00,new@example.com,White Chocolate,White colouring,Much excitement\r')
         self.assertEqual(data_lines[2], 'user-chocolate-guy,2017-01-01 12:00:00+00:00,old@example.com,Dark Chocolate,Charcoal,What is chocolate?\r')
