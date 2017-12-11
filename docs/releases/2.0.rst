@@ -35,6 +35,7 @@ Other features
  * Optimized preview data storage (Bertrand Bordage)
  * Added ``render_landing_page`` method to ``AbstractForm`` to be easily overridden and pass ``form_submission`` to landing page context (Stein Strindhaug)
  * Added ``heading`` kwarg to ``InlinePanel`` to allow heading to be set independently of button label (Adrian Turjak)
+ * The value type returned from a ``StructBlock`` can now be customised. See :ref:`custom_value_class_for_structblock` (LB (Ben Johnston))
 
 Bug fixes
 ~~~~~~~~~

@@ -377,6 +377,9 @@ This defines ``PersonBlock()`` as a block type that can be re-used as many times
 
 Further options are available for customising the display of a ``StructBlock`` within the page editor - see :ref:`custom_editing_interfaces_for_structblock`.
 
+You can also customise how the value of a ``StructBlock`` is prepared for using in templates - see :ref:`custom_value_class_for_structblock`.
+
+
 
 ListBlock
 ~~~~~~~~~
@@ -846,6 +849,81 @@ To add additional variables, you can override the block's ``get_form_context`` m
         class Meta:
             icon = 'user'
             form_template = 'myapp/block_forms/person.html'
+
+
+.. _custom_value_class_for_structblock:
+
+Custom value class for ``StructBlock``
+--------------------------------------
+
+To customise the methods available for a ``StructBlock`` value, you can specify a ``value_class`` attribute (either as a keyword argument to the ``StructBlock`` constructor, or in a subclass's ``Meta``) to override how the value is prepared.
+
+This ``value_class`` must be a subclass of ``StructValue``, any additional methods can access the value from sub-blocks via the block key on ``self`` (e.g. ``self.get('my_block')``).
+
+Example:
+
+.. code-block:: python
+
+    from wagtail.core.models import Page
+    from wagtail.core.blocks import (
+      CharBlock, PageChooserBlock, StructValue, StructBlock, TextBlock, URLBlock)
+
+
+    class LinkStructValue(StructValue):
+        def url(self):
+            external_url = self.get('external_url')
+            page = self.get('page')
+            if external_url:
+                return external_url
+            elif page:
+                return page.url
+
+
+    class QuickLinkBlock(StructBlock):
+        text = CharBlock(label="link text", required=True)
+        page = PageChooserBlock(label="page", required=False)
+        external_url = URLBlock(label="external URL", required=False)
+
+        class Meta:
+            icon = 'site'
+            value_class = LinkStructValue
+
+
+    class MyPage(Page):
+        quick_links = StreamField([('links', QuickLinkBlock())], blank=True)
+        quotations = StreamField([('quote', StructBlock([
+            ('quote', TextBlock(required=True)),
+            ('page', PageChooserBlock(required=False)),
+            ('external_url', URLBlock(required=False)),
+        ], icon='openquote', value_class=LinkStructValue))], blank=True)
+
+        content_panels = Page.content_panels + [
+            StreamFieldPanel('quick_links'),
+            StreamFieldPanel('quotations'),
+        ]
+
+
+
+Your extended value class methods will be available in your template:
+
+.. code-block:: html+django
+
+    {% load wagtailcore_tags %}
+
+    <ul>
+        {% for link in page.quick_links %}
+          <li><a href="{{ link.value.url }}">{{ link.value.text }}</a></li>
+        {% endfor %}
+    </ul>
+
+    <div>
+        {% for quotation in page.quotations %}
+          <blockquote cite="{{ quotation.value.url }}">
+            {{ quotation.value.quote }}
+          </blockquote>
+        {% endfor %}
+    </div>
+
 
 
 Custom block types
