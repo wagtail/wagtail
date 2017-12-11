@@ -52,6 +52,7 @@ Other features
  * Form submission csv exports now have the export date in the filename and can be customized (Johan Arensman)
  * FormBuilder class now uses bound methods for field generation, adding custom fields is now easier and documented (LB (Ben Johnston))
  * Added ``WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS`` setting to determine whether superusers are included in moderation email notifications (Bruno Alla)
+ * Added a basic Dockerfile to the project template (Tom Dyson)
 
 
 Bug fixes
