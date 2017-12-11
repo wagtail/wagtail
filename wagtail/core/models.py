@@ -10,8 +10,9 @@ from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
 from django.core import checks
 from django.core.cache import cache, caches
+from django.core.cache.backends.dummy import DummyCache
 from django.core.cache.backends.locmem import LocMemCache
-from django.core.exceptions import ValidationError
+from django.core.exceptions import ImproperlyConfigured, ValidationError
 from django.core.handlers.base import BaseHandler
 from django.core.handlers.wsgi import WSGIRequest
 from django.db import connection, models, transaction
@@ -53,7 +54,16 @@ def site_cache_match_ports():
                    (80, 443, 8000, 8080))
 
 
-def warn_about_locmemcache():
+def check_cache_backend_compatibility():
+    msg = (
+        "Wagtail's site caching feature is incompatible with DummyCache, "
+        "which you are using as your default cache backend. Either turn this "
+        "feature off by changing your WAGTAIL_SITE_CACHE_ENABLED setting to "
+        "False, or update your CACHES setting to use a compatible backend, "
+        "such as DatabaseCache, FileBasedCache, MemcachedCache, PyLibMCCache, "
+        "or LocMemCache (for development/testing)")
+    if site_cache_enabled() and isinstance(caches['default'], DummyCache):
+        raise ImproperlyConfigured(msg)
     msg = (
         "WAGTAIL_SITE_CACHE_ENABLED is set to True, but LocMemCache is set as "
         "the default cache backend. This is fine for local development or "
@@ -62,7 +72,7 @@ def warn_about_locmemcache():
     if site_cache_enabled() and isinstance(caches['default'], LocMemCache):
         warnings.warn(msg)
 
-warn_about_locmemcache()
+check_cache_backend_compatibility()
 
 
 class SiteManager(models.Manager):

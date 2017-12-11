@@ -1,6 +1,6 @@
 import warnings
 
-from django.core.exceptions import ValidationError
+from django.core.exceptions import ImproperlyConfigured, ValidationError
 from django.http.request import HttpRequest
 from django.test import TestCase, override_settings
 
@@ -198,18 +198,6 @@ class TestSiteRoutingCachingEnabled(TestSiteRouting):
         super().setUp()
         Site.objects.populate_cache()
 
-    def test_locmemcache_warning(self):
-        from wagtail.core.models import warn_about_locmemcache
-        with warnings.catch_warnings(record=True) as w:
-            warnings.simplefilter("always")
-            warn_about_locmemcache()
-            self.assertEqual(len(w), 1)
-            self.assertTrue(issubclass(w[-1].category, UserWarning), True)
-            self.assertTrue(
-                "WAGTAIL_SITE_CACHE_ENABLED is set to True, but LocMemCache "
-                "is set as the default cache backend" in str(w[-1].message)
-            )
-
     def test_clearing_cache_results_in_find_for_request_populating(self):
         Site.objects.clear_cache()
         request = HttpRequest()
@@ -221,6 +209,45 @@ class TestSiteRoutingCachingEnabled(TestSiteRouting):
             # Calling the same method again should create no queries now that
             # the cache is populated
             self.assertEqual(Site.find_for_request(request), self.about_site)
+
+
+@override_settings(WAGTAIL_SITE_CACHE_ENABLED=True)
+class TestSiteCacheBackendCompatibility(TestCase):
+
+    @override_settings(
+        CACHES={
+            'default': {
+                'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+            },
+        }
+    )
+    def test_error_with_dummycache(self):
+        from wagtail.core.models import check_cache_backend_compatibility
+        self.assertRaisesRegex(
+            ImproperlyConfigured,
+            "Wagtail's site caching feature is incompatible with DummyCache",
+            check_cache_backend_compatibility
+        )
+
+    @override_settings(
+        CACHES={
+            'default': {
+                'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+                'LOCATION': 'unique-snowflake',
+            },
+        }
+    )
+    def test_warns_about_locmemcache(self):
+        from wagtail.core.models import check_cache_backend_compatibility
+        with warnings.catch_warnings(record=True) as w:
+            warnings.simplefilter("always")
+            check_cache_backend_compatibility()
+            self.assertEqual(len(w), 1)
+            self.assertTrue(issubclass(w[-1].category, UserWarning), True)
+            self.assertTrue(
+                "WAGTAIL_SITE_CACHE_ENABLED is set to True, but LocMemCache "
+                "is set as the default cache backend" in str(w[-1].message)
+            )
 
 
 class TestDefaultSite(TestCase):
