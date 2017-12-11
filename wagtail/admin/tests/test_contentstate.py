@@ -368,3 +368,26 @@ class TestHtmlToContentState(TestCase):
                 }
             }
         })
+
+    def test_hr(self):
+        converter = ContentstateConverter(features=['hr'])
+        result = json.loads(converter.from_database_format(
+            '''
+            <p>before</p>
+            <hr />
+            <p>after</p>
+            '''
+        ))
+        self.assertContentStateEqual(result, {
+            'blocks': [
+                {'key': '00000', 'inlineStyleRanges': [], 'entityRanges': [], 'depth': 0, 'text': 'before', 'type': 'unstyled'},
+                {'key': '00000', 'inlineStyleRanges': [], 'entityRanges': [{'key': 0, 'offset': 0, 'length': 1}], 'depth': 0, 'text': ' ', 'type': 'atomic'},
+                {'key': '00000', 'inlineStyleRanges': [], 'entityRanges': [], 'depth': 0, 'text': 'after', 'type': 'unstyled'}
+            ],
+            'entityMap': {
+                '0': {
+                    'data': {},
+                    'mutability': 'IMMUTABLE', 'type': 'HORIZONTAL_RULE'
+                }
+            }
+        })

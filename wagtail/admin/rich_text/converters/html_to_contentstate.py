@@ -218,6 +218,14 @@ class MediaEmbedElementHandler(AtomicBlockEntityElementHandler):
         return Entity('EMBED', 'IMMUTABLE', {'url': attrs['url']})
 
 
+class HorizontalRuleHandler(AtomicBlockEntityElementHandler):
+    def handle_starttag(self, name, attrs, state, contentstate):
+        return super().handle_starttag(name, attrs, state, contentstate)
+
+    def create_entity(self, name, attrs, state, contentstate):
+        return Entity('HORIZONTAL_RULE', 'IMMUTABLE', {})
+
+
 ELEMENT_HANDLERS_BY_FEATURE = {
     'ol': {
         'ol': ListElementHandler('ordered-list-item'),
@@ -265,6 +273,9 @@ ELEMENT_HANDLERS_BY_FEATURE = {
     },
     'embed': {
         'embed[embedtype="media"]': MediaEmbedElementHandler(),
+    },
+    'hr': {
+        'hr': HorizontalRuleHandler(),
     },
 }
 
