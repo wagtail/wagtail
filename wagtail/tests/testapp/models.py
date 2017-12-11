@@ -610,8 +610,6 @@ class FormPageWithCustomSubmissionListView(AbstractEmailForm):
     ]
 
 
-
-
 # Snippets
 class AdvertPlacement(models.Model):
     page = ParentalKey('wagtailcore.Page', related_name='advert_placements', on_delete=models.CASCADE)
