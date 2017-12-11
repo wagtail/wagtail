@@ -604,3 +604,47 @@ Finally, we add a URL param of `id` based on the ``form_submission`` if it exist
                 FieldPanel('subject'),
             ], 'Email'),
         ]
+
+
+Customise form submissions listing in Wagtail Admin
+---------------------------------------------------
+
+The Admin listing of form submissions can be customised by overriding ``get_list_submissions_view_class`` on your FormPage model.
+
+The list view class must be a subclass of ``ListSubmissionsView`` from ``wagtail.contrib.forms.views``, which is a child class of `Django's class based ListView <https://docs.djangoproject.com/en/2.0/ref/class-based-views/generic-display/#listview>`_.
+
+Example:
+
+.. code-block:: python
+
+    from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField
+    from wagtail.contrib.forms.views import ListSubmissionsView
+
+
+    class CustomListSubmissionsView(ListSubmissionsView):
+        paginate_by = 50  # show more submissions per page, default is 20
+        ordering = ('submit_time',)  # order submissions by oldest first, normally newest first
+        ordering_csv = ('-submit_time',)  # order csv export by newest first, normally oldest first
+
+        # override the method to generate csv filename
+        def get_csv_filename(self):
+            """ Returns the filename for CSV file with page title at start"""
+            filename = super().get_csv_filename()
+            return self.form_page.slug + '-' + filename
+
+
+    class FormField(AbstractFormField):
+        page = ParentalKey('FormPage', related_name='form_fields')
+
+
+    class FormPage(AbstractEmailForm):
+        """Form Page with customised submissions listing view"""
+
+        def get_list_submissions_view_class(self):
+            # override the normal ListSubmissionsView with our own
+            return CustomListSubmissionsView
+
+        intro = RichTextField(blank=True)
+        thank_you_text = RichTextField(blank=True)
+
+        # content_panels = ...
