@@ -14,6 +14,26 @@ from .utils import js_dict
 __all__ = ['BaseStructBlock', 'StructBlock', 'StructValue']
 
 
+class StructValue(collections.OrderedDict):
+    """ A class that generates a StructBlock value from provded sub-blocks """
+    def __init__(self, block, *args):
+        super().__init__(*args)
+        self.block = block
+
+    def __html__(self):
+        return self.block.render(self)
+
+    def render_as_block(self, context=None):
+        return self.block.render(self, context=context)
+
+    @cached_property
+    def bound_blocks(self):
+        return collections.OrderedDict([
+            (name, block.bind(self.get(name)))
+            for name, block in self.block.child_blocks.items()
+        ])
+
+
 class BaseStructBlock(Block):
 
     def __init__(self, local_blocks=None, **kwargs):
@@ -42,7 +62,7 @@ class BaseStructBlock(Block):
         rather than a StructValue; for consistency, we need to convert it to a StructValue
         for StructBlock to work with
         """
-        return StructValue(self, self.meta.default.items())
+        return self._to_struct_value(self.meta.default.items())
 
     def js_initializer(self):
         # skip JS setup entirely if no children have js_initializers
@@ -88,7 +108,7 @@ class BaseStructBlock(Block):
         return render_to_string(self.meta.form_template, context)
 
     def value_from_datadict(self, data, files, prefix):
-        return StructValue(self, [
+        return self._to_struct_value([
             (name, block.value_from_datadict(data, files, '%s-%s' % (prefix, name)))
             for name, block in self.child_blocks.items()
         ])
@@ -113,11 +133,11 @@ class BaseStructBlock(Block):
             # and delegate the errors contained in the 'params' dict to the child blocks instead
             raise ValidationError('Validation error in StructBlock', params=errors)
 
-        return StructValue(self, result)
+        return self._to_struct_value(result)
 
     def to_python(self, value):
-        # recursively call to_python on children and return as a StructValue
-        return StructValue(self, [
+        """ Recursively call to_python on children and return as a StructValue """
+        return self._to_struct_value([
             (
                 name,
                 (child_block.to_python(value[name]) if name in value else child_block.get_default())
@@ -127,15 +147,19 @@ class BaseStructBlock(Block):
             for name, child_block in self.child_blocks.items()
         ])
 
+    def _to_struct_value(self, block_items):
+        """ Return a Structvalue representation of the sub-blocks in this block """
+        return self.meta.value_class(self, block_items)
+
     def get_prep_value(self, value):
-        # recursively call get_prep_value on children and return as a plain dict
+        """ Recursively call get_prep_value on children and return as a plain dict """
         return dict([
             (name, self.child_blocks[name].get_prep_value(val))
             for name, val in value.items()
         ])
 
     def get_api_representation(self, value, context=None):
-        # recursively call get_api_representation on children and return as a plain dict
+        """ Recursively call get_api_representation on children and return as a plain dict """
         return dict([
             (name, self.child_blocks[name].get_api_representation(val, context=context))
             for name, val in value.items()
@@ -179,6 +203,7 @@ class BaseStructBlock(Block):
         default = {}
         form_classname = 'struct-block'
         form_template = 'wagtailadmin/block_forms/struct.html'
+        value_class = StructValue
         # No icon specified here, because that depends on the purpose that the
         # block is being used for. Feel encouraged to specify an icon in your
         # descendant block type
@@ -187,22 +212,3 @@ class BaseStructBlock(Block):
 
 class StructBlock(BaseStructBlock, metaclass=DeclarativeSubBlocksMetaclass):
     pass
-
-
-class StructValue(collections.OrderedDict):
-    def __init__(self, block, *args):
-        super().__init__(*args)
-        self.block = block
-
-    def __html__(self):
-        return self.block.render(self)
-
-    def render_as_block(self, context=None):
-        return self.block.render(self, context=context)
-
-    @cached_property
-    def bound_blocks(self):
-        return collections.OrderedDict([
-            (name, block.bind(self.get(name)))
-            for name, block in self.block.child_blocks.items()
-        ])

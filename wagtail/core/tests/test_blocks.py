@@ -16,13 +16,13 @@ from django.utils.html import format_html
 from django.utils.safestring import SafeData, mark_safe
 from django.utils.translation import ugettext_lazy as __
 
+from wagtail.core import blocks
+from wagtail.core.models import Page
+from wagtail.core.rich_text import RichText
 from wagtail.tests.testapp.blocks import LinkBlock as CustomLinkBlock
 from wagtail.tests.testapp.blocks import SectionBlock
 from wagtail.tests.testapp.models import EventPage, SimplePage
 from wagtail.tests.utils import WagtailTestUtils
-from wagtail.core import blocks
-from wagtail.core.models import Page
-from wagtail.core.rich_text import RichText
 
 
 class FooStreamBlock(blocks.StreamBlock):
@@ -1346,6 +1346,173 @@ class TestStructBlock(SimpleTestCase):
         value = block.to_python({'title': 'Bonjour', 'body': 'monde <i>italique</i>'})
         result = value.render_as_block(context={'language': 'fr'})
         self.assertEqual(result, """<h1 lang="fr">Bonjour</h1><div class="rich-text">monde <i>italique</i></div>""")
+
+
+class TestStructBlockWithCustomStructValue(SimpleTestCase):
+
+    def test_initialisation(self):
+
+        class CustomStructValue(blocks.StructValue):
+            def joined(self):
+                return self.get('title', '') + self.get('link', '')
+
+        block = blocks.StructBlock([
+            ('title', blocks.CharBlock()),
+            ('link', blocks.URLBlock()),
+        ], value_class=CustomStructValue)
+
+        self.assertEqual(list(block.child_blocks.keys()), ['title', 'link'])
+
+        block_value = block.to_python({'title': 'Birthday party', 'link': 'https://myparty.co.uk'})
+        self.assertIsInstance(block_value, CustomStructValue)
+
+        default_value = block.get_default()
+        self.assertIsInstance(default_value, CustomStructValue)
+
+        value_from_datadict = block.value_from_datadict({
+            'mylink-title': "Torchbox",
+            'mylink-link': "http://www.torchbox.com"
+        }, {}, 'mylink')
+
+        self.assertIsInstance(value_from_datadict, CustomStructValue)
+
+        value = block.to_python({'title': 'Torchbox', 'link': 'http://www.torchbox.com/'})
+        clean_value = block.clean(value)
+        self.assertTrue(isinstance(clean_value, CustomStructValue))
+        self.assertEqual(clean_value['title'], 'Torchbox')
+
+        value = block.to_python({'title': 'Torchbox', 'link': 'not a url'})
+        with self.assertRaises(ValidationError):
+            block.clean(value)
+
+
+    def test_initialisation_from_subclass(self):
+
+        class LinkStructValue(blocks.StructValue):
+            def url(self):
+                return self.get('page') or self.get('link')
+
+        class LinkBlock(blocks.StructBlock):
+            title = blocks.CharBlock()
+            page = blocks.PageChooserBlock(required=False)
+            link = blocks.URLBlock(required=False)
+
+            class Meta:
+                value_class = LinkStructValue
+
+        block = LinkBlock()
+
+        self.assertEqual(list(block.child_blocks.keys()), ['title', 'page', 'link'])
+
+        block_value = block.to_python({'title': 'Website', 'link': 'https://website.com'})
+        self.assertIsInstance(block_value, LinkStructValue)
+
+        default_value = block.get_default()
+        self.assertIsInstance(default_value, LinkStructValue)
+
+
+    def test_initialisation_with_multiple_subclassses(self):
+        class LinkStructValue(blocks.StructValue):
+            def url(self):
+                return self.get('page') or self.get('link')
+
+        class LinkBlock(blocks.StructBlock):
+            title = blocks.CharBlock()
+            page = blocks.PageChooserBlock(required=False)
+            link = blocks.URLBlock(required=False)
+
+            class Meta:
+                value_class = LinkStructValue
+
+        class StyledLinkBlock(LinkBlock):
+            classname = blocks.CharBlock()
+
+        block = StyledLinkBlock()
+
+        self.assertEqual(list(block.child_blocks.keys()), ['title', 'page', 'link', 'classname'])
+
+        value_from_datadict = block.value_from_datadict({
+            'queen-title': "Torchbox",
+            'queen-link': "http://www.torchbox.com",
+            'queen-classname': "fullsize",
+        }, {}, 'queen')
+
+        self.assertIsInstance(value_from_datadict, LinkStructValue)
+
+    def test_initialisation_with_mixins(self):
+        class LinkStructValue(blocks.StructValue):
+            pass
+
+        class StylingMixinStructValue(blocks.StructValue):
+            pass
+
+        class LinkBlock(blocks.StructBlock):
+            title = blocks.CharBlock()
+            link = blocks.URLBlock()
+
+            class Meta:
+                value_class = LinkStructValue
+
+        class StylingMixin(blocks.StructBlock):
+            classname = blocks.CharBlock()
+
+        class StyledLinkBlock(StylingMixin, LinkBlock):
+            source = blocks.CharBlock()
+
+        block = StyledLinkBlock()
+
+        self.assertEqual(list(block.child_blocks.keys()),
+                         ['title', 'link', 'classname', 'source'])
+
+        block_value = block.to_python({
+            'title': 'Website', 'link': 'https://website.com',
+            'source': 'google', 'classname': 'full-size',
+        })
+        self.assertIsInstance(block_value, LinkStructValue)
+
+
+    def test_value_property(self):
+
+        class SectionStructValue(blocks.StructValue):
+            @property
+            def foo(self):
+                return 'bar %s' % self.get('title', '')
+
+        class SectionBlock(blocks.StructBlock):
+            title = blocks.CharBlock()
+            body = blocks.RichTextBlock()
+
+            class Meta:
+                value_class = SectionStructValue
+
+        block = SectionBlock()
+        struct_value = block.to_python({'title': 'hello', 'body': '<b>world</b>'})
+        value = struct_value.foo
+        self.assertEqual(value, 'bar hello')
+
+    def test_render_with_template(self):
+
+        class SectionStructValue(blocks.StructValue):
+            def title_with_suffix(self):
+                title = self.get('title')
+                if title:
+                    return 'SUFFIX %s' % title
+                return 'EMPTY TITLE'
+
+        class SectionBlock(blocks.StructBlock):
+            title = blocks.CharBlock(required=False)
+
+            class Meta:
+                value_class = SectionStructValue
+
+        block = SectionBlock(template='tests/blocks/struct_block_custom_value.html')
+        struct_value = block.to_python({'title': 'hello'})
+        html = block.render(struct_value)
+        self.assertEqual(html, '<div>SUFFIX hello</div>\n')
+
+        struct_value = block.to_python({})
+        html = block.render(struct_value)
+        self.assertEqual(html, '<div>EMPTY TITLE</div>\n')
 
 
 class TestListBlock(WagtailTestUtils, SimpleTestCase):
