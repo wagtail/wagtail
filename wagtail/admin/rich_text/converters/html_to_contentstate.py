@@ -177,7 +177,8 @@ class AtomicBlockEntityElementHandler(object):
     Handler for elements like <img> that exist as a single immutable item at the block level
     """
     def handle_starttag(self, name, attrs, state, contentstate):
-        assert state.current_block is None, "%s element found nested inside another block" % name
+        # forcibly close any block that illegally contains this one
+        state.current_block = None
 
         entity = self.create_entity(name, dict(attrs), state, contentstate)
         key = contentstate.add_entity(entity)
