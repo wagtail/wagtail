@@ -1,3 +1,4 @@
+from django.contrib.contenttypes.models import ContentType
 from django.test import TestCase
 
 from wagtail.core.collectors import ModelRichTextCollector, ModelStreamFieldsCollector, get_all_uses
@@ -56,6 +57,9 @@ class ModelRichTextCollectorTest(TestCase):
         self.obj10 = create_page('<embed embedtype="media" url="%s"/>'
                                  % self.video.url)
 
+        # For query count consistency.
+        ContentType.objects.clear_cache()
+
     def get_uses(self, *objects):
         return list(self.collector.find_objects(*objects))
 
@@ -65,12 +69,12 @@ class ModelRichTextCollectorTest(TestCase):
             self.assertListEqual(uses, [])
 
     def test_simple(self):
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(4):
             uses = self.get_uses(self.obj1)
             self.assertListEqual(uses, [(self.obj2, self.obj1)])
 
     def test_wrapped_and_swapped(self):
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(4):
             uses = self.get_uses(self.obj2)
             self.assertListEqual(uses, [(self.obj3, self.obj2)])
 
@@ -79,12 +83,12 @@ class ModelRichTextCollectorTest(TestCase):
             self.assertListEqual(uses, [(self.obj4, self.obj3)])
 
     def test_nested(self):
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(4):
             uses = self.get_uses(self.obj4)
             self.assertListEqual(uses, [(self.obj5, self.obj4)])
 
     def test_multiple(self):
-        with self.assertNumQueries(16):
+        with self.assertNumQueries(17):
             uses = self.get_uses()
             self.assertListEqual(uses, [(self.obj2, self.obj1),
                                         (self.obj3, self.obj2),
@@ -184,6 +188,9 @@ class ModelStreamFieldCollectorTest(TestCase):
             ('rich_text',
              RichText('<p><embed alt="bodyline" embedtype="image" '
                       'format="centered" id="%s"/></p>' % self.image11.pk))])
+
+        # For query count consistency.
+        ContentType.objects.clear_cache()
 
     def get_image_uses(self, *images):
         return list(self.collector.find_objects(
@@ -286,6 +293,9 @@ class GetAllUsesTest(TestCase):
             '<p><embed alt="bodyline" embedtype="image" '
             'format="centered" id="%s"/></p>' % self.obj7.pk)
 
+        # For query count consistency.
+        ContentType.objects.clear_cache()
+
     def test_empty(self):
         with self.assertNumQueries(53):
             uses = list(get_all_uses(self.obj0))
@@ -297,16 +307,16 @@ class GetAllUsesTest(TestCase):
             self.assertListEqual(uses, [self.obj2])
 
     def test_rich_text(self):
-        with self.assertNumQueries(55):
+        with self.assertNumQueries(56):
             uses = list(get_all_uses(self.obj3))
             self.assertListEqual(uses, [self.obj4])
 
     def test_streamfield(self):
-        with self.assertNumQueries(55):
+        with self.assertNumQueries(56):
             uses = list(get_all_uses(self.obj3))
             self.assertListEqual(uses, [self.obj4])
 
     def test_multiple(self):
-        with self.assertNumQueries(46):
+        with self.assertNumQueries(47):
             uses = list(get_all_uses(self.obj7))
             self.assertListEqual(uses, [self.obj8, self.obj9, self.obj10])
