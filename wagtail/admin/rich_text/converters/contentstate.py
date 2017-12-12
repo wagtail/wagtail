@@ -11,39 +11,6 @@ from wagtail.admin.rich_text.converters.html_to_contentstate import HtmlToConten
 from wagtail.core.rich_text import features as feature_registry
 
 
-def Image(props):
-    """
-    <embed alt="Right-aligned image" embedtype="image" format="right" id="1"/>
-    """
-    return DOM.create_element('embed', {
-        'embedtype': 'image',
-        'format': props.get('alignment'),
-        'id': props.get('id'),
-        'alt': props.get('altText'),
-    })
-
-
-def Embed(props):
-    """
-    <embed embedtype="media" url="https://www.youtube.com/watch?v=y8Kyi0WNg40"/>
-    """
-    return DOM.create_element('embed', {
-        'embedtype': 'media',
-        'url': props.get('url'),
-    })
-
-
-def Document(props):
-    """
-    <a id="1" linktype="document">document link</a>
-    """
-
-    return DOM.create_element('a', {
-        'linktype': 'document',
-        'id': props.get('id'),
-    }, props['children'])
-
-
 def Link(props):
     """
     <a linktype="page" id="1">internal page link</a>

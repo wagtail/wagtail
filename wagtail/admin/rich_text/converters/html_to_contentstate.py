@@ -7,7 +7,6 @@ from wagtail.admin.rich_text.converters.contentstate_models import (
 from wagtail.admin.rich_text.converters.html_ruleset import HTMLRuleset
 from wagtail.core.rich_text import features as feature_registry
 from wagtail.core.models import Page
-from wagtail.documents.models import get_document_model
 
 
 class HandlerState(object):
@@ -173,20 +172,6 @@ class PageLinkElementHandler(LinkElementHandler):
         return data
 
 
-class DocumentLinkElementHandler(LinkElementHandler):
-    def get_attribute_data(self, attrs):
-        Document = get_document_model()
-        try:
-            doc = Document.objects.get(id=attrs['id'])
-        except Document.DoesNotExist:
-            return {}
-
-        return {
-            'id': doc.id,
-            'url': doc.url,
-        }
-
-
 class AtomicBlockEntityElementHandler(object):
     """
     Handler for elements like <img> that exist as a single immutable item at the block level
@@ -207,16 +192,6 @@ class AtomicBlockEntityElementHandler(object):
 
     def handle_endtag(self, name, state, contentstate):
         pass
-
-
-class ImageElementHandler(AtomicBlockEntityElementHandler):
-    def create_entity(self, name, attrs, state, contentstate):
-        return Entity('IMAGE', 'IMMUTABLE', {'altText': attrs.get('alt'), 'id': attrs['id'], 'format': attrs['format']})
-
-
-class MediaEmbedElementHandler(AtomicBlockEntityElementHandler):
-    def create_entity(self, name, attrs, state, contentstate):
-        return Entity('EMBED', 'IMMUTABLE', {'url': attrs['url']})
 
 
 class HorizontalRuleHandler(AtomicBlockEntityElementHandler):

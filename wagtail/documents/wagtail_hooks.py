@@ -11,9 +11,6 @@ from draftjs_exporter.constants import ENTITY_TYPES
 
 from wagtail.admin.menu import MenuItem
 from wagtail.admin.rich_text import HalloPlugin
-from wagtail.admin.rich_text.converters.contentstate import Document as DocumentEntity
-from wagtail.admin.rich_text.converters.editor_html import LinkTypeRule
-from wagtail.admin.rich_text.converters.html_to_contentstate import DocumentLinkElementHandler
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 from wagtail.admin.search import SearchArea
 from wagtail.admin.site_summary import SummaryItem
@@ -25,7 +22,9 @@ from wagtail.documents.api.admin.endpoints import DocumentsAdminAPIEndpoint
 from wagtail.documents.forms import GroupDocumentPermissionFormSet
 from wagtail.documents.models import get_document_model
 from wagtail.documents.permissions import permission_policy
-from wagtail.documents.rich_text import DocumentLinkHandler, document_linktype_handler
+from wagtail.documents.rich_text import (
+    ContentstateDocumentLinkConversionRule, document_linktype_handler, EditorHTMLDocumentLinkConversionRule
+)
 
 
 @hooks.register('register_admin_urls')
@@ -98,17 +97,12 @@ def register_document_feature(features):
         })
     )
 
-    features.register_converter_rule('editorhtml', 'document-link', [
-        LinkTypeRule('document', DocumentLinkHandler),
-    ])
-    features.register_converter_rule('contentstate', 'document-link', {
-        'from_database_format': {
-            'a[linktype="document"]': DocumentLinkElementHandler('DOCUMENT'),
-        },
-        'to_database_format': {
-            'entity_decorators': {ENTITY_TYPES.DOCUMENT: DocumentEntity}
-        }
-    })
+    features.register_converter_rule(
+        'editorhtml', 'document-link', EditorHTMLDocumentLinkConversionRule
+    )
+    features.register_converter_rule(
+        'contentstate', 'document-link', ContentstateDocumentLinkConversionRule
+    )
 
     features.default_features.append('document-link')
 

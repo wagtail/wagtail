@@ -5,13 +5,12 @@ from django.utils.html import format_html
 from draftjs_exporter.constants import ENTITY_TYPES
 
 from wagtail.admin.rich_text import HalloPlugin
-from wagtail.admin.rich_text.converters.contentstate import Embed as EmbedEntity
-from wagtail.admin.rich_text.converters.editor_html import EmbedTypeRule
-from wagtail.admin.rich_text.converters.html_to_contentstate import MediaEmbedElementHandler
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 from wagtail.core import hooks
 from wagtail.embeds import urls
-from wagtail.embeds.rich_text import MediaEmbedHandler, media_embedtype_handler
+from wagtail.embeds.rich_text import (
+    ContentstateMediaConversionRule, EditorHTMLEmbedConversionRule, media_embedtype_handler
+)
 
 
 @hooks.register('register_admin_urls')
@@ -49,9 +48,7 @@ def register_embed_feature(features):
 
     # define how to convert between editorhtml's representation of embeds and
     # the database representation
-    features.register_converter_rule('editorhtml', 'embed', [
-        EmbedTypeRule('media', MediaEmbedHandler)
-    ])
+    features.register_converter_rule('editorhtml', 'embed', EditorHTMLEmbedConversionRule)
 
     # define a draftail plugin to use when the 'embed' feature is active
     features.register_editor_plugin(
@@ -65,15 +62,8 @@ def register_embed_feature(features):
     )
 
     # define how to convert between contentstate's representation of embeds and
-    # the database representation
-    features.register_converter_rule('contentstate', 'embed', {
-        'from_database_format': {
-            'embed[embedtype="media"]': MediaEmbedElementHandler(),
-        },
-        'to_database_format': {
-            'entity_decorators': {ENTITY_TYPES.EMBED: EmbedEntity}
-        }
-    })
+    # the database representation-
+    features.register_converter_rule('contentstate', 'embed', ContentstateMediaConversionRule)
 
     # add 'embed' to the set of on-by-default rich text features
     features.default_features.append('embed')

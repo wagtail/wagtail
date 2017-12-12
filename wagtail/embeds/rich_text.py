@@ -1,6 +1,24 @@
+from draftjs_exporter.constants import ENTITY_TYPES
+from draftjs_exporter.dom import DOM
+
+from wagtail.admin.rich_text.converters import editor_html
+from wagtail.admin.rich_text.converters.contentstate_models import Entity
+from wagtail.admin.rich_text.converters.html_to_contentstate import AtomicBlockEntityElementHandler
 from wagtail.embeds import format
 from wagtail.embeds.exceptions import EmbedException
 
+
+# Front-end conversion
+
+def media_embedtype_handler(attrs):
+    """
+    Given a dict of attributes from the <embed> tag, return the real HTML
+    representation for use on the front-end.
+    """
+    return format.embed_to_frontend_html(attrs['url'])
+
+
+# hallo.js / editor-html conversion
 
 class MediaEmbedHandler:
     """
@@ -33,9 +51,39 @@ class MediaEmbedHandler:
             return ''
 
 
-def media_embedtype_handler(attrs):
+EditorHTMLEmbedConversionRule = [
+    editor_html.EmbedTypeRule('media', MediaEmbedHandler)
+]
+
+
+# draft.js / contentstate conversion
+
+def MediaEmbedEntity(props):
     """
-    Given a dict of attributes from the <embed> tag, return the real HTML
-    representation for use on the front-end.
+    Helper to construct elements of the form
+    <embed embedtype="media" url="https://www.youtube.com/watch?v=y8Kyi0WNg40"/>
+    when converting from contentstate data
     """
-    return format.embed_to_frontend_html(attrs['url'])
+    return DOM.create_element('embed', {
+        'embedtype': 'media',
+        'url': props.get('url'),
+    })
+
+
+class MediaEmbedElementHandler(AtomicBlockEntityElementHandler):
+    """
+    Rule for building an embed entity when converting from database representation
+    to contentstate
+    """
+    def create_entity(self, name, attrs, state, contentstate):
+        return Entity('EMBED', 'IMMUTABLE', {'url': attrs['url']})
+
+
+ContentstateMediaConversionRule = {
+    'from_database_format': {
+        'embed[embedtype="media"]': MediaEmbedElementHandler(),
+    },
+    'to_database_format': {
+        'entity_decorators': {ENTITY_TYPES.EMBED: MediaEmbedEntity}
+    }
+}

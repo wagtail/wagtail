@@ -1,7 +1,24 @@
 from django.utils.html import escape
+from draftjs_exporter.constants import ENTITY_TYPES
+from draftjs_exporter.dom import DOM
 
+from wagtail.admin.rich_text.converters import editor_html
+from wagtail.admin.rich_text.converters.html_to_contentstate import LinkElementHandler
 from wagtail.documents.models import get_document_model
 
+
+# Front-end conversion
+
+def document_linktype_handler(attrs):
+    Document = get_document_model()
+    try:
+        doc = Document.objects.get(id=attrs['id'])
+        return '<a href="%s">' % escape(doc.url)
+    except Document.DoesNotExist:
+        return "<a>"
+
+
+# hallo.js / editor-html conversion
 
 class DocumentLinkHandler:
     @staticmethod
@@ -18,10 +35,49 @@ class DocumentLinkHandler:
             return "<a>"
 
 
-def document_linktype_handler(attrs):
-    Document = get_document_model()
-    try:
-        doc = Document.objects.get(id=attrs['id'])
-        return '<a href="%s">' % escape(doc.url)
-    except Document.DoesNotExist:
-        return "<a>"
+EditorHTMLDocumentLinkConversionRule = [
+    editor_html.LinkTypeRule('document', DocumentLinkHandler),
+]
+
+
+# draft.js / contentstate conversion
+
+def DocumentLinkEntity(props):
+    """
+    Helper to construct elements of the form
+    <a id="1" linktype="document">document link</a>
+    when converting from contentstate data
+    """
+
+    return DOM.create_element('a', {
+        'linktype': 'document',
+        'id': props.get('id'),
+    }, props['children'])
+
+
+class DocumentLinkElementHandler(LinkElementHandler):
+    """
+    Rule for populating the attributes of a document link when converting from database representation
+    to contentstate
+    """
+    def get_attribute_data(self, attrs):
+        Document = get_document_model()
+        try:
+            doc = Document.objects.get(id=attrs['id'])
+        except Document.DoesNotExist:
+            return {}
+
+        return {
+            'id': doc.id,
+            'url': doc.url,
+        }
+
+
+ContentstateDocumentLinkConversionRule = {
+    'from_database_format': {
+        'a[linktype="document"]': DocumentLinkElementHandler('DOCUMENT'),
+    },
+    'to_database_format': {
+        'entity_decorators': {ENTITY_TYPES.DOCUMENT: DocumentLinkEntity}
+    }
+}

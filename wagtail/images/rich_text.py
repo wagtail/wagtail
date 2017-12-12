@@ -1,6 +1,32 @@
+from draftjs_exporter.constants import ENTITY_TYPES
+from draftjs_exporter.dom import DOM
+
+from wagtail.admin.rich_text.converters import editor_html
+from wagtail.admin.rich_text.converters.contentstate_models import Entity
+from wagtail.admin.rich_text.converters.html_to_contentstate import AtomicBlockEntityElementHandler
+from wagtail.admin.rich_text.editors.draftail.features import EntityFeature
 from wagtail.images import get_image_model
 from wagtail.images.formats import get_image_format
 
+
+# Front-end conversion
+
+def image_embedtype_handler(attrs):
+    """
+    Given a dict of attributes from the <embed> tag, return the real HTML
+    representation for use on the front-end.
+    """
+    Image = get_image_model()
+    try:
+        image = Image.objects.get(id=attrs['id'])
+    except Image.DoesNotExist:
+        return "<img>"
+
+    image_format = get_image_format(attrs['format'])
+    return image_format.image_to_html(image, attrs.get('alt', ''))
+
+
+# hallo.js / editor-html conversion
 
 class ImageEmbedHandler:
     """
@@ -39,16 +65,57 @@ class ImageEmbedHandler:
         return image_format.image_to_editor_html(image, attrs.get('alt', ''))
 
 
-def image_embedtype_handler(attrs):
-    """
-    Given a dict of attributes from the <embed> tag, return the real HTML
-    representation for use on the front-end.
-    """
-    Image = get_image_model()
-    try:
-        image = Image.objects.get(id=attrs['id'])
-    except Image.DoesNotExist:
-        return "<img>"
+EditorHTMLImageConversionRule = [
+    editor_html.EmbedTypeRule('image', ImageEmbedHandler)
+]
 
-    image_format = get_image_format(attrs['format'])
-    return image_format.image_to_html(image, attrs.get('alt', ''))
+
+# draft.js / contentstate conversion
+
+def ImageEntity(props):
+    """
+    Helper to construct elements of the form
+    <embed alt="Right-aligned image" embedtype="image" format="right" id="1"/>
+    when converting from contentstate data
+    """
+    return DOM.create_element('embed', {
+        'embedtype': 'image',
+        'format': props.get('alignment'),
+        'id': props.get('id'),
+        'alt': props.get('altText'),
+    })
+
+
+class ImageFeature(EntityFeature):
+    """
+    Special case of EntityFeature so that we can easily define features that
+    replicate the default 'image' feature with a custom list of image formats
+    """
+    def __init__(self, image_formats='__all__'):
+        super().__init__({
+            'label': 'Image',
+            'type': ENTITY_TYPES.IMAGE,
+            'icon': 'icon-image',
+            'imageFormats': image_formats,
+            'source': 'ImageSource',
+            'decorator': 'Image',
+        })
+
+
+class ImageElementHandler(AtomicBlockEntityElementHandler):
+    """
+    Rule for building an image entity when converting from database representation
+    to contentstate
+    """
+    def create_entity(self, name, attrs, state, contentstate):
+        return Entity('IMAGE', 'IMMUTABLE', {'altText': attrs.get('alt'), 'id': attrs['id'], 'format': attrs['format']})
+
+
+ContentstateImageConversionRule = {
+    'from_database_format': {
+        'embed[embedtype="image"]': ImageElementHandler(),
+    },
+    'to_database_format': {
+        'entity_decorators': {ENTITY_TYPES.IMAGE: ImageEntity}
+    }
+}

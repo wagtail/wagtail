@@ -3,8 +3,6 @@
 # a `construct_options` method which modifies an options dict as appropriate to
 # enable that feature.
 
-from draftjs_exporter.constants import ENTITY_TYPES
-
 
 class BooleanFeature():
     """
@@ -46,19 +44,3 @@ class BlockFeature(ListFeature):
 class InlineStyleFeature(ListFeature):
     """A feature which is listed in the inlineStyles list of the options"""
     option_name = 'inlineStyles'
-
-
-class ImageFeature(EntityFeature):
-    """
-    Special case of EntityFeature so that we can easily define features that
-    replicate the default 'image' feature with a custom list of image formats
-    """
-    def __init__(self, image_formats='__all__'):
-        super().__init__({
-            'label': 'Image',
-            'type': ENTITY_TYPES.IMAGE,
-            'icon': 'icon-image',
-            'imageFormats': image_formats,
-            'source': 'ImageSource',
-            'decorator': 'Image',
-        })
