@@ -108,7 +108,7 @@ class ImageElementHandler(AtomicBlockEntityElementHandler):
     to contentstate
     """
     def create_entity(self, name, attrs, state, contentstate):
-        return Entity('IMAGE', 'IMMUTABLE', {'altText': attrs.get('alt'), 'id': attrs['id'], 'format': attrs['format']})
+        return Entity('IMAGE', 'IMMUTABLE', {'altText': attrs.get('alt'), 'id': attrs['id'], 'alignment': attrs['format']})
 
 
 ContentstateImageConversionRule = {
