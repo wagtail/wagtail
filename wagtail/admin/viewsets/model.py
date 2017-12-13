@@ -17,6 +17,11 @@ class ModelViewSet(ViewSet):
     delete_view_class = generic.DeleteView
 
     @property
+    def model(self):
+        raise NotImplementedError(
+            'ModelViewSet subclasses need to define the `model` attribute.')
+
+    @property
     def permission_policy(self):
         return ModelPermissionPolicy(self.model)
 

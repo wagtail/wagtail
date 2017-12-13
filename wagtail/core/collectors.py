@@ -5,13 +5,14 @@ from warnings import warn
 from django.apps import apps
 from django.contrib.admin.utils import NestedObjects
 from django.db import DEFAULT_DB_ALIAS
-from django.db.models import Model, Q
+from django.db.models import Model, Q, ProtectedError
 
 from wagtail.core.blocks import (
     ChooserBlock, ListBlock, RichTextBlock, StreamBlock, StreamValue, StructBlock, StructValue)
 from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core.rich_text import (
     EMBED_HANDLERS, FIND_A_TAG, FIND_EMBED_TAG, LINK_HANDLERS, RichText, extract_attrs)
+from wagtail.utils.pagination import paginate
 
 
 def get_obj_base_key(obj):
@@ -185,11 +186,11 @@ class ModelStreamFieldsCollector:
             self.prepare_value(v) for v in searched_values)
         rich_text_pattern = ModelRichTextCollector.get_pattern_for_objects(
             [v for v in searched_values if isinstance(v, Model)])
-        # Escapes the pattern since values are between double quotes.
-        rich_text_pattern = rich_text_pattern.replace(r'"', r'\\"')
         if rich_text_pattern is None:
             pattern = stream_structure_pattern
         else:
+            # Escapes the pattern since values are between double quotes.
+            rich_text_pattern = rich_text_pattern.replace(r'"', r'\\"')
             pattern = r'(%s|%s)' % (stream_structure_pattern, rich_text_pattern)
         filters = Q()
         for collector, block_paths in block_paths_per_collector:
@@ -217,15 +218,34 @@ class ModelStreamFieldsCollector:
 def get_all_uses(*objects, using=DEFAULT_DB_ALIAS):
     collector = NestedObjects(using)
     collector.collect(objects)
-    original_objects_keys = {get_obj_base_key(obj) for obj in objects}
-    for related_objects in collector.data.values():
-        for related_object in related_objects:
-            if get_obj_base_key(related_object) not in original_objects_keys:
-                yield related_object
-    for model in apps.get_models():
-        for related_object, obj in chain(
+    keys = {get_obj_base_key(obj) for obj in objects}
+    # Prevents an object from being marked as protected by itself
+    # due to multi-table inheritance.
+    collector.protected = {obj for obj in collector.protected
+                           if get_obj_base_key(obj) not in keys}
+    if collector.protected:
+        raise ProtectedError('The objects are referenced through a protected '
+                             'foreign key.', collector.protected)
+    for related_object in chain(
+            *collector.data.values(),
+            (related_object for model in apps.get_models()
+             for related_object, obj in chain(
                 ModelRichTextCollector(model,
                                        using=using).find_objects(*objects),
                 ModelStreamFieldsCollector(model,
-                                           using=using).find_objects(*objects)):
+                                           using=using).find_objects(*objects)))):
+        key = get_obj_base_key(related_object)
+        if key not in keys:
             yield related_object
+            keys.add(key)
+
+
+def get_paginated_uses(request, *objects, using=DEFAULT_DB_ALIAS):
+    try:
+        page = paginate(request, list(get_all_uses(*objects, using=using)))[1]
+    except ProtectedError as e:
+        page = paginate(request, list(e.protected_objects))[1]
+        page.are_protected = True
+    else:
+        page.are_protected = False
+    return page

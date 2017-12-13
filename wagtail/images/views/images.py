@@ -7,6 +7,7 @@ from django.urls.exceptions import NoReverseMatch
 from django.utils.translation import ugettext as _
 from django.views.decorators.vary import vary_on_headers
 
+from wagtail.core.collectors import get_paginated_uses
 from wagtail.utils.pagination import paginate
 from wagtail.admin import messages
 from wagtail.admin.forms import SearchForm
@@ -227,13 +228,16 @@ def delete(request, image_id):
     if not permission_policy.user_has_permission_for_instance(request.user, 'delete', image):
         return permission_denied(request)
 
-    if request.method == 'POST':
+    uses = get_paginated_uses(request, image)
+
+    if request.method == 'POST' and not uses.are_protected:
         image.delete()
         messages.success(request, _("Image '{0}' deleted.").format(image.title))
         return redirect('wagtailimages:index')
 
     return render(request, "wagtailimages/images/confirm_delete.html", {
         'image': image,
+        'uses': uses,
     })
 
 

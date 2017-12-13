@@ -11,13 +11,8 @@
 
     {% block content_main %}
         <div class="nice-padding">
-            {% if protected_error %}
-                <h2>{% blocktrans with view.verbose_name|capfirst as model_name %}{{ model_name }} could not be deleted{% endblocktrans %}</h2>
-                <p>{% blocktrans with instance as instance_name %}'{{ instance_name }}' is currently referenced by other objects, and cannot be deleted without jeopardising data integrity. To delete it successfully, first remove references from the following objects, then try again:{% endblocktrans %}</p>
-                <ul>
-                    {% for obj in linked_objects %}<li><b>{{ obj|get_content_type_for_obj|title }}:</b> {{ obj }}</li>{% endfor %}
-                </ul>
-                <p><a href="{{ view.index_url }}" class="button">{% trans 'Go back to listing' %}</a></p>
+            {% if uses.are_protected %}
+                <p>{% trans 'Impossible to delete: this object is referenced by other objects through protected relations.' %}</p>
             {% else %}
                 <p>{{ view.confirmation_message }}</p>
                 <form action="{{ view.delete_url }}" method="POST">
@@ -25,6 +20,7 @@
                     <input type="submit" value="{% trans 'Yes, delete' %}" class="button serious" />
                 </form>
             {% endif %}
+            {% include 'wagtailadmin/shared/uses.html' %}
         </div>
     {% endblock %}
 {% endblock %}

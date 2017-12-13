@@ -5,6 +5,7 @@ from django.urls import reverse
 from django.utils.text import capfirst
 from django.utils.translation import ugettext as _
 
+from wagtail.core.collectors import get_paginated_uses
 from wagtail.utils.pagination import paginate
 from wagtail.admin import messages
 from wagtail.admin.edit_handlers import (
@@ -217,8 +218,9 @@ def delete(request, app_label, model_name, id):
         return permission_denied(request)
 
     instance = get_object_or_404(model, id=id)
+    uses = get_paginated_uses(request, instance)
 
-    if request.method == 'POST':
+    if request.method == 'POST' and not uses.are_protected:
         instance.delete()
         messages.success(
             request,
@@ -232,6 +234,7 @@ def delete(request, app_label, model_name, id):
     return render(request, 'wagtailsnippets/snippets/confirm_delete.html', {
         'model_opts': model._meta,
         'instance': instance,
+        'uses': uses,
     })
 
 

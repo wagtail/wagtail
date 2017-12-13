@@ -2,6 +2,8 @@ from django.conf.urls import url, include
 
 from wagtail.core import hooks
 
+from .model import ModelViewSet
+
 
 class ViewSetRegistry:
     def __init__(self):
@@ -29,6 +31,12 @@ class ViewSetRegistry:
                 ))
 
         return urlpatterns
+
+    def get_for_model(self, model):
+        for viewset in self.viewsets:
+            if isinstance(viewset, ModelViewSet) and \
+                    issubclass(viewset.model, model):
+                return viewset
 
 
 viewsets = ViewSetRegistry()

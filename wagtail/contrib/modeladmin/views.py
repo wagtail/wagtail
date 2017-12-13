@@ -33,6 +33,7 @@ from django.views.generic.edit import FormView
 from wagtail.admin import messages
 from wagtail.admin.edit_handlers import (
     ObjectList, extract_panel_definitions_from_model_class)
+from wagtail.core.collectors import get_paginated_uses
 
 from .forms import ParentChooserForm
 
@@ -789,28 +790,21 @@ class DeleteView(InstanceSpecificView):
     def delete_instance(self):
         self.instance.delete()
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['uses'] = get_paginated_uses(self.request, self.instance)
+        return context
+
     def post(self, request, *args, **kwargs):
-        try:
-            msg = _("{model} '{instance}' deleted.").format(
-                model=self.verbose_name, instance=self.instance)
-            self.delete_instance()
-            messages.success(request, msg)
-            return redirect(self.index_url)
-        except models.ProtectedError:
-            linked_objects = []
-            fields = self.model._meta.fields_map.values()
-            fields = (obj for obj in fields if not isinstance(
-                obj.field, ManyToManyField))
-            for rel in fields:
-                if rel.on_delete == models.PROTECT:
-                    qs = getattr(self.instance, rel.get_accessor_name())
-                    for obj in qs.all():
-                        linked_objects.append(obj)
-            context = self.get_context_data(
-                protected_error=True,
-                linked_objects=linked_objects
-            )
+        context = self.get_context_data()
+        uses = context['uses']
+        if uses.are_protected:
             return self.render_to_response(context)
+        msg = _("{model} '{instance}' deleted.").format(
+            model=self.verbose_name, instance=self.instance)
+        self.delete_instance()
+        messages.success(request, msg)
+        return redirect(self.index_url)
 
     def get_template_names(self):
         return self.model_admin.get_delete_template()

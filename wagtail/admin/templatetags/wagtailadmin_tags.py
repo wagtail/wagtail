@@ -6,7 +6,8 @@ from django.contrib.humanize.templatetags.humanize import intcomma
 from django.contrib.messages.constants import DEFAULT_TAGS as MESSAGE_TAGS
 from django.template.defaultfilters import stringfilter
 from django.template.loader import render_to_string
-from django.utils.html import conditional_escape
+from django.urls import reverse
+from django.utils.html import conditional_escape, format_html
 from django.utils.safestring import mark_safe
 
 from wagtail.utils.pagination import DEFAULT_PAGE_KEY, replace_page_in_query
@@ -15,7 +16,8 @@ from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.admin.search import admin_search_areas
 from wagtail.core import hooks
 from wagtail.core.models import (
-    CollectionViewRestriction, Page, PageViewRestriction, UserPagePermissionsProxy)
+    CollectionViewRestriction, Page, PageViewRestriction,
+    UserPagePermissionsProxy)
 from wagtail.core.utils import cautious_slugify as _cautious_slugify
 from wagtail.core.utils import camelcase_to_underscore, escape_script
 
@@ -365,3 +367,45 @@ def replace_page_param(query, page_number, page_key='p'):
 @register.filter('abs')
 def _abs(val):
     return abs(val)
+
+
+@register.filter
+def edit_link(obj):
+    from wagtail.admin.viewsets import viewsets
+    from wagtail.contrib.redirects.models import Redirect
+    from wagtail.contrib.search_promotions.models import Query, SearchPromotion
+    from wagtail.contrib.settings.models import BaseSetting
+    from wagtail.documents.models import AbstractDocument
+    from wagtail.images.models import AbstractImage
+    from wagtail.snippets.models import SNIPPET_MODELS
+
+    url_args = (obj.pk,)
+    viewset = viewsets.get_for_model(obj._meta.model)
+    if viewset is not None:
+        url_name = viewset.get_url_name('edit')
+    else:
+        app_label = obj._meta.app_label
+        model_name = obj._meta.model_name
+        if isinstance(obj, Page):
+            url_name = 'wagtailadmin_pages:edit'
+        elif isinstance(obj, AbstractDocument):
+            url_name = 'wagtaildocs:edit'
+        elif isinstance(obj, AbstractImage):
+            url_name = 'wagtailimages:edit'
+        elif isinstance(obj, tuple(SNIPPET_MODELS)):
+            url_name = 'wagtailsnippets:edit'
+            url_args = (app_label, model_name, obj.pk)
+        elif isinstance(obj, Redirect):
+            url_name = 'wagtailredirects:edit'
+        elif isinstance(obj, Query):
+            url_name = 'wagtailsearchpromotions:edit'
+        elif isinstance(obj, SearchPromotion):
+            url_name = 'wagtailsearchpromotions:edit'
+            url_args = (obj.query.pk,)
+        elif isinstance(obj, BaseSetting):
+            url_name = 'wagtailsettings:edit'
+            url_args = (app_label, model_name, obj.site_id)
+        else:
+            return str(obj)
+    return format_html('<a href="{}">{}</a>',
+                       reverse(url_name, args=url_args), obj)

@@ -8,6 +8,7 @@ from django.utils.module_loading import import_string
 from django.utils.translation import ugettext as _
 from django.views.decorators.vary import vary_on_headers
 
+from wagtail.core.collectors import get_paginated_uses
 from wagtail.utils.pagination import paginate
 from wagtail.admin import messages
 from wagtail.admin.forms import SearchForm
@@ -192,7 +193,10 @@ def delete(request, user_id):
         result = fn(request, user)
         if hasattr(result, 'status_code'):
             return result
-    if request.method == 'POST':
+
+    uses = get_paginated_uses(request, user)
+
+    if request.method == 'POST' and not uses.are_protected:
         user.delete()
         messages.success(request, _("User '{0}' deleted.").format(user))
         for fn in hooks.get_hooks('after_delete_user'):
@@ -203,4 +207,5 @@ def delete(request, user_id):
 
     return render(request, "wagtailusers/users/confirm_delete.html", {
         'user': user,
+        'uses': uses,
     })

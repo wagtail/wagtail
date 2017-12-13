@@ -1,0 +1,14 @@
+{% load i18n wagtailadmin_tags %}
+
+
+{% if uses %}
+    <h2>{% trans 'Used by:' %}</h2>
+    <ul>
+        {% for use in uses %}
+            <li>{{ use|edit_link }}</li>
+        {% endfor %}
+    </ul>
+    {% if uses.paginator.num_pages > 1 %}
+        {% include 'wagtailadmin/shared/pagination_nav.html' with items=uses %}
+    {% endif %}
+{% endif %}

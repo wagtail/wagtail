@@ -6,10 +6,15 @@
     {% include "wagtailadmin/shared/header.html" with title=view.page_title subtitle=view.get_page_subtitle icon=view.header_icon %}
 
     <div class="nice-padding">
-        <p>{{ view.confirmation_message }}</p>
-        <form action="{{ view.get_delete_url }}" method="POST">
-            {% csrf_token %}
-            <input type="submit" value="{% trans 'Yes, delete' %}" class="button serious" />
-        </form>
+        {% if uses.are_protected %}
+            <p>{% trans 'Impossible to delete: this object is referenced by other objects through protected relations.' %}</p>
+        {% else %}
+            <p>{{ view.confirmation_message }}</p>
+            <form action="{{ view.get_delete_url }}" method="POST">
+                {% csrf_token %}
+                <input type="submit" value="{% trans 'Yes, delete' %}" class="button serious" />
+            </form>
+        {% endif %}
+        {% include 'wagtailadmin/shared/uses.html' %}
     </div>
 {% endblock %}

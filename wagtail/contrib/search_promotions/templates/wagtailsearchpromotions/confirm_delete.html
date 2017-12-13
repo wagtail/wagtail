@@ -6,10 +6,15 @@
     {% include "wagtailadmin/shared/header.html" with title=delete_str subtitle=query.query_string %}
 
     <div class="nice-padding">
-        <p>{% trans "Are you sure you want to delete all promoted results for this search term?" %}</p>
-        <form action="{% url 'wagtailsearchpromotions:delete' query.id %}" method="POST">
-            {% csrf_token %}
-            <input type="submit" value="{% trans 'Yes, delete' %}" class="button serious" />
-        </form>
+        {% if uses.are_protected %}
+            <p>{% trans 'Impossible to delete: this object is referenced by other objects through protected relations.' %}</p>
+        {% else %}
+            <p>{% trans "Are you sure you want to delete all promoted results for this search term?" %}</p>
+            <form action="{% url 'wagtailsearchpromotions:delete' query.id %}" method="POST">
+                {% csrf_token %}
+                <input type="submit" value="{% trans 'Yes, delete' %}" class="button serious" />
+            </form>
+        {% endif %}
+        {% include 'wagtailadmin/shared/uses.html' %}
     </div>
 {% endblock %}

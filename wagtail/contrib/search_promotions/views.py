@@ -4,6 +4,7 @@ from django.utils.translation import ugettext as _
 from django.views.decorators.vary import vary_on_headers
 
 from wagtail.contrib.search_promotions import forms
+from wagtail.core.collectors import get_paginated_uses
 from wagtail.utils.pagination import paginate
 from wagtail.admin import messages
 from wagtail.admin.forms import SearchForm
@@ -145,11 +146,14 @@ def edit(request, query_id):
 def delete(request, query_id):
     query = get_object_or_404(Query, id=query_id)
 
-    if request.method == 'POST':
+    uses = get_paginated_uses(request, query)
+
+    if request.method == 'POST' and not uses.are_protected:
         query.editors_picks.all().delete()
         messages.success(request, _("Editor's picks deleted."))
         return redirect('wagtailsearchpromotions:index')
 
     return render(request, 'wagtailsearchpromotions/confirm_delete.html', {
         'query': query,
+        'uses': uses,
     })
