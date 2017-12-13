@@ -639,7 +639,7 @@ class Elasticsearch2Index:
         return self.es.indices.exists(self.name)
 
     def is_alias(self):
-        return self.es.indices.exists_alias(self.name)
+        return self.es.indices.exists_alias(name=self.name)
 
     def aliased_indices(self):
         """
