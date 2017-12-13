@@ -10,7 +10,6 @@ from django.core.files import File
 from django.db import models
 from django.forms.utils import flatatt
 
-from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _

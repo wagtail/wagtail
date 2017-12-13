@@ -4,7 +4,6 @@ from django.core.exceptions import ValidationError
 from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase
-from django.test.utils import override_settings
 from django.urls import reverse
 from taggit.models import Tag
 
@@ -15,7 +14,6 @@ from wagtail.tests.snippets.models import (
 from wagtail.tests.testapp.models import Advert, AdvertWithTabbedInterface, SnippetChooserModel
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.admin.forms import WagtailAdminModelForm
-from wagtail.core.models import Page
 from wagtail.snippets.blocks import SnippetChooserBlock
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import SNIPPET_MODELS, register_snippet

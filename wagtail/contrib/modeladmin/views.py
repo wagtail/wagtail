@@ -15,7 +15,7 @@ from django.core.paginator import InvalidPage, Paginator
 from django.db import models
 from django.db.models.constants import LOOKUP_SEP
 from django.db.models.fields import FieldDoesNotExist
-from django.db.models.fields.related import ForeignObjectRel, ManyToManyField
+from django.db.models.fields.related import ForeignObjectRel
 from django.db.models.sql.constants import QUERY_TERMS
 from django.shortcuts import get_object_or_404, redirect
 from django.template.defaultfilters import filesizeformat

@@ -5,13 +5,11 @@ from django.contrib.auth.models import Group, Permission
 from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase
-from django.test.utils import override_settings
 from django.urls import reverse
 from django.utils.six import b
 
-from wagtail.tests.testapp.models import EventPage, EventPageRelatedLink
 from wagtail.tests.utils import WagtailTestUtils
-from wagtail.core.models import Collection, GroupCollectionPermission, Page
+from wagtail.core.models import Collection, GroupCollectionPermission
 from wagtail.documents import models
 
 

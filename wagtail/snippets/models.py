@@ -1,5 +1,3 @@
-from django.urls import reverse
-
 SNIPPET_MODELS = []
 
 
