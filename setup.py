@@ -22,9 +22,9 @@ except ImportError:
 
 install_requires = [
     "Django>=1.11,<2.1",
-    "django-modelcluster>=3.1,<4.0",
+    "django-modelcluster>=4.0,<5.0",
     "django-taggit>=0.20,<1.0",
-    "django-treebeard>=3.0,<5.0",
+    "django-treebeard>=4.2.0,<5.0",
     "djangorestframework>=3.1.3,<4.0",
     "Pillow>=2.6.1,<5.0",
     "beautifulsoup4>=4.5.1,<5.0",
