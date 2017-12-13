@@ -236,15 +236,3 @@ def delete(request, app_label, model_name, id):
         'instance': instance,
         'uses': uses,
     })
-
-
-def usage(request, app_label, model_name, id):
-    model = get_snippet_model_from_url_params(app_label, model_name)
-    instance = get_object_or_404(model, id=id)
-
-    paginator, used_by = paginate(request, instance.get_usage())
-
-    return render(request, "wagtailsnippets/snippets/usage.html", {
-        'instance': instance,
-        'used_by': used_by
-    })

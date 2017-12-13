@@ -92,14 +92,6 @@
                 <dd>{{ original_image.width }}x{{ original_image.height }}</dd>
                 <dt>{% trans "Filesize" %}</dt>
                 <dd>{% if filesize %}{{ filesize|filesizeformat }}{% else %}{% trans "File not found" %}{% endif %}</dd>
-
-                {% usage_count_enabled as uc_enabled %}
-                {% if uc_enabled %}
-                    <dt>{% trans "Usage" %}</dt>
-                    <dd>
-                        <a href="{{ image.usage_url }}">{% blocktrans count usage_count=image.get_usage.count %}Used {{ usage_count }} time{% plural %}Used {{ usage_count }} times{% endblocktrans %}</a>
-                    </dd>
-                {% endif %}
             </dl>
         </div>
     </div>

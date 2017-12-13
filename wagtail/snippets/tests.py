@@ -350,13 +350,6 @@ class TestSnippetDelete(TestCase, WagtailTestUtils):
         # Check that the page is gone
         self.assertEqual(Advert.objects.filter(text='test_advert').count(), 0)
 
-    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
-    def test_usage_link(self):
-        response = self.client.get(reverse('wagtailsnippets:delete', args=('tests', 'advert', self.test_snippet.id, )))
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailsnippets/snippets/confirm_delete.html')
-        self.assertIn('Used 2 times', str(response.content))
-
 
 class TestSnippetChooserPanel(TestCase, WagtailTestUtils):
     fixtures = ['test.json']
@@ -432,24 +425,6 @@ class TestSnippetOrdering(TestCase):
         # may get registered elsewhere during test
         self.assertLess(SNIPPET_MODELS.index(AlphaSnippet),
                         SNIPPET_MODELS.index(ZuluSnippet))
-
-
-class TestUsageCount(TestCase):
-    fixtures = ['test.json']
-
-    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
-    def test_snippet_usage_count(self):
-        advert = Advert.objects.get(id=1)
-        self.assertEqual(advert.get_usage().count(), 2)
-
-
-class TestUsedBy(TestCase):
-    fixtures = ['test.json']
-
-    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
-    def test_snippet_used_by(self):
-        advert = Advert.objects.get(id=1)
-        self.assertEqual(type(advert.get_usage()[0]), Page)
 
 
 class TestSnippetChoose(TestCase, WagtailTestUtils):

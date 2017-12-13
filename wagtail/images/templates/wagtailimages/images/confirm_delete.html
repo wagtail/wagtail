@@ -11,12 +11,6 @@
             {% image image max-800x600 %}
         </div>
         <div class="col6">
-            {% usage_count_enabled as uc_enabled %}
-            {% if uc_enabled %}
-                <div class="usagecount">
-                    <a href="{{ image.usage_url }}">{% blocktrans count usage_count=image.get_usage.count %}Used {{ usage_count }} time{% plural %}Used {{ usage_count }} times{% endblocktrans %}</a>
-                </div>
-            {% endif %}
             {% if uses.are_protected %}
                 <p>{% trans 'Impossible to delete: this object is referenced by other objects through protected relations.' %}</p>
             {% else %}

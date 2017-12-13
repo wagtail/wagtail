@@ -194,15 +194,3 @@ def delete(request, document_id):
         'document': doc,
         'uses': uses,
     })
-
-
-def usage(request, document_id):
-    Document = get_document_model()
-    doc = get_object_or_404(Document, id=document_id)
-
-    paginator, used_by = paginate(request, doc.get_usage())
-
-    return render(request, "wagtaildocs/documents/usage.html", {
-        'document': doc,
-        'used_by': used_by
-    })

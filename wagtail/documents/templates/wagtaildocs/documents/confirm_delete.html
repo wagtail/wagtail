@@ -6,14 +6,6 @@
     {% include "wagtailadmin/shared/header.html" with title=del_str subtitle=document.title icon="doc-full-inverse" %}
 
     <div class="nice-padding">
-
-        {% usage_count_enabled as uc_enabled %}
-        {% if uc_enabled %}
-            <div class="usagecount">
-                <a href="{{ document.usage_url }}">{% blocktrans count usage_count=document.get_usage.count %}Used {{ usage_count }} time{% plural %}Used {{ usage_count }} times{% endblocktrans %}</a>
-            </div>
-        {% endif %}
-
         {% if uses.are_protected %}
             <p>{% trans 'Impossible to delete: this object is referenced by other objects through protected relations.' %}</p>
         {% else %}
