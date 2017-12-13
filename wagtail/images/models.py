@@ -427,6 +427,9 @@ class AbstractRendition(models.Model):
     height = models.IntegerField(editable=False)
     focal_point_key = models.CharField(max_length=16, blank=True, default='', editable=False)
 
+    def __str__(self):
+        return self.file.name
+
     @property
     def url(self):
         return self.file.url
