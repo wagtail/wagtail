@@ -409,3 +409,8 @@ def edit_link(obj):
             return str(obj)
     return format_html('<a href="{}">{}</a>',
                        reverse(url_name, args=url_args), obj)
+
+
+@register.filter
+def get_model_name(obj):
+    return obj._meta.verbose_name

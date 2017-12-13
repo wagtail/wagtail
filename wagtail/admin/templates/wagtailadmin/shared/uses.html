@@ -3,11 +3,17 @@
 
 {% if uses %}
     <h2>{% trans 'Used by:' %}</h2>
-    <ul>
+    <table class="listing">
+        <thead>
+            <tr><th>{% trans 'object' %}</th><th>{% trans 'model' %}</th></tr>
+        </thead>
         {% for use in uses %}
-            <li>{{ use|edit_link }}</li>
+            <tr>
+                <td>{{ use|edit_link }}</td>
+                <td>{{ use|get_model_name|capfirst }}</td>
+            </tr>
         {% endfor %}
-    </ul>
+    </table>
     {% if uses.paginator.num_pages > 1 %}
         {% include 'wagtailadmin/shared/pagination_nav.html' with items=uses %}
     {% endif %}
