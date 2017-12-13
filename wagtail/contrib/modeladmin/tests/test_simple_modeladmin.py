@@ -389,7 +389,8 @@ class TestDeleteViewWithProtectedRelation(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertContains(
             response,
-            "'J. R. R. Tolkien' is currently referenced by other objects"
+            'Impossible to delete: this object is referenced '
+            'by other objects through protected relations.'
         )
         self.assertContains(
             response,
