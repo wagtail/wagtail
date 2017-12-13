@@ -226,14 +226,16 @@ def get_all_uses(*objects, using=DEFAULT_DB_ALIAS):
     if collector.protected:
         raise ProtectedError('The objects are referenced through a protected '
                              'foreign key.', collector.protected)
-    for related_object in chain(
-            *collector.data.values(),
-            (related_object for model in apps.get_models()
-             for related_object, obj in chain(
-                ModelRichTextCollector(model,
-                                       using=using).find_objects(*objects),
-                ModelStreamFieldsCollector(model,
-                                           using=using).find_objects(*objects)))):
+    related_objects = chain(*collector.data.values())
+    related_objects = chain(
+        related_objects,
+        (related_object for model in apps.get_models()
+         for related_object, obj in chain(
+            ModelRichTextCollector(model,
+                                   using=using).find_objects(*objects),
+            ModelStreamFieldsCollector(model,
+                                       using=using).find_objects(*objects))))
+    for related_object in related_objects:
         key = get_obj_base_key(related_object)
         if key not in keys:
             yield related_object
