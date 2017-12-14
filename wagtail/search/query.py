@@ -168,9 +168,9 @@ class Filter(SearchQueryShortcut):
     def get_equivalent(self):
         query = self.query
         if self.include is not None:
-            query &= self.include
+            query &= Boost(self.include, 0)
         if self.exclude is not None:
-            query &= ~self.exclude
+            query &= Boost(~self.exclude, 0)
         return query
 
 
