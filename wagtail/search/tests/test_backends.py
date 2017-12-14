@@ -578,7 +578,10 @@ class BackendTests(WagtailTestUtils):
         javascript = and_obj.children[0]
         self.assertIsInstance(javascript, Term)
         self.assertEqual(javascript.term, 'Javascript')
-        definitive = and_obj.children[1]
+        boost_obj = and_obj.children[1]
+        self.assertIsInstance(boost_obj, Boost)
+        self.assertEqual(boost_obj.boost, 0)
+        definitive = boost_obj.child
         self.assertIsInstance(definitive, Term)
         self.assertEqual(definitive.term, 'Definitive')
 
@@ -590,10 +593,16 @@ class BackendTests(WagtailTestUtils):
         javascript = and_obj2.children[0]
         self.assertIsInstance(javascript, Term)
         self.assertEqual(javascript.term, 'Javascript')
-        definitive = and_obj2.children[1]
+        boost_obj = and_obj2.children[1]
+        self.assertIsInstance(boost_obj, Boost)
+        self.assertEqual(boost_obj.boost, 0)
+        definitive = boost_obj.child
         self.assertIsInstance(definitive, Term)
         self.assertEqual(definitive.term, 'Definitive')
-        not_obj = and_obj1.children[1]
+        boost_obj = and_obj1.children[1]
+        self.assertIsInstance(boost_obj, Boost)
+        self.assertEqual(boost_obj.boost, 0)
+        not_obj = boost_obj.child
         self.assertIsInstance(not_obj, Not)
         guide = not_obj.child
         self.assertEqual(guide.term, 'Guide')
