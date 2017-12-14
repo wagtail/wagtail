@@ -7,6 +7,9 @@ class Elasticsearch6Mapping(Elasticsearch5Mapping):
     all_field_name = '_all_text'
     edgengrams_field_name = '_edgengrams'
 
+    def get_document_id(self, obj):
+        return str(obj.pk)
+
     def get_document_type(self):
         return 'doc'
 

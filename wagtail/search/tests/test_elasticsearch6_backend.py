@@ -547,7 +547,7 @@ class TestElasticsearch6Mapping(TestCase):
         self.assertDictEqual(mapping, expected_result)
 
     def test_get_document_id(self):
-        self.assertEqual(self.es_mapping.get_document_id(self.obj), 'searchtests_book:' + str(self.obj.pk))
+        self.assertEqual(self.es_mapping.get_document_id(self.obj), str(self.obj.pk))
 
     def test_get_document(self):
         # Get document
@@ -652,7 +652,7 @@ class TestElasticsearch6MappingInheritance(TestCase):
         # This must be tests_searchtest instead of 'tests_searchtest_tests_searchtestchild'
         # as it uses the contents base content type name.
         # This prevents the same object being accidentally indexed twice.
-        self.assertEqual(self.es_mapping.get_document_id(self.obj), 'searchtests_book:' + str(self.obj.pk))
+        self.assertEqual(self.es_mapping.get_document_id(self.obj), str(self.obj.pk))
 
     def test_get_document(self):
         # Build document
