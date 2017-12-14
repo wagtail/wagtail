@@ -7,6 +7,7 @@ from wagtail.admin.rich_text.converters.html_to_contentstate import AtomicBlockE
 from wagtail.admin.rich_text.editors.draftail.features import EntityFeature
 from wagtail.images import get_image_model
 from wagtail.images.formats import get_image_format, get_image_formats
+from wagtail.images.shortcuts import get_rendition_or_not_found
 
 
 # Front-end conversion
@@ -113,7 +114,19 @@ class ImageElementHandler(AtomicBlockEntityElementHandler):
     to contentstate
     """
     def create_entity(self, name, attrs, state, contentstate):
-        return Entity('IMAGE', 'IMMUTABLE', {'altText': attrs.get('alt'), 'id': attrs['id'], 'alignment': attrs['format']})
+        Image = get_image_model()
+        try:
+            image = Image.objects.get(id=attrs['id'])
+            image_format = get_image_format(attrs['format'])
+            rendition = get_rendition_or_not_found(image, image_format.filter_spec)
+            src = rendition.url
+        except Image.DoesNotExist:
+            src = ''
+
+        return Entity('IMAGE', 'IMMUTABLE', {
+            'src': src,
+            'altText': attrs.get('alt'), 'id': attrs['id'], 'alignment': attrs['format']
+        })
 
 
 ContentstateImageConversionRule = {

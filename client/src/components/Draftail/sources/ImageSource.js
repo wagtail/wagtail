@@ -9,9 +9,12 @@ class ImageSource extends ModalSource {
   }
 
   parseData(imageData) {
-    this.onConfirmAtomicBlock(Object.assign({}, imageData, {
+    this.onConfirmAtomicBlock({
       src: imageData.preview.url,
-    }));
+      altText: imageData.alt,
+      id: imageData.id,
+      alignment: imageData.format,
+    });
   }
 
   componentDidMount() {
@@ -20,7 +23,7 @@ class ImageSource extends ModalSource {
 
     // eslint-disable-next-line new-cap
     window.ModalWorkflow({
-      url: imageChooser,
+      url: imageChooser + '?select_format=true',
       responses: {
         imageChosen: this.parseData,
       },
