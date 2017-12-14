@@ -9,11 +9,12 @@ from django.db.models import Model, Q, CASCADE, PROTECT, SET_DEFAULT, SET_NULL, 
 from django.urls import reverse
 from django.utils.html import format_html
 from django.utils.translation import ugettext_lazy as _
+from modelcluster.fields import ParentalKey, ParentalManyToManyField
 
 from wagtail.core.blocks import (
     ChooserBlock, ListBlock, RichTextBlock, StreamBlock, StreamValue, StructBlock, StructValue)
 from wagtail.core.fields import RichTextField, StreamField
-from wagtail.core.models import Page
+from wagtail.core.models import Page, PageRevision
 from wagtail.core.rich_text import (
     EMBED_HANDLERS, FIND_A_TAG, FIND_EMBED_TAG, LINK_HANDLERS, RichText, extract_attrs)
 from wagtail.utils.pagination import paginate
@@ -289,6 +290,15 @@ class Use:
     def is_protected(self):
         return self.on_delete == PROTECT
 
+    def is_hidden(self):
+        if self.is_protected:
+            return False
+        from wagtail.images.models import AbstractRendition
+        return (issubclass(self.object._meta.model,
+                           (AbstractRendition, PageRevision)) or
+                any(isinstance(field, (ParentalKey, ParentalManyToManyField))
+                    for field in self.object._meta.fields))
+
     def get_on_delete_data(self):
         if self.on_delete == CASCADE:
             return 'serious', _('Will also be deleted')
@@ -393,6 +403,8 @@ def get_all_uses(*objects, using=DEFAULT_DB_ALIAS):
 
 def get_paginated_uses(request, *objects, using=DEFAULT_DB_ALIAS):
     uses = list(get_all_uses(*objects, using=using))
+    are_protected = any(use.is_protected for use in uses)
+    uses = [use for use in uses if not use.is_hidden()]
     page = paginate(request, uses)[1]
-    page.are_protected = any((use.is_protected for use in uses))
+    page.are_protected = are_protected
     return page
