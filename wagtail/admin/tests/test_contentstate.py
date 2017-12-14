@@ -1,8 +1,10 @@
 import json
+from mock import patch
 
 from django.test import TestCase
 
 from wagtail.admin.rich_text.converters.contentstate import ContentstateConverter
+from wagtail.embeds.models import Embed
 
 
 def content_state_equal(v1, v2):
@@ -346,7 +348,21 @@ class TestHtmlToContentState(TestCase):
             }
         })
 
-    def test_media_embed(self):
+    @patch('wagtail.embeds.embeds.get_embed')
+    def test_media_embed(self, get_embed):
+        get_embed.return_value = Embed(
+            url='https://www.youtube.com/watch?v=Kh0Y2hVe_bw',
+            max_width=None,
+            type='video',
+            html='test html',
+            title='what are birds',
+            author_name='look around you',
+            provider_name='YouTube',
+            thumbnail_url='http://test/thumbnail.url',
+            width=1000,
+            height=1000,
+        )
+
         converter = ContentstateConverter(features=['embed'])
         result = json.loads(converter.from_database_format(
             '''
@@ -363,7 +379,14 @@ class TestHtmlToContentState(TestCase):
             ],
             'entityMap': {
                 '0': {
-                    'data': {'url': 'https://www.youtube.com/watch?v=Kh0Y2hVe_bw'},
+                    'data': {
+                        'thumbnail': 'http://test/thumbnail.url',
+                        'embedType': 'video',
+                        'providerName': 'YouTube',
+                        'title': 'what are birds',
+                        'authorName': 'look around you',
+                        'url': 'https://www.youtube.com/watch?v=Kh0Y2hVe_bw'
+                    },
                     'mutability': 'IMMUTABLE', 'type': 'EMBED'
                 }
             }
