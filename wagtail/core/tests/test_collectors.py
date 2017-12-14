@@ -1,4 +1,5 @@
 from django.contrib.contenttypes.models import ContentType
+from django.db import connection
 from django.test import TestCase
 
 from wagtail.core.collectors import ModelRichTextCollector, ModelStreamFieldsCollector, get_all_uses
@@ -265,6 +266,8 @@ class ModelStreamFieldCollectorTest(TestCase):
 
 class GetAllUsesTest(TestCase):
     def setUp(self):
+        self.is_sqlite = connection.vendor == 'sqlite'
+
         i = 0
 
         def create_page(body):
@@ -302,7 +305,7 @@ class GetAllUsesTest(TestCase):
             self.assertListEqual(uses, [])
 
     def test_foreign_key(self):
-        with self.assertNumQueries(54):
+        with self.assertNumQueries(54 if self.is_sqlite else 53):
             uses = list(get_all_uses(self.obj1))
             self.assertListEqual(uses, [self.obj2])
 
@@ -317,6 +320,6 @@ class GetAllUsesTest(TestCase):
             self.assertListEqual(uses, [self.obj4])
 
     def test_multiple(self):
-        with self.assertNumQueries(48):
+        with self.assertNumQueries(48 if self.is_sqlite else 47):
             uses = list(get_all_uses(self.obj7))
             self.assertListEqual(uses, [self.obj8, self.obj9, self.obj10])
