@@ -6,6 +6,9 @@ from .elasticsearch5 import (
 class Elasticsearch6Mapping(Elasticsearch5Mapping):
     all_field_name = '_all_text'
 
+    def get_document_type(self):
+        return 'doc'
+
     def get_mapping(self):
         mapping = super().get_mapping()
 

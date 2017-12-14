@@ -508,7 +508,7 @@ class TestElasticsearch6Mapping(TestCase):
         self.obj = models.Book.objects.get(id=4)
 
     def test_get_document_type(self):
-        self.assertEqual(self.es_mapping.get_document_type(), 'searchtests_book')
+        self.assertEqual(self.es_mapping.get_document_type(), 'doc')
 
     def test_get_mapping(self):
         # Build mapping
@@ -516,7 +516,7 @@ class TestElasticsearch6Mapping(TestCase):
 
         # Check
         expected_result = {
-            'searchtests_book': {
+            'doc': {
                 'properties': {
                     'pk': {'type': 'keyword', 'store': True},
                     'content_type': {'type': 'keyword'},
@@ -594,7 +594,7 @@ class TestElasticsearch6MappingInheritance(TestCase):
         self.obj = models.Novel.objects.get(id=4)
 
     def test_get_document_type(self):
-        self.assertEqual(self.es_mapping.get_document_type(), 'searchtests_book_searchtests_novel')
+        self.assertEqual(self.es_mapping.get_document_type(), 'doc')
 
     def test_get_mapping(self):
         # Build mapping
@@ -602,7 +602,7 @@ class TestElasticsearch6MappingInheritance(TestCase):
 
         # Check
         expected_result = {
-            'searchtests_book_searchtests_novel': {
+            'doc': {
                 'properties': {
                     # New
                     'searchtests_novel__setting': {'type': 'text', 'copy_to': '_all_text', 'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard'},
