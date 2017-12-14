@@ -8,16 +8,14 @@ class EmbedSource extends ModalSource {
     this.parseData = this.parseData.bind(this);
   }
 
-  parseData(html) {
-    const embed = $.parseHTML(html)[0];
-
+  parseData(html, embed) {
     this.onConfirmAtomicBlock({
-      embedType: embed.getAttribute('data-embedtype'),
-      url: embed.getAttribute('data-url'),
-      providerName: embed.getAttribute('data-provider-name'),
-      authorName: embed.getAttribute('data-author-name'),
-      thumbnail: embed.getAttribute('data-thumbnail-url'),
-      title: embed.getAttribute('data-title'),
+      embedType: embed.embedType,
+      url: embed.url,
+      providerName: embed.providerName,
+      authorName: embed.authorName,
+      thumbnail: embed.thumbnail,
+      title: embed.title,
     });
   }
 

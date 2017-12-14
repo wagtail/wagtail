@@ -4,7 +4,7 @@ from draftjs_exporter.dom import DOM
 from wagtail.admin.rich_text.converters import editor_html
 from wagtail.admin.rich_text.converters.contentstate_models import Entity
 from wagtail.admin.rich_text.converters.html_to_contentstate import AtomicBlockEntityElementHandler
-from wagtail.embeds import format
+from wagtail.embeds import embeds, format
 from wagtail.embeds.exceptions import EmbedException
 
 
@@ -76,7 +76,19 @@ class MediaEmbedElementHandler(AtomicBlockEntityElementHandler):
     to contentstate
     """
     def create_entity(self, name, attrs, state, contentstate):
-        return Entity('EMBED', 'IMMUTABLE', {'url': attrs['url']})
+        try:
+            embed_obj = embeds.get_embed(attrs['url'])
+            embed_data = {
+                'embedType': embed_obj.type,
+                'url': embed_obj.url,
+                'providerName': embed_obj.provider_name,
+                'authorName': embed_obj.author_name,
+                'thumbnail': embed_obj.thumbnail_url,
+                'title': embed_obj.title,
+            }
+        except EmbedException:
+            embed_data = {'url': attrs['url']}
+        return Entity('EMBED', 'IMMUTABLE', embed_data)
 
 
 ContentstateMediaConversionRule = {
