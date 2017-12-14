@@ -6,7 +6,7 @@ from wagtail.admin.rich_text.converters.contentstate_models import Entity
 from wagtail.admin.rich_text.converters.html_to_contentstate import AtomicBlockEntityElementHandler
 from wagtail.admin.rich_text.editors.draftail.features import EntityFeature
 from wagtail.images import get_image_model
-from wagtail.images.formats import get_image_format
+from wagtail.images.formats import get_image_format, get_image_formats
 
 
 # Front-end conversion
@@ -91,12 +91,17 @@ class ImageFeature(EntityFeature):
     Special case of EntityFeature so that we can easily define features that
     replicate the default 'image' feature with a custom list of image formats
     """
-    def __init__(self, image_formats='__all__'):
+    def __init__(self, image_formats=None):
+        if image_formats is None:
+            format_defs = get_image_formats()
+        else:
+            format_defs = [get_image_format(f) for f in image_formats]
+
         super().__init__({
             'label': 'Image',
             'type': ENTITY_TYPES.IMAGE,
             'icon': 'icon-image',
-            'imageFormats': image_formats,
+            'imageFormats': [{'label': str(f.label), 'value': f.name} for f in format_defs],
             'source': 'ImageSource',
             'decorator': 'Image',
         })
