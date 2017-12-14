@@ -1,16 +1,27 @@
-{% load i18n wagtailadmin_tags %}
+{% load i18n %}
 
 
 {% if uses %}
-    <h2>{% trans 'Used by:' %}</h2>
+    <h2>
+        {% if uses.are_protected %}
+            {% trans 'Protected by:' %}
+        {% else %}
+            {% trans 'Used by:' %}
+        {% endif %}
+    </h2>
     <table class="listing">
         <thead>
-            <tr><th>{% trans 'object' %}</th><th>{% trans 'model' %}</th></tr>
+            <tr>
+                <th>{% trans 'object' %}</th>
+                <th>{% trans 'model' %}</th>
+                <th>{% trans 'if you confirm deletion' %}</th>
+            </tr>
         </thead>
         {% for use in uses %}
             <tr>
-                <td>{{ use|edit_link }}</td>
-                <td>{{ use|get_model_name|capfirst }}</td>
+                <td>{{ use.get_html }}</td>
+                <td>{{ use.model_name|capfirst }}</td>
+                <td>{{ use.get_on_delete_html }}</td>
             </tr>
         {% endfor %}
     </table>

@@ -5,11 +5,15 @@ from warnings import warn
 from django.apps import apps
 from django.contrib.admin.utils import NestedObjects
 from django.db import DEFAULT_DB_ALIAS
-from django.db.models import Model, Q, ProtectedError
+from django.db.models import Model, Q, CASCADE, PROTECT, SET, SET_DEFAULT, SET_NULL, DO_NOTHING
+from django.urls import reverse
+from django.utils.html import format_html
+from django.utils.translation import ugettext_lazy as _
 
 from wagtail.core.blocks import (
     ChooserBlock, ListBlock, RichTextBlock, StreamBlock, StreamValue, StructBlock, StructValue)
 from wagtail.core.fields import RichTextField, StreamField
+from wagtail.core.models import Page
 from wagtail.core.rich_text import (
     EMBED_HANDLERS, FIND_A_TAG, FIND_EMBED_TAG, LINK_HANDLERS, RichText, extract_attrs)
 from wagtail.utils.pagination import paginate
@@ -215,39 +219,178 @@ class ModelStreamFieldsCollector:
                             yield obj, found_value
 
 
+class Use:
+    def __init__(self, obj, parent=None, on_delete=CASCADE, field=None):
+        self.object = obj
+        self.key = get_obj_base_key(obj)
+        self.parent = parent
+        self.on_delete = on_delete
+        self.field = field
+
+        self.depth = 0
+        while parent is not None:
+            self.depth += 1
+            parent = parent.parent
+
+    @classmethod
+    def create(cls, obj, parent=None, on_delete=CASCADE, field=None,
+               exclude=None, has_children=False):
+        use = cls(obj, parent=parent, on_delete=on_delete, field=field)
+        if not has_children and use in exclude and use.is_root:
+            return
+        exclude.add(use)
+        return use
+
+    @classmethod
+    def from_flat_iterable(cls, iterable, on_delete=CASCADE, field=None,
+                           exclude=None):
+        if exclude is None:
+            exclude = set()
+        for obj in iterable:
+            use = Use.create(obj, on_delete=on_delete, field=field,
+                             exclude=exclude)
+            if use is not None:
+                yield use
+
+    @classmethod
+    def from_nested_list(cls, nested_list, parent=None, on_delete=CASCADE,
+                         exclude=None):
+        if exclude is None:
+            exclude = set()
+        main_use = None
+        for i, obj in enumerate(nested_list):
+            if isinstance(obj, list):
+                yield from cls.from_nested_list(
+                    obj, parent=main_use, on_delete=on_delete, exclude=exclude)
+            else:
+                try:
+                    has_children = isinstance(nested_list[i+1], list)
+                except IndexError:
+                    has_children = False
+                use = cls.create(obj, parent=parent, on_delete=on_delete,
+                                 exclude=exclude, has_children=has_children)
+                if use is not None:
+                    yield use
+                    main_use = use
+
+    def __hash__(self):
+        return hash(self.key)
+
+    def __eq__(self, other):
+        return self.key == other.key
+
+    @property
+    def is_root(self):
+        return self.depth == 0
+
+    @property
+    def is_protected(self):
+        return self.on_delete == PROTECT
+
+    def get_on_delete_data(self):
+        if self.on_delete == CASCADE:
+            return 'serious', _('Will also be deleted')
+        if self.on_delete == PROTECT:
+            return 'primary', _('Prevents deletion')
+        if self.on_delete == SET_NULL:
+            if self.field is None:
+                return '', _('Field will be emptied')
+            return '', _('Field “%s” will be emptied') % self.field.verbose_name
+        if self.on_delete == SET_DEFAULT:
+            return 'primary', _('Default object will be set')
+        if self.on_delete == DO_NOTHING:
+            return '', _('Nothing will happen')
+        return 'primary', _('Another object will be set')
+
+    def get_on_delete_html(self):
+        return format_html('<span class="status-tag {}">{}</span>',
+                           *self.get_on_delete_data())
+
+    @property
+    def model_name(self):
+        return self.object._meta.verbose_name
+
+    def get_edit_link(self):
+        from wagtail.admin.viewsets import viewsets
+        from wagtail.contrib.redirects.models import Redirect
+        from wagtail.contrib.search_promotions.models import Query, SearchPromotion
+        from wagtail.contrib.settings.models import BaseSetting
+        from wagtail.documents.models import AbstractDocument
+        from wagtail.images.models import AbstractImage
+        from wagtail.snippets.models import SNIPPET_MODELS
+
+        url_args = (self.object.pk,)
+        viewset = viewsets.get_for_model(self.object._meta.model)
+        if viewset is not None:
+            url_name = viewset.get_url_name('edit')
+        else:
+            app_label = self.object._meta.app_label
+            model_name = self.object._meta.model_name
+            if isinstance(self.object, Page):
+                url_name = 'wagtailadmin_pages:edit'
+            elif isinstance(self.object, AbstractDocument):
+                url_name = 'wagtaildocs:edit'
+            elif isinstance(self.object, AbstractImage):
+                url_name = 'wagtailimages:edit'
+            elif isinstance(self.object, tuple(SNIPPET_MODELS)):
+                url_name = 'wagtailsnippets:edit'
+                url_args = (app_label, model_name, self.object.pk)
+            elif isinstance(self.object, Redirect):
+                url_name = 'wagtailredirects:edit'
+            elif isinstance(self.object, Query):
+                url_name = 'wagtailsearchpromotions:edit'
+            elif isinstance(self.object, SearchPromotion):
+                url_name = 'wagtailsearchpromotions:edit'
+                url_args = (self.object.query.pk,)
+            elif isinstance(self.object, BaseSetting):
+                url_name = 'wagtailsettings:edit'
+                url_args = (app_label, model_name, self.object.site_id)
+            else:
+                return str(self.object)
+        return format_html('<a href="{}">{}</a>',
+                           reverse(url_name, args=url_args), self.object)
+
+    def get_html(self):
+        html = self.get_edit_link()
+        if self.is_root:
+            return html
+        return format_html('{}<i class="icon icon-arrow-right"></i> {}',
+                           (' ' * self.depth * 8), html)
+
+    def __html__(self):
+        return self.get_html()
+
+    def __repr__(self):
+        return '<Use %s pk=%s>' % (self.object.__class__.__name__,
+                                   self.object.pk)
+
+
 def get_all_uses(*objects, using=DEFAULT_DB_ALIAS):
     collector = NestedObjects(using)
     collector.collect(objects)
-    keys = {get_obj_base_key(obj) for obj in objects}
-    # Prevents an object from being marked as protected by itself
-    # due to multi-table inheritance.
-    collector.protected = {obj for obj in collector.protected
-                           if get_obj_base_key(obj) not in keys}
-    if collector.protected:
-        raise ProtectedError('The objects are referenced through a protected '
-                             'foreign key.', collector.protected)
-    related_objects = chain(*collector.data.values())
-    related_objects = chain(
-        related_objects,
-        (related_object for model in apps.get_models()
-         for related_object, obj in chain(
-            ModelRichTextCollector(model,
-                                   using=using).find_objects(*objects),
-            ModelStreamFieldsCollector(model,
-                                       using=using).find_objects(*objects))))
-    for related_object in related_objects:
-        key = get_obj_base_key(related_object)
-        if key not in keys:
-            yield related_object
-            keys.add(key)
+    uses = {Use(obj) for obj in objects}
+    yield from Use.from_flat_iterable(collector.protected, on_delete=PROTECT,
+                                      exclude=uses)
+    yield from Use.from_nested_list(collector.nested(), on_delete=CASCADE,
+                                    exclude=uses)
+    for relations in collector.field_updates.values():
+        for (field, value), related_objects in relations.items():
+            yield from Use.from_flat_iterable(
+                related_objects, on_delete=field.remote_field.on_delete,
+                field=field, exclude=uses)
+    for model in apps.get_models():
+        yield from Use.from_flat_iterable((
+            related_object for related_object, obj in ModelRichTextCollector(
+                model, using=using).find_objects(*[u.object for u in uses])),
+            on_delete=SET_NULL, exclude=uses)
+        yield from Use.from_flat_iterable((
+            related_object for related_object, obj in ModelStreamFieldsCollector(
+                model, using=using).find_objects(*[u.object for u in uses])),
+            on_delete=SET_NULL, exclude=uses)
 
 
 def get_paginated_uses(request, *objects, using=DEFAULT_DB_ALIAS):
-    try:
-        page = paginate(request, list(get_all_uses(*objects, using=using)))[1]
-    except ProtectedError as e:
-        page = paginate(request, list(e.protected_objects))[1]
-        page.are_protected = True
-    else:
-        page.are_protected = False
+    uses = list(get_all_uses(*objects, using=using))
+    page = paginate(request, uses)[1]
+    page.are_protected = any((use.is_protected for use in uses))
     return page
