@@ -1,7 +1,6 @@
 import ModalSource from './ModalSource';
 
 const $ = global.jQuery;
-const ModalWorkflow = global.ModalWorkflow;
 
 class ImageSource extends ModalSource {
   constructor(props) {
@@ -20,7 +19,7 @@ class ImageSource extends ModalSource {
     $(document.body).on('hidden.bs.modal', this.onClose);
 
     // eslint-disable-next-line new-cap
-    ModalWorkflow({
+    window.ModalWorkflow({
       url: imageChooser,
       responses: {
         imageChosen: this.parseData,

@@ -1,7 +1,6 @@
 import ModalSource from './ModalSource';
 
 const $ = global.jQuery;
-const ModalWorkflow = global.ModalWorkflow;
 
 class EmbedSource extends ModalSource {
   constructor(props) {
@@ -26,7 +25,7 @@ class EmbedSource extends ModalSource {
     $(document.body).on('hidden.bs.modal', this.onClose);
 
     // eslint-disable-next-line new-cap
-    ModalWorkflow({
+    window.ModalWorkflow({
       url: global.chooserUrls.embedsChooser,
       responses: {
         embedChosen: this.parseData,

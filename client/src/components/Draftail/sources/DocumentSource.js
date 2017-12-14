@@ -1,7 +1,6 @@
 import ModalSource from './ModalSource';
 
 const $ = global.jQuery;
-const ModalWorkflow = global.ModalWorkflow;
 
 class DocumentSource extends ModalSource {
   constructor(props) {
@@ -30,7 +29,7 @@ class DocumentSource extends ModalSource {
     }
 
     // eslint-disable-next-line new-cap
-    ModalWorkflow({
+    window.ModalWorkflow({
       url,
       responses: {
         documentChosen: this.parseData,
