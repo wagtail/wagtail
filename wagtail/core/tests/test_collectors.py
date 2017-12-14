@@ -302,7 +302,7 @@ class GetAllUsesTest(TestCase):
             self.assertListEqual(uses, [])
 
     def test_foreign_key(self):
-        with self.assertNumQueries(53):
+        with self.assertNumQueries(54):
             uses = list(get_all_uses(self.obj1))
             self.assertListEqual(uses, [self.obj2])
 
@@ -317,6 +317,6 @@ class GetAllUsesTest(TestCase):
             self.assertListEqual(uses, [self.obj4])
 
     def test_multiple(self):
-        with self.assertNumQueries(47):
+        with self.assertNumQueries(48):
             uses = list(get_all_uses(self.obj7))
             self.assertListEqual(uses, [self.obj8, self.obj9, self.obj10])
