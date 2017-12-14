@@ -6,8 +6,7 @@ from django.contrib.humanize.templatetags.humanize import intcomma
 from django.contrib.messages.constants import DEFAULT_TAGS as MESSAGE_TAGS
 from django.template.defaultfilters import stringfilter
 from django.template.loader import render_to_string
-from django.urls import reverse
-from django.utils.html import conditional_escape, format_html
+from django.utils.html import conditional_escape
 from django.utils.safestring import mark_safe
 
 from wagtail.utils.pagination import DEFAULT_PAGE_KEY, replace_page_in_query

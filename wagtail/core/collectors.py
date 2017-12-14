@@ -5,7 +5,7 @@ from warnings import warn
 from django.apps import apps
 from django.contrib.admin.utils import NestedObjects
 from django.db import DEFAULT_DB_ALIAS
-from django.db.models import Model, Q, CASCADE, PROTECT, SET, SET_DEFAULT, SET_NULL, DO_NOTHING
+from django.db.models import Model, Q, CASCADE, PROTECT, SET_DEFAULT, SET_NULL, DO_NOTHING
 from django.urls import reverse
 from django.utils.html import format_html
 from django.utils.translation import ugettext_lazy as _
@@ -264,7 +264,7 @@ class Use:
                     obj, parent=main_use, on_delete=on_delete, exclude=exclude)
             else:
                 try:
-                    has_children = isinstance(nested_list[i+1], list)
+                    has_children = isinstance(nested_list[i + 1], list)
                 except IndexError:
                     has_children = False
                 use = cls.create(obj, parent=parent, on_delete=on_delete,
@@ -277,7 +277,9 @@ class Use:
         return hash(self.key)
 
     def __eq__(self, other):
-        return self.key == other.key
+        if isinstance(other, Use):
+            return self.key == other.key
+        return self.key == get_obj_base_key(other)
 
     @property
     def is_root(self):

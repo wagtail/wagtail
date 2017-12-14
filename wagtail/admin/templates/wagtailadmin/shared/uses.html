@@ -3,11 +3,7 @@
 
 {% if uses %}
     <h2>
-        {% if uses.are_protected %}
-            {% trans 'Protected by:' %}
-        {% else %}
-            {% trans 'Used by:' %}
-        {% endif %}
+        {% trans 'Used by:' %}
     </h2>
     <table class="listing">
         <thead>
