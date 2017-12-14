@@ -35,7 +35,7 @@ class Elasticsearch5SearchQueryCompiler(Elasticsearch2SearchQueryCompiler):
 
             return query
 
-        return super(Elasticsearch5SearchQuery, self)._process_lookup(field, lookup, value)
+        return super()._process_lookup(field, lookup, value)
 
     def _connect_filters(self, filters, connector, negated):
         if filters:
