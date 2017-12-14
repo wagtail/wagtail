@@ -44,6 +44,8 @@ def get_model_root(model):
 
 
 class Elasticsearch2Mapping:
+    all_field_name = '_all'
+
     type_map = {
         'AutoField': 'integer',
         'BinaryField': 'binary',
@@ -484,7 +486,7 @@ class Elasticsearch2SearchQueryCompiler(BaseSearchQueryCompiler):
                 % query.__class__.__name__)
 
     def get_inner_query(self):
-        fields = self.remapped_fields or ['_all', '_partials']
+        fields = self.remapped_fields or [self.mapping.all_field_name, '_partials']
 
         if len(fields) == 0:
             # No fields. Return a query that'll match nothing

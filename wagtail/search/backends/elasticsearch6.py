@@ -4,7 +4,30 @@ from .elasticsearch5 import (
 
 
 class Elasticsearch6Mapping(Elasticsearch5Mapping):
-    pass
+    all_field_name = '_all_text'
+
+    def get_mapping(self):
+        mapping = super().get_mapping()
+
+        # Add _all_text field
+        mapping[self.get_document_type()]['properties'][self.all_field_name] = {'type': 'text'}
+
+        # Replace {"include_in_all": true} with {"copy_to": "_all_text"}
+        def replace_include_in_all(mapping):
+            for name, field_mapping in mapping['properties'].items():
+                if 'include_in_all' in field_mapping:
+                    if field_mapping['include_in_all']:
+                        field_mapping['copy_to'] = self.all_field_name
+
+                    del field_mapping['include_in_all']
+
+                if field_mapping['type'] == 'nested':
+                    replace_include_in_all(field_mapping)
+
+        replace_include_in_all(mapping[self.get_document_type()])
+
+        return mapping
+
 
 class Elasticsearch6Index(Elasticsearch5Index):
     pass
