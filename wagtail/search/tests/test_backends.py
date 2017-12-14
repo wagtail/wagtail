@@ -34,7 +34,7 @@ class BackendTests(WagtailTestUtils):
             # no conf entry found - skip tests for this backend
             raise unittest.SkipTest("No WAGTAILSEARCH_BACKENDS entry for the backend %s" % self.backend_path)
 
-        management.call_command('update_index', backend_name=self.backend_name, interactive=False, stdout=StringIO())
+        management.call_command('update_index', backend_name=self.backend_name, stdout=StringIO())
 
     def assertUnsortedListEqual(self, a, b):
         """

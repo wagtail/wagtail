@@ -171,7 +171,7 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.search_fields = self.queryset.model.get_search_fields()
+        self.search_fields = self.queryset.model.get_searchable_search_fields()
 
     def build_database_query(self, query=None, config=None):
         if query is None:

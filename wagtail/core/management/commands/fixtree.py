@@ -10,6 +10,7 @@ from wagtail.core.models import Page
 
 class Command(BaseCommand):
     help = "Checks for data integrity errors on the page tree, and fixes them where possible."
+    stealth_options = ('delete_orphans',)
 
     def add_arguments(self, parser):
         parser.add_argument(

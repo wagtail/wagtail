@@ -100,6 +100,27 @@ class BaseSearchQueryCompiler:
     def _get_filters_from_queryset(self):
         return self._get_filters_from_where_node(self.queryset.query.where)
 
+    def _get_order_by(self):
+        if self.order_by_relevance:
+            return
+
+        for field_name in self.queryset.query.order_by:
+            reverse = False
+
+            if field_name.startswith('-'):
+                reverse = True
+                field_name = field_name[1:]
+
+            field = self._get_filterable_field(field_name)
+
+            if field is None:
+                raise FieldError(
+                    'Cannot sort search results with field "' + field_name + '". Please add index.FilterField(\'' +
+                    field_name + '\') to ' + self.queryset.model.__name__ + '.search_fields.'
+                )
+
+            yield reverse, field
+
 
 class BaseSearchResults:
     def __init__(self, backend, query_compiler, prefetch_related=None):

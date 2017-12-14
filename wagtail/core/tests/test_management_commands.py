@@ -114,7 +114,7 @@ class TestMovePagesCommand(TestCase):
     fixtures = ['test.json']
 
     def run_command(self, from_, to):
-        management.call_command('move_pages', str(from_), str(to), interactive=False, stdout=StringIO())
+        management.call_command('move_pages', str(from_), str(to), stdout=StringIO())
 
     def test_move_pages(self):
         # Get pages
@@ -135,7 +135,7 @@ class TestSetUrlPathsCommand(TestCase):
     fixtures = ['test.json']
 
     def run_command(self):
-        management.call_command('set_url_paths', interactive=False, stdout=StringIO())
+        management.call_command('set_url_paths', stdout=StringIO())
 
     def test_set_url_paths(self):
         self.run_command()
@@ -145,7 +145,7 @@ class TestReplaceTextCommand(TestCase):
     fixtures = ['test.json']
 
     def run_command(self, from_text, to_text):
-        management.call_command('replace_text', from_text, to_text, interactive=False, stdout=StringIO())
+        management.call_command('replace_text', from_text, to_text, stdout=StringIO())
 
     def test_replace_text(self):
         # Check that the christmas page is definitely about christmas

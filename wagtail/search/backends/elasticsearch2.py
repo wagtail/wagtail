@@ -4,7 +4,7 @@ from urllib.parse import urlparse
 
 from django.db import DEFAULT_DB_ALIAS, models
 from django.db.models.sql import Query
-from django.db.models.sql.constants import SINGLE
+from django.db.models.sql.constants import MULTI
 from django.utils.crypto import get_random_string
 from elasticsearch import Elasticsearch, NotFoundError
 from elasticsearch.helpers import bulk
@@ -341,8 +341,9 @@ class Elasticsearch2SearchQueryCompiler(BaseSearchQueryCompiler):
         if lookup == 'in':
             if isinstance(value, Query):
                 db_alias = self.queryset._db or DEFAULT_DB_ALIAS
-                value = (value.get_compiler(db_alias)
-                         .execute_sql(result_type=SINGLE))
+                resultset = value.get_compiler(db_alias).execute_sql(result_type=MULTI)
+                value = [row[0] for chunk in resultset for row in chunk]
+
             elif not isinstance(value, list):
                 value = list(value)
             return {
@@ -461,18 +462,9 @@ class Elasticsearch2SearchQueryCompiler(BaseSearchQueryCompiler):
 
         # Get queryset and make sure its ordered
         if self.queryset.ordered:
-            order_by_fields = self.queryset.query.order_by
             sort = []
 
-            for order_by_field in order_by_fields:
-                reverse = False
-                field_name = order_by_field
-
-                if order_by_field.startswith('-'):
-                    reverse = True
-                    field_name = order_by_field[1:]
-
-                field = self._get_filterable_field(field_name)
+            for reverse, field in self._get_order_by():
                 column_name = self.mapping.get_field_column_name(field)
 
                 sort.append({
@@ -641,7 +633,7 @@ class Elasticsearch2Index:
         return self.es.indices.exists(self.name)
 
     def is_alias(self):
-        return self.es.indices.exists_alias(self.name)
+        return self.es.indices.exists_alias(name=self.name)
 
     def aliased_indices(self):
         """

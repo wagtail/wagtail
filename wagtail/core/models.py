@@ -329,6 +329,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
     search_fields = [
         index.SearchField('title', partial_match=True, boost=2),
+        index.FilterField('title'),
         index.FilterField('id'),
         index.FilterField('live'),
         index.FilterField('owner'),
@@ -1242,6 +1243,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         dummy_values.update(**meta)
 
         request = WSGIRequest(dummy_values)
+
+        # Add a flag to let middleware know that this is a dummy request.
+        request.is_dummy = True
 
         # Apply middleware to the request
         # Note that Django makes sure only one of the middleware settings are

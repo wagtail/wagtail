@@ -16,6 +16,27 @@ class Elasticsearch5Index(Elasticsearch2Index):
 class Elasticsearch5SearchQueryCompiler(Elasticsearch2SearchQueryCompiler):
     mapping_class = Elasticsearch5Mapping
 
+    def _process_lookup(self, field, lookup, value):
+        column_name = self.mapping.get_field_column_name(field)
+
+        if lookup == 'isnull':
+            query = {
+                'exists': {
+                    'field': column_name,
+                }
+            }
+
+            if value:
+                query = {
+                    'bool': {
+                        'mustNot': query
+                    }
+                }
+
+            return query
+
+        return super(Elasticsearch5SearchQuery, self)._process_lookup(field, lookup, value)
+
     def _connect_filters(self, filters, connector, negated):
         if filters:
             if len(filters) == 1:

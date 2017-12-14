@@ -16,18 +16,19 @@ from modelcluster.models import ClusterableModel
 from taggit.managers import TaggableManager
 from taggit.models import TaggedItemBase
 
-from wagtail.contrib.settings.models import BaseSetting, register_setting
 from wagtail.admin.edit_handlers import (
-    FieldPanel, InlinePanel, MultiFieldPanel, ObjectList, PageChooserPanel, StreamFieldPanel,
-    TabbedInterface)
+    FieldPanel, InlinePanel, MultiFieldPanel, ObjectList, PageChooserPanel,
+    StreamFieldPanel, TabbedInterface)
 from wagtail.admin.forms import WagtailAdminPageForm
 from wagtail.admin.utils import send_mail
+from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField, AbstractFormSubmission
+from wagtail.contrib.settings.models import BaseSetting, register_setting
+from wagtail.contrib.table_block.blocks import TableBlock
 from wagtail.core.blocks import CharBlock, RichTextBlock
 from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core.models import Orderable, Page, PageManager, PageQuerySet
 from wagtail.documents.edit_handlers import DocumentChooserPanel
 from wagtail.documents.models import AbstractDocument, Document
-from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField, AbstractFormSubmission
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.images.models import AbstractImage, AbstractRendition, Image
@@ -262,6 +263,7 @@ class EventPage(Page):
         index.SearchField('get_audience_display'),
         index.SearchField('location'),
         index.SearchField('body'),
+        index.FilterField('url_path'),
     ]
 
     password_required_template = 'tests/event_page_password_required.html'
@@ -280,7 +282,7 @@ EventPage.content_panels = [
     FieldPanel('signup_link'),
     InlinePanel('carousel_items', label="Carousel items"),
     FieldPanel('body', classname="full"),
-    InlinePanel('speakers', label="Speakers"),
+    InlinePanel('speakers', label="Speakers", heading="Speaker lineup"),
     InlinePanel('related_links', label="Related links"),
     FieldPanel('categories'),
 ]
@@ -1023,6 +1025,12 @@ class InlineStreamPage(Page):
         FieldPanel('title', classname="full title"),
         InlinePanel('sections')
     ]
+
+
+class TableBlockStreamPage(Page):
+    table = StreamField([('table', TableBlock())])
+
+    content_panels = [StreamFieldPanel('table')]
 
 
 class UserProfile(models.Model):

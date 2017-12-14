@@ -33,7 +33,9 @@ Other features
  * Added ``exclude_fields_in_copy`` property to Page to define fields that should not be included on page copy (LB (Ben Johnston))
  * Improved error message on incorrect ``{% image %}`` tag syntax (LB (Ben Johnston))
  * Optimized preview data storage (Bertrand Bordage)
- * Added `render_landing_page` method to `AbstractForm` to be easily overridden and pass `form_submission` to landing page context (Stein Strindhaug)
+ * Added ``render_landing_page`` method to ``AbstractForm`` to be easily overridden and pass ``form_submission`` to landing page context (Stein Strindhaug)
+ * Added ``heading`` kwarg to ``InlinePanel`` to allow heading to be set independently of button label (Adrian Turjak)
+ * The value type returned from a ``StructBlock`` can now be customised. See :ref:`custom_value_class_for_structblock` (LB (Ben Johnston))
 
 Bug fixes
 ~~~~~~~~~
@@ -49,6 +51,16 @@ Bug fixes
  * Fixed incorrect z-index on userbar causing it to appear behind page content (Stein Strindhaug)
  * Form submissions pagination no longer looses date filter when changing page (Bertrand Bordage)
  * PostgreSQL search backend now removes duplicate page instances from the database (Bertrand Bordage)
+ * ``FormSubmissionsPanel`` now recognises custom form submission classes (LB (Ben Johnston))
+ * Prevent the footer and revisions link from unnecessarily collapsing on mobile (Jack Paine)
+ * Empty searches were activated when paginating through images and documents (LB (Ben Johnston))
+ * Summary numbers of pages, images and documents were not responsive when greater than 4 digits (Michael Palmer)
+ * Project template now has password validators enabled by default (Matt Westcott)
+ * Alignment options correctly removed from ``TableBlock`` context menu (LB (Ben Johnston))
+ * Fix support of ``ATOMIC_REBUILD`` for projects with Elasticsearch client ``>=1.7.0`` (Mikalai Radchuk)
+ * Fixed error on Elasticsearch backend when passing a queryset as an ``__in`` filter (Karl Hobley, Matt Westcott)
+ * ``__isnull`` filters no longer fail on Elasticsearch 5 (Karl Hobley)
+ * Prevented intermittent failures on Postgres search backend when a field is defined as both a ``SearchField`` and a ``FilterField`` (Matt Westcott)
 
 
 Upgrade considerations
@@ -109,8 +121,9 @@ References to these module paths within your Wagtail project need to be updated 
 * Paths specified in settings, such as ``INSTALLED_APPS``, ``MIDDLEWARE`` and ``WAGTAILSEARCH_BACKENDS``
 * Fields and blocks referenced within migrations, such as ``wagtail.wagtailcore.fields.StreamField`` and ``wagtail.wagtailcore.blocks.RichTextBlock``
 
-However, app names that are *not* part of a dotted module path should be left unchanged - in this case, the ``wagtail`` prefix is still required to distinguish them from other apps that might exist in the project with names such as ``admin`` or ``images``. The following should be left unchanged:
+However, note that this only applies to dotted module paths beginning with ``wagtail.``. App names that are *not* part of a dotted module path should be left unchanged - in this case, the ``wagtail`` prefix is still required to avoid clashing with other apps that might exist in the project with names such as ``admin`` or ``images``. The following should be left unchanged:
 
+* Foreign keys specifying a model as ``'app_name.ModelName'``, e.g. ``models.ForeignKey('wagtailimages.Image',...)``
 * App labels used in database table names, content types or permissions
 * Paths to templates and static files, e.g. when :ref:`overriding admin templates with custom branding <custom_branding>`
 * Template tag library names, e.g. ``{% load wagtailcore_tags %}``
@@ -120,3 +133,25 @@ Removed support for Elasticsearch 1.x
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Elasticsearch 1.x is no longer supported in this release. Please upgrade to a 2.x or 5.x release of Elasticsearch before upgrading to Wagtail 2.0.
+
+
+Removed version 1 of the Wagtail API
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Version 1 of the Wagtail API (``wagtail.contrib.wagtailapi``) has been removed from Wagtail.
+
+If you're using version 1, you will need to migrate to version 2. Please see
+:doc:`/advanced_topics/api/v2/configuration` and :doc:`/advanced_topics/api/v2/usage`.
+
+If migrating to version 2 is not an option right now (if you have API clients that you don't
+have direct control over, such as a mobile app), you can find the implementation of the
+version 1 API in the new `wagtailapi_legacy <https://github.com/wagtail/wagtailapi_legacy>`_ repository.
+
+This repository has been created to provide a place for the community to collaborate on supporting
+legacy versions of the API until everyone has migrated to an officially supported version.
+
+
+``wagtail.images.views.serve.generate_signature`` now returns a string
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The ``generate_signature`` function in ``wagtail.images.views.serve``, used to build URLs for the :ref:`dynamic image serve view <using_images_outside_wagtail>`, now returns a string rather than a binary string. This ensures that any existing user code that builds up the final image URL with ``reverse`` will continue to work on Django 2.0 (which no longer allows binary strings to be passed to ``reverse``). Any code that expects a binary string as the return value of ``generate_string`` - for example, calling ``decode()`` on the result - will need to be updated. (Apps that need to preserve compatibility with earlier versions of Wagtail can call ``django.utils.encoding.force_text`` instead of ``decode``.)

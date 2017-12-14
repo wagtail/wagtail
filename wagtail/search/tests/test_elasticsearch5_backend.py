@@ -18,11 +18,6 @@ from .elasticsearch_common_tests import ElasticsearchCommonSearchBackendTests
 class TestElasticsearch5SearchBackend(ElasticsearchCommonSearchBackendTests, TestCase):
     backend_path = 'wagtail.search.backends.elasticsearch5'
 
-    # Broken
-    @unittest.expectedFailure
-    def test_filter_isnull_true(self):
-        super(TestElasticsearch5SearchBackend, self).test_filter_isnull_true()
-
 
 class TestElasticsearch5SearchQuery(TestCase):
     def assertDictEqual(self, a, b):
@@ -185,7 +180,7 @@ class TestElasticsearch5SearchQuery(TestCase):
         # Check it
         expected_result = {'bool': {'filter': [
             {'match': {'content_type': 'searchtests.Book'}},
-            {'missing': {'field': 'title_filter'}}
+            {'bool': {'mustNot': {'exists': {'field': 'title_filter'}}}}
         ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
         self.assertDictEqual(query_compiler.get_query(), expected_result)
 
@@ -196,7 +191,7 @@ class TestElasticsearch5SearchQuery(TestCase):
         # Check it
         expected_result = {'bool': {'filter': [
             {'match': {'content_type': 'searchtests.Book'}},
-            {'missing': {'field': 'title_filter'}}
+            {'bool': {'mustNot': {'exists': {'field': 'title_filter'}}}}
         ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
         self.assertDictEqual(query_compiler.get_query(), expected_result)
 

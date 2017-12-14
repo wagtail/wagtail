@@ -1126,6 +1126,10 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtailadmin_pages:edit', args=(self.event_page.id, )))
         self.assertEqual(response.status_code, 200)
 
+        # Test InlinePanel labels/headings
+        self.assertContains(response, '<legend>Speaker lineup</legend>')
+        self.assertContains(response, 'Add speakers')
+
     def test_edit_multipart(self):
         """
         Test checks if 'enctype="multipart/form-data"' is added and only to forms that require multipart encoding.

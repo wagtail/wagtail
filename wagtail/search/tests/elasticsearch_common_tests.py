@@ -175,16 +175,6 @@ class ElasticsearchCommonSearchBackendTests(BackendTests):
 
     # Broken
     @unittest.expectedFailure
-    def test_filter_in_values_list_subquery(self):
-        super().test_filter_in_values_list_subquery()
-
-    # Broken
-    @unittest.expectedFailure
-    def test_order_by_non_filterable_field(self):
-        super().test_order_by_non_filterable_field()
-
-    # Broken
-    @unittest.expectedFailure
     def test_delete(self):
         super().test_delete()
 

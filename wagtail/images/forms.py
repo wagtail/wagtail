@@ -77,9 +77,9 @@ class URLGeneratorForm(forms.Form):
             ('fill', _("Resize to fill")),
         ),
     )
-    width = forms.IntegerField(_("Width"), min_value=0)
-    height = forms.IntegerField(_("Height"), min_value=0)
-    closeness = forms.IntegerField(_("Closeness"), min_value=0, initial=0)
+    width = forms.IntegerField(label=_("Width"), min_value=0)
+    height = forms.IntegerField(label=_("Height"), min_value=0)
+    closeness = forms.IntegerField(label=_("Closeness"), min_value=0, initial=0)
 
 
 GroupImagePermissionFormSet = collection_member_permission_formset_factory(

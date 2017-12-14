@@ -94,6 +94,9 @@ class DatabaseSearchResults(BaseSearchResults):
     def _do_search(self):
         queryset = self.get_queryset()
 
+        # Call query._get_order_by so it can raise errors if a non-indexed field is used for ordering
+        list(self.query._get_order_by())
+
         if self._score_field:
             queryset = queryset.annotate(**{self._score_field: Value(None, output_field=models.FloatField())})
 
