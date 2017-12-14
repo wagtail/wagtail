@@ -33,7 +33,7 @@ class TestElasticsearch6SearchQuery(TestCase):
         # Check it
         expected_result = {'bool': {
             'filter': {'match': {'content_type': 'searchtests.Book'}},
-            'must': {'multi_match': {'query': 'Hello', 'fields': ['_all_text', '_partials']}}
+            'must': {'multi_match': {'query': 'Hello', 'fields': ['_all_text', '_edgengrams']}}
         }}
         self.assertDictEqual(query.get_query(), expected_result)
 
@@ -55,7 +55,7 @@ class TestElasticsearch6SearchQuery(TestCase):
         # Check it
         expected_result = {'bool': {
             'filter': {'match': {'content_type': 'searchtests.Book'}},
-            'must': {'multi_match': {'query': 'Hello', 'fields': ['_all_text', '_partials'], 'operator': 'and'}}
+            'must': {'multi_match': {'query': 'Hello', 'fields': ['_all_text', '_edgengrams'], 'operator': 'and'}}
         }}
         self.assertDictEqual(query.get_query(), expected_result)
 
@@ -67,7 +67,7 @@ class TestElasticsearch6SearchQuery(TestCase):
         expected_result = {'bool': {'filter': [
             {'match': {'content_type': 'searchtests.Book'}},
             {'term': {'title_filter': 'Test'}}
-        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all_text', '_partials']}}}}
+        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all_text', '_edgengrams']}}}}
         self.assertDictEqual(query.get_query(), expected_result)
 
     def test_and_filter(self):
@@ -78,7 +78,7 @@ class TestElasticsearch6SearchQuery(TestCase):
         expected_result = {'bool': {'filter': [
             {'match': {'content_type': 'searchtests.Book'}},
             {'bool': {'must': [{'term': {'publication_date_filter': '2017-10-18'}}, {'term': {'title_filter': 'Test'}}]}}
-        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all_text', '_partials']}}}}
+        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all_text', '_edgengrams']}}}}
 
         # Make sure field filters are sorted (as they can be in any order which may cause false positives)
         query = query.get_query()
@@ -100,7 +100,7 @@ class TestElasticsearch6SearchQuery(TestCase):
         expected_result = {'bool': {'filter': [
             {'match': {'content_type': 'searchtests.Book'}},
             {'bool': {'should': [{'term': {'publication_date_filter': '2017-10-18'}}, {'term': {'title_filter': 'Test'}}]}}
-        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all_text', '_partials']}}}}
+        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all_text', '_edgengrams']}}}}
         self.assertDictEqual(query, expected_result)
 
     def test_negated_filter(self):
@@ -111,7 +111,7 @@ class TestElasticsearch6SearchQuery(TestCase):
         expected_result = {'bool': {'filter': [
             {'match': {'content_type': 'searchtests.Book'}},
             {'bool': {'mustNot': {'term': {'publication_date_filter': '2017-10-18'}}}}
-        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all_text', '_partials']}}}}
+        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all_text', '_edgengrams']}}}}
         self.assertDictEqual(query.get_query(), expected_result)
 
     def test_fields(self):
@@ -168,7 +168,7 @@ class TestElasticsearch6SearchQuery(TestCase):
         expected_result = {'bool': {'filter': [
             {'match': {'content_type': 'searchtests.Book'}},
             {'term': {'title_filter': 'Test'}}
-        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all_text', '_partials']}}}}
+        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all_text', '_edgengrams']}}}}
         self.assertDictEqual(query.get_query(), expected_result)
 
     def test_none_lookup(self):
@@ -179,7 +179,7 @@ class TestElasticsearch6SearchQuery(TestCase):
         expected_result = {'bool': {'filter': [
             {'match': {'content_type': 'searchtests.Book'}},
             {'bool': {'mustNot': {'exists': {'field': 'title_filter'}}}}
-        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all_text', '_partials']}}}}
+        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all_text', '_edgengrams']}}}}
         self.assertDictEqual(query.get_query(), expected_result)
 
     def test_isnull_true_lookup(self):
@@ -190,7 +190,7 @@ class TestElasticsearch6SearchQuery(TestCase):
         expected_result = {'bool': {'filter': [
             {'match': {'content_type': 'searchtests.Book'}},
             {'bool': {'mustNot': {'exists': {'field': 'title_filter'}}}}
-        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all_text', '_partials']}}}}
+        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all_text', '_edgengrams']}}}}
         self.assertDictEqual(query.get_query(), expected_result)
 
     def test_isnull_false_lookup(self):
@@ -201,7 +201,7 @@ class TestElasticsearch6SearchQuery(TestCase):
         expected_result = {'bool': {'filter': [
             {'match': {'content_type': 'searchtests.Book'}},
             {'exists': {'field': 'title_filter'}}
-        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all_text', '_partials']}}}}
+        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all_text', '_edgengrams']}}}}
         self.assertDictEqual(query.get_query(), expected_result)
 
     def test_startswith_lookup(self):
@@ -212,7 +212,7 @@ class TestElasticsearch6SearchQuery(TestCase):
         expected_result = {'bool': {'filter': [
             {'match': {'content_type': 'searchtests.Book'}},
             {'prefix': {'title_filter': 'Test'}}
-        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all_text', '_partials']}}}}
+        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all_text', '_edgengrams']}}}}
         self.assertDictEqual(query.get_query(), expected_result)
 
     def test_gt_lookup(self):
@@ -227,7 +227,7 @@ class TestElasticsearch6SearchQuery(TestCase):
         expected_result = {'bool': {'filter': [
             {'match': {'content_type': 'searchtests.Book'}},
             {'range': {'publication_date_filter': {'gt': '2014-04-29'}}}
-        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all_text', '_partials']}}}}
+        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all_text', '_edgengrams']}}}}
         self.assertDictEqual(query.get_query(), expected_result)
 
     def test_lt_lookup(self):
@@ -240,7 +240,7 @@ class TestElasticsearch6SearchQuery(TestCase):
         expected_result = {'bool': {'filter': [
             {'match': {'content_type': 'searchtests.Book'}},
             {'range': {'publication_date_filter': {'lt': '2014-04-29'}}}
-        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all_text', '_partials']}}}}
+        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all_text', '_edgengrams']}}}}
         self.assertDictEqual(query.get_query(), expected_result)
 
     def test_gte_lookup(self):
@@ -253,7 +253,7 @@ class TestElasticsearch6SearchQuery(TestCase):
         expected_result = {'bool': {'filter': [
             {'match': {'content_type': 'searchtests.Book'}},
             {'range': {'publication_date_filter': {'gte': '2014-04-29'}}}
-        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all_text', '_partials']}}}}
+        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all_text', '_edgengrams']}}}}
         self.assertDictEqual(query.get_query(), expected_result)
 
     def test_lte_lookup(self):
@@ -266,7 +266,7 @@ class TestElasticsearch6SearchQuery(TestCase):
         expected_result = {'bool': {'filter': [
             {'match': {'content_type': 'searchtests.Book'}},
             {'range': {'publication_date_filter': {'lte': '2014-04-29'}}}
-        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all_text', '_partials']}}}}
+        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all_text', '_edgengrams']}}}}
         self.assertDictEqual(query.get_query(), expected_result)
 
     def test_range_lookup(self):
@@ -282,7 +282,7 @@ class TestElasticsearch6SearchQuery(TestCase):
         expected_result = {'bool': {'filter': [
             {'match': {'content_type': 'searchtests.Book'}},
             {'range': {'publication_date_filter': {'gte': '2014-04-29', 'lte': '2014-08-19'}}}
-        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all_text', '_partials']}}}}
+        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all_text', '_edgengrams']}}}}
         self.assertDictEqual(query.get_query(), expected_result)
 
     def test_custom_ordering(self):
@@ -521,7 +521,7 @@ class TestElasticsearch6Mapping(TestCase):
                     'pk': {'type': 'keyword', 'store': True},
                     'content_type': {'type': 'keyword'},
                     '_all_text': {'type': 'text'},
-                    '_partials': {'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard', 'type': 'text'},
+                    '_edgengrams': {'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard', 'type': 'text'},
                     'title': {'type': 'text', 'boost': 2.0, 'copy_to': '_all_text', 'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard'},
                     'title_filter': {'type': 'keyword'},
                     'authors': {
@@ -553,15 +553,15 @@ class TestElasticsearch6Mapping(TestCase):
         # Get document
         document = self.es_mapping.get_document(self.obj)
 
-        # Sort partials
-        if '_partials' in document:
-            document['_partials'].sort()
+        # Sort edgengrams
+        if '_edgengrams' in document:
+            document['_edgengrams'].sort()
 
         # Check
         expected_result = {
             'pk': '4',
             'content_type': ["searchtests.Book"],
-            '_partials': ['The Fellowship of the Ring'],
+            '_edgengrams': ['The Fellowship of the Ring'],
             'title': 'The Fellowship of the Ring',
             'title_filter': 'The Fellowship of the Ring',
             'authors': [
@@ -623,7 +623,7 @@ class TestElasticsearch6MappingInheritance(TestCase):
                     'pk': {'type': 'keyword', 'store': True},
                     'content_type': {'type': 'keyword'},
                     '_all_text': {'type': 'text'},
-                    '_partials': {'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard', 'type': 'text'},
+                    '_edgengrams': {'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard', 'type': 'text'},
                     'title': {'type': 'text', 'boost': 2.0, 'copy_to': '_all_text', 'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard'},
                     'title_filter': {'type': 'keyword'},
                     'authors': {
@@ -658,9 +658,9 @@ class TestElasticsearch6MappingInheritance(TestCase):
         # Build document
         document = self.es_mapping.get_document(self.obj)
 
-        # Sort partials
-        if '_partials' in document:
-            document['_partials'].sort()
+        # Sort edgengrams
+        if '_edgengrams' in document:
+            document['_edgengrams'].sort()
 
         # Sort characters
         if 'searchtests_novel__characters' in document:
@@ -687,7 +687,7 @@ class TestElasticsearch6MappingInheritance(TestCase):
 
             # Changed
             'content_type': ["searchtests.Novel", "searchtests.Book"],
-            '_partials': ['Middle Earth', 'The Fellowship of the Ring'],
+            '_edgengrams': ['Middle Earth', 'The Fellowship of the Ring'],
 
             # Inherited
             'pk': '4',
