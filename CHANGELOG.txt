@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.13.2 (IN DEVELOPMENT)
+~~~~~~~~~~~~~~~~~~~~~~~
+
+* Fix: Fix support of `ATOMIC_REBUILD` for projects with Elasticsearch client >=1.7.0 (Mikalai Radchuk)
+
+
 1.13.1 (17.11.2017)
 ~~~~~~~~~~~~~~~~~~~
 
