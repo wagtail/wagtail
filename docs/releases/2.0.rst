@@ -57,6 +57,7 @@ Bug fixes
  * Summary numbers of pages, images and documents were not responsive when greater than 4 digits (Michael Palmer)
  * Project template now has password validators enabled by default (Matt Westcott)
  * Alignment options correctly removed from ``TableBlock`` context menu (LB (Ben Johnston))
+ * Fix support of ``ATOMIC_REBUILD`` for projects with Elasticsearch client ``>=1.7.0`` (Mikalai Radchuk)
 
 
 Upgrade considerations
