@@ -33,7 +33,7 @@ class TestElasticsearch6SearchQuery(TestCase):
         # Check it
         expected_result = {'bool': {
             'filter': {'match': {'content_type': 'searchtests.Book'}},
-            'must': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}
+            'must': {'multi_match': {'query': 'Hello', 'fields': ['_all_text', '_partials']}}
         }}
         self.assertDictEqual(query.get_query(), expected_result)
 
@@ -55,7 +55,7 @@ class TestElasticsearch6SearchQuery(TestCase):
         # Check it
         expected_result = {'bool': {
             'filter': {'match': {'content_type': 'searchtests.Book'}},
-            'must': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials'], 'operator': 'and'}}
+            'must': {'multi_match': {'query': 'Hello', 'fields': ['_all_text', '_partials'], 'operator': 'and'}}
         }}
         self.assertDictEqual(query.get_query(), expected_result)
 
@@ -67,7 +67,7 @@ class TestElasticsearch6SearchQuery(TestCase):
         expected_result = {'bool': {'filter': [
             {'match': {'content_type': 'searchtests.Book'}},
             {'term': {'title_filter': 'Test'}}
-        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
+        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all_text', '_partials']}}}}
         self.assertDictEqual(query.get_query(), expected_result)
 
     def test_and_filter(self):
@@ -78,7 +78,7 @@ class TestElasticsearch6SearchQuery(TestCase):
         expected_result = {'bool': {'filter': [
             {'match': {'content_type': 'searchtests.Book'}},
             {'bool': {'must': [{'term': {'publication_date_filter': '2017-10-18'}}, {'term': {'title_filter': 'Test'}}]}}
-        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
+        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all_text', '_partials']}}}}
 
         # Make sure field filters are sorted (as they can be in any order which may cause false positives)
         query = query.get_query()
@@ -100,7 +100,7 @@ class TestElasticsearch6SearchQuery(TestCase):
         expected_result = {'bool': {'filter': [
             {'match': {'content_type': 'searchtests.Book'}},
             {'bool': {'should': [{'term': {'publication_date_filter': '2017-10-18'}}, {'term': {'title_filter': 'Test'}}]}}
-        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
+        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all_text', '_partials']}}}}
         self.assertDictEqual(query, expected_result)
 
     def test_negated_filter(self):
@@ -111,7 +111,7 @@ class TestElasticsearch6SearchQuery(TestCase):
         expected_result = {'bool': {'filter': [
             {'match': {'content_type': 'searchtests.Book'}},
             {'bool': {'mustNot': {'term': {'publication_date_filter': '2017-10-18'}}}}
-        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
+        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all_text', '_partials']}}}}
         self.assertDictEqual(query.get_query(), expected_result)
 
     def test_fields(self):
@@ -168,7 +168,7 @@ class TestElasticsearch6SearchQuery(TestCase):
         expected_result = {'bool': {'filter': [
             {'match': {'content_type': 'searchtests.Book'}},
             {'term': {'title_filter': 'Test'}}
-        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
+        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all_text', '_partials']}}}}
         self.assertDictEqual(query.get_query(), expected_result)
 
     def test_none_lookup(self):
@@ -179,7 +179,7 @@ class TestElasticsearch6SearchQuery(TestCase):
         expected_result = {'bool': {'filter': [
             {'match': {'content_type': 'searchtests.Book'}},
             {'bool': {'mustNot': {'exists': {'field': 'title_filter'}}}}
-        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
+        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all_text', '_partials']}}}}
         self.assertDictEqual(query.get_query(), expected_result)
 
     def test_isnull_true_lookup(self):
@@ -190,7 +190,7 @@ class TestElasticsearch6SearchQuery(TestCase):
         expected_result = {'bool': {'filter': [
             {'match': {'content_type': 'searchtests.Book'}},
             {'bool': {'mustNot': {'exists': {'field': 'title_filter'}}}}
-        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
+        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all_text', '_partials']}}}}
         self.assertDictEqual(query.get_query(), expected_result)
 
     def test_isnull_false_lookup(self):
@@ -201,7 +201,7 @@ class TestElasticsearch6SearchQuery(TestCase):
         expected_result = {'bool': {'filter': [
             {'match': {'content_type': 'searchtests.Book'}},
             {'exists': {'field': 'title_filter'}}
-        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
+        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all_text', '_partials']}}}}
         self.assertDictEqual(query.get_query(), expected_result)
 
     def test_startswith_lookup(self):
@@ -212,7 +212,7 @@ class TestElasticsearch6SearchQuery(TestCase):
         expected_result = {'bool': {'filter': [
             {'match': {'content_type': 'searchtests.Book'}},
             {'prefix': {'title_filter': 'Test'}}
-        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
+        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all_text', '_partials']}}}}
         self.assertDictEqual(query.get_query(), expected_result)
 
     def test_gt_lookup(self):
@@ -227,7 +227,7 @@ class TestElasticsearch6SearchQuery(TestCase):
         expected_result = {'bool': {'filter': [
             {'match': {'content_type': 'searchtests.Book'}},
             {'range': {'publication_date_filter': {'gt': '2014-04-29'}}}
-        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
+        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all_text', '_partials']}}}}
         self.assertDictEqual(query.get_query(), expected_result)
 
     def test_lt_lookup(self):
@@ -240,7 +240,7 @@ class TestElasticsearch6SearchQuery(TestCase):
         expected_result = {'bool': {'filter': [
             {'match': {'content_type': 'searchtests.Book'}},
             {'range': {'publication_date_filter': {'lt': '2014-04-29'}}}
-        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
+        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all_text', '_partials']}}}}
         self.assertDictEqual(query.get_query(), expected_result)
 
     def test_gte_lookup(self):
@@ -253,7 +253,7 @@ class TestElasticsearch6SearchQuery(TestCase):
         expected_result = {'bool': {'filter': [
             {'match': {'content_type': 'searchtests.Book'}},
             {'range': {'publication_date_filter': {'gte': '2014-04-29'}}}
-        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
+        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all_text', '_partials']}}}}
         self.assertDictEqual(query.get_query(), expected_result)
 
     def test_lte_lookup(self):
@@ -266,7 +266,7 @@ class TestElasticsearch6SearchQuery(TestCase):
         expected_result = {'bool': {'filter': [
             {'match': {'content_type': 'searchtests.Book'}},
             {'range': {'publication_date_filter': {'lte': '2014-04-29'}}}
-        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
+        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all_text', '_partials']}}}}
         self.assertDictEqual(query.get_query(), expected_result)
 
     def test_range_lookup(self):
@@ -282,7 +282,7 @@ class TestElasticsearch6SearchQuery(TestCase):
         expected_result = {'bool': {'filter': [
             {'match': {'content_type': 'searchtests.Book'}},
             {'range': {'publication_date_filter': {'gte': '2014-04-29', 'lte': '2014-08-19'}}}
-        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
+        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all_text', '_partials']}}}}
         self.assertDictEqual(query.get_query(), expected_result)
 
     def test_custom_ordering(self):
@@ -518,25 +518,26 @@ class TestElasticsearch6Mapping(TestCase):
         expected_result = {
             'searchtests_book': {
                 'properties': {
-                    'pk': {'type': 'keyword', 'store': True, 'include_in_all': False},
-                    'content_type': {'type': 'keyword', 'include_in_all': False},
-                    '_partials': {'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard', 'include_in_all': False, 'type': 'text'},
-                    'title': {'type': 'text', 'boost': 2.0, 'include_in_all': True, 'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard'},
-                    'title_filter': {'type': 'keyword', 'include_in_all': False},
+                    'pk': {'type': 'keyword', 'store': True},
+                    'content_type': {'type': 'keyword'},
+                    '_all_text': {'type': 'text'},
+                    '_partials': {'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard', 'type': 'text'},
+                    'title': {'type': 'text', 'boost': 2.0, 'copy_to': '_all_text', 'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard'},
+                    'title_filter': {'type': 'keyword'},
                     'authors': {
                         'type': 'nested',
                         'properties': {
-                            'name': {'type': 'text', 'include_in_all': True},
-                            'date_of_birth_filter': {'type': 'date', 'include_in_all': False},
+                            'name': {'type': 'text', 'copy_to': '_all_text'},
+                            'date_of_birth_filter': {'type': 'date'},
                         },
                     },
-                    'publication_date_filter': {'type': 'date', 'include_in_all': False},
-                    'number_of_pages_filter': {'type': 'integer', 'include_in_all': False},
+                    'publication_date_filter': {'type': 'date'},
+                    'number_of_pages_filter': {'type': 'integer'},
                     'tags': {
                         'type': 'nested',
                         'properties': {
-                            'name': {'type': 'text', 'include_in_all': True},
-                            'slug_filter': {'type': 'keyword', 'include_in_all': False},
+                            'name': {'type': 'text', 'copy_to': '_all_text'},
+                            'slug_filter': {'type': 'keyword'},
                         },
                     }
                 }
@@ -604,40 +605,41 @@ class TestElasticsearch6MappingInheritance(TestCase):
             'searchtests_book_searchtests_novel': {
                 'properties': {
                     # New
-                    'searchtests_novel__setting': {'type': 'text', 'include_in_all': True, 'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard'},
+                    'searchtests_novel__setting': {'type': 'text', 'copy_to': '_all_text', 'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard'},
                     'searchtests_novel__protagonist': {
                         'type': 'nested',
                         'properties': {
-                            'name': {'type': 'text', 'boost': 0.5, 'include_in_all': True}
+                            'name': {'type': 'text', 'boost': 0.5, 'copy_to': '_all_text'}
                         }
                     },
                     'searchtests_novel__characters': {
                         'type': 'nested',
                         'properties': {
-                            'name': {'type': 'text', 'boost': 0.25, 'include_in_all': True}
+                            'name': {'type': 'text', 'boost': 0.25, 'copy_to': '_all_text'}
                         }
                     },
 
                     # Inherited
-                    'pk': {'type': 'keyword', 'store': True, 'include_in_all': False},
-                    'content_type': {'type': 'keyword', 'include_in_all': False},
-                    '_partials': {'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard', 'include_in_all': False, 'type': 'text'},
-                    'title': {'type': 'text', 'boost': 2.0, 'include_in_all': True, 'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard'},
-                    'title_filter': {'type': 'keyword', 'include_in_all': False},
+                    'pk': {'type': 'keyword', 'store': True},
+                    'content_type': {'type': 'keyword'},
+                    '_all_text': {'type': 'text'},
+                    '_partials': {'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard', 'type': 'text'},
+                    'title': {'type': 'text', 'boost': 2.0, 'copy_to': '_all_text', 'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard'},
+                    'title_filter': {'type': 'keyword'},
                     'authors': {
                         'type': 'nested',
                         'properties': {
-                            'name': {'type': 'text', 'include_in_all': True},
-                            'date_of_birth_filter': {'type': 'date', 'include_in_all': False},
+                            'name': {'type': 'text', 'copy_to': '_all_text'},
+                            'date_of_birth_filter': {'type': 'date'},
                         },
                     },
-                    'publication_date_filter': {'type': 'date', 'include_in_all': False},
-                    'number_of_pages_filter': {'type': 'integer', 'include_in_all': False},
+                    'publication_date_filter': {'type': 'date'},
+                    'number_of_pages_filter': {'type': 'integer'},
                     'tags': {
                         'type': 'nested',
                         'properties': {
-                            'name': {'type': 'text', 'include_in_all': True},
-                            'slug_filter': {'type': 'keyword', 'include_in_all': False},
+                            'name': {'type': 'text', 'copy_to': '_all_text'},
+                            'slug_filter': {'type': 'keyword'},
                         },
                     }
                 }
