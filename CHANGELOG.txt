@@ -40,6 +40,9 @@ Changelog
  * Fix: Project template now has password validators enabled by default (Matt Westcott)
  * Fix: Alignment options correctly removed from `TableBlock` context menu (LB (Ben Johnston))
  * Fix: Fix support of `ATOMIC_REBUILD` for projects with Elasticsearch client >=1.7.0 (Mikalai Radchuk)
+ * Fix: Fixed error on Elasticsearch backend when passing a queryset as an `__in` filter (Karl Hobley, Matt Westcott)
+ * Fix: `__isnull` filters no longer fail on Elasticsearch 5 (Karl Hobley)
+ * Fix: Prevented intermittent failures on Postgres search backend when a field is defined as both a `SearchField` and a `FilterField` (Matt Westcott)
 
 
 1.13.1 (17.11.2017)
