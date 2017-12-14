@@ -234,28 +234,19 @@ class Use:
             parent = parent.parent
 
     @classmethod
-    def create(cls, obj, parent=None, on_delete=CASCADE, field=None,
-               exclude=None, has_children=False):
-        use = cls(obj, parent=parent, on_delete=on_delete, field=field)
-        if not has_children and use in exclude and use.is_root:
-            return
-        exclude.add(use)
-        return use
-
-    @classmethod
     def from_flat_iterable(cls, iterable, on_delete=CASCADE, field=None,
                            exclude=None):
         if exclude is None:
             exclude = set()
         for obj in iterable:
-            use = Use.create(obj, on_delete=on_delete, field=field,
-                             exclude=exclude)
-            if use is not None:
+            use = cls(obj, on_delete=on_delete, field=field)
+            if use not in exclude:
+                exclude.add(use)
                 yield use
 
     @classmethod
     def from_nested_list(cls, nested_list, parent=None, on_delete=CASCADE,
-                         exclude=None):
+                         exclude=None, originals=()):
         if exclude is None:
             exclude = set()
         main_use = None
@@ -264,13 +255,15 @@ class Use:
                 yield from cls.from_nested_list(
                     obj, parent=main_use, on_delete=on_delete, exclude=exclude)
             else:
-                try:
-                    has_children = isinstance(nested_list[i + 1], list)
-                except IndexError:
-                    has_children = False
-                use = cls.create(obj, parent=parent, on_delete=on_delete,
-                                 exclude=exclude, has_children=has_children)
-                if use is not None:
+                use = cls(obj, parent=parent, on_delete=on_delete)
+                if use in exclude:
+                    if use not in originals:
+                        for other_use in exclude:
+                            if use == other_use:
+                                main_use = other_use
+                                break
+                else:
+                    exclude.add(use)
                     yield use
                     main_use = use
 
@@ -380,11 +373,12 @@ class Use:
 def get_all_uses(*objects, using=DEFAULT_DB_ALIAS):
     collector = NestedObjects(using)
     collector.collect(objects)
-    uses = {Use(obj) for obj in objects}
+    originals = {Use(obj) for obj in objects}
+    uses = originals.copy()
     yield from Use.from_flat_iterable(collector.protected, on_delete=PROTECT,
                                       exclude=uses)
     yield from Use.from_nested_list(collector.nested(), on_delete=CASCADE,
-                                    exclude=uses)
+                                    exclude=uses, originals=originals)
     for relations in collector.field_updates.values():
         for (field, value), related_objects in relations.items():
             yield from Use.from_flat_iterable(
