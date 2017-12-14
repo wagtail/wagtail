@@ -58,6 +58,9 @@ Bug fixes
  * Project template now has password validators enabled by default (Matt Westcott)
  * Alignment options correctly removed from ``TableBlock`` context menu (LB (Ben Johnston))
  * Fix support of ``ATOMIC_REBUILD`` for projects with Elasticsearch client ``>=1.7.0`` (Mikalai Radchuk)
+ * Fixed error on Elasticsearch backend when passing a queryset as an ``__in`` filter (Karl Hobley, Matt Westcott)
+ * ``__isnull`` filters no longer fail on Elasticsearch 5 (Karl Hobley)
+ * Prevented intermittent failures on Postgres search backend when a field is defined as both a ``SearchField`` and a ``FilterField`` (Matt Westcott)
 
 
 Upgrade considerations
