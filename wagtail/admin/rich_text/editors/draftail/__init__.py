@@ -8,7 +8,7 @@ from wagtail.core.rich_text import features as feature_registry
 from wagtail.utils.widgets import WidgetWithScript
 
 
-class DraftailRichTextArea(WidgetWithScript, widgets.Textarea):
+class DraftailRichTextArea(WidgetWithScript, widgets.HiddenInput):
     # this class's constructor accepts a 'features' kwarg
     accepts_features = True
 
