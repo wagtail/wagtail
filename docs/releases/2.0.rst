@@ -131,6 +131,22 @@ Removed support for Elasticsearch 1.x
 Elasticsearch 1.x is no longer supported in this release. Please upgrade to a 2.x or 5.x release of Elasticsearch before upgrading to Wagtail 2.0.
 
 
+Removed version 1 of the Wagtail API
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Version 1 of the Wagtail API (``wagtail.contrib.wagtailapi``) has been removed from Wagtail.
+
+If you're using version 1, you will need to migrate to version 2. Please see
+:doc:`/advanced_topics/api/v2/configuration` and :doc:`/advanced_topics/api/v2/usage`.
+
+If migrating to version 2 is not an option right now (if you have API clients that you don't
+have direct control over, such as a mobile app), you can find the implementation of the
+version 1 API in the new `wagtailapi_legacy <https://github.com/wagtail/wagtailapi_legacy>`_ repository.
+
+This repository has been created to provide a place for the community to collaborate on supporting
+legacy versions of the API until everyone has migrated to an officially supported version.
+
+
 ``wagtail.images.views.serve.generate_signature`` now returns a string
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
