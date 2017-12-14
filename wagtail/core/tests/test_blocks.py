@@ -446,7 +446,7 @@ class TestRichTextBlock(TestCase):
         render_form should produce the editor-specific rendition of the rich text value
         (which includes e.g. 'data-linktype' attributes on <a> elements)
         """
-        block = blocks.RichTextBlock()
+        block = blocks.RichTextBlock(editor='hallo')
         value = RichText('<p>Merry <a linktype="page" id="4">Christmas</a>!</p>')
         result = block.render_form(value, prefix='richtext')
         self.assertIn(

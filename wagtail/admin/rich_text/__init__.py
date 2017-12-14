@@ -1,14 +1,15 @@
 from django.conf import settings
 from django.utils.module_loading import import_string
 
-from wagtail.admin.rich_text.editors.hallo import (
+from wagtail.admin.rich_text.editors.hallo import (  # NOQA
     HalloFormatPlugin, HalloHeadingPlugin, HalloListPlugin, HalloPlugin, HalloRichTextArea
-)  # NOQA
+)
+from wagtail.admin.rich_text.editors.draftail import DraftailRichTextArea  # NOQA
 
 
 DEFAULT_RICH_TEXT_EDITORS = {
     'default': {
-        'WIDGET': 'wagtail.admin.rich_text.HalloRichTextArea'
+        'WIDGET': 'wagtail.admin.rich_text.DraftailRichTextArea'
     }
 }
 

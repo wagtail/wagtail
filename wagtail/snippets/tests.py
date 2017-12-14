@@ -716,7 +716,7 @@ class TestInlinePanelMedia(TestCase, WagtailTestUtils):
 
         response = self.client.get(reverse('wagtailsnippets:add', args=('snippetstests', 'multisectionrichtextsnippet')))
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'wagtailadmin/js/hallo-bootstrap.js')
+        self.assertContains(response, 'wagtailadmin/js/draftail.js')
 
 
 class TestSnippetChooserBlock(TestCase):

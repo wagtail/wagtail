@@ -8,7 +8,7 @@ from django.urls import reverse
 from wagtail.tests.testapp.models import SingleEventPage
 from wagtail.tests.testapp.rich_text import CustomRichTextArea
 from wagtail.tests.utils import WagtailTestUtils
-from wagtail.admin.rich_text import HalloRichTextArea, get_rich_text_editor_widget
+from wagtail.admin.rich_text import DraftailRichTextArea, HalloRichTextArea, get_rich_text_editor_widget
 from wagtail.core.blocks import RichTextBlock
 from wagtail.core.models import Page, get_page_models
 from wagtail.core.rich_text import RichText
@@ -48,7 +48,7 @@ class TestGetRichTextEditorWidget(TestCase):
         if hasattr(settings, 'WAGTAILADMIN_RICH_TEXT_EDITORS'):
             del settings.WAGTAILADMIN_RICH_TEXT_EDITORS
 
-        self.assertIsInstance(get_rich_text_editor_widget(), HalloRichTextArea)
+        self.assertIsInstance(get_rich_text_editor_widget(), DraftailRichTextArea)
 
     @override_settings(WAGTAILADMIN_RICH_TEXT_EDITORS={
         'default': {
@@ -79,7 +79,6 @@ class TestGetRichTextEditorWidget(TestCase):
         self.assertIsInstance(get_rich_text_editor_widget('custom'), CustomRichTextArea)
 
 
-@override_settings()
 class TestDefaultRichText(BaseRichTextEditHandlerTestCase, WagtailTestUtils):
 
     def setUp(self):
@@ -89,9 +88,58 @@ class TestDefaultRichText(BaseRichTextEditHandlerTestCase, WagtailTestUtils):
 
         self.login()
 
+    @override_settings()
+    def test_default_editor_in_rich_text_field(self):
         # Simulate the absence of a setting
         if hasattr(settings, 'WAGTAILADMIN_RICH_TEXT_EDITORS'):
             del settings.WAGTAILADMIN_RICH_TEXT_EDITORS
+
+        response = self.client.get(reverse(
+            'wagtailadmin_pages:add', args=('tests', 'defaultrichtextfieldpage', self.root_page.id)
+        ))
+
+        # Check status code
+        self.assertEqual(response.status_code, 200)
+
+        # Check that draftail (default editor) initialisation is applied
+        self.assertContains(response, "window.draftail.initEditor('body',")
+
+        # check that media for draftail is being imported
+        self.assertContains(response, 'wagtailadmin/js/draftail.js')
+
+    @override_settings()
+    def test_default_editor_in_rich_text_block(self):
+        # Simulate the absence of a setting
+        if hasattr(settings, 'WAGTAILADMIN_RICH_TEXT_EDITORS'):
+            del settings.WAGTAILADMIN_RICH_TEXT_EDITORS
+
+        response = self.client.get(reverse(
+            'wagtailadmin_pages:add', args=('tests', 'defaultrichblockfieldpage', self.root_page.id)
+        ))
+
+        # Check status code
+        self.assertEqual(response.status_code, 200)
+
+        # Check that draftail (default editor) initialisation is applied
+        self.assertContains(response, "window.draftail.initEditor('__PREFIX__-value',")
+
+        # check that media for draftail is being imported
+        self.assertContains(response, 'wagtailadmin/js/draftail.js')
+
+
+@override_settings(WAGTAILADMIN_RICH_TEXT_EDITORS={
+    'default': {
+        'WIDGET': 'wagtail.admin.rich_text.HalloRichTextArea'
+    },
+})
+class TestHalloRichText(BaseRichTextEditHandlerTestCase, WagtailTestUtils):
+
+    def setUp(self):
+        super().setUp()
+        # Find root page
+        self.root_page = Page.objects.get(id=2)
+
+        self.login()
 
     def test_default_editor_in_rich_text_field(self):
         response = self.client.get(reverse(
@@ -101,7 +149,7 @@ class TestDefaultRichText(BaseRichTextEditHandlerTestCase, WagtailTestUtils):
         # Check status code
         self.assertEqual(response.status_code, 200)
 
-        # Check that hallo (default editor by now)
+        # Check that hallo (default editor now) initialisation is applied
         self.assertContains(response, 'makeHalloRichTextEditable("id_body",')
 
         # check that media for the default hallo features (but not others) is being imported
@@ -116,7 +164,7 @@ class TestDefaultRichText(BaseRichTextEditHandlerTestCase, WagtailTestUtils):
         # Check status code
         self.assertEqual(response.status_code, 200)
 
-        # Check that hallo (default editor by now)
+        # Check that hallo (default editor now) initialisation is applied
         self.assertContains(response, 'makeHalloRichTextEditable("__PREFIX__-value",')
 
         # check that media for the default hallo features (but not others) is being imported
@@ -219,7 +267,6 @@ class TestRichTextValue(TestCase):
         )
         self.root_page.add_child(instance=self.single_event_page)
 
-
     def test_render(self):
         text = '<p>To the <a linktype="page" id="{}">moon</a>!</p>'.format(
             self.single_event_page.id
@@ -275,6 +322,11 @@ class TestHalloJsWithCustomPluginOptions(BaseRichTextEditHandlerTestCase, Wagtai
         self.assertIn('makeHalloRichTextEditable("body", {"halloheadings": {"formatBlocks": ["p", "h2"]}});', form_html)
 
 
+@override_settings(WAGTAILADMIN_RICH_TEXT_EDITORS={
+    'default': {
+        'WIDGET': 'wagtail.admin.rich_text.HalloRichTextArea'
+    },
+})
 class TestHalloJsWithFeaturesKwarg(BaseRichTextEditHandlerTestCase, WagtailTestUtils):
 
     def setUp(self):

@@ -79,11 +79,13 @@ class TestWagtailPageTests(WagtailPageTests):
             self.assertCanNotCreateAt(EventIndex, EventPage)
 
     def test_assert_can_create(self):
-
         self.assertFalse(EventIndex.objects.exists())
         self.assertCanCreate(self.root, EventIndex, {
             'title': 'Event Index',
-            'intro': '<p>Event intro</p>'})
+            'intro': '''{"entityMap": {},"blocks": [
+                {"inlineStyleRanges": [], "text": "Event intro", "depth": 0, "type": "unstyled", "key": "00000", "entityRanges": []}
+            ]}'''
+        })
         self.assertTrue(EventIndex.objects.exists())
 
         self.assertCanCreate(self.root, StreamPage, {
@@ -93,7 +95,9 @@ class TestWagtailPageTests(WagtailPageTests):
             'body-0-order': '0',
             'body-0-deleted': '',
             'body-1-type': 'rich_text',
-            'body-1-value': '<p>Dit is onze mooie text in een ferrari</p>',
+            'body-1-value': '''{"entityMap": {},"blocks": [
+                {"inlineStyleRanges": [], "text": "Dit is onze mooie text in een ferrari", "depth": 0, "type": "unstyled", "key": "00000", "entityRanges": []}
+            ]}''',
             'body-1-order': '1',
             'body-1-deleted': '',
             'body-count': '2'

@@ -203,6 +203,9 @@ WAGTAIL_USER_CUSTOM_FIELDS = ['country', 'attachment']
 
 WAGTAILADMIN_RICH_TEXT_EDITORS = {
     'default': {
+        'WIDGET': 'wagtail.admin.rich_text.DraftailRichTextArea'
+    },
+    'hallo': {
         'WIDGET': 'wagtail.admin.rich_text.HalloRichTextArea'
     },
     'custom': {

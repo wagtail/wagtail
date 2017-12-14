@@ -4231,15 +4231,15 @@ class TestInlinePanelMedia(TestCase, WagtailTestUtils):
         homepage = Page.objects.get(id=2)
         self.login()
 
-        # simplepage does not need hallo...
+        # simplepage does not need draftail...
         response = self.client.get(reverse('wagtailadmin_pages:add', args=('tests', 'simplepage', homepage.id)))
         self.assertEqual(response.status_code, 200)
-        self.assertNotContains(response, 'wagtailadmin/js/hallo-bootstrap.js')
+        self.assertNotContains(response, 'wagtailadmin/js/draftail.js')
 
         # but sectionedrichtextpage does
         response = self.client.get(reverse('wagtailadmin_pages:add', args=('tests', 'sectionedrichtextpage', homepage.id)))
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'wagtailadmin/js/hallo-bootstrap.js')
+        self.assertContains(response, 'wagtailadmin/js/draftail.js')
 
 
 class TestInlineStreamField(TestCase, WagtailTestUtils):
@@ -4737,7 +4737,9 @@ class TestPreview(TestCase, WagtailTestUtils):
         self.post_data = {
             'title': "Beach party",
             'slug': 'beach-party',
-            'body': "party on wayne",
+            'body': '''{"entityMap": {},"blocks": [
+                {"inlineStyleRanges": [], "text": "party on wayne", "depth": 0, "type": "unstyled", "key": "00000", "entityRanges": []}
+            ]}''',
             'date_from': '2017-08-01',
             'audience': 'public',
             'location': 'the beach',
