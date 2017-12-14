@@ -1,0 +1,16 @@
+============================
+Wagtail 1.12.4 release notes
+============================
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Bug fixes
+~~~~~~~~~
+
+* Fix support of ``ATOMIC_REBUILD`` for projects with Elasticsearch client ``>=1.7.0`` (Mikalai Radchuk)
