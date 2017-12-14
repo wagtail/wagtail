@@ -71,7 +71,7 @@ class ContentstateConverter():
             'composite_decorators': [
                 BR,
             ],
-            'engine': 'html5lib',
+            'engine': 'string',
         }
 
         for feature in self.features:
