@@ -392,10 +392,8 @@ class TestDeleteViewWithProtectedRelation(TestCase, WagtailTestUtils):
             'Impossible to delete: this object is referenced '
             'by other objects through protected relations.'
         )
-        self.assertContains(
-            response,
-            '<tr><td>The Lord of the Rings</td><td>Book</td></tr>',
-            html=True)
+        self.assertContains(response, '<td>The Lord of the Rings</td>',
+                            html=True)
 
         # Author not deleted
         self.assertTrue(Author.objects.filter(id=1).exists())
