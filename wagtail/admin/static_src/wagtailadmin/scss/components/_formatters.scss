@@ -108,6 +108,10 @@
         border: 1px solid $color-grey-2;
         background: #fff;
     }
+
+    &.disabled {
+        pointer-events: none;
+    }
 }
 
 button.status-tag:hover,

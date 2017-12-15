@@ -9,7 +9,7 @@
 
     {% csrf_token %}
     <input type="hidden" name="next" value="{% url 'wagtailadmin_pages:edit' page.id %}" />
-    <button type="submit" class="status-tag {{ page.locked|yesno:'primary,secondary' }}{% if page_perms.can_lock %} disabled{% endif %}">
+    <button type="submit" class="status-tag {{ page.locked|yesno:'primary,secondary' }}{% if not page_perms.can_lock %} disabled{% endif %}">
         {% if page.locked %}
             {% trans 'Locked' %}
         {% else %}
