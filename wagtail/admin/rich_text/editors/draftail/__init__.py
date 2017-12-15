@@ -35,9 +35,9 @@ class DraftailRichTextArea(WidgetWithScript, widgets.HiddenInput):
 
     def render(self, name, value, attrs=None):
         if value is None:
-            translated_value = None
-        else:
-            translated_value = self.converter.from_database_format(value)
+            value = ''
+
+        translated_value = self.converter.from_database_format(value)
         return super().render(name, translated_value, attrs)
 
     def render_js_init(self, id_, name, value):
