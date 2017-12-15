@@ -43,6 +43,8 @@ Changelog
  * Fix: Fixed error on Elasticsearch backend when passing a queryset as an `__in` filter (Karl Hobley, Matt Westcott)
  * Fix: `__isnull` filters no longer fail on Elasticsearch 5 (Karl Hobley)
  * Fix: Prevented intermittent failures on Postgres search backend when a field is defined as both a `SearchField` and a `FilterField` (Matt Westcott)
+ * Fix: Alt text of images in rich text is no longer truncated on double-quote characters (Matt Westcott)
+ * Fix: Ampersands in embed URLs within rich text are no longer double-escaped (Matt Westcott)
 
 
 1.13.1 (17.11.2017)

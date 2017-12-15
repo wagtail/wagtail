@@ -61,6 +61,8 @@ Bug fixes
  * Fixed error on Elasticsearch backend when passing a queryset as an ``__in`` filter (Karl Hobley, Matt Westcott)
  * ``__isnull`` filters no longer fail on Elasticsearch 5 (Karl Hobley)
  * Prevented intermittent failures on Postgres search backend when a field is defined as both a ``SearchField`` and a ``FilterField`` (Matt Westcott)
+ * Alt text of images in rich text is no longer truncated on double-quote characters (Matt Westcott)
+ * Ampersands in embed URLs within rich text are no longer double-escaped (Matt Westcott)
 
 
 Upgrade considerations
