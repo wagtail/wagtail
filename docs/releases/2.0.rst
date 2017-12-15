@@ -72,6 +72,12 @@ Removed support for Python 2.7, Django 1.8 and Django 1.10
 Python 2.7, Django 1.8 and Django 1.10 are no longer supported in this release. You are advised to upgrade your project to Python 3 and Django 1.11 before upgrading to Wagtail 2.0.
 
 
+Added support for Django 2.0
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Before upgrading to Django 2.0, you are advised to review the `release notes <https://docs.djangoproject.com/en/2.0/releases/2.0/>`_, especially the `backwards incompatible changes <https://docs.djangoproject.com/en/2.0/releases/2.0/#backwards-incompatible-changes-in-2-0>`_ and `removed features <https://docs.djangoproject.com/en/2.0/releases/2.0/#features-removed-in-2-0>`_.
+
+
 Wagtail module path updates
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
