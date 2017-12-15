@@ -1,7 +1,8 @@
+from functools import lru_cache
+
 from django.core.exceptions import PermissionDenied
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
-from django.utils.lru_cache import lru_cache
 from django.utils.text import capfirst
 from django.utils.translation import ugettext as _
 
