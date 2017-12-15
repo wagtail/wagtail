@@ -14,7 +14,7 @@ from wagtail.search.backends.base import (
     BaseSearchBackend, BaseSearchQueryCompiler, BaseSearchResults)
 from wagtail.search.index import (
     FilterField, Indexed, RelatedFields, SearchField, class_is_indexed)
-from wagtail.search.query import MatchAll, PlainText
+from wagtail.search.query import MatchAll, Term, Prefix, Fuzzy, And, Or, Not, PlainText, Filter, Boost
 
 
 def get_model_root(model):
@@ -372,49 +372,151 @@ class Elasticsearch2SearchQueryCompiler(BaseSearchQueryCompiler):
 
             return filter_out
 
-    def _compile_query(self, query):
-        if isinstance(query, MatchAll):
-            return {'match_all': {}}
+    def _compile_term_query(self, query_type, value, field, boost=1.0, **extra):
+        term_query = {
+            'value': value,
+        }
 
-        elif isinstance(query, PlainText):
-            fields = self.remapped_fields or ['_all', '_partials']
-            operator = query.operator
+        if boost != 1.0:
+            term_query['boost'] = boost
 
-            if len(fields) == 1:
-                if operator == 'or':
-                    return {
-                        'match': {
-                            fields[0]: query.query_string,
-                        }
-                    }
-                return {
-                    'match': {
-                        fields[0]: {
-                            'query': query.query_string,
-                            'operator': operator,
-                        }
-                    }
-                }
+        return {
+            query_type: {
+                field: term_query,
+            }
+        }
 
-            query = {
-                'multi_match': {
-                    'query': query.query_string,
-                    'fields': fields,
+    def _compile_plaintext_query(self, query, fields, boost=1.0):
+        match_query = {
+            'query': query.query_string
+        }
+
+        if query.operator != 'or':
+            match_query['operator'] = query.operator
+
+        if boost != 1.0:
+            match_query['boost'] = boost
+
+        if len(fields) == 1:
+            return {
+                'match': {
+                    fields[0]: match_query
                 }
             }
-            if operator != 'or':
-                query['multi_match']['operator'] = operator
+        else:
+            match_query['fields'] = fields
 
-            return query
+            return {
+                'multi_match': match_query
+            }
+
+    def _compile_query(self, query, field, boost=1.0):
+        if isinstance(query, MatchAll):
+            match_all_query = {}
+
+            if boost != 1.0:
+                match_all_query['boost'] = boost
+
+            return {'match_all': match_all_query}
+
+        elif isinstance(query, Term):
+            return self._compile_term_query('term', query.term, field, query.boost * boost)
+
+        elif isinstance(query, Prefix):
+            return self._compile_term_query('prefix', query.prefix, field, query.boost * boost)
+
+        elif isinstance(query, Fuzzy):
+            return self._compile_term_query('fuzzy', query.term, field, query.boost * boost, fuzziness=query.max_distance)
+
+        elif isinstance(query, And):
+            return {
+                'bool': {
+                    'must': [
+                        self._compile_query(child_query, field, boost)
+                        for child_query in query.get_children()
+                    ]
+                }
+            }
+
+        elif isinstance(query, Or):
+            return {
+                'bool': {
+                    'should': [
+                        self._compile_query(child_query, field, boost)
+                        for child_query in query.get_children()
+                    ]
+                }
+            }
+
+        elif isinstance(query, Not):
+            return {
+                'bool': {
+                    'mustNot': self._compile_query(query.subquery, field, boost)
+                }
+            }
+
+        elif isinstance(query, PlainText):
+            return self._compile_plaintext_query(self.query, [field], boost)
+
+        elif isinstance(query, Filter):
+            bool_query = {
+                'must': self._compile_query(query.query, field, boost),
+            }
+
+            if query.include:
+                bool_query['filter'] = self._compile_query(query.include, field, 0.0)
+
+            if query.exclude:
+                bool_query['mustNot'] = self._compile_query(query.exclude, field, 0.0)
+
+            return {
+                'bool': bool_query,
+            }
+
+        elif isinstance(query, Boost):
+            return self._compile_query(query.subquery, field, boost * query.boost)
 
         else:
             raise NotImplementedError(
                 '`%s` is not supported by the Elasticsearch search backend.'
                 % query.__class__.__name__)
 
-
     def get_inner_query(self):
-        return self._compile_query(self.query)
+        fields = self.remapped_fields or ['_all', '_partials']
+
+        if len(fields) == 0:
+            # No fields. Return a query that'll match nothing
+            return {
+                'bool': {
+                    'mustNot': {'match_all': {}}
+                }
+            }
+
+        # Handle MatchAll and PlainText separately as they were supported
+        # before "search query classes" was implemented and we'd like to
+        # keep the query the same as before
+        if isinstance(self.query, MatchAll):
+            return {'match_all': {}}
+
+        elif isinstance(self.query, PlainText):
+            return self._compile_plaintext_query(self.query, fields)
+
+        else:
+            if len(fields) == 1:
+                return self._compile_query(self.query, fields[0])
+            else:
+                # Compile a query for each field then combine with disjunction
+                # max (or operator which takes the max score out of each of the
+                # field queries)
+                field_queries = []
+                for field in fields:
+                    field_queries.append(self._compile_query(self.query, field))
+
+                return {
+                    'dis_max': {
+                        'queries': field_queries
+                    }
+                }
 
     def get_content_type_filter(self):
         # Query content_type using a "match" query. See comment in

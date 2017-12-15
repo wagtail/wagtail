@@ -443,37 +443,32 @@ class QueryAPITestMixin:
 
     def test_term(self):
         # Single word
-        results = self.backend.search(Term('Javascript'),
+        results = self.backend.search(Term('javascript'),
                                       models.Book.objects.all())
+
         self.assertSetEqual({r.title for r in results},
                             {'JavaScript: The Definitive Guide',
                              'JavaScript: The good parts'})
 
-        # Multiple word
-        results = self.backend.search(Term('Definitive Guide'),
-                                      models.Book.objects.all())
-        self.assertSetEqual({r.title for r in results},
-                            {'JavaScript: The Definitive Guide'})
-
     def test_and(self):
-        results = self.backend.search(And([Term('Javascript'),
-                                           Term('Definitive')]),
+        results = self.backend.search(And([Term('javascript'),
+                                           Term('definitive')]),
                                       models.Book.objects.all())
         self.assertSetEqual({r.title for r in results},
                             {'JavaScript: The Definitive Guide'})
 
-        results = self.backend.search(Term('Javascript') & Term('Definitive'),
+        results = self.backend.search(Term('javascript') & Term('definitive'),
                                       models.Book.objects.all())
         self.assertSetEqual({r.title for r in results},
                             {'JavaScript: The Definitive Guide'})
 
     def test_or(self):
-        results = self.backend.search(Or([Term('Hobbit'), Term('Towers')]),
+        results = self.backend.search(Or([Term('hobbit'), Term('towers')]),
                                       models.Book.objects.all())
         self.assertSetEqual({r.title for r in results},
                             {'The Hobbit', 'The Two Towers'})
 
-        results = self.backend.search(Term('Hobbit') | Term('Towers'),
+        results = self.backend.search(Term('hobbit') | Term('towers'),
                                       models.Book.objects.all())
         self.assertSetEqual({r.title for r in results},
                             {'The Hobbit', 'The Two Towers'})
@@ -493,19 +488,19 @@ class QueryAPITestMixin:
             'Two Scoops of Django 1.11',
         }
 
-        results = self.backend.search(Not(Term('Javascript')),
+        results = self.backend.search(Not(Term('javascript')),
                                       models.Book.objects.all())
         self.assertSetEqual({r.title for r in results}, all_other_titles)
 
-        results = self.backend.search(~Term('Javascript'),
+        results = self.backend.search(~Term('javascript'),
                                       models.Book.objects.all())
         self.assertSetEqual({r.title for r in results}, all_other_titles)
 
     def test_operators_combination(self):
         results = self.backend.search(
-            ((Term('Javascript') & ~Term('Definitive')) |
-             Term('Python') | Term('Rust')) |
-            Term('Two'),
+            ((Term('javascript') & ~Term('definitive')) |
+             Term('python') | Term('rust')) |
+            Term('two'),
             models.Book.objects.all())
         self.assertSetEqual({r.title for r in results},
                             {'JavaScript: The good parts',
@@ -571,84 +566,84 @@ class QueryAPITestMixin:
                                 operator='xor')
 
     def test_filter_equivalent(self):
-        filter = Filter(Term('Javascript'))
+        filter = Filter(Term('javascript'))
         term = filter.child
         self.assertIsInstance(term, Term)
-        self.assertEqual(term.term, 'Javascript')
+        self.assertEqual(term.term, 'javascript')
 
-        filter = Filter(Term('Javascript'), include=Term('Definitive'))
+        filter = Filter(Term('javascript'), include=Term('definitive'))
         and_obj = filter.child
         self.assertIsInstance(and_obj, And)
         javascript = and_obj.children[0]
         self.assertIsInstance(javascript, Term)
-        self.assertEqual(javascript.term, 'Javascript')
+        self.assertEqual(javascript.term, 'javascript')
         boost_obj = and_obj.children[1]
         self.assertIsInstance(boost_obj, Boost)
         self.assertEqual(boost_obj.boost, 0)
         definitive = boost_obj.child
         self.assertIsInstance(definitive, Term)
-        self.assertEqual(definitive.term, 'Definitive')
+        self.assertEqual(definitive.term, 'definitive')
 
-        filter = Filter(Term('Javascript'),
-                        include=Term('Definitive'), exclude=Term('Guide'))
+        filter = Filter(Term('javascript'),
+                        include=Term('definitive'), exclude=Term('guide'))
         and_obj1 = filter.child
         self.assertIsInstance(and_obj1, And)
         and_obj2 = and_obj1.children[0]
         javascript = and_obj2.children[0]
         self.assertIsInstance(javascript, Term)
-        self.assertEqual(javascript.term, 'Javascript')
+        self.assertEqual(javascript.term, 'javascript')
         boost_obj = and_obj2.children[1]
         self.assertIsInstance(boost_obj, Boost)
         self.assertEqual(boost_obj.boost, 0)
         definitive = boost_obj.child
         self.assertIsInstance(definitive, Term)
-        self.assertEqual(definitive.term, 'Definitive')
+        self.assertEqual(definitive.term, 'definitive')
         boost_obj = and_obj1.children[1]
         self.assertIsInstance(boost_obj, Boost)
         self.assertEqual(boost_obj.boost, 0)
         not_obj = boost_obj.child
         self.assertIsInstance(not_obj, Not)
         guide = not_obj.child
-        self.assertEqual(guide.term, 'Guide')
+        self.assertEqual(guide.term, 'guide')
 
     def test_filter_query(self):
-        results = self.backend.search(Filter(Term('Javascript')),
+        results = self.backend.search(Filter(Term('javascript')),
                                       models.Book.objects.all())
         self.assertSetEqual({r.title for r in results},
                             {'JavaScript: The Definitive Guide',
                              'JavaScript: The good parts'})
 
-        results = self.backend.search(Filter(Term('Javascript'),
-                                             include=Term('Definitive')),
+        results = self.backend.search(Filter(Term('javascript'),
+                                             include=Term('definitive')),
                                       models.Book.objects.all())
         self.assertSetEqual({r.title for r in results},
                             {'JavaScript: The Definitive Guide'})
 
-        results = self.backend.search(Filter(Term('Javascript'),
-                                             include=Term('Definitive'),
-                                             exclude=Term('Guide')),
+        results = self.backend.search(Filter(Term('javascript'),
+                                             include=Term('definitive'),
+                                             exclude=Term('guide')),
                                       models.Book.objects.all())
         self.assertSetEqual({r.title for r in results}, set())
 
     def test_boost_equivalent(self):
-        boost = Boost(Term('Guide'), 5)
+        boost = Boost(Term('guide'), 5)
         equivalent = boost.children[0]
         self.assertIsInstance(equivalent, Term)
         self.assertAlmostEqual(equivalent.boost, 5)
 
-        boost = Boost(Term('Guide', boost=0.5), 5)
+        boost = Boost(Term('guide', boost=0.5), 5)
         equivalent = boost.children[0]
         self.assertIsInstance(equivalent, Term)
         self.assertAlmostEqual(equivalent.boost, 2.5)
 
-        boost = Boost(Boost(Term('Guide', 0.1), 3), 5)
+        boost = Boost(Boost(Term('guide', 0.1), 3), 5)
         sub_boost = boost.children[0]
         self.assertIsInstance(sub_boost, Boost)
         sub_boost = sub_boost.children[0]
         self.assertIsInstance(sub_boost, Term)
         self.assertAlmostEqual(sub_boost.boost, 1.5)
 
-        boost = Boost(And([Boost(Term('Guide', 0.1), 3), Term('Two', 2)]), 5)
+        boost = Boost(And([Boost(Term('guide', 0.1), 3), Term('two', 2)]), 5)
         and_obj = boost.children[0]
         self.assertIsInstance(and_obj, And)
         sub_boost = and_obj.children[0]
