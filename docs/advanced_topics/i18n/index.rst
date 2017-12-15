@@ -143,7 +143,7 @@ For each field you would like to be translatable, duplicate it for every languag
         body_fr = StreamField(...)
 
         # Language-independent fields don't need to be duplicated
-        thumbnail_image = models.ForeignKey('wagtailimages.image', ...)
+        thumbnail_image = models.ForeignKey('wagtailimages.image', on_delete=models.CASCADE, ...)
 
 .. note::
 
