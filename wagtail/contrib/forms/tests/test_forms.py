@@ -196,7 +196,6 @@ class TestCustomFormBuilder(TestCase):
         # check max_length is set
         self.assertEqual(form.base_fields['name'].max_length, 120)
 
-
     def test_adding_custom_field(self):
         """Tests that we can add the ipaddress field, which is an extended choice."""
         ExtendedFormField.objects.create(
