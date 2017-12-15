@@ -279,10 +279,10 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         help_text=_("Optional. 'Search Engine Friendly' title. This will appear at the top of the browser window.")
     )
 
-    show_in_menus_default = False
+    show_in_menus_default = True
     show_in_menus = models.BooleanField(
         verbose_name=_('show in menus'),
-        default=False,
+        default=True,
         help_text=_("Whether a link to this page will appear in automatically generated menus")
     )
     search_description = models.TextField(verbose_name=_('search description'), blank=True)

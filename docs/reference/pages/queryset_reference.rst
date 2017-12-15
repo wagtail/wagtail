@@ -62,12 +62,12 @@ Reference
 
         .. note::
 
-            To put your page in menus, set the show_in_menus flag to true:
+            To hide your page from menus, set the show_in_menus flag to false:
 
             .. code-block:: python
 
-                # Add 'my_page' to the menu
-                my_page.show_in_menus = True
+                # Hides 'my_page' from menus
+                my_page.show_in_menus = False
 
     .. automethod:: not_in_menu
 
