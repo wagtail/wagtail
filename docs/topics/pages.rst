@@ -77,7 +77,7 @@ This example represents a typical blog post:
 
 
     class BlogPageRelatedLink(Orderable):
-        page = ParentalKey(BlogPage, related_name='related_links')
+        page = ParentalKey(BlogPage, on_delete=models.CASCADE, related_name='related_links')
         name = models.CharField(max_length=255)
         url = models.URLField()
 
@@ -384,7 +384,7 @@ For example, the following inline model can be used to add related links (a list
 
 
     class BlogPageRelatedLink(Orderable):
-        page = ParentalKey(BlogPage, related_name='related_links')
+        page = ParentalKey(BlogPage, on_delete=models.CASCADE, related_name='related_links')
         name = models.CharField(max_length=255)
         url = models.URLField()
 

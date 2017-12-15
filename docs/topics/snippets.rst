@@ -137,8 +137,8 @@ To attach multiple adverts to a page, the ``SnippetChooserPanel`` can be placed 
   ...
 
   class BookPageAdvertPlacement(Orderable, models.Model):
-      page = ParentalKey('demo.BookPage', related_name='advert_placements')
-      advert = models.ForeignKey('demo.Advert', related_name='+')
+      page = ParentalKey('demo.BookPage', on_delete=models.CASCADE, related_name='advert_placements')
+      advert = models.ForeignKey('demo.Advert', on_delete=models.CASCADE, related_name='+')
 
       class Meta:
           verbose_name = "advert placement"
@@ -218,7 +218,7 @@ Adding tags to snippets is very similar to adding tags to pages. The only differ
     from taggit.managers import TaggableManager
 
     class AdvertTag(TaggedItemBase):
-        content_object = ParentalKey('demo.Advert', related_name='tagged_items')
+        content_object = ParentalKey('demo.Advert', on_delete=models.CASCADE, related_name='tagged_items')
 
     @register_snippet
     class Advert(ClusterableModel):
