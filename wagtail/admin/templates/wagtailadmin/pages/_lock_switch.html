@@ -4,28 +4,16 @@
     {% page_permissions page as page_perms %}
 {% endif %}
 
-<div class="lock-indicator {% if page.locked %}locked{% else %}unlocked{% endif %}">
+<form action="{% url page.locked|yesno:'wagtailadmin_pages:unlock,wagtailadmin_pages:lock' page.id %}" method="POST" class="lock-indicator {{ page.locked|yesno:'locked,unlocked' }}">
     {% trans "Edit lock" %}
 
-    {% if page.locked %}
-        {% if page_perms.can_lock %}
-            <form action="{% url 'wagtailadmin_pages:unlock' page.id %}" method="POST" class="status-tag primary">
-                {% csrf_token %}
-                <input type="hidden" name="next" value="{% url 'wagtailadmin_pages:edit' page.id %}">
-                <input type="submit" class="button unbutton" value="{% trans "Locked" %}">
-            </form>
+    {% csrf_token %}
+    <input type="hidden" name="next" value="{% url 'wagtailadmin_pages:edit' page.id %}" />
+    <button type="submit" class="status-tag {{ page.locked|yesno:'primary,secondary' }}{% if page_perms.can_lock %} disabled{% endif %}">
+        {% if page.locked %}
+            {% trans 'Locked' %}
         {% else %}
-            <span class="status-tag primary">Locked</span>
+            {% trans 'Unlocked' %}
         {% endif %}
-    {% else %}
-        {% if page_perms.can_lock %}
-            <form action="{% url 'wagtailadmin_pages:lock' page.id %}" method="POST" class="status-tag secondary">
-                {% csrf_token %}
-                <input type="hidden" name="next" value="{% url 'wagtailadmin_pages:edit' page.id %}">
-                <input type="submit" class="button unbutton" value="{% trans "Unlocked" %}">
-            </form>
-        {% else %}
-            <span class="status-tag secondary">Unlocked</span>
-        {% endif %}
-    {% endif %}
-</div>
+    </button>
+</form>
