@@ -93,7 +93,7 @@ class FormBuilder:
                 inspect.getmembers(self.__class__, inspect.isfunction)
                 if f[0].startswith('create_') and f[0].endswith('_field')
             ]
-            raise Exception(
+            raise AttributeError(
                 "Could not find function matching format \
                 create_<fieldname>_field for type: " + type,
                 "Must be one of: " + ", ".join(method_list)
