@@ -372,24 +372,25 @@ class Elasticsearch2SearchQueryCompiler(BaseSearchQueryCompiler):
 
             return filter_out
 
-    def get_inner_query(self):
-        if isinstance(self.query, MatchAll):
+    def _compile_query(self, query):
+        if isinstance(query, MatchAll):
             return {'match_all': {}}
-        elif isinstance(self.query, PlainText):
+
+        elif isinstance(query, PlainText):
             fields = self.remapped_fields or ['_all', '_partials']
-            operator = self.query.operator
+            operator = query.operator
 
             if len(fields) == 1:
                 if operator == 'or':
                     return {
                         'match': {
-                            fields[0]: self.query.query_string,
+                            fields[0]: query.query_string,
                         }
                     }
                 return {
                     'match': {
                         fields[0]: {
-                            'query': self.query.query_string,
+                            'query': query.query_string,
                             'operator': operator,
                         }
                     }
@@ -397,7 +398,7 @@ class Elasticsearch2SearchQueryCompiler(BaseSearchQueryCompiler):
 
             query = {
                 'multi_match': {
-                    'query': self.query.query_string,
+                    'query': query.query_string,
                     'fields': fields,
                 }
             }
@@ -409,7 +410,11 @@ class Elasticsearch2SearchQueryCompiler(BaseSearchQueryCompiler):
         else:
             raise NotImplementedError(
                 '`%s` is not supported by the Elasticsearch search backend.'
-                % self.query.__class__.__name__)
+                % query.__class__.__name__)
+
+
+    def get_inner_query(self):
+        return self._compile_query(self.query)
 
     def get_content_type_filter(self):
         # Query content_type using a "match" query. See comment in
