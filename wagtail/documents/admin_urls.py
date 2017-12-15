@@ -16,5 +16,4 @@ urlpatterns = [
     url(r'^chooser/$', chooser.chooser, name='chooser'),
     url(r'^chooser/(\d+)/$', chooser.document_chosen, name='document_chosen'),
     url(r'^chooser/upload/$', chooser.chooser_upload, name='chooser_upload'),
-    url(r'^usage/(\d+)/$', documents.usage, name='document_usage'),
 ]

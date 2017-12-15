@@ -1,5 +1,6 @@
 import re  # parsing HTML with regexes LIKE A BOSS.
 
+from django.db.models import Model
 from django.utils.html import escape
 from django.utils.safestring import mark_safe
 
@@ -15,73 +16,137 @@ from wagtail.core.whitelist import Whitelister
 # to DB representation and back again.
 
 
-class PageLinkHandler:
+class HTMLElement(dict):
+    def __init__(self, name: str, is_closing: bool = False, **attrs):
+        self.name = name
+        self.is_closing = is_closing
+        super().__init__(**attrs)
+
+    @property
+    def open_tag(self):
+        attrs = ''
+        for k, v in sorted(self.items()):
+            if v is not False:
+                attrs += ' %s="%s"' % (escape(k.replace('_', '-')), escape(v))
+        params = (self.name, attrs)
+        if self.is_closing:
+            return '<%s%s />' % params
+        return '<%s%s>' % params
+
+    @property
+    def close_tag(self):
+        if self.is_closing:
+            return ''
+        return '</%s>' % self.name
+
+
+class LinkHandler:
     """
-    PageLinkHandler will be invoked whenever we encounter an <a> element in HTML content
-    with an attribute of data-linktype="page". The resulting element in the database
-    representation will be:
+    PageLinkHandler will be invoked whenever we encounter an HTML element
+    in rich text content with an attribute of data-linktype="`linktype`".
+    The resulting element in the database representation will be for example:
     <a linktype="page" id="42">hello world</a>
     """
+
+    name = None
+    tag_name = 'a'
+
     @staticmethod
-    def get_db_attributes(tag):
+    def get_model():
+        raise NotImplementedError
+
+    @classmethod
+    def get_instance(cls, attrs):
+        model = cls.get_model()
+        try:
+            return model._default_manager.get(id=attrs['id'])
+        except model.DoesNotExist:
+            pass
+
+    @staticmethod
+    def get_id_pair_from_instance(instance: Model):
+        return 'id', instance.pk
+
+    @staticmethod
+    def get_db_attributes(tag: dict) -> dict:
         """
-        Given an <a> tag that we've identified as a page link embed (because it has a
-        data-linktype="page" attribute), return a dict of the attributes we should
-        have on the resulting <a linktype="page"> element.
+        Given an <`tag_name`> tag that we've identified as a `linktype` embed
+        (because it has a data-linktype="`linktype`" attribute),
+        returns a dict of the attributes we should have on the resulting
+        <`tag_name` linktype="`linktype`"> element.
         """
         return {'id': tag['data-id']}
 
+    @classmethod
+    def get_html_attributes(cls, instance: Model, for_editor: bool) -> dict:
+        if for_editor:
+            return {'data-linktype': cls.name, 'data-id': instance.pk}
+        return {}
+
+    @classmethod
+    def expand_db_attributes(cls, attrs: dict, for_editor: bool) -> str:
+        """
+        Given a dict of attributes from the <`tag_name`> tag
+        stored in the database, returns the real HTML representation.
+        """
+        instance = cls.get_instance(attrs)
+        tag = HTMLElement(cls.tag_name)
+        if instance is not None:
+            tag.update(cls.get_html_attributes(instance, for_editor))
+        return tag.open_tag
+
+
+class PageLinkHandler(LinkHandler):
+    name = 'page'
+
     @staticmethod
-    def expand_db_attributes(attrs, for_editor):
-        try:
-            page = Page.objects.get(id=attrs['id'])
+    def get_model():
+        return Page
 
-            if for_editor:
-                editor_attrs = 'data-linktype="page" data-id="%d" ' % page.id
-                parent_page = page.get_parent()
-                if parent_page:
-                    editor_attrs += 'data-parent-id="%d" ' % parent_page.id
-            else:
-                editor_attrs = ''
+    @classmethod
+    def get_instance(cls, attrs):
+        page = super().get_instance(attrs)
+        if page is None:
+            return
+        return page.specific
 
-            return '<a %shref="%s">' % (editor_attrs, escape(page.specific.url))
-        except Page.DoesNotExist:
-            return "<a>"
+    @classmethod
+    def get_html_attributes(cls, instance, for_editor):
+        attrs = super().get_html_attributes(instance, for_editor)
+        attrs['href'] = instance.specific.url
+        if for_editor:
+            parent_page = instance.get_parent()
+            if parent_page:
+                attrs['data-parent-id'] = parent_page.id
+        return attrs
 
 
 EMBED_HANDLERS = {}
-LINK_HANDLERS = {
-    'page': PageLinkHandler,
-}
-
-has_loaded_embed_handlers = False
-has_loaded_link_handlers = False
+LINK_HANDLERS = {}
 
 
-def get_embed_handler(embed_type):
-    global EMBED_HANDLERS, has_loaded_embed_handlers
+@hooks.register('register_rich_text_link_handler')
+def register_page_embed_handler():
+    return PageLinkHandler
 
-    if not has_loaded_embed_handlers:
-        for hook in hooks.get_hooks('register_rich_text_embed_handler'):
+
+def register_rich_text_handlers():
+    def get_handler(hook):
+        # This try/except allows support for the (undocumented) old way
+        # these rich text hooks worked, by returning a tuple.
+        try:
             handler_name, handler = hook()
-            EMBED_HANDLERS[handler_name] = handler
+        except (TypeError, ValueError):
+            handler = hook()
+            handler_name = handler.name
+        return handler_name, handler
 
-        has_loaded_embed_handlers = True
-
-    return EMBED_HANDLERS[embed_type]
-
-
-def get_link_handler(link_type):
-    global LINK_HANDLERS, has_loaded_link_handlers
-
-    if not has_loaded_link_handlers:
-        for hook in hooks.get_hooks('register_rich_text_link_handler'):
-            handler_name, handler = hook()
-            LINK_HANDLERS[handler_name] = handler
-
-        has_loaded_link_handlers = True
-
-    return LINK_HANDLERS[link_type]
+    for hook in hooks.get_hooks('register_rich_text_embed_handler'):
+        handler_name, handler = get_handler(hook)
+        EMBED_HANDLERS[handler_name] = handler
+    for hook in hooks.get_hooks('register_rich_text_link_handler'):
+        handler_name, handler = get_handler(hook)
+        LINK_HANDLERS[handler_name] = handler
 
 
 class DbWhitelister(Whitelister):
@@ -116,7 +181,7 @@ class DbWhitelister(Whitelister):
         if 'data-embedtype' in tag.attrs:
             embed_type = tag['data-embedtype']
             # fetch the appropriate embed handler for this embedtype
-            embed_handler = get_embed_handler(embed_type)
+            embed_handler = EMBED_HANDLERS[embed_type]
             embed_attrs = embed_handler.get_db_attributes(tag)
             embed_attrs['embedtype'] = embed_type
 
@@ -129,7 +194,7 @@ class DbWhitelister(Whitelister):
                 cls.clean_node(doc, child)
 
             link_type = tag['data-linktype']
-            link_handler = get_link_handler(link_type)
+            link_handler = LINK_HANDLERS[link_type]
             link_attrs = link_handler.get_db_attributes(tag)
             link_attrs['linktype'] = link_type
             tag.attrs.clear()
@@ -166,12 +231,12 @@ def expand_db_html(html, for_editor=False):
         if 'linktype' not in attrs:
             # return unchanged
             return m.group(0)
-        handler = get_link_handler(attrs['linktype'])
+        handler = LINK_HANDLERS[attrs['linktype']]
         return handler.expand_db_attributes(attrs, for_editor)
 
     def replace_embed_tag(m):
         attrs = extract_attrs(m.group(1))
-        handler = get_embed_handler(attrs['embedtype'])
+        handler = EMBED_HANDLERS[attrs['embedtype']]
         return handler.expand_db_attributes(attrs, for_editor)
 
     html = FIND_A_TAG.sub(replace_a_tag, html)

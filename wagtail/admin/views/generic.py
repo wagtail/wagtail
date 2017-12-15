@@ -8,6 +8,7 @@ from django.views.generic.list import BaseListView
 
 from wagtail.admin import messages
 from wagtail.admin.utils import permission_denied
+from wagtail.core.collectors import get_paginated_uses
 
 
 class PermissionCheckedMixin:
@@ -204,7 +205,14 @@ class DeleteView(PermissionCheckedMixin, TemplateResponseMixin, BaseDeleteView):
     def get_object(self, queryset=None):
         if 'pk' not in self.kwargs:
             self.kwargs['pk'] = self.args[0]
-        return super().get_object(queryset)
+        obj = super().get_object(queryset)
+        self.uses = get_paginated_uses(self.request, obj)
+        return obj
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['uses'] = self.uses
+        return context
 
     def get_success_url(self):
         return reverse(self.index_url_name)
@@ -221,6 +229,11 @@ class DeleteView(PermissionCheckedMixin, TemplateResponseMixin, BaseDeleteView):
         return self.success_message.format(self.object)
 
     def delete(self, request, *args, **kwargs):
-        response = super().delete(request, *args, **kwargs)
+        self.object = self.get_object()
+        if self.uses.are_protected:
+            context = self.get_context_data()
+            return self.render_to_response(context)
+        success_url = self.get_success_url()
+        self.object.delete()
         messages.success(request, self.get_success_message())
-        return response
+        return redirect(success_url)

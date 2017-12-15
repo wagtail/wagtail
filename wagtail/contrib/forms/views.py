@@ -7,6 +7,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.encoding import smart_str
 from django.utils.translation import ungettext
 
+from wagtail.core.collectors import get_paginated_uses
 from wagtail.utils.pagination import paginate
 from wagtail.admin import messages
 from wagtail.core.models import Page
@@ -34,7 +35,9 @@ def delete_submissions(request, page_id):
     submission_ids = request.GET.getlist('selected-submissions')
     submissions = page.get_submission_class()._default_manager.filter(id__in=submission_ids)
 
-    if request.method == 'POST':
+    uses = get_paginated_uses(request, *submissions)
+
+    if request.method == 'POST' and not uses.are_protected:
         count = submissions.count()
         submissions.delete()
 
@@ -54,6 +57,7 @@ def delete_submissions(request, page_id):
     return render(request, 'wagtailforms/confirm_delete.html', {
         'page': page,
         'submissions': submissions,
+        'uses': uses,
     })
 
 

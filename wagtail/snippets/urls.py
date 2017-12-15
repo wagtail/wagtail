@@ -14,5 +14,4 @@ urlpatterns = [
     url(r'^(\w+)/(\w+)/add/$', snippets.create, name='add'),
     url(r'^(\w+)/(\w+)/(\d+)/$', snippets.edit, name='edit'),
     url(r'^(\w+)/(\w+)/(\d+)/delete/$', snippets.delete, name='delete'),
-    url(r'^(\w+)/(\w+)/(\d+)/usage/$', snippets.usage, name='usage'),
 ]

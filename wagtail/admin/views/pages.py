@@ -16,6 +16,7 @@ from django.views.decorators.http import require_GET, require_POST
 from django.views.decorators.vary import vary_on_headers
 from django.views.generic import View
 
+from wagtail.core.collectors import get_paginated_uses
 from wagtail.utils.pagination import paginate
 from wagtail.admin import messages, signals
 from wagtail.admin.forms import CopyForm, SearchForm
@@ -511,7 +512,9 @@ def delete(request, page_id):
 
     next_url = get_valid_next_url_from_request(request)
 
-    if request.method == 'POST':
+    uses = get_paginated_uses(request, page)
+
+    if request.method == 'POST' and not uses.are_protected:
         parent_id = page.get_parent().id
         page.delete()
 
@@ -528,6 +531,7 @@ def delete(request, page_id):
 
     return render(request, 'wagtailadmin/pages/confirm_delete.html', {
         'page': page,
+        'uses': uses,
         'descendant_count': page.get_descendant_count(),
         'next': next_url,
     })

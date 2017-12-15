@@ -85,7 +85,7 @@ def register_embed_feature(features):
 
 @hooks.register('register_rich_text_link_handler')
 def register_document_link_handler():
-    return ('document', DocumentLinkHandler)
+    return DocumentLinkHandler
 
 
 class DocumentsSummaryItem(SummaryItem):

@@ -10,7 +10,6 @@ from django.core.files import File
 from django.db import models
 from django.forms.utils import flatatt
 
-from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
@@ -18,7 +17,6 @@ from taggit.managers import TaggableManager
 from unidecode import unidecode
 from willow.image import Image as WillowImage
 
-from wagtail.admin.utils import get_object_usage
 from wagtail.core import hooks
 from wagtail.core.models import CollectionMember
 from wagtail.images.exceptions import InvalidFilterSpecError
@@ -125,14 +123,6 @@ class AbstractImage(CollectionMember, index.Indexed, models.Model):
             full_path = os.path.join(folder_name, filename)
 
         return full_path
-
-    def get_usage(self):
-        return get_object_usage(self)
-
-    @property
-    def usage_url(self):
-        return reverse('wagtailimages:image_usage',
-                       args=(self.id,))
 
     search_fields = CollectionMember.search_fields + [
         index.SearchField('title', partial_match=True, boost=10),
@@ -437,6 +427,9 @@ class AbstractRendition(models.Model):
     width = models.IntegerField(editable=False)
     height = models.IntegerField(editable=False)
     focal_point_key = models.CharField(max_length=16, blank=True, default='', editable=False)
+
+    def __str__(self):
+        return self.file.name
 
     @property
     def url(self):

@@ -104,9 +104,23 @@
 
     &.primary {
         color: $color-grey-2;
-        border: 1px solid $color-grey-2;
+        border-color: $color-grey-2;
         background: #fff;
     }
+
+    &.serious {
+        color: $color-red;
+        border-color: $color-red;
+
+        &:hover {
+            color: $color-white;
+        }
+    }
+}
+
+span.status-tag {
+    pointer-events: none;
+    user-select: none;
 }
 
 form.status-tag:hover,

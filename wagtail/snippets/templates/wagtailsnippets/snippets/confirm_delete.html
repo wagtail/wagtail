@@ -6,18 +6,16 @@
     {% include "wagtailadmin/shared/header.html" with title=delete_str subtitle=instance icon="snippet" %}
 
     <div class="nice-padding">
-        {% usage_count_enabled as uc_enabled %}
-        {% if uc_enabled %}
-            <div class="usagecount">
-                <a href="{{ instance.usage_url }}">{% blocktrans count usage_count=instance.get_usage.count %}Used {{ usage_count }} time{% plural %}Used {{ usage_count }} times{% endblocktrans %}</a>
-            </div>
+        {% if uses.are_protected %}
+            <p>{% trans 'Impossible to delete: this object is referenced by other objects through protected relations.' %}</p>
+        {% else %}
+            <p>{% blocktrans with snippet_type_name=model_opts.verbose_name %}Are you sure you want to delete this {{ snippet_type_name }}?{% endblocktrans %}</p>
+            <form action="{% url 'wagtailsnippets:delete' model_opts.app_label model_opts.model_name instance.id %}" method="POST">
+                {% csrf_token %}
+                <input type="submit" value="{% trans 'Yes, delete' %}" class="button serious" />
+            </form>
         {% endif %}
-
-        <p>{% blocktrans with snippet_type_name=model_opts.verbose_name %}Are you sure you want to delete this {{ snippet_type_name }}?{% endblocktrans %}</p>
-        <form action="{% url 'wagtailsnippets:delete' model_opts.app_label model_opts.model_name instance.id %}" method="POST">
-            {% csrf_token %}
-            <input type="submit" value="{% trans 'Yes, delete' %}" class="button serious" />
-        </form>
+        {% include 'wagtailadmin/shared/uses.html' %}
     </div>
 
 {% endblock %}

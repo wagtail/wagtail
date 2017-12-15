@@ -1,24 +1,20 @@
-from django.utils.html import escape
-
+from wagtail.core.rich_text import LinkHandler
 from wagtail.documents.models import get_document_model
 
 
-class DocumentLinkHandler:
+class DocumentLinkHandler(LinkHandler):
+    name = 'document'
+
+    @staticmethod
+    def get_model():
+        return get_document_model()
+
     @staticmethod
     def get_db_attributes(tag):
         return {'id': tag['data-id']}
 
-    @staticmethod
-    def expand_db_attributes(attrs, for_editor):
-        Document = get_document_model()
-        try:
-            doc = Document.objects.get(id=attrs['id'])
-
-            if for_editor:
-                editor_attrs = 'data-linktype="document" data-id="%d" ' % doc.id
-            else:
-                editor_attrs = ''
-
-            return '<a %shref="%s">' % (editor_attrs, escape(doc.url))
-        except Document.DoesNotExist:
-            return "<a>"
+    @classmethod
+    def get_html_attributes(cls, instance, for_editor):
+        attrs = super().get_html_attributes(instance, for_editor)
+        attrs['href'] = instance.url
+        return attrs

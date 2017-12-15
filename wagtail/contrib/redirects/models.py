@@ -37,6 +37,9 @@ class Redirect(models.Model):
         else:
             return self.redirect_link
 
+    def __str__(self):
+        return '%s ⇒ %s' % (self.old_path, self.link)
+
     def get_is_permanent_display(self):
         if self.is_permanent:
             return _("permanent")

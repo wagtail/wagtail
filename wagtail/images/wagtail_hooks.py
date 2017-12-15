@@ -91,7 +91,7 @@ def register_image_operations():
 
 @hooks.register('register_rich_text_embed_handler')
 def register_image_embed_handler():
-    return ('image', ImageEmbedHandler)
+    return ImageEmbedHandler
 
 
 class ImagesSummaryItem(SummaryItem):

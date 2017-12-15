@@ -3,6 +3,7 @@ from django.urls import reverse
 from django.utils.translation import ugettext as _
 from django.views.decorators.vary import vary_on_headers
 
+from wagtail.core.collectors import get_paginated_uses
 from wagtail.utils.pagination import paginate
 from wagtail.admin import messages
 from wagtail.admin.forms import SearchForm
@@ -92,13 +93,16 @@ def delete(request, redirect_id):
     ):
         return permission_denied(request)
 
-    if request.method == 'POST':
+    uses = get_paginated_uses(request, theredirect)
+
+    if request.method == 'POST' and not uses.are_protected:
         theredirect.delete()
         messages.success(request, _("Redirect '{0}' deleted.").format(theredirect.title))
         return redirect('wagtailredirects:index')
 
     return render(request, "wagtailredirects/confirm_delete.html", {
         'redirect': theredirect,
+        'uses': uses,
     })
 
 

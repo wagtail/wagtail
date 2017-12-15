@@ -387,21 +387,6 @@ a custom user model is being used and extra fields are required in the user crea
 
 A list of the extra custom fields to be appended to the default list.
 
-Usage for images, documents and snippets
-----------------------------------------
-
-.. code-block:: python
-
-    WAGTAIL_USAGE_COUNT_ENABLED = True
-
-When enabled Wagtail shows where a particular image, document or snippet is being used on your site.
-This is disabled by default because it generates a query which may run slowly on sites with large numbers of pages.
-
-A link will appear on the edit page (in the rightmost column) showing you how many times the item is used.
-Clicking this link takes you to the "Usage" page, which shows you where the snippet, document or image is used.
-
-The link is also shown on the delete page, above the "Delete" button.
-
 .. note::
 
     The usage count only applies to direct (database) references. Using documents, images and snippets within StreamFields or rich text fields will not be taken into account.

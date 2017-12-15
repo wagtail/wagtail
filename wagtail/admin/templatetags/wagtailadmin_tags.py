@@ -15,7 +15,8 @@ from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.admin.search import admin_search_areas
 from wagtail.core import hooks
 from wagtail.core.models import (
-    CollectionViewRestriction, Page, PageViewRestriction, UserPagePermissionsProxy)
+    CollectionViewRestriction, Page, PageViewRestriction,
+    UserPagePermissionsProxy)
 from wagtail.core.utils import cautious_slugify as _cautious_slugify
 from wagtail.core.utils import camelcase_to_underscore, escape_script
 
@@ -177,11 +178,6 @@ def hook_output(hook_name):
     """
     snippets = [fn() for fn in hooks.get_hooks(hook_name)]
     return mark_safe(''.join(snippets))
-
-
-@register.simple_tag
-def usage_count_enabled():
-    return getattr(settings, 'WAGTAIL_USAGE_COUNT_ENABLED', False)
 
 
 @register.simple_tag

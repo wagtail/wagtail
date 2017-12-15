@@ -1,31 +1,33 @@
+from wagtail.core.rich_text import LinkHandler
 from wagtail.embeds import format
+from wagtail.embeds.embeds import get_embed
 from wagtail.embeds.exceptions import EmbedException
+from wagtail.embeds.models import Embed
 
 
-class MediaEmbedHandler:
-    """
-    MediaEmbedHandler will be invoked whenever we encounter an element in HTML content
-    with an attribute of data-embedtype="media". The resulting element in the database
-    representation will be:
-    <embed embedtype="media" url="http://vimeo.com/XXXXX">
-    """
+class MediaEmbedHandler(LinkHandler):
+    name = 'media'
+
+    @staticmethod
+    def get_model():
+        return Embed
+
+    @classmethod
+    def get_instance(cls, attrs):
+        return get_embed(attrs['url'])
+
+    @staticmethod
+    def get_id_pair_from_instance(instance):
+        return 'url', instance.url
+
     @staticmethod
     def get_db_attributes(tag):
-        """
-        Given a tag that we've identified as a media embed (because it has a
-        data-embedtype="media" attribute), return a dict of the attributes we should
-        have on the resulting <embed> element.
-        """
         return {
             'url': tag['data-url'],
         }
 
-    @staticmethod
-    def expand_db_attributes(attrs, for_editor):
-        """
-        Given a dict of attributes from the <embed> tag, return the real HTML
-        representation.
-        """
+    @classmethod
+    def expand_db_attributes(cls, attrs, for_editor):
         if for_editor:
             try:
                 return format.embed_to_editor_html(attrs['url'])

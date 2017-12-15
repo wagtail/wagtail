@@ -13,6 +13,9 @@ class SearchPromotion(models.Model):
     def __repr__(self):
         return 'SearchPromotion(query="' + self.query.query_string + '", page="' + self.page.title + '")'
 
+    def __str__(self):
+        return repr(self)
+
     class Meta:
         ordering = ('sort_order', )
         verbose_name = _("search promotion")

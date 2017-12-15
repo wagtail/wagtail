@@ -3,6 +3,7 @@ from django.urls import reverse
 from django.utils.translation import ugettext as _
 from django.views.decorators.vary import vary_on_headers
 
+from wagtail.core.collectors import get_paginated_uses
 from wagtail.utils.pagination import paginate
 from wagtail.admin import messages
 from wagtail.admin.forms import SearchForm
@@ -182,23 +183,14 @@ def delete(request, document_id):
     if not permission_policy.user_has_permission_for_instance(request.user, 'delete', doc):
         return permission_denied(request)
 
-    if request.method == 'POST':
+    uses = get_paginated_uses(request, doc)
+
+    if request.method == 'POST' and not uses.are_protected:
         doc.delete()
         messages.success(request, _("Document '{0}' deleted.").format(doc.title))
         return redirect('wagtaildocs:index')
 
     return render(request, "wagtaildocs/documents/confirm_delete.html", {
         'document': doc,
-    })
-
-
-def usage(request, document_id):
-    Document = get_document_model()
-    doc = get_object_or_404(Document, id=document_id)
-
-    paginator, used_by = paginate(request, doc.get_usage())
-
-    return render(request, "wagtaildocs/documents/usage.html", {
-        'document': doc,
-        'used_by': used_by
+        'uses': uses,
     })
