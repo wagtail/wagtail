@@ -22,6 +22,14 @@ def pageurl(context, page):
         # request.site not available in the current context; fall back on page.url
         return page.url
 
+    # a bit of a catch 22 this, if no page is provided try get it from current_site, which
+    # also may not be present
+    if not page:
+        try:
+            page = current_site.root_page
+        except:
+            return '/'
+
     # Pass page.relative_url the request object, which may contain a cached copy of
     # Site.get_site_root_paths()
     # This avoids page.relative_url having to make a database/cache fetch for this list
