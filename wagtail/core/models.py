@@ -88,10 +88,11 @@ class SiteManager(models.Manager):
             port = None
         return hostname, port
 
-    def _make_cache_key(self, *vals):
-        return '%s:%s' % (
-            SITE_CACHE_KEY_PREFIX, ':'.join(str(v) for v in vals)
-        )
+    def _make_cache_key(self, key_val, *extra_key_vals):
+        """A helper method for generating consistent, appropriately prefixed,
+        cache keys, made up of one or more supplied key values"""
+        return '%s:%s:%s' % (SITE_CACHE_KEY_PREFIX, str(key_val), ':'.join(
+            str(kv) for kv in extra_key_vals))
 
     def _get_cache_keys_for_unique_hostname(self, hostname):
         """Returns a list of keys to use when a populating the site cache for a
