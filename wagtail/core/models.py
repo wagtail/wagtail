@@ -47,6 +47,7 @@ SITE_CACHE_STATUS_KEY = '%s:__status__' % SITE_CACHE_KEY_PREFIX
 SITE_CACHE_STATUS_UNSET = 0
 SITE_CACHE_STATUS_UPDATING = 1
 SITE_CACHE_STATUS_SET = 2
+SITE_CACHE_STATUS_RECHECK_FREQUENCY = 0.05
 
 
 def site_cache_enabled():
@@ -181,9 +182,9 @@ class SiteManager(models.Manager):
         if status == SITE_CACHE_STATUS_UPDATING:
             # when cache is being populated by another process, wait for that
             # to finish before returning anything
-            time.sleep(0.05)
+            time.sleep(SITE_CACHE_STATUS_RECHECK_FREQUENCY)
             while self.get_cache_status() == SITE_CACHE_STATUS_UPDATING:
-                time.sleep(0.05)
+                time.sleep(SITE_CACHE_STATUS_RECHECK_FREQUENCY)
         return False
 
     def repopulate_cache(self):
