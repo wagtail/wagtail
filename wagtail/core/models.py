@@ -49,11 +49,6 @@ def site_cache_enabled():
     return getattr(settings, 'WAGTAIL_SITE_CACHE_ENABLED', False)
 
 
-def site_cache_match_ports():
-    return getattr(settings, 'WAGTAIL_SITE_CACHE_MATCH_PORTS',
-                   (80, 443, 8000, 8080))
-
-
 def check_cache_backend_compatibility():
     msg = (
         "Wagtail's site caching feature is incompatible with DummyCache, "
@@ -99,8 +94,11 @@ class SiteManager(models.Manager):
         )
 
     def _get_cache_keys_for_unique_hostname(self, hostname):
-        keys = [self._make_cache_key(hostname, port)
-                for port in site_cache_match_ports()]
+        """Returns a list of keys to use when a populating the site cache for a
+        ``Site`` with a unique hostname"""
+        valid_ports = getattr(settings, 'WAGTAIL_SITE_CACHE_VALID_PORTS',
+                              (80, 443, 8000, 8080))
+        keys = [self._make_cache_key(hostname, port) for port in valid_ports]
         return keys + [self._make_cache_key(hostname, None)]
 
     @property
