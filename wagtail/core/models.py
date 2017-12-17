@@ -1,5 +1,6 @@
 import json
 import logging
+import time
 import warnings
 from collections import defaultdict
 from io import StringIO
@@ -42,7 +43,10 @@ PAGE_TEMPLATE_VAR = 'page'
 SITE_CACHE_KEY_PREFIX = '_wagtail.core.sites'
 SITE_CACHE_DEFAULT_KEY = '%s:__default__' % SITE_CACHE_KEY_PREFIX
 SITE_CACHE_KEYSET_KEY = '%s:__keyset__' % SITE_CACHE_KEY_PREFIX
-SITE_CACHE_POPULATED_KEY = '%s:__populated__' % SITE_CACHE_KEY_PREFIX
+SITE_CACHE_STATUS_KEY = '%s:__status__' % SITE_CACHE_KEY_PREFIX
+SITE_CACHE_STATUS_UNSET = 0
+SITE_CACHE_STATUS_UPDATING = 1
+SITE_CACHE_STATUS_SET = 2
 
 
 def site_cache_enabled():
@@ -88,6 +92,23 @@ class SiteManager(models.Manager):
             port = None
         return hostname, port
 
+    @staticmethod
+    def get_cache_status():
+        """
+        Returns an integer value indicating the current status of the site
+        cache. The value will be one of:
+
+        SITE_CACHE_STATUS_UNSET:
+            The site cache is empty
+
+        SITE_CACHE_STATUS_UPDATING:
+            The site cache is currently being updated by another proccess
+
+        SITE_CACHE_STATUS_SET:
+            The site cache is set
+        """
+        return cache.get(SITE_CACHE_STATUS_KEY, SITE_CACHE_STATUS_UNSET)
+
     def _make_cache_key(self, key_val, *extra_key_vals):
         """A helper method for generating consistent, appropriately prefixed,
         cache keys, made up of one or more supplied key values"""
@@ -102,10 +123,6 @@ class SiteManager(models.Manager):
         keys = [self._make_cache_key(hostname, port) for port in valid_ports]
         return keys + [self._make_cache_key(hostname, None)]
 
-    @property
-    def cache_is_populated(self):
-        return cache.get(SITE_CACHE_POPULATED_KEY)
-
     def clear_cache(self):
         if not site_cache_enabled():
             return
@@ -115,17 +132,20 @@ class SiteManager(models.Manager):
             cache.delete_many(keys)
 
     def populate_cache(self):
-        """
-        Fetches all ``Site`` objects using a single database query and
-        populates the cache in such a way that any future calls to
-        'get_for_request' won't require any further queries (unless the cache
-        is cleared for some reason)
-        """
+        """Populates the cache with ``Site`` objects, using keys that will
+        allow 'get_for_request' to match ``HttpRequest`` objects to the
+        relevant ``Site`` without needing to query the database"""
         if not site_cache_enabled():
             return
-        # Create a dictionary of keys and values to add to the cache
-        cache_vals = {SITE_CACHE_POPULATED_KEY: True}
+
+        # Set cache status to indicate to other processes that an update
+        # is underway
+        cache.set(SITE_CACHE_STATUS_KEY, SITE_CACHE_STATUS_UPDATING, None)
+
+        # Build a dictionary of keys and values to populate the cache with
+        cache_vals = {SITE_CACHE_STATUS_KEY: SITE_CACHE_STATUS_SET}
         unique_hostname_sites = {}
+
         for site in self.all().select_related('root_page'):
 
             if site.hostname in unique_hostname_sites:
@@ -137,18 +157,35 @@ class SiteManager(models.Manager):
             if site.is_default_site:
                 cache_vals[SITE_CACHE_DEFAULT_KEY] = site
 
+        # ``Site`` objects with unique hostnames are added to the cache with
+        # additional keys to allow them to be matched to requests where the
+        # extracted 'port' differs to ``Site`` objects actual 'port' value
         for hostname, site in unique_hostname_sites.items():
-            # If a site has a unique hostname, use additional keys to allow
-            # it to be matched to requests where the extracted 'port' differs
-            # to the site's stored 'port' value
             cache_vals.update({
                 k: site for k in self._get_cache_keys_for_unique_hostname(hostname)
             })
 
-        # Include a set of used keys in the cache to use for invalidation
+        # Include a set of used keys in the cache to help with invalidation
         cache_vals[SITE_CACHE_KEYSET_KEY] = set(cache_vals.keys())
 
         cache.set_many(cache_vals, None)
+        return cache_vals
+
+    def populate_cache_if_necessary(self):
+        """Conditionally populates the cache depending on the site cache's
+        current status, returning a boolean indicating whether calling the
+        method resulted the cache being updated"""
+        status = self.get_cache_status()
+        if status == SITE_CACHE_STATUS_UNSET:
+            self.populate_cache()
+            return True
+        if status == SITE_CACHE_STATUS_UPDATING:
+            # when cache is being populated by another process, wait for that
+            # to finish before returning anything
+            time.sleep(0.05)
+            while self.get_cache_status() == SITE_CACHE_STATUS_UPDATING:
+                time.sleep(0.05)
+        return False
 
     def repopulate_cache(self):
         """Clear any existing site cache values before populating again"""
@@ -170,11 +207,9 @@ class SiteManager(models.Manager):
         hostname, port = self.get_hostname_and_port_from_request(request)
         if not site_cache_enabled():
             return get_site_for_hostname(hostname, port)
-        if not self.cache_is_populated:
-            self.populate_cache()
-        return cache.get(
-            self._make_cache_key(hostname, port)
-        ) or self.get_default_site()
+        self.populate_cache_if_necessary()
+        return cache.get(self._make_cache_key(hostname, port)) \
+            or self.get_default_site()
 
     def get_by_natural_key(self, hostname, port):
         return self.get(hostname=hostname, port=port)
