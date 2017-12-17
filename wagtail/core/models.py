@@ -72,6 +72,7 @@ def check_cache_backend_compatibility():
     if site_cache_enabled() and isinstance(caches['default'], LocMemCache):
         warnings.warn(msg)
 
+
 check_cache_backend_compatibility()
 
 
