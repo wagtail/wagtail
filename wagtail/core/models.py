@@ -78,10 +78,9 @@ class SiteManager(models.Manager):
 
     @staticmethod
     def get_hostname_and_port_from_request(request):
-        """Reliably extract 'hostname' and 'port' values from the supplied
+        """Reliably extracts 'hostname' and 'port' values from the supplied
         ``HttpRequest`` instance (without raising exceptions), and return them
-        as a tuple.
-        """
+        as a tuple"""
         try:
             hostname = request.get_host().split(':')[0]
         except KeyError:
@@ -193,10 +192,8 @@ class SiteManager(models.Manager):
         self.populate_cache()
 
     def get_default_site(self):
-        """
-        Return the 'default' ``Site`` or raise an exception if no site is
-        set as the default
-        """
+        """Return the 'default' ``Site`` or raise an exception if no site is
+        set as the default"""
         if site_cache_enabled():
             return cache.get(SITE_CACHE_DEFAULT_KEY)
         return self.get(is_default_site=True)
