@@ -147,7 +147,7 @@ class SiteManager(models.Manager):
         cache_vals = {SITE_CACHE_STATUS_KEY: SITE_CACHE_STATUS_SET}
         unique_hostname_sites = {}
 
-        for site in self.all().select_related('root_page'):
+        for site in self.all().select_related('root_page').iterator():
 
             if site.hostname in unique_hostname_sites:
                 del unique_hostname_sites[site.hostname]
