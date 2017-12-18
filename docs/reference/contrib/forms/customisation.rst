@@ -609,19 +609,19 @@ Finally, we add a URL param of `id` based on the ``form_submission`` if it exist
 Customise form submissions listing in Wagtail Admin
 ---------------------------------------------------
 
-The Admin listing of form submissions can be customised by overriding ``get_list_submissions_view_class`` on your FormPage model.
+The Admin listing of form submissions can be customised by setting the attribute ``submissions_list_view_class`` on your FormPage model.
 
-The list view class must be a subclass of ``ListSubmissionsView`` from ``wagtail.contrib.forms.views``, which is a child class of `Django's class based ListView <https://docs.djangoproject.com/en/2.0/ref/class-based-views/generic-display/#listview>`_.
+The list view class must be a subclass of ``SubmissionsListView`` from ``wagtail.contrib.forms.views``, which is a child class of `Django's class based ListView <https://docs.djangoproject.com/en/2.0/ref/class-based-views/generic-display/#listview>`_.
 
 Example:
 
 .. code-block:: python
 
     from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField
-    from wagtail.contrib.forms.views import ListSubmissionsView
+    from wagtail.contrib.forms.views import SubmissionsListView
 
 
-    class CustomListSubmissionsView(ListSubmissionsView):
+    class CustomSubmissionsListView(SubmissionsListView):
         paginate_by = 50  # show more submissions per page, default is 20
         ordering = ('submit_time',)  # order submissions by oldest first, normally newest first
         ordering_csv = ('-submit_time',)  # order csv export by newest first, normally oldest first
@@ -640,9 +640,8 @@ Example:
     class FormPage(AbstractEmailForm):
         """Form Page with customised submissions listing view"""
 
-        def get_list_submissions_view_class(self):
-            # override the normal ListSubmissionsView with our own
-            return CustomListSubmissionsView
+        # set custom view class as class attribute
+        submissions_list_view_class = CustomSubmissionsListView
 
         intro = RichTextField(blank=True)
         thank_you_text = RichTextField(blank=True)

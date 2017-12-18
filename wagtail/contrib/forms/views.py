@@ -15,12 +15,11 @@ from wagtail.contrib.forms.models import get_forms_for_user
 from wagtail.core.models import Page
 
 
-def get_list_submissions_view(request, *args, **kwargs):
+def get_submissions_list_view(request, *args, **kwargs):
     """ Call the form page's list submissions view class """
     page_id = kwargs.get('page_id')
     form_page = get_object_or_404(Page, id=page_id).specific
-    list_submissions_view = form_page.get_list_submissions_view_class().as_view()
-    return list_submissions_view(request, form_page=form_page, *args, **kwargs)
+    return form_page.serve_submissions_list_view(request, *args, **kwargs)
 
 
 class SafePaginateListView(ListView):
@@ -53,7 +52,7 @@ class SafePaginateListView(ListView):
         return super().paginage_queryset(queryset, page_size)
 
 
-class ListFormPagesView(SafePaginateListView):
+class FormPagesListView(SafePaginateListView):
     """ Lists the available form pages for the current user """
     template_name = 'wagtailforms/index.html'
     context_object_name = 'form_pages'
@@ -130,7 +129,7 @@ class DeleteSubmissionsView(TemplateView):
         return context
 
 
-class ListSubmissionsView(SafePaginateListView):
+class SubmissionsListView(SafePaginateListView):
     """ Lists submissions for the provided form page """
     template_name = 'wagtailforms/index_submissions.html'
     context_object_name = 'submissions'

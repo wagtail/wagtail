@@ -37,7 +37,7 @@ from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
 
 from .forms import ValidatedPageForm
-from .views import CustomListSubmissionsView
+from .views import CustomSubmissionsListView
 
 
 EVENT_AUDIENCE_CHOICES = (
@@ -583,8 +583,7 @@ class FormPageWithCustomSubmissionListView(AbstractEmailForm):
     intro = RichTextField(blank=True)
     thank_you_text = RichTextField(blank=True)
 
-    def get_list_submissions_view_class(self):
-        return CustomListSubmissionsView
+    submissions_list_view_class = CustomSubmissionsListView
 
     def get_submission_class(self):
         return CustomFormPageSubmission

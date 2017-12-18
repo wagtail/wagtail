@@ -4,7 +4,7 @@ from django.template.response import TemplateResponse
 
 from wagtail.admin import messages
 from wagtail.admin.utils import user_passes_test
-from wagtail.contrib.forms.views import ListSubmissionsView
+from wagtail.contrib.forms.views import SubmissionsListView
 
 
 def user_is_called_bob(user):
@@ -25,7 +25,7 @@ def message_test(request):
         return TemplateResponse(request, 'wagtailadmin/base.html')
 
 
-class CustomListSubmissionsView(ListSubmissionsView):
+class CustomSubmissionsListView(SubmissionsListView):
     paginate_by = 50
     ordering = ('submit_time',)
     ordering_csv = ('-submit_time',)

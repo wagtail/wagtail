@@ -153,9 +153,11 @@ class AbstractForm(Page):
     A Form Page. Pages implementing a form should inherit from it
     """
 
+    base_form_class = WagtailAdminFormPageForm
+
     form_builder = FormBuilder
 
-    base_form_class = WagtailAdminFormPageForm
+    submissions_list_view_class = None
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -217,16 +219,6 @@ class AbstractForm(Page):
 
         return FormSubmission
 
-    def get_list_submissions_view_class(self):
-        """
-        Returns list submissions view class.
-
-        You can override this method to provide custom view class.
-        Your class must be inherited from ListSubmissionsView.
-        """
-        from wagtail.contrib.forms.views import ListSubmissionsView
-        return ListSubmissionsView
-
     def process_form_submission(self, form):
         """
         Accepts form instance with submitted data, user and page.
@@ -255,6 +247,20 @@ class AbstractForm(Page):
             self.get_landing_page_template(request),
             context
         )
+
+    def serve_submissions_list_view(self, request, *args, **kwargs):
+        """
+        Returns list submissions view for admin.
+
+        `list_submissions_view_class` can bse set to provide custom view class.
+        Your class must be inherited from SubmissionsListView.
+        """
+        view_class = self.submissions_list_view_class
+        if view_class is None:
+            from wagtail.contrib.forms.views import SubmissionsListView
+            view_class = SubmissionsListView
+        view = view_class.as_view()
+        return view(request, form_page=self, *args, **kwargs)
 
     def serve(self, request, *args, **kwargs):
         if request.method == 'POST':
