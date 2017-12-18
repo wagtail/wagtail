@@ -122,7 +122,8 @@ class SiteManager(models.Manager):
         valid_ports = getattr(settings, 'WAGTAIL_SITE_CACHE_VALID_PORTS',
                               (80, 443, 8000, 8080))
         keys = [self._make_cache_key(hostname, port) for port in valid_ports]
-        return keys + [self._make_cache_key(hostname, None)]
+        keys.append(self._make_cache_key(hostname, None))
+        return keys
 
     def clear_cache(self):
         if not site_cache_enabled():
@@ -160,7 +161,7 @@ class SiteManager(models.Manager):
 
         # ``Site`` objects with unique hostnames are added to the cache with
         # additional keys to allow them to be matched to requests where the
-        # extracted 'port' differs to ``Site`` objects actual 'port' value
+        # extracted 'port' differs from a ``Site`` object's stored 'port' value
         for hostname, site in unique_hostname_sites.items():
             cache_vals.update({
                 k: site for k in self._get_cache_keys_for_unique_hostname(hostname)
