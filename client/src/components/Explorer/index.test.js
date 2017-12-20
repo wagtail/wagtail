@@ -22,7 +22,7 @@ describe('Explorer index', () => {
       const toggleNode = document.querySelector('#t');
 
       initExplorer(explorerNode, toggleNode);
-      expect(document.body.innerHTML).toContain('data-reactroot');
+      expect(document.body.innerHTML).toContain('href');
     });
   });
 });
