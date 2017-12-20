@@ -1,5 +1,3 @@
-import React, { Component } from 'react';
-
 /* eslint-disable import/no-mutable-exports */
 let perfMiddleware;
 
