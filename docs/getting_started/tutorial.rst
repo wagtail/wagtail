@@ -69,9 +69,9 @@ Edit ``home/models.py`` as follows, to add a ``body`` field to the model:
 
     from django.db import models
 
-    from wagtail.core.models import Page
-    from wagtail.core.fields import RichTextField
-    from wagtail.admin.edit_handlers import FieldPanel
+    from wagtail.wagtailcore.models import Page
+    from wagtail.wagtailcore.fields import RichTextField
+    from wagtail.wagtailadmin.edit_handlers import FieldPanel
 
 
     class HomePage(Page):
@@ -162,9 +162,9 @@ Lets start with a simple index page for our blog. In ``blog/models.py``:
 
 .. code-block:: python
 
-    from wagtail.core.models import Page
-    from wagtail.core.fields import RichTextField
-    from wagtail.admin.edit_handlers import FieldPanel
+    from wagtail.wagtailcore.models import Page
+    from wagtail.wagtailcore.fields import RichTextField
+    from wagtail.wagtailadmin.edit_handlers import FieldPanel
 
 
     class BlogIndexPage(Page):
@@ -216,10 +216,10 @@ Now we need a model and template for our blog posts. In ``blog/models.py``:
 
     from django.db import models
 
-    from wagtail.core.models import Page
-    from wagtail.core.fields import RichTextField
-    from wagtail.admin.edit_handlers import FieldPanel
-    from wagtail.search import index
+    from wagtail.wagtailcore.models import Page
+    from wagtail.wagtailcore.fields import RichTextField
+    from wagtail.wagtailadmin.edit_handlers import FieldPanel
+    from wagtail.wagtailsearch import index
 
 
     # Keep the definition of BlogIndexPage, and add:
@@ -407,11 +407,11 @@ Add a new ``BlogPageGalleryImage`` model to ``models.py``:
 
     from modelcluster.fields import ParentalKey
 
-    from wagtail.core.models import Page, Orderable
-    from wagtail.core.fields import RichTextField
-    from wagtail.admin.edit_handlers import FieldPanel, InlinePanel
-    from wagtail.images.edit_handlers import ImageChooserPanel
-    from wagtail.search import index
+    from wagtail.wagtailcore.models import Page, Orderable
+    from wagtail.wagtailcore.fields import RichTextField
+    from wagtail.wagtailadmin.edit_handlers import FieldPanel, InlinePanel
+    from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
+    from wagtail.wagtailsearch import index
 
 
     # ... (Keep the definition of BlogIndexPage, and update BlogPage:)
@@ -570,11 +570,11 @@ First, alter ``models.py`` once more:
     from modelcluster.contrib.taggit import ClusterTaggableManager
     from taggit.models import TaggedItemBase
 
-    from wagtail.core.models import Page, Orderable
-    from wagtail.core.fields import RichTextField
-    from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
-    from wagtail.images.edit_handlers import ImageChooserPanel
-    from wagtail.search import index
+    from wagtail.wagtailcore.models import Page, Orderable
+    from wagtail.wagtailcore.fields import RichTextField
+    from wagtail.wagtailadmin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
+    from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
+    from wagtail.wagtailsearch import index
 
 
     # ... (Keep the definition of BlogIndexPage)
@@ -718,7 +718,7 @@ First, we define a ``BlogCategory`` model. A category is not a page in its own r
 
 .. code-block:: python
 
-    from wagtail.snippets.models import register_snippet
+    from wagtail.wagtailsnippets.models import register_snippet
 
 
     @register_snippet
