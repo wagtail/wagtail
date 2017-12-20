@@ -21,6 +21,7 @@ exports[`Explorer renders 1`] = `
     Subscription {
       "listeners": Object {
         "clear": [Function],
+        "get": [Function],
         "notify": [Function],
         "subscribe": [Function],
       },
@@ -80,6 +81,7 @@ exports[`Explorer visible 1`] = `
     Subscription {
       "listeners": Object {
         "clear": [Function],
+        "get": [Function],
         "notify": [Function],
         "subscribe": [Function],
       },

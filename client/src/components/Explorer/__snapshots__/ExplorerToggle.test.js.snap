@@ -7,6 +7,7 @@ exports[`ExplorerToggle basic 1`] = `
     Subscription {
       "listeners": Object {
         "clear": [Function],
+        "get": [Function],
         "notify": [Function],
         "subscribe": [Function],
       },
