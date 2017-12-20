@@ -27,6 +27,7 @@
   },
   "jest": {
     "setupFiles": [
+      "./client/tests/adapter.js",
       "./client/tests/stubs.js",
       "./client/tests/mock-fetch.js"
     ],
@@ -41,8 +42,9 @@
     "babel-plugin-lodash": "^3.2.11",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
-    "enzyme": "^2.8.2",
-    "enzyme-to-json": "^1.5.1",
+    "enzyme": "^3.2.0",
+    "enzyme-adapter-react-15": "^1.0.5",
+    "enzyme-to-json": "^3.3.0",
     "eslint": "^2.9.0",
     "eslint-config-wagtail": "0.1.1",
     "eslint-import-resolver-webpack": "^0.8.1",
@@ -57,7 +59,7 @@
     "gulp-size": "^2.1.0",
     "gulp-sourcemaps": "~1.5.2",
     "gulp-util": "~2.2.14",
-    "jest": "^20.0.4",
+    "jest": "^22.0.3",
     "mustache": "^2.2.1",
     "npm-run-all": "^4.1.1",
     "react-addons-perf": "^15.4.2",
