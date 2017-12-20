@@ -14,12 +14,15 @@ exports[`Explorer renders 1`] = `
       "getState": [Function],
       "replaceReducer": [Function],
       "subscribe": [Function],
+      Symbol(observable): [Function],
     }
   }
   storeSubscription={
     Subscription {
       "listeners": Object {
+        "clear": [Function],
         "notify": [Function],
+        "subscribe": [Function],
       },
       "onStateChange": [Function],
       "parentSub": undefined,
@@ -30,7 +33,7 @@ exports[`Explorer renders 1`] = `
         "subscribe": [Function],
         Symbol(observable): [Function],
       },
-      "unsubscribe": null,
+      "unsubscribe": [Function],
     }
   }
 />
@@ -70,12 +73,15 @@ exports[`Explorer visible 1`] = `
       "getState": [Function],
       "replaceReducer": [Function],
       "subscribe": [Function],
+      Symbol(observable): [Function],
     }
   }
   storeSubscription={
     Subscription {
       "listeners": Object {
+        "clear": [Function],
         "notify": [Function],
+        "subscribe": [Function],
       },
       "onStateChange": [Function],
       "parentSub": undefined,
@@ -86,7 +92,7 @@ exports[`Explorer visible 1`] = `
         "subscribe": [Function],
         Symbol(observable): [Function],
       },
-      "unsubscribe": null,
+      "unsubscribe": [Function],
     }
   }
 />

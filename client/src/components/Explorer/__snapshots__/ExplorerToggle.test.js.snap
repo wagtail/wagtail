@@ -6,7 +6,9 @@ exports[`ExplorerToggle basic 1`] = `
   storeSubscription={
     Subscription {
       "listeners": Object {
+        "clear": [Function],
         "notify": [Function],
+        "subscribe": [Function],
       },
       "onStateChange": [Function],
       "parentSub": undefined,
@@ -18,7 +20,7 @@ exports[`ExplorerToggle basic 1`] = `
         "replaceReducer": [Function],
         "subscribe": [Function],
       },
-      "unsubscribe": null,
+      "unsubscribe": [Function],
     }
   }
 >
