@@ -155,6 +155,7 @@
     // images render within the rich text area in the same styles that would appear on the front-end.
     .richtext-image {
         margin-top: 3px; // close as possible to match line-height space above p
+
         img {
             width: 100%;
         }

@@ -7,7 +7,7 @@ exports[`ExplorerHeader #depth at root 1`] = `
   href="/admin/pages/"
   icon=""
   isLoading={false}
-  onClick={[Function]}
+  onClick={[MockFunction]}
   preventDefault={true}
   target={null}
 >
@@ -33,7 +33,7 @@ exports[`ExplorerHeader #page 1`] = `
   href="/admin/pages/a/"
   icon=""
   isLoading={false}
-  onClick={[Function]}
+  onClick={[MockFunction]}
   preventDefault={true}
   target={null}
 >
@@ -59,7 +59,7 @@ exports[`ExplorerHeader basic 1`] = `
   href="/admin/pages/"
   icon=""
   isLoading={false}
-  onClick={[Function]}
+  onClick={[MockFunction]}
   preventDefault={true}
   target={null}
 >
