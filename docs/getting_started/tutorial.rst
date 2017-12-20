@@ -219,7 +219,7 @@ Now we need a model and template for our blog posts. In ``blog/models.py``:
     from wagtail.wagtailcore.models import Page
     from wagtail.wagtailcore.fields import RichTextField
     from wagtail.wagtailadmin.edit_handlers import FieldPanel
-    from wagtail.search import index
+    from wagtail.wagtailsearch import index
 
 
     # Keep the definition of BlogIndexPage, and add:
