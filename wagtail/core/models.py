@@ -1,6 +1,5 @@
 import json
 import logging
-import time
 import warnings
 from collections import defaultdict
 from io import StringIO
