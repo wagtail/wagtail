@@ -25,6 +25,10 @@ def get_submissions_list_view(request, *args, **kwargs):
 
 class SafePaginateListView(ListView):
     """ Listing view with safe pagination, allowing incorrect or out of range values """
+
+    paginate_by = 20
+    page_kwarg = DEFAULT_PAGE_KEY
+
     def paginate_queryset(self, queryset, page_size):
         """Paginate the queryset if needed with nice defaults on invalid param."""
         paginator = self.get_paginator(
@@ -57,8 +61,6 @@ class FormPagesListView(SafePaginateListView):
     """ Lists the available form pages for the current user """
     template_name = 'wagtailforms/index.html'
     context_object_name = 'form_pages'
-    paginate_by = 20
-    page_kwarg = DEFAULT_PAGE_KEY
 
     def get_queryset(self):
         """ Return the queryset of form pages for this view """
@@ -134,8 +136,6 @@ class SubmissionsListView(SafePaginateListView):
     """ Lists submissions for the provided form page """
     template_name = 'wagtailforms/index_submissions.html'
     context_object_name = 'submissions'
-    paginate_by = 20
-    page_kwarg = DEFAULT_PAGE_KEY
     form_page = None
     ordering = ('-submit_time',)
     ordering_csv = ('submit_time',)  # keep legacy CSV ordering
