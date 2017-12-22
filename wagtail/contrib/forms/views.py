@@ -160,9 +160,8 @@ class SubmissionsListView(SafePaginateListView):
         queryset = submission_class._default_manager.filter(page=self.form_page)
 
         filtering = self.get_filtering()
-        if filtering:
-            if isinstance(filtering, dict):
-                queryset = queryset.filter(**filtering)
+        if filtering and isinstance(filtering, dict):
+            queryset = queryset.filter(**filtering)
 
         ordering = self.get_ordering()
         if ordering:
@@ -203,21 +202,21 @@ class SubmissionsListView(SafePaginateListView):
     def get_filtering(self):
         """ Return filering as a dict for submissions queryset """
         self.select_date_form = SelectDateForm(self.request.GET)
-        filter = dict()
+        result = dict()
         if self.select_date_form.is_valid():
             date_from = self.select_date_form.cleaned_data.get('date_from')
             date_to = self.select_date_form.cleaned_data.get('date_to')
-            # careful: date_to should be increased by 1 day since the submit_time
-            # is a time so it will always be greater
             if date_to:
+                # careful: date_to must be increased by 1 day
+                # as submit_time is a time so will always be greater
                 date_to += datetime.timedelta(days=1)
-            if date_from and date_to:
-                filter = dict(submit_time__range=[date_from, date_to])
-            elif date_from and not date_to:
-                filter = dict(submit_time__gte=date_from)
-            elif not date_from and date_to:
-                filter = dict(submit_time__lte=date_to)
-        return filter
+                if date_from:
+                    result['submit_time__range'] = [date_from, date_to]
+                else:
+                    result['submit_time__lte'] = date_to
+            elif date_from:
+                result['submit_time__gte'] = date_from
+        return result
 
     def get_csv_filename(self):
         """ Returns the filename for the generated CSV file """
@@ -245,7 +244,7 @@ class SubmissionsListView(SafePaginateListView):
     def get_context_data(self, **kwargs):
         """ Return context for view, handle CSV or normal output """
         context = super().get_context_data(**kwargs)
-        submissions = context[self.context_object_name].all()  # force queryset into list
+        submissions = context[self.context_object_name]
         data_fields = self.form_page.get_data_fields()
         data_rows = []
 
