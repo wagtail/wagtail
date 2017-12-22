@@ -11,7 +11,7 @@ from django.views.generic import ListView, TemplateView
 
 from wagtail.admin import messages
 from wagtail.contrib.forms.forms import SelectDateForm
-from wagtail.contrib.forms.models import get_forms_for_user
+from wagtail.contrib.forms.utils import get_forms_for_user
 from wagtail.core.models import Page
 from wagtail.utils.pagination import DEFAULT_PAGE_KEY
 

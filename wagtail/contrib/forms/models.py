@@ -1,7 +1,6 @@
 import json
 import os
 
-from django.contrib.contenttypes.models import ContentType
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
 from django.shortcuts import render
@@ -11,8 +10,7 @@ from unidecode import unidecode
 
 from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.admin.utils import send_mail
-from wagtail.core import hooks
-from wagtail.core.models import Orderable, Page, UserPagePermissionsProxy, get_page_models
+from wagtail.core.models import Orderable, Page
 
 from .forms import FormBuilder, WagtailAdminFormPageForm
 
@@ -115,37 +113,6 @@ class AbstractFormField(Orderable):
     class Meta:
         abstract = True
         ordering = ['sort_order']
-
-
-_FORM_CONTENT_TYPES = None
-
-
-def get_form_types():
-    global _FORM_CONTENT_TYPES
-    if _FORM_CONTENT_TYPES is None:
-        form_models = [
-            model for model in get_page_models()
-            if issubclass(model, AbstractForm)
-        ]
-
-        _FORM_CONTENT_TYPES = list(
-            ContentType.objects.get_for_models(*form_models).values()
-        )
-    return _FORM_CONTENT_TYPES
-
-
-def get_forms_for_user(user):
-    """
-    Return a queryset of form pages that this user is allowed to access the submissions for
-    """
-    editable_forms = UserPagePermissionsProxy(user).editable_pages()
-    editable_forms = editable_forms.filter(content_type__in=get_form_types())
-
-    # Apply hooks
-    for fn in hooks.get_hooks('filter_form_submissions_for_user'):
-        editable_forms = fn(user, editable_forms)
-
-    return editable_forms
 
 
 class AbstractForm(Page):
