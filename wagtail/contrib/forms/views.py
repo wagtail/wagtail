@@ -13,6 +13,7 @@ from wagtail.admin import messages
 from wagtail.contrib.forms.forms import SelectDateForm
 from wagtail.contrib.forms.models import get_forms_for_user
 from wagtail.core.models import Page
+from wagtail.utils.pagination import DEFAULT_PAGE_KEY
 
 
 def get_submissions_list_view(request, *args, **kwargs):
@@ -57,7 +58,7 @@ class FormPagesListView(SafePaginateListView):
     template_name = 'wagtailforms/index.html'
     context_object_name = 'form_pages'
     paginate_by = 20
-    page_kwarg = 'p'
+    page_kwarg = DEFAULT_PAGE_KEY
 
     def get_queryset(self):
         """ Return the queryset of form pages for this view """
@@ -134,7 +135,7 @@ class SubmissionsListView(SafePaginateListView):
     template_name = 'wagtailforms/index_submissions.html'
     context_object_name = 'submissions'
     paginate_by = 20
-    page_kwarg = 'p'
+    page_kwarg = DEFAULT_PAGE_KEY
     form_page = None
     ordering = ('-submit_time',)
     ordering_csv = ('submit_time',)  # keep legacy CSV ordering
