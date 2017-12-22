@@ -89,9 +89,8 @@ class HalloRichTextArea(WidgetWithScript, widgets.Textarea):
         self.features = kwargs.pop('features', None)
         if self.features is None:
             self.features = features.get_default_features()
-            self.converter = EditorHTMLConverter()
-        else:
-            self.converter = EditorHTMLConverter(self.features)
+
+        self.converter = EditorHTMLConverter(self.features)
 
         # construct a list of plugin objects, by querying the feature registry
         # and keeping the non-null responses from get_editor_plugin
