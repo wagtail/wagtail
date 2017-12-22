@@ -13,6 +13,9 @@ from wagtail.admin.utils import send_mail
 from wagtail.core.models import Orderable, Page
 
 from .forms import FormBuilder, WagtailAdminFormPageForm
+from .views import SubmissionsListView
+
+
 
 FORM_FIELD_CHOICES = (
     ('singleline', _('Single line text')),
@@ -124,7 +127,7 @@ class AbstractForm(Page):
 
     form_builder = FormBuilder
 
-    submissions_list_view_class = None
+    submissions_list_view_class = SubmissionsListView
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -222,11 +225,7 @@ class AbstractForm(Page):
         `list_submissions_view_class` can bse set to provide custom view class.
         Your class must be inherited from SubmissionsListView.
         """
-        view_class = self.submissions_list_view_class
-        if view_class is None:
-            from wagtail.contrib.forms.views import SubmissionsListView
-            view_class = SubmissionsListView
-        view = view_class.as_view()
+        view = self.submissions_list_view_class.as_view()
         return view(request, form_page=self, *args, **kwargs)
 
     def serve(self, request, *args, **kwargs):
