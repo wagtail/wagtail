@@ -22,6 +22,7 @@ Changelog
  * Optimized preview data storage (Bertrand Bordage)
  * Added `render_landing_page` method to `AbstractForm` to be easily overridden and pass `form_submission` to landing page context (Stein Strindhaug)
  * Added `heading` kwarg to `InlinePanel` to allow heading to be set independently of button label (Adrian Turjak)
+ * The value type returned from a `StructBlock` can now be customised (LB (Ben Johnston))
  * Fix: Do not remove stopwords when generating slugs from non-ASCII titles, to avoid issues with incorrect word boundaries (Sævar Öfjörð Magnússon)
  * Fix: The PostgreSQL search backend now preserves ordering of the `QuerySet` when searching with `order_by_relevance=False` (Bertrand Bordage)
  * Fix: Using `modeladmin_register` as a decorator no longer replaces the decorated class with `None` (Tim Heap)
@@ -38,6 +39,12 @@ Changelog
  * Fix: Summary numbers of pages, images and documents were not responsive when greater than 4 digits (Michael Palmer)
  * Fix: Project template now has password validators enabled by default (Matt Westcott)
  * Fix: Alignment options correctly removed from `TableBlock` context menu (LB (Ben Johnston))
+ * Fix: Fix support of `ATOMIC_REBUILD` for projects with Elasticsearch client >=1.7.0 (Mikalai Radchuk)
+ * Fix: Fixed error on Elasticsearch backend when passing a queryset as an `__in` filter (Karl Hobley, Matt Westcott)
+ * Fix: `__isnull` filters no longer fail on Elasticsearch 5 (Karl Hobley)
+ * Fix: Prevented intermittent failures on Postgres search backend when a field is defined as both a `SearchField` and a `FilterField` (Matt Westcott)
+ * Fix: Alt text of images in rich text is no longer truncated on double-quote characters (Matt Westcott)
+ * Fix: Ampersands in embed URLs within rich text are no longer double-escaped (Matt Westcott)
 
 
 1.13.1 (17.11.2017)

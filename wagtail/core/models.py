@@ -445,6 +445,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
     search_fields = [
         index.SearchField('title', partial_match=True, boost=2),
+        index.FilterField('title'),
         index.FilterField('id'),
         index.FilterField('live'),
         index.FilterField('owner'),

@@ -18,6 +18,11 @@ class TestDBBackend(BackendTests, TestCase):
     def test_search_boosting_on_related_fields(self):
         super().test_search_boosting_on_related_fields()
 
+    # Doesn't support ranking
+    @unittest.expectedFailure
+    def test_same_rank_pages(self):
+        super(TestDBBackend, self).test_same_rank_pages()
+
     # Doesn't support searching specific fields
     @unittest.expectedFailure
     def test_search_child_class_field_from_parent(self):
@@ -32,13 +37,3 @@ class TestDBBackend(BackendTests, TestCase):
     @unittest.expectedFailure
     def test_search_callable_field(self):
         super().test_search_callable_field()
-
-    # Broken
-    @unittest.expectedFailure
-    def test_order_by_non_filterable_field(self):
-        super().test_order_by_non_filterable_field()
-
-    # Doesn't support the index API used in this test
-    @unittest.expectedFailure
-    def test_same_rank_pages(self):
-        super().test_same_rank_pages()

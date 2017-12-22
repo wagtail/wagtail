@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 import datetime
 import json
-import unittest
 
 import mock
 from django.db.models import Q
@@ -17,26 +16,6 @@ from .test_backends import BackendTests
 
 class TestElasticsearch5SearchBackend(BackendTests, ElasticsearchCommonSearchBackendTests, TestCase):
     backend_path = 'wagtail.search.backends.elasticsearch5'
-
-    # Broken
-    @unittest.expectedFailure
-    def test_filter_isnull_true(self):
-        super(TestElasticsearch5SearchBackend, self).test_filter_isnull_true()
-
-    # Broken
-    @unittest.expectedFailure
-    def test_filter_in_values_list_subquery(self):
-        super(TestElasticsearch5SearchBackend, self).test_filter_in_values_list_subquery()
-
-    # Broken
-    @unittest.expectedFailure
-    def test_order_by_non_filterable_field(self):
-        super(TestElasticsearch5SearchBackend, self).test_order_by_non_filterable_field()
-
-    # Broken
-    @unittest.expectedFailure
-    def test_delete(self):
-        super(TestElasticsearch5SearchBackend, self).test_delete()
 
 
 class TestElasticsearch5SearchQuery(TestCase):
@@ -200,7 +179,7 @@ class TestElasticsearch5SearchQuery(TestCase):
         # Check it
         expected_result = {'bool': {'filter': [
             {'match': {'content_type': 'searchtests.Book'}},
-            {'missing': {'field': 'title_filter'}}
+            {'bool': {'mustNot': {'exists': {'field': 'title_filter'}}}}
         ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
         self.assertDictEqual(query.get_query(), expected_result)
 
@@ -211,7 +190,7 @@ class TestElasticsearch5SearchQuery(TestCase):
         # Check it
         expected_result = {'bool': {'filter': [
             {'match': {'content_type': 'searchtests.Book'}},
-            {'missing': {'field': 'title_filter'}}
+            {'bool': {'mustNot': {'exists': {'field': 'title_filter'}}}}
         ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
         self.assertDictEqual(query.get_query(), expected_result)
 

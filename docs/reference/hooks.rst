@@ -719,13 +719,13 @@ Page explorer
 
     @hooks.register('register_page_listing_more_buttons')
     def page_listing_more_buttons(page, page_perms, is_parent=False):
-        yield wagtailadmin_widgets.PageListingButton(
+        yield wagtailadmin_widgets.Button(
             'A dropdown button',
             '/goes/to/a/url/',
-            priority=10
+            priority=60
         )
 
-  The ``priority`` argument controls the order the buttons are displayed in the dropdown. Buttons are ordered from low to high priority, so a button with ``priority=10`` will be displayed before a button with ``priority=20``.
+  The ``priority`` argument controls the order the buttons are displayed in the dropdown. Buttons are ordered from low to high priority, so a button with ``priority=10`` will be displayed before a button with ``priority=60``.
 
 
 Buttons with dropdown lists

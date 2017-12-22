@@ -35,6 +35,7 @@ Other features
  * Optimized preview data storage (Bertrand Bordage)
  * Added ``render_landing_page`` method to ``AbstractForm`` to be easily overridden and pass ``form_submission`` to landing page context (Stein Strindhaug)
  * Added ``heading`` kwarg to ``InlinePanel`` to allow heading to be set independently of button label (Adrian Turjak)
+ * The value type returned from a ``StructBlock`` can now be customised. See :ref:`custom_value_class_for_structblock` (LB (Ben Johnston))
 
 Bug fixes
 ~~~~~~~~~
@@ -56,6 +57,12 @@ Bug fixes
  * Summary numbers of pages, images and documents were not responsive when greater than 4 digits (Michael Palmer)
  * Project template now has password validators enabled by default (Matt Westcott)
  * Alignment options correctly removed from ``TableBlock`` context menu (LB (Ben Johnston))
+ * Fix support of ``ATOMIC_REBUILD`` for projects with Elasticsearch client ``>=1.7.0`` (Mikalai Radchuk)
+ * Fixed error on Elasticsearch backend when passing a queryset as an ``__in`` filter (Karl Hobley, Matt Westcott)
+ * ``__isnull`` filters no longer fail on Elasticsearch 5 (Karl Hobley)
+ * Prevented intermittent failures on Postgres search backend when a field is defined as both a ``SearchField`` and a ``FilterField`` (Matt Westcott)
+ * Alt text of images in rich text is no longer truncated on double-quote characters (Matt Westcott)
+ * Ampersands in embed URLs within rich text are no longer double-escaped (Matt Westcott)
 
 
 Upgrade considerations
@@ -65,6 +72,12 @@ Removed support for Python 2.7, Django 1.8 and Django 1.10
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Python 2.7, Django 1.8 and Django 1.10 are no longer supported in this release. You are advised to upgrade your project to Python 3 and Django 1.11 before upgrading to Wagtail 2.0.
+
+
+Added support for Django 2.0
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Before upgrading to Django 2.0, you are advised to review the `release notes <https://docs.djangoproject.com/en/2.0/releases/2.0/>`_, especially the `backwards incompatible changes <https://docs.djangoproject.com/en/2.0/releases/2.0/#backwards-incompatible-changes-in-2-0>`_ and `removed features <https://docs.djangoproject.com/en/2.0/releases/2.0/#features-removed-in-2-0>`_.
 
 
 Wagtail module path updates
@@ -128,6 +141,22 @@ Removed support for Elasticsearch 1.x
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Elasticsearch 1.x is no longer supported in this release. Please upgrade to a 2.x or 5.x release of Elasticsearch before upgrading to Wagtail 2.0.
+
+
+Removed version 1 of the Wagtail API
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Version 1 of the Wagtail API (``wagtail.contrib.wagtailapi``) has been removed from Wagtail.
+
+If you're using version 1, you will need to migrate to version 2. Please see
+:doc:`/advanced_topics/api/v2/configuration` and :doc:`/advanced_topics/api/v2/usage`.
+
+If migrating to version 2 is not an option right now (if you have API clients that you don't
+have direct control over, such as a mobile app), you can find the implementation of the
+version 1 API in the new `wagtailapi_legacy <https://github.com/wagtail/wagtailapi_legacy>`_ repository.
+
+This repository has been created to provide a place for the community to collaborate on supporting
+legacy versions of the API until everyone has migrated to an officially supported version.
 
 
 ``wagtail.images.views.serve.generate_signature`` now returns a string

@@ -17,7 +17,7 @@ for support - use [the 'wagtail' tag on Stack Overflow](http://stackoverflow.com
 Please review the 
 [contributing guidelines](http://docs.wagtail.io/en/latest/contributing/index.html). 
 You might like to start by checking issues with the 
-[difficulty:Easy](https://github.com/wagtail/wagtail/labels/difficulty%3AEasy) label.
+[good first issue](https://github.com/wagtail/wagtail/labels/good%20first%20issue) label.
 
 ## Code reviews
 

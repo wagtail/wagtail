@@ -38,7 +38,7 @@ Within the ``models.py`` of one of your apps, create a model that extends ``wagt
 
 
     class FormField(AbstractFormField):
-        page = ParentalKey('FormPage', related_name='form_fields')
+        page = ParentalKey('FormPage', on_delete=models.CASCADE, related_name='form_fields')
 
 
     class FormPage(AbstractEmailForm):

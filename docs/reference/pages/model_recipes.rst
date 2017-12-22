@@ -150,7 +150,7 @@ Using an example from the Wagtail demo site, here's what the tag model and the r
     from taggit.models import TaggedItemBase
 
     class BlogPageTag(TaggedItemBase):
-        content_object = ParentalKey('demo.BlogPage', related_name='tagged_items')
+        content_object = ParentalKey('demo.BlogPage', on_delete=models.CASCADE, related_name='tagged_items')
 
     class BlogPage(Page):
         ...
