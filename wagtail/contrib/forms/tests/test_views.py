@@ -5,17 +5,17 @@ from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
 
+from wagtail.admin.edit_handlers import get_form_for_model
+from wagtail.admin.forms import WagtailAdminPageForm
+from wagtail.contrib.forms.edit_handlers import FormSubmissionsPanel
+from wagtail.contrib.forms.models import FormSubmission
+from wagtail.contrib.forms.tests.utils import make_form_page, make_form_page_with_custom_submission
+from wagtail.core.models import Page
 from wagtail.tests.testapp.models import (
     CustomFormPageSubmission, FormField, FormFieldForCustomListViewPage,
     FormFieldWithCustomSubmission, FormPage, FormPageWithCustomSubmission,
     FormPageWithCustomSubmissionListView)
 from wagtail.tests.utils import WagtailTestUtils
-from wagtail.admin.edit_handlers import get_form_for_model
-from wagtail.admin.forms import WagtailAdminPageForm
-from wagtail.core.models import Page
-from wagtail.contrib.forms.edit_handlers import FormSubmissionsPanel
-from wagtail.contrib.forms.models import FormSubmission
-from wagtail.contrib.forms.tests.utils import make_form_page, make_form_page_with_custom_submission
 
 
 class TestFormResponsesPanel(TestCase):
@@ -416,6 +416,28 @@ class TestFormsSubmissionsExport(TestCase, WagtailTestUtils):
         self.assertEqual(data_lines[0], 'Submission date,Your email,Your message,Your choices\r')
         self.assertEqual(data_lines[1], '2013-01-01 12:00:00+00:00,old@example.com,this is a really old message,"foo, baz"\r')
         self.assertEqual(data_lines[2], '2014-01-01 12:00:00+00:00,new@example.com,this is a fairly new message,None\r')
+
+    def test_list_submissions_csv_large_export(self):
+        for i in range(100):
+            new_form_submission = FormSubmission.objects.create(
+                page=self.form_page,
+                form_data=json.dumps({
+                    'your-email': "new@example-%s.com" % i,
+                    'your-message': "I like things x %s" % i,
+                }),
+            )
+            new_form_submission.submit_time = '2014-01-01T12:00:00.000Z'
+            new_form_submission.save()
+
+        response = self.client.get(
+            reverse('wagtailforms:list_submissions', args=(self.form_page.id,)),
+            {'action': 'CSV'}
+        )
+
+        # Check that csv export is not paginated
+        self.assertEqual(response.status_code, 200)
+        data_lines = response.content.decode().split("\n")
+        self.assertEqual(104, len(data_lines))
 
     def test_list_submissions_csv_export_after_filter_form_submissions_for_user_hook(self):
         # Hook forbids to delete form submissions for everyone

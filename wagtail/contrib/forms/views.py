@@ -151,6 +151,8 @@ class SubmissionsListView(SafePaginateListView):
             raise PermissionDenied
 
         self.is_csv_export = (self.request.GET.get('action') == 'CSV')
+        if self.is_csv_export:
+            self.paginate_by = None
 
         return super().dispatch(request, *args, **kwargs)
 
@@ -170,6 +172,12 @@ class SubmissionsListView(SafePaginateListView):
             queryset = queryset.order_by(*ordering)
 
         return queryset
+
+    def get_paginate_by(self, queryset):
+        """ Get the number of items to paginate by, or ``None`` for no pagination """
+        if self.is_csv_export:
+            return None
+        return self.paginate_by
 
     def get_validated_ordering(self):
         """ Return a dict of field names with ordering labels if ordering is valid """
