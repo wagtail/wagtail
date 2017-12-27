@@ -128,8 +128,8 @@ def create(request, app_label, model_name):
         return permission_denied(request)
 
     instance = model()
-    edit_handler_class = get_snippet_edit_handler(model)
-    form_class = edit_handler_class.get_form_class(model)
+    edit_handler = get_snippet_edit_handler(model)
+    form_class = edit_handler.get_form_class()
 
     if request.method == 'POST':
         form = form_class(request.POST, request.FILES, instance=instance)
@@ -152,10 +152,12 @@ def create(request, app_label, model_name):
             return redirect('wagtailsnippets:list', app_label, model_name)
         else:
             messages.error(request, _("The snippet could not be created due to errors."))
-            edit_handler = edit_handler_class(instance=instance, form=form)
+            edit_handler = edit_handler.bind_to_instance(instance=instance,
+                                                         form=form)
     else:
         form = form_class(instance=instance)
-        edit_handler = edit_handler_class(instance=instance, form=form)
+        edit_handler = edit_handler.bind_to_instance(instance=instance,
+                                                     form=form)
 
     return render(request, 'wagtailsnippets/snippets/create.html', {
         'model_opts': model._meta,
@@ -172,8 +174,8 @@ def edit(request, app_label, model_name, id):
         return permission_denied(request)
 
     instance = get_object_or_404(model, id=id)
-    edit_handler_class = get_snippet_edit_handler(model)
-    form_class = edit_handler_class.get_form_class(model)
+    edit_handler = get_snippet_edit_handler(model)
+    form_class = edit_handler.get_form_class()
 
     if request.method == 'POST':
         form = form_class(request.POST, request.FILES, instance=instance)
@@ -196,10 +198,12 @@ def edit(request, app_label, model_name, id):
             return redirect('wagtailsnippets:list', app_label, model_name)
         else:
             messages.error(request, _("The snippet could not be saved due to errors."))
-            edit_handler = edit_handler_class(instance=instance, form=form)
+            edit_handler = edit_handler.bind_to_instance(instance=instance,
+                                                         form=form)
     else:
         form = form_class(instance=instance)
-        edit_handler = edit_handler_class(instance=instance, form=form)
+        edit_handler = edit_handler.bind_to_instance(instance=instance,
+                                                     form=form)
 
     return render(request, 'wagtailsnippets/snippets/edit.html', {
         'model_opts': model._meta,

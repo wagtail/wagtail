@@ -8,7 +8,7 @@ from django.utils.translation import ugettext as _
 
 from wagtail.admin import messages
 from wagtail.admin.edit_handlers import (
-    ObjectList, extract_panel_definitions_from_model_class)
+    ObjectList, TabbedInterface, extract_panel_definitions_from_model_class)
 from wagtail.core.models import Site
 
 from .forms import SiteSwitchForm
@@ -51,8 +51,8 @@ def edit(request, app_name, model_name, site_pk):
     setting_type_name = model._meta.verbose_name
 
     instance = model.for_site(site)
-    edit_handler_class = get_setting_edit_handler(model)
-    form_class = edit_handler_class.get_form_class(model)
+    edit_handler = get_setting_edit_handler(model)
+    form_class = edit_handler.get_form_class()
 
     if request.method == 'POST':
         form = form_class(request.POST, request.FILES, instance=instance)
@@ -70,10 +70,12 @@ def edit(request, app_name, model_name, site_pk):
             return redirect('wagtailsettings:edit', app_name, model_name, site.pk)
         else:
             messages.error(request, _("The setting could not be saved due to errors."))
-            edit_handler = edit_handler_class(instance=instance, form=form)
+            edit_handler = edit_handler.bind_to_instance(
+                instance=instance, form=form)
     else:
         form = form_class(instance=instance)
-        edit_handler = edit_handler_class(instance=instance, form=form)
+        edit_handler = edit_handler.bind_to_instance(
+            instance=instance, form=form)
 
     # Show a site switcher form if there are multiple sites
     site_switcher = None
@@ -88,5 +90,5 @@ def edit(request, app_name, model_name, site_pk):
         'form': form,
         'site': site,
         'site_switcher': site_switcher,
-        'tabbed': edit_handler_class.__name__ == '_TabbedInterface',
+        'tabbed': isinstance(edit_handler, TabbedInterface),
     })
