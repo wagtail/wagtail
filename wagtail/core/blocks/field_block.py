@@ -532,11 +532,14 @@ class ChooserBlock(FieldBlock):
         self._help_text = help_text
         super().__init__(**kwargs)
 
+    def get_queryset(self):
+        return self.target_model.objects.all()
+
     """Abstract superclass for fields that implement a chooser interface (page, image, snippet etc)"""
     @cached_property
     def field(self):
         return forms.ModelChoiceField(
-            queryset=self.target_model.objects.all(), widget=self.widget, required=self._required,
+            queryset=self.get_queryset(), widget=self.widget, required=self._required,
             help_text=self._help_text)
 
     def to_python(self, value):
