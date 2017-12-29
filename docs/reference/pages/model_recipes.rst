@@ -168,7 +168,7 @@ Now that we have the many-to-many tag relationship in place, we can fit in a way
 .. code-block:: python
     
     from django.shortcuts import render
-    
+
     class BlogIndexPage(Page):
         ...
         def serve(self, request):
