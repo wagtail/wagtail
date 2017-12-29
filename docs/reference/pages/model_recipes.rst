@@ -166,6 +166,8 @@ Wagtail's admin provides a nice interface for inputting tags into your content, 
 Now that we have the many-to-many tag relationship in place, we can fit in a way to render both sides of the relation. Here's more of the Wagtail demo site ``models.py``, where the index model for ``BlogPage`` is extended with logic for filtering the index by tag:
 
 .. code-block:: python
+    
+    from django.shortcuts import render
 
     class BlogIndexPage(Page):
         ...
