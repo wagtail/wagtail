@@ -265,6 +265,7 @@ Contributors
 * Adrian Turjak
 * Michael Palmer
 * Philipp Bosch
+* misraX
 
 Translators
 ===========
