@@ -67,7 +67,8 @@ Changelog
  * Fix: Style of the page unlock button was broken (Bertrand Bordage)
  * Fix: Admin search no longer floods browser history (Bertrand Bordage)
  * Fix: Version comparison now handles custom primary keys on inline models correctly (LB (Ben Johnston))
- * Fixed error when inserting chooser panels into FieldRowPanel (Florent Osmont, Bertrand Bordage)
+ * Fix: Fixed error when inserting chooser panels into FieldRowPanel (Florent Osmont, Bertrand Bordage)
+ * Fix: Reinstated missing error reporting on image upload (Matt Westcott)
 
 
 1.13.1 (17.11.2017)

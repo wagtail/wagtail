@@ -96,6 +96,7 @@ Bug fixes
  * Admin search no longer floods browser history (Bertrand Bordage)
  * Version comparison now handles custom primary keys on inline models correctly (LB (Ben Johnston))
  * Fixed error when inserting chooser panels into FieldRowPanel (Florent Osmont, Bertrand Bordage)
+ * Reinstated missing error reporting on image upload (Matt Westcott)
 
 
 Upgrade considerations
