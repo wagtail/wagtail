@@ -70,3 +70,38 @@ def get_form_class_check(app_configs, **kwargs):
                 id='wagtailadmin.E002'))
 
     return errors
+
+
+def check_panel_config(cls, context='model'):
+    """Generic check function for panel config, see usage within specific modules."""
+
+    errors = []
+    panels = [
+        'content_panels',
+        'promote_panels',
+        'settings_panels',
+    ]
+
+    if hasattr(cls, 'edit_handler'):
+        # edit_handler is checked in `get_form_class_check`
+        return errors
+
+    for panel in panels:
+        if not hasattr(cls, panel):
+            continue
+        name = cls.__name__
+        tab = panel.replace('_panels', '').title()
+        error_hint = """Ensure that {} uses `panels` instead of `{}`
+        or set up an `edit_handler` if you want a tabbed editing interface.
+        There are no default tabs on non-Page models so there will be no
+        {} tab for the {} to render in.
+        """.format(name, panel, tab, panel)
+        error = Warning(
+            "{}.{} will have no effect on {} editing".format(name, panel, context),
+            hint=error_hint,
+            obj=cls,
+            id='wagtailadmin.W002'
+        )
+        errors.append(error)
+
+    return errors
