@@ -1,5 +1,7 @@
 from django.apps import AppConfig
 
+from . import checks  # NOQA
+
 
 class WagtailSnippetsAppConfig(AppConfig):
     name = 'wagtail.snippets'
