@@ -1,6 +1,3 @@
-# coding: utf-8
-import unittest
-
 from django.test import TestCase
 
 from wagtail.search.tests.test_backends import QueryAPITestMixin, BackendTests

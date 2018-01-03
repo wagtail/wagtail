@@ -249,8 +249,8 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
         return queryset[start:stop]
 
     def _process_lookup(self, field, lookup, value):
-        return Q(**{field.get_attname(self.queryset.model)
-                    + '__' + lookup: value})
+        return Q(**{field.get_attname(self.queryset.model) +
+                    '__' + lookup: value})
 
     def _connect_filters(self, filters, connector, negated):
         if connector == 'AND':
