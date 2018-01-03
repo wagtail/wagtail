@@ -5,12 +5,12 @@ dist: trusty
 # Use container-based infrastructure
 sudo: false
 
-# Install JDK8 for Elasticsearch 5
+# Install JDK9 for Elasticsearch 5
 addons:
   apt:
     packages:
-     - oracle-java8-installer
-     - oracle-java8-set-default
+     - oracle-java9-installer
+     - oracle-java9-set-default
 
 matrix:
   include:
