@@ -36,7 +36,7 @@ Other features
  * Added ``render_landing_page`` method to ``AbstractForm`` to be easily overridden and pass ``form_submission`` to landing page context (Stein Strindhaug)
  * Added ``heading`` kwarg to ``InlinePanel`` to allow heading to be set independently of button label (Adrian Turjak)
  * The value type returned from a ``StructBlock`` can now be customised. See :ref:`custom_value_class_for_structblock` (LB (Ben Johnston))
- * Added `bgcolor` image operation (Karl Hobley)
+ * Added ``bgcolor`` image operation (Karl Hobley)
  * Added ``WAGTAILADMIN_USER_LOGIN_FORM`` setting for overriding the admin login form (Mike Dingjan)
 
 Bug fixes
