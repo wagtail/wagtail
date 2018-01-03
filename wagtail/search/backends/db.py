@@ -36,9 +36,7 @@ class DatabaseSearchQueryCompiler(BaseSearchQueryCompiler):
         if connector == 'AND':
             q = models.Q(*filters)
         elif connector == 'OR':
-            q = models.Q(filters[0])
-            for fil in filters[1:]:
-                q |= fil
+            q = OR([models.Q(fil) for fil in filters])
         else:
             return
 

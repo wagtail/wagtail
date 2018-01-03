@@ -3,7 +3,7 @@ from warnings import warn
 from django.contrib.postgres.search import SearchQuery as PostgresSearchQuery
 from django.contrib.postgres.search import SearchRank, SearchVector
 from django.db import DEFAULT_DB_ALIAS, NotSupportedError, connections, transaction
-from django.db.models import F, Manager, TextField, Value
+from django.db.models import F, Manager, TextField, Value, Q
 from django.db.models.constants import LOOKUP_SEP
 from django.db.models.functions import Cast
 from django.utils.encoding import force_text
@@ -162,6 +162,9 @@ class Index:
         else:
             self.add_items_update_then_create(content_type_pk, objs, config)
 
+    def delete_item(self, item):
+        item.index_entries.using(self.db_alias).delete()
+
     def __str__(self):
         return self.name
 
@@ -244,6 +247,23 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
             # Adds a default ordering to avoid issue #3729.
             queryset = queryset.order_by('-pk')
         return queryset[start:stop]
+
+    def _process_lookup(self, field, lookup, value):
+        return Q(**{field.get_attname(self.queryset.model)
+                    + '__' + lookup: value})
+
+    def _connect_filters(self, filters, connector, negated):
+        if connector == 'AND':
+            q = Q(*filters)
+        elif connector == 'OR':
+            q = OR([Q(fil) for fil in filters])
+        else:
+            return
+
+        if negated:
+            q = ~q
+
+        return q
 
 
 class PostgresSearchResults(BaseSearchResults):
@@ -329,7 +349,7 @@ class PostgresSearchBackend(BaseSearchBackend):
             self.get_index_for_object(obj_list[0]).add_items(model, obj_list)
 
     def delete(self, obj):
-        obj.index_entries.all().delete()
+        self.get_index_for_object(obj).delete_item(obj)
 
 
 SearchBackend = PostgresSearchBackend

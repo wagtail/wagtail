@@ -38,14 +38,3 @@ class TestPostgresSearchBackend(QueryAPITestMixin, BackendTests, TestCase):
                              [(6, 'A'), (4, 'B'), (2, 'C'), (0, 'D')])
         self.assertListEqual(determine_boosts_weights([-2, -1, 0, 1, 2, 3, 4]),
                              [(4, 'A'), (2, 'B'), (0, 'C'), (-2, 'D')])
-
-    # Broken
-    # Note: This is applying the filter, but should be raising the FieldError instead
-    @unittest.expectedFailure
-    def test_filter_on_non_filterable_field(self):
-        super().test_filter_on_non_filterable_field()
-
-    # Broken
-    @unittest.expectedFailure
-    def test_order_by_non_filterable_field(self):
-        super().test_order_by_non_filterable_field()
