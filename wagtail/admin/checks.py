@@ -53,6 +53,7 @@ def base_form_class_check(app_configs, **kwargs):
 
 @register()
 def get_form_class_check(app_configs, **kwargs):
+    from wagtail.admin.edit_handlers import BaseInlinePanel
     from wagtail.admin.forms import WagtailAdminPageForm
     from wagtail.core.models import get_page_models
 
@@ -68,6 +69,12 @@ def get_form_class_check(app_configs, **kwargs):
                     cls=cls.__name__),
                 obj=cls,
                 id='wagtailadmin.E002'))
+        for tab in edit_handler.children:
+            for panel in [p for p in tab.children if issubclass(p, BaseInlinePanel)]:
+                errors += check_panel_config(
+                    panel.related.related_model,
+                    context='InlinePanel model'
+                )
 
     return errors
 
