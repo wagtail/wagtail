@@ -51,26 +51,40 @@ def site_cache_enabled():
     return getattr(settings, 'WAGTAIL_SITE_CACHE_ENABLED', False)
 
 
-def check_cache_backend_compatibility():
-    msg = (
-        "Wagtail's site caching feature is incompatible with DummyCache, "
-        "which you are using as your default cache backend. Either turn this "
-        "feature off by changing your WAGTAIL_SITE_CACHE_ENABLED setting to "
-        "False, or update your CACHES setting to use a compatible backend, "
-        "such as DatabaseCache, FileBasedCache, MemcachedCache, PyLibMCCache, "
-        "or LocMemCache (for development/testing)")
-    if site_cache_enabled() and isinstance(caches['default'], DummyCache):
-        raise ImproperlyConfigured(msg)
-    msg = (
-        "WAGTAIL_SITE_CACHE_ENABLED is set to True, but LocMemCache is set as "
-        "the default cache backend. This is fine for local development or "
-        "testing, but unsuitable for any environment where the project runs "
-        "in more than one process")
-    if site_cache_enabled() and isinstance(caches['default'], LocMemCache):
-        warnings.warn(msg)
+def get_site_cache():
+    return caches[getattr(settings, 'WAGTAIL_SITE_CACHE_CACHE', 'default')]
 
 
-check_cache_backend_compatibility()
+def check_site_cache_backend_compatibility():
+    key = getattr(settings, 'WAGTAIL_SITE_CACHE_CACHE', 'default')
+    cache = get_site_cache()
+
+    if isinstance(cache, DummyCache):
+        raise ImproperlyConfigured(
+            "WAGTAIL_SITE_CACHE_ENABLED is set to True, but "
+            "WAGTAIL_SITE_CACHE_CACHE is '{0}', which refers to a cache that "
+            "utilises Django's DummyCache backend. Wagtail's site caching is "
+            "incompatible with DummyCache. Either set "
+            "WAGTAIL_SITE_CACHE_ENABLED to False to disable site caching, or "
+            "update the '{0}' cache in your CACHES setting to use a "
+            "compatible backend, like Memcached, DatabaseCache, "
+            "FileBasedCache or LocMemCache (recommended for development only) "
+            ". If your project uses multiple caches, you can also use the "
+            "WAGTAIL_SITE_CACHE_CACHE setting to specify an alternative cache "
+            "with a compatible backend".format(key))
+
+    if isinstance(cache, LocMemCache):
+        warnings.warn(
+            "WAGTAIL_SITE_CACHE_ENABLED is set to True, but "
+            "WAGTAIL_SITE_CACHE_CACHE is '{0}', which refers to a cache that "
+            "utilises Django's LocMemCache cache backend. This should be fine "
+            "for development or testing, but should be avoided in any "
+            "environment where the project might be running in more than one "
+            "process, as this may lead to inconsistencies in cached data "
+            "between processes""".format(key))
+
+
+check_site_cache_backend_compatibility()
 
 
 class SiteManager(models.Manager):
@@ -90,13 +104,6 @@ class SiteManager(models.Manager):
             port = None
         return hostname, port
 
-    @staticmethod
-    def site_cache_is_empty():
-        """
-        Returns a boolean indicating whether the site cache is currently empty
-        """
-        return cache.get(SITE_CACHE_STATUS_KEY) in (SITE_CACHE_STATUS_EMPTY, None)
-
     def _make_cache_key(self, key_val, *extra_key_vals):
         """A helper method for generating consistent, appropriately prefixed,
         cache keys, made up of one or more supplied key values"""
@@ -115,10 +122,11 @@ class SiteManager(models.Manager):
     def clear_cache(self):
         if not site_cache_enabled():
             return
-        keys = cache.get(SITE_CACHE_KEYSET_KEY)
+        site_cache = get_site_cache()
+        keys = site_cache.get(SITE_CACHE_KEYSET_KEY)
         if keys:
             keys.add(SITE_CACHE_KEYSET_KEY)
-            cache.delete_many(keys)
+            site_cache.delete_many(keys)
 
     def populate_cache(self):
         """Populates the cache with ``Site`` objects, using keys that will
@@ -153,7 +161,7 @@ class SiteManager(models.Manager):
         # Include a set of used keys in the cache to help with invalidation
         cache_vals[SITE_CACHE_KEYSET_KEY] = set(cache_vals.keys())
 
-        cache.set_many(cache_vals, None)
+        get_site_cache().set_many(cache_vals, None)
         return cache_vals
 
     def repopulate_cache(self):
@@ -165,7 +173,7 @@ class SiteManager(models.Manager):
         """Return the 'default' ``Site`` or raise an exception if no site is
         set as the default"""
         if site_cache_enabled():
-            return cache.get(SITE_CACHE_DEFAULT_KEY)
+            return get_site_cache().get(SITE_CACHE_DEFAULT_KEY)
         return self.get(is_default_site=True)
 
     def get_for_request(self, request):
@@ -174,9 +182,9 @@ class SiteManager(models.Manager):
         hostname, port = self.get_hostname_and_port_from_request(request)
         if not site_cache_enabled():
             return get_site_for_hostname(hostname, port)
-        if self.site_cache_is_empty():
+        if not get_site_cache().get(SITE_CACHE_STATUS_KEY) == SITE_CACHE_STATUS_POPULATED:
             self.populate_cache()
-        return cache.get(self._make_cache_key(hostname, port)) \
+        return get_site_cache().get(self._make_cache_key(hostname, port)) \
             or self.get_default_site()
 
     def get_by_natural_key(self, hostname, port):

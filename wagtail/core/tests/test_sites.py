@@ -222,11 +222,11 @@ class TestSiteCacheBackendCompatibility(TestCase):
         }
     )
     def test_error_with_dummycache(self):
-        from wagtail.core.models import check_cache_backend_compatibility
+        from wagtail.core.models import check_site_cache_backend_compatibility
         self.assertRaisesRegex(
             ImproperlyConfigured,
-            "Wagtail's site caching feature is incompatible with DummyCache",
-            check_cache_backend_compatibility
+            "Wagtail's site caching is incompatible with DummyCache",
+            check_site_cache_backend_compatibility
         )
 
     @override_settings(
@@ -238,15 +238,16 @@ class TestSiteCacheBackendCompatibility(TestCase):
         }
     )
     def test_warns_about_locmemcache(self):
-        from wagtail.core.models import check_cache_backend_compatibility
+        from wagtail.core.models import check_site_cache_backend_compatibility
         with warnings.catch_warnings(record=True) as w:
             warnings.simplefilter("always")
-            check_cache_backend_compatibility()
+            check_site_cache_backend_compatibility()
             self.assertEqual(len(w), 1)
             self.assertTrue(issubclass(w[-1].category, UserWarning), True)
             self.assertTrue(
-                "WAGTAIL_SITE_CACHE_ENABLED is set to True, but LocMemCache "
-                "is set as the default cache backend" in str(w[-1].message)
+                "WAGTAIL_SITE_CACHE_CACHE is 'default', which refers to a "
+                "cache that utilises Django's LocMemCache cache backend"
+                in str(w[-1].message)
             )
 
 
