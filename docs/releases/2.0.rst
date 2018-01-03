@@ -36,6 +36,7 @@ Other features
  * Added ``render_landing_page`` method to ``AbstractForm`` to be easily overridden and pass ``form_submission`` to landing page context (Stein Strindhaug)
  * Added ``heading`` kwarg to ``InlinePanel`` to allow heading to be set independently of button label (Adrian Turjak)
  * The value type returned from a ``StructBlock`` can now be customised. See :ref:`custom_value_class_for_structblock` (LB (Ben Johnston))
+ * Added `bgcolor` image operation (Karl Hobley)
 
 Bug fixes
 ~~~~~~~~~
@@ -63,6 +64,7 @@ Bug fixes
  * Prevented intermittent failures on Postgres search backend when a field is defined as both a ``SearchField`` and a ``FilterField`` (Matt Westcott)
  * Alt text of images in rich text is no longer truncated on double-quote characters (Matt Westcott)
  * Ampersands in embed URLs within rich text are no longer double-escaped (Matt Westcott)
+ * Using RGBA images no longer crashes with Pillow >= 4.2.0 (Karl Hobley)
 
 
 Upgrade considerations
