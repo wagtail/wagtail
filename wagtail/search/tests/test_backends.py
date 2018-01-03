@@ -515,15 +515,14 @@ class QueryAPITestMixin:
     # Shortcut query classes
     #
 
-    def test_plain_text(self):
-        # Single word
+    def test_plain_text_single_word(self):
         results = self.backend.search(PlainText('Javascript'),
                                       models.Book.objects.all())
         self.assertSetEqual({r.title for r in results},
                             {'JavaScript: The Definitive Guide',
                              'JavaScript: The good parts'})
 
-        # Multiple words (OR operator)
+    def test_plain_text_multiple_words_or(self):
         results = self.backend.search(PlainText('Javascript Definitive',
                                                 operator='or'),
                                       models.Book.objects.all())
@@ -531,7 +530,7 @@ class QueryAPITestMixin:
                             {'JavaScript: The Definitive Guide',
                              'JavaScript: The good parts'})
 
-        # Multiple words (AND operator)
+    def test_plain_text_multiple_words_and(self):
         results = self.backend.search(PlainText('Javascript Definitive',
                                                 operator='and'),
                                       models.Book.objects.all())
