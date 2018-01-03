@@ -270,7 +270,7 @@ representing the color you would like to use:
 
 .. code-block:: html+Django
 
-    {# Set the image backgrounds to black #}
+    {# Sets the image background to black #}
     {% image page.photo width-400 bgcolor-000 format-jpeg %}
 
 .. _jpeg_image_quality:
