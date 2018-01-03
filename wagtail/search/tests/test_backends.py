@@ -428,6 +428,8 @@ class BackendTests(WagtailTestUtils):
             "The Fellowship of the Ring"
         ])
 
+
+class QueryAPITestMixin:
     #
     # Basic query classes
     #
