@@ -318,7 +318,7 @@ Let's look at the example of adding related links to a :class:`~wagtail.core.mod
   # Orderable helper class, and what amounts to a ForeignKey link
   # to the model we want to add related links to (BookPage)
   class BookPageRelatedLinks(Orderable, RelatedLink):
-      page = ParentalKey('demo.BookPage', related_name='related_links')
+      page = ParentalKey('demo.BookPage', on_delete=models.CASCADE, related_name='related_links')
 
   class BookPage(Page):
     # ...

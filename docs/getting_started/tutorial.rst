@@ -436,7 +436,7 @@ Add a new ``BlogPageGalleryImage`` model to ``models.py``:
 
 
     class BlogPageGalleryImage(Orderable):
-        page = ParentalKey(BlogPage, related_name='gallery_images')
+        page = ParentalKey(BlogPage, on_delete=models.CASCADE, related_name='gallery_images')
         image = models.ForeignKey(
             'wagtailimages.Image', on_delete=models.CASCADE, related_name='+'
         )

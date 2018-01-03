@@ -108,7 +108,7 @@ class ElasticsearchCommonSearchBackendTests(BackendTests):
 
     def test_update_index_command_schema_only(self):
         management.call_command(
-            'update_index', backend_name=self.backend_name, schema_only=True, interactive=False, stdout=StringIO()
+            'update_index', backend_name=self.backend_name, schema_only=True, stdout=StringIO()
         )
 
         # This should not give any results

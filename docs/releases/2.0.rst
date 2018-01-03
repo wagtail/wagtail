@@ -36,6 +36,7 @@ Other features
  * Added ``render_landing_page`` method to ``AbstractForm`` to be easily overridden and pass ``form_submission`` to landing page context (Stein Strindhaug)
  * Added ``heading`` kwarg to ``InlinePanel`` to allow heading to be set independently of button label (Adrian Turjak)
  * The value type returned from a ``StructBlock`` can now be customised. See :ref:`custom_value_class_for_structblock` (LB (Ben Johnston))
+ * Added `bgcolor` image operation (Karl Hobley)
 
 Bug fixes
 ~~~~~~~~~
@@ -61,6 +62,9 @@ Bug fixes
  * Fixed error on Elasticsearch backend when passing a queryset as an ``__in`` filter (Karl Hobley, Matt Westcott)
  * ``__isnull`` filters no longer fail on Elasticsearch 5 (Karl Hobley)
  * Prevented intermittent failures on Postgres search backend when a field is defined as both a ``SearchField`` and a ``FilterField`` (Matt Westcott)
+ * Alt text of images in rich text is no longer truncated on double-quote characters (Matt Westcott)
+ * Ampersands in embed URLs within rich text are no longer double-escaped (Matt Westcott)
+ * Using RGBA images no longer crashes with Pillow >= 4.2.0 (Karl Hobley)
 
 
 Upgrade considerations
@@ -70,6 +74,12 @@ Removed support for Python 2.7, Django 1.8 and Django 1.10
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Python 2.7, Django 1.8 and Django 1.10 are no longer supported in this release. You are advised to upgrade your project to Python 3 and Django 1.11 before upgrading to Wagtail 2.0.
+
+
+Added support for Django 2.0
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Before upgrading to Django 2.0, you are advised to review the `release notes <https://docs.djangoproject.com/en/2.0/releases/2.0/>`_, especially the `backwards incompatible changes <https://docs.djangoproject.com/en/2.0/releases/2.0/#backwards-incompatible-changes-in-2-0>`_ and `removed features <https://docs.djangoproject.com/en/2.0/releases/2.0/#features-removed-in-2-0>`_.
 
 
 Wagtail module path updates

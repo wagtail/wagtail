@@ -402,14 +402,16 @@ class BackendTests(WagtailTestUtils):
         self.assertSetEqual(results_across_pages, same_rank_objects)
 
     def test_delete(self):
-        # Delete foundation
-        models.Book.objects.filter(title="Foundation").delete()
+        foundation = models.Novel.objects.filter(title="Foundation").first()
 
-        # Refresh the index
-        # Note: The delete signal handler should've removed the book, but we still need to refresh the index manually
-        index = self.backend.get_index_for_model(models.Book)
+        # Delete from the search index
+        index = self.backend.get_index_for_model(models.Novel)
         if index:
+            index.delete_item(foundation)
             index.refresh()
+
+        # Delete from the database
+        foundation.delete()
 
         # To test that the book was deleted from the index as well, we will perform the slicing check from an earlier
         # test where "Foundation" was the first result. We need to test it this way so we can pick up the case where
@@ -423,9 +425,10 @@ class BackendTests(WagtailTestUtils):
         results = results[:3]
 
         self.assertEqual(list(r.title for r in results), [
+            # "Foundation"
             "The Hobbit",
             "The Two Towers",
-            "The Fellowship of the Ring"
+            "The Fellowship of the Ring"  # If this item doesn't appear, "Foundation" is still in the index
         ])
 
 

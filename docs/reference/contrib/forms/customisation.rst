@@ -23,7 +23,7 @@ You can do this as shown below.
 
 
     class FormField(AbstractFormField):
-        page = ParentalKey('FormPage', related_name='custom_form_fields')
+        page = ParentalKey('FormPage', on_delete=models.CASCADE, related_name='custom_form_fields')
 
 
     class FormPage(AbstractEmailForm):
@@ -74,7 +74,7 @@ Example:
 
 
     class FormField(AbstractFormField):
-        page = ParentalKey('FormPage', related_name='form_fields')
+        page = ParentalKey('FormPage', on_delete=models.CASCADE, related_name='form_fields')
 
 
     class FormPage(AbstractEmailForm):
@@ -135,7 +135,7 @@ The following example shows how to add a username to the CSV export:
 
 
     class FormField(AbstractFormField):
-        page = ParentalKey('FormPage', related_name='form_fields')
+        page = ParentalKey('FormPage', on_delete=models.CASCADE, related_name='form_fields')
 
 
     class FormPage(AbstractEmailForm):
@@ -213,7 +213,7 @@ Example:
 
 
     class FormField(AbstractFormField):
-        page = ParentalKey('FormPage', related_name='form_fields')
+        page = ParentalKey('FormPage', on_delete=models.CASCADE, related_name='form_fields')
 
 
     class FormPage(AbstractEmailForm):
@@ -309,7 +309,7 @@ The following example shows how to create a multi-step form.
 
 
     class FormField(AbstractFormField):
-        page = ParentalKey('FormPage', related_name='form_fields')
+        page = ParentalKey('FormPage', on_delete=models.CASCADE, related_name='form_fields')
 
 
     class FormPage(AbstractEmailForm):
@@ -455,7 +455,7 @@ First, you need to collect results as shown below:
 
 
     class FormField(AbstractFormField):
-        page = ParentalKey('FormPage', related_name='form_fields')
+        page = ParentalKey('FormPage', on_delete=models.CASCADE, related_name='form_fields')
 
 
     class FormPage(AbstractEmailForm):

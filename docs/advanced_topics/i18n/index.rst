@@ -90,7 +90,7 @@ This feature is enabled through the project's root URL configuration. Just put t
     from wagtail.admin import urls as wagtailadmin_urls
     from wagtail.documents import urls as wagtaildocs_urls
     from wagtail.core import urls as wagtail_urls
-
+    from search import views as search_views
 
     urlpatterns = [
         url(r'^django-admin/', include(admin.site.urls)),
@@ -103,7 +103,7 @@ This feature is enabled through the project's root URL configuration. Just put t
     urlpatterns += i18n_patterns(
         # These URLs will have /<language_code>/ appended to the beginning
 
-        url(r'^search/$', 'search.views.search', name='search'),
+        url(r'^search/$', search_views.search, name='search'),
 
         url(r'', include(wagtail_urls)),
     )
@@ -143,7 +143,7 @@ For each field you would like to be translatable, duplicate it for every languag
         body_fr = StreamField(...)
 
         # Language-independent fields don't need to be duplicated
-        thumbnail_image = models.ForeignKey('wagtailimages.image', ...)
+        thumbnail_image = models.ForeignKey('wagtailimages.image', on_delete=models.CASCADE, ...)
 
 .. note::
 

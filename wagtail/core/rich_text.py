@@ -148,10 +148,11 @@ FIND_ATTRS = re.compile(r'([\w-]+)\="([^"]*)"')
 
 def extract_attrs(attr_string):
     """
-    helper method to extract tag attributes as a dict. Does not escape HTML entities!
+    helper method to extract tag attributes, as a dict of un-escaped strings
     """
     attributes = {}
     for name, val in FIND_ATTRS.findall(attr_string):
+        val = val.replace('&lt;', '<').replace('&gt;', '>').replace('&quot;', '"').replace('&amp;', '&')
         attributes[name] = val
     return attributes
 

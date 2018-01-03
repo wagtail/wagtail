@@ -544,3 +544,44 @@ class TestJPEGQualityFilter(TestCase):
             fil.run(image, f)
 
         save.assert_called_with(f, 'JPEG', quality=40, optimize=True, progressive=True)
+
+
+class TestBackgroundColorFilter(TestCase):
+    def test_original_has_alpha(self):
+        # Checks that the test image we're using has alpha
+        fil = Filter(spec='width-400')
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+        out = fil.run(image, BytesIO())
+
+        self.assertTrue(out.has_alpha())
+
+    def test_3_digit_hex(self):
+        fil = Filter(spec='width-400|bgcolor-fff')
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+        out = fil.run(image, BytesIO())
+
+        self.assertFalse(out.has_alpha())
+
+    def test_6_digit_hex(self):
+        fil = Filter(spec='width-400|bgcolor-ffffff')
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+        out = fil.run(image, BytesIO())
+
+        self.assertFalse(out.has_alpha())
+
+    def test_invalid(self):
+        fil = Filter(spec='width-400|bgcolor-foo')
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+        self.assertRaises(ValueError, fil.run, image, BytesIO())

@@ -277,7 +277,9 @@ class Elasticsearch2SearchQueryCompiler(BaseSearchQueryCompiler):
 
                 fields.append(field_name)
 
-            self.fields = fields
+            self.remapped_fields = fields
+        else:
+            self.remapped_fields = None
 
     def _process_lookup(self, field, lookup, value):
         column_name = self.mapping.get_field_column_name(field)
@@ -379,7 +381,7 @@ class Elasticsearch2SearchQueryCompiler(BaseSearchQueryCompiler):
                 '`%s` is not supported by the Elasticsearch search backend.'
                 % self.query.__class__.__name__)
 
-        fields = self.fields or ['_all', '_partials']
+        fields = self.remapped_fields or ['_all', '_partials']
         operator = self.query.operator
 
         if len(fields) == 1:

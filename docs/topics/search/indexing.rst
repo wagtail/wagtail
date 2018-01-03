@@ -219,7 +219,7 @@ To do this, inherit from ``index.Indexed`` and add some ``search_fields`` to the
     class Book(index.Indexed, models.Model):
         title = models.CharField(max_length=255)
         genre = models.CharField(max_length=255, choices=GENRE_CHOICES)
-        author = models.ForeignKey(Author)
+        author = models.ForeignKey(Author, on_delete=models.CASCADE)
         published_date = models.DateTimeField()
 
         search_fields = [
