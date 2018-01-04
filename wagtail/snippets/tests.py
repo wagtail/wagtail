@@ -226,12 +226,12 @@ class BaseTestSnippetEditView(TestCase, WagtailTestUtils):
 
     def get(self, params={}):
         snippet = self.test_snippet
-        args = (snippet._meta.app_label, snippet._meta.model_name, snippet.pk)
+        args = (snippet._meta.app_label, snippet._meta.model_name, quote(snippet.pk))
         return self.client.get(reverse('wagtailsnippets:edit', args=args), params)
 
     def post(self, post_data={}):
         snippet = self.test_snippet
-        args = (snippet._meta.app_label, snippet._meta.model_name, snippet.pk)
+        args = (snippet._meta.app_label, snippet._meta.model_name, quote(snippet.pk))
         return self.client.post(reverse('wagtailsnippets:edit', args=args), post_data)
 
     def setUp(self):
@@ -254,7 +254,7 @@ class TestSnippetEditView(BaseTestSnippetEditView):
         self.assertNotContains(response, '<a href="#other" class="">Other</a>', html=True)
 
     def test_non_existant_model(self):
-        response = self.client.get(reverse('wagtailsnippets:edit', args=('tests', 'foo', self.test_snippet.pk)))
+        response = self.client.get(reverse('wagtailsnippets:edit', args=('tests', 'foo', quote(self.test_snippet.pk))))
         self.assertEqual(response.status_code, 404)
 
     def test_nonexistant_id(self):
@@ -339,12 +339,12 @@ class TestSnippetDelete(TestCase, WagtailTestUtils):
         self.login()
 
     def test_delete_get(self):
-        response = self.client.get(reverse('wagtailsnippets:delete', args=('tests', 'advert', self.test_snippet.pk, )))
+        response = self.client.get(reverse('wagtailsnippets:delete', args=('tests', 'advert', quote(self.test_snippet.pk), )))
         self.assertEqual(response.status_code, 200)
 
     def test_delete_post(self):
         response = self.client.post(
-            reverse('wagtailsnippets:delete', args=('tests', 'advert', self.test_snippet.pk, ))
+            reverse('wagtailsnippets:delete', args=('tests', 'advert', quote(self.test_snippet.pk), ))
         )
 
         # Should be redirected to explorer page
@@ -355,7 +355,7 @@ class TestSnippetDelete(TestCase, WagtailTestUtils):
 
     @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
     def test_usage_link(self):
-        response = self.client.get(reverse('wagtailsnippets:delete', args=('tests', 'advert', self.test_snippet.pk, )))
+        response = self.client.get(reverse('wagtailsnippets:delete', args=('tests', 'advert', quote(self.test_snippet.pk), )))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailsnippets/snippets/confirm_delete.html')
         self.assertIn('Used 2 times', str(response.content))
@@ -594,12 +594,12 @@ class TestAddOnlyPermissions(TestCase, WagtailTestUtils):
 
     def test_get_edit(self):
         response = self.client.get(reverse('wagtailsnippets:edit',
-                                   args=('tests', 'advert', self.test_snippet.pk)))
+                                   args=('tests', 'advert', quote(self.test_snippet.pk))))
         # permission should be denied
         self.assertRedirects(response, reverse('wagtailadmin_home'))
 
     def test_get_delete(self):
-        response = self.client.get(reverse('wagtailsnippets:delete', args=('tests', 'advert', self.test_snippet.pk, )))
+        response = self.client.get(reverse('wagtailsnippets:delete', args=('tests', 'advert', quote(self.test_snippet.pk), )))
         # permission should be denied
         self.assertRedirects(response, reverse('wagtailadmin_home'))
 
@@ -638,12 +638,12 @@ class TestEditOnlyPermissions(TestCase, WagtailTestUtils):
 
     def test_get_edit(self):
         response = self.client.get(reverse('wagtailsnippets:edit',
-                                   args=('tests', 'advert', self.test_snippet.pk)))
+                                   args=('tests', 'advert', quote(self.test_snippet.pk))))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailsnippets/snippets/edit.html')
 
     def test_get_delete(self):
-        response = self.client.get(reverse('wagtailsnippets:delete', args=('tests', 'advert', self.test_snippet.pk, )))
+        response = self.client.get(reverse('wagtailsnippets:delete', args=('tests', 'advert', quote(self.test_snippet.pk), )))
         # permission should be denied
         self.assertRedirects(response, reverse('wagtailadmin_home'))
 
@@ -682,12 +682,12 @@ class TestDeleteOnlyPermissions(TestCase, WagtailTestUtils):
 
     def test_get_edit(self):
         response = self.client.get(reverse('wagtailsnippets:edit',
-                                   args=('tests', 'advert', self.test_snippet.pk)))
+                                   args=('tests', 'advert', quote(self.test_snippet.pk))))
         # permission should be denied
         self.assertRedirects(response, reverse('wagtailadmin_home'))
 
     def test_get_delete(self):
-        response = self.client.get(reverse('wagtailsnippets:delete', args=('tests', 'advert', self.test_snippet.pk, )))
+        response = self.client.get(reverse('wagtailsnippets:delete', args=('tests', 'advert', quote(self.test_snippet.pk), )))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailsnippets/snippets/confirm_delete.html')
 
@@ -787,9 +787,9 @@ class TestSnippetListViewWithCustomPrimaryKey(TestCase, WagtailTestUtils):
         self.login()
 
         # Create some instances of the searchable snippet for testing
-        self.snippet_a = StandardSnippetWithCustomPrimaryKey.objects.create(snippet_id="snippet_01", text="Hello")
-        self.snippet_b = StandardSnippetWithCustomPrimaryKey.objects.create(snippet_id="snippet_02", text="Hello")
-        self.snippet_c = StandardSnippetWithCustomPrimaryKey.objects.create(snippet_id="snippet_03", text="Hello")
+        self.snippet_a = StandardSnippetWithCustomPrimaryKey.objects.create(snippet_id="snippet/01", text="Hello")
+        self.snippet_b = StandardSnippetWithCustomPrimaryKey.objects.create(snippet_id="snippet/02", text="Hello")
+        self.snippet_c = StandardSnippetWithCustomPrimaryKey.objects.create(snippet_id="snippet/03", text="Hello")
 
     def get(self, params={}):
         return self.client.get(reverse('wagtailsnippets:list',
@@ -814,7 +814,7 @@ class TestSnippetViewWithCustomPrimaryKey(TestCase, WagtailTestUtils):
     def setUp(self):
         super(TestSnippetViewWithCustomPrimaryKey, self).setUp()
         self.login()
-        self.snippet_a = StandardSnippetWithCustomPrimaryKey.objects.create(snippet_id="snippet_01", text="Hello")
+        self.snippet_a = StandardSnippetWithCustomPrimaryKey.objects.create(snippet_id="snippet/01", text="Hello")
 
     def get(self, snippet, params={}):
         args = (snippet._meta.app_label, snippet._meta.model_name, quote(snippet.pk))
@@ -849,7 +849,7 @@ class TestSnippetViewWithCustomPrimaryKey(TestCase, WagtailTestUtils):
 
     def test_create(self):
         response = self.create(self.snippet_a, post_data={'text': 'test snippet',
-                               'snippet_id': 'snippet_02'})
+                               'snippet_id': 'snippet/02'})
         self.assertRedirects(response, reverse('wagtailsnippets:list', args=('snippetstests', 'standardsnippetwithcustomprimarykey')))
 
         snippets = StandardSnippetWithCustomPrimaryKey.objects.all()
@@ -875,7 +875,7 @@ class TestSnippetChooserBlockWithCustomPrimaryKey(TestCase):
     def test_serialize(self):
         """The value of a SnippetChooserBlock (a snippet instance) should serialize to an ID"""
         block = SnippetChooserBlock(AdvertWithCustomPrimaryKey)
-        test_advert = AdvertWithCustomPrimaryKey.objects.get(pk='advert_01')
+        test_advert = AdvertWithCustomPrimaryKey.objects.get(pk='advert/01')
 
         self.assertEqual(block.get_prep_value(test_advert), test_advert.pk)
 
@@ -885,7 +885,7 @@ class TestSnippetChooserBlockWithCustomPrimaryKey(TestCase):
     def test_deserialize(self):
         """The serialized value of a SnippetChooserBlock (an ID) should deserialize to a snippet instance"""
         block = SnippetChooserBlock(AdvertWithCustomPrimaryKey)
-        test_advert = AdvertWithCustomPrimaryKey.objects.get(pk='advert_01')
+        test_advert = AdvertWithCustomPrimaryKey.objects.get(pk='advert/01')
 
         self.assertEqual(block.to_python(test_advert.pk), test_advert)
 
@@ -899,7 +899,7 @@ class TestSnippetChooserBlockWithCustomPrimaryKey(TestCase):
         self.assertInHTML('<input id="advertwithcustomprimarykey" name="advertwithcustomprimarykey" placeholder="" type="hidden" />', empty_form_html)
         self.assertIn('createSnippetChooser("advertwithcustomprimarykey", "tests/advertwithcustomprimarykey");', empty_form_html)
 
-        test_advert = AdvertWithCustomPrimaryKey.objects.get(pk='advert_01')
+        test_advert = AdvertWithCustomPrimaryKey.objects.get(pk='advert/01')
         test_advert_form_html = block.render_form(test_advert, 'advertwithcustomprimarykey')
         expected_html = '<input id="advertwithcustomprimarykey" name="advertwithcustomprimarykey" placeholder="" type="hidden" value="%s" />' % test_advert.pk
         self.assertInHTML(expected_html, test_advert_form_html)
@@ -907,7 +907,7 @@ class TestSnippetChooserBlockWithCustomPrimaryKey(TestCase):
 
     def test_form_response(self):
         block = SnippetChooserBlock(AdvertWithCustomPrimaryKey)
-        test_advert = AdvertWithCustomPrimaryKey.objects.get(pk='advert_01')
+        test_advert = AdvertWithCustomPrimaryKey.objects.get(pk='advert/01')
 
         value = block.value_from_datadict({'advertwithcustomprimarykey': str(test_advert.pk)}, {}, 'advertwithcustomprimarykey')
         self.assertEqual(value, test_advert)
@@ -918,7 +918,7 @@ class TestSnippetChooserBlockWithCustomPrimaryKey(TestCase):
     def test_clean(self):
         required_block = SnippetChooserBlock(AdvertWithCustomPrimaryKey)
         nonrequired_block = SnippetChooserBlock(AdvertWithCustomPrimaryKey, required=False)
-        test_advert = AdvertWithCustomPrimaryKey.objects.get(pk='advert_01')
+        test_advert = AdvertWithCustomPrimaryKey.objects.get(pk='advert/01')
 
         self.assertEqual(required_block.clean(test_advert), test_advert)
         with self.assertRaises(ValidationError):
@@ -936,7 +936,7 @@ class TestSnippetChooserPanelWithCustomPrimaryKey(TestCase, WagtailTestUtils):
         self.advert_text = 'Test advert text'
         test_snippet = model.objects.create(
             advertwithcustomprimarykey=AdvertWithCustomPrimaryKey.objects.create(
-                advert_id="advert_02",
+                advert_id="advert/02",
                 text=self.advert_text
             )
         )

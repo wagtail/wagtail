@@ -146,7 +146,7 @@ def create(request, app_label, model_name):
                 ),
                 buttons=[
                     messages.button(reverse(
-                        'wagtailsnippets:edit', args=(app_label, model_name, instance.pk)
+                        'wagtailsnippets:edit', args=(app_label, model_name, quote(instance.pk))
                     ), _('Edit'))
                 ]
             )

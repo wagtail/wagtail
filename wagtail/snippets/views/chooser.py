@@ -1,6 +1,6 @@
 import json
 
-from django.contrib.admin.utils import unquote
+from django.contrib.admin.utils import quote, unquote
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.utils.translation import ugettext as _
@@ -78,7 +78,7 @@ def chosen(request, app_label, model_name, pk):
         'id': item.pk,
         'string': str(item),
         'edit_link': reverse('wagtailsnippets:edit', args=(
-            app_label, model_name, item.pk))
+            app_label, model_name, quote(item.pk)))
     })
 
     return render_modal_workflow(
