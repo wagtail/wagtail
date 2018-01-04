@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Permission
+from django.core import checks
 from django.core.exceptions import ValidationError
 from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import SimpleUploadedFile
@@ -8,18 +9,19 @@ from django.test.utils import override_settings
 from django.urls import reverse
 from taggit.models import Tag
 
-from wagtail.tests.snippets.forms import FancySnippetForm
-from wagtail.tests.snippets.models import (
-    AlphaSnippet, FancySnippet, FileUploadSnippet, RegisterDecorator, RegisterFunction,
-    SearchableSnippet, StandardSnippet, ZuluSnippet)
-from wagtail.tests.testapp.models import Advert, AdvertWithTabbedInterface, SnippetChooserModel
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.admin.edit_handlers import FieldPanel, ObjectList, TabbedInterface
 from wagtail.admin.forms import WagtailAdminModelForm
 from wagtail.core.models import Page
 from wagtail.snippets.blocks import SnippetChooserBlock
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import SNIPPET_MODELS, register_snippet
 from wagtail.snippets.views.snippets import get_snippet_edit_handler
+from wagtail.tests.snippets.forms import FancySnippetForm
+from wagtail.tests.snippets.models import (
+    AlphaSnippet, FancySnippet, FileUploadSnippet, RegisterDecorator, RegisterFunction,
+    SearchableSnippet, StandardSnippet, ZuluSnippet)
+from wagtail.tests.testapp.models import Advert, AdvertWithTabbedInterface, SnippetChooserModel
+from wagtail.tests.utils import WagtailTestUtils
 
 
 class TestSnippetIndexView(TestCase, WagtailTestUtils):
@@ -777,3 +779,51 @@ class TestSnippetChooserBlock(TestCase):
 
         self.assertEqual(nonrequired_block.clean(test_advert), test_advert)
         self.assertEqual(nonrequired_block.clean(None), None)
+
+
+class TestSnippetPanelConfigChecks(TestCase):
+
+    def test_snippet_with_tabbed_panels_only(self):
+        """Test that checks will warn against setting tabbed panels on non-page models"""
+
+        SearchableSnippet.settings_panels = [FieldPanel('text')]
+        StandardSnippet.content_panels = [FieldPanel('text')]
+
+        # only test against specific errors
+        errors = [e for e in checks.run_checks() if e.id == 'wagtailadmin.W002']
+
+        hint = """Ensure that SearchableSnippet uses `panels` instead of `settings_panels` or set up an
+        `edit_handler` if you want a tabbed editing interface. There are no default
+        tabs on non-Page models, hence there will be no Settings tab for the settings_panels to render in.
+        """
+        search_snippet_warning = checks.Warning(
+            "SearchableSnippet.settings_panels will have no effect on snippet editing",
+            hint=hint,
+            obj=SearchableSnippet,
+            id='wagtailadmin.W002',
+        )
+
+        hint = """Ensure that StandardSnippet uses `panels` instead of `content_panels` or set up an
+        `edit_handler` if you want a tabbed editing interface. There are no default
+        tabs on non-Page models, hence there will be no Content tab for the content_panels to render in.
+        """
+        standard_snippet_warning = checks.Warning(
+            "StandardSnippet.content_panels will have no effect on snippet editing",
+            hint=hint,
+            obj=StandardSnippet,
+            id='wagtailadmin.W002',
+        )
+
+        expected_errors = [search_snippet_warning, standard_snippet_warning]
+        self.assertEqual(errors, expected_errors)
+
+    def test_snippet_correct_edit_handler_setup(self):
+        """Test against false positives, checks should pass if edit_handler is used"""
+
+        FileUploadSnippet.content_panels = [FieldPanel('text')]
+        FileUploadSnippet.edit_handler = TabbedInterface([
+            ObjectList(FileUploadSnippet.content_panels, heading='Content'),
+        ])
+
+        errors = checks.run_checks()
+        self.assertEqual(errors, [])
