@@ -1004,7 +1004,7 @@
     }
 },
 {
-  "pk": "advert_01",
+  "pk": "advert/01",
   "model": "tests.advertwithcustomprimarykey",
   "fields": {
       "text": "test_advert",
