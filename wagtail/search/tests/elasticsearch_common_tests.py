@@ -1,4 +1,3 @@
-import unittest
 from datetime import date
 from io import StringIO
 
@@ -172,8 +171,3 @@ class ElasticsearchCommonSearchBackendTests(BackendTests):
 
         results = self.backend.search(MATCH_ALL, models.Book)[110:]
         self.assertEqual(len(results), 53)
-
-    # Broken
-    @unittest.expectedFailure
-    def test_delete(self):
-        super().test_delete()
