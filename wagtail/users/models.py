@@ -106,7 +106,7 @@ class UserProfile(models.Model):
                 return self.default_avatar
 
         if self.avatar_choice == self.GRAVATAR and self.user.email:
-            return get_gravatar_url(self.user.email, default=None, size=50)
+            return get_gravatar_url(self.user.email, size=50)
 
         return self.default_avatar
 
