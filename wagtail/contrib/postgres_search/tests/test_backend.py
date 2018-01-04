@@ -1,11 +1,11 @@
 from django.test import TestCase
 
-from wagtail.search.tests.test_backends import QueryAPITestMixin, BackendTests
+from wagtail.search.tests.test_backends import BackendTests
 
 from ..utils import BOOSTS_WEIGHTS, WEIGHTS_VALUES, determine_boosts_weights, get_weight
 
 
-class TestPostgresSearchBackend(QueryAPITestMixin, BackendTests, TestCase):
+class TestPostgresSearchBackend(BackendTests, TestCase):
     backend_path = 'wagtail.contrib.postgres_search.backend'
 
     def test_weights(self):

@@ -2,10 +2,10 @@ import unittest
 
 from django.test import TestCase
 
-from .test_backends import BackendTests, QueryAPITestMixin
+from .test_backends import BackendTests
 
 
-class TestDBBackend(QueryAPITestMixin, BackendTests, TestCase):
+class TestDBBackend(BackendTests, TestCase):
     backend_path = 'wagtail.search.backends.db'
 
     # Doesn't support ranking

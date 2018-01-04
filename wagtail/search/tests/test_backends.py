@@ -431,8 +431,6 @@ class BackendTests(WagtailTestUtils):
             "The Fellowship of the Ring"  # If this item doesn't appear, "Foundation" is still in the index
         ])
 
-
-class QueryAPITestMixin:
     #
     # Basic query classes
     #
