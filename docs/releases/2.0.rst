@@ -67,6 +67,7 @@ Bug fixes
  * Ampersands in embed URLs within rich text are no longer double-escaped (Matt Westcott)
  * Using RGBA images no longer crashes with Pillow >= 4.2.0 (Karl Hobley)
  * Copying a page with PostgreSQL search enabled no longer crashes (Bertrand Bordage)
+ * Style of the page unlock button was broken (Bertrand Bordage)
 
 
 Upgrade considerations
