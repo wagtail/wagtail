@@ -1,3 +1,4 @@
+import unittest
 from datetime import date
 from io import StringIO
 
@@ -171,3 +172,14 @@ class ElasticsearchCommonSearchBackendTests(BackendTests):
 
         results = self.backend.search(MATCH_ALL, models.Book)[110:]
         self.assertEqual(len(results), 53)
+
+    # Elasticsearch always does prefix matching on `partial_match` fields,
+    # even when we don’t use `Prefix`.
+    @unittest.expectedFailure
+    def test_incomplete_term(self):
+        super().test_incomplete_term()
+
+    # Elasticsearch does not accept prefix for multiple words
+    @unittest.expectedFailure
+    def test_prefix_multiple_words(self):
+        super().test_prefix_multiple_words()

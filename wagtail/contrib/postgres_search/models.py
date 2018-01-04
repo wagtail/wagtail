@@ -2,13 +2,27 @@ from django.apps import apps
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.postgres.indexes import GinIndex
-from django.contrib.postgres.search import SearchVectorField
+from django.contrib.postgres.search import SearchQuery, SearchVectorField
 from django.db.models import CASCADE, ForeignKey, Model, TextField
 from django.db.models.functions import Cast
 from django.utils.translation import ugettext_lazy as _
 
 from wagtail.search.index import class_is_indexed
 from .utils import get_descendants_content_types_pks
+
+
+class SearchAutocomplete(SearchQuery):
+    def as_sql(self, compiler, connection):
+        params = [self.value]
+        if self.config:
+            config_sql, config_params = compiler.compile(self.config)
+            template = "to_tsquery({}::regconfig, ''%s':*')".format(config_sql)
+            params = config_params + [self.value]
+        else:
+            template = "to_tsquery(''%s':*')"
+        if self.invert:
+            template = '!!({})'.format(template)
+        return template, params
 
 
 class TextIDGenericRelation(GenericRelation):
@@ -46,13 +60,15 @@ class IndexEntry(Model):
     content_object = GenericForeignKey()
 
     # TODO: Add per-object boosting.
-    body_search = SearchVectorField()
+    autocomplete = SearchVectorField()
+    body = SearchVectorField()
 
     class Meta:
         unique_together = ('content_type', 'object_id')
         verbose_name = _('index entry')
         verbose_name_plural = _('index entries')
-        indexes = [GinIndex(fields=['body_search'])]
+        indexes = [GinIndex(fields=['autocomplete']),
+                   GinIndex(fields=['body'])]
 
     def __str__(self):
         return '%s: %s' % (self.content_type.name, self.content_object)

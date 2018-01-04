@@ -1,8 +1,7 @@
 from django.apps import AppConfig
 from django.core.checks import Error, Tags, register
 
-from .utils import (
-    BOOSTS_WEIGHTS, WEIGHTS_VALUES, determine_boosts_weights, get_postgresql_connections)
+from .utils import get_postgresql_connections, set_weights
 
 
 class PostgresSearchConfig(AppConfig):
@@ -17,7 +16,4 @@ class PostgresSearchConfig(AppConfig):
                           'to use PostgreSQL search.',
                           id='wagtail.contrib.postgres_search.E001')]
 
-        BOOSTS_WEIGHTS.extend(determine_boosts_weights())
-        max_weight = BOOSTS_WEIGHTS[0][0]
-        WEIGHTS_VALUES.extend([v / max_weight
-                               for v, w in reversed(BOOSTS_WEIGHTS)])
+        set_weights()

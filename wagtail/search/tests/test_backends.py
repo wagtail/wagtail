@@ -15,7 +15,9 @@ from wagtail.search.backends import (
     InvalidSearchBackendError, get_search_backend, get_search_backends)
 from wagtail.search.backends.base import FieldError
 from wagtail.search.backends.db import DatabaseSearchBackend
-from wagtail.search.query import MATCH_ALL, And, Boost, Filter, Not, Or, PlainText, Term
+from wagtail.search.query import (
+    MATCH_ALL, And, Boost, Filter, Not, Or, PlainText, Prefix, Term,
+)
 
 
 class BackendTests(WagtailTestUtils):
@@ -448,6 +450,13 @@ class BackendTests(WagtailTestUtils):
                             {'JavaScript: The Definitive Guide',
                              'JavaScript: The good parts'})
 
+    def test_incomplete_term(self):
+        # Single word
+        results = self.backend.search(Term('pro'),
+                                      models.Book.objects.all())
+
+        self.assertSetEqual({r.title for r in results}, set())
+
     def test_and(self):
         results = self.backend.search(And([Term('javascript'),
                                            Term('definitive')]),
@@ -506,6 +515,17 @@ class BackendTests(WagtailTestUtils):
                              'The Two Towers',
                              'The Rust Programming Language',
                              'Two Scoops of Django 1.11'})
+
+    def test_prefix_single_word(self):
+        results = self.backend.search(Prefix('pro'), models.Book.objects.all())
+        self.assertSetEqual({r.title for r in results},
+                            {'The Rust Programming Language'})
+
+    def test_prefix_multiple_words(self):
+        results = self.backend.search(Prefix('rust pro'),
+                                      models.Book.objects.all())
+        self.assertSetEqual({r.title for r in results},
+                            {'The Rust Programming Language'})
 
     #
     # Shortcut query classes

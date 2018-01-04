@@ -5,7 +5,8 @@ from django.db.models.expressions import Value
 
 from wagtail.search.backends.base import (
     BaseSearchBackend, BaseSearchQueryCompiler, BaseSearchResults)
-from wagtail.search.query import And, MatchAll, Not, Or, SearchQueryShortcut, Term
+from wagtail.search.query import (
+    And, MatchAll, Not, Or, Prefix, SearchQueryShortcut, Term)
 from wagtail.search.utils import AND, OR
 
 
@@ -51,6 +52,10 @@ class DatabaseSearchQueryCompiler(BaseSearchQueryCompiler):
             term_query |= models.Q(**{field_name + '__icontains': term})
         return term_query
 
+    def check_boost(self, query):
+        if query.boost != 1:
+            warn('Database search backend does not support term boosting.')
+
     def build_database_filter(self, query=None):
         if query is None:
             query = self.query
@@ -61,9 +66,11 @@ class DatabaseSearchQueryCompiler(BaseSearchQueryCompiler):
         if isinstance(query, SearchQueryShortcut):
             return self.build_database_filter(query.get_equivalent())
         if isinstance(query, Term):
-            if query.boost != 1:
-                warn('Database search backend does not support term boosting.')
+            self.check_boost(query)
             return self.build_single_term_filter(query.term)
+        if isinstance(query, Prefix):
+            self.check_boost(query)
+            return self.build_single_term_filter(query.prefix)
         if isinstance(query, Not):
             return ~self.build_database_filter(query.subquery)
         if isinstance(query, And):

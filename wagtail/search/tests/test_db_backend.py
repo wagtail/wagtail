@@ -37,3 +37,8 @@ class TestDBBackend(BackendTests, TestCase):
     @unittest.expectedFailure
     def test_search_callable_field(self):
         super().test_search_callable_field()
+
+    # Database backend always uses `icontains`, so always autocomplete
+    @unittest.expectedFailure
+    def test_incomplete_term(self):
+        super().test_incomplete_term()
