@@ -169,3 +169,14 @@ legacy versions of the API until everyone has migrated to an officially supporte
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The ``generate_signature`` function in ``wagtail.images.views.serve``, used to build URLs for the :ref:`dynamic image serve view <using_images_outside_wagtail>`, now returns a string rather than a binary string. This ensures that any existing user code that builds up the final image URL with ``reverse`` will continue to work on Django 2.0 (which no longer allows binary strings to be passed to ``reverse``). Any code that expects a binary string as the return value of ``generate_string`` - for example, calling ``decode()`` on the result - will need to be updated. (Apps that need to preserve compatibility with earlier versions of Wagtail can call ``django.utils.encoding.force_text`` instead of ``decode``.)
+
+
+Deprecated search view
+~~~~~~~~~~~~~~~~~~~~~~
+
+Wagtail has always included a bundled view for frontend search. However, this view isn't easy to customise so
+defining this view per project is usually preferred. If you have used this bundled view (check for an import
+from  ``wagtail.wagtailsearch.urls`` in your project's ``urls.py``), you will need to replace this with your
+own implementation.
+
+See the search view in Wagtail demo for a guide: https://github.com/wagtail/wagtaildemo/blob/master/demo/views.py
