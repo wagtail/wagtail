@@ -36,3 +36,13 @@ Removed support for Python 2.7, Django 1.8 and Django 1.10
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Python 2.7, Django 1.8 and Django 1.10 are no longer supported in this release. You are advised to upgrade your project to Python 3 and Django 1.11 before upgrading to Wagtail 2.0.
+
+Deprecated search view
+~~~~~~~~~~~~~~~~~~~~~~
+
+Wagtail has always included a bundled view for frontend search. However, this view isn't easy to customise so
+defining this view per project is usually preferred. If you have used this bundled view (check for an import
+from  ``wagtail.wagtailsearch.urls`` in your project's ``urls.py``), you will need to replace this with your
+own implementation.
+
+See the search view in Wagtail demo for a guide: https://github.com/wagtail/wagtaildemo/blob/master/demo/views.py
