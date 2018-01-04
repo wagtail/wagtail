@@ -5,10 +5,10 @@ from django.core import management
 
 from wagtail.tests.search import models
 from wagtail.search.query import MATCH_ALL
-from wagtail.search.tests.test_backends import BackendTests
+from wagtail.search.tests.test_backends import BackendTests, QueryAPITestMixin
 
 
-class ElasticsearchCommonSearchBackendTests(BackendTests):
+class ElasticsearchCommonSearchBackendTests(QueryAPITestMixin, BackendTests):
     def test_search_with_spaces_only(self):
         # Search for some space characters and hope it doesn't crash
         results = self.backend.search("   ", models.Book)
