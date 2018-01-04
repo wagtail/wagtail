@@ -11,6 +11,7 @@ import hashlib
 from urllib.parse import urlencode
 
 from django import template
+from django.conf import settings
 
 register = template.Library()
 
@@ -28,8 +29,10 @@ class GravatarUrlNode(template.Node):
 
         default = "mm"
         size = int(self.size) * 2  # requested at retina size by default and scaled down at point of use with css
+        gravatar_provider_url = getattr(settings, 'WAGTAIL_GRAVATAR_PROVIDER_URL', '//www.gravatar.com/avatar').rstrip('/')
 
-        gravatar_url = "//www.gravatar.com/avatar/{hash}?{params}".format(
+        gravatar_url = "{gravatar_provider_url}/{hash}?{params}".format(
+            gravatar_provider_url=gravatar_provider_url,
             hash=hashlib.md5(email.lower().encode('utf-8')).hexdigest(),
             params=urlencode({'s': size, 'd': default})
         )
