@@ -122,7 +122,7 @@ class TestElasticsearch5SearchQuery(TestCase):
         # Check it
         expected_result = {'bool': {
             'filter': {'match': {'content_type': 'searchtests.Book'}},
-            'query': {'match': {'title': {'query': 'Hello'}}}
+            'must': {'match': {'title': {'query': 'Hello'}}}
         }}
         self.assertDictEqual(query_compiler.get_query(), expected_result)
 
