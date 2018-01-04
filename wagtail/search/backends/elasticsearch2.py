@@ -11,9 +11,10 @@ from elasticsearch.helpers import bulk
 
 from wagtail.utils.utils import deep_update
 from wagtail.search.backends.base import (
-    BaseSearchBackend, BaseSearchQuery, BaseSearchResults)
+    BaseSearchBackend, BaseSearchQueryCompiler, BaseSearchResults)
 from wagtail.search.index import (
     FilterField, Indexed, RelatedFields, SearchField, class_is_indexed)
+from wagtail.search.query import MatchAll, Term, Prefix, Fuzzy, And, Or, Not, PlainText, Filter, Boost
 
 
 def get_model_root(model):
@@ -258,12 +259,12 @@ class Elasticsearch2Mapping:
         return '<ElasticsearchMapping: %s>' % (self.model.__name__, )
 
 
-class Elasticsearch2SearchQuery(BaseSearchQuery):
+class Elasticsearch2SearchQueryCompiler(BaseSearchQueryCompiler):
     mapping_class = Elasticsearch2Mapping
     DEFAULT_OPERATOR = 'or'
 
     def __init__(self, *args, **kwargs):
-        super(Elasticsearch2SearchQuery, self).__init__(*args, **kwargs)
+        super(Elasticsearch2SearchQueryCompiler, self).__init__(*args, **kwargs)
         self.mapping = self.mapping_class(self.queryset.model)
 
         # Convert field names into index column names
@@ -371,42 +372,151 @@ class Elasticsearch2SearchQuery(BaseSearchQuery):
 
             return filter_out
 
-    def get_inner_query(self):
-        if self.query_string is not None:
-            fields = self.remapped_fields or ['_all', '_partials']
+    def _compile_term_query(self, query_type, value, field, boost=1.0, **extra):
+        term_query = {
+            'value': value,
+        }
 
-            if len(fields) == 1:
-                if self.operator == 'or':
-                    query = {
-                        'match': {
-                            fields[0]: self.query_string,
-                        }
-                    }
-                else:
-                    query = {
-                        'match': {
-                            fields[0]: {
-                                'query': self.query_string,
-                                'operator': self.operator,
-                            }
-                        }
-                    }
-            else:
-                query = {
-                    'multi_match': {
-                        'query': self.query_string,
-                        'fields': fields,
-                    }
+        if boost != 1.0:
+            term_query['boost'] = boost
+
+        return {
+            query_type: {
+                field: term_query,
+            }
+        }
+
+    def _compile_plaintext_query(self, query, fields, boost=1.0):
+        match_query = {
+            'query': query.query_string
+        }
+
+        if query.operator != 'or':
+            match_query['operator'] = query.operator
+
+        if boost != 1.0:
+            match_query['boost'] = boost
+
+        if len(fields) == 1:
+            return {
+                'match': {
+                    fields[0]: match_query
                 }
-
-                if self.operator != 'or':
-                    query['multi_match']['operator'] = self.operator
+            }
         else:
-            query = {
-                'match_all': {}
+            match_query['fields'] = fields
+
+            return {
+                'multi_match': match_query
             }
 
-        return query
+    def _compile_query(self, query, field, boost=1.0):
+        if isinstance(query, MatchAll):
+            match_all_query = {}
+
+            if boost != 1.0:
+                match_all_query['boost'] = boost
+
+            return {'match_all': match_all_query}
+
+        elif isinstance(query, Term):
+            return self._compile_term_query('term', query.term, field, query.boost * boost)
+
+        elif isinstance(query, Prefix):
+            return self._compile_term_query('prefix', query.prefix, field, query.boost * boost)
+
+        elif isinstance(query, Fuzzy):
+            return self._compile_term_query('fuzzy', query.term, field, query.boost * boost, fuzziness=query.max_distance)
+
+        elif isinstance(query, And):
+            return {
+                'bool': {
+                    'must': [
+                        self._compile_query(child_query, field, boost)
+                        for child_query in query.get_children()
+                    ]
+                }
+            }
+
+        elif isinstance(query, Or):
+            return {
+                'bool': {
+                    'should': [
+                        self._compile_query(child_query, field, boost)
+                        for child_query in query.get_children()
+                    ]
+                }
+            }
+
+        elif isinstance(query, Not):
+            return {
+                'bool': {
+                    'mustNot': self._compile_query(query.subquery, field, boost)
+                }
+            }
+
+        elif isinstance(query, PlainText):
+            return self._compile_plaintext_query(self.query, [field], boost)
+
+        elif isinstance(query, Filter):
+            bool_query = {
+                'must': self._compile_query(query.query, field, boost),
+            }
+
+            if query.include:
+                bool_query['filter'] = self._compile_query(query.include, field, 0.0)
+
+            if query.exclude:
+                bool_query['mustNot'] = self._compile_query(query.exclude, field, 0.0)
+
+            return {
+                'bool': bool_query,
+            }
+
+        elif isinstance(query, Boost):
+            return self._compile_query(query.subquery, field, boost * query.boost)
+
+        else:
+            raise NotImplementedError(
+                '`%s` is not supported by the Elasticsearch search backend.'
+                % query.__class__.__name__)
+
+    def get_inner_query(self):
+        fields = self.remapped_fields or ['_all', '_partials']
+
+        if len(fields) == 0:
+            # No fields. Return a query that'll match nothing
+            return {
+                'bool': {
+                    'mustNot': {'match_all': {}}
+                }
+            }
+
+        # Handle MatchAll and PlainText separately as they were supported
+        # before "search query classes" was implemented and we'd like to
+        # keep the query the same as before
+        if isinstance(self.query, MatchAll):
+            return {'match_all': {}}
+
+        elif isinstance(self.query, PlainText):
+            return self._compile_plaintext_query(self.query, fields)
+
+        else:
+            if len(fields) == 1:
+                return self._compile_query(self.query, fields[0])
+            else:
+                # Compile a query for each field then combine with disjunction
+                # max (or operator which takes the max score out of each of the
+                # field queries)
+                field_queries = []
+                for field in fields:
+                    field_queries.append(self._compile_query(self.query, field))
+
+                return {
+                    'dis_max': {
+                        'queries': field_queries
+                    }
+                }
 
     def get_content_type_filter(self):
         # Query content_type using a "match" query. See comment in
@@ -486,11 +596,11 @@ class Elasticsearch2SearchResults(BaseSearchResults):
 
     def _get_es_body(self, for_count=False):
         body = {
-            'query': self.query.get_query()
+            'query': self.query_compiler.get_query()
         }
 
         if not for_count:
-            sort = self.query.get_sort()
+            sort = self.query_compiler.get_sort()
 
             if sort is not None:
                 body['sort'] = sort
@@ -509,7 +619,7 @@ class Elasticsearch2SearchResults(BaseSearchResults):
         results = {str(pk): None for pk in pks}
 
         # Find objects in database and add them to dict
-        for obj in self.query.queryset.filter(pk__in=pks):
+        for obj in self.query_compiler.queryset.filter(pk__in=pks):
             results[str(obj.pk)] = obj
 
             if self._score_field:
@@ -532,7 +642,7 @@ class Elasticsearch2SearchResults(BaseSearchResults):
         use_scroll = limit is None or limit > PAGE_SIZE
 
         params = {
-            'index': self.backend.get_index_for_model(self.query.queryset.model).name,
+            'index': self.backend.get_index_for_model(self.query_compiler.queryset.model).name,
             'body': self._get_es_body(),
             '_source': False,
             self.fields_param_name: 'pk',
@@ -601,7 +711,7 @@ class Elasticsearch2SearchResults(BaseSearchResults):
     def _do_count(self):
         # Get count
         hit_count = self.backend.es.count(
-            index=self.backend.get_index_for_model(self.query.queryset.model).name,
+            index=self.backend.get_index_for_model(self.query_compiler.queryset.model).name,
             body=self._get_es_body(for_count=True),
         )['count']
 
@@ -809,7 +919,7 @@ class ElasticsearchAtomicIndexRebuilder(ElasticsearchIndexRebuilder):
 
 class Elasticsearch2SearchBackend(BaseSearchBackend):
     index_class = Elasticsearch2Index
-    query_class = Elasticsearch2SearchQuery
+    query_compiler_class = Elasticsearch2SearchQueryCompiler
     results_class = Elasticsearch2SearchResults
     mapping_class = Elasticsearch2Mapping
     basic_rebuilder_class = ElasticsearchIndexRebuilder

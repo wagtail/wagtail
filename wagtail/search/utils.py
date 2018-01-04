@@ -1,5 +1,14 @@
+import operator
 import re
 import string
+from functools import partial, reduce
+
+# Reduce any iterable to a single value using a logical OR e.g. (a | b | ...)
+OR = partial(reduce, operator.or_)
+# Reduce any iterable to a single value using a logical AND e.g. (a & b & ...)
+AND = partial(reduce, operator.and_)
+# Reduce any iterable to a single value using an addition
+ADD = partial(reduce, operator.add)
 
 MAX_QUERY_STRING_LENGTH = 255
 

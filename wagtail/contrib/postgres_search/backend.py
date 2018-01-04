@@ -1,21 +1,23 @@
-# coding: utf-8
+from warnings import warn
 
-from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
+from django.contrib.postgres.search import SearchQuery as PostgresSearchQuery
+from django.contrib.postgres.search import SearchRank, SearchVector
 from django.db import DEFAULT_DB_ALIAS, NotSupportedError, connections, transaction
-from django.db.models import F, Manager, TextField, Value
+from django.db.models import F, Manager, TextField, Value, Q
 from django.db.models.constants import LOOKUP_SEP
 from django.db.models.functions import Cast
 from django.utils.encoding import force_text
 
 from wagtail.search.backends.base import (
-    BaseSearchBackend, BaseSearchQuery, BaseSearchResults)
+    BaseSearchBackend, BaseSearchQueryCompiler, BaseSearchResults)
 from wagtail.search.index import RelatedFields, SearchField
+from wagtail.search.query import And, MatchAll, Not, Or, SearchQueryShortcut, Term
+from wagtail.search.utils import ADD, AND, OR
 
 from .models import IndexEntry
 from .utils import (
-    ADD, AND, OR, WEIGHTS_VALUES, get_ancestors_content_types_pks, get_content_type_pk,
-    get_descendants_content_types_pks, get_postgresql_connections, get_weight, keyword_split,
-    unidecode)
+    WEIGHTS_VALUES, get_ancestors_content_types_pks, get_content_type_pk,
+    get_descendants_content_types_pks, get_postgresql_connections, get_weight, unidecode)
 
 
 # TODO: Add autocomplete.
@@ -160,23 +162,43 @@ class Index:
         else:
             self.add_items_update_then_create(content_type_pk, objs, config)
 
+    def delete_item(self, item):
+        item.index_entries.using(self.db_alias).delete()
+
     def __str__(self):
         return self.name
 
 
-class PostgresSearchQuery(BaseSearchQuery):
+class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
     DEFAULT_OPERATOR = 'and'
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.search_fields = self.queryset.model.get_searchable_search_fields()
 
-    def get_search_query(self, config):
-        combine = OR if self.operator == 'or' else AND
-        search_terms = keyword_split(unidecode(self.query_string))
-        if not search_terms:
-            return SearchQuery('')
-        return combine(SearchQuery(q, config=config) for q in search_terms)
+    def build_database_query(self, query=None, config=None):
+        if query is None:
+            query = self.query
+
+        if isinstance(query, SearchQueryShortcut):
+            return self.build_database_query(query.get_equivalent(), config)
+        if isinstance(query, Term):
+            # TODO: Find a way to use the term boosting.
+            if query.boost != 1:
+                warn('PostgreSQL search backend '
+                     'does not support term boosting for now.')
+            return PostgresSearchQuery(unidecode(query.term), config=config)
+        if isinstance(query, Not):
+            return ~self.build_database_query(query.subquery, config)
+        if isinstance(query, And):
+            return AND(self.build_database_query(subquery, config)
+                       for subquery in query.subqueries)
+        if isinstance(query, Or):
+            return OR(self.build_database_query(subquery, config)
+                      for subquery in query.subqueries)
+        raise NotImplementedError(
+            '`%s` is not supported by the PostgreSQL search backend.'
+            % self.query.__class__.__name__)
 
     def get_boost(self, field_name, fields=None):
         if fields is None:
@@ -186,7 +208,8 @@ class PostgresSearchQuery(BaseSearchQuery):
         else:
             sub_field_name = None
         for field in fields:
-            if field.field_name == field_name:
+            if isinstance(field, SearchField) \
+                    and field.field_name == field_name:
                 # Note: Searching on a specific related field using
                 # `.search(fields=…)` is not yet supported by Wagtail.
                 # This method anticipates by already implementing it.
@@ -195,9 +218,11 @@ class PostgresSearchQuery(BaseSearchQuery):
                 return field.boost
 
     def search(self, config, start, stop):
-        if self.query_string is None:
+        # TODO: Handle MatchAll nested inside other search query classes.
+        if isinstance(self.query, MatchAll):
             return self.queryset[start:stop]
-        search_query = self.get_search_query(config=config)
+
+        search_query = self.build_database_query(config=config)
         queryset = self.queryset
         query = queryset.query
         if self.fields is None:
@@ -223,14 +248,31 @@ class PostgresSearchQuery(BaseSearchQuery):
             queryset = queryset.order_by('-pk')
         return queryset[start:stop]
 
+    def _process_lookup(self, field, lookup, value):
+        return Q(**{field.get_attname(self.queryset.model) +
+                    '__' + lookup: value})
+
+    def _connect_filters(self, filters, connector, negated):
+        if connector == 'AND':
+            q = Q(*filters)
+        elif connector == 'OR':
+            q = OR([Q(fil) for fil in filters])
+        else:
+            return
+
+        if negated:
+            q = ~q
+
+        return q
+
 
 class PostgresSearchResults(BaseSearchResults):
     def _do_search(self):
-        return list(self.query.search(self.backend.get_config(),
-                                      self.start, self.stop))
+        return list(self.query_compiler.search(self.backend.get_config(),
+                                               self.start, self.stop))
 
     def _do_count(self):
-        return self.query.search(self.backend.get_config(), None, None).count()
+        return self.query_compiler.search(self.backend.get_config(), None, None).count()
 
 
 class PostgresSearchRebuilder:
@@ -268,7 +310,7 @@ class PostgresSearchAtomicRebuilder(PostgresSearchRebuilder):
 
 
 class PostgresSearchBackend(BaseSearchBackend):
-    query_class = PostgresSearchQuery
+    query_compiler_class = PostgresSearchQueryCompiler
     results_class = PostgresSearchResults
     rebuilder_class = PostgresSearchRebuilder
     atomic_rebuilder_class = PostgresSearchAtomicRebuilder
@@ -307,7 +349,7 @@ class PostgresSearchBackend(BaseSearchBackend):
             self.get_index_for_object(obj_list[0]).add_items(model, obj_list)
 
     def delete(self, obj):
-        obj.index_entries.all().delete()
+        self.get_index_for_object(obj).delete_item(obj)
 
 
 SearchBackend = PostgresSearchBackend

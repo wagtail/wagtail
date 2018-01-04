@@ -1,6 +1,6 @@
 from .elasticsearch2 import (
     Elasticsearch2Index, Elasticsearch2Mapping, Elasticsearch2SearchBackend,
-    Elasticsearch2SearchQuery, Elasticsearch2SearchResults)
+    Elasticsearch2SearchQueryCompiler, Elasticsearch2SearchResults)
 
 
 class Elasticsearch5Mapping(Elasticsearch2Mapping):
@@ -13,7 +13,7 @@ class Elasticsearch5Index(Elasticsearch2Index):
     pass
 
 
-class Elasticsearch5SearchQuery(Elasticsearch2SearchQuery):
+class Elasticsearch5SearchQueryCompiler(Elasticsearch2SearchQueryCompiler):
     mapping_class = Elasticsearch5Mapping
 
     def _process_lookup(self, field, lookup, value):
@@ -35,7 +35,7 @@ class Elasticsearch5SearchQuery(Elasticsearch2SearchQuery):
 
             return query
 
-        return super(Elasticsearch5SearchQuery, self)._process_lookup(field, lookup, value)
+        return super()._process_lookup(field, lookup, value)
 
     def _connect_filters(self, filters, connector, negated):
         if filters:
@@ -96,7 +96,7 @@ class Elasticsearch5SearchResults(Elasticsearch2SearchResults):
 class Elasticsearch5SearchBackend(Elasticsearch2SearchBackend):
     mapping_class = Elasticsearch5Mapping
     index_class = Elasticsearch5Index
-    query_class = Elasticsearch5SearchQuery
+    query_compiler_class = Elasticsearch5SearchQueryCompiler
     results_class = Elasticsearch5SearchResults
 
 

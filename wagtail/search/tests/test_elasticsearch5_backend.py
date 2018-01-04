@@ -9,12 +9,12 @@ from elasticsearch.serializer import JSONSerializer
 
 from wagtail.tests.search import models
 from wagtail.search.backends.elasticsearch5 import Elasticsearch5SearchBackend
+from wagtail.search.query import MATCH_ALL
 
 from .elasticsearch_common_tests import ElasticsearchCommonSearchBackendTests
-from .test_backends import BackendTests
 
 
-class TestElasticsearch5SearchBackend(BackendTests, ElasticsearchCommonSearchBackendTests, TestCase):
+class TestElasticsearch5SearchBackend(ElasticsearchCommonSearchBackendTests, TestCase):
     backend_path = 'wagtail.search.backends.elasticsearch5'
 
 
@@ -25,55 +25,55 @@ class TestElasticsearch5SearchQuery(TestCase):
             json.dumps(a, sort_keys=True, default=default), json.dumps(b, sort_keys=True, default=default)
         )
 
-    query_class = Elasticsearch5SearchBackend.query_class
+    query_compiler_class = Elasticsearch5SearchBackend.query_compiler_class
 
     def test_simple(self):
         # Create a query
-        query = self.query_class(models.Book.objects.all(), "Hello")
+        query_compiler = self.query_compiler_class(models.Book.objects.all(), "Hello")
 
         # Check it
         expected_result = {'bool': {
             'filter': {'match': {'content_type': 'searchtests.Book'}},
             'must': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}
         }}
-        self.assertDictEqual(query.get_query(), expected_result)
+        self.assertDictEqual(query_compiler.get_query(), expected_result)
 
-    def test_none_query_string(self):
+    def test_match_all(self):
         # Create a query
-        query = self.query_class(models.Book.objects.all(), None)
+        query_compiler = self.query_compiler_class(models.Book.objects.all(), MATCH_ALL)
 
         # Check it
         expected_result = {'bool': {
             'filter': {'match': {'content_type': 'searchtests.Book'}},
             'must': {'match_all': {}}
         }}
-        self.assertDictEqual(query.get_query(), expected_result)
+        self.assertDictEqual(query_compiler.get_query(), expected_result)
 
     def test_and_operator(self):
         # Create a query
-        query = self.query_class(models.Book.objects.all(), "Hello", operator='and')
+        query_compiler = self.query_compiler_class(models.Book.objects.all(), "Hello", operator='and')
 
         # Check it
         expected_result = {'bool': {
             'filter': {'match': {'content_type': 'searchtests.Book'}},
             'must': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials'], 'operator': 'and'}}
         }}
-        self.assertDictEqual(query.get_query(), expected_result)
+        self.assertDictEqual(query_compiler.get_query(), expected_result)
 
     def test_filter(self):
         # Create a query
-        query = self.query_class(models.Book.objects.filter(title="Test"), "Hello")
+        query_compiler = self.query_compiler_class(models.Book.objects.filter(title="Test"), "Hello")
 
         # Check it
         expected_result = {'bool': {'filter': [
             {'match': {'content_type': 'searchtests.Book'}},
             {'term': {'title_filter': 'Test'}}
         ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
-        self.assertDictEqual(query.get_query(), expected_result)
+        self.assertDictEqual(query_compiler.get_query(), expected_result)
 
     def test_and_filter(self):
         # Create a query
-        query = self.query_class(models.Book.objects.filter(title="Test", publication_date=datetime.date(2017, 10, 18)), "Hello")
+        query_compiler = self.query_compiler_class(models.Book.objects.filter(title="Test", publication_date=datetime.date(2017, 10, 18)), "Hello")
 
         # Check it
         expected_result = {'bool': {'filter': [
@@ -82,7 +82,7 @@ class TestElasticsearch5SearchQuery(TestCase):
         ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
 
         # Make sure field filters are sorted (as they can be in any order which may cause false positives)
-        query = query.get_query()
+        query = query_compiler.get_query()
         field_filters = query['bool']['filter'][1]['bool']['must']
         field_filters[:] = sorted(field_filters, key=lambda f: list(f['term'].keys())[0])
 
@@ -90,10 +90,10 @@ class TestElasticsearch5SearchQuery(TestCase):
 
     def test_or_filter(self):
         # Create a query
-        query = self.query_class(models.Book.objects.filter(Q(title="Test") | Q(publication_date=datetime.date(2017, 10, 18))), "Hello")
+        query_compiler = self.query_compiler_class(models.Book.objects.filter(Q(title="Test") | Q(publication_date=datetime.date(2017, 10, 18))), "Hello")
 
         # Make sure field filters are sorted (as they can be in any order which may cause false positives)
-        query = query.get_query()
+        query = query_compiler.get_query()
         field_filters = query['bool']['filter'][1]['bool']['should']
         field_filters[:] = sorted(field_filters, key=lambda f: list(f['term'].keys())[0])
 
@@ -106,51 +106,51 @@ class TestElasticsearch5SearchQuery(TestCase):
 
     def test_negated_filter(self):
         # Create a query
-        query = self.query_class(models.Book.objects.exclude(publication_date=datetime.date(2017, 10, 18)), "Hello")
+        query_compiler = self.query_compiler_class(models.Book.objects.exclude(publication_date=datetime.date(2017, 10, 18)), "Hello")
 
         # Check it
         expected_result = {'bool': {'filter': [
             {'match': {'content_type': 'searchtests.Book'}},
             {'bool': {'mustNot': {'term': {'publication_date_filter': '2017-10-18'}}}}
         ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
-        self.assertDictEqual(query.get_query(), expected_result)
+        self.assertDictEqual(query_compiler.get_query(), expected_result)
 
     def test_fields(self):
         # Create a query
-        query = self.query_class(models.Book.objects.all(), "Hello", fields=['title'])
+        query_compiler = self.query_compiler_class(models.Book.objects.all(), "Hello", fields=['title'])
 
         # Check it
         expected_result = {'bool': {
             'filter': {'match': {'content_type': 'searchtests.Book'}},
-            'must': {'match': {'title': 'Hello'}}
+            'must': {'match': {'title': {'query': 'Hello'}}}
         }}
-        self.assertDictEqual(query.get_query(), expected_result)
+        self.assertDictEqual(query_compiler.get_query(), expected_result)
 
     def test_fields_with_and_operator(self):
         # Create a query
-        query = self.query_class(models.Book.objects.all(), "Hello", fields=['title'], operator='and')
+        query_compiler = self.query_compiler_class(models.Book.objects.all(), "Hello", fields=['title'], operator='and')
 
         # Check it
         expected_result = {'bool': {
             'filter': {'match': {'content_type': 'searchtests.Book'}},
             'must': {'match': {'title': {'query': 'Hello', 'operator': 'and'}}}
         }}
-        self.assertDictEqual(query.get_query(), expected_result)
+        self.assertDictEqual(query_compiler.get_query(), expected_result)
 
     def test_multiple_fields(self):
         # Create a query
-        query = self.query_class(models.Book.objects.all(), "Hello", fields=['title', 'content'])
+        query_compiler = self.query_compiler_class(models.Book.objects.all(), "Hello", fields=['title', 'content'])
 
         # Check it
         expected_result = {'bool': {
             'filter': {'match': {'content_type': 'searchtests.Book'}},
             'must': {'multi_match': {'fields': ['title', 'content'], 'query': 'Hello'}}
         }}
-        self.assertDictEqual(query.get_query(), expected_result)
+        self.assertDictEqual(query_compiler.get_query(), expected_result)
 
     def test_multiple_fields_with_and_operator(self):
         # Create a query
-        query = self.query_class(
+        query_compiler = self.query_compiler_class(
             models.Book.objects.all(), "Hello", fields=['title', 'content'], operator='and'
         )
 
@@ -159,68 +159,68 @@ class TestElasticsearch5SearchQuery(TestCase):
             'filter': {'match': {'content_type': 'searchtests.Book'}},
             'must': {'multi_match': {'fields': ['title', 'content'], 'query': 'Hello', 'operator': 'and'}}
         }}
-        self.assertDictEqual(query.get_query(), expected_result)
+        self.assertDictEqual(query_compiler.get_query(), expected_result)
 
     def test_exact_lookup(self):
         # Create a query
-        query = self.query_class(models.Book.objects.filter(title__exact="Test"), "Hello")
+        query_compiler = self.query_compiler_class(models.Book.objects.filter(title__exact="Test"), "Hello")
 
         # Check it
         expected_result = {'bool': {'filter': [
             {'match': {'content_type': 'searchtests.Book'}},
             {'term': {'title_filter': 'Test'}}
         ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
-        self.assertDictEqual(query.get_query(), expected_result)
+        self.assertDictEqual(query_compiler.get_query(), expected_result)
 
     def test_none_lookup(self):
         # Create a query
-        query = self.query_class(models.Book.objects.filter(title=None), "Hello")
+        query_compiler = self.query_compiler_class(models.Book.objects.filter(title=None), "Hello")
 
         # Check it
         expected_result = {'bool': {'filter': [
             {'match': {'content_type': 'searchtests.Book'}},
             {'bool': {'mustNot': {'exists': {'field': 'title_filter'}}}}
         ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
-        self.assertDictEqual(query.get_query(), expected_result)
+        self.assertDictEqual(query_compiler.get_query(), expected_result)
 
     def test_isnull_true_lookup(self):
         # Create a query
-        query = self.query_class(models.Book.objects.filter(title__isnull=True), "Hello")
+        query_compiler = self.query_compiler_class(models.Book.objects.filter(title__isnull=True), "Hello")
 
         # Check it
         expected_result = {'bool': {'filter': [
             {'match': {'content_type': 'searchtests.Book'}},
             {'bool': {'mustNot': {'exists': {'field': 'title_filter'}}}}
         ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
-        self.assertDictEqual(query.get_query(), expected_result)
+        self.assertDictEqual(query_compiler.get_query(), expected_result)
 
     def test_isnull_false_lookup(self):
         # Create a query
-        query = self.query_class(models.Book.objects.filter(title__isnull=False), "Hello")
+        query_compiler = self.query_compiler_class(models.Book.objects.filter(title__isnull=False), "Hello")
 
         # Check it
         expected_result = {'bool': {'filter': [
             {'match': {'content_type': 'searchtests.Book'}},
             {'exists': {'field': 'title_filter'}}
         ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
-        self.assertDictEqual(query.get_query(), expected_result)
+        self.assertDictEqual(query_compiler.get_query(), expected_result)
 
     def test_startswith_lookup(self):
         # Create a query
-        query = self.query_class(models.Book.objects.filter(title__startswith="Test"), "Hello")
+        query_compiler = self.query_compiler_class(models.Book.objects.filter(title__startswith="Test"), "Hello")
 
         # Check it
         expected_result = {'bool': {'filter': [
             {'match': {'content_type': 'searchtests.Book'}},
             {'prefix': {'title_filter': 'Test'}}
         ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
-        self.assertDictEqual(query.get_query(), expected_result)
+        self.assertDictEqual(query_compiler.get_query(), expected_result)
 
     def test_gt_lookup(self):
         # This also tests conversion of python dates to strings
 
         # Create a query
-        query = self.query_class(
+        query_compiler = self.query_compiler_class(
             models.Book.objects.filter(publication_date__gt=datetime.datetime(2014, 4, 29)), "Hello"
         )
 
@@ -229,11 +229,11 @@ class TestElasticsearch5SearchQuery(TestCase):
             {'match': {'content_type': 'searchtests.Book'}},
             {'range': {'publication_date_filter': {'gt': '2014-04-29'}}}
         ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
-        self.assertDictEqual(query.get_query(), expected_result)
+        self.assertDictEqual(query_compiler.get_query(), expected_result)
 
     def test_lt_lookup(self):
         # Create a query
-        query = self.query_class(
+        query_compiler = self.query_compiler_class(
             models.Book.objects.filter(publication_date__lt=datetime.datetime(2014, 4, 29)), "Hello"
         )
 
@@ -242,11 +242,11 @@ class TestElasticsearch5SearchQuery(TestCase):
             {'match': {'content_type': 'searchtests.Book'}},
             {'range': {'publication_date_filter': {'lt': '2014-04-29'}}}
         ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
-        self.assertDictEqual(query.get_query(), expected_result)
+        self.assertDictEqual(query_compiler.get_query(), expected_result)
 
     def test_gte_lookup(self):
         # Create a query
-        query = self.query_class(
+        query_compiler = self.query_compiler_class(
             models.Book.objects.filter(publication_date__gte=datetime.datetime(2014, 4, 29)), "Hello"
         )
 
@@ -255,11 +255,11 @@ class TestElasticsearch5SearchQuery(TestCase):
             {'match': {'content_type': 'searchtests.Book'}},
             {'range': {'publication_date_filter': {'gte': '2014-04-29'}}}
         ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
-        self.assertDictEqual(query.get_query(), expected_result)
+        self.assertDictEqual(query_compiler.get_query(), expected_result)
 
     def test_lte_lookup(self):
         # Create a query
-        query = self.query_class(
+        query_compiler = self.query_compiler_class(
             models.Book.objects.filter(publication_date__lte=datetime.datetime(2014, 4, 29)), "Hello"
         )
 
@@ -268,14 +268,14 @@ class TestElasticsearch5SearchQuery(TestCase):
             {'match': {'content_type': 'searchtests.Book'}},
             {'range': {'publication_date_filter': {'lte': '2014-04-29'}}}
         ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
-        self.assertDictEqual(query.get_query(), expected_result)
+        self.assertDictEqual(query_compiler.get_query(), expected_result)
 
     def test_range_lookup(self):
         start_date = datetime.datetime(2014, 4, 29)
         end_date = datetime.datetime(2014, 8, 19)
 
         # Create a query
-        query = self.query_class(
+        query_compiler = self.query_compiler_class(
             models.Book.objects.filter(publication_date__range=(start_date, end_date)), "Hello"
         )
 
@@ -284,37 +284,37 @@ class TestElasticsearch5SearchQuery(TestCase):
             {'match': {'content_type': 'searchtests.Book'}},
             {'range': {'publication_date_filter': {'gte': '2014-04-29', 'lte': '2014-08-19'}}}
         ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
-        self.assertDictEqual(query.get_query(), expected_result)
+        self.assertDictEqual(query_compiler.get_query(), expected_result)
 
     def test_custom_ordering(self):
         # Create a query
-        query = self.query_class(
+        query_compiler = self.query_compiler_class(
             models.Book.objects.order_by('publication_date'), "Hello", order_by_relevance=False
         )
 
         # Check it
         expected_result = [{'publication_date_filter': 'asc'}]
-        self.assertDictEqual(query.get_sort(), expected_result)
+        self.assertDictEqual(query_compiler.get_sort(), expected_result)
 
     def test_custom_ordering_reversed(self):
         # Create a query
-        query = self.query_class(
+        query_compiler = self.query_compiler_class(
             models.Book.objects.order_by('-publication_date'), "Hello", order_by_relevance=False
         )
 
         # Check it
         expected_result = [{'publication_date_filter': 'desc'}]
-        self.assertDictEqual(query.get_sort(), expected_result)
+        self.assertDictEqual(query_compiler.get_sort(), expected_result)
 
     def test_custom_ordering_multiple(self):
         # Create a query
-        query = self.query_class(
+        query_compiler = self.query_compiler_class(
             models.Book.objects.order_by('publication_date', 'number_of_pages'), "Hello", order_by_relevance=False
         )
 
         # Check it
         expected_result = [{'publication_date_filter': 'asc'}, {'number_of_pages_filter': 'asc'}]
-        self.assertDictEqual(query.get_sort(), expected_result)
+        self.assertDictEqual(query_compiler.get_sort(), expected_result)
 
 
 class TestElasticsearch5SearchResults(TestCase):
@@ -328,11 +328,11 @@ class TestElasticsearch5SearchResults(TestCase):
 
     def get_results(self):
         backend = Elasticsearch5SearchBackend({})
-        query = mock.MagicMock()
-        query.queryset = models.Book.objects.all()
-        query.get_query.return_value = 'QUERY'
-        query.get_sort.return_value = None
-        return backend.results_class(backend, query)
+        query_compiler = mock.MagicMock()
+        query_compiler.queryset = models.Book.objects.all()
+        query_compiler.get_query.return_value = 'QUERY'
+        query_compiler.get_sort.return_value = None
+        return backend.results_class(backend, query_compiler)
 
     def construct_search_response(self, results):
         return {

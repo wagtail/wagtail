@@ -1,6 +1,3 @@
-import operator
-import re
-from functools import partial, reduce
 from itertools import zip_longest
 
 from django.apps import apps
@@ -19,33 +16,6 @@ except ImportError:
 def get_postgresql_connections():
     return [connection for connection in connections.all()
             if connection.vendor == 'postgresql']
-
-
-# Reduce any iterable to a single value using a logical OR e.g. (a | b | ...)
-OR = partial(reduce, operator.or_)
-# Reduce any iterable to a single value using a logical AND e.g. (a & b & ...)
-AND = partial(reduce, operator.and_)
-# Reduce any iterable to a single value using an addition
-ADD = partial(reduce, operator.add)
-
-
-def keyword_split(keywords):
-    """
-    Return all the keywords in a keyword string.
-
-    Keeps keywords surrounded by quotes together, removing the surrounding quotes:
-
-    >>> keyword_split('Hello I\\'m looking for "something special"')
-    ['Hello', "I'm", 'looking', 'for', 'something special']
-
-    Nested quoted strings are returned as is:
-
-    >>> keyword_split("He said \\"I'm looking for 'something special'\\" so I've given him the 'special item'")
-    ['He', 'said', "I'm looking for 'something special'", 'so', "I've", 'given', 'him', 'the', 'special item']
-
-    """
-    matches = re.findall(r'"([^"]+)"|\'([^\']+)\'|(\S+)', keywords)
-    return [match[0] or match[1] or match[2] for match in matches]
 
 
 def get_descendant_models(model):

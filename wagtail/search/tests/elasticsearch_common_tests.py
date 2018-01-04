@@ -4,9 +4,11 @@ from io import StringIO
 from django.core import management
 
 from wagtail.tests.search import models
+from wagtail.search.query import MATCH_ALL
+from wagtail.search.tests.test_backends import BackendTests
 
 
-class ElasticsearchCommonSearchBackendTests:
+class ElasticsearchCommonSearchBackendTests(BackendTests):
     def test_search_with_spaces_only(self):
         # Search for some space characters and hope it doesn't crash
         results = self.backend.search("   ", models.Book)
@@ -109,7 +111,7 @@ class ElasticsearchCommonSearchBackendTests:
         )
 
         # This should not give any results
-        results = self.backend.search(None, models.Book)
+        results = self.backend.search(MATCH_ALL, models.Book)
         self.assertSetEqual(set(results), set())
 
     def test_annotate_score(self):
@@ -127,7 +129,7 @@ class ElasticsearchCommonSearchBackendTests:
 
     def test_more_than_ten_results(self):
         # #3431 reported that Elasticsearch only sends back 10 results if the results set is not sliced
-        results = self.backend.search(None, models.Book)
+        results = self.backend.search(MATCH_ALL, models.Book)
 
         self.assertEqual(len(results), 13)
 
@@ -141,7 +143,7 @@ class ElasticsearchCommonSearchBackendTests:
         index.add_items(models.Book, books)
         index.refresh()
 
-        results = self.backend.search(None, models.Book)
+        results = self.backend.search(MATCH_ALL, models.Book)
         self.assertEqual(len(results), 163)
 
     def test_slice_more_than_one_hundred_results(self):
@@ -153,7 +155,7 @@ class ElasticsearchCommonSearchBackendTests:
         index.add_items(models.Book, books)
         index.refresh()
 
-        results = self.backend.search(None, models.Book)[10:120]
+        results = self.backend.search(MATCH_ALL, models.Book)[10:120]
         self.assertEqual(len(results), 110)
 
     def test_slice_to_next_page(self):
@@ -167,5 +169,5 @@ class ElasticsearchCommonSearchBackendTests:
         index.add_items(models.Book, books)
         index.refresh()
 
-        results = self.backend.search(None, models.Book)[110:]
+        results = self.backend.search(MATCH_ALL, models.Book)[110:]
         self.assertEqual(len(results), 53)
