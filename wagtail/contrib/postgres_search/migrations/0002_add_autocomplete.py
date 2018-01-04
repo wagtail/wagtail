@@ -38,12 +38,12 @@ class Migration(migrations.Migration):
             model_name='indexentry',
             index=django.contrib.postgres.indexes.GinIndex(
                 fields=['autocomplete'],
-                name='postgres_search_autocomplete'),
+                name='postgres_se_autocom_ee48c8_gin'),
         ),
         migrations.AddIndex(
             model_name='indexentry',
             index=django.contrib.postgres.indexes.GinIndex(
                 fields=['body'],
-                name='postgres_search_body'),
+                name='postgres_se_body_aaaa99_gin'),
         ),
     ]
