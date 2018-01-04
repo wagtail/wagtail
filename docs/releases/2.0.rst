@@ -66,6 +66,7 @@ Bug fixes
  * Alt text of images in rich text is no longer truncated on double-quote characters (Matt Westcott)
  * Ampersands in embed URLs within rich text are no longer double-escaped (Matt Westcott)
  * Using RGBA images no longer crashes with Pillow >= 4.2.0 (Karl Hobley)
+ * Copying a page with PostgreSQL search enabled no longer crashes (Bertrand Bordage)
 
 
 Upgrade considerations
