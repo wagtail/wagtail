@@ -959,7 +959,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
         See also: :func:`Page.can_create_at` and :func:`Page.can_move_to`
         """
-        return cls in parent.specific_class.allowed_subpage_models()
+        specific_class = parent.specific_class
+        return (specific_class is not None
+                and cls in specific_class.allowed_subpage_models())
 
     @classmethod
     def can_create_at(cls, parent):
