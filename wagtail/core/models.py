@@ -948,7 +948,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         """
         return [
             page_model for page_model in self.allowed_subpage_models()
-            if page_model.is_creatable and page_model.can_create_at(self)
+            if page_model.can_create_at(self)
         ]
 
     @classmethod
@@ -1667,11 +1667,9 @@ class PagePermissionTester:
             )
 
     def can_add_subpage(self):
-        if not self.user.is_active:
-            return False
-        if not self.page.specific.creatable_subpage_models():
-            return False
-        return self.user.is_superuser or ('add' in self.permissions)
+        return (self.user.is_active and
+                (self.user.is_superuser or 'add' in self.permissions) and
+                self.page.specific.creatable_subpage_models())
 
     def can_edit(self):
         if not self.user.is_active:
@@ -1753,12 +1751,9 @@ class PagePermissionTester:
         to be able to publish root itself. (Also, can_publish_subpage returns false if the page
         does not allow subpages at all.)
         """
-        if not self.user.is_active:
-            return False
-        if not self.page.specific.creatable_subpage_models():
-            return False
-
-        return self.user.is_superuser or ('publish' in self.permissions)
+        return (self.user.is_active and
+                (self.user.is_superuser or ('publish' in self.permissions))
+                and self.page.specific.creatable_subpage_models())
 
     def can_reorder_children(self):
         """
