@@ -253,7 +253,7 @@ For example, to make the tag always convert the image to a JPEG, use ``format-jp
 
 You may also use ``format-png`` or ``format-gif``.
 
-.. _image_background_color
+.. _image_background_color:
 
 Background color
 ----------------
