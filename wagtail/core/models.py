@@ -941,15 +941,14 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             if cls in subpage_model.clean_parent_page_models()
         ]
 
-    @classmethod
-    def creatable_subpage_models(cls):
+    def creatable_subpage_models(self):
         """
         Returns the list of page types that may be created under this page type,
         as a list of model classes
         """
         return [
-            page_model for page_model in cls.allowed_subpage_models()
-            if page_model.is_creatable
+            page_model for page_model in self.allowed_subpage_models()
+            if page_model.is_creatable and page_model.can_create_at(self)
         ]
 
     @classmethod
@@ -1668,8 +1667,7 @@ class PagePermissionTester:
     def can_add_subpage(self):
         if not self.user.is_active:
             return False
-        specific_class = self.page.specific_class
-        if specific_class is None or not specific_class.creatable_subpage_models():
+        if not self.page.specific.creatable_subpage_models():
             return False
         return self.user.is_superuser or ('add' in self.permissions)
 
@@ -1755,8 +1753,7 @@ class PagePermissionTester:
         """
         if not self.user.is_active:
             return False
-        specific_class = self.page.specific_class
-        if specific_class is None or not specific_class.creatable_subpage_models():
+        if not self.page.specific.creatable_subpage_models():
             return False
 
         return self.user.is_superuser or ('publish' in self.permissions)
@@ -1825,7 +1822,7 @@ class PagePermissionTester:
         # Inspect permissions on the destination
         destination_perms = self.user_perms.for_page(destination)
 
-        if not destination.specific_class.creatable_subpage_models():
+        if not destination.specific.creatable_subpage_models():
             return False
 
         # we always need at least add permission in the target
