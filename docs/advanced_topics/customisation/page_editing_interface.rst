@@ -74,7 +74,7 @@ This can be achieved by passing a ``features`` keyword argument to ``RichTextFie
 
     body = RichTextField(features=['h2', 'h3', 'bold', 'italic', 'link'])
 
-The recognised feature identifiers are as follows (note that add-on modules may add to this list):
+The feature identifiers provided on a default Wagtail installation are as follows:
 
  * ``h1``, ``h2``, ``h3``, ``h4``, ``h5``, ``h6`` - heading elements
  * ``bold``, ``italic`` - bold / italic text
@@ -85,14 +85,27 @@ The recognised feature identifiers are as follows (note that add-on modules may 
  * ``image`` - embedded images
  * ``embed`` - embedded media (see :ref:`embedded_content`)
 
+
+Adding new features to this list is generally a two step process:
+
+ * Create a plugin that extends the editor with a new toolbar button for adding a particular HTML element
+ * Add that HTML element to the whitelist of elements that are permitted in rich text output
+
+Both of these steps are performed through the ``register_rich_text_features`` hook (see :ref:`admin_hooks`). The hook function is triggered on startup, and receives a *feature registry* object as its argument; this object keeps track of the behaviours associated with each feature identifier.
+
+This process for adding new features is described in the following sections.
+
+
 .. _extending_wysiwyg:
 
 Extending the WYSIWYG Editor (``hallo.js``)
--------------------------------------------
++++++++++++++++++++++++++++++++++++++++++++
 
 Wagtail's rich text editor is built on ``hallo.js``, and its functionality can be extended through plugins. For information on developing custom ``hallo.js`` plugins, see the project's page: https://github.com/bergie/hallo
 
-Once the plugin has been created, it should be registered as a rich text feature using the ``register_rich_text_features`` hook. For example, a plugin ``halloblockquote``, implemented in ``myapp/js/hallo-blockquote.js``, that adds support for the ``<blockquote>`` tag, would be registered under the feature name ``blockquote`` as follows:
+Once the plugin has been created, it should be registered through the feature registry's ``register_editor_plugin(editor, feature_name, plugin)`` method. For a ``hallo.js`` plugin, the ``editor`` parameter should always be ``'hallo'``.
+
+A plugin ``halloblockquote``, implemented in ``myapp/js/hallo-blockquote.js``, that adds support for the ``<blockquote>`` tag, would be registered under the feature name ``block-quote`` as follows:
 
 .. code-block:: python
 
@@ -102,16 +115,12 @@ Once the plugin has been created, it should be registered as a rich text feature
     @hooks.register('register_rich_text_features')
     def register_embed_feature(features):
         features.register_editor_plugin(
-            'hallo', 'blockquote',
+            'hallo', 'block-quote',
             HalloPlugin(
                 name='halloblockquote',
                 js=['myapp/js/hallo-blockquote.js'],
             )
         )
-
-.. note::
-
-    When extending the rich text editor to support a new HTML element, it will also be necessary to update the HTML whitelisting rules, via the :ref:`construct_whitelister_element_rules` hook.
 
 The constructor for ``HalloPlugin`` accepts the following keyword arguments:
 
@@ -130,10 +139,37 @@ To have a feature active by default (i.e. on ``RichTextFields`` that do not defi
     @hooks.register('register_rich_text_features')
     def register_blockquote_feature(features):
         features.register_editor_plugin(
-            'hallo', 'blockquote',
+            'hallo', 'block-quote',
             # ...
         )
-        features.default_features.append('blockquote')
+        features.default_features.append('block-quote')
+
+
+.. _whitelisting_rich_text_elements:
+
+Whitelisting rich text elements
++++++++++++++++++++++++++++++++
+
+After extending the editor to support a new HTML element, you'll need to add it to the whitelist of permitted elements - Wagtail's standard behaviour is to strip out unrecognised elements, to prevent editors from inserting styles and scripts (either deliberately, or inadvertently through copy-and-paste) that the developer didn't account for.
+
+Elements can be added to the whitelist through the feature registry's ``register_converter_rule(converter, feature_name, ruleset)`` method. When the ``hallo.js`` editor is in use, the ``converter`` parameter should always be ``'editorhtml'``.
+
+The following code will add the ``<blockquote>`` element to the whitelist whenever the ``block-quote`` feature is active:
+
+.. code-block:: python
+
+    from wagtail.admin.rich_text.converters.editor_html import WhitelistRule
+    from wagtail.core.whitelist import allow_without_attributes
+
+    @hooks.register('register_rich_text_features')
+    def register_blockquote_feature(features):
+        features.register_converter_rule('editorhtml', 'block-quote', [
+            WhitelistRule('blockquote', allow_without_attributes),
+        ])
+
+``WhitelistRule`` is passed the element name, and a callable which will perform some kind of manipulation of the element whenever it is encountered. This callable receives the element as a `BeautifulSoup <http://www.crummy.com/software/BeautifulSoup/bs4/doc/>`_ Tag object.
+
+The ``wagtail.core.whitelist`` module provides a few helper functions to assist in defining these handlers: ``allow_without_attributes``, a handler which preserves the element but strips out all of its attributes, and ``attribute_rule`` which accepts a dict specifying how to handle each attribute, and returns a handler function. This dict will map attribute names to either True (indicating that the attribute should be kept), False (indicating that it should be dropped), or a callable (which takes the initial attribute value and returns either a final value for the attribute, or None to drop the attribute).
 
 
 .. _rich_text_image_formats:

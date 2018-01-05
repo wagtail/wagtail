@@ -266,10 +266,20 @@ Editor interface
 Hooks for customising the editing interface for pages and snippets.
 
 
+.. _register_rich_text_features:
+
+``register_rich_text_features``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Rich text fields in Wagtail work with a list of 'feature' identifiers that determine which editing controls are available in the editor, and which elements are allowed in the output; for example, a rich text field defined as ``RichTextField(features=['h2', 'h3', 'bold', 'italic', 'link'])`` would allow headings, bold / italic formatting and links, but not (for example) bullet lists or images. The ``register_rich_text_features`` hook allows new feature identifiers to be defined - see :ref:`rich_text_features` for details.
+
+
 .. _construct_whitelister_element_rules:
 
 ``construct_whitelister_element_rules``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  **Deprecated.** This hook will be removed in Wagtail 2.2; please use :ref:`rich text features <rich_text_features>` to define whitelist rules instead.
 
   Customise the rules that define which HTML elements are allowed in rich text areas. By default only a limited set of HTML elements and attributes are whitelisted - all others are stripped out. The callables passed into this hook must return a dict, which maps element names to handler functions that will perform some kind of manipulation of the element. These handler functions receive the element as a `BeautifulSoup <http://www.crummy.com/software/BeautifulSoup/bs4/doc/>`_ Tag object.
 

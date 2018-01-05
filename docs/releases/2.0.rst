@@ -167,6 +167,42 @@ This repository has been created to provide a place for the community to collabo
 legacy versions of the API until everyone has migrated to an officially supported version.
 
 
+``construct_whitelister_element_rules`` hook is deprecated
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The ``construct_whitelister_element_rules`` hook, used to specify additional HTML elements to be permitted in rich text, is deprecated. The recommended way of whitelisting elements is now to use rich text features - see :ref:`whitelisting_rich_text_elements`. For example, a whitelist rule that was previously defined as:
+
+  .. code-block:: python
+
+    from wagtail.core import hooks
+    from wagtail.core.whitelist import allow_without_attributes
+
+    @hooks.register('construct_whitelister_element_rules')
+    def whitelist_blockquote():
+        return {
+            'blockquote': allow_without_attributes,
+        }
+
+can be rewritten as:
+
+  .. code-block:: python
+
+    from wagtail.admin.rich_text.converters.editor_html import WhitelistRule
+    from wagtail.core import hooks
+    from wagtail.core.whitelist import allow_without_attributes
+
+    @hooks.register('register_rich_text_features')
+    def blockquote_feature(features):
+
+        # register a feature 'blockquote' which whitelists the <blockquote> element
+        features.register_converter_rule('editorhtml', 'blockquote', [
+            WhitelistRule('blockquote', allow_without_attributes),
+        ])
+
+        # add 'blockquote' to the default feature set
+        features.default_features.append('blockquote')
+
+
 ``wagtail.images.views.serve.generate_signature`` now returns a string
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
