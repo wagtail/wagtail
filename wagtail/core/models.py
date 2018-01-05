@@ -960,8 +960,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         See also: :func:`Page.can_create_at` and :func:`Page.can_move_to`
         """
         specific_class = parent.specific_class
-        return (specific_class is not None
-                and cls in specific_class.allowed_subpage_models())
+        return (specific_class is not None and
+                cls in specific_class.allowed_subpage_models())
 
     @classmethod
     def can_create_at(cls, parent):
@@ -1752,8 +1752,8 @@ class PagePermissionTester:
         does not allow subpages at all.)
         """
         return (self.user.is_active and
-                (self.user.is_superuser or ('publish' in self.permissions))
-                and self.page.specific.creatable_subpage_models())
+                (self.user.is_superuser or ('publish' in self.permissions)) and
+                self.page.specific.creatable_subpage_models())
 
     def can_reorder_children(self):
         """
