@@ -41,6 +41,7 @@ Other features
  * Snippets now support custom primary keys (Sævar Öfjörð Magnússon)
  * Upgraded jQuery to version 3.2.1 (Janneke Janssen)
  * Updated documentation styling (LB (Ben Johnston))
+ * Rich text fields now take feature lists into account when whitelisting HTML elements (Matt Westcott)
 
 Bug fixes
 ~~~~~~~~~

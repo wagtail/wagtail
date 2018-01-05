@@ -28,6 +28,7 @@ Changelog
  * Snippets now support custom primary keys (Sævar Öfjörð Magnússon)
  * Upgraded jQuery to version 3.2.1 (Janneke Janssen)
  * Updated documentation styling (LB (Ben Johnston))
+ * Rich text fields now take feature lists into account when whitelisting HTML elements (Matt Westcott)
  * Fix: Do not remove stopwords when generating slugs from non-ASCII titles, to avoid issues with incorrect word boundaries (Sævar Öfjörð Magnússon)
  * Fix: The PostgreSQL search backend now preserves ordering of the `QuerySet` when searching with `order_by_relevance=False` (Bertrand Bordage)
  * Fix: Using `modeladmin_register` as a decorator no longer replaces the decorated class with `None` (Tim Heap)
