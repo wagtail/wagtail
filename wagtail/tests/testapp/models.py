@@ -37,6 +37,8 @@ from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
 
 from .forms import ValidatedPageForm
+from .views import CustomSubmissionsListView
+
 
 EVENT_AUDIENCE_CHOICES = (
     ('public', "Public"),
@@ -564,6 +566,48 @@ class CustomFormPageSubmission(AbstractFormSubmission):
         })
 
         return form_data
+
+
+# Custom form page with custom submission listing view and form submission
+
+class FormFieldForCustomListViewPage(AbstractFormField):
+    page = ParentalKey(
+        'FormPageWithCustomSubmissionListView',
+        related_name='form_fields',
+        on_delete=models.CASCADE
+    )
+
+
+class FormPageWithCustomSubmissionListView(AbstractEmailForm):
+    """Form Page with customised submissions listing view"""
+
+    intro = RichTextField(blank=True)
+    thank_you_text = RichTextField(blank=True)
+
+    submissions_list_view_class = CustomSubmissionsListView
+
+    def get_submission_class(self):
+        return CustomFormPageSubmission
+
+    def get_data_fields(self):
+        data_fields = [
+            ('username', 'Username'),
+        ]
+        data_fields += super().get_data_fields()
+
+        return data_fields
+
+    content_panels = [
+        FieldPanel('title', classname="full title"),
+        FieldPanel('intro', classname="full"),
+        InlinePanel('form_fields', label="Form fields"),
+        FieldPanel('thank_you_text', classname="full"),
+        MultiFieldPanel([
+            FieldPanel('to_address', classname="full"),
+            FieldPanel('from_address', classname="full"),
+            FieldPanel('subject', classname="full"),
+        ], "Email")
+    ]
 
 
 # Snippets
