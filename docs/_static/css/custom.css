@@ -4,7 +4,7 @@ html  {
 
 body.wy-body-for-nav {
     -webkit-font-smoothing: antialiased; /* Do not remove! */
-    font-family: Open Sans, Arial, sans-serif;
+    font-family: "Lato", "proxima-nova", "Helvetica Neue", Arial, sans-serif;
     line-height: 1.5em;
     color: #666; /*$color-text-base*/
 }
