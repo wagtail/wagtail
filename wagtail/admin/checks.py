@@ -59,9 +59,12 @@ def get_form_class_check(app_configs, **kwargs):
 
     errors = []
 
+    checked_models = []
+
     for cls in get_page_models():
         edit_handler = cls.get_edit_handler()
-        if not issubclass(edit_handler.get_form_class(cls), WagtailAdminPageForm):
+        form_class = edit_handler.get_form_class(cls)
+        if not issubclass(form_class, WagtailAdminPageForm):
             errors.append(Error(
                 "{cls}.get_edit_handler().get_form_class({cls}) does not extend WagtailAdminPageForm".format(
                     cls=cls.__name__),
@@ -71,16 +74,19 @@ def get_form_class_check(app_configs, **kwargs):
                 id='wagtailadmin.E002'))
         for tab in edit_handler.children:
             for panel in [p for p in tab.children if issubclass(p, BaseInlinePanel)]:
-                errors += check_panel_config(
-                    panel.related.related_model,
-                    context='InlinePanel model'
-                )
+                inline_panel_model = panel.related.related_model
+                if inline_panel_model not in checked_models:
+                    errors += check_panel_config(
+                        inline_panel_model,
+                        context='InlinePanel model',
+                    )
+                    checked_models.append(inline_panel_model)
 
     return errors
 
 
 def check_panel_config(cls, context='model'):
-    """Generic check function for panel config, see usage within specific modules."""
+    """Check panels configuration uses `panels` when `edit_handler` not in use."""
 
     errors = []
     panels = [
@@ -90,7 +96,7 @@ def check_panel_config(cls, context='model'):
     ]
 
     if hasattr(cls, 'edit_handler'):
-        # edit_handler is checked in `get_form_class_check`
+        # assume configuration is correct if edit_handler is in use
         return errors
 
     for panel in panels:
@@ -98,11 +104,16 @@ def check_panel_config(cls, context='model'):
             continue
         name = cls.__name__
         tab = panel.replace('_panels', '').title()
-        error_hint = """Ensure that {} uses `panels` instead of `{}`
+        if 'InlinePanel' in context:
+            error_hint = """Ensure that {} uses `panels` instead of `{}`.
+        There are no tabs on non-Page model editing within InlinePanels.
+        """.format(name, panel, tab, panel)
+        else:
+            error_hint = """Ensure that {} uses `panels` instead of `{}`
         or set up an `edit_handler` if you want a tabbed editing interface.
         There are no default tabs on non-Page models so there will be no
-        {} tab for the {} to render in.
-        """.format(name, panel, tab, panel)
+        {} tab for the {} to render in.""".format(name, panel, tab, panel)
+
         error = Warning(
             "{}.{} will have no effect on {} editing".format(name, panel, context),
             hint=error_hint,
