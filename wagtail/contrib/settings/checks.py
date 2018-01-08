@@ -5,10 +5,10 @@ from wagtail.admin.checks import check_panel_config
 
 @register()
 def settings_panels_check(app_configs, **kwargs):
-    from wagtail.contrib.settings import registry
+    """Checks all settings models for correct `panels` configuration."""
+    from wagtail.contrib.settings.registry import registry
 
     errors = []
-    print('does this do anything')
 
     for settings_model in registry:
         errors += check_panel_config(settings_model, 'wagtailsettings')

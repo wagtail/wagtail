@@ -1,16 +1,20 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Permission
+from django.core import checks
 from django.test import TestCase, override_settings
 from django.urls import reverse
 from django.utils.text import capfirst
 
-from wagtail.contrib.settings.registry import SettingMenuItem
+from wagtail.admin.edit_handlers import FieldPanel
+from wagtail.contrib.settings.models import register_setting
+from wagtail.contrib.settings.registry import SettingMenuItem, registry
 from wagtail.contrib.settings.views import get_setting_edit_handler
-from wagtail.tests.testapp.models import (
-    FileUploadSetting, IconSetting, PanelSettings, TabbedSettings, TestSetting)
-from wagtail.tests.utils import WagtailTestUtils
 from wagtail.core import hooks
 from wagtail.core.models import Page, Site
+from wagtail.tests.testapp.models import (
+    CustomSetting, FileUploadSetting, IconSetting, PanelSettings, TabbedSettings,
+    TechnicalSetting, TestSetting)
+from wagtail.tests.utils import WagtailTestUtils
 
 
 class TestSettingMenu(TestCase, WagtailTestUtils):
@@ -246,3 +250,56 @@ class TestEditHandlers(TestCase):
         handler = get_setting_edit_handler(TabbedSettings)
         self.assertEqual(handler.__name__, '_TabbedInterface')
         self.assertEqual(len(handler.children), 2)
+
+
+class TestSettingsPanelConfigChecks(TestCase):
+
+    def test_settings_with_tabbed_panels_only(self):
+        """Test that checks will warn against setting tabbed panels on settings models"""
+
+        CustomSetting.settings_panels = [FieldPanel('title')]
+        CustomSetting.content_panels = [FieldPanel('email')]
+
+        register_setting(CustomSetting)
+        self.assertIn(CustomSetting, registry)
+
+        settings_warning = checks.Warning(
+            "CustomSetting.settings_panels will have no effect on wagtailsettings editing",
+            hint="""Ensure that CustomSetting uses `panels` instead of `settings_panels`
+        or set up an `edit_handler` if you want a tabbed editing interface.
+        There are no default tabs on non-Page models so there will be no
+        Settings tab for the settings_panels to render in.""",
+            obj=CustomSetting,
+            id='wagtailadmin.W002',
+        )
+
+        content_warning = checks.Warning(
+            "CustomSetting.content_panels will have no effect on wagtailsettings editing",
+            hint="""Ensure that CustomSetting uses `panels` instead of `content_panels`
+        or set up an `edit_handler` if you want a tabbed editing interface.
+        There are no default tabs on non-Page models so there will be no
+        Content tab for the content_panels to render in.""",
+            obj=CustomSetting,
+            id='wagtailadmin.W002',
+        )
+
+        # only test against specific errors
+        errors = [e for e in checks.run_checks() if e.id == 'wagtailadmin.W002']
+        self.assertEqual(errors, [content_warning, settings_warning])
+
+        # remove settings model from registry for future check tests
+        registry.remove(CustomSetting)
+
+
+    def test_settings_with_correct_panels_config(self):
+        """Test that checks will not warn if `panels` used on settings models"""
+
+        register_setting(TechnicalSetting)
+        self.assertIn(TechnicalSetting, registry)
+
+        # only test against specific errors
+        errors = [e for e in checks.run_checks() if e.id == 'wagtailadmin.W002']
+        self.assertEqual(errors, [])
+
+        # remove settings model from registry for future check tests
+        registry.remove(TechnicalSetting)
