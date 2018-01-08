@@ -5,6 +5,7 @@ from wagtail.admin.checks import check_panel_config
 
 @register()
 def snippets_panels_check(app_configs, **kwargs):
+    """Checks all snippet models for correct `panels` configuration."""
     from wagtail.snippets.models import get_snippet_models
 
     errors = []

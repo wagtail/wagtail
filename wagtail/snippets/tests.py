@@ -4,9 +4,11 @@ from django.core import checks
 from django.core.exceptions import ValidationError
 from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import SimpleUploadedFile
+from django.db import models
 from django.test import TestCase
 from django.test.utils import override_settings
 from django.urls import reverse
+
 from taggit.models import Tag
 
 from wagtail.admin.edit_handlers import FieldPanel, ObjectList, TabbedInterface
@@ -784,46 +786,100 @@ class TestSnippetChooserBlock(TestCase):
 class TestSnippetPanelConfigChecks(TestCase):
 
     def test_snippet_with_tabbed_panels_only(self):
-        """Test that checks will warn against setting tabbed panels on non-page models"""
+        """Test that checks will warn against setting tabbed panels on snippet models"""
 
-        SearchableSnippet.settings_panels = [FieldPanel('text')]
-        StandardSnippet.content_panels = [FieldPanel('text')]
+        class DrinkSnippet(models.Model):
+            name = models.CharField(max_length=255)
+
+            settings_panels = [FieldPanel('name')]
+
+            def __str__(self):
+                return self.name
+
+        class MealSnippet(models.Model):
+            name = models.CharField(max_length=255)
+
+            content_panels = [FieldPanel('name')]
+
+            def __str__(self):
+                return self.name
+
+        register_snippet(DrinkSnippet)
+        register_snippet(MealSnippet)
+
+        drink_snippet_warning = checks.Warning(
+            "DrinkSnippet.settings_panels will have no effect on snippet editing",
+            hint="""Ensure that DrinkSnippet uses `panels` instead of `settings_panels`
+        or set up an `edit_handler` if you want a tabbed editing interface.
+        There are no default tabs on non-Page models so there will be no
+        Settings tab for the settings_panels to render in.""",
+            obj=DrinkSnippet,
+            id='wagtailadmin.W002',
+        )
+
+        meal_snippet_warning = checks.Warning(
+            "MealSnippet.content_panels will have no effect on snippet editing",
+            hint="""Ensure that MealSnippet uses `panels` instead of `content_panels`
+        or set up an `edit_handler` if you want a tabbed editing interface.
+        There are no default tabs on non-Page models so there will be no
+        Content tab for the content_panels to render in.""",
+            obj=MealSnippet,
+            id='wagtailadmin.W002',
+        )
 
         # only test against specific errors
         errors = [e for e in checks.run_checks() if e.id == 'wagtailadmin.W002']
+        self.assertEqual(errors, [drink_snippet_warning, meal_snippet_warning])
 
-        hint = """Ensure that SearchableSnippet uses `panels` instead of `settings_panels` or set up an
-        `edit_handler` if you want a tabbed editing interface. There are no default
-        tabs on non-Page models, hence there will be no Settings tab for the settings_panels to render in.
-        """
-        search_snippet_warning = checks.Warning(
-            "SearchableSnippet.settings_panels will have no effect on snippet editing",
-            hint=hint,
-            obj=SearchableSnippet,
-            id='wagtailadmin.W002',
-        )
+        # remove snippets for checks in other tests
+        SNIPPET_MODELS.remove(DrinkSnippet)
+        SNIPPET_MODELS.remove(MealSnippet)
 
-        hint = """Ensure that StandardSnippet uses `panels` instead of `content_panels` or set up an
-        `edit_handler` if you want a tabbed editing interface. There are no default
-        tabs on non-Page models, hence there will be no Content tab for the content_panels to render in.
-        """
-        standard_snippet_warning = checks.Warning(
-            "StandardSnippet.content_panels will have no effect on snippet editing",
-            hint=hint,
-            obj=StandardSnippet,
-            id='wagtailadmin.W002',
-        )
+    def test_snippet_with_correct_panels_config(self):
+        """Test that checks will not warn if panels are set correctly"""
 
-        expected_errors = [search_snippet_warning, standard_snippet_warning]
-        self.assertEqual(errors, expected_errors)
+        class FoodSnippet(models.Model):
+            name = models.CharField(max_length=255)
 
-    def test_snippet_correct_edit_handler_setup(self):
+            panels = [FieldPanel('name')]
+
+            def __str__(self):
+                return self.name
+
+        register_snippet(FoodSnippet)
+
+        # only test against specific errors
+        errors = [e for e in checks.run_checks() if e.id == 'wagtailadmin.W002']
+        self.assertEqual(errors, [])
+
+        # remove snippets for checks in other tests
+        SNIPPET_MODELS.remove(FoodSnippet)
+
+    def test_snippet_correct_edit_handler_config(self):
         """Test against false positives, checks should pass if edit_handler is used"""
 
-        FileUploadSnippet.content_panels = [FieldPanel('text')]
-        FileUploadSnippet.edit_handler = TabbedInterface([
-            ObjectList(FileUploadSnippet.content_panels, heading='Content'),
-        ])
+        class WeatherSnippet(models.Model):
+            temp = models.IntegerField()
+            description = models.TextField()
 
-        errors = checks.run_checks()
+            content_panels = [FieldPanel('temp'), FieldPanel('description')]
+            edit_handler = TabbedInterface([
+                ObjectList(content_panels, heading='Content'),
+            ])
+
+            def __str__(self):
+                return self.temp + self.description
+
+        register_snippet(WeatherSnippet)
+        # check snippet is registered and edit_hander is set up
+        self.assertIn(WeatherSnippet, SNIPPET_MODELS)
+        edit_handler_class = get_snippet_edit_handler(WeatherSnippet)
+        form_class = edit_handler_class.get_form_class(WeatherSnippet)
+        self.assertTrue(issubclass(form_class, WagtailAdminModelForm))
+
+        # check this configuration flags no errors for panels config issues
+        errors = [e for e in checks.run_checks() if e.id == 'wagtailadmin.W002']
         self.assertEqual(errors, [])
+
+        # remove snippets for checks in other tests
+        SNIPPET_MODELS.remove(WeatherSnippet)
