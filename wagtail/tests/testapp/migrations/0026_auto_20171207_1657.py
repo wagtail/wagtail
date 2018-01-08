@@ -12,7 +12,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('wagtailcore', '0040_page_draft_title'),
-        ('tests', '0024_tableblockstreampage'),
+        ('tests', '0025_advertwithcustomprimarykey'),
     ]
 
     operations = [
