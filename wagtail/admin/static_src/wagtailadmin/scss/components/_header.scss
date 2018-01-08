@@ -71,6 +71,14 @@ header {
         padding-bottom: 0;
     }
 
+    .button {
+        background-color: $color-teal-darker;
+
+        &:hover {
+            background-color: $color-teal-dark;
+        }
+    }
+
     label {
         @include visuallyhidden();
     }
