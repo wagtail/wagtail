@@ -55,6 +55,7 @@ Changelog
  * Fix: Using RGBA images no longer crashes with Pillow >= 4.2.0 (Karl Hobley)
  * Fix: Copying a page with PostgreSQL search enabled no longer crashes (Bertrand Bordage)
  * Fix: Style of the page unlock button was broken (Bertrand Bordage)
+ * Fix: Admin search no longer floods browser history (Bertrand Bordage)
 
 
 1.13.1 (17.11.2017)

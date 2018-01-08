@@ -218,25 +218,26 @@ $(function() {
     if (window.headerSearch) {
         var searchCurrentIndex = 0;
         var searchNextIndex = 0;
+        var $input = $(window.headerSearch.termInput);
+        var $inputContainer = $input.parent();
 
-        $(window.headerSearch.termInput).on('keyup cut paste change', function() {
-            clearTimeout($.data(this, 'timer'));
-            var wait = setTimeout(search, 200);
-            $(this).data('timer', wait);
+        $input.on('keyup cut paste change', function() {
+            clearTimeout($input.data('timer'));
+            $input.data('timer', setTimeout(search, 200));
         });
 
         // auto focus on search box
-        $(window.headerSearch.termInput).trigger('focus');
+        $input.trigger('focus');
 
         function search() {
             var workingClasses = 'icon-spinner';
 
-            var newQuery = $(window.headerSearch.termInput).val();
+            var newQuery = $input.val();
             var currentQuery = getURLParam('q');
             // only do the query if it has changed for trimmed queries
             // eg. " " === "" and "firstword " ==== "firstword"
             if (currentQuery.trim() !== newQuery.trim()) {
-                $(window.headerSearch.termInput).parent().addClass(workingClasses);
+                $inputContainer.addClass(workingClasses);
                 searchNextIndex++;
                 var index = searchNextIndex;
                 $.ajax({
@@ -246,17 +247,17 @@ $(function() {
                         if (index > searchCurrentIndex) {
                             searchCurrentIndex = index;
                             $(window.headerSearch.targetOutput).html(data).slideDown(800);
-                            window.history.pushState(null, 'Search results', '?q=' + newQuery);
+                            window.history.replaceState(null, null, '?q=' + newQuery);
                         }
                     },
                     complete: function() {
-                        $(window.headerSearch.termInput).parent().removeClass(workingClasses);
+                        $inputContainer.removeClass(workingClasses);
                     }
                 });
             }
-        };
+        }
 
-        getURLParam = function(name) {
+        function getURLParam(name) {
             var results = new RegExp('[\?&]' + name + '=([^]*)').exec(window.location.search);
             if (results) {
                 return results[1];
