@@ -828,6 +828,23 @@ class FileUploadSetting(BaseSetting):
     file = models.FileField()
 
 
+# settings model intentionally not registered - used for testing panel config
+class CustomSetting(BaseSetting):
+    title = models.CharField(max_length=100)
+    email = models.EmailField(max_length=50)
+
+    # content_panel set in test
+
+
+# settings model intentionally not registered - used for testing panel config
+class TechnicalSetting(BaseSetting):
+    title = models.CharField(max_length=100)
+    email = models.EmailField(max_length=50)
+
+    panels = [FieldPanel('title'), FieldPanel('email')]
+
+
+
 class BlogCategory(models.Model):
     name = models.CharField(unique=True, max_length=80)
 
