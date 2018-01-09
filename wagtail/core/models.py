@@ -12,7 +12,7 @@ from django.core.cache import cache
 from django.core.exceptions import ValidationError
 from django.core.handlers.base import BaseHandler
 from django.core.handlers.wsgi import WSGIRequest
-from django.db import connection, models, transaction
+from django.db import models, transaction
 from django.db.models import Q, Value
 from django.db.models.functions import Concat, Substr
 from django.http import Http404
@@ -556,20 +556,12 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         return errors
 
     def _update_descendant_url_paths(self, old_url_path, new_url_path):
-        if connection.vendor in ('mssql', 'microsoft'):
-            cursor = connection.cursor()
-            cursor.execute("""
-                UPDATE wagtailcore_page
-                SET url_path= CONCAT(%s, (SUBSTRING(url_path, 0, %s)))
-                WHERE path LIKE %s AND id <> %s
-            """, [new_url_path, len(old_url_path) + 1, self.path + '%', self.id])
-        else:
-            (Page.objects
-                .filter(path__startswith=self.path)
-                .exclude(pk=self.pk)
-                .update(url_path=Concat(
-                    Value(new_url_path),
-                    Substr('url_path', len(old_url_path) + 1))))
+        (Page.objects
+            .filter(path__startswith=self.path)
+            .exclude(pk=self.pk)
+            .update(url_path=Concat(
+                Value(new_url_path),
+                Substr('url_path', len(old_url_path) + 1))))
 
     #: Return this page in its most specific subclassed form.
     @cached_property
