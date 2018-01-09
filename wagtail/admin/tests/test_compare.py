@@ -4,12 +4,13 @@ from django.test import TestCase
 from django.utils.functional import curry
 from django.utils.safestring import SafeText
 
-from wagtail.tests.testapp.models import (
-    EventCategory, EventPage, EventPageSpeaker, SimplePage, StreamPage, TaggedPage)
 from wagtail.admin import compare
 from wagtail.core.blocks import StreamValue
 from wagtail.images import get_image_model
 from wagtail.images.tests.utils import get_test_image_file
+from wagtail.tests.testapp.models import (
+    EventCategory, EventPage, EventPageSpeaker, HeadCountRelatedModelUsingPK,
+    SimplePage, StreamPage, TaggedPage)
 
 
 class TestFieldComparison(TestCase):
@@ -649,3 +650,87 @@ class TestChildObjectComparison(TestCase):
         self.assertFalse(comparison.has_changed())
         self.assertIsNone(comparison.get_position_change())
         self.assertEqual(comparison.get_num_differences(), 0)
+
+
+class TestChildRelationComparisonUsingPK(TestCase):
+    """Test related objects can be compred if they do not use id for primary key"""
+
+    field_comparison_class = compare.FieldComparison
+    comparison_class = compare.ChildRelationComparison
+
+    def test_has_changed_with_same_id(self):
+        # Head Count was changed but the PK of the child object remained the same.
+        # It should be detected as the same object
+
+        event_page = EventPage(title="Semi Finals", slug="semi-finals-2018")
+        event_page.head_counts.add(HeadCountRelatedModelUsingPK(
+            custom_id=1,
+            head_count=22,
+        ))
+
+        modified_event_page = EventPage(title="Semi Finals", slug="semi-finals-2018")
+        modified_event_page.head_counts.add(HeadCountRelatedModelUsingPK(
+            custom_id=1,
+            head_count=23,
+        ))
+        modified_event_page.head_counts.add(HeadCountRelatedModelUsingPK(
+            head_count=25,
+        ))
+
+        comparison = self.comparison_class(
+            EventPage._meta.get_field('head_counts'),
+            [curry(self.field_comparison_class, HeadCountRelatedModelUsingPK._meta.get_field('head_count'))],
+            event_page,
+            modified_event_page,
+        )
+
+        self.assertFalse(comparison.is_field)
+        self.assertTrue(comparison.is_child_relation)
+        self.assertEqual(comparison.field_label(), 'Head counts')
+        self.assertTrue(comparison.has_changed())
+
+        # Check mapping
+        objs_a = list(comparison.val_a.all())
+        objs_b = list(comparison.val_b.all())
+        map_forwards, map_backwards, added, deleted = comparison.get_mapping(objs_a, objs_b)
+        self.assertEqual(map_forwards, {0: 0})  # map head count 22 to 23
+        self.assertEqual(map_backwards, {0: 0})  # map head count 23 to 22
+        self.assertEqual(added, [1])  # add second head count
+        self.assertEqual(deleted, [])
+
+
+    def test_hasnt_changed_with_different_id(self):
+        # Both of the child objects have the same field content but have a
+        # different PK (ID) so they should be detected as separate objects
+        event_page = EventPage(title="Finals", slug="finals-event-abc")
+        event_page.head_counts.add(HeadCountRelatedModelUsingPK(
+            custom_id=1,
+            head_count=220
+        ))
+
+        modified_event_page = EventPage(title="Finals", slug="finals-event-abc")
+        modified_event_page.head_counts.add(HeadCountRelatedModelUsingPK(
+            custom_id=2,
+            head_count=220
+        ))
+
+        comparison = self.comparison_class(
+            EventPage._meta.get_field('head_counts'),
+            [curry(self.field_comparison_class, HeadCountRelatedModelUsingPK._meta.get_field('head_count'))],
+            event_page,
+            modified_event_page,
+        )
+
+        self.assertFalse(comparison.is_field)
+        self.assertTrue(comparison.is_child_relation)
+        self.assertEqual(comparison.field_label(), "Head counts")
+        self.assertTrue(comparison.has_changed())
+
+        # Check mapping
+        objs_a = list(comparison.val_a.all())
+        objs_b = list(comparison.val_b.all())
+        map_forwards, map_backwards, added, deleted = comparison.get_mapping(objs_a, objs_b)
+        self.assertEqual(map_forwards, {})
+        self.assertEqual(map_backwards, {})
+        self.assertEqual(added, [0])  # Add new head count
+        self.assertEqual(deleted, [0])  # Delete old head count
