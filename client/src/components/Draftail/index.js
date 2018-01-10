@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import DraftailEditor from 'draftail';
 
+import Icon from '../Icon/Icon';
+
 import decorators from './decorators';
 import sources from './sources';
 import registry from './registry';
@@ -16,12 +18,28 @@ export const initEditor = (fieldName, options = {}) => {
     field.value = JSON.stringify(rawContentState || {});
   };
 
+  let blockTypes;
+  let inlineStyles;
+  let entityTypes;
+
+  if (options && options.blockTypes) {
+    blockTypes = options.blockTypes.map(type => Object.assign(type, {
+      icon: <Icon name={type.icon} />,
+    }));
+  }
+
+  if (options && options.inlineStyles) {
+    inlineStyles = options.inlineStyles.map(type => Object.assign(type, {
+      icon: <Icon name={type.icon} />,
+    }));
+  }
+
   if (options && options.entityTypes) {
-    // eslint-disable-next-line no-param-reassign
-    options.entityTypes = options.entityTypes.map(entity => Object.assign(entity, {
-      source: registry.getSource(entity.source),
-      strategy: registry.getStrategy(entity.type) || null,
-      decorator: registry.getDecorator(entity.decorator),
+    entityTypes = options.entityTypes.map(type => Object.assign(type, {
+      icon: <Icon name={type.icon} />,
+      source: registry.getSource(type.source),
+      strategy: registry.getStrategy(type.type) || null,
+      decorator: registry.getDecorator(type.decorator),
     }));
   }
 
@@ -35,6 +53,9 @@ export const initEditor = (fieldName, options = {}) => {
       onSave={serialiseInputValue}
       placeholder="Write here…"
       {...options}
+      blockTypes={blockTypes}
+      inlineStyles={inlineStyles}
+      entityTypes={entityTypes}
     />
   );
 

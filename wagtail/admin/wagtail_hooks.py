@@ -339,7 +339,7 @@ def register_core_features(features):
     })
     features.register_editor_plugin(
         'draftail', 'ul', draftail_features.BlockFeature({
-            'label': 'UL', 'type': BLOCK_TYPES.UNORDERED_LIST_ITEM, 'icon': 'icon-list-ul'
+            'type': BLOCK_TYPES.UNORDERED_LIST_ITEM, 'icon': 'list-ul'
         })
     )
     features.register_converter_rule('contentstate', 'ul', {
@@ -353,7 +353,7 @@ def register_core_features(features):
     })
     features.register_editor_plugin(
         'draftail', 'ol', draftail_features.BlockFeature({
-            'label': 'OL', 'type': BLOCK_TYPES.ORDERED_LIST_ITEM, 'icon': 'icon-list-ol'
+            'type': BLOCK_TYPES.ORDERED_LIST_ITEM, 'icon': 'list-ol'
         })
     )
     features.register_converter_rule('contentstate', 'ol', {
@@ -368,7 +368,7 @@ def register_core_features(features):
 
     features.register_editor_plugin(
         'draftail', 'bold', draftail_features.InlineStyleFeature({
-            'label': 'Bold', 'type': INLINE_STYLES.BOLD, 'icon': 'icon-bold'
+            'type': INLINE_STYLES.BOLD, 'icon': 'bold'
         })
     )
     features.register_converter_rule('contentstate', 'bold', {
@@ -382,7 +382,7 @@ def register_core_features(features):
     })
     features.register_editor_plugin(
         'draftail', 'italic', draftail_features.InlineStyleFeature({
-            'label': 'Italic', 'type': INLINE_STYLES.ITALIC, 'icon': 'icon-italic'
+            'type': INLINE_STYLES.ITALIC, 'icon': 'italic'
         })
     )
     features.register_converter_rule('contentstate', 'italic', {
@@ -397,9 +397,8 @@ def register_core_features(features):
 
     features.register_editor_plugin(
         'draftail', 'link', draftail_features.EntityFeature({
-            'label': 'Link',
             'type': ENTITY_TYPES.LINK,
-            'icon': 'icon-link',
+            'icon': 'link',
             'source': 'LinkSource',
             'decorator': 'Link',
         })

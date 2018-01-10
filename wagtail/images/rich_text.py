@@ -99,12 +99,11 @@ class ImageFeature(EntityFeature):
             format_defs = [get_image_format(f) for f in image_formats]
 
         super().__init__({
-            'label': 'Image',
             'type': ENTITY_TYPES.IMAGE,
-            'icon': 'icon-image',
+            'icon': 'image',
             'imageFormats': [{'label': str(f.label), 'value': f.name} for f in format_defs],
             'source': 'ImageSource',
-            'decorator': 'Image',
+            'block': 'ImageBlock',
         })
 
 

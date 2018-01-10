@@ -89,9 +89,9 @@ def register_document_feature(features):
     )
     features.register_editor_plugin(
         'draftail', 'document-link', draftail_features.EntityFeature({
-            'label': 'Document',
             'type': ENTITY_TYPES.DOCUMENT,
-            'icon': 'icon-doc-full',
+            'icon': 'doc-full',
+            'description': 'Document',
             'source': 'DocumentSource',
             'decorator': 'Document',
         })

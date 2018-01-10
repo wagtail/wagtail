@@ -53,11 +53,11 @@ def register_embed_feature(features):
     # define a draftail plugin to use when the 'embed' feature is active
     features.register_editor_plugin(
         'draftail', 'embed', draftail_features.EntityFeature({
-            'label': 'Embed',
             'type': ENTITY_TYPES.EMBED,
-            'icon': 'icon-media',
+            'icon': 'media',
+            'description': 'Embed',
             'source': 'EmbedSource',
-            'decorator': 'Embed',
+            'block': 'EmbedBlock',
         })
     )
 
