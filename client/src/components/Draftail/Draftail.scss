@@ -37,6 +37,8 @@ $color-editor-chrome-accent: lighten($color-editor-chrome, 20%);
 
 @import './Tooltip/Tooltip';
 
+@import './decorators/TooltipEntity';
+
 @import './blocks/MediaBlock';
 @import './blocks/ImageBlock';
 @import './blocks/EmbedBlock';

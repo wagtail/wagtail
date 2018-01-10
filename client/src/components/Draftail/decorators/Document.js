@@ -1,21 +1,25 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Icon } from 'draftail';
 
-const Document = ({ entityKey, contentState, children }) => {
-  const { title } = contentState.getEntity(entityKey).getData();
+import Icon from '../../Icon/Icon';
+
+import TooltipEntity from '../decorators/TooltipEntity';
+
+const Document = props => {
+  const { entityKey, contentState } = props;
+  const { url } = contentState.getEntity(entityKey).getData();
   return (
-    <span data-tooltip={entityKey} className="RichEditor-link" title={title}>
-      <Icon name="icon-doc-full" />
-      {children}
-    </span>
+    <TooltipEntity
+      {...props}
+      icon={<Icon name="doc-full" />}
+      label={url.replace(/(^\w+:|^)\/\//, '').split('/')[0]}
+    />
   );
 };
 
 Document.propTypes = {
   entityKey: PropTypes.string.isRequired,
   contentState: PropTypes.object.isRequired,
-  children: PropTypes.node.isRequired,
 };
 
 export default Document;

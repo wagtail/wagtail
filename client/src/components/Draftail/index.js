@@ -4,8 +4,9 @@ import DraftailEditor from 'draftail';
 
 import Icon from '../Icon/Icon';
 
-import decorators from './decorators';
 import sources from './sources';
+import Link from './decorators/Link';
+import Document from './decorators/Document';
 import ImageBlock from './blocks/ImageBlock';
 import EmbedBlock from './blocks/EmbedBlock';
 
@@ -19,7 +20,7 @@ const wrapWagtailIcon = type => {
   }
 
   return type;
-}
+};
 
 export const initEditor = (fieldName, options = {}) => {
   const field = document.querySelector(`[name="${fieldName}"]`);
@@ -50,7 +51,7 @@ export const initEditor = (fieldName, options = {}) => {
         strategy: registry.getStrategy(type.type) || null,
         decorator: registry.getDecorator(type.decorator),
         block: registry.getBlock(type.block),
-      }),
+      })
     );
   }
 
@@ -77,9 +78,11 @@ export const initEditor = (fieldName, options = {}) => {
   ReactDOM.render(editor, editorWrapper);
 };
 
-// Register default Decorators and Sources
-registry.registerDecorators(decorators);
 registry.registerSources(sources);
+registry.registerDecorators({
+  Link,
+  Document,
+});
 registry.registerBlocks({
   ImageBlock,
   EmbedBlock,
@@ -93,7 +96,7 @@ const draftail = Object.assign(
     // createClass: React.createClass,
     // createElement: React.createElement,
   },
-  registry,
+  registry
 );
 
 export default draftail;
