@@ -1759,6 +1759,10 @@ class TestPageEditReordering(TestCase, WagtailTestUtils):
             'speakers-MAX_NUM_FORMS': 1000,
             'speakers-TOTAL_FORMS': 0,
 
+            'head_counts-INITIAL_FORMS': 0,
+            'head_counts-MAX_NUM_FORMS': 1000,
+            'head_counts-TOTAL_FORMS': 0,
+
             'carousel_items-INITIAL_FORMS': 3,
             'carousel_items-MAX_NUM_FORMS': 1000,
             'carousel_items-TOTAL_FORMS': 3,
@@ -1800,6 +1804,10 @@ class TestPageEditReordering(TestCase, WagtailTestUtils):
             'speakers-INITIAL_FORMS': 0,
             'speakers-MAX_NUM_FORMS': 1000,
             'speakers-TOTAL_FORMS': 0,
+
+            'head_counts-INITIAL_FORMS': 0,
+            'head_counts-MAX_NUM_FORMS': 1000,
+            'head_counts-TOTAL_FORMS': 0,
 
             'carousel_items-INITIAL_FORMS': 3,
             'carousel_items-MAX_NUM_FORMS': 1000,
@@ -3826,6 +3834,10 @@ class TestIssue2492(TestCase, WagtailTestUtils):
             'related_links-INITIAL_FORMS': 0,
             'related_links-MIN_NUM_FORMS': 0,
             'related_links-MAX_NUM_FORMS': 0,
+            'head_counts-TOTAL_FORMS': 0,
+            'head_counts-INITIAL_FORMS': 0,
+            'head_counts-MIN_NUM_FORMS': 0,
+            'head_counts-MAX_NUM_FORMS': 0,
         }
         response = self.client.post(
             reverse('wagtailadmin_pages:edit', args=(self.child_page.id, )),
@@ -4133,6 +4145,10 @@ class TestParentalM2M(TestCase, WagtailTestUtils):
             'related_links-INITIAL_FORMS': 0,
             'related_links-MIN_NUM_FORMS': 0,
             'related_links-MAX_NUM_FORMS': 0,
+            'head_counts-TOTAL_FORMS': 0,
+            'head_counts-INITIAL_FORMS': 0,
+            'head_counts-MIN_NUM_FORMS': 0,
+            'head_counts-MAX_NUM_FORMS': 0,
             'categories': [self.holiday_category.id, self.men_with_beards_category.id]
         }
         response = self.client.post(
@@ -4167,6 +4183,10 @@ class TestParentalM2M(TestCase, WagtailTestUtils):
             'related_links-INITIAL_FORMS': 0,
             'related_links-MIN_NUM_FORMS': 0,
             'related_links-MAX_NUM_FORMS': 0,
+            'head_counts-TOTAL_FORMS': 0,
+            'head_counts-INITIAL_FORMS': 0,
+            'head_counts-MIN_NUM_FORMS': 0,
+            'head_counts-MAX_NUM_FORMS': 0,
             'categories': [self.holiday_category.id, self.men_with_beards_category.id]
         }
         response = self.client.post(
@@ -4199,6 +4219,10 @@ class TestParentalM2M(TestCase, WagtailTestUtils):
             'related_links-INITIAL_FORMS': 0,
             'related_links-MIN_NUM_FORMS': 0,
             'related_links-MAX_NUM_FORMS': 0,
+            'head_counts-TOTAL_FORMS': 0,
+            'head_counts-INITIAL_FORMS': 0,
+            'head_counts-MIN_NUM_FORMS': 0,
+            'head_counts-MAX_NUM_FORMS': 0,
             'categories': [self.holiday_category.id, self.men_with_beards_category.id]
         }
         response = self.client.post(
@@ -4236,6 +4260,10 @@ class TestParentalM2M(TestCase, WagtailTestUtils):
             'related_links-INITIAL_FORMS': 0,
             'related_links-MIN_NUM_FORMS': 0,
             'related_links-MAX_NUM_FORMS': 0,
+            'head_counts-TOTAL_FORMS': 0,
+            'head_counts-INITIAL_FORMS': 0,
+            'head_counts-MIN_NUM_FORMS': 0,
+            'head_counts-MAX_NUM_FORMS': 0,
             'categories': [self.holiday_category.id, self.men_with_beards_category.id]
         }
         response = self.client.post(
@@ -4278,6 +4306,10 @@ class TestValidationErrorMessages(TestCase, WagtailTestUtils):
             'related_links-INITIAL_FORMS': 0,
             'related_links-MIN_NUM_FORMS': 0,
             'related_links-MAX_NUM_FORMS': 0,
+            'head_counts-TOTAL_FORMS': 0,
+            'head_counts-INITIAL_FORMS': 0,
+            'head_counts-MIN_NUM_FORMS': 0,
+            'head_counts-MAX_NUM_FORMS': 0,
         }
         response = self.client.post(
             reverse('wagtailadmin_pages:edit', args=(self.christmas_page.id, )),
@@ -4312,6 +4344,10 @@ class TestValidationErrorMessages(TestCase, WagtailTestUtils):
             'related_links-INITIAL_FORMS': 0,
             'related_links-MIN_NUM_FORMS': 0,
             'related_links-MAX_NUM_FORMS': 0,
+            'head_counts-TOTAL_FORMS': 0,
+            'head_counts-INITIAL_FORMS': 0,
+            'head_counts-MIN_NUM_FORMS': 0,
+            'head_counts-MAX_NUM_FORMS': 0,
         }
         response = self.client.post(
             reverse('wagtailadmin_pages:edit', args=(self.christmas_page.id, )),
@@ -4348,6 +4384,10 @@ class TestValidationErrorMessages(TestCase, WagtailTestUtils):
             'related_links-INITIAL_FORMS': 0,
             'related_links-MIN_NUM_FORMS': 0,
             'related_links-MAX_NUM_FORMS': 0,
+            'head_counts-TOTAL_FORMS': 0,
+            'head_counts-INITIAL_FORMS': 0,
+            'head_counts-MIN_NUM_FORMS': 0,
+            'head_counts-MAX_NUM_FORMS': 0,
         }
         response = self.client.post(
             reverse('wagtailadmin_pages:edit', args=(self.christmas_page.id, )),
@@ -4455,6 +4495,10 @@ class TestPreview(TestCase, WagtailTestUtils):
             'related_links-INITIAL_FORMS': 0,
             'related_links-MIN_NUM_FORMS': 0,
             'related_links-MAX_NUM_FORMS': 0,
+            'head_counts-TOTAL_FORMS': 0,
+            'head_counts-INITIAL_FORMS': 0,
+            'head_counts-MIN_NUM_FORMS': 0,
+            'head_counts-MAX_NUM_FORMS': 0,
             'categories': [self.parties_category.id, self.holidays_category.id],
         }
 
