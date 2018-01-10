@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MediaBlock renders 1`] = `
+<button
+  className="MediaBlock"
+  onMouseUp={[Function]}
+  tabIndex={-1}
+  type="button"
+>
+  <span
+    aria-hidden={true}
+    className="MediaBlock__icon-wrapper"
+  >
+    <Icon
+      className="MediaBlock__icon"
+      icon="#icon-test"
+      title={null}
+    />
+  </span>
+  <img
+    alt=""
+    className="MediaBlock__img"
+    src="example.png"
+    width="256"
+  />
+</button>
+`;
+
+exports[`MediaBlock tooltip opens 1`] = `undefined`;

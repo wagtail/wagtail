@@ -1,0 +1,83 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ImageBlock alt 1`] = `
+<MediaBlock
+  alt=""
+  block={Object {}}
+  blockProps={
+    Object {
+      "editorState": Object {},
+      "entity": Object {
+        "getData": [Function],
+      },
+      "entityConfig": Object {},
+      "onChange": [Function],
+    }
+  }
+  src="example.png"
+>
+  <label
+    className="ImageBlock__field"
+  >
+    <p>
+      Alt text
+    </p>
+    <input
+      onChange={[Function]}
+      type="text"
+      value="Test"
+    />
+  </label>
+  <button
+    className="Tooltip__button"
+  >
+    Edit
+  </button>
+  <button
+    className="Tooltip__button"
+  >
+    Remove
+  </button>
+</MediaBlock>
+`;
+
+exports[`ImageBlock renders 1`] = `
+<MediaBlock
+  alt=""
+  block={Object {}}
+  blockProps={
+    Object {
+      "editorState": Object {},
+      "entity": Object {
+        "getData": [Function],
+      },
+      "entityConfig": Object {},
+      "onChange": [Function],
+    }
+  }
+  src="example.png"
+>
+  <label
+    className="ImageBlock__field"
+  >
+    <p>
+      Alt text
+    </p>
+    <input
+      onChange={[Function]}
+      type="text"
+      value=""
+    />
+  </label>
+  <button
+    className="Tooltip__button"
+  >
+    Edit
+  </button>
+  <button
+    className="Tooltip__button"
+  >
+    Remove
+  </button>
+</MediaBlock>
+`;

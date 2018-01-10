@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EmbedBlock renders 1`] = `
+<MediaBlock
+  alt="Embed: Test title"
+  blockProps={
+    Object {
+      "entity": Object {
+        "getData": [Function],
+      },
+      "entityConfig": Object {},
+    }
+  }
+  src="http://www.example.com/example.png"
+>
+  <a
+    className="EmbedBlock__link"
+    href="http://www.example.com/"
+    rel="noopener noreferrer"
+    target="_blank"
+    title="http://www.example.com/"
+  >
+    Test title
+  </a>
+  <button
+    className="Tooltip__button"
+  >
+    Edit
+  </button>
+  <button
+    className="Tooltip__button"
+  >
+    Remove
+  </button>
+</MediaBlock>
+`;

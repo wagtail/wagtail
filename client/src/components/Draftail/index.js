@@ -6,6 +6,9 @@ import Icon from '../Icon/Icon';
 
 import decorators from './decorators';
 import sources from './sources';
+import ImageBlock from './blocks/ImageBlock';
+import EmbedBlock from './blocks/EmbedBlock';
+
 import registry from './registry';
 
 export const initEditor = (fieldName, options = {}) => {
@@ -40,6 +43,7 @@ export const initEditor = (fieldName, options = {}) => {
       source: registry.getSource(type.source),
       strategy: registry.getStrategy(type.type) || null,
       decorator: registry.getDecorator(type.decorator),
+      block: registry.getBlock(type.block),
     }));
   }
 
@@ -65,6 +69,10 @@ export const initEditor = (fieldName, options = {}) => {
 // Register default Decorators and Sources
 registry.registerDecorators(decorators);
 registry.registerSources(sources);
+registry.registerBlocks({
+  ImageBlock,
+  EmbedBlock,
+});
 
 const draftail = Object.assign({
   initEditor: initEditor,

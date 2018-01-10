@@ -34,3 +34,9 @@ $color-editor-chrome-active: $color-white;
 $color-editor-chrome-accent: lighten($color-editor-chrome, 20%);
 
 @import '../../../../node_modules/draftail/lib/index';
+
+@import './Tooltip/Tooltip';
+
+@import './blocks/MediaBlock';
+@import './blocks/ImageBlock';
+@import './blocks/EmbedBlock';
