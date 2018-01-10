@@ -4,6 +4,8 @@ Changelog
 2.0 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
+ * Added support for Django 2.0 (Matt Westcott, Karl Hobley, LB (Ben Johnston), Mads Jensen)
+ * Reorganised module paths (Karl Hobley, Matt Westcott)
  * Removed support for Python 2.7, Django 1.8 and Django 1.10
  * Removed support for Elasticsearch 1.x
  * Moved Wagtail API v1 implementation (`wagtail.contrib.api`) to an external app (https://github.com/wagtail/wagtailapi_legacy) (Karl Hobley)
