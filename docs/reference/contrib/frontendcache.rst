@@ -20,27 +20,27 @@ This document describes how to configure Wagtail to purge old versions of pages 
 Setting it up
 -------------
 
-Firstly, add ``"wagtail.contrib.wagtailfrontendcache"`` to your INSTALLED_APPS:
+Firstly, add ``"wagtail.contrib.frontend_cache"`` to your INSTALLED_APPS:
 
  .. code-block:: python
 
      INSTALLED_APPS = [
         ...
 
-        "wagtail.contrib.wagtailfrontendcache"
+        "wagtail.contrib.frontend_cache"
      ]
 
 .. versionchanged:: 0.8
 
     Signal handlers are now automatically registered
 
-The ``wagtailfrontendcache`` module provides a set of signal handlers which will automatically purge the cache whenever a page is published or deleted. These signal handlers are automatically registered when the ``wagtail.contrib.wagtailfrontendcache`` app is loaded.
+The ``wagtailfrontendcache`` module provides a set of signal handlers which will automatically purge the cache whenever a page is published or deleted. These signal handlers are automatically registered when the ``wagtail.contrib.frontend_cache`` app is loaded.
 
 
 Varnish/Squid
 ^^^^^^^^^^^^^
 
-Add a new item into the ``WAGTAILFRONTENDCACHE`` setting and set the ``BACKEND`` parameter to ``wagtail.contrib.wagtailfrontendcache.backends.HTTPBackend``. This backend requires an extra parameter ``LOCATION`` which points to where the cache is running (this must be a direct connection to the server and cannot go through another proxy).
+Add a new item into the ``WAGTAILFRONTENDCACHE`` setting and set the ``BACKEND`` parameter to ``wagtail.contrib.frontend_cache.backends.HTTPBackend``. This backend requires an extra parameter ``LOCATION`` which points to where the cache is running (this must be a direct connection to the server and cannot go through another proxy).
 
 .. code-block:: python
 
@@ -48,7 +48,7 @@ Add a new item into the ``WAGTAILFRONTENDCACHE`` setting and set the ``BACKEND``
 
     WAGTAILFRONTENDCACHE = {
         'varnish': {
-            'BACKEND': 'wagtail.contrib.wagtailfrontendcache.backends.HTTPBackend',
+            'BACKEND': 'wagtail.contrib.frontend_cache.backends.HTTPBackend',
             'LOCATION': 'http://localhost:8000',
         },
     }
@@ -67,7 +67,7 @@ Cloudflare
 
 Firstly, you need to register an account with Cloudflare if you haven't already got one. You can do this here: `Cloudflare Sign up <https://www.cloudflare.com/sign-up>`_
 
-Add an item into the ``WAGTAILFRONTENDCACHE`` and set the ``BACKEND`` parameter to ``wagtail.contrib.wagtailfrontendcache.backends.CloudflareBackend``. This backend requires three extra parameters, ``EMAIL`` (your Cloudflare account email), ``TOKEN`` (your API token from Cloudflare), and ``ZONEID`` (for zone id for your domain, see below).
+Add an item into the ``WAGTAILFRONTENDCACHE`` and set the ``BACKEND`` parameter to ``wagtail.contrib.frontend_cache.backends.CloudflareBackend``. This backend requires three extra parameters, ``EMAIL`` (your Cloudflare account email), ``TOKEN`` (your API token from Cloudflare), and ``ZONEID`` (for zone id for your domain, see below).
 
 To find the ``ZONEID`` for your domain, read the `Cloudflare API Documentation <https://api.cloudflare.com/#getting-started-resource-ids>`_
 
@@ -78,7 +78,7 @@ To find the ``ZONEID`` for your domain, read the `Cloudflare API Documentation <
 
     WAGTAILFRONTENDCACHE = {
         'cloudflare': {
-            'BACKEND': 'wagtail.contrib.wagtailfrontendcache.backends.CloudflareBackend',
+            'BACKEND': 'wagtail.contrib.frontend_cache.backends.CloudflareBackend',
             'EMAIL': 'your-cloudflare-email-address@example.com',
             'TOKEN': 'your cloudflare api token',
             'ZONEID': 'your cloudflare domain zone id',
@@ -92,13 +92,13 @@ Amazon CloudFront
 
 Within Amazon Web Services you will need at least one CloudFront web distribution. If you don't have one, you can get one here: `CloudFront getting started <https://aws.amazon.com/cloudfront/>`_
 
-Add an item into the ``WAGTAILFRONTENDCACHE`` and set the ``BACKEND`` parameter to ``wagtail.contrib.wagtailfrontendcache.backends.CloudfrontBackend``. This backend requires one extra parameter, ``DISTRIBUTION_ID`` (your CloudFront generated distribution id).
+Add an item into the ``WAGTAILFRONTENDCACHE`` and set the ``BACKEND`` parameter to ``wagtail.contrib.frontend_cache.backends.CloudfrontBackend``. This backend requires one extra parameter, ``DISTRIBUTION_ID`` (your CloudFront generated distribution id).
 
 .. code-block:: python
 
     WAGTAILFRONTENDCACHE = {
         'cloudfront': {
-            'BACKEND': 'wagtail.contrib.wagtailfrontendcache.backends.CloudfrontBackend',
+            'BACKEND': 'wagtail.contrib.frontend_cache.backends.CloudfrontBackend',
             'DISTRIBUTION_ID': 'your-distribution-id',
         },
     }
@@ -111,7 +111,7 @@ In case you run multiple sites with Wagtail and each site has its CloudFront dis
 
     WAGTAILFRONTENDCACHE = {
         'cloudfront': {
-            'BACKEND': 'wagtail.contrib.wagtailfrontendcache.backends.CloudfrontBackend',
+            'BACKEND': 'wagtail.contrib.frontend_cache.backends.CloudfrontBackend',
             'DISTRIBUTION_ID': {
                 'www.wagtail.io': 'your-distribution-id',
                 'www.madewithwagtail.org': 'your-distribution-id',
@@ -145,16 +145,18 @@ By default, Wagtail will only purge one URL per page. If your page has more than
             for page_number in range(1, self.get_blog_items().num_pages + 1):
                 yield '/?page=' + str(page_number)
 
-
 Invalidating index pages
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-Another problem is pages that list other pages (such as a blog index) will not be purged when a blog entry gets added, changed or deleted. You may want to purge the blog index page so the updates are added into the listing quickly.
+Pages that list other pages (such as a blog index) may need to be purged as
+well so any changes to a blog page are also reflected on the index (for example,
+a blog post was added, deleted or its title/thumbnail was changed).
 
-This can be solved by using the ``purge_page_from_cache`` utility function which can be found in the ``wagtail.contrib.wagtailfrontendcache.utils`` module.
-
-Let's take the the above BlogIndexPage as an example. We need to register a signal handler to run when one of the BlogPages get updated/deleted. This signal handler should call the ``purge_page_from_cache`` function on all BlogIndexPages that contain the BlogPage being updated/deleted.
-
+To purge these pages, we need to write a signal handler that listens for
+Wagtail's ``page_published`` and ``page_unpublished`` signals for blog pages
+(note, ``page_published`` is called both when a page is created and updated).
+This signal handler would trigger the invalidation of the index page using the
+``PurgeBatch`` class which is used to construct and dispatch invalidation requests.
 
 .. code-block:: python
 
@@ -162,22 +164,23 @@ Let's take the the above BlogIndexPage as an example. We need to register a sign
     from django.dispatch import receiver
     from django.db.models.signals import pre_delete
 
-    from wagtail.wagtailcore.signals import page_published
-    from wagtail.contrib.wagtailfrontendcache.utils import purge_page_from_cache
-
+    from wagtail.core.signals import page_published
+    from wagtail.contrib.frontend_cache.utils import PurgeBatch
 
     ...
 
-
     def blog_page_changed(blog_page):
         # Find all the live BlogIndexPages that contain this blog_page
+        batch = PurgeBatch()
         for blog_index in BlogIndexPage.objects.live():
             if blog_page in blog_index.get_blog_items().object_list:
-                # Purge this blog index
-                purge_page_from_cache(blog_index)
+                batch.add_page(blog_index)
+
+        # Purge all the blog indexes we found in a single request
+        batch.purge()
 
 
-    @receiver(page_published, sender=BlogPage):
+    @receiver(page_published, sender=BlogPage)
     def blog_published_handler(instance):
         blog_page_changed(instance)
 
@@ -187,16 +190,42 @@ Let's take the the above BlogIndexPage as an example. We need to register a sign
         blog_page_changed(instance)
 
 
-Invalidating individual URLs
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.. _frontend_cache_invalidating_urls:
 
-``wagtail.contrib.wagtailfrontendcache.utils`` provides another function called ``purge_url_from_cache``. As the name suggests, this purges an individual URL from the cache.
+Invalidating URLs
+^^^^^^^^^^^^^^^^^
 
-For example, this could be useful for purging a single page of blogs:
+The ``PurgeBatch`` class provides a ``.add_url(url)`` and a ``.add_urls(urls)``
+for adding individual URLs to the purge batch.
+
+For example, this could be useful for purging a single page on a blog index:
 
 .. code-block:: python
 
-    from wagtail.contrib.wagtailfrontendcache.utils import purge_url_from_cache
+    from wagtail.contrib.frontend_cache.utils import PurgeBatch
 
     # Purge the first page of the blog index
-    purge_url_from_cache(blog_index.url + '?page=1')
+    batch = PurgeBatch()
+    batch.add_url(blog_index.url + '?page=1')
+    batch.purge()
+
+
+The ``PurgeBatch`` class
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. versionadded:: 1.13
+
+All of the methods available on ``PurgeBatch`` are listed below:
+
+.. automodule:: wagtail.contrib.frontend_cache.utils
+.. autoclass:: PurgeBatch
+
+    .. automethod:: add_url
+
+    .. automethod:: add_urls
+
+    .. automethod:: add_page
+
+    .. automethod:: add_pages
+
+    .. automethod:: purge

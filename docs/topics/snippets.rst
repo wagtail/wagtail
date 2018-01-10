@@ -11,20 +11,18 @@ Snippets lack many of the features of pages, such as being orderable in the Wagt
 Snippet Models
 --------------
 
-Here's an example snippet from the Wagtail demo website:
+Here's an example snippet model:
 
 .. code-block:: python
 
   from django.db import models
-  from django.utils.encoding import python_2_unicode_compatible
 
-  from wagtail.wagtailadmin.edit_handlers import FieldPanel
-  from wagtail.wagtailsnippets.models import register_snippet
+  from wagtail.admin.edit_handlers import FieldPanel
+  from wagtail.snippets.models import register_snippet
 
   ...
 
   @register_snippet
-  @python_2_unicode_compatible  # provide equivalent __unicode__ and __str__ methods on Python 2
   class Advert(models.Model):
       url = models.URLField(null=True, blank=True)
       text = models.CharField(max_length=255)
@@ -46,14 +44,14 @@ Including Snippets in Template Tags
 
 The simplest way to make your snippets available to templates is with a template tag. This is mostly done with vanilla Django, so perhaps reviewing Django's documentation for `django custom template tags`_ will be more helpful. We'll go over the basics, though, and point out any considerations to make for Wagtail.
 
-First, add a new python file to a ``templatetags`` folder within your app. The demo website, for instance uses the path ``wagtaildemo/demo/templatetags/demo_tags.py``. We'll need to load some Django modules and our app's models, and ready the ``register`` decorator:
+First, add a new python file to a ``templatetags`` folder within your app - for example, ``myproject/demo/templatetags/demo_tags.py``. We'll need to load some Django modules and our app's models, and ready the ``register`` decorator:
 
 .. _django custom template tags: https://docs.djangoproject.com/en/dev/howto/custom-template-tags/
 
 .. code-block:: python
 
   from django import template
-  from demo.models import *
+  from demo.models import Advert
 
   register = template.Library()
 
@@ -105,7 +103,7 @@ In the above example, the list of adverts is a fixed list, displayed independent
 
 .. code-block:: python
 
-  from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
+  from wagtail.snippets.edit_handlers import SnippetChooserPanel
   # ...
   class BookPage(Page):
       advert = models.ForeignKey(
@@ -131,16 +129,16 @@ To attach multiple adverts to a page, the ``SnippetChooserPanel`` can be placed 
 
   from django.db import models
 
-  from wagtail.wagtailcore.models import Page, Orderable
-  from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
+  from wagtail.core.models import Page, Orderable
+  from wagtail.snippets.edit_handlers import SnippetChooserPanel
 
   from modelcluster.fields import ParentalKey
 
   ...
 
   class BookPageAdvertPlacement(Orderable, models.Model):
-      page = ParentalKey('demo.BookPage', related_name='advert_placements')
-      advert = models.ForeignKey('demo.Advert', related_name='+')
+      page = ParentalKey('demo.BookPage', on_delete=models.CASCADE, related_name='advert_placements')
+      advert = models.ForeignKey('demo.Advert', on_delete=models.CASCADE, related_name='+')
 
       class Meta:
           verbose_name = "advert placement"
@@ -182,13 +180,13 @@ These child objects are now accessible through the page's ``advert_placements`` 
 Making Snippets Searchable
 --------------------------
 
-If a snippet model inherits from ``wagtail.wagtailsearch.index.Indexed``, as described in :ref:`wagtailsearch_indexing_models`, Wagtail will automatically add a search box to the chooser interface for that snippet type. For example, the ``Advert`` snippet could be made searchable as follows:
+If a snippet model inherits from ``wagtail.search.index.Indexed``, as described in :ref:`wagtailsearch_indexing_models`, Wagtail will automatically add a search box to the chooser interface for that snippet type. For example, the ``Advert`` snippet could be made searchable as follows:
 
 .. code-block:: python
 
   ...
 
-  from wagtail.wagtailsearch import index
+  from wagtail.search import index
 
   ...
 
@@ -220,7 +218,7 @@ Adding tags to snippets is very similar to adding tags to pages. The only differ
     from taggit.managers import TaggableManager
 
     class AdvertTag(TaggedItemBase):
-        content_object = ParentalKey('demo.Advert', related_name='tagged_items')
+        content_object = ParentalKey('demo.Advert', on_delete=models.CASCADE, related_name='tagged_items')
 
     @register_snippet
     class Advert(ClusterableModel):

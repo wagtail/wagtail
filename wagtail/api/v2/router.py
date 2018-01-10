@@ -1,5 +1,3 @@
-from __future__ import absolute_import, unicode_literals
-
 import functools
 
 from django.conf.urls import include, url
@@ -7,7 +5,7 @@ from django.conf.urls import include, url
 from wagtail.utils.urlpatterns import decorate_urlpatterns
 
 
-class WagtailAPIRouter(object):
+class WagtailAPIRouter:
     """
     A class that provides routing and cross-linking for a collection
     of API endpoints
@@ -72,7 +70,7 @@ class WagtailAPIRouter(object):
         for name, class_ in self._endpoints.items():
             pattern = url(
                 r'^{}/'.format(name),
-                include(class_.get_urlpatterns(), namespace=name)
+                include((class_.get_urlpatterns(), name), namespace=name)
             )
             urlpatterns.append(pattern)
 

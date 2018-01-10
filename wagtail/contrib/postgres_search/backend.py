@@ -1,42 +1,29 @@
-# coding: utf-8
+from warnings import warn
 
-from __future__ import absolute_import, unicode_literals
-
-from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
+from django.contrib.postgres.search import SearchQuery as PostgresSearchQuery
+from django.contrib.postgres.search import SearchRank, SearchVector
 from django.db import DEFAULT_DB_ALIAS, NotSupportedError, connections, transaction
-from django.db.models import F, Manager, TextField, Value
+from django.db.models import F, Manager, TextField, Value, Q
 from django.db.models.constants import LOOKUP_SEP
 from django.db.models.functions import Cast
-from django.utils.encoding import force_text, python_2_unicode_compatible
-from django.utils.six import string_types
+from django.utils.encoding import force_text
 
-from wagtail.wagtailsearch.backends.base import (
-    BaseSearchBackend, BaseSearchQuery, BaseSearchResults)
-from wagtail.wagtailsearch.index import RelatedFields, SearchField
+from wagtail.search.backends.base import (
+    BaseSearchBackend, BaseSearchQueryCompiler, BaseSearchResults)
+from wagtail.search.index import RelatedFields, SearchField
+from wagtail.search.query import And, MatchAll, Not, Or, SearchQueryShortcut, Term
+from wagtail.search.utils import ADD, AND, OR
 
 from .models import IndexEntry
 from .utils import (
-    ADD, AND, OR, WEIGHTS_VALUES, get_content_types_pks, get_postgresql_connections, get_weight,
-    keyword_split, unidecode)
+    WEIGHTS_VALUES, get_ancestors_content_types_pks, get_content_type_pk,
+    get_descendants_content_types_pks, get_postgresql_connections, get_weight, unidecode)
 
 
 # TODO: Add autocomplete.
 
 
-def get_db_alias(queryset):
-    return queryset._db or DEFAULT_DB_ALIAS
-
-
-def get_sql(queryset):
-    return queryset.query.get_compiler(get_db_alias(queryset)).as_sql()
-
-
-def get_pk_column(model):
-    return model._meta.pk.get_attname_column()[1]
-
-
-@python_2_unicode_compatible
-class Index(object):
+class Index:
     def __init__(self, backend, model, db_alias=None):
         self.backend = backend
         self.model = model
@@ -47,6 +34,7 @@ class Index(object):
                 'You must select a PostgreSQL database '
                 'to use PostgreSQL search.')
         self.db_alias = db_alias
+        self.index_entries = IndexEntry._default_manager.using(self.db_alias)
         self.name = model._meta.label
         self.search_fields = self.model.get_search_fields()
 
@@ -64,16 +52,14 @@ class Index(object):
         existing_pks = (self.model._default_manager.using(self.db_alias)
                         .annotate(object_id=Cast('pk', TextField()))
                         .values('object_id'))
-        stale_entries = (IndexEntry._default_manager.using(self.db_alias)
-                         .for_models(self.model)
-                         .exclude(object_id__in=existing_pks))
+        content_type_ids = get_descendants_content_types_pks(self.model)
+        stale_entries = (
+            self.index_entries.filter(content_type_id__in=content_type_ids)
+            .exclude(object_id__in=existing_pks))
         stale_entries.delete()
 
-    def get_config(self):
-        return self.backend.params.get('SEARCH_CONFIG')
-
     def prepare_value(self, value):
-        if isinstance(value, string_types):
+        if isinstance(value, str):
             return value
         if isinstance(value, list):
             return ', '.join(self.prepare_value(item) for item in value)
@@ -134,13 +120,11 @@ class Index(object):
         ids_and_objs = {}
         for obj in objs:
             obj._search_vector = (
-                ADD([
-                    SearchVector(Value(text), weight=weight, config=config)
-                    for text, weight in obj._body_])
+                ADD([SearchVector(Value(text), weight=weight, config=config)
+                     for text, weight in obj._body_])
                 if obj._body_ else SearchVector(Value('')))
             ids_and_objs[obj._object_id] = obj
-        index_entries = IndexEntry._default_manager.using(self.db_alias)
-        index_entries_for_ct = index_entries.filter(
+        index_entries_for_ct = self.index_entries.filter(
             content_type_id=content_type_pk)
         indexed_ids = frozenset(
             index_entries_for_ct.filter(object_id__in=ids_and_objs)
@@ -157,58 +141,64 @@ class Index(object):
                     object_id=object_id,
                     body_search=ids_and_objs[object_id]._search_vector,
                 ))
-        index_entries.bulk_create(to_be_created)
+        self.index_entries.bulk_create(to_be_created)
 
     def add_items(self, model, objs):
-        content_type_pk = get_content_types_pks((model,), self.db_alias)[0]
-        config = self.get_config()
+        content_type_pk = get_content_type_pk(model)
+        config = self.backend.get_config()
         for obj in objs:
             obj._object_id = force_text(obj.pk)
             obj._body_ = self.prepare_body(obj)
+
+        # Removes index entries of an ancestor model in case the descendant
+        # model instance was created since.
+        self.index_entries.filter(
+            content_type_id__in=get_ancestors_content_types_pks(model)
+        ).filter(object_id__in=[obj._object_id for obj in objs]).delete()
+
         connection = connections[self.db_alias]
         if connection.pg_version >= 90500:  # PostgreSQL >= 9.5
             self.add_items_upsert(connection, content_type_pk, objs, config)
         else:
             self.add_items_update_then_create(content_type_pk, objs, config)
 
+    def delete_item(self, item):
+        item.index_entries.using(self.db_alias).delete()
+
     def __str__(self):
         return self.name
 
 
-class PostgresSearchQuery(BaseSearchQuery):
+class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
     DEFAULT_OPERATOR = 'and'
 
     def __init__(self, *args, **kwargs):
-        super(PostgresSearchQuery, self).__init__(*args, **kwargs)
-        self.search_fields = self.queryset.model.get_search_fields()
+        super().__init__(*args, **kwargs)
+        self.search_fields = self.queryset.model.get_searchable_search_fields()
 
-    def get_search_query(self, config):
-        combine = OR if self.operator == 'or' else AND
-        search_terms = keyword_split(unidecode(self.query_string))
-        if not search_terms:
-            return SearchQuery('')
-        return combine(SearchQuery(q, config=config) for q in search_terms)
+    def build_database_query(self, query=None, config=None):
+        if query is None:
+            query = self.query
 
-    def get_base_queryset(self):
-        # Removes order for performance’s sake.
-        return self.queryset.order_by()
-
-    def get_in_index_queryset(self, queryset, search_query):
-        return (IndexEntry._default_manager.using(get_db_alias(queryset))
-                .for_models(queryset.model).filter(body_search=search_query))
-
-    def get_in_index_count(self, queryset, search_query):
-        index_sql, index_params = get_sql(
-            self.get_in_index_queryset(queryset, search_query).pks())
-        model_sql, model_params = get_sql(queryset)
-        sql = """
-            SELECT COUNT(*)
-            FROM (%s) AS index_entry
-            INNER JOIN (%s) AS obj ON obj."%s" = index_entry.typed_pk;
-            """ % (index_sql, model_sql, get_pk_column(queryset.model))
-        with connections[get_db_alias(queryset)].cursor() as cursor:
-            cursor.execute(sql, index_params + model_params)
-            return cursor.fetchone()[0]
+        if isinstance(query, SearchQueryShortcut):
+            return self.build_database_query(query.get_equivalent(), config)
+        if isinstance(query, Term):
+            # TODO: Find a way to use the term boosting.
+            if query.boost != 1:
+                warn('PostgreSQL search backend '
+                     'does not support term boosting for now.')
+            return PostgresSearchQuery(unidecode(query.term), config=config)
+        if isinstance(query, Not):
+            return ~self.build_database_query(query.subquery, config)
+        if isinstance(query, And):
+            return AND(self.build_database_query(subquery, config)
+                       for subquery in query.subqueries)
+        if isinstance(query, Or):
+            return OR(self.build_database_query(subquery, config)
+                      for subquery in query.subqueries)
+        raise NotImplementedError(
+            '`%s` is not supported by the PostgreSQL search backend.'
+            % self.query.__class__.__name__)
 
     def get_boost(self, field_name, fields=None):
         if fields is None:
@@ -218,7 +208,8 @@ class PostgresSearchQuery(BaseSearchQuery):
         else:
             sub_field_name = None
         for field in fields:
-            if field.field_name == field_name:
+            if isinstance(field, SearchField) \
+                    and field.field_name == field_name:
                 # Note: Searching on a specific related field using
                 # `.search(fields=…)` is not yet supported by Wagtail.
                 # This method anticipates by already implementing it.
@@ -226,78 +217,62 @@ class PostgresSearchQuery(BaseSearchQuery):
                     return self.get_boost(sub_field_name, field.fields)
                 return field.boost
 
-    def get_in_fields_queryset(self, queryset, search_query):
-        if not self.fields:
-            return queryset.none()
-        return (
-            queryset.annotate(
-                _search_=ADD(
-                    SearchVector(field, config=search_query.config,
-                                 weight=get_weight(self.get_boost(field)))
-                    for field in self.fields))
-            .filter(_search_=search_query))
-
-    def search_count(self, config):
-        queryset = self.get_base_queryset()
-        search_query = self.get_search_query(config=config)
-        if self.fields is None:
-            return self.get_in_index_count(queryset, search_query)
-        return self.get_in_fields_queryset(queryset, search_query).count()
-
-    def search_in_index(self, queryset, search_query, start, stop):
-        index_entries = self.get_in_index_queryset(queryset, search_query)
-        values = ['typed_pk']
-        if self.order_by_relevance:
-            index_entries = index_entries.rank(search_query)
-            values.append('rank')
-            order_sql = 'index_entry.rank DESC, id ASC'
-        else:
-            order_sql = 'id ASC'
-        index_sql, index_params = get_sql(
-            index_entries.annotate_typed_pk()
-            .values(*values)
-        )
-        model_sql, model_params = get_sql(queryset)
-        model = queryset.model
-        sql = """
-            SELECT obj.*
-            FROM (%s) AS index_entry
-            INNER JOIN (%s) AS obj ON obj."%s" = index_entry.typed_pk
-            ORDER BY %s
-            OFFSET %%s LIMIT %%s;
-            """ % (index_sql, model_sql, get_pk_column(model), order_sql)
-        limits = (start, None if stop is None else stop - start)
-        return model._default_manager.using(get_db_alias(queryset)).raw(
-            sql, index_params + model_params + limits)
-
-    def search_in_fields(self, queryset, search_query, start, stop):
-        return (self.get_in_fields_queryset(queryset, search_query)
-                .annotate(_rank_=SearchRank(F('_search_'), search_query,
-                                            weights=WEIGHTS_VALUES))
-                .order_by('-_rank_'))[start:stop]
-
     def search(self, config, start, stop):
-        queryset = self.get_base_queryset()
-        if self.query_string is None:
-            return queryset[start:stop]
-        search_query = self.get_search_query(config=config)
+        # TODO: Handle MatchAll nested inside other search query classes.
+        if isinstance(self.query, MatchAll):
+            return self.queryset[start:stop]
+
+        search_query = self.build_database_query(config=config)
+        queryset = self.queryset
+        query = queryset.query
         if self.fields is None:
-            return self.search_in_index(queryset, search_query, start, stop)
-        return self.search_in_fields(queryset, search_query, start, stop)
+            vector = F('index_entries__body_search')
+        else:
+            vector = ADD(
+                SearchVector(field, config=search_query.config,
+                             weight=get_weight(self.get_boost(field)))
+                for field in self.fields)
+        vector = vector.resolve_expression(query)
+        search_query = search_query.resolve_expression(query)
+        lookup = IndexEntry._meta.get_field('body_search').get_lookup('exact')(
+            vector, search_query)
+        query.where.add(lookup, 'AND')
+        if self.order_by_relevance:
+            # Due to a Django bug, arrays are not automatically converted here.
+            converted_weights = '{' + ','.join(map(str, WEIGHTS_VALUES)) + '}'
+            queryset = queryset.order_by(SearchRank(vector, search_query,
+                                                    weights=converted_weights).desc(),
+                                         '-pk')
+        elif not queryset.query.order_by:
+            # Adds a default ordering to avoid issue #3729.
+            queryset = queryset.order_by('-pk')
+        return queryset[start:stop]
+
+    def _process_lookup(self, field, lookup, value):
+        return Q(**{field.get_attname(self.queryset.model) +
+                    '__' + lookup: value})
+
+    def _connect_filters(self, filters, connector, negated):
+        if connector == 'AND':
+            q = Q(*filters)
+        elif connector == 'OR':
+            q = OR([Q(fil) for fil in filters])
+        else:
+            return
+
+        if negated:
+            q = ~q
+
+        return q
 
 
 class PostgresSearchResults(BaseSearchResults):
-    def get_config(self):
-        queryset = self.query.queryset
-        return self.backend.get_index_for_model(
-            queryset.model, queryset._db).get_config()
-
     def _do_search(self):
-        return list(self.query.search(self.get_config(),
-                                      self.start, self.stop))
+        return list(self.query_compiler.search(self.backend.get_config(),
+                                               self.start, self.stop))
 
     def _do_count(self):
-        return self.query.search_count(self.get_config())
+        return self.query_compiler.search(self.backend.get_config(), None, None).count()
 
 
 class PostgresSearchRebuilder:
@@ -314,14 +289,14 @@ class PostgresSearchRebuilder:
 
 class PostgresSearchAtomicRebuilder(PostgresSearchRebuilder):
     def __init__(self, index):
-        super(PostgresSearchAtomicRebuilder, self).__init__(index)
+        super().__init__(index)
         self.transaction = transaction.atomic(using=index.db_alias)
         self.transaction_opened = False
 
     def start(self):
         self.transaction.__enter__()
         self.transaction_opened = True
-        return super(PostgresSearchAtomicRebuilder, self).start()
+        return super().start()
 
     def finish(self):
         self.transaction.__exit__(None, None, None)
@@ -335,16 +310,20 @@ class PostgresSearchAtomicRebuilder(PostgresSearchRebuilder):
 
 
 class PostgresSearchBackend(BaseSearchBackend):
-    query_class = PostgresSearchQuery
+    query_compiler_class = PostgresSearchQueryCompiler
     results_class = PostgresSearchResults
     rebuilder_class = PostgresSearchRebuilder
     atomic_rebuilder_class = PostgresSearchAtomicRebuilder
 
     def __init__(self, params):
-        super(PostgresSearchBackend, self).__init__(params)
+        super().__init__(params)
         self.params = params
         if params.get('ATOMIC_REBUILD', False):
             self.rebuilder_class = self.atomic_rebuilder_class
+        IndexEntry.add_generic_relations()
+
+    def get_config(self):
+        return self.params.get('SEARCH_CONFIG')
 
     def get_index_for_model(self, model, db_alias=None):
         return Index(self, model, db_alias)
@@ -370,7 +349,7 @@ class PostgresSearchBackend(BaseSearchBackend):
             self.get_index_for_object(obj_list[0]).add_items(model, obj_list)
 
     def delete(self, obj):
-        IndexEntry._default_manager.for_object(obj).delete()
+        self.get_index_for_object(obj).delete_item(obj)
 
 
 SearchBackend = PostgresSearchBackend

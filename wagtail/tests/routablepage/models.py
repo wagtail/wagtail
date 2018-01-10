@@ -1,8 +1,6 @@
-from __future__ import absolute_import, unicode_literals
-
 from django.http import HttpResponse
 
-from wagtail.contrib.wagtailroutablepage.models import RoutablePage, route
+from wagtail.contrib.routable_page.models import RoutablePage, route
 
 
 def routable_page_external_view(request, arg="ARG NOT SET"):

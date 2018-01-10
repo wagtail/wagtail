@@ -1,14 +1,12 @@
-from __future__ import absolute_import, unicode_literals
-
 from django import forms
 from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.http import HttpResponse
 
-from wagtail.wagtailadmin.menu import MenuItem
-from wagtail.wagtailadmin.rich_text import HalloPlugin
-from wagtail.wagtailadmin.search import SearchArea
-from wagtail.wagtailcore import hooks
-from wagtail.wagtailcore.whitelist import allow_without_attributes, attribute_rule, check_url
+from wagtail.admin.menu import MenuItem
+from wagtail.admin.rich_text import HalloPlugin
+from wagtail.admin.search import SearchArea
+from wagtail.core import hooks
+from wagtail.core.whitelist import allow_without_attributes, attribute_rule, check_url
 
 
 # Register one hook using decorators...
@@ -93,13 +91,19 @@ def polite_pages_only(parent_page, pages, request):
     return pages
 
 
+@hooks.register('construct_explorer_page_queryset')
+def hide_hidden_pages(parent_page, pages, request):
+    # Pages with 'hidden' in their title are hidden. Magic!
+    return pages.exclude(title__icontains='hidden')
+
+
 # register 'blockquote' as a rich text feature supported by a hallo.js plugin
 @hooks.register('register_rich_text_features')
 def register_blockquote_feature(features):
     features.register_editor_plugin(
         'hallo', 'blockquote', HalloPlugin(
             name='halloblockquote',
-            js=[static('testapp/js/hallo-blockquote.js')],
-            css={'all': [static('testapp/css/hallo-blockquote.css')]},
+            js=['testapp/js/hallo-blockquote.js'],
+            css={'all': ['testapp/css/hallo-blockquote.css']},
         )
     )

@@ -2,7 +2,7 @@ Promoted search results
 =======================
 
 .. Note::
-    Promoted search results are an optional Wagtail feature. For details of how to enable them on a Wagtail installation, see :mod:`~wagtail.contrib.wagtailsearchpromotions`
+    Promoted search results are an optional Wagtail feature. For details of how to enable them on a Wagtail installation, see :mod:`~wagtail.contrib.search_promotions`
 
 
 Wagtail allows you to promote certain search results dependant on the keyword or phrase entered by the user when searching. This can be particularly useful when users commonly refer to parts of your organisation via an acronym that isn't in official use, or if you want to direct users to a page that when they enter a certain term related to the page but not included in the text of the page itself.

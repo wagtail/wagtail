@@ -1,5 +1,3 @@
-from __future__ import absolute_import, unicode_literals
-
 import mock
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
@@ -7,8 +5,8 @@ from django.test import TestCase
 
 from wagtail.tests.modeladmintest.models import Author, Book, Publisher, Token
 from wagtail.tests.utils import WagtailTestUtils
-from wagtail.wagtailimages.models import Image
-from wagtail.wagtailimages.tests.utils import get_test_image_file
+from wagtail.images.models import Image
+from wagtail.images.tests.utils import get_test_image_file
 
 
 class TestBookIndexView(TestCase, WagtailTestUtils):

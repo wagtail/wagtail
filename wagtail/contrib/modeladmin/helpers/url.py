@@ -1,11 +1,9 @@
-from __future__ import absolute_import, unicode_literals
-
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.http import urlquote
 
 
-class AdminURLHelper(object):
+class AdminURLHelper:
 
     def __init__(self, model):
         self.model = model
@@ -52,5 +50,4 @@ class PageAdminURLHelper(AdminURLHelper):
             url_name = 'wagtailadmin_pages:%s' % action
             target_url = reverse(url_name, args=args, kwargs=kwargs)
             return '%s?next=%s' % (target_url, urlquote(self.index_url))
-        return super(PageAdminURLHelper, self).get_action_url(action, *args,
-                                                              **kwargs)
+        return super().get_action_url(action, *args, **kwargs)

@@ -1,14 +1,12 @@
-from __future__ import absolute_import, unicode_literals
-
 import json
 
 import mock
-from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.test.utils import override_settings
+from django.urls import reverse
 
 from wagtail.api.v2 import signal_handlers
-from wagtail.wagtailimages import get_image_model
+from wagtail.images import get_image_model
 
 
 class TestImageListing(TestCase):
@@ -484,13 +482,13 @@ class TestImageDetail(TestCase):
 @override_settings(
     WAGTAILFRONTENDCACHE={
         'varnish': {
-            'BACKEND': 'wagtail.contrib.wagtailfrontendcache.backends.HTTPBackend',
+            'BACKEND': 'wagtail.contrib.frontend_cache.backends.HTTPBackend',
             'LOCATION': 'http://localhost:8000',
         },
     },
     WAGTAILAPI_BASE_URL='http://api.example.com',
 )
-@mock.patch('wagtail.contrib.wagtailfrontendcache.backends.HTTPBackend.purge')
+@mock.patch('wagtail.contrib.frontend_cache.backends.HTTPBackend.purge')
 class TestImageCacheInvalidation(TestCase):
     fixtures = ['demosite.json']
 

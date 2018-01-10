@@ -1,8 +1,4 @@
-from __future__ import absolute_import, unicode_literals
-
 import os
-
-import django
 
 DEBUG = False
 WAGTAIL_ROOT = os.path.dirname(os.path.dirname(__file__))
@@ -79,47 +75,32 @@ TEMPLATES = [
         ],
         'OPTIONS': {
             'extensions': [
-                'wagtail.wagtailcore.jinja2tags.core',
-                'wagtail.wagtailadmin.jinja2tags.userbar',
-                'wagtail.wagtailimages.jinja2tags.images',
+                'wagtail.core.jinja2tags.core',
+                'wagtail.admin.jinja2tags.userbar',
+                'wagtail.images.jinja2tags.images',
                 'wagtail.contrib.settings.jinja2tags.settings',
             ],
         },
     },
 ]
 
-if django.VERSION >= (1, 10):
-    MIDDLEWARE = (
-        'django.middleware.common.CommonMiddleware',
-        'django.contrib.sessions.middleware.SessionMiddleware',
-        'django.middleware.csrf.CsrfViewMiddleware',
-        'django.contrib.auth.middleware.AuthenticationMiddleware',
-        'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
-        'django.contrib.messages.middleware.MessageMiddleware',
-        'django.middleware.clickjacking.XFrameOptionsMiddleware',
+MIDDLEWARE = (
+    'django.middleware.common.CommonMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
-        'wagtail.wagtailcore.middleware.SiteMiddleware',
-        'wagtail.wagtailredirects.middleware.RedirectMiddleware',
-    )
-else:
-    MIDDLEWARE_CLASSES = (
-        'django.middleware.common.CommonMiddleware',
-        'django.contrib.sessions.middleware.SessionMiddleware',
-        'django.middleware.csrf.CsrfViewMiddleware',
-        'django.contrib.auth.middleware.AuthenticationMiddleware',
-        'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
-        'django.contrib.messages.middleware.MessageMiddleware',
-        'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
-        'wagtail.wagtailcore.middleware.SiteMiddleware',
-        'wagtail.wagtailredirects.middleware.RedirectMiddleware',
-    )
+    'wagtail.core.middleware.SiteMiddleware',
+    'wagtail.contrib.redirects.middleware.RedirectMiddleware',
+)
 
 INSTALLED_APPS = (
     # Install wagtailredirects with its appconfig
     # Theres nothing special about wagtailredirects, we just need to have one
     # app which uses AppConfigs to test that hooks load properly
-    'wagtail.wagtailredirects.apps.WagtailRedirectsAppConfig',
+    'wagtail.contrib.redirects.apps.WagtailRedirectsAppConfig',
 
     'wagtail.tests.testapp',
     'wagtail.tests.demosite',
@@ -128,25 +109,24 @@ INSTALLED_APPS = (
     'wagtail.tests.routablepage',
     'wagtail.tests.search',
     'wagtail.tests.modeladmintest',
-    'wagtail.contrib.wagtailstyleguide',
-    'wagtail.contrib.wagtailroutablepage',
-    'wagtail.contrib.wagtailfrontendcache',
-    'wagtail.contrib.wagtailapi',
-    'wagtail.contrib.wagtailsearchpromotions',
+    'wagtail.contrib.styleguide',
+    'wagtail.contrib.routable_page',
+    'wagtail.contrib.frontend_cache',
+    'wagtail.contrib.search_promotions',
     'wagtail.contrib.settings',
     'wagtail.contrib.modeladmin',
     'wagtail.contrib.table_block',
-    'wagtail.wagtailforms',
-    'wagtail.wagtailsearch',
-    'wagtail.wagtailembeds',
-    'wagtail.wagtailimages',
-    'wagtail.wagtailsites',
-    'wagtail.wagtailusers',
-    'wagtail.wagtailsnippets',
-    'wagtail.wagtaildocs',
-    'wagtail.wagtailadmin',
+    'wagtail.contrib.forms',
+    'wagtail.search',
+    'wagtail.embeds',
+    'wagtail.images',
+    'wagtail.sites',
+    'wagtail.users',
+    'wagtail.snippets',
+    'wagtail.documents',
+    'wagtail.admin',
     'wagtail.api.v2',
-    'wagtail.wagtailcore',
+    'wagtail.core',
 
     'taggit',
     'rest_framework',
@@ -178,28 +158,24 @@ PASSWORD_HASHERS = (
 
 WAGTAILSEARCH_BACKENDS = {
     'default': {
-        'BACKEND': 'wagtail.wagtailsearch.backends.db',
+        'BACKEND': 'wagtail.search.backends.db',
     }
 }
 
 AUTH_USER_MODEL = 'customuser.CustomUser'
 
-if django.VERSION >= (1, 10) and os.environ.get('DATABASE_ENGINE') in (
-        # Remove next line when Django 1.8 support is dropped.
-        'django.db.backends.postgresql_psycopg2',
-        'django.db.backends.postgresql'):
+if os.environ.get('DATABASE_ENGINE') == 'django.db.backends.postgresql':
     INSTALLED_APPS += ('wagtail.contrib.postgres_search',)
     WAGTAILSEARCH_BACKENDS['postgresql'] = {
         'BACKEND': 'wagtail.contrib.postgres_search.backend',
+        'AUTO_UPDATE': False,
     }
 
 if 'ELASTICSEARCH_URL' in os.environ:
     if os.environ.get('ELASTICSEARCH_VERSION') == '5':
-        backend = 'wagtail.wagtailsearch.backends.elasticsearch5'
+        backend = 'wagtail.search.backends.elasticsearch5'
     elif os.environ.get('ELASTICSEARCH_VERSION') == '2':
-        backend = 'wagtail.wagtailsearch.backends.elasticsearch2'
-    else:
-        backend = 'wagtail.wagtailsearch.backends.elasticsearch'
+        backend = 'wagtail.search.backends.elasticsearch2'
 
     WAGTAILSEARCH_BACKENDS['elasticsearch'] = {
         'BACKEND': backend,
@@ -207,6 +183,13 @@ if 'ELASTICSEARCH_URL' in os.environ:
         'TIMEOUT': 10,
         'max_retries': 1,
         'AUTO_UPDATE': False,
+        'INDEX_SETTINGS': {
+            'settings': {
+                'index': {
+                    'number_of_shards': 1
+                }
+            }
+        }
     }
 
 
@@ -220,7 +203,7 @@ WAGTAIL_USER_CUSTOM_FIELDS = ['country', 'attachment']
 
 WAGTAILADMIN_RICH_TEXT_EDITORS = {
     'default': {
-        'WIDGET': 'wagtail.wagtailadmin.rich_text.HalloRichTextArea'
+        'WIDGET': 'wagtail.admin.rich_text.HalloRichTextArea'
     },
     'custom': {
         'WIDGET': 'wagtail.tests.testapp.rich_text.CustomRichTextArea'

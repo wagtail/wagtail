@@ -1,0 +1,83 @@
+{% extends "wagtailadmin/base.html" %}
+{% load wagtailadmin_tags staticfiles i18n %}
+{% block titletag %}{% blocktrans with title=parent_page.get_admin_display_title %}Exploring {{ title }}{% endblocktrans %}{% endblock %}
+{% block bodyclass %}page-explorer {% if ordering == 'ord' %}reordering{% endif %}{% endblock %}
+
+{% block content %}
+    <header class="merged no-border nice-padding no-v-padding">
+        <h1 class="visuallyhidden">Explorer</h1>
+
+        {% explorer_breadcrumb parent_page %}
+    </header>
+
+    <form id="page-reorder-form">
+        {% csrf_token %}
+
+        {% page_permissions parent_page as parent_page_perms %}
+        {% include "wagtailadmin/pages/listing/_list_explore.html" with sortable=1 full_width=1 show_ordering_column=1 parent_page=parent_page orderable=parent_page_perms.can_reorder_children %}
+
+        {% if do_paginate %}
+            {% url 'wagtailadmin_explore' parent_page.id as pagination_base_url %}
+            {% paginate pages base_url=pagination_base_url %}
+        {% endif %}
+    </form>
+{% endblock %}
+
+{% block extra_js %}
+    {{ block.super }}
+
+    {% comment %} modal-workflow is required by the view restrictions interface {% endcomment %}
+    <script src="{% static 'wagtailadmin/js/modal-workflow.js' %}"></script>
+    <script src="{% static 'wagtailadmin/js/privacy-switch.js' %}"></script>
+
+    <script type="text/javascript">
+        {% if ordering == 'ord' %}
+            $(function() {
+                var reorderCount = 0;
+                var orderform = $('#page-reorder-form');
+
+                $('.listing tbody').sortable({
+                    cursor: "move",
+                    tolerance: "pointer",
+                    containment: "parent",
+                    handle: ".handle",
+                    items: "> tr",
+                    axis: "y",
+                    placeholder: "dropzone",
+                    start: function(){
+                        $(this).parent().addClass('sorting');
+                    },
+                    stop: function(event, ui){
+                        $(this).parent().removeClass('sorting');
+
+                        // Work out what page moved and where it moved to
+                        var movedElement = ui.item[0];
+                        var movedPageId = movedElement.id.substring(5);
+                        var newPosition = $(movedElement).prevAll().length;
+
+                        // If position is last element, don't set position variable
+                        if ($(movedElement).nextAll().length == 0) {
+                            newPosition = null;
+                        }
+
+                        // Build url
+                        // TODO: Find better way to inject movedPageId
+                        var url = "{% url 'wagtailadmin_pages:set_page_position' '999999' %}".replace('999999', movedPageId);
+                        if (newPosition != null) {
+                            url += '?position=' + newPosition;
+                        }
+
+                        // Get CSRF token
+                        var CSRFToken = $('input[name="csrfmiddlewaretoken"]', orderform).val();
+
+                        // Post
+                        $.post(url, {csrfmiddlewaretoken: CSRFToken}, function(){
+                            addMessage('success', '"' + $(movedElement).data('page-title') + '" has been moved successfully.')
+                        })
+                    }
+                });
+                $('.listing tbody').disableSelection();
+            })
+        {% endif %}
+    </script>
+{% endblock %}

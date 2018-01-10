@@ -14,16 +14,16 @@ You can do this as shown below.
 .. code-block:: python
 
     from modelcluster.fields import ParentalKey
-    from wagtail.wagtailadmin.edit_handlers import (
+    from wagtail.admin.edit_handlers import (
         FieldPanel, FieldRowPanel,
         InlinePanel, MultiFieldPanel
     )
-    from wagtail.wagtailcore.fields import RichTextField
-    from wagtail.wagtailforms.models import AbstractEmailForm, AbstractFormField
+    from wagtail.core.fields import RichTextField
+    from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField
 
 
     class FormField(AbstractFormField):
-        page = ParentalKey('FormPage', related_name='custom_form_fields')
+        page = ParentalKey('FormPage', on_delete=models.CASCADE, related_name='custom_form_fields')
 
 
     class FormPage(AbstractEmailForm):
@@ -52,7 +52,7 @@ Custom form submission model
 If you need to save additional data, you can use a custom form submission model.
 To do this, you need to:
 
-* Define a model that extends ``wagtail.wagtailforms.models.AbstractFormSubmission``.
+* Define a model that extends ``wagtail.contrib.forms.models.AbstractFormSubmission``.
 * Override the ``get_submission_class`` and ``process_form_submission`` methods in your page model.
 
 Example:
@@ -65,16 +65,16 @@ Example:
     from django.core.serializers.json import DjangoJSONEncoder
     from django.db import models
     from modelcluster.fields import ParentalKey
-    from wagtail.wagtailadmin.edit_handlers import (
+    from wagtail.admin.edit_handlers import (
         FieldPanel, FieldRowPanel,
         InlinePanel, MultiFieldPanel
     )
-    from wagtail.wagtailcore.fields import RichTextField
-    from wagtail.wagtailforms.models import AbstractEmailForm, AbstractFormField, AbstractFormSubmission
+    from wagtail.core.fields import RichTextField
+    from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField, AbstractFormSubmission
 
 
     class FormField(AbstractFormField):
-        page = ParentalKey('FormPage', related_name='form_fields')
+        page = ParentalKey('FormPage', on_delete=models.CASCADE, related_name='form_fields')
 
 
     class FormPage(AbstractEmailForm):
@@ -126,16 +126,16 @@ The following example shows how to add a username to the CSV export:
     from django.core.serializers.json import DjangoJSONEncoder
     from django.db import models
     from modelcluster.fields import ParentalKey
-    from wagtail.wagtailadmin.edit_handlers import (
+    from wagtail.admin.edit_handlers import (
         FieldPanel, FieldRowPanel,
         InlinePanel, MultiFieldPanel
     )
-    from wagtail.wagtailcore.fields import RichTextField
-    from wagtail.wagtailforms.models import AbstractEmailForm, AbstractFormField, AbstractFormSubmission
+    from wagtail.core.fields import RichTextField
+    from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField, AbstractFormSubmission
 
 
     class FormField(AbstractFormField):
-        page = ParentalKey('FormPage', related_name='form_fields')
+        page = ParentalKey('FormPage', on_delete=models.CASCADE, related_name='form_fields')
 
 
     class FormPage(AbstractEmailForm):
@@ -204,16 +204,16 @@ Example:
     from django.db import models
     from django.shortcuts import render
     from modelcluster.fields import ParentalKey
-    from wagtail.wagtailadmin.edit_handlers import (
+    from wagtail.admin.edit_handlers import (
         FieldPanel, FieldRowPanel,
         InlinePanel, MultiFieldPanel
     )
-    from wagtail.wagtailcore.fields import RichTextField
-    from wagtail.wagtailforms.models import AbstractEmailForm, AbstractFormField, AbstractFormSubmission
+    from wagtail.core.fields import RichTextField
+    from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField, AbstractFormSubmission
 
 
     class FormField(AbstractFormField):
-        page = ParentalKey('FormPage', related_name='form_fields')
+        page = ParentalKey('FormPage', on_delete=models.CASCADE, related_name='form_fields')
 
 
     class FormPage(AbstractEmailForm):
@@ -300,16 +300,16 @@ The following example shows how to create a multi-step form.
     from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
     from django.shortcuts import render
     from modelcluster.fields import ParentalKey
-    from wagtail.wagtailadmin.edit_handlers import (
+    from wagtail.admin.edit_handlers import (
         FieldPanel, FieldRowPanel,
         InlinePanel, MultiFieldPanel
     )
-    from wagtail.wagtailcore.fields import RichTextField
-    from wagtail.wagtailforms.models import AbstractEmailForm, AbstractFormField
+    from wagtail.core.fields import RichTextField
+    from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField
 
 
     class FormField(AbstractFormField):
-        page = ParentalKey('FormPage', related_name='form_fields')
+        page = ParentalKey('FormPage', on_delete=models.CASCADE, related_name='form_fields')
 
 
     class FormPage(AbstractEmailForm):
@@ -383,15 +383,10 @@ The following example shows how to create a multi-step form.
                             # Perform validation again for whole form.
                             # After successful validation, save data into DB,
                             # and remove from the session.
-                            self.process_form_submission(form)
+                            form_submission = self.process_form_submission(form)
                             del request.session[session_key_data]
-
-                            # Render the landing page
-                            return render(
-                                request,
-                                self.landing_page_template,
-                                self.get_context(request)
-                            )
+                            # render the landing page
+                            return self.render_landing_page(request, form_submission, *args, **kwargs)
                 else:
                     # If data for step is invalid
                     # we will need to display form again with errors,
@@ -451,16 +446,16 @@ First, you need to collect results as shown below:
 .. code-block:: python
 
     from modelcluster.fields import ParentalKey
-    from wagtail.wagtailadmin.edit_handlers import (
+    from wagtail.admin.edit_handlers import (
         FieldPanel, FieldRowPanel,
         InlinePanel, MultiFieldPanel
     )
-    from wagtail.wagtailcore.fields import RichTextField
-    from wagtail.wagtailforms.models import AbstractEmailForm, AbstractFormField
+    from wagtail.core.fields import RichTextField
+    from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField
 
 
     class FormField(AbstractFormField):
-        page = ParentalKey('FormPage', related_name='form_fields')
+        page = ParentalKey('FormPage', on_delete=models.CASCADE, related_name='form_fields')
 
 
     class FormPage(AbstractEmailForm):
@@ -553,3 +548,160 @@ Next, you need to transform your template to display the results:
 
 
 You can also show the results on the landing page.
+
+Custom landing page redirect
+----------------------------
+
+You can override the ``render_landing_page`` method on your `FormPage` to change what is rendered when a form submits.
+
+In this example below we have added a `thank_you_page` field that enables custom redirects after a form submits to the selected page.
+
+When overriding the ``render_landing_page`` method, we check if there is a linked `thank_you_page` and then redirect to it if it exists.
+
+Finally, we add a URL param of `id` based on the ``form_submission`` if it exists.
+
+.. code-block:: python
+
+    from django.shortcuts import redirect
+    from wagtail.wagtailadmin.edit_handlers import (
+        FieldPanel, FieldRowPanel, InlinePanel, MultiFieldPanel, PageChooserPanel)
+    from wagtail.contrib.forms.models import AbstractEmailForm
+
+    class FormPage(AbstractEmailForm):
+
+        # intro, thank_you_text, ...
+
+        thank_you_page = models.ForeignKey(
+            'wagtailcore.Page',
+            null=True,
+            blank=True,
+            on_delete=models.SET_NULL,
+            related_name='+',
+        )
+
+        def render_landing_page(self, request, form_submission=None, *args, **kwargs):
+            if self.thank_you_page:
+                url = self.thank_you_page.url
+                # if a form_submission instance is available, append the id to URL
+                # when previewing landing page, there will not be a form_submission instance
+                if form_submission:
+                  url += '?id=%s' % form_submission.id
+                return redirect(url, permanent=False)
+            # if no thank_you_page is set, render default landing page
+            return super(FormPage, self).render_landing_page(request, form_submission, *args, **kwargs)
+
+        content_panels = AbstractEmailForm.content_panels + [
+            FieldPanel('intro', classname='full'),
+            InlinePanel('form_fields'),
+            FieldPanel('thank_you_text', classname='full'),
+            PageChooserPanel('thank_you_page'),
+            MultiFieldPanel([
+                FieldRowPanel([
+                    FieldPanel('from_address', classname='col6'),
+                    FieldPanel('to_address', classname='col6'),
+                ]),
+                FieldPanel('subject'),
+            ], 'Email'),
+        ]
+
+Customise form submissions listing in Wagtail Admin
+---------------------------------------------------
+
+The Admin listing of form submissions can be customised by setting the attribute ``submissions_list_view_class`` on your FormPage model.
+
+The list view class must be a subclass of ``SubmissionsListView`` from ``wagtail.contrib.forms.views``, which is a child class of `Django's class based ListView <https://docs.djangoproject.com/en/2.0/ref/class-based-views/generic-display/#listview>`_.
+
+Example:
+
+.. code-block:: python
+
+    from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField
+    from wagtail.contrib.forms.views import SubmissionsListView
+
+
+    class CustomSubmissionsListView(SubmissionsListView):
+        paginate_by = 50  # show more submissions per page, default is 20
+        ordering = ('submit_time',)  # order submissions by oldest first, normally newest first
+        ordering_csv = ('-submit_time',)  # order csv export by newest first, normally oldest first
+
+        # override the method to generate csv filename
+        def get_csv_filename(self):
+            """ Returns the filename for CSV file with page slug at start"""
+            filename = super().get_csv_filename()
+            return self.form_page.slug + '-' + filename
+
+
+    class FormField(AbstractFormField):
+        page = ParentalKey('FormPage', related_name='form_fields')
+
+
+    class FormPage(AbstractEmailForm):
+        """Form Page with customised submissions listing view"""
+
+        # set custom view class as class attribute
+        submissions_list_view_class = CustomSubmissionsListView
+
+        intro = RichTextField(blank=True)
+        thank_you_text = RichTextField(blank=True)
+
+        # content_panels = ...
+
+Adding a custom field type
+--------------------------
+
+First, make the new field type available in the page editor by changing your ``FormField`` model.
+
+* Create a new set of choices which includes the original ``FORM_FIELD_CHOICES`` along with new field types you want to make available.
+* Each choice must contain a unique key and a human readable name of the field, e.g. ``('slug', 'URL Slug')``
+* Override the ``field_type`` field in your ``FormField`` model with ``choices`` attribute using these choices.
+* You will need to run ``./manage.py makemigrations`` and ``./manage.py migrate`` after this step.
+
+
+Then, create and use a new form builder class.
+
+* Define a new form builder class that extends the ``FormBuilder`` class.
+* Add a method that will return a created Django form field for the new field type.
+* Its name must be in the format: ``create_<field_type_key>_field``, e.g. ``create_slug_field``
+* Override the ``form_builder`` attribute in your form page model to use your new form builder class.
+
+Example:
+
+.. code-block:: python
+
+    from django import forms
+    from django.db import models
+    from modelcluster.fields import ParentalKey
+    from wagtail.contrib.forms.forms import FormBuilder
+    from wagtail.contrib.forms.models import (
+      AbstractEmailForm, AbstractFormField, FORM_FIELD_CHOICES)
+
+
+    class FormField(AbstractFormField):
+        # extend the built in field type choices
+        # our field type key will be 'ipaddress'
+        CHOICES = FORM_FIELD_CHOICES + (('ipaddress', 'IP Address'),)
+
+        page = ParentalKey('FormPage', related_name='form_fields')
+        # override the field_type field with extended choices
+        field_type = models.CharField(
+            verbose_name='field type',
+            max_length=16,
+            # use the choices tuple defined above
+            choices=CHOICES
+        )
+
+
+    class CustomFormBuilder(FormBuilder):
+        # create a function that returns an instanced Django form field
+        # function name must match create_<field_type_key>_field
+        def create_ipaddress_field(self, field, options):
+            # return `forms.GenericIPAddressField(**options)` not `forms.SlugField`
+            # returns created a form field with the options passed in
+            return forms.GenericIPAddressField(**options)
+
+
+    class FormPage(AbstractEmailForm):
+        # intro, thank_you_text, edit_handlers, etc...
+
+        # use custom form builder defined above
+        form_builder = CustomFormBuilder

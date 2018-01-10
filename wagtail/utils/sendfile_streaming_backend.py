@@ -1,21 +1,14 @@
 # Sendfile "streaming" backend
 # This is based on sendfiles builtin "simple" backend but uses a StreamingHttpResponse
 
-from __future__ import absolute_import, unicode_literals
-
 import os
 import re
 import stat
+from email.utils import mktime_tz, parsedate_tz
 from wsgiref.util import FileWrapper
 
 from django.http import HttpResponseNotModified, StreamingHttpResponse
 from django.utils.http import http_date
-
-try:
-    from email.utils import parsedate_tz, mktime_tz
-except ImportError:
-    from email.Utils import parsedate_tz, mktime_tz
-
 
 
 def sendfile(request, filename, **kwargs):

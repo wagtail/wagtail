@@ -1,0 +1,27 @@
+{% load i18n wagtailadmin_tags %}
+<div class="nice-padding">
+    {% if pages %}
+        <h2>
+            {% blocktrans count counter=pages.paginator.count %}
+                There is one matching page
+            {% plural %}
+                There are {{ counter }} matching pages
+            {% endblocktrans %}
+        </h2>
+
+        {% search_other %}
+
+        {% include "wagtailadmin/pages/listing/_list_explore.html" with show_parent=1 %}
+
+        {% url 'wagtailadmin_pages:search' as pagination_base_url %}
+        {% paginate pages base_url=pagination_base_url %}
+    {% else %}
+        {% if query_string %}
+            <h2>{% blocktrans %}Sorry, no pages match <em>"{{ query_string }}"</em>{% endblocktrans %}</h2>
+            
+            {% search_other %}
+        {% else %}
+            <p>{% trans 'Enter a search term above' %}</p>
+        {% endif %}
+    {% endif %}
+</div>

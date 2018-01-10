@@ -1,11 +1,9 @@
-from __future__ import absolute_import, unicode_literals
-
 from django.template import Context, RequestContext, Template, engines
 from django.test import TestCase
 
 from wagtail.tests.testapp.models import TestSetting
 from wagtail.tests.utils import WagtailTestUtils
-from wagtail.wagtailcore.models import Page, Site
+from wagtail.core.models import Page, Site
 
 
 class TemplateTestCase(TestCase, WagtailTestUtils):
@@ -158,7 +156,7 @@ class TestTemplateTag(TemplateTestCase):
 class TestSettingsJinja(TemplateTestCase):
 
     def setUp(self):
-        super(TestSettingsJinja, self).setUp()
+        super().setUp()
         self.engine = engines['jinja2']
 
     def render(self, string, context=None, request_context=True):

@@ -1,0 +1,23 @@
+{% extends "wagtailadmin/base.html" %}
+{% load wagtailadmin_tags i18n %}
+{% block titletag %}{% blocktrans with title=document.title %}Delete {{ title }}{% endblocktrans %}{% endblock %}
+{% block content %}
+    {% trans "Delete document" as del_str %}
+    {% include "wagtailadmin/shared/header.html" with title=del_str subtitle=document.title icon="doc-full-inverse" %}
+
+    <div class="nice-padding">
+
+        {% usage_count_enabled as uc_enabled %}
+        {% if uc_enabled %}
+            <div class="usagecount">
+                <a href="{{ document.usage_url }}">{% blocktrans count usage_count=document.get_usage.count %}Used {{ usage_count }} time{% plural %}Used {{ usage_count }} times{% endblocktrans %}</a>
+            </div>
+        {% endif %}
+
+        <p>{% trans "Are you sure you want to delete this document?" %}</p>
+        <form action="{% url 'wagtaildocs:delete' document.id %}" method="POST">
+            {% csrf_token %}
+            <input type="submit" value='{% trans "Yes, delete" %}' class="button serious" />
+        </form>
+    </div>
+{% endblock %}

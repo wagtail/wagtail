@@ -8,11 +8,8 @@ additional fields.
 You need to complete the following steps in your project to do this:
 
  - Create a new document model that inherits from
-   ``wagtail.wagtaildocs.models.AbstractDocument``. This is where you would
+   ``wagtail.documents.models.AbstractDocument``. This is where you would
    add additional fields.
- - Add a signal handler to duplicate the post-delete behaviour from
-   ``wagtaildocs.signal_handlers.post_delete_document_file_cleanup```.
-   This ensures the uploaded file is cleaned up when a document is deleted.
  - Point ``WAGTAILDOCS_DOCUMENT_MODEL`` to the new model.
 
 Here's an example:
@@ -20,10 +17,7 @@ Here's an example:
 .. code-block:: python
 
     # models.py
-    from django.db.models.signals import post_delete
-    from django.dispatch import receiver
-
-    from wagtail.wagtaildocs.models import Document, AbstractDocument
+    from wagtail.documents.models import Document, AbstractDocument
 
     class CustomDocument(AbstractDocument):
         # Custom field example:
@@ -39,13 +33,6 @@ Here's an example:
             # Add all custom fields names to make them appear in the form:
             'source',
         )
-
-    # Add the signal handler.
-    # The sender kwarg should match up with your custom document model name.
-    @receiver(post_delete, sender=CustomDocument)
-    def post_delete_document_file_cleanup(sender, instance, **kwargs):
-        # See wagtaildocs.signal_handlers.post_delete_document_file_cleanup
-        instance.file.delete(False)
 
 .. note::
 
@@ -75,6 +62,6 @@ Then in your settings module:
 Referring to the document model
 ===============================
 
-.. module:: wagtail.wagtaildocs.models
+.. module:: wagtail.documents.models
 
 .. autofunction:: get_document_model

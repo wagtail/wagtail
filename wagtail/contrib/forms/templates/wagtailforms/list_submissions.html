@@ -1,0 +1,38 @@
+{% load i18n %}
+<div class="overflow">
+<table class="listing">
+    <col />
+    <col />
+    <col />
+    <thead>
+        <tr>
+            <th colspan="{{ data_headings|length|add:1 }}">
+                <button class="button no" id="delete-submissions" style="visibility: hidden">{% trans "Delete selected submissions" %}</button>
+            </th>
+        </tr>
+        <tr>
+            <th><input type="checkbox" id="select-all" /></th>
+            {% for heading in data_headings %}
+                <th id="{{ heading.name }}" class="{% if heading.order %}ordered {{ heading.order }}{% endif %}">
+                  {% if heading.order %}<a href="?order_by={% if heading.order == 'ascending' %}-{% endif %}{{ heading.name }}">{{ heading.label }}</a>{% else %}{{ heading.label }}{% endif %}
+                </th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in data_rows %}
+            <tr>
+                <td>
+                    <input type="checkbox" name="selected-submissions" class="select-submission" value="{{ row.model_id }}" />
+                </td>
+                {% for cell in row.fields %}
+                    <td>
+                        {{ cell }}
+                    </td>
+                {% endfor %}
+                <td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>

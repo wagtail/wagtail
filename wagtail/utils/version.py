@@ -1,5 +1,3 @@
-from __future__ import absolute_import, unicode_literals
-
 
 # This file is heavily inspired by django.utils.version
 

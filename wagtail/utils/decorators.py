@@ -1,5 +1,3 @@
-from __future__ import absolute_import, unicode_literals
-
 import functools
 
 from django.utils.functional import cached_property
@@ -12,7 +10,7 @@ class cached_classmethod(dict):
     """
     Cache the result of a no-arg class method.
     .. code-block:: python
-        class Foo(object):
+        class Foo:
             @cached_classmethod
             def bar(cls):
                 # Some expensive computation
@@ -37,7 +35,7 @@ class cached_classmethod(dict):
         return value
 
 
-class _cache(object):
+class _cache:
     """ Calls the real class method behind when called, caching the result """
     def __init__(self, cache, cls, fn):
         self.cache = cache

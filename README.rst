@@ -30,9 +30,9 @@ Features
 * Straightforward integration with existing Django apps
 * Simple, configurable permissions
 * Workflow support
-* An extensible `form builder <http://docs.wagtail.io/en/latest/reference/contrib/forms.html>`_
+* An extensible `form builder <http://docs.wagtail.io/en/latest/reference/contrib/forms/index.html>`_
 * Multi-site and multi-language support
-* Excellent `test coverage <https://coveralls.io/r/torchbox/wagtail?branch=master>`_
+* Excellent `test coverage <http://codecov.io/github/wagtail/wagtail?branch=master>`_
 
 Find out more at `wagtail.io <http://wagtail.io/>`_.
 
@@ -64,7 +64,7 @@ Community Support
 ~~~~~~~~~~~~~~~~~
 There is an active community of Wagtail users and developers responding to questions on `Stack Overflow <http://stackoverflow.com/questions/tagged/wagtail>`_. When posting questions, please read Stack Overflow's advice on `how to ask questions <http://stackoverflow.com/help/how-to-ask>`_ and remember to tag your question with "wagtail".
 
-For topics and discussions that do not fit Stack Overflow's question-and-answer format, there is also a `Wagtail Support mailing list <https://groups.google.com/forum/#!forum/wagtail>`_.
+For topics and discussions that do not fit Stack Overflow's question-and-answer format, there is also a `Wagtail Support mailing list <https://groups.google.com/forum/#!forum/wagtail>`_ and a `Slack workspace <https://github.com/wagtail/wagtail/wiki/Slack>`_.
 
 Commercial Support
 ~~~~~~~~~~~~~~~~~~
@@ -80,12 +80,12 @@ We thank `BrowserStack <https://www.browserstack.com/>`_, who provide the projec
 
 Compatibility
 ~~~~~~~~~~~~~
-Wagtail supports Django 1.8.x, 1.10.x and 1.11.x, on Python 2.7, 3.4, 3.5 and 3.6. Supported database backends are PostgreSQL, MySQL and SQLite.
+Wagtail supports Django 1.11.x and 2.0 on Python 3.4, 3.5 and 3.6. Supported database backends are PostgreSQL, MySQL and SQLite.
 
 Contributing
 ~~~~~~~~~~~~
 If you're a Python or Django developer, fork the repo and get stuck in! We run a separate group for developers of Wagtail itself at https://groups.google.com/forum/#!forum/wagtail-developers (please note that this is not for support requests).
 
-You might like to start by reviewing the `contributing guidelines <http://docs.wagtail.io/en/latest/contributing/index.html>`_ and checking issues with the `difficulty:Easy <https://github.com/wagtail/wagtail/labels/difficulty%3AEasy>`_ label.
+You might like to start by reviewing the `contributing guidelines <http://docs.wagtail.io/en/latest/contributing/index.html>`_ and checking issues with the `good first issue <https://github.com/wagtail/wagtail/labels/good%20first%20issue>`_ label.
 
 We also welcome translations for Wagtail's interface. Translation work should be submitted through `Transifex <https://www.transifex.com/projects/p/wagtail/>`_.

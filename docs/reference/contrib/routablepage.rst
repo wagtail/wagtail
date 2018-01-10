@@ -4,7 +4,7 @@
 ``RoutablePageMixin``
 =====================
 
-.. module:: wagtail.contrib.wagtailroutablepage
+.. module:: wagtail.contrib.routable_page
 
 The ``RoutablePageMixin`` mixin provides a convenient way for a page to respond on multiple sub-URLs with different views. For example, a blog section on a site might provide several different types of index page at URLs like ``/blog/2013/06/``, ``/blog/authors/bob/``, ``/blog/tagged/python/``, all served by the same page instance.
 
@@ -16,28 +16,28 @@ By default a route for ``r'^$'`` exists, which serves the content exactly like a
 Installation
 ============
 
-Add ``"wagtail.contrib.wagtailroutablepage"`` to your INSTALLED_APPS:
+Add ``"wagtail.contrib.routable_page"`` to your INSTALLED_APPS:
 
  .. code-block:: python
 
      INSTALLED_APPS = [
         ...
 
-        "wagtail.contrib.wagtailroutablepage",
+        "wagtail.contrib.routable_page",
      ]
 
 
 The basics
 ==========
 
-To use ``RoutablePageMixin``, you need to make your class inherit from both :class:`wagtail.contrib.wagtailroutablepage.models.RoutablePageMixin` and :class:`wagtail.wagtailcore.models.Page`, then define some view methods and decorate them with ``wagtail.contrib.wagtailroutablepage.models.route``.
+To use ``RoutablePageMixin``, you need to make your class inherit from both :class:`wagtail.contrib.routable_page.models.RoutablePageMixin` and :class:`wagtail.core.models.Page`, then define some view methods and decorate them with ``wagtail.contrib.routable_page.models.route``.
 
 Here's an example of an ``EventPage`` with three views:
 
 .. code-block:: python
 
-    from wagtail.wagtailcore.models import Page
-    from wagtail.contrib.wagtailroutablepage.models import RoutablePageMixin, route
+    from wagtail.core.models import Page
+    from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 
 
     class EventPage(RoutablePageMixin, Page):
@@ -77,7 +77,7 @@ Reversing URLs
     >>> event_page.reverse_subpage('events_for_year', args=(2015, ))
     'year/2015/'
 
-This method only returns the part of the URL within the page. To get the full URL, you must append it to the values of either the :attr:`~wagtail.wagtailcore.models.Page.url` or the :attr:`~wagtail.wagtailcore.models.Page.full_url` attribute on your page:
+This method only returns the part of the URL within the page. To get the full URL, you must append it to the values of either the :attr:`~wagtail.core.models.Page.url` or the :attr:`~wagtail.core.models.Page.full_url` attribute on your page:
 
 .. code-block:: python
 
@@ -94,8 +94,8 @@ The route name defaults to the name of the view. You can override this name with
 
 .. code-block:: python
 
-    from wagtail.wagtailcore.models import Page
-    from wagtail.contrib.wagtailroutablepage.models import RoutablePageMixin, route
+    from wagtail.core.models import Page
+    from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 
 
     class EventPage(RoutablePageMixin, Page):
@@ -116,7 +116,7 @@ The route name defaults to the name of the view. You can override this name with
 The ``RoutablePageMixin`` class
 ===============================
 
-.. automodule:: wagtail.contrib.wagtailroutablepage.models
+.. automodule:: wagtail.contrib.routable_page.models
 .. autoclass:: RoutablePageMixin
 
     .. automethod:: get_subpage_urls
@@ -144,7 +144,7 @@ The ``RoutablePageMixin`` class
 The ``routablepageurl`` template tag
 ====================================
 
-.. currentmodule:: wagtail.contrib.wagtailroutablepage.templatetags.wagtailroutablepage_tags
+.. currentmodule:: wagtail.contrib.routable_page.templatetags.wagtailroutablepage_tags
 .. autofunction:: routablepageurl
 
     Example:

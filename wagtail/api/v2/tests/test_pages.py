@@ -1,17 +1,15 @@
-from __future__ import absolute_import, unicode_literals
-
 import collections
 import json
 
 import mock
-from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.test.utils import override_settings
+from django.urls import reverse
 
 from wagtail.api.v2 import signal_handlers
 from wagtail.tests.demosite import models
 from wagtail.tests.testapp.models import StreamPage
-from wagtail.wagtailcore.models import Page
+from wagtail.core.models import Page, Site
 
 
 def get_total_page_count():
@@ -707,6 +705,23 @@ class TestPageListing(TestCase):
 
         self.assertEqual(set(page_id_list), set([16, 18, 19]))
 
+    def test_search_with_filter(self):
+        response = self.get_response(title="Another blog post", search='blog', order='title')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        page_id_list = self.get_page_id_list(content)
+
+        self.assertEqual(page_id_list, [19])
+
+    def test_search_with_filter_on_non_filterable_field(self):
+        response = self.get_response(type='demosite.BlogEntryPage', body="foo", search='blog', order='title')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(content, {
+            'message': "cannot filter by 'body' while searching (field is not indexed)"
+        })
+
     def test_search_with_order(self):
         response = self.get_response(search='blog', order='title')
         content = json.loads(response.content.decode('UTF-8'))
@@ -714,6 +729,15 @@ class TestPageListing(TestCase):
         page_id_list = self.get_page_id_list(content)
 
         self.assertEqual(page_id_list, [19, 5, 16, 18])
+
+    def test_search_with_order_on_non_filterable_field(self):
+        response = self.get_response(type='demosite.BlogEntryPage', search='blog', order='body')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(content, {
+            'message': "cannot order by 'body' while searching (field is not indexed)"
+        })
 
     @override_settings(WAGTAILAPI_SEARCH_ENABLED=False)
     def test_search_when_disabled_gives_error(self):
@@ -752,6 +776,14 @@ class TestPageListing(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response['Content-type'], 'application/json')
         self.assertEqual(content['meta']['total_count'], 0)
+
+    # REGRESSION TESTS
+
+    def test_issue_3967(self):
+        # The API crashed whenever the listing view was called without a site configured
+        Site.objects.all().delete()
+        response = self.get_response()
+        self.assertEqual(response.status_code, 200)
 
 
 class TestPageDetail(TestCase):
@@ -1067,13 +1099,13 @@ class TestPageDetailWithStreamField(TestCase):
 @override_settings(
     WAGTAILFRONTENDCACHE={
         'varnish': {
-            'BACKEND': 'wagtail.contrib.wagtailfrontendcache.backends.HTTPBackend',
+            'BACKEND': 'wagtail.contrib.frontend_cache.backends.HTTPBackend',
             'LOCATION': 'http://localhost:8000',
         },
     },
     WAGTAILAPI_BASE_URL='http://api.example.com',
 )
-@mock.patch('wagtail.contrib.wagtailfrontendcache.backends.HTTPBackend.purge')
+@mock.patch('wagtail.contrib.frontend_cache.backends.HTTPBackend.purge')
 class TestPageCacheInvalidation(TestCase):
     fixtures = ['demosite.json']
 

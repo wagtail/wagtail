@@ -20,7 +20,7 @@ Bug fixes
 ~~~~~~~~~
 
 * Wagtail's middleware classes are now compatible with Django 1.10's `new-style middleware <https://docs.djangoproject.com/en/1.10/releases/1.10/#new-style-middleware>`_ (Karl Hobley)
-* The :meth:`~wagtail.wagtailcore.models.Page.can_create_at` method is now checked in the create page view (Mikalai Radchuk)
+* The :meth:`~wagtail.core.models.Page.can_create_at` method is now checked in the create page view (Mikalai Radchuk)
 * Fixed regression on Django 1.10.1 causing Page subclasses to fail to use PageManager (Matt Westcott)
 * ChoiceBlocks with lazy translations as option labels no longer break Elasticsearch indexing (Matt Westcott)
 * The page editor no longer fails to load JavaScript files with ``ManifestStaticFilesStorage`` (Matt Westcott)

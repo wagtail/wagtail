@@ -113,7 +113,7 @@ Bug fixes
  * Dropdown for ``ForeignKey`` s are now styled consistently (Ashia Zawaduk)
  * Date choosers now appear on top of StreamField menus (Sergey Nikitin)
  * Fixed a migration error that was raised when block-updating from 0.8 to 1.1+
- * :meth:`Page.copy() <wagtail.wagtailcore.models.Page.copy>` no longer breaks on models with a ``ClusterTaggableManager`` or ``ManyToManyField``
+ * :meth:`Page.copy() <wagtail.core.models.Page.copy>` no longer breaks on models with a ``ClusterTaggableManager`` or ``ManyToManyField``
  * Validation errors when inserting an embed into a rich text area are now reported back to the editor
 
 Upgrade considerations
@@ -182,7 +182,7 @@ Wagtail API requires adding ``rest_framework`` to INSTALLED_APPS
 If you have the Wagtail API (``wagtail.contrib.wagtailapi``) enabled, you must now add ``'rest_framework'`` to your project's ``INSTALLED_APPS`` setting. In the current version the API will continue to function without this app, but the browsable front-end will not be available; this ability will be dropped in a future release.
 
 
-:meth:`Page.get_latest_revision_as_page() <wagtail.wagtailcore.models.Page.get_latest_revision_as_page>` now returns live page object when there are no draft changes
+:meth:`Page.get_latest_revision_as_page() <wagtail.core.models.Page.get_latest_revision_as_page>` now returns live page object when there are no draft changes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 If you have any application code that makes direct updates to page data, at the model or database level, be aware that the way these edits are reflected in the page editor has changed.

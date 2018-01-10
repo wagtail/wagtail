@@ -10,7 +10,7 @@ export const getPage = (id) => {
 };
 
 export const getPageChildren = (id, options = {}) => {
-  let url = `${ADMIN_API.PAGES}?child_of=${id}`;
+  let url = `${ADMIN_API.PAGES}?child_of=${id}&for_explorer=1`;
 
   if (options.fields) {
     url += `&fields=${global.encodeURIComponent(options.fields.join(','))}`;

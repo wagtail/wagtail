@@ -2,7 +2,7 @@
 #
 # This is a sample uWSGI configuration file for running a Wagtail application.
 # It's designed to run under uWSGI's Emperor mode[0], but should work fine as
-# a standalone instance, e.g. under supervisord using 
+# a standalone instance, e.g. under supervisord using
 # 'uwsgi --ini /path/to/wagtail.ini'.
 #
 # This configuration assumes an application called 'mywagtail', running under
@@ -38,7 +38,7 @@ stats               = /home/mywagtail/mywagtail.stats
 master              = true
 
 # Set this to the root directory of your project.
-chdir               = /home/mywagtail/app 
+chdir               = /home/mywagtail/app
 # ... and its virtualenv.
 virtualenv          = /home/mywagtail/venv
 
@@ -79,10 +79,10 @@ env                 = DJANGO_SETTINGS_MODULE=myapp.settings.production
 # WSGI application.  Wagtail includes this in the default template.
 module              = mywagtail.wsgi:application
 
-# You can run addational daemons along with the application; for example,
+# You can run additional daemons along with the application; for example,
 # if you want to run Celery:
 attach-daemon       = celery worker -A myceleryapp -C -c1
-attach-daemon       = celery beat -A myceleryapp -C 
+attach-daemon       = celery beat -A myceleryapp -C
 
 # Log errors and requests.
 logto               = /var/log/uwsgi/mywagtail.log

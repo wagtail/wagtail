@@ -1,0 +1,71 @@
+{% load i18n wagtailadmin_tags %}
+<h2>{% block title %}{% endblock %}</h2>
+
+{{ formset.management_form }}
+
+{% if formset.non_form_errors %}
+    <p class="error-message">
+        {% for error in formset.non_form_errors %}
+            <span>{{ error }}</span>
+        {% endfor %}
+    </p>
+{% endif %}
+
+<table class="listing">
+    <col />
+    {% for i in formset.permission_types %}
+        <col width="15%" />
+    {% endfor %}
+    <col />
+    <thead>
+        <tr>
+            <th>{% trans "Collection" %}</th>
+            {% for codename, short_label, long_label in formset.permission_types %}
+                <th title="{{ long_label }}">{{ short_label }}</th>
+            {% endfor %}
+            <th></th>
+        </tr>
+    </thead>
+    <tbody id="id_{{ formset.prefix }}-FORMS">
+        {% for form in formset.forms %}
+            <tr id="inline_child_{{ form.prefix }}"{% if form.DELETE.value %} style="display: none;"{% endif %}>
+                {% if form.non_field_errors %}
+                    <p class="error-message">
+                        {% for error in form.non_field_errors %}
+                            <span>{{ error|escape }}</span>
+                        {% endfor %}
+                    </p>
+                {% endif %}
+                {% include "wagtailadmin/permissions/includes/collection_member_permissions_form.html" with form=form only %}
+            </tr>
+        {% endfor %}
+    <tbody>
+</table>
+
+<script type="text/django-form-template" id="id_{{ formset.prefix }}-EMPTY_FORM_TEMPLATE">
+{% escapescript %}
+    <tr id="inline_child_{{ formset.empty_form.prefix }}">
+        {% include "wagtailadmin/permissions/includes/collection_member_permissions_form.html" with form=formset.empty_form only %}
+    </tr>
+{% endescapescript %}
+</script>
+
+<p class="add">
+    <a class="button bicolor icon icon-plus" id="id_{{ formset.prefix }}-ADD" value="Add">{% block add_button_label %}{% endblock %}</a>
+</p>
+
+<script>
+    $(function() {
+        buildExpandingFormset('id_{{ formset.prefix }}', {
+            onInit: function(index) {
+                var deleteInputId = 'id_{{ formset.prefix }}-' + index + '-DELETE';
+                var childId = 'inline_child_{{ formset.prefix }}-' + index;
+                $('#' + deleteInputId + '-button').on('click', function() {
+                    /* set 'deleted' form field to true */
+                    $('#' + deleteInputId).val('1');
+                    $('#' + childId).fadeOut();
+                });
+            }
+        });
+    });
+</script>

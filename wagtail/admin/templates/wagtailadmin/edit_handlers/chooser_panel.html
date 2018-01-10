@@ -1,0 +1,40 @@
+{% extends "wagtailadmin/shared/field.html" %}
+{% load i18n %}
+{% comment %}
+    ------
+    DEPRECATED - provided for backwards compatibility with custom (third-party) chooser panels
+    created prior to Wagtail 0.9. New choosers should subclass wagtail.admin.widgets.AdminChooser,
+    with a template that extends wagtailadmin/widgets/chooser.html.
+    ------
+
+    Either the chosen or unchosen div will be shown, depending on the presence
+    of the 'blank' class on the container.
+
+    Any element with the 'action-choose' class will open the page chooser modal
+    when clicked.
+{% endcomment %}
+
+{% block form_field %}
+
+    <div id="{{ field.id_for_label }}-chooser" class="chooser {% block chooser_class %}page-chooser{% endblock %} {% if not field.value %}blank{% endif %}">
+
+        <div class="chosen">
+            {% block chosen_state_view %}{% endblock %}
+
+            <div class="actions">
+                {% if not field.field.required %}
+                    <button type="button" class="button action-clear button-small button-secondary">{{ field.field.widget.clear_choice_text }}</button
+                {% endif %}
+                <button type="button" class="button action-choose button-small button-secondary">{{ field.field.widget.choose_another_text }}</button>
+            </div>
+        </div>
+
+        <div class="unchosen">
+            <button type="button" class="button action-choose button-small button-secondary">{{ field.field.widget.choose_one_text }}</button>
+        </div>
+
+    </div>
+
+    {{ field }}
+
+{% endblock %}

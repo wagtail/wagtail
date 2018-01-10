@@ -67,13 +67,11 @@ Edit ``home/models.py`` as follows, to add a ``body`` field to the model:
 
 .. code-block:: python
 
-    from __future__ import unicode_literals
-
     from django.db import models
 
-    from wagtail.wagtailcore.models import Page
-    from wagtail.wagtailcore.fields import RichTextField
-    from wagtail.wagtailadmin.edit_handlers import FieldPanel
+    from wagtail.core.models import Page
+    from wagtail.core.fields import RichTextField
+    from wagtail.admin.edit_handlers import FieldPanel
 
 
     class HomePage(Page):
@@ -164,9 +162,9 @@ Lets start with a simple index page for our blog. In ``blog/models.py``:
 
 .. code-block:: python
 
-    from wagtail.wagtailcore.models import Page
-    from wagtail.wagtailcore.fields import RichTextField
-    from wagtail.wagtailadmin.edit_handlers import FieldPanel
+    from wagtail.core.models import Page
+    from wagtail.core.fields import RichTextField
+    from wagtail.admin.edit_handlers import FieldPanel
 
 
     class BlogIndexPage(Page):
@@ -207,7 +205,7 @@ Most of this should be familiar, but we'll explain ``get_children`` a bit later.
 Note the ``pageurl`` tag, which is similar to Django's ``url`` tag but
 takes a Wagtail Page object as an argument.
 
-In the Wagtail admin, create a ``BlogIndexPage`` under the Homepage,
+In the Wagtail admin, create a ``BlogIndexPage`` as a child of the Homepage,
 make sure it has the slug "blog" on the Promote tab, and publish it.
 You should now be able to access the url ``/blog`` on your site
 (note how the slug from the Promote tab defines the page URL).
@@ -218,10 +216,10 @@ Now we need a model and template for our blog posts. In ``blog/models.py``:
 
     from django.db import models
 
-    from wagtail.wagtailcore.models import Page
-    from wagtail.wagtailcore.fields import RichTextField
-    from wagtail.wagtailadmin.edit_handlers import FieldPanel
-    from wagtail.wagtailsearch import index
+    from wagtail.core.models import Page
+    from wagtail.core.fields import RichTextField
+    from wagtail.admin.edit_handlers import FieldPanel
+    from wagtail.search import index
 
 
     # Keep the definition of BlogIndexPage, and add:
@@ -391,7 +389,7 @@ Change:
 ``{% for post in page.get_children %}`` to ``{% for post in blogpages %}``
 
 Now try unpublishing one of your posts - it should disappear from the blog index
-page. The remaining posts should now be sorted with the most recently modified
+page. The remaining posts should now be sorted with the most recently published
 posts first.
 
 Images
@@ -409,11 +407,11 @@ Add a new ``BlogPageGalleryImage`` model to ``models.py``:
 
     from modelcluster.fields import ParentalKey
 
-    from wagtail.wagtailcore.models import Page, Orderable
-    from wagtail.wagtailcore.fields import RichTextField
-    from wagtail.wagtailadmin.edit_handlers import FieldPanel, InlinePanel
-    from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
-    from wagtail.wagtailsearch import index
+    from wagtail.core.models import Page, Orderable
+    from wagtail.core.fields import RichTextField
+    from wagtail.admin.edit_handlers import FieldPanel, InlinePanel
+    from wagtail.images.edit_handlers import ImageChooserPanel
+    from wagtail.search import index
 
 
     # ... (Keep the definition of BlogIndexPage, and update BlogPage:)
@@ -438,7 +436,7 @@ Add a new ``BlogPageGalleryImage`` model to ``models.py``:
 
 
     class BlogPageGalleryImage(Orderable):
-        page = ParentalKey(BlogPage, related_name='gallery_images')
+        page = ParentalKey(BlogPage, on_delete=models.CASCADE, related_name='gallery_images')
         image = models.ForeignKey(
             'wagtailimages.Image', on_delete=models.CASCADE, related_name='+'
         )
@@ -572,11 +570,11 @@ First, alter ``models.py`` once more:
     from modelcluster.contrib.taggit import ClusterTaggableManager
     from taggit.models import TaggedItemBase
 
-    from wagtail.wagtailcore.models import Page, Orderable
-    from wagtail.wagtailcore.fields import RichTextField
-    from wagtail.wagtailadmin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
-    from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
-    from wagtail.wagtailsearch import index
+    from wagtail.core.models import Page, Orderable
+    from wagtail.core.fields import RichTextField
+    from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
+    from wagtail.images.edit_handlers import ImageChooserPanel
+    from wagtail.search import index
 
 
     # ... (Keep the definition of BlogIndexPage)
@@ -662,7 +660,7 @@ admin, and so that you can manipulate its contents by returning
 a queryset from its ``get_context()`` method.
 
 Migrate this in, then create a new ``BlogTagIndexPage`` in the admin.
-You'll probably want to create the new page/view under Homepage,
+You'll probably want to create the new page/view as a child of Homepage,
 parallel to your Blog index. Give it the slug "tags" on the Promote tab.
 
 Access ``/tags`` and Django will tell you what you probably already knew:
@@ -720,7 +718,7 @@ First, we define a ``BlogCategory`` model. A category is not a page in its own r
 
 .. code-block:: python
 
-    from wagtail.wagtailsnippets.models import register_snippet
+    from wagtail.snippets.models import register_snippet
 
 
     @register_snippet

@@ -1,11 +1,9 @@
-from __future__ import absolute_import, unicode_literals
-
 from django.contrib.admin.utils import quote
 from django.utils.encoding import force_text
 from django.utils.translation import ugettext as _
 
 
-class ButtonHelper(object):
+class ButtonHelper:
 
     default_button_classnames = ['button']
     add_button_classnames = ['bicolor', 'icon', 'icon-plus']

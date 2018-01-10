@@ -21,7 +21,7 @@ Wagtail API - A RESTful API for your Wagtail site
 
 When installed, the new Wagtail API module provides a RESTful web API to your
 Wagtail site. You can use this for accessing your raw field content for your
-sites pages, images and documents in JSON format. See :doc:`/reference/contrib/api/index`
+sites pages, images and documents in JSON format.
 
 
 MySQL support

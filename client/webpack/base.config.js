@@ -2,9 +2,9 @@ const path = require('path');
 const webpack = require('webpack');
 
 // Generates a path to an entry file to be compiled by Webpack.
-const getEntryPath = (app, filename) => path.resolve('wagtail', app, 'static_src', app, 'app', filename);
+const getEntryPath = (app, filename) => path.resolve('wagtail', app, 'static_src', `wagtail${app}`, 'app', filename);
 // Generates a path to the output bundle to be loaded in the browser.
-const getOutputPath = (app, filename) => path.join('wagtail', app, 'static', app, 'js', filename);
+const getOutputPath = (app, filename) => path.join('wagtail', app, 'static', `wagtail${app}`, 'js', filename);
 
 const isVendorModule = (module) => {
   const res = module.resource;
@@ -19,7 +19,7 @@ module.exports = function exports() {
     ],
   };
 
-  entry[getOutputPath('wagtailadmin', 'wagtailadmin')] = getEntryPath('wagtailadmin', 'wagtailadmin.entry.js');
+  entry[getOutputPath('admin', 'wagtailadmin')] = getEntryPath('admin', 'wagtailadmin.entry.js');
 
   return {
     entry: entry,
@@ -31,7 +31,7 @@ module.exports = function exports() {
     plugins: [
       new webpack.optimize.CommonsChunkPlugin({
         name: 'vendor',
-        filename: getOutputPath('wagtailadmin', '[name].js'),
+        filename: getOutputPath('admin', '[name].js'),
         minChunks: isVendorModule,
       }),
     ],

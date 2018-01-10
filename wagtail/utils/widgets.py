@@ -1,5 +1,3 @@
-from __future__ import absolute_import, unicode_literals
-
 from django.forms.widgets import Widget
 from django.utils.safestring import mark_safe
 
@@ -7,7 +5,7 @@ from django.utils.safestring import mark_safe
 class WidgetWithScript(Widget):
     def render_html(self, name, value, attrs):
         """Render the HTML (non-JS) portion of the field markup"""
-        return super(WidgetWithScript, self).render(name, value, attrs)
+        return super().render(name, value, attrs)
 
     def render(self, name, value, attrs=None):
         # no point trying to come up with sensible semantics for when 'id' is missing from attrs,

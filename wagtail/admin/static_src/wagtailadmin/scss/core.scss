@@ -1,0 +1,457 @@
+@import 'wagtailadmin/scss/variables';
+@import 'wagtailadmin/scss/mixins';
+@import 'wagtailadmin/scss/grid';
+
+@import 'wagtailadmin/scss/components/icons';
+@import 'wagtailadmin/scss/components/typography';
+@import 'wagtailadmin/scss/components/tabs';
+@import 'wagtailadmin/scss/components/dropdowns';
+@import 'wagtailadmin/scss/components/modals';
+@import 'wagtailadmin/scss/components/forms';
+@import 'wagtailadmin/scss/components/listing';
+@import 'wagtailadmin/scss/components/messages';
+@import 'wagtailadmin/scss/components/formatters';
+@import 'wagtailadmin/scss/components/header';
+@import 'wagtailadmin/scss/components/progressbar';
+@import 'wagtailadmin/scss/components/datetimepicker';
+@import 'wagtailadmin/scss/components/main-nav';
+@import 'wagtailadmin/scss/components/indicator';
+@import 'wagtailadmin/scss/components/tooltips';
+@import 'wagtailadmin/scss/components/logo';
+
+@import 'wagtailadmin/scss/fonts';
+
+@import '../../../../../client/scss/styles';
+
+html {
+    background: $color-grey-4;
+    height: 100%;
+}
+
+body {
+    -webkit-font-smoothing: antialiased; // Do not remove!
+    font-family: Open Sans, Arial, sans-serif;
+    font-size: 80%;
+    line-height: 1.5em;
+    color: $color-text-base;
+    overflow-x: hidden;
+    position: relative;
+
+    &.reordering {
+        overflow: visible;
+    }
+
+    &:after {
+        content: '';
+        position: fixed;
+        transition: visibility 0s linear 0s, opacity 0.2s ease-out;
+        background: rgba(255, 255, 255, 0.5);
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 5;
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+.visuallyvisible {
+    @include visuallyvisible;
+}
+
+.visuallyhidden {
+    @include visuallyhidden;
+}
+
+.capabilitymessage {
+    display: block;
+    background-color: $color-red;
+    color: $color-white;
+    padding: 1em 2em;
+    margin: 0;
+    position: relative;
+    text-align: center;
+
+    a {
+        color: $color-white;
+        text-decoration: underline;
+    }
+}
+
+.wrapper {
+    @include clearfix();
+    height: 100vh;
+    transition: transform 0.2s ease;
+}
+
+.content-wrapper {
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%; // this has no effect on desktop, but on mobile it helps aesthetics of menu popout action
+    float: left;
+    position: relative;
+    background-color: $color-grey-4;
+    border-bottom: 1px solid $color-grey-3;
+}
+
+.content {
+    @include row();
+    background: $color-white;
+    border-top: 0 solid $color-grey-5; // this top border provides space for the floating logo to toggle the menu
+    min-height: 100%;
+    padding-bottom: 4em;
+    position: relative; // yuk. necessary for positions for jquery ui widgets
+}
+
+.page-locked {
+    .tab-content {
+        cursor: not-allowed;
+        user-select: none;
+
+        > * {
+            pointer-events: none;
+        }
+    }
+}
+
+footer {
+    // @include transition(all 0.2s ease);
+    @include transition(bottom 0.5s ease 1s);
+    @include row();
+    border-radius: 3px 3px 0 0;
+    box-shadow: 0 0 2px rgba(255, 255, 255, 0.5);
+    background: $color-grey-1;
+    position: fixed;
+    bottom: 0;
+    padding: 0.5em;
+    width: 90%;
+    margin: 0 5%;
+    color: $color-white;
+
+    ul {
+        @include unlist();
+    }
+
+    li {
+        float: left;
+    }
+
+    .actions {
+        width: 250px;
+        margin-right: $grid-gutter-width / 2;
+    }
+
+    .preview .dropdown {
+        width: 250px;
+    }
+
+    .meta {
+        float: right;
+        text-align: right;
+        padding: 7px $grid-gutter-width / 2;
+        font-size: 0.85em;
+
+        p {
+            margin: 0;
+            margin-right: $grid-gutter-width;
+            white-space: nowrap;
+        }
+
+        a {
+            color: inherit;
+
+            &:hover {
+                color: $color-link;
+            }
+        }
+    }
+
+    @media screen and (max-width: $breakpoint-mobile) {
+        .actions,
+        .preview,
+        .preview .dropdown {
+            width: 100%;
+        }
+
+        .meta {
+            p {
+                white-space: normal;
+                width: 100%;
+            }
+
+            .avatar {
+                left: auto;
+            }
+        }
+    }
+
+    $width-1440px: 90em;
+
+    @media screen and (min-width: $width-1440px) {
+        width: $width-1440px;
+    }
+}
+
+.breadcrumb {
+    @include unlist();
+    @include clearfix();
+    overflow: hidden;
+    padding-top: 1.4em;
+    font-size: 0.85em;
+
+    li {
+        display: block;
+        float: left;
+        padding: 0.5em 1.3em;
+        position: relative;
+        text-decoration: none;
+        color: $color-white;
+        white-space: nowrap;
+        line-height: 1.5em;
+
+        a,
+        span {
+            color: lighten($color-teal, 40%);
+            display: block;
+            max-width: 12em;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            line-height: 1.6em;
+            padding-right: 1em;
+
+            &:after {
+                right: 0;
+                // z-index: 5;
+                position: absolute;
+                font-family: wagtail;
+                content: 'n';
+                padding-left: 20px;
+                font-size: 2em;
+                color: $color-teal-darker;
+                line-height: 0.9em;
+            }
+        }
+
+        &:hover {
+            background: $color-teal-dark;
+
+            a {
+                color: $color-white;
+            }
+        }
+
+        &:hover:after {
+            border-left-color: $color-teal-dark;
+        }
+
+        &.home {
+            a {
+                // stylelint-disable max-nesting-depth
+                padding-right: 0;
+                text-align: center;
+                width: 3em;
+                font-size: 1em;
+                text-overflow: clip;
+
+                &:before {
+                    font-size: 1.15rem;
+                    line-height: 0.85em;
+                    padding-top: 0.1em;
+                }
+
+                &:after {
+                    right: -0.3em;
+                }
+            }
+        }
+    }
+
+    header &  li {
+        &:before {
+            border-left: 1em solid $color-white;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+    }
+
+    &.single {
+        li a {
+            white-space: nowrap;
+            text-overflow: inherit;
+            max-width: 100%;
+        }
+    }
+}
+
+.clearfix {
+    @include clearfix();
+}
+
+.row {
+    @include clearfix();
+}
+
+.nice-padding {
+    padding-left: $mobile-nice-padding;
+    padding-right: $mobile-nice-padding;
+}
+
+
+// Z-indexes
+.nav-toggle {
+    z-index: 5;
+}
+
+.nav-wrapper {
+    z-index: 2;
+}
+
+// Avoiding a stacking context for the content-wrapper saves us a world
+// of pain when dealing with overlays that are appended to the end of
+// <body>, eg Hallo & calendars. As long as content-wrapper remains floated,
+// the z-index shouldn't be required.
+
+// .content-wrapper {
+// z-index: 3;
+// }
+.nav-submenu {
+    z-index: 6;
+}
+
+footer,
+.logo {
+    z-index: 100;
+}
+
+@media screen and (min-width: $breakpoint-mobile) {
+    .col1 {
+        @include column(1);
+    }
+
+    .col2 {
+        @include column(2);
+    }
+
+    .col3 {
+        @include column(3);
+    }
+
+    .col4 {
+        @include column(4);
+    }
+
+    .col5 {
+        @include column(5);
+    }
+
+    .col6 {
+        @include column(6);
+    }
+
+    .col7 {
+        @include column(7);
+    }
+
+    .col8 {
+        @include column(8);
+    }
+
+    .col9 {
+        @include column(9);
+    }
+
+    .col10 {
+        @include column(10);
+    }
+
+    .col11 {
+        @include column(11);
+    }
+
+    .col12 {
+        @include column(12);
+    }
+
+    .divider-before {
+        border-left: 1px solid $color-grey-4;
+    }
+
+    .divider-after {
+        border-right: 1px solid $color-grey-4;
+    }
+
+    .row {
+        @include row();
+    }
+
+    .row-flush {
+        @include row-flush();
+    }
+
+    .nice-padding {
+        padding-left: $desktop-nice-padding;
+        padding-right: $desktop-nice-padding;
+    }
+
+    .browsermessage {
+        margin: 0 0 0 -150px;
+    }
+
+    .content-wrapper {
+        border-bottom-right-radius: 5px;
+    }
+
+    footer {
+        margin-left: $desktop-nice-padding;
+        margin-right: $desktop-nice-padding;
+        width: calc(100% - #{$menu-width} - #{2 * $desktop-nice-padding});
+    }
+
+    .content {
+        border-top: 0;
+        background-color: none;
+        padding-top: 0;
+    }
+
+    .breadcrumb {
+        padding-top: 0;
+        background: $color-teal-darker;
+        margin-left: -($desktop-nice-padding);
+        margin-right: -($desktop-nice-padding);
+
+        li {
+            a,
+            span {
+                &:after {
+                    color: $color-teal;
+                }
+            }
+        }
+    }
+
+
+    // Z-indexes
+    .nav-main {
+        .footer {
+            z-index: 2;
+        }
+    }
+
+    .nav-submenu {
+        z-index: 500;
+    }
+
+    // Allows overspill of messages banner onto left menu, but also explorer
+    // to spill over main content
+    .nav-wrapper {
+        z-index: auto;
+    }
+
+    // footer is z-index: 100, so ensure the navigation sits on top of it.
+    .nav-wrapper.submenu-active {
+        z-index: 200;
+    }
+}

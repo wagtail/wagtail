@@ -9,7 +9,6 @@ This contrib module provides a search engine backend for Wagtail using
 
 .. warning::
 
-    | You need to use Django 1.10 or more to be able to use this backend.
     | You can only use this module to index data from a PostgreSQL database.
 
 **Features**:

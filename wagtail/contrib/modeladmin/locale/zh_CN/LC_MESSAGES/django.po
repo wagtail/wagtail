@@ -5,13 +5,14 @@
 # Translators:
 # Fred Zeng <979738295@qq.com>, 2016
 # Vincent Zhao <zhaopu2008@gmail.com>, 2017
+# 汇民 王 <whuim@qq.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-10 16:05+0000\n"
-"PO-Revision-Date: 2017-05-03 15:24+0000\n"
-"Last-Translator: Vincent Zhao <zhaopu2008@gmail.com>\n"
+"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"PO-Revision-Date: 2017-09-22 23:19+0000\n"
+"Last-Translator: 汇民 王 <whuim@qq.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -113,11 +114,11 @@ msgstr "主页"
 
 #, python-format
 msgid " By %(filter_title)s "
-msgstr "By  %(filter_title)s "
+msgstr "按  %(filter_title)s "
 
 #, python-format
 msgid "Sorry, there are no %(name)s matching your search parameters."
-msgstr "没有找到与 %(name)s 匹配的项"
+msgstr "对不起，没有找到与搜索条件匹配的 %(name)s。"
 
 msgid "Search for"
 msgstr "搜索"
@@ -127,7 +128,7 @@ msgid "Search %(name)s"
 msgstr "搜索  %(name)s "
 
 msgid "Filter"
-msgstr "筛选"
+msgstr "过滤器"
 
 #, python-format
 msgid ""
