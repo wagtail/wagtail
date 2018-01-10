@@ -290,12 +290,26 @@ EventPage.content_panels = [
     InlinePanel('speakers', label="Speakers", heading="Speaker lineup"),
     InlinePanel('related_links', label="Related links"),
     FieldPanel('categories'),
+    # InlinePanel related model uses `pk` not `id`
+    InlinePanel('head_counts', label='Head Counts'),
 ]
 
 EventPage.promote_panels = [
     MultiFieldPanel(COMMON_PANELS, "Common page configuration"),
     ImageChooserPanel('feed_image'),
 ]
+
+
+class HeadCountRelatedModelUsingPK(models.Model):
+    """Related model that uses a custom primary key (pk) not id"""
+    custom_id = models.AutoField(primary_key=True)
+    event_page = ParentalKey(
+        EventPage,
+        on_delete=models.CASCADE,
+        related_name='head_counts'
+    )
+    head_count = models.IntegerField()
+    panels = [FieldPanel('head_count')]
 
 
 # Just to be able to test multi table inheritance
