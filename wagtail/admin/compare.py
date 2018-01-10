@@ -180,7 +180,7 @@ class ChildRelationComparison:
         This bit of code attempts to match the objects in the A revision with
         their counterpart in the B revision.
 
-        A match is firstly attempted by ID (where a matching ID indicates they're the same).
+        A match is firstly attempted by PK (where a matching ID indicates they're the same).
         We compare remaining the objects by their field data; the objects with the fewest
         fields changed are matched until there are no more possible matches left.
 
@@ -218,13 +218,13 @@ class ChildRelationComparison:
         added = []
         deleted = []
 
-        # Match child objects on ID
+        # Match child objects on PK (ID)
         for a_idx, a_child in enumerate(objs_a):
             for b_idx, b_child in enumerate(objs_b):
                 if b_idx in map_backwards:
                     continue
 
-                if a_child.id is not None and b_child.id is not None and a_child.id == b_child.id:
+                if a_child.pk is not None and b_child.pk is not None and a_child.pk == b_child.pk:
                     map_forwards[a_idx] = b_idx
                     map_backwards[b_idx] = a_idx
 
@@ -234,8 +234,8 @@ class ChildRelationComparison:
             if a_idx not in map_forwards:
                 for b_idx, b_child in enumerate(objs_b):
                     if b_idx not in map_backwards:
-                        # If they both have an ID that is different, they can't be the same child object
-                        if a_child.id and b_child.id and a_child.id != b_child.id:
+                        # If they both have a PK (ID) that is different, they can't be the same child object
+                        if a_child.pk and b_child.pk and a_child.pk != b_child.pk:
                             continue
 
                         comparison = self.get_child_comparison(objs_a[a_idx], objs_b[b_idx])
