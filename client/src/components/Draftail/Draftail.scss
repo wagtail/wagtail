@@ -1,5 +1,4 @@
 @import '../../../../node_modules/draft-js/dist/Draft';
-@import '../../../../node_modules/draftail/dist/draftail';
 
 // Give each block element eg. paragraph some spacing so we don't end up
 // with empty paragraphs in code when user double enters because they think
@@ -28,3 +27,10 @@ div[data-block='true'] {
     // stylelint-disable declaration-no-important
     content: none !important;
 }
+
+$color-editor-chrome: $color-grey-1;
+$color-editor-chrome-text: $color-white;
+$color-editor-chrome-active: $color-white;
+$color-editor-chrome-accent: lighten($color-editor-chrome, 20%);
+
+@import '../../../../node_modules/draftail/lib/index';
