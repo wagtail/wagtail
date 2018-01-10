@@ -43,6 +43,7 @@ Other features
  * Updated documentation styling (LB (Ben Johnston))
  * Rich text fields now take feature lists into account when whitelisting HTML elements (Matt Westcott)
  * FormPage lists and Form submission lists in admin now use class based views for easy overriding (Johan Arensman)
+ * Form submission csv exports now have the export date in the filename and can be customized (Johan Arensman)
 
 Bug fixes
 ~~~~~~~~~
