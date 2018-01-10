@@ -65,6 +65,8 @@ export const initEditor = (fieldName, options = {}) => {
       onSave={serialiseInputValue}
       placeholder="Write here…"
       spellCheck={true}
+      // If increasing above 4, we will need to add styles for the extra nesting levels.
+      maxListNesting={4}
       {...options}
       blockTypes={blockTypes}
       inlineStyles={inlineStyles}
