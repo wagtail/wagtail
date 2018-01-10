@@ -76,6 +76,7 @@ Bug fixes
  * Copying a page with PostgreSQL search enabled no longer crashes (Bertrand Bordage)
  * Style of the page unlock button was broken (Bertrand Bordage)
  * Admin search no longer floods browser history (Bertrand Bordage)
+ * Version comparison now handles custom primary keys on inline models correctly (LB (Ben Johnston))
 
 
 Upgrade considerations

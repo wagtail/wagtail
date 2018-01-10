@@ -58,6 +58,7 @@ Changelog
  * Fix: Copying a page with PostgreSQL search enabled no longer crashes (Bertrand Bordage)
  * Fix: Style of the page unlock button was broken (Bertrand Bordage)
  * Fix: Admin search no longer floods browser history (Bertrand Bordage)
+ * Fix: Version comparison now handles custom primary keys on inline models correctly (LB (Ben Johnston))
 
 
 1.13.1 (17.11.2017)
