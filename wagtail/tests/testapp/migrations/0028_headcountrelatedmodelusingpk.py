@@ -10,7 +10,7 @@ import modelcluster.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('tests', '0026_auto_20171207_1657'),
+        ('tests', '0027_auto_20180110_1727'),
     ]
 
     operations = [
