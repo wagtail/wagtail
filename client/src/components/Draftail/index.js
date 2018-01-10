@@ -64,6 +64,7 @@ export const initEditor = (fieldName, options = {}) => {
       rawContentState={rawContentState}
       onSave={serialiseInputValue}
       placeholder="Write here…"
+      spellCheck={true}
       {...options}
       blockTypes={blockTypes}
       inlineStyles={inlineStyles}
