@@ -75,8 +75,8 @@ function setupLinkTooltips(elem) {
 }
 
 function insertRichTextDeleteControl(elem) {
-    var a = $('<a class="icon icon-cross text-replace delete-control">Delete</a>');
-    $(elem).addClass('halloeditor-deletable').prepend(a);
+    var a = $('<a class="icon icon-cross text-replace hallloeditor__embed-delete">Delete</a>');
+    $(elem).addClass('hallloeditor__embed-delete__wrapper').prepend(a);
     a.on('click', function() {
         var widget = $(elem).parent('.halloeditor').data('IKS-hallo');
         $(elem).fadeOut(function() {

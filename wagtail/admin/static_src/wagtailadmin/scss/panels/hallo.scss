@@ -12,26 +12,29 @@
         margin-top: 0;
     }
 
-}
+    // full is added to hallotoolbar when invoked on a field set to the full layout style
+    &.full {
+        margin-left: $mobile-nice-padding;
 
-// full is added to hallotoolbar when invoked on a field set to the full layout style
-.hallotoolbar.full {
-    margin-left: $mobile-nice-padding;
-}
-
-// stream-field is added to hallotoolbar when invoked on a field within a stream-field
-.hallotoolbar.stream-field {
-    margin-top: -1em;
-    margin-left: 0;
-
-    &.affixed {
-        margin-top: 0;
+        @media screen and (min-width: $breakpoint-mobile) {
+            margin-left: $desktop-nice-padding;
+        }
     }
-}
 
-.hallotoolbar button {
-    border-radius: 0;
-    height: 2.4em;
+    // stream-field is added to hallotoolbar when invoked on a field within a stream-field
+    &.stream-field {
+        margin-top: -1em;
+        margin-left: 0;
+
+        &.affixed {
+            margin-top: 0;
+        }
+    }
+
+    button {
+        border-radius: 0;
+        height: 2.4em;
+    }
 }
 
 .halloeditor {
@@ -56,8 +59,8 @@
         color: inherit;
     }
 
-    *:before,
-    *:after {
+    *::before,
+    *::after {
         display: none;
     }
 
@@ -77,32 +80,6 @@
 
     ol li {
         list-style-type: decimal;
-    }
-
-    // Delete controls on embedded blocks with contenteditable='false'
-    .halloeditor-deletable {
-        position: relative;
-
-        a.delete-control {
-            position: absolute;
-            right: 0;
-            cursor: pointer;
-            display: none;
-
-            &:before {
-                background-color: rgba(255, 255, 255, 0.8);
-            }
-
-            &:hover:before {
-                background-color: $color-white;
-            }
-        }
-    }
-
-    &.inEditMode {
-        .halloeditor-deletable a.delete-control {
-            display: block;
-        }
     }
 
     // Set some reasonable default heading styles. These can be overridden in site-specific custom CSS
@@ -144,48 +121,64 @@
         border-top: 0;
         border-left: 0;
     }
+}
 
+.hallloeditor__embed-delete {
+    position: absolute;
+    display: none;
+    right: 0;
+    cursor: pointer;
 
-    // These styles correspond to the image formats defined in wagtailimages/formats.py,
-    // so that images displayed in the rich text field receive more or less the same
-    // styling that they would receive on the site front-end.
-    //
-    // Wagtail installations that define their own image formats (in a myapp.image_formats module)
-    // should ideally use the insert_editor_css hook to pass in their own custom CSS to have those
-    // images render within the rich text area in the same styles that would appear on the front-end.
-    .richtext-image {
-        margin-top: 3px; // close as possible to match line-height space above p
+    &__wrapper {
+        position: relative;
+    }
 
-        img {
-            width: 100%;
-        }
+    &::before {
+        background-color: rgba(255, 255, 255, 0.8);
+    }
 
-        figcaption {
-            display: block;
-            width: 100%;
-            text-align: left;
-            margin-top: 16px;
-            margin-bottom: 16px;
-        }
+    &:hover::before {
+        background-color: $color-white;
+    }
 
-        &.small {
-            max-width: 45%;
-        }
-
-        &.left {
-            float: left;
-            margin-right: 16px;
-        }
-
-        &.right {
-            float: right;
-            margin-left: 16px;
-        }
+    .inEditMode & {
+        display: block;
     }
 }
 
-@media screen and (min-width: $breakpoint-mobile) {
-    .hallotoolbar.full {
-        margin-left: $desktop-nice-padding;
+// These styles correspond to the image formats defined in wagtailimages/formats.py,
+// so that images displayed in the rich text field receive more or less the same
+// styling that they would receive on the site front-end.
+//
+// Wagtail installations that define their own image formats (in a myapp.image_formats module)
+// should ideally use the insert_editor_css hook to pass in their own custom CSS to have those
+// images render within the rich text area in the same styles that would appear on the front-end.
+.richtext-image {
+    margin-top: 3px; // close as possible to match line-height space above p
+
+    img {
+        width: 100%;
+    }
+
+    figcaption {
+        display: block;
+        width: 100%;
+        text-align: left;
+        margin-top: 16px;
+        margin-bottom: 16px;
+    }
+
+    &.small {
+        max-width: 45%;
+    }
+
+    &.left {
+        float: left;
+        margin-right: 16px;
+    }
+
+    &.right {
+        float: right;
+        margin-left: 16px;
     }
 }
