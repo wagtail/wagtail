@@ -41,8 +41,7 @@ class PagesForModerationPanel:
         self.page_revisions_for_moderation = (user_perms.revisions_for_moderation()
                                               .select_related('page', 'user').order_by('-created_at'))
         for revision in self.page_revisions_for_moderation:
-            revision.can_edit = (revision.page.permissions_for_user(request.user)
-                                .can_edit())
+            revision.can_edit = (revision.page.permissions_for_user(request.user).can_edit())
 
     def render(self):
         return render_to_string('wagtailadmin/home/pages_for_moderation.html', {
