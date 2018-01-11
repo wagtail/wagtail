@@ -1,7 +1,9 @@
 .TooltipEntity {
-    background: $color-light-blue;
-    border-bottom: 1px dotted $color-teal;
     cursor: pointer;
+
+    &:hover {
+        color: $color-teal;
+    }
 
     &__icon {
         color: $color-teal;

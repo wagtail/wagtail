@@ -43,13 +43,14 @@ class ImageBlock extends Component {
       <MediaBlock {...this.props} src={src} alt="">
         <label className="ImageBlock__field">
           <p>Alt text</p>
-          <input type="text" value={alt || ''} onChange={this.changeAlt} />
+          <input className="ImageBlock__field__input" type="text" value={alt || ''} onChange={this.changeAlt} />
         </label>
-        <button className="Tooltip__button" onClick={onEditEntity}>
+
+        <button className="button Tooltip__button" onClick={onEditEntity}>
           Edit
         </button>
 
-        <button className="Tooltip__button" onClick={onRemoveEntity}>
+        <button className="button button-secondary no Tooltip__button" onClick={onRemoveEntity}>
           Remove
         </button>
       </MediaBlock>

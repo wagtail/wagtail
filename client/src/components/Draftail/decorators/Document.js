@@ -12,7 +12,8 @@ const Document = props => {
     <TooltipEntity
       {...props}
       icon={<Icon name="doc-full" />}
-      label={url.replace(/(^\w+:|^)\/\//, '').split('/')[0]}
+      label={url}
+      url={url}
     />
   );
 };

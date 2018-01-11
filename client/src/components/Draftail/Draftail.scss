@@ -1,3 +1,5 @@
+$editor-z-index: $draftail-editor-z-index;
+
 $color-editor-chrome: $color-grey-1;
 $color-editor-chrome-text: $color-white;
 $color-editor-chrome-active: $color-white;
@@ -74,7 +76,7 @@ div[data-block='true'] {
 
 .Draftail-Editor {
     border: 0;
-    background-color: initial;
+    background-color: transparent;
 }
 
 .Draftail-Toolbar {

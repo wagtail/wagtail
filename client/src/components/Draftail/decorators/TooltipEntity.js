@@ -29,15 +29,14 @@ class TooltipEntity extends Component {
   render() {
     const {
       entityKey,
-      contentState,
       children,
       onEdit,
       onRemove,
       icon,
       label,
+      url,
     } = this.props;
     const { showTooltipAt } = this.state;
-    const { url } = contentState.getEntity(entityKey).getData();
 
     // Contrary to what JSX A11Y says, this should be a button but it shouldn't be focusable.
     /* eslint-disable springload/jsx-a11y/interactive-supports-focus */
@@ -64,14 +63,14 @@ class TooltipEntity extends Component {
               </a>
 
               <button
-                className="Tooltip__button"
+                className="button Tooltip__button"
                 onClick={onEdit.bind(null, entityKey)}
               >
                 Edit
               </button>
 
               <button
-                className="Tooltip__button"
+                className="button button-secondary no Tooltip__button"
                 onClick={onRemove.bind(null, entityKey)}
               >
                 Remove
@@ -86,7 +85,6 @@ class TooltipEntity extends Component {
 
 TooltipEntity.propTypes = {
   entityKey: PropTypes.string.isRequired,
-  contentState: PropTypes.object.isRequired,
   children: PropTypes.node.isRequired,
   onEdit: PropTypes.func.isRequired,
   onRemove: PropTypes.func.isRequired,
@@ -95,6 +93,7 @@ TooltipEntity.propTypes = {
     PropTypes.object.isRequired,
   ]).isRequired,
   label: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired,
 };
 
 export default TooltipEntity;

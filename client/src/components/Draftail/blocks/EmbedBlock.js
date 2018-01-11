@@ -19,7 +19,7 @@ const EmbedBlock = props => {
   return (
     <MediaBlock {...props} src={thumbnail} alt={`Embed: ${title}`}>
       <a
-        className="EmbedBlock__link"
+        className="Tooltip__link EmbedBlock__link"
         href={url}
         title={url}
         target="_blank"
@@ -28,11 +28,11 @@ const EmbedBlock = props => {
         {title}
       </a>
 
-      <button className="Tooltip__button" onClick={onEditEntity}>
+      <button className="button Tooltip__button" onClick={onEditEntity}>
         Edit
       </button>
 
-      <button className="Tooltip__button" onClick={onRemoveEntity}>
+      <button className="button button-secondary no Tooltip__button" onClick={onRemoveEntity}>
         Remove
       </button>
     </MediaBlock>

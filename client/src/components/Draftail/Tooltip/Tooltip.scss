@@ -42,6 +42,7 @@ $tooltip-arrow-spacing: 25px;
     color: $color-tooltip-chrome-text;
     z-index: $tooltip-z-index;
     border-radius: $tooltip-border-radius;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 
     &::before {
         content: '';
@@ -63,18 +64,18 @@ $tooltip-arrow-spacing: 25px;
 }
 
 .Tooltip__link {
+    font-size: 0.875rem;
     margin-right: $controls-spacing * 4;
     display: inline-block;
+
+    &,
+    &:hover {
+        color: $color-white;
+    }
 }
 
 .Tooltip__button {
-    appearance: none;
-    background: #808080;
-    color: $color-white;
     padding: $button-spacing $controls-spacing;
-    border: 0;
-    border-radius: 1px;
-    cursor: pointer;
 
     + .Tooltip__button {
         margin-left: $button-spacing;
