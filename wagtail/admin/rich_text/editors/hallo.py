@@ -134,7 +134,7 @@ class HalloRichTextArea(WidgetWithScript, widgets.Textarea):
             'wagtailadmin/js/vendor/hallo.js',
             'wagtailadmin/js/hallo-bootstrap.js',
         ], css={
-            'all': ['wagtailadmin/css/panels/rich-text.css']
+            'all': ['wagtailadmin/css/panels/hallo.css']
         })
 
         for plugin in self.plugins:
