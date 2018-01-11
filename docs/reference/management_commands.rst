@@ -13,7 +13,7 @@ publish_scheduled_pages
 
     $ ./manage.py publish_scheduled_pages
 
-This command publishes or unpublishes pages that have had these actions scheduled by an editor. It is recommended to run this command once an hour.
+This command publishes, updates or unpublishes pages that have had these actions scheduled by an editor. It is recommended to run this command once an hour.
 
 
 .. _fixtree:
