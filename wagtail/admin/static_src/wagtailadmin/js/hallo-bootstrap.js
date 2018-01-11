@@ -2,8 +2,8 @@
 
 function makeHalloRichTextEditable(id, plugins) {
     var input = $('#' + id);
-    var richText = $('<div class="richtext"></div>').html(input.val());
-    richText.insertBefore(input);
+    var editor = $('<div class="halloeditor"></div>').html(input.val());
+    editor.insertBefore(input);
     input.hide();
 
     var removeStylingPending = false;
@@ -12,7 +12,7 @@ function makeHalloRichTextEditable(id, plugins) {
         (we don't remove the span entirely as that messes with the cursor position,
         and spans will be removed anyway by our whitelisting)
         */
-        $('span[style]', richText).filter(function() {
+        $('span[style]', editor).filter(function() {
             return this.attributes.length === 1;
         }).removeAttr('style');
         removeStylingPending = false;
@@ -20,7 +20,7 @@ function makeHalloRichTextEditable(id, plugins) {
 
     /* Workaround for faulty change-detection in hallo */
     function setModified() {
-        var hallo = richText.data('IKS-hallo');
+        var hallo = editor.data('IKS-hallo');
         if (hallo) {
             hallo.setModified();
         }
@@ -29,7 +29,7 @@ function makeHalloRichTextEditable(id, plugins) {
     var closestObj = input.closest('.object');
     var isRoot = input.closest('.struct-block').length == 0;
 
-    richText.hallo({
+    editor.hallo({
         toolbar: 'halloToolbarFixed',
         toolbarCssClass: (closestObj.hasClass('full')) ? 'full' : (closestObj.hasClass('stream-field') && isRoot) ? 'stream-field' : '',
         /* use the passed-in plugins arg */
@@ -59,7 +59,7 @@ function makeHalloRichTextEditable(id, plugins) {
         });
     });
 
-    setupLinkTooltips(richText);
+    setupLinkTooltips(editor);
 }
 
 function setupLinkTooltips(elem) {
@@ -76,9 +76,9 @@ function setupLinkTooltips(elem) {
 
 function insertRichTextDeleteControl(elem) {
     var a = $('<a class="icon icon-cross text-replace delete-control">Delete</a>');
-    $(elem).addClass('rich-text-deletable').prepend(a);
+    $(elem).addClass('halloeditor-deletable').prepend(a);
     a.on('click', function() {
-        var widget = $(elem).parent('.richtext').data('IKS-hallo');
+        var widget = $(elem).parent('.halloeditor').data('IKS-hallo');
         $(elem).fadeOut(function() {
             $(elem).remove();
             if (widget != undefined && widget.options.editable) {
@@ -89,7 +89,7 @@ function insertRichTextDeleteControl(elem) {
 }
 
 $(function() {
-    $('.richtext [contenteditable="false"]').each(function() {
+    $('.halloeditor [contenteditable="false"]').each(function() {
         insertRichTextDeleteControl(this);
     });
 })

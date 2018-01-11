@@ -23,7 +23,7 @@
                     var insertionPoint, lastSelection;
 
                     lastSelection = widget.options.editable.getSelection();
-                    insertionPoint = $(lastSelection.endContainer).parentsUntil('.richtext').last();
+                    insertionPoint = $(lastSelection.endContainer).parentsUntil('.halloeditor').last();
                     return ModalWorkflow({
                         url: window.chooserUrls.imageChooser + '?select_format=true',
                         responses: {

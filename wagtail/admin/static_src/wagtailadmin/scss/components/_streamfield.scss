@@ -135,7 +135,7 @@ li.sequence-member {
 // that are direct children of highest level sequence should be borderless and full-width
 .block_field > .field-content > .input > .sequence-container > .sequence-container-inner > .sequence > .sequence-member > .sequence-member-inner {
     > .widget-text_input input,
-    > .widget-hallo_rich_text_area .richtext,
+    > .widget-hallo_rich_text_area .halloeditor,
     > .widget-textarea textarea {
         border: 0;
         padding: 0;

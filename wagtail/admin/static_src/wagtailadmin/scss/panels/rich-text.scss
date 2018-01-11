@@ -34,7 +34,7 @@
     height: 2.4em;
 }
 
-.richtext {
+.halloeditor {
     font-family: $font-serif;
     padding-top: 4em;
     min-height: 50px;
@@ -80,7 +80,7 @@
     }
 
     // Delete controls on embedded blocks with contenteditable='false'
-    .rich-text-deletable {
+    .halloeditor-deletable {
         position: relative;
 
         a.delete-control {
@@ -100,7 +100,7 @@
     }
 
     &.inEditMode {
-        .rich-text-deletable a.delete-control {
+        .halloeditor-deletable a.delete-control {
             display: block;
         }
     }
