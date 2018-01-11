@@ -1,0 +1,22 @@
+.halloembed {
+    position: relative;
+}
+
+.halloembed__delete {
+    position: absolute;
+    display: none;
+    right: 0;
+    cursor: pointer;
+
+    &::before {
+        background-color: rgba(255, 255, 255, 0.8);
+    }
+
+    &:hover::before {
+        background-color: $color-white;
+    }
+
+    .inEditMode & {
+        display: block;
+    }
+}

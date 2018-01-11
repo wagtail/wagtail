@@ -1,0 +1,85 @@
+.halloeditor {
+    font-family: $font-serif;
+    padding-top: 4em;
+    min-height: 50px;
+    overflow: hidden;
+    line-height: 1.5em;
+
+    // Resetting various html tags that have been messed with by Wagtail's main css
+    h1 {
+        text-transform: none;
+    }
+
+    h2 {
+        text-transform: none;
+        display: block;
+    }
+
+    h1 span {
+        font-weight: normal;
+        color: inherit;
+    }
+
+    *::before,
+    *::after {
+        display: none;
+    }
+
+    ol,
+    ul {
+        margin: 1em 0;
+        padding: 0 0 0 40px;
+    }
+
+    li {
+        display: list-item;
+    }
+
+    ul li {
+        list-style-type: disc;
+    }
+
+    ol li {
+        list-style-type: decimal;
+    }
+
+    // Set some reasonable default heading styles. These can be overridden in site-specific custom CSS
+    // to make them better reflect their appearance on the front-end (however, it's arguably better for editors
+    // NOT to be thinking about a specific visual appearance when they choose heading levels...)
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-family: inherit;
+    }
+
+    h2 {
+        font-size: 2em;
+        line-height: 1.2em;
+        clear: both;
+    }
+
+    h3 {
+        font-size: 1.7em;
+        line-height: 1.194em;
+    }
+
+    h4 {
+        font-size: 1.5em;
+        line-height: 1.267em;
+    }
+
+    h5 {
+        // used for large body text, not really heading
+        font-size: 1.2em;
+        line-height: 1.27em;
+    }
+
+    hr {
+        border-bottom: 1px solid #ccc;
+        border-top: 0;
+        border-left: 0;
+    }
+}
