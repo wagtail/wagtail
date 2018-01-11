@@ -230,7 +230,7 @@
 
     // special panel for the publishing fields, requires a bit more pizzazz
     &.publishing {
-        h2:before {
+        > h2:before {
             content: '7';
             font-size: 1.8rem;
             line-height: 1.4em;
@@ -313,18 +313,18 @@
         // and h2 has position: absolute which doesn't add to it either, so it would be 0 without this
         min-height: 41px;
 
-        h2 {
+        > h2 {
             &:before,
-            label:before {
+            > label:before {
                 content: '6';
                 cursor: pointer;
             }
         }
 
         &.collapsed {
-            h2 {
+            > h2 {
                 &:before,
-                label:before {
+                > label:before {
                     content: '5';
                 }
             }
