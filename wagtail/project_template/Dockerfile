@@ -11,6 +11,11 @@ RUN pip install gunicorn
 COPY . /code/
 WORKDIR /code/
 
+RUN python manage.py migrate
+
+RUN useradd wagtail
+RUN chown -R wagtail /code
+USER wagtail
+
 EXPOSE 8000
-CMD python manage.py migrate
 CMD exec gunicorn {{ project_name }}.wsgi:application --bind 0.0.0.0:8000 --workers 3
