@@ -35,6 +35,7 @@ Other features
  * ImageChooser now sets a default title based on filename (Coen van der Kamp)
  * Added error handling to the Draftail editor (Thibaud Colas)
  * Add new `wagtail_icon` template tag to facilitate making admin icons accessible (Sander Tuit)
+ * Set `ALLOWED_HOSTS` in the project template to allow any host in development (Tom Dyson)
 
 Bug fixes
 ~~~~~~~~~
