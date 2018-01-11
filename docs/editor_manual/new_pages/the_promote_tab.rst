@@ -1,7 +1,11 @@
-The Promote tab
-~~~~~~~~~~~~~~~
+================
+ Edit Page tabs
+================
 
 A common feature of the *Edit* pages for all page types is the two tabs at the top of the screen. The first, Content, is where you build the content of the page itself.
+
+The Promote tab
+~~~~~~~~~~~~~~~
 
 The second, *Promote*, is where you can set all the 'metadata' (data about data!) for the page. Below is a description of all default fields in the promote tab and what they do.
 
@@ -14,3 +18,12 @@ The second, *Promote*, is where you can set all the 'metadata' (data about data!
 
 .. Note::
     You may see more fields than this in your promote tab. These are just the default fields, but you are free to add other fields to this section as necessary.
+
+The Settings Tab
+~~~~~~~~~~~~~~~~
+
+The *Settings* has two fields by default.
+
+* **Go Live date/time:** Sets the time in which the changes should go live when published.  If you publish a page that has this field set to a time in the future it will be scheduled until the time comes.
+  See :ref:`scheduled_publishing` for more details.
+* **Expiry date/time:** Sets the time in which this page should be unpublished.
