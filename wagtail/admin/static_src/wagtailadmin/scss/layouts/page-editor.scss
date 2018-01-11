@@ -143,7 +143,8 @@
         }
     }
 
-    .halloeditor {
+    .halloeditor,
+    .Draftail-Editor {
         padding-top: 1em; // to provide space for editor buttons
         padding-bottom: 1em;
 
@@ -181,7 +182,8 @@
             padding: 0;
         }
 
-        .halloeditor {
+        .halloeditor,
+        .Draftail-Editor {
             padding-top: 3em; // to provide space for editor buttons
             padding-bottom: 3em;
 
@@ -199,7 +201,8 @@
         .error,
         .error input,
         .error textarea,
-        .error .halloeditor {
+        .error .halloeditor,
+        .error .Draftail-Editor {
             background-color: $color-input-error-bg;
         }
     }
@@ -332,8 +335,9 @@
 // Custom styles that make some fields look more important
 .full input,
 .full textarea,
-.full .halloeditor {
-    @include nice-padding();
+.full .halloeditor,
+.full .Draftail-Editor {
+    @include nice-padding;
     border-radius: 0;
     padding-top: 2em;
     padding-bottom: 2em;
@@ -343,7 +347,8 @@
 
 .title input,
 .title textarea,
-.title .halloeditor {
+.title .halloeditor,
+.title .Draftail-Editor {
     font-size: 2em;
     font-family: $font-serif;
 }

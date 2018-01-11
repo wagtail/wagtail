@@ -135,11 +135,16 @@ li.sequence-member {
 // that are direct children of highest level sequence should be borderless and full-width
 .block_field > .field-content > .input > .sequence-container > .sequence-container-inner > .sequence > .sequence-member > .sequence-member-inner {
     > .widget-text_input input,
-    > .widget-hallo_rich_text_area .halloeditor,
+    > .halloeditor,
     > .widget-textarea textarea {
-        border: 0;
         padding: 0;
+        max-width: 1024px;
+        border: 0;
         background-color: transparent;
+    }
+
+    > .Draftail-Editor {
+        padding: 0;
         max-width: 1024px;
     }
 }

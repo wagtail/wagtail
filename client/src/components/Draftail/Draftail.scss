@@ -44,5 +44,15 @@ div[data-block='true'] {
 
 .public-DraftEditor-content,
 .public-DraftEditorPlaceholder-root {
+    padding: 0;
     font-family: $font-serif;
+}
+
+.Draftail-Editor {
+    border: 0;
+    background-color: initial;
+}
+
+.Draftail-Toolbar {
+    border-radius: 5px;
 }
