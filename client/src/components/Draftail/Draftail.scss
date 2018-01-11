@@ -18,21 +18,54 @@ $color-editor-chrome-accent: lighten($color-editor-chrome, 20%);
 // with empty paragraphs in code when user double enters because they think
 // there are no paragraphs.
 div[data-block='true'] {
-    margin: 0.75rem 0;
+    margin: 0.5rem 0;
 }
 
-/* Override Wagtail styles. */
-.DraftEditor-editorContainer h2 {
-    text-transform: none;
+@mixin draftail-richtext-styles {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        // Overrides for other parts of the Wagtail admin.
+        text-transform: none;
+        font-family: inherit;
+        clear: both;
+        line-height: 1;
+    }
+
+    h1,
+    h2,
+    h3 {
+        line-height: 1.1;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    h2 {
+        font-size: 1.8em;
+    }
+
+    h3 {
+        font-size: 1.5em;
+    }
+
+    h4 {
+        font-size: 1.2em;
+    }
+
+    h5 {
+        font-size: 1.1em;
+    }
 }
 
-/* Override Wagtail styles. */
-.DraftEditor-editorContainer h3,
-.DraftEditor-editorContainer h4,
-.DraftEditor-editorContainer h5,
-.DraftEditor-editorContainer h6 {
-    font-weight: bold;
+.DraftEditor-editorContainer {
+    @include draftail-richtext-styles;
 }
+
 
 /* Get rid of cray number 6 that appears above h2 elements in draft editor. */
 .object.collapsible .DraftEditor-editorContainer h2::before,
