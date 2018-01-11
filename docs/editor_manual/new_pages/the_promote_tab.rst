@@ -2,7 +2,7 @@
  Edit Page tabs
 ================
 
-A common feature of the *Edit* pages for all page types is the two tabs at the top of the screen. The first, Content, is where you build the content of the page itself.
+A common feature of the *Edit* pages for all page types is the three tabs at the top of the screen. The first, *Content*, is where you build the content of the page itself.
 
 The Promote tab
 ~~~~~~~~~~~~~~~
@@ -22,8 +22,7 @@ The second, *Promote*, is where you can set all the 'metadata' (data about data!
 The Settings Tab
 ~~~~~~~~~~~~~~~~
 
-The *Settings* has two fields by default.
+The *Settings* tab has two fields by default.
 
-* **Go Live date/time:** Sets the time in which the changes should go live when published.  If you publish a page that has this field set to a time in the future it will be scheduled until the time comes.
-  See :ref:`scheduled_publishing` for more details.
-* **Expiry date/time:** Sets the time in which this page should be unpublished.
+* **Go Live date/time:** Sets the time at which the changes should go live when published. See :ref:`scheduled_publishing` for more details.
+* **Expiry date/time:** Sets the time at which this page should be unpublished.
