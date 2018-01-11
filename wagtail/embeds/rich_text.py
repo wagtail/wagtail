@@ -58,7 +58,7 @@ EditorHTMLEmbedConversionRule = [
 
 # draft.js / contentstate conversion
 
-def MediaEmbedEntity(props):
+def media_embed_entity(props):
     """
     Helper to construct elements of the form
     <embed embedtype="media" url="https://www.youtube.com/watch?v=y8Kyi0WNg40"/>
@@ -96,6 +96,6 @@ ContentstateMediaConversionRule = {
         'embed[embedtype="media"]': MediaEmbedElementHandler(),
     },
     'to_database_format': {
-        'entity_decorators': {ENTITY_TYPES.EMBED: MediaEmbedEntity}
+        'entity_decorators': {ENTITY_TYPES.EMBED: media_embed_entity}
     }
 }

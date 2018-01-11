@@ -42,7 +42,7 @@ EditorHTMLDocumentLinkConversionRule = [
 
 # draft.js / contentstate conversion
 
-def DocumentLinkEntity(props):
+def document_link_entity(props):
     """
     Helper to construct elements of the form
     <a id="1" linktype="document">document link</a>
@@ -78,6 +78,6 @@ ContentstateDocumentLinkConversionRule = {
         'a[linktype="document"]': DocumentLinkElementHandler('DOCUMENT'),
     },
     'to_database_format': {
-        'entity_decorators': {ENTITY_TYPES.DOCUMENT: DocumentLinkEntity}
+        'entity_decorators': {ENTITY_TYPES.DOCUMENT: document_link_entity}
     }
 }

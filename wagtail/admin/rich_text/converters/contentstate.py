@@ -12,7 +12,7 @@ from wagtail.admin.rich_text.converters.html_to_contentstate import HtmlToConten
 from wagtail.core.rich_text import features as feature_registry
 
 
-def Link(props):
+def link_entity(props):
     """
     <a linktype="page" id="1">internal page link</a>
     """

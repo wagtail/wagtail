@@ -9,7 +9,7 @@ from wagtail.admin.menu import MenuItem, SubmenuMenuItem, settings_menu
 from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.admin.rich_text import (
     HalloFormatPlugin, HalloHeadingPlugin, HalloListPlugin, HalloPlugin)
-from wagtail.admin.rich_text.converters.contentstate import Link
+from wagtail.admin.rich_text.converters.contentstate import link_entity
 from wagtail.admin.rich_text.converters.editor_html import LinkTypeRule, WhitelistRule
 from wagtail.admin.rich_text.converters.html_to_contentstate import (
     BlockElementHandler, ExternalLinkElementHandler, HorizontalRuleHandler, InlineStyleElementHandler,
@@ -409,6 +409,6 @@ def register_core_features(features):
             'a[linktype="page"]': PageLinkElementHandler('LINK'),
         },
         'to_database_format': {
-            'entity_decorators': {ENTITY_TYPES.LINK: Link}
+            'entity_decorators': {ENTITY_TYPES.LINK: link_entity}
         }
     })

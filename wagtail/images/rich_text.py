@@ -73,7 +73,7 @@ EditorHTMLImageConversionRule = [
 
 # draft.js / contentstate conversion
 
-def ImageEntity(props):
+def image_entity(props):
     """
     Helper to construct elements of the form
     <embed alt="Right-aligned image" embedtype="image" format="right" id="1"/>
@@ -133,6 +133,6 @@ ContentstateImageConversionRule = {
         'embed[embedtype="image"]': ImageElementHandler(),
     },
     'to_database_format': {
-        'entity_decorators': {ENTITY_TYPES.IMAGE: ImageEntity}
+        'entity_decorators': {ENTITY_TYPES.IMAGE: image_entity}
     }
 }
