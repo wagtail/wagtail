@@ -28,18 +28,11 @@ def Link(props):
     return DOM.create_element('a', link_props, props['children'])
 
 
-class BR:
-    """
-    Replace line breaks (\n) with br tags.
-    """
-    SEARCH_RE = re.compile(r'\n')
+def br(props):
+    if props['block']['type'] == BLOCK_TYPES.CODE:
+        return props['children']
 
-    def render(self, props):
-        # Do not process matches inside code blocks.
-        if props['block']['type'] == BLOCK_TYPES.CODE:
-            return props['children']
-
-        return DOM.create_element('br')
+    return DOM.create_element('br')
 
 
 def BlockFallback(props):
@@ -70,9 +63,12 @@ class ContentstateConverter():
                 ENTITY_TYPES.FALLBACK: EntityFallback,
             },
             'composite_decorators': [
-                BR,
+                {
+                    'strategy': re.compile(r'\n'),
+                    'component': br,
+                },
             ],
-            'engine': 'string',
+            'engine': DOM.STRING,
         }
 
         for feature in self.features:
