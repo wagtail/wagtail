@@ -359,11 +359,18 @@ def edit(request, page_id):
                             page.get_admin_display_title()
                         )
                     else:
-                        message = _(
-                            "Page '{0}' has been scheduled for publishing."
-                        ).format(
-                            page.get_admin_display_title()
-                        )
+                        if page.live:
+                            message = _(
+                                "Page '{0}' is live and this revision has been scheduled for publishing."
+                            ).format(
+                                page.get_admin_display_title()
+                            )
+                        else:
+                            message = _(
+                                "Page '{0}' has been scheduled for publishing."
+                            ).format(
+                                page.get_admin_display_title()
+                            )
 
                     messages.success(request, message, buttons=[
                         messages.button(
