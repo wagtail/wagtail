@@ -14,7 +14,13 @@ New ``HelpPanel``
 ~~~~~~~~~~~~~~~~~
 
 A new panel type ``HelpPanel`` allows to easily add HTML within an edit form.
-This new feature was developed by Keving Chung.
+This new feature was developed by Kevin Chung.
+
+
+API lookup by page path
+~~~~~~~~~~~~~~~~~~~~~~~
+
+The API now includes an endpoint for finding pages by path; see :ref:`apiv2_finding_pages_by_path`. This feature was developed by Karl Hobley.
 
 Other features
 ~~~~~~~~~~~~~~
