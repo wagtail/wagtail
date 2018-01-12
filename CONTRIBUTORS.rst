@@ -268,6 +268,7 @@ Contributors
 * misraX
 * Bruno Alla
 * Christopher Bledsoe (The Motley Fool)
+* Florent Osmont
 
 Translators
 ===========

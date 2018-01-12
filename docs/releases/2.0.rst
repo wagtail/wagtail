@@ -54,6 +54,7 @@ Other features
  * Added ``WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS`` setting to determine whether superusers are included in moderation email notifications (Bruno Alla)
  * Added a basic Dockerfile to the project template (Tom Dyson)
  * StreamField blocks now allow custom ``get_template`` methods for overriding templates in instances (Christopher Bledsoe)
+ * Simplified edit handler API (Florent Osmont, Bertrand Bordage)
 
 
 Bug fixes
@@ -87,6 +88,7 @@ Bug fixes
  * Style of the page unlock button was broken (Bertrand Bordage)
  * Admin search no longer floods browser history (Bertrand Bordage)
  * Version comparison now handles custom primary keys on inline models correctly (LB (Ben Johnston))
+ * Fixed error when inserting chooser panels into FieldRowPanel (Florent Osmont, Bertrand Bordage)
 
 
 Upgrade considerations

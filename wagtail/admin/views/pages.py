@@ -183,8 +183,8 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
             return result
 
     page = page_class(owner=request.user)
-    edit_handler_class = page_class.get_edit_handler()
-    form_class = edit_handler_class.get_form_class(page_class)
+    edit_handler = page_class.get_edit_handler()
+    form_class = edit_handler.get_form_class()
 
     next_url = get_valid_next_url_from_request(request)
 
@@ -270,12 +270,13 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
             messages.validation_error(
                 request, _("The page could not be created due to validation errors"), form
             )
-            edit_handler = edit_handler_class(instance=page, form=form)
+            edit_handler = edit_handler.bind_to_instance(instance=page,
+                                                         form=form)
             has_unsaved_changes = True
     else:
         signals.init_new_page.send(sender=create, page=page, parent=parent_page)
         form = form_class(instance=page, parent_page=parent_page)
-        edit_handler = edit_handler_class(instance=page, form=form)
+        edit_handler = edit_handler.bind_to_instance(instance=page, form=form)
         has_unsaved_changes = False
 
     return render(request, 'wagtailadmin/pages/create.html', {
@@ -307,8 +308,8 @@ def edit(request, page_id):
         if hasattr(result, 'status_code'):
             return result
 
-    edit_handler_class = page_class.get_edit_handler()
-    form_class = edit_handler_class.get_form_class(page_class)
+    edit_handler = page_class.get_edit_handler()
+    form_class = edit_handler.get_form_class()
 
     next_url = get_valid_next_url_from_request(request)
 
@@ -460,7 +461,8 @@ def edit(request, page_id):
                     request, _("The page could not be saved due to validation errors"), form
                 )
 
-            edit_handler = edit_handler_class(instance=page, form=form)
+            edit_handler = edit_handler.bind_to_instance(instance=page,
+                                                         form=form)
             errors_debug = (
                 repr(edit_handler.form.errors) +
                 repr([
@@ -472,7 +474,7 @@ def edit(request, page_id):
             has_unsaved_changes = True
     else:
         form = form_class(instance=page, parent_page=parent)
-        edit_handler = edit_handler_class(instance=page, form=form)
+        edit_handler = edit_handler.bind_to_instance(instance=page, form=form)
         has_unsaved_changes = False
 
     # Check for revisions still undergoing moderation and warn
@@ -564,7 +566,7 @@ class PreviewOnEdit(View):
                                  id=self.args[0]).get_latest_revision_as_page()
 
     def get_form(self, page, query_dict):
-        form_class = page.get_edit_handler().get_form_class(page._meta.model)
+        form_class = page.get_edit_handler().get_form_class()
         parent_page = page.get_parent().specific
 
         if self.session_key not in self.request.session:
@@ -1022,11 +1024,12 @@ def revisions_revert(request, page_id, revision_id):
     content_type = ContentType.objects.get_for_model(page)
     page_class = content_type.model_class()
 
-    edit_handler_class = page_class.get_edit_handler()
-    form_class = edit_handler_class.get_form_class(page_class)
+    edit_handler = page_class.get_edit_handler()
+    form_class = edit_handler.get_form_class()
 
     form = form_class(instance=revision_page)
-    edit_handler = edit_handler_class(instance=revision_page, form=form)
+    edit_handler = edit_handler.bind_to_instance(instance=revision_page,
+                                                 form=form)
 
     user_avatar = render_to_string('wagtailadmin/shared/user_avatar.html', {'user': revision.user})
 
