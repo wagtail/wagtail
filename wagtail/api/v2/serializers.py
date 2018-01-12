@@ -8,14 +8,7 @@ from taggit.managers import _TaggableManager
 
 from wagtail.core import fields as wagtailcore_fields
 
-from .utils import get_full_url, pages_for_site
-
-
-def get_object_detail_url(context, model, pk):
-    url_path = context['router'].get_object_detail_urlpath(model, pk)
-
-    if url_path:
-        return get_full_url(context['request'], url_path)
+from .utils import get_object_detail_url, pages_for_site
 
 
 class TypeField(Field):
@@ -42,7 +35,7 @@ class DetailUrlField(Field):
     "detail_url": "http://api.example.com/v1/images/1/"
     """
     def get_attribute(self, instance):
-        url = get_object_detail_url(self.context, type(instance), instance.pk)
+        url = get_object_detail_url(self.context['router'], self.context['request'], type(instance), instance.pk)
 
         if url:
             return url
