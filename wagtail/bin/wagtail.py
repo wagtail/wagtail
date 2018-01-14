@@ -5,62 +5,82 @@ from optparse import OptionParser
 from django.core.management import ManagementUtility
 
 
-def create_project(parser, options, args):
-    # Validate args
-    if len(args) < 2:
-        parser.error("Please specify a name for your Wagtail installation")
-    elif len(args) > 3:
-        parser.error("Too many arguments")
+class Command:
+    description = None
+    usage = None
 
-    project_name = args[1]
-    try:
-        dest_dir = args[2]
-    except IndexError:
-        dest_dir = None
 
-    # Make sure given name is not already in use by another python package/module.
-    try:
-        __import__(project_name)
-    except ImportError:
-        pass
-    else:
-        parser.error("'%s' conflicts with the name of an existing "
-                     "Python module and cannot be used as a project "
-                     "name. Please try another name." % project_name)
+class CreateProject(Command):
+    description = "Creates the directory structure for a new Wagtail project."
+    usage = "Usage: %prog start project_name [directory]"
 
-    print("Creating a Wagtail project called %(project_name)s" % {'project_name': project_name})  # noqa
+    def run(self, parser, options, args):
+        # Validate args
+        if len(args) < 2:
+            parser.error("Please specify a name for your Wagtail installation")
+        elif len(args) > 3:
+            parser.error("Too many arguments")
 
-    # Create the project from the Wagtail template using startapp
+        project_name = args[1]
+        try:
+            dest_dir = args[2]
+        except IndexError:
+            dest_dir = None
 
-    # First find the path to Wagtail
-    import wagtail
-    wagtail_path = os.path.dirname(wagtail.__file__)
-    template_path = os.path.join(wagtail_path, 'project_template')
+        # Make sure given name is not already in use by another python package/module.
+        try:
+            __import__(project_name)
+        except ImportError:
+            pass
+        else:
+            parser.error("'%s' conflicts with the name of an existing "
+                         "Python module and cannot be used as a project "
+                         "name. Please try another name." % project_name)
 
-    # Call django-admin startproject
-    utility_args = ['django-admin.py',
-                    'startproject',
-                    '--template=' + template_path,
-                    '--ext=html,rst',
-                    project_name]
+        print("Creating a Wagtail project called %(project_name)s" % {'project_name': project_name})  # noqa
 
-    if dest_dir:
-        utility_args.append(dest_dir)
+        # Create the project from the Wagtail template using startapp
 
-    utility = ManagementUtility(utility_args)
-    utility.execute()
+        # First find the path to Wagtail
+        import wagtail
+        wagtail_path = os.path.dirname(wagtail.__file__)
+        template_path = os.path.join(wagtail_path, 'project_template')
 
-    print("Success! %(project_name)s has been created" % {'project_name': project_name})  # noqa
+        # Call django-admin startproject
+        utility_args = ['django-admin.py',
+                        'startproject',
+                        '--template=' + template_path,
+                        '--ext=html,rst',
+                        project_name]
+
+        if dest_dir:
+            utility_args.append(dest_dir)
+
+        utility = ManagementUtility(utility_args)
+        utility.execute()
+
+        print("Success! %(project_name)s has been created" % {'project_name': project_name})  # noqa
 
 
 COMMANDS = {
-    'start': create_project,
+    'start': CreateProject(),
 }
 
 
 def main():
+    # Set up usage string
+    command_descriptions = '\n'.join([
+        "    %s%s" % (name.ljust(20), cmd.description)
+        for name, cmd in sorted(COMMANDS.items())
+        if cmd.description is not None
+    ])
+    usage = (
+        "Usage: %prog <command> [command-options]\n\nAvailable commands:\n\n" +
+        command_descriptions
+    )
+
     # Parse options
-    parser = OptionParser(usage="Usage: %prog start project_name [directory]")
+    parser = OptionParser(usage=usage)
     (options, args) = parser.parse_args()
 
     # Find command
@@ -71,7 +91,10 @@ def main():
         return
 
     if command in COMMANDS:
-        COMMANDS[command](parser, options, args)
+        command = COMMANDS[command]
+        if command.usage is not None:
+            parser.set_usage(command.usage)
+        command.run(parser, options, args)
     else:
         parser.error("Unrecognised command: " + command)
 
