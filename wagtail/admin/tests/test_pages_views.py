@@ -390,7 +390,6 @@ class TestPageExplorerSignposting(TestCase, WagtailTestUtils):
         self.assertNotContains(response, "Pages created here will not be accessible")
 
 
-
 class TestExplorablePageVisibility(TestCase, WagtailTestUtils):
     """
     Test the way that the Explorable Pages functionality manifests within the Explorer.
@@ -1397,8 +1396,6 @@ class TestPageEdit(TestCase, WagtailTestUtils):
 
         initial_delta = self.child_page.first_published_at - timezone.now()
 
-        go_live_at = timezone.now() + datetime.timedelta(days=1)
-        expire_at = timezone.now() + datetime.timedelta(days=2)
         first_published_at = timezone.now() - datetime.timedelta(days=2)
 
         post_data = {
@@ -1406,8 +1403,6 @@ class TestPageEdit(TestCase, WagtailTestUtils):
             'body': "Some content",
             'slug': 'hello-again-world',
             'action-publish': "Publish",
-            'go_live_at': submittable_timestamp(go_live_at),
-            'expire_at': submittable_timestamp(expire_at),
             'first_published_at': submittable_timestamp(first_published_at),
         }
         self.client.post(reverse('wagtailadmin_pages:edit', args=(self.child_page.id, )), post_data)
@@ -1421,7 +1416,11 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         # first_published_at should be 3 days ago.
         self.assertEqual(new_delta.days, -3)
 
-    def test_edit_post_publish_scheduled(self):
+    def test_edit_post_publish_scheduled_unpublished_page(self):
+        # Unpublish the page
+        self.child_page.live = False
+        self.child_page.save()
+
         go_live_at = timezone.now() + datetime.timedelta(days=1)
         expire_at = timezone.now() + datetime.timedelta(days=2)
         post_data = {
@@ -1454,7 +1453,13 @@ class TestPageEdit(TestCase, WagtailTestUtils):
             "A page scheduled for future publishing should have has_unpublished_changes=True"
         )
 
-    def test_edit_post_publish_now_an_already_scheduled(self):
+        self.assertEqual(child_page_new.status_string, "scheduled")
+
+    def test_edit_post_publish_now_an_already_scheduled_unpublished_page(self):
+        # Unpublish the page
+        self.child_page.live = False
+        self.child_page.save()
+
         # First let's publish a page with a go_live_at in the future
         go_live_at = timezone.now() + datetime.timedelta(days=1)
         expire_at = timezone.now() + datetime.timedelta(days=2)
@@ -1473,8 +1478,10 @@ class TestPageEdit(TestCase, WagtailTestUtils):
 
         child_page_new = SimplePage.objects.get(id=self.child_page.id)
 
-        # The page should not be live anymore
+        # The page should not be live
         self.assertFalse(child_page_new.live)
+
+        self.assertEqual(child_page_new.status_string, "scheduled")
 
         # Instead a revision with approved_go_live_at should now exist
         self.assertTrue(
@@ -1503,6 +1510,124 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         # And a revision with approved_go_live_at should not exist
         self.assertFalse(
             PageRevision.objects.filter(page=child_page_new).exclude(approved_go_live_at__isnull=True).exists()
+        )
+
+    def test_edit_post_publish_scheduled_published_page(self):
+        # Page is live
+        self.child_page.live = True
+        self.child_page.save()
+
+        live_revision = self.child_page.live_revision
+        original_title = self.child_page.title
+
+        go_live_at = timezone.now() + datetime.timedelta(days=1)
+        expire_at = timezone.now() + datetime.timedelta(days=2)
+        post_data = {
+            'title': "I've been edited!",
+            'content': "Some content",
+            'slug': 'hello-world',
+            'action-publish': "Publish",
+            'go_live_at': submittable_timestamp(go_live_at),
+            'expire_at': submittable_timestamp(expire_at),
+        }
+        response = self.client.post(reverse('wagtailadmin_pages:edit', args=(self.child_page.id, )), post_data)
+
+        # Should be redirected to explorer page
+        self.assertEqual(response.status_code, 302)
+
+        child_page_new = SimplePage.objects.get(id=self.child_page.id)
+
+        # The page should still be live
+        self.assertTrue(child_page_new.live)
+
+        self.assertEqual(child_page_new.status_string, "live + scheduled")
+
+        # Instead a revision with approved_go_live_at should now exist
+        self.assertTrue(
+            PageRevision.objects.filter(page=child_page_new).exclude(approved_go_live_at__isnull=True).exists()
+        )
+
+        # The page SHOULD have the "has_unpublished_changes" flag set,
+        # because the changes are not visible as a live page yet
+        self.assertTrue(
+            child_page_new.has_unpublished_changes,
+            "A page scheduled for future publishing should have has_unpublished_changes=True"
+        )
+
+        self.assertNotEqual(
+            child_page_new.get_latest_revision(), live_revision,
+            "A page scheduled for future publishing should have a new revision, that is not the live revision"
+        )
+
+        self.assertEqual(
+            child_page_new.title, original_title,
+            "A live page with scheduled revisions should still have original content"
+        )
+
+    def test_edit_post_publish_now_an_already_scheduled_published_page(self):
+        # Unpublish the page
+        self.child_page.live = True
+        self.child_page.save()
+
+        original_title = self.child_page.title
+        # First let's publish a page with a go_live_at in the future
+        go_live_at = timezone.now() + datetime.timedelta(days=1)
+        expire_at = timezone.now() + datetime.timedelta(days=2)
+        post_data = {
+            'title': "I've been edited!",
+            'content': "Some content",
+            'slug': 'hello-world',
+            'action-publish': "Publish",
+            'go_live_at': submittable_timestamp(go_live_at),
+            'expire_at': submittable_timestamp(expire_at),
+        }
+        response = self.client.post(reverse('wagtailadmin_pages:edit', args=(self.child_page.id, )), post_data)
+
+        # Should be redirected to edit page
+        self.assertEqual(response.status_code, 302)
+
+        child_page_new = SimplePage.objects.get(id=self.child_page.id)
+
+        # The page should still be live
+        self.assertTrue(child_page_new.live)
+
+        # Instead a revision with approved_go_live_at should now exist
+        self.assertTrue(
+            PageRevision.objects.filter(page=child_page_new).exclude(approved_go_live_at__isnull=True).exists()
+        )
+
+        self.assertEqual(
+            child_page_new.title, original_title,
+            "A live page with scheduled revisions should still have original content"
+        )
+
+        # Now, let's edit it and publish it right now
+        go_live_at = timezone.now()
+        post_data = {
+            'title': "I've been edited!",
+            'content': "Some content",
+            'slug': 'hello-world',
+            'action-publish': "Publish",
+            'go_live_at': "",
+        }
+        response = self.client.post(reverse('wagtailadmin_pages:edit', args=(self.child_page.id, )), post_data)
+
+        # Should be redirected to edit page
+        self.assertEqual(response.status_code, 302)
+
+        child_page_new = SimplePage.objects.get(id=self.child_page.id)
+
+        # The page should be live now
+        self.assertTrue(child_page_new.live)
+
+        # And a revision with approved_go_live_at should not exist
+        self.assertFalse(
+            PageRevision.objects.filter(page=child_page_new).exclude(approved_go_live_at__isnull=True).exists()
+        )
+
+        self.assertEqual(
+            child_page_new.title, post_data['title'],
+            "A published page should have the new title"
         )
 
     def test_page_edit_post_submit(self):
@@ -3691,6 +3816,22 @@ class TestRevisions(TestCase, WagtailTestUtils):
         self.assertContains(response, "Replace current draft")
         self.assertContains(response, "Publish this revision")
 
+    def test_scheduled_revision(self):
+        self.last_christmas_revision.publish()
+        self.this_christmas_revision.approved_go_live_at = local_datetime(2014, 12, 26)
+        self.this_christmas_revision.save()
+        this_christmas_unschedule_url = reverse(
+            'wagtailadmin_pages:revisions_unschedule',
+            args=(self.christmas_event.id, self.this_christmas_revision.id)
+        )
+        response = self.client.get(
+            reverse('wagtailadmin_pages:revisions_index', args=(self.christmas_event.id, ))
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Scheduled for')
+        self.assertContains(response, formats.localize(parse_date('2014-12-26')))
+        self.assertContains(response, this_christmas_unschedule_url)
+
 
 class TestCompareRevisions(TestCase, WagtailTestUtils):
     # Actual tests for the comparison classes can be found in test_compare.py
@@ -3769,6 +3910,100 @@ class TestCompareRevisions(TestCase, WagtailTestUtils):
         self.assertContains(response, '<span class="deletion">Last Christmas I gave you my heart, but the very next day you gave it away</span><span class="addition">This year, to save me from tears, I&#39;ll just feed it to the dog</span>')
 
 
+class TestRevisionsUnschedule(TestCase, WagtailTestUtils):
+    fixtures = ['test.json']
+
+    def setUp(self):
+        self.christmas_event = EventPage.objects.get(url_path='/home/events/christmas/')
+        self.christmas_event.title = "Last Christmas"
+        self.christmas_event.date_from = '2013-12-25'
+        self.christmas_event.body = (
+            "<p>Last Christmas I gave you my heart, "
+            "but the very next day you gave it away</p>"
+        )
+        self.last_christmas_revision = self.christmas_event.save_revision()
+        self.last_christmas_revision.created_at = local_datetime(2013, 12, 25)
+        self.last_christmas_revision.save()
+        self.last_christmas_revision.publish()
+
+        self.christmas_event.title = "This Christmas"
+        self.christmas_event.date_from = '2014-12-25'
+        self.christmas_event.body = (
+            "<p>This year, to save me from tears, "
+            "I'll give it to someone special</p>"
+        )
+        self.this_christmas_revision = self.christmas_event.save_revision()
+        self.this_christmas_revision.created_at = local_datetime(2014, 12, 24)
+        self.this_christmas_revision.save()
+
+        self.this_christmas_revision.approved_go_live_at = local_datetime(2014, 12, 25)
+        self.this_christmas_revision.save()
+
+        self.user = self.login()
+
+    def test_unschedule_view(self):
+        """
+        This tests that the unschedule view responds with a confirm page
+        """
+        response = self.client.get(reverse('wagtailadmin_pages:revisions_unschedule', args=(self.christmas_event.id, self.this_christmas_revision.id)))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/pages/revisions/confirm_unschedule.html')
+
+    def test_unschedule_view_invalid_page_id(self):
+        """
+        This tests that the unschedule view returns an error if the page id is invalid
+        """
+        # Get unschedule page
+        response = self.client.get(reverse('wagtailadmin_pages:revisions_unschedule', args=(12345, 67894)))
+
+        # Check that the user received a 404 response
+        self.assertEqual(response.status_code, 404)
+
+    def test_unschedule_view_invalid_revision_id(self):
+        """
+        This tests that the unschedule view returns an error if the page id is invalid
+        """
+        # Get unschedule page
+        response = self.client.get(reverse('wagtailadmin_pages:revisions_unschedule', args=(self.christmas_event.id, 67894)))
+
+        # Check that the user received a 404 response
+        self.assertEqual(response.status_code, 404)
+
+    def test_unschedule_view_bad_permissions(self):
+        """
+        This tests that the unschedule view doesn't allow users without publish permissions
+        """
+        # Remove privileges from user
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+        )
+        self.user.save()
+
+        # Get unschedule page
+        response = self.client.get(reverse('wagtailadmin_pages:revisions_unschedule', args=(self.christmas_event.id, self.this_christmas_revision.id)))
+
+        # Check that the user received a 403 response
+        self.assertEqual(response.status_code, 403)
+
+    def test_unschedule_view_post(self):
+        """
+        This posts to the unschedule view and checks that the revision was unscheduled
+        """
+
+        # Post to the unschedule page
+        response = self.client.post(reverse('wagtailadmin_pages:revisions_unschedule', args=(self.christmas_event.id, self.this_christmas_revision.id)))
+
+        # Should be redirected to revisions index page
+        self.assertRedirects(response, reverse('wagtailadmin_pages:revisions_index', args=(self.christmas_event.id, )))
+
+        # Check that the page has no approved_schedule
+        self.assertFalse(EventPage.objects.get(id=self.christmas_event.id).approved_schedule)
+
+        # Check that the approved_go_live_at has been cleared from the revision
+        self.assertIsNone(self.christmas_event.revisions.get(id=self.this_christmas_revision.id).approved_go_live_at)
+
+
 class TestIssue2599(TestCase, WagtailTestUtils):
     """
     When previewing a page on creation, we need to assign it a path value consistent with its
@@ -3776,6 +4011,7 @@ class TestIssue2599(TestCase, WagtailTestUtils):
     one more than numchild - however, index numbers are not reassigned on page deletion, so
     this can result in a path that collides with an existing page (which is invalid).
     """
+
     def test_issue_2599(self):
         homepage = Page.objects.get(id=2)
 
@@ -3821,6 +4057,7 @@ class TestIssue2492(TestCase, WagtailTestUtils):
     This test ensures that the specific_class url method is called
     when the 'view live' message button is created.
     """
+
     def setUp(self):
         self.root_page = Page.objects.get(id=2)
         child_page = SingleEventPage(
@@ -3989,6 +4226,7 @@ class TestInlinePanelMedia(TestCase, WagtailTestUtils):
     """
     Test that form media required by InlinePanels is correctly pulled in to the edit page
     """
+
     def test_inline_panel_media(self):
         homepage = Page.objects.get(id=2)
         self.login()
@@ -4008,6 +4246,7 @@ class TestInlineStreamField(TestCase, WagtailTestUtils):
     """
     Test that streamfields inside an inline child work
     """
+
     def test_inline_streamfield(self):
         homepage = Page.objects.get(id=2)
         self.login()
@@ -4110,6 +4349,7 @@ class TestIssue2994(TestCase, WagtailTestUtils):
     from wrongly interpreting this as the field being omitted from the form,
     we need to provide a custom value_omitted_from_data method.
     """
+
     def setUp(self):
         self.root_page = Page.objects.get(id=2)
         self.user = self.login()
