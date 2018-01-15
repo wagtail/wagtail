@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import DraftailEditor from 'draftail';
+import { DraftailEditor } from 'draftail';
 
 import Icon from '../Icon/Icon';
 
@@ -68,6 +68,7 @@ export const initEditor = (fieldName, options = {}) => {
       spellCheck={true}
       // If increasing above 4, we will need to add styles for the extra nesting levels.
       maxListNesting={4}
+      stripPastedStyles={false}
       {...options}
       blockTypes={blockTypes}
       inlineStyles={inlineStyles}

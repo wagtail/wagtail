@@ -1,5 +1,12 @@
+$tooltip-spacing: 0.625rem;
 $tooltip-arrow-height: 15px;
 $tooltip-arrow-spacing: 25px;
+$tooltip-radius: $draftail-tooltip-radius;
+
+$tooltip-chrome: $draftail-tooltip-chrome;
+$tooltip-chrome-text: $draftail-tooltip-chrome-text;
+
+$tooltip-z-index: $draftail-tooltip-z-index;
 
 @mixin arrow--top {
     margin-top: $tooltip-arrow-spacing;
@@ -9,7 +16,7 @@ $tooltip-arrow-spacing: 25px;
         bottom: 100%;
         left: 50%;
         transform: translateX(-50%);
-        border-bottom-color: $color-tooltip-chrome;
+        border-bottom-color: $tooltip-chrome;
     }
 }
 
@@ -21,7 +28,7 @@ $tooltip-arrow-spacing: 25px;
         top: 50%;
         right: 100%;
         transform: translateY(-50%);
-        border-right-color: $color-tooltip-chrome;
+        border-right-color: $tooltip-chrome;
     }
 }
 
@@ -31,17 +38,17 @@ $tooltip-arrow-spacing: 25px;
     &::before {
         bottom: 100%;
         left: $tooltip-arrow-spacing;
-        border-bottom-color: $color-tooltip-chrome;
+        border-bottom-color: $tooltip-chrome;
     }
 }
 
 .Tooltip {
     position: absolute;
     padding: $tooltip-spacing;
-    background-color: $color-tooltip-chrome;
-    color: $color-tooltip-chrome-text;
+    background-color: $tooltip-chrome;
+    color: $tooltip-chrome-text;
     z-index: $tooltip-z-index;
-    border-radius: $tooltip-border-radius;
+    border-radius: $tooltip-radius;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 
     &::before {

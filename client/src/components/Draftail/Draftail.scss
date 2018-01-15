@@ -1,9 +1,15 @@
 $editor-z-index: $draftail-editor-z-index;
 
-$color-editor-chrome: $color-grey-1;
-$color-editor-chrome-text: $color-white;
-$color-editor-chrome-active: $color-white;
-$color-editor-chrome-accent: lighten($color-editor-chrome, 20%);
+$draftail-editor-chrome: $color-grey-1;
+$draftail-editor-chrome-text: $color-white;
+$draftail-editor-chrome-active: $color-white;
+$draftail-editor-chrome-accent: lighten($draftail-editor-chrome, 20%);
+
+$draftail-editor-border: 0;
+$draftail-editor-padding: 0;
+$draftail-toolbar-radius: 5px;
+
+$draftail-editor-font-family: $font-serif;
 
 @import '../../../../node_modules/draft-js/dist/Draft';
 @import '../../../../node_modules/draftail/lib/index';
@@ -68,17 +74,6 @@ div[data-block='true'] {
     @include draftail-richtext-styles;
 }
 
-.public-DraftEditor-content,
-.public-DraftEditorPlaceholder-root {
-    padding: 0;
-    font-family: $font-serif;
-}
-
 .Draftail-Editor {
-    border: 0;
     background-color: transparent;
-}
-
-.Draftail-Toolbar {
-    border-radius: 5px;
 }
