@@ -87,26 +87,6 @@ def image_entity(props):
     })
 
 
-class ImageFeature(EntityFeature):
-    """
-    Special case of EntityFeature so that we can easily define features that
-    replicate the default 'image' feature with a custom list of image formats
-    """
-    def __init__(self, image_formats=None):
-        if image_formats is None:
-            format_defs = get_image_formats()
-        else:
-            format_defs = [get_image_format(f) for f in image_formats]
-
-        super().__init__({
-            'type': ENTITY_TYPES.IMAGE,
-            'icon': 'image',
-            'imageFormats': [{'label': str(f.label), 'value': f.name} for f in format_defs],
-            'source': 'ImageSource',
-            'block': 'ImageBlock',
-        })
-
-
 class ImageElementHandler(AtomicBlockEntityElementHandler):
     """
     Rule for building an image entity when converting from database representation

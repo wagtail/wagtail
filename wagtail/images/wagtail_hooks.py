@@ -7,6 +7,7 @@ from django.utils.translation import ungettext
 
 from wagtail.admin.menu import MenuItem
 from wagtail.admin.rich_text import HalloPlugin
+import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 from wagtail.admin.search import SearchArea
 from wagtail.admin.site_summary import SummaryItem
 from wagtail.core import hooks
@@ -15,8 +16,10 @@ from wagtail.images.api.admin.endpoints import ImagesAdminAPIEndpoint
 from wagtail.images.forms import GroupImagePermissionFormSet
 from wagtail.images.permissions import permission_policy
 from wagtail.images.rich_text import (
-    ContentstateImageConversionRule, EditorHTMLImageConversionRule, image_embedtype_handler, ImageFeature
+    ContentstateImageConversionRule, EditorHTMLImageConversionRule, image_embedtype_handler
 )
+
+from draftjs_exporter.constants import ENTITY_TYPES
 
 
 @hooks.register('register_admin_urls')
@@ -85,7 +88,12 @@ def register_image_feature(features):
 
     # define a draftail plugin to use when the 'image' feature is active
     features.register_editor_plugin(
-        'draftail', 'image', ImageFeature()
+        'draftail', 'image', draftail_features.EntityFeature({
+            'type': ENTITY_TYPES.IMAGE,
+            'icon': 'image',
+            'source': 'ImageSource',
+            'block': 'ImageBlock',
+        })
     )
 
     # define how to convert between contentstate's representation of images and
