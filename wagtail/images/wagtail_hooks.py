@@ -93,6 +93,15 @@ def register_image_feature(features):
             'icon': 'image',
             'source': 'ImageSource',
             'block': 'ImageBlock',
+            # We do not want users to be able to copy-paste hotlinked images into rich text.
+            # Keep only the attributes Wagtail needs.
+            'attributes': ['id', 'src', 'alt', 'format'],
+            # Keep only images which are from Wagtail.
+            'whitelist': {
+                # TODO Would be nice to simply filter by "id is present" instead.
+                # 'id': '\d*',
+                'src': '^/',
+            }
         })
     )
 
