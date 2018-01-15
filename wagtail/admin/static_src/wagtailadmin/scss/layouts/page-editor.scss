@@ -45,7 +45,6 @@
 .object {
     @include nice-padding();
     position: relative;
-    overflow: hidden;
 
     &:first-child {
         border: 0;
@@ -407,6 +406,10 @@ footer .preview {
     .object {
         fieldset {
             @include column(10);
+            // Override column mixin for column items.
+            display: block;
+            // Override column mixin for column items.
+            float: none;
             max-width: 1024px;
             padding-left: 0;
             padding-right: 0;
@@ -446,6 +449,10 @@ footer .preview {
         &.full {
             fieldset {
                 @include column(11);
+                // Override column mixin for column items.
+                display: block;
+                // Override column mixin for column items.
+                float: none;
                 margin-left: -51px;
                 padding: 3.2em 0 0;
             }
