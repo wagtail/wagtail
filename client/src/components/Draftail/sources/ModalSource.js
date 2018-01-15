@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { AtomicBlockUtils, RichUtils } from 'draft-js';
+import { AtomicBlockUtils, RichUtils, Modifier, EditorState } from 'draft-js';
 
 const $ = global.jQuery;
 
@@ -16,12 +16,21 @@ class ModalSource extends React.Component {
     $(document.body).off('hidden.bs.modal', this.onClose);
   }
 
-  onConfirm(data) {
+  onConfirm(data, text = null, overrideText = false) {
     const { editorState, entityType, onComplete } = this.props;
     const contentState = editorState.getCurrentContent();
     const contentStateWithEntity = contentState.createEntity(entityType.type, 'MUTABLE', data);
     const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
-    const nextState = RichUtils.toggleLink(editorState, editorState.getSelection(), entityKey);
+    const selection = editorState.getSelection();
+    const shouldOverrideText = overrideText || selection.isCollapsed();
+    let nextState;
+
+    if (shouldOverrideText) {
+      const newContent = Modifier.replaceText(editorState.getCurrentContent(), selection, text, null, entityKey);
+      nextState = EditorState.push(editorState, newContent, 'insert-characters');
+    } else {
+      nextState = RichUtils.toggleLink(editorState, selection, entityKey);
+    }
 
     onComplete(nextState);
   }

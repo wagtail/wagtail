@@ -19,6 +19,9 @@ const buildInitialUrl = (entity, openAtParentId, canChooseRoot, pageTypes) => {
     allow_external_link: true,
     allow_email_link: true,
     can_choose_root: canChooseRoot ? 'true' : 'false',
+    // This does not initialise the modal with the currently selected text.
+    // This will need to be implemented in the future.
+    // See https://github.com/jpuri/draftjs-utils/blob/e81c0ae19c3b0fdef7e0c1b70d924398956be126/js/block.js#L106.
     link_text: '',
   };
 
@@ -57,7 +60,7 @@ class LinkSource extends ModalSource {
       parsedData.parentId = data.parentId;
     }
 
-    this.onConfirm(parsedData);
+    this.onConfirm(parsedData, data.title, data.prefer_this_title_as_link_text);
   }
 
   componentDidMount() {

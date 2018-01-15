@@ -12,7 +12,7 @@ class DocumentSource extends ModalSource {
     this.onConfirm({
       id: data.id,
       url: data.url,
-    });
+    }, data.title);
   }
 
   componentDidMount() {
