@@ -4,9 +4,8 @@ from draftjs_exporter.dom import DOM
 from wagtail.admin.rich_text.converters import editor_html
 from wagtail.admin.rich_text.converters.contentstate_models import Entity
 from wagtail.admin.rich_text.converters.html_to_contentstate import AtomicBlockEntityElementHandler
-from wagtail.admin.rich_text.editors.draftail.features import EntityFeature
 from wagtail.images import get_image_model
-from wagtail.images.formats import get_image_format, get_image_formats
+from wagtail.images.formats import get_image_format
 from wagtail.images.shortcuts import get_rendition_or_not_found
 
 
