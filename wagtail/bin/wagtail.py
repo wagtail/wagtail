@@ -1,5 +1,7 @@
 #!/usr/bin/env python
+import fileinput
 import os
+import re
 from optparse import OptionParser
 
 from django.core.management import ManagementUtility
@@ -62,8 +64,74 @@ class CreateProject(Command):
         print("Success! %(project_name)s has been created" % {'project_name': project_name})  # noqa
 
 
+class UpdateModulePaths(Command):
+    description = "Update a Wagtail project tree to use Wagtail 2.x module paths"
+    usage = "Usage: %prog updatemodulepaths [root-path]"
+
+    REPLACEMENTS = [
+        (re.compile(r'\bwagtail\.wagtailcore\b'), 'wagtail.core'),
+        (re.compile(r'\bwagtail\.wagtailadmin\b'), 'wagtail.admin'),
+        (re.compile(r'\bwagtail\.wagtaildocs\b'), 'wagtail.documents'),
+        (re.compile(r'\bwagtail\.wagtailembeds\b'), 'wagtail.embeds'),
+        (re.compile(r'\bwagtail\.wagtailimages\b'), 'wagtail.images'),
+        (re.compile(r'\bwagtail\.wagtailsearch\b'), 'wagtail.search'),
+        (re.compile(r'\bwagtail\.wagtailsites\b'), 'wagtail.sites'),
+        (re.compile(r'\bwagtail\.wagtailsnippets\b'), 'wagtail.snippets'),
+        (re.compile(r'\bwagtail\.wagtailusers\b'), 'wagtail.users'),
+        (re.compile(r'\bwagtail\.wagtailforms\b'), 'wagtail.contrib.forms'),
+        (re.compile(r'\bwagtail\.wagtailredirects\b'), 'wagtail.contrib.redirects'),
+        (re.compile(r'\bwagtail\.contrib\.wagtailfrontendcache\b'), 'wagtail.contrib.frontend_cache'),
+        (re.compile(r'\bwagtail\.contrib\.wagtailroutablepage\b'), 'wagtail.contrib.routable_page'),
+        (re.compile(r'\bwagtail\.contrib\.wagtailsearchpromotions\b'), 'wagtail.contrib.search_promotions'),
+        (re.compile(r'\bwagtail\.contrib\.wagtailsitemaps\b'), 'wagtail.contrib.sitemaps'),
+        (re.compile(r'\bwagtail\.contrib\.wagtailstyleguide\b'), 'wagtail.contrib.styleguide'),
+    ]
+
+    def run(self, parser, options, args):
+        # Validate args
+        if len(args) > 2:
+            parser.error("Too many arguments")
+
+        try:
+            root_path = args[1]
+        except IndexError:
+            root_path = os.getcwd()
+
+        checked_count = 0
+        changed_count = 0
+
+        for (dirpath, dirnames, filenames) in os.walk(root_path):
+            for filename in filenames:
+                if not filename.lower().endswith('.py'):
+                    continue
+
+                path = os.path.join(dirpath, filename)
+                checked_count += 1
+                changed = self._rewrite_file(path)
+                if changed:
+                    print(path)  # NOQA
+                    changed_count += 1
+
+        print("\nChecked %d .py files, %d files updated." % (checked_count, changed_count))  # NOQA
+
+    def _rewrite_file(self, filename):
+        changed = False
+
+        with fileinput.FileInput(filename, inplace=True) as f:
+            for original_line in f:
+                line = original_line
+                for pattern, repl in self.REPLACEMENTS:
+                    line = re.sub(pattern, repl, line)
+                print(line, end='')  # NOQA
+                if line != original_line:
+                    changed = True
+
+        return changed
+
+
 COMMANDS = {
     'start': CreateProject(),
+    'updatemodulepaths': UpdateModulePaths(),
 }
 
 
