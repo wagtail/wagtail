@@ -10,10 +10,10 @@ class ImageSource extends ModalSource {
 
   parseData(imageData) {
     this.onConfirmAtomicBlock({
-      src: imageData.preview.url,
-      altText: imageData.alt,
       id: imageData.id,
-      alignment: imageData.format,
+      src: imageData.preview.url,
+      alt: imageData.alt,
+      format: imageData.format,
     });
   }
 

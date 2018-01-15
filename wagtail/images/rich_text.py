@@ -81,9 +81,9 @@ def image_entity(props):
     """
     return DOM.create_element('embed', {
         'embedtype': 'image',
-        'format': props.get('alignment'),
+        'format': props.get('format'),
         'id': props.get('id'),
-        'alt': props.get('altText'),
+        'alt': props.get('alt'),
     })
 
 
@@ -123,8 +123,10 @@ class ImageElementHandler(AtomicBlockEntityElementHandler):
             src = ''
 
         return Entity('IMAGE', 'IMMUTABLE', {
+            'id': attrs['id'],
             'src': src,
-            'altText': attrs.get('alt'), 'id': attrs['id'], 'alignment': attrs['format']
+            'alt': attrs.get('alt'),
+            'format': attrs['format']
         })
 
 

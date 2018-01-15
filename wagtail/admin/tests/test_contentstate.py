@@ -342,7 +342,7 @@ class TestHtmlToContentState(TestCase):
             ],
             'entityMap': {
                 '0': {
-                    'data': {'alignment': 'left', 'altText': 'an image', 'id': '1', 'src': '/media/not-found'},
+                    'data': {'format': 'left', 'alt': 'an image', 'id': '1', 'src': '/media/not-found'},
                     'mutability': 'IMMUTABLE', 'type': 'IMAGE'
                 }
             }
