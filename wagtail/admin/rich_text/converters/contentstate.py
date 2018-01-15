@@ -16,11 +16,11 @@ def link_entity(props):
     """
     <a linktype="page" id="1">internal page link</a>
     """
-    link_type = props.get('linkType', '')
+    id_ = props.get('id')
     link_props = {}
 
-    if link_type == 'page':
-        link_props['linktype'] = link_type
+    if id_ is not None:
+        link_props['linktype'] = 'page'
         link_props['id'] = props.get('id')
     else:
         link_props['href'] = props.get('url')

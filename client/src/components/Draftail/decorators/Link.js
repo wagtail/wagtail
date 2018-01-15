@@ -10,28 +10,23 @@ const getDomainName = url => url.replace(/(^\w+:|^)\/\//, '').split('/')[0];
 
 const Link = props => {
   const { entityKey, contentState } = props;
-  const { linkType, url } = contentState.getEntity(entityKey).getData();
+  const data = contentState.getEntity(entityKey).getData();
   let icon;
   let label;
   let tooltipURL;
 
-  switch (linkType) {
-  case 'email':
+  if (data.id) {
+    icon = 'link';
+    tooltipURL = data.url;
+    label = data.url;
+  } else if (data.url.startsWith('mailto:')) {
     icon = 'mail';
-    tooltipURL = getEmailAddress(url);
-    label = url;
-    break;
-  case 'page':
+    tooltipURL = getEmailAddress(data.url);
+    label = data.url;
+  } else {
     icon = 'link';
-    tooltipURL = url;
-    label = url;
-    break;
-  case 'external':
-  default:
-    icon = 'link';
-    tooltipURL = url;
-    label = getDomainName(url);
-    break;
+    tooltipURL = data.url;
+    label = getDomainName(data.url);
   }
 
   return (

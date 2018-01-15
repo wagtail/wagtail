@@ -148,7 +148,7 @@ class LinkElementHandler(object):
 
 class ExternalLinkElementHandler(LinkElementHandler):
     def get_attribute_data(self, attrs):
-        return {'linkType': 'external', 'url': attrs['href']}
+        return {'url': attrs['href']}
 
 
 class PageLinkElementHandler(LinkElementHandler):
@@ -159,10 +159,8 @@ class PageLinkElementHandler(LinkElementHandler):
             return {}
 
         data = {
-            'linkType': 'page',
             'id': page.id,
             'url': page.url,
-            'title': page.title,
         }
 
         parent_page = page.get_parent()

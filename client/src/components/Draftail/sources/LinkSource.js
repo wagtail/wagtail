@@ -23,28 +23,18 @@ const buildInitialUrl = (entity, openAtParentId, canChooseRoot, pageTypes) => {
   };
 
   if (entity) {
-    let data = entity.getData();
+    const data = entity.getData();
 
-    if (typeof data === 'string') {
-      data = { url: data, linkType: 'external', title: '' };
-    }
+    // urlParams.link_text = data.title;
 
-    urlParams.link_text = data.title;
-
-    switch (data.linkType) {
-    case 'page':
+    if (data.id) {
       url = ` ${pageChooser}${data.parentId}/`;
-      break;
-
-    case 'email':
+    } else if (data.url.startsWith('mailto:')) {
       url = emailLinkChooser;
       urlParams.link_url = data.url.replace('mailto:', '');
-      break;
-
-    default:
+    } else {
       url = externalLinkChooser;
       urlParams.link_url = data.url;
-      break;
     }
   }
 
@@ -57,25 +47,17 @@ class LinkSource extends ModalSource {
     this.parseData = this.parseData.bind(this);
   }
 
-  // Plaster over more Wagtail internals.
-  parseData(pageData) {
-    const data = Object.assign({}, pageData);
+  parseData(data) {
+    const parsedData = {
+      url: data.url,
+    };
 
     if (data.id) {
-      data.linkType = 'page';
-    } else if (data.url.indexOf('mailto:') === 0) {
-      data.linkType = 'email';
-    } else {
-      data.linkType = 'external';
+      parsedData.id = data.id;
+      parsedData.parentId = data.parentId;
     }
 
-    // We do not want each link to have the page's title as an attr.
-    // nor links to have the link URL as a title.
-    if (data.linkType === 'page' || data.url.replace('mailto:', '') === data.title) {
-      delete data.title;
-    }
-
-    this.onConfirm(data);
+    this.onConfirm(parsedData);
   }
 
   componentDidMount() {
