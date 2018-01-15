@@ -125,7 +125,21 @@ Before upgrading to Django 2.0, you are advised to review the `release notes <ht
 Wagtail module path updates
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Many of the module paths within Wagtail have been reorganised:
+Many of the module paths within Wagtail have been reorganised to reduce duplication - for example, ``wagtail.wagtailcore.models`` is now ``wagtail.core.models``. As a result, ``import`` lines and other references to Wagtail modules will need to be updated when you upgrade to Wagtail 2.0. A new command has been added to assist with this - from the root of your project's code base:
+
+   .. code-block:: console
+
+       $ wagtail updatemodulepaths
+
+Or, to run from a different location:
+
+   .. code-block:: console
+
+       $ wagtail updatemodulepaths /path/to/project
+
+You are advised to take a backup of your project codebase before running this command. The command will perform a search-and-replace over all \*.py files for the affected module paths; while this should catch the vast majority of module references, it will not be able to fix instances that do not use the dotted path directly, such as ``from wagtail import wagtailcore``.
+
+The full list of modules to be renamed is as follows:
 
 +-----------------------------------------+-----------------------------------+-----------------------------------+
 | Old name                                | New name                          | Notes                             |
@@ -165,7 +179,7 @@ Many of the module paths within Wagtail have been reorganised:
 | wagtail.contrib.wagtailstyleguide       | wagtail.contrib.styleguide        |                                   |
 +-----------------------------------------+-----------------------------------+-----------------------------------+
 
-References to these module paths within your Wagtail project need to be updated when you upgrade to Wagtail 2.0. This includes:
+Places these should be updated include:
 
 * ``import`` lines
 * Paths specified in settings, such as ``INSTALLED_APPS``, ``MIDDLEWARE`` and ``WAGTAILSEARCH_BACKENDS``
