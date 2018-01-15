@@ -13,19 +13,15 @@ const Link = props => {
   const data = contentState.getEntity(entityKey).getData();
   let icon;
   let label;
-  let tooltipURL;
 
   if (data.id) {
     icon = 'link';
-    tooltipURL = data.url;
     label = data.url;
   } else if (data.url.startsWith('mailto:')) {
     icon = 'mail';
-    tooltipURL = getEmailAddress(data.url);
-    label = data.url;
+    label = getEmailAddress(data.url);
   } else {
     icon = 'link';
-    tooltipURL = data.url;
     label = getDomainName(data.url);
   }
 
@@ -34,7 +30,7 @@ const Link = props => {
       {...props}
       icon={<Icon name={icon} />}
       label={label}
-      url={tooltipURL}
+      url={data.url}
     />
   );
 };

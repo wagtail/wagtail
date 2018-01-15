@@ -5,6 +5,15 @@ import { Icon } from 'draftail';
 import Tooltip from '../Tooltip/Tooltip';
 import Portal from '../../Portal/Portal';
 
+const shortenLabel = (label) => {
+  let shortened = label;
+  if (shortened.length > 25) {
+    shortened = `${shortened.slice(0, 20)}…`;
+  }
+
+  return shortened;
+};
+
 class TooltipEntity extends Component {
   constructor(props) {
     super(props);
@@ -59,7 +68,7 @@ class TooltipEntity extends Component {
                 rel="noopener noreferrer"
                 className="Tooltip__link"
               >
-                {label}
+                {shortenLabel(label)}
               </a>
 
               <button
