@@ -9,7 +9,7 @@ describe('EmbedBlock', () => {
       shallow(
         <EmbedBlock
           blockProps={{
-            entityConfig: {},
+            entityType: {},
             entity: {
               getData: () => ({
                 url: 'http://www.example.com/',

@@ -11,7 +11,7 @@ describe('MediaBlock', () => {
           src="example.png"
           alt=""
           blockProps={{
-            entityConfig: {
+            entityType: {
               icon: '#icon-test',
             },
             entity: {
@@ -36,7 +36,7 @@ describe('MediaBlock', () => {
           src="example.png"
           alt=""
           blockProps={{
-            entityConfig: {
+            entityType: {
               icon: '#icon-test',
             },
             entity: {

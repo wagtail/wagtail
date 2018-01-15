@@ -8,7 +8,7 @@ exports[`EmbedBlock renders 1`] = `
       "entity": Object {
         "getData": [Function],
       },
-      "entityConfig": Object {},
+      "entityType": Object {},
     }
   }
   src="http://www.example.com/example.png"

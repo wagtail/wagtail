@@ -10,7 +10,7 @@ exports[`ImageBlock alt 1`] = `
       "entity": Object {
         "getData": [Function],
       },
-      "entityConfig": Object {},
+      "entityType": Object {},
       "onChange": [Function],
     }
   }
@@ -52,7 +52,7 @@ exports[`ImageBlock renders 1`] = `
       "entity": Object {
         "getData": [Function],
       },
-      "entityConfig": Object {},
+      "entityType": Object {},
       "onChange": [Function],
     }
   }

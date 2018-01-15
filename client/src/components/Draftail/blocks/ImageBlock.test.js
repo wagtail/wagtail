@@ -13,7 +13,7 @@ describe('ImageBlock', () => {
           block={{}}
           blockProps={{
             editorState: {},
-            entityConfig: {},
+            entityType: {},
             entity: {
               getData: () => ({
                 src: 'example.png',
@@ -33,7 +33,7 @@ describe('ImageBlock', () => {
           block={{}}
           blockProps={{
             editorState: {},
-            entityConfig: {},
+            entityType: {},
             entity: {
               getData: () => ({
                 src: 'example.png',
@@ -57,7 +57,7 @@ describe('ImageBlock', () => {
         block={{}}
         blockProps={{
           editorState: {},
-          entityConfig: {},
+          entityType: {},
           entity: {
             getData: () => ({
               src: 'example.png',
