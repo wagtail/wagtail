@@ -8,8 +8,11 @@ class DocumentSource extends ModalSource {
     this.parseData = this.parseData.bind(this);
   }
 
-  parseData(documentData) {
-    this.onConfirm(documentData);
+  parseData(data) {
+    this.onConfirm({
+      id: data.id,
+      url: data.url,
+    });
   }
 
   componentDidMount() {
