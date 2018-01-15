@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { DraftailEditor } from 'draftail';
 
+import { IS_IE11 } from '../../config/wagtailConfig';
+
 import Icon from '../Icon/Icon';
 
 import sources from './sources';
@@ -68,7 +70,8 @@ export const initEditor = (fieldName, options = {}) => {
       spellCheck={true}
       // If increasing above 4, we will need to add styles for the extra nesting levels.
       maxListNesting={4}
-      stripPastedStyles={false}
+      // Draft.js + IE 11 presents some issues with pasting rich text. Disable rich paste there.
+      stripPastedStyles={IS_IE11}
       {...options}
       blockTypes={blockTypes}
       inlineStyles={inlineStyles}
