@@ -227,7 +227,7 @@ class TestHtmlToContentState(TestCase):
         ))
         self.assertContentStateEqual(result, {
             'entityMap': {
-                '0': {'mutability': 'MUTABLE', 'type': 'LINK', 'data': {'url': 'http://wagtail.io', 'linkType': 'external'}}
+                '0': {'mutability': 'MUTABLE', 'type': 'LINK', 'data': {'url': 'http://wagtail.io'}}
             },
             'blocks': [
                 {
@@ -248,7 +248,7 @@ class TestHtmlToContentState(TestCase):
             'entityMap': {
                 '0': {
                     'mutability': 'MUTABLE', 'type': 'LINK',
-                    'data': {'id': 3, 'linkType': 'page', 'title': 'Events', 'url': '/events/', 'parentId': 2}
+                    'data': {'id': 3, 'url': '/events/', 'parentId': 2}
                 }
             },
             'blocks': [
