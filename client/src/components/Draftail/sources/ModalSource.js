@@ -17,30 +17,30 @@ class ModalSource extends React.Component {
   }
 
   onConfirm(data) {
-    const { editorState, options, onUpdate } = this.props;
+    const { editorState, entityType, onComplete } = this.props;
     const contentState = editorState.getCurrentContent();
-    const contentStateWithEntity = contentState.createEntity(options.type, 'MUTABLE', data);
+    const contentStateWithEntity = contentState.createEntity(entityType.type, 'MUTABLE', data);
     const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
     const nextState = RichUtils.toggleLink(editorState, editorState.getSelection(), entityKey);
 
-    onUpdate(nextState);
+    onComplete(nextState);
   }
 
   onConfirmAtomicBlock(data) {
-    const { editorState, options, onUpdate } = this.props;
+    const { editorState, entityType, onComplete } = this.props;
     const contentState = editorState.getCurrentContent();
-    const contentStateWithEntity = contentState.createEntity(options.type, 'IMMUTABLE', data);
+    const contentStateWithEntity = contentState.createEntity(entityType.type, 'IMMUTABLE', data);
     const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
     const nextState = AtomicBlockUtils.insertAtomicBlock(editorState, entityKey, ' ');
 
-    onUpdate(nextState);
+    onComplete(nextState);
   }
 
   onClose(e) {
-    const { onClose } = this.props;
+    const { onComplete } = this.props;
     e.preventDefault();
 
-    onClose();
+    onComplete();
   }
 
   render() {
@@ -50,11 +50,10 @@ class ModalSource extends React.Component {
 
 ModalSource.propTypes = {
   editorState: PropTypes.object.isRequired,
-  options: PropTypes.object.isRequired,
+  entityType: PropTypes.object.isRequired,
   // eslint-disable-next-line
   entity: PropTypes.object,
-  onUpdate: PropTypes.func.isRequired,
-  onClose: PropTypes.func.isRequired,
+  onComplete: PropTypes.func.isRequired,
 };
 
 ModalSource.defaultProps = {
