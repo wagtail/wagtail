@@ -22,7 +22,7 @@ def user_can_delete_user(current_user, user_to_delete):
 
 
 def get_gravatar_url(email, default=None, size=50):
-    params = {'s': str(size)}
+    params = {'s': str(size), 'd': 'mm'}
     if default is not None:
         params['default'] = default
     gravatar_url = "https://www.gravatar.com/avatar/" + hashlib.md5(email.lower().encode('utf-8')).hexdigest() + "?"

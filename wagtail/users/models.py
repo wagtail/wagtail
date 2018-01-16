@@ -93,7 +93,7 @@ class UserProfile(models.Model):
 
     @cached_property
     def default_avatar(self):
-        return static('wagtailadmin/images/default-user-avatar.svg')
+        return static('wagtailadmin/images/default-user-avatar.png')
 
     def get_avatar_url(self, size=50):
         if self.avatar_choice == self.DEFAULT:

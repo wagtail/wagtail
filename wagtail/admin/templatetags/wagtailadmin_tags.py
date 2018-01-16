@@ -384,4 +384,4 @@ def avatar_url(context, user, size=50):
 
     if hasattr(user, 'wagtail_userprofile'):  # A user could not have profile yet, so this is necessary
         return user.wagtail_userprofile.get_avatar_url(size=size)
-    return static('wagtailadmin/images/default-user-avatar.svg')
+    return static('wagtailadmin/images/default-user-avatar.png')
