@@ -949,12 +949,6 @@ class TestUserProfileCreation(TestCase, WagtailTestUtils):
     def test_get_avatar_url_default(self):
         user_profile = UserProfile.get_for_user(self.test_user)
         self.assertEqual(user_profile.avatar_choice, 'default')
-        self.assertIn('default-user-avatar', user_profile.get_avatar_url())
-
-    def test_get_avatar_url_fallback_default(self):
-        user_profile = UserProfile.get_for_user(self.test_user)
-        user_profile.avatar_choice = 'Non-existent'
-        self.assertIn('default-user-avatar', user_profile.get_avatar_url())
 
 
 class TestUserEditViewForNonSuperuser(TestCase, WagtailTestUtils):

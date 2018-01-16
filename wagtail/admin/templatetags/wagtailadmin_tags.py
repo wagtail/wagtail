@@ -19,6 +19,7 @@ from wagtail.core.models import (
     CollectionViewRestriction, Page, PageViewRestriction, UserPagePermissionsProxy)
 from wagtail.core.utils import cautious_slugify as _cautious_slugify
 from wagtail.core.utils import camelcase_to_underscore, escape_script
+from wagtail.users.utils import get_gravatar_url
 from wagtail.utils.pagination import DEFAULT_PAGE_KEY, replace_page_in_query
 
 register = template.Library()
@@ -374,14 +375,20 @@ def admin_urlquote(value):
     return quote(value)
 
 
-@register.simple_tag(takes_context=True)
-def avatar_url(context, user, size=50):
+@register.simple_tag
+def avatar_url(user, size=50):
     """
     A template tag that receives a user and size and return
     the appropiate avatar url for that user.
     Example usage: {% avatar_url request.user 50 %}
     """
 
-    if hasattr(user, 'wagtail_userprofile'):  # A user could not have profile yet, so this is necessary
-        return user.wagtail_userprofile.get_avatar_url(size=size)
+    if hasattr(user, 'wagtail_userprofile') and user.wagtail_userprofile.avatar:
+        return user.wagtail_userprofile.avatar.url
+
+    if hasattr(user, 'email'):
+        gravatar_url = get_gravatar_url(user.email, size=size)
+        if gravatar_url is not None:
+            return gravatar_url
+
     return static('wagtailadmin/images/default-user-avatar.png')

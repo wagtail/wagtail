@@ -1,6 +1,5 @@
 import hashlib
 from django.conf import settings
-from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.utils.http import urlencode
 
 from wagtail.core.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
@@ -28,8 +27,8 @@ def get_gravatar_url(email, size=50):
     size = int(size) * 2  # requested at retina size by default and scaled down at point of use with css
     gravatar_provider_url = getattr(settings, 'WAGTAIL_GRAVATAR_PROVIDER_URL', '//www.gravatar.com/avatar')
 
-    if gravatar_provider_url is None:
-        return static('wagtailadmin/images/default-user-avatar.png')
+    if (not email) or (gravatar_provider_url is None):
+        return None
 
     gravatar_url = "{gravatar_provider_url}/{hash}?{params}".format(
         gravatar_provider_url=gravatar_provider_url.rstrip('/'),
