@@ -515,11 +515,10 @@ class TestAvatarSection(TestCase, WagtailTestUtils):
         profile = UserProfile.get_for_user(get_user_model().objects.get(pk=self.user.pk))
         self.assertEqual('default', profile.avatar_choice)
 
-    def test_get_avatar_returns_default_if_not_changed(self):
+    def test_avatar_choice_returns_default_if_not_changed(self):
         profile = UserProfile.get_for_user(get_user_model().objects.get(pk=self.user.pk))
 
         self.assertEqual(profile.avatar_choice, 'default')
-        self.assertIn('default-user-avatar', profile.get_avatar_url())
 
     def test_set_gravatar_returns_gravatar(self):
         post_data = {
@@ -530,7 +529,6 @@ class TestAvatarSection(TestCase, WagtailTestUtils):
 
         profile = UserProfile.get_for_user(get_user_model().objects.get(pk=self.user.pk))
         self.assertEqual(profile.avatar_choice, 'gravatar')
-        self.assertIn('www.gravatar.com', profile.get_avatar_url())
 
     @override_settings(MEDIA_ROOT=TMP_MEDIA_ROOT)
     def test_set_custom_avatar_stores_and_get_custom_avatar(self):
@@ -543,7 +541,7 @@ class TestAvatarSection(TestCase, WagtailTestUtils):
 
         profile = UserProfile.get_for_user(get_user_model().objects.get(pk=self.user.pk))
         self.assertEqual('custom', profile.avatar_choice)
-        self.assertIn(os.path.basename(self.avatar.name), profile.get_avatar_url())
+        self.assertIn(os.path.basename(self.avatar.name), profile.avatar.url)
 
     @override_settings(MEDIA_ROOT=TMP_MEDIA_ROOT)
     def test_user_upload_another_image_removes_previous_one(self):

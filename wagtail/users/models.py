@@ -7,8 +7,6 @@ from django.db import models
 from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
 
-from wagtail.users.utils import get_gravatar_url
-
 
 def upload_avatar_to(instance, filename):
     filename, ext = os.path.splitext(filename)
@@ -94,21 +92,6 @@ class UserProfile(models.Model):
     @cached_property
     def default_avatar(self):
         return static('wagtailadmin/images/default-user-avatar.png')
-
-    def get_avatar_url(self, size=50):
-        if self.avatar_choice == self.DEFAULT:
-            return self.default_avatar
-
-        if self.avatar_choice == self.CUSTOM:
-            try:
-                return self.avatar.url
-            except ValueError:
-                return self.default_avatar
-
-        if self.avatar_choice == self.GRAVATAR and self.user.email:
-            return get_gravatar_url(self.user.email, size=50)
-
-        return self.default_avatar
 
     def save(self, *args, **kwargs):
         if self.avatar:
