@@ -235,7 +235,7 @@ Allows the default ``LoginForm`` to be extended with extra fields.
 
   WAGTAIL_GRAVATAR_PROVIDER_URL = '//www.gravatar.com/avatar'
 
-Allows to set your own Gravatar-like URL or alternatives like robohash.org
+If a user has not uploaded a profile picture, Wagtail will look for an avatar linked to their email address on gravatar.com. This setting allows you to specify an alternative provider such as like robohash.org, or can be set to ``None`` to disable the use of remote avatars completely.
 
 
 Images
