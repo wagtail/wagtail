@@ -70,3 +70,77 @@ def get_form_class_check(app_configs, **kwargs):
                 id='wagtailadmin.E002'))
 
     return errors
+
+
+@register('panels')
+def inline_panel_model_panels_check(app_configs, **kwargs):
+    from wagtail.core.models import get_page_models
+
+    errors = []
+    page_models = get_page_models()
+
+    for cls in page_models:
+        errors.extend(check_panels_in_model(cls))
+
+    # filter out duplicate errors found for the same model
+    unique_errors = []
+    for error in errors:
+        # if error.msg not in [e.msg for e in unique_errors]:
+        if error.msg not in unique_errors:
+            unique_errors.append(error)
+    return unique_errors
+
+
+def check_panels_in_model(cls, context='model'):
+    """Check panels configuration uses `panels` when `edit_handler` not in use."""
+    from wagtail.core.models import Page
+    from wagtail.admin.edit_handlers import InlinePanel
+
+    errors = []
+
+    if hasattr(cls, 'get_edit_handler'):
+        # must check the InlinePanel related models
+        edit_handler = cls.get_edit_handler()
+        for tab in edit_handler.children:
+            inline_panels = [p for p in tab.children if isinstance(p, InlinePanel)]
+            for inline_panel in inline_panels:
+                errors.extend(check_panels_in_model(
+                    inline_panel.related.related_model,
+                    context='InlinePanel model',
+                ))
+
+    if issubclass(cls, Page) or hasattr(cls, 'edit_handler'):
+        # Pages do not need to be checked for standalone tabbed_panel usage
+        # if edit_handler is used on any model, assume config is correct
+        return errors
+
+    tabbed_panels = [
+        'content_panels',
+        'promote_panels',
+        'settings_panels',
+    ]
+
+    for panel in tabbed_panels:
+        name = cls.__name__
+        if not hasattr(cls, panel):
+            continue
+        tab = panel.replace('_panels', '').title()
+        if 'InlinePanel' in context:
+            error_hint = """Ensure that {} uses `panels` instead of `{}`.
+        There are no tabs on non-Page model editing within InlinePanels.
+        """.format(name, panel, tab, panel)
+        else:
+            error_hint = """Ensure that {} uses `panels` instead of `{}`
+        or set up an `edit_handler` if you want a tabbed editing interface.
+        There are no default tabs on non-Page models so there will be no
+        {} tab for the {} to render in.""".format(name, panel, tab, panel)
+
+        error = Warning(
+            "{}.{} will have no effect on {} editing".format(name, panel, context),
+            hint=error_hint,
+            obj=cls,
+            id='wagtailadmin.W002'
+        )
+        errors.append(error)
+
+    return errors
