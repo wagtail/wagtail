@@ -5,6 +5,7 @@ from django.conf import settings
 from django.contrib.admin.utils import quote
 from django.contrib.humanize.templatetags.humanize import intcomma
 from django.contrib.messages.constants import DEFAULT_TAGS as MESSAGE_TAGS
+from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.template.defaultfilters import stringfilter
 from django.template.loader import render_to_string
 from django.utils.html import conditional_escape
@@ -371,3 +372,16 @@ def _abs(val):
 @register.filter
 def admin_urlquote(value):
     return quote(value)
+
+
+@register.simple_tag(takes_context=True)
+def avatar_url(context, user, size=50):
+    """
+    A template tag that receives a user and size and return
+    the appropiate avatar url for that user.
+    Example usage: {% avatar_url request.user 50 %}
+    """
+
+    if hasattr(user, 'wagtail_userprofile'):  # A user could not have profile yet, so this is necessary
+        return user.wagtail_userprofile.get_avatar_url(size=size)
+    return static('wagtailadmin/images/default-user-avatar.svg')
