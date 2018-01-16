@@ -393,7 +393,7 @@ class TestAvatarSection(TestCase, WagtailTestUtils):
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailadmin/account/change_avatar.html')
-        self.assertContains(response, "Change user profile")
+        self.assertContains(response, "Change profile picture")
 
     def test_avatar_preferences_post(self):
         """
