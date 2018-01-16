@@ -22,6 +22,12 @@ Reorganised modules
 The modules that make up Wagtail have been renamed and reorganised, to avoid the repetition in names like ``wagtail.wagtailcore.models`` (originally an artefact of app naming limitations in Django 1.6) and to improve consistency. While this will require some up-front work to upgrade existing Wagtail sites, we believe that this will be a long-term improvement to the developer experience, improving readability of code and reducing errors. This change was implemented by Karl Hobley and Matt Westcott.
 
 
+Scheduled page revisions
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+The behaviour of scheduled publishing has been revised so that pages are no longer unpublished at the point of setting a future go-live date, making it possible to schedule updates to an existing published page. This feature was developed by Patrick Woods.
+
+
 Other features
 ~~~~~~~~~~~~~~
 
