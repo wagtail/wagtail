@@ -421,6 +421,10 @@ class CurrentTimeZoneForm(forms.ModelForm):
 
 
 class AvatarPreferencesForm(forms.ModelForm):
+    avatar = forms.ImageField(
+        label=_("Upload a profile picture"), required=True
+    )
+
     class Meta:
         model = UserProfile
         fields = ["avatar"]
