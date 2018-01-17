@@ -35,13 +35,13 @@ def br(props):
     return DOM.create_element('br')
 
 
-def BlockFallback(props):
+def block_fallback(props):
     type_ = props['block']['type']
     logging.error('Missing config for "%s". Deleting block.' % type_)
     return None
 
 
-def EntityFallback(props):
+def entity_fallback(props):
     type_ = props['entity']['type']
     logging.warn('Missing config for "%s". Deleting entity' % type_)
     return None
@@ -56,11 +56,11 @@ class ContentstateConverter():
             'block_map': {
                 BLOCK_TYPES.UNSTYLED: 'p',
                 BLOCK_TYPES.ATOMIC: render_children,
-                BLOCK_TYPES.FALLBACK: BlockFallback,
+                BLOCK_TYPES.FALLBACK: block_fallback,
             },
             'style_map': {},
             'entity_decorators': {
-                ENTITY_TYPES.FALLBACK: EntityFallback,
+                ENTITY_TYPES.FALLBACK: entity_fallback,
             },
             'composite_decorators': [
                 {
