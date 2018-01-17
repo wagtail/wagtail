@@ -84,8 +84,4 @@ $tooltip-z-index: $draftail-tooltip-z-index;
 
 .Tooltip__button {
     padding: $button-spacing $controls-spacing;
-
-    + .Tooltip__button {
-        margin-left: $button-spacing;
-    }
 }

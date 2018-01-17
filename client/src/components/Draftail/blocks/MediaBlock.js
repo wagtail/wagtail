@@ -40,6 +40,7 @@ class MediaBlock extends Component {
     const trigger = e.target;
 
     this.setState({
+      // Warning: overriding native DOM object. Proceed with caution.
       showTooltipAt: Object.assign(trigger.getBoundingClientRect(), {
         containerWidth: trigger.parentNode.offsetWidth,
       }),
