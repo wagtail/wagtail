@@ -2,7 +2,6 @@ from django.contrib.auth.models import Permission
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 
-from draftjs_exporter.constants import BLOCK_TYPES, ENTITY_TYPES, INLINE_STYLES
 from draftjs_exporter.dom import DOM
 
 from wagtail.admin.menu import MenuItem, SubmenuMenuItem, settings_menu
@@ -267,14 +266,14 @@ def register_core_features(features):
             'hr': HorizontalRuleHandler(),
         },
         'to_database_format': {
-            'entity_decorators': {ENTITY_TYPES.HORIZONTAL_RULE: lambda props: DOM.create_element('hr')}
+            'entity_decorators': {'HORIZONTAL_RULE': lambda props: DOM.create_element('hr')}
         }
     })
 
     features.register_editor_plugin(
         'draftail', 'h1', draftail_features.BlockFeature({
             'label': 'H1',
-            'type': BLOCK_TYPES.HEADER_ONE,
+            'type': 'header-one',
             'description': str(_('Heading {level}').format(level=1)),
         })
     )
@@ -283,13 +282,13 @@ def register_core_features(features):
             'h1': BlockElementHandler('header-one'),
         },
         'to_database_format': {
-            'block_map': {BLOCK_TYPES.HEADER_ONE: 'h1'}
+            'block_map': {'header-one': 'h1'}
         }
     })
     features.register_editor_plugin(
         'draftail', 'h2', draftail_features.BlockFeature({
             'label': 'H2',
-            'type': BLOCK_TYPES.HEADER_TWO,
+            'type': 'header-two',
             'description': str(_('Heading {level}').format(level=2)),
         })
     )
@@ -298,13 +297,13 @@ def register_core_features(features):
             'h2': BlockElementHandler('header-two'),
         },
         'to_database_format': {
-            'block_map': {BLOCK_TYPES.HEADER_TWO: 'h2'}
+            'block_map': {'header-two': 'h2'}
         }
     })
     features.register_editor_plugin(
         'draftail', 'h3', draftail_features.BlockFeature({
             'label': 'H3',
-            'type': BLOCK_TYPES.HEADER_THREE,
+            'type': 'header-three',
             'description': str(_('Heading {level}').format(level=3)),
         })
     )
@@ -313,13 +312,13 @@ def register_core_features(features):
             'h3': BlockElementHandler('header-three'),
         },
         'to_database_format': {
-            'block_map': {BLOCK_TYPES.HEADER_THREE: 'h3'}
+            'block_map': {'header-three': 'h3'}
         }
     })
     features.register_editor_plugin(
         'draftail', 'h4', draftail_features.BlockFeature({
             'label': 'H4',
-            'type': BLOCK_TYPES.HEADER_FOUR,
+            'type': 'header-four',
             'description': str(_('Heading {level}').format(level=4)),
         })
     )
@@ -328,13 +327,13 @@ def register_core_features(features):
             'h4': BlockElementHandler('header-four'),
         },
         'to_database_format': {
-            'block_map': {BLOCK_TYPES.HEADER_FOUR: 'h4'}
+            'block_map': {'header-four': 'h4'}
         }
     })
     features.register_editor_plugin(
         'draftail', 'h5', draftail_features.BlockFeature({
             'label': 'H5',
-            'type': BLOCK_TYPES.HEADER_FIVE,
+            'type': 'header-five',
             'description': str(_('Heading {level}').format(level=5)),
         })
     )
@@ -343,13 +342,13 @@ def register_core_features(features):
             'h5': BlockElementHandler('header-five'),
         },
         'to_database_format': {
-            'block_map': {BLOCK_TYPES.HEADER_FIVE: 'h5'}
+            'block_map': {'header-five': 'h5'}
         }
     })
     features.register_editor_plugin(
         'draftail', 'h6', draftail_features.BlockFeature({
             'label': 'H6',
-            'type': BLOCK_TYPES.HEADER_SIX,
+            'type': 'header-six',
             'description': str(_('Heading {level}').format(level=6)),
         })
     )
@@ -358,12 +357,12 @@ def register_core_features(features):
             'h6': BlockElementHandler('header-six'),
         },
         'to_database_format': {
-            'block_map': {BLOCK_TYPES.HEADER_SIX: 'h6'}
+            'block_map': {'header-six': 'h6'}
         }
     })
     features.register_editor_plugin(
         'draftail', 'ul', draftail_features.BlockFeature({
-            'type': BLOCK_TYPES.UNORDERED_LIST_ITEM,
+            'type': 'unordered-list-item',
             'icon': 'list-ul',
             'description': str(_('Bulleted list')),
         })
@@ -374,12 +373,12 @@ def register_core_features(features):
             'li': ListItemElementHandler(),
         },
         'to_database_format': {
-            'block_map': {BLOCK_TYPES.UNORDERED_LIST_ITEM: {'element': 'li', 'wrapper': 'ul'}}
+            'block_map': {'unordered-list-item': {'element': 'li', 'wrapper': 'ul'}}
         }
     })
     features.register_editor_plugin(
         'draftail', 'ol', draftail_features.BlockFeature({
-            'type': BLOCK_TYPES.ORDERED_LIST_ITEM,
+            'type': 'ordered-list-item',
             'icon': 'list-ol',
             'description': str(_('Numbered list')),
         })
@@ -390,13 +389,13 @@ def register_core_features(features):
             'li': ListItemElementHandler(),
         },
         'to_database_format': {
-            'block_map': {BLOCK_TYPES.ORDERED_LIST_ITEM: {'element': 'li', 'wrapper': 'ol'}}
+            'block_map': {'ordered-list-item': {'element': 'li', 'wrapper': 'ol'}}
         }
     })
 
     features.register_editor_plugin(
         'draftail', 'bold', draftail_features.InlineStyleFeature({
-            'type': INLINE_STYLES.BOLD,
+            'type': 'BOLD',
             'icon': 'bold',
             'description': str(_('Bold')),
         })
@@ -407,12 +406,12 @@ def register_core_features(features):
             'strong': InlineStyleElementHandler('BOLD'),
         },
         'to_database_format': {
-            'style_map': {INLINE_STYLES.BOLD: 'b'}
+            'style_map': {'BOLD': 'b'}
         }
     })
     features.register_editor_plugin(
         'draftail', 'italic', draftail_features.InlineStyleFeature({
-            'type': INLINE_STYLES.ITALIC,
+            'type': 'ITALIC',
             'icon': 'italic',
             'description': str(_('Italic')),
         })
@@ -423,13 +422,13 @@ def register_core_features(features):
             'em': InlineStyleElementHandler('ITALIC'),
         },
         'to_database_format': {
-            'style_map': {INLINE_STYLES.ITALIC: 'i'}
+            'style_map': {'ITALIC': 'i'}
         }
     })
 
     features.register_editor_plugin(
         'draftail', 'link', draftail_features.EntityFeature({
-            'type': ENTITY_TYPES.LINK,
+            'type': 'LINK',
             'icon': 'link',
             'description': str(_('Link')),
             'source': 'ModalWorkflowSource',
@@ -449,6 +448,6 @@ def register_core_features(features):
             'a[linktype="page"]': PageLinkElementHandler('LINK'),
         },
         'to_database_format': {
-            'entity_decorators': {ENTITY_TYPES.LINK: link_entity}
+            'entity_decorators': {'LINK': link_entity}
         }
     })

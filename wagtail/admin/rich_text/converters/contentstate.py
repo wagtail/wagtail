@@ -2,7 +2,6 @@ import json
 import logging
 import re
 
-from draftjs_exporter.constants import BLOCK_TYPES, ENTITY_TYPES
 from draftjs_exporter.defaults import render_children
 from draftjs_exporter.dom import DOM
 from draftjs_exporter.html import HTML as HTMLExporter
@@ -29,7 +28,7 @@ def link_entity(props):
 
 
 def br(props):
-    if props['block']['type'] == BLOCK_TYPES.CODE:
+    if props['block']['type'] == 'code-block':
         return props['children']
 
     return DOM.create_element('br')
@@ -54,13 +53,13 @@ class ContentstateConverter():
 
         exporter_config = {
             'block_map': {
-                BLOCK_TYPES.UNSTYLED: 'p',
-                BLOCK_TYPES.ATOMIC: render_children,
-                BLOCK_TYPES.FALLBACK: block_fallback,
+                'unstyled': 'p',
+                'atomic': render_children,
+                'fallback': block_fallback,
             },
             'style_map': {},
             'entity_decorators': {
-                ENTITY_TYPES.FALLBACK: entity_fallback,
+                'FALLBACK': entity_fallback,
             },
             'composite_decorators': [
                 {

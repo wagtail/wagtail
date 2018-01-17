@@ -3,8 +3,6 @@ from django.urls import reverse
 from django.utils.html import format_html
 from django.utils.translation import ugettext_lazy as _
 
-from draftjs_exporter.constants import ENTITY_TYPES
-
 from wagtail.admin.rich_text import HalloPlugin
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 from wagtail.core import hooks
@@ -54,7 +52,7 @@ def register_embed_feature(features):
     # define a draftail plugin to use when the 'embed' feature is active
     features.register_editor_plugin(
         'draftail', 'embed', draftail_features.EntityFeature({
-            'type': ENTITY_TYPES.EMBED,
+            'type': 'EMBED',
             'icon': 'media',
             'description': str(_('Embed')),
             'source': 'ModalWorkflowSource',

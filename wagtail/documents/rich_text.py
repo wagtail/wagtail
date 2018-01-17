@@ -1,5 +1,4 @@
 from django.utils.html import escape
-from draftjs_exporter.constants import ENTITY_TYPES
 from draftjs_exporter.dom import DOM
 
 from wagtail.admin.rich_text.converters import editor_html
@@ -78,6 +77,6 @@ ContentstateDocumentLinkConversionRule = {
         'a[linktype="document"]': DocumentLinkElementHandler('DOCUMENT'),
     },
     'to_database_format': {
-        'entity_decorators': {ENTITY_TYPES.DOCUMENT: document_link_entity}
+        'entity_decorators': {'DOCUMENT': document_link_entity}
     }
 }

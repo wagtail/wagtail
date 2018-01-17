@@ -7,8 +7,6 @@ from django.utils.html import format_html, format_html_join
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ungettext
 
-from draftjs_exporter.constants import ENTITY_TYPES
-
 from wagtail.admin.menu import MenuItem
 from wagtail.admin.rich_text import HalloPlugin
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
@@ -89,7 +87,7 @@ def register_document_feature(features):
     )
     features.register_editor_plugin(
         'draftail', 'document-link', draftail_features.EntityFeature({
-            'type': ENTITY_TYPES.DOCUMENT,
+            'type': 'DOCUMENT',
             'icon': 'doc-full',
             'description': str(_('Document')),
             'source': 'ModalWorkflowSource',

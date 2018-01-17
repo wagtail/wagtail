@@ -19,8 +19,6 @@ from wagtail.images.rich_text import (
     ContentstateImageConversionRule, EditorHTMLImageConversionRule, image_embedtype_handler
 )
 
-from draftjs_exporter.constants import ENTITY_TYPES
-
 
 @hooks.register('register_admin_urls')
 def register_admin_urls():
@@ -89,7 +87,7 @@ def register_image_feature(features):
     # define a draftail plugin to use when the 'image' feature is active
     features.register_editor_plugin(
         'draftail', 'image', draftail_features.EntityFeature({
-            'type': ENTITY_TYPES.IMAGE,
+            'type': 'IMAGE',
             'icon': 'image',
             'description': str(_('Image')),
             'source': 'ModalWorkflowSource',

@@ -1,4 +1,3 @@
-from draftjs_exporter.constants import ENTITY_TYPES
 from draftjs_exporter.dom import DOM
 
 from wagtail.admin.rich_text.converters import editor_html
@@ -114,6 +113,6 @@ ContentstateImageConversionRule = {
         'embed[embedtype="image"]': ImageElementHandler(),
     },
     'to_database_format': {
-        'entity_decorators': {ENTITY_TYPES.IMAGE: image_entity}
+        'entity_decorators': {'IMAGE': image_entity}
     }
 }
