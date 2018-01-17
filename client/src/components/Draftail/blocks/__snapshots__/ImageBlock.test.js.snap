@@ -30,11 +30,6 @@ exports[`ImageBlock alt 1`] = `
     />
   </label>
   <button
-    className="button Tooltip__button"
-  >
-    Edit
-  </button>
-  <button
     className="button button-secondary no Tooltip__button"
   >
     Delete
@@ -71,11 +66,6 @@ exports[`ImageBlock renders 1`] = `
       value=""
     />
   </label>
-  <button
-    className="button Tooltip__button"
-  >
-    Edit
-  </button>
   <button
     className="button button-secondary no Tooltip__button"
   >

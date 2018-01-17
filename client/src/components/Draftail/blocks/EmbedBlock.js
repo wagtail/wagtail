@@ -15,7 +15,7 @@ const propTypes = {
  * Editor block to display media and edit content.
  */
 const EmbedBlock = props => {
-  const { entity, onEditEntity, onRemoveEntity } = props.blockProps;
+  const { entity, onRemoveEntity } = props.blockProps;
   const { url, title, thumbnail } = entity.getData();
 
   return (
@@ -29,10 +29,6 @@ const EmbedBlock = props => {
       >
         {title}
       </a>
-
-      <button className="button Tooltip__button" onClick={onEditEntity}>
-        {STRINGS.EDIT}
-      </button>
 
       <button className="button button-secondary no Tooltip__button" onClick={onRemoveEntity}>
         {STRINGS.DELETE}

@@ -38,7 +38,7 @@ class ImageBlock extends Component {
 
   render() {
     const { blockProps } = this.props;
-    const { entity, onEditEntity, onRemoveEntity } = blockProps;
+    const { entity, onRemoveEntity } = blockProps;
     const { src, alt } = entity.getData();
 
     return (
@@ -47,10 +47,6 @@ class ImageBlock extends Component {
           <p>{STRINGS.ALT_TEXT}</p>
           <input className="ImageBlock__field__input" type="text" value={alt || ''} onChange={this.changeAlt} />
         </label>
-
-        <button className="button Tooltip__button" onClick={onEditEntity}>
-          {STRINGS.EDIT}
-        </button>
 
         <button className="button button-secondary no Tooltip__button" onClick={onRemoveEntity}>
           {STRINGS.DELETE}
