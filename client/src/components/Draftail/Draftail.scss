@@ -7,7 +7,8 @@ $draftail-editor-chrome-accent: lighten($draftail-editor-chrome, 20%);
 
 $draftail-editor-border: 0;
 $draftail-editor-padding: 0;
-$draftail-toolbar-radius: 5px;
+$draftail-editor-background: transparent;
+$draftail-toolbar-radius: 3px;
 
 $draftail-editor-font-family: $font-serif;
 
@@ -25,12 +26,12 @@ $draftail-editor-font-family: $font-serif;
 // Give each block element eg. paragraph some spacing so we don't end up
 // with empty paragraphs in code when user double enters because they think
 // there are no paragraphs.
-div[data-block='true'],
+.Draftail-unstyled,
 .public-DraftEditorPlaceholder-inner {
     margin: 0.5rem 0;
 }
 
-@mixin draftail-richtext-styles {
+@include draftail-richtext-styles {
     h1,
     h2,
     h3,
@@ -69,12 +70,4 @@ div[data-block='true'],
     h5 {
         font-size: 1.1em;
     }
-}
-
-.DraftEditor-editorContainer {
-    @include draftail-richtext-styles;
-}
-
-.Draftail-Editor {
-    background-color: transparent;
 }
