@@ -1,3 +1,5 @@
+$icon-size: 1em;
+
 .TooltipEntity {
     cursor: pointer;
 
@@ -8,7 +10,7 @@
     &__icon {
         color: $color-teal;
         margin-right: 0.2em;
-        width: 1em;
-        height: 1em;
+        width: $icon-size;
+        height: $icon-size;
     }
 }
