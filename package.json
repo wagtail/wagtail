@@ -47,6 +47,7 @@
     "eslint-plugin-import": "^1.8.1",
     "eslint-plugin-jsx-a11y": "^1.5.3",
     "eslint-plugin-react": "^5.2.2",
+    "expose-loader": "^0.7.4",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "~4.0.0",
     "gulp-cssnano": "^2.1.2",

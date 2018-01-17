@@ -11,6 +11,14 @@ const isVendorModule = (module) => {
   return res && res.indexOf('node_modules') >= 0 && res.match(/\.js$/);
 };
 
+// Mapping from package name to exposed global variable.
+const exposedDependencies = {
+  'focus-trap-react': 'FocusTrapReact',
+  'react': 'React',
+  'react-dom': 'ReactDOM',
+  'react-transition-group/CSSTransitionGroup': 'CSSTransitionGroup',
+}
+
 module.exports = function exports() {
   const entry = {
     // Create a vendor chunk that will contain polyfills, and all third-party dependencies.
@@ -48,7 +56,16 @@ module.exports = function exports() {
           loader: 'babel-loader',
           exclude: /node_modules/,
         },
-      ]
+      ].concat(Object.keys(exposedDependencies).map((name) => {
+        // Create expose-loader configs for each Wagtail dependency.
+        return {
+          test: require.resolve(name),
+          use: [{
+              loader: 'expose-loader',
+              options: exposedDependencies[name]
+          }]
+      }
+      }))
     },
     stats: {
       // Add chunk information (setting this to `false` allows for a less verbose output)
