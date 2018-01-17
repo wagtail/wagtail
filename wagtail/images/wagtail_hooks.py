@@ -98,9 +98,7 @@ def register_image_feature(features):
             'attributes': ['id', 'src', 'alt', 'format'],
             # Keep only images which are from Wagtail.
             'whitelist': {
-                # TODO Would be nice to simply filter by "id is present" instead.
-                # 'id': '\d*',
-                'src': '^/',
+                'id': '.*',
             }
         })
     )
