@@ -1,6 +1,7 @@
 from django.conf.urls import include, url
 from django.urls import reverse
 from django.utils.html import format_html
+from django.utils.translation import ugettext_lazy as _
 
 from draftjs_exporter.constants import ENTITY_TYPES
 
@@ -55,7 +56,7 @@ def register_embed_feature(features):
         'draftail', 'embed', draftail_features.EntityFeature({
             'type': ENTITY_TYPES.EMBED,
             'icon': 'media',
-            'description': 'Embed',
+            'description': str(_('Embed')),
             'source': 'EmbedSource',
             'block': 'EmbedBlock',
         })

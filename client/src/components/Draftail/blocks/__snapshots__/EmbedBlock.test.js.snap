@@ -2,7 +2,7 @@
 
 exports[`EmbedBlock renders 1`] = `
 <MediaBlock
-  alt="Embed: Test title"
+  alt=""
   blockProps={
     Object {
       "entity": Object {
@@ -30,7 +30,7 @@ exports[`EmbedBlock renders 1`] = `
   <button
     className="button button-secondary no Tooltip__button"
   >
-    Remove
+    Delete
   </button>
 </MediaBlock>
 `;

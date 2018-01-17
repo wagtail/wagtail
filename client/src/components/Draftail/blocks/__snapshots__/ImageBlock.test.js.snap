@@ -37,7 +37,7 @@ exports[`ImageBlock alt 1`] = `
   <button
     className="button button-secondary no Tooltip__button"
   >
-    Remove
+    Delete
   </button>
 </MediaBlock>
 `;
@@ -79,7 +79,7 @@ exports[`ImageBlock renders 1`] = `
   <button
     className="button button-secondary no Tooltip__button"
   >
-    Remove
+    Delete
   </button>
 </MediaBlock>
 `;

@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { DraftailEditor } from 'draftail';
 
-import { IS_IE11 } from '../../config/wagtailConfig';
+import { IS_IE11, STRINGS } from '../../config/wagtailConfig';
 
 import Icon from '../Icon/Icon';
 
@@ -70,7 +70,7 @@ export const initEditor = (fieldName, options = {}) => {
     <DraftailEditor
       rawContentState={rawContentState}
       onSave={serialiseInputValue}
-      placeholder="Write here…"
+      placeholder={STRINGS.WRITE_HERE}
       spellCheck={true}
       // If increasing above 4, we will need to add styles for the extra nesting levels.
       maxListNesting={4}

@@ -2,6 +2,8 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { DraftUtils } from 'draftail';
 
+import { STRINGS } from '../../../config/wagtailConfig';
+
 import MediaBlock from '../blocks/MediaBlock';
 
 const propTypes = {
@@ -42,16 +44,16 @@ class ImageBlock extends Component {
     return (
       <MediaBlock {...this.props} src={src} alt="">
         <label className="ImageBlock__field">
-          <p>Alt text</p>
+          <p>{STRINGS.ALT_TEXT}</p>
           <input className="ImageBlock__field__input" type="text" value={alt || ''} onChange={this.changeAlt} />
         </label>
 
         <button className="button Tooltip__button" onClick={onEditEntity}>
-          Edit
+          {STRINGS.EDIT}
         </button>
 
         <button className="button button-secondary no Tooltip__button" onClick={onRemoveEntity}>
-          Remove
+          {STRINGS.DELETE}
         </button>
       </MediaBlock>
     );

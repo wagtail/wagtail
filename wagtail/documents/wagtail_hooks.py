@@ -91,7 +91,7 @@ def register_document_feature(features):
         'draftail', 'document-link', draftail_features.EntityFeature({
             'type': ENTITY_TYPES.DOCUMENT,
             'icon': 'doc-full',
-            'description': 'Document',
+            'description': str(_('Document')),
             'source': 'DocumentSource',
             'decorator': 'Document',
         })

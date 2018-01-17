@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import { STRINGS } from '../../../config/wagtailConfig';
+
 import MediaBlock from '../blocks/MediaBlock';
 
 const propTypes = {
@@ -17,7 +19,7 @@ const EmbedBlock = props => {
   const { url, title, thumbnail } = entity.getData();
 
   return (
-    <MediaBlock {...props} src={thumbnail} alt={`Embed: ${title}`}>
+    <MediaBlock {...props} src={thumbnail} alt="">
       <a
         className="Tooltip__link EmbedBlock__link"
         href={url}
@@ -29,11 +31,11 @@ const EmbedBlock = props => {
       </a>
 
       <button className="button Tooltip__button" onClick={onEditEntity}>
-        Edit
+        {STRINGS.EDIT}
       </button>
 
       <button className="button button-secondary no Tooltip__button" onClick={onRemoveEntity}>
-        Remove
+        {STRINGS.DELETE}
       </button>
     </MediaBlock>
   );

@@ -91,6 +91,7 @@ def register_image_feature(features):
         'draftail', 'image', draftail_features.EntityFeature({
             'type': ENTITY_TYPES.IMAGE,
             'icon': 'image',
+            'description': str(_('Image')),
             'source': 'ImageSource',
             'block': 'ImageBlock',
             # We do not want users to be able to copy-paste hotlinked images into rich text.

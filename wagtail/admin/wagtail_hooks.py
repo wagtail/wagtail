@@ -272,7 +272,11 @@ def register_core_features(features):
     })
 
     features.register_editor_plugin(
-        'draftail', 'h1', draftail_features.BlockFeature({'label': 'H1', 'type': BLOCK_TYPES.HEADER_ONE})
+        'draftail', 'h1', draftail_features.BlockFeature({
+            'label': 'H1',
+            'type': BLOCK_TYPES.HEADER_ONE,
+            'description': str(_('Heading {level}').format(level=1)),
+        })
     )
     features.register_converter_rule('contentstate', 'h1', {
         'from_database_format': {
@@ -283,7 +287,11 @@ def register_core_features(features):
         }
     })
     features.register_editor_plugin(
-        'draftail', 'h2', draftail_features.BlockFeature({'label': 'H2', 'type': BLOCK_TYPES.HEADER_TWO})
+        'draftail', 'h2', draftail_features.BlockFeature({
+            'label': 'H2',
+            'type': BLOCK_TYPES.HEADER_TWO,
+            'description': str(_('Heading {level}').format(level=2)),
+        })
     )
     features.register_converter_rule('contentstate', 'h2', {
         'from_database_format': {
@@ -294,7 +302,11 @@ def register_core_features(features):
         }
     })
     features.register_editor_plugin(
-        'draftail', 'h3', draftail_features.BlockFeature({'label': 'H3', 'type': BLOCK_TYPES.HEADER_THREE})
+        'draftail', 'h3', draftail_features.BlockFeature({
+            'label': 'H3',
+            'type': BLOCK_TYPES.HEADER_THREE,
+            'description': str(_('Heading {level}').format(level=3)),
+        })
     )
     features.register_converter_rule('contentstate', 'h3', {
         'from_database_format': {
@@ -305,7 +317,11 @@ def register_core_features(features):
         }
     })
     features.register_editor_plugin(
-        'draftail', 'h4', draftail_features.BlockFeature({'label': 'H4', 'type': BLOCK_TYPES.HEADER_FOUR})
+        'draftail', 'h4', draftail_features.BlockFeature({
+            'label': 'H4',
+            'type': BLOCK_TYPES.HEADER_FOUR,
+            'description': str(_('Heading {level}').format(level=4)),
+        })
     )
     features.register_converter_rule('contentstate', 'h4', {
         'from_database_format': {
@@ -316,7 +332,11 @@ def register_core_features(features):
         }
     })
     features.register_editor_plugin(
-        'draftail', 'h5', draftail_features.BlockFeature({'label': 'H5', 'type': BLOCK_TYPES.HEADER_FIVE})
+        'draftail', 'h5', draftail_features.BlockFeature({
+            'label': 'H5',
+            'type': BLOCK_TYPES.HEADER_FIVE,
+            'description': str(_('Heading {level}').format(level=5)),
+        })
     )
     features.register_converter_rule('contentstate', 'h5', {
         'from_database_format': {
@@ -327,7 +347,11 @@ def register_core_features(features):
         }
     })
     features.register_editor_plugin(
-        'draftail', 'h6', draftail_features.BlockFeature({'label': 'H6', 'type': BLOCK_TYPES.HEADER_SIX})
+        'draftail', 'h6', draftail_features.BlockFeature({
+            'label': 'H6',
+            'type': BLOCK_TYPES.HEADER_SIX,
+            'description': str(_('Heading {level}').format(level=6)),
+        })
     )
     features.register_converter_rule('contentstate', 'h6', {
         'from_database_format': {
@@ -339,7 +363,9 @@ def register_core_features(features):
     })
     features.register_editor_plugin(
         'draftail', 'ul', draftail_features.BlockFeature({
-            'type': BLOCK_TYPES.UNORDERED_LIST_ITEM, 'icon': 'list-ul'
+            'type': BLOCK_TYPES.UNORDERED_LIST_ITEM,
+            'icon': 'list-ul',
+            'description': str(_('Bulleted list')),
         })
     )
     features.register_converter_rule('contentstate', 'ul', {
@@ -353,7 +379,9 @@ def register_core_features(features):
     })
     features.register_editor_plugin(
         'draftail', 'ol', draftail_features.BlockFeature({
-            'type': BLOCK_TYPES.ORDERED_LIST_ITEM, 'icon': 'list-ol'
+            'type': BLOCK_TYPES.ORDERED_LIST_ITEM,
+            'icon': 'list-ol',
+            'description': str(_('Numbered list')),
         })
     )
     features.register_converter_rule('contentstate', 'ol', {
@@ -368,7 +396,9 @@ def register_core_features(features):
 
     features.register_editor_plugin(
         'draftail', 'bold', draftail_features.InlineStyleFeature({
-            'type': INLINE_STYLES.BOLD, 'icon': 'bold'
+            'type': INLINE_STYLES.BOLD,
+            'icon': 'bold',
+            'description': str(_('Bold')),
         })
     )
     features.register_converter_rule('contentstate', 'bold', {
@@ -382,7 +412,9 @@ def register_core_features(features):
     })
     features.register_editor_plugin(
         'draftail', 'italic', draftail_features.InlineStyleFeature({
-            'type': INLINE_STYLES.ITALIC, 'icon': 'italic'
+            'type': INLINE_STYLES.ITALIC,
+            'icon': 'italic',
+            'description': str(_('Italic')),
         })
     )
     features.register_converter_rule('contentstate', 'italic', {
@@ -399,6 +431,7 @@ def register_core_features(features):
         'draftail', 'link', draftail_features.EntityFeature({
             'type': ENTITY_TYPES.LINK,
             'icon': 'link',
+            'description': str(_('Link')),
             'source': 'LinkSource',
             'decorator': 'Link',
             # We want to enforce constraints on which links can be pasted into rich text.
