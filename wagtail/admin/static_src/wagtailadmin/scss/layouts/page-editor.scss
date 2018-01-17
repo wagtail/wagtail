@@ -125,6 +125,7 @@ $object-title-height: 40px;
 
         &:before,
         label:before {
+            @include font-smoothing;
             text-shadow: none;
             font-family: wagtail;
             text-transform: none;
@@ -142,8 +143,6 @@ $object-title-height: 40px;
             padding: 0;
             margin: 0;
             background-color: $color-salmon;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
         }
     }
 

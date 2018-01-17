@@ -5,6 +5,12 @@
 // Please note that the mixins partial shouldn't include any classes. This is so
 // it can be included in any file without accidentally producing output
 
+// Turns on font-smoothing when used. Use sparingly.
+@mixin font-smoothing {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
 @mixin clearfix() {
     &:before,
     &:after {
@@ -86,6 +92,7 @@
 
 
 @mixin icon () {
+    @include font-smoothing;
     font-family: 'wagtail';
     font-style: normal;
     font-weight: normal;
@@ -95,8 +102,6 @@
     text-decoration: none;
     width: 1.3em;
     line-height: 1em;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
     text-align: left;
     vertical-align: middle;
     margin-right: 0.2em;

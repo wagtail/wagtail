@@ -71,6 +71,7 @@ $tooltip-z-index: $draftail-tooltip-z-index;
 }
 
 .Tooltip__link {
+    @include font-smoothing;
     font-size: 0.875rem;
     margin-right: $controls-spacing * 4;
     display: inline-block;
