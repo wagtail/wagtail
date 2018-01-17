@@ -46,10 +46,10 @@ class ModalSource extends React.Component {
   }
 
   onClose(e) {
-    const { onComplete } = this.props;
+    const { onClose } = this.props;
     e.preventDefault();
 
-    onComplete();
+    onClose();
   }
 
   render() {
@@ -63,6 +63,7 @@ ModalSource.propTypes = {
   // eslint-disable-next-line
   entity: PropTypes.object,
   onComplete: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
 };
 
 ModalSource.defaultProps = {
