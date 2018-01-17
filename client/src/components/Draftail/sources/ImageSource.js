@@ -31,7 +31,7 @@ class ImageSource extends ModalSource {
       responses: {
         imageChosen: this.parseData,
       },
-      onError() {
+      onError: () => {
         // eslint-disable-next-line no-alert
         window.alert(STRINGS.SERVER_ERROR);
         onClose();
