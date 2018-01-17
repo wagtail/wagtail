@@ -9,18 +9,6 @@
     // close as possible to match line-height space above p
     margin-top: 3px;
 
-    img {
-        width: 100%;
-    }
-
-    figcaption {
-        display: block;
-        width: 100%;
-        text-align: left;
-        margin-top: 16px;
-        margin-bottom: 16px;
-    }
-
     &.small {
         max-width: 45%;
     }
