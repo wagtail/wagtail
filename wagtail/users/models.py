@@ -2,9 +2,7 @@ import os
 import uuid
 
 from django.conf import settings
-from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.db import models
-from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
 
 
@@ -18,15 +16,6 @@ def upload_avatar_to(instance, filename):
 
 
 class UserProfile(models.Model):
-    DEFAULT = 'default'
-    CUSTOM = 'custom'
-    GRAVATAR = 'gravatar'
-    AVATAR_CHOICES = (
-        (DEFAULT, _('Default')),
-        (CUSTOM, _('Custom')),
-        (GRAVATAR, 'Gravatar')
-    )
-
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='wagtail_userprofile'
     )
@@ -63,15 +52,8 @@ class UserProfile(models.Model):
         default=''
     )
 
-    avatar_choice = models.CharField(
-        verbose_name=_('Select profile picture type'),
-        default=DEFAULT,
-        choices=AVATAR_CHOICES,
-        max_length=10
-    )
-
     avatar = models.ImageField(
-        verbose_name=_('Upload your custom avatar'),
+        verbose_name=_('profile picture'),
         upload_to=upload_avatar_to,
         blank=True,
     )
@@ -88,10 +70,6 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return self.user.get_username()
-
-    @cached_property
-    def default_avatar(self):
-        return static('wagtailadmin/images/default-user-avatar.png')
 
     class Meta:
         verbose_name = _('user profile')

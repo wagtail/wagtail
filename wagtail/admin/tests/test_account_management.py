@@ -503,53 +503,22 @@ class TestAvatarSection(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, 'wagtailadmin/account/change_avatar.html')
         self.assertContains(response, "Change profile picture")
 
-    def test_avatar_preferences_post(self):
-        """
-        This tests that the change user profile(avatar) view change the user preferences
-        """
-        post_data = {
-            'avatar_choice': 'default',
-        }
-        response = self.client.post(reverse('wagtailadmin_account_change_avatar'), post_data, follow=True)
-        self.assertEqual(response.status_code, 200)
-
-        profile = UserProfile.get_for_user(get_user_model().objects.get(pk=self.user.pk))
-        self.assertEqual('default', profile.avatar_choice)
-
-    def test_avatar_choice_returns_default_if_not_changed(self):
-        profile = UserProfile.get_for_user(get_user_model().objects.get(pk=self.user.pk))
-
-        self.assertEqual(profile.avatar_choice, 'default')
-
-    def test_set_gravatar_returns_gravatar(self):
-        post_data = {
-            'avatar_choice': 'gravatar',
-        }
-        response = self.client.post(reverse('wagtailadmin_account_change_avatar'), post_data, follow=True)
-        self.assertEqual(response.status_code, 200)
-
-        profile = UserProfile.get_for_user(get_user_model().objects.get(pk=self.user.pk))
-        self.assertEqual(profile.avatar_choice, 'gravatar')
-
     @override_settings(MEDIA_ROOT=TMP_MEDIA_ROOT)
     def test_set_custom_avatar_stores_and_get_custom_avatar(self):
         response = self.client.post(reverse('wagtailadmin_account_change_avatar'),
-                                    {'avatar_choice': 'custom',
-                                    'avatar': self.avatar},
+                                    {'avatar': self.avatar},
                                     follow=True)
 
         self.assertEqual(response.status_code, 200)
 
         profile = UserProfile.get_for_user(get_user_model().objects.get(pk=self.user.pk))
-        self.assertEqual('custom', profile.avatar_choice)
         self.assertIn(os.path.basename(self.avatar.name), profile.avatar.url)
 
     @unittest.expectedFailure
     @override_settings(MEDIA_ROOT=TMP_MEDIA_ROOT)
     def test_user_upload_another_image_removes_previous_one(self):
         response = self.client.post(reverse('wagtailadmin_account_change_avatar'),
-                                    {'avatar_choice': 'custom',
-                                    'avatar': self.avatar},
+                                    {'avatar': self.avatar},
                                     follow=True)
         self.assertEqual(response.status_code, 200)
 
@@ -558,8 +527,7 @@ class TestAvatarSection(TestCase, WagtailTestUtils):
 
         # Upload a new avatar
         new_response = self.client.post(reverse('wagtailadmin_account_change_avatar'),
-                                        {'avatar_choice': 'custom',
-                                        'avatar': self.other_avatar},
+                                        {'avatar': self.other_avatar},
                                         follow=True)
         self.assertEqual(new_response.status_code, 200)
 
