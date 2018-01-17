@@ -12,7 +12,6 @@ import Explorer, {
   ExplorerToggle,
   initExplorer,
 } from './components/Explorer';
-import draftail from './components/Draftail';
 
 export {
   Button,
@@ -23,5 +22,4 @@ export {
   Explorer,
   ExplorerToggle,
   initExplorer,
-  draftail,
 };

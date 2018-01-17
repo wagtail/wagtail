@@ -6,18 +6,14 @@ const getEntryPath = (app, filename) => path.resolve('wagtail', app, 'static_src
 // Generates a path to the output bundle to be loaded in the browser.
 const getOutputPath = (app, filename) => path.join('wagtail', app, 'static', `wagtail${app}`, 'js', filename);
 
-const isVendorModule = (module) => {
-  const res = module.resource;
-  return res && res.indexOf('node_modules') >= 0 && res.match(/\.js$/);
-};
-
 // Mapping from package name to exposed global variable.
 const exposedDependencies = {
   'focus-trap-react': 'FocusTrapReact',
   'react': 'React',
   'react-dom': 'ReactDOM',
   'react-transition-group/CSSTransitionGroup': 'CSSTransitionGroup',
-}
+  'draft-js': 'DraftJS',
+};
 
 module.exports = function exports() {
   const entry = {
@@ -41,7 +37,7 @@ module.exports = function exports() {
       new webpack.optimize.CommonsChunkPlugin({
         name: 'vendor',
         filename: getOutputPath('admin', '[name].js'),
-        minChunks: isVendorModule,
+        minChunks: 2,
       }),
     ],
     resolve: {
