@@ -13,9 +13,6 @@
       ],
       "react"
     ],
-    "plugins": [
-      "lodash"
-    ],
     "env": {
       "test": {
         "presets": [
@@ -39,7 +36,6 @@
     "babel-core": "^6.26.0",
     "babel-jest": "^22.0.3",
     "babel-loader": "^7.1.2",
-    "babel-plugin-lodash": "^3.3.2",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "enzyme": "^3.2.0",
@@ -73,7 +69,6 @@
     "draft-js": "^0.10.4",
     "draftail": "^0.12.0",
     "focus-trap-react": "^3.1.0",
-    "lodash": "^4.17.4",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
