@@ -6,11 +6,15 @@ import { IS_IE11 } from '../../config/wagtailConfig';
 
 import Icon from '../Icon/Icon';
 
-import sources from './sources';
 import Link from './decorators/Link';
 import Document from './decorators/Document';
 import ImageBlock from './blocks/ImageBlock';
 import EmbedBlock from './blocks/EmbedBlock';
+
+import LinkSource from './sources/LinkSource';
+import DocumentSource from './sources/DocumentSource';
+import ImageSource from './sources/ImageSource';
+import EmbedSource from './sources/EmbedSource';
 
 import registry from './registry';
 
@@ -82,7 +86,12 @@ export const initEditor = (fieldName, options = {}) => {
   ReactDOM.render(editor, editorWrapper);
 };
 
-registry.registerSources(sources);
+registry.registerSources({
+  LinkSource,
+  DocumentSource,
+  ImageSource,
+  EmbedSource,
+});
 registry.registerDecorators({
   Link,
   Document,
