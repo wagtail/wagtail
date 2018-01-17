@@ -1,5 +1,7 @@
 import ModalSource from './ModalSource';
 
+import { STRINGS } from '../../../config/wagtailConfig';
+
 const $ = global.jQuery;
 
 class EmbedSource extends ModalSource {
@@ -20,6 +22,8 @@ class EmbedSource extends ModalSource {
   }
 
   componentDidMount() {
+    const { onClose } = this.props;
+
     $(document.body).on('hidden.bs.modal', this.onClose);
 
     // eslint-disable-next-line new-cap
@@ -27,6 +31,11 @@ class EmbedSource extends ModalSource {
       url: global.chooserUrls.embedsChooser,
       responses: {
         embedChosen: this.parseData,
+      },
+      onError: () => {
+        // eslint-disable-next-line no-alert
+        window.alert(STRINGS.SERVER_ERROR);
+        onClose();
       },
     });
   }

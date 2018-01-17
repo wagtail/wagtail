@@ -1,5 +1,7 @@
 import ModalSource from './ModalSource';
 
+import { STRINGS } from '../../../config/wagtailConfig';
+
 const $ = global.jQuery;
 
 class ImageSource extends ModalSource {
@@ -18,6 +20,8 @@ class ImageSource extends ModalSource {
   }
 
   componentDidMount() {
+    const { onClose } = this.props;
+
     const imageChooser = global.chooserUrls.imageChooser;
     $(document.body).on('hidden.bs.modal', this.onClose);
 
@@ -26,6 +30,11 @@ class ImageSource extends ModalSource {
       url: imageChooser + '?select_format=true',
       responses: {
         imageChosen: this.parseData,
+      },
+      onError() {
+        // eslint-disable-next-line no-alert
+        window.alert(STRINGS.SERVER_ERROR);
+        onClose();
       },
     });
   }

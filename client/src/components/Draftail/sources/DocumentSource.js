@@ -1,5 +1,7 @@
 import ModalSource from './ModalSource';
 
+import { STRINGS } from '../../../config/wagtailConfig';
+
 const $ = global.jQuery;
 
 class DocumentSource extends ModalSource {
@@ -16,6 +18,7 @@ class DocumentSource extends ModalSource {
   }
 
   componentDidMount() {
+    const { onClose } = this.props;
     const documentChooser = global.chooserUrls.documentChooser;
     const url = documentChooser;
 
@@ -26,6 +29,11 @@ class DocumentSource extends ModalSource {
       url,
       responses: {
         documentChosen: this.parseData,
+      },
+      onError: () => {
+        // eslint-disable-next-line no-alert
+        window.alert(STRINGS.SERVER_ERROR);
+        onClose();
       },
     });
   }

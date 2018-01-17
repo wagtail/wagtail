@@ -1,5 +1,7 @@
 import ModalSource from './ModalSource';
 
+import { STRINGS } from '../../../config/wagtailConfig';
+
 const $ = global.jQuery;
 
 // Plaster over Wagtail internals.
@@ -64,7 +66,7 @@ class LinkSource extends ModalSource {
   }
 
   componentDidMount() {
-    const { entity } = this.props;
+    const { entity, onClose } = this.props;
     const openAtParentId = false;
     const canChooseRoot = false;
     const pageTypes = ['wagtailcore.page'];
@@ -78,6 +80,11 @@ class LinkSource extends ModalSource {
       urlParams,
       responses: {
         pageChosen: this.parseData,
+      },
+      onError: () => {
+        // eslint-disable-next-line no-alert
+        window.alert(STRINGS.SERVER_ERROR);
+        onClose();
       },
     });
   }
