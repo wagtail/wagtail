@@ -8,6 +8,9 @@ import TooltipEntity from '../decorators/TooltipEntity';
 const getEmailAddress = mailto => mailto.replace('mailto:', '').split('?')[0];
 const getDomainName = url => url.replace(/(^\w+:|^)\/\//, '').split('/')[0];
 
+const linkIcon = <Icon name="link" />;
+const mailIcon = <Icon name="mail" />;
+
 const Link = props => {
   const { entityKey, contentState } = props;
   const data = contentState.getEntity(entityKey).getData();
@@ -15,20 +18,20 @@ const Link = props => {
   let label;
 
   if (data.id) {
-    icon = 'link';
+    icon = linkIcon;
     label = data.url;
   } else if (data.url.startsWith('mailto:')) {
-    icon = 'mail';
+    icon = mailIcon;
     label = getEmailAddress(data.url);
   } else {
-    icon = 'link';
+    icon = linkIcon;
     label = getDomainName(data.url);
   }
 
   return (
     <TooltipEntity
       {...props}
-      icon={<Icon name={icon} />}
+      icon={icon}
       label={label}
       url={data.url}
     />

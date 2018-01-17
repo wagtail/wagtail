@@ -5,6 +5,8 @@ import Icon from '../../Icon/Icon';
 
 import TooltipEntity from '../decorators/TooltipEntity';
 
+const documentIcon = <Icon name="doc-full" />;
+
 const Document = props => {
   const { entityKey, contentState } = props;
   const { url } = contentState.getEntity(entityKey).getData();
@@ -13,7 +15,7 @@ const Document = props => {
   return (
     <TooltipEntity
       {...props}
-      icon={<Icon name="doc-full" />}
+      icon={documentIcon}
       label={filename}
       url={url}
     />
