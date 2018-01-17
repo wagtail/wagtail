@@ -34,6 +34,11 @@ class DraftailRichTextArea(WidgetWithScript, widgets.HiddenInput):
         super().__init__(*args, **kwargs)
 
     def render(self, name, value, attrs=None):
+        if attrs is None:
+            attrs = {}
+
+        attrs['data-draftail-input'] = True
+
         if value is None:
             value = ''
 

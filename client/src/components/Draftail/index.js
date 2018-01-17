@@ -83,7 +83,10 @@ export const initEditor = (fieldName, options = {}) => {
     />
   );
 
-  ReactDOM.render(editor, editorWrapper);
+  const draftailEditor = ReactDOM.render(editor, editorWrapper);
+
+  // Bind editor instance to its field so it can be accessed imperatively elsewhere.
+  field.draftailEditor = draftailEditor;
 };
 
 registry.registerSources({
