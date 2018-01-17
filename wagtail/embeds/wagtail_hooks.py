@@ -57,7 +57,7 @@ def register_embed_feature(features):
             'type': ENTITY_TYPES.EMBED,
             'icon': 'media',
             'description': str(_('Embed')),
-            'source': 'EmbedSource',
+            'source': 'ModalWorkflowSource',
             'block': 'EmbedBlock',
         })
     )

@@ -432,7 +432,7 @@ def register_core_features(features):
             'type': ENTITY_TYPES.LINK,
             'icon': 'link',
             'description': str(_('Link')),
-            'source': 'LinkSource',
+            'source': 'ModalWorkflowSource',
             'decorator': 'Link',
             # We want to enforce constraints on which links can be pasted into rich text.
             # Keep only the attributes Wagtail needs.

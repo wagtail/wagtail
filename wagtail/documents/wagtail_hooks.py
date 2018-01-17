@@ -92,7 +92,7 @@ def register_document_feature(features):
             'type': ENTITY_TYPES.DOCUMENT,
             'icon': 'doc-full',
             'description': str(_('Document')),
-            'source': 'DocumentSource',
+            'source': 'ModalWorkflowSource',
             'decorator': 'Document',
         })
     )

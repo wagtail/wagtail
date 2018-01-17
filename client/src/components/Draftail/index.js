@@ -11,10 +11,7 @@ import Document from './decorators/Document';
 import ImageBlock from './blocks/ImageBlock';
 import EmbedBlock from './blocks/EmbedBlock';
 
-import LinkSource from './sources/LinkSource';
-import DocumentSource from './sources/DocumentSource';
-import ImageSource from './sources/ImageSource';
-import EmbedSource from './sources/EmbedSource';
+import ModalWorkflowSource from './sources/ModalWorkflowSource';
 
 import registry from './registry';
 
@@ -90,10 +87,7 @@ export const initEditor = (fieldName, options = {}) => {
 };
 
 registry.registerSources({
-  LinkSource,
-  DocumentSource,
-  ImageSource,
-  EmbedSource,
+  ModalWorkflowSource,
 });
 registry.registerDecorators({
   Link,
