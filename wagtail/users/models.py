@@ -93,11 +93,5 @@ class UserProfile(models.Model):
     def default_avatar(self):
         return static('wagtailadmin/images/default-user-avatar.png')
 
-    def save(self, *args, **kwargs):
-        if self.avatar:
-            this = UserProfile.objects.get(pk=self.pk)
-            this.avatar.delete(save=False)
-        return super(UserProfile, self).save(*args, **kwargs)
-
     class Meta:
         verbose_name = _('user profile')
