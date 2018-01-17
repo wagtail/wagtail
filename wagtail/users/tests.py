@@ -946,9 +946,9 @@ class TestUserProfileCreation(TestCase, WagtailTestUtils):
         # and get it from the db too
         self.assertEqual(UserProfile.objects.filter(user=self.test_user).count(), 1)
 
-    def test_get_avatar_url_default(self):
+    def test_avatar_empty_on_profile_creation(self):
         user_profile = UserProfile.get_for_user(self.test_user)
-        self.assertEqual(user_profile.avatar_choice, 'default')
+        self.assertFalse(user_profile.avatar)
 
 
 class TestUserEditViewForNonSuperuser(TestCase, WagtailTestUtils):
