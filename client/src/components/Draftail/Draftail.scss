@@ -23,14 +23,6 @@ $draftail-editor-font-family: $font-serif;
 @import './blocks/ImageBlock';
 @import './blocks/EmbedBlock';
 
-// Give each block element eg. paragraph some spacing so we don't end up
-// with empty paragraphs in code when user double enters because they think
-// there are no paragraphs.
-.Draftail-unstyled,
-.public-DraftEditorPlaceholder-inner {
-    margin: 0.5rem 0;
-}
-
 @include draftail-richtext-styles {
     h1,
     h2,
