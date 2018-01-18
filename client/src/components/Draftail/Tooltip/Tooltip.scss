@@ -84,11 +84,13 @@ $tooltip-color-no: #f48880;
     }
 
     &__button {
-        padding: $button-spacing $controls-spacing;
-
         &.no.button-secondary {
             color: $tooltip-color-no;
             border-color: currentColor;
+
+            &:hover {
+                color: $color-button-no;
+            }
         }
     }
 }
