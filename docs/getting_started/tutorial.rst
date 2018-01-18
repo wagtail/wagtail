@@ -81,7 +81,7 @@ Edit ``home/models.py`` as follows, to add a ``body`` field to the model:
             FieldPanel('body', classname="full"),
         ]
 
-``body`` is defined as ``RichTextField``, a special Wagtail field. You 
+``body`` is defined as ``RichTextField``, a special Wagtail field. You
 can use any of the `Django core fields <https://docs.djangoproject.com/en/1.11/ref/models/fields/>`__. ``content_panels`` define the
 capabilities and the layout of the editing interface. :doc:`More on creating Page models. <../topics/pages>`
 
