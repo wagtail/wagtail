@@ -12,6 +12,7 @@ describe('Document', () => {
           type: 'DOCUMENT',
           data: {
             url: '/example.pdf',
+            filename: 'example.pdf',
           },
         }
       },

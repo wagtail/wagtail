@@ -9,14 +9,14 @@ const documentIcon = <Icon name="doc-full" />;
 
 const Document = props => {
   const { entityKey, contentState } = props;
-  const { url, filename } = contentState.getEntity(entityKey).getData();
+  const data = contentState.getEntity(entityKey).getData();
 
   return (
     <TooltipEntity
       {...props}
       icon={documentIcon}
-      label={filename}
-      url={url}
+      label={data.filename || ''}
+      url={data.url || ''}
     />
   );
 };
