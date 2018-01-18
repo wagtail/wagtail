@@ -48,6 +48,7 @@ Changelog
  * Fix: Menu icon no longer overlaps with title in Modeladmin on mobile (Coen van der Kamp)
  * Fix: Background color overflow within the Wagtail documentation (Sergey Fedoseev)
  * Fix: Page count on homepage summary panel now takes account of user permissions (Andy Chosak)
+ * Fix: Explorer view now prevents navigating outside of the common ancestor of the user's permissions (Andy Chosak)
 
 
 2.0.1 (04.04.2018)

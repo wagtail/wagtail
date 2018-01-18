@@ -336,6 +336,9 @@ class TestPageExplorerSignposting(TestCase, WagtailTestUtils):
         )
         self.root_page.add_child(instance=self.no_site_page)
 
+    # Tests for users that have both add-site permission, and explore permission at the given view;
+    # warning messages should include advice re configuring sites
+
     def test_admin_at_root(self):
         self.assertTrue(self.client.login(username='superuser', password='password'))
         response = self.client.get(reverse('wagtailadmin_explore_root'))
@@ -373,9 +376,19 @@ class TestPageExplorerSignposting(TestCase, WagtailTestUtils):
         # There should be no warning message here
         self.assertNotContains(response, "Pages created here will not be accessible")
 
+    # Tests for standard users that have explore permission at the given view;
+    # warning messages should omit advice re configuring sites
+
     def test_nonadmin_at_root(self):
+        # Assign siteeditor permission over no_site_page, so that the deepest-common-ancestor
+        # logic allows them to explore root
+        GroupPagePermission.objects.create(
+            group=Group.objects.get(name="Site-wide editors"),
+            page=self.no_site_page, permission_type='add'
+        )
         self.assertTrue(self.client.login(username='siteeditor', password='password'))
         response = self.client.get(reverse('wagtailadmin_explore_root'))
+
         self.assertEqual(response.status_code, 200)
         # Non-admin should get a simple "create pages as children of the homepage" prompt
         self.assertContains(
@@ -385,8 +398,14 @@ class TestPageExplorerSignposting(TestCase, WagtailTestUtils):
         )
 
     def test_nonadmin_at_non_site_page(self):
+        # Assign siteeditor permission over no_site_page
+        GroupPagePermission.objects.create(
+            group=Group.objects.get(name="Site-wide editors"),
+            page=self.no_site_page, permission_type='add'
+        )
         self.assertTrue(self.client.login(username='siteeditor', password='password'))
         response = self.client.get(reverse('wagtailadmin_explore', args=(self.no_site_page.id, )))
+
         self.assertEqual(response.status_code, 200)
         # Non-admin should get a warning about unroutable pages
         self.assertContains(
@@ -403,6 +422,43 @@ class TestPageExplorerSignposting(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         # There should be no warning message here
         self.assertNotContains(response, "Pages created here will not be accessible")
+
+    # Tests for users that have explore permission *somewhere*, but not at the view being tested;
+    # in all cases, they should be redirected to their explorable root
+
+    def test_bad_permissions_at_root(self):
+        # 'siteeditor' does not have permission to explore the root
+        self.assertTrue(self.client.login(username='siteeditor', password='password'))
+        response = self.client.get(reverse('wagtailadmin_explore_root'))
+
+        # Users without permission to explore here should be redirected to their explorable root.
+        self.assertEqual(
+            (response.status_code, response['Location']),
+            (302, reverse('wagtailadmin_explore', args=(self.site_page.pk, )))
+        )
+
+    def test_bad_permissions_at_non_site_page(self):
+        # 'siteeditor' does not have permission to explore no_site_page
+        self.assertTrue(self.client.login(username='siteeditor', password='password'))
+        response = self.client.get(reverse('wagtailadmin_explore', args=(self.no_site_page.id, )))
+
+        # Users without permission to explore here should be redirected to their explorable root.
+        self.assertEqual(
+            (response.status_code, response['Location']),
+            (302, reverse('wagtailadmin_explore', args=(self.site_page.pk, )))
+        )
+
+    def test_bad_permissions_at_site_page(self):
+        # Adjust siteeditor's permission so that they have permission over no_site_page
+        # instead of site_page
+        Group.objects.get(name="Site-wide editors").page_permissions.update(page_id=self.no_site_page.id)
+        self.assertTrue(self.client.login(username='siteeditor', password='password'))
+        response = self.client.get(reverse('wagtailadmin_explore', args=(self.site_page.id, )))
+        # Users without permission to explore here should be redirected to their explorable root.
+        self.assertEqual(
+            (response.status_code, response['Location']),
+            (302, reverse('wagtailadmin_explore', args=(self.no_site_page.pk, )))
+        )
 
 
 class TestExplorablePageVisibility(TestCase, WagtailTestUtils):

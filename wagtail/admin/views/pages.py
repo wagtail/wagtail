@@ -18,6 +18,7 @@ from django.views.generic import View
 
 from wagtail.admin import messages, signals
 from wagtail.admin.forms import CopyForm, SearchForm
+from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.admin.utils import send_notification, user_has_any_page_permission, user_passes_test
 from wagtail.core import hooks
 from wagtail.core.models import Page, PageRevision, UserPagePermissionsProxy
@@ -34,9 +35,22 @@ def get_valid_next_url_from_request(request):
 @user_passes_test(user_has_any_page_permission)
 def index(request, parent_page_id=None):
     if parent_page_id:
-        parent_page = get_object_or_404(Page, id=parent_page_id).specific
+        parent_page = get_object_or_404(Page, id=parent_page_id)
     else:
-        parent_page = Page.get_first_root_node().specific
+        parent_page = Page.get_first_root_node()
+
+    # This will always succeed because of the @user_passes_test above.
+    root_page = get_explorable_root_page(request.user)
+
+    # If this page isn't a descendant of the user's explorable root page,
+    # then redirect to that explorable root page instead.
+    if not (
+        parent_page.pk == root_page.pk or
+        parent_page.is_descendant_of(root_page)
+    ):
+        return redirect('wagtailadmin_explore', root_page.pk)
+
+    parent_page = parent_page.specific
 
     pages = parent_page.get_children().prefetch_related('content_type', 'sites_rooted_here')
 
