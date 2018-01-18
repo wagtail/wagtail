@@ -436,9 +436,9 @@ def register_core_features(features):
             # We want to enforce constraints on which links can be pasted into rich text.
             # Keep only the attributes Wagtail needs.
             'attributes': ['url', 'id', 'parentId'],
-            # Keep only links which are not anchor references.
+            # Keep only links which are not anchors, or absolute links from outside of Wagtail.
             'whitelist': {
-                'href': '^(?!#)',
+                'href': '^(?![#/])',
             }
         })
     )
