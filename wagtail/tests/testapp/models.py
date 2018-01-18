@@ -1190,5 +1190,5 @@ class TabbedSettings(TestSetting):
     ])
 
 
-class AlwaysShowInMenusPage(Page):
-    show_in_menus_default = True
+class NeverShowInMenusPage(Page):
+    show_in_menus_default = False

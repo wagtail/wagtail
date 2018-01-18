@@ -13,7 +13,7 @@ from django.test.utils import override_settings
 from freezegun import freeze_time
 
 from wagtail.tests.testapp.models import (
-    AbstractPage, Advert, AlwaysShowInMenusPage, BlogCategory, BlogCategoryBlogPage,
+    AbstractPage, Advert, NeverShowInMenusPage, BlogCategory, BlogCategoryBlogPage,
     BusinessChild, BusinessIndex, BusinessNowherePage, BusinessSubIndex, CustomManager,
     CustomManagerPage, CustomPageQuerySet, EventIndex, EventPage, GenericSnippetPage,
     ManyToManyBlogPage, MTIBasePage, MTIChildPage, MyCustomPage, OneToOnePage,
@@ -1412,12 +1412,12 @@ class TestShowInMenusDefaultOption(TestCase):
             title='My Awesome Page', slug='my-awesome-page')
 
         # Check that the page instance creates with show_in_menu as False
-        self.assertFalse(page.show_in_menus)
+        self.assertTrue(page.show_in_menus)
 
     def test_show_in_menus_default_override(self):
         # Create a page that does have the default init
-        page = AlwaysShowInMenusPage(
+        page = NeverShowInMenusPage(
             title='My Awesome Page', slug='my-awesome-page')
 
         # Check that the page instance creates with show_in_menu as True
-        self.assertTrue(page.show_in_menus)
+        self.assertFalse(page.show_in_menus)
