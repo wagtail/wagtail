@@ -361,25 +361,21 @@ class TestPageExplorerSignposting(TestCase, WagtailTestUtils):
     def test_nonadmin_at_root(self):
         self.assertTrue(self.client.login(username='siteeditor', password='password'))
         response = self.client.get(reverse('wagtailadmin_explore_root'))
-        self.assertEqual(response.status_code, 200)
-        # Non-admin should get a simple "create pages as children of the homepage" prompt
-        self.assertContains(
-            response,
-            "Pages created here will not be accessible at any URL. "
-            "To add pages to an existing site, create them as children of the homepage."
+
+        # Non-admins should be redirected to their explorable root.
+        self.assertEqual(
+            (response.status_code, response['Location']),
+            (302, reverse('wagtailadmin_explore', args=(self.site_page.pk, )))
         )
 
     def test_nonadmin_at_non_site_page(self):
         self.assertTrue(self.client.login(username='siteeditor', password='password'))
         response = self.client.get(reverse('wagtailadmin_explore', args=(self.no_site_page.id, )))
-        self.assertEqual(response.status_code, 200)
-        # Non-admin should get a warning about unroutable pages
-        self.assertContains(
-            response,
-            (
-                "There is no site record for this location. "
-                "Pages created here will not be accessible at any URL."
-            )
+
+        # Non-admins should be redirected to their explorable root.
+        self.assertEqual(
+            (response.status_code, response['Location']),
+            (302, reverse('wagtailadmin_explore', args=(self.site_page.pk, )))
         )
 
     def test_nonadmin_at_site_page(self):
