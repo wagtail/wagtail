@@ -70,6 +70,8 @@ export const initEditor = (fieldName, options = {}) => {
       placeholder={STRINGS.WRITE_HERE}
       spellCheck={true}
       enableLineBreak={true}
+      showUndoControl={true}
+      showRedoControl={true}
       // If increasing above 4, we will need to add styles for the extra nesting levels.
       maxListNesting={4}
       // Draft.js + IE 11 presents some issues with pasting rich text. Disable rich paste there.
