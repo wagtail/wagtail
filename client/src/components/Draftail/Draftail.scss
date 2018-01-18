@@ -1,5 +1,6 @@
 $editor-z-index: $draftail-editor-z-index;
 
+$draftail-editor-text: $color-text-input;
 $draftail-editor-chrome: $color-grey-1;
 $draftail-editor-chrome-text: $color-white;
 $draftail-editor-chrome-active: $color-white;
@@ -66,4 +67,35 @@ $draftail-editor-font-family: $font-serif;
 
 .Draftail-Toolbar {
     display: inline-block;
+}
+
+.Draftail-Editor {
+    border-radius: 0;
+}
+
+// When in a .full container, the editor has a specific appearance
+// so the whole area appears like a focusable area, and the editor
+// receives focus on click.
+.full .Draftail-Editor {
+    padding-top: 2em;
+    padding-bottom: 2em;
+    background-color: $color-fieldset-hover;
+    border-right: 1px solid $color-input-border;
+
+    &--focus {
+        background-color: $color-input-focus;
+        border-color: $color-input-focus-border;
+    }
+}
+
+.full .Draftail-Editor .public-DraftEditor-content {
+    @include nice-padding;
+}
+
+.full .Draftail-Toolbar {
+    @include nice-margin;
+}
+
+.title .Draftail-Editor .public-DraftEditor-content {
+    font-size: 2em;
 }

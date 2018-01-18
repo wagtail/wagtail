@@ -10,6 +10,10 @@
 
     .breadcrumb {
         margin: -1.2em 0 2em;
+
+        @include medium {
+            margin-top: -1.8em;
+        }
     }
 
     .modal .breadcrumb {
@@ -32,7 +36,7 @@
     .header-title {
         padding-left: 3.1em;
 
-        @media screen and (max-width: $breakpoint-mobile) {
+        @include medium {
             padding-left: 0;
             margin-left: -28px;
             // Because it's nested within tab-merged which we've given padding
@@ -53,7 +57,7 @@ $object-title-height: 40px;
     }
 
     &.focused {
-        border-color: darken($color-input-focus, 40%);
+        border-color: $color-input-focus-border;
     }
 
     fieldset {
@@ -146,8 +150,7 @@ $object-title-height: 40px;
         }
     }
 
-    .halloeditor,
-    .Draftail-Editor {
+    .halloeditor {
         padding-top: 1em; // to provide space for editor buttons
         padding-bottom: 1em;
 
@@ -185,8 +188,7 @@ $object-title-height: 40px;
             padding: 0;
         }
 
-        .halloeditor,
-        .Draftail-Editor {
+        .halloeditor {
             padding-top: 3em; // to provide space for editor buttons
             padding-bottom: 3em;
 
@@ -204,8 +206,7 @@ $object-title-height: 40px;
         .error,
         .error input,
         .error textarea,
-        .error .halloeditor,
-        .error .Draftail-Editor {
+        .error .halloeditor {
             background-color: $color-input-error-bg;
         }
     }
@@ -338,8 +339,7 @@ $object-title-height: 40px;
 // Custom styles that make some fields look more important
 .full input,
 .full textarea,
-.full .halloeditor,
-.full .Draftail-Editor {
+.full .halloeditor {
     @include nice-padding;
     border-radius: 0;
     padding-top: 2em;
@@ -350,8 +350,7 @@ $object-title-height: 40px;
 
 .title input,
 .title textarea,
-.title .halloeditor,
-.title .Draftail-Editor {
+.title .halloeditor {
     font-size: 2em;
     font-family: $font-serif;
 }
@@ -402,11 +401,7 @@ footer .preview {
     }
 }
 
-@media screen and (min-width: $breakpoint-mobile) {
-    .page-editor .breadcrumb {
-        margin-top: -1.8em;
-    }
-
+@include medium {
     .object {
         fieldset {
             @include column(10);

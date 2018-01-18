@@ -1,7 +1,7 @@
 .xdsoft_datetimepicker {
     box-shadow: 0 5px 10px -5px rgba(0, 0, 0, 0.4);
-    background: #fff;
-    border: 1px solid darken($color-input-focus, 40%);
+    background: $color-white;
+    border: 1px solid $color-input-focus-border;
     padding: 8px;
     padding-left: 0;
     padding-top: 2px;

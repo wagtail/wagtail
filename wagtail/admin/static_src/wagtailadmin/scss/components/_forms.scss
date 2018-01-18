@@ -74,9 +74,9 @@ select,
     }
 
     &:focus {
-        border-color: darken($color-input-focus, 40%);
-        outline: none;
         background-color: $color-input-focus;
+        border-color: $color-input-focus-border;
+        outline: none;
     }
 
     &:disabled,
