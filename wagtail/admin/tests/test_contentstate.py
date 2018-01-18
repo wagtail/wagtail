@@ -292,7 +292,7 @@ class TestHtmlToContentState(TestCase):
             'entityMap': {
                 '0': {
                     'mutability': 'MUTABLE', 'type': 'DOCUMENT',
-                    'data': {'id': 1, 'url': '/documents/1/test.pdf'}
+                    'data': {'id': 1, 'url': '/documents/1/test.pdf', 'filename': 'test.pdf'}
                 }
             },
             'blocks': [
