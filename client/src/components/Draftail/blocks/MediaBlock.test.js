@@ -27,6 +27,27 @@ describe('MediaBlock', () => {
     ).toMatchSnapshot();
   });
 
+  it('no data', () => {
+    expect(
+      shallow(
+        <MediaBlock
+          src=""
+          alt=""
+          blockProps={{
+            entityType: {
+              icon: '#icon-test',
+            },
+            entity: {
+              getData: () => ({}),
+            },
+          }}
+        >
+          Test
+        </MediaBlock>
+      )
+    ).toMatchSnapshot();
+  });
+
   describe('tooltip', () => {
     let wrapper;
 

@@ -5,12 +5,6 @@ import { STRINGS } from '../../../config/wagtailConfig';
 
 import MediaBlock from '../blocks/MediaBlock';
 
-const propTypes = {
-  blockProps: PropTypes.shape({
-    entity: PropTypes.object,
-  }).isRequired,
-};
-
 /**
  * Editor block to display media and edit content.
  */
@@ -20,15 +14,17 @@ const EmbedBlock = props => {
 
   return (
     <MediaBlock {...props} src={thumbnail} alt="">
-      <a
-        className="Tooltip__link EmbedBlock__link"
-        href={url}
-        title={url}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        {title}
-      </a>
+      {url ? (
+        <a
+          className="Tooltip__link EmbedBlock__link"
+          href={url}
+          title={url}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {title}
+        </a>
+      ) : null}
 
       <button className="button button-secondary no Tooltip__button" onClick={onRemoveEntity}>
         {STRINGS.DELETE}
@@ -37,6 +33,10 @@ const EmbedBlock = props => {
   );
 };
 
-EmbedBlock.propTypes = propTypes;
+EmbedBlock.propTypes = {
+  blockProps: PropTypes.shape({
+    entity: PropTypes.object,
+  }).isRequired,
+};
 
 export default EmbedBlock;

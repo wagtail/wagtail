@@ -26,6 +26,24 @@ describe('ImageBlock', () => {
     ).toMatchSnapshot();
   });
 
+  it('no data', () => {
+    expect(
+      shallow(
+        <ImageBlock
+          block={{}}
+          blockProps={{
+            editorState: {},
+            entityType: {},
+            entity: {
+              getData: () => ({}),
+            },
+            onChange: () => {},
+          }}
+        />
+      )
+    ).toMatchSnapshot();
+  });
+
   it('alt', () => {
     expect(
       shallow(

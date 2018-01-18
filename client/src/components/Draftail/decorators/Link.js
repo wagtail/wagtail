@@ -5,35 +5,47 @@ import Icon from '../../Icon/Icon';
 
 import TooltipEntity from '../decorators/TooltipEntity';
 
+const LINK_ICON = <Icon name="link" />;
+const MAIL_ICON = <Icon name="mail" />;
+
 const getEmailAddress = mailto => mailto.replace('mailto:', '').split('?')[0];
 const getDomainName = url => url.replace(/(^\w+:|^)\/\//, '').split('/')[0];
 
-const linkIcon = <Icon name="link" />;
-const mailIcon = <Icon name="mail" />;
-
-const Link = props => {
-  const { entityKey, contentState } = props;
-  const data = contentState.getEntity(entityKey).getData();
+// Determines how to display the link based on its type: page, mail, or external.
+export const getLinkAttributes = (data) => {
+  const url = data.url || '';
   let icon;
   let label;
 
   if (data.id) {
-    icon = linkIcon;
-    label = data.url;
-  } else if (data.url.startsWith('mailto:')) {
-    icon = mailIcon;
-    label = getEmailAddress(data.url);
+    icon = LINK_ICON;
+    label = url;
+  } else if (url.startsWith('mailto:')) {
+    icon = MAIL_ICON;
+    label = getEmailAddress(url);
   } else {
-    icon = linkIcon;
-    label = getDomainName(data.url);
+    icon = LINK_ICON;
+    label = getDomainName(url);
   }
+
+  return {
+    url,
+    icon,
+    label,
+  };
+};
+
+/**
+ * Represents a link within the editor's content.
+ */
+const Link = props => {
+  const { entityKey, contentState } = props;
+  const data = contentState.getEntity(entityKey).getData();
 
   return (
     <TooltipEntity
       {...props}
-      icon={icon}
-      label={label}
-      url={data.url}
+      {...getLinkAttributes(data)}
     />
   );
 };

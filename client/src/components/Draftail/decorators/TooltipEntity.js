@@ -61,15 +61,17 @@ class TooltipEntity extends Component {
             closeOnResize
           >
             <Tooltip target={showTooltipAt} direction="top">
-              <a
-                href={url}
-                title={url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="Tooltip__link"
-              >
-                {shortenLabel(label)}
-              </a>
+              {url ? (
+                <a
+                  href={url}
+                  title={url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="Tooltip__link"
+                >
+                  {shortenLabel(label)}
+                </a>
+              ) : null}
 
               <button
                 className="button Tooltip__button"

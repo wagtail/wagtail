@@ -1,5 +1,26 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`EmbedBlock no data 1`] = `
+<MediaBlock
+  alt=""
+  blockProps={
+    Object {
+      "entity": Object {
+        "getData": [Function],
+      },
+      "entityType": Object {},
+    }
+  }
+  src={null}
+>
+  <button
+    className="button button-secondary no Tooltip__button"
+  >
+    Delete
+  </button>
+</MediaBlock>
+`;
+
 exports[`EmbedBlock renders 1`] = `
 <MediaBlock
   alt=""

@@ -6,15 +6,6 @@ import { STRINGS } from '../../../config/wagtailConfig';
 
 import MediaBlock from '../blocks/MediaBlock';
 
-const propTypes = {
-  block: PropTypes.object.isRequired,
-  blockProps: PropTypes.shape({
-    editorState: PropTypes.object.isRequired,
-    entity: PropTypes.object,
-    onChange: PropTypes.func.isRequired,
-  }).isRequired,
-};
-
 /**
  * Editor block to preview and edit images.
  */
@@ -56,6 +47,13 @@ class ImageBlock extends Component {
   }
 }
 
-ImageBlock.propTypes = propTypes;
+ImageBlock.propTypes = {
+  block: PropTypes.object.isRequired,
+  blockProps: PropTypes.shape({
+    editorState: PropTypes.object.isRequired,
+    entity: PropTypes.object,
+    onChange: PropTypes.func.isRequired,
+  }).isRequired,
+};
 
 export default ImageBlock;

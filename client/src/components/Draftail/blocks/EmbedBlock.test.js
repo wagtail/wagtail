@@ -22,4 +22,19 @@ describe('EmbedBlock', () => {
       )
     ).toMatchSnapshot();
   });
+
+  it('no data', () => {
+    expect(
+      shallow(
+        <EmbedBlock
+          blockProps={{
+            entityType: {},
+            entity: {
+              getData: () => ({}),
+            },
+          }}
+        />
+      )
+    ).toMatchSnapshot();
+  });
 });

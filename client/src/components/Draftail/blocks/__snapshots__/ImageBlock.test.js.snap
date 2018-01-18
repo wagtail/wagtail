@@ -37,6 +37,43 @@ exports[`ImageBlock alt 1`] = `
 </MediaBlock>
 `;
 
+exports[`ImageBlock no data 1`] = `
+<MediaBlock
+  alt=""
+  block={Object {}}
+  blockProps={
+    Object {
+      "editorState": Object {},
+      "entity": Object {
+        "getData": [Function],
+      },
+      "entityType": Object {},
+      "onChange": [Function],
+    }
+  }
+  src={null}
+>
+  <label
+    className="ImageBlock__field"
+  >
+    <p>
+      Alt text
+    </p>
+    <input
+      className="ImageBlock__field__input"
+      onChange={[Function]}
+      type="text"
+      value=""
+    />
+  </label>
+  <button
+    className="button button-secondary no Tooltip__button"
+  >
+    Delete
+  </button>
+</MediaBlock>
+`;
+
 exports[`ImageBlock renders 1`] = `
 <MediaBlock
   alt=""
