@@ -92,6 +92,7 @@ const filterEntityData = (entityType, data) => {
   case DOCUMENT:
     return {
       url: data.url,
+      filename: data.filename,
       id: data.id,
     };
   default:

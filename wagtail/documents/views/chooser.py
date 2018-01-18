@@ -27,6 +27,7 @@ def get_document_json(document):
         'id': document.id,
         'title': document.title,
         'url': document.url,
+        'filename': document.filename,
         'edit_link': reverse('wagtaildocs:edit', args=(document.id,)),
     })
 

@@ -7,21 +7,15 @@ import TooltipEntity from '../decorators/TooltipEntity';
 
 const documentIcon = <Icon name="doc-full" />;
 
-const getFilename = (path) => {
-  const splitPath = path.split('/');
-
-  return splitPath[splitPath.length - 1];
-};
-
 const Document = props => {
   const { entityKey, contentState } = props;
-  const { url } = contentState.getEntity(entityKey).getData();
+  const { url, filename } = contentState.getEntity(entityKey).getData();
 
   return (
     <TooltipEntity
       {...props}
       icon={documentIcon}
-      label={getFilename(url)}
+      label={filename}
       url={url}
     />
   );

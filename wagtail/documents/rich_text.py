@@ -69,6 +69,7 @@ class DocumentLinkElementHandler(LinkElementHandler):
         return {
             'id': doc.id,
             'url': doc.url,
+            'filename': doc.filename,
         }
 
 
