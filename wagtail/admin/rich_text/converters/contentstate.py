@@ -6,7 +6,6 @@ from draftjs_exporter.defaults import render_children
 from draftjs_exporter.dom import DOM
 from draftjs_exporter.html import HTML as HTMLExporter
 
-from wagtail.admin.rich_text.converters.contentstate_models import Block
 from wagtail.admin.rich_text.converters.html_to_contentstate import HtmlToContentStateHandler
 from wagtail.core.rich_text import features as feature_registry
 
