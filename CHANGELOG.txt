@@ -47,6 +47,7 @@ Changelog
  * Fix: 'Add user' is now rendered as a button due to the use of quotes within translations (Benoît Vogel)
  * Fix: Menu icon no longer overlaps with title in Modeladmin on mobile (Coen van der Kamp)
  * Fix: Background color overflow within the Wagtail documentation (Sergey Fedoseev)
+ * Fix: Page count on homepage summary panel now takes account of user permissions (Andy Chosak)
 
 
 2.0.1 (04.04.2018)
