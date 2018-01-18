@@ -85,8 +85,8 @@ class ContentstateConverter():
         self.html_to_contentstate_handler.feed(html)
 
         if not self.html_to_contentstate_handler.contentstate.blocks:
-            # add an empty paragraph block to make contentstate valid
-            self.html_to_contentstate_handler.add_block(Block('unstyled', depth=0))
+            # Draftail does not accept an empty block list as valid, but does accept 'null' as meaning "no content"
+            return 'null'
 
         return self.html_to_contentstate_handler.contentstate.as_json(indent=4, separators=(',', ': '))
 
