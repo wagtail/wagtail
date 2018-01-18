@@ -58,6 +58,10 @@ export const initEditor = (fieldName, options = {}) => {
     );
   }
 
+  const enableHorizontalRule = options && options.enableHorizontalRule ? {
+    description: STRINGS.HORIZONTAL_LINE,
+  } : false;
+
   const fieldValue = JSON.parse(field.value);
   // TODO Remove default null when finishing https://github.com/springload/wagtaildraftail/issues/32.
   const rawContentState =
@@ -69,9 +73,9 @@ export const initEditor = (fieldName, options = {}) => {
       onSave={serialiseInputValue}
       placeholder={STRINGS.WRITE_HERE}
       spellCheck={true}
-      enableLineBreak={true}
-      showUndoControl={true}
-      showRedoControl={true}
+      enableLineBreak={{ description: STRINGS.LINE_BREAK }}
+      showUndoControl={{ description: STRINGS.UNDO }}
+      showRedoControl={{ description: STRINGS.REDO }}
       // If increasing above 4, we will need to add styles for the extra nesting levels.
       maxListNesting={4}
       // Draft.js + IE 11 presents some issues with pasting rich text. Disable rich paste there.
@@ -80,6 +84,7 @@ export const initEditor = (fieldName, options = {}) => {
       blockTypes={blockTypes}
       inlineStyles={inlineStyles}
       entityTypes={entityTypes}
+      enableHorizontalRule={enableHorizontalRule}
     />
   );
 

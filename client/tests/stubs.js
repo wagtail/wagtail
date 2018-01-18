@@ -31,6 +31,10 @@ global.wagtailConfig = {
     CLOSE_EXPLORER: 'Close explorer',
     ALT_TEXT: 'Alt text',
     WRITE_HERE: 'Write here…',
+    HORIZONTAL_LINE: 'Horizontal line',
+    LINE_BREAK: 'Line break',
+    UNDO: 'Undo',
+    REDO: 'Redo',
   },
 };
 
