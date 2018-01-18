@@ -8,6 +8,8 @@ $tooltip-chrome-text: $draftail-tooltip-chrome-text;
 
 $tooltip-z-index: $draftail-tooltip-z-index;
 
+$tooltip-color-no: #f48880;
+
 @mixin arrow--top {
     margin-top: $tooltip-arrow-spacing;
     transform: translateX(-50%);
@@ -68,20 +70,25 @@ $tooltip-z-index: $draftail-tooltip-z-index;
     &--top-left {
         @include arrow--top-left;
     }
-}
 
-.Tooltip__link {
-    @include font-smoothing;
-    font-size: 0.875rem;
-    margin-right: $controls-spacing * 4;
-    display: inline-block;
+    &__link {
+        @include font-smoothing;
+        font-size: 0.875rem;
+        margin-right: $controls-spacing * 4;
+        display: inline-block;
 
-    &,
-    &:hover {
-        color: $color-white;
+        &,
+        &:hover {
+            color: $color-white;
+        }
     }
-}
 
-.Tooltip__button {
-    padding: $button-spacing $controls-spacing;
+    &__button {
+        padding: $button-spacing $controls-spacing;
+
+        &.no.button-secondary {
+            color: $tooltip-color-no;
+            border-color: currentColor;
+        }
+    }
 }
