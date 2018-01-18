@@ -8,7 +8,7 @@ describe('Document', () => {
   it('works', () => {
     const content = convertFromRaw({
       entityMap: {
-        '1': {
+        1: {
           type: 'DOCUMENT',
           data: {
             url: '/example.pdf',
@@ -29,7 +29,7 @@ describe('Document', () => {
           ]
         }
       ]
-    })
+    });
     expect(shallow((
       <Document
         contentState={content}
@@ -45,7 +45,7 @@ describe('Document', () => {
   it('no data', () => {
     const content = convertFromRaw({
       entityMap: {
-        '2': {
+        2: {
           type: 'DOCUMENT',
         }
       },
@@ -62,7 +62,7 @@ describe('Document', () => {
           ]
         }
       ]
-    })
+    });
     expect(shallow((
       <Document
         contentState={content}

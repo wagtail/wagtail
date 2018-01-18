@@ -8,7 +8,7 @@ describe('Link', () => {
   it('works', () => {
     const content = convertFromRaw({
       entityMap: {
-        '1': {
+        1: {
           type: 'LINK',
           data: {
             url: 'http://www.example.com/',
@@ -28,7 +28,7 @@ describe('Link', () => {
           ]
         }
       ]
-    })
+    });
     expect(shallow((
       <Link
         contentState={content}
@@ -46,25 +46,25 @@ describe('Link', () => {
       expect(getLinkAttributes({ id: '1', url: '/' })).toMatchObject({
         url: '/',
         label: '/',
-      })
+      });
     });
 
     it('mail', () => {
       expect(getLinkAttributes({ url: 'mailto:test@ex.com' })).toMatchObject({
         url: 'mailto:test@ex.com',
         label: 'test@ex.com',
-      })
+      });
     });
 
     it('external', () => {
       expect(getLinkAttributes({ url: 'http://www.ex.com/' })).toMatchObject({
         url: 'http://www.ex.com/',
         label: 'www.ex.com',
-      })
+      });
     });
 
     it('no data', () => {
-      expect(getLinkAttributes({})).toMatchObject({ url: '' })
+      expect(getLinkAttributes({})).toMatchObject({ url: '' });
     });
   });
 });

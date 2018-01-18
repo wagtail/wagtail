@@ -53,14 +53,18 @@ module.exports = function exports() {
           exclude: /node_modules/,
         },
       ].concat(Object.keys(exposedDependencies).map((name) => {
+        const globalName = exposedDependencies[name];
+
         // Create expose-loader configs for each Wagtail dependency.
         return {
           test: require.resolve(name),
-          use: [{
+          use: [
+            {
               loader: 'expose-loader',
-              options: exposedDependencies[name]
-          }]
-      }
+              options: globalName,
+            },
+          ],
+        };
       }))
     },
     stats: {
