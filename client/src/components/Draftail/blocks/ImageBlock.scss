@@ -22,4 +22,8 @@
     font-size: 1rem;
     background-color: $color-white;
     color: $color-text-base;
+
+    &[readonly] {
+        color: transparentize($color-text-base, 0.5);
+    }
 }

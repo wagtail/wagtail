@@ -24,7 +24,7 @@ exports[`ImageBlock alt 1`] = `
     </p>
     <input
       className="ImageBlock__field__input"
-      onChange={[Function]}
+      readOnly={true}
       type="text"
       value="Test"
     />
@@ -61,7 +61,7 @@ exports[`ImageBlock no data 1`] = `
     </p>
     <input
       className="ImageBlock__field__input"
-      onChange={[Function]}
+      readOnly={true}
       type="text"
       value=""
     />
@@ -98,7 +98,7 @@ exports[`ImageBlock renders 1`] = `
     </p>
     <input
       className="ImageBlock__field__input"
-      onChange={[Function]}
+      readOnly={true}
       type="text"
       value=""
     />

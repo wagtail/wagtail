@@ -65,7 +65,8 @@ describe('ImageBlock', () => {
     ).toMatchSnapshot();
   });
 
-  it('changeAlt', () => {
+  // Alt field is readonly for now.
+  it.skip('changeAlt', () => {
     jest.spyOn(DraftUtils, 'updateBlockEntity');
     DraftUtils.updateBlockEntity.mockImplementation(e => e);
 
