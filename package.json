@@ -37,6 +37,10 @@
     }
   },
   "jest": {
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/build/"
+    ],
     "setupFiles": [
       "./client/tests/adapter.js",
       "./client/tests/stubs.js",
