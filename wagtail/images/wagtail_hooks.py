@@ -3,7 +3,7 @@ from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.urls import reverse
 from django.utils.html import format_html, format_html_join
 from django.utils.translation import ugettext_lazy as _
-from django.utils.translation import ungettext
+from django.utils.translation import ungettext, ugettext
 
 from wagtail.admin.menu import MenuItem
 from wagtail.admin.rich_text import HalloPlugin
@@ -89,7 +89,7 @@ def register_image_feature(features):
         'draftail', 'image', draftail_features.EntityFeature({
             'type': 'IMAGE',
             'icon': 'image',
-            'description': str(_('Image')),
+            'description': ugettext('Image'),
             'source': 'ModalWorkflowSource',
             'block': 'ImageBlock',
             # We do not want users to be able to copy-paste hotlinked images into rich text.

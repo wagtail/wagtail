@@ -5,7 +5,7 @@ from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.utils.html import format_html, format_html_join
 from django.utils.translation import ugettext_lazy as _
-from django.utils.translation import ungettext
+from django.utils.translation import ungettext, ugettext
 
 from wagtail.admin.menu import MenuItem
 from wagtail.admin.rich_text import HalloPlugin
@@ -89,7 +89,7 @@ def register_document_feature(features):
         'draftail', 'document-link', draftail_features.EntityFeature({
             'type': 'DOCUMENT',
             'icon': 'doc-full',
-            'description': str(_('Document')),
+            'description': ugettext('Document'),
             'source': 'ModalWorkflowSource',
             'decorator': 'Document',
         })

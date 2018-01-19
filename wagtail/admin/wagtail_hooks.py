@@ -1,6 +1,7 @@
 from django.contrib.auth.models import Permission
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext
 
 from draftjs_exporter.dom import DOM
 
@@ -274,7 +275,7 @@ def register_core_features(features):
         'draftail', 'h1', draftail_features.BlockFeature({
             'label': 'H1',
             'type': 'header-one',
-            'description': str(_('Heading {level}').format(level=1)),
+            'description': ugettext('Heading {level}').format(level=1),
         })
     )
     features.register_converter_rule('contentstate', 'h1', {
@@ -289,7 +290,7 @@ def register_core_features(features):
         'draftail', 'h2', draftail_features.BlockFeature({
             'label': 'H2',
             'type': 'header-two',
-            'description': str(_('Heading {level}').format(level=2)),
+            'description': ugettext('Heading {level}').format(level=2),
         })
     )
     features.register_converter_rule('contentstate', 'h2', {
@@ -304,7 +305,7 @@ def register_core_features(features):
         'draftail', 'h3', draftail_features.BlockFeature({
             'label': 'H3',
             'type': 'header-three',
-            'description': str(_('Heading {level}').format(level=3)),
+            'description': ugettext('Heading {level}').format(level=3),
         })
     )
     features.register_converter_rule('contentstate', 'h3', {
@@ -319,7 +320,7 @@ def register_core_features(features):
         'draftail', 'h4', draftail_features.BlockFeature({
             'label': 'H4',
             'type': 'header-four',
-            'description': str(_('Heading {level}').format(level=4)),
+            'description': ugettext('Heading {level}').format(level=4),
         })
     )
     features.register_converter_rule('contentstate', 'h4', {
@@ -334,7 +335,7 @@ def register_core_features(features):
         'draftail', 'h5', draftail_features.BlockFeature({
             'label': 'H5',
             'type': 'header-five',
-            'description': str(_('Heading {level}').format(level=5)),
+            'description': ugettext('Heading {level}').format(level=5),
         })
     )
     features.register_converter_rule('contentstate', 'h5', {
@@ -349,7 +350,7 @@ def register_core_features(features):
         'draftail', 'h6', draftail_features.BlockFeature({
             'label': 'H6',
             'type': 'header-six',
-            'description': str(_('Heading {level}').format(level=6)),
+            'description': ugettext('Heading {level}').format(level=6),
         })
     )
     features.register_converter_rule('contentstate', 'h6', {
@@ -364,7 +365,7 @@ def register_core_features(features):
         'draftail', 'ul', draftail_features.BlockFeature({
             'type': 'unordered-list-item',
             'icon': 'list-ul',
-            'description': str(_('Bulleted list')),
+            'description': ugettext('Bulleted list'),
         })
     )
     features.register_converter_rule('contentstate', 'ul', {
@@ -380,7 +381,7 @@ def register_core_features(features):
         'draftail', 'ol', draftail_features.BlockFeature({
             'type': 'ordered-list-item',
             'icon': 'list-ol',
-            'description': str(_('Numbered list')),
+            'description': ugettext('Numbered list'),
         })
     )
     features.register_converter_rule('contentstate', 'ol', {
@@ -397,7 +398,7 @@ def register_core_features(features):
         'draftail', 'bold', draftail_features.InlineStyleFeature({
             'type': 'BOLD',
             'icon': 'bold',
-            'description': str(_('Bold')),
+            'description': ugettext('Bold'),
         })
     )
     features.register_converter_rule('contentstate', 'bold', {
@@ -413,7 +414,7 @@ def register_core_features(features):
         'draftail', 'italic', draftail_features.InlineStyleFeature({
             'type': 'ITALIC',
             'icon': 'italic',
-            'description': str(_('Italic')),
+            'description': ugettext('Italic'),
         })
     )
     features.register_converter_rule('contentstate', 'italic', {
@@ -430,7 +431,7 @@ def register_core_features(features):
         'draftail', 'link', draftail_features.EntityFeature({
             'type': 'LINK',
             'icon': 'link',
-            'description': str(_('Link')),
+            'description': ugettext('Link'),
             'source': 'ModalWorkflowSource',
             'decorator': 'Link',
             # We want to enforce constraints on which links can be pasted into rich text.

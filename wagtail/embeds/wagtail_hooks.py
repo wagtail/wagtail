@@ -1,7 +1,7 @@
 from django.conf.urls import include, url
 from django.urls import reverse
 from django.utils.html import format_html
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext as _
 
 from wagtail.admin.rich_text import HalloPlugin
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
@@ -54,7 +54,7 @@ def register_embed_feature(features):
         'draftail', 'embed', draftail_features.EntityFeature({
             'type': 'EMBED',
             'icon': 'media',
-            'description': str(_('Embed')),
+            'description': _('Embed'),
             'source': 'ModalWorkflowSource',
             'block': 'EmbedBlock',
         })
