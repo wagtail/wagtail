@@ -1,6 +1,6 @@
 import warnings
 
-from django.core.exceptions import ImproperlyConfigured, ValidationError
+from django.core.exceptions import ValidationError
 from django.http.request import HttpRequest
 from django.test import TestCase, override_settings
 
@@ -185,13 +185,13 @@ class TestSiteRouting(TestCase):
     WAGTAIL_SITE_CACHE_ENABLED=True,
     CACHES={
         'default': {
-            'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-            'LOCATION': 'unique-snowflake',
+            'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+            'LOCATION': '/var/tmp/django_cache',
         },
     },
     ALLOWED_HOSTS=['localhost', 'events.example.com', 'about.example.com', 'unknown.site.com']
 )
-class TestSiteRoutingCachingEnabled(TestSiteRouting):
+class TestSiteRoutingWithCachingEnabled(TestSiteRouting):
     find_for_request_queries_expected = 0
 
     def setUp(self):
@@ -202,53 +202,63 @@ class TestSiteRoutingCachingEnabled(TestSiteRouting):
         Site.objects.clear_cache()
         request = HttpRequest()
         request.META = {'HTTP_HOST': 'about.example.com'}
+
+        # It should take a single query to populate the cache again
         with self.assertNumQueries(1):
-            # Should be one query to populate the cache again
             self.assertEqual(Site.find_for_request(request), self.about_site)
+
+        # Calling the same method again should create no queries now that
+        # the cache is populated
         with self.assertNumQueries(0):
-            # Calling the same method again should create no queries now that
-            # the cache is populated
             self.assertEqual(Site.find_for_request(request), self.about_site)
 
 
-@override_settings(WAGTAIL_SITE_CACHE_ENABLED=True)
-class TestSiteCacheBackendCompatibility(TestCase):
+@override_settings(
+    WAGTAIL_SITE_CACHE_ENABLED=True,
+    CACHES={
+        'default': {
+            'BACKEND': 'django.core.cache.backends.dummy.DummyCache'
+        },
+        'locmem': {
+            'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+            'LOCATION': 'unique-snowflake',
+        },
+    }
+)
+class TestSiteRoutingCachingAutoDisable(TestCase):
 
-    @override_settings(
-        CACHES={
-            'default': {
-                'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
-            },
-        }
-    )
-    def test_error_with_dummycache(self):
-        from wagtail.core.models import check_site_cache_backend_compatibility
-        self.assertRaisesRegex(
-            ImproperlyConfigured,
-            "Wagtail's site caching is incompatible with DummyCache",
-            check_site_cache_backend_compatibility
-        )
-
-    @override_settings(
-        CACHES={
-            'default': {
-                'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-                'LOCATION': 'unique-snowflake',
-            },
-        }
-    )
-    def test_warns_about_locmemcache(self):
-        from wagtail.core.models import check_site_cache_backend_compatibility
+    @override_settings(WAGTAIL_SITE_CACHE='default')
+    def test_disables_with_dummycache(self):
         with warnings.catch_warnings(record=True) as w:
-            warnings.simplefilter("always")
-            check_site_cache_backend_compatibility()
+            warnings.simplefilter("once")
+            self.assertTrue(Site.objects.get_site_cache() is None)
             self.assertEqual(len(w), 1)
             self.assertTrue(issubclass(w[-1].category, UserWarning), True)
             self.assertTrue(
-                "WAGTAIL_SITE_CACHE_CACHE is 'default', which refers to a "
-                "cache that utilises Django's LocMemCache cache backend"
+                "WAGTAIL_SITE_CACHE is set to 'default', which refers to a "
+                "cache that utilises Django's DummyCache backend"
                 in str(w[-1].message)
             )
+
+    @override_settings(WAGTAIL_SITE_CACHE='locmem', DEBUG=False)
+    def test_disables_with_locmem_when_debug_mode_disabled(self):
+        with warnings.catch_warnings(record=True) as w:
+            warnings.simplefilter("once")
+            self.assertTrue(Site.objects.get_site_cache() is None)
+            self.assertEqual(len(w), 1)
+            self.assertTrue(issubclass(w[-1].category, UserWarning), True)
+            self.assertTrue(
+                "WAGTAIL_SITE_CACHE is set to 'locmem', which refers to a "
+                "cache that utilises Django's LocMemCache backend"
+                in str(w[-1].message)
+            )
+
+    @override_settings(WAGTAIL_SITE_CACHE='locmem', DEBUG=True)
+    def test_locmem_allowed_in_debug_mode(self):
+        with warnings.catch_warnings(record=True) as w:
+            warnings.simplefilter("once")
+            self.assertTrue(Site.objects.get_site_cache() is not None)
+            self.assertFalse(w)
 
 
 class TestDefaultSite(TestCase):

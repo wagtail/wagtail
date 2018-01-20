@@ -29,12 +29,12 @@ def post_delete_page_log_deletion(sender, instance, **kwargs):
 
 
 def repopulate_site_cache_when_sites_change(instance, **kwargs):
-    Site.objects.repopulate_cache()
+    Site.objects.populate_cache()
 
 
 def repopulate_site_cache_when_site_root_updated(instance, **kwargs):
     if instance.sites_rooted_here.all().exists():
-        Site.objects.repopulate_cache()
+        Site.objects.populate_cache()
 
 
 def register_signal_handlers():
