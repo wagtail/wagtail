@@ -97,9 +97,10 @@ class SiteManager(models.Manager):
         return hostname, port
 
     def _get_keys_for_unique_hostname(self, hostname):
-        """Returns an extended list of keys to use in the cache for a site with
-        a unique hostname, allowing it to be matched to requests where the
-        extracted port differs from the site's saved ``port`` value"""
+        """Returns a tuple of additional keys to use when populating the cache
+        for a ``Site`` with a unique hostname. These keys allow requests to be
+        matched to the site even if the request's port value differs from the
+        site's saved ``port`` field value"""
         valid_ports = getattr(settings, 'WAGTAIL_SITE_CACHE_VALID_PORTS',
                               (80, 443, 8000, 8080, None))
         return tuple("{0}:{1}".format(hostname, port) for port in valid_ports)
