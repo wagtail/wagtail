@@ -46,8 +46,7 @@ class SiteManager(models.Manager):
     @classmethod
     def get_site_cache(cls):
         """Returns a cache instance to use for site caching operations, or
-        ``None`` if site caching isn't enabled, or is disabled due to the
-        specified cache having an incompatible backend.
+        ``None`` if site caching isn't enabled
         """
         enabled = getattr(settings, 'WAGTAIL_SITE_CACHE_ENABLED', False)
         if not enabled:
