@@ -10,8 +10,6 @@ from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
 from django.core import checks
 from django.core.cache import cache, caches
-from django.core.cache.backends.dummy import DummyCache
-from django.core.cache.backends.locmem import LocMemCache
 from django.core.exceptions import ImproperlyConfigured, ValidationError
 from django.core.handlers.base import BaseHandler
 from django.core.handlers.wsgi import WSGIRequest
@@ -54,32 +52,7 @@ class SiteManager(models.Manager):
         enabled = getattr(settings, 'WAGTAIL_SITE_CACHE_ENABLED', False)
         if not enabled:
             return
-
-        key = getattr(settings, 'WAGTAIL_SITE_CACHE', 'default')
-        cache = caches[key]
-        if isinstance(cache, DummyCache):
-            warnings.warn(
-                "WAGTAIL_SITE_CACHE is set to '{0}', which refers to a cache "
-                "that utilises Django's DummyCache backend. Wagtail's site "
-                "caching feature is incompatible with DummyCache, and so has "
-                "been disabled. To enable it, update '{0}' to use a backend "
-                "that actually stores and returns stored values, such as "
-                "Memcached or Redis. If multiple CACHES are configured, you"
-                "can use the WAGTAIL_SITE_CACHE setting to specify a cache "
-                "other than '{0}' to use instead".format(key))
-            return
-        if not settings.DEBUG and isinstance(cache, LocMemCache):
-            warnings.warn(
-                "WAGTAIL_SITE_CACHE is set to '{0}', which refers to a cache "
-                "that utilises Django's LocMemCache backend. Wagtail's site "
-                "caching feature is incompatible with LocMemCache when running "
-                "in a production environment, and so has been disabled. To "
-                "enable it, update your site to use a thread-safe backend, "
-                "such as Memcached or Redis. If multiple CACHES are configured, "
-                "you can use the WAGTAIL_SITE_CACHE setting to specify a "
-                "cache other than '{0}' to use instead".format(key))
-            return
-        return cache
+        return caches[getattr(settings, 'WAGTAIL_SITE_CACHE', 'default')]
 
     @staticmethod
     def get_hostname_and_port_from_request(request):
@@ -96,6 +69,9 @@ class SiteManager(models.Manager):
             port = None
         return hostname, port
 
+    def _make_dict_key(self, hostname, port):
+        return "{0}:{1}".format(hostname, port)
+
     def _get_keys_for_unique_hostname(self, hostname):
         """Returns a tuple of additional keys to use when populating the cache
         for a ``Site`` with a unique hostname. These keys allow requests to be
@@ -103,7 +79,9 @@ class SiteManager(models.Manager):
         site's saved ``port`` field value"""
         valid_ports = getattr(settings, 'WAGTAIL_SITE_CACHE_VALID_PORTS',
                               (80, 443, 8000, 8080, None))
-        return tuple("{0}:{1}".format(hostname, port) for port in valid_ports)
+        return tuple(
+            self._make_dict_key(hostname, port) for port in valid_ports
+        )
 
     def clear_cache(self):
         cache = self.get_site_cache()
@@ -121,8 +99,8 @@ class SiteManager(models.Manager):
         sites = {}
         unique_hostname_sites = {}
         for site in self.all().select_related('root_page').iterator():
-
-            sites["{0}:{1}".format(site.hostname, site.port)] = site
+            key = self._make_dict_key(site.hostname, site.port)
+            sites[key] = site
             if site.is_default_site:
                 sites[SITE_CACHE_DEFAULT_KEY] = site
 
@@ -147,8 +125,11 @@ class SiteManager(models.Manager):
             return get_site_for_hostname(hostname, port)
 
         sites = cache.get(SITE_CACHE_SITES_KEY) or self.populate_cache()
-        request_key = "{0}:{1}".format(hostname, port)
-        return sites.get(request_key) or sites.get(SITE_CACHE_DEFAULT_KEY)
+        key = self._make_dict_key(hostname, port)
+        site = sites.get(key) or sites.get(SITE_CACHE_DEFAULT_KEY)
+        if site:
+            return site
+        raise Site.DoesNotExist()
 
     def get_by_natural_key(self, hostname, port):
         return self.get(hostname=hostname, port=port)

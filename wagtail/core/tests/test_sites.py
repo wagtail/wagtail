@@ -1,5 +1,3 @@
-import warnings
-
 from django.core.exceptions import ValidationError
 from django.http.request import HttpRequest
 from django.test import TestCase, override_settings
@@ -123,13 +121,27 @@ class TestSiteRouting(TestCase):
             self.assertEqual(Site.find_for_request(request), self.alternate_port_events_site)
 
     def test_unrecognised_host_header_routes_to_default_site(self):
-        # requests with an unrecognised Host: header should be directed to the default site
+        # requests with an unrecognised Host: header should be directed to the
+        # default site
         request = HttpRequest()
         request.path = '/'
         request.META['HTTP_HOST'] = self.unrecognised_hostname
         request.META['SERVER_PORT'] = '80'
         with self.assertNumQueries(self.find_for_request_queries_expected):
             self.assertEqual(Site.find_for_request(request), self.default_site)
+
+    def test_unrecognised_host_header_raises_exception_when_no_default_site_is_set(self):
+        # when the above test is repeated without a Site being marked as the
+        # 'default', find_for_request() should raise an exception
+        request = HttpRequest()
+        request.path = '/'
+        request.META['HTTP_HOST'] = self.unrecognised_hostname
+        request.META['SERVER_PORT'] = '80'
+        # unmark default_site as the default before calling
+        self.default_site.is_default_site = False
+        self.default_site.save()
+        with self.assertRaises(Site.DoesNotExist):
+            Site.find_for_request(request)
 
     def test_unrecognised_port_and_default_host_routes_to_default_site(self):
         # requests to the default host on an unrecognised port should be directed to the default site
@@ -142,13 +154,26 @@ class TestSiteRouting(TestCase):
 
     def test_unrecognised_port_and_unrecognised_host_routes_to_default_site(self):
         # requests with an unrecognised Host: header _and_ an unrecognised port
-        # hould be directed to the default site
+        # should be directed to the default site
         request = HttpRequest()
         request.path = '/'
         request.META['HTTP_HOST'] = self.unrecognised_hostname
         request.META['SERVER_PORT'] = self.unrecognised_port
         with self.assertNumQueries(self.find_for_request_queries_expected):
             self.assertEqual(Site.find_for_request(request), self.default_site)
+
+    def test_unrecognised_port_and_unrecognised_host_raises_exception_when_no_default_site_is_set(self):
+        # when the above test is repeated without a Site being marked as the
+        # 'default', find_for_request() should raise an exception
+        request = HttpRequest()
+        request.path = '/'
+        request.META['HTTP_HOST'] = self.unrecognised_hostname
+        request.META['SERVER_PORT'] = self.unrecognised_port
+        # unmark default_site as the default before calling
+        self.default_site.is_default_site = False
+        self.default_site.save()
+        with self.assertRaises(Site.DoesNotExist):
+            Site.find_for_request(request)
 
     def test_unrecognised_port_on_known_hostname_routes_there_if_no_ambiguity(self):
         # requests on an unrecognised port should be directed to the site with
@@ -185,8 +210,8 @@ class TestSiteRouting(TestCase):
     WAGTAIL_SITE_CACHE_ENABLED=True,
     CACHES={
         'default': {
-            'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
-            'LOCATION': '/var/tmp/django_cache',
+            'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+            'LOCATION': 'unique-snowflake',
         },
     },
     ALLOWED_HOSTS=['localhost', 'events.example.com', 'about.example.com', 'unknown.site.com']
@@ -198,7 +223,7 @@ class TestSiteRoutingWithCachingEnabled(TestSiteRouting):
         super().setUp()
         Site.objects.populate_cache()
 
-    def test_clearing_cache_results_in_find_for_request_populating(self):
+    def test_clearing_cache_results_in_find_for_request_repopulating(self):
         Site.objects.clear_cache()
         request = HttpRequest()
         request.META = {'HTTP_HOST': 'about.example.com'}
@@ -211,54 +236,6 @@ class TestSiteRoutingWithCachingEnabled(TestSiteRouting):
         # the cache is populated
         with self.assertNumQueries(0):
             self.assertEqual(Site.find_for_request(request), self.about_site)
-
-
-@override_settings(
-    WAGTAIL_SITE_CACHE_ENABLED=True,
-    CACHES={
-        'default': {
-            'BACKEND': 'django.core.cache.backends.dummy.DummyCache'
-        },
-        'locmem': {
-            'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-            'LOCATION': 'unique-snowflake',
-        },
-    }
-)
-class TestSiteRoutingCachingAutoDisable(TestCase):
-
-    @override_settings(WAGTAIL_SITE_CACHE='default')
-    def test_disables_with_dummycache(self):
-        with warnings.catch_warnings(record=True) as w:
-            warnings.simplefilter("once")
-            self.assertTrue(Site.objects.get_site_cache() is None)
-            self.assertEqual(len(w), 1)
-            self.assertTrue(issubclass(w[-1].category, UserWarning), True)
-            self.assertTrue(
-                "WAGTAIL_SITE_CACHE is set to 'default', which refers to a "
-                "cache that utilises Django's DummyCache backend"
-                in str(w[-1].message)
-            )
-
-    @override_settings(WAGTAIL_SITE_CACHE='locmem', DEBUG=False)
-    def test_disables_with_locmem_when_debug_mode_disabled(self):
-        with warnings.catch_warnings(record=True) as w:
-            warnings.simplefilter("once")
-            self.assertTrue(Site.objects.get_site_cache() is None)
-            self.assertEqual(len(w), 1)
-            self.assertTrue(issubclass(w[-1].category, UserWarning), True)
-            self.assertTrue(
-                "WAGTAIL_SITE_CACHE is set to 'locmem', which refers to a "
-                "cache that utilises Django's LocMemCache backend"
-                in str(w[-1].message)
-            )
-
-    @override_settings(WAGTAIL_SITE_CACHE='locmem', DEBUG=True)
-    def test_locmem_allowed_in_debug_mode(self):
-        with warnings.catch_warnings(record=True) as w:
-            warnings.simplefilter("once")
-            self.assertTrue(Site.objects.get_site_cache() is not None)
-            self.assertFalse(w)
 
 
 class TestDefaultSite(TestCase):
