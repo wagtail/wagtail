@@ -8,7 +8,9 @@ class TestHTMLRuleset(TestCase):
         ruleset = HTMLRuleset({
             'p': 'paragraph',
             'a[href]': 'link',
-            'a[linktype="page"]': 'page-link',
+            'a[linktype=page]': 'page-link',
+            'a[linktype="silly page"]': 'silly-page-link',
+            "a[linktype='sensible page']": 'sensible-page-link',
         })
 
         self.assertEqual(ruleset.match('div', {}), None)
@@ -18,3 +20,5 @@ class TestHTMLRuleset(TestCase):
         self.assertEqual(ruleset.match('a', {'class': 'button', 'href': 'http://wagtail.io'}), 'link')
         self.assertEqual(ruleset.match('a', {'class': 'button', 'linktype': 'document'}), None)
         self.assertEqual(ruleset.match('a', {'class': 'button', 'linktype': 'page'}), 'page-link')
+        self.assertEqual(ruleset.match('a', {'class': 'button', 'linktype': 'silly page'}), 'silly-page-link')
+        self.assertEqual(ruleset.match('a', {'class': 'button', 'linktype': 'sensible page'}), 'sensible-page-link')

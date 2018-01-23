@@ -3,7 +3,9 @@ import re
 
 ELEMENT_SELECTOR = re.compile(r'^([\w-]+)$')
 ELEMENT_WITH_ATTR_SELECTOR = re.compile(r'^([\w-]+)\[([\w-]+)\]$')
-ELEMENT_WITH_ATTR_EXACT_SELECTOR = re.compile(r'^([\w-]+)\[([\w-]+)="(.*)"\]$')
+ELEMENT_WITH_ATTR_EXACT_SINGLE_QUOTE_SELECTOR = re.compile(r"^([\w-]+)\[([\w-]+)='(.*)'\]$")
+ELEMENT_WITH_ATTR_EXACT_DOUBLE_QUOTE_SELECTOR = re.compile(r'^([\w-]+)\[([\w-]+)="(.*)"\]$')
+ELEMENT_WITH_ATTR_EXACT_UNQUOTED_SELECTOR = re.compile(r"^([\w-]+)\[([\w-]+)=([\w-]+)\]$")
 
 
 class HTMLRuleset():
@@ -32,30 +34,48 @@ class HTMLRuleset():
         for selector, result in rules:
             self.add_rule(selector, result)
 
+    def _add_element_rule(self, name, result):
+        # add a rule that matches on any element with name `name`
+        self.element_rules.setdefault(name, []).append(
+            ((lambda attrs: True), result)
+        )
+
+    def _add_element_with_attr_rule(self, name, attr, result):
+        # add a rule that matches any element with name `name` which has the attribute `attr`
+        self.element_rules.setdefault(name, []).append(
+            ((lambda attrs: attr in attrs), result)
+        )
+
+    def _add_element_with_attr_exact_rule(self, name, attr, value, result):
+        # add a rule that matches any element with name `name` which has an
+        # attribute `attr` equal to `value`
+        self.element_rules.setdefault(name, []).append(
+            ((lambda attrs: attr in attrs and attrs[attr] == value), result)
+        )
+
     def add_rule(self, selector, result):
         match = ELEMENT_SELECTOR.match(selector)
         if match:
             name = match.group(1)
-            self.element_rules.setdefault(name, []).append(
-                ((lambda attrs: True), result)
-            )
+            self._add_element_rule(name, result)
             return
 
         match = ELEMENT_WITH_ATTR_SELECTOR.match(selector)
         if match:
             name, attr = match.groups()
-            self.element_rules.setdefault(name, []).append(
-                ((lambda attrs: attr in attrs), result)
-            )
+            self._add_element_with_attr_rule(name, attr, result)
             return
 
-        match = ELEMENT_WITH_ATTR_EXACT_SELECTOR.match(selector)
-        if match:
-            name, attr, value = match.groups()
-            self.element_rules.setdefault(name, []).append(
-                ((lambda attrs: attr in attrs and attrs[attr] == value), result)
-            )
-            return
+        for regex in (
+            ELEMENT_WITH_ATTR_EXACT_SINGLE_QUOTE_SELECTOR,
+            ELEMENT_WITH_ATTR_EXACT_DOUBLE_QUOTE_SELECTOR,
+            ELEMENT_WITH_ATTR_EXACT_UNQUOTED_SELECTOR
+        ):
+            match = regex.match(selector)
+            if match:
+                name, attr, value = match.groups()
+                self._add_element_with_attr_exact_rule(name, attr, value, result)
+                return
 
     def match(self, name, attrs):
         """
