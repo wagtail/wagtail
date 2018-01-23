@@ -5,6 +5,7 @@ from django.conf import settings
 from django.contrib.admin.utils import quote
 from django.contrib.humanize.templatetags.humanize import intcomma
 from django.contrib.messages.constants import DEFAULT_TAGS as MESSAGE_TAGS
+from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.template.defaultfilters import stringfilter
 from django.template.loader import render_to_string
 from django.utils.html import conditional_escape
@@ -19,6 +20,7 @@ from wagtail.core.models import (
     CollectionViewRestriction, Page, PageViewRestriction, UserPagePermissionsProxy)
 from wagtail.core.utils import cautious_slugify as _cautious_slugify
 from wagtail.core.utils import camelcase_to_underscore, escape_script
+from wagtail.users.utils import get_gravatar_url
 
 register = template.Library()
 
@@ -371,3 +373,22 @@ def _abs(val):
 @register.filter
 def admin_urlquote(value):
     return quote(value)
+
+
+@register.simple_tag
+def avatar_url(user, size=50):
+    """
+    A template tag that receives a user and size and return
+    the appropiate avatar url for that user.
+    Example usage: {% avatar_url request.user 50 %}
+    """
+
+    if hasattr(user, 'wagtail_userprofile') and user.wagtail_userprofile.avatar:
+        return user.wagtail_userprofile.avatar.url
+
+    if hasattr(user, 'email'):
+        gravatar_url = get_gravatar_url(user.email, size=size)
+        if gravatar_url is not None:
+            return gravatar_url
+
+    return static('wagtailadmin/images/default-user-avatar.png')

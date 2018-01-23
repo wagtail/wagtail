@@ -231,6 +231,13 @@ This setting lets you change the number of items shown at 'Your most recent edit
 Allows the default ``LoginForm`` to be extended with extra fields.
 
 
+.. code-block:: python
+
+  WAGTAIL_GRAVATAR_PROVIDER_URL = '//www.gravatar.com/avatar'
+
+If a user has not uploaded a profile picture, Wagtail will look for an avatar linked to their email address on gravatar.com. This setting allows you to specify an alternative provider such as like robohash.org, or can be set to ``None`` to disable the use of remote avatars completely.
+
+
 Images
 ------
 

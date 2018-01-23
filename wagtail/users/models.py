@@ -1,6 +1,18 @@
+import os
+import uuid
+
 from django.conf import settings
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+
+
+def upload_avatar_to(instance, filename):
+    filename, ext = os.path.splitext(filename)
+    return os.path.join(
+        'avatar_images',
+        'avatar_{uuid}_{filename}{ext}'.format(
+            uuid=uuid.uuid4(), filename=filename, ext=ext)
+    )
 
 
 class UserProfile(models.Model):
@@ -31,6 +43,12 @@ class UserProfile(models.Model):
         max_length=10,
         help_text=_("Select language for the admin"),
         default=''
+    )
+
+    avatar = models.ImageField(
+        verbose_name=_('profile picture'),
+        upload_to=upload_avatar_to,
+        blank=True,
     )
 
     @classmethod

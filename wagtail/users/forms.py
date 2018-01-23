@@ -375,3 +375,13 @@ class PreferredLanguageForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = ("preferred_language",)
+
+
+class AvatarPreferencesForm(forms.ModelForm):
+    avatar = forms.ImageField(
+        label=_("Upload a profile picture"), required=True
+    )
+
+    class Meta:
+        model = UserProfile
+        fields = ["avatar"]

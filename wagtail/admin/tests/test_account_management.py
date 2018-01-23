@@ -1,3 +1,7 @@
+import os
+import tempfile
+import unittest
+
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
@@ -9,6 +13,8 @@ from wagtail.tests.utils import WagtailTestUtils
 from wagtail.admin.utils import (
     WAGTAILADMIN_PROVIDED_LANGUAGES, get_available_admin_languages)
 from wagtail.users.models import UserProfile
+
+TMP_MEDIA_ROOT = tempfile.mktemp()
 
 
 class TestAuthentication(TestCase, WagtailTestUtils):
@@ -359,6 +365,68 @@ class TestAccountSection(TestCase, WagtailTestUtils):
     def test_not_show_options_if_only_one_language_is_permitted(self):
         response = self.client.post(reverse('wagtailadmin_account'))
         self.assertNotContains(response, 'Language Preferences')
+
+
+class TestAvatarSection(TestCase, WagtailTestUtils):
+    def _create_image(self):
+        from PIL import Image
+
+        with tempfile.NamedTemporaryFile(suffix='.jpg', delete=False) as f:
+            image = Image.new('RGB', (200, 200), 'white')
+            image.save(f, 'JPEG')
+
+        return open(f.name, mode='rb')
+
+    def setUp(self):
+        self.user = self.login()
+        self.avatar = self._create_image()
+        self.other_avatar = self._create_image()
+
+    def tearDown(self):
+        self.avatar.close()
+        self.other_avatar.close()
+
+    def test_avatar_preferences_view(self):
+        """
+        This tests that the change user profile(avatar) view responds with an index page
+        """
+        response = self.client.get(reverse('wagtailadmin_account_change_avatar'))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/account/change_avatar.html')
+        self.assertContains(response, "Change profile picture")
+
+    @override_settings(MEDIA_ROOT=TMP_MEDIA_ROOT)
+    def test_set_custom_avatar_stores_and_get_custom_avatar(self):
+        response = self.client.post(reverse('wagtailadmin_account_change_avatar'),
+                                    {'avatar': self.avatar},
+                                    follow=True)
+
+        self.assertEqual(response.status_code, 200)
+
+        profile = UserProfile.get_for_user(get_user_model().objects.get(pk=self.user.pk))
+        self.assertIn(os.path.basename(self.avatar.name), profile.avatar.url)
+
+    @unittest.expectedFailure
+    @override_settings(MEDIA_ROOT=TMP_MEDIA_ROOT)
+    def test_user_upload_another_image_removes_previous_one(self):
+        response = self.client.post(reverse('wagtailadmin_account_change_avatar'),
+                                    {'avatar': self.avatar},
+                                    follow=True)
+        self.assertEqual(response.status_code, 200)
+
+        profile = UserProfile.get_for_user(get_user_model().objects.get(pk=self.user.pk))
+        old_avatar_path = profile.avatar.path
+
+        # Upload a new avatar
+        new_response = self.client.post(reverse('wagtailadmin_account_change_avatar'),
+                                        {'avatar': self.other_avatar},
+                                        follow=True)
+        self.assertEqual(new_response.status_code, 200)
+
+        # Check old avatar doesn't exist anymore in filesystem
+        with self.assertRaises(FileNotFoundError):
+            open(old_avatar_path)
 
 
 class TestAccountManagementForNonModerator(TestCase, WagtailTestUtils):
