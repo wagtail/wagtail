@@ -44,8 +44,8 @@ can hook into the rest of your project.
 Wagtail provides three endpoint classes you can use:
 
  - Pages :class:`wagtail.api.v2.endpoints.PagesAPIEndpoint`
- - Images :class:`wagtail.images.api.v2.endpoints.ImagesAPIEndpoint`
- - Documents :class:`wagtail.documents.api.v2.endpoints.DocumentsAPIEndpoint`
+ - Images :class:`wagtail.wagtailimages.api.v2.endpoints.ImagesAPIEndpoint`
+ - Documents :class:`wagtail.wagtaildocuments.api.v2.endpoints.DocumentsAPIEndpoint`
 
 You can subclass any of these endpoint classes to customise their functionality.
 Additionally, there is a base endpoint class you can use for adding different
@@ -60,8 +60,8 @@ types in their default configuration:
 
     from wagtail.api.v2.endpoints import PagesAPIEndpoint
     from wagtail.api.v2.router import WagtailAPIRouter
-    from wagtail.images.api.v2.endpoints import ImagesAPIEndpoint
-    from wagtail.documents.api.v2.endpoints import DocumentsAPIEndpoint
+    from wagtail.wagtailimages.api.v2.endpoints import ImagesAPIEndpoint
+    from wagtail.wagtaildocuments.api.v2.endpoints import DocumentsAPIEndpoint
 
     # Create the router. "wagtailapi" is the URL namespace
     api_router = WagtailAPIRouter('wagtailapi')
@@ -204,7 +204,7 @@ For example:
 
 .. code-block:: python
 
-    from wagtail.images.api.fields import ImageRenditionField
+    from wagtail.wagtailimages.api.fields import ImageRenditionField
 
     class BlogPage(Page):
         ...
