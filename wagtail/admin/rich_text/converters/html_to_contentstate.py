@@ -9,13 +9,19 @@ from wagtail.core.rich_text import features as feature_registry
 from wagtail.core.models import Page
 
 
+# constants to keep track of what to do with leading whitespace on the next text node we encounter
+STRIP_WHITESPACE = 0
+KEEP_WHITESPACE = 1
+FORCE_WHITESPACE = 2
+
+
 class HandlerState(object):
     def __init__(self):
         self.current_block = None
         self.current_inline_styles = []
         self.current_entity_ranges = []
         # what to do with leading whitespace on the next text node we encounter: strip, keep or force
-        self.leading_whitespace = 'strip'
+        self.leading_whitespace = STRIP_WHITESPACE
         self.list_depth = 0
         self.list_item_type = None
         self.pushed_states = []
@@ -72,7 +78,7 @@ class BlockElementHandler(object):
         block = self.create_block(name, dict(attrs), state, contentstate)
         contentstate.blocks.append(block)
         state.current_block = block
-        state.leading_whitespace = 'strip'
+        state.leading_whitespace = STRIP_WHITESPACE
 
     def handle_endtag(self, name, state, contentState):
         assert not state.current_inline_styles, "End of block reached without closing inline style elements"
@@ -98,11 +104,11 @@ class InlineStyleElementHandler(object):
     def handle_starttag(self, name, attrs, state, contentstate):
         assert state.current_block is not None, "%s element found at the top level" % name
 
-        if state.leading_whitespace == 'force':
+        if state.leading_whitespace == FORCE_WHITESPACE:
             # any pending whitespace should be output before handling this tag,
             # and subsequent whitespace should be collapsed into it (= stripped)
             state.current_block.text += ' '
-            state.leading_whitespace = 'strip'
+            state.leading_whitespace = STRIP_WHITESPACE
 
         inline_style_range = InlineStyleRange(self.style)
         inline_style_range.offset = len(state.current_block.text)
@@ -126,11 +132,11 @@ class InlineEntityElementHandler(object):
     def handle_starttag(self, name, attrs, state, contentstate):
         assert state.current_block is not None, "%s element found at the top level" % name
 
-        if state.leading_whitespace == 'force':
+        if state.leading_whitespace == FORCE_WHITESPACE:
             # any pending whitespace should be output before handling this tag,
             # and subsequent whitespace should be collapsed into it (= stripped)
             state.current_block.text += ' '
-            state.leading_whitespace = 'strip'
+            state.leading_whitespace = STRIP_WHITESPACE
 
         attrs = dict(attrs)
 
@@ -230,7 +236,7 @@ class HtmlToContentStateHandler(HTMLParser):
     def add_block(self, block):
         self.contentstate.blocks.append(block)
         self.state.current_block = block
-        self.state.leading_whitespace = 'strip'
+        self.state.leading_whitespace = STRIP_WHITESPACE
 
     def handle_starttag(self, name, attrs):
         element_handler = self.element_handlers.match(name, dict(attrs))
@@ -263,29 +269,29 @@ class HtmlToContentStateHandler(HTMLParser):
                 self.add_block(Block('unstyled', depth=self.state.list_depth))
 
         if content == ' ':
-            # if leading_whitespace = 'strip', this whitespace node is not significant
+            # if leading_whitespace = strip, this whitespace node is not significant
             #   and should be skipped.
-            # For other cases, _don't_ output the whitespace yet, but set leading_whitespace = 'force'
+            # For other cases, _don't_ output the whitespace yet, but set leading_whitespace = force
             # so that a space is forced before the next text node or inline element. If no such node
             # appears (= we reach the end of the block), the whitespace can rightfully be dropped.
-            if self.state.leading_whitespace != 'strip':
-                self.state.leading_whitespace = 'force'
+            if self.state.leading_whitespace != STRIP_WHITESPACE:
+                self.state.leading_whitespace = FORCE_WHITESPACE
         else:
             # strip or add leading whitespace according to the leading_whitespace flag
-            if self.state.leading_whitespace == 'strip':
+            if self.state.leading_whitespace == STRIP_WHITESPACE:
                 content = content.lstrip()
-            elif self.state.leading_whitespace == 'force' and not content.startswith(' '):
+            elif self.state.leading_whitespace == FORCE_WHITESPACE and not content.startswith(' '):
                 content = ' ' + content
 
             if content.endswith(' '):
                 # don't output trailing whitespace yet, because we want to discard it if the end
-                # of the block follows. Instead, we'll set leading_whitespace = 'force' so that
+                # of the block follows. Instead, we'll set leading_whitespace = force so that
                 # any following text or inline element will be prefixed by a space
                 content = content.rstrip()
-                self.state.leading_whitespace = 'force'
+                self.state.leading_whitespace = FORCE_WHITESPACE
             else:
                 # no trailing whitespace here - any leading whitespace at the start of the
                 # next text node should be respected
-                self.state.leading_whitespace = 'keep'
+                self.state.leading_whitespace = KEEP_WHITESPACE
 
             self.state.current_block.text += content
