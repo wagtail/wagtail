@@ -14,6 +14,8 @@ STRIP_WHITESPACE = 0
 KEEP_WHITESPACE = 1
 FORCE_WHITESPACE = 2
 
+WHITESPACE_RE = re.compile(r'\s+')
+
 
 class HandlerState:
     def __init__(self):
@@ -216,16 +218,15 @@ class HorizontalRuleHandler(AtomicBlockEntityElementHandler):
 
 
 class HtmlToContentStateHandler(HTMLParser):
-    def __init__(self, features=None):
+    def __init__(self, features=()):
         self.paragraph_handler = BlockElementHandler('unstyled')
         self.element_handlers = HTMLRuleset({
             'p': self.paragraph_handler
         })
-        if features is not None:
-            for feature in features:
-                rule = feature_registry.get_converter_rule('contentstate', feature)
-                if rule is not None:
-                    self.element_handlers.add_rules(rule['from_database_format'])
+        for feature in features:
+            rule = feature_registry.get_converter_rule('contentstate', feature)
+            if rule is not None:
+                self.element_handlers.add_rules(rule['from_database_format'])
 
         super().__init__()
 
@@ -264,7 +265,7 @@ class HtmlToContentStateHandler(HTMLParser):
 
     def handle_data(self, content):
         # normalise whitespace sequences to a single space
-        content = re.sub(r'\s+', ' ', content)
+        content = re.sub(WHITESPACE_RE, ' ', content)
 
         if self.state.current_block is None:
             if content == ' ':
