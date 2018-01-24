@@ -15,7 +15,7 @@ KEEP_WHITESPACE = 1
 FORCE_WHITESPACE = 2
 
 
-class HandlerState(object):
+class HandlerState:
     def __init__(self):
         self.current_block = None
         self.current_inline_styles = []
@@ -46,7 +46,7 @@ class HandlerState(object):
         self.list_item_type = last_state['list_item_type']
 
 
-class ListElementHandler(object):
+class ListElementHandler:
     """ Handler for <ul> / <ol> tags """
     def __init__(self, list_item_type):
         self.list_item_type = list_item_type
@@ -67,7 +67,7 @@ class ListElementHandler(object):
         state.pop()
 
 
-class BlockElementHandler(object):
+class BlockElementHandler:
     def __init__(self, block_type):
         self.block_type = block_type
 
@@ -97,7 +97,7 @@ class ListItemElementHandler(BlockElementHandler):
         return Block(state.list_item_type, depth=state.list_depth)
 
 
-class InlineStyleElementHandler(object):
+class InlineStyleElementHandler:
     def __init__(self, style):
         self.style = style
 
@@ -121,7 +121,7 @@ class InlineStyleElementHandler(object):
         inline_style_range.length = len(state.current_block.text) - inline_style_range.offset
 
 
-class InlineEntityElementHandler(object):
+class InlineEntityElementHandler:
     """
     Abstract superclass for elements that will be represented as inline entities.
     Subclasses should define a `mutability` property
@@ -179,7 +179,7 @@ class PageLinkElementHandler(LinkElementHandler):
         }
 
 
-class AtomicBlockEntityElementHandler(object):
+class AtomicBlockEntityElementHandler:
     """
     Handler for elements like <img> that exist as a single immutable item at the block level
     """

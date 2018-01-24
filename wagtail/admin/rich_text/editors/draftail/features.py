@@ -4,7 +4,7 @@
 # enable that feature.
 
 
-class BooleanFeature():
+class BooleanFeature:
     """
     A feature which is enabled by a boolean flag at the top level of
     the options dict
@@ -16,7 +16,7 @@ class BooleanFeature():
         options[self.option_name] = True
 
 
-class ListFeature():
+class ListFeature:
     """
     Abstract class for features that are defined in a list within the options dict.
     Subclasses must define option_name
