@@ -1,11 +1,9 @@
 from django.conf.urls import url
 from django.contrib.auth.models import Permission
-from django.core import checks
 from django.core.exceptions import ImproperlyConfigured
 from django.db.models import Model
 from django.utils.safestring import mark_safe
 
-from wagtail.admin.checks import check_panels_in_model
 from wagtail.core import hooks
 from wagtail.core.models import Page
 
@@ -15,6 +13,12 @@ from .helpers import (
 from .menus import GroupMenuItem, ModelAdminMenuItem, SubMenu
 from .mixins import ThumbnailMixin  # NOQA
 from .views import ChooseParentView, CreateView, DeleteView, EditView, IndexView, InspectView
+
+MODELADMIN_MODELS = []
+
+
+def get_modeladmin_models():
+    return MODELADMIN_MODELS
 
 
 class WagtailRegisterable:
@@ -52,6 +56,11 @@ class WagtailRegisterable:
             def construct_explorer_page_queryset(parent_page, queryset, request):
                 return self.modify_explorer_page_queryset(
                     parent_page, queryset, request)
+
+        for model in self.get_models():
+            if model not in MODELADMIN_MODELS:
+                MODELADMIN_MODELS.append(model)
+                MODELADMIN_MODELS.sort(key=lambda x: x._meta.verbose_name)
 
     def will_modify_explorer_page_queryset(self):
         return False
@@ -499,12 +508,8 @@ class ModelAdmin(WagtailRegisterable):
             queryset = queryset.not_type(self.model)
         return queryset
 
-    def register_with_wagtail(self):
-        super().register_with_wagtail()
-
-        @checks.register('panels')
-        def modeladmin_model_check(app_configs, **kwargs):
-            return check_panels_in_model(self.model, 'modeladmin')
+    def get_models(self):
+        return [self.model]
 
 
 class ModelAdminGroup(WagtailRegisterable):
@@ -593,15 +598,9 @@ class ModelAdminGroup(WagtailRegisterable):
                 parent_page, queryset, request)
         return queryset
 
-    def register_with_wagtail(self):
-        super().register_with_wagtail()
+    def get_models(self):
+        return [modeladmin_class.model for modeladmin_class in self.items]
 
-        @checks.register('panels')
-        def modeladmin_model_check(app_configs, **kwargs):
-            errors = []
-            for modeladmin_class in self.items:
-                errors.extend(check_panels_in_model(modeladmin_class.model))
-            return errors
 
 
 def modeladmin_register(modeladmin_class):

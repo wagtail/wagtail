@@ -6,10 +6,15 @@ from django.test import TestCase
 import mock
 
 from wagtail.admin.edit_handlers import FieldPanel, TabbedInterface
+from wagtail.contrib.modeladmin.options import (
+    ModelAdmin, ModelAdminGroup, get_modeladmin_models, modeladmin_register)
 from wagtail.images.models import Image
 from wagtail.images.tests.utils import get_test_image_file
-from wagtail.tests.modeladmintest.models import Author, Book, Publisher, Token
+from wagtail.tests.modeladmintest.models import (
+    Author, Book, EventSupplier, PrintMediaCampaign, Publisher,
+    SocialMediaCampaign, Token, VenuePage, VenuePageRelatedSeatingSection)
 from wagtail.tests.utils import WagtailTestUtils
+
 
 
 class TestBookIndexView(TestCase, WagtailTestUtils):
@@ -487,7 +492,56 @@ class TestQuoting(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
 
-class TestPanelConfigurationChecks(TestCase, WagtailTestUtils):
+class TestModelAdminRegistration(TestCase, WagtailTestUtils):
+    """Tests the registration of modeladmin models works as intended."""
+
+    def test_registration_of_model_admin(self):
+        modeladmin_models_before = get_modeladmin_models()
+        self.assertNotIn(SocialMediaCampaign, modeladmin_models_before)
+
+        class SocialMediaCampaignAdmin(ModelAdmin):
+            model = SocialMediaCampaign
+
+        modeladmin_register(SocialMediaCampaignAdmin)
+
+        modeladmin_models_after = get_modeladmin_models()
+        self.assertIn(SocialMediaCampaign, modeladmin_models_after)
+
+    def test_registration_of_model_admin_group(self):
+        modeladmin_models_before = get_modeladmin_models()
+        self.assertNotIn(PrintMediaCampaign, modeladmin_models_before)
+
+        class SocialMediaCampaignAdmin(ModelAdmin):
+            model = SocialMediaCampaign
+
+        class PrintMediaCampaignAdmin(ModelAdmin):
+            model = PrintMediaCampaign
+
+        class CampaignsAdminGroup(ModelAdminGroup):
+            items = (
+                SocialMediaCampaignAdmin,
+                PrintMediaCampaignAdmin,
+            )
+
+        modeladmin_register(CampaignsAdminGroup)
+
+        modeladmin_models_after = get_modeladmin_models()
+        self.assertIn(PrintMediaCampaign, modeladmin_models_after)
+
+    def test_model_admin_registered_models(self):
+        """Test models within ModelAdmin are registered correctly."""
+        modeladmin_models = get_modeladmin_models()
+        self.assertIn(Author, modeladmin_models)
+        self.assertIn(Book, modeladmin_models)
+
+    def test_model_admin_group_registered_models(self):
+        """Test models within a ModelAdminGroup are registered correctly."""
+        modeladmin_models = get_modeladmin_models()
+        self.assertIn(EventSupplier, modeladmin_models)
+        self.assertIn(VenuePage, modeladmin_models)
+
+
+class TestPanelConfigurationChecksInModelAdmin(TestCase, WagtailTestUtils):
 
     def test_model_with_single_tabbed_panel_only(self):
 
@@ -558,3 +612,99 @@ class TestPanelConfigurationChecks(TestCase, WagtailTestUtils):
 
         del Publisher.content_panels
         del Publisher.edit_handler
+
+
+class TestPanelConfigurationChecksInModelAdminGroup(TestCase, WagtailTestUtils):
+
+    def test_model_with_single_tabbed_panel_only(self):
+
+        EventSupplier.content_panels = [FieldPanel('name'), FieldPanel('website')]
+
+        warning = checks.Warning(
+            "EventSupplier.content_panels will have no effect on modeladmin editing",
+            hint="""Ensure that EventSupplier uses `panels` instead of `content_panels`
+        or set up an `edit_handler` if you want a tabbed editing interface.
+        There are no default tabs on non-Page models so there will be no
+        Content tab for the content_panels to render in.""",
+            obj=EventSupplier,
+            id='wagtailadmin.W002',
+        )
+
+        # run checks only with the 'panels' tag
+        errors = [e for e in checks.run_checks(tags=['panels']) if e.obj == EventSupplier]
+        self.assertEqual(errors, [warning])
+
+        # clean up for future checks
+        del EventSupplier.content_panels
+
+
+    def test_inline_panel_related_model(self):
+        """Check that a modeladmin model's inlinepanel related model is checked."""
+
+        VenuePageRelatedSeatingSection.content_panels = [
+            FieldPanel('name'), FieldPanel('seats')]
+
+        warning = checks.Warning(
+            "VenuePageRelatedSeatingSection.content_panels will have no effect on InlinePanel model editing",
+            hint="""Ensure that VenuePageRelatedSeatingSection uses `panels` instead of `content_panels`.
+        There are no tabs on non-Page model editing within InlinePanels.
+        """,
+            obj=VenuePageRelatedSeatingSection,
+            id='wagtailadmin.W002',
+        )
+
+        # run checks only with the 'panels' tag
+        errors = [e for e in checks.run_checks(tags=['panels']) if e.obj == VenuePageRelatedSeatingSection]
+        self.assertIn(warning, errors)
+
+        # clean up for future checks
+        del VenuePageRelatedSeatingSection.content_panels
+
+
+    def test_model_with_two_tabbed_panels_only(self):
+
+        EventSupplier.settings_panels = [FieldPanel('name'), FieldPanel('email')]
+        EventSupplier.promote_panels = [FieldPanel('area')]
+
+
+        warning_1 = checks.Warning(
+            "EventSupplier.promote_panels will have no effect on modeladmin editing",
+            hint="""Ensure that EventSupplier uses `panels` instead of `promote_panels`
+        or set up an `edit_handler` if you want a tabbed editing interface.
+        There are no default tabs on non-Page models so there will be no
+        Promote tab for the promote_panels to render in.""",
+            obj=EventSupplier,
+            id='wagtailadmin.W002',
+        )
+
+        warning_2 = checks.Warning(
+            "EventSupplier.settings_panels will have no effect on modeladmin editing",
+            hint="""Ensure that EventSupplier uses `panels` instead of `settings_panels`
+        or set up an `edit_handler` if you want a tabbed editing interface.
+        There are no default tabs on non-Page models so there will be no
+        Settings tab for the settings_panels to render in.""",
+            obj=EventSupplier,
+            id='wagtailadmin.W002',
+        )
+
+        # run checks only with the 'panels' tag
+        errors = [e for e in checks.run_checks(tags=['panels']) if e.obj == EventSupplier]
+        self.assertEqual(errors, [warning_1, warning_2])
+
+        # clean up for future checks
+        del EventSupplier.settings_panels
+        del EventSupplier.promote_panels
+
+
+    def test_model_with_single_tabbed_panel_and_edit_handler(self):
+
+        EventSupplier.content_panels = [FieldPanel('name'), FieldPanel('email')]
+        EventSupplier.edit_handler = TabbedInterface(EventSupplier.content_panels)
+
+        # run checks only with the 'panels' tag
+        errors = [e for e in checks.run_checks(tags=['panels']) if e.obj == EventSupplier]
+        # no errors should occur
+        self.assertEqual(errors, [])
+
+        del EventSupplier.content_panels
+        del EventSupplier.edit_handler

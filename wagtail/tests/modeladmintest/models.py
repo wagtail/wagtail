@@ -1,7 +1,9 @@
 from django.db import models
 
-from wagtail.core.models import Page
+from wagtail.admin.edit_handlers import FieldPanel, InlinePanel
+from wagtail.core.models import Orderable, Page
 from wagtail.search import index
+
 
 
 class Author(models.Model):
@@ -46,3 +48,60 @@ class Publisher(models.Model):
 class VenuePage(Page):
     address = models.CharField(max_length=300)
     capacity = models.IntegerField()
+
+    content_panels = Page.content_panels + [
+        FieldPanel('address'),
+        FieldPanel('capacity'),
+        InlinePanel('related_seating_sections'),
+    ]
+
+
+class VenuePageRelatedSeatingSection(Orderable):
+    name = models.CharField(max_length=50)
+    seats = models.IntegerField()
+    page = models.ForeignKey(
+        VenuePage,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='related_seating_sections'
+    )
+
+    panels = [FieldPanel('name'), FieldPanel('seats')]
+
+
+class EventSupplier(models.Model):
+    name = models.CharField(max_length=50)
+    services = models.CharField(max_length=150)
+    email = models.EmailField(blank=True)
+    website = models.URLField(blank=True)
+
+
+class SocialMediaCampaign(models.Model):
+    name = models.CharField(max_length=50)
+    caption = models.CharField(max_length=255, blank=True)
+    artwork = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+
+    def __str__(self):
+        return self.name
+
+
+class PrintMediaCampaign(models.Model):
+    name = models.CharField(max_length=50)
+    copy = models.CharField(max_length=255, blank=True)
+    artwork = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+
+    def __str__(self):
+        return self.name
