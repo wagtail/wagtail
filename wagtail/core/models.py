@@ -46,12 +46,10 @@ class SiteManager(models.Manager):
     @classmethod
     def get_site_cache(cls):
         """Returns a cache instance to use for site caching operations, or
-        ``None`` if site caching isn't enabled
+        ``None`` if site caching is disabled
         """
-        enabled = getattr(settings, 'WAGTAIL_SITE_CACHE_ENABLED', False)
-        if not enabled:
-            return
-        return caches[getattr(settings, 'WAGTAIL_SITE_CACHE', 'default')]
+        if getattr(settings, 'WAGTAIL_SITE_CACHE_ENABLED', False):
+            return caches[getattr(settings, 'WAGTAIL_SITE_CACHE', 'default')]
 
     @staticmethod
     def get_hostname_and_port_from_request(request):
