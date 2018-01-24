@@ -203,9 +203,6 @@ class AtomicBlockEntityElementHandler(object):
 
 
 class HorizontalRuleHandler(AtomicBlockEntityElementHandler):
-    def handle_starttag(self, name, attrs, state, contentstate):
-        return super().handle_starttag(name, attrs, state, contentstate)
-
     def create_entity(self, name, attrs, state, contentstate):
         return Entity('HORIZONTAL_RULE', 'IMMUTABLE', {})
 
