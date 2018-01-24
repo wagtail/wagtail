@@ -42,7 +42,7 @@ class BaseRichTextEditHandlerTestCase(TestCase):
 
 
 class TestGetRichTextEditorWidget(TestCase):
-    @override_settings()
+    @override_settings()  # create temporary copy of settings so we can remove WAGTAILADMIN_RICH_TEXT_EDITORS
     def test_default(self):
         # Simulate the absence of a setting
         if hasattr(settings, 'WAGTAILADMIN_RICH_TEXT_EDITORS'):
@@ -88,7 +88,7 @@ class TestDefaultRichText(BaseRichTextEditHandlerTestCase, WagtailTestUtils):
 
         self.login()
 
-    @override_settings()
+    @override_settings()  # create temporary copy of settings so we can remove WAGTAILADMIN_RICH_TEXT_EDITORS
     def test_default_editor_in_rich_text_field(self):
         # Simulate the absence of a setting
         if hasattr(settings, 'WAGTAILADMIN_RICH_TEXT_EDITORS'):
@@ -107,7 +107,7 @@ class TestDefaultRichText(BaseRichTextEditHandlerTestCase, WagtailTestUtils):
         # check that media for draftail is being imported
         self.assertContains(response, 'wagtailadmin/js/draftail.js')
 
-    @override_settings()
+    @override_settings()  # create temporary copy of settings so we can remove WAGTAILADMIN_RICH_TEXT_EDITORS
     def test_default_editor_in_rich_text_block(self):
         # Simulate the absence of a setting
         if hasattr(settings, 'WAGTAILADMIN_RICH_TEXT_EDITORS'):
