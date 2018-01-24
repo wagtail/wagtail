@@ -3,12 +3,15 @@ import random
 import string
 
 
+ALPHANUM = string.ascii_lowercase + string.digits
+
+
 class Block(object):
     def __init__(self, typ, depth=0):
         self.type = typ
         self.depth = depth
         self.text = ""
-        self.key = ''.join(random.choice(string.ascii_lowercase + string.digits) for _ in range(5))
+        self.key = ''.join(random.choice(ALPHANUM) for _ in range(5))
         self.inline_style_ranges = []
         self.entity_ranges = []
 
