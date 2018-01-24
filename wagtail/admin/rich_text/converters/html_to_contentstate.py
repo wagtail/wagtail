@@ -166,16 +166,11 @@ class PageLinkElementHandler(LinkElementHandler):
         except Page.DoesNotExist:
             return {}
 
-        data = {
+        return {
             'id': page.id,
             'url': page.url,
+            'parentId': page.get_parent().id,
         }
-
-        parent_page = page.get_parent()
-        if parent_page:
-            data['parentId'] = parent_page.id
-
-        return data
 
 
 class AtomicBlockEntityElementHandler(object):
