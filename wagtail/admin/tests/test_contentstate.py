@@ -12,14 +12,14 @@ def content_state_equal(v1, v2):
     if type(v1) != type(v2):
         return False
 
-    if type(v1) == dict:
+    if isinstance(v1, dict):
         if set(v1.keys()) != set(v2.keys()):
             return False
         return all(
             k == 'key' or content_state_equal(v, v2[k])
             for k, v in v1.items()
         )
-    elif type(v1) == list:
+    elif isinstance(v1, list):
         if len(v1) != len(v2):
             return False
         return all(
