@@ -115,7 +115,11 @@ class InlineStyleElementHandler(object):
         inline_style_range.length = len(state.current_block.text) - inline_style_range.offset
 
 
-class LinkElementHandler(object):
+class InlineEntityElementHandler(object):
+    """
+    Abstract superclass for elements that will be represented as inline entities.
+    Subclasses should define a `mutability` property
+    """
     def __init__(self, entity_type):
         self.entity_type = entity_type
 
@@ -130,7 +134,7 @@ class LinkElementHandler(object):
 
         attrs = dict(attrs)
 
-        entity = Entity(self.entity_type, 'MUTABLE', self.get_attribute_data(attrs))
+        entity = Entity(self.entity_type, self.mutability, self.get_attribute_data(attrs))
         key = contentstate.add_entity(entity)
 
         entity_range = EntityRange(key)
@@ -144,6 +148,10 @@ class LinkElementHandler(object):
     def handle_endtag(self, name, state, contentstate):
         entity_range = state.current_entity_ranges.pop()
         entity_range.length = len(state.current_block.text) - entity_range.offset
+
+
+class LinkElementHandler(InlineEntityElementHandler):
+    mutability = 'MUTABLE'
 
 
 class ExternalLinkElementHandler(LinkElementHandler):
