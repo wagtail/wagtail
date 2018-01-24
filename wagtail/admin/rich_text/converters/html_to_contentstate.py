@@ -75,7 +75,8 @@ class BlockElementHandler:
         return Block(self.block_type, depth=state.list_depth)
 
     def handle_starttag(self, name, attrs, state, contentstate):
-        block = self.create_block(name, dict(attrs), state, contentstate)
+        attr_dict = dict(attrs)  # convert attrs from list of (name, value) tuples to a dict
+        block = self.create_block(name, attr_dict, state, contentstate)
         contentstate.blocks.append(block)
         state.current_block = block
         state.leading_whitespace = STRIP_WHITESPACE
@@ -138,6 +139,8 @@ class InlineEntityElementHandler:
             state.current_block.text += ' '
             state.leading_whitespace = STRIP_WHITESPACE
 
+        # convert attrs from a list of (name, value) tuples to a dict
+        # for get_attribute_data to work with
         attrs = dict(attrs)
 
         entity = Entity(self.entity_type, self.mutability, self.get_attribute_data(attrs))
@@ -149,6 +152,10 @@ class InlineEntityElementHandler:
         state.current_entity_ranges.append(entity_range)
 
     def get_attribute_data(self, attrs):
+        """
+        Given a dict of attributes found on the source element, return the data dict
+        to be associated with the resulting entity
+        """
         return {}
 
     def handle_endtag(self, name, state, contentstate):
@@ -187,7 +194,8 @@ class AtomicBlockEntityElementHandler:
         # forcibly close any block that illegally contains this one
         state.current_block = None
 
-        entity = self.create_entity(name, dict(attrs), state, contentstate)
+        attr_dict = dict(attrs)  # convert attrs from list of (name, value) tuples to a dict
+        entity = self.create_entity(name, attr_dict, state, contentstate)
         key = contentstate.add_entity(entity)
 
         block = Block('atomic', depth=state.list_depth)
@@ -236,7 +244,8 @@ class HtmlToContentStateHandler(HTMLParser):
         self.state.leading_whitespace = STRIP_WHITESPACE
 
     def handle_starttag(self, name, attrs):
-        element_handler = self.element_handlers.match(name, dict(attrs))
+        attr_dict = dict(attrs)  # convert attrs from list of (name, value) tuples to a dict
+        element_handler = self.element_handlers.match(name, attr_dict)
 
         if element_handler is None and not self.open_elements:
             # treat unrecognised top-level elements as paragraphs
