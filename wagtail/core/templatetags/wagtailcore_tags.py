@@ -40,14 +40,6 @@ def slugurl(context, slug):
     else:
         return None
 
-    try:
-        current_site = context['request'].site
-    except (KeyError, AttributeError):
-        # request.site not available in the current context; fall back on page.url
-        return page.url
-
-    return page.relative_url(current_site)
-
 
 @register.simple_tag
 def wagtail_version():
