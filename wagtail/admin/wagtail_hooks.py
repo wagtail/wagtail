@@ -437,14 +437,9 @@ def register_core_features(features):
             # We want to enforce constraints on which links can be pasted into rich text.
             # Keep only the attributes Wagtail needs.
             'attributes': ['url', 'id', 'parentId'],
-            # Keep only links which:
-            # - have an undefined href (only set when pasting), or
-            # - Do not start with # (anchor)
-            # - Do not start with / (internal)
-            # - Do not start with mailto: (email)
-            # For mailto, Wagtail does support those but they could come with query parameters that Wagtail does not support.
             'whitelist': {
-                'href': '^(?!(#|/|mailto:))',
+                # Keep pasted links with http/https protocol, and not-pasted links (href = undefined).
+                'href': "^(http:|https:|undefined$)",
             }
         })
     )
