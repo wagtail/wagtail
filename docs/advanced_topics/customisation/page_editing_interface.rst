@@ -101,6 +101,18 @@ This process for adding new features is described in the following sections.
 Extending the WYSIWYG Editor (``hallo.js``)
 +++++++++++++++++++++++++++++++++++++++++++
 
+.. note::
+  The customisations described here are only available on the hallo.js rich text editor used on Wagtail 1.x. To use hallo.js on Wagtail 2.x, add the following to your settings:
+
+  .. code-block:: python
+
+    WAGTAILADMIN_RICH_TEXT_EDITORS = {
+        'default': {
+            'WIDGET': 'wagtail.admin.rich_text.HalloRichTextArea'
+        }
+    }
+
+
 Wagtail's rich text editor is built on ``hallo.js``, and its functionality can be extended through plugins. For information on developing custom ``hallo.js`` plugins, see the project's page: https://github.com/bergie/hallo
 
 Once the plugin has been created, it should be registered through the feature registry's ``register_editor_plugin(editor, feature_name, plugin)`` method. For a ``hallo.js`` plugin, the ``editor`` parameter should always be ``'hallo'``.

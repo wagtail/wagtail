@@ -6,6 +6,7 @@ Changelog
 
  * Added support for Django 2.0 (Matt Westcott, Karl Hobley, LB (Ben Johnston), Mads Jensen)
  * Reorganised module paths (Karl Hobley, Matt Westcott)
+ * Replaced the hallo.js rich text editor with Draftail (Thibaud Colas, Loïc Teixeira, Matt Westcott)
  * Removed support for Python 2.7, Django 1.8 and Django 1.10
  * Removed support for Elasticsearch 1.x
  * Added the ability to schedule updates to existing published pages (Patrick Woods)

@@ -16,6 +16,12 @@ Added Django 2.0 support
 Wagtail is now compatible with Django 2.0. Compatibility fixes were contributed by Matt Westcott, Karl Hobley, LB (Ben Johnston) and Mads Jensen.
 
 
+New rich text editor
+~~~~~~~~~~~~~~~~~~~~
+
+Wagtail's rich text editor has now been replaced with `Draftail <https://github.com/springload/draftail>`_, a new editor based on `Draft.js <https://draftjs.org/>`_, fixing numerous bugs and providing an improved editing experience, better support for current browsers, and more consistent HTML output. This feature was developed by Thibaud Colas, Loïc Teixeira and Matt Westcott.
+
+
 Reorganised modules
 ~~~~~~~~~~~~~~~~~~~
 
@@ -173,6 +179,20 @@ However, note that this only applies to dotted module paths beginning with ``wag
 * Template tag library names, e.g. ``{% load wagtailcore_tags %}``
 
 
+Hallo.js customisations are unavailable on the Draftail rich text editor
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The Draftail rich text editor has a substantially different API from Hallo.js, including the use of a non-HTML format for its internal data representation; as a result, functionality added through Hallo.js plugins will be unavailable. If your project is dependent on Hallo.js-specific behaviour, you can revert to the original Hallo-based editor by adding the following to your settings:
+
+  .. code-block:: python
+
+    WAGTAILADMIN_RICH_TEXT_EDITORS = {
+        'default': {
+            'WIDGET': 'wagtail.admin.rich_text.HalloRichTextArea'
+        }
+    }
+
+
 Removed support for Elasticsearch 1.x
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -229,6 +249,8 @@ can be rewritten as:
 
         # add 'blockquote' to the default feature set
         features.default_features.append('blockquote')
+
+Please note that the new Draftail rich text editor uses a different mechanism to process rich text content, and does not apply whitelist rules; they only take effect when the Hallo.js editor is in use.
 
 
 ``wagtail.images.views.serve.generate_signature`` now returns a string
