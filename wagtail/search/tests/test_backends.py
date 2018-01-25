@@ -9,13 +9,13 @@ from django.core import management
 from django.test import TestCase
 from django.test.utils import override_settings
 
-from wagtail.tests.search import models
-from wagtail.tests.utils import WagtailTestUtils
 from wagtail.search.backends import (
     InvalidSearchBackendError, get_search_backend, get_search_backends)
 from wagtail.search.backends.base import FieldError
 from wagtail.search.backends.db import DatabaseSearchBackend
 from wagtail.search.query import MATCH_ALL, And, Boost, Filter, Not, Or, PlainText, Term
+from wagtail.tests.search import models
+from wagtail.tests.utils import WagtailTestUtils
 
 
 class BackendTests(WagtailTestUtils):

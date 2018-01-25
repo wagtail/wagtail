@@ -5,7 +5,7 @@ from django.utils.functional import cached_property
 from wagtail.core import hooks
 from wagtail.core.rich_text import features as feature_registry
 from wagtail.core.rich_text.rewriters import EmbedRewriter, LinkRewriter, MultiRuleRewriter
-from wagtail.core.whitelist import allow_without_attributes, Whitelister
+from wagtail.core.whitelist import Whitelister, allow_without_attributes
 from wagtail.utils.deprecation import RemovedInWagtail22Warning
 
 

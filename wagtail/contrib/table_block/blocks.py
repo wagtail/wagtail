@@ -8,7 +8,6 @@ from django.utils.functional import cached_property
 from wagtail.core.blocks import FieldBlock
 from wagtail.utils.widgets import WidgetWithScript
 
-
 DEFAULT_TABLE_OPTIONS = {
     'minSpareRows': 0,
     'startRows': 3,

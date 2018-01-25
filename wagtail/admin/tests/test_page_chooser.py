@@ -3,10 +3,10 @@ from django.test import TestCase
 from django.urls import reverse
 from django.utils.http import urlencode
 
-from wagtail.tests.testapp.models import EventIndex, EventPage, SimplePage, SingleEventPage
-from wagtail.tests.utils import WagtailTestUtils
 from wagtail.admin.views.chooser import can_choose_page
 from wagtail.core.models import Page, UserPagePermissionsProxy
+from wagtail.tests.testapp.models import EventIndex, EventPage, SimplePage, SingleEventPage
+from wagtail.tests.utils import WagtailTestUtils
 
 
 class TestChooserBrowse(TestCase, WagtailTestUtils):

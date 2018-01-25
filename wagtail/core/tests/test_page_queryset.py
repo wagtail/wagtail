@@ -1,10 +1,10 @@
 from django.contrib.contenttypes.models import ContentType
 from django.test import TestCase
 
-from wagtail.tests.testapp.models import EventPage, SimplePage, SingleEventPage
 from wagtail.core.models import Page, PageViewRestriction, Site
 from wagtail.core.signals import page_unpublished
 from wagtail.search.query import MATCH_ALL
+from wagtail.tests.testapp.models import EventPage, SimplePage, SingleEventPage
 
 
 class TestPageQuerySet(TestCase):

@@ -1,9 +1,9 @@
 from django.test import TestCase
 from django.test.utils import override_settings
 
-from wagtail.tests.testapp.models import EventPage, SimplePage
 from wagtail.admin import widgets
 from wagtail.core.models import Page
+from wagtail.tests.testapp.models import EventPage, SimplePage
 
 
 class TestAdminPageChooserWidget(TestCase):

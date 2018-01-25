@@ -1,10 +1,10 @@
 from django.test import TestCase
 
+from wagtail.core.models import PAGE_MODEL_CLASSES, Page, Site
 from wagtail.tests.testapp.models import (
     BusinessChild, BusinessIndex, BusinessNowherePage, BusinessSubIndex, EventIndex, EventPage,
     SimplePage, StreamPage)
 from wagtail.tests.utils import WagtailPageTests, WagtailTestUtils
-from wagtail.core.models import PAGE_MODEL_CLASSES, Page, Site
 
 
 class TestAssertTagInHTML(WagtailTestUtils, TestCase):

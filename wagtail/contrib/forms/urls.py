@@ -1,6 +1,7 @@
 from django.conf.urls import url
 
-from wagtail.contrib.forms.views import DeleteSubmissionsView, FormPagesListView, get_submissions_list_view
+from wagtail.contrib.forms.views import (
+    DeleteSubmissionsView, FormPagesListView, get_submissions_list_view)
 
 app_name = 'wagtailforms'
 urlpatterns = [

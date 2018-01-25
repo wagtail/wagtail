@@ -7,11 +7,9 @@ from django.urls.exceptions import NoReverseMatch
 from django.utils.translation import ugettext as _
 from django.views.decorators.vary import vary_on_headers
 
-from wagtail.utils.pagination import paginate
 from wagtail.admin import messages
 from wagtail.admin.forms import SearchForm
-from wagtail.admin.utils import (
-    PermissionPolicyChecker, permission_denied, popular_tags_for_model)
+from wagtail.admin.utils import PermissionPolicyChecker, permission_denied, popular_tags_for_model
 from wagtail.core.models import Collection, Site
 from wagtail.images import get_image_model
 from wagtail.images.exceptions import InvalidFilterSpecError
@@ -20,6 +18,7 @@ from wagtail.images.models import Filter
 from wagtail.images.permissions import permission_policy
 from wagtail.images.views.serve import generate_signature
 from wagtail.search import index as search_index
+from wagtail.utils.pagination import paginate
 
 permission_checker = PermissionPolicyChecker(permission_policy)
 

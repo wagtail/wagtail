@@ -5,9 +5,8 @@ from django.core import mail
 from django.test import TestCase, override_settings
 from django.urls import reverse
 
+from wagtail.admin.utils import WAGTAILADMIN_PROVIDED_LANGUAGES, get_available_admin_languages
 from wagtail.tests.utils import WagtailTestUtils
-from wagtail.admin.utils import (
-    WAGTAILADMIN_PROVIDED_LANGUAGES, get_available_admin_languages)
 from wagtail.users.models import UserProfile
 
 

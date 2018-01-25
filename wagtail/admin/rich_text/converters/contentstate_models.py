@@ -2,7 +2,6 @@ import json
 import random
 import string
 
-
 ALPHANUM = string.ascii_lowercase + string.digits
 
 

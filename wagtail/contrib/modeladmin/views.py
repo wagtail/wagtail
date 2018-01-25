@@ -29,8 +29,7 @@ from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
 
 from wagtail.admin import messages
-from wagtail.admin.edit_handlers import (
-    ObjectList, extract_panel_definitions_from_model_class)
+from wagtail.admin.edit_handlers import ObjectList, extract_panel_definitions_from_model_class
 
 from .forms import ParentChooserForm
 

@@ -1,17 +1,17 @@
 from bs4 import BeautifulSoup
-
 from django.conf import settings
 from django.test import TestCase
 from django.test.utils import override_settings
 from django.urls import reverse
 
-from wagtail.tests.testapp.models import SingleEventPage
-from wagtail.tests.testapp.rich_text import CustomRichTextArea
-from wagtail.tests.utils import WagtailTestUtils
-from wagtail.admin.rich_text import DraftailRichTextArea, HalloRichTextArea, get_rich_text_editor_widget
+from wagtail.admin.rich_text import (
+    DraftailRichTextArea, HalloRichTextArea, get_rich_text_editor_widget)
 from wagtail.core.blocks import RichTextBlock
 from wagtail.core.models import Page, get_page_models
 from wagtail.core.rich_text import RichText
+from wagtail.tests.testapp.models import SingleEventPage
+from wagtail.tests.testapp.rich_text import CustomRichTextArea
+from wagtail.tests.utils import WagtailTestUtils
 
 
 class BaseRichTextEditHandlerTestCase(TestCase):

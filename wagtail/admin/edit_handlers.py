@@ -11,11 +11,11 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy
 from taggit.managers import TaggableManager
 
-from wagtail.utils.decorators import cached_classmethod
 from wagtail.admin import compare, widgets
 from wagtail.core.fields import RichTextField
 from wagtail.core.models import Page
 from wagtail.core.utils import camelcase_to_underscore, resolve_model_string
+from wagtail.utils.decorators import cached_classmethod
 
 # DIRECT_FORM_FIELD_OVERRIDES, FORM_FIELD_OVERRIDES are imported for backwards
 # compatibility, as people are likely importing them from here and then

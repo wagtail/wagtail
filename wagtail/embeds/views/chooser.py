@@ -5,8 +5,7 @@ from django.utils.translation import ugettext as _
 
 from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.embeds import embeds
-from wagtail.embeds.exceptions import (
-    EmbedNotFoundException, EmbedUnsupportedProviderException)
+from wagtail.embeds.exceptions import EmbedNotFoundException, EmbedUnsupportedProviderException
 from wagtail.embeds.finders.embedly import AccessDeniedEmbedlyException, EmbedlyException
 from wagtail.embeds.format import embed_to_editor_html
 from wagtail.embeds.forms import EmbedForm

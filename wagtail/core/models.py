@@ -29,8 +29,7 @@ from wagtail.core.query import PageQuerySet, TreeQuerySet
 from wagtail.core.signals import page_published, page_unpublished
 from wagtail.core.sites import get_site_for_hostname
 from wagtail.core.url_routing import RouteResult
-from wagtail.core.utils import (
-    WAGTAIL_APPEND_SLASH, camelcase_to_underscore, resolve_model_string)
+from wagtail.core.utils import WAGTAIL_APPEND_SLASH, camelcase_to_underscore, resolve_model_string
 from wagtail.search import index
 
 logger = logging.getLogger('wagtail.core')

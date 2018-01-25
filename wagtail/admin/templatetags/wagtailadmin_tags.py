@@ -10,7 +10,6 @@ from django.template.loader import render_to_string
 from django.utils.html import conditional_escape
 from django.utils.safestring import mark_safe
 
-from wagtail.utils.pagination import DEFAULT_PAGE_KEY, replace_page_in_query
 from wagtail.admin.menu import admin_menu
 from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.admin.search import admin_search_areas
@@ -19,6 +18,7 @@ from wagtail.core.models import (
     CollectionViewRestriction, Page, PageViewRestriction, UserPagePermissionsProxy)
 from wagtail.core.utils import cautious_slugify as _cautious_slugify
 from wagtail.core.utils import camelcase_to_underscore, escape_script
+from wagtail.utils.pagination import DEFAULT_PAGE_KEY, replace_page_in_query
 
 register = template.Library()
 

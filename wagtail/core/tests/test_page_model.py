@@ -12,15 +12,14 @@ from django.test.client import RequestFactory
 from django.test.utils import override_settings
 from freezegun import freeze_time
 
-from wagtail.tests.testapp.models import (
-    AbstractPage, Advert, AlwaysShowInMenusPage, BlogCategory, BlogCategoryBlogPage,
-    BusinessChild, BusinessIndex, BusinessNowherePage, BusinessSubIndex, CustomManager,
-    CustomManagerPage, CustomPageQuerySet, EventIndex, EventPage, GenericSnippetPage,
-    ManyToManyBlogPage, MTIBasePage, MTIChildPage, MyCustomPage, OneToOnePage,
-    PageWithExcludedCopyField, SimplePage, SingleEventPage, SingletonPage,
-    StandardIndex, TaggedPage)
-from wagtail.tests.utils import WagtailTestUtils
 from wagtail.core.models import Page, PageManager, Site, get_page_models
+from wagtail.tests.testapp.models import (
+    AbstractPage, Advert, AlwaysShowInMenusPage, BlogCategory, BlogCategoryBlogPage, BusinessChild,
+    BusinessIndex, BusinessNowherePage, BusinessSubIndex, CustomManager, CustomManagerPage,
+    CustomPageQuerySet, EventIndex, EventPage, GenericSnippetPage, ManyToManyBlogPage, MTIBasePage,
+    MTIChildPage, MyCustomPage, OneToOnePage, PageWithExcludedCopyField, SimplePage,
+    SingleEventPage, SingletonPage, StandardIndex, TaggedPage)
+from wagtail.tests.utils import WagtailTestUtils
 
 
 def get_ct(model):

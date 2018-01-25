@@ -15,8 +15,6 @@ from wagtail.core.models import Orderable, Page
 from .forms import FormBuilder, WagtailAdminFormPageForm
 from .views import SubmissionsListView
 
-
-
 FORM_FIELD_CHOICES = (
     ('singleline', _('Single line text')),
     ('multiline', _('Multi-line text')),

@@ -3,9 +3,9 @@ from io import StringIO
 
 from django.core import management
 
-from wagtail.tests.search import models
 from wagtail.search.query import MATCH_ALL
 from wagtail.search.tests.test_backends import BackendTests
+from wagtail.tests.search import models
 
 
 class ElasticsearchCommonSearchBackendTests(BackendTests):

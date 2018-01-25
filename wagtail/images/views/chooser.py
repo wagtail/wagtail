@@ -3,7 +3,6 @@ import json
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 
-from wagtail.utils.pagination import paginate
 from wagtail.admin.forms import SearchForm
 from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.admin.utils import PermissionPolicyChecker, popular_tags_for_model
@@ -14,6 +13,7 @@ from wagtail.images.formats import get_image_format
 from wagtail.images.forms import ImageInsertionForm, get_image_form
 from wagtail.images.permissions import permission_policy
 from wagtail.search import index as search_index
+from wagtail.utils.pagination import paginate
 
 permission_checker = PermissionPolicyChecker(permission_policy)
 

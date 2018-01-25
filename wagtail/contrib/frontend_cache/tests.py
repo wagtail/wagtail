@@ -6,8 +6,8 @@ from django.test.utils import override_settings
 from wagtail.contrib.frontend_cache.backends import (
     BaseBackend, CloudflareBackend, CloudfrontBackend, HTTPBackend)
 from wagtail.contrib.frontend_cache.utils import get_backends
-from wagtail.tests.testapp.models import EventIndex
 from wagtail.core.models import Page
+from wagtail.tests.testapp.models import EventIndex
 
 from .utils import (
     PurgeBatch, purge_page_from_cache, purge_pages_from_cache, purge_url_from_cache,

@@ -10,11 +10,11 @@ from django.urls import reverse, reverse_lazy
 from django.utils.translation import ugettext_lazy as _
 from taggit.models import Tag
 
-from wagtail.tests.utils import WagtailTestUtils
 from wagtail.admin.menu import MenuItem
 from wagtail.admin.site_summary import PagesSummaryItem
 from wagtail.admin.utils import send_mail, user_has_any_page_permission
 from wagtail.core.models import Page, Site
+from wagtail.tests.utils import WagtailTestUtils
 
 
 class TestHome(TestCase, WagtailTestUtils):

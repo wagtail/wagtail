@@ -1,7 +1,7 @@
 import json
-from mock import patch
 
 from django.test import TestCase
+from mock import patch
 
 from wagtail.admin.rich_text.converters.contentstate import ContentstateConverter
 from wagtail.embeds.models import Embed

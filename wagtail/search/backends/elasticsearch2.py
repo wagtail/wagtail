@@ -1,7 +1,7 @@
 import copy
 import json
-from urllib.parse import urlparse
 import warnings
+from urllib.parse import urlparse
 
 from django.db import DEFAULT_DB_ALIAS, models
 from django.db.models.sql import Query
@@ -10,13 +10,13 @@ from django.utils.crypto import get_random_string
 from elasticsearch import Elasticsearch, NotFoundError
 from elasticsearch.helpers import bulk
 
-from wagtail.utils.deprecation import RemovedInWagtail22Warning
-from wagtail.utils.utils import deep_update
 from wagtail.search.backends.base import (
     BaseSearchBackend, BaseSearchQueryCompiler, BaseSearchResults)
-from wagtail.search.index import (
-    FilterField, Indexed, RelatedFields, SearchField, class_is_indexed)
-from wagtail.search.query import MatchAll, Term, Prefix, Fuzzy, And, Or, Not, PlainText, Filter, Boost
+from wagtail.search.index import FilterField, Indexed, RelatedFields, SearchField, class_is_indexed
+from wagtail.search.query import (
+    And, Boost, Filter, Fuzzy, MatchAll, Not, Or, PlainText, Prefix, Term)
+from wagtail.utils.deprecation import RemovedInWagtail22Warning
+from wagtail.utils.utils import deep_update
 
 
 def get_model_root(model):

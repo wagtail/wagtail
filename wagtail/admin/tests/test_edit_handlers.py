@@ -6,10 +6,6 @@ from django.core import checks
 from django.core.exceptions import FieldDoesNotExist, ImproperlyConfigured
 from django.test import TestCase, override_settings
 
-from wagtail.tests.testapp.forms import ValidatedPageForm
-from wagtail.tests.testapp.models import (
-    EventPage, EventPageChooserModel, EventPageSpeaker, PageChooserModel, SimplePage, ValidatedPage)
-from wagtail.tests.utils import WagtailTestUtils
 from wagtail.admin.edit_handlers import (
     FieldPanel, FieldRowPanel, InlinePanel, ObjectList, PageChooserPanel, RichTextFieldPanel,
     TabbedInterface, extract_panel_definitions_from_model_class, get_form_for_model)
@@ -18,6 +14,10 @@ from wagtail.admin.rich_text import DraftailRichTextArea
 from wagtail.admin.widgets import AdminAutoHeightTextInput, AdminDateInput, AdminPageChooser
 from wagtail.core.models import Page, Site
 from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.tests.testapp.forms import ValidatedPageForm
+from wagtail.tests.testapp.models import (
+    EventPage, EventPageChooserModel, EventPageSpeaker, PageChooserModel, SimplePage, ValidatedPage)
+from wagtail.tests.utils import WagtailTestUtils
 
 
 class TestGetFormForModel(TestCase):

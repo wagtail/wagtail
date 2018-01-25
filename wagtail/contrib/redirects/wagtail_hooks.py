@@ -4,9 +4,9 @@ from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 
 from wagtail.admin.menu import MenuItem
-from wagtail.core import hooks
 from wagtail.contrib.redirects import urls
 from wagtail.contrib.redirects.permissions import permission_policy
+from wagtail.core import hooks
 
 
 @hooks.register('register_admin_urls')

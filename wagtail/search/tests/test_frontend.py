@@ -2,9 +2,9 @@ from django.core import paginator
 from django.test import TestCase
 from django.urls import reverse
 
-from wagtail.tests.testapp.models import EventPage
 from wagtail.core.models import Page
 from wagtail.search.models import Query
+from wagtail.tests.testapp.models import EventPage
 
 
 class TestSearchView(TestCase):
