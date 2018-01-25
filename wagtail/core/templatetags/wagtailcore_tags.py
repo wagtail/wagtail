@@ -37,16 +37,6 @@ def slugurl(context, slug):
     if page:
         # call pageurl() instead of page.relative_url() here so we get the ``accepts_kwarg`` logic
         return pageurl(context, page)
-    else:
-        return None
-
-    try:
-        current_site = context['request'].site
-    except (KeyError, AttributeError):
-        # request.site not available in the current context; fall back on page.url
-        return page.url
-
-    return page.relative_url(current_site)
 
 
 @register.simple_tag
