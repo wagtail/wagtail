@@ -37,8 +37,6 @@ def slugurl(context, slug):
     if page:
         # call pageurl() instead of page.relative_url() here so we get the ``accepts_kwarg`` logic
         return pageurl(context, page)
-    else:
-        return None
 
 
 @register.simple_tag
