@@ -48,6 +48,17 @@ class TestPageUrlTags(TestCase):
         result = tpl.render(template.Context({'request': HttpRequest()}))
         self.assertIn('<a href="/events/">Events</a>', result)
 
+    def test_bad_slugurl(self):
+        tpl = template.Template('''{% load wagtailcore_tags %}<a href="{% slugurl 'bad-slug-doesnt-exist' %}">Events</a>''')
+
+        # no 'request' object in context
+        result = tpl.render(template.Context({}))
+        self.assertIn('<a href="None">Events</a>', result)
+
+        # 'request' object in context, but no 'site' attribute
+        result = tpl.render(template.Context({'request': HttpRequest()}))
+        self.assertIn('<a href="None">Events</a>', result)
+
 
 class TestSiteRootPathsCache(TestCase):
     fixtures = ['test.json']
