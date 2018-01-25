@@ -1,7 +1,6 @@
 
-from warnings import warn
-
 import warnings
+from warnings import warn
 
 from django.db.models.lookups import Lookup
 from django.db.models.query import QuerySet

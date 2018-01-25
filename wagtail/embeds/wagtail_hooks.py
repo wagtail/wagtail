@@ -3,13 +3,12 @@ from django.urls import reverse
 from django.utils.html import format_html
 from django.utils.translation import ugettext as _
 
-from wagtail.admin.rich_text import HalloPlugin
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
+from wagtail.admin.rich_text import HalloPlugin
 from wagtail.core import hooks
 from wagtail.embeds import urls
 from wagtail.embeds.rich_text import (
-    ContentstateMediaConversionRule, EditorHTMLEmbedConversionRule, media_embedtype_handler
-)
+    ContentstateMediaConversionRule, EditorHTMLEmbedConversionRule, media_embedtype_handler)
 
 
 @hooks.register('register_admin_urls')

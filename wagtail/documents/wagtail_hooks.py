@@ -5,11 +5,11 @@ from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.utils.html import format_html, format_html_join
 from django.utils.translation import ugettext_lazy as _
-from django.utils.translation import ungettext, ugettext
+from django.utils.translation import ugettext, ungettext
 
+import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 from wagtail.admin.menu import MenuItem
 from wagtail.admin.rich_text import HalloPlugin
-import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 from wagtail.admin.search import SearchArea
 from wagtail.admin.site_summary import SummaryItem
 from wagtail.core import hooks
@@ -21,8 +21,8 @@ from wagtail.documents.forms import GroupDocumentPermissionFormSet
 from wagtail.documents.models import get_document_model
 from wagtail.documents.permissions import permission_policy
 from wagtail.documents.rich_text import (
-    ContentstateDocumentLinkConversionRule, document_linktype_handler, EditorHTMLDocumentLinkConversionRule
-)
+    ContentstateDocumentLinkConversionRule, EditorHTMLDocumentLinkConversionRule,
+    document_linktype_handler)
 
 
 @hooks.register('register_admin_urls')

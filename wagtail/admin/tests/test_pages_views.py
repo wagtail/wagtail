@@ -19,17 +19,17 @@ from django.utils import formats, timezone
 from django.utils.dateparse import parse_date
 from freezegun import freeze_time
 
+from wagtail.admin.views.home import RecentEditsPanel
+from wagtail.admin.views.pages import PreviewOnEdit
+from wagtail.core.models import GroupPagePermission, Page, PageRevision, Site
+from wagtail.core.signals import page_published, page_unpublished
+from wagtail.search.index import SearchField
 from wagtail.tests.testapp.models import (
     EVENT_AUDIENCE_CHOICES, Advert, AdvertPlacement, BusinessChild, BusinessIndex, BusinessSubIndex,
     DefaultStreamPage, EventCategory, EventPage, EventPageCarouselItem, FilePage,
     ManyToManyBlogPage, SimplePage, SingleEventPage, SingletonPage, StandardChild, StandardIndex,
     TaggedPage)
 from wagtail.tests.utils import WagtailTestUtils
-from wagtail.admin.views.home import RecentEditsPanel
-from wagtail.admin.views.pages import PreviewOnEdit
-from wagtail.core.models import GroupPagePermission, Page, PageRevision, Site
-from wagtail.core.signals import page_published, page_unpublished
-from wagtail.search.index import SearchField
 from wagtail.users.models import UserProfile
 
 

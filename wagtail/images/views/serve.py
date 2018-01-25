@@ -12,10 +12,10 @@ from django.utils.decorators import classonlymethod
 from django.utils.encoding import force_text
 from django.views.generic import View
 
-from wagtail.utils.sendfile import sendfile
 from wagtail.images import get_image_model
 from wagtail.images.exceptions import InvalidFilterSpecError
 from wagtail.images.models import SourceImageIOError
+from wagtail.utils.sendfile import sendfile
 
 
 def generate_signature(image_id, filter_spec, key=None):

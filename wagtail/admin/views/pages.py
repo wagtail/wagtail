@@ -16,13 +16,12 @@ from django.views.decorators.http import require_GET, require_POST
 from django.views.decorators.vary import vary_on_headers
 from django.views.generic import View
 
-from wagtail.utils.pagination import paginate
 from wagtail.admin import messages, signals
 from wagtail.admin.forms import CopyForm, SearchForm
-from wagtail.admin.utils import (
-    send_notification, user_has_any_page_permission, user_passes_test)
+from wagtail.admin.utils import send_notification, user_has_any_page_permission, user_passes_test
 from wagtail.core import hooks
 from wagtail.core.models import Page, PageRevision, UserPagePermissionsProxy
+from wagtail.utils.pagination import paginate
 
 
 def get_valid_next_url_from_request(request):

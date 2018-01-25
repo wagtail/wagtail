@@ -3,13 +3,13 @@ from django.urls import reverse
 from django.utils.translation import ugettext as _
 from django.views.decorators.vary import vary_on_headers
 
-from wagtail.utils.pagination import paginate
 from wagtail.admin import messages
 from wagtail.admin.forms import SearchForm
 from wagtail.admin.utils import PermissionPolicyChecker, permission_denied
 from wagtail.contrib.redirects import models
 from wagtail.contrib.redirects.forms import RedirectForm
 from wagtail.contrib.redirects.permissions import permission_policy
+from wagtail.utils.pagination import paginate
 
 permission_checker = PermissionPolicyChecker(permission_policy)
 

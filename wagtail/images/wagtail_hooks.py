@@ -3,11 +3,11 @@ from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.urls import reverse
 from django.utils.html import format_html, format_html_join
 from django.utils.translation import ugettext_lazy as _
-from django.utils.translation import ungettext, ugettext
+from django.utils.translation import ugettext, ungettext
 
+import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 from wagtail.admin.menu import MenuItem
 from wagtail.admin.rich_text import HalloPlugin
-import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 from wagtail.admin.search import SearchArea
 from wagtail.admin.site_summary import SummaryItem
 from wagtail.core import hooks
@@ -16,8 +16,7 @@ from wagtail.images.api.admin.endpoints import ImagesAdminAPIEndpoint
 from wagtail.images.forms import GroupImagePermissionFormSet
 from wagtail.images.permissions import permission_policy
 from wagtail.images.rich_text import (
-    ContentstateImageConversionRule, EditorHTMLImageConversionRule, image_embedtype_handler
-)
+    ContentstateImageConversionRule, EditorHTMLImageConversionRule, image_embedtype_handler)
 
 
 @hooks.register('register_admin_urls')

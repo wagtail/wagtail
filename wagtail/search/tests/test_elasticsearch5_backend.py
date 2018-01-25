@@ -7,9 +7,9 @@ from django.db.models import Q
 from django.test import TestCase
 from elasticsearch.serializer import JSONSerializer
 
-from wagtail.tests.search import models
 from wagtail.search.backends.elasticsearch5 import Elasticsearch5SearchBackend
 from wagtail.search.query import MATCH_ALL
+from wagtail.tests.search import models
 
 from .elasticsearch_common_tests import ElasticsearchCommonSearchBackendTests
 

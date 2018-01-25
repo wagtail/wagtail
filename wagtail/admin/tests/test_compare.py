@@ -9,8 +9,8 @@ from wagtail.core.blocks import StreamValue
 from wagtail.images import get_image_model
 from wagtail.images.tests.utils import get_test_image_file
 from wagtail.tests.testapp.models import (
-    EventCategory, EventPage, EventPageSpeaker, HeadCountRelatedModelUsingPK,
-    SimplePage, StreamPage, TaggedPage)
+    EventCategory, EventPage, EventPageSpeaker, HeadCountRelatedModelUsingPK, SimplePage,
+    StreamPage, TaggedPage)
 
 
 class TestFieldComparison(TestCase):

@@ -4,10 +4,10 @@ from django.http import HttpRequest
 from django.test import TestCase
 from django.utils.safestring import SafeText
 
-from wagtail.tests.testapp.models import SimplePage
 from wagtail.core.models import Page, Site
 from wagtail.core.templatetags.wagtailcore_tags import richtext
 from wagtail.core.utils import resolve_model_string
+from wagtail.tests.testapp.models import SimplePage
 
 
 class TestPageUrlTags(TestCase):

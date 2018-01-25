@@ -7,9 +7,9 @@ from django.test.utils import override_settings
 from django.urls import reverse
 
 from wagtail.api.v2 import signal_handlers
+from wagtail.core.models import Page, Site
 from wagtail.tests.demosite import models
 from wagtail.tests.testapp.models import StreamPage
-from wagtail.core.models import Page, Site
 
 
 def get_total_page_count():

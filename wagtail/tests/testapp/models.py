@@ -18,13 +18,13 @@ from taggit.managers import TaggableManager
 from taggit.models import TaggedItemBase
 
 from wagtail.admin.edit_handlers import (
-    FieldPanel, InlinePanel, MultiFieldPanel, ObjectList, PageChooserPanel,
-    StreamFieldPanel, TabbedInterface)
+    FieldPanel, InlinePanel, MultiFieldPanel, ObjectList, PageChooserPanel, StreamFieldPanel,
+    TabbedInterface)
 from wagtail.admin.forms import WagtailAdminPageForm
 from wagtail.admin.utils import send_mail
 from wagtail.contrib.forms.forms import FormBuilder
 from wagtail.contrib.forms.models import (
-    AbstractEmailForm, AbstractFormField, AbstractFormSubmission, FORM_FIELD_CHOICES)
+    FORM_FIELD_CHOICES, AbstractEmailForm, AbstractFormField, AbstractFormSubmission)
 from wagtail.contrib.settings.models import BaseSetting, register_setting
 from wagtail.contrib.table_block.blocks import TableBlock
 from wagtail.core.blocks import CharBlock, RichTextBlock
@@ -41,7 +41,6 @@ from wagtail.snippets.models import register_snippet
 
 from .forms import ValidatedPageForm
 from .views import CustomSubmissionsListView
-
 
 EVENT_AUDIENCE_CHOICES = (
     ('public', "Public"),

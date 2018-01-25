@@ -4,14 +4,14 @@ from django.test import TestCase, override_settings
 from django.urls import reverse
 from django.utils.text import capfirst
 
+from wagtail.admin.edit_handlers import FieldPanel, ObjectList, TabbedInterface
 from wagtail.contrib.settings.registry import SettingMenuItem
 from wagtail.contrib.settings.views import get_setting_edit_handler
+from wagtail.core import hooks
+from wagtail.core.models import Page, Site
 from wagtail.tests.testapp.models import (
     FileUploadSetting, IconSetting, PanelSettings, TabbedSettings, TestSetting)
 from wagtail.tests.utils import WagtailTestUtils
-from wagtail.admin.edit_handlers import FieldPanel, ObjectList, TabbedInterface
-from wagtail.core import hooks
-from wagtail.core.models import Page, Site
 
 
 class TestSettingMenu(TestCase, WagtailTestUtils):

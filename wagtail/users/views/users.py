@@ -6,16 +6,15 @@ from django.urls import reverse
 from django.utils.translation import ugettext as _
 from django.views.decorators.vary import vary_on_headers
 
-from wagtail.utils.loading import get_custom_form
-from wagtail.utils.pagination import paginate
 from wagtail.admin import messages
 from wagtail.admin.forms import SearchForm
-from wagtail.admin.utils import (
-    any_permission_required, permission_denied, permission_required)
+from wagtail.admin.utils import any_permission_required, permission_denied, permission_required
 from wagtail.core import hooks
 from wagtail.core.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
 from wagtail.users.forms import UserCreationForm, UserEditForm
 from wagtail.users.utils import user_can_delete_user
+from wagtail.utils.loading import get_custom_form
+from wagtail.utils.pagination import paginate
 
 User = get_user_model()
 

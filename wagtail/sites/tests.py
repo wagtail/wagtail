@@ -3,8 +3,8 @@ from django.contrib.auth.models import Permission
 from django.test import TestCase
 from django.urls import reverse
 
-from wagtail.tests.utils import WagtailTestUtils
 from wagtail.core.models import Page, Site
+from wagtail.tests.utils import WagtailTestUtils
 
 
 class TestSiteIndexView(TestCase, WagtailTestUtils):

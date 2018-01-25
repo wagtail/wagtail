@@ -6,9 +6,9 @@ from django.db import models
 from django.test import TestCase
 from django.utils import timezone
 
-from wagtail.tests.testapp.models import EventPage, SimplePage
 from wagtail.core.models import Page, PageRevision
 from wagtail.core.signals import page_published, page_unpublished
+from wagtail.tests.testapp.models import EventPage, SimplePage
 
 
 class TestFixTreeCommand(TestCase):
