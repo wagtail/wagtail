@@ -26,6 +26,13 @@ li.sequence-member {
         opacity: 1;
     }
 
+    .struct-block .object-help {
+        float: right;
+        margin-top: 0;
+        padding: 0;
+        width: auto;
+    }
+
     .struct-block .fields {
         @include column(10);
         padding-left: 0;
@@ -33,7 +40,7 @@ li.sequence-member {
     }
 
     .struct-block .sequence-container {
-        @include column(9);
+        @include column(10);
         padding-left: 0;
         padding-right: 0;
 
@@ -61,6 +68,10 @@ li.sequence-member {
 
         .sequence-member {
             border: 0;
+
+            .struct-block .fields {
+                width: 100%;
+            }
         }
 
         // sequences within sequences, such as a ListBlock within StructBlock
