@@ -26,7 +26,7 @@ msgstr "Wijzigen %(setting_type_name)s - %(instance)s"
 msgid "Editing"
 msgstr "Wijzigen"
 
-msgid "Saving..."
+msgid "Saving…"
 msgstr "Bezig met opslaan..."
 
 msgid "Save"

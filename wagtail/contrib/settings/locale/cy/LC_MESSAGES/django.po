@@ -28,7 +28,7 @@ msgstr "Golygu%(setting_type_name)s-%(instance)s"
 msgid "Editing"
 msgstr "Golygu"
 
-msgid "Saving..."
+msgid "Saving…"
 msgstr "Cadw..."
 
 msgid "Save"

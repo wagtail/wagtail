@@ -684,7 +684,7 @@ msgstr "Nya %(page_type)s"
 msgid "New"
 msgstr "Ny"
 
-msgid "Saving..."
+msgid "Saving…"
 msgstr "Sparar..."
 
 msgid "Save draft"

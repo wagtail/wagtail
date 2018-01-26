@@ -698,7 +698,7 @@ msgstr "Naujas %(page_type)s"
 msgid "New"
 msgstr "Naujas"
 
-msgid "Saving..."
+msgid "Saving…"
 msgstr "Saugoma..."
 
 msgid "Save draft"

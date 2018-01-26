@@ -740,7 +740,7 @@ msgstr "Добавление %(page_type)s"
 msgid "New"
 msgstr "Новый"
 
-msgid "Saving..."
+msgid "Saving…"
 msgstr "Сохранение..."
 
 msgid "Save draft"

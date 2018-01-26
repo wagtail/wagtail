@@ -550,7 +550,7 @@ msgstr "Nov %(page_type)s"
 msgid "New"
 msgstr "Nov"
 
-msgid "Saving..."
+msgid "Saving…"
 msgstr "Shranjevanje..."
 
 msgid "Save draft"

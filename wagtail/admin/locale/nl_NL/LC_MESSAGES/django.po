@@ -698,7 +698,7 @@ msgstr "Pagina van type '%(page_type)s' toevoegen"
 msgid "New"
 msgstr "Nieuw"
 
-msgid "Saving..."
+msgid "Saving…"
 msgstr "Bezig met opslaan..."
 
 msgid "Save draft"

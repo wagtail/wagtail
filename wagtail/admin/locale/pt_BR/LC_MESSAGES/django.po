@@ -689,7 +689,7 @@ msgstr "Adicionar %(page_type)s"
 msgid "New"
 msgstr "Adicionar"
 
-msgid "Saving..."
+msgid "Saving…"
 msgstr "Salvando..."
 
 msgid "Save draft"

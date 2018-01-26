@@ -27,7 +27,7 @@ msgstr "در حال ویرایش %(setting_type_name)s - %(instance)s"
 msgid "Editing"
 msgstr "در حال ویرایش"
 
-msgid "Saving..."
+msgid "Saving…"
 msgstr "در حال ذخیره کردن..."
 
 msgid "Save"

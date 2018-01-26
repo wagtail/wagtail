@@ -51,7 +51,7 @@ msgstr "Vybrat rodičovskou stránku"
 msgid "Continue"
 msgstr "Pokračovat"
 
-msgid "Saving..."
+msgid "Saving…"
 msgstr "Ukládání..."
 
 msgid "Save"

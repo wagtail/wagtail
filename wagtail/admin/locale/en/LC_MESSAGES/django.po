@@ -897,7 +897,7 @@ msgstr ""
 
 #: templates/wagtailadmin/pages/create.html:31
 #: templates/wagtailadmin/pages/edit.html:43
-msgid "Saving..."
+msgid "Saving…"
 msgstr ""
 
 #: templates/wagtailadmin/pages/create.html:31

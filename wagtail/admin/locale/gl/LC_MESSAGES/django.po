@@ -586,7 +586,7 @@ msgstr "Nova %(page_type)s"
 msgid "New"
 msgstr "Nova"
 
-msgid "Saving..."
+msgid "Saving…"
 msgstr "Gardando..."
 
 msgid "Save draft"

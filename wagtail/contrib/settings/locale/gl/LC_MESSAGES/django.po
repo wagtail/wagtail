@@ -26,7 +26,7 @@ msgstr "Editando %(setting_type_name)s - %(instance)s"
 msgid "Editing"
 msgstr "Editando"
 
-msgid "Saving..."
+msgid "Saving…"
 msgstr "Gardando..."
 
 msgid "Save"

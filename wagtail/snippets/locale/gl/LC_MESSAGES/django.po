@@ -70,7 +70,7 @@ msgstr "Novo %(snippet_type_name)s"
 msgid "New"
 msgstr "Novo"
 
-msgid "Saving..."
+msgid "Saving…"
 msgstr "Gardando..."
 
 msgid "Save"

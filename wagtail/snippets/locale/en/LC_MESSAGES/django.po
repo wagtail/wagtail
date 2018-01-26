@@ -83,7 +83,7 @@ msgstr ""
 
 #: templates/wagtailsnippets/snippets/create.html:16
 #: templates/wagtailsnippets/snippets/edit.html:16
-msgid "Saving..."
+msgid "Saving…"
 msgstr ""
 
 #: templates/wagtailsnippets/snippets/create.html:17

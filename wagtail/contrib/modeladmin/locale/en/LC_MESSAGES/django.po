@@ -96,7 +96,7 @@ msgid "Continue"
 msgstr ""
 
 #: templates/modeladmin/create.html:33 templates/modeladmin/edit.html:8
-msgid "Saving..."
+msgid "Saving…"
 msgstr ""
 
 #: templates/modeladmin/create.html:34 templates/modeladmin/edit.html:9

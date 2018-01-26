@@ -34,7 +34,7 @@ msgstr "Ya, hapus"
 msgid "New"
 msgstr "Baru"
 
-msgid "Saving..."
+msgid "Saving…"
 msgstr "Menyimpan"
 
 msgid "Save"

@@ -86,7 +86,7 @@ msgstr ""
 msgid "Continue"
 msgstr "Продолжить"
 
-msgid "Saving..."
+msgid "Saving…"
 msgstr "Сохранение..."
 
 msgid "Save"

@@ -68,7 +68,7 @@ msgstr "Uusi %(snippet_type_name)s"
 msgid "New"
 msgstr "Uusi"
 
-msgid "Saving..."
+msgid "Saving…"
 msgstr "Tallennetaan..."
 
 msgid "Save"

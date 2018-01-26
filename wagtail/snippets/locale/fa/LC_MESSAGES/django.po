@@ -72,7 +72,7 @@ msgstr "%(snippet_type_name)s جدید"
 msgid "New"
 msgstr "جدید"
 
-msgid "Saving..."
+msgid "Saving…"
 msgstr "درحال ذخیره..."
 
 msgid "Save"

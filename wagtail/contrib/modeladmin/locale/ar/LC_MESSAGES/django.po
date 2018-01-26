@@ -47,7 +47,7 @@ msgstr "إختر صفحة أم"
 msgid "Continue"
 msgstr "أكمل"
 
-msgid "Saving..."
+msgid "Saving…"
 msgstr "يتم الحفظ..."
 
 msgid "Save"

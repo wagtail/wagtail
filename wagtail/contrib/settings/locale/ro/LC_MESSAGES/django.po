@@ -27,7 +27,7 @@ msgstr "Editare %(setting_type_name)s - %(instance)s"
 msgid "Editing"
 msgstr "Editare"
 
-msgid "Saving..."
+msgid "Saving…"
 msgstr "În curse de salvare..."
 
 msgid "Save"

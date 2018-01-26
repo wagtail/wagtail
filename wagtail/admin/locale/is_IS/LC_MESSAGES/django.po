@@ -652,7 +652,7 @@ msgstr "Ný %(page_type)s"
 msgid "New"
 msgstr "Ný"
 
-msgid "Saving..."
+msgid "Saving…"
 msgstr "Vista..."
 
 msgid "Save draft"

@@ -646,7 +646,7 @@ msgstr "%(page_type)s جدید"
 msgid "New"
 msgstr "جدید"
 
-msgid "Saving..."
+msgid "Saving…"
 msgstr "درحال ذخیره..."
 
 msgid "Save draft"

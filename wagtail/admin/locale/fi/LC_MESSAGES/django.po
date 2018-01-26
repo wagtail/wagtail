@@ -606,7 +606,7 @@ msgstr "Uusi %(page_type)s"
 msgid "New"
 msgstr "Uusi"
 
-msgid "Saving..."
+msgid "Saving…"
 msgstr "Tallennetaan..."
 
 msgid "Save draft"

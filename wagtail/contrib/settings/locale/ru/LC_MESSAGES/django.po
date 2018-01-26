@@ -30,7 +30,7 @@ msgstr "Редактирование %(setting_type_name)s - %(instance)s"
 msgid "Editing"
 msgstr "Редактирование"
 
-msgid "Saving..."
+msgid "Saving…"
 msgstr "Сохранение..."
 
 msgid "Save"

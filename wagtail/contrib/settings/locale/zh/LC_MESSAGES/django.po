@@ -22,7 +22,7 @@ msgstr ""
 msgid "Editing"
 msgstr "正在编辑"
 
-msgid "Saving..."
+msgid "Saving…"
 msgstr "正在保存"
 
 msgid "Save"

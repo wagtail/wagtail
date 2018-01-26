@@ -26,7 +26,7 @@ msgstr "Mengubah %(setting_type_name)s - %(instance)s"
 msgid "Editing"
 msgstr "Mengubah"
 
-msgid "Saving..."
+msgid "Saving…"
 msgstr "Menyimpan..."
 
 msgid "Save"

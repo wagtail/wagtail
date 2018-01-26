@@ -77,7 +77,7 @@ msgstr "新建  %(snippet_type_name)s "
 msgid "New"
 msgstr "新增"
 
-msgid "Saving..."
+msgid "Saving…"
 msgstr "正在保存……"
 
 msgid "Save"

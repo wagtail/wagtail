@@ -559,7 +559,7 @@ msgstr "Nieuwe %(page_type)s"
 msgid "New"
 msgstr "Nieuwe"
 
-msgid "Saving..."
+msgid "Saving…"
 msgstr "Bezig met opslaan..."
 
 msgid "Save draft"

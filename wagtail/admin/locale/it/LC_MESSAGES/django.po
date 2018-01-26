@@ -690,7 +690,7 @@ msgstr "Nuovo %(page_type)s"
 msgid "New"
 msgstr "Nuovo"
 
-msgid "Saving..."
+msgid "Saving…"
 msgstr "Salvataggio in corso..."
 
 msgid "Save draft"

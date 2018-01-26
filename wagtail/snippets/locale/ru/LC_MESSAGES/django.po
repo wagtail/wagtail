@@ -86,7 +86,7 @@ msgstr "Новый  %(snippet_type_name)s"
 msgid "New"
 msgstr "Новый"
 
-msgid "Saving..."
+msgid "Saving…"
 msgstr "Сохранение..."
 
 msgid "Save"

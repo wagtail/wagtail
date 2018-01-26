@@ -83,7 +83,7 @@ msgstr ""
 msgid "Continue"
 msgstr "Tęsti"
 
-msgid "Saving..."
+msgid "Saving…"
 msgstr "Saugoma..."
 
 msgid "Save"

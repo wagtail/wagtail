@@ -81,7 +81,7 @@ msgstr "Nieuw  %(snippet_type_name)s"
 msgid "New"
 msgstr "Nieuw"
 
-msgid "Saving..."
+msgid "Saving…"
 msgstr "Bezig met opslaan..."
 
 msgid "Save"

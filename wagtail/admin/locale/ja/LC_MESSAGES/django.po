@@ -516,7 +516,7 @@ msgstr "新規の%(page_type)s"
 msgid "New"
 msgstr "新規作成"
 
-msgid "Saving..."
+msgid "Saving…"
 msgstr "保存中..."
 
 msgid "Save draft"

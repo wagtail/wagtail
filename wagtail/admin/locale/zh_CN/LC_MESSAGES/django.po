@@ -646,7 +646,7 @@ msgstr "新%(page_type)s页面类型"
 msgid "New"
 msgstr "新"
 
-msgid "Saving..."
+msgid "Saving…"
 msgstr "正在保存……"
 
 msgid "Save draft"

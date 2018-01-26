@@ -475,7 +475,7 @@ msgstr "Jauns %(page_type)s"
 msgid "New"
 msgstr "Jauns"
 
-msgid "Saving..."
+msgid "Saving…"
 msgstr "Saglabā..."
 
 msgid "Save draft"

@@ -683,7 +683,7 @@ msgstr "Ny %(page_type)s"
 msgid "New"
 msgstr "Ny"
 
-msgid "Saving..."
+msgid "Saving…"
 msgstr "Lagrer..."
 
 msgid "Save draft"

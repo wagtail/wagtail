@@ -84,7 +84,7 @@ msgstr ""
 msgid "Continue"
 msgstr "继续"
 
-msgid "Saving..."
+msgid "Saving…"
 msgstr "正在保存..."
 
 msgid "Save"
