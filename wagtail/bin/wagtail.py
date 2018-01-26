@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import fileinput
+import fnmatch
 import os
 import re
 import sys
@@ -108,10 +109,17 @@ class UpdateModulePaths(Command):
         parser.add_argument('root_path', nargs='?', help="Path to your project's root")
         parser.add_argument('--list', action='store_true', dest='list_files', help="Show the list of files to change, without modifying them")
         parser.add_argument('--diff', action='store_true', help="Show the changes that would be made, without modifying the files")
+        parser.add_argument(
+            '--ignore-file', action='append', dest='ignored_patterns', metavar='NAME',
+            help="Ignore files with this name (supports wildcards)"
+        )
 
-    def run(self, root_path=None, list_files=False, diff=False):
+    def run(self, root_path=None, list_files=False, diff=False, ignored_patterns=None):
         if root_path is None:
             root_path = os.getcwd()
+
+        if ignored_patterns is None:
+            ignored_patterns = []
 
         checked_file_count = 0
         changed_file_count = 0
@@ -119,6 +127,9 @@ class UpdateModulePaths(Command):
         for (dirpath, dirnames, filenames) in os.walk(root_path):
             for filename in filenames:
                 if not filename.lower().endswith('.py'):
+                    continue
+
+                if any(fnmatch.fnmatch(filename, pattern) for pattern in ignored_patterns):
                     continue
 
                 path = os.path.join(dirpath, filename)
