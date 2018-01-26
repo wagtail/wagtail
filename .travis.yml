@@ -78,7 +78,7 @@ script:
   tox
 
 after_success:
-  - codecov
+  - codecov -F backend
 
 # Who to notify about build results
 notifications:
