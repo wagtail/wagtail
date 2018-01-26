@@ -441,7 +441,7 @@ msgstr "Είσοδος στο Wagtail"
 msgid "Forgotten it?"
 msgstr "Ξέχασα τον κωδικό μου"
 
-msgid "Signing in..."
+msgid "Signing in…"
 msgstr "Γίνεται είσοδος ..."
 
 #, python-format

@@ -458,7 +458,7 @@ msgstr "웨그테일에 로그인"
 msgid "Forgotten it?"
 msgstr "잊어버리셨나요?"
 
-msgid "Signing in..."
+msgid "Signing in…"
 msgstr "로그인 중..."
 
 #, python-format

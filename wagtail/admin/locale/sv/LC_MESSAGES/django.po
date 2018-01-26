@@ -482,7 +482,7 @@ msgstr "Logga in till Wagtail"
 msgid "Forgotten it?"
 msgstr "Glömt det?"
 
-msgid "Signing in..."
+msgid "Signing in…"
 msgstr "Loggar in..."
 
 #, python-format

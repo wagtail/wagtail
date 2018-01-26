@@ -432,7 +432,7 @@ msgstr "Kirjaudu sisään Wagtailiin"
 msgid "Forgotten it?"
 msgstr "Unohtui?"
 
-msgid "Signing in..."
+msgid "Signing in…"
 msgstr "Kirjaudutaan..."
 
 #, python-format

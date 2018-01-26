@@ -530,7 +530,7 @@ msgstr "Войти в Wagtail"
 msgid "Forgotten it?"
 msgstr "Забыли его?"
 
-msgid "Signing in..."
+msgid "Signing in…"
 msgstr "Выполняется вход..."
 
 #, python-format

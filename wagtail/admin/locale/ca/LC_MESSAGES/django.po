@@ -439,7 +439,7 @@ msgstr "Connecta't a Wagtail"
 msgid "Forgotten it?"
 msgstr "Oblidar?"
 
-msgid "Signing in..."
+msgid "Signing in…"
 msgstr "Iniciant sessió..."
 
 #, python-format

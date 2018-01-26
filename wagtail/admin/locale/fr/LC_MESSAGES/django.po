@@ -499,7 +499,7 @@ msgstr "S'identifier"
 msgid "Forgotten it?"
 msgstr "Oublié?"
 
-msgid "Signing in..."
+msgid "Signing in…"
 msgstr "Connexion..."
 
 #, python-format

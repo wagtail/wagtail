@@ -453,7 +453,7 @@ msgstr "Skrá inn í Wagtail"
 msgid "Forgotten it?"
 msgstr "Búin(n) að gleyma því?"
 
-msgid "Signing in..."
+msgid "Signing in…"
 msgstr "Skrái þig inn..."
 
 #, python-format
