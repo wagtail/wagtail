@@ -23,7 +23,7 @@ global.wagtailConfig = {
     DELETE: 'Delete',
     PAGE: 'Page',
     PAGES: 'Pages',
-    LOADING: 'Loading...',
+    LOADING: 'Loading…',
     NO_RESULTS: 'No results',
     SERVER_ERROR: 'Server Error',
     SEE_CHILDREN: 'See children',
