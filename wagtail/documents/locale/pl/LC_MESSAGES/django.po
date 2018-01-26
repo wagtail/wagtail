@@ -65,7 +65,7 @@ msgid "Upload"
 msgstr "Prześlij"
 
 msgid "Uploading…"
-msgstr "Wgrywanie..."
+msgstr "Wgrywanie…"
 
 msgid "Server Error"
 msgstr "Błąd serwera"

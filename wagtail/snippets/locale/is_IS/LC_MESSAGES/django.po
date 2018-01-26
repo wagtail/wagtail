@@ -79,7 +79,7 @@ msgid "New"
 msgstr "Nýtt"
 
 msgid "Saving…"
-msgstr "Vista..."
+msgstr "Vista…"
 
 msgid "Save"
 msgstr "Vista"

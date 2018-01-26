@@ -73,7 +73,7 @@ msgid "New"
 msgstr "جدید"
 
 msgid "Saving…"
-msgstr "درحال ذخیره..."
+msgstr "درحال ذخیره…"
 
 msgid "Save"
 msgstr "ذخیره"

@@ -62,7 +62,7 @@ msgid "Upload"
 msgstr "上传"
 
 msgid "Uploading…"
-msgstr "正在上传..."
+msgstr "正在上传…"
 
 msgid "Server Error"
 msgstr "服务器错误"

@@ -59,7 +59,7 @@ msgid "Upload"
 msgstr "Yükle"
 
 msgid "Uploading…"
-msgstr "Yükleniyor..."
+msgstr "Yükleniyor…"
 
 msgid "Server Error"
 msgstr "Sunucu Hatası"

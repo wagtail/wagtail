@@ -46,7 +46,7 @@ msgid "Upload"
 msgstr "انقل إلى الحاسوب"
 
 msgid "Uploading…"
-msgstr "يتم الرفع..."
+msgstr "يتم الرفع…"
 
 msgid "Latest documents"
 msgstr "وثائق أخيرة"

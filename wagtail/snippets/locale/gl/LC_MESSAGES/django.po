@@ -71,7 +71,7 @@ msgid "New"
 msgstr "Novo"
 
 msgid "Saving…"
-msgstr "Gardando..."
+msgstr "Gardando…"
 
 msgid "Save"
 msgstr "Gardar"

@@ -136,7 +136,7 @@ msgid "Popular tags"
 msgstr "Populiarios žymenos"
 
 msgid "Uploading…"
-msgstr "Įkeliama..."
+msgstr "Įkeliama…"
 
 #, python-format
 msgid ""

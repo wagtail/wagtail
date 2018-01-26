@@ -83,7 +83,7 @@ msgid "Continue"
 msgstr "계속하기"
 
 msgid "Saving…"
-msgstr "저장 중..."
+msgstr "저장 중…"
 
 msgid "Save"
 msgstr "저장"

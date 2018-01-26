@@ -432,7 +432,7 @@ msgid "Forgotten it?"
 msgstr "Esqueceu-se?"
 
 msgid "Signing in…"
-msgstr "A entrar..."
+msgstr "A entrar…"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -631,13 +631,13 @@ msgid "New"
 msgstr "Nova"
 
 msgid "Saving…"
-msgstr "A gravar..."
+msgstr "A gravar…"
 
 msgid "Save draft"
 msgstr "Guardar rascunho"
 
 msgid "Publishing…"
-msgstr "A publicar..."
+msgstr "A publicar…"
 
 msgid "Publish"
 msgstr "Publicar"

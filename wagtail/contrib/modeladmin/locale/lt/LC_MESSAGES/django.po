@@ -84,7 +84,7 @@ msgid "Continue"
 msgstr "Tęsti"
 
 msgid "Saving…"
-msgstr "Saugoma..."
+msgstr "Saugoma…"
 
 msgid "Save"
 msgstr "Išsaugoti"

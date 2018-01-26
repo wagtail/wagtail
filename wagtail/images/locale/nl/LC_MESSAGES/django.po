@@ -121,7 +121,7 @@ msgid "Popular tags"
 msgstr "Populaire labels"
 
 msgid "Uploading…"
-msgstr "Bezig met uploaden..."
+msgstr "Bezig met uploaden…"
 
 #, python-format
 msgid ""

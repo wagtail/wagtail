@@ -299,7 +299,7 @@ msgid "Sign in to Wagtail"
 msgstr "Wagtail oturumu aç"
 
 msgid "Signing in…"
-msgstr "Giriş yapılıyor..."
+msgstr "Giriş yapılıyor…"
 
 msgid "Page privacy"
 msgstr "Sayfa gizliliği"

@@ -247,7 +247,7 @@ msgid "Pages"
 msgstr "Pagini"
 
 msgid "Loading…"
-msgstr "Se încarcă..."
+msgstr "Se încarcă…"
 
 msgid "No results"
 msgstr "Nici un rezultat"
@@ -494,7 +494,7 @@ msgid "Forgotten it?"
 msgstr "Ați uitat?"
 
 msgid "Signing in…"
-msgstr "În curs de conectare..."
+msgstr "În curs de conectare…"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -698,13 +698,13 @@ msgid "New"
 msgstr "Nou"
 
 msgid "Saving…"
-msgstr "În curse de salvare..."
+msgstr "În curse de salvare…"
 
 msgid "Save draft"
 msgstr "Salvează ca ciornă"
 
 msgid "Publishing…"
-msgstr "În curs de publicare..."
+msgstr "În curs de publicare…"
 
 msgid "Publish"
 msgstr "Publică"

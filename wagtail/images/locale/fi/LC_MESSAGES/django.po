@@ -138,7 +138,7 @@ msgid "Popular tags"
 msgstr "Suositut asiasanat"
 
 msgid "Uploading…"
-msgstr "Lähetetään..."
+msgstr "Lähetetään…"
 
 #, python-format
 msgid ""

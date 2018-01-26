@@ -27,7 +27,7 @@ msgid "Editing"
 msgstr "Að breyta"
 
 msgid "Saving…"
-msgstr "Vista..."
+msgstr "Vista…"
 
 msgid "Save"
 msgstr "Vista"

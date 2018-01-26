@@ -140,7 +140,7 @@ msgid "Popular tags"
 msgstr "Popularne tagi"
 
 msgid "Uploading…"
-msgstr "Wgrywanie..."
+msgstr "Wgrywanie…"
 
 #, python-format
 msgid ""

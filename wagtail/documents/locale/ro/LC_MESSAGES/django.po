@@ -60,7 +60,7 @@ msgid "Upload"
 msgstr "Încărcare"
 
 msgid "Uploading…"
-msgstr "În curs de încărcare..."
+msgstr "În curs de încărcare…"
 
 msgid "Server Error"
 msgstr "Eroare de server"

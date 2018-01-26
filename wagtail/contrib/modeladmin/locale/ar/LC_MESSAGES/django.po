@@ -48,7 +48,7 @@ msgid "Continue"
 msgstr "أكمل"
 
 msgid "Saving…"
-msgstr "يتم الحفظ..."
+msgstr "يتم الحفظ…"
 
 msgid "Save"
 msgstr "حفظ"

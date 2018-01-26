@@ -121,7 +121,7 @@ msgid "Popular tags"
 msgstr "Oblíbené tagy"
 
 msgid "Uploading…"
-msgstr "Nahrávání..."
+msgstr "Nahrávání…"
 
 #, python-format
 msgid ""

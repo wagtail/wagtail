@@ -52,7 +52,7 @@ msgid "Continue"
 msgstr "Pokračovat"
 
 msgid "Saving…"
-msgstr "Ukládání..."
+msgstr "Ukládání…"
 
 msgid "Save"
 msgstr "Uložit"

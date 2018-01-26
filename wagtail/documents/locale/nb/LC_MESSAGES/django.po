@@ -60,7 +60,7 @@ msgid "Upload"
 msgstr "Last opp"
 
 msgid "Uploading…"
-msgstr "Laster opp..."
+msgstr "Laster opp…"
 
 msgid "Server Error"
 msgstr "Serverfeil"

@@ -136,7 +136,7 @@ msgid "Popular tags"
 msgstr "Vinsæl merki"
 
 msgid "Uploading…"
-msgstr "Hleð inn..."
+msgstr "Hleð inn…"
 
 #, python-format
 msgid ""

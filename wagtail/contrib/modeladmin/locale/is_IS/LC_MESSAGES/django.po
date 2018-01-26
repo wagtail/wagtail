@@ -84,7 +84,7 @@ msgid "Continue"
 msgstr "Áfram"
 
 msgid "Saving…"
-msgstr "Vista..."
+msgstr "Vista…"
 
 msgid "Save"
 msgstr "Vista"

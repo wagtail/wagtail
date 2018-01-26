@@ -28,7 +28,7 @@ msgid "Editing"
 msgstr "جاري التعديل"
 
 msgid "Saving…"
-msgstr "جاري الحفظ..."
+msgstr "جاري الحفظ…"
 
 msgid "Save"
 msgstr "حفظ"

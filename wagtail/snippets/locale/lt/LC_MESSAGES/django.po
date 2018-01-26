@@ -81,7 +81,7 @@ msgid "New"
 msgstr "Naujas"
 
 msgid "Saving…"
-msgstr "Saugoma..."
+msgstr "Saugoma…"
 
 msgid "Save"
 msgstr "Išsaugoti"

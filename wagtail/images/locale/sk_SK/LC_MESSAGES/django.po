@@ -111,7 +111,7 @@ msgid "Popular tags"
 msgstr "Populárne tagy"
 
 msgid "Uploading…"
-msgstr "Odosielam..."
+msgstr "Odosielam…"
 
 msgid "Latest images"
 msgstr "Posledné obrázky"

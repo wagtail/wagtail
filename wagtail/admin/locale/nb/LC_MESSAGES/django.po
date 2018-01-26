@@ -244,7 +244,7 @@ msgid "Pages"
 msgstr "Sider"
 
 msgid "Loading…"
-msgstr "Laster inn..."
+msgstr "Laster inn…"
 
 msgid "No results"
 msgstr "Ingen resultater"
@@ -486,7 +486,7 @@ msgid "Forgotten it?"
 msgstr "Glemt?"
 
 msgid "Signing in…"
-msgstr "Logger inn..."
+msgstr "Logger inn…"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -684,13 +684,13 @@ msgid "New"
 msgstr "Ny"
 
 msgid "Saving…"
-msgstr "Lagrer..."
+msgstr "Lagrer…"
 
 msgid "Save draft"
 msgstr "Lagre kladd"
 
 msgid "Publishing…"
-msgstr "Publiserer..."
+msgstr "Publiserer…"
 
 msgid "Publish"
 msgstr "Publiser"

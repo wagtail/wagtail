@@ -29,7 +29,7 @@ msgid "Editing"
 msgstr "Επεξεργασία"
 
 msgid "Saving…"
-msgstr "Αποθήκευση..."
+msgstr "Αποθήκευση…"
 
 msgid "Save"
 msgstr "Αποθήκευση"

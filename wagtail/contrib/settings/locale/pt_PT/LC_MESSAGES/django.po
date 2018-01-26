@@ -28,7 +28,7 @@ msgid "Editing"
 msgstr "A alterar"
 
 msgid "Saving…"
-msgstr "A guardar..."
+msgstr "A guardar…"
 
 msgid "Save"
 msgstr "Guardar"

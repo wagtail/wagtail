@@ -83,7 +83,7 @@ msgid "Continue"
 msgstr "Fortsätt"
 
 msgid "Saving…"
-msgstr "Sparar..."
+msgstr "Sparar…"
 
 msgid "Save"
 msgstr "Spara"

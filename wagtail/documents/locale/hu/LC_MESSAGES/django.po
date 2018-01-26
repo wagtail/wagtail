@@ -50,7 +50,7 @@ msgid "Upload"
 msgstr "Feltöltés"
 
 msgid "Uploading…"
-msgstr "Feltöltés folyamatban..."
+msgstr "Feltöltés folyamatban…"
 
 #, python-format
 msgid ""

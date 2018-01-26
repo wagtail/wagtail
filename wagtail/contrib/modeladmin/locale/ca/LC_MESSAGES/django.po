@@ -83,7 +83,7 @@ msgid "Continue"
 msgstr "Continuar"
 
 msgid "Saving…"
-msgstr "Desant..."
+msgstr "Desant…"
 
 msgid "Save"
 msgstr "Desar"

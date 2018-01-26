@@ -23,7 +23,7 @@ msgid "Editing"
 msgstr "Szerkesztés"
 
 msgid "Saving…"
-msgstr "Mentés folyamatban..."
+msgstr "Mentés folyamatban…"
 
 msgid "Save"
 msgstr "Mentés"

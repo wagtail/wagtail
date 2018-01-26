@@ -84,7 +84,7 @@ msgid "Continue"
 msgstr "Continuar"
 
 msgid "Saving…"
-msgstr "A gravar..."
+msgstr "A gravar…"
 
 msgid "Save"
 msgstr "Guardar"

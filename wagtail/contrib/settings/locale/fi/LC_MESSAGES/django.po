@@ -28,7 +28,7 @@ msgid "Editing"
 msgstr "Muokataan"
 
 msgid "Saving…"
-msgstr "Tallennetaan..."
+msgstr "Tallennetaan…"
 
 msgid "Save"
 msgstr "Tallenna"

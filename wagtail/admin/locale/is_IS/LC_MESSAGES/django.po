@@ -454,7 +454,7 @@ msgid "Forgotten it?"
 msgstr "Búin(n) að gleyma því?"
 
 msgid "Signing in…"
-msgstr "Skrái þig inn..."
+msgstr "Skrái þig inn…"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -653,13 +653,13 @@ msgid "New"
 msgstr "Ný"
 
 msgid "Saving…"
-msgstr "Vista..."
+msgstr "Vista…"
 
 msgid "Save draft"
 msgstr "Vista uppkast"
 
 msgid "Publishing…"
-msgstr "Set í birtingu..."
+msgstr "Set í birtingu…"
 
 msgid "Publish"
 msgstr "Setja í birtingu"

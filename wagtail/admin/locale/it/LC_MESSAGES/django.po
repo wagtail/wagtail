@@ -241,7 +241,7 @@ msgid "Pages"
 msgstr "Pagine"
 
 msgid "Loading…"
-msgstr "Caricamento..."
+msgstr "Caricamento…"
 
 msgid "No results"
 msgstr "Nessun risultato"
@@ -488,7 +488,7 @@ msgid "Forgotten it?"
 msgstr "Dimenticato?"
 
 msgid "Signing in…"
-msgstr "Autenticazione in corso..."
+msgstr "Autenticazione in corso…"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -691,13 +691,13 @@ msgid "New"
 msgstr "Nuovo"
 
 msgid "Saving…"
-msgstr "Salvataggio in corso..."
+msgstr "Salvataggio in corso…"
 
 msgid "Save draft"
 msgstr "Salva bozza"
 
 msgid "Publishing…"
-msgstr "Pubblicazione in corso..."
+msgstr "Pubblicazione in corso…"
 
 msgid "Publish"
 msgstr "Pubblica"

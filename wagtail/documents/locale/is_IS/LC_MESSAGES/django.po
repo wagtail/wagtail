@@ -60,7 +60,7 @@ msgid "Upload"
 msgstr "Hlaða upp"
 
 msgid "Uploading…"
-msgstr "Hleð upp..."
+msgstr "Hleð upp…"
 
 msgid "Server Error"
 msgstr "Villa á vefþjóni"

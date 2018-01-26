@@ -288,7 +288,7 @@ msgid "Forgotten it?"
 msgstr "أنسيته؟"
 
 msgid "Signing in…"
-msgstr "يتم تسجيل الدخول..."
+msgstr "يتم تسجيل الدخول…"
 
 msgid "You can view the page here:"
 msgstr "انظر الصفحة هنا"
@@ -363,13 +363,13 @@ msgid "New"
 msgstr "جديد"
 
 msgid "Saving…"
-msgstr "يتم الحفظ..."
+msgstr "يتم الحفظ…"
 
 msgid "Save draft"
 msgstr "احفظ المسوّد"
 
 msgid "Publishing…"
-msgstr "يتم النشر..."
+msgstr "يتم النشر…"
 
 msgid "Publish"
 msgstr "انشر"

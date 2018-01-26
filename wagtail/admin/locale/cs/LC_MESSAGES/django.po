@@ -332,7 +332,7 @@ msgid "Forgotten it?"
 msgstr "Zapoměli jste heslo?"
 
 msgid "Signing in…"
-msgstr "Přihlašování..."
+msgstr "Přihlašování…"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -487,13 +487,13 @@ msgid "New"
 msgstr "Nový"
 
 msgid "Saving…"
-msgstr "Ukládání..."
+msgstr "Ukládání…"
 
 msgid "Save draft"
 msgstr "Uložit koncept"
 
 msgid "Publishing…"
-msgstr "Publikování..."
+msgstr "Publikování…"
 
 msgid "Publish"
 msgstr "Publikovat"

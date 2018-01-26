@@ -28,7 +28,7 @@ msgid "Editing"
 msgstr "در حال ویرایش"
 
 msgid "Saving…"
-msgstr "در حال ذخیره کردن..."
+msgstr "در حال ذخیره کردن…"
 
 msgid "Save"
 msgstr "ذخیره"

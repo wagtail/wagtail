@@ -85,7 +85,7 @@ msgid "Continue"
 msgstr "Continuă"
 
 msgid "Saving…"
-msgstr "În curse de salvare..."
+msgstr "În curse de salvare…"
 
 msgid "Save"
 msgstr "Salvează"

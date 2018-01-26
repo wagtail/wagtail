@@ -141,7 +141,7 @@ msgid "Popular tags"
 msgstr "Gerar etiquetas"
 
 msgid "Uploading…"
-msgstr "Enviando..."
+msgstr "Enviando…"
 
 #, python-format
 msgid ""

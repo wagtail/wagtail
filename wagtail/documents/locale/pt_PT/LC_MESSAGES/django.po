@@ -62,7 +62,7 @@ msgid "Upload"
 msgstr "Carregar"
 
 msgid "Uploading…"
-msgstr "A carregar..."
+msgstr "A carregar…"
 
 msgid "Server Error"
 msgstr "Erro no Servidor"

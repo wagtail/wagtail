@@ -29,7 +29,7 @@ msgid "Editing"
 msgstr "Modifica"
 
 msgid "Saving…"
-msgstr "Salvataggio in corso..."
+msgstr "Salvataggio in corso…"
 
 msgid "Save"
 msgstr "Salva"

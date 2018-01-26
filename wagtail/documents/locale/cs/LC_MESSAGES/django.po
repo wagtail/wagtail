@@ -51,7 +51,7 @@ msgid "Upload"
 msgstr "Nahrát"
 
 msgid "Uploading…"
-msgstr "Nahrávám..."
+msgstr "Nahrávám…"
 
 msgid "Server Error"
 msgstr "Chyba serveru"

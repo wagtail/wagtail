@@ -87,7 +87,7 @@ msgid "New"
 msgstr "Новый"
 
 msgid "Saving…"
-msgstr "Сохранение..."
+msgstr "Сохранение…"
 
 msgid "Save"
 msgstr "Сохранить"

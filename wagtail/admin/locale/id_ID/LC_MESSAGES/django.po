@@ -250,7 +250,7 @@ msgid "Pages"
 msgstr "Halaman"
 
 msgid "Loading…"
-msgstr "Memuat..."
+msgstr "Memuat…"
 
 msgid "No results"
 msgstr "Tidak ada hasil"
@@ -483,7 +483,7 @@ msgid "Forgotten it?"
 msgstr "Apakah anda lupa?"
 
 msgid "Signing in…"
-msgstr "Sedang masuk..."
+msgstr "Sedang masuk…"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -676,13 +676,13 @@ msgid "New"
 msgstr "Baru"
 
 msgid "Saving…"
-msgstr "Menyimpan..."
+msgstr "Menyimpan…"
 
 msgid "Save draft"
 msgstr "Simpan konsep"
 
 msgid "Publishing…"
-msgstr "Publikasikan...."
+msgstr "Publikasikan…."
 
 msgid "Publish"
 msgstr "Publikasikan"

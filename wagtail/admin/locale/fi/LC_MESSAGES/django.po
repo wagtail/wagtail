@@ -433,7 +433,7 @@ msgid "Forgotten it?"
 msgstr "Unohtui?"
 
 msgid "Signing in…"
-msgstr "Kirjaudutaan..."
+msgstr "Kirjaudutaan…"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -607,13 +607,13 @@ msgid "New"
 msgstr "Uusi"
 
 msgid "Saving…"
-msgstr "Tallennetaan..."
+msgstr "Tallennetaan…"
 
 msgid "Save draft"
 msgstr "Tallenna luonnos"
 
 msgid "Publishing…"
-msgstr "Julkaistaan..."
+msgstr "Julkaistaan…"
 
 msgid "Publish"
 msgstr "Julkaise"

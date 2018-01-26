@@ -69,7 +69,7 @@ msgid "New"
 msgstr "Nou"
 
 msgid "Saving…"
-msgstr "Desant..."
+msgstr "Desant…"
 
 msgid "Save"
 msgstr "Desa"

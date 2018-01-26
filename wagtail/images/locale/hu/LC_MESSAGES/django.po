@@ -43,7 +43,7 @@ msgid "Upload"
 msgstr "Feltöltés"
 
 msgid "Uploading…"
-msgstr "Feltöltés folyamatban..."
+msgstr "Feltöltés folyamatban…"
 
 msgid "Save"
 msgstr "Mentés"

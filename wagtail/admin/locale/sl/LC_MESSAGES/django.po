@@ -414,7 +414,7 @@ msgid "Forgotten it?"
 msgstr "Pozabljeno geslo?"
 
 msgid "Signing in…"
-msgstr "Prijava v teku..."
+msgstr "Prijava v teku…"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -551,13 +551,13 @@ msgid "New"
 msgstr "Nov"
 
 msgid "Saving…"
-msgstr "Shranjevanje..."
+msgstr "Shranjevanje…"
 
 msgid "Save draft"
 msgstr "Shrani osnutek"
 
 msgid "Publishing…"
-msgstr "Objava..."
+msgstr "Objava…"
 
 msgid "Publish"
 msgstr "Objavi"

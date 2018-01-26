@@ -81,7 +81,7 @@ msgid "New"
 msgstr "Ny"
 
 msgid "Saving…"
-msgstr "Sparar..."
+msgstr "Sparar…"
 
 msgid "Save"
 msgstr "Spara"

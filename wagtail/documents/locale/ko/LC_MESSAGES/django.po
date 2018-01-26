@@ -60,7 +60,7 @@ msgid "Upload"
 msgstr "업로드"
 
 msgid "Uploading…"
-msgstr "업로드 중..."
+msgstr "업로드 중…"
 
 msgid "Server Error"
 msgstr "서버 오류"

@@ -61,7 +61,7 @@ msgid "Upload"
 msgstr "Subir"
 
 msgid "Uploading…"
-msgstr "Subindo..."
+msgstr "Subindo…"
 
 msgid "Server Error"
 msgstr "Erro do Servidor"

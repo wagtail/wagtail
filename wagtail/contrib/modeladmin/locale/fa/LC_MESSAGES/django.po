@@ -83,7 +83,7 @@ msgid "Continue"
 msgstr "ادامه"
 
 msgid "Saving…"
-msgstr "درحال ذخیره..."
+msgstr "درحال ذخیره…"
 
 msgid "Save"
 msgstr "ذخیره"
