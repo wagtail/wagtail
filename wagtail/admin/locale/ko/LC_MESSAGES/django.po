@@ -235,7 +235,7 @@ msgstr "페이지"
 msgid "Pages"
 msgstr "페이지"
 
-msgid "Loading..."
+msgid "Loading…"
 msgstr "불러오는 중..."
 
 msgid "No results"

@@ -268,7 +268,7 @@ msgstr "Страница"
 msgid "Pages"
 msgstr "Страницы"
 
-msgid "Loading..."
+msgid "Loading…"
 msgstr "Загрузка..."
 
 msgid "No results"

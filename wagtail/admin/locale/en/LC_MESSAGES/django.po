@@ -328,7 +328,7 @@ msgid "Pages"
 msgstr ""
 
 #: templates/wagtailadmin/admin_base.html:34
-msgid "Loading..."
+msgid "Loading…"
 msgstr ""
 
 #: templates/wagtailadmin/admin_base.html:35

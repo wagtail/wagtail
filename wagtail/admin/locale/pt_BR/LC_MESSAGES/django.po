@@ -246,7 +246,7 @@ msgstr "Página"
 msgid "Pages"
 msgstr "Páginas"
 
-msgid "Loading..."
+msgid "Loading…"
 msgstr "Carregando..."
 
 msgid "No results"

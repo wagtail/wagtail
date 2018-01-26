@@ -249,7 +249,7 @@ msgstr "Puslapis"
 msgid "Pages"
 msgstr "Puslapiai"
 
-msgid "Loading..."
+msgid "Loading…"
 msgstr "Kraunama..."
 
 msgid "No results"
