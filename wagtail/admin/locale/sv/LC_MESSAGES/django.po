@@ -690,7 +690,7 @@ msgstr "Sparar..."
 msgid "Save draft"
 msgstr "Spara utkast"
 
-msgid "Publishing..."
+msgid "Publishing…"
 msgstr "Publicerar..."
 
 msgid "Publish"

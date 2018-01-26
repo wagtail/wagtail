@@ -907,7 +907,7 @@ msgstr ""
 
 #: templates/wagtailadmin/pages/create.html:36
 #: templates/wagtailadmin/pages/edit.html:56
-msgid "Publishing..."
+msgid "Publishing…"
 msgstr ""
 
 #: templates/wagtailadmin/pages/create.html:36

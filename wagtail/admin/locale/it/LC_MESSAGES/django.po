@@ -696,7 +696,7 @@ msgstr "Salvataggio in corso..."
 msgid "Save draft"
 msgstr "Salva bozza"
 
-msgid "Publishing..."
+msgid "Publishing…"
 msgstr "Pubblicazione in corso..."
 
 msgid "Publish"

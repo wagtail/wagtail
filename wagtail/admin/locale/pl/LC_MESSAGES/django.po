@@ -739,7 +739,7 @@ msgstr "Zapisywanie..."
 msgid "Save draft"
 msgstr "Zapisz szkic"
 
-msgid "Publishing..."
+msgid "Publishing…"
 msgstr "Publikowanie..."
 
 msgid "Publish"

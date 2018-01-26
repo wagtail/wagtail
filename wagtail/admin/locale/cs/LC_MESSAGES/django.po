@@ -492,7 +492,7 @@ msgstr "Ukládání..."
 msgid "Save draft"
 msgstr "Uložit koncept"
 
-msgid "Publishing..."
+msgid "Publishing…"
 msgstr "Publikování..."
 
 msgid "Publish"

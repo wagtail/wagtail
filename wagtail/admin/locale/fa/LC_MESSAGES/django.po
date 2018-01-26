@@ -652,7 +652,7 @@ msgstr "درحال ذخیره..."
 msgid "Save draft"
 msgstr "ذخیره پیشنویس"
 
-msgid "Publishing..."
+msgid "Publishing…"
 msgstr "درحال انتشار..."
 
 msgid "Publish"

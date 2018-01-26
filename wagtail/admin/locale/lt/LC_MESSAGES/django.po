@@ -704,7 +704,7 @@ msgstr "Saugoma..."
 msgid "Save draft"
 msgstr "Išsaugoti juodraštį"
 
-msgid "Publishing..."
+msgid "Publishing…"
 msgstr "Publikuojama..."
 
 msgid "Publish"

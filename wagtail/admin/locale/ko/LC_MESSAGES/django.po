@@ -650,7 +650,7 @@ msgstr "저장 중..."
 msgid "Save draft"
 msgstr "초안 저장"
 
-msgid "Publishing..."
+msgid "Publishing…"
 msgstr "게시 중..."
 
 msgid "Publish"

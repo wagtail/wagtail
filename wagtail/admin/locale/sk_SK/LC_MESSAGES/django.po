@@ -580,7 +580,7 @@ msgstr "Ukladám..."
 msgid "Save draft"
 msgstr "Uložiť koncept"
 
-msgid "Publishing..."
+msgid "Publishing…"
 msgstr "Publikujem..."
 
 msgid "Publish"

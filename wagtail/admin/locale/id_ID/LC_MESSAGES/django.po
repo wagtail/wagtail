@@ -681,7 +681,7 @@ msgstr "Menyimpan..."
 msgid "Save draft"
 msgstr "Simpan konsep"
 
-msgid "Publishing..."
+msgid "Publishing…"
 msgstr "Publikasikan...."
 
 msgid "Publish"

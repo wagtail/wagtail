@@ -481,7 +481,7 @@ msgstr "Saglabā..."
 msgid "Save draft"
 msgstr "Saglabāt melnrakstu"
 
-msgid "Publishing..."
+msgid "Publishing…"
 msgstr "Publicē..."
 
 msgid "Publish"

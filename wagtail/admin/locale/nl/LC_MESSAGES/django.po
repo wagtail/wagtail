@@ -565,7 +565,7 @@ msgstr "Bezig met opslaan..."
 msgid "Save draft"
 msgstr "Concept opslaan"
 
-msgid "Publishing..."
+msgid "Publishing…"
 msgstr "Bezig met publiceren..."
 
 msgid "Publish"
