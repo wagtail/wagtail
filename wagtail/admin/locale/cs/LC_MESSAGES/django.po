@@ -486,7 +486,7 @@ msgstr "Nový %(page_type)s"
 msgid "New"
 msgstr "Nový"
 
-msgid "Saving..."
+msgid "Saving…"
 msgstr "Ukládání..."
 
 msgid "Save draft"

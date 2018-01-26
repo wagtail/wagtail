@@ -71,7 +71,7 @@ msgstr "Δημιουργία %(snippet_type_name)s"
 msgid "New"
 msgstr "Δημιουργία"
 
-msgid "Saving..."
+msgid "Saving…"
 msgstr "Αποθήκευση..."
 
 msgid "Save"

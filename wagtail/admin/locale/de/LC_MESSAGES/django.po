@@ -717,7 +717,7 @@ msgstr "%(page_type)s erstellen"
 msgid "New"
 msgstr "Neu"
 
-msgid "Saving..."
+msgid "Saving…"
 msgstr "Speichern..."
 
 msgid "Save draft"

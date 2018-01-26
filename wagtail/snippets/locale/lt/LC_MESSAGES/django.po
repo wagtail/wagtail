@@ -80,7 +80,7 @@ msgstr "Nauja %(snippet_type_name)s"
 msgid "New"
 msgstr "Naujas"
 
-msgid "Saving..."
+msgid "Saving…"
 msgstr "Saugoma..."
 
 msgid "Save"

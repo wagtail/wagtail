@@ -26,7 +26,7 @@ msgstr "%(setting_type_name)s - %(instance)s 수정 중"
 msgid "Editing"
 msgstr "수정 중"
 
-msgid "Saving..."
+msgid "Saving…"
 msgstr "저장 중..."
 
 msgid "Save"

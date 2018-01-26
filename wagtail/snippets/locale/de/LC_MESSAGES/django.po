@@ -87,7 +87,7 @@ msgstr "%(snippet_type_name)s erstellen"
 msgid "New"
 msgstr "Erstellen"
 
-msgid "Saving..."
+msgid "Saving…"
 msgstr "Speichern..."
 
 msgid "Save"

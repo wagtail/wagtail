@@ -78,7 +78,7 @@ msgstr "Nýtt %(snippet_type_name)s"
 msgid "New"
 msgstr "Nýtt"
 
-msgid "Saving..."
+msgid "Saving…"
 msgstr "Vista..."
 
 msgid "Save"

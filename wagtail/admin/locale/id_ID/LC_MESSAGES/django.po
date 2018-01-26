@@ -675,7 +675,7 @@ msgstr "%(page_type)s baru"
 msgid "New"
 msgstr "Baru"
 
-msgid "Saving..."
+msgid "Saving…"
 msgstr "Menyimpan..."
 
 msgid "Save draft"

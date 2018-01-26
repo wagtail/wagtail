@@ -644,7 +644,7 @@ msgstr "새로운 %(page_type)s"
 msgid "New"
 msgstr "새로운"
 
-msgid "Saving..."
+msgid "Saving…"
 msgstr "저장 중..."
 
 msgid "Save draft"

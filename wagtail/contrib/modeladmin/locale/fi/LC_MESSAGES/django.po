@@ -83,7 +83,7 @@ msgstr ""
 msgid "Continue"
 msgstr "Jatka"
 
-msgid "Saving..."
+msgid "Saving…"
 msgstr "Tallennetaan..."
 
 msgid "Save"

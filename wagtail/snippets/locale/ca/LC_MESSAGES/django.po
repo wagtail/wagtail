@@ -68,7 +68,7 @@ msgstr "Nou %(snippet_type_name)s"
 msgid "New"
 msgstr "Nou"
 
-msgid "Saving..."
+msgid "Saving…"
 msgstr "Desant..."
 
 msgid "Save"

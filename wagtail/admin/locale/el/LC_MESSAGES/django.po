@@ -641,7 +641,7 @@ msgstr "Νέα %(page_type)s"
 msgid "New"
 msgstr "Νέο"
 
-msgid "Saving..."
+msgid "Saving…"
 msgstr "Αποθήκευση..."
 
 msgid "Save draft"

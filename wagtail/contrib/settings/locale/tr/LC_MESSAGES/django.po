@@ -26,7 +26,7 @@ msgstr "%(setting_type_name)s - %(instance)s düzenleniyor"
 msgid "Editing"
 msgstr "Düzenleniyor"
 
-msgid "Saving..."
+msgid "Saving…"
 msgstr "Kaydediliyor"
 
 msgid "Save"

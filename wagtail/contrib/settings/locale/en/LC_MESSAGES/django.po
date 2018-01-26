@@ -27,7 +27,7 @@ msgid "Editing"
 msgstr ""
 
 #: templates/wagtailsettings/edit.html:36
-msgid "Saving..."
+msgid "Saving…"
 msgstr ""
 
 #: templates/wagtailsettings/edit.html:36

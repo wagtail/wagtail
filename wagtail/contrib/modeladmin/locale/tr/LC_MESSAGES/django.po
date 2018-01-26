@@ -28,7 +28,7 @@ msgstr "Sil"
 msgid "image"
 msgstr "resim"
 
-msgid "Saving..."
+msgid "Saving…"
 msgstr "Kaydediliyor"
 
 msgid "Save"

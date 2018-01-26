@@ -27,7 +27,7 @@ msgstr "تعديل %(setting_type_name)s - %(instance)s"
 msgid "Editing"
 msgstr "جاري التعديل"
 
-msgid "Saving..."
+msgid "Saving…"
 msgstr "جاري الحفظ..."
 
 msgid "Save"

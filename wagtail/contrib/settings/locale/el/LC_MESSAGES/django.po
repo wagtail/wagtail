@@ -28,7 +28,7 @@ msgstr "Επεξεργασία %(setting_type_name)s - %(instance)s"
 msgid "Editing"
 msgstr "Επεξεργασία"
 
-msgid "Saving..."
+msgid "Saving…"
 msgstr "Αποθήκευση..."
 
 msgid "Save"

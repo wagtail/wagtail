@@ -362,7 +362,7 @@ msgstr "انسخ هذه الصفحة"
 msgid "New"
 msgstr "جديد"
 
-msgid "Saving..."
+msgid "Saving…"
 msgstr "يتم الحفظ..."
 
 msgid "Save draft"

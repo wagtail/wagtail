@@ -84,7 +84,7 @@ msgstr "%(snippet_type_name)s nou"
 msgid "New"
 msgstr "Nou"
 
-msgid "Saving..."
+msgid "Saving…"
 msgstr "În curse de salvare..."
 
 msgid "Save"
