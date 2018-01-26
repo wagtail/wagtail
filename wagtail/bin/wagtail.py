@@ -133,17 +133,18 @@ class UpdateModulePaths(Command):
                     continue
 
                 path = os.path.join(dirpath, filename)
+                relative_path = os.path.relpath(path, start=root_path)
                 checked_file_count += 1
 
                 if diff:
-                    change_count = self._show_diff(path)
+                    change_count = self._show_diff(path, relative_path=relative_path)
                 else:
                     if list_files:
                         change_count = self._count_changes(path)
                     else:  # actually update
                         change_count = self._rewrite_file(path)
                     if change_count:
-                        print("%s - %d %s" % (path, change_count, 'change' if change_count == 1 else 'changes'))  # NOQA
+                        print("%s - %d %s" % (relative_path, change_count, 'change' if change_count == 1 else 'changes'))  # NOQA
 
                 if change_count:
                     changed_file_count += 1
@@ -158,7 +159,7 @@ class UpdateModulePaths(Command):
             line = re.sub(pattern, repl, line)
         return line
 
-    def _show_diff(self, filename):
+    def _show_diff(self, filename, relative_path=None):
         change_count = 0
         original = []
         updated = []
@@ -173,8 +174,10 @@ class UpdateModulePaths(Command):
                     change_count += 1
 
         if change_count:
+            relative_path = relative_path or filename
+
             sys.stdout.writelines(unified_diff(
-                original, updated, fromfile="%s:before" % filename, tofile="%s:after" % filename
+                original, updated, fromfile="%s:before" % relative_path, tofile="%s:after" % relative_path
             ))
 
         return change_count
