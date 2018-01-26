@@ -4,6 +4,7 @@ import os
 import re
 import sys
 from argparse import ArgumentParser
+from difflib import unified_diff
 
 from django.core.management import ManagementUtility
 
@@ -105,13 +106,15 @@ class UpdateModulePaths(Command):
 
     def add_arguments(self, parser):
         parser.add_argument('root_path', nargs='?', help="Path to your project's root")
+        parser.add_argument('--list', action='store_true', dest='list_files', help="Show the list of files to change, without modifying them")
+        parser.add_argument('--diff', action='store_true', help="Show the changes that would be made, without modifying the files")
 
-    def run(self, root_path=None):
+    def run(self, root_path=None, list_files=False, diff=False):
         if root_path is None:
             root_path = os.getcwd()
 
-        checked_count = 0
-        changed_count = 0
+        checked_file_count = 0
+        changed_file_count = 0
 
         for (dirpath, dirnames, filenames) in os.walk(root_path):
             for filename in filenames:
@@ -119,27 +122,74 @@ class UpdateModulePaths(Command):
                     continue
 
                 path = os.path.join(dirpath, filename)
-                checked_count += 1
-                changed = self._rewrite_file(path)
-                if changed:
-                    print(path)  # NOQA
-                    changed_count += 1
+                checked_file_count += 1
 
-        print("\nChecked %d .py files, %d files updated." % (checked_count, changed_count))  # NOQA
+                if diff:
+                    change_count = self._show_diff(path)
+                else:
+                    if list_files:
+                        change_count = self._count_changes(path)
+                    else:  # actually update
+                        change_count = self._rewrite_file(path)
+                    if change_count:
+                        print("%s - %d %s" % (path, change_count, 'change' if change_count == 1 else 'changes'))  # NOQA
+
+                if change_count:
+                    changed_file_count += 1
+
+        if diff or list_files:
+            print("\nChecked %d .py files, %d files to update." % (checked_file_count, changed_file_count))  # NOQA
+        else:
+            print("\nChecked %d .py files, %d files updated." % (checked_file_count, changed_file_count))  # NOQA
+
+    def _rewrite_line(self, line):
+        for pattern, repl in self.REPLACEMENTS:
+            line = re.sub(pattern, repl, line)
+        return line
+
+    def _show_diff(self, filename):
+        change_count = 0
+        original = []
+        updated = []
+
+        with open(filename) as f:
+            for original_line in f:
+                original.append(original_line)
+
+                line = self._rewrite_line(original_line)
+                updated.append(line)
+                if line != original_line:
+                    change_count += 1
+
+        if change_count:
+            sys.stdout.writelines(unified_diff(
+                original, updated, fromfile="%s:before" % filename, tofile="%s:after" % filename
+            ))
+
+        return change_count
+
+    def _count_changes(self, filename):
+        change_count = 0
+
+        with open(filename) as f:
+            for original_line in f:
+                line = self._rewrite_line(original_line)
+                if line != original_line:
+                    change_count += 1
+
+        return change_count
 
     def _rewrite_file(self, filename):
-        changed = False
+        change_count = 0
 
         with fileinput.FileInput(filename, inplace=True) as f:
             for original_line in f:
-                line = original_line
-                for pattern, repl in self.REPLACEMENTS:
-                    line = re.sub(pattern, repl, line)
+                line = self._rewrite_line(original_line)
                 print(line, end='')  # NOQA
                 if line != original_line:
-                    changed = True
+                    change_count += 1
 
-        return changed
+        return change_count
 
 
 COMMANDS = {
