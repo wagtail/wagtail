@@ -134,7 +134,7 @@ msgstr "Încărcare"
 msgid "Popular tags"
 msgstr "Etichete populare"
 
-msgid "Uploading..."
+msgid "Uploading…"
 msgstr "În curs de încărcare..."
 
 #, python-format

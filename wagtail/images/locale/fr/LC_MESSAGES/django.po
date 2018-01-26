@@ -142,7 +142,7 @@ msgstr "Envoyer"
 msgid "Popular tags"
 msgstr "Mots-clés populaires"
 
-msgid "Uploading..."
+msgid "Uploading…"
 msgstr "Téléchargement..."
 
 #, python-format

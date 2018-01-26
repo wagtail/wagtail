@@ -58,7 +58,7 @@ msgstr "Sök"
 msgid "Upload"
 msgstr "Ladda upp"
 
-msgid "Uploading..."
+msgid "Uploading…"
 msgstr "Laddar upp..."
 
 msgid "Server Error"

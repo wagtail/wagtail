@@ -61,7 +61,7 @@ msgstr "搜索"
 msgid "Upload"
 msgstr "上传"
 
-msgid "Uploading..."
+msgid "Uploading…"
 msgstr "正在上传..."
 
 msgid "Server Error"

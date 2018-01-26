@@ -61,7 +61,7 @@ msgstr "Pesquisar"
 msgid "Upload"
 msgstr "Carregar"
 
-msgid "Uploading..."
+msgid "Uploading…"
 msgstr "A carregar..."
 
 msgid "Server Error"

@@ -136,7 +136,7 @@ msgstr "업로드"
 msgid "Popular tags"
 msgstr "인기있는 태그"
 
-msgid "Uploading..."
+msgid "Uploading…"
 msgstr "업로드 중..."
 
 #, python-format

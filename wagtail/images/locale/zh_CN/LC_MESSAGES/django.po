@@ -135,7 +135,7 @@ msgstr "上传"
 msgid "Popular tags"
 msgstr "热门标签"
 
-msgid "Uploading..."
+msgid "Uploading…"
 msgstr "正在上传..."
 
 #, python-format

@@ -59,7 +59,7 @@ msgstr "Paieška"
 msgid "Upload"
 msgstr "Įkelti"
 
-msgid "Uploading..."
+msgid "Uploading…"
 msgstr "Įkeliama..."
 
 msgid "Server Error"

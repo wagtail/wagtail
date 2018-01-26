@@ -126,7 +126,7 @@ msgstr "Prenos"
 msgid "Popular tags"
 msgstr "Priljubljene oznake"
 
-msgid "Uploading..."
+msgid "Uploading…"
 msgstr "Prenašanje..."
 
 #, python-format

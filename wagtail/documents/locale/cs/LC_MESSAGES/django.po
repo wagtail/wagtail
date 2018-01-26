@@ -50,7 +50,7 @@ msgstr "Hledat"
 msgid "Upload"
 msgstr "Nahrát"
 
-msgid "Uploading..."
+msgid "Uploading…"
 msgstr "Nahrávám..."
 
 msgid "Server Error"

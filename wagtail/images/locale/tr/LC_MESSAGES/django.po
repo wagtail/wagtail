@@ -114,7 +114,7 @@ msgstr "Yükle"
 msgid "Popular tags"
 msgstr "Popüler etiketler"
 
-msgid "Uploading..."
+msgid "Uploading…"
 msgstr "Yükleniyor..."
 
 msgid "Latest images"

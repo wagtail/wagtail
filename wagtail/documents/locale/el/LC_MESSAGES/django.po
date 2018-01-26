@@ -63,7 +63,7 @@ msgstr "Αναζήτηση"
 msgid "Upload"
 msgstr "Ανέβασμα"
 
-msgid "Uploading..."
+msgid "Uploading…"
 msgstr "Ανέβασμα εγγράφου .."
 
 msgid "Server Error"

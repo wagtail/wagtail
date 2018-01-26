@@ -43,7 +43,7 @@ msgstr "Hľadať"
 msgid "Upload"
 msgstr "Nahrať"
 
-msgid "Uploading..."
+msgid "Uploading…"
 msgstr "Odosielam..."
 
 #, python-format

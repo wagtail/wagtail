@@ -58,7 +58,7 @@ msgstr "Ara"
 msgid "Upload"
 msgstr "Yükle"
 
-msgid "Uploading..."
+msgid "Uploading…"
 msgstr "Yükleniyor..."
 
 msgid "Server Error"

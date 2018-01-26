@@ -59,7 +59,7 @@ msgstr "Pencarian"
 msgid "Upload"
 msgstr "Unggah"
 
-msgid "Uploading..."
+msgid "Uploading…"
 msgstr "Mengunggah"
 
 msgid "Server Error"

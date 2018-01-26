@@ -60,7 +60,7 @@ msgstr "Procurar"
 msgid "Upload"
 msgstr "Subir"
 
-msgid "Uploading..."
+msgid "Uploading…"
 msgstr "Subindo..."
 
 msgid "Server Error"

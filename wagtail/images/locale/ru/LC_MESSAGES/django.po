@@ -143,7 +143,7 @@ msgstr "Загрузка"
 msgid "Popular tags"
 msgstr "Популярные теги"
 
-msgid "Uploading..."
+msgid "Uploading…"
 msgstr "Загрузка..."
 
 #, python-format

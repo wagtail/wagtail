@@ -59,7 +59,7 @@ msgstr "Căută"
 msgid "Upload"
 msgstr "Încărcare"
 
-msgid "Uploading..."
+msgid "Uploading…"
 msgstr "În curs de încărcare..."
 
 msgid "Server Error"

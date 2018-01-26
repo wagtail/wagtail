@@ -59,7 +59,7 @@ msgstr "검색"
 msgid "Upload"
 msgstr "업로드"
 
-msgid "Uploading..."
+msgid "Uploading…"
 msgstr "업로드 중..."
 
 msgid "Server Error"

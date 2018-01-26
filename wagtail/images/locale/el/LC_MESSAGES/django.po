@@ -140,7 +140,7 @@ msgstr "Ανέβασμα"
 msgid "Popular tags"
 msgstr "Δημοφιλείς ετικέτες"
 
-msgid "Uploading..."
+msgid "Uploading…"
 msgstr "Ανέβασμα εικόνας ..."
 
 #, python-format

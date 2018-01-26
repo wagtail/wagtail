@@ -81,7 +81,7 @@ msgstr "بحث"
 msgid "Upload"
 msgstr "انقل إلى الحاسوب"
 
-msgid "Uploading..."
+msgid "Uploading…"
 msgstr "يتم الرفع..."
 
 msgid "Latest images"
