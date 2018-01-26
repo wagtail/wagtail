@@ -110,13 +110,22 @@ class UpdateModulePaths(Command):
         parser.add_argument('--list', action='store_true', dest='list_files', help="Show the list of files to change, without modifying them")
         parser.add_argument('--diff', action='store_true', help="Show the changes that would be made, without modifying the files")
         parser.add_argument(
+            '--ignore-dir', action='append', dest='ignored_dirs', metavar='NAME',
+            help="Ignore files in this directory"
+        )
+        parser.add_argument(
             '--ignore-file', action='append', dest='ignored_patterns', metavar='NAME',
             help="Ignore files with this name (supports wildcards)"
         )
 
-    def run(self, root_path=None, list_files=False, diff=False, ignored_patterns=None):
+    def run(self, root_path=None, list_files=False, diff=False, ignored_dirs=None, ignored_patterns=None):
         if root_path is None:
             root_path = os.getcwd()
+
+        absolute_ignored_dirs = [
+            os.path.abspath(dir_path) + os.sep
+            for dir_path in (ignored_dirs or [])
+        ]
 
         if ignored_patterns is None:
             ignored_patterns = []
@@ -125,6 +134,10 @@ class UpdateModulePaths(Command):
         changed_file_count = 0
 
         for (dirpath, dirnames, filenames) in os.walk(root_path):
+            dirpath_with_slash = os.path.abspath(dirpath) + os.sep
+            if any(dirpath_with_slash.startswith(ignored_dir) for ignored_dir in absolute_ignored_dirs):
+                continue
+
             for filename in filenames:
                 if not filename.lower().endswith('.py'):
                     continue
