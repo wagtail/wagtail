@@ -141,7 +141,7 @@ msgid "Popular tags"
 msgstr "Δημοφιλείς ετικέτες"
 
 msgid "Uploading…"
-msgstr "Ανέβασμα εικόνας ..."
+msgstr "Ανέβασμα εικόνας …"
 
 #, python-format
 msgid ""

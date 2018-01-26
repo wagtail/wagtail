@@ -90,7 +90,7 @@ msgid "New"
 msgstr "Nowy"
 
 msgid "Saving…"
-msgstr "Zapisywanie..."
+msgstr "Zapisywanie…"
 
 msgid "Save"
 msgstr "Zapisz"

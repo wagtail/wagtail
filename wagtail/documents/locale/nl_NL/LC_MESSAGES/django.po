@@ -60,7 +60,7 @@ msgid "Upload"
 msgstr "Uploaden"
 
 msgid "Uploading…"
-msgstr "Bezig met uploaden..."
+msgstr "Bezig met uploaden…"
 
 msgid "Server Error"
 msgstr "Server Error"

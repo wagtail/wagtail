@@ -59,7 +59,7 @@ msgid "Upload"
 msgstr "Ladda upp"
 
 msgid "Uploading…"
-msgstr "Laddar upp..."
+msgstr "Laddar upp…"
 
 msgid "Server Error"
 msgstr "Serverfel"

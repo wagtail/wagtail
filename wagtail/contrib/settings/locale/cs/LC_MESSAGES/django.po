@@ -27,7 +27,7 @@ msgid "Editing"
 msgstr "Upravavování"
 
 msgid "Saving…"
-msgstr "Ukládání..."
+msgstr "Ukládání…"
 
 msgid "Save"
 msgstr "Uložit"

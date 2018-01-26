@@ -269,7 +269,7 @@ msgid "Pages"
 msgstr "Страницы"
 
 msgid "Loading…"
-msgstr "Загрузка..."
+msgstr "Загрузка…"
 
 msgid "No results"
 msgstr "Нет результатов"
@@ -531,7 +531,7 @@ msgid "Forgotten it?"
 msgstr "Забыли его?"
 
 msgid "Signing in…"
-msgstr "Выполняется вход..."
+msgstr "Выполняется вход…"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -741,13 +741,13 @@ msgid "New"
 msgstr "Новый"
 
 msgid "Saving…"
-msgstr "Сохранение..."
+msgstr "Сохранение…"
 
 msgid "Save draft"
 msgstr "Сохранить черновик"
 
 msgid "Publishing…"
-msgstr "Публикация..."
+msgstr "Публикация…"
 
 msgid "Publish"
 msgstr "Опубликовать"

@@ -440,7 +440,7 @@ msgid "Forgotten it?"
 msgstr "Oblidar?"
 
 msgid "Signing in…"
-msgstr "Iniciant sessió..."
+msgstr "Iniciant sessió…"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -635,13 +635,13 @@ msgid "New"
 msgstr "Nou"
 
 msgid "Saving…"
-msgstr "Desant..."
+msgstr "Desant…"
 
 msgid "Save draft"
 msgstr "Desa esborrany"
 
 msgid "Publishing…"
-msgstr "Publicant..."
+msgstr "Publicant…"
 
 msgid "Publish"
 msgstr "Publica"

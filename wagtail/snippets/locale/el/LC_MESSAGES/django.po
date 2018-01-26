@@ -72,7 +72,7 @@ msgid "New"
 msgstr "Δημιουργία"
 
 msgid "Saving…"
-msgstr "Αποθήκευση..."
+msgstr "Αποθήκευση…"
 
 msgid "Save"
 msgstr "Αποθήκευση"

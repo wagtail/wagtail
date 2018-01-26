@@ -28,7 +28,7 @@ msgid "Editing"
 msgstr "Redagavimas"
 
 msgid "Saving…"
-msgstr "Saugojama..."
+msgstr "Saugojama…"
 
 msgid "Save"
 msgstr "Išsaugoti"

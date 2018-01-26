@@ -136,7 +136,7 @@ msgid "Popular tags"
 msgstr "برچسب های پرتکرار"
 
 msgid "Uploading…"
-msgstr "در حال آپلود..."
+msgstr "در حال آپلود…"
 
 #, python-format
 msgid ""

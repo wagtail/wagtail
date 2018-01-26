@@ -372,7 +372,7 @@ msgid "Forgotten it?"
 msgstr "パスワードを忘れましたか？"
 
 msgid "Signing in…"
-msgstr "サインイン中..."
+msgstr "サインイン中…"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -517,13 +517,13 @@ msgid "New"
 msgstr "新規作成"
 
 msgid "Saving…"
-msgstr "保存中..."
+msgstr "保存中…"
 
 msgid "Save draft"
 msgstr "下書きを保存"
 
 msgid "Publishing…"
-msgstr "公開中..."
+msgstr "公開中…"
 
 msgid "Publish"
 msgstr "公開"

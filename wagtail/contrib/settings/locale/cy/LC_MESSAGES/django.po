@@ -29,7 +29,7 @@ msgid "Editing"
 msgstr "Golygu"
 
 msgid "Saving…"
-msgstr "Cadw..."
+msgstr "Cadw…"
 
 msgid "Save"
 msgstr "Cadw"

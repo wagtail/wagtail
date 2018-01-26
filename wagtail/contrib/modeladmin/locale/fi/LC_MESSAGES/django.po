@@ -84,7 +84,7 @@ msgid "Continue"
 msgstr "Jatka"
 
 msgid "Saving…"
-msgstr "Tallennetaan..."
+msgstr "Tallennetaan…"
 
 msgid "Save"
 msgstr "Tallenna"
@@ -121,7 +121,7 @@ msgid "Sorry, there are no %(name)s matching your search parameters."
 msgstr "Haulla ei löytynyt yhtään %(name)s-kohdetta."
 
 msgid "Search for"
-msgstr "Hae..."
+msgstr "Hae…"
 
 #, python-format
 msgid "Search %(name)s"

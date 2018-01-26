@@ -260,7 +260,7 @@ msgid "Pages"
 msgstr "Pagina's"
 
 msgid "Loading…"
-msgstr "Laden..."
+msgstr "Laden…"
 
 msgid "No results"
 msgstr "Geen resultaten"
@@ -502,7 +502,7 @@ msgid "Forgotten it?"
 msgstr "Vergeten?"
 
 msgid "Signing in…"
-msgstr "Bezig met inloggen..."
+msgstr "Bezig met inloggen…"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -699,13 +699,13 @@ msgid "New"
 msgstr "Nieuw"
 
 msgid "Saving…"
-msgstr "Bezig met opslaan..."
+msgstr "Bezig met opslaan…"
 
 msgid "Save draft"
 msgstr "Bewaar concept"
 
 msgid "Publishing…"
-msgstr "Bezig met publiceren..."
+msgstr "Bezig met publiceren…"
 
 msgid "Publish"
 msgstr "Publiceer"

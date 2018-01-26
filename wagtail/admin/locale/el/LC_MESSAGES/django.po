@@ -442,7 +442,7 @@ msgid "Forgotten it?"
 msgstr "Ξέχασα τον κωδικό μου"
 
 msgid "Signing in…"
-msgstr "Γίνεται είσοδος ..."
+msgstr "Γίνεται είσοδος …"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -642,13 +642,13 @@ msgid "New"
 msgstr "Νέο"
 
 msgid "Saving…"
-msgstr "Αποθήκευση..."
+msgstr "Αποθήκευση…"
 
 msgid "Save draft"
 msgstr "Αποθήκευση σχεδίου"
 
 msgid "Publishing…"
-msgstr "Γίνεται δημοσίευση..."
+msgstr "Γίνεται δημοσίευση…"
 
 msgid "Publish"
 msgstr "Έκδοση"

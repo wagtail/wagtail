@@ -28,7 +28,7 @@ msgid "Editing"
 msgstr "Bearbeiten"
 
 msgid "Saving…"
-msgstr "Speichern..."
+msgstr "Speichern…"
 
 msgid "Save"
 msgstr "Speichern"

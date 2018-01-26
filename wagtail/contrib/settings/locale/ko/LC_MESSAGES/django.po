@@ -27,7 +27,7 @@ msgid "Editing"
 msgstr "수정 중"
 
 msgid "Saving…"
-msgstr "저장 중..."
+msgstr "저장 중…"
 
 msgid "Save"
 msgstr "저장"

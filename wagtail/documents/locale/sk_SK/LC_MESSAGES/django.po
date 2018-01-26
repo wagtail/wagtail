@@ -44,7 +44,7 @@ msgid "Upload"
 msgstr "Nahrať"
 
 msgid "Uploading…"
-msgstr "Odosielam..."
+msgstr "Odosielam…"
 
 #, python-format
 msgid ""

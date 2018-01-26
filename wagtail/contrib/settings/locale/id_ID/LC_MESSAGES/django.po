@@ -27,7 +27,7 @@ msgid "Editing"
 msgstr "Mengubah"
 
 msgid "Saving…"
-msgstr "Menyimpan..."
+msgstr "Menyimpan…"
 
 msgid "Save"
 msgstr "Simpan"

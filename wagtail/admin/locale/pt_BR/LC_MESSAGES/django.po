@@ -247,7 +247,7 @@ msgid "Pages"
 msgstr "Páginas"
 
 msgid "Loading…"
-msgstr "Carregando..."
+msgstr "Carregando…"
 
 msgid "No results"
 msgstr "Nenhum resultado"
@@ -489,7 +489,7 @@ msgid "Forgotten it?"
 msgstr "Esqueceu a senha?"
 
 msgid "Signing in…"
-msgstr "Entrando..."
+msgstr "Entrando…"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -690,13 +690,13 @@ msgid "New"
 msgstr "Adicionar"
 
 msgid "Saving…"
-msgstr "Salvando..."
+msgstr "Salvando…"
 
 msgid "Save draft"
 msgstr "Salvar rascunho"
 
 msgid "Publishing…"
-msgstr "Publicando..."
+msgstr "Publicando…"
 
 msgid "Publish"
 msgstr "Publicar"

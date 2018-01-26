@@ -500,7 +500,7 @@ msgid "Forgotten it?"
 msgstr "Oublié?"
 
 msgid "Signing in…"
-msgstr "Connexion..."
+msgstr "Connexion…"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -702,13 +702,13 @@ msgid "New"
 msgstr "Nouveau"
 
 msgid "Saving…"
-msgstr "Sauvegarde..."
+msgstr "Sauvegarde…"
 
 msgid "Save draft"
 msgstr "Enregistrer le brouillon"
 
 msgid "Publishing…"
-msgstr "Publication..."
+msgstr "Publication…"
 
 msgid "Publish"
 msgstr "Publier"

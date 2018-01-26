@@ -476,13 +476,13 @@ msgid "New"
 msgstr "Jauns"
 
 msgid "Saving…"
-msgstr "Saglabā..."
+msgstr "Saglabā…"
 
 msgid "Save draft"
 msgstr "Saglabāt melnrakstu"
 
 msgid "Publishing…"
-msgstr "Publicē..."
+msgstr "Publicē…"
 
 msgid "Publish"
 msgstr "Publicēt"

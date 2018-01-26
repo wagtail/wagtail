@@ -84,7 +84,7 @@ msgid "Continue"
 msgstr "Verder"
 
 msgid "Saving…"
-msgstr "Bezig met opslaan..."
+msgstr "Bezig met opslaan…"
 
 msgid "Save"
 msgstr "Opslaan"

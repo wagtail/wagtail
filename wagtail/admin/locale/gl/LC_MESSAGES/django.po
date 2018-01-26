@@ -587,13 +587,13 @@ msgid "New"
 msgstr "Nova"
 
 msgid "Saving…"
-msgstr "Gardando..."
+msgstr "Gardando…"
 
 msgid "Save draft"
 msgstr "Gardar borrador"
 
 msgid "Publishing…"
-msgstr "Publicando..."
+msgstr "Publicando…"
 
 msgid "Publish"
 msgstr "Publicar"

@@ -242,7 +242,7 @@ msgid "Pages"
 msgstr "Sidor"
 
 msgid "Loading…"
-msgstr "Laddar..."
+msgstr "Laddar…"
 
 msgid "No results"
 msgstr "Inga resultat funna"
@@ -483,7 +483,7 @@ msgid "Forgotten it?"
 msgstr "Glömt det?"
 
 msgid "Signing in…"
-msgstr "Loggar in..."
+msgstr "Loggar in…"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -685,13 +685,13 @@ msgid "New"
 msgstr "Ny"
 
 msgid "Saving…"
-msgstr "Sparar..."
+msgstr "Sparar…"
 
 msgid "Save draft"
 msgstr "Spara utkast"
 
 msgid "Publishing…"
-msgstr "Publicerar..."
+msgstr "Publicerar…"
 
 msgid "Publish"
 msgstr "Publicera"

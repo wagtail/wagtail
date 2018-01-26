@@ -61,7 +61,7 @@ msgid "Upload"
 msgstr "Lähetä"
 
 msgid "Uploading…"
-msgstr "Lähetetään..."
+msgstr "Lähetetään…"
 
 msgid "Server Error"
 msgstr "Palvelinvirhe"

@@ -82,7 +82,7 @@ msgid "New"
 msgstr "Nieuw"
 
 msgid "Saving…"
-msgstr "Bezig met opslaan..."
+msgstr "Bezig met opslaan…"
 
 msgid "Save"
 msgstr "Opslaan"

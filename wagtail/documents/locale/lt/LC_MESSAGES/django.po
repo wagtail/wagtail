@@ -60,7 +60,7 @@ msgid "Upload"
 msgstr "Įkelti"
 
 msgid "Uploading…"
-msgstr "Įkeliama..."
+msgstr "Įkeliama…"
 
 msgid "Server Error"
 msgstr "Serverio klaida"

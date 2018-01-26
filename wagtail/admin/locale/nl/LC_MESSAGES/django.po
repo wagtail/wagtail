@@ -560,13 +560,13 @@ msgid "New"
 msgstr "Nieuwe"
 
 msgid "Saving…"
-msgstr "Bezig met opslaan..."
+msgstr "Bezig met opslaan…"
 
 msgid "Save draft"
 msgstr "Concept opslaan"
 
 msgid "Publishing…"
-msgstr "Bezig met publiceren..."
+msgstr "Bezig met publiceren…"
 
 msgid "Publish"
 msgstr "Publiceer"

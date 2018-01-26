@@ -118,7 +118,7 @@ msgid "Popular tags"
 msgstr "人気のタグ"
 
 msgid "Uploading…"
-msgstr "アップロード中..."
+msgstr "アップロード中…"
 
 #, python-format
 msgid ""

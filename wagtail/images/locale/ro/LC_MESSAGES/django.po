@@ -135,7 +135,7 @@ msgid "Popular tags"
 msgstr "Etichete populare"
 
 msgid "Uploading…"
-msgstr "În curs de încărcare..."
+msgstr "În curs de încărcare…"
 
 #, python-format
 msgid ""

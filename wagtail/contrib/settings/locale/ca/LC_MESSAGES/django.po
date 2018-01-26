@@ -28,7 +28,7 @@ msgid "Editing"
 msgstr "Editant"
 
 msgid "Saving…"
-msgstr "Desant..."
+msgstr "Desant…"
 
 msgid "Save"
 msgstr "Desar"

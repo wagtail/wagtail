@@ -255,7 +255,7 @@ msgid "Pages"
 msgstr "Strony"
 
 msgid "Loading…"
-msgstr "Wczytywanie..."
+msgstr "Wczytywanie…"
 
 msgid "No results"
 msgstr "Brak wyników"
@@ -515,7 +515,7 @@ msgid "Forgotten it?"
 msgstr "Nie pamiętasz?"
 
 msgid "Signing in…"
-msgstr "Logowanie..."
+msgstr "Logowanie…"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -734,13 +734,13 @@ msgid "New"
 msgstr "Nowy"
 
 msgid "Saving…"
-msgstr "Zapisywanie..."
+msgstr "Zapisywanie…"
 
 msgid "Save draft"
 msgstr "Zapisz szkic"
 
 msgid "Publishing…"
-msgstr "Publikowanie..."
+msgstr "Publikowanie…"
 
 msgid "Publish"
 msgstr "Opublikuj"

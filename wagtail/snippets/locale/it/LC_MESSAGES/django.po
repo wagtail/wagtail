@@ -80,7 +80,7 @@ msgid "New"
 msgstr "Nuovo"
 
 msgid "Saving…"
-msgstr "Salvataggio in corso..."
+msgstr "Salvataggio in corso…"
 
 msgid "Save"
 msgstr "Salva"

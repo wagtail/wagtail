@@ -61,7 +61,7 @@ msgid "Upload"
 msgstr "Prenos"
 
 msgid "Uploading…"
-msgstr "Prenašanje..."
+msgstr "Prenašanje…"
 
 #, python-format
 msgid ""

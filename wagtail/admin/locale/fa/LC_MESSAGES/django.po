@@ -235,7 +235,7 @@ msgid "Pages"
 msgstr "صفحه ها"
 
 msgid "Loading…"
-msgstr "بارگذاری..."
+msgstr "بارگذاری…"
 
 msgid "No results"
 msgstr "بدون نتیجه"
@@ -460,7 +460,7 @@ msgid "Forgotten it?"
 msgstr "فراموش کردید؟"
 
 msgid "Signing in…"
-msgstr "درحال ورود..."
+msgstr "درحال ورود…"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -647,13 +647,13 @@ msgid "New"
 msgstr "جدید"
 
 msgid "Saving…"
-msgstr "درحال ذخیره..."
+msgstr "درحال ذخیره…"
 
 msgid "Save draft"
 msgstr "ذخیره پیشنویس"
 
 msgid "Publishing…"
-msgstr "درحال انتشار..."
+msgstr "درحال انتشار…"
 
 msgid "Publish"
 msgstr "انتشار"

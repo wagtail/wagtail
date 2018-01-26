@@ -83,7 +83,7 @@ msgid "Continue"
 msgstr "Fortsett"
 
 msgid "Saving…"
-msgstr "Lagrer..."
+msgstr "Lagrer…"
 
 msgid "Save"
 msgstr "Lagre"

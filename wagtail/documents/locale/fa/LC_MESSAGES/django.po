@@ -61,7 +61,7 @@ msgid "Upload"
 msgstr "آپلود"
 
 msgid "Uploading…"
-msgstr "در حال آپلود..."
+msgstr "در حال آپلود…"
 
 msgid "Server Error"
 msgstr "خطای سرور"

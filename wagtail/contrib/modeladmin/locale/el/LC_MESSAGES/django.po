@@ -85,7 +85,7 @@ msgid "Continue"
 msgstr "Επόμενο"
 
 msgid "Saving…"
-msgstr "Γίνεται αποθήκευση..."
+msgstr "Γίνεται αποθήκευση…"
 
 msgid "Save"
 msgstr "Αποθήκευση"

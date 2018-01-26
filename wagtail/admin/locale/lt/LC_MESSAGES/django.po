@@ -250,7 +250,7 @@ msgid "Pages"
 msgstr "Puslapiai"
 
 msgid "Loading…"
-msgstr "Kraunama..."
+msgstr "Kraunama…"
 
 msgid "No results"
 msgstr "Nėra rezultatų"
@@ -497,7 +497,7 @@ msgid "Forgotten it?"
 msgstr "Pamiršote?"
 
 msgid "Signing in…"
-msgstr "Prisijungiama..."
+msgstr "Prisijungiama…"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -699,13 +699,13 @@ msgid "New"
 msgstr "Naujas"
 
 msgid "Saving…"
-msgstr "Saugoma..."
+msgstr "Saugoma…"
 
 msgid "Save draft"
 msgstr "Išsaugoti juodraštį"
 
 msgid "Publishing…"
-msgstr "Publikuojama..."
+msgstr "Publikuojama…"
 
 msgid "Publish"
 msgstr "Publikuoti"

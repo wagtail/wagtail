@@ -374,7 +374,7 @@ msgid "Forgotten it?"
 msgstr "Elfelejtette?"
 
 msgid "Signing in…"
-msgstr "Bejelentkezés..."
+msgstr "Bejelentkezés…"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."

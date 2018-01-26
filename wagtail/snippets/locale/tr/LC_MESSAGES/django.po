@@ -48,7 +48,7 @@ msgid "New"
 msgstr "Yeni"
 
 msgid "Saving…"
-msgstr "Kaydediliyor..."
+msgstr "Kaydediliyor…"
 
 msgid "Save"
 msgstr "Kaydet"

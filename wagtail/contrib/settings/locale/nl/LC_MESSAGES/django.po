@@ -28,7 +28,7 @@ msgid "Editing"
 msgstr "Aan het bewerken"
 
 msgid "Saving…"
-msgstr "Opslaan..."
+msgstr "Opslaan…"
 
 msgid "Save"
 msgstr "Opslaan"
