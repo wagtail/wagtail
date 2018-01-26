@@ -272,7 +272,7 @@ msgstr "Seite"
 msgid "Pages"
 msgstr "Seiten"
 
-msgid "Loading..."
+msgid "Loading…"
 msgstr "Laden..."
 
 msgid "No results"

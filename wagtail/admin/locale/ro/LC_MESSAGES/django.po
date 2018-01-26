@@ -246,7 +246,7 @@ msgstr "Pagină"
 msgid "Pages"
 msgstr "Pagini"
 
-msgid "Loading..."
+msgid "Loading…"
 msgstr "Se încarcă..."
 
 msgid "No results"

@@ -241,7 +241,7 @@ msgstr "Sida"
 msgid "Pages"
 msgstr "Sidor"
 
-msgid "Loading..."
+msgid "Loading…"
 msgstr "Laddar..."
 
 msgid "No results"

@@ -254,7 +254,7 @@ msgstr "Strona"
 msgid "Pages"
 msgstr "Strony"
 
-msgid "Loading..."
+msgid "Loading…"
 msgstr "Wczytywanie..."
 
 msgid "No results"

@@ -234,7 +234,7 @@ msgstr "صفحه"
 msgid "Pages"
 msgstr "صفحه ها"
 
-msgid "Loading..."
+msgid "Loading…"
 msgstr "بارگذاری..."
 
 msgid "No results"

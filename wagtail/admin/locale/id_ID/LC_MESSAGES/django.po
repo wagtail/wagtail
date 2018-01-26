@@ -249,7 +249,7 @@ msgstr "Halaman"
 msgid "Pages"
 msgstr "Halaman"
 
-msgid "Loading..."
+msgid "Loading…"
 msgstr "Memuat..."
 
 msgid "No results"

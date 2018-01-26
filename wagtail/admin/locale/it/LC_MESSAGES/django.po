@@ -240,7 +240,7 @@ msgstr "Pagina"
 msgid "Pages"
 msgstr "Pagine"
 
-msgid "Loading..."
+msgid "Loading…"
 msgstr "Caricamento..."
 
 msgid "No results"

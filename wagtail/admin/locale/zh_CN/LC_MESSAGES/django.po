@@ -236,7 +236,7 @@ msgstr "页面"
 msgid "Pages"
 msgstr "页面"
 
-msgid "Loading..."
+msgid "Loading…"
 msgstr "正在载入..."
 
 msgid "No results"

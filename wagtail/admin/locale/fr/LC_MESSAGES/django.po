@@ -254,7 +254,7 @@ msgstr "Page"
 msgid "Pages"
 msgstr "Pages"
 
-msgid "Loading..."
+msgid "Loading…"
 msgstr "Chargement…"
 
 msgid "No results"
