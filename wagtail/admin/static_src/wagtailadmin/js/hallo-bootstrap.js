@@ -2,7 +2,7 @@
 
 function makeHalloRichTextEditable(id, plugins) {
     var input = $('#' + id);
-    var editor = $('<div class="halloeditor"></div>').html(input.val());
+    var editor = $('<div class="halloeditor" data-hallo-editor></div>').html(input.val());
     editor.insertBefore(input);
     input.hide();
 
@@ -78,7 +78,7 @@ function insertRichTextDeleteControl(elem) {
     var a = $('<a class="icon icon-cross text-replace halloembed__delete">Delete</a>');
     $(elem).addClass('halloembed').prepend(a);
     a.on('click', function() {
-        var widget = $(elem).parent('.halloeditor').data('IKS-hallo');
+        var widget = $(elem).parent('[data-hallo-editor]').data('IKS-hallo');
         $(elem).fadeOut(function() {
             $(elem).remove();
             if (widget != undefined && widget.options.editable) {
@@ -89,7 +89,7 @@ function insertRichTextDeleteControl(elem) {
 }
 
 $(function() {
-    $('.halloeditor [contenteditable="false"]').each(function() {
+    $('[data-hallo-editor] [contenteditable="false"]').each(function() {
         insertRichTextDeleteControl(this);
     });
 })
