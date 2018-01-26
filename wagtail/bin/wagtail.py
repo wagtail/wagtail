@@ -10,6 +10,10 @@ from difflib import unified_diff
 from django.core.management import ManagementUtility
 
 
+def pluralize(value, arg='s'):
+    return '' if value == 1 else arg
+
+
 class Command:
     description = None
 
@@ -157,15 +161,25 @@ class UpdateModulePaths(Command):
                     else:  # actually update
                         change_count = self._rewrite_file(path)
                     if change_count:
-                        print("%s - %d %s" % (relative_path, change_count, 'change' if change_count == 1 else 'changes'))  # NOQA
+                        print("%s - %d change%s" % (relative_path, change_count, pluralize(change_count)))  # NOQA
 
                 if change_count:
                     changed_file_count += 1
 
         if diff or list_files:
-            print("\nChecked %d .py files, %d files to update." % (checked_file_count, changed_file_count))  # NOQA
+            print(
+                "\nChecked %d .py file%s, %d file%s to update." % (
+                    checked_file_count, pluralize(checked_file_count),
+                    changed_file_count, pluralize(changed_file_count)
+                )
+            )  # NOQA
         else:
-            print("\nChecked %d .py files, %d files updated." % (checked_file_count, changed_file_count))  # NOQA
+            print(
+                "\nChecked %d .py file%s, %d file%s updated." % (
+                    checked_file_count, pluralize(checked_file_count),
+                    changed_file_count, pluralize(changed_file_count)
+                )
+            )  # NOQA
 
     def _rewrite_line(self, line):
         for pattern, repl in self.REPLACEMENTS:
