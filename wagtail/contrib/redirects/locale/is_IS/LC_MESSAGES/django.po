@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
 "PO-Revision-Date: 2017-09-22 11:14+0000\n"
 "Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
@@ -139,7 +139,6 @@ msgstr ""
 msgid "Search redirects"
 msgstr "Leita í tilvísunum"
 
-#, python-brace-format
 msgid "Redirect '{0}' updated."
 msgstr "Tilvísun '{0}' uppfærð."
 
@@ -150,11 +149,9 @@ msgid "The redirect could not be saved due to errors."
 msgstr ""
 "Ekki var hægt að búa til tilvísunina þar sem hún stóðst ekki villuprófanir"
 
-#, python-brace-format
 msgid "Redirect '{0}' deleted."
 msgstr "Tilvísun '{0}' eytt."
 
-#, python-brace-format
 msgid "Redirect '{0}' added."
 msgstr "Tilvísun '{0}' var bætt við."
 

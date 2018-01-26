@@ -5,13 +5,14 @@
 # Translators:
 # geek pantura <geekpantura@gmail.com>, 2016
 # Ronggo Radityo <radityo3000@yahoo.com>, 2017
+# Sutrisno Efendi <kangfend@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-10-10 05:43+0000\n"
-"Last-Translator: Ronggo Radityo <radityo3000@yahoo.com>\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"PO-Revision-Date: 2018-01-26 16:00+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
 "wagtail/language/id_ID/)\n"
 "MIME-Version: 1.0\n"
@@ -68,18 +69,63 @@ msgstr "Kesalahan Server"
 msgid "Report this error to your webmaster with the following information:"
 msgstr "Laporkan kesalahan ini ke webmaster anda dengan informasi berikut:"
 
+msgid "Latest documents"
+msgstr "Dokumen terbaru"
+
+#, python-format
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr "Maaf, tidak ada dokumen yang cocok \"<em>%(query_string)s</em>\""
+
+msgid "Change document:"
+msgstr "Ubah dokumen:"
+
+msgid "Add a document"
+msgstr "Tambah dokumen"
+
+msgid "Add document"
+msgstr "Tambah dokumen"
+
 #, python-format
 msgid "Delete %(title)s"
 msgstr "Hapus %(title)s"
 
+msgid "Delete document"
+msgstr "Hapus dokumen"
+
+msgid "Are you sure you want to delete this document?"
+msgstr "Anda yakin ingin menghapus dokumen ini?"
+
 msgid "Yes, delete"
 msgstr "Ya, hapus"
+
+#, python-format
+msgid "Editing %(title)s"
+msgstr "Sedang mengubah %(title)s"
+
+msgid "Editing"
+msgstr "Mengubah"
 
 msgid "Save"
 msgstr "Simpan"
 
+msgid "Filesize"
+msgstr "Ukuran file"
+
+msgid "File not found"
+msgstr "File tidak ditemukan"
+
+msgid "Documents"
+msgstr "Dokumen"
+
 msgid "Title"
 msgstr "Judul"
+
+msgid "Uploaded"
+msgstr "Telah diupload"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s yang lalu"
 
 msgid "Type"
 msgstr "Tipe"

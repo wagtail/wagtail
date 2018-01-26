@@ -4,15 +4,16 @@
 #
 # Translators:
 # Carlo Miron <C8E@miron.it>, 2016
+# Carlo Miron <C8E@miron.it>, 2016
 # Edd Baldry <edd.baldry@gmail.com>, 2016
 # Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-22 21:00+0000\n"
-"Last-Translator: Carlo Miron <C8E@miron.it>\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"PO-Revision-Date: 2018-01-26 16:07+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -37,7 +38,6 @@ msgstr "Salva"
 msgid "Settings"
 msgstr "Impostazioni"
 
-#, python-brace-format
 msgid "{setting_type} updated."
 msgstr "{setting_type} modificato."
 

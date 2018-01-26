@@ -13,13 +13,14 @@
 # pcraston <patrick@craston.com>, 2014
 # Tammo van Lessen <tvanlessen@gmail.com>, 2015
 # Wasilis Mandratzis-Walz, 2015
+# Wasilis Mandratzis-Walz, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-20 00:27+0000\n"
-"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"PO-Revision-Date: 2018-01-26 16:00+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -145,6 +146,14 @@ msgstr "Häufig verwendete Schlagwörter"
 
 msgid "Uploading…"
 msgstr "Lade hoch…"
+
+msgid "Server Error"
+msgstr "Server-Fehler"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr ""
+"Melden Sie diesen Fehler Ihrem Webseitenverwalter mit der folgenden "
+"Information:"
 
 #, python-format
 msgid ""
@@ -334,14 +343,6 @@ msgstr ""
 msgid "Sorry, upload failed."
 msgstr "Entschuldigung, der Upload ist fehlgeschlagen."
 
-msgid "Server Error"
-msgstr "Server-Fehler"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr ""
-"Melden Sie diesen Fehler Ihrem Webseitenverwalter mit der folgenden "
-"Information:"
-
 msgid "Image updated."
 msgstr "Bild geändert."
 
@@ -360,7 +361,6 @@ msgstr "Eine Bild-Berechtigung hinzufügen"
 msgid "Search images"
 msgstr "Nach Bildern suchen"
 
-#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "Bild ‚{0}‘ geändert."
 
@@ -377,11 +377,9 @@ msgstr ""
 "Die Bild-Quelldatei konnte nicht gefunden werden. Bitte ändern Sie die "
 "Quelle oder löschen Sie das Bild."
 
-#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "Bild ‚{0}‘ gelöscht."
 
-#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "Bild ‚{0}‘ hinzugefügt."
 
@@ -393,9 +391,6 @@ msgid "%(count)s image"
 msgid_plural "%(count)s images"
 msgstr[0] "%(count)s Bild"
 msgstr[1] "%(count)s Bilder"
-
-msgid "Choose another image"
-msgstr "Anderes Bild wählen"
 
 msgid "Edit this image"
 msgstr "Dieses Bild bearbeiten"

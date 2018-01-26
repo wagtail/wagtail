@@ -5,11 +5,12 @@
 # Translators:
 # Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2016
 # saevarom <saevar@saevar.is>, 2015
+# saevarom <saevar@saevar.is>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
 "PO-Revision-Date: 2017-09-22 11:14+0000\n"
 "Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
@@ -53,11 +54,9 @@ msgstr "Bæta við síðu"
 msgid "Add site"
 msgstr "Bæta við síðu"
 
-#, python-brace-format
 msgid "Site '{0}' created."
 msgstr "Síða '{0}' búin til."
 
-#, python-brace-format
 msgid "Site '{0}' updated."
 msgstr "Síða '{0}' uppfærð."
 
@@ -67,7 +66,6 @@ msgstr "Ekki tókst að vista þessa síðu vegna villna."
 msgid "Delete site"
 msgstr "Eyða síðu"
 
-#, python-brace-format
 msgid "Site '{0}' deleted."
 msgstr "Síðu '{0}' eytt."
 

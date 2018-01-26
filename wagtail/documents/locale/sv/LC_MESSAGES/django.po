@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-20 15:49+0000\n"
-"Last-Translator: Jim Brouzoulis <jim.brouzoulis@chalmers.se>\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"PO-Revision-Date: 2018-01-26 15:59+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -245,14 +245,12 @@ msgstr "Lägg till en dokumenträttighet"
 msgid "Search documents"
 msgstr "Sök dokument"
 
-#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Dokument '{0}' lades till."
 
 msgid "The document could not be saved due to errors."
 msgstr "Dokumentet kunde inte sparas p.g.a. fel."
 
-#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "Dokument '{0}' laddades upp"
 
@@ -261,7 +259,6 @@ msgid ""
 msgstr ""
 "Filen kunde inte hittas. Vänligen ändra källan eller ta bort dokumentet."
 
-#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Dokument '{0}' borttaget."
 

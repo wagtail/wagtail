@@ -5,13 +5,13 @@
 # Translators:
 # fooflare <amos.oviedo@gmail.com>, 2014
 # fooflare <amos.oviedo@gmail.com>, 2014,2016
-# fooflare <amos.oviedo@gmail.com>, 2014
+# fooflare <amos.oviedo@gmail.com>, 2014,2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-23 19:36+0000\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"PO-Revision-Date: 2018-01-26 16:01+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
@@ -129,6 +129,13 @@ msgstr "Etiquetas populares"
 
 msgid "Uploading…"
 msgstr "Subindo…"
+
+msgid "Server Error"
+msgstr "Erro do Servidor"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr ""
+"Informar deste erro ao teu administrador da web coa seguinte información:"
 
 #, python-format
 msgid ""
@@ -316,13 +323,6 @@ msgstr ""
 msgid "Sorry, upload failed."
 msgstr "Síntoo, a subida fallou."
 
-msgid "Server Error"
-msgstr "Erro do Servidor"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr ""
-"Informar deste erro ao teu administrador da web coa seguinte información:"
-
 msgid "Image updated."
 msgstr "Imaxe actualizada."
 
@@ -341,7 +341,6 @@ msgstr "Engadir un permiso á imaxe"
 msgid "Search images"
 msgstr "Procurar imaxes"
 
-#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "Imaxe '{0}' actualizada."
 
@@ -358,11 +357,9 @@ msgstr ""
 "O imaxe fonte non puido ser atopado. Por favor, cambia a fonte ou elimina a "
 "imaxe."
 
-#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "Imaxe '{0}' eliminada."
 
-#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "Imaxe '{0}' engadida."
 
@@ -374,9 +371,6 @@ msgid "%(count)s image"
 msgid_plural "%(count)s images"
 msgstr[0] "%(count)s imaxe"
 msgstr[1] "%(count)s imaxes"
-
-msgid "Choose another image"
-msgstr "Seleccionar outra imaxe"
 
 msgid "Edit this image"
 msgstr "Editar esta imaxe"

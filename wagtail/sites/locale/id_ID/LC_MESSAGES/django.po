@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
 "PO-Revision-Date: 2017-09-26 11:51+0000\n"
 "Last-Translator: Ronggo Radityo <radityo3000@yahoo.com>\n"
 "Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
@@ -53,11 +53,9 @@ msgstr "Menambahkan situs"
 msgid "Add site"
 msgstr "Menambahkan daftar situs"
 
-#, python-brace-format
 msgid "Site '{0}' created."
 msgstr "Situs '{0}' berhasil dibuat "
 
-#, python-brace-format
 msgid "Site '{0}' updated."
 msgstr "Situs '{0}' berhasil diperbaharui"
 
@@ -67,7 +65,6 @@ msgstr "Situs tidak dapat disimpan karena suatu kesalahan"
 msgid "Delete site"
 msgstr "Menghapus Situs"
 
-#, python-brace-format
 msgid "Site '{0}' deleted."
 msgstr "Situs '{0}' berhasil dihapus"
 

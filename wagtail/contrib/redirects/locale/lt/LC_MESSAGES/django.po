@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
 "PO-Revision-Date: 2017-09-23 10:48+0000\n"
 "Last-Translator: Matas Dailyda <matas@dailyda.com>\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
@@ -139,7 +139,6 @@ msgstr ""
 msgid "Search redirects"
 msgstr "Ieškoti peradresavimų"
 
-#, python-brace-format
 msgid "Redirect '{0}' updated."
 msgstr "Peradresavimas '{0}' atnaujintas."
 
@@ -149,11 +148,9 @@ msgstr "Redaguoti"
 msgid "The redirect could not be saved due to errors."
 msgstr "Peradresavimas negalėjo būti išsaugotas dėl klaidų."
 
-#, python-brace-format
 msgid "Redirect '{0}' deleted."
 msgstr "Peradresavimas '{0}' ištrintas."
 
-#, python-brace-format
 msgid "Redirect '{0}' added."
 msgstr "Peradresavimas '{0}' pridėtas."
 

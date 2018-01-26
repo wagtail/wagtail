@@ -4,6 +4,7 @@
 #
 # Translators:
 # utek <mail@utek.pl>, 2014
+# Miłosz Miśkiewicz, 2016-2017
 # Miłosz Miśkiewicz, 2017
 # Miłosz Miśkiewicz, 2016
 # utek <mail@utek.pl>, 2014
@@ -11,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-23 19:35+0000\n"
-"Last-Translator: Miłosz Miśkiewicz\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"PO-Revision-Date: 2018-01-26 16:00+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -141,6 +142,12 @@ msgstr "Popularne tagi"
 
 msgid "Uploading…"
 msgstr "Wgrywanie…"
+
+msgid "Server Error"
+msgstr "Błąd serwera"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Zgłoś ten błąd administratorowi strony wraz z poniższą informacją:"
 
 #, python-format
 msgid ""
@@ -342,12 +349,6 @@ msgstr ""
 msgid "Sorry, upload failed."
 msgstr "Przepraszamy, przesyłanie się nie powiodło."
 
-msgid "Server Error"
-msgstr "Błąd serwera"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Zgłoś ten błąd administratorowi strony wraz z poniższą informacją:"
-
 msgid "Image updated."
 msgstr "Uaktualniono obraz."
 
@@ -366,7 +367,6 @@ msgstr "Dodaj uprawnienie obrazu"
 msgid "Search images"
 msgstr "Szukaj obrazów"
 
-#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "Uaktualniono obraz '{0}'."
 
@@ -383,11 +383,9 @@ msgstr ""
 "Plik źródłowy obrazu nie mógł zostać znaleziony. Proszę zmień źródło lub "
 "usuń obraz."
 
-#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "Usunięto obraz '{0}'."
 
-#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "Dodano obraz '{0}'."
 
@@ -401,9 +399,6 @@ msgstr[0] "%(count)s obraz"
 msgstr[1] "%(count)s obrazów"
 msgstr[2] "%(count)s obrazów"
 msgstr[3] "%(count)s obrazów"
-
-msgid "Choose another image"
-msgstr "Wybierz inny obraz"
 
 msgid "Edit this image"
 msgstr "Edytuj obraz"

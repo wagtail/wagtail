@@ -8,13 +8,14 @@
 # serafeim <serafeim@torchbox.com>, 2014
 # serafeim <serafeim@torchbox.com>, 2014
 # Wasilis Mandratzis-Walz, 2015
+# Wasilis Mandratzis-Walz, 2015
 # Yiannis Inglessis <negletios@users.noreply.github.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-23 19:34+0000\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"PO-Revision-Date: 2018-01-26 16:03+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
@@ -133,7 +134,6 @@ msgstr "Επεξεργασία αυτής της σελίδας"
 msgid "Search %(snippet_type_name)s"
 msgstr "Αναζήτηση %(snippet_type_name)s"
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' created."
 msgstr "Δημιουργήθηκε το '{instance}' τύπου {snippet_type}."
 
@@ -143,14 +143,12 @@ msgstr "Επεξεργασία "
 msgid "The snippet could not be created due to errors."
 msgstr "Δεν ήταν δυνατή η δημιουργία του snippet."
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' updated."
 msgstr "Πραγματοποιήθηκε αλλαγή του '{instance}' τύπου {snippet_type}."
 
 msgid "The snippet could not be saved due to errors."
 msgstr "Δεν ήταν δυνατή η αποθήκευση του snippet."
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' deleted."
 msgstr "Το '{instance}' τύπου {snippet_type} διαγράφηκε."
 

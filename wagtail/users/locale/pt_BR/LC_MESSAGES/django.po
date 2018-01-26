@@ -11,12 +11,13 @@
 # Luiz Boaretto <lboaretto@gmail.com>, 2016
 # Luiz Boaretto <lboaretto@gmail.com>, 2016-2017
 # Thiago Cangussu <cangussu.thg@gmail.com>, 2014
+# Thiago Cangussu <cng.thg@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-10-06 15:11+0000\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"PO-Revision-Date: 2018-01-26 16:04+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
@@ -183,6 +184,10 @@ msgid "Add a group"
 msgstr "Adicionar um grupo"
 
 #, python-format
+msgid "Sorry, no groups match \"%(query)s\""
+msgstr "Desculpe, nenhum grupo coincide com \"%(query)s\""
+
+#, python-format
 msgid ""
 "There are no groups configured. Why not <a href="
 "\"%(wagtailusers_create_group_url)s\">add some</a>?"
@@ -265,25 +270,21 @@ msgstr "Grupos"
 msgid "Search groups"
 msgstr "Grupos de busca"
 
-#, python-brace-format
 msgid "Group '{0}' created."
 msgstr "Grupo '{0}' criado."
 
-#, python-brace-format
 msgid "Group '{0}' updated."
 msgstr "Grupo '{0}' atualizado."
 
 msgid "The group could not be saved due to errors."
 msgstr "O grupo não pôde ser salvo por conter erros."
 
-#, python-brace-format
 msgid "Group '{0}' deleted."
 msgstr "Grupo '{0}' removido."
 
 msgid "Search users"
 msgstr "Buscar usuários"
 
-#, python-brace-format
 msgid "User '{0}' created."
 msgstr "Usuário '{0}' criado."
 
@@ -293,14 +294,12 @@ msgstr "Editar"
 msgid "The user could not be created due to errors."
 msgstr "O usuário não pôde ser criado devido à erros."
 
-#, python-brace-format
 msgid "User '{0}' updated."
 msgstr "Usuário '{0}' atualizado."
 
 msgid "The user could not be saved due to errors."
 msgstr "O usuário não pôde ser salvo devido à erros."
 
-#, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "Usuário '{0}' removido."
 

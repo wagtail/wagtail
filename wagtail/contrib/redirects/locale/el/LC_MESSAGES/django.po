@@ -3,20 +3,22 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# George Giannoulopoulos <vdotoree@yahoo.gr>, 2015
 # jim dal <dimitrisdal@gmail.com>, 2014
 # Yiannis Inglessis <inactive+ne0the0ne@transifex.com>, 2015
 # Nick Mavrakis <mavrakis.n@gmail.com>, 2017
 # serafeim <serafeim@torchbox.com>, 2014
 # serafeim <serafeim@torchbox.com>, 2014
 # George Giannoulopoulos <vdotoree@yahoo.gr>, 2015
+# Yiannis Inglessis <inactive+ne0the0ne@transifex.com>, 2015
 # Yiannis Inglessis <negletios@users.noreply.github.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-23 19:35+0000\n"
-"Last-Translator: Nick Mavrakis <mavrakis.n@gmail.com>\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"PO-Revision-Date: 2018-01-26 16:02+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
 "MIME-Version: 1.0\n"
@@ -143,7 +145,6 @@ msgstr ""
 msgid "Search redirects"
 msgstr "Αναζήτηση ανακατευθύνσεων"
 
-#, python-brace-format
 msgid "Redirect '{0}' updated."
 msgstr "Η ανακατεύθυνση '{0}' αποθηκεύθηκε."
 
@@ -153,11 +154,9 @@ msgstr "Επεξεργασία"
 msgid "The redirect could not be saved due to errors."
 msgstr "Η ανακατεύθυνση δε μπόρεσε να αποθηκευθεί λόγω σφαλμάτων."
 
-#, python-brace-format
 msgid "Redirect '{0}' deleted."
 msgstr "Η ανακατεύθυνση '{0}' διαγράφηκε."
 
-#, python-brace-format
 msgid "Redirect '{0}' added."
 msgstr "Η ανακατεύθυνση '{0}' προστέθηκε."
 

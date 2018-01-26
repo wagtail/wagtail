@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-22 07:04+0000\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"PO-Revision-Date: 2018-01-26 15:59+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
@@ -59,9 +59,6 @@ msgstr "Iskanje"
 
 msgid "Upload"
 msgstr "Prenos"
-
-msgid "Uploading…"
-msgstr "Prenašanje…"
 
 #, python-format
 msgid ""
@@ -249,14 +246,12 @@ msgstr "Dodaj dovoljenje dokumenta"
 msgid "Search documents"
 msgstr "Iskanje po dokumentih"
 
-#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Dokument '{0}' dodan."
 
 msgid "The document could not be saved due to errors."
 msgstr "Dokumenta, zaradi napak, ni bilo možno shraniti."
 
-#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "Dokument '{0}' prenesen"
 
@@ -266,7 +261,6 @@ msgstr ""
 "Datoteke ni bilo možno najti. Spremenite izvor datoteke, ali izbrišite "
 "dokument"
 
-#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Dokument '{0}' izbrisan."
 

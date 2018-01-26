@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-10-06 15:06+0000\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"PO-Revision-Date: 2018-01-26 15:57+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Bulgarian (http://www.transifex.com/torchbox/wagtail/language/"
 "bg/)\n"
@@ -102,6 +102,9 @@ msgstr "Възстановете паролата си"
 msgid "Edit"
 msgstr "Редакция"
 
+msgid "Delete"
+msgstr "Изтрий"
+
 msgid "Dashboard"
 msgstr "Работно Табло"
 
@@ -113,9 +116,6 @@ msgstr "Нагоре"
 
 msgid "Move down"
 msgstr "Надолу"
-
-msgid "Delete"
-msgstr "Изтрий"
 
 msgid "Explorer"
 msgstr "Файлов мениджър"
@@ -384,7 +384,6 @@ msgstr "Страница %(page_num)s от %(total_pages)s."
 msgid "Your password has been changed successfully!"
 msgstr "Паролата ви бе променена успешно!"
 
-#, python-brace-format
 msgid "Page '{0}' created."
 msgstr "Страница '{0}' е създадена."
 
@@ -394,27 +393,21 @@ msgstr "Тази страница не можеше да бъде запазен
 msgid "This page is currently awaiting moderation"
 msgstr "Тази страница очаква да бъде модерирана"
 
-#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Страница '{0}' е изтрита."
 
-#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "Страница '{0}' отменена от публикуване."
 
-#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "Страница '{0}' преместена."
 
-#, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "Страница '{0}' не очаква да бъде модерирана."
 
-#, python-brace-format
 msgid "Page '{0}' published."
 msgstr "Страница '{0}' е публикувана."
 
-#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "Страница '{0}' отхвърлена от публикуване."
 

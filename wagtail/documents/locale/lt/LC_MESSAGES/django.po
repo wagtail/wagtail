@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-23 10:48+0000\n"
-"Last-Translator: Matas Dailyda <matas@dailyda.com>\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"PO-Revision-Date: 2018-01-26 15:59+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
 "language/lt/)\n"
 "MIME-Version: 1.0\n"
@@ -58,9 +58,6 @@ msgstr "Paieška"
 
 msgid "Upload"
 msgstr "Įkelti"
-
-msgid "Uploading…"
-msgstr "Įkeliama…"
 
 msgid "Server Error"
 msgstr "Serverio klaida"
@@ -249,14 +246,12 @@ msgstr "Pridėti dokumento leidimą"
 msgid "Search documents"
 msgstr "Ieškoti dokumentų"
 
-#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Dokumentas '{0}' pridėtas."
 
 msgid "The document could not be saved due to errors."
 msgstr "Dokumentas negali būti išsaugotas dėl klaidų."
 
-#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "Dokumentas '{0}' atnaujintas"
 
@@ -264,7 +259,6 @@ msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "Byla nebuvo rasta. Prašome pakeisti šaltinį arba ištrinti dokumentą"
 
-#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Dokumentas '{0}' ištrintas."
 

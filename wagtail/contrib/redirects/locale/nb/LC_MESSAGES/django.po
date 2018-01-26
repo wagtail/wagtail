@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-22 08:06+0000\n"
-"Last-Translator: Stein Strindhaug <stein.strindhaug@gmail.com>\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"PO-Revision-Date: 2018-01-26 16:02+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
 "MIME-Version: 1.0\n"
@@ -138,7 +138,6 @@ msgstr ""
 msgid "Search redirects"
 msgstr "Videresendinger for søk"
 
-#, python-brace-format
 msgid "Redirect '{0}' updated."
 msgstr "Videresendingen \"{0}\" er oppdatert."
 
@@ -148,11 +147,9 @@ msgstr "Endre"
 msgid "The redirect could not be saved due to errors."
 msgstr "Videresendingen kunne ikke lagres grunnet feil."
 
-#, python-brace-format
 msgid "Redirect '{0}' deleted."
 msgstr "Videresendingen \"{0}\" er slettet."
 
-#, python-brace-format
 msgid "Redirect '{0}' added."
 msgstr "Videresendingen \"{0}\" er lagt til."
 

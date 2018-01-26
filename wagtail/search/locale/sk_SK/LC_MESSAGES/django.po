@@ -4,13 +4,15 @@
 #
 # Translators:
 # dellax <michalnebbia@gmail.com>, 2015
+# Martin Janšto <mato@jansto.sk>, 2017
+# dellax <michalnebbia@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-20 15:49+0000\n"
-"Last-Translator: dellax <michalnebbia@gmail.com>\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"PO-Revision-Date: 2017-10-31 15:29+0000\n"
+"Last-Translator: Martin Janšto <mato@jansto.sk>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
 "MIME-Version: 1.0\n"
@@ -21,6 +23,17 @@ msgstr ""
 
 msgid "Search term(s)/phrase"
 msgstr "Hľadať výrazy/frázy"
+
+msgid ""
+"Enter the full search string to match. An exact match is required for your "
+"Promoted Results to be displayed, wildcards are NOT allowed."
+msgstr ""
+"Zadajte celý reťazec tak, aby zodpovedal hľadanému výrazu. Presná zhoda je "
+"potrebná na zobrazenie vašich propagovaných výsledkov, zástupné znaky nie sú "
+"povolené."
+
+msgid "Query Daily Hits"
+msgstr "Denné dotazy vyhľadávania"
 
 msgid "Popular search terms"
 msgstr "Najviac hľadané výrazy"

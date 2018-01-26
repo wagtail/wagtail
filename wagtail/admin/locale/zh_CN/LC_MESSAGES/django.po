@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-10-06 15:06+0000\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"PO-Revision-Date: 2018-01-26 15:57+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
@@ -149,6 +149,15 @@ msgstr "过期日期/时间必须是未来时间。"
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "对于同一个集合你不能设置多重权限"
 
+msgid "Error 404: Page not found"
+msgstr "404错误：没有找到页面"
+
+msgid "Error 404"
+msgstr "404错误"
+
+msgid "The requested page could not be found."
+msgstr "找不到请求的页面。"
+
 msgid "Go to Wagtail admin"
 msgstr "转到管理界面"
 
@@ -230,14 +239,14 @@ msgstr "重设密码"
 msgid "Edit"
 msgstr "编辑"
 
+msgid "Delete"
+msgstr "删除"
+
 msgid "Page"
 msgstr "页面"
 
 msgid "Pages"
 msgstr "页面"
-
-msgid "Loading…"
-msgstr "正在载入…"
 
 msgid "No results"
 msgstr "没有结果"
@@ -268,9 +277,6 @@ msgstr "上移"
 
 msgid "Move down"
 msgstr "下移"
-
-msgid "Delete"
-msgstr "删除"
 
 msgid "Explorer"
 msgstr "资源管理"
@@ -367,10 +373,6 @@ msgid ""
 msgstr ""
 "没有创建任何集合，为何不<a href=\"%(add_collection_url)s\">创建一个</a>"
 
-#, python-format
-msgid "Add %(heading)s"
-msgstr "添加%(heading)s"
-
 msgid "Yes, delete"
 msgstr "是的， 删除"
 
@@ -458,9 +460,6 @@ msgstr "登录Wagtail"
 
 msgid "Forgotten it?"
 msgstr "不记得了？"
-
-msgid "Signing in…"
-msgstr "登录中……"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -646,14 +645,8 @@ msgstr "新%(page_type)s页面类型"
 msgid "New"
 msgstr "新"
 
-msgid "Saving…"
-msgstr "正在保存……"
-
 msgid "Save draft"
 msgstr "保存草稿"
-
-msgid "Publishing…"
-msgstr "正在发布……"
 
 msgid "Publish"
 msgstr "发布"
@@ -948,6 +941,9 @@ msgstr "没有页面使用"
 msgid "Collection"
 msgstr "集合"
 
+msgid "Root"
+msgstr "根"
+
 msgid "Home"
 msgstr "主页"
 
@@ -1010,11 +1006,6 @@ msgstr "周五"
 
 msgid "Sat"
 msgstr "周六"
-
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "已使用%(usage_count)s次"
 
 msgid "Edit your account"
 msgstr "编辑账户"
@@ -1155,11 +1146,9 @@ msgstr "添加一个集合"
 msgid "Add collection"
 msgstr "添加集合"
 
-#, python-brace-format
 msgid "Collection '{0}' created."
 msgstr "集合 '{0}' 已创建"
 
-#, python-brace-format
 msgid "Collection '{0}' updated."
 msgstr "集合 '{0}' 已更新"
 
@@ -1169,7 +1158,6 @@ msgstr "无法保存集合，出现错误。"
 msgid "Delete collection"
 msgstr "删除集合"
 
-#, python-brace-format
 msgid "Collection '{0}' deleted."
 msgstr "集合 '{0}' 已删除"
 
@@ -1179,18 +1167,15 @@ msgstr "确定删除此集合？"
 msgid "Editing"
 msgstr "正在编辑"
 
-#, python-brace-format
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr "页面 {0} 已创建并计划发布中。"
-
-#, python-brace-format
-msgid "Page '{0}' created and published."
-msgstr "页面'{0}'已创建并发布。"
 
 msgid "View live"
 msgstr "实时查看"
 
-#, python-brace-format
+msgid "Page '{0}' created and published."
+msgstr "页面'{0}'已创建并发布。"
+
 msgid "Page '{0}' created and submitted for moderation."
 msgstr "页面 '{0}' 已创建并提交审核。"
 
@@ -1200,38 +1185,30 @@ msgstr "查看草稿"
 msgid "Failed to send notifications to moderators"
 msgstr "向版主发送通知失败"
 
-#, python-brace-format
 msgid "Page '{0}' created."
 msgstr "页面'{0}'已创建"
 
 msgid "The page could not be created due to validation errors"
 msgstr "验证错误，页面无法创建。"
 
-#, python-brace-format
 msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
 msgstr "页面 {1} 的版本 {0} 正在计划发布中。"
 
-#, python-brace-format
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "页面 {0} 正在计划发布中。"
 
-#, python-brace-format
 msgid "Revision from {0} of page '{1}' has been published."
 msgstr "页面 '{1}' 的修订版本 {0} 已经发布。"
 
-#, python-brace-format
 msgid "Page '{0}' has been published."
 msgstr "页面 '{0}' 已经发布。"
 
-#, python-brace-format
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "页面 '{0}' 已经提交给版主。"
 
-#, python-brace-format
 msgid "Page '{0}' has been replaced with revision from {1}."
 msgstr "页面 '{0}' 的修订版本 {1} 已经被替换。"
 
-#, python-brace-format
 msgid "Page '{0}' has been updated."
 msgstr "页面 '{0}' 已被更新。"
 
@@ -1247,49 +1224,39 @@ msgstr "与发布版本进行比较"
 msgid "This page is currently awaiting moderation"
 msgstr "页面等待审核中"
 
-#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "页面'{0}'已删除"
 
-#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "页面'{0}'已取消发布。"
 
-#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "页面 '{0}' 已移动。"
 
-#, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "页面 '{0}' 和 {1} 个子页面已复制。"
 
-#, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "页面'{0}'已复制。"
 
-#, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "页面 '{0}'目前不在等待审核。"
 
-#, python-brace-format
 msgid "Page '{0}' published."
 msgstr "页面'{0}'已发布"
 
 msgid "Failed to send approval notifications"
 msgstr "发送批准通知失败。"
 
-#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "页面 '{0}'审核失败"
 
 msgid "Failed to send rejection notifications"
 msgstr "发送拒绝通知失败。"
 
-#, python-brace-format
 msgid "Page '{0}' is now locked."
 msgstr "页面 '{0}'已锁定"
 
-#, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "页面 '{0}'已解锁。"
 
@@ -1307,46 +1274,36 @@ msgstr "最早的"
 msgid "Latest"
 msgstr "最近的"
 
-#, python-brace-format
 msgid "Edit '{title}'"
 msgstr "编辑 '{title}'"
 
-#, python-brace-format
 msgid "Preview draft version of '{title}'"
 msgstr "预览 '{title}' 的草稿"
 
-#, python-brace-format
 msgid "View live version of '{title}'"
 msgstr "查看 '{title}' 的发布版本"
 
-#, python-brace-format
 msgid "Add a child page to '{title}' "
 msgstr "为 '{title}' 添加子页面"
 
 msgid "More"
 msgstr "更多"
 
-#, python-brace-format
 msgid "View more options for '{title}'"
 msgstr "查看 '{title}' 的更多选项"
 
-#, python-brace-format
 msgid "Move page '{title}'"
 msgstr "移动页面 '{title}'"
 
-#, python-brace-format
 msgid "Copy page '{title}'"
 msgstr "复制页面 '{title}'"
 
-#, python-brace-format
 msgid "Delete page '{title}'"
 msgstr "删除页面 '{title}'"
 
-#, python-brace-format
 msgid "Unpublish page '{title}'"
 msgstr "取消发布页面 '{title}'"
 
-#, python-brace-format
 msgid "View revision history for '{title}'"
 msgstr "查看 '{title}' 的修订历史"
 

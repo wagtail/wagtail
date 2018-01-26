@@ -5,13 +5,14 @@
 # Translators:
 # Mohammad Hossein Mojtahedi <Mhm5000@gmail.com>, 2017
 # pyzenberg <pyzenberg@gmail.com>, 2017
+# pyzenberg <pyzenberg@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-22 02:02+0000\n"
-"Last-Translator: pyzenberg <pyzenberg@gmail.com>\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"PO-Revision-Date: 2018-01-26 16:00+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
 "fa/)\n"
 "MIME-Version: 1.0\n"
@@ -137,6 +138,12 @@ msgstr "برچسب های پرتکرار"
 
 msgid "Uploading…"
 msgstr "در حال آپلود…"
+
+msgid "Server Error"
+msgstr "خطای سرور"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "گزارش این خطا به وبمستر با اطلاعات زیر:"
 
 #, python-format
 msgid ""
@@ -314,12 +321,6 @@ msgstr ""
 msgid "Sorry, upload failed."
 msgstr "متاسفانه آپلود ناموفق بود."
 
-msgid "Server Error"
-msgstr "خطای سرور"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr "گزارش این خطا به وبمستر با اطلاعات زیر:"
-
 msgid "Image updated."
 msgstr "تصویر آپلود شد."
 
@@ -338,7 +339,6 @@ msgstr "افزودن مجوز تصویر"
 msgid "Search images"
 msgstr "جستجوی تصاویر"
 
-#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "تصویر '{0}' بروزرسانی شد."
 
@@ -353,11 +353,9 @@ msgid ""
 "the image."
 msgstr "تصویر منبع پیدا نشد. لطفا منبع را تغییر دهید یا تصویر را حذف نمایید."
 
-#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "تصویر '{0}' حذف شد."
 
-#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "تصویر '{0}' اضافه شد."
 
@@ -368,9 +366,6 @@ msgstr "به دلیل بروز خطا تصویر ایجاد نشد."
 msgid "%(count)s image"
 msgid_plural "%(count)s images"
 msgstr[0] "%(count)s تصویر"
-
-msgid "Choose another image"
-msgstr "تصویر دیگری انتخاب کنید"
 
 msgid "Edit this image"
 msgstr "ویرایش این تصویر"

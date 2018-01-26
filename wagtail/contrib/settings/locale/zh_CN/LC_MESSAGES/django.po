@@ -4,14 +4,15 @@
 #
 # Translators:
 # jszsj <zhushajun@gmail.com>, 2017
+# jszsj <zhushajun@gmail.com>, 2017
 # 飘 赵 <275980464@qq.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-23 22:17+0000\n"
-"Last-Translator: hanfeng <appweb.cn@gmail.com>\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"PO-Revision-Date: 2018-01-26 16:07+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -36,7 +37,6 @@ msgstr "保存"
 msgid "Settings"
 msgstr "设置"
 
-#, python-brace-format
 msgid "{setting_type} updated."
 msgstr "{setting_type} 已更新。"
 

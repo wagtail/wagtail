@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-10-06 15:06+0000\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"PO-Revision-Date: 2018-01-26 15:57+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
@@ -220,6 +220,9 @@ msgstr "Palauta salasanasi"
 msgid "Edit"
 msgstr "Muokkaa"
 
+msgid "Delete"
+msgstr "Poista"
+
 msgid "Pages"
 msgstr "Sivut"
 
@@ -237,9 +240,6 @@ msgstr "Siirrä ylös"
 
 msgid "Move down"
 msgstr "Siirrä alas"
-
-msgid "Delete"
-msgstr "Poista"
 
 msgid "Explorer"
 msgstr "Sivuselain"
@@ -335,10 +335,6 @@ msgstr ""
 "Kokoelmia ei ole luotu. Mikset vaikka <a href=\"%(add_collection_url)s"
 "\">loisi kokoelmaa</a>?"
 
-#, python-format
-msgid "Add %(heading)s"
-msgstr "Lisää %(heading)s"
-
 msgid "Yes, delete"
 msgstr "Kyllä, poista"
 
@@ -431,9 +427,6 @@ msgstr "Kirjaudu sisään Wagtailiin"
 
 msgid "Forgotten it?"
 msgstr "Unohtui?"
-
-msgid "Signing in…"
-msgstr "Kirjaudutaan…"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -606,14 +599,8 @@ msgstr "Uusi %(page_type)s"
 msgid "New"
 msgstr "Uusi"
 
-msgid "Saving…"
-msgstr "Tallennetaan…"
-
 msgid "Save draft"
 msgstr "Tallenna luonnos"
-
-msgid "Publishing…"
-msgstr "Julkaistaan…"
 
 msgid "Publish"
 msgstr "Julkaise"
@@ -923,12 +910,6 @@ msgstr "Pe"
 msgid "Sat"
 msgstr "La"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Käytetty %(usage_count)s kerran"
-msgstr[1] "Käytetty %(usage_count)s kertaa"
-
 msgid "Edit your account"
 msgstr "Muokkaa tiliäsi"
 
@@ -983,11 +964,9 @@ msgstr "Lisää kokoelma"
 msgid "Add collection"
 msgstr "Lisää kokoelma"
 
-#, python-brace-format
 msgid "Collection '{0}' created."
 msgstr "Kokoelma '{0}' luotu."
 
-#, python-brace-format
 msgid "Collection '{0}' updated."
 msgstr "Kokoelma '{0}' päivitetty."
 
@@ -997,7 +976,6 @@ msgstr "Kokoelmaa ei voitu päivittää virheiden takia."
 msgid "Delete collection"
 msgstr "Poista kokoelma"
 
-#, python-brace-format
 msgid "Collection '{0}' deleted."
 msgstr "Kokoelma '{0}' poistettu."
 
@@ -1007,18 +985,15 @@ msgstr "Haluatko varmasti poistaa tämän kokoelman?"
 msgid "Editing"
 msgstr "Muokataan"
 
-#, python-brace-format
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr "Sivu '{0}' luotu ja ajastettu julkaistavaksi."
-
-#, python-brace-format
-msgid "Page '{0}' created and published."
-msgstr "Sivu '{0}' luotu ja julkaistu."
 
 msgid "View live"
 msgstr "Näytä julkaistu"
 
-#, python-brace-format
+msgid "Page '{0}' created and published."
+msgstr "Sivu '{0}' luotu ja julkaistu."
+
 msgid "Page '{0}' created and submitted for moderation."
 msgstr "Sivu '{0}' luotu ja lähetetty tarkastettavaksi."
 
@@ -1028,38 +1003,30 @@ msgstr "Näytä luonnos"
 msgid "Failed to send notifications to moderators"
 msgstr "Ilmoitusten lähettäminen tarkastajille epäonnistui"
 
-#, python-brace-format
 msgid "Page '{0}' created."
 msgstr "Sivu '{0}' luotu."
 
 msgid "The page could not be created due to validation errors"
 msgstr "Sivua ei voitu luoda validointivirheiden vuoksi."
 
-#, python-brace-format
 msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
 msgstr "Versio {0} sivusta '{1}' on ajastettu julkaistavaksi."
 
-#, python-brace-format
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Sivu '{0}' on ajastettu julkaistavaksi."
 
-#, python-brace-format
 msgid "Revision from {0} of page '{1}' has been published."
 msgstr "Versio {0} sivusta '{1}' on julkaistu"
 
-#, python-brace-format
 msgid "Page '{0}' has been published."
 msgstr "Sivu '{0}' julkaistu."
 
-#, python-brace-format
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Sivu '{0}' on lähetetty tarkastettavaksi."
 
-#, python-brace-format
 msgid "Page '{0}' has been replaced with revision from {1}."
 msgstr "Sivu '{0}' on korvattu versiolla {1}."
 
-#, python-brace-format
 msgid "Page '{0}' has been updated."
 msgstr "Sivu '{0}' päivitetty."
 
@@ -1075,49 +1042,39 @@ msgstr "Vertaile julkaistun version kanssa"
 msgid "This page is currently awaiting moderation"
 msgstr "Sivu odottaa parhaillaan tarkastusta"
 
-#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Sivu '{0}' poistettu."
 
-#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "Sivu '{0}' piilotettu"
 
-#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "Sivu '{0}' siirretty."
 
-#, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "Sivu '{0}' ja {1} alasivua kopioitu."
 
-#, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "Sivu '{0}' kopioitu."
 
-#, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "Sivu '{0}' ei odota parhaillaan tarkastusta."
 
-#, python-brace-format
 msgid "Page '{0}' published."
 msgstr "Sivu '{0}' julkaistu"
 
 msgid "Failed to send approval notifications"
 msgstr "Hyväksyntäilmoitusten lähettäminen epäonnistui"
 
-#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "Sivu '{0}' julkaisu hylättiin."
 
 msgid "Failed to send rejection notifications"
 msgstr "Hylkäysilmoitusten lähetys epäonnistui"
 
-#, python-brace-format
 msgid "Page '{0}' is now locked."
 msgstr "Sivu '{0}' on nyt lukittu"
 
-#, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "Sivu '{0}' ei ole enää lukittu."
 
@@ -1135,7 +1092,6 @@ msgstr "Aikaisin"
 msgid "Latest"
 msgstr "Viimeisin"
 
-#, python-brace-format
 msgid "Edit '{title}'"
 msgstr "Muokkaa '{title}'"
 

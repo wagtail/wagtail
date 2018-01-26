@@ -4,11 +4,12 @@
 #
 # Translators:
 # Miłosz Miśkiewicz, 2016
+# Miłosz Miśkiewicz, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
 "PO-Revision-Date: 2017-09-20 11:57+0000\n"
 "Last-Translator: Miłosz Miśkiewicz\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
@@ -54,11 +55,9 @@ msgstr "Dodaj stronę"
 msgid "Add site"
 msgstr "Dodaj stronę"
 
-#, python-brace-format
 msgid "Site '{0}' created."
 msgstr "Stworzono stronę '{0}'."
 
-#, python-brace-format
 msgid "Site '{0}' updated."
 msgstr "Uaktualniono stronę '{0}'."
 
@@ -68,7 +67,6 @@ msgstr "Strona nie mogła zostać zapisana z powodu błędów."
 msgid "Delete site"
 msgstr "Usuń stronę"
 
-#, python-brace-format
 msgid "Site '{0}' deleted."
 msgstr "Strona '{0}' usunięta."
 

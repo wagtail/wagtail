@@ -4,13 +4,14 @@
 #
 # Translators:
 # David Llop, 2014
+# David Llop, 2014
 # Roger Pons <rogerpons@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-23 19:35+0000\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"PO-Revision-Date: 2018-01-26 16:00+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
@@ -244,14 +245,12 @@ msgstr "Afegir un permís de document"
 msgid "Search documents"
 msgstr "Cercar documents"
 
-#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Document '{0}' afegit."
 
 msgid "The document could not be saved due to errors."
 msgstr "El document no s'ha pogut desar."
 
-#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "Document '{0}' actualitzat"
 
@@ -259,7 +258,6 @@ msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "No s'ha trobat el fitxer. Canvieu l'origen o elimineu el document."
 
-#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Document '{0}' esborrat."
 

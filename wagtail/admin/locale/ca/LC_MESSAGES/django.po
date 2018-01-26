@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-10-06 15:06+0000\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"PO-Revision-Date: 2018-01-26 15:57+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
@@ -219,6 +219,9 @@ msgstr "Reinicia la teva contrasenya "
 msgid "Edit"
 msgstr "Edita"
 
+msgid "Delete"
+msgstr "Esborra"
+
 msgid "Pages"
 msgstr "Pàgines"
 
@@ -236,9 +239,6 @@ msgstr "Puja"
 
 msgid "Move down"
 msgstr "Baixa"
-
-msgid "Delete"
-msgstr "Esborra"
 
 msgid "Explorer"
 msgstr "Explorador"
@@ -340,10 +340,6 @@ msgstr ""
 "No ha estat creada cap col·lecció. Per què no n'<a href="
 "\"%(add_collection_url)s\">afegiu una</a>?"
 
-#, python-format
-msgid "Add %(heading)s"
-msgstr "Afegir %(heading)s"
-
 msgid "Yes, delete"
 msgstr "Sí, eliminar"
 
@@ -438,9 +434,6 @@ msgstr "Connecta't a Wagtail"
 
 msgid "Forgotten it?"
 msgstr "Oblidar?"
-
-msgid "Signing in…"
-msgstr "Iniciant sessió…"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -634,14 +627,8 @@ msgstr "Nova %(page_type)s"
 msgid "New"
 msgstr "Nou"
 
-msgid "Saving…"
-msgstr "Desant…"
-
 msgid "Save draft"
 msgstr "Desa esborrany"
-
-msgid "Publishing…"
-msgstr "Publicant…"
 
 msgid "Publish"
 msgstr "Publica"
@@ -1004,12 +991,6 @@ msgstr "Dv"
 msgid "Sat"
 msgstr "Ds"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Utilitzat %(usage_count)s vegada"
-msgstr[1] "Utilitzat %(usage_count)s vegades"
-
 msgid "Edit your account"
 msgstr "Modifica el teu compte d'usuari"
 
@@ -1082,11 +1063,9 @@ msgstr "Afegir una col·lecció"
 msgid "Add collection"
 msgstr "Afegir una col·lecció"
 
-#, python-brace-format
 msgid "Collection '{0}' created."
 msgstr "Col·lecció '{0}' creada."
 
-#, python-brace-format
 msgid "Collection '{0}' updated."
 msgstr "Col·lecció '{0}' actualitzada."
 
@@ -1096,7 +1075,6 @@ msgstr "La col·lecció no pot ser desada per causa d'errors."
 msgid "Delete collection"
 msgstr "Eliminar col·lecció"
 
-#, python-brace-format
 msgid "Collection '{0}' deleted."
 msgstr "Col·lecció '{0}' eliminada."
 
@@ -1106,18 +1084,15 @@ msgstr "Segur que voleu eliminar aquesta col·lecció?"
 msgid "Editing"
 msgstr "Editant"
 
-#, python-brace-format
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr "Pàgina '{0}' creada i programada per a la seva publicació."
-
-#, python-brace-format
-msgid "Page '{0}' created and published."
-msgstr "Pàgina '{0}' creada i publicada."
 
 msgid "View live"
 msgstr "Veure en viu"
 
-#, python-brace-format
+msgid "Page '{0}' created and published."
+msgstr "Pàgina '{0}' creada i publicada."
+
 msgid "Page '{0}' created and submitted for moderation."
 msgstr "Pàgina '{0}' creada i enviada a moderació."
 
@@ -1127,40 +1102,32 @@ msgstr "Veure esborrany"
 msgid "Failed to send notifications to moderators"
 msgstr "Ha fallat l'enviament de notificacions als moderadors"
 
-#, python-brace-format
 msgid "Page '{0}' created."
 msgstr "Pàgina '{0}' creada."
 
 msgid "The page could not be created due to validation errors"
 msgstr "No es pot crear la pàgina per causa d'errors de validació"
 
-#, python-brace-format
 msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
 msgstr ""
 "La tevisió des de {0} de la pàgina '{1}' ha estat programada per a la seva "
 "publicació."
 
-#, python-brace-format
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "La pàgina '{0}' ha estat programada per a la seva publicació."
 
-#, python-brace-format
 msgid "Revision from {0} of page '{1}' has been published."
 msgstr "La revisió des de {0} de la pàgina '{1}' ha estat publicada."
 
-#, python-brace-format
 msgid "Page '{0}' has been published."
 msgstr "La pàgina '{0}' ha estat publicada."
 
-#, python-brace-format
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "La pàgina '{0}' ha estat enviada a moderació."
 
-#, python-brace-format
 msgid "Page '{0}' has been replaced with revision from {1}."
 msgstr "La pàgina '{0}' ha estat reemplaçada per una revisió des de {1}"
 
-#, python-brace-format
 msgid "Page '{0}' has been updated."
 msgstr "La pàgina '{0}' ha estat actualitzada."
 
@@ -1176,49 +1143,39 @@ msgstr "Comparar amb la versió en viu"
 msgid "This page is currently awaiting moderation"
 msgstr "Aquesta pàgina està esperant moderació"
 
-#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Pàgina '{0}' eliminada."
 
-#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "Pàgina '{0}' despublicada."
 
-#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "Pàgina '{0}' moguda."
 
-#, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "La pàgina '{0}' i {1} subpàgines han estat copiades."
 
-#, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "La pàgina '{0}' ha estat copiada."
 
-#, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "La pàgina '{0}' ja no es troba esperant moderació."
 
-#, python-brace-format
 msgid "Page '{0}' published."
 msgstr "Pàgina '{0}' publicada."
 
 msgid "Failed to send approval notifications"
 msgstr "Ha fallat l'enviament de notificacions d'aprovació"
 
-#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "La pàgina '{0}' ha estat rebutjada per publicació"
 
 msgid "Failed to send rejection notifications"
 msgstr "Ha fallat l'enviament de notificacions de rebuig"
 
-#, python-brace-format
 msgid "Page '{0}' is now locked."
 msgstr "La pàgina '{0}' ara està bloquejada."
 
-#, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "La pàgina '{0}' ara està desbloquejada."
 
@@ -1236,46 +1193,36 @@ msgstr "La més antiga"
 msgid "Latest"
 msgstr "L'última"
 
-#, python-brace-format
 msgid "Edit '{title}'"
 msgstr "Editar '{title}'"
 
-#, python-brace-format
 msgid "Preview draft version of '{title}'"
 msgstr "Previsualitzar versió esborrany de '{title}'"
 
-#, python-brace-format
 msgid "View live version of '{title}'"
 msgstr "Visualitzar versió en viu de '{title}'"
 
-#, python-brace-format
 msgid "Add a child page to '{title}' "
 msgstr "Afegir una pàgina filla a '{title}'"
 
 msgid "More"
 msgstr "Més"
 
-#, python-brace-format
 msgid "View more options for '{title}'"
 msgstr "Veure més opcions per '{title}'"
 
-#, python-brace-format
 msgid "Move page '{title}'"
 msgstr "Moure pàgina '{title}'"
 
-#, python-brace-format
 msgid "Copy page '{title}'"
 msgstr "Copiar pàgina '{title}'"
 
-#, python-brace-format
 msgid "Delete page '{title}'"
 msgstr "Eliminar pàgina '{title}'"
 
-#, python-brace-format
 msgid "Unpublish page '{title}'"
 msgstr "Despublicar pàgina '{title}'"
 
-#, python-brace-format
 msgid "View revision history for '{title}'"
 msgstr "Visualitzar historial de revisions de '{title}'"
 

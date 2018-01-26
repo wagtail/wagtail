@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-23 19:35+0000\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"PO-Revision-Date: 2018-01-26 16:00+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
@@ -136,6 +136,12 @@ msgstr "Etichete populare"
 
 msgid "Uploading…"
 msgstr "În curs de încărcare…"
+
+msgid "Server Error"
+msgstr "Eroare de server"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Raportează această eroare webmasterului cu următoarele informații:"
 
 #, python-format
 msgid ""
@@ -328,12 +334,6 @@ msgstr ""
 msgid "Sorry, upload failed."
 msgstr "Încărcarea a eșuat."
 
-msgid "Server Error"
-msgstr "Eroare de server"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Raportează această eroare webmasterului cu următoarele informații:"
-
 msgid "Image updated."
 msgstr "Imaginea a fost actualizată."
 
@@ -352,7 +352,6 @@ msgstr "Adaugă o permisiune imagine"
 msgid "Search images"
 msgstr "Caută imagini"
 
-#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "Imaginea '{0}' a fost actualizată."
 
@@ -369,11 +368,9 @@ msgstr ""
 "Fișierul sursă al imaginii nu a fost găsit. Schimbă sursa sau sterge "
 "imaginea."
 
-#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "Imaginea '{0}' a fost ștearsă."
 
-#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "Imaginea '{0}' a fost adăugată."
 
@@ -386,9 +383,6 @@ msgid_plural "%(count)s images"
 msgstr[0] "%(count)s imagine"
 msgstr[1] "%(count)s imagini"
 msgstr[2] "%(count)s imagini"
-
-msgid "Choose another image"
-msgstr "Alege altă imagine"
 
 msgid "Edit this image"
 msgstr "Editează această imagine"

@@ -4,13 +4,14 @@
 #
 # Translators:
 # David Llop, 2014
+# David Llop, 2014
 # Roger Pons <rogerpons@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-23 19:35+0000\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"PO-Revision-Date: 2018-01-26 16:01+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
@@ -137,6 +138,14 @@ msgstr "Tags populars"
 
 msgid "Uploading…"
 msgstr "Pujant…"
+
+msgid "Server Error"
+msgstr "Error del servidor"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr ""
+"Informeu d'aquest error a l'administrador del lloc web amb la següent "
+"informació:"
 
 #, python-format
 msgid ""
@@ -325,14 +334,6 @@ msgstr ""
 msgid "Sorry, upload failed."
 msgstr "La pujada ha fallat."
 
-msgid "Server Error"
-msgstr "Error del servidor"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr ""
-"Informeu d'aquest error a l'administrador del lloc web amb la següent "
-"informació:"
-
 msgid "Image updated."
 msgstr "Imatge actualitzada."
 
@@ -351,7 +352,6 @@ msgstr "Afegir un permís d'imatge"
 msgid "Search images"
 msgstr "Cercar imatges"
 
-#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "Imatge '{0}' actualitzada."
 
@@ -368,11 +368,9 @@ msgstr ""
 "No s'ha trobat el fitxer origen de la imatge. Canvieu l'origen o elimineu la "
 "imatge."
 
-#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "Imatge '{0}' eliminada."
 
-#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "Imatge '{0}' afegida."
 
@@ -384,9 +382,6 @@ msgid "%(count)s image"
 msgid_plural "%(count)s images"
 msgstr[0] "%(count)s imatge"
 msgstr[1] "%(count)s imatges"
-
-msgid "Choose another image"
-msgstr "Escull una altra imatge"
 
 msgid "Edit this image"
 msgstr "Editar aquesta imatge"

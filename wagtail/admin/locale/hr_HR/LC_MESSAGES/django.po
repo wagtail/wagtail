@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-10-06 15:06+0000\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"PO-Revision-Date: 2018-01-26 15:57+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/torchbox/wagtail/"
 "language/hr_HR/)\n"
@@ -80,6 +80,9 @@ msgstr "Provjerite svoj email"
 msgid "Edit"
 msgstr "Uredi"
 
+msgid "Delete"
+msgstr "Obriši"
+
 msgid "Dashboard"
 msgstr "Kontrolna ploča"
 
@@ -88,9 +91,6 @@ msgstr "Izbornik"
 
 msgid "Add another"
 msgstr "Dodaj novi"
-
-msgid "Delete"
-msgstr "Obriši"
 
 msgid "External link"
 msgstr "Vanjska poveznica"

@@ -4,12 +4,14 @@
 #
 # Translators:
 # dellax <michalnebbia@gmail.com>, 2015
+# Martin Janšto <mato@jansto.sk>, 2017
+# dellax <michalnebbia@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-20 15:49+0000\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"PO-Revision-Date: 2018-01-26 16:03+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
@@ -21,6 +23,47 @@ msgstr ""
 
 msgid "Choose"
 msgstr "Zvoliť"
+
+msgid "Search"
+msgstr "Hľadať"
+
+#, python-format
+msgid ""
+"\n"
+"            There is one match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"            Jedna zhoda\n"
+"        "
+msgstr[1] ""
+"\n"
+"            %(counter)s zhôd\n"
+"        "
+msgstr[2] ""
+"\n"
+"            %(counter)s zhôd\n"
+"        "
+
+#, python-format
+msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Prepáčte, žiadne snipety nevyhovujú hľadanému výrazu \"<em>%(query_string)s</"
+"em>\""
+
+#, python-format
+msgid ""
+"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">create one now</"
+"a>?"
+msgstr ""
+"Zatiaľ neboli vytvorené žiadne %(snippet_type_name)s snipety. Prečo "
+"nevytvoriť <a href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank"
+"\">jeden teraz</a>?"
 
 #, python-format
 msgid "Delete %(snippet_type_name)s - %(instance)s"
@@ -46,8 +89,15 @@ msgstr "Nový"
 msgid "Save"
 msgstr "Uložiť"
 
+#, python-format
+msgid "Editing %(snippet_type_name)s - %(instance)s"
+msgstr "Upraviť %(snippet_type_name)s - %(instance)s"
+
 msgid "Editing"
 msgstr "Upraviť obrázok"
+
+msgid "Snippets"
+msgstr "Snipety"
 
 msgid "Title"
 msgstr "Titulok"
@@ -61,8 +111,23 @@ msgstr ""
 "nevytvoriť <a href=\"%(wagtailsnippets_create_url)s\">jeden teraz</a>?"
 
 #, python-format
+msgid "Snippets %(snippet_type_name_plural)s"
+msgstr "Snipety %(snippet_type_name_plural)s"
+
+#, python-format
+msgid "Snippets <span>%(snippet_type_name_plural)s</span>"
+msgstr "Snipety <span>%(snippet_type_name_plural)s</span>"
+
+#, python-format
 msgid "Add %(snippet_type_name)s"
 msgstr "Pridať %(snippet_type_name)s"
+
+#, python-format
+msgid "Usage of %(title)s"
+msgstr "Použitie %(title)s"
+
+msgid "Usage of"
+msgstr "Použitie"
 
 msgid "Parent"
 msgstr "Rodič"
@@ -76,20 +141,36 @@ msgstr "Stav"
 msgid "Edit this page"
 msgstr "Upraviť túto stránku"
 
+#, python-format
+msgid "Search %(snippet_type_name)s"
+msgstr "Hľadať %(snippet_type_name)s"
+
+msgid "{snippet_type} '{instance}' created."
+msgstr "{snippet_type} '{instance}' vytvorený."
+
 msgid "Edit"
 msgstr "Upraviť"
 
-#, python-brace-format
+msgid "The snippet could not be created due to errors."
+msgstr "Snipet nemôže byť vytvorený kvôli chybám."
+
 msgid "{snippet_type} '{instance}' updated."
 msgstr "{snippet_type} '{instance}' aktualizovaný."
 
 msgid "The snippet could not be saved due to errors."
 msgstr "Snipet nemôže byť uložený kvôli chybám."
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' deleted."
 msgstr "{snippet_type} '{instance}' bol zmazaný."
 
 #, python-format
 msgid "Choose %s"
 msgstr "Vybrať %s"
+
+#, python-format
+msgid "Choose another %s"
+msgstr "Vybrať iný %s"
+
+#, python-format
+msgid "Edit this %s"
+msgstr "Upraviť toto %s"

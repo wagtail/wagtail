@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Reinis Rozenbergs <reinisr@gmail.com>, 2016
+# Reinis Rozenbergs <reinisr@gmail.com>, 2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-22 21:00+0000\n"
-"Last-Translator: Reinis Rozenbergs <reinisr@gmail.com>\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"PO-Revision-Date: 2018-01-26 16:06+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/"
 "lv/)\n"
 "MIME-Version: 1.0\n"
@@ -23,3 +23,18 @@ msgstr ""
 #, python-format
 msgid "Editing %(setting_type_name)s - %(instance)s"
 msgstr "Rediģē %(setting_type_name)s - %(instance)s"
+
+msgid "Editing"
+msgstr "Labo"
+
+msgid "Save"
+msgstr "Saglabāt"
+
+msgid "Settings"
+msgstr "Uzstādījumi"
+
+msgid "{setting_type} updated."
+msgstr "{setting_type} saglabāti."
+
+msgid "The setting could not be saved due to errors."
+msgstr "Kļūdu dēļ uzstādījumus nebija iespējams saglabāt."

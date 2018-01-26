@@ -20,8 +20,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-10-06 15:06+0000\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"PO-Revision-Date: 2018-01-26 15:57+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
@@ -224,6 +224,9 @@ msgstr "Herstel uw wachtwoord"
 msgid "Edit"
 msgstr "Wijzigen"
 
+msgid "Delete"
+msgstr "Verwijderen"
+
 msgid "Dashboard"
 msgstr "Dashboard"
 
@@ -238,9 +241,6 @@ msgstr "Verplaats omhoog"
 
 msgid "Move down"
 msgstr "Verplaats naar beneden"
-
-msgid "Delete"
-msgstr "Verwijderen"
 
 msgid "Explorer"
 msgstr "Verkenner"
@@ -559,14 +559,8 @@ msgstr "Nieuwe %(page_type)s"
 msgid "New"
 msgstr "Nieuwe"
 
-msgid "Saving…"
-msgstr "Bezig met opslaan…"
-
 msgid "Save draft"
 msgstr "Concept opslaan"
-
-msgid "Publishing…"
-msgstr "Bezig met publiceren…"
 
 msgid "Publish"
 msgstr "Publiceer"
@@ -796,12 +790,6 @@ msgstr "Vr"
 msgid "Sat"
 msgstr "Za"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "%(usage_count)s keer gebruikt"
-msgstr[1] "%(usage_count)s keer gebruikt"
-
 msgid "Edit your account"
 msgstr "Bewerk uw account"
 
@@ -839,21 +827,18 @@ msgstr "Uw wachtwoord is succesvol gewijzigd."
 msgid "Collections"
 msgstr "Collecties"
 
-#, python-brace-format
-msgid "Page '{0}' created and published."
-msgstr "Pagina '{0}' aangemaakt en gepubliceerd."
-
 msgid "View live"
 msgstr "Bekijk live"
 
-#, python-brace-format
+msgid "Page '{0}' created and published."
+msgstr "Pagina '{0}' aangemaakt en gepubliceerd."
+
 msgid "Page '{0}' created and submitted for moderation."
 msgstr "Pagina '{0}' aangemaakt en ter goedkeuring aangeboden."
 
 msgid "View draft"
 msgstr "Bekijk ontwerp"
 
-#, python-brace-format
 msgid "Page '{0}' created."
 msgstr "Pagina '{0}' aangemaakt."
 
@@ -869,43 +854,33 @@ msgstr "Deze pagina kon niet opgeslagen worden vanwege validatiefouten"
 msgid "This page is currently awaiting moderation"
 msgstr "Deze pagina wacht momenteel op goedkeuring"
 
-#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Pagina '{0}' verwijderd"
 
-#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "Page '{0}' publicatie ongedaan gemaakt."
 
-#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "Pagina '{0}' verplaatst."
 
-#, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "Pagina '{0}' en {1} onderliggende pagina's gekopieerd."
 
-#, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "Pagina '{0}' gekopieerd."
 
-#, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "The page '{0}' is momenteel niet op goedkeuring aan het wachten."
 
-#, python-brace-format
 msgid "Page '{0}' published."
 msgstr "Pagina '{0}' gepubliceerd."
 
-#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "Pagina '{0}' is afgewezen voor publicatie."
 
-#, python-brace-format
 msgid "Page '{0}' is now locked."
 msgstr "Pagina '{0}' is vergrendeld."
 
-#, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "Pagina '{0}' is ontgrendeld."
 

@@ -4,14 +4,15 @@
 #
 # Translators:
 # Aarni Koskela, 2016
+# Aarni Koskela, 2016
 # Eetu Häivälä <eetu.haivala@anders.fi>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-22 10:14+0000\n"
-"Last-Translator: Aarni Koskela\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"PO-Revision-Date: 2018-01-26 16:02+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -138,7 +139,6 @@ msgstr ""
 msgid "Search redirects"
 msgstr "Hae uudelleenohjauksia"
 
-#, python-brace-format
 msgid "Redirect '{0}' updated."
 msgstr "Edelleenohjaus '{0}' päivitetty."
 
@@ -148,11 +148,9 @@ msgstr "Muokkaa"
 msgid "The redirect could not be saved due to errors."
 msgstr "Edelleenohjausta ei voitu tallentaa virheiden vuoksi."
 
-#, python-brace-format
 msgid "Redirect '{0}' deleted."
 msgstr "Edelleenohjaus '{0}' poistettu."
 
-#, python-brace-format
 msgid "Redirect '{0}' added."
 msgstr "Edelleenohjaus '{0}' lisätty."
 

@@ -5,13 +5,14 @@
 # Translators:
 # David Llop, 2014
 # David Llop, 2014
+# David Llop, 2014
 # Roger Pons <rogerpons@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-10-06 15:11+0000\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"PO-Revision-Date: 2018-01-26 16:04+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
@@ -251,25 +252,21 @@ msgstr "Grups"
 msgid "Search groups"
 msgstr "Cercar grups"
 
-#, python-brace-format
 msgid "Group '{0}' created."
 msgstr "S'ha creat el grup '{0}'."
 
-#, python-brace-format
 msgid "Group '{0}' updated."
 msgstr "S'ha actualitzat el grup '{0}'."
 
 msgid "The group could not be saved due to errors."
 msgstr "No s'ha pogut desar el grup a causa d'errors."
 
-#, python-brace-format
 msgid "Group '{0}' deleted."
 msgstr "S'ha eliminat el grup '{0}'."
 
 msgid "Search users"
 msgstr "Cercar usuaris"
 
-#, python-brace-format
 msgid "User '{0}' created."
 msgstr "Usuari '{0}' creat."
 
@@ -279,14 +276,12 @@ msgstr "Editar"
 msgid "The user could not be created due to errors."
 msgstr "No s'ha pogut crear l'usuari degut a errors."
 
-#, python-brace-format
 msgid "User '{0}' updated."
 msgstr "Usuari '{0}' actualitzat."
 
 msgid "The user could not be saved due to errors."
 msgstr "No s'ha pogut desar l'usuari degut a errors."
 
-#, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "S'ha eliminat l'usuari '{0}'."
 

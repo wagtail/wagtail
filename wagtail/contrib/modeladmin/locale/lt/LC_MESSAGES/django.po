@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-23 10:48+0000\n"
-"Last-Translator: Matas Dailyda <matas@dailyda.com>\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"PO-Revision-Date: 2018-01-26 16:08+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
 "language/lt/)\n"
 "MIME-Version: 1.0\n"
@@ -167,7 +167,6 @@ msgstr "Buvęs"
 msgid "Next"
 msgstr "Kitas"
 
-#, python-brace-format
 msgid "{model_name} '{instance}' created."
 msgstr "{model_name} '{instance}' sukurtas."
 
@@ -189,7 +188,6 @@ msgstr "Redagavimas"
 msgid "Editing %s"
 msgstr "Redaguojamas %s"
 
-#, python-brace-format
 msgid "{model_name} '{instance}' updated."
 msgstr "{model_name} '{instance}' atnaujintas."
 
@@ -209,7 +207,6 @@ msgstr ""
 "Ar tikrai norite ištrinti šį %s? Jei kiti elementai jūsų tinklalapyje yra su "
 "juo susieti, tai gali paveikti ir juos."
 
-#, python-brace-format
 msgid "{model} '{instance}' deleted."
 msgstr "{model} '{instance}' ištrintas."
 

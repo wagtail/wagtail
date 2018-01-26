@@ -9,15 +9,17 @@
 # fooflare <amos.oviedo@gmail.com>, 2014
 # Joaquín Tita <carpincho@gmail.com>, 2014
 # José Luis <alagunajs@gmail.com>, 2015
+# José Luis <alagunajs@gmail.com>, 2015
+# Mauricio Baeza <python@amigos.email>, 2015
 # Mauricio Baeza <python@amigos.email>, 2015
 # José Luis <alagunajs@gmail.com>, 2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-20 00:30+0000\n"
-"Last-Translator: José Luis <alagunajs@gmail.com>\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"PO-Revision-Date: 2018-01-26 16:03+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -84,9 +86,6 @@ msgstr "Nuevo %(snippet_type_name)s"
 msgid "New"
 msgstr "Nuevo"
 
-msgid "Saving..."
-msgstr "Guardando..."
-
 msgid "Save"
 msgstr "Guardar"
 
@@ -146,7 +145,6 @@ msgstr "Editar esta página"
 msgid "Search %(snippet_type_name)s"
 msgstr "Buscar %(snippet_type_name)s"
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' created."
 msgstr "{snippet_type} '{instance}' creado."
 
@@ -156,14 +154,12 @@ msgstr "Editar"
 msgid "The snippet could not be created due to errors."
 msgstr "El fragmento no pudo ser creado debido a errores."
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' updated."
 msgstr "{snippet_type} '{instance}' actualizado."
 
 msgid "The snippet could not be saved due to errors."
 msgstr "El fragmento no puedo ser guardado debido a errores."
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' deleted."
 msgstr "{snippet_type} '{instance}' eliminado."
 

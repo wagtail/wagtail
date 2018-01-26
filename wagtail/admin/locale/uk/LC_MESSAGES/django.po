@@ -4,12 +4,13 @@
 #
 # Translators:
 # Mykola Zamkovoi <nickzam@gmail.com>, 2014
+# Viktor Shytiuk <VicHunting@yandex.ua>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-10-06 15:06+0000\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"PO-Revision-Date: 2018-01-26 15:57+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
@@ -20,11 +21,17 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
+msgid "You do not have permission to access the admin"
+msgstr "У Вас не вистачає прав на доступ до адмінпанелі"
+
 msgid "Scheduled publishing"
 msgstr "Запланована публікація"
 
 msgid "Common page configuration"
 msgstr "Загальні налаштування сторінкі"
+
+msgid "Content"
+msgstr "Контент"
 
 msgid "Settings"
 msgstr "Налаштування"
@@ -64,6 +71,9 @@ msgstr "Новий заголовок"
 msgid "New slug"
 msgstr "Нова коротка назва для URL"
 
+msgid "New parent page"
+msgstr "Нова батьківська сторінка"
+
 msgid "Copy subpages"
 msgstr "Скопіюваті підсторінки"
 
@@ -102,11 +112,29 @@ msgstr[2] ""
 "%(count)s сторінок, що ви копіюєте, вже опубліковано. Хочете опублїкувати їх "
 "копїю?"
 
+msgid "Visibility"
+msgstr "Видимість"
+
 msgid "This field is required."
 msgstr "Це поле необхідно заповнити"
 
+msgid "Please select at least one group."
+msgstr "Будь ласка, виберіть як мінімум одну групу"
+
 msgid "This slug is already in use"
 msgstr "Ця коротка назва вже використовується"
+
+msgid "Error 404: Page not found"
+msgstr "Помилка 404: сторінку не знайдено"
+
+msgid "Error 404"
+msgstr "Помилка 404"
+
+msgid "The requested page could not be found."
+msgstr "Сторінку, яку ви просите, неможливо знайти"
+
+msgid "Go to Wagtail admin"
+msgstr "Перехід до адмінпанелі"
 
 msgid "Account"
 msgstr "Обліковий запис"
@@ -114,24 +142,132 @@ msgstr "Обліковий запис"
 msgid "Set gravatar"
 msgstr "Встановити gravatar"
 
+msgid "Change password"
+msgstr "Зміна паролю"
+
+msgid "Notification preferences"
+msgstr "Налаштування повідомлень"
+
+msgid "Choose which email notifications to receive."
+msgstr "Виберіть пошту, на яку надходитимуть повідомлення"
+
+msgid "Choose the language you want to use here."
+msgstr "Виберіть мову, яку ви хочете тут використовувати"
+
+msgid "Language Preferences"
+msgstr "Налаштування мови"
+
+msgid "Reset password"
+msgstr "Скинути пароль"
+
+msgid "Login"
+msgstr "Вхід"
+
+msgid "Set your new password"
+msgstr "Встановіть новий пароль"
+
+msgid "The passwords do not match. Please try again."
+msgstr "Паролі не співпадають. Спробуйте знову."
+
+msgid "Check your email"
+msgstr "Перевірте Вашу пошту"
+
+msgid "A link to reset your password has been emailed to you."
+msgstr "Посилання для скидання паролю було надіслане"
+
+msgid "Please follow the link below to reset your password:"
+msgstr "Слідуйте за посиланням щоб скинути пароль"
+
+msgid "Password reset"
+msgstr "Скидання паролю"
+
+msgid "Edit"
+msgstr "Редагування"
+
+msgid "Delete"
+msgstr "Видалити"
+
+msgid "Page"
+msgstr "Сторінка"
+
+msgid "Pages"
+msgstr "Сторінки"
+
+msgid "No results"
+msgstr "Результати відсутні"
+
+msgid "Server Error"
+msgstr "Помилка Сервера"
+
 msgid "Dashboard"
 msgstr "Панель"
 
 msgid "Menu"
 msgstr "Меню"
 
+msgid "Add another"
+msgstr "Додати іншого"
+
 msgid "Explorer"
 msgstr "Управління файлами"
+
+msgid "Choose"
+msgstr "Вибрати"
 
 msgid "Choose a page"
 msgstr "Оберіть сторінку"
 
+msgid "Save"
+msgstr "Зберегти"
+
+msgid "Privacy"
+msgstr "Приватність"
+
 msgid "Public"
 msgstr "Відкритий "
+
+msgid "Name"
+msgstr "Ім'я"
+
+msgid "Yes, delete"
+msgstr "Так, видалити"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
 msgstr "Ласкаво просимо до %(site_name)s Wagtail CMS"
+
+msgid "Pages awaiting moderation"
+msgstr "Сторінки очікують на модерацію"
+
+msgid "Title"
+msgstr "Заголовок"
+
+msgid "Type"
+msgstr "Тип"
+
+msgid "Edited"
+msgstr "Редаговано"
+
+msgid "Edit this page"
+msgstr "Редагувати цю сторінку"
+
+msgid "Approve"
+msgstr "Підтвердити"
+
+msgid "Reject"
+msgstr "Відхилити"
+
+msgid "Preview"
+msgstr "Попередній перегляд"
+
+msgid "Date"
+msgstr "Дата"
+
+msgid "Status"
+msgstr "Статус"
+
+msgid "Draft"
+msgstr "Чернетка"
 
 msgid "Sign in"
 msgstr "Увійдіть"
@@ -141,6 +277,9 @@ msgstr "Увійдіть до Wagtail"
 
 msgid "Forgotten it?"
 msgstr "Забули це?"
+
+msgid "Page privacy"
+msgstr "Приватність сторінки"
 
 msgid "Choose another page"
 msgstr "Оберіть іншу сторінку"

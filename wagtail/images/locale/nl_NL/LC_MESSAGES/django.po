@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-23 20:27+0000\n"
-"Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"PO-Revision-Date: 2018-01-26 16:00+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -138,6 +138,13 @@ msgstr "Populaire tags"
 
 msgid "Uploading…"
 msgstr "Bezig met uploaden…"
+
+msgid "Server Error"
+msgstr "Server error"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr ""
+"Rapporteer deze foutmelding aan uw webmaster met de volgende informatie:"
 
 #, python-format
 msgid ""
@@ -328,13 +335,6 @@ msgstr ""
 msgid "Sorry, upload failed."
 msgstr "Sorry, upload ging fout."
 
-msgid "Server Error"
-msgstr "Server error"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr ""
-"Rapporteer deze foutmelding aan uw webmaster met de volgende informatie:"
-
 msgid "Image updated."
 msgstr "Afbeelding is bijgewerkt."
 
@@ -353,7 +353,6 @@ msgstr "Voeg een afbeeldingsmachtiging toe"
 msgid "Search images"
 msgstr "Zoek afbeeldingen"
 
-#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "Afbeelding '{0}' is bijgewerkt."
 
@@ -370,11 +369,9 @@ msgstr ""
 "Het bronbestand van de afbeelding kon niet worden gevonden. Kies een ander "
 "bronbestand of verwijder de afbeelding."
 
-#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "Afbeelding '{0}' verwijderd."
 
-#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "Afbeelding '{0}' toegevoegd."
 
@@ -386,9 +383,6 @@ msgid "%(count)s image"
 msgid_plural "%(count)s images"
 msgstr[0] "%(count)s afbeelding"
 msgstr[1] "%(count)s afbeeldingen"
-
-msgid "Choose another image"
-msgstr "Kies een andere afbeelding"
 
 msgid "Edit this image"
 msgstr "Wijzig deze afbeelding"

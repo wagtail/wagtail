@@ -6,14 +6,16 @@
 # fooflare <amos.oviedo@gmail.com>, 2014
 # Joaquín Tita <carpincho@gmail.com>, 2014
 # José Luis <alagunajs@gmail.com>, 2015
+# José Luis <alagunajs@gmail.com>, 2015
+# Mauricio Baeza <python@amigos.email>, 2015
 # Mauricio Baeza <python@amigos.email>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-22 14:05+0000\n"
-"Last-Translator: José Luis <alagunajs@gmail.com>\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"PO-Revision-Date: 2018-01-26 16:06+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -168,7 +170,6 @@ msgstr ""
 msgid "Search promoted results"
 msgstr "Buscar resultados promovidos"
 
-#, python-brace-format
 msgid "Editor's picks for '{0}' created."
 msgstr "Selecciones del editor para '{0}' creadas."
 
@@ -178,7 +179,6 @@ msgstr "Editar"
 msgid "Recommendations have not been created due to errors"
 msgstr "Las recomendaciones no han sido creadas debido a errores "
 
-#, python-brace-format
 msgid "Editor's picks for '{0}' updated."
 msgstr "Selecciones del editor para '{0}' actualizadas."
 

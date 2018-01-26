@@ -4,14 +4,15 @@
 #
 # Translators:
 # Miłosz Miśkiewicz, 2016
+# Miłosz Miśkiewicz, 2016
 # utek <mail@utek.pl>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-22 14:05+0000\n"
-"Last-Translator: Miłosz Miśkiewicz\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"PO-Revision-Date: 2018-01-26 16:05+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -175,7 +176,6 @@ msgstr ""
 msgid "Search promoted results"
 msgstr "Wyszukaj promowane wyniki"
 
-#, python-brace-format
 msgid "Editor's picks for '{0}' created."
 msgstr "Stworzono wybór redakcji dla '{0}'"
 
@@ -185,7 +185,6 @@ msgstr "Edytuj"
 msgid "Recommendations have not been created due to errors"
 msgstr "Rekomendacje nie zostały utworzone z powodu błędów"
 
-#, python-brace-format
 msgid "Editor's picks for '{0}' updated."
 msgstr "Zaktualizowano wybór redakcji dla '{0}'."
 

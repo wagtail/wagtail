@@ -3,19 +3,22 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# George Giannoulopoulos <vdotoree@yahoo.gr>, 2015
 # Yiannis Inglessis <inactive+ne0the0ne@transifex.com>, 2015
 # Nick Mavrakis <mavrakis.n@gmail.com>, 2017
 # serafeim <serafeim@torchbox.com>, 2014
 # serafeim <serafeim@torchbox.com>, 2014
 # George Giannoulopoulos <vdotoree@yahoo.gr>, 2015
 # Wasilis Mandratzis-Walz, 2015
+# Wasilis Mandratzis-Walz, 2015
+# Yiannis Inglessis <inactive+ne0the0ne@transifex.com>, 2015
 # Yiannis Inglessis <negletios@users.noreply.github.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-10-06 15:11+0000\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"PO-Revision-Date: 2018-01-26 16:04+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
@@ -259,25 +262,21 @@ msgstr "Ομάδες"
 msgid "Search groups"
 msgstr "Αναζήτηση ομαδων"
 
-#, python-brace-format
 msgid "Group '{0}' created."
 msgstr "Η ομαδα '{0}' δημιουργήθηκε."
 
-#, python-brace-format
 msgid "Group '{0}' updated."
 msgstr "Η ομαδα '{0}' ενημερώθηκε."
 
 msgid "The group could not be saved due to errors."
 msgstr "Δεν ήταν δυνατή η ενημέρωση των στοιχείων της ομαδας"
 
-#, python-brace-format
 msgid "Group '{0}' deleted."
 msgstr "Η ομαδα '{0}' διαγράφηκε."
 
 msgid "Search users"
 msgstr "Αναζήτηση χρηστών"
 
-#, python-brace-format
 msgid "User '{0}' created."
 msgstr "Ο χρήστης '{0}' δημιουργήθηκε."
 
@@ -287,14 +286,12 @@ msgstr "Επεξεργασία"
 msgid "The user could not be created due to errors."
 msgstr "Δεν ήταν δυνατή η δημιουργία του χρήστη."
 
-#, python-brace-format
 msgid "User '{0}' updated."
 msgstr "Τα στοιχεία του χρήστη '{0}' ενημερώθηκαν."
 
 msgid "The user could not be saved due to errors."
 msgstr "Δεν ήταν δυνατή η ενημέρωση των στοιχείων του χρήστη."
 
-#, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "Ο χρήστης '{0}' διαγράφηκε."
 

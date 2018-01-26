@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-10-06 15:06+0000\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"PO-Revision-Date: 2018-01-26 15:57+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
@@ -235,14 +235,14 @@ msgstr "Återställ ditt lösenord"
 msgid "Edit"
 msgstr "Editera"
 
+msgid "Delete"
+msgstr "Radera"
+
 msgid "Page"
 msgstr "Sida"
 
 msgid "Pages"
 msgstr "Sidor"
-
-msgid "Loading…"
-msgstr "Laddar…"
 
 msgid "No results"
 msgstr "Inga resultat funna"
@@ -273,9 +273,6 @@ msgstr "Flytta upp"
 
 msgid "Move down"
 msgstr "Flytta ner"
-
-msgid "Delete"
-msgstr "Radera"
 
 msgid "Explorer"
 msgstr "Utforskare"
@@ -383,10 +380,6 @@ msgstr ""
 "Inga kollektioner har skapats. Varför inte <a href=\"%(add_collection_url)s"
 "\">skapa en</a>?"
 
-#, python-format
-msgid "Add %(heading)s"
-msgstr "Lägg till %(heading)s"
-
 msgid "Yes, delete"
 msgstr "Ja, radera"
 
@@ -481,9 +474,6 @@ msgstr "Logga in till Wagtail"
 
 msgid "Forgotten it?"
 msgstr "Glömt det?"
-
-msgid "Signing in…"
-msgstr "Loggar in…"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -684,14 +674,8 @@ msgstr "Nya %(page_type)s"
 msgid "New"
 msgstr "Ny"
 
-msgid "Saving…"
-msgstr "Sparar…"
-
 msgid "Save draft"
 msgstr "Spara utkast"
-
-msgid "Publishing…"
-msgstr "Publicerar…"
 
 msgid "Publish"
 msgstr "Publicera"
@@ -1078,12 +1062,6 @@ msgstr "Fre"
 msgid "Sat"
 msgstr "Lör"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Använd %(usage_count)s gång"
-msgstr[1] "Använd %(usage_count)s gånger"
-
 msgid "Edit your account"
 msgstr "Editera ditt konto"
 
@@ -1225,11 +1203,9 @@ msgstr "Lägg till en samling"
 msgid "Add collection"
 msgstr "Addera samling"
 
-#, python-brace-format
 msgid "Collection '{0}' created."
 msgstr "Samling '{0}' skapad."
 
-#, python-brace-format
 msgid "Collection '{0}' updated."
 msgstr "Samling '{0}' uppdaterad."
 
@@ -1239,7 +1215,6 @@ msgstr "Samlingen kunde inte sparas pga fel."
 msgid "Delete collection"
 msgstr "Radera samling"
 
-#, python-brace-format
 msgid "Collection '{0}' deleted."
 msgstr "Samling '{0}' raderad."
 
@@ -1249,18 +1224,15 @@ msgstr "Är du säker på att du vill radera denna samling?"
 msgid "Editing"
 msgstr "Editerar"
 
-#, python-brace-format
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr "Sida '{0}' skapad och schemalagd för publicering."
-
-#, python-brace-format
-msgid "Page '{0}' created and published."
-msgstr "Sida '{0}' skapad och publicerad."
 
 msgid "View live"
 msgstr "Visa publicerad"
 
-#, python-brace-format
+msgid "Page '{0}' created and published."
+msgstr "Sida '{0}' skapad och publicerad."
+
 msgid "Page '{0}' created and submitted for moderation."
 msgstr "Sida '{0}' skapad och inlämnad för moderering."
 
@@ -1270,38 +1242,30 @@ msgstr "Se utkast"
 msgid "Failed to send notifications to moderators"
 msgstr "Misslyckades att skicka notifiering till moderatorer"
 
-#, python-brace-format
 msgid "Page '{0}' created."
 msgstr "Sida '{0}' skapad."
 
 msgid "The page could not be created due to validation errors"
 msgstr "Sidan kunde ej bli skapad p.g.a. valideringsfel"
 
-#, python-brace-format
 msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
 msgstr "Revisionen {0} av sida '{1}' har blivit schemalagd för publicering."
 
-#, python-brace-format
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Sida '{0}' har blivit schemalagd för publicering."
 
-#, python-brace-format
 msgid "Revision from {0} of page '{1}' has been published."
 msgstr "Revisionen {0} av sida '{1}' har blivit publicerad."
 
-#, python-brace-format
 msgid "Page '{0}' has been published."
 msgstr "Sida '{0}' har blivit publicerad."
 
-#, python-brace-format
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Sida '{0}' har blivit inlämnad för moderering."
 
-#, python-brace-format
 msgid "Page '{0}' has been replaced with revision from {1}."
 msgstr "Sida '{0}' har blivit ersatt med revision {1}."
 
-#, python-brace-format
 msgid "Page '{0}' has been updated."
 msgstr "Sida '{0}' har blivit uppdaterad."
 
@@ -1317,49 +1281,39 @@ msgstr "Jämför med den publicerade versionen"
 msgid "This page is currently awaiting moderation"
 msgstr "Sidan väntar på moderering"
 
-#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Sida '{0}' raderad."
 
-#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "Sida '{0}' opublicerad."
 
-#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "Sida '{0}' flyttad."
 
-#, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "Sida '{0}' och {1} undersida kopierad."
 
-#, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "Sida '{0}' kopierad."
 
-#, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "Sidan '{0}' väntar för närvarande inte på moderering."
 
-#, python-brace-format
 msgid "Page '{0}' published."
 msgstr "Sida '{0}' publicerad."
 
 msgid "Failed to send approval notifications"
 msgstr "Misslyckades att skicka godkännande notifieringar"
 
-#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "Sida '{0}' avvisad för publicering."
 
 msgid "Failed to send rejection notifications"
 msgstr "Misslyckades att skicka nekande notifieringar"
 
-#, python-brace-format
 msgid "Page '{0}' is now locked."
 msgstr "Sida '{0}' är nu låst."
 
-#, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "Sida '{0}' är nu olåst."
 
@@ -1377,46 +1331,36 @@ msgstr "Tidigast"
 msgid "Latest"
 msgstr "Senast"
 
-#, python-brace-format
 msgid "Edit '{title}'"
 msgstr "Editera '{title}'"
 
-#, python-brace-format
 msgid "Preview draft version of '{title}'"
 msgstr "Förhandsgranska utkastversion av '{title}'"
 
-#, python-brace-format
 msgid "View live version of '{title}'"
 msgstr "Visa den publicerade versionen av '{title}'"
 
-#, python-brace-format
 msgid "Add a child page to '{title}' "
 msgstr "Lägg till en undersida till '{title}' "
 
 msgid "More"
 msgstr "Mer"
 
-#, python-brace-format
 msgid "View more options for '{title}'"
 msgstr "Se fler alternativ för '{title}'"
 
-#, python-brace-format
 msgid "Move page '{title}'"
 msgstr "Flytta sida '{title}'"
 
-#, python-brace-format
 msgid "Copy page '{title}'"
 msgstr "Kopiera sida '{title}'"
 
-#, python-brace-format
 msgid "Delete page '{title}'"
 msgstr "Radera sida '{title}'"
 
-#, python-brace-format
 msgid "Unpublish page '{title}'"
 msgstr "Avpublicera sida '{title}'"
 
-#, python-brace-format
 msgid "View revision history for '{title}'"
 msgstr "Se revisionshistorik för '{title}'"
 

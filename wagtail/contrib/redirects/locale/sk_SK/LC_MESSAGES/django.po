@@ -4,12 +4,15 @@
 #
 # Translators:
 # dellax <michalnebbia@gmail.com>, 2015
+# Martin Janšto <mato@jansto.sk>, 2017
+# Martin Janšto <mato@jansto.sk>, 2017
+# dellax <michalnebbia@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-20 15:49+0000\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"PO-Revision-Date: 2018-01-26 16:02+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
@@ -18,6 +21,43 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sk_SK\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+
+msgid "From site"
+msgstr "Zo sídla"
+
+msgid "All sites"
+msgstr "Všetky sídla"
+
+msgid "A redirect with this path already exists."
+msgstr "Presmerovanie s touto cestou už existuje."
+
+msgid "redirect from"
+msgstr "presmerovať z"
+
+msgid "site"
+msgstr "sídlo"
+
+msgid "permanent"
+msgstr "permanentná"
+
+msgid ""
+"Recommended. Permanent redirects ensure search engines forget the old page "
+"(the 'Redirect from') and index the new page instead."
+msgstr ""
+"Odporúčané. Permantné presmerovania uistia vyhľadávacie mechanizmy, aby "
+"zabudli starú stránku (Presmerovanie z) a indexovali novú stránku."
+
+msgid "redirect to a page"
+msgstr "presmerovať na stránku"
+
+msgid "redirect to any URL"
+msgstr "presmerovať na ľubovoľné URL"
+
+msgid "temporary"
+msgstr "dočasné"
+
+msgid "redirect"
+msgstr "presmerovanie"
 
 msgid "Add redirect"
 msgstr "Pridať presmerovanie"
@@ -38,6 +78,10 @@ msgstr "Naozaj chcete zmazať toto presmerovanie?"
 msgid "Yes, delete"
 msgstr "Áno, zmazať"
 
+#, python-format
+msgid "Editing %(title)s"
+msgstr "Úprava %(title)s"
+
 msgid "Editing"
 msgstr "Upraviť obrázok"
 
@@ -47,8 +91,14 @@ msgstr "Zmazať presmerovanie"
 msgid "Redirects"
 msgstr "Presmerovania"
 
+msgid "From"
+msgstr "Od"
+
 msgid "Site"
 msgstr "Stránka"
+
+msgid "To"
+msgstr "Komu"
 
 msgid "Type"
 msgstr "Typ"
@@ -58,13 +108,42 @@ msgstr "Upraviť toto presmerovanie"
 
 #, python-format
 msgid ""
+"\n"
+"            There is one match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"            Jedna zhoda\n"
+"        "
+msgstr[1] ""
+"\n"
+"            %(counter)s zhody\n"
+"        "
+msgstr[2] ""
+"\n"
+"            %(counter)s zhôd\n"
+"        "
+
+#, python-format
+msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Prepáčte, žiadne presmerovanie nevyhovuje \"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
 "No redirects have been created. Why not <a href="
 "\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
 "Zatiaľ neboli vytvorené žiadne presmerovania. Prečo nevytvoriť <a href="
 "\"%(wagtailredirects_add_redirect_url)s\">jedno presmerovanie teraz</a>?"
 
-#, python-brace-format
+msgid "Search redirects"
+msgstr "Hľadať presmerovania"
+
 msgid "Redirect '{0}' updated."
 msgstr "Presmerovanie '{0}' bolo aktualizované."
 
@@ -74,11 +153,9 @@ msgstr "Upraviť"
 msgid "The redirect could not be saved due to errors."
 msgstr "Presmerovanie nemôže byť uložené kvôli chybám."
 
-#, python-brace-format
 msgid "Redirect '{0}' deleted."
 msgstr "Presmerovanie '{0}' bolo zmazané."
 
-#, python-brace-format
 msgid "Redirect '{0}' added."
 msgstr "Presmerovanie '{0}' bolo pridané."
 

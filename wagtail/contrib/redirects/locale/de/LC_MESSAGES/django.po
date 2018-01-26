@@ -9,16 +9,19 @@
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 # karlsander <karlsander@gmail.com>, 2014
+# karlsander <karlsander@gmail.com>, 2014
 # pcraston <patrick@craston.com>, 2014
 # pcraston <patrick@craston.com>, 2014
+# Vorlif <flori@vorlif.org>, 2015
+# Wasilis Mandratzis-Walz, 2015
 # Wasilis Mandratzis-Walz, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-23 19:35+0000\n"
-"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"PO-Revision-Date: 2018-01-26 16:02+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -147,7 +150,6 @@ msgstr ""
 msgid "Search redirects"
 msgstr "Such-Umleitungen"
 
-#, python-brace-format
 msgid "Redirect '{0}' updated."
 msgstr "Weiterleitung ‚{0}‘ geändert."
 
@@ -158,11 +160,9 @@ msgid "The redirect could not be saved due to errors."
 msgstr ""
 "Aufgrund von Fehlern konnte die Weiterleitung nicht gespeichert werden."
 
-#, python-brace-format
 msgid "Redirect '{0}' deleted."
 msgstr "Weiterleitung ‚{0}‘ gelöscht."
 
-#, python-brace-format
 msgid "Redirect '{0}' added."
 msgstr "Weiterleitung ‚{0}‘ hinzugefügt"
 

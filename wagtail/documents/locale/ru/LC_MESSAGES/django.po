@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-20 01:01+0000\n"
-"Last-Translator: Eugene MechanisM <eugene@mechanism.pro>\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"PO-Revision-Date: 2018-01-26 15:59+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -64,9 +64,6 @@ msgstr "Поиск"
 
 msgid "Upload"
 msgstr "Загрузка"
-
-msgid "Uploading…"
-msgstr "Загрузка…"
 
 msgid "Server Error"
 msgstr "Ошибка Сервера"
@@ -264,14 +261,12 @@ msgstr "Добавить права доступа к документу"
 msgid "Search documents"
 msgstr "Поиск документов"
 
-#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Документ '{0}' добавлен."
 
 msgid "The document could not be saved due to errors."
 msgstr "Документ не может быть сохранен из-за ошибок."
 
-#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "Документ '{0}' обновлен"
 
@@ -281,7 +276,6 @@ msgstr ""
 "Файл не может быть найден. Пожалуйста, измените исходный файл или удалите "
 "документ"
 
-#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Документ '{0}' удален."
 

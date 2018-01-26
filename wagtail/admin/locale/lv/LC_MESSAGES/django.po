@@ -4,13 +4,13 @@
 #
 # Translators:
 # Maris Serzans <maris.serzans@gmail.com>, 2015
-# Reinis Rozenbergs <reinisr@gmail.com>, 2016
+# Reinis Rozenbergs <reinisr@gmail.com>, 2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-10-06 15:06+0000\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"PO-Revision-Date: 2018-01-26 15:57+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/"
 "lv/)\n"
@@ -117,14 +117,27 @@ msgstr[2] ""
 "%(count)s lapas kopijas ir publicētas. Vai vēlaties publicēt arī tās kopijas?"
 
 #, python-format
+msgid "You do not have permission to copy to page \"%(page_title)s\""
+msgstr "Jums nav tiesību kopēt uz lapu \"%(page_title)s\""
+
+#, python-format
 msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
 msgstr ""
 "Šis tekstuālais identifikators jau lietots kontekstā ar augstāka līmeņa lapu "
 "\"%s\""
 
+msgid "You cannot copy a page into itself when copying subpages"
+msgstr "Kopējot apakšlapas nav iespējams kopēt lapu uz sevi pašu"
+
+msgid "Visibility"
+msgstr "Redzamība"
+
 msgid "This field is required."
 msgstr "Šis lauks ir nepieciešams"
+
+msgid "Please select at least one group."
+msgstr "Lūdzu izvēlieties vismaz vienu grupu"
 
 msgid "This slug is already in use"
 msgstr "Šis tekstuālais identifikators jau tiek lietots"
@@ -137,6 +150,15 @@ msgstr "Beigu datumam/laikam jābūt nākotnē"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Vienai kolekcijai nevar būt vairāki tiesību ieraksti."
+
+msgid "Error 404: Page not found"
+msgstr "Kļūda 404: lapa nav atrasta"
+
+msgid "Error 404"
+msgstr "Kļūda 404"
+
+msgid "The requested page could not be found."
+msgstr "Pieprasīto lapu nav iespējams atrast"
 
 msgid "Go to Wagtail admin"
 msgstr "Doties uz Wagtail administrāciju"
@@ -168,9 +190,18 @@ msgstr "Paziņojumu iestatījumi"
 msgid "Choose which email notifications to receive."
 msgstr "Izvēlēties e-pasta paziņojumus"
 
+msgid "Language preferences"
+msgstr "Valodas uzstādījumi"
+
+msgid "Choose the language you want to use here."
+msgstr "Izvēlieties valodu, kādu vēlaties lietot."
+
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr "Šeit nav iespējams mainīt jūsu paroli. Sazinieties are administratoru."
+
+msgid "Language Preferences"
+msgstr "Valodas uzstādījumi"
 
 msgid "Update"
 msgstr "Atjaunot"
@@ -211,8 +242,29 @@ msgstr "Atjaunot paroli"
 msgid "Edit"
 msgstr "Labot"
 
+msgid "Delete"
+msgstr "Dzēst"
+
+msgid "Page"
+msgstr "Lapa"
+
 msgid "Pages"
 msgstr "Lapas"
+
+msgid "No results"
+msgstr "Nav rezultātu"
+
+msgid "Server Error"
+msgstr "Servera kļūda"
+
+msgid "See children"
+msgstr "Skatīt zemāka līmeņa ierakstus"
+
+msgid "See all"
+msgstr "Apskatīt visu"
+
+msgid "Close explorer"
+msgstr "Aizvērt pārlūku"
 
 msgid "Dashboard"
 msgstr "Informācijas panelis"
@@ -228,9 +280,6 @@ msgstr "Uz augšu"
 
 msgid "Move down"
 msgstr "Uz leju"
-
-msgid "Delete"
-msgstr "Dzēst"
 
 msgid "Explorer"
 msgstr "Pārlūks"
@@ -280,10 +329,6 @@ msgstr "Nevar izdzēst šo kolekciju, jo tā nac tukša. Tā satur:"
 
 msgid "Name"
 msgstr "Nosaukums"
-
-#, python-format
-msgid "Add %(heading)s"
-msgstr "Pievienot %(heading)s"
 
 msgid "Yes, delete"
 msgstr "Dzēst"
@@ -475,14 +520,8 @@ msgstr "Jauns %(page_type)s"
 msgid "New"
 msgstr "Jauns"
 
-msgid "Saving…"
-msgstr "Saglabā…"
-
 msgid "Save draft"
 msgstr "Saglabāt melnrakstu"
-
-msgid "Publishing…"
-msgstr "Publicē…"
 
 msgid "Publish"
 msgstr "Publicēt"
@@ -690,13 +729,6 @@ msgstr "Pk"
 msgid "Sat"
 msgstr "S"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Lietots %(usage_count)s reizi"
-msgstr[1] "Lietots %(usage_count)s reizi"
-msgstr[2] "Lietots %(usage_count)s reizes"
-
 msgid "Edit your account"
 msgstr "Mainīt konta iestatījumus"
 
@@ -749,11 +781,9 @@ msgstr "Pievienot kolekciju"
 msgid "Add collection"
 msgstr "Pievienot kolekciju"
 
-#, python-brace-format
 msgid "Collection '{0}' created."
 msgstr "Kolekcija '{0}' izveidota."
 
-#, python-brace-format
 msgid "Collection '{0}' updated."
 msgstr "Kolekcija '{0}' atjaunota."
 
@@ -763,7 +793,6 @@ msgstr "Kļūdu dēļ šo kolekciju nebija iespējams saglabāt."
 msgid "Delete collection"
 msgstr "Dzēst kolekciju"
 
-#, python-brace-format
 msgid "Collection '{0}' deleted."
 msgstr "Kolekcija '{0}' dzēsta."
 
@@ -773,18 +802,15 @@ msgstr "Vai tiešām vēlaties dzēst šo kolekciju?"
 msgid "Editing"
 msgstr "Labo"
 
-#, python-brace-format
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr "'{0}' lapa izveidota un plānota publicēšanai."
-
-#, python-brace-format
-msgid "Page '{0}' created and published."
-msgstr "Lapa '{0}' izveidota un publicēta."
 
 msgid "View live"
 msgstr "Skatīt tekošo versiju"
 
-#, python-brace-format
+msgid "Page '{0}' created and published."
+msgstr "Lapa '{0}' izveidota un publicēta."
+
 msgid "Page '{0}' created and submitted for moderation."
 msgstr "Lapa '{0}' izveidota un iesniegta moderācijai."
 
@@ -794,38 +820,30 @@ msgstr "Skatīt melnrakstu"
 msgid "Failed to send notifications to moderators"
 msgstr "Neizdevās nosūtīt paziņojumus moderatoriem"
 
-#, python-brace-format
 msgid "Page '{0}' created."
 msgstr "Lapa '{0}' izveidota."
 
 msgid "The page could not be created due to validation errors"
 msgstr "Validācijas kļūdas dēļ šo lapu nav iespējams izveidot"
 
-#, python-brace-format
 msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
 msgstr "Lapas '{1}' versija no {0} ir ieplānota publicēšanai."
 
-#, python-brace-format
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Lapa '{0}' ir ieplānota publicēšanai."
 
-#, python-brace-format
 msgid "Revision from {0} of page '{1}' has been published."
 msgstr "Lapas '{1}' versija no {0} ir publicēta."
 
-#, python-brace-format
 msgid "Page '{0}' has been published."
 msgstr "Lapa '{0}' ir publicēta."
 
-#, python-brace-format
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Lapa '{0}' ir nosūtīta moderācijai."
 
-#, python-brace-format
 msgid "Page '{0}' has been replaced with revision from {1}."
 msgstr "Lapa '{0}' ir aizstāta ar versiju no {1}."
 
-#, python-brace-format
 msgid "Page '{0}' has been updated."
 msgstr "Lapa '{0}' ir atjaunota."
 
@@ -838,49 +856,39 @@ msgstr "Validācijas kļūdu dēļ lapu nav iespējams saglabāt"
 msgid "This page is currently awaiting moderation"
 msgstr "Šī lapa gaida moderāciju"
 
-#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Lapa '{0}' dzēsta."
 
-#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "Page '{0}' unpublished."
 
-#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "Lapa '{0}' pārvietota."
 
-#, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "Lapa '{0}' un apakšlapas {1} kopētas."
 
-#, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "Lapa '{0}' kopēta."
 
-#, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "Lapa '{0}' negaida moderāciju."
 
-#, python-brace-format
 msgid "Page '{0}' published."
 msgstr "Lapa '{0} publicēta'."
 
 msgid "Failed to send approval notifications"
 msgstr "Neizdevās nosūtīt apstiprinājuma paziņojumus"
 
-#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "Lapas '{0}' publicēšana noraidīta."
 
 msgid "Failed to send rejection notifications"
 msgstr "Neizdevās nosūtīt atteikuma paziņojumus"
 
-#, python-brace-format
 msgid "Page '{0}' is now locked."
 msgstr "Lapa '{0} ir bloķēta."
 
-#, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "Lapa '{0} ir atbloķēta."
 

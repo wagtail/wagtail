@@ -4,12 +4,13 @@
 #
 # Translators:
 # Delgermurun Purevkhuuu <info@delgermurun.com>, 2014
+# Delgermurun Purevkhuuu <info@delgermurun.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-20 00:30+0000\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"PO-Revision-Date: 2018-01-26 16:00+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Mongolian (http://www.transifex.com/torchbox/wagtail/language/"
 "mn/)\n"
@@ -90,23 +91,17 @@ msgstr "Гарчиг"
 msgid "Search images"
 msgstr "Зураг хайх"
 
-#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "'{0}' зураг засагдлаа."
 
 msgid "The image could not be saved due to errors."
 msgstr "Зураг энэ алдаануудаас шалтгаалан хадгалагдсангүй."
 
-#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "'{0}' зураг устлаа."
 
-#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "'{0}' зураг нэмэгдлээ."
 
 msgid "The image could not be created due to errors."
 msgstr "Зураг энэ алдаануудаас шалтгаалан хадгалагдсангүй."
-
-msgid "Choose another image"
-msgstr "Өөр зураг сонгох"

@@ -17,9 +17,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-10-09 12:48+0000\n"
-"Last-Translator: José Luis <alagunajs@gmail.com>\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"PO-Revision-Date: 2018-01-26 15:57+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -254,14 +254,14 @@ msgstr "Restablecer tu contraseña"
 msgid "Edit"
 msgstr "Editar"
 
+msgid "Delete"
+msgstr "Eliminar"
+
 msgid "Page"
 msgstr "Página"
 
 msgid "Pages"
 msgstr "Páginas"
-
-msgid "Loading..."
-msgstr "Cargando..."
 
 msgid "No results"
 msgstr "Sin resultados"
@@ -292,9 +292,6 @@ msgstr "Subir"
 
 msgid "Move down"
 msgstr "Bajar"
-
-msgid "Delete"
-msgstr "Eliminar"
 
 msgid "Explorer"
 msgstr "Explorador"
@@ -403,10 +400,6 @@ msgstr ""
 "Ninguna colección ha sido creada. ¿Por qué no <a href="
 "\"%(add_collection_url)s\">añades una</a>?"
 
-#, python-format
-msgid "Add %(heading)s"
-msgstr "Añadir %(heading)s"
-
 msgid "Yes, delete"
 msgstr "Sí, eliminar"
 
@@ -502,9 +495,6 @@ msgstr "Iniciar sesión en Wagtail"
 
 msgid "Forgotten it?"
 msgstr "¿La has olvidado?"
-
-msgid "Signing in..."
-msgstr "Iniciado sesión..."
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -704,14 +694,8 @@ msgstr "Nueva %(page_type)s"
 msgid "New"
 msgstr "Nuevo"
 
-msgid "Saving..."
-msgstr "Guardando..."
-
 msgid "Save draft"
 msgstr "Guardar borrador"
-
-msgid "Publishing..."
-msgstr "Publicando...."
 
 msgid "Publish"
 msgstr "Publicar"
@@ -1091,12 +1075,6 @@ msgstr "Vie"
 msgid "Sat"
 msgstr "Sáb"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Utilizado  %(usage_count)s vez"
-msgstr[1] "Utilizado %(usage_count)s veces"
-
 msgid "Edit your account"
 msgstr "Editar tu cuenta"
 
@@ -1238,11 +1216,9 @@ msgstr "Añadir a una colección"
 msgid "Add collection"
 msgstr "Añadir colección"
 
-#, python-brace-format
 msgid "Collection '{0}' created."
 msgstr "Colección '{0}' creada."
 
-#, python-brace-format
 msgid "Collection '{0}' updated."
 msgstr "Colección '{0}' actualizada."
 
@@ -1252,7 +1228,6 @@ msgstr "La colección no puede ser guardada debido a errores."
 msgid "Delete collection"
 msgstr "Eliminar colección"
 
-#, python-brace-format
 msgid "Collection '{0}' deleted."
 msgstr "Colección '{0}' eliminada."
 
@@ -1262,18 +1237,15 @@ msgstr "Estás seguro de que deseas eliminar esta colección?"
 msgid "Editing"
 msgstr "Editando"
 
-#, python-brace-format
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr "Página '{0}' creada y programada para publicación."
-
-#, python-brace-format
-msgid "Page '{0}' created and published."
-msgstr "Página '{0}' creada y publicada."
 
 msgid "View live"
 msgstr "Ver en vivo"
 
-#, python-brace-format
+msgid "Page '{0}' created and published."
+msgstr "Página '{0}' creada y publicada."
+
 msgid "Page '{0}' created and submitted for moderation."
 msgstr "Página '{0}' creada y enviada para ser moderada."
 
@@ -1283,39 +1255,31 @@ msgstr "Ver borrador"
 msgid "Failed to send notifications to moderators"
 msgstr "Fallo al enviar notificaciones a moderadores."
 
-#, python-brace-format
 msgid "Page '{0}' created."
 msgstr "Página '{0}' creada."
 
 msgid "The page could not be created due to validation errors"
 msgstr "Esta página no pudo ser creada debido a errores de validación"
 
-#, python-brace-format
 msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
 msgstr ""
 "La revisión {0} de la página '{1}' ha sido programada para publicación."
 
-#, python-brace-format
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Página '{0}' ha sido programada para publicación."
 
-#, python-brace-format
 msgid "Revision from {0} of page '{1}' has been published."
 msgstr "La revisión {0} de la página '{1}' ha sido publicada."
 
-#, python-brace-format
 msgid "Page '{0}' has been published."
 msgstr "Página '{0}' ha sido publicada."
 
-#, python-brace-format
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "La página '{0}' ha sido enviada para moderación."
 
-#, python-brace-format
 msgid "Page '{0}' has been replaced with revision from {1}."
 msgstr "Página '{0}' ha sido reemplazada por la revisión {1}."
 
-#, python-brace-format
 msgid "Page '{0}' has been updated."
 msgstr "Página '{0}' ha sido actualizada."
 
@@ -1331,49 +1295,39 @@ msgstr "Comparar con la versión públicada"
 msgid "This page is currently awaiting moderation"
 msgstr "La página está a la espera de ser moderada"
 
-#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Página '{0}' eliminada."
 
-#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "Página '{0}' despublicada."
 
-#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "Página '{0}' movida."
 
-#, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "Página '{0}' y '{1}' subpáginas copiadas."
 
-#, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "Página '{0}' copiada."
 
-#, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "La página '{0}' no está esperando a ser moderada."
 
-#, python-brace-format
 msgid "Page '{0}' published."
 msgstr "Página '{0}' publicada."
 
 msgid "Failed to send approval notifications"
 msgstr "Fallo al enviar notificaciones de aprovación"
 
-#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "Rechazada la publicación de la página '{0}'."
 
 msgid "Failed to send rejection notifications"
 msgstr "Fallo al enviar notificaciones de rechazo."
 
-#, python-brace-format
 msgid "Page '{0}' is now locked."
 msgstr "Página '{0}' se encuentra bloqueada."
 
-#, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "Página '{0}' se encuentra desbloqueada."
 
@@ -1391,46 +1345,36 @@ msgstr "Primeros"
 msgid "Latest"
 msgstr "Últimos"
 
-#, python-brace-format
 msgid "Edit '{title}'"
 msgstr "Editar '{title}'"
 
-#, python-brace-format
 msgid "Preview draft version of '{title}'"
 msgstr "Preveer version en borrador de '{title}'"
 
-#, python-brace-format
 msgid "View live version of '{title}'"
 msgstr "Ver versión en vivo de '{title}'"
 
-#, python-brace-format
 msgid "Add a child page to '{title}' "
 msgstr "Añadir una página hija a '{title}' "
 
 msgid "More"
 msgstr "Más"
 
-#, python-brace-format
 msgid "View more options for '{title}'"
 msgstr "Ver más opciones para '{title}'"
 
-#, python-brace-format
 msgid "Move page '{title}'"
 msgstr "Mover página '{title}'"
 
-#, python-brace-format
 msgid "Copy page '{title}'"
 msgstr "Copiar página '{title}'"
 
-#, python-brace-format
 msgid "Delete page '{title}'"
 msgstr "Eliminar página '{title}'"
 
-#, python-brace-format
 msgid "Unpublish page '{title}'"
 msgstr "Despublicar página '{title}'"
 
-#, python-brace-format
 msgid "View revision history for '{title}'"
 msgstr "Ver historial de revisiones para '{title}'"
 

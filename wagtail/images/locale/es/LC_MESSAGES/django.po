@@ -5,20 +5,21 @@
 # Translators:
 # fooflare <amos.oviedo@gmail.com>, 2014
 # fooflare <amos.oviedo@gmail.com>, 2014
-# Daniel Chimeno <daniel@chimeno.me>, 2017
+# Daniel Chimeno <daniel@chimeno.me>, 2015,2017
 # Daniel Chimeno <daniel@chimeno.me>, 2015
 # fooflare <amos.oviedo@gmail.com>, 2014
 # Joaquín Tita <carpincho@gmail.com>, 2014
 # José Luis <alagunajs@gmail.com>, 2015-2016
+# Mauricio Baeza <python@amigos.email>, 2015
 # Mauricio Baeza <python@amigos.email>, 2015
 # José Luis <alagunajs@gmail.com>, 2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-20 00:30+0000\n"
-"Last-Translator: José Luis <alagunajs@gmail.com>\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"PO-Revision-Date: 2018-01-26 16:01+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -143,8 +144,12 @@ msgstr "Subir"
 msgid "Popular tags"
 msgstr "Etiquetas populares"
 
-msgid "Uploading..."
-msgstr "Subiendo..."
+msgid "Server Error"
+msgstr "Error de servidor"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr ""
+"Reporte este error a tu administrador web con la siguiente información:"
 
 #, python-format
 msgid ""
@@ -340,13 +345,6 @@ msgstr ""
 msgid "Sorry, upload failed."
 msgstr "Lo sentimos, su subida ha fallado."
 
-msgid "Server Error"
-msgstr "Error de servidor"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr ""
-"Reporte este error a tu administrador web con la siguiente información:"
-
 msgid "Image updated."
 msgstr "Imagen actualizada"
 
@@ -365,7 +363,6 @@ msgstr "Añadir un permiso de imagen"
 msgid "Search images"
 msgstr "Buscar imágenes"
 
-#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "Imagen '{0}' actualizada."
 
@@ -382,11 +379,9 @@ msgstr ""
 "El archivo origen de la imagen no pudo ser encontrado. Por favor, cambia el "
 "origen o elimina esta imagen."
 
-#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "Imagen '{0}' eliminada."
 
-#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "Imagen '{0}' añadida."
 
@@ -398,9 +393,6 @@ msgid "%(count)s image"
 msgid_plural "%(count)s images"
 msgstr[0] "%(count)s image"
 msgstr[1] "%(count)s imagenes"
-
-msgid "Choose another image"
-msgstr "Seleccionar otra imagen"
 
 msgid "Edit this image"
 msgstr "Editar esta imagen"

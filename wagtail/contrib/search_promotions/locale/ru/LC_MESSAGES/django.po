@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
 "PO-Revision-Date: 2017-09-22 14:05+0000\n"
 "Last-Translator: Andrey Avdey <talkerbox@live.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -175,7 +175,6 @@ msgstr ""
 msgid "Search promoted results"
 msgstr "Продвигаемые результаты"
 
-#, python-brace-format
 msgid "Editor's picks for '{0}' created."
 msgstr "Подборка для '{0}' создана."
 
@@ -185,7 +184,6 @@ msgstr "Редактировать"
 msgid "Recommendations have not been created due to errors"
 msgstr "Рекомендации не были созданы из-за ошибок"
 
-#, python-brace-format
 msgid "Editor's picks for '{0}' updated."
 msgstr "Подборка для '{0}' обновлена."
 

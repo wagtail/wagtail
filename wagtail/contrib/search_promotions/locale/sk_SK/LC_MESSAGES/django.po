@@ -3,15 +3,19 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# dellax <michalnebbia@gmail.com>, 2015
 # karabellyj <jozefkarabelly@gmail.com>, 2017
+# karabellyj <jozefkarabelly@gmail.com>, 2017
+# Martin Janšto <mato@jansto.sk>, 2017
+# Martin Janšto <mato@jansto.sk>, 2017
 # dellax <michalnebbia@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-22 14:05+0000\n"
-"Last-Translator: karabellyj <jozefkarabelly@gmail.com>\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"PO-Revision-Date: 2018-01-26 16:06+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
 "MIME-Version: 1.0\n"
@@ -53,6 +57,21 @@ msgstr ""
 "hladajúcemu s menej bežným výrazom \"<em>dávanie</em>\".</p>\n"
 "            "
 
+msgid ""
+"\n"
+"                <p>The \"Search term(s)/phrase\" field below must contain "
+"the full and exact search for which you wish to provide recommended results, "
+"<em>including</em> any misspellings/user error. To help, you can choose from "
+"search terms that have been popular with users of your site.</p>\n"
+"            "
+msgstr ""
+"\n"
+"                <p>Pole \"Vyhľadávací reťazec/fráza\" musí obsahovať "
+"kompletný a presný obsah, pre ktorý si želáte zobraziť propagované výsledky "
+"vyhľadávania, <em>zahŕňajúc</em> používateľské preklepy a chyby. Aby ste si "
+"pomohli, môžete si vybrať z populárnych hľadaných výrazov.</p>\n"
+"            "
+
 msgid "Save"
 msgstr "Uložiť"
 
@@ -63,8 +82,18 @@ msgstr "Zmazať %(query)s"
 msgid "Delete"
 msgstr "Vymazať"
 
+msgid ""
+"Are you sure you want to delete all promoted results for this search term?"
+msgstr ""
+"Naozaj chcete odstrániť všetky propagované výsledky pre tento vyhľadávací "
+"výraz?"
+
 msgid "Yes, delete"
 msgstr "Áno, zmazať"
+
+#, python-format
+msgid "Editing %(query)s"
+msgstr "Úprava %(query)s"
 
 msgid "Editing"
 msgstr "Upraviť obrázok"
@@ -83,6 +112,12 @@ msgstr "Pridať odporúčanú stránku"
 
 msgid "Search Terms"
 msgstr "Výrazy vyhladávania"
+
+msgid "Promoted search results"
+msgstr "Propagované výsledky vyhladávania"
+
+msgid "Add new promoted result"
+msgstr "Pridať nový propagovaný výsledok"
 
 msgid "Search term(s)"
 msgstr "Hľadané výrazy"
@@ -118,11 +153,35 @@ msgstr[2] ""
 "\n"
 "%(counter)s výsledkov hľadania"
 
+#, python-format
+msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Prepáčte, žiadne propagované výsledky nevyhovujú \"<em>%(query_string)s</em>"
+"\""
+
+#, python-format
+msgid ""
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgstr ""
+"Zatiaľ neboli vytvorené žiadne propagované výsledky vyhľadávania. Prečo "
+"nevytvoriť <a href=\"%(wagtailsearchpromotions_add_url)s\">jeden výsledok</"
+"a>?"
+
+msgid "Search promoted results"
+msgstr "Hľadať propagované výsledky"
+
+msgid "Editor's picks for '{0}' created."
+msgstr "Výbery Editora pre '{0}' boli vytvorené."
+
 msgid "Edit"
 msgstr "Upraviť"
 
 msgid "Recommendations have not been created due to errors"
 msgstr "Odporúčania nemôžu byť vytvorené kvôli chybám."
+
+msgid "Editor's picks for '{0}' updated."
+msgstr "Výbery Editora pre '{0}' boli aktualizované."
 
 msgid "Recommendations have not been saved due to errors"
 msgstr "Odporúčania nemôžu byť uložené kvôli chybám."

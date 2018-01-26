@@ -4,15 +4,17 @@
 #
 # Translators:
 # Aarni Koskela, 2016
+# Aarni Koskela, 2016
 # Eetu Häivälä <eetu.haivala@anders.fi>, 2016-2017
 # Juha Yrjölä <juha.yrjola@iki.fi>, 2016
+# Rauli L. <rauli.laine@iki.fi>, 2016
 # Rauli L. <rauli.laine@iki.fi>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-22 10:14+0000\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"PO-Revision-Date: 2018-01-26 16:00+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
@@ -139,6 +141,12 @@ msgstr "Suositut asiasanat"
 
 msgid "Uploading…"
 msgstr "Lähetetään…"
+
+msgid "Server Error"
+msgstr "Palvelinvirhe"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Raportoi tämä virhe sivuston ylläpitäjälle seuraavan tiedon kanssa:"
 
 #, python-format
 msgid ""
@@ -322,12 +330,6 @@ msgstr ""
 msgid "Sorry, upload failed."
 msgstr "Pahoittelut, siirto epäonnistui."
 
-msgid "Server Error"
-msgstr "Palvelinvirhe"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Raportoi tämä virhe sivuston ylläpitäjälle seuraavan tiedon kanssa:"
-
 msgid "Image updated."
 msgstr "Kuva päivitetty."
 
@@ -346,7 +348,6 @@ msgstr "Lisää kuvaoikeus"
 msgid "Search images"
 msgstr "Hae kuvia"
 
-#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "Kuva '{0}' päivitetty."
 
@@ -363,11 +364,9 @@ msgstr ""
 "Valittua kuvatiedostoa ei löytynyt. Ole hyvä ja valitse toinen kuvatiedosto "
 "tai poista kuva."
 
-#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "Kuva '{0}' poistettu."
 
-#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "Kuva '{0}' lisätty."
 
@@ -379,9 +378,6 @@ msgid "%(count)s image"
 msgid_plural "%(count)s images"
 msgstr[0] "%(count)s kuva"
 msgstr[1] "%(count)s kuvaa"
-
-msgid "Choose another image"
-msgstr "Valitse toinen kuva"
 
 msgid "Edit this image"
 msgstr "Muokkaa tätä kuvaa"

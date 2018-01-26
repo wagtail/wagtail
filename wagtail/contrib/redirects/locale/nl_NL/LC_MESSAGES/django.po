@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-23 20:27+0000\n"
-"Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"PO-Revision-Date: 2018-01-26 16:02+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -139,7 +139,6 @@ msgstr ""
 msgid "Search redirects"
 msgstr "Zoek redirects"
 
-#, python-brace-format
 msgid "Redirect '{0}' updated."
 msgstr "Redirect '{0}' gewijzigd."
 
@@ -149,11 +148,9 @@ msgstr "Wijzig"
 msgid "The redirect could not be saved due to errors."
 msgstr "De redirect kon niet worden opgeslagen door fouten."
 
-#, python-brace-format
 msgid "Redirect '{0}' deleted."
 msgstr "Redirect '{0}' verwijderd."
 
-#, python-brace-format
 msgid "Redirect '{0}' added."
 msgstr "Redirect '{0}' toegevoegd."
 

@@ -4,13 +4,13 @@
 #
 # Translators:
 # Thijs Kramer <thijskramer@gmail.com>, 2015
-# Thijs Kramer <thijskramer@gmail.com>, 2016
+# Thijs Kramer <thijskramer@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-10-06 15:11+0000\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"PO-Revision-Date: 2018-01-26 16:03+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
@@ -201,25 +201,21 @@ msgstr ""
 msgid "Search groups"
 msgstr "Zoek groepen"
 
-#, python-brace-format
 msgid "Group '{0}' created."
 msgstr "Groep '{0}' is aangemaakt."
 
-#, python-brace-format
 msgid "Group '{0}' updated."
 msgstr "Groep '{0}' is gewijzigd."
 
 msgid "The group could not be saved due to errors."
 msgstr "De groep kon vanwege foutmeldingen niet opgeslagen worden."
 
-#, python-brace-format
 msgid "Group '{0}' deleted."
 msgstr "Groep '{0}' is verwijderd."
 
 msgid "Search users"
 msgstr "Zoek gebruikers"
 
-#, python-brace-format
 msgid "User '{0}' created."
 msgstr "Gebruiker '{0}' is aangemaakt."
 
@@ -229,7 +225,6 @@ msgstr "Bewerk"
 msgid "The user could not be created due to errors."
 msgstr "De gebruiker kon vanwege foutmeldingen niet toegevoegd worden."
 
-#, python-brace-format
 msgid "User '{0}' updated."
 msgstr "Gebruiker '{0}' is gewijzigd."
 

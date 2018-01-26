@@ -5,12 +5,13 @@
 # Translators:
 # Ahmad Kiswani <kiswani.ahmad@gmail.com>, 2016
 # Matt Westcott <matthew@torchbox.com>, 2015
+# Matt Westcott <matthew@torchbox.com>, 2015
 # ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
 "PO-Revision-Date: 2017-09-22 05:52+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
@@ -73,7 +74,6 @@ msgstr "نقح تغيير الاتجاه هذا"
 msgid "Search redirects"
 msgstr "ابحث تغييرات الاتجاه"
 
-#, python-brace-format
 msgid "Redirect '{0}' updated."
 msgstr "جددت عملية تغيير الاتجاه {0}"
 
@@ -83,11 +83,9 @@ msgstr "تنقيح"
 msgid "The redirect could not be saved due to errors."
 msgstr "لم تحفظ عملية تغيير الاتجاه بسبب أحطاء"
 
-#, python-brace-format
 msgid "Redirect '{0}' deleted."
 msgstr "تغيير الاتجاه {0} محذوف"
 
-#, python-brace-format
 msgid "Redirect '{0}' added."
 msgstr "تغيير الاتجاه {0} مضاف"
 

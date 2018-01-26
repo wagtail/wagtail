@@ -5,13 +5,14 @@
 # Translators:
 # José Luis <alagunajs@gmail.com>, 2016
 # José Luis <alagunajs@gmail.com>, 2016
+# José Luis <alagunajs@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-22 21:00+0000\n"
-"Last-Translator: José Luis <alagunajs@gmail.com>\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"PO-Revision-Date: 2018-01-26 16:07+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -27,16 +28,12 @@ msgstr "Editando %(setting_type_name)s - %(instance)s"
 msgid "Editing"
 msgstr "Editando"
 
-msgid "Saving..."
-msgstr "Guardando..."
-
 msgid "Save"
 msgstr "Guardar"
 
 msgid "Settings"
 msgstr "Propiedades"
 
-#, python-brace-format
 msgid "{setting_type} updated."
 msgstr "{setting_type} actualizado."
 

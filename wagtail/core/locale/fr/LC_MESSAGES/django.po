@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Aurélien Debord <contact@aureliendebord.com>, 2017
 # Benoît Vogel <contact@spicy-informatique.com>, 2016
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015-2017
 # Léo <leo@naeka.fr>, 2016
@@ -14,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-20 00:33+0000\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"PO-Revision-Date: 2018-01-26 15:58+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
@@ -25,12 +26,22 @@ msgstr ""
 "Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#, python-brace-format
 msgid "{label}: this block has no options."
 msgstr "{label}: ce bloc n'a aucune option."
 
 msgid "This block has no options."
 msgstr "Ce bloc n'a aucune option."
+
+#, python-format
+msgid "The minimum number of items is %d"
+msgstr "Le nombre minimum d'éléments est %d"
+
+msgid "This field is required."
+msgstr "Ce champ est requis."
+
+#, python-format
+msgid "The maximum number of items is %d"
+msgstr "Le nombre maximum d'éléments est %d"
 
 msgid "Password"
 msgstr "Mot de passe"

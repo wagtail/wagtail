@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-23 10:48+0000\n"
-"Last-Translator: Matas Dailyda <matas@dailyda.com>\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"PO-Revision-Date: 2018-01-26 16:00+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
 "language/lt/)\n"
 "MIME-Version: 1.0\n"
@@ -135,8 +135,13 @@ msgstr "Įkelti"
 msgid "Popular tags"
 msgstr "Populiarios žymenos"
 
-msgid "Uploading…"
-msgstr "Įkeliama…"
+msgid "Server Error"
+msgstr "Serverio klaida"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr ""
+"Praneškite apie šią klaidą savo tinklalapio administratoriui su sekančia "
+"informacija:"
 
 #, python-format
 msgid ""
@@ -331,14 +336,6 @@ msgstr ""
 msgid "Sorry, upload failed."
 msgstr "Atsiprašome, įkelti nepavyko."
 
-msgid "Server Error"
-msgstr "Serverio klaida"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr ""
-"Praneškite apie šią klaidą savo tinklalapio administratoriui su sekančia "
-"informacija:"
-
 msgid "Image updated."
 msgstr "Paveiksliukai atnaujinti."
 
@@ -357,7 +354,6 @@ msgstr "Pridėti paveiksliuko leidimą"
 msgid "Search images"
 msgstr "Ieškoti paveiksliukų"
 
-#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "Paveiksliukas '{0}' atnaujintas"
 
@@ -374,11 +370,9 @@ msgstr ""
 "Paveiksliuko šaltinio byla nebuvo rasta. Prašome pakeisti šaltinį arba "
 "ištrinti paveiksliuką."
 
-#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "Paveiksliukas '{0}' ištrintas."
 
-#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "Paveiksliukas '{0}' pridėtas."
 
@@ -391,9 +385,6 @@ msgid_plural "%(count)s images"
 msgstr[0] "%(count)s paveiksliukas"
 msgstr[1] "%(count)s paveiksliukai"
 msgstr[2] "%(count)s paveiksliukų"
-
-msgid "Choose another image"
-msgstr "Pasirinkti kitą paveiksliuką"
 
 msgid "Edit this image"
 msgstr "Redaguoti šį paveiksliuką"

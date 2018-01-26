@@ -6,13 +6,14 @@
 # Daigo Shitara <stain.witness@gmail.com>, 2016
 # Sangmin Ahn <gijigae@gmail.com>, 2016
 # SHIMIZU Taku <shimizu.taku@gmail.com>, 2015
+# SHIMIZU Taku <shimizu.taku@gmail.com>, 2015
 # 石田秀 <ishidashu@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-10-06 15:11+0000\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"PO-Revision-Date: 2018-01-26 16:04+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
@@ -213,25 +214,21 @@ msgstr ""
 msgid "Search groups"
 msgstr "グループを検索"
 
-#, python-brace-format
 msgid "Group '{0}' created."
 msgstr "グループ '{0}' が作成されました。"
 
-#, python-brace-format
 msgid "Group '{0}' updated."
 msgstr "グループ '{0}' が更新されました。"
 
 msgid "The group could not be saved due to errors."
 msgstr "このグループはエラーにより保存されませんでした。"
 
-#, python-brace-format
 msgid "Group '{0}' deleted."
 msgstr "グループ '{0}' は削除されました。"
 
 msgid "Search users"
 msgstr "ユーザを検索"
 
-#, python-brace-format
 msgid "User '{0}' created."
 msgstr "ユーザ '{0}' が作成されました。"
 
@@ -241,7 +238,6 @@ msgstr "編集"
 msgid "The user could not be created due to errors."
 msgstr "このユーザはエラーにより作成されませんでした。"
 
-#, python-brace-format
 msgid "User '{0}' updated."
 msgstr "ユーザ '{0}' が更新されました。"
 

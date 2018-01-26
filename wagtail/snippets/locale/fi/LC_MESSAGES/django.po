@@ -4,13 +4,14 @@
 #
 # Translators:
 # Aarni Koskela, 2016
+# Aarni Koskela, 2016
 # Eetu Häivälä <eetu.haivala@anders.fi>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-22 10:14+0000\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"PO-Revision-Date: 2018-01-26 16:03+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
@@ -130,7 +131,6 @@ msgstr "Muokkaa tätä sivua"
 msgid "Search %(snippet_type_name)s"
 msgstr "Hae %(snippet_type_name)s"
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' created."
 msgstr "{snippet_type} '{instance}' luotu."
 
@@ -140,14 +140,12 @@ msgstr "Muokkaa"
 msgid "The snippet could not be created due to errors."
 msgstr "Pätkää ei voitu luoda virheiden vuoksi."
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' updated."
 msgstr "{snippet_type} '{instance}' päivitetty."
 
 msgid "The snippet could not be saved due to errors."
 msgstr "Pätkää ei voitu tallentaa virheiden vuoksi."
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' deleted."
 msgstr "{snippet_type} '{instance}' poistettu."
 

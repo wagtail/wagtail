@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-10-06 15:11+0000\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"PO-Revision-Date: 2018-01-26 16:03+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
@@ -260,25 +260,21 @@ msgstr "Hópar"
 msgid "Search groups"
 msgstr "Leita í hópum"
 
-#, python-brace-format
 msgid "Group '{0}' created."
 msgstr "Hópur '{0}' búinn til."
 
-#, python-brace-format
 msgid "Group '{0}' updated."
 msgstr "Hópur '{0}' uppfærður."
 
 msgid "The group could not be saved due to errors."
 msgstr "Ekki var hægt að vista hópinn þar sem hann stóðst ekki villuprófanir"
 
-#, python-brace-format
 msgid "Group '{0}' deleted."
 msgstr "Hópi '{0}' eytt."
 
 msgid "Search users"
 msgstr "Leita í notendum"
 
-#, python-brace-format
 msgid "User '{0}' created."
 msgstr "Notandi '{0}' búinn til."
 
@@ -289,7 +285,6 @@ msgid "The user could not be created due to errors."
 msgstr ""
 "Ekki var hægt að búa til notandann þar sem hann stóðst ekki villuprófanir"
 
-#, python-brace-format
 msgid "User '{0}' updated."
 msgstr "Notandi '{0}' uppfærður."
 
@@ -297,7 +292,6 @@ msgid "The user could not be saved due to errors."
 msgstr ""
 "Ekki var hægt að búa til notandann þar sem hann stóðst ekki villuprófanir"
 
-#, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "Notanda '{0}' eytt."
 

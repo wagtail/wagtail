@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-23 21:35+0000\n"
-"Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"PO-Revision-Date: 2018-01-26 16:05+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -166,7 +166,6 @@ msgstr ""
 msgid "Search promoted results"
 msgstr "Zoek gepromote resultaten"
 
-#, python-brace-format
 msgid "Editor's picks for '{0}' created."
 msgstr "Editor aanbevelingen voor '{0}' aangemaakt."
 
@@ -176,7 +175,6 @@ msgstr "Wijzig"
 msgid "Recommendations have not been created due to errors"
 msgstr "Aanbevelingen zijn vanwege fouten niet aangemaakt."
 
-#, python-brace-format
 msgid "Editor's picks for '{0}' updated."
 msgstr "Editor aanbevelingen voor '{0}' gewijzigd."
 

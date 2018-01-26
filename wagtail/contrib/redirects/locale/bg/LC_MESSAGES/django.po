@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-20 00:25+0000\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"PO-Revision-Date: 2018-01-26 16:01+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Bulgarian (http://www.transifex.com/torchbox/wagtail/language/"
 "bg/)\n"
@@ -95,14 +95,12 @@ msgstr ""
 "Няма създадени пренасочвания. Защо не <a href="
 "\"%(wagtailredirects_add_redirect_url)s\">добавите един сега</a>?"
 
-#, python-brace-format
 msgid "Redirect '{0}' updated."
 msgstr "Пренасочването '{0}' обновено."
 
 msgid "The redirect could not be saved due to errors."
 msgstr "Пренасочването не бе запазено поради грешки."
 
-#, python-brace-format
 msgid "Redirect '{0}' deleted."
 msgstr "Пренасочването '{0}' изтрито."
 

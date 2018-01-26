@@ -9,13 +9,14 @@
 # Guilherme Nabanete <neoheartz@gmail.com>, 2016
 # João Luiz Lorencetti <me@dirtycoder.net>, 2016
 # Thiago Cangussu <cangussu.thg@gmail.com>, 2014
+# Thiago Cangussu <cng.thg@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-20 00:52+0000\n"
-"Last-Translator: Guilherme Nabanete <neoheartz@gmail.com>\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"PO-Revision-Date: 2018-01-26 16:02+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -143,7 +144,6 @@ msgstr ""
 msgid "Search redirects"
 msgstr "Pesquisar redirecionamentos"
 
-#, python-brace-format
 msgid "Redirect '{0}' updated."
 msgstr "Redirecionar '{0}' atualizado."
 
@@ -153,11 +153,9 @@ msgstr "Editar"
 msgid "The redirect could not be saved due to errors."
 msgstr "O redirecionamento não pôde ser salvo devido a erros."
 
-#, python-brace-format
 msgid "Redirect '{0}' deleted."
 msgstr "Redirecionar '{0}' excluída."
 
-#, python-brace-format
 msgid "Redirect '{0}' added."
 msgstr "Redirecionar '{0}' adicionada."
 

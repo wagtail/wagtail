@@ -4,11 +4,12 @@
 #
 # Translators:
 # Kornel Novak Mergulhão <nkornel@gmail.com>, 2016
+# Kornel Novak Mergulhão <nkornel@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
 "PO-Revision-Date: 2017-09-22 19:04+0000\n"
 "Last-Translator: Kornel Novak Mergulhão <nkornel@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -28,7 +29,6 @@ msgstr "Alapértelmezett"
 msgid "Delete site"
 msgstr "Oldal törlése"
 
-#, python-brace-format
 msgid "Site '{0}' deleted."
 msgstr "A(z) '{0}' oldal törölve lett."
 

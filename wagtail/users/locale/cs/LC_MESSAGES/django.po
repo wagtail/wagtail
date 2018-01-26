@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-10-06 15:11+0000\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"PO-Revision-Date: 2018-01-26 16:04+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
@@ -192,25 +192,21 @@ msgstr ""
 msgid "Search groups"
 msgstr "Hledat skupiny"
 
-#, python-brace-format
 msgid "Group '{0}' created."
 msgstr "Skupina '{0}' byla vytvořena."
 
-#, python-brace-format
 msgid "Group '{0}' updated."
 msgstr "Skupina '{0}' byla upravena."
 
 msgid "The group could not be saved due to errors."
 msgstr "Skupinu nelze uložit, zkontrolujte správné vyplnění polí."
 
-#, python-brace-format
 msgid "Group '{0}' deleted."
 msgstr "Skupina '{0}' byla smazána."
 
 msgid "Search users"
 msgstr "Hledat uživatele"
 
-#, python-brace-format
 msgid "User '{0}' created."
 msgstr "Uživatel '{0}' byl vytvořen."
 
@@ -220,7 +216,6 @@ msgstr "Upravit"
 msgid "The user could not be created due to errors."
 msgstr "Uživatele nelze vytvořit, zkontrolujte správné vyplnění polí."
 
-#, python-brace-format
 msgid "User '{0}' updated."
 msgstr "Uživatel '{0}' byl upraven."
 

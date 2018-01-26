@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-22 14:05+0000\n"
-"Last-Translator: Daigo Shitara <stain.witness@gmail.com>\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"PO-Revision-Date: 2018-01-26 16:05+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
 "MIME-Version: 1.0\n"
@@ -152,7 +152,6 @@ msgstr ""
 msgid "Search promoted results"
 msgstr "提案を検索"
 
-#, python-brace-format
 msgid "Editor's picks for '{0}' created."
 msgstr "'{0}'に対する提案が作成されました。"
 
@@ -162,7 +161,6 @@ msgstr "編集"
 msgid "Recommendations have not been created due to errors"
 msgstr "提案はエラーにより作成されませんでした。"
 
-#, python-brace-format
 msgid "Editor's picks for '{0}' updated."
 msgstr "'{0}'に対する提案が更新されました。"
 

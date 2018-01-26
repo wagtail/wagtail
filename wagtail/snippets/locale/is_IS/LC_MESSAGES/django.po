@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-22 11:14+0000\n"
-"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"PO-Revision-Date: 2018-01-26 16:03+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -78,9 +78,6 @@ msgstr "Nýtt %(snippet_type_name)s"
 msgid "New"
 msgstr "Nýtt"
 
-msgid "Saving…"
-msgstr "Vista…"
-
 msgid "Save"
 msgstr "Vista"
 
@@ -140,7 +137,6 @@ msgstr "Breyta þessari síðu"
 msgid "Search %(snippet_type_name)s"
 msgstr "Leita í %(snippet_type_name)s"
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' created."
 msgstr "{snippet_type} '{instance}' búið til."
 
@@ -150,14 +146,12 @@ msgstr "Breyta"
 msgid "The snippet could not be created due to errors."
 msgstr "Ekki var hægt að búa til snifsi þar sem það stóðst ekki villuprófanir."
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' updated."
 msgstr "{snippet_type} '{instance}' uppfært."
 
 msgid "The snippet could not be saved due to errors."
 msgstr "Ekki var hægt að vista snifsi þar sem það stóðst ekki villuprófanir."
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' deleted."
 msgstr "{snippet_type} '{instance}' eytt."
 

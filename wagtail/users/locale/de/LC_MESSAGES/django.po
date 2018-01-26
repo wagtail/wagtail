@@ -10,16 +10,19 @@
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 # M0rph 3u5 <transifex@m0rph3u5.net>, 2014
 # Matt Westcott <matthew@torchbox.com>, 2015
+# Matt Westcott <matthew@torchbox.com>, 2015
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2017
 # Tammo van Lessen <tvanlessen@gmail.com>, 2015
+# Vorlif <flori@vorlif.org>, 2015
+# Wasilis Mandratzis-Walz, 2015
 # Wasilis Mandratzis-Walz, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-10-16 06:52+0000\n"
-"Last-Translator: Moritz Pfeiffer <moritz@alp-phone.ch>\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"PO-Revision-Date: 2018-01-26 16:04+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -268,34 +271,27 @@ msgstr ""
 "Es gibt zur Zeit noch keine Benutzer. <a href=\"%(wagtailusers_create_url)s"
 "\">Legen Sie doch einen an!</a>"
 
-msgid "Search"
-msgstr "Suche"
-
 msgid "Groups"
 msgstr "Gruppen"
 
 msgid "Search groups"
 msgstr "Gruppe suchen"
 
-#, python-brace-format
 msgid "Group '{0}' created."
 msgstr "Gruppe ‚{0}‘ erstellt."
 
-#, python-brace-format
 msgid "Group '{0}' updated."
 msgstr "Gruppe ‚{0}‘ geändert."
 
 msgid "The group could not be saved due to errors."
 msgstr "Aufgrund von Fehlern konnte die Gruppe nicht gespeichert werden."
 
-#, python-brace-format
 msgid "Group '{0}' deleted."
 msgstr "Gruppe '{0}' gelöscht."
 
 msgid "Search users"
 msgstr "Benutzer suchen"
 
-#, python-brace-format
 msgid "User '{0}' created."
 msgstr "Benutzer ‚{0}‘ erstellt."
 
@@ -305,14 +301,12 @@ msgstr "Bearbeiten"
 msgid "The user could not be created due to errors."
 msgstr "Aufgrund von Fehlern konnte der Benutzer nicht erstellt werden."
 
-#, python-brace-format
 msgid "User '{0}' updated."
 msgstr "Benutzer ‚{0}‘ geändert."
 
 msgid "The user could not be saved due to errors."
 msgstr "Aufgrund von Fehlern konnte der Benutzer nicht gespeichert werden."
 
-#, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "Benutzer '{0}' gelöscht."
 

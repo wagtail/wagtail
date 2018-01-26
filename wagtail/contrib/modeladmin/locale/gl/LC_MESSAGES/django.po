@@ -4,13 +4,14 @@
 #
 # Translators:
 # fooflare <amos.oviedo@gmail.com>, 2016
+# fooflare <amos.oviedo@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-22 23:19+0000\n"
-"Last-Translator: fooflare <amos.oviedo@gmail.com>\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"PO-Revision-Date: 2018-01-26 16:08+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
 "MIME-Version: 1.0\n"
@@ -168,7 +169,6 @@ msgstr "Previa"
 msgid "Next"
 msgstr "Seguinte"
 
-#, python-brace-format
 msgid "{model_name} '{instance}' created."
 msgstr "{model_name} '{instance}' creada."
 
@@ -190,7 +190,6 @@ msgstr "Editando"
 msgid "Editing %s"
 msgstr "Editando %s"
 
-#, python-brace-format
 msgid "{model_name} '{instance}' updated."
 msgstr "{model_name} '{instance}' actualizada."
 
@@ -210,7 +209,6 @@ msgstr ""
 "¿Seguro que queres eliminar esta %s? Se outras cosas no teu sitio web fan "
 "referencia a ela, poderían tamén verse afectadas."
 
-#, python-brace-format
 msgid "{model} '{instance}' deleted."
 msgstr "{model} '{instance}' eliminada."
 

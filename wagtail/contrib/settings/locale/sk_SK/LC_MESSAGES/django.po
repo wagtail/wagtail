@@ -4,13 +4,15 @@
 #
 # Translators:
 # karabellyj <jozefkarabelly@gmail.com>, 2017
+# karabellyj <jozefkarabelly@gmail.com>, 2017
+# Martin Janšto <mato@jansto.sk>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-22 21:00+0000\n"
-"Last-Translator: karabellyj <jozefkarabelly@gmail.com>\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"PO-Revision-Date: 2018-01-26 16:06+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
 "MIME-Version: 1.0\n"
@@ -19,8 +21,21 @@ msgstr ""
 "Language: sk_SK\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
+#, python-format
+msgid "Editing %(setting_type_name)s - %(instance)s"
+msgstr "Upravujem %(setting_type_name)s - %(instance)s"
+
+msgid "Editing"
+msgstr "Upravujem"
+
 msgid "Save"
 msgstr "Uložiť"
 
 msgid "Settings"
 msgstr "Nastavenia"
+
+msgid "{setting_type} updated."
+msgstr "{setting_type} aktualizované."
+
+msgid "The setting could not be saved due to errors."
+msgstr "Nastavenia neboli uložené kvôli chybám."

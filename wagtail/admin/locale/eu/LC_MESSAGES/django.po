@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-10-06 15:06+0000\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"PO-Revision-Date: 2018-01-26 15:57+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Basque (http://www.transifex.com/torchbox/wagtail/language/"
 "eu/)\n"
@@ -94,6 +94,9 @@ msgstr "Pasahitzaren berrezarpena"
 msgid "Reset your password"
 msgstr "Zure pasahitza berrezarri"
 
+msgid "Delete"
+msgstr "Ezabatu"
+
 msgid "Dashboard"
 msgstr "Kontrol panela"
 
@@ -102,9 +105,6 @@ msgstr "Gora mugitu"
 
 msgid "Move down"
 msgstr "Behera mugitu"
-
-msgid "Delete"
-msgstr "Ezabatu"
 
 msgid "Explorer"
 msgstr "Arakatzailea"

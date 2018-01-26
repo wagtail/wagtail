@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-10-06 15:06+0000\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"PO-Revision-Date: 2018-01-26 15:57+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
 "tr/)\n"
@@ -168,6 +168,9 @@ msgstr "Şifreni sıfırla"
 msgid "Edit"
 msgstr "Düzenle"
 
+msgid "Delete"
+msgstr "Sil"
+
 msgid "Pages"
 msgstr "Sayfalar"
 
@@ -185,9 +188,6 @@ msgstr "Yukarı taşı"
 
 msgid "Move down"
 msgstr "Aşağı taşı"
-
-msgid "Delete"
-msgstr "Sil"
 
 msgid "Explorer"
 msgstr "Keşfedici"
@@ -231,10 +231,6 @@ msgstr "Bu kolleksiyon silinemedi, çünkü boş değil ve şunları içeriyor:"
 
 msgid "Name"
 msgstr "İsim"
-
-#, python-format
-msgid "Add %(heading)s"
-msgstr "%(heading)s ekle"
 
 msgid "Yes, delete"
 msgstr "Evet, sil"
@@ -297,9 +293,6 @@ msgstr "%(username_field)s ve şifre uyuşmuyor. Lütfen tekrar deneyin"
 
 msgid "Sign in to Wagtail"
 msgstr "Wagtail oturumu aç"
-
-msgid "Signing in…"
-msgstr "Giriş yapılıyor…"
 
 msgid "Page privacy"
 msgstr "Sayfa gizliliği"
@@ -416,15 +409,12 @@ msgstr "Taslak görüntüle"
 msgid "The page could not be created due to validation errors"
 msgstr "Sayfa doğrulama hataları nedeniyle oluşturulamadı"
 
-#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Sayfa '{0}' silindi."
 
-#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "Sayfa '{0}' yayından kaldırıldı."
 
-#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "Sayfa '{0}' taşındı."
 

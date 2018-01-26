@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-21 21:56+0000\n"
-"Last-Translator: Giacomo Ghizzani <giacomo.ghz@gmail.com>\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"PO-Revision-Date: 2018-01-26 16:01+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -136,6 +136,12 @@ msgstr "Tags popolari"
 
 msgid "Uploading…"
 msgstr "Caricamento…"
+
+msgid "Server Error"
+msgstr "Errore del Server"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Presenta questo errore al tuo webmaster con le seguenti informazioni:"
 
 #, python-format
 msgid ""
@@ -328,12 +334,6 @@ msgstr ""
 msgid "Sorry, upload failed."
 msgstr "Spiacente, caricamento fallito."
 
-msgid "Server Error"
-msgstr "Errore del Server"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Presenta questo errore al tuo webmaster con le seguenti informazioni:"
-
 msgid "Image updated."
 msgstr "Immagine aggiornata."
 
@@ -352,7 +352,6 @@ msgstr "Aggiungi un permesso per l'immagine"
 msgid "Search images"
 msgstr "Cerca immagini"
 
-#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "Immagine '{0}' aggiornata."
 
@@ -369,11 +368,9 @@ msgstr ""
 "Il file dell'immagine non è stato trovato. Cambia il file oppure elimina "
 "l'immagine."
 
-#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "Immagine '{0}' eliminata."
 
-#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "Immagine '{0}' aggiunta."
 
@@ -385,9 +382,6 @@ msgid "%(count)s image"
 msgid_plural "%(count)s images"
 msgstr[0] "%(count)s immagine"
 msgstr[1] "%(count)s immagini"
-
-msgid "Choose another image"
-msgstr "Scegli un'altra immagine"
 
 msgid "Edit this image"
 msgstr "Modifica questa immagine"

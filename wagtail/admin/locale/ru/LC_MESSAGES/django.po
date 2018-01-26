@@ -7,6 +7,7 @@
 # ajk, 2014
 # Alexandr <alexromantsov@gmail.com>, 2016
 # Andrey Avdey <talkerbox@live.com>, 2016
+# Arseni M <arseni+transifex@mouchinski.com>, 2017
 # Daniil <fleepd@gmail.com>, 2015
 # Eugene MechanisM <eugene@mechanism.pro>, 2014-2016
 # Eugene MechanisM <eugene@mechanism.pro>, 2016-2017
@@ -20,8 +21,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-10-06 15:06+0000\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"PO-Revision-Date: 2018-01-26 15:57+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
@@ -178,6 +179,15 @@ msgstr ""
 "Вы не можете иметь несколько записей с правами доступа к одной и той же "
 "коллекции."
 
+msgid "Error 404: Page not found"
+msgstr "Ошибка 404: Страница не найдена"
+
+msgid "Error 404"
+msgstr "Ошибка 404"
+
+msgid "The requested page could not be found."
+msgstr "Запрошенная страница не найдена."
+
 msgid "Go to Wagtail admin"
 msgstr "Идти в админ-панель Wagtail"
 
@@ -262,14 +272,14 @@ msgstr "Сбросить ваш пароль"
 msgid "Edit"
 msgstr "Редактировать"
 
+msgid "Delete"
+msgstr "Удалить"
+
 msgid "Page"
 msgstr "Страница"
 
 msgid "Pages"
 msgstr "Страницы"
-
-msgid "Loading…"
-msgstr "Загрузка…"
 
 msgid "No results"
 msgstr "Нет результатов"
@@ -300,9 +310,6 @@ msgstr "Двигать наверх"
 
 msgid "Move down"
 msgstr "Двигать вниз"
-
-msgid "Delete"
-msgstr "Удалить"
 
 msgid "Explorer"
 msgstr "Проводник"
@@ -424,10 +431,6 @@ msgstr ""
 "Коллекции еще не были созданы. Почему бы не <a href=\"%(add_collection_url)s"
 "\">добавить одну</a>?"
 
-#, python-format
-msgid "Add %(heading)s"
-msgstr "Добавить %(heading)s"
-
 msgid "Yes, delete"
 msgstr "Да, удалить"
 
@@ -529,9 +532,6 @@ msgstr "Войти в Wagtail"
 
 msgid "Forgotten it?"
 msgstr "Забыли его?"
-
-msgid "Signing in…"
-msgstr "Выполняется вход…"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -740,14 +740,8 @@ msgstr "Добавление %(page_type)s"
 msgid "New"
 msgstr "Новый"
 
-msgid "Saving…"
-msgstr "Сохранение…"
-
 msgid "Save draft"
 msgstr "Сохранить черновик"
-
-msgid "Publishing…"
-msgstr "Публикация…"
 
 msgid "Publish"
 msgstr "Опубликовать"
@@ -1098,6 +1092,9 @@ msgstr "Нет страниц использующих"
 msgid "Collection"
 msgstr "Коллекция"
 
+msgid "Root"
+msgstr "Главная"
+
 msgid "Home"
 msgstr "Главная"
 
@@ -1160,14 +1157,6 @@ msgstr "Пт"
 
 msgid "Sat"
 msgstr "Сб"
-
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Использовано %(usage_count)s раз"
-msgstr[1] "Использовано %(usage_count)s раз"
-msgstr[2] "Использовано %(usage_count)s раз"
-msgstr[3] "Использовано %(usage_count)s раз"
 
 msgid "Edit your account"
 msgstr "Редактировать ваш аккаунт"
@@ -1309,11 +1298,9 @@ msgstr "Добавить коллекцию"
 msgid "Add collection"
 msgstr "Добавить коллекцию"
 
-#, python-brace-format
 msgid "Collection '{0}' created."
 msgstr "Коллекция '{0}' создана."
 
-#, python-brace-format
 msgid "Collection '{0}' updated."
 msgstr "Коллекция '{0}' обновлена."
 
@@ -1323,7 +1310,6 @@ msgstr "Коллекция не может быть сохранена из-за
 msgid "Delete collection"
 msgstr "Удалить коллекцию"
 
-#, python-brace-format
 msgid "Collection '{0}' deleted."
 msgstr "Коллекция '{0}' удалена."
 
@@ -1333,18 +1319,15 @@ msgstr "Вы уверены что хотите удалить эту колле
 msgid "Editing"
 msgstr "Редактирование"
 
-#, python-brace-format
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr "Страница '{0}' создана и запланирована к публикации."
-
-#, python-brace-format
-msgid "Page '{0}' created and published."
-msgstr "Страница '{0}' создана и опубликована."
 
 msgid "View live"
 msgstr "Смотреть на сайте"
 
-#, python-brace-format
+msgid "Page '{0}' created and published."
+msgstr "Страница '{0}' создана и опубликована."
+
 msgid "Page '{0}' created and submitted for moderation."
 msgstr "Страница '{0}' создана и отправлена на модерацию."
 
@@ -1354,38 +1337,30 @@ msgstr "Смотреть черновик"
 msgid "Failed to send notifications to moderators"
 msgstr "Не удалось отправить уведомления модераторам"
 
-#, python-brace-format
 msgid "Page '{0}' created."
 msgstr "Страница '{0}' создана."
 
 msgid "The page could not be created due to validation errors"
 msgstr "Эта страница не может быть создана из-за ошибок при проверке"
 
-#, python-brace-format
 msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
 msgstr "Версия {0} страницы '{1}' запланирована к публикации."
 
-#, python-brace-format
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Страница '{0}' запланирована к публикации."
 
-#, python-brace-format
 msgid "Revision from {0} of page '{1}' has been published."
 msgstr "Версия {0} страницы '{1}' опубликована."
 
-#, python-brace-format
 msgid "Page '{0}' has been published."
 msgstr "Страница '{0}' опубликована."
 
-#, python-brace-format
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Страница '{0}' была отправлена на модерацию."
 
-#, python-brace-format
 msgid "Page '{0}' has been replaced with revision from {1}."
 msgstr "Страница '{0}' заменена версией из {1}."
 
-#, python-brace-format
 msgid "Page '{0}' has been updated."
 msgstr "Страница '{0}' обновлена."
 
@@ -1401,49 +1376,39 @@ msgstr "Сравнить с опубликованной версией"
 msgid "This page is currently awaiting moderation"
 msgstr "Эта страница в данный момент ожидает модерации"
 
-#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Страница '{0}' удалена."
 
-#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "Страница '{0}' снята с публикации."
 
-#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "Страница '{0}' перемещена."
 
-#, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "Страница '{0}' и {1} подстраниц скопировано."
 
-#, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "Страница '{0}' скопирована."
 
-#, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "Страница '{0}' в настоящее время не ожидает модерации."
 
-#, python-brace-format
 msgid "Page '{0}' published."
 msgstr "Страница '{0}' опубликована."
 
 msgid "Failed to send approval notifications"
 msgstr "Не удалось отправить уведомления об утверждении"
 
-#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "Публикация страницы '{0}' отклонена."
 
 msgid "Failed to send rejection notifications"
 msgstr "Не удалось отправить уведомления об отклонении"
 
-#, python-brace-format
 msgid "Page '{0}' is now locked."
 msgstr "Страница '{0}' заблокирована."
 
-#, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "Страница '{0}' разблокирована."
 
@@ -1461,46 +1426,36 @@ msgstr "Ранний"
 msgid "Latest"
 msgstr "Последний"
 
-#, python-brace-format
 msgid "Edit '{title}'"
 msgstr "Редактировать '{title}'"
 
-#, python-brace-format
 msgid "Preview draft version of '{title}'"
 msgstr "Предпросмотр черновика '{title}'"
 
-#, python-brace-format
 msgid "View live version of '{title}'"
 msgstr "Посмотреть опубликованную версию '{title}'"
 
-#, python-brace-format
 msgid "Add a child page to '{title}' "
 msgstr "Создать дочернюю страницу для '{title}' "
 
 msgid "More"
 msgstr "Больше"
 
-#, python-brace-format
 msgid "View more options for '{title}'"
 msgstr "Больше действий для '{title}'"
 
-#, python-brace-format
 msgid "Move page '{title}'"
 msgstr "Переместить страницу '{title}'"
 
-#, python-brace-format
 msgid "Copy page '{title}'"
 msgstr "Скопировать страницу '{title}'"
 
-#, python-brace-format
 msgid "Delete page '{title}'"
 msgstr "Удалить страницу '{title}'"
 
-#, python-brace-format
 msgid "Unpublish page '{title}'"
 msgstr "Отменить публикацию страницы '{title}'"
 
-#, python-brace-format
 msgid "View revision history for '{title}'"
 msgstr "Показать историю версий для '{title}'"
 
