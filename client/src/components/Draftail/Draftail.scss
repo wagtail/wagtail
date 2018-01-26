@@ -88,7 +88,8 @@ $draftail-editor-font-family: $font-serif;
     }
 }
 
-.full .Draftail-Editor .public-DraftEditor-content {
+.full .Draftail-Editor .public-DraftEditor-content,
+.full .Draftail-Editor .public-DraftEditorPlaceholder-root {
     @include nice-padding;
 }
 
@@ -96,6 +97,7 @@ $draftail-editor-font-family: $font-serif;
     @include nice-margin;
 }
 
-.title .Draftail-Editor .public-DraftEditor-content {
+.title .Draftail-Editor .public-DraftEditor-content,
+.title .Draftail-Editor .public-DraftEditorPlaceholder-root {
     font-size: 2em;
 }
