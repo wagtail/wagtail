@@ -31,8 +31,7 @@ export const initEditor = (fieldName, options = {}) => {
   field.parentNode.appendChild(editorWrapper);
 
   const serialiseInputValue = rawContentState => {
-    // TODO Remove default {} when finishing https://github.com/springload/wagtaildraftail/issues/32.
-    field.value = JSON.stringify(rawContentState || {});
+    field.value = JSON.stringify(rawContentState);
   };
 
   let blockTypes;
@@ -62,10 +61,7 @@ export const initEditor = (fieldName, options = {}) => {
     description: STRINGS.HORIZONTAL_LINE,
   } : false;
 
-  const fieldValue = JSON.parse(field.value);
-  // TODO Remove default null when finishing https://github.com/springload/wagtaildraftail/issues/32.
-  const rawContentState =
-    fieldValue && Object.keys(fieldValue).length === 0 ? null : fieldValue;
+  const rawContentState = JSON.parse(field.value);
 
   const editor = (
     <DraftailEditor
