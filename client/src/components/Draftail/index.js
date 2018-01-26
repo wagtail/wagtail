@@ -108,11 +108,7 @@ registry.registerBlocks({
 
 const draftail = Object.assign(
   {
-    initEditor: initEditor,
-    // Expose basic React methods for basic needs
-    // TODO Expose React as global as part of Wagtail vendor file instead of doing this.
-    // createClass: React.createClass,
-    // createElement: React.createElement,
+    initEditor,
   },
   registry
 );
