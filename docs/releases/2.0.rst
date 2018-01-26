@@ -141,6 +141,8 @@ Or, to run from a different location:
        $ wagtail updatemodulepaths /path/to/project --diff
        $ wagtail updatemodulepaths /path/to/project
 
+For the full list of command line options, enter ``wagtail help updatemodulepaths``.
+
 You are advised to take a backup of your project codebase before running this command. The command will perform a search-and-replace over all \*.py files for the affected module paths; while this should catch the vast majority of module references, it will not be able to fix instances that do not use the dotted path directly, such as ``from wagtail import wagtailcore``.
 
 The full list of modules to be renamed is as follows:
