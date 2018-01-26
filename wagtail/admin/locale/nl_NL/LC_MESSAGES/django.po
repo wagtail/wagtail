@@ -704,7 +704,7 @@ msgstr "Bezig met opslaan..."
 msgid "Save draft"
 msgstr "Bewaar concept"
 
-msgid "Publishing..."
+msgid "Publishing…"
 msgstr "Bezig met publiceren..."
 
 msgid "Publish"

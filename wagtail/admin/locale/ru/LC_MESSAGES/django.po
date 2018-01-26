@@ -746,7 +746,7 @@ msgstr "Сохранение..."
 msgid "Save draft"
 msgstr "Сохранить черновик"
 
-msgid "Publishing..."
+msgid "Publishing…"
 msgstr "Публикация..."
 
 msgid "Publish"

@@ -658,7 +658,7 @@ msgstr "Vista..."
 msgid "Save draft"
 msgstr "Vista uppkast"
 
-msgid "Publishing..."
+msgid "Publishing…"
 msgstr "Set í birtingu..."
 
 msgid "Publish"

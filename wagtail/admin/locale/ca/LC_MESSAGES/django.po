@@ -640,7 +640,7 @@ msgstr "Desant..."
 msgid "Save draft"
 msgstr "Desa esborrany"
 
-msgid "Publishing..."
+msgid "Publishing…"
 msgstr "Publicant..."
 
 msgid "Publish"

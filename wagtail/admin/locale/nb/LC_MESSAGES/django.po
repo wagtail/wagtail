@@ -689,7 +689,7 @@ msgstr "Lagrer..."
 msgid "Save draft"
 msgstr "Lagre kladd"
 
-msgid "Publishing..."
+msgid "Publishing…"
 msgstr "Publiserer..."
 
 msgid "Publish"

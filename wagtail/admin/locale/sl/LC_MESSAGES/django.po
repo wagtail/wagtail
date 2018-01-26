@@ -556,7 +556,7 @@ msgstr "Shranjevanje..."
 msgid "Save draft"
 msgstr "Shrani osnutek"
 
-msgid "Publishing..."
+msgid "Publishing…"
 msgstr "Objava..."
 
 msgid "Publish"

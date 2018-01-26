@@ -652,7 +652,7 @@ msgstr "正在保存……"
 msgid "Save draft"
 msgstr "保存草稿"
 
-msgid "Publishing..."
+msgid "Publishing…"
 msgstr "正在发布……"
 
 msgid "Publish"

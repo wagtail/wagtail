@@ -368,7 +368,7 @@ msgstr "يتم الحفظ..."
 msgid "Save draft"
 msgstr "احفظ المسوّد"
 
-msgid "Publishing..."
+msgid "Publishing…"
 msgstr "يتم النشر..."
 
 msgid "Publish"

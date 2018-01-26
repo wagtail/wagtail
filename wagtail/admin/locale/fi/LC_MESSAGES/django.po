@@ -612,7 +612,7 @@ msgstr "Tallennetaan..."
 msgid "Save draft"
 msgstr "Tallenna luonnos"
 
-msgid "Publishing..."
+msgid "Publishing…"
 msgstr "Julkaistaan..."
 
 msgid "Publish"

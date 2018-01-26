@@ -723,7 +723,7 @@ msgstr "Speichern..."
 msgid "Save draft"
 msgstr "Entwurf speichern"
 
-msgid "Publishing..."
+msgid "Publishing…"
 msgstr "Veröffentlichen..."
 
 msgid "Publish"

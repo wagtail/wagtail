@@ -647,7 +647,7 @@ msgstr "Αποθήκευση..."
 msgid "Save draft"
 msgstr "Αποθήκευση σχεδίου"
 
-msgid "Publishing..."
+msgid "Publishing…"
 msgstr "Γίνεται δημοσίευση..."
 
 msgid "Publish"

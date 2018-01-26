@@ -53,7 +53,7 @@
                                 {% endif %}
                                 {% if page_perms.can_publish %}
                                     <li>
-                                        <button type="submit" name="action-publish" value="action-publish" class="button button-longrunning {% if is_revision %}warning{% endif %}" tabindex="3" data-clicked-text="{% trans 'Publishing...' %}" {% if page.locked %}disabled {% endif %}><span class="icon icon-spinner"></span><em>{% if is_revision %}{% trans 'Publish this revision' %}{% else %}{% trans 'Publish' %}{% endif %}</em></button>
+                                        <button type="submit" name="action-publish" value="action-publish" class="button button-longrunning {% if is_revision %}warning{% endif %}" tabindex="3" data-clicked-text="{% trans 'Publishing…' %}" {% if page.locked %}disabled {% endif %}><span class="icon icon-spinner"></span><em>{% if is_revision %}{% trans 'Publish this revision' %}{% else %}{% trans 'Publish' %}{% endif %}</em></button>
                                     </li>
                                 {% endif %}
                                 {% if not is_revision %}

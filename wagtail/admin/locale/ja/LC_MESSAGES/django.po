@@ -522,7 +522,7 @@ msgstr "保存中..."
 msgid "Save draft"
 msgstr "下書きを保存"
 
-msgid "Publishing..."
+msgid "Publishing…"
 msgstr "公開中..."
 
 msgid "Publish"

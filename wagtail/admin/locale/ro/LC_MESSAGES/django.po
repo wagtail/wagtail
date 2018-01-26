@@ -703,7 +703,7 @@ msgstr "În curse de salvare..."
 msgid "Save draft"
 msgstr "Salvează ca ciornă"
 
-msgid "Publishing..."
+msgid "Publishing…"
 msgstr "În curs de publicare..."
 
 msgid "Publish"

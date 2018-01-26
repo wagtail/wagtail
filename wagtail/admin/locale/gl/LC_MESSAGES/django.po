@@ -592,7 +592,7 @@ msgstr "Gardando..."
 msgid "Save draft"
 msgstr "Gardar borrador"
 
-msgid "Publishing..."
+msgid "Publishing…"
 msgstr "Publicando..."
 
 msgid "Publish"
