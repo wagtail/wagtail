@@ -59,7 +59,7 @@ msgstr "Leita"
 msgid "Upload"
 msgstr "Hlaða upp"
 
-msgid "Uploading..."
+msgid "Uploading…"
 msgstr "Hleð upp..."
 
 msgid "Server Error"

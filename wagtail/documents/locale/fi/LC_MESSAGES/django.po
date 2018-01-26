@@ -60,7 +60,7 @@ msgstr "Haku"
 msgid "Upload"
 msgstr "Lähetä"
 
-msgid "Uploading..."
+msgid "Uploading…"
 msgstr "Lähetetään..."
 
 msgid "Server Error"

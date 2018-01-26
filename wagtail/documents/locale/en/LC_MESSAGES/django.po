@@ -73,7 +73,7 @@ msgstr ""
 
 #: templates/wagtaildocs/chooser/chooser.html:42
 #: templates/wagtaildocs/documents/add.html:35
-msgid "Uploading..."
+msgid "Uploading…"
 msgstr ""
 
 #: templates/wagtaildocs/chooser/chooser.js:66

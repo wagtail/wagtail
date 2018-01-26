@@ -64,7 +64,7 @@ msgstr "Recherche"
 msgid "Upload"
 msgstr "Envoyer"
 
-msgid "Uploading..."
+msgid "Uploading…"
 msgstr "Téléchargement..."
 
 msgid "Server Error"

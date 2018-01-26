@@ -139,7 +139,7 @@ msgstr "Prześlij"
 msgid "Popular tags"
 msgstr "Popularne tagi"
 
-msgid "Uploading..."
+msgid "Uploading…"
 msgstr "Wgrywanie..."
 
 #, python-format

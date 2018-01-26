@@ -60,7 +60,7 @@ msgstr "Iskanje"
 msgid "Upload"
 msgstr "Prenos"
 
-msgid "Uploading..."
+msgid "Uploading…"
 msgstr "Prenašanje..."
 
 #, python-format

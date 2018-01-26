@@ -42,7 +42,7 @@ msgstr "Keresés"
 msgid "Upload"
 msgstr "Feltöltés"
 
-msgid "Uploading..."
+msgid "Uploading…"
 msgstr "Feltöltés folyamatban..."
 
 msgid "Save"

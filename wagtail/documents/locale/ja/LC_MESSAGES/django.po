@@ -50,7 +50,7 @@ msgstr "検索"
 msgid "Upload"
 msgstr "アップロード"
 
-msgid "Uploading..."
+msgid "Uploading…"
 msgstr "アップロード中..."
 
 #, python-format

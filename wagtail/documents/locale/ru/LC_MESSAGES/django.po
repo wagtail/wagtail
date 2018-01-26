@@ -65,7 +65,7 @@ msgstr "Поиск"
 msgid "Upload"
 msgstr "Загрузка"
 
-msgid "Uploading..."
+msgid "Uploading…"
 msgstr "Загрузка..."
 
 msgid "Server Error"

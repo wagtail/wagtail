@@ -50,7 +50,7 @@ msgstr "Zoek"
 msgid "Upload"
 msgstr "Uploaden"
 
-msgid "Uploading..."
+msgid "Uploading…"
 msgstr "Bezig met uploaden..."
 
 #, python-format

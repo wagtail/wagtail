@@ -58,7 +58,7 @@ msgstr "Cerca"
 msgid "Upload"
 msgstr "Carica"
 
-msgid "Uploading..."
+msgid "Uploading…"
 msgstr "Caricamento..."
 
 msgid "Server Error"

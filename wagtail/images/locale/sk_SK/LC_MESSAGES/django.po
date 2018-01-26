@@ -110,7 +110,7 @@ msgstr "Nahrať"
 msgid "Popular tags"
 msgstr "Populárne tagy"
 
-msgid "Uploading..."
+msgid "Uploading…"
 msgstr "Odosielam..."
 
 msgid "Latest images"

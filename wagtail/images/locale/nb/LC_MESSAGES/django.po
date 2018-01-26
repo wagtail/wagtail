@@ -135,7 +135,7 @@ msgstr "Last opp"
 msgid "Popular tags"
 msgstr "Populære stikkord"
 
-msgid "Uploading..."
+msgid "Uploading…"
 msgstr "Laster opp..."
 
 #, python-format

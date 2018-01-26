@@ -120,7 +120,7 @@ msgstr "Uploaden"
 msgid "Popular tags"
 msgstr "Populaire labels"
 
-msgid "Uploading..."
+msgid "Uploading…"
 msgstr "Bezig met uploaden..."
 
 #, python-format

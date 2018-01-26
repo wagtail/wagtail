@@ -59,7 +59,7 @@ msgstr "Cercar"
 msgid "Upload"
 msgstr "Pujar"
 
-msgid "Uploading..."
+msgid "Uploading…"
 msgstr "Pujant..."
 
 msgid "Server Error"

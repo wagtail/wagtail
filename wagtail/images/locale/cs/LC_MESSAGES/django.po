@@ -120,7 +120,7 @@ msgstr "Nahrát"
 msgid "Popular tags"
 msgstr "Oblíbené tagy"
 
-msgid "Uploading..."
+msgid "Uploading…"
 msgstr "Nahrávání..."
 
 #, python-format

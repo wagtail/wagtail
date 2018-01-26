@@ -167,7 +167,7 @@ msgid "Popular tags"
 msgstr ""
 
 #: templates/wagtailimages/chooser/chooser.html:50
-msgid "Uploading..."
+msgid "Uploading…"
 msgstr ""
 
 #: templates/wagtailimages/chooser/results.html:6

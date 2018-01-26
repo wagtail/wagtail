@@ -62,7 +62,7 @@ msgstr "Buscar"
 msgid "Upload"
 msgstr "Enviar"
 
-msgid "Uploading..."
+msgid "Uploading…"
 msgstr "Enviando..."
 
 msgid "Server Error"
