@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"POT-Creation-Date: 2018-01-26 15:54+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: forms.py:14
+#: forms.py:12
 msgid "Choose a root page"
 msgstr ""
 
-#: forms.py:14
+#: forms.py:12
 msgid "Choose a different root page"
 msgstr ""
 
@@ -49,41 +49,38 @@ msgstr ""
 msgid "Default"
 msgstr ""
 
-#: views.py:14 wagtail_hooks.py:28
+#: views.py:12 wagtail_hooks.py:26
 msgid "Sites"
 msgstr ""
 
-#: views.py:15
+#: views.py:13
 msgid "Add a site"
 msgstr ""
 
-#: views.py:20
+#: views.py:18
 msgid "Add site"
 msgstr ""
 
-#: views.py:21
-#, python-brace-format
+#: views.py:19
 msgid "Site '{0}' created."
 msgstr ""
 
-#: views.py:26
-#, python-brace-format
+#: views.py:24
 msgid "Site '{0}' updated."
 msgstr ""
 
-#: views.py:27
+#: views.py:25
 msgid "The site could not be saved due to errors."
 msgstr ""
 
-#: views.py:28 views.py:35
+#: views.py:26 views.py:33
 msgid "Delete site"
 msgstr ""
 
-#: views.py:34
-#, python-brace-format
+#: views.py:32
 msgid "Site '{0}' deleted."
 msgstr ""
 
-#: views.py:36
+#: views.py:34
 msgid "Are you sure you want to delete this site?"
 msgstr ""
