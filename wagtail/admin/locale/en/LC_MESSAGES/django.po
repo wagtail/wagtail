@@ -657,7 +657,7 @@ msgid "Forgotten it?"
 msgstr ""
 
 #: templates/wagtailadmin/login.html:71
-msgid "Signing in..."
+msgid "Signing in…"
 msgstr ""
 
 #: templates/wagtailadmin/notifications/approved.html:5

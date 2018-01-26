@@ -517,7 +517,7 @@ msgstr "Bei Wagtail anmelden"
 msgid "Forgotten it?"
 msgstr "Vergessen?"
 
-msgid "Signing in..."
+msgid "Signing in…"
 msgstr "Anmelden..."
 
 #, python-format

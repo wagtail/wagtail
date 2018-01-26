@@ -493,7 +493,7 @@ msgstr "Conectați-vă la Wagtail"
 msgid "Forgotten it?"
 msgstr "Ați uitat?"
 
-msgid "Signing in..."
+msgid "Signing in…"
 msgstr "În curs de conectare..."
 
 #, python-format

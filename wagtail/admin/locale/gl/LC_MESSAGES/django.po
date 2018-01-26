@@ -428,7 +428,7 @@ msgstr "Iniciar sesión en Wagtail"
 msgid "Forgotten it?"
 msgstr "¿Esquecíchela?"
 
-msgid "Signing in..."
+msgid "Signing in…"
 msgstr "Iniciando sesión"
 
 #, python-format

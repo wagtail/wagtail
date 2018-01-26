@@ -373,7 +373,7 @@ msgstr "Bejelentkezés a Wagtail-be"
 msgid "Forgotten it?"
 msgstr "Elfelejtette?"
 
-msgid "Signing in..."
+msgid "Signing in…"
 msgstr "Bejelentkezés..."
 
 #, python-format

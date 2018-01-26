@@ -331,7 +331,7 @@ msgstr "Přihlášení do redakčního systému"
 msgid "Forgotten it?"
 msgstr "Zapoměli jste heslo?"
 
-msgid "Signing in..."
+msgid "Signing in…"
 msgstr "Přihlašování..."
 
 #, python-format

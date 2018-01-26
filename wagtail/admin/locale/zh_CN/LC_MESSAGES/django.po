@@ -459,7 +459,7 @@ msgstr "登录Wagtail"
 msgid "Forgotten it?"
 msgstr "不记得了？"
 
-msgid "Signing in..."
+msgid "Signing in…"
 msgstr "登录中……"
 
 #, python-format

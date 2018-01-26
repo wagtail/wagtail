@@ -514,7 +514,7 @@ msgstr "Zaloguj się do Wagtaila"
 msgid "Forgotten it?"
 msgstr "Nie pamiętasz?"
 
-msgid "Signing in..."
+msgid "Signing in…"
 msgstr "Logowanie..."
 
 #, python-format

@@ -409,7 +409,7 @@ msgstr "Prihlásiť sa do Wagtail"
 msgid "Forgotten it?"
 msgstr "Zabudli ste heslo?"
 
-msgid "Signing in..."
+msgid "Signing in…"
 msgstr "Prihlasujem..."
 
 #, python-format

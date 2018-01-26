@@ -287,7 +287,7 @@ msgstr "تسجيل الدخول"
 msgid "Forgotten it?"
 msgstr "أنسيته؟"
 
-msgid "Signing in..."
+msgid "Signing in…"
 msgstr "يتم تسجيل الدخول..."
 
 msgid "You can view the page here:"

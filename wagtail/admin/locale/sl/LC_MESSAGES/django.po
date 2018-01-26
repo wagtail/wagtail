@@ -413,7 +413,7 @@ msgstr "Prijava v Wagtail"
 msgid "Forgotten it?"
 msgstr "Pozabljeno geslo?"
 
-msgid "Signing in..."
+msgid "Signing in…"
 msgstr "Prijava v teku..."
 
 #, python-format

@@ -431,7 +431,7 @@ msgstr "Entrar no Wagtail"
 msgid "Forgotten it?"
 msgstr "Esqueceu-se?"
 
-msgid "Signing in..."
+msgid "Signing in…"
 msgstr "A entrar..."
 
 #, python-format

@@ -371,7 +371,7 @@ msgstr "Wagtailへサインイン"
 msgid "Forgotten it?"
 msgstr "パスワードを忘れましたか？"
 
-msgid "Signing in..."
+msgid "Signing in…"
 msgstr "サインイン中..."
 
 #, python-format

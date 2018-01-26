@@ -482,7 +482,7 @@ msgstr "Masuk ke Wagtail"
 msgid "Forgotten it?"
 msgstr "Apakah anda lupa?"
 
-msgid "Signing in..."
+msgid "Signing in…"
 msgstr "Sedang masuk..."
 
 #, python-format

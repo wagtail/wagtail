@@ -496,7 +496,7 @@ msgstr "Prisijungti prie Wagtail"
 msgid "Forgotten it?"
 msgstr "Pamiršote?"
 
-msgid "Signing in..."
+msgid "Signing in…"
 msgstr "Prisijungiama..."
 
 #, python-format

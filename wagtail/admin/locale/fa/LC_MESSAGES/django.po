@@ -459,7 +459,7 @@ msgstr "ورود به وگتیل"
 msgid "Forgotten it?"
 msgstr "فراموش کردید؟"
 
-msgid "Signing in..."
+msgid "Signing in…"
 msgstr "درحال ورود..."
 
 #, python-format

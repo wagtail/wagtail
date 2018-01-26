@@ -298,7 +298,7 @@ msgstr "%(username_field)s ve şifre uyuşmuyor. Lütfen tekrar deneyin"
 msgid "Sign in to Wagtail"
 msgstr "Wagtail oturumu aç"
 
-msgid "Signing in..."
+msgid "Signing in…"
 msgstr "Giriş yapılıyor..."
 
 msgid "Page privacy"
