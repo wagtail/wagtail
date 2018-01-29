@@ -88,8 +88,8 @@ The feature identifiers provided on a default Wagtail installation are as follow
 
 Adding new features to this list is generally a two step process:
 
- * Create a plugin that extends the editor with a new toolbar button for adding a particular HTML element
- * Add that HTML element to the whitelist of elements that are permitted in rich text output
+ * Create a plugin that extends the editor with a new toolbar button or other control(s) to manage the rich text formatting of the feature.
+ * Create conversion rules to define how content from the editor should be filtered or transformed before storage, and front-end HTML output.
 
 Both of these steps are performed through the ``register_rich_text_features`` hook (see :ref:`admin_hooks`). The hook function is triggered on startup, and receives a *feature registry* object as its argument; this object keeps track of the behaviours associated with each feature identifier.
 
