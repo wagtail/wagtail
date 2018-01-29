@@ -1,3 +1,5 @@
+.. _inserting_links:
+
 Inserting links in a page
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
