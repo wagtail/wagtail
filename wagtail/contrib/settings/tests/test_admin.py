@@ -1,11 +1,12 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Permission
+from django.core import checks
 from django.test import TestCase, override_settings
 from django.urls import reverse
 from django.utils.text import capfirst
 
 from wagtail.admin.edit_handlers import FieldPanel, ObjectList, TabbedInterface
-from wagtail.contrib.settings.registry import SettingMenuItem
+from wagtail.contrib.settings.registry import SettingMenuItem, registry
 from wagtail.contrib.settings.views import get_setting_edit_handler
 from wagtail.core import hooks
 from wagtail.core.models import Page, Site
@@ -247,3 +248,76 @@ class TestEditHandlers(TestCase):
         handler = get_setting_edit_handler(TabbedSettings)
         self.assertIsInstance(handler, TabbedInterface)
         self.assertEqual(len(handler.children), 2)
+
+
+class TestSettingsPanelConfigChecks(TestCase):
+
+    def test_settings_with_tabbed_panels_only(self):
+        """Test that checks will warn against setting tabbed panels on settings models"""
+
+        FileUploadSetting.content_panels = [FieldPanel('file')]
+
+        warning = checks.Warning(
+            "FileUploadSetting.content_panels will have no effect on settings editing",
+            hint="""Ensure that FileUploadSetting uses `panels` instead of `content_panels`
+        or set up an `edit_handler` if you want a tabbed editing interface.
+        There are no default tabs on non-Page models so there will be no
+        Content tab for the content_panels to render in.""",
+            obj=FileUploadSetting,
+            id='wagtailadmin.W002',
+        )
+
+        errors = [
+            e for e in checks.run_checks(tags=['panels'])
+            if e.obj == FileUploadSetting
+        ]
+        self.assertEqual(errors, [warning])
+
+        del FileUploadSetting.content_panels
+
+    def test_settings_with_correct_panels_config(self):
+        """Test that checks will not warn if panels and edit_handler are used"""
+
+        TestSetting.content_panels = [FieldPanel('title')]
+        TestSetting.settings_panels = [FieldPanel('email')]
+        self.assertIn(TestSetting, registry)
+
+        warning_1 = checks.Warning(
+            "TestSetting.content_panels will have no effect on settings editing",
+            hint="""Ensure that TestSetting uses `panels` instead of `content_panels`
+        or set up an `edit_handler` if you want a tabbed editing interface.
+        There are no default tabs on non-Page models so there will be no
+        Content tab for the content_panels to render in.""",
+            obj=TestSetting,
+            id='wagtailadmin.W002',
+        )
+
+        warning_2 = checks.Warning(
+            "TestSetting.settings_panels will have no effect on settings editing",
+            hint="""Ensure that TestSetting uses `panels` instead of `settings_panels`
+        or set up an `edit_handler` if you want a tabbed editing interface.
+        There are no default tabs on non-Page models so there will be no
+        Settings tab for the settings_panels to render in.""",
+            obj=TestSetting,
+            id='wagtailadmin.W002',
+        )
+
+        errors_before_edit_handler = [
+            e for e in checks.run_checks() if e.obj == TestSetting
+        ]
+        self.assertEqual(errors_before_edit_handler, [warning_1, warning_2])
+
+        # add edit_handler which means this will now be a valid configuration
+
+        TestSetting.edit_handler = TabbedInterface([
+            ObjectList(TestSetting.content_panels, heading='Main'),
+            ObjectList(TestSetting.settings_panels, heading='Settings')
+        ])
+        errors_after_edit_handler = [
+            e for e in checks.run_checks() if e.obj == TestSetting
+        ]
+        self.assertEqual(errors_after_edit_handler, [])
+
+        del TestSetting.edit_handler
+        del TestSetting.content_panels
+        del TestSetting.settings_panels
