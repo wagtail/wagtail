@@ -59,11 +59,11 @@ Below is a summary of what the different buttons represent:
 
 .. image:: ../../_static/images/screen11.6_images_videos.png
 
-**Insert image / video:** Allows you to insert an image or video into the rich text field. See Inserting images and videos section for more details. See `Inserting images <inserting_images.html>` and `Inserting videos <inserting_videos.html>` sections.
+**Insert image / video:** Allows you to insert an image or video into the rich text field. See :ref:`inserting_images` for more details.
 
 .. image:: ../../_static/images/screen11.7_links_docs.png
 
-**Insert link / document:** Allows you to insert a link or a document into the rich text field. See Inserting links and Inserting documents for more details. See `Inserting links section <inserting_links.html>`.
+**Insert link / document:** Allows you to insert a link or a document into the rich text field. See :ref:`inserting_links` for more details.
 
 Adding further blocks in StreamField
 ==============================================
