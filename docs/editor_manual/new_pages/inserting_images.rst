@@ -1,3 +1,5 @@
+.. _inserting_images:
+
 Inserting images and videos in a page
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
