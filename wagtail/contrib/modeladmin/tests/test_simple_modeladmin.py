@@ -1,9 +1,8 @@
+import mock
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from django.core import checks
 from django.test import TestCase
-
-import mock
 
 from wagtail.admin.edit_handlers import FieldPanel, TabbedInterface
 from wagtail.contrib.modeladmin.options import (
@@ -11,8 +10,8 @@ from wagtail.contrib.modeladmin.options import (
 from wagtail.images.models import Image
 from wagtail.images.tests.utils import get_test_image_file
 from wagtail.tests.modeladmintest.models import (
-    Author, Book, EventSupplier, PrintMediaCampaign, Publisher,
-    SocialMediaCampaign, Token, VenuePage, VenuePageRelatedSeatingSection)
+    Author, Book, EventSupplier, PrintMediaCampaign, Publisher, SocialMediaCampaign, Token,
+    VenuePage, VenuePageRelatedSeatingSection)
 from wagtail.tests.utils import WagtailTestUtils
 
 

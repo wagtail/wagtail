@@ -1,8 +1,7 @@
 from wagtail.contrib.modeladmin.options import (
     ModelAdmin, ModelAdminGroup, ThumbnailMixin, modeladmin_register)
 from wagtail.contrib.modeladmin.views import CreateView
-from wagtail.tests.testapp.models import (
-    BusinessChild, EventPage, SingleEventPage)
+from wagtail.tests.testapp.models import BusinessChild, EventPage, SingleEventPage
 
 from .forms import PublisherModelAdminForm
 from .models import Author, Book, EventSupplier, Publisher, Token, VenuePage

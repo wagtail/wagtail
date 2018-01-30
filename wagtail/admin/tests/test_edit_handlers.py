@@ -1,11 +1,10 @@
 from datetime import date
 
+import mock
 from django import forms
 from django.core import checks
 from django.core.exceptions import FieldDoesNotExist, ImproperlyConfigured
 from django.test import TestCase, override_settings
-
-import mock
 
 from wagtail.admin.edit_handlers import (
     FieldPanel, FieldRowPanel, InlinePanel, MultiFieldPanel, ObjectList, PageChooserPanel,
@@ -18,8 +17,8 @@ from wagtail.core.models import Page, Site
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.tests.testapp.forms import ValidatedPageForm
 from wagtail.tests.testapp.models import (
-    EventPage, EventPageChooserModel, EventPageSpeaker, LinkFields, PageChooserModel,
-    SimplePage, ValidatedPage)
+    EventPage, EventPageChooserModel, EventPageSpeaker, LinkFields, PageChooserModel, SimplePage,
+    ValidatedPage)
 from wagtail.tests.utils import WagtailTestUtils
 
 
