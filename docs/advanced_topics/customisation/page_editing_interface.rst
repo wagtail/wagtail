@@ -229,16 +229,42 @@ Creating new entities
 """""""""""""""""""""
 
 .. warning::
-    This is an advanced feature. Please carefully consider whether you really need this. You have been warned.
+    This is an advanced feature. Please carefully consider whether you really need this.
 
 Entities aren’t simply formatting buttons in the toolbar. They usually need to be much more versatile, communicating to APIs or requesting further user input. As such,
 
 * You will most likely need to write a **hefty dose of JavaScript**, some of it with React.
 * The API is very **low-level**. You will most likely need some **Draft.js knowledge**.
-* There are a lot of ways for custom UIs within rich text to go wrong. Be prepared to spend a lot of time **testing in multiple browsers**.
+* Custom UIs in rich text can be brittle. Be ready to spend time **testing in multiple browsers**.
 
 The good news is that having such a low-level API will enable third-party Wagtail plugins to innovate on rich text features, proposing new kinds of experiences.
-But in the meantime, if this doesn’t seem worth the investment, consider implementing your UI through :doc:`StreamField <../topics/streamfield>` instead, which has a battle-tested API meant for Django developers.
+But in the meantime, consider implementing your UI through :doc:`StreamField <../../topics/streamfield>` instead, which has a battle-tested API meant for Django developers.
+
+----
+
+Here are the main requirements to create a new entity feature:
+
+* Like for inline styles and blocks, register an editor plugin.
+* The editor plugin must define a ``source``: a React component responsible for creating new entity instances in the editor, using the Draft.js API.
+* The editor plugin also needs a ``decorator`` (for inline entities) or ``block`` (for block entities): a React component responsible for displaying entity instances within the editor.
+* Like for inline styles and blocks, set up the to/from DB conversion.
+* The conversion usually is more involved, since entities contain data that needs to be serialised to HTML.
+
+To write the React components, Wagtail exposes its own React and Draft.js dependencies as global variables. Read more about this in :ref:`extending_clientside_components`. To go further, please look at the `Draftail documentation <https://github.com/springload/draftail#formatting-options>`_ as well as the `Draft.js exporter documentation <https://github.com/springload/draftjs_exporter>`_.
+
+Here is a detailed example to showcase how those tools are used in the context of Wagtail.
+For the sake of our example, we can imagine a news team working at a financial newspaper.
+They want to write articles about the stock market, refer to specific stocks anywhere inside of their content (eg. $TSLA tokens in a sentence), and then have their article automatically enriched with the stock’s information (a link, a value, up or down, a sparkline).
+
+The editor toolbar could contain a "stock chooser" that displays a list of available stocks, then inserts the user’s selection as a textual token. For our example, we will just pick a stock at random:
+
+.. image:: ../../_static/images/draftail_entity_stock_source.gif
+
+Those tokens are then saved in the rich text on publish. When the news article is displayed on the site, we then insert live market data coming from an API next to each token:
+
+.. image:: ../../_static/images/draftail_entity_stock_rendering.png
+
+
 
 Extending the WYSIWYG Editor (``hallo.js``)
 +++++++++++++++++++++++++++++++++++++++++++
