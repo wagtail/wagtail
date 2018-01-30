@@ -156,6 +156,11 @@ The constructor for ``HalloPlugin`` accepts the following keyword arguments:
  * ``css`` - a dictionary of CSS files to be imported for this plugin, defined in the same way as a `Django form media <https://docs.djangoproject.com/en/1.11/topics/forms/media/>`_ definition
  * ``order`` - an index number (default 100) specifying the order in which plugins should be listed, which in turn determines the order buttons will appear in the toolbar
 
+When writing the front-end code for the plugin, Wagtail’s Hallo implementation offers two extension points:
+
+* In JavaScript, use the ``[data-hallo-editor]`` attribute selector to target the editor, eg. ``var $editor = $('[data-hallo-editor]');``.
+* In CSS, use the ``.halloeditor`` class selector.
+
 
 .. _whitelisting_rich_text_elements:
 
