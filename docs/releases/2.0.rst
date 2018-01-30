@@ -71,6 +71,7 @@ Other features
  * StreamField blocks now allow custom ``get_template`` methods for overriding templates in instances (Christopher Bledsoe)
  * Simplified edit handler API (Florent Osmont, Bertrand Bordage)
  * Made 'add/change/delete collection' permissions configurable from the group edit page (Matt Westcott)
+ * Expose React-related dependencies as global variables for extension in the admin interface (Thibaud Colas)
 
 
 Bug fixes
@@ -106,7 +107,8 @@ Bug fixes
  * Version comparison now handles custom primary keys on inline models correctly (LB (Ben Johnston))
  * Fixed error when inserting chooser panels into FieldRowPanel (Florent Osmont, Bertrand Bordage)
  * Reinstated missing error reporting on image upload (Matt Westcott)
-
+ * Only load Hallo CSS if Hallo is in use (Thibaud Colas)
+ * Prevent style leak of Wagtail panel icons in widgets using ``h2`` elements (Thibaud Colas)
 
 Upgrade considerations
 ======================
