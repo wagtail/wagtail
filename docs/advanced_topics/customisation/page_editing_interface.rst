@@ -89,7 +89,7 @@ The feature identifiers provided on a default Wagtail installation are as follow
 Adding new features to this list is generally a two step process:
 
  * Create a plugin that extends the editor with a new toolbar button or other control(s) to manage the rich text formatting of the feature.
- * Create conversion rules to define how content from the editor should be filtered or transformed before storage, and front-end HTML output.
+ * Create conversion or whitelist rules to define how content from the editor should be filtered or transformed before storage, and front-end HTML output.
 
 Both of these steps are performed through the ``register_rich_text_features`` hook (see :ref:`admin_hooks`). The hook function is triggered on startup, and receives a *feature registry* object as its argument; this object keeps track of the behaviours associated with each feature identifier.
 
@@ -98,8 +98,16 @@ This process for adding new features is described in the following sections.
 
 .. _extending_wysiwyg:
 
+Extending the WYSIWYG Editor
+++++++++++++++++++++++++++++
+
+Wagtail's rich text editor is built on `Draftail <https://github.com/springload/draftail>`_, and its functionality can be extended through plugins.
+
 Extending the WYSIWYG Editor (``hallo.js``)
 +++++++++++++++++++++++++++++++++++++++++++
+
+.. warning::
+  **As of Wagtail 2.0, the hallo.js editor is deprecated.** We have no intentions to remove it from Wagtail as of yet, but it will no longer receive bug fixes. Please be aware of the `known hallo.js issues <https://github.com/wagtail/wagtail/issues?q=is%3Aissue+is%3Aclosed+hallo+label%3A%22component%3ARich+text%22+label%3Atype%3ABug>`_ should you want to keep using it.
 
 .. note::
   The customisations described here are only available on the hallo.js rich text editor used on Wagtail 1.x. To use hallo.js on Wagtail 2.x, add the following to your settings:
@@ -112,8 +120,7 @@ Extending the WYSIWYG Editor (``hallo.js``)
         }
     }
 
-
-Wagtail's rich text editor is built on ``hallo.js``, and its functionality can be extended through plugins. For information on developing custom ``hallo.js`` plugins, see the project's page: https://github.com/bergie/hallo
+The legacy hallo.js editor’s functionality can be extended through plugins. For information on developing custom ``hallo.js`` plugins, see the project's page: https://github.com/bergie/hallo
 
 Once the plugin has been created, it should be registered through the feature registry's ``register_editor_plugin(editor, feature_name, plugin)`` method. For a ``hallo.js`` plugin, the ``editor`` parameter should always be ``'hallo'``.
 
@@ -159,8 +166,8 @@ To have a feature active by default (i.e. on ``RichTextFields`` that do not defi
 
 .. _whitelisting_rich_text_elements:
 
-Whitelisting rich text elements
-+++++++++++++++++++++++++++++++
+Whitelisting rich text elements (``hallo.js``)
+++++++++++++++++++++++++++++++++++++++++++++++
 
 After extending the editor to support a new HTML element, you'll need to add it to the whitelist of permitted elements - Wagtail's standard behaviour is to strip out unrecognised elements, to prevent editors from inserting styles and scripts (either deliberately, or inadvertently through copy-and-paste) that the developer didn't account for.
 
