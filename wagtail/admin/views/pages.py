@@ -499,7 +499,7 @@ def edit(request, page_id):
 
     # Page status needs to present the version of the page containing the correct live URL
     if page.has_unpublished_changes:
-        page_for_status = latest_revision.page
+        page_for_status = latest_revision.page.specific
     else:
         page_for_status = page
 

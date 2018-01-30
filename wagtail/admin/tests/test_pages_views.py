@@ -1118,6 +1118,14 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         )
         self.root_page.add_child(instance=self.event_page)
 
+        # Add single event page (to test custom URL routes)
+        self.single_event_page = SingleEventPage(
+            title="Mars landing", slug="mars-landing",
+            location='mars', audience='public',
+            cost='free', date_from='2001-01-01',
+        )
+        self.root_page.add_child(instance=self.single_event_page)
+
         # Login
         self.user = self.login()
 
@@ -1794,6 +1802,29 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         link_to_live = '<a href="/hello-world/" target="_blank" class="status-tag primary">live + draft</a>'
         input_field_for_draft_slug = '<input type="text" name="slug" value="revised-slug-in-draft-only" id="id_slug" maxlength="255" required />'
         input_field_for_live_slug = '<input type="text" name="slug" value="hello-world" id="id_slug" maxlength="255" required />'
+
+        # Status Link should be the live page (not revision)
+        self.assertContains(response, link_to_live, html=True)
+        self.assertNotContains(response, link_to_draft, html=True)
+
+        # Editing input for slug should be the draft revision
+        self.assertContains(response, input_field_for_draft_slug, html=True)
+        self.assertNotContains(response, input_field_for_live_slug, html=True)
+
+    def test_editor_page_shows_custom_live_url_in_status_when_draft_edits_exist(self):
+        # When showing a live URL in the status button that differs from the draft one,
+        # ensure that we pick up any custom URL logic defined on the specific page model
+
+        self.single_event_page.location = "The other side of Mars"
+        self.single_event_page.slug = "revised-slug-in-draft-only"  # live version contains 'hello-world'
+        self.single_event_page.save_revision()
+
+        response = self.client.get(reverse('wagtailadmin_pages:edit', args=(self.single_event_page.id, )))
+
+        link_to_draft = '<a href="/revised-slug-in-draft-only/pointless-suffix/" target="_blank" class="status-tag primary">live + draft</a>'
+        link_to_live = '<a href="/mars-landing/pointless-suffix/" target="_blank" class="status-tag primary">live + draft</a>'
+        input_field_for_draft_slug = '<input type="text" name="slug" value="revised-slug-in-draft-only" id="id_slug" maxlength="255" required />'
+        input_field_for_live_slug = '<input type="text" name="slug" value="mars-landing" id="id_slug" maxlength="255" required />'
 
         # Status Link should be the live page (not revision)
         self.assertContains(response, link_to_live, html=True)
