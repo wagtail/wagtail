@@ -864,11 +864,20 @@ class TestInlinePanel(TestCase, WagtailTestUtils):
 
 class TestInlinePanelRelatedModelPanelConfigChecks(TestCase):
 
+    def setUp(self):
+        del EventPageSpeaker.panels
+
+    def tearDown(self):
+        EventPageSpeaker.panels = [
+            FieldPanel('first_name'),
+            FieldPanel('last_name'),
+            ImageChooserPanel('image'),
+            MultiFieldPanel(LinkFields.panels, "Link"),
+        ]
+
     def test_page_with_inline_model_with_tabbed_panel_only(self):
         """Test that checks will warn against setting single tabbed panel on InlinePanel model"""
 
-        # EventPageSpeaker will also have `panels` defined from original model
-        del EventPageSpeaker.panels
         EventPageSpeaker.settings_panels = [FieldPanel('first_name'), FieldPanel('last_name')]
 
         warning = checks.Warning(
@@ -882,22 +891,13 @@ class TestInlinePanelRelatedModelPanelConfigChecks(TestCase):
 
         # run checks only with the 'panels' tag
         errors = [e for e in checks.run_checks(tags=['panels']) if e.obj == EventPageSpeaker]
-        self.assertEqual(errors, [warning])
+        self.assertIn(warning, errors)
 
-        # clean up for future checks
         del EventPageSpeaker.settings_panels
-        EventPageSpeaker.panels = [
-            FieldPanel('first_name'),
-            FieldPanel('last_name'),
-            ImageChooserPanel('image'),
-            MultiFieldPanel(LinkFields.panels, "Link"),
-        ]
 
     def test_page_with_inline_model_with_two_tabbed_panels(self):
         """Test that checks will warn against multiple tabbed panels on InlinePanel models"""
 
-        # EventPageSpeaker will also have `panels` defined from original model
-        del EventPageSpeaker.panels
         EventPageSpeaker.content_panels = [FieldPanel('first_name')]
         EventPageSpeaker.promote_panels = [FieldPanel('last_name')]
 
@@ -918,41 +918,23 @@ class TestInlinePanelRelatedModelPanelConfigChecks(TestCase):
             id='wagtailadmin.W002',
         )
 
-        # run checks only with the 'panels' tag
         errors = [e for e in checks.run_checks(tags=['panels']) if e.obj == EventPageSpeaker]
-        self.assertEqual(errors, [warning_1, warning_2])
+        self.assertIn(warning_1, errors)
+        self.assertIn(warning_2, errors)
 
-        # clean up for future checks
         del EventPageSpeaker.content_panels
         del EventPageSpeaker.promote_panels
-        EventPageSpeaker.panels = [
-            FieldPanel('first_name'),
-            FieldPanel('last_name'),
-            ImageChooserPanel('image'),
-            MultiFieldPanel(LinkFields.panels, "Link"),
-        ]
 
     def test_page_with_inline_model_with_edit_handler(self):
         """Checks should NOT warn if InlinePanel models use tabbed panels AND edit_handler"""
 
-        # EventPageSpeaker will also have `panels` defined from original model
-        del EventPageSpeaker.panels
         EventPageSpeaker.content_panels = [FieldPanel('first_name')]
         EventPageSpeaker.edit_handler = TabbedInterface(
             ObjectList([FieldPanel('last_name')], heading='test')
         )
 
-        # run checks only with the 'panels' tag, filter out unrelated errors
         errors = [e for e in checks.run_checks(tags=['panels']) if e.obj == EventPageSpeaker]
-        # should not be any errors
         self.assertEqual(errors, [])
 
-        # clean up for future checks
         del EventPageSpeaker.edit_handler
         del EventPageSpeaker.content_panels
-        EventPageSpeaker.panels = [
-            FieldPanel('first_name'),
-            FieldPanel('last_name'),
-            ImageChooserPanel('image'),
-            MultiFieldPanel(LinkFields.panels, "Link"),
-        ]

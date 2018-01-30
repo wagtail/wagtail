@@ -303,7 +303,8 @@ class TestSettingsPanelConfigChecks(TestCase):
         )
 
         errors_before_edit_handler = [
-            e for e in checks.run_checks() if e.obj == TestSetting
+            e for e in checks.run_checks(tags=['panels'])
+            if e.obj == TestSetting
         ]
         self.assertEqual(errors_before_edit_handler, [warning_1, warning_2])
 
@@ -314,7 +315,8 @@ class TestSettingsPanelConfigChecks(TestCase):
             ObjectList(TestSetting.settings_panels, heading='Settings')
         ])
         errors_after_edit_handler = [
-            e for e in checks.run_checks() if e.obj == TestSetting
+            e for e in checks.run_checks(tags=['panels'])
+            if e.obj == TestSetting
         ]
         self.assertEqual(errors_after_edit_handler, [])
 
