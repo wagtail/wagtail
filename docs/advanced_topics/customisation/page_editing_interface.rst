@@ -225,6 +225,21 @@ Here are the main differences:
 
 That’s it! The extra complexity is that you may need to write some CSS if using a ``className`` so your blocks look good in the editor.
 
+Creating new entities
+"""""""""""""""""""""
+
+.. warning::
+    This is an advanced feature. Please carefully consider whether you really need this. You have been warned.
+
+Entities aren’t simply formatting buttons in the toolbar. They usually need to be much more versatile, communicating to APIs or requesting further user input. As such,
+
+* You will most likely need to write a **hefty dose of JavaScript**, some of it with React.
+* The API is very **low-level**. You will most likely need some **Draft.js knowledge**.
+* There are a lot of ways for custom UIs within rich text to go wrong. Be prepared to spend a lot of time **testing in multiple browsers**.
+
+The good news is that having such a low-level API will enable third-party Wagtail plugins to innovate on rich text features, proposing new kinds of experiences.
+But in the meantime, if this doesn’t seem worth the investment, consider implementing your UI through :doc:`StreamField <../topics/streamfield>` instead, which has a battle-tested API meant for Django developers.
+
 Extending the WYSIWYG Editor (``hallo.js``)
 +++++++++++++++++++++++++++++++++++++++++++
 
