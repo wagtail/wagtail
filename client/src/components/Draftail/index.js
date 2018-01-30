@@ -16,7 +16,8 @@ import ModalWorkflowSource from './sources/ModalWorkflowSource';
 import registry from './registry';
 
 const wrapWagtailIcon = type => {
-  if (type.icon) {
+  const isIconFont = type.icon && typeof type.icon === 'string';
+  if (isIconFont) {
     return Object.assign(type, {
       icon: <Icon name={type.icon} />,
     });
