@@ -1,14 +1,17 @@
 from django.contrib.admin.utils import quote
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Permission
+from django.core import checks
 from django.core.exceptions import ValidationError
 from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase
 from django.test.utils import override_settings
 from django.urls import reverse
+
 from taggit.models import Tag
 
+from wagtail.admin.edit_handlers import FieldPanel, ObjectList, TabbedInterface
 from wagtail.admin.forms import WagtailAdminModelForm
 from wagtail.core.models import Page
 from wagtail.snippets.blocks import SnippetChooserBlock
@@ -1026,3 +1029,71 @@ class TestSnippetChosenWithCustomPrimaryKey(TestCase, WagtailTestUtils):
     def test_choose_a_page(self):
         response = self.get(pk=AdvertWithCustomPrimaryKey.objects.all()[0].pk)
         self.assertTemplateUsed(response, 'wagtailsnippets/chooser/chosen.js')
+
+
+
+class TestSnippetPanelConfigChecks(TestCase):
+
+    def test_snippet_with_tabbed_panels_only(self):
+        """Test that checks will warn against setting tabbed panels on non-page models"""
+
+        self.maxDiff = 3000
+
+        SearchableSnippet.settings_panels = [FieldPanel('text')]
+
+        search_snippet_warning = checks.Warning(
+            "SearchableSnippet.settings_panels will have no effect on snippet editing",
+            hint="""Ensure that SearchableSnippet uses `panels` instead of `settings_panels`
+        or set up an `edit_handler` if you want a tabbed editing interface.
+        There are no default tabs on non-Page models so there will be no
+        Settings tab for the settings_panels to render in.""",
+            obj=SearchableSnippet,
+            id='wagtailadmin.W002',
+        )
+
+        errors_1 = [
+            e for e in checks.run_checks(tags=['panels'])
+            if e.obj == SearchableSnippet
+        ]
+
+        self.assertEqual(errors_1, [search_snippet_warning])
+
+        del SearchableSnippet.settings_panels
+
+        StandardSnippet.promote_panels = [FieldPanel('text')]
+
+        standard_snippet_warning = checks.Warning(
+            "StandardSnippet.promote_panels will have no effect on snippet editing",
+            hint="""Ensure that StandardSnippet uses `panels` instead of `promote_panels`
+        or set up an `edit_handler` if you want a tabbed editing interface.
+        There are no default tabs on non-Page models so there will be no
+        Promote tab for the promote_panels to render in.""",
+            obj=StandardSnippet,
+            id='wagtailadmin.W002',
+        )
+
+        errors_2 = [
+            e for e in checks.run_checks(tags=['panels'])
+            if e.obj == StandardSnippet
+        ]
+
+        self.assertEqual(errors_2, [standard_snippet_warning])
+
+        del StandardSnippet.promote_panels
+
+    def test_snippet_correct_edit_handler_setup(self):
+        """Test against false positives, checks should pass if edit_handler is used"""
+
+        FileUploadSnippet.content_panels = [FieldPanel('text')]
+        FileUploadSnippet.edit_handler = TabbedInterface([
+            ObjectList(FileUploadSnippet.content_panels, heading='Content'),
+        ])
+
+        errors = [
+            e for e in checks.run_checks(tags=['panels'])
+            if e.obj == FileUploadSnippet
+        ]
+        self.assertEqual(errors, [])
+
+        del FileUploadSnippet.edit_handler
+        del FileUploadSnippet.content_panels
