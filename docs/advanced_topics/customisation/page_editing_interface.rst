@@ -109,7 +109,121 @@ The process for creating new features is described in the following sections.
 Extending the WYSIWYG Editor (``Draftail``)
 +++++++++++++++++++++++++++++++++++++++++++
 
-Wagtail's rich text editor is built on `Draftail <https://github.com/springload/draftail>`_, and its functionality can be extended through plugins.
+Wagtail’s rich text editor is built with `Draftail <https://github.com/springload/draftail>`_, and its functionality can be extended through plugins.
+
+Plugins come in three types:
+
+* Inline styles – To format a portion of a line, eg. ``bold``, ``italic``, ``monospace``.
+* Blocks – To indicate the structure of the content, eg. ``blockquote``, ``ol``.
+* Entities – To enter additional data/metadata, eg. ``link`` (with a URL), ``image`` (with a file).
+
+All of these plugins are created with a similar baseline, which we can demonstrate with one of the simplest examples – a custom feature for an inline style of ``strikethrough``.
+
+.. code-block:: python
+
+    import wagtail.admin.rich_text.editors.draftail.features as draftail_features
+    from wagtail.admin.rich_text.converters.html_to_contentstate import InlineStyleElementHandler
+    from wagtail.core import hooks
+
+    # 1. Use the register_rich_text_features hook.
+    @hooks.register('register_rich_text_features')
+    def register_strikethrough_feature(features):
+        """
+        Registering the `strikethrough` feature, which uses the `STRIKETHROUGH` Draft.js inline style type,
+        and is stored as HTML with an `<s>` tag.
+        """
+        feature_name = 'strikethrough'
+        type_ = 'STRIKETHROUGH'
+        tag = 's'
+
+        # 2. Configure how Draftail handles the feature in its toolbar.
+        control = {
+            'type': type_,
+            'label': 'S',
+            'description': 'Strikethrough',
+            # This isn’t even required – Draftail has predefined styles for STRIKETHROUGH.
+            # 'style': {'textDecoration': 'line-through'},
+        }
+
+        # 3. Call register_editor_plugin to register the configuration for Draftail.
+        features.register_editor_plugin(
+            'draftail', feature_name, draftail_features.InlineStyleFeature(control)
+        )
+
+        # 4.configure the content transform from the DB to the editor and back.
+        db_conversion = {
+            'from_database_format': {tag: InlineStyleElementHandler(type_)},
+            'to_database_format': {'style_map': {type_: tag}},
+        }
+
+        # 5. Call register_converter_rule to register the content transformation conversion.
+        features.register_converter_rule('contentstate', feature_name, db_conversion)
+
+These five steps will always be the same for all Draftail plugins. The important parts are to:
+
+* Consistently use the feature’s Draft.js type or Wagtail feature names where appropriate.
+* Give enough information to Draftail so it knows how to make a button for the feature, and how to render it (more on this later).
+* Configure the conversion to use the right HTML element (as they are stored in the DB).
+
+For detailed configuration options, head over to the `Draftail documentation <https://github.com/springload/draftail#formatting-options>`_ to see all of the details. Here are some parts worth highlighting about controls:
+
+* The ``type`` is the only mandatory piece of information.
+* To display the control in the toolbar, combine ``icon``, ``label`` and ``description``.
+* The controls’ ``icon`` can be a string to use an icon font with CSS classes, say ``'icon': 'fas fa-user',``. It can also be an array of strings, to use SVG paths, or SVG symbol references eg. ``'icon': ['M100 100 H 900 V 900 H 100 Z'],``. The paths need to be set for a 1024x1024 viewbox.
+
+Creating new inline styles
+""""""""""""""""""""""""""
+
+In addition to the initial example, inline styles take a ``style`` property to define what CSS rules will be applied to text in the editor. Be sure to read the `Draftail documentation <https://github.com/springload/draftail#formatting-options>`_ on inline styles.
+
+Finally, the DB to/from conversion uses an ``InlineStyleElementHandler`` to map from a given tag (``<s>`` in the example above) to a Draftail type, and the inverse mapping is done with `Draft.js exporter configuration <https://github.com/springload/draftjs_exporter>`_ of the ``style_map``.
+
+Creating new blocks
+"""""""""""""""""""
+
+Blocks are nearly as simple as inline styles:
+
+.. code-block:: python
+
+    from wagtail.admin.rich_text.converters.html_to_contentstate import BlockElementHandler
+
+    @hooks.register('register_rich_text_features')
+    def register_blockquote_feature(features):
+        """
+        Registering the `blockquote` feature, which uses the `blockquote` Draft.js block type,
+        and is stored as HTML with a `<blockquote>` tag.
+        """
+        feature_name = 'blockquote'
+        type_ = 'blockquote'
+        tag = 'blockquote'
+
+        control = {
+            'type': type_,
+            'label': '❝',
+            'description': 'Blockquote',
+            # We need to tell Draftail what element to use when displaying those blocks in the editor.
+            'element': 'blockquote',
+            # This isn't required as the blockquote tag could be styled directly.
+            # 'className': 'editor__blockquote',
+        }
+
+        features.register_editor_plugin(
+            'draftail', feature_name, draftail_features.BlockFeature(control)
+        )
+
+        features.register_converter_rule('contentstate', feature_name, {
+            'from_database_format': {tag: BlockElementHandler(type_)},
+            'to_database_format': {'block_map': {type_: tag}},
+        })
+
+Here are the main differences:
+
+* We need to configure an ``element`` to tell Draftail how to render those blocks in the editor.
+* We could use a ``className`` (say if ``element`` was ``div``) to style the blockquotes in the editor.
+* We register the plugin with ``BlockFeature``.
+* We set up the conversion with ``BlockElementHandler`` and ``block_map``.
+
+That’s it! The extra complexity is that you may need to write some CSS if using a ``className`` so your blocks look good in the editor.
 
 Extending the WYSIWYG Editor (``hallo.js``)
 +++++++++++++++++++++++++++++++++++++++++++
