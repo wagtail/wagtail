@@ -50,6 +50,7 @@ Changelog
  * Update autoprefixer configuration to better match browser support targets (Janneke Janssen)
  * Update React and related dependencies to latest versions (Janneke Janssen, Hugo van den Berg)
  * Remove Hallo editor `.richtext` CSS class in favour of more explicit extension points (Thibaud Colas)
+ * Expose React-related dependencies as global variables for extension in the admin interface (Thibaud Colas)
  * Fix: Do not remove stopwords when generating slugs from non-ASCII titles, to avoid issues with incorrect word boundaries (Sævar Öfjörð Magnússon)
  * Fix: The PostgreSQL search backend now preserves ordering of the `QuerySet` when searching with `order_by_relevance=False` (Bertrand Bordage)
  * Fix: Using `modeladmin_register` as a decorator no longer replaces the decorated class with `None` (Tim Heap)
@@ -79,6 +80,8 @@ Changelog
  * Fix: Version comparison now handles custom primary keys on inline models correctly (LB (Ben Johnston))
  * Fix: Fixed error when inserting chooser panels into FieldRowPanel (Florent Osmont, Bertrand Bordage)
  * Fix: Reinstated missing error reporting on image upload (Matt Westcott)
+ * Fix: Only load Hallo CSS if Hallo is in use (Thibaud Colas)
+ * Fix: Prevent style leak of Wagtail panel icons in widgets using ``h2`` elements (THibaud Colas)
 
 
 1.13.1 (17.11.2017)

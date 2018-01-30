@@ -168,3 +168,25 @@ To completely customise the login form, override the ``login_form`` block. This 
         <p>Some extra form content</p>
         {{ block.super }}
     {% endblock %}
+
+.. _extending_clientside_components:
+
+Extending client-side components
+================================
+
+Some of Wagtail’s admin interface is written as client-side JavaScript with `React <https://reactjs.org/>`_.
+In order to customise or extend those components, you may need to use React too, as well as other related libraries.
+To make this easier, Wagtail exposes its React-related dependencies as global variables within the admin. Here are the available packages:
+
+.. code-block:: javascript
+
+    // 'focus-trap-react'
+    window.FocusTrapReact;
+    // 'react'
+    window.React;
+    // 'react-dom'
+    window.ReactDOM;
+    // 'react-transition-group/CSSTransitionGroup'
+    window.CSSTransitionGroup;
+    // 'draft-js'
+    window.DraftJS;
