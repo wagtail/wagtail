@@ -18,6 +18,8 @@ Other features
 Bug fixes
 ~~~~~~~~~
 
+ * Status button on 'edit page' now links to the correct URL when live and draft slug differ (LB (Ben Johnston))
+
 
 Upgrade considerations
 ======================

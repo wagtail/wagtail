@@ -4,6 +4,8 @@ Changelog
 2.1 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
+ * Fix: Status button on 'edit page' now links to the correct URL when live and draft slug differ (LB (Ben Johnston))
+
 
 2.0 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
