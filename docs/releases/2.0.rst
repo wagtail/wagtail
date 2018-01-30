@@ -60,6 +60,7 @@ Other features
  * Upgraded jQuery to version 3.2.1 (Janneke Janssen)
  * Update autoprefixer configuration to better match browser support targets (Janneke Janssen)
  * Update React and related dependencies to latest versions (Janneke Janssen, Hugo van den Berg)
+ * Remove Hallo editor ``.richtext`` CSS class in favour of more explicit extension points (Thibaud Colas)
  * Updated documentation styling (LB (Ben Johnston))
  * Rich text fields now take feature lists into account when whitelisting HTML elements (Matt Westcott)
  * FormPage lists and Form submission lists in admin now use class based views for easy overriding (Johan Arensman)
@@ -288,3 +289,29 @@ from  ``wagtail.wagtailsearch.urls`` in your project's ``urls.py``), you will ne
 own implementation.
 
 See the search view in Wagtail demo for a guide: https://github.com/wagtail/wagtaildemo/blob/master/demo/views.py
+
+New Hallo editor extension points
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+With the introduction of a new editor, we want to make sure existing editor plugins meant for Hallo only target
+Hallo editors for extension.
+
+* The existing ``.richtext`` CSS class is no longer applied to the Hallo editor’s DOM element.
+* In JavaScript, use the ``[data-hallo-editor]`` attribute selector to target the editor, eg. ``var $editor = $('[data-hallo-editor]');``.
+* In CSS, use the ``.halloeditor`` class selector.
+
+For example,
+
+  .. code-block:: diff
+
+    /* JS */
+    - var widget = $(elem).parent('.richtext').data('IKS-hallo');
+    + var widget = $(elem).parent('[data-hallo-editor]').data('IKS-hallo');
+
+    [...]
+
+    /* Styles */
+    - .richtext {
+    + .halloeditor {
+        font-family: monospace;
+    }
