@@ -107,7 +107,7 @@ Extending the WYSIWYG Editor (``hallo.js``)
 +++++++++++++++++++++++++++++++++++++++++++
 
 .. warning::
-  **As of Wagtail 2.0, the hallo.js editor is deprecated.** We have no intentions to remove it from Wagtail as of yet, but it will no longer receive bug fixes. Please be aware of the `known hallo.js issues <https://github.com/wagtail/wagtail/issues?q=is%3Aissue+is%3Aclosed+hallo+label%3A%22component%3ARich+text%22+label%3Atype%3ABug>`_ should you want to keep using it.
+  **As of Wagtail 2.0, the hallo.js editor is deprecated.** We have no intentions to remove it from Wagtail as of yet, but it will no longer receive bug fixes. Please be aware of the `known hallo.js issues <https://github.com/wagtail/wagtail/issues?q=is%3Aissue+is%3Aclosed+hallo+label%3A%22component%3ARich+text%22+label%3Atype%3ABug+label%3A%22status%3AWont+Fix%22>`_ should you want to keep using it.
 
 .. note::
   The customisations described here are only available on the hallo.js rich text editor used on Wagtail 1.x. To use hallo.js on Wagtail 2.x, add the following to your settings:
