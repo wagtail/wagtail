@@ -6,16 +6,18 @@ import { IS_IE11, STRINGS } from '../../config/wagtailConfig';
 
 import Icon from '../Icon/Icon';
 
-import Link from './decorators/Link';
-import Document from './decorators/Document';
-import ImageBlock from './blocks/ImageBlock';
-import EmbedBlock from './blocks/EmbedBlock';
-
-import ModalWorkflowSource from './sources/ModalWorkflowSource';
-
 import registry from './registry';
 
-const wrapWagtailIcon = type => {
+export { registry };
+
+export { default as Link } from './decorators/Link';
+export { default as Document } from './decorators/Document';
+export { default as ImageBlock } from './blocks/ImageBlock';
+export { default as EmbedBlock } from './blocks/EmbedBlock';
+
+export { default as ModalWorkflowSource } from './sources/ModalWorkflowSource';
+
+export const wrapWagtailIcon = type => {
   const isIconFont = type.icon && typeof type.icon === 'string';
   if (isIconFont) {
     return Object.assign(type, {
@@ -26,7 +28,12 @@ const wrapWagtailIcon = type => {
   return type;
 };
 
-export const initEditor = (fieldName, options = {}) => {
+/**
+ * Initialises the DraftailEditor for a given field.
+ * @param {string} fieldName
+ * @param {Object} options
+ */
+export const initEditor = (fieldName, options) => {
   const field = document.querySelector(`[name="${fieldName}"]`);
   const editorWrapper = document.createElement('div');
   field.parentNode.appendChild(editorWrapper);
@@ -35,29 +42,19 @@ export const initEditor = (fieldName, options = {}) => {
     field.value = JSON.stringify(rawContentState);
   };
 
-  let blockTypes;
-  let inlineStyles;
-  let entityTypes;
+  const blockTypes = options.blockTypes || [];
+  const inlineStyles = options.inlineStyles || [];
+  let entityTypes = options.entityTypes || [];
 
-  if (options && options.blockTypes) {
-    blockTypes = options.blockTypes.map(wrapWagtailIcon);
-  }
+  entityTypes = entityTypes.map(wrapWagtailIcon).map(type =>
+    Object.assign(type, {
+      source: registry.getSource(type.source),
+      decorator: registry.getDecorator(type.decorator),
+      block: registry.getBlock(type.block),
+    })
+  );
 
-  if (options && options.inlineStyles) {
-    inlineStyles = options.inlineStyles.map(wrapWagtailIcon);
-  }
-
-  if (options && options.entityTypes) {
-    entityTypes = options.entityTypes.map(wrapWagtailIcon).map(type =>
-      Object.assign(type, {
-        source: registry.getSource(type.source),
-        decorator: registry.getDecorator(type.decorator),
-        block: registry.getBlock(type.block),
-      })
-    );
-  }
-
-  const enableHorizontalRule = options && options.enableHorizontalRule ? {
+  const enableHorizontalRule = options.enableHorizontalRule ? {
     description: STRINGS.HORIZONTAL_LINE,
   } : false;
 
@@ -77,8 +74,8 @@ export const initEditor = (fieldName, options = {}) => {
       // Draft.js + IE 11 presents some issues with pasting rich text. Disable rich paste there.
       stripPastedStyles={IS_IE11}
       {...options}
-      blockTypes={blockTypes}
-      inlineStyles={inlineStyles}
+      blockTypes={blockTypes.map(wrapWagtailIcon)}
+      inlineStyles={inlineStyles.map(wrapWagtailIcon)}
       entityTypes={entityTypes}
       enableHorizontalRule={enableHorizontalRule}
     />
@@ -89,24 +86,3 @@ export const initEditor = (fieldName, options = {}) => {
   // Bind editor instance to its field so it can be accessed imperatively elsewhere.
   field.draftailEditor = draftailEditor;
 };
-
-registry.registerSources({
-  ModalWorkflowSource,
-});
-registry.registerDecorators({
-  Link,
-  Document,
-});
-registry.registerBlocks({
-  ImageBlock,
-  EmbedBlock,
-});
-
-const draftail = Object.assign(
-  {
-    initEditor,
-  },
-  registry
-);
-
-export default draftail;

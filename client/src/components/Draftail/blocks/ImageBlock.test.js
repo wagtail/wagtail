@@ -65,8 +65,7 @@ describe('ImageBlock', () => {
     ).toMatchSnapshot();
   });
 
-  // Alt field is readonly for now.
-  it.skip('changeAlt', () => {
+  it('changeAlt', () => {
     jest.spyOn(DraftUtils, 'updateBlockEntity');
     DraftUtils.updateBlockEntity.mockImplementation(e => e);
 
@@ -88,11 +87,17 @@ describe('ImageBlock', () => {
       />
     );
 
-    wrapper.find('[type="text"]').simulate('change', {
-      currentTarget: {
+    // // Alt field is readonly for now.
+    wrapper.instance().changeAlt({
+      target: {
         value: 'new alt',
-      },
+      }
     });
+    // wrapper.find('[type="text"]').simulate('change', {
+    //   target: {
+    //     value: 'new alt',
+    //   },
+    // });
 
     expect(onChange).toHaveBeenCalled();
     expect(DraftUtils.updateBlockEntity).toHaveBeenCalledWith(

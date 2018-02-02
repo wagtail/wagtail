@@ -1,0 +1,105 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ModalWorkflowSource #filterEntityData DOCUMENT 1`] = `
+Object {
+  "filename": "test.pdf",
+  "id": 1,
+  "url": "/documents/1/test.pdf",
+}
+`;
+
+exports[`ModalWorkflowSource #filterEntityData EMBED 1`] = `
+Object {
+  "authorName": "Test",
+  "embedType": "video",
+  "providerName": "YouTube",
+  "thumbnail": "https://i.ytimg.com/vi/pSlVtxLOYiM/hqdefault.jpg",
+  "title": "Test",
+  "url": "https://www.youtube.com/watch?v=pSlVtxLOYiM",
+}
+`;
+
+exports[`ModalWorkflowSource #filterEntityData IMAGE 1`] = `
+Object {
+  "alt": "Test",
+  "format": "right",
+  "id": 53,
+  "src": "/media/images/test.width-500.jpg",
+}
+`;
+
+exports[`ModalWorkflowSource #filterEntityData LINK external 1`] = `
+Object {
+  "url": "https://www.example.com/",
+}
+`;
+
+exports[`ModalWorkflowSource #filterEntityData LINK mail 1`] = `
+Object {
+  "url": "mailto:test@example.com",
+}
+`;
+
+exports[`ModalWorkflowSource #filterEntityData LINK page 1`] = `
+Object {
+  "id": 60,
+  "parentId": 1,
+  "url": "/",
+}
+`;
+
+exports[`ModalWorkflowSource #getChooserConfig LINK external 1`] = `
+Object {
+  "url": "/admin/choose-external-link/",
+  "urlParams": Object {
+    "allow_email_link": true,
+    "allow_external_link": true,
+    "can_choose_root": "false",
+    "link_text": "",
+    "link_url": "https://www.example.com/",
+    "page_type": "wagtailcore.page",
+  },
+}
+`;
+
+exports[`ModalWorkflowSource #getChooserConfig LINK mail 1`] = `
+Object {
+  "url": "/admin/choose-email-link/",
+  "urlParams": Object {
+    "allow_email_link": true,
+    "allow_external_link": true,
+    "can_choose_root": "false",
+    "link_text": "",
+    "link_url": "test@example.com",
+    "page_type": "wagtailcore.page",
+  },
+}
+`;
+
+exports[`ModalWorkflowSource #getChooserConfig LINK no entity 1`] = `
+Object {
+  "url": "/admin/choose-page/",
+  "urlParams": Object {
+    "allow_email_link": true,
+    "allow_external_link": true,
+    "can_choose_root": "false",
+    "link_text": "",
+    "page_type": "wagtailcore.page",
+  },
+}
+`;
+
+exports[`ModalWorkflowSource #getChooserConfig LINK page 1`] = `
+Object {
+  "url": "/admin/choose-page/0/",
+  "urlParams": Object {
+    "allow_email_link": true,
+    "allow_external_link": true,
+    "can_choose_root": "false",
+    "link_text": "",
+    "page_type": "wagtailcore.page",
+  },
+}
+`;
+
+exports[`ModalWorkflowSource works 1`] = `""`;

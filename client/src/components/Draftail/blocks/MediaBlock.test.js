@@ -86,7 +86,7 @@ describe('MediaBlock', () => {
       ).toMatchSnapshot();
     });
 
-    it.skip('large viewport', () => {
+    it('large viewport', () => {
       const target = document.createElement('div');
       document.body.appendChild(target);
       target.getBoundingClientRect = () => ({

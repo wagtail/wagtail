@@ -4,29 +4,19 @@ const registry = {
   sources: {},
 };
 
-const registerDecorators = (decorators) => {
-  Object.assign(registry.decorators, decorators);
-};
+const registerDecorators = (decorators) => Object.assign(registry.decorators, decorators);
+const registerBlocks = (blocks) => Object.assign(registry.blocks, blocks);
+const registerSources = (sources) => Object.assign(registry.sources, sources);
 
 const getDecorator = name => registry.decorators[name];
-
-const registerBlocks = (blocks) => {
-  Object.assign(registry.blocks, blocks);
-};
-
 const getBlock = name => registry.blocks[name];
-
-const registerSources = (sources) => {
-  Object.assign(registry.sources, sources);
-};
-
 const getSource = name => registry.sources[name];
 
 export default {
   registerDecorators,
-  getDecorator,
   registerBlocks,
-  getBlock,
   registerSources,
+  getDecorator,
+  getBlock,
   getSource,
 };

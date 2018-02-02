@@ -39,3 +39,20 @@ global.wagtailConfig = {
 };
 
 global.wagtailVersion = '1.6a1';
+
+global.chooserUrls = {
+  documentChooser: '/admin/documents/chooser/',
+  emailLinkChooser: '/admin/choose-email-link/',
+  embedsChooser: '/admin/embeds/chooser/',
+  externalLinkChooser: '/admin/choose-external-link/',
+  imageChooser: '/admin/images/chooser/',
+  pageChooser: '/admin/choose-page/',
+  snippetChooser: '/admin/snippets/choose/',
+};
+
+const jQueryObj = {
+  on: jest.fn(),
+  off: jest.fn(),
+};
+
+global.jQuery = () => jQueryObj;
