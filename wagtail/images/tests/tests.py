@@ -6,7 +6,6 @@ from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.test import TestCase, override_settings
 from django.urls import reverse
-from mock import MagicMock
 from taggit.forms import TagField, TagWidget
 
 from wagtail.images import get_image_model, get_image_model_string
