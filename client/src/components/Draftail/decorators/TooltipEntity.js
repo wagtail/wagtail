@@ -61,7 +61,7 @@ class TooltipEntity extends Component {
             closeOnResize
           >
             <Tooltip target={showTooltipAt} direction="top">
-              {url ? (
+              {(
                 <a
                   href={url}
                   title={url}
@@ -71,7 +71,7 @@ class TooltipEntity extends Component {
                 >
                   {shortenLabel(label)}
                 </a>
-              ) : null}
+              )}
 
               <button
                 className="button Tooltip__button"

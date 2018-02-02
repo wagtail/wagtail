@@ -4,7 +4,7 @@ import Portal from './Portal';
 
 const func = expect.any(Function);
 
-describe.skip('Portal', () => {
+describe('Portal', () => {
   beforeEach(() => {
     document.body.innerHTML = '';
   });
@@ -18,8 +18,8 @@ describe.skip('Portal', () => {
   });
 
   it('component lifecycle', () => {
-    jest.spyOn(document, 'removeEventListener');
-    jest.spyOn(window, 'removeEventListener');
+    document.removeEventListener = jest.fn();
+    window.removeEventListener = jest.fn();
 
     const wrapper = shallow(<Portal onClose={() => {}}>Test!</Portal>);
 

@@ -21,7 +21,7 @@ class ImageBlock extends Component {
     const { editorState, onChange } = blockProps;
 
     const data = {
-      alt: e.currentTarget.value,
+      alt: e.target.value,
     };
 
     onChange(DraftUtils.updateBlockEntity(editorState, block, data));
