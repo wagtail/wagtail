@@ -9,7 +9,6 @@ from django.core.exceptions import ImproperlyConfigured
 from django.core.urlresolvers import reverse
 from django.test import TestCase, override_settings
 from django.utils import six
-from mock import MagicMock
 from taggit.forms import TagField, TagWidget
 
 from wagtail.tests.testapp.models import CustomImage, CustomImageFilePath
@@ -159,10 +158,13 @@ class TestFormat(TestCase):
             'test name',
             'test label',
             'test classnames',
-            'test filter spec'
+            'original' # 'test filter spec'
         )
         # test image
-        self.image = MagicMock()
+        self.image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
         self.image.id = 0
 
     def test_editor_attributes(self):
@@ -171,26 +173,35 @@ class TestFormat(TestCase):
             'test alt text'
         )
         self.assertEqual(result,
-                         'data-embedtype="image" data-id="0" data-format="test name" data-alt="test alt text" ')
+                         {'data-alt': 'test alt text', 'data-embedtype': 'image',
+                          'data-format': 'test name', 'data-id': 0})
 
     def test_image_to_editor_html(self):
         result = self.format.image_to_editor_html(
             self.image,
             'test alt text'
         )
-        six.assertRegex(
-            self, result,
-            '<img data-embedtype="image" data-id="0" data-format="test name" '
-            'data-alt="test alt text" class="test classnames" src="[^"]+" width="1" height="1" alt="test alt text">',
-        )
+        six.assertRegex(self, result, '^<img ')
+        six.assertRegex(self, result, 'data-embedtype="image"')
+        six.assertRegex(self, result, 'data-id="0"')
+        six.assertRegex(self, result, 'data-format="test name"')
+        six.assertRegex(self, result, 'data-alt="test alt text"')
+        six.assertRegex(self, result, 'class="test classnames"')
+        six.assertRegex(self, result, 'src="[^"]+"')
+        six.assertRegex(self, result, 'width="640"')
+        six.assertRegex(self, result, 'height="480"')
+        six.assertRegex(self, result, 'alt="test alt text"')
+        six.assertRegex(self, result, '>$')
 
     def test_image_to_html_no_classnames(self):
         self.format.classnames = None
         result = self.format.image_to_html(self.image, 'test alt text')
-        six.assertRegex(
-            self, result,
-            '<img src="[^"]+" width="1" height="1" alt="test alt text">'
-        )
+        six.assertRegex( self, result, '<img ')
+        six.assertRegex( self, result, 'src="[^"]+"')
+        six.assertRegex( self, result, 'width="640"')
+        six.assertRegex( self, result, 'height="480"')
+        six.assertRegex( self, result, 'alt="test alt text"')
+        six.assertRegex( self, result, '>')
         self.format.classnames = 'test classnames'
 
     def test_get_image_format(self):

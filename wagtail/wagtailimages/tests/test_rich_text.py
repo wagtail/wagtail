@@ -36,7 +36,8 @@ class TestImageEmbedHandler(TestCase):
              'format': 'left'},
             False
         )
-        self.assertIn('<img class="richtext-image left"', result)
+        self.assertIn('<img ', result)
+        self.assertIn('class="richtext-image left"', result)
 
     def test_expand_db_attributes_for_editor(self):
         Image.objects.create(id=1, title='Test', file=get_test_image_file())
@@ -46,7 +47,9 @@ class TestImageEmbedHandler(TestCase):
              'format': 'left'},
             True
         )
-        self.assertIn(
-            '<img data-embedtype="image" data-id="1" data-format="left" '
-            'data-alt="test-alt" class="richtext-image left"', result
-        )
+        self.assertIn('<img', result)
+        self.assertIn('data-embedtype="image"', result)
+        self.assertIn('data-id="1"', result)
+        self.assertIn('data-format="left"', result)
+        self.assertIn('data-alt="test-alt"', result)
+        self.assertIn('class="richtext-image left"', result)
