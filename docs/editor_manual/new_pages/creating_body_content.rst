@@ -29,7 +29,7 @@ Basic text fields have no formatting options. How these display will be determin
 Rich text fields
 ================
 
-Most of the time though, you need formatting options to create beautiful looking pages. So some fields have many of the options you would expect from a word processor. These are referred to as "rich text" fields.
+Most of the time though, you need formatting options to create beautiful looking pages. Wagtail provides "rich text" fields, which have formatting options similar to those of word processors.
 
 .. image:: ../../_static/images/screen11.1_streamfield_richtext.png
 
@@ -37,7 +37,7 @@ Those fields present a set of tools which allow you to format and style your tex
 
 .. image:: ../../_static/images/screen11.2_toolbar_tooltips.png
 
-This tooltip shows a longer description of the tool, and displays its keyboard shortcut if there is one. If the keyboard shortcut does not start with CTRL or ⌘, it's a `Markdown <https://en.wikipedia.org/wiki/Markdown>`_-style shortcut to type directly in the editor:
+This tooltip shows a longer description of the tool, and displays its keyboard shortcut if there is one. If the keyboard shortcut does not start with CTRL or ⌘, it's a `Markdown <https://en.wikipedia.org/wiki/Markdown>`_ shortcut to type directly in the editor:
 
 .. image:: ../../_static/images/screen11.3_keyboard_shortcuts_.gif
 
