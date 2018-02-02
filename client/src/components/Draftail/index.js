@@ -51,7 +51,6 @@ export const initEditor = (fieldName, options = {}) => {
     entityTypes = options.entityTypes.map(wrapWagtailIcon).map(type =>
       Object.assign(type, {
         source: registry.getSource(type.source),
-        strategy: registry.getStrategy(type.type) || null,
         decorator: registry.getDecorator(type.decorator),
         block: registry.getBlock(type.block),
       })

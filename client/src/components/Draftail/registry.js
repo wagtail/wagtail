@@ -2,7 +2,6 @@ const registry = {
   decorators: {},
   blocks: {},
   sources: {},
-  strategies: {},
 };
 
 const registerDecorators = (decorators) => {
@@ -23,12 +22,6 @@ const registerSources = (sources) => {
 
 const getSource = name => registry.sources[name];
 
-const registerStrategies = (strategies) => {
-  Object.assign(registry.strategies, strategies);
-};
-
-const getStrategy = name => registry.strategies[name];
-
 export default {
   registerDecorators,
   getDecorator,
@@ -36,6 +29,4 @@ export default {
   getBlock,
   registerSources,
   getSource,
-  registerStrategies,
-  getStrategy,
 };
