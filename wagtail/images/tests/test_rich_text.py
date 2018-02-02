@@ -30,7 +30,8 @@ class TestImageEmbedHandler(TestCase):
              'alt': 'test-alt',
              'format': 'left'}
         )
-        self.assertIn('<img class="richtext-image left"', result)
+        self.assertIn('<img ', result)
+        self.assertIn('class="richtext-image left"', result)
 
     def test_expand_db_attributes_escapes_alt_text(self):
         Image.objects.create(id=1, title='Test', file=get_test_image_file())
@@ -47,7 +48,8 @@ class TestImageEmbedHandler(TestCase):
             {'id': 1,
              'format': 'left'},
         )
-        self.assertIn('<img class="richtext-image left"', result)
+        self.assertIn('<img ', result)
+        self.assertIn('class="richtext-image left"', result)
         self.assertIn('alt=""', result)
 
     def test_expand_db_attributes_for_editor(self):
@@ -57,10 +59,12 @@ class TestImageEmbedHandler(TestCase):
              'alt': 'test-alt',
              'format': 'left'},
         )
-        self.assertIn(
-            '<img data-embedtype="image" data-id="1" data-format="left" '
-            'data-alt="test-alt" class="richtext-image left"', result
-        )
+        self.assertIn('<img', result)
+        self.assertIn('data-embedtype="image"', result)
+        self.assertIn('data-id="1"', result)
+        self.assertIn('data-format="left"', result)
+        self.assertIn('data-alt="test-alt"', result)
+        self.assertIn('class="richtext-image left"', result)
 
     def test_expand_db_attributes_for_editor_escapes_alt_text(self):
         Image.objects.create(id=1, title='Test', file=get_test_image_file())
@@ -69,10 +73,13 @@ class TestImageEmbedHandler(TestCase):
              'alt': 'Arthur "two sheds" Jackson',
              'format': 'left'},
         )
-        self.assertIn(
-            '<img data-embedtype="image" data-id="1" data-format="left" '
-            'data-alt="Arthur &quot;two sheds&quot; Jackson" class="richtext-image left"', result
-        )
+        self.assertIn('<img', result)
+        self.assertIn('data-embedtype="image"', result)
+        self.assertIn('data-id="1"', result)
+        self.assertIn('data-format="left"', result)
+        self.assertIn('data-alt="Arthur &quot;two sheds&quot; Jackson"', result)
+        self.assertIn('class="richtext-image left"', result)
+
         self.assertIn('alt="Arthur &quot;two sheds&quot; Jackson"', result)
 
     def test_expand_db_attributes_for_editor_with_missing_alt(self):
@@ -81,7 +88,9 @@ class TestImageEmbedHandler(TestCase):
             {'id': 1,
              'format': 'left'},
         )
-        self.assertIn(
-            '<img data-embedtype="image" data-id="1" data-format="left" '
-            'data-alt="" class="richtext-image left"', result
-        )
+        self.assertIn('<img', result)
+        self.assertIn('data-embedtype="image"', result)
+        self.assertIn('data-id="1"', result)
+        self.assertIn('data-format="left"', result)
+        self.assertIn('data-alt=""', result)
+        self.assertIn('class="richtext-image left"', result)

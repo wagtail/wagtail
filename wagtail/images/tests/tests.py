@@ -183,10 +183,13 @@ class TestFormat(TestCase):
             'test name',
             'test label',
             'test classnames',
-            'test filter spec'
+            'original'
         )
         # test image
-        self.image = MagicMock()
+        self.image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
         self.image.id = 0
 
     def test_editor_attributes(self):
@@ -195,45 +198,63 @@ class TestFormat(TestCase):
             'test alt text'
         )
         self.assertEqual(result,
-                         'data-embedtype="image" data-id="0" data-format="test name" data-alt="test alt text" ')
+                         {'data-alt': 'test alt text', 'data-embedtype': 'image',
+                          'data-format': 'test name', 'data-id': 0})
 
     def test_image_to_editor_html(self):
         result = self.format.image_to_editor_html(
             self.image,
             'test alt text'
         )
-        self.assertRegex(
-            result,
-            '<img data-embedtype="image" data-id="0" data-format="test name" '
-            'data-alt="test alt text" class="test classnames" src="[^"]+" width="1" height="1" alt="test alt text">',
-        )
+        self.assertRegex(result, '^<img ')
+        self.assertRegex(result, 'data-embedtype="image"')
+        self.assertRegex(result, 'data-id="0"')
+        self.assertRegex(result, 'data-format="test name"')
+        self.assertRegex(result, 'data-alt="test alt text"')
+        self.assertRegex(result, 'class="test classnames"')
+        self.assertRegex(result, 'src="[^"]+"')
+        self.assertRegex(result, 'width="640"')
+        self.assertRegex(result, 'height="480"')
+        self.assertRegex(result, 'alt="test alt text"')
+        self.assertRegex(result, '>$')
 
     def test_image_to_editor_html_with_quoting(self):
         result = self.format.image_to_editor_html(
             self.image,
             'Arthur "two sheds" Jackson'
         )
-        self.assertRegex(
-            result,
-            '<img data-embedtype="image" data-id="0" data-format="test name" '
-            'data-alt="Arthur &quot;two sheds&quot; Jackson" class="test classnames" src="[^"]+" width="1" height="1" alt="Arthur &quot;two sheds&quot; Jackson">',
-        )
+        self.assertRegex(result, '^<img ')
+        self.assertRegex(result, 'data-embedtype="image"')
+        self.assertRegex(result, 'data-id="0"')
+        self.assertRegex(result, 'data-format="test name"')
+        self.assertRegex(result, 'data-alt="Arthur &quot;two sheds&quot; Jackson"')
+        self.assertRegex(result, 'class="test classnames"')
+        self.assertRegex(result, 'src="[^"]+"')
+        self.assertRegex(result, 'width="640"')
+        self.assertRegex(result, 'height="480"')
+        self.assertRegex(result, 'alt="Arthur &quot;two sheds&quot; Jackson"')
+        self.assertRegex(result, '>$')
 
     def test_image_to_html_no_classnames(self):
         self.format.classnames = None
         result = self.format.image_to_html(self.image, 'test alt text')
-        self.assertRegex(
-            result,
-            '<img src="[^"]+" width="1" height="1" alt="test alt text">'
-        )
+        self.assertRegex(result, '<img ')
+        self.assertRegex(result, 'src="[^"]+"')
+        self.assertRegex(result, 'width="640"')
+        self.assertRegex(result, 'height="480"')
+        self.assertRegex(result, 'alt="test alt text"')
+        self.assertRegex(result, '>')
         self.format.classnames = 'test classnames'
 
     def test_image_to_html_with_quoting(self):
         result = self.format.image_to_html(self.image, 'Arthur "two sheds" Jackson')
-        self.assertRegex(
-            result,
-            '<img class="test classnames" src="[^"]+" width="1" height="1" alt="Arthur &quot;two sheds&quot; Jackson">'
-        )
+        self.assertRegex(result, '^<img ')
+        self.assertRegex(result, 'class="test classnames"')
+        self.assertRegex(result, 'src="[^"]+"')
+        self.assertRegex(result, 'width="640"')
+        self.assertRegex(result, 'height="480"')
+        self.assertRegex(result, 'alt="Arthur &quot;two sheds&quot; Jackson"')
+        self.assertRegex(result, '>$')
 
     def test_get_image_format(self):
         register_image_format(self.format)
