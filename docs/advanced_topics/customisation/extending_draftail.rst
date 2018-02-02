@@ -156,3 +156,181 @@ The editor toolbar could contain a "stock chooser" that displays a list of avail
 Those tokens are then saved in the rich text on publish. When the news article is displayed on the site, we then insert live market data coming from an API next to each token:
 
 .. image:: ../../_static/images/draftail_entity_stock_rendering.png
+
+In order to achieve this, we start with registering the rich text feature like for inline styles and blocks:
+
+.. code-block:: python
+
+    @hooks.register('register_rich_text_features')
+    def register_stock_feature(features):
+        features.default_features.append('stock')
+        """
+        Registering the `stock` feature, which uses the `STOCK` Draft.js entity type,
+        and is stored as HTML with a `<span data-stock>` tag.
+        """
+        feature_name = 'stock'
+        type_ = 'STOCK'
+
+        control = {
+            'type': type_,
+            'label': '$',
+            'description': 'Stock',
+            'source': 'StockSource',
+            'decorator': 'Stock'
+        }
+
+        features.register_editor_plugin(
+            'draftail', feature_name, draftail_features.EntityFeature(control)
+        )
+
+        features.register_converter_rule('contentstate', feature_name, {
+            # Note here that the conversion is more complicated than for blocks and inline styles.
+            'from_database_format': {'span[data-stock]': StockEntityElementHandler(type_)},
+            'to_database_format': {'entity_decorators': {type_: stock_entity_decorator}},
+        })
+
+Since entities hold data, the conversion to/from database format is more complicated. We have to create the two handlers:
+
+.. code-block:: python
+
+    from draftjs_exporter.dom import DOM
+    from wagtail.admin.rich_text.converters.html_to_contentstate import InlineEntityElementHandler
+
+    def stock_entity_decorator(props):
+        """
+        Draft.js ContentState to database HTML.
+        Converts the STOCK entities into a span tag.
+        """
+        return DOM.create_element('span', {
+            'data-stock': props['stock'],
+        }, props['children'])
+
+
+    class StockEntityElementHandler(InlineEntityElementHandler):
+        """
+        Database HTML to Draft.js ContentState.
+        Converts the span tag into a STOCK entity, with the right data.
+        """
+        mutability = 'IMMUTABLE'
+
+        def get_attribute_data(self, attrs):
+            """
+            Take the ``stock`` value from the ``data-stock`` HTML attribute.
+            """
+            return {
+                'stock': attrs['data-stock'],
+            }
+
+Note how they both do similar conversions, but use different APIs. ``to_database_format`` is built with the `Draft.js exporter <https://github.com/springload/draftjs_exporter>`_ components API, whereas ``from_database_format`` uses a Wagtail API.
+
+The next step is to add JavaScript to define how the entities are created (the ``source``), and how they are displayed (the ``decorator``). First, we load the JS file which will contain those components:
+
+.. code-block:: python
+
+    from django.utils.html import format_html_join
+    from django.conf import settings
+
+    @hooks.register('insert_editor_js')
+    def stock_editor_js():
+        js_files = [
+            # We require this file here to make sure it is loaded before stock.js.
+            'wagtailadmin/js/draftail.js',
+            'stock.js',
+        ]
+        js_includes = format_html_join('\n', '<script src="{0}{1}"></script>',
+            ((settings.STATIC_URL, filename) for filename in js_files)
+        )
+        return js_includes
+
+We define the source component:
+
+.. code-block:: javascript
+
+    const React = window.React;
+    const Modifier = window.DraftJS.Modifier;
+    const EditorState = window.DraftJS.EditorState;
+
+    const DEMO_STOCKS = ['AMD', 'AAPL', 'TWTR', 'TSLA', 'BTC'];
+
+    // Not a real React component – just creates the entities as soon as it is rendered.
+    class StockSource extends React.Component {
+        componentDidMount() {
+            const { editorState, entityType, onComplete } = this.props;
+
+            const content = editorState.getCurrentContent();
+            const selection = editorState.getSelection();
+
+            const randomStock = DEMO_STOCKS[Math.floor(Math.random() * DEMO_STOCKS.length)];
+
+            // Uses the Draft.js API to create a new entity with the right data.
+            const contentWithEntity = content.createEntity(entityType.type, 'IMMUTABLE', {
+                stock: randomStock,
+            });
+            const entityKey = contentWithEntity.getLastCreatedEntityKey();
+
+            // We also add some text for the entity to be activated on.
+            const text = `$${randomStock}`;
+
+            const newContent = Modifier.replaceText(content, selection, text, null, entityKey);
+            const nextState = EditorState.push(editorState, newContent, 'insert-characters');
+
+            onComplete(nextState);
+        }
+
+        render() {
+            return null;
+        }
+    }
+
+    window.draftail.registerSources({
+        StockSource: StockSource,
+    });
+
+
+This source component uses data and callbacks provided by `Draftail <https://github.com/springload/draftail>`_.
+It also uses dependencies from global variables – see :ref:`extending_clientside_components`.
+Note how after the source declaration it is then registered for Draftail to know about it.
+
+We then create the decorator component:
+
+.. code-block:: javascript
+
+    const Stock = (props) => {
+        const { entityKey, contentState } = props;
+        const data = contentState.getEntity(entityKey).getData();
+
+        return React.createElement('a', {
+            role: 'button',
+            onMouseUp: () => {
+                window.open(`https://finance.yahoo.com/quote/${data.stock}`);
+            },
+        }, props.children);
+    };
+
+    window.draftail.registerDecorators({
+        Stock: Stock,
+    });
+
+This is a straightforward React component. It does not use JSX since we do not want to have to use a build step for our JavaScript. It uses ES6 syntax – this would not work in IE11 unless it was converted back to ES5.
+We also have to register this with Draftail.
+
+And that’s it! All of this setup will finally produce the following HTML on the site’s front-end:
+
+.. code-block:: html
+
+    <p>
+        Anyone following Elon Musk’s <span data-stock="TSLA">$TSLA</span> should also look into <span data-stock="BTC">$BTC</span>.
+    </p>
+
+To fully complete the demo, we can add a bit of JavaScript to the front-end in order to decorate those tokens with links and a little sparkline.
+
+.. code-block:: javascript
+
+    [].slice.call(document.querySelectorAll('[data-stock]')).forEach((elt) => {
+        const link = document.createElement('a');
+        link.href = `https://finance.yahoo.com/quote/${elt.dataset.stock}`;
+        link.innerHTML = `${elt.innerHTML}<svg width="50" height="20" stroke-width="2" stroke="blue" fill="rgba(0, 0, 255, .2)"><path d="M4 14.19 L 4 14.19 L 13.2 14.21 L 22.4 13.77 L 31.59 13.99 L 40.8 13.46 L 50 11.68 L 59.19 11.35 L 68.39 10.68 L 77.6 7.11 L 86.8 7.85 L 96 4" fill="none"></path><path d="M4 14.19 L 4 14.19 L 13.2 14.21 L 22.4 13.77 L 31.59 13.99 L 40.8 13.46 L 50 11.68 L 59.19 11.35 L 68.39 10.68 L 77.6 7.11 L 86.8 7.85 L 96 4 V 20 L 4 20 Z" stroke="none"></path></svg>`;
+
+        elt.innerHTML = '';
+        elt.appendChild(link);
+    });
