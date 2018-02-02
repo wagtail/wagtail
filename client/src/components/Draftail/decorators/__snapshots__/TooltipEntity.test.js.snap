@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TooltipEntity #openTooltip 1`] = `
+<a
+  className="TooltipEntity"
+  onMouseUp={[Function]}
+  role="button"
+>
+  <Icon
+    className="TooltipEntity__icon"
+    icon="#icon-test"
+    title={null}
+  />
+  test
+  <Portal
+    closeOnClick={true}
+    closeOnResize={true}
+    closeOnType={true}
+    onClose={[Function]}
+  >
+    <Tooltip
+      direction="top"
+      target={
+        Object {
+          "bottom": 0,
+          "height": 0,
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "width": 0,
+        }
+      }
+    >
+      <a
+        className="Tooltip__link"
+        href="https://www.example.com/"
+        rel="noopener noreferrer"
+        target="_blank"
+        title="https://www.example.com/"
+      >
+        www.example.com
+      </a>
+      <button
+        className="button Tooltip__button"
+        onClick={[Function]}
+      >
+        Edit
+      </button>
+      <button
+        className="button button-secondary no Tooltip__button"
+        onClick={[Function]}
+      >
+        Remove
+      </button>
+    </Tooltip>
+  </Portal>
+</a>
+`;
+
+exports[`TooltipEntity works 1`] = `
+<a
+  className="TooltipEntity"
+  onMouseUp={[Function]}
+  role="button"
+>
+  <Icon
+    className="TooltipEntity__icon"
+    icon="#icon-test"
+    title={null}
+  />
+  test
+</a>
+`;

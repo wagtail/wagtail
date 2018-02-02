@@ -16,7 +16,7 @@ MUTABILITY[DOCUMENT] = 'MUTABLE';
 MUTABILITY[ENTITY_TYPE.IMAGE] = 'IMMUTABLE';
 MUTABILITY[EMBED] = 'IMMUTABLE';
 
-const getChooserConfig = (entityType, entity) => {
+export const getChooserConfig = (entityType, entity) => {
   const chooserURL = {};
   chooserURL[ENTITY_TYPE.IMAGE] = `${global.chooserUrls.imageChooser}?select_format=true`;
   chooserURL[EMBED] = global.chooserUrls.embedsChooser;
@@ -59,7 +59,7 @@ const getChooserConfig = (entityType, entity) => {
   };
 };
 
-const filterEntityData = (entityType, data) => {
+export const filterEntityData = (entityType, data) => {
   switch (entityType.type) {
   case ENTITY_TYPE.IMAGE:
     return {
