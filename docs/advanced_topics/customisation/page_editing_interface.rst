@@ -99,7 +99,7 @@ To have a feature active by default (i.e. on ``RichTextFields`` that do not defi
 
     @hooks.register('register_rich_text_features')
     def register_blockquote_feature(features):
-        features.default_features.append('strikethrough')
+        features.default_features.append('h6')
 
 The process for creating new features is described in the following pages:
 
