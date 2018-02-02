@@ -23,3 +23,8 @@ Bug fixes
 
 Upgrade considerations
 ======================
+
+Image format ``image_to_html`` method has been updated
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The internal API for rich text image format objects (see :ref:`rich_text_image_formats`) has been updated; the ``Format.image_to_html`` method now receives the ``extra_attributes`` keyword argument as a dictionary of attributes, rather than a string. If you have defined any custom format objects that override this method, these will need to be updated.
