@@ -462,14 +462,13 @@ While many projects should benefit from enabling site caching, there are a few e
 
 For projects with multiple caches, this setting allows you to speficy the alias of the cache (from your ``CACHES`` setting) that should be used for site caching. The default is ``'default'``.
 
-
 .. code-block:: python
   
   WAGTAIL_SITE_CACHE_VALID_PORTS = (80, 443, 8000, 8080, None)
 
 When you define a site with a unique hostname, ``Site.find_for_request()`` will return that site even if the port extracted from the request doesn't match the site's saved ``port`` field value. When site caching is enabled, this setting allows you to limit this behaviour, so that hostname-only matching is only permitted when the port extracted from a request matches one of those specified. If the port doesn't match, the 'default' site is returned.
 
-The above values are used by default. Including ``None`` indicates that hostname-only matching should be permitted when no port value could be determined from a request.
+The above values are used by default. ``None`` indicates that hostname-only matching should be permitted when no port value can be determined from a request.
 
 
 URL Patterns
