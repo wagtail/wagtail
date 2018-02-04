@@ -1,6 +1,5 @@
 import json
 import logging
-import warnings
 from collections import defaultdict
 from io import StringIO
 from urllib.parse import urlparse
