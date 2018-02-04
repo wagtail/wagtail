@@ -61,24 +61,10 @@ class SiteManager(models.Manager):
         except KeyError:
             hostname = None
         try:
-            port = request.get_port()
-        except KeyError:
+            port = int(request.get_port())
+        except(KeyError, ValueError):
             port = None
         return hostname, port
-
-    def _make_dict_key(self, hostname, port):
-        return "{0}:{1}".format(hostname, port)
-
-    def _get_keys_for_unique_hostname(self, hostname):
-        """Returns a tuple of additional keys to use when populating the cache
-        for a ``Site`` with a unique hostname. These keys allow requests to be
-        matched to the site even if the request's port value differs from the
-        site's saved ``port`` field value"""
-        valid_ports = getattr(settings, 'WAGTAIL_SITE_CACHE_VALID_PORTS',
-                              (80, 443, 8000, 8080, None))
-        return tuple(
-            self._make_dict_key(hostname, port) for port in valid_ports
-        )
 
     def clear_cache(self):
         cache = self.get_site_cache()
@@ -86,31 +72,17 @@ class SiteManager(models.Manager):
             cache.delete(SITE_CACHE_SITES_KEY)
 
     def populate_cache(self):
-        """Populates the cache with a dictionary of ``Site`` objects, keyed
-        with hostname/port combinations, which get_for_request() will use
-        to match ``HttpRequest`` objects to the relevant ``Site``"""
         cache = self.get_site_cache()
         if cache is None:
             return
 
-        sites = {}
-        unique_hostname_sites = {}
+        sites = defaultdict(list)
         for site in self.all().select_related('root_page').iterator():
-            key = self._make_dict_key(site.hostname, site.port)
-            sites[key] = site
+            sites[site.hostname].append(site)
             if site.is_default_site:
                 sites[SITE_CACHE_DEFAULT_KEY] = site
 
-            if site.hostname in unique_hostname_sites:
-                del unique_hostname_sites[site.hostname]
-            else:
-                unique_hostname_sites[site.hostname] = site
-
-        for hostname, site in unique_hostname_sites.items():
-            additional_keys = self._get_keys_for_unique_hostname(hostname)
-            sites.update({key: site for key in additional_keys})
-
-        cache.set(SITE_CACHE_SITES_KEY, sites, None)
+        cache.set(SITE_CACHE_SITES_KEY, dict(sites), None)
         return sites
 
     def get_for_request(self, request):
@@ -122,11 +94,20 @@ class SiteManager(models.Manager):
             return get_site_for_hostname(hostname, port)
 
         sites = cache.get(SITE_CACHE_SITES_KEY) or self.populate_cache()
-        key = self._make_dict_key(hostname, port)
-        site = sites.get(key) or sites.get(SITE_CACHE_DEFAULT_KEY)
-        if site:
-            return site
-        raise Site.DoesNotExist()
+        sites_for_hostname = sites.get(hostname, ())
+
+        if len(sites_for_hostname) == 1:
+            return sites_for_hostname[0]
+
+        if port is not None:
+            for site in sites_for_hostname:
+                if site.port == port:
+                    return site
+
+        try:
+            return sites[SITE_CACHE_DEFAULT_KEY]
+        except KeyError:
+            raise Site.DoesNotExist()
 
     def get_by_natural_key(self, hostname, port):
         return self.get(hostname=hostname, port=port)
