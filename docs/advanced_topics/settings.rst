@@ -439,6 +439,38 @@ can only choose between front office languages:
     LANGUAGES = WAGTAILADMIN_PERMITTED_LANGUAGES = [('en', 'English'),
                                                     ('pt', 'Portuguese')]
 
+.. _site_caching:
+
+Site Caching
+------------
+
+.. code-block:: python
+  
+  WAGTAIL_SITE_CACHE_ENABLED = True
+
+This enables caching of results from ``Site.find_for_request()``, reducing the frequency of database queries needed to identify relevant sites for individual requests. It works by populating the cache in full the first time ``Site.find_for_request()`` is called, and relies on Django signals to invalidate the cache whenever sites (or their root pages) are added, updated or deleted.
+
+While many projects should benefit from enabling site caching, there are a few exceptions:
+
+* If your project runs as multiple processes (for example, as multiple containerised instances, as part of a cluster or swarm), site caching should only be enabled if all processes share the same cache instance (e.g. a Redis or Memcached instance, running as a separate service).
+* If your project uses a file-based or local-memory based cache (such as the ``FileBasedCache`` ``LocMemCache`` cache backends included with Django), site caching should only be enabled if the project runs as a single process (and this is unlikely to change in future).
+* If your project recieves only a light amount of traffic (between 1 and 5000 visits per day), and doesn't already have a cache configured, complicating your setup with a cache for the sole purpose of enabling site caching is likely not worth the small performance gain.
+
+.. code-block:: python
+  
+  WAGTAIL_SITE_CACHE = 'default'
+
+For projects with multiple caches, this setting allows you to speficy the alias of the cache (from your ``CACHES`` setting) that should be used for site caching. The default is ``'default'``.
+
+
+.. code-block:: python
+  
+  WAGTAIL_SITE_CACHE_VALID_PORTS = (80, 443, 8000, 8080, None)
+
+When you define a site with a unique hostname, ``Site.find_for_request()`` will return that site even if the port extracted from the request doesn't match the site's saved ``port`` field value. When site caching is enabled, this setting allows you to limit this behaviour, so that hostname-only matching is only permitted when the port extracted from a request matches one of those specified. If the port doesn't match, the 'default' site is returned.
+
+The above values are used by default. Including ``None`` indicates that hostname-only matching should be permitted when no port value could be determined from a request.
+
 
 URL Patterns
 ~~~~~~~~~~~~
