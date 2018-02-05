@@ -76,6 +76,7 @@ class CreateProject(Command):
                         'startproject',
                         '--template=' + template_path,
                         '--ext=html,rst',
+                        '--name=Dockerfile',
                         project_name]
 
         if dest_dir:
