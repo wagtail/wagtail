@@ -159,7 +159,7 @@ The following example shows how to add a username to the CSV export:
             data_fields = [
                 ('username', 'Username'),
             ]
-            data_fields += super(FormPage, self).get_data_fields()
+            data_fields += super().get_data_fields()
 
             return data_fields
 
@@ -177,7 +177,7 @@ The following example shows how to add a username to the CSV export:
         user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
         def get_data(self):
-            form_data = super(CustomFormSubmission, self).get_data()
+            form_data = super().get_data()
             form_data.update({
                 'username': self.user.username,
             })
@@ -241,7 +241,7 @@ Example:
                     self.get_context(request)
                 )
 
-            return super(FormPage, self).serve(request, *args, **kwargs)
+            return super().serve(request, *args, **kwargs)
 
         def get_submission_class(self):
             return CustomFormSubmission
@@ -476,7 +476,7 @@ First, you need to collect results as shown below:
         ]
 
         def get_context(self, request, *args, **kwargs):
-            context = super(FormPage, self).get_context(request, *args, **kwargs)
+            context = super().get_context(request, *args, **kwargs)
 
             # If you need to show results only on landing page,
             # you may need check request.method
@@ -588,7 +588,7 @@ Finally, we add a URL param of `id` based on the ``form_submission`` if it exist
                   url += '?id=%s' % form_submission.id
                 return redirect(url, permanent=False)
             # if no thank_you_page is set, render default landing page
-            return super(FormPage, self).render_landing_page(request, form_submission, *args, **kwargs)
+            return super().render_landing_page(request, form_submission, *args, **kwargs)
 
         content_panels = AbstractEmailForm.content_panels + [
             FieldPanel('intro', classname='full'),

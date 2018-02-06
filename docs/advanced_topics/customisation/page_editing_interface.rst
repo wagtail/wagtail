@@ -252,7 +252,7 @@ or to add custom validation logic for your models:
         address = forms.CharField()
 
         def clean(self):
-            cleaned_data = super(EventPageForm, self).clean()
+            cleaned_data = super().clean()
 
             # Make sure that the event starts before it ends
             start_date = cleaned_data['start_date']
@@ -263,7 +263,7 @@ or to add custom validation logic for your models:
             return cleaned_data
 
         def save(self, commit=True):
-            page = super(EventPageForm, self).save(commit=False)
+            page = super().save(commit=False)
 
             # Update the duration field from the submitted dates
             page.duration = (page.end_date - page.start_date).days

@@ -32,7 +32,7 @@ Consider this example from the Wagtail demo site's ``models.py``, which serves a
                     return HttpResponse(message, content_type='text/plain')
             else:
                 # Display event page as usual
-                return super(EventPage, self).serve(request)
+                return super().serve(request)
 
 :meth:`~wagtail.core.models.Page.serve` takes a Django request object and returns a Django response object. Wagtail returns a ``TemplateResponse`` object with the template and context which it generates, which allows middleware to function as intended, so keep in mind that a simpler response object like a ``HttpResponse`` will not receive these benefits.
 
@@ -166,7 +166,7 @@ Wagtail's admin provides a nice interface for inputting tags into your content, 
 Now that we have the many-to-many tag relationship in place, we can fit in a way to render both sides of the relation. Here's more of the Wagtail demo site ``models.py``, where the index model for ``BlogPage`` is extended with logic for filtering the index by tag:
 
 .. code-block:: python
-    
+
     from django.shortcuts import render
 
     class BlogIndexPage(Page):
