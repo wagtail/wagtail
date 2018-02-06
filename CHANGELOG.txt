@@ -5,6 +5,7 @@ Changelog
 ~~~~~~~~~~~~~~~~
 
  * Fix: Status button on 'edit page' now links to the correct URL when live and draft slug differ (LB (Ben Johnston))
+ * Fix: Image title text in the gallery and in the chooser now wraps for long filenames (LB (Ben Johnston), Luiz Boaretto)
 
 
 2.0 (xx.xx.xxxx) - IN DEVELOPMENT
