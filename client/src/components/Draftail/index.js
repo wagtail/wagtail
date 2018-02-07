@@ -46,13 +46,12 @@ export const initEditor = (fieldName, options) => {
   const inlineStyles = options.inlineStyles || [];
   let entityTypes = options.entityTypes || [];
 
-  entityTypes = entityTypes.map(wrapWagtailIcon).map(type =>
-    Object.assign(type, {
-      source: registry.getSource(type.source),
-      decorator: registry.getDecorator(type.decorator),
-      block: registry.getBlock(type.block),
-    })
-  );
+  entityTypes = entityTypes.map(wrapWagtailIcon).map((type) => {
+    const plugin = registry.getPlugin(type.type);
+    // Override the properties defined in the JS plugin: Python should be the source of truth.
+
+    return Object.assign({}, plugin, type);
+  });
 
   const enableHorizontalRule = options.enableHorizontalRule ? {
     description: STRINGS.HORIZONTAL_LINE,

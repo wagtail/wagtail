@@ -90,8 +90,6 @@ def register_document_feature(features):
             'type': 'DOCUMENT',
             'icon': 'doc-full',
             'description': ugettext('Document'),
-            'source': 'ModalWorkflowSource',
-            'decorator': 'Document',
         })
     )
 

@@ -6,10 +6,9 @@ describe('draftail.entry', () => {
   });
 
   it('has defaults registered', () => {
-    expect(window.draftail.getSource('ModalWorkflowSource')).toBeDefined();
-    expect(window.draftail.getDecorator('Link')).toBeDefined();
-    expect(window.draftail.getDecorator('Document')).toBeDefined();
-    expect(window.draftail.getBlock('ImageBlock')).toBeDefined();
-    expect(window.draftail.getBlock('EmbedBlock')).toBeDefined();
+    expect(window.draftail.getPlugin('LINK')).toBeDefined();
+    expect(window.draftail.getPlugin('DOCUMENT')).toBeDefined();
+    expect(window.draftail.getPlugin('IMAGE')).toBeDefined();
+    expect(window.draftail.getPlugin('EMBED')).toBeDefined();
   });
 });

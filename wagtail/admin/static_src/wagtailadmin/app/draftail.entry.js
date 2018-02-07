@@ -9,22 +9,36 @@ import {
 } from '../../../../../client/src/components/Draftail/index';
 
 /**
- * Expose as a global, and register the built-in entities.
+ * Entry point loaded when the Draftail editor is in use.
  */
+const draftail = registry;
 
-window.draftail = registry;
-window.draftail.initEditor = initEditor;
+// Expose Draftail as a global, with the initEditor function.
+draftail.initEditor = initEditor;
+window.draftail = draftail;
 
-window.draftail.registerSources({
-  ModalWorkflowSource,
-});
+// Plugins for the built-in entities.
+const plugins = [
+  {
+    type: 'DOCUMENT',
+    source: ModalWorkflowSource,
+    decorator: Document,
+  },
+  {
+    type: 'LINK',
+    source: ModalWorkflowSource,
+    decorator: Link,
+  },
+  {
+    type: 'IMAGE',
+    source: ModalWorkflowSource,
+    block: ImageBlock,
+  },
+  {
+    type: 'EMBED',
+    source: ModalWorkflowSource,
+    block: EmbedBlock,
+  },
+];
 
-window.draftail.registerDecorators({
-  Link,
-  Document,
-});
-
-window.draftail.registerBlocks({
-  ImageBlock,
-  EmbedBlock,
-});
+plugins.forEach(draftail.registerPlugin);

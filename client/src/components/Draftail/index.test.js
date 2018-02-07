@@ -45,17 +45,15 @@ describe('Draftail', () => {
       field.value = 'null';
       document.body.appendChild(field);
 
-      registry.registerSources({
-        ModalWorkflowSource: () => {},
-      });
-
-      registry.registerBlocks({
-        ImageBlock: () => {},
+      registry.registerPlugin({
+        type: 'IMAGE',
+        source: () => {},
+        block: () => {},
       });
 
       initEditor('test', {
         entityTypes: [
-          { type: 'Image', source: 'ModalWorkflowSource', block: 'ImageBlock' },
+          { type: 'IMAGE' },
         ],
         enableHorizontalRule: true,
       });
