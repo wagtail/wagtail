@@ -581,7 +581,11 @@ First, alter ``models.py`` once more:
 
 
     class BlogPageTag(TaggedItemBase):
-        content_object = ParentalKey('BlogPage', related_name='tagged_items')
+        content_object = ParentalKey(
+            'BlogPage',
+            related_name='tagged_items',
+            on_delete=models.CASCADE
+        )
 
 
     class BlogPage(Page):

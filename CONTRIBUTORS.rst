@@ -269,6 +269,7 @@ Contributors
 * Bruno Alla
 * Christopher Bledsoe (The Motley Fool)
 * Florent Osmont
+* Mary Kate Fain
 
 Translators
 ===========
