@@ -1,22 +1,14 @@
-const registry = {
-  decorators: {},
-  blocks: {},
-  sources: {},
+const plugins = {};
+
+const registerPlugin = (plugin) => {
+  plugins[plugin.type] = plugin;
+
+  return plugins;
 };
 
-const registerDecorators = (decorators) => Object.assign(registry.decorators, decorators);
-const registerBlocks = (blocks) => Object.assign(registry.blocks, blocks);
-const registerSources = (sources) => Object.assign(registry.sources, sources);
-
-const getDecorator = name => registry.decorators[name];
-const getBlock = name => registry.blocks[name];
-const getSource = name => registry.sources[name];
+const getPlugin = (type) => plugins[type];
 
 export default {
-  registerDecorators,
-  registerBlocks,
-  registerSources,
-  getDecorator,
-  getBlock,
-  getSource,
+  registerPlugin,
+  getPlugin,
 };

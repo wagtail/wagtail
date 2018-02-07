@@ -175,8 +175,6 @@ In order to achieve this, we start with registering the rich text feature like f
             'type': type_,
             'label': '$',
             'description': 'Stock',
-            'source': 'StockSource',
-            'decorator': 'Stock'
         }
 
         features.register_editor_plugin(
@@ -282,14 +280,8 @@ We define the source component:
         }
     }
 
-    window.draftail.registerSources({
-        StockSource: StockSource,
-    });
-
-
 This source component uses data and callbacks provided by `Draftail <https://github.com/springload/draftail>`_.
 It also uses dependencies from global variables – see :ref:`extending_clientside_components`.
-Note how after the source declaration it is then registered for Draftail to know about it.
 
 We then create the decorator component:
 
@@ -307,12 +299,17 @@ We then create the decorator component:
         }, props.children);
     };
 
-    window.draftail.registerDecorators({
-        Stock: Stock,
-    });
+This is a straightforward React component. It does not use JSX since we do not want to have to use a build step for our JavaScript. It uses ES6 syntax – this would not work in IE11 unless it was converted back to ES5 with a build step.
 
-This is a straightforward React component. It does not use JSX since we do not want to have to use a build step for our JavaScript. It uses ES6 syntax – this would not work in IE11 unless it was converted back to ES5.
-We also have to register this with Draftail.
+Finally, we register the JS components of our plugin:
+
+.. code-block:: javascript
+
+    window.draftail.registerPlugin({
+        type: 'STOCK',
+        source: StockSource,
+        decorator: Stock,
+    });
 
 And that’s it! All of this setup will finally produce the following HTML on the site’s front-end:
 
