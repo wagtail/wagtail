@@ -216,7 +216,7 @@ and pass those through at the point where you are calling ``get_url_parts`` on `
 
 .. code-block:: python
 
-    super(MyPageModel, self).get_url_parts(*args, **kwargs)
+    super().get_url_parts(*args, **kwargs)
 
 While you could pass only the ``request`` keyword argument, passing all arguments as-is ensures compatibility with any
 future changes to these method signatures.
@@ -273,7 +273,7 @@ To add more variables to the template context, you can override this method:
         ...
 
         def get_context(self, request):
-            context = super(BlogIndexPage, self).get_context(request)
+            context = super().get_context(request)
 
             # Add extra variables and return the updated context
             context['blog_entries'] = BlogPage.objects.child_of(self).live()
