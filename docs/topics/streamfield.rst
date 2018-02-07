@@ -665,7 +665,7 @@ As well as passing variables from the parent template, block subclasses can pass
         date = blocks.DateBlock()
 
         def get_context(self, value, parent_context=None):
-            context = super(EventBlock, self).get_context(value, parent_context=parent_context)
+            context = super().get_context(value, parent_context=parent_context)
             context['is_happening_today'] = (value['date'] == datetime.date.today())
             return context
 
@@ -842,7 +842,7 @@ To add additional variables, you can override the block's ``get_form_context`` m
         biography = blocks.RichTextBlock()
 
         def get_form_context(self, value, prefix='', errors=None):
-            context = super(PersonBlock, self).get_form_context(value, prefix=prefix, errors=errors)
+            context = super().get_form_context(value, prefix=prefix, errors=errors)
             context['suggested_first_names'] = ['John', 'Paul', 'George', 'Ringo']
             return context
 
@@ -938,7 +938,7 @@ For block types that simply wrap an existing Django form field, Wagtail provides
     class IPAddressBlock(FieldBlock):
         def __init__(self, required=True, help_text=None, **kwargs):
             self.field = forms.GenericIPAddressField(required=required, help_text=help_text)
-            super(IPAddressBlock, self).__init__(**kwargs)
+            super().__init__(**kwargs)
 
 
 Migrations
