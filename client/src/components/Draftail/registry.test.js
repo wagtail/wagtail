@@ -1,39 +1,15 @@
 import registry from './registry';
 
 describe('registry', () => {
-  describe('sources', () => {
-    it('works', () => {
-      expect(registry.getSource('UndefinedSource')).not.toBeDefined();
+  it('works', () => {
+    const plugin = {
+      type: 'TEST',
+      source: null,
+      decorator: null,
+    };
 
-      registry.registerSources({
-        TestSource: null,
-      });
-
-      expect(registry.getSource('TestSource')).toBe(null);
-    });
-  });
-
-  describe('decorators', () => {
-    it('works', () => {
-      expect(registry.getDecorator('UndefinedDecorator')).not.toBeDefined();
-
-      registry.registerDecorators({
-        TestDecorator: null,
-      });
-
-      expect(registry.getDecorator('TestDecorator')).toBe(null);
-    });
-  });
-
-  describe('blocks', () => {
-    it('works', () => {
-      expect(registry.getBlock('UndefinedBlock')).not.toBeDefined();
-
-      registry.registerBlocks({
-        TestBlock: null,
-      });
-
-      expect(registry.getBlock('TestBlock')).toBe(null);
-    });
+    expect(registry.getPlugin('TEST')).not.toBeDefined();
+    registry.registerPlugin(plugin);
+    expect(registry.getPlugin('TEST')).toBe(plugin);
   });
 });

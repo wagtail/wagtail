@@ -89,8 +89,6 @@ def register_image_feature(features):
             'type': 'IMAGE',
             'icon': 'image',
             'description': ugettext('Image'),
-            'source': 'ModalWorkflowSource',
-            'block': 'ImageBlock',
             # We do not want users to be able to copy-paste hotlinked images into rich text.
             # Keep only the attributes Wagtail needs.
             'attributes': ['id', 'src', 'alt', 'format'],

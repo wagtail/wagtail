@@ -16,9 +16,8 @@ Object {
   "entityTypes": Array [
     Object {
       "block": [Function],
-      "decorator": undefined,
       "source": [Function],
-      "type": "Image",
+      "type": "IMAGE",
     },
   ],
   "inlineStyles": Array [],
