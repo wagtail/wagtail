@@ -270,6 +270,7 @@ Contributors
 * Christopher Bledsoe (The Motley Fool)
 * Florent Osmont
 * J Rob Gant
+* Mary Kate Fain
 
 Translators
 ===========
