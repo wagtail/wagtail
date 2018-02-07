@@ -200,7 +200,7 @@ A few special cases to note about ``list_display``:
 
         class PersonAdmin(ModelAdmin):
             model = Person
-            list_display = ('first_name', 'colored_name')
+            list_display = ('colored_first_name', 'last_name')
 
 
     The above will tell Wagtail to order by the ``first_name`` field when
