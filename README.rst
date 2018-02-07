@@ -6,6 +6,8 @@
     :target: https://pypi.python.org/pypi/wagtail/
 .. image:: http://codecov.io/github/wagtail/wagtail/coverage.svg?branch=master
     :target: http://codecov.io/github/wagtail/wagtail?branch=master
+.. image:: https://img.shields.io/badge/matrix-%23wagtail%3Amatrix.org-brightgreen.svg
+    :target: https://riot.im/app/#/room/#wagtail:matrix.org
 
 
 Wagtail CMS
