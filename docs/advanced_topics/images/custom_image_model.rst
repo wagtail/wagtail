@@ -41,18 +41,6 @@ Here's an example:
     class CustomRendition(AbstractRendition):
         image = models.ForeignKey(CustomImage, on_delete=models.CASCADE, related_name='renditions')
 
-        # Override img_tag from Abstract rendition to use your new fields
-        def img_tag(self, extra_attributes={}):
-            attrs = self.attrs_dict.copy()
-            attrs.update(extra_attributes)
-            
-            # e.g. add a caption div
-            # if self.image.caption:
-            #     return mark_safe('<div><img{}><div>{}</div></div>'
-            #                      .format(flatatt(attrs), self.image.caption))
-
-            return super(TrustServeRendition, self).img_tag(extra_attributes)
-
         class Meta:
             unique_together = (
                 ('image', 'filter_spec', 'focal_point_key'),

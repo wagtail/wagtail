@@ -30,7 +30,9 @@ class Format:
             image, alt_text, self.editor_attributes(image, alt_text)
         )
 
-    def image_to_html(self, image, alt_text, extra_attributes={}):
+    def image_to_html(self, image, alt_text, extra_attributes=None):
+        if extra_attributes is None:
+            extra_attributes = {}
         rendition = get_rendition_or_not_found(image, self.filter_spec)
 
         extra_attributes['alt'] = escape(alt_text)
