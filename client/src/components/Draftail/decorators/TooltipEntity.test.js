@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 
 import TooltipEntity from './TooltipEntity';
 
@@ -51,8 +51,13 @@ describe('TooltipEntity', () => {
       </TooltipEntity>
     ));
 
+    const target = document.createElement('div');
+    target.setAttribute('data-draftail-trigger', true);
+    document.body.appendChild(target);
+    document.body.setAttribute('data-draftail-editor-wrapper', true);
+
     wrapper.find('.TooltipEntity').simulate('mouseup', {
-      target: document.createElement('div'),
+      target: target,
     });
 
     expect(wrapper).toMatchSnapshot();
@@ -81,5 +86,47 @@ describe('TooltipEntity', () => {
     expect(wrapper.state()).toEqual({
       showTooltipAt: null,
     });
+  });
+
+  it('#onEdit', () => {
+    const onEdit = jest.fn();
+
+    const wrapper = shallow((
+      <TooltipEntity
+        entityKey="1"
+        onEdit={onEdit}
+        onRemove={() => {}}
+        icon="#icon-test"
+        url="https://www.example.com/"
+        label="www.example.com"
+      >
+        test
+      </TooltipEntity>
+    ));
+
+    wrapper.instance().onEdit(new Event('click'));
+
+    expect(onEdit).toHaveBeenCalled();
+  });
+
+  it('#onRemove', () => {
+    const onRemove = jest.fn();
+
+    const wrapper = shallow((
+      <TooltipEntity
+        entityKey="1"
+        onEdit={() => {}}
+        onRemove={onRemove}
+        icon="#icon-test"
+        url="https://www.example.com/"
+        label="www.example.com"
+      >
+        test
+      </TooltipEntity>
+    ));
+
+    wrapper.instance().onRemove(new Event('click'));
+
+    expect(onRemove).toHaveBeenCalled();
   });
 });
