@@ -27,13 +27,27 @@ class MediaBlock extends Component {
   }
 
   openTooltip(e) {
-    const trigger = e.target;
+    const trigger = e.target.closest('[data-draftail-trigger]');
+
+    // Click is within the tooltip.
+    if (!trigger) {
+      return;
+    }
+
+    const container = trigger.closest('[data-draftail-editor-wrapper]');
+    const containerRect = container.getBoundingClientRect();
+    const rect = trigger.getBoundingClientRect();
+    const maxWidth = trigger.parentNode.offsetWidth - rect.width;
 
     this.setState({
-      // Warning: overriding native DOM object. Proceed with caution.
-      showTooltipAt: Object.assign(trigger.getBoundingClientRect(), {
-        containerWidth: trigger.parentNode.offsetWidth,
-      }),
+      showTooltipAt: {
+        container: container,
+        top: rect.top - containerRect.top - (document.documentElement.scrollTop || document.body.scrollTop),
+        left: rect.left - containerRect.left - (document.documentElement.scrollLeft || document.body.scrollLeft),
+        width: rect.width,
+        height: rect.height,
+        direction: maxWidth >= TOOLTIP_MAX_WIDTH ? 'left' : 'top-left',
+      },
     });
   }
 
@@ -44,17 +58,16 @@ class MediaBlock extends Component {
   renderTooltip() {
     const { children } = this.props;
     const { showTooltipAt } = this.state;
-    const maxWidth = showTooltipAt.containerWidth - showTooltipAt.width;
-    const direction = maxWidth >= TOOLTIP_MAX_WIDTH ? 'left' : 'top-left';
 
     return (
       <Portal
+        node={showTooltipAt.container}
         onClose={this.closeTooltip}
         closeOnClick
         closeOnType
         closeOnResize
       >
-        <Tooltip target={showTooltipAt} direction={direction}>
+        <Tooltip target={showTooltipAt} direction={showTooltipAt.direction}>
           <div style={{ maxWidth: OPTIONS_MAX_WIDTH }}>{children}</div>
         </Tooltip>
       </Portal>
@@ -71,7 +84,8 @@ class MediaBlock extends Component {
         type="button"
         tabIndex={-1}
         className="MediaBlock"
-        onMouseUp={this.openTooltip}
+        onClick={this.openTooltip}
+        data-draftail-trigger
       >
         <span className="MediaBlock__icon-wrapper" aria-hidden>
           <Icon icon={entityType.icon} className="MediaBlock__icon" />

@@ -3,6 +3,7 @@
 exports[`TooltipEntity #openTooltip 1`] = `
 <a
   className="TooltipEntity"
+  data-draftail-trigger={true}
   onMouseUp={[Function]}
   role="button"
 >
@@ -16,16 +17,30 @@ exports[`TooltipEntity #openTooltip 1`] = `
     closeOnClick={true}
     closeOnResize={true}
     closeOnType={true}
+    node={
+      <body
+        data-draftail-editor-wrapper="true"
+      >
+        <div
+          data-draftail-trigger="true"
+        />
+      </body>
+    }
     onClose={[Function]}
   >
     <Tooltip
       direction="top"
       target={
         Object {
-          "bottom": 0,
+          "container": <body
+            data-draftail-editor-wrapper="true"
+          >
+            <div
+              data-draftail-trigger="true"
+            />
+          </body>,
           "height": 0,
           "left": 0,
-          "right": 0,
           "top": 0,
           "width": 0,
         }
@@ -60,6 +75,7 @@ exports[`TooltipEntity #openTooltip 1`] = `
 exports[`TooltipEntity works 1`] = `
 <a
   className="TooltipEntity"
+  data-draftail-trigger={true}
   onMouseUp={[Function]}
   role="button"
 >

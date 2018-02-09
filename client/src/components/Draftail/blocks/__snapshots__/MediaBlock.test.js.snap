@@ -3,7 +3,8 @@
 exports[`MediaBlock no data 1`] = `
 <button
   className="MediaBlock"
-  onMouseUp={[Function]}
+  data-draftail-trigger={true}
+  onClick={[Function]}
   tabIndex={-1}
   type="button"
 >
@@ -29,7 +30,8 @@ exports[`MediaBlock no data 1`] = `
 exports[`MediaBlock renders 1`] = `
 <button
   className="MediaBlock"
-  onMouseUp={[Function]}
+  data-draftail-trigger={true}
+  onClick={[Function]}
   tabIndex={-1}
   type="button"
 >
@@ -54,14 +56,16 @@ exports[`MediaBlock renders 1`] = `
 
 exports[`MediaBlock tooltip opens 1`] = `
 <div>
-  <div>
+  <div
+    class="Tooltip Tooltip--top-left"
+    role="tooltip"
+    style="top: 0px; left: 0px;"
+  >
     <div
-      class="Tooltip Tooltip--top-left"
-      role="tooltip"
-      style="top: 0px; left: 0px;"
+      style="max-width: 300px;"
     >
       <div
-        style="max-width: 300px;"
+        id="test"
       >
         Test
       </div>
