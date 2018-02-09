@@ -45,7 +45,11 @@ export const wrapWagtailIcon = type => {
  */
 const initEditor = (fieldName, options) => {
   const field = document.querySelector(`[name="${fieldName}"]`);
+
   const editorWrapper = document.createElement('div');
+  editorWrapper.className = 'Draftail-Editor__wrapper';
+  editorWrapper.setAttribute('data-draftail-editor-wrapper', true);
+
   field.parentNode.appendChild(editorWrapper);
 
   const serialiseInputValue = rawContentState => {

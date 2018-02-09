@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import Portal from './Portal';
 
 const func = expect.any(Function);
@@ -10,26 +10,20 @@ describe('Portal', () => {
   });
 
   it('empty', () => {
-    expect(shallow(<Portal />)).toMatchSnapshot();
+    expect(mount(<Portal onClose={() => {}} />)).toMatchSnapshot();
   });
 
   it('#children', () => {
-    expect(shallow(<Portal>Test!</Portal>)).toMatchSnapshot();
+    expect(mount(<Portal onClose={() => {}}>Test!</Portal>)).toMatchSnapshot();
   });
 
   it('component lifecycle', () => {
     document.removeEventListener = jest.fn();
     window.removeEventListener = jest.fn();
 
-    const wrapper = shallow(<Portal onClose={() => {}}>Test!</Portal>);
-
-    wrapper.instance().componentDidMount();
+    const wrapper = mount(<Portal onClose={() => {}}>Test!</Portal>);
 
     expect(document.body.innerHTML).toMatchSnapshot();
-
-    expect(wrapper.instance().portal).toBe(document.body.children[0]);
-
-    wrapper.instance().componentDidMount();
 
     wrapper.instance().componentWillUnmount();
 
@@ -81,14 +75,14 @@ describe('Portal', () => {
           Test!
         </Portal>
       );
-      expect(window.addEventListener).toHaveBeenCalledWith('error', func);
+      expect(window.addEventListener).toHaveBeenCalledWith('resize', func);
     });
   });
 
   describe('onCloseEvent', () => {
-    it('shouldClose', () => {
+    it('should close', () => {
       const onClose = jest.fn();
-      const wrapper = shallow(<Portal onClose={onClose}>Test!</Portal>);
+      const wrapper = mount(<Portal onClose={onClose}>Test!</Portal>);
       const target = document.createElement('div');
 
       wrapper.instance().onCloseEvent({ target });
@@ -96,9 +90,9 @@ describe('Portal', () => {
       expect(onClose).toHaveBeenCalled();
     });
 
-    it('not shouldClose', () => {
+    it('not should close', () => {
       const onClose = jest.fn();
-      const wrapper = shallow(
+      const wrapper = mount(
         <Portal onClose={onClose}>
           <div id="test">Test</div>
         </Portal>

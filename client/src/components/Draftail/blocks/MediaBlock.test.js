@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 
 import MediaBlock from '../blocks/MediaBlock';
 
@@ -49,10 +49,16 @@ describe('MediaBlock', () => {
   });
 
   describe('tooltip', () => {
+    let target;
     let wrapper;
 
     beforeEach(() => {
-      wrapper = shallow(
+      target = document.createElement('div');
+      target.setAttribute('data-draftail-trigger', true);
+      document.body.appendChild(target);
+      document.body.setAttribute('data-draftail-editor-wrapper', true);
+
+      wrapper = mount(
         <MediaBlock
           src="example.png"
           alt=""
@@ -67,28 +73,32 @@ describe('MediaBlock', () => {
             },
           }}
         >
-          Test
+          <div id="test">Test</div>
         </MediaBlock>
       );
     });
 
     it('opens', () => {
-      const target = document.createElement('div');
-      document.body.appendChild(target);
-
-      wrapper.simulate('mouseup', { target });
+      wrapper.simulate('click', { target });
 
       expect(
         wrapper
           .find('Portal')
-          .dive()
           .instance().portal
       ).toMatchSnapshot();
     });
 
+    it('click in tooltip', () => {
+      wrapper.simulate('click', { target });
+
+      jest.spyOn(target, 'getBoundingClientRect');
+
+      wrapper.simulate('click', { target: document.querySelector('#test') });
+
+      expect(target.getBoundingClientRect).not.toHaveBeenCalled();
+    });
+
     it('large viewport', () => {
-      const target = document.createElement('div');
-      document.body.appendChild(target);
       target.getBoundingClientRect = () => ({
         top: 0,
         left: 0,
@@ -96,26 +106,22 @@ describe('MediaBlock', () => {
         height: 0,
       });
 
-      wrapper.simulate('mouseup', { target });
+      wrapper.simulate('click', { target });
 
       expect(
         wrapper
           .find('Portal')
-          .dive()
           .instance()
           .portal.querySelector('.Tooltip').className
       ).toBe('Tooltip Tooltip--left');
     });
 
     it('closes', () => {
-      const target = document.createElement('div');
-      document.body.appendChild(target);
-
       jest.spyOn(target, 'getBoundingClientRect');
 
       expect(wrapper.state('showTooltipAt')).toBe(null);
 
-      wrapper.simulate('mouseup', { target });
+      wrapper.simulate('click', { target });
 
       expect(wrapper.state('showTooltipAt')).toMatchObject({
         top: 0,

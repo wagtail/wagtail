@@ -1,10 +1,17 @@
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
+import { Component } from 'react';
+import { createPortal } from 'react-dom';
 
+/**
+ * A Portal component which automatically closes itself
+ * when certain events happen outside.
+ * See https://reactjs.org/docs/portals.html.
+ */
 class Portal extends Component {
   constructor(props) {
     super(props);
+
+    this.portal = document.createElement('div');
 
     this.onCloseEvent = this.onCloseEvent.bind(this);
   }
@@ -18,40 +25,27 @@ class Portal extends Component {
   }
 
   componentDidMount() {
-    const { onClose, closeOnClick, closeOnType, closeOnResize } = this.props;
+    const { node, onClose, closeOnClick, closeOnType, closeOnResize } = this.props;
 
-    if (!this.portal) {
-      this.portal = document.createElement('div');
-      document.body.appendChild(this.portal);
+    node.appendChild(this.portal);
 
-      if (onClose) {
-        if (closeOnClick) {
-          document.addEventListener('mouseup', this.onCloseEvent);
-        }
-
-        if (closeOnType) {
-          document.addEventListener('keyup', this.onCloseEvent);
-        }
-
-        if (closeOnResize) {
-          window.addEventListener('resize', onClose);
-        }
-      }
+    if (closeOnClick) {
+      document.addEventListener('mouseup', this.onCloseEvent);
     }
 
-    this.componentDidUpdate();
-  }
+    if (closeOnType) {
+      document.addEventListener('keyup', this.onCloseEvent);
+    }
 
-  componentDidUpdate() {
-    const { children } = this.props;
-
-    ReactDOM.render(<div>{children}</div>, this.portal);
+    if (closeOnResize) {
+      window.addEventListener('resize', onClose);
+    }
   }
 
   componentWillUnmount() {
-    const { onClose } = this.props;
+    const { node, onClose } = this.props;
 
-    document.body.removeChild(this.portal);
+    node.removeChild(this.portal);
 
     document.removeEventListener('mouseup', this.onCloseEvent);
     document.removeEventListener('keyup', this.onCloseEvent);
@@ -59,12 +53,15 @@ class Portal extends Component {
   }
 
   render() {
-    return null;
+    const { children } = this.props;
+
+    return createPortal(children, this.portal);
   }
 }
 
 Portal.propTypes = {
-  onClose: PropTypes.func,
+  onClose: PropTypes.func.isRequired,
+  node: PropTypes.instanceOf(Element),
   children: PropTypes.node,
   closeOnClick: PropTypes.bool,
   closeOnType: PropTypes.bool,
@@ -72,7 +69,7 @@ Portal.propTypes = {
 };
 
 Portal.defaultProps = {
-  onClose: null,
+  node: document.body,
   children: null,
   closeOnClick: false,
   closeOnType: false,

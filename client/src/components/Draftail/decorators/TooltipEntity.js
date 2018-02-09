@@ -22,13 +22,49 @@ class TooltipEntity extends Component {
       showTooltipAt: null,
     };
 
+    this.onEdit = this.onEdit.bind(this);
+    this.onRemove = this.onRemove.bind(this);
     this.openTooltip = this.openTooltip.bind(this);
     this.closeTooltip = this.closeTooltip.bind(this);
   }
 
+  onEdit(e) {
+    const { onEdit, entityKey } = this.props;
+
+    e.preventDefault();
+    e.stopPropagation();
+    onEdit(entityKey);
+  }
+
+  onRemove(e) {
+    const { onRemove, entityKey } = this.props;
+
+    e.preventDefault();
+    e.stopPropagation();
+    onRemove(entityKey);
+  }
+
   openTooltip(e) {
-    const trigger = e.target;
-    this.setState({ showTooltipAt: trigger.getBoundingClientRect() });
+    const trigger = e.target.closest('[data-draftail-trigger]');
+
+    // Click is within the tooltip.
+    if (!trigger) {
+      return;
+    }
+
+    const container = trigger.closest('[data-draftail-editor-wrapper]');
+    const containerRect = container.getBoundingClientRect();
+    const rect = trigger.getBoundingClientRect();
+
+    this.setState({
+      showTooltipAt: {
+        container: container,
+        top: rect.top - containerRect.top - (document.documentElement.scrollTop || document.body.scrollTop),
+        left: rect.left - containerRect.left - (document.documentElement.scrollLeft || document.body.scrollLeft),
+        width: rect.width,
+        height: rect.height,
+      },
+    });
   }
 
   closeTooltip() {
@@ -37,10 +73,7 @@ class TooltipEntity extends Component {
 
   render() {
     const {
-      entityKey,
       children,
-      onEdit,
-      onRemove,
       icon,
       label,
       url,
@@ -50,11 +83,18 @@ class TooltipEntity extends Component {
     // Contrary to what JSX A11Y says, this should be a button but it shouldn't be focusable.
     /* eslint-disable springload/jsx-a11y/interactive-supports-focus */
     return (
-      <a role="button" onMouseUp={this.openTooltip} className="TooltipEntity">
+      <a
+        role="button"
+        // Use onMouseUp to preserve focus in the text even after clicking.
+        onMouseUp={this.openTooltip}
+        className="TooltipEntity"
+        data-draftail-trigger
+      >
         <Icon icon={icon} className="TooltipEntity__icon" />
         {children}
         {showTooltipAt && (
           <Portal
+            node={showTooltipAt.container}
             onClose={this.closeTooltip}
             closeOnClick
             closeOnType
@@ -75,14 +115,14 @@ class TooltipEntity extends Component {
 
               <button
                 className="button Tooltip__button"
-                onClick={onEdit.bind(null, entityKey)}
+                onClick={this.onEdit}
               >
                 Edit
               </button>
 
               <button
                 className="button button-secondary no Tooltip__button"
-                onClick={onRemove.bind(null, entityKey)}
+                onClick={this.onRemove}
               >
                 Remove
               </button>
