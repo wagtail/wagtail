@@ -93,10 +93,8 @@ Blocks are nearly as simple as inline styles:
             'type': type_,
             'label': '❝',
             'description': 'Blockquote',
-            # We need to tell Draftail what element to use when displaying those blocks in the editor.
+            # Optionally, we can tell Draftail what element to use when displaying those blocks in the editor.
             'element': 'blockquote',
-            # This isn't required as the blockquote tag could be styled directly.
-            # 'className': 'editor__blockquote',
         }
 
         features.register_editor_plugin(
@@ -110,12 +108,13 @@ Blocks are nearly as simple as inline styles:
 
 Here are the main differences:
 
-* We need to configure an ``element`` to tell Draftail how to render those blocks in the editor.
-* We could use a ``className`` (say if ``element`` was ``div``) to style the blockquotes in the editor.
+* We can configure an ``element`` to tell Draftail how to render those blocks in the editor.
 * We register the plugin with ``BlockFeature``.
 * We set up the conversion with ``BlockElementHandler`` and ``block_map``.
 
-That’s it! The extra complexity is that you may need to write CSS in conjunction with the ``className`` to style the blocks in the editor.
+Optionally, we can also define styles for the blocks with the ``Draftail-block--blockquote`` (``Draftail-block--<block type>``) CSS class.
+
+That’s it! The extra complexity is that you may need to write CSS to style the blocks in the editor.
 
 Creating new entities
 ~~~~~~~~~~~~~~~~~~~~~
