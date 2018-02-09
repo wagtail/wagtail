@@ -330,3 +330,7 @@ To fully complete the demo, we can add a bit of JavaScript to the front-end in o
         elt.innerHTML = '';
         elt.appendChild(link);
     });
+
+----
+
+Custom block entities can also be created (have a look at the separate `Draftail <https://github.com/springload/draftail>`_ documentation), but these are not detailed here since :ref:`StreamField <streamfield>` is the go-to way to create block-level rich text in Wagtail.
