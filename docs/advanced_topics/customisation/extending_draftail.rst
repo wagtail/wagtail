@@ -334,3 +334,12 @@ To fully complete the demo, we can add a bit of JavaScript to the front-end in o
 ----
 
 Custom block entities can also be created (have a look at the separate `Draftail <https://github.com/springload/draftail>`_ documentation), but these are not detailed here since :ref:`StreamField <streamfield>` is the go-to way to create block-level rich text in Wagtail.
+
+Integration of the Draftail widgets
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+To further customise how the Draftail widgets are integrated into the UI, there are additional extension points for CSS and JS:
+
+* In JavaScript, use the ``[data-draftail-input]`` attribute selector to target the input which contains the data, and ``[data-draftail-editor-wrapper]`` for the element which wraps the editor.
+* The editor instance is bound on the input field for imperative access. Use ``document.querySelector('[data-draftail-input]').draftailEditor``.
+* In CSS, use the classes prefixed with ``Draftail-``.
