@@ -6,9 +6,6 @@ describe('draftail.entry', () => {
   });
 
   it('has defaults registered', () => {
-    expect(window.draftail.getPlugin('LINK')).toBeDefined();
-    expect(window.draftail.getPlugin('DOCUMENT')).toBeDefined();
-    expect(window.draftail.getPlugin('IMAGE')).toBeDefined();
-    expect(window.draftail.getPlugin('EMBED')).toBeDefined();
+    expect(Object.keys(window.draftail.registerPlugin({}))).toEqual(["DOCUMENT", "LINK", "IMAGE", "EMBED", "undefined"]);
   });
 });

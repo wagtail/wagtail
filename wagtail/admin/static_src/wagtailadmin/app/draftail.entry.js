@@ -1,6 +1,4 @@
-import {
-  initEditor,
-  registry,
+import draftail, {
   ModalWorkflowSource,
   Link,
   Document,
@@ -11,10 +9,8 @@ import {
 /**
  * Entry point loaded when the Draftail editor is in use.
  */
-const draftail = registry;
 
-// Expose Draftail as a global, with the initEditor function.
-draftail.initEditor = initEditor;
+// Expose module as a global.
 window.draftail = draftail;
 
 // Plugins for the built-in entities.
