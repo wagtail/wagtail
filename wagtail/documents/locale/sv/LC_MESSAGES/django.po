@@ -4,6 +4,7 @@
 #
 # Translators:
 # Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2017
+# Andreas Lans <andreas.lans@gmail.com>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
@@ -91,7 +92,7 @@ msgstr "Senaste dokument"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
-msgstr "Ledsen, inga dokument matchar \"<em>%(query_string)s</em>\""
+msgstr "Tyvärr, inga dokument matchar \"<em>%(query_string)s</em>\""
 
 msgid "Change document:"
 msgstr "Ändra dokument:"
@@ -153,7 +154,7 @@ msgid ""
 "\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
 "Du har inte laddat upp några dokument till den här samlingen. Varför inte <a "
-"href=\"%(wagtaildocs_add_document_url)s\">ladda up ett nu</a>?"
+"href=\"%(wagtaildocs_add_document_url)s\">ladda upp ett nu</a>?"
 
 #, python-format
 msgid ""
@@ -161,7 +162,7 @@ msgid ""
 "\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
 "Du har inte laddat upp några dokument. Varför inte <a href="
-"\"%(wagtaildocs_add_document_url)s\">ladda up ett nu</a>?"
+"\"%(wagtaildocs_add_document_url)s\">ladda upp ett nu</a>?"
 
 #, python-format
 msgid "Usage of %(title)s"
