@@ -1,7 +1,5 @@
-import {
+import draftail, {
   wrapWagtailIcon,
-  initEditor,
-  registry,
   ModalWorkflowSource,
   Link,
   Document,
@@ -21,7 +19,7 @@ describe('Draftail', () => {
       field.value = 'null';
       document.body.appendChild(field);
 
-      initEditor('test', {});
+      draftail.initEditor('test', {});
 
       expect(field.draftailEditor).toBeDefined();
     });
@@ -32,7 +30,7 @@ describe('Draftail', () => {
       field.value = 'null';
       document.body.appendChild(field);
 
-      initEditor('test', {});
+      draftail.initEditor('test', {});
 
       field.draftailEditor.saveState();
 
@@ -45,13 +43,13 @@ describe('Draftail', () => {
       field.value = 'null';
       document.body.appendChild(field);
 
-      registry.registerPlugin({
+      draftail.registerPlugin({
         type: 'IMAGE',
         source: () => {},
         block: () => {},
       });
 
-      initEditor('test', {
+      draftail.initEditor('test', {
         entityTypes: [
           { type: 'IMAGE' },
         ],
@@ -78,7 +76,20 @@ describe('Draftail', () => {
     });
   });
 
-  it('#registry', () => expect(registry).toBeDefined());
+  describe('#registerPlugin', () => {
+    it('works', () => {
+      const plugin = {
+        type: 'TEST',
+        source: null,
+        decorator: null,
+      };
+
+      expect(draftail.registerPlugin(plugin)).toMatchObject({
+        TEST: plugin,
+      });
+    });
+  });
+
   it('#ModalWorkflowSource', () => expect(ModalWorkflowSource).toBeDefined());
   it('#Link', () => expect(Link).toBeDefined());
   it('#Document', () => expect(Document).toBeDefined());
