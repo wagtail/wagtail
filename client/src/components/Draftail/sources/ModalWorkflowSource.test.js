@@ -210,6 +210,7 @@ describe('ModalWorkflowSource', () => {
       jest.spyOn(RichUtils, 'toggleLink');
 
       const onComplete = jest.fn();
+      const close = jest.fn();
 
       let editorState = EditorState.createWithContent(convertFromRaw({
         entityMap: {},
@@ -235,10 +236,12 @@ describe('ModalWorkflowSource', () => {
         />
       ));
 
+      wrapper.instance().workflow = { close };
       wrapper.instance().onChosen({});
 
       expect(onComplete).toHaveBeenCalled();
       expect(RichUtils.toggleLink).toHaveBeenCalled();
+      expect(close).toHaveBeenCalled();
 
       RichUtils.toggleLink.mockRestore();
     });
@@ -247,6 +250,7 @@ describe('ModalWorkflowSource', () => {
       jest.spyOn(AtomicBlockUtils, 'insertAtomicBlock');
 
       const onComplete = jest.fn();
+      const close = jest.fn();
 
       let editorState = EditorState.createWithContent(convertFromRaw({
         entityMap: {},
@@ -274,10 +278,12 @@ describe('ModalWorkflowSource', () => {
         />
       ));
 
+      wrapper.instance().workflow = { close };
       wrapper.instance().onChosen({});
 
       expect(onComplete).toHaveBeenCalled();
       expect(AtomicBlockUtils.insertAtomicBlock).toHaveBeenCalled();
+      expect(close).toHaveBeenCalled();
 
       AtomicBlockUtils.insertAtomicBlock.mockRestore();
     });
@@ -286,6 +292,7 @@ describe('ModalWorkflowSource', () => {
       jest.spyOn(Modifier, 'replaceText');
 
       const onComplete = jest.fn();
+      const close = jest.fn();
 
       let editorState = EditorState.createWithContent(convertFromRaw({
         entityMap: {},
@@ -310,6 +317,7 @@ describe('ModalWorkflowSource', () => {
         />
       ));
 
+      wrapper.instance().workflow = { close };
       wrapper.instance().onChosen({
         url: 'example.com',
         prefer_this_title_as_link_text: true,
@@ -317,6 +325,7 @@ describe('ModalWorkflowSource', () => {
 
       expect(onComplete).toHaveBeenCalled();
       expect(Modifier.replaceText).toHaveBeenCalled();
+      expect(close).toHaveBeenCalled();
 
       Modifier.replaceText.mockRestore();
     });

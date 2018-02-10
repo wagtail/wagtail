@@ -119,7 +119,7 @@ class ModalWorkflowSource extends Component {
     $(document.body).on('hidden.bs.modal', this.onClose);
 
     // eslint-disable-next-line new-cap
-    global.ModalWorkflow({
+    this.workflow = global.ModalWorkflow({
       url,
       urlParams,
       responses: {
@@ -138,6 +138,8 @@ class ModalWorkflowSource extends Component {
   }
 
   componentWillUnmount() {
+    this.workflow = null;
+
     $(document.body).off('hidden.bs.modal', this.onClose);
   }
 
@@ -171,6 +173,11 @@ class ModalWorkflowSource extends Component {
         nextState = RichUtils.toggleLink(editorState, selection, entityKey);
       }
     }
+
+    // IE11 crashes when rendering the new entity in contenteditable if the modal is still open.
+    // Other browsers do not mind. This is probably a focus management problem.
+    // From the user's perspective, this is all happening too fast to notice either way.
+    this.workflow.close();
 
     onComplete(nextState);
   }
