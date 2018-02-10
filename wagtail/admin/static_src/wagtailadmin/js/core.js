@@ -79,10 +79,6 @@ $(function() {
     // Add class to the body from which transitions may be hung so they don't appear to transition as the page loads
     $('body').addClass('ready');
 
-    if (window.location.hash) {
-        $(`a[href='${window.location.hash}']`).tab('show');
-    }
-
     // Enable toggle to open/close nav
     $(document).on('click', '#nav-toggle', function() {
         $('body').toggleClass('nav-open');
@@ -177,10 +173,14 @@ $(function() {
     });
 
     /* tabs */
+    if (window.location.hash) {
+      $('a[href="' + window.location.hash + '"]').tab('show');
+    }
+
     $(document).on('click', '.tab-nav a', function(e) {
-        e.preventDefault();
-        $(this).tab('show');
-        history.pushState(null, null, $(this).attr('href'));
+      e.preventDefault();
+      $(this).tab('show');
+      window.history.replaceState(null, null, $(this).attr('href'));
     });
 
     $(document).on('click', '.tab-toggle', function(e) {
