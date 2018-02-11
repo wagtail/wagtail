@@ -12,6 +12,7 @@ Object {
   },
   "enableLineBreak": Object {
     "description": "Line break",
+    "icon": "M.436 633.471l296.897-296.898v241.823h616.586V94.117h109.517v593.796H297.333v242.456z",
   },
   "entityTypes": Array [
     Object {
