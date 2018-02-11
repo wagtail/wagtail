@@ -276,6 +276,7 @@ Contributors
 * Ben Weatherman
 * Carlo Ascani
 * Julian Gallo
+* Dan Dietz
 
 Translators
 ===========
