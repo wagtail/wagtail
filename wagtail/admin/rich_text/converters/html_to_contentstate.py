@@ -215,11 +215,24 @@ class HorizontalRuleHandler(AtomicBlockEntityElementHandler):
         return Entity('HORIZONTAL_RULE', 'IMMUTABLE', {})
 
 
+class LineBreakHandler:
+    def handle_starttag(self, name, attrs, state, contentstate):
+        if state.current_block is None:
+            # ignore line breaks that exist at the top level
+            return
+
+        state.current_block.text += '\n'
+
+    def handle_endtag(self, name, state, contentstate):
+        pass
+
+
 class HtmlToContentStateHandler(HTMLParser):
     def __init__(self, features=()):
         self.paragraph_handler = BlockElementHandler('unstyled')
         self.element_handlers = HTMLRuleset({
-            'p': self.paragraph_handler
+            'p': self.paragraph_handler,
+            'br': LineBreakHandler(),
         })
         for feature in features:
             rule = feature_registry.get_converter_rule('contentstate', feature)

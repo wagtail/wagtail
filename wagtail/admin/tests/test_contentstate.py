@@ -436,6 +436,38 @@ class TestHtmlToContentState(TestCase):
             }
         })
 
+    def test_br_element_in_paragraph(self):
+        converter = ContentstateConverter(features=[])
+        result = json.loads(converter.from_database_format(
+            '''
+            <p>before<br/>after</p>
+            '''
+        ))
+        self.assertContentStateEqual(result, {
+            'entityMap': {},
+            'blocks': [
+                {'key': '00000', 'inlineStyleRanges': [], 'entityRanges': [], 'depth': 0, 'text': 'before\nafter',
+                 'type': 'unstyled'}
+            ],
+        })
+
+    def test_br_element_between_paragraphs(self):
+        converter = ContentstateConverter(features=[])
+        result = json.loads(converter.from_database_format(
+            '''
+            <p>before</p>
+            <br />
+            <p>after</p>
+            '''
+        ))
+        self.assertContentStateEqual(result, {
+            'entityMap': {},
+            'blocks': [
+                {'key': '00000', 'inlineStyleRanges': [], 'entityRanges': [], 'depth': 0, 'text': 'before', 'type': 'unstyled'},
+                {'key': '00000', 'inlineStyleRanges': [], 'entityRanges': [], 'depth': 0, 'text': 'after', 'type': 'unstyled'}
+            ],
+        })
+
     def test_block_element_in_empty_paragraph(self):
         converter = ContentstateConverter(features=['hr'])
         result = json.loads(converter.from_database_format(

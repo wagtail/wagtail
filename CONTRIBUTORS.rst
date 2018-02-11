@@ -271,6 +271,7 @@ Contributors
 * Florent Osmont
 * Mary Kate Fain
 * Dário Marcelino
+* Dan Dietz
 
 Translators
 ===========
