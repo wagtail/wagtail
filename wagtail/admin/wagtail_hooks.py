@@ -12,8 +12,9 @@ from wagtail.admin.rich_text import (
 from wagtail.admin.rich_text.converters.contentstate import link_entity
 from wagtail.admin.rich_text.converters.editor_html import LinkTypeRule, WhitelistRule
 from wagtail.admin.rich_text.converters.html_to_contentstate import (
-    BlockElementHandler, ExternalLinkElementHandler, HorizontalRuleHandler, LineBreakHandler,
-    InlineStyleElementHandler, ListElementHandler, ListItemElementHandler, PageLinkElementHandler)
+    BlockElementHandler, ExternalLinkElementHandler, HorizontalRuleHandler,
+    InlineStyleElementHandler, LineBreakHandler, ListElementHandler, ListItemElementHandler,
+    PageLinkElementHandler)
 from wagtail.admin.search import SearchArea
 from wagtail.admin.utils import user_has_any_page_permission
 from wagtail.admin.viewsets import viewsets
