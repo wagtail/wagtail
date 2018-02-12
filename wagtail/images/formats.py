@@ -15,30 +15,31 @@ class Format:
 
     def editor_attributes(self, image, alt_text):
         """
-        Return string of additional attributes to go on the HTML element
+        Return additional attributes to go on the HTML element
         when outputting this image within a rich text editor field
         """
-        return 'data-embedtype="image" data-id="%d" data-format="%s" data-alt="%s" ' % (
-            image.id, self.name, escape(alt_text)
-        )
+        return {
+            'data-embedtype': "image",
+            'data-id': image.id,
+            'data-format': self.name,
+            'data-alt': escape(alt_text),
+        }
 
     def image_to_editor_html(self, image, alt_text):
         return self.image_to_html(
             image, alt_text, self.editor_attributes(image, alt_text)
         )
 
-    def image_to_html(self, image, alt_text, extra_attributes=''):
+    def image_to_html(self, image, alt_text, extra_attributes=None):
+        if extra_attributes is None:
+            extra_attributes = {}
         rendition = get_rendition_or_not_found(image, self.filter_spec)
 
+        extra_attributes['alt'] = escape(alt_text)
         if self.classnames:
-            class_attr = 'class="%s" ' % escape(self.classnames)
-        else:
-            class_attr = ''
+            extra_attributes['class'] = "%s" % escape(self.classnames)
 
-        return '<img %s%ssrc="%s" width="%d" height="%d" alt="%s">' % (
-            extra_attributes, class_attr,
-            escape(rendition.url), rendition.width, rendition.height, escape(alt_text)
-        )
+        return rendition.img_tag(extra_attributes)
 
 
 FORMATS = []

@@ -64,6 +64,8 @@ Then set the ``WAGTAILIMAGES_IMAGE_MODEL`` setting to point to it:
 
     WAGTAILIMAGES_IMAGE_MODEL = 'images.CustomImage'
 
+Note that images inserted in the rich text editor will use the new rendition too.
+
 
 .. topic:: Migrating from the builtin image model
 

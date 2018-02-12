@@ -2,11 +2,12 @@ from bs4 import BeautifulSoup
 from django.test import TestCase
 
 from wagtail.images.rich_text import ImageEmbedHandler, image_embedtype_handler
+from wagtail.tests.utils import WagtailTestUtils
 
 from .utils import Image, get_test_image_file
 
 
-class TestImageEmbedHandler(TestCase):
+class TestImageEmbedHandler(TestCase, WagtailTestUtils):
     def test_get_db_attributes(self):
         soup = BeautifulSoup(
             '<b data-id="test-id" data-format="test-format" data-alt="test-alt">foo</b>',
@@ -30,7 +31,7 @@ class TestImageEmbedHandler(TestCase):
              'alt': 'test-alt',
              'format': 'left'}
         )
-        self.assertIn('<img class="richtext-image left"', result)
+        self.assertTagInHTML('<img class="richtext-image left" />', result, allow_extra_attrs=True)
 
     def test_expand_db_attributes_escapes_alt_text(self):
         Image.objects.create(id=1, title='Test', file=get_test_image_file())
@@ -47,8 +48,7 @@ class TestImageEmbedHandler(TestCase):
             {'id': 1,
              'format': 'left'},
         )
-        self.assertIn('<img class="richtext-image left"', result)
-        self.assertIn('alt=""', result)
+        self.assertTagInHTML('<img class="richtext-image left" alt="" />', result, allow_extra_attrs=True)
 
     def test_expand_db_attributes_for_editor(self):
         Image.objects.create(id=1, title='Test', file=get_test_image_file())
@@ -57,10 +57,9 @@ class TestImageEmbedHandler(TestCase):
              'alt': 'test-alt',
              'format': 'left'},
         )
-        self.assertIn(
+        self.assertTagInHTML(
             '<img data-embedtype="image" data-id="1" data-format="left" '
-            'data-alt="test-alt" class="richtext-image left"', result
-        )
+            'data-alt="test-alt" class="richtext-image left" />', result, allow_extra_attrs=True)
 
     def test_expand_db_attributes_for_editor_escapes_alt_text(self):
         Image.objects.create(id=1, title='Test', file=get_test_image_file())
@@ -69,10 +68,11 @@ class TestImageEmbedHandler(TestCase):
              'alt': 'Arthur "two sheds" Jackson',
              'format': 'left'},
         )
-        self.assertIn(
+        self.assertTagInHTML(
             '<img data-embedtype="image" data-id="1" data-format="left" '
-            'data-alt="Arthur &quot;two sheds&quot; Jackson" class="richtext-image left"', result
-        )
+            'data-alt="Arthur &quot;two sheds&quot; Jackson" class="richtext-image left" />',
+            result, allow_extra_attrs=True)
+
         self.assertIn('alt="Arthur &quot;two sheds&quot; Jackson"', result)
 
     def test_expand_db_attributes_for_editor_with_missing_alt(self):
@@ -81,7 +81,6 @@ class TestImageEmbedHandler(TestCase):
             {'id': 1,
              'format': 'left'},
         )
-        self.assertIn(
-            '<img data-embedtype="image" data-id="1" data-format="left" '
-            'data-alt="" class="richtext-image left"', result
-        )
+        self.assertTagInHTML(
+            '<img data-embedtype="image" data-id="1" data-format="left" data-alt="" '
+            'class="richtext-image left" />', result, allow_extra_attrs=True)
