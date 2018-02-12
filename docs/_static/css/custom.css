@@ -3,10 +3,9 @@ html  {
 }
 
 body.wy-body-for-nav {
-    -webkit-font-smoothing: antialiased; /* Do not remove! */
-    font-family: "Lato", "proxima-nova", "Helvetica Neue", Arial, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif;
     line-height: 1.5em;
-    color: #666; /*$color-text-base*/
+    color: #333; /*$color-grey-1-1*/
 }
 
 div.wy-nav-side {
