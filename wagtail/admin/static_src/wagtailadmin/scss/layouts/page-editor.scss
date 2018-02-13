@@ -175,10 +175,6 @@ $object-title-height: 40px;
 
     // Special full-width, one-off fields i.e a single text or textarea input
     &.full {
-        .object-help {
-            display: block;
-        }
-
         fieldset {
             display: block;
             float: none;
