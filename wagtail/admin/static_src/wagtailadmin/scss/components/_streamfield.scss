@@ -220,10 +220,6 @@ li.sequence-member {
     height: auto;
 }
 
-.sequence-type-list .object-help {
-    margin-top: 1.5em;
-}
-
 // Menu of other blocks to be added at each position
 .stream-menu {
     @include transition(all 0.2s ease);
