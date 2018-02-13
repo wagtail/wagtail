@@ -48,7 +48,7 @@ __________________________________________
 
 Images can also be inserted into the body text of a page via the rich text editor. When working in a rich text field, click the Image control. You will then be presented with the same options as for inserting images into the main carousel.
 
-In addition, Wagtail allows you to choose an alignment for you image.
+In addition, Wagtail allows you to choose an alignment for your image.
 
 .. image:: ../../_static/images/screen18_image_alignment.png
 
@@ -58,7 +58,7 @@ In addition, Wagtail allows you to choose an alignment for you image.
 The alignments available are described below:
 
 * **Full width:** Image will be inserted using the full width of the text area.
-* **Half-width left/right aligned:** Inserts the image at half the width of the text area. If inserted in a block of text the text will wrap around the image. If two half-width images are inserted together they will display next to each other.
+* **Half-width left/right aligned:** Inserts the image at half the width of the text area. If inserted in a block of text, the text will wrap around the image. If two half-width images are inserted together, they will display next to each other.
 
 .. Note::
     The display of images aligned in this way is dependent on your implementation of Wagtail, so you may get slightly different results.
