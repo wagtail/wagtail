@@ -396,9 +396,3 @@ li.sequence-member {
         opacity: 1;
     }
 }
-
-@media screen and (min-width: $breakpoint-mobile) {
-    .object li.sequence-member:hover .object-help {
-        opacity: 1;
-    }
-}
