@@ -14,6 +14,7 @@ What's new
 Other features
 ~~~~~~~~~~~~~~
 
+* Persist tab hash in URL to allow direct navigation to tabs in the admin interface (Ben Weatherman)
 
 Bug fixes
 ~~~~~~~~~

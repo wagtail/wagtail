@@ -173,9 +173,14 @@ $(function() {
     });
 
     /* tabs */
+    if (window.location.hash) {
+      $('a[href="' + window.location.hash + '"]').tab('show');
+    }
+
     $(document).on('click', '.tab-nav a', function(e) {
-        e.preventDefault();
-        $(this).tab('show');
+      e.preventDefault();
+      $(this).tab('show');
+      window.history.replaceState(null, null, $(this).attr('href'));
     });
 
     $(document).on('click', '.tab-toggle', function(e) {
