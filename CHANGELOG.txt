@@ -8,6 +8,7 @@ Changelog
  * Animate the chevron icon when opening sub-menus in the admin (Carlo Ascani)
  * Fix: Status button on 'edit page' now links to the correct URL when live and draft slug differ (LB (Ben Johnston))
  * Fix: Image title text in the gallery and in the chooser now wraps for long filenames (LB (Ben Johnston), Luiz Boaretto)
+ * Fix: Move image editor action buttons to the bottom of the form on mobile (Julian Gallo)
 
 
 2.0 (xx.xx.xxxx) - IN DEVELOPMENT
