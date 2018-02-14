@@ -337,7 +337,7 @@ class TestObjectList(TestCase):
         self.assertInHTML('<h2><label for="id_date_from">Start date</label></h2>', result)
 
         # result should include help text for children
-        self.assertIn('<div class="object-help help">Not required if event is on a single day</div>', result)
+        self.assertIn('<div class="object-help help"><span class="icon-help-inverse" aria-hidden="true"></span>Not required if event is on a single day</div>', result)
 
         # result should contain rendered content from descendants
         self.assertIn('Abergavenny sheepdog trials</textarea>', result)
