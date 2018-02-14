@@ -279,6 +279,8 @@ This specifies whether password fields are shown when creating or editing users 
 This specifies whether password is a required field when creating a new user. True by default; ignored if ``WAGTAILUSERS_PASSWORD_ENABLED`` is false. If this is set to False, and the password field is left blank when creating a user, then that user will have no usable password, and will not be able to log in unless an alternative authentication system such as LDAP is set up.
 
 
+.. _email_notifications:
+
 Email Notifications
 -------------------
 
@@ -287,8 +289,6 @@ Email Notifications
   WAGTAILADMIN_NOTIFICATION_FROM_EMAIL = 'wagtail@myhost.io'
 
 Wagtail sends email notifications when content is submitted for moderation, and when the content is accepted or rejected. This setting lets you pick which email address these automatic notifications will come from. If omitted, Django will fall back to using the ``DEFAULT_FROM_EMAIL`` variable if set, and ``webmaster@localhost`` if not.
-
-.. _email_notifications_format:
 
 .. code-block:: python
 
