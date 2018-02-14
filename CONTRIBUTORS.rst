@@ -273,6 +273,7 @@ Contributors
 * Mary Kate Fain
 * Dário Marcelino
 * Dave Bell
+* Ben Weatherman
 
 Translators
 ===========
