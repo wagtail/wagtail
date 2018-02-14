@@ -9,7 +9,7 @@
                 </h2>
             {% endif %}
             {% if child.help_text %}
-                <div class="object-help help">{{ child.help_text }}</div>
+                <div class="object-help help"><span class="icon-help-inverse" aria-hidden="true"></span>{{ child.help_text }}</div>
             {% endif %}
             {{ child.render_as_object }}
         </li>

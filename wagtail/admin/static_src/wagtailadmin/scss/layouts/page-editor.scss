@@ -77,18 +77,8 @@ $object-title-height: 40px;
         padding-left: 3em;
         opacity: 1;
 
-        &:before {
-            border-radius: 100%;
-            display: block;
+        .icon-help-inverse {
             float: left;
-            content: '?';
-            border: 1px solid $color-grey-2;
-            color: $color-grey-2;
-            height: 15px;
-            width: 15px;
-            line-height: 15px;
-            text-align: center;
-            font-size: 1.1em;
             margin-left: -2em;
             margin-top: 0.3em;
         }
@@ -175,10 +165,6 @@ $object-title-height: 40px;
 
     // Special full-width, one-off fields i.e a single text or textarea input
     &.full {
-        .object-help {
-            display: block;
-        }
-
         fieldset {
             display: block;
             float: none;
