@@ -252,6 +252,10 @@ body.explorer-open {
 
     .nav-main {
         display: none;
+
+        @include medium {
+            display: block;
+        }
     }
 }
 
@@ -438,10 +442,6 @@ body.explorer-open {
         .nav-wrapper {
             margin-left: 0;
             width: $menu-width;
-        }
-
-        .nav-main {
-            display: block;
         }
     }
 }
