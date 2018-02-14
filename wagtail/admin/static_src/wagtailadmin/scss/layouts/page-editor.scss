@@ -76,6 +76,12 @@ $object-title-height: 40px;
         padding-right: $grid-gutter-width / 2;
         padding-left: 3em;
         opacity: 1;
+
+        .icon-help-inverse {
+            float: left;
+            margin-left: -2em;
+            margin-top: 0.3em;
+        }
     }
 
     &:hover .object-help {

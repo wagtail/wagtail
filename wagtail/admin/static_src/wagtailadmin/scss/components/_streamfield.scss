@@ -90,6 +90,10 @@ li.sequence-member {
     .sequence-member:hover & {
         opacity: 1;
     }
+
+    .icon-help-inverse {
+        margin-right: 0.5em;
+    }
 }
 
 // Image chooser as direct descendant of top-level streamfield has special display
