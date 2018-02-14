@@ -76,22 +76,6 @@ $object-title-height: 40px;
         padding-right: $grid-gutter-width / 2;
         padding-left: 3em;
         opacity: 1;
-
-        &:before {
-            border-radius: 100%;
-            display: block;
-            float: left;
-            content: '?';
-            border: 1px solid $color-grey-2;
-            color: $color-grey-2;
-            height: 15px;
-            width: 15px;
-            line-height: 15px;
-            text-align: center;
-            font-size: 1.1em;
-            margin-left: -2em;
-            margin-top: 0.3em;
-        }
     }
 
     &:hover .object-help {

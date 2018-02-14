@@ -22,10 +22,6 @@ li.sequence-member {
         }
     }
 
-    &:hover .object-help {
-        opacity: 1;
-    }
-
     .struct-block .fields {
         @include column(10);
         padding-left: 0;
@@ -85,6 +81,14 @@ li.sequence-member {
 
     .fields > li {
         position: relative;
+    }
+}
+
+.sequence-member__help {
+    opacity: 0;
+
+    .sequence-member:hover & {
+        opacity: 1;
     }
 }
 

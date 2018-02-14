@@ -135,3 +135,23 @@
     display: inline-block;
     line-height: 1;
 }
+
+// CSS-only circled question mark.
+// <span class="icon-help-inverse" aria-hidden="true"></span>
+.icon-help-inverse {
+    &:before {
+        border-radius: 100%;
+        display: block;
+        float: left;
+        content: '?';
+        border: 1px solid $color-grey-2;
+        color: $color-grey-2;
+        height: 15px;
+        width: 15px;
+        line-height: 15px;
+        text-align: center;
+        font-size: 1.1em;
+        margin-left: -2em;
+        margin-top: 0.3em;
+    }
+}
