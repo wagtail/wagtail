@@ -1,11 +1,14 @@
+import json
+
 from django.test import TestCase
 
+from wagtail.admin.tests.test_contentstate import content_state_equal
 from wagtail.core.models import PAGE_MODEL_CLASSES, Page, Site
 from wagtail.tests.testapp.models import (
     BusinessChild, BusinessIndex, BusinessNowherePage, BusinessSubIndex, EventIndex, EventPage,
     SimplePage, StreamPage)
 from wagtail.tests.utils import WagtailPageTests, WagtailTestUtils
-from wagtail.tests.utils.form_data import inline_formset, nested_form_data, streamfield
+from wagtail.tests.utils.form_data import inline_formset, nested_form_data, rich_text, streamfield
 
 
 class TestAssertTagInHTML(WagtailTestUtils, TestCase):
@@ -195,3 +198,34 @@ class TestFormDataHelpers(TestCase):
                 'lines-1-DELETE': '',
             }
         )
+
+    def test_default_rich_text(self):
+        result = rich_text('<h2>title</h2><p>para</p>')
+        self.assertTrue(content_state_equal(
+            json.loads(result),
+            {
+                'entityMap': {},
+                'blocks': [
+                    {'inlineStyleRanges': [], 'text': 'title', 'depth': 0, 'type': 'header-two', 'key': '00000', 'entityRanges': []},
+                    {'inlineStyleRanges': [], 'text': 'para', 'depth': 0, 'type': 'unstyled', 'key': '00000', 'entityRanges': []},
+                ]
+            }
+        ))
+
+    def test_rich_text_with_custom_features(self):
+        # feature list doesn't allow <h2>, so it should become an unstyled paragraph block
+        result = rich_text('<h2>title</h2><p>para</p>', features=['p'])
+        self.assertTrue(content_state_equal(
+            json.loads(result),
+            {
+                'entityMap': {},
+                'blocks': [
+                    {'inlineStyleRanges': [], 'text': 'title', 'depth': 0, 'type': 'unstyled', 'key': '00000', 'entityRanges': []},
+                    {'inlineStyleRanges': [], 'text': 'para', 'depth': 0, 'type': 'unstyled', 'key': '00000', 'entityRanges': []},
+                ]
+            }
+        ))
+
+    def test_rich_text_with_alternative_editor(self):
+        result = rich_text('<h2>title</h2><p>para</p>', editor='hallo')
+        self.assertEqual(result, '<h2>title</h2><p>para</p>')

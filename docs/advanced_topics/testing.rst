@@ -97,6 +97,8 @@ Form data helpers
 
    .. autofunction:: nested_form_data
 
+   .. autofunction:: rich_text
+
    .. autofunction:: streamfield
 
    .. autofunction:: inline_formset
