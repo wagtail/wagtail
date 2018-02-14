@@ -275,6 +275,7 @@ Contributors
 * Dave Bell
 * Ben Weatherman
 * Carlo Ascani
+* Julian Gallo
 
 Translators
 ===========
