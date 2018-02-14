@@ -6,7 +6,7 @@ from wagtail.admin.tests.test_contentstate import content_state_equal
 from wagtail.core.models import PAGE_MODEL_CLASSES, Page, Site
 from wagtail.tests.testapp.models import (
     BusinessChild, BusinessIndex, BusinessNowherePage, BusinessSubIndex, EventIndex, EventPage,
-    SimplePage, StreamPage)
+    SectionedRichTextPage, SimplePage, StreamPage)
 from wagtail.tests.utils import WagtailPageTests, WagtailTestUtils
 from wagtail.tests.utils.form_data import inline_formset, nested_form_data, rich_text, streamfield
 
@@ -106,6 +106,50 @@ class TestWagtailPageTests(WagtailPageTests):
             'body-1-deleted': '',
             'body-count': '2'
         })
+
+        self.assertCanCreate(self.root, SectionedRichTextPage, {
+            'title': 'Fight Club',
+            'sections-TOTAL_FORMS': '2',
+            'sections-INITIAL_FORMS': '0',
+            'sections-MIN_NUM_FORMS': '0',
+            'sections-MAX_NUM_FORMS': '1000',
+            'sections-0-body': '''{"entityMap": {},"blocks": [
+                {"inlineStyleRanges": [], "text": "Rule 1: You do not talk about Fight Club", "depth": 0, "type": "unstyled", "key": "00000", "entityRanges": []}
+            ]}''',
+            'sections-0-ORDER': '0',
+            'sections-0-DELETE': '',
+            'sections-1-body': '''{"entityMap": {},"blocks": [
+                {"inlineStyleRanges": [], "text": "Rule 2: You DO NOT talk about Fight Club", "depth": 0, "type": "unstyled", "key": "00000", "entityRanges": []}
+            ]}''',
+            'sections-1-ORDER': '0',
+            'sections-1-DELETE': '',
+        })
+
+    def test_assert_can_create_with_form_helpers(self):
+        # same as test_assert_can_create, but using the helpers from wagtail.tests.utils.form_data
+        # as an end-to-end test
+        self.assertFalse(EventIndex.objects.exists())
+        self.assertCanCreate(self.root, EventIndex, nested_form_data({
+            'title': 'Event Index',
+            'intro': rich_text('<p>Event intro</p>')
+        }))
+        self.assertTrue(EventIndex.objects.exists())
+
+        self.assertCanCreate(self.root, StreamPage, nested_form_data({
+            'title': 'Flierp',
+            'body': streamfield([
+                ('text', 'Dit is onze mooie text'),
+                ('rich_text', rich_text('<p>Dit is onze mooie text in een ferrari</p>')),
+            ]),
+        }))
+
+        self.assertCanCreate(self.root, SectionedRichTextPage, nested_form_data({
+            'title': 'Fight Club',
+            'sections': inline_formset([
+                {'body': rich_text('<p>Rule 1: You do not talk about Fight Club</p>')},
+                {'body': rich_text('<p>Rule 2: You DO NOT talk about Fight Club</p>')},
+            ]),
+        }))
 
     def test_assert_can_create_subpage_rules(self):
         simple_page = SimplePage(title='Simple Page', slug='simple', content="hello")
