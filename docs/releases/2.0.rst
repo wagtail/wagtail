@@ -72,6 +72,7 @@ Other features
  * Simplified edit handler API (Florent Osmont, Bertrand Bordage)
  * Made 'add/change/delete collection' permissions configurable from the group edit page (Matt Westcott)
  * Expose React-related dependencies as global variables for extension in the admin interface (Thibaud Colas)
+ * Added helper functions for constructing form data for use with ``assertCanCreate``. See :ref:`form_data_test_helpers` (Tim Heap, Matt Westcott)
 
 
 Bug fixes
@@ -214,6 +215,31 @@ The Draftail rich text editor has a substantially different API from Hallo.js, i
             'WIDGET': 'wagtail.admin.rich_text.HalloRichTextArea'
         }
     }
+
+
+Data format for rich text fields in ``assertCanCreate`` tests has been updated
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The ``assertCanCreate`` test method (see :doc:`/advanced_topics/testing`) requires data to be passed in the same format that the page edit form would submit. The Draftail rich text editor posts this data in a non-HTML format, and so any existing ``assertCanCreate`` tests involving rich text fields will fail when Draftail is in use:
+
+  .. code-block:: python
+
+    self.assertCanCreate(root_page, ContentPage, {
+        'title': 'About us',
+        'body': '<p>Lorem ipsum dolor sit amet</p>',  # will not work
+    })
+
+Wagtail now provides a set of helper functions for constructing form data: see :ref:`form_data_test_helpers`. The above assertion can now be rewritten as:
+
+  .. code-block:: python
+
+    from wagtail.tests.utils.form_data import rich_text
+
+    self.assertCanCreate(root_page, ContentPage, {
+        'title': 'About us',
+        'body': rich_text('<p>Lorem ipsum dolor sit amet</p>'),
+    })
+
 
 
 Removed support for Elasticsearch 1.x
