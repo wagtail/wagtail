@@ -5,6 +5,7 @@ from wagtail.tests.testapp.models import (
     BusinessChild, BusinessIndex, BusinessNowherePage, BusinessSubIndex, EventIndex, EventPage,
     SimplePage, StreamPage)
 from wagtail.tests.utils import WagtailPageTests, WagtailTestUtils
+from wagtail.tests.utils.form_data import inline_formset, nested_form_data, streamfield
 
 
 class TestAssertTagInHTML(WagtailTestUtils, TestCase):
@@ -137,3 +138,60 @@ class TestWagtailPageTests(WagtailPageTests):
         self.assertAllowedParentPageTypes(BusinessIndex, all_but_business)
         with self.assertRaises(AssertionError):
             self.assertAllowedParentPageTypes(BusinessSubIndex, {BusinessSubIndex, BusinessIndex})
+
+
+class TestFormDataHelpers(TestCase):
+    def test_nested_form_data(self):
+        result = nested_form_data({
+            'foo': 'bar',
+            'parent': {
+                'child': 'field',
+            },
+        })
+        self.assertEqual(
+            result,
+            {'foo': 'bar', 'parent-child': 'field'}
+        )
+
+    def test_streamfield(self):
+        result = nested_form_data({'content': streamfield([
+            ('text', 'Hello, world'),
+            ('text', 'Goodbye, world'),
+        ])})
+
+        self.assertEqual(
+            result,
+            {
+                'content-count': '2',
+                'content-0-type': 'text',
+                'content-0-value': 'Hello, world',
+                'content-0-order': 0,
+                'content-0-deleted': '',
+                'content-1-type': 'text',
+                'content-1-value': 'Goodbye, world',
+                'content-1-order': 1,
+                'content-1-deleted': '',
+            }
+        )
+
+    def test_inline_formset(self):
+        result = nested_form_data({'lines': inline_formset([
+            {'text': 'Hello'},
+            {'text': 'World'},
+        ])})
+
+        self.assertEqual(
+            result,
+            {
+                'lines-TOTAL_FORMS': '2',
+                'lines-INITIAL_FORMS': '0',
+                'lines-MIN_NUM_FORMS': '0',
+                'lines-MAX_NUM_FORMS': '1000',
+                'lines-0-text': 'Hello',
+                'lines-0-ORDER': '0',
+                'lines-0-DELETE': '',
+                'lines-1-text': 'World',
+                'lines-1-ORDER': '1',
+                'lines-1-DELETE': '',
+            }
+        )
