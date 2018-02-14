@@ -55,6 +55,7 @@ Changelog
  * Update React and related dependencies to latest versions (Janneke Janssen, Hugo van den Berg)
  * Remove Hallo editor `.richtext` CSS class in favour of more explicit extension points (Thibaud Colas)
  * Expose React-related dependencies as global variables for extension in the admin interface (Thibaud Colas)
+ * Added helper functions for constructing form data for use with `assertCanCreate` (Tim Heap, Matt Westcott)
  * Fix: Do not remove stopwords when generating slugs from non-ASCII titles, to avoid issues with incorrect word boundaries (Sævar Öfjörð Magnússon)
  * Fix: The PostgreSQL search backend now preserves ordering of the `QuerySet` when searching with `order_by_relevance=False` (Bertrand Bordage)
  * Fix: Using `modeladmin_register` as a decorator no longer replaces the decorated class with `None` (Tim Heap)
