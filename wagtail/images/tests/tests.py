@@ -197,7 +197,7 @@ class TestFormat(TestCase, WagtailTestUtils):
         )
         self.assertEqual(result,
                          {'data-alt': 'test alt text', 'data-embedtype': 'image',
-                          'data-format': 'test name', 'data-id': 1})
+                          'data-format': 'test name', 'data-id': self.image.pk})
 
     def test_image_to_editor_html(self):
         result = self.format.image_to_editor_html(
@@ -205,21 +205,23 @@ class TestFormat(TestCase, WagtailTestUtils):
             'test alt text'
         )
         self.assertTagInHTML(
-            '<img data-embedtype="image" data-id="1" data-format="test name" '
+            '<img data-embedtype="image" data-id="%d" data-format="test name" '
             'data-alt="test alt text" class="test classnames" '
-            'width="640" height="480" alt="test alt text" >', result, allow_extra_attrs=True)
+            'width="640" height="480" alt="test alt text" >' % self.image.pk,
+            result, allow_extra_attrs=True)
 
     def test_image_to_editor_html_with_quoting(self):
         result = self.format.image_to_editor_html(
             self.image,
             'Arthur "two sheds" Jackson'
         )
-        self.assertTagInHTML(
-            '<img data-embedtype="image" data-id="1" data-format="test name" '
+        expected_html = (
+            '<img data-embedtype="image" data-id="%d" data-format="test name" '
             'data-alt="Arthur &quot;two sheds&quot; Jackson" class="test classnames" '
-            'width="640" height="480" alt="Arthur &quot;two sheds&quot; Jackson" >',
-            result, allow_extra_attrs=True)
-
+            'width="640" height="480" alt="Arthur &quot;two sheds&quot; Jackson" >'
+            % self.image.pk
+        )
+        self.assertTagInHTML(expected_html, result, allow_extra_attrs=True)
 
     def test_image_to_html_no_classnames(self):
         self.format.classnames = None
