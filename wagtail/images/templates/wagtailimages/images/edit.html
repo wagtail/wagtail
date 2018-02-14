@@ -31,10 +31,10 @@
     {% trans "Editing" as editing_str %}
     {% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=image.title icon="image" %}
 
-    <div class="row row-flush nice-padding">
+    <form action="{% url 'wagtailimages:edit' image.id %}" method="POST" enctype="multipart/form-data" novalidate>
+        {% csrf_token %}
 
-        <form action="{% url 'wagtailimages:edit' image.id %}" method="POST" enctype="multipart/form-data" novalidate>
-            {% csrf_token %}
+        <div class="row row-flush nice-padding">
 
             <div class="col5">
                 <ul class="fields">
@@ -71,7 +71,7 @@
 
                 </div>
                 <br />
-                <button class="button button-secondary no remove-focal-point">{% trans "Remove focal area" %}</button>
+                <button class="button button-secondary no remove-focal-point" type="button">{% trans "Remove focal area" %}</button>
             </div>
 
             <div class="col2 ">
@@ -97,13 +97,16 @@
                     {% endif %}
                 </dl>
             </div>
+        </div>
 
+        <div class="row row-flush nice-padding">
             <div class="col5">
                 <input type="submit" value="{% trans 'Save' %}" class="button" />
                 {% if user_can_delete %}
                     <a href="{% url 'wagtailimages:delete' image.id %}" class="button button-secondary no">{% trans "Delete image" %}</a>
                 {% endif %}
             </div>
-        </form>
-    </div>
+        </div>
+
+    </form>
 {% endblock %}
