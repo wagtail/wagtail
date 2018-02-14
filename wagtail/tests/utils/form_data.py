@@ -6,6 +6,8 @@ the ``wagtail.tests.utils.form_data`` module provides a set of helper
 functions to assist with this.
 """
 
+from wagtail.admin.rich_text import get_rich_text_editor_widget
+
 
 def _nested_form_data(data):
     if isinstance(data, dict):
@@ -113,3 +115,22 @@ def inline_formset(items, initial=0, min=0, max=1000):
         'MAX_NUM_FORMS': str(max),
     })
     return data_dict
+
+
+def rich_text(value, editor='default', features=None):
+    """
+    Converts an HTML-like rich text string to the data format required by
+    the currently active rich text editor.
+
+    :param editor: An alternative editor name as defined in ``WAGTAILADMIN_RICH_TEXT_EDITORS``
+    :param features: A list of features allowed in the rich text content (see :ref:`rich_text_features`)
+
+    .. code-block:: python
+
+        self.assertCanCreate(root_page, ContentPage, nested_form_data({
+            'title': 'About us',
+            'body': rich_text('<p>Lorem ipsum dolor sit amet</p>'),
+        }))
+    """
+    widget = get_rich_text_editor_widget(editor, features)
+    return widget.translate_value(value)
