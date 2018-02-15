@@ -144,6 +144,24 @@ class TestHtmlToContentState(TestCase):
             ]
         })
 
+    def test_inline_styles_at_start_of_bare_block(self):
+        converter = ContentstateConverter(features=['bold', 'italic'])
+        result = json.loads(converter.from_database_format(
+            '''<b>Seriously</b>, stop talking about <i>Fight Club</i> already.'''
+        ))
+        self.assertContentStateEqual(result, {
+            'entityMap': {},
+            'blocks': [
+                {
+                    'inlineStyleRanges': [
+                        {'offset': 0, 'length': 9, 'style': 'BOLD'},
+                        {'offset': 30, 'length': 10, 'style': 'ITALIC'},
+                    ],
+                    'text': 'Seriously, stop talking about Fight Club already.', 'depth': 0, 'type': 'unstyled', 'key': '00000', 'entityRanges': []
+                },
+            ]
+        })
+
     def test_inline_styles_depend_on_features(self):
         converter = ContentstateConverter(features=['italic', 'just-made-it-up'])
         result = json.loads(converter.from_database_format(
@@ -233,6 +251,44 @@ class TestHtmlToContentState(TestCase):
                 {
                     'inlineStyleRanges': [], 'text': 'an external link', 'depth': 0, 'type': 'unstyled', 'key': '00000',
                     'entityRanges': [{'offset': 3, 'length': 8, 'key': 0}]
+                },
+            ]
+        })
+
+    def test_link_in_bare_text(self):
+        converter = ContentstateConverter(features=['link'])
+        result = json.loads(converter.from_database_format(
+            '''an <a href="http://wagtail.io">external</a> link'''
+        ))
+        self.assertContentStateEqual(result, {
+            'entityMap': {
+                '0': {'mutability': 'MUTABLE', 'type': 'LINK', 'data': {'url': 'http://wagtail.io'}}
+            },
+            'blocks': [
+                {
+                    'inlineStyleRanges': [], 'text': 'an external link', 'depth': 0, 'type': 'unstyled', 'key': '00000',
+                    'entityRanges': [{'offset': 3, 'length': 8, 'key': 0}]
+                },
+            ]
+        })
+
+    def test_link_at_start_of_bare_text(self):
+        converter = ContentstateConverter(features=['link'])
+        result = json.loads(converter.from_database_format(
+            '''<a href="http://wagtail.io">an external link</a> and <a href="http://torchbox.com">another</a>'''
+        ))
+        self.assertContentStateEqual(result, {
+            'entityMap': {
+                '0': {'mutability': 'MUTABLE', 'type': 'LINK', 'data': {'url': 'http://wagtail.io'}},
+                '1': {'mutability': 'MUTABLE', 'type': 'LINK', 'data': {'url': 'http://torchbox.com'}},
+            },
+            'blocks': [
+                {
+                    'inlineStyleRanges': [], 'text': 'an external link and another', 'depth': 0, 'type': 'unstyled', 'key': '00000',
+                    'entityRanges': [
+                        {'offset': 0, 'length': 16, 'key': 0},
+                        {'offset': 21, 'length': 7, 'key': 1},
+                    ]
                 },
             ]
         })

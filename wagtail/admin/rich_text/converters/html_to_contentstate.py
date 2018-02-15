@@ -103,7 +103,13 @@ class InlineStyleElementHandler:
         self.style = style
 
     def handle_starttag(self, name, attrs, state, contentstate):
-        assert state.current_block is not None, "%s element found at the top level" % name
+        if state.current_block is None:
+            # Inline style element encountered at the top level -
+            # start a new paragraph block to contain it
+            block = Block('unstyled', depth=state.list_depth)
+            contentstate.blocks.append(block)
+            state.current_block = block
+            state.leading_whitespace = STRIP_WHITESPACE
 
         if state.leading_whitespace == FORCE_WHITESPACE:
             # any pending whitespace should be output before handling this tag,
@@ -131,7 +137,13 @@ class InlineEntityElementHandler:
         self.entity_type = entity_type
 
     def handle_starttag(self, name, attrs, state, contentstate):
-        assert state.current_block is not None, "%s element found at the top level" % name
+        if state.current_block is None:
+            # Inline entity element encountered at the top level -
+            # start a new paragraph block to contain it
+            block = Block('unstyled', depth=state.list_depth)
+            contentstate.blocks.append(block)
+            state.current_block = block
+            state.leading_whitespace = STRIP_WHITESPACE
 
         if state.leading_whitespace == FORCE_WHITESPACE:
             # any pending whitespace should be output before handling this tag,
