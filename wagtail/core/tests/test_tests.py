@@ -212,11 +212,11 @@ class TestFormDataHelpers(TestCase):
                 'content-count': '2',
                 'content-0-type': 'text',
                 'content-0-value': 'Hello, world',
-                'content-0-order': 0,
+                'content-0-order': '0',
                 'content-0-deleted': '',
                 'content-1-type': 'text',
                 'content-1-value': 'Goodbye, world',
-                'content-1-order': 1,
+                'content-1-order': '1',
                 'content-1-deleted': '',
             }
         )

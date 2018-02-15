@@ -58,13 +58,13 @@ def streamfield(items):
         #     'content-count': '1',
         #     'content-0-type': 'text',
         #     'content-0-value': 'Hello, world',
-        #     'content-0-order': 0,
+        #     'content-0-order': '0',
         #     'content-0-deleted': '',
         # }
     """
     def to_block(index, item):
         block, value = item
-        return {'type': block, 'value': value, 'deleted': '', 'order': index}
+        return {'type': block, 'value': value, 'deleted': '', 'order': str(index)}
     data_dict = {str(index): to_block(index, item)
                  for index, item in enumerate(items)}
     data_dict['count'] = str(len(data_dict))
