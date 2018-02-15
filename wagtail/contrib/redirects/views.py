@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.translation import ugettext as _
@@ -24,7 +25,9 @@ def index(request):
 
     # Search
     if query_string:
-        redirects = redirects.filter(old_path__icontains=query_string)
+        redirects = redirects.filter(Q(old_path__icontains=query_string) |
+                                     Q(redirect_page__url_path__icontains=query_string) |
+                                     Q(redirect_link__icontains=query_string))
 
     # Ordering (A bit useless at the moment as only 'old_path' is allowed)
     if ordering not in ['old_path']:

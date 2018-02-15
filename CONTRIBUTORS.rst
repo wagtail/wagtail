@@ -277,6 +277,7 @@ Contributors
 * Carlo Ascani
 * Julian Gallo
 * Dan Dietz
+* Michael Harrison
 
 Translators
 ===========
