@@ -13,7 +13,8 @@ from wagtail.admin.rich_text.converters.contentstate import link_entity
 from wagtail.admin.rich_text.converters.editor_html import LinkTypeRule, WhitelistRule
 from wagtail.admin.rich_text.converters.html_to_contentstate import (
     BlockElementHandler, ExternalLinkElementHandler, HorizontalRuleHandler,
-    InlineStyleElementHandler, ListElementHandler, ListItemElementHandler, PageLinkElementHandler)
+    InlineStyleElementHandler, LineBreakHandler, ListElementHandler, ListItemElementHandler,
+    PageLinkElementHandler)
 from wagtail.admin.search import SearchArea
 from wagtail.admin.utils import user_has_any_page_permission
 from wagtail.admin.viewsets import viewsets
@@ -266,6 +267,18 @@ def register_core_features(features):
         },
         'to_database_format': {
             'entity_decorators': {'HORIZONTAL_RULE': lambda props: DOM.create_element('hr')}
+        }
+    })
+
+    features.register_editor_plugin(
+        'draftail', 'br', draftail_features.BooleanFeature('enableLineBreak')
+    )
+    features.register_converter_rule('contentstate', 'br', {
+        'from_database_format': {
+            'br': LineBreakHandler(),
+        },
+        'to_database_format': {
+            'entity_decorators': {'LINE_BREAK': lambda props: DOM.create_element('br')}
         }
     })
 
