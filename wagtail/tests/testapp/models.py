@@ -27,7 +27,7 @@ from wagtail.contrib.forms.models import (
     FORM_FIELD_CHOICES, AbstractEmailForm, AbstractFormField, AbstractFormSubmission)
 from wagtail.contrib.settings.models import BaseSetting, register_setting
 from wagtail.contrib.table_block.blocks import TableBlock
-from wagtail.core.blocks import CharBlock, RichTextBlock
+from wagtail.core.blocks import CharBlock, RichTextBlock, StructBlock
 from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core.models import Orderable, Page, PageManager, PageQuerySet
 from wagtail.documents.edit_handlers import DocumentChooserPanel
@@ -901,6 +901,10 @@ class StreamPage(Page):
         ('text', CharBlock()),
         ('rich_text', RichTextBlock()),
         ('image', ExtendedImageChooserBlock()),
+        ('product', StructBlock([
+            ('name', CharBlock()),
+            ('price', CharBlock()),
+        ])),
     ])
 
     api_fields = ('body',)
