@@ -11,15 +11,15 @@
 # Guilherme Nabanete <neoheartz@gmail.com>, 2016
 # Joao Garcia <joaosdgarcia@gmail.com>, 2017
 # Luiz Boaretto <lboaretto@gmail.com>, 2016
-# Luiz Boaretto <lboaretto@gmail.com>, 2016-2017
+# Luiz Boaretto <lboaretto@gmail.com>, 2016-2018
 # Marcio Mazza <marciomazza@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-01-26 15:54+0000\n"
-"PO-Revision-Date: 2018-01-26 15:57+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-01-26 19:32+0000\n"
+"Last-Translator: Luiz Boaretto <lboaretto@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -258,6 +258,9 @@ msgstr "Página"
 msgid "Pages"
 msgstr "Páginas"
 
+msgid "Loading…"
+msgstr "Carregando..."
+
 msgid "No results"
 msgstr "Nenhum resultado"
 
@@ -272,6 +275,24 @@ msgstr "Ver todos"
 
 msgid "Close explorer"
 msgstr "Fechar explorador"
+
+msgid "Alt text"
+msgstr "Texto alternativo"
+
+msgid "Write here…"
+msgstr "Escreva aqui…"
+
+msgid "Horizontal line"
+msgstr "Linha horizontal"
+
+msgid "Line break"
+msgstr "Linha de quebra"
+
+msgid "Undo"
+msgstr "Desfazer"
+
+msgid "Redo"
+msgstr "Refazer"
 
 msgid "Dashboard"
 msgstr "Painel"
@@ -397,6 +418,10 @@ msgstr ""
 "Nenhuma coleção foi criada. Porque não <a href=\"%(add_collection_url)s"
 "\">adicionar uma</a>?"
 
+#, python-format
+msgid "Add %(label)s"
+msgstr "Adicionar %(label)s"
+
 msgid "Yes, delete"
 msgstr "Sim, remover"
 
@@ -489,6 +514,9 @@ msgstr "Entrar no Wagtail"
 
 msgid "Forgotten it?"
 msgstr "Esqueceu a senha?"
+
+msgid "Signing in…"
+msgstr "Entrando..."
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -688,8 +716,14 @@ msgstr "Adicionar %(page_type)s"
 msgid "New"
 msgstr "Adicionar"
 
+msgid "Saving…"
+msgstr "Salvando…"
+
 msgid "Save draft"
 msgstr "Salvar rascunho"
+
+msgid "Publishing…"
+msgstr "Publicando..."
 
 msgid "Publish"
 msgstr "Publicar"
@@ -952,6 +986,22 @@ msgid "There are no differences between these two revisions"
 msgstr "Não há diferenças entre essas duas revisões"
 
 #, python-format
+msgid "Unschedule Revision %(revision.id)s for %(title)s"
+msgstr "Revisão não agendada %(revision.id)s para %(title)s"
+
+msgid "Unschedule"
+msgstr "Não agendar"
+
+msgid "Are you sure you want to unschedule this revision?"
+msgstr "Tem certeza de que deseja não agendar esta revisão?"
+
+msgid "Yes, unschedule"
+msgstr "Sim, não agendar"
+
+msgid "No, don't unschedule"
+msgstr "Não, não agendar"
+
+#, python-format
 msgid "Revisions of %(title)s"
 msgstr "Revisões de %(title)s"
 
@@ -971,11 +1021,17 @@ msgstr "Rascunho atual"
 msgid "Live version"
 msgstr "Versão publicada"
 
+msgid "Scheduled for"
+msgstr "Agendado para"
+
 msgid "Review this revision"
 msgstr "Revise esta revisão"
 
 msgid "Compare with previous revision"
 msgstr "Comparar com a revisão anterior"
+
+msgid "Cancel scheduled publish"
+msgstr "Cancelar publicação agendada"
 
 msgid "No revisions of this page exist"
 msgstr "Não há revisões para esta página"
@@ -1270,6 +1326,10 @@ msgstr "A página não pôde ser criada devido a erros de validação"
 msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
 msgstr "Revisão de {0} da página '{1}' foi agendada para publicação."
 
+msgid "Page '{0}' is live and this revision has been scheduled for publishing."
+msgstr ""
+"A página '{0}' está online e esta revisão foi agendada para publicação."
+
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Página '{0}' foi agendada para publicação."
 
@@ -1350,6 +1410,12 @@ msgstr "Mais cedo"
 msgid "Latest"
 msgstr "Mais recentes"
 
+msgid "revision {0} of \"{1}\""
+msgstr "revisão {0} de \"{1}\""
+
+msgid "Revision {0} of \"{1}\" unscheduled."
+msgstr "Revisão {0} de \"{1}\" não agendada."
+
 msgid "Edit '{title}'"
 msgstr "Editar '{title}'"
 
@@ -1382,6 +1448,24 @@ msgstr "Despublicar página '{title}'"
 
 msgid "View revision history for '{title}'"
 msgstr "Ver histórico de revisões para '{title}'"
+
+msgid "Heading {level}"
+msgstr "Cabeçalho {level}"
+
+msgid "Bulleted list"
+msgstr "Lista com marcadores"
+
+msgid "Numbered list"
+msgstr "Lista numerada"
+
+msgid "Bold"
+msgstr "Negrito"
+
+msgid "Italic"
+msgstr "Itálico"
+
+msgid "Link"
+msgstr "Link"
 
 msgid "Choose an item"
 msgstr "Escolha um item"

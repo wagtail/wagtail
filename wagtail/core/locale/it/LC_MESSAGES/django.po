@@ -5,14 +5,14 @@
 # Translators:
 # Alessio Di Stasio <aledista@gmail.com>, 2015
 # Edd Baldry <edd.baldry@gmail.com>, 2016
-# Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2017
+# Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-01-26 15:54+0000\n"
-"PO-Revision-Date: 2018-01-26 15:58+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-02-07 19:09+0000\n"
+"Last-Translator: Giacomo Ghizzani <giacomo.ghz@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -26,6 +26,17 @@ msgstr "{label}: questo blocco non ha opzioni."
 
 msgid "This block has no options."
 msgstr "Questo blocco non ha opzioni"
+
+#, python-format
+msgid "The minimum number of items is %d"
+msgstr "Il numero minimo di elementi è %d"
+
+msgid "This field is required."
+msgstr "Questo campo è obbligatorio."
+
+#, python-format
+msgid "The maximum number of items is %d"
+msgstr "Il numero massimo di elementi è %d"
 
 msgid "Password"
 msgstr "Password"

@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-01-26 15:54+0000\n"
-"PO-Revision-Date: 2018-01-26 15:57+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-01-30 00:43+0000\n"
+"Last-Translator: Viktor Shytiuk <VicHunting@yandex.ua>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
 "MIME-Version: 1.0\n"
@@ -22,7 +22,7 @@ msgstr ""
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 msgid "You do not have permission to access the admin"
-msgstr "У Вас не вистачає прав на доступ до адмінпанелі"
+msgstr "У Вас не вистачає прав для доступу до адмінпанелі"
 
 msgid "Scheduled publishing"
 msgstr "Запланована публікація"
@@ -33,6 +33,9 @@ msgstr "Загальні налаштування сторінкі"
 msgid "Content"
 msgstr "Контент"
 
+msgid "Promote"
+msgstr "Просування"
+
 msgid "Settings"
 msgstr "Налаштування"
 
@@ -42,6 +45,9 @@ msgstr "Пошук"
 msgid "Search term"
 msgstr "Пошуковий термін"
 
+msgid "URL"
+msgstr "URL"
+
 msgid "Enter password"
 msgstr "Введіть пароль"
 
@@ -50,7 +56,7 @@ msgid "Enter your %s"
 msgstr "Введіть ваш %s"
 
 msgid "Enter your email address to reset your password"
-msgstr "Введіть вашу е-мейл адресу для перевстановлення паролю"
+msgstr "Введіть вашу е-мейл адресу для скидання паролю"
 
 msgid "Please fill your email address."
 msgstr "Будь-ласка, введіть вашу е-мейл адресу."
@@ -59,8 +65,8 @@ msgid ""
 "Sorry, you cannot reset your password here as your user account is managed "
 "by another server."
 msgstr ""
-"Нажаль ви не можете перевстановиті пароль тут, тому що, ваш обліковий запис "
-"управляється іншим сервером."
+"На жаль ви не можете скинути пароль тут, тому що, ваш обліковий запис є "
+"керованим іншим сервером."
 
 msgid "This email address is not recognised."
 msgstr "Ця адреса електронної пошти невідома системі."
@@ -73,6 +79,9 @@ msgstr "Нова коротка назва для URL"
 
 msgid "New parent page"
 msgstr "Нова батьківська сторінка"
+
+msgid "This copy will be a child of this given parent page."
+msgstr "Ця копія буде спадковою для даної батьківської сторінки."
 
 msgid "Copy subpages"
 msgstr "Скопіюваті підсторінки"
@@ -89,8 +98,7 @@ msgstr "Опублікуваті скопійовані сторінки"
 
 msgid "This page is live. Would you like to publish its copy as well?"
 msgstr ""
-"Ця сторїнка вїдображається на сайті, хочете також опублїкуваті також її "
-"копію?"
+"Ця сторінка відображається на сайті, хочете також опублікувати її копію?"
 
 msgid "Publish copies"
 msgstr "Опублїкувати копії"
@@ -111,6 +119,19 @@ msgstr[1] ""
 msgstr[2] ""
 "%(count)s сторінок, що ви копіюєте, вже опубліковано. Хочете опублїкувати їх "
 "копїю?"
+
+#, python-format
+msgid "You do not have permission to copy to page \"%(page_title)s\""
+msgstr "Ви не маєте прав на копіювання до сторінок \"%(page_title)s\""
+
+#, python-format
+msgid ""
+"This slug is already in use within the context of its parent page \"%s\""
+msgstr ""
+"Ця коротка назва вже використана в контексті батьківської сторінки \"%s\""
+
+msgid "You cannot copy a page into itself when copying subpages"
+msgstr "Не можливо скопіювати сторінку в саму себе, коли копіюєте підсторінки"
 
 msgid "Visibility"
 msgstr "Видимість"
@@ -151,14 +172,28 @@ msgstr "Налаштування повідомлень"
 msgid "Choose which email notifications to receive."
 msgstr "Виберіть пошту, на яку надходитимуть повідомлення"
 
+msgid "Language preferences"
+msgstr "Налаштування мови"
+
 msgid "Choose the language you want to use here."
 msgstr "Виберіть мову, яку ви хочете тут використовувати"
+
+msgid ""
+"Your password can't be changed here. Please contact a site administrator."
+msgstr ""
+"Ваш пароль неможливо змінити. Будь-ласка, зверніться до адміністратора."
 
 msgid "Language Preferences"
 msgstr "Налаштування мови"
 
+msgid "Update"
+msgstr "Оновити"
+
 msgid "Reset password"
 msgstr "Скинути пароль"
+
+msgid "Password change successful"
+msgstr "Пароль вдало змінений"
 
 msgid "Login"
 msgstr "Вхід"
@@ -178,8 +213,14 @@ msgstr "Посилання для скидання паролю було над�
 msgid "Please follow the link below to reset your password:"
 msgstr "Слідуйте за посиланням щоб скинути пароль"
 
+msgid "Your username (in case you've forgotten):"
+msgstr "Ваше ім'я користувача (якщо забули):"
+
 msgid "Password reset"
 msgstr "Скидання паролю"
+
+msgid "Reset your password"
+msgstr "Скинути Ваш пароль"
 
 msgid "Edit"
 msgstr "Редагування"
@@ -193,11 +234,26 @@ msgstr "Сторінка"
 msgid "Pages"
 msgstr "Сторінки"
 
+msgid "Loading…"
+msgstr "Завантаження..."
+
 msgid "No results"
 msgstr "Результати відсутні"
 
 msgid "Server Error"
 msgstr "Помилка Сервера"
+
+msgid "Alt text"
+msgstr "Змінити текст"
+
+msgid "Write here…"
+msgstr "Пишіть тут..."
+
+msgid "Horizontal line"
+msgstr "Горизонтальна лінія"
+
+msgid "Line break"
+msgstr "Рядковий розрив"
 
 msgid "Dashboard"
 msgstr "Панель"
@@ -208,14 +264,29 @@ msgstr "Меню"
 msgid "Add another"
 msgstr "Додати іншого"
 
+msgid "Move up"
+msgstr "Пересунути вгору"
+
+msgid "Move down"
+msgstr "Пересунути вниз"
+
 msgid "Explorer"
 msgstr "Управління файлами"
+
+msgid "Internal link"
+msgstr "Внутрішнє посилання"
+
+msgid "External link"
+msgstr "Зовнішнє посилання"
 
 msgid "Choose"
 msgstr "Вибрати"
 
 msgid "Choose a page"
 msgstr "Оберіть сторінку"
+
+msgid "Insert link"
+msgstr "Вставити посилання"
 
 msgid "Save"
 msgstr "Зберегти"
@@ -260,6 +331,10 @@ msgstr "Відхилити"
 msgid "Preview"
 msgstr "Попередній перегляд"
 
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "1%(time_period)s тому"
+
 msgid "Date"
 msgstr "Дата"
 
@@ -280,6 +355,18 @@ msgstr "Забули це?"
 
 msgid "Page privacy"
 msgstr "Приватність сторінки"
+
+msgid "Locked"
+msgstr "Заблоковано"
+
+msgid "Unlocked"
+msgstr "Розблоковано"
+
+msgid "Publishing…"
+msgstr "Опубліковується..."
+
+msgid "Fields"
+msgstr "Поля"
 
 msgid "Choose another page"
 msgstr "Оберіть іншу сторінку"

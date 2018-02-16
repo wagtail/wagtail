@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Dan Braghis, 2014-2017
+# Dan Braghis, 2014-2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-01-26 15:54+0000\n"
-"PO-Revision-Date: 2018-01-26 15:59+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-01-26 23:41+0000\n"
+"Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -112,6 +112,13 @@ msgstr "Șterge %(title)s"
 msgid "Delete document"
 msgstr "Șterge document"
 
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)s  utilizări"
+msgstr[1] "%(usage_count)s utilizări"
+msgstr[2] "%(usage_count)s utilizări"
+
 msgid "Are you sure you want to delete this document?"
 msgstr "Sigur doriți să ștergeți acest document?"
 
@@ -133,6 +140,9 @@ msgstr "Mărime fișier"
 
 msgid "File not found"
 msgstr "Fișierul nu a fost găsit"
+
+msgid "Usage"
+msgstr "Utilizare"
 
 msgid "Documents"
 msgstr "Documente"
@@ -266,6 +276,9 @@ msgstr "Fișierul nu a fost găsit. Schimbă sursa sau sterge documentul"
 
 msgid "Document '{0}' deleted."
 msgstr "Documentul '{0}' a fost șters."
+
+msgid "Document"
+msgstr "Document"
 
 #, python-format
 msgid "%(count)s document"

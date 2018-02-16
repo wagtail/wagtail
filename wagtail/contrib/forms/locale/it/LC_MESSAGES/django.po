@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2017
+# Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-01-26 15:54+0000\n"
-"PO-Revision-Date: 2018-01-26 16:05+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-02-07 19:13+0000\n"
+"Last-Translator: Giacomo Ghizzani <giacomo.ghz@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -18,6 +18,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: it\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#, python-format
+msgid "%s submissions"
+msgstr "%s invii"
 
 msgid "Date from"
 msgstr "Data dal"
@@ -53,6 +57,9 @@ msgstr "Checkboxes"
 msgid "Drop down"
 msgstr "Drop down"
 
+msgid "Multiple select"
+msgstr "Selezione multipla"
+
 msgid "Radio buttons"
 msgstr "Radio buttons"
 
@@ -61,6 +68,9 @@ msgstr "Data"
 
 msgid "Date/time"
 msgstr "Data/ora"
+
+msgid "Hidden field"
+msgstr "Campo nascosto"
 
 msgid "submit time"
 msgstr "ora di invio"

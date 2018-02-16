@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Andreas Lans <andreas.lans@gmail.com>, 2018
 # André Karlsson <andre@sess.se>, 2017
 # Hannes Lohmander <c.hannes.l@gmail.com>, 2015
 # Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2017
@@ -13,8 +14,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-01-26 15:54+0000\n"
-"PO-Revision-Date: 2018-01-26 15:57+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-02-09 14:13+0000\n"
+"Last-Translator: Andreas Lans <andreas.lans@gmail.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -152,6 +153,15 @@ msgstr "Utgångsdatum/-tid måste ske i framtiden"
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Du kan inte ha multipla rättigheter för samma kollektion"
 
+msgid "Error 404: Page not found"
+msgstr "Sidfel 404: Sidan kunde inte hittas"
+
+msgid "Error 404"
+msgstr "Fel 404"
+
+msgid "The requested page could not be found."
+msgstr "Den efterfrågade sidan kunde inte hittas"
+
 msgid "Go to Wagtail admin"
 msgstr "Gå till Wagtail admin"
 
@@ -244,6 +254,9 @@ msgstr "Sida"
 msgid "Pages"
 msgstr "Sidor"
 
+msgid "Loading…"
+msgstr "Laddar..."
+
 msgid "No results"
 msgstr "Inga resultat funna"
 
@@ -258,6 +271,24 @@ msgstr "Visa alla"
 
 msgid "Close explorer"
 msgstr "Stäng utforskaren"
+
+msgid "Alt text"
+msgstr "Alternativ text"
+
+msgid "Write here…"
+msgstr "Skriv här..."
+
+msgid "Horizontal line"
+msgstr "Horisontell linje"
+
+msgid "Line break"
+msgstr "Linjebrytning"
+
+msgid "Undo"
+msgstr "Ångra"
+
+msgid "Redo"
+msgstr "Gör om"
 
 msgid "Dashboard"
 msgstr "Instrumentpanel"
@@ -380,6 +411,10 @@ msgstr ""
 "Inga kollektioner har skapats. Varför inte <a href=\"%(add_collection_url)s"
 "\">skapa en</a>?"
 
+#, python-format
+msgid "Add %(label)s"
+msgstr "Lägg till %(label)s"
+
 msgid "Yes, delete"
 msgstr "Ja, radera"
 
@@ -474,6 +509,9 @@ msgstr "Logga in till Wagtail"
 
 msgid "Forgotten it?"
 msgstr "Glömt det?"
+
+msgid "Signing in…"
+msgstr "Loggar in..."
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -674,8 +712,14 @@ msgstr "Nya %(page_type)s"
 msgid "New"
 msgstr "Ny"
 
+msgid "Saving…"
+msgstr "Sparar..."
+
 msgid "Save draft"
 msgstr "Spara utkast"
+
+msgid "Publishing…"
+msgstr "Publicerar..."
 
 msgid "Publish"
 msgstr "Publicera"
@@ -937,6 +981,22 @@ msgid "There are no differences between these two revisions"
 msgstr "Det finns ingen skillnad mellan dessa två revisioner"
 
 #, python-format
+msgid "Unschedule Revision %(revision.id)s for %(title)s"
+msgstr "Ej schemalagd revision %(revision.id)s för %(title)s"
+
+msgid "Unschedule"
+msgstr "Schemalägg inte"
+
+msgid "Are you sure you want to unschedule this revision?"
+msgstr "Är du säker på att du vill radera denna revision?"
+
+msgid "Yes, unschedule"
+msgstr "Ja, ta bort schemaläggning"
+
+msgid "No, don't unschedule"
+msgstr "Nej, behåll schemaläggning"
+
+#, python-format
 msgid "Revisions of %(title)s"
 msgstr "Revisioner utav %(title)s"
 
@@ -956,11 +1016,17 @@ msgstr "Nuvarande utkast"
 msgid "Live version"
 msgstr "Publicerad version"
 
+msgid "Scheduled for"
+msgstr "Schemalagd till"
+
 msgid "Review this revision"
 msgstr "Granska denna revision"
 
 msgid "Compare with previous revision"
 msgstr "Jämför med föregående revision"
+
+msgid "Cancel scheduled publish"
+msgstr "Avbryt schmalagd publicering"
 
 msgid "No revisions of this page exist"
 msgstr "Inga revisioner av den här sidan existerar"
@@ -998,6 +1064,9 @@ msgstr "Inga sidor använder"
 
 msgid "Collection"
 msgstr "Samling"
+
+msgid "Root"
+msgstr "Rot"
 
 msgid "Home"
 msgstr "Hem"
@@ -1251,6 +1320,11 @@ msgstr "Sidan kunde ej bli skapad p.g.a. valideringsfel"
 msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
 msgstr "Revisionen {0} av sida '{1}' har blivit schemalagd för publicering."
 
+msgid "Page '{0}' is live and this revision has been scheduled for publishing."
+msgstr ""
+"Sidan '{0}' är uppdaterad and och den här revisionen har blivit schemalagd "
+"för publicering."
+
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Sida '{0}' har blivit schemalagd för publicering."
 
@@ -1331,6 +1405,12 @@ msgstr "Tidigast"
 msgid "Latest"
 msgstr "Senast"
 
+msgid "revision {0} of \"{1}\""
+msgstr "revision {0} av \"{1}\""
+
+msgid "Revision {0} of \"{1}\" unscheduled."
+msgstr "Revision {0} av \"{1}\" ej schemalagd."
+
 msgid "Edit '{title}'"
 msgstr "Editera '{title}'"
 
@@ -1363,6 +1443,24 @@ msgstr "Avpublicera sida '{title}'"
 
 msgid "View revision history for '{title}'"
 msgstr "Se revisionshistorik för '{title}'"
+
+msgid "Heading {level}"
+msgstr "Titel {level}"
+
+msgid "Bulleted list"
+msgstr "Punktlista"
+
+msgid "Numbered list"
+msgstr "Numrerad lista"
+
+msgid "Bold"
+msgstr "Fetstil"
+
+msgid "Italic"
+msgstr "Kursiv"
+
+msgid "Link"
+msgstr "Länk"
 
 msgid "Choose an item"
 msgstr "Välj ett objekt"

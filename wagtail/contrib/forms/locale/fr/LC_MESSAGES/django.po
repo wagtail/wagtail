@@ -9,6 +9,7 @@
 # Benoît Vogel <contact@spicy-informatique.com>, 2016-2017
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015,2017
 # Léo <leo@naeka.fr>, 2016
+# Loïc Teixeira <hello@lta.me>, 2018
 # pierre marfoure <pierre@onoffdesign.com>, 2016
 # Sophy O <sophy.ouch@erudit.org>, 2017
 # Tom Dyson <tom@torchbox.com>, 2015
@@ -17,8 +18,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-01-26 15:54+0000\n"
-"PO-Revision-Date: 2018-01-26 16:05+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-02-13 00:54+0000\n"
+"Last-Translator: Loïc Teixeira <hello@lta.me>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -26,6 +27,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#, python-format
+msgid "%s submissions"
+msgstr "%s soumissions "
 
 msgid "Date from"
 msgstr "Date depuis le"
@@ -73,6 +78,9 @@ msgstr "Date"
 
 msgid "Date/time"
 msgstr "Date/heure"
+
+msgid "Hidden field"
+msgstr "Champ caché"
 
 msgid "submit time"
 msgstr "Horodatage de soumission"

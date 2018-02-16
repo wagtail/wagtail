@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2017
+# Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-01-26 15:54+0000\n"
-"PO-Revision-Date: 2018-01-26 16:01+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-02-07 19:12+0000\n"
+"Last-Translator: Giacomo Ghizzani <giacomo.ghz@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -203,6 +203,12 @@ msgstr "Salva"
 msgid "Delete image"
 msgstr "Elimina immagine"
 
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Usato %(usage_count)s volta"
+msgstr[1] "Usato %(usage_count)s volte"
+
 msgid "Are you sure you want to delete this image?"
 msgstr "Sei sicuro di voler eliminare questa immagine?"
 
@@ -243,6 +249,9 @@ msgstr "Dimensione file"
 
 msgid "File not found"
 msgstr "File non trovato"
+
+msgid "Usage"
+msgstr "Uso"
 
 msgid "Images"
 msgstr "Immagini"
@@ -377,11 +386,17 @@ msgstr "Immagine '{0}' aggiunta."
 msgid "The image could not be created due to errors."
 msgstr "L'immagine non può essere creata a causa di errori."
 
+msgid "Image"
+msgstr "Immagine"
+
 #, python-format
 msgid "%(count)s image"
 msgid_plural "%(count)s images"
 msgstr[0] "%(count)s immagine"
 msgstr[1] "%(count)s immagini"
+
+msgid "Change image"
+msgstr "Cambia immagine"
 
 msgid "Edit this image"
 msgstr "Modifica questa immagine"

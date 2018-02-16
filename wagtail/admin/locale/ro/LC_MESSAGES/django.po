@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Dan Braghis, 2014-2017
+# Dan Braghis, 2014-2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-01-26 15:54+0000\n"
-"PO-Revision-Date: 2018-01-26 15:57+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-01-26 23:37+0000\n"
+"Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -156,6 +156,15 @@ msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
 "Nu puteți avea înregistrări de permisiune multiple pentru aceeași colecție."
 
+msgid "Error 404: Page not found"
+msgstr "Eroare 404: Pagina nu a fost găsită"
+
+msgid "Error 404"
+msgstr "Eroare 404"
+
+msgid "The requested page could not be found."
+msgstr "Pagina solicitată nu a fost găsită."
+
 msgid "Go to Wagtail admin"
 msgstr "Spre interfața de administrare Wagtail"
 
@@ -249,6 +258,9 @@ msgstr "Pagină"
 msgid "Pages"
 msgstr "Pagini"
 
+msgid "Loading…"
+msgstr "Se încarcă…"
+
 msgid "No results"
 msgstr "Nici un rezultat"
 
@@ -263,6 +275,24 @@ msgstr "Vezi toate"
 
 msgid "Close explorer"
 msgstr "Închide exploratorul"
+
+msgid "Alt text"
+msgstr "Text alternativ"
+
+msgid "Write here…"
+msgstr "Scrieți aici…"
+
+msgid "Horizontal line"
+msgstr "Linie orizontală"
+
+msgid "Line break"
+msgstr "Sfârșit de linie"
+
+msgid "Undo"
+msgstr "Anulare"
+
+msgid "Redo"
+msgstr "Refacere"
 
 msgid "Dashboard"
 msgstr "Bord"
@@ -392,6 +422,10 @@ msgstr ""
 "Nu a fost creată nici o colecție. De ce să nu <a href="
 "\"%(add_collection_url)s\">adăugați una</a>?"
 
+#, python-format
+msgid "Add %(label)s"
+msgstr "Adaugă %(label)s"
+
 msgid "Yes, delete"
 msgstr "Da, șterge"
 
@@ -485,6 +519,9 @@ msgstr "Conectați-vă la Wagtail"
 
 msgid "Forgotten it?"
 msgstr "Ați uitat?"
+
+msgid "Signing in…"
+msgstr "În curs de conectare…"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -687,8 +724,14 @@ msgstr "%(page_type)s nouă"
 msgid "New"
 msgstr "Nou"
 
+msgid "Saving…"
+msgstr "În curs de salvare..."
+
 msgid "Save draft"
 msgstr "Salvează ca ciornă"
+
+msgid "Publishing…"
+msgstr "În curs de publicare…"
 
 msgid "Publish"
 msgstr "Publică"
@@ -957,6 +1000,22 @@ msgid "There are no differences between these two revisions"
 msgstr "Aceste două revizii nu au nici o diferență"
 
 #, python-format
+msgid "Unschedule Revision %(revision.id)s for %(title)s"
+msgstr "Anulează programarea reviziei %(revision.id)s pentru %(title)s"
+
+msgid "Unschedule"
+msgstr "Anulează programare"
+
+msgid "Are you sure you want to unschedule this revision?"
+msgstr "Sigur doriți să anulați programarea acestei revizii?"
+
+msgid "Yes, unschedule"
+msgstr "Da, anulează programarea"
+
+msgid "No, don't unschedule"
+msgstr "Nu, nu anulează programarea"
+
+#, python-format
 msgid "Revisions of %(title)s"
 msgstr "Revizii pentru %(title)s"
 
@@ -976,11 +1035,17 @@ msgstr "Ciornă curentă"
 msgid "Live version"
 msgstr "Versiune live"
 
+msgid "Scheduled for"
+msgstr "Programat pentru"
+
 msgid "Review this revision"
 msgstr "Revezi această revizie"
 
 msgid "Compare with previous revision"
 msgstr "Compară cu revizia precedentă"
+
+msgid "Cancel scheduled publish"
+msgstr "Anulează publicarea programată"
 
 msgid "No revisions of this page exist"
 msgstr "Această pagină nu are nici o revizie."
@@ -1020,6 +1085,9 @@ msgstr "Nici o pagină nu utilizează"
 
 msgid "Collection"
 msgstr "Colecție"
+
+msgid "Root"
+msgstr "Pagină de bază"
 
 msgid "Home"
 msgstr "Acasă"
@@ -1168,6 +1236,9 @@ msgstr "Islandeză"
 msgid "Italian"
 msgstr "Italiană"
 
+msgid "Korean"
+msgstr "coreeană"
+
 msgid "Lithuanian"
 msgstr "Lituaniană"
 
@@ -1194,6 +1265,9 @@ msgstr "Română"
 
 msgid "Russian"
 msgstr "Rusă"
+
+msgid "Swedish"
+msgstr "suedeză"
 
 msgid "Chinese (China)"
 msgstr "Chineză"
@@ -1266,6 +1340,10 @@ msgstr "Pagina nu a fost creată din cauza erorilor de validare."
 
 msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
 msgstr "Revizia din {0} a paginii '{1}' a fost programată pentru publicare."
+
+msgid "Page '{0}' is live and this revision has been scheduled for publishing."
+msgstr ""
+"Pagina '{0}' este live. Această  revizie a fost programată pentru publicare."
 
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Pagina '{0}' a fost programată pentru publicare."
@@ -1347,6 +1425,12 @@ msgstr "Cea mai veche"
 msgid "Latest"
 msgstr "Cea mai recentă"
 
+msgid "revision {0} of \"{1}\""
+msgstr "revizia {0} pentru \"{1}\""
+
+msgid "Revision {0} of \"{1}\" unscheduled."
+msgstr "Programare anulată pentru revizia {0} a \"{1}\""
+
 msgid "Edit '{title}'"
 msgstr "Editează '{title}'"
 
@@ -1379,6 +1463,24 @@ msgstr "Anulează publicarea paginii '{title}'"
 
 msgid "View revision history for '{title}'"
 msgstr "Vezi istoria reviziilor pentru '{title}'"
+
+msgid "Heading {level}"
+msgstr "Antet {level}"
+
+msgid "Bulleted list"
+msgstr "Listă cu puncte"
+
+msgid "Numbered list"
+msgstr "Listă numerotată"
+
+msgid "Bold"
+msgstr "Caractere aldine"
+
+msgid "Italic"
+msgstr "Cursiv"
+
+msgid "Link"
+msgstr "Legătură"
 
 msgid "Choose an item"
 msgstr "Alege un element"

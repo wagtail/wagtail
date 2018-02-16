@@ -5,7 +5,7 @@
 # Translators:
 # utek <mail@utek.pl>, 2014
 # Miłosz Miśkiewicz, 2016-2017
-# Miłosz Miśkiewicz, 2017
+# Miłosz Miśkiewicz, 2017-2018
 # Miłosz Miśkiewicz, 2016
 # utek <mail@utek.pl>, 2014
 msgid ""
@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-01-26 15:54+0000\n"
-"PO-Revision-Date: 2018-01-26 16:04+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-02-08 21:17+0000\n"
+"Last-Translator: Miłosz Miśkiewicz\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -182,6 +182,10 @@ msgstr "grupy"
 
 msgid "Add a group"
 msgstr "Dodaj do grupy"
+
+#, python-format
+msgid "Sorry, no groups match \"%(query)s\""
+msgstr "Przykro nam, żadna grupa nie pasuje do \"%(query)s\""
 
 #, python-format
 msgid ""

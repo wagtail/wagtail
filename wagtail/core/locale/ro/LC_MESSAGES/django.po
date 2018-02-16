@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Dan Braghis, 2014-2017
+# Dan Braghis, 2014-2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-01-26 15:54+0000\n"
-"PO-Revision-Date: 2018-01-26 15:58+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-01-26 23:38+0000\n"
+"Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -25,6 +25,17 @@ msgstr "{label}: acest block nu are nici o opțiune."
 
 msgid "This block has no options."
 msgstr "Acest bloc nu are nici o opțiune."
+
+#, python-format
+msgid "The minimum number of items is %d"
+msgstr "Numărul minim de articole este %d"
+
+msgid "This field is required."
+msgstr "Acest câmp este obligatoriu."
+
+#, python-format
+msgid "The maximum number of items is %d"
+msgstr "Numărul maxim de articole este %d"
 
 msgid "Password"
 msgstr "Parolă"
@@ -163,6 +174,9 @@ msgstr "programată"
 
 msgid "draft"
 msgstr "ciornă"
+
+msgid "live + scheduled"
+msgstr "live + programată"
 
 msgid "live + draft"
 msgstr "live + ciornă"
