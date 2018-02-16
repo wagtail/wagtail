@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1549,10 +1549,14 @@ msgid "Swedish"
 msgstr ""
 
 #: utils.py:47
+msgid "Slovak"
+msgstr ""
+
+#: utils.py:48
 msgid "Chinese (China)"
 msgstr ""
 
-#: utils.py:121
+#: utils.py:122
 msgid "Sorry, you do not have permission to access this area."
 msgstr ""
 
@@ -1581,10 +1585,12 @@ msgid "Add collection"
 msgstr ""
 
 #: views/collections.py:32
+#, python-brace-format
 msgid "Collection '{0}' created."
 msgstr ""
 
 #: views/collections.py:51
+#, python-brace-format
 msgid "Collection '{0}' updated."
 msgstr ""
 
@@ -1597,6 +1603,7 @@ msgid "Delete collection"
 msgstr ""
 
 #: views/collections.py:68
+#, python-brace-format
 msgid "Collection '{0}' deleted."
 msgstr ""
 
@@ -1609,6 +1616,7 @@ msgid "Editing"
 msgstr ""
 
 #: views/pages.py:219
+#, python-brace-format
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr ""
 
@@ -1618,10 +1626,12 @@ msgid "View live"
 msgstr ""
 
 #: views/pages.py:227
+#, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr ""
 
 #: views/pages.py:231
+#, python-brace-format
 msgid "Page '{0}' created and submitted for moderation."
 msgstr ""
 
@@ -1634,6 +1644,7 @@ msgid "Failed to send notifications to moderators"
 msgstr ""
 
 #: views/pages.py:247
+#, python-brace-format
 msgid "Page '{0}' created."
 msgstr ""
 
@@ -1642,34 +1653,42 @@ msgid "The page could not be created due to validation errors"
 msgstr ""
 
 #: views/pages.py:355
+#, python-brace-format
 msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
 msgstr ""
 
 #: views/pages.py:363
+#, python-brace-format
 msgid "Page '{0}' is live and this revision has been scheduled for publishing."
 msgstr ""
 
 #: views/pages.py:369
+#, python-brace-format
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr ""
 
 #: views/pages.py:386
+#, python-brace-format
 msgid "Revision from {0} of page '{1}' has been published."
 msgstr ""
 
 #: views/pages.py:393
+#, python-brace-format
 msgid "Page '{0}' has been published."
 msgstr ""
 
 #: views/pages.py:407
+#, python-brace-format
 msgid "Page '{0}' has been submitted for moderation."
 msgstr ""
 
 #: views/pages.py:431
+#, python-brace-format
 msgid "Page '{0}' has been replaced with revision from {1}."
 msgstr ""
 
 #: views/pages.py:438
+#, python-brace-format
 msgid "Page '{0}' has been updated."
 msgstr ""
 
@@ -1690,30 +1709,37 @@ msgid "This page is currently awaiting moderation"
 msgstr ""
 
 #: views/pages.py:528
+#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr ""
 
 #: views/pages.py:670
+#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr ""
 
 #: views/pages.py:732
+#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr ""
 
 #: views/pages.py:837
+#, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
 msgstr ""
 
 #: views/pages.py:840
+#, python-brace-format
 msgid "Page '{0}' copied."
 msgstr ""
 
 #: views/pages.py:896 views/pages.py:921 views/pages.py:942
+#, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr ""
 
 #: views/pages.py:902
+#, python-brace-format
 msgid "Page '{0}' published."
 msgstr ""
 
@@ -1722,6 +1748,7 @@ msgid "Failed to send approval notifications"
 msgstr ""
 
 #: views/pages.py:926
+#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr ""
 
@@ -1730,10 +1757,12 @@ msgid "Failed to send rejection notifications"
 msgstr ""
 
 #: views/pages.py:968
+#, python-brace-format
 msgid "Page '{0}' is now locked."
 msgstr ""
 
 #: views/pages.py:992
+#, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr ""
 
@@ -1753,26 +1782,32 @@ msgid "Latest"
 msgstr ""
 
 #: views/pages.py:1136
+#, python-brace-format
 msgid "revision {0} of \"{1}\""
 msgstr ""
 
 #: views/pages.py:1142
+#, python-brace-format
 msgid "Revision {0} of \"{1}\" unscheduled."
 msgstr ""
 
 #: wagtail_hooks.py:102
+#, python-brace-format
 msgid "Edit '{title}'"
 msgstr ""
 
 #: wagtail_hooks.py:109
+#, python-brace-format
 msgid "Preview draft version of '{title}'"
 msgstr ""
 
 #: wagtail_hooks.py:116
+#, python-brace-format
 msgid "View live version of '{title}'"
 msgstr ""
 
 #: wagtail_hooks.py:124 wagtail_hooks.py:132
+#, python-brace-format
 msgid "Add a child page to '{title}' "
 msgstr ""
 
@@ -1781,31 +1816,38 @@ msgid "More"
 msgstr ""
 
 #: wagtail_hooks.py:142
+#, python-brace-format
 msgid "View more options for '{title}'"
 msgstr ""
 
 #: wagtail_hooks.py:153
+#, python-brace-format
 msgid "Move page '{title}'"
 msgstr ""
 
 #: wagtail_hooks.py:160
+#, python-brace-format
 msgid "Copy page '{title}'"
 msgstr ""
 
 #: wagtail_hooks.py:167
+#, python-brace-format
 msgid "Delete page '{title}'"
 msgstr ""
 
 #: wagtail_hooks.py:174
+#, python-brace-format
 msgid "Unpublish page '{title}'"
 msgstr ""
 
 #: wagtail_hooks.py:181
+#, python-brace-format
 msgid "View revision history for '{title}'"
 msgstr ""
 
 #: wagtail_hooks.py:276 wagtail_hooks.py:291 wagtail_hooks.py:306
 #: wagtail_hooks.py:321 wagtail_hooks.py:336 wagtail_hooks.py:351
+#, python-brace-format
 msgid "Heading {level}"
 msgstr ""
 

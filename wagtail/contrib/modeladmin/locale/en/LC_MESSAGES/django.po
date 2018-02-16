@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -191,6 +191,7 @@ msgid "Next"
 msgstr ""
 
 #: views.py:151
+#, python-brace-format
 msgid "{model_name} '{instance}' created."
 msgstr ""
 
@@ -218,6 +219,7 @@ msgid "Editing %s"
 msgstr ""
 
 #: views.py:704
+#, python-brace-format
 msgid "{model_name} '{instance}' updated."
 msgstr ""
 
@@ -239,6 +241,7 @@ msgid ""
 msgstr ""
 
 #: views.py:790
+#, python-brace-format
 msgid "{model} '{instance}' deleted."
 msgstr ""
 

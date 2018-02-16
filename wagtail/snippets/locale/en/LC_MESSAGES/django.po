@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -176,6 +176,7 @@ msgid "Search %(snippet_type_name)s"
 msgstr ""
 
 #: views/snippets.py:142
+#, python-brace-format
 msgid "{snippet_type} '{instance}' created."
 msgstr ""
 
@@ -188,6 +189,7 @@ msgid "The snippet could not be created due to errors."
 msgstr ""
 
 #: views/snippets.py:188
+#, python-brace-format
 msgid "{snippet_type} '{instance}' updated."
 msgstr ""
 
@@ -196,6 +198,7 @@ msgid "The snippet could not be saved due to errors."
 msgstr ""
 
 #: views/snippets.py:229
+#, python-brace-format
 msgid "{snippet_type} '{instance}' deleted."
 msgstr ""
 
