@@ -6,7 +6,7 @@
 # Thiago Cangussu <cng.thg@gmail.com>, 2014
 # Claudemiro Alves Feitosa Neto <dimiro1@gmail.com>, 2015
 # Gladson <gladsonbrito@gmail.com>, 2017
-# Luiz Boaretto <lboaretto@gmail.com>, 2016-2017
+# Luiz Boaretto <lboaretto@gmail.com>, 2016-2018
 # Thiago Cangussu <cangussu.thg@gmail.com>, 2014
 # Thiago Cangussu <cng.thg@gmail.com>, 2014
 msgid ""
@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-01-26 15:54+0000\n"
-"PO-Revision-Date: 2018-01-26 15:59+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-01-26 17:05+0000\n"
+"Last-Translator: Luiz Boaretto <lboaretto@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -114,6 +114,12 @@ msgstr "Apagar %(title)s"
 msgid "Delete document"
 msgstr "Apagar documento"
 
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Usado %(usage_count)s vez"
+msgstr[1] "Usado %(usage_count)s vezes"
+
 msgid "Are you sure you want to delete this document?"
 msgstr "Você tem certeza que deseja apagar este documento?"
 
@@ -135,6 +141,9 @@ msgstr "Tamanho do arquivo"
 
 msgid "File not found"
 msgstr "Arquivo não encontrado"
+
+msgid "Usage"
+msgstr "Uso"
 
 msgid "Documents"
 msgstr "Documentos"
@@ -266,6 +275,9 @@ msgstr ""
 
 msgid "Document '{0}' deleted."
 msgstr "Documento '{0}' apagado."
+
+msgid "Document"
+msgstr "Documento"
 
 #, python-format
 msgid "%(count)s document"

@@ -8,7 +8,7 @@
 # fooflare <amos.oviedo@gmail.com>, 2014
 # Joaquín Tita <carpincho@gmail.com>, 2014
 # José Luis <alagunajs@gmail.com>, 2015-2016
-# José Luis <alagunajs@gmail.com>, 2017
+# José Luis <alagunajs@gmail.com>, 2017-2018
 # Matt Westcott <matthew@torchbox.com>, 2016
 # Mauricio Baeza <python@amigos.email>, 2015
 # Unai Zalakain <inactive+unaizalakain@transifex.com>, 2014
@@ -18,8 +18,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-01-26 15:54+0000\n"
-"PO-Revision-Date: 2018-01-26 15:57+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-01-26 20:16+0000\n"
+"Last-Translator: José Luis <alagunajs@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -263,6 +263,9 @@ msgstr "Página"
 msgid "Pages"
 msgstr "Páginas"
 
+msgid "Loading…"
+msgstr "Cargando..."
+
 msgid "No results"
 msgstr "Sin resultados"
 
@@ -277,6 +280,24 @@ msgstr "Ver todo"
 
 msgid "Close explorer"
 msgstr "Cerrar explorador"
+
+msgid "Alt text"
+msgstr "Texto alternativo"
+
+msgid "Write here…"
+msgstr "Escribir aquí..."
+
+msgid "Horizontal line"
+msgstr "Línea horizontal"
+
+msgid "Line break"
+msgstr "Linea de quiebre"
+
+msgid "Undo"
+msgstr "Deshacer"
+
+msgid "Redo"
+msgstr "Rehacer"
 
 msgid "Dashboard"
 msgstr "Panel de control"
@@ -400,6 +421,10 @@ msgstr ""
 "Ninguna colección ha sido creada. ¿Por qué no <a href="
 "\"%(add_collection_url)s\">añades una</a>?"
 
+#, python-format
+msgid "Add %(label)s"
+msgstr "Añadir %(label)s"
+
 msgid "Yes, delete"
 msgstr "Sí, eliminar"
 
@@ -495,6 +520,9 @@ msgstr "Iniciar sesión en Wagtail"
 
 msgid "Forgotten it?"
 msgstr "¿La has olvidado?"
+
+msgid "Signing in…"
+msgstr "Iniciando sesión..."
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -694,8 +722,14 @@ msgstr "Nueva %(page_type)s"
 msgid "New"
 msgstr "Nuevo"
 
+msgid "Saving…"
+msgstr "Guardando..."
+
 msgid "Save draft"
 msgstr "Guardar borrador"
+
+msgid "Publishing…"
+msgstr "Publicando..."
 
 msgid "Publish"
 msgstr "Publicar"
@@ -949,6 +983,22 @@ msgid "There are no differences between these two revisions"
 msgstr "No hay diferencias entre estas dos revisiones."
 
 #, python-format
+msgid "Unschedule Revision %(revision.id)s for %(title)s"
+msgstr "Desprogramar Revisión %(revision.id)s para %(title)s"
+
+msgid "Unschedule"
+msgstr "No programar"
+
+msgid "Are you sure you want to unschedule this revision?"
+msgstr "Está seguro de desprogramar la revisión?"
+
+msgid "Yes, unschedule"
+msgstr "Sí, desprogramar"
+
+msgid "No, don't unschedule"
+msgstr "No, no desprogramar"
+
+#, python-format
 msgid "Revisions of %(title)s"
 msgstr "Revisiones de %(title)s"
 
@@ -968,11 +1018,17 @@ msgstr "Borrador actual"
 msgid "Live version"
 msgstr "Versión en vivo"
 
+msgid "Scheduled for"
+msgstr "Programado por"
+
 msgid "Review this revision"
 msgstr "Resumen de esta revision"
 
 msgid "Compare with previous revision"
 msgstr "Comparar con versiones previas"
+
+msgid "Cancel scheduled publish"
+msgstr "Cancelar publicación programada"
 
 msgid "No revisions of this page exist"
 msgstr "No existen revisiones de esta página"
@@ -1265,6 +1321,10 @@ msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
 msgstr ""
 "La revisión {0} de la página '{1}' ha sido programada para publicación."
 
+msgid "Page '{0}' is live and this revision has been scheduled for publishing."
+msgstr ""
+"Página '{0}' está en vivo y su revisión ha sido programada para publicación."
+
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Página '{0}' ha sido programada para publicación."
 
@@ -1345,6 +1405,12 @@ msgstr "Primeros"
 msgid "Latest"
 msgstr "Últimos"
 
+msgid "revision {0} of \"{1}\""
+msgstr "revisión {0} de \"{1}\""
+
+msgid "Revision {0} of \"{1}\" unscheduled."
+msgstr "Revisión {0} de \"{1}\" desprogramada."
+
 msgid "Edit '{title}'"
 msgstr "Editar '{title}'"
 
@@ -1377,6 +1443,24 @@ msgstr "Despublicar página '{title}'"
 
 msgid "View revision history for '{title}'"
 msgstr "Ver historial de revisiones para '{title}'"
+
+msgid "Heading {level}"
+msgstr "Cabezal {level}"
+
+msgid "Bulleted list"
+msgstr "Lista con viñetas"
+
+msgid "Numbered list"
+msgstr "Lista numerada"
+
+msgid "Bold"
+msgstr "Negrilla"
+
+msgid "Italic"
+msgstr "Italica"
+
+msgid "Link"
+msgstr "Enlace"
 
 msgid "Choose an item"
 msgstr "Elige un elemento"

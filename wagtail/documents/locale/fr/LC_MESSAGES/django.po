@@ -6,6 +6,7 @@
 # Benoît Vogel <contact@spicy-informatique.com>, 2017
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015-2017
 # Léo <leo@naeka.fr>, 2016
+# Loïc Teixeira <hello@lta.me>, 2018
 # nahuel, 2014
 # nahuel, 2014
 # pierre marfoure <pierre@onoffdesign.com>, 2016
@@ -15,8 +16,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-01-26 15:54+0000\n"
-"PO-Revision-Date: 2018-01-26 16:00+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-02-13 00:49+0000\n"
+"Last-Translator: Loïc Teixeira <hello@lta.me>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -115,6 +116,12 @@ msgstr "Supprimer %(title)s"
 msgid "Delete document"
 msgstr "Supprimer le document"
 
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Utilisé(e) %(usage_count)s fois"
+msgstr[1] "Utilisé(e) %(usage_count)s fois"
+
 msgid "Are you sure you want to delete this document?"
 msgstr "Êtes-vous sûr(e) de vouloir supprimer ce document ?"
 
@@ -136,6 +143,9 @@ msgstr "Taille du fichier"
 
 msgid "File not found"
 msgstr "Fichier non trouvé"
+
+msgid "Usage"
+msgstr "Utilisation"
 
 msgid "Documents"
 msgstr "Documents"
@@ -269,6 +279,9 @@ msgstr ""
 
 msgid "Document '{0}' deleted."
 msgstr "Document '{0}' supprimé."
+
+msgid "Document"
+msgstr "Document"
 
 #, python-format
 msgid "%(count)s document"

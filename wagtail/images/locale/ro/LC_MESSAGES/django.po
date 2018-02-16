@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Dan Braghis, 2014-2016
+# Dan Braghis, 2014-2016,2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-01-26 15:54+0000\n"
-"PO-Revision-Date: 2018-01-26 16:00+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-01-26 23:45+0000\n"
+"Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -205,6 +205,13 @@ msgstr "Salvează"
 msgid "Delete image"
 msgstr "Șterge imagine"
 
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)s utilizări"
+msgstr[1] "%(usage_count)s utilizări"
+msgstr[2] "%(usage_count)s utilizări"
+
 msgid "Are you sure you want to delete this image?"
 msgstr "Sigur doriți să ștergeți această imagine?"
 
@@ -231,6 +238,9 @@ msgstr ""
 msgid "Current focal point shown"
 msgstr "Punctul focal curent este afișat"
 
+msgid "Remove focal area"
+msgstr "Șterge zona focală"
+
 msgid "URL Generator"
 msgstr "Generator URL"
 
@@ -242,6 +252,9 @@ msgstr "Mărime fișier"
 
 msgid "File not found"
 msgstr "Fișierul nu a fost găsit"
+
+msgid "Usage"
+msgstr "Utilizare"
 
 msgid "Images"
 msgstr "Imagini"
@@ -377,12 +390,18 @@ msgstr "Imaginea '{0}' a fost adăugată."
 msgid "The image could not be created due to errors."
 msgstr "Imaginea nu a fost creată din cauza erorilor."
 
+msgid "Image"
+msgstr "imagine"
+
 #, python-format
 msgid "%(count)s image"
 msgid_plural "%(count)s images"
 msgstr[0] "%(count)s imagine"
 msgstr[1] "%(count)s imagini"
 msgstr[2] "%(count)s imagini"
+
+msgid "Change image"
+msgstr "Schimbă imaginea"
 
 msgid "Edit this image"
 msgstr "Editează această imagine"

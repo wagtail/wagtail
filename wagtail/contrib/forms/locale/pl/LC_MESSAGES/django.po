@@ -4,15 +4,15 @@
 #
 # Translators:
 # Miłosz Miśkiewicz, 2016-2017
-# Miłosz Miśkiewicz, 2017
+# Miłosz Miśkiewicz, 2017-2018
 # Miłosz Miśkiewicz, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-01-26 15:54+0000\n"
-"PO-Revision-Date: 2018-01-26 16:04+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-02-08 21:16+0000\n"
+"Last-Translator: Miłosz Miśkiewicz\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -22,6 +22,10 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n"
 "%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
 "%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+
+#, python-format
+msgid "%s submissions"
+msgstr "%s zgłoszeń"
 
 msgid "Date from"
 msgstr "Data od"
@@ -68,6 +72,9 @@ msgstr "Data"
 
 msgid "Date/time"
 msgstr "Data/czas"
+
+msgid "Hidden field"
+msgstr "Ukryte pole"
 
 msgid "submit time"
 msgstr "czas wysłania"

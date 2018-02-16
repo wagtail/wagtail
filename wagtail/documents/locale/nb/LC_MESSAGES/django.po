@@ -4,14 +4,14 @@
 #
 # Translators:
 # Eirik Krogstad <eirikkr@gmail.com>, 2015
-# Stein Strindhaug <stein.strindhaug@gmail.com>, 2016-2017
+# Stein Strindhaug <stein.strindhaug@gmail.com>, 2016-2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-01-26 15:54+0000\n"
-"PO-Revision-Date: 2018-01-26 15:59+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-02-09 15:15+0000\n"
+"Last-Translator: Stein Strindhaug <stein.strindhaug@gmail.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
 "MIME-Version: 1.0\n"
@@ -109,6 +109,12 @@ msgstr "Slett %(title)s"
 msgid "Delete document"
 msgstr "Slett dokument"
 
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Brukt %(usage_count)s gang"
+msgstr[1] "Brukt %(usage_count)s ganger"
+
 msgid "Are you sure you want to delete this document?"
 msgstr "Er du sikker på at du vil slette dette dokumentet?"
 
@@ -130,6 +136,9 @@ msgstr "Filstørrelse"
 
 msgid "File not found"
 msgstr "Fil ikke funnet"
+
+msgid "Usage"
+msgstr "Bruk"
 
 msgid "Documents"
 msgstr "Dokumenter"
@@ -260,6 +269,9 @@ msgstr "Filen ble ikke funnet. Endre kilde for dokumentet eller slett det"
 
 msgid "Document '{0}' deleted."
 msgstr "Dokumentet \"{0}\" er slettet."
+
+msgid "Document"
+msgstr "Dokument"
 
 #, python-format
 msgid "%(count)s document"

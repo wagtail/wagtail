@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# José Luis <alagunajs@gmail.com>, 2016
+# José Luis <alagunajs@gmail.com>, 2016,2018
 # Matt Westcott <matthew@torchbox.com>, 2016
 # José Luis <alagunajs@gmail.com>, 2016
 msgid ""
@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-01-26 15:54+0000\n"
-"PO-Revision-Date: 2018-01-26 16:07+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-01-26 20:04+0000\n"
+"Last-Translator: José Luis <alagunajs@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -83,6 +83,9 @@ msgstr ""
 
 msgid "Continue"
 msgstr "Continuar"
+
+msgid "Saving…"
+msgstr "Guardando..."
 
 msgid "Save"
 msgstr "Guardar"

@@ -7,15 +7,15 @@
 # andrea tagliazucchi <andreatagliazucchi@gmail.com>, 2015
 # Edd Baldry <edd.baldry@gmail.com>, 2016
 # Edd <edd.baldry@googlemail.com>, 2016
-# Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2017
+# Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2018
 # giammi <gian-maria.daffre@giammi.org>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-01-26 15:54+0000\n"
-"PO-Revision-Date: 2018-01-26 15:57+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-02-07 19:22+0000\n"
+"Last-Translator: Giacomo Ghizzani <giacomo.ghz@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -150,6 +150,15 @@ msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
 "Spiacente, ma no puoi avere diverse registrazioni per la stessa collezione."
 
+msgid "Error 404: Page not found"
+msgstr "Errore 404: Pagina non trovata"
+
+msgid "Error 404"
+msgstr "Errore 404"
+
+msgid "The requested page could not be found."
+msgstr "La pagina richiesta non è stata trovata."
+
 msgid "Go to Wagtail admin"
 msgstr "Vai all'interfaccia admin di Wagtail"
 
@@ -243,6 +252,9 @@ msgstr "Pagina"
 msgid "Pages"
 msgstr "Pagine"
 
+msgid "Loading…"
+msgstr "Caricamento..."
+
 msgid "No results"
 msgstr "Nessun risultato"
 
@@ -257,6 +269,24 @@ msgstr "Vedi tutto"
 
 msgid "Close explorer"
 msgstr "Chiudi explorer"
+
+msgid "Alt text"
+msgstr "Testo alternativo"
+
+msgid "Write here…"
+msgstr "Scrivi qui..."
+
+msgid "Horizontal line"
+msgstr "Linea orizzontale"
+
+msgid "Line break"
+msgstr "Interruzione di linea"
+
+msgid "Undo"
+msgstr "Annulla"
+
+msgid "Redo"
+msgstr "Ripristina"
 
 msgid "Dashboard"
 msgstr "Dashboard"
@@ -384,6 +414,10 @@ msgstr ""
 "Non hai creato nessuna collezione. Perché non ne <a href="
 "\"%(add_collection_url)s\">aggiungi uno</a>?"
 
+#, python-format
+msgid "Add %(label)s"
+msgstr "Aggiungi %(label)s"
+
 msgid "Yes, delete"
 msgstr "Si, elimina"
 
@@ -479,6 +513,9 @@ msgstr "Loggati in Wagtail"
 
 msgid "Forgotten it?"
 msgstr "Dimenticato?"
+
+msgid "Signing in…"
+msgstr "Autenticazione in corso..."
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -680,8 +717,14 @@ msgstr "Nuovo %(page_type)s"
 msgid "New"
 msgstr "Nuovo"
 
+msgid "Saving…"
+msgstr "Salvataggio in corso…"
+
 msgid "Save draft"
 msgstr "Salva bozza"
+
+msgid "Publishing…"
+msgstr "Pubblicazione in corso..."
 
 msgid "Publish"
 msgstr "Pubblica"
@@ -965,11 +1008,17 @@ msgstr "La bozza corrente"
 msgid "Live version"
 msgstr "Live version"
 
+msgid "Scheduled for"
+msgstr "Programmato per"
+
 msgid "Review this revision"
 msgstr "Controlla questa revisione"
 
 msgid "Compare with previous revision"
 msgstr "Compara con la revisione precedente"
+
+msgid "Cancel scheduled publish"
+msgstr "Cancella programma pubblicazione"
 
 msgid "No revisions of this page exist"
 msgstr "Nessuna revisione esistente per questa pagina"
@@ -1008,6 +1057,9 @@ msgstr "Nessuna pagina usata"
 
 msgid "Collection"
 msgstr "Collezione"
+
+msgid "Root"
+msgstr "Radice"
 
 msgid "Home"
 msgstr "Home"
@@ -1156,6 +1208,9 @@ msgstr "Icelandic"
 msgid "Italian"
 msgstr "Italiano"
 
+msgid "Korean"
+msgstr "Koreano"
+
 msgid "Lithuanian"
 msgstr "Lithuanian"
 
@@ -1182,6 +1237,9 @@ msgstr "Romanian"
 
 msgid "Russian"
 msgstr "Russian"
+
+msgid "Swedish"
+msgstr "Svedese"
 
 msgid "Chinese (China)"
 msgstr "Chinese (China)"
@@ -1335,6 +1393,9 @@ msgstr "Precedenti"
 msgid "Latest"
 msgstr "Ultimi"
 
+msgid "revision {0} of \"{1}\""
+msgstr "revisione {0} di \"{1}\""
+
 msgid "Edit '{title}'"
 msgstr "Modifica '{title}'"
 
@@ -1367,6 +1428,21 @@ msgstr "Annulla pubblicazione pagina '{title}'"
 
 msgid "View revision history for '{title}'"
 msgstr "Vedi storico revisioni per '{title}'"
+
+msgid "Bulleted list"
+msgstr "Elenco puntato"
+
+msgid "Numbered list"
+msgstr "Elenco numerato"
+
+msgid "Bold"
+msgstr "Grassetto"
+
+msgid "Italic"
+msgstr "Corsivo"
+
+msgid "Link"
+msgstr "Link"
 
 msgid "Choose an item"
 msgstr "Scegli un elemento"

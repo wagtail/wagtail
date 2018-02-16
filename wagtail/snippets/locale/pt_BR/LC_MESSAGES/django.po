@@ -8,14 +8,14 @@
 # Gilson Filho <me@gilsondev.in>, 2014
 # Gladson <gladsonbrito@gmail.com>, 2014
 # Luiz Boaretto <lboaretto@gmail.com>, 2016
-# Luiz Boaretto <lboaretto@gmail.com>, 2016-2017
+# Luiz Boaretto <lboaretto@gmail.com>, 2016-2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-01-26 15:54+0000\n"
-"PO-Revision-Date: 2018-01-26 16:03+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-01-26 19:32+0000\n"
+"Last-Translator: Luiz Boaretto <lboaretto@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -70,6 +70,12 @@ msgid "Delete"
 msgstr "Excluir"
 
 #, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Usado %(usage_count)s vez"
+msgstr[1] "Usado %(usage_count)s vezes"
+
+#, python-format
 msgid "Are you sure you want to delete this %(snippet_type_name)s?"
 msgstr "Você tem certeza que deseja excluir essa %(snippet_type_name)s?"
 
@@ -95,6 +101,9 @@ msgstr "Editando %(snippet_type_name)s - %(instance)s"
 
 msgid "Editing"
 msgstr "Editando"
+
+msgid "Usage"
+msgstr "Uso"
 
 msgid "Snippets"
 msgstr "Fragmentos"

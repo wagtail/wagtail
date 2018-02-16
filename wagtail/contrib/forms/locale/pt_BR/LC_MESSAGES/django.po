@@ -8,14 +8,14 @@
 # Gilson Filho <me@gilsondev.in>, 2014
 # Guilherme Nabanete <neoheartz@gmail.com>, 2016
 # Luiz Boaretto <lboaretto@gmail.com>, 2016
-# Luiz Boaretto <lboaretto@gmail.com>, 2016-2017
+# Luiz Boaretto <lboaretto@gmail.com>, 2016-2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-01-26 15:54+0000\n"
-"PO-Revision-Date: 2018-01-26 16:04+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-01-26 17:06+0000\n"
+"Last-Translator: Luiz Boaretto <lboaretto@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -23,6 +23,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pt_BR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#, python-format
+msgid "%s submissions"
+msgstr "%s envios"
 
 msgid "Date from"
 msgstr "Data de"
@@ -69,6 +73,9 @@ msgstr "Data"
 
 msgid "Date/time"
 msgstr "Data/hora"
+
+msgid "Hidden field"
+msgstr "Campo oculto"
 
 msgid "submit time"
 msgstr "data do envio"

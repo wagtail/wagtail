@@ -6,7 +6,7 @@
 # Bartek Sielicki <sielickib@student.mini.pw.edu.pl>, 2017
 # utek <mail@utek.pl>, 2014
 # Miłosz Miśkiewicz, 2016-2017
-# Miłosz Miśkiewicz, 2017
+# Miłosz Miśkiewicz, 2017-2018
 # Miłosz Miśkiewicz, 2016
 # utek <mail@utek.pl>, 2014
 msgid ""
@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-01-26 15:54+0000\n"
-"PO-Revision-Date: 2018-01-26 15:59+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-02-08 21:15+0000\n"
+"Last-Translator: Miłosz Miśkiewicz\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -124,6 +124,14 @@ msgstr "Usuń %(title)s"
 msgid "Delete document"
 msgstr "Usuń dokument"
 
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Użyto %(usage_count)s raz"
+msgstr[1] "Użyto %(usage_count)s razy"
+msgstr[2] "Użyto %(usage_count)s razy"
+msgstr[3] "Użyto %(usage_count)s razy"
+
 msgid "Are you sure you want to delete this document?"
 msgstr "Czy na pewno chcesz usunąć ten dokument?"
 
@@ -145,6 +153,9 @@ msgstr "Rozmiar pliku"
 
 msgid "File not found"
 msgstr "Plik nie został odnaleziony"
+
+msgid "Usage"
+msgstr "Użycie"
 
 msgid "Documents"
 msgstr "Dokumenty"
@@ -281,6 +292,9 @@ msgstr ""
 
 msgid "Document '{0}' deleted."
 msgstr "Usunięto dokument '{0}'"
+
+msgid "Document"
+msgstr "Dokument"
 
 #, python-format
 msgid "%(count)s document"

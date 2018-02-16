@@ -7,7 +7,7 @@
 # Daniel Chimeno <daniel@chimeno.me>, 2015
 # Joaquín Tita <carpincho@gmail.com>, 2014
 # José Luis <alagunajs@gmail.com>, 2015
-# José Luis <alagunajs@gmail.com>, 2015,2017
+# José Luis <alagunajs@gmail.com>, 2015,2017-2018
 # Mauricio Baeza <python@amigos.email>, 2014
 # Mauricio Baeza <python@amigos.email>, 2014
 # José Luis <alagunajs@gmail.com>, 2016-2017
@@ -16,8 +16,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-01-26 15:54+0000\n"
-"PO-Revision-Date: 2018-01-26 16:05+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-01-26 20:04+0000\n"
+"Last-Translator: José Luis <alagunajs@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -25,6 +25,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#, python-format
+msgid "%s submissions"
+msgstr "%s presentaciones"
 
 msgid "Date from"
 msgstr "Fecha de"
@@ -71,6 +75,9 @@ msgstr "Fecha"
 
 msgid "Date/time"
 msgstr "Fecha/Hora"
+
+msgid "Hidden field"
+msgstr "Campo oculto"
 
 msgid "submit time"
 msgstr "enviado en"

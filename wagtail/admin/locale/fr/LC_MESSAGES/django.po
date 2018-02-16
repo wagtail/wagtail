@@ -12,6 +12,7 @@
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015-2017
 # Dominique PERETTI <dperetti@gmail.com>, 2016
 # Léo <leo@naeka.fr>, 2016
+# Loïc Teixeira <hello@lta.me>, 2018
 # Matt Westcott <matthew@torchbox.com>, 2016
 # nahuel, 2014
 # nahuel, 2014
@@ -24,8 +25,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-01-26 15:54+0000\n"
-"PO-Revision-Date: 2018-01-26 15:57+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-02-13 00:46+0000\n"
+"Last-Translator: Loïc Teixeira <hello@lta.me>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -267,6 +268,9 @@ msgstr "Page"
 msgid "Pages"
 msgstr "Pages"
 
+msgid "Loading…"
+msgstr "Chargement…"
+
 msgid "No results"
 msgstr "Aucun résultat"
 
@@ -281,6 +285,24 @@ msgstr "Tout voir"
 
 msgid "Close explorer"
 msgstr "Fermer l’explorateur"
+
+msgid "Alt text"
+msgstr "Texte alternatif"
+
+msgid "Write here…"
+msgstr "Écrire ici..."
+
+msgid "Horizontal line"
+msgstr "Ligne horizontale"
+
+msgid "Line break"
+msgstr "Retour à la ligne"
+
+msgid "Undo"
+msgstr "Annuler"
+
+msgid "Redo"
+msgstr "Rétablir"
 
 msgid "Dashboard"
 msgstr "Tableau de bord"
@@ -406,6 +428,10 @@ msgstr ""
 "Aucune collection n’a été créée. Pourquoi ne pas <a href="
 "\"%(add_collection_url)s\">en ajouter une</a> ?"
 
+#, python-format
+msgid "Add %(label)s"
+msgstr "Ajouter un(e) %(label)s"
+
 msgid "Yes, delete"
 msgstr "Oui, supprimer"
 
@@ -501,6 +527,9 @@ msgstr "S'identifier"
 
 msgid "Forgotten it?"
 msgstr "Oublié?"
+
+msgid "Signing in…"
+msgstr "Connexion..."
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -701,8 +730,14 @@ msgstr "Nouveau %(page_type)s"
 msgid "New"
 msgstr "Nouveau"
 
+msgid "Saving…"
+msgstr "Enregistrement…"
+
 msgid "Save draft"
 msgstr "Enregistrer le brouillon"
+
+msgid "Publishing…"
+msgstr "Publication..."
 
 msgid "Publish"
 msgstr "Publier"
@@ -970,11 +1005,17 @@ msgstr "Brouillon actuel"
 msgid "Live version"
 msgstr "Version publique"
 
+msgid "Scheduled for"
+msgstr "Programmé pour"
+
 msgid "Review this revision"
 msgstr "Passer en revue cette version"
 
 msgid "Compare with previous revision"
 msgstr "comparer avec la révision précédente"
+
+msgid "Cancel scheduled publish"
+msgstr "Annuler la publication programmée"
 
 msgid "No revisions of this page exist"
 msgstr "Aucune version n’existe pour cette page"
@@ -1267,6 +1308,11 @@ msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
 msgstr ""
 "La version du {0} de la page '{1}' a été planifiée pour la publication."
 
+msgid "Page '{0}' is live and this revision has been scheduled for publishing."
+msgstr ""
+"La page '{0}' est publiée et cette révision a été planifiée pour la "
+"publication"
+
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "La page '{0}' a été planifiée pour publication."
 
@@ -1347,6 +1393,9 @@ msgstr "Première"
 msgid "Latest"
 msgstr "Dernière"
 
+msgid "revision {0} of \"{1}\""
+msgstr "révision {0} sur \"{1}\""
+
 msgid "Edit '{title}'"
 msgstr "Modifier '{title}'"
 
@@ -1379,6 +1428,24 @@ msgstr "Dépublier la page '{title}'"
 
 msgid "View revision history for '{title}'"
 msgstr "Voir l’historique des révisions pour '{title}'"
+
+msgid "Heading {level}"
+msgstr "En-tête {level}"
+
+msgid "Bulleted list"
+msgstr "List à puce"
+
+msgid "Numbered list"
+msgstr "Liste numérotée"
+
+msgid "Bold"
+msgstr "Gras"
+
+msgid "Italic"
+msgstr "Italique"
+
+msgid "Link"
+msgstr "Lien"
 
 msgid "Choose an item"
 msgstr "Choisissez un élément"

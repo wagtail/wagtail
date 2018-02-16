@@ -9,7 +9,7 @@
 # fooflare <amos.oviedo@gmail.com>, 2014
 # Joaquín Tita <carpincho@gmail.com>, 2014
 # José Luis <alagunajs@gmail.com>, 2015-2016
-# José Luis <alagunajs@gmail.com>, 2017
+# José Luis <alagunajs@gmail.com>, 2017-2018
 # Unai Zalakain <inactive+unaizalakain@transifex.com>, 2014
 # Unai Zalakain <inactive+unaizalakain@transifex.com>, 2014
 # Unai Zalakain <inactive+unaizalakain@transifex.com>, 2014
@@ -19,8 +19,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-01-26 15:54+0000\n"
-"PO-Revision-Date: 2018-01-26 15:58+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-01-26 20:06+0000\n"
+"Last-Translator: José Luis <alagunajs@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -181,6 +181,9 @@ msgstr "Agendado"
 
 msgid "draft"
 msgstr "Borrador"
+
+msgid "live + scheduled"
+msgstr "en vivo + programado"
 
 msgid "live + draft"
 msgstr "Ver borrador"
