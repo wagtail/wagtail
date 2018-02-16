@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -173,6 +173,7 @@ msgid "Search promoted results"
 msgstr ""
 
 #: views.py:83
+#, python-brace-format
 msgid "Editor's picks for '{0}' created."
 msgstr ""
 
@@ -185,6 +186,7 @@ msgid "Recommendations have not been created due to errors"
 msgstr ""
 
 #: views.py:121
+#, python-brace-format
 msgid "Editor's picks for '{0}' updated."
 msgstr ""
 

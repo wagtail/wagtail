@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -173,7 +173,7 @@ msgid "Usage"
 msgstr ""
 
 #: templates/wagtaildocs/documents/index.html:22 wagtail_hooks.py:50
-#: wagtail_hooks.py:138
+#: wagtail_hooks.py:136
 msgid "Documents"
 msgstr ""
 
@@ -305,6 +305,7 @@ msgid "Search documents"
 msgstr ""
 
 #: views/documents.py:102
+#, python-brace-format
 msgid "Document '{0}' added."
 msgstr ""
 
@@ -313,6 +314,7 @@ msgid "The document could not be saved due to errors."
 msgstr ""
 
 #: views/documents.py:140
+#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr ""
 
@@ -322,6 +324,7 @@ msgid ""
 msgstr ""
 
 #: views/documents.py:186
+#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr ""
 
@@ -329,7 +332,7 @@ msgstr ""
 msgid "Document"
 msgstr ""
 
-#: wagtail_hooks.py:157
+#: wagtail_hooks.py:155
 #, python-format
 msgid "%(count)s document"
 msgid_plural "%(count)s documents"
