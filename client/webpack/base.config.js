@@ -67,6 +67,10 @@ module.exports = function exports() {
         };
       }))
     },
+
+    // See https://webpack.js.org/configuration/devtool/.
+    devtool: 'source-map',
+
     stats: {
       // Add chunk information (setting this to `false` allows for a less verbose output)
       chunks: false,

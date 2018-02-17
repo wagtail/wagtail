@@ -9,6 +9,7 @@ Changelog
  * Look through the target link and target page slug (in addition to the old slug) when searching for redirects in the admin (Michael Harrison)
  * Remove support for IE6 to IE9 from project template (Samir Shah)
  * Remove outdated X-UA-Compatible meta from admin template  (Thibaud Colas)
+ * Add JavaScript source maps in production build for packaged Wagtail (Thibaud Colas)
  * Fix: Status button on 'edit page' now links to the correct URL when live and draft slug differ (LB (Ben Johnston))
  * Fix: Image title text in the gallery and in the chooser now wraps for long filenames (LB (Ben Johnston), Luiz Boaretto)
  * Fix: Move image editor action buttons to the bottom of the form on mobile (Julian Gallo)
