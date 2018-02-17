@@ -43,11 +43,14 @@ export const wrapWagtailIcon = type => {
 
 /**
  * Initialises the DraftailEditor for a given field.
- * @param {string} fieldName
+ * @param {string} selector
  * @param {Object} options
+ * @param {Element} currentScript
  */
-const initEditor = (fieldName, options) => {
-  const field = document.querySelector(`[name="${fieldName}"]`);
+const initEditor = (selector, options, currentScript) => {
+  // document.currentScript is not available in IE11. Use a fallback instead.
+  const context = currentScript ? currentScript.parentNode : document.body;
+  const field = context.querySelector(selector);
 
   const editorWrapper = document.createElement('div');
   editorWrapper.className = 'Draftail-Editor__wrapper';
