@@ -56,6 +56,11 @@ class BaseStreamBlock(Block):
         """
         return StreamValue(self, self.meta.default)
 
+    def sorted_child_blocks(self):
+        """Child blocks, sorted in to their groups."""
+        return sorted(self.child_blocks.values(),
+                      key=lambda child_block: child_block.meta.group)
+
     def render_list_member(self, block_type_name, value, prefix, index, errors=None, id=None):
         """
         Render the HTML for a single list item. This consists of an <li> wrapper, hidden fields
@@ -64,7 +69,7 @@ class BaseStreamBlock(Block):
         child_block = self.child_blocks[block_type_name]
         child = child_block.bind(value, prefix="%s-value" % prefix, errors=errors)
         return render_to_string('wagtailadmin/block_forms/stream_member.html', {
-            'child_blocks': self.child_blocks.values(),
+            'child_blocks': self.sorted_child_blocks(),
             'block_type_name': block_type_name,
             'prefix': prefix,
             'child': child,
@@ -138,7 +143,7 @@ class BaseStreamBlock(Block):
         return render_to_string('wagtailadmin/block_forms/stream.html', {
             'prefix': prefix,
             'list_members_html': list_members_html,
-            'child_blocks': sorted(self.child_blocks.values(), key=lambda child_block: child_block.meta.group),
+            'child_blocks': self.sorted_child_blocks(),
             'header_menu_prefix': '%s-before' % prefix,
             'block_errors': error_dict.get(NON_FIELD_ERRORS),
         })
