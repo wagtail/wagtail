@@ -102,7 +102,7 @@ class TestDefaultRichText(BaseRichTextEditHandlerTestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
         # Check that draftail (default editor) initialisation is applied
-        self.assertContains(response, "window.draftail.initEditor('body',")
+        self.assertContains(response, "window.draftail.initEditor('#id_body',")
 
         # check that media for draftail is being imported
         self.assertContains(response, 'wagtailadmin/js/draftail.js')
@@ -121,7 +121,7 @@ class TestDefaultRichText(BaseRichTextEditHandlerTestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
         # Check that draftail (default editor) initialisation is applied
-        self.assertContains(response, "window.draftail.initEditor('__PREFIX__-value',")
+        self.assertContains(response, "window.draftail.initEditor('#__PREFIX__-value',")
 
         # check that media for draftail is being imported
         self.assertContains(response, 'wagtailadmin/js/draftail.js')
