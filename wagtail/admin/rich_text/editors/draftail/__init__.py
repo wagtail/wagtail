@@ -52,8 +52,8 @@ class DraftailRichTextArea(WidgetWithScript, widgets.HiddenInput):
         return super().render(name, translated_value, attrs)
 
     def render_js_init(self, id_, name, value):
-        return "window.draftail.initEditor('{name}', {opts})".format(
-            name=name, opts=json.dumps(self.options))
+        return "window.draftail.initEditor('#{id}', {opts}, document.currentScript)".format(
+            id=id_, opts=json.dumps(self.options))
 
     def value_from_datadict(self, data, files, name):
         original_value = super().value_from_datadict(data, files, name)

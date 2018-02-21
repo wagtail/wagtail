@@ -10,27 +10,24 @@ import draftail, {
 describe('Draftail', () => {
   describe('#initEditor', () => {
     beforeEach(() => {
+      document.head.innerHTML = '';
       document.body.innerHTML = '';
     });
 
     it('works', () => {
-      const field = document.createElement('input');
-      field.name = 'test';
-      field.value = 'null';
-      document.body.appendChild(field);
+      document.body.innerHTML = '<input type="text" id="test" value="null" />';
+      const field = document.querySelector('#test');
 
-      draftail.initEditor('test', {});
+      draftail.initEditor('#test', {});
 
       expect(field.draftailEditor).toBeDefined();
     });
 
     it('onSave', () => {
-      const field = document.createElement('input');
-      field.name = 'test';
-      field.value = 'null';
-      document.body.appendChild(field);
+      document.body.innerHTML = '<input id="test" value="null" />';
+      const field = document.querySelector('#test');
 
-      draftail.initEditor('test', {});
+      draftail.initEditor('#test', {});
 
       field.draftailEditor.saveState();
 
@@ -38,10 +35,8 @@ describe('Draftail', () => {
     });
 
     it('options', () => {
-      const field = document.createElement('input');
-      field.name = 'test';
-      field.value = 'null';
-      document.body.appendChild(field);
+      document.body.innerHTML = '<input id="test" value="null" />';
+      const field = document.querySelector('#test');
 
       draftail.registerPlugin({
         type: 'IMAGE',
@@ -49,7 +44,7 @@ describe('Draftail', () => {
         block: () => {},
       });
 
-      draftail.initEditor('test', {
+      draftail.initEditor('#test', {
         entityTypes: [
           { type: 'IMAGE' },
         ],
@@ -57,6 +52,42 @@ describe('Draftail', () => {
       });
 
       expect(field.draftailEditor.props).toMatchSnapshot();
+    });
+
+    describe('selector conflicts', () => {
+      it('fails to instantiate on the right field', () => {
+        document.body.innerHTML = '<meta name="description" content="null" /><input name="description" value="null" />';
+
+        expect(() => {
+          draftail.initEditor('[name="description"]', {}, document.body);
+        }).toThrow(SyntaxError);
+      });
+
+      it('fails to instantiate on the right field when currentScript is not used', () => {
+        window.draftail = draftail;
+        document.body.innerHTML = `
+          <input name="first" id="description" value="null" />
+          <div>
+            <input name="last" id="description" value="null" />
+            <script>window.draftail.initEditor('#description', {});</script>
+          </div>
+        `;
+
+        expect(document.querySelector('[name="last"]').draftailEditor).not.toBeDefined();
+      });
+
+      it('has no conflict when currentScript is used', () => {
+        window.draftail = draftail;
+        document.body.innerHTML = `
+          <input name="first" id="description" value="null" />
+          <div>
+            <input name="last" id="description" value="null" />
+            <script>window.draftail.initEditor('#description', {}, document.currentScript);</script>
+          </div>
+        `;
+
+        expect(document.querySelector('[name="last"]').draftailEditor).toBeDefined();
+      });
     });
   });
 
