@@ -50,7 +50,9 @@ export const wrapWagtailIcon = type => {
 const initEditor = (selector, options, currentScript) => {
   // document.currentScript is not available in IE11. Use a fallback instead.
   const context = currentScript ? currentScript.parentNode : document.body;
-  const field = context.querySelector(selector);
+  // If the field is not in the current context, look for it in the whole body.
+  // Fallback for sequence.js jQuery eval-ed scripts running in document.head.
+  const field = context.querySelector(selector) || document.body.querySelector(selector);
 
   const editorWrapper = document.createElement('div');
   editorWrapper.className = 'Draftail-Editor__wrapper';
