@@ -88,6 +88,18 @@ describe('Draftail', () => {
 
         expect(document.querySelector('[name="last"]').draftailEditor).toBeDefined();
       });
+
+      it('uses fallback document.body when currentScript context is wrong', () => {
+        window.draftail = draftail;
+        document.body.innerHTML = `
+        <input id="description" value="null" />
+          <div>
+          <script>window.draftail.initEditor('#description', {}, document.currentScript);</script>
+          </div>
+        `;
+
+        expect(document.querySelector('#description').draftailEditor).toBeDefined();
+      });
     });
   });
 
