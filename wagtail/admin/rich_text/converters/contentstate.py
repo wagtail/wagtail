@@ -82,10 +82,7 @@ class ContentstateConverter():
     def from_database_format(self, html):
         self.html_to_contentstate_handler.reset()
         self.html_to_contentstate_handler.feed(html)
-
-        if not self.html_to_contentstate_handler.contentstate.blocks:
-            # Draftail does not accept an empty block list as valid, but does accept 'null' as meaning "no content"
-            return 'null'
+        self.html_to_contentstate_handler.close()
 
         return self.html_to_contentstate_handler.contentstate.as_json(indent=4, separators=(',', ': '))
 
