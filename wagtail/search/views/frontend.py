@@ -24,7 +24,7 @@ def search(
 
     warnings.warn(
         "Wagtail's builtin search view "
-        "(wagtail.wagtailsearch.views.frontend.search) is deprecated and will "
+        "(wagtail.search.views.frontend.search) is deprecated and will "
         "be removed in a future release",
         category=RemovedInWagtail22Warning
     )
