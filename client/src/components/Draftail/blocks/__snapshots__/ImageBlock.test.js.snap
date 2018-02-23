@@ -16,19 +16,11 @@ exports[`ImageBlock alt 1`] = `
   }
   src="example.png"
 >
-  <label
-    className="ImageBlock__field"
+  <p
+    className="ImageBlock__alt"
   >
-    <p>
-      Alt text
-    </p>
-    <input
-      className="ImageBlock__field__input"
-      readOnly={true}
-      type="text"
-      value="Test"
-    />
-  </label>
+    Alt text: “Test”
+  </p>
   <button
     className="button button-secondary no Tooltip__button"
   >
@@ -53,19 +45,11 @@ exports[`ImageBlock no data 1`] = `
   }
   src={null}
 >
-  <label
-    className="ImageBlock__field"
+  <p
+    className="ImageBlock__alt"
   >
-    <p>
-      Alt text
-    </p>
-    <input
-      className="ImageBlock__field__input"
-      readOnly={true}
-      type="text"
-      value=""
-    />
-  </label>
+    Alt text: “”
+  </p>
   <button
     className="button button-secondary no Tooltip__button"
   >
@@ -90,19 +74,11 @@ exports[`ImageBlock renders 1`] = `
   }
   src="example.png"
 >
-  <label
-    className="ImageBlock__field"
+  <p
+    className="ImageBlock__alt"
   >
-    <p>
-      Alt text
-    </p>
-    <input
-      className="ImageBlock__field__input"
-      readOnly={true}
-      type="text"
-      value=""
-    />
-  </label>
+    Alt text: “”
+  </p>
   <button
     className="button button-secondary no Tooltip__button"
   >

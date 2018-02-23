@@ -27,3 +27,8 @@
         color: transparentize($color-text-base, 0.5);
     }
 }
+
+.ImageBlock__alt {
+    @include font-smoothing;
+    font-size: 0.875rem;
+}
