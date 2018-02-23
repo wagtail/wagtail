@@ -31,13 +31,11 @@ class ImageBlock extends Component {
     const { blockProps } = this.props;
     const { entity, onRemoveEntity } = blockProps;
     const { src, alt } = entity.getData();
+    const altLabel = `${STRINGS.ALT_TEXT}: “${alt || ''}”`;
 
     return (
       <MediaBlock {...this.props} src={src} alt="">
-        <label className="ImageBlock__field">
-          <p>{STRINGS.ALT_TEXT}</p>
-          <input className="ImageBlock__field__input" type="text" value={alt || ''} readOnly />
-        </label>
+        <p className="ImageBlock__alt">{altLabel}</p>
 
         <button className="button button-secondary no Tooltip__button" onClick={onRemoveEntity}>
           {STRINGS.DELETE}
