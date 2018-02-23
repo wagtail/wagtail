@@ -563,7 +563,7 @@ Finally, we add a URL param of `id` based on the ``form_submission`` if it exist
 .. code-block:: python
 
     from django.shortcuts import redirect
-    from wagtail.wagtailadmin.edit_handlers import (
+    from wagtail.admin.edit_handlers import (
         FieldPanel, FieldRowPanel, InlinePanel, MultiFieldPanel, PageChooserPanel)
     from wagtail.contrib.forms.models import AbstractEmailForm
 
