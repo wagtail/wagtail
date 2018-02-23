@@ -3,8 +3,8 @@ from __future__ import absolute_import, unicode_literals
 from django.conf import settings
 from django.test import TestCase
 
-from wagtail.wagtailcore.models import Page
-from wagtail.wagtailsearch.backends import get_search_backend
+from wagtail.core.models import Page
+from wagtail.search.backends import get_search_backend
 
 
 class PageSearchTests(object):
