@@ -659,3 +659,17 @@ class TestHtmlToContentState(TestCase):
                 }
             }
         })
+
+    def test_html_entities(self):
+        converter = ContentstateConverter(features=[])
+        result = json.loads(converter.from_database_format(
+            '''
+            <p>Arthur &quot;two sheds&quot; Jackson &lt;the third&gt; &amp; his wife</p>
+            '''
+        ))
+        self.assertContentStateEqual(result, {
+            'entityMap': {},
+            'blocks': [
+                {'inlineStyleRanges': [], 'text': 'Arthur "two sheds" Jackson <the third> & his wife', 'depth': 0, 'type': 'unstyled', 'key': '00000', 'entityRanges': []},
+            ]
+        })

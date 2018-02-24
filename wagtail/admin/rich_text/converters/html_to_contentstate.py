@@ -273,7 +273,7 @@ class HtmlToContentStateHandler(HTMLParser):
             if rule is not None:
                 self.element_handlers.add_rules(rule['from_database_format'])
 
-        super().__init__()
+        super().__init__(convert_charrefs=True)
 
     def reset(self):
         self.state = HandlerState()
