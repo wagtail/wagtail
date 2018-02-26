@@ -2,10 +2,12 @@
 
 exports[`Draftail #initEditor options 1`] = `
 Object {
+  "ariaDescribedBy": null,
   "autoCapitalize": null,
   "autoComplete": null,
   "autoCorrect": null,
   "blockTypes": Array [],
+  "controls": Array [],
   "decorators": Array [],
   "enableHorizontalRule": Object {
     "description": "Horizontal line",
