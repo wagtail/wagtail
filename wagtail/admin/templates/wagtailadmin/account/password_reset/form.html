@@ -30,6 +30,13 @@
                     <div class="field">
                         {{ form.email.label_tag }}
                         {{ form.email }}
+                        <div class="messages">
+                            <ul>
+                                {% for error in form.email.errors %}
+                                    <li class="error">{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
                     </div>
                 </li>
                 <li class="submit">

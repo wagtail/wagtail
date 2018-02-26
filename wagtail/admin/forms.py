@@ -2,7 +2,6 @@ import copy
 from itertools import groupby
 
 from django import forms
-from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm
 from django.contrib.auth.models import Group, Permission
 from django.core import validators
@@ -85,36 +84,9 @@ class LoginForm(AuthenticationForm):
 
 
 class PasswordResetForm(PasswordResetForm):
-    email = forms.EmailField(label=ugettext_lazy("Enter your email address to reset your password"), max_length=254)
-
-    def clean(self):
-        cleaned_data = super().clean()
-
-        # Find users of this email address
-        UserModel = get_user_model()
-        email = cleaned_data.get('email')
-        if not email:
-            raise forms.ValidationError(_("Please fill your email address."))
-        active_users = UserModel._default_manager.filter(email__iexact=email, is_active=True)
-
-        if active_users.exists():
-            # Check if all users of the email address are LDAP users (and give an error if they are)
-            found_non_ldap_user = False
-            for user in active_users:
-                if user.has_usable_password():
-                    found_non_ldap_user = True
-                    break
-
-            if not found_non_ldap_user:
-                # All found users are LDAP users, give error message
-                raise forms.ValidationError(
-                    _("Sorry, you cannot reset your password here as your user account is managed by another server.")
-                )
-        else:
-            # No user accounts exist
-            raise forms.ValidationError(_("This email address is not recognised."))
-
-        return cleaned_data
+    email = forms.EmailField(
+        label=ugettext_lazy("Enter your email address to reset your password"),
+        max_length=254, required=True)
 
 
 class CopyForm(forms.Form):
