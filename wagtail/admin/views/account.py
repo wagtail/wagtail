@@ -142,13 +142,15 @@ def login(request):
         return redirect('wagtailadmin_home')
     else:
         from django.contrib.auth import get_user_model
+        User = get_user_model()
         return auth_views.login(
             request,
             template_name='wagtailadmin/login.html',
             authentication_form=get_user_login_form(),
             extra_context={
                 'show_password_reset': password_reset_enabled(),
-                'username_field': get_user_model().USERNAME_FIELD,
+                'username_field': User._meta.get_field(
+                    User.USERNAME_FIELD).verbose_name,
             },
         )
 
