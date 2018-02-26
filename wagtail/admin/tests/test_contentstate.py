@@ -432,6 +432,40 @@ class TestHtmlToContentState(TestCase):
             }
         })
 
+    def test_image_after_list(self):
+        """
+        There should be no spacer paragraph inserted between a list and an image
+        """
+        converter = ContentstateConverter(features=['ul', 'image'])
+        result = json.loads(converter.from_database_format(
+            '''
+            <ul>
+                <li>Milk</li>
+                <li>Eggs</li>
+            </ul>
+            <embed embedtype="image" alt="an image" id="1" format="left" />
+            <ul>
+                <li>More milk</li>
+                <li>More eggs</li>
+            </ul>
+            '''
+        ))
+        self.assertContentStateEqual(result, {
+            'entityMap': {
+                '0': {
+                    'data': {'format': 'left', 'alt': 'an image', 'id': '1', 'src': '/media/not-found'},
+                    'mutability': 'IMMUTABLE', 'type': 'IMAGE'
+                },
+            },
+            'blocks': [
+                {'inlineStyleRanges': [], 'text': 'Milk', 'depth': 0, 'type': 'unordered-list-item', 'key': '00000', 'entityRanges': []},
+                {'inlineStyleRanges': [], 'text': 'Eggs', 'depth': 0, 'type': 'unordered-list-item', 'key': '00000', 'entityRanges': []},
+                {'key': '00000', 'inlineStyleRanges': [], 'entityRanges': [{'key': 1, 'offset': 0, 'length': 1}], 'depth': 0, 'text': ' ', 'type': 'atomic'},
+                {'inlineStyleRanges': [], 'text': 'More milk', 'depth': 0, 'type': 'unordered-list-item', 'key': '00000', 'entityRanges': []},
+                {'inlineStyleRanges': [], 'text': 'More eggs', 'depth': 0, 'type': 'unordered-list-item', 'key': '00000', 'entityRanges': []},
+            ]
+        })
+
     @patch('wagtail.embeds.embeds.get_embed')
     def test_media_embed(self, get_embed):
         get_embed.return_value = Embed(
