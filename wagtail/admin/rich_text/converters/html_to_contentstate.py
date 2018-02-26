@@ -28,6 +28,9 @@ class HandlerState:
 
         # an atomic block which is NOT preceded by a non-atomic block must have a spacer
         # paragraph inserted before it
+        # NB This is not included in pushed/popped state, because after a pop() this
+        # should still indicate the status of the most recent block, not the one preceding
+        # the corresponding push()
         self.has_preceding_nonatomic_block = False
 
         self.pushed_states = []
@@ -40,7 +43,6 @@ class HandlerState:
             'leading_whitespace': self.leading_whitespace,
             'list_depth': self.list_depth,
             'list_item_type': self.list_item_type,
-            'has_preceding_nonatomic_block': self.has_preceding_nonatomic_block,
         })
 
     def pop(self):
@@ -51,7 +53,6 @@ class HandlerState:
         self.leading_whitespace = last_state['leading_whitespace']
         self.list_depth = last_state['list_depth']
         self.list_item_type = last_state['list_item_type']
-        self.has_preceding_nonatomic_block = last_state['has_preceding_nonatomic_block']
 
 
 def add_paragraph_block(state, contentstate):
