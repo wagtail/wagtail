@@ -133,6 +133,29 @@ describe('Draftail', () => {
     });
   });
 
+  describe('#registerDecorator', () => {
+    it('works', () => {
+      const decorator = {
+        component: () => {},
+        strategy: () => {},
+      };
+
+      expect(draftail.registerDecorator(decorator)).toEqual([
+        decorator,
+      ]);
+    });
+  });
+
+  describe('#registerControl', () => {
+    it('works', () => {
+      const control = () => {};
+
+      expect(draftail.registerControl(control)).toEqual([
+        control,
+      ]);
+    });
+  });
+
   it('#ModalWorkflowSource', () => expect(ModalWorkflowSource).toBeDefined());
   it('#Link', () => expect(Link).toBeDefined());
   it('#Document', () => expect(Document).toBeDefined());
