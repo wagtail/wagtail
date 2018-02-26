@@ -133,10 +133,26 @@ class UserForm(UsernameForm):
                 code='password_mismatch',
             ))
 
-        if password1:
+        return password2
+
+    def validate_password(self):
+        """
+        Run the Django password validators against the new password. This must
+        be called after the user instance in self.instance is populated with
+        the new data from the form, as some validators rely on attributes on
+        the user model.
+        """
+        password1 = self.cleaned_data.get("password1")
+        password2 = self.cleaned_data.get("password2")
+        if password1 and password2 and password1 == password2:
             validate_password(password1, user=self.instance)
 
-        return password2
+    def _post_clean(self):
+        super()._post_clean()
+        try:
+            self.validate_password()
+        except forms.ValidationError as e:
+            self.add_error('password2', e)
 
     def _clean_fields(self):
         super()._clean_fields()
