@@ -468,12 +468,9 @@ class TestPasswordReset(TestCase, WagtailTestUtils):
         }
         response = self.client.post(reverse('wagtailadmin_password_reset'), post_data)
 
-        # Check that the user wasn't redirected
-        self.assertEqual(response.status_code, 200)
-
-        # Check that a validation error was raised
-        self.assertTrue('__all__' in response.context['form'].errors.keys())
-        self.assertTrue("This email address is not recognised." in response.context['form'].errors['__all__'])
+        # Check that the user was redirected to the done page
+        self.assertRedirects(response,
+                             reverse('wagtailadmin_password_reset_done'))
 
         # Check that an email was not sent
         self.assertEqual(len(mail.outbox), 0)
