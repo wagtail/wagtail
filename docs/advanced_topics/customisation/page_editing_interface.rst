@@ -55,7 +55,7 @@ Wagtail provides a general-purpose WYSIWYG editor for creating rich text content
 
 :class:`~wagtail.core.fields.RichTextField` inherits from Django's basic ``TextField`` field, so you can pass any field parameters into :class:`~wagtail.core.fields.RichTextField` as if using a normal Django field. This field does not need a special panel and can be defined with ``FieldPanel``.
 
-However, template output from :class:`~wagtail.core.fields.RichTextField` is special and need to be filtered to preserve embedded content. See :ref:`rich-text-filter`.
+However, template output from :class:`~wagtail.core.fields.RichTextField` is special and needs to be filtered in order to preserve embedded content. See :ref:`rich-text-filter`.
 
 
 .. _rich_text_features:
