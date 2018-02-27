@@ -13,7 +13,7 @@ Changelog
  * Fix: StreamField icons are now correctly sorted into groups on the 'append' menu (Tim Heap)
 
 
-2.0 (xx.xx.xxxx) - IN DEVELOPMENT
+2.0 (28.02.2018)
 ~~~~~~~~~~~~~~~~
 
  * Added support for Django 2.0 (Matt Westcott, Karl Hobley, LB (Ben Johnston), Mads Jensen)
