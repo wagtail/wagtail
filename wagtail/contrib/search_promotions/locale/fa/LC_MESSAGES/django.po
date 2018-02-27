@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
 "PO-Revision-Date: 2018-01-26 16:06+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -154,6 +154,7 @@ msgstr ""
 msgid "Search promoted results"
 msgstr "جستجوی نتایج ترویج شده"
 
+#, python-brace-format
 msgid "Editor's picks for '{0}' created."
 msgstr "منتخب ویراستار برای '{0}' ایجاد شد."
 
@@ -163,6 +164,7 @@ msgstr "ویرایش"
 msgid "Recommendations have not been created due to errors"
 msgstr "پیشنهادها به دلیل بروز خطا ایجاد نشد"
 
+#, python-brace-format
 msgid "Editor's picks for '{0}' updated."
 msgstr "انتخاب ویراستار برای '{0}' آپدیت شد."
 

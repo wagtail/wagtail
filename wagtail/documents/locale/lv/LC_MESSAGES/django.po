@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
 "PO-Revision-Date: 2018-01-26 15:59+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -111,15 +111,18 @@ msgstr "Dzēst"
 msgid "Search documents"
 msgstr "Meklēt dokumentus"
 
+#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Dokuments '{0}' tika pievienots."
 
 msgid "The document could not be saved due to errors."
 msgstr "Dokumentu nevarēja saglabāt kļūdu dēļ."
 
+#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "Dokuments '{0}' atjaunots"
 
+#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Dokuments '{0}' tika dzēsts."
 

@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-26 15:54+0000\n"
-"PO-Revision-Date: 2018-01-26 15:57+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
+"PO-Revision-Date: 2018-02-16 11:33+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/torchbox/wagtail/"
 "language/he_IL/)\n"
@@ -670,15 +670,18 @@ msgstr "סיסמתכם שונתה בהצלחה!"
 msgid "View live"
 msgstr "תצוגה בחי"
 
+#, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "עמוד {0} נוצר ופורסם"
 
+#, python-brace-format
 msgid "Page '{0}' created and submitted for moderation."
 msgstr "עמוד {0} נוצר והוזן לעריכה"
 
 msgid "View draft"
 msgstr "הצג טיוטה"
 
+#, python-brace-format
 msgid "Page '{0}' created."
 msgstr "עמוד {0} נוצר"
 
@@ -694,33 +697,43 @@ msgstr "העמוד לא ניתן לשמירה עקב שגיאות אישור"
 msgid "This page is currently awaiting moderation"
 msgstr "העמוד ממתין לעריכה"
 
+#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "עמוד {0} נמחק"
 
+#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "פרסום עמוד {0} בוטל"
 
+#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "עמוד {0} הוזז"
 
+#, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "עמוד {0} ותת העמודים {1} הועתקו "
 
+#, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "עמוד {0} הועתק "
 
+#, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "העמוד {0} אינו ממתין לעריכה כרגע "
 
+#, python-brace-format
 msgid "Page '{0}' published."
 msgstr "עמוד {0} פורסם"
 
+#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "עמוד {0} נדחה עבור פרסום"
 
+#, python-brace-format
 msgid "Page '{0}' is now locked."
 msgstr "עמוד {0} נעול כעת"
 
+#, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "עמוד {0} בלתי נעול כעת"
 

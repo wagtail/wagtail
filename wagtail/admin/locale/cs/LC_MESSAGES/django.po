@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-26 15:54+0000\n"
-"PO-Revision-Date: 2018-01-26 15:57+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
+"PO-Revision-Date: 2018-02-16 11:33+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
@@ -753,6 +753,7 @@ msgstr "Zobrazit publikovanou verzi"
 msgid "View draft"
 msgstr "Zobrazit koncept"
 
+#, python-brace-format
 msgid "Page '{0}' created."
 msgstr "Stránka '{0}' byla vytvořena."
 
@@ -768,33 +769,43 @@ msgstr "Stránku nelze uložit, zkontrolujte správné vyplnění polí"
 msgid "This page is currently awaiting moderation"
 msgstr "Stránka nyní čeká na schválení"
 
+#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Stránka '{0}' byla smazána."
 
+#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "Stránce '{0}' byla zrušena publikace."
 
+#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "Stránka '{0}' byla přesunuta."
 
+#, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "Stránka '{0}' a {1} podstránek bylo zkopírováno."
 
+#, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "Stránka '{0}' byla zkopírována."
 
+#, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "Stránka '{0}' nyní nečeká na schválení."
 
+#, python-brace-format
 msgid "Page '{0}' published."
 msgstr "Stránka '{0}' byla publikována."
 
+#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "Publikace stránky '{0}' byla zamítnuta."
 
+#, python-brace-format
 msgid "Page '{0}' is now locked."
 msgstr "Stránka '{0}' je nyní uzamčena."
 
+#, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "Stránka '{0}' je nyní odemčena."
 

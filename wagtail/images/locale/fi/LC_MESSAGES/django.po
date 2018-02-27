@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
 "PO-Revision-Date: 2018-01-26 16:00+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
@@ -348,6 +348,7 @@ msgstr "Lisää kuvaoikeus"
 msgid "Search images"
 msgstr "Hae kuvia"
 
+#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "Kuva '{0}' päivitetty."
 
@@ -364,9 +365,11 @@ msgstr ""
 "Valittua kuvatiedostoa ei löytynyt. Ole hyvä ja valitse toinen kuvatiedosto "
 "tai poista kuva."
 
+#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "Kuva '{0}' poistettu."
 
+#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "Kuva '{0}' lisätty."
 

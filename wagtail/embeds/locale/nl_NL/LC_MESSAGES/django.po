@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Maarten Kling <kling.maarten@gmail.com>, 2015
+# Maarten Kling <kling.maarten@gmail.com>, 2015,2018
 # Thijs Kramer <thijskramer@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-26 15:54+0000\n"
-"PO-Revision-Date: 2018-01-26 16:01+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
+"PO-Revision-Date: 2018-02-17 17:45+0000\n"
+"Last-Translator: Maarten Kling <kling.maarten@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -51,3 +51,6 @@ msgid ""
 msgstr ""
 "Er lijkt een fout op te treden met Embedly tijdens het embedden van deze "
 "URL. Probeer het later nog eens."
+
+msgid "Embed"
+msgstr "Embed"

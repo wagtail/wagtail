@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
 "PO-Revision-Date: 2018-01-26 16:00+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
@@ -239,12 +239,14 @@ msgstr "添加一个文档权限"
 msgid "Search documents"
 msgstr "搜索文档"
 
+#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "文档'{0}' 已添加"
 
 msgid "The document could not be saved due to errors."
 msgstr "无法保存文档，出现错误。"
 
+#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "文档'{0}' 已更新"
 
@@ -252,6 +254,7 @@ msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "无法找到文件。请修改源或者删除文档。"
 
+#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "文档'{0}' 已删除"
 

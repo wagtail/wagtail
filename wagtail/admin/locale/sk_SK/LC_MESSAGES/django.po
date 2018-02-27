@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-26 15:54+0000\n"
-"PO-Revision-Date: 2018-01-26 15:57+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
+"PO-Revision-Date: 2018-02-16 11:33+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
@@ -1241,9 +1241,11 @@ msgstr "Pridať kolekciu"
 msgid "Add collection"
 msgstr "Pridať kolekciu"
 
+#, python-brace-format
 msgid "Collection '{0}' created."
 msgstr "Kolekcia '{0}' bola vytvorená."
 
+#, python-brace-format
 msgid "Collection '{0}' updated."
 msgstr "Kolekcia '{0}' bola aktualizovaná."
 
@@ -1253,6 +1255,7 @@ msgstr "Kolekcia nemôže byť uložená kvôli chybám."
 msgid "Delete collection"
 msgstr "Zmazať kolekciu"
 
+#, python-brace-format
 msgid "Collection '{0}' deleted."
 msgstr "Kolekcia '{0}' bola zmazaná."
 
@@ -1262,15 +1265,18 @@ msgstr "Naozaj chcete zmazať túto kolekciu?"
 msgid "Editing"
 msgstr "Editácia"
 
+#, python-brace-format
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr "Stránka '{0}' vytvorená a naplánovaná pre publikáciu."
 
 msgid "View live"
 msgstr "Zobraziť live"
 
+#, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "Stránka '{0}' bola úspešne vytvorená a publikovaná."
 
+#, python-brace-format
 msgid "Page '{0}' created and submitted for moderation."
 msgstr "Stránka '{0}' bola úspešne vytvorená a odoslaná na moderáciu."
 
@@ -1280,30 +1286,38 @@ msgstr "Zobraziť koncept"
 msgid "Failed to send notifications to moderators"
 msgstr "Odoslanie upozornenia pre moderátorov zlyhalo"
 
+#, python-brace-format
 msgid "Page '{0}' created."
 msgstr "Stránka '{0}' bola vytvorená."
 
 msgid "The page could not be created due to validation errors"
 msgstr "Táto stránka nemôže byť vytvorená, kvôli validačným chybám."
 
+#, python-brace-format
 msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
 msgstr "Revízia z {0} stránky '{1}' bola naplánovaná pre publikáciu."
 
+#, python-brace-format
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Stránka '{0}' bola naplánovaná pre publikáciu."
 
+#, python-brace-format
 msgid "Revision from {0} of page '{1}' has been published."
 msgstr "Revízia z {0} stránky '{1}' bola publikovaná."
 
+#, python-brace-format
 msgid "Page '{0}' has been published."
 msgstr "Stránka '{0}' bola publikovaná."
 
+#, python-brace-format
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Stránka '{0}' bola odoslaná na moderáciu."
 
+#, python-brace-format
 msgid "Page '{0}' has been replaced with revision from {1}."
 msgstr "Stránka '{0}' bola nahradená revíziou z {1}."
 
+#, python-brace-format
 msgid "Page '{0}' has been updated."
 msgstr "Stránka '{0}' bola aktualizovaná."
 
@@ -1319,39 +1333,49 @@ msgstr "Porovnaj s live verziou"
 msgid "This page is currently awaiting moderation"
 msgstr "Táto stránka momentálne čaká na moderáciu"
 
+#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Stránka '{0}' bola zmazaná."
 
+#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "Stránka '{0}' bola odpublikovaná."
 
+#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "Stránka '{0}' bola presunutá."
 
+#, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "Stránka '{0}' a {1} podstránok skopírovaných."
 
+#, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "Stránka '{0}' bola skopírovaná."
 
+#, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "Stránka '{0}'  momentálne čaká na moderáciu"
 
+#, python-brace-format
 msgid "Page '{0}' published."
 msgstr "Stránka '{0}' bola publikovaná."
 
 msgid "Failed to send approval notifications"
 msgstr "Odoslanie notifikácií o schválení zlyhalo"
 
+#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "Publikácia stránky '{0}' zamietnutá."
 
 msgid "Failed to send rejection notifications"
 msgstr "Odoslanie notifikácií o zamietnutí zlyhalo"
 
+#, python-brace-format
 msgid "Page '{0}' is now locked."
 msgstr "Stránka '{0}' bola uzamknutá."
 
+#, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "Stránka '{0}' bola odomknutá."
 
@@ -1369,36 +1393,46 @@ msgstr "Najstaršie"
 msgid "Latest"
 msgstr "Najnovšie"
 
+#, python-brace-format
 msgid "Edit '{title}'"
 msgstr "Upraviť '{title}'"
 
+#, python-brace-format
 msgid "Preview draft version of '{title}'"
 msgstr "Prezrieť koncept '{title}'"
 
+#, python-brace-format
 msgid "View live version of '{title}'"
 msgstr "Zobraziť live verziu '{title}'"
 
+#, python-brace-format
 msgid "Add a child page to '{title}' "
 msgstr "Pridať podstránku k '{title}' "
 
 msgid "More"
 msgstr "Viac"
 
+#, python-brace-format
 msgid "View more options for '{title}'"
 msgstr "Zobraziť viac možností pre '{title}'"
 
+#, python-brace-format
 msgid "Move page '{title}'"
 msgstr "Presunúť stránku '{title}'"
 
+#, python-brace-format
 msgid "Copy page '{title}'"
 msgstr "Kopírovať stránku '{title}'"
 
+#, python-brace-format
 msgid "Delete page '{title}'"
 msgstr "Vymazať stránku '{title}'"
 
+#, python-brace-format
 msgid "Unpublish page '{title}'"
 msgstr "Odpublikovať stránku '{title}'"
 
+#, python-brace-format
 msgid "View revision history for '{title}'"
 msgstr "Zobraziť históriu revízii pre '{title}'"
 

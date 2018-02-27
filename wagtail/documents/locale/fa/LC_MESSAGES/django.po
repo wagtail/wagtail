@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
 "PO-Revision-Date: 2018-01-26 15:59+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -236,12 +236,14 @@ msgstr "افزودن یک مجوز سند"
 msgid "Search documents"
 msgstr "جستجوی سندها"
 
+#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "سند '{0}' افزوده شد."
 
 msgid "The document could not be saved due to errors."
 msgstr "به دلیل بروز خطا سند ذخیره نگردید."
 
+#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "سند '{0}' بروزرسانی شد"
 
@@ -249,6 +251,7 @@ msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "فایل پیدا نشد. لطفا منبع یکی را تغییر دهید یا سند را حذف نمایید"
 
+#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "سند '{0}' حذف شد."
 

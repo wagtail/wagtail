@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
 "PO-Revision-Date: 2018-01-26 16:00+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
@@ -252,12 +252,14 @@ msgstr "Pridať oprávnenia dokumentu"
 msgid "Search documents"
 msgstr "Hľadať dokumenty"
 
+#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Dokument '{0}' pridaný."
 
 msgid "The document could not be saved due to errors."
 msgstr "Dokument nemohol byť uložený kvôli chybám."
 
+#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "Dokument '{0}' bol aktualizovaný"
 
@@ -265,6 +267,7 @@ msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "Súbor nebol nájdený. Prosím aktualizujte zdroj alebo zmažte dokument"
 
+#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Dokument '{0}' bol zmazaný."
 

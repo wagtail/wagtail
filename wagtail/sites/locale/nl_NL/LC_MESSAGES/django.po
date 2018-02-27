@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
 "PO-Revision-Date: 2017-09-23 20:27+0000\n"
 "Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
@@ -53,9 +53,11 @@ msgstr "Voeg een site toe"
 msgid "Add site"
 msgstr "Voeg site toe"
 
+#, python-brace-format
 msgid "Site '{0}' created."
 msgstr "Site '{0}' aangemaakt."
 
+#, python-brace-format
 msgid "Site '{0}' updated."
 msgstr "Site '{0}' bijgewerkt."
 
@@ -65,6 +67,7 @@ msgstr "De site kon vanwege fouten niet worden opgeslagen."
 msgid "Delete site"
 msgstr "Verwijder site"
 
+#, python-brace-format
 msgid "Site '{0}' deleted."
 msgstr "Site '{0}' verwijderd."
 

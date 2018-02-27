@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
 "PO-Revision-Date: 2018-01-26 15:59+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
@@ -237,12 +237,14 @@ msgstr "Bæta við aðgangsheimildum á skrá"
 msgid "Search documents"
 msgstr "Leita að skrám"
 
+#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Skrá '{0}' bætt við."
 
 msgid "The document could not be saved due to errors."
 msgstr "Ekki var hægt að vista skránna vegna villna."
 
+#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "Skrá '{0}' uppfærð"
 
@@ -250,6 +252,7 @@ msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "Skráin fannst ekki. Vinsamlegast breyttu upprunanum eða eyddu skránni"
 
+#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Skrá '{0}' hefur verið eytt."
 

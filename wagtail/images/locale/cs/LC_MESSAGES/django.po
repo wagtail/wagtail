@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
 "PO-Revision-Date: 2018-01-26 16:01+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
@@ -301,6 +301,7 @@ msgstr "Přidat oprávnění obrázku"
 msgid "Search images"
 msgstr "Hledat obrázky"
 
+#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "Obrázek '{0}' byl upraven."
 
@@ -317,9 +318,11 @@ msgstr ""
 "Zdrojový soubor obrázku není možné nalézt. Prosím změňte zdroj nebo smažte "
 "obrázek."
 
+#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "Obrázek '{0}' byl smazán."
 
+#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "Obrázek '{0}' byl přidán."
 

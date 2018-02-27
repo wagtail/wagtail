@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
 "PO-Revision-Date: 2018-01-26 16:08+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
@@ -169,6 +169,7 @@ msgstr "Fyrra"
 msgid "Next"
 msgstr "Næsta"
 
+#, python-brace-format
 msgid "{model_name} '{instance}' created."
 msgstr "{model_name} '{instance}' búið til."
 
@@ -190,6 +191,7 @@ msgstr "Breyti"
 msgid "Editing %s"
 msgstr "Breyti %s"
 
+#, python-brace-format
 msgid "{model_name} '{instance}' updated."
 msgstr "{model_name} '{instance}' uppfært."
 
@@ -209,6 +211,7 @@ msgstr ""
 "Ertu viss um að þú viljir eyða þessu %s? Ef aðrir hlutir á síðunni eru háðir "
 "þessu þá gæti þetta haft áhrif á þá."
 
+#, python-brace-format
 msgid "{model} '{instance}' deleted."
 msgstr "{model} '{instance}' eytt."
 

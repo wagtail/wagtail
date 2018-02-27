@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-26 15:54+0000\n"
-"PO-Revision-Date: 2018-01-26 15:57+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
+"PO-Revision-Date: 2018-02-16 11:33+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
@@ -929,9 +929,11 @@ msgstr "Engadir unha colección"
 msgid "Add collection"
 msgstr "Engadir colección"
 
+#, python-brace-format
 msgid "Collection '{0}' created."
 msgstr "Colección '{0}' creada."
 
+#, python-brace-format
 msgid "Collection '{0}' updated."
 msgstr "Colección '{0}' actualizada."
 
@@ -941,6 +943,7 @@ msgstr "A colección non pudo ser gardada debido a errores."
 msgid "Delete collection"
 msgstr "Eliminar colección"
 
+#, python-brace-format
 msgid "Collection '{0}' deleted."
 msgstr "Colección '{0}' eliminada."
 
@@ -950,15 +953,18 @@ msgstr "¿Seguro que queres eliminar esta colección?"
 msgid "Editing"
 msgstr "Editando"
 
+#, python-brace-format
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr "Páxina '{0}' creada e programada para publicación."
 
 msgid "View live"
 msgstr "Ver en vivo"
 
+#, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "Páxina '{0}' creada e publicada."
 
+#, python-brace-format
 msgid "Page '{0}' created and submitted for moderation."
 msgstr "Páxina '{0}' creada e enviada para ser moderada."
 
@@ -968,30 +974,38 @@ msgstr "Ver borrador"
 msgid "Failed to send notifications to moderators"
 msgstr "Fallo no envío de notificacións aos moderadores"
 
+#, python-brace-format
 msgid "Page '{0}' created."
 msgstr "Páxina '{0}' creada."
 
 msgid "The page could not be created due to validation errors"
 msgstr "A páxina non pudo ser creada debido a errores de validación"
 
+#, python-brace-format
 msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
 msgstr "Revisión dende {0} de páxina '{1}' foi programada para publicación."
 
+#, python-brace-format
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Páxina '{0}' foi programada para publicación."
 
+#, python-brace-format
 msgid "Revision from {0} of page '{1}' has been published."
 msgstr "Revisión dende {0} de páxina '{1}' foi publicada."
 
+#, python-brace-format
 msgid "Page '{0}' has been published."
 msgstr "Páxina '{0}' foi publicada."
 
+#, python-brace-format
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Páxina '{0}' foi enviada para ser moderada."
 
+#, python-brace-format
 msgid "Page '{0}' has been replaced with revision from {1}."
 msgstr "Páxina '{0}' foi reemplazada con revisión dende {1}."
 
+#, python-brace-format
 msgid "Page '{0}' has been updated."
 msgstr "Páxina '{0}' foi actualizada."
 
@@ -1004,39 +1018,49 @@ msgstr "A páxina non puido ser gardada debido a erros de validación"
 msgid "This page is currently awaiting moderation"
 msgstr "A páxina está á espera de ser moderada"
 
+#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Páxina '{0}' eliminada."
 
+#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "Páxina '{0}' non publicada."
 
+#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "Páxina '{0}' movida."
 
+#, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "Páxina '{0}' e {1} subpáxinas copiadas."
 
+#, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "Páxina '{0}' copiada."
 
+#, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "A páxina '{0}' non está esperando a ser moderada."
 
+#, python-brace-format
 msgid "Page '{0}' published."
 msgstr "Páxina '{0}' publicada."
 
 msgid "Failed to send approval notifications"
 msgstr "Fallo ao enviar notificaficacións de aprobación"
 
+#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "Rexeitada a publicación da página '{0}'."
 
 msgid "Failed to send rejection notifications"
 msgstr "Fallo ao enviar notificacións de rexeitamento"
 
+#, python-brace-format
 msgid "Page '{0}' is now locked."
 msgstr "Páxina '{0}' está agora bloqueada."
 
+#, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "A páxina '{0}' está agora desbloqueada."
 

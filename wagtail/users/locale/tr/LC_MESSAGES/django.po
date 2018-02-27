@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
 "PO-Revision-Date: 2018-01-26 16:03+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
@@ -147,9 +147,11 @@ msgstr "Gruplar"
 msgid "Search groups"
 msgstr "Grupları ara"
 
+#, python-brace-format
 msgid "Group '{0}' created."
 msgstr "'{0}' grubu oluşturuldu."
 
+#, python-brace-format
 msgid "Group '{0}' updated."
 msgstr "'{0}' grup güncellendi."
 

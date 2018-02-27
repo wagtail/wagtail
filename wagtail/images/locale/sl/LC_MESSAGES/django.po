@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
 "PO-Revision-Date: 2018-01-26 16:00+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -330,6 +330,7 @@ msgstr "Dodaj dovoljenje slike"
 msgid "Search images"
 msgstr "Iskanje po slikah"
 
+#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "Slika '{0}' posodobljena."
 
@@ -346,9 +347,11 @@ msgstr ""
 "Datoteke ni bilo možno najti. Spremenite izvorno datoteko, ali izbrišite "
 "sliko"
 
+#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "Slike '{0}' izbrisana."
 
+#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "Slika '{0}' dodana."
 

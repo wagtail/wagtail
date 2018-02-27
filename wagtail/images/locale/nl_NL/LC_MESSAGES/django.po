@@ -4,15 +4,15 @@
 #
 # Translators:
 # Franklin Kingma <franklin@statix.net>, 2015
-# Maarten Kling <kling.maarten@gmail.com>, 2015,2017
+# Maarten Kling <kling.maarten@gmail.com>, 2015,2017-2018
 # Thijs Kramer <thijskramer@gmail.com>, 2015-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-26 15:54+0000\n"
-"PO-Revision-Date: 2018-01-26 16:00+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
+"PO-Revision-Date: 2018-02-17 17:44+0000\n"
+"Last-Translator: Maarten Kling <kling.maarten@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -206,6 +206,12 @@ msgstr "Opslaan"
 msgid "Delete image"
 msgstr "Verwijder afbeelding"
 
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)s keer gebruikt"
+msgstr[1] "%(usage_count)s keer gebruikt"
+
 msgid "Are you sure you want to delete this image?"
 msgstr "Weet u zeker dat u deze afbeelding wilt verwijderen?"
 
@@ -246,6 +252,9 @@ msgstr "Bestandsgrootte"
 
 msgid "File not found"
 msgstr "Bestand niet gevonden"
+
+msgid "Usage"
+msgstr "Gebruik"
 
 msgid "Images"
 msgstr "Afbeeldingen"
@@ -353,6 +362,7 @@ msgstr "Voeg een afbeeldingsmachtiging toe"
 msgid "Search images"
 msgstr "Zoek afbeeldingen"
 
+#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "Afbeelding '{0}' is bijgewerkt."
 
@@ -369,20 +379,28 @@ msgstr ""
 "Het bronbestand van de afbeelding kon niet worden gevonden. Kies een ander "
 "bronbestand of verwijder de afbeelding."
 
+#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "Afbeelding '{0}' verwijderd."
 
+#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "Afbeelding '{0}' toegevoegd."
 
 msgid "The image could not be created due to errors."
 msgstr "De afbeelding kon vanwege fouten niet worden aangemaakt."
 
+msgid "Image"
+msgstr "Afbeelding"
+
 #, python-format
 msgid "%(count)s image"
 msgid_plural "%(count)s images"
 msgstr[0] "%(count)s afbeelding"
 msgstr[1] "%(count)s afbeeldingen"
+
+msgid "Change image"
+msgstr "Wijzig afbeelding"
 
 msgid "Edit this image"
 msgstr "Wijzig deze afbeelding"

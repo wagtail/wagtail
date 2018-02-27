@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-26 15:54+0000\n"
-"PO-Revision-Date: 2018-01-26 15:57+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
+"PO-Revision-Date: 2018-02-16 11:33+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
@@ -791,15 +791,18 @@ msgstr "パスワードが変更されました。"
 msgid "View live"
 msgstr "閲覧"
 
+#, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "ページ：'{0}' が作成され、公開されました。"
 
+#, python-brace-format
 msgid "Page '{0}' created and submitted for moderation."
 msgstr "'{0}' が作成され、承認待ちです。"
 
 msgid "View draft"
 msgstr "下書きを閲覧"
 
+#, python-brace-format
 msgid "Page '{0}' created."
 msgstr "ページ：'{0}' が作成されました。"
 
@@ -815,33 +818,43 @@ msgstr "このページはエラーにより保存できませんでした。"
 msgid "This page is currently awaiting moderation"
 msgstr "このページは現在承認待ちです。"
 
+#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "ページ：'{0}' が削除されました。"
 
+#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "ページ：'{0}' が非公開に設定されました。"
 
+#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "ページ：'{0}' が除去されました。"
 
+#, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "ページ：'{0}' とサブページ：'{1}'が複製されました。 "
 
+#, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "ページ：'{0}' がコピーされました。"
 
+#, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "ページ：'{0}' は現在承認待ちではありません。"
 
+#, python-brace-format
 msgid "Page '{0}' published."
 msgstr "ページ：'{0}' が公開されました。"
 
+#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "ページ：'{0}' の公開が拒否されました。"
 
+#, python-brace-format
 msgid "Page '{0}' is now locked."
 msgstr "ページ：'{0}' は現在ロックされています。"
 
+#, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "ページ：'{0}' のロックが解除されました。"
 

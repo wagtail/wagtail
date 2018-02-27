@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
 "PO-Revision-Date: 2018-01-26 16:05+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
@@ -56,9 +56,11 @@ msgstr "Pridať sídlo"
 msgid "Add site"
 msgstr "Pridať sídlo"
 
+#, python-brace-format
 msgid "Site '{0}' created."
 msgstr "Sídlo '{0}' vytvorené."
 
+#, python-brace-format
 msgid "Site '{0}' updated."
 msgstr "Sídlo '{0}' upravené."
 
@@ -68,6 +70,7 @@ msgstr "Sídlo nemôže byť uložené kvôli chybám."
 msgid "Delete site"
 msgstr "Zmazať sídlo"
 
+#, python-brace-format
 msgid "Site '{0}' deleted."
 msgstr "Sídlo '{0}' zmazané."
 

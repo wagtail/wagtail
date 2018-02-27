@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
 "PO-Revision-Date: 2018-01-26 23:41+0000\n"
 "Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -261,12 +261,14 @@ msgstr "Adaugă permisiune document"
 msgid "Search documents"
 msgstr "Caută documente"
 
+#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Documentul '{0}' a fost adăugat."
 
 msgid "The document could not be saved due to errors."
 msgstr "Documentul nu a fost salvat din cauza erorilor."
 
+#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "Documentul '{0}' a fost actualizat."
 
@@ -274,6 +276,7 @@ msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "Fișierul nu a fost găsit. Schimbă sursa sau sterge documentul"
 
+#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Documentul '{0}' a fost șters."
 

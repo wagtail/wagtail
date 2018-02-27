@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
 "PO-Revision-Date: 2018-01-26 16:07+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -166,6 +166,7 @@ msgstr "قبلی"
 msgid "Next"
 msgstr "بعدی"
 
+#, python-brace-format
 msgid "{model_name} '{instance}' created."
 msgstr "{model_name} '{instance}' ایجاد شد"
 
@@ -187,6 +188,7 @@ msgstr "در حال ویرایش"
 msgid "Editing %s"
 msgstr "ویرایش %s"
 
+#, python-brace-format
 msgid "{model_name} '{instance}' updated."
 msgstr "{model_name} '{instance}' بروزرسانی شد."
 
@@ -206,6 +208,7 @@ msgstr ""
 "آیا مطمئن هستید که میخواهید %s را حذف کنید؟ اگر چیزهای دیگری در این سایت "
 "مرتبط با این شی هستند آنها نیز تحت تاثیر این حذف ممکن است قرار بگیرند."
 
+#, python-brace-format
 msgid "{model} '{instance}' deleted."
 msgstr "{model} '{instance}' حذف شد."
 

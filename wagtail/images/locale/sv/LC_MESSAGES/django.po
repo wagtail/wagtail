@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
 "PO-Revision-Date: 2018-01-26 16:00+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
@@ -351,6 +351,7 @@ msgstr "Lägg till en bildrättighet"
 msgid "Search images"
 msgstr "Sök bilder"
 
+#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "Bild '{0}' uppdaterades."
 
@@ -367,9 +368,11 @@ msgstr ""
 "Filen för originalbilden kunde inte hittas. Vänligen ändra filen eller ta "
 "bort bilden."
 
+#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "Bild '{0}' raderad."
 
+#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "Bild '{0}' lades till."
 

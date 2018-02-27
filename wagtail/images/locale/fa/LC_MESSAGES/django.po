@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
 "PO-Revision-Date: 2018-01-26 16:00+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -339,6 +339,7 @@ msgstr "افزودن مجوز تصویر"
 msgid "Search images"
 msgstr "جستجوی تصاویر"
 
+#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "تصویر '{0}' بروزرسانی شد."
 
@@ -353,9 +354,11 @@ msgid ""
 "the image."
 msgstr "تصویر منبع پیدا نشد. لطفا منبع را تغییر دهید یا تصویر را حذف نمایید."
 
+#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "تصویر '{0}' حذف شد."
 
+#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "تصویر '{0}' اضافه شد."
 

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
 "PO-Revision-Date: 2017-09-20 11:57+0000\n"
 "Last-Translator: Mikalai Radchuk <radchuk.m@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -55,9 +55,11 @@ msgstr "Добавить сайт"
 msgid "Add site"
 msgstr "Добавить сайт"
 
+#, python-brace-format
 msgid "Site '{0}' created."
 msgstr "Сайт '{0}' создан."
 
+#, python-brace-format
 msgid "Site '{0}' updated."
 msgstr "Сайт '{0}' обновлен."
 
@@ -67,6 +69,7 @@ msgstr "Сайт не может быть сохранен из-за ошибо�
 msgid "Delete site"
 msgstr "Удалить сайт"
 
+#, python-brace-format
 msgid "Site '{0}' deleted."
 msgstr "Сайт '{0}' удален."
 

@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
 "PO-Revision-Date: 2018-01-26 16:04+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
@@ -277,21 +277,25 @@ msgstr "Gruppen"
 msgid "Search groups"
 msgstr "Gruppe suchen"
 
+#, python-brace-format
 msgid "Group '{0}' created."
 msgstr "Gruppe ‚{0}‘ erstellt."
 
+#, python-brace-format
 msgid "Group '{0}' updated."
 msgstr "Gruppe ‚{0}‘ geändert."
 
 msgid "The group could not be saved due to errors."
 msgstr "Aufgrund von Fehlern konnte die Gruppe nicht gespeichert werden."
 
+#, python-brace-format
 msgid "Group '{0}' deleted."
 msgstr "Gruppe '{0}' gelöscht."
 
 msgid "Search users"
 msgstr "Benutzer suchen"
 
+#, python-brace-format
 msgid "User '{0}' created."
 msgstr "Benutzer ‚{0}‘ erstellt."
 
@@ -301,12 +305,14 @@ msgstr "Bearbeiten"
 msgid "The user could not be created due to errors."
 msgstr "Aufgrund von Fehlern konnte der Benutzer nicht erstellt werden."
 
+#, python-brace-format
 msgid "User '{0}' updated."
 msgstr "Benutzer ‚{0}‘ geändert."
 
 msgid "The user could not be saved due to errors."
 msgstr "Aufgrund von Fehlern konnte der Benutzer nicht gespeichert werden."
 
+#, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "Benutzer '{0}' gelöscht."
 

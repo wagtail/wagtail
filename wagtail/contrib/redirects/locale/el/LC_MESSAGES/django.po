@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
 "PO-Revision-Date: 2018-01-26 16:02+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
@@ -145,6 +145,7 @@ msgstr ""
 msgid "Search redirects"
 msgstr "Αναζήτηση ανακατευθύνσεων"
 
+#, python-brace-format
 msgid "Redirect '{0}' updated."
 msgstr "Η ανακατεύθυνση '{0}' αποθηκεύθηκε."
 
@@ -154,9 +155,11 @@ msgstr "Επεξεργασία"
 msgid "The redirect could not be saved due to errors."
 msgstr "Η ανακατεύθυνση δε μπόρεσε να αποθηκευθεί λόγω σφαλμάτων."
 
+#, python-brace-format
 msgid "Redirect '{0}' deleted."
 msgstr "Η ανακατεύθυνση '{0}' διαγράφηκε."
 
+#, python-brace-format
 msgid "Redirect '{0}' added."
 msgstr "Η ανακατεύθυνση '{0}' προστέθηκε."
 
