@@ -17,6 +17,7 @@ $draftail-editor-font-family: $font-serif;
 @import '../../../../node_modules/draftail/lib/index';
 
 @import './Tooltip/Tooltip';
+@import './EditorFallback/EditorFallback';
 
 @import './decorators/TooltipEntity';
 
