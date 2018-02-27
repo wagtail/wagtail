@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
 "PO-Revision-Date: 2017-09-22 02:02+0000\n"
 "Last-Translator: Mohammad Hossein Mojtahedi <Mhm5000@gmail.com>\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -52,9 +52,11 @@ msgstr "اضافه کردن یک سایت"
 msgid "Add site"
 msgstr " کردن سایت"
 
+#, python-brace-format
 msgid "Site '{0}' created."
 msgstr "سایت '{0}' ساخته شد."
 
+#, python-brace-format
 msgid "Site '{0}' updated."
 msgstr "سایت '{0}' به‌روز شد."
 
@@ -64,6 +66,7 @@ msgstr "ذخیره این سایت به دلایلی امکان‌پذیر نم�
 msgid "Delete site"
 msgstr "حذف سایت"
 
+#, python-brace-format
 msgid "Site '{0}' deleted."
 msgstr "سایت '{0}' حذف شد"
 

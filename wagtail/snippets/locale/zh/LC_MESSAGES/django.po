@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
 "PO-Revision-Date: 2018-01-26 16:03+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (http://www.transifex.com/torchbox/wagtail/language/"
@@ -78,17 +78,20 @@ msgstr "<span>%(snippet_type_name_plural)s</span>片段"
 msgid "Add %(snippet_type_name)s"
 msgstr "添加%(snippet_type_name)s"
 
+#, python-brace-format
 msgid "{snippet_type} '{instance}' created."
 msgstr "已创建{snippet_type} '{instance}'"
 
 msgid "The snippet could not be created due to errors."
 msgstr "多个错误导致这个片段无法创建。"
 
+#, python-brace-format
 msgid "{snippet_type} '{instance}' updated."
 msgstr "已经更新{snippet_type} '{instance}'。"
 
 msgid "The snippet could not be saved due to errors."
 msgstr "多个错误导致这个片段无法保存"
 
+#, python-brace-format
 msgid "{snippet_type} '{instance}' deleted."
 msgstr "已删除{snippet_type} '{instance}'"

@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
 "PO-Revision-Date: 2018-01-26 16:01+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
@@ -299,6 +299,7 @@ msgstr "Verwijderen"
 msgid "Search images"
 msgstr "Zoek afbeeldingen"
 
+#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "Afbeelding '{0}' geupdate."
 
@@ -315,9 +316,11 @@ msgstr ""
 "Het bronbestand kon niet gevonden worden. Wijzig de bron of verwijder de "
 "afbeelding."
 
+#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "Afbeelding '{0}' verwijderd."
 
+#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "Afbeelding '{0}' toegevoegd."
 

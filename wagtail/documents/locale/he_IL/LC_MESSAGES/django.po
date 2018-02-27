@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
 "PO-Revision-Date: 2018-01-26 15:59+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/torchbox/wagtail/"
@@ -107,12 +107,14 @@ msgstr "מחק"
 msgid "Search documents"
 msgstr "חיפוש במסמכים"
 
+#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "מסמך '{0}' הוסף"
 
 msgid "The document could not be saved due to errors."
 msgstr "המסמך לא ניתן לשמירה עקב שגיאות"
 
+#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "מסמך '{0}' עודכן"
 
@@ -120,6 +122,7 @@ msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "הקובץ לא נמצע. אנא שנו את המקור או מחקו את המסמך"
 
+#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "מסמך '{0}' נמחק"
 

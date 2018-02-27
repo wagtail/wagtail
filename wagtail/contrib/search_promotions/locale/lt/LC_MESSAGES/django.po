@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
 "PO-Revision-Date: 2017-09-23 10:48+0000\n"
 "Last-Translator: Matas Dailyda <matas@dailyda.com>\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
@@ -165,6 +165,7 @@ msgstr ""
 msgid "Search promoted results"
 msgstr "Ieškoti reklamuojamų rezultatų"
 
+#, python-brace-format
 msgid "Editor's picks for '{0}' created."
 msgstr "Redaktoriaus pasirinkimai '{0}' sukurti."
 
@@ -174,6 +175,7 @@ msgstr "Redaguoti"
 msgid "Recommendations have not been created due to errors"
 msgstr "Rekomendacijos nebuvo sukurtos dėl klaidų"
 
+#, python-brace-format
 msgid "Editor's picks for '{0}' updated."
 msgstr "Redaktoriaus pasirinkimai '{0}' atnaujinti."
 

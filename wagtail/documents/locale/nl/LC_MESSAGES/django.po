@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
 "PO-Revision-Date: 2018-01-26 16:00+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
@@ -163,12 +163,14 @@ msgstr "Verwijder"
 msgid "Search documents"
 msgstr "Zoek documenten"
 
+#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Document '{0}' toegevoegd."
 
 msgid "The document could not be saved due to errors."
 msgstr "het document kon niet opgeslagen worden vanwege errors."
 
+#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "Document '{0}' is gewijzigd"
 
@@ -178,6 +180,7 @@ msgstr ""
 "Het bestand kon niet gevonden worden. Wijzig de bron of verwijder het "
 "document"
 
+#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Document '{0}' is verwijderd."
 

@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-26 15:54+0000\n"
-"PO-Revision-Date: 2018-01-26 15:57+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
+"PO-Revision-Date: 2018-02-16 11:33+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
 "tr/)\n"
@@ -409,12 +409,15 @@ msgstr "Taslak görüntüle"
 msgid "The page could not be created due to validation errors"
 msgstr "Sayfa doğrulama hataları nedeniyle oluşturulamadı"
 
+#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Sayfa '{0}' silindi."
 
+#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "Sayfa '{0}' yayından kaldırıldı."
 
+#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "Sayfa '{0}' taşındı."
 

@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
 "PO-Revision-Date: 2018-01-26 15:59+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
@@ -248,12 +248,14 @@ msgstr "Προσθήκη δικαιώματος εγγράφου"
 msgid "Search documents"
 msgstr "Αναζήτηση εγγράφων"
 
+#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Το έγγραφο '{0}' προστέθηκε."
 
 msgid "The document could not be saved due to errors."
 msgstr "Δεν ήταν δυνατή η αποθήκευση του εγγράφου."
 
+#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "Έγινε διόρθωση του εγγράφου '{0}'"
 
@@ -263,6 +265,7 @@ msgstr ""
 "Το αρχείο δεν μπορεσε να βρεθεί. Παρακαλούμε να αλλάξετε την πηγή ή να "
 "διαγράψετε το έγγραφο"
 
+#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Το έγγραφο '{0}' διαγράφηκε."
 

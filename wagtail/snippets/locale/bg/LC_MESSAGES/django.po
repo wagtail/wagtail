@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
 "PO-Revision-Date: 2018-01-26 16:03+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Bulgarian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -79,17 +79,20 @@ msgstr "Откъси от код <span>%(snippet_type_name_plural)s</span>"
 msgid "Add %(snippet_type_name)s"
 msgstr "Добави %(snippet_type_name)s"
 
+#, python-brace-format
 msgid "{snippet_type} '{instance}' created."
 msgstr "{snippet_type} '{instance}' е създаден"
 
 msgid "The snippet could not be created due to errors."
 msgstr "Този код-откъс не беше създаден поради грешки."
 
+#, python-brace-format
 msgid "{snippet_type} '{instance}' updated."
 msgstr "{snippet_type} '{instance}' обновен."
 
 msgid "The snippet could not be saved due to errors."
 msgstr "Откъса от док не можеше да бъде запазен поради грешки."
 
+#, python-brace-format
 msgid "{snippet_type} '{instance}' deleted."
 msgstr "{snippet_type} '{instance}' изтрит."

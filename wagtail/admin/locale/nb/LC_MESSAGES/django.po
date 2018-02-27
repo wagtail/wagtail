@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-26 15:54+0000\n"
-"PO-Revision-Date: 2018-02-09 15:14+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
+"PO-Revision-Date: 2018-02-16 13:12+0000\n"
 "Last-Translator: Stein Strindhaug <stein.strindhaug@gmail.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
@@ -1242,6 +1242,9 @@ msgstr "russisk"
 msgid "Swedish"
 msgstr "Svensk"
 
+msgid "Slovak"
+msgstr "Slovakisk"
+
 msgid "Chinese (China)"
 msgstr "kinesisk (Kina)"
 
@@ -1266,9 +1269,11 @@ msgstr "Legg til en samling"
 msgid "Add collection"
 msgstr "Legg til samling"
 
+#, python-brace-format
 msgid "Collection '{0}' created."
 msgstr "Samlingen \"{0}\" er opprettet."
 
+#, python-brace-format
 msgid "Collection '{0}' updated."
 msgstr "Samlingen \"{0}\" er oppdatert."
 
@@ -1278,6 +1283,7 @@ msgstr "Samlingen kunne ikke lagres grunnet feil."
 msgid "Delete collection"
 msgstr "Slett samlingen"
 
+#, python-brace-format
 msgid "Collection '{0}' deleted."
 msgstr "Samlingen \"{0}\" er slettet."
 
@@ -1287,15 +1293,18 @@ msgstr "Er du sikker på at du vil slette denne samlingen?"
 msgid "Editing"
 msgstr "Redigerer"
 
+#, python-brace-format
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr "Siden \"{0}\" er opprettet og planlagt for publisering."
 
 msgid "View live"
 msgstr "Vis publisert"
 
+#, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "Siden \"{0}\" er opprettet og publisert."
 
+#, python-brace-format
 msgid "Page '{0}' created and submitted for moderation."
 msgstr "Siden \"{0}\" er opprettet og sendt til godkjenning."
 
@@ -1305,34 +1314,43 @@ msgstr "Vis kladd"
 msgid "Failed to send notifications to moderators"
 msgstr "Klarte ikke å sende varsler til moderatorene"
 
+#, python-brace-format
 msgid "Page '{0}' created."
 msgstr "Siden \"{0}\" er opprettet."
 
 msgid "The page could not be created due to validation errors"
 msgstr "Siden kunne ikke opprettes grunnet valideringsfeil."
 
+#, python-brace-format
 msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
 msgstr "Revisjonen fra {0} av siden «{1}» har blitt planlagt for publisering."
 
+#, python-brace-format
 msgid "Page '{0}' is live and this revision has been scheduled for publishing."
 msgstr ""
 "Siden \"{0}\" er publisert og denne revisjonen er planlagt for publisering."
 
+#, python-brace-format
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Siden \"{0}\" er planlagt for publisering."
 
+#, python-brace-format
 msgid "Revision from {0} of page '{1}' has been published."
 msgstr "Revisjonen fra {0} av siden «{1}» har blitt publisert."
 
+#, python-brace-format
 msgid "Page '{0}' has been published."
 msgstr "Siden \"{0}\" er publisert."
 
+#, python-brace-format
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Siden \"{0}\" er sendt til godkjenning."
 
+#, python-brace-format
 msgid "Page '{0}' has been replaced with revision from {1}."
 msgstr "Siden «{0}» har blitt erstattet av revisjonen fra {1}."
 
+#, python-brace-format
 msgid "Page '{0}' has been updated."
 msgstr "Siden \"{0}\" er oppdatert."
 
@@ -1348,39 +1366,49 @@ msgstr "Sammenlign med publisert versjon"
 msgid "This page is currently awaiting moderation"
 msgstr "Denne siden påventer godkjenning"
 
+#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Siden \"{0}\" er slettet."
 
+#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "Siden \"{0}\" er avpublisert."
 
+#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "Siden \"{0}\" er flyttet."
 
+#, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "Siden \"{0}\" og {1} undersider kopiert."
 
+#, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "Siden \"{0}\" kopiert."
 
+#, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "Siden \"{0}\" påventer ikke godkjenning."
 
+#, python-brace-format
 msgid "Page '{0}' published."
 msgstr "Siden \"{0}\" er publisert."
 
 msgid "Failed to send approval notifications"
 msgstr "Klarte ikke å sende varsel om godkjenninger"
 
+#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "Siden \"{0}\" ble avvist for publikasjon."
 
 msgid "Failed to send rejection notifications"
 msgstr "Klarte ikke å sende varsel om avvisninger"
 
+#, python-brace-format
 msgid "Page '{0}' is now locked."
 msgstr "Siden \"{0}\" er nå låst."
 
+#, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "Siden \"{0}\" er nå ulåst."
 
@@ -1398,45 +1426,58 @@ msgstr "Tidligste"
 msgid "Latest"
 msgstr "Siste"
 
+#, python-brace-format
 msgid "revision {0} of \"{1}\""
 msgstr "revisjon {0} av \"{1}\""
 
+#, python-brace-format
 msgid "Revision {0} of \"{1}\" unscheduled."
 msgstr "Revisjon {0} av \"{1}\" avbrutt."
 
+#, python-brace-format
 msgid "Edit '{title}'"
 msgstr "Endre '{title}'"
 
+#, python-brace-format
 msgid "Preview draft version of '{title}'"
 msgstr "Forhåndsvis kladd av «{title}»"
 
+#, python-brace-format
 msgid "View live version of '{title}'"
 msgstr "Vis publisert versjon av  «{title}»"
 
+#, python-brace-format
 msgid "Add a child page to '{title}' "
 msgstr "Legg til underside til «{title}»"
 
 msgid "More"
 msgstr "Mer"
 
+#, python-brace-format
 msgid "View more options for '{title}'"
 msgstr "Vis flere valgmuligheter for «{title}»"
 
+#, python-brace-format
 msgid "Move page '{title}'"
 msgstr "Flytt siden «{title}»"
 
+#, python-brace-format
 msgid "Copy page '{title}'"
 msgstr "Kopier siden «{title}»"
 
+#, python-brace-format
 msgid "Delete page '{title}'"
 msgstr "Slett siden «{title}»"
 
+#, python-brace-format
 msgid "Unpublish page '{title}'"
 msgstr "Avpublisér siden «{title}»"
 
+#, python-brace-format
 msgid "View revision history for '{title}'"
 msgstr "Vis revisjonshistorikken til siden «{title}»"
 
+#, python-brace-format
 msgid "Heading {level}"
 msgstr "Overskrift {level}"
 

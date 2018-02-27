@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
 "PO-Revision-Date: 2018-01-26 16:06+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
@@ -155,6 +155,7 @@ msgstr ""
 msgid "Search promoted results"
 msgstr "프로모션 결과 검색"
 
+#, python-brace-format
 msgid "Editor's picks for '{0}' created."
 msgstr "'{0}' 를 위한 에디터의 선택이 추가 되었습니다."
 
@@ -164,6 +165,7 @@ msgstr "수정"
 msgid "Recommendations have not been created due to errors"
 msgstr "에러로 인해 추천 결과를 생성할 수 없습니다"
 
+#, python-brace-format
 msgid "Editor's picks for '{0}' updated."
 msgstr "'{0}' 에 대한 에디터의 선택이 업데이트 되었습니다."
 

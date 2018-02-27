@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
 "PO-Revision-Date: 2017-09-20 15:49+0000\n"
 "Last-Translator: Thomas Kunambi <kunambi@gmail.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
@@ -53,9 +53,11 @@ msgstr "Lägg till en sajt"
 msgid "Add site"
 msgstr "Addera sajt"
 
+#, python-brace-format
 msgid "Site '{0}' created."
 msgstr "Sajt '{0}' skapad."
 
+#, python-brace-format
 msgid "Site '{0}' updated."
 msgstr "Sajt '{0}' uppdaterad."
 
@@ -65,6 +67,7 @@ msgstr "Sajten kunde inte sparas pga fel."
 msgid "Delete site"
 msgstr "Radera sajt"
 
+#, python-brace-format
 msgid "Site '{0}' deleted."
 msgstr "Sajt '{0}' raderad."
 

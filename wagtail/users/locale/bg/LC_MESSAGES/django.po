@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
 "PO-Revision-Date: 2018-01-26 16:03+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Bulgarian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -125,12 +125,14 @@ msgstr ""
 "Няма конфигурирани потребители. Защо не <a href=\"%(wagtailusers_create_url)s"
 "\">добавите един сега</a>?"
 
+#, python-brace-format
 msgid "User '{0}' created."
 msgstr "Потребител '{0}' създаден."
 
 msgid "The user could not be created due to errors."
 msgstr "Потребителя не можеше да бъде създаден поради грешки."
 
+#, python-brace-format
 msgid "User '{0}' updated."
 msgstr "Потребител '{0}' обновен."
 

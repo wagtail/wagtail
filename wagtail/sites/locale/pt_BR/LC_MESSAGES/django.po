@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
 "PO-Revision-Date: 2017-09-20 11:57+0000\n"
 "Last-Translator: Luiz Boaretto <lboaretto@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
@@ -55,9 +55,11 @@ msgstr "Adicionar um site"
 msgid "Add site"
 msgstr "Adicionar site"
 
+#, python-brace-format
 msgid "Site '{0}' created."
 msgstr "Site '{0}' criado."
 
+#, python-brace-format
 msgid "Site '{0}' updated."
 msgstr "Site '{0}' atualizado."
 
@@ -67,6 +69,7 @@ msgstr "O site não pôde ser salvo devido a erros."
 msgid "Delete site"
 msgstr "Remover site"
 
+#, python-brace-format
 msgid "Site '{0}' deleted."
 msgstr "Site '{0}' removido."
 

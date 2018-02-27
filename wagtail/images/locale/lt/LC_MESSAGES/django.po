@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
 "PO-Revision-Date: 2018-01-26 16:00+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
@@ -354,6 +354,7 @@ msgstr "Pridėti paveiksliuko leidimą"
 msgid "Search images"
 msgstr "Ieškoti paveiksliukų"
 
+#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "Paveiksliukas '{0}' atnaujintas"
 
@@ -370,9 +371,11 @@ msgstr ""
 "Paveiksliuko šaltinio byla nebuvo rasta. Prašome pakeisti šaltinį arba "
 "ištrinti paveiksliuką."
 
+#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "Paveiksliukas '{0}' ištrintas."
 
+#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "Paveiksliukas '{0}' pridėtas."
 

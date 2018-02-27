@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-26 15:54+0000\n"
-"PO-Revision-Date: 2018-01-26 15:57+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
+"PO-Revision-Date: 2018-02-16 11:33+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
@@ -1160,9 +1160,11 @@ msgstr "Bæta við safni"
 msgid "Add collection"
 msgstr "Bæta við safni"
 
+#, python-brace-format
 msgid "Collection '{0}' created."
 msgstr "Safn '{0}' búið til."
 
+#, python-brace-format
 msgid "Collection '{0}' updated."
 msgstr "Safn '{0}' uppfært."
 
@@ -1172,6 +1174,7 @@ msgstr "Ekki var hægt að vista safnið þar sem hún stóðst ekki villuprófa
 msgid "Delete collection"
 msgstr "Eyða safni"
 
+#, python-brace-format
 msgid "Collection '{0}' deleted."
 msgstr "Safni '{0}' eytt."
 
@@ -1181,15 +1184,18 @@ msgstr "Ertu viss um að þú viljir eyða þessu safni?"
 msgid "Editing"
 msgstr "Breyti"
 
+#, python-brace-format
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr "Síða '{0}' hefur verið búin til og tímastillt til að setja í loftið."
 
 msgid "View live"
 msgstr "Skoða á vef"
 
+#, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "Síða '{0}' vistuð og birt."
 
+#, python-brace-format
 msgid "Page '{0}' created and submitted for moderation."
 msgstr "Síða '{0}' vistuð og send til samþykkis."
 
@@ -1199,31 +1205,39 @@ msgstr "Skoða uppkast"
 msgid "Failed to send notifications to moderators"
 msgstr "Ekki tókst að senda tilkynningar til skoðunaraðila"
 
+#, python-brace-format
 msgid "Page '{0}' created."
 msgstr "Síða '{0}' vistuð."
 
 msgid "The page could not be created due to validation errors"
 msgstr "Ekki var hægt að búa síðuna til þar sem hún stóðst ekki villuprófanir"
 
+#, python-brace-format
 msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
 msgstr ""
 "Útgáfa frá {0} af síðu '{1}' hefur verið tímastillt til að setja í loftið."
 
+#, python-brace-format
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Síða '{0}' hefur verið tímastillt til að setja í loftið."
 
+#, python-brace-format
 msgid "Revision from {0} of page '{1}' has been published."
 msgstr "Útgáfa frá {0} af síðu '{1}' hefur verið sett í loftið."
 
+#, python-brace-format
 msgid "Page '{0}' has been published."
 msgstr "Síða '{0}' hefur verið birt."
 
+#, python-brace-format
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Síða '{0}' hefur verið send inn til samþykkis."
 
+#, python-brace-format
 msgid "Page '{0}' has been replaced with revision from {1}."
 msgstr "Síða '{0}' hefur verið skipt út fyrir útgáfu frá {1}."
 
+#, python-brace-format
 msgid "Page '{0}' has been updated."
 msgstr "Síða '{0}' hefur verið uppfærð."
 
@@ -1239,39 +1253,49 @@ msgstr "Bera saman við útgáfu í birtingu"
 msgid "This page is currently awaiting moderation"
 msgstr "Þessi síða bíður samþykkis til birtingar."
 
+#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Síðu '{0}' eytt."
 
+#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "Síða '{0}' tekin úr birtingu."
 
+#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "Síða '{0}' færð."
 
+#, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "Síða '{0}' og {1} undirsíður afritaðar."
 
+#, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "Síða '{0}' afrituð."
 
+#, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "'{0}' bíður nú samþykkis til birtingar."
 
+#, python-brace-format
 msgid "Page '{0}' published."
 msgstr "Síða '{0}' hefur verið birt."
 
 msgid "Failed to send approval notifications"
 msgstr "Ekki tókst að senda samþykkis tilkynningar"
 
+#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "Birtingu '{0}' var hafnað."
 
 msgid "Failed to send rejection notifications"
 msgstr "Ekki tókst að senda höfnunar tilkynningar"
 
+#, python-brace-format
 msgid "Page '{0}' is now locked."
 msgstr "Síða '{0}' er nú læst."
 
+#, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "Síða '{0}' er nú ólæst."
 
@@ -1289,36 +1313,46 @@ msgstr "Fyrsta"
 msgid "Latest"
 msgstr "Nýjasta"
 
+#, python-brace-format
 msgid "Edit '{title}'"
 msgstr "Breyta '{title}'"
 
+#, python-brace-format
 msgid "Preview draft version of '{title}'"
 msgstr "Forskoða uppkast af '{title}'"
 
+#, python-brace-format
 msgid "View live version of '{title}'"
 msgstr "Skoða útgáfu af '{title}' í birtingu"
 
+#, python-brace-format
 msgid "Add a child page to '{title}' "
 msgstr "Bæta undirsíðu við '{title}'"
 
 msgid "More"
 msgstr "Meira"
 
+#, python-brace-format
 msgid "View more options for '{title}'"
 msgstr "Skoða fleiri valkosti fyrir '{title}'"
 
+#, python-brace-format
 msgid "Move page '{title}'"
 msgstr "Færa síðu '{title}'"
 
+#, python-brace-format
 msgid "Copy page '{title}'"
 msgstr "Afrita síðu '{title}'"
 
+#, python-brace-format
 msgid "Delete page '{title}'"
 msgstr "Eyða síðu '{title}'"
 
+#, python-brace-format
 msgid "Unpublish page '{title}'"
 msgstr "Taka '{title}' úr loftinu"
 
+#, python-brace-format
 msgid "View revision history for '{title}'"
 msgstr "Skoða útgáfusögu '{title}'"
 

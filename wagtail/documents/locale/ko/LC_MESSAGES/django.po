@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
 "PO-Revision-Date: 2018-01-26 16:00+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
@@ -235,12 +235,14 @@ msgstr "문서 권한 추가"
 msgid "Search documents"
 msgstr "문서 검색"
 
+#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "'{0}' 문서가 추가 되었습니다."
 
 msgid "The document could not be saved due to errors."
 msgstr "에러로 인해 문서를 저장할 수 없습니다."
 
+#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "'{0}' 문서가 추가 되었습니다."
 
@@ -249,6 +251,7 @@ msgid ""
 msgstr ""
 "파일을 찾을 수 없습니다. 소스를 변경하거나 파일을 삭제하여 주시기 바랍니다."
 
+#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "'{0}' 문서가 삭제 되었습니다."
 

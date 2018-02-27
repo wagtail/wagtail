@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
 "PO-Revision-Date: 2018-01-26 16:00+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
@@ -233,15 +233,18 @@ msgstr "Sil"
 msgid "Search images"
 msgstr "Resimleri ara"
 
+#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "'{0}' resim güncellendi"
 
 msgid "Edit again"
 msgstr "Yeniden düzenle"
 
+#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "Resim '{0}' silindi."
 
+#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "Resim '{0}' eklendi"
 

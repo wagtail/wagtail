@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
 "PO-Revision-Date: 2018-02-08 21:15+0000\n"
 "Last-Translator: Miłosz Miśkiewicz\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
@@ -378,6 +378,7 @@ msgstr "Dodaj uprawnienie obrazu"
 msgid "Search images"
 msgstr "Szukaj obrazów"
 
+#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "Uaktualniono obraz '{0}'."
 
@@ -394,9 +395,11 @@ msgstr ""
 "Plik źródłowy obrazu nie mógł zostać znaleziony. Proszę zmień źródło lub "
 "usuń obraz."
 
+#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "Usunięto obraz '{0}'."
 
+#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "Dodano obraz '{0}'."
 

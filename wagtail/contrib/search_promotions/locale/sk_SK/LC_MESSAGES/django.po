@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
 "PO-Revision-Date: 2018-01-26 16:06+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
@@ -171,6 +171,7 @@ msgstr ""
 msgid "Search promoted results"
 msgstr "Hľadať propagované výsledky"
 
+#, python-brace-format
 msgid "Editor's picks for '{0}' created."
 msgstr "Výbery Editora pre '{0}' boli vytvorené."
 
@@ -180,6 +181,7 @@ msgstr "Upraviť"
 msgid "Recommendations have not been created due to errors"
 msgstr "Odporúčania nemôžu byť vytvorené kvôli chybám."
 
+#, python-brace-format
 msgid "Editor's picks for '{0}' updated."
 msgstr "Výbery Editora pre '{0}' boli aktualizované."
 

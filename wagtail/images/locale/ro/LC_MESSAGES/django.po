@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
 "PO-Revision-Date: 2018-01-26 23:45+0000\n"
 "Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -365,6 +365,7 @@ msgstr "Adaugă o permisiune imagine"
 msgid "Search images"
 msgstr "Caută imagini"
 
+#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "Imaginea '{0}' a fost actualizată."
 
@@ -381,9 +382,11 @@ msgstr ""
 "Fișierul sursă al imaginii nu a fost găsit. Schimbă sursa sau sterge "
 "imaginea."
 
+#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "Imaginea '{0}' a fost ștearsă."
 
+#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "Imaginea '{0}' a fost adăugată."
 

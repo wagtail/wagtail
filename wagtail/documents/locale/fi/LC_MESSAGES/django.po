@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
 "PO-Revision-Date: 2018-01-26 16:00+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
@@ -246,12 +246,14 @@ msgstr "Lisää dokumenttioikeus"
 msgid "Search documents"
 msgstr "Hae dokumentteja"
 
+#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Dokumentti '{0}' lisätty."
 
 msgid "The document could not be saved due to errors."
 msgstr "Dokumenttia ei voitu tallentaa virheiden vuoksi."
 
+#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "Dokumentti '{0}' päivitetty"
 
@@ -259,6 +261,7 @@ msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "Tiedostoa ei löydy. Vaihda lähde tai poista dokumentti"
 
+#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Dokumentti '{0}' poistettu."
 

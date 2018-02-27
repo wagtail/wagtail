@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-26 15:54+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
 "PO-Revision-Date: 2018-01-26 16:02+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -132,6 +132,7 @@ msgstr ""
 msgid "Search redirects"
 msgstr "ریدایرکت های جستجو"
 
+#, python-brace-format
 msgid "Redirect '{0}' updated."
 msgstr "ریدایرکت  '{0}' بروزرسانی شد."
 
@@ -141,9 +142,11 @@ msgstr "ویرایش"
 msgid "The redirect could not be saved due to errors."
 msgstr "ریدایرکت به دلیل بروز خطا ذخیره نشد."
 
+#, python-brace-format
 msgid "Redirect '{0}' deleted."
 msgstr "ریدایرکت '{0}' حذف شد."
 
+#, python-brace-format
 msgid "Redirect '{0}' added."
 msgstr "ریدایرکت '{0}' افزوده شد."
 
