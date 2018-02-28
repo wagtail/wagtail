@@ -806,7 +806,6 @@ class Elasticsearch2Index:
         for item in items:
             # Create the action
             action = {
-                '_index': self.name,
                 '_type': doc_type,
                 '_id': mapping.get_document_id(item),
             }
@@ -814,7 +813,7 @@ class Elasticsearch2Index:
             actions.append(action)
 
         # Run the actions
-        bulk(self.es, actions)
+        bulk(self.es, actions, index=self.name)
 
     def delete_item(self, item):
         # Make sure the object can be indexed

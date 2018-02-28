@@ -57,6 +57,7 @@ Changelog
  * Fix: Restored ability to use non-model fields with FieldPanel (Matt Westcott, LB (Ben Johnston))
  * Fix: Stop revision comparison view from crashing when non-model FieldPanels are in use (LB (Ben Johnston))
  * Fix: Ordering in the page explorer now respects custom `get_admin_display_title` methods when sorting <100 pages (Matt Westcott)
+ * Fix: Use index-specific Elasticsearch endpoints for bulk insertion, for compatibility with providers that lock down the root endpoint (Karl Hobley)
 
 
 2.0.2 (xx.xx.xxxx) - IN DEVELOPMENT
