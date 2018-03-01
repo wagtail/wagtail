@@ -279,6 +279,7 @@ Contributors
 * Dan Dietz
 * Michael Harrison
 * Todd Dembrey
+* Sebastian Brestin
 
 Translators
 ===========

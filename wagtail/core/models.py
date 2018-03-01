@@ -1773,6 +1773,9 @@ class PagePermissionTester:
         """
         return self.can_delete()
 
+    def can_copy(self):
+        return not self.page_is_root
+
     def can_move_to(self, destination):
         # reject the logically impossible cases first
         if self.page == destination or destination.is_descendant_of(self.page):
@@ -1830,6 +1833,9 @@ class PagePermissionTester:
             return False
 
         return True
+
+    def can_view_revisions(self):
+        return not self.page_is_root
 
 
 class BaseViewRestriction(models.Model):

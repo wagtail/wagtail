@@ -153,7 +153,7 @@ def page_listing_more_buttons(page, page_perms, is_parent=False):
             attrs={"title": _("Move page '{title}'").format(title=page.get_admin_display_title())},
             priority=10
         )
-    if not page.is_root():
+    if page_perms.can_copy():
         yield Button(
             _('Copy'),
             reverse('wagtailadmin_pages:copy', args=[page.id]),
@@ -174,7 +174,7 @@ def page_listing_more_buttons(page, page_perms, is_parent=False):
             attrs={'title': _("Unpublish page '{title}'").format(title=page.get_admin_display_title())},
             priority=40
         )
-    if not page.is_root():
+    if page_perms.can_view_revisions():
         yield Button(
             _('Revisions'),
             reverse('wagtailadmin_pages:revisions_index', args=[page.id]),
