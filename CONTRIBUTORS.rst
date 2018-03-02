@@ -278,6 +278,7 @@ Contributors
 * Julian Gallo
 * Dan Dietz
 * Michael Harrison
+* Todd Dembrey
 
 Translators
 ===========

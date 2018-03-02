@@ -11,6 +11,7 @@ Changelog
  * Fix: Image title text in the gallery and in the chooser now wraps for long filenames (LB (Ben Johnston), Luiz Boaretto)
  * Fix: Move image editor action buttons to the bottom of the form on mobile (Julian Gallo)
  * Fix: StreamField icons are now correctly sorted into groups on the 'append' menu (Tim Heap)
+ * Fix: Draftail now supports features specified via the `WAGTAILADMIN_RICH_TEXT_EDITORS` setting (Todd Dembrey)
 
 
 2.0 (28.02.2018)

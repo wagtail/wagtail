@@ -18,6 +18,7 @@ class DraftailRichTextArea(WidgetWithScript, widgets.HiddenInput):
     def __init__(self, *args, **kwargs):
         # note: this constructor will receive an 'options' kwarg taken from the WAGTAILADMIN_RICH_TEXT_EDITORS setting,
         # but we don't currently recognise any options from there (other than 'features', which is passed here as a separate kwarg)
+        kwargs.pop('options', None)
         self.options = {}
 
         self.features = kwargs.pop('features', None)
