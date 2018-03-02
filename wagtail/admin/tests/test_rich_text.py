@@ -379,6 +379,47 @@ class TestHalloJsWithFeaturesKwarg(BaseRichTextEditHandlerTestCase, WagtailTestU
 
 @override_settings(WAGTAILADMIN_RICH_TEXT_EDITORS={
     'default': {
+        'WIDGET': 'wagtail.admin.rich_text.DraftailRichTextArea',
+        'OPTIONS': {
+            'features': ['h2', 'image']
+        }
+
+    },
+})
+class TestDraftailWithFeatureOptions(BaseRichTextEditHandlerTestCase, WagtailTestUtils):
+
+    def setUp(self):
+        super().setUp()
+
+        # Find root page
+        self.root_page = Page.objects.get(id=2)
+
+        self.login()
+
+    def test_settings_features_option_on_rich_text_field(self):
+        response = self.client.get(reverse(
+            'wagtailadmin_pages:add', args=('tests', 'defaultrichtextfieldpage', self.root_page.id)
+        ))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, '"type": "header-two"')
+        self.assertContains(response, '"type": "IMAGE"')
+        self.assertNotContains(response, '"type": "ordered-list-item"')
+
+    def test_features_option_on_rich_text_block(self):
+        # a 'features' list passed on the RichTextBlock
+        # should override the list in OPTIONS
+        block = RichTextBlock(features=['h2', 'embed'])
+
+        form_html = block.render_form(block.to_python("<p>hello</p>"), 'body')
+
+        self.assertIn('"type": "header-two"', form_html)
+        self.assertIn('"type": "EMBED"', form_html)
+        self.assertNotIn('"type": "IMAGE""', form_html)
+        self.assertNotIn('"type": "ordered-list-item""', form_html)
+
+
+@override_settings(WAGTAILADMIN_RICH_TEXT_EDITORS={
+    'default': {
         'WIDGET': 'wagtail.admin.rich_text.HalloRichTextArea',
         'OPTIONS': {
             'features': ['blockquote', 'image']

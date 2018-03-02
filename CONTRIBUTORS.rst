@@ -272,6 +272,7 @@ Contributors
 * Mary Kate Fain
 * Dário Marcelino
 * Dan Dietz
+* Todd Dembrey
 
 Translators
 ===========
