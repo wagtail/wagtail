@@ -39,7 +39,7 @@ $(function() {
         try {
             if (data.version && gtVersion(data.version, currentVersion)) {
                 var $container = $('.panel-upgrade-notification')
-                $('.newversion', $container).html(data.version);
+                $('.newversion', $container).text(data.version);
                 $('.releasenotes-link', $container).attr('href', data.url);
                 $container.show();
             }
