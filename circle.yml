@@ -17,3 +17,5 @@ test:
     - python -u runtests.py
     - npm run test:unit:coverage -- --runInBand
     - npm run dist
+  post:
+    - bash <(curl -s https://codecov.io/bash) -F frontend
