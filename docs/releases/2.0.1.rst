@@ -1,0 +1,16 @@
+============================================
+Wagtail 2.0.1 release notes - IN DEVELOPMENT
+============================================
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Bug fixes
+~~~~~~~~~
+
+ * Draftail now supports features specified via the ``WAGTAILADMIN_RICH_TEXT_EDITORS`` setting (Todd Dembrey)
