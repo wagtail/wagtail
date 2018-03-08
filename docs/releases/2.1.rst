@@ -25,7 +25,9 @@ Bug fixes
  * Image title text in the gallery and in the chooser now wraps for long filenames (LB (Ben Johnston), Luiz Boaretto)
  * Move image editor action buttons to the bottom of the form on mobile (Julian Gallo)
  * StreamField icons are now correctly sorted into groups on the 'append' menu (Tim Heap)
- * Draftail now supports features specified via the `WAGTAILADMIN_RICH_TEXT_EDITORS` setting (Todd Dembrey)
+ * Draftail now supports features specified via the ``WAGTAILADMIN_RICH_TEXT_EDITORS`` setting (Todd Dembrey)
+ * Password reset form no longer indicates whether the email is recognised, as per standard Django behaviour (Bertrand Bordage)
+
 
 Upgrade considerations
 ======================
