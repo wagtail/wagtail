@@ -18,7 +18,8 @@ Changelog
 2.0.1 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* Fix: Draftail now supports features specified via the `WAGTAILADMIN_RICH_TEXT_EDITORS` setting (Todd Dembrey)
+ * Fix: Draftail now supports features specified via the `WAGTAILADMIN_RICH_TEXT_EDITORS` setting (Todd Dembrey)
+ * Fix: Password reset form no longer indicates whether the email is recognised, as per standard Django behaviour (Bertrand Bordage)
 
 
 2.0 (28.02.2018)

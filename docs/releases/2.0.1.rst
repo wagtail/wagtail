@@ -14,3 +14,4 @@ Bug fixes
 ~~~~~~~~~
 
  * Draftail now supports features specified via the ``WAGTAILADMIN_RICH_TEXT_EDITORS`` setting (Todd Dembrey)
+ * Password reset form no longer indicates whether the email is recognised, as per standard Django behaviour (Bertrand Bordage)
