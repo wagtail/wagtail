@@ -27,6 +27,7 @@ Bug fixes
  * StreamField icons are now correctly sorted into groups on the 'append' menu (Tim Heap)
  * Draftail now supports features specified via the ``WAGTAILADMIN_RICH_TEXT_EDITORS`` setting (Todd Dembrey)
  * Password reset form no longer indicates whether the email is recognised, as per standard Django behaviour (Bertrand Bordage)
+ * ``UserAttributeSimilarityValidator`` is now correctly enforced on user creation / editing forms (Tim Heap)
 
 
 Upgrade considerations
