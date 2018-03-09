@@ -109,10 +109,10 @@ def page_listing_buttons(page, page_perms, is_parent=False):
             attrs={'title': _("Preview draft version of '{title}'").format(title=page.get_admin_display_title()), 'target': '_blank'},
             priority=20
         )
-    if page.live and page.url:
+    if page.live and page.specific.url:
         yield PageListingButton(
             _('View live'),
-            page.url,
+            page.specific.url,
             attrs={'target': "_blank", 'title': _("View live version of '{title}'").format(title=page.get_admin_display_title())},
             priority=30
         )
