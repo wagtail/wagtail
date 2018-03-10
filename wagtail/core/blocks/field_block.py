@@ -545,7 +545,7 @@ class ChooserBlock(FieldBlock):
             return value
         else:
             try:
-                return self.target_model.objects.get(pk=value)
+                return self.get_queryset().get(pk=value)
             except self.target_model.DoesNotExist:
                 return None
 
@@ -554,7 +554,7 @@ class ChooserBlock(FieldBlock):
 
         The instances must be returned in the same order as the values and keep None values.
         """
-        objects = self.target_model.objects.in_bulk(values)
+        objects = self.get_queryset().in_bulk(values)
         return [objects.get(id) for id in values]  # Keeps the ordering the same as in values.
 
     def get_prep_value(self, value):
@@ -563,6 +563,9 @@ class ChooserBlock(FieldBlock):
             return None
         else:
             return value.pk
+
+    def get_queryset(self):
+        return self.target_model.objects.get_queryset()
 
     def value_from_form(self, value):
         # ModelChoiceField sometimes returns an ID, and sometimes an instance; we want the instance
