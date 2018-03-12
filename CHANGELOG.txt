@@ -14,6 +14,7 @@ Changelog
  * Removed `assert` statements from Wagtail API (Kim Chee Leong)
  * Update `jquery-datetimepicker` dependency to make Wagtail more CSP-friendly (`unsafe-eval`) (Mike Kamermans)
  * Added error notification when running the `wagtail` command on Python <3.4 (Matt Westcott)
+ * `update_index` management command now accepts a `--chunk_size` option to determine the number of items to load at once (Dave Bell)
  * Fix: Status button on 'edit page' now links to the correct URL when live and draft slug differ (LB (Ben Johnston))
  * Fix: Image title text in the gallery and in the chooser now wraps for long filenames (LB (Ben Johnston), Luiz Boaretto)
  * Fix: Move image editor action buttons to the bottom of the form on mobile (Julian Gallo)
