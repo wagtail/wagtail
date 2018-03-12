@@ -52,21 +52,36 @@ function ModalWorkflow(opts) {
     };
 
     self.loadResponseText = function(responseText) {
-        var response = eval('(' + responseText + ')');
+        responseText = formJSON(responseText);
 
-        self.loadBody(response);
+        var response;
+        try {
+            response = JSON.parse(responseText);
+        } catch (e) {
+            console.error("Could not parse JSON in loadResponseText:", responseText);
+        }
+
+        if (response) {
+            self.loadBody(response);
+        }
     };
 
     self.loadBody = function(response) {
-        if (response.html) {
-            // if the response is html
-            self.body.html(response.html);
+        var html = response.html;
+        if (html) {
+            self.body.html(html);
             container.modal('show');
         }
 
-        if (response.onload) {
-            // if the response is a function
-            response.onload(self);
+        var onload = response.onload;
+        if (onload) {
+            var loader = document.createElement('script');
+            var runner = '(' + onload + '(window.wagtail_modal_handler)); delete window.wagtail_modal_handler;';
+            loader.textContent = runner;
+
+            var head = document.getElementsByTagName('head')[0];
+            window.wagtail_modal_handler = self;
+            head.appendChild(loader);
         }
     };
 
@@ -85,3 +100,29 @@ function ModalWorkflow(opts) {
 
     return self;
 }
+
+
+/* "static" helper function to turn Wagtail text responses into valid JSON. */
+function formJSON(data) {
+    var htmlKey = "'html':";
+    var jsonHtmlKey = '"html":';
+
+    if (data.indexOf(htmlKey) > -1) {
+        data = data.replace(htmlKey, jsonHtmlKey);
+        // The value for this key is already properly
+        // JSON formatted by modal_workflow.py.
+    }
+
+    var onloadKey = "'onload':";
+    var jsonOnloadKey = '"onload":';
+
+    if (data.indexOf(onloadKey) > -1) {
+        var parts = data.split(onloadKey);
+        var sourceCode = parts[1].replace(/\s*\r?\n/g, '\\n').replace(/"/g, '\\"') + 'END_OF_RESPONSE';
+        sourceCode = '"' + sourceCode.replace(/}[\s\r\n]*END_OF_RESPONSE/, '"}');
+        data = parts[0] + jsonOnloadKey + sourceCode;
+    }
+
+    return data;
+}
+
