@@ -18,6 +18,7 @@ Changelog
  * Fix: Password reset form no longer indicates whether the email is recognised, as per standard Django behaviour (Bertrand Bordage)
  * Fix: `UserAttributeSimilarityValidator` is now correctly enforced on user creation / editing forms (Tim Heap)
  * Fix: Focal area removal not working in IE11 and MS Edge (Thibaud Colas)
+ * Fix: Rewrite password change feedback message to be more user-friendly ( Casper Timmers)
 
 
 2.0.1 (xx.xx.xxxx) - IN DEVELOPMENT
