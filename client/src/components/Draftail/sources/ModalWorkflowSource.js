@@ -81,9 +81,6 @@ export const getChooserConfig = (entityType, entity, selectedText) => {
       allow_external_link: true,
       allow_email_link: true,
       can_choose_root: 'false',
-      // This does not initialise the modal with the currently selected text.
-      // This will need to be implemented in the future.
-      // See https://github.com/jpuri/draftjs-utils/blob/e81c0ae19c3b0fdef7e0c1b70d924398956be126/js/block.js#L106.
       link_text: selectedText,
     };
 
