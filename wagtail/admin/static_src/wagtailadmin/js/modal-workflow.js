@@ -118,8 +118,11 @@ function formJSON(data) {
 
     if (data.indexOf(onloadKey) > -1) {
         var parts = data.split(onloadKey);
-        var sourceCode = parts[1].replace(/\s*\r?\n/g, '\\n').replace(/"/g, '\\"') + 'END_OF_RESPONSE';
-        sourceCode = '"' + sourceCode.replace(/}[\s\r\n]*END_OF_RESPONSE/, '"}');
+        var sourceCode = parts[1]
+        // first, turn this into JSON-valid string data
+        sourceCode = JSON.stringify(sourceCode)  + 'END_OF_RESPONSE';
+        // then, move the quote back to befor the curly bracket.
+        sourceCode = sourceCode.replace(/}"[\s\r\n]*END_OF_RESPONSE/, '"}');
         data = parts[0] + jsonOnloadKey + sourceCode;
     }
 
