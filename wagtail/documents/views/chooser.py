@@ -50,9 +50,15 @@ def chooser(request):
     q = None
     if 'q' in request.GET or 'p' in request.GET or 'collection_id' in request.GET:
 
+        # Filter by collection
+        current_collection = None
         collection_id = request.GET.get('collection_id')
         if collection_id:
-            documents = documents.filter(collection=collection_id)
+            try:
+                current_collection = Collection.objects.get(id=collection_id)
+                documents = documents.filter(collection=current_collection)
+            except (ValueError, Collection.DoesNotExist):
+                pass
 
         searchform = SearchForm(request.GET)
         if searchform.is_valid():
@@ -71,6 +77,7 @@ def chooser(request):
             'documents': documents,
             'query_string': q,
             'is_searching': is_searching,
+            'current_collection': current_collection
         })
     else:
         searchform = SearchForm()
