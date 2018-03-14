@@ -3,7 +3,7 @@
 Wagtail is a content management system built on Django. It's focused on user experience, and offers precise control for designers and developers. 
 
 [![Build Status](https://api.travis-ci.org/wagtail/wagtail.svg?branch=master)](https://travis-ci.org/wagtail/wagtail) 
-[![Licence](https://img.shields.io/pypi/l/wagtail.svg)](https://github.com/wagtail/wagtail/blob/master/LICENSE) 
+[![License](https://img.shields.io/badge/license-BSD-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 [![Version](https://img.shields.io/pypi/v/wagtail.svg)](https://pypi.python.org/pypi/wagtail/) 
 [![Coverage](http://codecov.io/github/wagtail/wagtail/coverage.svg?branch=master)](http://codecov.io/github/wagtail/wagtail?branch=master)
 
