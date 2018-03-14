@@ -1,3 +1,5 @@
+from pprint import pprint
+
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Permission
 from django.test import TestCase, override_settings
@@ -126,6 +128,21 @@ class TestSettingEditView(BaseTestSettingView):
         setting = TestSetting.objects.get(site=default_site)
         self.assertEqual(setting.title, 'Edited site title')
         self.assertEqual(setting.email, 'test@example.com')
+
+    def test_get_edit_current_site(self):
+        args = [TestSetting._meta.app_label, TestSetting._meta.model_name]
+        url = reverse('wagtailsettings:edit', args=args)
+        site_pk = 1
+
+        response = self.client.get(url)
+        self.assertRedirects(response, status_code=302, expected_url='%s%s/' % (url, site_pk))
+
+    def test_get_edit_current_site_invalid(self):
+        Site.objects.all().delete()
+        args = [TestSetting._meta.app_label, TestSetting._meta.model_name]
+        url = reverse('wagtailsettings:edit', args=args)
+        response = self.client.get(url)
+        self.assertRedirects(response, status_code=302, expected_url='/admin/')
 
 
 @override_settings(ALLOWED_HOSTS=['testserver', 'example.com', 'noneoftheabove.example.com'])
