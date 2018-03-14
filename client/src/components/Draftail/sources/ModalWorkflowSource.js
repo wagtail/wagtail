@@ -16,7 +16,56 @@ MUTABILITY[DOCUMENT] = 'MUTABLE';
 MUTABILITY[ENTITY_TYPE.IMAGE] = 'IMMUTABLE';
 MUTABILITY[EMBED] = 'IMMUTABLE';
 
-export const getChooserConfig = (entityType, entity) => {
+/**
+* Function returns collection of currently selected blocks.
+*/
+const getSelectedBlocksMap = (editorState) => {
+  const selectionState = editorState.getSelection();
+  const contentState = editorState.getCurrentContent();
+  const startKey = selectionState.getStartKey();
+  const endKey = selectionState.getEndKey();
+  const blockMap = contentState.getBlockMap();
+  return blockMap
+    .toSeq()
+    .skipUntil((_, k) => k === startKey)
+    .takeUntil((_, k) => k === endKey)
+    .concat([[endKey, blockMap.get(endKey)]]);
+};
+
+/**
+* Function returns collection of currently selected blocks.
+*/
+const getSelectedBlocksList = (editorState) => {
+  const selectedBlocksList = getSelectedBlocksMap(editorState).toList();
+  return selectedBlocksList;
+};
+
+/**
+* Function will return currently selected text in the editor.
+*/
+const getSelectionText = (editorState) => {
+  let selectedText = '';
+  const currentSelection = editorState.getSelection();
+  let start = currentSelection.getAnchorOffset();
+  let end = currentSelection.getFocusOffset();
+  const selectedBlocks = getSelectedBlocksList(editorState);
+  if (selectedBlocks.size > 0) {
+    if (currentSelection.getIsBackward()) {
+      const temp = start;
+      start = end;
+      end = temp;
+    }
+    for (let i = 0; i < selectedBlocks.size; i += 1) {
+      const blockStart = i === 0 ? start : 0;
+      const blockEnd =
+        i === (selectedBlocks.size - 1) ? end : selectedBlocks.get(i).getText().length;
+      selectedText += selectedBlocks.get(i).getText().slice(blockStart, blockEnd);
+    }
+  }
+  return selectedText;
+};
+
+export const getChooserConfig = (entityType, entity, selectedText) => {
   const chooserURL = {};
   chooserURL[ENTITY_TYPE.IMAGE] = `${global.chooserUrls.imageChooser}?select_format=true`;
   chooserURL[EMBED] = global.chooserUrls.embedsChooser;
@@ -35,7 +84,7 @@ export const getChooserConfig = (entityType, entity) => {
       // This does not initialise the modal with the currently selected text.
       // This will need to be implemented in the future.
       // See https://github.com/jpuri/draftjs-utils/blob/e81c0ae19c3b0fdef7e0c1b70d924398956be126/js/block.js#L106.
-      link_text: '',
+      link_text: selectedText,
     };
 
     if (entity) {
@@ -113,8 +162,9 @@ class ModalWorkflowSource extends Component {
   }
 
   componentDidMount() {
-    const { onClose, entityType, entity } = this.props;
-    const { url, urlParams } = getChooserConfig(entityType, entity);
+    const { onClose, entityType, entity, editorState } = this.props;
+    const selectedText = getSelectionText(editorState);
+    const { url, urlParams } = getChooserConfig(entityType, entity, selectedText);
 
     $(document.body).on('hidden.bs.modal', this.onClose);
 
