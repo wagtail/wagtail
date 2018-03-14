@@ -69,7 +69,7 @@ def extract_panel_definitions_from_model_class(model, exclude=None):
             # Filter out fields in fields_to_exclude
             panels = [
                 panel for panel in panels
-                if getattr(panel, 'field_name', None) not in exclude
+                if isinstance(panel, FieldPanel) and panel.field_name not in exclude
             ]
 
         return panels
