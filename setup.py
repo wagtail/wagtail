@@ -67,14 +67,19 @@ documentation_extras = [
 setup(
     name='wagtail',
     version=__version__,
-    description='A Django content management system focused on flexibility and user experience',
+    description='A Django content management system.',
     author='Wagtail core team + contributors',
     author_email='hello@wagtail.io',  # For support queries, please see http://docs.wagtail.io/en/stable/support.html
     url='http://wagtail.io/',
     packages=find_packages(),
     include_package_data=True,
     license='BSD',
-    long_description=open('README.rst').read(),
+    long_description="Wagtail is an open source content management \
+system built on Django, with a strong community and commercial support. \
+It’s focused on user experience, and offers precise control for \
+designers and developers.\n\n\
+For more details, see https://wagtail.io, http://docs.wagtail.io and \
+https://github.com/wagtail/wagtail/.",
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Environment :: Web Environment',
