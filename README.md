@@ -7,16 +7,16 @@ Wagtail is a content management system built on Django. It's focused on user exp
 ### Features
 
 * A fast, attractive interface for authors and editors
-* Complete control over design with standard Django templates
-* Configure content types through standard Django models
-* Fast out of the box. Cache-friendly if you need it
-* Tightly integrated search
-* Strong document and image management
-* Wide support for embedded content
-* Straightforward integration with existing Django apps
-* Simple, configurable permissions
-* An extensible [form builder](http://docs.wagtail.io/en/latest/reference/contrib/forms/index.html)
-* Multi-site and multi-language support
+* Complete control over design and front-end
+* Scales to millions of pages and thousands of editors
+* Fast out of the box. Cache-friendly when you need it
+* Content API for 'headless' sites with de-coupled front-end
+* Runs on a Raspberry Pi or a multi-datacenter cloud platform 
+* StreamField encourages flexible content without compromising structure
+* Powerful, integrated search, using Elasticsearch or PostgreSQL
+* Excellent support for images and embedded content
+* Easy to integrate with other Django apps
+* Multi-site and multi-language ready
 
 Find out more at https://wagtail.io
 
@@ -33,7 +33,7 @@ Wagtail works with Python 3.4 and up, on any platform.
     python manage.py runserver
 ```
 
-For detailed installation and setup docs, see [docs.wagtail.io](http://docs.wagtail.io/)
+For detailed installation and setup docs, see [docs.wagtail.io](http://docs.wagtail.io/).
 
 ### Who's using it?
 
