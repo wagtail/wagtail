@@ -2033,6 +2033,13 @@ class TestPageDelete(TestCase, WagtailTestUtils):
         # deletion should not actually happen on GET
         self.assertTrue(SimplePage.objects.filter(id=self.child_page.id).exists())
 
+    def test_page_delete_specific_admin_title(self):
+        response = self.client.get(reverse('wagtailadmin_pages:delete', args=(self.child_page.id, )))
+        self.assertEqual(response.status_code, 200)
+
+        # The admin_display_title specific to ChildPage is shown on the delete confirmation page.
+        self.assertContains(response, self.child_page.get_admin_display_title())
+
     def test_page_delete_bad_permissions(self):
         # Remove privileges from user
         self.user.is_superuser = False

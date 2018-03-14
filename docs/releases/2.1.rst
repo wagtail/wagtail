@@ -37,6 +37,7 @@ Bug fixes
  * Correct dropdown arrow styling in Firefox, IE11 (Janneke Janssen, Alexs Mathilda)
  * Password reset no indicates specific validation errors on certain password restrictions (Lucas Moeskops)
  * Fix a typo within documentation for pages (DanAtShenTech)
+ * Confirmation page on page deletion now respects custom ``get_admin_display_title`` methods (Kim Chee Leong)
 
 
 Upgrade considerations

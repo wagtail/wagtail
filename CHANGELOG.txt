@@ -23,6 +23,7 @@ Changelog
  * Fix: Correct dropdown arrow styling in Firefox, IE11 (Janneke Janssen, Alexs Mathilda)
  * Fix: Password reset no indicates specific validation errors on certain password restrictions (Lucas Moeskops)
  * Fix: Fix a typo within documentation for pages (DanAtShenTech)
+ * Fix: Confirmation page on page deletion now respects custom `get_admin_display_title` methods (Kim Chee Leong)
 
 
 2.0.1 (xx.xx.xxxx) - IN DEVELOPMENT
