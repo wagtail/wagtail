@@ -26,7 +26,7 @@ Find out more at `wagtail.io <http://wagtail.io/>`_.
 Getting started
 ~~~~~~~~~~~~~~~
 
-Wagtail works with Python 3.4 and up, on any platform. If you're still on Python 2, you can try the 1.13 release, which we're supporting until at August 2018, with `pip install "wagtail<2.0"`.
+Wagtail works with Python 3.4 and up, on any platform. If you're still on Python 2, you can try the 1.13 release, which we're supporting until at August 2018, with ``pip install "wagtail<2.0"``.
 
 .. code-block:: sh
 
