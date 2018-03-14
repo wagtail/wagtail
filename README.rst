@@ -1,21 +1,8 @@
-.. image:: https://api.travis-ci.org/wagtail/wagtail.svg?branch=master
-    :target: https://travis-ci.org/wagtail/wagtail
-.. image:: https://img.shields.io/pypi/l/wagtail.svg
-    :target: https://pypi.python.org/pypi/wagtail/
-.. image:: https://img.shields.io/pypi/v/wagtail.svg
-    :target: https://pypi.python.org/pypi/wagtail/
-.. image:: http://codecov.io/github/wagtail/wagtail/coverage.svg?branch=master
-    :target: http://codecov.io/github/wagtail/wagtail?branch=master
-
-
-Wagtail CMS
-===========
+.. image:: https://releases.wagtail.io/wagtail-github-header.png?x
+   :width: 888 px
 
 Wagtail is a content management system built on Django. It's focused on user experience,
 and offers precise control for designers and developers.
-
-.. image:: http://i.imgur.com/hSVerKq.jpg
-   :width: 728 px
 
 Features
 ~~~~~~~~
@@ -38,6 +25,8 @@ Find out more at `wagtail.io <http://wagtail.io/>`_.
 
 Getting started
 ~~~~~~~~~~~~~~~
+
+Wagtail works with Python 3.4 and up, on any platform. If you're still on Python 2, you can try the 1.13 release, which we're supporting until at August 2018, with `pip install "wagtail<2.0"`.
 
 .. code-block:: sh
 
@@ -89,3 +78,12 @@ If you're a Python or Django developer, fork the repo and get stuck in! We run a
 You might like to start by reviewing the `contributing guidelines <http://docs.wagtail.io/en/latest/contributing/index.html>`_ and checking issues with the `good first issue <https://github.com/wagtail/wagtail/labels/good%20first%20issue>`_ label.
 
 We also welcome translations for Wagtail's interface. Translation work should be submitted through `Transifex <https://www.transifex.com/projects/p/wagtail/>`_.
+
+.. image:: https://api.travis-ci.org/wagtail/wagtail.svg?branch=master
+    :target: https://travis-ci.org/wagtail/wagtail 
+.. image:: https://img.shields.io/pypi/l/wagtail.svg
+    :target: https://pypi.python.org/pypi/wagtail/
+.. image:: https://img.shields.io/pypi/v/wagtail.svg
+    :target: https://pypi.python.org/pypi/wagtail/
+.. image:: http://codecov.io/github/wagtail/wagtail/coverage.svg?branch=master
+    :target: http://codecov.io/github/wagtail/wagtail?branch=master
