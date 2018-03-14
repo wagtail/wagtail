@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n wagtailadmin_tags %}
 {% if documents %}
     {% if is_searching %}
         <h2>
@@ -16,5 +16,17 @@
 
     {% include "wagtailadmin/shared/pagination_nav.html" with items=documents is_ajax=1 %}
 {% else %}
-    <p>{% blocktrans %}Sorry, no documents match "<em>{{ query_string }}</em>"{% endblocktrans %}</p>
+
+    {% if is_searching %}
+         <h2>{% blocktrans %}Sorry, no documents match "<em>{{ query_string }}</em>"{% endblocktrans %}</h2>
+
+         {% search_other %}
+    {% else %}
+        {% url 'wagtaildocs:add_multiple' as wagtaildocs_add_document_url %}
+        {% if current_collection %}
+            <p>{% blocktrans %}You haven't uploaded any documents in this collection. Why not <a class="tab-toggle" href="#upload">upload one now</a>?{% endblocktrans %}</p>
+        {% else %}
+            <p>{% blocktrans %}You haven't uploaded any documents. Why not <a class="tab-toggle" href="#upload">upload one now</a>?{% endblocktrans %}</p>
+        {% endif %}
+    {% endif %}
 {% endif %}
