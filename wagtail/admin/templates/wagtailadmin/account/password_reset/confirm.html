@@ -21,22 +21,28 @@
                     <div class="field">
                         {{ form.new_password1.label_tag }}
                         {{ form.new_password1 }}
-                        <div class="help-block help-critical">
-                          {% for error in form.new_password1.errors %}
-                            <p class="error">{{ error }}</p>
-                          {% endfor %}
-                        </div>
+
+                        {% if form.new_password1.errors %}
+                          <div class="help-block help-critical">
+                            {% for error in form.new_password1.errors %}
+                              <p class="error">{{ error }}</p>
+                            {% endfor %}
+                          </div>
+                        {% endif %}
                     </div>
                 </li>
                 <li>
                     <div class="field">
                         {{ form.new_password2.label_tag }}
                         {{ form.new_password2 }}
-                        <div class="help-block help-critical">
-                          {% for error in form.new_password2.errors %}
-                            <p class="error">{{ error }}</p>
-                          {% endfor %}
-                        </div>
+
+                        {% if form.new_password2.errors %}
+                          <div class="help-block help-critical">
+                            {% for error in form.new_password2.errors %}
+                              <p class="error">{{ error }}</p>
+                            {% endfor %}
+                          </div>
+                        {% endif %}
                     </div>
                 </li>
                 <li class="submit">
