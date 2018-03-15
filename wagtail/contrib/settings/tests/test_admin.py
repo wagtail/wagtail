@@ -127,6 +127,19 @@ class TestSettingEditView(BaseTestSettingView):
         self.assertEqual(setting.title, 'Edited site title')
         self.assertEqual(setting.email, 'test@example.com')
 
+    def test_get_edit_current_site(self):
+        url = reverse('wagtailsettings:edit', args=('tests', 'testsetting'))
+        default_site = Site.objects.get(is_default_site=True)
+
+        response = self.client.get(url)
+        self.assertRedirects(response, status_code=302, expected_url='%s%s/' % (url, default_site.pk))
+
+    def test_get_edit_current_site_invalid(self):
+        Site.objects.all().delete()
+        url = reverse('wagtailsettings:edit', args=('tests', 'testsetting'))
+        response = self.client.get(url)
+        self.assertRedirects(response, status_code=302, expected_url='/admin/')
+
 
 @override_settings(ALLOWED_HOSTS=['testserver', 'example.com', 'noneoftheabove.example.com'])
 class TestMultiSite(BaseTestSettingView):
