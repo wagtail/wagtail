@@ -295,6 +295,7 @@ Contributors
 * Sander Tuit
 * Tim Kamanin
 * Sergey Fedoseev
+* Harm Zeinstra
 
 Translators
 ===========

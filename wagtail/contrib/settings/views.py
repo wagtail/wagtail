@@ -72,7 +72,9 @@ def edit(request, app_name, model_name, site_pk):
             )
             return redirect('wagtailsettings:edit', app_name, model_name, site.pk)
         else:
-            messages.error(request, _("The setting could not be saved due to errors."))
+            messages.validation_error(
+                request, _("The setting could not be saved due to errors."), form
+            )
             edit_handler = edit_handler.bind_to_instance(
                 instance=instance, form=form, request=request)
     else:
