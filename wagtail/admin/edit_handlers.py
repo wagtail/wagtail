@@ -387,6 +387,27 @@ class MultiFieldPanel(BaseCompositeEditHandler):
         return classes
 
 
+class HelpPanel(EditHandler):
+    def __init__(self, content='', template='wagtailadmin/edit_handlers/help_panel.html',
+                 heading='', classname=''):
+        super().__init__(heading=heading, classname=classname)
+        self.content = content
+        self.template = template
+
+    def clone(self):
+        return self.__class__(
+            content=self.content,
+            template=self.template,
+            heading=self.heading,
+            classname=self.classname,
+        )
+
+    def render(self):
+        return mark_safe(render_to_string(self.template, {
+            'self': self
+        }))
+
+
 class FieldPanel(EditHandler):
     TEMPLATE_VAR = 'field_panel'
 
