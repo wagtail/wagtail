@@ -248,17 +248,23 @@ HelpPanel
 
 .. module:: wagtail.admin.edit_handlers
 
-.. class:: HelpPanel(content, template)
+.. class:: HelpPanel(content='', template='wagtailadmin/edit_handlers/help_panel.html', heading='', classname='')
 
     .. attribute:: HelpPanel.content
 
-        This is string HTML that you can pass in directly to render inside the HelpPanel
+        HTML string that gets displayed in the panel.
 
     .. attribute:: HelpPanel.template
 
-        Alternatively, you can pass in a template name. Specifying the template will override the content attribute.
+        Path to a template rendering the full panel HTML.
 
-    You can also set the ``heading`` or ``classname`` attributes depending on what you want.
+    .. attribute:: HelpPanel.heading (optional)
+
+        A heading for the fields
+
+    .. attribute:: HelpPanel.classname (optional)
+
+        String of CSS classes given to the panel which are used in formatting and scripted interactivity. By default, panels are formatted as inset fields.
 
 
 Built-in Fields and Choosers
