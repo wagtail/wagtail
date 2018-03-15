@@ -80,10 +80,10 @@ $(function() {
         $image.removeAttr('style');
         $('.jcrop-holder').remove();
         $('.current-focal-point-indicator').remove();
-        fields.x.removeAttr('value');
-        fields.y.removeAttr('value');
-        fields.width.removeAttr('value');
-        fields.height.removeAttr('value');
+        fields.x.val('');
+        fields.y.val('');
+        fields.width.val('');
+        fields.height.val('');
         setupJcrop.apply(this, params);
     });
 });
