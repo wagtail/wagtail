@@ -182,7 +182,9 @@ class TestSnippetCreateView(TestCase, WagtailTestUtils):
     def test_create_invalid(self):
         response = self.post(post_data={'foo': 'bar'})
         self.assertContains(response, "The snippet could not be created due to errors.")
-        self.assertContains(response, "This field is required.")
+        self.assertContains(response, """<p class="error-message"><span>This field is required.</span></p>""",
+                            count=1, html=True)
+        self.assertContains(response, "This field is required", count=1)
 
     def test_create(self):
         response = self.post(post_data={'text': 'test_advert',
@@ -264,7 +266,9 @@ class TestSnippetEditView(BaseTestSnippetEditView):
     def test_edit_invalid(self):
         response = self.post(post_data={'foo': 'bar'})
         self.assertContains(response, "The snippet could not be saved due to errors.")
-        self.assertContains(response, "This field is required.")
+        self.assertContains(response, """<p class="error-message"><span>This field is required.</span></p>""",
+                            count=1, html=True)
+        self.assertContains(response, "This field is required", count=1)
 
     def test_edit(self):
         response = self.post(post_data={'text': 'edited_test_advert',
