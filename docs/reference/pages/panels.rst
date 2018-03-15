@@ -258,13 +258,13 @@ HelpPanel
 
         Path to a template rendering the full panel HTML.
 
-    .. attribute:: HelpPanel.heading (optional)
+    .. attribute:: HelpPanel.heading
 
-        A heading for the fields
+        A heading for the help content.
 
-    .. attribute:: HelpPanel.classname (optional)
+    .. attribute:: HelpPanel.classname
 
-        String of CSS classes given to the panel which are used in formatting and scripted interactivity. By default, panels are formatted as inset fields.
+        String of CSS classes given to the panel which are used in formatting and scripted interactivity.
 
 
 Built-in Fields and Choosers
