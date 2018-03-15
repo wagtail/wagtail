@@ -142,7 +142,7 @@ class EditHandler:
     def on_model_bound(self):
         pass
 
-    def bind_to_instance(self, instance=None, form=None):
+    def bind_to_instance(self, instance=None, form=None, request=None):
         new = self.bind_to_model(self.model)
 
         if not instance:
@@ -152,6 +152,10 @@ class EditHandler:
         if not form:
             raise ValueError("EditHandler did not receive a form object")
         new.form = form
+
+        if not request:
+            raise ValueError("EditHandler did not receive a request object")
+        new.request = request
 
         new.on_instance_bound()
 
@@ -294,7 +298,8 @@ class BaseCompositeEditHandler(EditHandler):
                     if child.field_name not in self.form._meta.fields:
                         continue
             children.append(child.bind_to_instance(instance=self.instance,
-                                                   form=self.form))
+                                                   form=self.form,
+                                                   request=self.request))
         self.children = children
 
     def render(self):
@@ -677,7 +682,8 @@ class InlinePanel(EditHandler):
             child_edit_handler = self.get_child_edit_handler()
             self.children.append(
                 child_edit_handler.bind_to_instance(instance=subform.instance,
-                                                    form=subform))
+                                                    form=subform,
+                                                    request=self.request))
 
         # if this formset is valid, it may have been re-ordered; respect that
         # in case the parent form errored and we need to re-render
@@ -691,7 +697,7 @@ class InlinePanel(EditHandler):
 
         self.empty_child = self.get_child_edit_handler()
         self.empty_child = self.empty_child.bind_to_instance(
-            instance=empty_form.instance, form=empty_form)
+            instance=empty_form.instance, form=empty_form, request=self.request)
 
     template = "wagtailadmin/edit_handlers/inline_panel.html"
 
