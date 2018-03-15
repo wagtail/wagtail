@@ -4,6 +4,7 @@ import { AtomicBlockUtils, Modifier, RichUtils, EditorState } from 'draft-js';
 import { ENTITY_TYPE } from 'draftail';
 
 import { STRINGS } from '../../../config/wagtailConfig';
+import { getSelectionText } from '../DraftUtils';
 
 const $ = global.jQuery;
 
@@ -16,54 +17,7 @@ MUTABILITY[DOCUMENT] = 'MUTABLE';
 MUTABILITY[ENTITY_TYPE.IMAGE] = 'IMMUTABLE';
 MUTABILITY[EMBED] = 'IMMUTABLE';
 
-/**
-* Function returns collection of currently selected blocks.
-*/
-const getSelectedBlocksMap = (editorState) => {
-  const selectionState = editorState.getSelection();
-  const contentState = editorState.getCurrentContent();
-  const startKey = selectionState.getStartKey();
-  const endKey = selectionState.getEndKey();
-  const blockMap = contentState.getBlockMap();
-  return blockMap
-    .toSeq()
-    .skipUntil((_, k) => k === startKey)
-    .takeUntil((_, k) => k === endKey)
-    .concat([[endKey, blockMap.get(endKey)]]);
-};
 
-/**
-* Function returns collection of currently selected blocks.
-*/
-const getSelectedBlocksList = (editorState) => {
-  const selectedBlocksList = getSelectedBlocksMap(editorState).toList();
-  return selectedBlocksList;
-};
-
-/**
-* Function will return currently selected text in the editor.
-*/
-const getSelectionText = (editorState) => {
-  let selectedText = '';
-  const currentSelection = editorState.getSelection();
-  let start = currentSelection.getAnchorOffset();
-  let end = currentSelection.getFocusOffset();
-  const selectedBlocks = getSelectedBlocksList(editorState);
-  if (selectedBlocks.size > 0) {
-    if (currentSelection.getIsBackward()) {
-      const temp = start;
-      start = end;
-      end = temp;
-    }
-    for (let i = 0; i < selectedBlocks.size; i += 1) {
-      const blockStart = i === 0 ? start : 0;
-      const blockEnd =
-        i === (selectedBlocks.size - 1) ? end : selectedBlocks.get(i).getText().length;
-      selectedText += selectedBlocks.get(i).getText().slice(blockStart, blockEnd);
-    }
-  }
-  return selectedText;
-};
 
 export const getChooserConfig = (entityType, entity, selectedText) => {
   const chooserURL = {};
