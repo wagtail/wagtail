@@ -192,7 +192,7 @@ class TestAccountSection(TestCase, WagtailTestUtils):
 
     def test_change_email_view(self):
         """
-        This tests that hte change email view responds with a change email page
+        This tests that the change email view responds with a change email page
         """
         # Get change email page
         response = self.client.get(reverse('wagtailadmin_account_change_email'))
