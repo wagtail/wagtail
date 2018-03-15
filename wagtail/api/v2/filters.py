@@ -143,10 +143,11 @@ class ChildOfFilter(BaseFilterBackend):
         if 'child_of' in request.GET:
             try:
                 parent_page_id = int(request.GET['child_of'])
-                assert parent_page_id >= 0
+                if parent_page_id < 0:
+                    raise ValueError()
 
                 parent_page = self.get_page_by_id(request, parent_page_id)
-            except (ValueError, AssertionError):
+            except ValueError:
                 if request.GET['child_of'] == 'root':
                     parent_page = self.get_root_page(request)
                 else:
