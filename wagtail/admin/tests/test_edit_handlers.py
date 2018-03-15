@@ -4,7 +4,7 @@ import mock
 from django import forms
 from django.core import checks
 from django.core.exceptions import FieldDoesNotExist, ImproperlyConfigured
-from django.test import TestCase, override_settings, RequestFactory
+from django.test import RequestFactory, TestCase, override_settings
 from django.contrib.auth.models import AnonymousUser
 
 from wagtail.admin.edit_handlers import (
@@ -233,7 +233,7 @@ class TestExtractPanelDefinitionsFromModelClass(TestCase):
 class TestTabbedInterface(TestCase):
     def setUp(self):
         self.request = RequestFactory().get('/')
-        user = AnonymousUser() #technically, Anonymous users cannot access the admin
+        user = AnonymousUser()  # technically, Anonymous users cannot access the admin
         self.request.user = user
 
         # a custom tabbed interface for EventPage
@@ -313,7 +313,7 @@ class TestTabbedInterface(TestCase):
 class TestObjectList(TestCase):
     def setUp(self):
         self.request = RequestFactory().get('/')
-        user = AnonymousUser() #technically, Anonymous users cannot access the admin
+        user = AnonymousUser()  # technically, Anonymous users cannot access the admin
         self.request.user = user
         # a custom ObjectList for EventPage
         self.event_page_object_list = ObjectList([
@@ -365,7 +365,7 @@ class TestObjectList(TestCase):
 class TestFieldPanel(TestCase):
     def setUp(self):
         self.request = RequestFactory().get('/')
-        user = AnonymousUser() #technically, Anonymous users cannot access the admin
+        user = AnonymousUser()  # technically, Anonymous users cannot access the admin
         self.request.user = user
 
         self.EventPageForm = get_form_for_model(
@@ -460,7 +460,7 @@ class TestFieldPanel(TestCase):
 class TestFieldRowPanel(TestCase):
     def setUp(self):
         self.request = RequestFactory().get('/')
-        user = AnonymousUser() #technically, Anonymous users cannot access the admin
+        user = AnonymousUser()  # technically, Anonymous users cannot access the admin
         self.request.user = user
 
         self.EventPageForm = get_form_for_model(
@@ -575,7 +575,7 @@ class TestFieldRowPanel(TestCase):
 class TestFieldRowPanelWithChooser(TestCase):
     def setUp(self):
         self.request = RequestFactory().get('/')
-        user = AnonymousUser() #technically, Anonymous users cannot access the admin
+        user = AnonymousUser()  # technically, Anonymous users cannot access the admin
         self.request.user = user
 
         self.EventPageForm = get_form_for_model(
@@ -614,7 +614,7 @@ class TestPageChooserPanel(TestCase):
 
     def setUp(self):
         self.request = RequestFactory().get('/')
-        user = AnonymousUser() #technically, Anonymous users cannot access the admin
+        user = AnonymousUser()  # technically, Anonymous users cannot access the admin
         self.request.user = user
 
         model = PageChooserModel  # a model with a foreign key to Page which we want to render as a page chooser
@@ -761,7 +761,7 @@ class TestInlinePanel(TestCase, WagtailTestUtils):
 
     def setUp(self):
         self.request = RequestFactory().get('/')
-        user = AnonymousUser() #technically, Anonymous users cannot access the admin
+        user = AnonymousUser()  # technically, Anonymous users cannot access the admin
         self.request.user = user
 
     def test_render(self):
