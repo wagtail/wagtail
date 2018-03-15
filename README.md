@@ -18,11 +18,11 @@ Wagtail is an open source content management system built on Django, with a stro
 * Multi-site and multi-language ready
 * Embraces and extends Django
 
-Find out more at https://wagtail.io.
+Find out more at [wagtail.io](https://wagtail.io/).
 
 ### Getting started
 
-Wagtail works with Python 3.4 and up, on any platform.
+Wagtail works with Python 3, on any platform.
 
 ```
     pip install wagtail
@@ -35,13 +35,19 @@ Wagtail works with Python 3.4 and up, on any platform.
 
 For detailed installation and setup docs, see [docs.wagtail.io](http://docs.wagtail.io/).
 
-### Who's using it?
+### Who’s using it?
 
 Wagtail is used by NASA, Google, Oxfam, the NHS, Mozilla, MIT, the Red Cross, Salesforce, NBC, BMW, the US and UK governments. Add your own Wagtail site to [madewithwagtail.org](http://madewithwagtail.org).
 
 ### Documentation
 
 [docs.wagtail.io](http://docs.wagtail.io/) is the full reference for Wagtail, and includes guides for developers, designers and editors, alongside release notes and our roadmap.
+
+### Compatibility
+
+Wagtail supports Django 1.11.x and 2.0 on Python 3.4, 3.5 and 3.6. Supported database backends are PostgreSQL, MySQL and SQLite.
+
+---
 
 ### Community Support
 
@@ -51,9 +57,9 @@ For topics and discussions that do not fit Stack Overflow's question and answer 
 
 We maintain a curated list of third party packages, articles and other resources at [Awesome Wagtail](https://github.com/springload/awesome-wagtail).
 
-### Compatibility
+### Commercial Support
 
-Wagtail supports Django 1.11.x and 2.0 on Python 3.4, 3.5 and 3.6. Supported database backends are PostgreSQL, MySQL and SQLite.
+Wagtail is sponsored by [Torchbox](https://torchbox.com/). If you need help implementing or hosting Wagtail, please contact us: hello@torchbox.com. See also [madewithwagtail.org/developers/](https://madewithwagtail.org/developers/) for expert Wagtail developers around the world.
 
 ### Contributing
 
@@ -62,10 +68,6 @@ If you're a Python or Django developer, fork the repo and get stuck in! We run a
 You might like to start by reviewing the [contributing guidelines](http://docs.wagtail.io/en/latest/contributing/index.html) and checking issues with the [good first issue](https://github.com/wagtail/wagtail/labels/good%20first%20issue) label.
 
 We also welcome translations for Wagtail's interface. Translation work should be submitted through [Transifex](https://www.transifex.com/projects/p/wagtail/).
-
-### Commercial Support
-
-Wagtail is sponsored by [Torchbox](https://torchbox.com/). If you need help implementing or hosting Wagtail, please contact us: hello@torchbox.com. See also [madewithwagtail.org/developers/](https://madewithwagtail.org/developers/) for expert Wagtail developers around the world.
 
 ### Thanks
 
