@@ -1,6 +1,6 @@
 ![Wagtail](https://releases.wagtail.io/wagtail-github-header.png?x)
 
-Wagtail is a content management system built on Django. It's focused on user experience, and offers precise control for designers and developers. 
+Wagtail is an open source content management system built on Django, with a strong community and commercial support. It's focused on user experience, and offers precise control for designers and developers. 
 
 ![Wagtail screenshot](https://releases.wagtail.io/wagtail-screenshot-with-browser.png)
 
@@ -15,10 +15,10 @@ Wagtail is a content management system built on Django. It's focused on user exp
 * StreamField encourages flexible content without compromising structure
 * Powerful, integrated search, using Elasticsearch or PostgreSQL
 * Excellent support for images and embedded content
-* Easy to integrate with other Django apps
 * Multi-site and multi-language ready
+* Embraces and extends Django
 
-Find out more at https://wagtail.io
+Find out more at https://wagtail.io.
 
 ### Getting started
 
@@ -49,6 +49,8 @@ There is an active community of Wagtail users and developers responding to quest
 
 For topics and discussions that do not fit Stack Overflow's question and answer format, we have a [Slack workspace](https://github.com/wagtail/wagtail/wiki/Slack) and a [Wagtail Support mailing list](https://groups.google.com/forum/#!forum/wagtail).
 
+We maintain a curated list of third party packages, articles and other resources at [Awesome Wagtail](https://github.com/springload/awesome-wagtail).
+
 ### Compatibility
 
 Wagtail supports Django 1.11.x and 2.0 on Python 3.4, 3.5 and 3.6. Supported database backends are PostgreSQL, MySQL and SQLite.
@@ -63,7 +65,7 @@ We also welcome translations for Wagtail's interface. Translation work should be
 
 ### Commercial Support
 
-Wagtail is sponsored by [Torchbox](https://torchbox.com/). If you need help implementing or hosting Wagtail, please contact us: hello@torchbox.com.
+Wagtail is sponsored by [Torchbox](https://torchbox.com/). If you need help implementing or hosting Wagtail, please contact us: hello@torchbox.com. See also [madewithwagtail.org/developers/](https://madewithwagtail.org/developers/) for expert Wagtail developers around the world.
 
 ### Thanks
 
