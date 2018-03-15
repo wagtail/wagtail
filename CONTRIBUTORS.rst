@@ -281,6 +281,7 @@ Contributors
 * Todd Dembrey
 * Sebastian Brestin
 * Casper Timmers
+* Kevin Chung
 
 Translators
 ===========
