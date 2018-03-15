@@ -571,7 +571,7 @@ class ChooserBlock(FieldBlock):
         else:
             try:
                 return self.target_model.objects.get(pk=value)
-            except self.target_model.DoesNotExist:
+            except (self.target_model.DoesNotExist, ValueError):
                 return None
 
     def clean(self, value):
