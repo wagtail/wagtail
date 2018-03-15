@@ -2,10 +2,11 @@ from datetime import date
 
 import mock
 from django import forms
+from django.contrib.auth.models import AnonymousUser
 from django.core import checks
 from django.core.exceptions import FieldDoesNotExist, ImproperlyConfigured
 from django.test import RequestFactory, TestCase, override_settings
-from django.contrib.auth.models import AnonymousUser
+
 
 from wagtail.admin.edit_handlers import (
     FieldPanel, FieldRowPanel, InlinePanel, ObjectList, PageChooserPanel, RichTextFieldPanel,

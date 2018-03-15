@@ -956,7 +956,7 @@ class TestSnippetChooserPanelWithCustomPrimaryKey(TestCase, WagtailTestUtils):
         self.form_class = self.edit_handler.get_form_class()
         form = self.form_class(instance=test_snippet)
         edit_handler = self.edit_handler.bind_to_instance(instance=test_snippet,
-                                                          form=form, 
+                                                          form=form,
                                                           request=self.request)
 
         self.snippet_chooser_panel = [
@@ -975,7 +975,7 @@ class TestSnippetChooserPanelWithCustomPrimaryKey(TestCase, WagtailTestUtils):
     def test_render_as_empty_field(self):
         test_snippet = SnippetChooserModelWithCustomPrimaryKey()
         form = self.form_class(instance=test_snippet)
-        edit_handler = self.edit_handler.bind_to_instance(instance=test_snippet, 
+        edit_handler = self.edit_handler.bind_to_instance(instance=test_snippet,
                                                           form=form,
                                                           request=self.request)
 
