@@ -2,8 +2,8 @@
 import json
 
 from django.contrib.auth import get_user_model
-from django.test import TestCase, RequestFactory
 from django.contrib.auth.models import AnonymousUser
+from django.test import RequestFactory, TestCase
 from django.urls import reverse
 
 from wagtail.admin.edit_handlers import get_form_for_model
@@ -22,7 +22,7 @@ from wagtail.tests.utils import WagtailTestUtils
 class TestFormResponsesPanel(TestCase):
     def setUp(self):
         self.request = RequestFactory().get('/')
-        user = AnonymousUser() #technically, Anonymous users cannot access the admin
+        user = AnonymousUser()  # technically, Anonymous users cannot access the admin
         self.request.user = user
 
         self.form_page = make_form_page()
@@ -61,7 +61,7 @@ class TestFormResponsesPanel(TestCase):
 class TestFormResponsesPanelWithCustomSubmissionClass(TestCase):
     def setUp(self):
         self.request = RequestFactory().get('/')
-        user = AnonymousUser() #technically, Anonymous users cannot access the admin
+        user = AnonymousUser()  # technically, Anonymous users cannot access the admin
         self.request.user = user
 
         # Create a form page
