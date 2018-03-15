@@ -197,7 +197,7 @@ class TestAccountSection(TestCase, WagtailTestUtils):
         # Get change email page
         response = self.client.get(reverse('wagtailadmin_account_change_email'))
 
-        #check that the user received a change email page
+        # Check that the user received a change email page
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailadmin/account/change_email.html')
 
