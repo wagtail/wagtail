@@ -298,7 +298,7 @@ class BaseStreamBlock(Block):
         to a custom subclass in the user's models.py that may or may not stick around.
         """
         path = 'wagtail.core.blocks.StreamBlock'
-        args = [self.child_blocks.items()]
+        args = [list(self.child_blocks.items())]
         kwargs = self._constructor_kwargs
         return (path, args, kwargs)
 
