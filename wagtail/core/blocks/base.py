@@ -358,19 +358,19 @@ class Block(metaclass=BaseBlock):
 
     def __eq__(self, other):
         """
-        The deep_deconstruct method in django.db.migrations.autodetector.MigrationAutodetector does not
-        recurse into arbitrary lists and dicts. As a result, when it is passed a field such as:
-            StreamField([
-                ('heading', CharBlock()),
-            ])
-        the CharBlock object will be left in its constructed form. This causes problems when
-        MigrationAutodetector compares two separate instances of the StreamField from different project
-        states: since the CharBlocks are different objects, it will report a change where there isn't one.
+        Implement equality on block objects so that two blocks with matching definitions are considered
+        equal. (Block objects are intended to be immutable with the exception of set_name(), so here
+        'matching definitions' means that both the 'name' property and the constructor args/kwargs - as
+        captured in _constructor_args - are equal on both blocks.)
 
-        To prevent this, we implement the equality operator on Block instances such that the two CharBlocks
-        are reported as equal. Since block objects are intended to be immutable with the exception of
-        set_name(), it is sufficient to compare the 'name' property and the constructor args/kwargs of the
-        two block objects. The 'deconstruct' method provides a convenient way to access the latter.
+        This was originally necessary as a workaround for https://code.djangoproject.com/ticket/24340
+        in Django <1.9; the deep_deconstruct function used to detect changes for migrations did not
+        recurse into the block lists, and left them as Block instances. This __eq__ method therefore
+        came into play when identifying changes within migrations.
+
+        As of Django >=1.9, this *probably* isn't required any more. However, it may be useful in
+        future as a way of identifying blocks that can be re-used within StreamField definitions
+        (https://github.com/wagtail/wagtail/issues/4298#issuecomment-367656028).
         """
 
         if not isinstance(other, Block):

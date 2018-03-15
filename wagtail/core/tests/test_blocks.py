@@ -3010,7 +3010,7 @@ class TestSystemCheck(TestCase):
         self.assertEqual(errors[0].obj, failing_block_1)
         self.assertEqual(errors[1].id, 'wagtailcore.E001')
         self.assertEqual(errors[1].hint, "Block names cannot contain spaces")
-        self.assertEqual(errors[0].obj, failing_block_2)
+        self.assertEqual(errors[1].obj, failing_block_2)
 
 
 class TestTemplateRendering(TestCase):
