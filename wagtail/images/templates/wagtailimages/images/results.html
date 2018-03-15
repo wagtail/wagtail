@@ -9,7 +9,7 @@
             There are {{ counter }} matches
         {% endblocktrans %}
         </h2>
-        
+
         {% search_other %}
     {% else %}
         <h2>{% trans "Latest images" %}</h2>
@@ -18,7 +18,7 @@
     <ul class="listing horiz images">
         {% for image in images %}
             <li>
-                <a class="image-choice" href="{% url 'wagtailimages:edit' image.id %}">
+                <a class="image-choice" title="{{ image.collection.name }} » {{ image.title }}" href="{% url 'wagtailimages:edit' image.id %}">
                     {% include "wagtailimages/images/results_image.html" %}
                     <h3>{{ image.title|ellipsistrim:60 }}</h3>
                 </a>
@@ -31,7 +31,7 @@
 {% else %}
     {% if is_searching %}
         <h2>{% blocktrans %}Sorry, no images match "<em>{{ query_string }}</em>"{% endblocktrans %}</h2>
-        
+
         {% search_other %}
     {% else %}
         {% url 'wagtailimages:add_multiple' as wagtailimages_add_image_url %}
