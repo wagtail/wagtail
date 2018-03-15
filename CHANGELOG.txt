@@ -19,6 +19,7 @@ Changelog
  * Fix: `UserAttributeSimilarityValidator` is now correctly enforced on user creation / editing forms (Tim Heap)
  * Fix: Focal area removal not working in IE11 and MS Edge (Thibaud Colas)
  * Fix: Rewrite password change feedback message to be more user-friendly ( Casper Timmers)
+ * Fix: Correct dropdown arrow styling in Firefox, IE11 (Janneke Janssen, Alexs Mathilda)
 
 
 2.0.1 (xx.xx.xxxx) - IN DEVELOPMENT

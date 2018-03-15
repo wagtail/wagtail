@@ -55,6 +55,7 @@ textarea,
 select,
 .halloeditor,
 .tagit {
+    appearance: none;
     box-sizing: border-box;
     border-radius: 6px;
     width: 100%;
@@ -62,8 +63,6 @@ select,
     border: 1px solid $color-input-border;
     padding: 0.9em 1.2em;
     background-color: $color-fieldset-hover;
-    // stylelint-disable-next-line property-no-vendor-prefix
-    -webkit-appearance: none;
     color: $color-text-input;
     font-size: 1.2em;
     font-weight: 300;
@@ -87,6 +86,11 @@ select,
         cursor: default;
         color: $color-grey-4;
     }
+}
+
+// Reset the arrow on `<select>`s in IE10+.
+select::-ms-expand {
+    display: none;
 }
 
 // select boxes
