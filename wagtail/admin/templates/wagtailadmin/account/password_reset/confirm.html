@@ -4,46 +4,46 @@
 {% block bodyclass %}login{% endblock %}
 
 {% block extra_css %}
-{{ block.super }}
+    {{ block.super }}
 
-<link rel="stylesheet" href="{% static 'wagtailadmin/css/layouts/login.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'wagtailadmin/css/layouts/login.css' %}" type="text/css" />
 {% endblock %}
 
 {% block furniture %}
-<div class="content-wrapper">
+    <div class="content-wrapper">
 
-    {% if form.errors %}
-    <div class="messages">
-        <ul>
+      {% if form.errors %}
+        <div class="messages">
+          <ul>
             <li class="error">{% trans 'Password reset failed. Please see the errors below.' %}</li>
-        </ul>
-        {{ form.non_field_errors }}
+          </ul>
+          {{ form.non_field_errors }}
+        </div>
+      {% endif %}
+
+        <form method="post" novalidate>
+            {% csrf_token %}
+            <h1>{% trans "Set your new password" %}</h1>
+
+            <ul class="fields">
+                <li>
+                  <div class="field">
+                      {{ form.new_password1.label_tag }}
+                      {{ form.new_password1 }}
+                      {{ form.errors.new_password1 }}
+                  </div>
+                </li>
+                <li>
+                  <div class="field">
+                      {{ form.new_password2.label_tag }}
+                      {{ form.new_password2 }}
+                      {{ form.errors.new_password2 }}
+                  </div>
+                </li>
+                <li class="submit">
+                    <input type="submit" value="{% trans 'Reset password' %}" class="button" />
+                </li>
+            </ul>
+        </form>
     </div>
-    {% endif %}
-
-    <form method="post" novalidate>
-        {% csrf_token %}
-        <h1>{% trans "Set your new password" %}</h1>
-
-        <ul class="fields">
-            <li>
-                <div class="field">
-                    {{ form.new_password1.label_tag }}
-                    {{ form.new_password1 }}
-                    {{ form.errors.new_password1 }}
-                </div>
-            </li>
-            <li>
-                <div class="field">
-                    {{ form.new_password2.label_tag }}
-                    {{ form.new_password2 }}
-                    {{ form.errors.new_password2 }}
-                </div>
-            </li>
-            <li class="submit">
-                <input type="submit" value="{% trans 'Reset password' %}" class="button" />
-            </li>
-        </ul>
-    </form>
-</div>
 {% endblock %}
