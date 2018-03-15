@@ -74,11 +74,11 @@ def edit(request, app_name, model_name, site_pk):
         else:
             messages.error(request, _("The setting could not be saved due to errors."))
             edit_handler = edit_handler.bind_to_instance(
-                instance=instance, form=form)
+                instance=instance, form=form, request=request)
     else:
         form = form_class(instance=instance)
         edit_handler = edit_handler.bind_to_instance(
-            instance=instance, form=form)
+            instance=instance, form=form, request=request)
 
     # Show a site switcher form if there are multiple sites
     site_switcher = None

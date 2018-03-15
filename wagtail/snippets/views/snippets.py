@@ -153,11 +153,13 @@ def create(request, app_label, model_name):
         else:
             messages.error(request, _("The snippet could not be created due to errors."))
             edit_handler = edit_handler.bind_to_instance(instance=instance,
-                                                         form=form)
+                                                         form=form,
+                                                         request=request)
     else:
         form = form_class(instance=instance)
         edit_handler = edit_handler.bind_to_instance(instance=instance,
-                                                     form=form)
+                                                     form=form,
+                                                     request=request)
 
     return render(request, 'wagtailsnippets/snippets/create.html', {
         'model_opts': model._meta,
@@ -199,11 +201,13 @@ def edit(request, app_label, model_name, pk):
         else:
             messages.error(request, _("The snippet could not be saved due to errors."))
             edit_handler = edit_handler.bind_to_instance(instance=instance,
-                                                         form=form)
+                                                         form=form,
+                                                         request=request)
     else:
         form = form_class(instance=instance)
         edit_handler = edit_handler.bind_to_instance(instance=instance,
-                                                     form=form)
+                                                     form=form,
+                                                     request=request)
 
     return render(request, 'wagtailsnippets/snippets/edit.html', {
         'model_opts': model._meta,

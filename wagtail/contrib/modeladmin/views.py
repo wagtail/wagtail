@@ -138,7 +138,7 @@ class ModelFormView(WMABaseView, FormView):
         edit_handler = self.get_edit_handler()
         form = self.get_form()
         edit_handler = edit_handler.bind_to_instance(
-            instance=instance, form=form)
+            instance=instance, form=form, request=self.request)
         context = {
             'is_multipart': form.is_multipart(),
             'edit_handler': edit_handler,
