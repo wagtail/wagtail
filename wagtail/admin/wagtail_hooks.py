@@ -205,6 +205,15 @@ def register_account_set_gravatar(request):
 
 
 @hooks.register('register_account_menu_item')
+def register_account_change_email(request):
+    return {
+        'url': reverse('wagtailadmin_account_change_email'),
+        'label': _('Change email'),
+        'help_text': _('Change the email address linked to your account.'),
+    }
+
+
+@hooks.register('register_account_menu_item')
 def register_account_change_password(request):
     if password_management_enabled() and request.user.has_usable_password():
         return {
