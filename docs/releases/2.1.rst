@@ -20,6 +20,7 @@ Other features
 * Remove support for IE6 to IE9 from project template (Samir Shah)
 * Remove outdated X-UA-Compatible meta from admin template  (Thibaud Colas)
 * Add JavaScript source maps in production build for packaged Wagtail (Thibaud Colas)
+* Removed ``assert`` statements from Wagtail API (Kim Chee Leong)
 
 Bug fixes
 ~~~~~~~~~

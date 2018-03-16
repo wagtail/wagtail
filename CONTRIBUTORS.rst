@@ -282,6 +282,7 @@ Contributors
 * Sebastian Brestin
 * Casper Timmers
 * Kevin Chung
+* Kim Chee Leong
 
 Translators
 ===========
