@@ -36,6 +36,7 @@ Bug fixes
  * Rewrite password change feedback message to be more user-friendly ( Casper Timmers)
  * Correct dropdown arrow styling in Firefox, IE11 (Janneke Janssen, Alexs Mathilda)
  * Password reset no indicates specific validation errors on certain password restrictions (Lucas Moeskops)
+ * Fix a typo within documentation for pages (DanAtShenTech)
 
 
 Upgrade considerations

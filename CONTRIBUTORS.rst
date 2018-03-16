@@ -283,6 +283,7 @@ Contributors
 * Casper Timmers
 * Kevin Chung
 * Kim Chee Leong
+* Dan Swain
 
 Translators
 ===========
