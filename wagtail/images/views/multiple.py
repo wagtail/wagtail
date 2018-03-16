@@ -2,9 +2,11 @@ from django.core.exceptions import PermissionDenied
 from django.http import HttpResponseBadRequest, JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.template.loader import render_to_string
+from django.urls import reverse
 from django.utils.encoding import force_text
 from django.views.decorators.http import require_POST
 from django.views.decorators.vary import vary_on_headers
+
 
 from wagtail.admin.utils import PermissionPolicyChecker
 from wagtail.images import get_image_model
@@ -69,10 +71,20 @@ def add(request):
             image.file_size = image.file.size
             image.save()
 
+            preview = image.get_rendition('max-165x165')
+            preview = preview.attrs_dict
+            preview['url'] = preview['src']
+
             # Success! Send back an edit form for this image to the user
             return JsonResponse({
                 'success': True,
                 'image_id': int(image.id),
+                'image': {
+                    'id': image.id,
+                    'preview': preview,
+                    'alt': preview['alt'],
+                    'edit_link': reverse('wagtailimages:edit', args=(image.id,))
+                },
                 'form': render_to_string('wagtailimages/multiple/edit_form.html', {
                     'image': image,
                     'form': get_image_edit_form(Image)(

@@ -29,4 +29,4 @@ class AdminImageChooser(AdminChooser):
         })
 
     def render_js_init(self, id_, name, value):
-        return "createImageChooser({0});".format(json.dumps(id_))
+        return "$('#{id}').data('imageChooser', createImageChooser({id_quoted}));".format(id=id_, id_quoted=json.dumps(id_))

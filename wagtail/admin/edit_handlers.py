@@ -702,20 +702,31 @@ class InlinePanel(EditHandler):
     template = "wagtailadmin/edit_handlers/inline_panel.html"
 
     def render(self):
-        formset = render_to_string(self.template, {
+        context = {
             'self': self,
             'can_order': self.formset.can_order,
-        })
+        }
+        context.update(self.render_extension())
+
+        formset = render_to_string(self.template, context)
         js = self.render_js_init()
         return widget_with_script(formset, js)
+
+    def render_extension(self):
+        return {}
 
     js_template = "wagtailadmin/edit_handlers/inline_panel.js"
 
     def render_js_init(self):
-        return mark_safe(render_to_string(self.js_template, {
+        context = {
             'self': self,
             'can_order': self.formset.can_order,
-        }))
+        }
+        context.update(self.render_extension_js_init())
+        return mark_safe(render_to_string(self.js_template, context))
+
+    def render_extension_js_init(self):
+        return {}
 
 
 # This allows users to include the publishing panel in their own per-model override

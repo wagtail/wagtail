@@ -21,7 +21,7 @@ function buildExpandingFormset(prefix, opts) {
         emptyFormTemplate = emptyFormTemplate.textContent;
     }
 
-    addButton.on('click', function() {
+    var add = function() {
         if (addButton.hasClass('disabled')) return false;
         var newFormHtml = emptyFormTemplate
             .replace(/__prefix__/g, formCount)
@@ -32,5 +32,10 @@ function buildExpandingFormset(prefix, opts) {
 
         formCount++;
         totalFormsInput.val(formCount);
-    });
+        return formCount - 1;
+    }
+
+    addButton.on('click', add);
+
+    return add;
 }

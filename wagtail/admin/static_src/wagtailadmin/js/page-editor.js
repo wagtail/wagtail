@@ -228,7 +228,7 @@ function InlinePanel(opts) {
         });
     };
 
-    buildExpandingFormset(opts.formsetPrefix, {
+    self.addOne = buildExpandingFormset(opts.formsetPrefix, {
         onAdd: function(formCount) {
             var newChildPrefix = opts.emptyChildFormPrefix.replace(/__prefix__/g, formCount);
             self.initChildControls(newChildPrefix);

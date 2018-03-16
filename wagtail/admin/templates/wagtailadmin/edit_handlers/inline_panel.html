@@ -3,6 +3,7 @@
 
 {{ self.formset.management_form }}
 
+
 <ul class="multiple" id="id_{{ self.formset.prefix }}-FORMS">
     {% if self.formset.non_form_errors %}
         <li class="error-message">
@@ -28,3 +29,6 @@
         {% blocktrans with label=self.label|lower %}Add {{ label }}{% endblocktrans %}
     </a>
 </p>
+
+
+{% block extension %}{% endblock %}
