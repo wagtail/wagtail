@@ -295,16 +295,17 @@ class TestRouting(TestCase):
         self.assertEqual(christmas_page.get_site(), events_site)
 
         request = HttpRequest()
+
+        request.site = events_site
+        self.assertEqual(
+            christmas_page.get_url_parts(request=request),
+            (events_site.id, 'http://events.example.com', '/christmas/')
+        )
+
         request.site = second_events_site
         self.assertEqual(
             christmas_page.get_url_parts(request=request),
             (second_events_site.id, 'http://second_events.example.com', '/christmas/')
-        )
-
-        request.site = events_site
-        self.assertEqual(
-            christmas_page.get_url_parts(),
-            (events_site.id, 'http://events.example.com', '/christmas/')
         )
 
     @override_settings(ROOT_URLCONF='wagtail.tests.non_root_urls')
