@@ -301,6 +301,12 @@ class TestRouting(TestCase):
             (second_events_site.id, 'http://second_events.example.com', '/christmas/')
         )
 
+        request.site = events_site
+        self.assertEqual(
+            christmas_page.get_url_parts(),
+            (events_site.id, 'http://events.example.com', '/christmas/')
+        )
+
     @override_settings(ROOT_URLCONF='wagtail.tests.non_root_urls')
     def test_urls_with_non_root_urlconf(self):
         default_site = Site.objects.get(is_default_site=True)
