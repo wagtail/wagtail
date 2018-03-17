@@ -1,12 +1,13 @@
 from django.apps import AppConfig, apps
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
+from django.utils.translation import ugettext_lazy as _
 
 
 class WagtailAPIV2AppConfig(AppConfig):
     name = 'wagtail.api.v2'
     label = 'wagtailapi_v2'
-    verbose_name = "Wagtail API v2"
+    verbose_name = _("Wagtail API v2")
 
     def ready(self):
         # Install cache purging signal handlers
