@@ -557,6 +557,25 @@ class TestPasswordReset(TestCase, WagtailTestUtils):
         # Create url_args
         self.url_kwargs = dict(uidb64=self.password_reset_uid, token=self.password_reset_token)
 
+    def test_password_reset_confirm_view_invalid_link(self):
+        """
+        This tests that the password reset view shows an error message if the link is invalid
+        """
+        self.setup_password_reset_confirm_tests()
+
+        # Create invalid url_args
+        self.url_kwargs = dict(uidb64=self.password_reset_uid, token="invalid-token")
+
+        # Get password reset confirm page
+        response = self.client.get(reverse('wagtailadmin_password_reset_confirm', kwargs=self.url_kwargs))
+
+        # Check that the user received a password confirm done page
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/account/password_reset/confirm.html')
+        self.assertFalse(response.context['validlink'])
+        self.assertContains(response, 'The password reset link was invalid, possibly because it has already been used.')
+        self.assertContains(response, 'Request a new password reset')
+
     def test_password_reset_confirm_view(self):
         """
         This tests that the password reset confirm view returns a password reset confirm page
