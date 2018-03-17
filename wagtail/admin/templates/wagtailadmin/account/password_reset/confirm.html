@@ -11,6 +11,14 @@
 
 {% block furniture %}
     <div class="content-wrapper">
+    {% if validlink %}
+        {% if form.errors %}
+            <div class="messages">
+                <ul>
+                    <li class="error">{% trans "The passwords do not match. Please try again." %}</li>
+                </ul>
+            </div>
+        {% endif %}
 
         <form method="post" novalidate>
             {% csrf_token %}
@@ -50,5 +58,16 @@
                 </li>
             </ul>
         </form>
+    {% else %}
+        <h1>{% trans "Invalid password reset link" %}</h1>
+        <div class="messages">
+            <ul>
+                <li class="error">
+                    {% trans "The password reset link was invalid, possibly because it has already been used. Please request a new password reset." %}
+                </li>
+            </ul>
+        </div>
+    {% endif %}
+
     </div>
 {% endblock %}

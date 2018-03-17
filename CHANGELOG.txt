@@ -11,6 +11,7 @@ Changelog
  * Remove outdated X-UA-Compatible meta from admin template  (Thibaud Colas)
  * Add JavaScript source maps in production build for packaged Wagtail (Thibaud Colas)
  * Removed `assert` statements from Wagtail API (Kim Chee Leong)
+ * Add invalid password reset link error message (Coen van der Kamp)
  * Fix: Status button on 'edit page' now links to the correct URL when live and draft slug differ (LB (Ben Johnston))
  * Fix: Image title text in the gallery and in the chooser now wraps for long filenames (LB (Ben Johnston), Luiz Boaretto)
  * Fix: Move image editor action buttons to the bottom of the form on mobile (Julian Gallo)
