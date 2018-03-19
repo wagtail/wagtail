@@ -17,7 +17,6 @@ MUTABILITY[DOCUMENT] = 'MUTABLE';
 MUTABILITY[ENTITY_TYPE.IMAGE] = 'IMMUTABLE';
 MUTABILITY[EMBED] = 'IMMUTABLE';
 
-
 export const getChooserConfig = (entityType, entity, selectedText) => {
   const chooserURL = {};
   chooserURL[ENTITY_TYPE.IMAGE] = `${global.chooserUrls.imageChooser}?select_format=true`;
