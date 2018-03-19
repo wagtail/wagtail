@@ -5,12 +5,12 @@ A common feature of Wagtail is the ability to add more than one of a particular 
 
 .. image:: ../../_static/images/screen24_multiple_items_closed.png
 
-* Whenever you see the white cross in the green circle illustrated here, it means you can add multiple objects or items to a page. Clicking the icon will display the fields required for that piece of content. The image below demonstrates this with a *Related link* item.
+* Whenever you see the white cross on a button, it means you can add multiple objects or items to a page. Clicking the icon will display the fields required for that piece of content. The image below demonstrates this with a *Related link* item.
 
 .. image:: ../../_static/images/screen25_multiple_items_open.png
 
 * You can delete an individual item by pressing the trash can in the top-right.
-* You can add more items by clicking the link with the white cross again.
+* You can add more items by clicking the button with the white cross again.
 
 .. image:: ../../_static/images/screen26_reordering_multiple_items.png
 
