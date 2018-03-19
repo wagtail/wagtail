@@ -14,7 +14,6 @@ describe('DraftUtils', () => {
           {
             key: 'a',
             text: 'test1234',
-            type: 'unstyled',
           },
         ],
       });
@@ -32,27 +31,7 @@ describe('DraftUtils', () => {
     });
 
     it('empty', () => {
-      const content = convertFromRaw({
-        entityMap: {},
-        blocks: [
-          {
-            key: 'a',
-            text: 'test',
-            type: 'unstyled',
-          },
-        ],
-      });
-      let editorState = EditorState.createWithContent(content);
-
-      let selection = editorState.getSelection();
-      selection = selection.merge({
-        anchorOffset: 0,
-        focusOffset: 0,
-      });
-
-      editorState = EditorState.acceptSelection(editorState, selection);
-
-      expect(getSelectionText(editorState)).toBe('');
+      expect(getSelectionText(EditorState.createEmpty())).toBe('');
     });
 
     it('backwards', () => {
@@ -62,7 +41,6 @@ describe('DraftUtils', () => {
           {
             key: 'a',
             text: 'test1234',
-            type: 'unstyled',
           },
         ],
       });
@@ -72,7 +50,7 @@ describe('DraftUtils', () => {
       selection = selection.merge({
         anchorOffset: 8,
         focusOffset: 4,
-        isBackward: 1,
+        isBackward: true,
       });
 
       editorState = EditorState.acceptSelection(editorState, selection);
@@ -87,12 +65,10 @@ describe('DraftUtils', () => {
           {
             key: 'a',
             text: 'test1234',
-            type: 'unstyled',
           },
           {
             key: 'b',
             text: 'multiblock',
-            type: 'unstyled',
           }
         ],
       });
@@ -104,7 +80,7 @@ describe('DraftUtils', () => {
         focusKey: 'b',
         anchorOffset: 4,
         focusOffset: 5,
-        isBackward: 0,
+        isBackward: false,
       });
 
       editorState = EditorState.acceptSelection(editorState, selection);
@@ -119,12 +95,10 @@ describe('DraftUtils', () => {
           {
             key: 'a',
             text: 'test1234',
-            type: 'unstyled',
           },
           {
             key: 'b',
             text: 'multiblock',
-            type: 'unstyled',
           }
         ],
       });
@@ -136,7 +110,7 @@ describe('DraftUtils', () => {
         anchorKey: 'b',
         anchorOffset: 5,
         focusOffset: 4,
-        isBackward: 1,
+        isBackward: true,
       });
 
       editorState = EditorState.acceptSelection(editorState, selection);
