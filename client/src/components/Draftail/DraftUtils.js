@@ -1,6 +1,7 @@
 
   /**
-  * Function returns collection of currently selected blocks.
+  * Returns collection of currently selected blocks.
+  * See https://github.com/jpuri/draftjs-utils/blob/e81c0ae19c3b0fdef7e0c1b70d924398956be126/js/block.js#L19.
   */
   const getSelectedBlocksList = (editorState) => {
     const selectionState = editorState.getSelection();
@@ -17,7 +18,8 @@
   };
 
   /**
-  * Function will return currently selected text in the editor.
+  * Returns the currently selected text in the editor.
+  * See https://github.com/jpuri/draftjs-utils/blob/e81c0ae19c3b0fdef7e0c1b70d924398956be126/js/block.js#L106.
   */
   export const getSelectionText = (editorState) => {
     let selectedText = '';
