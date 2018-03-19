@@ -703,7 +703,8 @@ class InlinePanel(EditHandler):
         # if this formset is valid, it may have been re-ordered; respect that
         # in case the parent form errored and we need to re-render
         if self.formset.can_order and self.formset.is_valid():
-            self.children = sorted(self.children, key=lambda x: x.form.cleaned_data['ORDER'])
+            self.children.sort(
+                key=lambda child: child.form.cleaned_data.get('ORDER', 1))
 
         empty_form = self.formset.empty_form
         empty_form.fields['DELETE'].widget = forms.HiddenInput()
