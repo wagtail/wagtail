@@ -173,7 +173,6 @@ class ModelFormView(WMABaseView, FormView):
         messages.validation_error(
             self.request, self.get_error_message(), form
         )
-        messages.error(self.request, self.get_error_message())
         return self.render_to_response(self.get_context_data())
 
 
