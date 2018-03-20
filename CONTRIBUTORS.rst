@@ -284,6 +284,8 @@ Contributors
 * Kevin Chung
 * Kim Chee Leong
 * Dan Swain
+* Alexs Mathilda
+* Tony Yates
 
 Translators
 ===========
