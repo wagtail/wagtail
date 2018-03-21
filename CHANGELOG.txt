@@ -134,8 +134,8 @@ Changelog
  * Fix: Prevented intermittent failures on Postgres search backend when a field is defined as both a `SearchField` and a `FilterField` (Matt Westcott)
 
 
-1.13 (16.10.2017)
-~~~~~~~~~~~~~~~~~
+1.13 LTS (16.10.2017)
+~~~~~~~~~~~~~~~~~~~~~
 
  * Front-end cache invalidator now supports purging URLs as a batch (Karl Hobley)
  * Custom document model is now documented (Emily Horsman)
