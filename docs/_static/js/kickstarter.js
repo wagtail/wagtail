@@ -58,7 +58,7 @@ $(function () {
     '  <span>Please consider supporting ' +
     '    <strong>NoriPyt’s Wagtail Kickstarter</strong>' +
     '  </span>' +
-    '<img src="_static/images/kickstarter.png" width="63" height="45" />' +
+    '  <img src="_static/images/kickstarter.png" width="63" height="45" />' +
     '  <span>to accelerate the development of this project.</span>' +
     '</a>');
 
