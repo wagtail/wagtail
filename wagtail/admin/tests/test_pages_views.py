@@ -266,6 +266,12 @@ class TestPageExplorer(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtailadmin_explore', args=(self.new_event.id, )))
         self.assertContains(response, 'New event (single event)')
 
+        # Reorder view should also use specific pages
+        # (provided there are <100 pages in the listing, as this may be a significant
+        # performance hit on larger listings)
+        response = self.client.get(reverse('wagtailadmin_explore', args=(self.root_page.id, )) + '?ordering=ord')
+        self.assertContains(response, 'New event (single event)')
+
     def test_parent_page_is_specific(self):
         response = self.client.get(reverse('wagtailadmin_explore', args=(self.child_page.id, )))
         self.assertEqual(response.status_code, 200)
