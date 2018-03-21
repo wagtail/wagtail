@@ -62,7 +62,8 @@ $(function () {
     '  <span>to accelerate the development of this project.</span>' +
     '</a>');
 
-  if (!hasCookie('kickstarterClosed', 'true')) {
+  if (!hasCookie('kickstarterClosed', 'true')
+      && new Date() < new Date(2018, 4, 17)) {
     $('body').prepend($kickstarter);
     $kickstarter.find('.close').click(function (e) {
       e.preventDefault();
