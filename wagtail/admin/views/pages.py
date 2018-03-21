@@ -92,10 +92,12 @@ def index(request, parent_page_id=None):
     # allow drag-and-drop reordering
     do_paginate = ordering != 'ord'
 
-    if do_paginate:
-        # Retrieve pages in their most specific form.
-        # Only do this for paginated listings, as this could potentially be a
-        # very expensive operation when performed on a large queryset.
+    if do_paginate or pages.count() < 100:
+        # Retrieve pages in their most specific form, so that custom
+        # get_admin_display_title and get_url_parts methods on subclasses are respected.
+        # However, skip this on unpaginated listings with >100 child pages as this could
+        # be a significant performance hit. (This should only happen on the reorder view,
+        # and hopefully no-one is having to do manual reordering on listings that large...)
         pages = pages.specific()
 
     # allow hooks to modify the queryset
