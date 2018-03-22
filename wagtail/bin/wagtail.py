@@ -8,7 +8,8 @@ from argparse import ArgumentParser
 from difflib import unified_diff
 
 from django.core.management import ManagementUtility
-from django.utils.six import print_  # required to avoid a syntax error on Py2 when using print(..., end='')
+# Need to use the django.utils.six version of print, to avoid a syntax error on Py2 when using print(..., end='')
+from django.utils.six import print_
 
 
 CURRENT_PYTHON = sys.version_info[:2]
