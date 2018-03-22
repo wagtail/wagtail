@@ -9,7 +9,7 @@
             {# For limited-permission users whose breadcrumb starts further down from the root, the first item displays as a 'home' icon in place of the title #}
             <li class="home"><a href="{% url 'wagtailadmin_explore' page.id %}" class="icon icon-home text-replace">{% trans 'Home' %}</a></li>
         {% else %}
-            <li><a href="{% url 'wagtailadmin_explore' page.id %}">{{ page.get_admin_display_title }}</a></li>
+            <li><a href="{% url 'wagtailadmin_explore' page.id %}">{{ page.specific.get_admin_display_title }}</a></li>
         {% endif %}
     {% endfor %}
 </ul>
