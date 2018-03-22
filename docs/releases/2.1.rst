@@ -26,6 +26,7 @@ Other features
 * Remove outdated X-UA-Compatible meta from admin template  (Thibaud Colas)
 * Add JavaScript source maps in production build for packaged Wagtail (Thibaud Colas)
 * Removed ``assert`` statements from Wagtail API (Kim Chee Leong)
+* Update `jquery-datetimepicker` dependency to make Wagtail more CSP-friendly (`unsafe-eval`) (Mike Kamermans)
 
 Bug fixes
 ~~~~~~~~~
