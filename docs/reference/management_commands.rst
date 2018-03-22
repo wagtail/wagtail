@@ -80,7 +80,7 @@ For example, to update just the default backend:
 
     $ python manage.py update_index --backend default
 
-The ``--chunk_size`` option can be used to set the size of chunks that are index at a time. This defaults to
+The ``--chunk_size`` option can be used to set the size of chunks that are indexed at a time. This defaults to
 1000 but may need to be reduced for larger document sizes.
 
 Indexing the schema only

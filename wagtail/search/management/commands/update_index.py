@@ -7,6 +7,8 @@ from django.db import transaction
 from wagtail.search.backends import get_search_backend
 from wagtail.search.index import get_indexed_models
 
+DEFAULT_CHUNK_SIZE = 1000
+
 
 def group_models_by_index(backend, models):
     """
@@ -50,7 +52,7 @@ def group_models_by_index(backend, models):
 
 
 class Command(BaseCommand):
-    def update_backend(self, backend_name, schema_only, chunk_size):
+    def update_backend(self, backend_name, schema_only=False, chunk_size=DEFAULT_CHUNK_SIZE):
         self.stdout.write("Updating backend: " + backend_name)
 
         backend = get_search_backend(backend_name)
@@ -101,7 +103,7 @@ class Command(BaseCommand):
             '--schema-only', action='store_true', dest='schema_only', default=False,
             help="Prevents loading any data into the index")
         parser.add_argument(
-            '--chunk_size', action='store', dest='chunk_size', default=1000,
+            '--chunk_size', action='store', dest='chunk_size', default=DEFAULT_CHUNK_SIZE,
             help="Set the chunk size for the backend")
 
     def handle(self, **options):
