@@ -27,6 +27,7 @@ Changelog
  * Fix: Adding external link with selected text now includes text in link chooser (Tony Yates, Thibaud Colas, Alexs Mathilda)
  * Fix: Editing setting object with no site configured no longer crashes (Harm Zeinstra)
  * Fix: Creating a new object with inlines while mandatory fields are empty no longer crashes (Bertrand Bordage)
+ * Fix: Localization of image and apps verbose names
 
 
 2.0.1 (xx.xx.xxxx) - IN DEVELOPMENT
