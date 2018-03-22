@@ -5,7 +5,7 @@ Core team
 * Karl Hobley (Torchbox)
 * Tom Dyson (Torchbox)
 * Mikalai Radchuk (Torchbox)
-* Thibaud Colas (Springload)
+* Thibaud Colas
 * Janneke Janssen (Lukkien)
 * Mike Dingjan (Lab Digital)
 * Rob Moorman (Moor Interactive)
