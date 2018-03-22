@@ -141,6 +141,9 @@ class SimplePage(Page):
         FieldPanel('content'),
     ]
 
+    def get_admin_display_title(self):
+        return "%s (simple page)" % super().get_admin_display_title()
+
 
 # Page with Excluded Fields when copied
 class PageWithExcludedCopyField(Page):

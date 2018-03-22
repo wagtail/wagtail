@@ -4,6 +4,7 @@ Changelog
 2.1 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
+ * Add `HelpPanel` to add HTML within an edit form (Keving Chung)
  * Persist tab hash in URL to allow direct navigation to tabs in the admin interface (Ben Weatherman)
  * Animate the chevron icon when opening sub-menus in the admin (Carlo Ascani)
  * Look through the target link and target page slug (in addition to the old slug) when searching for redirects in the admin (Michael Harrison)
@@ -12,6 +13,7 @@ Changelog
  * Add JavaScript source maps in production build for packaged Wagtail (Thibaud Colas)
  * Removed `assert` statements from Wagtail API (Kim Chee Leong)
  * Add invalid password reset link error message (Coen van der Kamp)
+ * Update `jquery-datetimepicker` dependency to make Wagtail more CSP-friendly (`unsafe-eval`) (Mike Kamermans)
  * Fix: Status button on 'edit page' now links to the correct URL when live and draft slug differ (LB (Ben Johnston))
  * Fix: Image title text in the gallery and in the chooser now wraps for long filenames (LB (Ben Johnston), Luiz Boaretto)
  * Fix: Move image editor action buttons to the bottom of the form on mobile (Julian Gallo)
@@ -20,10 +22,14 @@ Changelog
  * Fix: Password reset form no longer indicates whether the email is recognised, as per standard Django behaviour (Bertrand Bordage)
  * Fix: `UserAttributeSimilarityValidator` is now correctly enforced on user creation / editing forms (Tim Heap)
  * Fix: Focal area removal not working in IE11 and MS Edge (Thibaud Colas)
- * Fix: Rewrite password change feedback message to be more user-friendly ( Casper Timmers)
+ * Fix: Rewrite password change feedback message to be more user-friendly (Casper Timmers)
  * Fix: Correct dropdown arrow styling in Firefox, IE11 (Janneke Janssen, Alexs Mathilda)
  * Fix: Password reset no indicates specific validation errors on certain password restrictions (Lucas Moeskops)
- * Fix: Fix a typo within documentation for pages (DanAtShenTech)
+ * Fix: Confirmation page on page deletion now respects custom `get_admin_display_title` methods (Kim Chee Leong)
+ * Fix: Adding external link with selected text now includes text in link chooser (Tony Yates, Thibaud Colas, Alexs Mathilda)
+ * Fix: Editing setting object with no site configured no longer crashes (Harm Zeinstra)
+ * Fix: Creating a new object with inlines while mandatory fields are empty no longer crashes (Bertrand Bordage)
+ * Fix: Localization of image and apps verbose names
 
 
 2.0.1 (xx.xx.xxxx) - IN DEVELOPMENT
@@ -32,6 +38,8 @@ Changelog
  * Fix: Draftail now supports features specified via the `WAGTAILADMIN_RICH_TEXT_EDITORS` setting (Todd Dembrey)
  * Fix: Password reset form no longer indicates whether the email is recognised, as per standard Django behaviour (Bertrand Bordage)
  * Fix: `UserAttributeSimilarityValidator` is now correctly enforced on user creation / editing forms (Tim Heap)
+ * Fix: Editing setting object with no site configured no longer crashes (Harm Zeinstra)
+ * Fix: Creating a new object with inlines while mandatory fields are empty no longer crashes (Bertrand Bordage)
 
 
 2.0 (28.02.2018)

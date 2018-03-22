@@ -3,6 +3,7 @@ import re
 from django import forms
 from django.core.exceptions import ImproperlyConfigured
 from django.db.models.fields import FieldDoesNotExist
+from django.forms.formsets import DELETION_FIELD_NAME, ORDERING_FIELD_NAME
 from django.forms.models import fields_for_model
 from django.template.loader import render_to_string
 from django.utils.encoding import force_text
@@ -689,11 +690,11 @@ class InlinePanel(EditHandler):
         self.children = []
         for subform in self.formset.forms:
             # override the DELETE field to have a hidden input
-            subform.fields['DELETE'].widget = forms.HiddenInput()
+            subform.fields[DELETION_FIELD_NAME].widget = forms.HiddenInput()
 
             # ditto for the ORDER field, if present
             if self.formset.can_order:
-                subform.fields['ORDER'].widget = forms.HiddenInput()
+                subform.fields[ORDERING_FIELD_NAME].widget = forms.HiddenInput()
 
             child_edit_handler = self.get_child_edit_handler()
             self.children.append(
@@ -703,12 +704,13 @@ class InlinePanel(EditHandler):
         # if this formset is valid, it may have been re-ordered; respect that
         # in case the parent form errored and we need to re-render
         if self.formset.can_order and self.formset.is_valid():
-            self.children = sorted(self.children, key=lambda x: x.form.cleaned_data['ORDER'])
+            self.children.sort(
+                key=lambda child: child.form.cleaned_data[ORDERING_FIELD_NAME] or 1)
 
         empty_form = self.formset.empty_form
-        empty_form.fields['DELETE'].widget = forms.HiddenInput()
+        empty_form.fields[DELETION_FIELD_NAME].widget = forms.HiddenInput()
         if self.formset.can_order:
-            empty_form.fields['ORDER'].widget = forms.HiddenInput()
+            empty_form.fields[ORDERING_FIELD_NAME].widget = forms.HiddenInput()
 
         self.empty_child = self.get_child_edit_handler()
         self.empty_child = self.empty_child.bind_to_instance(
