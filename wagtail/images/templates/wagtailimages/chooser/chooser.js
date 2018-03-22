@@ -109,7 +109,7 @@ function(modal) {
         return false;
     });
 
-    function popuplateTitle(context) {
+    function populateTitle(context) {
         // Note: There are two inputs with `#id_title` on the page.
         // The page title and image title. Select the input inside the model body.
         var fileWidget = $('#id_file', context);
@@ -125,7 +125,7 @@ function(modal) {
         });
     }
 
-    popuplateTitle(modal.body);
+    populateTitle(modal.body);
 
     {% url 'wagtailadmin_tag_autocomplete' as autocomplete_url %}
 
