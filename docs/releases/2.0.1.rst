@@ -17,3 +17,4 @@ Bug fixes
  * Password reset form no longer indicates whether the email is recognised, as per standard Django behaviour (Bertrand Bordage)
  * ``UserAttributeSimilarityValidator`` is now correctly enforced on user creation / editing forms (Tim Heap)
  * Editing setting object with no site configured no longer crashes (Harm Zeinstra)
+ * Creating a new object with inlines while mandatory fields are empty no longer crashes (Bertrand Bordage)
