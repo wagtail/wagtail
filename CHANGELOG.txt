@@ -4,6 +4,7 @@ Changelog
 2.1 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
+ * Add `HelpPanel` to add HTML within an edit form (Keving Chung)
  * Persist tab hash in URL to allow direct navigation to tabs in the admin interface (Ben Weatherman)
  * Animate the chevron icon when opening sub-menus in the admin (Carlo Ascani)
  * Look through the target link and target page slug (in addition to the old slug) when searching for redirects in the admin (Michael Harrison)
