@@ -49,6 +49,7 @@ Bug fixes
  * Creating a new object with inlines while mandatory fields are empty no longer crashes (Bertrand Bordage)
  * Localization of image and apps verbose names
  * Draftail editor no longer crashes after deleting image/embed using DEL key (Thibaud Colas)
+ * Breadcrumb navigation now respects custom ``get_admin_display_title`` methods (Arthur Holzner, Wietze Helmantel, Matt Westcott)
 
 
 Upgrade considerations

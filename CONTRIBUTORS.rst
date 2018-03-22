@@ -287,6 +287,7 @@ Contributors
 * Alexs Mathilda
 * Tony Yates
 * Mike Kamermans
+* Arthur Holzner
 
 Translators
 ===========
