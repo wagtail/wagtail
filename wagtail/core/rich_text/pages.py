@@ -22,7 +22,7 @@ class PageLinkHandler:
     @staticmethod
     def expand_db_attributes(attrs):
         try:
-            page = Page.objects.get(id=attrs['id'])
+            page = Page.objects.get(id=attrs['id'], live=True)
 
             attrs = 'data-linktype="page" data-id="%d" ' % page.id
             parent_page = page.get_parent()
