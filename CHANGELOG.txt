@@ -34,6 +34,7 @@ Changelog
 2.0.1 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+ * Added error notification when running the `wagtail` command on Python <3.4 (Matt Westcott)
  * Fix: Draftail now supports features specified via the `WAGTAILADMIN_RICH_TEXT_EDITORS` setting (Todd Dembrey)
  * Fix: Password reset form no longer indicates whether the email is recognised, as per standard Django behaviour (Bertrand Bordage)
  * Fix: `UserAttributeSimilarityValidator` is now correctly enforced on user creation / editing forms (Tim Heap)
