@@ -303,6 +303,21 @@ class TestPageExplorer(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, 'wagtailadmin/pages/index.html')
 
 
+class TestBreadcrumb(TestCase, WagtailTestUtils):
+    fixtures = ['test.json']
+
+    def test_breadcrumb_uses_specific_titles(self):
+        self.user = self.login()
+
+        # get the explorer view for a subpage of a SimplePage
+        page = Page.objects.get(url_path='/home/secret-plans/steal-underpants/')
+        response = self.client.get(reverse('wagtailadmin_explore', args=(page.id, )))
+
+        # The breadcrumb should pick up SimplePage's overridden get_admin_display_title method
+        expected_url = reverse('wagtailadmin_explore', args=(Page.objects.get(url_path='/home/secret-plans/').id, ))
+        self.assertContains(response, """<li><a href="%s">Secret plans (simple page)</a></li>""" % expected_url)
+
+
 class TestPageExplorerSignposting(TestCase, WagtailTestUtils):
     fixtures = ['test.json']
 

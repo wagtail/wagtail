@@ -60,7 +60,7 @@ def explorer_breadcrumb(context, page, include_self=False):
         return {'pages': Page.objects.none()}
 
     return {
-        'pages': page.get_ancestors(inclusive=include_self).descendant_of(cca, inclusive=True)
+        'pages': page.get_ancestors(inclusive=include_self).descendant_of(cca, inclusive=True).specific()
     }
 
 
