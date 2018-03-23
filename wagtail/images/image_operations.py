@@ -217,6 +217,20 @@ class WidthHeightOperation(Operation):
         return willow.resize((width, height))
 
 
+class ScaleOperation(Operation):
+    def construct(self, percent):
+        self.percent = float(percent)
+
+    def run(self, willow, image, env):
+        image_width, image_height = willow.get_size()
+
+        scale = self.percent / 100
+        width = float(image_width * scale)
+        height = float(image_height * scale)
+
+        return willow.resize((width, height))
+
+
 class JPEGQualityOperation(Operation):
     def construct(self, quality):
         self.quality = int(quality)

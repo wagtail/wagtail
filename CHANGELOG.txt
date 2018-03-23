@@ -5,6 +5,7 @@ Changelog
 ~~~~~~~~~~~~~~~~~~~~
 
  * Added support for Django 2.1 (Ryan Verner, Matt Westcott)
+ * Added 'scale' image filter (Oliver Wilkerson)
 
 
 2.2 (xx.xx.xxx) - IN DEVELOPMENT

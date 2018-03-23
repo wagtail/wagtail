@@ -22,6 +22,9 @@ Wagtail is now compatible with Django 2.1. Compatibility fixes were contributed 
 Other features
 ~~~~~~~~~~~~~~
 
+ * Added 'scale' image filter (Oliver Wilkerson)
+
+
 Bug fixes
 ~~~~~~~~~
 

@@ -362,6 +362,40 @@ class TestWidthHeightOperation(ImageOperationTestCase):
 TestWidthHeightOperation.setup_test_methods()
 
 
+class TestScaleOperation(ImageOperationTestCase):
+    operation_class = image_operations.ScaleOperation
+
+    filter_spec_tests = [
+        ('scale-100', dict(method='scale', percent=100)),
+        ('scale-50', dict(method='scale', percent=50)),
+    ]
+
+    filter_spec_error_tests = [
+        'scale',
+        'scale-800x600',
+        'scale-abc',
+        'scale-800-c100',
+    ]
+
+    run_tests = [
+        # Basic almost a no-op of scale
+        ('scale-100', dict(width=1000, height=500), [
+            ('resize', ((1000, 500), ), {}),
+        ]),
+        # Basic usage of scale
+        ('scale-50', dict(width=1000, height=500), [
+            ('resize', ((500, 250), ), {}),
+        ]),
+        # Rounded usage of scale
+        ('scale-83.0322', dict(width=1000, height=500), [
+            ('resize', ((1000 * 0.830322, 500 * 0.830322), ), {}),
+        ]),
+    ]
+
+
+TestScaleOperation.setup_test_methods()
+
+
 class TestCacheKey(TestCase):
     def test_cache_key(self):
         image = Image(width=1000, height=1000)

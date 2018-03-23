@@ -312,6 +312,7 @@ Contributors
 * Aram Dulyan
 * Kevin Howbrook
 * Ryan Verner
+* Oliver Wilkerson
 
 Translators
 ===========
