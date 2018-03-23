@@ -13,6 +13,7 @@ Changelog
  * Add JavaScript source maps in production build for packaged Wagtail (Thibaud Colas)
  * Removed `assert` statements from Wagtail API (Kim Chee Leong)
  * Update `jquery-datetimepicker` dependency to make Wagtail more CSP-friendly (`unsafe-eval`) (Mike Kamermans)
+ * Added error notification when running the `wagtail` command on Python <3.4 (Matt Westcott)
  * Added support for `scale` filter on images for when users think `fill` is too much work. (Oliver Wilkerson)
  * Fix: Status button on 'edit page' now links to the correct URL when live and draft slug differ (LB (Ben Johnston))
  * Fix: Image title text in the gallery and in the chooser now wraps for long filenames (LB (Ben Johnston), Luiz Boaretto)
@@ -35,6 +36,7 @@ Changelog
 2.0.1 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+ * Added error notification when running the `wagtail` command on Python <3.4 (Matt Westcott)
  * Fix: Draftail now supports features specified via the `WAGTAILADMIN_RICH_TEXT_EDITORS` setting (Todd Dembrey)
  * Fix: Password reset form no longer indicates whether the email is recognised, as per standard Django behaviour (Bertrand Bordage)
  * Fix: `UserAttributeSimilarityValidator` is now correctly enforced on user creation / editing forms (Tim Heap)

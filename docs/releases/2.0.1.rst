@@ -10,6 +10,8 @@ Wagtail 2.0.1 release notes - IN DEVELOPMENT
 What's new
 ==========
 
+ * Added error notification when running the ``wagtail`` command on Python <3.4 (Matt Westcott)
+
 Bug fixes
 ~~~~~~~~~
 
