@@ -15,10 +15,12 @@ from wagtail.admin.rich_text.converters.html_to_contentstate import (
     BlockElementHandler, ExternalLinkElementHandler, HorizontalRuleHandler,
     InlineStyleElementHandler, ListElementHandler, ListItemElementHandler, PageLinkElementHandler)
 from wagtail.admin.search import SearchArea
-from wagtail.admin.utils import user_has_any_page_permission
+from wagtail.admin.utils import get_available_admin_languages, user_has_any_page_permission
+from wagtail.admin.views.account import password_management_enabled
 from wagtail.admin.viewsets import viewsets
 from wagtail.admin.widgets import Button, ButtonWithDropdownFromHook, PageListingButton
 from wagtail.core import hooks
+from wagtail.core.models import UserPagePermissionsProxy
 from wagtail.core.permissions import collection_permission_policy
 from wagtail.core.rich_text.pages import PageLinkHandler
 from wagtail.core.whitelist import allow_without_attributes, attribute_rule, check_url
@@ -187,6 +189,50 @@ def page_listing_more_buttons(page, page_perms, is_parent=False):
 def register_viewsets_urls():
     viewsets.populate()
     return viewsets.get_urlpatterns()
+
+
+@hooks.register('register_account_menu_item')
+def register_account_set_gravatar(request):
+    return {
+        'url': 'https://gravatar.com/emails/',
+        'label': _('Set gravatar'),
+        'help_text': _(
+            "Your avatar image is provided by Gravatar and is connected to "
+            "your email address. With a Gravatar account you can set an "
+            "avatar for any number of other email addresses you use."
+        )
+    }
+
+
+@hooks.register('register_account_menu_item')
+def register_account_change_password(request):
+    if password_management_enabled() and request.user.has_usable_password():
+        return {
+            'url': reverse('wagtailadmin_account_change_password'),
+            'label': _('Change password'),
+            'help_text': _('Change the password you use to log in.'),
+        }
+
+
+@hooks.register('register_account_menu_item')
+def register_account_notification_preferences(request):
+    user_perms = UserPagePermissionsProxy(request.user)
+    if user_perms.can_edit_pages() or user_perms.can_publish_pages():
+        return {
+            'url': reverse('wagtailadmin_account_notification_preferences'),
+            'label': _('Notification preferences'),
+            'help_text': _('Choose which email notifications to receive.'),
+        }
+
+
+@hooks.register('register_account_menu_item')
+def register_account_preferred_language_preferences(request):
+    if len(get_available_admin_languages()) > 1:
+        return {
+            'url': reverse('wagtailadmin_account_language_preferences'),
+            'label': _('Language preferences'),
+            'help_text': _('Choose the language you want to use here.'),
+        }
 
 
 @hooks.register('register_rich_text_features')
