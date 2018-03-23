@@ -43,6 +43,7 @@ Changelog
  * Fix: Add invalid password reset link error message (Coen van der Kamp)
  * Fix: Bypass select/prefetch related optimisation on `update_index` for `ParentalManyToManyField` to fix crash (Tim Kamanin)
  * Fix: 'Add user' is now rendered as a button due to the use of quotes within translations (Benoît Vogel)
+ * Fix: Menu icon no longer overlaps with title in Modeladmin on mobile (Coen van der Kamp)
 
 
 2.0.1 (04.04.2018)
