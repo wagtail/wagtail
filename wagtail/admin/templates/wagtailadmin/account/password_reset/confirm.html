@@ -63,10 +63,11 @@
         <div class="messages">
             <ul>
                 <li class="error">
-                    {% trans "The password reset link was invalid, possibly because it has already been used. Please request a new password reset." %}
+                    {% trans "The password reset link was invalid, possibly because it has already been used." %}
                 </li>
             </ul>
         </div>
+        <a href="{% url 'wagtailadmin_password_reset' %}" class="button">{% trans 'Request a new password reset' %}</a>
     {% endif %}
 
     </div>
