@@ -27,6 +27,7 @@ Other features
 * Add JavaScript source maps in production build for packaged Wagtail (Thibaud Colas)
 * Removed ``assert`` statements from Wagtail API (Kim Chee Leong)
 * Update `jquery-datetimepicker` dependency to make Wagtail more CSP-friendly (`unsafe-eval`) (Mike Kamermans)
+* Added error notification when running the ``wagtail`` command on Python <3.4 (Matt Westcott)
 
 Bug fixes
 ~~~~~~~~~
