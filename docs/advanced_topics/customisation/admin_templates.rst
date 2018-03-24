@@ -190,3 +190,5 @@ To make this easier, Wagtail exposes its React-related dependencies as global va
     window.CSSTransitionGroup;
     // 'draft-js'
     window.DraftJS;
+    // 'draftail'
+    window.Draftail;

@@ -1,3 +1,4 @@
+import * as Draftail from 'draftail';
 import draftail, {
   ModalWorkflowSource,
   Link,
@@ -10,6 +11,8 @@ import draftail, {
  * Entry point loaded when the Draftail editor is in use.
  */
 
+ // Expose Draftail package as a global.
+window.Draftail = Draftail;
 // Expose module as a global.
 window.draftail = draftail;
 
