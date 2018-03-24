@@ -1,6 +1,12 @@
 {% extends "wagtailadmin/admin_base.html" %}
 {% load staticfiles i18n %}
-{% block titletag %}{% trans "Set your new password" %}{% endblock %}
+{% block titletag %}
+    {% if validlink %}
+        {% trans "Set your new password" %}
+    {% else %}
+        {% trans "Invalid password reset link" %}
+    {% endif %}
+{% endblock %}
 {% block bodyclass %}login{% endblock %}
 
 {% block extra_css %}
@@ -54,7 +60,7 @@
                     </div>
                 </li>
                 <li class="submit">
-                    <input type="submit" value="{% trans 'Reset password' %}" class="button" />
+                    <button type="submit" class="button">{% trans 'Reset password' %}</button>
                 </li>
             </ul>
         </form>

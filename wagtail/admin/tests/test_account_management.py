@@ -527,8 +527,8 @@ class TestPasswordReset(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailadmin/account/password_reset/confirm.html')
         self.assertFalse(response.context['validlink'])
-        self.assertContains(response, 'The password reset link was invalid, possibly because it has already '
-                                      'been used. Please request a new password reset.')
+        self.assertContains(response, 'The password reset link was invalid, possibly because it has already been used.')
+        self.assertContains(response, 'Request a new password reset')
 
     def test_password_reset_confirm_view(self):
         """
