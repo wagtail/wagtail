@@ -4,6 +4,8 @@ import { convertFromRaw } from 'draft-js';
 
 import { STRINGS } from '../../../config/wagtailConfig';
 
+const MAX_EDITOR_RELOADS = 3;
+
 class EditorFallback extends PureComponent {
   constructor(props) {
     super(props);
@@ -12,12 +14,14 @@ class EditorFallback extends PureComponent {
 
     this.state = {
       error: null,
+      reloads: 0,
       isContentShown: false,
       initialContent: field.value,
     };
 
     this.renderError = this.renderError.bind(this);
     this.toggleContent = this.toggleContent.bind(this);
+    this.onReloadEditor = this.onReloadEditor.bind(this);
   }
 
   componentDidCatch(error) {
@@ -29,6 +33,15 @@ class EditorFallback extends PureComponent {
     field.value = initialContent;
   }
 
+  onReloadEditor() {
+    const { reloads } = this.state;
+
+    this.setState({
+      error: null,
+      reloads: reloads + 1,
+    });
+  }
+
   toggleContent() {
     const { isContentShown } = this.state;
     this.setState({ isContentShown: !isContentShown });
@@ -36,19 +49,31 @@ class EditorFallback extends PureComponent {
 
   renderError() {
     const { field } = this.props;
-    const { isContentShown } = this.state;
+    const { reloads, isContentShown } = this.state;
     const content = field.rawContentState && convertFromRaw(field.rawContentState).getPlainText();
 
     return (
       <div className="Draftail-Editor">
         <div className="Draftail-Toolbar">
-          <button
-            type="button"
-            className="Draftail-ToolbarButton"
-            onClick={() => window.location.reload(false)}
-          >
-            {STRINGS.RELOAD_PAGE}
-          </button>
+          {/* At first we propose reloading the editor. If it still crashes, reload the whole page. */}
+          {reloads < MAX_EDITOR_RELOADS ? (
+            <button
+              type="button"
+              className="Draftail-ToolbarButton"
+              onClick={this.onReloadEditor}
+            >
+              {STRINGS.RELOAD_EDITOR}
+            </button>
+          ) : (
+            <button
+              type="button"
+              className="Draftail-ToolbarButton"
+              onClick={() => window.location.reload(false)}
+            >
+              {STRINGS.RELOAD_PAGE}
+            </button>
+          )}
+
           {content && (
             <button
               type="button"
@@ -65,7 +90,11 @@ class EditorFallback extends PureComponent {
           </div>
         </div>
         {isContentShown && (
-          <textarea className="EditorFallback__textarea" value={content} readOnly />
+          <textarea
+            className="EditorFallback__textarea"
+            value={content}
+            readOnly
+          />
         )}
       </div>
     );
