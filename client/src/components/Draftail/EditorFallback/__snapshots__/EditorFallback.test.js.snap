@@ -12,7 +12,7 @@ exports[`EditorFallback #error #showContent 1`] = `
       onClick={[Function]}
       type="button"
     >
-      Reload the editor
+      Show latest content
     </button>
     <button
       className="Draftail-ToolbarButton"
@@ -26,7 +26,7 @@ exports[`EditorFallback #error #showContent 1`] = `
       onClick={[Function]}
       type="button"
     >
-      Show latest content
+      Reload the editor
     </button>
   </div>
   <div
@@ -58,14 +58,14 @@ exports[`EditorFallback #error #showError 1`] = `
       onClick={[Function]}
       type="button"
     >
-      Reload the editor
+      Show error
     </button>
     <button
       className="Draftail-ToolbarButton"
       onClick={[Function]}
       type="button"
     >
-      Show error
+      Reload the editor
     </button>
   </div>
   <div
@@ -104,14 +104,14 @@ exports[`EditorFallback #error works 1`] = `
       onClick={[Function]}
       type="button"
     >
-      Reload the editor
+      Show error
     </button>
     <button
       className="Draftail-ToolbarButton"
       onClick={[Function]}
       type="button"
     >
-      Show error
+      Reload the editor
     </button>
   </div>
   <div
