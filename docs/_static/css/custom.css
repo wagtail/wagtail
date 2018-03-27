@@ -1,11 +1,8 @@
-html  {
-    background-color: #e6e6e6; /*$color-grey-4*/
-}
-
 body.wy-body-for-nav {
     font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif;
     line-height: 1.5em;
     color: #333; /*$color-grey-1-1*/
+    background-color: #e6e6e6; /*$color-grey-4*/
 }
 
 div.wy-nav-side {

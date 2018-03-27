@@ -62,6 +62,7 @@ Bug fixes
  * Bypass select/prefetch related optimisation on ``update_index`` for ``ParentalManyToManyField`` to fix crash (Tim Kamanin)
  * 'Add user' is now rendered as a button due to the use of quotes within translations (Benoît Vogel)
  * Menu icon no longer overlaps with title in Modeladmin on mobile (Coen van der Kamp)
+ * Background color overflow within the Wagtail documentation (Sergey Fedoseev)
 
 
 Upgrade considerations

@@ -293,6 +293,7 @@ Contributors
 * Coen van der Kamp
 * Sander Tuit
 * Tim Kamanin
+* Sergey Fedoseev
 
 Translators
 ===========
