@@ -14,21 +14,24 @@ class EditorFallback extends PureComponent {
 
     this.state = {
       error: null,
+      info: null,
       reloads: 0,
-      isContentShown: false,
+      showContent: false,
+      showError: false,
       initialContent: field.value,
     };
 
     this.renderError = this.renderError.bind(this);
     this.toggleContent = this.toggleContent.bind(this);
+    this.toggleError = this.toggleError.bind(this);
     this.onReloadEditor = this.onReloadEditor.bind(this);
   }
 
-  componentDidCatch(error) {
+  componentDidCatch(error, info) {
     const { field } = this.props;
     const { initialContent } = this.state;
 
-    this.setState({ error });
+    this.setState({ error, info });
 
     field.value = initialContent;
   }
@@ -38,18 +41,26 @@ class EditorFallback extends PureComponent {
 
     this.setState({
       error: null,
+      info: null,
       reloads: reloads + 1,
+      showContent: false,
+      showError: false,
     });
   }
 
   toggleContent() {
-    const { isContentShown } = this.state;
-    this.setState({ isContentShown: !isContentShown });
+    const { showContent } = this.state;
+    this.setState({ showContent: !showContent });
+  }
+
+  toggleError() {
+    const { showError } = this.state;
+    this.setState({ showError: !showError });
   }
 
   renderError() {
     const { field } = this.props;
-    const { reloads, isContentShown } = this.state;
+    const { error, info, reloads, showContent, showError } = this.state;
     const content = field.rawContentState && convertFromRaw(field.rawContentState).getPlainText();
 
     return (
@@ -74,6 +85,14 @@ class EditorFallback extends PureComponent {
             </button>
           )}
 
+          <button
+            type="button"
+            className="Draftail-ToolbarButton"
+            onClick={this.toggleError}
+          >
+            {'Show error'}
+          </button>
+
           {content && (
             <button
               type="button"
@@ -84,17 +103,26 @@ class EditorFallback extends PureComponent {
             </button>
           )}
         </div>
+
         <div className="DraftEditor-root">
           <div className="public-DraftEditorPlaceholder-inner">
             {STRINGS.EDITOR_CRASH}
           </div>
         </div>
-        {isContentShown && (
+
+        {showContent && (
           <textarea
             className="EditorFallback__textarea"
             value={content}
             readOnly
           />
+        )}
+        {showError && (
+          <pre className="help-block help-critical">
+            <code className="EditorFallback__error">
+            {`${error.stack}\n${info.componentStack}`}
+            </code>
+          </pre>
         )}
       </div>
     );
