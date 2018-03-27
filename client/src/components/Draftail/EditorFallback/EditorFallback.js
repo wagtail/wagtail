@@ -61,11 +61,31 @@ class EditorFallback extends PureComponent {
   renderError() {
     const { field } = this.props;
     const { error, info, reloads, showContent, showError } = this.state;
-    const content = field.rawContentState && convertFromRaw(field.rawContentState).getPlainText();
+    const content =
+      field.rawContentState &&
+      convertFromRaw(field.rawContentState).getPlainText();
 
     return (
       <div className="Draftail-Editor">
         <div className="Draftail-Toolbar">
+          {content && (
+            <button
+              type="button"
+              className="Draftail-ToolbarButton"
+              onClick={this.toggleContent}
+            >
+              {STRINGS.SHOW_LATEST_CONTENT}
+            </button>
+          )}
+
+          <button
+            type="button"
+            className="Draftail-ToolbarButton"
+            onClick={this.toggleError}
+          >
+            {'Show error'}
+          </button>
+
           {/* At first we propose reloading the editor. If it still crashes, reload the whole page. */}
           {reloads < MAX_EDITOR_RELOADS ? (
             <button
@@ -82,24 +102,6 @@ class EditorFallback extends PureComponent {
               onClick={() => window.location.reload(false)}
             >
               {STRINGS.RELOAD_PAGE}
-            </button>
-          )}
-
-          <button
-            type="button"
-            className="Draftail-ToolbarButton"
-            onClick={this.toggleError}
-          >
-            {'Show error'}
-          </button>
-
-          {content && (
-            <button
-              type="button"
-              className="Draftail-ToolbarButton"
-              onClick={this.toggleContent}
-            >
-              {STRINGS.SHOW_LATEST_CONTENT}
             </button>
           )}
         </div>
@@ -120,7 +122,7 @@ class EditorFallback extends PureComponent {
         {showError && (
           <pre className="help-block help-critical">
             <code className="EditorFallback__error">
-            {`${error.stack}\n${info.componentStack}`}
+              {`${error.stack}\n${info.componentStack}`}
             </code>
           </pre>
         )}

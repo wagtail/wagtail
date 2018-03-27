@@ -61,7 +61,7 @@ describe('EditorFallback', () => {
           error: new Error('test'),
         })
         .find('button')
-        .first()
+        .last()
         .simulate('click');
 
       expect(wrapper).toMatchSnapshot();
@@ -82,7 +82,7 @@ describe('EditorFallback', () => {
           reloads: 3,
         })
         .find('button')
-        .first()
+        .last()
         .simulate('click');
 
       expect(window.location.reload).toHaveBeenCalled();
@@ -105,7 +105,7 @@ describe('EditorFallback', () => {
           info: { componentStack: 'test' },
         })
         .find('button')
-        .last()
+        .first()
         .simulate('click');
 
       expect(wrapper).toMatchSnapshot();
@@ -136,7 +136,7 @@ describe('EditorFallback', () => {
           info: { componentStack: 'test' },
         })
         .find('button')
-        .slice(2, 3)
+        .first()
         .simulate('click');
 
       expect(wrapper).toMatchSnapshot();
