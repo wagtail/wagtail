@@ -10,6 +10,7 @@ Changelog
  * Fix: `UserAttributeSimilarityValidator` is now correctly enforced on user creation / editing forms (Tim Heap)
  * Fix: Editing setting object with no site configured no longer crashes (Harm Zeinstra)
  * Fix: Creating a new object with inlines while mandatory fields are empty no longer crashes (Bertrand Bordage)
+ * Fix: Draftail editor no longer crashes after deleting image/embed using DEL key (Thibaud Colas)
 
 
 2.0 (28.02.2018)
