@@ -138,6 +138,7 @@ class EditorFallback extends PureComponent {
 
 EditorFallback.propTypes = {
   children: PropTypes.node.isRequired,
+  field: PropTypes.object.isRequired,
 };
 
 export default EditorFallback;
