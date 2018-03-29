@@ -120,6 +120,33 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
 ``url`` (optional)
   A URL to an index page that lists the objects being described.
 
+.. _register_account_menu_item:
+
+``register_account_menu_item``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Add an item to the My Account page within the Wagtail admin. The callable
+  for this hook should return a dict with values for the keys ``url``,
+  ``label`` and ``help_text``. For example:
+
+  .. code-block:: python
+
+    from django.utils.translation import ugettext_lazy as _
+    from wagtail.core import hooks
+
+    @hooks.register('register_account_menu_item')
+    def register_account_set_gravatar(request):
+        return {
+            'url': 'https://gravatar.com/emails/',
+            'label': _('Set gravatar'),
+            'help_text': _(
+                "Your avatar image is provided by Gravatar and is connected to "
+                "your email address. With a Gravatar account you can set an "
+                "avatar for any number of other email addresses you use."
+            )
+        }
+
+
 
 .. _register_admin_menu_item:
 
