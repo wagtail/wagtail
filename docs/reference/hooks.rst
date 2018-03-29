@@ -125,25 +125,21 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
 ``register_account_menu_item``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  Add an item to the My Account page within the Wagtail admin. The callable
-  for this hook should return a dict with values for the keys ``url``,
-  ``label`` and ``help_text``. For example:
+  Add an item to the “Account settings” page within the Wagtail admin.
+  The callable for this hook should return a dict with the keys
+  ``url``, ``label`` and ``help_text``. For example:
 
   .. code-block:: python
 
-    from django.utils.translation import ugettext_lazy as _
+    from django.urls import reverse
     from wagtail.core import hooks
 
     @hooks.register('register_account_menu_item')
-    def register_account_set_gravatar(request):
+    def register_account_delete_account(request):
         return {
-            'url': 'https://gravatar.com/emails/',
-            'label': _('Set gravatar'),
-            'help_text': _(
-                "Your avatar image is provided by Gravatar and is connected to "
-                "your email address. With a Gravatar account you can set an "
-                "avatar for any number of other email addresses you use."
-            )
+            'url': reverse('delete-account'),
+            'label': 'Delete account',
+            'help_text': 'This permanently deletes your account.'
         }
 
 
