@@ -13,8 +13,7 @@ from django.views.decorators.cache import never_cache
 from django.views.decorators.debug import sensitive_post_parameters
 
 from wagtail.admin import forms
-from wagtail.admin.utils import get_available_admin_languages
-from wagtail.core.models import UserPagePermissionsProxy
+from wagtail.core import hooks
 from wagtail.users.forms import NotificationPreferencesForm, PreferredLanguageForm
 from wagtail.users.models import UserProfile
 from wagtail.utils.loading import get_custom_form
@@ -43,13 +42,15 @@ def password_reset_enabled():
 # Views
 
 def account(request):
-    user_perms = UserPagePermissionsProxy(request.user)
-    show_notification_preferences = user_perms.can_edit_pages() or user_perms.can_publish_pages()
+    items = []
+
+    for fn in hooks.get_hooks('register_account_menu_item'):
+        item = fn(request)
+        if item:
+            items.append(item)
 
     return render(request, 'wagtailadmin/account/account.html', {
-        'show_change_password': password_management_enabled() and request.user.has_usable_password(),
-        'show_notification_preferences': show_notification_preferences,
-        'show_preferred_language_preferences': len(get_available_admin_languages()) > 1
+        'items': items,
     })
 
 

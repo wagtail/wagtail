@@ -413,9 +413,12 @@ class TestAccountManagementForAdminOnlyUser(TestCase, WagtailTestUtils):
         Test that the user is not even shown the link to the notification
         preferences view
         """
+        expected_url = reverse('wagtailadmin_account_notification_preferences')
+
         response = self.client.get(reverse('wagtailadmin_account'))
-        self.assertEqual(response.context['show_notification_preferences'], False)
-        self.assertNotContains(response, reverse('wagtailadmin_account_notification_preferences'))
+        account_urls = [item['url'] for item in response.context['items']]
+        self.assertFalse(expected_url in account_urls)
+        self.assertNotContains(response, expected_url)
         # safety check that checking for absence/presence of urls works
         self.assertContains(response, reverse('wagtailadmin_home'))
 
