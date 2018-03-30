@@ -1328,10 +1328,10 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         """
         return ['/']
 
-    def get_sitemap_urls(self):
+    def get_sitemap_urls(self, request=None):
         return [
             {
-                'location': self.full_url,
+                'location': self.get_full_url(request),
                 # fall back on latest_revision_created_at if last_published_at is null
                 # (for backwards compatibility from before last_published_at was added)
                 'lastmod': (self.last_published_at or self.latest_revision_created_at),
