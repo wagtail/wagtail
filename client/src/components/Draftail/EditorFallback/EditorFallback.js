@@ -83,7 +83,7 @@ class EditorFallback extends PureComponent {
             className="Draftail-ToolbarButton"
             onClick={this.toggleError}
           >
-            {'Show error'}
+            {STRINGS.SHOW_ERROR}
           </button>
 
           {/* At first we propose reloading the editor. If it still crashes, reload the whole page. */}
@@ -122,7 +122,7 @@ class EditorFallback extends PureComponent {
               {showError && (
                 <pre className="help-block help-critical">
                   <code className="EditorFallback__error">
-                    {`${error.stack}\n${info.componentStack}`}
+                    {`${error.name}: ${error.message}\n\n${error.stack}\n${info.componentStack}`}
                   </code>
                 </pre>
               )}
