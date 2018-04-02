@@ -289,6 +289,7 @@ Contributors
 * Mike Kamermans
 * Arthur Holzner
 * Alejandro Garza
+* Rajeev J Sebastian
 
 Translators
 ===========
