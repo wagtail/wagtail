@@ -290,6 +290,7 @@ Contributors
 * Arthur Holzner
 * Alejandro Garza
 * Rajeev J Sebastian
+* Coen van der Kamp
 
 Translators
 ===========
