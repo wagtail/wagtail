@@ -26,7 +26,7 @@ exports[`EditorFallback #error #showContent 1`] = `
       onClick={[Function]}
       type="button"
     >
-      Reload the editor
+      Reload saved content
     </button>
   </div>
   <div
@@ -69,7 +69,7 @@ exports[`EditorFallback #error #showError 1`] = `
       onClick={[Function]}
       type="button"
     >
-      Reload the editor
+      Reload saved content
     </button>
   </div>
   <div
@@ -119,7 +119,7 @@ exports[`EditorFallback #error works 1`] = `
       onClick={[Function]}
       type="button"
     >
-      Reload the editor
+      Reload saved content
     </button>
   </div>
   <div
