@@ -111,7 +111,7 @@ function(modal) {
 
     function populateTitle(context) {
         // Note: There are two inputs with `#id_title` on the page.
-        // The page title and image title. Select the input inside the model body.
+        // The page title and image title. Select the input inside the modal body.
         var fileWidget = $('#id_file', context);
         fileWidget.on('change', function () {
             var titleWidget = $('#id_title', context);
