@@ -288,6 +288,7 @@ Contributors
 * Tony Yates
 * Mike Kamermans
 * Arthur Holzner
+* Alejandro Garza
 
 Translators
 ===========

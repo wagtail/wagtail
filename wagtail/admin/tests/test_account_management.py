@@ -190,6 +190,49 @@ class TestAccountSection(TestCase, WagtailTestUtils):
         # Page should contain a 'Change password' option
         self.assertContains(response, "Change password")
 
+    def test_change_email_view(self):
+        """
+        This tests that the change email view responds with a change email page
+        """
+        # Get change email page
+        response = self.client.get(reverse('wagtailadmin_account_change_email'))
+
+        # Check that the user received a change email page
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/account/change_email.html')
+
+
+    def test_change_email_post(self):
+        post_data = {
+            'email': 'test@email.com'
+        }
+
+        response = self.client.post(reverse('wagtailadmin_account_change_email'), post_data)
+
+        # Check that the user was redirected to the account page
+        self.assertRedirects(response, reverse('wagtailadmin_account'))
+
+        # Check that the email was changed
+        self.assertEqual(get_user_model().objects.get(pk=self.user.pk).email, post_data['email'])
+
+
+    def test_change_email_not_valid(self):
+        post_data = {
+            'email': 'test@email'
+        }
+
+        response = self.client.post(reverse('wagtailadmin_account_change_email'), post_data)
+
+        # Check that the user wasn't redirected
+        self.assertEqual(response.status_code, 200)
+
+        # Check that a validation error was raised
+        self.assertTrue('email' in response.context['form'].errors.keys())
+
+        # Check that the password was not changed
+        self.assertNotEqual(get_user_model().objects.get(pk=self.user.pk).email, post_data['email'])
+
+
     @override_settings(WAGTAIL_PASSWORD_MANAGEMENT_ENABLED=False)
     def test_account_view_with_password_management_disabled(self):
         # Get account page

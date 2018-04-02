@@ -14,7 +14,7 @@ from django.views.decorators.debug import sensitive_post_parameters
 
 from wagtail.admin import forms
 from wagtail.core import hooks
-from wagtail.users.forms import NotificationPreferencesForm, PreferredLanguageForm
+from wagtail.users.forms import EmailForm, NotificationPreferencesForm, PreferredLanguageForm
 from wagtail.users.models import UserProfile
 from wagtail.utils.loading import get_custom_form
 
@@ -78,6 +78,22 @@ def change_password(request):
     return render(request, 'wagtailadmin/account/change_password.html', {
         'form': form,
         'can_change_password': can_change_password,
+    })
+
+
+def change_email(request):
+    if request.method == 'POST':
+        form = EmailForm(request.POST, instance=request.user)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, _("Your email has been changed successfully!"))
+            return redirect('wagtailadmin_account')
+    else:
+        form = EmailForm(instance=request.user)
+
+    return render(request, 'wagtailadmin/account/change_email.html', {
+        'form': form,
     })
 
 
