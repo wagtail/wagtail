@@ -37,7 +37,7 @@ global.wagtailConfig = {
     UNDO: 'Undo',
     REDO: 'Redo',
     RELOAD_PAGE: 'Reload the page',
-    RELOAD_EDITOR: 'Reload the editor',
+    RELOAD_EDITOR: 'Reload saved content',
     SHOW_LATEST_CONTENT: 'Show latest content',
     EDITOR_CRASH: 'The editor just crashed. Content has been reset to the last saved version.',
   },
