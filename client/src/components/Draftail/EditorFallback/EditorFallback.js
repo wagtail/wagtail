@@ -107,25 +107,28 @@ class EditorFallback extends PureComponent {
         </div>
 
         <div className="DraftEditor-root">
-          <div className="public-DraftEditorPlaceholder-inner">
-            {STRINGS.EDITOR_CRASH}
+          <div className="public-DraftEditor-content">
+            <div className="public-DraftEditorPlaceholder-inner">
+              {STRINGS.EDITOR_CRASH}
+
+              {showContent && (
+                <textarea
+                  className="EditorFallback__textarea"
+                  value={content}
+                  readOnly
+                />
+              )}
+
+              {showError && (
+                <pre className="help-block help-critical">
+                  <code className="EditorFallback__error">
+                    {`${error.stack}\n${info.componentStack}`}
+                  </code>
+                </pre>
+              )}
+            </div>
           </div>
         </div>
-
-        {showContent && (
-          <textarea
-            className="EditorFallback__textarea"
-            value={content}
-            readOnly
-          />
-        )}
-        {showError && (
-          <pre className="help-block help-critical">
-            <code className="EditorFallback__error">
-              {`${error.stack}\n${info.componentStack}`}
-            </code>
-          </pre>
-        )}
       </div>
     );
   }

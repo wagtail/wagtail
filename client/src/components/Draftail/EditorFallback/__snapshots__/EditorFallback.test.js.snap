@@ -33,16 +33,20 @@ exports[`EditorFallback #error #showContent 1`] = `
     className="DraftEditor-root"
   >
     <div
-      className="public-DraftEditorPlaceholder-inner"
+      className="public-DraftEditor-content"
     >
-      The editor just crashed. Content has been reset to the last saved version.
+      <div
+        className="public-DraftEditorPlaceholder-inner"
+      >
+        The editor just crashed. Content has been reset to the last saved version.
+        <textarea
+          className="EditorFallback__textarea"
+          readOnly={true}
+          value="test"
+        />
+      </div>
     </div>
   </div>
-  <textarea
-    className="EditorFallback__textarea"
-    readOnly={true}
-    value="test"
-  />
 </div>
 `;
 
@@ -72,21 +76,25 @@ exports[`EditorFallback #error #showError 1`] = `
     className="DraftEditor-root"
   >
     <div
-      className="public-DraftEditorPlaceholder-inner"
+      className="public-DraftEditor-content"
     >
-      The editor just crashed. Content has been reset to the last saved version.
+      <div
+        className="public-DraftEditorPlaceholder-inner"
+      >
+        The editor just crashed. Content has been reset to the last saved version.
+        <pre
+          className="help-block help-critical"
+        >
+          <code
+            className="EditorFallback__error"
+          >
+            test stack
+test
+          </code>
+        </pre>
+      </div>
     </div>
   </div>
-  <pre
-    className="help-block help-critical"
-  >
-    <code
-      className="EditorFallback__error"
-    >
-      test stack
-test
-    </code>
-  </pre>
 </div>
 `;
 
@@ -118,9 +126,13 @@ exports[`EditorFallback #error works 1`] = `
     className="DraftEditor-root"
   >
     <div
-      className="public-DraftEditorPlaceholder-inner"
+      className="public-DraftEditor-content"
     >
-      The editor just crashed. Content has been reset to the last saved version.
+      <div
+        className="public-DraftEditorPlaceholder-inner"
+      >
+        The editor just crashed. Content has been reset to the last saved version.
+      </div>
     </div>
   </div>
 </div>
