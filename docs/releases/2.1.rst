@@ -31,6 +31,7 @@ Other features
  * ``update_index`` management command now accepts a ``--chunk_size`` option to determine the number of items to load at once (Dave Bell)
  * Added hook `register_account_menu_item` to add new account preference items (Michael van Tellingen)
  * Added change email functionality from the account settings (Alejandro Garza, Alexs Mathilda)
+ * Add request parameter to edit handlers (Rajeev J Sebastian)
 
 Bug fixes
 ~~~~~~~~~

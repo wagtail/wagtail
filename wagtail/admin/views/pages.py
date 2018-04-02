@@ -270,12 +270,13 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
                 request, _("The page could not be created due to validation errors"), form
             )
             edit_handler = edit_handler.bind_to_instance(instance=page,
-                                                         form=form)
+                                                         form=form,
+                                                         request=request)
             has_unsaved_changes = True
     else:
         signals.init_new_page.send(sender=create, page=page, parent=parent_page)
         form = form_class(instance=page, parent_page=parent_page)
-        edit_handler = edit_handler.bind_to_instance(instance=page, form=form)
+        edit_handler = edit_handler.bind_to_instance(instance=page, form=form, request=request)
         has_unsaved_changes = False
 
     return render(request, 'wagtailadmin/pages/create.html', {
@@ -470,7 +471,8 @@ def edit(request, page_id):
                 )
 
             edit_handler = edit_handler.bind_to_instance(instance=page,
-                                                         form=form)
+                                                         form=form,
+                                                         request=request)
             errors_debug = (
                 repr(edit_handler.form.errors) +
                 repr([
@@ -482,7 +484,7 @@ def edit(request, page_id):
             has_unsaved_changes = True
     else:
         form = form_class(instance=page, parent_page=parent)
-        edit_handler = edit_handler.bind_to_instance(instance=page, form=form)
+        edit_handler = edit_handler.bind_to_instance(instance=page, form=form, request=request)
         has_unsaved_changes = False
 
     # Check for revisions still undergoing moderation and warn
@@ -1044,7 +1046,8 @@ def revisions_revert(request, page_id, revision_id):
 
     form = form_class(instance=revision_page)
     edit_handler = edit_handler.bind_to_instance(instance=revision_page,
-                                                 form=form)
+                                                 form=form,
+                                                 request=request)
 
     user_avatar = render_to_string('wagtailadmin/shared/user_avatar.html', {'user': revision.user})
 
