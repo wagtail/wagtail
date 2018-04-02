@@ -1,9 +1,9 @@
 Extending the Draftail Editor
 =============================
 
-Wagtail’s rich text editor is built with `Draftail <https://github.com/springload/draftail>`_, and its functionality can be extended through plugins.
+Wagtail’s rich text editor is built with `Draftail <https://github.com/springload/draftail>`_, and its formatting can be extended through plugins.
 
-Plugins come in three types:
+Formatting plugins come in three types:
 
 * Inline styles – To format a portion of a line, eg. ``bold``, ``italic``, ``monospace``.
 * Blocks – To indicate the structure of the content, eg. ``blockquote``, ``ol``.
@@ -335,11 +335,42 @@ To fully complete the demo, we can add a bit of JavaScript to the front-end in o
 
 Custom block entities can also be created (have a look at the separate `Draftail <https://github.com/springload/draftail>`_ documentation), but these are not detailed here since :ref:`StreamField <streamfield>` is the go-to way to create block-level rich text in Wagtail.
 
+Extending the editor beyond content formats
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. warning::
+    The following APIs are meant for third-party packages extending the editor. They are very advanced and assume `Draft.js <https://draftjs.org/>`_ knowledge.
+
 Integration of the Draftail widgets
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------------------
 
 To further customise how the Draftail widgets are integrated into the UI, there are additional extension points for CSS and JS:
 
 * In JavaScript, use the ``[data-draftail-input]`` attribute selector to target the input which contains the data, and ``[data-draftail-editor-wrapper]`` for the element which wraps the editor.
 * The editor instance is bound on the input field for imperative access. Use ``document.querySelector('[data-draftail-input]').draftailEditor``.
 * In CSS, use the classes prefixed with ``Draftail-``.
+
+Custom decorators
+-----------------
+
+Draftail supports registering `decorators <https://draftjs.org/docs/advanced-topics-decorators.html#compositedecorator>`_ with a custom ``component`` and ``strategy``.
+
+.. code-block:: javascript
+
+    window.draftail.registerDecorator({
+        component: HashtagSpan,
+        strategy: hashtagStrategy,
+    });
+
+This can be useful to build spellcheck features, syntax highlighting, autocompletion, or any other editing aid or IME-like interface.
+
+Custom toolbar controls
+-----------------------
+
+You can also register custom `toolbar controls <https://github.com/springload/draftail#other-controls>`_, which have full read/write access to the editor state.
+
+.. code-block:: javascript
+
+    window.draftail.registerControl(ReadingTime);
+
+Those custom controls can display metrics about the content (eg. reading time or readability), or provide advanced features like “paste from Word”, “clear all formatting”, and the likes.

@@ -17,13 +17,25 @@ export { default as ModalWorkflowSource } from './sources/ModalWorkflowSource';
 const BR_ICON = 'M.436 633.471l296.897-296.898v241.823h616.586V94.117h109.517v593.796H297.333v242.456z';
 
 /**
- * Registry for client-side code of Draftail plugins.
+ * Registry for client-side code of Draftail extensions.
  */
 const PLUGINS = {};
+const DECORATORS = [];
+const CONTROLS = [];
 
 const registerPlugin = (plugin) => {
   PLUGINS[plugin.type] = plugin;
   return PLUGINS;
+};
+
+const registerDecorator = (decorator) => {
+  DECORATORS.push(decorator);
+  return DECORATORS;
+};
+
+const registerControl = (control) => {
+  CONTROLS.push(control);
+  return CONTROLS;
 };
 
 /**
@@ -101,6 +113,8 @@ const initEditor = (selector, options, currentScript) => {
       inlineStyles={inlineStyles.map(wrapWagtailIcon)}
       entityTypes={entityTypes}
       enableHorizontalRule={enableHorizontalRule}
+      decorators={DECORATORS}
+      controls={CONTROLS}
     />
   );
 
@@ -110,7 +124,11 @@ const initEditor = (selector, options, currentScript) => {
   field.draftailEditor = draftailEditor;
 };
 
-export default {
+const draftail = {
   initEditor,
   registerPlugin,
+  registerDecorator,
+  registerControl,
 };
+
+export default draftail;
