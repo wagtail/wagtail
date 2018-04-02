@@ -154,7 +154,7 @@ class EditHandler:
             raise ValueError("EditHandler did not receive a form object")
         new.form = form
 
-        if not request:
+        if request is None:
             raise ValueError("EditHandler did not receive a request object")
         new.request = request
 

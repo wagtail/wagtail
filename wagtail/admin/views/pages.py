@@ -311,7 +311,6 @@ def edit(request, page_id):
     edit_handler = page_class.get_edit_handler()
     form_class = edit_handler.get_form_class()
 
-
     next_url = get_valid_next_url_from_request(request)
 
     errors_debug = None

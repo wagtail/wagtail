@@ -7,7 +7,6 @@ from django.core import checks
 from django.core.exceptions import FieldDoesNotExist, ImproperlyConfigured
 from django.test import RequestFactory, TestCase, override_settings
 
-
 from wagtail.admin.edit_handlers import (
     FieldPanel, FieldRowPanel, InlinePanel, ObjectList, PageChooserPanel, RichTextFieldPanel,
     TabbedInterface, extract_panel_definitions_from_model_class, get_form_for_model)
