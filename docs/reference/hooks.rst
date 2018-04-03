@@ -251,7 +251,7 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
 ``register_permissions``
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-  Return a queryset of ``Permission`` objects to be shown in the Groups administration area.
+  Return a QuerySet of ``Permission`` objects to be shown in the Groups administration area.
 
 
 .. _filter_form_submissions_for_user:
@@ -638,7 +638,7 @@ Choosers
 ``construct_page_chooser_queryset``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  Called when rendering the page chooser view, to allow the page listing queryset to be customised. The callable passed into the hook will receive the current page queryset and the request object, and must return a Page queryset (either the original one, or a new one).
+  Called when rendering the page chooser view, to allow the page listing QuerySet to be customised. The callable passed into the hook will receive the current page QuerySet and the request object, and must return a Page QuerySet (either the original one, or a new one).
 
   .. code-block:: python
 
@@ -657,7 +657,7 @@ Choosers
 ``construct_document_chooser_queryset``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  Called when rendering the document chooser view, to allow the document listing queryset to be customised. The callable passed into the hook will receive the current document queryset and the request object, and must return a Document queryset (either the original one, or a new one).
+  Called when rendering the document chooser view, to allow the document listing QuerySet to be customised. The callable passed into the hook will receive the current document QuerySet and the request object, and must return a Document QuerySet (either the original one, or a new one).
 
   .. code-block:: python
 
@@ -676,7 +676,7 @@ Choosers
 ``construct_image_chooser_queryset``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  Called when rendering the image chooser view, to allow the image listing queryset to be customised. The callable passed into the hook will receive the current image queryset and the request object, and must return a Document queryset (either the original one, or a new one).
+  Called when rendering the image chooser view, to allow the image listing QuerySet to be customised. The callable passed into the hook will receive the current image QuerySet and the request object, and must return a Document QuerySet (either the original one, or a new one).
 
   .. code-block:: python
 
@@ -698,7 +698,7 @@ Page explorer
 ``construct_explorer_page_queryset``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  Called when rendering the page explorer view, to allow the page listing queryset to be customised. The callable passed into the hook will receive the parent page object, the current page queryset, and the request object, and must return a Page queryset (either the original one, or a new one).
+  Called when rendering the page explorer view, to allow the page listing QuerySet to be customised. The callable passed into the hook will receive the parent page object, the current page QuerySet, and the request object, and must return a Page QuerySet (either the original one, or a new one).
 
   .. code-block:: python
 

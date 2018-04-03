@@ -381,7 +381,7 @@ model like this:
             context['blogpages'] = blogpages
             return context
 
-All we've done here is retrieve the original context, create a custom queryset,
+All we've done here is retrieve the original context, create a custom QuerySet,
 add it to the retrieved context, and return the modified context back to the view.
 You'll also need to modify your ``blog_index_page.html`` template slightly.
 Change:
@@ -661,7 +661,7 @@ Note that this Page-based model defines no fields of its own.
 Even without fields, subclassing ``Page`` makes it a part of the
 Wagtail ecosystem, so that you can give it a title and URL in the
 admin, and so that you can manipulate its contents by returning
-a queryset from its ``get_context()`` method.
+a QuerySet from its ``get_context()`` method.
 
 Migrate this in, then create a new ``BlogTagIndexPage`` in the admin.
 You'll probably want to create the new page/view as a child of Homepage,

@@ -293,7 +293,7 @@ Set ``search_fields`` to enable a search box at the top of the index page
 for your model. You should add names of any fields on the model that should
 be searched whenever somebody submits a search query using the search box.
 
-Searching is all handled via Django's queryset API, rather than using Wagtail's
+Searching is all handled via Django's QuerySet API, rather than using Wagtail's
 search backend. This means it will work for all models, whatever search backend
 your project is using, and without any additional setup or configuration.
 
@@ -332,7 +332,7 @@ of the index view. By default, this is set to ``100``.
 
 **Must return**: A QuerySet
 
-The ``get_queryset`` method returns the 'base' queryset for your model, to
+The ``get_queryset`` method returns the 'base' QuerySet for your model, to
 which any filters and search queries are applied. By default, the ``all()``
 method of your model's default manager is used. But, if for any reason you
 only want a certain sub-set of objects to appear in the IndexView listing,
