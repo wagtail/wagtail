@@ -501,7 +501,7 @@ help give the value more context:
 
 
 Or you might like to add one or more data attributes to help implement some
-kind of interactivity using javascript:
+kind of interactivity using JavaScript:
 
 .. code-block:: python
 
