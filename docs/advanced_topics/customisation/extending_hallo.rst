@@ -37,9 +37,9 @@ A plugin ``halloblockquote``, implemented in ``myapp/js/hallo-blockquote.js``, t
 
 The constructor for ``HalloPlugin`` accepts the following keyword arguments:
 
- * ``name`` - the plugin name as defined in the Javascript code. ``hallo.js`` plugin names are prefixed with the ``"IKS."`` namespace, but the name passed here should be without the prefix.
- * ``options`` - a dictionary (or other JSON-serialisable object) of options to be passed to the Javascript plugin code on initialisation
- * ``js`` - a list of Javascript files to be imported for this plugin, defined in the same way as a `Django form media <https://docs.djangoproject.com/en/1.11/topics/forms/media/>`_ definition
+ * ``name`` - the plugin name as defined in the JavaScript code. ``hallo.js`` plugin names are prefixed with the ``"IKS."`` namespace, but the name passed here should be without the prefix.
+ * ``options`` - a dictionary (or other JSON-serialisable object) of options to be passed to the JavaScript plugin code on initialisation
+ * ``js`` - a list of JavaScript files to be imported for this plugin, defined in the same way as a `Django form media <https://docs.djangoproject.com/en/1.11/topics/forms/media/>`_ definition
  * ``css`` - a dictionary of CSS files to be imported for this plugin, defined in the same way as a `Django form media <https://docs.djangoproject.com/en/1.11/topics/forms/media/>`_ definition
  * ``order`` - an index number (default 100) specifying the order in which plugins should be listed, which in turn determines the order buttons will appear in the toolbar
 

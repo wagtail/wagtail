@@ -60,7 +60,7 @@ possible. You should bare this in mind if you ever find yourself wanting to
 change what happens when pages of a certain type are added, deleted,
 published, or have some other action applied to them. Customising the
 ``CreateView`` or ``EditView`` for your a page type ``Model`` (even it just
-to add an additional stylesheet or javascript), simply won't have any
+to add an additional stylesheet or JavaScript), simply won't have any
 effect, as those views are not used.
 
 If you do find yourself needing to customise the add, edit or other
@@ -98,11 +98,11 @@ going: :doc:`indexview`
 .. _modeladmin_adding_css_and_js:
 
 -----------------------------------------------
-Adding additional stylesheets and/or javascript
+Adding additional stylesheets and/or JavaScript
 -----------------------------------------------
 
 The ``ModelAdmin`` class provides several attributes to enable you to easily
-add additional stylesheets and javascript to the admin interface for your
+add additional stylesheets and JavaScript to the admin interface for your
 model. Each atttribute simply needs to be a list of paths to the files you
 want to include. If the path is for a file in your project's static directory,
 Wagtail will automatically prepended paths for each path with ``STATIC_URL``,
@@ -114,7 +114,7 @@ following attributes:
 -   ``index_view_extra_css`` -  Where each item is the path name of a
     pre-compiled stylesheet that you'd like to include.
 
--   ``index_view_extra_js`` - Where each item is the path name of a javascript
+-   ``index_view_extra_js`` - Where each item is the path name of a JavaScript
     file that you'd like to include.
 
 If you'd like to do the same for ``CreateView`` and ``EditView``, you should
@@ -123,7 +123,7 @@ set the following attributes:
 -   ``form_view_extra_css`` -  Where each item is the path name of a
     pre-compiled stylesheet that you'd like to include.
 
--   ``form_view_extra_js`` - Where each item is the path name of a javascript
+-   ``form_view_extra_js`` - Where each item is the path name of a JavaScript
     file that you'd like to include.
 
 And if you're using the ``InspectView`` for your model, and want to do the same
@@ -132,7 +132,7 @@ for that view, your should set the following attributes:
 -   ``inspect_view_extra_css`` -  Where each item is the path name of a
     pre-compiled stylesheet that you'd like to include.
 
--   ``inspect_view_extra_js`` - Where each item is the path name of a javascript
+-   ``inspect_view_extra_js`` - Where each item is the path name of a JavaScript
     file that you'd like to include.
 
 .. _modeladmin_overriding_templates:

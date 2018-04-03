@@ -140,7 +140,7 @@ Backwards-incompatible changes
 ElasticUtils replaced with elasticsearch-py
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-If you are using the elasticsearch backend, you must install the ``elasticsearch`` module into your environment.
+If you are using the Elasticsearch backend, you must install the ``elasticsearch`` module into your environment.
 
 
 .. note::
