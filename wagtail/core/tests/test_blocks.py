@@ -3158,4 +3158,4 @@ class TestOverriddenGetTemplateBlockTag(TestCase):
 
         block = BlockUsingGetTemplateMethod(template='tests/blocks/this_shouldnt_be_used.html')
         template = block.get_template()
-        self.assertEquals(template, block.my_new_template)
+        self.assertEqual(template, block.my_new_template)
