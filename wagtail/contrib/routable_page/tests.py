@@ -1,5 +1,4 @@
-from unittest import mock
-
+import mock
 from django.test import RequestFactory, TestCase
 from django.urls.exceptions import NoReverseMatch
 

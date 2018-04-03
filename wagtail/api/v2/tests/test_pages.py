@@ -1,7 +1,7 @@
 import collections
 import json
-from unittest import mock
 
+import mock
 from django.test import TestCase
 from django.test.utils import override_settings
 from django.urls import reverse
