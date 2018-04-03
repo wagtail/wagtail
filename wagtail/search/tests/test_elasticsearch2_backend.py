@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import datetime
 import json
+from unittest import mock
 
-import mock
 from django.db.models import Q
 from django.test import TestCase
 from elasticsearch.serializer import JSONSerializer

@@ -1,6 +1,6 @@
 from datetime import date
+from unittest import mock
 
-import mock
 from django.test import TestCase, override_settings
 
 from wagtail.core.models import Page

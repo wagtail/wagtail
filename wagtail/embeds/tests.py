@@ -1,5 +1,6 @@
 import unittest
 import urllib.request
+from unittest.mock import patch
 from urllib.error import URLError
 
 from bs4 import BeautifulSoup
@@ -7,7 +8,6 @@ from django import template
 from django.core.exceptions import ValidationError
 from django.test import TestCase, override_settings
 from django.urls import reverse
-from mock import patch
 
 from wagtail.core import blocks
 from wagtail.core.rich_text import expand_db_html

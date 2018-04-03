@@ -1,6 +1,6 @@
 from datetime import date
+from unittest import mock
 
-import mock
 from django import forms
 from django.contrib.auth.models import AnonymousUser
 from django.core import checks
