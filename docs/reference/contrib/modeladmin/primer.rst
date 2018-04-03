@@ -89,7 +89,7 @@ configure your ``ModelAdmin`` class to use them instead of the defaults.
 Changing what appears in the listing
 ------------------------------------
 
-You should familarise yourself with the attributes and methods supported by
+You should familiarise yourself with the attributes and methods supported by
 the ``ModelAdmin`` class, that allow you to change what is displayed in the
 ``IndexView``. The following page should give you everything you need to get
 going: :doc:`indexview`
@@ -209,7 +209,7 @@ For example, if you'd like to create your own view class and use it for the
         index_view_class = MyModelIndexView
 
 
-Or, if you have no need for any of ``IndexView``'s exisiting functionality in
+Or, if you have no need for any of ``IndexView``'s existing functionality in
 your view, and would rather create your own view from scratch, ``modeladmin``
 will support that, too. However, it's highly recommended that you use
 ``modeladmin.views.WMABaseView`` as a base for your view. It'll make
@@ -250,14 +250,14 @@ by setting values on the following attributes:
 ``ModelAdmin.url_helper_class``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-By default, the ``modeladmin.helpers.url.PageAdminURLHelper`` class is used 
+By default, the ``modeladmin.helpers.url.PageAdminURLHelper`` class is used
 when your model extends ``wagtailcore.models.Page``, otherwise
 ``modeladmin.helpers.url.AdminURLHelper`` is used.
 
 If you find that the above helper classes don't cater for your needs, you can
 easily create your own helper class, by sub-classing ``AdminURLHelper`` or
 ``PageAdminURLHelper`` (if your  model extend's Wagtail's ``Page`` model), and
-making any neccessary additions/overrides.
+making any necessary additions/overrides.
 
 Once your class is defined, set the ``url_helper_class`` attribute on
 your ``ModelAdmin`` class to use your custom URLHelper, like so:
@@ -308,7 +308,7 @@ otherwise ``modeladmin.helpers.permission.PermissionHelper`` is used.
 If you find that the above helper classes don't cater for your needs, you can
 easily create your own helper class, by sub-classing
 ``PermissionHelper`` or (if your  model extend's Wagtail's ``Page`` model)
-``PagePermissionHelper``, and making any neccessary additions/overrides. Once
+``PagePermissionHelper``, and making any necessary additions/overrides. Once
 defined, you set the ``permission_helper_class`` attribute on your
 ``ModelAdmin`` class to use your custom class instead of the default, like so:
 
@@ -350,14 +350,14 @@ isn't possible or doesn't meet your needs, you can override the
 ``ModelAdmin.button_helper_class``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-By default, the ``modeladmin.helpers.button.PageButtonHelper`` class is used 
+By default, the ``modeladmin.helpers.button.PageButtonHelper`` class is used
 when your model extends ``wagtailcore.models.Page``, otherwise
 ``modeladmin.helpers.button.ButtonHelper`` is used.
 
 If you wish to add or change buttons for your model's IndexView, you'll need to
 create  your own button helper class, by sub-classing ``ButtonHelper`` or (if
 your  model extend's Wagtail's ``Page`` model) ``PageButtonHelper``, and
-make any neccessary additions/overrides. Once defined, you set the
+make any necessary additions/overrides. Once defined, you set the
 ``button_helper_class`` attribute on your ``ModelAdmin`` class to use your
 custom class instead of the default, like so:
 

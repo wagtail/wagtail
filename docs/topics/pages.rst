@@ -204,7 +204,7 @@ Page models also include several low-level methods for overriding or accessing p
 Customising URL patterns for a page model
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The ``Page.get_url_parts(request)`` method will not typically be called directly, but may be overriden to define custom URL routing for a given page model. It should return a tuple of ``(site_id, root_url, page_path)``, which are used by ``get_url`` and ``get_full_url`` (see below) to construct the given type of page URL.
+The ``Page.get_url_parts(request)`` method will not typically be called directly, but may be overridden to define custom URL routing for a given page model. It should return a tuple of ``(site_id, root_url, page_path)``, which are used by ``get_url`` and ``get_full_url`` (see below) to construct the given type of page URL.
 
 When overriding ``get_url_parts()``, you should accept ``*args, **kwargs``:
 

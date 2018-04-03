@@ -233,7 +233,7 @@ different order.
 .. note::
 
     It's not possible to use ``?offset`` while ordering randomly because
-    consistent random ordering cannot be guarenteed over multiple requests
+    consistent random ordering cannot be guaranteed over multiple requests
     (so requests for subsequent pages may return results that also appeared in
     previous pages).
 

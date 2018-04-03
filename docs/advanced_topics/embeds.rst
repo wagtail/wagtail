@@ -160,7 +160,7 @@ Multiple finders can be chained together. This can be used for customising the
 configuration for one provider without affecting the others.
 
 For example, this is how you can instruct Youtube to return videos in HTTPS
-(which must be done explictly for YouTube):
+(which must be done explicitly for YouTube):
 
 .. code-block:: python
 

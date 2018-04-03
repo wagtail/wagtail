@@ -472,7 +472,7 @@ Hooks for customising the way users are directed through the process of creating
 ``after_delete_page``
 ~~~~~~~~~~~~~~~~~~~~~
 
-  Do something after a ``Page`` object is deleted. Uses the same behavior as ``after_create_page``.
+  Do something after a ``Page`` object is deleted. Uses the same behaviour as ``after_create_page``.
 
 
 .. _before_delete_page:
@@ -482,7 +482,7 @@ Hooks for customising the way users are directed through the process of creating
 
   Called at the beginning of the "delete page" view passing in the request and the page object.
 
-  Uses the same behavior as ``before_create_page``.
+  Uses the same behaviour as ``before_create_page``.
 
 
 .. _after_edit_page:
@@ -490,7 +490,7 @@ Hooks for customising the way users are directed through the process of creating
 ``after_edit_page``
 ~~~~~~~~~~~~~~~~~~~
 
-  Do something with a ``Page`` object after it has been updated. Uses the same behavior as ``after_create_page``.
+  Do something with a ``Page`` object after it has been updated. Uses the same behaviour as ``after_create_page``.
 
 
 .. _before_edit_page:
@@ -500,7 +500,7 @@ Hooks for customising the way users are directed through the process of creating
 
   Called at the beginning of the "edit page" view passing in the request and the page object.
 
-  Uses the same behavior as ``before_create_page``.
+  Uses the same behaviour as ``before_create_page``.
 
 
 .. _after_copy_page:
@@ -508,7 +508,7 @@ Hooks for customising the way users are directed through the process of creating
 ``after_copy_page``
 ~~~~~~~~~~~~~~~~~~~
 
-  Do something with a ``Page`` object after it has been copied pasing in the request, page object and the new copied page. Uses the same behavior as ``after_create_page``.
+  Do something with a ``Page`` object after it has been copied passing in the request, page object and the new copied page. Uses the same behaviour as ``after_create_page``.
 
 
 .. _before_copy_page:
@@ -518,7 +518,7 @@ Hooks for customising the way users are directed through the process of creating
 
   Called at the beginning of the "copy page" view passing in the request and the page object.
 
-  Uses the same behavior as ``before_create_page``.
+  Uses the same behaviour as ``before_create_page``.
 
 
 .. _construct_wagtail_userbar:
@@ -600,7 +600,7 @@ Hooks for customising the way admins are directed through the process of editing
 ``after_delete_user``
 ~~~~~~~~~~~~~~~~~~~~~
 
-  Do something after a ``User`` object is deleted. Uses the same behavior as ``after_create_user``.
+  Do something after a ``User`` object is deleted. Uses the same behaviour as ``after_create_user``.
 
 
 .. _before_delete_user:
@@ -610,7 +610,7 @@ Hooks for customising the way admins are directed through the process of editing
 
   Called at the beginning of the "delete user" view passing in the request and the user object.
 
-  Uses the same behavior as ``before_create_user``.
+  Uses the same behaviour as ``before_create_user``.
 
 
 .. _after_edit_user:
@@ -618,7 +618,7 @@ Hooks for customising the way admins are directed through the process of editing
 ``after_edit_user``
 ~~~~~~~~~~~~~~~~~~~
 
-  Do something with a ``User`` object after it has been updated. Uses the same behavior as ``after_create_user``.
+  Do something with a ``User`` object after it has been updated. Uses the same behaviour as ``after_create_user``.
 
 
 .. _before_edit_user:
@@ -628,7 +628,7 @@ Hooks for customising the way admins are directed through the process of editing
 
   Called at the beginning of the "edit user" view passing in the request and the user object.
 
-  Uses the same behavior as ``before_create_user``.
+  Uses the same behaviour as ``before_create_user``.
 
 Choosers
 --------
