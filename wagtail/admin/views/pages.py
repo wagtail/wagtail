@@ -26,7 +26,7 @@ from wagtail.utils.pagination import paginate
 
 def get_valid_next_url_from_request(request):
     next_url = request.POST.get('next') or request.GET.get('next')
-    if not next_url or not is_safe_url(url=next_url, host=request.get_host()):
+    if not next_url or not is_safe_url(url=next_url, allowed_hosts={request.get_host()}):
         return ''
     return next_url
 
@@ -978,7 +978,7 @@ def lock(request, page_id):
 
     # Redirect
     redirect_to = request.POST.get('next', None)
-    if redirect_to and is_safe_url(url=redirect_to, host=request.get_host()):
+    if redirect_to and is_safe_url(url=redirect_to, allowed_hosts={request.get_host()}):
         return redirect(redirect_to)
     else:
         return redirect('wagtailadmin_explore', page.get_parent().id)
@@ -1002,7 +1002,7 @@ def unlock(request, page_id):
 
     # Redirect
     redirect_to = request.POST.get('next', None)
-    if redirect_to and is_safe_url(url=redirect_to, host=request.get_host()):
+    if redirect_to and is_safe_url(url=redirect_to, allowed_hosts={request.get_host()}):
         return redirect(redirect_to)
     else:
         return redirect('wagtailadmin_explore', page.get_parent().id)
