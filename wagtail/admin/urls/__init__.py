@@ -55,7 +55,7 @@ urlpatterns = [
         account.language_preferences,
         name='wagtailadmin_account_language_preferences'
     ),
-    url(r'^logout/$', account.logout, name='wagtailadmin_logout'),
+    url(r'^logout/$', account.LogoutView.as_view(), name='wagtailadmin_logout'),
 ]
 
 
@@ -72,7 +72,7 @@ urlpatterns = decorate_urlpatterns(urlpatterns, require_admin_access)
 
 # These url patterns do not require an authenticated admin user
 urlpatterns += [
-    url(r'^login/$', account.login, name='wagtailadmin_login'),
+    url(r'^login/$', account.LoginView.as_view(), name='wagtailadmin_login'),
 
     # These two URLs have the "permission_required" decorator applied directly
     # as they need to fail with a 403 error rather than redirect to the login page

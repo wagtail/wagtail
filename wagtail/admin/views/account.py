@@ -5,11 +5,9 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from django.http import Http404
 from django.shortcuts import redirect, render
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
 from django.utils.translation import ugettext as _
 from django.utils.translation import activate
-from django.views.decorators.cache import never_cache
-from django.views.decorators.debug import sensitive_post_parameters
 
 from wagtail.admin import forms
 from wagtail.core import hooks
@@ -170,39 +168,52 @@ def language_preferences(request):
     })
 
 
-@sensitive_post_parameters()
-@never_cache
-def login(request):
-    if request.user.is_authenticated and request.user.has_perm('wagtailadmin.access_admin'):
-        return redirect('wagtailadmin_home')
-    else:
+class LoginView(auth_views.LoginView):
+    template_name = 'wagtailadmin/login.html'
+
+    def get_success_url(self):
+        return reverse('wagtailadmin_home')
+
+    def get(self, *args, **kwargs):
+        # If user is already logged in, redirect them to the dashboard
+        if self.request.user.is_authenticated and self.request.user.has_perm('wagtailadmin.access_admin'):
+            return redirect(self.get_success_url())
+
+        return super().get(*args, **kwargs)
+
+    def get_form_class(self):
+        return get_user_login_form()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['show_password_reset'] = password_reset_enabled()
+
         from django.contrib.auth import get_user_model
         User = get_user_model()
-        return auth_views.login(
-            request,
-            template_name='wagtailadmin/login.html',
-            authentication_form=get_user_login_form(),
-            extra_context={
-                'show_password_reset': password_reset_enabled(),
-                'username_field': User._meta.get_field(
-                    User.USERNAME_FIELD).verbose_name,
-            },
+        context['username_field'] = User._meta.get_field(User.USERNAME_FIELD).verbose_name
+
+        return context
+
+
+class LogoutView(auth_views.LogoutView):
+    next_page = 'wagtailadmin_login'
+
+    def dispatch(self, request, *args, **kwargs):
+        response = super().dispatch(request, *args, **kwargs)
+
+        messages.success(self.request, _('You have been successfully logged out.'))
+        # By default, logging out will generate a fresh sessionid cookie. We want to use the
+        # absence of sessionid as an indication that front-end pages are being viewed by a
+        # non-logged-in user and are therefore cacheable, so we forcibly delete the cookie here.
+        response.delete_cookie(
+            settings.SESSION_COOKIE_NAME,
+            domain=settings.SESSION_COOKIE_DOMAIN,
+            path=settings.SESSION_COOKIE_PATH
         )
 
+        # HACK: pretend that the session hasn't been modified, so that SessionMiddleware
+        # won't override the above and write a new cookie.
+        self.request.session.modified = False
 
-def logout(request):
-    response = auth_views.logout(request, next_page='wagtailadmin_login')
-
-    messages.success(request, _('You have been successfully logged out.'))
-    # By default, logging out will generate a fresh sessionid cookie. We want to use the
-    # absence of sessionid as an indication that front-end pages are being viewed by a
-    # non-logged-in user and are therefore cacheable, so we forcibly delete the cookie here.
-    response.delete_cookie(settings.SESSION_COOKIE_NAME,
-                           domain=settings.SESSION_COOKIE_DOMAIN,
-                           path=settings.SESSION_COOKIE_PATH)
-
-    # HACK: pretend that the session hasn't been modified, so that SessionMiddleware
-    # won't override the above and write a new cookie.
-    request.session.modified = False
-
-    return response
+        return response
