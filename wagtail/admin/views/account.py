@@ -1,5 +1,3 @@
-from functools import wraps
-
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import views as auth_views
@@ -7,6 +5,7 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from django.http import Http404
 from django.shortcuts import redirect, render
+from django.urls import reverse_lazy
 from django.utils.translation import ugettext as _
 from django.utils.translation import activate
 from django.views.decorators.cache import never_cache
@@ -97,19 +96,38 @@ def change_email(request):
     })
 
 
-def _wrap_password_reset_view(view_func):
-    @wraps(view_func)
-    def wrapper(*args, **kwargs):
+class PasswordResetEnabledViewMixin:
+    """
+    Class based view mixin that disables the view if password reset is disabled by one of the following settings:
+    - WAGTAIL_PASSWORD_RESET_ENABLED
+    - WAGTAIL_PASSWORD_MANAGEMENT_ENABLED
+    """
+    def dispatch(self, *args, **kwargs):
         if not password_reset_enabled():
             raise Http404
-        return view_func(*args, **kwargs)
-    return wrapper
+
+        return super().dispatch(*args, **kwargs)
 
 
-password_reset = _wrap_password_reset_view(auth_views.password_reset)
-password_reset_done = _wrap_password_reset_view(auth_views.password_reset_done)
-password_reset_confirm = _wrap_password_reset_view(auth_views.password_reset_confirm)
-password_reset_complete = _wrap_password_reset_view(auth_views.password_reset_complete)
+class PasswordResetView(PasswordResetEnabledViewMixin, auth_views.PasswordResetView):
+    template_name = 'wagtailadmin/account/password_reset/form.html'
+    email_template_name = 'wagtailadmin/account/password_reset/email.txt'
+    subject_template_name = 'wagtailadmin/account/password_reset/email_subject.txt'
+    form_class = forms.PasswordResetForm
+    success_url = reverse_lazy('wagtailadmin_password_reset_done')
+
+
+class PasswordResetDoneView(PasswordResetEnabledViewMixin, auth_views.PasswordResetDoneView):
+    template_name = 'wagtailadmin/account/password_reset/done.html'
+
+
+class PasswordResetConfirmView(PasswordResetEnabledViewMixin, auth_views.PasswordResetConfirmView):
+    template_name = 'wagtailadmin/account/password_reset/confirm.html'
+    success_url = reverse_lazy('wagtailadmin_password_reset_complete')
+
+
+class PasswordResetCompleteView(PasswordResetEnabledViewMixin, auth_views.PasswordResetCompleteView):
+    template_name = 'wagtailadmin/account/password_reset/complete.html'
 
 
 def notification_preferences(request):
