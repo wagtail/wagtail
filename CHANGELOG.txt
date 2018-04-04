@@ -40,8 +40,8 @@ Changelog
  * Fix: Breadcrumb navigation now respects custom `get_admin_display_title` methods (Arthur Holzner, Wietze Helmantel, Matt Westcott)
 
 
-2.0.1 (xx.xx.xxxx) - IN DEVELOPMENT
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2.0.1 (04.04.2018)
+~~~~~~~~~~~~~~~~~~
 
  * Added error notification when running the `wagtail` command on Python <3.4 (Matt Westcott)
  * Added error handling to the Draftail editor (Thibaud Colas)
