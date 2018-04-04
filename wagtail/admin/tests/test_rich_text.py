@@ -6,10 +6,9 @@ from django.urls import reverse
 
 from wagtail.admin.rich_text import (
     DraftailRichTextArea, HalloRichTextArea, get_rich_text_editor_widget)
-from wagtail.core import hooks
 from wagtail.core.blocks import RichTextBlock
 from wagtail.core.models import Page, get_page_models
-from wagtail.core.rich_text import RichText
+from wagtail.core.rich_text import RichText, features as feature_registry
 from wagtail.tests.testapp.models import SingleEventPage
 from wagtail.tests.testapp.rich_text import CustomRichTextArea
 from wagtail.tests.utils import WagtailTestUtils
@@ -513,12 +512,10 @@ class TestHalloJsWithCustomFeatureOptions(BaseRichTextEditHandlerTestCase, Wagta
 class TestHalloJsHeadingOrder(BaseRichTextEditHandlerTestCase, WagtailTestUtils):
 
     def test_heading_order(self):
-        @hooks.register('register_rich_text_features')
-        def register_headings_features(features):
-            # Headings 2-4 are already registered as default features.
-            features.default_features.append('h1')
-            features.default_features.append('h5')
-            features.default_features.append('h6')
+        # Using the `register_rich_text_features` doesn't work here,
+        # probably because the features have already been scanned at that point.
+        # Extending the registry directly instead.
+        feature_registry.default_features.extend(['h1', 'h5', 'h6'])
 
         widget = HalloRichTextArea()
         js_init = widget.render_js_init('the_id', 'the_name', '<p>the value</p>')
