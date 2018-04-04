@@ -11,6 +11,7 @@ What's new
 ==========
 
  * Added error notification when running the ``wagtail`` command on Python <3.4 (Matt Westcott)
+ * Added error handling to the Draftail editor (Thibaud Colas)
 
 Bug fixes
 ~~~~~~~~~
