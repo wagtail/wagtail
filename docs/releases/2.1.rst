@@ -10,10 +10,10 @@ Wagtail 2.1 release notes - IN DEVELOPMENT
 What's new
 ==========
 
-New `HelpPanel`
-~~~~~~~~~~~~~~~
+New ``HelpPanel``
+~~~~~~~~~~~~~~~~~
 
-A new panel type `HelpPanel` allows to easily add HTML within an edit form.
+A new panel type ``HelpPanel`` allows to easily add HTML within an edit form.
 This new feature was developed by Keving Chung.
 
 Other features
