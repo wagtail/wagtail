@@ -33,6 +33,7 @@ Other features
  * Added change email functionality from the account settings (Alejandro Garza, Alexs Mathilda)
  * Add request parameter to edit handlers (Rajeev J Sebastian)
  * ImageChooser now sets a default title based on filename (Coen van der Kamp)
+ * Added error handling to the Draftail editor (Thibaud Colas)
 
 Bug fixes
 ~~~~~~~~~
