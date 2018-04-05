@@ -160,7 +160,8 @@ class Site(models.Model):
         if result is None:
             result = [
                 (site.id, site.root_page.url_path, site.root_url)
-                for site in Site.objects.select_related('root_page').order_by('-root_page__url_path')
+                for site in Site.objects.select_related('root_page').order_by(
+                    '-root_page__url_path', 'is_default_site', 'hostname')
             ]
             cache.set('wagtail_site_root_paths', result, 3600)
 
