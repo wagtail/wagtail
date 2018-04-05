@@ -391,3 +391,11 @@ class PreferredLanguageForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = ("preferred_language",)
+
+
+class EmailForm(forms.ModelForm):
+    email = forms.EmailField(required=True, label=_('Email'))
+
+    class Meta:
+        model = User
+        fields = ("email", )

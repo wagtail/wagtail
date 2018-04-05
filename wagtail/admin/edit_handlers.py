@@ -3,6 +3,7 @@ import re
 from django import forms
 from django.core.exceptions import ImproperlyConfigured
 from django.db.models.fields import FieldDoesNotExist
+from django.forms.formsets import DELETION_FIELD_NAME, ORDERING_FIELD_NAME
 from django.forms.models import fields_for_model
 from django.template.loader import render_to_string
 from django.utils.encoding import force_text
@@ -142,7 +143,7 @@ class EditHandler:
     def on_model_bound(self):
         pass
 
-    def bind_to_instance(self, instance=None, form=None):
+    def bind_to_instance(self, instance=None, form=None, request=None):
         new = self.bind_to_model(self.model)
 
         if not instance:
@@ -152,6 +153,10 @@ class EditHandler:
         if not form:
             raise ValueError("EditHandler did not receive a form object")
         new.form = form
+
+        if request is None:
+            raise ValueError("EditHandler did not receive a request object")
+        new.request = request
 
         new.on_instance_bound()
 
@@ -294,7 +299,8 @@ class BaseCompositeEditHandler(EditHandler):
                     if child.field_name not in self.form._meta.fields:
                         continue
             children.append(child.bind_to_instance(instance=self.instance,
-                                                   form=self.form))
+                                                   form=self.form,
+                                                   request=self.request))
         self.children = children
 
     def render(self):
@@ -689,30 +695,32 @@ class InlinePanel(EditHandler):
         self.children = []
         for subform in self.formset.forms:
             # override the DELETE field to have a hidden input
-            subform.fields['DELETE'].widget = forms.HiddenInput()
+            subform.fields[DELETION_FIELD_NAME].widget = forms.HiddenInput()
 
             # ditto for the ORDER field, if present
             if self.formset.can_order:
-                subform.fields['ORDER'].widget = forms.HiddenInput()
+                subform.fields[ORDERING_FIELD_NAME].widget = forms.HiddenInput()
 
             child_edit_handler = self.get_child_edit_handler()
             self.children.append(
                 child_edit_handler.bind_to_instance(instance=subform.instance,
-                                                    form=subform))
+                                                    form=subform,
+                                                    request=self.request))
 
         # if this formset is valid, it may have been re-ordered; respect that
         # in case the parent form errored and we need to re-render
         if self.formset.can_order and self.formset.is_valid():
-            self.children = sorted(self.children, key=lambda x: x.form.cleaned_data['ORDER'])
+            self.children.sort(
+                key=lambda child: child.form.cleaned_data[ORDERING_FIELD_NAME] or 1)
 
         empty_form = self.formset.empty_form
-        empty_form.fields['DELETE'].widget = forms.HiddenInput()
+        empty_form.fields[DELETION_FIELD_NAME].widget = forms.HiddenInput()
         if self.formset.can_order:
-            empty_form.fields['ORDER'].widget = forms.HiddenInput()
+            empty_form.fields[ORDERING_FIELD_NAME].widget = forms.HiddenInput()
 
         self.empty_child = self.get_child_edit_handler()
         self.empty_child = self.empty_child.bind_to_instance(
-            instance=empty_form.instance, form=empty_form)
+            instance=empty_form.instance, form=empty_form, request=self.request)
 
     template = "wagtailadmin/edit_handlers/inline_panel.html"
 

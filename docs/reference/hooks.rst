@@ -120,6 +120,29 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
 ``url`` (optional)
   A URL to an index page that lists the objects being described.
 
+.. _register_account_menu_item:
+
+``register_account_menu_item``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Add an item to the “Account settings” page within the Wagtail admin.
+  The callable for this hook should return a dict with the keys
+  ``url``, ``label`` and ``help_text``. For example:
+
+  .. code-block:: python
+
+    from django.urls import reverse
+    from wagtail.core import hooks
+
+    @hooks.register('register_account_menu_item')
+    def register_account_delete_account(request):
+        return {
+            'url': reverse('delete-account'),
+            'label': 'Delete account',
+            'help_text': 'This permanently deletes your account.'
+        }
+
+
 
 .. _register_admin_menu_item:
 

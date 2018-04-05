@@ -109,6 +109,24 @@ function(modal) {
         return false;
     });
 
+    function populateTitle(context) {
+        // Note: There are two inputs with `#id_title` on the page.
+        // The page title and image title. Select the input inside the modal body.
+        var fileWidget = $('#id_file', context);
+        fileWidget.on('change', function () {
+            var titleWidget = $('#id_title', context);
+            var title = titleWidget.val();
+            if (title === '') {
+                // The file widget value example: `C:\fakepath\image.jpg`
+                var parts = fileWidget.val().split('\\');
+                var fileName = parts[parts.length - 1];
+                titleWidget.val(fileName);
+            }
+        });
+    }
+
+    populateTitle(modal.body);
+
     {% url 'wagtailadmin_tag_autocomplete' as autocomplete_url %}
 
     /* Add tag entry interface (with autocompletion) to the tag field of the image upload form */

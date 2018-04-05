@@ -2,9 +2,10 @@ from datetime import date
 
 import mock
 from django import forms
+from django.contrib.auth.models import AnonymousUser
 from django.core import checks
 from django.core.exceptions import FieldDoesNotExist, ImproperlyConfigured
-from django.test import TestCase, override_settings
+from django.test import RequestFactory, TestCase, override_settings
 
 from wagtail.admin.edit_handlers import (
     FieldPanel, FieldRowPanel, InlinePanel, ObjectList, PageChooserPanel, RichTextFieldPanel,
@@ -231,6 +232,10 @@ class TestExtractPanelDefinitionsFromModelClass(TestCase):
 
 class TestTabbedInterface(TestCase):
     def setUp(self):
+        self.request = RequestFactory().get('/')
+        user = AnonymousUser()  # technically, Anonymous users cannot access the admin
+        self.request.user = user
+
         # a custom tabbed interface for EventPage
         self.event_page_tabbed_interface = TabbedInterface([
             ObjectList([
@@ -260,7 +265,8 @@ class TestTabbedInterface(TestCase):
 
         tabbed_interface = self.event_page_tabbed_interface.bind_to_instance(
             instance=event,
-            form=form
+            form=form,
+            request=self.request
         )
 
         result = tabbed_interface.render()
@@ -292,7 +298,8 @@ class TestTabbedInterface(TestCase):
 
         tabbed_interface = self.event_page_tabbed_interface.bind_to_instance(
             instance=event,
-            form=form
+            form=form,
+            request=self.request
         )
 
         result = tabbed_interface.render_form_content()
@@ -305,6 +312,9 @@ class TestTabbedInterface(TestCase):
 
 class TestObjectList(TestCase):
     def setUp(self):
+        self.request = RequestFactory().get('/')
+        user = AnonymousUser()  # technically, Anonymous users cannot access the admin
+        self.request.user = user
         # a custom ObjectList for EventPage
         self.event_page_object_list = ObjectList([
             FieldPanel('title', widget=forms.Textarea),
@@ -330,7 +340,8 @@ class TestObjectList(TestCase):
 
         object_list = self.event_page_object_list.bind_to_instance(
             instance=event,
-            form=form
+            form=form,
+            request=self.request
         )
 
         result = object_list.render()
@@ -353,6 +364,10 @@ class TestObjectList(TestCase):
 
 class TestFieldPanel(TestCase):
     def setUp(self):
+        self.request = RequestFactory().get('/')
+        user = AnonymousUser()  # technically, Anonymous users cannot access the admin
+        self.request.user = user
+
         self.EventPageForm = get_form_for_model(
             EventPage, form_class=WagtailAdminPageForm, formsets=[])
         self.event = EventPage(title='Abergavenny sheepdog trials',
@@ -374,7 +389,8 @@ class TestFieldPanel(TestCase):
 
         field_panel = self.end_date_panel.bind_to_instance(
             instance=self.event,
-            form=form
+            form=form,
+            request=self.request
         )
         result = field_panel.render_as_object()
 
@@ -401,7 +417,8 @@ class TestFieldPanel(TestCase):
 
         field_panel = self.end_date_panel.bind_to_instance(
             instance=self.event,
-            form=form
+            form=form,
+            request=self.request
         )
         result = field_panel.render_as_field()
 
@@ -431,7 +448,8 @@ class TestFieldPanel(TestCase):
 
         field_panel = self.end_date_panel.bind_to_instance(
             instance=self.event,
-            form=form
+            form=form,
+            request=self.request
         )
         result = field_panel.render_as_field()
 
@@ -441,6 +459,10 @@ class TestFieldPanel(TestCase):
 
 class TestFieldRowPanel(TestCase):
     def setUp(self):
+        self.request = RequestFactory().get('/')
+        user = AnonymousUser()  # technically, Anonymous users cannot access the admin
+        self.request.user = user
+
         self.EventPageForm = get_form_for_model(
             EventPage, form_class=WagtailAdminPageForm, formsets=[])
         self.event = EventPage(title='Abergavenny sheepdog trials',
@@ -460,7 +482,8 @@ class TestFieldRowPanel(TestCase):
 
         field_panel = self.dates_panel.bind_to_instance(
             instance=self.event,
-            form=form
+            form=form,
+            request=self.request
         )
         result = field_panel.render_as_object()
 
@@ -479,7 +502,8 @@ class TestFieldRowPanel(TestCase):
 
         field_panel = self.dates_panel.bind_to_instance(
             instance=self.event,
-            form=form
+            form=form,
+            request=self.request
         )
         result = field_panel.render_as_field()
 
@@ -505,7 +529,8 @@ class TestFieldRowPanel(TestCase):
 
         field_panel = self.dates_panel.bind_to_instance(
             instance=self.event,
-            form=form
+            form=form,
+            request=self.request
         )
         result = field_panel.render_as_field()
 
@@ -521,7 +546,8 @@ class TestFieldRowPanel(TestCase):
 
         field_panel = self.dates_panel.bind_to_instance(
             instance=self.event,
-            form=form
+            form=form,
+            request=self.request
         )
 
         result = field_panel.render_as_field()
@@ -537,7 +563,8 @@ class TestFieldRowPanel(TestCase):
 
         field_panel = self.dates_panel.bind_to_instance(
             instance=self.event,
-            form=form
+            form=form,
+            request=self.request
         )
 
         result = field_panel.render_as_field()
@@ -547,6 +574,10 @@ class TestFieldRowPanel(TestCase):
 
 class TestFieldRowPanelWithChooser(TestCase):
     def setUp(self):
+        self.request = RequestFactory().get('/')
+        user = AnonymousUser()  # technically, Anonymous users cannot access the admin
+        self.request.user = user
+
         self.EventPageForm = get_form_for_model(
             EventPage, form_class=WagtailAdminPageForm, formsets=[])
         self.event = EventPage(title='Abergavenny sheepdog trials',
@@ -566,7 +597,8 @@ class TestFieldRowPanelWithChooser(TestCase):
 
         field_panel = self.dates_panel.bind_to_instance(
             instance=self.event,
-            form=form
+            form=form,
+            request=self.request
         )
         result = field_panel.render_as_object()
 
@@ -581,6 +613,10 @@ class TestPageChooserPanel(TestCase):
     fixtures = ['test.json']
 
     def setUp(self):
+        self.request = RequestFactory().get('/')
+        user = AnonymousUser()  # technically, Anonymous users cannot access the admin
+        self.request.user = user
+
         model = PageChooserModel  # a model with a foreign key to Page which we want to render as a page chooser
 
         # a PageChooserPanel class that works on PageChooserModel's 'page' field
@@ -598,7 +634,7 @@ class TestPageChooserPanel(TestCase):
 
         self.form = self.PageChooserForm(instance=self.test_instance)
         self.page_chooser_panel = self.my_page_chooser_panel.bind_to_instance(
-            instance=self.test_instance, form=self.form)
+            instance=self.test_instance, form=self.form, request=self.request)
 
     def test_page_chooser_uses_correct_widget(self):
         self.assertEqual(type(self.form.fields['page'].widget), AdminPageChooser)
@@ -621,7 +657,7 @@ class TestPageChooserPanel(TestCase):
 
         form = PageChooserForm(instance=self.test_instance)
         page_chooser_panel = my_page_chooser_panel.bind_to_instance(
-            instance=self.test_instance, form=form)
+            instance=self.test_instance, form=form, request=self.request)
         result = page_chooser_panel.render_as_field()
 
         # the canChooseRoot flag on createPageChooser should now be true
@@ -646,7 +682,7 @@ class TestPageChooserPanel(TestCase):
         test_instance = PageChooserModel()
         form = self.PageChooserForm(instance=test_instance)
         page_chooser_panel = self.my_page_chooser_panel.bind_to_instance(
-            instance=test_instance, form=form)
+            instance=test_instance, form=form, request=self.request)
         result = page_chooser_panel.render_as_field()
 
         self.assertIn('<p class="help">help text</p>', result)
@@ -658,7 +694,7 @@ class TestPageChooserPanel(TestCase):
         self.assertFalse(form.is_valid())
 
         page_chooser_panel = self.my_page_chooser_panel.bind_to_instance(
-            instance=self.test_instance, form=form)
+            instance=self.test_instance, form=form, request=self.request)
         self.assertIn('<span>This field is required.</span>', page_chooser_panel.render_as_field())
 
     def test_override_page_type(self):
@@ -671,7 +707,7 @@ class TestPageChooserPanel(TestCase):
         PageChooserForm = my_page_object_list.get_form_class()
         form = PageChooserForm(instance=self.test_instance)
         page_chooser_panel = my_page_chooser_panel.bind_to_instance(
-            instance=self.test_instance, form=form)
+            instance=self.test_instance, form=form, request=self.request)
 
         result = page_chooser_panel.render_as_field()
         expected_js = 'createPageChooser("{id}", ["{model}"], {parent}, false, null);'.format(
@@ -688,7 +724,7 @@ class TestPageChooserPanel(TestCase):
         PageChooserForm = my_page_object_list.get_form_class()
         form = PageChooserForm(instance=self.test_instance)
         page_chooser_panel = my_page_chooser_panel.bind_to_instance(
-            instance=self.test_instance, form=form)
+            instance=self.test_instance, form=form, request=self.request)
 
         result = page_chooser_panel.render_as_field()
         expected_js = 'createPageChooser("{id}", ["{model}"], {parent}, false, null);'.format(
@@ -723,6 +759,11 @@ class TestPageChooserPanel(TestCase):
 class TestInlinePanel(TestCase, WagtailTestUtils):
     fixtures = ['test.json']
 
+    def setUp(self):
+        self.request = RequestFactory().get('/')
+        user = AnonymousUser()  # technically, Anonymous users cannot access the admin
+        self.request.user = user
+
     def test_render(self):
         """
         Check that the inline panel renders the panels set on the model
@@ -740,7 +781,8 @@ class TestInlinePanel(TestCase, WagtailTestUtils):
 
         form = EventPageForm(instance=event_page)
         panel = speaker_object_list.bind_to_instance(instance=event_page,
-                                                     form=form)
+                                                     form=form,
+                                                     request=self.request)
 
         result = panel.render_as_field()
 
@@ -795,7 +837,7 @@ class TestInlinePanel(TestCase, WagtailTestUtils):
 
         form = EventPageForm(instance=event_page)
         panel = speaker_inline_panel.bind_to_instance(
-            instance=event_page, form=form)
+            instance=event_page, form=form, request=self.request)
 
         result = panel.render_as_field()
 
@@ -852,7 +894,7 @@ class TestInlinePanel(TestCase, WagtailTestUtils):
         event_page = EventPage.objects.get(slug='christmas')
         form = EventPageForm(instance=event_page)
         panel = speaker_inline_panel.bind_to_instance(
-            instance=event_page, form=form)
+            instance=event_page, form=form, request=self.request)
 
         self.assertIn('maxForms: 1000', panel.render_js_init())
 

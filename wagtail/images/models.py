@@ -327,6 +327,10 @@ class Image(AbstractImage):
         'focal_point_height',
     )
 
+    class Meta:
+        verbose_name = _('image')
+        verbose_name_plural = _('images')
+
 
 class Filter:
     """

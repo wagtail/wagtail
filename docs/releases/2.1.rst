@@ -10,16 +10,30 @@ Wagtail 2.1 release notes - IN DEVELOPMENT
 What's new
 ==========
 
+New ``HelpPanel``
+~~~~~~~~~~~~~~~~~
+
+A new panel type ``HelpPanel`` allows to easily add HTML within an edit form.
+This new feature was developed by Keving Chung.
 
 Other features
 ~~~~~~~~~~~~~~
 
-* Persist tab hash in URL to allow direct navigation to tabs in the admin interface (Ben Weatherman)
-* Animate the chevron icon when opening sub-menus in the admin (Carlo Ascani)
-* Look through the target link and target page slug (in addition to the old slug) when searching for redirects in the admin (Michael Harrison)
-* Remove support for IE6 to IE9 from project template (Samir Shah)
-* Remove outdated X-UA-Compatible meta from admin template  (Thibaud Colas)
-* Add JavaScript source maps in production build for packaged Wagtail (Thibaud Colas)
+ * Persist tab hash in URL to allow direct navigation to tabs in the admin interface (Ben Weatherman)
+ * Animate the chevron icon when opening sub-menus in the admin (Carlo Ascani)
+ * Look through the target link and target page slug (in addition to the old slug) when searching for redirects in the admin (Michael Harrison)
+ * Remove support for IE6 to IE9 from project template (Samir Shah)
+ * Remove outdated X-UA-Compatible meta from admin template  (Thibaud Colas)
+ * Add JavaScript source maps in production build for packaged Wagtail (Thibaud Colas)
+ * Removed ``assert`` statements from Wagtail API (Kim Chee Leong)
+ * Update `jquery-datetimepicker` dependency to make Wagtail more CSP-friendly (`unsafe-eval`) (Mike Kamermans)
+ * Added error notification when running the ``wagtail`` command on Python <3.4 (Matt Westcott)
+ * ``update_index`` management command now accepts a ``--chunk_size`` option to determine the number of items to load at once (Dave Bell)
+ * Added hook `register_account_menu_item` to add new account preference items (Michael van Tellingen)
+ * Added change email functionality from the account settings (Alejandro Garza, Alexs Mathilda)
+ * Add request parameter to edit handlers (Rajeev J Sebastian)
+ * ImageChooser now sets a default title based on filename (Coen van der Kamp)
+ * Added error handling to the Draftail editor (Thibaud Colas)
 
 Bug fixes
 ~~~~~~~~~
@@ -32,8 +46,16 @@ Bug fixes
  * Password reset form no longer indicates whether the email is recognised, as per standard Django behaviour (Bertrand Bordage)
  * ``UserAttributeSimilarityValidator`` is now correctly enforced on user creation / editing forms (Tim Heap)
  * Focal area removal not working in IE11 and MS Edge (Thibaud Colas)
- * Rewrite password change feedback message to be more user-friendly ( Casper Timmers)
+ * Rewrite password change feedback message to be more user-friendly (Casper Timmers)
  * Correct dropdown arrow styling in Firefox, IE11 (Janneke Janssen, Alexs Mathilda)
+ * Password reset no indicates specific validation errors on certain password restrictions (Lucas Moeskops)
+ * Confirmation page on page deletion now respects custom ``get_admin_display_title`` methods (Kim Chee Leong)
+ * Adding external link with selected text now includes text in link chooser (Tony Yates, Thibaud Colas, Alexs Mathilda)
+ * Editing setting object with no site configured no longer crashes (Harm Zeinstra)
+ * Creating a new object with inlines while mandatory fields are empty no longer crashes (Bertrand Bordage)
+ * Localization of image and apps verbose names
+ * Draftail editor no longer crashes after deleting image/embed using DEL key (Thibaud Colas)
+ * Breadcrumb navigation now respects custom ``get_admin_display_title`` methods (Arthur Holzner, Wietze Helmantel, Matt Westcott)
 
 
 Upgrade considerations

@@ -4,6 +4,7 @@ import { AtomicBlockUtils, Modifier, RichUtils, EditorState } from 'draft-js';
 import { ENTITY_TYPE } from 'draftail';
 
 import { STRINGS } from '../../../config/wagtailConfig';
+import { getSelectionText } from '../DraftUtils';
 
 const $ = global.jQuery;
 
@@ -16,7 +17,7 @@ MUTABILITY[DOCUMENT] = 'MUTABLE';
 MUTABILITY[ENTITY_TYPE.IMAGE] = 'IMMUTABLE';
 MUTABILITY[EMBED] = 'IMMUTABLE';
 
-export const getChooserConfig = (entityType, entity) => {
+export const getChooserConfig = (entityType, entity, selectedText) => {
   const chooserURL = {};
   chooserURL[ENTITY_TYPE.IMAGE] = `${global.chooserUrls.imageChooser}?select_format=true`;
   chooserURL[EMBED] = global.chooserUrls.embedsChooser;
@@ -32,10 +33,7 @@ export const getChooserConfig = (entityType, entity) => {
       allow_external_link: true,
       allow_email_link: true,
       can_choose_root: 'false',
-      // This does not initialise the modal with the currently selected text.
-      // This will need to be implemented in the future.
-      // See https://github.com/jpuri/draftjs-utils/blob/e81c0ae19c3b0fdef7e0c1b70d924398956be126/js/block.js#L106.
-      link_text: '',
+      link_text: selectedText,
     };
 
     if (entity) {
@@ -113,8 +111,9 @@ class ModalWorkflowSource extends Component {
   }
 
   componentDidMount() {
-    const { onClose, entityType, entity } = this.props;
-    const { url, urlParams } = getChooserConfig(entityType, entity);
+    const { onClose, entityType, entity, editorState } = this.props;
+    const selectedText = getSelectionText(editorState);
+    const { url, urlParams } = getChooserConfig(entityType, entity, selectedText);
 
     $(document.body).on('hidden.bs.modal', this.onClose);
 
