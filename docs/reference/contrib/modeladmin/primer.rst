@@ -56,10 +56,10 @@ for them, or not.
 
 In order to deliver a consistent experience for users, ``modeladmin``
 simply redirects users to Wagtail's existing page management views wherever
-possible. You should bare this in mind if you ever find yourself wanting to
+possible. You should bear this in mind if you ever find yourself wanting to
 change what happens when pages of a certain type are added, deleted,
 published, or have some other action applied to them. Customising the
-``CreateView`` or ``EditView`` for your a page type ``Model`` (even it just
+``CreateView`` or ``EditView`` for your page type ``Model`` (even it just
 to add an additional stylesheet or JavaScript), simply won't have any
 effect, as those views are not used.
 
