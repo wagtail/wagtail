@@ -59,7 +59,7 @@ simply redirects users to Wagtail's existing page management views wherever
 possible. You should bear this in mind if you ever find yourself wanting to
 change what happens when pages of a certain type are added, deleted,
 published, or have some other action applied to them. Customising the
-``CreateView`` or ``EditView`` for your page type ``Model`` (even it just
+``CreateView`` or ``EditView`` for your page type ``Model`` (even if just
 to add an additional stylesheet or JavaScript), simply won't have any
 effect, as those views are not used.
 
