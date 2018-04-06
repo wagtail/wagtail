@@ -56,6 +56,7 @@ Bug fixes
  * Localization of image and apps verbose names
  * Draftail editor no longer crashes after deleting image/embed using DEL key (Thibaud Colas)
  * Breadcrumb navigation now respects custom ``get_admin_display_title`` methods (Arthur Holzner, Wietze Helmantel, Matt Westcott)
+ * Inconsistent order of heading features when adding h1, h5 or h6 as default feature for Hallo RichText editor (Loic Teixeira)
 
 
 Upgrade considerations

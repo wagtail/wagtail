@@ -287,9 +287,11 @@ def register_core_features(features):
         WhitelistRule('em', allow_without_attributes),
     ])
 
-    for element in ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']:
+    headings_elements = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']
+    headings_order_start = HalloHeadingPlugin.default_order + 1
+    for order, element in enumerate(headings_elements, start=headings_order_start):
         features.register_editor_plugin(
-            'hallo', element, HalloHeadingPlugin(element=element)
+            'hallo', element, HalloHeadingPlugin(element=element, order=order)
         )
         features.register_converter_rule('editorhtml', element, [
             WhitelistRule(element, allow_without_attributes)
