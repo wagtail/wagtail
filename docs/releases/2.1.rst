@@ -60,6 +60,7 @@ Bug fixes
  * Inconsistent order of heading features when adding h1, h5 or h6 as default feature for Hallo RichText editor (Loic Teixeira)
  * Add invalid password reset link error message (Coen van der Kamp)
  * Bypass select/prefetch related optimisation on ``update_index`` for ``ParentalManyToManyField`` to fix crash (Tim Kamanin)
+ * 'Add user' is now rendered as a button due to the use of quotes within translations (Benoît Vogel)
 
 
 Upgrade considerations

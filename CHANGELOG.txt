@@ -42,6 +42,7 @@ Changelog
  * Fix: Inconsistent order of heading features when adding h1, h5 or h6 as default feature for Hallo RichText editor (Loic Teixeira)
  * Fix: Add invalid password reset link error message (Coen van der Kamp)
  * Fix: Bypass select/prefetch related optimisation on `update_index` for `ParentalManyToManyField` to fix crash (Tim Kamanin)
+ * Fix: 'Add user' is now rendered as a button due to the use of quotes within translations (Benoît Vogel)
 
 
 2.0.1 (04.04.2018)
