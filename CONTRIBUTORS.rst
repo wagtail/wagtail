@@ -291,6 +291,7 @@ Contributors
 * Alejandro Garza
 * Rajeev J Sebastian
 * Coen van der Kamp
+* Sander Tuit
 
 Translators
 ===========
