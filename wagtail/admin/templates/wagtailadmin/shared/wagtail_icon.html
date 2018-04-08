@@ -1,0 +1,9 @@
+{% spaceless %}
+{# Reference implementation: components/Icon.js #}
+<span>
+    <span class="icon icon-{{ name }} {{ className }}" aria-hidden="true"></span>
+    {% if title %}
+        <span class="visuallyhidden">{{ title }}</span>
+    {% endif %}
+</span>
+{% endspaceless %}
