@@ -33,12 +33,22 @@ class UserProfile(models.Model):
         default=''
     )
 
+    current_time_zone = models.CharField(
+        verbose_name=_('current time zone'),
+        max_length=40,
+        help_text=_("Select your current time zone"),
+        default=''
+    )
+
     @classmethod
     def get_for_user(cls, user):
         return cls.objects.get_or_create(user=user)[0]
 
     def get_preferred_language(self):
         return self.preferred_language or settings.LANGUAGE_CODE
+
+    def get_current_time_zone(self):
+        return self.current_time_zone or settings.TIME_ZONE
 
     def __str__(self):
         return self.user.get_username()
