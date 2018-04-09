@@ -11,7 +11,8 @@ from django.utils.translation import activate
 
 from wagtail.admin import forms
 from wagtail.core import hooks
-from wagtail.users.forms import EmailForm, NotificationPreferencesForm, PreferredLanguageForm
+from wagtail.users.forms import (
+    CurrentTimeZoneForm, EmailForm, NotificationPreferencesForm, PreferredLanguageForm)
 from wagtail.users.models import UserProfile
 from wagtail.utils.loading import get_custom_form
 
@@ -164,6 +165,22 @@ def language_preferences(request):
         form = PreferredLanguageForm(instance=UserProfile.get_for_user(request.user))
 
     return render(request, 'wagtailadmin/account/language_preferences.html', {
+        'form': form,
+    })
+
+
+def current_time_zone(request):
+    if request.method == 'POST':
+        form = CurrentTimeZoneForm(request.POST, instance=UserProfile.get_for_user(request.user))
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, _("Your preferences have been updated."))
+            return redirect('wagtailadmin_account')
+    else:
+        form = CurrentTimeZoneForm(instance=UserProfile.get_for_user(request.user))
+
+    return render(request, 'wagtailadmin/account/current_time_zone.html', {
         'form': form,
     })
 

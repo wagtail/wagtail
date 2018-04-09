@@ -22,6 +22,13 @@ API lookup by page path
 
 The API now includes an endpoint for finding pages by path; see :ref:`apiv2_finding_pages_by_path`. This feature was developed by Karl Hobley.
 
+
+User time zone setting
+~~~~~~~~~~~~~~~~~~~~~~
+
+Users can now set their current time zone through the Account Settings menu, which will then be reflected in date / time fields throughout the admin (such as go-live / expiry dates). The list of available time zones can be configured via the :ref:`WAGTAIL_USER_TIME_ZONES <WAGTAIL_USER_TIME_ZONES>` setting. This feature was developed by David Moore.
+
+
 Other features
 ~~~~~~~~~~~~~~
 

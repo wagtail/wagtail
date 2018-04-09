@@ -296,6 +296,7 @@ Contributors
 * Tim Kamanin
 * Sergey Fedoseev
 * Harm Zeinstra
+* David Moore
 
 Translators
 ===========

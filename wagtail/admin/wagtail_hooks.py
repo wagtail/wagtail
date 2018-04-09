@@ -15,7 +15,9 @@ from wagtail.admin.rich_text.converters.html_to_contentstate import (
     BlockElementHandler, ExternalLinkElementHandler, HorizontalRuleHandler,
     InlineStyleElementHandler, ListElementHandler, ListItemElementHandler, PageLinkElementHandler)
 from wagtail.admin.search import SearchArea
-from wagtail.admin.utils import get_available_admin_languages, user_has_any_page_permission
+from wagtail.admin.utils import (
+    get_available_admin_languages, get_available_admin_time_zones,
+    user_has_any_page_permission)
 from wagtail.admin.views.account import password_management_enabled
 from wagtail.admin.viewsets import viewsets
 from wagtail.admin.widgets import Button, ButtonWithDropdownFromHook, PageListingButton
@@ -241,6 +243,16 @@ def register_account_preferred_language_preferences(request):
             'url': reverse('wagtailadmin_account_language_preferences'),
             'label': _('Language preferences'),
             'help_text': _('Choose the language you want to use here.'),
+        }
+
+
+@hooks.register('register_account_menu_item')
+def register_account_current_time_zone(request):
+    if len(get_available_admin_time_zones()) > 1:
+        return {
+            'url': reverse('wagtailadmin_account_current_time_zone'),
+            'label': _('Current Time Zone'),
+            'help_text': _('Choose your current time zone.'),
         }
 
 

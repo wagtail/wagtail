@@ -1,3 +1,5 @@
+import pytz
+
 from django.contrib.auth import views as auth_views
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
@@ -6,7 +8,8 @@ from django.core import mail
 from django.test import TestCase, override_settings
 from django.urls import reverse
 
-from wagtail.admin.utils import WAGTAILADMIN_PROVIDED_LANGUAGES, get_available_admin_languages
+from wagtail.admin.utils import (
+    WAGTAILADMIN_PROVIDED_LANGUAGES, get_available_admin_languages, get_available_admin_time_zones)
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.users.models import UserProfile
 
@@ -402,6 +405,67 @@ class TestAccountSection(TestCase, WagtailTestUtils):
     def test_not_show_options_if_only_one_language_is_permitted(self):
         response = self.client.post(reverse('wagtailadmin_account'))
         self.assertNotContains(response, 'Language Preferences')
+
+    def test_current_time_zone_view(self):
+        """
+        This tests that the current time zone view responds with an index page
+        """
+        # Get account page
+        response = self.client.get(reverse('wagtailadmin_account_current_time_zone'))
+
+        # Check that the user received an account page
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/account/current_time_zone.html')
+
+        # Page should contain a 'Set Time Zone' title
+        self.assertContains(response, "Set Time Zone")
+
+    def test_current_time_zone_view_post(self):
+        """
+        This posts to the current time zone view and checks that the
+        user profile is updated
+        """
+        # Post new values to the current time zone page
+        post_data = {
+            'current_time_zone': 'Pacific/Fiji'
+        }
+        response = self.client.post(reverse('wagtailadmin_account_current_time_zone'), post_data)
+
+        # Check that the user was redirected to the account page
+        self.assertRedirects(response, reverse('wagtailadmin_account'))
+
+        profile = UserProfile.get_for_user(get_user_model().objects.get(pk=self.user.pk))
+
+        # Check that the current time zone is stored
+        self.assertEqual(profile.current_time_zone, 'Pacific/Fiji')
+
+    def test_unset_current_time_zone(self):
+        # Post new values to the current time zone page
+        post_data = {
+            'current_time_zone': ''
+        }
+        response = self.client.post(reverse('wagtailadmin_account_current_time_zone'), post_data)
+
+        # Check that the user was redirected to the account page
+        self.assertRedirects(response, reverse('wagtailadmin_account'))
+
+        profile = UserProfile.get_for_user(get_user_model().objects.get(pk=self.user.pk))
+
+        # Check that the current time zone are stored
+        self.assertEqual(profile.current_time_zone, '')
+
+    @override_settings(WAGTAIL_USER_TIME_ZONES=['Africa/Addis_Ababa', 'America/Argentina/Buenos_Aires'])
+    def test_available_admin_time_zones_with_permitted_time_zones(self):
+        self.assertListEqual(get_available_admin_time_zones(),
+                             ['Africa/Addis_Ababa', 'America/Argentina/Buenos_Aires'])
+
+    def test_available_admin_time_zones_by_default(self):
+        self.assertListEqual(get_available_admin_time_zones(), pytz.common_timezones)
+
+    @override_settings(WAGTAIL_USER_TIME_ZONES=['Europe/London'])
+    def test_not_show_options_if_only_one_time_zone_is_permitted(self):
+        response = self.client.post(reverse('wagtailadmin_account'))
+        self.assertNotContains(response, 'Set Time Zone')
 
 
 class TestAccountManagementForNonModerator(TestCase, WagtailTestUtils):

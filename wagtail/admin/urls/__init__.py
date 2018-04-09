@@ -55,6 +55,11 @@ urlpatterns = [
         account.language_preferences,
         name='wagtailadmin_account_language_preferences'
     ),
+    url(
+        r'^account/current_time_zone/$',
+        account.current_time_zone,
+        name='wagtailadmin_account_current_time_zone'
+    ),
     url(r'^logout/$', account.LogoutView.as_view(), name='wagtailadmin_logout'),
 ]
 

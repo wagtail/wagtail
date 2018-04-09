@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import logging
 from functools import wraps
+import pytz
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -51,6 +52,10 @@ WAGTAILADMIN_PROVIDED_LANGUAGES = [
 
 def get_available_admin_languages():
     return getattr(settings, 'WAGTAILADMIN_PERMITTED_LANGUAGES', WAGTAILADMIN_PROVIDED_LANGUAGES)
+
+
+def get_available_admin_time_zones():
+    return getattr(settings, 'WAGTAIL_USER_TIME_ZONES', pytz.common_timezones)
 
 
 def get_object_usage(obj):
