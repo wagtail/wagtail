@@ -10,9 +10,11 @@ New feature releases of Wagtail are released approximately every two months. The
 
 Additionally, patch releases will be issued as needed, to fix bugs and security issues. These are marked by incrementing the third part of the version number (for example, 1.12 to 1.12.1). Wherever possible, these releases will remain fully backwards compatible with the corresponding feature and not introduce any breaking changes.
 
-A feature release will usually stop receiving patch release updates when the next feature release comes out. However, selected feature releases are designated as Long Term Support (LTS) releases, and will continue to receive maintenance updates to address any security and data-loss related issues that arise, up until the next Long Term Support release. Typically, a Long Term Support release will happen once every four feature releases, giving a support period of eight months.
+A feature release will usually stop receiving patch release updates when the next feature release comes out. However, selected feature releases are designated as Long Term Support (LTS) releases, and will continue to receive maintenance updates to address any security and data-loss related issues that arise. Typically, a Long Term Support release will happen once every four feature releases and receive updates for five feature releases, giving a support period of ten months with a two months overlap.
 
-Exceptionally, with 2.0 introducing breaking changes, 1.13 was designated as LTS in addition to 1.12. The support period for both versions will last until the next LTS is released, some time around September 2018.
+Also, Long Term Support releases will ensure compatibility with at least one `Django Long Term Support release <https://www.djangoproject.com/download/#supported-versions>`_.
+
+Exceptionally, with 2.0 introducing breaking changes, 1.13 was designated as LTS in addition to 1.12. The support period for both versions will last until the next LTS is released, some time around November 2018.
 
 +-------------------+------------------------------------------+
 | Wagtail release   | LTS support period                       |
@@ -23,9 +25,9 @@ Exceptionally, with 2.0 introducing breaking changes, 1.13 was designated as LTS
 +-------------------+------------------------------------------+
 | 1.8 LTS           | December 2016 - August 2017              |
 +-------------------+------------------------------------------+
-| 1.12 LTS          | August 2017 - September 2018 (expected)  |
+| 1.12 LTS          | August 2017 - November 2018 (expected)   |
 +-------------------+------------------------------------------+
-| 1.13 LTS          | October 2017 - September 2018 (expected) |
+| 1.13 LTS          | October 2017 - November 2018 (expected)  |
 +-------------------+------------------------------------------+
 
 Deprecation policy
