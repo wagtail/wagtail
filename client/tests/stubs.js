@@ -46,6 +46,8 @@ global.wagtailConfig = {
 
 global.wagtailVersion = '1.6a1';
 
+global.wagtail = {};
+
 global.chooserUrls = {
   documentChooser: '/admin/documents/chooser/',
   emailLinkChooser: '/admin/choose-email-link/',

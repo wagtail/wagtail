@@ -188,6 +188,18 @@ To make this easier, Wagtail exposes its React-related dependencies as global va
     window.ReactDOM;
     // 'react-transition-group/CSSTransitionGroup'
     window.CSSTransitionGroup;
+
+Wagtail also exposes some of its own React components. You can reuse:
+
+.. code-block:: javascript
+
+    window.wagtail.components.Icon;
+    window.wagtail.components.Portal;
+
+Pages containing rich text editors also have access to:
+
+.. code-block:: javascript
+
     // 'draft-js'
     window.DraftJS;
     // 'draftail'

@@ -3,6 +3,7 @@ import {
   Icon,
   PublicationStatus,
   LoadingSpinner,
+  Portal,
   Transition,
   Explorer,
   ExplorerToggle,
@@ -24,6 +25,10 @@ describe('wagtail package API', () => {
 
   it('has LoadingSpinner', () => {
     expect(LoadingSpinner).toBeDefined();
+  });
+
+  it('has Portal', () => {
+    expect(Portal).toBeDefined();
   });
 
   it('has Transition', () => {
