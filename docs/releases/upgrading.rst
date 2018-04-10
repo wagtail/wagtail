@@ -12,7 +12,7 @@ Additionally, patch releases will be issued as needed, to fix bugs and security 
 
 A feature release will usually stop receiving patch release updates when the next feature release comes out. However, selected feature releases are designated as Long Term Support (LTS) releases, and will continue to receive maintenance updates to address any security and data-loss related issues that arise. Typically, a Long Term Support release will happen once every four feature releases and receive updates for five feature releases, giving a support period of ten months with a two months overlap.
 
-Also, Long Term Support releases will ensure compatibility with at least one `Django Long Term Support release <https://docs.djangoproject.com/en/dev/internals/release-process/#term-long-term-support-release>`_.
+Also, Long Term Support releases will ensure compatibility with at least one `Django Long Term Support release <https://www.djangoproject.com/download/#supported-versions>`_.
 
 Exceptionally, with 2.0 introducing breaking changes, 1.13 was designated as LTS in addition to 1.12. The support period for both versions will last until the next LTS is released, some time around November 2018.
 
