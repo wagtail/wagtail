@@ -5,7 +5,7 @@ Core team
 * Karl Hobley (Torchbox)
 * Tom Dyson (Torchbox)
 * Mikalai Radchuk (Torchbox)
-* Thibaud Colas (Springload)
+* Thibaud Colas
 * Janneke Janssen (Lukkien)
 * Mike Dingjan (Lab Digital)
 * Rob Moorman (Moor Interactive)
@@ -281,6 +281,17 @@ Contributors
 * Todd Dembrey
 * Sebastian Brestin
 * Casper Timmers
+* Kevin Chung
+* Kim Chee Leong
+* Dan Swain
+* Alexs Mathilda
+* Tony Yates
+* Mike Kamermans
+* Arthur Holzner
+* Alejandro Garza
+* Rajeev J Sebastian
+* Coen van der Kamp
+* Sander Tuit
 
 Translators
 ===========

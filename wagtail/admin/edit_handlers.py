@@ -3,6 +3,7 @@ import re
 from django import forms
 from django.core.exceptions import ImproperlyConfigured
 from django.db.models.fields import FieldDoesNotExist
+from django.forms.formsets import DELETION_FIELD_NAME, ORDERING_FIELD_NAME
 from django.forms.models import fields_for_model
 from django.template.loader import render_to_string
 from django.utils.encoding import force_text
@@ -94,7 +95,7 @@ def extract_panel_definitions_from_model_class(model, exclude=None):
     return panels
 
 
-class EditHandler(metaclass=MediaDefiningClass):
+class EditHandler:
     """
     Abstract class providing sensible default behaviours for objects implementing
     the EditHandler API
@@ -153,7 +154,7 @@ class EditHandler(metaclass=MediaDefiningClass):
             raise ValueError("EditHandler did not receive a form object")
         new.form = form
 
-        if not request:
+        if request is None:
             raise ValueError("EditHandler did not receive a request object")
         new.request = request
 
@@ -390,6 +391,27 @@ class MultiFieldPanel(BaseCompositeEditHandler):
         classes = super().classes()
         classes.append("multi-field")
         return classes
+
+
+class HelpPanel(EditHandler):
+    def __init__(self, content='', template='wagtailadmin/edit_handlers/help_panel.html',
+                 heading='', classname=''):
+        super().__init__(heading=heading, classname=classname)
+        self.content = content
+        self.template = template
+
+    def clone(self):
+        return self.__class__(
+            content=self.content,
+            template=self.template,
+            heading=self.heading,
+            classname=self.classname,
+        )
+
+    def render(self):
+        return mark_safe(render_to_string(self.template, {
+            'self': self
+        }))
 
 
 class FieldPanel(EditHandler):
@@ -673,11 +695,11 @@ class InlinePanel(EditHandler):
         self.children = []
         for subform in self.formset.forms:
             # override the DELETE field to have a hidden input
-            subform.fields['DELETE'].widget = forms.HiddenInput()
+            subform.fields[DELETION_FIELD_NAME].widget = forms.HiddenInput()
 
             # ditto for the ORDER field, if present
             if self.formset.can_order:
-                subform.fields['ORDER'].widget = forms.HiddenInput()
+                subform.fields[ORDERING_FIELD_NAME].widget = forms.HiddenInput()
 
             child_edit_handler = self.get_child_edit_handler()
             self.children.append(
@@ -688,12 +710,13 @@ class InlinePanel(EditHandler):
         # if this formset is valid, it may have been re-ordered; respect that
         # in case the parent form errored and we need to re-render
         if self.formset.can_order and self.formset.is_valid():
-            self.children = sorted(self.children, key=lambda x: x.form.cleaned_data['ORDER'])
+            self.children.sort(
+                key=lambda child: child.form.cleaned_data[ORDERING_FIELD_NAME] or 1)
 
         empty_form = self.formset.empty_form
-        empty_form.fields['DELETE'].widget = forms.HiddenInput()
+        empty_form.fields[DELETION_FIELD_NAME].widget = forms.HiddenInput()
         if self.formset.can_order:
-            empty_form.fields['ORDER'].widget = forms.HiddenInput()
+            empty_form.fields[ORDERING_FIELD_NAME].widget = forms.HiddenInput()
 
         self.empty_child = self.get_child_edit_handler()
         self.empty_child = self.empty_child.bind_to_instance(
@@ -702,31 +725,20 @@ class InlinePanel(EditHandler):
     template = "wagtailadmin/edit_handlers/inline_panel.html"
 
     def render(self):
-        context = {
+        formset = render_to_string(self.template, {
             'self': self,
             'can_order': self.formset.can_order,
-        }
-        context.update(self.render_extension())
-
-        formset = render_to_string(self.template, context)
+        })
         js = self.render_js_init()
         return widget_with_script(formset, js)
-
-    def render_extension(self):
-        return {}
 
     js_template = "wagtailadmin/edit_handlers/inline_panel.js"
 
     def render_js_init(self):
-        context = {
+        return mark_safe(render_to_string(self.js_template, {
             'self': self,
             'can_order': self.formset.can_order,
-        }
-        context.update(self.render_extension_js_init())
-        return mark_safe(render_to_string(self.js_template, context))
-
-    def render_extension_js_init(self):
-        return {}
+        }))
 
 
 # This allows users to include the publishing panel in their own per-model override

@@ -8,6 +8,7 @@ from wagtail.admin.rich_text import (
     DraftailRichTextArea, HalloRichTextArea, get_rich_text_editor_widget)
 from wagtail.core.blocks import RichTextBlock
 from wagtail.core.models import Page, get_page_models
+from wagtail.core.rich_text import features as feature_registry
 from wagtail.core.rich_text import RichText
 from wagtail.tests.testapp.models import SingleEventPage
 from wagtail.tests.testapp.rich_text import CustomRichTextArea
@@ -502,6 +503,28 @@ class TestHalloJsWithCustomFeatureOptions(BaseRichTextEditHandlerTestCase, Wagta
         self.assertIn('testapp/css/hallo-blockquote.css', media_html)
         # check that we're NOT importing media for the default features we're not using
         self.assertNotIn('wagtaildocs/js/hallo-plugins/hallo-wagtaildoclink.js', media_html)
+
+
+@override_settings(WAGTAILADMIN_RICH_TEXT_EDITORS={
+    'default': {
+        'WIDGET': 'wagtail.admin.rich_text.HalloRichTextArea'
+    },
+})
+class TestHalloJsHeadingOrder(BaseRichTextEditHandlerTestCase, WagtailTestUtils):
+
+    def test_heading_order(self):
+        # Using the `register_rich_text_features` doesn't work here,
+        # probably because the features have already been scanned at that point.
+        # Extending the registry directly instead.
+        feature_registry.default_features.extend(['h1', 'h5', 'h6'])
+
+        widget = HalloRichTextArea()
+        js_init = widget.render_js_init('the_id', 'the_name', '<p>the value</p>')
+
+        expected_options = (
+            '"halloheadings": {"formatBlocks": ["p", "h1", "h2", "h3", "h4", "h5", "h6"]}'
+        )
+        self.assertIn(expected_options, js_init)
 
 
 class TestWidgetWhitelisting(TestCase, WagtailTestUtils):

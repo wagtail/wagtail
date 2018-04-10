@@ -13,6 +13,8 @@
 npm-debug.log*
 *.idea/
 /*.egg/
+/.cache/
+/.pytest_cache/
 
 ### JetBrains
 .idea/

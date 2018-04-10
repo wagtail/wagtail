@@ -7,6 +7,8 @@ from django.db import transaction
 from wagtail.search.backends import get_search_backend
 from wagtail.search.index import get_indexed_models
 
+DEFAULT_CHUNK_SIZE = 1000
+
 
 def group_models_by_index(backend, models):
     """
@@ -50,7 +52,7 @@ def group_models_by_index(backend, models):
 
 
 class Command(BaseCommand):
-    def update_backend(self, backend_name, schema_only=False):
+    def update_backend(self, backend_name, schema_only=False, chunk_size=DEFAULT_CHUNK_SIZE):
         self.stdout.write("Updating backend: " + backend_name)
 
         backend = get_search_backend(backend_name)
@@ -80,8 +82,8 @@ class Command(BaseCommand):
                 for model in models:
                     self.stdout.write('{}: {}.{} '.format(backend_name, model._meta.app_label, model.__name__).ljust(35), ending='')
 
-                    # Add items (1000 at a time)
-                    for chunk in self.print_iter_progress(self.queryset_chunks(model.get_indexed_objects().order_by('pk'))):
+                    # Add items (chunk_size at a time)
+                    for chunk in self.print_iter_progress(self.queryset_chunks(model.get_indexed_objects().order_by('pk'), chunk_size)):
                         index.add_items(model, chunk)
                         object_count += len(chunk)
 
@@ -100,6 +102,9 @@ class Command(BaseCommand):
         parser.add_argument(
             '--schema-only', action='store_true', dest='schema_only', default=False,
             help="Prevents loading any data into the index")
+        parser.add_argument(
+            '--chunk_size', action='store', dest='chunk_size', default=DEFAULT_CHUNK_SIZE,
+            help="Set number of records to be fetched at once for inserting into the index")
 
     def handle(self, **options):
         # Get list of backends to index
@@ -115,7 +120,10 @@ class Command(BaseCommand):
 
         # Update backends
         for backend_name in backend_names:
-            self.update_backend(backend_name, schema_only=options.get('schema_only', False))
+            self.update_backend(
+                backend_name,
+                schema_only=options.get('schema_only', False), chunk_size=options.get('chunk_size')
+            )
 
     def print_newline(self):
         self.stdout.write('')
@@ -145,7 +153,7 @@ class Command(BaseCommand):
 
     # Atomic so the count of models doesnt change as it is iterated
     @transaction.atomic
-    def queryset_chunks(self, qs, chunk_size=1000):
+    def queryset_chunks(self, qs, chunk_size=DEFAULT_CHUNK_SIZE):
         """
         Yield a queryset in chunks of at most ``chunk_size``. The chunk yielded
         will be a list, not a queryset. Iterating over the chunks is done in a

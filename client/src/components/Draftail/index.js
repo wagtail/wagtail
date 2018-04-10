@@ -13,6 +13,8 @@ export { default as EmbedBlock } from './blocks/EmbedBlock';
 
 export { default as ModalWorkflowSource } from './sources/ModalWorkflowSource';
 
+import EditorFallback from './EditorFallback/EditorFallback';
+
 // 1024x1024 SVG path rendering of the "↵" character, that renders badly in MS Edge.
 const BR_ICON = 'M.436 633.471l296.897-296.898v241.823h616.586V94.117h109.517v593.796H297.333v242.456z';
 
@@ -61,6 +63,7 @@ const initEditor = (selector, options, currentScript) => {
   field.parentNode.appendChild(editorWrapper);
 
   const serialiseInputValue = rawContentState => {
+    field.rawContentState = rawContentState;
     field.value = JSON.stringify(rawContentState);
   };
 
@@ -80,34 +83,40 @@ const initEditor = (selector, options, currentScript) => {
   } : false;
 
   const rawContentState = JSON.parse(field.value);
+  field.rawContentState = rawContentState;
+
+  const editorRef = (ref) => {
+    // Bind editor instance to its field so it can be accessed imperatively elsewhere.
+    field.draftailEditor = ref;
+  };
 
   const editor = (
-    <DraftailEditor
-      rawContentState={rawContentState}
-      onSave={serialiseInputValue}
-      placeholder={STRINGS.WRITE_HERE}
-      spellCheck={true}
-      enableLineBreak={{
-        description: STRINGS.LINE_BREAK,
-        icon: BR_ICON,
-      }}
-      showUndoControl={{ description: STRINGS.UNDO }}
-      showRedoControl={{ description: STRINGS.REDO }}
-      maxListNesting={4}
-      // Draft.js + IE 11 presents some issues with pasting rich text. Disable rich paste there.
-      stripPastedStyles={IS_IE11}
-      {...options}
-      blockTypes={blockTypes.map(wrapWagtailIcon)}
-      inlineStyles={inlineStyles.map(wrapWagtailIcon)}
-      entityTypes={entityTypes}
-      enableHorizontalRule={enableHorizontalRule}
-    />
+    <EditorFallback field={field}>
+      <DraftailEditor
+        ref={editorRef}
+        rawContentState={rawContentState}
+        onSave={serialiseInputValue}
+        placeholder={STRINGS.WRITE_HERE}
+        spellCheck={true}
+        enableLineBreak={{
+          description: STRINGS.LINE_BREAK,
+          icon: BR_ICON,
+        }}
+        showUndoControl={{ description: STRINGS.UNDO }}
+        showRedoControl={{ description: STRINGS.REDO }}
+        maxListNesting={4}
+        // Draft.js + IE 11 presents some issues with pasting rich text. Disable rich paste there.
+        stripPastedStyles={IS_IE11}
+        {...options}
+        blockTypes={blockTypes.map(wrapWagtailIcon)}
+        inlineStyles={inlineStyles.map(wrapWagtailIcon)}
+        entityTypes={entityTypes}
+        enableHorizontalRule={enableHorizontalRule}
+      />
+    </EditorFallback>
   );
 
-  const draftailEditor = ReactDOM.render(editor, editorWrapper);
-
-  // Bind editor instance to its field so it can be accessed imperatively elsewhere.
-  field.draftailEditor = draftailEditor;
+  ReactDOM.render(editor, editorWrapper);
 };
 
 export default {

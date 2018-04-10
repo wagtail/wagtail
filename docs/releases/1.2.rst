@@ -77,7 +77,7 @@ Minor features
  * WagtailRedirectMiddleware can now ignore the query string if there is no redirect that exactly matches it
  * Order of URL parameters now ignored by redirect middleware
  * Added SQL Server compatibility to image migration
- * Added classnames to Wagtail rich text editor buttons to aid custom styling
+ * Added ``class`` attributes to Wagtail rich text editor buttons to aid custom styling
  * Simplified body_class in default homepage template
  * page_published signal now called with the revision object that was published
  * Added a favicon to the admin interface, customisable by overriding the ``branding_favicon`` block (see :ref:`custom_branding`).

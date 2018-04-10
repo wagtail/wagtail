@@ -243,6 +243,30 @@ SnippetChooserPanel
     See :ref:`snippets` for more information.
 
 
+HelpPanel
+---------
+
+.. module:: wagtail.admin.edit_handlers
+
+.. class:: HelpPanel(content='', template='wagtailadmin/edit_handlers/help_panel.html', heading='', classname='')
+
+    .. attribute:: HelpPanel.content
+
+        HTML string that gets displayed in the panel.
+
+    .. attribute:: HelpPanel.template
+
+        Path to a template rendering the full panel HTML.
+
+    .. attribute:: HelpPanel.heading
+
+        A heading for the help content.
+
+    .. attribute:: HelpPanel.classname
+
+        String of CSS classes given to the panel which are used in formatting and scripted interactivity.
+
+
 Built-in Fields and Choosers
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

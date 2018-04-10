@@ -132,7 +132,7 @@ The backend is configured in settings:
 
 Other than ``BACKEND``, the keys are optional and default to the values shown. Any defined key in ``OPTIONS`` is passed directly to the Elasticsearch constructor as case-sensitive keyword argument (e.g. ``'max_retries': 1``).
 
-``INDEX_SETTINGS`` is a dictionary used to override the default settings to create the index. The default settings are defined inside the ``ElasticsearchSearchBackend`` class in the module ``wagtail/wagtail/wagtailsearch/backends/elasticsearch.py``. Any new key is added, any existing key, if not a dictionary, is replaced with the new value. Here's a sample on how to configure the number of shards and setting the italian LanguageAnalyzer as the default analyzer:
+``INDEX_SETTINGS`` is a dictionary used to override the default settings to create the index. The default settings are defined inside the ``ElasticsearchSearchBackend`` class in the module ``wagtail/wagtail/wagtailsearch/backends/elasticsearch.py``. Any new key is added, any existing key, if not a dictionary, is replaced with the new value. Here's a sample on how to configure the number of shards and setting the Italian LanguageAnalyzer as the default analyzer:
 
 .. code-block:: python
 
