@@ -1,6 +1,6 @@
 from .elasticsearch5 import (
     Elasticsearch5Index, Elasticsearch5Mapping, Elasticsearch5SearchBackend,
-    Elasticsearch5SearchQuery, Elasticsearch5SearchResults)
+    Elasticsearch5SearchQueryCompiler, Elasticsearch5SearchResults)
 
 
 class Elasticsearch6Mapping(Elasticsearch5Mapping):
@@ -40,7 +40,7 @@ class Elasticsearch6Index(Elasticsearch5Index):
     pass
 
 
-class Elasticsearch6SearchQuery(Elasticsearch5SearchQuery):
+class Elasticsearch6SearchQueryCompiler(Elasticsearch5SearchQueryCompiler):
     mapping_class = Elasticsearch6Mapping
 
 
@@ -51,7 +51,7 @@ class Elasticsearch6SearchResults(Elasticsearch5SearchResults):
 class Elasticsearch6SearchBackend(Elasticsearch5SearchBackend):
     mapping_class = Elasticsearch6Mapping
     index_class = Elasticsearch6Index
-    query_class = Elasticsearch6SearchQuery
+    query_class = Elasticsearch6SearchQueryCompiler
     results_class = Elasticsearch6SearchResults
 
 
