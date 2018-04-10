@@ -34,4 +34,6 @@ function createImageChooser(id) {
 }
 
 
-//function createBound
+function createBoundImageChooser(id) {
+    $('#' + id).data('imageChooser', createImageChooser(id));
+}

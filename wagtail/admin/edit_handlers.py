@@ -94,7 +94,7 @@ def extract_panel_definitions_from_model_class(model, exclude=None):
     return panels
 
 
-class EditHandler:
+class EditHandler(metaclass=MediaDefiningClass):
     """
     Abstract class providing sensible default behaviours for objects implementing
     the EditHandler API
