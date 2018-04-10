@@ -425,6 +425,20 @@ class AvatarPreferencesForm(forms.ModelForm):
         label=_("Upload a profile picture"), required=True
     )
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._original_avatar = self.instance.avatar
+
+    def save(self, commit=True):
+        if commit and self._original_avatar and (self._original_avatar != self.cleaned_data['avatar']):
+            # Call delete() on the storage backend directly, as calling self._original_avatar.delete()
+            # will clear the now-updated field on self.instance too
+            try:
+                self._original_avatar.storage.delete(self._original_avatar.name)
+            except IOError:
+                pass  # failure to delete the old avatar shouldn't prevent us from continuing
+        super().save(commit=commit)
+
     class Meta:
         model = UserProfile
         fields = ["avatar"]

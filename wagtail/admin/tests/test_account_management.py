@@ -1,6 +1,5 @@
 import os
 import tempfile
-import unittest
 
 import pytz
 
@@ -514,7 +513,6 @@ class TestAvatarSection(TestCase, WagtailTestUtils):
         profile = UserProfile.get_for_user(get_user_model().objects.get(pk=self.user.pk))
         self.assertIn(os.path.basename(self.avatar.name), profile.avatar.url)
 
-    @unittest.expectedFailure
     @override_settings(MEDIA_ROOT=TMP_MEDIA_ROOT)
     def test_user_upload_another_image_removes_previous_one(self):
         response = self.client.post(reverse('wagtailadmin_account_change_avatar'),
