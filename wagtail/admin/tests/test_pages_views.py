@@ -682,6 +682,15 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertContains(response, '<a href="#tab-promote" class="">Promote</a>')
         self.assertContains(response, '<a href="#tab-dinosaurs" class="">Dinosaurs</a>')
 
+    def test_create_page_with_non_model_field(self):
+        """
+        Test that additional fields defined on the form rather than the model are accepted and rendered
+        """
+        response = self.client.get(reverse('wagtailadmin_pages:add', args=('tests', 'formclassadditionalfieldpage', self.root_page.id)))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/pages/create.html')
+        self.assertContains(response, "Enter SMS authentication code")
+
     def test_create_simplepage_bad_permissions(self):
         # Remove privileges from user
         self.user.is_superuser = False
