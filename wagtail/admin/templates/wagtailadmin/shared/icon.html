@@ -1,2 +1,11 @@
-<span class="{{ classnames }}" {% if decorative %}aria-hidden="true"{% else %}title="{{ title }}"{% endif %}></span>
-{% if show_label %}{{ title }}{% elif not decorative %}<span class="sr-only">{{ title }}</span>{% endif %}
+{% spaceless %}
+{# Reference implementation: components/Icon.js #}
+<svg class="icon icon-{{ name }} {{ class_name }}" aria-hidden="true" focusable="false">
+  <use href="#icon-{{ name }}"></use>
+</svg>
+{% if title %}
+  <span class="visuallyhidden">
+    {{ title }}
+  </span>
+{% endif %}
+{% endspaceless %}

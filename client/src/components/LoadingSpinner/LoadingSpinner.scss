@@ -1,5 +1,7 @@
-.c-spinner::after {
+
+.c-spinner {
     display: inline-block;
+    width: 1em;
+    height: 1em;
     animation: spin 0.5s infinite linear;
-    line-height: 1;
 }

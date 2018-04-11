@@ -39,7 +39,8 @@ class TestHome(TestCase, WagtailTestUtils):
         # check that custom menu items (including classname / attrs parameters) are pulled in
         self.assertContains(
             response,
-            '<a href="http://www.tomroyal.com/teaandkittens/" class="icon icon-kitten" data-fluffy="yes">Kittens!</a>'
+            '<a href="http://www.tomroyal.com/teaandkittens/" class="icon icon-kitten" data-fluffy="yes">Kittens!</a>',
+            html=True
         )
 
         # Check that the explorer menu item is here, with the right start page.

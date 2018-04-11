@@ -10,6 +10,7 @@ $draftail-editor-border: 0;
 $draftail-editor-padding: 0;
 $draftail-editor-background: transparent;
 $draftail-toolbar-radius: 3px;
+$draftail-toolbar-icon-size: 1em;
 
 $draftail-editor-font-family: $font-serif;
 
@@ -73,6 +74,12 @@ $draftail-editor-font-family: $font-serif;
         // Ensure elements within the editor are positioned according to this container.
         position: relative;
     }
+}
+
+.Draftail-ToolbarButton .icon {
+    width: $draftail-toolbar-icon-size;
+    height: $draftail-toolbar-icon-size;
+    vertical-align: middle;
 }
 
 // When in a .full container, the editor has a specific appearance

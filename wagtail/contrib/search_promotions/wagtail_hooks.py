@@ -29,7 +29,7 @@ def register_search_picks_menu_item():
     return SearchPicksMenuItem(
         _('Promoted search results'),
         reverse('wagtailsearchpromotions:index'),
-        classnames='icon icon-pick', order=900
+        icon_name='pick', order=900
     )
 
 

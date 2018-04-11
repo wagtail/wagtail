@@ -31,9 +31,10 @@
 }
 
 .c-explorer__item__link .icon {
-    font-size: 2em;
+    width: 2em;
+    height: 2em;
     color: $c-explorer-secondary;
-    margin-right: 0.5rem;
+    margin-right: 0.75rem;
 }
 
 .c-explorer__item__title {
@@ -78,6 +79,11 @@
 
 .c-explorer__item__action--small {
     font-size: 1.2em;
+}
+
+.icon--item-action {
+    width: 1em;
+    height: 1em;
 }
 
 .c-explorer__meta {

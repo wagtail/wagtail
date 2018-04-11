@@ -74,9 +74,9 @@
         border-left: 3px solid transparent;
 
         &:before {
-            font-size: 1rem;
-            vertical-align: -20%;
-            margin-right: 0.5em;
+            font-size: 1.25em;
+            vertical-align: text-top;
+            margin-right: 0.25em;
         }
 
         // only really used for spinners and settings menu
@@ -125,18 +125,38 @@
     }
 }
 
-.submenu-trigger:after {
+.icon--menuitem {
+    width: 1.25em;
+    height: 1.25em;
+    margin-right: 0.25em;
+    vertical-align: text-top;
+}
+
+.icon--submenu-trigger {
+    // The menus are collapsible on desktop only.
+    display: none;
     @include media-breakpoint-up(sm) {
-        // The menus are collapsible on desktop only.
-        content: map-get($icons, arrow-right);
-        width: auto;
+        display: block;
+        width: 1.5em;
+        height: 1.5em;
+        position: absolute;
+        top: 0.8125em;
+        right: 0.5em;
         @include transition(transform 0.3s ease);
 
-        .submenu-active > & {
+        .menu-item.submenu-active & {
             transform-origin: 50% 50%;
             transform: rotate(180deg);
         }
     }
+}
+
+.icon--submenu-header {
+    display: block;
+    width: 4rem;
+    height: 4rem;
+    margin: 0 auto 0.8em;
+    opacity: 0.15;
 }
 
 .nav-submenu {
@@ -152,6 +172,10 @@
 
         &:before {
             margin-left: -1.5em;
+        }
+
+        .icon--menuitem {
+            margin-left: -1.75em;
         }
 
         &:hover {

@@ -8,7 +8,7 @@ import PublicationStatus from '../../components/PublicationStatus/PublicationSta
 
 // Hoist icons in the explorer item, as it is re-rendered many times.
 const childrenIcon = (
-  <Icon name="folder-inverse" />
+  <Icon name="folder-inverse" className="icon--menuitem" />
 );
 
 /**
@@ -39,7 +39,7 @@ const ExplorerItem = ({ item, onClick }) => {
         href={`${ADMIN_URLS.PAGES}${id}/edit/`}
         className="c-explorer__item__action c-explorer__item__action--small"
       >
-        <Icon name="edit" title={STRINGS.EDIT_PAGE.replace('{title}', title)} />
+        <Icon name="edit" title={STRINGS.EDIT_PAGE.replace('{title}', title)} className="icon--item-action" />
       </Button>
       {hasChildren ? (
         <Button
@@ -47,7 +47,7 @@ const ExplorerItem = ({ item, onClick }) => {
           onClick={onClick}
           href={`${ADMIN_URLS.PAGES}${id}/`}
         >
-          <Icon name="arrow-right" title={STRINGS.VIEW_CHILD_PAGES_OF_PAGE.replace('{title}', title)} />
+          <Icon name="arrow-right" title={STRINGS.VIEW_CHILD_PAGES_OF_PAGE.replace('{title}', title)} className="icon--item-action" />
         </Button>
       ) : null}
     </div>
