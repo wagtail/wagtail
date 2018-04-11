@@ -292,6 +292,7 @@ Contributors
 * Rajeev J Sebastian
 * Coen van der Kamp
 * Sander Tuit
+* Tim Kamanin
 
 Translators
 ===========

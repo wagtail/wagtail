@@ -41,6 +41,7 @@ Changelog
  * Fix: Breadcrumb navigation now respects custom `get_admin_display_title` methods (Arthur Holzner, Wietze Helmantel, Matt Westcott)
  * Fix: Inconsistent order of heading features when adding h1, h5 or h6 as default feature for Hallo RichText editor (Loic Teixeira)
  * Fix: Add invalid password reset link error message (Coen van der Kamp)
+ * Fix: Bypass select/prefetch related optimisation on `update_index` for `ParentalManyToManyField` to fix crash (Tim Kamanin)
 
 
 2.0.1 (04.04.2018)
