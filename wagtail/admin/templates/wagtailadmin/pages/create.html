@@ -73,6 +73,8 @@
     {{ block.super }}
     {% include "wagtailadmin/pages/_editor_js.html" %}
 
+    {{ edit_handler.media }}
+
     <script>
         $(function(){
             $('#page-edit-form .tab-content section.active input').first().trigger('focus');

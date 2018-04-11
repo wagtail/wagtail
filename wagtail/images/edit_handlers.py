@@ -88,3 +88,19 @@ class MultipleImagesPanel(InlinePanel):
     def render_extension_js_init(self):
         return self.render_extension()
 
+    class Media:
+            css = {
+                'screen': ('wagtailimages/css/add-multiple.css',)
+            }
+
+            js = (
+                'wagtailimages/js/vendor/load-image.min.js',
+                'wagtailimages/js/vendor/canvas-to-blob.min.js',
+                'wagtailadmin/js/vendor/jquery.iframe-transport.js',
+                'wagtailadmin/js/vendor/jquery.fileupload.js',
+                'wagtailadmin/js/vendor/jquery.fileupload-process.js',
+                'wagtailimages/js/vendor/jquery.fileupload-image.js',
+                'wagtailimages/js/vendor/jquery.fileupload-validate.js',
+                'wagtailadmin/js/vendor/tag-it.js'
+            )
+

@@ -16,8 +16,8 @@
             <p>{{ help_text }}</p>
             <div class="replace-file-input">
                 <button class="button bicolor icon icon-plus">{% trans "Or choose from your computer" %}</button>
-                <input id="{{self.formset.prefix}}-fileupload" type="file" name="files[]" 
-                       data-url="{% url 'wagtailimages:add_multiple' %}" 
+                <input id="{{self.formset.prefix}}-fileupload" type="file" name="files[]"
+                       data-url="{% url 'wagtailimages:add_multiple' %}"
                        multiple>
             </div>
             {% if collections %}
@@ -63,25 +63,6 @@
                 </div>
             </li>
         </script>
-
-
-
-        <link rel="stylesheet" href="{% static 'wagtailimages/css/add-multiple.css' %}" type="text/css" />
-
-
-        <!-- this exact order of plugins is vital -->
-        <script src="{% static 'wagtailimages/js/vendor/load-image.min.js' %}"></script>
-        <script src="{% static 'wagtailimages/js/vendor/canvas-to-blob.min.js' %}"></script>
-        <script src="{% static 'wagtailadmin/js/vendor/jquery.iframe-transport.js' %}"></script>
-        <script src="{% static 'wagtailadmin/js/vendor/jquery.fileupload.js' %}"></script>
-        <script src="{% static 'wagtailadmin/js/vendor/jquery.fileupload-process.js' %}"></script>
-        <script src="{% static 'wagtailimages/js/vendor/jquery.fileupload-image.js' %}"></script>
-        <script src="{% static 'wagtailimages/js/vendor/jquery.fileupload-validate.js' %}"></script>
-        <script src="{% static 'wagtailadmin/js/vendor/tag-it.js' %}"></script>
-
-
-
-
     </div>
 </fieldset>
 

@@ -5,6 +5,7 @@ from django.core.exceptions import ImproperlyConfigured
 from django.db.models.fields import FieldDoesNotExist
 from django.forms.formsets import DELETION_FIELD_NAME, ORDERING_FIELD_NAME
 from django.forms.models import fields_for_model
+from django.forms.widgets import Media, MediaDefiningClass
 from django.template.loader import render_to_string
 from django.utils.encoding import force_text
 from django.utils.functional import curry
@@ -95,7 +96,7 @@ def extract_panel_definitions_from_model_class(model, exclude=None):
     return panels
 
 
-class EditHandler:
+class EditHandler(metaclass=MediaDefiningClass):
     """
     Abstract class providing sensible default behaviours for objects implementing
     the EditHandler API
@@ -315,6 +316,14 @@ class BaseCompositeEditHandler(EditHandler):
             comparators.extend(child.get_comparison())
 
         return comparators
+
+
+    @property
+    def media(self):
+        media = Media()
+        for handler in self.children:
+            media = media + handler.media
+        return media
 
 
 class BaseFormEditHandler(BaseCompositeEditHandler):
@@ -725,20 +734,30 @@ class InlinePanel(EditHandler):
     template = "wagtailadmin/edit_handlers/inline_panel.html"
 
     def render(self):
-        formset = render_to_string(self.template, {
+        context = {
             'self': self,
             'can_order': self.formset.can_order,
-        })
+        }
+        context.update(self.render_extension())
+        formset = render_to_string(self.template, context)
         js = self.render_js_init()
         return widget_with_script(formset, js)
 
     js_template = "wagtailadmin/edit_handlers/inline_panel.js"
 
     def render_js_init(self):
-        return mark_safe(render_to_string(self.js_template, {
+        context = {
             'self': self,
             'can_order': self.formset.can_order,
-        }))
+        }
+        context.update(self.render_extension_js_init())
+        return mark_safe(render_to_string(self.js_template, context))
+
+    def render_extension(self):
+        return {}
+
+    def render_extension_js_init(self):
+        return {}
 
 
 # This allows users to include the publishing panel in their own per-model override

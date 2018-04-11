@@ -29,4 +29,4 @@ class AdminImageChooser(AdminChooser):
         })
 
     def render_js_init(self, id_, name, value):
-        return "createBoundImageChooser({{id}});".format(id=id_)
+        return "createBoundImageChooser('{id}');".format(id=id_)
