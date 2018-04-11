@@ -4,9 +4,6 @@ from django.utils.safestring import mark_safe
 from wagtail.admin.compare import ForeignObjectComparison
 from wagtail.admin.edit_handlers import InlinePanel, BaseChooserPanel, widget_with_script
 
-
-
-
 from .widgets import AdminImageChooser
 
 
@@ -28,8 +25,6 @@ class ImageFieldComparison(ForeignObjectComparison):
             'image_a': image_a,
             'image_b': image_b,
         })
-
-
 
 
 class MultipleImagesPanel(InlinePanel):
@@ -73,7 +68,6 @@ class MultipleImagesPanel(InlinePanel):
             # no need to show a collections chooser
             collections_to_choose = None
 
-
         form = ImageForm(user=self.request.user)
 
         return {
@@ -89,18 +83,18 @@ class MultipleImagesPanel(InlinePanel):
         return self.render_extension()
 
     class Media:
-            css = {
-                'screen': ('wagtailimages/css/add-multiple.css',)
-            }
+        css = {
+            'screen': ('wagtailimages/css/add-multiple.css',)
+        }
 
-            js = (
-                'wagtailimages/js/vendor/load-image.min.js',
-                'wagtailimages/js/vendor/canvas-to-blob.min.js',
-                'wagtailadmin/js/vendor/jquery.iframe-transport.js',
-                'wagtailadmin/js/vendor/jquery.fileupload.js',
-                'wagtailadmin/js/vendor/jquery.fileupload-process.js',
-                'wagtailimages/js/vendor/jquery.fileupload-image.js',
-                'wagtailimages/js/vendor/jquery.fileupload-validate.js',
-                'wagtailadmin/js/vendor/tag-it.js'
-            )
+        js = (
+            'wagtailimages/js/vendor/load-image.min.js',
+            'wagtailimages/js/vendor/canvas-to-blob.min.js',
+            'wagtailadmin/js/vendor/jquery.iframe-transport.js',
+            'wagtailadmin/js/vendor/jquery.fileupload.js',
+            'wagtailadmin/js/vendor/jquery.fileupload-process.js',
+            'wagtailimages/js/vendor/jquery.fileupload-image.js',
+            'wagtailimages/js/vendor/jquery.fileupload-validate.js',
+            'wagtailadmin/js/vendor/tag-it.js'
+        )
 
