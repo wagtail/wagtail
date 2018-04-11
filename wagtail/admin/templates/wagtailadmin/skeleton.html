@@ -1,5 +1,5 @@
 <!doctype html>
-{% load wagtailadmin_tags i18n %}
+{% load wagtailadmin_tags i18n static %}
 {% get_current_language as LANGUAGE_CODE %}
 {% get_current_language_bidi as LANGUAGE_BIDI %}
 <html class="no-js" lang="{{ LANGUAGE_CODE }}" dir="{% if LANGUAGE_BIDI %}rtl{% else %}ltr{% endif %}">
@@ -28,6 +28,11 @@
             Here are the <a href="https://www.enable-javascript.com/" target="_blank" rel="noopener noreferrer">instructions how to enable JavaScript in your web browser</a>.
         {% endblocktrans %}
     </noscript>
+
+    {# PRO: Icons load instant. No flash. #}
+    {# CON: Adds 90KB each admin page request. Could be about 74KB if we optimise. #}
+    {# Alternative: serve icons via a Django view (make sure it sets cache headers) #}
+    {% icons %}
 
     {% block js %}{% endblock %}
 

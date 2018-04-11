@@ -1,1 +1,13 @@
 @import '../../../../../client/scss/styles';
+
+.svg-icon {
+    width: 2em;
+    height: 2em;
+    transform: translateY(0.7em);
+}
+
+.svg-icon--menu-item {
+    width: 1.125rem;
+    height: 1.125rem;
+    transform: translate(-0.1rem, 0.3rem);
+}

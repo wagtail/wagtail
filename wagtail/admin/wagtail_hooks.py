@@ -638,3 +638,87 @@ def register_locked_pages_menu_item():
 def register_reports_menu():
     return ReportsMenuItem(
         _('Reports'), reports_menu, classnames='icon icon-site', order=9000)
+
+
+@hooks.register('register_icons')
+def register_icons(icons):
+    for icon in [
+        'arrow-down-big.svg',
+        'arrow-down.svg',
+        'arrow-left.svg',
+        'arrow-right.svg',
+        'arrow-up-big.svg',
+        'arrow-up.svg',
+        'arrows-up-down.svg',
+        'bin.svg',
+        'bold.svg',
+        'chain-broken.svg',
+        'code.svg',
+        'cog.svg',
+        'cogs.svg',
+        'collapse-down.svg',
+        'collapse-up.svg',
+        'cross.svg',
+        'date.svg',
+        'doc-empty-inverse.svg',
+        'doc-empty.svg',
+        'doc-full-inverse.svg',
+        'doc-full.svg',  # file-text-alt
+        'download.svg',
+        'edit.svg',
+        'folder-inverse.svg',
+        'folder-open-1.svg',
+        'folder-open-inverse.svg',
+        'folder.svg',
+        'form.svg',
+        'grip.svg',
+        'group.svg',
+        'help.svg',
+        'home.svg',
+        # 'horizontalrule.svg',  # Not an icon, but CSS.
+        'image.svg',  # picture
+        'italic.svg',
+        'link.svg',
+        'list-ol.svg',
+        'list-ul.svg',
+        'lock-open.svg',
+        'lock.svg',
+        'logout.svg',
+        'mail.svg',
+        'media.svg',
+        'no-view.svg',
+        'openquote.svg',
+        'order-down.svg',
+        'order-up.svg',
+        'order.svg',
+        'password.svg',
+        'pick.svg',
+        'pilcrow.svg',
+        'placeholder.svg',  # aka marquee
+        'plus-inverse.svg',
+        'plus.svg',
+        'radio-empty.svg',
+        'radio-full.svg',
+        'redirect.svg',
+        'repeat.svg',
+        'search.svg',
+        'site.svg',
+        'snippet.svg',
+        'spinner.svg',
+        'success.svg',
+        'table.svg',
+        'tag.svg',
+        'tick-inverse.svg',
+        'tick.svg',
+        'time.svg',
+        'title.svg',
+        'undo.svg',
+        'uni52.svg',  # Is this a redundant icon?
+        'user.svg',
+        'view.svg',
+        'wagtail-inverse.svg',
+        'wagtail.svg',
+        'warning.svg',
+    ]:
+        icons.append('wagtailadmin/icons/{}'.format(icon))
+    return icons

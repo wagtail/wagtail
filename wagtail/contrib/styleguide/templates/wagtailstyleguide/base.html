@@ -851,6 +851,111 @@
 
         </section>
 
+        <section id="icons" class="icons">
+            <h2>SVG Icons</h2>
+
+          <style>
+            .spinning {
+              animation-name: spin;
+              animation-duration: 500ms;
+              animation-iteration-count: infinite;
+              animation-timing-function: linear;
+            }
+            @keyframes spin {
+                from {
+                    transform: translateY(0.6em) rotate(0deg);
+                } to {
+                    transform: translateY(0.6em) rotate(360deg);
+                }
+            }
+
+          </style>
+
+            <ul class="unlist">
+                <li>{% icon 'wagtail-icon' %} wagtail</li> {# Note: There is 'wagtail' id on the body named 'wagtail'. Should prefix (namespace) all icons? #}
+                <li>{% icon 'wagtail-inverse' %} wagtail-inverse</li>
+                <li>{% icon 'cogs' %} cogs</li>
+                <li>{% icon 'doc-empty-inverse' %} doc-empty-inverse</li>
+                <li>{% icon 'doc-empty' %} doc-empty</li>
+                <li>{% icon 'edit' %} edit</li>
+                <li>{% icon 'arrow-up' %} arrow-up</li>
+                <li>{% icon 'arrow-down' %} arrow-down</li>
+                <li>{% icon 'search' %} search</li>
+                <li>{% icon 'cross' %} cross</li>
+                <li>{% icon 'folder-open-1' %} folder-open-1</li>
+                <li>{% icon 'folder-inverse' %} folder-inverse</li>
+                <li>{% icon 'mail' %} mail</li>
+                <li>{% icon 'arrows-up-down' %} arrows-up-down</li>
+                <li>{% icon 'lock' %} lock (locked)</li>
+                <li>{% icon 'lock-open' %} lock-open (unlocked)</li>
+                <li>{% icon 'arrow-right' %} arrow-right</li>
+                <li>{% icon 'doc-full' %} doc-full / file-text-alt</li>
+                <li>{% icon 'image' %} image / picture</li>
+                <li>{% icon 'doc-full-inverse' %} doc-full-inverse</li>
+                <li>{% icon 'folder' %} folder</li>
+                <li>{% icon 'plus' %} plus</li>
+                <li>{% icon 'tag' %} tag</li>
+                <li>{% icon 'folder-open-inverse' %} folder-open-inverse</li>
+                <li>{% icon 'cog' %} cog</li>
+                <li>{% icon 'tick' %} tick</li>
+                <li>{% icon 'user' %} user</li>
+                <li>{% icon 'arrow-left' %} arrow-left</li>
+                <li>{% icon 'tick-inverse' %} tick-inverse</li>
+                <li>{% icon 'plus-inverse' %} plus-inverse</li>
+                <li>{% icon 'snippet' %} snippet</li>
+                <li>{% icon 'bold' %} bold</li>
+                <li>{% icon 'italic' %} italic</li>
+                <li>{% icon 'undo' %} undo</li>
+                <li>{% icon 'repeat' %} repeat</li>
+                <li>{% icon 'list-ol' %} list-ol</li>
+                <li>{% icon 'list-ul' %} list-ul</li>
+                <li>{% icon 'link' %} link</li>
+                <li>{% icon 'radio-full' %} radio-full</li>
+                <li>{% icon 'radio-empty' %} radio-empty</li>
+                <li>{% icon 'arrow-up-big' %} arrow-up-big</li>
+                <li>{% icon 'arrow-down-big' %} arrow-down-big</li>
+                <li>{% icon 'group' %} group</li>
+                <li>{% icon 'media' %} media</li>
+                <li>{% icon 'horizontalrule' %} horizontalrule (Is CSS and not an icon)</li>
+                <li>{% icon 'password' %} password</li>
+                <li>{% icon 'download' %} download</li>
+                <li>{% icon 'order' %} order</li>
+                <li>{% icon 'grip' %} grip</li>
+                <li>{% icon 'home' %} home</li>
+                <li>{% icon 'order-down' %} order-down</li>
+                <li>{% icon 'order-up' %} order-up</li>
+                <li>{% icon 'bin' %} bin</li>
+
+                {# Append a class name: Add both the original classname `svg-icon` and the custom classname `spinning` #}
+                <li>{% icon 'spinner' 'svg-icon spinning' %} spinner</li>
+
+                <li>{% icon 'pick' %} pick</li>
+                <li>{% icon 'redirect' %} redirect</li>
+                <li>{% icon 'view' %} view</li>
+                <li>{% icon 'no-view' %} no-view</li>
+                <li>{% icon 'collapse-up' %} collapse-up</li>
+                <li>{% icon 'collapse-down' %} collapse-down</li>
+                <li>{% icon 'help' %} help</li>
+                <li>{% icon 'warning' %} warning</li>
+                <li>{% icon 'success' %} success</li>
+                <li>{% icon 'date' %} date</li>
+                <li>{% icon 'time' %} time</li>
+                <li>{% icon 'form' %} form</li>
+                <li>{% icon 'site' %} site</li>
+                <li>{% icon 'placeholder' %} placeholder</li>
+                <li>{% icon 'pilcrow' %} pilcrow</li>
+                <li>{% icon 'title' %} title</li>
+                <li>{% icon 'code' %} code</li>
+                <li>{% icon 'openquote' %} openquote</li>
+                <li>{% icon 'chain-broken' %}  chain-broken</li>
+                <li>{% icon 'table' %} table</li>
+                <li>{% icon 'logout' %} logout</li>
+
+                {# Redundant icon? #}
+                <li>{% icon 'uni52' %} uni52</li>
+
+            </ul>
+        </section>
     </div>
 
 {% endblock %}
