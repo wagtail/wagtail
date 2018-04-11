@@ -11,8 +11,9 @@ export { default as Document } from './decorators/Document';
 export { default as ImageBlock } from './blocks/ImageBlock';
 export { default as EmbedBlock } from './blocks/EmbedBlock';
 
-export { default as ModalWorkflowSource } from './sources/ModalWorkflowSource';
-
+import ModalWorkflowSource from './sources/ModalWorkflowSource';
+import Tooltip from './Tooltip/Tooltip';
+import TooltipEntity from './decorators/TooltipEntity';
 import EditorFallback from './EditorFallback/EditorFallback';
 
 // 1024x1024 SVG path rendering of the "↵" character, that renders badly in MS Edge.
@@ -122,4 +123,8 @@ const initEditor = (selector, options, currentScript) => {
 export default {
   initEditor,
   registerPlugin,
+  // Components exposed for third-party reuse.
+  ModalWorkflowSource,
+  Tooltip,
+  TooltipEntity,
 };
