@@ -23,3 +23,11 @@ npm-debug.log*
 *.iws
 coverage/
 client/node_modules
+
+wagtail/contrib/wagtailstyleguide/
+wagtail/wagtailadmin/
+wagtail/wagtaildocs/
+wagtail/wagtailembeds/
+wagtail/wagtailimages/
+wagtail/wagtailsnippets/
+wagtail/wagtailusers/

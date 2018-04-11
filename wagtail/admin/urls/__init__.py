@@ -9,7 +9,7 @@ from django.views.defaults import page_not_found
 from wagtail.admin.urls import pages as wagtailadmin_pages_urls
 from wagtail.admin.urls import collections as wagtailadmin_collections_urls
 from wagtail.admin.urls import password_reset as wagtailadmin_password_reset_urls
-from wagtail.admin.views import account, chooser, home, pages, tags, userbar
+from wagtail.admin.views import account, chooser, home, pages, tags, userbar, icons
 from wagtail.admin.api import urls as api_urls
 from wagtail.core import hooks
 from wagtail.utils.urlpatterns import decorate_urlpatterns
@@ -78,6 +78,8 @@ urlpatterns = decorate_urlpatterns(urlpatterns, require_admin_access)
 
 # These url patterns do not require an authenticated admin user
 urlpatterns += [
+    url(r'^sprite.svg$', icons.sprite, name='wagtailadmin_icons'),
+
     url(r'^login/$', account.LoginView.as_view(), name='wagtailadmin_login'),
 
     # These two URLs have the "permission_required" decorator applied directly

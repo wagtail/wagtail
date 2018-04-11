@@ -392,3 +392,26 @@ def avatar_url(user, size=50):
             return gravatar_url
 
     return static('wagtailadmin/images/default-user-avatar.png')
+
+
+@register.inclusion_tag("wagtailadmin/shared/icon.html")
+def icon(id_selector, class_selectors='svg-icon'):
+    """
+    Helper for consistent icon tag.
+    """
+    return {'id_selector': id_selector, 'class_selectors': class_selectors}
+
+
+@register.inclusion_tag("wagtailadmin/shared/icons.html")
+def icons():
+    icon_hooks = hooks.get_hooks('register_icons')
+    icons = sorted(itertools.chain.from_iterable(hook([]) for hook in icon_hooks))
+    return {'icons': icons}
+
+
+@register.filter
+def idify(val):
+    """
+    Just a quick hack to go from icon class names to an icon id.
+    """
+    return val.replace('icon icon-', '')

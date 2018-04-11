@@ -7,7 +7,9 @@ import React from 'react';
  */
 const Icon = ({ name, className, title }) => (
   <span>
-    <span className={`icon icon-${name} ${className || ''}`} aria-hidden></span>
+    <svg className={`svg-icon ${className || ''}`}>
+      <use href={`#${name}`}></use>
+    </svg>
     {title ? (
       <span className="visuallyhidden">
         {title}
