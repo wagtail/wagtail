@@ -508,7 +508,10 @@ class FieldPanel(EditHandler):
         comparator_class = self.get_comparison_class()
 
         if comparator_class:
-            return [curry(comparator_class, self.db_field)]
+            try:
+                return [curry(comparator_class, self.db_field)]
+            except FieldDoesNotExist:
+                return []
         return []
 
     @cached_property
