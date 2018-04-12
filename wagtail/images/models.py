@@ -104,7 +104,7 @@ class AbstractImage(CollectionMember, index.Indexed, models.Model):
                 # Have to catch everything, because the exception
                 # depends on the file subclass, and therefore the
                 # storage being used.
-                return
+                raise SourceImageIOError('Unable to get file size')
             self.file_size = size
 
             self.save(update_fields=['file_size'])
