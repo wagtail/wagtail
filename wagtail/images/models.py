@@ -97,10 +97,15 @@ class AbstractImage(CollectionMember, index.Indexed, models.Model):
     def get_file_size(self):
         if self.file_size is None:
             try:
-                self.file_size = self.file.size
-            except OSError:
-                # File doesn't exist
+                size = self.file.size
+            except Exception:
+                # File not found
+                #
+                # Have to catch everything, because the exception
+                # depends on the file subclass, and therefore the
+                # storage being used.
                 return
+            self.file_size = size
 
             self.save(update_fields=['file_size'])
 
