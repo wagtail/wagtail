@@ -300,6 +300,7 @@ Contributors
 * Pierre Geier
 * Jérôme Lebleu
 * Victor Miti
+* Andrew Plummer
 
 Translators
 ===========

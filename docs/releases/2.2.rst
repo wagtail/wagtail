@@ -19,5 +19,7 @@ Other features
 Bug fixes
 ~~~~~~~~~
 
+ * Handle all exceptions from ``Image.get_file_size`` (Andrew Plummer)
+
 Upgrade considerations
 ======================

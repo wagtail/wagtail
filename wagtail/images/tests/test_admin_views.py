@@ -373,6 +373,24 @@ class TestImageEditView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailimages/images/edit.html')
 
+    def check_get_missing_file_displays_warning(self):
+        # Need to recreate image to use a custom storage per test.
+        image = Image.objects.create(title="Test image", file=get_test_image_file())
+        image.file.storage.delete(image.file.name)
+
+        response = self.client.get(reverse('wagtailimages:edit', args=(image.pk,)))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailimages/images/edit.html')
+        self.assertContains(response, "File not found")
+
+    def test_get_missing_file_displays_warning_with_default_storage(self):
+        self.check_get_missing_file_displays_warning()
+
+    @override_settings(DEFAULT_FILE_STORAGE='wagtail.tests.dummy_external_storage.DummyExternalStorage')
+    def test_get_missing_file_displays_warning_with_custom_storage(self):
+        self.check_get_missing_file_displays_warning()
+
+
     def get_content(self, f=None):
         if f is None:
             f = self.image.file

@@ -14,7 +14,7 @@ from wagtail.core.models import Collection, Site
 from wagtail.images import get_image_model
 from wagtail.images.exceptions import InvalidFilterSpecError
 from wagtail.images.forms import URLGeneratorForm, get_image_form
-from wagtail.images.models import Filter
+from wagtail.images.models import Filter, SourceImageIOError
 from wagtail.images.permissions import permission_policy
 from wagtail.images.views.serve import generate_signature
 from wagtail.search import index as search_index
@@ -138,11 +138,16 @@ def edit(request, image_id):
                 messages.button(reverse('wagtailimages:delete', args=(image.id,)), _('Delete'))
             ])
 
+    try:
+        filesize = image.get_file_size()
+    except SourceImageIOError:
+        filesize = None
+
     return render(request, "wagtailimages/images/edit.html", {
         'image': image,
         'form': form,
         'url_generator_enabled': url_generator_enabled,
-        'filesize': image.get_file_size(),
+        'filesize': filesize,
         'user_can_delete': permission_policy.user_has_permission_for_instance(
             request.user, 'delete', image
         ),
