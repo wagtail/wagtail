@@ -1,8 +1,7 @@
 from django.template.loader import render_to_string
-from django.utils.safestring import mark_safe
 
 from wagtail.admin.compare import ForeignObjectComparison
-from wagtail.admin.edit_handlers import InlinePanel, BaseChooserPanel, widget_with_script
+from wagtail.admin.edit_handlers import BaseChooserPanel, InlinePanel
 
 from .widgets import AdminImageChooser
 
@@ -37,7 +36,7 @@ class MultipleImagesPanel(InlinePanel):
         self.image_field_name = image_field_name
 
     def clone(self):
-        #. Need to track changes to this method in the InlinePanel class
+        # Need to track changes to this method in the InlinePanel class
         return self.__class__(
             relation_name=self.relation_name,
             image_field_name=self.image_field_name,
@@ -97,4 +96,3 @@ class MultipleImagesPanel(InlinePanel):
             'wagtailimages/js/vendor/jquery.fileupload-validate.js',
             'wagtailadmin/js/vendor/tag-it.js'
         )
-
