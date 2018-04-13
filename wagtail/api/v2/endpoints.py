@@ -20,7 +20,8 @@ from .filters import (
 from .pagination import WagtailPagination
 from .serializers import BaseSerializer, PageSerializer, get_serializer_class
 from .utils import (
-    BadRequestError, filter_page_type, page_models_from_string, parse_fields_parameter, get_object_detail_url)
+    BadRequestError, filter_page_type, get_object_detail_url, page_models_from_string,
+    parse_fields_parameter)
 
 
 class BaseAPIEndpoint(GenericViewSet):
