@@ -49,6 +49,7 @@ Changelog
  * Fix: Background color overflow within the Wagtail documentation (Sergey Fedoseev)
  * Fix: Page count on homepage summary panel now takes account of user permissions (Andy Chosak)
  * Fix: Explorer view now prevents navigating outside of the common ancestor of the user's permissions (Andy Chosak)
+ * Fix: Generate URL for the current site when multiple sites share the same root page (Codie Roelf)
 
 
 2.0.1 (04.04.2018)
