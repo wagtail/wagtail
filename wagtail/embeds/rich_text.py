@@ -3,55 +3,46 @@ from draftjs_exporter.dom import DOM
 from wagtail.admin.rich_text.converters import editor_html
 from wagtail.admin.rich_text.converters.contentstate_models import Entity
 from wagtail.admin.rich_text.converters.html_to_contentstate import AtomicBlockEntityElementHandler
+from wagtail.core.rich_text.feature_registry import LinkHandler
 from wagtail.embeds import embeds, format
+from wagtail.embeds.embeds import get_embed
 from wagtail.embeds.exceptions import EmbedException
+from wagtail.embeds.models import Embed
 
 
-# Front-end conversion
+# Front-end + hallo.js / editor-html conversions
 
-def media_embedtype_handler(attrs):
-    """
-    Given a dict of attributes from the <embed> tag, return the real HTML
-    representation for use on the front-end.
-    """
-    return format.embed_to_frontend_html(attrs['url'])
+class EmbedHandler(LinkHandler):
+    link_type = 'media'
 
+    @staticmethod
+    def get_model():
+        return Embed
 
-# hallo.js / editor-html conversion
+    @classmethod
+    def get_instance(cls, attrs):
+        return get_embed(attrs['url'])
 
-class MediaEmbedHandler:
-    """
-    MediaEmbedHandler will be invoked whenever we encounter an element in HTML content
-    with an attribute of data-embedtype="media". The resulting element in the database
-    representation will be:
-    <embed embedtype="media" url="http://vimeo.com/XXXXX">
-    """
     @staticmethod
     def get_db_attributes(tag):
-        """
-        Given a tag that we've identified as a media embed (because it has a
-        data-embedtype="media" attribute), return a dict of the attributes we should
-        have on the resulting <embed> element.
-        """
         return {
             'url': tag['data-url'],
         }
 
-    @staticmethod
-    def expand_db_attributes(attrs):
-        """
-        Given a dict of attributes from the <embed> tag, return the real HTML
-        representation for use within the editor.
-        """
-        try:
-            return format.embed_to_editor_html(attrs['url'])
-        except EmbedException:
-            # Could be replaced with a nice error message
-            return ''
+    @classmethod
+    def to_open_tag(cls, attrs, for_editor):
+        if for_editor:
+            try:
+                return format.embed_to_editor_html(attrs['url'])
+            except EmbedException:
+                # Could be replaced with a nice error message
+                return ''
+        else:
+            return format.embed_to_frontend_html(attrs['url'])
 
 
 EditorHTMLEmbedConversionRule = [
-    editor_html.EmbedTypeRule('media', MediaEmbedHandler)
+    editor_html.EmbedTypeRule(EmbedHandler.link_type, EmbedHandler)
 ]
 
 

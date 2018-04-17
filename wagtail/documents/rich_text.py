@@ -1,41 +1,34 @@
-from django.utils.html import escape
 from draftjs_exporter.dom import DOM
 
 from wagtail.admin.rich_text.converters import editor_html
 from wagtail.admin.rich_text.converters.html_to_contentstate import LinkElementHandler
+from wagtail.core.rich_text.feature_registry import LinkHandler
 from wagtail.documents.models import get_document_model
 
 
-# Front-end conversion
+# Front-end + hallo.js / editor-html conversions
 
-def document_linktype_handler(attrs):
-    Document = get_document_model()
-    try:
-        doc = Document.objects.get(id=attrs['id'])
-        return '<a href="%s">' % escape(doc.url)
-    except Document.DoesNotExist:
-        return "<a>"
+class DocumentLinkHandler(LinkHandler):
+    link_type = 'document'
 
+    @staticmethod
+    def get_model():
+        return get_document_model()
 
-# hallo.js / editor-html conversion
-
-class DocumentLinkHandler:
     @staticmethod
     def get_db_attributes(tag):
         return {'id': tag['data-id']}
 
-    @staticmethod
-    def expand_db_attributes(attrs):
-        Document = get_document_model()
-        try:
-            doc = Document.objects.get(id=attrs['id'])
-            return '<a data-linktype="document" data-id="%d" href="%s">' % (doc.id, escape(doc.url))
-        except Document.DoesNotExist:
-            return "<a>"
+    @classmethod
+    def get_html_attributes(cls, instance, for_editor):
+        attrs = super().get_html_attributes(instance, for_editor)
+        attrs['href'] = instance.url
+        return attrs
 
 
 EditorHTMLDocumentLinkConversionRule = [
-    editor_html.LinkTypeRule('document', DocumentLinkHandler),
+    editor_html.LinkTypeRule(DocumentLinkHandler.link_type,
+                             DocumentLinkHandler),
 ]
 
 

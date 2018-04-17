@@ -24,7 +24,10 @@ def expand_db_html(html):
         embed_rules = features.get_embed_types()
         link_rules = features.get_link_types()
         FRONTEND_REWRITER = MultiRuleRewriter([
-            LinkRewriter(link_rules), EmbedRewriter(embed_rules)
+            LinkRewriter({handler.link_type: handler.to_frontend_open_tag
+                          for handler in link_rules.values()}),
+            EmbedRewriter({handler.link_type: handler.to_frontend_open_tag
+                           for handler in embed_rules.values()})
         ])
 
     return FRONTEND_REWRITER(html)

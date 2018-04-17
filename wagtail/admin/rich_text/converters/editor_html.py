@@ -152,9 +152,9 @@ class EditorHTMLConverter:
         link_rules = {}
         for rule in self.converter_rules:
             if isinstance(rule, EmbedTypeRule):
-                embed_rules[rule.embed_type] = rule.handler.expand_db_attributes
+                embed_rules[rule.embed_type] = rule.handler.to_editor_open_tag
             elif isinstance(rule, LinkTypeRule):
-                link_rules[rule.link_type] = rule.handler.expand_db_attributes
+                link_rules[rule.link_type] = rule.handler.to_editor_open_tag
 
         return MultiRuleRewriter([
             LinkRewriter(link_rules), EmbedRewriter(embed_rules)

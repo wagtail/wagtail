@@ -5,7 +5,7 @@ from mock import patch
 from wagtail.core.models import Page
 from wagtail.core.rich_text import RichText, expand_db_html
 from wagtail.core.rich_text.feature_registry import FeatureRegistry
-from wagtail.core.rich_text.pages import PageLinkHandler, page_linktype_handler
+from wagtail.core.rich_text.pages import PageLinkHandler
 from wagtail.core.rich_text.rewriters import extract_attrs
 
 
@@ -19,26 +19,26 @@ class TestPageLinkHandler(TestCase):
         self.assertEqual(result,
                          {'id': 'test-id'})
 
-    def test_expand_db_attributes_page_does_not_exist(self):
-        result = page_linktype_handler({'id': 0})
+    def test_to_frontend_open_tag_page_does_not_exist(self):
+        result = PageLinkHandler.to_frontend_open_tag({'id': 0})
         self.assertEqual(result, '<a>')
 
-    def test_expand_db_attributes_for_editor(self):
-        result = PageLinkHandler.expand_db_attributes({'id': 1})
+    def test_to_editor_open_tag(self):
+        result = PageLinkHandler.to_editor_open_tag({'id': 1})
         self.assertEqual(
             result,
-            '<a data-linktype="page" data-id="1" href="None">'
+            '<a data-id="1" data-linktype="page" href="None">'
         )
 
         events_page_id = Page.objects.get(url_path='/home/events/').pk
-        result = PageLinkHandler.expand_db_attributes({'id': events_page_id})
+        result = PageLinkHandler.to_editor_open_tag({'id': events_page_id})
         self.assertEqual(
             result,
-            '<a data-linktype="page" data-id="%d" data-parent-id="2" href="/events/">' % events_page_id
+            '<a data-id="%d" data-linktype="page" data-parent-id="2" href="/events/">' % events_page_id
         )
 
-    def test_expand_db_attributes_not_for_editor(self):
-        result = page_linktype_handler({'id': 1})
+    def test_to_frontend_open_tag_not_for_editor(self):
+        result = PageLinkHandler.to_frontend_open_tag({'id': 1})
         self.assertEqual(result, '<a href="None">')
 
 
