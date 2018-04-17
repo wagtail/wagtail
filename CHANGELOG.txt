@@ -50,6 +50,7 @@ Changelog
  * Fix: Page count on homepage summary panel now takes account of user permissions (Andy Chosak)
  * Fix: Explorer view now prevents navigating outside of the common ancestor of the user's permissions (Andy Chosak)
  * Fix: Generate URL for the current site when multiple sites share the same root page (Codie Roelf)
+ * Fix: Restored ability to use non-model fields with FieldPanel (Matt Westcott, LB (Ben Johnston))
 
 
 2.0.1 (04.04.2018)
