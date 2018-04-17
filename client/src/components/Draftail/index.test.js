@@ -1,6 +1,5 @@
 import draftail, {
   wrapWagtailIcon,
-  ModalWorkflowSource,
   Link,
   Document,
   ImageBlock,
@@ -133,9 +132,12 @@ describe('Draftail', () => {
     });
   });
 
-  it('#ModalWorkflowSource', () => expect(ModalWorkflowSource).toBeDefined());
   it('#Link', () => expect(Link).toBeDefined());
   it('#Document', () => expect(Document).toBeDefined());
   it('#ImageBlock', () => expect(ImageBlock).toBeDefined());
   it('#EmbedBlock', () => expect(EmbedBlock).toBeDefined());
+
+  it('#ModalWorkflowSource', () => expect(draftail.ModalWorkflowSource).toBeDefined());
+  it('#Tooltip', () => expect(draftail.Tooltip).toBeDefined());
+  it('#TooltipEntity', () => expect(draftail.TooltipEntity).toBeDefined());
 });

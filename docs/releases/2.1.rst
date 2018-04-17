@@ -42,6 +42,7 @@ Other features
  * Added error handling to the Draftail editor (Thibaud Colas)
  * Add new `wagtail_icon` template tag to facilitate making admin icons accessible (Sander Tuit)
  * Set `ALLOWED_HOSTS` in the project template to allow any host in development (Tom Dyson)
+ * Expose reusable client-side code to build Draftail extensions (Thibaud Colas)
 
 Bug fixes
 ~~~~~~~~~
