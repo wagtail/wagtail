@@ -1,6 +1,7 @@
 from urllib.parse import urlparse
 
 from django.db import models
+from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 
 
@@ -36,6 +37,9 @@ class Redirect(models.Model):
             return self.redirect_page.url
         else:
             return self.redirect_link
+
+    def __str__(self):
+        return '%s → %s' % (self.old_path, self.link)
 
     def get_is_permanent_display(self):
         if self.is_permanent:
@@ -88,6 +92,9 @@ class Redirect(models.Model):
     def clean(self):
         # Normalise old path
         self.old_path = Redirect.normalise_path(self.old_path)
+
+    def get_edit_url(self):
+        return reverse('wagtailredirects:edit', args=(self.pk,))
 
     class Meta:
         verbose_name = _('redirect')

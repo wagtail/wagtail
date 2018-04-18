@@ -12,6 +12,7 @@ from django.views.generic import ListView, TemplateView
 from wagtail.admin import messages
 from wagtail.contrib.forms.forms import SelectDateForm
 from wagtail.contrib.forms.utils import get_forms_for_user
+from wagtail.core.collectors import get_paginated_uses
 from wagtail.core.models import Page
 from wagtail.utils.pagination import DEFAULT_PAGE_KEY
 
@@ -114,7 +115,9 @@ class DeleteSubmissionsView(TemplateView):
 
         self.submissions = self.get_queryset()
 
-        if self.request.method == 'POST':
+        self.uses = get_paginated_uses(request, *self.submissions)
+
+        if self.request.method == 'POST' and not self.uses.are_protected:
             self.handle_delete(self.submissions)
             return redirect(self.get_success_url(), page_id)
 
@@ -127,6 +130,7 @@ class DeleteSubmissionsView(TemplateView):
         context.update({
             'page': self.page,
             'submissions': self.submissions,
+            'uses': self.uses,
         })
 
         return context

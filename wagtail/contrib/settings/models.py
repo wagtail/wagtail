@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 from .registry import register_setting
 
@@ -24,3 +25,8 @@ class BaseSetting(models.Model):
         """
         instance, created = cls.objects.get_or_create(site=site)
         return instance
+
+    def get_edit_url(self):
+        return reverse(
+            'wagtailsettings:edit',
+            args=(self._meta.app_label, self._meta.model_name, self.site_id,))

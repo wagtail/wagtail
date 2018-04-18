@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 
 from wagtail.search.models import Query
@@ -12,6 +13,12 @@ class SearchPromotion(models.Model):
 
     def __repr__(self):
         return 'SearchPromotion(query="' + self.query.query_string + '", page="' + self.page.title + '")'
+
+    def __str__(self):
+        return repr(self)
+
+    def get_edit_url(self):
+        return reverse('wagtailsearchpromotions:edit', args=(self.query.pk,))
 
     class Meta:
         ordering = ('sort_order', )

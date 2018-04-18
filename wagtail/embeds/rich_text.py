@@ -24,6 +24,10 @@ class EmbedHandler(LinkHandler):
         return get_embed(attrs['url'])
 
     @staticmethod
+    def get_id_pair_from_instance(instance: Embed):
+        return 'url', instance.url
+
+    @staticmethod
     def get_db_attributes(tag):
         return {
             'url': tag['data-url'],

@@ -10,6 +10,7 @@ from wagtail.admin import messages
 from wagtail.admin.edit_handlers import ObjectList, extract_panel_definitions_from_model_class
 from wagtail.admin.forms import SearchForm
 from wagtail.admin.utils import permission_denied
+from wagtail.core.collectors import get_paginated_uses
 from wagtail.search.backends import get_search_backend
 from wagtail.search.index import class_is_indexed
 from wagtail.snippets.models import get_snippet_models
@@ -226,7 +227,9 @@ def delete(request, app_label, model_name, pk):
 
     instance = get_object_or_404(model, pk=unquote(pk))
 
-    if request.method == 'POST':
+    uses = get_paginated_uses(request, instance)
+
+    if request.method == 'POST' and not uses.are_protected:
         instance.delete()
         messages.success(
             request,
@@ -240,16 +243,5 @@ def delete(request, app_label, model_name, pk):
     return render(request, 'wagtailsnippets/snippets/confirm_delete.html', {
         'model_opts': model._meta,
         'instance': instance,
-    })
-
-
-def usage(request, app_label, model_name, pk):
-    model = get_snippet_model_from_url_params(app_label, model_name)
-    instance = get_object_or_404(model, pk=unquote(pk))
-
-    paginator, used_by = paginate(request, instance.get_usage())
-
-    return render(request, "wagtailsnippets/snippets/usage.html", {
-        'instance': instance,
-        'used_by': used_by
+        'uses': uses,
     })
