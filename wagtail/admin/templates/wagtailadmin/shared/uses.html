@@ -1,0 +1,27 @@
+{% load i18n %}
+
+
+{% if uses %}
+    <h2>
+        {% trans 'Used by:' %}
+    </h2>
+    <table class="listing">
+        <thead>
+            <tr>
+                <th>{% trans 'object' %}</th>
+                <th>{% trans 'model' %}</th>
+                <th>{% trans 'if you confirm deletion' %}</th>
+            </tr>
+        </thead>
+        {% for use in uses %}
+            <tr>
+                <td>{{ use.get_html }}</td>
+                <td>{{ use.model_name|capfirst }}</td>
+                <td>{{ use.get_on_delete_html }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% if uses.paginator.num_pages > 1 %}
+        {% include 'wagtailadmin/shared/pagination_nav.html' with items=uses %}
+    {% endif %}
+{% endif %}
