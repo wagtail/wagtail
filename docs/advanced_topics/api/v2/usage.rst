@@ -422,6 +422,18 @@ All exported fields will be returned in the response by default. You can use the
 For example: ``/api/v2/pages/1/?fields=_,title,body`` will return just the
 ``title`` and ``body`` of the page with the id of 1.
 
+
+.. _apiv2_finding_pages_by_path:
+
+Finding pages by HTML path
+--------------------------
+
+You can find an individual page by its HTML path using the ``/api/v2/pages/find/?html_path=<path>`` view.
+
+This will return either a ``302`` redirect response to that page's detail view, or a ``404`` not found response.
+
+For example: ``/api/v2/pages/find/?html_path=/`` always redirects to the homepage of the site
+
 Default endpoint fields
 =======================
 

@@ -1,5 +1,5 @@
+import * as Draftail from 'draftail';
 import draftail, {
-  ModalWorkflowSource,
   Link,
   Document,
   ImageBlock,
@@ -10,6 +10,8 @@ import draftail, {
  * Entry point loaded when the Draftail editor is in use.
  */
 
+ // Expose Draftail package as a global.
+window.Draftail = Draftail;
 // Expose module as a global.
 window.draftail = draftail;
 
@@ -17,22 +19,22 @@ window.draftail = draftail;
 const plugins = [
   {
     type: 'DOCUMENT',
-    source: ModalWorkflowSource,
+    source: draftail.ModalWorkflowSource,
     decorator: Document,
   },
   {
     type: 'LINK',
-    source: ModalWorkflowSource,
+    source: draftail.ModalWorkflowSource,
     decorator: Link,
   },
   {
     type: 'IMAGE',
-    source: ModalWorkflowSource,
+    source: draftail.ModalWorkflowSource,
     block: ImageBlock,
   },
   {
     type: 'EMBED',
-    source: ModalWorkflowSource,
+    source: draftail.ModalWorkflowSource,
     block: EmbedBlock,
   },
 ];

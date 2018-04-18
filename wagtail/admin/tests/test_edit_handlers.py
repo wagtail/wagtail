@@ -376,9 +376,14 @@ class TestFieldPanel(TestCase):
         self.end_date_panel = (FieldPanel('date_to', classname='full-width')
                                .bind_to_model(EventPage))
 
-    def test_invalid_field(self):
+    def test_non_model_field(self):
+        # defining a FieldPanel for a field which isn't part of a model is OK,
+        # because it might be defined on the form instead
+        field_panel = FieldPanel('barbecue').bind_to_model(Page)
+
+        # however, accessing db_field will fail
         with self.assertRaises(FieldDoesNotExist):
-            FieldPanel('barbecue').bind_to_model(Page)
+            field_panel.db_field
 
     def test_render_as_object(self):
         form = self.EventPageForm(

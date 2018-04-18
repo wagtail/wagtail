@@ -14,7 +14,13 @@ New ``HelpPanel``
 ~~~~~~~~~~~~~~~~~
 
 A new panel type ``HelpPanel`` allows to easily add HTML within an edit form.
-This new feature was developed by Keving Chung.
+This new feature was developed by Kevin Chung.
+
+
+API lookup by page path
+~~~~~~~~~~~~~~~~~~~~~~~
+
+The API now includes an endpoint for finding pages by path; see :ref:`apiv2_finding_pages_by_path`. This feature was developed by Karl Hobley.
 
 Other features
 ~~~~~~~~~~~~~~
@@ -35,6 +41,9 @@ Other features
  * ImageChooser now sets a default title based on filename (Coen van der Kamp)
  * Added error handling to the Draftail editor (Thibaud Colas)
  * Add new `wagtail_icon` template tag to facilitate making admin icons accessible (Sander Tuit)
+ * Set `ALLOWED_HOSTS` in the project template to allow any host in development (Tom Dyson)
+ * Expose reusable client-side code to build Draftail extensions (Thibaud Colas)
+ * Added ``WAGTAILFRONTENDCACHE_LANGUAGES`` setting to specify the languages whose URLs are to be purged when using ``i18n_patterns`` (PyMan Claudio Marinozzi)
 
 Bug fixes
 ~~~~~~~~~
@@ -59,6 +68,15 @@ Bug fixes
  * Breadcrumb navigation now respects custom ``get_admin_display_title`` methods (Arthur Holzner, Wietze Helmantel, Matt Westcott)
  * Inconsistent order of heading features when adding h1, h5 or h6 as default feature for Hallo RichText editor (Loic Teixeira)
  * Add invalid password reset link error message (Coen van der Kamp)
+ * Bypass select/prefetch related optimisation on ``update_index`` for ``ParentalManyToManyField`` to fix crash (Tim Kamanin)
+ * 'Add user' is now rendered as a button due to the use of quotes within translations (Benoît Vogel)
+ * Menu icon no longer overlaps with title in Modeladmin on mobile (Coen van der Kamp)
+ * Background color overflow within the Wagtail documentation (Sergey Fedoseev)
+ * Page count on homepage summary panel now takes account of user permissions (Andy Chosak)
+ * Explorer view now prevents navigating outside of the common ancestor of the user's permissions (Andy Chosak)
+ * Generate URL for the current site when multiple sites share the same root page (Codie Roelf)
+ * Restored ability to use non-model fields with FieldPanel (Matt Westcott, LB (Ben Johnston))
+ * Stop revision comparison view from crashing when non-model FieldPanels are in use (LB (Ben Johnston))
 
 
 Upgrade considerations

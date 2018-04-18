@@ -282,6 +282,7 @@ Contributors
 * Sebastian Brestin
 * Casper Timmers
 * Kevin Chung
+* Codie Roelf
 * Kim Chee Leong
 * Dan Swain
 * Alexs Mathilda
@@ -292,6 +293,8 @@ Contributors
 * Rajeev J Sebastian
 * Coen van der Kamp
 * Sander Tuit
+* Tim Kamanin
+* Sergey Fedoseev
 
 Translators
 ===========

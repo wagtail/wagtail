@@ -1,8 +1,12 @@
 require('./draftail.entry');
 
 describe('draftail.entry', () => {
-  it('exposes global', () => {
+  it('exposes module as global', () => {
     expect(window.draftail).toBeDefined();
+  });
+
+  it('exposes package as global', () => {
+    expect(window.Draftail).toBeDefined();
   });
 
   it('has defaults registered', () => {

@@ -8,6 +8,10 @@ require('./wagtailadmin.entry');
 describe('wagtailadmin.entry', () => {
   const [event, listener] = document.addEventListener.mock.calls[0];
 
+  it('exposes components for reuse', () => {
+    expect(Object.keys(window.wagtail.components)).toEqual(['Icon', 'Portal']);
+  });
+
   it('DOMContentLoaded', () => {
     expect(event).toBe('DOMContentLoaded');
   });

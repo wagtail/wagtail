@@ -3,6 +3,7 @@ from collections import OrderedDict
 from django.conf.urls import url
 from django.core.exceptions import FieldDoesNotExist
 from django.http import Http404
+from django.shortcuts import redirect
 from django.urls import reverse
 from modelcluster.fields import ParentalKey
 from rest_framework import status
@@ -19,7 +20,8 @@ from .filters import (
 from .pagination import WagtailPagination
 from .serializers import BaseSerializer, PageSerializer, get_serializer_class
 from .utils import (
-    BadRequestError, filter_page_type, page_models_from_string, parse_fields_parameter)
+    BadRequestError, filter_page_type, get_object_detail_url, page_models_from_string,
+    parse_fields_parameter)
 
 
 class BaseAPIEndpoint(GenericViewSet):
@@ -75,6 +77,34 @@ class BaseAPIEndpoint(GenericViewSet):
         instance = self.get_object()
         serializer = self.get_serializer(instance)
         return Response(serializer.data)
+
+    def find_view(self, request):
+        queryset = self.get_queryset()
+
+        try:
+            obj = self.find_object(queryset, request)
+
+            if obj is None:
+                raise self.model.DoesNotExist
+
+        except self.model.DoesNotExist:
+            raise Http404("not found")
+
+        # Generate redirect
+        url = get_object_detail_url(self.request.wagtailapi_router, request, self.model, obj.pk)
+
+        if url is None:
+            # Shouldn't happen unless this endpoint isn't actually installed in the router
+            raise Exception("Cannot generate URL to detail view. Is '{}' installed in the API router?".format(self.__class__.__name__))
+
+        return redirect(url)
+
+    def find_object(self, queryset, request):
+        """
+        Override this to implement more find methods.
+        """
+        if 'id' in request.GET:
+            return queryset.get(id=request.GET['id'])
 
     def handle_exception(self, exc):
         if isinstance(exc, Http404):
@@ -310,6 +340,7 @@ class BaseAPIEndpoint(GenericViewSet):
         return [
             url(r'^$', cls.as_view({'get': 'listing_view'}), name='listing'),
             url(r'^(?P<pk>\d+)/$', cls.as_view({'get': 'detail_view'}), name='detail'),
+            url(r'^find/$', cls.as_view({'get': 'find_view'}), name='find'),
         ]
 
     @classmethod
@@ -405,3 +436,18 @@ class PagesAPIEndpoint(BaseAPIEndpoint):
     def get_object(self):
         base = super().get_object()
         return base.specific
+
+    def find_object(self, queryset, request):
+        if 'html_path' in request.GET and request.site is not None:
+            path = request.GET['html_path']
+            path_components = [component for component in path.split('/') if component]
+
+            try:
+                page, _, _ = request.site.root_page.specific.route(request, path_components)
+            except Http404:
+                return
+
+            if queryset.filter(id=page.id).exists():
+                return page
+
+        return super().find_object(queryset, request)

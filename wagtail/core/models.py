@@ -152,15 +152,16 @@ class Site(models.Model):
     @staticmethod
     def get_site_root_paths():
         """
-        Return a list of (root_path, root_url) tuples, most specific path first -
-        used to translate url_paths into actual URLs with hostnames
+        Return a list of (id, root_path, root_url) tuples, most specific path
+        first - used to translate url_paths into actual URLs with hostnames
         """
         result = cache.get('wagtail_site_root_paths')
 
         if result is None:
             result = [
                 (site.id, site.root_page.url_path, site.root_url)
-                for site in Site.objects.select_related('root_page').order_by('-root_page__url_path')
+                for site in Site.objects.select_related('root_page').order_by(
+                    '-root_page__url_path', 'is_default_site', 'hostname')
             ]
             cache.set('wagtail_site_root_paths', result, 3600)
 
@@ -758,17 +759,35 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         ``request`` directly, and should just pass it to the original method
         when calling ``super``.
         """
-        for (site_id, root_path, root_url) in self._get_site_root_paths(request):
-            if self.url_path.startswith(root_path):
-                page_path = reverse('wagtail_serve', args=(self.url_path[len(root_path):],))
 
-                # Remove the trailing slash from the URL reverse generates if
-                # WAGTAIL_APPEND_SLASH is False and we're not trying to serve
-                # the root path
-                if not WAGTAIL_APPEND_SLASH and page_path != '/':
-                    page_path = page_path.rstrip('/')
+        possible_sites = [
+            (pk, path, url)
+            for pk, path, url in self._get_site_root_paths(request)
+            if self.url_path.startswith(path)
+        ]
 
-                return (site_id, root_url, page_path)
+        if not possible_sites:
+            return None
+
+        site_id, root_path, root_url = possible_sites[0]
+
+        if hasattr(request, 'site'):
+            for site_id, root_path, root_url in possible_sites:
+                if site_id == request.site.pk:
+                    break
+            else:
+                site_id, root_path, root_url = possible_sites[0]
+
+        page_path = reverse(
+            'wagtail_serve', args=(self.url_path[len(root_path):],))
+
+        # Remove the trailing slash from the URL reverse generates if
+        # WAGTAIL_APPEND_SLASH is False and we're not trying to serve
+        # the root path
+        if not WAGTAIL_APPEND_SLASH and page_path != '/':
+            page_path = page_path.rstrip('/')
+
+        return (site_id, root_url, page_path)
 
     def get_full_url(self, request=None):
         """Return the full URL (including protocol / domain) to this page, or None if it is not routable"""

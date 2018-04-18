@@ -1,5 +1,6 @@
 from django.template.loader import render_to_string
 
+from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.admin.utils import user_has_any_page_permission
 from wagtail.core import hooks
 from wagtail.core.models import Page, Site
@@ -26,20 +27,29 @@ class PagesSummaryItem(SummaryItem):
     template = 'wagtailadmin/home/site_summary_pages.html'
 
     def get_context(self):
-        # If there is a single site, link to the homepage of that site
-        # Otherwise, if there are multiple sites, link to the root page
-        try:
-            site = Site.objects.get()
-            root = site.root_page
-            single_site = True
-        except (Site.DoesNotExist, Site.MultipleObjectsReturned):
-            root = None
-            single_site = False
+        root_page = get_explorable_root_page(self.request.user)
+
+        if root_page:
+            page_count = Page.objects.descendant_of(root_page, inclusive=True).count()
+
+            if root_page.is_root():
+                # If the root page the user has access to is the Wagtail root,
+                # subtract one from this count because the root is not a real page.
+                page_count -= 1
+
+                # If precisely one site exists, link to its homepage rather than the
+                # tree root, to discourage people from trying to create pages as siblings
+                # of the homepage (#1883)
+                try:
+                    root_page = Site.objects.get().root_page
+                except (Site.DoesNotExist, Site.MultipleObjectsReturned):
+                    pass
+        else:
+            page_count = 0
 
         return {
-            'single_site': single_site,
-            'root_page': root,
-            'total_pages': Page.objects.count() - 1,  # subtract 1 because the root node is not a real page
+            'root_page': root_page,
+            'total_pages': page_count,
         }
 
     def is_shown(self):

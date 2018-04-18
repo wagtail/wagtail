@@ -485,6 +485,44 @@ class TestDocumentDetail(TestCase):
         self.assertEqual(content, {'message': "'title' does not support nested fields"})
 
 
+class TestDocumentFind(TestCase):
+    fixtures = ['demosite.json']
+
+    def get_response(self, **params):
+        return self.client.get(reverse('wagtailapi_v2:documents:find'), params)
+
+    def test_without_parameters(self):
+        response = self.get_response()
+
+        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response['Content-type'], 'application/json')
+
+        # Will crash if the JSON is invalid
+        content = json.loads(response.content.decode('UTF-8'))
+
+        self.assertEqual(content, {
+            'message': 'not found'
+        })
+
+    def test_find_by_id(self):
+        response = self.get_response(id=5)
+
+        self.assertRedirects(response, 'http://localhost' + reverse('wagtailapi_v2:documents:detail', args=[5]), fetch_redirect_response=False)
+
+    def test_find_by_id_nonexistent(self):
+        response = self.get_response(id=1234)
+
+        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response['Content-type'], 'application/json')
+
+        # Will crash if the JSON is invalid
+        content = json.loads(response.content.decode('UTF-8'))
+
+        self.assertEqual(content, {
+            'message': 'not found'
+        })
+
+
 @override_settings(
     WAGTAILFRONTENDCACHE={
         'varnish': {
