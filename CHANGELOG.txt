@@ -23,6 +23,8 @@ Changelog
  * Added error handling to the Draftail editor (Thibaud Colas)
  * Add new `wagtail_icon` template tag to facilitate making admin icons accessible (Sander Tuit)
  * Set `ALLOWED_HOSTS` in the project template to allow any host in development (Tom Dyson)
+ * Expose reusable client-side code to build Draftail extensions (Thibaud Colas)
+ * Added `WAGTAILFRONTENDCACHE_LANGUAGES` setting to specify the languages whose URLs are to be purged when using `i18n_patterns` (PyMan Claudio Marinozzi)
  * Fix: Status button on 'edit page' now links to the correct URL when live and draft slug differ (LB (Ben Johnston))
  * Fix: Image title text in the gallery and in the chooser now wraps for long filenames (LB (Ben Johnston), Luiz Boaretto)
  * Fix: Move image editor action buttons to the bottom of the form on mobile (Julian Gallo)
@@ -50,6 +52,14 @@ Changelog
  * Fix: Page count on homepage summary panel now takes account of user permissions (Andy Chosak)
  * Fix: Explorer view now prevents navigating outside of the common ancestor of the user's permissions (Andy Chosak)
  * Fix: Generate URL for the current site when multiple sites share the same root page (Codie Roelf)
+ * Fix: Restored ability to use non-model fields with FieldPanel (Matt Westcott, LB (Ben Johnston))
+ * Fix: Stop revision comparison view from crashing when non-model FieldPanels are in use (LB (Ben Johnston))
+
+
+2.0.2 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Restored ability to use non-model fields with FieldPanel (Matt Westcott, LB (Ben Johnston))
 
 
 2.0.1 (04.04.2018)

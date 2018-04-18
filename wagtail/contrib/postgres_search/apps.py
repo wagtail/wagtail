@@ -21,3 +21,6 @@ class PostgresSearchConfig(AppConfig):
         max_weight = BOOSTS_WEIGHTS[0][0]
         WEIGHTS_VALUES.extend([v / max_weight
                                for v, w in reversed(BOOSTS_WEIGHTS)])
+
+        from .models import IndexEntry
+        IndexEntry.add_generic_relations()

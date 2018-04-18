@@ -7,7 +7,7 @@ from django.forms.formsets import DELETION_FIELD_NAME, ORDERING_FIELD_NAME
 from django.forms.models import fields_for_model
 from django.template.loader import render_to_string
 from django.utils.encoding import force_text
-from django.utils.functional import curry
+from django.utils.functional import cached_property, curry
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy
 from taggit.managers import TaggableManager
@@ -508,11 +508,20 @@ class FieldPanel(EditHandler):
         comparator_class = self.get_comparison_class()
 
         if comparator_class:
-            return [curry(comparator_class, self.db_field)]
+            try:
+                return [curry(comparator_class, self.db_field)]
+            except FieldDoesNotExist:
+                return []
         return []
 
-    def on_model_bound(self):
-        self.db_field = self.model._meta.get_field(self.field_name)
+    @cached_property
+    def db_field(self):
+        try:
+            model = self.model
+        except AttributeError:
+            raise ImproperlyConfigured("%r must be bound to a model before calling db_field" % self)
+
+        return model._meta.get_field(self.field_name)
 
     def on_instance_bound(self):
         self.bound_field = self.form[self.field_name]
