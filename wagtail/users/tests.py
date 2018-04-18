@@ -19,6 +19,10 @@ delete_user_perm_codename = "delete_{0}".format(AUTH_USER_MODEL_NAME.lower())
 change_user_perm_codename = "change_{0}".format(AUTH_USER_MODEL_NAME.lower())
 
 
+def test_avatar_provider(user, default, size=50):
+    return '/nonexistent/path/to/avatar.png'
+
+
 class CustomUserCreationForm(UserCreationForm):
     country = forms.CharField(required=True, label="Country")
     attachment = forms.FileField(required=True, label="Attachment")
@@ -929,7 +933,7 @@ class TestUserProfileCreation(TestCase, WagtailTestUtils):
         self.test_user = get_user_model().objects.create_user(
             username='testuser',
             email='testuser@email.com',
-            password='password'
+            password='password',
         )
 
     def test_user_created_without_profile(self):
@@ -941,6 +945,10 @@ class TestUserProfileCreation(TestCase, WagtailTestUtils):
         self.assertIsInstance(UserProfile.get_for_user(self.test_user), UserProfile)
         # and get it from the db too
         self.assertEqual(UserProfile.objects.filter(user=self.test_user).count(), 1)
+
+    def test_avatar_empty_on_profile_creation(self):
+        user_profile = UserProfile.get_for_user(self.test_user)
+        self.assertFalse(user_profile.avatar)
 
 
 class TestUserEditViewForNonSuperuser(TestCase, WagtailTestUtils):
