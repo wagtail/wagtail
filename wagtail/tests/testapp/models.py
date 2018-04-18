@@ -30,7 +30,7 @@ from wagtail.contrib.forms.models import (
 from wagtail.contrib.settings.models import BaseSetting, register_setting
 from wagtail.contrib.sitemaps import Sitemap
 from wagtail.contrib.table_block.blocks import TableBlock
-from wagtail.core.blocks import CharBlock, RawHTMLBlock, RichTextBlock, StructBlock
+from wagtail.core.blocks import CharBlock, ListBlock, RawHTMLBlock, RichTextBlock, StreamBlock, StructBlock
 from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core.models import Orderable, Page, PageManager, PageQuerySet
 from wagtail.documents.edit_handlers import DocumentChooserPanel
@@ -965,6 +965,22 @@ class StreamModel(models.Model):
         ('text', CharBlock()),
         ('rich_text', RichTextBlock()),
         ('image', ImageChooserBlock()),
+        ('struct', StructBlock([
+            ('image', ImageChooserBlock()),
+            ('image_list', ListBlock(ImageChooserBlock())),
+            ('struct_list', ListBlock(
+                StructBlock([
+                    ('image', ImageChooserBlock()),
+                ])
+            )),
+        ])),
+        ('gallery', StreamBlock([
+            ('image', ImageChooserBlock()),
+            ('image_with_caption', StructBlock([
+                ('image', ImageChooserBlock()),
+                ('caption', CharBlock()),
+            ])),
+        ])),
     ])
 
 
