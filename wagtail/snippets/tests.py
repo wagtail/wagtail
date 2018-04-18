@@ -9,13 +9,11 @@ from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.http import HttpRequest, HttpResponse
 from django.test import RequestFactory, TestCase
-from django.test.utils import override_settings
 from django.urls import reverse
 from taggit.models import Tag
 
 from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.admin.forms import WagtailAdminModelForm
-from wagtail.core.models import Page
 from wagtail.snippets.blocks import SnippetChooserBlock
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import SNIPPET_MODELS, register_snippet
@@ -551,24 +549,6 @@ class TestSnippetOrdering(TestCase):
         # may get registered elsewhere during test
         self.assertLess(SNIPPET_MODELS.index(AlphaSnippet),
                         SNIPPET_MODELS.index(ZuluSnippet))
-
-
-class TestUsageCount(TestCase):
-    fixtures = ['test.json']
-
-    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
-    def test_snippet_usage_count(self):
-        advert = Advert.objects.get(pk=1)
-        self.assertEqual(advert.get_usage().count(), 2)
-
-
-class TestUsedBy(TestCase):
-    fixtures = ['test.json']
-
-    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
-    def test_snippet_used_by(self):
-        advert = Advert.objects.get(pk=1)
-        self.assertEqual(type(advert.get_usage()[0]), Page)
 
 
 class TestSnippetChoose(TestCase, WagtailTestUtils):

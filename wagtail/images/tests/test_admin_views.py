@@ -653,7 +653,6 @@ class TestImageDeleteView(TestCase, WagtailTestUtils):
     def post(self, post_data={}):
         return self.client.post(reverse('wagtailimages:delete', args=(self.image.id,)), post_data)
 
-    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=False)
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)

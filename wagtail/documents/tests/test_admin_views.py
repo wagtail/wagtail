@@ -8,10 +8,10 @@ from django.test import TestCase
 from django.test.utils import override_settings
 from django.urls import reverse
 
-from wagtail.core.models import Collection, GroupCollectionPermission, Page
+from wagtail.core.models import Collection, GroupCollectionPermission
 from wagtail.documents import get_document_model, models
 from wagtail.documents.tests.utils import get_test_document_file
-from wagtail.tests.testapp.models import CustomDocument, EventPage, EventPageRelatedLink
+from wagtail.tests.testapp.models import CustomDocument
 from wagtail.tests.utils import WagtailTestUtils
 
 
@@ -991,76 +991,6 @@ class TestDocumentChooserUploadViewWithLimitedPermissions(TestCase, WagtailTestU
 
         # Document should be in the 'evil plans' collection
         self.assertEqual(doc.get().collection, self.evil_plans_collection)
-
-
-class TestUsageCount(TestCase, WagtailTestUtils):
-    fixtures = ['test.json']
-
-    def setUp(self):
-        self.login()
-
-    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
-    def test_unused_document_usage_count(self):
-        doc = models.Document.objects.get(id=1)
-        self.assertEqual(doc.get_usage().count(), 0)
-
-    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
-    def test_used_document_usage_count(self):
-        doc = models.Document.objects.get(id=1)
-        page = EventPage.objects.get(id=4)
-        event_page_related_link = EventPageRelatedLink()
-        event_page_related_link.page = page
-        event_page_related_link.link_document = doc
-        event_page_related_link.save()
-        self.assertEqual(doc.get_usage().count(), 1)
-
-
-class TestGetUsage(TestCase, WagtailTestUtils):
-    fixtures = ['test.json']
-
-    def setUp(self):
-        self.login()
-
-    def test_document_get_usage_not_enabled(self):
-        doc = models.Document.objects.get(id=1)
-        self.assertEqual(list(doc.get_usage()), [])
-
-    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
-    def test_unused_document_get_usage(self):
-        doc = models.Document.objects.get(id=1)
-        self.assertEqual(list(doc.get_usage()), [])
-
-    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
-    def test_used_document_get_usage(self):
-        doc = models.Document.objects.get(id=1)
-        page = EventPage.objects.get(id=4)
-        event_page_related_link = EventPageRelatedLink()
-        event_page_related_link.page = page
-        event_page_related_link.link_document = doc
-        event_page_related_link.save()
-        self.assertTrue(issubclass(Page, type(doc.get_usage()[0])))
-
-    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
-    def test_usage_page(self):
-        doc = models.Document.objects.get(id=1)
-        page = EventPage.objects.get(id=4)
-        event_page_related_link = EventPageRelatedLink()
-        event_page_related_link.page = page
-        event_page_related_link.link_document = doc
-        event_page_related_link.save()
-        response = self.client.get(reverse('wagtaildocs:document_usage',
-                                           args=(1,)))
-        self.assertContains(response, 'Christmas')
-
-    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
-    def test_usage_page_no_usage(self):
-        response = self.client.get(reverse('wagtaildocs:document_usage',
-                                           args=(1,)))
-        # There's no usage so there should be no table rows
-        self.assertRegex(
-            response.content.decode('utf-8'),
-            r'<tbody>(\s|\n)*</tbody>'
-        )
 
 
 class TestEditOnlyPermissions(TestCase, WagtailTestUtils):
