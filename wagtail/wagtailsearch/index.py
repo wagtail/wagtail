@@ -149,7 +149,10 @@ def insert_or_update_object(instance):
                 backend.add(indexed_instance)
             except Exception:
                 # Catch and log all errors
-                logger.exception("Exception raised while adding %r into the '%s' search backend", indexed_instance, backend_name)
+                logger.exception(
+                    "Exception raised while adding %s into the '%s' search backend",
+                    unicode(repr(indexed_instance), 'utf-8'), backend_name
+                )
 
 
 def remove_object(instance):
@@ -161,7 +164,10 @@ def remove_object(instance):
                 backend.delete(indexed_instance)
             except Exception:
                 # Catch and log all errors
-                logger.exception("Exception raised while deleting %r from the '%s' search backend", indexed_instance, backend_name)
+                logger.exception(
+                    "Exception raised while deleting %s from the '%s' search backend",
+                    unicode(repr(indexed_instance), 'utf-8'), backend_name
+                )
 
 
 class BaseField(object):
