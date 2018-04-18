@@ -10,7 +10,6 @@ from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 from taggit.managers import TaggableManager
 
-from wagtail.admin.utils import get_object_usage
 from wagtail.core.models import CollectionMember
 from wagtail.search import index
 from wagtail.search.queryset import SearchableQuerySetMixin
@@ -117,9 +116,6 @@ class AbstractDocument(CollectionMember, index.Indexed, models.Model):
     @property
     def url(self):
         return reverse('wagtaildocs_serve', args=[self.id, self.filename])
-
-    def get_usage(self):
-        return get_object_usage(self)
 
     def get_edit_url(self):
         return reverse('wagtaildocs:edit', args=(self.pk,))

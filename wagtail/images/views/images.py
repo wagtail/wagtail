@@ -287,15 +287,3 @@ def add(request):
     return render(request, "wagtailimages/images/add.html", {
         'form': form,
     })
-
-
-def usage(request, image_id):
-    image = get_object_or_404(get_image_model(), id=image_id)
-
-    paginator = Paginator(image.get_usage(), per_page=20)
-    used_by = paginator.get_page(request.GET.get('p'))
-
-    return render(request, "wagtailimages/images/usage.html", {
-        'image': image,
-        'used_by': used_by
-    })
