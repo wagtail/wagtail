@@ -296,14 +296,6 @@ class TestDocumentEditView(TestCase, WagtailTestUtils):
 
         self.assertContains(response, 'File not found')
 
-    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
-    def test_usage_link(self):
-        response = self.client.get(reverse('wagtaildocs:edit', args=(self.document.id,)))
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtaildocs/documents/edit.html')
-        self.assertContains(response, self.document.usage_url)
-        self.assertContains(response, 'Used 0 times')
-
     def test_reupload_same_name(self):
         """
         Checks that reuploading the document file with the same file name
@@ -366,14 +358,6 @@ class TestDocumentDeleteView(TestCase, WagtailTestUtils):
 
         # Document should be deleted
         self.assertFalse(models.Document.objects.filter(id=self.document.id).exists())
-
-    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
-    def test_usage_link(self):
-        response = self.client.get(reverse('wagtaildocs:delete', args=(self.document.id,)))
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtaildocs/documents/confirm_delete.html')
-        self.assertContains(response, self.document.usage_url)
-        self.assertContains(response, 'Used 0 times')
 
 
 class TestMultipleDocumentUploader(TestCase, WagtailTestUtils):
@@ -931,35 +915,6 @@ class TestUsageCount(TestCase, WagtailTestUtils):
         event_page_related_link.link_document = doc
         event_page_related_link.save()
         self.assertEqual(doc.get_usage().count(), 1)
-
-    def test_usage_count_does_not_appear(self):
-        doc = models.Document.objects.get(id=1)
-        page = EventPage.objects.get(id=4)
-        event_page_related_link = EventPageRelatedLink()
-        event_page_related_link.page = page
-        event_page_related_link.link_document = doc
-        event_page_related_link.save()
-        response = self.client.get(reverse('wagtaildocs:edit',
-                                           args=(1,)))
-        self.assertNotContains(response, 'Used 1 time')
-
-    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
-    def test_usage_count_appears(self):
-        doc = models.Document.objects.get(id=1)
-        page = EventPage.objects.get(id=4)
-        event_page_related_link = EventPageRelatedLink()
-        event_page_related_link.page = page
-        event_page_related_link.link_document = doc
-        event_page_related_link.save()
-        response = self.client.get(reverse('wagtaildocs:edit',
-                                           args=(1,)))
-        self.assertContains(response, 'Used 1 time')
-
-    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
-    def test_usage_count_zero_appears(self):
-        response = self.client.get(reverse('wagtaildocs:edit',
-                                           args=(1,)))
-        self.assertContains(response, 'Used 0 times')
 
 
 class TestGetUsage(TestCase, WagtailTestUtils):

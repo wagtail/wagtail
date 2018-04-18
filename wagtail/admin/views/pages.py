@@ -25,6 +25,7 @@ from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.admin.utils import send_notification, user_has_any_page_permission, user_passes_test
 from wagtail.core import hooks
+from wagtail.core.collectors import get_paginated_uses
 from wagtail.core.models import Page, PageRevision, UserPagePermissionsProxy
 from wagtail.search.query import MATCH_ALL
 
@@ -559,7 +560,9 @@ def delete(request, page_id):
 
         next_url = get_valid_next_url_from_request(request)
 
-        if request.method == 'POST':
+        uses = get_paginated_uses(request, page)
+
+        if request.method == 'POST' and not uses.are_protected:
             parent_id = page.get_parent().id
             page.delete()
 
@@ -576,6 +579,7 @@ def delete(request, page_id):
 
     return render(request, 'wagtailadmin/pages/confirm_delete.html', {
         'page': page,
+        'uses': uses,
         'descendant_count': page.get_descendant_count(),
         'next': next_url,
     })

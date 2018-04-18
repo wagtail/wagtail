@@ -2,6 +2,7 @@ import datetime
 
 from django.conf import settings
 from django.db import models
+from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
@@ -51,6 +52,9 @@ class Query(models.Model):
         return (cls.objects.filter(daily_hits__isnull=False)
                 .annotate(_hits=models.Sum('daily_hits__hits'))
                 .distinct().order_by('-_hits'))
+
+    def get_edit_url(self):
+        return reverse('wagtailsearchpromotions:edit', args=(self.pk,))
 
 
 class QueryDailyHits(models.Model):

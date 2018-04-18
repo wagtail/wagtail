@@ -13,6 +13,7 @@ from wagtail.admin import messages
 from wagtail.admin.edit_handlers import ObjectList, extract_panel_definitions_from_model_class
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.utils import permission_denied
+from wagtail.core.collectors import get_paginated_uses
 from wagtail.search.backends import get_search_backend
 from wagtail.search.index import class_is_indexed
 from wagtail.snippets.models import get_snippet_models
@@ -234,7 +235,9 @@ def delete(request, app_label, model_name, pk=None):
 
     count = len(instances)
 
-    if request.method == 'POST':
+    uses = get_paginated_uses(request, *instances)
+
+    if request.method == 'POST' and not uses.are_protected:
         for instance in instances:
             instance.delete()
 
@@ -261,6 +264,7 @@ def delete(request, app_label, model_name, pk=None):
             reverse('wagtailsnippets:delete-multiple', args=(app_label, model_name))
             + '?' + urlencode([('id', instance.pk) for instance in instances])
         ),
+        'uses': uses,
     })
 
 
