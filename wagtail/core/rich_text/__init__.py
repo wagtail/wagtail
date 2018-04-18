@@ -78,6 +78,10 @@ class EntityHandler:
         return model._default_manager.get(id=attrs['id'])
 
     @staticmethod
+    def get_id_pair_from_instance(instance: Model):
+        return 'id', instance.pk
+
+    @staticmethod
     def expand_db_attributes(attrs: dict) -> str:
         """
         Given a dict of attributes from the entity tag
