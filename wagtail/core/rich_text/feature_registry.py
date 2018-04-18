@@ -149,6 +149,10 @@ class LinkHandler:
             pass
 
     @staticmethod
+    def get_id_pair_from_instance(instance: Model):
+        return 'id', instance.pk
+
+    @staticmethod
     def get_db_attributes(tag: dict) -> dict:
         """
         Given an <`tag_name`> tag that we've identified as a `linktype` embed
