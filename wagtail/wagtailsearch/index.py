@@ -8,6 +8,7 @@ from django.core import checks
 from django.db import models
 from django.db.models.fields import FieldDoesNotExist
 from django.db.models.fields.related import ForeignObjectRel, OneToOneRel, RelatedField
+from django.utils import six
 
 from wagtail.wagtailsearch.backends import get_search_backends_with_name
 
@@ -151,7 +152,7 @@ def insert_or_update_object(instance):
                 # Catch and log all errors
                 logger.exception(
                     "Exception raised while adding %s into the '%s' search backend",
-                    unicode(repr(indexed_instance), 'utf-8'), backend_name
+                    six.text_type(repr(indexed_instance), 'utf-8'), backend_name
                 )
 
 
@@ -166,7 +167,7 @@ def remove_object(instance):
                 # Catch and log all errors
                 logger.exception(
                     "Exception raised while deleting %s from the '%s' search backend",
-                    unicode(repr(indexed_instance), 'utf-8'), backend_name
+                    six.text_type(repr(indexed_instance), 'utf-8'), backend_name
                 )
 
 
