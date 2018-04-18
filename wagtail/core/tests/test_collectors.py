@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.db import connection
 from django.test import TestCase
@@ -267,6 +268,9 @@ class ModelStreamFieldCollectorTest(TestCase):
 class GetAllUsesTest(TestCase):
     def setUp(self):
         self.is_sqlite = connection.vendor == 'sqlite'
+        self.has_postgres_search = connection.vendor == 'postgresql' and any(
+            conf['BACKEND'] == 'wagtail.contrib.postgres_search.backend'
+            for conf in settings.WAGTAILSEARCH_BACKENDS.values())
 
         i = 0
 
@@ -300,26 +304,27 @@ class GetAllUsesTest(TestCase):
         ContentType.objects.clear_cache()
 
     def test_empty(self):
-        with self.assertNumQueries(54):
+        with self.assertNumQueries(57 if self.has_postgres_search else 55):
             uses = list(get_all_uses(self.obj0))
             self.assertListEqual(uses, [])
 
     def test_foreign_key(self):
-        with self.assertNumQueries(55 if self.is_sqlite else 54):
+        with self.assertNumQueries(57 if self.has_postgres_search
+                                   else (56 if self.is_sqlite else 55)):
             uses = list(get_all_uses(self.obj1))
             self.assertListEqual(uses, [self.obj2])
 
     def test_rich_text(self):
-        with self.assertNumQueries(57):
+        with self.assertNumQueries(59 if self.has_postgres_search else 58):
             uses = list(get_all_uses(self.obj3))
             self.assertListEqual(uses, [self.obj4])
 
     def test_streamfield(self):
-        with self.assertNumQueries(57):
+        with self.assertNumQueries(59 if self.has_postgres_search else 58):
             uses = list(get_all_uses(self.obj3))
             self.assertListEqual(uses, [self.obj4])
 
     def test_multiple(self):
-        with self.assertNumQueries(49 if self.is_sqlite else 48):
+        with self.assertNumQueries(50 if self.has_postgres_search or self.is_sqlite else 49):
             uses = list(get_all_uses(self.obj7))
             self.assertListEqual(uses, [self.obj8, self.obj9, self.obj10])
