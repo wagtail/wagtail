@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 from wagtail.core.models import Site
 from wagtail.core.utils import InvokeViaAttributeShortcut
@@ -116,3 +117,8 @@ class BaseSetting(models.Model):
 
         self._page_url_cache[attribute_name] = url
         return url
+
+    def get_edit_url(self):
+        return reverse(
+            'wagtailsettings:edit',
+            args=(self._meta.app_label, self._meta.model_name, self.site_id,))

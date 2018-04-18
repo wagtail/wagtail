@@ -429,15 +429,6 @@ class TestImageEditView(TestCase, WagtailTestUtils):
         # definitions are being respected)
         self.assertNotContains(response, 'wagtailadmin/js/draftail.js')
 
-    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
-    def test_with_usage_count(self):
-        response = self.get()
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailimages/images/edit.html')
-        self.assertContains(response, "Used 0 times")
-        expected_url = '/admin/images/usage/%d/' % self.image.id
-        self.assertContains(response, expected_url)
-
     @override_settings(DEFAULT_FILE_STORAGE='wagtail.tests.dummy_external_storage.DummyExternalStorage')
     def test_simple_with_external_storage(self):
         # The view calls get_file_size on the image that closes the file if
@@ -668,15 +659,6 @@ class TestImageDeleteView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailimages/images/confirm_delete.html')
         self.assertNotIn('Used ', str(response.content))
-
-    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
-    def test_usage_link(self):
-        response = self.get()
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailimages/images/confirm_delete.html')
-        self.assertContains(response, 'Used 0 times')
-        expected_url = '/admin/images/usage/%d/' % self.image.id
-        self.assertContains(response, expected_url)
 
     def test_delete(self):
         response = self.post()

@@ -394,14 +394,6 @@ class TestSnippetDelete(TestCase, WagtailTestUtils):
         # Check that the page is gone
         self.assertEqual(Advert.objects.filter(text='test_advert').count(), 0)
 
-    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
-    def test_usage_link(self):
-        response = self.client.get(reverse('wagtailsnippets:delete', args=('tests', 'advert', quote(self.test_snippet.pk), )))
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailsnippets/snippets/confirm_delete.html')
-        self.assertContains(response, 'Used 2 times')
-        self.assertContains(response, self.test_snippet.usage_url())
-
     def test_after_delete_snippet_hook(self):
         advert = Advert.objects.create(
             url='http://www.example.com/',
@@ -1006,14 +998,6 @@ class TestSnippetViewWithCustomPrimaryKey(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtailsnippets:delete', args=('snippetstests', 'standardsnippetwithcustomprimarykey', quote(self.snippet_a.pk), )))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailsnippets/snippets/confirm_delete.html')
-
-    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
-    def test_usage_link(self):
-        response = self.client.get(reverse('wagtailsnippets:delete', args=('snippetstests', 'standardsnippetwithcustomprimarykey', quote(self.snippet_a.pk), )))
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailsnippets/snippets/confirm_delete.html')
-        self.assertContains(response, 'Used 0 times')
-        self.assertContains(response, self.snippet_a.usage_url())
 
 
 class TestSnippetChooserBlockWithCustomPrimaryKey(TestCase):

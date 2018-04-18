@@ -14,6 +14,7 @@ from wagtail.admin import messages
 from wagtail.admin.auth import PermissionPolicyChecker, permission_denied
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.models import popular_tags_for_model
+from wagtail.core.collectors import get_paginated_uses
 from wagtail.core.models import Collection, Site
 from wagtail.images import get_image_model
 from wagtail.images.exceptions import InvalidFilterSpecError
@@ -254,13 +255,16 @@ def delete(request, image_id):
     if not permission_policy.user_has_permission_for_instance(request.user, 'delete', image):
         return permission_denied(request)
 
-    if request.method == 'POST':
+    uses = get_paginated_uses(request, image)
+
+    if request.method == 'POST' and not uses.are_protected:
         image.delete()
         messages.success(request, _("Image '{0}' deleted.").format(image.title))
         return redirect('wagtailimages:index')
 
     return TemplateResponse(request, "wagtailimages/images/confirm_delete.html", {
         'image': image,
+        'uses': uses,
     })
 
 

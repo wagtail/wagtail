@@ -13,6 +13,7 @@ from wagtail.admin import messages
 from wagtail.admin.auth import any_permission_required, permission_denied, permission_required
 from wagtail.admin.forms.search import SearchForm
 from wagtail.core import hooks
+from wagtail.core.collectors import get_paginated_uses
 from wagtail.core.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
 from wagtail.users.forms import UserCreationForm, UserEditForm
 from wagtail.users.utils import user_can_delete_user
@@ -195,7 +196,10 @@ def delete(request, user_id):
         result = fn(request, user)
         if hasattr(result, 'status_code'):
             return result
-    if request.method == 'POST':
+
+    uses = get_paginated_uses(request, user)
+
+    if request.method == 'POST' and not uses.are_protected:
         user.delete()
         messages.success(request, _("User '{0}' deleted.").format(user))
         for fn in hooks.get_hooks('after_delete_user'):
@@ -206,4 +210,5 @@ def delete(request, user_id):
 
     return TemplateResponse(request, "wagtailusers/users/confirm_delete.html", {
         'user': user,
+        'uses': uses,
     })

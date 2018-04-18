@@ -147,11 +147,6 @@ class AbstractImage(CollectionMember, index.Indexed, models.Model):
     def get_usage(self):
         return get_object_usage(self)
 
-    @property
-    def usage_url(self):
-        return reverse('wagtailimages:image_usage',
-                       args=(self.id,))
-
     search_fields = CollectionMember.search_fields + [
         index.SearchField('title', partial_match=True, boost=10),
         index.AutocompleteField('title'),
@@ -357,6 +352,9 @@ class AbstractImage(CollectionMember, index.Indexed, models.Model):
         from wagtail.images.permissions import permission_policy
         return permission_policy.user_has_permission_for_instance(user, 'change', self)
 
+    def get_edit_url(self):
+        return reverse('wagtailimages:edit', args=(self.pk,))
+
     class Meta:
         abstract = True
 
@@ -500,6 +498,9 @@ class AbstractRendition(models.Model):
     height = models.IntegerField(editable=False)
     focal_point_key = models.CharField(max_length=16, blank=True, default='', editable=False)
 
+    def __str__(self):
+        return self.file.name
+
     @property
     def url(self):
         return self.file.url
@@ -560,6 +561,9 @@ class AbstractRendition(models.Model):
                 )
 
         return errors
+
+    def is_shown_in_uses(self):
+        return False
 
     class Meta:
         abstract = True
