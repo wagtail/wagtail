@@ -152,7 +152,8 @@ def insert_or_update_object(instance):
                 # Catch and log all errors
                 logger.exception(
                     "Exception raised while adding %s into the '%s' search backend",
-                    six.text_type(repr(indexed_instance), 'utf-8'), backend_name
+                    unicode(repr(indexed_instance), 'utf-8') if six.PY2 else repr(indexed_instance),
+                    backend_name,
                 )
 
 
@@ -167,7 +168,8 @@ def remove_object(instance):
                 # Catch and log all errors
                 logger.exception(
                     "Exception raised while deleting %s from the '%s' search backend",
-                    six.text_type(repr(indexed_instance), 'utf-8'), backend_name
+                    unicode(repr(indexed_instance), 'utf-8') if six.PY2 else repr(indexed_instance),
+                    backend_name,
                 )
 
 
