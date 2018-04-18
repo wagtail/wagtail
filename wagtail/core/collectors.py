@@ -5,7 +5,7 @@ from warnings import warn
 from django.apps import apps
 from django.contrib.admin.utils import NestedObjects
 from django.db import DEFAULT_DB_ALIAS
-from django.db.models import Model, Q, CASCADE, PROTECT, SET_DEFAULT, SET_NULL, DO_NOTHING
+from django.db.models import CASCADE, DO_NOTHING, PROTECT, SET_DEFAULT, SET_NULL, Model, Q
 from django.urls import reverse
 from django.utils.html import format_html
 from django.utils.translation import ugettext_lazy as _
@@ -15,7 +15,7 @@ from taggit.models import TaggedItemBase
 from wagtail.core.blocks import (
     ChooserBlock, ListBlock, RichTextBlock, StreamBlock, StreamValue, StructBlock, StructValue)
 from wagtail.core.fields import RichTextField, StreamField
-from wagtail.core.rich_text import features, RichText
+from wagtail.core.rich_text import RichText, features
 from wagtail.core.rich_text.rewriters import FIND_A_TAG, FIND_EMBED_TAG, extract_attrs
 from wagtail.utils.pagination import paginate
 
