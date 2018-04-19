@@ -426,6 +426,22 @@ Date and DateTime inputs
 
 Specifies the date and datetime format to be used in input fields in the Wagtail admin. The format is specified in `Python datetime module syntax <https://docs.python.org/3/library/datetime.html#strftime-strptime-behavior>`_, and must be one of the recognised formats listed in the ``DATE_INPUT_FORMATS`` or ``DATETIME_INPUT_FORMATS`` setting respectively (see `DATE_INPUT_FORMATS <https://docs.djangoproject.com/en/1.10/ref/settings/#std:setting-DATE_INPUT_FORMATS>`_).
 
+.. _WAGTAIL_USER_TIME_ZONES:
+
+Time zones
+----------
+
+Logged-in users can choose their current time zone for the admin interface in the account settings.  If is no time zone selected by the user, then ``TIME_ZONE`` will be used.
+(Note that time zones are only applied to datetime fields, not to plain time or date fields.  This is a Django design decision.)
+
+The list of time zones is by default the common_timezones list from pytz.
+It is possible to override this list via the ``WAGTAIL_USER_TIME_ZONES`` setting.
+If there is zero or one time zone permitted, the account settings form will be hidden.
+
+.. code-block:: python
+
+    WAGTAIL_USER_TIME_ZONES = ['America/Chicago', 'Australia/Sydney', 'Europe/Rome']
+
 .. _WAGTAILADMIN_PERMITTED_LANGUAGES:
 
 Admin languages

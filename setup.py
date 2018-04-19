@@ -33,6 +33,7 @@ install_requires = [
     "Unidecode>=0.04.14,<1.0",
     "Willow>=1.1,<1.2",
     "requests>=2.11.1,<3.0",
+    "l18n",
 ]
 
 # Testing dependencies
