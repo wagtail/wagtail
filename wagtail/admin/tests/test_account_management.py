@@ -1,3 +1,4 @@
+from django.contrib.auth import views as auth_views
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
@@ -555,7 +556,14 @@ class TestPasswordReset(TestCase, WagtailTestUtils):
         self.password_reset_uid = force_text(urlsafe_base64_encode(force_bytes(self.user.pk)))
 
         # Create url_args
-        self.url_kwargs = dict(uidb64=self.password_reset_uid, token=self.password_reset_token)
+        self.url_kwargs = dict(uidb64=self.password_reset_uid, token=auth_views.INTERNAL_RESET_URL_TOKEN)
+
+        # Add token to session object
+        s = self.client.session
+        s.update({
+            auth_views.INTERNAL_RESET_SESSION_TOKEN: self.password_reset_token,
+        })
+        s.save()
 
     def test_password_reset_confirm_view_invalid_link(self):
         """
