@@ -1,3 +1,4 @@
+import l18n
 from django.contrib.auth.views import redirect_to_login as auth_redirect_to_login
 from django.core.exceptions import PermissionDenied
 from django.urls import reverse
@@ -5,7 +6,6 @@ from django.utils.timezone import activate as activate_tz
 from django.utils.translation import activate as activate_lang
 from django.utils.translation import ugettext as _
 
-import l18n
 from wagtail.admin import messages
 
 
