@@ -55,6 +55,7 @@ Changelog
  * Fix: Generate URL for the current site when multiple sites share the same root page (Codie Roelf)
  * Fix: Restored ability to use non-model fields with FieldPanel (Matt Westcott, LB (Ben Johnston))
  * Fix: Stop revision comparison view from crashing when non-model FieldPanels are in use (LB (Ben Johnston))
+ * Fix: Ordering in the page explorer now respects custom `get_admin_display_title` methods when sorting <100 pages (Matt Westcott)
 
 
 2.0.2 (xx.xx.xxxx) - IN DEVELOPMENT

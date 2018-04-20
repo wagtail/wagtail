@@ -250,27 +250,40 @@ class TestPageExplorer(TestCase, WagtailTestUtils):
 
         self.assertContains(response, '/new-event/pointless-suffix/')
 
-    def test_listing_uses_admin_display_title(self):
+    def make_event_pages(self, count):
+        for i in range(count):
+            self.root_page.add_child(instance=SingleEventPage(
+                title="New event " + str(i),
+                location='the moon', audience='public',
+                cost='free', date_from='2001-01-01',
+                latest_revision_created_at=local_datetime(2016, 1, 1)
+            ))
+
+    def test_exploring_uses_specific_page_with_custom_display_title(self):
         # SingleEventPage has a custom get_admin_display_title method; explorer should
         # show the custom title rather than the basic database one
-        self.new_event = SingleEventPage(
-            title="New event",
-            location='the moon', audience='public',
-            cost='free', date_from='2001-01-01',
-            latest_revision_created_at=local_datetime(2016, 1, 1)
-        )
-        self.root_page.add_child(instance=self.new_event)
+        self.make_event_pages(count=1)
         response = self.client.get(reverse('wagtailadmin_explore', args=(self.root_page.id, )))
-        self.assertContains(response, 'New event (single event)')
+        self.assertContains(response, 'New event 0 (single event)')
 
-        response = self.client.get(reverse('wagtailadmin_explore', args=(self.new_event.id, )))
-        self.assertContains(response, 'New event (single event)')
+        new_event = SingleEventPage.objects.latest('pk')
+        response = self.client.get(reverse('wagtailadmin_explore', args=(new_event.id, )))
+        self.assertContains(response, 'New event 0 (single event)')
 
+    def test_ordering_less_than_100_pages_uses_specific_page_with_custom_display_title(self):
         # Reorder view should also use specific pages
         # (provided there are <100 pages in the listing, as this may be a significant
         # performance hit on larger listings)
+        # There are 3 pages created in setUp, so 96 more add to a total of 99.
+        self.make_event_pages(count=96)
         response = self.client.get(reverse('wagtailadmin_explore', args=(self.root_page.id, )) + '?ordering=ord')
-        self.assertContains(response, 'New event (single event)')
+        self.assertContains(response, 'New event 0 (single event)')
+
+    def test_ordering_100_or_more_pages_uses_generic_page_without_custom_display_title(self):
+        # There are 3 pages created in setUp, so 97 more add to a total of 100.
+        self.make_event_pages(count=97)
+        response = self.client.get(reverse('wagtailadmin_explore', args=(self.root_page.id, )) + '?ordering=ord')
+        self.assertNotContains(response, 'New event 0 (single event)')
 
     def test_parent_page_is_specific(self):
         response = self.client.get(reverse('wagtailadmin_explore', args=(self.child_page.id, )))
