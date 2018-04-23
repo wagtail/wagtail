@@ -12,8 +12,6 @@ from wagtail.admin.utils import WAGTAILADMIN_PROVIDED_LANGUAGES, get_available_a
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.users.models import UserProfile
 
-TMP_MEDIA_ROOT = tempfile.mktemp()
-
 
 class TestAuthentication(TestCase, WagtailTestUtils):
     """
@@ -437,7 +435,6 @@ class TestAvatarSection(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, 'wagtailadmin/account/change_avatar.html')
         self.assertContains(response, "Change profile picture")
 
-    @override_settings(MEDIA_ROOT=TMP_MEDIA_ROOT)
     def test_set_custom_avatar_stores_and_get_custom_avatar(self):
         response = self.client.post(reverse('wagtailadmin_account_change_avatar'),
                                     {'avatar': self.avatar},
@@ -448,7 +445,6 @@ class TestAvatarSection(TestCase, WagtailTestUtils):
         profile = UserProfile.get_for_user(get_user_model().objects.get(pk=self.user.pk))
         self.assertIn(os.path.basename(self.avatar.name), profile.avatar.url)
 
-    @override_settings(MEDIA_ROOT=TMP_MEDIA_ROOT)
     def test_user_upload_another_image_removes_previous_one(self):
         response = self.client.post(reverse('wagtailadmin_account_change_avatar'),
                                     {'avatar': self.avatar},
