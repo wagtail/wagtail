@@ -54,7 +54,14 @@ class RedirectMiddleware(MiddlewareMixin):
             if redirect is None:
                 return response
 
+        # Add the querystring back onto the redirect URL if the redirect
+        # does not specify a querystring already.
+        redirect_url = redirect.link
+        redirect_querystring = urlparse(redirect_url).query
+        if not redirect_querystring and request.META['QUERY_STRING']:
+            redirect_url = '{}?{}'.format(redirect_url, request.META['QUERY_STRING'])
+
         if redirect.is_permanent:
-            return http.HttpResponsePermanentRedirect(redirect.link)
+            return http.HttpResponsePermanentRedirect(redirect_url)
         else:
-            return http.HttpResponseRedirect(redirect.link)
+            return http.HttpResponseRedirect(redirect_url)

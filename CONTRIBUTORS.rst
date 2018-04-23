@@ -298,6 +298,7 @@ Contributors
 * Harm Zeinstra
 * David Moore
 * Pierre Geier
+* Matt Segal
 
 Translators
 ===========
