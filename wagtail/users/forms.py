@@ -1,3 +1,4 @@
+import warnings
 from itertools import groupby
 from operator import itemgetter
 
@@ -436,7 +437,8 @@ class AvatarPreferencesForm(forms.ModelForm):
             try:
                 self._original_avatar.storage.delete(self._original_avatar.name)
             except IOError:
-                pass  # failure to delete the old avatar shouldn't prevent us from continuing
+                # failure to delete the old avatar shouldn't prevent us from continuing
+                warnings.warn("Failed to delete old avatar file: %s" % self._original_avatar.name)
         super().save(commit=commit)
 
     class Meta:
