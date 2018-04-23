@@ -297,6 +297,7 @@ Contributors
 * Sergey Fedoseev
 * Harm Zeinstra
 * David Moore
+* Pierre Geier
 
 Translators
 ===========

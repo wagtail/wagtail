@@ -5,6 +5,7 @@ Changelog
 ~~~~~~~~~~~~~~~~
 
  * Add `HelpPanel` to add HTML within an edit form (Keving Chung)
+ * Added direct profile picture upload to account preferences (Daniel Chimeno, Pierre Geier, Matt Westcott)
  * Added API endpoint for finding pages by HTML path (Karl Hobley)
  * Added time zone setting to account preferences (David Moore)
  * Persist tab hash in URL to allow direct navigation to tabs in the admin interface (Ben Weatherman)

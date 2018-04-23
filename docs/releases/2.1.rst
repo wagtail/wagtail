@@ -17,6 +17,12 @@ A new panel type ``HelpPanel`` allows to easily add HTML within an edit form.
 This new feature was developed by Kevin Chung.
 
 
+Profile picture upload
+~~~~~~~~~~~~~~~~~~~~~~
+
+Users can now upload profile pictures directly through the Account Settings menu, rather than using Gravatar. Gravatar is still used as a fallback if no profile picture has been uploaded directly; a new setting :ref:`WAGTAIL_GRAVATAR_PROVIDER_URL <wagtail_gravatar_provider_url>` has been added to specify an alternative provider, or disable the use of external avatars completely. This feature was developed by Daniel Chimeno, Pierre Geier and Matt Westcott.
+
+
 API lookup by page path
 ~~~~~~~~~~~~~~~~~~~~~~~
 

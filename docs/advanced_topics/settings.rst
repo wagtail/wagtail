@@ -231,6 +231,8 @@ This setting lets you change the number of items shown at 'Your most recent edit
 Allows the default ``LoginForm`` to be extended with extra fields.
 
 
+.. _wagtail_gravatar_provider_url:
+
 .. code-block:: python
 
   WAGTAIL_GRAVATAR_PROVIDER_URL = '//www.gravatar.com/avatar'
