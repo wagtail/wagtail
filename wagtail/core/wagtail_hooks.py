@@ -5,7 +5,7 @@ from django.urls import reverse
 
 from wagtail.core import hooks
 from wagtail.core.models import PageViewRestriction
-from wagtail.core.rich_text.pages import page_linktype_handler
+from wagtail.core.rich_text.pages import PageLinkHandler
 
 
 def require_wagtail_login(next):
@@ -40,7 +40,7 @@ def register_core_features(features):
     features.default_features.append('hr')
 
     features.default_features.append('link')
-    features.register_link_type('page', page_linktype_handler)
+    features.register_link_type('page', PageLinkHandler)
 
     features.default_features.append('bold')
 
