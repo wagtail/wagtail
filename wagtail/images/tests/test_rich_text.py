@@ -1,7 +1,8 @@
 from bs4 import BeautifulSoup
 from django.test import TestCase
 
-from wagtail.images.rich_text import ImageEmbedHandler, image_embedtype_handler
+from wagtail.images.rich_text import image_embedtype_handler
+from wagtail.images.rich_text.editor_html import ImageEmbedHandler
 from wagtail.tests.utils import WagtailTestUtils
 
 from .utils import Image, get_test_image_file

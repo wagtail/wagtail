@@ -21,7 +21,8 @@ from wagtail.embeds.finders.embedly import EmbedlyFinder as EmbedlyFinder
 from wagtail.embeds.finders.embedly import AccessDeniedEmbedlyException, EmbedlyException
 from wagtail.embeds.finders.oembed import OEmbedFinder as OEmbedFinder
 from wagtail.embeds.models import Embed
-from wagtail.embeds.rich_text import MediaEmbedHandler, media_embedtype_handler
+from wagtail.embeds.rich_text import media_embedtype_handler
+from wagtail.embeds.rich_text.editor_html import MediaEmbedHandler
 from wagtail.embeds.templatetags.wagtailembeds_tags import embed_tag
 from wagtail.tests.utils import WagtailTestUtils
 

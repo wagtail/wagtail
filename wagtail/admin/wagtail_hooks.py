@@ -10,7 +10,8 @@ from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.admin.rich_text import (
     HalloFormatPlugin, HalloHeadingPlugin, HalloListPlugin, HalloPlugin)
 from wagtail.admin.rich_text.converters.contentstate import link_entity
-from wagtail.admin.rich_text.converters.editor_html import LinkTypeRule, WhitelistRule
+from wagtail.admin.rich_text.converters.editor_html import (
+    LinkTypeRule, PageLinkHandler, WhitelistRule)
 from wagtail.admin.rich_text.converters.html_to_contentstate import (
     BlockElementHandler, ExternalLinkElementHandler, HorizontalRuleHandler,
     InlineStyleElementHandler, ListElementHandler, ListItemElementHandler, PageLinkElementHandler)
@@ -24,7 +25,6 @@ from wagtail.admin.widgets import Button, ButtonWithDropdownFromHook, PageListin
 from wagtail.core import hooks
 from wagtail.core.models import UserPagePermissionsProxy
 from wagtail.core.permissions import collection_permission_policy
-from wagtail.core.rich_text.pages import PageLinkHandler
 from wagtail.core.whitelist import allow_without_attributes, attribute_rule, check_url
 
 
