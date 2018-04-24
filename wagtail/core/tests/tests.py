@@ -37,6 +37,12 @@ class TestPageUrlTags(TestCase):
         result = tpl.render(template.Context({'page': page, 'request': HttpRequest()}))
         self.assertIn('<a href="/events/">Events</a>', result)
 
+    def test_bad_pageurl(self):
+        tpl = template.Template('''{% load wagtailcore_tags %}<a href="{% pageurl page %}">{{ page.title }}</a>''')
+
+        with self.assertRaisesRegex(ValueError, "pageurl tag expected a Page object, got None"):
+            tpl.render(template.Context({'page': None}))
+
     def test_slugurl_without_request_in_context(self):
         tpl = template.Template('''{% load wagtailcore_tags %}<a href="{% slugurl 'events' %}">Events</a>''')
 

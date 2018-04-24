@@ -320,7 +320,6 @@ class PostgresSearchBackend(BaseSearchBackend):
         self.params = params
         if params.get('ATOMIC_REBUILD', False):
             self.rebuilder_class = self.atomic_rebuilder_class
-        IndexEntry.add_generic_relations()
 
     def get_config(self):
         return self.params.get('SEARCH_CONFIG')

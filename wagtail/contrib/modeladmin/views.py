@@ -170,7 +170,9 @@ class ModelFormView(WMABaseView, FormView):
         return redirect(self.get_success_url())
 
     def form_invalid(self, form):
-        messages.error(self.request, self.get_error_message())
+        messages.validation_error(
+            self.request, self.get_error_message(), form
+        )
         return self.render_to_response(self.get_context_data())
 
 

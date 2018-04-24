@@ -59,6 +59,8 @@
                         {% include "wagtailadmin/pages/_preview_button_on_create.html" with label=preview_label icon=1 %}
                     {% endif %}
                 </li>
+                {% block extra_footer_actions %}
+                {% endblock %}
             </ul>
         </footer>
     </form>
