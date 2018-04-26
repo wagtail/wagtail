@@ -1,16 +1,21 @@
+from django.core.exceptions import ObjectDoesNotExist
 from django.utils.html import escape
 
+from wagtail.core.rich_text import LinkHandler
 from wagtail.documents.models import get_document_model
 
 
 # Front-end conversion
 
-class DocumentLinkHandler:
+class DocumentLinkHandler(LinkHandler):
     @staticmethod
-    def expand_db_attributes(attrs):
-        Document = get_document_model()
+    def get_model():
+        return get_document_model()
+
+    @classmethod
+    def expand_db_attributes(cls, attrs):
         try:
-            doc = Document.objects.get(id=attrs['id'])
+            doc = cls.get_instance(attrs)
             return '<a href="%s">' % escape(doc.url)
-        except Document.DoesNotExist:
+        except ObjectDoesNotExist:
             return "<a>"

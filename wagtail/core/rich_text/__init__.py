@@ -1,3 +1,4 @@
+from django.db.models import Model
 from django.utils.safestring import mark_safe
 
 from wagtail.core.rich_text.feature_registry import FeatureRegistry
@@ -50,3 +51,41 @@ class RichText:
     def __bool__(self):
         return bool(self.source)
     __nonzero__ = __bool__
+
+
+class EntityHandler:
+    """
+    An 'entity' is a placeholder tag within the saved rich text, which needs to be rewritten
+    into real HTML at the point of rendering. Typically (but not necessarily) the entity will
+    be a reference to a model to be fetched to have its data output into the rich text content
+    (so that we aren't storing potentially changeable data within the saved rich text).
+
+    An EntityHandler defines how this rewriting is performed.
+
+    Currently Wagtail supports two kinds of entity: links (represented as <a linktype="...">...</a>)
+    and embeds (represented as <embed embedtype="..." />).
+    """
+    @staticmethod
+    def get_model():
+        return NotImplementedError
+
+    @classmethod
+    def get_instance(cls, attrs: dict) -> Model:
+        model = cls.get_model()
+        return model._default_manager.get(id=attrs['id'])
+
+    @staticmethod
+    def expand_db_attributes(attrs: dict) -> str:
+        """
+        Given a dict of attributes from the entity tag
+        stored in the database, returns the real HTML representation.
+        """
+        raise NotImplementedError
+
+
+class LinkHandler(EntityHandler):
+    pass
+
+
+class EmbedHandler(EntityHandler):
+    pass

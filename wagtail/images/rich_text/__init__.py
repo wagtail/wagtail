@@ -1,20 +1,26 @@
+from django.core.exceptions import ObjectDoesNotExist
+
+from wagtail.core.rich_text import EmbedHandler
 from wagtail.images import get_image_model
 from wagtail.images.formats import get_image_format
 
 
 # Front-end conversion
 
-class ImageEmbedHandler:
+class ImageEmbedHandler(EmbedHandler):
     @staticmethod
-    def expand_db_attributes(attrs):
+    def get_model():
+        return get_image_model()
+
+    @classmethod
+    def expand_db_attributes(cls, attrs):
         """
         Given a dict of attributes from the <embed> tag, return the real HTML
         representation for use on the front-end.
         """
-        Image = get_image_model()
         try:
-            image = Image.objects.get(id=attrs['id'])
-        except Image.DoesNotExist:
+            image = cls.get_instance(attrs)
+        except ObjectDoesNotExist:
             return "<img>"
 
         image_format = get_image_format(attrs['format'])

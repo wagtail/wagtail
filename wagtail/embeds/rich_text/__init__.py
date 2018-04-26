@@ -1,9 +1,20 @@
+from wagtail.core.rich_text import EmbedHandler
 from wagtail.embeds import format
+from wagtail.embeds.embeds import get_embed
+from wagtail.embeds.models import Embed
 
 
 # Front-end conversion
 
-class MediaEmbedHandler:
+class MediaEmbedHandler(EmbedHandler):
+    @staticmethod
+    def get_model():
+        return Embed
+
+    @staticmethod
+    def get_instance(attrs):
+        return get_embed(attrs['url'])
+
     @staticmethod
     def expand_db_attributes(attrs):
         """
