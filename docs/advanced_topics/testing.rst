@@ -8,6 +8,36 @@ Wagtail comes with some utilities that simplify writing tests for your site.
 
 .. automodule:: wagtail.tests.utils
 
+
+Fixtures for custom Page models
+===============================
+
+When creating customised Page models in fixtures_, you need to add both a
+`wagtailcore.page` entry, and one for your custom Page model.
+
+Let's say you have a `website` module which defines a `Homepage(Page)` class.
+You could create such a homepage in a fixture with:
+
+.. code-block:: json
+
+    [
+      {
+        "model": "wagtailcore.page",
+        "pk": 3,
+        "fields": {
+          "title": "My Customer's Homepage",
+          "content_type": ["website", "homepage"],
+          "depth": 2
+        }
+      },
+      {
+        "model": "website.homepage",
+        "pk": 3,
+        "fields": {}
+      }
+    ]
+
+
 WagtailPageTests
 ================
 
@@ -102,3 +132,5 @@ Form data helpers
    .. autofunction:: streamfield
 
    .. autofunction:: inline_formset
+
+.. _fixtures: https://docs.djangoproject.com/en/2.0/howto/initial-data/
