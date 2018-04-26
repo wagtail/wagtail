@@ -79,7 +79,7 @@ MultipleImagesPanel
 
 .. class:: MultipleImagesPanel(relation_name, image_field_name, panels=None, classname='', heading='', label='', help_text='', min_num=None, max_num=None)
 
-    This subclass of InlinePanel provides the ability to populate model instances by dragging and dropping one or more images.
+    This subclass of InlinePanel provides the ability to create one or more related model instances by dragging and dropping one or more images.
 
     To use the panel, replace InlinePanel with MultipleImagesPanel, and provide the name of the image field that should be populated by drag and drop.
 
