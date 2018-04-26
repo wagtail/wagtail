@@ -72,6 +72,18 @@ InlinePanel
 
     This is a powerful but complex feature which will take some space to cover, so we'll skip over it for now. For a full explanation on the usage of ``InlinePanel``, see :ref:`inline_panels`.
 
+MultipleImagesPanel
+-------------------
+
+.. module:: wagtail.images.edit_handlers
+
+.. class:: MultipleImagesPanel(relation_name, image_field_name, panels=None, classname='', heading='', label='', help_text='', min_num=None, max_num=None)
+
+    This subclass of InlinePanel provides the ability to populate model instances by dragging and dropping one or more images.
+
+    To use the panel, replace InlinePanel with MultipleImagesPanel, and provide the name of the image field that should be populated by drag and drop.
+
+
 FieldRowPanel
 -------------
 
