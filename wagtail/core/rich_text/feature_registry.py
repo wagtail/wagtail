@@ -68,16 +68,16 @@ class FeatureRegistry:
         except KeyError:
             return None
 
-    def register_link_type(self, link_type, handler):
-        self.link_types[link_type] = handler
+    def register_link_type(self, handler):
+        self.link_types[handler.identifier] = handler
 
     def get_link_types(self):
         if not self.has_scanned_for_features:
             self._scan_for_features()
         return self.link_types
 
-    def register_embed_type(self, embed_type, handler):
-        self.embed_types[embed_type] = handler
+    def register_embed_type(self, handler):
+        self.embed_types[handler.identifier] = handler
 
     def get_embed_types(self):
         if not self.has_scanned_for_features:

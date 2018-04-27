@@ -34,7 +34,7 @@ def editor_js():
 @hooks.register('register_rich_text_features')
 def register_embed_feature(features):
     # define a handler for converting <embed embedtype="media"> tags into frontend HTML
-    features.register_embed_type('media', MediaEmbedHandler)
+    features.register_embed_type(MediaEmbedHandler)
 
     # define a hallo.js plugin to use when the 'embed' feature is active
     features.register_editor_plugin(
