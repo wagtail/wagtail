@@ -8,6 +8,8 @@ from wagtail.documents.models import get_document_model
 # Front-end conversion
 
 class DocumentLinkHandler(LinkHandler):
+    identifier = 'document'
+
     @staticmethod
     def get_model():
         return get_document_model()

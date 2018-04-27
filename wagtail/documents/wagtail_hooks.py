@@ -68,7 +68,7 @@ def editor_js():
 
 @hooks.register('register_rich_text_features')
 def register_document_feature(features):
-    features.register_link_type('document', DocumentLinkHandler)
+    features.register_link_type(DocumentLinkHandler)
 
     features.register_editor_plugin(
         'hallo', 'document-link',

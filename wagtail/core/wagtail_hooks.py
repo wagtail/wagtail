@@ -40,7 +40,7 @@ def register_core_features(features):
     features.default_features.append('hr')
 
     features.default_features.append('link')
-    features.register_link_type('page', PageLinkHandler)
+    features.register_link_type(PageLinkHandler)
 
     features.default_features.append('bold')
 

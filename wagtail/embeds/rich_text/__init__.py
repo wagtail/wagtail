@@ -7,6 +7,8 @@ from wagtail.embeds.models import Embed
 # Front-end conversion
 
 class MediaEmbedHandler(EmbedHandler):
+    identifier = 'media'
+
     @staticmethod
     def get_model():
         return Embed
