@@ -609,7 +609,8 @@ etsy = {
 audioboom = {
     "endpoint": "https://audioboom.com/publishing/oembed.{format}",
     "urls": [
-        "^http(?:s)?://audioboom\\.com/boos/.+$"
+        "^http(?:s)?://audioboom\\.com/boos/.+$",
+        r'^https?://audioboom\.com/posts/.+$',
     ],
 }
 
