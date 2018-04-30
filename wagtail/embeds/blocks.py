@@ -1,3 +1,6 @@
+from django.core.exceptions import ValidationError
+from django.utils.translation import ugettext_lazy as _
+
 from wagtail.core import blocks
 from wagtail.embeds.format import embed_to_frontend_html
 
@@ -12,9 +15,10 @@ class EmbedValue:
     """
     def __init__(self, url):
         self.url = url
+        self.html = embed_to_frontend_html(url)
 
     def __str__(self):
-        return embed_to_frontend_html(self.url)
+        return self.html
 
 
 class EmbedBlock(blocks.URLBlock):
@@ -56,6 +60,11 @@ class EmbedBlock(blocks.URLBlock):
             return None
         else:
             return EmbedValue(value)
+
+    def clean(self, value):
+        if isinstance(value, EmbedValue) and not value.html:
+            raise ValidationError(_('Please enter a valid URL'))
+        return super().clean(value)
 
     class Meta:
         icon = "media"
