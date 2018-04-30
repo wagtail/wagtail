@@ -40,9 +40,12 @@ class TestEditView(TestCase, WagtailTestUtils):
         })
         self.assertRedirects(response, reverse('wagtaildocs:index'))
         self.update_from_db()
-        self.assertFalse(self.storage.exists(old_file.name))
+        # since user has reupload document with same name, Thats why asserting document name remain same
+        self.assertEqual(old_file.name, self.document.file.name)
         self.assertTrue(self.storage.exists(self.document.file.name))
-        self.assertNotEqual(self.document.file.name, 'documents/' + new_name)
+        # because of same document name you are seeing file name matches 'documents/' + new_name
+        # where new_name is equal to old_name
+        self.assertEqual(self.document.file.name, 'documents/' + new_name)
         self.assertEqual(self.document.file.read(),
                          b'An updated test content.')
 
