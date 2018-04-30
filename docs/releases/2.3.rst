@@ -24,6 +24,7 @@ Other features
 
  * Added 'scale' image filter (Oliver Wilkerson)
  * Added meta tag to prevent search engines from indexing admin pages (Karl Hobley)
+ * EmbedBlock now validates against recognised embed providers on save (Bertrand Bordage)
 
 
 Bug fixes
