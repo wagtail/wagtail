@@ -37,6 +37,14 @@ You could create such a homepage in a fixture with:
       }
     ]
 
+Using Dumpdata
+--------------
+
+Django's dumpdata_ command is an easy way to export content to fixtures.
+
+Note that it will represent `content type` by the `pk` instead of the `["app", "model"]` you see above.
+To prevent that, use the `--natural-foreign` switch.
+
 
 WagtailPageTests
 ================
@@ -134,3 +142,4 @@ Form data helpers
    .. autofunction:: inline_formset
 
 .. _fixtures: https://docs.djangoproject.com/en/2.0/howto/initial-data/
+.. _dumpdata: https://docs.djangoproject.com/en/2.0/ref/django-admin/#django-admin-dumpdata
