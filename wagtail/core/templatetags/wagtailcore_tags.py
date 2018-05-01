@@ -2,6 +2,7 @@ from django import template
 from django.template.defaulttags import token_kwargs
 from django.utils.encoding import force_text
 from django.utils.safestring import mark_safe
+from django.urls import reverse
 
 from wagtail import __version__
 from wagtail.core.models import Page
@@ -18,6 +19,9 @@ def pageurl(context, page):
     """
     if not hasattr(page, 'relative_url'):
         raise ValueError("pageurl tag expected a Page object, got %r" % page)
+
+    if getattr(context['request'], 'is_preview', False):
+        return reverse('wagtailadmin_pages:view_draft', args=[page.id])
 
     try:
         current_site = context['request'].site
