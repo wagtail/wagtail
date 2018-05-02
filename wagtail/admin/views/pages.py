@@ -889,7 +889,27 @@ def search(request):
     pages = all_pages = Page.objects.all().prefetch_related('content_type').specific()
     q = MATCH_ALL
     content_types = []
-    pagination_query_params = {}
+    pagination_query_params = QueryDict({}, mutable=True)
+    ordering = None
+
+    if 'ordering' in request.GET:
+        if request.GET['ordering'] in ['title', '-title', 'latest_revision_created_at', '-latest_revision_created_at', 'live', '-live']:
+            ordering = request.GET['ordering']
+
+            if ordering == 'title':
+                pages = pages.order_by('title')
+            elif ordering == '-title':
+                pages = pages.order_by('-title')
+
+            if ordering == 'latest_revision_created_at':
+                pages = pages.order_by('latest_revision_created_at')
+            elif ordering == '-latest_revision_created_at':
+                pages = pages.order_by('-latest_revision_created_at')
+
+            if ordering == 'live':
+                pages = pages.order_by('live')
+            elif ordering == '-live':
+                pages = pages.order_by('-live')
 
     if 'content_type' in request.GET:
         pagination_query_params['content_type'] = request.GET['content_type']
@@ -911,8 +931,8 @@ def search(request):
             q = form.cleaned_data['q']
             pagination_query_params['q'] = q
 
-            all_pages = all_pages.search(q)
-            pages = pages.search(q)
+            all_pages = all_pages.search(q, order_by_relevance=not ordering, operator='and')
+            pages = pages.search(q, order_by_relevance=not ordering, operator='and')
 
             if pages.supports_facet:
                 content_types = [
@@ -932,7 +952,8 @@ def search(request):
             'query_string': q,
             'content_types': content_types,
             'selected_content_type': selected_content_type,
-            'pagination_query_params': '&'.join('{}={}'.format(*p) for p in pagination_query_params.items()),
+            'ordering': ordering,
+            'pagination_query_params': pagination_query_params.urlencode(),
         })
     else:
         return render(request, "wagtailadmin/pages/search.html", {
@@ -942,7 +963,8 @@ def search(request):
             'query_string': q,
             'content_types': content_types,
             'selected_content_type': selected_content_type,
-            'pagination_query_params': '&'.join('{}={}'.format(*p) for p in pagination_query_params.items()),
+            'ordering': ordering,
+            'pagination_query_params': pagination_query_params.urlencode(),
         })
 
 
