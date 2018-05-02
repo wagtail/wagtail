@@ -32,7 +32,7 @@
             </nav>
         {% endif %}
 
-        {% include "wagtailadmin/pages/listing/_list_explore.html" with show_parent=1 %}
+        {% include "wagtailadmin/pages/listing/_list_explore.html" with show_parent=1 sortable=1 not_sortable_by_type=1 %}
 
         {% url 'wagtailadmin_pages:search' as pagination_base_url %}
         {% paginate pages base_url=pagination_base_url %}
