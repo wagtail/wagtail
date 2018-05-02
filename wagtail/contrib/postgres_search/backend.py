@@ -1,9 +1,10 @@
+from collections import OrderedDict
 from warnings import warn
 
 from django.contrib.postgres.search import SearchQuery as PostgresSearchQuery
 from django.contrib.postgres.search import SearchRank, SearchVector
 from django.db import DEFAULT_DB_ALIAS, NotSupportedError, connections, transaction
-from django.db.models import F, Manager, Q, TextField, Value
+from django.db.models import Count, F, Manager, Q, TextField, Value
 from django.db.models.constants import LOOKUP_SEP
 from django.db.models.functions import Cast
 from django.utils.encoding import force_text
@@ -273,6 +274,22 @@ class PostgresSearchResults(BaseSearchResults):
 
     def _do_count(self):
         return self.query_compiler.search(self.backend.get_config(), None, None).count()
+
+    supports_facet = True
+
+    def facet(self, field_name):
+        # Get field
+        field = self.query_compiler._get_filterable_field(field_name)
+        if field is None:
+            pass  # TODO: Error
+
+        query = self.query_compiler.search(self.backend.get_config(), None, None)
+        results = query.values(field_name).annotate(count=Count('id')).order_by('-count')
+
+        return OrderedDict([
+            (result[field_name], result['count'])
+            for result in results
+        ])
 
 
 class PostgresSearchRebuilder:
