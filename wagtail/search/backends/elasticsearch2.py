@@ -1,6 +1,7 @@
 import copy
 import json
 import warnings
+from collections import OrderedDict
 from urllib.parse import urlparse
 
 from django.db import DEFAULT_DB_ALIAS, models
@@ -11,7 +12,7 @@ from elasticsearch import Elasticsearch, NotFoundError
 from elasticsearch.helpers import bulk
 
 from wagtail.search.backends.base import (
-    BaseSearchBackend, BaseSearchQueryCompiler, BaseSearchResults)
+    BaseSearchBackend, BaseSearchQueryCompiler, BaseSearchResults, FilterFieldError)
 from wagtail.search.index import FilterField, Indexed, RelatedFields, SearchField, class_is_indexed
 from wagtail.search.query import (
     And, Boost, Filter, Fuzzy, MatchAll, Not, Or, PlainText, Prefix, Term)
@@ -239,7 +240,7 @@ class Elasticsearch2Mapping:
             value = field.get_value(obj)
 
             if isinstance(field, RelatedFields):
-                if isinstance(value, models.Manager):
+                if isinstance(value, (models.Manager, models.QuerySet)):
                     nested_docs = []
 
                     for nested_obj in value.all():
@@ -251,6 +252,11 @@ class Elasticsearch2Mapping:
                 elif isinstance(value, models.Model):
                     value, extra_edgengrams = self._get_nested_document(field.fields, value)
                     partials.extend(extra_edgengrams)
+            elif isinstance(field, FilterField):
+                if isinstance(value, (models.Manager, models.QuerySet)):
+                    value = list(value.values_list('pk', flat=True))
+                elif isinstance(value, models.Model):
+                    value = value.pk
 
             doc[self.get_field_column_name(field)] = value
 
@@ -601,6 +607,41 @@ class Elasticsearch2SearchQueryCompiler(BaseSearchQueryCompiler):
 
 class Elasticsearch2SearchResults(BaseSearchResults):
     fields_param_name = 'fields'
+    supports_facet = True
+
+    def facet(self, field_name):
+        # Get field
+        field = self.query_compiler._get_filterable_field(field_name)
+        if field is None:
+            raise FilterFieldError(
+                'Cannot facet search results with field "' + field_name + '". Please add index.FilterField(\'' +
+                field_name + '\') to ' + self.query_compiler.queryset.model.__name__ + '.search_fields.',
+                field_name=field_name
+            )
+
+        # Build body
+        body = self._get_es_body()
+        column_name = self.query_compiler.mapping.get_field_column_name(field)
+
+        body['aggregations'] = {
+            field_name: {
+                'terms': {
+                    'field': column_name,
+                }
+            }
+        }
+
+        # Send to Elasticsearch
+        response = self.backend.es.search(
+            index=self.backend.get_index_for_model(self.query_compiler.queryset.model).name,
+            body=body,
+            size=0,
+        )
+
+        return OrderedDict([
+            (bucket['key'], bucket['doc_count'])
+            for bucket in response['aggregations'][field_name]['buckets']
+        ])
 
     def _get_es_body(self, for_count=False):
         body = {
