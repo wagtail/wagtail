@@ -1,3 +1,5 @@
+import os
+
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.translation import ugettext as _
@@ -145,6 +147,21 @@ def edit(request, document_id):
             messages.error(request, _("The document could not be saved due to errors."))
     else:
         form = DocumentForm(instance=doc, user=request.user)
+
+    try:
+        local_path = doc.file.path
+    except NotImplementedError:
+        # Document is hosted externally (eg, S3)
+        local_path = None
+
+    if local_path:
+        # Give error if document file doesn't exist
+        if not os.path.isfile(local_path):
+            messages.error(
+                request,
+                _("The file could not be found. Please change the source or delete the document"),
+                buttons=[messages.button(reverse('wagtaildocs:delete', args=(doc.id,)), _('Delete'))]
+            )
 
     return render(request, "wagtaildocs/documents/edit.html", {
         'document': doc,
