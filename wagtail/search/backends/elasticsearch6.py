@@ -51,7 +51,7 @@ class Elasticsearch6SearchResults(Elasticsearch5SearchResults):
 class Elasticsearch6SearchBackend(Elasticsearch5SearchBackend):
     mapping_class = Elasticsearch6Mapping
     index_class = Elasticsearch6Index
-    query_class = Elasticsearch6SearchQueryCompiler
+    query_compiler_class = Elasticsearch6SearchQueryCompiler
     results_class = Elasticsearch6SearchResults
 
 
