@@ -24,11 +24,11 @@ class TestElasticsearch6SearchQuery(TestCase):
             json.dumps(a, sort_keys=True, default=default), json.dumps(b, sort_keys=True, default=default)
         )
 
-    query_class = Elasticsearch6SearchBackend.query_class
+    query_compiler_class = Elasticsearch6SearchBackend.query_compiler_class
 
     def test_simple(self):
         # Create a query
-        query = self.query_class(models.Book.objects.all(), "Hello")
+        query = self.query_compiler_class(models.Book.objects.all(), "Hello")
 
         # Check it
         expected_result = {'bool': {
@@ -39,7 +39,7 @@ class TestElasticsearch6SearchQuery(TestCase):
 
     def test_none_query_string(self):
         # Create a query
-        query = self.query_class(models.Book.objects.all(), None)
+        query = self.query_compiler_class(models.Book.objects.all(), None)
 
         # Check it
         expected_result = {'bool': {
@@ -50,7 +50,7 @@ class TestElasticsearch6SearchQuery(TestCase):
 
     def test_and_operator(self):
         # Create a query
-        query = self.query_class(models.Book.objects.all(), "Hello", operator='and')
+        query = self.query_compiler_class(models.Book.objects.all(), "Hello", operator='and')
 
         # Check it
         expected_result = {'bool': {
@@ -61,7 +61,7 @@ class TestElasticsearch6SearchQuery(TestCase):
 
     def test_filter(self):
         # Create a query
-        query = self.query_class(models.Book.objects.filter(title="Test"), "Hello")
+        query = self.query_compiler_class(models.Book.objects.filter(title="Test"), "Hello")
 
         # Check it
         expected_result = {'bool': {'filter': [
@@ -72,7 +72,7 @@ class TestElasticsearch6SearchQuery(TestCase):
 
     def test_and_filter(self):
         # Create a query
-        query = self.query_class(models.Book.objects.filter(title="Test", publication_date=datetime.date(2017, 10, 18)), "Hello")
+        query = self.query_compiler_class(models.Book.objects.filter(title="Test", publication_date=datetime.date(2017, 10, 18)), "Hello")
 
         # Check it
         expected_result = {'bool': {'filter': [
@@ -89,7 +89,7 @@ class TestElasticsearch6SearchQuery(TestCase):
 
     def test_or_filter(self):
         # Create a query
-        query = self.query_class(models.Book.objects.filter(Q(title="Test") | Q(publication_date=datetime.date(2017, 10, 18))), "Hello")
+        query = self.query_compiler_class(models.Book.objects.filter(Q(title="Test") | Q(publication_date=datetime.date(2017, 10, 18))), "Hello")
 
         # Make sure field filters are sorted (as they can be in any order which may cause false positives)
         query = query.get_query()
@@ -105,7 +105,7 @@ class TestElasticsearch6SearchQuery(TestCase):
 
     def test_negated_filter(self):
         # Create a query
-        query = self.query_class(models.Book.objects.exclude(publication_date=datetime.date(2017, 10, 18)), "Hello")
+        query = self.query_compiler_class(models.Book.objects.exclude(publication_date=datetime.date(2017, 10, 18)), "Hello")
 
         # Check it
         expected_result = {'bool': {'filter': [
@@ -116,7 +116,7 @@ class TestElasticsearch6SearchQuery(TestCase):
 
     def test_fields(self):
         # Create a query
-        query = self.query_class(models.Book.objects.all(), "Hello", fields=['title'])
+        query = self.query_compiler_class(models.Book.objects.all(), "Hello", fields=['title'])
 
         # Check it
         expected_result = {'bool': {
@@ -127,7 +127,7 @@ class TestElasticsearch6SearchQuery(TestCase):
 
     def test_fields_with_and_operator(self):
         # Create a query
-        query = self.query_class(models.Book.objects.all(), "Hello", fields=['title'], operator='and')
+        query = self.query_compiler_class(models.Book.objects.all(), "Hello", fields=['title'], operator='and')
 
         # Check it
         expected_result = {'bool': {
@@ -138,7 +138,7 @@ class TestElasticsearch6SearchQuery(TestCase):
 
     def test_multiple_fields(self):
         # Create a query
-        query = self.query_class(models.Book.objects.all(), "Hello", fields=['title', 'content'])
+        query = self.query_compiler_class(models.Book.objects.all(), "Hello", fields=['title', 'content'])
 
         # Check it
         expected_result = {'bool': {
@@ -149,7 +149,7 @@ class TestElasticsearch6SearchQuery(TestCase):
 
     def test_multiple_fields_with_and_operator(self):
         # Create a query
-        query = self.query_class(
+        query = self.query_compiler_class(
             models.Book.objects.all(), "Hello", fields=['title', 'content'], operator='and'
         )
 
@@ -162,7 +162,7 @@ class TestElasticsearch6SearchQuery(TestCase):
 
     def test_exact_lookup(self):
         # Create a query
-        query = self.query_class(models.Book.objects.filter(title__exact="Test"), "Hello")
+        query = self.query_compiler_class(models.Book.objects.filter(title__exact="Test"), "Hello")
 
         # Check it
         expected_result = {'bool': {'filter': [
@@ -173,7 +173,7 @@ class TestElasticsearch6SearchQuery(TestCase):
 
     def test_none_lookup(self):
         # Create a query
-        query = self.query_class(models.Book.objects.filter(title=None), "Hello")
+        query = self.query_compiler_class(models.Book.objects.filter(title=None), "Hello")
 
         # Check it
         expected_result = {'bool': {'filter': [
@@ -184,7 +184,7 @@ class TestElasticsearch6SearchQuery(TestCase):
 
     def test_isnull_true_lookup(self):
         # Create a query
-        query = self.query_class(models.Book.objects.filter(title__isnull=True), "Hello")
+        query = self.query_compiler_class(models.Book.objects.filter(title__isnull=True), "Hello")
 
         # Check it
         expected_result = {'bool': {'filter': [
@@ -195,7 +195,7 @@ class TestElasticsearch6SearchQuery(TestCase):
 
     def test_isnull_false_lookup(self):
         # Create a query
-        query = self.query_class(models.Book.objects.filter(title__isnull=False), "Hello")
+        query = self.query_compiler_class(models.Book.objects.filter(title__isnull=False), "Hello")
 
         # Check it
         expected_result = {'bool': {'filter': [
@@ -206,7 +206,7 @@ class TestElasticsearch6SearchQuery(TestCase):
 
     def test_startswith_lookup(self):
         # Create a query
-        query = self.query_class(models.Book.objects.filter(title__startswith="Test"), "Hello")
+        query = self.query_compiler_class(models.Book.objects.filter(title__startswith="Test"), "Hello")
 
         # Check it
         expected_result = {'bool': {'filter': [
@@ -219,7 +219,7 @@ class TestElasticsearch6SearchQuery(TestCase):
         # This also tests conversion of python dates to strings
 
         # Create a query
-        query = self.query_class(
+        query = self.query_compiler_class(
             models.Book.objects.filter(publication_date__gt=datetime.datetime(2014, 4, 29)), "Hello"
         )
 
@@ -232,7 +232,7 @@ class TestElasticsearch6SearchQuery(TestCase):
 
     def test_lt_lookup(self):
         # Create a query
-        query = self.query_class(
+        query = self.query_compiler_class(
             models.Book.objects.filter(publication_date__lt=datetime.datetime(2014, 4, 29)), "Hello"
         )
 
@@ -245,7 +245,7 @@ class TestElasticsearch6SearchQuery(TestCase):
 
     def test_gte_lookup(self):
         # Create a query
-        query = self.query_class(
+        query = self.query_compiler_class(
             models.Book.objects.filter(publication_date__gte=datetime.datetime(2014, 4, 29)), "Hello"
         )
 
@@ -258,7 +258,7 @@ class TestElasticsearch6SearchQuery(TestCase):
 
     def test_lte_lookup(self):
         # Create a query
-        query = self.query_class(
+        query = self.query_compiler_class(
             models.Book.objects.filter(publication_date__lte=datetime.datetime(2014, 4, 29)), "Hello"
         )
 
@@ -274,7 +274,7 @@ class TestElasticsearch6SearchQuery(TestCase):
         end_date = datetime.datetime(2014, 8, 19)
 
         # Create a query
-        query = self.query_class(
+        query = self.query_compiler_class(
             models.Book.objects.filter(publication_date__range=(start_date, end_date)), "Hello"
         )
 
@@ -287,7 +287,7 @@ class TestElasticsearch6SearchQuery(TestCase):
 
     def test_custom_ordering(self):
         # Create a query
-        query = self.query_class(
+        query = self.query_compiler_class(
             models.Book.objects.order_by('publication_date'), "Hello", order_by_relevance=False
         )
 
@@ -297,7 +297,7 @@ class TestElasticsearch6SearchQuery(TestCase):
 
     def test_custom_ordering_reversed(self):
         # Create a query
-        query = self.query_class(
+        query = self.query_compiler_class(
             models.Book.objects.order_by('-publication_date'), "Hello", order_by_relevance=False
         )
 
@@ -307,7 +307,7 @@ class TestElasticsearch6SearchQuery(TestCase):
 
     def test_custom_ordering_multiple(self):
         # Create a query
-        query = self.query_class(
+        query = self.query_compiler_class(
             models.Book.objects.order_by('publication_date', 'number_of_pages'), "Hello", order_by_relevance=False
         )
 
