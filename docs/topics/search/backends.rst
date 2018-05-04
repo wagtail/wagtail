@@ -97,7 +97,7 @@ Elasticsearch Backend
 
     Support for Elasticsearch 5.x was added
 
-.. versionchanged:: TODO ADD VERSION HERE
+.. versionchanged:: 2.1
 
     Support for Elasticsearch 6.x was added
 
