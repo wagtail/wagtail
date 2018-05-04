@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
+"POT-Creation-Date: 2018-05-04 20:22+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,99 +17,119 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: forms.py:45
+#: apps.py:8
+msgid "Wagtail users"
+msgstr ""
+
+#: forms.py:48
 msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
 msgstr ""
 
-#: forms.py:49
+#: forms.py:52
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr ""
 
-#: forms.py:72
+#: forms.py:75
 msgid "A user with that username already exists."
 msgstr ""
 
-#: forms.py:73
+#: forms.py:76
 msgid "The two password fields didn't match."
 msgstr ""
 
-#: forms.py:76
+#: forms.py:79 forms.py:400
 msgid "Email"
 msgstr ""
 
-#: forms.py:77
+#: forms.py:80
 msgid "First Name"
 msgstr ""
 
-#: forms.py:78
+#: forms.py:81
 msgid "Last Name"
 msgstr ""
 
-#: forms.py:81
+#: forms.py:84
 msgid "Password"
 msgstr ""
 
-#: forms.py:83
+#: forms.py:86
 msgid "Leave blank if not changing."
 msgstr ""
 
-#: forms.py:85
+#: forms.py:88
 msgid "Password confirmation"
 msgstr ""
 
-#: forms.py:87
+#: forms.py:90
 msgid "Enter the same password as above, for verification."
 msgstr ""
 
-#: forms.py:90 forms.py:202
+#: forms.py:93 forms.py:221
 msgid "Administrator"
 msgstr ""
 
-#: forms.py:91 forms.py:204
+#: forms.py:94 forms.py:223
 msgid "Administrators have full access to manage any object or setting."
 msgstr ""
 
-#: forms.py:198
+#: forms.py:217
 msgid "A group with that name already exists."
 msgstr ""
 
-#: forms.py:302
+#: forms.py:321
 msgid "You cannot have multiple permission records for the same page."
 msgstr ""
 
-#: models.py:12
-msgid "submitted notifications"
-msgstr ""
-
-#: models.py:14
-msgid "Receive notification when a page is submitted for moderation"
-msgstr ""
-
-#: models.py:18
-msgid "approved notifications"
-msgstr ""
-
-#: models.py:20
-msgid "Receive notification when your page edit is approved"
+#: forms.py:426
+msgid "Upload a profile picture"
 msgstr ""
 
 #: models.py:24
-msgid "rejected notifications"
+msgid "submitted notifications"
 msgstr ""
 
 #: models.py:26
-msgid "Receive notification when your page edit is rejected"
+msgid "Receive notification when a page is submitted for moderation"
 msgstr ""
 
 #: models.py:30
-msgid "preferred language"
+msgid "approved notifications"
 msgstr ""
 
 #: models.py:32
+msgid "Receive notification when your page edit is approved"
+msgstr ""
+
+#: models.py:36
+msgid "rejected notifications"
+msgstr ""
+
+#: models.py:38
+msgid "Receive notification when your page edit is rejected"
+msgstr ""
+
+#: models.py:42
+msgid "preferred language"
+msgstr ""
+
+#: models.py:44
 msgid "Select language for the admin"
 msgstr ""
 
-#: models.py:47
+#: models.py:49
+msgid "current time zone"
+msgstr ""
+
+#: models.py:51
+msgid "Select your current time zone"
+msgstr ""
+
+#: models.py:56
+msgid "profile picture"
+msgstr ""
+
+#: models.py:75
 msgid "user profile"
 msgstr ""
 
@@ -176,7 +196,7 @@ msgstr ""
 #: templates/wagtailusers/groups/includes/formatted_permissions.html:11
 #: templates/wagtailusers/groups/includes/formatted_permissions.html:41
 #: templates/wagtailusers/groups/list.html:6
-#: templates/wagtailusers/users/list.html:7
+#: templates/wagtailusers/users/list.html:6
 msgid "Name"
 msgstr ""
 
@@ -210,12 +230,12 @@ msgstr ""
 msgid "Add a page permission"
 msgstr ""
 
-#: templates/wagtailusers/groups/index.html:4
-#: templates/wagtailusers/groups/index.html:17
+#: templates/wagtailusers/groups/index.html:3
+#: templates/wagtailusers/groups/index.html:16
 msgid "groups"
 msgstr ""
 
-#: templates/wagtailusers/groups/index.html:18 views/groups.py:52
+#: templates/wagtailusers/groups/index.html:17 views/groups.py:52
 msgid "Add a group"
 msgstr ""
 
@@ -259,37 +279,37 @@ msgstr ""
 msgid "Roles"
 msgstr ""
 
-#: templates/wagtailusers/users/index.html:4
-#: templates/wagtailusers/users/index.html:17 wagtail_hooks.py:49
+#: templates/wagtailusers/users/index.html:3
+#: templates/wagtailusers/users/index.html:16 wagtail_hooks.py:49
 #: wagtail_hooks.py:99
 msgid "Users"
 msgstr ""
 
-#: templates/wagtailusers/users/index.html:18
+#: templates/wagtailusers/users/index.html:17
 msgid "Add a user"
 msgstr ""
 
-#: templates/wagtailusers/users/list.html:15
+#: templates/wagtailusers/users/list.html:14
 msgid "Username"
 msgstr ""
 
-#: templates/wagtailusers/users/list.html:22
+#: templates/wagtailusers/users/list.html:21
 msgid "Level"
 msgstr ""
 
-#: templates/wagtailusers/users/list.html:23
+#: templates/wagtailusers/users/list.html:22
 msgid "Status"
 msgstr ""
 
-#: templates/wagtailusers/users/list.html:39
+#: templates/wagtailusers/users/list.html:38
 msgid "Admin"
 msgstr ""
 
-#: templates/wagtailusers/users/list.html:40
+#: templates/wagtailusers/users/list.html:39
 msgid "Active"
 msgstr ""
 
-#: templates/wagtailusers/users/list.html:40
+#: templates/wagtailusers/users/list.html:39
 msgid "Inactive"
 msgstr ""
 
@@ -354,7 +374,7 @@ msgstr ""
 msgid "User '{0}' created."
 msgstr ""
 
-#: views/users.py:121 views/users.py:153 wagtail_hooks.py:107
+#: views/users.py:121 wagtail_hooks.py:107
 msgid "Edit"
 msgstr ""
 
@@ -363,15 +383,16 @@ msgid "The user could not be created due to errors."
 msgstr ""
 
 #: views/users.py:152
-#, python-brace-format
-msgid "User '{0}' updated."
+msgid ""
+"Your details have been updated. You've been logged out for security reasons, "
+"please login to continue."
 msgstr ""
 
-#: views/users.py:161
+#: views/users.py:160
 msgid "The user could not be saved due to errors."
 msgstr ""
 
-#: views/users.py:185
+#: views/users.py:184
 #, python-brace-format
 msgid "User '{0}' deleted."
 msgstr ""

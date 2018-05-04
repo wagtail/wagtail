@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
+"POT-Creation-Date: 2018-05-04 20:22+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,10 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: apps.py:10
+msgid "Wagtail images"
+msgstr ""
 
 #: fields.py:10
 msgid "GIF, JPEG, PNG"
@@ -53,15 +57,15 @@ msgstr ""
 msgid "This file is too big. Maximum filesize %s."
 msgstr ""
 
-#: formats.py:91
+#: formats.py:92
 msgid "Full width"
 msgstr ""
 
-#: formats.py:92
+#: formats.py:93
 msgid "Left-aligned"
 msgstr ""
 
-#: formats.py:93
+#: formats.py:94
 msgid "Right-aligned"
 msgstr ""
 
@@ -149,6 +153,14 @@ msgstr ""
 msgid "tags"
 msgstr ""
 
+#: models.py:331
+msgid "image"
+msgstr ""
+
+#: models.py:332
+msgid "images"
+msgstr ""
+
 #: templates/wagtailimages/chooser/chooser.html:3 widgets.py:11
 msgid "Choose an image"
 msgstr ""
@@ -234,18 +246,18 @@ msgid "Add image"
 msgstr ""
 
 #: templates/wagtailimages/images/add.html:34
-#: templates/wagtailimages/images/edit.html:52
+#: templates/wagtailimages/images/edit.html:104
 msgid "Save"
 msgstr ""
 
 #: templates/wagtailimages/images/confirm_delete.html:3
 #: templates/wagtailimages/images/confirm_delete.html:6
-#: templates/wagtailimages/images/edit.html:54
+#: templates/wagtailimages/images/edit.html:106
 msgid "Delete image"
 msgstr ""
 
 #: templates/wagtailimages/images/confirm_delete.html:17
-#: templates/wagtailimages/images/edit.html:100
+#: templates/wagtailimages/images/edit.html:95
 #, python-format
 msgid "Used %(usage_count)s time"
 msgid_plural "Used %(usage_count)s times"
@@ -270,41 +282,41 @@ msgstr ""
 msgid "Editing"
 msgstr ""
 
-#: templates/wagtailimages/images/edit.html:61
+#: templates/wagtailimages/images/edit.html:56
 msgid "Focal point (optional)"
 msgstr ""
 
-#: templates/wagtailimages/images/edit.html:62
+#: templates/wagtailimages/images/edit.html:57
 msgid ""
 "To define this image's most important region, drag a box over the image "
 "below."
 msgstr ""
 
-#: templates/wagtailimages/images/edit.html:62
+#: templates/wagtailimages/images/edit.html:57
 msgid "Current focal point shown"
 msgstr ""
 
-#: templates/wagtailimages/images/edit.html:79
+#: templates/wagtailimages/images/edit.html:74
 msgid "Remove focal area"
 msgstr ""
 
-#: templates/wagtailimages/images/edit.html:84
+#: templates/wagtailimages/images/edit.html:79
 msgid "URL Generator"
 msgstr ""
 
-#: templates/wagtailimages/images/edit.html:91
+#: templates/wagtailimages/images/edit.html:86
 msgid "Max dimensions"
 msgstr ""
 
-#: templates/wagtailimages/images/edit.html:93
+#: templates/wagtailimages/images/edit.html:88
 msgid "Filesize"
 msgstr ""
 
-#: templates/wagtailimages/images/edit.html:94
+#: templates/wagtailimages/images/edit.html:89
 msgid "File not found"
 msgstr ""
 
-#: templates/wagtailimages/images/edit.html:98
+#: templates/wagtailimages/images/edit.html:93
 msgid "Usage"
 msgstr ""
 
