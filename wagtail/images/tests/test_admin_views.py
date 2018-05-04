@@ -128,8 +128,9 @@ class TestImageAddView(TestCase, WagtailTestUtils):
         self.assertEqual(image.width, 640)
         self.assertEqual(image.height, 480)
 
-        # Test that the file_size field was set
+        # Test that the file_size/hash fields were set
         self.assertTrue(image.file_size)
+        self.assertTrue(image.file_hash)
 
         # Test that it was placed in the root collection
         root_collection = Collection.get_first_root_node()
@@ -332,8 +333,9 @@ class TestImageEditView(TestCase, WagtailTestUtils):
     def test_edit_with_new_image_file(self):
         file_content = get_test_image_file().file.getvalue()
 
-        # Change the file size of the image
+        # Change the file size/hash of the image
         self.image.file_size = 100000
+        self.image.file_hash = 'abcedf'
         self.image.save()
 
         response = self.post({
@@ -346,13 +348,15 @@ class TestImageEditView(TestCase, WagtailTestUtils):
 
         self.update_from_db()
         self.assertNotEqual(self.image.file_size, 100000)
+        self.assertNotEqual(self.image.file_hash, 'abcedf')
 
     @override_settings(DEFAULT_FILE_STORAGE='wagtail.tests.dummy_external_storage.DummyExternalStorage')
     def test_edit_with_new_image_file_and_external_storage(self):
         file_content = get_test_image_file().file.getvalue()
 
-        # Change the file size of the image
+        # Change the file size/hash of the image
         self.image.file_size = 100000
+        self.image.file_hash = 'abcedf'
         self.image.save()
 
         response = self.post({
@@ -365,6 +369,7 @@ class TestImageEditView(TestCase, WagtailTestUtils):
 
         self.update_from_db()
         self.assertNotEqual(self.image.file_size, 100000)
+        self.assertNotEqual(self.image.file_hash, 'abcedf')
 
     def test_with_missing_image_file(self):
         self.image.file.delete(False)
@@ -683,6 +688,10 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
         image = images.first()
         self.assertEqual(image.width, 640)
         self.assertEqual(image.height, 480)
+
+        # Test that the file_size/hash fields were set
+        self.assertTrue(image.file_size)
+        self.assertTrue(image.file_hash)
 
     def test_upload_no_file_selected(self):
         response = self.client.post(reverse('wagtailimages:chooser_upload'), {
