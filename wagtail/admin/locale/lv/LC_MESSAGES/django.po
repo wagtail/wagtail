@@ -4,14 +4,14 @@
 #
 # Translators:
 # Maris Serzans <maris.serzans@gmail.com>, 2015
-# Reinis Rozenbergs <reinisr@gmail.com>, 2016-2017
+# Reinis Rozenbergs <reinisr@gmail.com>, 2016-2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-02-16 11:33+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-04-10 16:48+0000\n"
+"Last-Translator: Reinis Rozenbergs <reinisr@gmail.com>\n"
 "Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/"
 "lv/)\n"
 "MIME-Version: 1.0\n"
@@ -20,6 +20,9 @@ msgstr ""
 "Language: lv\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
+
+msgid "None"
+msgstr "Nav"
 
 msgid "You do not have permission to access the admin"
 msgstr "Jums nav tiesību pieklūt administrācijas videi"
@@ -251,6 +254,9 @@ msgstr "Lapa"
 msgid "Pages"
 msgstr "Lapas"
 
+msgid "Loading…"
+msgstr "Ielādē..."
+
 msgid "No results"
 msgstr "Nav rezultātu"
 
@@ -265,6 +271,24 @@ msgstr "Apskatīt visu"
 
 msgid "Close explorer"
 msgstr "Aizvērt pārlūku"
+
+msgid "Alt text"
+msgstr "Alt teksts"
+
+msgid "Write here…"
+msgstr "Raksti šeit..."
+
+msgid "Horizontal line"
+msgstr "Horizontāla līnija"
+
+msgid "Line break"
+msgstr "Līnijas pārtraukums"
+
+msgid "Undo"
+msgstr "Atsaukt"
+
+msgid "Redo"
+msgstr "Atcelt atsaukšanu"
 
 msgid "Dashboard"
 msgstr "Informācijas panelis"

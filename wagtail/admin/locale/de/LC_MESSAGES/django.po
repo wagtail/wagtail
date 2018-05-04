@@ -7,7 +7,7 @@
 # Ettore Atalan <atalanttore@googlemail.com>, 2015-2017
 # Henrik Kröger <hedwig@riseup.net>, 2015-2016
 # hpoul <herbert.transifex@m.poul.at>, 2015
-# jn ns, 2016
+# Jannis Vajen, 2016
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014-2015
 # karlsander <karlsander@gmail.com>, 2014
 # karlsander <karlsander@gmail.com>, 2014

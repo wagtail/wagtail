@@ -1,0 +1,71 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Sergiy Shkodenko <shkodenkosergiy@gmail.com>, 2018
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
+"PO-Revision-Date: 2018-03-23 18:57+0000\n"
+"Last-Translator: Sergiy Shkodenko <shkodenkosergiy@gmail.com>\n"
+"Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
+"uk/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: uk\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+msgid "page"
+msgstr "сторінка"
+
+msgid "description"
+msgstr "опис"
+
+msgid "search promotion"
+msgstr "просування у пошуку"
+
+msgid "Add search promotion"
+msgstr "Додати просування у пошуку"
+
+msgid "Save"
+msgstr "Зберегти"
+
+#, python-format
+msgid "Delete %(query)s"
+msgstr "Видалити %(query)s"
+
+msgid "Delete"
+msgstr "Видалити"
+
+msgid ""
+"Are you sure you want to delete all promoted results for this search term?"
+msgstr ""
+"Ви впевнені, що бажаєте видалити усі промотовані результати для цієї "
+"пошукової фрази?"
+
+msgid "Yes, delete"
+msgstr "Так, видалити"
+
+#, python-format
+msgid "Editing %(query)s"
+msgstr "Редагування %(query)s"
+
+msgid "Editing"
+msgstr "Редагування"
+
+msgid "Move up"
+msgstr "Перемістити нагору"
+
+msgid "Move down"
+msgstr "Перемістити вниз"
+
+msgid "None"
+msgstr "Нічого"
+
+msgid "Edit"
+msgstr "Редагувати"

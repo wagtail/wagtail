@@ -7,14 +7,14 @@
 # jszsj <zhushajun@gmail.com>, 2017
 # Vincent Zhao <zhaopu2008@gmail.com>, 2017
 # jszsj <zhushajun@gmail.com>, 2017
-# 汇民 王 <whuim@qq.com>, 2017
+# 汇民 王 <whuim@qq.com>, 2017-2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-01-26 16:00+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-04-11 07:41+0000\n"
+"Last-Translator: 汇民 王 <whuim@qq.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -108,6 +108,11 @@ msgstr "删除 %(title)s"
 msgid "Delete document"
 msgstr "删除文档"
 
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "已使用%(usage_count)s次"
+
 msgid "Are you sure you want to delete this document?"
 msgstr "确定删除此文档？"
 
@@ -129,6 +134,9 @@ msgstr "文件大小"
 
 msgid "File not found"
 msgstr "未找到文件"
+
+msgid "Usage"
+msgstr "使用情况"
 
 msgid "Documents"
 msgstr "文档"
@@ -257,6 +265,9 @@ msgstr "无法找到文件。请修改源或者删除文档。"
 #, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "文档'{0}' 已删除"
+
+msgid "Document"
+msgstr "文档"
 
 #, python-format
 msgid "%(count)s document"

@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Sergiy Shkodenko <shkodenkosergiy@gmail.com>, 2018
 # Viktor Shytiuk <VicHunting@yandex.ua>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-01-26 16:06+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-03-13 18:57+0000\n"
+"Last-Translator: Sergiy Shkodenko <shkodenkosergiy@gmail.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
 "MIME-Version: 1.0\n"
@@ -20,14 +21,25 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
+#, python-format
+msgid "Editing %(setting_type_name)s - %(instance)s"
+msgstr "Редагування %(setting_type_name)s - %(instance)s"
+
 msgid "Editing"
 msgstr "Редагування"
+
+msgid "Saving…"
+msgstr "Йде зберігання..."
 
 msgid "Save"
 msgstr "Зберегти"
 
 msgid "Settings"
 msgstr "Налаштування"
+
+#, python-brace-format
+msgid "{setting_type} updated."
+msgstr "{setting_type} оновлено."
 
 msgid "The setting could not be saved due to errors."
 msgstr "Неможливо зберегти налаштування через помилки."
