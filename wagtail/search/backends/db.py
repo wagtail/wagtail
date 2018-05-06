@@ -5,6 +5,7 @@ from django.db.models.expressions import Value
 
 from wagtail.search.backends.base import (
     BaseSearchBackend, BaseSearchQueryCompiler, BaseSearchResults)
+from wagtail.search.index import SearchField, RelatedFields
 from wagtail.search.query import And, MatchAll, Not, Or, SearchQueryShortcut, Term
 from wagtail.search.utils import AND, OR
 
@@ -18,16 +19,12 @@ class DatabaseSearchQueryCompiler(BaseSearchQueryCompiler):
 
     def get_fields_names(self):
         model = self.queryset.model
-        fields_names = self.fields or [field.field_name for field in
-                                       model.get_searchable_search_fields()]
-        # Check if the field exists (this will filter out indexed callables)
-        for field_name in fields_names:
-            try:
-                model._meta.get_field(field_name)
-            except models.fields.FieldDoesNotExist:
-                continue
-            else:
-                yield field_name
+        for field in model.get_searchable_search_fields():
+            if isinstance(field, SearchField):
+                yield field.field_name
+            elif isinstance(field, RelatedFields):
+                for r_field in field.fields:
+                    yield field.field_name + '__' + r_field.field_name
 
     def _process_lookup(self, field, lookup, value):
         return models.Q(**{field.get_attname(self.queryset.model) + '__' + lookup: value})

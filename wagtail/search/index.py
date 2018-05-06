@@ -57,7 +57,7 @@ class Indexed:
     def get_searchable_search_fields(cls):
         return [
             field for field in cls.get_search_fields()
-            if isinstance(field, SearchField)
+            if isinstance(field, SearchField) or isinstance(field, RelatedFields)
         ]
 
     @classmethod
