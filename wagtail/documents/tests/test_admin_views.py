@@ -121,12 +121,15 @@ class TestDocumentAddView(TestCase, WagtailTestUtils):
         self.assertRedirects(response, reverse('wagtaildocs:index'))
 
         # Document should be created, and be placed in the root collection
-        self.assertTrue(models.Document.objects.filter(title="Test document").exists())
+        document = models.Document.objects.get(title="Test document")
         root_collection = Collection.get_first_root_node()
         self.assertEqual(
-            models.Document.objects.get(title="Test document").collection,
+            document.collection,
             root_collection
         )
+
+        # Check that the file_size field was set
+        self.assertTrue(document.file_size)
 
     def test_post_with_collections(self):
         root_collection = Collection.get_first_root_node()

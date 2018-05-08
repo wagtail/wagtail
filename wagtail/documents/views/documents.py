@@ -96,6 +96,8 @@ def add(request):
         doc = Document(uploaded_by_user=request.user)
         form = DocumentForm(request.POST, request.FILES, instance=doc, user=request.user)
         if form.is_valid():
+            doc.file_size = doc.file.size
+
             form.save()
 
             # Reindex the document to make sure all tags are indexed
@@ -131,6 +133,8 @@ def edit(request, document_id):
         if form.is_valid():
             doc = form.save()
             if 'file' in form.changed_data:
+                doc.file_size = doc.file.size
+
                 # if providing a new document file, delete the old one.
                 # NB Doing this via original_file.delete() clears the file field,
                 # which definitely isn't what we want...
