@@ -98,6 +98,10 @@ def add(request):
         if form.is_valid():
             doc.file_size = doc.file.size
 
+            # Set new document file hash
+            doc.file.seek(0)
+            doc._set_file_hash(doc.file.read())
+
             form.save()
 
             # Reindex the document to make sure all tags are indexed
@@ -134,6 +138,10 @@ def edit(request, document_id):
             doc = form.save()
             if 'file' in form.changed_data:
                 doc.file_size = doc.file.size
+
+                # Set new document file hash
+                doc.file.seek(0)
+                doc._set_file_hash(doc.file.read())
 
                 # if providing a new document file, delete the old one.
                 # NB Doing this via original_file.delete() clears the file field,
