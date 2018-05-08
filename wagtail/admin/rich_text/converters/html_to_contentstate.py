@@ -264,15 +264,18 @@ class LineBreakHandler:
 
 class HtmlToContentStateHandler(HTMLParser):
     def __init__(self, features=()):
-        self.paragraph_handler = BlockElementHandler('unstyled')
-        self.element_handlers = HTMLRuleset({
-            'p': self.paragraph_handler,
-            'br': LineBreakHandler(),
-        })
+        self.element_handlers = HTMLRuleset()
         for feature in features:
             rule = feature_registry.get_converter_rule('contentstate', feature)
             if rule is not None:
                 self.element_handlers.add_rules(rule['from_database_format'])
+
+        # add default rules for base elements
+        self.paragraph_handler = BlockElementHandler('unstyled')
+        self.element_handlers.add_rules({
+            'p': self.paragraph_handler,
+            'br': LineBreakHandler(),
+        })
 
         super().__init__(convert_charrefs=True)
 
