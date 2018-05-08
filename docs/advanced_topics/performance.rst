@@ -39,7 +39,7 @@ For details on configuring Wagtail for Elasticsearch, see :ref:`wagtailsearch_ba
 Database
 --------
 
-Wagtail is tested on SQLite, and should work on other Django-supported database backends, but we recommend PostgreSQL for production use.
+Wagtail is tested on PostgreSQL, SQLite and MySQL. It should work on some third-party database backends as well (Microsoft SQL Server is known to work but currently untested). We recommend PostgreSQL for production use.
 
 
 Templates
