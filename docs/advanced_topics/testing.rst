@@ -9,10 +9,31 @@ Wagtail comes with some utilities that simplify writing tests for your site.
 .. automodule:: wagtail.tests.utils
 
 
-Fixtures for custom Page models
-===============================
+Fixtures
+========
 
-When creating customised Page models in fixtures_, you need to add both a
+Using Dumpdata
+--------------
+
+Creating test content is best done by creating content in a development environment,
+and using Django's dumpdata_ command.
+
+Note that by default `dumpdata` will represent `content type` by the `pk`
+instead of by `["app", "model"]`.
+To prevent that, use the `--natural-foreign` switch.
+
+
+Manual modification
+-------------------
+
+You could modify the dumped fixtures manually, or even write them all by hand.
+Here are a few things to be wary of.
+
+
+Custom Page models
+~~~~~~~~~~~~~~~~~~
+
+When creating customised Page models in fixtures_, you will need to add both a
 `wagtailcore.page` entry, and one for your custom Page model.
 
 Let's say you have a `website` module which defines a `Homepage(Page)` class.
@@ -37,13 +58,14 @@ You could create such a homepage in a fixture with:
       }
     ]
 
-Using Dumpdata
---------------
 
-Django's dumpdata_ command is an easy way to export content to fixtures.
+Treebeard fields
+~~~~~~~~~~~~~~~~
 
-Note that it will represent `content type` by the `pk` instead of the `["app", "model"]` you see above.
-To prevent that, use the `--natural-foreign` switch.
+Filling in the `path` / `numchild` / `depth` fields is necessary in order for tree operations like `get_parent()` to work correctly.
+`url_path` is another field that can cause errors in some uncommon cases if it isn't filled in.
+
+The `Treebeard docs`_ might help in understanding how this works.
 
 
 WagtailPageTests
@@ -143,3 +165,4 @@ Form data helpers
 
 .. _fixtures: https://docs.djangoproject.com/en/2.0/howto/initial-data/
 .. _dumpdata: https://docs.djangoproject.com/en/2.0/ref/django-admin/#django-admin-dumpdata
+.. _Treebeard docs: http://django-treebeard.readthedocs.io/en/latest/mp_tree.html
