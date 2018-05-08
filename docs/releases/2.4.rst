@@ -28,6 +28,7 @@ Other features
  * New ``image_url`` template tag allows to generate dynamic image URLs, so image renditions are being created outside the main request which improves performance. Requires extra configuration, see :doc:`/advanced_topics/images/image_serve_view` (Yannick Chabbert, Dan Braghis).
  * Added ability to run individual tests through tox (Benjamin Bach)
  * Collection listings are now ordered by name (Seb Brown)
+ * Added ``file_hash`` field to documents (Karl Hobley, Dan Braghis)
 
 Bug fixes
 ~~~~~~~~~

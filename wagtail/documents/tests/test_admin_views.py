@@ -150,8 +150,9 @@ class TestDocumentAddView(TestCase, WagtailTestUtils):
             root_collection
         )
 
-        # Check that the file_size field was set
+        # Check that the file_size/hash field was set
         self.assertTrue(document.file_size)
+        self.assertTrue(document.file_hash)
 
     def test_post_with_collections(self):
         root_collection = Collection.get_first_root_node()
@@ -445,6 +446,7 @@ class TestMultipleDocumentUploader(TestCase, WagtailTestUtils):
         self.assertIn('doc', response.context)
         self.assertEqual(response.context['doc'].title, 'test.png')
         self.assertTrue(response.context['doc'].file_size)
+        self.assertTrue(response.context['doc'].file_hash)
 
         # check that it is in the root collection
         doc = models.get_document_model().objects.get(title='test.png')
@@ -493,6 +495,7 @@ class TestMultipleDocumentUploader(TestCase, WagtailTestUtils):
         self.assertIn('doc', response.context)
         self.assertEqual(response.context['doc'].title, 'test.png')
         self.assertTrue(response.context['doc'].file_size)
+        self.assertTrue(response.context['doc'].file_hash)
 
         # check that it is in the 'evil plans' collection
         doc = models.get_document_model().objects.get(title='test.png')
