@@ -1,6 +1,12 @@
 Changelog
 =========
 
+2.2 (xx.xx.xxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~
+
+ * Added another valid AudioBoom oEmbed pattern (Bertrand Bordage)
+
+
 2.1 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
@@ -29,7 +35,6 @@ Changelog
  * Expose reusable client-side code to build Draftail extensions (Thibaud Colas)
  * Added `WAGTAILFRONTENDCACHE_LANGUAGES` setting to specify the languages whose URLs are to be purged when using `i18n_patterns` (PyMan Claudio Marinozzi)
  * Added `extra_footer_actions` template blocks for customising the add/edit page views (Arthur Holzner)
- * Added another valid AudioBoom oEmbed pattern (Bertrand Bordage)
  * Fix: Status button on 'edit page' now links to the correct URL when live and draft slug differ (LB (Ben Johnston))
  * Fix: Image title text in the gallery and in the chooser now wraps for long filenames (LB (Ben Johnston), Luiz Boaretto)
  * Fix: Move image editor action buttons to the bottom of the form on mobile (Julian Gallo)
