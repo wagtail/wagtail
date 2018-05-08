@@ -282,6 +282,46 @@ class TestDocumentEditView(TestCase, WagtailTestUtils):
         self.assertContains(response, self.document.usage_url)
         self.assertContains(response, 'Used 0 times')
 
+    def test_reupload_same_name(self):
+        """
+        Checks that reuploading the document file with the same file name
+        changes the file name, to avoid browser cache issues (see #3816).
+        """
+        old_file = self.document.file
+        new_name = self.document.filename
+        new_file = SimpleUploadedFile(new_name, b'An updated test content.')
+
+        response = self.client.post(reverse('wagtaildocs:edit', args=(self.document.pk,)), {
+            'title': self.document.title, 'file': new_file,
+        })
+        self.assertRedirects(response, reverse('wagtaildocs:index'))
+        self.document.refresh_from_db()
+        self.assertFalse(self.document.file.storage.exists(old_file.name))
+        self.assertTrue(self.document.file.storage.exists(self.document.file.name))
+        self.assertNotEqual(self.document.file.name, 'documents/' + new_name)
+        self.assertEqual(self.document.file.read(),
+                         b'An updated test content.')
+
+    def test_reupload_different_name(self):
+        """
+        Checks that reuploading the document file with a different file name
+        correctly uses the new file name.
+        """
+        old_file = self.document.file
+        new_name = 'test_reupload_different_name.txt'
+        new_file = SimpleUploadedFile(new_name, b'An updated test content.')
+
+        response = self.client.post(reverse('wagtaildocs:edit', args=(self.document.pk,)), {
+            'title': self.document.title, 'file': new_file,
+        })
+        self.assertRedirects(response, reverse('wagtaildocs:index'))
+        self.document.refresh_from_db()
+        self.assertFalse(self.document.file.storage.exists(old_file.name))
+        self.assertTrue(self.document.file.storage.exists(self.document.file.name))
+        self.assertEqual(self.document.file.name, 'documents/' + new_name)
+        self.assertEqual(self.document.file.read(),
+                         b'An updated test content.')
+
 
 class TestDocumentDeleteView(TestCase, WagtailTestUtils):
     def setUp(self):
