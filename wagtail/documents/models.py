@@ -1,4 +1,6 @@
+import hashlib
 import os.path
+from contextlib import contextmanager
 
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
@@ -34,6 +36,8 @@ class AbstractDocument(CollectionMember, index.Indexed, models.Model):
     tags = TaggableManager(help_text=None, blank=True, verbose_name=_('tags'))
 
     file_size = models.PositiveIntegerField(null=True, editable=False)
+    # A SHA-1 hash of the file contents
+    file_hash = models.CharField(max_length=40, blank=True, editable=False)
 
     objects = DocumentQuerySet.as_manager()
 
@@ -48,6 +52,33 @@ class AbstractDocument(CollectionMember, index.Indexed, models.Model):
         index.FilterField('uploaded_by_user'),
     ]
 
+    @contextmanager
+    def open_file(self):
+        # Open file if it is closed
+        close_file = False
+        f = self.file
+
+        if f.closed:
+            # Reopen the file
+            if self.is_stored_locally():
+                f.open('rb')
+            else:
+                # Some external storage backends don't allow reopening
+                # the file. Get a fresh file instance. #1397
+                storage = self._meta.get_field('file').storage
+                f = storage.open(f.name, 'rb')
+
+            close_file = True
+
+        # Seek to beginning
+        f.seek(0)
+
+        try:
+            yield f
+        finally:
+            if close_file:
+                f.close()
+
     def get_file_size(self):
         if self.file_size is None:
             try:
@@ -59,6 +90,18 @@ class AbstractDocument(CollectionMember, index.Indexed, models.Model):
             self.save(update_fields=['file_size'])
 
         return self.file_size
+
+    def _set_file_hash(self, file_contents):
+        self.file_hash = hashlib.sha1(file_contents).hexdigest()
+
+    def get_file_hash(self):
+        if self.file_hash == '':
+            with self.open_file() as f:
+                self._set_file_hash(f.read())
+
+            self.save(update_fields=['file_hash'])
+
+        return self.file_hash
 
     def __str__(self):
         return self.title
