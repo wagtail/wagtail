@@ -362,7 +362,8 @@ class TestSnippetDelete(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtailsnippets:delete', args=('tests', 'advert', quote(self.test_snippet.pk), )))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailsnippets/snippets/confirm_delete.html')
-        self.assertIn('Used 2 times', str(response.content))
+        self.assertContains(response, 'Used 2 times')
+        self.assertContains(response, self.test_snippet.usage_url())
 
 
 class TestSnippetChooserPanel(TestCase, WagtailTestUtils):
@@ -877,7 +878,8 @@ class TestSnippetViewWithCustomPrimaryKey(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtailsnippets:delete', args=('snippetstests', 'standardsnippetwithcustomprimarykey', quote(self.snippet_a.pk), )))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailsnippets/snippets/confirm_delete.html')
-        self.assertIn('Used 0 times', str(response.content))
+        self.assertContains(response, 'Used 0 times')
+        self.assertContains(response, self.snippet_a.usage_url())
 
 
 class TestSnippetChooserBlockWithCustomPrimaryKey(TestCase):
