@@ -491,7 +491,9 @@ class TestImageDeleteView(TestCase, WagtailTestUtils):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailimages/images/confirm_delete.html')
-        self.assertIn('Used 0 times', str(response.content))
+        self.assertContains(response, 'Used 0 times')
+        expected_url = '/admin/images/usage/%d/' % self.image.id
+        self.assertContains(response, expected_url)
 
     def test_delete(self):
         response = self.post()

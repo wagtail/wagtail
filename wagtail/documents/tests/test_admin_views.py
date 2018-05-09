@@ -271,6 +271,14 @@ class TestDocumentEditView(TestCase, WagtailTestUtils):
 
         self.assertContains(response, 'File not found')
 
+    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
+    def test_usage_link(self):
+        response = self.client.get(reverse('wagtaildocs:edit', args=(self.document.id,)))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtaildocs/documents/edit.html')
+        self.assertContains(response, self.document.usage_url)
+        self.assertContains(response, 'Used 0 times')
+
 
 class TestDocumentDeleteView(TestCase, WagtailTestUtils):
     def setUp(self):
@@ -299,7 +307,8 @@ class TestDocumentDeleteView(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtaildocs:delete', args=(self.document.id,)))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtaildocs/documents/confirm_delete.html')
-        self.assertIn('Used 0 times', str(response.content))
+        self.assertContains(response, self.document.usage_url)
+        self.assertContains(response, 'Used 0 times')
 
 
 class TestMultipleDocumentUploader(TestCase, WagtailTestUtils):
