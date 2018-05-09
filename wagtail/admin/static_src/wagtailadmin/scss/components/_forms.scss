@@ -140,8 +140,7 @@ input[type=checkbox] {
 }
 
 input[type=radio] {
-    // stylelint-disable-next-line property-no-vendor-prefix
-    -webkit-appearance: radio;
+    appearance: radio;
     width: auto;
     position: relative;
     margin-right: 15px;
@@ -173,8 +172,7 @@ input[type=radio]:checked:before {
 }
 
 input[type=checkbox] {
-    // stylelint-disable-next-line property-no-vendor-prefix
-    -webkit-appearance: checkbox;
+    appearance: checkbox;
     width: auto;
     position: relative;
     margin-right: 15px;
