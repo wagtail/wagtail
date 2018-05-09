@@ -873,6 +873,10 @@ li.focused > .help {
         float: none;
         padding-top: 0; // Negates padding added to label for the group of fields as a whole
     }
+
+    input + label {
+        display: inline-block;
+    }
 }
 
 .fields > li,
