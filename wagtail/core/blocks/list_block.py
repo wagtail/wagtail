@@ -127,12 +127,20 @@ class ListBlock(Block):
 
         return result
 
-    def to_python(self, value):
+    def to_python(self, value, strategy=None):
         # recursively call to_python on children and return as a list
         return [
-            self.child_block.to_python(item)
+            self.child_block.to_python(item, strategy)
             for item in value
         ]
+
+    def get_prefetch_info(self, value):
+        result = []
+        for item in value:
+            rv = self.child_block.get_prefetch_info(item)
+            if rv:
+                result.extend(rv)
+        return result
 
     def get_prep_value(self, value):
         # recursively call get_prep_value on children and return as a list

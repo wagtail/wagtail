@@ -232,7 +232,7 @@ class BaseStreamBlock(Block):
 
         return StreamValue(self, cleaned_data)
 
-    def to_python(self, value):
+    def to_python(self, value, strategy=None):
         # the incoming JSONish representation is a list of dicts, each with a 'type' and 'value' field
         # (and possibly an 'id' too).
         # This is passed to StreamValue to be expanded lazily - but first we reject any unrecognised
@@ -240,7 +240,18 @@ class BaseStreamBlock(Block):
         return StreamValue(self, [
             child_data for child_data in value
             if child_data['type'] in self.child_blocks
-        ], is_lazy=True)
+        ], is_lazy=True, strategy=strategy)
+
+    def get_prefetch_info(self, value):
+        # NOT CALLED?
+        data = []
+        for child_value in value:
+            if child_value['type'] in self.child_blocks:
+                child_block = self.child_blocks[child_value['type']]
+                child_data = child_block.get_prefetch_info(child_value['value'])
+                if child_data:
+                    data.extend(child_data)
+        return data
 
     def get_prep_value(self, value):
         if value is None:
@@ -352,7 +363,8 @@ class StreamValue(collections.Sequence):
             """
             return self.block.name
 
-    def __init__(self, stream_block, stream_data, is_lazy=False, raw_text=None):
+    def __init__(self, stream_block, stream_data, is_lazy=False, raw_text=None,
+                 strategy=None):
         """
         Construct a StreamValue linked to the given StreamBlock,
         with child values given in stream_data.
@@ -376,19 +388,24 @@ class StreamValue(collections.Sequence):
         self.stream_block = stream_block  # the StreamBlock object that handles this value
         self.stream_data = stream_data  # a list of (type_name, value) tuples
         self._bound_blocks = {}  # populated lazily from stream_data as we access items through __getitem__
+        self._strategy = strategy
         self.raw_text = raw_text
 
     def __getitem__(self, i):
         if i not in self._bound_blocks:
+            if self._strategy:
+                self._strategy.prefetch_data(self.stream_block, self.stream_data)
+
             if self.is_lazy:
                 raw_value = self.stream_data[i]
                 type_name = raw_value['type']
                 child_block = self.stream_block.child_blocks[type_name]
-                if hasattr(child_block, 'bulk_to_python'):
+                if False and hasattr(child_block, 'bulk_to_python'):
                     self._prefetch_blocks(type_name, child_block)
                     return self._bound_blocks[i]
                 else:
-                    value = child_block.to_python(raw_value['value'])
+                    value = child_block.to_python(
+                        raw_value['value'], strategy=self._strategy)
                     block_id = raw_value.get('id')
             else:
                 try:

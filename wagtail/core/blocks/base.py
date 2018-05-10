@@ -191,7 +191,7 @@ class Block(metaclass=BaseBlock):
         """
         return value
 
-    def to_python(self, value):
+    def to_python(self, value, strategy=None):
         """
         Convert 'value' from a simple (JSON-serialisable) value to a (possibly complex) Python value to be
         used in the rest of the block API and within front-end templates . In simple cases this might be
@@ -207,6 +207,9 @@ class Block(metaclass=BaseBlock):
         The reverse of to_python; convert the python value into JSON-serialisable form.
         """
         return value
+
+    def get_prefetch_info(self, value):
+        return
 
     def get_context(self, value, parent_context=None):
         """

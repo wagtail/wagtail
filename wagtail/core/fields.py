@@ -37,6 +37,41 @@ class Creator:
         obj.__dict__[self.field.name] = self.field.to_python(value)
 
 
+class StreamFieldPrefetcher:
+
+    def __init__(self):
+        self._initialised = False
+        self._cache = {}
+
+    def get(self, block_class, pk):
+        if block_class in self._cache:
+            return self._cache[block_class].get(pk)
+
+    def prefetch_data(self, stream_block, stream_data):
+        if self._initialised:
+            return
+
+        self._initialised = True
+
+        # Recursively collect a list of tuples containing (model, pk)
+        result = []
+        for raw_value in stream_data:
+            type_name = raw_value['type']
+            child_block = stream_block.child_blocks[type_name]
+            value = child_block.get_prefetch_info(raw_value['value'])
+            if value:
+                result.extend(value)
+
+        # Group by model
+        values = {}
+        for model, value in result:
+            item = values.setdefault(model, [])
+            item.append(value)
+
+        for model, values in values.items():
+            self._cache[model] = model.objects.in_bulk(values)
+
+
 class StreamField(models.Field):
     def __init__(self, block_types, **kwargs):
         super().__init__(**kwargs)
@@ -61,8 +96,10 @@ class StreamField(models.Field):
         return name, path, args, kwargs
 
     def to_python(self, value):
+        strategy = StreamFieldPrefetcher()
+
         if value is None or value == '':
-            return StreamValue(self.stream_block, [])
+            return StreamValue(self.stream_block, [], strategy=strategy)
         elif isinstance(value, StreamValue):
             return value
         elif isinstance(value, str):
@@ -74,15 +111,16 @@ class StreamField(models.Field):
                 # was left intact in the migration. Return an empty stream instead
                 # (but keep the raw text available as an attribute, so that it can be
                 # used to migrate that data to StreamField)
-                return StreamValue(self.stream_block, [], raw_text=value)
+                return StreamValue(
+                    self.stream_block, [], raw_text=value, strategy=strategy)
 
             if unpacked_value is None:
                 # we get here if value is the literal string 'null'. This should probably
                 # never happen if the rest of the (de)serialization code is working properly,
                 # but better to handle it just in case...
-                return StreamValue(self.stream_block, [])
+                return StreamValue(self.stream_block, [], strategy=strategy)
 
-            return self.stream_block.to_python(unpacked_value)
+            return self.stream_block.to_python(unpacked_value, strategy=strategy)
         else:
             # See if it looks like the standard non-smart representation of a
             # StreamField value: a list of (block_name, value) tuples
@@ -93,7 +131,7 @@ class StreamField(models.Field):
                 raise TypeError("Cannot handle %r (type %r) as a value of StreamField" % (value, type(value)))
 
             # Test succeeded, so return as a StreamValue-ified version of that value
-            return StreamValue(self.stream_block, value)
+            return StreamValue(self.stream_block, value, strategy=strategy)
 
     def get_prep_value(self, value):
         if isinstance(value, StreamValue) and not(value) and value.raw_text is not None:

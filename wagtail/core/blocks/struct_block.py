@@ -135,21 +135,33 @@ class BaseStructBlock(Block):
 
         return self._to_struct_value(result)
 
-    def to_python(self, value):
+    def to_python(self, value, strategy=None):
         """ Recursively call to_python on children and return as a StructValue """
-        return self._to_struct_value([
-            (
-                name,
-                (child_block.to_python(value[name]) if name in value else child_block.get_default())
-                # NB the result of get_default is NOT passed through to_python, as it's expected
-                # to be in the block's native type already
-            )
-            for name, child_block in self.child_blocks.items()
-        ])
+        data = []
+        for name, child_block in self.child_blocks.items():
+            child_value = value
+
+            # NB the result of get_default is NOT passed through to_python, as
+            # it's expected to be in the block's native type already
+            if name in value:
+                child_value = child_block.to_python(value[name], strategy=strategy)
+            else:
+                child_value = child_block.get_default()
+            data.append((name, child_value))
+        return self._to_struct_value(data)
 
     def _to_struct_value(self, block_items):
         """ Return a Structvalue representation of the sub-blocks in this block """
         return self.meta.value_class(self, block_items)
+
+    def get_prefetch_info(self, value):
+        data = []
+        for name, child_block in self.child_blocks.items():
+            if name in value:
+                child_data = child_block.get_prefetch_info(value[name])
+                if child_data:
+                    data.extend(child_data)
+        return data
 
     def get_prep_value(self, value):
         """ Recursively call get_prep_value on children and return as a plain dict """

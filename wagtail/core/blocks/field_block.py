@@ -461,7 +461,7 @@ class RichTextBlock(FieldBlock):
         else:
             return RichText(self.meta.default)
 
-    def to_python(self, value):
+    def to_python(self, value, strategy=None):
         # convert a source-HTML string from the JSONish representation
         # to a RichText object
         return RichText(value)
@@ -539,11 +539,16 @@ class ChooserBlock(FieldBlock):
             queryset=self.target_model.objects.all(), widget=self.widget, required=self._required,
             help_text=self._help_text)
 
-    def to_python(self, value):
+    def to_python(self, value, strategy=None):
         # the incoming serialised value should be None or an ID
         if value is None:
             return value
         else:
+            if strategy:
+                res = strategy.get(self.target_model, value)
+                if res:
+                    return res
+
             try:
                 return self.target_model.objects.get(pk=value)
             except self.target_model.DoesNotExist:
@@ -556,6 +561,10 @@ class ChooserBlock(FieldBlock):
         """
         objects = self.target_model.objects.in_bulk(values)
         return [objects.get(id) for id in values]  # Keeps the ordering the same as in values.
+
+    def get_prefetch_info(self, value):
+        if value is not None:
+            return [(self.target_model, value)]
 
     def get_prep_value(self, value):
         # the native value (a model instance or None) should serialise to a PK or None
