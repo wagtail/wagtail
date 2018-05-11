@@ -414,6 +414,27 @@ class BackendTests(WagtailTestUtils):
             results_across_pages.add(results[i:i + 1][0])
         self.assertSetEqual(results_across_pages, same_rank_objects)
 
+    def test_row_boost(self):
+        index = self.backend.get_index_for_model(models.Book)
+        boosted = models.Book.objects.create(
+            title='[boosted] Javascript', publication_date=date(2018, 6, 22),
+            number_of_pages=30)
+        index.add_item(boosted)
+        index.refresh()
+
+        results = self.backend.search('Javascript', models.Book)
+        self.assertEqual(boosted.get_search_boost(), 5)
+        self.assertEqual(results[0], boosted)
+
+        boosted.title = '[busted] Javascript'
+        boosted.save()
+        index.add_item(boosted)
+        index.refresh()
+
+        results = self.backend.search('Javascript', models.Book)
+        self.assertEqual(boosted.get_search_boost(), 1)
+        self.assertNotEqual(results[0], boosted)
+
     def test_delete(self):
         foundation = models.Novel.objects.filter(title="Foundation").first()
 

@@ -113,6 +113,9 @@ class Indexed:
                 )
         return errors
 
+    def get_search_boost(self):
+        return 1
+
     search_fields = []
 
 

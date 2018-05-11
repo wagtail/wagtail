@@ -176,3 +176,7 @@ class ElasticsearchCommonSearchBackendTests(BackendTests):
     @unittest.expectedFailure
     def test_incomplete_plain_text(self):
         super().test_incomplete_plain_text()
+
+    @unittest.expectedFailure
+    def test_row_boost(self):
+        super().test_row_boost()
