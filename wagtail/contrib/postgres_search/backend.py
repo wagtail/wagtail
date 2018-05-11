@@ -175,6 +175,9 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.search_fields = self.queryset.model.get_searchable_search_fields()
+        # Due to a Django bug, arrays are not automatically converted
+        # when we use WEIGHTS_VALUES.
+        self.sql_weights = '{' + ','.join(map(str, WEIGHTS_VALUES)) + '}'
 
     def build_database_query(self, query=None, config=None):
         if query is None:
@@ -217,7 +220,7 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
                     return self.get_boost(sub_field_name, field.fields)
                 return field.boost
 
-    def search(self, config, start, stop):
+    def search(self, config, start, stop, score_field=None):
         # TODO: Handle MatchAll nested inside other search query classes.
         if isinstance(self.query, MatchAll):
             return self.queryset[start:stop]
@@ -234,18 +237,19 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
                 for field in self.fields)
         vector = vector.resolve_expression(query)
         search_query = search_query.resolve_expression(query)
+        rank_expression = SearchRank(vector, search_query,
+                                     weights=self.sql_weights)
         lookup = IndexEntry._meta.get_field('body_search').get_lookup('exact')(
             vector, search_query)
         query.where.add(lookup, 'AND')
         if self.order_by_relevance:
-            # Due to a Django bug, arrays are not automatically converted here.
-            converted_weights = '{' + ','.join(map(str, WEIGHTS_VALUES)) + '}'
-            queryset = queryset.order_by(SearchRank(vector, search_query,
-                                                    weights=converted_weights).desc(),
-                                         '-pk')
+            queryset = queryset.order_by(rank_expression.desc(), '-pk')
         elif not queryset.query.order_by:
             # Adds a default ordering to avoid issue #3729.
             queryset = queryset.order_by('-pk')
+            rank_expression = F('pk').desc()
+        if score_field is not None:
+            queryset = queryset.annotate(**{score_field: rank_expression})
         return queryset[start:stop]
 
     def _process_lookup(self, field, lookup, value):
@@ -269,10 +273,13 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
 class PostgresSearchResults(BaseSearchResults):
     def _do_search(self):
         return list(self.query_compiler.search(self.backend.get_config(),
-                                               self.start, self.stop))
+                                               self.start, self.stop,
+                                               score_field=self._score_field))
 
     def _do_count(self):
-        return self.query_compiler.search(self.backend.get_config(), None, None).count()
+        return self.query_compiler.search(
+            self.backend.get_config(), None, None,
+            score_field=self._score_field).count()
 
 
 class PostgresSearchRebuilder:
