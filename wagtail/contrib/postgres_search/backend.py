@@ -273,11 +273,11 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
                              weight=get_weight(search_field.boost))
                 for field_lookup, search_field in self.search_fields.items()
                 if not self.is_autocomplete or search_field.partial_match)
+        rank_expression = SearchRank(vector, search_query,
+                                     weights=self.sql_weights)
         queryset = self.queryset.annotate(
             _vector_=vector).filter(_vector_=search_query)
         if self.order_by_relevance:
-            rank_expression = SearchRank(vector, search_query,
-                                         weights=self.sql_weights)
             queryset = queryset.order_by(rank_expression.desc(), '-pk')
         elif not queryset.query.order_by:
             # Adds a default ordering to avoid issue #3729.
