@@ -442,7 +442,6 @@ class BackendTests(WagtailTestUtils):
         self.assertEqual(len(results), 13)
 
     def test_term(self):
-        # Single word
         results = self.backend.search(Term('javascript'),
                                       models.Book.objects.all())
 
@@ -451,7 +450,6 @@ class BackendTests(WagtailTestUtils):
                              'JavaScript: The good parts'})
 
     def test_incomplete_term(self):
-        # Single word
         results = self.backend.search(Term('pro'),
                                       models.Book.objects.all())
 
@@ -537,6 +535,12 @@ class BackendTests(WagtailTestUtils):
         self.assertSetEqual({r.title for r in results},
                             {'JavaScript: The Definitive Guide',
                              'JavaScript: The good parts'})
+
+    def test_incomplete_plain_text(self):
+        results = self.backend.search(PlainText('pro'),
+                                      models.Book.objects.all())
+
+        self.assertSetEqual({r.title for r in results}, set())
 
     def test_plain_text_multiple_words_or(self):
         results = self.backend.search(PlainText('Javascript Definitive',
