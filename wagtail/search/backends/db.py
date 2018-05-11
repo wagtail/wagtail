@@ -1,6 +1,8 @@
+from collections import OrderedDict
 from warnings import warn
 
 from django.db import models
+from django.db.models import Count
 from django.db.models.expressions import Value
 
 from wagtail.search.backends.base import (
@@ -99,6 +101,22 @@ class DatabaseSearchResults(BaseSearchResults):
 
     def _do_count(self):
         return self.get_queryset().count()
+
+    supports_facet = True
+
+    def facet(self, field_name):
+        # Get field
+        field = self.query_compiler._get_filterable_field(field_name)
+        if field is None:
+            pass  # TODO: Error
+
+        query = self.get_queryset()
+        results = query.values(field_name).annotate(count=Count('id')).order_by('-count')
+
+        return OrderedDict([
+            (result[field_name], result['count'])
+            for result in results
+        ])
 
 
 class DatabaseSearchBackend(BaseSearchBackend):
