@@ -801,9 +801,12 @@ class DeleteView(InstanceSpecificView):
                 obj.field, ManyToManyField))
             for rel in fields:
                 if rel.on_delete == models.PROTECT:
-                    qs = getattr(self.instance, rel.get_accessor_name())
-                    for obj in qs.all():
-                        linked_objects.append(obj)
+                    val = getattr(self.instance, rel.get_accessor_name())
+                    if isinstance(val, models.Manager):
+                        for obj in val.all():
+                            linked_objects.append(obj)
+                    else:
+                        linked_objects.append(val)
             context = self.get_context_data(
                 protected_error=True,
                 linked_objects=linked_objects
