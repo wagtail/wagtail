@@ -15,6 +15,16 @@ class TestDBBackend(BackendTests, TestCase):
 
     # Doesn't support ranking
     @unittest.expectedFailure
+    def test_annotate_score(self):
+        super().test_annotate_score()
+
+    # Doesn't support ranking
+    @unittest.expectedFailure
+    def test_annotate_score_with_slice(self):
+        super().test_annotate_score_with_slice()
+
+    # Doesn't support ranking
+    @unittest.expectedFailure
     def test_search_boosting_on_related_fields(self):
         super().test_search_boosting_on_related_fields()
 
