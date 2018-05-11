@@ -42,3 +42,8 @@ class TestDBBackend(BackendTests, TestCase):
     @unittest.expectedFailure
     def test_incomplete_term(self):
         super().test_incomplete_term()
+
+    # Database backend always uses `icontains`, so always autocomplete
+    @unittest.expectedFailure
+    def test_incomplete_plain_text(self):
+        super().test_incomplete_plain_text()

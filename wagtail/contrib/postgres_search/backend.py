@@ -273,7 +273,7 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
         queryset = self.queryset.annotate(
             _vector_=vector).filter(_vector_=search_query)
         if self.order_by_relevance:
-            rank_expression = SearchRank(F('_vector_'), search_query,
+            rank_expression = SearchRank(vector, search_query,
                                          weights=self.sql_weights)
             queryset = queryset.order_by(rank_expression.desc(), '-pk')
         elif not queryset.query.order_by:
