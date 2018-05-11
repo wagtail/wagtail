@@ -114,19 +114,6 @@ class ElasticsearchCommonSearchBackendTests(BackendTests):
         results = self.backend.search(MATCH_ALL, models.Book)
         self.assertSetEqual(set(results), set())
 
-    def test_annotate_score(self):
-        results = self.backend.search("JavaScript", models.Book).annotate_score('_score')
-
-        for result in results:
-            self.assertIsInstance(result._score, float)
-
-    def test_annotate_score_with_slice(self):
-        # #3431 - Annotate score wasn't being passed to new queryset when slicing
-        results = self.backend.search("JavaScript", models.Book).annotate_score('_score')[:10]
-
-        for result in results:
-            self.assertIsInstance(result._score, float)
-
     def test_more_than_ten_results(self):
         # #3431 reported that Elasticsearch only sends back 10 results if the results set is not sliced
         results = self.backend.search(MATCH_ALL, models.Book)

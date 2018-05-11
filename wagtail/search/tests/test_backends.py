@@ -78,6 +78,19 @@ class BackendTests(WagtailTestUtils):
         # "JavaScript: The Definitive Guide" should be first
         self.assertEqual(results[0].title, "JavaScript: The Definitive Guide")
 
+    def test_annotate_score(self):
+        results = self.backend.search("JavaScript", models.Book).annotate_score('_score')
+
+        for result in results:
+            self.assertIsInstance(result._score, float)
+
+    def test_annotate_score_with_slice(self):
+        # #3431 - Annotate score wasn't being passed to new queryset when slicing
+        results = self.backend.search("JavaScript", models.Book).annotate_score('_score')[:10]
+
+        for result in results:
+            self.assertIsInstance(result._score, float)
+
     def test_search_and_operator(self):
         # Should not return "JavaScript: The good parts" as it does not have "Definitive"
         results = self.backend.search("JavaScript Definitive", models.Book, operator='and')
