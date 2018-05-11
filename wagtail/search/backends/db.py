@@ -5,8 +5,7 @@ from django.db.models.expressions import Value
 
 from wagtail.search.backends.base import (
     BaseSearchBackend, BaseSearchQueryCompiler, BaseSearchResults)
-from wagtail.search.query import (
-    And, MatchAll, Not, Or, Prefix, SearchQueryShortcut, Term)
+from wagtail.search.query import And, MatchAll, Not, Or, Prefix, SearchQueryShortcut, Term
 from wagtail.search.utils import AND, OR
 
 
