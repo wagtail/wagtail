@@ -193,6 +193,9 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.search_fields = self.queryset.model.get_searchable_search_fields()
+        # Due to a Django bug, arrays are not automatically converted
+        # when we use WEIGHTS_VALUES.
         self.sql_weights = get_sql_weights()
         # TODO: Better handle mixed queries containing
         #       both autocomplete and search.
@@ -254,7 +257,7 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
             '`%s` is not supported by the PostgreSQL search backend.'
             % self.query.__class__.__name__)
 
-    def search(self, config, start, stop):
+    def search(self, config, start, stop, score_field=None):
         # TODO: Handle MatchAll nested inside other search query classes.
         if isinstance(self.query, MatchAll):
             return self.queryset[start:stop]
@@ -279,6 +282,9 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
         elif not queryset.query.order_by:
             # Adds a default ordering to avoid issue #3729.
             queryset = queryset.order_by('-pk')
+            rank_expression = F('pk').desc()
+        if score_field is not None:
+            queryset = queryset.annotate(**{score_field: rank_expression})
         return queryset[start:stop]
 
     def _process_lookup(self, field, lookup, value):
@@ -302,10 +308,13 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
 class PostgresSearchResults(BaseSearchResults):
     def _do_search(self):
         return list(self.query_compiler.search(self.backend.config,
-                                               self.start, self.stop))
+                                               self.start, self.stop,
+                                               score_field=self._score_field))
 
     def _do_count(self):
-        return self.query_compiler.search(self.backend.config, None, None).count()
+        return self.query_compiler.search(
+            self.backend.config, None, None,
+            score_field=self._score_field).count()
 
 
 class PostgresSearchRebuilder:
