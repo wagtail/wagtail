@@ -183,3 +183,9 @@ class ElasticsearchCommonSearchBackendTests(BackendTests):
     @unittest.expectedFailure
     def test_prefix_multiple_words(self):
         super().test_prefix_multiple_words()
+
+    # Elasticsearch always does prefix matching on `partial_match` fields,
+    # even when we don’t use `Prefix`.
+    @unittest.expectedFailure
+    def test_incomplete_plain_text(self):
+        super().test_incomplete_plain_text()
