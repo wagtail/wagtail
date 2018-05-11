@@ -17,3 +17,6 @@ class PostgresSearchConfig(AppConfig):
                           id='wagtail.contrib.postgres_search.E001')]
 
         set_weights()
+
+        from .models import IndexEntry
+        IndexEntry.add_generic_relations()

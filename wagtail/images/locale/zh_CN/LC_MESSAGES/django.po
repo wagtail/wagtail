@@ -6,13 +6,13 @@
 # hanfeng <appweb.cn@gmail.com>, 2014-2015
 # Feng Wang <wangfeng.w@gmail.com>, 2015
 # Vincent Zhao <zhaopu2008@gmail.com>, 2017
-# 汇民 王 <whuim@qq.com>, 2017
+# 汇民 王 <whuim@qq.com>, 2017-2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-20 15:49+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
+"PO-Revision-Date: 2018-04-11 07:40+0000\n"
 "Last-Translator: 汇民 王 <whuim@qq.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
@@ -135,8 +135,14 @@ msgstr "上传"
 msgid "Popular tags"
 msgstr "热门标签"
 
-msgid "Uploading..."
-msgstr "正在上传..."
+msgid "Uploading…"
+msgstr "正在上传…"
+
+msgid "Server Error"
+msgstr "服务器错误"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "将此错误报告给你的网站管理员，包含如下信息："
 
 #, python-format
 msgid ""
@@ -190,6 +196,11 @@ msgstr "保存"
 msgid "Delete image"
 msgstr "删除图片"
 
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "已使用%(usage_count)s次"
+
 msgid "Are you sure you want to delete this image?"
 msgstr "确认删除此图片？"
 
@@ -228,6 +239,9 @@ msgstr "文件大小"
 
 msgid "File not found"
 msgstr "未找到文件"
+
+msgid "Usage"
+msgstr "使用情况"
 
 msgid "Images"
 msgstr "图片"
@@ -314,12 +328,6 @@ msgstr ""
 msgid "Sorry, upload failed."
 msgstr "对不起啊，上传失败。"
 
-msgid "Server Error"
-msgstr "服务器错误"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr "将此错误报告给你的网站管理员，包含如下信息："
-
 msgid "Image updated."
 msgstr "图片已更新。"
 
@@ -364,13 +372,16 @@ msgstr "图片'{0}'已添加"
 msgid "The image could not be created due to errors."
 msgstr "无法创建图片，出现错误。"
 
+msgid "Image"
+msgstr "图片"
+
 #, python-format
 msgid "%(count)s image"
 msgid_plural "%(count)s images"
 msgstr[0] "%(count)s 个图片"
 
-msgid "Choose another image"
-msgstr "选择另一个图片"
+msgid "Change image"
+msgstr "修改图片"
 
 msgid "Edit this image"
 msgstr "编辑此图片"

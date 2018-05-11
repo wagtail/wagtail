@@ -4,12 +4,13 @@
 #
 # Translators:
 # bjesus <bjesus@gmail.com>, 2015
+# bjesus <bjesus@gmail.com>, 2015
 # lior abazon <abazon@v15.org.il>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
 "PO-Revision-Date: 2017-09-22 04:35+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/torchbox/wagtail/"

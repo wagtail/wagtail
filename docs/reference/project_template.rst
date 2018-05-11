@@ -46,7 +46,7 @@ The "home" app
 
 Location: ``/mysite/home/``
 
-This app is here to help get you started quicker by providing a ``HomePage`` model with migrations to create one when you first setup your app.
+This app is here to help get you started quicker by providing a ``HomePage`` model with migrations to create one when you first set up your app.
 
 
 Default templates and static files

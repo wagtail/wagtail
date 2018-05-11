@@ -6,7 +6,7 @@ $(function() {
     }
 
     // prevents browser default drag/drop
-    $(document).bind('drop dragover', function(e) {
+    $(document).on('drop dragover', function(e) {
         e.preventDefault();
     });
 
@@ -99,7 +99,7 @@ $(function() {
 
         done: function(e, data) {
             var itemElement = $(data.context);
-            var response = $.parseJSON(data.result);
+            var response = JSON.parse(data.result);
 
             if (response.success) {
                 itemElement.addClass('upload-success')

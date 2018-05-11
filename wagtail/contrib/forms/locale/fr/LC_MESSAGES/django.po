@@ -5,9 +5,11 @@
 # Translators:
 # Adrien <laadrien@gmail.com>, 2014
 # Axel Haustant, 2016
+# Axel Haustant, 2016
 # Benoît Vogel <contact@spicy-informatique.com>, 2016-2017
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015,2017
 # Léo <leo@naeka.fr>, 2016
+# Loïc Teixeira <hello@lta.me>, 2018
 # pierre marfoure <pierre@onoffdesign.com>, 2016
 # Sophy O <sophy.ouch@erudit.org>, 2017
 # Tom Dyson <tom@torchbox.com>, 2015
@@ -15,9 +17,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-20 11:02+0000\n"
-"Last-Translator: Sophy O <sophy.ouch@erudit.org>\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
+"PO-Revision-Date: 2018-02-13 00:54+0000\n"
+"Last-Translator: Loïc Teixeira <hello@lta.me>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -26,8 +28,9 @@ msgstr ""
 "Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-msgid "{} submissions"
-msgstr "{} soumissions"
+#, python-format
+msgid "%s submissions"
+msgstr "%s soumissions "
 
 msgid "Date from"
 msgstr "Date depuis le"
@@ -75,6 +78,9 @@ msgstr "Date"
 
 msgid "Date/time"
 msgstr "Date/heure"
+
+msgid "Hidden field"
+msgstr "Champ caché"
 
 msgid "submit time"
 msgstr "Horodatage de soumission"

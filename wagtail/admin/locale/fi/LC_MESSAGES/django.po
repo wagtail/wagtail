@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-10-06 15:06+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
+"PO-Revision-Date: 2018-02-16 11:33+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
@@ -220,6 +220,9 @@ msgstr "Palauta salasanasi"
 msgid "Edit"
 msgstr "Muokkaa"
 
+msgid "Delete"
+msgstr "Poista"
+
 msgid "Pages"
 msgstr "Sivut"
 
@@ -237,9 +240,6 @@ msgstr "Siirrä ylös"
 
 msgid "Move down"
 msgstr "Siirrä alas"
-
-msgid "Delete"
-msgstr "Poista"
 
 msgid "Explorer"
 msgstr "Sivuselain"
@@ -335,10 +335,6 @@ msgstr ""
 "Kokoelmia ei ole luotu. Mikset vaikka <a href=\"%(add_collection_url)s"
 "\">loisi kokoelmaa</a>?"
 
-#, python-format
-msgid "Add %(heading)s"
-msgstr "Lisää %(heading)s"
-
 msgid "Yes, delete"
 msgstr "Kyllä, poista"
 
@@ -431,9 +427,6 @@ msgstr "Kirjaudu sisään Wagtailiin"
 
 msgid "Forgotten it?"
 msgstr "Unohtui?"
-
-msgid "Signing in..."
-msgstr "Kirjaudutaan..."
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -606,14 +599,8 @@ msgstr "Uusi %(page_type)s"
 msgid "New"
 msgstr "Uusi"
 
-msgid "Saving..."
-msgstr "Tallennetaan..."
-
 msgid "Save draft"
 msgstr "Tallenna luonnos"
-
-msgid "Publishing..."
-msgstr "Julkaistaan..."
 
 msgid "Publish"
 msgstr "Julkaise"
@@ -923,12 +910,6 @@ msgstr "Pe"
 msgid "Sat"
 msgstr "La"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Käytetty %(usage_count)s kerran"
-msgstr[1] "Käytetty %(usage_count)s kertaa"
-
 msgid "Edit your account"
 msgstr "Muokkaa tiliäsi"
 
@@ -1011,12 +992,12 @@ msgstr "Muokataan"
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr "Sivu '{0}' luotu ja ajastettu julkaistavaksi."
 
+msgid "View live"
+msgstr "Näytä julkaistu"
+
 #, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "Sivu '{0}' luotu ja julkaistu."
-
-msgid "View live"
-msgstr "Näytä julkaistu"
 
 #, python-brace-format
 msgid "Page '{0}' created and submitted for moderation."

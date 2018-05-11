@@ -5,14 +5,15 @@
 # Translators:
 # utek <mail@utek.pl>, 2014
 # Miłosz Miśkiewicz, 2017
+# Miłosz Miśkiewicz, 2017-2018
 # Miłosz Miśkiewicz, 2016-2017
 # utek <mail@utek.pl>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-23 19:35+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
+"PO-Revision-Date: 2018-02-08 21:13+0000\n"
 "Last-Translator: Miłosz Miśkiewicz\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
@@ -177,6 +178,9 @@ msgstr "zaplanowany"
 
 msgid "draft"
 msgstr "szkic"
+
+msgid "live + scheduled"
+msgstr "opublikowane + zaplanowane"
 
 msgid "live + draft"
 msgstr "opublikuj + szkic"

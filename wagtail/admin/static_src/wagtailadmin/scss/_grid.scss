@@ -56,8 +56,18 @@ $padding: $grid-gutter-width * 0.5;
     padding-left: $mobile-nice-padding;
     padding-right: $mobile-nice-padding;
 
-    @media screen and (min-width: $breakpoint-mobile) {
+    @include medium {
         padding-left: $desktop-nice-padding;
         padding-right: $desktop-nice-padding;
+    }
+}
+
+@mixin nice-margin {
+    margin-left: $mobile-nice-padding;
+    margin-right: $mobile-nice-padding;
+
+    @include medium {
+        margin-left: $desktop-nice-padding;
+        margin-right: $desktop-nice-padding;
     }
 }

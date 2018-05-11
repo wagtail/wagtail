@@ -7,6 +7,7 @@
 # ajk, 2014
 # Alexandr <alexromantsov@gmail.com>, 2016
 # Andrey Avdey <talkerbox@live.com>, 2016
+# Arseni M <arseni+transifex@mouchinski.com>, 2017
 # Daniil <fleepd@gmail.com>, 2015
 # Eugene MechanisM <eugene@mechanism.pro>, 2014-2016
 # Eugene MechanisM <eugene@mechanism.pro>, 2016-2017
@@ -20,8 +21,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-10-06 15:06+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
+"PO-Revision-Date: 2018-02-16 11:33+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
@@ -178,6 +179,15 @@ msgstr ""
 "Вы не можете иметь несколько записей с правами доступа к одной и той же "
 "коллекции."
 
+msgid "Error 404: Page not found"
+msgstr "Ошибка 404: Страница не найдена"
+
+msgid "Error 404"
+msgstr "Ошибка 404"
+
+msgid "The requested page could not be found."
+msgstr "Запрошенная страница не найдена."
+
 msgid "Go to Wagtail admin"
 msgstr "Идти в админ-панель Wagtail"
 
@@ -262,14 +272,14 @@ msgstr "Сбросить ваш пароль"
 msgid "Edit"
 msgstr "Редактировать"
 
+msgid "Delete"
+msgstr "Удалить"
+
 msgid "Page"
 msgstr "Страница"
 
 msgid "Pages"
 msgstr "Страницы"
-
-msgid "Loading..."
-msgstr "Загрузка..."
 
 msgid "No results"
 msgstr "Нет результатов"
@@ -300,9 +310,6 @@ msgstr "Двигать наверх"
 
 msgid "Move down"
 msgstr "Двигать вниз"
-
-msgid "Delete"
-msgstr "Удалить"
 
 msgid "Explorer"
 msgstr "Проводник"
@@ -424,10 +431,6 @@ msgstr ""
 "Коллекции еще не были созданы. Почему бы не <a href=\"%(add_collection_url)s"
 "\">добавить одну</a>?"
 
-#, python-format
-msgid "Add %(heading)s"
-msgstr "Добавить %(heading)s"
-
 msgid "Yes, delete"
 msgstr "Да, удалить"
 
@@ -529,9 +532,6 @@ msgstr "Войти в Wagtail"
 
 msgid "Forgotten it?"
 msgstr "Забыли его?"
-
-msgid "Signing in..."
-msgstr "Выполняется вход..."
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -740,14 +740,8 @@ msgstr "Добавление %(page_type)s"
 msgid "New"
 msgstr "Новый"
 
-msgid "Saving..."
-msgstr "Сохранение..."
-
 msgid "Save draft"
 msgstr "Сохранить черновик"
-
-msgid "Publishing..."
-msgstr "Публикация..."
 
 msgid "Publish"
 msgstr "Опубликовать"
@@ -1098,6 +1092,9 @@ msgstr "Нет страниц использующих"
 msgid "Collection"
 msgstr "Коллекция"
 
+msgid "Root"
+msgstr "Главная"
+
 msgid "Home"
 msgstr "Главная"
 
@@ -1160,14 +1157,6 @@ msgstr "Пт"
 
 msgid "Sat"
 msgstr "Сб"
-
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Использовано %(usage_count)s раз"
-msgstr[1] "Использовано %(usage_count)s раз"
-msgstr[2] "Использовано %(usage_count)s раз"
-msgstr[3] "Использовано %(usage_count)s раз"
 
 msgid "Edit your account"
 msgstr "Редактировать ваш аккаунт"
@@ -1337,12 +1326,12 @@ msgstr "Редактирование"
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr "Страница '{0}' создана и запланирована к публикации."
 
+msgid "View live"
+msgstr "Смотреть на сайте"
+
 #, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "Страница '{0}' создана и опубликована."
-
-msgid "View live"
-msgstr "Смотреть на сайте"
 
 #, python-brace-format
 msgid "Page '{0}' created and submitted for moderation."

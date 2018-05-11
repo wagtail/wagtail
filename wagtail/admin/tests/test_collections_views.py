@@ -1,9 +1,9 @@
 from django.test import TestCase
 from django.urls import reverse
 
-from wagtail.tests.utils import WagtailTestUtils
 from wagtail.core.models import Collection
 from wagtail.documents.models import Document
+from wagtail.tests.utils import WagtailTestUtils
 
 
 class TestCollectionsIndexView(TestCase, WagtailTestUtils):

@@ -6,12 +6,12 @@ from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 from django.urls import reverse
 
-from wagtail.utils import sendfile_streaming_backend
-from wagtail.utils.sendfile import sendfile
 from wagtail.core import hooks
 from wagtail.core.forms import PasswordViewRestrictionForm
 from wagtail.core.models import CollectionViewRestriction
 from wagtail.documents.models import document_served, get_document_model
+from wagtail.utils import sendfile_streaming_backend
+from wagtail.utils.sendfile import sendfile
 
 
 def serve(request, document_id, document_filename):

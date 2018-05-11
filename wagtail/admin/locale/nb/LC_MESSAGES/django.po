@@ -5,14 +5,14 @@
 # Translators:
 # Eirik Krogstad <eirikkr@gmail.com>, 2015
 # Robin Skahjem-Eriksen <robinds@student.matnat.uio.no>, 2015
-# Stein Strindhaug <stein.strindhaug@gmail.com>, 2016-2017
+# Stein Strindhaug <stein.strindhaug@gmail.com>, 2016-2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-10-06 15:06+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
+"PO-Revision-Date: 2018-02-16 13:12+0000\n"
+"Last-Translator: Stein Strindhaug <stein.strindhaug@gmail.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
 "MIME-Version: 1.0\n"
@@ -152,6 +152,15 @@ msgstr "Tidspunkt for avpublisering må være en gang i fremtiden"
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Du kan ikke ha flere tillatelsesoppføringer for samme samling."
 
+msgid "Error 404: Page not found"
+msgstr "404 Feil: Fant ikke siden"
+
+msgid "Error 404"
+msgstr "404 Feil"
+
+msgid "The requested page could not be found."
+msgstr "Den forespurte siden ble ikke funnet."
+
 msgid "Go to Wagtail admin"
 msgstr "Gå til Wagtail admin"
 
@@ -237,14 +246,17 @@ msgstr "Nullstill ditt passord"
 msgid "Edit"
 msgstr "Redigér"
 
+msgid "Delete"
+msgstr "Slett"
+
 msgid "Page"
 msgstr "Side"
 
 msgid "Pages"
 msgstr "Sider"
 
-msgid "Loading..."
-msgstr "Laster inn..."
+msgid "Loading…"
+msgstr "Laster..."
 
 msgid "No results"
 msgstr "Ingen resultater"
@@ -261,6 +273,24 @@ msgstr "Se alle"
 msgid "Close explorer"
 msgstr "Lukk utforsker"
 
+msgid "Alt text"
+msgstr "Alt-tekst"
+
+msgid "Write here…"
+msgstr "Skriv her..."
+
+msgid "Horizontal line"
+msgstr "Horisontal linje"
+
+msgid "Line break"
+msgstr "Linjeskift"
+
+msgid "Undo"
+msgstr "Angre"
+
+msgid "Redo"
+msgstr "Gjør om"
+
 msgid "Dashboard"
 msgstr "Kontrollpanel"
 
@@ -275,9 +305,6 @@ msgstr "Flytt opp"
 
 msgid "Move down"
 msgstr "Flytt ned"
-
-msgid "Delete"
-msgstr "Slett"
 
 msgid "Explorer"
 msgstr "Utforsker"
@@ -387,8 +414,8 @@ msgstr ""
 "\"%(add_collection_url)s\">legg til en</a>?"
 
 #, python-format
-msgid "Add %(heading)s"
-msgstr "Legg til %(heading)s"
+msgid "Add %(label)s"
+msgstr "Legg til %(label)s"
 
 msgid "Yes, delete"
 msgstr "Ja, slett"
@@ -485,7 +512,7 @@ msgstr "Logg inn på Wagtail"
 msgid "Forgotten it?"
 msgstr "Glemt?"
 
-msgid "Signing in..."
+msgid "Signing in…"
 msgstr "Logger inn..."
 
 #, python-format
@@ -683,13 +710,13 @@ msgstr "Ny %(page_type)s"
 msgid "New"
 msgstr "Ny"
 
-msgid "Saving..."
+msgid "Saving…"
 msgstr "Lagrer..."
 
 msgid "Save draft"
 msgstr "Lagre kladd"
 
-msgid "Publishing..."
+msgid "Publishing…"
 msgstr "Publiserer..."
 
 msgid "Publish"
@@ -946,6 +973,24 @@ msgid "There are no differences between these two revisions"
 msgstr "Det er ingen forskjeller mellom disse to revisjonene"
 
 #, python-format
+msgid "Unschedule Revision %(revision.id)s for %(title)s"
+msgstr "Avbryt planlagt publisering av revisjon %(revision.id)s for %(title)s"
+
+msgid "Unschedule"
+msgstr "Avbryt planlagt publisering"
+
+msgid "Are you sure you want to unschedule this revision?"
+msgstr ""
+"Er du sikker på at du vil avbryte den planlagte publiseringen av denne "
+"revisjonen?"
+
+msgid "Yes, unschedule"
+msgstr "Ja, avbryt"
+
+msgid "No, don't unschedule"
+msgstr "Nei, ikke avbryt"
+
+#, python-format
 msgid "Revisions of %(title)s"
 msgstr "Revisjoner av %(title)s"
 
@@ -965,11 +1010,17 @@ msgstr "Nåværende kladd"
 msgid "Live version"
 msgstr "Publisert versjon"
 
+msgid "Scheduled for"
+msgstr "Planlagt publisert"
+
 msgid "Review this revision"
 msgstr "Vurder denne revisjonen"
 
 msgid "Compare with previous revision"
 msgstr "Sammenlign med forrige revisjon"
+
+msgid "Cancel scheduled publish"
+msgstr "Avbryt planlagt publisering"
 
 msgid "No revisions of this page exist"
 msgstr "Det finnes ingen revisjoner av denne siden"
@@ -1007,6 +1058,9 @@ msgstr "Ingen sider bruker"
 
 msgid "Collection"
 msgstr "Samling"
+
+msgid "Root"
+msgstr "Rot"
 
 msgid "Home"
 msgstr "Hjem"
@@ -1070,12 +1124,6 @@ msgstr "Fre"
 
 msgid "Sat"
 msgstr "Lør"
-
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Brukt %(usage_count)s gang"
-msgstr[1] "Brukt %(usage_count)s ganger"
 
 msgid "Edit your account"
 msgstr "Endre din konto"
@@ -1194,6 +1242,9 @@ msgstr "russisk"
 msgid "Swedish"
 msgstr "Svensk"
 
+msgid "Slovak"
+msgstr "Slovakisk"
+
 msgid "Chinese (China)"
 msgstr "kinesisk (Kina)"
 
@@ -1246,12 +1297,12 @@ msgstr "Redigerer"
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr "Siden \"{0}\" er opprettet og planlagt for publisering."
 
+msgid "View live"
+msgstr "Vis publisert"
+
 #, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "Siden \"{0}\" er opprettet og publisert."
-
-msgid "View live"
-msgstr "Vis publisert"
 
 #, python-brace-format
 msgid "Page '{0}' created and submitted for moderation."
@@ -1273,6 +1324,11 @@ msgstr "Siden kunne ikke opprettes grunnet valideringsfeil."
 #, python-brace-format
 msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
 msgstr "Revisjonen fra {0} av siden «{1}» har blitt planlagt for publisering."
+
+#, python-brace-format
+msgid "Page '{0}' is live and this revision has been scheduled for publishing."
+msgstr ""
+"Siden \"{0}\" er publisert og denne revisjonen er planlagt for publisering."
 
 #, python-brace-format
 msgid "Page '{0}' has been scheduled for publishing."
@@ -1371,6 +1427,14 @@ msgid "Latest"
 msgstr "Siste"
 
 #, python-brace-format
+msgid "revision {0} of \"{1}\""
+msgstr "revisjon {0} av \"{1}\""
+
+#, python-brace-format
+msgid "Revision {0} of \"{1}\" unscheduled."
+msgstr "Revisjon {0} av \"{1}\" avbrutt."
+
+#, python-brace-format
 msgid "Edit '{title}'"
 msgstr "Endre '{title}'"
 
@@ -1412,6 +1476,25 @@ msgstr "Avpublisér siden «{title}»"
 #, python-brace-format
 msgid "View revision history for '{title}'"
 msgstr "Vis revisjonshistorikken til siden «{title}»"
+
+#, python-brace-format
+msgid "Heading {level}"
+msgstr "Overskrift {level}"
+
+msgid "Bulleted list"
+msgstr "Punktliste"
+
+msgid "Numbered list"
+msgstr "Nummerert liste"
+
+msgid "Bold"
+msgstr "Fet"
+
+msgid "Italic"
+msgstr "Kursiv"
+
+msgid "Link"
+msgstr "Lenke"
 
 msgid "Choose an item"
 msgstr "Velg et element"

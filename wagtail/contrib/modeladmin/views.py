@@ -29,8 +29,7 @@ from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
 
 from wagtail.admin import messages
-from wagtail.admin.edit_handlers import (
-    ObjectList, extract_panel_definitions_from_model_class)
+from wagtail.admin.edit_handlers import ObjectList, extract_panel_definitions_from_model_class
 
 from .forms import ParentChooserForm
 
@@ -104,7 +103,7 @@ class WMABaseView(TemplateView):
 
 class ModelFormView(WMABaseView, FormView):
 
-    def get_edit_handler_class(self):
+    def get_edit_handler(self):
         if hasattr(self.model, 'edit_handler'):
             edit_handler = self.model.edit_handler
         else:
@@ -114,7 +113,7 @@ class ModelFormView(WMABaseView, FormView):
         return edit_handler.bind_to_model(self.model)
 
     def get_form_class(self):
-        return self.get_edit_handler_class().get_form_class(self.model)
+        return self.get_edit_handler().get_form_class()
 
     def get_success_url(self):
         return self.index_url
@@ -136,11 +135,13 @@ class ModelFormView(WMABaseView, FormView):
 
     def get_context_data(self, **kwargs):
         instance = self.get_instance()
-        edit_handler_class = self.get_edit_handler_class()
+        edit_handler = self.get_edit_handler()
         form = self.get_form()
+        edit_handler = edit_handler.bind_to_instance(
+            instance=instance, form=form, request=self.request)
         context = {
             'is_multipart': form.is_multipart(),
-            'edit_handler': edit_handler_class(instance=instance, form=form),
+            'edit_handler': edit_handler,
             'form': form,
         }
         context.update(kwargs)
@@ -169,7 +170,9 @@ class ModelFormView(WMABaseView, FormView):
         return redirect(self.get_success_url())
 
     def form_invalid(self, form):
-        messages.error(self.request, self.get_error_message())
+        messages.validation_error(
+            self.request, self.get_error_message(), form
+        )
         return self.render_to_response(self.get_context_data())
 
 

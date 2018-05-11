@@ -1,10 +1,10 @@
 from django.shortcuts import render
 
-from wagtail.utils.pagination import paginate
 from wagtail.admin.forms import SearchForm
 from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.search import models
 from wagtail.search.utils import normalise_query_string
+from wagtail.utils.pagination import paginate
 
 
 def chooser(request, get_results=False):

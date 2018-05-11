@@ -6,6 +6,8 @@
 # hanfeng <appweb.cn@gmail.com>, 2014-2015
 # hanfeng <appweb.cn@gmail.com>, 2014
 # Jian Li <kdlijian@gmail.com>, 2015
+# jszsj <zhushajun@gmail.com>, 2016-2017
+# listeng, 2016
 # listeng, 2016
 # Vincent Zhao <zhaopu2008@gmail.com>, 2017
 # jszsj <zhushajun@gmail.com>, 2017
@@ -15,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-10-06 15:11+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
+"PO-Revision-Date: 2018-01-26 16:04+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
@@ -170,6 +172,10 @@ msgstr "组"
 
 msgid "Add a group"
 msgstr "添加一个组"
+
+#, python-format
+msgid "Sorry, no groups match \"%(query)s\""
+msgstr "对不起，没有符合“%(query)s”的组"
 
 #, python-format
 msgid ""

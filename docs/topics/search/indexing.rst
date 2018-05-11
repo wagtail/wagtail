@@ -115,7 +115,9 @@ For example, if we have a book that has a ``ForeignKey`` to its author, we can n
 
 .. code-block:: python
 
-    class Book(models.Model, indexed.Indexed):
+    from wagtail.search import index
+
+    class Book(models.Model, index.Indexed):
         ...
 
         search_fields = [
@@ -134,7 +136,9 @@ It works the other way around as well. You can index an author's books, allowing
 
 .. code-block:: python
 
-    class Author(models.Model, indexed.Indexed):
+    from wagtail.search import index
+
+    class Author(models.Model, index.Indexed):
         ...
 
         search_fields = [

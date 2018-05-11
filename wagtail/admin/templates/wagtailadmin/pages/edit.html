@@ -1,6 +1,5 @@
 {% extends "wagtailadmin/base.html" %}
 {% load wagtailadmin_tags %}
-{% load gravatar %}
 {% load i18n %}
 {% load l10n %}
 {% block titletag %}{% blocktrans with title=page.get_admin_display_title page_type=content_type.model_class.get_verbose_name %}Editing {{ page_type }}: {{ title }}{% endblocktrans %}{% endblock %}
@@ -18,7 +17,7 @@
             </div>
             <div class="right col3">
                 {% trans "Status" %}
-                {% include "wagtailadmin/shared/page_status_tag.html" with page=page %}
+                {% include "wagtailadmin/shared/page_status_tag.html" with page=page_for_status %}
 
                 {% include "wagtailadmin/pages/_privacy_switch.html" with page=page page_perms=page_perms only %}
                 {% include "wagtailadmin/pages/_lock_switch.html" %}
@@ -40,7 +39,7 @@
             <ul>
                 <li class="actions">
                     <div class="dropdown dropup dropdown-button match-width {% if is_revision %}warning{% endif %}">
-                        <button type="submit" class="button action-save button-longrunning {% if is_revision %}warning{% endif %}" tabindex="3" data-clicked-text="{% trans 'Saving...' %}" {% if page.locked %}disabled {% endif %}><span class="icon icon-spinner"></span><em>{% if page.locked %}{% trans 'Page locked' %}{% else %}{% if is_revision %}{% trans 'Replace current draft' %}{% else %}{% trans 'Save draft' %}{% endif %}{% endif %}</em></button>
+                        <button type="submit" class="button action-save button-longrunning {% if is_revision %}warning{% endif %}" tabindex="3" data-clicked-text="{% trans 'Saving…' %}" {% if page.locked %}disabled {% endif %}><span class="icon icon-spinner"></span><em>{% if page.locked %}{% trans 'Page locked' %}{% else %}{% if is_revision %}{% trans 'Replace current draft' %}{% else %}{% trans 'Save draft' %}{% endif %}{% endif %}</em></button>
 
                         {% if not page.locked %}
                             <div class="dropdown-toggle icon icon-arrow-up"></div>
@@ -53,7 +52,7 @@
                                 {% endif %}
                                 {% if page_perms.can_publish %}
                                     <li>
-                                        <button type="submit" name="action-publish" value="action-publish" class="button button-longrunning {% if is_revision %}warning{% endif %}" tabindex="3" data-clicked-text="{% trans 'Publishing...' %}" {% if page.locked %}disabled {% endif %}><span class="icon icon-spinner"></span><em>{% if is_revision %}{% trans 'Publish this revision' %}{% else %}{% trans 'Publish' %}{% endif %}</em></button>
+                                        <button type="submit" name="action-publish" value="action-publish" class="button button-longrunning {% if is_revision %}warning{% endif %}" tabindex="3" data-clicked-text="{% trans 'Publishing…' %}" {% if page.locked %}disabled {% endif %}><span class="icon icon-spinner"></span><em>{% if is_revision %}{% trans 'Publish this revision' %}{% else %}{% trans 'Publish' %}{% endif %}</em></button>
                                     </li>
                                 {% endif %}
                                 {% if not is_revision %}
@@ -89,12 +88,14 @@
                             {% blocktrans with last_mod=page.get_latest_revision.created_at %}Last modified: {{ last_mod }}{% endblocktrans %}
                             {% if page.get_latest_revision.user %}
                                 {% blocktrans with modified_by=page.get_latest_revision.user.get_full_name|default:page.get_latest_revision.user.get_username %}by {{ modified_by }}{% endblocktrans %}
-                                <span class="avatar small"><img src="{% gravatar_url page.get_latest_revision.user.email 25 %}" /></span>
+                                <span class="avatar small"><img src="{% avatar_url page.get_latest_revision.user size=25 %}" /></span>
                             {% endif %}
                             <a href="{% url 'wagtailadmin_pages:revisions_index' page.id %}" class="underlined">{% trans 'Revisions' %}</a>
                         {% endif %}
                     </p>
                 </li>
+                {% block extra_footer_actions %}
+                {% endblock %}
             </ul>
         </footer>
     </form>

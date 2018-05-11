@@ -5,15 +5,15 @@
 # Translators:
 # Alexander Holmbäck <alexander.holmback@creuna.se>, 2017
 # Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2017
-# Thomas Kunambi <kunambi@gmail.com>, 2017
+# Thomas Kunambi <kunambi@gmail.com>, 2015,2017
 # Thomas Kunambi <kunambi@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-20 15:49+0000\n"
-"Last-Translator: Jim Brouzoulis <jim.brouzoulis@chalmers.se>\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
+"PO-Revision-Date: 2018-01-26 16:03+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -80,8 +80,8 @@ msgstr "Ny %(snippet_type_name)s"
 msgid "New"
 msgstr "Ny"
 
-msgid "Saving..."
-msgstr "Sparar..."
+msgid "Saving…"
+msgstr "Sparar…"
 
 msgid "Save"
 msgstr "Spara"

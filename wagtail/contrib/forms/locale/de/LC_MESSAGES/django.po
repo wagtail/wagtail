@@ -7,15 +7,15 @@
 # Henrik Kröger <hedwig@riseup.net>, 2016
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014-2015
 # Max Pfeiffer <max.pfeiffer@alp-phone.ch>, 2015
-# Moritz Pfeiffer <moritz@alp-phone.ch>, 2016-2017
+# Moritz Pfeiffer <moritz@alp-phone.ch>, 2016-2018
 # Tammo van Lessen <tvanlessen@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-20 11:02+0000\n"
-"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
+"PO-Revision-Date: 2018-02-16 14:21+0000\n"
+"Last-Translator: Moritz Pfeiffer <moritz@alp-phone.ch>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -24,8 +24,9 @@ msgstr ""
 "Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "{} submissions"
-msgstr "{} Abgaben"
+#, python-format
+msgid "%s submissions"
+msgstr "%s Abgaben"
 
 msgid "Date from"
 msgstr "Datum von"
@@ -74,6 +75,9 @@ msgstr "Datum"
 
 msgid "Date/time"
 msgstr "Zeitpunkt"
+
+msgid "Hidden field"
+msgstr "Verstecktes Feld"
 
 msgid "submit time"
 msgstr "Absendezeitpunkt"

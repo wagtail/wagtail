@@ -172,7 +172,9 @@ if os.environ.get('DATABASE_ENGINE') == 'django.db.backends.postgresql':
     }
 
 if 'ELASTICSEARCH_URL' in os.environ:
-    if os.environ.get('ELASTICSEARCH_VERSION') == '5':
+    if os.environ.get('ELASTICSEARCH_VERSION') == '6':
+        backend = 'wagtail.search.backends.elasticsearch6'
+    elif os.environ.get('ELASTICSEARCH_VERSION') == '5':
         backend = 'wagtail.search.backends.elasticsearch5'
     elif os.environ.get('ELASTICSEARCH_VERSION') == '2':
         backend = 'wagtail.search.backends.elasticsearch2'
@@ -203,6 +205,9 @@ WAGTAIL_USER_CUSTOM_FIELDS = ['country', 'attachment']
 
 WAGTAILADMIN_RICH_TEXT_EDITORS = {
     'default': {
+        'WIDGET': 'wagtail.admin.rich_text.DraftailRichTextArea'
+    },
+    'hallo': {
         'WIDGET': 'wagtail.admin.rich_text.HalloRichTextArea'
     },
     'custom': {

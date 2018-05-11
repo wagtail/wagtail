@@ -117,7 +117,7 @@ provider using the oEmbed protocol. Wagtail has a built-in list of providers
 which are all enabled by default. You can find that provider list at the
 following link:
 
-https://github.com/wagtail/wagtail/blob/master/wagtail/wagtailembeds/oembed_providers.py
+https://github.com/wagtail/wagtail/blob/master/wagtail/embeds/oembed_providers.py
 
 .. _customising_embed_providers:
 
@@ -160,7 +160,7 @@ Multiple finders can be chained together. This can be used for customising the
 configuration for one provider without affecting the others.
 
 For example, this is how you can instruct Youtube to return videos in HTTPS
-(which must be done explictly for YouTube):
+(which must be done explicitly for YouTube):
 
 .. code-block:: python
 

@@ -1,20 +1,20 @@
 from django.apps import apps
+from django.contrib.admin.utils import quote, unquote
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.text import capfirst
 from django.utils.translation import ugettext as _
 
-from wagtail.utils.pagination import paginate
 from wagtail.admin import messages
-from wagtail.admin.edit_handlers import (
-    ObjectList, extract_panel_definitions_from_model_class)
+from wagtail.admin.edit_handlers import ObjectList, extract_panel_definitions_from_model_class
 from wagtail.admin.forms import SearchForm
 from wagtail.admin.utils import permission_denied
 from wagtail.search.backends import get_search_backend
 from wagtail.search.index import class_is_indexed
 from wagtail.snippets.models import get_snippet_models
 from wagtail.snippets.permissions import get_permission_name, user_can_edit_snippet_type
+from wagtail.utils.pagination import paginate
 
 
 # == Helper functions ==
@@ -128,8 +128,8 @@ def create(request, app_label, model_name):
         return permission_denied(request)
 
     instance = model()
-    edit_handler_class = get_snippet_edit_handler(model)
-    form_class = edit_handler_class.get_form_class(model)
+    edit_handler = get_snippet_edit_handler(model)
+    form_class = edit_handler.get_form_class()
 
     if request.method == 'POST':
         form = form_class(request.POST, request.FILES, instance=instance)
@@ -145,17 +145,23 @@ def create(request, app_label, model_name):
                 ),
                 buttons=[
                     messages.button(reverse(
-                        'wagtailsnippets:edit', args=(app_label, model_name, instance.id)
+                        'wagtailsnippets:edit', args=(app_label, model_name, quote(instance.pk))
                     ), _('Edit'))
                 ]
             )
             return redirect('wagtailsnippets:list', app_label, model_name)
         else:
-            messages.error(request, _("The snippet could not be created due to errors."))
-            edit_handler = edit_handler_class(instance=instance, form=form)
+            messages.validation_error(
+                request, _("The snippet could not be created due to errors."), form
+            )
+            edit_handler = edit_handler.bind_to_instance(instance=instance,
+                                                         form=form,
+                                                         request=request)
     else:
         form = form_class(instance=instance)
-        edit_handler = edit_handler_class(instance=instance, form=form)
+        edit_handler = edit_handler.bind_to_instance(instance=instance,
+                                                     form=form,
+                                                     request=request)
 
     return render(request, 'wagtailsnippets/snippets/create.html', {
         'model_opts': model._meta,
@@ -164,16 +170,16 @@ def create(request, app_label, model_name):
     })
 
 
-def edit(request, app_label, model_name, id):
+def edit(request, app_label, model_name, pk):
     model = get_snippet_model_from_url_params(app_label, model_name)
 
     permission = get_permission_name('change', model)
     if not request.user.has_perm(permission):
         return permission_denied(request)
 
-    instance = get_object_or_404(model, id=id)
-    edit_handler_class = get_snippet_edit_handler(model)
-    form_class = edit_handler_class.get_form_class(model)
+    instance = get_object_or_404(model, pk=unquote(pk))
+    edit_handler = get_snippet_edit_handler(model)
+    form_class = edit_handler.get_form_class()
 
     if request.method == 'POST':
         form = form_class(request.POST, request.FILES, instance=instance)
@@ -189,17 +195,23 @@ def edit(request, app_label, model_name, id):
                 ),
                 buttons=[
                     messages.button(reverse(
-                        'wagtailsnippets:edit', args=(app_label, model_name, instance.id)
+                        'wagtailsnippets:edit', args=(app_label, model_name, quote(instance.pk))
                     ), _('Edit'))
                 ]
             )
             return redirect('wagtailsnippets:list', app_label, model_name)
         else:
-            messages.error(request, _("The snippet could not be saved due to errors."))
-            edit_handler = edit_handler_class(instance=instance, form=form)
+            messages.validation_error(
+                request, _("The snippet could not be saved due to errors."), form
+            )
+            edit_handler = edit_handler.bind_to_instance(instance=instance,
+                                                         form=form,
+                                                         request=request)
     else:
         form = form_class(instance=instance)
-        edit_handler = edit_handler_class(instance=instance, form=form)
+        edit_handler = edit_handler.bind_to_instance(instance=instance,
+                                                     form=form,
+                                                     request=request)
 
     return render(request, 'wagtailsnippets/snippets/edit.html', {
         'model_opts': model._meta,
@@ -209,14 +221,14 @@ def edit(request, app_label, model_name, id):
     })
 
 
-def delete(request, app_label, model_name, id):
+def delete(request, app_label, model_name, pk):
     model = get_snippet_model_from_url_params(app_label, model_name)
 
     permission = get_permission_name('delete', model)
     if not request.user.has_perm(permission):
         return permission_denied(request)
 
-    instance = get_object_or_404(model, id=id)
+    instance = get_object_or_404(model, pk=unquote(pk))
 
     if request.method == 'POST':
         instance.delete()
@@ -235,9 +247,9 @@ def delete(request, app_label, model_name, id):
     })
 
 
-def usage(request, app_label, model_name, id):
+def usage(request, app_label, model_name, pk):
     model = get_snippet_model_from_url_params(app_label, model_name)
-    instance = get_object_or_404(model, id=id)
+    instance = get_object_or_404(model, pk=unquote(pk))
 
     paginator, used_by = paginate(request, instance.get_usage())
 

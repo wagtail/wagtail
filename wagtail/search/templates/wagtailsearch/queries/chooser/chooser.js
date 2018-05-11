@@ -1,9 +1,9 @@
 function(modal) {
     function ajaxifyLinks (context) {
 
-        $('.listing a.choose-query', context).click(chooseQuery);
+        $('.listing a.choose-query', context).on('click', chooseQuery);
 
-        $('.pagination a', context).click(function() {
+        $('.pagination a', context).on('click', function() {
             var page = this.getAttribute("data-page");
             setPage(page);
             return false;
@@ -49,7 +49,7 @@ function(modal) {
 
     ajaxifyLinks(modal.body);
 
-    $('form.query-search', modal.body).submit(search);
+    $('form.query-search', modal.body).on('submit', search);
 
     $('#id_q').on('input', function() {
         clearTimeout($.data(this, 'timer'));

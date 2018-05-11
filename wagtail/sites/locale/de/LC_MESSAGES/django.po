@@ -7,11 +7,12 @@
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2016
 # Wasilis Mandratzis-Walz, 2015
+# Wasilis Mandratzis-Walz, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
 "PO-Revision-Date: 2017-09-20 11:57+0000\n"
 "Last-Translator: Moritz Pfeiffer <moritz@alp-phone.ch>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"

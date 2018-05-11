@@ -8,18 +8,20 @@
 # Henrik Kröger <hedwig@riseup.net>, 2016
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 # Matt Westcott <matthew@torchbox.com>, 2015
+# Matt Westcott <matthew@torchbox.com>, 2015
 # Max Pfeiffer <max.pfeiffer@alp-phone.ch>, 2015
-# Moritz Pfeiffer <moritz@alp-phone.ch>, 2016-2017
+# Moritz Pfeiffer <moritz@alp-phone.ch>, 2016-2018
 # Tammo van Lessen <tvanlessen@gmail.com>, 2015
-# Vorlif <flori@vorlif.org>, 2017
+# Vorlif <flori@vorlif.org>, 2015,2017
+# Wasilis Mandratzis-Walz, 2015
 # Wasilis Mandratzis-Walz, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-20 00:27+0000\n"
-"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
+"PO-Revision-Date: 2018-02-16 14:24+0000\n"
+"Last-Translator: Moritz Pfeiffer <moritz@alp-phone.ch>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -181,6 +183,9 @@ msgstr "geplant"
 
 msgid "draft"
 msgstr "Entwurf"
+
+msgid "live + scheduled"
+msgstr "veröffentlicht + geplant"
 
 msgid "live + draft"
 msgstr "Veröffentlicht + Entwurf"

@@ -10,6 +10,7 @@
 # fooflare <amos.oviedo@gmail.com>, 2014
 # José Luis <alagunajs@gmail.com>, 2015-2016
 # José Luis <alagunajs@gmail.com>, 2017
+# Mauricio Baeza <python@amigos.email>, 2014-2015
 # Mauricio Baeza <python@amigos.email>, 2015
 # Mauricio Baeza <python@amigos.email>, 2014
 # José Luis <alagunajs@gmail.com>, 2016-2017
@@ -17,9 +18,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-10-09 12:48+0000\n"
-"Last-Translator: José Luis <alagunajs@gmail.com>\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
+"PO-Revision-Date: 2018-01-26 16:04+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -264,9 +265,6 @@ msgid ""
 msgstr ""
 "No hay usuarios configurados. ¿Por qué no <a href="
 "\"%(wagtailusers_create_url)s\">añadir alguno</a>?"
-
-msgid "Search"
-msgstr "Buscar"
 
 msgid "Groups"
 msgstr "Grupos"

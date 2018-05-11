@@ -165,7 +165,7 @@ DateBlock
 A date picker. The keyword arguments ``required`` (default: True), ``help_text`` and ``format`` are accepted.
 
 ``format`` (default: None)
-  Date format. This must be one of the recognised formats listed in the `DATE_INPUT_FORMATS <https://docs.djangoproject.com/en/1.10/ref/settings/#std:setting-DATE_INPUT_FORMATS>`_ setting. If not specifed Wagtail will use ``WAGTAIL_DATE_FORMAT`` setting with fallback to '%Y-%m-%d'.
+  Date format. This must be one of the recognised formats listed in the `DATE_INPUT_FORMATS <https://docs.djangoproject.com/en/1.10/ref/settings/#std:setting-DATE_INPUT_FORMATS>`_ setting. If not specified Wagtail will use ``WAGTAIL_DATE_FORMAT`` setting with fallback to '%Y-%m-%d'.
 
 TimeBlock
 ~~~~~~~~~
@@ -182,7 +182,7 @@ DateTimeBlock
 A combined date / time picker. The keyword arguments ``required`` (default: True), ``help_text`` and ``format`` are accepted.
 
 ``format`` (default: None)
-  Date format. This must be one of the recognised formats listed in the `DATETIME_INPUT_FORMATS <https://docs.djangoproject.com/en/1.10/ref/settings/#std:setting-DATETIME_INPUT_FORMATS>`_ setting. If not specifed Wagtail will use ``WAGTAIL_DATETIME_FORMAT`` setting with fallback to '%Y-%m-%d %H:%M'.
+  Date format. This must be one of the recognised formats listed in the `DATETIME_INPUT_FORMATS <https://docs.djangoproject.com/en/1.10/ref/settings/#std:setting-DATETIME_INPUT_FORMATS>`_ setting. If not specified Wagtail will use ``WAGTAIL_DATETIME_FORMAT`` setting with fallback to '%Y-%m-%d %H:%M'.
 
 RichTextBlock
 ~~~~~~~~~~~~~
@@ -665,7 +665,7 @@ As well as passing variables from the parent template, block subclasses can pass
         date = blocks.DateBlock()
 
         def get_context(self, value, parent_context=None):
-            context = super(EventBlock, self).get_context(value, parent_context=parent_context)
+            context = super().get_context(value, parent_context=parent_context)
             context['is_happening_today'] = (value['date'] == datetime.date.today())
             return context
 
@@ -842,7 +842,7 @@ To add additional variables, you can override the block's ``get_form_context`` m
         biography = blocks.RichTextBlock()
 
         def get_form_context(self, value, prefix='', errors=None):
-            context = super(PersonBlock, self).get_form_context(value, prefix=prefix, errors=errors)
+            context = super().get_form_context(value, prefix=prefix, errors=errors)
             context['suggested_first_names'] = ['John', 'Paul', 'George', 'Ringo']
             return context
 
@@ -938,7 +938,7 @@ For block types that simply wrap an existing Django form field, Wagtail provides
     class IPAddressBlock(FieldBlock):
         def __init__(self, required=True, help_text=None, **kwargs):
             self.field = forms.GenericIPAddressField(required=required, help_text=help_text)
-            super(IPAddressBlock, self).__init__(**kwargs)
+            super().__init__(**kwargs)
 
 
 Migrations

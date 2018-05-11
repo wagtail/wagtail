@@ -1,0 +1,22 @@
+==========================================
+Wagtail 2.1 release notes - IN DEVELOPMENT
+==========================================
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Other features
+~~~~~~~~~~~~~~
+
+ * Added another valid AudioBoom oEmbed pattern (Bertrand Bordage)
+
+Bug fixes
+~~~~~~~~~
+
+Upgrade considerations
+======================

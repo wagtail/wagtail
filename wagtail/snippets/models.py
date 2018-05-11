@@ -1,3 +1,4 @@
+from django.contrib.admin.utils import quote
 from django.urls import reverse
 
 from wagtail.admin.utils import get_object_usage
@@ -20,4 +21,4 @@ def register_snippet(model):
 
 def get_snippet_usage_url(self):
     return reverse('wagtailsnippets:usage', args=(
-        self._meta.app_label, self._meta.model_name, self.id))
+        self._meta.app_label, self._meta.model_name, quote(self.pk)))

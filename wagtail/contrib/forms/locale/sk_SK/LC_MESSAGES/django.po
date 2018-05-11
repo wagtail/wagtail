@@ -3,14 +3,18 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# dellax <michalnebbia@gmail.com>, 2015
 # karabellyj <jozefkarabelly@gmail.com>, 2017
+# karabellyj <jozefkarabelly@gmail.com>, 2017
+# Martin Janšto <mato@jansto.sk>, 2017
+# Martin Janšto <mato@jansto.sk>, 2017
 # dellax <michalnebbia@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-20 15:49+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
+"PO-Revision-Date: 2018-01-26 16:04+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
@@ -19,6 +23,16 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sk_SK\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+
+msgid "Date from"
+msgstr "Dátum od"
+
+msgid "Date to"
+msgstr "Dátum do"
+
+#, python-format
+msgid "There is another field with the label %s, please change one of them."
+msgstr "Už existuje iné pole s popisom %s, prosím zmeňte jedno z nich."
 
 msgid "Single line text"
 msgstr "Jednoriadkový text"
@@ -41,11 +55,26 @@ msgstr "Políčko na zaškrtnutie"
 msgid "Checkboxes"
 msgstr "Políčka na zaškrtnutie"
 
+msgid "Drop down"
+msgstr "Preniesť a pustiť sem"
+
+msgid "Multiple select"
+msgstr "Výber viacerých položiek"
+
+msgid "Radio buttons"
+msgstr "Prepínače"
+
 msgid "Date"
 msgstr "Dátum"
 
 msgid "Date/time"
 msgstr "Dátum/čas"
+
+msgid "submit time"
+msgstr "čas odoslania"
+
+msgid "form submission"
+msgstr "odoslanie formulára"
 
 msgid "label"
 msgstr "štítok"
@@ -56,11 +85,85 @@ msgstr "Štítok poľa formuláru"
 msgid "field type"
 msgstr "typ poľa"
 
+msgid "required"
+msgstr "povinné"
+
+msgid "choices"
+msgstr "voľby"
+
+msgid ""
+"Comma separated list of choices. Only applicable in checkboxes, radio and "
+"dropdown."
+msgstr ""
+"Čiarkou oddelené voľby. Použiteľné len na zaškrtávacie políčka, prepínače a "
+"rozbaľovacie pole."
+
 msgid "default value"
 msgstr "predvolená hodnota"
 
+msgid "Default value. Comma separated values supported for checkboxes."
+msgstr ""
+"Predvolená hodnota. Čiarkou oddelené hodnoty podporované zaškrtávacie "
+"políčka."
+
+msgid "help text"
+msgstr "pomocný text"
+
+msgid "Submission date"
+msgstr "Dátum odoslania"
+
+msgid "to address"
+msgstr "na adresu"
+
+msgid ""
+"Optional - form submissions will be emailed to these addresses. Separate "
+"multiple addresses by comma."
+msgstr ""
+"Voliteľné - výsledky tohto formulára budú zasielané na tieto adresy. "
+"Jednotlivé adresy oddeľte čiarkou."
+
+msgid "from address"
+msgstr "z adresy"
+
+msgid "subject"
+msgstr "predmet"
+
+#, python-format
+msgid "Delete form data %(title)s"
+msgstr "Vymazať formulárové dáta %(title)s"
+
+msgid "Delete form data"
+msgstr "Vymazať formulárové dáta"
+
+msgid ""
+"\n"
+"                Are you sure you want to delete this form submission?\n"
+"            "
+msgid_plural ""
+"\n"
+"                Are you sure you want to delete these form submissions?\n"
+"            "
+msgstr[0] ""
+"\n"
+"                Naozaj chcete vymazať toto odoslanie formulára?\n"
+"            "
+msgstr[1] ""
+"\n"
+"                Naozaj chcete vymazať tieto odoslania formulára?\n"
+"            "
+msgstr[2] ""
+"\n"
+"                Naozaj chcete vymazať tieto odoslania formulára?\n"
+"            "
+
 msgid "Delete"
 msgstr "Vymazať"
+
+msgid "Total submissions"
+msgstr "Odoslania celkovo"
+
+msgid "Latest submission"
+msgstr "Posledné odoslanie"
 
 msgid "Forms"
 msgstr "Formuláre"
@@ -68,14 +171,39 @@ msgstr "Formuláre"
 msgid "Pages"
 msgstr "Stránky"
 
+#, python-format
+msgid "Submissions of %(form_title)s"
+msgstr "Odoslania %(form_title)s"
+
+#, python-format
+msgid "Form data <span>%(form_title)s</span>"
+msgstr "Dáta formulára <span>%(form_title)s</span>"
+
 msgid "Filter"
 msgstr "Filter"
 
 msgid "Download CSV"
 msgstr "Stiahnuť CSV"
 
+#, python-format
+msgid "There have been no submissions of the '%(title)s' form."
+msgstr "Neexistujú žiadne odoslania '%(title)s' formulára."
+
 msgid "Title"
 msgstr "Titulok"
 
+msgid "Origin"
+msgstr "Pôvod"
+
+msgid "Delete selected submissions"
+msgstr "Zmazať vybrané odoslania"
+
 msgid "No form pages have been created."
 msgstr "Žiadne formuláre neboli vytvorené."
+
+#, python-format
+msgid "One submission has been deleted."
+msgid_plural "%(count)d submissions have been deleted."
+msgstr[0] "Jedno odoslanie bolo vymazané."
+msgstr[1] "%(count)d odoslania boli vymazané."
+msgstr[2] "%(count)d odoslaní bolo vymazaných."

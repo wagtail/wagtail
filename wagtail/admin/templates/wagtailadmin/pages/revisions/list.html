@@ -1,4 +1,4 @@
-{% load i18n wagtailadmin_tags gravatar %}
+{% load i18n wagtailadmin_tags %}
 {% load l10n %}
 
 <table class="listing">
@@ -17,10 +17,11 @@
                         <h2>
                             <a href="{% url 'wagtailadmin_pages:revisions_revert' page.id revision.id %}">{{ revision.created_at }}</a>
                             <span class="unbold">
-                                {% trans 'by' context 'points to a user who created a revision' %}<span class="avatar small"><img src="{% gravatar_url revision.user.email 25 %}" /></span>{{ revision.user }}
+                                {% trans 'by' context 'points to a user who created a revision' %}<span class="avatar small"><img src="{% avatar_url revision.user size=25 %}" /></span>{{ revision.user }}
                             </span>
                             {% if revision == page.get_latest_revision %}({% trans 'Current draft' %}){% endif %}
                             {% if revision == page.live_revision %}({% trans 'Live version' %}){% endif %}
+			    {% if revision.approved_go_live_at %}({% trans 'Scheduled for' %} {{ revision.approved_go_live_at }}) {% endif %}
                         </h2>
 
                         <ul class="actions">
@@ -35,6 +36,9 @@
                                 <li><a href="{% url 'wagtailadmin_pages:revisions_compare' page.id previous_revision.id revision.id %}" class="button button-small button-secondary">{% trans 'Compare with previous revision' %}</a></li>
                             {% endif %}
                             {% endwith %}
+			    {% if revision.approved_go_live_at %}
+				<li><a href="{% url 'wagtailadmin_pages:revisions_unschedule' page.id revision.id %}" class="button button-small button-secondary">{% trans 'Cancel scheduled publish' %}</a></li>
+			    {% endif %}
                         </ul>
                     </td>
                 </tr>

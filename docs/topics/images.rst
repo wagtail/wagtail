@@ -26,7 +26,7 @@ For example:
     <!-- Display it again, but this time as a square thumbnail: -->
     {% image page.photo fill-80x80 %}
 
-In the above syntax example ``[image]`` is the Django object refering to the image. If your page model defined a field called "photo" then ``[image]`` would probably be ``page.photo``. The ``[resize-rule]`` defines how the image is to be resized when inserted into the page. Various resizing methods are supported, to cater to different use cases (e.g. lead images that span the whole width of the page, or thumbnails to be cropped to a fixed size).
+In the above syntax example ``[image]`` is the Django object referring to the image. If your page model defined a field called "photo" then ``[image]`` would probably be ``page.photo``. The ``[resize-rule]`` defines how the image is to be resized when inserted into the page. Various resizing methods are supported, to cater to different use cases (e.g. lead images that span the whole width of the page, or thumbnails to be cropped to a fixed size).
 
 Note that a space separates ``[image]`` and ``[resize-rule]``, but the resize rule must not contain spaces. The width is always specified before the height. Resized images will maintain their original aspect ratio unless the ``fill`` rule is used, which may result in some pixels being cropped.
 
@@ -253,7 +253,7 @@ For example, to make the tag always convert the image to a JPEG, use ``format-jp
 
 You may also use ``format-png`` or ``format-gif``.
 
-.. _image_background_color
+.. _image_background_color:
 
 Background color
 ----------------

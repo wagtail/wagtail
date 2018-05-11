@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2017
+# Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-21 21:56+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
+"PO-Revision-Date: 2018-03-27 17:30+0000\n"
 "Last-Translator: Giacomo Ghizzani <giacomo.ghz@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
@@ -134,8 +134,14 @@ msgstr "Carica"
 msgid "Popular tags"
 msgstr "Tags popolari"
 
-msgid "Uploading..."
-msgstr "Caricamento..."
+msgid "Uploading…"
+msgstr "Caricamento…"
+
+msgid "Server Error"
+msgstr "Errore del Server"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Presenta questo errore al tuo webmaster con le seguenti informazioni:"
 
 #, python-format
 msgid ""
@@ -197,6 +203,12 @@ msgstr "Salva"
 msgid "Delete image"
 msgstr "Elimina immagine"
 
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Usato %(usage_count)s volta"
+msgstr[1] "Usato %(usage_count)s volte"
+
 msgid "Are you sure you want to delete this image?"
 msgstr "Sei sicuro di voler eliminare questa immagine?"
 
@@ -238,6 +250,9 @@ msgstr "Dimensione file"
 msgid "File not found"
 msgstr "File non trovato"
 
+msgid "Usage"
+msgstr "Uso"
+
 msgid "Images"
 msgstr "Immagini"
 
@@ -251,7 +266,7 @@ msgid ""
 "You haven't uploaded any images in this collection. Why not <a href="
 "\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Non hai caricato nessuna immagine in questa collezione. Perché non <a href="
+"Non hai caricato nessuna immagine in questa raccolta. Perché non <a href="
 "\"%(wagtailimages_add_image_url)s\">ne aggiungi una adesso</a>?"
 
 #, python-format
@@ -315,7 +330,7 @@ msgid "Or choose from your computer"
 msgstr "Oppure sceglila dal tuo computer"
 
 msgid "Add to collection:"
-msgstr "Aggiungi alla collezione:"
+msgstr "Aggiungi alla raccolta:"
 
 msgid ""
 "Upload successful. Please update this image with a more appropriate title, "
@@ -327,12 +342,6 @@ msgstr ""
 
 msgid "Sorry, upload failed."
 msgstr "Spiacente, caricamento fallito."
-
-msgid "Server Error"
-msgstr "Errore del Server"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Presenta questo errore al tuo webmaster con le seguenti informazioni:"
 
 msgid "Image updated."
 msgstr "Immagine aggiornata."
@@ -380,14 +389,17 @@ msgstr "Immagine '{0}' aggiunta."
 msgid "The image could not be created due to errors."
 msgstr "L'immagine non può essere creata a causa di errori."
 
+msgid "Image"
+msgstr "Immagine"
+
 #, python-format
 msgid "%(count)s image"
 msgid_plural "%(count)s images"
 msgstr[0] "%(count)s immagine"
 msgstr[1] "%(count)s immagini"
 
-msgid "Choose another image"
-msgstr "Scegli un'altra immagine"
+msgid "Change image"
+msgstr "Cambia immagine"
 
 msgid "Edit this image"
 msgstr "Modifica questa immagine"

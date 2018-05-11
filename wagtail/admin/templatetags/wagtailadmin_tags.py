@@ -2,14 +2,15 @@ import itertools
 
 from django import template
 from django.conf import settings
+from django.contrib.admin.utils import quote
 from django.contrib.humanize.templatetags.humanize import intcomma
 from django.contrib.messages.constants import DEFAULT_TAGS as MESSAGE_TAGS
+from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.template.defaultfilters import stringfilter
 from django.template.loader import render_to_string
 from django.utils.html import conditional_escape
 from django.utils.safestring import mark_safe
 
-from wagtail.utils.pagination import DEFAULT_PAGE_KEY, replace_page_in_query
 from wagtail.admin.menu import admin_menu
 from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.admin.search import admin_search_areas
@@ -18,6 +19,8 @@ from wagtail.core.models import (
     CollectionViewRestriction, Page, PageViewRestriction, UserPagePermissionsProxy)
 from wagtail.core.utils import cautious_slugify as _cautious_slugify
 from wagtail.core.utils import camelcase_to_underscore, escape_script
+from wagtail.users.utils import get_gravatar_url
+from wagtail.utils.pagination import DEFAULT_PAGE_KEY, replace_page_in_query
 
 register = template.Library()
 
@@ -59,7 +62,7 @@ def explorer_breadcrumb(context, page, include_self=False):
         return {'pages': Page.objects.none()}
 
     return {
-        'pages': page.get_ancestors(inclusive=include_self).descendant_of(cca, inclusive=True)
+        'pages': page.get_ancestors(inclusive=include_self).descendant_of(cca, inclusive=True).specific()
     }
 
 
@@ -84,7 +87,7 @@ def ellipsistrim(value, max_length):
         truncd_val = value[:max_length]
         if not len(value) == (max_length + 1) and value[max_length + 1] != " ":
             truncd_val = truncd_val[:truncd_val.rfind(" ")]
-        return truncd_val + "..."
+        return truncd_val + "…"
     return value
 
 
@@ -365,3 +368,27 @@ def replace_page_param(query, page_number, page_key='p'):
 @register.filter('abs')
 def _abs(val):
     return abs(val)
+
+
+@register.filter
+def admin_urlquote(value):
+    return quote(value)
+
+
+@register.simple_tag
+def avatar_url(user, size=50):
+    """
+    A template tag that receives a user and size and return
+    the appropiate avatar url for that user.
+    Example usage: {% avatar_url request.user 50 %}
+    """
+
+    if hasattr(user, 'wagtail_userprofile') and user.wagtail_userprofile.avatar:
+        return user.wagtail_userprofile.avatar.url
+
+    if hasattr(user, 'email'):
+        gravatar_url = get_gravatar_url(user.email, size=size)
+        if gravatar_url is not None:
+            return gravatar_url
+
+    return static('wagtailadmin/images/default-user-avatar.png')

@@ -1,0 +1,16 @@
+$icon-size: 1em;
+
+.TooltipEntity {
+    cursor: pointer;
+
+    &:hover {
+        color: $color-teal;
+    }
+
+    &__icon {
+        color: $color-teal;
+        margin-right: 0.2em;
+        width: $icon-size;
+        height: $icon-size;
+    }
+}

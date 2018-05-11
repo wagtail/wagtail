@@ -120,6 +120,29 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
 ``url`` (optional)
   A URL to an index page that lists the objects being described.
 
+.. _register_account_menu_item:
+
+``register_account_menu_item``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Add an item to the “Account settings” page within the Wagtail admin.
+  The callable for this hook should return a dict with the keys
+  ``url``, ``label`` and ``help_text``. For example:
+
+  .. code-block:: python
+
+    from django.urls import reverse
+    from wagtail.core import hooks
+
+    @hooks.register('register_account_menu_item')
+    def register_account_delete_account(request):
+        return {
+            'url': reverse('delete-account'),
+            'label': 'Delete account',
+            'help_text': 'This permanently deletes your account.'
+        }
+
+
 
 .. _register_admin_menu_item:
 
@@ -228,7 +251,7 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
 ``register_permissions``
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-  Return a queryset of ``Permission`` objects to be shown in the Groups administration area.
+  Return a QuerySet of ``Permission`` objects to be shown in the Groups administration area.
 
 
 .. _filter_form_submissions_for_user:
@@ -266,10 +289,20 @@ Editor interface
 Hooks for customising the editing interface for pages and snippets.
 
 
+.. _register_rich_text_features:
+
+``register_rich_text_features``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Rich text fields in Wagtail work with a list of 'feature' identifiers that determine which editing controls are available in the editor, and which elements are allowed in the output; for example, a rich text field defined as ``RichTextField(features=['h2', 'h3', 'bold', 'italic', 'link'])`` would allow headings, bold / italic formatting and links, but not (for example) bullet lists or images. The ``register_rich_text_features`` hook allows new feature identifiers to be defined - see :ref:`rich_text_features` for details.
+
+
 .. _construct_whitelister_element_rules:
 
 ``construct_whitelister_element_rules``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  **Deprecated.** This hook will be removed in Wagtail 2.2; please use :ref:`rich text features <rich_text_features>` to define whitelist rules instead.
 
   Customise the rules that define which HTML elements are allowed in rich text areas. By default only a limited set of HTML elements and attributes are whitelisted - all others are stripped out. The callables passed into this hook must return a dict, which maps element names to handler functions that will perform some kind of manipulation of the element. These handler functions receive the element as a `BeautifulSoup <http://www.crummy.com/software/BeautifulSoup/bs4/doc/>`_ Tag object.
 
@@ -439,7 +472,7 @@ Hooks for customising the way users are directed through the process of creating
 ``after_delete_page``
 ~~~~~~~~~~~~~~~~~~~~~
 
-  Do something after a ``Page`` object is deleted. Uses the same behavior as ``after_create_page``.
+  Do something after a ``Page`` object is deleted. Uses the same behaviour as ``after_create_page``.
 
 
 .. _before_delete_page:
@@ -449,7 +482,7 @@ Hooks for customising the way users are directed through the process of creating
 
   Called at the beginning of the "delete page" view passing in the request and the page object.
 
-  Uses the same behavior as ``before_create_page``.
+  Uses the same behaviour as ``before_create_page``.
 
 
 .. _after_edit_page:
@@ -457,7 +490,7 @@ Hooks for customising the way users are directed through the process of creating
 ``after_edit_page``
 ~~~~~~~~~~~~~~~~~~~
 
-  Do something with a ``Page`` object after it has been updated. Uses the same behavior as ``after_create_page``.
+  Do something with a ``Page`` object after it has been updated. Uses the same behaviour as ``after_create_page``.
 
 
 .. _before_edit_page:
@@ -467,7 +500,7 @@ Hooks for customising the way users are directed through the process of creating
 
   Called at the beginning of the "edit page" view passing in the request and the page object.
 
-  Uses the same behavior as ``before_create_page``.
+  Uses the same behaviour as ``before_create_page``.
 
 
 .. _after_copy_page:
@@ -475,7 +508,7 @@ Hooks for customising the way users are directed through the process of creating
 ``after_copy_page``
 ~~~~~~~~~~~~~~~~~~~
 
-  Do something with a ``Page`` object after it has been copied pasing in the request, page object and the new copied page. Uses the same behavior as ``after_create_page``.
+  Do something with a ``Page`` object after it has been copied passing in the request, page object and the new copied page. Uses the same behaviour as ``after_create_page``.
 
 
 .. _before_copy_page:
@@ -485,7 +518,7 @@ Hooks for customising the way users are directed through the process of creating
 
   Called at the beginning of the "copy page" view passing in the request and the page object.
 
-  Uses the same behavior as ``before_create_page``.
+  Uses the same behaviour as ``before_create_page``.
 
 
 .. _construct_wagtail_userbar:
@@ -567,7 +600,7 @@ Hooks for customising the way admins are directed through the process of editing
 ``after_delete_user``
 ~~~~~~~~~~~~~~~~~~~~~
 
-  Do something after a ``User`` object is deleted. Uses the same behavior as ``after_create_user``.
+  Do something after a ``User`` object is deleted. Uses the same behaviour as ``after_create_user``.
 
 
 .. _before_delete_user:
@@ -577,7 +610,7 @@ Hooks for customising the way admins are directed through the process of editing
 
   Called at the beginning of the "delete user" view passing in the request and the user object.
 
-  Uses the same behavior as ``before_create_user``.
+  Uses the same behaviour as ``before_create_user``.
 
 
 .. _after_edit_user:
@@ -585,7 +618,7 @@ Hooks for customising the way admins are directed through the process of editing
 ``after_edit_user``
 ~~~~~~~~~~~~~~~~~~~
 
-  Do something with a ``User`` object after it has been updated. Uses the same behavior as ``after_create_user``.
+  Do something with a ``User`` object after it has been updated. Uses the same behaviour as ``after_create_user``.
 
 
 .. _before_edit_user:
@@ -595,7 +628,7 @@ Hooks for customising the way admins are directed through the process of editing
 
   Called at the beginning of the "edit user" view passing in the request and the user object.
 
-  Uses the same behavior as ``before_create_user``.
+  Uses the same behaviour as ``before_create_user``.
 
 Choosers
 --------
@@ -605,7 +638,7 @@ Choosers
 ``construct_page_chooser_queryset``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  Called when rendering the page chooser view, to allow the page listing queryset to be customised. The callable passed into the hook will receive the current page queryset and the request object, and must return a Page queryset (either the original one, or a new one).
+  Called when rendering the page chooser view, to allow the page listing QuerySet to be customised. The callable passed into the hook will receive the current page QuerySet and the request object, and must return a Page QuerySet (either the original one, or a new one).
 
   .. code-block:: python
 
@@ -624,7 +657,7 @@ Choosers
 ``construct_document_chooser_queryset``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  Called when rendering the document chooser view, to allow the document listing queryset to be customised. The callable passed into the hook will receive the current document queryset and the request object, and must return a Document queryset (either the original one, or a new one).
+  Called when rendering the document chooser view, to allow the document listing QuerySet to be customised. The callable passed into the hook will receive the current document QuerySet and the request object, and must return a Document QuerySet (either the original one, or a new one).
 
   .. code-block:: python
 
@@ -643,7 +676,7 @@ Choosers
 ``construct_image_chooser_queryset``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  Called when rendering the image chooser view, to allow the image listing queryset to be customised. The callable passed into the hook will receive the current image queryset and the request object, and must return a Document queryset (either the original one, or a new one).
+  Called when rendering the image chooser view, to allow the image listing QuerySet to be customised. The callable passed into the hook will receive the current image QuerySet and the request object, and must return a Document QuerySet (either the original one, or a new one).
 
   .. code-block:: python
 
@@ -665,7 +698,7 @@ Page explorer
 ``construct_explorer_page_queryset``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  Called when rendering the page explorer view, to allow the page listing queryset to be customised. The callable passed into the hook will receive the parent page object, the current page queryset, and the request object, and must return a Page queryset (either the original one, or a new one).
+  Called when rendering the page explorer view, to allow the page listing QuerySet to be customised. The callable passed into the hook will receive the parent page object, the current page QuerySet, and the request object, and must return a Page QuerySet (either the original one, or a new one).
 
   .. code-block:: python
 

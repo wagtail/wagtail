@@ -5,14 +5,16 @@
 # Translators:
 # karabellyj <jozefkarabelly@gmail.com>, 2017
 # karabellyj <jozefkarabelly@gmail.com>, 2017
+# Martin Janšto <mato@jansto.sk>, 2017
+# Martin Janšto <mato@jansto.sk>, 2017
 # dellax <michalnebbia@gmail.com>, 2015
 # Stevo Backor, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-10-06 15:06+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
+"PO-Revision-Date: 2018-02-16 11:33+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
@@ -21,6 +23,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sk_SK\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+
+msgid "None"
+msgstr "Nič"
 
 msgid "You do not have permission to access the admin"
 msgstr "Na prístup do administrácie nemáte práva."
@@ -121,9 +126,19 @@ msgstr[2] ""
 "kópie?"
 
 #, python-format
+msgid "You do not have permission to copy to page \"%(page_title)s\""
+msgstr "Nemáte právo na kopírovanie na stránku \"%(page_title)s\""
+
+#, python-format
 msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
 msgstr "Tento slug je už použitý v kontexte jeho rodičovskej stránky \"%s\""
+
+msgid "You cannot copy a page into itself when copying subpages"
+msgstr "Nemôžete skopírovať stránku do seba samej."
+
+msgid "Visibility"
+msgstr "Viditeľnosť"
 
 msgid "This field is required."
 msgstr "Toto pole je povinné."
@@ -142,6 +157,15 @@ msgstr "Dátum expirácie musí byť v budúcnosti"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Nemôžete mať viac prístupových záznamov pre tú istú kolekciu."
+
+msgid "Error 404: Page not found"
+msgstr "Chyba 404: Stránka nebola nájdená"
+
+msgid "Error 404"
+msgstr "Chyba 404"
+
+msgid "The requested page could not be found."
+msgstr "Stránka, ktorú požadujete, nebola nájdená."
 
 msgid "Go to Wagtail admin"
 msgstr "Choď do administrátorskej časti"
@@ -173,10 +197,19 @@ msgstr "Notifikačné nastavenia"
 msgid "Choose which email notifications to receive."
 msgstr "Zvoľte ktoré emailové notifikácie chcete dostávať"
 
+msgid "Language preferences"
+msgstr "Nastavenia jazyka"
+
+msgid "Choose the language you want to use here."
+msgstr "Vyberte jazyk, ktorá tu chcete používať."
+
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr ""
-"Vaše heslo nemôže byť zmenené. Prosím kontaktujte administrátora stránky."
+"Vaše heslo nemôže byť zmenené. Prosím kontaktujte administrátora sídla."
+
+msgid "Language Preferences"
+msgstr "Nastavenia jazyka"
 
 msgid "Update"
 msgstr "Aktualizovať"
@@ -217,8 +250,29 @@ msgstr "Resetovanie vášho hesla"
 msgid "Edit"
 msgstr "Upraviť"
 
+msgid "Delete"
+msgstr "Vymazať"
+
+msgid "Page"
+msgstr "Stránka"
+
 msgid "Pages"
 msgstr "Stránky"
+
+msgid "No results"
+msgstr "Žiadne výsledky"
+
+msgid "Server Error"
+msgstr "Chyba servera"
+
+msgid "See children"
+msgstr "Vidieť dieťa"
+
+msgid "See all"
+msgstr "Vidieť všetko"
+
+msgid "Close explorer"
+msgstr "Zavrieť prehliadač"
 
 msgid "Dashboard"
 msgstr "Nástenka"
@@ -234,9 +288,6 @@ msgstr "Posunúť vyššie"
 
 msgid "Move down"
 msgstr "Posunúť nižšie"
-
-msgid "Delete"
-msgstr "Vymazať"
 
 msgid "Explorer"
 msgstr "Prehliadač"
@@ -275,6 +326,33 @@ msgstr "Zvoliť"
 msgid "Choose a page"
 msgstr "Zvoliť stránku"
 
+#, python-format
+msgid ""
+"\n"
+"                Only pages of type \"%(type)s\" may be chosen for this "
+"field. Search results will exclude pages of other types.\n"
+"                "
+msgid_plural ""
+"\n"
+"                Only the following page types may be chosen for this field: "
+"%(type)s. Search results will exclude pages of other types.\n"
+"            "
+msgstr[0] ""
+"\n"
+"                Len typ \"%(type)s\" stránky môže byť vybratý pre toto pole. "
+"Výsledky hľadania nebudú obsahovať stránky iných typov.\n"
+"                "
+msgstr[1] ""
+"\n"
+"               Len nasledujúce typy stránok môžu byť vybrané pre toto pole: "
+"%(type)s. Výsledky hľadania nebudú obsahovať stránky iných typov.\n"
+"            "
+msgstr[2] ""
+"\n"
+"                Len nasledujúce typy stránok môžu byť vybrané pre toto pole: "
+"%(type)s. Výsledky hľadania nebudú obsahovať stránky iných typov.\n"
+"            "
+
 msgid "Add an email link"
 msgstr "Pridať emailový odkaz"
 
@@ -284,8 +362,19 @@ msgstr "Vložiť odkaz"
 msgid "Add an external link"
 msgstr "Pridať externý odkaz"
 
+msgid "Collection privacy"
+msgstr "Súkromie kolekcie"
+
+msgid "This collection has been made private by a parent collection."
+msgstr "Táto kolekcia bola zmenená na súkromnú svojou rodičovskou kolekciou."
+
 msgid "You can edit the privacy settings on:"
 msgstr "Nastavenie súkromia môžete zmeniť na:"
+
+msgid ""
+"Privacy settings determine who is able to view documents in this collection."
+msgstr ""
+"Nastavenia súkromia určujú, kto bude môcť prezerať dokumenty v kolekcii."
 
 msgid "Save"
 msgstr "Uložiť"
@@ -313,10 +402,6 @@ msgid ""
 msgstr ""
 "Zatiaľ neboli vytvorené žiadne kolekcie. Kliknite a <a href="
 "\"%(add_collection_url)s\">pridajte prvú</a>."
-
-#, python-format
-msgid "Add %(heading)s"
-msgstr "Pridať %(heading)s"
 
 msgid "Yes, delete"
 msgstr "Áno, zmazať"
@@ -359,6 +444,10 @@ msgstr "Odmietnuť"
 msgid "Preview"
 msgstr "Náhľad"
 
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s dozadu"
+
 msgid "Your most recent edits"
 msgstr "Vaše posledné úpravy"
 
@@ -375,7 +464,7 @@ msgid "Live"
 msgstr "Live"
 
 msgid "Site summary"
-msgstr "Prehľad stránky"
+msgstr "Prehľad sídla"
 
 #, python-format
 msgid ""
@@ -408,9 +497,6 @@ msgstr "Prihlásiť sa do Wagtail"
 
 msgid "Forgotten it?"
 msgstr "Zabudli ste heslo?"
-
-msgid "Signing in..."
-msgstr "Prihlasujem..."
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -518,6 +604,16 @@ msgid "No, don't delete it"
 msgstr "Nie, nevymazať"
 
 #, python-format
+msgid ""
+"Alternatively you can <a href=\"%(unpublish_url)s\">unpublish the page</a>. "
+"This removes the page from public view and you can edit or publish it again "
+"later."
+msgstr ""
+"V prípade potreby môžete stránke <a href=\"%(unpublish_url)s\">zrušiť "
+"publikáciu</a>. Toto ju pred návštevníkmi schová, a nadalej ju budete môcť "
+"upravovať alebo neskôr publikovať."
+
+#, python-format
 msgid "Move %(title)s"
 msgstr "Presunúť %(title)s"
 
@@ -548,11 +644,40 @@ msgstr "Nezverejniť"
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Naozaj chcete odpublikovať túto stránku?"
 
+#, python-format
+msgid ""
+"\n"
+"                    This page has one subpage. Unpublish this too\n"
+"                "
+msgid_plural ""
+"\n"
+"                    This page has %(live_descendant_count)s subpages. "
+"Unpublish these too\n"
+"                "
+msgstr[0] ""
+"\n"
+"                    Táto stránka obsahuje podstránku. Odpublikujte ju tiež\n"
+"                "
+msgstr[1] ""
+"\n"
+"                    Táto stránka obsahuje %(live_descendant_count)s "
+"podstránky. Odpublikujte ich tiež\n"
+"                "
+msgstr[2] ""
+"\n"
+"                    Táto stránka obsahuje %(live_descendant_count)s "
+"podstránok. Odpublikujte ich tiež\n"
+"                "
+
 msgid "Yes, unpublish it"
 msgstr "Áno, odpublikovať"
 
 msgid "No, don't unpublish"
 msgstr "Nie, nepublikovať"
+
+#, python-format
+msgid "Pages using %(page_class_verbose_name)s"
+msgstr "Stránky používajúce %(page_class_verbose_name)s"
 
 msgid "Pages using"
 msgstr "Stránky požívajúce"
@@ -574,14 +699,8 @@ msgstr "Nový  %(page_type)s"
 msgid "New"
 msgstr "Nový"
 
-msgid "Saving..."
-msgstr "Ukladám..."
-
 msgid "Save draft"
 msgstr "Uložiť koncept"
-
-msgid "Publishing..."
-msgstr "Publikujem..."
 
 msgid "Publish"
 msgstr "Publikovať"
@@ -645,6 +764,54 @@ msgstr ""
 msgid "Configure a site now."
 msgstr "Nastavte webové sídlo."
 
+msgid ""
+"\n"
+"                            If you just want to add pages to an existing "
+"site, create them as children of the homepage instead.\n"
+"                        "
+msgstr ""
+"\n"
+"                            Ak chcete pridať stránky k existujúcemu sídlu, "
+"vytvorte ich ako potomka domovskej stránky.\n"
+"                        "
+
+msgid ""
+"\n"
+"                        Pages created here will not be accessible at any "
+"URL. To add pages to an existing site, create them as children of the "
+"homepage.\n"
+"                    "
+msgstr ""
+"\n"
+"                        Stránky vytvorené tu nebudú prístupné na žiadnom "
+"URL. Aby ste pridali stránky k existujúcemu sídlu, vytvorte ich ako potomka "
+"domovskej stránky.\n"
+"                    "
+
+msgid ""
+"\n"
+"                        There is no site set up for this location. Pages "
+"created here will not be accessible at any URL until a site is associated "
+"with this location.\n"
+"                    "
+msgstr ""
+"\n"
+"                        Pre túto lokalitu nie je nastavené žiadne sídlo. "
+"Stránky vytvorené tu nebudú prístupné na žiadnom URL do doby, kým nebude "
+"nastavené sídlo.\n"
+"                    "
+
+msgid ""
+"\n"
+"                        There is no site record for this location. Pages "
+"created here will not be accessible at any URL.\n"
+"                    "
+msgstr ""
+"\n"
+"                        Pre túto lokalitu neexistuje sídlo. Stránky "
+"vytvorené tu nebudú prístupné na žiadnom URL.\n"
+"                    "
+
 msgid "No pages have been created at this location."
 msgstr "V tejto lokácii neboli vytvorené žiadne stránky."
 
@@ -672,6 +839,9 @@ msgstr "Pridajte podstránku do '%(title)s'"
 
 msgid "Add child page"
 msgstr "Pridať podstránku"
+
+msgid "Sites menu"
+msgstr "Menu sídiel"
 
 #, python-format
 msgid ""
@@ -708,11 +878,95 @@ msgstr "Zvolte novú rodičovskú stránku pre %(title)s"
 msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Zvoľte novú rodičovskú stránku pre  <span>%(title)s</span>"
 
+msgid "Preview error"
+msgstr "Chyba náhľadu"
+
+msgid ""
+"\n"
+"                Impossible to preview this page, some errors are remaining.\n"
+"                Please close this tab, edit the page to fix these errors,\n"
+"                then use preview again.\n"
+"            "
+msgstr ""
+"\n"
+"                Nie je možné zobraziť náhľad kvôli chybám.\n"
+"                Prosím zavrite tento tab, opravte chyby na stránke \n"
+"                a použite náhľad znovu.\n"
+"            "
+
+msgid "Close"
+msgstr "Zavrieť"
+
+#, python-format
+msgid "Comparing %(title)s"
+msgstr "Porovnať %(title)s"
+
+msgid "Comparing"
+msgstr "Porovnať"
+
+msgid "View revisions"
+msgstr "Zobraziť revízie"
+
 msgid "Fields"
 msgstr "Polia"
 
 msgid "Changes"
 msgstr "Zmeny"
+
+#, python-format
+msgid ""
+"\n"
+"                                                            Moved down 1 "
+"place.\n"
+"                                                        "
+msgid_plural ""
+"\n"
+"                                                            Moved down "
+"%(counter)s places.\n"
+"                                                        "
+msgstr[0] ""
+"\n"
+"                                                            Posunuté nadol.\n"
+"                                                        "
+msgstr[1] ""
+"\n"
+"                                                            Posunuté nadol o "
+"%(counter)s miesta.\n"
+"                                                        "
+msgstr[2] ""
+"\n"
+"                                                            Posunuté nadol o "
+"%(counter)s miest.\n"
+"                                                        "
+
+#, python-format
+msgid ""
+"\n"
+"                                                            Moved up 1 "
+"place.\n"
+"                                                        "
+msgid_plural ""
+"\n"
+"                                                            Moved up "
+"%(counter)s places.\n"
+"                                                        "
+msgstr[0] ""
+"\n"
+"                                                            Posunuté nahor.\n"
+"                                                        "
+msgstr[1] ""
+"\n"
+"                                                            Posunuté nahor o "
+"%(counter)s miesta.\n"
+"                                                        "
+msgstr[2] ""
+"\n"
+"                                                            Posunuté nahor o "
+"%(counter)s miest.\n"
+"                                                        "
+
+msgid "There are no differences between these two revisions"
+msgstr "Medzi týmito dvoma revíziami nie sú rozdiely."
 
 #, python-format
 msgid "Revisions of %(title)s"
@@ -731,6 +985,9 @@ msgstr "od"
 msgid "Current draft"
 msgstr "Aktuálny koncept"
 
+msgid "Live version"
+msgstr "Živá verzia"
+
 msgid "Review this revision"
 msgstr "Posúdiť túto revíziu"
 
@@ -742,6 +999,25 @@ msgstr "Pre túto stránku neexistujú žiadne revízie"
 
 msgid "No revision of this page exist"
 msgstr "Pre túto stránku neexistujú žiadna revízia"
+
+#, python-format
+msgid ""
+"\n"
+"                There is one matching page\n"
+"            "
+msgid_plural ""
+"\n"
+"                There are %(counter)s matching pages\n"
+"            "
+msgstr[0] ""
+"\n"
+"1 výsledok hľadania"
+msgstr[1] ""
+"\n"
+"%(counter)s výsledky hľadania"
+msgstr[2] ""
+"\n"
+"%(counter)s výsledkov hľadania"
 
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
@@ -757,6 +1033,9 @@ msgstr "Nepoužívajú žiadne stránky"
 
 msgid "Collection"
 msgstr "Kolekcie"
+
+msgid "Root"
+msgstr "Koreň"
 
 msgid "Home"
 msgstr "Domov"
@@ -821,13 +1100,6 @@ msgstr "Pia"
 msgid "Sat"
 msgstr "So"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Použité %(usage_count)s krát"
-msgstr[1] "Použité %(usage_count)s krát"
-msgstr[2] "Použité %(usage_count)s krát"
-
 msgid "Edit your account"
 msgstr "Upraviť váš účet"
 
@@ -882,11 +1154,80 @@ msgstr "Zobraziť v prehliadači"
 msgid "Test"
 msgstr "Test"
 
+msgid "Catalan"
+msgstr "Katalánsky"
+
+msgid "German"
+msgstr "Nemecky"
+
+msgid "Greek"
+msgstr "Grécky"
+
+msgid "English"
+msgstr "Anglicky"
+
+msgid "Spanish"
+msgstr "Španielsky"
+
+msgid "Finnish"
+msgstr "Fínsky"
+
+msgid "French"
+msgstr "Francúzsky"
+
+msgid "Galician"
+msgstr "Galicijsky"
+
+msgid "Icelandic"
+msgstr "Islandsky"
+
+msgid "Italian"
+msgstr "Taliansky"
+
+msgid "Korean"
+msgstr "Kórejsky"
+
+msgid "Lithuanian"
+msgstr "Litovsky"
+
+msgid "Norwegian Bokmål"
+msgstr " Norsky"
+
+msgid "Netherlands Dutch"
+msgstr "Holandsky"
+
+msgid "Persian"
+msgstr "Perzsky"
+
+msgid "Polish"
+msgstr "Poľsky"
+
+msgid "Brazilian Portuguese"
+msgstr "Portugalsky (Brazília)"
+
+msgid "Portuguese"
+msgstr "Portugalsky"
+
+msgid "Romanian"
+msgstr "Rumunsky"
+
+msgid "Russian"
+msgstr "Rusky"
+
+msgid "Swedish"
+msgstr "Švédsky"
+
+msgid "Chinese (China)"
+msgstr "Čínsky"
+
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Prepáčte, ale na prístup k tejto časti nemáte oprávnenia"
 
 msgid "Your password has been changed successfully!"
 msgstr "Vaše heslo bolo úspešne zmenené"
+
+msgid "Your preferences have been updated."
+msgstr "Vaše preferencie boli aktulizované."
 
 msgid "You have been successfully logged out."
 msgstr "Boli ste úspešne odhlásení."
@@ -928,12 +1269,12 @@ msgstr "Editácia"
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr "Stránka '{0}' vytvorená a naplánovaná pre publikáciu."
 
+msgid "View live"
+msgstr "Zobraziť live"
+
 #, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "Stránka '{0}' bola úspešne vytvorená a publikovaná."
-
-msgid "View live"
-msgstr "Zobraziť live"
 
 #, python-brace-format
 msgid "Page '{0}' created and submitted for moderation."
@@ -1057,8 +1398,16 @@ msgid "Edit '{title}'"
 msgstr "Upraviť '{title}'"
 
 #, python-brace-format
+msgid "Preview draft version of '{title}'"
+msgstr "Prezrieť koncept '{title}'"
+
+#, python-brace-format
 msgid "View live version of '{title}'"
 msgstr "Zobraziť live verziu '{title}'"
+
+#, python-brace-format
+msgid "Add a child page to '{title}' "
+msgstr "Pridať podstránku k '{title}' "
 
 msgid "More"
 msgstr "Viac"
@@ -1068,8 +1417,20 @@ msgid "View more options for '{title}'"
 msgstr "Zobraziť viac možností pre '{title}'"
 
 #, python-brace-format
+msgid "Move page '{title}'"
+msgstr "Presunúť stránku '{title}'"
+
+#, python-brace-format
+msgid "Copy page '{title}'"
+msgstr "Kopírovať stránku '{title}'"
+
+#, python-brace-format
 msgid "Delete page '{title}'"
 msgstr "Vymazať stránku '{title}'"
+
+#, python-brace-format
+msgid "Unpublish page '{title}'"
+msgstr "Odpublikovať stránku '{title}'"
 
 #, python-brace-format
 msgid "View revision history for '{title}'"

@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-10-06 15:06+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
+"PO-Revision-Date: 2018-02-16 11:33+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
 "tr/)\n"
@@ -168,6 +168,9 @@ msgstr "Şifreni sıfırla"
 msgid "Edit"
 msgstr "Düzenle"
 
+msgid "Delete"
+msgstr "Sil"
+
 msgid "Pages"
 msgstr "Sayfalar"
 
@@ -185,9 +188,6 @@ msgstr "Yukarı taşı"
 
 msgid "Move down"
 msgstr "Aşağı taşı"
-
-msgid "Delete"
-msgstr "Sil"
 
 msgid "Explorer"
 msgstr "Keşfedici"
@@ -231,10 +231,6 @@ msgstr "Bu kolleksiyon silinemedi, çünkü boş değil ve şunları içeriyor:"
 
 msgid "Name"
 msgstr "İsim"
-
-#, python-format
-msgid "Add %(heading)s"
-msgstr "%(heading)s ekle"
 
 msgid "Yes, delete"
 msgstr "Evet, sil"
@@ -297,9 +293,6 @@ msgstr "%(username_field)s ve şifre uyuşmuyor. Lütfen tekrar deneyin"
 
 msgid "Sign in to Wagtail"
 msgstr "Wagtail oturumu aç"
-
-msgid "Signing in..."
-msgstr "Giriş yapılıyor..."
 
 msgid "Page privacy"
 msgstr "Sayfa gizliliği"

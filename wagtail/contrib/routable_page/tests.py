@@ -2,11 +2,10 @@ import mock
 from django.test import RequestFactory, TestCase
 from django.urls.exceptions import NoReverseMatch
 
-from wagtail.contrib.routable_page.templatetags.wagtailroutablepage_tags import \
-    routablepageurl
+from wagtail.contrib.routable_page.templatetags.wagtailroutablepage_tags import routablepageurl
+from wagtail.core.models import Page, Site
 from wagtail.tests.routablepage.models import (
     RoutablePageTest, RoutablePageWithOverriddenIndexRouteTest)
-from wagtail.core.models import Page, Site
 
 
 class TestRoutablePage(TestCase):

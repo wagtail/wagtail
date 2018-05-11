@@ -10,6 +10,10 @@
 
     .breadcrumb {
         margin: -1.2em 0 2em;
+
+        @include medium {
+            margin-top: -1.8em;
+        }
     }
 
     .modal .breadcrumb {
@@ -41,22 +45,23 @@
     }
 }
 
+$object-title-height: 40px;
+
 // An object is the basic wrapper around any field or group of fields in the editor interface
 .object {
     @include nice-padding();
     position: relative;
-    overflow: hidden;
 
     &:first-child {
         border: 0;
     }
 
     &.focused {
-        border-color: darken($color-input-focus, 40%);
+        border-color: $color-input-focus-border;
     }
 
     fieldset {
-        padding-top: 4em;
+        padding-top: $object-title-height + 12px;
         padding-left: 0;
         padding-right: 0;
     }
@@ -65,24 +70,15 @@
         display: block;
         position: relative;
         z-index: 1;
-        top: 1em;
+        top: $object-title-height;
+        margin-top: 0;
+        padding-top: 1em;
         padding-right: $grid-gutter-width / 2;
-        margin-top: 4em;
-        opacity: 1;
         padding-left: 3em;
+        opacity: 1;
 
-        &:before {
-            border-radius: 100%;
-            display: block;
+        .icon-help-inverse {
             float: left;
-            content: '?';
-            border: 1px solid $color-grey-2;
-            color: $color-grey-2;
-            height: 15px;
-            width: 15px;
-            line-height: 15px;
-            text-align: center;
-            font-size: 1.1em;
             margin-left: -2em;
             margin-top: 0.3em;
         }
@@ -93,13 +89,15 @@
     }
 
     > h2 {
+        box-sizing: border-box;
+        height: $object-title-height;
         -webkit-font-smoothing: auto;
         background: $color-salmon-light;
         color: #200200;
         text-transform: uppercase;
         padding: 0.9em 0 0.9em 4.1em;
         font-size: 0.95em;
-        margin: 0 0 0.2em;
+        margin: 0;
         line-height: 1.5em;
         font-weight: normal;
         position: absolute;
@@ -121,6 +119,7 @@
 
         &:before,
         label:before {
+            @include font-smoothing;
             text-shadow: none;
             font-family: wagtail;
             text-transform: none;
@@ -138,12 +137,10 @@
             padding: 0;
             margin: 0;
             background-color: $color-salmon;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
         }
     }
 
-    .richtext {
+    .halloeditor {
         padding-top: 1em; // to provide space for editor buttons
         padding-bottom: 1em;
 
@@ -168,10 +165,6 @@
 
     // Special full-width, one-off fields i.e a single text or textarea input
     &.full {
-        .object-help {
-            display: block;
-        }
-
         fieldset {
             display: block;
             float: none;
@@ -181,7 +174,7 @@
             padding: 0;
         }
 
-        .richtext {
+        .halloeditor {
             padding-top: 3em; // to provide space for editor buttons
             padding-bottom: 3em;
 
@@ -199,7 +192,7 @@
         .error,
         .error input,
         .error textarea,
-        .error .richtext {
+        .error .halloeditor {
             background-color: $color-input-error-bg;
         }
     }
@@ -227,7 +220,7 @@
 
     // special panel for the publishing fields, requires a bit more pizzazz
     &.publishing {
-        h2:before {
+        > h2:before {
             content: '7';
             font-size: 1.8rem;
             line-height: 1.4em;
@@ -310,18 +303,18 @@
         // and h2 has position: absolute which doesn't add to it either, so it would be 0 without this
         min-height: 41px;
 
-        h2 {
+        > h2 {
             &:before,
-            label:before {
+            > label:before {
                 content: '6';
                 cursor: pointer;
             }
         }
 
         &.collapsed {
-            h2 {
+            > h2 {
                 &:before,
-                label:before {
+                > label:before {
                     content: '5';
                 }
             }
@@ -332,8 +325,8 @@
 // Custom styles that make some fields look more important
 .full input,
 .full textarea,
-.full .richtext {
-    @include nice-padding();
+.full .halloeditor {
+    @include nice-padding;
     border-radius: 0;
     padding-top: 2em;
     padding-bottom: 2em;
@@ -343,7 +336,7 @@
 
 .title input,
 .title textarea,
-.title .richtext {
+.title .halloeditor {
     font-size: 2em;
     font-family: $font-serif;
 }
@@ -394,14 +387,14 @@ footer .preview {
     }
 }
 
-@media screen and (min-width: $breakpoint-mobile) {
-    .page-editor .breadcrumb {
-        margin-top: -1.8em;
-    }
-
+@include medium {
     .object {
         fieldset {
             @include column(10);
+            // Override column mixin for column items.
+            display: block;
+            // Override column mixin for column items.
+            float: none;
             max-width: 1024px;
             padding-left: 0;
             padding-right: 0;
@@ -413,14 +406,10 @@ footer .preview {
 
         .object-help {
             @include column(2);
-            display: block;
             position: absolute;
-            z-index: 1;
             right: 0;
-            top: 1em;
             padding-right: $grid-gutter-width / 2;
             float: right;
-            margin-top: 4em;
             opacity: 0;
             padding-left: 3em;
         }
@@ -441,13 +430,18 @@ footer .preview {
         &.full {
             fieldset {
                 @include column(11);
+                // Override column mixin for column items.
+                display: block;
+                // Override column mixin for column items.
+                float: none;
                 margin-left: -51px;
-                padding: 3.2em 0 0;
+                padding: 0;
+                padding-top: $object-title-height;
             }
 
             input,
             textarea,
-            .richtext {
+            .halloeditor {
                 border-width: 0 1px;
             }
 

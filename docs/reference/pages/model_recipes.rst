@@ -32,7 +32,7 @@ Consider this example from the Wagtail demo site's ``models.py``, which serves a
                     return HttpResponse(message, content_type='text/plain')
             else:
                 # Display event page as usual
-                return super(EventPage, self).serve(request)
+                return super().serve(request)
 
 :meth:`~wagtail.core.models.Page.serve` takes a Django request object and returns a Django response object. Wagtail returns a ``TemplateResponse`` object with the template and context which it generates, which allows middleware to function as intended, so keep in mind that a simpler response object like a ``HttpResponse`` will not receive these benefits.
 
@@ -166,7 +166,7 @@ Wagtail's admin provides a nice interface for inputting tags into your content, 
 Now that we have the many-to-many tag relationship in place, we can fit in a way to render both sides of the relation. Here's more of the Wagtail demo site ``models.py``, where the index model for ``BlogPage`` is extended with logic for filtering the index by tag:
 
 .. code-block:: python
-    
+
     from django.shortcuts import render
 
     class BlogIndexPage(Page):
@@ -185,7 +185,7 @@ Now that we have the many-to-many tag relationship in place, we can fit in a way
                 'blogs': blogs,
             })
 
-Here, ``blogs.filter(tags__name=tag)`` invokes a reverse Django queryset filter on the ``BlogPageTag`` model to optionally limit the ``BlogPage`` objects sent to the template for rendering. Now, lets render both sides of the relation by showing the tags associated with an object and a way of showing all of the objects associated with each tag. This could be added to the ``blog_page.html`` template:
+Here, ``blogs.filter(tags__name=tag)`` invokes a reverse Django QuerySet filter on the ``BlogPageTag`` model to optionally limit the ``BlogPage`` objects sent to the template for rendering. Now, lets render both sides of the relation by showing the tags associated with an object and a way of showing all of the objects associated with each tag. This could be added to the ``blog_page.html`` template:
 
 .. code-block:: html+django
 
@@ -195,4 +195,4 @@ Here, ``blogs.filter(tags__name=tag)`` invokes a reverse Django queryset filter 
 
 Iterating through ``page.tags.all`` will display each tag associated with ``page``, while the link(s) back to the index make use of the filter option added to the ``BlogIndexPage`` model. A Django query could also use the ``tagged_items`` related name field to get ``BlogPage`` objects associated with a tag.
 
-This is just one possible way of creating a taxonomy for Wagtail objects. With all of the components for a taxonomy available through Wagtail, you should be able to fulfill even the most exotic taxonomic schemes.
+This is just one possible way of creating a taxonomy for Wagtail objects. With all of the components for a taxonomy available through Wagtail, you should be able to fulfil even the most exotic taxonomic schemes.

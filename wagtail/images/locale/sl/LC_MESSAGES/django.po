@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-22 07:04+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
+"PO-Revision-Date: 2018-01-26 16:00+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
@@ -125,9 +125,6 @@ msgstr "Prenos"
 
 msgid "Popular tags"
 msgstr "Priljubljene oznake"
-
-msgid "Uploading..."
-msgstr "Prenašanje..."
 
 #, python-format
 msgid ""
@@ -368,9 +365,6 @@ msgstr[0] "%(count)s slika"
 msgstr[1] "%(count)s sliki"
 msgstr[2] "%(count)s slike"
 msgstr[3] "%(count)s slik"
-
-msgid "Choose another image"
-msgstr "Izberite drugo sliko"
 
 msgid "Edit this image"
 msgstr "Uredi sliko"

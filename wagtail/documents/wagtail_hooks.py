@@ -5,8 +5,9 @@ from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.utils.html import format_html, format_html_join
 from django.utils.translation import ugettext_lazy as _
-from django.utils.translation import ungettext
+from django.utils.translation import ugettext, ungettext
 
+import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 from wagtail.admin.menu import MenuItem
 from wagtail.admin.rich_text import HalloPlugin
 from wagtail.admin.search import SearchArea
@@ -19,7 +20,9 @@ from wagtail.documents.api.admin.endpoints import DocumentsAdminAPIEndpoint
 from wagtail.documents.forms import GroupDocumentPermissionFormSet
 from wagtail.documents.models import get_document_model
 from wagtail.documents.permissions import permission_policy
-from wagtail.documents.rich_text import DocumentLinkHandler
+from wagtail.documents.rich_text import (
+    ContentstateDocumentLinkConversionRule, EditorHTMLDocumentLinkConversionRule,
+    document_linktype_handler)
 
 
 @hooks.register('register_admin_urls')
@@ -72,7 +75,9 @@ def editor_js():
 
 
 @hooks.register('register_rich_text_features')
-def register_embed_feature(features):
+def register_document_feature(features):
+    features.register_link_type('document', document_linktype_handler)
+
     features.register_editor_plugin(
         'hallo', 'document-link',
         HalloPlugin(
@@ -80,12 +85,22 @@ def register_embed_feature(features):
             js=['wagtaildocs/js/hallo-plugins/hallo-wagtaildoclink.js'],
         )
     )
+    features.register_editor_plugin(
+        'draftail', 'document-link', draftail_features.EntityFeature({
+            'type': 'DOCUMENT',
+            'icon': 'doc-full',
+            'description': ugettext('Document'),
+        })
+    )
+
+    features.register_converter_rule(
+        'editorhtml', 'document-link', EditorHTMLDocumentLinkConversionRule
+    )
+    features.register_converter_rule(
+        'contentstate', 'document-link', ContentstateDocumentLinkConversionRule
+    )
+
     features.default_features.append('document-link')
-
-
-@hooks.register('register_rich_text_link_handler')
-def register_document_link_handler():
-    return ('document', DocumentLinkHandler)
 
 
 class DocumentsSummaryItem(SummaryItem):

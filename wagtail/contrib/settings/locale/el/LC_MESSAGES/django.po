@@ -5,14 +5,15 @@
 # Translators:
 # Nick Mavrakis <mavrakis.n@gmail.com>, 2017
 # serafeim <serafeim@torchbox.com>, 2016
+# serafeim <serafeim@torchbox.com>, 2016
 # Yiannis Inglessis <negletios@users.noreply.github.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-22 21:00+0000\n"
-"Last-Translator: Nick Mavrakis <mavrakis.n@gmail.com>\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
+"PO-Revision-Date: 2018-01-26 16:07+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
 "MIME-Version: 1.0\n"
@@ -28,8 +29,8 @@ msgstr "Επεξεργασία %(setting_type_name)s - %(instance)s"
 msgid "Editing"
 msgstr "Επεξεργασία"
 
-msgid "Saving..."
-msgstr "Αποθήκευση..."
+msgid "Saving…"
+msgstr "Αποθήκευση…"
 
 msgid "Save"
 msgstr "Αποθήκευση"

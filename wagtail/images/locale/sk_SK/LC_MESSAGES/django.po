@@ -4,12 +4,15 @@
 #
 # Translators:
 # dellax <michalnebbia@gmail.com>, 2015
+# Martin Janšto <mato@jansto.sk>, 2017
+# Martin Janšto <mato@jansto.sk>, 2017
+# dellax <michalnebbia@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-20 15:49+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
+"PO-Revision-Date: 2018-01-26 16:01+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
@@ -50,6 +53,15 @@ msgstr "Tento súbor je príliž veľký (%%s). Maximálna povolená veľkosť j
 msgid "This file is too big. Maximum filesize %s."
 msgstr "Tento súbor je príliž veľký. Maximálna veľkosť súboru je %s."
 
+msgid "Full width"
+msgstr "Plná šírka"
+
+msgid "Left-aligned"
+msgstr "Doľava zarovnané"
+
+msgid "Right-aligned"
+msgstr "Doprava zarovnané"
+
 msgid "Filter"
 msgstr "Filter"
 
@@ -77,8 +89,20 @@ msgstr "Šírka"
 msgid "Height"
 msgstr "Výška"
 
+msgid "Closeness"
+msgstr "Blízkosť"
+
+msgid "Add"
+msgstr "Pridať"
+
+msgid "Add/edit images you own"
+msgstr "Pridať/upraviť obrázky, ktoré vlastníte"
+
 msgid "Edit"
 msgstr "Upraviť"
+
+msgid "Edit any image"
+msgstr "Upraviť obrázok"
 
 msgid "title"
 msgstr "titulok"
@@ -98,6 +122,9 @@ msgstr "vytvorené"
 msgid "uploaded by user"
 msgstr "nahral používateľ"
 
+msgid "tags"
+msgstr "tagy"
+
 msgid "Choose an image"
 msgstr "Vybrať obrázok"
 
@@ -110,8 +137,36 @@ msgstr "Nahrať"
 msgid "Popular tags"
 msgstr "Populárne tagy"
 
-msgid "Uploading..."
-msgstr "Odosielam..."
+msgid "Uploading…"
+msgstr "Odosielam…"
+
+msgid "Server Error"
+msgstr "Chyba servera"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Nahláste túto chybu Vášmu webmasterovi s nasledujúcimi informáciami:"
+
+#, python-format
+msgid ""
+"\n"
+"            There is one match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"            Jedna zhoda\n"
+"        "
+msgstr[1] ""
+"\n"
+"            %(counter)s zhody\n"
+"        "
+msgstr[2] ""
+"\n"
+"            %(counter)s zhôd\n"
+"        "
 
 msgid "Latest images"
 msgstr "Posledné obrázky"
@@ -181,6 +236,9 @@ msgstr ""
 msgid "Current focal point shown"
 msgstr "Aktuálny ohniskový bod"
 
+msgid "Remove focal area"
+msgstr "Odstrániť ohniskovú oblasť"
+
 msgid "URL Generator"
 msgstr "URL Generátor"
 
@@ -202,11 +260,44 @@ msgstr ""
 "Prepáčte, žiadne obrázky nevyhovujú hľadanému výrazu \"<em>%(query_string)s</"
 "em>\""
 
+#, python-format
+msgid ""
+"You haven't uploaded any images in this collection. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+msgstr ""
+"Zatiaľ ste nenahrali do kolekcie žiadne obrázky. Prečo nenahrať <a href="
+"\"%(wagtailimages_add_image_url)s\">jeden práve teraz</a>?"
+
+#, python-format
+msgid ""
+"You haven't uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+msgstr ""
+"Zatiaľ ste nenahrali žiadne obrázky. Prečo nenahrať <a href="
+"\"%(wagtailimages_add_image_url)s\">jeden práve teraz</a>?"
+
+msgid "Generating URL"
+msgstr "Generovanie URL"
+
 msgid "URL"
 msgstr "URL adresa"
 
 msgid "Preview"
 msgstr "Náhľad"
+
+msgid ""
+"Note that images generated larger than the screen will appear smaller when "
+"previewed here, so they fit the screen."
+msgstr ""
+"Upozorňujeme, že vygenerované obrázky, ktoré sú väčšie ako obrazovka, sa "
+"zobrazia menšie ako v tomto náhľade tak, že sa pispôsobia obrazovke."
+
+#, python-format
+msgid "Usage of %(title)s"
+msgstr "Použitie %(title)s"
+
+msgid "Usage of"
+msgstr "Použitie"
 
 msgid "Title"
 msgstr "Titulok"
@@ -235,6 +326,9 @@ msgstr "Potiahni a pusti obrázky do tejto plochy pre okamžité nahrávanie."
 msgid "Or choose from your computer"
 msgstr "Alebo vyber z tvojho počítača"
 
+msgid "Add to collection:"
+msgstr "Pridať do kolekcie:"
+
 msgid ""
 "Upload successful. Please update this image with a more appropriate title, "
 "if necessary. You may also delete the image completely if the upload wasn't "
@@ -255,6 +349,12 @@ msgstr "Aktualizovať"
 
 msgid "Delete"
 msgstr "Vymazať"
+
+msgid "Image permissions"
+msgstr "Oprávnenia obrázku"
+
+msgid "Add an image permission"
+msgstr "Pridať oprávnenia obrázku"
 
 msgid "Search images"
 msgstr "Hľadat obrázky"
@@ -286,8 +386,12 @@ msgstr "Obrázok '{0}' bol pridaný."
 msgid "The image could not be created due to errors."
 msgstr "Obrázok nemôže byť vytvorený kvôli chybám."
 
-msgid "Choose another image"
-msgstr "Zvoliť iný obrázok"
+#, python-format
+msgid "%(count)s image"
+msgid_plural "%(count)s images"
+msgstr[0] "%(count)s obrázok"
+msgstr[1] "%(count)s obrázky"
+msgstr[2] "%(count)s obrázkov"
 
 msgid "Edit this image"
 msgstr "Upraviť tento obrázok"

@@ -13,7 +13,7 @@ publish_scheduled_pages
 
     $ ./manage.py publish_scheduled_pages
 
-This command publishes or unpublishes pages that have had these actions scheduled by an editor. It is recommended to run this command once an hour.
+This command publishes, updates or unpublishes pages that have had these actions scheduled by an editor. We recommend running this command once an hour.
 
 
 .. _fixtree:
@@ -80,6 +80,8 @@ For example, to update just the default backend:
 
     $ python manage.py update_index --backend default
 
+The ``--chunk_size`` option can be used to set the size of chunks that are indexed at a time. This defaults to
+1000 but may need to be reduced for larger document sizes.
 
 Indexing the schema only
 ````````````````````````

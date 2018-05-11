@@ -4,13 +4,13 @@
 #
 # Translators:
 # Eirik Krogstad <eirikkr@gmail.com>, 2015
-# Stein Strindhaug <stein.strindhaug@gmail.com>, 2016-2017
+# Stein Strindhaug <stein.strindhaug@gmail.com>, 2016-2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-21 10:20+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
+"PO-Revision-Date: 2018-02-09 15:16+0000\n"
 "Last-Translator: Stein Strindhaug <stein.strindhaug@gmail.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
@@ -20,8 +20,9 @@ msgstr ""
 "Language: nb\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "{} submissions"
-msgstr "{} innsendinger"
+#, python-format
+msgid "%s submissions"
+msgstr "%s innsendinger"
 
 msgid "Date from"
 msgstr "Fra-dato"
@@ -68,6 +69,9 @@ msgstr "Dato"
 
 msgid "Date/time"
 msgstr "Dato/klokkeslett"
+
+msgid "Hidden field"
+msgstr "Skjult felt"
 
 msgid "submit time"
 msgstr "tidspunkt innsendt"

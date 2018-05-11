@@ -3,19 +3,20 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Daniel Chimeno <daniel@chimeno.me>, 2016
+# Daniel Chimeno <daniel@chimeno.me>, 2015-2016
 # Daniel Chimeno <daniel@chimeno.me>, 2015
 # Joaquín Tita <carpincho@gmail.com>, 2014
 # José Luis <alagunajs@gmail.com>, 2015
-# José Luis <alagunajs@gmail.com>, 2017
+# José Luis <alagunajs@gmail.com>, 2015,2017-2018
+# Mauricio Baeza <python@amigos.email>, 2014
 # Mauricio Baeza <python@amigos.email>, 2014
 # José Luis <alagunajs@gmail.com>, 2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-20 11:02+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
+"PO-Revision-Date: 2018-01-26 20:04+0000\n"
 "Last-Translator: José Luis <alagunajs@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
@@ -25,8 +26,9 @@ msgstr ""
 "Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "{} submissions"
-msgstr "{} presentaciones"
+#, python-format
+msgid "%s submissions"
+msgstr "%s presentaciones"
 
 msgid "Date from"
 msgstr "Fecha de"
@@ -73,6 +75,9 @@ msgstr "Fecha"
 
 msgid "Date/time"
 msgstr "Fecha/Hora"
+
+msgid "Hidden field"
+msgstr "Campo oculto"
 
 msgid "submit time"
 msgstr "enviado en"

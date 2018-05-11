@@ -6,15 +6,18 @@
 # Adrien <laadrien@gmail.com>, 2014
 # André Bouatchidzé <a@anbz.net>, 2015
 # Antonin ENFRUN <anton@zorgameuh.org>, 2016
+# Aurélien Debord <contact@aureliendebord.com>, 2017
 # Axel Haustant, 2016
 # Benoît Vogel <contact@spicy-informatique.com>, 2016
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015-2017
 # Dominique PERETTI <dperetti@gmail.com>, 2016
 # Léo <leo@naeka.fr>, 2016
+# Loïc Teixeira <hello@lta.me>, 2018
 # Matt Westcott <matthew@torchbox.com>, 2016
 # nahuel, 2014
 # nahuel, 2014
 # pierre marfoure <pierre@onoffdesign.com>, 2016
+# Romain Dorgueil <romain@dorgueil.net>, 2018
 # Sebastien Andrivet <sebastien@andrivet.com>, 2016
 # Sophy O <sophy.ouch@erudit.org>, 2017
 # Tom Dyson <tom@torchbox.com>, 2015-2016
@@ -22,9 +25,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-10-06 15:06+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
+"PO-Revision-Date: 2018-02-19 10:56+0000\n"
+"Last-Translator: Romain Dorgueil <romain@dorgueil.net>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -164,6 +167,15 @@ msgstr "La date d'expiration doit être dans le futur"
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Vous ne pouvez avoir plusieurs permissions pour la même collection."
 
+msgid "Error 404: Page not found"
+msgstr "Erreur 404 : Page introuvable"
+
+msgid "Error 404"
+msgstr "Erreur 404"
+
+msgid "The requested page could not be found."
+msgstr "La page demandée est introuvable."
+
 msgid "Go to Wagtail admin"
 msgstr "Aller sur l’administration de Wagtail"
 
@@ -248,13 +260,16 @@ msgstr "Réinitialisez votre mot de passe"
 msgid "Edit"
 msgstr "Modifier"
 
+msgid "Delete"
+msgstr "Supprimer"
+
 msgid "Page"
 msgstr "Page"
 
 msgid "Pages"
 msgstr "Pages"
 
-msgid "Loading..."
+msgid "Loading…"
 msgstr "Chargement…"
 
 msgid "No results"
@@ -272,6 +287,24 @@ msgstr "Tout voir"
 msgid "Close explorer"
 msgstr "Fermer l’explorateur"
 
+msgid "Alt text"
+msgstr "Texte alternatif"
+
+msgid "Write here…"
+msgstr "Écrire ici..."
+
+msgid "Horizontal line"
+msgstr "Ligne horizontale"
+
+msgid "Line break"
+msgstr "Retour à la ligne"
+
+msgid "Undo"
+msgstr "Annuler"
+
+msgid "Redo"
+msgstr "Rétablir"
+
 msgid "Dashboard"
 msgstr "Tableau de bord"
 
@@ -286,9 +319,6 @@ msgstr "Monter"
 
 msgid "Move down"
 msgstr "Descendre"
-
-msgid "Delete"
-msgstr "Supprimer"
 
 msgid "Explorer"
 msgstr "Explorateur"
@@ -400,8 +430,8 @@ msgstr ""
 "\"%(add_collection_url)s\">en ajouter une</a> ?"
 
 #, python-format
-msgid "Add %(heading)s"
-msgstr "Ajouter %(heading)s"
+msgid "Add %(label)s"
+msgstr "Ajouter un(e) %(label)s"
 
 msgid "Yes, delete"
 msgstr "Oui, supprimer"
@@ -499,7 +529,7 @@ msgstr "S'identifier"
 msgid "Forgotten it?"
 msgstr "Oublié?"
 
-msgid "Signing in..."
+msgid "Signing in…"
 msgstr "Connexion..."
 
 #, python-format
@@ -701,13 +731,13 @@ msgstr "Nouveau %(page_type)s"
 msgid "New"
 msgstr "Nouveau"
 
-msgid "Saving..."
-msgstr "Sauvegarde..."
+msgid "Saving…"
+msgstr "Enregistrement…"
 
 msgid "Save draft"
 msgstr "Enregistrer le brouillon"
 
-msgid "Publishing..."
+msgid "Publishing…"
 msgstr "Publication..."
 
 msgid "Publish"
@@ -957,6 +987,22 @@ msgid "There are no differences between these two revisions"
 msgstr "Il n’y a pas de différence entre ces deux révisions"
 
 #, python-format
+msgid "Unschedule Revision %(revision.id)s for %(title)s"
+msgstr "Déprogrammer la version %(revision.id)s de %(title)s"
+
+msgid "Unschedule"
+msgstr "Déprogrammer"
+
+msgid "Are you sure you want to unschedule this revision?"
+msgstr "Êtes-vous sûr de vouloir déprogrammer cette version ?"
+
+msgid "Yes, unschedule"
+msgstr "Oui, déprogrammer"
+
+msgid "No, don't unschedule"
+msgstr "Non, ne pas déprogrammer"
+
+#, python-format
 msgid "Revisions of %(title)s"
 msgstr "Versions de %(title)s"
 
@@ -976,11 +1022,17 @@ msgstr "Brouillon actuel"
 msgid "Live version"
 msgstr "Version publique"
 
+msgid "Scheduled for"
+msgstr "Programmé pour"
+
 msgid "Review this revision"
 msgstr "Passer en revue cette version"
 
 msgid "Compare with previous revision"
 msgstr "comparer avec la révision précédente"
+
+msgid "Cancel scheduled publish"
+msgstr "Annuler la publication programmée"
 
 msgid "No revisions of this page exist"
 msgstr "Aucune version n’existe pour cette page"
@@ -1017,6 +1069,9 @@ msgstr "Aucune page utilisée"
 
 msgid "Collection"
 msgstr "Collection"
+
+msgid "Root"
+msgstr "Racine"
 
 msgid "Home"
 msgstr "Accueil"
@@ -1080,12 +1135,6 @@ msgstr "Ven"
 
 msgid "Sat"
 msgstr "Sam"
-
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Utilisé %(usage_count)s fois"
-msgstr[1] "Utilisé %(usage_count)s fois"
 
 msgid "Edit your account"
 msgstr "Modifiez votre compte"
@@ -1203,6 +1252,9 @@ msgstr "russe"
 msgid "Swedish"
 msgstr "suédois"
 
+msgid "Slovak"
+msgstr "Slovaque"
+
 msgid "Chinese (China)"
 msgstr "chinois (Chine)"
 
@@ -1255,12 +1307,12 @@ msgstr "Édition"
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr "Page  '{0}' créée et planifiée pour la publication."
 
+msgid "View live"
+msgstr "Visualiser en direct"
+
 #, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "Page '{0}' créée et publiée."
-
-msgid "View live"
-msgstr "Visualiser en direct"
 
 #, python-brace-format
 msgid "Page '{0}' created and submitted for moderation."
@@ -1283,6 +1335,12 @@ msgstr "La page ne peut être créée du fait d'erreurs de validation"
 msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
 msgstr ""
 "La version du {0} de la page '{1}' a été planifiée pour la publication."
+
+#, python-brace-format
+msgid "Page '{0}' is live and this revision has been scheduled for publishing."
+msgstr ""
+"La page '{0}' est publiée et cette révision a été planifiée pour la "
+"publication"
 
 #, python-brace-format
 msgid "Page '{0}' has been scheduled for publishing."
@@ -1381,6 +1439,14 @@ msgid "Latest"
 msgstr "Dernière"
 
 #, python-brace-format
+msgid "revision {0} of \"{1}\""
+msgstr "révision {0} sur \"{1}\""
+
+#, python-brace-format
+msgid "Revision {0} of \"{1}\" unscheduled."
+msgstr "La version {0} de \"{1}\" a été déprogrammée."
+
+#, python-brace-format
 msgid "Edit '{title}'"
 msgstr "Modifier '{title}'"
 
@@ -1422,6 +1488,25 @@ msgstr "Dépublier la page '{title}'"
 #, python-brace-format
 msgid "View revision history for '{title}'"
 msgstr "Voir l’historique des révisions pour '{title}'"
+
+#, python-brace-format
+msgid "Heading {level}"
+msgstr "En-tête {level}"
+
+msgid "Bulleted list"
+msgstr "List à puce"
+
+msgid "Numbered list"
+msgstr "Liste numérotée"
+
+msgid "Bold"
+msgstr "Gras"
+
+msgid "Italic"
+msgstr "Italique"
+
+msgid "Link"
+msgstr "Lien"
 
 msgid "Choose an item"
 msgstr "Choisissez un élément"

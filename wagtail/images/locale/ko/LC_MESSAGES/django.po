@@ -4,14 +4,15 @@
 #
 # Translators:
 # Jihan Chung <jihanchung20@gmail.com>, 2015
+# Jihan Chung <jihanchung20@gmail.com>, 2015
 # Kyungil Choi <hanpama@gmail.com>, 2015,2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-23 21:05+0000\n"
-"Last-Translator: Kyungil Choi <hanpama@gmail.com>\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
+"PO-Revision-Date: 2018-01-26 16:01+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
 "MIME-Version: 1.0\n"
@@ -136,8 +137,14 @@ msgstr "업로드"
 msgid "Popular tags"
 msgstr "인기있는 태그"
 
-msgid "Uploading..."
-msgstr "업로드 중..."
+msgid "Uploading…"
+msgstr "업로드 중…"
+
+msgid "Server Error"
+msgstr "서버 오류"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "이 오류를 다음의 정보와 함께 웹마스터에게 알려 주시기 바랍니다:"
 
 #, python-format
 msgid ""
@@ -317,12 +324,6 @@ msgstr ""
 msgid "Sorry, upload failed."
 msgstr "죄송합니다, 업로드가 실패하였습니다."
 
-msgid "Server Error"
-msgstr "서버 오류"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr "이 오류를 다음의 정보와 함께 웹마스터에게 알려 주시기 바랍니다:"
-
 msgid "Image updated."
 msgstr "이미지 수정됨."
 
@@ -373,9 +374,6 @@ msgstr "에러로 인해 이미지가 생성될 수 없습니다."
 msgid "%(count)s image"
 msgid_plural "%(count)s images"
 msgstr[0] "%(count)s개의 이미지"
-
-msgid "Choose another image"
-msgstr "다른 이미지 선택"
 
 msgid "Edit this image"
 msgstr "이 이미지 수정"

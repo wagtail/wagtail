@@ -7,17 +7,20 @@ from django.http import HttpRequest, HttpResponse
 from django.test import TestCase, override_settings
 from django.urls import reverse
 
-from wagtail.tests.utils import WagtailTestUtils
 from wagtail.core import hooks
 from wagtail.core.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
-from wagtail.core.models import (
-    Collection, GroupCollectionPermission, GroupPagePermission, Page)
+from wagtail.core.models import Collection, GroupCollectionPermission, GroupPagePermission, Page
+from wagtail.tests.utils import WagtailTestUtils
 from wagtail.users.forms import UserCreationForm, UserEditForm
 from wagtail.users.models import UserProfile
 from wagtail.users.views.users import get_user_creation_form, get_user_edit_form
 
 delete_user_perm_codename = "delete_{0}".format(AUTH_USER_MODEL_NAME.lower())
 change_user_perm_codename = "change_{0}".format(AUTH_USER_MODEL_NAME.lower())
+
+
+def test_avatar_provider(user, default, size=50):
+    return '/nonexistent/path/to/avatar.png'
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -196,6 +199,40 @@ class TestUserCreateView(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, 'wagtailusers/users/create.html')
 
         self.assertTrue(response.context['form'].errors['password2'])
+
+        # Check that the user was not created
+        users = get_user_model().objects.filter(username='testuser')
+        self.assertEqual(users.count(), 0)
+
+    @override_settings(
+        AUTH_PASSWORD_VALIDATORS=[
+            {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
+        ],
+    )
+    def test_create_with_password_validation(self):
+        """
+        Test that the Django password validators are run when creating a user.
+        Specifically test that the UserAttributeSimilarityValidator works,
+        which requires a full-populated user model before the validation works.
+        """
+        # Create a user with a password the same as their name
+        response = self.post({
+            'username': "testuser",
+            'email': "test@user.com",
+            'first_name': "Example",
+            'last_name': "Name",
+            'password1': "example name",
+            'password2': "example name",
+        })
+
+        # Should remain on page
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailusers/users/create.html')
+
+        # Password field should have an error
+        errors = response.context['form'].errors.as_data()
+        self.assertIn('password2', errors)
+        self.assertEqual(errors['password2'][0].code, 'password_too_similar')
 
         # Check that the user was not created
         users = get_user_model().objects.filter(username='testuser')
@@ -604,7 +641,7 @@ class TestUserEditView(TestCase, WagtailTestUtils):
         self.assertEqual(user.first_name, 'Edited')
         self.assertTrue(user.check_password('password'))
 
-    def test_validate_password(self):
+    def test_passwords_match(self):
         """Password fields should be validated if supplied"""
         response = self.post({
             'username': "testuser",
@@ -620,6 +657,41 @@ class TestUserEditView(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, 'wagtailusers/users/edit.html')
 
         self.assertTrue(response.context['form'].errors['password2'])
+
+        # Check that the user was not edited
+        user = get_user_model().objects.get(pk=self.test_user.pk)
+        self.assertEqual(user.first_name, 'Original')
+        self.assertTrue(user.check_password('password'))
+
+    @override_settings(
+        AUTH_PASSWORD_VALIDATORS=[
+            {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
+        ],
+    )
+    def test_edit_with_password_validation(self):
+        """
+        Test that the Django password validators are run when editing a user.
+        Specifically test that the UserAttributeSimilarityValidator works,
+        which requires a full-populated user model before the validation works.
+        """
+        # Create a user with a password the same as their name
+        response = self.post({
+            'username': "testuser",
+            'email': "test@user.com",
+            'first_name': "Edited",
+            'last_name': "Name",
+            'password1': "edited name",
+            'password2': "edited name",
+        })
+
+        # Should remain on page
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailusers/users/edit.html')
+
+        # Password field should have an error
+        errors = response.context['form'].errors.as_data()
+        self.assertIn('password2', errors)
+        self.assertEqual(errors['password2'][0].code, 'password_too_similar')
 
         # Check that the user was not edited
         user = get_user_model().objects.get(pk=self.test_user.pk)
@@ -861,7 +933,7 @@ class TestUserProfileCreation(TestCase, WagtailTestUtils):
         self.test_user = get_user_model().objects.create_user(
             username='testuser',
             email='testuser@email.com',
-            password='password'
+            password='password',
         )
 
     def test_user_created_without_profile(self):
@@ -873,6 +945,10 @@ class TestUserProfileCreation(TestCase, WagtailTestUtils):
         self.assertIsInstance(UserProfile.get_for_user(self.test_user), UserProfile)
         # and get it from the db too
         self.assertEqual(UserProfile.objects.filter(user=self.test_user).count(), 1)
+
+    def test_avatar_empty_on_profile_creation(self):
+        user_profile = UserProfile.get_for_user(self.test_user)
+        self.assertFalse(user_profile.avatar)
 
 
 class TestUserEditViewForNonSuperuser(TestCase, WagtailTestUtils):

@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-10-06 15:06+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
+"PO-Revision-Date: 2018-02-16 11:33+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
@@ -223,6 +223,9 @@ msgstr "Ανανεώστε τον κωδικό σας"
 msgid "Edit"
 msgstr "Διόρθωση"
 
+msgid "Delete"
+msgstr "Διαγραφή"
+
 msgid "Pages"
 msgstr "Σελίδες"
 
@@ -240,9 +243,6 @@ msgstr "Μετακίνηση πάνω"
 
 msgid "Move down"
 msgstr "Μετακίνηση κάτω"
-
-msgid "Delete"
-msgstr "Διαγραφή"
 
 msgid "Explorer"
 msgstr "Εξερευνητής"
@@ -341,10 +341,6 @@ msgstr ""
 "Δεν υπάρχουν συλλογές. Θέλετε να <a href=\"%(add_collection_url)s"
 "\">προσθέσετε μία</a>;"
 
-#, python-format
-msgid "Add %(heading)s"
-msgstr "Προσθήκη %(heading)s"
-
 msgid "Yes, delete"
 msgstr "Ναι, να διαγραφεί"
 
@@ -440,9 +436,6 @@ msgstr "Είσοδος στο Wagtail"
 
 msgid "Forgotten it?"
 msgstr "Ξέχασα τον κωδικό μου"
-
-msgid "Signing in..."
-msgstr "Γίνεται είσοδος ..."
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -641,14 +634,8 @@ msgstr "Νέα %(page_type)s"
 msgid "New"
 msgstr "Νέο"
 
-msgid "Saving..."
-msgstr "Αποθήκευση..."
-
 msgid "Save draft"
 msgstr "Αποθήκευση σχεδίου"
-
-msgid "Publishing..."
-msgstr "Γίνεται δημοσίευση..."
 
 msgid "Publish"
 msgstr "Έκδοση"
@@ -1005,12 +992,6 @@ msgstr "Παρ"
 msgid "Sat"
 msgstr "Σαβ"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Χρησιμοποιήθηκε %(usage_count)s φορά"
-msgstr[1] "Χρησιμοποιήθηκε %(usage_count)s φορές"
-
 msgid "Edit your account"
 msgstr "Επεξεργαστείτε το λογαριασμό σας"
 
@@ -1113,12 +1094,12 @@ msgstr "Διόρθωση"
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr "Η σελίδα '{0}' δημιουργήθηκε και προγραμματίστηκε για δημοσίευση."
 
+msgid "View live"
+msgstr "Εμφανιση στο site"
+
 #, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "Η σελίδα '{0}' δημιουργήθηκε και δημοσιεύθηκε."
-
-msgid "View live"
-msgstr "Εμφανιση στο site"
 
 #, python-brace-format
 msgid "Page '{0}' created and submitted for moderation."

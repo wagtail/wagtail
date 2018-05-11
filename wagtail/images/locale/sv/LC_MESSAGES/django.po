@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-20 15:49+0000\n"
-"Last-Translator: Jim Brouzoulis <jim.brouzoulis@chalmers.se>\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
+"PO-Revision-Date: 2018-01-26 16:00+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -135,8 +135,15 @@ msgstr "Ladda up"
 msgid "Popular tags"
 msgstr "Populära taggar"
 
-msgid "Uploading..."
-msgstr "Laddar upp..."
+msgid "Uploading…"
+msgstr "Laddar upp…"
+
+msgid "Server Error"
+msgstr "Serverfel"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr ""
+"Rapportera det här felet till din webadministratör med följande information:"
 
 #, python-format
 msgid ""
@@ -326,13 +333,6 @@ msgstr ""
 msgid "Sorry, upload failed."
 msgstr "Ledsen, uppladdningen misslyckades."
 
-msgid "Server Error"
-msgstr "Serverfel"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr ""
-"Rapportera det här felet till din webadministratör med följande information:"
-
 msgid "Image updated."
 msgstr "Bilden uppdaterades."
 
@@ -384,9 +384,6 @@ msgid "%(count)s image"
 msgid_plural "%(count)s images"
 msgstr[0] "%(count)s bild"
 msgstr[1] "%(count)s bilder"
-
-msgid "Choose another image"
-msgstr "Välj en annan bild"
 
 msgid "Edit this image"
 msgstr "Redigera den här bilden"

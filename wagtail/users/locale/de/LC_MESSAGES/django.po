@@ -10,16 +10,19 @@
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 # M0rph 3u5 <transifex@m0rph3u5.net>, 2014
 # Matt Westcott <matthew@torchbox.com>, 2015
+# Matt Westcott <matthew@torchbox.com>, 2015
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2017
 # Tammo van Lessen <tvanlessen@gmail.com>, 2015
+# Vorlif <flori@vorlif.org>, 2015
+# Wasilis Mandratzis-Walz, 2015
 # Wasilis Mandratzis-Walz, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-10-16 06:52+0000\n"
-"Last-Translator: Moritz Pfeiffer <moritz@alp-phone.ch>\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
+"PO-Revision-Date: 2018-01-26 16:04+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -267,9 +270,6 @@ msgid ""
 msgstr ""
 "Es gibt zur Zeit noch keine Benutzer. <a href=\"%(wagtailusers_create_url)s"
 "\">Legen Sie doch einen an!</a>"
-
-msgid "Search"
-msgstr "Suche"
 
 msgid "Groups"
 msgstr "Gruppen"

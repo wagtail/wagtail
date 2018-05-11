@@ -52,6 +52,7 @@ $color-header-bg: $color-teal; // #ff6a58;
 $color-fieldset-hover: $color-grey-5;
 $color-input-border: $color-grey-4;
 $color-input-focus: #f4fcfc;
+$color-input-focus-border: darken($color-input-focus, 40%);
 $color-input-error-bg: #feedee;
 $color-button: $color-teal;
 $color-button-hover: $color-teal-darker;
@@ -82,3 +83,6 @@ $thumbnail-width: 130px;
 $menu-width: 180px;
 $menu-width-max: 320px;
 $mobile-nav-indent: 50px;
+
+$nav-wrapper-inner-z-index: 26;
+$draftail-editor-z-index: $nav-wrapper-inner-z-index + 1;

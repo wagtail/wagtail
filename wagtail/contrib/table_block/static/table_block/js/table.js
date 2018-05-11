@@ -39,7 +39,7 @@ function initTable(id, tableOptions) {
     }
 
     try {
-        dataForForm = $.parseJSON(hiddenStreamInput.val());
+        dataForForm = JSON.parse(hiddenStreamInput.val());
     } catch (e) {
         // do nothing
     }
@@ -55,7 +55,7 @@ function initTable(id, tableOptions) {
 
     if (!tableOptions.hasOwnProperty('width') || !tableOptions.hasOwnProperty('height')) {
         // Size to parent .sequence-member-inner width if width is not given in tableOptions
-        $(window).resize(function() {
+        $(window).on('resize', function() {
             hot.updateSettings({
                 width: getWidth(),
                 height: getHeight()
@@ -85,11 +85,11 @@ function initTable(id, tableOptions) {
         persist();
     };
 
-    tableHeaderCheckbox.change(function() {
+    tableHeaderCheckbox.on('change', function() {
         persist();
     });
 
-    colHeaderCheckbox.change(function() {
+    colHeaderCheckbox.on('change', function() {
         persist();
     });
 
@@ -121,7 +121,7 @@ function initTable(id, tableOptions) {
     if ('resize' in $(window)) {
         resizeHeight(getHeight());
         $(window).on('load', function() {
-            $(window).resize();
+            $(window).trigger('resize');
         });
     }
 }

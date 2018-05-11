@@ -1,6 +1,6 @@
 $(function() {
     /* Interface to set permissions from the explorer / editor */
-    $('a.action-set-privacy').click(function() {
+    $('a.action-set-privacy').on('click', function() {
         ModalWorkflow({
             url: this.href,
             responses: {

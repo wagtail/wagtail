@@ -13,7 +13,7 @@ What's new
 ``specific()`` method on PageQuerySet
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Usually, an operation that retrieves a queryset of pages (such as ``homepage.get_children()``) will return them as basic Page instances, which only include the core page data such as title. The ``specific()`` method (e.g. ``homepage.get_children().specific()``) now allows them to be retrieved as their most specific type, using the minimum number of queries.
+Usually, an operation that retrieves a QuerySet of pages (such as ``homepage.get_children()``) will return them as basic Page instances, which only include the core page data such as title. The ``specific()`` method (e.g. ``homepage.get_children().specific()``) now allows them to be retrieved as their most specific type, using the minimum number of queries.
 
 "Promoted search results" has moved into its own module
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -86,7 +86,7 @@ Bug fixes
  * Search no longer crashes when auto-indexing a model that doesn't have an ``id`` field
  * The ``wagtailfrontendcache`` module's HTTP backend has been rewritten to reliably direct requests to the configured cache hostname
  * Resizing single pixel images with the "fill" filter no longer raises "ZeroDivisionError" or "tile cannot extend outside image"
- * The queryset returned from ``search`` operations when using the database search backend now correctly preserves additional properties of the original query, such as ``prefetch_related`` / ``select_related``
+ * The QuerySet returned from ``search`` operations when using the database search backend now correctly preserves additional properties of the original query, such as ``prefetch_related`` / ``select_related``
  * Responses from the external image URL generator are correctly marked as streaming and will no longer fail when used with Django's cache middleware
  * Page copy now works with pages that use multiple inheritance
  * Form builder pages now pick up template variables defined in the ``get_context`` method

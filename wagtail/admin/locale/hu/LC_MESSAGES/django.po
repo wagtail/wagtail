@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-10-06 15:06+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
+"PO-Revision-Date: 2018-02-16 11:33+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
@@ -189,6 +189,9 @@ msgstr "Módosítsa jelszavát"
 msgid "Edit"
 msgstr "Szerkeszt"
 
+msgid "Delete"
+msgstr "Törlés"
+
 msgid "Dashboard"
 msgstr "Műszerfal"
 
@@ -203,9 +206,6 @@ msgstr "Mozgatás fel"
 
 msgid "Move down"
 msgstr "Mozgatás le"
-
-msgid "Delete"
-msgstr "Törlés"
 
 msgid "Explorer"
 msgstr "Böngésző"
@@ -278,10 +278,6 @@ msgstr "Publikus"
 
 msgid "Name"
 msgstr "Név"
-
-#, python-format
-msgid "Add %(heading)s"
-msgstr "%(heading)s hozzáadása"
 
 msgid "Yes, delete"
 msgstr "Törlés megerősítése"
@@ -372,9 +368,6 @@ msgstr "Bejelentkezés a Wagtail-be"
 
 msgid "Forgotten it?"
 msgstr "Elfelejtette?"
-
-msgid "Signing in..."
-msgstr "Bejelentkezés..."
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."

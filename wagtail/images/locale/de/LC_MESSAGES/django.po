@@ -8,18 +8,19 @@
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014-2015
 # M0rph 3u5 <transifex@m0rph3u5.net>, 2014
 # Max Pfeiffer <max.pfeiffer@alp-phone.ch>, 2015
-# Moritz Pfeiffer <moritz@alp-phone.ch>, 2016
+# Moritz Pfeiffer <moritz@alp-phone.ch>, 2016,2018
 # pcraston <patrick@craston.com>, 2014
 # pcraston <patrick@craston.com>, 2014
 # Tammo van Lessen <tvanlessen@gmail.com>, 2015
+# Wasilis Mandratzis-Walz, 2015
 # Wasilis Mandratzis-Walz, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-20 00:27+0000\n"
-"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
+"PO-Revision-Date: 2018-02-16 14:20+0000\n"
+"Last-Translator: Moritz Pfeiffer <moritz@alp-phone.ch>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -143,8 +144,16 @@ msgstr "Hochladen"
 msgid "Popular tags"
 msgstr "Häufig verwendete Schlagwörter"
 
-msgid "Uploading..."
+msgid "Uploading…"
 msgstr "Lade hoch…"
+
+msgid "Server Error"
+msgstr "Server-Fehler"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr ""
+"Melden Sie diesen Fehler Ihrem Webseitenverwalter mit der folgenden "
+"Information:"
 
 #, python-format
 msgid ""
@@ -204,6 +213,12 @@ msgstr "Speichern"
 msgid "Delete image"
 msgstr "Bild löschen"
 
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)s mal benutzt"
+msgstr[1] "%(usage_count)s mal benutzt"
+
 msgid "Are you sure you want to delete this image?"
 msgstr "Sind Sie sicher, dass Sie dieses Bild löschen wollen?"
 
@@ -244,6 +259,9 @@ msgstr "Dateigröße"
 
 msgid "File not found"
 msgstr "Datei nicht gefunden"
+
+msgid "Usage"
+msgstr "Benutzung"
 
 msgid "Images"
 msgstr "Bilder"
@@ -334,14 +352,6 @@ msgstr ""
 msgid "Sorry, upload failed."
 msgstr "Entschuldigung, der Upload ist fehlgeschlagen."
 
-msgid "Server Error"
-msgstr "Server-Fehler"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr ""
-"Melden Sie diesen Fehler Ihrem Webseitenverwalter mit der folgenden "
-"Information:"
-
 msgid "Image updated."
 msgstr "Bild geändert."
 
@@ -388,14 +398,17 @@ msgstr "Bild ‚{0}‘ hinzugefügt."
 msgid "The image could not be created due to errors."
 msgstr "Aufgrund von Fehlern konnte das Bild nicht erstellt werden."
 
+msgid "Image"
+msgstr "Bild"
+
 #, python-format
 msgid "%(count)s image"
 msgid_plural "%(count)s images"
 msgstr[0] "%(count)s Bild"
 msgstr[1] "%(count)s Bilder"
 
-msgid "Choose another image"
-msgstr "Anderes Bild wählen"
+msgid "Change image"
+msgstr "Bild ändern"
 
 msgid "Edit this image"
 msgstr "Dieses Bild bearbeiten"

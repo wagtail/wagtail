@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-10-06 15:06+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
+"PO-Revision-Date: 2018-02-16 11:33+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
 "fa/)\n"
@@ -228,14 +228,14 @@ msgstr "رمزعبور را بازنشانی کنید"
 msgid "Edit"
 msgstr "تصحیح"
 
+msgid "Delete"
+msgstr "حذف"
+
 msgid "Page"
 msgstr "صفحه"
 
 msgid "Pages"
 msgstr "صفحه ها"
-
-msgid "Loading..."
-msgstr "بارگذاری..."
 
 msgid "No results"
 msgstr "بدون نتیجه"
@@ -266,9 +266,6 @@ msgstr "حرکت به بالا"
 
 msgid "Move down"
 msgstr "حرکت به پایین"
-
-msgid "Delete"
-msgstr "حذف"
 
 msgid "Explorer"
 msgstr "کاوشگر"
@@ -366,10 +363,6 @@ msgstr ""
 "مجموعه ای ایجاد نشد. چرا یکی <a href=\"%(add_collection_url)s\">ایجاد</a> "
 "نمیکنید؟"
 
-#, python-format
-msgid "Add %(heading)s"
-msgstr "افزودن %(heading)s"
-
 msgid "Yes, delete"
 msgstr "بله حذف شود"
 
@@ -458,9 +451,6 @@ msgstr "ورود به وگتیل"
 
 msgid "Forgotten it?"
 msgstr "فراموش کردید؟"
-
-msgid "Signing in..."
-msgstr "درحال ورود..."
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -646,14 +636,8 @@ msgstr "%(page_type)s جدید"
 msgid "New"
 msgstr "جدید"
 
-msgid "Saving..."
-msgstr "درحال ذخیره..."
-
 msgid "Save draft"
 msgstr "ذخیره پیشنویس"
-
-msgid "Publishing..."
-msgstr "درحال انتشار..."
 
 msgid "Publish"
 msgstr "انتشار"
@@ -1014,11 +998,6 @@ msgstr "جمعه"
 msgid "Sat"
 msgstr "شنبه"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "%(usage_count)s بار استفاده شد"
-
 msgid "Edit your account"
 msgstr "ویرایش حساب شما"
 
@@ -1181,12 +1160,12 @@ msgstr "ویرایش"
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr "صفحه  '{0}' ایجاد و برای انتشار برنامه ریزی شد."
 
+msgid "View live"
+msgstr "دیدن زنده"
+
 #, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "صفحه '{0}' ایجاد و انتشار یافت."
-
-msgid "View live"
-msgstr "دیدن زنده"
 
 #, python-brace-format
 msgid "Page '{0}' created and submitted for moderation."

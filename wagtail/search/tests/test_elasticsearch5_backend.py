@@ -7,9 +7,9 @@ from django.db.models import Q
 from django.test import TestCase
 from elasticsearch.serializer import JSONSerializer
 
-from wagtail.tests.search import models
 from wagtail.search.backends.elasticsearch5 import Elasticsearch5SearchBackend
 from wagtail.search.query import MATCH_ALL
+from wagtail.tests.search import models
 
 from .elasticsearch_common_tests import ElasticsearchCommonSearchBackendTests
 
@@ -706,18 +706,27 @@ class TestElasticsearch5MappingInheritance(TestCase):
         self.assertDictEqual(document, expected_result)
 
 
+@mock.patch('wagtail.search.backends.elasticsearch2.Elasticsearch')
 class TestBackendConfiguration(TestCase):
-    def test_default_settings(self):
-        backend = Elasticsearch5SearchBackend(params={})
+    def test_default_settings(self, Elasticsearch):
+        Elasticsearch5SearchBackend(params={})
 
-        self.assertEqual(len(backend.hosts), 1)
-        self.assertEqual(backend.hosts[0]['host'], 'localhost')
-        self.assertEqual(backend.hosts[0]['port'], 9200)
-        self.assertEqual(backend.hosts[0]['use_ssl'], False)
+        Elasticsearch.assert_called_with(
+            hosts=[
+                {
+                    'host': 'localhost',
+                    'port': 9200,
+                    'url_prefix': '',
+                    'use_ssl': False,
+                    'verify_certs': False,
+                    'http_auth': None
+                }
+            ],
+            timeout=10
+        )
 
-    def test_hosts(self):
-        # This tests that HOSTS goes to es_hosts
-        backend = Elasticsearch5SearchBackend(params={
+    def test_hosts(self, Elasticsearch):
+        Elasticsearch5SearchBackend(params={
             'HOSTS': [
                 {
                     'host': '127.0.0.1',
@@ -728,14 +737,21 @@ class TestBackendConfiguration(TestCase):
             ]
         })
 
-        self.assertEqual(len(backend.hosts), 1)
-        self.assertEqual(backend.hosts[0]['host'], '127.0.0.1')
-        self.assertEqual(backend.hosts[0]['port'], 9300)
-        self.assertEqual(backend.hosts[0]['use_ssl'], True)
+        Elasticsearch.assert_called_with(
+            hosts=[
+                {
+                    'host': '127.0.0.1',
+                    'port': 9300,
+                    'use_ssl': True,
+                    'verify_certs': True,
+                }
+            ],
+            timeout=10
+        )
 
-    def test_urls(self):
+    def test_urls(self, Elasticsearch):
         # This test backwards compatibility with old URLS setting
-        backend = Elasticsearch5SearchBackend(params={
+        Elasticsearch5SearchBackend(params={
             'URLS': [
                 'http://localhost:12345',
                 'https://127.0.0.1:54321',
@@ -744,21 +760,40 @@ class TestBackendConfiguration(TestCase):
             ],
         })
 
-        self.assertEqual(len(backend.hosts), 4)
-        self.assertEqual(backend.hosts[0]['host'], 'localhost')
-        self.assertEqual(backend.hosts[0]['port'], 12345)
-        self.assertEqual(backend.hosts[0]['use_ssl'], False)
-
-        self.assertEqual(backend.hosts[1]['host'], '127.0.0.1')
-        self.assertEqual(backend.hosts[1]['port'], 54321)
-        self.assertEqual(backend.hosts[1]['use_ssl'], True)
-
-        self.assertEqual(backend.hosts[2]['host'], 'elasticsearch.mysite.com')
-        self.assertEqual(backend.hosts[2]['port'], 80)
-        self.assertEqual(backend.hosts[2]['use_ssl'], False)
-        self.assertEqual(backend.hosts[2]['http_auth'], ('username', 'password'))
-
-        self.assertEqual(backend.hosts[3]['host'], 'elasticsearch.mysite.com')
-        self.assertEqual(backend.hosts[3]['port'], 443)
-        self.assertEqual(backend.hosts[3]['use_ssl'], True)
-        self.assertEqual(backend.hosts[3]['url_prefix'], '/hello')
+        Elasticsearch.assert_called_with(
+            hosts=[
+                {
+                    'host': 'localhost',
+                    'port': 12345,
+                    'url_prefix': '',
+                    'use_ssl': False,
+                    'verify_certs': False,
+                    'http_auth': None,
+                },
+                {
+                    'host': '127.0.0.1',
+                    'port': 54321,
+                    'url_prefix': '',
+                    'use_ssl': True,
+                    'verify_certs': True,
+                    'http_auth': None,
+                },
+                {
+                    'host': 'elasticsearch.mysite.com',
+                    'port': 80,
+                    'url_prefix': '',
+                    'use_ssl': False,
+                    'verify_certs': False,
+                    'http_auth': ('username', 'password')
+                },
+                {
+                    'host': 'elasticsearch.mysite.com',
+                    'port': 443,
+                    'url_prefix': '/hello',
+                    'use_ssl': True,
+                    'verify_certs': True,
+                    'http_auth': None,
+                },
+            ],
+            timeout=10
+        )

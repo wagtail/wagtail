@@ -3,8 +3,10 @@ from django.test import TestCase
 from mock import patch
 
 from wagtail.core.models import Page
-from wagtail.core.rich_text import (
-    DbWhitelister, FeatureRegistry, PageLinkHandler, RichText, expand_db_html, extract_attrs)
+from wagtail.core.rich_text import RichText, expand_db_html
+from wagtail.core.rich_text.feature_registry import FeatureRegistry
+from wagtail.core.rich_text.pages import PageLinkHandler, page_linktype_handler
+from wagtail.core.rich_text.rewriters import extract_attrs
 
 
 class TestPageLinkHandler(TestCase):
@@ -18,72 +20,26 @@ class TestPageLinkHandler(TestCase):
                          {'id': 'test-id'})
 
     def test_expand_db_attributes_page_does_not_exist(self):
-        result = PageLinkHandler.expand_db_attributes(
-            {'id': 0},
-            False
-        )
+        result = page_linktype_handler({'id': 0})
         self.assertEqual(result, '<a>')
 
     def test_expand_db_attributes_for_editor(self):
-        result = PageLinkHandler.expand_db_attributes(
-            {'id': 1},
-            True
-        )
+        result = PageLinkHandler.expand_db_attributes({'id': 1})
         self.assertEqual(
             result,
             '<a data-linktype="page" data-id="1" href="None">'
         )
 
         events_page_id = Page.objects.get(url_path='/home/events/').pk
-        result = PageLinkHandler.expand_db_attributes(
-            {'id': events_page_id},
-            True
-        )
+        result = PageLinkHandler.expand_db_attributes({'id': events_page_id})
         self.assertEqual(
             result,
             '<a data-linktype="page" data-id="%d" data-parent-id="2" href="/events/">' % events_page_id
         )
 
     def test_expand_db_attributes_not_for_editor(self):
-        result = PageLinkHandler.expand_db_attributes(
-            {'id': 1},
-            False
-        )
+        result = page_linktype_handler({'id': 1})
         self.assertEqual(result, '<a href="None">')
-
-
-class TestDbWhiteLister(TestCase):
-    def test_clean_tag_node_div(self):
-        soup = BeautifulSoup('<div>foo</div>', 'html5lib')
-        tag = soup.div
-        self.assertEqual(tag.name, 'div')
-        DbWhitelister.clean_tag_node(soup, tag)
-        self.assertEqual(tag.name, 'p')
-
-    def test_clean_tag_node_with_data_embedtype(self):
-        soup = BeautifulSoup(
-            '<p><a data-embedtype="image" data-id=1 data-format="left" data-alt="bar" irrelevant="baz">foo</a></p>',
-            'html5lib'
-        )
-        tag = soup.p
-        DbWhitelister.clean_tag_node(soup, tag)
-        self.assertEqual(str(tag),
-                         '<p><embed alt="bar" embedtype="image" format="left" id="1"/></p>')
-
-    def test_clean_tag_node_with_data_linktype(self):
-        soup = BeautifulSoup(
-            '<a data-linktype="document" data-id="1" irrelevant="baz">foo</a>',
-            'html5lib'
-        )
-        tag = soup.a
-        DbWhitelister.clean_tag_node(soup, tag)
-        self.assertEqual(str(tag), '<a id="1" linktype="document">foo</a>')
-
-    def test_clean_tag_node(self):
-        soup = BeautifulSoup('<a irrelevant="baz">foo</a>', 'html5lib')
-        tag = soup.a
-        DbWhitelister.clean_tag_node(soup, tag)
-        self.assertEqual(str(tag), '<a>foo</a>')
 
 
 class TestExtractAttrs(TestCase):

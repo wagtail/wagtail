@@ -9,10 +9,10 @@ from django.test.utils import override_settings
 from django.urls import reverse
 from django.utils.six import b
 
-from wagtail.tests.testapp.models import EventPage, EventPageRelatedLink
-from wagtail.tests.utils import WagtailTestUtils
 from wagtail.core.models import Collection, GroupCollectionPermission, Page
 from wagtail.documents import models
+from wagtail.tests.testapp.models import EventPage, EventPageRelatedLink
+from wagtail.tests.utils import WagtailTestUtils
 
 
 class TestDocumentIndexView(TestCase, WagtailTestUtils):

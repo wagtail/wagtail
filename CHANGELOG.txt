@@ -1,11 +1,100 @@
 Changelog
 =========
 
-2.0 (xx.xx.xxxx) - IN DEVELOPMENT
+2.2 (xx.xx.xxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~
+
+ * Added another valid AudioBoom oEmbed pattern (Bertrand Bordage)
+
+
+2.1 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
+ * Add `HelpPanel` to add HTML within an edit form (Keving Chung)
+ * Added direct profile picture upload to account preferences (Daniel Chimeno, Pierre Geier, Matt Westcott)
+ * Added API endpoint for finding pages by HTML path (Karl Hobley)
+ * Added time zone setting to account preferences (David Moore)
+ * Added Elasticsearch 6 support (Karl Hobley)
+ * Persist tab hash in URL to allow direct navigation to tabs in the admin interface (Ben Weatherman)
+ * Animate the chevron icon when opening sub-menus in the admin (Carlo Ascani)
+ * Look through the target link and target page slug (in addition to the old slug) when searching for redirects in the admin (Michael Harrison)
+ * Remove support for IE6 to IE9 from project template (Samir Shah)
+ * Remove outdated X-UA-Compatible meta from admin template  (Thibaud Colas)
+ * Add JavaScript source maps in production build for packaged Wagtail (Thibaud Colas)
+ * Removed `assert` statements from Wagtail API (Kim Chee Leong)
+ * Update `jquery-datetimepicker` dependency to make Wagtail more CSP-friendly (`unsafe-eval`) (Mike Kamermans)
+ * Added error notification when running the `wagtail` command on Python <3.4 (Matt Westcott)
+ * `update_index` management command now accepts a `--chunk_size` option to determine the number of items to load at once (Dave Bell)
+ * Added hook `register_account_menu_item` to add new account preference items (Michael van Tellingen)
+ * Added change email functionality from the account settings (Alejandro Garza, Alexs Mathilda)
+ * Add request parameter to edit handlers (Rajeev J Sebastian)
+ * ImageChooser now sets a default title based on filename (Coen van der Kamp)
+ * Added error handling to the Draftail editor (Thibaud Colas)
+ * Add new `wagtail_icon` template tag to facilitate making admin icons accessible (Sander Tuit)
+ * Set `ALLOWED_HOSTS` in the project template to allow any host in development (Tom Dyson)
+ * Expose reusable client-side code to build Draftail extensions (Thibaud Colas)
+ * Added `WAGTAILFRONTENDCACHE_LANGUAGES` setting to specify the languages whose URLs are to be purged when using `i18n_patterns` (PyMan Claudio Marinozzi)
+ * Added `extra_footer_actions` template blocks for customising the add/edit page views (Arthur Holzner)
+ * Fix: Status button on 'edit page' now links to the correct URL when live and draft slug differ (LB (Ben Johnston))
+ * Fix: Image title text in the gallery and in the chooser now wraps for long filenames (LB (Ben Johnston), Luiz Boaretto)
+ * Fix: Move image editor action buttons to the bottom of the form on mobile (Julian Gallo)
+ * Fix: StreamField icons are now correctly sorted into groups on the 'append' menu (Tim Heap)
+ * Fix: Draftail now supports features specified via the `WAGTAILADMIN_RICH_TEXT_EDITORS` setting (Todd Dembrey)
+ * Fix: Password reset form no longer indicates whether the email is recognised, as per standard Django behaviour (Bertrand Bordage)
+ * Fix: `UserAttributeSimilarityValidator` is now correctly enforced on user creation / editing forms (Tim Heap)
+ * Fix: Focal area removal not working in IE11 and MS Edge (Thibaud Colas)
+ * Fix: Rewrite password change feedback message to be more user-friendly (Casper Timmers)
+ * Fix: Correct dropdown arrow styling in Firefox, IE11 (Janneke Janssen, Alexs Mathilda)
+ * Fix: Password reset no indicates specific validation errors on certain password restrictions (Lucas Moeskops)
+ * Fix: Confirmation page on page deletion now respects custom `get_admin_display_title` methods (Kim Chee Leong)
+ * Fix: Adding external link with selected text now includes text in link chooser (Tony Yates, Thibaud Colas, Alexs Mathilda)
+ * Fix: Editing setting object with no site configured no longer crashes (Harm Zeinstra)
+ * Fix: Creating a new object with inlines while mandatory fields are empty no longer crashes (Bertrand Bordage)
+ * Fix: Localization of image and apps verbose names
+ * Fix: Draftail editor no longer crashes after deleting image/embed using DEL key (Thibaud Colas)
+ * Fix: Breadcrumb navigation now respects custom `get_admin_display_title` methods (Arthur Holzner, Wietze Helmantel, Matt Westcott)
+ * Fix: Inconsistent order of heading features when adding h1, h5 or h6 as default feature for Hallo RichText editor (Loic Teixeira)
+ * Fix: Add invalid password reset link error message (Coen van der Kamp)
+ * Fix: Bypass select/prefetch related optimisation on `update_index` for `ParentalManyToManyField` to fix crash (Tim Kamanin)
+ * Fix: 'Add user' is now rendered as a button due to the use of quotes within translations (Benoît Vogel)
+ * Fix: Menu icon no longer overlaps with title in Modeladmin on mobile (Coen van der Kamp)
+ * Fix: Background color overflow within the Wagtail documentation (Sergey Fedoseev)
+ * Fix: Page count on homepage summary panel now takes account of user permissions (Andy Chosak)
+ * Fix: Explorer view now prevents navigating outside of the common ancestor of the user's permissions (Andy Chosak)
+ * Fix: Generate URL for the current site when multiple sites share the same root page (Codie Roelf)
+ * Fix: Restored ability to use non-model fields with FieldPanel (Matt Westcott, LB (Ben Johnston))
+ * Fix: Stop revision comparison view from crashing when non-model FieldPanels are in use (LB (Ben Johnston))
+ * Fix: Ordering in the page explorer now respects custom `get_admin_display_title` methods when sorting <100 pages (Matt Westcott)
+ * Fix: Use index-specific Elasticsearch endpoints for bulk insertion, for compatibility with providers that lock down the root endpoint (Karl Hobley)
+
+
+2.0.2 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Restored ability to use non-model fields with FieldPanel (Matt Westcott, LB (Ben Johnston))
+
+
+2.0.1 (04.04.2018)
+~~~~~~~~~~~~~~~~~~
+
+ * Added error notification when running the `wagtail` command on Python <3.4 (Matt Westcott)
+ * Added error handling to the Draftail editor (Thibaud Colas)
+ * Fix: Draftail now supports features specified via the `WAGTAILADMIN_RICH_TEXT_EDITORS` setting (Todd Dembrey)
+ * Fix: Password reset form no longer indicates whether the email is recognised, as per standard Django behaviour (Bertrand Bordage)
+ * Fix: `UserAttributeSimilarityValidator` is now correctly enforced on user creation / editing forms (Tim Heap)
+ * Fix: Editing setting object with no site configured no longer crashes (Harm Zeinstra)
+ * Fix: Creating a new object with inlines while mandatory fields are empty no longer crashes (Bertrand Bordage)
+
+
+2.0 (28.02.2018)
+~~~~~~~~~~~~~~~~
+
+ * Added support for Django 2.0 (Matt Westcott, Karl Hobley, LB (Ben Johnston), Mads Jensen)
+ * Reorganised module paths (Karl Hobley, Matt Westcott)
+ * Replaced the hallo.js rich text editor with Draftail (Thibaud Colas, Loïc Teixeira, Matt Westcott)
  * Removed support for Python 2.7, Django 1.8 and Django 1.10
  * Removed support for Elasticsearch 1.x
+ * Added the ability to schedule updates to existing published pages (Patrick Woods)
  * Moved Wagtail API v1 implementation (`wagtail.contrib.api`) to an external app (https://github.com/wagtail/wagtailapi_legacy) (Karl Hobley)
  * The page chooser now searches all fields of a page, instead of just the title (Bertrand Bordage)
  * Implement ordering by date in form submission view (LB (Ben Johnston))
@@ -25,6 +114,23 @@ Changelog
  * The value type returned from a `StructBlock` can now be customised (LB (Ben Johnston))
  * Added `bgcolor` image operation (Karl Hobley)
  * Added `WAGTAILADMIN_USER_LOGIN_FORM` setting for overriding the admin login form (Mike Dingjan)
+ * Snippets now support custom primary keys (Sævar Öfjörð Magnússon)
+ * Upgraded jQuery to version 3.2.1 (Janneke Janssen)
+ * Updated documentation styling (LB (Ben Johnston))
+ * Rich text fields now take feature lists into account when whitelisting HTML elements (Matt Westcott)
+ * FormPage lists and Form submission lists in admin now use class based views for easy overriding (Johan Arensman)
+ * Form submission csv exports now have the export date in the filename and can be customized (Johan Arensman)
+ * FormBuilder class now uses bound methods for field generation, adding custom fields is now easier and documented (LB (Ben) Johnston)
+ * Added `WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS` setting to determine whether superusers are included in moderation email notifications (Bruno Alla)
+ * Added a basic Dockerfile to the project template (Tom Dyson)
+ * StreamField blocks now allow custom `get_template` methods for overriding templates in instances (Christopher Bledsoe)
+ * Simplified edit handler API (Florent Osmont, Bertrand Bordage)
+ * Made 'add/change/delete collection' permissions configurable from the group edit page (Matt Westcott)
+ * Update autoprefixer configuration to better match browser support targets (Janneke Janssen)
+ * Update React and related dependencies to latest versions (Janneke Janssen, Hugo van den Berg)
+ * Remove Hallo editor `.richtext` CSS class in favour of more explicit extension points (Thibaud Colas)
+ * Expose React-related dependencies as global variables for extension in the admin interface (Thibaud Colas)
+ * Added helper functions for constructing form data for use with `assertCanCreate` (Tim Heap, Matt Westcott)
  * Fix: Do not remove stopwords when generating slugs from non-ASCII titles, to avoid issues with incorrect word boundaries (Sævar Öfjörð Magnússon)
  * Fix: The PostgreSQL search backend now preserves ordering of the `QuerySet` when searching with `order_by_relevance=False` (Bertrand Bordage)
  * Fix: Using `modeladmin_register` as a decorator no longer replaces the decorated class with `None` (Tim Heap)
@@ -50,6 +156,12 @@ Changelog
  * Fix: Using RGBA images no longer crashes with Pillow >= 4.2.0 (Karl Hobley)
  * Fix: Copying a page with PostgreSQL search enabled no longer crashes (Bertrand Bordage)
  * Fix: Style of the page unlock button was broken (Bertrand Bordage)
+ * Fix: Admin search no longer floods browser history (Bertrand Bordage)
+ * Fix: Version comparison now handles custom primary keys on inline models correctly (LB (Ben Johnston))
+ * Fix: Fixed error when inserting chooser panels into FieldRowPanel (Florent Osmont, Bertrand Bordage)
+ * Fix: Reinstated missing error reporting on image upload (Matt Westcott)
+ * Fix: Only load Hallo CSS if Hallo is in use (Thibaud Colas)
+ * Fix: Prevent style leak of Wagtail panel icons in widgets using ``h2`` elements (THibaud Colas)
 
 
 1.13.1 (17.11.2017)
@@ -64,8 +176,8 @@ Changelog
  * Fix: Prevented intermittent failures on Postgres search backend when a field is defined as both a `SearchField` and a `FilterField` (Matt Westcott)
 
 
-1.13 (16.10.2017)
-~~~~~~~~~~~~~~~~~
+1.13 LTS (16.10.2017)
+~~~~~~~~~~~~~~~~~~~~~
 
  * Front-end cache invalidator now supports purging URLs as a batch (Karl Hobley)
  * Custom document model is now documented (Emily Horsman)

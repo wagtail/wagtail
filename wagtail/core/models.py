@@ -12,7 +12,7 @@ from django.core.cache import cache
 from django.core.exceptions import ValidationError
 from django.core.handlers.base import BaseHandler
 from django.core.handlers.wsgi import WSGIRequest
-from django.db import connection, models, transaction
+from django.db import models, transaction
 from django.db.models import Q, Value
 from django.db.models.functions import Concat, Substr
 from django.http import Http404
@@ -29,8 +29,7 @@ from wagtail.core.query import PageQuerySet, TreeQuerySet
 from wagtail.core.signals import page_published, page_unpublished
 from wagtail.core.sites import get_site_for_hostname
 from wagtail.core.url_routing import RouteResult
-from wagtail.core.utils import (
-    WAGTAIL_APPEND_SLASH, camelcase_to_underscore, resolve_model_string)
+from wagtail.core.utils import WAGTAIL_APPEND_SLASH, camelcase_to_underscore, resolve_model_string
 from wagtail.search import index
 
 logger = logging.getLogger('wagtail.core')
@@ -153,15 +152,16 @@ class Site(models.Model):
     @staticmethod
     def get_site_root_paths():
         """
-        Return a list of (root_path, root_url) tuples, most specific path first -
-        used to translate url_paths into actual URLs with hostnames
+        Return a list of (id, root_path, root_url) tuples, most specific path
+        first - used to translate url_paths into actual URLs with hostnames
         """
         result = cache.get('wagtail_site_root_paths')
 
         if result is None:
             result = [
                 (site.id, site.root_page.url_path, site.root_url)
-                for site in Site.objects.select_related('root_page').order_by('-root_page__url_path')
+                for site in Site.objects.select_related('root_page').order_by(
+                    '-root_page__url_path', 'is_default_site', 'hostname')
             ]
             cache.set('wagtail_site_root_paths', result, 3600)
 
@@ -556,20 +556,12 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         return errors
 
     def _update_descendant_url_paths(self, old_url_path, new_url_path):
-        if connection.vendor in ('mssql', 'microsoft'):
-            cursor = connection.cursor()
-            cursor.execute("""
-                UPDATE wagtailcore_page
-                SET url_path= CONCAT(%s, (SUBSTRING(url_path, 0, %s)))
-                WHERE path LIKE %s AND id <> %s
-            """, [new_url_path, len(old_url_path) + 1, self.path + '%', self.id])
-        else:
-            (Page.objects
-                .filter(path__startswith=self.path)
-                .exclude(pk=self.pk)
-                .update(url_path=Concat(
-                    Value(new_url_path),
-                    Substr('url_path', len(old_url_path) + 1))))
+        (Page.objects
+            .filter(path__startswith=self.path)
+            .exclude(pk=self.pk)
+            .update(url_path=Concat(
+                Value(new_url_path),
+                Substr('url_path', len(old_url_path) + 1))))
 
     #: Return this page in its most specific subclassed form.
     @cached_property
@@ -767,17 +759,35 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         ``request`` directly, and should just pass it to the original method
         when calling ``super``.
         """
-        for (site_id, root_path, root_url) in self._get_site_root_paths(request):
-            if self.url_path.startswith(root_path):
-                page_path = reverse('wagtail_serve', args=(self.url_path[len(root_path):],))
 
-                # Remove the trailing slash from the URL reverse generates if
-                # WAGTAIL_APPEND_SLASH is False and we're not trying to serve
-                # the root path
-                if not WAGTAIL_APPEND_SLASH and page_path != '/':
-                    page_path = page_path.rstrip('/')
+        possible_sites = [
+            (pk, path, url)
+            for pk, path, url in self._get_site_root_paths(request)
+            if self.url_path.startswith(path)
+        ]
 
-                return (site_id, root_url, page_path)
+        if not possible_sites:
+            return None
+
+        site_id, root_path, root_url = possible_sites[0]
+
+        if hasattr(request, 'site'):
+            for site_id, root_path, root_url in possible_sites:
+                if site_id == request.site.pk:
+                    break
+            else:
+                site_id, root_path, root_url = possible_sites[0]
+
+        page_path = reverse(
+            'wagtail_serve', args=(self.url_path[len(root_path):],))
+
+        # Remove the trailing slash from the URL reverse generates if
+        # WAGTAIL_APPEND_SLASH is False and we're not trying to serve
+        # the root path
+        if not WAGTAIL_APPEND_SLASH and page_path != '/':
+            page_path = page_path.rstrip('/')
+
+        return (site_id, root_url, page_path)
 
     def get_full_url(self, request=None):
         """Return the full URL (including protocol / domain) to this page, or None if it is not routable"""
@@ -996,7 +1006,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             else:
                 return _("draft")
         else:
-            if self.has_unpublished_changes:
+            if self.approved_schedule:
+                return _("live + scheduled")
+            elif self.has_unpublished_changes:
                 return _("live + draft")
             else:
                 return _("live")
@@ -1470,14 +1482,17 @@ class PageRevision(models.Model):
     def publish(self):
         page = self.as_page_object()
         if page.go_live_at and page.go_live_at > timezone.now():
-            # if we have a go_live in the future don't make the page live
-            page.live = False
             page.has_unpublished_changes = True
             # Instead set the approved_go_live_at of this revision
             self.approved_go_live_at = page.go_live_at
             self.save()
             # And clear the the approved_go_live_at of any other revisions
             page.revisions.exclude(id=self.id).update(approved_go_live_at=None)
+            # if we are updating a currently live page skip the rest
+            if page.live_revision:
+                return
+            # if we have a go_live in the future don't make the page live
+            page.live = False
         else:
             page.live = True
             # at this point, the page has unpublished changes iff there are newer revisions than this one
@@ -1569,6 +1584,7 @@ class GroupPagePermission(models.Model):
 class UserPagePermissionsProxy:
     """Helper object that encapsulates all the page permission rules that this user has
     across the page hierarchy."""
+
     def __init__(self, user):
         self.user = user
 
@@ -1776,6 +1792,9 @@ class PagePermissionTester:
         """
         return self.can_delete()
 
+    def can_copy(self):
+        return not self.page_is_root
+
     def can_move_to(self, destination):
         # reject the logically impossible cases first
         if self.page == destination or destination.is_descendant_of(self.page):
@@ -1833,6 +1852,9 @@ class PagePermissionTester:
             return False
 
         return True
+
+    def can_view_revisions(self):
+        return not self.page_is_root
 
 
 class BaseViewRestriction(models.Model):

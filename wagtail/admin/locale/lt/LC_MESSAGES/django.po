@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Matas Dailyda <matas@dailyda.com>, 2017
+# Matas Dailyda <matas@dailyda.com>, 2017-2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-10-06 15:06+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
+"PO-Revision-Date: 2018-03-15 11:56+0000\n"
+"Last-Translator: Matas Dailyda <matas@dailyda.com>\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
 "language/lt/)\n"
 "MIME-Version: 1.0\n"
@@ -158,6 +158,15 @@ msgstr "Galiojimo pabaigos data/laikas turi būti ateityje"
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Jūs negalite turėti daugybinių leidimų įrašų tai pačiai kolekcijai."
 
+msgid "Error 404: Page not found"
+msgstr "Klaida 404: Puslapis nerastas"
+
+msgid "Error 404"
+msgstr "Klaida 404"
+
+msgid "The requested page could not be found."
+msgstr "Prašomas puslapis buvo nerastas."
+
 msgid "Go to Wagtail admin"
 msgstr "Eiti į Wagtail administravimą"
 
@@ -243,13 +252,16 @@ msgstr "Atstatyti savo slaptažodį"
 msgid "Edit"
 msgstr "Redaguoti"
 
+msgid "Delete"
+msgstr "Ištrinti"
+
 msgid "Page"
 msgstr "Puslapis"
 
 msgid "Pages"
 msgstr "Puslapiai"
 
-msgid "Loading..."
+msgid "Loading…"
 msgstr "Kraunama..."
 
 msgid "No results"
@@ -267,6 +279,24 @@ msgstr "Žiūrėti viską"
 msgid "Close explorer"
 msgstr "Uždaryti naršyklę"
 
+msgid "Alt text"
+msgstr "Alternatyvus tekstas"
+
+msgid "Write here…"
+msgstr "Rašyti čia..."
+
+msgid "Horizontal line"
+msgstr "Horizontali linija"
+
+msgid "Line break"
+msgstr "Lūžis"
+
+msgid "Undo"
+msgstr "Anuliuoti"
+
+msgid "Redo"
+msgstr "Atgrąžinti"
+
 msgid "Dashboard"
 msgstr "Prietaisų skydas"
 
@@ -281,9 +311,6 @@ msgstr "Perkelti aukštyn"
 
 msgid "Move down"
 msgstr "Perkelti žemyn"
-
-msgid "Delete"
-msgstr "Ištrinti"
 
 msgid "Explorer"
 msgstr "Naršyklė"
@@ -398,8 +425,8 @@ msgstr ""
 "\">nesukūrus vienos</a>?"
 
 #, python-format
-msgid "Add %(heading)s"
-msgstr "Pridėti %(heading)s"
+msgid "Add %(label)s"
+msgstr "Pridėti %(label)s"
 
 msgid "Yes, delete"
 msgstr "Taip, ištrinti"
@@ -496,7 +523,7 @@ msgstr "Prisijungti prie Wagtail"
 msgid "Forgotten it?"
 msgstr "Pamiršote?"
 
-msgid "Signing in..."
+msgid "Signing in…"
 msgstr "Prisijungiama..."
 
 #, python-format
@@ -698,13 +725,13 @@ msgstr "Naujas %(page_type)s"
 msgid "New"
 msgstr "Naujas"
 
-msgid "Saving..."
+msgid "Saving…"
 msgstr "Saugoma..."
 
 msgid "Save draft"
 msgstr "Išsaugoti juodraštį"
 
-msgid "Publishing..."
+msgid "Publishing…"
 msgstr "Publikuojama..."
 
 msgid "Publish"
@@ -958,6 +985,22 @@ msgid "There are no differences between these two revisions"
 msgstr "Nėra jokių skirtumų tarp šių dviejų revizijų"
 
 #, python-format
+msgid "Unschedule Revision %(revision.id)s for %(title)s"
+msgstr "Neplanuoti revizijos %(revision.id)s %(title)s"
+
+msgid "Unschedule"
+msgstr "Neplanuoti"
+
+msgid "Are you sure you want to unschedule this revision?"
+msgstr "Ar tikrai norite neplanuoti šios revizijos?"
+
+msgid "Yes, unschedule"
+msgstr "Taip, neplanuoti"
+
+msgid "No, don't unschedule"
+msgstr "Ne, planuoti"
+
+#, python-format
 msgid "Revisions of %(title)s"
 msgstr "%(title)s revizijos"
 
@@ -977,11 +1020,17 @@ msgstr "Dabartinis juodraštis"
 msgid "Live version"
 msgstr "Publikuota versija"
 
+msgid "Scheduled for"
+msgstr "Planuoti"
+
 msgid "Review this revision"
 msgstr "Peržiūrėti šią reviziją"
 
 msgid "Compare with previous revision"
 msgstr "Palyginti su buvusiomis revizijomis"
+
+msgid "Cancel scheduled publish"
+msgstr "Atšaukti suplanuotą publikavimą"
 
 msgid "No revisions of this page exist"
 msgstr "Jokios šio puslapio revizijos neegzistuoja"
@@ -1020,6 +1069,9 @@ msgstr "Jokie puslapiai nenaudoja"
 
 msgid "Collection"
 msgstr "Kolekcija"
+
+msgid "Root"
+msgstr "Šakninis"
 
 msgid "Home"
 msgstr "Namai"
@@ -1083,13 +1135,6 @@ msgstr "Pen"
 
 msgid "Sat"
 msgstr "Šeš"
-
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Panaudota %(usage_count)s kartą"
-msgstr[1] "Panaudota %(usage_count)s kartus"
-msgstr[2] "Panaudota %(usage_count)s kartų"
 
 msgid "Edit your account"
 msgstr "Redaguoti savo vartotoją"
@@ -1172,6 +1217,9 @@ msgstr "Islandų"
 msgid "Italian"
 msgstr "Italų"
 
+msgid "Korean"
+msgstr "Korėjiečių"
+
 msgid "Lithuanian"
 msgstr "Lietuvių"
 
@@ -1198,6 +1246,12 @@ msgstr "Rumunų"
 
 msgid "Russian"
 msgstr "Rusų"
+
+msgid "Swedish"
+msgstr "Švedų"
+
+msgid "Slovak"
+msgstr "Slovakų"
 
 msgid "Chinese (China)"
 msgstr "Kinų (Kinija)"
@@ -1251,12 +1305,12 @@ msgstr "Redaguojama"
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr "Puslapis '{0}' sukurtas ir suplanuotas publikavimui."
 
+msgid "View live"
+msgstr "Žiūrėti veikiantį"
+
 #, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "Puslapis '{0}' sukurtas ir publikuotas."
-
-msgid "View live"
-msgstr "Žiūrėti veikiantį"
 
 #, python-brace-format
 msgid "Page '{0}' created and submitted for moderation."
@@ -1278,6 +1332,11 @@ msgstr "Puslapis negalėjo būti sukurtas dėl validavimo klaidų"
 #, python-brace-format
 msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
 msgstr "Puslapio '{1}' revizija iš {0} buvo suplanuota publikavimui."
+
+#, python-brace-format
+msgid "Page '{0}' is live and this revision has been scheduled for publishing."
+msgstr ""
+"Puslapis '{0}' yra veikiantis ir ši revizija buvo suplanuota publikavimui."
 
 #, python-brace-format
 msgid "Page '{0}' has been scheduled for publishing."
@@ -1376,6 +1435,14 @@ msgid "Latest"
 msgstr "Vėliausias"
 
 #, python-brace-format
+msgid "revision {0} of \"{1}\""
+msgstr "revizija {0} iš \"{1}\""
+
+#, python-brace-format
+msgid "Revision {0} of \"{1}\" unscheduled."
+msgstr "Revizija {0} iš \"{1}\" neplanuojama."
+
+#, python-brace-format
 msgid "Edit '{title}'"
 msgstr "Redaguoti '{title}'"
 
@@ -1417,6 +1484,25 @@ msgstr "Nebepublikuoti puslapio '{title}'"
 #, python-brace-format
 msgid "View revision history for '{title}'"
 msgstr "Peržiūrėti '{title}' revizijų istoriją "
+
+#, python-brace-format
+msgid "Heading {level}"
+msgstr "Antraštė {level}"
+
+msgid "Bulleted list"
+msgstr "Pažymėtas sąrašas"
+
+msgid "Numbered list"
+msgstr "Numeruotas sąrašas"
+
+msgid "Bold"
+msgstr "Stambus"
+
+msgid "Italic"
+msgstr "Pakreiptas"
+
+msgid "Link"
+msgstr "Nuoroda"
 
 msgid "Choose an item"
 msgstr "Pasirinkti elementą"

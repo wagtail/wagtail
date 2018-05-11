@@ -11,7 +11,7 @@
         }
 
         $(function() {
-            $('#collection_chooser_collection_id').change(function() {
+            $('#collection_chooser_collection_id').on('change', function() {
                 this.form.submit();
             })
         });

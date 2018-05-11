@@ -3,8 +3,9 @@ from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.urls import reverse
 from django.utils.html import format_html, format_html_join
 from django.utils.translation import ugettext_lazy as _
-from django.utils.translation import ungettext
+from django.utils.translation import ugettext, ungettext
 
+import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 from wagtail.admin.menu import MenuItem
 from wagtail.admin.rich_text import HalloPlugin
 from wagtail.admin.search import SearchArea
@@ -14,7 +15,8 @@ from wagtail.images import admin_urls, get_image_model, image_operations
 from wagtail.images.api.admin.endpoints import ImagesAdminAPIEndpoint
 from wagtail.images.forms import GroupImagePermissionFormSet
 from wagtail.images.permissions import permission_policy
-from wagtail.images.rich_text import ImageEmbedHandler
+from wagtail.images.rich_text import (
+    ContentstateImageConversionRule, EditorHTMLImageConversionRule, image_embedtype_handler)
 
 
 @hooks.register('register_admin_urls')
@@ -65,6 +67,10 @@ def editor_js():
 
 @hooks.register('register_rich_text_features')
 def register_image_feature(features):
+    # define a handler for converting <embed embedtype="image"> tags into frontend HTML
+    features.register_embed_type('image', image_embedtype_handler)
+
+    # define a hallo.js plugin to use when the 'image' feature is active
     features.register_editor_plugin(
         'hallo', 'image',
         HalloPlugin(
@@ -72,6 +78,32 @@ def register_image_feature(features):
             js=['wagtailimages/js/hallo-plugins/hallo-wagtailimage.js'],
         )
     )
+
+    # define how to convert between editorhtml's representation of images and
+    # the database representation
+    features.register_converter_rule('editorhtml', 'image', EditorHTMLImageConversionRule)
+
+    # define a draftail plugin to use when the 'image' feature is active
+    features.register_editor_plugin(
+        'draftail', 'image', draftail_features.EntityFeature({
+            'type': 'IMAGE',
+            'icon': 'image',
+            'description': ugettext('Image'),
+            # We do not want users to be able to copy-paste hotlinked images into rich text.
+            # Keep only the attributes Wagtail needs.
+            'attributes': ['id', 'src', 'alt', 'format'],
+            # Keep only images which are from Wagtail.
+            'whitelist': {
+                'id': True,
+            }
+        })
+    )
+
+    # define how to convert between contentstate's representation of images and
+    # the database representation
+    features.register_converter_rule('contentstate', 'image', ContentstateImageConversionRule)
+
+    # add 'image' to the set of on-by-default rich text features
     features.default_features.append('image')
 
 
@@ -88,11 +120,6 @@ def register_image_operations():
         ('format', image_operations.FormatOperation),
         ('bgcolor', image_operations.BackgroundColorOperation),
     ]
-
-
-@hooks.register('register_rich_text_embed_handler')
-def register_image_embed_handler():
-    return ('image', ImageEmbedHandler)
 
 
 class ImagesSummaryItem(SummaryItem):

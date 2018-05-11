@@ -11,12 +11,13 @@
 # Luiz Boaretto <lboaretto@gmail.com>, 2016
 # Luiz Boaretto <lboaretto@gmail.com>, 2016-2017
 # Thiago Cangussu <cangussu.thg@gmail.com>, 2014
+# Thiago Cangussu <cng.thg@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-10-06 15:11+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
+"PO-Revision-Date: 2018-01-26 16:04+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
@@ -181,6 +182,10 @@ msgstr "grupos"
 
 msgid "Add a group"
 msgstr "Adicionar um grupo"
+
+#, python-format
+msgid "Sorry, no groups match \"%(query)s\""
+msgstr "Desculpe, nenhum grupo coincide com \"%(query)s\""
 
 #, python-format
 msgid ""

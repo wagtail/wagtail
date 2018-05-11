@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-21 16:53+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
+"PO-Revision-Date: 2018-01-26 16:00+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
@@ -117,8 +117,8 @@ msgstr "アップロード"
 msgid "Popular tags"
 msgstr "人気のタグ"
 
-msgid "Uploading..."
-msgstr "アップロード中..."
+msgid "Uploading…"
+msgstr "アップロード中…"
 
 #, python-format
 msgid ""
@@ -314,9 +314,6 @@ msgstr "画像 '{0}' が追加されました。 "
 
 msgid "The image could not be created due to errors."
 msgstr "この画像はエラーにより生成できませんでした。 "
-
-msgid "Choose another image"
-msgstr "別の画像を選択"
 
 msgid "Edit this image"
 msgstr "画像を編集"

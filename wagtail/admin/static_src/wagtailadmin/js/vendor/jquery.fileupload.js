@@ -180,9 +180,9 @@
             // Listeners for this callback can also be bound the following way:
             // .bind('fileuploadadd', func);
             //
-            // data.submit() returns a Promise object and allows to attach additional
+            // data.trigger('submit') returns a Promise object and allows to attach additional
             // handlers using jQuery's Deferred callbacks:
-            // data.submit().done(func).fail(func).always(func);
+            // data.trigger('submit').done(func).fail(func).always(func);
             add: function (e, data) {
                 if (e.isDefaultPrevented()) {
                     return false;
@@ -190,7 +190,7 @@
                 if (data.autoUpload || (data.autoUpload !== false &&
                         $(this).fileupload('option', 'autoUpload'))) {
                     data.process().done(function () {
-                        data.submit();
+                        data.trigger('submit');
                     });
                 }
             },
@@ -394,7 +394,7 @@
             // Accesss to the native XHR object is required to add event listeners
             // for the upload progress event:
             if (xhr.upload) {
-                $(xhr.upload).bind('progress', function (e) {
+                $(xhr.upload).on('progress', function (e) {
                     var oe = e.originalEvent;
                     // Make sure the progress event properties get copied over:
                     e.lengthComputable = oe.lengthComputable;
@@ -626,7 +626,7 @@
             data.process = function (resolveFunc, rejectFunc) {
                 if (resolveFunc || rejectFunc) {
                     data._processQueue = this._processQueue =
-                        (this._processQueue || getPromise([this])).pipe(
+                        (this._processQueue || getPromise([this])).then(
                             function () {
                                 if (data.errorThrown) {
                                     return $.Deferred()
@@ -634,7 +634,7 @@
                                 }
                                 return getPromise(arguments);
                             }
-                        ).pipe(resolveFunc, rejectFunc);
+                        ).then(resolveFunc, rejectFunc);
                 }
                 return this._processQueue || getPromise([this]);
             };
@@ -919,9 +919,9 @@
                 if (this.options.limitConcurrentUploads > 1) {
                     slot = $.Deferred();
                     this._slots.push(slot);
-                    pipe = slot.pipe(send);
+                    pipe = slot.then(send);
                 } else {
-                    this._sequence = this._sequence.pipe(send, send);
+                    this._sequence = this._sequence.then(send, send);
                     pipe = this._sequence;
                 }
                 // Return the piped Promise object, enhanced with an abort method,
@@ -1022,7 +1022,7 @@
             // without loosing the file input value:
             input.after(inputClone).detach();
             // Avoid memory leaks with the detached file input:
-            $.cleanData(input.unbind('remove'));
+            $.cleanData(input.off('remove'));
             // Replace the original file input element in the fileInput
             // elements set with the clone, which has been copied including
             // event handlers:
@@ -1090,7 +1090,7 @@
                 $.map(entries, function (entry) {
                     return that._handleFileTreeEntry(entry, path);
                 })
-            ).pipe(function () {
+            ).then(function () {
                 return Array.prototype.concat.apply(
                     [],
                     arguments
@@ -1159,7 +1159,7 @@
             return $.when.apply(
                 $,
                 $.map(fileInput, this._getSingleFileInputFiles)
-            ).pipe(function () {
+            ).then(function () {
                 return Array.prototype.concat.apply(
                     [],
                     arguments

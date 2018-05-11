@@ -1,5 +1,5 @@
-from functools import lru_cache
 import os
+from functools import lru_cache
 
 from django.core.checks import Warning, register
 from willow.image import Image

@@ -70,7 +70,7 @@ InlinePanel
 
     This panel allows for the creation of a "cluster" of related objects over a join to a separate model, such as a list of related links or slides to an image carousel.
 
-    This is a poweful but complex feature which will take some space to cover, so we'll skip over it for now. For a full explanation on the usage of ``InlinePanel``, see :ref:`inline_panels`.
+    This is a powerful but complex feature which will take some space to cover, so we'll skip over it for now. For a full explanation on the usage of ``InlinePanel``, see :ref:`inline_panels`.
 
 FieldRowPanel
 -------------
@@ -241,6 +241,30 @@ SnippetChooserPanel
           ]
 
     See :ref:`snippets` for more information.
+
+
+HelpPanel
+---------
+
+.. module:: wagtail.admin.edit_handlers
+
+.. class:: HelpPanel(content='', template='wagtailadmin/edit_handlers/help_panel.html', heading='', classname='')
+
+    .. attribute:: HelpPanel.content
+
+        HTML string that gets displayed in the panel.
+
+    .. attribute:: HelpPanel.template
+
+        Path to a template rendering the full panel HTML.
+
+    .. attribute:: HelpPanel.heading
+
+        A heading for the help content.
+
+    .. attribute:: HelpPanel.classname
+
+        String of CSS classes given to the panel which are used in formatting and scripted interactivity.
 
 
 Built-in Fields and Choosers

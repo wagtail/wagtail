@@ -4,12 +4,15 @@
 #
 # Translators:
 # dellax <michalnebbia@gmail.com>, 2015
+# Martin Janšto <mato@jansto.sk>, 2017
+# Martin Janšto <mato@jansto.sk>, 2017
+# dellax <michalnebbia@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-20 15:49+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
+"PO-Revision-Date: 2018-01-26 16:01+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
@@ -25,5 +28,26 @@ msgstr "Prosím vyplňte validnú URL adresu"
 msgid "URL"
 msgstr "URL adresa"
 
+msgid "embed"
+msgstr "embed"
+
+msgid "Insert embed"
+msgstr "Vložiť embed"
+
 msgid "Insert"
 msgstr "Vložiť"
+
+msgid ""
+"There seems to be a problem with your embedly API key. Please check your "
+"settings."
+msgstr ""
+"Vyzerá, že sa vyskytol problém s Vašim API kľúčom. Skontrolujte nastavenia "
+"prosím."
+
+msgid "Cannot find an embed for this URL."
+msgstr "Nemôžem nájsť na tomto URL embed."
+
+msgid ""
+"There seems to be an error with Embedly while trying to embed this URL. "
+"Please try again later."
+msgstr "Vyzerá, že nastala chyba s embed URL. Prosím skúste neskôr."

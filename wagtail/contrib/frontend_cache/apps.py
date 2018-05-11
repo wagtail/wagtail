@@ -1,4 +1,5 @@
 from django.apps import AppConfig
+from django.utils.translation import ugettext_lazy as _
 
 from wagtail.contrib.frontend_cache.signal_handlers import register_signal_handlers
 
@@ -6,7 +7,7 @@ from wagtail.contrib.frontend_cache.signal_handlers import register_signal_handl
 class WagtailFrontendCacheAppConfig(AppConfig):
     name = 'wagtail.contrib.frontend_cache'
     label = 'wagtailfrontendcache'
-    verbose_name = "Wagtail frontend cache"
+    verbose_name = _("Wagtail frontend cache")
 
     def ready(self):
         register_signal_handlers()

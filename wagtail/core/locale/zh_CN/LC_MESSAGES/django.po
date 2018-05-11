@@ -6,15 +6,16 @@
 # hanfeng <appweb.cn@gmail.com>, 2014-2015
 # Daniel Hwang <danielblinkhw@gmail.com>, 2015
 # Fred Zeng <979738295@qq.com>, 2016
+# jszsj <zhushajun@gmail.com>, 2017
 # Vincent Zhao <zhaopu2008@gmail.com>, 2017
 # jszsj <zhushajun@gmail.com>, 2017
-# 汇民 王 <whuim@qq.com>, 2017
+# 汇民 王 <whuim@qq.com>, 2017-2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-20 15:49+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
+"PO-Revision-Date: 2018-04-11 07:37+0000\n"
 "Last-Translator: 汇民 王 <whuim@qq.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
@@ -111,7 +112,7 @@ msgid "content type"
 msgstr "内容类型"
 
 msgid "live"
-msgstr "发布"
+msgstr "在用"
 
 msgid "has unpublished changes"
 msgstr "有未发布的修改"
@@ -141,7 +142,7 @@ msgid "search description"
 msgstr "搜索描述"
 
 msgid "go live date/time"
-msgstr "发布日期/时间"
+msgstr "上线日期/时间"
 
 msgid "expiry date/time"
 msgstr "过期日期/时间"
@@ -170,6 +171,9 @@ msgstr "已计划"
 msgid "draft"
 msgstr "草稿"
 
+msgid "live + scheduled"
+msgstr "在用 + 已预定"
+
 msgid "live + draft"
 msgstr "发布+草稿"
 
@@ -195,7 +199,7 @@ msgid "content JSON"
 msgstr "内容JSON"
 
 msgid "approved go live at"
-msgstr "批准发布时间"
+msgstr "批准上线时间"
 
 msgid "page revision"
 msgstr "页版本"

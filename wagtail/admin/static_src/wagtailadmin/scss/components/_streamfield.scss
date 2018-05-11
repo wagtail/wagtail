@@ -22,10 +22,6 @@ li.sequence-member {
         }
     }
 
-    &:hover .object-help {
-        opacity: 1;
-    }
-
     .struct-block .fields {
         @include column(10);
         padding-left: 0;
@@ -88,6 +84,18 @@ li.sequence-member {
     }
 }
 
+.sequence-member__help {
+    opacity: 0;
+
+    .sequence-member:hover & {
+        opacity: 1;
+    }
+
+    .icon-help-inverse {
+        margin-right: 0.5em;
+    }
+}
+
 // Image chooser as direct descendant of top-level streamfield has special display
 .sequence-member-inner > .widget-admin_image_chooser {
     label {
@@ -135,11 +143,16 @@ li.sequence-member {
 // that are direct children of highest level sequence should be borderless and full-width
 .block_field > .field-content > .input > .sequence-container > .sequence-container-inner > .sequence > .sequence-member > .sequence-member-inner {
     > .widget-text_input input,
-    > .widget-hallo_rich_text_area .richtext,
+    > .halloeditor,
     > .widget-textarea textarea {
-        border: 0;
         padding: 0;
+        max-width: 1024px;
+        border: 0;
         background-color: transparent;
+    }
+
+    > .Draftail-Editor {
+        padding: 0;
         max-width: 1024px;
     }
 }
@@ -213,10 +226,6 @@ li.sequence-member {
     padding: 0;
     overflow: hidden;
     height: auto;
-}
-
-.sequence-type-list .object-help {
-    margin-top: 1.5em;
 }
 
 // Menu of other blocks to be added at each position
@@ -388,12 +397,6 @@ li.sequence-member {
 
     .stream-menu {
         visibility: visible;
-        opacity: 1;
-    }
-}
-
-@media screen and (min-width: $breakpoint-mobile) {
-    .object li.sequence-member:hover .object-help {
         opacity: 1;
     }
 }

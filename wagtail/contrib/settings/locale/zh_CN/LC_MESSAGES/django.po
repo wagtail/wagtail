@@ -4,13 +4,14 @@
 #
 # Translators:
 # jszsj <zhushajun@gmail.com>, 2017
+# jszsj <zhushajun@gmail.com>, 2017
 # 飘 赵 <275980464@qq.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-23 22:17+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
+"PO-Revision-Date: 2018-03-17 16:00+0000\n"
 "Last-Translator: hanfeng <appweb.cn@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
@@ -27,7 +28,7 @@ msgstr "正在编辑 %(setting_type_name)s - %(instance)s"
 msgid "Editing"
 msgstr "正在编辑"
 
-msgid "Saving..."
+msgid "Saving…"
 msgstr "正在保存"
 
 msgid "Save"

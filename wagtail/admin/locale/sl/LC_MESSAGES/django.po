@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-10-06 15:06+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
+"PO-Revision-Date: 2018-02-16 11:33+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
@@ -207,6 +207,9 @@ msgstr "Ponastavi geslo"
 msgid "Edit"
 msgstr "Uredi"
 
+msgid "Delete"
+msgstr "Izbriši"
+
 msgid "Pages"
 msgstr "Strani"
 
@@ -224,9 +227,6 @@ msgstr "Premakni navzgor"
 
 msgid "Move down"
 msgstr "Premakni navzdol"
-
-msgid "Delete"
-msgstr "Izbriši"
 
 msgid "Explorer"
 msgstr "Raziskovalec"
@@ -310,10 +310,6 @@ msgid ""
 msgstr ""
 "Dodana ni še nobena zbirka. Zakaj je ne bi <a href=\"%(add_collection_url)s"
 "\">dodali</a>?"
-
-#, python-format
-msgid "Add %(heading)s"
-msgstr "Dodaj %(heading)s"
 
 msgid "Yes, delete"
 msgstr "Da, izbriši"
@@ -412,9 +408,6 @@ msgstr "Prijava v Wagtail"
 
 msgid "Forgotten it?"
 msgstr "Pozabljeno geslo?"
-
-msgid "Signing in..."
-msgstr "Prijava v teku..."
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -550,14 +543,8 @@ msgstr "Nov %(page_type)s"
 msgid "New"
 msgstr "Nov"
 
-msgid "Saving..."
-msgstr "Shranjevanje..."
-
 msgid "Save draft"
 msgstr "Shrani osnutek"
-
-msgid "Publishing..."
-msgstr "Objava..."
 
 msgid "Publish"
 msgstr "Objavi"
@@ -796,14 +783,6 @@ msgstr "Pet"
 msgid "Sat"
 msgstr "Sob"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Število uporab: %(usage_count)s"
-msgstr[1] "Število uporab: %(usage_count)s"
-msgstr[2] "Število uporab: %(usage_count)s"
-msgstr[3] "Število uporab: %(usage_count)s"
-
 msgid "Edit your account"
 msgstr "Uredite vaš račun"
 
@@ -851,12 +830,12 @@ msgstr "Zbirke"
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr "Stran '{0}' ustvarjena in načrtovana za objavo."
 
+msgid "View live"
+msgstr "Ogled v živo"
+
 #, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "Stran '{0}' ustvarjena in objavljena."
-
-msgid "View live"
-msgstr "Ogled v živo"
 
 #, python-brace-format
 msgid "Page '{0}' created and submitted for moderation."

@@ -7,12 +7,12 @@ function(modal) {
     var currentTag;
 
     function ajaxifyLinks (context) {
-        $('.listing a', context).click(function() {
+        $('.listing a', context).on('click', function() {
             modal.loadUrl(this.href);
             return false;
         });
 
-        $('.pagination a', context).click(function() {
+        $('.pagination a', context).on('click', function() {
             var page = this.getAttribute("data-page");
             setPage(page);
             return false;
@@ -56,7 +56,7 @@ function(modal) {
 
     ajaxifyLinks(modal.body);
 
-    $('form.image-upload', modal.body).submit(function() {
+    $('form.image-upload', modal.body).on('submit', function() {
         var formdata = new FormData(this);
 
         if ($('#id_title', modal.body).val() == '') {
@@ -76,6 +76,14 @@ function(modal) {
                 dataType: 'text',
                 success: function(response){
                     modal.loadResponseText(response);
+                },
+                error: function(response, textStatus, errorThrown) {
+                    {% trans "Server Error" as error_label %}
+                    {% trans "Report this error to your webmaster with the following information:" as error_message %}
+                    message = '{{ error_message|escapejs }}<br />' + errorThrown + ' - ' + response.status;
+                    $('#upload').append(
+                        '<div class="help-block help-critical">' +
+                        '<strong>{{ error_label|escapejs }}: </strong>' + message + '</div>');
                 }
             });
         }
@@ -83,15 +91,15 @@ function(modal) {
         return false;
     });
 
-    $('form.image-search', modal.body).submit(search);
+    $('form.image-search', modal.body).on('submit', search);
 
     $('#id_q').on('input', function() {
         clearTimeout($.data(this, 'timer'));
         var wait = setTimeout(search, 200);
         $(this).data('timer', wait);
     });
-    $('#collection_chooser_collection_id').change(search);
-    $('a.suggested-tag').click(function() {
+    $('#collection_chooser_collection_id').on('change', search);
+    $('a.suggested-tag').on('click', function() {
         currentTag = $(this).text();
         $('#id_q').val('');
         fetchResults({
@@ -100,6 +108,24 @@ function(modal) {
         });
         return false;
     });
+
+    function populateTitle(context) {
+        // Note: There are two inputs with `#id_title` on the page.
+        // The page title and image title. Select the input inside the modal body.
+        var fileWidget = $('#id_file', context);
+        fileWidget.on('change', function () {
+            var titleWidget = $('#id_title', context);
+            var title = titleWidget.val();
+            if (title === '') {
+                // The file widget value example: `C:\fakepath\image.jpg`
+                var parts = fileWidget.val().split('\\');
+                var fileName = parts[parts.length - 1];
+                titleWidget.val(fileName);
+            }
+        });
+    }
+
+    populateTitle(modal.body);
 
     {% url 'wagtailadmin_tag_autocomplete' as autocomplete_url %}
 

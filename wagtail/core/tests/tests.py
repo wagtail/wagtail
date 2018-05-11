@@ -4,10 +4,10 @@ from django.http import HttpRequest
 from django.test import TestCase
 from django.utils.safestring import SafeText
 
-from wagtail.tests.testapp.models import SimplePage
 from wagtail.core.models import Page, Site
 from wagtail.core.templatetags.wagtailcore_tags import richtext
 from wagtail.core.utils import resolve_model_string
+from wagtail.tests.testapp.models import SimplePage
 
 
 class TestPageUrlTags(TestCase):
@@ -37,6 +37,12 @@ class TestPageUrlTags(TestCase):
         result = tpl.render(template.Context({'page': page, 'request': HttpRequest()}))
         self.assertIn('<a href="/events/">Events</a>', result)
 
+    def test_bad_pageurl(self):
+        tpl = template.Template('''{% load wagtailcore_tags %}<a href="{% pageurl page %}">{{ page.title }}</a>''')
+
+        with self.assertRaisesRegex(ValueError, "pageurl tag expected a Page object, got None"):
+            tpl.render(template.Context({'page': None}))
+
     def test_slugurl_without_request_in_context(self):
         tpl = template.Template('''{% load wagtailcore_tags %}<a href="{% slugurl 'events' %}">Events</a>''')
 
@@ -47,6 +53,17 @@ class TestPageUrlTags(TestCase):
         # 'request' object in context, but no 'site' attribute
         result = tpl.render(template.Context({'request': HttpRequest()}))
         self.assertIn('<a href="/events/">Events</a>', result)
+
+    def test_bad_slugurl(self):
+        tpl = template.Template('''{% load wagtailcore_tags %}<a href="{% slugurl 'bad-slug-doesnt-exist' %}">Events</a>''')
+
+        # no 'request' object in context
+        result = tpl.render(template.Context({}))
+        self.assertIn('<a href="None">Events</a>', result)
+
+        # 'request' object in context, but no 'site' attribute
+        result = tpl.render(template.Context({'request': HttpRequest()}))
+        self.assertIn('<a href="None">Events</a>', result)
 
 
 class TestSiteRootPathsCache(TestCase):

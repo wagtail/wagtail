@@ -10,11 +10,10 @@ from django.urls import reverse, reverse_lazy
 from django.utils.translation import ugettext_lazy as _
 from taggit.models import Tag
 
-from wagtail.tests.utils import WagtailTestUtils
 from wagtail.admin.menu import MenuItem
-from wagtail.admin.site_summary import PagesSummaryItem
 from wagtail.admin.utils import send_mail, user_has_any_page_permission
-from wagtail.core.models import Page, Site
+from wagtail.core.models import Page
+from wagtail.tests.utils import WagtailTestUtils
 
 
 class TestHome(TestCase, WagtailTestUtils):
@@ -71,40 +70,6 @@ class TestHome(TestCase, WagtailTestUtils):
         self.assertTrue(self.client.login(username='snowman', password='password'))
         response = self.client.get(reverse('wagtailadmin_home'))
         self.assertEqual(response.status_code, 200)
-
-
-class TestPagesSummary(TestCase, WagtailTestUtils):
-    def setUp(self):
-        self.login()
-
-    def get_request(self):
-        """
-        Get a Django WSGI request that has been passed through middleware etc.
-        """
-        return self.client.get('/admin/').wsgi_request
-
-    def test_page_summary_single_site(self):
-        request = self.get_request()
-        root_page = request.site.root_page
-        link = '<a href="{}">'.format(reverse('wagtailadmin_explore', args=[root_page.pk]))
-        page_summary = PagesSummaryItem(request)
-        self.assertIn(link, page_summary.render())
-
-    def test_page_summary_multiple_sites(self):
-        Site.objects.create(
-            hostname='example.com',
-            root_page=Page.objects.get(pk=1))
-        request = self.get_request()
-        link = '<a href="{}">'.format(reverse('wagtailadmin_explore_root'))
-        page_summary = PagesSummaryItem(request)
-        self.assertIn(link, page_summary.render())
-
-    def test_page_summary_zero_sites(self):
-        Site.objects.all().delete()
-        request = self.get_request()
-        link = '<a href="{}">'.format(reverse('wagtailadmin_explore_root'))
-        page_summary = PagesSummaryItem(request)
-        self.assertIn(link, page_summary.render())
 
 
 class TestEditorHooks(TestCase, WagtailTestUtils):

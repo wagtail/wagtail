@@ -25,11 +25,10 @@
     }
 
     > ul > li:before {
+        @include font-smoothing;
         margin-right: 0.5em;
         font-size: 1.5em;
         vertical-align: middle;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
     }
 
     .error {

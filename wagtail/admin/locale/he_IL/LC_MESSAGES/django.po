@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-10-06 15:06+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
+"PO-Revision-Date: 2018-02-16 11:33+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/torchbox/wagtail/"
 "language/he_IL/)\n"
@@ -185,6 +185,9 @@ msgstr "אתחלו את סיסמתכם"
 msgid "Edit"
 msgstr "עריכה"
 
+msgid "Delete"
+msgstr "מחיקה"
+
 msgid "Dashboard"
 msgstr "לוח מחוונים"
 
@@ -199,9 +202,6 @@ msgstr "עברו מעלה"
 
 msgid "Move down"
 msgstr "עברו מטה"
-
-msgid "Delete"
-msgstr "מחיקה"
 
 msgid "Explorer"
 msgstr "סיור"
@@ -637,12 +637,6 @@ msgstr "שישי"
 msgid "Sat"
 msgstr "שבת"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "היה בשימוש פעם %(usage_count)s"
-msgstr[1] "היה בשימוש %(usage_count)s פעמים"
-
 msgid "Edit your account"
 msgstr "ערכו את חשבונכם"
 
@@ -673,12 +667,12 @@ msgstr "הוספת תת-עמוד"
 msgid "Your password has been changed successfully!"
 msgstr "סיסמתכם שונתה בהצלחה!"
 
+msgid "View live"
+msgstr "תצוגה בחי"
+
 #, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "עמוד {0} נוצר ופורסם"
-
-msgid "View live"
-msgstr "תצוגה בחי"
 
 #, python-brace-format
 msgid "Page '{0}' created and submitted for moderation."

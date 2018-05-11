@@ -1,15 +1,16 @@
 import json
 
+from django.contrib.admin.utils import quote, unquote
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.utils.translation import ugettext as _
 
-from wagtail.utils.pagination import paginate
 from wagtail.admin.forms import SearchForm
 from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.search.backends import get_search_backend
 from wagtail.search.index import class_is_indexed
 from wagtail.snippets.views.snippets import get_snippet_model_from_url_params
+from wagtail.utils.pagination import paginate
 
 
 def choose(request, app_label, model_name):
@@ -69,15 +70,15 @@ def choose(request, app_label, model_name):
     )
 
 
-def chosen(request, app_label, model_name, id):
+def chosen(request, app_label, model_name, pk):
     model = get_snippet_model_from_url_params(app_label, model_name)
-    item = get_object_or_404(model, id=id)
+    item = get_object_or_404(model, pk=unquote(pk))
 
     snippet_json = json.dumps({
-        'id': item.id,
+        'id': item.pk,
         'string': str(item),
         'edit_link': reverse('wagtailsnippets:edit', args=(
-            app_label, model_name, item.id))
+            app_label, model_name, quote(item.pk)))
     })
 
     return render_modal_workflow(

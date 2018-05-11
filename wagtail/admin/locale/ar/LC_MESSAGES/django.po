@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-10-06 15:06+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
+"PO-Revision-Date: 2018-02-16 11:33+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
@@ -161,6 +161,9 @@ msgstr "أعد تثبيت كلمةتك السرية"
 msgid "Edit"
 msgstr "تنقيح"
 
+msgid "Delete"
+msgstr "احذف"
+
 msgid "Pages"
 msgstr "صفحات"
 
@@ -178,9 +181,6 @@ msgstr "تقدم إلى فوق "
 
 msgid "Move down"
 msgstr "تقدم إلى تحت"
-
-msgid "Delete"
-msgstr "احذف"
 
 msgid "Explorer"
 msgstr "مستكشف"
@@ -227,10 +227,6 @@ msgstr "المجموعة لايمكن حذفها. بسبب احتوائها عل
 
 msgid "Name"
 msgstr "اسم"
-
-#, python-format
-msgid "Add %(heading)s"
-msgstr "أضف %(heading)s"
 
 msgid "Yes, delete"
 msgstr "نعم احذف"
@@ -286,9 +282,6 @@ msgstr "تسجيل الدخول"
 
 msgid "Forgotten it?"
 msgstr "أنسيته؟"
-
-msgid "Signing in..."
-msgstr "يتم تسجيل الدخول..."
 
 msgid "You can view the page here:"
 msgstr "انظر الصفحة هنا"
@@ -362,14 +355,8 @@ msgstr "انسخ هذه الصفحة"
 msgid "New"
 msgstr "جديد"
 
-msgid "Saving..."
-msgstr "يتم الحفظ..."
-
 msgid "Save draft"
 msgstr "احفظ المسوّد"
-
-msgid "Publishing..."
-msgstr "يتم النشر..."
 
 msgid "Publish"
 msgstr "انشر"

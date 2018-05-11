@@ -7,9 +7,9 @@ from django.test.utils import override_settings
 from django.urls import reverse
 
 from wagtail.api.v2 import signal_handlers
+from wagtail.core.models import Page, Site
 from wagtail.tests.demosite import models
 from wagtail.tests.testapp.models import StreamPage
-from wagtail.core.models import Page, Site
 
 
 def get_total_page_count():
@@ -1036,6 +1036,67 @@ class TestPageDetail(TestCase):
 
         self.assertEqual(response.status_code, 400)
         self.assertEqual(content, {'message': "'title' does not support nested fields"})
+
+
+class TestPageFind(TestCase):
+    fixtures = ['demosite.json']
+
+    def get_response(self, **params):
+        return self.client.get(reverse('wagtailapi_v2:pages:find'), params)
+
+    def test_without_parameters(self):
+        response = self.get_response()
+
+        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response['Content-type'], 'application/json')
+
+        # Will crash if the JSON is invalid
+        content = json.loads(response.content.decode('UTF-8'))
+
+        self.assertEqual(content, {
+            'message': 'not found'
+        })
+
+    def test_find_by_id(self):
+        response = self.get_response(id=5)
+
+        self.assertRedirects(response, 'http://localhost' + reverse('wagtailapi_v2:pages:detail', args=[5]), fetch_redirect_response=False)
+
+    def test_find_by_id_nonexistent(self):
+        response = self.get_response(id=1234)
+
+        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response['Content-type'], 'application/json')
+
+        # Will crash if the JSON is invalid
+        content = json.loads(response.content.decode('UTF-8'))
+
+        self.assertEqual(content, {
+            'message': 'not found'
+        })
+
+    def test_find_by_html_path(self):
+        response = self.get_response(html_path='/events-index/event-1/')
+
+        self.assertRedirects(response, 'http://localhost' + reverse('wagtailapi_v2:pages:detail', args=[8]), fetch_redirect_response=False)
+
+    def test_find_by_html_path_with_start_and_end_slashes_removed(self):
+        response = self.get_response(html_path='events-index/event-1')
+
+        self.assertRedirects(response, 'http://localhost' + reverse('wagtailapi_v2:pages:detail', args=[8]), fetch_redirect_response=False)
+
+    def test_find_by_html_path_nonexistent(self):
+        response = self.get_response(html_path='/foo')
+
+        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response['Content-type'], 'application/json')
+
+        # Will crash if the JSON is invalid
+        content = json.loads(response.content.decode('UTF-8'))
+
+        self.assertEqual(content, {
+            'message': 'not found'
+        })
 
 
 class TestPageDetailWithStreamField(TestCase):

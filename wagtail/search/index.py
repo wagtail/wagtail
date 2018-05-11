@@ -7,7 +7,9 @@ from django.db import models
 from django.db.models.fields import FieldDoesNotExist
 from django.db.models.fields.related import ForeignObjectRel, OneToOneRel, RelatedField
 
+from modelcluster.fields import ParentalManyToManyField
 from wagtail.search.backends import get_search_backends_with_name
+
 
 logger = logging.getLogger('wagtail.search.index')
 
@@ -256,7 +258,7 @@ class RelatedFields:
         except FieldDoesNotExist:
             return queryset
 
-        if isinstance(field, RelatedField):
+        if isinstance(field, RelatedField) and not isinstance(field, ParentalManyToManyField):
             if field.many_to_one or field.one_to_one:
                 queryset = queryset.select_related(self.field_name)
             elif field.one_to_many or field.many_to_many:

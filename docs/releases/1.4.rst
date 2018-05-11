@@ -77,7 +77,7 @@ Minor features
  * The ``Page`` model now has two new methods ``get_site()`` and ``get_url_parts()`` to aid with customising the page URL generation logic
  * Upgraded jQuery to 2.2.1 (Charlie Choiniere)
  * Multiple homepage summary items (``construct_homepage_summary_items`` hook) now better vertically spaced (Nicolas Kuttler)
- * Email notifications can now be sent in HTML format. See :ref:`email_notifications_format` (Mike Dingjan)
+ * Email notifications can now be sent in HTML format. See :ref:`email_notifications` (Mike Dingjan)
  * ``StreamBlock`` now has provision for throwing non-field-specific validation errors
  * Wagtail now works with Willow 0.3, which supports auto-correcting the orientation of images based on EXIF data
  * New translations for Hungarian, Swedish (Sweden) and Turkish

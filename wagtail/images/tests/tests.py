@@ -6,11 +6,8 @@ from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.test import TestCase, override_settings
 from django.urls import reverse
-from mock import MagicMock
 from taggit.forms import TagField, TagWidget
 
-from wagtail.tests.testapp.models import CustomImage, CustomImageFilePath
-from wagtail.tests.utils import WagtailTestUtils
 from wagtail.images import get_image_model, get_image_model_string
 from wagtail.images.fields import WagtailImageField
 from wagtail.images.formats import Format, get_image_format, register_image_format
@@ -18,6 +15,8 @@ from wagtail.images.forms import get_image_form
 from wagtail.images.models import Image as WagtailImage
 from wagtail.images.rect import Rect, Vector
 from wagtail.images.views.serve import ServeView, generate_signature, verify_signature
+from wagtail.tests.testapp.models import CustomImage, CustomImageFilePath
+from wagtail.tests.utils import WagtailTestUtils
 
 from .utils import Image, get_test_image_file
 
@@ -176,18 +175,20 @@ class TestMissingImage(TestCase):
         )
 
 
-class TestFormat(TestCase):
+class TestFormat(TestCase, WagtailTestUtils):
     def setUp(self):
         # test format
         self.format = Format(
             'test name',
             'test label',
             'test classnames',
-            'test filter spec'
+            'original'
         )
         # test image
-        self.image = MagicMock()
-        self.image.id = 0
+        self.image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
 
     def test_editor_attributes(self):
         result = self.format.editor_attributes(
@@ -195,45 +196,45 @@ class TestFormat(TestCase):
             'test alt text'
         )
         self.assertEqual(result,
-                         'data-embedtype="image" data-id="0" data-format="test name" data-alt="test alt text" ')
+                         {'data-alt': 'test alt text', 'data-embedtype': 'image',
+                          'data-format': 'test name', 'data-id': self.image.pk})
 
     def test_image_to_editor_html(self):
         result = self.format.image_to_editor_html(
             self.image,
             'test alt text'
         )
-        self.assertRegex(
-            result,
-            '<img data-embedtype="image" data-id="0" data-format="test name" '
-            'data-alt="test alt text" class="test classnames" src="[^"]+" width="1" height="1" alt="test alt text">',
-        )
+        self.assertTagInHTML(
+            '<img data-embedtype="image" data-id="%d" data-format="test name" '
+            'data-alt="test alt text" class="test classnames" '
+            'width="640" height="480" alt="test alt text" >' % self.image.pk,
+            result, allow_extra_attrs=True)
 
     def test_image_to_editor_html_with_quoting(self):
         result = self.format.image_to_editor_html(
             self.image,
             'Arthur "two sheds" Jackson'
         )
-        self.assertRegex(
-            result,
-            '<img data-embedtype="image" data-id="0" data-format="test name" '
-            'data-alt="Arthur &quot;two sheds&quot; Jackson" class="test classnames" src="[^"]+" width="1" height="1" alt="Arthur &quot;two sheds&quot; Jackson">',
+        expected_html = (
+            '<img data-embedtype="image" data-id="%d" data-format="test name" '
+            'data-alt="Arthur &quot;two sheds&quot; Jackson" class="test classnames" '
+            'width="640" height="480" alt="Arthur &quot;two sheds&quot; Jackson" >'
+            % self.image.pk
         )
+        self.assertTagInHTML(expected_html, result, allow_extra_attrs=True)
 
     def test_image_to_html_no_classnames(self):
         self.format.classnames = None
         result = self.format.image_to_html(self.image, 'test alt text')
-        self.assertRegex(
-            result,
-            '<img src="[^"]+" width="1" height="1" alt="test alt text">'
-        )
+        self.assertTagInHTML(
+            '<img width="640" height="480" alt="test alt text">', result, allow_extra_attrs=True)
         self.format.classnames = 'test classnames'
 
     def test_image_to_html_with_quoting(self):
         result = self.format.image_to_html(self.image, 'Arthur "two sheds" Jackson')
-        self.assertRegex(
-            result,
-            '<img class="test classnames" src="[^"]+" width="1" height="1" alt="Arthur &quot;two sheds&quot; Jackson">'
-        )
+        self.assertTagInHTML(
+            '<img class="test classnames" width="640" height="480" '
+            'alt="Arthur &quot;two sheds&quot; Jackson">', result, allow_extra_attrs=True)
 
     def test_get_image_format(self):
         register_image_format(self.format)

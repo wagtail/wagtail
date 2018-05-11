@@ -5,14 +5,15 @@
 # Translators:
 # Jose Lourenco <jose@lourenco.ws>, 2014-2015
 # Manuela Silva <inactive+h_manuela_rodsilva@transifex.com>, 2015
+# Manuela Silva <inactive+h_manuela_rodsilva@transifex.com>, 2015
 # Thiago Cangussu <cangussu.thg@gmail.com>, 2014
 # Tiago Henriques <trinosauro@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-23 20:18+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
+"PO-Revision-Date: 2018-01-26 16:00+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
@@ -137,8 +138,14 @@ msgstr "Carregar"
 msgid "Popular tags"
 msgstr "Palavras-chave populares"
 
-msgid "Uploading..."
-msgstr "A carregar..."
+msgid "Uploading…"
+msgstr "A carregar…"
+
+msgid "Server Error"
+msgstr "Erro no Servidor"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Comunique este erro ao seu webmaster com a seguinte informação:"
 
 #, python-format
 msgid ""
@@ -324,12 +331,6 @@ msgstr ""
 msgid "Sorry, upload failed."
 msgstr "Desculpe, o carregamento falhou."
 
-msgid "Server Error"
-msgstr "Erro no Servidor"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Comunique este erro ao seu webmaster com a seguinte informação:"
-
 msgid "Image updated."
 msgstr "Imagem atualizada."
 
@@ -381,9 +382,6 @@ msgid "%(count)s image"
 msgid_plural "%(count)s images"
 msgstr[0] "%(count)s imagem"
 msgstr[1] "%(count)s imagens"
-
-msgid "Choose another image"
-msgstr "Escolher outra imagem"
 
 msgid "Edit this image"
 msgstr "Alterar esta imagem"

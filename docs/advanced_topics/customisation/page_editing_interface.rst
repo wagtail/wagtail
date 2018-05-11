@@ -55,7 +55,7 @@ Wagtail provides a general-purpose WYSIWYG editor for creating rich text content
 
 :class:`~wagtail.core.fields.RichTextField` inherits from Django's basic ``TextField`` field, so you can pass any field parameters into :class:`~wagtail.core.fields.RichTextField` as if using a normal Django field. This field does not need a special panel and can be defined with ``FieldPanel``.
 
-However, template output from :class:`~wagtail.core.fields.RichTextField` is special and need to be filtered to preserve embedded content. See :ref:`rich-text-filter`.
+However, template output from :class:`~wagtail.core.fields.RichTextField` is special and needs to be filtered in order to preserve embedded content. See :ref:`rich-text-filter`.
 
 
 .. _rich_text_features:
@@ -74,7 +74,7 @@ This can be achieved by passing a ``features`` keyword argument to ``RichTextFie
 
     body = RichTextField(features=['h2', 'h3', 'bold', 'italic', 'link'])
 
-The recognised feature identifiers are as follows (note that add-on modules may add to this list):
+The feature identifiers provided on a default Wagtail installation are as follows:
 
  * ``h1``, ``h2``, ``h3``, ``h4``, ``h5``, ``h6`` - heading elements
  * ``bold``, ``italic`` - bold / italic text
@@ -85,56 +85,26 @@ The recognised feature identifiers are as follows (note that add-on modules may 
  * ``image`` - embedded images
  * ``embed`` - embedded media (see :ref:`embedded_content`)
 
-.. _extending_wysiwyg:
 
-Extending the WYSIWYG Editor (``hallo.js``)
--------------------------------------------
+Adding new features to this list is generally a two step process:
 
-Wagtail's rich text editor is built on ``hallo.js``, and its functionality can be extended through plugins. For information on developing custom ``hallo.js`` plugins, see the project's page: https://github.com/bergie/hallo
+ * Create a plugin that extends the editor with a new toolbar button or other control(s) to manage the rich text formatting of the feature.
+ * Create conversion or whitelist rules to define how content from the editor should be filtered or transformed before storage, and front-end HTML output.
 
-Once the plugin has been created, it should be registered as a rich text feature using the ``register_rich_text_features`` hook. For example, a plugin ``halloblockquote``, implemented in ``myapp/js/hallo-blockquote.js``, that adds support for the ``<blockquote>`` tag, would be registered under the feature name ``blockquote`` as follows:
-
-.. code-block:: python
-
-    from wagtail.admin.rich_text import HalloPlugin
-    from wagtail.core import hooks
-
-    @hooks.register('register_rich_text_features')
-    def register_embed_feature(features):
-        features.register_editor_plugin(
-            'hallo', 'blockquote',
-            HalloPlugin(
-                name='halloblockquote',
-                js=['myapp/js/hallo-blockquote.js'],
-            )
-        )
-
-.. note::
-
-    When extending the rich text editor to support a new HTML element, it will also be necessary to update the HTML whitelisting rules, via the :ref:`construct_whitelister_element_rules` hook.
-
-The constructor for ``HalloPlugin`` accepts the following keyword arguments:
-
- * ``name`` - the plugin name as defined in the Javascript code. ``hallo.js`` plugin names are prefixed with the ``"IKS."`` namespace, but the name passed here should be without the prefix.
- * ``options`` - a dictionary (or other JSON-serialisable object) of options to be passed to the Javascript plugin code on initialisation
- * ``js`` - a list of Javascript files to be imported for this plugin, defined in the same way as a `Django form media <https://docs.djangoproject.com/en/1.11/topics/forms/media/>`_ definition
- * ``css`` - a dictionary of CSS files to be imported for this plugin, defined in the same way as a `Django form media <https://docs.djangoproject.com/en/1.11/topics/forms/media/>`_ definition
- * ``order`` - an index number (default 100) specifying the order in which plugins should be listed, which in turn determines the order buttons will appear in the toolbar
+Both of these steps are performed through the ``register_rich_text_features`` hook (see :ref:`admin_hooks`). The hook function is triggered on startup, and receives a *feature registry* object as its argument; this object keeps track of the behaviours associated with each feature identifier.
 
 To have a feature active by default (i.e. on ``RichTextFields`` that do not define an explicit ``features`` list), add it to the ``default_features`` list on the ``features`` object:
 
 .. code-block:: python
 
-    from django.utils.html import format_html
-
     @hooks.register('register_rich_text_features')
     def register_blockquote_feature(features):
-        features.register_editor_plugin(
-            'hallo', 'blockquote',
-            # ...
-        )
-        features.default_features.append('blockquote')
+        features.default_features.append('h6')
 
+The process for creating new features is described in the following pages:
+
+* :doc:`./extending_draftail`
+* :doc:`./extending_hallo`
 
 .. _rich_text_image_formats:
 
@@ -204,7 +174,7 @@ or to add custom validation logic for your models:
         address = forms.CharField()
 
         def clean(self):
-            cleaned_data = super(EventPageForm, self).clean()
+            cleaned_data = super().clean()
 
             # Make sure that the event starts before it ends
             start_date = cleaned_data['start_date']
@@ -215,7 +185,7 @@ or to add custom validation logic for your models:
             return cleaned_data
 
         def save(self, commit=True):
-            page = super(EventPageForm, self).save(commit=False)
+            page = super().save(commit=False)
 
             # Update the duration field from the submitted dates
             page.duration = (page.end_date - page.start_date).days

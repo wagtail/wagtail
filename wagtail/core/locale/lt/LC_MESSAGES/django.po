@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Matas Dailyda <matas@dailyda.com>, 2017
+# Matas Dailyda <matas@dailyda.com>, 2017-2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-23 10:48+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
+"PO-Revision-Date: 2018-03-15 11:57+0000\n"
+"Last-Translator: Matas Dailyda <matas@dailyda.com>\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
 "language/lt/)\n"
 "MIME-Version: 1.0\n"
@@ -26,6 +26,17 @@ msgstr "{label}: šis blokas neturi jokių nustatymų."
 
 msgid "This block has no options."
 msgstr "Šis blokas neturi jokių nustatymų."
+
+#, python-format
+msgid "The minimum number of items is %d"
+msgstr "Mažiausias vienetų kiekis %d"
+
+msgid "This field is required."
+msgstr "Šis laukas yra privalomas."
+
+#, python-format
+msgid "The maximum number of items is %d"
+msgstr "Didžiausias vienetų kiekis %d"
 
 msgid "Password"
 msgstr "Slaptažodis"
@@ -162,6 +173,9 @@ msgstr "planuotas"
 
 msgid "draft"
 msgstr "juodraštis"
+
+msgid "live + scheduled"
+msgstr "veikiantis + suplanuotas"
 
 msgid "live + draft"
 msgstr "veikiantis + juodraštis"

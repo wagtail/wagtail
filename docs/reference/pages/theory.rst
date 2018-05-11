@@ -94,4 +94,26 @@ For going beyond the basics of model definition and interrelation, it might help
     #.  ``serve()`` finds a template to pass it to using ``get_template()``
     #.  A response object is returned by ``serve()`` and Django responds to the requester.
 
-You can apply custom behavior to this process by overriding ``Page`` class methods such as ``route()`` and ``serve()`` in your own models. For examples, see :ref:`model_recipes`.
+You can apply custom behaviour to this process by overriding ``Page`` class methods such as ``route()`` and ``serve()`` in your own models. For examples, see :ref:`model_recipes`.
+
+
+.. _scheduled_publishing:
+
+Scheduled Publishing
+~~~~~~~~~~~~~~~~~~~~
+
+Page publishing can be scheduled through the *Go live date/time* feature in the *Settings* tab of the *Edit* page. This allows you to set set up initial page publishing or a page update in advance.
+In order for pages to be published at the scheduled time you should set up the :ref:`publish_scheduled_pages` management command.
+
+The basic workflow is as follows:
+
+* Scheduling a revision for a page that is not currently live means that page will go live when the scheduled time comes.
+* Scheduling a revision for a page that is already live means that revision will be published when the time comes.
+* If page has a scheduled revision and you set another revision to publish immediately, the scheduled revision will be unscheduled.
+
+The *Revisions* view for a given page will show which revision is scheduled and when it is scheduled for. A scheduled revision in the list will also provide an *Unschedule* button to cancel it.
+
+
+
+
+

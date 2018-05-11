@@ -1,9 +1,9 @@
 from django.template import Context, RequestContext, Template, engines
 from django.test import TestCase
 
+from wagtail.core.models import Page, Site
 from wagtail.tests.testapp.models import TestSetting
 from wagtail.tests.utils import WagtailTestUtils
-from wagtail.core.models import Page, Site
 
 
 class TemplateTestCase(TestCase, WagtailTestUtils):

@@ -7,15 +7,15 @@
 # andrea tagliazucchi <andreatagliazucchi@gmail.com>, 2015
 # Edd Baldry <edd.baldry@gmail.com>, 2016
 # Edd <edd.baldry@googlemail.com>, 2016
-# Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2017
+# Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2018
 # giammi <gian-maria.daffre@giammi.org>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-10-06 15:06+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
+"PO-Revision-Date: 2018-03-27 17:34+0000\n"
+"Last-Translator: Giacomo Ghizzani <giacomo.ghz@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -128,6 +128,9 @@ msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
 msgstr "Questo slug è già in uso nel contesto della pagina padre \"%s\""
 
+msgid "You cannot copy a page into itself when copying subpages"
+msgstr "Non puoi copiare la pagina quando stai copiando le sottopagine"
+
 msgid "Visibility"
 msgstr "Visibilità"
 
@@ -148,7 +151,16 @@ msgstr "Data/ora di scadenza deve esser nel futuro"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
-"Spiacente, ma no puoi avere diverse registrazioni per la stessa collezione."
+"Spiacente, ma non puoi avere diverse registrazioni per la stessa raccolta."
+
+msgid "Error 404: Page not found"
+msgstr "Errore 404: Pagina non trovata"
+
+msgid "Error 404"
+msgstr "Errore 404"
+
+msgid "The requested page could not be found."
+msgstr "La pagina richiesta non è stata trovata."
 
 msgid "Go to Wagtail admin"
 msgstr "Vai all'interfaccia admin di Wagtail"
@@ -157,7 +169,7 @@ msgid "Account"
 msgstr "Account"
 
 msgid "Set gravatar"
-msgstr "Setta gravatar"
+msgstr "Imposta gravatar"
 
 msgid ""
 "Your avatar image is provided by Gravatar and is connected to your email "
@@ -234,13 +246,16 @@ msgstr "Inserisci password"
 msgid "Edit"
 msgstr "Modifica"
 
+msgid "Delete"
+msgstr "Elimina"
+
 msgid "Page"
 msgstr "Pagina"
 
 msgid "Pages"
 msgstr "Pagine"
 
-msgid "Loading..."
+msgid "Loading…"
 msgstr "Caricamento..."
 
 msgid "No results"
@@ -258,6 +273,24 @@ msgstr "Vedi tutto"
 msgid "Close explorer"
 msgstr "Chiudi explorer"
 
+msgid "Alt text"
+msgstr "Testo alternativo"
+
+msgid "Write here…"
+msgstr "Scrivi qui..."
+
+msgid "Horizontal line"
+msgstr "Linea orizzontale"
+
+msgid "Line break"
+msgstr "Interruzione di linea"
+
+msgid "Undo"
+msgstr "Annulla"
+
+msgid "Redo"
+msgstr "Ripristina"
+
 msgid "Dashboard"
 msgstr "Dashboard"
 
@@ -272,9 +305,6 @@ msgstr "Sposta su"
 
 msgid "Move down"
 msgstr "Sposta giù"
-
-msgid "Delete"
-msgstr "Elimina"
 
 msgid "Explorer"
 msgstr "Explorer"
@@ -344,10 +374,10 @@ msgid "Add an external link"
 msgstr "Aggiungi collegamento esterno"
 
 msgid "Collection privacy"
-msgstr "Privacy collezione"
+msgstr "Privacy raccolta"
 
 msgid "This collection has been made private by a parent collection."
-msgstr "Questa collezione è stata resa privata dalla collezione padre."
+msgstr "Questa raccolta è stata resa privata dalla raccolta padre."
 
 msgid "You can edit the privacy settings on:"
 msgstr "Puoi modificare le tue preferenze di privacy su:"
@@ -356,7 +386,7 @@ msgid ""
 "Privacy settings determine who is able to view documents in this collection."
 msgstr ""
 "Impostazioni privacy determinano chi può vedere i documenti in questa "
-"collezione."
+"raccolta."
 
 msgid "Save"
 msgstr "Salva"
@@ -373,8 +403,7 @@ msgstr "Privato"
 msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
 msgstr ""
-"Questa collezione non si può essere cancellato, perché non é vuoto. Esso "
-"contiene :"
+"Questa raccolta non può essere eliminata, perché non è vuota. Contiene:"
 
 msgid "Name"
 msgstr "Nome"
@@ -384,12 +413,12 @@ msgid ""
 "No collections have been created. Why not <a href=\"%(add_collection_url)s"
 "\">add one</a>?"
 msgstr ""
-"Non hai creato nessuna collezione. Perché non ne <a href="
+"Non hai creato nessuna raccolta. Perché non ne <a href="
 "\"%(add_collection_url)s\">aggiungi uno</a>?"
 
 #, python-format
-msgid "Add %(heading)s"
-msgstr "Aggiungi %(heading)s"
+msgid "Add %(label)s"
+msgstr "Aggiungi %(label)s"
 
 msgid "Yes, delete"
 msgstr "Si, elimina"
@@ -487,7 +516,7 @@ msgstr "Loggati in Wagtail"
 msgid "Forgotten it?"
 msgstr "Dimenticato?"
 
-msgid "Signing in..."
+msgid "Signing in…"
 msgstr "Autenticazione in corso..."
 
 #, python-format
@@ -690,13 +719,13 @@ msgstr "Nuovo %(page_type)s"
 msgid "New"
 msgstr "Nuovo"
 
-msgid "Saving..."
-msgstr "Salvataggio in corso..."
+msgid "Saving…"
+msgstr "Salvataggio in corso…"
 
 msgid "Save draft"
 msgstr "Salva bozza"
 
-msgid "Publishing..."
+msgid "Publishing…"
 msgstr "Pubblicazione in corso..."
 
 msgid "Publish"
@@ -962,6 +991,22 @@ msgid "There are no differences between these two revisions"
 msgstr "Non ci sono differenze tra queste due revisioni"
 
 #, python-format
+msgid "Unschedule Revision %(revision.id)s for %(title)s"
+msgstr "Annulla programmazione per la revisione %(revision.id)s di %(title)s"
+
+msgid "Unschedule"
+msgstr "Annulla programmazione"
+
+msgid "Are you sure you want to unschedule this revision?"
+msgstr "Sei sicuro di voler annullare la programmazione per questa revisione?"
+
+msgid "Yes, unschedule"
+msgstr "Si, annulla programmazione"
+
+msgid "No, don't unschedule"
+msgstr "No, non annullare"
+
+#, python-format
 msgid "Revisions of %(title)s"
 msgstr "Le revisioni di %(title)s"
 
@@ -981,11 +1026,17 @@ msgstr "La bozza corrente"
 msgid "Live version"
 msgstr "Live version"
 
+msgid "Scheduled for"
+msgstr "Programmato per"
+
 msgid "Review this revision"
 msgstr "Controlla questa revisione"
 
 msgid "Compare with previous revision"
 msgstr "Compara con la revisione precedente"
+
+msgid "Cancel scheduled publish"
+msgstr "Cancella programma pubblicazione"
 
 msgid "No revisions of this page exist"
 msgstr "Nessuna revisione esistente per questa pagina"
@@ -1023,13 +1074,16 @@ msgid "No pages use"
 msgstr "Nessuna pagina usata"
 
 msgid "Collection"
-msgstr "Collezione"
+msgstr "Raccolta"
+
+msgid "Root"
+msgstr "Radice"
 
 msgid "Home"
 msgstr "Home"
 
 msgid "All collections"
-msgstr "Tutte le collezioni"
+msgstr "Tutte le raccolte"
 
 msgid "January"
 msgstr "Gennaio"
@@ -1087,12 +1141,6 @@ msgstr "Ven"
 
 msgid "Sat"
 msgstr "Sab"
-
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] " Usato %(usage_count)s volta"
-msgstr[1] "Usato %(usage_count)s volte"
 
 msgid "Edit your account"
 msgstr "Modifica il tuo account"
@@ -1178,6 +1226,9 @@ msgstr "Icelandic"
 msgid "Italian"
 msgstr "Italiano"
 
+msgid "Korean"
+msgstr "Koreano"
+
 msgid "Lithuanian"
 msgstr "Lithuanian"
 
@@ -1205,6 +1256,12 @@ msgstr "Romanian"
 msgid "Russian"
 msgstr "Russian"
 
+msgid "Swedish"
+msgstr "Svedese"
+
+msgid "Slovak"
+msgstr "Slovacco"
+
 msgid "Chinese (China)"
 msgstr "Chinese (China)"
 
@@ -1221,34 +1278,34 @@ msgid "You have been successfully logged out."
 msgstr "Logout eseguito con successo."
 
 msgid "Collections"
-msgstr "Collezioni"
+msgstr "Raccolte"
 
 msgid "Add a collection"
-msgstr "Aggiungi una collezione"
+msgstr "Aggiungi una raccolta"
 
 msgid "Add collection"
-msgstr "Aggiungi collezione"
+msgstr "Aggiungi raccolta"
 
 #, python-brace-format
 msgid "Collection '{0}' created."
-msgstr "Collezione '{0}' creata."
+msgstr "Raccolta '{0}' creata."
 
 #, python-brace-format
 msgid "Collection '{0}' updated."
-msgstr "Collezione '{0}' aggiornata."
+msgstr "Raccolta '{0}' aggiornata."
 
 msgid "The collection could not be saved due to errors."
-msgstr "La collezione non può essere salvata a causa di errori."
+msgstr "La raccolta non può essere salvata a causa di errori."
 
 msgid "Delete collection"
-msgstr "Elimina collezione"
+msgstr "Elimina raccolta"
 
 #, python-brace-format
 msgid "Collection '{0}' deleted."
-msgstr "Collezione '{0}' eliminata."
+msgstr "Raccolta '{0}' eliminata."
 
 msgid "Are you sure you want to delete this collection?"
-msgstr "Sei sicuro di voler eliminare questa collezione?"
+msgstr "Sei sicuro di voler eliminare questa raccolta?"
 
 msgid "Editing"
 msgstr "Modifica"
@@ -1257,12 +1314,12 @@ msgstr "Modifica"
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr "Pagina '{0}' creata e schedulata per la pubblicazione."
 
+msgid "View live"
+msgstr "Guarda live"
+
 #, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "Pagina '{0}' creata e pubblicata."
-
-msgid "View live"
-msgstr "Guarda live"
 
 #, python-brace-format
 msgid "Page '{0}' created and submitted for moderation."
@@ -1284,6 +1341,12 @@ msgstr "La pagina non può esser creata a causa di errori di validazione"
 #, python-brace-format
 msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
 msgstr "Revisione da {0} di pagina '{1}' prevista per la pubblicazione."
+
+#, python-brace-format
+msgid "Page '{0}' is live and this revision has been scheduled for publishing."
+msgstr ""
+"Pagina '{0}' è online e questa revisione è stata programmata per la "
+"pubblicazione."
 
 #, python-brace-format
 msgid "Page '{0}' has been scheduled for publishing."
@@ -1382,6 +1445,14 @@ msgid "Latest"
 msgstr "Ultimi"
 
 #, python-brace-format
+msgid "revision {0} of \"{1}\""
+msgstr "revisione {0} di \"{1}\""
+
+#, python-brace-format
+msgid "Revision {0} of \"{1}\" unscheduled."
+msgstr "Revisione {0} di \"{1}\", annulata programmazione. "
+
+#, python-brace-format
 msgid "Edit '{title}'"
 msgstr "Modifica '{title}'"
 
@@ -1423,6 +1494,25 @@ msgstr "Annulla pubblicazione pagina '{title}'"
 #, python-brace-format
 msgid "View revision history for '{title}'"
 msgstr "Vedi storico revisioni per '{title}'"
+
+#, python-brace-format
+msgid "Heading {level}"
+msgstr "Intestazione {level}"
+
+msgid "Bulleted list"
+msgstr "Elenco puntato"
+
+msgid "Numbered list"
+msgstr "Elenco numerato"
+
+msgid "Bold"
+msgstr "Grassetto"
+
+msgid "Italic"
+msgstr "Corsivo"
+
+msgid "Link"
+msgstr "Link"
 
 msgid "Choose an item"
 msgstr "Scegli un elemento"

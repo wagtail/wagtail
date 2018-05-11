@@ -3,15 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Andreas Bergström <andreas.bergstrom@gmail.com>, 2018
 # André Karlsson <andre@sess.se>, 2017
 # Thomas Kunambi <kunambi@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-22 21:00+0000\n"
-"Last-Translator: André Karlsson <andre@sess.se>\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
+"PO-Revision-Date: 2018-02-07 15:38+0000\n"
+"Last-Translator: Andreas Bergström <andreas.bergstrom@gmail.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -27,8 +28,8 @@ msgstr "Editerar %(setting_type_name)s - %(instance)s"
 msgid "Editing"
 msgstr "Editerar"
 
-msgid "Saving..."
-msgstr "Sparar..."
+msgid "Saving…"
+msgstr "Sparar…"
 
 msgid "Save"
 msgstr "Spara"
@@ -41,4 +42,4 @@ msgid "{setting_type} updated."
 msgstr "{setting_type} uppdaterat."
 
 msgid "The setting could not be saved due to errors."
-msgstr "Inställningen kunde inte sparas p.g.a. fel."
+msgstr "Inställningen kunde inte sparas då ett fel uppstod."

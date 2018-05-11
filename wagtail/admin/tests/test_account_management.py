@@ -1,3 +1,9 @@
+import os
+import tempfile
+
+import pytz
+
+from django.contrib.auth import views as auth_views
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
@@ -5,9 +11,9 @@ from django.core import mail
 from django.test import TestCase, override_settings
 from django.urls import reverse
 
-from wagtail.tests.utils import WagtailTestUtils
 from wagtail.admin.utils import (
-    WAGTAILADMIN_PROVIDED_LANGUAGES, get_available_admin_languages)
+    WAGTAILADMIN_PROVIDED_LANGUAGES, get_available_admin_languages, get_available_admin_time_zones)
+from wagtail.tests.utils import WagtailTestUtils
 from wagtail.users.models import UserProfile
 
 
@@ -191,6 +197,49 @@ class TestAccountSection(TestCase, WagtailTestUtils):
         # Page should contain a 'Change password' option
         self.assertContains(response, "Change password")
 
+    def test_change_email_view(self):
+        """
+        This tests that the change email view responds with a change email page
+        """
+        # Get change email page
+        response = self.client.get(reverse('wagtailadmin_account_change_email'))
+
+        # Check that the user received a change email page
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/account/change_email.html')
+
+
+    def test_change_email_post(self):
+        post_data = {
+            'email': 'test@email.com'
+        }
+
+        response = self.client.post(reverse('wagtailadmin_account_change_email'), post_data)
+
+        # Check that the user was redirected to the account page
+        self.assertRedirects(response, reverse('wagtailadmin_account'))
+
+        # Check that the email was changed
+        self.assertEqual(get_user_model().objects.get(pk=self.user.pk).email, post_data['email'])
+
+
+    def test_change_email_not_valid(self):
+        post_data = {
+            'email': 'test@email'
+        }
+
+        response = self.client.post(reverse('wagtailadmin_account_change_email'), post_data)
+
+        # Check that the user wasn't redirected
+        self.assertEqual(response.status_code, 200)
+
+        # Check that a validation error was raised
+        self.assertTrue('email' in response.context['form'].errors.keys())
+
+        # Check that the password was not changed
+        self.assertNotEqual(get_user_model().objects.get(pk=self.user.pk).email, post_data['email'])
+
+
     @override_settings(WAGTAIL_PASSWORD_MANAGEMENT_ENABLED=False)
     def test_account_view_with_password_management_disabled(self):
         # Get account page
@@ -360,6 +409,126 @@ class TestAccountSection(TestCase, WagtailTestUtils):
         response = self.client.post(reverse('wagtailadmin_account'))
         self.assertNotContains(response, 'Language Preferences')
 
+    def test_current_time_zone_view(self):
+        """
+        This tests that the current time zone view responds with an index page
+        """
+        # Get account page
+        response = self.client.get(reverse('wagtailadmin_account_current_time_zone'))
+
+        # Check that the user received an account page
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/account/current_time_zone.html')
+
+        # Page should contain a 'Set Time Zone' title
+        self.assertContains(response, "Set Time Zone")
+
+    def test_current_time_zone_view_post(self):
+        """
+        This posts to the current time zone view and checks that the
+        user profile is updated
+        """
+        # Post new values to the current time zone page
+        post_data = {
+            'current_time_zone': 'Pacific/Fiji'
+        }
+        response = self.client.post(reverse('wagtailadmin_account_current_time_zone'), post_data)
+
+        # Check that the user was redirected to the account page
+        self.assertRedirects(response, reverse('wagtailadmin_account'))
+
+        profile = UserProfile.get_for_user(get_user_model().objects.get(pk=self.user.pk))
+
+        # Check that the current time zone is stored
+        self.assertEqual(profile.current_time_zone, 'Pacific/Fiji')
+
+    def test_unset_current_time_zone(self):
+        # Post new values to the current time zone page
+        post_data = {
+            'current_time_zone': ''
+        }
+        response = self.client.post(reverse('wagtailadmin_account_current_time_zone'), post_data)
+
+        # Check that the user was redirected to the account page
+        self.assertRedirects(response, reverse('wagtailadmin_account'))
+
+        profile = UserProfile.get_for_user(get_user_model().objects.get(pk=self.user.pk))
+
+        # Check that the current time zone are stored
+        self.assertEqual(profile.current_time_zone, '')
+
+    @override_settings(WAGTAIL_USER_TIME_ZONES=['Africa/Addis_Ababa', 'America/Argentina/Buenos_Aires'])
+    def test_available_admin_time_zones_with_permitted_time_zones(self):
+        self.assertListEqual(get_available_admin_time_zones(),
+                             ['Africa/Addis_Ababa', 'America/Argentina/Buenos_Aires'])
+
+    def test_available_admin_time_zones_by_default(self):
+        self.assertListEqual(get_available_admin_time_zones(), pytz.common_timezones)
+
+    @override_settings(WAGTAIL_USER_TIME_ZONES=['Europe/London'])
+    def test_not_show_options_if_only_one_time_zone_is_permitted(self):
+        response = self.client.post(reverse('wagtailadmin_account'))
+        self.assertNotContains(response, 'Set Time Zone')
+
+
+class TestAvatarSection(TestCase, WagtailTestUtils):
+    def _create_image(self):
+        from PIL import Image
+
+        with tempfile.NamedTemporaryFile(suffix='.jpg', delete=False) as f:
+            image = Image.new('RGB', (200, 200), 'white')
+            image.save(f, 'JPEG')
+
+        return open(f.name, mode='rb')
+
+    def setUp(self):
+        self.user = self.login()
+        self.avatar = self._create_image()
+        self.other_avatar = self._create_image()
+
+    def tearDown(self):
+        self.avatar.close()
+        self.other_avatar.close()
+
+    def test_avatar_preferences_view(self):
+        """
+        This tests that the change user profile(avatar) view responds with an index page
+        """
+        response = self.client.get(reverse('wagtailadmin_account_change_avatar'))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/account/change_avatar.html')
+        self.assertContains(response, "Change profile picture")
+
+    def test_set_custom_avatar_stores_and_get_custom_avatar(self):
+        response = self.client.post(reverse('wagtailadmin_account_change_avatar'),
+                                    {'avatar': self.avatar},
+                                    follow=True)
+
+        self.assertEqual(response.status_code, 200)
+
+        profile = UserProfile.get_for_user(get_user_model().objects.get(pk=self.user.pk))
+        self.assertIn(os.path.basename(self.avatar.name), profile.avatar.url)
+
+    def test_user_upload_another_image_removes_previous_one(self):
+        response = self.client.post(reverse('wagtailadmin_account_change_avatar'),
+                                    {'avatar': self.avatar},
+                                    follow=True)
+        self.assertEqual(response.status_code, 200)
+
+        profile = UserProfile.get_for_user(get_user_model().objects.get(pk=self.user.pk))
+        old_avatar_path = profile.avatar.path
+
+        # Upload a new avatar
+        new_response = self.client.post(reverse('wagtailadmin_account_change_avatar'),
+                                        {'avatar': self.other_avatar},
+                                        follow=True)
+        self.assertEqual(new_response.status_code, 200)
+
+        # Check old avatar doesn't exist anymore in filesystem
+        with self.assertRaises(FileNotFoundError):
+            open(old_avatar_path)
+
 
 class TestAccountManagementForNonModerator(TestCase, WagtailTestUtils):
     """
@@ -414,9 +583,12 @@ class TestAccountManagementForAdminOnlyUser(TestCase, WagtailTestUtils):
         Test that the user is not even shown the link to the notification
         preferences view
         """
+        expected_url = reverse('wagtailadmin_account_notification_preferences')
+
         response = self.client.get(reverse('wagtailadmin_account'))
-        self.assertEqual(response.context['show_notification_preferences'], False)
-        self.assertNotContains(response, reverse('wagtailadmin_account_notification_preferences'))
+        account_urls = [item['url'] for item in response.context['items']]
+        self.assertFalse(expected_url in account_urls)
+        self.assertNotContains(response, expected_url)
         # safety check that checking for absence/presence of urls works
         self.assertContains(response, reverse('wagtailadmin_home'))
 
@@ -469,12 +641,9 @@ class TestPasswordReset(TestCase, WagtailTestUtils):
         }
         response = self.client.post(reverse('wagtailadmin_password_reset'), post_data)
 
-        # Check that the user wasn't redirected
-        self.assertEqual(response.status_code, 200)
-
-        # Check that a validation error was raised
-        self.assertTrue('__all__' in response.context['form'].errors.keys())
-        self.assertTrue("This email address is not recognised." in response.context['form'].errors['__all__'])
+        # Check that the user was redirected to the done page
+        self.assertRedirects(response,
+                             reverse('wagtailadmin_password_reset_done'))
 
         # Check that an email was not sent
         self.assertEqual(len(mail.outbox), 0)
@@ -513,7 +682,33 @@ class TestPasswordReset(TestCase, WagtailTestUtils):
         self.password_reset_uid = force_text(urlsafe_base64_encode(force_bytes(self.user.pk)))
 
         # Create url_args
-        self.url_kwargs = dict(uidb64=self.password_reset_uid, token=self.password_reset_token)
+        self.url_kwargs = dict(uidb64=self.password_reset_uid, token=auth_views.INTERNAL_RESET_URL_TOKEN)
+
+        # Add token to session object
+        s = self.client.session
+        s.update({
+            auth_views.INTERNAL_RESET_SESSION_TOKEN: self.password_reset_token,
+        })
+        s.save()
+
+    def test_password_reset_confirm_view_invalid_link(self):
+        """
+        This tests that the password reset view shows an error message if the link is invalid
+        """
+        self.setup_password_reset_confirm_tests()
+
+        # Create invalid url_args
+        self.url_kwargs = dict(uidb64=self.password_reset_uid, token="invalid-token")
+
+        # Get password reset confirm page
+        response = self.client.get(reverse('wagtailadmin_password_reset_confirm', kwargs=self.url_kwargs))
+
+        # Check that the user received a password confirm done page
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/account/password_reset/confirm.html')
+        self.assertFalse(response.context['validlink'])
+        self.assertContains(response, 'The password reset link was invalid, possibly because it has already been used.')
+        self.assertContains(response, 'Request a new password reset')
 
     def test_password_reset_confirm_view(self):
         """

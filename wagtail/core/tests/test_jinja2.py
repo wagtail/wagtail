@@ -3,9 +3,9 @@ from django.template.loader import render_to_string
 from django.test import TestCase
 
 from wagtail import __version__
-from wagtail.tests.testapp.blocks import SectionBlock
 from wagtail.core import blocks
 from wagtail.core.models import Page, Site
+from wagtail.tests.testapp.blocks import SectionBlock
 
 
 class TestCoreGlobalsAndFilters(TestCase):
@@ -44,6 +44,10 @@ class TestCoreGlobalsAndFilters(TestCase):
         self.assertEqual(
             self.render('{{ slugurl(page.slug) }}', {'page': page}),
             page.url)
+
+    def test_bad_slugurl(self):
+        self.assertEqual(
+            self.render('{{ slugurl("bad-slug-doesnt-exist") }}', {}), 'None')
 
     def test_wagtail_version(self):
         self.assertEqual(

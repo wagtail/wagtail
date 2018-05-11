@@ -4,13 +4,13 @@
 #
 # Translators:
 # Eirik Krogstad <eirikkr@gmail.com>, 2015
-# Stein Strindhaug <stein.strindhaug@gmail.com>, 2016-2017
+# Stein Strindhaug <stein.strindhaug@gmail.com>, 2016-2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-22 08:06+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
+"PO-Revision-Date: 2018-02-09 15:17+0000\n"
 "Last-Translator: Stein Strindhaug <stein.strindhaug@gmail.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
@@ -135,8 +135,14 @@ msgstr "Last opp"
 msgid "Popular tags"
 msgstr "Populære stikkord"
 
-msgid "Uploading..."
-msgstr "Laster opp..."
+msgid "Uploading…"
+msgstr "Laster opp…"
+
+msgid "Server Error"
+msgstr "Serverfeil"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Rapporter denne feilen til de webansvarlige med følgende info:"
 
 #, python-format
 msgid ""
@@ -198,6 +204,12 @@ msgstr "Lagre"
 msgid "Delete image"
 msgstr "Slett bilde"
 
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Brukt %(usage_count)s gang"
+msgstr[1] "Brukt %(usage_count)s ganger"
+
 msgid "Are you sure you want to delete this image?"
 msgstr "Er du sikker på at du vil slette dette bildet?"
 
@@ -237,6 +249,9 @@ msgstr "Filstørrelse"
 
 msgid "File not found"
 msgstr "Fil ikke funnet"
+
+msgid "Usage"
+msgstr "Bruk"
 
 msgid "Images"
 msgstr "Bilder"
@@ -326,12 +341,6 @@ msgstr ""
 msgid "Sorry, upload failed."
 msgstr "Beklager, opplasting feilet."
 
-msgid "Server Error"
-msgstr "Serverfeil"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Rapporter denne feilen til de webansvarlige med følgende info:"
-
 msgid "Image updated."
 msgstr "Bildet er oppdatert."
 
@@ -376,14 +385,17 @@ msgstr "Bildet \"{0}\" er lagt til."
 msgid "The image could not be created due to errors."
 msgstr "Bildet kunne ikke opprettes grunnet feil."
 
+msgid "Image"
+msgstr "Bilde"
+
 #, python-format
 msgid "%(count)s image"
 msgid_plural "%(count)s images"
 msgstr[0] "%(count)s bilde"
 msgstr[1] "%(count)s bilder"
 
-msgid "Choose another image"
-msgstr "Velg et annet bilde"
+msgid "Change image"
+msgstr "Endre bilde"
 
 msgid "Edit this image"
 msgstr "Endre dette bildet"

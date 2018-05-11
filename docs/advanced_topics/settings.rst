@@ -231,6 +231,15 @@ This setting lets you change the number of items shown at 'Your most recent edit
 Allows the default ``LoginForm`` to be extended with extra fields.
 
 
+.. _wagtail_gravatar_provider_url:
+
+.. code-block:: python
+
+  WAGTAIL_GRAVATAR_PROVIDER_URL = '//www.gravatar.com/avatar'
+
+If a user has not uploaded a profile picture, Wagtail will look for an avatar linked to their email address on gravatar.com. This setting allows you to specify an alternative provider such as like robohash.org, or can be set to ``None`` to disable the use of remote avatars completely.
+
+
 Images
 ------
 
@@ -279,6 +288,8 @@ This specifies whether password fields are shown when creating or editing users 
 This specifies whether password is a required field when creating a new user. True by default; ignored if ``WAGTAILUSERS_PASSWORD_ENABLED`` is false. If this is set to False, and the password field is left blank when creating a user, then that user will have no usable password, and will not be able to log in unless an alternative authentication system such as LDAP is set up.
 
 
+.. _email_notifications:
+
 Email Notifications
 -------------------
 
@@ -288,17 +299,17 @@ Email Notifications
 
 Wagtail sends email notifications when content is submitted for moderation, and when the content is accepted or rejected. This setting lets you pick which email address these automatic notifications will come from. If omitted, Django will fall back to using the ``DEFAULT_FROM_EMAIL`` variable if set, and ``webmaster@localhost`` if not.
 
-.. _email_notifications_format:
-
-Email Notifications format
---------------------------
-
 .. code-block:: python
 
   WAGTAILADMIN_NOTIFICATION_USE_HTML = True
 
 Notification emails are sent in `text/plain` by default, change this to use HTML formatting.
 
+.. code-block:: python
+
+  WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS = False
+
+Notification emails are sent to moderators and superusers by default. You can change this to exclude superusers and only notify moderators.
 
 .. _update_notifications:
 
@@ -423,6 +434,22 @@ Date and DateTime inputs
 
 
 Specifies the date and datetime format to be used in input fields in the Wagtail admin. The format is specified in `Python datetime module syntax <https://docs.python.org/3/library/datetime.html#strftime-strptime-behavior>`_, and must be one of the recognised formats listed in the ``DATE_INPUT_FORMATS`` or ``DATETIME_INPUT_FORMATS`` setting respectively (see `DATE_INPUT_FORMATS <https://docs.djangoproject.com/en/1.10/ref/settings/#std:setting-DATE_INPUT_FORMATS>`_).
+
+.. _WAGTAIL_USER_TIME_ZONES:
+
+Time zones
+----------
+
+Logged-in users can choose their current time zone for the admin interface in the account settings.  If is no time zone selected by the user, then ``TIME_ZONE`` will be used.
+(Note that time zones are only applied to datetime fields, not to plain time or date fields.  This is a Django design decision.)
+
+The list of time zones is by default the common_timezones list from pytz.
+It is possible to override this list via the ``WAGTAIL_USER_TIME_ZONES`` setting.
+If there is zero or one time zone permitted, the account settings form will be hidden.
+
+.. code-block:: python
+
+    WAGTAIL_USER_TIME_ZONES = ['America/Chicago', 'Australia/Sydney', 'Europe/Rome']
 
 .. _WAGTAILADMIN_PERMITTED_LANGUAGES:
 

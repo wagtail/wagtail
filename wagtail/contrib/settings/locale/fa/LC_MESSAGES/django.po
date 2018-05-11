@@ -5,13 +5,14 @@
 # Translators:
 # Mohammad Hossein Mojtahedi <Mhm5000@gmail.com>, 2017
 # pyzenberg <pyzenberg@gmail.com>, 2017
+# pyzenberg <pyzenberg@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-22 21:00+0000\n"
-"Last-Translator: pyzenberg <pyzenberg@gmail.com>\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
+"PO-Revision-Date: 2018-01-26 16:07+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
 "fa/)\n"
 "MIME-Version: 1.0\n"
@@ -27,8 +28,8 @@ msgstr "در حال ویرایش %(setting_type_name)s - %(instance)s"
 msgid "Editing"
 msgstr "در حال ویرایش"
 
-msgid "Saving..."
-msgstr "در حال ذخیره کردن..."
+msgid "Saving…"
+msgstr "در حال ذخیره کردن…"
 
 msgid "Save"
 msgstr "ذخیره"

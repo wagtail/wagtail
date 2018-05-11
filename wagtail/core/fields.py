@@ -56,7 +56,7 @@ class StreamField(models.Field):
 
     def deconstruct(self):
         name, path, _, kwargs = super().deconstruct()
-        block_types = self.stream_block.child_blocks.items()
+        block_types = list(self.stream_block.child_blocks.items())
         args = [block_types]
         return name, path, args, kwargs
 

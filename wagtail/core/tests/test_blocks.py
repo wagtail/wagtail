@@ -446,7 +446,7 @@ class TestRichTextBlock(TestCase):
         render_form should produce the editor-specific rendition of the rich text value
         (which includes e.g. 'data-linktype' attributes on <a> elements)
         """
-        block = blocks.RichTextBlock()
+        block = blocks.RichTextBlock(editor='hallo')
         value = RichText('<p>Merry <a linktype="page" id="4">Christmas</a>!</p>')
         result = block.render_form(value, prefix='richtext')
         self.assertIn(
@@ -1186,7 +1186,7 @@ class TestStructBlock(SimpleTestCase):
             'link': 'http://www.wagtail.io',
         }), prefix='mylink')
 
-        self.assertIn('<div class="object-help help">Self-promotion is encouraged</div>', html)
+        self.assertIn('<div class="sequence-member__help help"><span class="icon-help-inverse" aria-hidden="true"></span>Self-promotion is encouraged</div>', html)
 
         # check it can be overridden in the block constructor
         block = LinkBlock(help_text="Self-promotion is discouraged")
@@ -1195,7 +1195,7 @@ class TestStructBlock(SimpleTestCase):
             'link': 'http://www.wagtail.io',
         }), prefix='mylink')
 
-        self.assertIn('<div class="object-help help">Self-promotion is discouraged</div>', html)
+        self.assertIn('<div class="sequence-member__help help"><span class="icon-help-inverse" aria-hidden="true"></span>Self-promotion is discouraged</div>', html)
 
     def test_media_inheritance(self):
         class ScriptedCharBlock(blocks.CharBlock):
@@ -3010,7 +3010,7 @@ class TestSystemCheck(TestCase):
         self.assertEqual(errors[0].obj, failing_block_1)
         self.assertEqual(errors[1].id, 'wagtailcore.E001')
         self.assertEqual(errors[1].hint, "Block names cannot contain spaces")
-        self.assertEqual(errors[0].obj, failing_block_2)
+        self.assertEqual(errors[1].obj, failing_block_2)
 
 
 class TestTemplateRendering(TestCase):
@@ -3143,3 +3143,19 @@ class TestIncludeBlockTag(TestCase):
             'language': 'fr',
         })
         self.assertIn('<body><h1 class="important">bonjour</h1></body>', result)
+
+
+class BlockUsingGetTemplateMethod(blocks.Block):
+
+    my_new_template = "my_super_awesome_dynamic_template.html"
+
+    def get_template(self):
+        return self.my_new_template
+
+
+class TestOverriddenGetTemplateBlockTag(TestCase):
+    def test_template_is_overriden_by_get_template(self):
+
+        block = BlockUsingGetTemplateMethod(template='tests/blocks/this_shouldnt_be_used.html')
+        template = block.get_template()
+        self.assertEqual(template, block.my_new_template)

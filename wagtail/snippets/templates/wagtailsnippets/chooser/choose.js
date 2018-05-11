@@ -1,12 +1,12 @@
 function initModal(modal) {
 
     function ajaxifyLinks(context) {
-        $('a.snippet-choice', modal.body).click(function() {
+        $('a.snippet-choice', modal.body).on('click', function() {
             modal.loadUrl(this.href);
             return false;
         });
 
-        $('.pagination a', context).click(function() {
+        $('.pagination a', context).on('click', function() {
             var page = this.getAttribute('data-page');
             setPage(page);
             return false;
@@ -45,7 +45,7 @@ function initModal(modal) {
         return false;
     }
 
-    $('form.snippet-search', modal.body).submit(search);
+    $('form.snippet-search', modal.body).on('submit', search);
 
     $('#id_q').on('input', function() {
         clearTimeout($.data(this, 'timer'));

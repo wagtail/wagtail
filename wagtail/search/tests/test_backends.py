@@ -9,8 +9,6 @@ from django.core import management
 from django.test import TestCase
 from django.test.utils import override_settings
 
-from wagtail.tests.search import models
-from wagtail.tests.utils import WagtailTestUtils
 from wagtail.search.backends import (
     InvalidSearchBackendError, get_search_backend, get_search_backends)
 from wagtail.search.backends.base import FieldError
@@ -18,6 +16,8 @@ from wagtail.search.backends.db import DatabaseSearchBackend
 from wagtail.search.query import (
     MATCH_ALL, And, Boost, Filter, Not, Or, PlainText, Prefix, Term,
 )
+from wagtail.tests.search import models
+from wagtail.tests.utils import WagtailTestUtils
 
 
 class BackendTests(WagtailTestUtils):
@@ -36,7 +36,7 @@ class BackendTests(WagtailTestUtils):
             # no conf entry found - skip tests for this backend
             raise unittest.SkipTest("No WAGTAILSEARCH_BACKENDS entry for the backend %s" % self.backend_path)
 
-        management.call_command('update_index', backend_name=self.backend_name, stdout=StringIO())
+        management.call_command('update_index', backend_name=self.backend_name, stdout=StringIO(), chunk_size=50)
 
     def assertUnsortedListEqual(self, a, b):
         """

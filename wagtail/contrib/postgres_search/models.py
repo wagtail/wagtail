@@ -8,6 +8,7 @@ from django.db.models.functions import Cast
 from django.utils.translation import ugettext_lazy as _
 
 from wagtail.search.index import class_is_indexed
+
 from .utils import get_descendants_content_types_pks
 
 

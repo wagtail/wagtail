@@ -29,41 +29,21 @@ Basic text fields have no formatting options. How these display will be determin
 Rich text fields
 ================
 
-Most of the time though, you need formatting options to create beautiful looking pages. So some fields, like the fields in the 'Paragraph block' shown in the screenshot, have many of the options you would expect from a word processor. These are referred to as rich text fields.
+Most of the time though, you need formatting options to create beautiful looking pages. Wagtail provides "rich text" fields, which have formatting options similar to those of word processors.
 
-So, when you click into one of these fields, you will be presented with a set of tools which allow you to format and style your text. These tools also allow you to insert links, images, videos clips and links to documents.
+.. image:: ../../_static/images/screen11.1_streamfield_richtext.png
 
-.. image:: ../../_static/images/screen11.1.5_streamfield_richtext.png
+Those fields present a set of tools which allow you to format and style your text. These tools also allow you to insert links, images, videos clips and links to documents. If you want to know more about a specific tool, hover your mouse on the corresponding button so the tooltip appears:
 
-Below is a summary of what the different buttons represent:
+.. image:: ../../_static/images/screen11.2_toolbar_tooltips.png
 
-.. image:: ../../_static/images/screen11.1_bold_italic.png
+This tooltip shows a longer description of the tool, and displays its keyboard shortcut if there is one. If the keyboard shortcut does not start with CTRL or ⌘, it's a `Markdown <https://en.wikipedia.org/wiki/Markdown>`_ shortcut to type directly in the editor:
 
-**Bold / Italic:**  Either click then type for bold or italic, or highlight and select to convert existing text to bold or italic.
+.. image:: ../../_static/images/screen11.3_keyboard_shortcuts_.gif
 
-.. image:: ../../_static/images/screen11.2_formatting_options.png
+----
 
-**Paragraph / heading levels:**  Clicking into a paragraph and selecting one of these options will change the level of the text. H1 is not included as this is reserved for the page title.
-
-.. image:: ../../_static/images/screen11.3_lists.png
-
-**Bulleted and numbered lists**
-
-.. image:: ../../_static/images/screen11.4_horizontal_rule.png
-
-**Horizontal rule:** Creates a horizontal line at the position of the cursor. If inserted inside a paragraph it will split the paragraph into two separate paragraphs.
-
-.. image:: ../../_static/images/screen11.5_undo_redo.png
-
-**Undo / redo:** As expected will undo or redo the latest actions. Never use the your browser's back button when attempting to undo changes as this could lead to errors. Either use this undo button, or the usual keyboard shortcut, CTRL+Z.
-
-.. image:: ../../_static/images/screen11.6_images_videos.png
-
-**Insert image / video:** Allows you to insert an image or video into the rich text field. See Inserting images and videos section for more details. See `Inserting images <inserting_images.html>` and `Inserting videos <inserting_videos.html>` sections.
-
-.. image:: ../../_static/images/screen11.7_links_docs.png
-
-**Insert link / document:** Allows you to insert a link or a document into the rich text field. See Inserting links and Inserting documents for more details. See `Inserting links section <inserting_links.html>`.
+That’s the gist of it! If you want more information about the editor, please have a look at its dedicated `user guide <https://github.com/springload/draftail/blob/master/docs/user-guide/README.md>`_. It also contains a list of all of the available keyboard shortcuts, and some tricks and gotchas.
 
 Adding further blocks in StreamField
 ==============================================

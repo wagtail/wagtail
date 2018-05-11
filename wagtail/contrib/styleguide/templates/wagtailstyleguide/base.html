@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/base.html" %}
-{% load wagtailadmin_tags i18n staticfiles gravatar %}
+{% load wagtailadmin_tags i18n staticfiles %}
 
 {% block extra_css %}
     {{ block.super }}
@@ -96,7 +96,9 @@
         <section id="help">
             <h2>Help text</h2>
 
-            <p>Help text is not to be confused with the messages that appear in a banner drop down from the top of the screen. Help text are permanent instructions, visible on every page view, that explain or warn about something.
+            <p>
+                Help text is not to be confused with the messages that appear in a banner drop down from the top of the screen. Help text are permanent instructions, visible on every page view, that explain or warn about something.
+            </p>
 
             <div class="help-block help-info">
                 <p>This is help text that might be just for information, explaining what happens next, or drawing the user's attention to something they're about to do</p>
@@ -205,21 +207,21 @@
                         </td>
                         <td>Regular listing TD</td>
                         <td>Regular listing TD</td>
-                    </li>
+                    </tr>
                     <tr class="disabled">
                         <td class="title">
                             <h2>Disabled TD with title class</h2>
                         </td>
                         <td>Regular listing TD</td>
                         <td>Regular listing TD</td>
-                    </li>
-                    <tr >
+                    </tr>
+                    <tr>
                         <td class="title">
                             <h2><a href="">TD with title class</a></h2>
                         </td>
                         <td>Regular listing TD</td>
                         <td>Regular listing TD</td>
-                    </li>
+                    </tr>
                 </tbody>
             </table>
         </section>
@@ -580,12 +582,9 @@
             <h2>Misc formatters</h2>
             <h3>Avatar icons</h3>
 
-            <p><span class="avatar"><img src="{% gravatar_url "david@torchbox.com" %}" /></span> Gravatar set (normal)</p>
-            <p><span class="avatar"><img src="{% gravatar_url "aeon@torchbox.com" %}" /></span> Gravatar not set (normal)</p>
-            <p><span class="avatar square"><img src="{% gravatar_url "david@torchbox.com" %}" /></span> Gravatar set (square)</p>
-            <p><span class="avatar square"><img src="{% gravatar_url "aeon@torchbox.com" %}" /></span> Gravatar not set (square)</p>
-            <p><span class="avatar small"><img src="{% gravatar_url "david@torchbox.com" %}" /></span> Gravatar set (small)</p>
-            <p><span class="avatar small"><img src="{% gravatar_url "aeon@torchbox.com" %}" /></span> Gravatar not set (small)</p>
+            <p><span class="avatar"><img src="{% avatar_url user size=50 %}" /></span> Avatar normal</p>
+            <p><span class="avatar square"><img src="{% avatar_url user size=50 %}" /></span> Avatar square</p>
+            <p><span class="avatar small"><img src="{% avatar_url user size=25 %}" /></span> Avatar small</p>
 
             <h3>Status tags</h3>
             <div class="status-tag primary">Primary tag</div>

@@ -2,9 +2,9 @@
 from django.test import TestCase, override_settings
 from django.urls import reverse
 
-from wagtail.tests.utils import WagtailTestUtils
-from wagtail.core.models import Page, Site
 from wagtail.contrib.redirects import models
+from wagtail.core.models import Page, Site
+from wagtail.tests.utils import WagtailTestUtils
 
 
 @override_settings(ALLOWED_HOSTS=['testserver', 'localhost', 'test.example.com', 'other.example.com'])
@@ -290,6 +290,12 @@ class TestRedirectsIndexView(TestCase, WagtailTestUtils):
         response = self.get({'q': "Hello"})
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['query_string'], "Hello")
+
+    def test_search_results(self):
+        models.Redirect.objects.create(old_path="/aaargh", redirect_link="http://torchbox.com/")
+        models.Redirect.objects.create(old_path="/torchbox", redirect_link="http://aaargh.com/")
+        response = self.get({'q': "aaargh"})
+        self.assertEqual(len(response.context['redirects']), 2)
 
     def test_pagination(self):
         pages = ['0', '1', '-1', '9999', 'Not a page']

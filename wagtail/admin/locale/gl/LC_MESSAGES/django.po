@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-10-06 15:06+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
+"PO-Revision-Date: 2018-02-16 11:33+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
@@ -213,6 +213,9 @@ msgstr "Restablecer o teu contrasinal"
 msgid "Edit"
 msgstr "Editar"
 
+msgid "Delete"
+msgstr "Eliminar"
+
 msgid "Pages"
 msgstr "Páxinas"
 
@@ -230,9 +233,6 @@ msgstr "Subir"
 
 msgid "Move down"
 msgstr "Baixar"
-
-msgid "Delete"
-msgstr "Eliminar"
 
 msgid "Explorer"
 msgstr "Explorador"
@@ -332,10 +332,6 @@ msgstr ""
 "Ningunha colección foi creada. ¿Por que non <a href=\"%(add_collection_url)s"
 "\">engadir unha</a>?"
 
-#, python-format
-msgid "Add %(heading)s"
-msgstr "Engadir %(heading)s"
-
 msgid "Yes, delete"
 msgstr "Si, eliminar"
 
@@ -427,9 +423,6 @@ msgstr "Iniciar sesión en Wagtail"
 
 msgid "Forgotten it?"
 msgstr "¿Esquecíchela?"
-
-msgid "Signing in..."
-msgstr "Iniciando sesión"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -586,14 +579,8 @@ msgstr "Nova %(page_type)s"
 msgid "New"
 msgstr "Nova"
 
-msgid "Saving..."
-msgstr "Gardando..."
-
 msgid "Save draft"
 msgstr "Gardar borrador"
-
-msgid "Publishing..."
-msgstr "Publicando..."
 
 msgid "Publish"
 msgstr "Publicar"
@@ -890,12 +877,6 @@ msgstr "Ve"
 msgid "Sat"
 msgstr "Sa"
 
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Usado %(usage_count)s vez"
-msgstr[1] "Usado %(usage_count)s veces"
-
 msgid "Edit your account"
 msgstr "Editar a túa conta"
 
@@ -976,12 +957,12 @@ msgstr "Editando"
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr "Páxina '{0}' creada e programada para publicación."
 
+msgid "View live"
+msgstr "Ver en vivo"
+
 #, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "Páxina '{0}' creada e publicada."
-
-msgid "View live"
-msgstr "Ver en vivo"
 
 #, python-brace-format
 msgid "Page '{0}' created and submitted for moderation."

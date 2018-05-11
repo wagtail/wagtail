@@ -3,8 +3,8 @@ from contextlib import contextmanager
 from django.core import checks
 from django.test import TestCase
 
-from wagtail.tests.search import models
 from wagtail.search import index
+from wagtail.tests.search import models
 
 
 @contextmanager

@@ -82,7 +82,7 @@ Edit ``home/models.py`` as follows, to add a ``body`` field to the model:
         ]
 
 ``body`` is defined as ``RichTextField``, a special Wagtail field. You
-can use any of the `Django core fields <https://docs.djangoproject.com/en/1.8/ref/models/fields/>`__. ``content_panels`` define the
+can use any of the `Django core fields <https://docs.djangoproject.com/en/1.11/ref/models/fields/>`__. ``content_panels`` define the
 capabilities and the layout of the editing interface. :doc:`More on creating Page models. <../topics/pages>`
 
 Run ``python manage.py makemigrations``, then
@@ -90,14 +90,14 @@ Run ``python manage.py makemigrations``, then
 changes. You must run the above commands each time you make changes to
 the model definition.
 
-You can now edit the homepage within the Wagtail admin area (go to Explorer, Homepage, then Edit) to see the new body field. Enter some text into the body field, and publish the page.
+You can now edit the homepage within the Wagtail admin area (go to Pages, Homepage, then Edit) to see the new body field. Enter some text into the body field, and publish the page.
 
 The page template now needs to be updated to reflect the changes made
 to the model. Wagtail uses normal Django templates to render each page
 type. By default, it will look for a template filename formed from the app and model name,
 separating capital letters with underscores (e.g. HomePage within the 'home' app becomes
 ``home/home_page.html``). This template file can exist in any location recognised by
-`Django's template rules <https://docs.djangoproject.com/en/1.10/intro/tutorial03/#write-views-that-actually-do-something>`__; conventionally it is placed under a ``templates`` folder within the app.
+`Django's template rules <https://docs.djangoproject.com/en/1.11/intro/tutorial03/#write-views-that-actually-do-something>`__; conventionally it is placed under a ``templates`` folder within the app.
 
 Edit ``home/templates/home/home_page.html`` to contain the following:
 
@@ -376,12 +376,12 @@ model like this:
 
         def get_context(self, request):
             # Update context to include only published posts, ordered by reverse-chron
-            context = super(BlogIndexPage, self).get_context(request)
+            context = super().get_context(request)
             blogpages = self.get_children().live().order_by('-first_published_at')
             context['blogpages'] = blogpages
             return context
 
-All we've done here is retrieve the original context, create a custom queryset,
+All we've done here is retrieve the original context, create a custom QuerySet,
 add it to the retrieved context, and return the modified context back to the view.
 You'll also need to modify your ``blog_index_page.html`` template slightly.
 Change:
@@ -581,7 +581,11 @@ First, alter ``models.py`` once more:
 
 
     class BlogPageTag(TaggedItemBase):
-        content_object = ParentalKey('BlogPage', related_name='tagged_items')
+        content_object = ParentalKey(
+            'BlogPage',
+            related_name='tagged_items',
+            on_delete=models.CASCADE
+        )
 
 
     class BlogPage(Page):
@@ -649,7 +653,7 @@ will get you a 404, since we haven't yet defined a "tags" view. Add to ``models.
             blogpages = BlogPage.objects.filter(tags__name=tag)
 
             # Update template context
-            context = super(BlogTagIndexPage, self).get_context(request)
+            context = super().get_context(request)
             context['blogpages'] = blogpages
             return context
 
@@ -657,7 +661,7 @@ Note that this Page-based model defines no fields of its own.
 Even without fields, subclassing ``Page`` makes it a part of the
 Wagtail ecosystem, so that you can give it a title and URL in the
 admin, and so that you can manipulate its contents by returning
-a queryset from its ``get_context()`` method.
+a QuerySet from its ``get_context()`` method.
 
 Migrate this in, then create a new ``BlogTagIndexPage`` in the admin.
 You'll probably want to create the new page/view as a child of Homepage,

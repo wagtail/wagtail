@@ -2,6 +2,7 @@ import hashlib
 import json
 import os
 
+from django import forms
 from django.conf import settings
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
@@ -17,14 +18,16 @@ from taggit.managers import TaggableManager
 from taggit.models import TaggedItemBase
 
 from wagtail.admin.edit_handlers import (
-    FieldPanel, InlinePanel, MultiFieldPanel, ObjectList, PageChooserPanel,
-    StreamFieldPanel, TabbedInterface)
+    FieldPanel, InlinePanel, MultiFieldPanel, ObjectList, PageChooserPanel, StreamFieldPanel,
+    TabbedInterface)
 from wagtail.admin.forms import WagtailAdminPageForm
 from wagtail.admin.utils import send_mail
-from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField, AbstractFormSubmission
+from wagtail.contrib.forms.forms import FormBuilder
+from wagtail.contrib.forms.models import (
+    FORM_FIELD_CHOICES, AbstractEmailForm, AbstractFormField, AbstractFormSubmission)
 from wagtail.contrib.settings.models import BaseSetting, register_setting
 from wagtail.contrib.table_block.blocks import TableBlock
-from wagtail.core.blocks import CharBlock, RichTextBlock
+from wagtail.core.blocks import CharBlock, RichTextBlock, StructBlock
 from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core.models import Orderable, Page, PageManager, PageQuerySet
 from wagtail.documents.edit_handlers import DocumentChooserPanel
@@ -36,7 +39,8 @@ from wagtail.search import index
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
 
-from .forms import ValidatedPageForm
+from .forms import FormClassAdditionalFieldPageForm, ValidatedPageForm
+from .views import CustomSubmissionsListView
 
 EVENT_AUDIENCE_CHOICES = (
     ('public', "Public"),
@@ -136,6 +140,9 @@ class SimplePage(Page):
         FieldPanel('title', classname="full title"),
         FieldPanel('content'),
     ]
+
+    def get_admin_display_title(self):
+        return "%s (simple page)" % super().get_admin_display_title()
 
 
 # Page with Excluded Fields when copied
@@ -285,12 +292,42 @@ EventPage.content_panels = [
     InlinePanel('speakers', label="Speakers", heading="Speaker lineup"),
     InlinePanel('related_links', label="Related links"),
     FieldPanel('categories'),
+    # InlinePanel related model uses `pk` not `id`
+    InlinePanel('head_counts', label='Head Counts'),
 ]
 
 EventPage.promote_panels = [
     MultiFieldPanel(COMMON_PANELS, "Common page configuration"),
     ImageChooserPanel('feed_image'),
 ]
+
+
+class HeadCountRelatedModelUsingPK(models.Model):
+    """Related model that uses a custom primary key (pk) not id"""
+    custom_id = models.AutoField(primary_key=True)
+    event_page = ParentalKey(
+        EventPage,
+        on_delete=models.CASCADE,
+        related_name='head_counts'
+    )
+    head_count = models.IntegerField()
+    panels = [FieldPanel('head_count')]
+
+
+# Override the standard WagtailAdminPageForm to add field that is not in model
+# so that we can test additional potential issues like comparing versions
+class FormClassAdditionalFieldPage(Page):
+    location = models.CharField(max_length=255)
+    body = RichTextField(blank=True)
+
+    content_panels = [
+        FieldPanel('title', classname="full title"),
+        FieldPanel('location'),
+        FieldPanel('body'),
+        FieldPanel('code'),  # not in model, see set base_form_class
+    ]
+
+    base_form_class = FormClassAdditionalFieldPageForm
 
 
 # Just to be able to test multi table inheritance
@@ -566,6 +603,96 @@ class CustomFormPageSubmission(AbstractFormSubmission):
         return form_data
 
 
+# Custom form page with custom submission listing view and form submission
+
+class FormFieldForCustomListViewPage(AbstractFormField):
+    page = ParentalKey(
+        'FormPageWithCustomSubmissionListView',
+        related_name='form_fields',
+        on_delete=models.CASCADE
+    )
+
+
+class FormPageWithCustomSubmissionListView(AbstractEmailForm):
+    """Form Page with customised submissions listing view"""
+
+    intro = RichTextField(blank=True)
+    thank_you_text = RichTextField(blank=True)
+
+    submissions_list_view_class = CustomSubmissionsListView
+
+    def get_submission_class(self):
+        return CustomFormPageSubmission
+
+    def get_data_fields(self):
+        data_fields = [
+            ('username', 'Username'),
+        ]
+        data_fields += super().get_data_fields()
+
+        return data_fields
+
+    content_panels = [
+        FieldPanel('title', classname="full title"),
+        FieldPanel('intro', classname="full"),
+        InlinePanel('form_fields', label="Form fields"),
+        FieldPanel('thank_you_text', classname="full"),
+        MultiFieldPanel([
+            FieldPanel('to_address', classname="full"),
+            FieldPanel('from_address', classname="full"),
+            FieldPanel('subject', classname="full"),
+        ], "Email")
+    ]
+
+
+# FormPage with cutom FormBuilder
+
+EXTENDED_CHOICES = FORM_FIELD_CHOICES + (('ipaddress', 'IP Address'),)
+
+
+class ExtendedFormField(AbstractFormField):
+    """Override the field_type field with extended choices."""
+    page = ParentalKey(
+        'FormPageWithCustomFormBuilder',
+        related_name='form_fields',
+        on_delete=models.CASCADE)
+    field_type = models.CharField(
+        verbose_name='field type', max_length=16, choices=EXTENDED_CHOICES)
+
+
+class CustomFormBuilder(FormBuilder):
+    """
+    A custom FormBuilder that has an 'ipaddress' field with
+    customised create_singleline_field with shorter max_length
+    """
+
+    def create_singleline_field(self, field, options):
+        options['max_length'] = 120  # usual default is 255
+        return forms.CharField(**options)
+
+    def create_ipaddress_field(self, field, options):
+        return forms.GenericIPAddressField(**options)
+
+
+class FormPageWithCustomFormBuilder(AbstractEmailForm):
+    """
+    A Form page that has a custom form builder and uses a custom
+    form field model with additional field_type choices.
+    """
+
+    form_builder = CustomFormBuilder
+
+    content_panels = [
+        FieldPanel('title', classname="full title"),
+        InlinePanel('form_fields', label="Form fields"),
+        MultiFieldPanel([
+            FieldPanel('to_address', classname="full"),
+            FieldPanel('from_address', classname="full"),
+            FieldPanel('subject', classname="full"),
+        ], "Email")
+    ]
+
+
 # Snippets
 class AdvertPlacement(models.Model):
     page = ParentalKey('wagtailcore.Page', related_name='advert_placements', on_delete=models.CASCADE)
@@ -594,6 +721,23 @@ class Advert(ClusterableModel):
 
 
 register_snippet(Advert)
+
+
+class AdvertWithCustomPrimaryKey(ClusterableModel):
+    advert_id = models.CharField(max_length=255, primary_key=True)
+    url = models.URLField(null=True, blank=True)
+    text = models.CharField(max_length=255)
+
+    panels = [
+        FieldPanel('url'),
+        FieldPanel('text'),
+    ]
+
+    def __str__(self):
+        return self.text
+
+
+register_snippet(AdvertWithCustomPrimaryKey)
 
 
 class AdvertWithTabbedInterface(models.Model):
@@ -717,6 +861,14 @@ class SnippetChooserModel(models.Model):
     ]
 
 
+class SnippetChooserModelWithCustomPrimaryKey(models.Model):
+    advertwithcustomprimarykey = models.ForeignKey(AdvertWithCustomPrimaryKey, help_text='help text', on_delete=models.CASCADE)
+
+    panels = [
+        SnippetChooserPanel('advertwithcustomprimarykey'),
+    ]
+
+
 class CustomImage(AbstractImage):
     caption = models.CharField(max_length=255)
     not_editable_field = models.CharField(max_length=255)
@@ -768,6 +920,10 @@ class StreamPage(Page):
         ('text', CharBlock()),
         ('rich_text', RichTextBlock()),
         ('image', ExtendedImageChooserBlock()),
+        ('product', StructBlock([
+            ('name', CharBlock()),
+            ('price', CharBlock()),
+        ])),
     ])
 
     api_fields = ('body',)

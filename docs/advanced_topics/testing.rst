@@ -44,14 +44,21 @@ WagtailPageTests
 
         .. code-block:: python
 
+            from wagtail.tests.utils.form_data import nested_form_data, streamfield
+
             def test_can_create_content_page(self):
                 # Get the HomePage
                 root_page = HomePage.objects.get(pk=2)
 
                 # Assert that a ContentPage can be made here, with this POST data
-                self.assertCanCreate(root_page, ContentPage, {
+                self.assertCanCreate(root_page, ContentPage, nested_form_data({
                     'title': 'About us',
-                    'body': 'Lorem ipsum dolor sit amet')
+                    'body': streamfield([
+                        ('text', 'Lorem ipsum dolor sit amet'),
+                    ])
+                }))
+
+        See :ref:`form_data_test_helpers` for a set of functions useful for constructing POST data.
 
     .. automethod:: assertAllowedParentPageTypes
 
@@ -79,3 +86,19 @@ WagtailPageTests
                 # A HomePage can have ContentPage and EventIndex children
                 self.assertAllowedParentPageTypes(
                     HomePage, {ContentPage, EventIndex})
+
+
+.. _form_data_test_helpers:
+
+Form data helpers
+=================
+
+.. automodule:: wagtail.tests.utils.form_data
+
+   .. autofunction:: nested_form_data
+
+   .. autofunction:: rich_text
+
+   .. autofunction:: streamfield
+
+   .. autofunction:: inline_formset

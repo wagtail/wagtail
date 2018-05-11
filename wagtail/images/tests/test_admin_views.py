@@ -9,9 +9,9 @@ from django.test import TestCase, override_settings
 from django.urls import reverse
 from django.utils.http import RFC3986_SUBDELIMS, urlquote
 
-from wagtail.tests.utils import WagtailTestUtils
 from wagtail.core.models import Collection, GroupCollectionPermission
 from wagtail.images.views.serve import generate_signature
+from wagtail.tests.utils import WagtailTestUtils
 
 from .utils import Image, get_test_image_file
 

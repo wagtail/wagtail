@@ -1,7 +1,6 @@
 import json
 import os
 
-from django.contrib.contenttypes.models import ContentType
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
 from django.shortcuts import render
@@ -11,10 +10,10 @@ from unidecode import unidecode
 
 from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.admin.utils import send_mail
-from wagtail.core import hooks
-from wagtail.core.models import Orderable, Page, UserPagePermissionsProxy, get_page_models
+from wagtail.core.models import Orderable, Page
 
 from .forms import FormBuilder, WagtailAdminFormPageForm
+from .views import SubmissionsListView
 
 FORM_FIELD_CHOICES = (
     ('singleline', _('Single line text')),
@@ -117,45 +116,16 @@ class AbstractFormField(Orderable):
         ordering = ['sort_order']
 
 
-_FORM_CONTENT_TYPES = None
-
-
-def get_form_types():
-    global _FORM_CONTENT_TYPES
-    if _FORM_CONTENT_TYPES is None:
-        form_models = [
-            model for model in get_page_models()
-            if issubclass(model, AbstractForm)
-        ]
-
-        _FORM_CONTENT_TYPES = list(
-            ContentType.objects.get_for_models(*form_models).values()
-        )
-    return _FORM_CONTENT_TYPES
-
-
-def get_forms_for_user(user):
-    """
-    Return a queryset of form pages that this user is allowed to access the submissions for
-    """
-    editable_forms = UserPagePermissionsProxy(user).editable_pages()
-    editable_forms = editable_forms.filter(content_type__in=get_form_types())
-
-    # Apply hooks
-    for fn in hooks.get_hooks('filter_form_submissions_for_user'):
-        editable_forms = fn(user, editable_forms)
-
-    return editable_forms
-
-
 class AbstractForm(Page):
     """
     A Form Page. Pages implementing a form should inherit from it
     """
 
+    base_form_class = WagtailAdminFormPageForm
+
     form_builder = FormBuilder
 
-    base_form_class = WagtailAdminFormPageForm
+    submissions_list_view_class = SubmissionsListView
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -207,33 +177,6 @@ class AbstractForm(Page):
     def get_landing_page_template(self, request, *args, **kwargs):
         return self.landing_page_template
 
-    def get_field_ordering(self, ordering_list, default=('submit_time', 'descending')):
-        """
-            Accepts a list of strings ['-submit_time', 'id']
-            Returns a list of tuples [(field_name, 'ascending'/'descending'), ...]
-            Intented to be used to process ordering via request.GET.getlist('order_by')
-            Checks if the field options are valid, only returns valid, de-duplicated options
-            invalid options are simply ignored - no error created
-        """
-        valid_fields = ['id', 'submit_time']
-        field_ordering = []
-        if len(ordering_list) == 0:
-            return [default]
-        for ordering in ordering_list:
-            try:
-                none, prefix, field_name = ordering.rpartition('-')
-                if field_name not in valid_fields:
-                    continue  # Invalid field_name, skip it
-                # only add to ordering if the field is not already set
-                if field_name not in [order[0] for order in field_ordering]:
-                    asc_desc = 'ascending'
-                    if prefix == '-':
-                        asc_desc = 'descending'
-                    field_ordering.append((field_name, asc_desc))
-            except (IndexError, ValueError):
-                continue  # Invalid ordering specified, skip it
-        return field_ordering
-
     def get_submission_class(self):
         """
         Returns submission class.
@@ -272,6 +215,16 @@ class AbstractForm(Page):
             self.get_landing_page_template(request),
             context
         )
+
+    def serve_submissions_list_view(self, request, *args, **kwargs):
+        """
+        Returns list submissions view for admin.
+
+        `list_submissions_view_class` can bse set to provide custom view class.
+        Your class must be inherited from SubmissionsListView.
+        """
+        view = self.submissions_list_view_class.as_view()
+        return view(request, form_page=self, *args, **kwargs)
 
     def serve(self, request, *args, **kwargs):
         if request.method == 'POST':

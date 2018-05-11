@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import logging
 from functools import wraps
+import pytz
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -43,13 +44,19 @@ WAGTAILADMIN_PROVIDED_LANGUAGES = [
     ('pt-pt', ugettext_lazy('Portuguese')),
     ('ro', ugettext_lazy('Romanian')),
     ('ru', ugettext_lazy('Russian')),
-    ('se', ugettext_lazy('Swedish')),
+    ('sv', ugettext_lazy('Swedish')),
+    ('sk', ugettext_lazy('Slovak')),
+    ('uk', ugettext_lazy('Ukrainian')),
     ('zh-cn', ugettext_lazy('Chinese (China)')),
 ]
 
 
 def get_available_admin_languages():
     return getattr(settings, 'WAGTAILADMIN_PERMITTED_LANGUAGES', WAGTAILADMIN_PROVIDED_LANGUAGES)
+
+
+def get_available_admin_time_zones():
+    return getattr(settings, 'WAGTAIL_USER_TIME_ZONES', pytz.common_timezones)
 
 
 def get_object_usage(obj):
@@ -213,7 +220,8 @@ def send_notification(page_revision_id, notification, excluded_user_id):
     # Get list of recipients
     if notification == 'submitted':
         # Get list of publishers
-        recipients = users_with_page_permission(revision.page, 'publish')
+        include_superusers = getattr(settings, 'WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS', True)
+        recipients = users_with_page_permission(revision.page, 'publish', include_superusers)
     elif notification in ['rejected', 'approved']:
         # Get submitter
         recipients = [revision.user]

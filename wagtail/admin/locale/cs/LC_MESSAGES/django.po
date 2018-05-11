@@ -6,12 +6,13 @@
 # Ivan Pomykacz <mist@alastify.cz>, 2015
 # Jiri Stepanek <stepiiicz@gmail.com>, 2015
 # Marek Turnovec <aesculap@gmail.com>, 2016
+# Martin Galda <martingalda9@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-10-06 15:06+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
+"PO-Revision-Date: 2018-02-16 11:33+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
@@ -21,6 +22,9 @@ msgstr ""
 "Language: cs\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
+msgid "You do not have permission to access the admin"
+msgstr "Nemáte povolení k přístupu do redakčního systému"
+
 msgid "Scheduled publishing"
 msgstr "Naplánovat publikaci"
 
@@ -29,6 +33,9 @@ msgstr "Nastavení stránky"
 
 msgid "Content"
 msgstr "Obsah"
+
+msgid "Promote"
+msgstr "Prezentace"
 
 msgid "Settings"
 msgstr "Nastavení"
@@ -112,13 +119,26 @@ msgstr[2] ""
 "jejich kopie?"
 
 #, python-format
+msgid "You do not have permission to copy to page \"%(page_title)s\""
+msgstr "Nemáte povolení kopírovat stránku \"%(page_title)s\""
+
+#, python-format
 msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
 msgstr ""
 "Tento název pro URL je již použit v kontextu s rodičovskou stránkou \"%s\""
 
+msgid "You cannot copy a page into itself when copying subpages"
+msgstr "Není možné kopírovat stránku samu do sebe při kopírování podstránek"
+
+msgid "Visibility"
+msgstr "Viditelnost"
+
 msgid "This field is required."
 msgstr "Toto pole je povinné."
+
+msgid "Please select at least one group."
+msgstr "Zvolte prosím alespoň jednu skupinu."
 
 msgid "This slug is already in use"
 msgstr "Název pro URL musí být unikátní"
@@ -156,11 +176,17 @@ msgstr "Nastavení notifikací"
 msgid "Choose which email notifications to receive."
 msgstr "Zvolte, které e-mailové notifikace si přejete dostávat."
 
+msgid "Language preferences"
+msgstr "Nastavení jazyka"
+
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr ""
 "Vaše heslo nelze změnit pomocí této stránky. Kontaktujte prosím "
 "administrátora."
+
+msgid "Language Preferences"
+msgstr "Nastavení jazyka"
 
 msgid "Update"
 msgstr "Uložit"
@@ -195,8 +221,17 @@ msgstr "Nastavit nové heslo"
 msgid "Edit"
 msgstr "Upravit"
 
+msgid "Delete"
+msgstr "Smazat"
+
+msgid "Page"
+msgstr "Stránka"
+
 msgid "Pages"
 msgstr "Stránky"
+
+msgid "No results"
+msgstr "Žádné výsledky"
 
 msgid "Dashboard"
 msgstr "Dashboard"
@@ -212,9 +247,6 @@ msgstr "Posunout nahoru"
 
 msgid "Move down"
 msgstr "Posunout dolů"
-
-msgid "Delete"
-msgstr "Smazat"
 
 msgid "Explorer"
 msgstr "Obsah"
@@ -330,9 +362,6 @@ msgstr "Přihlášení do redakčního systému"
 
 msgid "Forgotten it?"
 msgstr "Zapoměli jste heslo?"
-
-msgid "Signing in..."
-msgstr "Přihlašování..."
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -486,14 +515,8 @@ msgstr "Nový %(page_type)s"
 msgid "New"
 msgstr "Nový"
 
-msgid "Saving..."
-msgstr "Ukládání..."
-
 msgid "Save draft"
 msgstr "Uložit koncept"
-
-msgid "Publishing..."
-msgstr "Publikování..."
 
 msgid "Publish"
 msgstr "Publikovat"
@@ -692,13 +715,6 @@ msgstr "pá"
 
 msgid "Sat"
 msgstr "so"
-
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Použito %(usage_count)s-krát"
-msgstr[1] "Použito %(usage_count)s-krát"
-msgstr[2] "Použito %(usage_count)s-krát"
 
 msgid "Log out"
 msgstr "Odhlásit"

@@ -408,6 +408,12 @@ ul.listing {
     }
 }
 
+.image-choice {
+    color: inherit;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+
 ul.listing {
     border-top: 1px dashed $color-input-border;
     margin-bottom: 2em;
@@ -597,10 +603,6 @@ table.listing {
                         border-color: $color-teal;
                     }
                 }
-            }
-
-            a {
-                color: inherit;
             }
         }
 

@@ -12,6 +12,7 @@ function ModalWorkflow(opts) {
 
     var self = {};
     var responseCallbacks = opts.responses || {};
+    var errorCallback = opts.onError || function () {};
 
     /* remove any previous modals before continuing (closing doesn't remove them from the dom) */
     $('body > .modal').remove();
@@ -26,23 +27,23 @@ function ModalWorkflow(opts) {
     self.body = container.find('.modal-body');
 
     self.loadUrl = function(url, urlParams) {
-        $.get(url, urlParams, self.loadResponseText, 'text');
+        $.get(url, urlParams, self.loadResponseText, 'text').fail(errorCallback);
     };
 
     self.postForm = function(url, formData) {
-        $.post(url, formData, self.loadResponseText, 'text');
+        $.post(url, formData, self.loadResponseText, 'text').fail(errorCallback);
     };
 
     self.ajaxifyForm = function(formSelector) {
         $(formSelector).each(function() {
             var action = this.action;
             if (this.method.toLowerCase() == 'get') {
-                $(this).submit(function() {
+                $(this).on('submit', function() {
                     self.loadUrl(action, $(this).serialize());
                     return false;
                 });
             } else {
-                $(this).submit(function() {
+                $(this).on('submit', function() {
                     self.postForm(action, $(this).serialize());
                     return false;
                 });

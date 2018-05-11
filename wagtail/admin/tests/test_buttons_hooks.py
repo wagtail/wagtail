@@ -1,10 +1,10 @@
 from django.test import TestCase
 from django.urls import reverse
 
-from wagtail.tests.utils import WagtailTestUtils
 from wagtail.admin import widgets as wagtailadmin_widgets
 from wagtail.core import hooks
 from wagtail.core.models import Page
+from wagtail.tests.utils import WagtailTestUtils
 
 
 class TestButtonsHooks(TestCase, WagtailTestUtils):

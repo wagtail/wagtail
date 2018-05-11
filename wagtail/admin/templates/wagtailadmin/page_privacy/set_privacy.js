@@ -1,5 +1,5 @@
 function(modal) {
-    $('form', modal.body).submit(function() {
+    $('form', modal.body).on('submit', function() {
         modal.postForm(this.action, $(this).serialize());
         return false;
     });
@@ -23,5 +23,5 @@ function(modal) {
     }
     refreshFormFields();
 
-    $("input[name='restriction_type']", modal.body).change(refreshFormFields);
+    $("input[name='restriction_type']", modal.body).on('change', refreshFormFields);
 }

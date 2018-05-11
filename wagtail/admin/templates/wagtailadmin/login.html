@@ -58,7 +58,7 @@
                 </li>
 
                 {% block extra_fields %}
-                {% for field_name, field in form.extra_fields %}
+                {% for field_name, field in form.extra_fields %}gs
                 <li class="full">
                     {{ field.label_tag }}
                     <div class="field iconfield">
@@ -79,7 +79,7 @@
                 {% endblock %}
                 <li class="submit">
                     {% block submit_buttons %}
-                    <button type="submit" class="button button-longrunning" tabindex="3" data-clicked-text="{% trans 'Signing in...' %}"><span class="icon icon-spinner"></span><em>{% trans 'Sign in' %}</em></button>
+                    <button type="submit" class="button button-longrunning" tabindex="3" data-clicked-text="{% trans 'Signing in…' %}"><span class="icon icon-spinner"></span><em>{% trans 'Sign in' %}</em></button>
                     {% endblock %}
                 </li>
             </ul>
@@ -95,7 +95,7 @@
 {{ block.super }}
 <script>
     $(function(){
-        $('form input[name=username]').focus();
+        $('form input[name=username]').trigger('focus');
     })
 </script>
 {% endblock %}

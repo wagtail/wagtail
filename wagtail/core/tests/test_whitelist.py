@@ -1,8 +1,7 @@
 from bs4 import BeautifulSoup
 from django.test import TestCase
 
-from wagtail.core.whitelist import (
-    Whitelister, allow_without_attributes, attribute_rule, check_url)
+from wagtail.core.whitelist import Whitelister, allow_without_attributes, attribute_rule, check_url
 
 
 class TestCheckUrl(TestCase):
@@ -90,13 +89,16 @@ class TestAttributeRule(TestCase):
 
 
 class TestWhitelister(TestCase):
+    def setUp(self):
+        self.whitelister = Whitelister()
+
     def test_clean_unknown_node(self):
         """
         Unknown node should remove a node from the parent document
         """
         soup = BeautifulSoup('<foo><bar>baz</bar>quux</foo>', 'html5lib')
         tag = soup.foo
-        Whitelister.clean_unknown_node('', soup.bar)
+        self.whitelister.clean_unknown_node('', soup.bar)
         self.assertEqual(str(tag), '<foo>quux</foo>')
 
     def test_clean_tag_node_cleans_nested_recognised_node(self):
@@ -106,7 +108,7 @@ class TestWhitelister(TestCase):
         """
         soup = BeautifulSoup('<b><b class="delete me">foo</b></b>', 'html5lib')
         tag = soup.b
-        Whitelister.clean_tag_node(tag, tag)
+        self.whitelister.clean_tag_node(tag, tag)
         self.assertEqual(str(tag), '<b><b>foo</b></b>')
 
     def test_clean_tag_node_disallows_nested_unrecognised_node(self):
@@ -115,19 +117,19 @@ class TestWhitelister(TestCase):
         """
         soup = BeautifulSoup('<b><foo>bar</foo></b>', 'html5lib')
         tag = soup.b
-        Whitelister.clean_tag_node(tag, tag)
+        self.whitelister.clean_tag_node(tag, tag)
         self.assertEqual(str(tag), '<b>bar</b>')
 
     def test_clean_string_node_does_nothing(self):
         soup = BeautifulSoup('<b>bar</b>', 'html5lib')
         string = soup.b.string
-        Whitelister.clean_string_node(string, string)
+        self.whitelister.clean_string_node(string, string)
         self.assertEqual(str(string), 'bar')
 
     def test_clean_node_does_not_change_navigable_strings(self):
         soup = BeautifulSoup('<b>bar</b>', 'html5lib')
         string = soup.b.string
-        Whitelister.clean_node(string, string)
+        self.whitelister.clean_node(string, string)
         self.assertEqual(str(string), 'bar')
 
     def test_clean(self):
@@ -136,15 +138,15 @@ class TestWhitelister(TestCase):
         a string
         """
         string = '<b foo="bar">snowman <barbecue>Yorkshire</barbecue></b>'
-        cleaned_string = Whitelister.clean(string)
+        cleaned_string = self.whitelister.clean(string)
         self.assertEqual(cleaned_string, '<b>snowman Yorkshire</b>')
 
     def test_clean_comments(self):
         string = '<b>snowman Yorkshire<!--[if gte mso 10]>MS word junk<![endif]--></b>'
-        cleaned_string = Whitelister.clean(string)
+        cleaned_string = self.whitelister.clean(string)
         self.assertEqual(cleaned_string, '<b>snowman Yorkshire</b>')
 
     def test_quoting(self):
         string = '<img alt="Arthur &quot;two sheds&quot; Jackson" sheds="2">'
-        cleaned_string = Whitelister.clean(string)
+        cleaned_string = self.whitelister.clean(string)
         self.assertEqual(cleaned_string, '<img alt="Arthur &quot;two sheds&quot; Jackson"/>')

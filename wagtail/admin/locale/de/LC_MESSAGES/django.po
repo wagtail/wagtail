@@ -7,7 +7,7 @@
 # Ettore Atalan <atalanttore@googlemail.com>, 2015-2017
 # Henrik Kröger <hedwig@riseup.net>, 2015-2016
 # hpoul <herbert.transifex@m.poul.at>, 2015
-# Jannis, 2016
+# Jannis Vajen, 2016
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014-2015
 # karlsander <karlsander@gmail.com>, 2014
 # karlsander <karlsander@gmail.com>, 2014
@@ -15,7 +15,7 @@
 # Martin Löhle <martin.loehle@web-forest.de>, 2016
 # Matt Westcott <matthew@torchbox.com>, 2015
 # Max Pfeiffer <max.pfeiffer@alp-phone.ch>, 2015
-# Moritz Pfeiffer <moritz@alp-phone.ch>, 2016-2017
+# Moritz Pfeiffer <moritz@alp-phone.ch>, 2016-2018
 # pcraston <patrick@craston.com>, 2014
 # pcraston <patrick@craston.com>, 2014
 # tobias schmidt <tobias.schmidt82@gmail.com>, 2016
@@ -25,9 +25,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-10-06 18:34+0000\n"
-"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
+"PO-Revision-Date: 2018-02-16 14:17+0000\n"
+"Last-Translator: Moritz Pfeiffer <moritz@alp-phone.ch>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -266,13 +266,16 @@ msgstr "Setzen Sie Ihr Passwort zurück"
 msgid "Edit"
 msgstr "Bearbeiten"
 
+msgid "Delete"
+msgstr "Löschen"
+
 msgid "Page"
 msgstr "Seite"
 
 msgid "Pages"
 msgstr "Seiten"
 
-msgid "Loading..."
+msgid "Loading…"
 msgstr "Laden..."
 
 msgid "No results"
@@ -290,6 +293,24 @@ msgstr "Alles einsehen"
 msgid "Close explorer"
 msgstr "Explorer schliessen"
 
+msgid "Alt text"
+msgstr "Alternativtext"
+
+msgid "Write here…"
+msgstr "Hier schreiben..."
+
+msgid "Horizontal line"
+msgstr "Horizontale Linie"
+
+msgid "Line break"
+msgstr "Zeilenumbruch"
+
+msgid "Undo"
+msgstr "Widerrufen"
+
+msgid "Redo"
+msgstr "Wiederholen"
+
 msgid "Dashboard"
 msgstr "Dashboard"
 
@@ -304,9 +325,6 @@ msgstr "Nach oben"
 
 msgid "Move down"
 msgstr "Nach unten"
-
-msgid "Delete"
-msgstr "Löschen"
 
 msgid "Explorer"
 msgstr "Explorer"
@@ -418,8 +436,8 @@ msgstr ""
 "\"%(add_collection_url)s\">eine anlegen</a>?"
 
 #, python-format
-msgid "Add %(heading)s"
-msgstr "%(heading)s hinzufügen"
+msgid "Add %(label)s"
+msgstr "%(label)s hinzufügen"
 
 msgid "Yes, delete"
 msgstr "Ja, Löschen"
@@ -517,7 +535,7 @@ msgstr "Bei Wagtail anmelden"
 msgid "Forgotten it?"
 msgstr "Vergessen?"
 
-msgid "Signing in..."
+msgid "Signing in…"
 msgstr "Anmelden..."
 
 #, python-format
@@ -717,13 +735,13 @@ msgstr "%(page_type)s erstellen"
 msgid "New"
 msgstr "Neu"
 
-msgid "Saving..."
-msgstr "Speichern..."
+msgid "Saving…"
+msgstr "Speichern…"
 
 msgid "Save draft"
 msgstr "Entwurf speichern"
 
-msgid "Publishing..."
+msgid "Publishing…"
 msgstr "Veröffentlichen..."
 
 msgid "Publish"
@@ -983,6 +1001,25 @@ msgid "There are no differences between these two revisions"
 msgstr "Diese zwei Revisionen weisen keine Unterschiede auf"
 
 #, python-format
+msgid "Unschedule Revision %(revision.id)s for %(title)s"
+msgstr ""
+"Geplante Veröffentlichung von Revision %(revision.id)s für %(title)s aufheben"
+
+msgid "Unschedule"
+msgstr "Geplante Veröffentlichung aufheben"
+
+msgid "Are you sure you want to unschedule this revision?"
+msgstr ""
+"Sie Sie sicher, dass Sie die geplante Veröffentlichung dieser Revision "
+"aufheben möchten?"
+
+msgid "Yes, unschedule"
+msgstr "Ja, aufheben"
+
+msgid "No, don't unschedule"
+msgstr "Nein, nicht aufheben"
+
+#, python-format
 msgid "Revisions of %(title)s"
 msgstr "Revisionen von %(title)s"
 
@@ -1002,11 +1039,17 @@ msgstr "Aktueller Entwurf"
 msgid "Live version"
 msgstr "Veröffentlichte Version"
 
+msgid "Scheduled for"
+msgstr "Geplant für"
+
 msgid "Review this revision"
 msgstr "Diese Revision begutachten"
 
 msgid "Compare with previous revision"
 msgstr "Mit vorheriger Revision vergleichen"
+
+msgid "Cancel scheduled publish"
+msgstr "Geplante Veröffentlichung aufheben"
 
 msgid "No revisions of this page exist"
 msgstr "Es existieren keine Revisionen dieser Seite"
@@ -1111,12 +1154,6 @@ msgstr "Fr"
 
 msgid "Sat"
 msgstr "Sa"
-
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "%(usage_count)s mal benutzt"
-msgstr[1] "%(usage_count)s mal benutzt"
 
 msgid "Edit your account"
 msgstr "Bearbeiten Sie Ihr Konto"
@@ -1235,6 +1272,9 @@ msgstr "Russisch"
 msgid "Swedish"
 msgstr "Schwedisch"
 
+msgid "Slovak"
+msgstr "Slowakisch"
+
 msgid "Chinese (China)"
 msgstr "Chinesisch (China)"
 
@@ -1289,12 +1329,12 @@ msgstr ""
 "Die Seite „{0}“ wurde erstellt und zur Veröffentlichung (zu einem Termin) "
 "eingeplant."
 
+msgid "View live"
+msgstr "Live anzeigen"
+
 #, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "Die Seite ‚{0}‘ wurde erstellt und veröffentlicht."
-
-msgid "View live"
-msgstr "Live anzeigen"
 
 #, python-brace-format
 msgid "Page '{0}' created and submitted for moderation."
@@ -1318,6 +1358,12 @@ msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
 msgstr ""
 "Revision von {0} von Seite '{1}' wurde zur Veröffentlichung (zu einem "
 "Termin) eingeplant."
+
+#, python-brace-format
+msgid "Page '{0}' is live and this revision has been scheduled for publishing."
+msgstr ""
+"Seite '{0}' ist veröffentlicht und diese Revision wurde zur Veröffentlichung "
+"(zu einem Termin) eingeplant. "
 
 #, python-brace-format
 msgid "Page '{0}' has been scheduled for publishing."
@@ -1419,6 +1465,14 @@ msgid "Latest"
 msgstr "Späteste"
 
 #, python-brace-format
+msgid "revision {0} of \"{1}\""
+msgstr "Revision {0} von \"{1}\""
+
+#, python-brace-format
+msgid "Revision {0} of \"{1}\" unscheduled."
+msgstr "Geplante Veröffentlichung der Revision {0} von \"{1}\" aufgehoben."
+
+#, python-brace-format
 msgid "Edit '{title}'"
 msgstr "'{title}' bearbeiten"
 
@@ -1460,6 +1514,25 @@ msgstr "Seite '{title}' depublizieren"
 #, python-brace-format
 msgid "View revision history for '{title}'"
 msgstr "Revisionsgeschichte von '{title}' anzeigen"
+
+#, python-brace-format
+msgid "Heading {level}"
+msgstr "Überschrift {level}"
+
+msgid "Bulleted list"
+msgstr "Aufzählung"
+
+msgid "Numbered list"
+msgstr "Nummerierte Liste"
+
+msgid "Bold"
+msgstr "Fett"
+
+msgid "Italic"
+msgstr "Kursiv"
+
+msgid "Link"
+msgstr "Link"
 
 msgid "Choose an item"
 msgstr "Eintrag wählen"

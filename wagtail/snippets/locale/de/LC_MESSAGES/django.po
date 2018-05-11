@@ -6,19 +6,21 @@
 # Ettore Atalan <atalanttore@googlemail.com>, 2017
 # Henrik Kröger <hedwig@riseup.net>, 2016
 # Jannis, 2015
+# Jannis Vajen, 2015
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 # karlsander <karlsander@gmail.com>, 2014
 # karlsander <karlsander@gmail.com>, 2014
-# Moritz Pfeiffer <moritz@alp-phone.ch>, 2016
+# Moritz Pfeiffer <moritz@alp-phone.ch>, 2016,2018
 # Raphael Stolt <raphael.stolt@gmail.com>, 2016
+# Wasilis Mandratzis-Walz, 2015
 # Wasilis Mandratzis-Walz, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-20 00:27+0000\n"
-"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
+"PO-Revision-Date: 2018-02-16 14:22+0000\n"
+"Last-Translator: Moritz Pfeiffer <moritz@alp-phone.ch>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -72,6 +74,12 @@ msgid "Delete"
 msgstr "Löschen"
 
 #, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)s mal benutzt"
+msgstr[1] "%(usage_count)s mal benutzt"
+
+#, python-format
 msgid "Are you sure you want to delete this %(snippet_type_name)s?"
 msgstr ""
 "Sind Sie sicher, dass Sie das „%(snippet_type_name)s“ Schnipsel löschen "
@@ -87,8 +95,8 @@ msgstr "%(snippet_type_name)s erstellen"
 msgid "New"
 msgstr "Erstellen"
 
-msgid "Saving..."
-msgstr "Speichern..."
+msgid "Saving…"
+msgstr "Speichern…"
 
 msgid "Save"
 msgstr "Speichern"
@@ -99,6 +107,9 @@ msgstr "%(snippet_type_name)s - %(instance)s bearbeiten"
 
 msgid "Editing"
 msgstr "Bearbeiten"
+
+msgid "Usage"
+msgstr "Benutzung"
 
 msgid "Snippets"
 msgstr "Schnipsel"

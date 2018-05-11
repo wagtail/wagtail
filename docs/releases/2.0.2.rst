@@ -1,0 +1,16 @@
+============================================
+Wagtail 2.0.2 release notes - IN DEVELOPMENT
+============================================
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Bug fixes
+~~~~~~~~~
+
+ * Restored ability to use non-model fields with FieldPanel (Matt Westcott, LB (Ben Johnston))

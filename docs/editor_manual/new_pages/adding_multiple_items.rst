@@ -5,7 +5,7 @@ A common feature of Wagtail is the ability to add more than one of a particular 
 
 .. image:: ../../_static/images/screen24_multiple_items_closed.png
 
-* Whenever you see the white cross in the green circle illustrated here it means you can add multiple objects or items to a page. Clicking the icon will display the fields required for that piece of content. The image below demonstrates this with a *Related link* item.
+* Whenever you see the white cross in the green circle illustrated here, it means you can add multiple objects or items to a page. Clicking the icon will display the fields required for that piece of content. The image below demonstrates this with a *Related link* item.
 
 .. image:: ../../_static/images/screen25_multiple_items_open.png
 
@@ -14,4 +14,4 @@ A common feature of Wagtail is the ability to add more than one of a particular 
 
 .. image:: ../../_static/images/screen26_reordering_multiple_items.png
 
-* You can reorder your multiple items using the up and down arrows. Doing this will affect the order in which they are display on the live page.
+* You can reorder your multiple items using the up and down arrows. Doing this will affect the order in which they are displayed on the live page.

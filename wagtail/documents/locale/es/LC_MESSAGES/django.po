@@ -6,17 +6,20 @@
 # fooflare <amos.oviedo@gmail.com>, 2014
 # fooflare <amos.oviedo@gmail.com>, 2014
 # Daniel Chimeno <daniel@chimeno.me>, 2016
+# Daniel Chimeno <daniel@chimeno.me>, 2016
 # fooflare <amos.oviedo@gmail.com>, 2014
 # Joaquín Tita <carpincho@gmail.com>, 2014
 # José Luis <alagunajs@gmail.com>, 2015-2016
+# José Luis <alagunajs@gmail.com>, 2018
+# Mauricio Baeza <python@amigos.email>, 2015
 # Mauricio Baeza <python@amigos.email>, 2015
 # José Luis <alagunajs@gmail.com>, 2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-20 00:30+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
+"PO-Revision-Date: 2018-01-26 20:13+0000\n"
 "Last-Translator: José Luis <alagunajs@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
@@ -65,7 +68,7 @@ msgstr "Buscar"
 msgid "Upload"
 msgstr "Subir"
 
-msgid "Uploading..."
+msgid "Uploading…"
 msgstr "Subiendo..."
 
 msgid "Server Error"
@@ -115,6 +118,12 @@ msgstr "Eliminar %(title)s"
 msgid "Delete document"
 msgstr "Eliminar documento"
 
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Usado %(usage_count)s vez"
+msgstr[1] "Usado %(usage_count)s veces"
+
 msgid "Are you sure you want to delete this document?"
 msgstr "¿Seguro que quieres eliminar este documento?"
 
@@ -136,6 +145,9 @@ msgstr "Tamaño de archivo"
 
 msgid "File not found"
 msgstr "Archivo no encontrado"
+
+msgid "Usage"
+msgstr "Uso"
 
 msgid "Documents"
 msgstr "Documentos"
@@ -273,6 +285,9 @@ msgstr ""
 #, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Documento '{0}' eliminado."
+
+msgid "Document"
+msgstr "Documento"
 
 #, python-format
 msgid "%(count)s document"

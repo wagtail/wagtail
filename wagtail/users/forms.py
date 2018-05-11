@@ -1,5 +1,8 @@
+import warnings
 from itertools import groupby
+from operator import itemgetter
 
+import l18n
 from django import forms
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -12,7 +15,7 @@ from django.template.loader import render_to_string
 from django.utils.html import mark_safe
 from django.utils.translation import ugettext_lazy as _
 
-from wagtail.admin.utils import get_available_admin_languages
+from wagtail.admin.utils import get_available_admin_languages, get_available_admin_time_zones
 from wagtail.admin.widgets import AdminPageChooser
 from wagtail.core import hooks
 from wagtail.core.models import (
@@ -133,10 +136,26 @@ class UserForm(UsernameForm):
                 code='password_mismatch',
             ))
 
-        if password1:
+        return password2
+
+    def validate_password(self):
+        """
+        Run the Django password validators against the new password. This must
+        be called after the user instance in self.instance is populated with
+        the new data from the form, as some validators rely on attributes on
+        the user model.
+        """
+        password1 = self.cleaned_data.get("password1")
+        password2 = self.cleaned_data.get("password2")
+        if password1 and password2 and password1 == password2:
             validate_password(password1, user=self.instance)
 
-        return password2
+    def _post_clean(self):
+        super()._post_clean()
+        try:
+            self.validate_password()
+        except forms.ValidationError as e:
+            self.add_error('password2', e)
 
     def _clean_fields(self):
         super()._clean_fields()
@@ -375,3 +394,53 @@ class PreferredLanguageForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = ("preferred_language",)
+
+
+class EmailForm(forms.ModelForm):
+    email = forms.EmailField(required=True, label=_('Email'))
+
+    class Meta:
+        model = User
+        fields = ("email", )
+
+
+class CurrentTimeZoneForm(forms.ModelForm):
+    def _get_time_zone_choices():
+        time_zones = [(tz, str(l18n.tz_fullnames.get(tz, tz)))
+                      for tz in get_available_admin_time_zones()]
+        time_zones.sort(key=itemgetter(1))
+        return BLANK_CHOICE_DASH + time_zones
+
+    current_time_zone = forms.ChoiceField(
+        required=False,
+        choices=_get_time_zone_choices
+    )
+
+    class Meta:
+        model = UserProfile
+        fields = ("current_time_zone",)
+
+
+class AvatarPreferencesForm(forms.ModelForm):
+    avatar = forms.ImageField(
+        label=_("Upload a profile picture"), required=True
+    )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._original_avatar = self.instance.avatar
+
+    def save(self, commit=True):
+        if commit and self._original_avatar and (self._original_avatar != self.cleaned_data['avatar']):
+            # Call delete() on the storage backend directly, as calling self._original_avatar.delete()
+            # will clear the now-updated field on self.instance too
+            try:
+                self._original_avatar.storage.delete(self._original_avatar.name)
+            except IOError:
+                # failure to delete the old avatar shouldn't prevent us from continuing
+                warnings.warn("Failed to delete old avatar file: %s" % self._original_avatar.name)
+        super().save(commit=commit)
+
+    class Meta:
+        model = UserProfile
+        fields = ["avatar"]

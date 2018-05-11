@@ -25,7 +25,7 @@
                     var insertionPoint, lastSelection;
 
                     lastSelection = widget.options.editable.getSelection();
-                    insertionPoint = $(lastSelection.endContainer).parentsUntil('.richtext').last();
+                    insertionPoint = $(lastSelection.endContainer).parentsUntil('[data-hallo-editor]').last();
 
                     return ModalWorkflow({
                         url: window.chooserUrls.embedsChooser,

@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Dan Braghis, 2014-2017
+# Dan Braghis, 2014-2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-23 20:13+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
+"PO-Revision-Date: 2018-01-26 23:43+0000\n"
+"Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -20,8 +20,9 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
 "2:1));\n"
 
-msgid "{} submissions"
-msgstr "{} depuneri"
+#, python-format
+msgid "%s submissions"
+msgstr "%s depuneri"
 
 msgid "Date from"
 msgstr "Data din"
@@ -57,6 +58,9 @@ msgstr "Casete"
 msgid "Drop down"
 msgstr "Listă derulantă"
 
+msgid "Multiple select"
+msgstr "Selecțtie multiplă"
+
 msgid "Radio buttons"
 msgstr "Butoane radio"
 
@@ -65,6 +69,9 @@ msgstr "Dată"
 
 msgid "Date/time"
 msgstr "Dată/Timp"
+
+msgid "Hidden field"
+msgstr "Câmp ascuns"
 
 msgid "submit time"
 msgstr "timput trimiterii"

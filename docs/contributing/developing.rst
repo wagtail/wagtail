@@ -153,6 +153,11 @@ Safari         macOS          Last 2
 
 We aim for Wagtail to work in those environments. Our development standards ensure that the site is usable on other browsers **and will work on future browsers**. To test on IE, install virtual machines `made available by Microsoft <https://developer.microsoft.com/en-us/microsoft-edge/tools/vms/>`_.
 
+IE 11 is gradually falling out of use, and specific features are unsupported in this browser:
+
+* Rich text copy-paste in the rich text editor.
+* Sticky toolbar in the rich text editor.
+
 Unsupported browsers / devices include:
 
 =============  =============  =============

@@ -1,0 +1,58 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Nguyễn Hồng Quân <ng.hong.quan@gmail.com>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
+"PO-Revision-Date: 2018-01-26 16:07+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Vietnamese (http://www.transifex.com/torchbox/wagtail/"
+"language/vi/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: vi\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Parent page"
+msgstr "Trang cha"
+
+#, python-format
+msgid "Add %s"
+msgstr "Thêm %s"
+
+#, python-format
+msgid "Add a new %s"
+msgstr "Thêm một %s mới"
+
+msgid "Inspect"
+msgstr "Kiểm tra"
+
+#, python-format
+msgid "Inspect this %s"
+msgstr "Kiểm tra %s này"
+
+msgid "Edit"
+msgstr "Biên tập"
+
+#, python-format
+msgid "Edit this %s"
+msgstr "Biên tập %s này"
+
+msgid "Unpublish"
+msgstr "Thu hồi xuất bản"
+
+#, python-format
+msgid "Unpublish this %s"
+msgstr "Thu hồi xụất bản %s này"
+
+msgid "Choose a parent page"
+msgstr "Chọn một trang cha"
+
+msgid "Save"
+msgstr "Lưu"

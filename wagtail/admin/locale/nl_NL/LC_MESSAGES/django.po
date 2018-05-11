@@ -4,14 +4,14 @@
 #
 # Translators:
 # Franklin Kingma <franklin@statix.net>, 2015
-# Maarten Kling <kling.maarten@gmail.com>, 2015,2017
+# Maarten Kling <kling.maarten@gmail.com>, 2015,2017-2018
 # Thijs Kramer <thijskramer@gmail.com>, 2015-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-10-14 07:00+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
+"PO-Revision-Date: 2018-02-17 18:01+0000\n"
 "Last-Translator: Maarten Kling <kling.maarten@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
@@ -253,13 +253,16 @@ msgstr "Reset uw wachtwoord"
 msgid "Edit"
 msgstr "Wijzig"
 
+msgid "Delete"
+msgstr "Verwijder"
+
 msgid "Page"
 msgstr "Pagina"
 
 msgid "Pages"
 msgstr "Pagina's"
 
-msgid "Loading..."
+msgid "Loading…"
 msgstr "Laden..."
 
 msgid "No results"
@@ -277,6 +280,24 @@ msgstr "Zie alles"
 msgid "Close explorer"
 msgstr "Sluit verkenner"
 
+msgid "Alt text"
+msgstr "Alt tekst"
+
+msgid "Write here…"
+msgstr "Schrijf hier..."
+
+msgid "Horizontal line"
+msgstr "Horizontale lijn"
+
+msgid "Line break"
+msgstr "Regel onderbreking"
+
+msgid "Undo"
+msgstr "Ongedaan maken"
+
+msgid "Redo"
+msgstr "Opnieuw doen"
+
 msgid "Dashboard"
 msgstr "Dashboard"
 
@@ -291,9 +312,6 @@ msgstr "Verplaats naar boven"
 
 msgid "Move down"
 msgstr "Verplaats naar beneden"
-
-msgid "Delete"
-msgstr "Verwijder"
 
 msgid "Explorer"
 msgstr "Verkenner"
@@ -405,8 +423,8 @@ msgstr ""
 "\"%(add_collection_url)s\">voegt u er niet een toe</a>?"
 
 #, python-format
-msgid "Add %(heading)s"
-msgstr "Voeg %(heading)s toe"
+msgid "Add %(label)s"
+msgstr "Voeg %(label)s toe"
 
 msgid "Yes, delete"
 msgstr "Ja, verwijderen"
@@ -501,7 +519,7 @@ msgstr "Inloggen in Wagtail"
 msgid "Forgotten it?"
 msgstr "Vergeten?"
 
-msgid "Signing in..."
+msgid "Signing in…"
 msgstr "Bezig met inloggen..."
 
 #, python-format
@@ -698,13 +716,13 @@ msgstr "Pagina van type '%(page_type)s' toevoegen"
 msgid "New"
 msgstr "Nieuw"
 
-msgid "Saving..."
-msgstr "Bezig met opslaan..."
+msgid "Saving…"
+msgstr "Bezig met opslaan…"
 
 msgid "Save draft"
 msgstr "Bewaar concept"
 
-msgid "Publishing..."
+msgid "Publishing…"
 msgstr "Bezig met publiceren..."
 
 msgid "Publish"
@@ -959,6 +977,22 @@ msgid "There are no differences between these two revisions"
 msgstr "Er zijn geen verschillen tussen deze twee revisies"
 
 #, python-format
+msgid "Unschedule Revision %(revision.id)s for %(title)s"
+msgstr "Stop geplande publicatie versie %(revision.id)s voor %(title)s"
+
+msgid "Unschedule"
+msgstr "Stop publicatie planning"
+
+msgid "Are you sure you want to unschedule this revision?"
+msgstr "Weet u zeker dat u deze versie niet meer wilt inplannen?"
+
+msgid "Yes, unschedule"
+msgstr "Ja, stop met planning"
+
+msgid "No, don't unschedule"
+msgstr "Nee, niet stoppen met plannen"
+
+#, python-format
 msgid "Revisions of %(title)s"
 msgstr "Versies van %(title)s"
 
@@ -978,11 +1012,17 @@ msgstr "Huidig concept"
 msgid "Live version"
 msgstr "Live versie"
 
+msgid "Scheduled for"
+msgstr "Gepland voor"
+
 msgid "Review this revision"
 msgstr "Herzie deze versie"
 
 msgid "Compare with previous revision"
 msgstr "Vergelijk met vorige revisie"
+
+msgid "Cancel scheduled publish"
+msgstr "Cancel geplande publicatie"
 
 msgid "No revisions of this page exist"
 msgstr "Er bestaan geen vorige versies van deze pagina"
@@ -1085,12 +1125,6 @@ msgstr "Vr"
 
 msgid "Sat"
 msgstr "Za"
-
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "%(usage_count)s keer gebruikt"
-msgstr[1] "%(usage_count)s keer gebruikt"
 
 msgid "Edit your account"
 msgstr "Wijzig uw account"
@@ -1207,6 +1241,9 @@ msgstr "Russisch"
 msgid "Swedish"
 msgstr "Zweeds"
 
+msgid "Slovak"
+msgstr "Slowaaks"
+
 msgid "Chinese (China)"
 msgstr "Chinees (China)"
 
@@ -1259,12 +1296,12 @@ msgstr "Wijzigen"
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr "De pagina '{0}' is aangemaakt en ingepland voor publicatie."
 
+msgid "View live"
+msgstr "Bekijk live"
+
 #, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "Pagina '{0}' aangemaakt en gepubliceerd."
-
-msgid "View live"
-msgstr "Bekijk live"
 
 #, python-brace-format
 msgid "Page '{0}' created and submitted for moderation."
@@ -1286,6 +1323,10 @@ msgstr "De pagina kon niet aangemaakt worden vanwege validatiefouten."
 #, python-brace-format
 msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
 msgstr "De versie van {0} van de pagina '{1}' is ingepland voor publicatie."
+
+#, python-brace-format
+msgid "Page '{0}' is live and this revision has been scheduled for publishing."
+msgstr "Pagina  '{0}' is live en de versie is gepland voor publicatie"
 
 #, python-brace-format
 msgid "Page '{0}' has been scheduled for publishing."
@@ -1384,6 +1425,14 @@ msgid "Latest"
 msgstr "Laatste"
 
 #, python-brace-format
+msgid "revision {0} of \"{1}\""
+msgstr "Versie {0} van \"{1}\""
+
+#, python-brace-format
+msgid "Revision {0} of \"{1}\" unscheduled."
+msgstr "Versie {0} of \"{1}\" gestopt met plannen"
+
+#, python-brace-format
 msgid "Edit '{title}'"
 msgstr "Wijzig '{title}'"
 
@@ -1425,6 +1474,25 @@ msgstr "Publicatie van '{title}' intrekken"
 #, python-brace-format
 msgid "View revision history for '{title}'"
 msgstr "Bekijk de versiegeschiedenis van '{title}' "
+
+#, python-brace-format
+msgid "Heading {level}"
+msgstr "Heading {level}"
+
+msgid "Bulleted list"
+msgstr "Lijst met opsommingstekens"
+
+msgid "Numbered list"
+msgstr "Genummerde lijst"
+
+msgid "Bold"
+msgstr "Bold"
+
+msgid "Italic"
+msgstr "Italic"
+
+msgid "Link"
+msgstr "Link"
 
 msgid "Choose an item"
 msgstr "Kies een item"

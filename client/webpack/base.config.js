@@ -6,9 +6,13 @@ const getEntryPath = (app, filename) => path.resolve('wagtail', app, 'static_src
 // Generates a path to the output bundle to be loaded in the browser.
 const getOutputPath = (app, filename) => path.join('wagtail', app, 'static', `wagtail${app}`, 'js', filename);
 
-const isVendorModule = (module) => {
-  const res = module.resource;
-  return res && res.indexOf('node_modules') >= 0 && res.match(/\.js$/);
+// Mapping from package name to exposed global variable.
+const exposedDependencies = {
+  'focus-trap-react': 'FocusTrapReact',
+  'react': 'React',
+  'react-dom': 'ReactDOM',
+  'react-transition-group/CSSTransitionGroup': 'CSSTransitionGroup',
+  'draft-js': 'DraftJS',
 };
 
 module.exports = function exports() {
@@ -20,6 +24,7 @@ module.exports = function exports() {
   };
 
   entry[getOutputPath('admin', 'wagtailadmin')] = getEntryPath('admin', 'wagtailadmin.entry.js');
+  entry[getOutputPath('admin', 'draftail')] = getEntryPath('admin', 'draftail.entry.js');
 
   return {
     entry: entry,
@@ -32,7 +37,7 @@ module.exports = function exports() {
       new webpack.optimize.CommonsChunkPlugin({
         name: 'vendor',
         filename: getOutputPath('admin', '[name].js'),
-        minChunks: isVendorModule,
+        minChunks: 2,
       }),
     ],
     resolve: {
@@ -47,8 +52,25 @@ module.exports = function exports() {
           loader: 'babel-loader',
           exclude: /node_modules/,
         },
-      ]
+      ].concat(Object.keys(exposedDependencies).map((name) => {
+        const globalName = exposedDependencies[name];
+
+        // Create expose-loader configs for each Wagtail dependency.
+        return {
+          test: require.resolve(name),
+          use: [
+            {
+              loader: 'expose-loader',
+              options: globalName,
+            },
+          ],
+        };
+      }))
     },
+
+    // See https://webpack.js.org/configuration/devtool/.
+    devtool: 'source-map',
+
     stats: {
       // Add chunk information (setting this to `false` allows for a less verbose output)
       chunks: false,

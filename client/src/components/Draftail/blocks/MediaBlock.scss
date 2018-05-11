@@ -1,0 +1,43 @@
+.MediaBlock {
+    display: inline-block;
+    position: relative;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+
+    &:focus {
+        outline: none;
+    }
+
+    &__icon-wrapper {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background: $draftail-editor-chrome;
+        color: $draftail-editor-chrome-text;
+        line-height: 1;
+        padding: $controls-spacing * 2 $controls-spacing * 3;
+        pointer-events: none;
+    }
+
+    &__icon {
+        $icon-size: 1.5rem;
+        width: $icon-size;
+        height: $icon-size;
+        font-size: $icon-size;
+    }
+
+    @mixin invalid-image-fallback {
+        min-width: 256px;
+        min-height: 100px;
+        background-color: $color-grey-1;
+    }
+
+    &__img {
+        @include invalid-image-fallback;
+        display: block;
+        width: 256px;
+        height: auto;
+        pointer-events: none;
+    }
+}

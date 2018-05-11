@@ -53,7 +53,14 @@ CODE FOR SETTING UP SPECIFIC UI WIDGETS, SUCH AS DELETE BUTTONS OR MENUS, DOES N
 
             // focus first suitable input found
             var timeout = setTimeout(function() {
-                $('.input input,.input textarea,.input .richtext', self.container).first().focus();
+              var $input = $('.input', self.container);
+              var $firstField = $('input, textarea, [data-hallo-editor], [data-draftail-input]', $input).first();
+
+              if ($firstField.is('[data-draftail-input]')) {
+                $firstField.get(0).draftailEditor.focus();
+              } else {
+                $firstField.trigger('focus');
+              }
             }, 250);
         };
 

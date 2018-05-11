@@ -9,14 +9,16 @@
 # fooflare <amos.oviedo@gmail.com>, 2014
 # Joaquín Tita <carpincho@gmail.com>, 2014
 # José Luis <alagunajs@gmail.com>, 2015
+# José Luis <alagunajs@gmail.com>, 2015,2018
+# Mauricio Baeza <python@amigos.email>, 2015
 # Mauricio Baeza <python@amigos.email>, 2015
 # José Luis <alagunajs@gmail.com>, 2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-20 00:30+0000\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
+"PO-Revision-Date: 2018-01-26 20:06+0000\n"
 "Last-Translator: José Luis <alagunajs@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
@@ -71,6 +73,12 @@ msgid "Delete"
 msgstr "Eliminar"
 
 #, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Usado %(usage_count)s vez"
+msgstr[1] "Usado %(usage_count)s veces"
+
+#, python-format
 msgid "Are you sure you want to delete this %(snippet_type_name)s?"
 msgstr "¿Seguro que quieres eliminar este %(snippet_type_name)s?"
 
@@ -84,7 +92,7 @@ msgstr "Nuevo %(snippet_type_name)s"
 msgid "New"
 msgstr "Nuevo"
 
-msgid "Saving..."
+msgid "Saving…"
 msgstr "Guardando..."
 
 msgid "Save"
@@ -96,6 +104,9 @@ msgstr "Editando %(snippet_type_name)s - %(instance)s"
 
 msgid "Editing"
 msgstr "Editando"
+
+msgid "Usage"
+msgstr "Uso"
 
 msgid "Snippets"
 msgstr "Fragmentos"

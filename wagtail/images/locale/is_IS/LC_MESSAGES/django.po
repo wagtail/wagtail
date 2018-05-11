@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-22 11:14+0000\n"
-"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
+"PO-Revision-Date: 2018-01-26 16:00+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -135,8 +135,11 @@ msgstr "Hlaða upp"
 msgid "Popular tags"
 msgstr "Vinsæl merki"
 
-msgid "Uploading..."
-msgstr "Hleð inn..."
+msgid "Server Error"
+msgstr "Villa á netþjóni"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Sendu þessa villu á vefstjóra með eftirfarandi upplýsingum:"
 
 #, python-format
 msgid ""
@@ -326,12 +329,6 @@ msgstr ""
 msgid "Sorry, upload failed."
 msgstr "Því miður tókst ekki að hlaða upp myndunum."
 
-msgid "Server Error"
-msgstr "Villa á netþjóni"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Sendu þessa villu á vefstjóra með eftirfarandi upplýsingum:"
-
 msgid "Image updated."
 msgstr "Mynd uppfærð"
 
@@ -382,9 +379,6 @@ msgid "%(count)s image"
 msgid_plural "%(count)s images"
 msgstr[0] "%(count)s mynd"
 msgstr[1] "%(count)s myndir"
-
-msgid "Choose another image"
-msgstr "Veldu aðra mynd"
 
 msgid "Edit this image"
 msgstr "Breyta þessari mynd"

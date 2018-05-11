@@ -159,7 +159,7 @@ The following example shows how to add a username to the CSV export:
             data_fields = [
                 ('username', 'Username'),
             ]
-            data_fields += super(FormPage, self).get_data_fields()
+            data_fields += super().get_data_fields()
 
             return data_fields
 
@@ -177,7 +177,7 @@ The following example shows how to add a username to the CSV export:
         user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
         def get_data(self):
-            form_data = super(CustomFormSubmission, self).get_data()
+            form_data = super().get_data()
             form_data.update({
                 'username': self.user.username,
             })
@@ -241,7 +241,7 @@ Example:
                     self.get_context(request)
                 )
 
-            return super(FormPage, self).serve(request, *args, **kwargs)
+            return super().serve(request, *args, **kwargs)
 
         def get_submission_class(self):
             return CustomFormSubmission
@@ -476,7 +476,7 @@ First, you need to collect results as shown below:
         ]
 
         def get_context(self, request, *args, **kwargs):
-            context = super(FormPage, self).get_context(request, *args, **kwargs)
+            context = super().get_context(request, *args, **kwargs)
 
             # If you need to show results only on landing page,
             # you may need check request.method
@@ -549,7 +549,6 @@ Next, you need to transform your template to display the results:
 
 You can also show the results on the landing page.
 
-
 Custom landing page redirect
 ----------------------------
 
@@ -564,7 +563,7 @@ Finally, we add a URL param of `id` based on the ``form_submission`` if it exist
 .. code-block:: python
 
     from django.shortcuts import redirect
-    from wagtail.wagtailadmin.edit_handlers import (
+    from wagtail.admin.edit_handlers import (
         FieldPanel, FieldRowPanel, InlinePanel, MultiFieldPanel, PageChooserPanel)
     from wagtail.contrib.forms.models import AbstractEmailForm
 
@@ -589,7 +588,7 @@ Finally, we add a URL param of `id` based on the ``form_submission`` if it exist
                   url += '?id=%s' % form_submission.id
                 return redirect(url, permanent=False)
             # if no thank_you_page is set, render default landing page
-            return super(FormPage, self).render_landing_page(request, form_submission, *args, **kwargs)
+            return super().render_landing_page(request, form_submission, *args, **kwargs)
 
         content_panels = AbstractEmailForm.content_panels + [
             FieldPanel('intro', classname='full'),
@@ -604,3 +603,166 @@ Finally, we add a URL param of `id` based on the ``form_submission`` if it exist
                 FieldPanel('subject'),
             ], 'Email'),
         ]
+
+Customise form submissions listing in Wagtail Admin
+---------------------------------------------------
+
+The Admin listing of form submissions can be customised by setting the attribute ``submissions_list_view_class`` on your FormPage model.
+
+The list view class must be a subclass of ``SubmissionsListView`` from ``wagtail.contrib.forms.views``, which is a child class of `Django's class based ListView <https://docs.djangoproject.com/en/2.0/ref/class-based-views/generic-display/#listview>`_.
+
+Example:
+
+.. code-block:: python
+
+    from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField
+    from wagtail.contrib.forms.views import SubmissionsListView
+
+
+    class CustomSubmissionsListView(SubmissionsListView):
+        paginate_by = 50  # show more submissions per page, default is 20
+        ordering = ('submit_time',)  # order submissions by oldest first, normally newest first
+        ordering_csv = ('-submit_time',)  # order csv export by newest first, normally oldest first
+
+        # override the method to generate csv filename
+        def get_csv_filename(self):
+            """ Returns the filename for CSV file with page slug at start"""
+            filename = super().get_csv_filename()
+            return self.form_page.slug + '-' + filename
+
+
+    class FormField(AbstractFormField):
+        page = ParentalKey('FormPage', related_name='form_fields')
+
+
+    class FormPage(AbstractEmailForm):
+        """Form Page with customised submissions listing view"""
+
+        # set custom view class as class attribute
+        submissions_list_view_class = CustomSubmissionsListView
+
+        intro = RichTextField(blank=True)
+        thank_you_text = RichTextField(blank=True)
+
+        # content_panels = ...
+
+Adding a custom field type
+--------------------------
+
+First, make the new field type available in the page editor by changing your ``FormField`` model.
+
+* Create a new set of choices which includes the original ``FORM_FIELD_CHOICES`` along with new field types you want to make available.
+* Each choice must contain a unique key and a human readable name of the field, e.g. ``('slug', 'URL Slug')``
+* Override the ``field_type`` field in your ``FormField`` model with ``choices`` attribute using these choices.
+* You will need to run ``./manage.py makemigrations`` and ``./manage.py migrate`` after this step.
+
+
+Then, create and use a new form builder class.
+
+* Define a new form builder class that extends the ``FormBuilder`` class.
+* Add a method that will return a created Django form field for the new field type.
+* Its name must be in the format: ``create_<field_type_key>_field``, e.g. ``create_slug_field``
+* Override the ``form_builder`` attribute in your form page model to use your new form builder class.
+
+Example:
+
+.. code-block:: python
+
+    from django import forms
+    from django.db import models
+    from modelcluster.fields import ParentalKey
+    from wagtail.contrib.forms.forms import FormBuilder
+    from wagtail.contrib.forms.models import (
+      AbstractEmailForm, AbstractFormField, FORM_FIELD_CHOICES)
+
+
+    class FormField(AbstractFormField):
+        # extend the built in field type choices
+        # our field type key will be 'ipaddress'
+        CHOICES = FORM_FIELD_CHOICES + (('ipaddress', 'IP Address'),)
+
+        page = ParentalKey('FormPage', related_name='form_fields')
+        # override the field_type field with extended choices
+        field_type = models.CharField(
+            verbose_name='field type',
+            max_length=16,
+            # use the choices tuple defined above
+            choices=CHOICES
+        )
+
+
+    class CustomFormBuilder(FormBuilder):
+        # create a function that returns an instanced Django form field
+        # function name must match create_<field_type_key>_field
+        def create_ipaddress_field(self, field, options):
+            # return `forms.GenericIPAddressField(**options)` not `forms.SlugField`
+            # returns created a form field with the options passed in
+            return forms.GenericIPAddressField(**options)
+
+
+    class FormPage(AbstractEmailForm):
+        # intro, thank_you_text, edit_handlers, etc...
+
+        # use custom form builder defined above
+        form_builder = CustomFormBuilder
+
+
+Custom ``send_mail`` method
+---------------------------
+
+If you want to change the content of the email that is sent when a form submits you can override the ``send_mail`` method.
+
+
+To do this, you need to:
+
+* Ensure you have your form model defined that extends ``wagtail.contrib.forms.models.AbstractEmailForm``.
+* In your models.py file, import the ``wagtail.admin.utils.send_mail`` function.
+* Override the ``send_mail`` method in your page model.
+
+Example:
+
+.. code-block:: python
+
+    from datetime import date
+    # ... additional wagtail imports
+    from wagtail.admin.utils import send_mail
+    from wagtail.contrib.forms.models import AbstractEmailForm
+
+
+    class FormPage(AbstractEmailForm):
+        # ... fields, content_panels, etc
+
+        def send_mail(self, form):
+            # `self` is the FormPage, `form` is the form's POST data on submit
+
+            # Email addresses are parsed from the FormPage's addresses field
+            addresses = [x.strip() for x in self.to_address.split(',')]
+
+            # Subject can be adjusted, be sure to include the form's defined subject field
+            submitted_date_str = date.today().strftime('%x')
+            subject = self.subject + " - " + submitted_date_str # add date to email subject
+
+            content = []
+
+            # Add a title (not part of original method)
+            content.append('{}: {}'.format('Form', self.title))
+
+            for field in form:
+                # add the value of each field as a new line
+                value = field.value()
+                if isinstance(value, list):
+                    value = ', '.join(value)
+                content.append('{}: {}'.format(field.label, value))
+
+            # Add a link to the form page
+            content.append('{}: {}'.format('Submitted Via', self.full_url))
+
+            # Add the date the form was submitted
+            content.append('{}: {}'.format('Submitted on', submitted_date_str))
+
+            # Content is joined with a new line to separate each text line
+            content = '\n'.join(content)
+
+            # wagtail.wagtailadmin.utils - send_mail function is called
+            # This function extends the Django default send_mail function
+            send_mail(subject, content, addresses, self.from_address)

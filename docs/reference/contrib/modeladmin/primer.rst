@@ -56,11 +56,11 @@ for them, or not.
 
 In order to deliver a consistent experience for users, ``modeladmin``
 simply redirects users to Wagtail's existing page management views wherever
-possible. You should bare this in mind if you ever find yourself wanting to
+possible. You should bear this in mind if you ever find yourself wanting to
 change what happens when pages of a certain type are added, deleted,
 published, or have some other action applied to them. Customising the
-``CreateView`` or ``EditView`` for your a page type ``Model`` (even it just
-to add an additional stylesheet or javascript), simply won't have any
+``CreateView`` or ``EditView`` for your page type ``Model`` (even if just
+to add an additional stylesheet or JavaScript), simply won't have any
 effect, as those views are not used.
 
 If you do find yourself needing to customise the add, edit or other
@@ -89,7 +89,7 @@ configure your ``ModelAdmin`` class to use them instead of the defaults.
 Changing what appears in the listing
 ------------------------------------
 
-You should familarise yourself with the attributes and methods supported by
+You should familiarise yourself with the attributes and methods supported by
 the ``ModelAdmin`` class, that allow you to change what is displayed in the
 ``IndexView``. The following page should give you everything you need to get
 going: :doc:`indexview`
@@ -98,11 +98,11 @@ going: :doc:`indexview`
 .. _modeladmin_adding_css_and_js:
 
 -----------------------------------------------
-Adding additional stylesheets and/or javascript
+Adding additional stylesheets and/or JavaScript
 -----------------------------------------------
 
 The ``ModelAdmin`` class provides several attributes to enable you to easily
-add additional stylesheets and javascript to the admin interface for your
+add additional stylesheets and JavaScript to the admin interface for your
 model. Each atttribute simply needs to be a list of paths to the files you
 want to include. If the path is for a file in your project's static directory,
 Wagtail will automatically prepended paths for each path with ``STATIC_URL``,
@@ -114,7 +114,7 @@ following attributes:
 -   ``index_view_extra_css`` -  Where each item is the path name of a
     pre-compiled stylesheet that you'd like to include.
 
--   ``index_view_extra_js`` - Where each item is the path name of a javascript
+-   ``index_view_extra_js`` - Where each item is the path name of a JavaScript
     file that you'd like to include.
 
 If you'd like to do the same for ``CreateView`` and ``EditView``, you should
@@ -123,7 +123,7 @@ set the following attributes:
 -   ``form_view_extra_css`` -  Where each item is the path name of a
     pre-compiled stylesheet that you'd like to include.
 
--   ``form_view_extra_js`` - Where each item is the path name of a javascript
+-   ``form_view_extra_js`` - Where each item is the path name of a JavaScript
     file that you'd like to include.
 
 And if you're using the ``InspectView`` for your model, and want to do the same
@@ -132,7 +132,7 @@ for that view, your should set the following attributes:
 -   ``inspect_view_extra_css`` -  Where each item is the path name of a
     pre-compiled stylesheet that you'd like to include.
 
--   ``inspect_view_extra_js`` - Where each item is the path name of a javascript
+-   ``inspect_view_extra_js`` - Where each item is the path name of a JavaScript
     file that you'd like to include.
 
 .. _modeladmin_overriding_templates:
@@ -209,7 +209,7 @@ For example, if you'd like to create your own view class and use it for the
         index_view_class = MyModelIndexView
 
 
-Or, if you have no need for any of ``IndexView``'s exisiting functionality in
+Or, if you have no need for any of ``IndexView``'s existing functionality in
 your view, and would rather create your own view from scratch, ``modeladmin``
 will support that, too. However, it's highly recommended that you use
 ``modeladmin.views.WMABaseView`` as a base for your view. It'll make
@@ -250,14 +250,14 @@ by setting values on the following attributes:
 ``ModelAdmin.url_helper_class``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-By default, the ``modeladmin.helpers.url.PageAdminURLHelper`` class is used 
+By default, the ``modeladmin.helpers.url.PageAdminURLHelper`` class is used
 when your model extends ``wagtailcore.models.Page``, otherwise
 ``modeladmin.helpers.url.AdminURLHelper`` is used.
 
 If you find that the above helper classes don't cater for your needs, you can
 easily create your own helper class, by sub-classing ``AdminURLHelper`` or
 ``PageAdminURLHelper`` (if your  model extend's Wagtail's ``Page`` model), and
-making any neccessary additions/overrides.
+making any necessary additions/overrides.
 
 Once your class is defined, set the ``url_helper_class`` attribute on
 your ``ModelAdmin`` class to use your custom URLHelper, like so:
@@ -308,7 +308,7 @@ otherwise ``modeladmin.helpers.permission.PermissionHelper`` is used.
 If you find that the above helper classes don't cater for your needs, you can
 easily create your own helper class, by sub-classing
 ``PermissionHelper`` or (if your  model extend's Wagtail's ``Page`` model)
-``PagePermissionHelper``, and making any neccessary additions/overrides. Once
+``PagePermissionHelper``, and making any necessary additions/overrides. Once
 defined, you set the ``permission_helper_class`` attribute on your
 ``ModelAdmin`` class to use your custom class instead of the default, like so:
 
@@ -350,14 +350,14 @@ isn't possible or doesn't meet your needs, you can override the
 ``ModelAdmin.button_helper_class``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-By default, the ``modeladmin.helpers.button.PageButtonHelper`` class is used 
+By default, the ``modeladmin.helpers.button.PageButtonHelper`` class is used
 when your model extends ``wagtailcore.models.Page``, otherwise
 ``modeladmin.helpers.button.ButtonHelper`` is used.
 
 If you wish to add or change buttons for your model's IndexView, you'll need to
 create  your own button helper class, by sub-classing ``ButtonHelper`` or (if
 your  model extend's Wagtail's ``Page`` model) ``PageButtonHelper``, and
-make any neccessary additions/overrides. Once defined, you set the
+make any necessary additions/overrides. Once defined, you set the
 ``button_helper_class`` attribute on your ``ModelAdmin`` class to use your
 custom class instead of the default, like so:
 

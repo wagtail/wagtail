@@ -3,7 +3,7 @@ from warnings import warn
 from django.contrib.postgres.search import SearchQuery as PostgresSearchQuery
 from django.contrib.postgres.search import SearchRank, SearchVector
 from django.db import DEFAULT_DB_ALIAS, NotSupportedError, connections, transaction
-from django.db.models import F, Manager, TextField, Value, Q
+from django.db.models import F, Manager, Q, TextField, Value
 from django.db.models.constants import LOOKUP_SEP
 from django.db.models.functions import Cast
 from django.utils.encoding import force_text
@@ -354,7 +354,6 @@ class PostgresSearchBackend(BaseSearchBackend):
         self.config = params.get('SEARCH_CONFIG')
         if params.get('ATOMIC_REBUILD', False):
             self.rebuilder_class = self.atomic_rebuilder_class
-        IndexEntry.add_generic_relations()
 
     def get_index_for_model(self, model, db_alias=None):
         return Index(self, db_alias)

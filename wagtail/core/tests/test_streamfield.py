@@ -7,13 +7,13 @@ from django.template import Context, Template, engines
 from django.test import TestCase
 from django.utils.safestring import SafeText
 
-from wagtail.tests.testapp.models import StreamModel
 from wagtail.core import blocks
 from wagtail.core.blocks import StreamValue
 from wagtail.core.fields import StreamField
 from wagtail.core.rich_text import RichText
 from wagtail.images.models import Image
 from wagtail.images.tests.utils import get_test_image_file
+from wagtail.tests.testapp.models import StreamModel
 
 
 class TestLazyStreamField(TestCase):

@@ -16,6 +16,9 @@ def pageurl(context, page):
     Outputs a page's URL as relative (/foo/bar/) if it's within the same site as the
     current page, or absolute (http://example.com/foo/bar/) if not.
     """
+    if not hasattr(page, 'relative_url'):
+        raise ValueError("pageurl tag expected a Page object, got %r" % page)
+
     try:
         current_site = context['request'].site
     except (KeyError, AttributeError):
@@ -37,16 +40,6 @@ def slugurl(context, slug):
     if page:
         # call pageurl() instead of page.relative_url() here so we get the ``accepts_kwarg`` logic
         return pageurl(context, page)
-    else:
-        return None
-
-    try:
-        current_site = context['request'].site
-    except (KeyError, AttributeError):
-        # request.site not available in the current context; fall back on page.url
-        return page.url
-
-    return page.relative_url(current_site)
 
 
 @register.simple_tag

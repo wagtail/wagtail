@@ -15,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-06 15:05+0000\n"
-"PO-Revision-Date: 2017-09-23 19:38+0000\n"
-"Last-Translator: Rustam Mirzaev <mirus@2x2.pw>\n"
+"POT-Creation-Date: 2018-02-16 11:28+0000\n"
+"PO-Revision-Date: 2018-01-26 16:00+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -143,8 +143,11 @@ msgstr "Загрузка"
 msgid "Popular tags"
 msgstr "Популярные теги"
 
-msgid "Uploading..."
-msgstr "Загрузка..."
+msgid "Server Error"
+msgstr "Ошибка Сервера"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Сообщите об этой ошибке администратору и укажите следующую информацию:"
 
 #, python-format
 msgid ""
@@ -346,12 +349,6 @@ msgstr ""
 msgid "Sorry, upload failed."
 msgstr "Извините, загрузка не удалась."
 
-msgid "Server Error"
-msgstr "Ошибка Сервера"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Сообщите об этой ошибке администратору и укажите следующую информацию:"
-
 msgid "Image updated."
 msgstr "Изображение обновлено."
 
@@ -405,9 +402,6 @@ msgstr[0] "%(count)s изображение"
 msgstr[1] "%(count)s изображения"
 msgstr[2] "%(count)s изображений"
 msgstr[3] "%(count)s изображений"
-
-msgid "Choose another image"
-msgstr "Выбрать другое изображение"
 
 msgid "Edit this image"
 msgstr "Править это изображение"

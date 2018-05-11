@@ -65,7 +65,7 @@ $(function() {
 
     setupJcrop.apply(this, params)
 
-    $(window).resize($.debounce(300, function() {
+    $(window).on('resize', $.debounce(300, function() {
         // jcrop doesn't support responsive images so to cater for resizing the browser
         // we have to destroy() it, which doesn't properly do it,
         // so destory it some more, then re-apply it
@@ -75,15 +75,15 @@ $(function() {
         setupJcrop.apply(this, params)
     }));
 
-    $('.remove-focal-point').click(function() {
+    $('.remove-focal-point').on('click', function() {
         jcropapi.destroy();
         $image.removeAttr('style');
         $('.jcrop-holder').remove();
         $('.current-focal-point-indicator').remove();
-        fields.x.removeAttr('value');
-        fields.y.removeAttr('value');
-        fields.width.removeAttr('value');
-        fields.height.removeAttr('value');
+        fields.x.val('');
+        fields.y.val('');
+        fields.width.val('');
+        fields.height.val('');
         setupJcrop.apply(this, params);
     });
 });
