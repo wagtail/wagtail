@@ -22,6 +22,7 @@ from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.admin.utils import send_notification, user_has_any_page_permission, user_passes_test
 from wagtail.core import hooks
 from wagtail.core.models import Page, PageRevision, UserPagePermissionsProxy
+from wagtail.search.query import MATCH_ALL
 from wagtail.utils.pagination import paginate
 
 
@@ -886,7 +887,7 @@ def copy(request, page_id):
 @user_passes_test(user_has_any_page_permission)
 def search(request):
     pages = []
-    q = None
+    q = MATCH_ALL
 
     if 'q' in request.GET:
         form = SearchForm(request.GET)

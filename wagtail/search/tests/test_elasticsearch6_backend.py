@@ -8,6 +8,7 @@ from django.test import TestCase
 from elasticsearch.serializer import JSONSerializer
 
 from wagtail.search.backends.elasticsearch6 import Elasticsearch6SearchBackend
+from wagtail.search.query import MATCH_ALL
 from wagtail.tests.search import models
 
 from .elasticsearch_common_tests import ElasticsearchCommonSearchBackendTests
@@ -39,7 +40,7 @@ class TestElasticsearch6SearchQuery(TestCase):
 
     def test_none_query_string(self):
         # Create a query
-        query = self.query_compiler_class(models.Book.objects.all(), None)
+        query = self.query_compiler_class(models.Book.objects.all(), MATCH_ALL)
 
         # Check it
         expected_result = {'bool': {
