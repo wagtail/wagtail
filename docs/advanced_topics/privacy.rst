@@ -13,6 +13,7 @@ Similarly, documents can be made private by placing them in a collection with ap
 
 Private pages and documents work on Wagtail out of the box - the site implementer does not need to do anything to set them up. However, the default "log in" and "password required" forms are only bare-bones HTML pages, and site implementers may wish to replace them with a page customised to their site design.
 
+.. _login_page:
 
 Setting up a login page
 ~~~~~~~~~~~~~~~~~~~~~~~
