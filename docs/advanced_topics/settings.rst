@@ -250,14 +250,19 @@ Images
 This setting lets you provide your own image model for use in Wagtail, which might extend the built-in ``AbstractImage`` class or replace it entirely.
 
 
-Maximum Upload size for Images
-------------------------------
-
 .. code-block:: python
 
     WAGTAILIMAGES_MAX_UPLOAD_SIZE = 20 * 1024 * 1024  # i.e. 20MB
 
 This setting lets you override the maximum upload size for images (in bytes). If omitted, Wagtail will fall back to using its 10MB default value.
+
+.. code-block:: python
+
+    WAGTAILIMAGES_FEATURE_DETECTION_ENABLED = True
+
+This setting enables feature detection once OpenCV is installed, see all details on the :ref:`image_feature_detection` documentation.
+
+The ``WAGTAILIMAGES_BACKENDS`` setting is no longer supported, it was introduced in 0.3.
 
 
 Password Management
@@ -337,6 +342,26 @@ This is the path to the Django template which will be used to display the "passw
   DOCUMENT_PASSWORD_REQUIRED_TEMPLATE = 'myapp/document_password_required.html'
 
 As above, but for password restrictions on documents. For more details, see the :ref:`private_pages` documentation.
+
+
+Login page
+----------
+
+The basic login page can be customised with a custom template.
+
+.. code-block:: python
+
+  WAGTAIL_FRONTEND_LOGIN_TEMPLATE = 'myapp/login.html'
+
+Or the login page can be a redirect to an external or internal URL.
+
+.. code-block:: python
+
+  WAGTAIL_FRONTEND_LOGIN_URL = '/accounts/login/'
+
+For more details, see the :ref:`login_page` documentation.
+
+
 
 Case-Insensitive Tags
 ---------------------
@@ -472,6 +497,102 @@ can only choose between front office languages:
 
     LANGUAGES = WAGTAILADMIN_PERMITTED_LANGUAGES = [('en', 'English'),
                                                     ('pt', 'Portuguese')]
+
+
+API Settings
+------------
+
+For full documenation on API configuration, including these settings, see :ref:`api_v2_configuration` documentation.
+
+.. code-block:: python
+
+    WAGTAILAPI_BASE_URL = 'http://api.example.com/'
+
+Required when using frontend cache invalidation, used to generate absolute URLs to document files and invalidating the cache.
+
+
+.. code-block:: python
+
+    WAGTAILAPI_LIMIT_MAX = 500
+
+Default is 20, used to change the maximum number of results a user can request at a time, set to ``None`` for no limit.
+
+
+.. code-block:: python
+
+    WAGTAILAPI_SEARCH_ENABLED = False
+
+Default is true, setting this to false will disable full text search on all endpoints.
+
+.. code-block:: python
+
+    WAGTAILAPI_USE_FRONTENDCACHE = True
+
+Requires ``wagtailfrontendcache`` app to be installed, inidicates the API should use the frontend cache.
+
+
+Frontend cache
+--------------
+
+For full documenation on frontend cache invalidation, including these settings, see :ref:`_frontend_cache_purging` documentation.
+
+
+.. code-block:: python
+
+    WAGTAILFRONTENDCACHE = {
+        'varnish': {
+            'BACKEND': 'wagtail.contrib.frontend_cache.backends.HTTPBackend',
+            'LOCATION': 'http://localhost:8000',
+        },
+    }
+
+See documentation linked above for full options available.
+
+.. note::
+
+    ``WAGTAILFRONTENDCACHE_LOCATION`` is no longer the preferred way to set the cache location, instead set the ``LOCATION`` within the ``WAGTAILFRONTENDCACHE`` item.
+
+
+.. code-block:: python
+
+    WAGTAILFRONTENDCACHE_LANGUAGES = [l[0] for l in settings.LANGUAGES]
+
+Default is an empty list, must be a list of languages to also purge the urls for each language of a purging url. This setting needs ``settings.USE_I18N`` to be ``True`` to work.
+
+
+
+--------------
+
+    WAGTAILFRONTENDCACHE = {
+        'varnish': {
+            'BACKEND': 'wagtail.contrib.frontend_cache.backends.HTTPBackend',
+            'LOCATION': 'http://localhost:8000',
+        },
+    }
+	WAGTAILFRONTENDCACHE_LANGUAGES = []
+
+
+Set ``WAGTAILFRONTENDCACHE_LANGUAGES`` to a list of languages (typically equal to ``[l[0] for l in settings.LANGUAGES]``) to also purge the urls for each language of a purging url. This setting needs ``settings.USE_I18N`` to be ``True`` to work. Its default is an empty list.
+
+Finally, make sure you have configured your frontend cache to accept PURGE requests:
+
+
+
+Hallo Editor (deprecated)
+-------------------------
+
+**As of Wagtail 2.0, the hallo.js editor is deprecated.** See :ref:`_extending_hallo` documentation for details.
+
+To use hallo.js on Wagtail 2.x, add the following to your settings:
+
+.. code-block:: python
+
+  WAGTAILADMIN_RICH_TEXT_EDITORS = {
+      'default': {
+          'WIDGET': 'wagtail.admin.rich_text.HalloRichTextArea'
+      }
+  }
+
 
 
 URL Patterns
