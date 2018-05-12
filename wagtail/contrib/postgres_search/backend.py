@@ -52,9 +52,9 @@ class Index:
             params.get('INDEX', 'default')
             for params in settings.WAGTAILSEARCH_BACKENDS.values()}
         self.entries.filter(
-            ~Q(index_name__in=valid_index_names)
-            | (Q(index_name=self.name, content_type_id__in=content_types_pks)
-               & ~Q(object_id__in=existing_pks))
+            ~Q(index_name__in=valid_index_names) |
+            (Q(index_name=self.name, content_type_id__in=content_types_pks) &
+             ~Q(object_id__in=existing_pks))
         ).delete()
 
     def delete_stale_entries(self):
