@@ -299,7 +299,7 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
         elif not queryset.query.order_by:
             # Adds a default ordering to avoid issue #3729.
             queryset = queryset.order_by('-pk')
-            rank_expression = 0 - F('pk')  # Workaround to negation.
+            rank_expression = F('pk')
         if score_field is not None:
             queryset = queryset.annotate(**{score_field: rank_expression})
         return queryset[start:stop]
