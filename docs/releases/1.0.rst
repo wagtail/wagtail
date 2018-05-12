@@ -198,7 +198,7 @@ should work fine without them.
 ``RoutablePage`` now uses decorator syntax for defining views
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-In previous versions of Wagtail, page types that used the :class:`~wagtail.contrib.wagtailroutablepage.models.RoutablePageMixin` had endpoints configured by setting their :attr:`~wagtail.contrib.wagtailroutablepage.models.RoutablePageMixin.subpage_urls` attribute to a list of urls with view names. This will not work on Django 1.8 as view names can no longer be passed into a url (see: https://docs.djangoproject.com/en/1.8/releases/1.8/#django-conf-urls-patterns).
+In previous versions of Wagtail, page types that used the :class:`~wagtail.contrib.wagtailroutablepage.models.RoutablePageMixin` had endpoints configured by setting their :attr:`~wagtail.contrib.wagtailroutablepage.models.RoutablePageMixin.subpage_urls` attribute to a list of urls with view names. This will not work on Django 1.8 as view names can no longer be passed into a url (see: https://docs.djangoproject.com/en/stable/releases/1.8/#django-conf-urls-patterns).
 
 Wagtail 1.0 introduces a new syntax where each view function is annotated with a ``@route`` decorator - see :ref:`routable_page_mixin`.
 

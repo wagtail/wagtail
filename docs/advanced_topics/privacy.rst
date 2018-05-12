@@ -23,7 +23,7 @@ The basic login page can be customised by setting ``WAGTAIL_FRONTEND_LOGIN_TEMPL
 
   WAGTAIL_FRONTEND_LOGIN_TEMPLATE = 'myapp/login.html'
 
-Wagtail uses Django's standard ``django.contrib.auth.views.login`` view here, and so the context variables available on the template are as detailed in `Django's login view documentation <https://docs.djangoproject.com/en/1.10/topics/auth/default/#django.contrib.auth.views.login>`_.
+Wagtail uses Django's standard ``django.contrib.auth.views.login`` view here, and so the context variables available on the template are as detailed in `Django's login view documentation <https://docs.djangoproject.com/en/stable/topics/auth/default/#django.contrib.auth.views.login>`_.
 
 If the stock Django login view is not suitable - for example, you wish to use an external authentication system, or you are integrating Wagtail into an existing Django site that already has a working login view - you can specify the URL of the login view via the ``WAGTAIL_FRONTEND_LOGIN_URL`` setting:
 

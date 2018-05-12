@@ -4,7 +4,7 @@ Internationalisation
 
 This document describes the internationalisation features of Wagtail and how to create multi-lingual sites.
 
-Wagtail uses Django's `Internationalisation framework <https://docs.djangoproject.com/en/1.8/topics/i18n/>`_ so most of the steps are the same as other Django projects.
+Wagtail uses Django's `Internationalisation framework <https://docs.djangoproject.com/en/stable/topics/i18n/>`_ so most of the steps are the same as other Django projects.
 
 
 .. contents::
@@ -34,8 +34,8 @@ Changing the primary language of your Wagtail installation
 
 The default language of Wagtail is ``en-us`` (American English). You can change this by tweaking a couple of Django settings:
 
- - Make sure `USE_I18N <https://docs.djangoproject.com/en/1.8/ref/settings/#use-i18n>`_ is set to ``True``
- - Set `LANGUAGE_CODE <https://docs.djangoproject.com/en/1.8/ref/settings/#std:setting-LANGUAGE_CODE>`_ to your websites' primary language
+ - Make sure `USE_I18N <https://docs.djangoproject.com/en/stable/ref/settings/#use-i18n>`_ is set to ``True``
+ - Set `LANGUAGE_CODE <https://docs.djangoproject.com/en/stable/ref/settings/#std:setting-LANGUAGE_CODE>`_ to your websites' primary language
 
 If there is a translation available for your language, the Wagtail admin backend should now be in the language you've chosen.
 
@@ -43,7 +43,7 @@ If there is a translation available for your language, the Wagtail admin backend
 Creating sites with multiple languages
 ======================================
 
-You can create sites with multiple language support by leveraging Django's `translation features <https://docs.djangoproject.com/en/1.8/topics/i18n/translation/>`_.
+You can create sites with multiple language support by leveraging Django's `translation features <https://docs.djangoproject.com/en/stable/topics/i18n/translation/>`_.
 
 This section of the documentation will show you how to use Django's translation features with Wagtail and also describe a couple of methods for storing/retrieving translated content using Wagtail pages.
 
@@ -51,7 +51,7 @@ This section of the documentation will show you how to use Django's translation 
 Enabling multiple language support
 ----------------------------------
 
-Firstly, make sure the `USE_I18N <https://docs.djangoproject.com/en/1.8/ref/settings/#use-i18n>`_ Django setting is set to ``True``.
+Firstly, make sure the `USE_I18N <https://docs.djangoproject.com/en/stable/ref/settings/#use-i18n>`_ Django setting is set to ``True``.
 
 To enable multi-language support, add ``django.middleware.locale.LocaleMiddleware`` to your ``MIDDLEWARE``:
 
@@ -63,7 +63,7 @@ To enable multi-language support, add ``django.middleware.locale.LocaleMiddlewar
         'django.middleware.locale.LocaleMiddleware',
     )
 
-This middleware class looks at the user's browser language and sets the `language of the site accordingly <https://docs.djangoproject.com/en/1.8/topics/i18n/translation/#how-django-discovers-language-preference>`_.
+This middleware class looks at the user's browser language and sets the `language of the site accordingly <https://docs.djangoproject.com/en/stable/topics/i18n/translation/#how-django-discovers-language-preference>`_.
 
 
 Serving different languages from different URLs
@@ -118,7 +118,7 @@ Static text in templates needs to be marked up in a way that allows Django's ``m
 
 As Wagtail uses Django's templates, inserting this markup and the workflow for exporting and translating the strings is the same as any other Django project.
 
-See: https://docs.djangoproject.com/en/1.8/topics/i18n/translation/#internationalization-in-template-code
+See: https://docs.djangoproject.com/en/stable/topics/i18n/translation/#internationalization-in-template-code
 
 
 Translating content
