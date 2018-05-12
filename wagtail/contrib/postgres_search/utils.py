@@ -98,11 +98,11 @@ def set_weights():
     BOOSTS_WEIGHTS.extend(determine_boosts_weights())
     weights = [w for w, c in BOOSTS_WEIGHTS]
     min_weight = min(weights)
-    max_weight = max(weights)
     if min_weight <= 0:
         if min_weight == 0:
             min_weight = -0.1
         weights = [w - min_weight for w in weights]
+    max_weight = max(weights)
     WEIGHTS_VALUES.extend([w / max_weight
                            for w in reversed(weights)])
 
