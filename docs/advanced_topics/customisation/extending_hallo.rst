@@ -1,3 +1,4 @@
+.. _extending_hallo:
 Extending the Hallo Editor
 ==========================
 
