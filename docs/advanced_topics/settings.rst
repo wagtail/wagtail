@@ -534,7 +534,7 @@ Requires ``wagtailfrontendcache`` app to be installed, inidicates the API should
 Frontend cache
 --------------
 
-For full documenation on frontend cache invalidation, including these settings, see :ref:`_frontend_cache_purging` documentation.
+For full documenation on frontend cache invalidation, including these settings, see :ref:`frontend_cache_purging`.
 
 
 .. code-block:: python
@@ -561,27 +561,10 @@ Default is an empty list, must be a list of languages to also purge the urls for
 
 
 
---------------
-
-    WAGTAILFRONTENDCACHE = {
-        'varnish': {
-            'BACKEND': 'wagtail.contrib.frontend_cache.backends.HTTPBackend',
-            'LOCATION': 'http://localhost:8000',
-        },
-    }
-	WAGTAILFRONTENDCACHE_LANGUAGES = []
-
-
-Set ``WAGTAILFRONTENDCACHE_LANGUAGES`` to a list of languages (typically equal to ``[l[0] for l in settings.LANGUAGES]``) to also purge the urls for each language of a purging url. This setting needs ``settings.USE_I18N`` to be ``True`` to work. Its default is an empty list.
-
-Finally, make sure you have configured your frontend cache to accept PURGE requests:
-
-
-
 Hallo Editor (deprecated)
 -------------------------
 
-**As of Wagtail 2.0, the hallo.js editor is deprecated.** See :ref:`_extending_hallo` documentation for details.
+**As of Wagtail 2.0, the hallo.js editor is deprecated.** See :ref:`extending_hallo`.
 
 To use hallo.js on Wagtail 2.x, add the following to your settings:
 
