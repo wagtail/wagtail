@@ -102,7 +102,7 @@ Finally, your project needs to be set up to serve user-uploaded files from ``MED
         # ... the rest of your URLconf goes here ...
     ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-Note that this only works in development mode (``DEBUG = True``); in production, you will need to configure your web server to serve files from ``MEDIA_ROOT``. For further details, see the Django documentation: `Serving files uploaded by a user during development <https://docs.djangoproject.com/en/1.9/howto/static-files/#serving-files-uploaded-by-a-user-during-development>`_ and `Deploying static files <https://docs.djangoproject.com/en/1.9/howto/static-files/deployment/>`_.
+Note that this only works in development mode (``DEBUG = True``); in production, you will need to configure your web server to serve files from ``MEDIA_ROOT``. For further details, see the Django documentation: `Serving files uploaded by a user during development <https://docs.djangoproject.com/en/stable/howto/static-files/#serving-files-uploaded-by-a-user-during-development>`_ and `Deploying static files <https://docs.djangoproject.com/en/stable/howto/static-files/deployment/>`_.
 
 With this configuration in place, you are ready to run ``./manage.py migrate`` to create the database tables used by Wagtail.
 

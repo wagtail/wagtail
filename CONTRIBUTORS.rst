@@ -299,6 +299,7 @@ Contributors
 * David Moore
 * Pierre Geier
 * Jérôme Lebleu
+* Victor Miti
 
 Translators
 ===========

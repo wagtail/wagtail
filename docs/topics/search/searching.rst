@@ -12,7 +12,7 @@ Searching
 Searching QuerySets
 ===================
 
-Wagtail search is built on Django's `QuerySet API <https://docs.djangoproject.com/en/1.8/ref/models/querysets/>`_. You should be able to search any Django QuerySet provided the model and the fields being filtered on have been added to the search index.
+Wagtail search is built on Django's `QuerySet API <https://docs.djangoproject.com/en/stable/ref/models/querysets/>`_. You should be able to search any Django QuerySet provided the model and the fields being filtered on have been added to the search index.
 
 
 Searching Pages

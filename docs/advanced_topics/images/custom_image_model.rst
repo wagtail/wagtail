@@ -66,7 +66,7 @@ Then set the ``WAGTAILIMAGES_IMAGE_MODEL`` setting to point to it:
     When changing an existing site to use a custom image model, no images will
     be copied to the new model automatically. Copying old images to the new
     model would need to be done manually with a
-    `data migration <https://docs.djangoproject.com/en/1.8/topics/migrations/#data-migrations>`_.
+    `data migration <https://docs.djangoproject.com/en/stable/topics/migrations/#data-migrations>`_.
 
     Any templates that reference the builtin image model will still continue to
     work as before but would need to be updated in order to see any new images.

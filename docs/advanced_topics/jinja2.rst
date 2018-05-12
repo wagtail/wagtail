@@ -30,7 +30,7 @@ Django needs to be configured to support Jinja2 templates. As the Wagtail admin 
 
 Jinja templates must be placed in a ``jinja2/`` directory in your app. The template for an ``EventPage`` model in an ``events`` app should be created at ``events/jinja2/events/event_page.html``.
 
-By default, the Jinja environment does not have any Django functions or filters. The Django documentation has more information on `configuring Jinja for Django <https://docs.djangoproject.com/en/1.8/topics/templates/#django.template.backends.jinja2.Jinja2>`_.
+By default, the Jinja environment does not have any Django functions or filters. The Django documentation has more information on `configuring Jinja for Django <https://docs.djangoproject.com/en/stable/topics/templates/#django.template.backends.jinja2.Jinja2>`_.
 
 ``self`` in templates
 =====================
