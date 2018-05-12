@@ -16,6 +16,9 @@ def pageurl(context, page):
     Outputs a page's URL as relative (/foo/bar/) if it's within the same site as the
     current page, or absolute (http://example.com/foo/bar/) if not.
     """
+    if not hasattr(page, 'relative_url'):
+        raise ValueError("pageurl tag expected a Page object, got %r" % page)
+
     try:
         current_site = context['request'].site
     except (KeyError, AttributeError):

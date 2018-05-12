@@ -7,7 +7,7 @@ from django.forms.formsets import DELETION_FIELD_NAME, ORDERING_FIELD_NAME
 from django.forms.models import fields_for_model
 from django.template.loader import render_to_string
 from django.utils.encoding import force_text
-from django.utils.functional import curry
+from django.utils.functional import cached_property, curry
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy
 from taggit.managers import TaggableManager
@@ -143,7 +143,7 @@ class EditHandler:
     def on_model_bound(self):
         pass
 
-    def bind_to_instance(self, instance=None, form=None):
+    def bind_to_instance(self, instance=None, form=None, request=None):
         new = self.bind_to_model(self.model)
 
         if not instance:
@@ -153,6 +153,10 @@ class EditHandler:
         if not form:
             raise ValueError("EditHandler did not receive a form object")
         new.form = form
+
+        if request is None:
+            raise ValueError("EditHandler did not receive a request object")
+        new.request = request
 
         new.on_instance_bound()
 
@@ -295,7 +299,8 @@ class BaseCompositeEditHandler(EditHandler):
                     if child.field_name not in self.form._meta.fields:
                         continue
             children.append(child.bind_to_instance(instance=self.instance,
-                                                   form=self.form))
+                                                   form=self.form,
+                                                   request=self.request))
         self.children = children
 
     def render(self):
@@ -503,11 +508,20 @@ class FieldPanel(EditHandler):
         comparator_class = self.get_comparison_class()
 
         if comparator_class:
-            return [curry(comparator_class, self.db_field)]
+            try:
+                return [curry(comparator_class, self.db_field)]
+            except FieldDoesNotExist:
+                return []
         return []
 
-    def on_model_bound(self):
-        self.db_field = self.model._meta.get_field(self.field_name)
+    @cached_property
+    def db_field(self):
+        try:
+            model = self.model
+        except AttributeError:
+            raise ImproperlyConfigured("%r must be bound to a model before calling db_field" % self)
+
+        return model._meta.get_field(self.field_name)
 
     def on_instance_bound(self):
         self.bound_field = self.form[self.field_name]
@@ -699,7 +713,8 @@ class InlinePanel(EditHandler):
             child_edit_handler = self.get_child_edit_handler()
             self.children.append(
                 child_edit_handler.bind_to_instance(instance=subform.instance,
-                                                    form=subform))
+                                                    form=subform,
+                                                    request=self.request))
 
         # if this formset is valid, it may have been re-ordered; respect that
         # in case the parent form errored and we need to re-render
@@ -714,7 +729,7 @@ class InlinePanel(EditHandler):
 
         self.empty_child = self.get_child_edit_handler()
         self.empty_child = self.empty_child.bind_to_instance(
-            instance=empty_form.instance, form=empty_form)
+            instance=empty_form.instance, form=empty_form, request=self.request)
 
     template = "wagtailadmin/edit_handlers/inline_panel.html"
 

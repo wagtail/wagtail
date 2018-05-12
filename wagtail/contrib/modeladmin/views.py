@@ -138,7 +138,7 @@ class ModelFormView(WMABaseView, FormView):
         edit_handler = self.get_edit_handler()
         form = self.get_form()
         edit_handler = edit_handler.bind_to_instance(
-            instance=instance, form=form)
+            instance=instance, form=form, request=self.request)
         context = {
             'is_multipart': form.is_multipart(),
             'edit_handler': edit_handler,
@@ -170,7 +170,9 @@ class ModelFormView(WMABaseView, FormView):
         return redirect(self.get_success_url())
 
     def form_invalid(self, form):
-        messages.error(self.request, self.get_error_message())
+        messages.validation_error(
+            self.request, self.get_error_message(), form
+        )
         return self.render_to_response(self.get_context_data())
 
 

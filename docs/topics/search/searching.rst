@@ -89,7 +89,7 @@ Specifying the fields to search
 
 By default, Wagtail will search all fields that have been indexed using ``index.SearchField``.
 
-This can be limited to a certian set of fields by using the ``fields`` keyword argument:
+This can be limited to a certain set of fields by using the ``fields`` keyword argument:
 
 .. code-block:: python
 
@@ -109,7 +109,7 @@ The search operator specifies how search should behave when the user has typed i
  - "or" - The results must match at least one term (default for Elasticsearch)
  - "and" - The results must match all terms (default for database search)
 
-Both operators have benefits and drawbacks. The "or" operator will return many more results but will likely contain a lot of results that aren't relevent. The "and" operator only returns results that contain all search terms, but require the user to be more precise with their query.
+Both operators have benefits and drawbacks. The "or" operator will return many more results but will likely contain a lot of results that aren't relevant. The "and" operator only returns results that contain all search terms, but require the user to be more precise with their query.
 
 We recommend using the "or" operator when ordering by relevance and the "and" operator when ordering by anything else (note: the database backend doesn't currently support ordering by relevance).
 

@@ -7,6 +7,7 @@ import Button from './components/Button/Button';
 import Icon from './components/Icon/Icon';
 import PublicationStatus from './components/PublicationStatus/PublicationStatus';
 import LoadingSpinner from './components/LoadingSpinner/LoadingSpinner';
+import Portal from './components/Portal/Portal';
 import Transition from './components/Transition/Transition';
 import Explorer, {
   ExplorerToggle,
@@ -18,6 +19,7 @@ export {
   Icon,
   PublicationStatus,
   LoadingSpinner,
+  Portal,
   Transition,
   Explorer,
   ExplorerToggle,

@@ -39,7 +39,7 @@ from wagtail.search import index
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
 
-from .forms import ValidatedPageForm
+from .forms import FormClassAdditionalFieldPageForm, ValidatedPageForm
 from .views import CustomSubmissionsListView
 
 EVENT_AUDIENCE_CHOICES = (
@@ -312,6 +312,22 @@ class HeadCountRelatedModelUsingPK(models.Model):
     )
     head_count = models.IntegerField()
     panels = [FieldPanel('head_count')]
+
+
+# Override the standard WagtailAdminPageForm to add field that is not in model
+# so that we can test additional potential issues like comparing versions
+class FormClassAdditionalFieldPage(Page):
+    location = models.CharField(max_length=255)
+    body = RichTextField(blank=True)
+
+    content_panels = [
+        FieldPanel('title', classname="full title"),
+        FieldPanel('location'),
+        FieldPanel('body'),
+        FieldPanel('code'),  # not in model, see set base_form_class
+    ]
+
+    base_form_class = FormClassAdditionalFieldPageForm
 
 
 # Just to be able to test multi table inheritance

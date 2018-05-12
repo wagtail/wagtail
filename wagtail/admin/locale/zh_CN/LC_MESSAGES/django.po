@@ -10,15 +10,15 @@
 # listeng, 2016
 # Vincent Zhao <zhaopu2008@gmail.com>, 2017-2018
 # jszsj <zhushajun@gmail.com>, 2017
-# 汇民 王 <whuim@qq.com>, 2017
+# 汇民 王 <whuim@qq.com>, 2017-2018
 # 飘 赵 <275980464@qq.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-02-16 11:33+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-04-11 08:21+0000\n"
+"Last-Translator: 汇民 王 <whuim@qq.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -714,7 +714,7 @@ msgstr "上一次编辑： %(last_mod)s"
 
 #, python-format
 msgid "by %(modified_by)s"
-msgstr "按%(modified_by)s"
+msgstr "由%(modified_by)s"
 
 msgid "Revisions"
 msgstr "修订"
@@ -918,6 +918,22 @@ msgid "There are no differences between these two revisions"
 msgstr "这两个修订版本内容一致。"
 
 #, python-format
+msgid "Unschedule Revision %(revision.id)s for %(title)s"
+msgstr "取消%(title)s修订版本%(revision.id)s的预定发布"
+
+msgid "Unschedule"
+msgstr "取消预定发布"
+
+msgid "Are you sure you want to unschedule this revision?"
+msgstr "确定要取消这个修订版本的预定发布吗？"
+
+msgid "Yes, unschedule"
+msgstr "是的，取消定时发布"
+
+msgid "No, don't unschedule"
+msgstr "否，不取消预定发布"
+
+#, python-format
 msgid "Revisions of %(title)s"
 msgstr "%(title)s 的修订"
 
@@ -937,11 +953,17 @@ msgstr "当前草稿"
 msgid "Live version"
 msgstr "发布版本"
 
+msgid "Scheduled for"
+msgstr "定时发布"
+
 msgid "Review this revision"
 msgstr "查看这个修订"
 
 msgid "Compare with previous revision"
 msgstr "与上一个修订版本进行比较"
+
+msgid "Cancel scheduled publish"
+msgstr "取消预定的发布"
 
 msgid "No revisions of this page exist"
 msgstr "当前页面没有修订记录"
@@ -1156,6 +1178,9 @@ msgstr "俄语"
 msgid "Swedish"
 msgstr "瑞典语"
 
+msgid "Slovak"
+msgstr "斯洛伐克语"
+
 msgid "Chinese (China)"
 msgstr "中文 (中国)"
 
@@ -1237,8 +1262,12 @@ msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
 msgstr "页面 {1} 的版本 {0} 正在计划发布中。"
 
 #, python-brace-format
+msgid "Page '{0}' is live and this revision has been scheduled for publishing."
+msgstr "页面 {0} 正在使用，这个修订版本已预定发布时间。"
+
+#, python-brace-format
 msgid "Page '{0}' has been scheduled for publishing."
-msgstr "页面 {0} 正在计划发布中。"
+msgstr "页面 {0} 已预定发布时间。"
 
 #, python-brace-format
 msgid "Revision from {0} of page '{1}' has been published."
@@ -1331,6 +1360,14 @@ msgstr "最早的"
 
 msgid "Latest"
 msgstr "最近的"
+
+#, python-brace-format
+msgid "revision {0} of \"{1}\""
+msgstr " \"{1}\"的修订版本{0}"
+
+#, python-brace-format
+msgid "Revision {0} of \"{1}\" unscheduled."
+msgstr " \"{1}\"的修订版本{0}已取消预定的发布。"
 
 #, python-brace-format
 msgid "Edit '{title}'"

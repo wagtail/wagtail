@@ -1,10 +1,10 @@
 from django.contrib.admin.utils import quote
 from django.contrib.auth import get_user_model
-from django.contrib.auth.models import Permission
+from django.contrib.auth.models import AnonymousUser, Permission
 from django.core.exceptions import ValidationError
 from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import SimpleUploadedFile
-from django.test import TestCase
+from django.test import RequestFactory, TestCase
 from django.test.utils import override_settings
 from django.urls import reverse
 from taggit.models import Tag
@@ -182,7 +182,9 @@ class TestSnippetCreateView(TestCase, WagtailTestUtils):
     def test_create_invalid(self):
         response = self.post(post_data={'foo': 'bar'})
         self.assertContains(response, "The snippet could not be created due to errors.")
-        self.assertContains(response, "This field is required.")
+        self.assertContains(response, """<p class="error-message"><span>This field is required.</span></p>""",
+                            count=1, html=True)
+        self.assertContains(response, "This field is required", count=1)
 
     def test_create(self):
         response = self.post(post_data={'text': 'test_advert',
@@ -264,7 +266,9 @@ class TestSnippetEditView(BaseTestSnippetEditView):
     def test_edit_invalid(self):
         response = self.post(post_data={'foo': 'bar'})
         self.assertContains(response, "The snippet could not be saved due to errors.")
-        self.assertContains(response, "This field is required.")
+        self.assertContains(response, """<p class="error-message"><span>This field is required.</span></p>""",
+                            count=1, html=True)
+        self.assertContains(response, "This field is required", count=1)
 
     def test_edit(self):
         response = self.post(post_data={'text': 'edited_test_advert',
@@ -365,6 +369,10 @@ class TestSnippetChooserPanel(TestCase, WagtailTestUtils):
     fixtures = ['test.json']
 
     def setUp(self):
+        self.request = RequestFactory().get('/')
+        user = AnonymousUser()  # technically, Anonymous users cannot access the admin
+        self.request.user = user
+
         model = SnippetChooserModel
         self.advert_text = 'Test advert text'
         test_snippet = model.objects.create(
@@ -374,7 +382,8 @@ class TestSnippetChooserPanel(TestCase, WagtailTestUtils):
         self.form_class = self.edit_handler.get_form_class()
         form = self.form_class(instance=test_snippet)
         edit_handler = self.edit_handler.bind_to_instance(instance=test_snippet,
-                                                          form=form)
+                                                          form=form,
+                                                          request=self.request)
 
         self.snippet_chooser_panel = [
             panel for panel in edit_handler.children
@@ -393,7 +402,8 @@ class TestSnippetChooserPanel(TestCase, WagtailTestUtils):
         test_snippet = SnippetChooserModel()
         form = self.form_class(instance=test_snippet)
         edit_handler = self.edit_handler.bind_to_instance(instance=test_snippet,
-                                                          form=form)
+                                                          form=form,
+                                                          request=self.request)
 
         snippet_chooser_panel = [
             panel for panel in edit_handler.children
@@ -933,6 +943,10 @@ class TestSnippetChooserPanelWithCustomPrimaryKey(TestCase, WagtailTestUtils):
     fixtures = ['test.json']
 
     def setUp(self):
+        self.request = RequestFactory().get('/')
+        user = AnonymousUser()  # technically, Anonymous users cannot access the admin
+        self.request.user = user
+
         model = SnippetChooserModelWithCustomPrimaryKey
         self.advert_text = 'Test advert text'
         test_snippet = model.objects.create(
@@ -945,7 +959,9 @@ class TestSnippetChooserPanelWithCustomPrimaryKey(TestCase, WagtailTestUtils):
         self.edit_handler = get_snippet_edit_handler(model)
         self.form_class = self.edit_handler.get_form_class()
         form = self.form_class(instance=test_snippet)
-        edit_handler = self.edit_handler.bind_to_instance(instance=test_snippet, form=form)
+        edit_handler = self.edit_handler.bind_to_instance(instance=test_snippet,
+                                                          form=form,
+                                                          request=self.request)
 
         self.snippet_chooser_panel = [
             panel for panel in edit_handler.children
@@ -963,7 +979,9 @@ class TestSnippetChooserPanelWithCustomPrimaryKey(TestCase, WagtailTestUtils):
     def test_render_as_empty_field(self):
         test_snippet = SnippetChooserModelWithCustomPrimaryKey()
         form = self.form_class(instance=test_snippet)
-        edit_handler = self.edit_handler.bind_to_instance(instance=test_snippet, form=form)
+        edit_handler = self.edit_handler.bind_to_instance(instance=test_snippet,
+                                                          form=form,
+                                                          request=self.request)
 
         snippet_chooser_panel = [
             panel for panel in edit_handler.children

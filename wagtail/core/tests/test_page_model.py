@@ -265,6 +265,9 @@ class TestRouting(TestCase):
         events_page = Page.objects.get(url_path='/home/events/')
         events_site = Site.objects.create(hostname='events.example.com', root_page=events_page)
 
+        second_events_site = Site.objects.create(
+            hostname='second_events.example.com', root_page=events_page)
+
         default_site = Site.objects.get(is_default_site=True)
         homepage = Page.objects.get(url_path='/home/')
         christmas_page = Page.objects.get(url_path='/home/events/christmas/')
@@ -290,6 +293,20 @@ class TestRouting(TestCase):
         self.assertEqual(christmas_page.relative_url(default_site), 'http://events.example.com/christmas/')
         self.assertEqual(christmas_page.relative_url(events_site), '/christmas/')
         self.assertEqual(christmas_page.get_site(), events_site)
+
+        request = HttpRequest()
+
+        request.site = events_site
+        self.assertEqual(
+            christmas_page.get_url_parts(request=request),
+            (events_site.id, 'http://events.example.com', '/christmas/')
+        )
+
+        request.site = second_events_site
+        self.assertEqual(
+            christmas_page.get_url_parts(request=request),
+            (second_events_site.id, 'http://second_events.example.com', '/christmas/')
+        )
 
     @override_settings(ROOT_URLCONF='wagtail.tests.non_root_urls')
     def test_urls_with_non_root_urlconf(self):

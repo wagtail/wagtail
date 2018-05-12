@@ -41,9 +41,11 @@ class HalloFormatPlugin(HalloPlugin):
 
 
 class HalloHeadingPlugin(HalloPlugin):
+    default_order = 20
+
     def __init__(self, **kwargs):
         kwargs.setdefault('name', 'halloheadings')
-        kwargs.setdefault('order', 20)
+        kwargs.setdefault('order', self.default_order)
         self.element = kwargs.pop('element')
         super().__init__(**kwargs)
 

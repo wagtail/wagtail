@@ -36,10 +36,17 @@ global.wagtailConfig = {
     LINE_BREAK: 'Line break',
     UNDO: 'Undo',
     REDO: 'Redo',
+    RELOAD_PAGE: 'Reload the page',
+    RELOAD_EDITOR: 'Reload saved content',
+    SHOW_LATEST_CONTENT: 'Show latest content',
+    SHOW_ERROR: 'Show error',
+    EDITOR_CRASH: 'The editor just crashed. Content has been reset to the last saved version.',
   },
 };
 
 global.wagtailVersion = '1.6a1';
+
+global.wagtail = {};
 
 global.chooserUrls = {
   documentChooser: '/admin/documents/chooser/',

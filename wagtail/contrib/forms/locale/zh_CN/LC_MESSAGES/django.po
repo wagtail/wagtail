@@ -11,14 +11,14 @@
 # listeng, 2016
 # Vincent Zhao <zhaopu2008@gmail.com>, 2017
 # jszsj <zhushajun@gmail.com>, 2017
-# 汇民 王 <whuim@qq.com>, 2017
+# 汇民 王 <whuim@qq.com>, 2017-2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-01-26 16:04+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-04-11 07:39+0000\n"
+"Last-Translator: 汇民 王 <whuim@qq.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -26,6 +26,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+#, python-format
+msgid "%s submissions"
+msgstr "%s提交"
 
 msgid "Date from"
 msgstr "起始日起"
@@ -72,6 +76,9 @@ msgstr "日期"
 
 msgid "Date/time"
 msgstr "日期/时间"
+
+msgid "Hidden field"
+msgstr "隐藏字段"
 
 msgid "submit time"
 msgstr "提交时间"

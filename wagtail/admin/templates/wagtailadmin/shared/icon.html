@@ -1,0 +1,2 @@
+<span class="{{ classnames }}" {% if decorative %}aria-hidden="true"{% else %}title="{{ title }}"{% endif %}></span>
+{% if show_label %}{{ title }}{% elif not decorative %}<span class="sr-only">{{ title }}</span>{% endif %}

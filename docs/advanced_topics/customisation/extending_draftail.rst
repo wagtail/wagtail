@@ -141,7 +141,7 @@ Here are the main requirements to create a new entity feature:
 * Like for inline styles and blocks, set up the to/from DB conversion.
 * The conversion usually is more involved, since entities contain data that needs to be serialised to HTML.
 
-To write the React components, Wagtail exposes its own React and Draft.js dependencies as global variables. Read more about this in :ref:`extending_clientside_components`.
+To write the React components, Wagtail exposes its own React, Draft.js and Draftail dependencies as global variables. Read more about this in :ref:`extending_clientside_components`.
 To go further, please look at the `Draftail documentation <https://github.com/springload/draftail#formatting-options>`_ as well as the `Draft.js exporter documentation <https://github.com/springload/draftjs_exporter>`_.
 
 Here is a detailed example to showcase how those tools are used in the context of Wagtail.

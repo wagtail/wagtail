@@ -1,7 +1,13 @@
-import { initExplorer } from 'wagtail-client';
+import { initExplorer, Icon, Portal } from 'wagtail-client';
+
+// Expose components as globals for third-party reuse.
+window.wagtail.components = {
+  Icon,
+  Portal,
+};
 
 /**
- * Admin JS entry point. Add in here code to run once the page is loaded.
+ * Add in here code to run once the page is loaded.
  */
 document.addEventListener('DOMContentLoaded', () => {
   const explorerNode = document.querySelector('[data-explorer-menu]');

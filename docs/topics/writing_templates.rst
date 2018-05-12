@@ -221,7 +221,7 @@ By default the User Bar appears in the bottom right of the browser window, inset
     {% wagtailuserbar 'bottom-right' %}
     ...
 
-The userbar can be positioned where it works best with your design. Alternatively, you can position it with a css rule in your own CSS files, for example:
+The userbar can be positioned where it works best with your design. Alternatively, you can position it with a CSS rule in your own CSS files, for example:
 
 .. code-block:: css
 

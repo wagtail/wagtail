@@ -15,7 +15,7 @@
 {% block content %}
     {% block header %}
         <header class="nice-padding hasform">
-            <div class="row">
+            <div class="row header-title">
                 <div class="left">
                     <div class="col">
                         {% block h1 %}<h1 {% if view.header_icon %}class="icon icon-{{ view.header_icon }}"{% endif %}>{{ view.get_page_title }}<span></span></h1>{% endblock %}

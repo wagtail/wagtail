@@ -6,7 +6,7 @@
 # Ettore Atalan <atalanttore@googlemail.com>, 2017
 # Henrik Kröger <hedwig@riseup.net>, 2016
 # Jannis, 2015
-# jn ns, 2015
+# Jannis Vajen, 2015
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 # karlsander <karlsander@gmail.com>, 2014
 # karlsander <karlsander@gmail.com>, 2014

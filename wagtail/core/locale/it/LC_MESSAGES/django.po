@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-02-07 19:09+0000\n"
+"PO-Revision-Date: 2018-03-27 17:28+0000\n"
 "Last-Translator: Giacomo Ghizzani <giacomo.ghz@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
@@ -173,6 +173,9 @@ msgstr "schedulato"
 msgid "draft"
 msgstr "bozza"
 
+msgid "live + scheduled"
+msgstr "live + programmate"
+
 msgid "live + draft"
 msgstr "live + bozza"
 
@@ -279,13 +282,19 @@ msgid "page view restrictions"
 msgstr "restrizioni per la visualizzazione della pagina"
 
 msgid "collection"
-msgstr "collezione"
+msgstr "raccolta"
+
+msgid "collection view restriction"
+msgstr "limitazione per la vista della raccolta"
+
+msgid "collection view restrictions"
+msgstr "limitazioni per la vista della raccolta"
 
 msgid "name"
 msgstr "nome"
 
 msgid "collections"
-msgstr "collezioni"
+msgstr "raccolte"
 
 msgid "permission"
 msgstr "permesso"

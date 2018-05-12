@@ -1,0 +1,20 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n %}
+
+{% block titletag %}{% trans "Change email" %}{% endblock %}
+{% block content %}
+    {% trans "Change email" as change_str %}
+    {% include "wagtailadmin/shared/header.html" with title=change_str %}
+
+    <div class="nice-padding">
+        <form action="{% url 'wagtailadmin_account_change_email' %}" method="POST" novalidate>
+            {% csrf_token %}
+            <ul class="fields">
+                {% for field in form %}
+                    {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
+                {% endfor %}
+            </ul>
+            <input type="submit" value="{% trans 'Change email' %}" class="button" />
+        </form>
+    </div>
+{% endblock %}

@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Reinis Rozenbergs <reinisr@gmail.com>, 2016-2017
+# Reinis Rozenbergs <reinisr@gmail.com>, 2016-2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-01-26 16:06+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-04-10 16:45+0000\n"
+"Last-Translator: Reinis Rozenbergs <reinisr@gmail.com>\n"
 "Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/"
 "lv/)\n"
 "MIME-Version: 1.0\n"
@@ -25,7 +25,10 @@ msgid "Editing %(setting_type_name)s - %(instance)s"
 msgstr "Rediģē %(setting_type_name)s - %(instance)s"
 
 msgid "Editing"
-msgstr "Labo"
+msgstr "Rediģē"
+
+msgid "Saving…"
+msgstr "Saglabā..."
 
 msgid "Save"
 msgstr "Saglabāt"

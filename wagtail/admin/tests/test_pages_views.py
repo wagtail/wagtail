@@ -27,8 +27,8 @@ from wagtail.search.index import SearchField
 from wagtail.tests.testapp.models import (
     EVENT_AUDIENCE_CHOICES, Advert, AdvertPlacement, BusinessChild, BusinessIndex, BusinessSubIndex,
     DefaultStreamPage, EventCategory, EventPage, EventPageCarouselItem, FilePage,
-    ManyToManyBlogPage, SimplePage, SingleEventPage, SingletonPage, StandardChild, StandardIndex,
-    TaggedPage)
+    FormClassAdditionalFieldPage, ManyToManyBlogPage, SimplePage, SingleEventPage, SingletonPage,
+    StandardChild, StandardIndex, TaggedPage)
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.users.models import UserProfile
 
@@ -250,21 +250,40 @@ class TestPageExplorer(TestCase, WagtailTestUtils):
 
         self.assertContains(response, '/new-event/pointless-suffix/')
 
-    def test_listing_uses_admin_display_title(self):
+    def make_event_pages(self, count):
+        for i in range(count):
+            self.root_page.add_child(instance=SingleEventPage(
+                title="New event " + str(i),
+                location='the moon', audience='public',
+                cost='free', date_from='2001-01-01',
+                latest_revision_created_at=local_datetime(2016, 1, 1)
+            ))
+
+    def test_exploring_uses_specific_page_with_custom_display_title(self):
         # SingleEventPage has a custom get_admin_display_title method; explorer should
         # show the custom title rather than the basic database one
-        self.new_event = SingleEventPage(
-            title="New event",
-            location='the moon', audience='public',
-            cost='free', date_from='2001-01-01',
-            latest_revision_created_at=local_datetime(2016, 1, 1)
-        )
-        self.root_page.add_child(instance=self.new_event)
+        self.make_event_pages(count=1)
         response = self.client.get(reverse('wagtailadmin_explore', args=(self.root_page.id, )))
-        self.assertContains(response, 'New event (single event)')
+        self.assertContains(response, 'New event 0 (single event)')
 
-        response = self.client.get(reverse('wagtailadmin_explore', args=(self.new_event.id, )))
-        self.assertContains(response, 'New event (single event)')
+        new_event = SingleEventPage.objects.latest('pk')
+        response = self.client.get(reverse('wagtailadmin_explore', args=(new_event.id, )))
+        self.assertContains(response, 'New event 0 (single event)')
+
+    def test_ordering_less_than_100_pages_uses_specific_page_with_custom_display_title(self):
+        # Reorder view should also use specific pages
+        # (provided there are <100 pages in the listing, as this may be a significant
+        # performance hit on larger listings)
+        # There are 3 pages created in setUp, so 96 more add to a total of 99.
+        self.make_event_pages(count=96)
+        response = self.client.get(reverse('wagtailadmin_explore', args=(self.root_page.id, )) + '?ordering=ord')
+        self.assertContains(response, 'New event 0 (single event)')
+
+    def test_ordering_100_or_more_pages_uses_generic_page_without_custom_display_title(self):
+        # There are 3 pages created in setUp, so 97 more add to a total of 100.
+        self.make_event_pages(count=97)
+        response = self.client.get(reverse('wagtailadmin_explore', args=(self.root_page.id, )) + '?ordering=ord')
+        self.assertNotContains(response, 'New event 0 (single event)')
 
     def test_parent_page_is_specific(self):
         response = self.client.get(reverse('wagtailadmin_explore', args=(self.child_page.id, )))
@@ -303,6 +322,21 @@ class TestPageExplorer(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, 'wagtailadmin/pages/index.html')
 
 
+class TestBreadcrumb(TestCase, WagtailTestUtils):
+    fixtures = ['test.json']
+
+    def test_breadcrumb_uses_specific_titles(self):
+        self.user = self.login()
+
+        # get the explorer view for a subpage of a SimplePage
+        page = Page.objects.get(url_path='/home/secret-plans/steal-underpants/')
+        response = self.client.get(reverse('wagtailadmin_explore', args=(page.id, )))
+
+        # The breadcrumb should pick up SimplePage's overridden get_admin_display_title method
+        expected_url = reverse('wagtailadmin_explore', args=(Page.objects.get(url_path='/home/secret-plans/').id, ))
+        self.assertContains(response, """<li><a href="%s">Secret plans (simple page)</a></li>""" % expected_url)
+
+
 class TestPageExplorerSignposting(TestCase, WagtailTestUtils):
     fixtures = ['test.json']
 
@@ -320,6 +354,9 @@ class TestPageExplorerSignposting(TestCase, WagtailTestUtils):
             content="hello",
         )
         self.root_page.add_child(instance=self.no_site_page)
+
+    # Tests for users that have both add-site permission, and explore permission at the given view;
+    # warning messages should include advice re configuring sites
 
     def test_admin_at_root(self):
         self.assertTrue(self.client.login(username='superuser', password='password'))
@@ -358,9 +395,19 @@ class TestPageExplorerSignposting(TestCase, WagtailTestUtils):
         # There should be no warning message here
         self.assertNotContains(response, "Pages created here will not be accessible")
 
+    # Tests for standard users that have explore permission at the given view;
+    # warning messages should omit advice re configuring sites
+
     def test_nonadmin_at_root(self):
+        # Assign siteeditor permission over no_site_page, so that the deepest-common-ancestor
+        # logic allows them to explore root
+        GroupPagePermission.objects.create(
+            group=Group.objects.get(name="Site-wide editors"),
+            page=self.no_site_page, permission_type='add'
+        )
         self.assertTrue(self.client.login(username='siteeditor', password='password'))
         response = self.client.get(reverse('wagtailadmin_explore_root'))
+
         self.assertEqual(response.status_code, 200)
         # Non-admin should get a simple "create pages as children of the homepage" prompt
         self.assertContains(
@@ -370,8 +417,14 @@ class TestPageExplorerSignposting(TestCase, WagtailTestUtils):
         )
 
     def test_nonadmin_at_non_site_page(self):
+        # Assign siteeditor permission over no_site_page
+        GroupPagePermission.objects.create(
+            group=Group.objects.get(name="Site-wide editors"),
+            page=self.no_site_page, permission_type='add'
+        )
         self.assertTrue(self.client.login(username='siteeditor', password='password'))
         response = self.client.get(reverse('wagtailadmin_explore', args=(self.no_site_page.id, )))
+
         self.assertEqual(response.status_code, 200)
         # Non-admin should get a warning about unroutable pages
         self.assertContains(
@@ -388,6 +441,43 @@ class TestPageExplorerSignposting(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         # There should be no warning message here
         self.assertNotContains(response, "Pages created here will not be accessible")
+
+    # Tests for users that have explore permission *somewhere*, but not at the view being tested;
+    # in all cases, they should be redirected to their explorable root
+
+    def test_bad_permissions_at_root(self):
+        # 'siteeditor' does not have permission to explore the root
+        self.assertTrue(self.client.login(username='siteeditor', password='password'))
+        response = self.client.get(reverse('wagtailadmin_explore_root'))
+
+        # Users without permission to explore here should be redirected to their explorable root.
+        self.assertEqual(
+            (response.status_code, response['Location']),
+            (302, reverse('wagtailadmin_explore', args=(self.site_page.pk, )))
+        )
+
+    def test_bad_permissions_at_non_site_page(self):
+        # 'siteeditor' does not have permission to explore no_site_page
+        self.assertTrue(self.client.login(username='siteeditor', password='password'))
+        response = self.client.get(reverse('wagtailadmin_explore', args=(self.no_site_page.id, )))
+
+        # Users without permission to explore here should be redirected to their explorable root.
+        self.assertEqual(
+            (response.status_code, response['Location']),
+            (302, reverse('wagtailadmin_explore', args=(self.site_page.pk, )))
+        )
+
+    def test_bad_permissions_at_site_page(self):
+        # Adjust siteeditor's permission so that they have permission over no_site_page
+        # instead of site_page
+        Group.objects.get(name="Site-wide editors").page_permissions.update(page_id=self.no_site_page.id)
+        self.assertTrue(self.client.login(username='siteeditor', password='password'))
+        response = self.client.get(reverse('wagtailadmin_explore', args=(self.site_page.id, )))
+        # Users without permission to explore here should be redirected to their explorable root.
+        self.assertEqual(
+            (response.status_code, response['Location']),
+            (302, reverse('wagtailadmin_explore', args=(self.no_site_page.pk, )))
+        )
 
 
 class TestExplorablePageVisibility(TestCase, WagtailTestUtils):
@@ -610,6 +700,15 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertContains(response, '<a href="#tab-content" class="active">Content</a>')
         self.assertContains(response, '<a href="#tab-promote" class="">Promote</a>')
         self.assertContains(response, '<a href="#tab-dinosaurs" class="">Dinosaurs</a>')
+
+    def test_create_page_with_non_model_field(self):
+        """
+        Test that additional fields defined on the form rather than the model are accepted and rendered
+        """
+        response = self.client.get(reverse('wagtailadmin_pages:add', args=('tests', 'formclassadditionalfieldpage', self.root_page.id)))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/pages/create.html')
+        self.assertContains(response, "Enter SMS authentication code")
 
     def test_create_simplepage_bad_permissions(self):
         # Remove privileges from user
@@ -1126,6 +1225,15 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         )
         self.root_page.add_child(instance=self.single_event_page)
 
+        self.unpublished_page = SimplePage(
+            title="Hello unpublished world!",
+            slug="hello-unpublished-world",
+            content="hello",
+            live=False,
+            has_unpublished_changes=True,
+        )
+        self.root_page.add_child(instance=self.unpublished_page)
+
         # Login
         self.user = self.login()
 
@@ -1137,6 +1245,11 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         # Test InlinePanel labels/headings
         self.assertContains(response, '<legend>Speaker lineup</legend>')
         self.assertContains(response, 'Add speakers')
+
+    def test_edit_draft_page_with_no_revisions(self):
+        # Tests that the edit page loads
+        response = self.client.get(reverse('wagtailadmin_pages:edit', args=(self.unpublished_page.id, )))
+        self.assertEqual(response.status_code, 200)
 
     def test_edit_multipart(self):
         """
@@ -3970,6 +4083,71 @@ class TestCompareRevisions(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
         self.assertContains(response, '<span class="deletion">Last Christmas I gave you my heart, but the very next day you gave it away</span><span class="addition">This year, to save me from tears, I&#39;ll just feed it to the dog</span>')
+
+
+class TestCompareRevisionsWithNonModelField(TestCase, WagtailTestUtils):
+    """
+    Tests if form fields defined in the base_form_class will not be included.
+    in revisions view as they are not actually on the model.
+    Flagged in issue #3737
+    Note: Actual tests for comparison classes can be found in test_compare.py
+    """
+
+    fixtures = ['test.json']
+    # FormClassAdditionalFieldPage
+
+    def setUp(self):
+        # Find root page
+        self.root_page = Page.objects.get(id=2)
+
+        # Add child page of class with base_form_class override
+        # non model field is 'code'
+        self.test_page = FormClassAdditionalFieldPage(
+            title='A Statement',
+            slug='a-statement',
+            location='Early Morning Cafe, Mainland, NZ',
+            body="<p>hello</p>"
+        )
+        self.root_page.add_child(instance=self.test_page)
+
+        # add new revision
+        self.test_page.title = 'Statement'
+        self.test_page.location = 'Victory Monument, Bangkok'
+        self.test_page.body = (
+            "<p>I would like very much to go into the forrest.</p>"
+        )
+        self.test_page_revision = self.test_page.save_revision()
+        self.test_page_revision.created_at = local_datetime(2017, 10, 15)
+        self.test_page_revision.save()
+
+        # add another new revision
+        self.test_page.title = 'True Statement'
+        self.test_page.location = 'Victory Monument, Bangkok'
+        self.test_page.body = (
+            "<p>I would like very much to go into the forest.</p>"
+        )
+        self.test_page_revision_new = self.test_page.save_revision()
+        self.test_page_revision_new.created_at = local_datetime(2017, 10, 16)
+        self.test_page_revision_new.save()
+
+        self.login()
+
+    def test_base_form_class_used(self):
+        """First ensure that the non-model field is appearing in edit."""
+        edit_url = reverse('wagtailadmin_pages:add', args=('tests', 'formclassadditionalfieldpage', self.test_page.id))
+        response = self.client.get(edit_url)
+        self.assertContains(response, '<input type="text" name="code" required id="id_code" maxlength="5" />', html=True)
+
+    def test_compare_revisions(self):
+        """Confirm that the non-model field is not shown in revision."""
+        compare_url = reverse(
+            'wagtailadmin_pages:revisions_compare',
+            args=(self.test_page.id, self.test_page_revision.id, self.test_page_revision_new.id)
+        )
+        response = self.client.get(compare_url)
+        self.assertContains(response, '<span class="deletion">forrest.</span><span class="addition">forest.</span>')
+        # should not contain the field defined in the formclass used
+        self.assertNotContains(response, '<h2>Code:</h2>')
 
 
 class TestRevisionsUnschedule(TestCase, WagtailTestUtils):

@@ -97,11 +97,17 @@ Elasticsearch Backend
 
     Support for Elasticsearch 5.x was added
 
-Elasticsearch versions 2 and 5 are supported. Use the appropriate backend for your version:
+.. versionchanged:: 2.1
+
+    Support for Elasticsearch 6.x was added
+
+Elasticsearch versions 2, 5 and 6 are supported. Use the appropriate backend for your version:
 
 ``wagtail.search.backends.elasticsearch2`` (Elasticsearch 2.x)
 
 ``wagtail.search.backends.elasticsearch5`` (Elasticsearch 5.x)
+
+``wagtail.search.backends.elasticsearch6`` (Elasticsearch 6.x)
 
 Prerequisites are the `Elasticsearch`_ service itself and, via pip, the `elasticsearch-py`_ package. The major version of the package must match the installed version of Elasticsearch:
 
@@ -114,6 +120,10 @@ Prerequisites are the `Elasticsearch`_ service itself and, via pip, the `elastic
 .. code-block:: sh
 
   pip install "elasticsearch>=5.0.0,<6.0.0"  # for Elasticsearch 5.x
+
+.. code-block:: sh
+
+  pip install "elasticsearch>=6.0.0,<7.0.0"  # for Elasticsearch 6.x
 
 The backend is configured in settings:
 
@@ -132,7 +142,7 @@ The backend is configured in settings:
 
 Other than ``BACKEND``, the keys are optional and default to the values shown. Any defined key in ``OPTIONS`` is passed directly to the Elasticsearch constructor as case-sensitive keyword argument (e.g. ``'max_retries': 1``).
 
-``INDEX_SETTINGS`` is a dictionary used to override the default settings to create the index. The default settings are defined inside the ``ElasticsearchSearchBackend`` class in the module ``wagtail/wagtail/wagtailsearch/backends/elasticsearch.py``. Any new key is added, any existing key, if not a dictionary, is replaced with the new value. Here's a sample on how to configure the number of shards and setting the italian LanguageAnalyzer as the default analyzer:
+``INDEX_SETTINGS`` is a dictionary used to override the default settings to create the index. The default settings are defined inside the ``ElasticsearchSearchBackend`` class in the module ``wagtail/wagtail/wagtailsearch/backends/elasticsearch.py``. Any new key is added, any existing key, if not a dictionary, is replaced with the new value. Here's a sample on how to configure the number of shards and setting the Italian LanguageAnalyzer as the default analyzer:
 
 .. code-block:: python
 

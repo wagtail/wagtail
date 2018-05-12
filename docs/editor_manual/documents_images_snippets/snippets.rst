@@ -1,14 +1,14 @@
 Snippets
 ~~~~~~~~
 
-Snippets allow you to create elements on a website once and reuse them in multiple places. Then, if you want to change something on the snippet, you only need to change it once, and it will change across all the occurances of the snippet.
+Snippets allow you to create elements on a website once and reuse them in multiple places. Then, if you want to change something on the snippet, you only need to change it once, and it will change across all the occurrences of the snippet.
 
 How snippets are used can vary widely between websites. Here are a few examples of things Torchbox have used snippets for on our clients' websites:
 
 * For staff contact details, so that they can be added to many pages but managed in one place
 * For Adverts, either to be applied sitewide or on individual pages
 * To manage links in a global area of the site, for example in the footer
-* For Calls to Action, such as Newsletter signup blocks, that may be consistent across many different pages
+* For Calls to Action, such as Newsletter sign up blocks, that may be consistent across many different pages
 
 The Snippets menu
 -----------------

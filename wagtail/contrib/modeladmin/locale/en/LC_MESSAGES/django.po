@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
+"POT-Creation-Date: 2018-05-04 20:23+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,11 +17,15 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: apps.py:8
+msgid "Wagtail ModelAdmin"
+msgstr ""
+
 #: forms.py:18
 msgid "Parent page"
 msgstr ""
 
-#: helpers/button.py:42 views.py:730
+#: helpers/button.py:42 views.py:732
 #, python-format
 msgid "Add %s"
 msgstr ""
@@ -49,7 +53,7 @@ msgstr ""
 msgid "Edit this %s"
 msgstr ""
 
-#: helpers/button.py:84 templates/modeladmin/edit.html:15 views.py:761
+#: helpers/button.py:84 templates/modeladmin/edit.html:15 views.py:763
 msgid "Delete"
 msgstr ""
 
@@ -200,56 +204,56 @@ msgstr ""
 msgid "The %s could not be created due to errors."
 msgstr ""
 
-#: views.py:652
+#: views.py:654
 msgid "New"
 msgstr ""
 
-#: views.py:677
+#: views.py:679
 #, python-format
 msgid "Create new %s"
 msgstr ""
 
-#: views.py:687
+#: views.py:689
 msgid "Editing"
 msgstr ""
 
-#: views.py:701
+#: views.py:703
 #, python-format
 msgid "Editing %s"
 msgstr ""
 
-#: views.py:704
+#: views.py:706
 #, python-brace-format
 msgid "{model_name} '{instance}' updated."
 msgstr ""
 
-#: views.py:717
+#: views.py:719
 #, python-format
 msgid "The %s could not be saved due to errors."
 msgstr ""
 
-#: views.py:777
+#: views.py:779
 #, python-format
 msgid "Confirm deletion of %s"
 msgstr ""
 
-#: views.py:781
+#: views.py:783
 #, python-format
 msgid ""
 "Are you sure you want to delete this %s? If other things in your site are "
 "related to it, they may also be affected."
 msgstr ""
 
-#: views.py:790
+#: views.py:792
 #, python-brace-format
 msgid "{model} '{instance}' deleted."
 msgstr ""
 
-#: views.py:817
+#: views.py:819
 msgid "Inspecting"
 msgstr ""
 
-#: views.py:830
+#: views.py:832
 #, python-format
 msgid "Inspecting %s"
 msgstr ""

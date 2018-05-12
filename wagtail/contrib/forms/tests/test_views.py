@@ -2,7 +2,8 @@
 import json
 
 from django.contrib.auth import get_user_model
-from django.test import TestCase
+from django.contrib.auth.models import AnonymousUser
+from django.test import RequestFactory, TestCase
 from django.urls import reverse
 
 from wagtail.admin.edit_handlers import get_form_for_model
@@ -20,6 +21,9 @@ from wagtail.tests.utils import WagtailTestUtils
 
 class TestFormResponsesPanel(TestCase):
     def setUp(self):
+        self.request = RequestFactory().get('/')
+        user = AnonymousUser()  # technically, Anonymous users cannot access the admin
+        self.request.user = user
 
         self.form_page = make_form_page()
 
@@ -30,7 +34,7 @@ class TestFormResponsesPanel(TestCase):
         submissions_panel = FormSubmissionsPanel().bind_to_model(FormPage)
 
         self.panel = submissions_panel.bind_to_instance(
-            instance=self.form_page, form=self.FormPageForm())
+            instance=self.form_page, form=self.FormPageForm(), request=self.request)
 
     def test_render_with_submissions(self):
         """Show the panel with the count of submission and a link to the list_submissions view."""
@@ -56,6 +60,10 @@ class TestFormResponsesPanel(TestCase):
 
 class TestFormResponsesPanelWithCustomSubmissionClass(TestCase):
     def setUp(self):
+        self.request = RequestFactory().get('/')
+        user = AnonymousUser()  # technically, Anonymous users cannot access the admin
+        self.request.user = user
+
         # Create a form page
         self.form_page = make_form_page_with_custom_submission()
 
@@ -69,7 +77,8 @@ class TestFormResponsesPanelWithCustomSubmissionClass(TestCase):
         submissions_panel = FormSubmissionsPanel().bind_to_model(FormPageWithCustomSubmission)
 
         self.panel = submissions_panel.bind_to_instance(self.form_page,
-                                                        self.FormPageForm())
+                                                        self.FormPageForm(),
+                                                        request=self.request)
 
     def test_render_with_submissions(self):
         """Show the panel with the count of submission and a link to the list_submissions view."""
