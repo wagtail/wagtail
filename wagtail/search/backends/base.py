@@ -36,7 +36,9 @@ class OrderByFieldError(FieldError):
 class BaseSearchQueryCompiler:
     DEFAULT_OPERATOR = 'or'
 
-    def __init__(self, queryset, query, fields=None, operator=None, order_by_relevance=True):
+    def __init__(self, backend, queryset, query,
+                 fields=None, operator=None, order_by_relevance=True):
+        self.backend = backend
         self.queryset = queryset
         if query is None:
             warn('Querying `None` is deprecated, use `MATCH_ALL` instead.',
@@ -342,7 +344,8 @@ class BaseSearchBackend:
 
         # Search
         search_query = self.query_compiler_class(
-            queryset, query, fields=fields, operator=operator, order_by_relevance=order_by_relevance
+            self, queryset, query, fields=fields,
+            operator=operator, order_by_relevance=order_by_relevance
         )
 
         # Check the query

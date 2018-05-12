@@ -55,6 +55,8 @@ class TextIDGenericRelation(GenericRelation):
 
 
 class IndexEntry(Model):
+    index_name = TextField(default='default', db_index=True)
+
     content_type = ForeignKey(ContentType, on_delete=CASCADE)
     # We do not use an IntegerField since primary keys are not always integers.
     object_id = TextField()
@@ -66,14 +68,15 @@ class IndexEntry(Model):
     body = SearchVectorField()
 
     class Meta:
-        unique_together = ('content_type', 'object_id')
+        unique_together = ('index_name', 'content_type', 'object_id')
         verbose_name = _('index entry')
         verbose_name_plural = _('index entries')
         indexes = [GinIndex(fields=['autocomplete']),
                    GinIndex(fields=['body'])]
 
     def __str__(self):
-        return '%s: %s' % (self.content_type.name, self.content_object)
+        return '[%s] %s: %s' % (self.index_name, self.content_type.name,
+                                self.content_object)
 
     @property
     def model(self):
