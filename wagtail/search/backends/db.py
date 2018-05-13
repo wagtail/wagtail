@@ -5,7 +5,7 @@ from django.db.models.expressions import Value
 
 from wagtail.search.backends.base import (
     BaseSearchBackend, BaseSearchQueryCompiler, BaseSearchResults)
-from wagtail.search.index import SearchField, RelatedFields
+from wagtail.search.index import RelatedFields, SearchField
 from wagtail.search.query import And, MatchAll, Not, Or, SearchQueryShortcut, Term
 from wagtail.search.utils import AND, OR
 
@@ -35,7 +35,6 @@ class DatabaseSearchQueryCompiler(BaseSearchQueryCompiler):
                 continue
             else:
                 yield field_name
-
 
     def _process_lookup(self, field, lookup, value):
         return models.Q(**{field.get_attname(self.queryset.model) + '__' + lookup: value})
