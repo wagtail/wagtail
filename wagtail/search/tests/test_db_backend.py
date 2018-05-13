@@ -39,7 +39,6 @@ class TestDBBackend(BackendTests, TestCase):
         super().test_search_child_class_field_from_parent()
 
     # Doesn't support searching related fields
-    @unittest.expectedFailure
     def test_search_on_related_fields(self):
         super().test_search_on_related_fields()
 
