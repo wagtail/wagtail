@@ -19,12 +19,23 @@ class DatabaseSearchQueryCompiler(BaseSearchQueryCompiler):
 
     def get_fields_names(self):
         model = self.queryset.model
+        fields_names = []
         for field in model.get_searchable_search_fields():
             if isinstance(field, SearchField):
-                yield field.field_name
+                fields_names.append(field.field_name)
             elif isinstance(field, RelatedFields):
                 for r_field in field.fields:
-                    yield field.field_name + '__' + r_field.field_name
+                    fields_names.append(field.field_name + '__' + r_field.field_name)
+
+        # Check if the field exists (this will filter out indexed callables)
+        for field_name in fields_names:
+            try:
+                model._meta.get_field(field_name.split('__')[0])
+            except models.fields.FieldDoesNotExist:
+                continue
+            else:
+                yield field_name
+
 
     def _process_lookup(self, field, lookup, value):
         return models.Q(**{field.get_attname(self.queryset.model) + '__' + lookup: value})
