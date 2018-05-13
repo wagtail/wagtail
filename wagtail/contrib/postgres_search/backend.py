@@ -294,8 +294,8 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
         rank_expression = SearchRank(vector, search_query,
                                      weights=self.sql_weights)
         if self.order_by_relevance:
-            queryset = queryset.order_by(rank_expression.desc(), '-pk')
             rank_expression *= F('index_entries__boost')
+            queryset = queryset.order_by(rank_expression.desc(), '-pk')
         elif not queryset.query.order_by:
             # Adds a default ordering to avoid issue #3729.
             queryset = queryset.order_by('-pk')
