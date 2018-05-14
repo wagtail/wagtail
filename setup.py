@@ -68,8 +68,8 @@ setup(
     name='wagtail',
     version=__version__,
     description='A Django content management system focused on flexibility and user experience',
-    author='Matthew Westcott',
-    author_email='matthew.westcott@torchbox.com',
+    author='Wagtail core team + contributors',
+    author_email='hello@wagtail.io',  # For support queries, please see http://docs.wagtail.io/en/stable/support.html
     url='http://wagtail.io/',
     packages=find_packages(),
     include_package_data=True,
