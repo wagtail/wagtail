@@ -3,15 +3,6 @@
 Frontend cache invalidator
 ==========================
 
-.. versionchanged:: 0.7
-
-   * Multiple backend support added
-   * Cloudflare support added
-
-.. versionchanged:: 1.7
-
-   * Amazon CloudFront support added
-
 Many websites use a frontend cache such as Varnish, Squid, Cloudflare or CloudFront to gain extra performance. The downside of using a frontend cache though is that they don't respond well to updating content and will often keep an old version of a page cached after it has been updated.
 
 This document describes how to configure Wagtail to purge old versions of pages from a frontend cache whenever a page gets updated.
@@ -29,10 +20,6 @@ Firstly, add ``"wagtail.contrib.frontend_cache"`` to your INSTALLED_APPS:
 
         "wagtail.contrib.frontend_cache"
      ]
-
-.. versionchanged:: 0.8
-
-    Signal handlers are now automatically registered
 
 The ``wagtailfrontendcache`` module provides a set of signal handlers which will automatically purge the cache whenever a page is published or deleted. These signal handlers are automatically registered when the ``wagtail.contrib.frontend_cache`` app is loaded.
 
