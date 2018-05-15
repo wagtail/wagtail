@@ -14,3 +14,4 @@ Bug fixes
 ~~~~~~~~~
 
  * Restored ability to use non-model fields with FieldPanel (Matt Westcott, LB (Ben Johnston))
+ * Fix usage URL on the document edit page (Jérôme Lebleu)
