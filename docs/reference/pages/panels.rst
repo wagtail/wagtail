@@ -213,10 +213,6 @@ DocumentChooserPanel
 SnippetChooserPanel
 -------------------
 
-.. versionchanged:: 1.1
-
-    Before Wagtail 1.1, it was necessary to pass the snippet model class as a second parameter to ``SnippetChooserPanel``. This is now automatically picked up from the field.
-
 .. module:: wagtail.snippets.edit_handlers
 
 .. class:: SnippetChooserPanel(field_name, snippet_type=None)
@@ -358,10 +354,6 @@ The ``RelatedLink`` class is a vanilla Django abstract model. The ``BookPageRela
     InlinePanel( relation_name, panels=None, heading='', label='', help_text='', min_num=None, max_num=None )
 
 The ``relation_name`` is the ``related_name`` label given to the cluster's ``ParentalKey`` relation. You can add the ``panels`` manually or make them part of the cluster model. ``heading`` and ``help_text`` provide a heading and caption, respectively, for the Wagtail editor. ``label`` sets the text on the add button, and is used as the heading when ``heading`` is not present. Finally, ``min_num`` and ``max_num`` allow you to set the minimum/maximum number of forms that the user must submit.
-
-.. versionchanged:: 1.0
-
-    In previous versions, it was necessary to pass the base model as the first parameter to :class:`~wagtail.admin.edit_handlers.InlinePanel`; this is no longer required.
 
 For another example of using model clusters, see :ref:`tagging`
 
