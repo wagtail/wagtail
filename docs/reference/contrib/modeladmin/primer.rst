@@ -36,7 +36,7 @@ to using to configure Django's add/edit views, simply aren't supported by
 Wagtail's version.
 
 'Page type' models need to be treated differently from other models
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 While ``modeladmin``'s listing view and it's supported customisation
 options work in exactly the same way for all types of ``Model``, when it
