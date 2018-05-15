@@ -408,7 +408,7 @@ class Filter:
 
                 return willow.save_as_jpeg(output, quality=quality, progressive=True, optimize=True)
             elif output_format == 'png':
-                return willow.save_as_png(output)
+                return willow.save_as_png(output, optimize=True)
             elif output_format == 'gif':
                 return willow.save_as_gif(output)
 
