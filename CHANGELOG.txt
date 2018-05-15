@@ -74,6 +74,7 @@ Changelog
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Restored ability to use non-model fields with FieldPanel (Matt Westcott, LB (Ben Johnston))
+ * Fix: Fix usage URL on the document edit page (Jérôme Lebleu)
 
 
 2.0.1 (04.04.2018)
