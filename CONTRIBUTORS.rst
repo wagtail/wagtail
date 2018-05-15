@@ -273,6 +273,7 @@ Contributors
 * Dário Marcelino
 * Dan Dietz
 * Todd Dembrey
+* Jérôme Lebleu
 
 Translators
 ===========
