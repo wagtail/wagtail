@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-02-16 11:33+0000\n"
+"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"PO-Revision-Date: 2018-05-04 19:30+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/torchbox/wagtail/"
 "language/he_IL/)\n"
@@ -50,17 +50,6 @@ msgstr "הזינו את ה%s שלכם"
 
 msgid "Enter your email address to reset your password"
 msgstr "הזינו את כתובת הדוא\"ל שלכם כדי לאתחל את הסיסמה"
-
-msgid "Please fill your email address."
-msgstr "אנא הזינו את כתובת הדוא\"ל שלכם"
-
-msgid ""
-"Sorry, you cannot reset your password here as your user account is managed "
-"by another server."
-msgstr "שגיאה. אין אפשרות לאתחל את הסיסמה משום שהחשבון מנוהל בשרת אחר."
-
-msgid "This email address is not recognised."
-msgstr "כתובת הדוא\"ל הזו איננה מזוהה"
 
 msgid "New title"
 msgstr "כותרת חדשה"
@@ -125,35 +114,18 @@ msgstr "זמן תפוגה חייב להיות בעתיד"
 msgid "Account"
 msgstr "חשבון"
 
-msgid "Set gravatar"
-msgstr "הגדרת Gravatar"
-
-msgid ""
-"Your avatar image is provided by Gravatar and is connected to your email "
-"address. With a Gravatar account you can set an avatar for any number of "
-"other email addresses you use."
-msgstr ""
-"התמונה שלכם מגיעה מהשירות Gravatar והיא מחוברת לכתובת הדוא\"ל שלכם. באמצעות "
-"חשבון Gravatar אתם יכולים להגדיר תמונה עבור כל כתובת דוא\"ל שנמצאת ברשותכם."
+msgid "Update"
+msgstr "עדכן"
 
 msgid "Change password"
 msgstr "שינוי סיסמה"
-
-msgid "Change the password you use to log in."
-msgstr "שינוי הסיסמה עבור התחברות"
-
-msgid "Notification preferences"
-msgstr "העדפות התראות"
-
-msgid "Choose which email notifications to receive."
-msgstr "בחרו אילו התראות דואר אלקטרוני לקבל"
 
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr "אי אפשר לשנות את הסיסמה. נא לפנות למנהל האתר."
 
-msgid "Update"
-msgstr "עדכן"
+msgid "Notification preferences"
+msgstr "העדפות התראות"
 
 msgid "Reset password"
 msgstr "איתחול סיסמה"
@@ -167,14 +139,8 @@ msgstr "התחברות"
 msgid "Set your new password"
 msgstr "הגדרת סיסמה חדשה"
 
-msgid "The passwords do not match. Please try again."
-msgstr "הסיסמאות לא תואמות. נא לנסות שוב."
-
 msgid "Check your email"
 msgstr "בדקו את תיבת הדואר האלקטרוני שלכם"
-
-msgid "A link to reset your password has been emailed to you."
-msgstr "קישור לאיתחול הסיסמה נשלח לתיבת הדואר האלקטרוני שלכם."
 
 msgid "Password reset"
 msgstr "איתחול סיסמה"
@@ -736,6 +702,12 @@ msgstr "עמוד {0} נעול כעת"
 #, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "עמוד {0} בלתי נעול כעת"
+
+msgid "Change the password you use to log in."
+msgstr "שינוי הסיסמה עבור התחברות"
+
+msgid "Choose which email notifications to receive."
+msgstr "בחרו אילו התראות דואר אלקטרוני לקבל"
 
 msgid "Choose an item"
 msgstr "בחרו פריט"

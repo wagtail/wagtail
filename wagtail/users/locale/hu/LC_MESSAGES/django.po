@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# B N <biczoxd@gmail.com>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-01-26 16:03+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"PO-Revision-Date: 2018-05-10 18:27+0000\n"
+"Last-Translator: B N <biczoxd@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
 "MIME-Version: 1.0\n"
@@ -17,6 +18,64 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: hu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail users"
+msgstr "Wagtail felhasználók"
+
+msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
+msgstr "Kötelező. Maximum 30 karakter és csak netűk, számok, @/./+/-/_ jelek."
+
+msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
+msgstr ""
+"Ez az érték ajánlott ha csak betűket, számokat és @/./+/-/_ jeleket "
+"tartalmaz."
+
+msgid "A user with that username already exists."
+msgstr "Már létezik felhasználó ezzel a felhasználónévvel."
+
+msgid "The two password fields didn't match."
+msgstr "A két jelszó nem egyezik."
+
+msgid "Email"
+msgstr "Email"
+
+msgid "First Name"
+msgstr "Keresztnév"
+
+msgid "Last Name"
+msgstr "Vezetéknév"
+
+msgid "Password"
+msgstr "Jelszó"
+
+msgid "Leave blank if not changing."
+msgstr "Hagyd üresen, ha nem akarod megváltoztatni."
+
+msgid "Password confirmation"
+msgstr "Jelszó megerősítés."
+
+msgid "Enter the same password as above, for verification."
+msgstr "Add meg ugyan azt a jelszót mint előbb, hogy megerősítsd!"
+
+msgid "Administrator"
+msgstr "Adminisztrátor"
+
+msgid "Administrators have full access to manage any object or setting."
+msgstr ""
+"Az adminisztrátornak teljes hozzáférése van az objektumokhoz és a "
+"beállításokhoz."
+
+msgid "A group with that name already exists."
+msgstr "Már létezik csoport ezzel a névvel."
+
+msgid "You cannot have multiple permission records for the same page."
+msgstr "Nem lehet több engedély bejegyzésed ugyan ahhoz az oldalhoz."
+
+msgid "Upload a profile picture"
+msgstr "Profilkép feltöltése"
+
+msgid "submitted notifications"
+msgstr "beküldött értesítések"
 
 msgid "Yes, delete"
 msgstr "Igen, törlés"

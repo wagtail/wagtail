@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-02-16 11:33+0000\n"
+"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"PO-Revision-Date: 2018-05-04 19:30+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
@@ -57,19 +57,6 @@ msgstr "Introduce o teu %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Escribe a túa dirección de correo para restaurar o teu contrasinal"
-
-msgid "Please fill your email address."
-msgstr "Por favor, enche a túa dirección de correo."
-
-msgid ""
-"Sorry, you cannot reset your password here as your user account is managed "
-"by another server."
-msgstr ""
-"Sentímolo, non podes restablecer o teu contrasinal aquí porque a túa conta é "
-"xestionada por outro servidor."
-
-msgid "This email address is not recognised."
-msgstr "Non se recoñece a dirección de correo."
 
 msgid "New title"
 msgstr "Novo título"
@@ -142,29 +129,11 @@ msgstr "Ir ao administrador de Wagtail"
 msgid "Account"
 msgstr "Conta"
 
-msgid "Set gravatar"
-msgstr "Establecer gravatar"
-
-msgid ""
-"Your avatar image is provided by Gravatar and is connected to your email "
-"address. With a Gravatar account you can set an avatar for any number of "
-"other email addresses you use."
-msgstr ""
-"O teu avatar é provisto por Gravatar e está conectado á túa dirección de "
-"correo. Cunha conta Gravatar podes establecer un avatar para calquera número "
-"de correos electrónicos."
+msgid "Update"
+msgstr "Actualizar"
 
 msgid "Change password"
 msgstr "Cambiar contrasinal"
-
-msgid "Change the password you use to log in."
-msgstr "Cambia a contrasinal que utilizas para iniciar sesión."
-
-msgid "Notification preferences"
-msgstr "Preferencias de notificacións"
-
-msgid "Choose which email notifications to receive."
-msgstr "Selecciona que notificacións de correo electrónico recibir."
 
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
@@ -172,8 +141,8 @@ msgstr ""
 "O teu contrasinal non pode cambiarse aquí. Por favor, contacta co "
 "administrador."
 
-msgid "Update"
-msgstr "Actualizar"
+msgid "Notification preferences"
+msgstr "Preferencias de notificacións"
 
 msgid "Reset password"
 msgstr "Restablecer contrasinal"
@@ -187,16 +156,8 @@ msgstr "Login"
 msgid "Set your new password"
 msgstr "Establece o teu novo contrasinal"
 
-msgid "The passwords do not match. Please try again."
-msgstr "Os contrasinais non coinciden. Por favor, téntao de novo."
-
 msgid "Check your email"
 msgstr "Revisa o teu correo electrónico"
-
-msgid "A link to reset your password has been emailed to you."
-msgstr ""
-"Unha ligazón para restablecer o teu contrasinal foiche enviado por correo "
-"electrónico."
 
 msgid "Please follow the link below to reset your password:"
 msgstr "Por favor, segue a seguinte ligazón para restablecer o contrasinal:"
@@ -1074,6 +1035,12 @@ msgstr ""
 
 msgid "More"
 msgstr "Máis"
+
+msgid "Change the password you use to log in."
+msgstr "Cambia a contrasinal que utilizas para iniciar sesión."
+
+msgid "Choose which email notifications to receive."
+msgstr "Selecciona que notificacións de correo electrónico recibir."
 
 msgid "Choose an item"
 msgstr "Selecciona un elemento"

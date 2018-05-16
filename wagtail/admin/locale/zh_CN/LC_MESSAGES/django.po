@@ -16,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-04-11 08:21+0000\n"
-"Last-Translator: 汇民 王 <whuim@qq.com>\n"
+"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"PO-Revision-Date: 2018-05-04 19:30+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -66,17 +66,6 @@ msgstr "输入你的 %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "输入邮件地址以重置密码"
-
-msgid "Please fill your email address."
-msgstr "请填入邮件地址"
-
-msgid ""
-"Sorry, you cannot reset your password here as your user account is managed "
-"by another server."
-msgstr "对不起，您无法重置密码，因为账户不在此处管理"
-
-msgid "This email address is not recognised."
-msgstr "未知邮件地址"
 
 msgid "New title"
 msgstr "新标题"
@@ -164,34 +153,11 @@ msgstr "转到管理界面"
 msgid "Account"
 msgstr "帐号"
 
-msgid "Set gravatar"
-msgstr "设置gravatar（全球通用头像）"
-
-msgid ""
-"Your avatar image is provided by Gravatar and is connected to your email "
-"address. With a Gravatar account you can set an avatar for any number of "
-"other email addresses you use."
-msgstr ""
-"您的头像是由Gravatar提供，与您的邮件地址关联。只需一个Gravatar帐号，你就可以"
-"为你使用的任意多个邮件地址设置头像。"
+msgid "Update"
+msgstr "更新"
 
 msgid "Change password"
 msgstr "修改密码"
-
-msgid "Change the password you use to log in."
-msgstr "修改用于登录的密码"
-
-msgid "Notification preferences"
-msgstr "提醒设置"
-
-msgid "Choose which email notifications to receive."
-msgstr "选择接收哪些邮件提醒"
-
-msgid "Language preferences"
-msgstr "语言首选项"
-
-msgid "Choose the language you want to use here."
-msgstr "请在这里选择你想使用的语言。"
 
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
@@ -200,8 +166,8 @@ msgstr "您不能修改密码，请联系管理员。"
 msgid "Language Preferences"
 msgstr "语言首选项"
 
-msgid "Update"
-msgstr "更新"
+msgid "Notification preferences"
+msgstr "提醒设置"
 
 msgid "Reset password"
 msgstr "重置密码"
@@ -215,14 +181,8 @@ msgstr "登录"
 msgid "Set your new password"
 msgstr "设置新密码"
 
-msgid "The passwords do not match. Please try again."
-msgstr "密码不匹配，请重试"
-
 msgid "Check your email"
 msgstr "检查您的邮件"
-
-msgid "A link to reset your password has been emailed to you."
-msgstr "已将重置密码的链接发送到您的邮箱。"
 
 msgid "Please follow the link below to reset your password:"
 msgstr "请点击下面的链接来重置密码"
@@ -1411,6 +1371,18 @@ msgstr "取消发布页面 '{title}'"
 #, python-brace-format
 msgid "View revision history for '{title}'"
 msgstr "查看 '{title}' 的修订历史"
+
+msgid "Change the password you use to log in."
+msgstr "修改用于登录的密码"
+
+msgid "Choose which email notifications to receive."
+msgstr "选择接收哪些邮件提醒"
+
+msgid "Language preferences"
+msgstr "语言首选项"
+
+msgid "Choose the language you want to use here."
+msgstr "请在这里选择你想使用的语言。"
 
 #, python-brace-format
 msgid "Heading {level}"

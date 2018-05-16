@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-02-16 11:33+0000\n"
+"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"PO-Revision-Date: 2018-05-04 19:30+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
@@ -60,19 +60,6 @@ msgstr "Introdueix el teu %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Escriu el teu correu per reiniciar la teva contrasenya"
-
-msgid "Please fill your email address."
-msgstr "Si us plau escriu el teu correu"
-
-msgid ""
-"Sorry, you cannot reset your password here as your user account is managed "
-"by another server."
-msgstr ""
-"Ho sentim, no pots reiniciar la teva contrasenya aquí ja que la teva conta "
-"d'usuari es administrada per un altre servidor"
-
-msgid "This email address is not recognised."
-msgstr "No es reconeix aquesta adreça de correu"
 
 msgid "New title"
 msgstr "Nou títol"
@@ -150,29 +137,11 @@ msgstr "Anar a l'administració de Wagtail"
 msgid "Account"
 msgstr "Compte"
 
-msgid "Set gravatar"
-msgstr "Tria gravatar"
-
-msgid ""
-"Your avatar image is provided by Gravatar and is connected to your email "
-"address. With a Gravatar account you can set an avatar for any number of "
-"other email addresses you use."
-msgstr ""
-"La teva imatge de perfil és subministrada per Gravatar i està conectada al "
-"teu correu. Amb una conta de Gravatar pots definir una imatge de perfil per "
-"cadascuna de la resta d'adreces de correu que fas servir."
+msgid "Update"
+msgstr "Actualitzar"
 
 msgid "Change password"
 msgstr "Canviar contrasenya"
-
-msgid "Change the password you use to log in."
-msgstr "Canvia la password que fas servir per connectar-te"
-
-msgid "Notification preferences"
-msgstr "Preferències de notificació"
-
-msgid "Choose which email notifications to receive."
-msgstr "Seleccioni quines notificacions de correu vol rebre."
 
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
@@ -180,8 +149,8 @@ msgstr ""
 "La teva contrasenya no es pot canviar des d'aquí. Si us plau contacta amb "
 "l'administrador de la web"
 
-msgid "Update"
-msgstr "Actualitzar"
+msgid "Notification preferences"
+msgstr "Preferències de notificació"
 
 msgid "Reset password"
 msgstr "Reiniciar contrasenya"
@@ -195,14 +164,8 @@ msgstr "Connectar"
 msgid "Set your new password"
 msgstr "Estableix la nova contrasenya"
 
-msgid "The passwords do not match. Please try again."
-msgstr "Les contrasenyes no coincideixen. Si us plau torna-ho a provar"
-
 msgid "Check your email"
 msgstr "Revisa el teu correu"
-
-msgid "A link to reset your password has been emailed to you."
-msgstr "S'ha enviat un enllaç per reiniciar la contrasenya al teu correu"
 
 msgid "Please follow the link below to reset your password:"
 msgstr "Seguiu l'enllaç inferior per reiniciar la vostra contrasenya:"
@@ -1259,6 +1222,12 @@ msgstr "Despublicar pàgina '{title}'"
 #, python-brace-format
 msgid "View revision history for '{title}'"
 msgstr "Visualitzar historial de revisions de '{title}'"
+
+msgid "Change the password you use to log in."
+msgstr "Canvia la password que fas servir per connectar-te"
+
+msgid "Choose which email notifications to receive."
+msgstr "Seleccioni quines notificacions de correu vol rebre."
 
 msgid "Choose an item"
 msgstr "Escull un element"

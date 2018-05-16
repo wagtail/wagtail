@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-03-23 18:53+0000\n"
-"Last-Translator: Sergiy Shkodenko <shkodenkosergiy@gmail.com>\n"
+"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"PO-Revision-Date: 2018-05-04 19:30+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
 "MIME-Version: 1.0\n"
@@ -61,19 +61,6 @@ msgstr "Введіть ваш %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Введіть вашу е-мейл адресу для скидання паролю"
-
-msgid "Please fill your email address."
-msgstr "Будь-ласка, введіть вашу е-мейл адресу."
-
-msgid ""
-"Sorry, you cannot reset your password here as your user account is managed "
-"by another server."
-msgstr ""
-"На жаль ви не можете скинути пароль тут, тому що, ваш обліковий запис є "
-"керованим іншим сервером."
-
-msgid "This email address is not recognised."
-msgstr "Ця адреса електронної пошти невідома системі."
 
 msgid "New title"
 msgstr "Новий заголовок"
@@ -174,35 +161,11 @@ msgstr "Перехід до адмінпанелі"
 msgid "Account"
 msgstr "Обліковий запис"
 
-msgid "Set gravatar"
-msgstr "Встановити gravatar"
-
-msgid ""
-"Your avatar image is provided by Gravatar and is connected to your email "
-"address. With a Gravatar account you can set an avatar for any number of "
-"other email addresses you use."
-msgstr ""
-"Ваш аватар наданий Gravatar'ом і прив'язаний до вашої  email  адреси. З "
-"Gravatar аккаунтом ви можете задати аватар для будь-якої кількості інших "
-"email адрес, які ви використовуєте. "
+msgid "Update"
+msgstr "Оновити"
 
 msgid "Change password"
 msgstr "Зміна паролю"
-
-msgid "Change the password you use to log in."
-msgstr "Змінити пароль, використаний для входу."
-
-msgid "Notification preferences"
-msgstr "Налаштування повідомлень"
-
-msgid "Choose which email notifications to receive."
-msgstr "Виберіть пошту, на яку надходитимуть повідомлення"
-
-msgid "Language preferences"
-msgstr "Налаштування мови"
-
-msgid "Choose the language you want to use here."
-msgstr "Виберіть мову, яку ви хочете тут використовувати"
 
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
@@ -212,8 +175,8 @@ msgstr ""
 msgid "Language Preferences"
 msgstr "Налаштування мови"
 
-msgid "Update"
-msgstr "Оновити"
+msgid "Notification preferences"
+msgstr "Налаштування повідомлень"
 
 msgid "Reset password"
 msgstr "Скинути пароль"
@@ -227,14 +190,8 @@ msgstr "Вхід"
 msgid "Set your new password"
 msgstr "Встановіть новий пароль"
 
-msgid "The passwords do not match. Please try again."
-msgstr "Паролі не співпадають. Спробуйте знову."
-
 msgid "Check your email"
 msgstr "Перевірте Вашу пошту"
-
-msgid "A link to reset your password has been emailed to you."
-msgstr "Посилання для скидання паролю було надіслане"
 
 msgid "Please follow the link below to reset your password:"
 msgstr "Слідуйте за посиланням щоб скинути пароль"
@@ -1321,6 +1278,18 @@ msgstr "Зняти з публікації сторінку '{title}'"
 #, python-brace-format
 msgid "View revision history for '{title}'"
 msgstr "Переглянути історію ревізій для '{title}'"
+
+msgid "Change the password you use to log in."
+msgstr "Змінити пароль, використаний для входу."
+
+msgid "Choose which email notifications to receive."
+msgstr "Виберіть пошту, на яку надходитимуть повідомлення"
+
+msgid "Language preferences"
+msgstr "Налаштування мови"
+
+msgid "Choose the language you want to use here."
+msgstr "Виберіть мову, яку ви хочете тут використовувати"
 
 #, python-brace-format
 msgid "Heading {level}"

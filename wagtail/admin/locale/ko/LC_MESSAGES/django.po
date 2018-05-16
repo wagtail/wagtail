@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-02-16 11:33+0000\n"
+"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"PO-Revision-Date: 2018-05-04 19:30+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
@@ -59,19 +59,6 @@ msgstr "%s 입력"
 
 msgid "Enter your email address to reset your password"
 msgstr "비밀번호 재설정을 위해 이메일을 적어주세요"
-
-msgid "Please fill your email address."
-msgstr "이메일을 적어주세요"
-
-msgid ""
-"Sorry, you cannot reset your password here as your user account is managed "
-"by another server."
-msgstr ""
-"죄송합니다. 사용자 계정이 다른 서버에서 관리 중이므로, 비밀번호를 재설정 할 "
-"수 없습니다"
-
-msgid "This email address is not recognised."
-msgstr "인식되지 않는 이메일 주소입니다"
 
 msgid "New title"
 msgstr "새로운 제목"
@@ -153,35 +140,11 @@ msgstr "웨그테일 관리자로 이동"
 msgid "Account"
 msgstr "계정"
 
-msgid "Set gravatar"
-msgstr "그라바타 설정"
-
-msgid ""
-"Your avatar image is provided by Gravatar and is connected to your email "
-"address. With a Gravatar account you can set an avatar for any number of "
-"other email addresses you use."
-msgstr ""
-"당신의 아바타 이미지는 이메일과 연동된 그라바타에 의해 제공되었습니다. 그라바"
-"타 계정이 있으면 이와 연동된 다른 이메일 계정에 대해서도 아바타를 설정할 수 "
-"있습니다."
+msgid "Update"
+msgstr "업데이트"
 
 msgid "Change password"
 msgstr "비밀번호 변경"
-
-msgid "Change the password you use to log in."
-msgstr "로그인을 위해 비밀번호 변경"
-
-msgid "Notification preferences"
-msgstr "알림 선호 순위"
-
-msgid "Choose which email notifications to receive."
-msgstr "알림을 받기 위한 이메일 선택"
-
-msgid "Language preferences"
-msgstr "언어 선호"
-
-msgid "Choose the language you want to use here."
-msgstr "여기에서 사용하고 싶은 언어를 골라 주세요."
 
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
@@ -190,8 +153,8 @@ msgstr "비밀번호를 변경할 수 없습니다. 사이트 관리자에게 �
 msgid "Language Preferences"
 msgstr "언어 선호"
 
-msgid "Update"
-msgstr "업데이트"
+msgid "Notification preferences"
+msgstr "알림 선호 순위"
 
 msgid "Reset password"
 msgstr "비밀번호 초기화"
@@ -205,14 +168,8 @@ msgstr "로그인"
 msgid "Set your new password"
 msgstr "새로운 비밀번호를 설정해 주세요"
 
-msgid "The passwords do not match. Please try again."
-msgstr "비밀번호가 맞지 않습니다. 다시 시도해 주세요"
-
 msgid "Check your email"
 msgstr "이메일을 확인하여 주세요"
-
-msgid "A link to reset your password has been emailed to you."
-msgstr "비밀번호 초기화를 위한 링크를 이메일로 보냈습니다"
 
 msgid "Please follow the link below to reset your password:"
 msgstr "패스워드를 재설정하려면 아래의 링크를 따라가 주세요."
@@ -1325,6 +1282,18 @@ msgstr "'{title}' 페이지 게시 해제"
 #, python-brace-format
 msgid "View revision history for '{title}'"
 msgstr "'{title}'의 수정 히스토리 보기"
+
+msgid "Change the password you use to log in."
+msgstr "로그인을 위해 비밀번호 변경"
+
+msgid "Choose which email notifications to receive."
+msgstr "알림을 받기 위한 이메일 선택"
+
+msgid "Language preferences"
+msgstr "언어 선호"
+
+msgid "Choose the language you want to use here."
+msgstr "여기에서 사용하고 싶은 언어를 골라 주세요."
 
 msgid "Choose an item"
 msgstr "아이템 선택"

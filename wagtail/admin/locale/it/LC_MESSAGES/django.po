@@ -8,14 +8,14 @@
 # Edd Baldry <edd.baldry@gmail.com>, 2016
 # Edd <edd.baldry@googlemail.com>, 2016
 # Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2018
-# giammi <gian-maria.daffre@giammi.org>, 2016
+# giammi <gian-maria.daffre@giammi.org>, 2016,2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-03-27 17:34+0000\n"
-"Last-Translator: Giacomo Ghizzani <giacomo.ghz@gmail.com>\n"
+"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"PO-Revision-Date: 2018-05-10 14:09+0000\n"
+"Last-Translator: giammi <gian-maria.daffre@giammi.org>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -23,6 +23,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: it\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail admin"
+msgstr "Gestione Wagtail"
 
 msgid "None"
 msgstr "Nessuno"
@@ -63,19 +66,6 @@ msgstr "Inserisci il tuo %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Digita la tua email per resettare la password"
-
-msgid "Please fill your email address."
-msgstr "Inserisci la tua email"
-
-msgid ""
-"Sorry, you cannot reset your password here as your user account is managed "
-"by another server."
-msgstr ""
-"Non puoi resettare la password perché il tuo account è gestito da un altro "
-"server"
-
-msgid "This email address is not recognised."
-msgstr "L'indirizzo email fornito è inesistente"
 
 msgid "New title"
 msgstr "Nuovo titolo"
@@ -168,35 +158,20 @@ msgstr "Vai all'interfaccia admin di Wagtail"
 msgid "Account"
 msgstr "Account"
 
-msgid "Set gravatar"
-msgstr "Imposta gravatar"
+msgid "Change profile picture"
+msgstr "Cambia immagine del profilo"
 
-msgid ""
-"Your avatar image is provided by Gravatar and is connected to your email "
-"address. With a Gravatar account you can set an avatar for any number of "
-"other email addresses you use."
-msgstr ""
-"La tua immagine avatar è fornita da Gravatar ed è connessa al tuo indirizzo "
-"email. Con un account Gravatar puoi settare un avatar per qualunque numero "
-"di email che usi."
+msgid "Your current profile picture:"
+msgstr "La tua immagine attuale del profilo:"
+
+msgid "Update"
+msgstr "Aggiorna"
+
+msgid "Change email"
+msgstr "Cambia email"
 
 msgid "Change password"
 msgstr "Cambia password"
-
-msgid "Change the password you use to log in."
-msgstr "Cambia la password che usi per loggarti."
-
-msgid "Notification preferences"
-msgstr "Preferenze delle notifiche"
-
-msgid "Choose which email notifications to receive."
-msgstr "Scegli quale notifiche vuoi ricevere via email."
-
-msgid "Language preferences"
-msgstr "Impostazioni lingua"
-
-msgid "Choose the language you want to use here."
-msgstr "Scegli la lingua che vuoi usare qui."
 
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
@@ -204,11 +179,14 @@ msgstr ""
 "La tua password non può esser cambiata qui. Per favore contatta "
 "l'amministratore del sito"
 
+msgid "Set Time Zone"
+msgstr "Imposta il fuso orario"
+
 msgid "Language Preferences"
 msgstr "Impostazioni Lingua"
 
-msgid "Update"
-msgstr "Aggiorna"
+msgid "Notification preferences"
+msgstr "Preferenze delle notifiche"
 
 msgid "Reset password"
 msgstr "Inserisci password"
@@ -222,14 +200,28 @@ msgstr "Login"
 msgid "Set your new password"
 msgstr "Inserisci password"
 
-msgid "The passwords do not match. Please try again."
-msgstr "Questa password non corrisponde. Per favore prova ancora."
+msgid "Invalid password reset link"
+msgstr "Link di reimpostazione della password non valida"
+
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used."
+msgstr ""
+"Il link per la reimpostazione della password non era valido, probabilmente "
+"perché è già stato utilizzato."
+
+msgid "Request a new password reset"
+msgstr "Richiedi una nuova reimpostazione della password"
 
 msgid "Check your email"
 msgstr "Controlla la tua email"
 
-msgid "A link to reset your password has been emailed to you."
-msgstr "Il link per resettare la tua password ti è stato invitato via email."
+msgid ""
+"A link to reset your password has been emailed to you if an account exists "
+"for this address."
+msgstr ""
+"Un link per resettare la tua password ti è stato inviato via email se esiste "
+"un account per questo indirizzo."
 
 msgid "Please follow the link below to reset your password:"
 msgstr "Per favore segui il link qui sotto per resettare la tua password"
@@ -290,6 +282,24 @@ msgstr "Annulla"
 
 msgid "Redo"
 msgstr "Ripristina"
+
+msgid "Reload the page"
+msgstr "Ricarica la pagina"
+
+msgid "Reload saved content"
+msgstr "Ricarica il contenuto salvato"
+
+msgid "Show latest content"
+msgstr "Mostra gli ultimi contenuti"
+
+msgid "Show error"
+msgstr "Mostra errore"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr ""
+"L'editor è appena andato in crash. Il contenuto è stato reimpostato "
+"sull'ultima versione salvata."
 
 msgid "Dashboard"
 msgstr "Dashboard"
@@ -1262,6 +1272,9 @@ msgstr "Svedese"
 msgid "Slovak"
 msgstr "Slovacco"
 
+msgid "Ukrainian"
+msgstr "Ucraino"
+
 msgid "Chinese (China)"
 msgstr "Chinese (China)"
 
@@ -1271,8 +1284,14 @@ msgstr "Spiacente, non hai i permessi per accedere a questa area."
 msgid "Your password has been changed successfully!"
 msgstr "La tua password è stato modificata con successo"
 
+msgid "Your email has been changed successfully!"
+msgstr "La tua email è stata cambiata con successo!"
+
 msgid "Your preferences have been updated."
 msgstr "Le tue impostazioni sono state aggiornate."
+
+msgid "Your preferences have been updated successfully!"
+msgstr "Le tue preferenze sono state aggiornate con successo!"
 
 msgid "You have been successfully logged out."
 msgstr "Logout eseguito con successo."
@@ -1494,6 +1513,33 @@ msgstr "Annulla pubblicazione pagina '{title}'"
 #, python-brace-format
 msgid "View revision history for '{title}'"
 msgstr "Vedi storico revisioni per '{title}'"
+
+msgid "Set profile picture"
+msgstr "Imposta la foto del profilo"
+
+msgid "Change your profile picture"
+msgstr "Cambia la tua immagine di profilo"
+
+msgid "Change the email address linked to your account."
+msgstr "Cambia l'indirizzo email collegato al tuo account."
+
+msgid "Change the password you use to log in."
+msgstr "Cambia la password che usi per loggarti."
+
+msgid "Choose which email notifications to receive."
+msgstr "Scegli quale notifiche vuoi ricevere via email."
+
+msgid "Language preferences"
+msgstr "Impostazioni lingua"
+
+msgid "Choose the language you want to use here."
+msgstr "Scegli la lingua che vuoi usare qui."
+
+msgid "Current Time Zone"
+msgstr "Fuso orario attuale"
+
+msgid "Choose your current time zone."
+msgstr "Scegli il tuo fuso orario corrente."
 
 #, python-brace-format
 msgid "Heading {level}"

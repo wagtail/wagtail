@@ -5,7 +5,7 @@
 # Translators:
 # Ettore Atalan <atalanttore@googlemail.com>, 2016-2017
 # Vorlif <flori@vorlif.org>, 2015
-# Henrik Kröger <hedwig@riseup.net>, 2016
+# Henrik Kröger <hedwig@riseup.net>, 2016,2018
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 # M0rph 3u5 <transifex@m0rph3u5.net>, 2014
@@ -20,9 +20,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-01-26 16:04+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"PO-Revision-Date: 2018-05-09 09:56+0000\n"
+"Last-Translator: Henrik Kröger <hedwig@riseup.net>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -30,6 +30,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail users"
+msgstr "Wagtail Benutzer"
 
 msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
 msgstr ""
@@ -83,6 +86,9 @@ msgid "You cannot have multiple permission records for the same page."
 msgstr ""
 "Sie können nicht mehrere Berechtigungseinträge für dieselbe Seite haben."
 
+msgid "Upload a profile picture"
+msgstr "Ein Profil-Bild hochladen"
+
 msgid "submitted notifications"
 msgstr "Eingereicht-Benachrichtigungen"
 
@@ -107,6 +113,15 @@ msgstr "bevorzugte Sprache"
 
 msgid "Select language for the admin"
 msgstr "Wählen Sie die Sprache für den Admin aus"
+
+msgid "current time zone"
+msgstr "Aktuelle Zeitzone"
+
+msgid "Select your current time zone"
+msgstr "Wählen Sie Ihre aktuelle Zeitzone"
+
+msgid "profile picture"
+msgstr "Profil-Bild"
 
 msgid "user profile"
 msgstr "Benutzerprofil"
@@ -305,9 +320,12 @@ msgstr "Bearbeiten"
 msgid "The user could not be created due to errors."
 msgstr "Aufgrund von Fehlern konnte der Benutzer nicht erstellt werden."
 
-#, python-brace-format
-msgid "User '{0}' updated."
-msgstr "Benutzer ‚{0}‘ geändert."
+msgid ""
+"Your details have been updated. You've been logged out for security reasons, "
+"please login to continue."
+msgstr ""
+"Ihre Angaben wurden aktualisiert. Aus Sicherheitsgründen wurden Sie "
+"abgemeldet, bitte melden Sie sich an, um fortzufahren."
 
 msgid "The user could not be saved due to errors."
 msgstr "Aufgrund von Fehlern konnte der Benutzer nicht gespeichert werden."

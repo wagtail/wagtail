@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-02-16 11:33+0000\n"
+"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"PO-Revision-Date: 2018-05-04 19:30+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
 "tr/)\n"
@@ -54,19 +54,6 @@ msgstr "%s gir"
 msgid "Enter your email address to reset your password"
 msgstr "Şifreyi sıfırlamak için e posta adresini gir"
 
-msgid "Please fill your email address."
-msgstr "Lütfen E posta adresini doldu"
-
-msgid ""
-"Sorry, you cannot reset your password here as your user account is managed "
-"by another server."
-msgstr ""
-"Üzgünüz, sizin şifrenizi burada sıfırlayamıyoruz, hesabınız başka bir sunucu "
-"tarafından yönetilmekte"
-
-msgid "This email address is not recognised."
-msgstr "Bu email adresi tanınamadı"
-
 msgid "New title"
 msgstr "Yeni başlı"
 
@@ -109,27 +96,18 @@ msgstr "Aynı kolleksiyona ait birden fazla yetkiye sahip olamazsınız"
 msgid "Account"
 msgstr "Hesap"
 
-msgid "Set gravatar"
-msgstr "Gravatar ayarla"
+msgid "Update"
+msgstr "Güncelle"
 
 msgid "Change password"
 msgstr "Şifre değiştir"
-
-msgid "Change the password you use to log in."
-msgstr "Giriş şifrenizi değiştirin"
-
-msgid "Notification preferences"
-msgstr "Bildirim tercihleri"
-
-msgid "Choose which email notifications to receive."
-msgstr "Bildirimleri almak için e posta seçin"
 
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr "Şifreniz değiştirilemiyor. Yönetici ile irtibata geçin."
 
-msgid "Update"
-msgstr "Güncelle"
+msgid "Notification preferences"
+msgstr "Bildirim tercihleri"
 
 msgid "Reset password"
 msgstr "Şifreyi sıfırla"
@@ -143,15 +121,8 @@ msgstr "Giriş"
 msgid "Set your new password"
 msgstr "Yeni şifre ayarla"
 
-msgid "The passwords do not match. Please try again."
-msgstr "Şifreler uyuşmuyor. Yeniden deneyin."
-
 msgid "Check your email"
 msgstr "E postanızı kontrol edin"
-
-msgid "A link to reset your password has been emailed to you."
-msgstr ""
-"Şifreni sıfırlamak için gerekli olan bağlantı e posta olarak gönderildi."
 
 msgid "Please follow the link below to reset your password:"
 msgstr "Şifrenizi resetlemek için aşağıdaki bağlantıyı takip edin"
@@ -423,6 +394,12 @@ msgstr "Sayfa '{0}' taşındı."
 
 msgid "More"
 msgstr "Daha fazla"
+
+msgid "Change the password you use to log in."
+msgstr "Giriş şifrenizi değiştirin"
+
+msgid "Choose which email notifications to receive."
+msgstr "Bildirimleri almak için e posta seçin"
 
 msgid "Choose an item"
 msgstr "Bir eleman seçiniz"

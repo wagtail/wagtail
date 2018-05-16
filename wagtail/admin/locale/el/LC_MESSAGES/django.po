@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-02-16 11:33+0000\n"
+"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"PO-Revision-Date: 2018-05-04 19:30+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
@@ -63,19 +63,6 @@ msgstr "Εισάγετε το %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Εισάγετε τη διεύθυνση email σας για να ανανεώσετε τον κωδικό σας"
-
-msgid "Please fill your email address."
-msgstr "Συμπληρώσατε τη διεύθυνση email σας."
-
-msgid ""
-"Sorry, you cannot reset your password here as your user account is managed "
-"by another server."
-msgstr ""
-"Λυπούμαστε, δε μπορείτε να αλλάξετε τον κωδικό σας διότι το λογαριασμό "
-"χρήστη σας τον διαχειρίζεται ένας διαφορετικός εξυπηρετητής."
-
-msgid "This email address is not recognised."
-msgstr "Δε βρέθηκε το email."
 
 msgid "New title"
 msgstr "Νέος τίτλος"
@@ -154,37 +141,19 @@ msgstr "Πηγαίνετε στη διαχείριση του Wagtail"
 msgid "Account"
 msgstr "Λογαριασμός"
 
-msgid "Set gravatar"
-msgstr "Ορισμός gravatar"
-
-msgid ""
-"Your avatar image is provided by Gravatar and is connected to your email "
-"address. With a Gravatar account you can set an avatar for any number of "
-"other email addresses you use."
-msgstr ""
-"Η εικόνα σας παρέχετε από το Gravatar και συσχετίζεται με τη διεύθυνση email "
-"σας. Με το λογαριασμό σας στο Gravatar μπορείτε να δημιουργήσετε εικόνα και "
-"για τις άλλες διευθύνσεις email που έχετε."
+msgid "Update"
+msgstr "Ενημέρωση"
 
 msgid "Change password"
 msgstr "Αλλαγή κωδικού"
-
-msgid "Change the password you use to log in."
-msgstr "Αλλάξτε τον κωδικό σας"
-
-msgid "Notification preferences"
-msgstr "Προτιμήσεις ειδοποιήσεων"
-
-msgid "Choose which email notifications to receive."
-msgstr "Επιλέξτε ποιες ειδοποιήσεις email θα λαμβάνετε."
 
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr ""
 "Ο κωδικός σας δε μπορεί να αλλαχτεί εδώ. Παρακαλώ ενημερώστε το διαχειριστή."
 
-msgid "Update"
-msgstr "Ενημέρωση"
+msgid "Notification preferences"
+msgstr "Προτιμήσεις ειδοποιήσεων"
 
 msgid "Reset password"
 msgstr "Ανανέωση κωδικού"
@@ -198,14 +167,8 @@ msgstr "Σύνδεση"
 msgid "Set your new password"
 msgstr "Δημιουργήστε το νέο σας κωδικό"
 
-msgid "The passwords do not match. Please try again."
-msgstr "Οι κωδικοί δε ταιριάζουν. Παρακαλούμε δοκιμάστε ξανά."
-
 msgid "Check your email"
 msgstr "Ελέγξατε το email σας"
-
-msgid "A link to reset your password has been emailed to you."
-msgstr "Μια σύνδεση για ανανέωση του κωδικού σας έχει σταλεί στο email σας."
 
 msgid "Please follow the link below to reset your password:"
 msgstr ""
@@ -1261,6 +1224,12 @@ msgstr "Κατάργηση δημοσίευσης της σελίδας '{title}
 #, python-brace-format
 msgid "View revision history for '{title}'"
 msgstr "Προβολή του ιστορικού αναθεωρήσεων της σελίδας '{title}'"
+
+msgid "Change the password you use to log in."
+msgstr "Αλλάξτε τον κωδικό σας"
+
+msgid "Choose which email notifications to receive."
+msgstr "Επιλέξτε ποιες ειδοποιήσεις email θα λαμβάνετε."
 
 msgid "Choose an item"
 msgstr "Επιλέξατε αντικείμενο"

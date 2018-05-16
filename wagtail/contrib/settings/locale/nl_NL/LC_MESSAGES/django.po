@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Maarten Kling <kling.maarten@gmail.com>, 2018
 # Thijs Kramer <thijskramer@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-02-17 17:49+0000\n"
+"POT-Creation-Date: 2018-05-04 20:23+0100\n"
+"PO-Revision-Date: 2018-05-07 09:02+0000\n"
 "Last-Translator: Maarten Kling <kling.maarten@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
@@ -34,6 +35,10 @@ msgstr "Opslaan"
 
 msgid "Settings"
 msgstr "Instellingen"
+
+msgid "This setting could not be opened because there is no site defined."
+msgstr ""
+"Deze instelling kon niet worden geopend omdat er geen site is aangegeven."
 
 #, python-brace-format
 msgid "{setting_type} updated."

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-01-26 16:03+0000\n"
+"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"PO-Revision-Date: 2018-05-04 19:31+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Vietnamese (http://www.transifex.com/torchbox/wagtail/"
 "language/vi/)\n"
@@ -143,10 +143,6 @@ msgstr "Người dùng '{0}' đã được tạo."
 
 msgid "The user could not be created due to errors."
 msgstr "Không thể tạo người dùng vì lỗi."
-
-#, python-brace-format
-msgid "User '{0}' updated."
-msgstr "Người dùng '{0}' đã được cập nhật."
 
 msgid "The user could not be saved due to errors."
 msgstr "Không thể lưu người dùng vì lỗi."

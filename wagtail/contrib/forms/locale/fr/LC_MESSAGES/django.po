@@ -7,7 +7,7 @@
 # Axel Haustant, 2016
 # Axel Haustant, 2016
 # Benoît Vogel <contact@spicy-informatique.com>, 2016-2017
-# Bertrand Bordage <bordage.bertrand@gmail.com>, 2015,2017
+# Bertrand Bordage <bordage.bertrand@gmail.com>, 2015,2017-2018
 # Léo <leo@naeka.fr>, 2016
 # Loïc Teixeira <hello@lta.me>, 2018
 # pierre marfoure <pierre@onoffdesign.com>, 2016
@@ -17,9 +17,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-02-13 00:54+0000\n"
-"Last-Translator: Loïc Teixeira <hello@lta.me>\n"
+"POT-Creation-Date: 2018-05-04 20:23+0100\n"
+"PO-Revision-Date: 2018-05-07 14:37+0000\n"
+"Last-Translator: Bertrand Bordage <bordage.bertrand@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -27,6 +27,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Wagtail forms"
+msgstr "Formulaires Wagtail"
 
 #, python-format
 msgid "%s submissions"

@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-02-16 11:33+0000\n"
+"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"PO-Revision-Date: 2018-05-04 19:30+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
@@ -63,19 +63,6 @@ msgstr "Ange ditt %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Ange din e-postadress för att återställa ditt lösenord"
-
-msgid "Please fill your email address."
-msgstr "Vänligen fyll i din e-postadress"
-
-msgid ""
-"Sorry, you cannot reset your password here as your user account is managed "
-"by another server."
-msgstr ""
-"Du kan inte återställa ditt lösenord här eftersom ditt användarkonto är "
-"hanterat av en annan server."
-
-msgid "This email address is not recognised."
-msgstr "E-postadressen känns inte igen."
 
 msgid "New title"
 msgstr "Ny titel"
@@ -168,35 +155,11 @@ msgstr "Gå till Wagtail admin"
 msgid "Account"
 msgstr "Konto"
 
-msgid "Set gravatar"
-msgstr "Välj gravatar"
-
-msgid ""
-"Your avatar image is provided by Gravatar and is connected to your email "
-"address. With a Gravatar account you can set an avatar for any number of "
-"other email addresses you use."
-msgstr ""
-"Din profilbild hämtas från Gravatar och är kopplad till din e-postadress. "
-"Med ett Gravatar-konto kan du välja en profilbild för ett obegränsat antal e-"
-"postadresser."
+msgid "Update"
+msgstr "Uppdatera"
 
 msgid "Change password"
 msgstr "Byt lösenord"
-
-msgid "Change the password you use to log in."
-msgstr "Byt lösenordet du använder för att logga in"
-
-msgid "Notification preferences"
-msgstr "Notisinställningar"
-
-msgid "Choose which email notifications to receive."
-msgstr "Välj vilka e-postnotiser du vill ta emot"
-
-msgid "Language preferences"
-msgstr "Språkpreferens"
-
-msgid "Choose the language you want to use here."
-msgstr "Välj det språk du vill använda här."
 
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
@@ -206,8 +169,8 @@ msgstr ""
 msgid "Language Preferences"
 msgstr "Språkpreferens"
 
-msgid "Update"
-msgstr "Uppdatera"
+msgid "Notification preferences"
+msgstr "Notisinställningar"
 
 msgid "Reset password"
 msgstr "Återställ lösenord"
@@ -221,14 +184,8 @@ msgstr "Logga in"
 msgid "Set your new password"
 msgstr "Sätt ditt nya lösenord"
 
-msgid "The passwords do not match. Please try again."
-msgstr "Lösenorden matchar inte. Vänligen pröva igen."
-
 msgid "Check your email"
 msgstr "Kontrollera din mejl"
-
-msgid "A link to reset your password has been emailed to you."
-msgstr "En länk för att återställa ditt lösenord har mejlats till dig."
 
 msgid "Please follow the link below to reset your password:"
 msgstr "Vänligen följ länken för att återställa ditt lösenord: "
@@ -1480,6 +1437,18 @@ msgstr "Avpublicera sida '{title}'"
 #, python-brace-format
 msgid "View revision history for '{title}'"
 msgstr "Se revisionshistorik för '{title}'"
+
+msgid "Change the password you use to log in."
+msgstr "Byt lösenordet du använder för att logga in"
+
+msgid "Choose which email notifications to receive."
+msgstr "Välj vilka e-postnotiser du vill ta emot"
+
+msgid "Language preferences"
+msgstr "Språkpreferens"
+
+msgid "Choose the language you want to use here."
+msgstr "Välj det språk du vill använda här."
 
 #, python-brace-format
 msgid "Heading {level}"

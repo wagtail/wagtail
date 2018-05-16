@@ -4,13 +4,14 @@
 #
 # Translators:
 # Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2018
+# giammi <gian-maria.daffre@giammi.org>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-02-07 19:15+0000\n"
-"Last-Translator: Giacomo Ghizzani <giacomo.ghz@gmail.com>\n"
+"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"PO-Revision-Date: 2018-05-10 14:24+0000\n"
+"Last-Translator: giammi <gian-maria.daffre@giammi.org>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -18,6 +19,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: it\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail users"
+msgstr "Utenti Wagtail"
 
 msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
 msgstr ""
@@ -68,6 +72,9 @@ msgstr "Gruppo già esistente."
 msgid "You cannot have multiple permission records for the same page."
 msgstr "Non puoi avere permessi multipli per la stessa pagina."
 
+msgid "Upload a profile picture"
+msgstr "Carica un'immagine del profilo"
+
 msgid "submitted notifications"
 msgstr "notifiche inviate"
 
@@ -91,6 +98,15 @@ msgstr "lingua preferita"
 
 msgid "Select language for the admin"
 msgstr "Seleziona lingua per l'admin"
+
+msgid "current time zone"
+msgstr "Fuso orario attuale"
+
+msgid "Select your current time zone"
+msgstr "Scegli il tuo fuso orario attuale"
+
+msgid "profile picture"
+msgstr "Immagine del profilo"
 
 msgid "user profile"
 msgstr "profilo utente"
@@ -291,9 +307,12 @@ msgstr "Modifica"
 msgid "The user could not be created due to errors."
 msgstr "L'utente non può essere creato a causa di errori."
 
-#, python-brace-format
-msgid "User '{0}' updated."
-msgstr "Utente '{0}' aggiornato."
+msgid ""
+"Your details have been updated. You've been logged out for security reasons, "
+"please login to continue."
+msgstr ""
+"I tuoi dettagli sono stati aggiornati. Sei stato disconnesso per motivi di "
+"sicurezza, effettua il login per continuare."
 
 msgid "The user could not be saved due to errors."
 msgstr "L'utente non può essere salvato a causa di errori."

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-02-16 11:33+0000\n"
+"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"PO-Revision-Date: 2018-05-04 19:30+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
@@ -56,19 +56,6 @@ msgstr "Vnesite vaše %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Vnesite vaš e-naslov za ponastavitev gesla"
-
-msgid "Please fill your email address."
-msgstr "Prosimo vnesite vaš e-naslov."
-
-msgid ""
-"Sorry, you cannot reset your password here as your user account is managed "
-"by another server."
-msgstr ""
-"Vašega gesla žal ni mogoče ponastaviti, saj je vas uporabniški račun v "
-"upravljanju na drugem strežniku."
-
-msgid "This email address is not recognised."
-msgstr "Nepoznan e-naslov."
 
 msgid "New title"
 msgstr "Nov naziv"
@@ -145,28 +132,11 @@ msgstr "Pojdite v Wagtail admin"
 msgid "Account"
 msgstr "Račun"
 
-msgid "Set gravatar"
-msgstr "Nastavi gravatar"
-
-msgid ""
-"Your avatar image is provided by Gravatar and is connected to your email "
-"address. With a Gravatar account you can set an avatar for any number of "
-"other email addresses you use."
-msgstr ""
-"Vašo sliko zagotavlja storitev Gravatar in je vezana na vaš e-naslov. V "
-"vašem Gravatar računu lahko nastavite slike za poljubne e-naslove."
+msgid "Update"
+msgstr "Posodbi"
 
 msgid "Change password"
 msgstr "Spremeni geslo"
-
-msgid "Change the password you use to log in."
-msgstr "Spremenite geslo za prijavo."
-
-msgid "Notification preferences"
-msgstr "Nastavitve obveščanja"
-
-msgid "Choose which email notifications to receive."
-msgstr "Izberite katera obvestila želite prejemati na vaš e-naslov."
 
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
@@ -174,8 +144,8 @@ msgstr ""
 "Vaše gesla tu ni mogoče spremeniti. Prosimo vzpostavite kontakt z "
 "administratorjem strani.  "
 
-msgid "Update"
-msgstr "Posodbi"
+msgid "Notification preferences"
+msgstr "Nastavitve obveščanja"
 
 msgid "Reset password"
 msgstr "Ponastavi geslo"
@@ -189,14 +159,8 @@ msgstr "Prijava"
 msgid "Set your new password"
 msgstr "Nastavite novo geslo"
 
-msgid "The passwords do not match. Please try again."
-msgstr "Gesli se ne ujemata. Prosimo poizkusite znova."
-
 msgid "Check your email"
 msgstr "Preverite vašo e-pošto."
-
-msgid "A link to reset your password has been emailed to you."
-msgstr "Povezava za ponastavitev gesla je bila poslana na vaš e-naslov."
 
 msgid "Password reset"
 msgstr "Geslo ponastavljeno"
@@ -927,6 +891,12 @@ msgstr "Stran '{0}' je sedaj zaklenjena."
 #, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "Stran '{0}' je sedaj odklenjena."
+
+msgid "Change the password you use to log in."
+msgstr "Spremenite geslo za prijavo."
+
+msgid "Choose which email notifications to receive."
+msgstr "Izberite katera obvestila želite prejemati na vaš e-naslov."
 
 msgid "Choose an item"
 msgstr "Izberite element"

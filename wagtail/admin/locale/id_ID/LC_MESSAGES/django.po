@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-02-16 11:33+0000\n"
+"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"PO-Revision-Date: 2018-05-04 19:30+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
 "wagtail/language/id_ID/)\n"
@@ -59,19 +59,6 @@ msgstr "Masukkan %s anda"
 
 msgid "Enter your email address to reset your password"
 msgstr "Masukkan alamat surel untuk atur ulang kata kunci anda"
-
-msgid "Please fill your email address."
-msgstr "Harap isi alamat surel anda"
-
-msgid ""
-"Sorry, you cannot reset your password here as your user account is managed "
-"by another server."
-msgstr ""
-"Maaf, anda tidak dapat mengatur ulang kata kunci anda karena akun pengguna "
-"anda dikelola oleh server lain."
-
-msgid "This email address is not recognised."
-msgstr "Alamat surel ini tidak dikenali."
 
 msgid "New title"
 msgstr "Judul baru"
@@ -165,35 +152,11 @@ msgstr "Pergi ke pengelolaan Wagtail"
 msgid "Account"
 msgstr "Akun"
 
-msgid "Set gravatar"
-msgstr "Tentukan gravatar"
-
-msgid ""
-"Your avatar image is provided by Gravatar and is connected to your email "
-"address. With a Gravatar account you can set an avatar for any number of "
-"other email addresses you use."
-msgstr ""
-"Gambar avatar anda disediakan oleh Gravatar dan terhubung dengan alamat "
-"surel anda. Anda dapat menentukan avatar untuk setiap alamat surel yang anda "
-"miliki dengan akun gravatar."
+msgid "Update"
+msgstr "Perbarui"
 
 msgid "Change password"
 msgstr "Ganti kata sandi"
-
-msgid "Change the password you use to log in."
-msgstr "Ganti kata sandi yang Anda gunakan untuk masuk."
-
-msgid "Notification preferences"
-msgstr "Preferensi notifikasi"
-
-msgid "Choose which email notifications to receive."
-msgstr "Pilih jenis notifikasi surel mana yang akan diterima."
-
-msgid "Language preferences"
-msgstr "Preferensi bahasa"
-
-msgid "Choose the language you want to use here."
-msgstr "Pilih bahasa yang akan Anda gunakan disini."
 
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
@@ -203,8 +166,8 @@ msgstr ""
 msgid "Language Preferences"
 msgstr "Preferensi Bahasa"
 
-msgid "Update"
-msgstr "Perbarui"
+msgid "Notification preferences"
+msgstr "Preferensi notifikasi"
 
 msgid "Reset password"
 msgstr "Atur ulang kata sandi"
@@ -218,15 +181,8 @@ msgstr "Masuk"
 msgid "Set your new password"
 msgstr "Atur kata sandi baru Anda"
 
-msgid "The passwords do not match. Please try again."
-msgstr "Kata sandi tidak cocok. Silakan coba kembali."
-
 msgid "Check your email"
 msgstr "Periksa surel Anda"
-
-msgid "A link to reset your password has been emailed to you."
-msgstr ""
-"Tautan untuk mengatur ulang kata sandi Anda telah dikirim ke surel Anda."
 
 msgid "Please follow the link below to reset your password:"
 msgstr "Harap ikuti tautan di bawah ini untuk mengatur ulang kata sandi anda:"
@@ -1383,6 +1339,18 @@ msgstr "Tarik publikasi halaman '{title}'"
 #, python-brace-format
 msgid "View revision history for '{title}'"
 msgstr "Tampilkan catatan revisi '{title}'"
+
+msgid "Change the password you use to log in."
+msgstr "Ganti kata sandi yang Anda gunakan untuk masuk."
+
+msgid "Choose which email notifications to receive."
+msgstr "Pilih jenis notifikasi surel mana yang akan diterima."
+
+msgid "Language preferences"
+msgstr "Preferensi bahasa"
+
+msgid "Choose the language you want to use here."
+msgstr "Pilih bahasa yang akan Anda gunakan disini."
 
 msgid "Choose an item"
 msgstr "Pilih salah satu"

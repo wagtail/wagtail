@@ -5,13 +5,14 @@
 # Translators:
 # Kornel Novak Mergulhão <nkornel@gmail.com>, 2016
 # Kornel Novak Mergulhão <nkornel@gmail.com>, 2016
+# B N <biczoxd@gmail.com>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2017-09-22 19:04+0000\n"
-"Last-Translator: Kornel Novak Mergulhão <nkornel@gmail.com>\n"
+"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"PO-Revision-Date: 2018-05-10 18:37+0000\n"
+"Last-Translator: B N <biczoxd@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
 "MIME-Version: 1.0\n"
@@ -20,11 +21,46 @@ msgstr ""
 "Language: hu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "Wagtail sites"
+msgstr "Wagtail oldalak"
+
+msgid "Choose a root page"
+msgstr "Válassz egy gyökér (fő) oldalt"
+
+msgid "Choose a different root page"
+msgstr "Válassz egy másik gyökér (fő) oldalt"
+
 msgid "Site"
 msgstr "Oldal"
 
+msgid "Port"
+msgstr "Port"
+
+msgid "Site name"
+msgstr "Oldal neve"
+
+msgid "Root page"
+msgstr "Gyökér (fő) oldal"
+
+msgid "Default?"
+msgstr "Alapméretezett?"
+
 msgid "Default"
 msgstr "Alapértelmezett"
+
+msgid "Sites"
+msgstr "Oldalak"
+
+#, python-brace-format
+msgid "Site '{0}' created."
+msgstr "'{0}' oldal létrehozva."
+
+#, python-brace-format
+msgid "Site '{0}' updated."
+msgstr "'{0}' oldal frissítve."
+
+msgid "The site could not be saved due to errors."
+msgstr "Az oldalt hibák miatt nem lehetett elmenteni."
 
 msgid "Delete site"
 msgstr "Oldal törlése"

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-02-16 11:45+0000\n"
+"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"PO-Revision-Date: 2018-05-05 00:19+0000\n"
 "Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
@@ -19,6 +19,9 @@ msgstr ""
 "Language: ro\n"
 "Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
 "2:1));\n"
+
+msgid "Wagtail admin"
+msgstr "Administrare Wagtail"
 
 msgid "None"
 msgstr "Nici una"
@@ -59,19 +62,6 @@ msgstr "Introduceți %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Introduceți adresa de e-mail pentru a reseta parola"
-
-msgid "Please fill your email address."
-msgstr "Introduceți adresa de e-mail."
-
-msgid ""
-"Sorry, you cannot reset your password here as your user account is managed "
-"by another server."
-msgstr ""
-"Ne pare rău, dar nu puteți reseta parola aici. Contul dvs. de utilizator "
-"este gestionat de un alt server."
-
-msgid "This email address is not recognised."
-msgstr "Adresa e-mail nu este recunoscută."
 
 msgid "New title"
 msgstr "Titlu nou"
@@ -171,35 +161,20 @@ msgstr "Spre interfața de administrare Wagtail"
 msgid "Account"
 msgstr "Cont"
 
-msgid "Set gravatar"
-msgstr "Setează gravatar"
+msgid "Change profile picture"
+msgstr "Schimbă poza de profil"
 
-msgid ""
-"Your avatar image is provided by Gravatar and is connected to your email "
-"address. With a Gravatar account you can set an avatar for any number of "
-"other email addresses you use."
-msgstr ""
-"Avatarul este oferit de Gravatar și este legat de adresa dvs. de e-mail. "
-"Având un cont Gravatar, puteți seta un avatar pentru orice număr de adrese e-"
-"mail folosite."
+msgid "Your current profile picture:"
+msgstr "Poză profil curentă:"
+
+msgid "Update"
+msgstr "Actualizează"
+
+msgid "Change email"
+msgstr "Schimbă e-mail"
 
 msgid "Change password"
 msgstr "Schimbă parola"
-
-msgid "Change the password you use to log in."
-msgstr "Schimbați parola folosită pentru access."
-
-msgid "Notification preferences"
-msgstr "Preferințe de notificare"
-
-msgid "Choose which email notifications to receive."
-msgstr "Alege ce notificări să primiți prin e-mail."
-
-msgid "Language preferences"
-msgstr "Preferințe limbă"
-
-msgid "Choose the language you want to use here."
-msgstr "Selectați limba dorită"
 
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
@@ -207,11 +182,14 @@ msgstr ""
 "Parola nu poate fi schimbată aici. Vă rugăm să contactați administratorii "
 "sitului."
 
+msgid "Set Time Zone"
+msgstr "Setează fus orar"
+
 msgid "Language Preferences"
 msgstr "Preferințe limbă"
 
-msgid "Update"
-msgstr "Actualizează"
+msgid "Notification preferences"
+msgstr "Preferințe de notificare"
 
 msgid "Reset password"
 msgstr "Resetează parola"
@@ -225,14 +203,27 @@ msgstr "Autentificare"
 msgid "Set your new password"
 msgstr "Setează parola nouă"
 
-msgid "The passwords do not match. Please try again."
-msgstr "Parolele nu corespund. Vă rugăm să încercați din nou."
+msgid "Invalid password reset link"
+msgstr "Link resetare parolă nevalid"
+
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used."
+msgstr ""
+"Link-ul resetare parola este nevalid pentru ca probabil a fost folosit."
+
+msgid "Request a new password reset"
+msgstr "Cere resetare parolă nouă"
 
 msgid "Check your email"
 msgstr "Verificăți contul de e-mail"
 
-msgid "A link to reset your password has been emailed to you."
-msgstr "Link-ul de resetare a parolei a fost trimis prin e-mail."
+msgid ""
+"A link to reset your password has been emailed to you if an account exists "
+"for this address."
+msgstr ""
+"Link-ul de resetare a parolei va fi trimis prin e-mail dacă există cont cu "
+"această adresă."
 
 msgid "Please follow the link below to reset your password:"
 msgstr "Vă rugăm să urmați link-ul de mai jos pentru a reseta parola:"
@@ -293,6 +284,22 @@ msgstr "Anulare"
 
 msgid "Redo"
 msgstr "Refacere"
+
+msgid "Reload the page"
+msgstr "Reîncarcă pagina"
+
+msgid "Reload saved content"
+msgstr "Reîncarcă conținutul salvat"
+
+msgid "Show latest content"
+msgstr "Afișează conținutul cel mai recent"
+
+msgid "Show error"
+msgstr "Afișează eroare"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr "Editorul s-a prăbușit. Conținut resetat la versiunea recent salvată."
 
 msgid "Dashboard"
 msgstr "Bord"
@@ -1272,6 +1279,9 @@ msgstr "suedeză"
 msgid "Slovak"
 msgstr "Slovacă"
 
+msgid "Ukrainian"
+msgstr "ucraineană"
+
 msgid "Chinese (China)"
 msgstr "Chineză"
 
@@ -1281,8 +1291,14 @@ msgstr "Ne pare rău, nu aveți permisiunea de a accesa această zonă."
 msgid "Your password has been changed successfully!"
 msgstr "Parola a fost schimbată cu succes!"
 
+msgid "Your email has been changed successfully!"
+msgstr "E-mailul a fost schimbat cu succes!"
+
 msgid "Your preferences have been updated."
 msgstr "Preferințele au fost schimbare."
+
+msgid "Your preferences have been updated successfully!"
+msgstr "Preferințele au fost schimbate cu success!"
 
 msgid "You have been successfully logged out."
 msgstr "V-ați deconectat cu success."
@@ -1503,6 +1519,33 @@ msgstr "Anulează publicarea paginii '{title}'"
 #, python-brace-format
 msgid "View revision history for '{title}'"
 msgstr "Vezi istoria reviziilor pentru '{title}'"
+
+msgid "Set profile picture"
+msgstr "Setează poză profil"
+
+msgid "Change your profile picture"
+msgstr "Schimbă poza de profil"
+
+msgid "Change the email address linked to your account."
+msgstr "Schimbă e-mailul asociat de contul D-stră."
+
+msgid "Change the password you use to log in."
+msgstr "Schimbați parola folosită pentru access."
+
+msgid "Choose which email notifications to receive."
+msgstr "Alege ce notificări să primiți prin e-mail."
+
+msgid "Language preferences"
+msgstr "Preferințe limbă"
+
+msgid "Choose the language you want to use here."
+msgstr "Selectați limba dorită"
+
+msgid "Current Time Zone"
+msgstr "Fus orar curent"
+
+msgid "Choose your current time zone."
+msgstr "Alege fus orar curent"
 
 #, python-brace-format
 msgid "Heading {level}"
