@@ -125,7 +125,7 @@ For example:
     class BlogPage(Page):
         published_date = models.DateTimeField()
         body = RichTextField()
-        feed_image = models.ForeignKey('wagtailimages.Image', on_delete=models.CASCADE, ...)
+        feed_image = models.ForeignKey('wagtailimages.Image', on_delete=models.SET_NULL, null=True, ...)
         private_field = models.CharField(max_length=255)
 
         # Export fields over the API
