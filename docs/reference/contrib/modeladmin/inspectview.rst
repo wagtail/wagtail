@@ -8,8 +8,8 @@ information about an instance without the option to edit it, you can easily
 enable the inspect view by setting ``inspect_view_enabled=True`` on your
 ``ModelAdmin`` class.
 
-When enabled, an 'Inspect' button will automatically appear for each row in
-your index / listing view, linking to new page that shows values a list of
+When ``InspectView`` is enabled, an 'Inspect' button will automatically appear for each row in
+your index / listing view, linking to a new page that shows a list of
 field values for that particular object.
 
 By default, all 'concrete' fields (where the field value is stored as a column
