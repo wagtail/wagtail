@@ -5,13 +5,14 @@
 # Translators:
 # Kornel Novak Mergulhão <nkornel@gmail.com>, 2016
 # Kornel Novak Mergulhão <nkornel@gmail.com>, 2016
+# B N <biczoxd@gmail.com>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-01-26 16:07+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2018-05-04 20:23+0100\n"
+"PO-Revision-Date: 2018-05-10 18:29+0000\n"
+"Last-Translator: B N <biczoxd@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +20,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: hu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#, python-format
+msgid "Editing %(setting_type_name)s - %(instance)s"
+msgstr "%(setting_type_name)s-%(instance)s szerkesztése"
 
 msgid "Editing"
 msgstr "Szerkesztés"
@@ -31,6 +36,13 @@ msgstr "Mentés"
 
 msgid "Settings"
 msgstr "Beállítások"
+
+msgid "This setting could not be opened because there is no site defined."
+msgstr "Ez a beállítás nem nyitható meg, mert nincs oldal definiálva."
+
+#, python-brace-format
+msgid "{setting_type} updated."
+msgstr "{setting_type} frissítve."
 
 msgid "The setting could not be saved due to errors."
 msgstr "A beállításokat nem lehetett elmenteni."

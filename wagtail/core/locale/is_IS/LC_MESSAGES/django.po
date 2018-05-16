@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2017
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-01-26 15:58+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"PO-Revision-Date: 2018-05-07 10:28+0000\n"
+"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -19,12 +19,26 @@ msgstr ""
 "Language: is_IS\n"
 "Plural-Forms: nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);\n"
 
+msgid "Wagtail core"
+msgstr "Wagtail kjarni"
+
 #, python-brace-format
 msgid "{label}: this block has no options."
 msgstr "{label}: Þessi blokk hefur enga valmöguleika."
 
 msgid "This block has no options."
 msgstr "Þessi blokk hefur enga valmöguleika."
+
+#, python-format
+msgid "The minimum number of items is %d"
+msgstr "Fjöldi eininga má minnst vera %d"
+
+msgid "This field is required."
+msgstr "Þennan reit þarf að fylla út."
+
+#, python-format
+msgid "The maximum number of items is %d"
+msgstr "Fjöldi eininga má mest vera %d"
 
 msgid "Password"
 msgstr "Lylkilorð"
@@ -146,6 +160,9 @@ msgstr "læst"
 msgid "first published at"
 msgstr "fyrst sett í loftið"
 
+msgid "last published at"
+msgstr "síðast gefið út"
+
 msgid "latest revision created at"
 msgstr "síðasta útgáfa búin til"
 
@@ -157,6 +174,9 @@ msgstr "tímasett"
 
 msgid "draft"
 msgstr "uppkast"
+
+msgid "live + scheduled"
+msgstr "í loftinu + tímasett"
 
 msgid "live + draft"
 msgstr "í birtingu + uppkast"
@@ -248,6 +268,15 @@ msgstr "Læst, aðgengileg fyrir notendur í sérstökum grúppum"
 msgid "password"
 msgstr "lykilorð"
 
+msgid "groups"
+msgstr "hópur"
+
+msgid "view restriction"
+msgstr "skoða takmörkun"
+
+msgid "view restrictions"
+msgstr "skoða takmarkanir"
+
 msgid "page view restriction"
 msgstr "skoðunartakmörkun síðu"
 
@@ -256,6 +285,12 @@ msgstr "skoðunartakmarkanir síðu"
 
 msgid "collection"
 msgstr "safn"
+
+msgid "collection view restriction"
+msgstr "skoðunartakmörkun safns"
+
+msgid "collection view restrictions"
+msgstr "skoðunartakmarkanir safns"
 
 msgid "name"
 msgstr "nafn"

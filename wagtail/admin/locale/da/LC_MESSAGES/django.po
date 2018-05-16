@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-05-02 15:42+0000\n"
-"Last-Translator: Mads Kronborg <madskronborg99@gmail.com>\n"
+"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"PO-Revision-Date: 2018-05-04 19:30+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Danish (http://www.transifex.com/torchbox/wagtail/language/"
 "da/)\n"
 "MIME-Version: 1.0\n"
@@ -56,9 +56,6 @@ msgstr "Skriv din %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Skriv din email addresse for at genindstille din adgangskode"
-
-msgid "Please fill your email address."
-msgstr "Udfyld venligst din email adresse."
 
 msgid "New title"
 msgstr "Ny titel"
@@ -114,26 +111,14 @@ msgstr "Gå til Wagtail admin"
 msgid "Account"
 msgstr "Konto"
 
-msgid "Set gravatar"
-msgstr "Vælg gravatar"
+msgid "Update"
+msgstr "Opdater"
 
 msgid "Change password"
 msgstr "Skift adgangskode"
 
-msgid "Change the password you use to log in."
-msgstr "Skift den adgangskode du anvender til at logge ind med."
-
-msgid "Language preferences"
-msgstr "Sprog præferencer"
-
-msgid "Choose the language you want to use here."
-msgstr "Vælg det sprog du ønsker at bruge her."
-
 msgid "Language Preferences"
 msgstr "Sprog præferencer"
-
-msgid "Update"
-msgstr "Opdater"
 
 msgid "Reset password"
 msgstr "Genindstil adgangskode"
@@ -348,3 +333,12 @@ msgstr "Du kan se denne side her:"
 #, python-format
 msgid "Hello %(username)s,"
 msgstr "Hej %(username)s,"
+
+msgid "Change the password you use to log in."
+msgstr "Skift den adgangskode du anvender til at logge ind med."
+
+msgid "Language preferences"
+msgstr "Sprog præferencer"
+
+msgid "Choose the language you want to use here."
+msgstr "Vælg det sprog du ønsker at bruge her."

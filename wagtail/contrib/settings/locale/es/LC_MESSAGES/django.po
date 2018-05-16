@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-01-26 20:00+0000\n"
+"POT-Creation-Date: 2018-05-04 20:23+0100\n"
+"PO-Revision-Date: 2018-05-07 12:55+0000\n"
 "Last-Translator: José Luis <alagunajs@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
@@ -36,6 +36,10 @@ msgstr "Guardar"
 
 msgid "Settings"
 msgstr "Propiedades"
+
+msgid "This setting could not be opened because there is no site defined."
+msgstr ""
+"Esta configuración podría no ser abierta porque no hay un sitio definido."
 
 #, python-brace-format
 msgid "{setting_type} updated."

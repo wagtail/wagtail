@@ -4,14 +4,14 @@
 #
 # Translators:
 # Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2017
-# saevarom <saevar@saevar.is>, 2017
+# saevarom <saevar@saevar.is>, 2017-2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-01-26 16:03+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"PO-Revision-Date: 2018-05-07 10:18+0000\n"
+"Last-Translator: saevarom <saevar@saevar.is>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +19,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: is_IS\n"
 "Plural-Forms: nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);\n"
+
+msgid "Wagtail users"
+msgstr "Wagtail notendur"
 
 msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
 msgstr ""
@@ -68,6 +71,9 @@ msgstr "Hópur með þessu nafni er þegar til."
 msgid "You cannot have multiple permission records for the same page."
 msgstr "Þú getur ekki haft margar heimildafærslur fyrir sömu síðuna."
 
+msgid "Upload a profile picture"
+msgstr "Hlaða upp prófílmynd"
+
 msgid "submitted notifications"
 msgstr "innsendar tilkynningar"
 
@@ -92,6 +98,15 @@ msgstr "kjör tungumál"
 
 msgid "Select language for the admin"
 msgstr "Veldu tungumál fyrir kerfisstjórn"
+
+msgid "current time zone"
+msgstr "núverandi tímabelti"
+
+msgid "Select your current time zone"
+msgstr "Veldu þitt tímabelti"
+
+msgid "profile picture"
+msgstr "prófílmynd"
 
 msgid "user profile"
 msgstr "uppsetning notanda"
@@ -175,6 +190,10 @@ msgstr "hópar"
 
 msgid "Add a group"
 msgstr "Bæta við hóp"
+
+#, python-format
+msgid "Sorry, no groups match \"%(query)s\""
+msgstr "Því miður eru engir hópar sem passa við \"%(query)s\""
 
 #, python-format
 msgid ""
@@ -289,9 +308,12 @@ msgid "The user could not be created due to errors."
 msgstr ""
 "Ekki var hægt að búa til notandann þar sem hann stóðst ekki villuprófanir"
 
-#, python-brace-format
-msgid "User '{0}' updated."
-msgstr "Notandi '{0}' uppfærður."
+msgid ""
+"Your details have been updated. You've been logged out for security reasons, "
+"please login to continue."
+msgstr ""
+"Upplýsingarnar þínar hafa verið vistaðar. Þú hefur verið útskráð/ur af "
+"öryggisástæðu, vinsamlegast skráðu þig aftur inn til að halda áfram."
 
 msgid "The user could not be saved due to errors."
 msgstr ""

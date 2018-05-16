@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-04-10 16:48+0000\n"
-"Last-Translator: Reinis Rozenbergs <reinisr@gmail.com>\n"
+"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"PO-Revision-Date: 2018-05-04 19:30+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/"
 "lv/)\n"
 "MIME-Version: 1.0\n"
@@ -60,19 +60,6 @@ msgstr "Ievadiet jūsu %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Ievadiet savu e-pasta adresi, lai atjaunotu paroli"
-
-msgid "Please fill your email address."
-msgstr "Lūdzu ievadiet savu e-pasta adresi"
-
-msgid ""
-"Sorry, you cannot reset your password here as your user account is managed "
-"by another server."
-msgstr ""
-"Atvainojiet, jūs šeit nevarat atiestatīt paroli jo jūsu lietotājs tiek "
-"pārvaldīts citā serverī."
-
-msgid "This email address is not recognised."
-msgstr "E-pasta adrese netika atpazīta."
 
 msgid "New title"
 msgstr "Jauns virsraksts"
@@ -169,35 +156,11 @@ msgstr "Doties uz Wagtail administrāciju"
 msgid "Account"
 msgstr "Konts"
 
-msgid "Set gravatar"
-msgstr "Iestatīt gravatar"
-
-msgid ""
-"Your avatar image is provided by Gravatar and is connected to your email "
-"address. With a Gravatar account you can set an avatar for any number of "
-"other email addresses you use."
-msgstr ""
-"Jūsu profila attēlu nodrošina Gravatar serviss, kas piesaistīts jūsu e-pasta "
-"adresei. Ar Gravatar kontu jūs varat iestatīt profila attēlu citām e-pasta "
-"adresēm, ko jūs lietojat."
+msgid "Update"
+msgstr "Atjaunot"
 
 msgid "Change password"
 msgstr "Mainīt paroli"
-
-msgid "Change the password you use to log in."
-msgstr "Nomainīt autorizācijas paroli."
-
-msgid "Notification preferences"
-msgstr "Paziņojumu iestatījumi"
-
-msgid "Choose which email notifications to receive."
-msgstr "Izvēlēties e-pasta paziņojumus"
-
-msgid "Language preferences"
-msgstr "Valodas uzstādījumi"
-
-msgid "Choose the language you want to use here."
-msgstr "Izvēlieties valodu, kādu vēlaties lietot."
 
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
@@ -206,8 +169,8 @@ msgstr "Šeit nav iespējams mainīt jūsu paroli. Sazinieties are administrator
 msgid "Language Preferences"
 msgstr "Valodas uzstādījumi"
 
-msgid "Update"
-msgstr "Atjaunot"
+msgid "Notification preferences"
+msgstr "Paziņojumu iestatījumi"
 
 msgid "Reset password"
 msgstr "Mainīt paroli"
@@ -221,14 +184,8 @@ msgstr "Lietotājvārds"
 msgid "Set your new password"
 msgstr "Izvēlieties jaunu paroli"
 
-msgid "The passwords do not match. Please try again."
-msgstr "Paroles nesakrīt. Lūdzu mēģiniet vēlreiz."
-
 msgid "Check your email"
 msgstr "Pārbaudiet savu e-pastu"
-
-msgid "A link to reset your password has been emailed to you."
-msgstr "Lūdzu pārbaudiet jūsu e-pastu."
 
 msgid "Please follow the link below to reset your password:"
 msgstr "Lūdzu sekojiet norādei lai atiestatītu jūsu paroli:"
@@ -950,6 +907,18 @@ msgstr ""
 
 msgid "More"
 msgstr "Vairāk"
+
+msgid "Change the password you use to log in."
+msgstr "Nomainīt autorizācijas paroli."
+
+msgid "Choose which email notifications to receive."
+msgstr "Izvēlēties e-pasta paziņojumus"
+
+msgid "Language preferences"
+msgstr "Valodas uzstādījumi"
+
+msgid "Choose the language you want to use here."
+msgstr "Izvēlieties valodu, kādu vēlaties lietot."
 
 msgid "Choose an item"
 msgstr "Izvēlies vienību"

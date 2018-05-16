@@ -4,13 +4,14 @@
 #
 # Translators:
 # Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2016
+# saevarom <saevar@saevar.is>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-01-26 16:01+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"PO-Revision-Date: 2018-05-07 10:33+0000\n"
+"Last-Translator: saevarom <saevar@saevar.is>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -18,6 +19,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: is_IS\n"
 "Plural-Forms: nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);\n"
+
+msgid "Wagtail embeds"
+msgstr "Wagtail embed"
 
 msgid "Please enter a valid URL"
 msgstr "Vinsamlegast sláðu inn gilda slóð"
@@ -50,3 +54,6 @@ msgid ""
 msgstr ""
 "Það virðist vera sem Embedly skili villu við að reyna að innfella efni af "
 "þessari slóð. Vinsamlegast reynið síðar."
+
+msgid "Embed"
+msgstr "Innfellt efni"

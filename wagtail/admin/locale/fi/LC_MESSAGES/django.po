@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-02-16 11:33+0000\n"
+"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"PO-Revision-Date: 2018-05-04 19:30+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
@@ -62,19 +62,6 @@ msgstr "Syötä %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Syötä sähköpostiosoitteesi palauttaaksesi salasanasi"
-
-msgid "Please fill your email address."
-msgstr "Ole hyvä ja täytä sähköpostiosite."
-
-msgid ""
-"Sorry, you cannot reset your password here as your user account is managed "
-"by another server."
-msgstr ""
-"Ette valitettavasti voi nollata salasanaanne täällä, sillä "
-"käyttäjätunnustanne hallitaan toisella palvelimella."
-
-msgid "This email address is not recognised."
-msgstr "Sähköpostiosoitetta ei tunnistettu."
 
 msgid "New title"
 msgstr "Uusi otsikko"
@@ -151,29 +138,11 @@ msgstr "Siirry Wagtailin hallintaan"
 msgid "Account"
 msgstr "Tili"
 
-msgid "Set gravatar"
-msgstr "Aseta Gravatar"
-
-msgid ""
-"Your avatar image is provided by Gravatar and is connected to your email "
-"address. With a Gravatar account you can set an avatar for any number of "
-"other email addresses you use."
-msgstr ""
-"Avatar-kuvasi haetaan sähköpostiosoitteesi perusteella Gravatar-palvelusta. "
-"Gravatar-tilin avulla voit asettaa avatarin myös muille "
-"sähköpostiosoitteille, joita käytät."
+msgid "Update"
+msgstr "Päivitä"
 
 msgid "Change password"
 msgstr "Vaihda salasana"
-
-msgid "Change the password you use to log in."
-msgstr "Vaihda salasana jota käytät sisäänkirjautumiseen."
-
-msgid "Notification preferences"
-msgstr "Ilmoitusasetukset"
-
-msgid "Choose which email notifications to receive."
-msgstr "Valitse mitä sähköposti-ilmoituksia saat."
 
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
@@ -181,8 +150,8 @@ msgstr ""
 "Salasanaasi ei voi muuttaa täällä. Ole hyvä ja ota yhteys sivuston "
 "ylläpitäjään."
 
-msgid "Update"
-msgstr "Päivitä"
+msgid "Notification preferences"
+msgstr "Ilmoitusasetukset"
 
 msgid "Reset password"
 msgstr "Palauta salasana"
@@ -196,14 +165,8 @@ msgstr "Kirjaudu sisään"
 msgid "Set your new password"
 msgstr "Aseta uusi salasana."
 
-msgid "The passwords do not match. Please try again."
-msgstr "Salasanat eivät täsmää. Ole hyvä ja yritä uudelleen."
-
 msgid "Check your email"
 msgstr "Tarkista sähköpostisi"
-
-msgid "A link to reset your password has been emailed to you."
-msgstr "Salasananpalautuslinkki on lähetetty sinulle sähköpostitse."
 
 msgid "Please follow the link below to reset your password:"
 msgstr "Ole hyvä ja seuraa alla olevaa linkkiä nollataksesi salasanasi:"
@@ -1122,6 +1085,12 @@ msgstr "Muokkaa '{title}'"
 
 msgid "More"
 msgstr "Lisää"
+
+msgid "Change the password you use to log in."
+msgstr "Vaihda salasana jota käytät sisäänkirjautumiseen."
+
+msgid "Choose which email notifications to receive."
+msgstr "Valitse mitä sähköposti-ilmoituksia saat."
 
 msgid "Choose an item"
 msgstr "Valitse vaihtoehto"

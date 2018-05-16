@@ -4,7 +4,7 @@
 #
 # Translators:
 # Adrien <laadrien@gmail.com>, 2014
-# Bertrand Bordage <bordage.bertrand@gmail.com>, 2015
+# Bertrand Bordage <bordage.bertrand@gmail.com>, 2015,2018
 # Léo <leo@naeka.fr>, 2016
 # nahuel, 2014
 # Sebastien Andrivet <sebastien@andrivet.com>, 2016
@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-01-26 16:06+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2018-05-04 20:23+0100\n"
+"PO-Revision-Date: 2018-05-07 14:41+0000\n"
+"Last-Translator: Bertrand Bordage <bordage.bertrand@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -23,6 +23,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Wagtail search promotions"
+msgstr "Promotions de recherche Wagtail"
 
 msgid "Please specify at least one recommendation for this search term."
 msgstr ""

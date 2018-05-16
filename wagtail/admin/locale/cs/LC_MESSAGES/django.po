@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-02-16 11:33+0000\n"
+"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"PO-Revision-Date: 2018-05-04 19:30+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
@@ -58,17 +58,6 @@ msgstr "Zadejte své %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Pro obnovení hesla zadejte svou e-mailovou adresu"
-
-msgid "Please fill your email address."
-msgstr "Vyplňte prosím svou e-mailovou adresu."
-
-msgid ""
-"Sorry, you cannot reset your password here as your user account is managed "
-"by another server."
-msgstr "Heslo nelze obnovit, protože Váš účet je spravován jiným serverem."
-
-msgid "This email address is not recognised."
-msgstr "Tato e-mailová adresa nebyla nalezena."
 
 msgid "New title"
 msgstr "Nový název"
@@ -152,32 +141,11 @@ msgstr "Datum/čas expirace musí být v budoucnosti"
 msgid "Account"
 msgstr "Účet"
 
-msgid "Set gravatar"
-msgstr "Nastavit gravatar"
-
-msgid ""
-"Your avatar image is provided by Gravatar and is connected to your email "
-"address. With a Gravatar account you can set an avatar for any number of "
-"other email addresses you use."
-msgstr ""
-"Váš profilový obrázek je poskytován službou Gravatar a je svázán s Vaší e-"
-"mailovou adresou. Pomocí služby Gravatar můžete nastavit obrázek pro "
-"libovolný počet Vámi používaných adres."
+msgid "Update"
+msgstr "Uložit"
 
 msgid "Change password"
 msgstr "Změnit heslo"
-
-msgid "Change the password you use to log in."
-msgstr "Změnit heslo používané k přihlášení."
-
-msgid "Notification preferences"
-msgstr "Nastavení notifikací"
-
-msgid "Choose which email notifications to receive."
-msgstr "Zvolte, které e-mailové notifikace si přejete dostávat."
-
-msgid "Language preferences"
-msgstr "Nastavení jazyka"
 
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
@@ -188,8 +156,8 @@ msgstr ""
 msgid "Language Preferences"
 msgstr "Nastavení jazyka"
 
-msgid "Update"
-msgstr "Uložit"
+msgid "Notification preferences"
+msgstr "Nastavení notifikací"
 
 msgid "Reset password"
 msgstr "Obnovit heslo"
@@ -203,14 +171,8 @@ msgstr "Přihlásit se"
 msgid "Set your new password"
 msgstr "Nastavte své nové heslo"
 
-msgid "The passwords do not match. Please try again."
-msgstr "Hesla se neshodují. Zkuste to prosím znovu."
-
 msgid "Check your email"
 msgstr "Zkontrolujte svoji e-mailovou schránku"
-
-msgid "A link to reset your password has been emailed to you."
-msgstr "Odkaz pro obnovu hesla jsme Vám poslali e-mailem."
 
 msgid "Password reset"
 msgstr "Obnovení hesla"
@@ -811,6 +773,15 @@ msgstr "Stránka '{0}' je nyní odemčena."
 
 msgid "More"
 msgstr "Více"
+
+msgid "Change the password you use to log in."
+msgstr "Změnit heslo používané k přihlášení."
+
+msgid "Choose which email notifications to receive."
+msgstr "Zvolte, které e-mailové notifikace si přejete dostávat."
+
+msgid "Language preferences"
+msgstr "Nastavení jazyka"
 
 msgid "Choose an item"
 msgstr "Zvolit položku"

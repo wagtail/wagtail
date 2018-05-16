@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-02-16 11:33+0000\n"
+"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"PO-Revision-Date: 2018-05-04 19:30+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
@@ -63,19 +63,6 @@ msgstr "Zadajte vaše %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Zadajte vašu emailovú adresu pre obnovu hesla"
-
-msgid "Please fill your email address."
-msgstr "Prosím vyplňte vašu emailovú adresu."
-
-msgid ""
-"Sorry, you cannot reset your password here as your user account is managed "
-"by another server."
-msgstr ""
-"Je nám ľúto, ale nemožno obnoviť vaše heslo, pretože váš užívateľský účet je "
-"spravovaný na inom serveri."
-
-msgid "This email address is not recognised."
-msgstr "Táto emailová adresa nebola rozpoznaná."
 
 msgid "New title"
 msgstr "Nový titulok"
@@ -173,35 +160,11 @@ msgstr "Choď do administrátorskej časti"
 msgid "Account"
 msgstr "Účet"
 
-msgid "Set gravatar"
-msgstr "Nastaviť gravatara"
-
-msgid ""
-"Your avatar image is provided by Gravatar and is connected to your email "
-"address. With a Gravatar account you can set an avatar for any number of "
-"other email addresses you use."
-msgstr ""
-"Obrázok vášho profilu poskytuje služba Gravatar a je pripojený k vašej "
-"emailovej adrese. S účtom Gravatar si môžete zvoliť obrázok pre ostatné "
-"emailové adresy ktoré používate."
+msgid "Update"
+msgstr "Aktualizovať"
 
 msgid "Change password"
 msgstr "Zmeniť heslo"
-
-msgid "Change the password you use to log in."
-msgstr "Zmeniť heslo ktoré používate na prihlásenie."
-
-msgid "Notification preferences"
-msgstr "Notifikačné nastavenia"
-
-msgid "Choose which email notifications to receive."
-msgstr "Zvoľte ktoré emailové notifikácie chcete dostávať"
-
-msgid "Language preferences"
-msgstr "Nastavenia jazyka"
-
-msgid "Choose the language you want to use here."
-msgstr "Vyberte jazyk, ktorá tu chcete používať."
 
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
@@ -211,8 +174,8 @@ msgstr ""
 msgid "Language Preferences"
 msgstr "Nastavenia jazyka"
 
-msgid "Update"
-msgstr "Aktualizovať"
+msgid "Notification preferences"
+msgstr "Notifikačné nastavenia"
 
 msgid "Reset password"
 msgstr "Resetovať heslo"
@@ -226,14 +189,8 @@ msgstr "Prihlasovacie meno"
 msgid "Set your new password"
 msgstr "Zadajte vaše nové heslo"
 
-msgid "The passwords do not match. Please try again."
-msgstr "Zadané hesla sa nezhodujú. Prosím pokúste sa zadať heslá znovu."
-
 msgid "Check your email"
 msgstr "Skontrolujte váš email"
-
-msgid "A link to reset your password has been emailed to you."
-msgstr "Odkaz na resetovanie hesla bol zaslaný na vašu emailovú adresu."
 
 msgid "Please follow the link below to reset your password:"
 msgstr "Prosím kliknite na odkaz nižšie pre resetovanie vášho hesla"
@@ -1435,6 +1392,18 @@ msgstr "Odpublikovať stránku '{title}'"
 #, python-brace-format
 msgid "View revision history for '{title}'"
 msgstr "Zobraziť históriu revízii pre '{title}'"
+
+msgid "Change the password you use to log in."
+msgstr "Zmeniť heslo ktoré používate na prihlásenie."
+
+msgid "Choose which email notifications to receive."
+msgstr "Zvoľte ktoré emailové notifikácie chcete dostávať"
+
+msgid "Language preferences"
+msgstr "Nastavenia jazyka"
+
+msgid "Choose the language you want to use here."
+msgstr "Vyberte jazyk, ktorá tu chcete používať."
 
 msgid "Choose an item"
 msgstr "Zvoľte položku"

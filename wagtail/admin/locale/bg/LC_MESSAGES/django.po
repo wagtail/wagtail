@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-02-16 11:33+0000\n"
+"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"PO-Revision-Date: 2018-05-04 19:30+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Bulgarian (http://www.transifex.com/torchbox/wagtail/language/"
 "bg/)\n"
@@ -29,42 +29,14 @@ msgstr "Фраза за търсене"
 msgid "Enter your email address to reset your password"
 msgstr "Въведете вашият имейл адрес за да си възстановите паролата"
 
-msgid "Please fill your email address."
-msgstr "Моля въведете вашият имейл адрес."
-
-msgid ""
-"Sorry, you cannot reset your password here as your user account is managed "
-"by another server."
-msgstr ""
-"Не можете да възстановите паролата си тук, понеже акаунта ви се менижира от "
-"друг сървър."
-
-msgid "This email address is not recognised."
-msgstr "Този имейл не е разпознат."
-
 msgid "This slug is already in use"
 msgstr "Този слъг е вече в употреба"
 
 msgid "Account"
 msgstr "Профил"
 
-msgid "Set gravatar"
-msgstr "Определете вашият gravatar"
-
-msgid ""
-"Your avatar image is provided by Gravatar and is connected to your email "
-"address. With a Gravatar account you can set an avatar for any number of "
-"other email addresses you use."
-msgstr ""
-"Снимката за вашият Аватар е предоставена от Gravatar и е свързана с вашия "
-"имейл адрес. Със сметка в Gravatar можете да зададете аватар за произволен "
-"брой други имейл адреси, които използвате."
-
 msgid "Change password"
 msgstr "Смени парола"
-
-msgid "Change the password you use to log in."
-msgstr "Сменете паролата, която ползвате за да влезете."
 
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
@@ -84,14 +56,8 @@ msgstr "Влез"
 msgid "Set your new password"
 msgstr "Задайте нова парола"
 
-msgid "The passwords do not match. Please try again."
-msgstr "Паролите не съвпадат. Моля опитайте отново."
-
 msgid "Check your email"
 msgstr "Проверете си имейла"
-
-msgid "A link to reset your password has been emailed to you."
-msgstr "Изпратихме ви имейл с линк, с който да възстановите паролата си."
 
 msgid "Password reset"
 msgstr "Паролата е възстановена"
@@ -417,6 +383,9 @@ msgstr "Страница '{0}' е публикувана."
 #, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "Страница '{0}' отхвърлена от публикуване."
+
+msgid "Change the password you use to log in."
+msgstr "Сменете паролата, която ползвате за да влезете."
 
 msgid "Choose an item"
 msgstr "Изберете обект"

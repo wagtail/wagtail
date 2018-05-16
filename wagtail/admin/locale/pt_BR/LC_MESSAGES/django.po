@@ -17,9 +17,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-02-16 20:57+0000\n"
-"Last-Translator: Luiz Boaretto <lboaretto@gmail.com>\n"
+"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"PO-Revision-Date: 2018-05-04 19:30+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -67,19 +67,6 @@ msgstr "Digite seu %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Entre com seu email para resetar sua senha"
-
-msgid "Please fill your email address."
-msgstr "Por favor, insira o seu e-mail."
-
-msgid ""
-"Sorry, you cannot reset your password here as your user account is managed "
-"by another server."
-msgstr ""
-"Desculpe, você não pode redefinir sua senha aqui com seu usuário, que é "
-"gerenciado por outro servidor."
-
-msgid "This email address is not recognised."
-msgstr "Esse e-mail não é reconhecido."
 
 msgid "New title"
 msgstr "Novo título"
@@ -173,35 +160,11 @@ msgstr "Ir para administração Wagtail"
 msgid "Account"
 msgstr "Minha conta"
 
-msgid "Set gravatar"
-msgstr "Definir gravatar"
-
-msgid ""
-"Your avatar image is provided by Gravatar and is connected to your email "
-"address. With a Gravatar account you can set an avatar for any number of "
-"other email addresses you use."
-msgstr ""
-"Sua imagem de exibição é fornecida pelo Gravatar e está conectada ao seu "
-"endereço de e-mail. Com uma conta Gravatar você pode definir uma imagem de "
-"exibição para qualquer e-mail que você usa."
+msgid "Update"
+msgstr "Atualizar"
 
 msgid "Change password"
 msgstr "Alterar senha"
-
-msgid "Change the password you use to log in."
-msgstr "Altere sua senha para entrar."
-
-msgid "Notification preferences"
-msgstr "Preferências de notificação"
-
-msgid "Choose which email notifications to receive."
-msgstr "Escolha quais notificações de e-mail para receber."
-
-msgid "Language preferences"
-msgstr "Preferências de idioma"
-
-msgid "Choose the language you want to use here."
-msgstr "Escolha o idioma que deseja usar aqui."
 
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
@@ -210,8 +173,8 @@ msgstr "Sua senha não pode ser alterada. Contacte o administrador do site."
 msgid "Language Preferences"
 msgstr "Preferências de idioma"
 
-msgid "Update"
-msgstr "Atualizar"
+msgid "Notification preferences"
+msgstr "Preferências de notificação"
 
 msgid "Reset password"
 msgstr "Resetar senha"
@@ -225,14 +188,8 @@ msgstr "Entrar"
 msgid "Set your new password"
 msgstr "Definir sua nova senha"
 
-msgid "The passwords do not match. Please try again."
-msgstr "As senhas não batem. Tente novamente."
-
 msgid "Check your email"
 msgstr "Verifique seu e-mail"
-
-msgid "A link to reset your password has been emailed to you."
-msgstr "O link para resetar sua senha foi enviado para o seu e-mail."
 
 msgid "Please follow the link below to reset your password:"
 msgstr "Por favor, siga o link abaixo para redefinir sua senha:"
@@ -1488,6 +1445,18 @@ msgstr "Despublicar página '{title}'"
 #, python-brace-format
 msgid "View revision history for '{title}'"
 msgstr "Ver histórico de revisões para '{title}'"
+
+msgid "Change the password you use to log in."
+msgstr "Altere sua senha para entrar."
+
+msgid "Choose which email notifications to receive."
+msgstr "Escolha quais notificações de e-mail para receber."
+
+msgid "Language preferences"
+msgstr "Preferências de idioma"
+
+msgid "Choose the language you want to use here."
+msgstr "Escolha o idioma que deseja usar aqui."
 
 #, python-brace-format
 msgid "Heading {level}"

@@ -6,15 +6,15 @@
 # fonso <fonzzo@gmail.com>, 2015
 # fonso <fonzzo@gmail.com>, 2015
 # José Luis <alagunajs@gmail.com>, 2015
-# José Luis <alagunajs@gmail.com>, 2015-2016
+# José Luis <alagunajs@gmail.com>, 2015-2016,2018
 # Mauricio Baeza <web@mauriciobaeza.org>, 2014
 # José Luis <alagunajs@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2017-09-20 11:57+0000\n"
+"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"PO-Revision-Date: 2018-05-07 13:06+0000\n"
 "Last-Translator: José Luis <alagunajs@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
@@ -23,6 +23,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail sites"
+msgstr "Sitios Wagtail"
 
 msgid "Choose a root page"
 msgstr "Seleccionar una página inicial"

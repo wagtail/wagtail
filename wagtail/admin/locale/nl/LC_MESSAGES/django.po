@@ -20,8 +20,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-02-16 11:33+0000\n"
+"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"PO-Revision-Date: 2018-05-04 19:30+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
@@ -70,19 +70,6 @@ msgstr "Voer uw %s in"
 
 msgid "Enter your email address to reset your password"
 msgstr "Vul uw e-mailadres in om uw wachtwoord te resetten."
-
-msgid "Please fill your email address."
-msgstr "Vul uw e-mailadres in"
-
-msgid ""
-"Sorry, you cannot reset your password here as your user account is managed "
-"by another server."
-msgstr ""
-"Sorry, u kunt uw wachtwoord hier niet resetten omdat uw account beheerd "
-"wordt door een andere server."
-
-msgid "This email address is not recognised."
-msgstr "Dit e-mailadres is onbekend."
 
 msgid "New title"
 msgstr "Nieuwe titel"
@@ -160,29 +147,11 @@ msgstr ""
 msgid "Account"
 msgstr "Account"
 
-msgid "Set gravatar"
-msgstr "Kies gravatar"
-
-msgid ""
-"Your avatar image is provided by Gravatar and is connected to your email "
-"address. With a Gravatar account you can set an avatar for any number of "
-"other email addresses you use."
-msgstr ""
-"Uw profielfoto wordt door Gravatar geleverd en is verbonden met uw e-"
-"mailadres. Met een Gravatar-account kunt u voor elk e-mailadres dat u "
-"gebruikt een profielfoto instellen. "
+msgid "Update"
+msgstr "Update"
 
 msgid "Change password"
 msgstr "Wijzig wachtwoord"
-
-msgid "Change the password you use to log in."
-msgstr "Wijzig uw wachtwoord om in te loggen."
-
-msgid "Notification preferences"
-msgstr "Notificatievoorkeuren"
-
-msgid "Choose which email notifications to receive."
-msgstr "Kies welke e-mailnotificaties u wilt ontvangen."
 
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
@@ -190,8 +159,8 @@ msgstr ""
 "Uw wachtwoord kan hier niet gewijzigd worden. Neem contact op met de "
 "beheerder van de site."
 
-msgid "Update"
-msgstr "Update"
+msgid "Notification preferences"
+msgstr "Notificatievoorkeuren"
 
 msgid "Reset password"
 msgstr "Wachtwoord resetten"
@@ -205,15 +174,8 @@ msgstr "Log in"
 msgid "Set your new password"
 msgstr "Vul uw nieuwe wachtwoord in"
 
-msgid "The passwords do not match. Please try again."
-msgstr "De wachtwoorden komen niet overeen. Probeer het opnieuw."
-
 msgid "Check your email"
 msgstr "Check uw e-mail"
-
-msgid "A link to reset your password has been emailed to you."
-msgstr ""
-"Er is een link om uw wachtwoord te resetten naar uw e-mailadres gestuurd."
 
 msgid "Password reset"
 msgstr "Wachtwoord herstel"
@@ -896,6 +858,12 @@ msgstr "Pagina '{0}' is vergrendeld."
 #, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "Pagina '{0}' is ontgrendeld."
+
+msgid "Change the password you use to log in."
+msgstr "Wijzig uw wachtwoord om in te loggen."
+
+msgid "Choose which email notifications to receive."
+msgstr "Kies welke e-mailnotificaties u wilt ontvangen."
 
 msgid "Choose an item"
 msgstr "Kies een item"

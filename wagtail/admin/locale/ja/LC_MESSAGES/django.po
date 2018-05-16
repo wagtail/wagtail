@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-02-16 11:33+0000\n"
+"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"PO-Revision-Date: 2018-05-04 19:30+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
@@ -53,19 +53,6 @@ msgstr "%sを入力してください"
 
 msgid "Enter your email address to reset your password"
 msgstr "パスワードをリセットするにはEメールアドレスを入力してください"
-
-msgid "Please fill your email address."
-msgstr "Eメールアドレスを入力してください"
-
-msgid ""
-"Sorry, you cannot reset your password here as your user account is managed "
-"by another server."
-msgstr ""
-"あなたのアカウントは他のサーバーで管理されているため、パスワードのリセットが"
-"できませんでした。"
-
-msgid "This email address is not recognised."
-msgstr "これは正しいメールアドレスではありません。"
 
 msgid "New title"
 msgstr "新規タイトル"
@@ -127,37 +114,19 @@ msgstr "削除予定日を過ぎています。"
 msgid "Account"
 msgstr "アカウント"
 
-msgid "Set gravatar"
-msgstr "Gravatarを設定する"
-
-msgid ""
-"Your avatar image is provided by Gravatar and is connected to your email "
-"address. With a Gravatar account you can set an avatar for any number of "
-"other email addresses you use."
-msgstr ""
-"あなたのアバターアイコンはGravatarによって提供され、あなたのメールアドレスに"
-"関連付けられています。Gravatarのアカウントを取得することにより、あなたのもつ"
-"他のメールアドレスにもアバターアイコンを設定することができます。"
+msgid "Update"
+msgstr "アップデート"
 
 msgid "Change password"
 msgstr "パスワードを変更する"
-
-msgid "Change the password you use to log in."
-msgstr "ログインに使用するパスワードを変更します。"
-
-msgid "Notification preferences"
-msgstr "通知設定"
-
-msgid "Choose which email notifications to receive."
-msgstr "受信するEメール通知を選択します。"
 
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr ""
 "パスワードを変更することができません。サイトの管理者に連絡してください。"
 
-msgid "Update"
-msgstr "アップデート"
+msgid "Notification preferences"
+msgstr "通知設定"
 
 msgid "Reset password"
 msgstr "パスワードを再設定"
@@ -171,14 +140,8 @@ msgstr "ログイン"
 msgid "Set your new password"
 msgstr "パスワードを設定"
 
-msgid "The passwords do not match. Please try again."
-msgstr "パスワードが一致しませんでした。再度試してください。"
-
 msgid "Check your email"
 msgstr "メールを確認"
-
-msgid "A link to reset your password has been emailed to you."
-msgstr "パスワードを再設定するリンクがあなたのメールアドレスに送信されました。"
 
 msgid "Password reset"
 msgstr "パスワードが再設定されました"
@@ -857,6 +820,12 @@ msgstr "ページ：'{0}' は現在ロックされています。"
 #, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "ページ：'{0}' のロックが解除されました。"
+
+msgid "Change the password you use to log in."
+msgstr "ログインに使用するパスワードを変更します。"
+
+msgid "Choose which email notifications to receive."
+msgstr "受信するEメール通知を選択します。"
 
 msgid "Choose an item"
 msgstr "アイテムを選択"

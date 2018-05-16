@@ -7,13 +7,14 @@
 # Carlo Miron <C8E@miron.it>, 2016
 # Edd Baldry <edd.baldry@gmail.com>, 2016
 # Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2016
+# giammi <gian-maria.daffre@giammi.org>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-01-26 16:07+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2018-05-04 20:23+0100\n"
+"PO-Revision-Date: 2018-05-10 13:46+0000\n"
+"Last-Translator: giammi <gian-maria.daffre@giammi.org>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -37,6 +38,11 @@ msgstr "Salva"
 
 msgid "Settings"
 msgstr "Impostazioni"
+
+msgid "This setting could not be opened because there is no site defined."
+msgstr ""
+"Questa impostazione non può essere aperta perché non esiste un sito "
+"predefinito."
 
 #, python-brace-format
 msgid "{setting_type} updated."

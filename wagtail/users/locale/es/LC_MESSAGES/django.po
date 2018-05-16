@@ -9,7 +9,7 @@
 # Daniel Chimeno <daniel@chimeno.me>, 2015-2016
 # fooflare <amos.oviedo@gmail.com>, 2014
 # José Luis <alagunajs@gmail.com>, 2015-2016
-# José Luis <alagunajs@gmail.com>, 2017
+# José Luis <alagunajs@gmail.com>, 2017-2018
 # Mauricio Baeza <python@amigos.email>, 2014-2015
 # Mauricio Baeza <python@amigos.email>, 2015
 # Mauricio Baeza <python@amigos.email>, 2014
@@ -18,9 +18,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-01-26 16:04+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"PO-Revision-Date: 2018-05-07 13:12+0000\n"
+"Last-Translator: José Luis <alagunajs@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -28,6 +28,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail users"
+msgstr "Usuarios Wagtail"
 
 msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
 msgstr ""
@@ -78,6 +81,9 @@ msgstr "Ya existe un grupo con este nombre."
 msgid "You cannot have multiple permission records for the same page."
 msgstr "No puedes tener múltiples permisos de registro para una misma página."
 
+msgid "Upload a profile picture"
+msgstr "Cargar una foto de perfil"
+
 msgid "submitted notifications"
 msgstr "Notificaciones enviadas"
 
@@ -101,6 +107,15 @@ msgstr "idioma preferido"
 
 msgid "Select language for the admin"
 msgstr "Seleccione el idioma para el administrador"
+
+msgid "current time zone"
+msgstr "zona horaria actual"
+
+msgid "Select your current time zone"
+msgstr "Seleccionar su zona horaria actual"
+
+msgid "profile picture"
+msgstr "foto de perfil"
 
 msgid "user profile"
 msgstr "Perfil de usuario"
@@ -300,9 +315,12 @@ msgstr "Editar"
 msgid "The user could not be created due to errors."
 msgstr "El usuario no pudo ser creado debido a errores."
 
-#, python-brace-format
-msgid "User '{0}' updated."
-msgstr "Usuario '{0}' actualizado."
+msgid ""
+"Your details have been updated. You've been logged out for security reasons, "
+"please login to continue."
+msgstr ""
+"Sus detalles han sido actualizados. Usted ha sido desconectado por razones "
+"de seguridad, por favor inicie sesión para continuar."
 
 msgid "The user could not be saved due to errors."
 msgstr "El usuario no pudo ser guardado debido a errores."

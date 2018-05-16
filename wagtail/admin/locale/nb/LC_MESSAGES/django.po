@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-02-16 13:12+0000\n"
+"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"PO-Revision-Date: 2018-05-07 07:40+0000\n"
 "Last-Translator: Stein Strindhaug <stein.strindhaug@gmail.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
@@ -20,6 +20,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nb\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail admin"
+msgstr "Wagtail admin"
 
 msgid "None"
 msgstr "Ingen"
@@ -60,19 +63,6 @@ msgstr "Skriv inn %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Skriv inn din e-postadresse for å nullstille passord"
-
-msgid "Please fill your email address."
-msgstr "Vennligst fyll inn din e-postadresse."
-
-msgid ""
-"Sorry, you cannot reset your password here as your user account is managed "
-"by another server."
-msgstr ""
-"Beklager, du kan ikke nullstille passord her, din brukerkonto håndteres av "
-"en annen server."
-
-msgid "This email address is not recognised."
-msgstr "E-postadressen er ukjent."
 
 msgid "New title"
 msgstr "Ny tittel"
@@ -167,46 +157,34 @@ msgstr "Gå til Wagtail admin"
 msgid "Account"
 msgstr "Konto"
 
-msgid "Set gravatar"
-msgstr "Sett gravatar"
+msgid "Change profile picture"
+msgstr "Bytt profilbilde"
 
-msgid ""
-"Your avatar image is provided by Gravatar and is connected to your email "
-"address. With a Gravatar account you can set an avatar for any number of "
-"other email addresses you use."
-msgstr ""
-"Ditt avatar-bilde blir levert av Gravatar og er knyttet til din e-"
-"postadresse. Med en Gravatar-konto kan du sette en avatar for alle dine e-"
-"postadresser."
+msgid "Your current profile picture:"
+msgstr "Nåværende profilbilde"
+
+msgid "Update"
+msgstr "Oppdatér"
+
+msgid "Change email"
+msgstr "Endre e-post"
 
 msgid "Change password"
 msgstr "Endre passord"
-
-msgid "Change the password you use to log in."
-msgstr "Endre passordet du bruker for å logge inn."
-
-msgid "Notification preferences"
-msgstr "Varslingsinnstillinger"
-
-msgid "Choose which email notifications to receive."
-msgstr "Velg hvilke e-postvarsler du vil motta."
-
-msgid "Language preferences"
-msgstr "Språkinnstillinger"
-
-msgid "Choose the language you want to use here."
-msgstr "Velg språket du vil bruke her."
 
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr ""
 "Passordet ditt kan ikke endres her. Kontakt en administrator for nettstedet."
 
+msgid "Set Time Zone"
+msgstr "Velg tidssone"
+
 msgid "Language Preferences"
 msgstr "Språkinnstillinger"
 
-msgid "Update"
-msgstr "Oppdatér"
+msgid "Notification preferences"
+msgstr "Varslingsinnstillinger"
 
 msgid "Reset password"
 msgstr "Nullstill passord"
@@ -220,16 +198,28 @@ msgstr "Logg inn"
 msgid "Set your new password"
 msgstr "Sett ditt nye passord"
 
-msgid "The passwords do not match. Please try again."
-msgstr "Passordene stemmer ikke overens. Prøv igjen."
+msgid "Invalid password reset link"
+msgstr "Ugyldig passordnullstillings-lenke"
+
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used."
+msgstr ""
+"Passordnullstillings-lenken var ugyldig, muligens fordi den allerede har "
+"blitt brukt."
+
+msgid "Request a new password reset"
+msgstr "Gjør en ny passordnullstilling"
 
 msgid "Check your email"
 msgstr "Sjekk e-posten din"
 
-msgid "A link to reset your password has been emailed to you."
+msgid ""
+"A link to reset your password has been emailed to you if an account exists "
+"for this address."
 msgstr ""
 "En lenke for å nullstille passordet ditt har blitt sendt til din e-"
-"postadresse."
+"postadresse dersom det finnes en konto for denne adressen."
 
 msgid "Please follow the link below to reset your password:"
 msgstr "Vennligst følg lenken under for å nullstille ditt passord:"
@@ -290,6 +280,22 @@ msgstr "Angre"
 
 msgid "Redo"
 msgstr "Gjør om"
+
+msgid "Reload the page"
+msgstr "Oppdater siden"
+
+msgid "Reload saved content"
+msgstr "Oppdater lagret innhold"
+
+msgid "Show latest content"
+msgstr "Vis siste innhold"
+
+msgid "Show error"
+msgstr "Vis feil"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr "Editoren krasjet. Innholdet er tilbakestilt til sist lagrede versjon."
 
 msgid "Dashboard"
 msgstr "Kontrollpanel"
@@ -1245,6 +1251,9 @@ msgstr "Svensk"
 msgid "Slovak"
 msgstr "Slovakisk"
 
+msgid "Ukrainian"
+msgstr "Ukrainsk"
+
 msgid "Chinese (China)"
 msgstr "kinesisk (Kina)"
 
@@ -1254,7 +1263,13 @@ msgstr "Beklager, du har ikke tilgang på dette området."
 msgid "Your password has been changed successfully!"
 msgstr "Passordet ditt er endret."
 
+msgid "Your email has been changed successfully!"
+msgstr "E-posten din er endret."
+
 msgid "Your preferences have been updated."
+msgstr "Dine innstillinger har blitt oppdatert."
+
+msgid "Your preferences have been updated successfully!"
 msgstr "Dine innstillinger har blitt oppdatert."
 
 msgid "You have been successfully logged out."
@@ -1476,6 +1491,33 @@ msgstr "Avpublisér siden «{title}»"
 #, python-brace-format
 msgid "View revision history for '{title}'"
 msgstr "Vis revisjonshistorikken til siden «{title}»"
+
+msgid "Set profile picture"
+msgstr "Velg profilbilde"
+
+msgid "Change your profile picture"
+msgstr "Bytt profilbildet ditt"
+
+msgid "Change the email address linked to your account."
+msgstr "Endre e-postadressen knyttet til kontoen din."
+
+msgid "Change the password you use to log in."
+msgstr "Endre passordet du bruker for å logge inn."
+
+msgid "Choose which email notifications to receive."
+msgstr "Velg hvilke e-postvarsler du vil motta."
+
+msgid "Language preferences"
+msgstr "Språkinnstillinger"
+
+msgid "Choose the language you want to use here."
+msgstr "Velg språket du vil bruke her."
+
+msgid "Current Time Zone"
+msgstr "Nåværende tidssone"
+
+msgid "Choose your current time zone."
+msgstr "Velg din nåværende tidssone."
 
 #, python-brace-format
 msgid "Heading {level}"

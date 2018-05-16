@@ -4,15 +4,15 @@
 #
 # Translators:
 # Kees Hink <keeshink@gmail.com>, 2017
-# Maarten Kling <kling.maarten@gmail.com>, 2015,2017
+# Maarten Kling <kling.maarten@gmail.com>, 2015,2017-2018
 # Thijs Kramer <thijskramer@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-01-26 16:03+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"PO-Revision-Date: 2018-05-07 09:04+0000\n"
+"Last-Translator: Maarten Kling <kling.maarten@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -20,6 +20,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nl_NL\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail users"
+msgstr "Wagtail gebruikers"
 
 msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
 msgstr ""
@@ -72,6 +75,9 @@ msgstr ""
 "Het is niet mogelijk om meerdere machtigingen voor dezelfde pagina in te "
 "stellen."
 
+msgid "Upload a profile picture"
+msgstr "Upload een profiel foto"
+
 msgid "submitted notifications"
 msgstr "ingezonden notificaties"
 
@@ -95,6 +101,15 @@ msgstr "Voorkeurstaal"
 
 msgid "Select language for the admin"
 msgstr "Selecteer de taal voor de admin"
+
+msgid "current time zone"
+msgstr "huidige tijd zone"
+
+msgid "Select your current time zone"
+msgstr "Selecteer je huidige tijd zone"
+
+msgid "profile picture"
+msgstr "profiel foto"
 
 msgid "user profile"
 msgstr "gebruikersprofiel"
@@ -293,9 +308,12 @@ msgstr "Wijzig"
 msgid "The user could not be created due to errors."
 msgstr "De gebruiker kon vanwege fouten niet worden aangemaakt."
 
-#, python-brace-format
-msgid "User '{0}' updated."
-msgstr "Gebruiker '{0}' is bijgewerkt."
+msgid ""
+"Your details have been updated. You've been logged out for security reasons, "
+"please login to continue."
+msgstr ""
+"Je details zijn opgeslagen. Je bent uitgelogd vanwege "
+"veiligheidsoverwegingen, log opnieuw in om verder te gaan."
 
 msgid "The user could not be saved due to errors."
 msgstr "De gebruiker kon vanwege fouten niet worden opgeslagen."

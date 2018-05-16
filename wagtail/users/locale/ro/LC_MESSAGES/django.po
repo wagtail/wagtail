@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-01-26 23:47+0000\n"
-"Last-Translator: Dan Braghis\n"
+"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"PO-Revision-Date: 2018-05-04 19:31+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -296,10 +296,6 @@ msgstr "Editează"
 
 msgid "The user could not be created due to errors."
 msgstr "Utilizatorul nu a fost creat din cauza erorilor."
-
-#, python-brace-format
-msgid "User '{0}' updated."
-msgstr "Utilizatorul '{0}' a fost actualizat."
 
 msgid "The user could not be saved due to errors."
 msgstr "Utilizatorul nu a fost salvat din cauza erorilor."

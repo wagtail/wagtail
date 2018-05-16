@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-03-01 12:40+0000\n"
+"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"PO-Revision-Date: 2018-05-15 08:25+0000\n"
 "Last-Translator: Miłosz Miśkiewicz\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
@@ -27,6 +27,9 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n"
 "%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
 "%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+
+msgid "Wagtail admin"
+msgstr "Admin Wagtail"
 
 msgid "None"
 msgstr "Brak"
@@ -67,19 +70,6 @@ msgstr "Wpisz %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Podaj swój adres email aby zresetować hasło"
-
-msgid "Please fill your email address."
-msgstr "Podaj swój adres email."
-
-msgid ""
-"Sorry, you cannot reset your password here as your user account is managed "
-"by another server."
-msgstr ""
-"Przepraszamy, nie możesz zresetować hasła tutaj ponieważ Twoje konto jest "
-"zarządzane przez inny serwer."
-
-msgid "This email address is not recognised."
-msgstr "Ten adres email nie został rozpoznany."
 
 msgid "New title"
 msgstr "Nowy tytuł"
@@ -181,35 +171,20 @@ msgstr "Idź do panelu administratora Wagtaila"
 msgid "Account"
 msgstr "Konto"
 
-msgid "Set gravatar"
-msgstr "Ustaw gravatar"
+msgid "Change profile picture"
+msgstr "Zmień zdjęcie profilu"
 
-msgid ""
-"Your avatar image is provided by Gravatar and is connected to your email "
-"address. With a Gravatar account you can set an avatar for any number of "
-"other email addresses you use."
-msgstr ""
-"Twoje zdjęcie jest dostarczane przez Gravatar i jest skojarzone z Twoim "
-"adresem email. Z konta Gravatar możesz ustawić zdjęcie dla dowolnej ilości "
-"adresów email, których używasz."
+msgid "Your current profile picture:"
+msgstr "Obecne zdjęcie Twojego profilu:"
+
+msgid "Update"
+msgstr "Uaktualnij"
+
+msgid "Change email"
+msgstr "Zmień email"
 
 msgid "Change password"
 msgstr "Zmień hasło"
-
-msgid "Change the password you use to log in."
-msgstr "Zmień hasło, którego używasz do logowania."
-
-msgid "Notification preferences"
-msgstr "Ustawienia powiadomień"
-
-msgid "Choose which email notifications to receive."
-msgstr "Wybierz, które powiadomienia mailowe chcesz otrzymywać"
-
-msgid "Language preferences"
-msgstr "Ustawienia językowe"
-
-msgid "Choose the language you want to use here."
-msgstr "Wybierz język jaki chcesz tutaj wykorzystać"
 
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
@@ -217,11 +192,14 @@ msgstr ""
 "Twoje hasło nie może być zmienione. Proszę skontaktować się z "
 "administratorem."
 
+msgid "Set Time Zone"
+msgstr "Ustaw strefę czasową"
+
 msgid "Language Preferences"
 msgstr "Ustawienia Językowe"
 
-msgid "Update"
-msgstr "Uaktualnij"
+msgid "Notification preferences"
+msgstr "Ustawienia powiadomień"
 
 msgid "Reset password"
 msgstr "Resetuj hasło"
@@ -235,14 +213,28 @@ msgstr "Login"
 msgid "Set your new password"
 msgstr "Ustaw nowe hasło"
 
-msgid "The passwords do not match. Please try again."
-msgstr "Hasła się nie zgadzają. Proszę spróbować ponownie."
+msgid "Invalid password reset link"
+msgstr "Nieprawidłowy link do resetu hasła"
+
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used."
+msgstr ""
+"Link do resetu hasła był nieprawidłowy, prawdopodobnie został wykorzystany "
+"już wcześniej."
+
+msgid "Request a new password reset"
+msgstr "Zarządaj nowego resetu hasła"
 
 msgid "Check your email"
 msgstr "Sprawdz swoją skrzynkę pocztową"
 
-msgid "A link to reset your password has been emailed to you."
-msgstr "Link do zresetowania hasła został wysłany pocztą email."
+msgid ""
+"A link to reset your password has been emailed to you if an account exists "
+"for this address."
+msgstr ""
+"Jeżeli konto istnieje w systemie, na Twój email został wysłany link do "
+"resetu Twojego hasła."
 
 msgid "Please follow the link below to reset your password:"
 msgstr "Użyj linku poniżej w celu zresetowania hasła:"
@@ -303,6 +295,24 @@ msgstr "Cofnij"
 
 msgid "Redo"
 msgstr "Ponów"
+
+msgid "Reload the page"
+msgstr "Odśwież stronę"
+
+msgid "Reload saved content"
+msgstr "Odśwież zapisaną zawartość"
+
+msgid "Show latest content"
+msgstr "Pokaż ostatnią zawartość"
+
+msgid "Show error"
+msgstr "Pokaż błąd"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr ""
+"Edytor napotkał błąd. Zawartość została cofnięta do ostatniej zapisanej "
+"wersji."
 
 msgid "Dashboard"
 msgstr "Kokpit"
@@ -1307,6 +1317,9 @@ msgstr "Szwedzki"
 msgid "Slovak"
 msgstr "Słowacki"
 
+msgid "Ukrainian"
+msgstr "Ukraiński"
+
 msgid "Chinese (China)"
 msgstr "Chiński (Chiny)"
 
@@ -1316,8 +1329,14 @@ msgstr "Przepraszamy, ale nie posiadasz praw dostępu do tego miejsca."
 msgid "Your password has been changed successfully!"
 msgstr "Twoje hasło zostało zmienione poprawnie!"
 
+msgid "Your email has been changed successfully!"
+msgstr "Twój email został zmieniony pomyślnie!"
+
 msgid "Your preferences have been updated."
 msgstr "Twoje ustawienia zostały zaktualizowane."
+
+msgid "Your preferences have been updated successfully!"
+msgstr "Twoje ustawienia zostały zaktualizowane pomyślnie!"
 
 msgid "You have been successfully logged out."
 msgstr "Zostałeś pomyślnie wylogowany."
@@ -1538,6 +1557,33 @@ msgstr "Odpublikuj stronę '{title}'"
 #, python-brace-format
 msgid "View revision history for '{title}'"
 msgstr "Zobacz historię rewizji dla '{title}'"
+
+msgid "Set profile picture"
+msgstr "Ustaw zdjęcie profilu"
+
+msgid "Change your profile picture"
+msgstr "Zmień zdjęcie swojego profilu"
+
+msgid "Change the email address linked to your account."
+msgstr "Zmień adres email przypisany do Twojego konta."
+
+msgid "Change the password you use to log in."
+msgstr "Zmień hasło, którego używasz do logowania."
+
+msgid "Choose which email notifications to receive."
+msgstr "Wybierz, które powiadomienia mailowe chcesz otrzymywać"
+
+msgid "Language preferences"
+msgstr "Ustawienia językowe"
+
+msgid "Choose the language you want to use here."
+msgstr "Wybierz język jaki chcesz tutaj wykorzystać"
+
+msgid "Current Time Zone"
+msgstr "Obecna strefa czasowa"
+
+msgid "Choose your current time zone."
+msgstr "Wybierz swoją obecną strefę czasową."
 
 #, python-brace-format
 msgid "Heading {level}"

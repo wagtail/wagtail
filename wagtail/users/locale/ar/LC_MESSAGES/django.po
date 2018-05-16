@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-01-26 16:03+0000\n"
+"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"PO-Revision-Date: 2018-05-04 19:31+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
@@ -197,10 +197,6 @@ msgstr "تنقيح"
 
 msgid "The user could not be created due to errors."
 msgstr "من غير الممكن إنشاء الحساب بسبب أخطاء"
-
-#, python-brace-format
-msgid "User '{0}' updated."
-msgstr "تم تعديل المستخدم '{0}'."
 
 msgid "The user could not be saved due to errors."
 msgstr "من غير الممكن حفظ المستخدم بسبب أخطاء"

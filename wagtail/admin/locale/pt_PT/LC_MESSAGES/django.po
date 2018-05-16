@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-02-16 11:33+0000\n"
+"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"PO-Revision-Date: 2018-05-04 19:30+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
@@ -60,19 +60,6 @@ msgstr "Introduza %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Introduza o seu e-mail para reinicializar a sua senha"
-
-msgid "Please fill your email address."
-msgstr "Por favor introduza o seu e-mail."
-
-msgid ""
-"Sorry, you cannot reset your password here as your user account is managed "
-"by another server."
-msgstr ""
-"Infelizmente não pode reinicializar a sua senha aqui, porque a sua conta de "
-"utilizador é gerida por outro servidor."
-
-msgid "This email address is not recognised."
-msgstr "Este endereço de e-mail não é reconhecido."
 
 msgid "New title"
 msgstr "Novo título"
@@ -151,29 +138,11 @@ msgstr "Ir para a administração do Wagtail"
 msgid "Account"
 msgstr "Conta"
 
-msgid "Set gravatar"
-msgstr "Definir gravatar"
-
-msgid ""
-"Your avatar image is provided by Gravatar and is connected to your email "
-"address. With a Gravatar account you can set an avatar for any number of "
-"other email addresses you use."
-msgstr ""
-"A sua imagem de avatar é fornecida pelo Gravatar e está associada ao seu e-"
-"mail. Com uma conta do Gravatar você pode definir um avatar para qualquer "
-"dos seus endereços de e-mail."
+msgid "Update"
+msgstr "Atualizar"
 
 msgid "Change password"
 msgstr "Alterar senha"
-
-msgid "Change the password you use to log in."
-msgstr "Altere a senha que utiliza para entrar."
-
-msgid "Notification preferences"
-msgstr "Preferências de notificação"
-
-msgid "Choose which email notifications to receive."
-msgstr "Escolha quais as notificações de e-mail a receber."
 
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
@@ -181,8 +150,8 @@ msgstr ""
 "A sua senha não pode ser alterada aqui. Por favor contacte um administrador "
 "do site."
 
-msgid "Update"
-msgstr "Atualizar"
+msgid "Notification preferences"
+msgstr "Preferências de notificação"
 
 msgid "Reset password"
 msgstr "Reinicializar senha"
@@ -196,14 +165,8 @@ msgstr "Entrar"
 msgid "Set your new password"
 msgstr "Defina a sua nova senha"
 
-msgid "The passwords do not match. Please try again."
-msgstr "As senhas não coincidem. Tente novamente."
-
 msgid "Check your email"
 msgstr "Verifique o seu e-mail"
-
-msgid "A link to reset your password has been emailed to you."
-msgstr "Foi enviado para o seu e-mail um link para reinicializar a sua senha."
 
 msgid "Please follow the link below to reset your password:"
 msgstr "Por favor siga o link abaixo para reinicializar a sua senha:"
@@ -1135,6 +1098,12 @@ msgstr ""
 
 msgid "More"
 msgstr "Mais"
+
+msgid "Change the password you use to log in."
+msgstr "Altere a senha que utiliza para entrar."
+
+msgid "Choose which email notifications to receive."
+msgstr "Escolha quais as notificações de e-mail a receber."
 
 msgid "Choose an item"
 msgstr "Escolher um item"

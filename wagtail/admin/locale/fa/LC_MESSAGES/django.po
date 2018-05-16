@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-02-16 11:33+0000\n"
+"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"PO-Revision-Date: 2018-05-04 19:30+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
 "fa/)\n"
@@ -60,19 +60,6 @@ msgstr "%s خود را وارد کنید"
 
 msgid "Enter your email address to reset your password"
 msgstr "برای بازنشانی رمز، نشانی ایمیل خود را وارد کنید"
-
-msgid "Please fill your email address."
-msgstr "لطفا آدرس ایمیل خود را وارد کنید."
-
-msgid ""
-"Sorry, you cannot reset your password here as your user account is managed "
-"by another server."
-msgstr ""
-"متاسفانه امکان بازنشانی رمز عبور مقدور نیست زیرا حساب کاربری شما توسط سرور "
-"دیگری مدیریت میگردد."
-
-msgid "This email address is not recognised."
-msgstr "نشانی ایمیل معتبر نیست."
 
 msgid "New title"
 msgstr "عنوان جدید"
@@ -152,35 +139,11 @@ msgstr "رفتن به رابط راهبری وگتیل"
 msgid "Account"
 msgstr "حساب"
 
-msgid "Set gravatar"
-msgstr "تنظیم گراواتار"
-
-msgid ""
-"Your avatar image is provided by Gravatar and is connected to your email "
-"address. With a Gravatar account you can set an avatar for any number of "
-"other email addresses you use."
-msgstr ""
-"تصویر آواتار شما توسط گراواتار نمایش داده شده و به نشانی ایمیل خودتان متصل "
-"است. با یک حساب گراواتار شما می‌توانید برای هر تعداد نشانی ایمیلی که استفاده "
-"می‌کنید، آواتار تعریف نمایید."
+msgid "Update"
+msgstr "بروزرسانی"
 
 msgid "Change password"
 msgstr "تغییر رمزعبور"
-
-msgid "Change the password you use to log in."
-msgstr "رمزعبورتان را برای ورود تغییر دهید."
-
-msgid "Notification preferences"
-msgstr "ترجیحات آگاهسازی"
-
-msgid "Choose which email notifications to receive."
-msgstr "آگاهسازی های ایمیلی را می‌خواهید دریافت کنید انتخاب نمایید."
-
-msgid "Language preferences"
-msgstr "ترجیحات زبان"
-
-msgid "Choose the language you want to use here."
-msgstr "زبانی که میخواهید بکار بگیرید را انتخاب کنید."
 
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
@@ -189,8 +152,8 @@ msgstr "رمزعبور شما نمیتواند تغییر کند. لطفا با 
 msgid "Language Preferences"
 msgstr "ترجیحات زبانی"
 
-msgid "Update"
-msgstr "بروزرسانی"
+msgid "Notification preferences"
+msgstr "ترجیحات آگاهسازی"
 
 msgid "Reset password"
 msgstr "بازنشانی رمزعبور"
@@ -204,14 +167,8 @@ msgstr "ورود"
 msgid "Set your new password"
 msgstr "رمزعبور جدید را وارد نمایید"
 
-msgid "The passwords do not match. Please try again."
-msgstr "رمزها با یکدیگر تطابق ندارند. لطفا بار دیگر سعی کنید."
-
 msgid "Check your email"
 msgstr "ایمیل خود را چک کنید"
-
-msgid "A link to reset your password has been emailed to you."
-msgstr "لینک بازنشانی رمزعبور به ایمیل شما ارسال شد."
 
 msgid "Please follow the link below to reset your password:"
 msgstr "لطفا لینک پایین را برای بازنشانی رمزعبور دنبال کنید:"
@@ -1326,6 +1283,18 @@ msgstr "لغوانتشار صفحه '{title}'"
 #, python-brace-format
 msgid "View revision history for '{title}'"
 msgstr "نمایش سابقه بازبینی‌های '{title}'"
+
+msgid "Change the password you use to log in."
+msgstr "رمزعبورتان را برای ورود تغییر دهید."
+
+msgid "Choose which email notifications to receive."
+msgstr "آگاهسازی های ایمیلی را می‌خواهید دریافت کنید انتخاب نمایید."
+
+msgid "Language preferences"
+msgstr "ترجیحات زبان"
+
+msgid "Choose the language you want to use here."
+msgstr "زبانی که میخواهید بکار بگیرید را انتخاب کنید."
 
 msgid "Choose an item"
 msgstr "آیتمی را انتخاب کنید"

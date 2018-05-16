@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-03-15 11:56+0000\n"
-"Last-Translator: Matas Dailyda <matas@dailyda.com>\n"
+"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"PO-Revision-Date: 2018-05-04 19:30+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
 "language/lt/)\n"
 "MIME-Version: 1.0\n"
@@ -60,19 +60,6 @@ msgstr "Įveskite savo %s"
 msgid "Enter your email address to reset your password"
 msgstr ""
 "Įveskite savo elektroninio pašto adresą kad atstatytumėte savo slaptažodį"
-
-msgid "Please fill your email address."
-msgstr "Prašome užpildyti savo elektroninio pašto adresą."
-
-msgid ""
-"Sorry, you cannot reset your password here as your user account is managed "
-"by another server."
-msgstr ""
-"Atsiprašome, čia negalite atstatyti savo slaptažodžio nes jūsų vartotojas "
-"valdomas kito serverio."
-
-msgid "This email address is not recognised."
-msgstr "Šis elektroninio pašto adresas neatpažintas."
 
 msgid "New title"
 msgstr "Naujas pavadinimas"
@@ -173,35 +160,11 @@ msgstr "Eiti į Wagtail administravimą"
 msgid "Account"
 msgstr "Vartotojas"
 
-msgid "Set gravatar"
-msgstr "Nustatyti gravatar"
-
-msgid ""
-"Your avatar image is provided by Gravatar and is connected to your email "
-"address. With a Gravatar account you can set an avatar for any number of "
-"other email addresses you use."
-msgstr ""
-"Jūsų atvaizdas yra parūpintas iš Gravatar ir susietas su jūsų elektroninio "
-"pašto adresu. Su Gravatar vartotoju galite nustatyti atvaizdą bet kuriam "
-"kitam elektroninio pašto adresui kurį naudojate."
+msgid "Update"
+msgstr "Atnaujinti"
 
 msgid "Change password"
 msgstr "Keisti slaptažodį"
-
-msgid "Change the password you use to log in."
-msgstr "Pakeiskite slaptažodį kurį naudojate prisijungimui."
-
-msgid "Notification preferences"
-msgstr "Pranešimų nustatymai"
-
-msgid "Choose which email notifications to receive."
-msgstr "Pasirinkite kuriuos elektroninio pašto pranešimus norite gauti."
-
-msgid "Language preferences"
-msgstr "Kalbos nustatymai"
-
-msgid "Choose the language you want to use here."
-msgstr "Pasirinkite kuria kalbą norite naudoti čia."
 
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
@@ -212,8 +175,8 @@ msgstr ""
 msgid "Language Preferences"
 msgstr "Kalbos nustatymai"
 
-msgid "Update"
-msgstr "Atnaujinti"
+msgid "Notification preferences"
+msgstr "Pranešimų nustatymai"
 
 msgid "Reset password"
 msgstr "Atstatyti slaptažodį"
@@ -227,15 +190,8 @@ msgstr "Prisijungti"
 msgid "Set your new password"
 msgstr "Nustatykite savo naują slaptažodį"
 
-msgid "The passwords do not match. Please try again."
-msgstr "Slaptažodžiai nesutampa. Bandykite dar kartą."
-
 msgid "Check your email"
 msgstr "Patikrinkite savo elektroninį paštą"
-
-msgid "A link to reset your password has been emailed to you."
-msgstr ""
-"Nuoroda atstatanti jūsų slaptažodį buvo išsiųsta jums elektroniniu paštu."
 
 msgid "Please follow the link below to reset your password:"
 msgstr "Sekite žemiau esančią nuorodą kad atstatytumėte savo slaptažodį:"
@@ -1484,6 +1440,18 @@ msgstr "Nebepublikuoti puslapio '{title}'"
 #, python-brace-format
 msgid "View revision history for '{title}'"
 msgstr "Peržiūrėti '{title}' revizijų istoriją "
+
+msgid "Change the password you use to log in."
+msgstr "Pakeiskite slaptažodį kurį naudojate prisijungimui."
+
+msgid "Choose which email notifications to receive."
+msgstr "Pasirinkite kuriuos elektroninio pašto pranešimus norite gauti."
+
+msgid "Language preferences"
+msgstr "Kalbos nustatymai"
+
+msgid "Choose the language you want to use here."
+msgstr "Pasirinkite kuria kalbą norite naudoti čia."
 
 #, python-brace-format
 msgid "Heading {level}"
