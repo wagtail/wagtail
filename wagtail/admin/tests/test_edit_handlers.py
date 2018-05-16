@@ -209,11 +209,6 @@ class TestExtractPanelDefinitionsFromModelClass(TestCase):
         for panel in panels:
             self.assertNotEqual(panel.field_name, 'hostname')
 
-    def test_exclude_with_defined_panels(self):
-        Site.panels = [FieldPanel('hostname')]
-        panels = extract_panel_definitions_from_model_class(Site, exclude=['hostname'])
-        self.assertEqual([], panels)
-
     def test_can_build_panel_list(self):
         # EventPage has no 'panels' definition, so one should be derived from the field list
         panels = extract_panel_definitions_from_model_class(EventPage)
