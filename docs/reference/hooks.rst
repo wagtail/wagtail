@@ -297,32 +297,6 @@ Hooks for customising the editing interface for pages and snippets.
   Rich text fields in Wagtail work with a list of 'feature' identifiers that determine which editing controls are available in the editor, and which elements are allowed in the output; for example, a rich text field defined as ``RichTextField(features=['h2', 'h3', 'bold', 'italic', 'link'])`` would allow headings, bold / italic formatting and links, but not (for example) bullet lists or images. The ``register_rich_text_features`` hook allows new feature identifiers to be defined - see :ref:`rich_text_features` for details.
 
 
-.. _construct_whitelister_element_rules:
-
-``construct_whitelister_element_rules``
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-  **Deprecated.** This hook will be removed in Wagtail 2.2; please use :ref:`rich text features <rich_text_features>` to define whitelist rules instead.
-
-  Customise the rules that define which HTML elements are allowed in rich text areas. By default only a limited set of HTML elements and attributes are whitelisted - all others are stripped out. The callables passed into this hook must return a dict, which maps element names to handler functions that will perform some kind of manipulation of the element. These handler functions receive the element as a `BeautifulSoup <http://www.crummy.com/software/BeautifulSoup/bs4/doc/>`_ Tag object.
-
-  The ``wagtail.core.whitelist`` module provides a few helper functions to assist in defining these handlers: ``allow_without_attributes``, a handler which preserves the element but strips out all of its attributes, and ``attribute_rule`` which accepts a dict specifying how to handle each attribute, and returns a handler function. This dict will map attribute names to either True (indicating that the attribute should be kept), False (indicating that it should be dropped), or a callable (which takes the initial attribute value and returns either a final value for the attribute, or None to drop the attribute).
-
-  For example, the following hook function will add the ``<blockquote>`` element to the whitelist, and allow the ``target`` attribute on ``<a>`` elements:
-
-  .. code-block:: python
-
-    from wagtail.core import hooks
-    from wagtail.core.whitelist import attribute_rule, check_url, allow_without_attributes
-
-    @hooks.register('construct_whitelister_element_rules')
-    def whitelister_element_rules():
-        return {
-            'blockquote': allow_without_attributes,
-            'a': attribute_rule({'href': check_url, 'target': True}),
-        }
-
-
 .. _insert_editor_css:
 
 ``insert_editor_css``
