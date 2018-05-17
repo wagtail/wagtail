@@ -484,13 +484,11 @@ URL Patterns
   from wagtail.core import urls as wagtail_urls
   from wagtail.admin import urls as wagtailadmin_urls
   from wagtail.documents import urls as wagtaildocs_urls
-  from wagtail.search import urls as wagtailsearch_urls
 
   urlpatterns = [
       url(r'^django-admin/', include(admin.site.urls)),
 
       url(r'^admin/', include(wagtailadmin_urls)),
-      url(r'^search/', include(wagtailsearch_urls)),
       url(r'^documents/', include(wagtaildocs_urls)),
 
       # Optional URL for including your own vanilla Django urls/views
@@ -727,14 +725,12 @@ These two files should reside in your project directory (``myproject/myproject/`
   from wagtail.core import urls as wagtail_urls
   from wagtail.admin import urls as wagtailadmin_urls
   from wagtail.documents import urls as wagtaildocs_urls
-  from wagtail.search import urls as wagtailsearch_urls
 
 
   urlpatterns = [
       url(r'^django-admin/', include(admin.site.urls)),
 
       url(r'^admin/', include(wagtailadmin_urls)),
-      url(r'^search/', include(wagtailsearch_urls)),
       url(r'^documents/', include(wagtaildocs_urls)),
 
       # For anything not caught by a more specific rule above, hand over to
