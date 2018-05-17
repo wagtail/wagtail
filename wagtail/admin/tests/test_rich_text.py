@@ -532,21 +532,19 @@ class TestWidgetWhitelisting(TestCase, WagtailTestUtils):
         widget = HalloRichTextArea()
 
         # when no feature list is specified, accept elements that are part of the default set
-        # (which includes h2) or registered through the construct_whitelister_element_rules hook
-        # (which includes blockquote in the test environment)
+        # (which includes h2)
         result = widget.value_from_datadict({
             'body': '<h2>heading</h2><script>script</script><blockquote>blockquote</blockquote>'
         }, {}, 'body')
-        self.assertEqual(result, '<h2>heading</h2>script<blockquote>blockquote</blockquote>')
+        self.assertEqual(result, '<h2>heading</h2>scriptblockquote')
 
     def test_custom_whitelist(self):
         widget = HalloRichTextArea(features=['h1', 'bold', 'somethingijustmadeup'])
-        # accept elements that are represented in the feature list or registered through the
-        # construct_whitelister_element_rules hook
+        # accept elements that are represented in the feature list
         result = widget.value_from_datadict({
             'body': '<h1>h1</h1> <h2>h2</h2> <script>script</script> <p><b>bold</b> <i>italic</i></p> <blockquote>blockquote</blockquote>'
         }, {}, 'body')
-        self.assertEqual(result, '<h1>h1</h1> h2 script <p><b>bold</b> italic</p> <blockquote>blockquote</blockquote>')
+        self.assertEqual(result, '<h1>h1</h1> h2 script <p><b>bold</b> italic</p> blockquote')
 
     def test_link_conversion_with_default_whitelist(self):
         widget = HalloRichTextArea()

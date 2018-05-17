@@ -6,7 +6,6 @@ from wagtail.admin.menu import MenuItem
 from wagtail.admin.rich_text import HalloPlugin
 from wagtail.admin.search import SearchArea
 from wagtail.core import hooks
-from wagtail.core.whitelist import allow_without_attributes, attribute_rule, check_url
 
 
 # Register one hook using decorators...
@@ -15,23 +14,12 @@ def editor_css():
     return """<link rel="stylesheet" href="/path/to/my/custom.css">"""
 
 
+# And the other using old-style function calls
 def editor_js():
     return """<script src="/path/to/my/custom.js"></script>"""
 
 
 hooks.register('insert_editor_js', editor_js)
-
-
-# And the other using old-style function calls
-
-def whitelister_element_rules():
-    return {
-        'blockquote': allow_without_attributes,
-        'a': attribute_rule({'href': check_url, 'target': True}),
-    }
-
-
-hooks.register('construct_whitelister_element_rules', whitelister_element_rules)
 
 
 def block_googlebot(page, request, serve_args, serve_kwargs):
