@@ -58,7 +58,7 @@ class RedirectMiddleware(MiddlewareMixin):
         # does not specify a querystring already.
         redirect_url = redirect.link
         redirect_querystring = urlparse(redirect_url).query
-        if not redirect_querystring and request.META['QUERY_STRING']:
+        if not redirect_querystring and request.META.get('QUERY_STRING'):
             redirect_url = '{}?{}'.format(redirect_url, request.META['QUERY_STRING'])
 
         if redirect.is_permanent:
