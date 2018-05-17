@@ -47,10 +47,6 @@ Here's an example:
             )
 
 
-.. versionchanged:: 1.10
-
-    In previous versions of Wagtail it was necessary to connect signal handlers to handle deletion of image files. As of Wagtail 1.10 this is now handled automatically.
-
 .. note::
 
     Fields defined on a custom image model must either be set as non-required

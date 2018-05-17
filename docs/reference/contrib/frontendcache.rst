@@ -203,8 +203,6 @@ For example, this could be useful for purging a single page on a blog index:
 The ``PurgeBatch`` class
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. versionadded:: 1.13
-
 All of the methods available on ``PurgeBatch`` are listed below:
 
 .. automodule:: wagtail.contrib.frontend_cache.utils
