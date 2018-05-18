@@ -37,6 +37,23 @@ def get_image_json(image):
     })
 
 
+def get_chooser_context(request):
+    """Helper function to return common template context variables for the main chooser view"""
+
+    collections = Collection.objects.all()
+    if len(collections) < 2:
+        collections = None
+
+    return {
+        'searchform': SearchForm(),
+        'is_searching': False,
+        'query_string': None,
+        'will_select_format': request.GET.get('select_format'),
+        'popular_tags': popular_tags_for_model(get_image_model()),
+        'collections': collections,
+    }
+
+
 def chooser(request):
     Image = get_image_model()
 
@@ -52,7 +69,6 @@ def chooser(request):
     for hook in hooks.get_hooks('construct_image_chooser_queryset'):
         images = hook(images, request)
 
-    q = None
     if (
         'q' in request.GET or 'p' in request.GET or 'tag' in request.GET or
         'collection_id' in request.GET
@@ -71,6 +87,7 @@ def chooser(request):
             is_searching = True
         else:
             is_searching = False
+            q = None
 
             tag_name = request.GET.get('tag')
             if tag_name:
@@ -86,24 +103,16 @@ def chooser(request):
             'will_select_format': request.GET.get('select_format')
         })
     else:
-        searchform = SearchForm()
-
-        collections = Collection.objects.all()
-        if len(collections) < 2:
-            collections = None
-
         paginator, images = paginate(request, images, per_page=12)
 
-        return render_modal_workflow(request, 'wagtailimages/chooser/chooser.html', 'wagtailimages/chooser/chooser.js', {
+        context = get_chooser_context(request)
+        context.update({
             'images': images,
             'uploadform': uploadform,
-            'searchform': searchform,
-            'is_searching': False,
-            'query_string': q,
-            'will_select_format': request.GET.get('select_format'),
-            'popular_tags': popular_tags_for_model(Image),
-            'collections': collections,
         })
+        return render_modal_workflow(
+            request, 'wagtailimages/chooser/chooser.html', 'wagtailimages/chooser/chooser.js', context
+        )
 
 
 def image_chosen(request, image_id):
@@ -119,8 +128,6 @@ def image_chosen(request, image_id):
 def chooser_upload(request):
     Image = get_image_model()
     ImageForm = get_image_form(Image)
-
-    searchform = SearchForm()
 
     if request.method == 'POST':
         image = Image(uploaded_by_user=request.user)
@@ -148,11 +155,20 @@ def chooser_upload(request):
         form = ImageForm(user=request.user)
 
     images = Image.objects.order_by('-created_at')
+
+    # allow hooks to modify the queryset
+    for hook in hooks.get_hooks('construct_image_chooser_queryset'):
+        images = hook(images, request)
+
     paginator, images = paginate(request, images, per_page=12)
 
+    context = get_chooser_context(request)
+    context.update({
+        'images': images,
+        'uploadform': form,
+    })
     return render_modal_workflow(
-        request, 'wagtailimages/chooser/chooser.html', 'wagtailimages/chooser/chooser.js',
-        {'images': images, 'uploadform': form, 'searchform': searchform}
+        request, 'wagtailimages/chooser/chooser.html', 'wagtailimages/chooser/chooser.js', context
     )
 
 
