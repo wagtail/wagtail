@@ -746,6 +746,22 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
         self.assertContains(response, "Page 1 of ")
         self.assertEqual(12, len(response.context['images']))
 
+    def test_select_format_flag_after_upload_form_error(self):
+        submit_url = reverse('wagtailimages:chooser_upload') + '?select_format=true'
+        response = self.client.post(submit_url, {
+            'title': "Test image",
+            'file': SimpleUploadedFile('not_an_image.txt', b'this is not an image'),
+        })
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailimages/chooser/chooser.html')
+        self.assertFormError(response, 'uploadform', 'file', "Not a supported image format. Supported formats: GIF, JPEG, PNG.")
+
+        # the action URL of the re-rendered form should include the select_format=true parameter
+        # (NB the HTML in the response is embedded in a JS string, so need to escape accordingly)
+        expected_action_attr = 'action=\\"%s\\"' % submit_url
+        self.assertContains(response, expected_action_attr)
+
     @override_settings(DEFAULT_FILE_STORAGE='wagtail.tests.dummy_external_storage.DummyExternalStorage')
     def test_upload_with_external_storage(self):
         response = self.client.post(reverse('wagtailimages:chooser_upload'), {
