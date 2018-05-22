@@ -20,7 +20,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sk_SK\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n "
+">= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
 
 msgid "From site"
 msgstr "Zo sídla"
@@ -127,6 +128,10 @@ msgstr[2] ""
 "\n"
 "            %(counter)s zhôd\n"
 "        "
+msgstr[3] ""
+"\n"
+"            %(counter)s zhôd\n"
+"        "
 
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
@@ -144,7 +149,6 @@ msgstr ""
 msgid "Search redirects"
 msgstr "Hľadať presmerovania"
 
-#, python-brace-format
 msgid "Redirect '{0}' updated."
 msgstr "Presmerovanie '{0}' bolo aktualizované."
 
@@ -154,11 +158,9 @@ msgstr "Upraviť"
 msgid "The redirect could not be saved due to errors."
 msgstr "Presmerovanie nemôže byť uložené kvôli chybám."
 
-#, python-brace-format
 msgid "Redirect '{0}' deleted."
 msgstr "Presmerovanie '{0}' bolo zmazané."
 
-#, python-brace-format
 msgid "Redirect '{0}' added."
 msgstr "Presmerovanie '{0}' bolo pridané."
 

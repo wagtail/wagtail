@@ -953,11 +953,9 @@ msgstr "Adicionar uma coleção"
 msgid "Add collection"
 msgstr "Adicionar coleção"
 
-#, python-brace-format
 msgid "Collection '{0}' created."
 msgstr "Coleção '{0}' criada."
 
-#, python-brace-format
 msgid "Collection '{0}' updated."
 msgstr "Coleção '{0}' atualizada."
 
@@ -967,7 +965,6 @@ msgstr "A coleção não pôde ser guardada devido a erros."
 msgid "Delete collection"
 msgstr "Apagar coleção"
 
-#, python-brace-format
 msgid "Collection '{0}' deleted."
 msgstr "Coleção '{0}' apagada."
 
@@ -977,18 +974,15 @@ msgstr "Tem a certeza que quer apagar esta coleção?"
 msgid "Editing"
 msgstr "A editar"
 
-#, python-brace-format
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr "Página '{0}' criada e agendada para publicação."
 
 msgid "View live"
 msgstr "Ver publicada"
 
-#, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "Página '{0}' criada e publicada."
 
-#, python-brace-format
 msgid "Page '{0}' created and submitted for moderation."
 msgstr "Página '{0}' criada e enviada para moderação."
 
@@ -998,38 +992,30 @@ msgstr "Ver rascunho"
 msgid "Failed to send notifications to moderators"
 msgstr "Não foi possível notificar os moderadores"
 
-#, python-brace-format
 msgid "Page '{0}' created."
 msgstr "Página '{0}' criada."
 
 msgid "The page could not be created due to validation errors"
 msgstr "Esta página não pôde ser criada devido a erros de validação"
 
-#, python-brace-format
 msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
 msgstr "A versão de {0} da página '{1}' foi agendada para publicação."
 
-#, python-brace-format
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "A página '{0}' foi agendada para publicação."
 
-#, python-brace-format
 msgid "Revision from {0} of page '{1}' has been published."
 msgstr "Versão de {0} da página '{1}' foi publicada."
 
-#, python-brace-format
 msgid "Page '{0}' has been published."
 msgstr "A página '{0}' foi publicada."
 
-#, python-brace-format
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "A página '{0}' foi enviada para moderação."
 
-#, python-brace-format
 msgid "Page '{0}' has been replaced with revision from {1}."
 msgstr "A página '{0}' foi substituída pela versão de {1}."
 
-#, python-brace-format
 msgid "Page '{0}' has been updated."
 msgstr "A página '{0}' foi atualizada."
 
@@ -1042,49 +1028,39 @@ msgstr "A página não pôde ser guardada devido a erros de validação"
 msgid "This page is currently awaiting moderation"
 msgstr "Esta página aguarda moderação"
 
-#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Página '{0}' apagada."
 
-#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "Página '{0}' despublicada."
 
-#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "Página '{0}' movida."
 
-#, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "Página '{0}' e {1} páginas-filha copiadas."
 
-#, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "Página '{0}' copiada."
 
-#, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "A página '{0}' não está a aguardar moderação."
 
-#, python-brace-format
 msgid "Page '{0}' published."
 msgstr "Página '{0}' publicada."
 
 msgid "Failed to send approval notifications"
 msgstr "Não foi possível enviar as notificações de aprovação"
 
-#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "Página '{0}' rejeitada para publicação."
 
 msgid "Failed to send rejection notifications"
 msgstr "Não foi possível enviar as notificações de rejeição"
 
-#, python-brace-format
 msgid "Page '{0}' is now locked."
 msgstr "A página '{0}' foi trancada."
 
-#, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "A página '{0}' foi destrancada."
 

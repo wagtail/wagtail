@@ -18,7 +18,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: he_IL\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % "
+"1 == 0) ? 1: (n % 10 == 0 && n % 1 == 0 && n > 10) ? 2 : 3;\n"
 
 msgid "Please specify at least one recommendation for this search term."
 msgstr "אנא ציין לפחות המלצה אחת למונח חיפוש זה"
@@ -71,7 +72,6 @@ msgstr "תוצאות מקודמות "
 msgid "None"
 msgstr "אף אחת"
 
-#, python-brace-format
 msgid "Editor's picks for '{0}' created."
 msgstr "בחירת העורך עבור '{0}' נוצרה"
 
@@ -81,7 +81,6 @@ msgstr "ערוך"
 msgid "Recommendations have not been created due to errors"
 msgstr "המלצות לא נשמרו בעקבות שגיאה"
 
-#, python-brace-format
 msgid "Editor's picks for '{0}' updated."
 msgstr "בחירת העורך עבור '{0}' עודכנה"
 

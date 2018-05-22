@@ -1088,11 +1088,9 @@ msgstr "모음 추가"
 msgid "Add collection"
 msgstr "모음 추가"
 
-#, python-brace-format
 msgid "Collection '{0}' created."
 msgstr "'{0}' 모음이 생성됨."
 
-#, python-brace-format
 msgid "Collection '{0}' updated."
 msgstr "'{0}' 모음이 수정됨."
 
@@ -1102,7 +1100,6 @@ msgstr "이 모음은 오류로 인해 저장하지 못했습니다."
 msgid "Delete collection"
 msgstr "모음 삭제"
 
-#, python-brace-format
 msgid "Collection '{0}' deleted."
 msgstr "'{0}' 모음이 삭제됨."
 
@@ -1112,18 +1109,15 @@ msgstr "이 모음을 지우려는 것이 확실한가요?"
 msgid "Editing"
 msgstr "수정"
 
-#, python-brace-format
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr "'{0}' 페이지가 생성되었고 게시하도록 예약되었습니다."
 
 msgid "View live"
 msgstr "라이브 보기"
 
-#, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "'{0}' 페이지가 생성 및 게시되었습니다"
 
-#, python-brace-format
 msgid "Page '{0}' created and submitted for moderation."
 msgstr "'{0}' 페이지가 생성되고 검토에 의해 제출되었습니다"
 
@@ -1133,38 +1127,30 @@ msgstr "임시저장 보기"
 msgid "Failed to send notifications to moderators"
 msgstr "검토자에게 알림 보내기 실패"
 
-#, python-brace-format
 msgid "Page '{0}' created."
 msgstr "'{0}' 페이지가 생성되었습니다"
 
 msgid "The page could not be created due to validation errors"
 msgstr "이 페이지는 오류에 의해 생성될 수 없습니다"
 
-#, python-brace-format
 msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
 msgstr "'{1}' 페이지의 {0}로부터의 수정안을 게시하도록 예약했습니다."
 
-#, python-brace-format
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "'{0}' 페이지를 게시하도록 예약했습니다."
 
-#, python-brace-format
 msgid "Revision from {0} of page '{1}' has been published."
 msgstr "페이지 '{1}'의 {0}로부터의 수정안이 게시되었습니다."
 
-#, python-brace-format
 msgid "Page '{0}' has been published."
 msgstr "'{0}' 페이지가 게시되었습니다."
 
-#, python-brace-format
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "'{0}' 페이지를 검토할 수 있도록 제출했습니다."
 
-#, python-brace-format
 msgid "Page '{0}' has been replaced with revision from {1}."
 msgstr "'{0}' 페이지는 {1}로부터의 수정안으로 대체되었습니다."
 
-#, python-brace-format
 msgid "Page '{0}' has been updated."
 msgstr "'{0}' 페이지가 수정되었습니다."
 
@@ -1180,49 +1166,39 @@ msgstr "라이브 버전과 비교"
 msgid "This page is currently awaiting moderation"
 msgstr "이 페이지는 현재 검토를 기다리고 있습니다"
 
-#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "'{0}' 페이지가 삭제되었습니다"
 
-#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "'{0}' 페이지의 게시가 해제 되었습니다"
 
-#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "'{0}' 페이지가 이동하였습니다"
 
-#, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "'{0}' 페이지 그리고 {1} 개의 하위페이지가 복사되었습니다"
 
-#, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "'{0}' 페이지가 복사 되었습니다"
 
-#, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "'{0}' 페이지는 현재 검토를 기다리고 있지 않습니다"
 
-#, python-brace-format
 msgid "Page '{0}' published."
 msgstr "'{0}' 페이지가 게시되었습니다"
 
 msgid "Failed to send approval notifications"
 msgstr "승인 알림 보내기 실패"
 
-#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "'{0}' 페이지는 게시가 거절되었습니다"
 
 msgid "Failed to send rejection notifications"
 msgstr "거절 알림 보내기 실패"
 
-#, python-brace-format
 msgid "Page '{0}' is now locked."
 msgstr "'{0}' 페이지를 잠갔습니다."
 
-#, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "'{0}' 페이지의 잠금을 풀었습니다."
 
@@ -1240,46 +1216,36 @@ msgstr "최초"
 msgid "Latest"
 msgstr "최근"
 
-#, python-brace-format
 msgid "Edit '{title}'"
 msgstr "'{title}' 수정"
 
-#, python-brace-format
 msgid "Preview draft version of '{title}'"
 msgstr "'{title}'의 초고 버전 미리보기"
 
-#, python-brace-format
 msgid "View live version of '{title}'"
 msgstr "'{title}'의 라이브 버전 보기"
 
-#, python-brace-format
 msgid "Add a child page to '{title}' "
 msgstr "'{title}'에 하위 페이지 추가"
 
 msgid "More"
 msgstr "더 보기"
 
-#, python-brace-format
 msgid "View more options for '{title}'"
 msgstr "'{title}'에 대한 옵션 더 보기"
 
-#, python-brace-format
 msgid "Move page '{title}'"
 msgstr "'{title}' 페이지 이동"
 
-#, python-brace-format
 msgid "Copy page '{title}'"
 msgstr "'{title}' 페이지 복사"
 
-#, python-brace-format
 msgid "Delete page '{title}'"
 msgstr "'{title}' 페이지 삭제"
 
-#, python-brace-format
 msgid "Unpublish page '{title}'"
 msgstr "'{title}' 페이지 게시 해제"
 
-#, python-brace-format
 msgid "View revision history for '{title}'"
 msgstr "'{title}'의 수정 히스토리 보기"
 

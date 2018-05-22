@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fa\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgid "Choose a root page"
 msgstr "یک صفحه ریشه انتخاب کنید"
@@ -52,11 +52,9 @@ msgstr "اضافه کردن یک سایت"
 msgid "Add site"
 msgstr " کردن سایت"
 
-#, python-brace-format
 msgid "Site '{0}' created."
 msgstr "سایت '{0}' ساخته شد."
 
-#, python-brace-format
 msgid "Site '{0}' updated."
 msgstr "سایت '{0}' به‌روز شد."
 
@@ -66,7 +64,6 @@ msgstr "ذخیره این سایت به دلایلی امکان‌پذیر نم�
 msgid "Delete site"
 msgstr "حذف سایت"
 
-#, python-brace-format
 msgid "Site '{0}' deleted."
 msgstr "سایت '{0}' حذف شد"
 

@@ -280,25 +280,21 @@ msgstr "Groepen"
 msgid "Search groups"
 msgstr "Zoek groepen"
 
-#, python-brace-format
 msgid "Group '{0}' created."
 msgstr "Groep '{0}' aangemaakt."
 
-#, python-brace-format
 msgid "Group '{0}' updated."
 msgstr "Groep '{0}' gewijzigd."
 
 msgid "The group could not be saved due to errors."
 msgstr "De groep kon vanwege fouten niet worden opgeslagen."
 
-#, python-brace-format
 msgid "Group '{0}' deleted."
 msgstr "Groep '{0}' verwijderd."
 
 msgid "Search users"
 msgstr "Zoek gebruikers"
 
-#, python-brace-format
 msgid "User '{0}' created."
 msgstr "Gebruiker '{0}' aangemaakt."
 
@@ -318,7 +314,6 @@ msgstr ""
 msgid "The user could not be saved due to errors."
 msgstr "De gebruiker kon vanwege fouten niet worden opgeslagen."
 
-#, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "Gebruiker '{0}' is verwijderd."
 

@@ -24,7 +24,6 @@ msgstr ""
 msgid "Wagtail core"
 msgstr "Wagtail core"
 
-#, python-brace-format
 msgid "{label}: this block has no options."
 msgstr "{label}: Dit blok heeft geen opties."
 

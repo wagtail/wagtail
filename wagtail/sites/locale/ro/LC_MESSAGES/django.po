@@ -53,11 +53,9 @@ msgstr "Adaugă un sait"
 msgid "Add site"
 msgstr "Adaugă sait"
 
-#, python-brace-format
 msgid "Site '{0}' created."
 msgstr "Sait-ul '{0}' a fost creat."
 
-#, python-brace-format
 msgid "Site '{0}' updated."
 msgstr "Sait-ul '{0}' a fost actualizat."
 
@@ -67,7 +65,6 @@ msgstr "Sait-ul nu a fost salvat din cauza erorilor."
 msgid "Delete site"
 msgstr "Șterge sait"
 
-#, python-brace-format
 msgid "Site '{0}' deleted."
 msgstr "Sait-ul '{0}' a fost șters."
 

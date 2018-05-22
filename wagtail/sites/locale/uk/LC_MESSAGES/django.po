@@ -17,8 +17,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: uk\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != "
+"11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
+"100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
+"(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
 
 msgid "Choose a root page"
 msgstr "Оберіть кореневу сторінку"
@@ -53,11 +55,9 @@ msgstr "Додати сайт"
 msgid "Add site"
 msgstr "Додати сайт"
 
-#, python-brace-format
 msgid "Site '{0}' created."
 msgstr "Сайт '{0}' створено."
 
-#, python-brace-format
 msgid "Site '{0}' updated."
 msgstr "Сайт '{0}' оновлено."
 
@@ -67,7 +67,6 @@ msgstr "Цей сайт не може бути збережений через �
 msgid "Delete site"
 msgstr "Видалити сайт"
 
-#, python-brace-format
 msgid "Site '{0}' deleted."
 msgstr "Сайт '{0}' видалено."
 

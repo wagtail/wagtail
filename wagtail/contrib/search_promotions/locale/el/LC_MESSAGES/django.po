@@ -166,7 +166,6 @@ msgstr ""
 msgid "Search promoted results"
 msgstr "Αναζήτηση προωθημένων αποτελεσμάτων"
 
-#, python-brace-format
 msgid "Editor's picks for '{0}' created."
 msgstr "Επιτυχής δημιουργία επιλογή συντακτών για το '{0}'."
 
@@ -176,7 +175,6 @@ msgstr "Επεξεργασία"
 msgid "Recommendations have not been created due to errors"
 msgstr "Οι συστάσεις δεν έχουν δημιουργηθεί λόγω σφαλμάτων"
 
-#, python-brace-format
 msgid "Editor's picks for '{0}' updated."
 msgstr "Επιτυχής διόθρωση επιλογής συντακτών για το '{0}'."
 

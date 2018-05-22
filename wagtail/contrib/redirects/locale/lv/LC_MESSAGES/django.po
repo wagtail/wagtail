@@ -75,17 +75,14 @@ msgstr "Nav novirzījumu, kas atbilst \"<em>%(query_string)s</em>\""
 msgid "Search redirects"
 msgstr "Meklēt novirzījumus"
 
-#, python-brace-format
 msgid "Redirect '{0}' updated."
 msgstr "Novirzījums '{0}' atjaunots."
 
 msgid "Edit"
 msgstr "Labot"
 
-#, python-brace-format
 msgid "Redirect '{0}' deleted."
 msgstr "Novirzījums '{0}' dzēsts."
 
-#, python-brace-format
 msgid "Redirect '{0}' added."
 msgstr "Novirzījums '{0}' pievienots."

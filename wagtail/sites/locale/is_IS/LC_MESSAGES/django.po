@@ -57,11 +57,9 @@ msgstr "Bæta við síðu"
 msgid "Add site"
 msgstr "Bæta við síðu"
 
-#, python-brace-format
 msgid "Site '{0}' created."
 msgstr "Síða '{0}' búin til."
 
-#, python-brace-format
 msgid "Site '{0}' updated."
 msgstr "Síða '{0}' uppfærð."
 
@@ -71,7 +69,6 @@ msgstr "Ekki tókst að vista þessa síðu vegna villna."
 msgid "Delete site"
 msgstr "Eyða síðu"
 
-#, python-brace-format
 msgid "Site '{0}' deleted."
 msgstr "Síðu '{0}' eytt."
 

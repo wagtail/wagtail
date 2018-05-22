@@ -17,8 +17,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: uk\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != "
+"11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
+"100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
+"(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
 
 msgid "From site"
 msgstr "З сайту"
@@ -126,6 +128,10 @@ msgstr[2] ""
 "\n"
 "            Є %(counter)s збігів\n"
 "        "
+msgstr[3] ""
+"\n"
+"            Є %(counter)s збігів\n"
+"        "
 
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
@@ -143,7 +149,6 @@ msgstr ""
 msgid "Search redirects"
 msgstr "Пошук перенаправлень"
 
-#, python-brace-format
 msgid "Redirect '{0}' updated."
 msgstr "Перенаправлення '{0}' оновлено."
 
@@ -153,11 +158,9 @@ msgstr "Редагувати"
 msgid "The redirect could not be saved due to errors."
 msgstr "Перенаправлення не може бути збережене через помилки."
 
-#, python-brace-format
 msgid "Redirect '{0}' deleted."
 msgstr "Перенаправлення '{0}' видалено."
 
-#, python-brace-format
 msgid "Redirect '{0}' added."
 msgstr "Перенаправлення '{0}' додано."
 

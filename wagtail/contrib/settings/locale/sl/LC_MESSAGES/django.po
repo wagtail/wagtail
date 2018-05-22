@@ -34,7 +34,6 @@ msgstr "Shrani"
 msgid "Settings"
 msgstr "Nastavitve"
 
-#, python-brace-format
 msgid "{setting_type} updated."
 msgstr "{setting_type} posodobljen."
 

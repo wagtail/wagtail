@@ -55,11 +55,9 @@ msgstr "Προσθήκη δικτυακού τόπου"
 msgid "Add site"
 msgstr "Προσθήκη δικτυακού τόπου"
 
-#, python-brace-format
 msgid "Site '{0}' created."
 msgstr "Δημιουργήθηκε ο δικτυακός τόπος '{0}'."
 
-#, python-brace-format
 msgid "Site '{0}' updated."
 msgstr "Ενημέρωση του δικτυακού τόπου '{0}'."
 
@@ -69,7 +67,6 @@ msgstr "Το site δεν αποθηκεύτηκε λόγω σφαλμάτων"
 msgid "Delete site"
 msgstr "Διαγραφή site"
 
-#, python-brace-format
 msgid "Site '{0}' deleted."
 msgstr "Το site '{0}' διαγράφηκε"
 

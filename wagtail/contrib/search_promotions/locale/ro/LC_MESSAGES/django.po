@@ -166,7 +166,6 @@ msgstr ""
 msgid "Search promoted results"
 msgstr "Caută rezultate promovate"
 
-#, python-brace-format
 msgid "Editor's picks for '{0}' created."
 msgstr "Selecțiile editoriale pentru '{0}' au fost create."
 
@@ -176,7 +175,6 @@ msgstr "Editează"
 msgid "Recommendations have not been created due to errors"
 msgstr "Recomandările nu au fost create din cauza erorilor."
 
-#, python-brace-format
 msgid "Editor's picks for '{0}' updated."
 msgstr "Selecțiile editoriale pentru '{0}' au fost actualizate."
 

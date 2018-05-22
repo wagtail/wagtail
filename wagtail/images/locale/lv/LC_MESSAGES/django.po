@@ -181,7 +181,6 @@ msgstr "Dzēst"
 msgid "Search images"
 msgstr "Meklēt attēlus"
 
-#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "Attēls '{0}' atjaunots."
 
@@ -191,11 +190,9 @@ msgstr "Labot vēlreiz"
 msgid "The image could not be saved due to errors."
 msgstr "Attēlu nevarēja saglabāt kļūdu dēļ."
 
-#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "Attēls '{0}' dzēsts."
 
-#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "Attēls '{0}' pievienots."
 

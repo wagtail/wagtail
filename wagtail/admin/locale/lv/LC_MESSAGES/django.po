@@ -762,11 +762,9 @@ msgstr "Pievienot kolekciju"
 msgid "Add collection"
 msgstr "Pievienot kolekciju"
 
-#, python-brace-format
 msgid "Collection '{0}' created."
 msgstr "Kolekcija '{0}' izveidota."
 
-#, python-brace-format
 msgid "Collection '{0}' updated."
 msgstr "Kolekcija '{0}' atjaunota."
 
@@ -776,7 +774,6 @@ msgstr "Kļūdu dēļ šo kolekciju nebija iespējams saglabāt."
 msgid "Delete collection"
 msgstr "Dzēst kolekciju"
 
-#, python-brace-format
 msgid "Collection '{0}' deleted."
 msgstr "Kolekcija '{0}' dzēsta."
 
@@ -786,18 +783,15 @@ msgstr "Vai tiešām vēlaties dzēst šo kolekciju?"
 msgid "Editing"
 msgstr "Labo"
 
-#, python-brace-format
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr "'{0}' lapa izveidota un plānota publicēšanai."
 
 msgid "View live"
 msgstr "Skatīt tekošo versiju"
 
-#, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "Lapa '{0}' izveidota un publicēta."
 
-#, python-brace-format
 msgid "Page '{0}' created and submitted for moderation."
 msgstr "Lapa '{0}' izveidota un iesniegta moderācijai."
 
@@ -807,38 +801,30 @@ msgstr "Skatīt melnrakstu"
 msgid "Failed to send notifications to moderators"
 msgstr "Neizdevās nosūtīt paziņojumus moderatoriem"
 
-#, python-brace-format
 msgid "Page '{0}' created."
 msgstr "Lapa '{0}' izveidota."
 
 msgid "The page could not be created due to validation errors"
 msgstr "Validācijas kļūdas dēļ šo lapu nav iespējams izveidot"
 
-#, python-brace-format
 msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
 msgstr "Lapas '{1}' versija no {0} ir ieplānota publicēšanai."
 
-#, python-brace-format
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Lapa '{0}' ir ieplānota publicēšanai."
 
-#, python-brace-format
 msgid "Revision from {0} of page '{1}' has been published."
 msgstr "Lapas '{1}' versija no {0} ir publicēta."
 
-#, python-brace-format
 msgid "Page '{0}' has been published."
 msgstr "Lapa '{0}' ir publicēta."
 
-#, python-brace-format
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Lapa '{0}' ir nosūtīta moderācijai."
 
-#, python-brace-format
 msgid "Page '{0}' has been replaced with revision from {1}."
 msgstr "Lapa '{0}' ir aizstāta ar versiju no {1}."
 
-#, python-brace-format
 msgid "Page '{0}' has been updated."
 msgstr "Lapa '{0}' ir atjaunota."
 
@@ -851,49 +837,39 @@ msgstr "Validācijas kļūdu dēļ lapu nav iespējams saglabāt"
 msgid "This page is currently awaiting moderation"
 msgstr "Šī lapa gaida moderāciju"
 
-#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Lapa '{0}' dzēsta."
 
-#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "Page '{0}' unpublished."
 
-#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "Lapa '{0}' pārvietota."
 
-#, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "Lapa '{0}' un apakšlapas {1} kopētas."
 
-#, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "Lapa '{0}' kopēta."
 
-#, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "Lapa '{0}' negaida moderāciju."
 
-#, python-brace-format
 msgid "Page '{0}' published."
 msgstr "Lapa '{0} publicēta'."
 
 msgid "Failed to send approval notifications"
 msgstr "Neizdevās nosūtīt apstiprinājuma paziņojumus"
 
-#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "Lapas '{0}' publicēšana noraidīta."
 
 msgid "Failed to send rejection notifications"
 msgstr "Neizdevās nosūtīt atteikuma paziņojumus"
 
-#, python-brace-format
 msgid "Page '{0}' is now locked."
 msgstr "Lapa '{0} ir bloķēta."
 
-#, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "Lapa '{0} ir atbloķēta."
 

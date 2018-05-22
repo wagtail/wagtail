@@ -18,8 +18,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: uk\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != "
+"11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
+"100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
+"(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
 
 msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
 msgstr ""
@@ -119,6 +121,11 @@ msgstr[1] ""
 "strong> учасників.\n"
 "            "
 msgstr[2] ""
+"\n"
+"                Група '%(group_name)s' має <strong>%(group_user_count)s</"
+"strong> учасників.\n"
+"            "
+msgstr[3] ""
 "\n"
 "                Група '%(group_name)s' має <strong>%(group_user_count)s</"
 "strong> учасників.\n"
@@ -251,6 +258,10 @@ msgstr[2] ""
 "\n"
 "            Знайдено %(counter)s збігів\n"
 "        "
+msgstr[3] ""
+"\n"
+"            Знайдено %(counter)s збігів\n"
+"        "
 
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
@@ -270,25 +281,21 @@ msgstr "Групи"
 msgid "Search groups"
 msgstr "Пошук груп"
 
-#, python-brace-format
 msgid "Group '{0}' created."
 msgstr "Групу '{0}' створено."
 
-#, python-brace-format
 msgid "Group '{0}' updated."
 msgstr "Групу '{0}' оновлено."
 
 msgid "The group could not be saved due to errors."
 msgstr "Група не може бути збережена через помилки."
 
-#, python-brace-format
 msgid "Group '{0}' deleted."
 msgstr "Групу '{0}' видалено."
 
 msgid "Search users"
 msgstr "Пошук користувачів"
 
-#, python-brace-format
 msgid "User '{0}' created."
 msgstr "Користувача '{0}' створено"
 
@@ -301,7 +308,6 @@ msgstr "Користувач не може бути створений чере�
 msgid "The user could not be saved due to errors."
 msgstr "Користувач не може бути створений через помилки."
 
-#, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "Користувача '{0}' видалено."
 

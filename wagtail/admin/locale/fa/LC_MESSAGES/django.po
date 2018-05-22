@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fa\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgid "None"
 msgstr "خالی"
@@ -80,6 +80,7 @@ msgstr "کپی زیرصفحه‌ها"
 msgid "This will copy %(count)s subpage."
 msgid_plural "This will copy %(count)s subpages."
 msgstr[0] "%(count)s زیرصفحه کپی خواهد شد."
+msgstr[1] "%(count)s زیرصفحه کپی خواهد شد."
 
 msgid "Publish copied page"
 msgstr "انتشار صفحه کپی شده"
@@ -98,6 +99,8 @@ msgid_plural ""
 "%(count)s of the pages being copied are live. Would you like to publish "
 "their copies?"
 msgstr[0] ""
+"%(count)s صفحه در حال کپی زنده هستند. آیا مایل کپی‌های آنها نیز انتشار یابند؟"
+msgstr[1] ""
 "%(count)s صفحه در حال کپی زنده هستند. آیا مایل کپی‌های آنها نیز انتشار یابند؟"
 
 #, python-format
@@ -248,6 +251,9 @@ msgid_plural ""
 msgstr[0] ""
 "\n"
 "%(counter)s مورد پیدا شد"
+msgstr[1] ""
+"\n"
+"%(counter)s مورد پیدا شد"
 
 msgid "Choose"
 msgstr "انتخاب کن"
@@ -267,6 +273,10 @@ msgid_plural ""
 "%(type)s. Search results will exclude pages of other types.\n"
 "            "
 msgstr[0] ""
+"\n"
+"        تنها انواع صفحه زیر می‌تواند برای این فیلد انتخاب شود: %(type)s. "
+"انواع دیگر صفحه ها در نتایج جستجو لحاظ نخواهند شد."
+msgstr[1] ""
 "\n"
 "        تنها انواع صفحه زیر می‌تواند برای این فیلد انتخاب شود: %(type)s. "
 "انواع دیگر صفحه ها در نتایج جستجو لحاظ نخواهند شد."
@@ -395,6 +405,9 @@ msgid_plural ""
 msgstr[0] ""
 "\n"
 "<span>%(total)s</span> صفحه"
+msgstr[1] ""
+"\n"
+"<span>%(total)s</span> صفحه"
 
 msgid "Sign in"
 msgstr "ورود"
@@ -501,6 +514,9 @@ msgid_plural ""
 msgstr[0] ""
 "\n"
 "        همچنین این کار باعث حذف %(descendant_count)s زیرصفحه خواهد شد."
+msgstr[1] ""
+"\n"
+"        همچنین این کار باعث حذف %(descendant_count)s زیرصفحه خواهد شد."
 
 msgid "Yes, delete it"
 msgstr "بله حذف شود"
@@ -560,6 +576,9 @@ msgid_plural ""
 "Unpublish these too\n"
 "                "
 msgstr[0] ""
+"\n"
+"این صفحه %(live_descendant_count)s زیر صفحه دارد. آنها نیز لغو انتشار می‌شوند"
+msgstr[1] ""
 "\n"
 "این صفحه %(live_descendant_count)s زیر صفحه دارد. آنها نیز لغو انتشار می‌شوند"
 
@@ -815,6 +834,9 @@ msgid_plural ""
 msgstr[0] ""
 "\n"
 "%(counter)s مکان به پایین انتقال یافت."
+msgstr[1] ""
+"\n"
+"%(counter)s مکان به پایین انتقال یافت."
 
 #, python-format
 msgid ""
@@ -828,6 +850,9 @@ msgid_plural ""
 "%(counter)s places.\n"
 "                                                        "
 msgstr[0] ""
+"\n"
+"%(counter)s به بالا انتقال یافت."
+msgstr[1] ""
 "\n"
 "%(counter)s به بالا انتقال یافت."
 
@@ -876,6 +901,9 @@ msgid_plural ""
 "                There are %(counter)s matching pages\n"
 "            "
 msgstr[0] ""
+"\n"
+"%(counter)s صفحه منطبق پیدا شد"
+msgstr[1] ""
 "\n"
 "%(counter)s صفحه منطبق پیدا شد"
 
@@ -1089,11 +1117,9 @@ msgstr "افزودن مجموعه"
 msgid "Add collection"
 msgstr "افزودن مجموعه"
 
-#, python-brace-format
 msgid "Collection '{0}' created."
 msgstr "مجموعه '{0}' ایجاد شد."
 
-#, python-brace-format
 msgid "Collection '{0}' updated."
 msgstr "مجموعه '{0}' بروزرسانی شد."
 
@@ -1103,7 +1129,6 @@ msgstr "به دلیل بروز خطا امکان ذخیره مجموعه وجو�
 msgid "Delete collection"
 msgstr "حذف مجموعه"
 
-#, python-brace-format
 msgid "Collection '{0}' deleted."
 msgstr "مجموعه  '{0}' حذف شد."
 
@@ -1113,18 +1138,15 @@ msgstr "آیا میخواهید این مجموعه را حذف کنید؟"
 msgid "Editing"
 msgstr "ویرایش"
 
-#, python-brace-format
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr "صفحه  '{0}' ایجاد و برای انتشار برنامه ریزی شد."
 
 msgid "View live"
 msgstr "دیدن زنده"
 
-#, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "صفحه '{0}' ایجاد و انتشار یافت."
 
-#, python-brace-format
 msgid "Page '{0}' created and submitted for moderation."
 msgstr "صفحه '{0}' ایجاد و برای نظارت فرستاده شد."
 
@@ -1134,38 +1156,30 @@ msgstr "دیدن پیشنویس"
 msgid "Failed to send notifications to moderators"
 msgstr "فرستادن آگاهسازی به ناظرین ناموفق بود"
 
-#, python-brace-format
 msgid "Page '{0}' created."
 msgstr "صفحه '{0}' ایجاد شد."
 
 msgid "The page could not be created due to validation errors"
 msgstr "به دلیل بروز خطا صفحه ایجاد نشد."
 
-#, python-brace-format
 msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
 msgstr "بازبینی از {0} صفحه '{1}' برای انتشار زمانبندی شد."
 
-#, python-brace-format
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "صفحه '{0}' برای انتشار زمانبندی شد."
 
-#, python-brace-format
 msgid "Revision from {0} of page '{1}' has been published."
 msgstr "بازبینی {0} صفحه  '{1}' انتشار یافت."
 
-#, python-brace-format
 msgid "Page '{0}' has been published."
 msgstr "صفحه '{0}' انتشار یافت."
 
-#, python-brace-format
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "صفحه '{0}' برای نظارت فرستاده شد."
 
-#, python-brace-format
 msgid "Page '{0}' has been replaced with revision from {1}."
 msgstr "صفحه '{0}' با بازبینی '{1}' جایگزین شد."
 
-#, python-brace-format
 msgid "Page '{0}' has been updated."
 msgstr "صفحه '{0}' بروزرسانی شد."
 
@@ -1181,49 +1195,39 @@ msgstr "مقایسه با نسخه زنده"
 msgid "This page is currently awaiting moderation"
 msgstr "این در انتظار نظارت است"
 
-#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "صفحه '{0}' حذف شد."
 
-#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "صفحه '{0}' لغو انتشار شد."
 
-#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "صفحه '{0}' انتقال یافت."
 
-#, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "صفحه '{0}' و '{1}' زیرصفحه آن کپی شدند."
 
-#, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "صفحه '{0}' کپی شد."
 
-#, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "صفحه '{0}' در انتظار نظارت است."
 
-#, python-brace-format
 msgid "Page '{0}' published."
 msgstr "صفحه '{0}' انتشار یافت."
 
 msgid "Failed to send approval notifications"
 msgstr "فرستادن آگاهسازی تایید ناموفق بود"
 
-#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "صفحه '{0}' برای انتشار رد شد."
 
 msgid "Failed to send rejection notifications"
 msgstr "فرستادن آگاهسازی رد انتشار ناموفق بود"
 
-#, python-brace-format
 msgid "Page '{0}' is now locked."
 msgstr "صفحه '{0}' قفل شده است."
 
-#, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "صفحه '{0}' باز شده است."
 
@@ -1241,46 +1245,36 @@ msgstr "اولین"
 msgid "Latest"
 msgstr "آخرین"
 
-#, python-brace-format
 msgid "Edit '{title}'"
 msgstr "ویرایش '{title}'"
 
-#, python-brace-format
 msgid "Preview draft version of '{title}'"
 msgstr "پیش نمایش نسخه پیش نویس '{title}'"
 
-#, python-brace-format
 msgid "View live version of '{title}'"
 msgstr "دیدن نسخه زنده '{title}'"
 
-#, python-brace-format
 msgid "Add a child page to '{title}' "
 msgstr "افزودن زیرصفحه به '{title}'"
 
 msgid "More"
 msgstr "بیشتر"
 
-#, python-brace-format
 msgid "View more options for '{title}'"
 msgstr "دیدن گزینه های بیشتر برای '{title}'"
 
-#, python-brace-format
 msgid "Move page '{title}'"
 msgstr "انتقال صفحه '{title}'"
 
-#, python-brace-format
 msgid "Copy page '{title}'"
 msgstr "کپی صفحه '{title}'"
 
-#, python-brace-format
 msgid "Delete page '{title}'"
 msgstr "حذف صفحه '{title}'"
 
-#, python-brace-format
 msgid "Unpublish page '{title}'"
 msgstr "لغوانتشار صفحه '{title}'"
 
-#, python-brace-format
 msgid "View revision history for '{title}'"
 msgstr "نمایش سابقه بازبینی‌های '{title}'"
 

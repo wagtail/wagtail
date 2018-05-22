@@ -56,11 +56,9 @@ msgstr "Legg til et nettsted"
 msgid "Add site"
 msgstr "Legg til nettsted"
 
-#, python-brace-format
 msgid "Site '{0}' created."
 msgstr "Nettstedet \"{0}\" er opprettet."
 
-#, python-brace-format
 msgid "Site '{0}' updated."
 msgstr "Nettstedet \"{0}\" er oppdatert."
 
@@ -70,7 +68,6 @@ msgstr "Nettstedet kunne ikke lagres grunnet feil."
 msgid "Delete site"
 msgstr "Slett nettsted"
 
-#, python-brace-format
 msgid "Site '{0}' deleted."
 msgstr "Nettstedet \"{0}\" er slettet."
 

@@ -20,7 +20,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sk_SK\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n "
+">= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
 
 msgid "Add"
 msgstr "Pridať"
@@ -86,6 +87,9 @@ msgstr[1] ""
 "\n"
 "%(counter)s výsledky hľadania"
 msgstr[2] ""
+"\n"
+"%(counter)s výsledkov hľadania"
+msgstr[3] ""
 "\n"
 "%(counter)s výsledkov hľadania"
 
@@ -205,6 +209,9 @@ msgstr[1] ""
 msgstr[2] ""
 "\n"
 "<span>%(total)s</span> Dokumentov"
+msgstr[3] ""
+"\n"
+"<span>%(total)s</span> Dokumentov"
 
 msgid "Add multiple documents"
 msgstr "Pridať viaceré dokumenty"
@@ -252,14 +259,12 @@ msgstr "Pridať oprávnenia dokumentu"
 msgid "Search documents"
 msgstr "Hľadať dokumenty"
 
-#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Dokument '{0}' pridaný."
 
 msgid "The document could not be saved due to errors."
 msgstr "Dokument nemohol byť uložený kvôli chybám."
 
-#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "Dokument '{0}' bol aktualizovaný"
 
@@ -267,7 +272,6 @@ msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "Súbor nebol nájdený. Prosím aktualizujte zdroj alebo zmažte dokument"
 
-#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Dokument '{0}' bol zmazaný."
 
@@ -277,6 +281,7 @@ msgid_plural "%(count)s documents"
 msgstr[0] "%(count)s dokument"
 msgstr[1] "%(count)s dokumenty"
 msgstr[2] "%(count)s dokumentov"
+msgstr[3] "%(count)s dokumentov"
 
 msgid "Choose another document"
 msgstr "Zvoliť ďalší dokument"

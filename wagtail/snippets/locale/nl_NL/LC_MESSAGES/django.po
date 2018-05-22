@@ -155,7 +155,6 @@ msgstr "Wijzig deze pagina"
 msgid "Search %(snippet_type_name)s"
 msgstr "Zoek %(snippet_type_name)s"
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' created."
 msgstr "{snippet_type} '{instance}' aangemaakt."
 
@@ -165,14 +164,12 @@ msgstr "Wijzig"
 msgid "The snippet could not be created due to errors."
 msgstr "De snippet kon niet worden aangemaakt door fouten."
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' updated."
 msgstr "{snippet_type} '{instance}' gewijzigd."
 
 msgid "The snippet could not be saved due to errors."
 msgstr "De snippet kon niet worden opgeslagen door fouten."
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' deleted."
 msgstr "{snippet_type} '{instance}' verwijderd."
 

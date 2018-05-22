@@ -371,7 +371,6 @@ msgstr "Voeg een afbeeldingsmachtiging toe"
 msgid "Search images"
 msgstr "Zoek afbeeldingen"
 
-#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "Afbeelding '{0}' is bijgewerkt."
 
@@ -388,11 +387,9 @@ msgstr ""
 "Het bronbestand van de afbeelding kon niet worden gevonden. Kies een ander "
 "bronbestand of verwijder de afbeelding."
 
-#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "Afbeelding '{0}' verwijderd."
 
-#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "Afbeelding '{0}' toegevoegd."
 

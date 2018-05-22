@@ -59,11 +59,9 @@ msgstr "查看 （上周）"
 msgid "None"
 msgstr "没有"
 
-#, python-brace-format
 msgid "Editor's picks for '{0}' created."
 msgstr "编辑精选'{0}'已创建。"
 
-#, python-brace-format
 msgid "Editor's picks for '{0}' updated."
 msgstr "编辑精选'{0}'已更新。"
 

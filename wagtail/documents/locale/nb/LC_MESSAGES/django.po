@@ -257,14 +257,12 @@ msgstr "Legg til dokumenttillatelse"
 msgid "Search documents"
 msgstr "Søk i dokumenter"
 
-#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Dokumentet \"{0}\" er lagt til."
 
 msgid "The document could not be saved due to errors."
 msgstr "Dokumentet kunne ikke lagres grunnet feil."
 
-#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "Dokumentet \"{0}\" er oppdatert"
 
@@ -272,7 +270,6 @@ msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "Filen ble ikke funnet. Endre kilde for dokumentet eller slett det"
 
-#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Dokumentet \"{0}\" er slettet."
 

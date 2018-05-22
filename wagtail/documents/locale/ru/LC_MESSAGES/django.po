@@ -262,14 +262,12 @@ msgstr "Добавить права доступа к документу"
 msgid "Search documents"
 msgstr "Поиск документов"
 
-#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Документ '{0}' добавлен."
 
 msgid "The document could not be saved due to errors."
 msgstr "Документ не может быть сохранен из-за ошибок."
 
-#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "Документ '{0}' обновлен"
 
@@ -279,7 +277,6 @@ msgstr ""
 "Файл не может быть найден. Пожалуйста, измените исходный файл или удалите "
 "документ"
 
-#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Документ '{0}' удален."
 

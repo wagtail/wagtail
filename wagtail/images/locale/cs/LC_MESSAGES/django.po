@@ -18,7 +18,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: cs\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n "
+"<= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
 
 msgid "GIF, JPEG, PNG"
 msgstr "GIF, JPEG, PNG"
@@ -145,6 +146,9 @@ msgstr[1] ""
 "\n"
 "Nalezeno %(counter)s obrázků"
 msgstr[2] ""
+"\n"
+"Nalezeno %(counter)s obrázků"
+msgstr[3] ""
 "\n"
 "Nalezeno %(counter)s obrázků"
 
@@ -301,7 +305,6 @@ msgstr "Přidat oprávnění obrázku"
 msgid "Search images"
 msgstr "Hledat obrázky"
 
-#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "Obrázek '{0}' byl upraven."
 
@@ -318,11 +321,9 @@ msgstr ""
 "Zdrojový soubor obrázku není možné nalézt. Prosím změňte zdroj nebo smažte "
 "obrázek."
 
-#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "Obrázek '{0}' byl smazán."
 
-#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "Obrázek '{0}' byl přidán."
 
@@ -335,6 +336,7 @@ msgid_plural "%(count)s images"
 msgstr[0] "%(count)s obrázek"
 msgstr[1] "%(count)s obrázky"
 msgstr[2] "%(count)s obrázků"
+msgstr[3] "%(count)s obrázků"
 
 msgid "Edit this image"
 msgstr "Upravit tento obrázek"

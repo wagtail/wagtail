@@ -36,7 +36,6 @@ msgstr "Opslaan"
 msgid "Settings"
 msgstr "Instellingen"
 
-#, python-brace-format
 msgid "{setting_type} updated."
 msgstr "{setting_type} gewijzigd."
 

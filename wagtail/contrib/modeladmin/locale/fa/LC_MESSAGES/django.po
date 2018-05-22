@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fa\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgid "Parent page"
 msgstr "صفحه والد"
@@ -166,7 +166,6 @@ msgstr "قبلی"
 msgid "Next"
 msgstr "بعدی"
 
-#, python-brace-format
 msgid "{model_name} '{instance}' created."
 msgstr "{model_name} '{instance}' ایجاد شد"
 
@@ -188,7 +187,6 @@ msgstr "در حال ویرایش"
 msgid "Editing %s"
 msgstr "ویرایش %s"
 
-#, python-brace-format
 msgid "{model_name} '{instance}' updated."
 msgstr "{model_name} '{instance}' بروزرسانی شد."
 
@@ -208,7 +206,6 @@ msgstr ""
 "آیا مطمئن هستید که میخواهید %s را حذف کنید؟ اگر چیزهای دیگری در این سایت "
 "مرتبط با این شی هستند آنها نیز تحت تاثیر این حذف ممکن است قرار بگیرند."
 
-#, python-brace-format
 msgid "{model} '{instance}' deleted."
 msgstr "{model} '{instance}' حذف شد."
 

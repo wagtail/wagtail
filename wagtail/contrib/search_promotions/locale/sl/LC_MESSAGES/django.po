@@ -174,7 +174,6 @@ msgstr ""
 msgid "Search promoted results"
 msgstr "Iskanje po promoviranih rezultatih"
 
-#, python-brace-format
 msgid "Editor's picks for '{0}' created."
 msgstr "Promoviran rezultat za '{0}' ustvarjen."
 
@@ -184,7 +183,6 @@ msgstr "Uredi"
 msgid "Recommendations have not been created due to errors"
 msgstr "Promoviranega rezultata, zaradi napak, ni bilo možno ustvariti."
 
-#, python-brace-format
 msgid "Editor's picks for '{0}' updated."
 msgstr "Promoviran rezultat za '{0}' posodobljen."
 

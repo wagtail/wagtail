@@ -35,7 +35,6 @@ msgstr "저장"
 msgid "Settings"
 msgstr "설정"
 
-#, python-brace-format
 msgid "{setting_type} updated."
 msgstr "{setting_type}의 수정이 반영됨."
 

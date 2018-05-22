@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fa\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgid "Add"
 msgstr "اضافه کردن"
@@ -80,6 +80,9 @@ msgid_plural ""
 "            There are %(counter)s matches\n"
 "        "
 msgstr[0] ""
+"\n"
+" %(counter)s مورد پیدا شد"
+msgstr[1] ""
 "\n"
 " %(counter)s مورد پیدا شد"
 
@@ -191,6 +194,9 @@ msgid_plural ""
 msgstr[0] ""
 "\n"
 "<span>%(total)s</span> سند"
+msgstr[1] ""
+"\n"
+"<span>%(total)s</span> سند"
 
 msgid "Add multiple documents"
 msgstr "افزودن چند سند"
@@ -236,14 +242,12 @@ msgstr "افزودن یک مجوز سند"
 msgid "Search documents"
 msgstr "جستجوی سندها"
 
-#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "سند '{0}' افزوده شد."
 
 msgid "The document could not be saved due to errors."
 msgstr "به دلیل بروز خطا سند ذخیره نگردید."
 
-#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "سند '{0}' بروزرسانی شد"
 
@@ -251,7 +255,6 @@ msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "فایل پیدا نشد. لطفا منبع یکی را تغییر دهید یا سند را حذف نمایید"
 
-#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "سند '{0}' حذف شد."
 
@@ -259,6 +262,7 @@ msgstr "سند '{0}' حذف شد."
 msgid "%(count)s document"
 msgid_plural "%(count)s documents"
 msgstr[0] "%(count)s سند"
+msgstr[1] "%(count)s سند"
 
 msgid "Choose another document"
 msgstr "سند دیگری را انتخاب کنید"

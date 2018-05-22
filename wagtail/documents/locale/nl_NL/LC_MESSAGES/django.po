@@ -259,14 +259,12 @@ msgstr "Voeg een documentmachtiging toe"
 msgid "Search documents"
 msgstr "Zoek documenten"
 
-#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Document '{0}' toegevoegd."
 
 msgid "The document could not be saved due to errors."
 msgstr "Het document kon vanwege fouten niet worden opgeslagen."
 
-#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "Document '{0}' is bijgewerkt"
 
@@ -276,7 +274,6 @@ msgstr ""
 "Het bestand kon niet worden gevonden. Kies een ander bronbestand of "
 "verwijder het document."
 
-#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Document '{0}' verwijderd."
 

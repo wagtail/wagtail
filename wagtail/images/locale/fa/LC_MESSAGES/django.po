@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fa\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgid "GIF, JPEG, PNG"
 msgstr "GIF, JPEG, PNG"
@@ -157,6 +157,9 @@ msgid_plural ""
 msgstr[0] ""
 "\n"
 "%(counter)s مورد پیدا شد"
+msgstr[1] ""
+"\n"
+"%(counter)s مورد پیدا شد"
 
 msgid "Latest images"
 msgstr "آخرین تصاویر"
@@ -177,6 +180,9 @@ msgid_plural ""
 "        <span>%(total)s</span> Images\n"
 "    "
 msgstr[0] ""
+"\n"
+"<span>%(total)s</span> تصویر"
+msgstr[1] ""
 "\n"
 "<span>%(total)s</span> تصویر"
 
@@ -339,7 +345,6 @@ msgstr "افزودن مجوز تصویر"
 msgid "Search images"
 msgstr "جستجوی تصاویر"
 
-#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "تصویر '{0}' بروزرسانی شد."
 
@@ -354,11 +359,9 @@ msgid ""
 "the image."
 msgstr "تصویر منبع پیدا نشد. لطفا منبع را تغییر دهید یا تصویر را حذف نمایید."
 
-#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "تصویر '{0}' حذف شد."
 
-#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "تصویر '{0}' اضافه شد."
 
@@ -369,6 +372,7 @@ msgstr "به دلیل بروز خطا تصویر ایجاد نشد."
 msgid "%(count)s image"
 msgid_plural "%(count)s images"
 msgstr[0] "%(count)s تصویر"
+msgstr[1] "%(count)s تصویر"
 
 msgid "Edit this image"
 msgstr "ویرایش این تصویر"

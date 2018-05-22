@@ -17,8 +17,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: lt\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
-"%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
+"1 : n % 1 != 0 ? 2: 3);\n"
 
 msgid "Choose a root page"
 msgstr "Pasirinkti šakninį puslapį"
@@ -53,11 +54,9 @@ msgstr "Pridėti tinklalapį"
 msgid "Add site"
 msgstr "Pridėti tinklalapį"
 
-#, python-brace-format
 msgid "Site '{0}' created."
 msgstr "Tinklalapis '{0}' sukurtas."
 
-#, python-brace-format
 msgid "Site '{0}' updated."
 msgstr "Tinklalapis '{0}' atnaujintas."
 
@@ -67,7 +66,6 @@ msgstr "Šis tinklalapis negali būti išsaugotas dėl klaidų."
 msgid "Delete site"
 msgstr "Ištrinti tinklalapį"
 
-#, python-brace-format
 msgid "Site '{0}' deleted."
 msgstr "Tinklalapis '{0}' ištrintas."
 

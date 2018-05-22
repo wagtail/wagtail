@@ -25,7 +25,6 @@ msgstr ""
 msgid "Wagtail core"
 msgstr "Base Wagtail"
 
-#, python-brace-format
 msgid "{label}: this block has no options."
 msgstr "{label}: questo blocco non ha opzioni."
 

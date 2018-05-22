@@ -154,7 +154,6 @@ msgstr "Editar essa página"
 msgid "Search %(snippet_type_name)s"
 msgstr "Pesquisa %(snippet_type_name)s"
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' created."
 msgstr "{snippet_type} '{instance}' criado"
 
@@ -164,14 +163,12 @@ msgstr "Editar"
 msgid "The snippet could not be created due to errors."
 msgstr "O fragmento não pôde ser criado por conter erros."
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' updated."
 msgstr "{snippet_type} '{instance}' atualizado."
 
 msgid "The snippet could not be saved due to errors."
 msgstr "O snippet não pode ser salvo por conter erros."
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' deleted."
 msgstr "{snippet_type} '{instance}' removido."
 

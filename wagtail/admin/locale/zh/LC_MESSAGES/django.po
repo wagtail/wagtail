@@ -432,7 +432,6 @@ msgstr "第%(page_num)s页 共%(total_pages)s页"
 msgid "Your password has been changed successfully!"
 msgstr "您的密码已经更改成功。"
 
-#, python-brace-format
 msgid "Page '{0}' created."
 msgstr "第 '{0}' 页已创建。"
 
@@ -442,27 +441,21 @@ msgstr "这页无法保存，因为页面发生验证错误"
 msgid "This page is currently awaiting moderation"
 msgstr "这页正在等待审核"
 
-#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "第 '{0}' 页已删除"
 
-#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "第 '{0}' 页已取消发布"
 
-#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "第 '{0}' 页已移动。"
 
-#, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "第 '{0}' 页当前不需要等待审核。"
 
-#, python-brace-format
 msgid "Page '{0}' published."
 msgstr "第 '{0}' 页已发布。"
 
-#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "第 '{0}' 页已被拒绝发布。"
 

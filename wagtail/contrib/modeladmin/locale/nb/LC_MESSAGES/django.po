@@ -170,7 +170,6 @@ msgstr "Forrige"
 msgid "Next"
 msgstr "Neste"
 
-#, python-brace-format
 msgid "{model_name} '{instance}' created."
 msgstr "{model_name} '{instance}' opprettet."
 
@@ -192,7 +191,6 @@ msgstr "Redigerer"
 msgid "Editing %s"
 msgstr "Redigerer %s"
 
-#, python-brace-format
 msgid "{model_name} '{instance}' updated."
 msgstr "{model_name} '{instance}' oppdatert."
 
@@ -212,7 +210,6 @@ msgstr ""
 "Er du sikker på at du vil slette %s? Hvis andre ting på nettstedet er "
 "relatert kan de også bli påvirket."
 
-#, python-brace-format
 msgid "{model} '{instance}' deleted."
 msgstr "{model} '{instance}' slettet."
 

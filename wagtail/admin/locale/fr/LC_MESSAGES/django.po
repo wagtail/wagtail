@@ -1297,11 +1297,9 @@ msgstr "Ajouter une collection"
 msgid "Add collection"
 msgstr "Ajouter une collection"
 
-#, python-brace-format
 msgid "Collection '{0}' created."
 msgstr "Collection '{0}' créée."
 
-#, python-brace-format
 msgid "Collection '{0}' updated."
 msgstr "Collection '{0}' mise à jour."
 
@@ -1311,7 +1309,6 @@ msgstr "La collection ne peut être enregistrée du fait d'erreurs."
 msgid "Delete collection"
 msgstr "Supprimer la collection"
 
-#, python-brace-format
 msgid "Collection '{0}' deleted."
 msgstr "Collection '{0}' supprimée."
 
@@ -1321,18 +1318,15 @@ msgstr "Êtes-vous sûr(e) de vouloir supprimer cette collection ?"
 msgid "Editing"
 msgstr "Édition"
 
-#, python-brace-format
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr "Page  '{0}' créée et planifiée pour la publication."
 
 msgid "View live"
 msgstr "Visualiser en direct"
 
-#, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "Page '{0}' créée et publiée."
 
-#, python-brace-format
 msgid "Page '{0}' created and submitted for moderation."
 msgstr "Page '{0}' créée et soumise pour modération."
 
@@ -1342,45 +1336,36 @@ msgstr "Voir le brouillon"
 msgid "Failed to send notifications to moderators"
 msgstr "Échec de l'envoi des notifications aux modérateurs"
 
-#, python-brace-format
 msgid "Page '{0}' created."
 msgstr "Page '{0}' créée."
 
 msgid "The page could not be created due to validation errors"
 msgstr "La page ne peut être créée du fait d'erreurs de validation"
 
-#, python-brace-format
 msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
 msgstr ""
 "La version du {0} de la page '{1}' a été planifiée pour la publication."
 
-#, python-brace-format
 msgid "Page '{0}' is live and this revision has been scheduled for publishing."
 msgstr ""
 "La page '{0}' est publiée et cette révision a été planifiée pour la "
 "publication"
 
-#, python-brace-format
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "La page '{0}' a été planifiée pour publication."
 
-#, python-brace-format
 msgid "Revision from {0} of page '{1}' has been published."
 msgstr "La version du {0} de la page '{1}' a été publiée."
 
-#, python-brace-format
 msgid "Page '{0}' has been published."
 msgstr "La page '{0}' a été publiée."
 
-#, python-brace-format
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "La page '{0}' a été soumise pour modération."
 
-#, python-brace-format
 msgid "Page '{0}' has been replaced with revision from {1}."
 msgstr "La page '{0}' a été remplacée par la version du {1}."
 
-#, python-brace-format
 msgid "Page '{0}' has been updated."
 msgstr "La page '{0}' a été mise à jour."
 
@@ -1396,49 +1381,39 @@ msgstr "Comparer avec la version publiée"
 msgid "This page is currently awaiting moderation"
 msgstr "Cette page est actuellement en attente de modération"
 
-#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Page '{0}' supprimée."
 
-#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "Page '{0}' dépubliée."
 
-#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "Page '{0}' déplacée."
 
-#, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "Page '{0}' et {1} sous-pages copiées."
 
-#, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "Page '{0}' copiée."
 
-#, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "La page '{0}' est actuellement en attente de modération."
 
-#, python-brace-format
 msgid "Page '{0}' published."
 msgstr "Page '{0}' publiée."
 
 msgid "Failed to send approval notifications"
 msgstr "Échec de l'envoi des notifications d'approbation"
 
-#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "Page '{0}' refusée à la publication."
 
 msgid "Failed to send rejection notifications"
 msgstr "Échec de l'envoi des notifications de rejet"
 
-#, python-brace-format
 msgid "Page '{0}' is now locked."
 msgstr "La page '{0}' est maintenant verrouillée."
 
-#, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "La page '{0}' est maintenant déverrouillée."
 
@@ -1456,54 +1431,42 @@ msgstr "Première"
 msgid "Latest"
 msgstr "Dernière"
 
-#, python-brace-format
 msgid "revision {0} of \"{1}\""
 msgstr "révision {0} sur \"{1}\""
 
-#, python-brace-format
 msgid "Revision {0} of \"{1}\" unscheduled."
 msgstr "La version {0} de \"{1}\" a été déprogrammée."
 
-#, python-brace-format
 msgid "Edit '{title}'"
 msgstr "Modifier '{title}'"
 
-#, python-brace-format
 msgid "Preview draft version of '{title}'"
 msgstr "Prévisualiser la version brouillon de '{title}'"
 
-#, python-brace-format
 msgid "View live version of '{title}'"
 msgstr "Voir la version publiée de '{title}'"
 
-#, python-brace-format
 msgid "Add a child page to '{title}' "
 msgstr "Ajouter une sous-page à '{title}'"
 
 msgid "More"
 msgstr "Plus"
 
-#, python-brace-format
 msgid "View more options for '{title}'"
 msgstr "Voir plus d’options pour '{title}'"
 
-#, python-brace-format
 msgid "Move page '{title}'"
 msgstr "Déplacer la page '{title}'"
 
-#, python-brace-format
 msgid "Copy page '{title}'"
 msgstr "Copier la page '{title}'"
 
-#, python-brace-format
 msgid "Delete page '{title}'"
 msgstr "Supprimer la page '{title}'"
 
-#, python-brace-format
 msgid "Unpublish page '{title}'"
 msgstr "Dépublier la page '{title}'"
 
-#, python-brace-format
 msgid "View revision history for '{title}'"
 msgstr "Voir l’historique des révisions pour '{title}'"
 
@@ -1534,7 +1497,6 @@ msgstr "Fuseau horaire actuel"
 msgid "Choose your current time zone."
 msgstr "Choisissez votre fuseau horaire actuel."
 
-#, python-brace-format
 msgid "Heading {level}"
 msgstr "En-tête {level}"
 

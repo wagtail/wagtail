@@ -88,18 +88,15 @@ msgstr "Изображения"
 msgid "Title"
 msgstr "Заглавие"
 
-#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "Изображение '{0}' обновено."
 
 msgid "The image could not be saved due to errors."
 msgstr "Изображението не можеше да бъде запазено поради грешки."
 
-#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "Изображение '{0}' изтрито."
 
-#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "Изображение '{0}' добавено."
 

@@ -30,7 +30,6 @@ msgstr ""
 msgid "Wagtail core"
 msgstr "Noyau de Wagtail"
 
-#, python-brace-format
 msgid "{label}: this block has no options."
 msgstr "{label}: ce bloc n'a aucune option."
 

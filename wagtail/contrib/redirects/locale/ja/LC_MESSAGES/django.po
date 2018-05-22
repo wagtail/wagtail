@@ -129,7 +129,6 @@ msgstr ""
 msgid "Search redirects"
 msgstr "リダイレクトを検索"
 
-#, python-brace-format
 msgid "Redirect '{0}' updated."
 msgstr "リダイレクト：'{0}'が更新されました。"
 
@@ -139,11 +138,9 @@ msgstr "編集"
 msgid "The redirect could not be saved due to errors."
 msgstr "リダイレクトはエラーにより保存されませんでした。"
 
-#, python-brace-format
 msgid "Redirect '{0}' deleted."
 msgstr "リダイレクト： '{0}'が削除されました。"
 
-#, python-brace-format
 msgid "Redirect '{0}' added."
 msgstr "リダイレクト： '{0}'が追加されました。"
 

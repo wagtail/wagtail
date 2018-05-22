@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fa\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgid "Please specify at least one recommendation for this search term."
 msgstr "لطفا دست کم یک پیشنهاد برای این عبارت جستجو تعیین کنید."
@@ -138,6 +138,9 @@ msgid_plural ""
 msgstr[0] ""
 "\n"
 "تعداد %(counter)s مورد منطبق پیدا شد"
+msgstr[1] ""
+"\n"
+"تعداد %(counter)s مورد منطبق پیدا شد"
 
 #, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
@@ -154,7 +157,6 @@ msgstr ""
 msgid "Search promoted results"
 msgstr "جستجوی نتایج ترویج شده"
 
-#, python-brace-format
 msgid "Editor's picks for '{0}' created."
 msgstr "منتخب ویراستار برای '{0}' ایجاد شد."
 
@@ -164,7 +166,6 @@ msgstr "ویرایش"
 msgid "Recommendations have not been created due to errors"
 msgstr "پیشنهادها به دلیل بروز خطا ایجاد نشد"
 
-#, python-brace-format
 msgid "Editor's picks for '{0}' updated."
 msgstr "انتخاب ویراستار برای '{0}' آپدیت شد."
 

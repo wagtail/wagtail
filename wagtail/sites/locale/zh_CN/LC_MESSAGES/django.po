@@ -55,11 +55,9 @@ msgstr "增加一个站点"
 msgid "Add site"
 msgstr "增加站点"
 
-#, python-brace-format
 msgid "Site '{0}' created."
 msgstr "站点 '{0}' 已创建。"
 
-#, python-brace-format
 msgid "Site '{0}' updated."
 msgstr "站点 '{0}' 已更新。"
 
@@ -69,7 +67,6 @@ msgstr "此站点无法保存，出现错误。"
 msgid "Delete site"
 msgstr "删除站点"
 
-#, python-brace-format
 msgid "Site '{0}' deleted."
 msgstr "站点 '{0}' 已删除。"
 

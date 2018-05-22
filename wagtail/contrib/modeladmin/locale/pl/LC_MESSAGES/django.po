@@ -174,7 +174,6 @@ msgstr "Wstecz"
 msgid "Next"
 msgstr "Naprzód"
 
-#, python-brace-format
 msgid "{model_name} '{instance}' created."
 msgstr "{model_name} '{instance}' utworzona."
 
@@ -196,7 +195,6 @@ msgstr "Edytowanie"
 msgid "Editing %s"
 msgstr "Edytowanie %s"
 
-#, python-brace-format
 msgid "{model_name} '{instance}' updated."
 msgstr "{model_name} '{instance}' uaktualniony."
 
@@ -216,7 +214,6 @@ msgstr ""
 "Czy na pewno chcesz usunąć %s? Może mieć to wpływ na pozostałe, zależne "
 "elementy na Twojej stronie."
 
-#, python-brace-format
 msgid "{model} '{instance}' deleted."
 msgstr "{model} '{instance}' usunięto."
 

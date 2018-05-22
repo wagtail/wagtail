@@ -38,7 +38,6 @@ msgstr "Αποθήκευση"
 msgid "Settings"
 msgstr "Επιλογές"
 
-#, python-brace-format
 msgid "{setting_type} updated."
 msgstr "Η επιλογή {setting_type} ανανεώθηκε."
 

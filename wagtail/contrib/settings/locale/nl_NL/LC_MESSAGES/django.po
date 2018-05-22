@@ -40,7 +40,6 @@ msgid "This setting could not be opened because there is no site defined."
 msgstr ""
 "Deze instelling kon niet worden geopend omdat er geen site is aangegeven."
 
-#, python-brace-format
 msgid "{setting_type} updated."
 msgstr "{setting_type} gewijzigd."
 

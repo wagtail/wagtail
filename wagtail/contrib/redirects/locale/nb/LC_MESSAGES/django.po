@@ -141,7 +141,6 @@ msgstr ""
 msgid "Search redirects"
 msgstr "Videresendinger for søk"
 
-#, python-brace-format
 msgid "Redirect '{0}' updated."
 msgstr "Videresendingen \"{0}\" er oppdatert."
 
@@ -151,11 +150,9 @@ msgstr "Endre"
 msgid "The redirect could not be saved due to errors."
 msgstr "Videresendingen kunne ikke lagres grunnet feil."
 
-#, python-brace-format
 msgid "Redirect '{0}' deleted."
 msgstr "Videresendingen \"{0}\" er slettet."
 
-#, python-brace-format
 msgid "Redirect '{0}' added."
 msgstr "Videresendingen \"{0}\" er lagt til."
 

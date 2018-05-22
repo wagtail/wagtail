@@ -21,7 +21,6 @@ msgstr ""
 "Language: ca\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#, python-brace-format
 msgid "{label}: this block has no options."
 msgstr "{label}: aquest bloc no té opcions."
 

@@ -138,7 +138,6 @@ msgstr "페이지 변경"
 msgid "Search %(snippet_type_name)s"
 msgstr "%(snippet_type_name)s 검색"
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' created."
 msgstr "{snippet_type} '{instance}' 이 생성 되었습니다."
 
@@ -148,14 +147,12 @@ msgstr "수정"
 msgid "The snippet could not be created due to errors."
 msgstr "에러로 인해 스니펫을 생성할 수 없습니다."
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' updated."
 msgstr "{snippet_type} '{instance}' 가 업데이트 되었습니다."
 
 msgid "The snippet could not be saved due to errors."
 msgstr "에러로 인해 스니펫을 저장할 수 없습니다."
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' deleted."
 msgstr "{snippet_type} '{instance}' 가 삭제 되었습니다."
 

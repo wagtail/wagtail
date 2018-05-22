@@ -20,7 +20,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sk_SK\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n "
+">= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
 
 msgid "GIF, JPEG, PNG"
 msgstr "GIF, JPEG, PNG"
@@ -167,6 +168,10 @@ msgstr[2] ""
 "\n"
 "            %(counter)s zhôd\n"
 "        "
+msgstr[3] ""
+"\n"
+"            %(counter)s zhôd\n"
+"        "
 
 msgid "Latest images"
 msgstr "Posledné obrázky"
@@ -193,6 +198,9 @@ msgstr[1] ""
 "\n"
 "<span>%(total)s</span> Obrázky"
 msgstr[2] ""
+"\n"
+"<span>%(total)s</span> Obrázkov"
+msgstr[3] ""
 "\n"
 "<span>%(total)s</span> Obrázkov"
 
@@ -359,7 +367,6 @@ msgstr "Pridať oprávnenia obrázku"
 msgid "Search images"
 msgstr "Hľadat obrázky"
 
-#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "Obrázok '{0}' bol aktualizovaný."
 
@@ -375,11 +382,9 @@ msgid ""
 msgstr ""
 "Zdroj obrázku nebol nájdený. Prosím aktualizujte zdroj alebo zmažte obrázok."
 
-#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "Obrázok '{0}' bol zmazaný."
 
-#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "Obrázok '{0}' bol pridaný."
 
@@ -392,6 +397,7 @@ msgid_plural "%(count)s images"
 msgstr[0] "%(count)s obrázok"
 msgstr[1] "%(count)s obrázky"
 msgstr[2] "%(count)s obrázkov"
+msgstr[3] "%(count)s obrázkov"
 
 msgid "Edit this image"
 msgstr "Upraviť tento obrázok"

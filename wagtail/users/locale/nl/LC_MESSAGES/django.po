@@ -201,25 +201,21 @@ msgstr ""
 msgid "Search groups"
 msgstr "Zoek groepen"
 
-#, python-brace-format
 msgid "Group '{0}' created."
 msgstr "Groep '{0}' is aangemaakt."
 
-#, python-brace-format
 msgid "Group '{0}' updated."
 msgstr "Groep '{0}' is gewijzigd."
 
 msgid "The group could not be saved due to errors."
 msgstr "De groep kon vanwege foutmeldingen niet opgeslagen worden."
 
-#, python-brace-format
 msgid "Group '{0}' deleted."
 msgstr "Groep '{0}' is verwijderd."
 
 msgid "Search users"
 msgstr "Zoek gebruikers"
 
-#, python-brace-format
 msgid "User '{0}' created."
 msgstr "Gebruiker '{0}' is aangemaakt."
 

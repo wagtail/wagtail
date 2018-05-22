@@ -174,7 +174,6 @@ msgstr ""
 msgid "Search promoted results"
 msgstr "Rechercher des résultats améliorés"
 
-#, python-brace-format
 msgid "Editor's picks for '{0}' created."
 msgstr "Résultat amélioré pour '{0}' créé."
 
@@ -184,7 +183,6 @@ msgstr "Modifier"
 msgid "Recommendations have not been created due to errors"
 msgstr "Les recommandations ne peuvent être créées du fait d'erreurs"
 
-#, python-brace-format
 msgid "Editor's picks for '{0}' updated."
 msgstr "Résultat amélioré pour '{0}' mis à jour."
 

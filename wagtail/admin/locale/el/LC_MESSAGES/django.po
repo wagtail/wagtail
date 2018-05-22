@@ -1029,11 +1029,9 @@ msgstr "Προσθήκη συλλογής"
 msgid "Add collection"
 msgstr "Προσθήκη συλλογής"
 
-#, python-brace-format
 msgid "Collection '{0}' created."
 msgstr "Η συλλογή '{0}' δημιουργήθηκε."
 
-#, python-brace-format
 msgid "Collection '{0}' updated."
 msgstr "Η συλλογή '{0}' ενημερώθηκε."
 
@@ -1043,7 +1041,6 @@ msgstr "Δεν ήταν δυνατή η αποθήκευση της συλλογ
 msgid "Delete collection"
 msgstr "Διαγραφή συλλογής."
 
-#, python-brace-format
 msgid "Collection '{0}' deleted."
 msgstr "Η συλλογή '{0}' διαγράφηκε."
 
@@ -1053,18 +1050,15 @@ msgstr "Θέλετε να διαγράψετε τη συλλογή;"
 msgid "Editing"
 msgstr "Διόρθωση"
 
-#, python-brace-format
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr "Η σελίδα '{0}' δημιουργήθηκε και προγραμματίστηκε για δημοσίευση."
 
 msgid "View live"
 msgstr "Εμφανιση στο site"
 
-#, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "Η σελίδα '{0}' δημιουργήθηκε και δημοσιεύθηκε."
 
-#, python-brace-format
 msgid "Page '{0}' created and submitted for moderation."
 msgstr "Η σελίδα '{0}' δημιουργήθηκε και στάλθηκε προς έλεγχο."
 
@@ -1074,39 +1068,31 @@ msgstr "Εμφάνιση προσχεδίου"
 msgid "Failed to send notifications to moderators"
 msgstr "Δεν ήταν δυνατή η αποστολή της ειδοποίησης"
 
-#, python-brace-format
 msgid "Page '{0}' created."
 msgstr "Η σελίδα '{0}' δημιουργήθηκε."
 
 msgid "The page could not be created due to validation errors"
 msgstr "Η σελίδα δεν δημιοιυργήθηκε λόγω σφαλμάτων"
 
-#, python-brace-format
 msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
 msgstr ""
 "Η αναθεωρηση της {0} της σελίδας '{1}' προγραμματίστηκε για δημοσίευση."
 
-#, python-brace-format
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Η σελίδα '{0}' προγραμματίστηκε για δημοσίευση."
 
-#, python-brace-format
 msgid "Revision from {0} of page '{1}' has been published."
 msgstr "Η έκδοση της {0} της σελίδας '{1}' εκδόθηκε."
 
-#, python-brace-format
 msgid "Page '{0}' has been published."
 msgstr "Η σελίδα '{0}' εκδόθηκε."
 
-#, python-brace-format
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Η σελίδα '{0}' υποβλήθηκε για έλεγχο."
 
-#, python-brace-format
 msgid "Page '{0}' has been replaced with revision from {1}."
 msgstr "Η σελίδα '{0}' αντικαταστάθηκε με την αναθεώρηση της {1}."
 
-#, python-brace-format
 msgid "Page '{0}' has been updated."
 msgstr "Η σελίδα '{0}' ενημερώθηκε."
 
@@ -1122,49 +1108,39 @@ msgstr "Σύγκριση με την live έκδοση"
 msgid "This page is currently awaiting moderation"
 msgstr "Η σελίδα είναι προς έλεγχο"
 
-#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Έγινε διαγραφή της σελίδας '{0}'."
 
-#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "Έγινε αποδημοσίευση της '{0}'."
 
-#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "Έγινε η μετακίνηση της σελίδας '{0}'."
 
-#, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "Η σελίδα '{0}' και {1} υποσελίδες αντιγράφηκαν."
 
-#, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "Η σελίδα '{0}' αντιγράφηκε."
 
-#, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "Η σελίδα '{0}' δεν είναι για έλεγχο."
 
-#, python-brace-format
 msgid "Page '{0}' published."
 msgstr "Η σελίδα '{0}' δημοσιεύθηκε."
 
 msgid "Failed to send approval notifications"
 msgstr "Δεν ήταν δυνατή η αποστολή των ειδοποιήσεων"
 
-#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "Η δημοσίευση της σελίδας '{0}' απορρίφθηκε."
 
 msgid "Failed to send rejection notifications"
 msgstr "Δεν ήταν δυνατή η αποστολή των ειδοποιήσεων"
 
-#, python-brace-format
 msgid "Page '{0}' is now locked."
 msgstr "Η σελίδα '{0}' είναι τώρα κλειδωμένη."
 
-#, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "Η σελίδα '{0}' είναι τώρα ξεκλειδωμένη."
 
@@ -1182,46 +1158,36 @@ msgstr "Πιο πρόσφατες"
 msgid "Latest"
 msgstr "Τελευταίες"
 
-#, python-brace-format
 msgid "Edit '{title}'"
 msgstr "Επεξεργασία '{title}'"
 
-#, python-brace-format
 msgid "Preview draft version of '{title}'"
 msgstr "Προεπισκόπιση της draft έκδοσης της σελίδας '{title}'"
 
-#, python-brace-format
 msgid "View live version of '{title}'"
 msgstr "Προβολή της live έκδοσης της σελίδας '{title}'"
 
-#, python-brace-format
 msgid "Add a child page to '{title}' "
 msgstr "Προσθήκη υποσελίδας στη σελίδα '{title}'"
 
 msgid "More"
 msgstr "Περισσοτερα"
 
-#, python-brace-format
 msgid "View more options for '{title}'"
 msgstr "Δείτε περισσότερες επιλογές για τη σελίδα '{title}'"
 
-#, python-brace-format
 msgid "Move page '{title}'"
 msgstr "Μετακίνηση της σελίδας '{title}'"
 
-#, python-brace-format
 msgid "Copy page '{title}'"
 msgstr "Αντιγραφή της σελίδας '{title}'"
 
-#, python-brace-format
 msgid "Delete page '{title}'"
 msgstr "Διαγραφή της σελίδας '{title}'"
 
-#, python-brace-format
 msgid "Unpublish page '{title}'"
 msgstr "Κατάργηση δημοσίευσης της σελίδας '{title}'"
 
-#, python-brace-format
 msgid "View revision history for '{title}'"
 msgstr "Προβολή του ιστορικού αναθεωρήσεων της σελίδας '{title}'"
 

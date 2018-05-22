@@ -257,25 +257,21 @@ msgstr "Grupper"
 msgid "Search groups"
 msgstr "Sök grupper"
 
-#, python-brace-format
 msgid "Group '{0}' created."
 msgstr "Grupp '{0}' skapad."
 
-#, python-brace-format
 msgid "Group '{0}' updated."
 msgstr "Grupp '{0}' uppdaterad."
 
 msgid "The group could not be saved due to errors."
 msgstr "Gruppen kunde inte sparas p.g.a. fel."
 
-#, python-brace-format
 msgid "Group '{0}' deleted."
 msgstr "Grupp '{0}' raderad."
 
 msgid "Search users"
 msgstr "Sök användare"
 
-#, python-brace-format
 msgid "User '{0}' created."
 msgstr "Användaren '{0}' skapad."
 
@@ -288,7 +284,6 @@ msgstr "Användaren kunde inte skapas p.g.a. fel."
 msgid "The user could not be saved due to errors."
 msgstr "Användaren kunde inte sparas p.g.a. fel."
 
-#, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "Användare '{0}' raderad."
 

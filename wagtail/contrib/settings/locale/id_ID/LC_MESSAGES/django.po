@@ -35,7 +35,6 @@ msgstr "Simpan"
 msgid "Settings"
 msgstr "Pengaturan"
 
-#, python-brace-format
 msgid "{setting_type} updated."
 msgstr "{setting_type} telah diperbarui."
 

@@ -18,7 +18,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: he_IL\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % "
+"1 == 0) ? 1: (n % 10 == 0 && n % 1 == 0 && n > 10) ? 2 : 3;\n"
 
 msgid "Scheduled publishing"
 msgstr "פרסום מתוזמן"
@@ -71,6 +72,8 @@ msgid "This will copy %(count)s subpage."
 msgid_plural "This will copy %(count)s subpages."
 msgstr[0] "זה יעתיק תת-עמוד %(count)s."
 msgstr[1] "זה יעתיק %(count)s תת-עמודים."
+msgstr[2] "זה יעתיק %(count)s תת-עמודים."
+msgstr[3] "זה יעתיק %(count)s תת-עמודים."
 
 msgid "Publish copied page"
 msgstr "פרסם עמוד מועתק"
@@ -91,6 +94,12 @@ msgid_plural ""
 msgstr[0] ""
 "דף %(count)s שמועתק מופיע עכשו באתר. האם אתם רוצים לפרסם את העותק שלו?"
 msgstr[1] ""
+"%(count)s מהדפים שמועתקים מופיעים עכשו באתר. האם אתם רוצים לפרסם את העותקים "
+"שלהם?"
+msgstr[2] ""
+"%(count)s מהדפים שמועתקים מופיעים עכשו באתר. האם אתם רוצים לפרסם את העותקים "
+"שלהם?"
+msgstr[3] ""
 "%(count)s מהדפים שמועתקים מופיעים עכשו באתר. האם אתם רוצים לפרסם את העותקים "
 "שלהם?"
 
@@ -196,6 +205,12 @@ msgstr[0] ""
 msgstr[1] ""
 "\n"
 "יש %(counter)s תוצאות"
+msgstr[2] ""
+"\n"
+"יש %(counter)s תוצאות"
+msgstr[3] ""
+"\n"
+"יש %(counter)s תוצאות"
 
 msgid "Choose"
 msgstr "בחרו"
@@ -291,6 +306,12 @@ msgstr[0] ""
 "\n"
 "עמוד <span>%(total)s</span>"
 msgstr[1] ""
+"\n"
+"<span>%(total)s</span> עמודים"
+msgstr[2] ""
+"\n"
+"<span>%(total)s</span> עמודים"
+msgstr[3] ""
 "\n"
 "<span>%(total)s</span> עמודים"
 
@@ -392,6 +413,12 @@ msgstr[0] ""
 "\n"
 "פעולה זו תמחק בנוסף תת-עמוד אחד."
 msgstr[1] ""
+"\n"
+"פעולה זו תמחק %(descendant_count)s תת-עמודים נוספים."
+msgstr[2] ""
+"\n"
+"פעולה זו תמחק %(descendant_count)s תת-עמודים נוספים."
+msgstr[3] ""
 "\n"
 "פעולה זו תמחק %(descendant_count)s תת-עמודים נוספים."
 
@@ -636,18 +663,15 @@ msgstr "סיסמתכם שונתה בהצלחה!"
 msgid "View live"
 msgstr "תצוגה בחי"
 
-#, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "עמוד {0} נוצר ופורסם"
 
-#, python-brace-format
 msgid "Page '{0}' created and submitted for moderation."
 msgstr "עמוד {0} נוצר והוזן לעריכה"
 
 msgid "View draft"
 msgstr "הצג טיוטה"
 
-#, python-brace-format
 msgid "Page '{0}' created."
 msgstr "עמוד {0} נוצר"
 
@@ -663,43 +687,33 @@ msgstr "העמוד לא ניתן לשמירה עקב שגיאות אישור"
 msgid "This page is currently awaiting moderation"
 msgstr "העמוד ממתין לעריכה"
 
-#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "עמוד {0} נמחק"
 
-#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "פרסום עמוד {0} בוטל"
 
-#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "עמוד {0} הוזז"
 
-#, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "עמוד {0} ותת העמודים {1} הועתקו "
 
-#, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "עמוד {0} הועתק "
 
-#, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "העמוד {0} אינו ממתין לעריכה כרגע "
 
-#, python-brace-format
 msgid "Page '{0}' published."
 msgstr "עמוד {0} פורסם"
 
-#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "עמוד {0} נדחה עבור פרסום"
 
-#, python-brace-format
 msgid "Page '{0}' is now locked."
 msgstr "עמוד {0} נעול כעת"
 
-#, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "עמוד {0} בלתי נעול כעת"
 

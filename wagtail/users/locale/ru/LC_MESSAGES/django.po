@@ -283,25 +283,21 @@ msgstr "Группы"
 msgid "Search groups"
 msgstr "Поиск групп"
 
-#, python-brace-format
 msgid "Group '{0}' created."
 msgstr "Группа '{0}' создана."
 
-#, python-brace-format
 msgid "Group '{0}' updated."
 msgstr "Группа '{0}' обновлена."
 
 msgid "The group could not be saved due to errors."
 msgstr "Группа не может быть сохранена из-за ошибок."
 
-#, python-brace-format
 msgid "Group '{0}' deleted."
 msgstr "Группа '{0}' удалена."
 
 msgid "Search users"
 msgstr "Поиск пользователей"
 
-#, python-brace-format
 msgid "User '{0}' created."
 msgstr "Пользователь '{0}' создан."
 
@@ -314,7 +310,6 @@ msgstr "Пользователь не может быть создан из-за
 msgid "The user could not be saved due to errors."
 msgstr "Пользователь но может быть сохранен из-за ошибок."
 
-#, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "Пользователь '{0}' удалён."
 

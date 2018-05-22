@@ -44,7 +44,6 @@ msgstr ""
 "To ustawienie nie mogło zostać otwarte ponieważ nie zdefiniowano żadnej "
 "strony."
 
-#, python-brace-format
 msgid "{setting_type} updated."
 msgstr "{setting_type} uaktualnione."
 

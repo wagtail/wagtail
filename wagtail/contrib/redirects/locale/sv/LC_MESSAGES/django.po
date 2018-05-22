@@ -137,7 +137,6 @@ msgstr ""
 msgid "Search redirects"
 msgstr "Sökomdirigeringar"
 
-#, python-brace-format
 msgid "Redirect '{0}' updated."
 msgstr "Omdirigering '{0}' uppdaterad."
 
@@ -147,11 +146,9 @@ msgstr "Editera"
 msgid "The redirect could not be saved due to errors."
 msgstr "Omdirigeringen kunde inte sparas p.g.a. fel."
 
-#, python-brace-format
 msgid "Redirect '{0}' deleted."
 msgstr "Omdirigering '{0}' raderad."
 
-#, python-brace-format
 msgid "Redirect '{0}' added."
 msgstr "Omdirigering '{0}' skapad."
 

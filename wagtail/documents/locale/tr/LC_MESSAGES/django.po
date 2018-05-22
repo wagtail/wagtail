@@ -173,18 +173,15 @@ msgstr "Döküman izni ekle"
 msgid "Search documents"
 msgstr "Dökümanları ara"
 
-#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Döküman '{0}' eklendi."
 
 msgid "The document could not be saved due to errors."
 msgstr "Döküman hatalar nedeniyle kadedilemedi."
 
-#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "Döküman '{0}' güncellendi."
 
-#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Döküman '{0}' silindi."
 

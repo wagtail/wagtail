@@ -358,7 +358,6 @@ msgstr "Προσθήκη αδειών εικόνων"
 msgid "Search images"
 msgstr "Αναζήτηση εικόνων"
 
-#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "Η εικόνα '{0}' ενημερώθηκε."
 
@@ -375,11 +374,9 @@ msgstr ""
 "Το αρχείο προέλευσης της εικόνας δεν θα μπορεσε να βρεθεί. Παρακαλούμε να "
 "αλλάξετε την πηγή ή να διαγράψετε την εικόνα."
 
-#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "Η εικόνα '{0}' διαγράφηκε."
 
-#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "Η εικόνα '{0}' δημιουργήθηκε."
 

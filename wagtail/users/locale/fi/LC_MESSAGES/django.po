@@ -252,25 +252,21 @@ msgstr "Ryhmät"
 msgid "Search groups"
 msgstr "Hae ryhmiä"
 
-#, python-brace-format
 msgid "Group '{0}' created."
 msgstr "Ryhmä '{0}' luotu."
 
-#, python-brace-format
 msgid "Group '{0}' updated."
 msgstr "Ryhmä '{0}' päivitetty."
 
 msgid "The group could not be saved due to errors."
 msgstr "Ryhmää ei voitu tallentaa virheiden vuoksi."
 
-#, python-brace-format
 msgid "Group '{0}' deleted."
 msgstr "Ryhmä '{0}' poistettu."
 
 msgid "Search users"
 msgstr "Hae käyttäjiä"
 
-#, python-brace-format
 msgid "User '{0}' created."
 msgstr "Käyttäjä '{0}' luotu."
 
@@ -283,7 +279,6 @@ msgstr "Käyttäjää ei voitu luoda virheiden vuoksi."
 msgid "The user could not be saved due to errors."
 msgstr "Käyttäjää ei voitu tallentaa virheiden vuoksi."
 
-#, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "Käyttäjä '{0}' poistettu."
 

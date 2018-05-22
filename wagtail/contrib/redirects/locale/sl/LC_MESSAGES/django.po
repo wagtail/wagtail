@@ -143,7 +143,6 @@ msgstr ""
 msgid "Search redirects"
 msgstr "Iskanje po preusmeritvah"
 
-#, python-brace-format
 msgid "Redirect '{0}' updated."
 msgstr "Preusmeritev '{0}' posodobljena."
 
@@ -153,11 +152,9 @@ msgstr "Uredi"
 msgid "The redirect could not be saved due to errors."
 msgstr "Preusmeritve, zaradi napak, ni bilo možno shraniti."
 
-#, python-brace-format
 msgid "Redirect '{0}' deleted."
 msgstr "Preusmeritev '{0}' izbrisana."
 
-#, python-brace-format
 msgid "Redirect '{0}' added."
 msgstr "Preusmeritev '{0}' dodana."
 

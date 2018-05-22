@@ -171,7 +171,6 @@ msgstr "Precedent"
 msgid "Next"
 msgstr "Următor"
 
-#, python-brace-format
 msgid "{model_name} '{instance}' created."
 msgstr "{model_name} '{instance}' a fost creat(ă)."
 
@@ -193,7 +192,6 @@ msgstr "Editare"
 msgid "Editing %s"
 msgstr "Editare %s"
 
-#, python-brace-format
 msgid "{model_name} '{instance}' updated."
 msgstr "{model_name} '{instance}' a fost actualizat(ă)."
 
@@ -213,7 +211,6 @@ msgstr ""
 "Sigur doriți să ștergeți %s? Alte părți ale sait-ului legate de aceasta pot "
 "fi afectate."
 
-#, python-brace-format
 msgid "{model} '{instance}' deleted."
 msgstr "{model} '{instance}' a fost eliminat(ă)."
 

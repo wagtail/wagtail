@@ -252,25 +252,21 @@ msgstr "Grups"
 msgid "Search groups"
 msgstr "Cercar grups"
 
-#, python-brace-format
 msgid "Group '{0}' created."
 msgstr "S'ha creat el grup '{0}'."
 
-#, python-brace-format
 msgid "Group '{0}' updated."
 msgstr "S'ha actualitzat el grup '{0}'."
 
 msgid "The group could not be saved due to errors."
 msgstr "No s'ha pogut desar el grup a causa d'errors."
 
-#, python-brace-format
 msgid "Group '{0}' deleted."
 msgstr "S'ha eliminat el grup '{0}'."
 
 msgid "Search users"
 msgstr "Cercar usuaris"
 
-#, python-brace-format
 msgid "User '{0}' created."
 msgstr "Usuari '{0}' creat."
 
@@ -283,7 +279,6 @@ msgstr "No s'ha pogut crear l'usuari degut a errors."
 msgid "The user could not be saved due to errors."
 msgstr "No s'ha pogut desar l'usuari degut a errors."
 
-#, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "S'ha eliminat l'usuari '{0}'."
 

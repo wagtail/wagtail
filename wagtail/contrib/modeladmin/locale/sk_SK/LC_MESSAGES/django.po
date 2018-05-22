@@ -19,7 +19,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sk_SK\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n "
+">= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
 
 msgid "Parent page"
 msgstr "Rodičovská strana"
@@ -167,7 +168,6 @@ msgstr "Predchádzajúce"
 msgid "Next"
 msgstr "Ďalšie"
 
-#, python-brace-format
 msgid "{model_name} '{instance}' created."
 msgstr "{model_name} '{instance}' vytvorené."
 
@@ -189,7 +189,6 @@ msgstr "Úprava"
 msgid "Editing %s"
 msgstr "Úprava %s"
 
-#, python-brace-format
 msgid "{model_name} '{instance}' updated."
 msgstr "{model_name} '{instance}' aktualizované."
 
@@ -209,7 +208,6 @@ msgstr ""
 "Ste si istý, že chcete zmazať %s? Môže to ovplyvniť niektoré závislosti v "
 "rámci sídla."
 
-#, python-brace-format
 msgid "{model} '{instance}' deleted."
 msgstr "{model} '{instance}' zmazané."
 

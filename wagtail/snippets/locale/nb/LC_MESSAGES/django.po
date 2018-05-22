@@ -152,7 +152,6 @@ msgstr "Rediger denne siden"
 msgid "Search %(snippet_type_name)s"
 msgstr "Søk etter %(snippet_type_name)s"
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' created."
 msgstr "{snippet_type} \"{instance}\" opprettet."
 
@@ -162,14 +161,12 @@ msgstr "Rediger"
 msgid "The snippet could not be created due to errors."
 msgstr "Snutten kunne ikke opprettes grunnet feil."
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' updated."
 msgstr "{snippet_type} \"{instance}\" oppdatert."
 
 msgid "The snippet could not be saved due to errors."
 msgstr "Snutten kunne ikke lagres grunnet feil."
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' deleted."
 msgstr "{snippet_type} \"{instance}\" slettet."
 

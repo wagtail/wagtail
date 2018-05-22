@@ -22,7 +22,6 @@ msgstr ""
 msgid "Wagtail core"
 msgstr "Wagtail kjarni"
 
-#, python-brace-format
 msgid "{label}: this block has no options."
 msgstr "{label}: Þessi blokk hefur enga valmöguleika."
 

@@ -368,7 +368,6 @@ msgstr "Legg til bildetillatelse"
 msgid "Search images"
 msgstr "Søk i bilder"
 
-#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "Bildet \"{0}\" er oppdatert."
 
@@ -383,11 +382,9 @@ msgid ""
 "the image."
 msgstr "Bildefila ble ikke funnet. Endre kilde for bildet eller slett det."
 
-#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "Bildet \"{0}\" er slettet."
 
-#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "Bildet \"{0}\" er lagt til."
 

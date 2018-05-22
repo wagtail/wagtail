@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fa\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgid "Choose"
 msgstr "انتخاب"
@@ -36,6 +36,9 @@ msgid_plural ""
 "            There are %(counter)s matches\n"
 "        "
 msgstr[0] ""
+"\n"
+"%(counter)s مورد پیدا شد"
+msgstr[1] ""
 "\n"
 "%(counter)s مورد پیدا شد"
 
@@ -135,7 +138,6 @@ msgstr "ویرایش این صفحه"
 msgid "Search %(snippet_type_name)s"
 msgstr "جستجوی %(snippet_type_name)s"
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' created."
 msgstr "{snippet_type} '{instance}' ایجاد شد."
 
@@ -145,14 +147,12 @@ msgstr "ویرایش"
 msgid "The snippet could not be created due to errors."
 msgstr "به دلیل بروز خطا قطعه ای ساخته نشد."
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' updated."
 msgstr "{snippet_type} '{instance}' بروزرسانی شد."
 
 msgid "The snippet could not be saved due to errors."
 msgstr "قطعه به دلیل بروز خطا ذخیره نشد."
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' deleted."
 msgstr "{snippet_type} '{instance}' حذف شد."
 

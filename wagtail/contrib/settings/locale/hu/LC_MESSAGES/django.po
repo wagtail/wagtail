@@ -40,7 +40,6 @@ msgstr "Beállítások"
 msgid "This setting could not be opened because there is no site defined."
 msgstr "Ez a beállítás nem nyitható meg, mert nincs oldal definiálva."
 
-#, python-brace-format
 msgid "{setting_type} updated."
 msgstr "{setting_type} frissítve."
 

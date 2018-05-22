@@ -245,14 +245,12 @@ msgstr "Lägg till en dokumenträttighet"
 msgid "Search documents"
 msgstr "Sök dokument"
 
-#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Dokument '{0}' lades till."
 
 msgid "The document could not be saved due to errors."
 msgstr "Dokumentet kunde inte sparas p.g.a. fel."
 
-#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "Dokument '{0}' laddades upp"
 
@@ -261,7 +259,6 @@ msgid ""
 msgstr ""
 "Filen kunde inte hittas. Vänligen ändra källan eller ta bort dokumentet."
 
-#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Dokument '{0}' borttaget."
 

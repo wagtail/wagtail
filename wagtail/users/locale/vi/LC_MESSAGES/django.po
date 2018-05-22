@@ -119,25 +119,21 @@ msgstr "Xin lỗi, không tìm thấy user phù hợp với \"<em>%(query_string
 msgid "Search groups"
 msgstr "Tìm nhóm"
 
-#, python-brace-format
 msgid "Group '{0}' created."
 msgstr "Nhóm '{0}' đã được tạo."
 
-#, python-brace-format
 msgid "Group '{0}' updated."
 msgstr "Nhóm '{0}' đã được cập nhật."
 
 msgid "The group could not be saved due to errors."
 msgstr "Nhóm không thể lưu vì lỗi."
 
-#, python-brace-format
 msgid "Group '{0}' deleted."
 msgstr "Nhóm '{0}' đã được xoá."
 
 msgid "Search users"
 msgstr "Tìm người dùng"
 
-#, python-brace-format
 msgid "User '{0}' created."
 msgstr "Người dùng '{0}' đã được tạo."
 

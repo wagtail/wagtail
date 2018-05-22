@@ -19,7 +19,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: he_IL\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % "
+"1 == 0) ? 1: (n % 10 == 0 && n % 1 == 0 && n > 10) ? 2 : 3;\n"
 
 msgid "Edit"
 msgstr "עריכה"
@@ -107,14 +108,12 @@ msgstr "מחק"
 msgid "Search documents"
 msgstr "חיפוש במסמכים"
 
-#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "מסמך '{0}' הוסף"
 
 msgid "The document could not be saved due to errors."
 msgstr "המסמך לא ניתן לשמירה עקב שגיאות"
 
-#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "מסמך '{0}' עודכן"
 
@@ -122,7 +121,6 @@ msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "הקובץ לא נמצע. אנא שנו את המקור או מחקו את המסמך"
 
-#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "מסמך '{0}' נמחק"
 

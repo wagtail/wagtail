@@ -160,25 +160,21 @@ msgstr ""
 msgid "Search groups"
 msgstr "Meklēt grupas"
 
-#, python-brace-format
 msgid "Group '{0}' created."
 msgstr "Grupa '{0}' izveidota"
 
-#, python-brace-format
 msgid "Group '{0}' updated."
 msgstr "Grupa '{0}' atjaunota."
 
 msgid "The group could not be saved due to errors."
 msgstr "Grupu nevarēja saglabāt kļūdu dēļ."
 
-#, python-brace-format
 msgid "Group '{0}' deleted."
 msgstr "Grupa '{0}' dzēsta."
 
 msgid "Search users"
 msgstr "Meklēt lietotājus"
 
-#, python-brace-format
 msgid "User '{0}' created."
 msgstr "Grupa '{0}' izveidota."
 

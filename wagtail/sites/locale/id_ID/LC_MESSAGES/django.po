@@ -53,11 +53,9 @@ msgstr "Menambahkan situs"
 msgid "Add site"
 msgstr "Menambahkan daftar situs"
 
-#, python-brace-format
 msgid "Site '{0}' created."
 msgstr "Situs '{0}' berhasil dibuat "
 
-#, python-brace-format
 msgid "Site '{0}' updated."
 msgstr "Situs '{0}' berhasil diperbaharui"
 
@@ -67,7 +65,6 @@ msgstr "Situs tidak dapat disimpan karena suatu kesalahan"
 msgid "Delete site"
 msgstr "Menghapus Situs"
 
-#, python-brace-format
 msgid "Site '{0}' deleted."
 msgstr "Situs '{0}' berhasil dihapus"
 

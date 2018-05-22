@@ -365,7 +365,6 @@ msgstr "Adaugă o permisiune imagine"
 msgid "Search images"
 msgstr "Caută imagini"
 
-#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "Imaginea '{0}' a fost actualizată."
 
@@ -382,11 +381,9 @@ msgstr ""
 "Fișierul sursă al imaginii nu a fost găsit. Schimbă sursa sau sterge "
 "imaginea."
 
-#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "Imaginea '{0}' a fost ștearsă."
 
-#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "Imaginea '{0}' a fost adăugată."
 

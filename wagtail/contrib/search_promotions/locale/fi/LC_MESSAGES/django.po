@@ -160,7 +160,6 @@ msgstr ""
 msgid "Search promoted results"
 msgstr "Etsi nostettuja tuloksia"
 
-#, python-brace-format
 msgid "Editor's picks for '{0}' created."
 msgstr "Toimituksen valinnat kohteelle '{0}' luotu."
 
@@ -170,7 +169,6 @@ msgstr "Muokkaa"
 msgid "Recommendations have not been created due to errors"
 msgstr "Suosituksia ei voitu luoda virheiden vuoksi"
 
-#, python-brace-format
 msgid "Editor's picks for '{0}' updated."
 msgstr "Toimituksen valinnat kohteelle '{0}' päivitetty."
 

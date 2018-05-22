@@ -233,18 +233,15 @@ msgstr "Sil"
 msgid "Search images"
 msgstr "Resimleri ara"
 
-#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "'{0}' resim güncellendi"
 
 msgid "Edit again"
 msgstr "Yeniden düzenle"
 
-#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "Resim '{0}' silindi."
 
-#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "Resim '{0}' eklendi"
 

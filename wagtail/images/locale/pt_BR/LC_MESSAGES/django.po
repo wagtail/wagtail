@@ -365,7 +365,6 @@ msgstr "Adicionar uma permissão de imagem"
 msgid "Search images"
 msgstr "Buscar imagens"
 
-#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "Imagem '{0}' enviada."
 
@@ -382,11 +381,9 @@ msgstr ""
 "O arquivo de imagem não pode ser encontrado. Por favor altere a fonte ou "
 "delete a imagem."
 
-#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "Imagem '{0}' apagada."
 
-#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "Imagem '{0}' adicionada."
 

@@ -231,25 +231,21 @@ msgstr "Skupine"
 msgid "Search groups"
 msgstr "Iskanje po skupinah"
 
-#, python-brace-format
 msgid "Group '{0}' created."
 msgstr "Skupina '{0}' ustvarjena."
 
-#, python-brace-format
 msgid "Group '{0}' updated."
 msgstr "Skupina '{0}' posodobljena."
 
 msgid "The group could not be saved due to errors."
 msgstr "Skupine, zaradi napak, ni bilo možno shraniti."
 
-#, python-brace-format
 msgid "Group '{0}' deleted."
 msgstr "Skupina '{0}' izbrisana."
 
 msgid "Search users"
 msgstr "Iskanje po uporabnikih"
 
-#, python-brace-format
 msgid "User '{0}' created."
 msgstr "Uporabnik '{0}' ustvarjen."
 

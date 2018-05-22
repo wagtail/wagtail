@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fa\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #, python-format
 msgid "Editing %(setting_type_name)s - %(instance)s"
@@ -37,7 +37,6 @@ msgstr "ذخیره"
 msgid "Settings"
 msgstr "تنظیمات"
 
-#, python-brace-format
 msgid "{setting_type} updated."
 msgstr "{setting_type} به روز شد."
 

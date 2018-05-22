@@ -111,18 +111,15 @@ msgstr "Dzēst"
 msgid "Search documents"
 msgstr "Meklēt dokumentus"
 
-#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Dokuments '{0}' tika pievienots."
 
 msgid "The document could not be saved due to errors."
 msgstr "Dokumentu nevarēja saglabāt kļūdu dēļ."
 
-#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "Dokuments '{0}' atjaunots"
 
-#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Dokuments '{0}' tika dzēsts."
 

@@ -342,7 +342,6 @@ msgstr "이미지 권한 추가"
 msgid "Search images"
 msgstr "이미지 검색"
 
-#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "'{0}' 이미지가 업데이트 되었습니다."
 
@@ -359,11 +358,9 @@ msgstr ""
 "소스 이미지 파일을 찾을 수 없습니다. 소스를 변경하거나 이미지를 삭제하여 주시"
 "기 바랍니다."
 
-#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "'{0}' 이미지가 삭제되었습니다."
 
-#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "'{0}' 이미지가 추가 되었습니다."
 

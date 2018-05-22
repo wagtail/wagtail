@@ -17,8 +17,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: lt\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
-"%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
+"1 : n % 1 != 0 ? 2: 3);\n"
 
 msgid "GIF, JPEG, PNG"
 msgstr "GIF, JPEG, PNG"
@@ -164,6 +165,9 @@ msgstr[1] ""
 msgstr[2] ""
 "\n"
 "Yra %(counter)s atitikmenų"
+msgstr[3] ""
+"\n"
+"Yra %(counter)s atitikmenų"
 
 msgid "Latest images"
 msgstr "Paskutiniai paveiksliukai"
@@ -192,6 +196,9 @@ msgstr[1] ""
 msgstr[2] ""
 "\n"
 "<span>%(total)s</span> paveiksliukų"
+msgstr[3] ""
+"\n"
+"<span>%(total)s</span> paveiksliukų"
 
 msgid "Change image file:"
 msgstr "Keisti paveiksliuko bylą:"
@@ -214,6 +221,7 @@ msgid_plural "Used %(usage_count)s times"
 msgstr[0] "Panaudota %(usage_count)s kartą"
 msgstr[1] "Panaudota %(usage_count)s kartus"
 msgstr[2] "Panaudota %(usage_count)s kartų"
+msgstr[3] "Panaudota %(usage_count)s kartų"
 
 msgid "Are you sure you want to delete this image?"
 msgstr "Ar tikrai norite ištrinti šį paveiksliuką?"
@@ -367,7 +375,6 @@ msgstr "Pridėti paveiksliuko leidimą"
 msgid "Search images"
 msgstr "Ieškoti paveiksliukų"
 
-#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "Paveiksliukas '{0}' atnaujintas"
 
@@ -384,11 +391,9 @@ msgstr ""
 "Paveiksliuko šaltinio byla nebuvo rasta. Prašome pakeisti šaltinį arba "
 "ištrinti paveiksliuką."
 
-#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "Paveiksliukas '{0}' ištrintas."
 
-#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "Paveiksliukas '{0}' pridėtas."
 
@@ -404,6 +409,7 @@ msgid_plural "%(count)s images"
 msgstr[0] "%(count)s paveiksliukas"
 msgstr[1] "%(count)s paveiksliukai"
 msgstr[2] "%(count)s paveiksliukų"
+msgstr[3] "%(count)s paveiksliukų"
 
 msgid "Change image"
 msgstr "Keisti paveiksliuką"

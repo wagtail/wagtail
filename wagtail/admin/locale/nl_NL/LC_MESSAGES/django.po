@@ -1285,11 +1285,9 @@ msgstr "Voeg een collectie toe"
 msgid "Add collection"
 msgstr "Voeg collectie toe"
 
-#, python-brace-format
 msgid "Collection '{0}' created."
 msgstr "Collectie '{0}' is aangemaakt."
 
-#, python-brace-format
 msgid "Collection '{0}' updated."
 msgstr "Collectie '{0}' is gewijzigd."
 
@@ -1299,7 +1297,6 @@ msgstr "De collectie kon vanwege fouten niet worden opgeslagen."
 msgid "Delete collection"
 msgstr "Verwijder collectie"
 
-#, python-brace-format
 msgid "Collection '{0}' deleted."
 msgstr "Collectie '{0}' is verwijderd."
 
@@ -1309,18 +1306,15 @@ msgstr "Weet u zeker dat u deze collectie wilt verwijderen?"
 msgid "Editing"
 msgstr "Wijzigen"
 
-#, python-brace-format
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr "De pagina '{0}' is aangemaakt en ingepland voor publicatie."
 
 msgid "View live"
 msgstr "Bekijk live"
 
-#, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "Pagina '{0}' aangemaakt en gepubliceerd."
 
-#, python-brace-format
 msgid "Page '{0}' created and submitted for moderation."
 msgstr "Pagina '{0}' aangemaakt en ingediend voor controle."
 
@@ -1330,42 +1324,33 @@ msgstr "Bekijk concept"
 msgid "Failed to send notifications to moderators"
 msgstr "Het versturen van notificaties aan moderators is mislukt."
 
-#, python-brace-format
 msgid "Page '{0}' created."
 msgstr "Pagina '{0}' is aangemaakt."
 
 msgid "The page could not be created due to validation errors"
 msgstr "De pagina kon niet aangemaakt worden vanwege validatiefouten."
 
-#, python-brace-format
 msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
 msgstr "De versie van {0} van de pagina '{1}' is ingepland voor publicatie."
 
-#, python-brace-format
 msgid "Page '{0}' is live and this revision has been scheduled for publishing."
 msgstr "Pagina  '{0}' is live en de versie is gepland voor publicatie"
 
-#, python-brace-format
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "De pagina '{0}' is ingepland voor publicatie."
 
-#, python-brace-format
 msgid "Revision from {0} of page '{1}' has been published."
 msgstr "De versie van {0} van de pagina '{1}' is gepubliceerd."
 
-#, python-brace-format
 msgid "Page '{0}' has been published."
 msgstr "Pagina '{0}' is gepubliceerd."
 
-#, python-brace-format
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Pagina '{0}' is voor moderatie ingediend."
 
-#, python-brace-format
 msgid "Page '{0}' has been replaced with revision from {1}."
 msgstr "Pagina '{0}' is vervangen met de versie van {1}."
 
-#, python-brace-format
 msgid "Page '{0}' has been updated."
 msgstr "Pagina '{0}' is gewijzigd."
 
@@ -1381,49 +1366,39 @@ msgstr "Vergelijk met live versie"
 msgid "This page is currently awaiting moderation"
 msgstr "Deze pagina is in afwachting van content goedkeuring"
 
-#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Pagina '{0}' verwijderd."
 
-#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "Publicatie van pagina '{0}' is ingetrokken."
 
-#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "Pagina '{0}' is verplaatst."
 
-#, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "Pagina '{0}' en {1} onderliggende pagina's gekopieerd."
 
-#, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "Pagina '{0}' gekopieerd."
 
-#, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "De pagina '{0}' is nu niet in afwachting van moderatie."
 
-#, python-brace-format
 msgid "Page '{0}' published."
 msgstr "Pagina '{0}' gepubliceerd."
 
 msgid "Failed to send approval notifications"
 msgstr "Het versturen van goedkeuringsnotificaties is mislukt"
 
-#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "Pagina '{0}' afgewezen voor publicatie."
 
 msgid "Failed to send rejection notifications"
 msgstr "Het versturen van afkeuringsnotificaties is mislukt"
 
-#, python-brace-format
 msgid "Page '{0}' is now locked."
 msgstr "Pagina '{0}' is nu op slot."
 
-#, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "Pagina '{0}' is nu geopend."
 
@@ -1441,54 +1416,42 @@ msgstr "Eerste"
 msgid "Latest"
 msgstr "Laatste"
 
-#, python-brace-format
 msgid "revision {0} of \"{1}\""
 msgstr "Versie {0} van \"{1}\""
 
-#, python-brace-format
 msgid "Revision {0} of \"{1}\" unscheduled."
 msgstr "Versie {0} of \"{1}\" gestopt met plannen"
 
-#, python-brace-format
 msgid "Edit '{title}'"
 msgstr "Wijzig '{title}'"
 
-#, python-brace-format
 msgid "Preview draft version of '{title}'"
 msgstr "Bekijk conceptversie van '{title}'"
 
-#, python-brace-format
 msgid "View live version of '{title}'"
 msgstr "Bekijk live versie van '{title}'"
 
-#, python-brace-format
 msgid "Add a child page to '{title}' "
 msgstr "Voeg een onderliggende pagina toe aan '{title}'"
 
 msgid "More"
 msgstr "Meer"
 
-#, python-brace-format
 msgid "View more options for '{title}'"
 msgstr "Bekijk meer opties voor '{title}'"
 
-#, python-brace-format
 msgid "Move page '{title}'"
 msgstr "Verplaats pagina '{title}'"
 
-#, python-brace-format
 msgid "Copy page '{title}'"
 msgstr "Kopieer pagina '{title}'"
 
-#, python-brace-format
 msgid "Delete page '{title}'"
 msgstr "Verwijder pagina '{title}'"
 
-#, python-brace-format
 msgid "Unpublish page '{title}'"
 msgstr "Publicatie van '{title}' intrekken"
 
-#, python-brace-format
 msgid "View revision history for '{title}'"
 msgstr "Bekijk de versiegeschiedenis van '{title}' "
 
@@ -1519,7 +1482,6 @@ msgstr "Huidige tijd zone"
 msgid "Choose your current time zone."
 msgstr "Wijzig je huidige tijd zone."
 
-#, python-brace-format
 msgid "Heading {level}"
 msgstr "Heading {level}"
 

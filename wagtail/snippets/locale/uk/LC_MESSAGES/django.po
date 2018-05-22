@@ -17,8 +17,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: uk\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != "
+"11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
+"100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
+"(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
 
 msgid "Choose"
 msgstr "Вибрати"
@@ -44,6 +46,10 @@ msgstr[1] ""
 "            Знайдено %(counter)s збіги\n"
 "        "
 msgstr[2] ""
+"\n"
+"            Знайдено %(counter)s збігів\n"
+"        "
+msgstr[3] ""
 "\n"
 "            Знайдено %(counter)s збігів\n"
 "        "
@@ -76,6 +82,7 @@ msgid_plural "Used %(usage_count)s times"
 msgstr[0] "Використано %(usage_count)s раз"
 msgstr[1] "Використано %(usage_count)s рази"
 msgstr[2] "Використано %(usage_count)s разів"
+msgstr[3] "Використано %(usage_count)s разів"
 
 #, python-format
 msgid "Are you sure you want to delete this %(snippet_type_name)s?"
@@ -156,7 +163,6 @@ msgstr "Редагувати цю сторінку"
 msgid "Search %(snippet_type_name)s"
 msgstr "Шукати %(snippet_type_name)s"
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' created."
 msgstr "{snippet_type} '{instance}' створено."
 
@@ -166,14 +172,12 @@ msgstr "Редагувати"
 msgid "The snippet could not be created due to errors."
 msgstr "Цей уривок не може бути створено через помилки."
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' updated."
 msgstr "{snippet_type} '{instance}' оновлено."
 
 msgid "The snippet could not be saved due to errors."
 msgstr "Цей уривок не може бути збережено через помилки."
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' deleted."
 msgstr "{snippet_type} '{instance}' видалено."
 
