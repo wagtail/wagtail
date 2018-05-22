@@ -54,11 +54,9 @@ msgstr "사이트 추가"
 msgid "Add site"
 msgstr "사이트 추가"
 
-#, python-brace-format
 msgid "Site '{0}' created."
 msgstr "'{0}' 사이트를 생성했습니다."
 
-#, python-brace-format
 msgid "Site '{0}' updated."
 msgstr "'{0}' 사이트를 수정했습니다."
 
@@ -68,7 +66,6 @@ msgstr "에러로 인해 사이트를 저장하지 못했습니다."
 msgid "Delete site"
 msgstr "사이트 삭제"
 
-#, python-brace-format
 msgid "Site '{0}' deleted."
 msgstr "'{0}' 사이트를 삭제했습니다."
 

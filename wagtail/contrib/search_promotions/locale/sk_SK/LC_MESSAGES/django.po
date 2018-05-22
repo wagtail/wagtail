@@ -22,7 +22,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sk_SK\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n "
+">= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
 
 msgid "Please specify at least one recommendation for this search term."
 msgstr "Prosím definujte aspoň jedno odporúčanie pre tento výraz vyhladávania."
@@ -152,6 +153,9 @@ msgstr[1] ""
 msgstr[2] ""
 "\n"
 "%(counter)s výsledkov hľadania"
+msgstr[3] ""
+"\n"
+"%(counter)s výsledkov hľadania"
 
 #, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
@@ -171,7 +175,6 @@ msgstr ""
 msgid "Search promoted results"
 msgstr "Hľadať propagované výsledky"
 
-#, python-brace-format
 msgid "Editor's picks for '{0}' created."
 msgstr "Výbery Editora pre '{0}' boli vytvorené."
 
@@ -181,7 +184,6 @@ msgstr "Upraviť"
 msgid "Recommendations have not been created due to errors"
 msgstr "Odporúčania nemôžu byť vytvorené kvôli chybám."
 
-#, python-brace-format
 msgid "Editor's picks for '{0}' updated."
 msgstr "Výbery Editora pre '{0}' boli aktualizované."
 

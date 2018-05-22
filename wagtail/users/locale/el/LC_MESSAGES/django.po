@@ -262,25 +262,21 @@ msgstr "Ομάδες"
 msgid "Search groups"
 msgstr "Αναζήτηση ομαδων"
 
-#, python-brace-format
 msgid "Group '{0}' created."
 msgstr "Η ομαδα '{0}' δημιουργήθηκε."
 
-#, python-brace-format
 msgid "Group '{0}' updated."
 msgstr "Η ομαδα '{0}' ενημερώθηκε."
 
 msgid "The group could not be saved due to errors."
 msgstr "Δεν ήταν δυνατή η ενημέρωση των στοιχείων της ομαδας"
 
-#, python-brace-format
 msgid "Group '{0}' deleted."
 msgstr "Η ομαδα '{0}' διαγράφηκε."
 
 msgid "Search users"
 msgstr "Αναζήτηση χρηστών"
 
-#, python-brace-format
 msgid "User '{0}' created."
 msgstr "Ο χρήστης '{0}' δημιουργήθηκε."
 
@@ -293,7 +289,6 @@ msgstr "Δεν ήταν δυνατή η δημιουργία του χρήστη
 msgid "The user could not be saved due to errors."
 msgstr "Δεν ήταν δυνατή η ενημέρωση των στοιχείων του χρήστη."
 
-#, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "Ο χρήστης '{0}' διαγράφηκε."
 

@@ -145,7 +145,6 @@ msgstr ""
 msgid "Search redirects"
 msgstr "Αναζήτηση ανακατευθύνσεων"
 
-#, python-brace-format
 msgid "Redirect '{0}' updated."
 msgstr "Η ανακατεύθυνση '{0}' αποθηκεύθηκε."
 
@@ -155,11 +154,9 @@ msgstr "Επεξεργασία"
 msgid "The redirect could not be saved due to errors."
 msgstr "Η ανακατεύθυνση δε μπόρεσε να αποθηκευθεί λόγω σφαλμάτων."
 
-#, python-brace-format
 msgid "Redirect '{0}' deleted."
 msgstr "Η ανακατεύθυνση '{0}' διαγράφηκε."
 
-#, python-brace-format
 msgid "Redirect '{0}' added."
 msgstr "Η ανακατεύθυνση '{0}' προστέθηκε."
 

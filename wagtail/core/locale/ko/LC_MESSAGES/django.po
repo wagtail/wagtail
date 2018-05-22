@@ -21,7 +21,6 @@ msgstr ""
 "Language: ko\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#, python-brace-format
 msgid "{label}: this block has no options."
 msgstr "{label}: 이 블록에는 옵션이 없습니다."
 

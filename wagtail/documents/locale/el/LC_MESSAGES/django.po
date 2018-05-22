@@ -248,14 +248,12 @@ msgstr "Προσθήκη δικαιώματος εγγράφου"
 msgid "Search documents"
 msgstr "Αναζήτηση εγγράφων"
 
-#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Το έγγραφο '{0}' προστέθηκε."
 
 msgid "The document could not be saved due to errors."
 msgstr "Δεν ήταν δυνατή η αποθήκευση του εγγράφου."
 
-#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "Έγινε διόρθωση του εγγράφου '{0}'"
 
@@ -265,7 +263,6 @@ msgstr ""
 "Το αρχείο δεν μπορεσε να βρεθεί. Παρακαλούμε να αλλάξετε την πηγή ή να "
 "διαγράψετε το έγγραφο"
 
-#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Το έγγραφο '{0}' διαγράφηκε."
 

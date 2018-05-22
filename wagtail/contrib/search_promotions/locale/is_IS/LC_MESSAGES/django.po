@@ -162,7 +162,6 @@ msgstr ""
 msgid "Search promoted results"
 msgstr "Meðmæltar niðurstöður"
 
-#, python-brace-format
 msgid "Editor's picks for '{0}' created."
 msgstr "Val ritstjóra fyrir  '{0}' búin til."
 
@@ -172,7 +171,6 @@ msgstr "Breyta"
 msgid "Recommendations have not been created due to errors"
 msgstr "Ekki tókst að búa til meðmæli þar sem það stóðst ekki villuprófanir"
 
-#, python-brace-format
 msgid "Editor's picks for '{0}' updated."
 msgstr "Val ritstjóra fyrir '{0}' uppfært."
 

@@ -350,7 +350,6 @@ msgstr "Страница %(page_num)s от %(total_pages)s."
 msgid "Your password has been changed successfully!"
 msgstr "Паролата ви бе променена успешно!"
 
-#, python-brace-format
 msgid "Page '{0}' created."
 msgstr "Страница '{0}' е създадена."
 
@@ -360,27 +359,21 @@ msgstr "Тази страница не можеше да бъде запазен
 msgid "This page is currently awaiting moderation"
 msgstr "Тази страница очаква да бъде модерирана"
 
-#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Страница '{0}' е изтрита."
 
-#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "Страница '{0}' отменена от публикуване."
 
-#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "Страница '{0}' преместена."
 
-#, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "Страница '{0}' не очаква да бъде модерирана."
 
-#, python-brace-format
 msgid "Page '{0}' published."
 msgstr "Страница '{0}' е публикувана."
 
-#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "Страница '{0}' отхвърлена от публикуване."
 

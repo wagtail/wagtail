@@ -91,18 +91,15 @@ msgstr "Гарчиг"
 msgid "Search images"
 msgstr "Зураг хайх"
 
-#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "'{0}' зураг засагдлаа."
 
 msgid "The image could not be saved due to errors."
 msgstr "Зураг энэ алдаануудаас шалтгаалан хадгалагдсангүй."
 
-#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "'{0}' зураг устлаа."
 
-#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "'{0}' зураг нэмэгдлээ."
 

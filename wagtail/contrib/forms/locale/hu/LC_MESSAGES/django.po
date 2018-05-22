@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# B N <biczoxd@gmail.com>, 2018
 # Kornel Novak Mergulhão <nkornel@gmail.com>, 2016
 # Kornel Novak Mergulhão <nkornel@gmail.com>, 2016
 msgid ""
@@ -10,8 +11,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-05-04 20:23+0100\n"
-"PO-Revision-Date: 2018-05-04 19:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-05-18 12:05+0000\n"
+"Last-Translator: B N <biczoxd@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +20,16 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: hu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Date from"
+msgstr "Dátumtól"
+
+msgid "Date to"
+msgstr "Dátumig"
+
+#, python-format
+msgid "There is another field with the label %s, please change one of them."
+msgstr "Már van egy mező a(z) %s címkével, kérlek változasd meg valamelyiket!"
 
 msgid "Single line text"
 msgstr "Egysoros szöveg"
@@ -35,11 +46,83 @@ msgstr "Szám"
 msgid "URL"
 msgstr "URL"
 
+msgid "Checkbox"
+msgstr "Pipálós négyzet"
+
+msgid "Checkboxes"
+msgstr "Pipálós négyzetek"
+
+msgid "Drop down"
+msgstr "Legördülő"
+
+msgid "Multiple select"
+msgstr "Több kijelölős"
+
+msgid "Radio buttons"
+msgstr "Rádió gombok"
+
 msgid "Date"
 msgstr "Dátum"
 
+msgid "Date/time"
+msgstr "Dátum/idő"
+
+msgid "Hidden field"
+msgstr "Rejtett mező"
+
+msgid "submit time"
+msgstr "Beküldés ideje"
+
+msgid "form submission"
+msgstr "Form beküldés"
+
+msgid "label"
+msgstr "címke"
+
+msgid "The label of the form field"
+msgstr "A mező címkéje"
+
+msgid "field type"
+msgstr "mező típusa"
+
+msgid "required"
+msgstr "szükséges"
+
+msgid "choices"
+msgstr "választás"
+
+msgid ""
+"Comma separated list of choices. Only applicable in checkboxes, radio and "
+"dropdown."
+msgstr ""
+"Vesszővel elválasztott lista a lehetőségekkel. Csak pipálós négyzeteknél, "
+"rádió gomboknál és legördülő listáknál alkalmazható."
+
 msgid "default value"
 msgstr "alapértelmezett érték"
+
+msgid "Default value. Comma separated values supported for checkboxes."
+msgstr ""
+"Alapméretezett érték. Vesszővel elválasztott lista a pipálós negyzeteknek."
+
+msgid "help text"
+msgstr "segítő szöveg"
+
+msgid "Submission date"
+msgstr "Beküldés dátuma"
+
+msgid "to address"
+msgstr "címzett"
+
+msgid "subject"
+msgstr "tárgy"
+
+#, python-format
+msgid "Delete form data %(title)s"
+msgstr "%(title)störlése"
+
+msgid "Delete form data"
+msgstr "Form adat törlése"
 
 msgid "Delete"
 msgstr "Törlés"

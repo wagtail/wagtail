@@ -351,7 +351,6 @@ msgstr "Lägg till en bildrättighet"
 msgid "Search images"
 msgstr "Sök bilder"
 
-#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "Bild '{0}' uppdaterades."
 
@@ -368,11 +367,9 @@ msgstr ""
 "Filen för originalbilden kunde inte hittas. Vänligen ändra filen eller ta "
 "bort bilden."
 
-#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "Bild '{0}' raderad."
 
-#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "Bild '{0}' lades till."
 

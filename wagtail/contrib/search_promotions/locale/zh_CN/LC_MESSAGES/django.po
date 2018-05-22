@@ -157,7 +157,6 @@ msgstr ""
 msgid "Search promoted results"
 msgstr "搜索推广结果"
 
-#, python-brace-format
 msgid "Editor's picks for '{0}' created."
 msgstr "为'{0}'的编辑精选已被创建。"
 
@@ -167,7 +166,6 @@ msgstr "编辑"
 msgid "Recommendations have not been created due to errors"
 msgstr "无法创建推荐，出现错误。"
 
-#, python-brace-format
 msgid "Editor's picks for '{0}' updated."
 msgstr "为'{0}'的编辑精选已被更新。"
 

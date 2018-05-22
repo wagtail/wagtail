@@ -73,7 +73,6 @@ msgstr "Statuss"
 msgid "Edit this page"
 msgstr "Labot šo lapu"
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' created."
 msgstr "{snippet_type} '{instance}'  izveidots."
 

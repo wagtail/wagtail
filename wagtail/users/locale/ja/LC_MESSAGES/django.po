@@ -214,25 +214,21 @@ msgstr ""
 msgid "Search groups"
 msgstr "グループを検索"
 
-#, python-brace-format
 msgid "Group '{0}' created."
 msgstr "グループ '{0}' が作成されました。"
 
-#, python-brace-format
 msgid "Group '{0}' updated."
 msgstr "グループ '{0}' が更新されました。"
 
 msgid "The group could not be saved due to errors."
 msgstr "このグループはエラーにより保存されませんでした。"
 
-#, python-brace-format
 msgid "Group '{0}' deleted."
 msgstr "グループ '{0}' は削除されました。"
 
 msgid "Search users"
 msgstr "ユーザを検索"
 
-#, python-brace-format
 msgid "User '{0}' created."
 msgstr "ユーザ '{0}' が作成されました。"
 

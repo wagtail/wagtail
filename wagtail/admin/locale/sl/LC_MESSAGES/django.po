@@ -790,56 +790,45 @@ msgstr "Vaše geslo je bil uspešno spremenjeno!"
 msgid "Collections"
 msgstr "Zbirke"
 
-#, python-brace-format
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr "Stran '{0}' ustvarjena in načrtovana za objavo."
 
 msgid "View live"
 msgstr "Ogled v živo"
 
-#, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "Stran '{0}' ustvarjena in objavljena."
 
-#, python-brace-format
 msgid "Page '{0}' created and submitted for moderation."
 msgstr "Stran '{0}' ustvarjena in oddana v potrditev."
 
 msgid "View draft"
 msgstr "Poglej osnutek"
 
-#, python-brace-format
 msgid "Page '{0}' created."
 msgstr "Stran '{0}' ustvarjena."
 
 msgid "The page could not be created due to validation errors"
 msgstr "Strani, zaradi na neveljavnih vrednosti polj, ni bilo možno ustvariti"
 
-#, python-brace-format
 msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
 msgstr "Različica iz {0} strani '{1}' je načrtovana za objavo."
 
-#, python-brace-format
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Stran '{0}' je načrtovana za objavo."
 
-#, python-brace-format
 msgid "Revision from {0} of page '{1}' has been published."
 msgstr "Različica iz {0} strani '{1}' je objavljena."
 
-#, python-brace-format
 msgid "Page '{0}' has been published."
 msgstr "Stran '{0}' je objavljena."
 
-#, python-brace-format
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Stran '{0}' je bila oddana v potrditev."
 
-#, python-brace-format
 msgid "Page '{0}' has been replaced with revision from {1}."
 msgstr "Stran '{0}' je bila nadomeščena z različico iz {1}."
 
-#, python-brace-format
 msgid "Page '{0}' has been updated."
 msgstr "Stran '{0}' je posodobljena."
 
@@ -852,43 +841,33 @@ msgstr "Strani, zaradi na neveljavnih vrednosti polj, ni bilo možno shraniti"
 msgid "This page is currently awaiting moderation"
 msgstr "Stran trenutno čaka na potrditev"
 
-#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Stran '{0}' izbrisana."
 
-#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "Stran '{0}' umaknjena iz objave."
 
-#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "Stran '{0}' premaknjena."
 
-#, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "Stran '{0}' in {1} podstrani kopiranih."
 
-#, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "Stran '{0}' kopirana."
 
-#, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "Stran '{0}' trenutno ne čaka na potrditev."
 
-#, python-brace-format
 msgid "Page '{0}' published."
 msgstr "Stran '{0}' objavljena."
 
-#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "Objava strani '{0}' zavrnjena."
 
-#, python-brace-format
 msgid "Page '{0}' is now locked."
 msgstr "Stran '{0}' je sedaj zaklenjena."
 
-#, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "Stran '{0}' je sedaj odklenjena."
 

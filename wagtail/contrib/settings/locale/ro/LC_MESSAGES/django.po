@@ -40,7 +40,6 @@ msgstr "Setări"
 msgid "This setting could not be opened because there is no site defined."
 msgstr "Setarea nu poate fi deschisă din cauzei lipsei definiților de sit."
 
-#, python-brace-format
 msgid "{setting_type} updated."
 msgstr "{setting_type} a fost actualizat(ă)."
 

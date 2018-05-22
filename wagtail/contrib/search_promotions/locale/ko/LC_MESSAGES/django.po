@@ -155,7 +155,6 @@ msgstr ""
 msgid "Search promoted results"
 msgstr "프로모션 결과 검색"
 
-#, python-brace-format
 msgid "Editor's picks for '{0}' created."
 msgstr "'{0}' 를 위한 에디터의 선택이 추가 되었습니다."
 
@@ -165,7 +164,6 @@ msgstr "수정"
 msgid "Recommendations have not been created due to errors"
 msgstr "에러로 인해 추천 결과를 생성할 수 없습니다"
 
-#, python-brace-format
 msgid "Editor's picks for '{0}' updated."
 msgstr "'{0}' 에 대한 에디터의 선택이 업데이트 되었습니다."
 

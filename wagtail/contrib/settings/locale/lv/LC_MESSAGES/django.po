@@ -36,7 +36,6 @@ msgstr "Saglabāt"
 msgid "Settings"
 msgstr "Uzstādījumi"
 
-#, python-brace-format
 msgid "{setting_type} updated."
 msgstr "{setting_type} saglabāti."
 

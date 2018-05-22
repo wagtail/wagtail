@@ -37,7 +37,6 @@ msgstr "Cadw"
 msgid "Settings"
 msgstr "Gosodiadau"
 
-#, python-brace-format
 msgid "{setting_type} updated."
 msgstr "{setting_type} Wedi'i ddiweddaru"
 

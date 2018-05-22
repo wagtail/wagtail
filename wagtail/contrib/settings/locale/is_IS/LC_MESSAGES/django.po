@@ -40,7 +40,6 @@ msgstr ""
 "Ekki er hægt að breyta þessari stillingu þar sem engin síða hefur verið "
 "skilgreind."
 
-#, python-brace-format
 msgid "{setting_type} updated."
 msgstr "{setting_type} uppfært."
 

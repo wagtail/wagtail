@@ -1312,11 +1312,9 @@ msgstr "Adaugă o colecție"
 msgid "Add collection"
 msgstr "Adaugă colecție"
 
-#, python-brace-format
 msgid "Collection '{0}' created."
 msgstr "Colecția '{0}' a fost creată."
 
-#, python-brace-format
 msgid "Collection '{0}' updated."
 msgstr "Colecția '{0}' a fost actualizată."
 
@@ -1326,7 +1324,6 @@ msgstr "Colecția nu a putut fi salvată din cauza erorilor."
 msgid "Delete collection"
 msgstr "Șterge colecția"
 
-#, python-brace-format
 msgid "Collection '{0}' deleted."
 msgstr "Colecția '{0}' a fost ștearsă."
 
@@ -1336,18 +1333,15 @@ msgstr "Sigur doriți să ștergeți această colecție?"
 msgid "Editing"
 msgstr "Editare"
 
-#, python-brace-format
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr "Pagina '{0}' a fost creată și programată pentru publicare."
 
 msgid "View live"
 msgstr "Vezi în direct"
 
-#, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "Pagina '{0}' a fost creată și publicată."
 
-#, python-brace-format
 msgid "Page '{0}' created and submitted for moderation."
 msgstr "Pagina '{0}' a fost creată și trimisă pentru moderare."
 
@@ -1357,43 +1351,34 @@ msgstr "Vezi ciornă"
 msgid "Failed to send notifications to moderators"
 msgstr "Trimiterea notificarărilor pentru moderatori au eșuat."
 
-#, python-brace-format
 msgid "Page '{0}' created."
 msgstr "Pagina '{0}' a fost creată."
 
 msgid "The page could not be created due to validation errors"
 msgstr "Pagina nu a fost creată din cauza erorilor de validare."
 
-#, python-brace-format
 msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
 msgstr "Revizia din {0} a paginii '{1}' a fost programată pentru publicare."
 
-#, python-brace-format
 msgid "Page '{0}' is live and this revision has been scheduled for publishing."
 msgstr ""
 "Pagina '{0}' este live. Această  revizie a fost programată pentru publicare."
 
-#, python-brace-format
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Pagina '{0}' a fost programată pentru publicare."
 
-#, python-brace-format
 msgid "Revision from {0} of page '{1}' has been published."
 msgstr "Revizia din {0} a paginii '{1}' a fost publicată."
 
-#, python-brace-format
 msgid "Page '{0}' has been published."
 msgstr "Pagina '{0}' a fost publicată."
 
-#, python-brace-format
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Pagina '{0}' a fost trimisă pentru moderare."
 
-#, python-brace-format
 msgid "Page '{0}' has been replaced with revision from {1}."
 msgstr "Pagina '{0}' a fost schimbată cu revizia {1}."
 
-#, python-brace-format
 msgid "Page '{0}' has been updated."
 msgstr "Pagina '{0}' a fost actualizată."
 
@@ -1409,49 +1394,39 @@ msgstr "Compară cu revizia publicată"
 msgid "This page is currently awaiting moderation"
 msgstr "Această pagină este în moderare"
 
-#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Pagina '{0}' a fost ștearsă."
 
-#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "Publicare anulată pentru pagina '{0}'."
 
-#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "Pagina '{0}' a fost mutată."
 
-#, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "Pagina '{0}' și {1} subpagini au fost copiate."
 
-#, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "Pagina '{0}' a fost copiată."
 
-#, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "Pagina '{0}' nu este în moderare la moment."
 
-#, python-brace-format
 msgid "Page '{0}' published."
 msgstr "Pagina '{0}' a fost publicată."
 
 msgid "Failed to send approval notifications"
 msgstr "Trimiterea notificărilor de aprobare au eșuat."
 
-#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "Publicare paginii '{0}' a fost refuzată."
 
 msgid "Failed to send rejection notifications"
 msgstr "Trimiterea notificărilor de respingere au eșuat."
 
-#, python-brace-format
 msgid "Page '{0}' is now locked."
 msgstr "Pagina '{0}' a fost blocată."
 
-#, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "Pagina '{0}' is fost deblocată."
 
@@ -1469,54 +1444,42 @@ msgstr "Cea mai veche"
 msgid "Latest"
 msgstr "Cea mai recentă"
 
-#, python-brace-format
 msgid "revision {0} of \"{1}\""
 msgstr "revizia {0} pentru \"{1}\""
 
-#, python-brace-format
 msgid "Revision {0} of \"{1}\" unscheduled."
 msgstr "Programare anulată pentru revizia {0} a \"{1}\""
 
-#, python-brace-format
 msgid "Edit '{title}'"
 msgstr "Editează '{title}'"
 
-#, python-brace-format
 msgid "Preview draft version of '{title}'"
 msgstr "Previzualizează versiunea ciornă a '{title}'"
 
-#, python-brace-format
 msgid "View live version of '{title}'"
 msgstr "Vezi versiunea live a '{title}'"
 
-#, python-brace-format
 msgid "Add a child page to '{title}' "
 msgstr "Adaugă o pagină dependentă de '{title}'"
 
 msgid "More"
 msgstr "Mai mult"
 
-#, python-brace-format
 msgid "View more options for '{title}'"
 msgstr "Vezi mai multe opțiuni pentru '{title}'"
 
-#, python-brace-format
 msgid "Move page '{title}'"
 msgstr "Mutați pagina '{title}'"
 
-#, python-brace-format
 msgid "Copy page '{title}'"
 msgstr "Copie pagina '{title}'"
 
-#, python-brace-format
 msgid "Delete page '{title}'"
 msgstr "Șterge pagina '{title}'"
 
-#, python-brace-format
 msgid "Unpublish page '{title}'"
 msgstr "Anulează publicarea paginii '{title}'"
 
-#, python-brace-format
 msgid "View revision history for '{title}'"
 msgstr "Vezi istoria reviziilor pentru '{title}'"
 
@@ -1547,7 +1510,6 @@ msgstr "Fus orar curent"
 msgid "Choose your current time zone."
 msgstr "Alege fus orar curent"
 
-#, python-brace-format
 msgid "Heading {level}"
 msgstr "Antet {level}"
 

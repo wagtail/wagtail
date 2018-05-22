@@ -168,7 +168,6 @@ msgstr ""
 msgid "Search promoted results"
 msgstr "Søk i forfremmede resultater"
 
-#, python-brace-format
 msgid "Editor's picks for '{0}' created."
 msgstr "Redaktørvalg for \"{0}\" er opprettet."
 
@@ -178,7 +177,6 @@ msgstr "Endre"
 msgid "Recommendations have not been created due to errors"
 msgstr "Anbefalinger kunne ikke opprettes grunnet feil"
 
-#, python-brace-format
 msgid "Editor's picks for '{0}' updated."
 msgstr "Redaktørvalg for \"{0}\" oppdatert."
 

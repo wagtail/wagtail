@@ -19,7 +19,6 @@ msgstr ""
 "Language: id_ID\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#, python-brace-format
 msgid "{label}: this block has no options."
 msgstr "{label}: Tidak ada pilihan untuk blok ini."
 

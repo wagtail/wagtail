@@ -169,14 +169,12 @@ msgstr "削除"
 msgid "Search documents"
 msgstr "ドキュメントを検索"
 
-#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "'{0}' が追加されました"
 
 msgid "The document could not be saved due to errors."
 msgstr "エラーが発生したため、ドキュメントを保存できませんでした。"
 
-#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "'{0}'のドキュメントが更新されました。"
 
@@ -186,7 +184,6 @@ msgstr ""
 "ファイルが見つかりませんでした。ソースを変更するかドキュメントを削除してくだ"
 "さい。"
 
-#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "'{0}'のドキュメントを削除しました。"
 

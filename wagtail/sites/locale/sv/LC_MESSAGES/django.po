@@ -53,11 +53,9 @@ msgstr "Lägg till en sajt"
 msgid "Add site"
 msgstr "Addera sajt"
 
-#, python-brace-format
 msgid "Site '{0}' created."
 msgstr "Sajt '{0}' skapad."
 
-#, python-brace-format
 msgid "Site '{0}' updated."
 msgstr "Sajt '{0}' uppdaterad."
 
@@ -67,7 +65,6 @@ msgstr "Sajten kunde inte sparas pga fel."
 msgid "Delete site"
 msgstr "Radera sajt"
 
-#, python-brace-format
 msgid "Site '{0}' deleted."
 msgstr "Sajt '{0}' raderad."
 

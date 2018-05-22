@@ -17,7 +17,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: he_IL\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % "
+"1 == 0) ? 1: (n % 10 == 0 && n % 1 == 0 && n > 10) ? 2 : 3;\n"
 
 msgid "GIF, JPEG, PNG"
 msgstr "GIF, JPEG, PNG"
@@ -201,7 +202,6 @@ msgstr "מחק"
 msgid "Search images"
 msgstr "חיפוש תמונות "
 
-#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "תמונה '{0}' עודכנה "
 
@@ -216,11 +216,9 @@ msgid ""
 "the image."
 msgstr "קובץ תמונת המקור לא ניתן למציאה. אנא שנו את המקור או מחקו את התמונה."
 
-#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "תמונה '{0}' נמחקה "
 
-#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "תמונה '{0}' הוספה"
 

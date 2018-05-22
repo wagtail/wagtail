@@ -39,7 +39,6 @@ msgid "This setting could not be opened because there is no site defined."
 msgstr ""
 "Innstillingen kunne ikke åpnes fordi det ikke er noe nettsted definert."
 
-#, python-brace-format
 msgid "{setting_type} updated."
 msgstr "{setting_type} oppdatert."
 

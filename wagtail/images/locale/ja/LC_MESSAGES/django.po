@@ -287,7 +287,6 @@ msgstr "削除"
 msgid "Search images"
 msgstr "画像を検索"
 
-#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "画像 '{0}' がアップロードされました。"
 
@@ -304,11 +303,9 @@ msgstr ""
 "画像のソースファイルが見つかりませんでした。ソースを変更するか画像を削除して"
 "ください。"
 
-#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "画像 '{0}' が削除されました。"
 
-#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "画像 '{0}' が追加されました。 "
 

@@ -17,8 +17,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: lt\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
-"%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
+"1 : n % 1 != 0 ? 2: 3);\n"
 
 msgid "From site"
 msgstr "Iš tinklalapio"
@@ -122,6 +123,9 @@ msgstr[1] ""
 msgstr[2] ""
 "\n"
 "Yra %(counter)s atitikmenų"
+msgstr[3] ""
+"\n"
+"Yra %(counter)s atitikmenų"
 
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
@@ -139,7 +143,6 @@ msgstr ""
 msgid "Search redirects"
 msgstr "Ieškoti peradresavimų"
 
-#, python-brace-format
 msgid "Redirect '{0}' updated."
 msgstr "Peradresavimas '{0}' atnaujintas."
 
@@ -149,11 +152,9 @@ msgstr "Redaguoti"
 msgid "The redirect could not be saved due to errors."
 msgstr "Peradresavimas negalėjo būti išsaugotas dėl klaidų."
 
-#, python-brace-format
 msgid "Redirect '{0}' deleted."
 msgstr "Peradresavimas '{0}' ištrintas."
 
-#, python-brace-format
 msgid "Redirect '{0}' added."
 msgstr "Peradresavimas '{0}' pridėtas."
 

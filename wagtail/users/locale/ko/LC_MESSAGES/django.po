@@ -242,25 +242,21 @@ msgstr "그룹"
 msgid "Search groups"
 msgstr "그룹 검색"
 
-#, python-brace-format
 msgid "Group '{0}' created."
 msgstr "'{0}' 그룹이 생성 되었습니다."
 
-#, python-brace-format
 msgid "Group '{0}' updated."
 msgstr "'{0}' 그룹이 업데이트 되었습니다"
 
 msgid "The group could not be saved due to errors."
 msgstr "에러로 인해 그룹이 생성될 수 없습니다."
 
-#, python-brace-format
 msgid "Group '{0}' deleted."
 msgstr "'{0}' 그룹이 삭제 되었습니다."
 
 msgid "Search users"
 msgstr "사용자 검색"
 
-#, python-brace-format
 msgid "User '{0}' created."
 msgstr "'{0}' 사용자가 생성되었습니다"
 
@@ -273,7 +269,6 @@ msgstr "에러로 인해 사용자를 생성할 수 없습니다."
 msgid "The user could not be saved due to errors."
 msgstr "에러로 인해 사용자를 저장할 수 없습니다."
 
-#, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "'{0}' 사용자가 삭제되었습니다."
 

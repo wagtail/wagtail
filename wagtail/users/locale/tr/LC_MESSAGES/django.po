@@ -147,11 +147,9 @@ msgstr "Gruplar"
 msgid "Search groups"
 msgstr "Grupları ara"
 
-#, python-brace-format
 msgid "Group '{0}' created."
 msgstr "'{0}' grubu oluşturuldu."
 
-#, python-brace-format
 msgid "Group '{0}' updated."
 msgstr "'{0}' grup güncellendi."
 

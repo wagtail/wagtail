@@ -44,7 +44,6 @@ msgstr ""
 "Questa impostazione non può essere aperta perché non esiste un sito "
 "predefinito."
 
-#, python-brace-format
 msgid "{setting_type} updated."
 msgstr "{setting_type} modificato."
 

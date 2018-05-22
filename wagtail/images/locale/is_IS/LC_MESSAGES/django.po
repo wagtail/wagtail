@@ -368,7 +368,6 @@ msgstr "Bæta við myndaheimild"
 msgid "Search images"
 msgstr "Leita að myndum"
 
-#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "Mynd '{0}' uppfærð."
 
@@ -384,11 +383,9 @@ msgid ""
 msgstr ""
 "Upprunamyndin fannst ekki. Vinsamlegast breyttu upprunanum eða eyddu skránni"
 
-#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "Mynd '{0}' eydd."
 
-#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "Mynd '{0}' bætt við."
 

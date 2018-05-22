@@ -1145,11 +1145,9 @@ msgstr "Tambah sebuah koleksi"
 msgid "Add collection"
 msgstr "Tambah koleksi"
 
-#, python-brace-format
 msgid "Collection '{0}' created."
 msgstr "Koleksi '{0}' telah dibuat."
 
-#, python-brace-format
 msgid "Collection '{0}' updated."
 msgstr "Koleksi '{0}' diperbarui."
 
@@ -1159,7 +1157,6 @@ msgstr "Koleksi tidak dapat disimpan karena suatu galat."
 msgid "Delete collection"
 msgstr "Hapus koleksi"
 
-#, python-brace-format
 msgid "Collection '{0}' deleted."
 msgstr "Koleksi '{0}' telah dihapus."
 
@@ -1169,18 +1166,15 @@ msgstr "Apakah anda yakin akan menghapus koleksi ini?"
 msgid "Editing"
 msgstr "Mengubah"
 
-#, python-brace-format
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr "Halaman '{0}' telah dibuat dan dijadwalkan untuk dipublikasi."
 
 msgid "View live"
 msgstr "Tampilkan yang aktif"
 
-#, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "Halaman '{0}' telah dibuat dan dipublikasi."
 
-#, python-brace-format
 msgid "Page '{0}' created and submitted for moderation."
 msgstr "Halaman '{0}' telah dibuat dan dikirim untuk dimoderasi."
 
@@ -1190,38 +1184,30 @@ msgstr "Tampilkan konsep"
 msgid "Failed to send notifications to moderators"
 msgstr "Gagal mengirim notifikasi ke moderator"
 
-#, python-brace-format
 msgid "Page '{0}' created."
 msgstr "Halaman '{0}' telah dibuat."
 
 msgid "The page could not be created due to validation errors"
 msgstr "Halaman tersebut tidak dapat dibuat karena tidak lolos validasi."
 
-#, python-brace-format
 msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
 msgstr "Revisi oleh {0} untuk halaman '{1}' telah dijadwalkan untuk publikasi."
 
-#, python-brace-format
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Halaman '{0}' telah dijadwalkan untuk publikasi."
 
-#, python-brace-format
 msgid "Revision from {0} of page '{1}' has been published."
 msgstr "Revisi oleh {0} untuk halaman '{1}' telah dipublikasi."
 
-#, python-brace-format
 msgid "Page '{0}' has been published."
 msgstr "Halaman '{0}' telah dipublikasi."
 
-#, python-brace-format
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Halaman '{0}' telah dikirim untuk moderasi."
 
-#, python-brace-format
 msgid "Page '{0}' has been replaced with revision from {1}."
 msgstr "Halaman '{0}' telah diganti dengan revisi dari {1}."
 
-#, python-brace-format
 msgid "Page '{0}' has been updated."
 msgstr "Halaman '{0}' telah diperbarui."
 
@@ -1237,49 +1223,39 @@ msgstr "Bandingkan dengan versi aktif"
 msgid "This page is currently awaiting moderation"
 msgstr "Halaman ini menunggu proses moderasi"
 
-#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Halaman '{0}' dihapus."
 
-#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "Halaman '{0}' ditarik dari publikasi."
 
-#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "Halaman '{0}' telah dipindah."
 
-#, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "Telah menyalin halaman '{0}' dan {1} sub-halaman."
 
-#, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "Halaman '{0}' telah disalin."
 
-#, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "Halaman '{0}' tidak dalam proses moderasi."
 
-#, python-brace-format
 msgid "Page '{0}' published."
 msgstr "Halaman '{0}' telah dipublikasi."
 
 msgid "Failed to send approval notifications"
 msgstr "Gagal mengirim notifikasi persetujuan"
 
-#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "Publikasi halaman '{0}' ditolak."
 
 msgid "Failed to send rejection notifications"
 msgstr "Gagal mengirim notifikasi penolakan"
 
-#, python-brace-format
 msgid "Page '{0}' is now locked."
 msgstr "Halaman '{0}' sekarang telah dikunci."
 
-#, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "Halaman '{0}' sekarang tidak dikunci."
 
@@ -1297,46 +1273,36 @@ msgstr "Paling awal"
 msgid "Latest"
 msgstr "Paling akhir"
 
-#, python-brace-format
 msgid "Edit '{title}'"
 msgstr "Ubah '{title}'"
 
-#, python-brace-format
 msgid "Preview draft version of '{title}'"
 msgstr "Pratinjau versi konsep dari '{title}'"
 
-#, python-brace-format
 msgid "View live version of '{title}'"
 msgstr "Lihat versi aktif dari '{title}'"
 
-#, python-brace-format
 msgid "Add a child page to '{title}' "
 msgstr "Tambahkan halaman turunan ke '{title}' "
 
 msgid "More"
 msgstr "Lainnya"
 
-#, python-brace-format
 msgid "View more options for '{title}'"
 msgstr "Tampilkan pilihan lain untuk '{title}'"
 
-#, python-brace-format
 msgid "Move page '{title}'"
 msgstr "Pindah halaman '{title}'"
 
-#, python-brace-format
 msgid "Copy page '{title}'"
 msgstr "Salin halaman '{title}'"
 
-#, python-brace-format
 msgid "Delete page '{title}'"
 msgstr "Hapus halaman '{title}'"
 
-#, python-brace-format
 msgid "Unpublish page '{title}'"
 msgstr "Tarik publikasi halaman '{title}'"
 
-#, python-brace-format
 msgid "View revision history for '{title}'"
 msgstr "Tampilkan catatan revisi '{title}'"
 

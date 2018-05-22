@@ -254,25 +254,21 @@ msgstr "组"
 msgid "Search groups"
 msgstr "搜索组"
 
-#, python-brace-format
 msgid "Group '{0}' created."
 msgstr "组 '{0}' 已创建"
 
-#, python-brace-format
 msgid "Group '{0}' updated."
 msgstr "组 '{0}' 已更新。"
 
 msgid "The group could not be saved due to errors."
 msgstr "无法保存该组。出现错误。"
 
-#, python-brace-format
 msgid "Group '{0}' deleted."
 msgstr "组 '{0}' 已删除。"
 
 msgid "Search users"
 msgstr "搜索用户"
 
-#, python-brace-format
 msgid "User '{0}' created."
 msgstr "用户 '{0}'已创建"
 
@@ -285,7 +281,6 @@ msgstr "无法创建用户。出现错误。"
 msgid "The user could not be saved due to errors."
 msgstr "无法保存用户。出现错误。"
 
-#, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "用户 '{0}' 已删除。"
 

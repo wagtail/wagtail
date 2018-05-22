@@ -267,14 +267,12 @@ msgstr "Einfügen einer Dokumenten-Berechtigung"
 msgid "Search documents"
 msgstr "Nach Dokumenten suchen"
 
-#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Dokument ‚{0}‘ wurde hinzugefügt."
 
 msgid "The document could not be saved due to errors."
 msgstr "Aufgrund eines Fehlers konnte das Dokument nicht gespeichert werden."
 
-#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "Dokument ‚{0}‘ wurde hochgeladen"
 
@@ -284,7 +282,6 @@ msgstr ""
 "Die Datei konnte nicht gefunden werden. Bitte ändern Sie die Quelle oder "
 "löschen Sie das Dokument "
 
-#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Dokument ‚{0}‘ wurde gelöscht."
 

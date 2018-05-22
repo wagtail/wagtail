@@ -55,11 +55,9 @@ msgstr "Adicionar um site"
 msgid "Add site"
 msgstr "Adicionar site"
 
-#, python-brace-format
 msgid "Site '{0}' created."
 msgstr "Site '{0}' criado."
 
-#, python-brace-format
 msgid "Site '{0}' updated."
 msgstr "Site '{0}' atualizado."
 
@@ -69,7 +67,6 @@ msgstr "O site não pôde ser salvo devido a erros."
 msgid "Delete site"
 msgstr "Remover site"
 
-#, python-brace-format
 msgid "Site '{0}' deleted."
 msgstr "Site '{0}' removido."
 

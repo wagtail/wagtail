@@ -240,14 +240,12 @@ msgstr "Engadir un permiso ao documento"
 msgid "Search documents"
 msgstr "Procurar documentos"
 
-#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Documento '{0}' engadido."
 
 msgid "The document could not be saved due to errors."
 msgstr "O documento non puido ser gardado debido a erros."
 
-#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "Documento '{0}' actualizado"
 
@@ -257,7 +255,6 @@ msgstr ""
 "O arquivo non puido ser atopado. Por favor, cambia a fonte ou elimina o "
 "documento."
 
-#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Documento '{0}' eliminado."
 

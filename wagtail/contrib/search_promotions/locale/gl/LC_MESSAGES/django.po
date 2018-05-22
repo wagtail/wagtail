@@ -167,7 +167,6 @@ msgstr ""
 msgid "Search promoted results"
 msgstr "Procurar resultados promocionados"
 
-#, python-brace-format
 msgid "Editor's picks for '{0}' created."
 msgstr "Seleccións do editor para '{0}' creadas."
 
@@ -177,7 +176,6 @@ msgstr "Editar"
 msgid "Recommendations have not been created due to errors"
 msgstr "As recomendaciones non foron creadas debido a erros"
 
-#, python-brace-format
 msgid "Editor's picks for '{0}' updated."
 msgstr "Seleccións do editor para '{0}' actualizadas."
 

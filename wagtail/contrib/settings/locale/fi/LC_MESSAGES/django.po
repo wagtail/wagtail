@@ -37,7 +37,6 @@ msgstr "Tallenna"
 msgid "Settings"
 msgstr "Asetukset"
 
-#, python-brace-format
 msgid "{setting_type} updated."
 msgstr "{setting_type} päivitetty."
 

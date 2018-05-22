@@ -20,7 +20,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: cs\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n "
+"<= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
 
 msgid "You do not have permission to access the admin"
 msgstr "Nemáte povolení k přístupu do redakčního systému"
@@ -80,6 +81,7 @@ msgid_plural "This will copy %(count)s subpages."
 msgstr[0] "Bude zkopírována %(count)s podstránka."
 msgstr[1] "Bude zkopírováno %(count)s podstránek."
 msgstr[2] "Bude zkopírováno %(count)s podstránek."
+msgstr[3] "Bude zkopírováno %(count)s podstránek."
 
 msgid "Publish copied page"
 msgstr "Publikovat zkopírovanou stránku"
@@ -104,6 +106,9 @@ msgstr[1] ""
 "%(count)s z kopírovaných stránek je publikovaných. Chcete publikovat i "
 "jejich kopie?"
 msgstr[2] ""
+"%(count)s z kopírovaných stránek je publikovaných. Chcete publikovat i "
+"jejich kopie?"
+msgstr[3] ""
 "%(count)s z kopírovaných stránek je publikovaných. Chcete publikovat i "
 "jejich kopie?"
 
@@ -415,6 +420,9 @@ msgstr[1] ""
 msgstr[2] ""
 "\n"
 "Tímto dojde též ke smazání %(descendant_count)s podstránek."
+msgstr[3] ""
+"\n"
+"Tímto dojde též ke smazání %(descendant_count)s podstránek."
 
 msgid "Yes, delete it"
 msgstr "Ano, smazat"
@@ -600,6 +608,9 @@ msgstr[1] ""
 msgstr[2] ""
 "\n"
 "Celkem vyhovujících stran: %(counter)s"
+msgstr[3] ""
+"\n"
+"Celkem vyhovujících stran: %(counter)s"
 
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
@@ -715,7 +726,6 @@ msgstr "Zobrazit publikovanou verzi"
 msgid "View draft"
 msgstr "Zobrazit koncept"
 
-#, python-brace-format
 msgid "Page '{0}' created."
 msgstr "Stránka '{0}' byla vytvořena."
 
@@ -731,43 +741,33 @@ msgstr "Stránku nelze uložit, zkontrolujte správné vyplnění polí"
 msgid "This page is currently awaiting moderation"
 msgstr "Stránka nyní čeká na schválení"
 
-#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Stránka '{0}' byla smazána."
 
-#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "Stránce '{0}' byla zrušena publikace."
 
-#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "Stránka '{0}' byla přesunuta."
 
-#, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "Stránka '{0}' a {1} podstránek bylo zkopírováno."
 
-#, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "Stránka '{0}' byla zkopírována."
 
-#, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "Stránka '{0}' nyní nečeká na schválení."
 
-#, python-brace-format
 msgid "Page '{0}' published."
 msgstr "Stránka '{0}' byla publikována."
 
-#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "Publikace stránky '{0}' byla zamítnuta."
 
-#, python-brace-format
 msgid "Page '{0}' is now locked."
 msgstr "Stránka '{0}' je nyní uzamčena."
 
-#, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "Stránka '{0}' je nyní odemčena."
 

@@ -269,25 +269,21 @@ msgstr "Grupuri"
 msgid "Search groups"
 msgstr "Caută grupuri"
 
-#, python-brace-format
 msgid "Group '{0}' created."
 msgstr "Grupul '{0}' a fost creat."
 
-#, python-brace-format
 msgid "Group '{0}' updated."
 msgstr "Grupul '{0}' a fost actualizat."
 
 msgid "The group could not be saved due to errors."
 msgstr "Grupul nu a fost salvat din cauza erorilor."
 
-#, python-brace-format
 msgid "Group '{0}' deleted."
 msgstr "Grupul '{0}' a fost șters."
 
 msgid "Search users"
 msgstr "Caută utilizatori"
 
-#, python-brace-format
 msgid "User '{0}' created."
 msgstr "Utilizatorul '{0}' a fost creat."
 
@@ -300,7 +296,6 @@ msgstr "Utilizatorul nu a fost creat din cauza erorilor."
 msgid "The user could not be saved due to errors."
 msgstr "Utilizatorul nu a fost salvat din cauza erorilor."
 
-#, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "Utilizatorul '{0}' a fost șters."
 

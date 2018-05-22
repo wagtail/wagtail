@@ -255,14 +255,12 @@ msgstr "Bæta við aðgangsheimildum á skrá"
 msgid "Search documents"
 msgstr "Leita að skrám"
 
-#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Skrá '{0}' bætt við."
 
 msgid "The document could not be saved due to errors."
 msgstr "Ekki var hægt að vista skránna vegna villna."
 
-#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "Skrá '{0}' uppfærð"
 
@@ -270,7 +268,6 @@ msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "Skráin fannst ekki. Vinsamlegast breyttu upprunanum eða eyddu skránni"
 
-#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Skrá '{0}' hefur verið eytt."
 

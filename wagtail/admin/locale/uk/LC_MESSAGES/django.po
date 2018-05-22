@@ -19,8 +19,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: uk\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != "
+"11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
+"100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
+"(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
 
 msgid "None"
 msgstr "Нічого"
@@ -83,6 +85,7 @@ msgid_plural "This will copy %(count)s subpages."
 msgstr[0] "Ця дія скопіює %(count)s підсторінку."
 msgstr[1] "Ця дія скопіює %(count)s підсторінок."
 msgstr[2] "Ця дія скопіює %(count)s підсторінок."
+msgstr[3] "Ця дія скопіює %(count)s підсторінок."
 
 msgid "Publish copied page"
 msgstr "Опублікуваті скопійовані сторінки"
@@ -108,6 +111,9 @@ msgstr[1] ""
 "%(count)s сторінок, що ви копіюєте, вже опубліковано. Хочете опублїкувати їх "
 "копїю?"
 msgstr[2] ""
+"%(count)s сторінок, що ви копіюєте, вже опубліковано. Хочете опублїкувати їх "
+"копїю?"
+msgstr[3] ""
 "%(count)s сторінок, що ви копіюєте, вже опубліковано. Хочете опублїкувати їх "
 "копїю?"
 
@@ -301,6 +307,10 @@ msgstr[2] ""
 "\n"
 "            Знайдено %(counter)s збігів\n"
 "        "
+msgstr[3] ""
+"\n"
+"            Знайдено %(counter)s збігів\n"
+"        "
 
 msgid "Choose"
 msgstr "Вибрати"
@@ -331,6 +341,12 @@ msgstr[1] ""
 "пошуку.\n"
 "            "
 msgstr[2] ""
+"\n"
+"                Для цього поля можуть бути вибрані сторінки тільки таких "
+"типів: %(type)s. Інші типи сторінок не будуть включені до результатів "
+"пошуку.\n"
+"            "
+msgstr[3] ""
 "\n"
 "                Для цього поля можуть бути вибрані сторінки тільки таких "
 "типів: %(type)s. Інші типи сторінок не будуть включені до результатів "
@@ -565,6 +581,11 @@ msgstr[2] ""
 "                    Цим ви видалите також %(descendant_count)s дочірніх "
 "сторінок.\n"
 "                "
+msgstr[3] ""
+"\n"
+"                    Цим ви видалите також %(descendant_count)s дочірніх "
+"сторінок.\n"
+"                "
 
 msgid "Yes, delete it"
 msgstr "Так, видалити"
@@ -635,6 +656,11 @@ msgstr[1] ""
 "сторінки. Зняти їх з публікації також\n"
 "                "
 msgstr[2] ""
+"\n"
+"                    Ця сторінка має %(live_descendant_count)s дочірніх "
+"сторінок. Зняти їх з публікації також\n"
+"                "
+msgstr[3] ""
 "\n"
 "                    Ця сторінка має %(live_descendant_count)s дочірніх "
 "сторінок. Зняти їх з публікації також\n"
@@ -887,6 +913,10 @@ msgstr[2] ""
 "\n"
 "                Знайдено %(counter)s сторінок, що мають відповідність\n"
 "            "
+msgstr[3] ""
+"\n"
+"                Знайдено %(counter)s сторінок, що мають відповідність\n"
+"            "
 
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
@@ -1079,11 +1109,9 @@ msgstr "Додати колекцію"
 msgid "Add collection"
 msgstr "Додати колекцію"
 
-#, python-brace-format
 msgid "Collection '{0}' created."
 msgstr "Колекцію '{0}' створено."
 
-#, python-brace-format
 msgid "Collection '{0}' updated."
 msgstr "Колекцію '{0}' оновлено."
 
@@ -1093,7 +1121,6 @@ msgstr "Ця колекція не може бути збережена чере
 msgid "Delete collection"
 msgstr "Видалили колекцію"
 
-#, python-brace-format
 msgid "Collection '{0}' deleted."
 msgstr "Колекцію '{0}' видалено."
 
@@ -1103,18 +1130,15 @@ msgstr "Ви впевнені, що хочете видалили цю коле�
 msgid "Editing"
 msgstr "Редагування"
 
-#, python-brace-format
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr "Сторінку '{0}' створено і заплановано до публікації. "
 
 msgid "View live"
 msgstr "Побачити наживо"
 
-#, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "Сторінку '{0}' створено і опубліковано."
 
-#, python-brace-format
 msgid "Page '{0}' created and submitted for moderation."
 msgstr "Сторінку '{0}' створено і направлено на модерацію."
 
@@ -1124,43 +1148,34 @@ msgstr "Переглянути чернетку"
 msgid "Failed to send notifications to moderators"
 msgstr "Надсилання сповіщень для модераторів зазнало невдачі"
 
-#, python-brace-format
 msgid "Page '{0}' created."
 msgstr "Сторінку '{0}' створено."
 
 msgid "The page could not be created due to validation errors"
 msgstr "Цю сторінку не можна створити через помилки валідації"
 
-#, python-brace-format
 msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
 msgstr "Ревізію {0} сторінки '{1}' заплановано для публікації."
 
-#, python-brace-format
 msgid "Page '{0}' is live and this revision has been scheduled for publishing."
 msgstr ""
 "Сторінка '{0}' у режимі наживо і цю ревізію було заплановано до публікації."
 
-#, python-brace-format
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Сторінку '{0}' заплановано до публікації."
 
-#, python-brace-format
 msgid "Revision from {0} of page '{1}' has been published."
 msgstr "Ревізію з {0} сторінки '{1}' опубліковано."
 
-#, python-brace-format
 msgid "Page '{0}' has been published."
 msgstr "Сторінку '{0}' опубліковано."
 
-#, python-brace-format
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Сторінку '{0}' надіслано на модерацію."
 
-#, python-brace-format
 msgid "Page '{0}' has been replaced with revision from {1}."
 msgstr "Сторінку '{0}' було замінено ревізією з {1}."
 
-#, python-brace-format
 msgid "Page '{0}' has been updated."
 msgstr "Сторінку '{0}' оновлено."
 
@@ -1176,49 +1191,39 @@ msgstr "Порівняти із версією наживо"
 msgid "This page is currently awaiting moderation"
 msgstr "Ця сторінка очікує на модерацію"
 
-#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Сторінку '{0}' видалено."
 
-#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "Сторінку '{0}' знято з публікації."
 
-#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "Сторінку '{0}' переміщено."
 
-#, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "Сторінка '{0}' і {1} вкладені сторінки скопійовано."
 
-#, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "Сторінку '{0}' скопійовано."
 
-#, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "Сторінка '{0}' не перебуває в очікуванні модерації."
 
-#, python-brace-format
 msgid "Page '{0}' published."
 msgstr "Сторінку '{0}' опубліковано."
 
 msgid "Failed to send approval notifications"
 msgstr "Надсилання сповіщення про схвалення зазнало невдачі"
 
-#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "Публікацію сторінки '{0}' відхилено."
 
 msgid "Failed to send rejection notifications"
 msgstr "Надсилання сповіщення про відхилення зазнало невдачі"
 
-#, python-brace-format
 msgid "Page '{0}' is now locked."
 msgstr "Сторінку '{0}' заблоковано."
 
-#, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "Сторінку '{0}' розблоковано."
 
@@ -1228,54 +1233,42 @@ msgstr "Найбільш раннє"
 msgid "Latest"
 msgstr "Останнє"
 
-#, python-brace-format
 msgid "revision {0} of \"{1}\""
 msgstr "ревізія {0} для \"{1}\""
 
-#, python-brace-format
 msgid "Revision {0} of \"{1}\" unscheduled."
 msgstr "Ревізія {0} для \"{1}\" знято з плану."
 
-#, python-brace-format
 msgid "Edit '{title}'"
 msgstr "Редагувати '{title}'"
 
-#, python-brace-format
 msgid "Preview draft version of '{title}'"
 msgstr "Попередньо переглянути чернетку для '{title}'"
 
-#, python-brace-format
 msgid "View live version of '{title}'"
 msgstr "Переглянути живу версію для '{title}'"
 
-#, python-brace-format
 msgid "Add a child page to '{title}' "
 msgstr "Додати дочірню сторінку для '{title}' "
 
 msgid "More"
 msgstr "Білье"
 
-#, python-brace-format
 msgid "View more options for '{title}'"
 msgstr "Показати більше опцій для '{title}'"
 
-#, python-brace-format
 msgid "Move page '{title}'"
 msgstr "Перемістити сторінку '{title}'"
 
-#, python-brace-format
 msgid "Copy page '{title}'"
 msgstr "Копіювати сторінку '{title}'"
 
-#, python-brace-format
 msgid "Delete page '{title}'"
 msgstr "Видалити сторінку '{title}'"
 
-#, python-brace-format
 msgid "Unpublish page '{title}'"
 msgstr "Зняти з публікації сторінку '{title}'"
 
-#, python-brace-format
 msgid "View revision history for '{title}'"
 msgstr "Переглянути історію ревізій для '{title}'"
 
@@ -1291,7 +1284,6 @@ msgstr "Налаштування мови"
 msgid "Choose the language you want to use here."
 msgstr "Виберіть мову, яку ви хочете тут використовувати"
 
-#, python-brace-format
 msgid "Heading {level}"
 msgstr "Заголовок {level}"
 

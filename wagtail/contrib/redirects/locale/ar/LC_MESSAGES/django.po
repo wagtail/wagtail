@@ -74,7 +74,6 @@ msgstr "نقح تغيير الاتجاه هذا"
 msgid "Search redirects"
 msgstr "ابحث تغييرات الاتجاه"
 
-#, python-brace-format
 msgid "Redirect '{0}' updated."
 msgstr "جددت عملية تغيير الاتجاه {0}"
 
@@ -84,11 +83,9 @@ msgstr "تنقيح"
 msgid "The redirect could not be saved due to errors."
 msgstr "لم تحفظ عملية تغيير الاتجاه بسبب أحطاء"
 
-#, python-brace-format
 msgid "Redirect '{0}' deleted."
 msgstr "تغيير الاتجاه {0} محذوف"
 
-#, python-brace-format
 msgid "Redirect '{0}' added."
 msgstr "تغيير الاتجاه {0} مضاف"
 

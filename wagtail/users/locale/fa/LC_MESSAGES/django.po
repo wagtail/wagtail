@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fa\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
 msgstr "لازم. 30 کاراکتر یا کمتر. تنها حروف، اعداد و @/./+/-/_ مجاز هستند."
@@ -107,6 +107,9 @@ msgid_plural ""
 "strong> members.\n"
 "            "
 msgstr[0] ""
+"\n"
+"گروه «%(group_name)s» تعداد <strong>%(group_user_count)s</strong> عضو دارد."
+msgstr[1] ""
 "\n"
 "گروه «%(group_name)s» تعداد <strong>%(group_user_count)s</strong> عضو دارد."
 
@@ -222,6 +225,9 @@ msgid_plural ""
 msgstr[0] ""
 "\n"
 "تعداد %(counter)s مورد پیدا شد"
+msgstr[1] ""
+"\n"
+"تعداد %(counter)s مورد پیدا شد"
 
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
@@ -241,25 +247,21 @@ msgstr "گروه ها"
 msgid "Search groups"
 msgstr "جستجوی گروه‌ها"
 
-#, python-brace-format
 msgid "Group '{0}' created."
 msgstr "گروه '{0}' ایجاد شد."
 
-#, python-brace-format
 msgid "Group '{0}' updated."
 msgstr "گروه  '{0}'  بروزرسانی شد."
 
 msgid "The group could not be saved due to errors."
 msgstr "به دلیل بروز خطا گروه ذخیره نشد."
 
-#, python-brace-format
 msgid "Group '{0}' deleted."
 msgstr "گروه '{0}' حذف شد."
 
 msgid "Search users"
 msgstr "جستجوی کاربران"
 
-#, python-brace-format
 msgid "User '{0}' created."
 msgstr "کاربر '{0}' ایجاد شد."
 
@@ -272,7 +274,6 @@ msgstr "به دلیل بروز خطا کاربر ایجاد نشد"
 msgid "The user could not be saved due to errors."
 msgstr "به دلیل بروز خطا کاربر ذخیره نشد"
 
-#, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "کاربر '{0}' حذف شد."
 

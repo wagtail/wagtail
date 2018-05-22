@@ -155,7 +155,6 @@ msgstr ""
 msgid "Search redirects"
 msgstr "Szukaj przekierowań"
 
-#, python-brace-format
 msgid "Redirect '{0}' updated."
 msgstr "Uaktualniono przekierowanie '{0}'."
 
@@ -165,11 +164,9 @@ msgstr "Edytuj"
 msgid "The redirect could not be saved due to errors."
 msgstr "Przekierowanie nie mogło zostać zapisane z powodu błędów."
 
-#, python-brace-format
 msgid "Redirect '{0}' deleted."
 msgstr "Usunięto przekierowanie '{0}'."
 
-#, python-brace-format
 msgid "Redirect '{0}' added."
 msgstr "Przekierowanie '{0}' dodane."
 

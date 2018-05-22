@@ -54,11 +54,9 @@ msgstr "Lisää sivusto"
 msgid "Add site"
 msgstr "Lisää sivusto"
 
-#, python-brace-format
 msgid "Site '{0}' created."
 msgstr "Sivusto '{0}' luotu."
 
-#, python-brace-format
 msgid "Site '{0}' updated."
 msgstr "Sivusto '{0}' päivitetty."
 
@@ -68,7 +66,6 @@ msgstr "Sivustoa ei voitu tallentaa virheiden takia."
 msgid "Delete site"
 msgstr "Poista sivusto"
 
-#, python-brace-format
 msgid "Site '{0}' deleted."
 msgstr "Sivusto '{0}' poistettu."
 

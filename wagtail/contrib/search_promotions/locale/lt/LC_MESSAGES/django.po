@@ -17,8 +17,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: lt\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
-"%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
+"1 : n % 1 != 0 ? 2: 3);\n"
 
 msgid "Please specify at least one recommendation for this search term."
 msgstr "Prašome pateikti bent vieną rekomendaciją šiam paieškos terminui."
@@ -147,6 +148,9 @@ msgstr[1] ""
 msgstr[2] ""
 "\n"
 "Yra %(counter)s atitikmenų"
+msgstr[3] ""
+"\n"
+"Yra %(counter)s atitikmenų"
 
 #, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
@@ -165,7 +169,6 @@ msgstr ""
 msgid "Search promoted results"
 msgstr "Ieškoti reklamuojamų rezultatų"
 
-#, python-brace-format
 msgid "Editor's picks for '{0}' created."
 msgstr "Redaktoriaus pasirinkimai '{0}' sukurti."
 
@@ -175,7 +178,6 @@ msgstr "Redaguoti"
 msgid "Recommendations have not been created due to errors"
 msgstr "Rekomendacijos nebuvo sukurtos dėl klaidų"
 
-#, python-brace-format
 msgid "Editor's picks for '{0}' updated."
 msgstr "Redaktoriaus pasirinkimai '{0}' atnaujinti."
 

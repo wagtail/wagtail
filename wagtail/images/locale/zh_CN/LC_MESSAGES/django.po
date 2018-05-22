@@ -346,7 +346,6 @@ msgstr "添加一个图片权限"
 msgid "Search images"
 msgstr "搜索图片"
 
-#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "图片 '{0}' 已更新。"
 
@@ -361,11 +360,9 @@ msgid ""
 "the image."
 msgstr "无法找到图片源文件。请修改源文件或者删除图片。"
 
-#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "图片'{0}' 已删除。"
 
-#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "图片'{0}'已添加"
 

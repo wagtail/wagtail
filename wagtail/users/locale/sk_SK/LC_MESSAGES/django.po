@@ -21,7 +21,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sk_SK\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n "
+">= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
 
 msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
 msgstr "Povinné. 30 znakov alebo menej. Písmená, číslice a len znaky @/./+/-/_"
@@ -122,6 +123,11 @@ msgstr[1] ""
 "strong> používateľov.\n"
 "            "
 msgstr[2] ""
+"\n"
+"                Skupina '%(group_name)s' má <strong>%(group_user_count)s</"
+"strong> používateľov.\n"
+"            "
+msgstr[3] ""
 "\n"
 "                Skupina '%(group_name)s' má <strong>%(group_user_count)s</"
 "strong> používateľov.\n"
@@ -250,6 +256,9 @@ msgstr[1] ""
 msgstr[2] ""
 "\n"
 "%(counter)s výsledkov hľadania"
+msgstr[3] ""
+"\n"
+"%(counter)s výsledkov hľadania"
 
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
@@ -271,25 +280,21 @@ msgstr "Skupiny"
 msgid "Search groups"
 msgstr "Hľadať skupiny"
 
-#, python-brace-format
 msgid "Group '{0}' created."
 msgstr "Skupina '{0}' bola vytvorená."
 
-#, python-brace-format
 msgid "Group '{0}' updated."
 msgstr "Skupina '{0}' bola aktualizovaná."
 
 msgid "The group could not be saved due to errors."
 msgstr "Skupina nemôže byť uložená kvôli chybám."
 
-#, python-brace-format
 msgid "Group '{0}' deleted."
 msgstr "Skupina '{0}' bola vymazaná."
 
 msgid "Search users"
 msgstr "Hľadať používateľov"
 
-#, python-brace-format
 msgid "User '{0}' created."
 msgstr "Používateľ '{0}' bol vytvorený."
 
@@ -302,7 +307,6 @@ msgstr "Používateľ nemôže byť vytvorený kvôli chybám."
 msgid "The user could not be saved due to errors."
 msgstr "Používateľ nemôže byť uložený kvôli chybám."
 
-#, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "Používateľ '{0}' zmazaný."
 

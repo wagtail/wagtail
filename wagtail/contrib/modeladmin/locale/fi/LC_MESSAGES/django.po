@@ -168,7 +168,6 @@ msgstr "Edellinen"
 msgid "Next"
 msgstr "Seuraava"
 
-#, python-brace-format
 msgid "{model_name} '{instance}' created."
 msgstr "{model_name} '{instance}' luotu."
 
@@ -190,7 +189,6 @@ msgstr "Muokataan"
 msgid "Editing %s"
 msgstr "Muokataan %s"
 
-#, python-brace-format
 msgid "{model_name} '{instance}' updated."
 msgstr "{model_name} '{instance}' päivitetty."
 
@@ -210,7 +208,6 @@ msgstr ""
 "Oletko varma, että haluat poistaa %s? Tämä saattaa vaikuttaa muihin "
 "sivustossa kohteeseen liityviin asioihin."
 
-#, python-brace-format
 msgid "{model} '{instance}' deleted."
 msgstr "{model} '{instance}' poistettu."
 

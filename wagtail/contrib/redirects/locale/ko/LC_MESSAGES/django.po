@@ -135,7 +135,6 @@ msgstr ""
 msgid "Search redirects"
 msgstr "리다이렉트 검색"
 
-#, python-brace-format
 msgid "Redirect '{0}' updated."
 msgstr "'{0}' 리다이렉트가 업데이트 되었습니다."
 
@@ -145,11 +144,9 @@ msgstr "수정"
 msgid "The redirect could not be saved due to errors."
 msgstr "에러로 인해 리다이렉트를 저장할 수 없습니다."
 
-#, python-brace-format
 msgid "Redirect '{0}' deleted."
 msgstr "'{0}' 리다이렉트가 삭제 되었습니다."
 
-#, python-brace-format
 msgid "Redirect '{0}' added."
 msgstr "'{0}' 리다이렉트가 추가 되었습니다."
 

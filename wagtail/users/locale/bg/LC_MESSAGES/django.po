@@ -125,7 +125,6 @@ msgstr ""
 "Няма конфигурирани потребители. Защо не <a href=\"%(wagtailusers_create_url)s"
 "\">добавите един сега</a>?"
 
-#, python-brace-format
 msgid "User '{0}' created."
 msgstr "Потребител '{0}' създаден."
 

@@ -53,11 +53,9 @@ msgstr "Engadir un sitio web"
 msgid "Add site"
 msgstr "Engadir sitio web"
 
-#, python-brace-format
 msgid "Site '{0}' created."
 msgstr "Sitio web '{0}' creado."
 
-#, python-brace-format
 msgid "Site '{0}' updated."
 msgstr "Sitio web '{0}' actualizado."
 
@@ -67,7 +65,6 @@ msgstr "O sitio web non puido ser gardado debido a erros."
 msgid "Delete site"
 msgstr "Eliminar sitio web"
 
-#, python-brace-format
 msgid "Site '{0}' deleted."
 msgstr "Sitio web '{0}' eliminado."
 

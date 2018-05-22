@@ -152,7 +152,6 @@ msgstr ""
 msgid "Search promoted results"
 msgstr "提案を検索"
 
-#, python-brace-format
 msgid "Editor's picks for '{0}' created."
 msgstr "'{0}'に対する提案が作成されました。"
 
@@ -162,7 +161,6 @@ msgstr "編集"
 msgid "Recommendations have not been created due to errors"
 msgstr "提案はエラーにより作成されませんでした。"
 
-#, python-brace-format
 msgid "Editor's picks for '{0}' updated."
 msgstr "'{0}'に対する提案が更新されました。"
 

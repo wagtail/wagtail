@@ -155,7 +155,6 @@ msgstr "Modifier cette page"
 msgid "Search %(snippet_type_name)s"
 msgstr "Rechercher %(snippet_type_name)s"
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' created."
 msgstr "{snippet_type} '{instance}' créé."
 
@@ -165,14 +164,12 @@ msgstr "Modifier"
 msgid "The snippet could not be created due to errors."
 msgstr "Le bloc ne peut être créé du fait d'erreurs."
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' updated."
 msgstr "{snippet_type} '{instance}' mis à jour."
 
 msgid "The snippet could not be saved due to errors."
 msgstr "Le bloc ne peut être enregistré du fait d'erreurs."
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' deleted."
 msgstr "{snippet_type} '{instance}' supprimé."
 

@@ -145,7 +145,6 @@ msgstr "Редактировать эту страницу"
 msgid "Search %(snippet_type_name)s"
 msgstr "Искать  %(snippet_type_name)s"
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' created."
 msgstr "{snippet_type} '{instance}' создан."
 
@@ -155,14 +154,12 @@ msgstr "Правка"
 msgid "The snippet could not be created due to errors."
 msgstr "Фрагмент не может быть создан из-за ошибок."
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' updated."
 msgstr "{snippet_type} '{instance}' обновлен."
 
 msgid "The snippet could not be saved due to errors."
 msgstr "Фрагмент не может быть сохранен из-за ошибок."
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' deleted."
 msgstr "{snippet_type} '{instance}' удален."
 

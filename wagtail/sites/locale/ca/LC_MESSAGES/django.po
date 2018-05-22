@@ -53,11 +53,9 @@ msgstr "Afegir un lloc"
 msgid "Add site"
 msgstr "Afegir lloc"
 
-#, python-brace-format
 msgid "Site '{0}' created."
 msgstr "Lloc '{0}' creat."
 
-#, python-brace-format
 msgid "Site '{0}' updated."
 msgstr "Lloc '{0}' actualitzat."
 
@@ -67,7 +65,6 @@ msgstr "No s'ha pogut desar el lloc a causa d'errors."
 msgid "Delete site"
 msgstr "Eliminar lloc"
 
-#, python-brace-format
 msgid "Site '{0}' deleted."
 msgstr "Lloc '{0}' eliminat."
 

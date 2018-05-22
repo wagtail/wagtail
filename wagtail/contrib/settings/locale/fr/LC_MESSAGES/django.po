@@ -39,7 +39,6 @@ msgstr "Paramètres"
 msgid "This setting could not be opened because there is no site defined."
 msgstr "Ce paramètre ne peut être ouvert car aucun site n’est défini."
 
-#, python-brace-format
 msgid "{setting_type} updated."
 msgstr "{setting_type} mis à jour."
 

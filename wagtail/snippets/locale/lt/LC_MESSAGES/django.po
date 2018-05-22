@@ -17,8 +17,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: lt\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
-"%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
+"1 : n % 1 != 0 ? 2: 3);\n"
 
 msgid "Choose"
 msgstr "Pasirinkti"
@@ -42,6 +43,9 @@ msgstr[1] ""
 "\n"
 "Yra %(counter)s atitikmenys"
 msgstr[2] ""
+"\n"
+"Yra %(counter)s atitikmenų"
+msgstr[3] ""
 "\n"
 "Yra %(counter)s atitikmenų"
 
@@ -72,6 +76,7 @@ msgid_plural "Used %(usage_count)s times"
 msgstr[0] "Panaudota %(usage_count)s kartą"
 msgstr[1] "Panaudota %(usage_count)s kartus"
 msgstr[2] "Panaudota %(usage_count)s kartų"
+msgstr[3] "Panaudota %(usage_count)s kartų"
 
 #, python-format
 msgid "Are you sure you want to delete this %(snippet_type_name)s?"
@@ -152,7 +157,6 @@ msgstr "Redaguoti šį puslapį"
 msgid "Search %(snippet_type_name)s"
 msgstr "Ieškoti %(snippet_type_name)s"
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' created."
 msgstr "{snippet_type} '{instance}' sukurta."
 
@@ -162,14 +166,12 @@ msgstr "Redaguoti"
 msgid "The snippet could not be created due to errors."
 msgstr "Nuokarpa negalėjo būti sukurta dėl klaidų."
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' updated."
 msgstr "{snippet_type} '{instance}' atnaujinta."
 
 msgid "The snippet could not be saved due to errors."
 msgstr "Nuokarpa negalėjo būti išsaugota dėl klaidų."
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' deleted."
 msgstr "{snippet_type} '{instance}' ištrinta."
 

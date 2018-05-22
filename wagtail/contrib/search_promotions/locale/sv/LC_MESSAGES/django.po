@@ -161,7 +161,6 @@ msgstr ""
 msgid "Search promoted results"
 msgstr "Premierade sökresultat"
 
-#, python-brace-format
 msgid "Editor's picks for '{0}' created."
 msgstr "Redaktörens val för '{0}' skapad. "
 
@@ -171,7 +170,6 @@ msgstr "Redigera"
 msgid "Recommendations have not been created due to errors"
 msgstr "Rekommendationer kunde inte läggas till p.g.a. fel"
 
-#, python-brace-format
 msgid "Editor's picks for '{0}' updated."
 msgstr "Redaktörens val för '{0}' uppdaterad. "
 

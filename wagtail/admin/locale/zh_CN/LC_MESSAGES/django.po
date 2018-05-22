@@ -1165,11 +1165,9 @@ msgstr "添加一个集合"
 msgid "Add collection"
 msgstr "添加集合"
 
-#, python-brace-format
 msgid "Collection '{0}' created."
 msgstr "集合 '{0}' 已创建"
 
-#, python-brace-format
 msgid "Collection '{0}' updated."
 msgstr "集合 '{0}' 已更新"
 
@@ -1179,7 +1177,6 @@ msgstr "无法保存集合，出现错误。"
 msgid "Delete collection"
 msgstr "删除集合"
 
-#, python-brace-format
 msgid "Collection '{0}' deleted."
 msgstr "集合 '{0}' 已删除"
 
@@ -1189,18 +1186,15 @@ msgstr "确定删除此集合？"
 msgid "Editing"
 msgstr "正在编辑"
 
-#, python-brace-format
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr "页面 {0} 已创建并计划发布中。"
 
 msgid "View live"
 msgstr "实时查看"
 
-#, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "页面'{0}'已创建并发布。"
 
-#, python-brace-format
 msgid "Page '{0}' created and submitted for moderation."
 msgstr "页面 '{0}' 已创建并提交审核。"
 
@@ -1210,42 +1204,33 @@ msgstr "查看草稿"
 msgid "Failed to send notifications to moderators"
 msgstr "向版主发送通知失败"
 
-#, python-brace-format
 msgid "Page '{0}' created."
 msgstr "页面'{0}'已创建"
 
 msgid "The page could not be created due to validation errors"
 msgstr "验证错误，页面无法创建。"
 
-#, python-brace-format
 msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
 msgstr "页面 {1} 的版本 {0} 正在计划发布中。"
 
-#, python-brace-format
 msgid "Page '{0}' is live and this revision has been scheduled for publishing."
 msgstr "页面 {0} 正在使用，这个修订版本已预定发布时间。"
 
-#, python-brace-format
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "页面 {0} 已预定发布时间。"
 
-#, python-brace-format
 msgid "Revision from {0} of page '{1}' has been published."
 msgstr "页面 '{1}' 的修订版本 {0} 已经发布。"
 
-#, python-brace-format
 msgid "Page '{0}' has been published."
 msgstr "页面 '{0}' 已经发布。"
 
-#, python-brace-format
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "页面 '{0}' 已经提交给版主。"
 
-#, python-brace-format
 msgid "Page '{0}' has been replaced with revision from {1}."
 msgstr "页面 '{0}' 的修订版本 {1} 已经被替换。"
 
-#, python-brace-format
 msgid "Page '{0}' has been updated."
 msgstr "页面 '{0}' 已被更新。"
 
@@ -1261,49 +1246,39 @@ msgstr "与发布版本进行比较"
 msgid "This page is currently awaiting moderation"
 msgstr "页面等待审核中"
 
-#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "页面'{0}'已删除"
 
-#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "页面'{0}'已取消发布。"
 
-#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "页面 '{0}' 已移动。"
 
-#, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "页面 '{0}' 和 {1} 个子页面已复制。"
 
-#, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "页面'{0}'已复制。"
 
-#, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "页面 '{0}'目前不在等待审核。"
 
-#, python-brace-format
 msgid "Page '{0}' published."
 msgstr "页面'{0}'已发布"
 
 msgid "Failed to send approval notifications"
 msgstr "发送批准通知失败。"
 
-#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "页面 '{0}'审核失败"
 
 msgid "Failed to send rejection notifications"
 msgstr "发送拒绝通知失败。"
 
-#, python-brace-format
 msgid "Page '{0}' is now locked."
 msgstr "页面 '{0}'已锁定"
 
-#, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "页面 '{0}'已解锁。"
 
@@ -1321,54 +1296,42 @@ msgstr "最早的"
 msgid "Latest"
 msgstr "最近的"
 
-#, python-brace-format
 msgid "revision {0} of \"{1}\""
 msgstr " \"{1}\"的修订版本{0}"
 
-#, python-brace-format
 msgid "Revision {0} of \"{1}\" unscheduled."
 msgstr " \"{1}\"的修订版本{0}已取消预定的发布。"
 
-#, python-brace-format
 msgid "Edit '{title}'"
 msgstr "编辑 '{title}'"
 
-#, python-brace-format
 msgid "Preview draft version of '{title}'"
 msgstr "预览 '{title}' 的草稿"
 
-#, python-brace-format
 msgid "View live version of '{title}'"
 msgstr "查看 '{title}' 的发布版本"
 
-#, python-brace-format
 msgid "Add a child page to '{title}' "
 msgstr "为 '{title}' 添加子页面"
 
 msgid "More"
 msgstr "更多"
 
-#, python-brace-format
 msgid "View more options for '{title}'"
 msgstr "查看 '{title}' 的更多选项"
 
-#, python-brace-format
 msgid "Move page '{title}'"
 msgstr "移动页面 '{title}'"
 
-#, python-brace-format
 msgid "Copy page '{title}'"
 msgstr "复制页面 '{title}'"
 
-#, python-brace-format
 msgid "Delete page '{title}'"
 msgstr "删除页面 '{title}'"
 
-#, python-brace-format
 msgid "Unpublish page '{title}'"
 msgstr "取消发布页面 '{title}'"
 
-#, python-brace-format
 msgid "View revision history for '{title}'"
 msgstr "查看 '{title}' 的修订历史"
 
@@ -1384,7 +1347,6 @@ msgstr "语言首选项"
 msgid "Choose the language you want to use here."
 msgstr "请在这里选择你想使用的语言。"
 
-#, python-brace-format
 msgid "Heading {level}"
 msgstr "标题{level}"
 

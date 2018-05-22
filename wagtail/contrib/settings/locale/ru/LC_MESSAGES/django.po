@@ -41,7 +41,6 @@ msgstr "Сохранить"
 msgid "Settings"
 msgstr "Настройки"
 
-#, python-brace-format
 msgid "{setting_type} updated."
 msgstr "{setting_type} обновлен."
 

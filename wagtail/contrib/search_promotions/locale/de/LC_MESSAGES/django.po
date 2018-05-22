@@ -173,7 +173,6 @@ msgstr ""
 msgid "Search promoted results"
 msgstr "Suche hervorgehobene Ergebnisse"
 
-#, python-brace-format
 msgid "Editor's picks for '{0}' created."
 msgstr "Redaktionsempfehlungen für ‚{0}‘ erstellt."
 
@@ -183,7 +182,6 @@ msgstr "Bearbeiten"
 msgid "Recommendations have not been created due to errors"
 msgstr "Empfehlungen konnten wegen eines Fehlers nicht erstellt werden"
 
-#, python-brace-format
 msgid "Editor's picks for '{0}' updated."
 msgstr "Redaktionsempfehlungen für ‚{0}‘ geändert."
 

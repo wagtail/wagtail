@@ -41,7 +41,6 @@ msgstr ""
 "Diese Einstellung konnte nicht geöffnet werden, da keine Website definiert "
 "ist."
 
-#, python-brace-format
 msgid "{setting_type} updated."
 msgstr "{setting_type} geändert."
 

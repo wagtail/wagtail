@@ -20,7 +20,6 @@ msgstr ""
 "Language: sv\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#, python-brace-format
 msgid "{label}: this block has no options."
 msgstr "{label}: det här blocket har inga inställningar."
 

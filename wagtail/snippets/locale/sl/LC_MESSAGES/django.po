@@ -136,7 +136,6 @@ msgstr "Uredi stran"
 msgid "Search %(snippet_type_name)s"
 msgstr "Iskanje po %(snippet_type_name)s"
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' created."
 msgstr "{snippet_type} '{instance}' dodan."
 
@@ -146,14 +145,12 @@ msgstr "Uredi"
 msgid "The snippet could not be created due to errors."
 msgstr "Delca, zaradi napak, ni bilo možno ustvariti."
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' updated."
 msgstr "{snippet_type} '{instance}' posodobljen."
 
 msgid "The snippet could not be saved due to errors."
 msgstr "Delca, zaradi napak, ni bilo možno shraniti."
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' deleted."
 msgstr "{snippet_type} '{instance}' izbrisan."
 

@@ -104,18 +104,15 @@ msgstr ""
 "Не сте качили никакви документи. Защо не <a href="
 "\"%(wagtaildocs_add_document_url)s\">качите един сега</a>?"
 
-#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Документ '{0}' добавен."
 
 msgid "The document could not be saved due to errors."
 msgstr "Документа не бе запазен поради грешки."
 
-#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "Документа '{0}' е обновен."
 
-#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Документа '{0}' е изтрит."
 

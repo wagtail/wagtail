@@ -139,7 +139,6 @@ msgstr ""
 msgid "Search redirects"
 msgstr "Hae uudelleenohjauksia"
 
-#, python-brace-format
 msgid "Redirect '{0}' updated."
 msgstr "Edelleenohjaus '{0}' päivitetty."
 
@@ -149,11 +148,9 @@ msgstr "Muokkaa"
 msgid "The redirect could not be saved due to errors."
 msgstr "Edelleenohjausta ei voitu tallentaa virheiden vuoksi."
 
-#, python-brace-format
 msgid "Redirect '{0}' deleted."
 msgstr "Edelleenohjaus '{0}' poistettu."
 
-#, python-brace-format
 msgid "Redirect '{0}' added."
 msgstr "Edelleenohjaus '{0}' lisätty."
 

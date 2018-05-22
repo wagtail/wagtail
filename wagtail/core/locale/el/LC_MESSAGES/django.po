@@ -26,7 +26,6 @@ msgstr ""
 "Language: el\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#, python-brace-format
 msgid "{label}: this block has no options."
 msgstr "{label}: αυτό το block δεν έχει επιλογές."
 

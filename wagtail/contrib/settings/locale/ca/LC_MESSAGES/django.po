@@ -36,7 +36,6 @@ msgstr "Desar"
 msgid "Settings"
 msgstr "Configuració"
 
-#, python-brace-format
 msgid "{setting_type} updated."
 msgstr "{setting_type} actualitzat."
 

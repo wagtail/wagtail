@@ -17,8 +17,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: lt\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
-"%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
+"1 : n % 1 != 0 ? 2: 3);\n"
 
 msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
 msgstr "Būtinas. 30 simbolių arba mažiau. Tik raidės, skaičiai ir @/./+/-/_."
@@ -114,6 +115,9 @@ msgstr[1] ""
 "\n"
 "' %(group_name)s' grupė turi <strong>%(group_user_count)s</strong> narius."
 msgstr[2] ""
+"\n"
+"' %(group_name)s' grupė turi <strong>%(group_user_count)s</strong> narių."
+msgstr[3] ""
 "\n"
 "' %(group_name)s' grupė turi <strong>%(group_user_count)s</strong> narių."
 
@@ -239,6 +243,9 @@ msgstr[1] ""
 msgstr[2] ""
 "\n"
 "Yra %(counter)s atitikmenų"
+msgstr[3] ""
+"\n"
+"Yra %(counter)s atitikmenų"
 
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
@@ -258,25 +265,21 @@ msgstr "Grupės"
 msgid "Search groups"
 msgstr "Ieškoti grupių"
 
-#, python-brace-format
 msgid "Group '{0}' created."
 msgstr "Grupė '{0}' sukurta."
 
-#, python-brace-format
 msgid "Group '{0}' updated."
 msgstr "Grupė '{0}' atnaujinta."
 
 msgid "The group could not be saved due to errors."
 msgstr "Ši grupė negali būti išsaugota dėl klaidų."
 
-#, python-brace-format
 msgid "Group '{0}' deleted."
 msgstr "Grupė '{0}' ištrinta."
 
 msgid "Search users"
 msgstr "Ieškoti vartotojų"
 
-#, python-brace-format
 msgid "User '{0}' created."
 msgstr "Vartotojas '{0}' sukurtas."
 
@@ -289,7 +292,6 @@ msgstr "Šis vartotojas negalėjo būti sukurtas dėl klaidų."
 msgid "The user could not be saved due to errors."
 msgstr "Šis vartotojas negali būti išsaugotas dėl klaidų."
 
-#, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "Vartotojas '{0}' ištrintas."
 

@@ -123,7 +123,6 @@ msgstr "ページを編集"
 msgid "Search %(snippet_type_name)s"
 msgstr "%(snippet_type_name)sを検索"
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' created."
 msgstr "{snippet_type} '{instance}' が作成されました。"
 
@@ -133,14 +132,12 @@ msgstr "編集"
 msgid "The snippet could not be created due to errors."
 msgstr "このスニペットはエラーにより作成されませんでした。"
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' updated."
 msgstr "{snippet_type} '{instance}'が更新されました。"
 
 msgid "The snippet could not be saved due to errors."
 msgstr "このスニペットはエラーにより保存されませんでした。"
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' deleted."
 msgstr "{snippet_type} '{instance}'が削除されました。"
 

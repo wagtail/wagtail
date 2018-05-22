@@ -166,7 +166,6 @@ msgstr ""
 msgid "Search promoted results"
 msgstr "Resultats de cerca promocionats"
 
-#, python-brace-format
 msgid "Editor's picks for '{0}' created."
 msgstr "Selecció de l'editor per a '{0}' creada."
 
@@ -176,7 +175,6 @@ msgstr "Editar"
 msgid "Recommendations have not been created due to errors"
 msgstr "No s'han creat les recomanacions a causa d'errors"
 
-#, python-brace-format
 msgid "Editor's picks for '{0}' updated."
 msgstr "Selecció de l'editor per '{0}' actualitzada."
 

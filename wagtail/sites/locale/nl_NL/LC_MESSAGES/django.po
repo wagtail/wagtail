@@ -56,11 +56,9 @@ msgstr "Voeg een site toe"
 msgid "Add site"
 msgstr "Voeg site toe"
 
-#, python-brace-format
 msgid "Site '{0}' created."
 msgstr "Site '{0}' aangemaakt."
 
-#, python-brace-format
 msgid "Site '{0}' updated."
 msgstr "Site '{0}' bijgewerkt."
 
@@ -70,7 +68,6 @@ msgstr "De site kon vanwege fouten niet worden opgeslagen."
 msgid "Delete site"
 msgstr "Verwijder site"
 
-#, python-brace-format
 msgid "Site '{0}' deleted."
 msgstr "Site '{0}' verwijderd."
 

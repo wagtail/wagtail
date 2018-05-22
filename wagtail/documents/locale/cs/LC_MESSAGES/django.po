@@ -18,7 +18,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: cs\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n "
+"<= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
 
 msgid "Add"
 msgstr "Přidat"
@@ -72,6 +73,9 @@ msgstr[1] ""
 "\n"
 "Nalezeno %(counter)s dokumentů"
 msgstr[2] ""
+"\n"
+"Nalezeno %(counter)s dokumentů"
+msgstr[3] ""
 "\n"
 "Nalezeno %(counter)s dokumentů"
 
@@ -178,18 +182,15 @@ msgstr "Smazat"
 msgid "Search documents"
 msgstr "Hledat v dokumentech"
 
-#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Dokument '{0}' byl přidán."
 
 msgid "The document could not be saved due to errors."
 msgstr "Dokument nebyl uložen, zkontrolujte správné vyplnění polí."
 
-#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "Dokument '{0}' byl upraven"
 
-#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Dokument '{0}' byl smazán."
 
