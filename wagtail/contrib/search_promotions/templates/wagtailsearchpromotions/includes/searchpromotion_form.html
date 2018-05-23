@@ -12,6 +12,12 @@
             <li class="model_choice_field">
                 {% include "wagtailadmin/shared/field.html" with field=form.page only %}
             </li>
+            <li class="url_field">
+                {% include "wagtailadmin/shared/field.html" with field=form.external_page only %}
+            </li>
+            <li class="char_field">
+                {% include "wagtailadmin/shared/field.html" with field=form.external_page_title only %}
+            </li>
             <li class="char_field">
                 {% include "wagtailadmin/shared/field.html" with field=form.description only %}
             </li>

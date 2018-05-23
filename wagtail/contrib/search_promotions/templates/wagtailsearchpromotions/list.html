@@ -18,7 +18,9 @@
                 </td>
                 <td>
                     {% for searchpick in query.editors_picks.all %}
-                        <a href="{% url 'wagtailadmin_pages:edit' searchpick.page.id %}" class="nolink">{{ searchpick.page.title }}</a>{% if not forloop.last %}, {% endif %}
+                        {% if searchpick.page %}
+                            <a href="{% url 'wagtailadmin_pages:edit' searchpick.page.id %}" class="nolink">{{ searchpick.page.title }}</a>
+                        {% endif %} {% if not forloop.last %}, {% endif %}
                     {% empty %}
                         {% trans "None" %}
                     {% endfor %}

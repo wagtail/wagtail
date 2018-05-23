@@ -16,7 +16,7 @@ class SearchPromotionForm(forms.ModelForm):
 
     class Meta:
         model = SearchPromotion
-        fields = ('query', 'page', 'description')
+        fields = ('query', 'page', 'external_page', 'external_page_title', 'description')
 
         widgets = {
             'description': forms.Textarea(attrs=dict(rows=3)),
