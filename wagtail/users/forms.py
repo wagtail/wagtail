@@ -387,7 +387,7 @@ class NotificationPreferencesForm(forms.ModelForm):
 
 def _get_language_choices():
     return sorted(BLANK_CHOICE_DASH + get_available_admin_languages(),
-                  key=lambda l: l[1])
+                  key=lambda l: l[1].lower())
 
 
 class PreferredLanguageForm(forms.ModelForm):
