@@ -1,5 +1,4 @@
-{% load i18n %}
-function(modal) {
+function(modal, jsonData) {
     function ajaxifyLinks (context) {
         $('a.document-choice', context).on('click', function() {
             modal.loadUrl(this.href);
@@ -63,12 +62,10 @@ function(modal) {
                 modal.loadResponseText(response);
             },
             error: function(response, textStatus, errorThrown) {
-                {% trans "Server Error" as error_label %}
-                {% trans "Report this error to your webmaster with the following information:" as error_message %}
-                message = '{{ error_message|escapejs }}<br />' + errorThrown + ' - ' + response.status;
+                message = jsonData['error_message'] + '<br />' + errorThrown + ' - ' + response.status;
                 $('#upload').append(
                     '<div class="help-block help-critical">' +
-                    '<strong>{{ error_label|escapejs }}: </strong>' + message + '</div>');
+                    '<strong>' + jsonData['error_label'] + ': </strong>' + message + '</div>');
             }
         });
 
@@ -85,8 +82,7 @@ function(modal) {
 
     $('#collection_chooser_collection_id').on('change', search);
 
-    {% url 'wagtailadmin_tag_autocomplete' as autocomplete_url %}
     $('#id_tags', modal.body).tagit({
-        autocomplete: {source: "{{ autocomplete_url|addslashes }}"}
+        autocomplete: {source: jsonData['tag_autocomplete_url']}
     });
 }
