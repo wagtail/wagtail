@@ -59,14 +59,15 @@ function ModalWorkflow(opts) {
 
     self.loadBody = function(response) {
         if (response.html) {
-            // if the response is html
+            // if response contains an 'html' item, replace modal body with it
             self.body.html(response.html);
             container.modal('show');
         }
 
         if (response.onload) {
-            // if the response is a function
-            response.onload(self);
+            // if response contains an 'onload' funtion, call it
+            // (passing this modal object and the full response data)
+            response.onload(self, response);
         }
     };
 

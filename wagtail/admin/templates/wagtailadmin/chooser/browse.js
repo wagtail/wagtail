@@ -1,4 +1,4 @@
-function(modal) {
+function(modal, jsonData) {
     /* Set up link-types links to open in the modal */
     $('.link-types a', modal.body).on('click', function() {
         modal.loadUrl(this.href);
@@ -80,7 +80,7 @@ function(modal) {
         /* Set up behaviour of choose-page links, to pass control back to the calling page */
         $('a.choose-page', modal.body).on('click', function() {
             var pageData = $(this).data();
-            pageData.parentId = {{ parent_page.id }};
+            pageData.parentId = jsonData['parent_page_id'];
             modal.respond('pageChosen', $(this).data());
             modal.close();
 
