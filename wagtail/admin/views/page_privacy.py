@@ -34,7 +34,8 @@ def set_privacy(request, page_id):
                 form.save()
 
             return render_modal_workflow(
-                request, None, 'wagtailadmin/page_privacy/set_privacy_done.js', {
+                request, None, 'wagtailadmin/page_privacy/set_privacy_done.js',
+                None, json_data={
                     'is_public': (form.cleaned_data['restriction_type'] == 'none')
                 }
             )
