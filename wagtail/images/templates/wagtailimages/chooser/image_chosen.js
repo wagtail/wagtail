@@ -1,4 +1,4 @@
-function(modal) {
-    modal.respond('imageChosen', {{ image_json|safe }});
+function(modal, jsonData) {
+    modal.respond('imageChosen', jsonData['result']);
     modal.close();
 }
