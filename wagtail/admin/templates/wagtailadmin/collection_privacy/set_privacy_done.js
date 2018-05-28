@@ -1,4 +1,4 @@
-function(modal) {
-    modal.respond('setPermission', {% if is_public %}true{% else %}false{% endif %});
+function(modal, jsonData) {
+    modal.respond('setPermission', jsonData['is_public']);
     modal.close();
 }
