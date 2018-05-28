@@ -1,4 +1,4 @@
-function(modal) {
-    modal.respond('snippetChosen', {{ snippet_json|safe }});
+function(modal, jsonData) {
+    modal.respond('snippetChosen', jsonData['result']);
     modal.close();
 }
