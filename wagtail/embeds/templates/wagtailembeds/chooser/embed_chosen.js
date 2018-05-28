@@ -1,4 +1,4 @@
-function(modal) {
-    modal.respond('embedChosen', '{{ embed_html|escapejs }}', {{ embed_json|safe }});
+function(modal, jsonData) {
+    modal.respond('embedChosen', jsonData['embed_html'], jsonData['embed_data']);
     modal.close();
 }
