@@ -301,6 +301,7 @@ Contributors
 * Jérôme Lebleu
 * Victor Miti
 * Andrew Plummer
+* Dmitry Vasilev
 
 Translators
 ===========
