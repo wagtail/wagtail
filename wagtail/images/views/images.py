@@ -116,7 +116,18 @@ def edit(request, image_id):
                 # if providing a new image file, delete the old one and all renditions.
                 # NB Doing this via original_file.delete() clears the file field,
                 # which definitely isn't what we want...
-                original_file.storage.delete(original_file.name)
+                #
+                # Only do this if the new stored file was given a different
+                # filename than the old one. By convention Django file storage
+                # does not overwrite uploaded files that have the same name,
+                # but some storage backends do support this. This extra check
+                # ensures that if a storage backend overwrites an existing
+                # file, we don't delete what we just uploaded.
+                if image.file.name != original_file.name:
+                    original_file.storage.delete(original_file.name)
+
+                # We always want to delete all renditions, even if the new
+                # upload has the same filename as the old one.
                 image.renditions.all().delete()
 
             # Reindex the image to make sure all tags are indexed

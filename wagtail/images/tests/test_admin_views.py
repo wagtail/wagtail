@@ -447,7 +447,6 @@ class TestImageEditView(TestCase, WagtailTestUtils):
     def test_get_missing_file_displays_warning_with_custom_storage(self):
         self.check_get_missing_file_displays_warning()
 
-
     def get_content(self, f=None):
         if f is None:
             f = self.image.file
@@ -492,6 +491,39 @@ class TestImageEditView(TestCase, WagtailTestUtils):
         self.assertNotEqual(old_rendition.file.name, new_rendition.file.name)
         self.assertNotEqual(self.get_content(new_rendition.file),
                             old_rendition_data)
+
+    @override_settings(
+        DEFAULT_FILE_STORAGE='wagtail.tests.dummy_external_storage.OverwritingDummyExternalStorage'
+    )
+    def test_reupload_same_name_with_overwriting_storage_backend(self):
+        """Uploads to an overwriting backend should be stored properly.
+
+        The image edit view tries to delete an old file when a new one is
+        uploaded. This is typically safe because Django file storage backends
+        give each uploaded file a new filename, even if the source files have
+        the same name.
+
+        In cases where the storage backend doesn't do this, and instead
+        overwrites files in storage, the image edit view should skip the
+        delete because there isn't an old file to clean up.
+        """
+        test_file = get_test_image_file(filename='test.png')
+        test_content = test_file.file.getvalue()
+
+        image = Image.objects.create(title='Test image', file=test_file)
+
+        self.client.post(
+            reverse('wagtailimages:edit', args=(image.pk,)),
+            {
+                'title': 'Edited',
+                'file': SimpleUploadedFile('test.png', test_content),
+            }
+        )
+
+        image.refresh_from_db()
+
+        self.assertTrue(image.file.storage.exists(image.file.name))
+
 
     def test_reupload_different_name(self):
         """

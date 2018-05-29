@@ -81,3 +81,24 @@ class DummyExternalStorageFile(File):
             return super().size
         except Exception as e:
             raise DummyExternalStorageError(str(e))
+
+
+@deconstructible
+class OverwritingDummyExternalStorage(DummyExternalStorage):
+    """Dummy storage class that simulates overwriting of files.
+
+    The Django file storage backend convention is to give every file a
+    unique filename, even if source filenames are the same. Typically backends
+    append filenames with random characters when they are stored to
+    disambiguate between them.
+
+    Some backends may support overwriting of files instead, where files
+    with the same name replace each other in storage.
+
+    This class simulates an external backend with this behavior.
+    """
+    def get_available_name(self, name, max_length=None):
+        if self.exists(name):
+            self.delete(name)
+
+        return name

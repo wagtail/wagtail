@@ -304,45 +304,70 @@ class TestDocumentEditView(TestCase, WagtailTestUtils):
         self.assertContains(response, self.document.usage_url)
         self.assertContains(response, 'Used 0 times')
 
+    def reupload_document_with_the_same_filename(self, new_document_content):
+        response = self.client.post(
+            reverse('wagtaildocs:edit', args=(self.document.pk,)),
+            {
+                'title': self.document.title,
+                'file': SimpleUploadedFile(
+                    self.document.filename,
+                    new_document_content
+                ),
+            }
+        )
+
+        self.assertRedirects(response, reverse('wagtaildocs:index'))
+        self.document.refresh_from_db()
+
     def test_reupload_same_name(self):
         """
         Checks that reuploading the document file with the same file name
         changes the file name, to avoid browser cache issues (see #3816).
-        """
-        old_filename = self.document.file.name
-        new_name = self.document.filename
-        new_file = SimpleUploadedFile(new_name, b'An updated test content.')
 
-        response = self.client.post(reverse('wagtaildocs:edit', args=(self.document.pk,)), {
-            'title': self.document.title, 'file': new_file,
-        })
-        self.assertRedirects(response, reverse('wagtaildocs:index'))
-        self.document.refresh_from_db()
-        self.assertFalse(self.document.file.storage.exists(old_filename))
+        This happens because the default and recommended Django storage
+        backend behavior assigns a unique filename to reuploads.
+        """
+        old_document_filename = self.document.filename
+        old_storage_filename = self.document.file.name
+        new_document_content = b'new document content'
+
+        self.reupload_document_with_the_same_filename(new_document_content)
+
+        # Old version of the file in storage should have been deleted.
+        self.assertFalse(self.document.file.storage.exists(old_storage_filename))
+
+        # New version of the document should exist in storage.
         self.assertTrue(self.document.file.storage.exists(self.document.file.name))
-        self.assertNotEqual(self.document.file.name, 'documents/' + new_name)
-        self.assertEqual(self.document.file.read(),
-                         b'An updated test content.')
 
-    def test_reupload_different_name(self):
-        """
-        Checks that reuploading the document file with a different file name
-        correctly uses the new file name.
-        """
-        old_filename = self.document.file.name
-        new_name = 'test_reupload_different_name.txt'
-        new_file = SimpleUploadedFile(new_name, b'An updated test content.')
+        # New version should have a modified filename assigned to it by the storage.
+        self.assertNotEqual(self.document.file.name, 'documents/' + old_document_filename)
 
-        response = self.client.post(reverse('wagtaildocs:edit', args=(self.document.pk,)), {
-            'title': self.document.title, 'file': new_file,
-        })
-        self.assertRedirects(response, reverse('wagtaildocs:index'))
-        self.document.refresh_from_db()
-        self.assertFalse(self.document.file.storage.exists(old_filename))
-        self.assertTrue(self.document.file.storage.exists(self.document.file.name))
-        self.assertEqual(self.document.file.name, 'documents/' + new_name)
-        self.assertEqual(self.document.file.read(),
-                         b'An updated test content.')
+        # New version should have the new content.
+        self.assertEqual(self.document.file.read(), new_document_content)
+
+    @override_settings(
+        DEFAULT_FILE_STORAGE='wagtail.tests.dummy_external_storage.OverwritingDummyExternalStorage'
+    )
+    def test_reupload_same_name_with_overwriting_backend(self):
+        """
+        Checks that reuploading a document file with the same filename
+        keeps the filename the same when the storage backend supports it.
+        """
+        old_document_filename = self.document.filename
+        old_storage_filename = self.document.file.name
+        new_document_content = b'new document content'
+
+        self.reupload_document_with_the_same_filename(new_document_content)
+
+        # Old version of the file in storage should still exist.
+        self.assertTrue(self.document.file.storage.exists(old_storage_filename))
+
+        # The document's filename should not have changed.
+        self.assertEqual(self.document.file.name, old_storage_filename)
+        self.assertEqual(self.document.file.name, 'documents/' + old_document_filename)
+
+        # New version should have the new content.
+        self.assertEqual(self.document.file.read(), new_document_content)
 
 
 class TestDocumentDeleteView(TestCase, WagtailTestUtils):

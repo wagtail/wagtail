@@ -152,7 +152,15 @@ def edit(request, document_id):
                 # if providing a new document file, delete the old one.
                 # NB Doing this via original_file.delete() clears the file field,
                 # which definitely isn't what we want...
-                original_file.storage.delete(original_file.name)
+                #
+                # Only do this if the new stored file was given a different
+                # filename than the old one. By convention Django file storage
+                # does not overwrite uploaded files that have the same name,
+                # but some storage backends do support this. This extra check
+                # ensures that if a storage backend overwrites an existing
+                # file, we don't delete what we just uploaded.
+                if doc.file.name != original_file.name:
+                    original_file.storage.delete(original_file.name)
 
             # Reindex the document to make sure all tags are indexed
             search_index.insert_or_update_object(doc)
