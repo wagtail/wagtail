@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.http import HttpResponse
 
+import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 from wagtail.admin.menu import MenuItem
 from wagtail.admin.rich_text import HalloPlugin
 from wagtail.admin.search import SearchArea
@@ -86,6 +87,7 @@ def hide_hidden_pages(parent_page, pages, request):
 
 
 # register 'blockquote' as a rich text feature supported by a hallo.js plugin
+# and a Draftail feature
 @hooks.register('register_rich_text_features')
 def register_blockquote_feature(features):
     features.register_editor_plugin(
@@ -93,5 +95,12 @@ def register_blockquote_feature(features):
             name='halloblockquote',
             js=['testapp/js/hallo-blockquote.js'],
             css={'all': ['testapp/css/hallo-blockquote.css']},
+        )
+    )
+    features.register_editor_plugin(
+        'draftail', 'blockquote', draftail_features.EntityFeature(
+            {},
+            js=['testapp/js/draftail-blockquote.js'],
+            css={'all': ['testapp/css/draftail-blockquote.css']},
         )
     )

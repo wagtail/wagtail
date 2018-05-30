@@ -177,7 +177,10 @@ In order to achieve this, we start with registering the rich text feature like f
         }
 
         features.register_editor_plugin(
-            'draftail', feature_name, draftail_features.EntityFeature(control)
+            'draftail', feature_name, draftail_features.EntityFeature(
+                control,
+                js=['stock.js']  # Additional JS to be loaded when this feature is active
+            )
         )
 
         features.register_converter_rule('contentstate', feature_name, {
@@ -220,26 +223,7 @@ Since entities hold data, the conversion to/from database format is more complic
 
 Note how they both do similar conversions, but use different APIs. ``to_database_format`` is built with the `Draft.js exporter <https://github.com/springload/draftjs_exporter>`_ components API, whereas ``from_database_format`` uses a Wagtail API.
 
-The next step is to add JavaScript to define how the entities are created (the ``source``), and how they are displayed (the ``decorator``). First, we load the JS file which will contain those components:
-
-.. code-block:: python
-
-    from django.utils.html import format_html_join
-    from django.conf import settings
-
-    @hooks.register('insert_editor_js')
-    def stock_editor_js():
-        js_files = [
-            # We require this file here to make sure it is loaded before stock.js.
-            'wagtailadmin/js/draftail.js',
-            'stock.js',
-        ]
-        js_includes = format_html_join('\n', '<script src="{0}{1}"></script>',
-            ((settings.STATIC_URL, filename) for filename in js_files)
-        )
-        return js_includes
-
-We define the source component:
+The next step is to add JavaScript to define how the entities are created (the ``source``), and how they are displayed (the ``decorator``). Within ``stock.js``, we define the source component:
 
 .. code-block:: javascript
 
