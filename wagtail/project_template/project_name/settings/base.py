@@ -21,6 +21,16 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 # See https://docs.djangoproject.com/en/{{ docs_version }}/howto/deployment/checklist/
 
 
+# Read secret key from the "SECRET_KEY" environment variable.
+if 'SECRET_KEY' in os.environ:
+    SECRET_KEY = os.environ['SECRET_KEY']
+
+
+# Read allowed hosts list from the "ALLOWED_HOSTS" environment variable.
+if 'ALLOWED_HOSTS' in os.environ:
+    ALLOWED_HOSTS = os.environ['ALLOWED_HOSTS'].split(',')
+
+
 # Application definition
 
 INSTALLED_APPS = [
