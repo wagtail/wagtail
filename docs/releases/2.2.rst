@@ -16,6 +16,7 @@ Other features
  * Added another valid AudioBoom oEmbed pattern (Bertrand Bordage)
  * Added ``annotate_score`` support to PostgreSQL search backend (Bertrand Bordage)
  * Pillow's image optimisation is now applied when saving PNG images (Dmitry Vasilev)
+ * JS / CSS media files can now be associated with Draftail feature definitions (Matt Westcott)
 
 Bug fixes
 ~~~~~~~~~
