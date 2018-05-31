@@ -1,7 +1,6 @@
 from django.conf.urls import include, url
 from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
-from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.urls import reverse
 from django.utils.html import format_html
 from django.utils.translation import ugettext_lazy as _
@@ -39,10 +38,8 @@ def register_snippets_menu_item():
 def editor_js():
     return format_html(
         """
-            <script src="{0}"></script>
-            <script>window.chooserUrls.snippetChooser = '{1}';</script>
+            <script>window.chooserUrls.snippetChooser = '{0}';</script>
         """,
-        static('wagtailsnippets/js/snippet-chooser.js'),
         reverse('wagtailsnippets:choose_generic')
     )
 
