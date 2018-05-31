@@ -89,6 +89,17 @@ class CreateView(PermissionPanelFormsMixin, generic.CreateView):
         else:
             return self.form_invalid(form)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # add a 'form_media' variable for the collected js/css media from the form and all formsets
+        form_media = context['form'].media
+        for panel in context['permission_panels']:
+            form_media += panel.media
+        context['form_media'] = form_media
+
+        return context
+
 
 class EditView(PermissionPanelFormsMixin, generic.EditView):
     success_message = _("Group '{0}' updated.")
@@ -115,6 +126,17 @@ class EditView(PermissionPanelFormsMixin, generic.EditView):
             return response
         else:
             return self.form_invalid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # add a 'form_media' variable for the collected js/css media from the form and all formsets
+        form_media = context['form'].media
+        for panel in context['permission_panels']:
+            form_media += panel.media
+        context['form_media'] = form_media
+
+        return context
 
 
 class DeleteView(generic.DeleteView):
