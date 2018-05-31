@@ -26,10 +26,12 @@
 {% block extra_css %}
     {{ block.super }}
     {% include "wagtailadmin/pages/_editor_css.html" %}
+    {{ form_media.css }}
 {% endblock %}
 {% block extra_js %}
     {{ block.super }}
     {% include "wagtailadmin/pages/_editor_js.html" %}
+    {{ form_media.js }}
 
     <script type="text/javascript">
         {% include "wagtailsearchpromotions/includes/searchpromotions_formset.js" with formset=searchpicks_formset only  %}
