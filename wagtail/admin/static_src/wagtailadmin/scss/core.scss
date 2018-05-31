@@ -321,6 +321,19 @@ footer {
     z-index: 6;
 }
 
+.submenu-active > .nav-submenu {
+    overflow: initial;
+    overflow-x: visible;
+}
+
+.nav-submenu .nav-submenu {
+    display: none;
+}
+
+.nav-submenu .submenu-active .nav-submenu {
+    display: block;
+}
+
 footer,
 .logo {
     z-index: 100;

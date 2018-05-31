@@ -302,6 +302,7 @@ Contributors
 * Victor Miti
 * Andrew Plummer
 * Dmitry Vasilev
+* Rhys Gibbs
 
 Translators
 ===========

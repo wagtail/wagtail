@@ -517,7 +517,10 @@ class ModelAdminGroup(WagtailRegisterable):
         """
         self.modeladmin_instances = []
         for ModelAdminClass in self.items:
-            self.modeladmin_instances.append(ModelAdminClass(parent=self))
+            if hasattr(ModelAdminClass, 'items'):
+                self.modeladmin_instances.append(ModelAdminClass())
+            else:
+                self.modeladmin_instances.append(ModelAdminClass(parent=self))
 
     def get_menu_label(self):
         return self.menu_label or self.get_app_label_from_subitems()
@@ -547,7 +550,10 @@ class ModelAdminGroup(WagtailRegisterable):
         menu_items = []
         item_order = 1
         for modeladmin in self.modeladmin_instances:
-            menu_items.append(modeladmin.get_menu_item(order=item_order))
+            if isinstance(modeladmin, ModelAdminGroup):
+                menu_items.append(modeladmin.get_menu_item())
+            else:
+                menu_items.append(modeladmin.get_menu_item(order=item_order))
             item_order += 1
         return menu_items
 
