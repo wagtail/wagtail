@@ -26,6 +26,7 @@ class Book(index.Indexed, models.Model):
 
     search_fields = [
         index.SearchField('title', partial_match=True, boost=2.0),
+        index.AutocompleteField('title'),
         index.FilterField('title'),
         index.RelatedFields('authors', Author.search_fields),
         index.FilterField('publication_date'),

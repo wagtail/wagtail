@@ -222,6 +222,10 @@ class SearchField(BaseField):
         self.partial_match = partial_match
 
 
+class AutocompleteField(BaseField):
+    pass
+
+
 class FilterField(BaseField):
     pass
 
