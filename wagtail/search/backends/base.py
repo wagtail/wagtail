@@ -33,7 +33,7 @@ class OrderByFieldError(FieldError):
 class BaseSearchQueryCompiler:
     DEFAULT_OPERATOR = 'or'
 
-    def __init__(self, queryset, query, fields=None, operator=None, order_by_relevance=True):
+    def __init__(self, queryset, query, fields=None, operator=None, order_by_relevance=True, partial_match=True):
         self.queryset = queryset
         if query is None:
             warn('Querying `None` is deprecated, use `MATCH_ALL` instead.',
@@ -45,6 +45,7 @@ class BaseSearchQueryCompiler:
         self.query = query
         self.fields = fields
         self.order_by_relevance = order_by_relevance
+        self.partial_match = partial_match
 
     def _get_filterable_field(self, field_attname):
         # Get field
@@ -299,7 +300,7 @@ class BaseSearchBackend:
     def delete(self, obj):
         raise NotImplementedError
 
-    def search(self, query, model_or_queryset, fields=None, operator=None, order_by_relevance=True, query_compiler_class=None):
+    def search(self, query, model_or_queryset, fields=None, operator=None, order_by_relevance=True, partial_match=True, query_compiler_class=None):
         # Find model/queryset
         if isinstance(model_or_queryset, QuerySet):
             model = model_or_queryset.model
@@ -319,7 +320,7 @@ class BaseSearchBackend:
         # Search
         query_compiler_class = query_compiler_class or self.query_compiler_class
         search_query = query_compiler_class(
-            queryset, query, fields=fields, operator=operator, order_by_relevance=order_by_relevance
+            queryset, query, fields=fields, operator=operator, order_by_relevance=order_by_relevance, partial_match=partial_match
         )
 
         # Check the query

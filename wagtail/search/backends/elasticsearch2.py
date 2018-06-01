@@ -498,7 +498,12 @@ class Elasticsearch2SearchQueryCompiler(BaseSearchQueryCompiler):
                 % query.__class__.__name__)
 
     def get_inner_query(self):
-        fields = self.remapped_fields or [self.mapping.all_field_name, self.mapping.edgengrams_field_name]
+        if self.remapped_fields:
+            fields = self.remapped_fields
+        elif self.partial_match:
+            fields = [self.mapping.all_field_name, self.mapping.edgengrams_field_name]
+        else:
+            fields = [self.mapping.all_field_name]
 
         if len(fields) == 0:
             # No fields. Return a query that'll match nothing
