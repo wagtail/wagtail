@@ -34,6 +34,7 @@ describe('ModalWorkflowSource', () => {
       expect(getChooserConfig({ type: 'IMAGE' }, null, '')).toEqual({
         url: '/admin/images/chooser/?select_format=true',
         urlParams: {},
+        onload: global.IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS,
       });
     });
 
@@ -41,6 +42,7 @@ describe('ModalWorkflowSource', () => {
       expect(getChooserConfig({ type: 'EMBED' }, null, '')).toEqual({
         url: '/admin/embeds/chooser/',
         urlParams: {},
+        onload: {},
       });
     });
 
@@ -48,6 +50,7 @@ describe('ModalWorkflowSource', () => {
       expect(getChooserConfig({ type: 'DOCUMENT' }, null, '')).toEqual({
         url: '/admin/documents/chooser/',
         urlParams: {},
+        onload: {},
       });
     });
 

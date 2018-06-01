@@ -58,6 +58,8 @@ global.chooserUrls = {
   snippetChooser: '/admin/snippets/choose/',
 };
 
+global.IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {};
+
 const jQueryObj = {
   on: jest.fn(),
   off: jest.fn(),
