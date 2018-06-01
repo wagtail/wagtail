@@ -18,16 +18,24 @@ MUTABILITY[ENTITY_TYPE.IMAGE] = 'IMMUTABLE';
 MUTABILITY[EMBED] = 'IMMUTABLE';
 
 export const getChooserConfig = (entityType, entity, selectedText) => {
-  const chooserURL = {};
-  chooserURL[ENTITY_TYPE.IMAGE] = `${global.chooserUrls.imageChooser}?select_format=true`;
-  chooserURL[EMBED] = global.chooserUrls.embedsChooser;
-  chooserURL[ENTITY_TYPE.LINK] = global.chooserUrls.pageChooser;
-  chooserURL[DOCUMENT] = global.chooserUrls.documentChooser;
+  let url;
+  let urlParams;
 
-  let url = chooserURL[entityType.type];
-  let urlParams = {};
+  switch (entityType.type) {
+  case ENTITY_TYPE.IMAGE:
+    return {
+      url: `${global.chooserUrls.imageChooser}?select_format=true`,
+      urlParams: {},
+    };
 
-  if (entityType.type === ENTITY_TYPE.LINK) {
+  case EMBED:
+    return {
+      url: global.chooserUrls.embedsChooser,
+      urlParams: {},
+    };
+
+  case ENTITY_TYPE.LINK:
+    url = global.chooserUrls.pageChooser;
     urlParams = {
       page_type: 'wagtailcore.page',
       allow_external_link: true,
@@ -49,12 +57,24 @@ export const getChooserConfig = (entityType, entity, selectedText) => {
         urlParams.link_url = data.url;
       }
     }
-  }
 
-  return {
-    url,
-    urlParams,
-  };
+    return {
+      url,
+      urlParams,
+    };
+
+  case DOCUMENT:
+    return {
+      url: global.chooserUrls.documentChooser,
+      urlParams: {},
+    };
+
+  default:
+    return {
+      url: null,
+      urlParams: {},
+    };
+  }
 };
 
 export const filterEntityData = (entityType, data) => {
