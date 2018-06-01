@@ -268,6 +268,7 @@ class EmptySearchResults(BaseSearchResults):
 
 class BaseSearchBackend:
     query_compiler_class = None
+    autocomplete_query_compiler_class = None
     results_class = None
     rebuilder_class = None
 
@@ -298,7 +299,7 @@ class BaseSearchBackend:
     def delete(self, obj):
         raise NotImplementedError
 
-    def search(self, query, model_or_queryset, fields=None, operator=None, order_by_relevance=True):
+    def search(self, query, model_or_queryset, fields=None, operator=None, order_by_relevance=True, query_compiler_class=None):
         # Find model/queryset
         if isinstance(model_or_queryset, QuerySet):
             model = model_or_queryset.model
@@ -316,7 +317,8 @@ class BaseSearchBackend:
             return EmptySearchResults()
 
         # Search
-        search_query = self.query_compiler_class(
+        query_compiler_class = query_compiler_class or self.query_compiler_class
+        search_query = query_compiler_class(
             queryset, query, fields=fields, operator=operator, order_by_relevance=order_by_relevance
         )
 
@@ -324,3 +326,16 @@ class BaseSearchBackend:
         search_query.check()
 
         return self.results_class(self, search_query)
+
+    def autocomplete(self, query, model_or_queryset, fields=None, operator=None, order_by_relevance=True):
+        if self.autocomplete_query_compiler_class is None:
+            raise NotImplementedError("This search backend does not support the autocomplete API")
+
+        return self.search(
+            query,
+            model_or_queryset,
+            fields=fields,
+            operator=operator,
+            order_by_relevance=order_by_relevance,
+            query_compiler_class=self.autocomplete_query_compiler_class,
+        )

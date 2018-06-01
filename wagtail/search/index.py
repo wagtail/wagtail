@@ -61,6 +61,13 @@ class Indexed:
         ]
 
     @classmethod
+    def get_autocomplete_search_fields(cls):
+        return [
+            field for field in cls.get_search_fields()
+            if isinstance(field, AutocompleteField)
+        ]
+
+    @classmethod
     def get_filterable_search_fields(cls):
         return [
             field for field in cls.get_search_fields()
