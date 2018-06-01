@@ -607,6 +607,43 @@ class Elasticsearch2SearchQueryCompiler(BaseSearchQueryCompiler):
         return json.dumps(self.get_query())
 
 
+class ElasticsearchAutocompleteQueryCompilerImpl:
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        # Convert field names into index column names
+        # Note: this overrides Elasticsearch2SearchQueryCompiler by using autocomplete fields instead of searchbale fields
+        if self.fields:
+            fields = []
+            autocomplete_fields = {f.field_name: f for f in self.queryset.model.get_autocomplete_search_fields()}
+            for field_name in self.fields:
+                if field_name in autocomplete_fields:
+                    field_name = self.mapping.get_field_column_name(autocomplete_fields[field_name])
+
+                fields.append(field_name)
+
+            self.remapped_fields = fields
+        else:
+            self.remapped_fields = None
+
+    def get_inner_query(self):
+        fields = self.remapped_fields or [self.mapping.edgengrams_field_name]
+
+        if len(fields) == 0:
+            # No fields. Return a query that'll match nothing
+            return {
+                'bool': {
+                    'mustNot': {'match_all': {}}
+                }
+            }
+
+        return self._compile_plaintext_query(self.query, fields)
+
+
+class Elasticsearch2AutocompleteQueryCompiler(Elasticsearch2SearchQueryCompiler, ElasticsearchAutocompleteQueryCompilerImpl):
+    pass
+
+
 class Elasticsearch2SearchResults(BaseSearchResults):
     fields_param_name = 'fields'
 
@@ -935,6 +972,7 @@ class ElasticsearchAtomicIndexRebuilder(ElasticsearchIndexRebuilder):
 class Elasticsearch2SearchBackend(BaseSearchBackend):
     index_class = Elasticsearch2Index
     query_compiler_class = Elasticsearch2SearchQueryCompiler
+    autocomplete_query_compiler_class = Elasticsearch2AutocompleteQueryCompiler
     results_class = Elasticsearch2SearchResults
     mapping_class = Elasticsearch2Mapping
     basic_rebuilder_class = ElasticsearchIndexRebuilder
