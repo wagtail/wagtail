@@ -32,4 +32,7 @@ class AdminImageChooser(AdminChooser):
         return "createImageChooser({0});".format(json.dumps(id_))
 
     class Media:
-        js = ['wagtailimages/js/image-chooser.js']
+        js = [
+            'wagtailimages/js/image-chooser-modal.js',
+            'wagtailimages/js/image-chooser.js',
+        ]

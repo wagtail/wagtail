@@ -26,12 +26,14 @@ export const getChooserConfig = (entityType, entity, selectedText) => {
     return {
       url: `${global.chooserUrls.imageChooser}?select_format=true`,
       urlParams: {},
+      onload: global.IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS,
     };
 
   case EMBED:
     return {
       url: global.chooserUrls.embedsChooser,
       urlParams: {},
+      onload: {},
     };
 
   case ENTITY_TYPE.LINK:
@@ -61,18 +63,21 @@ export const getChooserConfig = (entityType, entity, selectedText) => {
     return {
       url,
       urlParams,
+      onload: {},
     };
 
   case DOCUMENT:
     return {
       url: global.chooserUrls.documentChooser,
       urlParams: {},
+      onload: {},
     };
 
   default:
     return {
       url: null,
       urlParams: {},
+      onload: {},
     };
   }
 };
@@ -133,7 +138,7 @@ class ModalWorkflowSource extends Component {
   componentDidMount() {
     const { onClose, entityType, entity, editorState } = this.props;
     const selectedText = getSelectionText(editorState);
-    const { url, urlParams } = getChooserConfig(entityType, entity, selectedText);
+    const { url, urlParams, onload } = getChooserConfig(entityType, entity, selectedText);
 
     $(document.body).on('hidden.bs.modal', this.onClose);
 
@@ -141,6 +146,7 @@ class ModalWorkflowSource extends Component {
     this.workflow = global.ModalWorkflow({
       url,
       urlParams,
+      onload,
       responses: {
         imageChosen: this.onChosen,
         // Discard the first parameter (HTML) to only transmit the data.

@@ -67,7 +67,10 @@ def register_image_feature(features):
         'hallo', 'image',
         HalloPlugin(
             name='hallowagtailimage',
-            js=['wagtailimages/js/hallo-plugins/hallo-wagtailimage.js'],
+            js=[
+                'wagtailimages/js/image-chooser-modal.js',
+                'wagtailimages/js/hallo-plugins/hallo-wagtailimage.js',
+            ],
         )
     )
 
@@ -88,7 +91,9 @@ def register_image_feature(features):
             'whitelist': {
                 'id': True,
             }
-        })
+        }, js=[
+            'wagtailimages/js/image-chooser-modal.js',
+        ])
     )
 
     # define how to convert between contentstate's representation of images and
