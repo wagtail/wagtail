@@ -33,7 +33,7 @@ class OrderByFieldError(FieldError):
 class BaseSearchQueryCompiler:
     DEFAULT_OPERATOR = 'or'
 
-    def __init__(self, queryset, query, fields=None, operator=None, order_by_relevance=True):
+    def __init__(self, queryset, query, fields=None, operator=None, order_by_relevance=True, partial_match=True):
         self.queryset = queryset
         if query is None:
             warn('Querying `None` is deprecated, use `MATCH_ALL` instead.',
@@ -45,6 +45,7 @@ class BaseSearchQueryCompiler:
         self.query = query
         self.fields = fields
         self.order_by_relevance = order_by_relevance
+        self.partial_match = partial_match
 
     def _get_filterable_field(self, field_attname):
         # Get field
@@ -273,6 +274,7 @@ class EmptySearchResults(BaseSearchResults):
 
 class BaseSearchBackend:
     query_compiler_class = None
+    autocomplete_query_compiler_class = None
     results_class = None
     rebuilder_class = None
 
@@ -303,7 +305,7 @@ class BaseSearchBackend:
     def delete(self, obj):
         raise NotImplementedError
 
-    def search(self, query, model_or_queryset, fields=None, operator=None, order_by_relevance=True):
+    def _search(self, query_compiler_class, query, model_or_queryset, **kwargs):
         # Find model/queryset
         if isinstance(model_or_queryset, QuerySet):
             model = model_or_queryset.model
@@ -321,11 +323,36 @@ class BaseSearchBackend:
             return EmptySearchResults()
 
         # Search
-        search_query = self.query_compiler_class(
-            queryset, query, fields=fields, operator=operator, order_by_relevance=order_by_relevance
+        query_compiler_class = query_compiler_class
+        search_query = query_compiler_class(
+            queryset, query, **kwargs
         )
 
         # Check the query
         search_query.check()
 
         return self.results_class(self, search_query)
+
+    def search(self, query, model_or_queryset, fields=None, operator=None, order_by_relevance=True, partial_match=True):
+        return self._search(
+            self.query_compiler_class,
+            query,
+            model_or_queryset,
+            fields=fields,
+            operator=operator,
+            order_by_relevance=order_by_relevance,
+            partial_match=partial_match,
+        )
+
+    def autocomplete(self, query, model_or_queryset, fields=None, operator=None, order_by_relevance=True):
+        if self.autocomplete_query_compiler_class is None:
+            raise NotImplementedError("This search backend does not support the autocomplete API")
+
+        return self._search(
+            self.autocomplete_query_compiler_class,
+            query,
+            model_or_queryset,
+            fields=fields,
+            operator=operator,
+            order_by_relevance=order_by_relevance,
+        )

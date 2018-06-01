@@ -61,6 +61,13 @@ class Indexed:
         ]
 
     @classmethod
+    def get_autocomplete_search_fields(cls):
+        return [
+            field for field in cls.get_search_fields()
+            if isinstance(field, AutocompleteField)
+        ]
+
+    @classmethod
     def get_filterable_search_fields(cls):
         return [
             field for field in cls.get_search_fields()
@@ -220,6 +227,10 @@ class SearchField(BaseField):
         super().__init__(field_name, **kwargs)
         self.boost = boost
         self.partial_match = partial_match
+
+
+class AutocompleteField(BaseField):
+    pass
 
 
 class FilterField(BaseField):

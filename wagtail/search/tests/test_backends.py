@@ -172,6 +172,17 @@ class BackendTests(WagtailTestUtils):
             "Two Scoops of Django 1.11"
         ])
 
+    # AUTOCOMPLETE TESTS
+
+    def test_autocomplete(self):
+        # This one shouldn't match "Django Two scoops" as "get_programming_language_display"
+        # isn't an autocomplete field
+        results = self.backend.autocomplete("Py", models.Book)
+
+        self.assertUnsortedListEqual([r.title for r in results], [
+            "Learning Python",
+        ])
+
     # FILTERING TESTS
 
     def test_filter_exact_value(self):

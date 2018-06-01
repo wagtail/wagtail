@@ -1,3 +1,4 @@
+from .elasticsearch2 import ElasticsearchAutocompleteQueryCompilerImpl
 from .elasticsearch5 import (
     Elasticsearch5Index, Elasticsearch5Mapping, Elasticsearch5SearchBackend,
     Elasticsearch5SearchQueryCompiler, Elasticsearch5SearchResults)
@@ -48,10 +49,15 @@ class Elasticsearch6SearchResults(Elasticsearch5SearchResults):
     pass
 
 
+class Elasticsearch6AutocompleteQueryCompiler(Elasticsearch5SearchQueryCompiler, ElasticsearchAutocompleteQueryCompilerImpl):
+    pass
+
+
 class Elasticsearch6SearchBackend(Elasticsearch5SearchBackend):
     mapping_class = Elasticsearch6Mapping
     index_class = Elasticsearch6Index
     query_compiler_class = Elasticsearch6SearchQueryCompiler
+    autocomplete_query_compiler_class = Elasticsearch6AutocompleteQueryCompiler
     results_class = Elasticsearch6SearchResults
 
 

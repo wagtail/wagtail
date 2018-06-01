@@ -13,7 +13,8 @@ from elasticsearch.helpers import bulk
 
 from wagtail.search.backends.base import (
     BaseSearchBackend, BaseSearchQueryCompiler, BaseSearchResults, FilterFieldError)
-from wagtail.search.index import FilterField, Indexed, RelatedFields, SearchField, class_is_indexed
+from wagtail.search.index import (
+    AutocompleteField, FilterField, Indexed, RelatedFields, SearchField, class_is_indexed)
 from wagtail.search.query import (
     And, Boost, Filter, Fuzzy, MatchAll, Not, Or, PlainText, Prefix, Term)
 from wagtail.utils.deprecation import RemovedInWagtail22Warning
@@ -111,6 +112,8 @@ class Elasticsearch2Mapping:
 
         if isinstance(field, FilterField):
             return prefix + field.get_attname(self.model) + '_filter'
+        elif isinstance(field, AutocompleteField):
+            return prefix + field.get_attname(self.model) + '_edgengrams'
         elif isinstance(field, SearchField):
             return prefix + field.get_attname(self.model)
         elif isinstance(field, RelatedFields):
@@ -171,6 +174,11 @@ class Elasticsearch2Mapping:
 
                 mapping['include_in_all'] = True
 
+            if isinstance(field, AutocompleteField):
+                mapping['type'] = self.text_type
+                mapping['include_in_all'] = False
+                mapping.update(self.edgengram_analyzer_config)
+
             elif isinstance(field, FilterField):
                 if mapping['type'] == 'string':
                     mapping['type'] = self.keyword_type
@@ -218,7 +226,7 @@ class Elasticsearch2Mapping:
 
     def _get_nested_document(self, fields, obj):
         doc = {}
-        partials = []
+        edgengrams = []
         model = type(obj)
         mapping = type(self)(model)
 
@@ -227,15 +235,15 @@ class Elasticsearch2Mapping:
             doc[mapping.get_field_column_name(field)] = value
 
             # Check if this field should be added into _edgengrams
-            if isinstance(field, SearchField) and field.partial_match:
-                partials.append(value)
+            if (isinstance(field, SearchField) and field.partial_match) or isinstance(field, AutocompleteField):
+                edgengrams.append(value)
 
-        return doc, partials
+        return doc, edgengrams
 
     def get_document(self, obj):
         # Build document
         doc = dict(pk=str(obj.pk), content_type=self.get_all_content_types())
-        partials = []
+        edgengrams = []
         for field in self.model.get_search_fields():
             value = field.get_value(obj)
 
@@ -246,12 +254,12 @@ class Elasticsearch2Mapping:
                     for nested_obj in value.all():
                         nested_doc, extra_edgengrams = self._get_nested_document(field.fields, nested_obj)
                         nested_docs.append(nested_doc)
-                        partials.extend(extra_edgengrams)
+                        edgengrams.extend(extra_edgengrams)
 
                     value = nested_docs
                 elif isinstance(value, models.Model):
                     value, extra_edgengrams = self._get_nested_document(field.fields, value)
-                    partials.extend(extra_edgengrams)
+                    edgengrams.extend(extra_edgengrams)
             elif isinstance(field, FilterField):
                 if isinstance(value, (models.Manager, models.QuerySet)):
                     value = list(value.values_list('pk', flat=True))
@@ -261,11 +269,11 @@ class Elasticsearch2Mapping:
             doc[self.get_field_column_name(field)] = value
 
             # Check if this field should be added into _edgengrams
-            if isinstance(field, SearchField) and field.partial_match:
-                partials.append(value)
+            if (isinstance(field, SearchField) and field.partial_match) or isinstance(field, AutocompleteField):
+                edgengrams.append(value)
 
         # Add partials to document
-        doc[self.edgengrams_field_name] = partials
+        doc[self.edgengrams_field_name] = edgengrams
 
         return doc
 
@@ -496,7 +504,12 @@ class Elasticsearch2SearchQueryCompiler(BaseSearchQueryCompiler):
                 % query.__class__.__name__)
 
     def get_inner_query(self):
-        fields = self.remapped_fields or [self.mapping.all_field_name, self.mapping.edgengrams_field_name]
+        if self.remapped_fields:
+            fields = self.remapped_fields
+        elif self.partial_match:
+            fields = [self.mapping.all_field_name, self.mapping.edgengrams_field_name]
+        else:
+            fields = [self.mapping.all_field_name]
 
         if len(fields) == 0:
             # No fields. Return a query that'll match nothing
@@ -603,6 +616,43 @@ class Elasticsearch2SearchQueryCompiler(BaseSearchQueryCompiler):
 
     def __repr__(self):
         return json.dumps(self.get_query())
+
+
+class ElasticsearchAutocompleteQueryCompilerImpl:
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        # Convert field names into index column names
+        # Note: this overrides Elasticsearch2SearchQueryCompiler by using autocomplete fields instead of searchbale fields
+        if self.fields:
+            fields = []
+            autocomplete_fields = {f.field_name: f for f in self.queryset.model.get_autocomplete_search_fields()}
+            for field_name in self.fields:
+                if field_name in autocomplete_fields:
+                    field_name = self.mapping.get_field_column_name(autocomplete_fields[field_name])
+
+                fields.append(field_name)
+
+            self.remapped_fields = fields
+        else:
+            self.remapped_fields = None
+
+    def get_inner_query(self):
+        fields = self.remapped_fields or [self.mapping.edgengrams_field_name]
+
+        if len(fields) == 0:
+            # No fields. Return a query that'll match nothing
+            return {
+                'bool': {
+                    'mustNot': {'match_all': {}}
+                }
+            }
+
+        return self._compile_plaintext_query(self.query, fields)
+
+
+class Elasticsearch2AutocompleteQueryCompiler(Elasticsearch2SearchQueryCompiler, ElasticsearchAutocompleteQueryCompilerImpl):
+    pass
 
 
 class Elasticsearch2SearchResults(BaseSearchResults):
@@ -968,6 +1018,7 @@ class ElasticsearchAtomicIndexRebuilder(ElasticsearchIndexRebuilder):
 class Elasticsearch2SearchBackend(BaseSearchBackend):
     index_class = Elasticsearch2Index
     query_compiler_class = Elasticsearch2SearchQueryCompiler
+    autocomplete_query_compiler_class = Elasticsearch2AutocompleteQueryCompiler
     results_class = Elasticsearch2SearchResults
     mapping_class = Elasticsearch2Mapping
     basic_rebuilder_class = ElasticsearchIndexRebuilder
