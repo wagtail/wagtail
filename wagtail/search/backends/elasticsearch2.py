@@ -12,7 +12,8 @@ from elasticsearch.helpers import bulk
 
 from wagtail.search.backends.base import (
     BaseSearchBackend, BaseSearchQueryCompiler, BaseSearchResults)
-from wagtail.search.index import FilterField, Indexed, RelatedFields, SearchField, class_is_indexed
+from wagtail.search.index import (
+    AutocompleteField, FilterField, Indexed, RelatedFields, SearchField, class_is_indexed)
 from wagtail.search.query import (
     And, Boost, Filter, Fuzzy, MatchAll, Not, Or, PlainText, Prefix, Term)
 from wagtail.utils.deprecation import RemovedInWagtail22Warning
@@ -110,6 +111,8 @@ class Elasticsearch2Mapping:
 
         if isinstance(field, FilterField):
             return prefix + field.get_attname(self.model) + '_filter'
+        elif isinstance(field, AutocompleteField):
+            return prefix + field.get_attname(self.model) + '_edgengrams'
         elif isinstance(field, SearchField):
             return prefix + field.get_attname(self.model)
         elif isinstance(field, RelatedFields):
@@ -170,6 +173,11 @@ class Elasticsearch2Mapping:
 
                 mapping['include_in_all'] = True
 
+            if isinstance(field, AutocompleteField):
+                mapping['type'] = self.text_type
+                mapping['include_in_all'] = False
+                mapping.update(self.edgengram_analyzer_config)
+
             elif isinstance(field, FilterField):
                 if mapping['type'] == 'string':
                     mapping['type'] = self.keyword_type
@@ -217,7 +225,7 @@ class Elasticsearch2Mapping:
 
     def _get_nested_document(self, fields, obj):
         doc = {}
-        partials = []
+        edgengrams = []
         model = type(obj)
         mapping = type(self)(model)
 
@@ -226,15 +234,15 @@ class Elasticsearch2Mapping:
             doc[mapping.get_field_column_name(field)] = value
 
             # Check if this field should be added into _edgengrams
-            if isinstance(field, SearchField) and field.partial_match:
-                partials.append(value)
+            if (isinstance(field, SearchField) and field.partial_match) or isinstance(field, AutocompleteField):
+                edgengrams.append(value)
 
-        return doc, partials
+        return doc, edgengrams
 
     def get_document(self, obj):
         # Build document
         doc = dict(pk=str(obj.pk), content_type=self.get_all_content_types())
-        partials = []
+        edgengrams = []
         for field in self.model.get_search_fields():
             value = field.get_value(obj)
 
@@ -245,21 +253,21 @@ class Elasticsearch2Mapping:
                     for nested_obj in value.all():
                         nested_doc, extra_edgengrams = self._get_nested_document(field.fields, nested_obj)
                         nested_docs.append(nested_doc)
-                        partials.extend(extra_edgengrams)
+                        edgengrams.extend(extra_edgengrams)
 
                     value = nested_docs
                 elif isinstance(value, models.Model):
                     value, extra_edgengrams = self._get_nested_document(field.fields, value)
-                    partials.extend(extra_edgengrams)
+                    edgengrams.extend(extra_edgengrams)
 
             doc[self.get_field_column_name(field)] = value
 
             # Check if this field should be added into _edgengrams
-            if isinstance(field, SearchField) and field.partial_match:
-                partials.append(value)
+            if (isinstance(field, SearchField) and field.partial_match) or isinstance(field, AutocompleteField):
+                edgengrams.append(value)
 
         # Add partials to document
-        doc[self.edgengrams_field_name] = partials
+        doc[self.edgengrams_field_name] = edgengrams
 
         return doc
 
