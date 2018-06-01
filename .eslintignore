@@ -23,8 +23,4 @@ wagtail/embeds/templates/wagtailembeds/chooser/chooser.js
 wagtail/documents/templates/wagtaildocs/chooser/chooser.js
 wagtail/documents/templates/wagtaildocs/chooser/document_chosen.js
 wagtail/admin/templates/wagtailadmin/page_privacy/set_privacy.js
-wagtail/admin/templates/wagtailadmin/chooser/external_link_chosen.js
-wagtail/admin/templates/wagtailadmin/chooser/external_link.js
-wagtail/admin/templates/wagtailadmin/chooser/email_link.js
-wagtail/admin/templates/wagtailadmin/chooser/browse.js
 wagtail/admin/templates/wagtailadmin/page_privacy/set_privacy_done.js

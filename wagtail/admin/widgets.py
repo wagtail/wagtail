@@ -213,7 +213,10 @@ class AdminPageChooser(AdminChooser):
         )
 
     class Media:
-        js = ['wagtailadmin/js/page-chooser.js']
+        js = [
+            'wagtailadmin/js/page-chooser-modal.js',
+            'wagtailadmin/js/page-chooser.js',
+        ]
 
 
 @total_ordering
