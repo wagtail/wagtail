@@ -63,7 +63,7 @@ export const getChooserConfig = (entityType, entity, selectedText) => {
     return {
       url,
       urlParams,
-      onload: {},
+      onload: global.PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS,
     };
 
   case DOCUMENT:

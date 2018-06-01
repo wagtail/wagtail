@@ -134,9 +134,9 @@ def browse(request, parent_page_id=None):
 
     return render_modal_workflow(
         request,
-        'wagtailadmin/chooser/browse.html', 'wagtailadmin/chooser/browse.js',
+        'wagtailadmin/chooser/browse.html', None,
         context,
-        json_data={'parent_page_id': context['parent_page_id']},
+        json_data={'step': 'browse', 'parent_page_id': context['parent_page_id']},
     )
 
 
@@ -202,19 +202,18 @@ def external_link(request):
             }
 
             return render_modal_workflow(
-                request,
-                None, 'wagtailadmin/chooser/external_link_chosen.js',
-                None, json_data={'result': result}
+                request, None, None,
+                None, json_data={'step': 'external_link_chosen', 'result': result}
             )
     else:
         form = ExternalLinkChooserForm(initial=initial_data)
 
     return render_modal_workflow(
         request,
-        'wagtailadmin/chooser/external_link.html', 'wagtailadmin/chooser/external_link.js',
+        'wagtailadmin/chooser/external_link.html', None,
         shared_context(request, {
             'form': form,
-        })
+        }), json_data={'step': 'external_link'}
     )
 
 
@@ -237,17 +236,16 @@ def email_link(request):
                 'prefer_this_title_as_link_text': ('link_text' in form.changed_data),
             }
             return render_modal_workflow(
-                request,
-                None, 'wagtailadmin/chooser/external_link_chosen.js',
-                None, json_data={'result': result}
+                request, None, None,
+                None, json_data={'step': 'external_link_chosen', 'result': result}
             )
     else:
         form = EmailLinkChooserForm(initial=initial_data)
 
     return render_modal_workflow(
         request,
-        'wagtailadmin/chooser/email_link.html', 'wagtailadmin/chooser/email_link.js',
+        'wagtailadmin/chooser/email_link.html', None,
         shared_context(request, {
             'form': form,
-        })
+        }), json_data={'step': 'email_link'}
     )

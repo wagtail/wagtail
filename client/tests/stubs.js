@@ -58,7 +58,9 @@ global.chooserUrls = {
   snippetChooser: '/admin/snippets/choose/',
 };
 
-global.IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {};
+/* use dummy content for onload handlers just so that we can verify that we've chosen the right one */
+global.IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = { type: 'image' };
+global.PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = { type: 'page' };
 
 const jQueryObj = {
   on: jest.fn(),

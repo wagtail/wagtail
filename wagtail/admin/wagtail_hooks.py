@@ -271,7 +271,10 @@ def register_core_features(features):
         'hallo', 'link',
         HalloPlugin(
             name='hallowagtaillink',
-            js=['wagtailadmin/js/hallo-plugins/hallo-wagtaillink.js'],
+            js=[
+                'wagtailadmin/js/page-chooser-modal.js',
+                'wagtailadmin/js/hallo-plugins/hallo-wagtaillink.js',
+            ],
         )
     )
     features.register_converter_rule('editorhtml', 'link', [
@@ -502,7 +505,9 @@ def register_core_features(features):
                 # Keep pasted links with http/https protocol, and not-pasted links (href = undefined).
                 'href': "^(http:|https:|undefined$)",
             }
-        })
+        }, js=[
+            'wagtailadmin/js/page-chooser-modal.js',
+        ])
     )
     features.register_converter_rule('contentstate', 'link', {
         'from_database_format': {
