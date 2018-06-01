@@ -13,11 +13,11 @@ def render_modal_workflow(request, html_template, js_template, template_vars=Non
 
     if html_template:
         html = render_to_string(html_template, template_vars or {}, request=request)
-        response_keyvars.append("'html': %s" % json.dumps(html))
+        response_keyvars.append('"html": %s' % json.dumps(html))
 
     if js_template:
         js = render_to_string(js_template, template_vars or {}, request=request)
-        response_keyvars.append("'onload': %s" % js)
+        response_keyvars.append('"onload": %s' % js)
 
     if json_data:
         for key, val in json_data.items():
