@@ -74,9 +74,7 @@ IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
                     contentType: false,
                     type: 'POST',
                     dataType: 'text',
-                    success: function(response){
-                        modal.loadResponseText(response);
-                    },
+                    success: modal.loadResponseText,
                     error: function(response, textStatus, errorThrown) {
                         message = jsonData['error_message'] + '<br />' + errorThrown + ' - ' + response.status;
                         $('#upload').append(
@@ -138,9 +136,7 @@ IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
         $('form', modal.body).on('submit', function() {
             var formdata = new FormData(this);
 
-            $.post(this.action, $(this).serialize(), function(response){
-                modal.loadResponseText(response);
-            }, 'text');
+            $.post(this.action, $(this).serialize(), modal.loadResponseText, 'text');
 
             return false;
         });
