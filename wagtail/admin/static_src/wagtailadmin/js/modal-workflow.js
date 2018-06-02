@@ -54,8 +54,13 @@ function ModalWorkflow(opts) {
         });
     };
 
-    self.loadResponseText = function(responseText) {
-        var response = eval('(' + responseText + ')');
+    self.loadResponseText = function(responseText, textStatus, xhr) {
+        var response;
+        if (xhr && xhr.getResponseHeader('content-type') != 'text/javascript') {
+            response = JSON.parse(responseText);
+        } else {
+            response = eval('(' + responseText + ')');
+        }
 
         self.loadBody(response);
     };

@@ -58,9 +58,7 @@ function(modal, jsonData) {
             contentType: false,
             type: 'POST',
             dataType: 'text',
-            success: function(response){
-                modal.loadResponseText(response);
-            },
+            success: modal.loadResponseText,
             error: function(response, textStatus, errorThrown) {
                 message = jsonData['error_message'] + '<br />' + errorThrown + ' - ' + response.status;
                 $('#upload').append(

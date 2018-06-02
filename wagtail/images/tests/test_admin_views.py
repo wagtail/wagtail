@@ -667,7 +667,7 @@ class TestImageChooserSelectFormatView(TestCase, WagtailTestUtils):
         response = self.post({'format': 'left', 'alt_text': 'Arthur "two sheds" Jackson'})
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response['Content-Type'], 'text/javascript')
+        self.assertEqual(response['Content-Type'], 'application/json')
 
         response_json = json.loads(response.content.decode())
         self.assertEqual(response_json['step'], 'image_chosen')

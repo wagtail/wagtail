@@ -9,9 +9,7 @@ function(modal) {
             contentType: false,
             type: 'POST',
             dataType: 'text',
-            success: function(response){
-                modal.loadResponseText(response);
-            }
+            success: modal.loadResponseText
         });
 
         return false;
