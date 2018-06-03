@@ -11,12 +11,12 @@ wagtail/admin/static
 wagtail/documents/static
 wagtail/images/static
 wagtail/embeds/static
+wagtail/search/static
 wagtail/snippets/static
 wagtail/users/static
 wagtail/admin/templates/wagtailadmin/edit_handlers/inline_panel.js
 wagtail/contrib/search_promotions/templates/wagtailsearchpromotions/includes/searchpromotions_formset.js
 wagtail/users/templates/wagtailusers/groups/includes/page_permissions_formset.js
-wagtail/search/templates/wagtailsearch/queries/chooser/chooser.js
 wagtail/embeds/templates/wagtailembeds/chooser/embed_chosen.js
 wagtail/embeds/templates/wagtailembeds/chooser/chooser.js
 wagtail/documents/templates/wagtaildocs/chooser/chooser.js
