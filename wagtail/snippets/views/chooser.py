@@ -56,7 +56,7 @@ def choose(request, app_label, model_name):
 
     return render_modal_workflow(
         request,
-        'wagtailsnippets/chooser/choose.html', 'wagtailsnippets/chooser/choose.js',
+        'wagtailsnippets/chooser/choose.html', None,
         {
             'model_opts': model._meta,
             'items': paginated_items,
@@ -64,7 +64,7 @@ def choose(request, app_label, model_name):
             'search_form': search_form,
             'query_string': search_query,
             'is_searching': is_searching,
-        }
+        }, json_data={'step': 'choose'}
     )
 
 
@@ -81,6 +81,6 @@ def chosen(request, app_label, model_name, pk):
 
     return render_modal_workflow(
         request,
-        None, 'wagtailsnippets/chooser/chosen.js',
-        None, json_data={'result': snippet_data}
+        None, None,
+        None, json_data={'step': 'chosen', 'result': snippet_data}
     )
