@@ -1,3 +1,5 @@
+import json
+
 from django.contrib.admin.utils import quote
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser, Permission
@@ -622,7 +624,8 @@ class TestSnippetChosen(TestCase, WagtailTestUtils):
 
     def test_choose_a_page(self):
         response = self.get(pk=Advert.objects.all()[0].pk)
-        self.assertTemplateUsed(response, 'wagtailsnippets/chooser/chosen.js')
+        response_json = json.loads(response.content.decode())
+        self.assertEqual(response_json['step'], 'chosen')
 
     def test_choose_a_non_existing_page(self):
 
@@ -1124,4 +1127,5 @@ class TestSnippetChosenWithCustomPrimaryKey(TestCase, WagtailTestUtils):
 
     def test_choose_a_page(self):
         response = self.get(pk=AdvertWithCustomPrimaryKey.objects.all()[0].pk)
-        self.assertTemplateUsed(response, 'wagtailsnippets/chooser/chosen.js')
+        response_json = json.loads(response.content.decode())
+        self.assertEqual(response_json['step'], 'chosen')
