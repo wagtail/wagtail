@@ -21,5 +21,3 @@ wagtail/embeds/templates/wagtailembeds/chooser/embed_chosen.js
 wagtail/embeds/templates/wagtailembeds/chooser/chooser.js
 wagtail/documents/templates/wagtaildocs/chooser/chooser.js
 wagtail/documents/templates/wagtaildocs/chooser/document_chosen.js
-wagtail/admin/templates/wagtailadmin/page_privacy/set_privacy.js
-wagtail/admin/templates/wagtailadmin/page_privacy/set_privacy_done.js
