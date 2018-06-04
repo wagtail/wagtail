@@ -17,6 +17,7 @@ Other features
  * Added ``annotate_score`` support to PostgreSQL search backend (Bertrand Bordage)
  * Pillow's image optimisation is now applied when saving PNG images (Dmitry Vasilev)
  * JS / CSS media files can now be associated with Draftail feature definitions (Matt Westcott)
+ * The ``{% slugurl %}`` template tag is now site-aware (Samir Shah)
 
 Bug fixes
 ~~~~~~~~~
