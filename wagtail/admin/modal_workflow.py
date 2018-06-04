@@ -1,7 +1,10 @@
 import json
+import warnings
 
 from django.http import HttpResponse, JsonResponse
 from django.template.loader import render_to_string
+
+from wagtail.utils.deprecation import RemovedInWagtail24Warning
 
 
 def render_modal_workflow(request, html_template, js_template, template_vars=None, json_data=None):
@@ -10,6 +13,11 @@ def render_modal_workflow(request, html_template, js_template, template_vars=Non
     in the format required by the modal-workflow framework.
     """
     if js_template:
+        warnings.warn(
+            "Passing a JS template to render_modal_workflow is deprecated. "
+            "Use an 'onload' dict on the ModalWorkflow constructor instead",
+            category=RemovedInWagtail24Warning
+        )
         # construct response as Javascript, including a JS function as the 'onload' field
         response_keyvars = []
 

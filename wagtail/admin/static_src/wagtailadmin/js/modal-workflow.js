@@ -55,6 +55,8 @@ function ModalWorkflow(opts) {
     };
 
     self.loadResponseText = function(responseText, textStatus, xhr) {
+        /* RemovedInWagtail24Warning - support for eval()-ing text/javascript responses
+        (rather than JSON.parse) will be dropped */
         var response;
         if (xhr && xhr.getResponseHeader('content-type') != 'text/javascript') {
             response = JSON.parse(responseText);
