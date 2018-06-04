@@ -70,7 +70,7 @@ export const getChooserConfig = (entityType, entity, selectedText) => {
     return {
       url: global.chooserUrls.documentChooser,
       urlParams: {},
-      onload: {},
+      onload: global.DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS,
     };
 
   default:
