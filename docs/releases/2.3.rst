@@ -35,7 +35,7 @@ Bug fixes
  * before_delete_page / after_delete_page hooks now run within the same database transaction as the page deletion (Tomasz Knapik)
  * Seek to the beginning of image files when uploading, to restore compatibility with django-storages Google Cloud and Azure backends (Mikalai Radchuk)
  * Snippet chooser modal no longer fails on snippet models with UUID primary keys (Sævar Öfjörð Magnússon)
-
+ * Restored localisation in date/time pickers (David Moore, Thibaud Colas)
 
 Upgrade considerations
 ======================

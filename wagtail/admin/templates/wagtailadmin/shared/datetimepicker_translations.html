@@ -1,7 +1,7 @@
 {% load i18n %}
 
 <script>
-    window.dateTimePickerTranslations = {
+    $.fn.datetimepicker.defaults.i18n.wagtail_custom_locale = {
         months: [
             '{% trans "January" %}',
             '{% trans "February" %}',
@@ -17,6 +17,15 @@
             '{% trans "December" %}'
         ],
         dayOfWeek: [
+            '{% trans "Sunday" %}',
+            '{% trans "Monday" %}',
+            '{% trans "Tuesday" %}',
+            '{% trans "Wednesday" %}',
+            '{% trans "Thursday" %}',
+            '{% trans "Friday" %}',
+            '{% trans "Saturday" %}'
+        ],
+        dayOfWeekShort: [
             '{% trans "Sun" %}',
             '{% trans "Mon" %}',
             '{% trans "Tue" %}',
@@ -24,6 +33,7 @@
             '{% trans "Thu" %}',
             '{% trans "Fri" %}',
             '{% trans "Sat" %}'
-        ]
+        ],
     }
+    $.datetimepicker.setLocale('wagtail_custom_locale');
 </script>
