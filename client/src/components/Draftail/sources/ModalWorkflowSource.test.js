@@ -42,7 +42,7 @@ describe('ModalWorkflowSource', () => {
       expect(getChooserConfig({ type: 'EMBED' }, null, '')).toEqual({
         url: '/admin/embeds/chooser/',
         urlParams: {},
-        onload: {},
+        onload: global.EMBED_CHOOSER_MODAL_ONLOAD_HANDLERS,
       });
     });
 

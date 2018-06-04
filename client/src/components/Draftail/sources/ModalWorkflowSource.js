@@ -33,7 +33,7 @@ export const getChooserConfig = (entityType, entity, selectedText) => {
     return {
       url: global.chooserUrls.embedsChooser,
       urlParams: {},
-      onload: {},
+      onload: global.EMBED_CHOOSER_MODAL_ONLOAD_HANDLERS,
     };
 
   case ENTITY_TYPE.LINK:
