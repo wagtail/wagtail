@@ -19,6 +19,7 @@ permission_checker = PermissionPolicyChecker(permission_policy)
 def get_chooser_context():
     """construct context variables needed by the chooser JS"""
     return {
+        'step': 'chooser',
         'error_label': _("Server Error"),
         'error_message': _("Report this error to your webmaster with the following information:"),
         'tag_autocomplete_url': reverse('wagtailadmin_tag_autocomplete'),
@@ -90,7 +91,7 @@ def chooser(request):
         documents = documents.order_by('-created_at')
         paginator, documents = paginate(request, documents, per_page=10)
 
-        return render_modal_workflow(request, 'wagtaildocs/chooser/chooser.html', 'wagtaildocs/chooser/chooser.js', {
+        return render_modal_workflow(request, 'wagtaildocs/chooser/chooser.html', None, {
             'documents': documents,
             'uploadform': uploadform,
             'searchform': searchform,
@@ -103,8 +104,8 @@ def document_chosen(request, document_id):
     document = get_object_or_404(get_document_model(), id=document_id)
 
     return render_modal_workflow(
-        request, None, 'wagtaildocs/chooser/document_chosen.js',
-        None, json_data={'result': get_document_result_data(document)}
+        request, None, None,
+        None, json_data={'step': 'document_chosen', 'result': get_document_result_data(document)}
     )
 
 
@@ -126,8 +127,8 @@ def chooser_upload(request):
             search_index.insert_or_update_object(document)
 
             return render_modal_workflow(
-                request, None, 'wagtaildocs/chooser/document_chosen.js',
-                None, json_data={'result': get_document_result_data(document)}
+                request, None, None,
+                None, json_data={'step': 'document_chosen', 'result': get_document_result_data(document)}
             )
     else:
         form = DocumentForm(user=request.user)
@@ -135,7 +136,7 @@ def chooser_upload(request):
     documents = Document.objects.order_by('title')
 
     return render_modal_workflow(
-        request, 'wagtaildocs/chooser/chooser.html', 'wagtaildocs/chooser/chooser.js',
+        request, 'wagtaildocs/chooser/chooser.html', None,
         {'documents': documents, 'uploadform': form},
         json_data=get_chooser_context()
     )

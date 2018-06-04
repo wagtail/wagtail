@@ -618,7 +618,8 @@ class TestDocumentChooserView(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtaildocs:chooser'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtaildocs/chooser/chooser.html')
-        self.assertTemplateUsed(response, 'wagtaildocs/chooser/chooser.js')
+        response_json = json.loads(response.content.decode())
+        self.assertEqual(response_json['step'], 'chooser')
 
     def test_search(self):
         response = self.client.get(reverse('wagtaildocs:chooser'), {'q': "Hello"})
@@ -715,7 +716,8 @@ class TestDocumentChooserChosenView(TestCase, WagtailTestUtils):
     def test_simple(self):
         response = self.client.get(reverse('wagtaildocs:document_chosen', args=(self.document.id,)))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtaildocs/chooser/document_chosen.js')
+        response_json = json.loads(response.content.decode())
+        self.assertEqual(response_json['step'], 'document_chosen')
 
 
 class TestDocumentChooserUploadView(TestCase, WagtailTestUtils):
@@ -726,7 +728,8 @@ class TestDocumentChooserUploadView(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtaildocs:chooser_upload'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtaildocs/chooser/chooser.html')
-        self.assertTemplateUsed(response, 'wagtaildocs/chooser/chooser.js')
+        response_json = json.loads(response.content.decode())
+        self.assertEqual(response_json['step'], 'chooser')
 
     def test_post(self):
         # Build a fake file
@@ -740,9 +743,9 @@ class TestDocumentChooserUploadView(TestCase, WagtailTestUtils):
         }
         response = self.client.post(reverse('wagtaildocs:chooser_upload'), post_data)
 
-        # Check that the response is a javascript file saying the document was chosen
-        self.assertTemplateUsed(response, 'wagtaildocs/chooser/document_chosen.js')
-        self.assertContains(response, "modal.respond('documentChosen'")
+        # Check that the response is the 'document_chosen' step
+        response_json = json.loads(response.content.decode())
+        self.assertEqual(response_json['step'], 'document_chosen')
 
         # Document should be created
         self.assertTrue(models.Document.objects.filter(title="Test document").exists())
@@ -781,20 +784,22 @@ class TestDocumentChooserUploadViewWithLimitedPermissions(TestCase, WagtailTestU
         response = self.client.get(reverse('wagtaildocs:chooser_upload'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtaildocs/chooser/chooser.html')
-        self.assertTemplateUsed(response, 'wagtaildocs/chooser/chooser.js')
+        response_json = json.loads(response.content.decode())
+        self.assertEqual(response_json['step'], 'chooser')
 
         # user only has access to one collection -> should not see the collections field
-        self.assertNotContains(response, 'id_collection')
+        self.assertNotIn('id_collection', response_json['html'])
 
     def test_chooser_view(self):
         # The main chooser view also includes the form, so need to test there too
         response = self.client.get(reverse('wagtaildocs:chooser'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtaildocs/chooser/chooser.html')
-        self.assertTemplateUsed(response, 'wagtaildocs/chooser/chooser.js')
+        response_json = json.loads(response.content.decode())
+        self.assertEqual(response_json['step'], 'chooser')
 
         # user only has access to one collection -> should not see the collections field
-        self.assertNotContains(response, 'id_collection')
+        self.assertNotIn('id_collection', response_json['html'])
 
     def test_post(self):
         # Build a fake file
@@ -808,9 +813,9 @@ class TestDocumentChooserUploadViewWithLimitedPermissions(TestCase, WagtailTestU
         }
         response = self.client.post(reverse('wagtaildocs:chooser_upload'), post_data)
 
-        # Check that the response is a javascript file saying the document was chosen
-        self.assertTemplateUsed(response, 'wagtaildocs/chooser/document_chosen.js')
-        self.assertContains(response, "modal.respond('documentChosen'")
+        # Check that the response is the 'document_chosen' step
+        response_json = json.loads(response.content.decode())
+        self.assertEqual(response_json['step'], 'document_chosen')
 
         # Document should be created
         doc = models.Document.objects.filter(title="Test document")

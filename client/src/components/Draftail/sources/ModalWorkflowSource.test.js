@@ -50,7 +50,7 @@ describe('ModalWorkflowSource', () => {
       expect(getChooserConfig({ type: 'DOCUMENT' }, null, '')).toEqual({
         url: '/admin/documents/chooser/',
         urlParams: {},
-        onload: {},
+        onload: global.DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS,
       });
     });
 

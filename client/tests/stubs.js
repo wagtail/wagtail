@@ -62,6 +62,7 @@ global.chooserUrls = {
 global.IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = { type: 'image' };
 global.PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = { type: 'page' };
 global.EMBED_CHOOSER_MODAL_ONLOAD_HANDLERS = { type: 'embed' };
+global.DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS = { type: 'document' };
 
 const jQueryObj = {
   on: jest.fn(),

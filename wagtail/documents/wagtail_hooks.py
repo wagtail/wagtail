@@ -74,7 +74,10 @@ def register_document_feature(features):
         'hallo', 'document-link',
         HalloPlugin(
             name='hallowagtaildoclink',
-            js=['wagtaildocs/js/hallo-plugins/hallo-wagtaildoclink.js'],
+            js=[
+                'wagtaildocs/js/document-chooser-modal.js',
+                'wagtaildocs/js/hallo-plugins/hallo-wagtaildoclink.js',
+            ],
         )
     )
     features.register_editor_plugin(
@@ -82,7 +85,7 @@ def register_document_feature(features):
             'type': 'DOCUMENT',
             'icon': 'doc-full',
             'description': ugettext('Document'),
-        })
+        }, js=['wagtaildocs/js/document-chooser-modal.js'])
     )
 
     features.register_converter_rule(
