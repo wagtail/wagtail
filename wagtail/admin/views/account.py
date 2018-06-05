@@ -12,7 +12,7 @@ from django.utils.translation import activate
 from wagtail.admin import forms
 from wagtail.core import hooks
 from wagtail.users.forms import (
-    AvatarPreferencesForm, CurrentTimeZoneForm, EmailForm, NotificationPreferencesForm, PreferredLanguageForm)
+    AvatarPreferencesForm, CurrentTimeZoneForm, EmailForm, FnameForm, LnameForm, NotificationPreferencesForm, PreferredLanguageForm)
 from wagtail.users.models import UserProfile
 from wagtail.utils.loading import get_custom_form
 
@@ -93,8 +93,38 @@ def change_email(request):
     return render(request, 'wagtailadmin/account/change_email.html', {
         'form': form,
     })
+	
+#user_edit_name
+def change_fname(request):
+    if request.method == 'POST':
+        form = FnameForm(request.POST, instance=request.user)
 
+        if form.is_valid():
+            form.save()
+            messages.success(request, _("Your first name has been changed successfully!"))
+            return redirect('wagtailadmin_account')
+    else:
+        form = FnameForm(instance=request.user)
 
+    return render(request, 'wagtailadmin/account/change_fname.html', {
+        'form': form,
+    })
+
+#user_edit_name
+def change_lname(request):
+    if request.method == 'POST':
+        form = LnameForm(request.POST, instance=request.user)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, _("Your last name has been changed successfully!"))
+            return redirect('wagtailadmin_account')
+    else:
+        form = LnameForm(instance=request.user)
+
+    return render(request, 'wagtailadmin/account/change_lname.html', {
+        'form': form,
+    })
 class PasswordResetEnabledViewMixin:
     """
     Class based view mixin that disables the view if password reset is disabled by one of the following settings:

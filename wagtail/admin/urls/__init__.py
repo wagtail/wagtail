@@ -45,6 +45,9 @@ urlpatterns = [
     url(r'^account/$', account.account, name='wagtailadmin_account'),
     url(r'^account/change_password/$', account.change_password, name='wagtailadmin_account_change_password'),
     url(r'^account/change_email/$', account.change_email, name='wagtailadmin_account_change_email'),
+	##user-edit-name
+	url(r'^account/change_fname/$', account.change_fname, name='wagtailadmin_account_change_fname'),
+	url(r'^account/change_lname/$', account.change_lname, name='wagtailadmin_account_change_lname'),
     url(
         r'^account/notification_preferences/$',
         account.notification_preferences,

@@ -200,7 +200,23 @@ def register_account_set_profile_picture(request):
         'label': _('Set profile picture'),
         'help_text': _("Change your profile picture")
     }
+#user-edit-name
+@hooks.register('register_account_menu_item')
+def register_account_change_email(request):
+    return {
+        'url': reverse('wagtailadmin_account_change_fname'),
+        'label': _('Change first name'),
+        'help_text': _('Change the first name.'),
+    }
 
+#user-edit-name
+@hooks.register('register_account_menu_item')
+def register_account_change_email(request):
+    return {
+        'url': reverse('wagtailadmin_account_change_lname'),
+        'label': _('Change last name'),
+        'help_text': _('Change the last name.'),
+    }
 
 @hooks.register('register_account_menu_item')
 def register_account_change_email(request):
