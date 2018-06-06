@@ -207,6 +207,17 @@ class TestAccountSection(TestCase, WagtailTestUtils):
         # Check that the user received a change email page
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailadmin/account/change_email.html')
+    
+    def test_change_name_view(self):
+        """
+        This tests that the change name view responds with a change name page
+        """
+        # Get change email page
+        response = self.client.get(reverse('wagtailadmin_account_change_name'))
+
+        # Check that the user received a change email page
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/account/change_name.html')
 
 
     def test_change_email_post(self):
@@ -222,6 +233,20 @@ class TestAccountSection(TestCase, WagtailTestUtils):
         # Check that the email was changed
         self.assertEqual(get_user_model().objects.get(pk=self.user.pk).email, post_data['email'])
 
+    def test_change_name_post(self):
+        post_data = {
+            'first_name': 'fname',
+			'last_name': 'lname',
+        }
+
+        response = self.client.post(reverse('wagtailadmin_account_change_name'), post_data)
+
+        # Check that the user was redirected to the account page
+        self.assertRedirects(response, reverse('wagtailadmin_account'))
+
+        # Check that the email was changed
+        self.assertEqual(get_user_model().objects.get(pk=self.user.pk).first_name, post_data['first_name'])
+        self.assertEqual(get_user_model().objects.get(pk=self.user.pk).last_name, post_data['last_name'])
 
     def test_change_email_not_valid(self):
         post_data = {
