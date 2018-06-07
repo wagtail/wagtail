@@ -399,10 +399,20 @@ def edit(request, page_id):
 
             # Publish
             if is_publishing:
+                for fn in hooks.get_hooks('before_publish_page'):
+                    result = fn(request, page)
+                    if hasattr(result, 'status_code'):
+                        return result
+
                 revision.publish()
                 # Need to reload the page because the URL may have changed, and we
                 # need the up-to-date URL for the "View Live" button.
                 page = page.specific_class.objects.get(pk=page.pk)
+
+                for fn in hooks.get_hooks('after_publish_page'):
+                    result = fn(request, page)
+                    if hasattr(result, 'status_code'):
+                        return result
 
             # Notifications
             if is_publishing:
