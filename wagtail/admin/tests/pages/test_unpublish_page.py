@@ -1,8 +1,10 @@
 from unittest import mock
 
 from django.contrib.auth.models import Permission
+from django.http import HttpRequest, HttpResponse
 from django.test import TestCase
 from django.urls import reverse
+from django.utils.translation import gettext_lazy as _
 
 from wagtail.core.models import Page
 from wagtail.core.signals import page_unpublished
@@ -86,6 +88,45 @@ class TestPageUnpublish(TestCase, WagtailTestUtils):
         self.assertEqual(mock_call['sender'], self.page.specific_class)
         self.assertEqual(mock_call['instance'], self.page)
         self.assertIsInstance(mock_call['instance'], self.page.specific_class)
+
+    def test_after_unpublish_page(self):
+        def hook_func(request, page):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(page.id, self.page.id)
+
+            return HttpResponse("Overridden!")
+
+        with self.register_hook('after_unpublish_page', hook_func):
+            post_data = {}
+            response = self.client.post(
+                reverse('wagtailadmin_pages:unpublish', args=(self.page.id, )), post_data
+            )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+
+        self.page.refresh_from_db()
+        self.assertEqual(self.page.status_string, _("draft"))
+
+    def test_before_unpublish_page(self):
+        def hook_func(request, page):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(page.id, self.page.id)
+
+            return HttpResponse("Overridden!")
+
+        with self.register_hook('before_unpublish_page', hook_func):
+            post_data = {}
+            response = self.client.post(
+                reverse('wagtailadmin_pages:unpublish', args=(self.page.id, )), post_data
+            )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+
+        # The hook response is served before unpublish is called.
+        self.page.refresh_from_db()
+        self.assertEqual(self.page.status_string, _("live"))
 
     def test_unpublish_descendants_view(self):
         """

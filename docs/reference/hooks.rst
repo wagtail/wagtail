@@ -505,6 +505,46 @@ Hooks for customising the way users are directed through the process of creating
   Uses the same behaviour as ``before_create_page``.
 
 
+.. _after_publish_page:
+
+``after_publish_page``
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Do something with a ``Page`` object after it has been published via page create view or page edit view.
+
+  The function does not have to return anything, but if an object with a ``status_code`` property is returned, Wagtail will use it as a response object and skip the rest of the view.
+
+
+.. _before_publish_page:
+
+``before_publish_page``
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Do something with a ``Page`` object before it has been published via page create view or page edit view.
+
+  The function does not have to return anything, but if an object with a ``status_code`` property is returned, Wagtail will use it as a response object and skip the rest of the view.
+
+
+.. _after_unpublish_page:
+
+``after_unpublish_page``
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Called after unpublish action in "unpublish" view passing in the request and the page object.
+
+  The function does not have to return anything, but if an object with a ``status_code`` property is returned, Wagtail will use it as a response object and skip the rest of the view.
+
+
+.. _before_unpublish_page:
+
+``before_unpublish_page``
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Called before unpublish action in "unpublish" view passing in the request and the page object.
+
+  The function does not have to return anything, but if an object with a ``status_code`` property is returned, Wagtail will use it as a response object and skip the rest of the view.
+
+
 .. _after_copy_page:
 
 ``after_copy_page``

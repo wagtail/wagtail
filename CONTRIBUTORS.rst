@@ -454,6 +454,7 @@ Contributors
 * François Poulain
 * Jim Jazwiecki
 * Kim LaRocca
+* Jonatas Baldin
 
 Translators
 ===========

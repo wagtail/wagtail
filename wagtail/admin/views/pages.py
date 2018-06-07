@@ -243,7 +243,17 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
 
             # Publish
             if is_publishing:
+                for fn in hooks.get_hooks('before_publish_page'):
+                    result = fn(request, page)
+                    if hasattr(result, 'status_code'):
+                        return result
+
                 revision.publish()
+
+                for fn in hooks.get_hooks('after_publish_page'):
+                    result = fn(request, page)
+                    if hasattr(result, 'status_code'):
+                        return result
 
             # Notifications
             if is_publishing:
@@ -399,10 +409,20 @@ def edit(request, page_id):
 
             # Publish
             if is_publishing:
+                for fn in hooks.get_hooks('before_publish_page'):
+                    result = fn(request, page)
+                    if hasattr(result, 'status_code'):
+                        return result
+
                 revision.publish()
                 # Need to reload the page because the URL may have changed, and we
                 # need the up-to-date URL for the "View Live" button.
                 page = page.specific_class.objects.get(pk=page.pk)
+
+                for fn in hooks.get_hooks('after_publish_page'):
+                    result = fn(request, page)
+                    if hasattr(result, 'status_code'):
+                        return result
 
             # Notifications
             if is_publishing:
@@ -738,6 +758,11 @@ def unpublish(request, page_id):
     if request.method == 'POST':
         include_descendants = request.POST.get("include_descendants", False)
 
+        for fn in hooks.get_hooks('before_unpublish_page'):
+            result = fn(request, page)
+            if hasattr(result, 'status_code'):
+                return result
+
         page.unpublish()
 
         if include_descendants:
@@ -745,6 +770,11 @@ def unpublish(request, page_id):
             for live_descendant_page in live_descendant_pages:
                 if user_perms.for_page(live_descendant_page).can_unpublish():
                     live_descendant_page.unpublish()
+
+        for fn in hooks.get_hooks('after_unpublish_page'):
+            result = fn(request, page)
+            if hasattr(result, 'status_code'):
+                return result
 
         messages.success(request, _("Page '{0}' unpublished.").format(page.get_admin_display_title()), buttons=[
             messages.button(reverse('wagtailadmin_pages:edit', args=(page.id,)), _('Edit'))

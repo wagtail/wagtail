@@ -11,6 +11,7 @@ from django.http import HttpRequest, HttpResponse
 from django.test import TestCase, modify_settings, override_settings
 from django.urls import reverse
 from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.tests.pages.timestamps import submittable_timestamp
 from wagtail.core.models import Page, PageRevision, Site
@@ -883,6 +884,52 @@ class TestPageEdit(TestCase, WagtailTestUtils):
 
         # page should be edited
         self.assertEqual(Page.objects.get(id=self.child_page.id).title, "I've been edited!")
+
+    def test_after_publish_page(self):
+        def hook_func(request, page):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(page.id, self.child_page.id)
+
+            return HttpResponse("Overridden!")
+
+        with self.register_hook("after_publish_page", hook_func):
+            post_data = {
+                'title': "I've been edited!",
+                'content': "Some content",
+                'slug': 'hello-world-new',
+                'action-publish': "Publish",
+            }
+            response = self.client.post(
+                reverse('wagtailadmin_pages:edit', args=(self.child_page.id, )), post_data
+            )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+        self.child_page.refresh_from_db()
+        self.assertEqual(self.child_page.status_string, _("live"))
+
+    def test_before_publish_page(self):
+        def hook_func(request, page):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(page.id, self.child_page.id)
+
+            return HttpResponse("Overridden!")
+
+        with self.register_hook("before_publish_page", hook_func):
+            post_data = {
+                'title': "I've been edited!",
+                'content': "Some content",
+                'slug': 'hello-world-new',
+                'action-publish': "Publish",
+            }
+            response = self.client.post(
+                reverse('wagtailadmin_pages:edit', args=(self.child_page.id, )), post_data
+            )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+        self.child_page.refresh_from_db()
+        self.assertEqual(self.child_page.status_string, _("live + draft"))
 
     def test_override_default_action_menu_item(self):
         def hook_func(menu_items, request, context):

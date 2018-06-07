@@ -9,6 +9,7 @@ from django.test import TestCase
 from django.test.utils import override_settings
 from django.urls import reverse
 from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.tests.pages.timestamps import submittable_timestamp
 from wagtail.core.models import GroupPagePermission, Page, PageRevision
@@ -666,6 +667,54 @@ class TestPageCreation(TestCase, WagtailTestUtils):
 
         # page should be created
         self.assertTrue(Page.objects.filter(title="New page!").exists())
+
+    def test_after_publish_page(self):
+        def hook_func(request, page):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(page.title, "New page!")
+
+            return HttpResponse("Overridden!")
+
+        with self.register_hook("after_publish_page", hook_func):
+            post_data = {
+                "title": "New page!",
+                "content": "Some content",
+                "slug": "hello-world",
+                "action-publish": "Publish",
+            }
+            response = self.client.post(
+                reverse("wagtailadmin_pages:add", args=("tests", "simplepage", self.root_page.id)),
+                post_data
+            )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+        self.root_page.refresh_from_db()
+        self.assertEqual(self.root_page.get_children()[0].status_string, _("live"))
+
+    def test_before_publish_page(self):
+        def hook_func(request, page):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(page.title, "New page!")
+
+            return HttpResponse("Overridden!")
+
+        with self.register_hook("before_publish_page", hook_func):
+            post_data = {
+                "title": "New page!",
+                "content": "Some content",
+                "slug": "hello-world",
+                "action-publish": "Publish",
+            }
+            response = self.client.post(
+                reverse("wagtailadmin_pages:add", args=("tests", "simplepage", self.root_page.id)),
+                post_data
+            )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+        self.root_page.refresh_from_db()
+        self.assertEqual(self.root_page.get_children()[0].status_string, _("live + draft"))
 
     def test_display_moderation_button_by_default(self):
         """
