@@ -559,20 +559,28 @@ Default is an empty list, must be a list of languages to also purge the urls for
 
 
 
-Hallo Editor (deprecated)
--------------------------
-
-**As of Wagtail 2.0, the hallo.js editor is deprecated.** See :ref:`extending_hallo`.
-
-To use hallo.js on Wagtail 2.x, add the following to your settings:
+Rich text
+---------
 
 .. code-block:: python
 
-  WAGTAILADMIN_RICH_TEXT_EDITORS = {
-      'default': {
-          'WIDGET': 'wagtail.admin.rich_text.HalloRichTextArea'
-      }
-  }
+    WAGTAILADMIN_RICH_TEXT_EDITORS = {
+        'default': {
+            'WIDGET': 'wagtail.admin.rich_text.DraftailRichTextArea',
+            'OPTIONS': {
+                'features': ['h2', 'bold', 'italic', 'link', 'document-link']
+            }
+        },
+        'legacy': {
+            'WIDGET': 'wagtail.admin.rich_text.HalloRichTextArea',
+        }
+    }
+
+Customise the behaviour of rich text fields. By default, ``RichTextField`` and ``RichTextBlock`` use the configuration given under the ``'default'`` key, but this can be overridden on a per-field basis through the ``editor`` keyword argument, e.g. ``body = RichTextField(editor='legacy')``. Within each configuration block, the following fields are recognised:
+
+ * ``WIDGET``: The rich text widget implementation to use. Wagtail provides two implementations: ``wagtail.admin.rich_text.DraftailRichTextArea`` (a modern extensible editor which enforces well-structured markup) and ``wagtail.admin.rich_text.HalloRichTextArea`` (deprecated; works directly at the HTML level). Other widgets may be provided by third-party packages.
+
+ * ``OPTIONS``: Configuration options to pass to the widget. Recognised options are widget-specific, but both ``DraftailRichTextArea`` and ``HalloRichTextArea`` accept a ``features`` list indicating the active rich text features (see :ref:`rich_text_features`).
 
 
 
