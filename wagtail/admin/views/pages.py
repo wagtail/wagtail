@@ -748,6 +748,11 @@ def unpublish(request, page_id):
     if request.method == 'POST':
         include_descendants = request.POST.get("include_descendants", False)
 
+        for fn in hooks.get_hooks('before_unpublish_page'):
+            result = fn(request, page)
+            if hasattr(result, 'status_code'):
+                return result
+
         page.unpublish()
 
         if include_descendants:
@@ -755,6 +760,11 @@ def unpublish(request, page_id):
             for live_descendant_page in live_descendant_pages:
                 if user_perms.for_page(live_descendant_page).can_unpublish():
                     live_descendant_page.unpublish()
+
+        for fn in hooks.get_hooks('after_unpublish_page'):
+            result = fn(request, page)
+            if hasattr(result, 'status_code'):
+                return result
 
         messages.success(request, _("Page '{0}' unpublished.").format(page.get_admin_display_title()), buttons=[
             messages.button(reverse('wagtailadmin_pages:edit', args=(page.id,)), _('Edit'))
