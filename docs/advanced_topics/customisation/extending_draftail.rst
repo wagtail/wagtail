@@ -9,7 +9,7 @@ Plugins come in three types:
 * Blocks – To indicate the structure of the content, eg. ``blockquote``, ``ol``.
 * Entities – To enter additional data/metadata, eg. ``link`` (with a URL), ``image`` (with a file).
 
-All of these plugins are created with a similar baseline, which we can demonstrate with one of the simplest examples – a custom feature for an inline style of ``strikethrough``.
+All of these plugins are created with a similar baseline, which we can demonstrate with one of the simplest examples – a custom feature for an inline style of ``strikethrough``. Place the following in a ``wagtail_hooks.py`` file in any installed app:
 
 .. code-block:: python
 
@@ -51,7 +51,11 @@ All of these plugins are created with a similar baseline, which we can demonstra
         # 5. Call register_converter_rule to register the content transformation conversion.
         features.register_converter_rule('contentstate', feature_name, db_conversion)
 
-These five steps will always be the same for all Draftail plugins. The important parts are to:
+        # 6. (optional) Add the feature to the default features list to make it available
+        # on rich text fields that do not specify an explicit 'features' list
+        features.default_features.append('strikethrough')
+
+These steps will always be the same for all Draftail plugins. The important parts are to:
 
 * Consistently use the feature’s Draft.js type or Wagtail feature names where appropriate.
 * Give enough information to Draftail so it knows how to make a button for the feature, and how to render it (more on this later).
