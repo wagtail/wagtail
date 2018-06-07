@@ -262,8 +262,6 @@ This setting lets you override the maximum upload size for images (in bytes). If
 
 This setting enables feature detection once OpenCV is installed, see all details on the :ref:`image_feature_detection` documentation.
 
-The ``WAGTAILIMAGES_BACKENDS`` setting is no longer supported, it was introduced in 0.3.
-
 
 Password Management
 -------------------
