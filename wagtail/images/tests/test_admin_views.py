@@ -876,6 +876,7 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
         self.assertIn('image', response.context)
         self.assertEqual(response.context['image'].title, 'test.png')
         self.assertTrue(response.context['image'].file_size)
+        self.assertTrue(response.context['image'].file_hash)
 
         # Check form
         self.assertIn('form', response.context)
