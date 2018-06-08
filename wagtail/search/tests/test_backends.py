@@ -15,7 +15,7 @@ from wagtail.search.backends import (
     InvalidSearchBackendError, get_search_backend, get_search_backends)
 from wagtail.search.backends.base import FieldError, FilterFieldError
 from wagtail.search.backends.db import DatabaseSearchBackend
-from wagtail.search.query import MATCH_ALL, And, Boost, Not, Or, PlainText, Prefix, Term
+from wagtail.search.query import MATCH_ALL, And, Boost, Not, Or, PlainText
 from wagtail.tests.search import models
 from wagtail.tests.utils import WagtailTestUtils
 
@@ -499,39 +499,25 @@ class BackendTests(WagtailTestUtils):
         results = self.backend.search(MATCH_ALL, models.Book.objects.all())
         self.assertEqual(len(results), 13)
 
-    def test_term(self):
-        results = self.backend.search(Term('javascript'),
-                                      models.Book.objects.all())
-
-        self.assertSetEqual({r.title for r in results},
-                            {'JavaScript: The Definitive Guide',
-                             'JavaScript: The good parts'})
-
-    def test_incomplete_term(self):
-        results = self.backend.search(Term('pro'),
-                                      models.Book.objects.all())
-
-        self.assertSetEqual({r.title for r in results}, set())
-
     def test_and(self):
-        results = self.backend.search(And([Term('javascript'),
-                                           Term('definitive')]),
+        results = self.backend.search(And([PlainText('javascript'),
+                                           PlainText('definitive')]),
                                       models.Book.objects.all())
         self.assertSetEqual({r.title for r in results},
                             {'JavaScript: The Definitive Guide'})
 
-        results = self.backend.search(Term('javascript') & Term('definitive'),
+        results = self.backend.search(PlainText('javascript') & PlainText('definitive'),
                                       models.Book.objects.all())
         self.assertSetEqual({r.title for r in results},
                             {'JavaScript: The Definitive Guide'})
 
     def test_or(self):
-        results = self.backend.search(Or([Term('hobbit'), Term('towers')]),
+        results = self.backend.search(Or([PlainText('hobbit'), PlainText('towers')]),
                                       models.Book.objects.all())
         self.assertSetEqual({r.title for r in results},
                             {'The Hobbit', 'The Two Towers'})
 
-        results = self.backend.search(Term('hobbit') | Term('towers'),
+        results = self.backend.search(PlainText('hobbit') | PlainText('towers'),
                                       models.Book.objects.all())
         self.assertSetEqual({r.title for r in results},
                             {'The Hobbit', 'The Two Towers'})
@@ -551,19 +537,19 @@ class BackendTests(WagtailTestUtils):
             'Two Scoops of Django 1.11',
         }
 
-        results = self.backend.search(Not(Term('javascript')),
+        results = self.backend.search(Not(PlainText('javascript')),
                                       models.Book.objects.all())
         self.assertSetEqual({r.title for r in results}, all_other_titles)
 
-        results = self.backend.search(~Term('javascript'),
+        results = self.backend.search(~PlainText('javascript'),
                                       models.Book.objects.all())
         self.assertSetEqual({r.title for r in results}, all_other_titles)
 
     def test_operators_combination(self):
         results = self.backend.search(
-            ((Term('javascript') & ~Term('definitive')) |
-             Term('python') | Term('rust')) |
-            Term('two'),
+            ((PlainText('javascript') & ~PlainText('definitive')) |
+             PlainText('python') | PlainText('rust')) |
+            PlainText('two'),
             models.Book.objects.all())
         self.assertSetEqual({r.title for r in results},
                             {'JavaScript: The good parts',
@@ -571,17 +557,6 @@ class BackendTests(WagtailTestUtils):
                              'The Two Towers',
                              'The Rust Programming Language',
                              'Two Scoops of Django 1.11'})
-
-    def test_prefix_single_word(self):
-        results = self.backend.search(Prefix('pro'), models.Book.objects.all())
-        self.assertSetEqual({r.title for r in results},
-                            {'The Rust Programming Language'})
-
-    def test_prefix_multiple_words(self):
-        results = self.backend.search(Prefix('rust pro'),
-                                      models.Book.objects.all())
-        self.assertSetEqual({r.title for r in results},
-                            {'The Rust Programming Language'})
 
     #
     # Shortcut query classes

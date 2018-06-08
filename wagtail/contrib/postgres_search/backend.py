@@ -12,10 +12,9 @@ from django.utils.encoding import force_text
 from wagtail.search.backends.base import (
     BaseSearchBackend, BaseSearchQueryCompiler, BaseSearchResults, FilterFieldError)
 from wagtail.search.index import RelatedFields, SearchField, get_indexed_models
-from wagtail.search.query import And, Boost, MatchAll, Not, Or, PlainText, Prefix, Term
+from wagtail.search.query import And, Boost, MatchAll, Not, Or, PlainText
 from wagtail.search.utils import ADD, AND, OR
 
-from .models import SearchAutocomplete as PostgresSearchAutocomplete
 from .models import IndexEntry
 from .utils import (
     get_content_type_pk, get_descendants_content_types_pks, get_postgresql_connections,
@@ -236,26 +235,20 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
             query = self.query
 
         if isinstance(query, PlainText):
-            operator_class = {
-                'and': And,
-                'or': Or,
+            self.check_boost(query, boost=boost)
+
+            operator = {
+                'and': AND,
+                'or': OR,
             }[query.operator]
-            q = operator_class([
-                Term(term, boost=query.boost)
+
+            return operator([
+                PostgresSearchQuery(unidecode(term), config=config)
                 for term in query.query_string.split()
             ])
-            return self.build_database_query(q, config, boost=boost)
         if isinstance(query, Boost):
             boost *= query.boost
             return self.build_database_query(query.subquery, config, boost=boost)
-        if isinstance(query, Prefix):
-            self.check_boost(query, boost=boost)
-            self.is_autocomplete = True
-            return PostgresSearchAutocomplete(unidecode(query.prefix),
-                                              config=config)
-        if isinstance(query, Term):
-            self.check_boost(query, boost=boost)
-            return PostgresSearchQuery(unidecode(query.term), config=config)
         if isinstance(query, Not):
             return ~self.build_database_query(query.subquery, config, boost=boost)
         if isinstance(query, And):
