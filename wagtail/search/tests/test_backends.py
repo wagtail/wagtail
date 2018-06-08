@@ -444,77 +444,6 @@ class BackendTests(WagtailTestUtils):
             "The Fellowship of the Ring"  # If this item doesn't appear, "Foundation" is still in the index
         ])
 
-    #
-    # Basic query classes
-    #
-
-    def test_match_all(self):
-        results = self.backend.search(MATCH_ALL, models.Book.objects.all())
-        self.assertEqual(len(results), 13)
-
-    def test_and(self):
-        results = self.backend.search(And([PlainText('javascript'),
-                                           PlainText('definitive')]),
-                                      models.Book.objects.all())
-        self.assertSetEqual({r.title for r in results},
-                            {'JavaScript: The Definitive Guide'})
-
-        results = self.backend.search(PlainText('javascript') & PlainText('definitive'),
-                                      models.Book.objects.all())
-        self.assertSetEqual({r.title for r in results},
-                            {'JavaScript: The Definitive Guide'})
-
-    def test_or(self):
-        results = self.backend.search(Or([PlainText('hobbit'), PlainText('towers')]),
-                                      models.Book.objects.all())
-        self.assertSetEqual({r.title for r in results},
-                            {'The Hobbit', 'The Two Towers'})
-
-        results = self.backend.search(PlainText('hobbit') | PlainText('towers'),
-                                      models.Book.objects.all())
-        self.assertSetEqual({r.title for r in results},
-                            {'The Hobbit', 'The Two Towers'})
-
-    def test_not(self):
-        all_other_titles = {
-            'A Clash of Kings',
-            'A Game of Thrones',
-            'A Storm of Swords',
-            'Foundation',
-            'Learning Python',
-            'The Hobbit',
-            'The Two Towers',
-            'The Fellowship of the Ring',
-            'The Return of the King',
-            'The Rust Programming Language',
-            'Two Scoops of Django 1.11',
-        }
-
-        results = self.backend.search(Not(PlainText('javascript')),
-                                      models.Book.objects.all())
-        self.assertSetEqual({r.title for r in results}, all_other_titles)
-
-        results = self.backend.search(~PlainText('javascript'),
-                                      models.Book.objects.all())
-        self.assertSetEqual({r.title for r in results}, all_other_titles)
-
-    def test_operators_combination(self):
-        results = self.backend.search(
-            ((PlainText('javascript') & ~PlainText('definitive')) |
-             PlainText('python') | PlainText('rust')) |
-            PlainText('two'),
-            models.Book.objects.all())
-        self.assertSetEqual({r.title for r in results},
-                            {'JavaScript: The good parts',
-                             'Learning Python',
-                             'The Two Towers',
-                             'The Rust Programming Language',
-                             'Two Scoops of Django 1.11'})
-
-    #
-    # Shortcut query classes
-    #
-
     def test_plain_text_single_word(self):
         results = self.backend.search(PlainText('Javascript'),
                                       models.Book.objects.all())
@@ -582,7 +511,6 @@ class BackendTests(WagtailTestUtils):
             "JavaScript: The Definitive Guide",
         ])
 
-
         results = self.backend.search(PlainText('JavaScript Definitive') | Boost(PlainText('Learning Python'), 0.5), models.Book.objects.all())
 
         # Now they should be swapped
@@ -590,6 +518,69 @@ class BackendTests(WagtailTestUtils):
             "JavaScript: The Definitive Guide",
             "Learning Python",
         ])
+
+    def test_match_all(self):
+        results = self.backend.search(MATCH_ALL, models.Book.objects.all())
+        self.assertEqual(len(results), 13)
+
+    def test_and(self):
+        results = self.backend.search(And([PlainText('javascript'),
+                                           PlainText('definitive')]),
+                                      models.Book.objects.all())
+        self.assertSetEqual({r.title for r in results},
+                            {'JavaScript: The Definitive Guide'})
+
+        results = self.backend.search(PlainText('javascript') & PlainText('definitive'),
+                                      models.Book.objects.all())
+        self.assertSetEqual({r.title for r in results},
+                            {'JavaScript: The Definitive Guide'})
+
+    def test_or(self):
+        results = self.backend.search(Or([PlainText('hobbit'), PlainText('towers')]),
+                                      models.Book.objects.all())
+        self.assertSetEqual({r.title for r in results},
+                            {'The Hobbit', 'The Two Towers'})
+
+        results = self.backend.search(PlainText('hobbit') | PlainText('towers'),
+                                      models.Book.objects.all())
+        self.assertSetEqual({r.title for r in results},
+                            {'The Hobbit', 'The Two Towers'})
+
+    def test_not(self):
+        all_other_titles = {
+            'A Clash of Kings',
+            'A Game of Thrones',
+            'A Storm of Swords',
+            'Foundation',
+            'Learning Python',
+            'The Hobbit',
+            'The Two Towers',
+            'The Fellowship of the Ring',
+            'The Return of the King',
+            'The Rust Programming Language',
+            'Two Scoops of Django 1.11',
+        }
+
+        results = self.backend.search(Not(PlainText('javascript')),
+                                      models.Book.objects.all())
+        self.assertSetEqual({r.title for r in results}, all_other_titles)
+
+        results = self.backend.search(~PlainText('javascript'),
+                                      models.Book.objects.all())
+        self.assertSetEqual({r.title for r in results}, all_other_titles)
+
+    def test_operators_combination(self):
+        results = self.backend.search(
+            ((PlainText('javascript') & ~PlainText('definitive')) |
+             PlainText('python') | PlainText('rust')) |
+            PlainText('two'),
+            models.Book.objects.all())
+        self.assertSetEqual({r.title for r in results},
+                            {'JavaScript: The good parts',
+                             'Learning Python',
+                             'The Two Towers',
+                             'The Rust Programming Language',
+                             'Two Scoops of Django 1.11'})
 
 
 @override_settings(
