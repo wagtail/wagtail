@@ -5,7 +5,7 @@ from django.db.models.expressions import Value
 
 from wagtail.search.backends.base import (
     BaseSearchBackend, BaseSearchQueryCompiler, BaseSearchResults)
-from wagtail.search.query import And, Boost, MatchAll, Not, Or, PlainText, Prefix, Term
+from wagtail.search.query import And, Boost, MatchAll, Not, Or, PlainText
 from wagtail.search.utils import AND, OR
 
 
@@ -60,15 +60,17 @@ class DatabaseSearchQueryCompiler(BaseSearchQueryCompiler):
             query = self.query
 
         if isinstance(query, PlainText):
-            operator_class = {
-                'and': And,
-                'or': Or,
+            self.check_boost(query, boost=boost)
+
+            operator = {
+                'and': AND,
+                'or': OR,
             }[query.operator]
-            q = operator_class([
-                Term(term, boost=query.boost)
+
+            return operator([
+                self.build_single_term_filter(term)
                 for term in query.query_string.split()
             ])
-            return self.build_database_filter(q, boost=boost)
 
         if isinstance(query, Boost):
             boost *= query.boost
@@ -77,12 +79,6 @@ class DatabaseSearchQueryCompiler(BaseSearchQueryCompiler):
         if isinstance(self.query, MatchAll):
             return models.Q()
 
-        if isinstance(query, Term):
-            self.check_boost(query)
-            return self.build_single_term_filter(query.term)
-        if isinstance(query, Prefix):
-            self.check_boost(query)
-            return self.build_single_term_filter(query.prefix)
         if isinstance(query, Not):
             return ~self.build_database_filter(query.subquery, boost=boost)
         if isinstance(query, And):

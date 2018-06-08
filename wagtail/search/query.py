@@ -114,32 +114,4 @@ class Boost(SearchQuery):
         return func(self.__class__(self.subquery.apply(func), self.boost))
 
 
-class Term(SearchQuery):
-    def __init__(self, term: str, boost: float = 1):
-        self.term = term
-        self.boost = boost
-
-    def apply(self, func):
-        return func(self.__class__(self.term, self.boost))
-
-
-class Prefix(SearchQuery):
-    def __init__(self, prefix: str, boost: float = 1):
-        self.prefix = prefix
-        self.boost = boost
-
-    def apply(self, func):
-        return func(self.__class__(self.prefix, self.boost))
-
-
-class Fuzzy(SearchQuery):
-    def __init__(self, term: str, max_distance: float = 3, boost: float = 1):
-        self.term = term
-        self.max_distance = max_distance
-        self.boost = boost
-
-    def apply(self, func):
-        return func(self.__class__(self.term, self.max_distance, self.boost))
-
-
 MATCH_ALL = MatchAll()
