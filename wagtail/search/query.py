@@ -38,46 +38,6 @@ class SearchQuery:
         return children[0]
 
 
-class SearchQueryOperator(SearchQuery):
-    pass
-
-
-class MultiOperandsSearchQueryOperator(SearchQueryOperator):
-    def __init__(self, subqueries):
-        self.subqueries = subqueries
-
-    def apply(self, func):
-        return func(self.__class__(
-            [subquery.apply(func) for subquery in self.subqueries]))
-
-    def get_children(self):
-        yield from self.subqueries
-
-
-#
-# Operators
-#
-
-
-class And(MultiOperandsSearchQueryOperator):
-    pass
-
-
-class Or(MultiOperandsSearchQueryOperator):
-    pass
-
-
-class Not(SearchQueryOperator):
-    def __init__(self, subquery: SearchQuery):
-        self.subquery = subquery
-
-    def apply(self, func):
-        return func(self.__class__(self.subquery.apply(func)))
-
-    def get_children(self):
-        yield self.subquery
-
-
 #
 # Basic query classes
 #
@@ -112,6 +72,46 @@ class Boost(SearchQuery):
 
     def apply(self, func):
         return func(self.__class__(self.subquery.apply(func), self.boost))
+
+
+#
+# Operators
+#
+
+
+class SearchQueryOperator(SearchQuery):
+    pass
+
+
+class MultiOperandsSearchQueryOperator(SearchQueryOperator):
+    def __init__(self, subqueries):
+        self.subqueries = subqueries
+
+    def apply(self, func):
+        return func(self.__class__(
+            [subquery.apply(func) for subquery in self.subqueries]))
+
+    def get_children(self):
+        yield from self.subqueries
+
+
+class And(MultiOperandsSearchQueryOperator):
+    pass
+
+
+class Or(MultiOperandsSearchQueryOperator):
+    pass
+
+
+class Not(SearchQueryOperator):
+    def __init__(self, subquery: SearchQuery):
+        self.subquery = subquery
+
+    def apply(self, func):
+        return func(self.__class__(self.subquery.apply(func)))
+
+    def get_children(self):
+        yield self.subquery
 
 
 MATCH_ALL = MatchAll()
