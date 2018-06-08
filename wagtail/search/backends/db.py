@@ -115,7 +115,7 @@ class DatabaseSearchResults(BaseSearchResults):
             )
 
         query = self.get_queryset()
-        results = query.values(field_name).annotate(count=Count('id')).order_by('-count')
+        results = query.values(field_name).annotate(count=Count('pk')).order_by('-count')
 
         return OrderedDict([
             (result[field_name], result['count'])
