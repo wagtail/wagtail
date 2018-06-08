@@ -14,7 +14,7 @@ from wagtail.search.backends.base import (
     BaseSearchBackend, BaseSearchQueryCompiler, BaseSearchResults)
 from wagtail.search.index import FilterField, Indexed, RelatedFields, SearchField, class_is_indexed
 from wagtail.search.query import (
-    And, Boost, Filter, Fuzzy, MatchAll, Not, Or, PlainText, Prefix, Term)
+    And, Boost, Fuzzy, MatchAll, Not, Or, PlainText, Prefix, Term)
 from wagtail.utils.deprecation import RemovedInWagtail22Warning
 from wagtail.utils.utils import deep_update
 
@@ -466,20 +466,6 @@ class Elasticsearch2SearchQueryCompiler(BaseSearchQueryCompiler):
         elif isinstance(query, PlainText):
             return self._compile_plaintext_query(self.query, [field], boost)
 
-        elif isinstance(query, Filter):
-            bool_query = {
-                'must': self._compile_query(query.query, field, boost),
-            }
-
-            if query.include:
-                bool_query['filter'] = self._compile_query(query.include, field, 0.0)
-
-            if query.exclude:
-                bool_query['mustNot'] = self._compile_query(query.exclude, field, 0.0)
-
-            return {
-                'bool': bool_query,
-            }
 
         elif isinstance(query, Boost):
             return self._compile_query(query.subquery, field, boost * query.boost)

@@ -153,27 +153,6 @@ class PlainText(SearchQueryShortcut):
             for term in self.query_string.split()])
 
 
-class Filter(SearchQueryShortcut):
-    def __init__(self, query: SearchQuery,
-                 include: SearchQuery = None, exclude: SearchQuery = None):
-        self.query = query
-        self.include = include
-        self.exclude = exclude
-
-    def apply(self, func):
-        return func(self.__class__(
-            self.query.apply(func),
-            self.include.apply(func), self.exclude.apply(func)))
-
-    def get_equivalent(self):
-        query = self.query
-        if self.include is not None:
-            query &= Boost(self.include, 0)
-        if self.exclude is not None:
-            query &= Boost(~self.exclude, 0)
-        return query
-
-
 class Boost(SearchQueryShortcut):
     def __init__(self, subquery: SearchQuery, boost: float):
         self.subquery = subquery
