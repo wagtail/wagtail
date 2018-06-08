@@ -54,13 +54,6 @@ class MultiOperandsSearchQueryOperator(SearchQueryOperator):
         yield from self.subqueries
 
 
-class SearchQueryShortcut(SearchQuery):
-    def get_equivalent(self):
-        raise NotImplementedError
-
-    def get_children(self):
-        yield self.get_equivalent()
-
 #
 # Operators
 #
@@ -147,11 +140,6 @@ class Fuzzy(SearchQuery):
 
     def apply(self, func):
         return func(self.__class__(self.term, self.max_distance, self.boost))
-
-
-#
-# Shortcut query classes
-#
 
 
 MATCH_ALL = MatchAll()
