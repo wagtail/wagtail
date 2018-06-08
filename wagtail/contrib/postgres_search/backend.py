@@ -11,7 +11,7 @@ from django.utils.encoding import force_text
 from wagtail.search.backends.base import (
     BaseSearchBackend, BaseSearchQueryCompiler, BaseSearchResults)
 from wagtail.search.index import RelatedFields, SearchField, get_indexed_models
-from wagtail.search.query import And, MatchAll, Not, Or, PlainText, Prefix, SearchQueryShortcut, Term
+from wagtail.search.query import And, Boost, MatchAll, Not, Or, PlainText, Prefix, SearchQueryShortcut, Term
 from wagtail.search.utils import ADD, AND, OR
 
 from .models import SearchAutocomplete as PostgresSearchAutocomplete
@@ -226,12 +226,12 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
                 return self.get_search_field(sub_field_name, field.fields)
 
     # TODO: Find a way to use the term boosting.
-    def check_boost(self, query):
-        if query.boost != 1:
+    def check_boost(self, query, boost=1.0):
+        if query.boost * boost != 1.0:
             warn('PostgreSQL search backend '
                  'does not support term boosting for now.')
 
-    def build_database_query(self, query=None, config=None):
+    def build_database_query(self, query=None, config=None, boost=1.0):
         if query is None:
             query = self.query
 
@@ -244,28 +244,31 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
                 Term(term, boost=query.boost)
                 for term in query.query_string.split()
             ])
-            return self.build_database_query(q, config)
+            return self.build_database_query(q, config, boost=boost)
+        if isinstance(query, Boost):
+            boost *= query.boost
+            return self.build_database_query(query.subquery, config, boost=boost)
         if isinstance(query, SearchQueryShortcut):
-            return self.build_database_query(query.get_equivalent(), config)
+            return self.build_database_query(query.get_equivalent(), config, boost=boost)
         if isinstance(query, Prefix):
-            self.check_boost(query)
+            self.check_boost(query, boost=boost)
             self.is_autocomplete = True
             return PostgresSearchAutocomplete(unidecode(query.prefix),
                                               config=config)
         if isinstance(query, Term):
-            self.check_boost(query)
+            self.check_boost(query, boost=boost)
             return PostgresSearchQuery(unidecode(query.term), config=config)
         if isinstance(query, Not):
-            return ~self.build_database_query(query.subquery, config)
+            return ~self.build_database_query(query.subquery, config, boost=boost)
         if isinstance(query, And):
-            return AND(self.build_database_query(subquery, config)
+            return AND(self.build_database_query(subquery, config, boost=boost)
                        for subquery in query.subqueries)
         if isinstance(query, Or):
-            return OR(self.build_database_query(subquery, config)
+            return OR(self.build_database_query(subquery, config, boost=boost)
                       for subquery in query.subqueries)
         raise NotImplementedError(
             '`%s` is not supported by the PostgreSQL search backend.'
-            % self.query.__class__.__name__)
+            % query.__class__.__name__)
 
     def search(self, config, start, stop, score_field=None):
         # TODO: Handle MatchAll nested inside other search query classes.

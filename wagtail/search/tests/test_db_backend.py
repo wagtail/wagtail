@@ -57,3 +57,8 @@ class TestDBBackend(BackendTests, TestCase):
     @unittest.expectedFailure
     def test_incomplete_plain_text(self):
         super().test_incomplete_plain_text()
+
+    # Database backend doesn't support Boost() query class
+    @unittest.expectedFailure
+    def test_boost(self):
+        super().test_boost()

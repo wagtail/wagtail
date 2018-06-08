@@ -112,6 +112,15 @@ class MatchAll(SearchQuery):
         return self.__class__()
 
 
+class Boost(SearchQuery):
+    def __init__(self, subquery: SearchQuery, boost: float):
+        self.subquery = subquery
+        self.boost = boost
+
+    def apply(self, func):
+        return func(self.__class__(self.subquery.apply(func), self.boost))
+
+
 class Term(SearchQuery):
     def __init__(self, term: str, boost: float = 1):
         self.term = term
@@ -143,23 +152,6 @@ class Fuzzy(SearchQuery):
 #
 # Shortcut query classes
 #
-
-
-class Boost(SearchQueryShortcut):
-    def __init__(self, subquery: SearchQuery, boost: float):
-        self.subquery = subquery
-        self.boost = boost
-
-    def apply(self, func):
-        return func(self.__class__(self.subquery.apply(func), self.boost))
-
-    def get_equivalent(self):
-        def boost_child(child):
-            if isinstance(child, (PlainText, Fuzzy, Prefix, Term)):
-                child.boost *= self.boost
-            return child
-
-        return self.subquery.apply(boost_child)
 
 
 MATCH_ALL = MatchAll()
