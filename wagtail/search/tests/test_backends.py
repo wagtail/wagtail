@@ -390,7 +390,7 @@ class BackendTests(WagtailTestUtils):
 
         # Not testing ordering here as two of the items have the same count, so the ordering is undefined.
         # See test_facet_tags for a test of the ordering
-        self.assertEqual(dict(results), {'js': 2, 'py': 2, 'rs': 1})
+        self.assertDictEqual(dict(results), {'js': 2, 'py': 2, 'rs': 1})
 
     def test_facet_tags(self):
         # The test data doesn't contain any tags, add some
