@@ -234,7 +234,7 @@ class Elasticsearch2Mapping:
             value = field.get_value(obj)
 
             if isinstance(field, RelatedFields):
-                if isinstance(value, models.Manager):
+                if isinstance(value, (models.Manager, models.QuerySet)):
                     nested_docs = []
 
                     for nested_obj in value.all():
@@ -246,6 +246,11 @@ class Elasticsearch2Mapping:
                 elif isinstance(value, models.Model):
                     value, extra_partials = self._get_nested_document(field.fields, value)
                     partials.extend(extra_partials)
+            elif isinstance(field, FilterField):
+                if isinstance(value, (models.Manager, models.QuerySet)):
+                    value = list(value.values_list('pk', flat=True))
+                elif isinstance(value, models.Model):
+                    value = value.pk
 
             doc[self.get_field_column_name(field)] = value
 
