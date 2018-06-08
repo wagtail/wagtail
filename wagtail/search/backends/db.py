@@ -8,7 +8,7 @@ from django.db.models.expressions import Value
 from wagtail.search.backends.base import (
     BaseSearchBackend, BaseSearchQueryCompiler, BaseSearchResults, FilterFieldError)
 from wagtail.search.query import (
-    And, MatchAll, Not, Or, PlainText, Prefix, SearchQueryShortcut, Term)
+    And, Boost, MatchAll, Not, Or, PlainText, Prefix, SearchQueryShortcut, Term)
 from wagtail.search.utils import AND, OR
 
 
@@ -54,11 +54,11 @@ class DatabaseSearchQueryCompiler(BaseSearchQueryCompiler):
             term_query |= models.Q(**{field_name + '__icontains': term})
         return term_query
 
-    def check_boost(self, query):
-        if query.boost != 1:
+    def check_boost(self, query, boost=1.0):
+        if query.boost * boost != 1.0:
             warn('Database search backend does not support term boosting.')
 
-    def build_database_filter(self, query=None):
+    def build_database_filter(self, query=None, boost=1.0):
         if query is None:
             query = self.query
 
@@ -71,13 +71,17 @@ class DatabaseSearchQueryCompiler(BaseSearchQueryCompiler):
                 Term(term, boost=query.boost)
                 for term in query.query_string.split()
             ])
-            return self.build_database_filter(q)
+            return self.build_database_filter(q, boost=boost)
+
+        if isinstance(query, Boost):
+            boost *= query.boost
+            return self.build_database_filter(query.subquery, boost=boost)
 
         if isinstance(self.query, MatchAll):
             return models.Q()
 
         if isinstance(query, SearchQueryShortcut):
-            return self.build_database_filter(query.get_equivalent())
+            return self.build_database_filter(query.get_equivalent(), boost=boost)
         if isinstance(query, Term):
             self.check_boost(query)
             return self.build_single_term_filter(query.term)
@@ -85,16 +89,16 @@ class DatabaseSearchQueryCompiler(BaseSearchQueryCompiler):
             self.check_boost(query)
             return self.build_single_term_filter(query.prefix)
         if isinstance(query, Not):
-            return ~self.build_database_filter(query.subquery)
+            return ~self.build_database_filter(query.subquery, boost=boost)
         if isinstance(query, And):
-            return AND(self.build_database_filter(subquery)
+            return AND(self.build_database_filter(subquery, boost=boost)
                        for subquery in query.subqueries)
         if isinstance(query, Or):
-            return OR(self.build_database_filter(subquery)
+            return OR(self.build_database_filter(subquery, boost=boost)
                       for subquery in query.subqueries)
         raise NotImplementedError(
             '`%s` is not supported by the database search backend.'
-            % self.query.__class__.__name__)
+            % query.__class__.__name__)
 
 
 class DatabaseSearchResults(BaseSearchResults):

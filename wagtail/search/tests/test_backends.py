@@ -645,35 +645,23 @@ class BackendTests(WagtailTestUtils):
             self.backend.search('Guide', models.Book.objects.all(),
                                 operator='xor')
 
-    def test_boost_equivalent(self):
-        boost = Boost(Term('guide'), 5)
-        equivalent = boost.children[0]
-        self.assertIsInstance(equivalent, Term)
-        self.assertAlmostEqual(equivalent.boost, 5)
+    def test_boost(self):
+        results = self.backend.search(PlainText('JavaScript Definitive') | Boost(PlainText('Learning Python'), 2.0), models.Book.objects.all())
 
-        boost = Boost(Term('guide', boost=0.5), 5)
-        equivalent = boost.children[0]
-        self.assertIsInstance(equivalent, Term)
-        self.assertAlmostEqual(equivalent.boost, 2.5)
+        # Both python and JavaScript should be returned with Python at the top
+        self.assertEqual([r.title for r in results], [
+            "Learning Python",
+            "JavaScript: The Definitive Guide",
+        ])
 
-        boost = Boost(Boost(Term('guide', 0.1), 3), 5)
-        sub_boost = boost.children[0]
-        self.assertIsInstance(sub_boost, Boost)
-        sub_boost = sub_boost.children[0]
-        self.assertIsInstance(sub_boost, Term)
-        self.assertAlmostEqual(sub_boost.boost, 1.5)
 
-        boost = Boost(And([Boost(Term('guide', 0.1), 3), Term('two', 2)]), 5)
-        and_obj = boost.children[0]
-        self.assertIsInstance(and_obj, And)
-        sub_boost = and_obj.children[0]
-        self.assertIsInstance(sub_boost, Boost)
-        guide = sub_boost.children[0]
-        self.assertIsInstance(guide, Term)
-        self.assertAlmostEqual(guide.boost, 1.5)
-        two = and_obj.children[1]
-        self.assertIsInstance(two, Term)
-        self.assertAlmostEqual(two.boost, 10)
+        results = self.backend.search(PlainText('JavaScript Definitive') | Boost(PlainText('Learning Python'), 0.5), models.Book.objects.all())
+
+        # Now they should be swapped
+        self.assertEqual([r.title for r in results], [
+            "JavaScript: The Definitive Guide",
+            "Learning Python",
+        ])
 
 
 @override_settings(
