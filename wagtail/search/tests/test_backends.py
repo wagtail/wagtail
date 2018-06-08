@@ -15,7 +15,7 @@ from wagtail.search.backends import (
     InvalidSearchBackendError, get_search_backend, get_search_backends)
 from wagtail.search.backends.base import FieldError, FilterFieldError
 from wagtail.search.backends.db import DatabaseSearchBackend
-from wagtail.search.query import MATCH_ALL, And, Boost, Filter, Not, Or, PlainText, Prefix, Term
+from wagtail.search.query import MATCH_ALL, And, Boost, Not, Or, PlainText, Prefix, Term
 from wagtail.tests.search import models
 from wagtail.tests.utils import WagtailTestUtils
 
@@ -644,66 +644,6 @@ class BackendTests(WagtailTestUtils):
         with self.assertRaises(ValueError):
             self.backend.search('Guide', models.Book.objects.all(),
                                 operator='xor')
-
-    def test_filter_equivalent(self):
-        filter = Filter(Term('javascript'))
-        term = filter.child
-        self.assertIsInstance(term, Term)
-        self.assertEqual(term.term, 'javascript')
-
-        filter = Filter(Term('javascript'), include=Term('definitive'))
-        and_obj = filter.child
-        self.assertIsInstance(and_obj, And)
-        javascript = and_obj.children[0]
-        self.assertIsInstance(javascript, Term)
-        self.assertEqual(javascript.term, 'javascript')
-        boost_obj = and_obj.children[1]
-        self.assertIsInstance(boost_obj, Boost)
-        self.assertEqual(boost_obj.boost, 0)
-        definitive = boost_obj.child
-        self.assertIsInstance(definitive, Term)
-        self.assertEqual(definitive.term, 'definitive')
-
-        filter = Filter(Term('javascript'),
-                        include=Term('definitive'), exclude=Term('guide'))
-        and_obj1 = filter.child
-        self.assertIsInstance(and_obj1, And)
-        and_obj2 = and_obj1.children[0]
-        javascript = and_obj2.children[0]
-        self.assertIsInstance(javascript, Term)
-        self.assertEqual(javascript.term, 'javascript')
-        boost_obj = and_obj2.children[1]
-        self.assertIsInstance(boost_obj, Boost)
-        self.assertEqual(boost_obj.boost, 0)
-        definitive = boost_obj.child
-        self.assertIsInstance(definitive, Term)
-        self.assertEqual(definitive.term, 'definitive')
-        boost_obj = and_obj1.children[1]
-        self.assertIsInstance(boost_obj, Boost)
-        self.assertEqual(boost_obj.boost, 0)
-        not_obj = boost_obj.child
-        self.assertIsInstance(not_obj, Not)
-        guide = not_obj.child
-        self.assertEqual(guide.term, 'guide')
-
-    def test_filter_query(self):
-        results = self.backend.search(Filter(Term('javascript')),
-                                      models.Book.objects.all())
-        self.assertSetEqual({r.title for r in results},
-                            {'JavaScript: The Definitive Guide',
-                             'JavaScript: The good parts'})
-
-        results = self.backend.search(Filter(Term('javascript'),
-                                             include=Term('definitive')),
-                                      models.Book.objects.all())
-        self.assertSetEqual({r.title for r in results},
-                            {'JavaScript: The Definitive Guide'})
-
-        results = self.backend.search(Filter(Term('javascript'),
-                                             include=Term('definitive'),
-                                             exclude=Term('guide')),
-                                      models.Book.objects.all())
-        self.assertSetEqual({r.title for r in results}, set())
 
     def test_boost_equivalent(self):
         boost = Boost(Term('guide'), 5)
