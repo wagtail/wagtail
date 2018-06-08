@@ -477,7 +477,7 @@ class Elasticsearch2SearchQueryCompiler(BaseSearchQueryCompiler):
             }
 
         elif isinstance(query, PlainText):
-            return self._compile_plaintext_query(self.query, [field], boost)
+            return self._compile_plaintext_query(query, [field], boost)
 
 
         elif isinstance(query, Boost):
