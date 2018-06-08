@@ -17,33 +17,6 @@ class SearchQuery:
         return Not(self)
 
 
-class SearchQueryOperator(SearchQuery):
-    pass
-
-
-class MultiOperandsSearchQueryOperator(SearchQueryOperator):
-    def __init__(self, subqueries):
-        self.subqueries = subqueries
-
-
-#
-# Operators
-#
-
-
-class And(MultiOperandsSearchQueryOperator):
-    pass
-
-
-class Or(MultiOperandsSearchQueryOperator):
-    pass
-
-
-class Not(SearchQueryOperator):
-    def __init__(self, subquery: SearchQuery):
-        self.subquery = subquery
-
-
 #
 # Basic query classes
 #
@@ -70,6 +43,33 @@ class Boost(SearchQuery):
     def __init__(self, subquery: SearchQuery, boost: float):
         self.subquery = subquery
         self.boost = boost
+
+
+#
+# Operators
+#
+
+
+class SearchQueryOperator(SearchQuery):
+    pass
+
+
+class MultiOperandsSearchQueryOperator(SearchQueryOperator):
+    def __init__(self, subqueries):
+        self.subqueries = subqueries
+
+
+class And(MultiOperandsSearchQueryOperator):
+    pass
+
+
+class Or(MultiOperandsSearchQueryOperator):
+    pass
+
+
+class Not(SearchQueryOperator):
+    def __init__(self, subquery: SearchQuery):
+        self.subquery = subquery
 
 
 MATCH_ALL = MatchAll()
