@@ -12,7 +12,7 @@ from elasticsearch import Elasticsearch, NotFoundError
 from elasticsearch.helpers import bulk
 
 from wagtail.search.backends.base import (
-    BaseSearchBackend, BaseSearchQueryCompiler, BaseSearchResults)
+    BaseSearchBackend, BaseSearchQueryCompiler, BaseSearchResults, FilterFieldError)
 from wagtail.search.index import FilterField, Indexed, RelatedFields, SearchField, class_is_indexed
 from wagtail.search.query import (
     And, Boost, Filter, Fuzzy, MatchAll, Not, Or, PlainText, Prefix, Term)
@@ -602,7 +602,11 @@ class Elasticsearch2SearchResults(BaseSearchResults):
         # Get field
         field = self.query_compiler._get_filterable_field(field_name)
         if field is None:
-            pass  # TODO: Error
+            raise FilterFieldError(
+                'Cannot facet search results with field "' + field_name + '". Please add index.FilterField(\'' +
+                field_name + '\') to ' + self.query_compiler.queryset.model.__name__ + '.search_fields.',
+                field_name=field_name
+            )
 
         # Build body
         body = self._get_es_body()

@@ -6,7 +6,7 @@ from django.db.models import Count
 from django.db.models.expressions import Value
 
 from wagtail.search.backends.base import (
-    BaseSearchBackend, BaseSearchQueryCompiler, BaseSearchResults)
+    BaseSearchBackend, BaseSearchQueryCompiler, BaseSearchResults, FilterFieldError)
 from wagtail.search.query import And, MatchAll, Not, Or, SearchQueryShortcut, Term
 from wagtail.search.utils import AND, OR
 
@@ -108,7 +108,11 @@ class DatabaseSearchResults(BaseSearchResults):
         # Get field
         field = self.query_compiler._get_filterable_field(field_name)
         if field is None:
-            pass  # TODO: Error
+            raise FilterFieldError(
+                'Cannot facet search results with field "' + field_name + '". Please add index.FilterField(\'' +
+                field_name + '\') to ' + self.query_compiler.queryset.model.__name__ + '.search_fields.',
+                field_name=field_name
+            )
 
         query = self.get_queryset()
         results = query.values(field_name).annotate(count=Count('id')).order_by('-count')

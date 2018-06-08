@@ -13,7 +13,7 @@ from taggit.models import Tag
 
 from wagtail.search.backends import (
     InvalidSearchBackendError, get_search_backend, get_search_backends)
-from wagtail.search.backends.base import FieldError
+from wagtail.search.backends.base import FieldError, FilterFieldError
 from wagtail.search.backends.db import DatabaseSearchBackend
 from wagtail.search.query import MATCH_ALL, And, Boost, Filter, Not, Or, PlainText, Term
 from wagtail.tests.search import models
@@ -411,6 +411,10 @@ class BackendTests(WagtailTestUtils):
             (None, 5),
             (scifi_tag.id, 1),
         ]))
+
+    def test_facet_with_nonexistent_field(self):
+        with self.assertRaises(FilterFieldError):
+            self.backend.search(MATCH_ALL, models.ProgrammingGuide).facet('foo')
 
 
     # MISC TESTS
