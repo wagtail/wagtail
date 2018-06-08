@@ -5,7 +5,7 @@ from django.db.models.expressions import Value
 
 from wagtail.search.backends.base import (
     BaseSearchBackend, BaseSearchQueryCompiler, BaseSearchResults)
-from wagtail.search.query import And, Boost, MatchAll, Not, Or, PlainText, Prefix, SearchQueryShortcut, Term
+from wagtail.search.query import And, Boost, MatchAll, Not, Or, PlainText, Prefix, Term
 from wagtail.search.utils import AND, OR
 
 
@@ -77,8 +77,6 @@ class DatabaseSearchQueryCompiler(BaseSearchQueryCompiler):
         if isinstance(self.query, MatchAll):
             return models.Q()
 
-        if isinstance(query, SearchQueryShortcut):
-            return self.build_database_filter(query.get_equivalent(), boost=boost)
         if isinstance(query, Term):
             self.check_boost(query)
             return self.build_single_term_filter(query.term)

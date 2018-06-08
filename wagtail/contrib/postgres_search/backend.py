@@ -11,7 +11,7 @@ from django.utils.encoding import force_text
 from wagtail.search.backends.base import (
     BaseSearchBackend, BaseSearchQueryCompiler, BaseSearchResults)
 from wagtail.search.index import RelatedFields, SearchField, get_indexed_models
-from wagtail.search.query import And, Boost, MatchAll, Not, Or, PlainText, Prefix, SearchQueryShortcut, Term
+from wagtail.search.query import And, Boost, MatchAll, Not, Or, PlainText, Prefix, Term
 from wagtail.search.utils import ADD, AND, OR
 
 from .models import SearchAutocomplete as PostgresSearchAutocomplete
@@ -248,8 +248,6 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
         if isinstance(query, Boost):
             boost *= query.boost
             return self.build_database_query(query.subquery, config, boost=boost)
-        if isinstance(query, SearchQueryShortcut):
-            return self.build_database_query(query.get_equivalent(), config, boost=boost)
         if isinstance(query, Prefix):
             self.check_boost(query, boost=boost)
             self.is_autocomplete = True
