@@ -46,28 +46,21 @@ class Boost(SearchQuery):
 
 
 #
-# Operators
+# Combinators
 #
 
 
-class SearchQueryOperator(SearchQuery):
-    pass
-
-
-class MultiOperandsSearchQueryOperator(SearchQueryOperator):
+class And(SearchQuery):
     def __init__(self, subqueries):
         self.subqueries = subqueries
 
 
-class And(MultiOperandsSearchQueryOperator):
-    pass
+class Or(SearchQuery):
+    def __init__(self, subqueries):
+        self.subqueries = subqueries
 
 
-class Or(MultiOperandsSearchQueryOperator):
-    pass
-
-
-class Not(SearchQueryOperator):
+class Not(SearchQuery):
     def __init__(self, subquery: SearchQuery):
         self.subquery = subquery
 
