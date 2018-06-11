@@ -23,5 +23,5 @@ class Benchmark():
             timings.append(end_time - start_time)
             memory_usage.append(sum([t.size for t in after_memory.compare_to(before_memory, 'filename')]))
 
-        print("time min:", min(timings), "max:", max(timings), "avg:", sum(timings) / len(timings))
-        print("memory min:", min(memory_usage), "max:", max(memory_usage), "avg:", sum(memory_usage) / len(memory_usage))
+        print("time min:", min(timings), "max:", max(timings), "avg:", sum(timings) / len(timings))  # NOQA
+        print("memory min:", min(memory_usage), "max:", max(memory_usage), "avg:", sum(memory_usage) / len(memory_usage))  # NOQA
