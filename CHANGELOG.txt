@@ -11,6 +11,7 @@ Changelog
  * The `{% slugurl %}` template tag is now site-aware (Samir Shah)
  * Added `file_size` field to documents (Karl Hobley)
  * Update documentation (configuring Django for Wagtail) to contain all current settings options (Matt Westcott, LB (Ben Johnston))
+ * Added `defer` flag to `PageQuerySet.specific` (Karl Hobley)
  * Fix: Handle all exceptions from `Image.get_file_size` (Andrew Plummer)
  * Fix: Fix display of breadcrumbs in ModelAdmin (LB (Ben Johnston))
 
