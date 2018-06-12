@@ -28,6 +28,7 @@ Other features
  * Add Learn Wagtail to third-party tutorials in documentation (Matt Westcott)
  * Add a Django setting ``TAG_LIMIT`` to limit number of tags that can be added to any taggit model (Mani)
  * Added instructions on how to generate urls for ``ModelAdmin`` to documentation (LB (Ben Johnston), Andy Babic)
+ * Added option to specify a fallback URL on ``{% pageurl %}`` (Arthur Holzner)
 
 
 Bug fixes

@@ -18,6 +18,7 @@ Changelog
  * Add Learn Wagtail to third-party tutorials in documentation (Matt Westcott)
  * Add a Django setting `TAG_LIMIT` to limit number of tags that can be added to any taggit model (Mani)
  * Added instructions on how to generate urls for `ModelAdmin` to documentation (LB (Ben Johnston), Andy Babic)
+ * Added option to specify a fallback URL on `{% pageurl %}` (Arthur Holzner)
  * Fix: Set `SERVER_PORT` to 443 in `Page.dummy_request()` for HTTPS sites (Sergey Fedoseev)
  * Fix: Include port number in `Host` header of `Page.dummy_request()` (Sergey Fedoseev)
  * Fix: Validation error messages in `InlinePanel` no longer count towards `max_num` when disabling the 'add' button (Todd Dembrey, Thibaud Colas)

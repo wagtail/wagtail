@@ -1,4 +1,5 @@
 from django.conf.urls import include, url
+from django.http import HttpResponse
 
 from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.api.v2.endpoints import PagesAPIEndpoint
@@ -36,6 +37,8 @@ urlpatterns = [
     url(r'^sitemap-(?P<section>.+)\.xml$', sitemaps_views.sitemap, name='sitemap'),
 
     url(r'^testapp/', include(testapp_urls)),
+
+    url(r'^fallback/', lambda: HttpResponse('ok'), name='fallback'),
 
     # For anything not caught by a more specific rule above, hand over to
     # Wagtail's serving mechanism
