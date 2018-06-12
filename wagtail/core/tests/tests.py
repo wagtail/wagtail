@@ -2,6 +2,7 @@ from django import template
 from django.core.cache import cache
 from django.http import HttpRequest
 from django.test import TestCase
+from django.urls.exceptions import NoReverseMatch
 from django.utils.safestring import SafeText
 
 from wagtail.core.models import Page, Site
@@ -18,6 +19,16 @@ class TestPageUrlTags(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response,
                             '<a href="/events/christmas/">Christmas</a>')
+
+    def test_pageurl_fallback(self):
+        tpl = template.Template('''{% load wagtailcore_tags %}<a href="{% pageurl page fallback='fallback' %}">Fallback</a>''')
+        result = tpl.render(template.Context({'page': None}))
+        self.assertIn('<a href="/fallback/">Fallback</a>', result)
+
+    def test_pageurl_fallback_without_valid_fallback(self):
+        tpl = template.Template('''{% load wagtailcore_tags %}<a href="{% pageurl page fallback='not-existing-endpoint' %}">Fallback</a>''')
+        with self.assertRaises(NoReverseMatch):
+            tpl.render(template.Context({'page': None}))
 
     def test_slugurl_tag(self):
         response = self.client.get('/events/christmas/')
