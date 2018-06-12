@@ -340,3 +340,4 @@ Translators
 * Ukrainian: Viktor Shytiuk, Mykola Zamkovoi
 * Vietnamese: Luan Nguyen, Nguyễn Hồng Quân
 * Welsh: Adam Hughes
+* Arthur Holzner

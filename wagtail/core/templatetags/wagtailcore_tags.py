@@ -1,4 +1,5 @@
 from django import template
+from django.shortcuts import reverse
 from django.template.defaulttags import token_kwargs
 from django.utils.encoding import force_text
 from django.utils.safestring import mark_safe
@@ -11,11 +12,17 @@ register = template.Library()
 
 
 @register.simple_tag(takes_context=True)
-def pageurl(context, page):
+def pageurl(context, page, **kwargs):
     """
     Outputs a page's URL as relative (/foo/bar/) if it's within the same site as the
     current page, or absolute (http://example.com/foo/bar/) if not.
+    If kwargs contains a fallback view name and page is None, the fallback view url will be returned.
     """
+
+    fallback = kwargs.get("fallback", None)
+    if not page and fallback:
+        return reverse(fallback)
+
     try:
         current_site = context['request'].site
     except (KeyError, AttributeError):
