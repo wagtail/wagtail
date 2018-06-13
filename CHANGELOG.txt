@@ -8,6 +8,7 @@ Changelog
  * Added 'scale' image filter (Oliver Wilkerson)
  * Added meta tag to prevent search engines from indexing admin pages (Karl Hobley)
  * EmbedBlock now validates against recognised embed providers on save (Bertrand Bordage)
+ * Made cache control headers on Wagtail admin consistent with Django admin (Tomasz Knapik)
  * Fix: Respect next param on login (Loic Teixeira)
  * Fix: InlinePanel now handles relations that specify a related_query_name (Aram Dulyan)
  * Fix: before_delete_page / after_delete_page hooks now run within the same database transaction as the page deletion (Tomasz Knapik)
