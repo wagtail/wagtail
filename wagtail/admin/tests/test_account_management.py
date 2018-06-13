@@ -207,7 +207,7 @@ class TestAccountSection(TestCase, WagtailTestUtils):
         # Check that the user received a change email page
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailadmin/account/change_email.html')
-    
+
     def test_change_name_view(self):
         """
         This tests that the change name view responds with a change name page
@@ -236,7 +236,7 @@ class TestAccountSection(TestCase, WagtailTestUtils):
     def test_change_name_post(self):
         post_data = {
             'first_name': 'fname',
-			'last_name': 'lname',
+            'last_name': 'lname',
         }
 
         response = self.client.post(reverse('wagtailadmin_account_change_name'), post_data)
