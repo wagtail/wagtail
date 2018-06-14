@@ -101,6 +101,10 @@ def edit(request, image_id):
                 # Set new image file size
                 image.file_size = image.file.size
 
+                # Set new image file hash
+                image.file.seek(0)
+                image._set_file_hash(image.file.read())
+
             form.save()
 
             if 'file' in form.changed_data:
@@ -252,6 +256,10 @@ def add(request):
         if form.is_valid():
             # Set image file size
             image.file_size = image.file.size
+
+            # Set image file hash
+            image.file.seek(0)
+            image._set_file_hash(image.file.read())
 
             form.save()
 
