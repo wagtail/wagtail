@@ -21,6 +21,7 @@ Other features
  * Added ``file_size`` field to documents (Karl Hobley)
  * Update documentation (configuring Django for Wagtail) to contain all current settings options (Matt Westcott, LB (Ben Johnston))
  * Added ``defer`` flag to ``PageQuerySet.specific`` (Karl Hobley)
+ * Snippets can now be deleted from the listing view (LB (Ben Johnston))
 
 Bug fixes
 ~~~~~~~~~
