@@ -31,6 +31,7 @@ Changelog
  * Fix: Null characters in URLs no longer crash the redirect middleware on PostgreSQL (Andrew Crewdson, Matt Westcott)
  * Fix: Permission checks no longer prevent a non-live page from being unscheduled (Abdulmalik Abdulwahab)
  * Fix: Copy-paste between Draftail editors now preserves all formatting/content (Thibaud Colas)
+ * Fix: Fix alignment of checkboxes and radio buttons on Firefox (Matt Westcott)
 
 
 2.1.1 (04.07.2018)

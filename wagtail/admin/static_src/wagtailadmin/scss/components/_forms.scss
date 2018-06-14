@@ -140,11 +140,10 @@ input[type=checkbox] {
 }
 
 input[type=radio] {
-    // stylelint-disable-next-line property-no-vendor-prefix
-    -webkit-appearance: radio;
+    height: 12px;
     width: auto;
     position: relative;
-    margin-right: 15px;
+    margin-right: 27px;
 }
 
 input[type=radio]:before {
@@ -173,11 +172,10 @@ input[type=radio]:checked:before {
 }
 
 input[type=checkbox] {
-    // stylelint-disable-next-line property-no-vendor-prefix
-    -webkit-appearance: checkbox;
+    height: 12px;
     width: auto;
     position: relative;
-    margin-right: 15px;
+    margin-right: 27px;
 }
 
 input[type=checkbox]:before {
