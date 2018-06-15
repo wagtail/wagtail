@@ -53,6 +53,7 @@ def register_explorer_menu_item():
         _('Pages'), reverse('wagtailadmin_explore_root'),
         name='explorer',
         classnames='icon icon-folder-open-inverse',
+        icon_name='folder-open-inverse',
         order=100)
 
 
@@ -63,7 +64,11 @@ class SettingsMenuItem(SubmenuMenuItem):
 @hooks.register('register_admin_menu_item')
 def register_settings_menu():
     return SettingsMenuItem(
-        _('Settings'), settings_menu, classnames='icon icon-cogs', order=10000)
+        _('Settings'),
+        settings_menu,
+        classnames='icon icon-cogs',
+        icon_name='cogs',
+        order=10000)
 
 
 @hooks.register('register_permissions')
