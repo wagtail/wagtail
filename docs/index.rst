@@ -41,4 +41,5 @@ Index
    support
    editor_manual/index
    contributing/index
+   upgrading_wagtail_v2/index
    releases/index
