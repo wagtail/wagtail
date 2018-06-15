@@ -27,7 +27,7 @@ Before upgrading to a new feature release:
 -----------
 To upgrade
 -----------
-**Wagtail 2.0 Note** If you are upgrading to Wagtail 2.0, there is an update script for the module paths! See the `Wagtail 2.0 Module Path Update Script`_ section below for more information.
+**Wagtail 2.0 Note:** If you are upgrading to Wagtail 2.0, there is an update script for the module paths! See the `Wagtail 2.0 Module Path Update Script`_ section below for more information.
 
 * Update the ``wagtail`` line in your project's ``requirements.txt`` file to specify the latest patch release of the version you wish to install. For example, to upgrade to version 1.8.x, the line should read::
 
@@ -43,10 +43,6 @@ To upgrade
 
 * Make any necessary code changes as directed in the "Upgrade considerations" section of the release notes.
 * Test that your project is working as expected.
-
-Upgrading directly to Wagtail 2:
-================================
-**WARNING:** You should first locally try to upgrade version by version to see if there are any major application issues before attempting to upgrade directly. 
 
 -------------------------------------
 Wagtail 2.0 Module Path Update Script
@@ -111,10 +107,14 @@ The full list of modules to be renamed is as follows:
 | wagtail.contrib.wagtailstyleguide       | wagtail.contrib.styleguide        |                                   |
 +-----------------------------------------+-----------------------------------+-----------------------------------+
 
+Upgrading directly to Wagtail 2:
+================================
+**WARNING:** You should first locally try to upgrade version by version to see if there are any major application issues before attempting to upgrade directly. 
+
 ----------------
 Tips and Tricks:
 ----------------
-During the deployment process, you may find that you want to try and upgrade directly to Wagtail 2 without having to do multiple deployments. In addition, when running python tests for migrations your migrations will most likely fail as your test database is a new blank database that tests run from. Your dependencies may reference a Wagtail app migration that has not yet run. 
+During the deployment process, you may find that you want to try and upgrade directly to Wagtail 2 without having to do multiple deployments. In addition, when running python tests for migrations, your migrations will most likely fail as your test database is a new blank database that tests run from. They fail because your home migrations run a dependency that reference a Wagtail app migration that has not yet run. 
 
 Locally upgrade environment:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -132,42 +132,10 @@ Deployment:
 
 After following the 2 deployment steps above, that will upgrade you to the most recent version of Wagtail with passing tests and migrations. You wont have to do this again unless there is another major upgrade to wagtail.
 
-
-Version numbers
-===============
-
-New feature releases of Wagtail are released approximately every two months. These releases provide new features, improvements and bugfixes, and are marked by incrementing the second part of the version number (for example, 1.11 to 1.12).
-
-Additionally, patch releases will be issued as needed, to fix bugs and security issues. These are marked by incrementing the third part of the version number (for example, 1.12 to 1.12.1). Wherever possible, these releases will remain fully backwards compatible with the corresponding feature and not introduce any breaking changes.
-
-A feature release will usually stop receiving patch release updates when the next feature release comes out. However, selected feature releases are designated as Long Term Support (LTS) releases, and will continue to receive maintenance updates to address any security and data-loss related issues that arise. Typically, a Long Term Support release will happen once every four feature releases and receive updates for five feature releases, giving a support period of ten months with a two months overlap.
-
-Also, Long Term Support releases will ensure compatibility with at least one `Django Long Term Support release <https://www.djangoproject.com/download/#supported-versions>`_.
-
-Exceptionally, with 2.0 introducing breaking changes, 1.13 was designated as LTS in addition to 1.12. The support period for both versions will last until the next LTS is released, some time around November 2018.
-
-+-------------------+------------------------------------------+
-| Wagtail release   | LTS support period                       |
-+===================+==========================================+
-| 0.8 LTS           | November 2014 - March 2016               |
-+-------------------+------------------------------------------+
-| 1.4 LTS           | March 2016 - December 2016               |
-+-------------------+------------------------------------------+
-| 1.8 LTS           | December 2016 - August 2017              |
-+-------------------+------------------------------------------+
-| 1.12 LTS          | August 2017 - November 2018 (expected)   |
-+-------------------+------------------------------------------+
-| 1.13 LTS          | October 2017 - November 2018 (expected)  |
-+-------------------+------------------------------------------+
-
-Deprecation policy
-==================
-
-Sometimes it is necessary for a feature release to deprecate features from previous releases. This will be noted in the "Upgrade considerations" section of the release notes.
-
-When a feature is deprecated, it will continue to work in that feature release and the one after it, but will raise a warning. The feature will then be removed in the subsequent feature release. For example, a feature marked as deprecated in version 1.8 will continue to work in versions 1.8 and 1.9, and be dropped in version 1.10.
-
-.. _compatible_django_python_versions:
+We've Upgraded...what now?:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Take a good look at all of your custom built applications to see if they still work in Wagtail 2.
+* Hallo vs Draftail: Since you cannot run both rich text editor libraries at the same time, you will need to choose between using Hallo or Draftail. HalloPlugins have been deprecated, and will be removed in Wagtail 1.14. So it would be best that you make the effort to attempt to transfer over to draftail now, this comes by default with Wagtail 2. 
 
 Compatible Django / Python versions
 ===================================
