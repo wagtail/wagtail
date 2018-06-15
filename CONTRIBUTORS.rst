@@ -449,6 +449,7 @@ Contributors
 * Jannik Wempe
 * Sylvain Fankhauser
 * Ascani Carlo
+* Chris Ranjana
 
 Translators
 ===========
