@@ -46,9 +46,7 @@ To upgrade
 
 Upgrading directly to Wagtail 2:
 ================================
-During the deployment process, you may find that you want to try and upgrade directly to wagtail 2 without having to do multiple deployments. **WARNING:** You should first locally try to upgrade version by version to see if there are any major application issues before attempting to upgrade directly
-
-* To experiment with upgrading directly instead of rolling out version by version, you can run all of the wagtail app migrations first.
+**WARNING:** You should first locally try to upgrade version by version to see if there are any major application issues before attempting to upgrade directly. 
 
 -------------------------------------
 Wagtail 2.0 Module Path Update Script
@@ -112,6 +110,28 @@ The full list of modules to be renamed is as follows:
 +-----------------------------------------+-----------------------------------+-----------------------------------+
 | wagtail.contrib.wagtailstyleguide       | wagtail.contrib.styleguide        |                                   |
 +-----------------------------------------+-----------------------------------+-----------------------------------+
+
+----------------
+Tips and Tricks:
+----------------
+During the deployment process, you may find that you want to try and upgrade directly to Wagtail 2 without having to do multiple deployments. In addition, when running python tests for migrations your migrations will most likely fail as your test database is a new blank database that tests run from. Your dependencies may reference a Wagtail app migration that has not yet run. 
+
+Locally upgrade environment:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1. Upgrade version of Wagtail to v2 in the requirements.txt
+2. Run the update script: ``wagtail updatemodulepaths``
+3. Run migrations ``./manage.py migrate``. This will go ahead and add all of the necessary migrations to your database. You won't need to run these migrations again.
+4. Run tests ``./manage.py test``. You may find that migrations may fail at a specific migration, take note of that.
+5. Add the failed migration from tests to the initial home migration dependency. To track down the correct app and run ``./manage.py showmigrations``. 
+6. Run tests again ``./manage.py test``. At this point, tests should pass.
+
+Deployment:
+~~~~~~~~~~~
+1. Create one branch that upgrades and disables migrations from python tests. Merge this first to deploy upgrade.
+2. Create another branch that adds the necessary failed test dependency to your intial home migration. Merge this second and deploy. 
+
+After following the 2 deployment steps above, that will upgrade you to the most recent version of Wagtail with passing tests and migrations. You wont have to do this again unless there is another major upgrade to wagtail.
+
 
 Version numbers
 ===============
