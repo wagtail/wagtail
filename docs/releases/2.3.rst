@@ -28,6 +28,7 @@ Other features
  * Made cache control headers on Wagtail admin consistent with Django admin (Tomasz Knapik)
  * Notification emails now include an "Auto-Submitted: auto-generated" header (Dan Braghis)
  * Image chooser panels now show alt text as title (Samir Shah)
+ * Added ``download_url`` field to images in the API (Michael Harrison)
 
 
 Bug fixes
