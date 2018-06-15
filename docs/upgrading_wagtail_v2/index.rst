@@ -67,46 +67,6 @@ For the full list of command line options, enter ``wagtail help updatemodulepath
 
 You are advised to take a backup of your project codebase before running this command. The command will perform a search-and-replace over all \*.py files for the affected module paths; while this should catch the vast majority of module references, it will not be able to fix instances that do not use the dotted path directly, such as ``from wagtail import wagtailcore``.
 
-The full list of modules to be renamed is as follows:
-
-+-----------------------------------------+-----------------------------------+-----------------------------------+
-| Old name                                | New name                          | Notes                             |
-+=========================================+===================================+===================================+
-| wagtail.wagtailcore                     | wagtail.core                      |                                   |
-+-----------------------------------------+-----------------------------------+-----------------------------------+
-| wagtail.wagtailadmin                    | wagtail.admin                     |                                   |
-+-----------------------------------------+-----------------------------------+-----------------------------------+
-| wagtail.wagtaildocs                     | wagtail.documents                 | 'documents' no longer abbreviated |
-+-----------------------------------------+-----------------------------------+-----------------------------------+
-| wagtail.wagtailembeds                   | wagtail.embeds                    |                                   |
-+-----------------------------------------+-----------------------------------+-----------------------------------+
-| wagtail.wagtailimages                   | wagtail.images                    |                                   |
-+-----------------------------------------+-----------------------------------+-----------------------------------+
-| wagtail.wagtailsearch                   | wagtail.search                    |                                   |
-+-----------------------------------------+-----------------------------------+-----------------------------------+
-| wagtail.wagtailsites                    | wagtail.sites                     |                                   |
-+-----------------------------------------+-----------------------------------+-----------------------------------+
-| wagtail.wagtailsnippets                 | wagtail.snippets                  |                                   |
-+-----------------------------------------+-----------------------------------+-----------------------------------+
-| wagtail.wagtailusers                    | wagtail.users                     |                                   |
-+-----------------------------------------+-----------------------------------+-----------------------------------+
-| wagtail.wagtailforms                    | wagtail.contrib.forms             | Moved into 'contrib'              |
-+-----------------------------------------+-----------------------------------+-----------------------------------+
-| wagtail.wagtailredirects                | wagtail.contrib.redirects         | Moved into 'contrib'              |
-+-----------------------------------------+-----------------------------------+-----------------------------------+
-| wagtail.contrib.wagtailapi              | *removed*                         | API v1, removed in this release   |
-+-----------------------------------------+-----------------------------------+-----------------------------------+
-| wagtail.contrib.wagtailfrontendcache    | wagtail.contrib.frontend_cache    | Underscore added                  |
-+-----------------------------------------+-----------------------------------+-----------------------------------+
-| wagtail.contrib.wagtailroutablepage     | wagtail.contrib.routable_page     | Underscore added                  |
-+-----------------------------------------+-----------------------------------+-----------------------------------+
-| wagtail.contrib.wagtailsearchpromotions | wagtail.contrib.search_promotions | Underscore added                  |
-+-----------------------------------------+-----------------------------------+-----------------------------------+
-| wagtail.contrib.wagtailsitemaps         | wagtail.contrib.sitemaps          |                                   |
-+-----------------------------------------+-----------------------------------+-----------------------------------+
-| wagtail.contrib.wagtailstyleguide       | wagtail.contrib.styleguide        |                                   |
-+-----------------------------------------+-----------------------------------+-----------------------------------+
-
 Upgrading directly to Wagtail 2:
 ================================
 **WARNING:** You should first locally try to upgrade version by version to see if there are any major application issues before attempting to upgrade directly. 
