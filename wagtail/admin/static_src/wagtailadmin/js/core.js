@@ -91,7 +91,7 @@ $(function() {
 
     // Enable toggle to open/close user settings
     $(document).on('click', '#account-settings', function() {
-        $('#footer').toggleClass('footer-open');
+        $('#menu-footer').toggleClass('footer-open');
         $(this).find('em').toggleClass('icon-arrow-down-after icon-arrow-up-after');
     });
 
@@ -100,7 +100,7 @@ $(function() {
         $('.nav-wrapper').css('min-height', $(window).height());
         $('.nav-main').each(function() {
             var thisHeight = $(this).height();
-            var footerHeight = $('#footer', $(this)).height();
+            var footerHeight = $('#menu-footer', $(this)).height();
         });
     };
 
