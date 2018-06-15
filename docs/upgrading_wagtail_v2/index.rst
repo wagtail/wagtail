@@ -21,13 +21,13 @@ We recommend upgrading one feature release at a time, even if your project is se
 Before upgrading to a new feature release:
 
 * Check your project's console output for any deprecation warnings, and fix them where necessary;
-* Check the new version's release notes, and the :ref:`Compatible Django / Python versions` table below, for any dependencies that need upgrading first;
+* Check the new version's release notes, and the `Compatible Django / Python versions`_ table below, for any dependencies that need upgrading first;
 * **IMPORTANT** Make a backup of your database. You may find yourself dropping and restoring your local database several times in order to get the django migrations to run correctly through the upgrades.
 
 -----------
 To upgrade
 -----------
-**Wagtail 2.0 Note** If you are upgrading to Wagtail 2.0, there is an update script for the module paths! See the :ref:`Wagtail 2.0 Module Path Update Script` section below for more information.
+**Wagtail 2.0 Note** If you are upgrading to Wagtail 2.0, there is an update script for the module paths! See the `Wagtail 2.0 Module Path Update Script`_ section below for more information.
 
 * Update the ``wagtail`` line in your project's ``requirements.txt`` file to specify the latest patch release of the version you wish to install. For example, to upgrade to version 1.8.x, the line should read::
 
