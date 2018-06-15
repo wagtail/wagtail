@@ -78,7 +78,7 @@ During the deployment process, you may find that you want to try and upgrade dir
 
 Locally upgrade environment:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-1. Upgrade version of Wagtail to v2 in the requirements.txt
+1. Upgrade version of Wagtail to v2 and Django in the requirements.txt
 2. Run the update script: ``wagtail updatemodulepaths``
 3. Run migrations ``./manage.py migrate``. This will go ahead and add all of the necessary migrations to your database. You won't need to run these migrations again.
 4. Run tests ``./manage.py test``. You may find that migrations may fail at a specific migration, take note of that.
