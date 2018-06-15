@@ -5,9 +5,23 @@
     <col />
     <thead>
         <tr>
-            <th class="title">{% trans "Search term(s)" %}</th>
+            <th class="title">
+			{% trans "Search term(s)" %}
+			{% if ordering == "query_string" %}
+                    <a href="{% url 'wagtailsearchpromotions:index' %}" class="icon icon-arrow-down-after teal"></a>
+                {% else %}
+                    <a href="{% url 'wagtailsearchpromotions:index' %}?ordering=query_string" class="icon icon-arrow-down-after"></a>
+                {% endif %}
+			</th>
             <th>{% trans "Promoted results" %}</th>
-            <th>{% trans "Views (past week)" %}</th>
+            <th>
+			{% trans "Views (past week)" %}
+			{% if ordering == "hits" %}
+                    <a href="{% url 'wagtailsearchpromotions:index' %}" class="icon icon-arrow-down-after teal"></a>
+                {% else %}
+                    <a href="{% url 'wagtailsearchpromotions:index' %}?ordering=hits" class="icon icon-arrow-down-after"></a>
+                {% endif %}
+			</th>
         </tr>
     </thead>
     <tbody>

@@ -2,6 +2,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.translation import ugettext as _
 from django.views.decorators.vary import vary_on_headers
+from django.db.models import Sum
 
 from wagtail.admin import messages
 from wagtail.admin.forms import SearchForm
@@ -21,9 +22,14 @@ from wagtail.utils.pagination import paginate
 def index(request):
     is_searching = False
     query_string = request.GET.get('q', "")
-
+    ordering = 'query_string'
     queries = Query.objects.filter(editors_picks__isnull=False).distinct().order_by('query_string')
-
+    if 'ordering' in request.GET:
+        ordering = request.GET['ordering']
+        if (ordering == 'hits'):
+            queries = Query.objects.filter(editors_picks__isnull=False).distinct().annotate(ohits=Sum('daily_hits__hits')).order_by('ohits')
+        else:
+            ordering = 'query_string'
     # Search
     if query_string:
         queries = queries.filter(query_string__icontains=query_string)
@@ -36,12 +42,14 @@ def index(request):
             'is_searching': is_searching,
             'queries': queries,
             'query_string': query_string,
+            'ordering': ordering,
         })
     else:
         return render(request, 'wagtailsearchpromotions/index.html', {
             'is_searching': is_searching,
             'queries': queries,
             'query_string': query_string,
+            'ordering': ordering,
             'search_form': SearchForm(
                 data=dict(q=query_string) if query_string else None, placeholder=_("Search promoted results")
             ),
