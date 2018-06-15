@@ -1,3 +1,11 @@
-<svg class="{{ class_selectors }}">
-    <use href="#{{ id_selector }}"></use>
+{% spaceless %}
+{# Reference implementation: components/Icon.js #}
+<svg class="{{ class_name }}">
+  <use href="#{{ name }}"></use>
 </svg>
+{% if title %}
+  <span class="visuallyhidden">
+    {{ title }}
+  </span>
+{% endif %}
+{% endspaceless %}

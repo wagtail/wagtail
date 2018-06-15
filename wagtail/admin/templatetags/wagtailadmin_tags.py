@@ -394,12 +394,29 @@ def avatar_url(user, size=50):
     return static('wagtailadmin/images/default-user-avatar.png')
 
 
-@register.inclusion_tag("wagtailadmin/shared/icon.html")
-def icon(id_selector, class_selectors='svg-icon'):
+@register.inclusion_tag("wagtailadmin/shared/icon.html", takes_context=False)
+def icon(name=None, class_name='icon', title=None):
     """
-    Helper for consistent icon tag.
+    Abstracts away the actual icon implementation.
+
+    Usage:
+        {% load wagtailadmin_tags %}
+        ...
+        {% icon name="cogs" classname="icon--red" title="Settings" %}
+
+    :param name: the icon name/id, required (string)
+    :param classname: default 'icon' (string)
+    :param title: accessible label intended for screen readers (string)
+    :return: Rendered template snippet (string)
     """
-    return {'id_selector': id_selector, 'class_selectors': class_selectors}
+    if not name:
+        raise ValueError("You must supply an icon name")
+
+    return {
+        'name': name,
+        'class_name': class_name,
+        'title': title,
+    }
 
 
 @register.inclusion_tag("wagtailadmin/shared/icons.html")
