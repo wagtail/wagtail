@@ -10,6 +10,7 @@ Advanced topics
     embeds
     settings
     deploying
+    migrating
     performance
     i18n/index
     privacy
