@@ -29,9 +29,6 @@
         {% endblocktrans %}
     </noscript>
 
-    {# PRO: Icons load instant. No flash. #}
-    {# CON: Adds 90KB each admin page request. Could be about 74KB if we optimise. #}
-    {# Alternative: serve icons via a Django view (make sure it sets cache headers) #}
     {% icons %}
 
     {% block js %}{% endblock %}

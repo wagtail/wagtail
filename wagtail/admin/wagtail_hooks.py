@@ -663,7 +663,7 @@ def register_icons(icons):
         'doc-empty-inverse.svg',
         'doc-empty.svg',
         'doc-full-inverse.svg',
-        'doc-full.svg',  # file-text-alt
+        'doc-full.svg',  # aka file-text-alt
         'download.svg',
         'edit.svg',
         'folder-inverse.svg',
@@ -675,8 +675,8 @@ def register_icons(icons):
         'group.svg',
         'help.svg',
         'home.svg',
-        # 'horizontalrule.svg',  # Not an icon, but CSS.
-        'image.svg',  # picture
+        'horizontalrule.svg',
+        'image.svg',  # aka picture
         'italic.svg',
         'link.svg',
         'list-ol.svg',
