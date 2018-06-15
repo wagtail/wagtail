@@ -1,15 +1,13 @@
 //  NB: Due to Wagtail's browser support the following @font-face formats are required:
 //  - WOFF for modern browsers
 //  - WOFF2 For super-modern browsers
-//  - TTF for older Android & iOS
 //
 //  This example is all we need now:
 //
 //  @font-face {
 //    font-family: 'MyWebFont';
 //    src: url('myfont.woff2') format('woff2'),
-//         url('myfont.woff') format('woff'),
-//         url('myfont.ttf') format('truetype');
+//         url('myfont.woff') format('woff');
 //  }
 //
 //  See https://css-tricks.com/snippets/css/using-font-face/ for more information.
