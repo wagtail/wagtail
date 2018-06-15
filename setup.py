@@ -30,7 +30,7 @@ install_requires = [
     "Pillow>=4.0.0,<6.0",
     "beautifulsoup4>=4.5.1,<5.0",
     "html5lib>=0.999,<2",
-    "Unidecode>=0.04.14,<1.0",
+    "Unidecode>=0.04.14,<2.0",
     "Willow>=1.1,<1.2",
     "requests>=2.11.1,<3.0",
     "l18n",
