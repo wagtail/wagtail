@@ -8,7 +8,7 @@ Wagtail 2.0 Requirements
 * Python versions: 3.4, 3.5, 3.6
     - It's recommended that you upgrade your python version first to be compatible with python 3.4.
     
-For more requirements, see :ref:`compatible_django_python_versions` table
+For more requirements, see :ref:`Compatible Django / Python versions` table
 
 Upgrade process
 ===============
@@ -21,7 +21,7 @@ We recommend upgrading one feature release at a time, even if your project is se
 Before upgrading to a new feature release:
 
 * Check your project's console output for any deprecation warnings, and fix them where necessary;
-* Check the new version's release notes, and the :ref:`compatible_django_python_versions` table below, for any dependencies that need upgrading first;
+* Check the new version's release notes, and the :ref:`Compatible Django / Python versions` table below, for any dependencies that need upgrading first;
 * **IMPORTANT** Make a backup of your database. You may find yourself dropping and restoring your local database several times in order to get the django migrations to run correctly through the upgrades.
 
 -----------
