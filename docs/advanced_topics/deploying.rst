@@ -8,6 +8,16 @@ Wagtail is straightforward to deploy on modern Linux-based distributions, but se
 
 Our current preferences are for Nginx, Gunicorn and supervisor on Debian, but Wagtail should run with any of the combinations detailed in Django's `deployment documentation <https://docs.djangoproject.com/en/dev/howto/deployment/>`_.
 
+On Divio Cloud
+~~~~~~~~~~~~~~
+
+`Divio Cloud <https://divio.com/>`_ is a Dockerised cloud hosting platform for Python/Django that allows you to launch and deploy Wagtail projects in minutes. With a free account, you can create a Wagtail project. Choose from a:
+
+* `site based on the Wagtail Bakery project <https://divio.com/wagtail>`_, or
+* `brand new Wagtail project <https://control.divio.com/control/project/create>`_ (see the `how to get started notes <http://support.divio.com/project-types/wagtail/get-started-with-wagtail-on-divio-cloud>`_).
+
+Divio Cloud also hosts a `live Wagtail Bakery demo <https://divio.com/wagtail>`_ (no account required).
+
 On PythonAnywhere
 ~~~~~~~~~~~~~~~~~
 
