@@ -90,6 +90,7 @@ setup(
         'Framework :: Django :: 1.11',
         'Framework :: Django :: 2.0',
         'Framework :: Wagtail',
+        'Framework :: Wagtail :: 1',
         'Framework :: Wagtail :: 2',
         'Topic :: Internet :: WWW/HTTP :: Site Management',
     ],
