@@ -183,7 +183,8 @@ In order to achieve this, we start with registering the rich text feature like f
         features.register_editor_plugin(
             'draftail', feature_name, draftail_features.EntityFeature(
                 control,
-                js=['stock.js']  # Additional JS to be loaded when this feature is active
+                js=['stock.js']
+                css={'all': ['stock.css']}
             )
         )
 
@@ -192,6 +193,10 @@ In order to achieve this, we start with registering the rich text feature like f
             'from_database_format': {'span[data-stock]': StockEntityElementHandler(type_)},
             'to_database_format': {'entity_decorators': {type_: stock_entity_decorator}},
         })
+
+The ``js`` and ``css`` keyword arguments on ``EntityFeature`` can be used to specify additional
+JS and CSS files to load when this feature is active. Both are optional. Their values are added to a ``Media`` object, more documentation on these objects
+is available in the `Django Form Assets documentation <https://docs.djangoproject.com/en/stable/topics/forms/media/>`_.
 
 Since entities hold data, the conversion to/from database format is more complicated. We have to create the two handlers:
 
