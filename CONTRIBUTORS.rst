@@ -303,6 +303,7 @@ Contributors
 * Andrew Plummer
 * Dmitry Vasilev
 * Benjamin Thurm
+* Ed Henderson
 
 Translators
 ===========
