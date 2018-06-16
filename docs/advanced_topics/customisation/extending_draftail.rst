@@ -196,7 +196,7 @@ In order to achieve this, we start with registering the rich text feature like f
 
 The ``js`` and ``css`` keyword arguments on ``EntityFeature`` can be used to specify additional
 JS and CSS files to load when this feature is active. Both are optional. Their values are added to a ``Media`` object. More documentation on these objects
-is available in the `Django Form Assets documentation <https://docs.djangoproject.com/en/stable/topics/files/>`_
+is available in the `Django Form Assets documentation <https://docs.djangoproject.com/en/stable/topics/forms/media/>`_.
 
 Since entities hold data, the conversion to/from database format is more complicated. We have to create the two handlers:
 
