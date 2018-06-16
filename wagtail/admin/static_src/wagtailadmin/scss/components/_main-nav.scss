@@ -20,7 +20,8 @@ $footer-submenu: $submenu-color;
 
 .nav-toggle.icon {
     position: absolute;
-    padding-left: $mobile-nice-padding;
+    padding: 0px 10px 10px $mobile-nice-padding;
+    background: $color-teal-dark;
     cursor: pointer;
 
     &:before {

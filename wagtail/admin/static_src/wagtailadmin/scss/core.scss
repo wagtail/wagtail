@@ -198,12 +198,14 @@ footer {
     @include clearfix();
     overflow: hidden;
     padding-top: 1.4em;
+    padding-bottom: 0.65em;
+    background: $color-teal-dark;
     font-size: 0.85em;
 
     li {
         display: block;
         float: left;
-        padding: 0.5em 1.3em;
+        padding: 0.5em 1.3em 0.65em;
         position: relative;
         text-decoration: none;
         color: $color-white;
@@ -418,7 +420,6 @@ footer,
 
     .breadcrumb {
         padding-top: 0;
-        background: $color-teal-darker;
         margin-left: -($desktop-nice-padding);
         margin-right: -($desktop-nice-padding);
 
