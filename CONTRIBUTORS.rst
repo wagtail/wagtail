@@ -300,6 +300,7 @@ Contributors
 * Pierre Geier
 * Jérôme Lebleu
 * Aram Dulyan
+* Daniele Procida
 
 Translators
 ===========
