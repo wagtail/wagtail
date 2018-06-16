@@ -11,6 +11,7 @@ Changelog
  * Fix: Respect next param on login (Loic Teixeira)
  * Fix: InlinePanel now handles relations that specify a related_query_name (Aram Dulyan)
  * Fix: before_delete_page / after_delete_page hooks now run within the same database transaction as the page deletion (Tomasz Knapik)
+ * Fix: Snippet chooser modal no longer fails on snippet models with UUID primary keys (Sævar Öfjörð Magnússon)
 
 
 2.2.2 (xx.xx.xxxx) - IN DEVELOPMENT
