@@ -1,6 +1,7 @@
 import hashlib
 import json
 import os
+import uuid
 
 from django import forms
 from django.conf import settings
@@ -738,6 +739,23 @@ class AdvertWithCustomPrimaryKey(ClusterableModel):
 
 
 register_snippet(AdvertWithCustomPrimaryKey)
+
+
+class AdvertWithCustomUUIDPrimaryKey(ClusterableModel):
+    advert_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    url = models.URLField(null=True, blank=True)
+    text = models.CharField(max_length=255)
+
+    panels = [
+        FieldPanel('url'),
+        FieldPanel('text'),
+    ]
+
+    def __str__(self):
+        return self.text
+
+
+register_snippet(AdvertWithCustomUUIDPrimaryKey)
 
 
 class AdvertWithTabbedInterface(models.Model):

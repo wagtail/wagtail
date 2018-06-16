@@ -73,7 +73,7 @@ def chosen(request, app_label, model_name, pk):
     item = get_object_or_404(model, pk=unquote(pk))
 
     snippet_data = {
-        'id': item.pk,
+        'id': str(item.pk),
         'string': str(item),
         'edit_link': reverse('wagtailsnippets:edit', args=(
             app_label, model_name, quote(item.pk)))
