@@ -91,6 +91,7 @@ setup(
         'Framework :: Django :: 1.8',
         'Framework :: Django :: 1.10',
         'Framework :: Django :: 1.11',
+        'Framework :: Wagtail',
         'Topic :: Internet :: WWW/HTTP :: Site Management',
     ],
     install_requires=install_requires,
