@@ -170,6 +170,14 @@ In order to achieve this, we start with registering the rich text feature like f
         """
         Registering the `stock` feature, which uses the `STOCK` Draft.js entity type,
         and is stored as HTML with a `<span data-stock>` tag.
+
+        The js and css keyword arguments on EntityFeature can be used to specify additional
+        Javascript and CSS files to load when this feature is active. Both are optional and will
+        default to an empty list or dict respectively.
+
+        The js argument is a list of javascript files, ideally local to the project.
+        The css agument is a dict, where each key is the 'medium' type, and the value is a list of
+        .css files to include.
         """
         feature_name = 'stock'
         type_ = 'STOCK'
@@ -184,6 +192,7 @@ In order to achieve this, we start with registering the rich text feature like f
             'draftail', feature_name, draftail_features.EntityFeature(
                 control,
                 js=['stock.js']  # Additional JS to be loaded when this feature is active
+                css={'all': ['stock.css']} # Additional CSS to be loaded when this feature is active
             )
         )
 
