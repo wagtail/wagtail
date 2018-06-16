@@ -36,6 +36,13 @@
     margin-right: 0.5rem;
 }
 
+.c-explorer__item__link .icon--menuitem {
+    width: 2em;
+    height: 2em;
+    color: $c-explorer-secondary;
+    margin-right: 0.5rem;
+}
+
 .c-explorer__item__title {
     margin: 0;
     color: $color-white;
@@ -78,6 +85,11 @@
 
 .c-explorer__item__action--small {
     font-size: 1.2em;
+}
+
+.icon--item-action {
+    width: 1em;
+    height: 1em;
 }
 
 .c-explorer__meta {

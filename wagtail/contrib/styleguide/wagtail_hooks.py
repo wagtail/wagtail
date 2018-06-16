@@ -20,6 +20,6 @@ def register_styleguide_menu_item():
     return MenuItem(
         _('Styleguide'),
         reverse('wagtailstyleguide'),
-        classnames='icon icon-image',
+        icon_name='image',
         order=1000
     )

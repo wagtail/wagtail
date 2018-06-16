@@ -25,5 +25,5 @@ class FormsMenuItem(MenuItem):
 def register_forms_menu_item():
     return FormsMenuItem(
         _('Forms'), reverse('wagtailforms:index'),
-        name='forms', classnames='icon icon-form', order=700
+        name='forms', icon_name='form', order=700
     )

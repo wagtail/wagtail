@@ -48,7 +48,7 @@ def register_users_menu_item():
     return UsersMenuItem(
         _('Users'),
         reverse('wagtailusers_users:index'),
-        classnames='icon icon-user',
+        icon_name='user',
         order=600
     )
 
@@ -67,7 +67,7 @@ def register_groups_menu_item():
     return GroupsMenuItem(
         _('Groups'),
         reverse('wagtailusers_groups:index'),
-        classnames='icon icon-group',
+        icon_name='group',
         order=601
     )
 

@@ -49,7 +49,7 @@ def register_documents_menu_item():
         _('Documents'),
         reverse('wagtaildocs:index'),
         name='documents',
-        classnames='icon icon-doc-full-inverse',
+        icon_name='doc-full-inverse',
         order=400
     )
 

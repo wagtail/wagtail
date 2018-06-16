@@ -29,7 +29,7 @@ def register_snippets_menu_item():
     return SnippetsMenuItem(
         _('Snippets'),
         reverse('wagtailsnippets:index'),
-        classnames='icon icon-snippet',
+        icon_name='snippet',
         order=500
     )
 

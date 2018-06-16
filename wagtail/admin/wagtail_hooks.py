@@ -52,7 +52,6 @@ def register_explorer_menu_item():
     return ExplorerMenuItem(
         _('Pages'), reverse('wagtailadmin_explore_root'),
         name='explorer',
-        classnames='icon icon-folder-open-inverse',
         icon_name='folder-open-inverse',
         order=100)
 
@@ -66,7 +65,6 @@ def register_settings_menu():
     return SettingsMenuItem(
         _('Settings'),
         settings_menu,
-        classnames='icon icon-cogs',
         icon_name='cogs',
         order=10000)
 
@@ -102,7 +100,7 @@ class CollectionsMenuItem(MenuItem):
 
 @hooks.register('register_settings_menu_item')
 def register_collections_menu_item():
-    return CollectionsMenuItem(_('Collections'), reverse('wagtailadmin_collections:index'), classnames='icon icon-folder-open-1', order=700)
+    return CollectionsMenuItem(_('Collections'), reverse('wagtailadmin_collections:index'), icon_name='folder-open-1', order=700)
 
 
 @hooks.register('register_page_listing_buttons')
