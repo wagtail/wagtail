@@ -178,6 +178,10 @@ In order to achieve this, we start with registering the rich text feature like f
         The js argument is a list of javascript files, ideally local to the project.
         The css agument is a dict, where each key is the 'medium' type, and the value is a list of
         .css files to include.
+
+        The js and css values are added to a Media object. More documentation on these objects
+        is available here:
+            https://docs.djangoproject.com/en/2.0/topics/forms/media/
         """
         feature_name = 'stock'
         type_ = 'STOCK'
