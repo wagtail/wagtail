@@ -170,18 +170,6 @@ In order to achieve this, we start with registering the rich text feature like f
         """
         Registering the `stock` feature, which uses the `STOCK` Draft.js entity type,
         and is stored as HTML with a `<span data-stock>` tag.
-
-        The js and css keyword arguments on EntityFeature can be used to specify additional
-        Javascript and CSS files to load when this feature is active. Both are optional and will
-        default to an empty list or dict respectively.
-
-        The js argument is a list of javascript files, ideally local to the project.
-        The css agument is a dict, where each key is the 'medium' type, and the value is a list of
-        .css files to include.
-
-        The js and css values are added to a Media object. More documentation on these objects
-        is available here:
-            https://docs.djangoproject.com/en/2.0/topics/forms/media/
         """
         feature_name = 'stock'
         type_ = 'STOCK'
@@ -195,8 +183,8 @@ In order to achieve this, we start with registering the rich text feature like f
         features.register_editor_plugin(
             'draftail', feature_name, draftail_features.EntityFeature(
                 control,
-                js=['stock.js']  # Additional JS to be loaded when this feature is active
-                css={'all': ['stock.css']} # Additional CSS to be loaded when this feature is active
+                js=['stock.js']
+                css={'all': ['stock.css']}
             )
         )
 
@@ -205,6 +193,10 @@ In order to achieve this, we start with registering the rich text feature like f
             'from_database_format': {'span[data-stock]': StockEntityElementHandler(type_)},
             'to_database_format': {'entity_decorators': {type_: stock_entity_decorator}},
         })
+
+The ``js`` and ``css`` keyword arguments on ``EntityFeature`` can be used to specify additional
+JS and CSS files to load when this feature is active. Both are optional. Their values are added to a ``Media`` object. More documentation on these objects
+is available in the `Django Form Assets documentation <https://docs.djangoproject.com/en/stable/topics/files/>`_
 
 Since entities hold data, the conversion to/from database format is more complicated. We have to create the two handlers:
 
