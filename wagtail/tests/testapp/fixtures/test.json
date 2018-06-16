@@ -1010,5 +1010,13 @@
       "text": "test_advert",
       "url": "http://www.example.com"
       }
+},
+{
+  "pk": "2dbe9aa7-1f4a-428a-8cca-b929ee5bff5b",
+  "model": "tests.advertwithcustomuuidprimarykey",
+  "fields": {
+      "text": "test_advert",
+      "url": "http://www.example.com"
+      }
 }
 ]
