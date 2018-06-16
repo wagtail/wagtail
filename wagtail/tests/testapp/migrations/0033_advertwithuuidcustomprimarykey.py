@@ -2,11 +2,11 @@
 from __future__ import unicode_literals
 
 from django.db import migrations, models
-import django
 import uuid
 
-class Migration(migrations.Migration):
 
+
+class Migration(migrations.Migration):
     dependencies = [
         ('tests', '0032_auto_20180505_0008'),
     ]
