@@ -127,7 +127,7 @@ class TestDefaultSite(TestCase):
 class TestGetSiteRootPaths(TestCase):
 
     def setUp(self):
-        self.default_site = Site.objects.get(is_default=True)
+        self.default_site = Site.objects.get()
         self.abc_site = Site.objects.create(
             hostname='abc.com', root_page=self.default_site.root_page)
         self.def_site = Site.objects.create(
