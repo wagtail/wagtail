@@ -32,6 +32,7 @@ Bug fixes
  * Handle all exceptions from ``Image.get_file_size`` (Andrew Plummer)
  * Fix display of breadcrumbs in ModelAdmin (LB (Ben Johnston))
  * Remove duplicate border radius of avatars (Benjamin Thurm)
+ * Site.get_site_root_paths() preferring other sites over the default when some sites share the same root_page (Andy Babic)
 
 Upgrade considerations
 ======================
