@@ -129,17 +129,23 @@ class TestGetSiteRootPaths(TestCase):
     def setUp(self):
         self.default_site = Site.objects.get()
         self.abc_site = Site.objects.create(
-            hostname='abc.com', root_page=self.default_site.root_page)
+            hostname='abc.com', root_page=self.default_site.root_page
+        )
         self.def_site = Site.objects.create(
-            hostname='def.com', root_page=self.default_site.root_page)
+            hostname='def.com', root_page=self.default_site.root_page
+        )
 
-        # To show that being the default site takes priority over hostname
-        # alphabetical order
+        # Changing the hostname to show that being the default site takes
+        # promotes a site over the alphabetical ordering of hostname
         self.default_site.hostname = 'xyz.com'
         self.default_site.save()
 
     def test_result_order_when_multiple_sites_share_the_same_root_page(self):
         result = Site.get_site_root_paths()
-        self.assertEqual(result[0], self.default_site)
-        self.assertEqual(result[1], self.abc_site)
-        self.assertEqual(result[2], self.def_site)
+
+        # An entry for the default site should come first
+        self.assertEqual(result[0][0], self.default_site.id)
+
+        # Followed by entries for others in 'host' alphabetical order
+        self.assertEqual(result[1][0], self.abc_site.id)
+        self.assertEqual(result[2][0], self.def_site.id)
