@@ -4,12 +4,15 @@
 Inserting videos into body content
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-As well as inserting videos into a carousel, Wagtail's rich text fields allow you to add videos into the body of a page by clicking the *Add video* button in the toolbar.
+It is possible to embed media into the body text of a web page by clicking the *Embed* button in rich text toolbar.
 
 .. image:: ../../_static/images/screen20_insert_video_form.png
 
-* Copy and paste the web address for the video (either YouTube or Vimeo) into the URL field and click Insert.
+* Copy and paste the web address for the media into the URL field and click Insert.
 
 .. image:: ../../_static/images/screen21_video_in_editor.png
 
-* A placeholder with the name of the video and a screenshot will be inserted into the text area. Clicking the X in the top corner will remove the video.
+* A placeholder of the media will be inserted into the text area.
+
+The embed button can be used to import media from a number of supported providers, you can see the `full list of supported providers in Wagtail’s source code <https://github.com/wagtail/wagtail/blob/master/wagtail/embeds/oembed_providers.py>`_.
+
