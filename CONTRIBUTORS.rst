@@ -305,6 +305,7 @@ Contributors
 * Benjamin Thurm
 * Ed Henderson
 * Strother Scott
+* Daniele Procida
 
 Translators
 ===========
