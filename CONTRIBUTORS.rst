@@ -304,6 +304,7 @@ Contributors
 * Dmitry Vasilev
 * Benjamin Thurm
 * Ed Henderson
+* Strother Scott
 
 Translators
 ===========
