@@ -51,7 +51,7 @@ Compile the assets:
 
     $ npm run build
 
-Any Wagtail sites you start up in this virtualenv will now run against this development instance of Wagtail. We recommend using the `Wagtail Bakery demo site <https://github.com/wagtail/bakerydemo/>`_ as a basis for developing Wagtail.
+Any Wagtail sites you start up in this virtualenv will now run against this development instance of Wagtail. Before you start we recommend you have an already set up and running Wagtail site (like  `Wagtail Bakery demo site <https://github.com/wagtail/bakerydemo/>`_ ) before you get to ``pip install -e`` of the dev version of Wagtail. 
 
 .. _testing:
 
