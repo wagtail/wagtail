@@ -15,7 +15,8 @@ function createImageChooser(id) {
                         src: imageData.preview.url,
                         width: imageData.preview.width,
                         height: imageData.preview.height,
-                        alt: imageData.title
+                        alt: imageData.title,
+                        title: imageData.title
                     });
                     chooserElement.removeClass('blank');
                     editLink.attr('href', imageData.edit_link);
