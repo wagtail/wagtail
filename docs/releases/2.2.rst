@@ -25,6 +25,7 @@ Other features
  * Snippets can now be deleted from the listing view (LB (Ben Johnston))
  * Increased max length of redirect URL field to 255 (Michael Harrison)
  * Added documentation for new JS/CSS media files association with Draftail feature definitions (Ed Henderson)
+ * Added accessible colour contrast guidelines to the style guide (Catherine Farman)
 
 Bug fixes
 ~~~~~~~~~

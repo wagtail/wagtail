@@ -306,6 +306,7 @@ Contributors
 * Ed Henderson
 * Strother Scott
 * Daniele Procida
+* Catherine Farman
 
 Translators
 ===========
