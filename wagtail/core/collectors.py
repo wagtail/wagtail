@@ -13,7 +13,9 @@ from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from taggit.models import TaggedItemBase
 
 from wagtail.core.blocks import (
-    ChooserBlock, ListBlock, RichTextBlock, StreamBlock, StreamValue, StructBlock, StructValue)
+    Block, ChooserBlock, ListBlock, RichTextBlock, StreamBlock, StreamValue,
+    StructBlock, StructValue,
+)
 from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core.rich_text import RichText, features
 from wagtail.core.rich_text.rewriters import FIND_A_TAG, FIND_EMBED_TAG, extract_attrs
@@ -21,6 +23,11 @@ from wagtail.utils.pagination import paginate
 
 
 def get_obj_base_key(obj):
+    """
+    Returns a simple immutable value to easily hash model instances.
+
+    This allows time and memory efficient object comparisons.
+    """
     if isinstance(obj, Model):
         base_model = ([obj._meta.model] + obj._meta.get_parent_list())[-1]
         return base_model._meta.label, obj.pk
@@ -28,6 +35,13 @@ def get_obj_base_key(obj):
 
 
 def find_objects_in_rich_text(rich_text: str):
+    """
+    Yields all ``Model`` instance references within
+    a ``RichTextField`` or ``RichTextBlock`` value.
+
+    It finds items included as links (like ``Page`` & ``Document`` objects)
+    as well as those included as embeds (like ``Image`` & ``Embed`` objects).
+    """
     for regex, registry, name_attr in (
             (FIND_A_TAG, features.get_link_types(), 'linktype'),
             (FIND_EMBED_TAG, features.get_embed_types(), 'embedtype')):
@@ -42,7 +56,12 @@ def find_objects_in_rich_text(rich_text: str):
 
 
 class ModelRichTextCollector:
-    def __init__(self, model, using=DEFAULT_DB_ALIAS):
+    """
+    ``ModelRichTextCollector`` helps finding all the ``Model`` instances
+    contained within all the ``RichTextField``s of the ``Model`` subclass
+    passed in the initializer of that class.
+    """
+    def __init__(self, model, using: str = DEFAULT_DB_ALIAS):
         self.model = model
         self.using = using
         self.fields = [f for f in self.model._meta.fields
@@ -50,6 +69,14 @@ class ModelRichTextCollector:
 
     @staticmethod
     def get_handlers(searched_objects):
+        """
+        Yields the link and embed handlers used in ``RichTextField``
+        and ``RichTextBlock`` to embed related objects within text.
+
+        It only yields the handlers relevant to ``searched_objects``.
+        So if none of the objects can be included in rich text,
+        nothing will be yield.
+        """
         if searched_objects:
             searched_models = set()
             for obj in searched_objects:
@@ -67,6 +94,25 @@ class ModelRichTextCollector:
 
     @classmethod
     def get_pattern_for_objects(cls, searched_objects):
+        """
+        Returns the regular expression pattern that will match any type of
+        inclusion of any of the ``searched_objects``.
+
+        This pattern will allow to quickly identify candidates that have
+        a ``RichText`` containing at least one of the ``searched_objects``.
+        It can give false positives since ``find_objects_in_rich_text`` is used
+        to double check that one of the ``searched_objects`` is actually
+        contained in the candidate rich text. However, this pattern must never
+        skip candidates.
+
+        In short, this pattern allows to find database relations through
+        a rich text with 100% accuracy without having to iterate in Python
+        over all rich text values. In some cases it is possible
+        that invalid candidates are found with this pattern, for example when
+        ``searched_objects`` contains ``(Document(pk=1), Image(pk=2))``,
+        candidates containing ``Image(pk=1)`` and ``Document(pk=2)``
+        will also be yield.
+        """
         handlers = dict(cls.get_handlers(searched_objects))
         if not handlers:
             return
@@ -91,6 +137,26 @@ class ModelRichTextCollector:
         return pattern.replace(r' ', r'[^>]*[ \t\n]') % params
 
     def find_objects(self, *searched_objects):
+        """
+        Yields all ``self.model`` instances containing at least one
+        of the ``searched_objects`` in one of its ``RichTextField``s.
+
+        This methods uses ``get_pattern_for_objects`` to identify
+        candidates, then ``find_objects_in_rich_text`` to actually fetch
+        the objects and remove the false positives yield by the pattern.
+
+        This generator yields a ``tuple`` of two values:
+        first the ``self.model`` instance with the ``RichTextField``,
+        and then the object from ``searched_objects`` that was found
+        in this ``RichTextField``.
+
+        To search for all the relations contained in all the ``RichTextField``s
+        of all the instances of ``self.model``, use that method
+        without argument.
+
+        :param searched_objects: ``Model`` instances that will be searched
+                                 within all ``RichTextField``s.
+        """
         if not self.fields:
             return
 
@@ -114,10 +180,46 @@ class ModelRichTextCollector:
 
 
 class StreamFieldCollector:
+    """
+    ``StreamFieldCollector`` helps ``StreamField`` introspection for:
+
+    - locating blocks of specified types in a ``StreamField`` architecture
+    - finding all the values for a specific path
+
+    In this whole class, by “path” we mean the path inside the structure
+    of a ``StreamField`` **instance**. Do not confuse it with the path
+    inside the structure of a ``StreamField`` **value**.
+
+    Note that paths don’t include the name given to block instances, because
+    not all block types have a name (e.g. the child of
+    a ``ListBlock`` instance), and the ones with a name store it
+    as their ``name`` attribute.
+    """
+
     def __init__(self, field):
         self.field = field
 
-    def block_tree_paths(self, block, ancestors=()):
+    def block_tree_paths(self, block: Block, ancestors: tuple = ()):
+        """
+        Recursive generator yielding all paths that start with ``block``
+        in the ``StreamField`` of this collector, ``self.field``.
+
+        A path is a ``tuple`` containing all the ``Block`` instances leading to
+        a ``Block`` instance that is a leaf of the tree.
+
+        Example:
+
+        >>> from wagtail.core.blocks import CharBlock
+        >>> from wagtail.core.fields import StreamField
+        >>> stream_field = StreamField([
+        ...     ('title', CharBlock()),
+        ...     ('items', ListBlock(CharBlock())),
+        ... ])
+        >>> [[b.__class__.__name__ for b in path]
+        ...  for path in StreamFieldCollector(stream_field)
+        ...              .block_tree_paths(stream_field.stream_block)]
+        [['StreamBlock', 'CharBlock'], ['StreamBlock', 'ListBlock', 'CharBlock']]
+        """
         if isinstance(block, (StreamBlock, StructBlock)):
             for child_block in block.child_blocks.values():
                 yield from self.block_tree_paths(child_block,
@@ -129,11 +231,37 @@ class StreamFieldCollector:
             yield ancestors + (block,)
 
     def find_block_type(self, block_types):
+        """
+        Yields all the possible paths for ``Block`` instances of one of the
+        ``Block`` subclasses passed as the ``block_types``.
+
+        Example:
+
+        >>> from wagtail.core.blocks import CharBlock, TextBlock
+        >>> from wagtail.core.fields import StreamField
+        >>> stream_field = StreamField([
+        ...     ('title', CharBlock()),
+        ...     ('items', ListBlock(TextBlock())),
+        ... ])
+        >>> [[b.__class__.__name__ for b in path]
+        ...  for path in StreamFieldCollector(stream_field)
+        ...              .find_block_type((CharBlock, TextBlock))]
+        [['StreamBlock', 'ListBlock', 'TextBlock']]
+        """
         for block_path in self.block_tree_paths(self.field.stream_block):
             if isinstance(block_path[-1], block_types):
                 yield block_path
 
-    def find_values(self, stream, block_path):
+    def find_values(self, stream, block_path: tuple):
+        """
+        Recursive generator yielding all values found
+        for a given ``block_path``.
+
+        :param stream: ``StreamField`` value, regardless of its level
+            in the tree. It can be a ``StreamValue``, ``StructValue``, or any
+            data that can be contained by any type of ``Block``, leaf or not.
+        :param block_path: Tuple containing the path to a block.
+        """
         if not block_path:
             if isinstance(stream, RichText):
                 yield from find_objects_in_rich_text(stream.source)
@@ -169,7 +297,12 @@ class ModelStreamFieldsCollector:
         self.field_collectors = [StreamFieldCollector(field)
                                  for field in self.fields]
 
-    def prepare_value(self, value):
+    def prepare_value(self, value) -> str:
+        """
+        Transforms a value from Python to the storage format
+        of ``StreamField``. It is close to JSON, except that multiple values
+        can be stored as a PIPE separated string.
+        """
         if isinstance(value, Model):
             return str(value.pk)
         if isinstance(value, (int, float)):
@@ -181,7 +314,26 @@ class ModelStreamFieldsCollector:
         return '"%s"' % re.escape(str(value).replace('"', r'\"')
                                   .replace('|', r'\|'))
 
-    def find_objects(self, *searched_values, block_types=()):
+    def find_objects(self, *searched_values, block_types: tuple = ()):
+        """
+        Yields all ``self.model`` instances that contain at least one
+        of the ``searched_values`` inside one of its ``StreamField``s.
+
+        This generator yields a tuple of two values: first, the ``self.model``
+        instance with the ``StreamField``, and then the value
+        or ``Model`` instance that was found in that ``StreamField``.
+
+        By default, only ``Model`` instances or primary keys can be searched.
+        To search for other types, fill ``block_types``.
+
+        This method also searches ``Model`` instances nested inside
+        ``RichTextBlock``s at any depth.
+
+        :param searched_values: Values of any type that can be contained
+            in a ``StreamField``, including ``Model`` instances.
+        :param block_types: ``Block`` subclasses to search for,
+                            or any type if empty.
+        """
         if not self.fields:
             return
         if not block_types:
@@ -222,7 +374,7 @@ class ModelStreamFieldsCollector:
 
 
 class Use:
-    def __init__(self, obj, parent=None, on_delete=CASCADE, field=None):
+    def __init__(self, obj: Model, parent=None, on_delete=CASCADE, field=None):
         self.object = obj
         self.key = get_obj_base_key(obj)
         self.parent = parent
@@ -345,7 +497,19 @@ class Use:
                                    self.object.pk)
 
 
-def get_all_uses(*objects, using=DEFAULT_DB_ALIAS):
+def get_all_uses(*objects, using: str = DEFAULT_DB_ALIAS):
+    """
+    Yields a ``Use`` instance for each ``Model`` instance found that contains
+    a relation to any of the ``objects``.
+
+    This function uses three methods to find related objects:
+
+    - the Django collector that inspects ``ForeignKey``s, ``OneToOneField``s,
+      ``ManyToManyField``s and ``GenericForeignKey``s
+    - the Wagtail rich text collector that inspects ``RichTextField``s
+    - the Wagtail ``StreamField`` collector that inspects ``StreamField``,
+      including the ``RichTextBlock``s nested within ``StreamField``s
+    """
     collector = NestedObjects(using)
     collector.collect(objects)
     originals = {Use(obj) for obj in objects}
@@ -370,7 +534,11 @@ def get_all_uses(*objects, using=DEFAULT_DB_ALIAS):
             on_delete=SET_NULL, exclude=uses)
 
 
-def get_paginated_uses(request, *objects, using=DEFAULT_DB_ALIAS):
+def get_paginated_uses(request, *objects, using: str = DEFAULT_DB_ALIAS):
+    """
+    Paginates all the uses found for ``objects`` and provides templates
+    an ``are_protected`` attribute to find out if an object prevents deletion.
+    """
     uses = list(get_all_uses(*objects, using=using))
     are_protected = any(use.is_protected for use in uses)
     uses = [use for use in uses if not use.is_hidden()]
