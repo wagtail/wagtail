@@ -103,7 +103,7 @@ Faceted search
 Wagtail supports faceted search which is kind of filtering based on a taxonomy
 field (such as category or page type).
 
-The ``.facet(field_name)`` method returns an ``OrderedDict``. The keys are the
+The ``.facet(field_name)`` method returns an ``OrderedDict``. The keys are
 the IDs of the related objects that have been referenced by the field and the
 values are number of references to each ID. The results are ordered by number
 of references descending.
