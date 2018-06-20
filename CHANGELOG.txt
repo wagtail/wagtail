@@ -25,6 +25,12 @@ Changelog
  * Fix: Site.get_site_root_paths() preferring other sites over the default when some sites share the same root_page (Andy Babic)
 
 
+2.1.1 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Site.get_site_root_paths() preferring other sites over the default when some sites share the same root_page (Andy Babic)
+
+
 2.1 (22.05.2018)
 ~~~~~~~~~~~~~~~~
 

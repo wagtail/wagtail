@@ -1,0 +1,16 @@
+============================================
+Wagtail 2.1.1 release notes - IN DEVELOPMENT
+============================================
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Bug fixes
+~~~~~~~~~
+
+ * Fix ``Site.get_site_root_paths()`` preferring other sites over the default when some sites share the same root_page (Andy Babic)
