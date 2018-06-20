@@ -26,6 +26,7 @@ Other features
  * Increased max length of redirect URL field to 255 (Michael Harrison)
  * Added documentation for new JS/CSS media files association with Draftail feature definitions (Ed Henderson)
  * Added accessible colour contrast guidelines to the style guide (Catherine Farman)
+ * Added faceted search using the ``.facet()`` method (Karl Hobley)
 
 Bug fixes
 ~~~~~~~~~
