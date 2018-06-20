@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-02-16 11:33+0000\n"
+"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"PO-Revision-Date: 2018-05-04 19:30+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
@@ -62,19 +62,6 @@ msgstr "Syötä %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Syötä sähköpostiosoitteesi palauttaaksesi salasanasi"
-
-msgid "Please fill your email address."
-msgstr "Ole hyvä ja täytä sähköpostiosite."
-
-msgid ""
-"Sorry, you cannot reset your password here as your user account is managed "
-"by another server."
-msgstr ""
-"Ette valitettavasti voi nollata salasanaanne täällä, sillä "
-"käyttäjätunnustanne hallitaan toisella palvelimella."
-
-msgid "This email address is not recognised."
-msgstr "Sähköpostiosoitetta ei tunnistettu."
 
 msgid "New title"
 msgstr "Uusi otsikko"
@@ -151,29 +138,11 @@ msgstr "Siirry Wagtailin hallintaan"
 msgid "Account"
 msgstr "Tili"
 
-msgid "Set gravatar"
-msgstr "Aseta Gravatar"
-
-msgid ""
-"Your avatar image is provided by Gravatar and is connected to your email "
-"address. With a Gravatar account you can set an avatar for any number of "
-"other email addresses you use."
-msgstr ""
-"Avatar-kuvasi haetaan sähköpostiosoitteesi perusteella Gravatar-palvelusta. "
-"Gravatar-tilin avulla voit asettaa avatarin myös muille "
-"sähköpostiosoitteille, joita käytät."
+msgid "Update"
+msgstr "Päivitä"
 
 msgid "Change password"
 msgstr "Vaihda salasana"
-
-msgid "Change the password you use to log in."
-msgstr "Vaihda salasana jota käytät sisäänkirjautumiseen."
-
-msgid "Notification preferences"
-msgstr "Ilmoitusasetukset"
-
-msgid "Choose which email notifications to receive."
-msgstr "Valitse mitä sähköposti-ilmoituksia saat."
 
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
@@ -181,8 +150,8 @@ msgstr ""
 "Salasanaasi ei voi muuttaa täällä. Ole hyvä ja ota yhteys sivuston "
 "ylläpitäjään."
 
-msgid "Update"
-msgstr "Päivitä"
+msgid "Notification preferences"
+msgstr "Ilmoitusasetukset"
 
 msgid "Reset password"
 msgstr "Palauta salasana"
@@ -196,14 +165,8 @@ msgstr "Kirjaudu sisään"
 msgid "Set your new password"
 msgstr "Aseta uusi salasana."
 
-msgid "The passwords do not match. Please try again."
-msgstr "Salasanat eivät täsmää. Ole hyvä ja yritä uudelleen."
-
 msgid "Check your email"
 msgstr "Tarkista sähköpostisi"
-
-msgid "A link to reset your password has been emailed to you."
-msgstr "Salasananpalautuslinkki on lähetetty sinulle sähköpostitse."
 
 msgid "Please follow the link below to reset your password:"
 msgstr "Ole hyvä ja seuraa alla olevaa linkkiä nollataksesi salasanasi:"
@@ -964,11 +927,9 @@ msgstr "Lisää kokoelma"
 msgid "Add collection"
 msgstr "Lisää kokoelma"
 
-#, python-brace-format
 msgid "Collection '{0}' created."
 msgstr "Kokoelma '{0}' luotu."
 
-#, python-brace-format
 msgid "Collection '{0}' updated."
 msgstr "Kokoelma '{0}' päivitetty."
 
@@ -978,7 +939,6 @@ msgstr "Kokoelmaa ei voitu päivittää virheiden takia."
 msgid "Delete collection"
 msgstr "Poista kokoelma"
 
-#, python-brace-format
 msgid "Collection '{0}' deleted."
 msgstr "Kokoelma '{0}' poistettu."
 
@@ -988,18 +948,15 @@ msgstr "Haluatko varmasti poistaa tämän kokoelman?"
 msgid "Editing"
 msgstr "Muokataan"
 
-#, python-brace-format
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr "Sivu '{0}' luotu ja ajastettu julkaistavaksi."
 
 msgid "View live"
 msgstr "Näytä julkaistu"
 
-#, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "Sivu '{0}' luotu ja julkaistu."
 
-#, python-brace-format
 msgid "Page '{0}' created and submitted for moderation."
 msgstr "Sivu '{0}' luotu ja lähetetty tarkastettavaksi."
 
@@ -1009,38 +966,30 @@ msgstr "Näytä luonnos"
 msgid "Failed to send notifications to moderators"
 msgstr "Ilmoitusten lähettäminen tarkastajille epäonnistui"
 
-#, python-brace-format
 msgid "Page '{0}' created."
 msgstr "Sivu '{0}' luotu."
 
 msgid "The page could not be created due to validation errors"
 msgstr "Sivua ei voitu luoda validointivirheiden vuoksi."
 
-#, python-brace-format
 msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
 msgstr "Versio {0} sivusta '{1}' on ajastettu julkaistavaksi."
 
-#, python-brace-format
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Sivu '{0}' on ajastettu julkaistavaksi."
 
-#, python-brace-format
 msgid "Revision from {0} of page '{1}' has been published."
 msgstr "Versio {0} sivusta '{1}' on julkaistu"
 
-#, python-brace-format
 msgid "Page '{0}' has been published."
 msgstr "Sivu '{0}' julkaistu."
 
-#, python-brace-format
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Sivu '{0}' on lähetetty tarkastettavaksi."
 
-#, python-brace-format
 msgid "Page '{0}' has been replaced with revision from {1}."
 msgstr "Sivu '{0}' on korvattu versiolla {1}."
 
-#, python-brace-format
 msgid "Page '{0}' has been updated."
 msgstr "Sivu '{0}' päivitetty."
 
@@ -1056,49 +1005,39 @@ msgstr "Vertaile julkaistun version kanssa"
 msgid "This page is currently awaiting moderation"
 msgstr "Sivu odottaa parhaillaan tarkastusta"
 
-#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Sivu '{0}' poistettu."
 
-#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "Sivu '{0}' piilotettu"
 
-#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "Sivu '{0}' siirretty."
 
-#, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "Sivu '{0}' ja {1} alasivua kopioitu."
 
-#, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "Sivu '{0}' kopioitu."
 
-#, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "Sivu '{0}' ei odota parhaillaan tarkastusta."
 
-#, python-brace-format
 msgid "Page '{0}' published."
 msgstr "Sivu '{0}' julkaistu"
 
 msgid "Failed to send approval notifications"
 msgstr "Hyväksyntäilmoitusten lähettäminen epäonnistui"
 
-#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "Sivu '{0}' julkaisu hylättiin."
 
 msgid "Failed to send rejection notifications"
 msgstr "Hylkäysilmoitusten lähetys epäonnistui"
 
-#, python-brace-format
 msgid "Page '{0}' is now locked."
 msgstr "Sivu '{0}' on nyt lukittu"
 
-#, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "Sivu '{0}' ei ole enää lukittu."
 
@@ -1116,12 +1055,17 @@ msgstr "Aikaisin"
 msgid "Latest"
 msgstr "Viimeisin"
 
-#, python-brace-format
 msgid "Edit '{title}'"
 msgstr "Muokkaa '{title}'"
 
 msgid "More"
 msgstr "Lisää"
+
+msgid "Change the password you use to log in."
+msgstr "Vaihda salasana jota käytät sisäänkirjautumiseen."
+
+msgid "Choose which email notifications to receive."
+msgstr "Valitse mitä sähköposti-ilmoituksia saat."
 
 msgid "Choose an item"
 msgstr "Valitse vaihtoehto"

@@ -15,7 +15,7 @@ from wagtail.search.backends import (
     InvalidSearchBackendError, get_search_backend, get_search_backends)
 from wagtail.search.backends.base import FieldError, FilterFieldError
 from wagtail.search.backends.db import DatabaseSearchBackend
-from wagtail.search.query import MATCH_ALL, And, Boost, Filter, Not, Or, PlainText, Term
+from wagtail.search.query import MATCH_ALL, And, Boost, Filter, Not, Or, PlainText, Prefix, Term
 from wagtail.tests.search import models
 from wagtail.tests.utils import WagtailTestUtils
 
@@ -79,6 +79,19 @@ class BackendTests(WagtailTestUtils):
 
         # "JavaScript: The Definitive Guide" should be first
         self.assertEqual(results[0].title, "JavaScript: The Definitive Guide")
+
+    def test_annotate_score(self):
+        results = self.backend.search("JavaScript", models.Book).annotate_score('_score')
+
+        for result in results:
+            self.assertIsInstance(result._score, float)
+
+    def test_annotate_score_with_slice(self):
+        # #3431 - Annotate score wasn't being passed to new queryset when slicing
+        results = self.backend.search("JavaScript", models.Book).annotate_score('_score')[:10]
+
+        for result in results:
+            self.assertIsInstance(result._score, float)
 
     def test_search_and_operator(self):
         # Should not return "JavaScript: The good parts" as it does not have "Definitive"
@@ -476,13 +489,18 @@ class BackendTests(WagtailTestUtils):
         self.assertEqual(len(results), 13)
 
     def test_term(self):
-        # Single word
         results = self.backend.search(Term('javascript'),
                                       models.Book.objects.all())
 
         self.assertSetEqual({r.title for r in results},
                             {'JavaScript: The Definitive Guide',
                              'JavaScript: The good parts'})
+
+    def test_incomplete_term(self):
+        results = self.backend.search(Term('pro'),
+                                      models.Book.objects.all())
+
+        self.assertSetEqual({r.title for r in results}, set())
 
     def test_and(self):
         results = self.backend.search(And([Term('javascript'),
@@ -543,6 +561,17 @@ class BackendTests(WagtailTestUtils):
                              'The Rust Programming Language',
                              'Two Scoops of Django 1.11'})
 
+    def test_prefix_single_word(self):
+        results = self.backend.search(Prefix('pro'), models.Book.objects.all())
+        self.assertSetEqual({r.title for r in results},
+                            {'The Rust Programming Language'})
+
+    def test_prefix_multiple_words(self):
+        results = self.backend.search(Prefix('rust pro'),
+                                      models.Book.objects.all())
+        self.assertSetEqual({r.title for r in results},
+                            {'The Rust Programming Language'})
+
     #
     # Shortcut query classes
     #
@@ -553,6 +582,12 @@ class BackendTests(WagtailTestUtils):
         self.assertSetEqual({r.title for r in results},
                             {'JavaScript: The Definitive Guide',
                              'JavaScript: The good parts'})
+
+    def test_incomplete_plain_text(self):
+        results = self.backend.search(PlainText('pro'),
+                                      models.Book.objects.all())
+
+        self.assertSetEqual({r.title for r in results}, set())
 
     def test_plain_text_multiple_words_or(self):
         results = self.backend.search(PlainText('Javascript Definitive',

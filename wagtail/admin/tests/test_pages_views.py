@@ -1225,6 +1225,15 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         )
         self.root_page.add_child(instance=self.single_event_page)
 
+        self.unpublished_page = SimplePage(
+            title="Hello unpublished world!",
+            slug="hello-unpublished-world",
+            content="hello",
+            live=False,
+            has_unpublished_changes=True,
+        )
+        self.root_page.add_child(instance=self.unpublished_page)
+
         # Login
         self.user = self.login()
 
@@ -1236,6 +1245,11 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         # Test InlinePanel labels/headings
         self.assertContains(response, '<legend>Speaker lineup</legend>')
         self.assertContains(response, 'Add speakers')
+
+    def test_edit_draft_page_with_no_revisions(self):
+        # Tests that the edit page loads
+        response = self.client.get(reverse('wagtailadmin_pages:edit', args=(self.unpublished_page.id, )))
+        self.assertEqual(response.status_code, 200)
 
     def test_edit_multipart(self):
         """

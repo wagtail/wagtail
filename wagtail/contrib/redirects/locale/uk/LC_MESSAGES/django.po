@@ -1,0 +1,168 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Sergiy Shkodenko <shkodenkosergiy@gmail.com>, 2018
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-05-04 20:23+0100\n"
+"PO-Revision-Date: 2018-05-04 19:31+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
+"uk/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: uk\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != "
+"11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
+"100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
+"(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+
+msgid "From site"
+msgstr "З сайту"
+
+msgid "All sites"
+msgstr "Усі сайти"
+
+msgid "A redirect with this path already exists."
+msgstr "Перенаправлення з цим шляхом вже існує."
+
+msgid "redirect from"
+msgstr "перенаправити з"
+
+msgid "site"
+msgstr "сайт"
+
+msgid "permanent"
+msgstr "постійно"
+
+msgid ""
+"Recommended. Permanent redirects ensure search engines forget the old page "
+"(the 'Redirect from') and index the new page instead."
+msgstr ""
+"Рекомендується. Постійні перенаправлення гарантують, що пошукові системи "
+"забудуть стару сторінку (вказану у \"Перенаправити з\"), натомість "
+"індексуючи нову. "
+
+msgid "redirect to a page"
+msgstr "перенаправити на сторінку"
+
+msgid "redirect to any URL"
+msgstr "перенаправити на будь-який URL"
+
+msgid "temporary"
+msgstr "тимчасово"
+
+msgid "redirect"
+msgstr "перенаправлення"
+
+msgid "Add redirect"
+msgstr "Додати перенарпавлення"
+
+msgid "Save"
+msgstr "Зберегти"
+
+#, python-format
+msgid "Delete redirect %(title)s"
+msgstr "Видалити перенаправлення %(title)s"
+
+msgid "Delete"
+msgstr "Видалити"
+
+msgid "Are you sure you want to delete this redirect?"
+msgstr "Ви впевнені, що бажаєте видалити це перенаправлення?"
+
+msgid "Yes, delete"
+msgstr "Так, видалити"
+
+#, python-format
+msgid "Editing %(title)s"
+msgstr "Редагування %(title)s"
+
+msgid "Editing"
+msgstr "Редагування"
+
+msgid "Delete redirect"
+msgstr "Видалити перенаправлення"
+
+msgid "Redirects"
+msgstr "Список перенаправлень"
+
+msgid "From"
+msgstr "З"
+
+msgid "Site"
+msgstr "Сайт"
+
+msgid "To"
+msgstr "До"
+
+msgid "Type"
+msgstr "Тип"
+
+msgid "Edit this redirect"
+msgstr "Редагувати це перенаправлення"
+
+#, python-format
+msgid ""
+"\n"
+"            There is one match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"            Є один збіг\n"
+"        "
+msgstr[1] ""
+"\n"
+"            Є %(counter)s збіги\n"
+"        "
+msgstr[2] ""
+"\n"
+"            Є %(counter)s збігів\n"
+"        "
+msgstr[3] ""
+"\n"
+"            Є %(counter)s збігів\n"
+"        "
+
+#, python-format
+msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Вибачте, немає перенаправлень, що відповідають \"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"No redirects have been created. Why not <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+msgstr ""
+"Ще немає жодного перенаправлення. Чому б не <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">створити якесь</a>?"
+
+msgid "Search redirects"
+msgstr "Пошук перенаправлень"
+
+msgid "Redirect '{0}' updated."
+msgstr "Перенаправлення '{0}' оновлено."
+
+msgid "Edit"
+msgstr "Редагувати"
+
+msgid "The redirect could not be saved due to errors."
+msgstr "Перенаправлення не може бути збережене через помилки."
+
+msgid "Redirect '{0}' deleted."
+msgstr "Перенаправлення '{0}' видалено."
+
+msgid "Redirect '{0}' added."
+msgstr "Перенаправлення '{0}' додано."
+
+msgid "The redirect could not be created due to errors."
+msgstr "Перенаправлення не може бути створене через помилки."

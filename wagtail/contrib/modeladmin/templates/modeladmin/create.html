@@ -5,11 +5,16 @@
 
 {% block extra_css %}
     {% include "wagtailadmin/pages/_editor_css.html" %}
+    {{ edit_handler.form.media.css }}
+
     {{ view.media.css }}
 {% endblock %}
 
 {% block extra_js %}
     {% include "wagtailadmin/pages/_editor_js.html" %}
+    {{ edit_handler.form.media.js }}
+    {{ edit_handler.html_declarations }}
+
     {{ view.media.js }}
 {% endblock %}
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
+"POT-Creation-Date: 2018-05-04 20:23+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,10 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: apps.py:8
+msgid "Wagtail redirects"
+msgstr ""
 
 #: forms.py:11
 msgid "From site"
@@ -154,33 +158,33 @@ msgid ""
 "\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
 
-#: views.py:51
+#: views.py:54
 msgid "Search redirects"
 msgstr ""
 
-#: views.py:70
+#: views.py:73
 #, python-brace-format
 msgid "Redirect '{0}' updated."
 msgstr ""
 
-#: views.py:71 views.py:113
+#: views.py:74 views.py:116
 msgid "Edit"
 msgstr ""
 
-#: views.py:75
+#: views.py:78
 msgid "The redirect could not be saved due to errors."
 msgstr ""
 
-#: views.py:97
+#: views.py:100
 #, python-brace-format
 msgid "Redirect '{0}' deleted."
 msgstr ""
 
-#: views.py:112
+#: views.py:115
 #, python-brace-format
 msgid "Redirect '{0}' added."
 msgstr ""
 
-#: views.py:117
+#: views.py:120
 msgid "The redirect could not be created due to errors."
 msgstr ""

@@ -2,7 +2,6 @@ from bs4 import BeautifulSoup
 from django.test import TestCase
 
 from wagtail.admin.rich_text.converters.editor_html import EditorHTMLConverter
-from wagtail.core.whitelist import Whitelister
 
 
 class TestDbWhitelisterMethods(TestCase):
@@ -113,36 +112,6 @@ class TestDbWhitelister(TestCase):
         expected = (
             '<p>before</p><p>OMG <b>look</b> at this video of a kitten:'
             ' <embed embedtype="media" url="https://www.youtube.com/watch?v=dQw4w9WgXcQ" /></p><p>after</p>'
-        )
-        self.assertHtmlEqual(expected, output_html)
-
-    def test_whitelist_hooks(self):
-        # wagtail.tests.wagtail_hooks overrides the whitelist to permit <blockquote> and <a target="...">
-        input_html = (
-            '<blockquote>I would put a tax on all people who'
-            ' <a href="https://twitter.com/DMReporter/status/432914941201223680/photo/1"'
-            ' target="_blank" tea="darjeeling">'
-            'stand in water</a>.</blockquote><p>- <character>Gumby</character></p>'
-        )
-        output_html = self.whitelister.clean(input_html)
-        expected = (
-            '<blockquote>I would put a tax on all people who'
-            ' <a href="https://twitter.com/DMReporter/status/432914941201223680/photo/1"'
-            ' target="_blank">stand in water</a>.</blockquote><p>- Gumby</p>'
-        )
-        self.assertHtmlEqual(expected, output_html)
-
-        # check that the base Whitelister class is unaffected by these custom whitelist rules
-        input_html = (
-            '<blockquote>I would put a tax on all people who'
-            ' <a href="https://twitter.com/DMReporter/status/432914941201223680/photo/1" target="_blank"'
-            ' tea="darjeeling">stand in water</a>.</blockquote><p>- <character>Gumby</character></p>'
-        )
-        output_html = Whitelister().clean(input_html)
-        expected = (
-            'I would put a tax on all people who'
-            ' <a href="https://twitter.com/DMReporter/status/432914941201223680/photo/1">'
-            'stand in water</a>.<p>- Gumby</p>'
         )
         self.assertHtmlEqual(expected, output_html)
 

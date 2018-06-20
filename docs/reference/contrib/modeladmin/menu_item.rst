@@ -66,7 +66,7 @@ greater than that if you wish to keep the explorer menu item at the top.
 **Expected value**: ``True`` or ``False``
 
 If you'd like the menu item for your model to appear in Wagtail's 'Settings'
-sub-menu instead of at the top level, add ``add_to_setings_menu = True`` to
+sub-menu instead of at the top level, add ``add_to_settings_menu = True`` to
 your ``ModelAdmin`` class.
 
 This will only work for indivdual ``ModelAdmin`` classes registered with their

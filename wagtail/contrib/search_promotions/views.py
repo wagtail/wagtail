@@ -100,6 +100,7 @@ def add(request):
     return render(request, 'wagtailsearchpromotions/add.html', {
         'query_form': query_form,
         'searchpicks_formset': searchpicks_formset,
+        'form_media': query_form.media + searchpicks_formset.media,
     })
 
 
@@ -138,6 +139,7 @@ def edit(request, query_id):
         'query_form': query_form,
         'searchpicks_formset': searchpicks_formset,
         'query': query,
+        'form_media': query_form.media + searchpicks_formset.media,
     })
 
 

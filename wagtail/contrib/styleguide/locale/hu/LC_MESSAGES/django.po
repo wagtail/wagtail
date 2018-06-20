@@ -4,13 +4,14 @@
 #
 # Translators:
 # Laszlo Molnar <lazlowmiller@gmail.com>, 2016
+# B N <biczoxd@gmail.com>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2017-09-22 19:04+0000\n"
-"Last-Translator: Laszlo Molnar <lazlowmiller@gmail.com>\n"
+"POT-Creation-Date: 2018-05-04 20:23+0100\n"
+"PO-Revision-Date: 2018-05-10 18:33+0000\n"
+"Last-Translator: B N <biczoxd@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
 "MIME-Version: 1.0\n"
@@ -18,6 +19,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: hu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail style guide"
+msgstr "Wagtail stílus útmutató"
 
 msgid "Styleguide"
 msgstr "Stílus"

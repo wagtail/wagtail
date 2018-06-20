@@ -1,12 +1,8 @@
-import warnings
-
 from django.utils.functional import cached_property
 
-from wagtail.core import hooks
 from wagtail.core.rich_text import features as feature_registry
 from wagtail.core.rich_text.rewriters import EmbedRewriter, LinkRewriter, MultiRuleRewriter
 from wagtail.core.whitelist import Whitelister, allow_without_attributes
-from wagtail.utils.deprecation import RemovedInWagtail22Warning
 
 
 class WhitelistRule:
@@ -43,9 +39,7 @@ class DbWhitelister(Whitelister):
     into the pseudo-HTML format stored in the database (in which images, documents and other
     linked objects are identified by ID rather than URL):
 
-    * implements a 'construct_whitelister_element_rules' hook so that other apps can modify
-      the whitelist ruleset (e.g. to permit additional HTML elements beyond those in the base
-      Whitelister module);
+    * accepts a list of WhitelistRules to extend the initial set in BASE_WHITELIST_RULES;
     * replaces any element with a 'data-embedtype' attribute with an <embed> element, with
       attributes supplied by the handler for that type as defined in embed_handlers;
     * rewrites the attributes of any <a> element with a 'data-linktype' attribute, as
@@ -58,18 +52,6 @@ class DbWhitelister(Whitelister):
         for rule in self.converter_rules:
             if isinstance(rule, WhitelistRule):
                 self.element_rules[rule.element] = rule.handler
-
-        # apply legacy construct_whitelister_element_rules hooks to the assembled list
-        construct_whitelist_hooks = hooks.get_hooks('construct_whitelister_element_rules')
-        if construct_whitelist_hooks:
-            warnings.warn(
-                'The construct_whitelister_element_rules hook is deprecated and will be removed '
-                'in Wagtail 2.2. Use register_rich_text_features instead',
-                RemovedInWagtail22Warning
-            )
-
-            for fn in construct_whitelist_hooks:
-                self.element_rules.update(fn())
 
     @cached_property
     def embed_handlers(self):

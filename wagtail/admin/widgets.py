@@ -212,6 +212,9 @@ class AdminPageChooser(AdminChooser):
             user_perms=json.dumps(self.user_perms),
         )
 
+    class Media:
+        js = ['wagtailadmin/js/page-chooser.js']
+
 
 @total_ordering
 class Button:

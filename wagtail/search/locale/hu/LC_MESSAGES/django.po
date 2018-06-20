@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# B N <biczoxd@gmail.com>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2014-02-19 21:18+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"PO-Revision-Date: 2018-05-10 18:32+0000\n"
+"Last-Translator: B N <biczoxd@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
 "MIME-Version: 1.0\n"
@@ -18,8 +19,26 @@ msgstr ""
 "Language: hu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "Wagtail search"
+msgstr "Wagtail keresés"
+
+msgid "Search term(s)/phrase"
+msgstr "Kifejezés(ek) keresése"
+
+msgid "Popular search terms"
+msgstr "Népszerű keresések"
+
 msgid "Search"
 msgstr "Keresés"
 
+msgid "Terms"
+msgstr "Kifejezések"
+
+msgid "No results found"
+msgstr "Nincs találat."
+
 msgid "Date"
 msgstr "Dátum"
+
+msgid "Choose from popular search terms"
+msgstr "Válassz a népszerű keresések közül"

@@ -4,7 +4,7 @@
 Permissions
 ===========
 
-Wagtail adapts and extends `the Django permission system <https://docs.djangoproject.com/en/1.10/topics/auth/default/#topic-authorization>`_ to cater for the needs of website content creation, such as moderation workflows, and multiple teams working on different areas of a site (or multiple sites within the same Wagtail installation). Permissions can be configured through the 'Groups' area of the Wagtail admin interface, under 'Settings'.
+Wagtail adapts and extends `the Django permission system <https://docs.djangoproject.com/en/stable/topics/auth/default/#topic-authorization>`_ to cater for the needs of website content creation, such as moderation workflows, and multiple teams working on different areas of a site (or multiple sites within the same Wagtail installation). Permissions can be configured through the 'Groups' area of the Wagtail admin interface, under 'Settings'.
 
 
 Page permissions

@@ -128,8 +128,9 @@ class TestImageAddView(TestCase, WagtailTestUtils):
         self.assertEqual(image.width, 640)
         self.assertEqual(image.height, 480)
 
-        # Test that the file_size field was set
+        # Test that the file_size/hash fields were set
         self.assertTrue(image.file_size)
+        self.assertTrue(image.file_hash)
 
         # Test that it was placed in the root collection
         root_collection = Collection.get_first_root_node()
@@ -332,8 +333,9 @@ class TestImageEditView(TestCase, WagtailTestUtils):
     def test_edit_with_new_image_file(self):
         file_content = get_test_image_file().file.getvalue()
 
-        # Change the file size of the image
+        # Change the file size/hash of the image
         self.image.file_size = 100000
+        self.image.file_hash = 'abcedf'
         self.image.save()
 
         response = self.post({
@@ -346,13 +348,15 @@ class TestImageEditView(TestCase, WagtailTestUtils):
 
         self.update_from_db()
         self.assertNotEqual(self.image.file_size, 100000)
+        self.assertNotEqual(self.image.file_hash, 'abcedf')
 
     @override_settings(DEFAULT_FILE_STORAGE='wagtail.tests.dummy_external_storage.DummyExternalStorage')
     def test_edit_with_new_image_file_and_external_storage(self):
         file_content = get_test_image_file().file.getvalue()
 
-        # Change the file size of the image
+        # Change the file size/hash of the image
         self.image.file_size = 100000
+        self.image.file_hash = 'abcedf'
         self.image.save()
 
         response = self.post({
@@ -365,6 +369,7 @@ class TestImageEditView(TestCase, WagtailTestUtils):
 
         self.update_from_db()
         self.assertNotEqual(self.image.file_size, 100000)
+        self.assertNotEqual(self.image.file_hash, 'abcedf')
 
     def test_with_missing_image_file(self):
         self.image.file.delete(False)
@@ -372,6 +377,24 @@ class TestImageEditView(TestCase, WagtailTestUtils):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailimages/images/edit.html')
+
+    def check_get_missing_file_displays_warning(self):
+        # Need to recreate image to use a custom storage per test.
+        image = Image.objects.create(title="Test image", file=get_test_image_file())
+        image.file.storage.delete(image.file.name)
+
+        response = self.client.get(reverse('wagtailimages:edit', args=(image.pk,)))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailimages/images/edit.html')
+        self.assertContains(response, "File not found")
+
+    def test_get_missing_file_displays_warning_with_default_storage(self):
+        self.check_get_missing_file_displays_warning()
+
+    @override_settings(DEFAULT_FILE_STORAGE='wagtail.tests.dummy_external_storage.DummyExternalStorage')
+    def test_get_missing_file_displays_warning_with_custom_storage(self):
+        self.check_get_missing_file_displays_warning()
+
 
     def get_content(self, f=None):
         if f is None:
@@ -491,7 +514,9 @@ class TestImageDeleteView(TestCase, WagtailTestUtils):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailimages/images/confirm_delete.html')
-        self.assertIn('Used 0 times', str(response.content))
+        self.assertContains(response, 'Used 0 times')
+        expected_url = '/admin/images/usage/%d/' % self.image.id
+        self.assertContains(response, expected_url)
 
     def test_delete(self):
         response = self.post()
@@ -684,6 +709,10 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
         self.assertEqual(image.width, 640)
         self.assertEqual(image.height, 480)
 
+        # Test that the file_size/hash fields were set
+        self.assertTrue(image.file_size)
+        self.assertTrue(image.file_hash)
+
     def test_upload_no_file_selected(self):
         response = self.client.post(reverse('wagtailimages:chooser_upload'), {
             'title': "Test image",
@@ -847,6 +876,7 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
         self.assertIn('image', response.context)
         self.assertEqual(response.context['image'].title, 'test.png')
         self.assertTrue(response.context['image'].file_size)
+        self.assertTrue(response.context['image'].file_hash)
 
         # Check form
         self.assertIn('form', response.context)

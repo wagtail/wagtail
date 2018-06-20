@@ -45,6 +45,12 @@ def get_model_root(model):
 
 
 class Elasticsearch2Mapping:
+    all_field_name = '_all'
+
+    # Was originally named '_partials' but renamed '_edgengrams' when we added Elasticsearch 6 support
+    # The ES 2 and 5 backends still use the old name for backwards compatibility
+    edgengrams_field_name = '_partials'
+
     type_map = {
         'AutoField': 'integer',
         'BinaryField': 'binary',
@@ -187,9 +193,9 @@ class Elasticsearch2Mapping:
         fields = {
             'pk': dict(type=self.keyword_type, store=True, include_in_all=False),
             'content_type': dict(type=self.keyword_type, include_in_all=False),
-            '_partials': dict(type=self.text_type, include_in_all=False),
+            self.edgengrams_field_name: dict(type=self.text_type, include_in_all=False),
         }
-        fields['_partials'].update(self.edgengram_analyzer_config)
+        fields[self.edgengrams_field_name].update(self.edgengram_analyzer_config)
 
         if self.set_index_not_analyzed_on_filter_fields:
             # Not required on ES5 as that uses the "keyword" type for
@@ -220,7 +226,7 @@ class Elasticsearch2Mapping:
             value = field.get_value(obj)
             doc[mapping.get_field_column_name(field)] = value
 
-            # Check if this field should be added into _partials
+            # Check if this field should be added into _edgengrams
             if isinstance(field, SearchField) and field.partial_match:
                 partials.append(value)
 
@@ -238,14 +244,14 @@ class Elasticsearch2Mapping:
                     nested_docs = []
 
                     for nested_obj in value.all():
-                        nested_doc, extra_partials = self._get_nested_document(field.fields, nested_obj)
+                        nested_doc, extra_edgengrams = self._get_nested_document(field.fields, nested_obj)
                         nested_docs.append(nested_doc)
-                        partials.extend(extra_partials)
+                        partials.extend(extra_edgengrams)
 
                     value = nested_docs
                 elif isinstance(value, models.Model):
-                    value, extra_partials = self._get_nested_document(field.fields, value)
-                    partials.extend(extra_partials)
+                    value, extra_edgengrams = self._get_nested_document(field.fields, value)
+                    partials.extend(extra_edgengrams)
             elif isinstance(field, FilterField):
                 if isinstance(value, (models.Manager, models.QuerySet)):
                     value = list(value.values_list('pk', flat=True))
@@ -254,12 +260,12 @@ class Elasticsearch2Mapping:
 
             doc[self.get_field_column_name(field)] = value
 
-            # Check if this field should be added into _partials
+            # Check if this field should be added into _edgengrams
             if isinstance(field, SearchField) and field.partial_match:
                 partials.append(value)
 
         # Add partials to document
-        doc['_partials'] = partials
+        doc[self.edgengrams_field_name] = partials
 
         return doc
 
@@ -490,7 +496,7 @@ class Elasticsearch2SearchQueryCompiler(BaseSearchQueryCompiler):
                 % query.__class__.__name__)
 
     def get_inner_query(self):
-        fields = self.remapped_fields or ['_all', '_partials']
+        fields = self.remapped_fields or [self.mapping.all_field_name, self.mapping.edgengrams_field_name]
 
         if len(fields) == 0:
             # No fields. Return a query that'll match nothing

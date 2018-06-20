@@ -3,15 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# B N <biczoxd@gmail.com>, 2018
 # Kornel Novak Mergulhão <nkornel@gmail.com>, 2016
 # Laszlo Molnar <lazlowmiller@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-02-16 11:33+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"PO-Revision-Date: 2018-05-15 22:12+0000\n"
+"Last-Translator: B N <biczoxd@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
 "MIME-Version: 1.0\n"
@@ -50,19 +51,6 @@ msgstr "Adja meg a %s string-et"
 
 msgid "Enter your email address to reset your password"
 msgstr "Kérem adja meg az email címét, a jelszó változtatáshoz."
-
-msgid "Please fill your email address."
-msgstr "Kérem adja meg az email címét."
-
-msgid ""
-"Sorry, you cannot reset your password here as your user account is managed "
-"by another server."
-msgstr ""
-"Sajnálom, de nem változtathatja meg a jelszavát itt, mert azt egy másik "
-"szerver tárolja."
-
-msgid "This email address is not recognised."
-msgstr "Az email cím nem megfelelő."
 
 msgid "New title"
 msgstr "Új oldalcím"
@@ -122,29 +110,11 @@ msgstr "A lejárat dátumának/idejének egy jövőbeni időpontnak kell lennie.
 msgid "Account"
 msgstr "Felhasználói profil"
 
-msgid "Set gravatar"
-msgstr "Felhasználói profilkép beállitása Gravatar-ról"
-
-msgid ""
-"Your avatar image is provided by Gravatar and is connected to your email "
-"address. With a Gravatar account you can set an avatar for any number of "
-"other email addresses you use."
-msgstr ""
-"A felhasználói profilképét a Gravatar-ról állítottuk be és azt az email "
-"címéhez kötöttük. A Gravatar profilját több másik email címhez tartózó "
-"profilkép beállításához használhatja."
+msgid "Update"
+msgstr "Frissítés"
 
 msgid "Change password"
 msgstr "Jelszó megváltoztatása"
-
-msgid "Change the password you use to log in."
-msgstr "A bejelentkezéshez használt jelszó megváltoztatása."
-
-msgid "Notification preferences"
-msgstr "Értesítési beállítások"
-
-msgid "Choose which email notifications to receive."
-msgstr "Válassza ki miről szeretne email értesítéseket kapni."
 
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
@@ -152,8 +122,8 @@ msgstr ""
 "A jelszavát itt nem tudja megváltoztatni. Kérem vegye fel a kapcsolatot az "
 "oldal rendszergazdájával."
 
-msgid "Update"
-msgstr "Frissítés"
+msgid "Notification preferences"
+msgstr "Értesítési beállítások"
 
 msgid "Reset password"
 msgstr "Jelszó módosítása"
@@ -167,15 +137,8 @@ msgstr "Bejelentkezés"
 msgid "Set your new password"
 msgstr "Állítsa be az új jelszót"
 
-msgid "The passwords do not match. Please try again."
-msgstr ""
-"A fenti jelszavak nem egyeznek meg egymással. Kérem adja meg ismét azokat."
-
 msgid "Check your email"
 msgstr "Ellenőrizze emailjeit"
-
-msgid "A link to reset your password has been emailed to you."
-msgstr "Emailben küldtünk egy link-et a jelszó megváltoztatásához."
 
 msgid "Please follow the link below to reset your password:"
 msgstr "Kérem kattintson az alábbi linkre a jelszava módosításához."
@@ -284,7 +247,7 @@ msgstr "Törlés megerősítése"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
-msgstr "Üdvözöljük a %(site_name)s Wagtail CMS oldalra"
+msgstr "Üdvözöljük a %(site_name)s Wagtail CMS oldalon!"
 
 msgid ""
 "This is your dashboard on which helpful information about content you've "
@@ -417,3 +380,9 @@ msgstr "Törlés: %(title)s"
 
 msgid "View live"
 msgstr "Előnézet"
+
+msgid "Change the password you use to log in."
+msgstr "A bejelentkezéshez használt jelszó megváltoztatása."
+
+msgid "Choose which email notifications to receive."
+msgstr "Válassza ki miről szeretne email értesítéseket kapni."

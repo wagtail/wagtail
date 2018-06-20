@@ -4,7 +4,7 @@ Signals
 =======
 
 Wagtail's :ref:`page-revision-model-ref` and :ref:`page-model-ref` implement
-`Signals <https://docs.djangoproject.com/en/1.8/topics/signals/>`__ from ``django.dispatch``.
+`Signals <https://docs.djangoproject.com/en/stable/topics/signals/>`__ from ``django.dispatch``.
 Signals are useful for creating side-effects from page publish/unpublish events.
 
 For example, you could use signals to send publish notifications to a messaging service, or ``POST`` messages to another app that's consuming the API, such as a static site generator.
@@ -71,7 +71,7 @@ wish to do something when a new blog post is published:
 
 Wagtail provides access to a list of registered page types through the ``get_page_models()`` function in ``wagtail.core.models``.
 
-Read the `Django documentation <https://docs.djangoproject.com/en/1.8/topics/signals/#connecting-to-specific-signals>`__ for more information about specifying senders.
+Read the `Django documentation <https://docs.djangoproject.com/en/stable/topics/signals/#connecting-to-specific-signals>`__ for more information about specifying senders.
 
 
 page_unpublished

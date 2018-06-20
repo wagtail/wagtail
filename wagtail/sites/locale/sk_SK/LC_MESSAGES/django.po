@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-01-26 16:05+0000\n"
+"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"PO-Revision-Date: 2018-05-04 19:31+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
@@ -21,7 +21,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sk_SK\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n "
+">= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
 
 msgid "Choose a root page"
 msgstr "Zvoliť koreňovú stránku"
@@ -56,11 +57,9 @@ msgstr "Pridať sídlo"
 msgid "Add site"
 msgstr "Pridať sídlo"
 
-#, python-brace-format
 msgid "Site '{0}' created."
 msgstr "Sídlo '{0}' vytvorené."
 
-#, python-brace-format
 msgid "Site '{0}' updated."
 msgstr "Sídlo '{0}' upravené."
 
@@ -70,7 +69,6 @@ msgstr "Sídlo nemôže byť uložené kvôli chybám."
 msgid "Delete site"
 msgstr "Zmazať sídlo"
 
-#, python-brace-format
 msgid "Site '{0}' deleted."
 msgstr "Sídlo '{0}' zmazané."
 

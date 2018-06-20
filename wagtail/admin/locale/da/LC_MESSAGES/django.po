@@ -1,0 +1,344 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Asger Sørensen <asger.soerensen@live.com>, 2016
+# Mads Kronborg <madskronborg99@gmail.com>, 2018
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"PO-Revision-Date: 2018-05-04 19:30+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Danish (http://www.transifex.com/torchbox/wagtail/language/"
+"da/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: da\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "You do not have permission to access the admin"
+msgstr "Du mangler rettigheden til, at bruge admin-interfacet"
+
+msgid "Scheduled publishing"
+msgstr "Planlagt udgivning"
+
+msgid "Common page configuration"
+msgstr "Konfiguration af standardside"
+
+msgid "Content"
+msgstr "Indhold"
+
+msgid "Promote"
+msgstr "Promover"
+
+msgid "Settings"
+msgstr "Indstillinger"
+
+msgid "Search"
+msgstr "Søg"
+
+msgid "Search term"
+msgstr "Søge term"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Enter password"
+msgstr "Skriv adgangskode"
+
+#, python-format
+msgid "Enter your %s"
+msgstr "Skriv din %s"
+
+msgid "Enter your email address to reset your password"
+msgstr "Skriv din email addresse for at genindstille din adgangskode"
+
+msgid "New title"
+msgstr "Ny titel"
+
+msgid "New slug"
+msgstr "Ny slug"
+
+msgid "New parent page"
+msgstr "Ny forældre side"
+
+msgid "This copy will be a child of this given parent page."
+msgstr "Denne kopi vil blive en underside af den givne forældre side."
+
+msgid "Copy subpages"
+msgstr "Kopier undersider"
+
+#, python-format
+msgid "This will copy %(count)s subpage."
+msgid_plural "This will copy %(count)s subpages."
+msgstr[0] "Dette vil kopiere %(count)s underside."
+msgstr[1] "Dette vil kopiere %(count)s undersider."
+
+msgid "Publish copied page"
+msgstr "Udgiv koipieret side"
+
+msgid "Visibility"
+msgstr "Synlighed"
+
+msgid "This field is required."
+msgstr "Dette felt er påkrævet."
+
+msgid "Please select at least one group."
+msgstr "Vælg venligst mindst én gruppe."
+
+msgid "This slug is already in use"
+msgstr "Dette slug er allerede i brug"
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr "Gå live dato/tidspunkt skal forekomme før udløbende dato/tidspunkt"
+
+msgid "Expiry date/time must be in the future"
+msgstr "Udløbende dato/tidspunkt skal være i fremtiden"
+
+msgid "Error 404: Page not found"
+msgstr "Fejl 404: Side ikke fundet"
+
+msgid "Error 404"
+msgstr "Fejl 404"
+
+msgid "Go to Wagtail admin"
+msgstr "Gå til Wagtail admin"
+
+msgid "Account"
+msgstr "Konto"
+
+msgid "Update"
+msgstr "Opdater"
+
+msgid "Change password"
+msgstr "Skift adgangskode"
+
+msgid "Language Preferences"
+msgstr "Sprog præferencer"
+
+msgid "Reset password"
+msgstr "Genindstil adgangskode"
+
+msgid "Password change successful"
+msgstr "Adgangskoden blev ændret succesfuldt"
+
+msgid "Login"
+msgstr "Log Ind"
+
+msgid "Set your new password"
+msgstr "Angiv din nye adgangskode"
+
+msgid "Check your email"
+msgstr "Check din email"
+
+msgid "Edit"
+msgstr "Rediger"
+
+msgid "Delete"
+msgstr "Slet"
+
+msgid "Page"
+msgstr "Side"
+
+msgid "Pages"
+msgstr "Sider"
+
+msgid "Loading…"
+msgstr "Loader..."
+
+msgid "No results"
+msgstr "Ingen resultater"
+
+msgid "Server Error"
+msgstr "Server Fejl"
+
+msgid "See children"
+msgstr "Se undersider"
+
+msgid "See all"
+msgstr "Se alle"
+
+msgid "Close explorer"
+msgstr "Luk explorer"
+
+msgid "Alt text"
+msgstr "Alt text"
+
+msgid "Write here…"
+msgstr "Skriv her..."
+
+msgid "Horizontal line"
+msgstr "Horisontal linje"
+
+msgid "Dashboard"
+msgstr "Dashboard"
+
+msgid "Menu"
+msgstr "Menu"
+
+msgid "Add another"
+msgstr "Tilføj flere"
+
+msgid "Move up"
+msgstr "Bevæg op"
+
+msgid "Move down"
+msgstr "Bevæg ned"
+
+msgid "Explorer"
+msgstr "Explorer"
+
+msgid "Internal link"
+msgstr "Internt link"
+
+msgid "External link"
+msgstr "Eksternt link"
+
+msgid "Email link"
+msgstr "Email link"
+
+#, python-format
+msgid ""
+"\n"
+"        There is one match\n"
+"    "
+msgid_plural ""
+"\n"
+"        There are %(counter)s matches\n"
+"    "
+msgstr[0] ""
+"\n"
+"Der er ét match"
+msgstr[1] ""
+"\n"
+"Der er %(counter)s matches"
+
+msgid "Choose"
+msgstr "Vælg"
+
+msgid "Choose a page"
+msgstr "Vælg en side"
+
+#, python-format
+msgid ""
+"\n"
+"                Only pages of type \"%(type)s\" may be chosen for this "
+"field. Search results will exclude pages of other types.\n"
+"                "
+msgid_plural ""
+"\n"
+"                Only the following page types may be chosen for this field: "
+"%(type)s. Search results will exclude pages of other types.\n"
+"            "
+msgstr[0] ""
+"\n"
+"Kun sider af følgende type \"%(type)s\" må vælges for dette felt. "
+"Søgeresultater vil ekskludere sider af denne type."
+msgstr[1] ""
+"\n"
+"Kun de følgende sidetyper må vælges for dette felt:\n"
+"%(type)s. Søgeresultater vil ekskludere sider af denne type."
+
+msgid "Add an email link"
+msgstr "Tilføj et email link"
+
+msgid "Insert link"
+msgstr "Indsæt link"
+
+msgid "Add an external link"
+msgstr "Tilføj et eksternt link"
+
+msgid "Save"
+msgstr "Gem"
+
+msgid "Public"
+msgstr "Offentlig"
+
+msgid "Private"
+msgstr "Privat"
+
+msgid "Name"
+msgstr "Navn"
+
+#, python-format
+msgid "Add %(label)s"
+msgstr "Tilføj %(label)s"
+
+msgid "Yes, delete"
+msgstr "Ja, slet"
+
+#, python-format
+msgid "Welcome to the %(site_name)s Wagtail CMS"
+msgstr "Velkommen til det %(site_name)s Wagtail CMS"
+
+msgid "Title"
+msgstr "Titel"
+
+msgid "Edited"
+msgstr "Redigeret"
+
+msgid "Edit this page"
+msgstr "Rediger denne side"
+
+msgid "Approve"
+msgstr "Godkend"
+
+msgid "Reject"
+msgstr "Afvis"
+
+msgid "Preview"
+msgstr "Forhåndsvis"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s siden"
+
+msgid "Your most recent edits"
+msgstr "Dine seneste redigeringer"
+
+msgid "Date"
+msgstr "Dato"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Draft"
+msgstr "Skitse"
+
+msgid "Live"
+msgstr "Live"
+
+msgid "Site summary"
+msgstr "Side opsummering"
+
+msgid "Sign in"
+msgstr "Log Ind"
+
+msgid "Sign in to Wagtail"
+msgstr "Log ind i Wagtail"
+
+msgid "Forgotten it?"
+msgstr "Glemt det?"
+
+msgid "Signing in…"
+msgstr "Logger ind..."
+
+msgid "You can view the page here:"
+msgstr "Du kan se denne side her:"
+
+#, python-format
+msgid "Hello %(username)s,"
+msgstr "Hej %(username)s,"
+
+msgid "Change the password you use to log in."
+msgstr "Skift den adgangskode du anvender til at logge ind med."
+
+msgid "Language preferences"
+msgstr "Sprog præferencer"
+
+msgid "Choose the language you want to use here."
+msgstr "Vælg det sprog du ønsker at bruge her."

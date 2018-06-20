@@ -4,9 +4,9 @@
 #
 # Translators:
 # Ettore Atalan <atalanttore@googlemail.com>, 2017
-# Henrik Kröger <hedwig@riseup.net>, 2016
+# Henrik Kröger <hedwig@riseup.net>, 2016,2018
 # Jannis, 2015
-# jn ns, 2015
+# Jannis Vajen, 2015
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 # karlsander <karlsander@gmail.com>, 2014
 # karlsander <karlsander@gmail.com>, 2014
@@ -18,9 +18,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-02-16 14:22+0000\n"
-"Last-Translator: Moritz Pfeiffer <moritz@alp-phone.ch>\n"
+"POT-Creation-Date: 2018-05-04 20:23+0100\n"
+"PO-Revision-Date: 2018-05-09 09:55+0000\n"
+"Last-Translator: Henrik Kröger <hedwig@riseup.net>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -28,6 +28,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail snippets"
+msgstr "Wagtail Schnipsel"
 
 msgid "Choose"
 msgstr "Auswählen"
@@ -160,7 +163,6 @@ msgstr "Diese Seite bearbeiten"
 msgid "Search %(snippet_type_name)s"
 msgstr "Suche %(snippet_type_name)s"
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' created."
 msgstr "{snippet_type} ‚{instance}‘ erstellt"
 
@@ -170,14 +172,12 @@ msgstr "Bearbeiten"
 msgid "The snippet could not be created due to errors."
 msgstr "Aufgrund von Fehlern konnte das Schnipsel nicht erstellt werden."
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' updated."
 msgstr "{snippet_type} ‚{instance}‘ geändert."
 
 msgid "The snippet could not be saved due to errors."
 msgstr "Aufgrund von Fehlern konnte das Schnipsel nicht gespeichert werden."
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' deleted."
 msgstr "{snippet_type} ‚{instance}‘ gelöscht."
 

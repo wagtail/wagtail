@@ -4,6 +4,7 @@
 # The following behaviours have been added to this backend:
 #  - Calling .path on the storage or image file raises NotImplementedError
 #  - File.open() after the file has been closed raises an error
+#  - File.size exceptions raise DummyExternalStorageError
 
 from django.core.files.base import File
 from django.core.files.storage import FileSystemStorage, Storage
@@ -56,6 +57,10 @@ class DummyExternalStorage(Storage):
         return self.wrapped.modified_time(name)
 
 
+class DummyExternalStorageError(Exception):
+    pass
+
+
 class DummyExternalStorageFile(File):
     def open(self, mode=None):
         # Based on:
@@ -71,3 +76,9 @@ class DummyExternalStorageFile(File):
         #    self.file = open(self.name, mode or self.mode)
         else:
             raise ValueError("The file cannot be reopened.")
+
+    def size(self):
+        try:
+            return super().size
+        except Exception as e:
+            raise DummyExternalStorageError(str(e))

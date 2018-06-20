@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-01-26 16:06+0000\n"
+"POT-Creation-Date: 2018-05-04 20:23+0100\n"
+"PO-Revision-Date: 2018-05-04 19:31+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
@@ -157,7 +157,6 @@ msgstr ""
 msgid "Search promoted results"
 msgstr "搜索推广结果"
 
-#, python-brace-format
 msgid "Editor's picks for '{0}' created."
 msgstr "为'{0}'的编辑精选已被创建。"
 
@@ -167,7 +166,6 @@ msgstr "编辑"
 msgid "Recommendations have not been created due to errors"
 msgstr "无法创建推荐，出现错误。"
 
-#, python-brace-format
 msgid "Editor's picks for '{0}' updated."
 msgstr "为'{0}'的编辑精选已被更新。"
 

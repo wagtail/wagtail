@@ -110,6 +110,8 @@ def chooser_upload(request):
         form = DocumentForm(request.POST, request.FILES, instance=document, user=request.user)
 
         if form.is_valid():
+            document.file_size = document.file.size
+
             form.save()
 
             # Reindex the document to make sure all tags are indexed
