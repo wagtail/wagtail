@@ -27,6 +27,7 @@ Other features
  * Added documentation for new JS/CSS media files association with Draftail feature definitions (Ed Henderson)
  * Added accessible colour contrast guidelines to the style guide (Catherine Farman)
  * Added faceted search using the ``.facet()`` method (Karl Hobley)
+ * Admin modal views no longer rely on Javascript ``eval()``, for better CSP compliance (Matt Westcott)
 
 Bug fixes
 ~~~~~~~~~
