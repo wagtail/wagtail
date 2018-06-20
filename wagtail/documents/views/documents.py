@@ -135,10 +135,17 @@ def edit(request, document_id):
             if 'file' in form.changed_data:
                 doc.file_size = doc.file.size
 
-                # if providing a new document file, delete the old one.
+                # if providing a new document file, delete the old one (only if the name has changed)
+                # If the uploaded file has the same name of the previous one, the file in the storage has not
+                # to be removed because it deletes the uploaded one.
+
                 # NB Doing this via original_file.delete() clears the file field,
                 # which definitely isn't what we want...
-                original_file.storage.delete(original_file.name)
+
+                original_file_name = os.path.split(original_file.name)[1]
+                changed_file_name = form.cleaned_data['file'].name
+                if original_file_name != changed_file_name:
+                    original_file.storage.delete(original_file.name)
 
             # Reindex the document to make sure all tags are indexed
             search_index.insert_or_update_object(doc)
