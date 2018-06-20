@@ -329,7 +329,7 @@ class PostgresSearchResults(BaseSearchResults):
                 field_name=field_name
             )
 
-        query = self.query_compiler.search(self.backend.get_config(), None, None)
+        query = self.query_compiler.search(self.backend.config, None, None)
         results = query.values(field_name).annotate(count=Count('pk')).order_by('-count')
 
         return OrderedDict([
