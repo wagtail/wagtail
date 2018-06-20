@@ -32,4 +32,7 @@ class AdminDocumentChooser(AdminChooser):
         return "createDocumentChooser({0});".format(json.dumps(id_))
 
     class Media:
-        js = ['wagtaildocs/js/document-chooser.js']
+        js = [
+            'wagtaildocs/js/document-chooser-modal.js',
+            'wagtaildocs/js/document-chooser.js',
+        ]

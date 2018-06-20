@@ -30,10 +30,10 @@ def chooser(request, get_results=False):
         })
     else:
         return render_modal_workflow(
-            request, 'wagtailsearch/queries/chooser/chooser.html', 'wagtailsearch/queries/chooser/chooser.js', {
+            request, 'wagtailsearch/queries/chooser/chooser.html', None, {
                 'queries': queries,
                 'searchform': searchform,
-            }
+            }, json_data={'step': 'chooser'}
         )
 
 

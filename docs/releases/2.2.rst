@@ -38,3 +38,13 @@ Bug fixes
 
 Upgrade considerations
 ======================
+
+JavaScript templates in modal workflows are deprecated
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The ``wagtail.admin.modal_workflow`` module (used internally by Wagtail to handle modal popup interfaces such as the page chooser) has been updated to avoid returning JavaScript code as part of HTTP responses. User code that relies on this functionality can be updated as follows:
+
+ * Eliminate template tags from the .js template. Any dynamic data needed by the template can instead be passed in a dict to ``render_modal_workflow``, as a keyword argument ``json_data``; this data will then be available as the second parameter of the JavaScript function.
+ * At the point where you call the ``ModalWorkflow`` constructor, add an ``onload`` option - a dictionary of functions to be called on loading each step of the workflow. Move the code from the .js template into this dictionary. Then, on the call to ``render_modal_workflow``, rather than passing the .js template name (which should now be replaced by ``None``), pass a ``step`` item in the ``json_data`` dictionary to indicate the ``onload`` function to be called.
+
+Additionally, if your code calls ``loadResponseText`` as part of a jQuery AJAX callback, this should now be passed all three arguments from the callback (the response data, status string and XMLHttpRequest object).

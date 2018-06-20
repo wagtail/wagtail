@@ -50,6 +50,9 @@ Object {
 
 exports[`ModalWorkflowSource #getChooserConfig LINK external 1`] = `
 Object {
+  "onload": Object {
+    "type": "page",
+  },
   "url": "/admin/choose-external-link/",
   "urlParams": Object {
     "allow_email_link": true,
@@ -64,6 +67,9 @@ Object {
 
 exports[`ModalWorkflowSource #getChooserConfig LINK mail 1`] = `
 Object {
+  "onload": Object {
+    "type": "page",
+  },
   "url": "/admin/choose-email-link/",
   "urlParams": Object {
     "allow_email_link": true,
@@ -78,6 +84,9 @@ Object {
 
 exports[`ModalWorkflowSource #getChooserConfig LINK no entity 1`] = `
 Object {
+  "onload": Object {
+    "type": "page",
+  },
   "url": "/admin/choose-page/",
   "urlParams": Object {
     "allow_email_link": true,
@@ -91,6 +100,9 @@ Object {
 
 exports[`ModalWorkflowSource #getChooserConfig LINK page 1`] = `
 Object {
+  "onload": Object {
+    "type": "page",
+  },
   "url": "/admin/choose-page/0/",
   "urlParams": Object {
     "allow_email_link": true,
