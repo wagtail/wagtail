@@ -1,5 +1,4 @@
-{% load i18n %}
-function(modal) {
+function(modal, jsonData) {
     var searchUrl = $('form.image-search', modal.body).attr('action');
 
     /* currentTag stores the tag currently being filtered on, so that we can
@@ -78,12 +77,10 @@ function(modal) {
                     modal.loadResponseText(response);
                 },
                 error: function(response, textStatus, errorThrown) {
-                    {% trans "Server Error" as error_label %}
-                    {% trans "Report this error to your webmaster with the following information:" as error_message %}
-                    message = '{{ error_message|escapejs }}<br />' + errorThrown + ' - ' + response.status;
+                    message = jsonData['error_message'] + '<br />' + errorThrown + ' - ' + response.status;
                     $('#upload').append(
                         '<div class="help-block help-critical">' +
-                        '<strong>{{ error_label|escapejs }}: </strong>' + message + '</div>');
+                        '<strong>' + jsonData['error_label'] + ': </strong>' + message + '</div>');
                 }
             });
         }
@@ -127,10 +124,8 @@ function(modal) {
 
     populateTitle(modal.body);
 
-    {% url 'wagtailadmin_tag_autocomplete' as autocomplete_url %}
-
     /* Add tag entry interface (with autocompletion) to the tag field of the image upload form */
     $('#id_tags', modal.body).tagit({
-        autocomplete: {source: "{{ autocomplete_url|addslashes }}"}
+        autocomplete: {source: jsonData['tag_autocomplete_url']}
     });
 }

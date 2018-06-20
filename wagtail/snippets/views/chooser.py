@@ -1,5 +1,3 @@
-import json
-
 from django.contrib.admin.utils import quote, unquote
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
@@ -74,17 +72,15 @@ def chosen(request, app_label, model_name, pk):
     model = get_snippet_model_from_url_params(app_label, model_name)
     item = get_object_or_404(model, pk=unquote(pk))
 
-    snippet_json = json.dumps({
+    snippet_data = {
         'id': item.pk,
         'string': str(item),
         'edit_link': reverse('wagtailsnippets:edit', args=(
             app_label, model_name, quote(item.pk)))
-    })
+    }
 
     return render_modal_workflow(
         request,
         None, 'wagtailsnippets/chooser/chosen.js',
-        {
-            'snippet_json': snippet_json,
-        }
+        None, json_data={'result': snippet_data}
     )

@@ -666,8 +666,8 @@ class TestImageChooserSelectFormatView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response['Content-Type'], 'text/javascript')
 
-        # extract data as json from the code line: modal.respond('imageChosen', {json});
-        match = re.search(r'modal.respond\(\'imageChosen\', ([^\)]+)\);', response.content.decode())
+        # extract data as json from the 'result' field
+        match = re.search(r'"result":\s*(.*)}$', response.content.decode())
         self.assertTrue(match)
         response_json = json.loads(match.group(1))
 

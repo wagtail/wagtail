@@ -1,7 +1,6 @@
-import json
-
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
+from django.utils.translation import ugettext as _
 
 from wagtail.admin.forms import SearchForm
 from wagtail.admin.modal_workflow import render_modal_workflow
@@ -18,14 +17,23 @@ from wagtail.utils.pagination import paginate
 permission_checker = PermissionPolicyChecker(permission_policy)
 
 
-def get_image_json(image):
+def get_chooser_context():
+    """construct context variables needed by the chooser JS"""
+    return {
+        'error_label': _("Server Error"),
+        'error_message': _("Report this error to your webmaster with the following information:"),
+        'tag_autocomplete_url': reverse('wagtailadmin_tag_autocomplete'),
+    }
+
+
+def get_image_result_data(image):
     """
-    helper function: given an image, return the json to pass back to the
+    helper function: given an image, return the json data to pass back to the
     image chooser panel
     """
     preview_image = image.get_rendition('max-165x165')
 
-    return json.dumps({
+    return {
         'id': image.id,
         'edit_link': reverse('wagtailimages:edit', args=(image.id,)),
         'title': image.title,
@@ -34,7 +42,7 @@ def get_image_json(image):
             'width': preview_image.width,
             'height': preview_image.height,
         }
-    })
+    }
 
 
 def chooser(request):
@@ -103,7 +111,7 @@ def chooser(request):
             'will_select_format': request.GET.get('select_format'),
             'popular_tags': popular_tags_for_model(Image),
             'collections': collections,
-        })
+        }, json_data=get_chooser_context())
 
 
 def image_chosen(request, image_id):
@@ -111,7 +119,7 @@ def image_chosen(request, image_id):
 
     return render_modal_workflow(
         request, None, 'wagtailimages/chooser/image_chosen.js',
-        {'image_json': get_image_json(image)}
+        None, json_data={'result': get_image_result_data(image)}
     )
 
 
@@ -149,7 +157,7 @@ def chooser_upload(request):
                 # not specifying a format; return the image details now
                 return render_modal_workflow(
                     request, None, 'wagtailimages/chooser/image_chosen.js',
-                    {'image_json': get_image_json(image)}
+                    None, json_data={'result': get_image_result_data(image)}
                 )
     else:
         form = ImageForm(user=request.user)
@@ -159,7 +167,8 @@ def chooser_upload(request):
 
     return render_modal_workflow(
         request, 'wagtailimages/chooser/chooser.html', 'wagtailimages/chooser/chooser.js',
-        {'images': images, 'uploadform': form, 'searchform': searchform}
+        {'images': images, 'uploadform': form, 'searchform': searchform},
+        json_data=get_chooser_context()
     )
 
 
@@ -173,7 +182,7 @@ def chooser_select_format(request, image_id):
             format = get_image_format(form.cleaned_data['format'])
             preview_image = image.get_rendition(format.filter_spec)
 
-            image_json = json.dumps({
+            image_data = {
                 'id': image.id,
                 'title': image.title,
                 'format': format.name,
@@ -186,11 +195,11 @@ def chooser_select_format(request, image_id):
                     'height': preview_image.height,
                 },
                 'html': format.image_to_editor_html(image, form.cleaned_data['alt_text']),
-            })
+            }
 
             return render_modal_workflow(
                 request, None, 'wagtailimages/chooser/image_chosen.js',
-                {'image_json': image_json}
+                None, json_data={'result': image_data}
             )
     else:
         initial = {'alt_text': image.default_alt_text}

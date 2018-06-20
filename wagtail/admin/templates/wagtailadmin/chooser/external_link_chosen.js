@@ -1,4 +1,4 @@
-function(modal) {
-    modal.respond('pageChosen', {{ result_json|safe }});
+function(modal, jsonData) {
+    modal.respond('pageChosen', jsonData['result']);
     modal.close();
 }
