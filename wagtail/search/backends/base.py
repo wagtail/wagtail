@@ -161,6 +161,8 @@ class BaseSearchQueryCompiler:
 
 
 class BaseSearchResults:
+    supports_facet = False
+
     def __init__(self, backend, query_compiler, prefetch_related=None):
         self.backend = backend
         self.query_compiler = query_compiler
@@ -250,6 +252,9 @@ class BaseSearchResults:
         clone = self._clone()
         clone._score_field = field_name
         return clone
+
+    def facet(self, field_name):
+        raise NotImplementedError("This search backend does not support faceting")
 
 
 class EmptySearchResults(BaseSearchResults):

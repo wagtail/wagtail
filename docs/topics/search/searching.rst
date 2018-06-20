@@ -97,6 +97,29 @@ This can be limited to a certain set of fields by using the ``fields`` keyword a
     >>> EventPage.objects.search("Event", fields=["title"])
     [<EventPage: Event 1>, <EventPage: Event 2>]
 
+Faceted search
+--------------
+
+Wagtail supports faceted search which is kind of filtering based on a taxonomy
+field (such as category or page type).
+
+The ``.facet(field_name)`` method returns an ``OrderedDict``. The keys are the
+the IDs of the related objects that have been referenced by the field and the
+values are number of references to each ID. The results are ordered by number
+of references descending.
+
+For example, to find the most common page types in the search results:
+
+.. code-block::python
+
+    >>> Page.objects.search("Test").facet("content_type_id")
+
+    # Note: The keys correspond to the ID of a ContentType object, the values are the
+    # number of pages returned for that type
+    OrderedDict([
+        ('2', 4),  # 4 pages have content_type_id == 2
+        ('1', 2),  # 2 pages have content_type_id == 1
+    ])
 
 Changing search behaviour
 -------------------------

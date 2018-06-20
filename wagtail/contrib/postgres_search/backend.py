@@ -1,15 +1,16 @@
+from collections import OrderedDict
 from warnings import warn
 
 from django.contrib.postgres.search import SearchQuery as PostgresSearchQuery
 from django.contrib.postgres.search import SearchRank, SearchVector
 from django.db import DEFAULT_DB_ALIAS, NotSupportedError, connections, transaction
-from django.db.models import F, Manager, Q, TextField, Value
+from django.db.models import Count, F, Manager, Q, TextField, Value
 from django.db.models.constants import LOOKUP_SEP
 from django.db.models.functions import Cast
 from django.utils.encoding import force_text
 
 from wagtail.search.backends.base import (
-    BaseSearchBackend, BaseSearchQueryCompiler, BaseSearchResults)
+    BaseSearchBackend, BaseSearchQueryCompiler, BaseSearchResults, FilterFieldError)
 from wagtail.search.index import RelatedFields, SearchField, get_indexed_models
 from wagtail.search.query import And, MatchAll, Not, Or, Prefix, SearchQueryShortcut, Term
 from wagtail.search.utils import ADD, AND, OR
@@ -315,6 +316,26 @@ class PostgresSearchResults(BaseSearchResults):
         return self.query_compiler.search(
             self.backend.config, None, None,
             score_field=self._score_field).count()
+
+    supports_facet = True
+
+    def facet(self, field_name):
+        # Get field
+        field = self.query_compiler._get_filterable_field(field_name)
+        if field is None:
+            raise FilterFieldError(
+                'Cannot facet search results with field "' + field_name + '". Please add index.FilterField(\'' +
+                field_name + '\') to ' + self.query_compiler.queryset.model.__name__ + '.search_fields.',
+                field_name=field_name
+            )
+
+        query = self.query_compiler.search(self.backend.get_config(), None, None)
+        results = query.values(field_name).annotate(count=Count('pk')).order_by('-count')
+
+        return OrderedDict([
+            (result[field_name], result['count'])
+            for result in results
+        ])
 
 
 class PostgresSearchRebuilder:
