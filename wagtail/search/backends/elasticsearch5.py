@@ -1,6 +1,6 @@
 from .elasticsearch2 import (
     Elasticsearch2Index, Elasticsearch2Mapping, Elasticsearch2SearchBackend,
-    Elasticsearch2SearchQueryCompiler, Elasticsearch2SearchResults)
+    Elasticsearch2SearchQueryCompiler, Elasticsearch2SearchResults, ElasticsearchAutocompleteQueryCompilerImpl)
 
 
 class Elasticsearch5Mapping(Elasticsearch2Mapping):
@@ -89,6 +89,10 @@ class Elasticsearch5SearchQueryCompiler(Elasticsearch2SearchQueryCompiler):
             return inner_query
 
 
+class Elasticsearch5AutocompleteQueryCompiler(Elasticsearch5SearchQueryCompiler, ElasticsearchAutocompleteQueryCompilerImpl):
+    pass
+
+
 class Elasticsearch5SearchResults(Elasticsearch2SearchResults):
     fields_param_name = 'stored_fields'
 
@@ -97,6 +101,7 @@ class Elasticsearch5SearchBackend(Elasticsearch2SearchBackend):
     mapping_class = Elasticsearch5Mapping
     index_class = Elasticsearch5Index
     query_compiler_class = Elasticsearch5SearchQueryCompiler
+    autocomplete_query_compiler_class = Elasticsearch5AutocompleteQueryCompiler
     results_class = Elasticsearch5SearchResults
 
 
