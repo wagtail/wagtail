@@ -80,12 +80,12 @@ class TestPageListing(TestCase):
         response = self.get_response()
         content = json.loads(response.content.decode('UTF-8'))
         self.assertEqual(content['meta']['total_count'], new_total_count)
-    
+
     def test_page_listing_with_missing_page_model(self):
         # Create a ContentType that doesn't correspond to a real model
         missing_page_content_type = ContentType.objects.create(app_label='tests', model='missingpage')
-        
-        # Turn a BlogEntryPage into this
+
+        # Turn a BlogEntryPage into this content_type
         models.BlogEntryPage.objects.filter(id=16).update(content_type=missing_page_content_type)
 
         # get page listing with missing model
@@ -916,12 +916,12 @@ class TestPageDetail(TestCase):
 
         self.assertIn('related_links', content)
         self.assertEqual(content['feed_image'], None)
-    
+
     def test_page_with_missing_page_model(self):
         # Create a ContentType that doesn't correspond to a real model
         missing_page_content_type = ContentType.objects.create(app_label='tests', model='missingpage')
-        
-        # Turn a BlogEntryPage into this
+
+        # Turn a BlogEntryPage into this content_type
         models.BlogEntryPage.objects.filter(id=16).update(content_type=missing_page_content_type)
 
         # get missing model page
