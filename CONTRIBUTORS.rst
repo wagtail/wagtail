@@ -307,6 +307,7 @@ Contributors
 * Strother Scott
 * Daniele Procida
 * Catherine Farman
+* Abdulmalik Abdulwahab
 
 Translators
 ===========
