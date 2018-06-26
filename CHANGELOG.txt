@@ -24,6 +24,7 @@ Changelog
  * Fix: Remove duplicate border radius of avatars (Benjamin Thurm)
  * Fix: Site.get_site_root_paths() preferring other sites over the default when some sites share the same root_page (Andy Babic)
  * Fix: Pages with missing model definitions no longer crash the API (Abdulmalik Abdulwahab)
+ * Fix: Strip null characters from paths when checking for redirects (Andrew Crewdson)
 
 
 2.1.1 (xx.xx.xxxx) - IN DEVELOPMENT

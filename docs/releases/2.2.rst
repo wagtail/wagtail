@@ -37,6 +37,7 @@ Bug fixes
  * Remove duplicate border radius of avatars (Benjamin Thurm)
  * Site.get_site_root_paths() preferring other sites over the default when some sites share the same root_page (Andy Babic)
  * Pages with missing model definitions no longer crash the API (Abdulmalik Abdulwahab)
+ * Strip null characters from paths when checking for redirects (Andrew Crewdson)
 
 Upgrade considerations
 ======================
