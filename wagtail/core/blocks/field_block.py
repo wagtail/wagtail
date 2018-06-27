@@ -1,4 +1,5 @@
 import datetime
+import warnings
 
 from django import forms
 from django.db.models.fields import BLANK_CHOICE_DASH
@@ -12,6 +13,7 @@ from django.utils.safestring import mark_safe
 
 from wagtail.core.rich_text import RichText
 from wagtail.core.utils import resolve_model_string
+from wagtail.utils.deprecation import RemovedInWagtail24Warning
 
 from .base import Block
 
@@ -594,18 +596,23 @@ class ChooserBlock(FieldBlock):
 
 
 class PageChooserBlock(ChooserBlock):
-
-    # TODO: rename target_model to page_type
-    def __init__(self, target_model=None, can_choose_root=False,
-                 **kwargs):
+    def __init__(self, page_type=None, can_choose_root=False, target_model=None, **kwargs):
         if target_model:
-            # Convert single string/model into a list
-            if not isinstance(target_model, (list, tuple)):
-                target_model = [target_model]
-        else:
-            target_model = []
+            warnings.warn(
+                "PageChooserBlock's `target_model` parameter is deprecated. "
+                "Please use `page_type` instead.",
+                category=RemovedInWagtail24Warning
+            )
+            page_type = target_model
 
-        self._target_models = target_model
+        if page_type:
+            # Convert single string/model into a list
+            if not isinstance(page_type, (list, tuple)):
+                page_type = [page_type]
+        else:
+            page_type = []
+
+        self.page_type = page_type
         self.can_choose_root = can_choose_root
         super().__init__(**kwargs)
 
@@ -626,7 +633,7 @@ class PageChooserBlock(ChooserBlock):
     def target_models(self):
         target_models = []
 
-        for target_model in self._target_models:
+        for target_model in self.page_type:
             target_models.append(
                 resolve_model_string(target_model)
             )
@@ -648,7 +655,7 @@ class PageChooserBlock(ChooserBlock):
     def deconstruct(self):
         name, args, kwargs = super().deconstruct()
 
-        if 'target_model' in kwargs:
+        if 'page_type' in kwargs:
             target_models = []
 
             for target_model in self.target_models:
@@ -657,7 +664,7 @@ class PageChooserBlock(ChooserBlock):
                     '{}.{}'.format(opts.app_label, opts.object_name)
                 )
 
-            kwargs['target_model'] = target_models
+            kwargs['page_type'] = target_models
 
         return name, args, kwargs
 
