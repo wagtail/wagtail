@@ -46,6 +46,7 @@ More information
     :maxdepth: 2
 
     styleguide
+    general_guidelines
     python_guidelines
     css_guidelines
     javascript_guidelines
