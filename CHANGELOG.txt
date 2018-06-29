@@ -50,6 +50,12 @@ Changelog
  * Fix: Custom PageManagers now return the correct PageQuerySet subclass (Matt Westcott)
 
 
+1.12.4 (IN DEVELOPMENT)
+~~~~~~~~~~~~~~~~~~~~~~~
+
+* Fix: Fix support of `ATOMIC_REBUILD` for projects with Elasticsearch client >=1.7.0 (Mikalai Radchuk)
+
+
 1.12.3 (17.11.2017)
 ~~~~~~~~~~~~~~~~~~~
 
