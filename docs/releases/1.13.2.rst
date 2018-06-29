@@ -1,0 +1,17 @@
+=============================================
+Wagtail 1.13.2 release notes - IN DEVELOPMENT
+=============================================
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Bug fixes
+~~~~~~~~~
+
+ * Fix support of ``ATOMIC_REBUILD`` for projects with Elasticsearch client ``>=1.7.0`` (Mikalai Radchuk)
+ * Logging an indexing failure on an object with a non-ASCII representation no longer crashes on Python 2 (Aram Dulyan)
