@@ -251,6 +251,7 @@ Contributors
 * Tomasz Knapik
 * Venelin Stoykov
 * Martin Sandström
+* Aram Dulyan
 
 Translators
 ===========
