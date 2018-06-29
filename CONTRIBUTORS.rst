@@ -309,6 +309,7 @@ Contributors
 * Catherine Farman
 * Abdulmalik Abdulwahab
 * Andrew Crewdson
+* Aram Dulyan
 
 Translators
 ===========
