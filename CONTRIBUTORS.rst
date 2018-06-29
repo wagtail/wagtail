@@ -257,6 +257,7 @@ Contributors
 * Mads Jensen
 * Samir Shah
 * Martin Sandström
+* Aram Dulyan
 
 Translators
 ===========
