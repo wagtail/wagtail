@@ -229,6 +229,12 @@ Changelog
  * Fix: API listing views no longer fail when no site records are defined (Karl Hobley)
 
 
+1.12.4 (IN DEVELOPMENT)
+~~~~~~~~~~~~~~~~~~~~~~~
+
+* Fix: Fix support of `ATOMIC_REBUILD` for projects with Elasticsearch client >=1.7.0 (Mikalai Radchuk)
+
+
 1.12.3 (17.11.2017)
 ~~~~~~~~~~~~~~~~~~~
 
