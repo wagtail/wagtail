@@ -185,6 +185,13 @@ Changelog
  * Fix: Prevent style leak of Wagtail panel icons in widgets using ``h2`` elements (THibaud Colas)
 
 
+1.13.2 (IN DEVELOPMENT)
+~~~~~~~~~~~~~~~~~~~~~~~
+
+ * Fix: Fix support of `ATOMIC_REBUILD` for projects with Elasticsearch client >=1.7.0 (Mikalai Radchuk)
+ * Fix: Logging an indexing failure on an object with a non-ASCII representation no longer crashes on Python 2 (Aram Dulyan)
+
+
 1.13.1 (17.11.2017)
 ~~~~~~~~~~~~~~~~~~~
 
@@ -232,8 +239,8 @@ Changelog
 1.12.4 (IN DEVELOPMENT)
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-* Fix: Fix support of `ATOMIC_REBUILD` for projects with Elasticsearch client >=1.7.0 (Mikalai Radchuk)
-* Fix: Logging an indexing failure on an object with a non-ASCII representation no longer crashes on Python 2 (Aram Dulyan)
+ * Fix: Fix support of `ATOMIC_REBUILD` for projects with Elasticsearch client >=1.7.0 (Mikalai Radchuk)
+ * Fix: Logging an indexing failure on an object with a non-ASCII representation no longer crashes on Python 2 (Aram Dulyan)
 
 
 1.12.3 (17.11.2017)
