@@ -6,7 +6,7 @@ from django.utils.translation import ugettext as _
 from django.views.decorators.vary import vary_on_headers
 
 from wagtail.admin import messages
-from wagtail.admin.forms import SearchForm
+from wagtail.admin.forms import SearchForm, SearchCollectionForm
 from wagtail.admin.utils import PermissionPolicyChecker, permission_denied, popular_tags_for_model
 from wagtail.core.models import Collection
 from wagtail.documents.forms import get_document_form
@@ -21,8 +21,12 @@ permission_checker = PermissionPolicyChecker(permission_policy)
 @permission_checker.require_any('add', 'change', 'delete')
 @vary_on_headers('X-Requested-With')
 def index(request):
-    Document = get_document_model()
 
+    Document = get_document_model()
+    query_string = None
+    collection_filter = None
+    collection = None
+    
     # Get documents (filtered by user permission)
     documents = permission_policy.instances_user_has_any_permission_for(
         request.user, ['change', 'delete']
@@ -35,25 +39,17 @@ def index(request):
         ordering = '-created_at'
     documents = documents.order_by(ordering)
 
-    # Filter by collection
-    current_collection = None
-    collection_id = request.GET.get('collection_id')
-    if collection_id:
-        try:
-            current_collection = Collection.objects.get(id=collection_id)
-            documents = documents.filter(collection=current_collection)
-        except (ValueError, Collection.DoesNotExist):
-            pass
-
     # Search
-    query_string = None
-    if 'q' in request.GET:
-        form = SearchForm(request.GET, placeholder=_("Search documents"))
-        if form.is_valid():
-            query_string = form.cleaned_data['q']
+    form = SearchCollectionForm(request.GET, placeholder=_("Search documents"))
+    if form.is_valid() and any(arg in ['q', 'collection'] for arg in request.GET):
+        query_string = form.cleaned_data.get('q', None)
+        collection = form.cleaned_data.get('collection', None)
+
+        if collection:
+            documents = documents.filter(collection=collection)
+
+        if query_string:
             documents = documents.search(query_string)
-    else:
-        form = SearchForm(placeholder=_("Search documents"))
 
     # Pagination
     paginator, documents = paginate(request, documents)
@@ -64,26 +60,29 @@ def index(request):
     if len(collections) < 2:
         collections = None
 
+    if collection:
+        collection_filter = collection.pk
+
     # Create response
     if request.is_ajax():
         return render(request, 'wagtaildocs/documents/results.html', {
             'ordering': ordering,
             'documents': documents,
             'query_string': query_string,
-            'is_searching': bool(query_string),
+            'is_searching': bool(query_string or collection),
+            'collection_filter': collection_filter,
         })
     else:
         return render(request, 'wagtaildocs/documents/index.html', {
             'ordering': ordering,
             'documents': documents,
             'query_string': query_string,
-            'is_searching': bool(query_string),
-
+            'is_searching': bool(query_string or collection),
             'search_form': form,
             'popular_tags': popular_tags_for_model(Document),
             'user_can_add': permission_policy.user_has_permission(request.user, 'add'),
             'collections': collections,
-            'current_collection': current_collection,
+            'collection_filter': collection_filter,
         })
 
 

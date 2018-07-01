@@ -14,7 +14,8 @@
 
     {% include "wagtaildocs/documents/list.html" %}
 
-    {% include "wagtailadmin/shared/pagination_nav.html" with items=documents is_searching=is_searching %}
+    {% include "wagtailadmin/shared/pagination_nav.html" with items=documents is_searching=is_searching query_string=query_string collection_filter=collection_filter %}
+
 {% else %}
     {% if is_searching %}
          <h2>{% blocktrans %}Sorry, no documents match "<em>{{ query_string }}</em>"{% endblocktrans %}</h2>
