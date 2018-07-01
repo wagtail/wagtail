@@ -65,14 +65,14 @@ def chooser(request):
 
         searchform = SearchForm(request.GET)
         if searchform.is_valid():
-            q = searchform.cleaned_data['q']
-
-            documents = documents.search(q)
-            is_searching = True
-        else:
-            documents = documents.order_by('-created_at')
-            is_searching = False
-
+            q = searchform.cleaned_data.get('q', None)
+            if q:
+                documents = documents.search(q)
+                is_searching = True
+            else:
+                documents = documents.order_by('-created_at')
+                is_searching = False
+        
         # Pagination
         paginator, documents = paginate(request, documents, per_page=10)
 

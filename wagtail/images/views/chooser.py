@@ -74,16 +74,16 @@ def chooser(request):
 
         searchform = SearchForm(request.GET)
         if searchform.is_valid():
-            q = searchform.cleaned_data['q']
+            q = searchform.cleaned_data.get('q', None)
+            if q:
+                images = images.search(q)
+                is_searching = True
+            else:
+                is_searching = False
 
-            images = images.search(q)
-            is_searching = True
-        else:
-            is_searching = False
-
-            tag_name = request.GET.get('tag')
-            if tag_name:
-                images = images.filter(tags__name=tag_name)
+                tag_name = request.GET.get('tag')
+                if tag_name:
+                    images = images.filter(tags__name=tag_name)
 
         # Pagination
         paginator, images = paginate(request, images, per_page=12)
