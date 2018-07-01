@@ -223,53 +223,57 @@ $(function() {
     if (window.headerSearch) {
         var searchCurrentIndex = 0;
         var searchNextIndex = 0;
-        var $input = $(window.headerSearch.termInput);
-        var $inputContainer = $input.parent();
-
-        $input.on('keyup cut paste change', function() {
-            clearTimeout($input.data('timer'));
-            $input.data('timer', setTimeout(search, 200));
-        });
-
-        // auto focus on search box
-        $input.trigger('focus');
+        var $q_input = $(window.headerSearch.termInput);
+        var $collection_input = $(window.headerSearch.collectionInput);
+        var $q_inputContainer = $q_input.parent();
+        var currentData = {};
 
         function search() {
-            var workingClasses = 'icon-spinner';
+            var workingClasses = "icon-spinner";
 
-            var newQuery = $input.val();
-            var currentQuery = getURLParam('q');
-            // only do the query if it has changed for trimmed queries
-            // eg. " " === "" and "firstword " ==== "firstword"
-            if (currentQuery.trim() !== newQuery.trim()) {
-                $inputContainer.addClass(workingClasses);
+            var newQuery = $q_input.val();
+            var newCollection = $collection_input.val();
+
+            data = {};
+            data.q = newQuery && newQuery.length > 0 ? newQuery.trim() : null;
+            data.collection =
+                newCollection && newCollection.length > 0 ? newCollection : null;
+
+            // Only query if params have changed
+            if (data !== currentData) {
+                currentData = data;
+                querystring = $.param(data);
+                $q_inputContainer.addClass(workingClasses);
                 searchNextIndex++;
                 var index = searchNextIndex;
                 $.ajax({
                     url: window.headerSearch.url,
-                    data: {q: newQuery},
-                    success: function(data, status) {
+                    data: data,
+                    success: function (data, status) {
                         if (index > searchCurrentIndex) {
                             searchCurrentIndex = index;
-                            $(window.headerSearch.targetOutput).html(data).slideDown(800);
-                            window.history.replaceState(null, null, '?q=' + newQuery);
+                            $(window.headerSearch.targetOutput)
+                                .html(data)
+                                .slideDown(800);
+                            window.history.replaceState(null, null, "?" + querystring);
                         }
                     },
-                    complete: function() {
-                        $inputContainer.removeClass(workingClasses);
+                    complete: function () {
+                        $q_inputContainer.removeClass(workingClasses);
                     }
                 });
             }
         }
 
-        function getURLParam(name) {
-            var results = new RegExp('[\?&]' + name + '=([^]*)').exec(window.location.search);
-            if (results) {
-                return results[1];
-            }
-            return '';
-        }
+        $q_input.on("keyup cut paste change", function () {
+            clearTimeout($q_input.data("timer"));
+            $q_input.data("timer", setTimeout(search, 200));
+        });
 
+        $collection_input.on("change", search);
+
+        // auto focus on search box
+        $q_input.trigger("focus");
     }
 
     /* Functions that need to run/rerun when active tabs are changed */
