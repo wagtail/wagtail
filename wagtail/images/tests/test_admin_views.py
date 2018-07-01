@@ -25,6 +25,41 @@ class TestImageIndexView(TestCase, WagtailTestUtils):
     def get(self, params={}):
         return self.client.get(reverse('wagtailimages:index'), params)
 
+    def make_collection(self):
+        root_collection = Collection.get_first_root_node()
+        collection = root_collection.add_child(name='Test Images')
+        return collection
+
+    def make_collection_images(self, collection):
+        for i in range(8):
+            image = Image.objects.create(
+                title="Test image " + str(i),
+                file=get_test_image_file(),
+            )
+            if i % 3 == 0:
+                image.collection = collection
+            
+            image.save()
+
+    def test_collection_filter(self):
+        collection = self.make_collection()
+        self.make_collection_images(collection)
+
+        response = self.client.get(reverse('wagtailimages:index'), {'collection': collection.pk})
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['collection_filter'], collection.pk)
+        self.assertEqual(len(response.context['images']), 3)
+
+    def test_search_with_collection_filter(self):
+        collection = self.make_collection()
+        self.make_collection_images(collection)
+
+        response = self.client.get(reverse('wagtailimages:index'), {'collection': collection.pk, 'q': '3'})
+        
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context['images']), 1)
+
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)

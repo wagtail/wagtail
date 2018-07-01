@@ -63,11 +63,9 @@ class TestDocumentIndexView(TestCase, WagtailTestUtils):
     def make_collection_docs(self, collection):
         for i in range(50):
             document = models.Document(title="Test " + str(i))
-            if i % 3 ==0:
-                document.collection  = collection
+            if i % 3 == 0:
+                document.collection = collection
             document.save()
-        
-        
 
     def test_pagination(self):
         self.make_docs()
