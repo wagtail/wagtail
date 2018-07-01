@@ -30,7 +30,7 @@ def index(request):
 
     query_string = None
     collection_filter = None
-    connection = None
+    collection = None
 
     # Get images (filtered by user permission)
     images = permission_policy.instances_user_has_any_permission_for(
