@@ -30,10 +30,44 @@ class TestDocumentIndexView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['query_string'], "Hello")
 
+    def test_collection_filter(self):
+        collection = self.make_collection()
+        self.make_collection_docs(collection)
+
+        response = self.client.get(reverse('wagtaildocs:index'), {'collection': collection.pk})
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['collection_filter'], collection.pk)
+        self.assertEqual(len(response.context['documents']), 17)
+
+    def test_search_with_collection_filter(self):
+        collection = self.make_collection()
+        self.make_collection_docs(collection)
+
+        response = self.client.get(reverse('wagtaildocs:index'), {'collection': collection.pk, 'q': '12'})
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['collection_filter'], collection.pk)
+        self.assertEqual(len(response.context['documents']), 1)
+
     def make_docs(self):
         for i in range(50):
             document = models.Document(title="Test " + str(i))
             document.save()
+
+    def make_collection(self):
+        root_collection = Collection.get_first_root_node()
+        collection = root_collection.add_child(name='Test Docs')
+        return collection
+
+    def make_collection_docs(self, collection):
+        for i in range(50):
+            document = models.Document(title="Test " + str(i))
+            if i % 3 ==0:
+                document.collection  = collection
+            document.save()
+        
+        
 
     def test_pagination(self):
         self.make_docs()
