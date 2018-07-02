@@ -50,13 +50,14 @@ class SearchForm(forms.Form):
 
     q = forms.CharField(label=ugettext_lazy("Search term"), widget=forms.TextInput(), required=False)
 
-class SearchCollectionForm(SearchForm):
 
+class SearchCollectionForm(SearchForm):
     collection = collection = forms.ModelChoiceField(
         queryset=Collection.objects.all(),
         empty_label="All Collections",
         required=False,
     )
+
 
 class ExternalLinkChooserForm(forms.Form):
     url = URLOrAbsolutePathField(required=True, label=ugettext_lazy("URL"))

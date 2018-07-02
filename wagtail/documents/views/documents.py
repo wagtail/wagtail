@@ -6,9 +6,8 @@ from django.utils.translation import ugettext as _
 from django.views.decorators.vary import vary_on_headers
 
 from wagtail.admin import messages
-from wagtail.admin.forms import SearchForm, SearchCollectionForm
+from wagtail.admin.forms import SearchCollectionForm
 from wagtail.admin.utils import PermissionPolicyChecker, permission_denied, popular_tags_for_model
-from wagtail.core.models import Collection
 from wagtail.documents.forms import get_document_form
 from wagtail.documents.models import get_document_model
 from wagtail.documents.permissions import permission_policy
@@ -26,7 +25,7 @@ def index(request):
     query_string = None
     collection_filter = None
     collection = None
-    
+
     # Get documents (filtered by user permission)
     documents = permission_policy.instances_user_has_any_permission_for(
         request.user, ['change', 'delete']

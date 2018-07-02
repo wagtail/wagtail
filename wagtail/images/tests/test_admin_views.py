@@ -38,7 +38,6 @@ class TestImageIndexView(TestCase, WagtailTestUtils):
             )
             if i % 3 == 0:
                 image.collection = collection
-            
             image.save()
 
     def test_collection_filter(self):
@@ -56,7 +55,6 @@ class TestImageIndexView(TestCase, WagtailTestUtils):
         self.make_collection_images(collection)
 
         response = self.client.get(reverse('wagtailimages:index'), {'collection': collection.pk, 'q': '3'})
-        
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context['images']), 1)
 

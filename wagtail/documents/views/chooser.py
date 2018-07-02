@@ -72,7 +72,7 @@ def chooser(request):
             else:
                 documents = documents.order_by('-created_at')
                 is_searching = False
-        
+
         # Pagination
         paginator, documents = paginate(request, documents, per_page=10)
 

@@ -8,9 +8,9 @@ from django.utils.translation import ugettext as _
 from django.views.decorators.vary import vary_on_headers
 
 from wagtail.admin import messages
-from wagtail.admin.forms import SearchForm, SearchCollectionForm
+from wagtail.admin.forms import SearchCollectionForm
 from wagtail.admin.utils import PermissionPolicyChecker, permission_denied, popular_tags_for_model
-from wagtail.core.models import Collection, Site
+from wagtail.core.models import Site
 from wagtail.images import get_image_model
 from wagtail.images.exceptions import InvalidFilterSpecError
 from wagtail.images.forms import URLGeneratorForm, get_image_form
