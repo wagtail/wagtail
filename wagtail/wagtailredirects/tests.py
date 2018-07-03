@@ -273,6 +273,19 @@ class TestRedirects(TestCase):
 
         self.assertRedirects(response, '/redirectto', status_code=301, fetch_redirect_response=False)
 
+    def test_reject_null_characters(self):
+        response = self.client.get('/test%00test/')
+        self.assertEqual(response.status_code, 404)
+
+        response = self.client.get('/test\0test/')
+        self.assertEqual(response.status_code, 404)
+
+        response = self.client.get('/test/?foo=%00bar')
+        self.assertEqual(response.status_code, 404)
+
+        response = self.client.get('/test/?foo=\0bar')
+        self.assertEqual(response.status_code, 404)
+
 
 class TestRedirectsIndexView(TestCase, WagtailTestUtils):
     def setUp(self):
