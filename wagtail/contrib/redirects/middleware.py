@@ -8,6 +8,9 @@ from wagtail.contrib.redirects import models
 
 
 def _get_redirect(request, path):
+    if '\0' in path:  # reject URLs with null characters, which crash on Postgres (#4496)
+        return None
+
     try:
         return models.Redirect.get_for_site(request.site).get(old_path=path)
     except models.Redirect.MultipleObjectsReturned:
