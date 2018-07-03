@@ -71,12 +71,8 @@ class Redirect(models.Model):
         parameters_components = parameters.split(';')
         parameters = ';'.join(sorted(parameters_components))
 
-        query_string = url_parsed[4]
-
-        # Strip Unicode NULLs (U+0000) for safety and Postgres compatibility
-        query_string = query_string.replace('%00', '')
-
         # Query string components must be sorted alphabetically
+        query_string = url_parsed[4]
         query_string_components = query_string.split('&')
         query_string = '&'.join(sorted(query_string_components))
 
