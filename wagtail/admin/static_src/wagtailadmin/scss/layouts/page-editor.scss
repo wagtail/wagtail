@@ -41,6 +41,21 @@
             // on mobile viewports due to snippets
         }
     }
+
+    .right {
+        @include media-breakpoint-up(sm) {
+            margin-bottom: -3rem;
+        }
+    }
+
+    .status-information {
+        margin-right: 0.5em;
+
+        span {
+            margin-left: 0.3em;
+            font-weight: 600;
+        }
+    }
 }
 
 $object-title-height: 40px;

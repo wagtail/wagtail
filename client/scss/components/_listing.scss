@@ -445,7 +445,9 @@ table.listing {
 }
 
 // explorer specific tweaks
-.page-explorer .listing {
+.page-explorer .listing,
+// action buttons on the edit page
+.listing.edit-page-buttons {
     position: relative;
 
     .index {

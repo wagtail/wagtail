@@ -98,14 +98,22 @@ def register_collections_menu_item():
 
 
 @hooks.register('register_page_listing_buttons')
-def page_listing_buttons(page, page_perms, is_parent=False):
+def page_listing_buttons(page, page_perms, is_parent=False, editing=False):
     if page_perms.can_edit():
-        yield PageListingButton(
-            _('Edit'),
-            reverse('wagtailadmin_pages:edit', args=[page.id]),
-            attrs={'aria-label': _("Edit '{title}'").format(title=page.get_admin_display_title())},
-            priority=10
-        )
+        if editing:
+            yield PageListingButton(
+                _('Show in Explorer'),
+                reverse('wagtailadmin_explore', args=[page.id]),
+                attrs={'aria-label': _("Show '{title}' in the Explorer").format(title=page.get_admin_display_title())},
+                priority=10
+            )
+        else:
+            yield PageListingButton(
+                _('Edit'),
+                reverse('wagtailadmin_pages:edit', args=[page.id]),
+                attrs={'aria-label': _("Edit '{title}'").format(title=page.get_admin_display_title())},
+                priority=10
+            )
     if page.has_unpublished_changes:
         yield PageListingButton(
             _('View draft'),

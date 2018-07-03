@@ -794,7 +794,7 @@ Page explorer
     from wagtail.admin import widgets as wagtailadmin_widgets
 
     @hooks.register('register_page_listing_buttons')
-    def page_listing_buttons(page, page_perms, is_parent=False):
+    def page_listing_buttons(page, page_perms, is_parent=False, editing=False):
         yield wagtailadmin_widgets.PageListingButton(
             'A page listing button',
             '/goes/to/a/url/',
@@ -843,7 +843,7 @@ Buttons with dropdown lists
     from wagtail.admin import widgets as wagtailadmin_widgets
 
     @hooks.register('register_page_listing_buttons')
-    def page_custom_listing_buttons(page, page_perms, is_parent=False):
+    def page_custom_listing_buttons(page, page_perms, is_parent=False, editing=False):
         yield wagtailadmin_widgets.ButtonWithDropdownFromHook(
             'More actions',
             hook_name='my_button_dropdown_hook',

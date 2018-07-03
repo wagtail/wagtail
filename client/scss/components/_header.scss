@@ -165,3 +165,12 @@ header {
         padding-left: $mobile-nav-indent;
     }
 }
+
+.page-title {
+    font-size: 1.8em;
+
+    .span {
+        font-weight: 500;
+        margin-left: 0.3em;
+    }
+}

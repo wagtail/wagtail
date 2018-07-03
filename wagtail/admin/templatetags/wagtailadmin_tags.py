@@ -421,10 +421,10 @@ def paginate(context, page, base_url='', page_key='p',
 
 @register.inclusion_tag("wagtailadmin/pages/listing/_buttons.html",
                         takes_context=True)
-def page_listing_buttons(context, page, page_perms, is_parent=False):
+def page_listing_buttons(context, page, page_perms, is_parent=False, editing=False):
     button_hooks = hooks.get_hooks('register_page_listing_buttons')
     buttons = sorted(itertools.chain.from_iterable(
-        hook(page, page_perms, is_parent)
+        hook(page, page_perms, is_parent, editing)
         for hook in button_hooks))
 
     for hook in hooks.get_hooks('construct_page_listing_buttons'):

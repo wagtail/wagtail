@@ -1,2 +1,7 @@
+{% load i18n %}
+
 {% include "wagtailadmin/pages/_privacy_switch.html" with page=page page_perms=page_perms only %}
 {% include "wagtailadmin/pages/_lock_switch.html" %}
+<div class="status-information">
+    {% blocktrans with page_type=content_type.model_class.get_verbose_name %}Page type <span>{{ page_type }}</span>{% endblocktrans %}
+</div>
