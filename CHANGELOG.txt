@@ -33,6 +33,7 @@ Changelog
 
  * Fix: Site.get_site_root_paths() preferring other sites over the default when some sites share the same root_page (Andy Babic)
  * Fix: Rich text image chooser no longer skips format selection after a validation error (Matt Westcott)
+ * Fix: Null characters in URLs no longer crash the redirect middleware on PostgreSQL (Matt Westcott)
 
 
 2.1 (22.05.2018)
