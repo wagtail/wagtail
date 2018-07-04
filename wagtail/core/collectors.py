@@ -13,9 +13,8 @@ from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from taggit.models import TaggedItemBase
 
 from wagtail.core.blocks import (
-    Block, ChooserBlock, ListBlock, RichTextBlock, StreamBlock, StreamValue,
-    StructBlock, StructValue,
-)
+    Block, ChooserBlock, ListBlock, RichTextBlock, StreamBlock, StreamValue, StructBlock,
+    StructValue)
 from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core.rich_text import RichText, features
 from wagtail.core.rich_text.rewriters import FIND_A_TAG, FIND_EMBED_TAG, extract_attrs
