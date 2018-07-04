@@ -1,8 +1,8 @@
 Changelog
 =========
 
-1.13.2 (IN DEVELOPMENT)
-~~~~~~~~~~~~~~~~~~~~~~~
+1.13.2 (04.07.2018)
+~~~~~~~~~~~~~~~~~~~
 
  * Fix: Fix support of `ATOMIC_REBUILD` for projects with Elasticsearch client >=1.7.0 (Mikalai Radchuk)
  * Fix: Logging an indexing failure on an object with a non-ASCII representation no longer crashes on Python 2 (Aram Dulyan)
