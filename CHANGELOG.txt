@@ -241,8 +241,8 @@ Changelog
  * Fix: API listing views no longer fail when no site records are defined (Karl Hobley)
 
 
-1.12.4 (IN DEVELOPMENT)
-~~~~~~~~~~~~~~~~~~~~~~~
+1.12.4 (04.07.2018)
+~~~~~~~~~~~~~~~~~~~
 
  * Fix: Fix support of `ATOMIC_REBUILD` for projects with Elasticsearch client >=1.7.0 (Mikalai Radchuk)
  * Fix: Logging an indexing failure on an object with a non-ASCII representation no longer crashes on Python 2 (Aram Dulyan)
