@@ -1,3 +1,4 @@
+import json
 import unittest
 import urllib.request
 from urllib.error import URLError
@@ -172,7 +173,9 @@ class TestChooser(TestCase, WagtailTestUtils):
     def test_chooser_with_edit_params(self):
         r = self.client.get('/admin/embeds/chooser/?url=http://example2.com')
         self.assertEqual(r.status_code, 200)
-        self.assertContains(r, 'value=\\"http://example2.com\\"')
+        response_json = json.loads(r.content.decode())
+        self.assertEqual(response_json['step'], 'chooser')
+        self.assertIn('value="http://example2.com"', response_json['html'])
 
     @patch('wagtail.embeds.embeds.get_embed')
     def test_submit_valid_embed(self, get_embed):
@@ -182,8 +185,9 @@ class TestChooser(TestCase, WagtailTestUtils):
             'url': 'http://www.example.com/'
         })
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, """modal.respond('embedChosen'""")
-        self.assertContains(response, """An example embed""")
+        response_json = json.loads(response.content.decode())
+        self.assertEqual(response_json['step'], 'embed_chosen')
+        self.assertEqual(response_json['embed_data']['title'], "An example embed")
 
     @patch('wagtail.embeds.embeds.get_embed')
     def test_submit_unrecognised_embed(self, get_embed):
@@ -193,8 +197,10 @@ class TestChooser(TestCase, WagtailTestUtils):
             'url': 'http://www.example.com/'
         })
         self.assertEqual(response.status_code, 200)
-        self.assertNotContains(response, """modal.respond('embedChosen'""")
-        self.assertContains(response, """Cannot find an embed for this URL.""")
+
+        response_json = json.loads(response.content.decode())
+        self.assertEqual(response_json['step'], 'chooser')
+        self.assertIn("Cannot find an embed for this URL.", response_json['html'])
 
 
 class TestEmbedly(TestCase):

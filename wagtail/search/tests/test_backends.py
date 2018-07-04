@@ -1,6 +1,7 @@
 # coding: utf-8
 
 import unittest
+from collections import OrderedDict
 from datetime import date
 from io import StringIO
 
@@ -8,12 +9,13 @@ from django.conf import settings
 from django.core import management
 from django.test import TestCase
 from django.test.utils import override_settings
+from taggit.models import Tag
 
 from wagtail.search.backends import (
     InvalidSearchBackendError, get_search_backend, get_search_backends)
-from wagtail.search.backends.base import FieldError
+from wagtail.search.backends.base import FieldError, FilterFieldError
 from wagtail.search.backends.db import DatabaseSearchBackend
-from wagtail.search.query import MATCH_ALL, And, Boost, Filter, Not, Or, PlainText, Term
+from wagtail.search.query import MATCH_ALL, And, Boost, Filter, Not, Or, PlainText, Prefix, Term
 from wagtail.tests.search import models
 from wagtail.tests.utils import WagtailTestUtils
 
@@ -77,6 +79,19 @@ class BackendTests(WagtailTestUtils):
 
         # "JavaScript: The Definitive Guide" should be first
         self.assertEqual(results[0].title, "JavaScript: The Definitive Guide")
+
+    def test_annotate_score(self):
+        results = self.backend.search("JavaScript", models.Book).annotate_score('_score')
+
+        for result in results:
+            self.assertIsInstance(result._score, float)
+
+    def test_annotate_score_with_slice(self):
+        # #3431 - Annotate score wasn't being passed to new queryset when slicing
+        results = self.backend.search("JavaScript", models.Book).annotate_score('_score')[:10]
+
+        for result in results:
+            self.assertIsInstance(result._score, float)
 
     def test_search_and_operator(self):
         # Should not return "JavaScript: The good parts" as it does not have "Definitive"
@@ -381,6 +396,40 @@ class BackendTests(WagtailTestUtils):
             "A Game of Thrones"
         ])
 
+    # FACET TESTS
+
+    def test_facet(self):
+        results = self.backend.search(MATCH_ALL, models.ProgrammingGuide).facet('programming_language')
+
+        # Not testing ordering here as two of the items have the same count, so the ordering is undefined.
+        # See test_facet_tags for a test of the ordering
+        self.assertDictEqual(dict(results), {'js': 2, 'py': 2, 'rs': 1})
+
+    def test_facet_tags(self):
+        # The test data doesn't contain any tags, add some
+        FANTASY_BOOKS = [1, 2, 3, 4, 5, 6, 7]
+        SCIFI_BOOKS = [10]
+        for book_id in FANTASY_BOOKS:
+            models.Book.objects.get(id=book_id).tags.add('Fantasy')
+        for book_id in SCIFI_BOOKS:
+            models.Book.objects.get(id=book_id).tags.add('Science Fiction')
+
+        fantasy_tag = Tag.objects.get(name='Fantasy')
+        scifi_tag = Tag.objects.get(name='Science Fiction')
+
+        results = self.backend.search(MATCH_ALL, models.Book).facet('tags')
+
+        self.assertEqual(results, OrderedDict([
+            (fantasy_tag.id, 7),
+            (None, 5),
+            (scifi_tag.id, 1),
+        ]))
+
+    def test_facet_with_nonexistent_field(self):
+        with self.assertRaises(FilterFieldError):
+            self.backend.search(MATCH_ALL, models.ProgrammingGuide).facet('foo')
+
+
     # MISC TESTS
 
     def test_same_rank_pages(self):
@@ -440,13 +489,18 @@ class BackendTests(WagtailTestUtils):
         self.assertEqual(len(results), 13)
 
     def test_term(self):
-        # Single word
         results = self.backend.search(Term('javascript'),
                                       models.Book.objects.all())
 
         self.assertSetEqual({r.title for r in results},
                             {'JavaScript: The Definitive Guide',
                              'JavaScript: The good parts'})
+
+    def test_incomplete_term(self):
+        results = self.backend.search(Term('pro'),
+                                      models.Book.objects.all())
+
+        self.assertSetEqual({r.title for r in results}, set())
 
     def test_and(self):
         results = self.backend.search(And([Term('javascript'),
@@ -507,6 +561,17 @@ class BackendTests(WagtailTestUtils):
                              'The Rust Programming Language',
                              'Two Scoops of Django 1.11'})
 
+    def test_prefix_single_word(self):
+        results = self.backend.search(Prefix('pro'), models.Book.objects.all())
+        self.assertSetEqual({r.title for r in results},
+                            {'The Rust Programming Language'})
+
+    def test_prefix_multiple_words(self):
+        results = self.backend.search(Prefix('rust pro'),
+                                      models.Book.objects.all())
+        self.assertSetEqual({r.title for r in results},
+                            {'The Rust Programming Language'})
+
     #
     # Shortcut query classes
     #
@@ -517,6 +582,12 @@ class BackendTests(WagtailTestUtils):
         self.assertSetEqual({r.title for r in results},
                             {'JavaScript: The Definitive Guide',
                              'JavaScript: The good parts'})
+
+    def test_incomplete_plain_text(self):
+        results = self.backend.search(PlainText('pro'),
+                                      models.Book.objects.all())
+
+        self.assertSetEqual({r.title for r in results}, set())
 
     def test_plain_text_multiple_words_or(self):
         results = self.backend.search(PlainText('Javascript Definitive',

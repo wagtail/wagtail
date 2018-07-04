@@ -6,10 +6,6 @@ Promoted search results
 
 .. module:: wagtail.contrib.search_promotions
 
-.. versionchanged:: 1.1
-
-    Before Wagtail 1.1, promoted search results were implemented in the :mod:`wagtail.search` core module and called "editors picks".
-
 The ``searchpromotions`` module provides the models and user interface for managing "Promoted search results" and displaying them in a search results page.
 
 "Promoted search results" allow editors to explicitly link relevant content to search terms, so results pages can contain curated content in addition to results from the search engine.

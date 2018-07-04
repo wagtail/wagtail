@@ -9,7 +9,7 @@ Plugins come in three types:
 * Blocks – To indicate the structure of the content, eg. ``blockquote``, ``ol``.
 * Entities – To enter additional data/metadata, eg. ``link`` (with a URL), ``image`` (with a file).
 
-All of these plugins are created with a similar baseline, which we can demonstrate with one of the simplest examples – a custom feature for an inline style of ``strikethrough``.
+All of these plugins are created with a similar baseline, which we can demonstrate with one of the simplest examples – a custom feature for an inline style of ``strikethrough``. Place the following in a ``wagtail_hooks.py`` file in any installed app:
 
 .. code-block:: python
 
@@ -51,7 +51,11 @@ All of these plugins are created with a similar baseline, which we can demonstra
         # 5. Call register_converter_rule to register the content transformation conversion.
         features.register_converter_rule('contentstate', feature_name, db_conversion)
 
-These five steps will always be the same for all Draftail plugins. The important parts are to:
+        # 6. (optional) Add the feature to the default features list to make it available
+        # on rich text fields that do not specify an explicit 'features' list
+        features.default_features.append('strikethrough')
+
+These steps will always be the same for all Draftail plugins. The important parts are to:
 
 * Consistently use the feature’s Draft.js type or Wagtail feature names where appropriate.
 * Give enough information to Draftail so it knows how to make a button for the feature, and how to render it (more on this later).
@@ -177,7 +181,11 @@ In order to achieve this, we start with registering the rich text feature like f
         }
 
         features.register_editor_plugin(
-            'draftail', feature_name, draftail_features.EntityFeature(control)
+            'draftail', feature_name, draftail_features.EntityFeature(
+                control,
+                js=['stock.js']
+                css={'all': ['stock.css']}
+            )
         )
 
         features.register_converter_rule('contentstate', feature_name, {
@@ -185,6 +193,10 @@ In order to achieve this, we start with registering the rich text feature like f
             'from_database_format': {'span[data-stock]': StockEntityElementHandler(type_)},
             'to_database_format': {'entity_decorators': {type_: stock_entity_decorator}},
         })
+
+The ``js`` and ``css`` keyword arguments on ``EntityFeature`` can be used to specify additional
+JS and CSS files to load when this feature is active. Both are optional. Their values are added to a ``Media`` object, more documentation on these objects
+is available in the `Django Form Assets documentation <https://docs.djangoproject.com/en/stable/topics/forms/media/>`_.
 
 Since entities hold data, the conversion to/from database format is more complicated. We have to create the two handlers:
 
@@ -220,26 +232,7 @@ Since entities hold data, the conversion to/from database format is more complic
 
 Note how they both do similar conversions, but use different APIs. ``to_database_format`` is built with the `Draft.js exporter <https://github.com/springload/draftjs_exporter>`_ components API, whereas ``from_database_format`` uses a Wagtail API.
 
-The next step is to add JavaScript to define how the entities are created (the ``source``), and how they are displayed (the ``decorator``). First, we load the JS file which will contain those components:
-
-.. code-block:: python
-
-    from django.utils.html import format_html_join
-    from django.conf import settings
-
-    @hooks.register('insert_editor_js')
-    def stock_editor_js():
-        js_files = [
-            # We require this file here to make sure it is loaded before stock.js.
-            'wagtailadmin/js/draftail.js',
-            'stock.js',
-        ]
-        js_includes = format_html_join('\n', '<script src="{0}{1}"></script>',
-            ((settings.STATIC_URL, filename) for filename in js_files)
-        )
-        return js_includes
-
-We define the source component:
+The next step is to add JavaScript to define how the entities are created (the ``source``), and how they are displayed (the ``decorator``). Within ``stock.js``, we define the source component:
 
 .. code-block:: javascript
 

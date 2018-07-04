@@ -10,14 +10,14 @@
 # listeng, 2016
 # Vincent Zhao <zhaopu2008@gmail.com>, 2017-2018
 # jszsj <zhushajun@gmail.com>, 2017
-# 汇民 王 <whuim@qq.com>, 2017
+# 汇民 王 <whuim@qq.com>, 2017-2018
 # 飘 赵 <275980464@qq.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-02-16 11:33+0000\n"
+"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"PO-Revision-Date: 2018-05-04 19:30+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
@@ -66,17 +66,6 @@ msgstr "输入你的 %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "输入邮件地址以重置密码"
-
-msgid "Please fill your email address."
-msgstr "请填入邮件地址"
-
-msgid ""
-"Sorry, you cannot reset your password here as your user account is managed "
-"by another server."
-msgstr "对不起，您无法重置密码，因为账户不在此处管理"
-
-msgid "This email address is not recognised."
-msgstr "未知邮件地址"
 
 msgid "New title"
 msgstr "新标题"
@@ -164,34 +153,11 @@ msgstr "转到管理界面"
 msgid "Account"
 msgstr "帐号"
 
-msgid "Set gravatar"
-msgstr "设置gravatar（全球通用头像）"
-
-msgid ""
-"Your avatar image is provided by Gravatar and is connected to your email "
-"address. With a Gravatar account you can set an avatar for any number of "
-"other email addresses you use."
-msgstr ""
-"您的头像是由Gravatar提供，与您的邮件地址关联。只需一个Gravatar帐号，你就可以"
-"为你使用的任意多个邮件地址设置头像。"
+msgid "Update"
+msgstr "更新"
 
 msgid "Change password"
 msgstr "修改密码"
-
-msgid "Change the password you use to log in."
-msgstr "修改用于登录的密码"
-
-msgid "Notification preferences"
-msgstr "提醒设置"
-
-msgid "Choose which email notifications to receive."
-msgstr "选择接收哪些邮件提醒"
-
-msgid "Language preferences"
-msgstr "语言首选项"
-
-msgid "Choose the language you want to use here."
-msgstr "请在这里选择你想使用的语言。"
 
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
@@ -200,8 +166,8 @@ msgstr "您不能修改密码，请联系管理员。"
 msgid "Language Preferences"
 msgstr "语言首选项"
 
-msgid "Update"
-msgstr "更新"
+msgid "Notification preferences"
+msgstr "提醒设置"
 
 msgid "Reset password"
 msgstr "重置密码"
@@ -215,14 +181,8 @@ msgstr "登录"
 msgid "Set your new password"
 msgstr "设置新密码"
 
-msgid "The passwords do not match. Please try again."
-msgstr "密码不匹配，请重试"
-
 msgid "Check your email"
 msgstr "检查您的邮件"
-
-msgid "A link to reset your password has been emailed to you."
-msgstr "已将重置密码的链接发送到您的邮箱。"
 
 msgid "Please follow the link below to reset your password:"
 msgstr "请点击下面的链接来重置密码"
@@ -714,7 +674,7 @@ msgstr "上一次编辑： %(last_mod)s"
 
 #, python-format
 msgid "by %(modified_by)s"
-msgstr "按%(modified_by)s"
+msgstr "由%(modified_by)s"
 
 msgid "Revisions"
 msgstr "修订"
@@ -918,6 +878,22 @@ msgid "There are no differences between these two revisions"
 msgstr "这两个修订版本内容一致。"
 
 #, python-format
+msgid "Unschedule Revision %(revision.id)s for %(title)s"
+msgstr "取消%(title)s修订版本%(revision.id)s的预定发布"
+
+msgid "Unschedule"
+msgstr "取消预定发布"
+
+msgid "Are you sure you want to unschedule this revision?"
+msgstr "确定要取消这个修订版本的预定发布吗？"
+
+msgid "Yes, unschedule"
+msgstr "是的，取消定时发布"
+
+msgid "No, don't unschedule"
+msgstr "否，不取消预定发布"
+
+#, python-format
 msgid "Revisions of %(title)s"
 msgstr "%(title)s 的修订"
 
@@ -937,11 +913,17 @@ msgstr "当前草稿"
 msgid "Live version"
 msgstr "发布版本"
 
+msgid "Scheduled for"
+msgstr "定时发布"
+
 msgid "Review this revision"
 msgstr "查看这个修订"
 
 msgid "Compare with previous revision"
 msgstr "与上一个修订版本进行比较"
+
+msgid "Cancel scheduled publish"
+msgstr "取消预定的发布"
 
 msgid "No revisions of this page exist"
 msgstr "当前页面没有修订记录"
@@ -1156,6 +1138,9 @@ msgstr "俄语"
 msgid "Swedish"
 msgstr "瑞典语"
 
+msgid "Slovak"
+msgstr "斯洛伐克语"
+
 msgid "Chinese (China)"
 msgstr "中文 (中国)"
 
@@ -1180,11 +1165,9 @@ msgstr "添加一个集合"
 msgid "Add collection"
 msgstr "添加集合"
 
-#, python-brace-format
 msgid "Collection '{0}' created."
 msgstr "集合 '{0}' 已创建"
 
-#, python-brace-format
 msgid "Collection '{0}' updated."
 msgstr "集合 '{0}' 已更新"
 
@@ -1194,7 +1177,6 @@ msgstr "无法保存集合，出现错误。"
 msgid "Delete collection"
 msgstr "删除集合"
 
-#, python-brace-format
 msgid "Collection '{0}' deleted."
 msgstr "集合 '{0}' 已删除"
 
@@ -1204,18 +1186,15 @@ msgstr "确定删除此集合？"
 msgid "Editing"
 msgstr "正在编辑"
 
-#, python-brace-format
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr "页面 {0} 已创建并计划发布中。"
 
 msgid "View live"
 msgstr "实时查看"
 
-#, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "页面'{0}'已创建并发布。"
 
-#, python-brace-format
 msgid "Page '{0}' created and submitted for moderation."
 msgstr "页面 '{0}' 已创建并提交审核。"
 
@@ -1225,38 +1204,33 @@ msgstr "查看草稿"
 msgid "Failed to send notifications to moderators"
 msgstr "向版主发送通知失败"
 
-#, python-brace-format
 msgid "Page '{0}' created."
 msgstr "页面'{0}'已创建"
 
 msgid "The page could not be created due to validation errors"
 msgstr "验证错误，页面无法创建。"
 
-#, python-brace-format
 msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
 msgstr "页面 {1} 的版本 {0} 正在计划发布中。"
 
-#, python-brace-format
-msgid "Page '{0}' has been scheduled for publishing."
-msgstr "页面 {0} 正在计划发布中。"
+msgid "Page '{0}' is live and this revision has been scheduled for publishing."
+msgstr "页面 {0} 正在使用，这个修订版本已预定发布时间。"
 
-#, python-brace-format
+msgid "Page '{0}' has been scheduled for publishing."
+msgstr "页面 {0} 已预定发布时间。"
+
 msgid "Revision from {0} of page '{1}' has been published."
 msgstr "页面 '{1}' 的修订版本 {0} 已经发布。"
 
-#, python-brace-format
 msgid "Page '{0}' has been published."
 msgstr "页面 '{0}' 已经发布。"
 
-#, python-brace-format
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "页面 '{0}' 已经提交给版主。"
 
-#, python-brace-format
 msgid "Page '{0}' has been replaced with revision from {1}."
 msgstr "页面 '{0}' 的修订版本 {1} 已经被替换。"
 
-#, python-brace-format
 msgid "Page '{0}' has been updated."
 msgstr "页面 '{0}' 已被更新。"
 
@@ -1272,49 +1246,39 @@ msgstr "与发布版本进行比较"
 msgid "This page is currently awaiting moderation"
 msgstr "页面等待审核中"
 
-#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "页面'{0}'已删除"
 
-#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "页面'{0}'已取消发布。"
 
-#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "页面 '{0}' 已移动。"
 
-#, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "页面 '{0}' 和 {1} 个子页面已复制。"
 
-#, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "页面'{0}'已复制。"
 
-#, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "页面 '{0}'目前不在等待审核。"
 
-#, python-brace-format
 msgid "Page '{0}' published."
 msgstr "页面'{0}'已发布"
 
 msgid "Failed to send approval notifications"
 msgstr "发送批准通知失败。"
 
-#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "页面 '{0}'审核失败"
 
 msgid "Failed to send rejection notifications"
 msgstr "发送拒绝通知失败。"
 
-#, python-brace-format
 msgid "Page '{0}' is now locked."
 msgstr "页面 '{0}'已锁定"
 
-#, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "页面 '{0}'已解锁。"
 
@@ -1332,50 +1296,57 @@ msgstr "最早的"
 msgid "Latest"
 msgstr "最近的"
 
-#, python-brace-format
+msgid "revision {0} of \"{1}\""
+msgstr " \"{1}\"的修订版本{0}"
+
+msgid "Revision {0} of \"{1}\" unscheduled."
+msgstr " \"{1}\"的修订版本{0}已取消预定的发布。"
+
 msgid "Edit '{title}'"
 msgstr "编辑 '{title}'"
 
-#, python-brace-format
 msgid "Preview draft version of '{title}'"
 msgstr "预览 '{title}' 的草稿"
 
-#, python-brace-format
 msgid "View live version of '{title}'"
 msgstr "查看 '{title}' 的发布版本"
 
-#, python-brace-format
 msgid "Add a child page to '{title}' "
 msgstr "为 '{title}' 添加子页面"
 
 msgid "More"
 msgstr "更多"
 
-#, python-brace-format
 msgid "View more options for '{title}'"
 msgstr "查看 '{title}' 的更多选项"
 
-#, python-brace-format
 msgid "Move page '{title}'"
 msgstr "移动页面 '{title}'"
 
-#, python-brace-format
 msgid "Copy page '{title}'"
 msgstr "复制页面 '{title}'"
 
-#, python-brace-format
 msgid "Delete page '{title}'"
 msgstr "删除页面 '{title}'"
 
-#, python-brace-format
 msgid "Unpublish page '{title}'"
 msgstr "取消发布页面 '{title}'"
 
-#, python-brace-format
 msgid "View revision history for '{title}'"
 msgstr "查看 '{title}' 的修订历史"
 
-#, python-brace-format
+msgid "Change the password you use to log in."
+msgstr "修改用于登录的密码"
+
+msgid "Choose which email notifications to receive."
+msgstr "选择接收哪些邮件提醒"
+
+msgid "Language preferences"
+msgstr "语言首选项"
+
+msgid "Choose the language you want to use here."
+msgstr "请在这里选择你想使用的语言。"
+
 msgid "Heading {level}"
 msgstr "标题{level}"
 

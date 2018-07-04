@@ -119,12 +119,15 @@ class TestDocumentAddView(TestCase, WagtailTestUtils):
         self.assertRedirects(response, reverse('wagtaildocs:index'))
 
         # Document should be created, and be placed in the root collection
-        self.assertTrue(models.Document.objects.filter(title="Test document").exists())
+        document = models.Document.objects.get(title="Test document")
         root_collection = Collection.get_first_root_node()
         self.assertEqual(
-            models.Document.objects.get(title="Test document").collection,
+            document.collection,
             root_collection
         )
+
+        # Check that the file_size field was set
+        self.assertTrue(document.file_size)
 
     def test_post_with_collections(self):
         root_collection = Collection.get_first_root_node()
@@ -268,6 +271,46 @@ class TestDocumentEditView(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, 'wagtaildocs/documents/edit.html')
 
         self.assertContains(response, 'File not found')
+
+    def test_reupload_same_name(self):
+        """
+        Checks that reuploading the document file with the same file name
+        changes the file name, to avoid browser cache issues (see #3816).
+        """
+        old_file = self.document.file
+        new_name = self.document.filename
+        new_file = SimpleUploadedFile(new_name, b'An updated test content.')
+
+        response = self.client.post(reverse('wagtaildocs:edit', args=(self.document.pk,)), {
+            'title': self.document.title, 'file': new_file,
+        })
+        self.assertRedirects(response, reverse('wagtaildocs:index'))
+        self.document.refresh_from_db()
+        self.assertFalse(self.document.file.storage.exists(old_file.name))
+        self.assertTrue(self.document.file.storage.exists(self.document.file.name))
+        self.assertNotEqual(self.document.file.name, 'documents/' + new_name)
+        self.assertEqual(self.document.file.read(),
+                         b'An updated test content.')
+
+    def test_reupload_different_name(self):
+        """
+        Checks that reuploading the document file with a different file name
+        correctly uses the new file name.
+        """
+        old_file = self.document.file
+        new_name = 'test_reupload_different_name.txt'
+        new_file = SimpleUploadedFile(new_name, b'An updated test content.')
+
+        response = self.client.post(reverse('wagtaildocs:edit', args=(self.document.pk,)), {
+            'title': self.document.title, 'file': new_file,
+        })
+        self.assertRedirects(response, reverse('wagtaildocs:index'))
+        self.document.refresh_from_db()
+        self.assertFalse(self.document.file.storage.exists(old_file.name))
+        self.assertTrue(self.document.file.storage.exists(self.document.file.name))
+        self.assertEqual(self.document.file.name, 'documents/' + new_name)
+        self.assertEqual(self.document.file.read(),
+                         b'An updated test content.')
 
 
 class TestDocumentDeleteView(TestCase, WagtailTestUtils):
@@ -557,7 +600,8 @@ class TestDocumentChooserView(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtaildocs:chooser'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtaildocs/chooser/chooser.html')
-        self.assertTemplateUsed(response, 'wagtaildocs/chooser/chooser.js')
+        response_json = json.loads(response.content.decode())
+        self.assertEqual(response_json['step'], 'chooser')
 
     def test_search(self):
         response = self.client.get(reverse('wagtaildocs:chooser'), {'q': "Hello"})
@@ -654,7 +698,8 @@ class TestDocumentChooserChosenView(TestCase, WagtailTestUtils):
     def test_simple(self):
         response = self.client.get(reverse('wagtaildocs:document_chosen', args=(self.document.id,)))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtaildocs/chooser/document_chosen.js')
+        response_json = json.loads(response.content.decode())
+        self.assertEqual(response_json['step'], 'document_chosen')
 
 
 class TestDocumentChooserUploadView(TestCase, WagtailTestUtils):
@@ -665,7 +710,8 @@ class TestDocumentChooserUploadView(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtaildocs:chooser_upload'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtaildocs/chooser/chooser.html')
-        self.assertTemplateUsed(response, 'wagtaildocs/chooser/chooser.js')
+        response_json = json.loads(response.content.decode())
+        self.assertEqual(response_json['step'], 'chooser')
 
     def test_post(self):
         # Build a fake file
@@ -679,9 +725,9 @@ class TestDocumentChooserUploadView(TestCase, WagtailTestUtils):
         }
         response = self.client.post(reverse('wagtaildocs:chooser_upload'), post_data)
 
-        # Check that the response is a javascript file saying the document was chosen
-        self.assertTemplateUsed(response, 'wagtaildocs/chooser/document_chosen.js')
-        self.assertContains(response, "modal.respond('documentChosen'")
+        # Check that the response is the 'document_chosen' step
+        response_json = json.loads(response.content.decode())
+        self.assertEqual(response_json['step'], 'document_chosen')
 
         # Document should be created
         self.assertTrue(models.Document.objects.filter(title="Test document").exists())
@@ -720,20 +766,22 @@ class TestDocumentChooserUploadViewWithLimitedPermissions(TestCase, WagtailTestU
         response = self.client.get(reverse('wagtaildocs:chooser_upload'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtaildocs/chooser/chooser.html')
-        self.assertTemplateUsed(response, 'wagtaildocs/chooser/chooser.js')
+        response_json = json.loads(response.content.decode())
+        self.assertEqual(response_json['step'], 'chooser')
 
         # user only has access to one collection -> should not see the collections field
-        self.assertNotContains(response, 'id_collection')
+        self.assertNotIn('id_collection', response_json['html'])
 
     def test_chooser_view(self):
         # The main chooser view also includes the form, so need to test there too
         response = self.client.get(reverse('wagtaildocs:chooser'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtaildocs/chooser/chooser.html')
-        self.assertTemplateUsed(response, 'wagtaildocs/chooser/chooser.js')
+        response_json = json.loads(response.content.decode())
+        self.assertEqual(response_json['step'], 'chooser')
 
         # user only has access to one collection -> should not see the collections field
-        self.assertNotContains(response, 'id_collection')
+        self.assertNotIn('id_collection', response_json['html'])
 
     def test_post(self):
         # Build a fake file
@@ -747,9 +795,9 @@ class TestDocumentChooserUploadViewWithLimitedPermissions(TestCase, WagtailTestU
         }
         response = self.client.post(reverse('wagtaildocs:chooser_upload'), post_data)
 
-        # Check that the response is a javascript file saying the document was chosen
-        self.assertTemplateUsed(response, 'wagtaildocs/chooser/document_chosen.js')
-        self.assertContains(response, "modal.respond('documentChosen'")
+        # Check that the response is the 'document_chosen' step
+        response_json = json.loads(response.content.decode())
+        self.assertEqual(response_json['step'], 'document_chosen')
 
         # Document should be created
         doc = models.Document.objects.filter(title="Test document")

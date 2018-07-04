@@ -10,7 +10,6 @@
     height: 50px;
 
     img {
-        border-radius: 100%;
         position: absolute;
         z-index: 2;
         top: 0;
@@ -28,10 +27,6 @@
 
     &.square {
         border-radius: 0;
-
-        img {
-            border-radius: 0;
-        }
 
         &:before {
             border-radius: 0;

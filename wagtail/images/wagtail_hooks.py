@@ -1,7 +1,6 @@
 from django.conf.urls import include, url
-from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.urls import reverse
-from django.utils.html import format_html, format_html_join
+from django.utils.html import format_html
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ugettext, ungettext
 
@@ -48,14 +47,7 @@ def register_images_menu_item():
 
 @hooks.register('insert_editor_js')
 def editor_js():
-    js_files = [
-        static('wagtailimages/js/image-chooser.js'),
-    ]
-    js_includes = format_html_join(
-        '\n', '<script src="{0}"></script>',
-        ((filename, ) for filename in js_files)
-    )
-    return js_includes + format_html(
+    return format_html(
         """
         <script>
             window.chooserUrls.imageChooser = '{0}';
@@ -75,7 +67,10 @@ def register_image_feature(features):
         'hallo', 'image',
         HalloPlugin(
             name='hallowagtailimage',
-            js=['wagtailimages/js/hallo-plugins/hallo-wagtailimage.js'],
+            js=[
+                'wagtailimages/js/image-chooser-modal.js',
+                'wagtailimages/js/hallo-plugins/hallo-wagtailimage.js',
+            ],
         )
     )
 
@@ -96,7 +91,9 @@ def register_image_feature(features):
             'whitelist': {
                 'id': True,
             }
-        })
+        }, js=[
+            'wagtailimages/js/image-chooser-modal.js',
+        ])
     )
 
     # define how to convert between contentstate's representation of images and

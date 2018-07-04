@@ -1,0 +1,20 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n %}
+
+{% block titletag %}{% trans "Set Time Zone" %}{% endblock %}
+{% block content %}
+    {% trans "Set Time Zone" as prefs_str %}
+    {% include "wagtailadmin/shared/header.html" with title=prefs_str %}
+
+    <div class="nice-padding">
+        <form action="{% url 'wagtailadmin_account_current_time_zone' %}" method="POST" novalidate>
+            {% csrf_token %}
+            <ul class="fields">
+                {% for field in form %}
+                    {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
+                {% endfor %}
+                <li class="submit"><input type="submit" value="{% trans 'Update' %}" class="button" /></li>
+            </ul>
+        </form>
+    </div>
+{% endblock %}

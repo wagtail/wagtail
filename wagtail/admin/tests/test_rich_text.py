@@ -108,6 +108,10 @@ class TestDefaultRichText(BaseRichTextEditHandlerTestCase, WagtailTestUtils):
         # check that media for draftail is being imported
         self.assertContains(response, 'wagtailadmin/js/draftail.js')
 
+        # check that media for non-active features is not being imported
+        self.assertNotContains(response, 'testapp/js/draftail-blockquote.js')
+        self.assertNotContains(response, 'testapp/css/draftail-blockquote.css')
+
     @override_settings()  # create temporary copy of settings so we can remove WAGTAILADMIN_RICH_TEXT_EDITORS
     def test_default_editor_in_rich_text_block(self):
         # Simulate the absence of a setting
@@ -126,6 +130,10 @@ class TestDefaultRichText(BaseRichTextEditHandlerTestCase, WagtailTestUtils):
 
         # check that media for draftail is being imported
         self.assertContains(response, 'wagtailadmin/js/draftail.js')
+
+        # check that media for non-active features is not being imported
+        self.assertNotContains(response, 'testapp/js/draftail-blockquote.js')
+        self.assertNotContains(response, 'testapp/css/draftail-blockquote.css')
 
 
 @override_settings(WAGTAILADMIN_RICH_TEXT_EDITORS={
@@ -171,6 +179,43 @@ class TestHalloRichText(BaseRichTextEditHandlerTestCase, WagtailTestUtils):
         # check that media for the default hallo features (but not others) is being imported
         self.assertContains(response, 'wagtaildocs/js/hallo-plugins/hallo-wagtaildoclink.js')
         self.assertNotContains(response, 'testapp/js/hallo-blockquote.js')
+
+
+@override_settings(WAGTAILADMIN_RICH_TEXT_EDITORS={
+    'default': {
+        'WIDGET': 'wagtail.admin.rich_text.DraftailRichTextArea',
+        'OPTIONS': {'features': ['h2', 'blockquote']}
+    },
+})
+class TestDraftailFeatureMedia(BaseRichTextEditHandlerTestCase, WagtailTestUtils):
+    """
+    Features that define additional js/css imports (blockquote, in this case) should
+    have those loaded on the page
+    """
+    def setUp(self):
+        super().setUp()
+        # Find root page
+        self.root_page = Page.objects.get(id=2)
+
+        self.login()
+
+    def test_feature_media_on_rich_text_field(self):
+        response = self.client.get(reverse(
+            'wagtailadmin_pages:add', args=('tests', 'defaultrichtextfieldpage', self.root_page.id)
+        ))
+
+        self.assertContains(response, 'wagtailadmin/js/draftail.js')
+        self.assertContains(response, 'testapp/js/draftail-blockquote.js')
+        self.assertContains(response, 'testapp/css/draftail-blockquote.css')
+
+    def test_feature_media_on_rich_text_block(self):
+        response = self.client.get(reverse(
+            'wagtailadmin_pages:add', args=('tests', 'defaultrichblockfieldpage', self.root_page.id)
+        ))
+
+        self.assertContains(response, 'wagtailadmin/js/draftail.js')
+        self.assertContains(response, 'testapp/js/draftail-blockquote.js')
+        self.assertContains(response, 'testapp/css/draftail-blockquote.css')
 
 
 @override_settings(WAGTAILADMIN_RICH_TEXT_EDITORS={
@@ -532,21 +577,19 @@ class TestWidgetWhitelisting(TestCase, WagtailTestUtils):
         widget = HalloRichTextArea()
 
         # when no feature list is specified, accept elements that are part of the default set
-        # (which includes h2) or registered through the construct_whitelister_element_rules hook
-        # (which includes blockquote in the test environment)
+        # (which includes h2)
         result = widget.value_from_datadict({
             'body': '<h2>heading</h2><script>script</script><blockquote>blockquote</blockquote>'
         }, {}, 'body')
-        self.assertEqual(result, '<h2>heading</h2>script<blockquote>blockquote</blockquote>')
+        self.assertEqual(result, '<h2>heading</h2>scriptblockquote')
 
     def test_custom_whitelist(self):
         widget = HalloRichTextArea(features=['h1', 'bold', 'somethingijustmadeup'])
-        # accept elements that are represented in the feature list or registered through the
-        # construct_whitelister_element_rules hook
+        # accept elements that are represented in the feature list
         result = widget.value_from_datadict({
             'body': '<h1>h1</h1> <h2>h2</h2> <script>script</script> <p><b>bold</b> <i>italic</i></p> <blockquote>blockquote</blockquote>'
         }, {}, 'body')
-        self.assertEqual(result, '<h1>h1</h1> h2 script <p><b>bold</b> italic</p> <blockquote>blockquote</blockquote>')
+        self.assertEqual(result, '<h1>h1</h1> h2 script <p><b>bold</b> italic</p> blockquote')
 
     def test_link_conversion_with_default_whitelist(self):
         widget = HalloRichTextArea()

@@ -1,6 +1,8 @@
+import l18n
 from django.contrib.auth.views import redirect_to_login as auth_redirect_to_login
 from django.core.exceptions import PermissionDenied
 from django.urls import reverse
+from django.utils.timezone import activate as activate_tz
 from django.utils.translation import activate as activate_lang
 from django.utils.translation import ugettext as _
 
@@ -24,7 +26,11 @@ def require_admin_access(view_func):
 
         if user.has_perms(['wagtailadmin.access_admin']):
             if hasattr(user, 'wagtail_userprofile'):
-                activate_lang(user.wagtail_userprofile.get_preferred_language())
+                language = user.wagtail_userprofile.get_preferred_language()
+                l18n.set_language(language)
+                activate_lang(language)
+                time_zone = user.wagtail_userprofile.get_current_time_zone()
+                activate_tz(time_zone)
             return view_func(request, *args, **kwargs)
 
         if not request.is_ajax():

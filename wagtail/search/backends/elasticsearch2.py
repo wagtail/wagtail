@@ -1,6 +1,7 @@
 import copy
 import json
 import warnings
+from collections import OrderedDict
 from urllib.parse import urlparse
 
 from django.db import DEFAULT_DB_ALIAS, models
@@ -11,7 +12,7 @@ from elasticsearch import Elasticsearch, NotFoundError
 from elasticsearch.helpers import bulk
 
 from wagtail.search.backends.base import (
-    BaseSearchBackend, BaseSearchQueryCompiler, BaseSearchResults)
+    BaseSearchBackend, BaseSearchQueryCompiler, BaseSearchResults, FilterFieldError)
 from wagtail.search.index import FilterField, Indexed, RelatedFields, SearchField, class_is_indexed
 from wagtail.search.query import (
     And, Boost, Filter, Fuzzy, MatchAll, Not, Or, PlainText, Prefix, Term)
@@ -44,6 +45,12 @@ def get_model_root(model):
 
 
 class Elasticsearch2Mapping:
+    all_field_name = '_all'
+
+    # Was originally named '_partials' but renamed '_edgengrams' when we added Elasticsearch 6 support
+    # The ES 2 and 5 backends still use the old name for backwards compatibility
+    edgengrams_field_name = '_partials'
+
     type_map = {
         'AutoField': 'integer',
         'BinaryField': 'binary',
@@ -186,9 +193,9 @@ class Elasticsearch2Mapping:
         fields = {
             'pk': dict(type=self.keyword_type, store=True, include_in_all=False),
             'content_type': dict(type=self.keyword_type, include_in_all=False),
-            '_partials': dict(type=self.text_type, include_in_all=False),
+            self.edgengrams_field_name: dict(type=self.text_type, include_in_all=False),
         }
-        fields['_partials'].update(self.edgengram_analyzer_config)
+        fields[self.edgengrams_field_name].update(self.edgengram_analyzer_config)
 
         if self.set_index_not_analyzed_on_filter_fields:
             # Not required on ES5 as that uses the "keyword" type for
@@ -219,7 +226,7 @@ class Elasticsearch2Mapping:
             value = field.get_value(obj)
             doc[mapping.get_field_column_name(field)] = value
 
-            # Check if this field should be added into _partials
+            # Check if this field should be added into _edgengrams
             if isinstance(field, SearchField) and field.partial_match:
                 partials.append(value)
 
@@ -233,27 +240,32 @@ class Elasticsearch2Mapping:
             value = field.get_value(obj)
 
             if isinstance(field, RelatedFields):
-                if isinstance(value, models.Manager):
+                if isinstance(value, (models.Manager, models.QuerySet)):
                     nested_docs = []
 
                     for nested_obj in value.all():
-                        nested_doc, extra_partials = self._get_nested_document(field.fields, nested_obj)
+                        nested_doc, extra_edgengrams = self._get_nested_document(field.fields, nested_obj)
                         nested_docs.append(nested_doc)
-                        partials.extend(extra_partials)
+                        partials.extend(extra_edgengrams)
 
                     value = nested_docs
                 elif isinstance(value, models.Model):
-                    value, extra_partials = self._get_nested_document(field.fields, value)
-                    partials.extend(extra_partials)
+                    value, extra_edgengrams = self._get_nested_document(field.fields, value)
+                    partials.extend(extra_edgengrams)
+            elif isinstance(field, FilterField):
+                if isinstance(value, (models.Manager, models.QuerySet)):
+                    value = list(value.values_list('pk', flat=True))
+                elif isinstance(value, models.Model):
+                    value = value.pk
 
             doc[self.get_field_column_name(field)] = value
 
-            # Check if this field should be added into _partials
+            # Check if this field should be added into _edgengrams
             if isinstance(field, SearchField) and field.partial_match:
                 partials.append(value)
 
         # Add partials to document
-        doc['_partials'] = partials
+        doc[self.edgengrams_field_name] = partials
 
         return doc
 
@@ -484,7 +496,7 @@ class Elasticsearch2SearchQueryCompiler(BaseSearchQueryCompiler):
                 % query.__class__.__name__)
 
     def get_inner_query(self):
-        fields = self.remapped_fields or ['_all', '_partials']
+        fields = self.remapped_fields or [self.mapping.all_field_name, self.mapping.edgengrams_field_name]
 
         if len(fields) == 0:
             # No fields. Return a query that'll match nothing
@@ -595,6 +607,41 @@ class Elasticsearch2SearchQueryCompiler(BaseSearchQueryCompiler):
 
 class Elasticsearch2SearchResults(BaseSearchResults):
     fields_param_name = 'fields'
+    supports_facet = True
+
+    def facet(self, field_name):
+        # Get field
+        field = self.query_compiler._get_filterable_field(field_name)
+        if field is None:
+            raise FilterFieldError(
+                'Cannot facet search results with field "' + field_name + '". Please add index.FilterField(\'' +
+                field_name + '\') to ' + self.query_compiler.queryset.model.__name__ + '.search_fields.',
+                field_name=field_name
+            )
+
+        # Build body
+        body = self._get_es_body()
+        column_name = self.query_compiler.mapping.get_field_column_name(field)
+
+        body['aggregations'] = {
+            field_name: {
+                'terms': {
+                    'field': column_name,
+                }
+            }
+        }
+
+        # Send to Elasticsearch
+        response = self.backend.es.search(
+            index=self.backend.get_index_for_model(self.query_compiler.queryset.model).name,
+            body=body,
+            size=0,
+        )
+
+        return OrderedDict([
+            (bucket['key'], bucket['doc_count'])
+            for bucket in response['aggregations'][field_name]['buckets']
+        ])
 
     def _get_es_body(self, for_count=False):
         body = {
@@ -806,7 +853,6 @@ class Elasticsearch2Index:
         for item in items:
             # Create the action
             action = {
-                '_index': self.name,
                 '_type': doc_type,
                 '_id': mapping.get_document_id(item),
             }
@@ -814,7 +860,7 @@ class Elasticsearch2Index:
             actions.append(action)
 
         # Run the actions
-        bulk(self.es, actions)
+        bulk(self.es, actions, index=self.name)
 
     def delete_item(self, item):
         # Make sure the object can be indexed

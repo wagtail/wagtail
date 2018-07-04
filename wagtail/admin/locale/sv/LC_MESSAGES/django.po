@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-02-16 11:33+0000\n"
+"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"PO-Revision-Date: 2018-05-04 19:30+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
@@ -63,19 +63,6 @@ msgstr "Ange ditt %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Ange din e-postadress för att återställa ditt lösenord"
-
-msgid "Please fill your email address."
-msgstr "Vänligen fyll i din e-postadress"
-
-msgid ""
-"Sorry, you cannot reset your password here as your user account is managed "
-"by another server."
-msgstr ""
-"Du kan inte återställa ditt lösenord här eftersom ditt användarkonto är "
-"hanterat av en annan server."
-
-msgid "This email address is not recognised."
-msgstr "E-postadressen känns inte igen."
 
 msgid "New title"
 msgstr "Ny titel"
@@ -168,35 +155,11 @@ msgstr "Gå till Wagtail admin"
 msgid "Account"
 msgstr "Konto"
 
-msgid "Set gravatar"
-msgstr "Välj gravatar"
-
-msgid ""
-"Your avatar image is provided by Gravatar and is connected to your email "
-"address. With a Gravatar account you can set an avatar for any number of "
-"other email addresses you use."
-msgstr ""
-"Din profilbild hämtas från Gravatar och är kopplad till din e-postadress. "
-"Med ett Gravatar-konto kan du välja en profilbild för ett obegränsat antal e-"
-"postadresser."
+msgid "Update"
+msgstr "Uppdatera"
 
 msgid "Change password"
 msgstr "Byt lösenord"
-
-msgid "Change the password you use to log in."
-msgstr "Byt lösenordet du använder för att logga in"
-
-msgid "Notification preferences"
-msgstr "Notisinställningar"
-
-msgid "Choose which email notifications to receive."
-msgstr "Välj vilka e-postnotiser du vill ta emot"
-
-msgid "Language preferences"
-msgstr "Språkpreferens"
-
-msgid "Choose the language you want to use here."
-msgstr "Välj det språk du vill använda här."
 
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
@@ -206,8 +169,8 @@ msgstr ""
 msgid "Language Preferences"
 msgstr "Språkpreferens"
 
-msgid "Update"
-msgstr "Uppdatera"
+msgid "Notification preferences"
+msgstr "Notisinställningar"
 
 msgid "Reset password"
 msgstr "Återställ lösenord"
@@ -221,14 +184,8 @@ msgstr "Logga in"
 msgid "Set your new password"
 msgstr "Sätt ditt nya lösenord"
 
-msgid "The passwords do not match. Please try again."
-msgstr "Lösenorden matchar inte. Vänligen pröva igen."
-
 msgid "Check your email"
 msgstr "Kontrollera din mejl"
-
-msgid "A link to reset your password has been emailed to you."
-msgstr "En länk för att återställa ditt lösenord har mejlats till dig."
 
 msgid "Please follow the link below to reset your password:"
 msgstr "Vänligen följ länken för att återställa ditt lösenord: "
@@ -1272,11 +1229,9 @@ msgstr "Lägg till en samling"
 msgid "Add collection"
 msgstr "Addera samling"
 
-#, python-brace-format
 msgid "Collection '{0}' created."
 msgstr "Samling '{0}' skapad."
 
-#, python-brace-format
 msgid "Collection '{0}' updated."
 msgstr "Samling '{0}' uppdaterad."
 
@@ -1286,7 +1241,6 @@ msgstr "Samlingen kunde inte sparas pga fel."
 msgid "Delete collection"
 msgstr "Radera samling"
 
-#, python-brace-format
 msgid "Collection '{0}' deleted."
 msgstr "Samling '{0}' raderad."
 
@@ -1296,18 +1250,15 @@ msgstr "Är du säker på att du vill radera denna samling?"
 msgid "Editing"
 msgstr "Editerar"
 
-#, python-brace-format
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr "Sida '{0}' skapad och schemalagd för publicering."
 
 msgid "View live"
 msgstr "Visa publicerad"
 
-#, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "Sida '{0}' skapad och publicerad."
 
-#, python-brace-format
 msgid "Page '{0}' created and submitted for moderation."
 msgstr "Sida '{0}' skapad och inlämnad för moderering."
 
@@ -1317,44 +1268,35 @@ msgstr "Se utkast"
 msgid "Failed to send notifications to moderators"
 msgstr "Misslyckades att skicka notifiering till moderatorer"
 
-#, python-brace-format
 msgid "Page '{0}' created."
 msgstr "Sida '{0}' skapad."
 
 msgid "The page could not be created due to validation errors"
 msgstr "Sidan kunde ej bli skapad p.g.a. valideringsfel"
 
-#, python-brace-format
 msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
 msgstr "Revisionen {0} av sida '{1}' har blivit schemalagd för publicering."
 
-#, python-brace-format
 msgid "Page '{0}' is live and this revision has been scheduled for publishing."
 msgstr ""
 "Sidan '{0}' är uppdaterad and och den här revisionen har blivit schemalagd "
 "för publicering."
 
-#, python-brace-format
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Sida '{0}' har blivit schemalagd för publicering."
 
-#, python-brace-format
 msgid "Revision from {0} of page '{1}' has been published."
 msgstr "Revisionen {0} av sida '{1}' har blivit publicerad."
 
-#, python-brace-format
 msgid "Page '{0}' has been published."
 msgstr "Sida '{0}' har blivit publicerad."
 
-#, python-brace-format
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Sida '{0}' har blivit inlämnad för moderering."
 
-#, python-brace-format
 msgid "Page '{0}' has been replaced with revision from {1}."
 msgstr "Sida '{0}' har blivit ersatt med revision {1}."
 
-#, python-brace-format
 msgid "Page '{0}' has been updated."
 msgstr "Sida '{0}' har blivit uppdaterad."
 
@@ -1370,49 +1312,39 @@ msgstr "Jämför med den publicerade versionen"
 msgid "This page is currently awaiting moderation"
 msgstr "Sidan väntar på moderering"
 
-#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Sida '{0}' raderad."
 
-#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "Sida '{0}' opublicerad."
 
-#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "Sida '{0}' flyttad."
 
-#, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "Sida '{0}' och {1} undersida kopierad."
 
-#, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "Sida '{0}' kopierad."
 
-#, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "Sidan '{0}' väntar för närvarande inte på moderering."
 
-#, python-brace-format
 msgid "Page '{0}' published."
 msgstr "Sida '{0}' publicerad."
 
 msgid "Failed to send approval notifications"
 msgstr "Misslyckades att skicka godkännande notifieringar"
 
-#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "Sida '{0}' avvisad för publicering."
 
 msgid "Failed to send rejection notifications"
 msgstr "Misslyckades att skicka nekande notifieringar"
 
-#, python-brace-format
 msgid "Page '{0}' is now locked."
 msgstr "Sida '{0}' är nu låst."
 
-#, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "Sida '{0}' är nu olåst."
 
@@ -1430,58 +1362,57 @@ msgstr "Tidigast"
 msgid "Latest"
 msgstr "Senast"
 
-#, python-brace-format
 msgid "revision {0} of \"{1}\""
 msgstr "revision {0} av \"{1}\""
 
-#, python-brace-format
 msgid "Revision {0} of \"{1}\" unscheduled."
 msgstr "Revision {0} av \"{1}\" ej schemalagd."
 
-#, python-brace-format
 msgid "Edit '{title}'"
 msgstr "Editera '{title}'"
 
-#, python-brace-format
 msgid "Preview draft version of '{title}'"
 msgstr "Förhandsgranska utkastversion av '{title}'"
 
-#, python-brace-format
 msgid "View live version of '{title}'"
 msgstr "Visa den publicerade versionen av '{title}'"
 
-#, python-brace-format
 msgid "Add a child page to '{title}' "
 msgstr "Lägg till en undersida till '{title}' "
 
 msgid "More"
 msgstr "Mer"
 
-#, python-brace-format
 msgid "View more options for '{title}'"
 msgstr "Se fler alternativ för '{title}'"
 
-#, python-brace-format
 msgid "Move page '{title}'"
 msgstr "Flytta sida '{title}'"
 
-#, python-brace-format
 msgid "Copy page '{title}'"
 msgstr "Kopiera sida '{title}'"
 
-#, python-brace-format
 msgid "Delete page '{title}'"
 msgstr "Radera sida '{title}'"
 
-#, python-brace-format
 msgid "Unpublish page '{title}'"
 msgstr "Avpublicera sida '{title}'"
 
-#, python-brace-format
 msgid "View revision history for '{title}'"
 msgstr "Se revisionshistorik för '{title}'"
 
-#, python-brace-format
+msgid "Change the password you use to log in."
+msgstr "Byt lösenordet du använder för att logga in"
+
+msgid "Choose which email notifications to receive."
+msgstr "Välj vilka e-postnotiser du vill ta emot"
+
+msgid "Language preferences"
+msgstr "Språkpreferens"
+
+msgid "Choose the language you want to use here."
+msgstr "Välj det språk du vill använda här."
+
 msgid "Heading {level}"
 msgstr "Titel {level}"
 

@@ -103,7 +103,7 @@ class Indexed:
     def _check_search_fields(cls, **kwargs):
         errors = []
         for field in cls.get_search_fields():
-            message = "{model}.search_fields contains field '{name}' but it doesn't exist"
+            message = "{model}.search_fields contains non-existent field '{name}'"
             if not cls._has_field(field.field_name):
                 errors.append(
                     checks.Warning(

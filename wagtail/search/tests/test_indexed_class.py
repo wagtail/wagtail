@@ -86,7 +86,7 @@ class TestSearchFields(TestCase):
         with patch_search_fields(models.Book, models.Book.search_fields + [index.SearchField('foo')]):
             expected_errors = [
                 checks.Warning(
-                    "Book.search_fields contains field 'foo' but it doesn't exist",
+                    "Book.search_fields contains non-existent field 'foo'",
                     obj=models.Book
                 )
             ]

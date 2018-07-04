@@ -25,6 +25,7 @@
                     lastSelection = widget.options.editable.getSelection();
                     return ModalWorkflow({
                         url: window.chooserUrls.documentChooser,
+                        onload: DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS,
                         responses: {
                             documentChosen: function(docData) {
                                 var a;

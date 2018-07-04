@@ -16,6 +16,9 @@ def pageurl(context, page):
     Outputs a page's URL as relative (/foo/bar/) if it's within the same site as the
     current page, or absolute (http://example.com/foo/bar/) if not.
     """
+    if not hasattr(page, 'relative_url'):
+        raise ValueError("pageurl tag expected a Page object, got %r" % page)
+
     try:
         current_site = context['request'].site
     except (KeyError, AttributeError):
@@ -31,8 +34,25 @@ def pageurl(context, page):
 
 @register.simple_tag(takes_context=True)
 def slugurl(context, slug):
-    """Returns the URL for the page that has the given slug."""
-    page = Page.objects.filter(slug=slug).first()
+    """
+    Returns the URL for the page that has the given slug.
+
+    First tries to find a page on the current site. If that fails or a request
+    is not available in the context, then returns the URL for the first page
+    that matches the slug on any site.
+    """
+
+    try:
+        current_site = context['request'].site
+    except (KeyError, AttributeError):
+        # No site object found - allow the fallback below to take place.
+        page = None
+    else:
+        page = Page.objects.in_site(current_site).filter(slug=slug).first()
+
+    # If no page is found, fall back to searching the whole tree.
+    if page is None:
+        page = Page.objects.filter(slug=slug).first()
 
     if page:
         # call pageurl() instead of page.relative_url() here so we get the ``accepts_kwarg`` logic

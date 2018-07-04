@@ -15,6 +15,16 @@ class TestDBBackend(BackendTests, TestCase):
 
     # Doesn't support ranking
     @unittest.expectedFailure
+    def test_annotate_score(self):
+        super().test_annotate_score()
+
+    # Doesn't support ranking
+    @unittest.expectedFailure
+    def test_annotate_score_with_slice(self):
+        super().test_annotate_score_with_slice()
+
+    # Doesn't support ranking
+    @unittest.expectedFailure
     def test_search_boosting_on_related_fields(self):
         super().test_search_boosting_on_related_fields()
 
@@ -37,3 +47,13 @@ class TestDBBackend(BackendTests, TestCase):
     @unittest.expectedFailure
     def test_search_callable_field(self):
         super().test_search_callable_field()
+
+    # Database backend always uses `icontains`, so always autocomplete
+    @unittest.expectedFailure
+    def test_incomplete_term(self):
+        super().test_incomplete_term()
+
+    # Database backend always uses `icontains`, so always autocomplete
+    @unittest.expectedFailure
+    def test_incomplete_plain_text(self):
+        super().test_incomplete_plain_text()

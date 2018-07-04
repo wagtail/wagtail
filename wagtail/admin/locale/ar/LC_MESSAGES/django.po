@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-02-16 11:33+0000\n"
+"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"PO-Revision-Date: 2018-05-04 19:30+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
@@ -60,19 +60,6 @@ msgstr "ادخل %s الخاص بك "
 msgid "Enter your email address to reset your password"
 msgstr "ادخل البريد الإلكتروني الخاص بك لإرجاع كلمة المرور الخاصة بك "
 
-msgid "Please fill your email address."
-msgstr "من فضلك ادخل البريد الإلكتروني الخاص بك"
-
-msgid ""
-"Sorry, you cannot reset your password here as your user account is managed "
-"by another server."
-msgstr ""
-"متأسف! من غير الممكن أن تعيد تثيبت كلمتك السرية هنا لأن مزودا آحر مسؤول هن "
-"حسابك كممستعمل"
-
-msgid "This email address is not recognised."
-msgstr "عنوان البريد الإلكتروني هذا غير معروف"
-
 msgid "New title"
 msgstr "عنوان جديد"
 
@@ -103,27 +90,18 @@ msgstr "تاريخ الانتهاء/الوقت يجب ان يكون مستقبل
 msgid "Account"
 msgstr "حساب"
 
-msgid "Set gravatar"
-msgstr "ضبط صورة رمزية"
+msgid "Update"
+msgstr "حدث"
 
 msgid "Change password"
 msgstr "غير كلمة السر"
-
-msgid "Change the password you use to log in."
-msgstr "غير كلمة السر التي تستعملها للدخول"
-
-msgid "Notification preferences"
-msgstr "أفضليات الأبلاغ"
-
-msgid "Choose which email notifications to receive."
-msgstr "اختر وسيلة الإبلاغ التي تفضلها للاستلام"
 
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr "من غير ممكن أن تغير كلمتك السرية هنا , من فضلك اتصل بمدير الموقع"
 
-msgid "Update"
-msgstr "حدث"
+msgid "Notification preferences"
+msgstr "أفضليات الأبلاغ"
 
 msgid "Reset password"
 msgstr "غير كلمة السر"
@@ -137,14 +115,8 @@ msgstr "اتصل "
 msgid "Set your new password"
 msgstr "ثبّت كلمتك السرية الجديدة"
 
-msgid "The passwords do not match. Please try again."
-msgstr "الكلمات السرية لا تتوافق"
-
 msgid "Check your email"
 msgstr "افحص بريدك الإلكتروني"
-
-msgid "A link to reset your password has been emailed to you."
-msgstr "أرسلت إليك حلقة لإعادة تثبيت كلمتك السرية"
 
 msgid "Please follow the link below to reset your password:"
 msgstr "ارجو استخدم الرابط بالاسفل لإعادة كلمة المرور الخاصه بك"
@@ -411,6 +383,12 @@ msgstr "تسجيل الخروج"
 
 msgid "View live"
 msgstr "انظر في الواقع"
+
+msgid "Change the password you use to log in."
+msgstr "غير كلمة السر التي تستعملها للدخول"
+
+msgid "Choose which email notifications to receive."
+msgstr "اختر وسيلة الإبلاغ التي تفضلها للاستلام"
 
 msgid "Choose another page"
 msgstr "إختر صفحة أخرى"

@@ -231,6 +231,15 @@ This setting lets you change the number of items shown at 'Your most recent edit
 Allows the default ``LoginForm`` to be extended with extra fields.
 
 
+.. _wagtail_gravatar_provider_url:
+
+.. code-block:: python
+
+  WAGTAIL_GRAVATAR_PROVIDER_URL = '//www.gravatar.com/avatar'
+
+If a user has not uploaded a profile picture, Wagtail will look for an avatar linked to their email address on gravatar.com. This setting allows you to specify an alternative provider such as like robohash.org, or can be set to ``None`` to disable the use of remote avatars completely.
+
+
 Images
 ------
 
@@ -241,14 +250,17 @@ Images
 This setting lets you provide your own image model for use in Wagtail, which might extend the built-in ``AbstractImage`` class or replace it entirely.
 
 
-Maximum Upload size for Images
-------------------------------
-
 .. code-block:: python
 
     WAGTAILIMAGES_MAX_UPLOAD_SIZE = 20 * 1024 * 1024  # i.e. 20MB
 
 This setting lets you override the maximum upload size for images (in bytes). If omitted, Wagtail will fall back to using its 10MB default value.
+
+.. code-block:: python
+
+    WAGTAILIMAGES_FEATURE_DETECTION_ENABLED = True
+
+This setting enables feature detection once OpenCV is installed, see all details on the :ref:`image_feature_detection` documentation.
 
 
 Password Management
@@ -329,6 +341,26 @@ This is the path to the Django template which will be used to display the "passw
 
 As above, but for password restrictions on documents. For more details, see the :ref:`private_pages` documentation.
 
+
+Login page
+----------
+
+The basic login page can be customised with a custom template.
+
+.. code-block:: python
+
+  WAGTAIL_FRONTEND_LOGIN_TEMPLATE = 'myapp/login.html'
+
+Or the login page can be a redirect to an external or internal URL.
+
+.. code-block:: python
+
+  WAGTAIL_FRONTEND_LOGIN_URL = '/accounts/login/'
+
+For more details, see the :ref:`login_page` documentation.
+
+
+
 Case-Insensitive Tags
 ---------------------
 
@@ -405,7 +437,23 @@ Date and DateTime inputs
     WAGTAIL_DATETIME_FORMAT = '%d.%m.%Y. %H:%M'
 
 
-Specifies the date and datetime format to be used in input fields in the Wagtail admin. The format is specified in `Python datetime module syntax <https://docs.python.org/3/library/datetime.html#strftime-strptime-behavior>`_, and must be one of the recognised formats listed in the ``DATE_INPUT_FORMATS`` or ``DATETIME_INPUT_FORMATS`` setting respectively (see `DATE_INPUT_FORMATS <https://docs.djangoproject.com/en/1.10/ref/settings/#std:setting-DATE_INPUT_FORMATS>`_).
+Specifies the date and datetime format to be used in input fields in the Wagtail admin. The format is specified in `Python datetime module syntax <https://docs.python.org/3/library/datetime.html#strftime-strptime-behavior>`_, and must be one of the recognised formats listed in the ``DATE_INPUT_FORMATS`` or ``DATETIME_INPUT_FORMATS`` setting respectively (see `DATE_INPUT_FORMATS <https://docs.djangoproject.com/en/stable/ref/settings/#std:setting-DATE_INPUT_FORMATS>`_).
+
+.. _WAGTAIL_USER_TIME_ZONES:
+
+Time zones
+----------
+
+Logged-in users can choose their current time zone for the admin interface in the account settings.  If is no time zone selected by the user, then ``TIME_ZONE`` will be used.
+(Note that time zones are only applied to datetime fields, not to plain time or date fields.  This is a Django design decision.)
+
+The list of time zones is by default the common_timezones list from pytz.
+It is possible to override this list via the ``WAGTAIL_USER_TIME_ZONES`` setting.
+If there is zero or one time zone permitted, the account settings form will be hidden.
+
+.. code-block:: python
+
+    WAGTAIL_USER_TIME_ZONES = ['America/Chicago', 'Australia/Sydney', 'Europe/Rome']
 
 .. _WAGTAILADMIN_PERMITTED_LANGUAGES:
 
@@ -430,6 +478,93 @@ can only choose between front office languages:
                                                     ('pt', 'Portuguese')]
 
 
+API Settings
+------------
+
+For full documenation on API configuration, including these settings, see :ref:`api_v2_configuration` documentation.
+
+.. code-block:: python
+
+    WAGTAILAPI_BASE_URL = 'http://api.example.com/'
+
+Required when using frontend cache invalidation, used to generate absolute URLs to document files and invalidating the cache.
+
+
+.. code-block:: python
+
+    WAGTAILAPI_LIMIT_MAX = 500
+
+Default is 20, used to change the maximum number of results a user can request at a time, set to ``None`` for no limit.
+
+
+.. code-block:: python
+
+    WAGTAILAPI_SEARCH_ENABLED = False
+
+Default is true, setting this to false will disable full text search on all endpoints.
+
+.. code-block:: python
+
+    WAGTAILAPI_USE_FRONTENDCACHE = True
+
+Requires ``wagtailfrontendcache`` app to be installed, inidicates the API should use the frontend cache.
+
+
+Frontend cache
+--------------
+
+For full documenation on frontend cache invalidation, including these settings, see :ref:`frontend_cache_purging`.
+
+
+.. code-block:: python
+
+    WAGTAILFRONTENDCACHE = {
+        'varnish': {
+            'BACKEND': 'wagtail.contrib.frontend_cache.backends.HTTPBackend',
+            'LOCATION': 'http://localhost:8000',
+        },
+    }
+
+See documentation linked above for full options available.
+
+.. note::
+
+    ``WAGTAILFRONTENDCACHE_LOCATION`` is no longer the preferred way to set the cache location, instead set the ``LOCATION`` within the ``WAGTAILFRONTENDCACHE`` item.
+
+
+.. code-block:: python
+
+    WAGTAILFRONTENDCACHE_LANGUAGES = [l[0] for l in settings.LANGUAGES]
+
+Default is an empty list, must be a list of languages to also purge the urls for each language of a purging url. This setting needs ``settings.USE_I18N`` to be ``True`` to work.
+
+
+
+Rich text
+---------
+
+.. code-block:: python
+
+    WAGTAILADMIN_RICH_TEXT_EDITORS = {
+        'default': {
+            'WIDGET': 'wagtail.admin.rich_text.DraftailRichTextArea',
+            'OPTIONS': {
+                'features': ['h2', 'bold', 'italic', 'link', 'document-link']
+            }
+        },
+        'legacy': {
+            'WIDGET': 'wagtail.admin.rich_text.HalloRichTextArea',
+        }
+    }
+
+Customise the behaviour of rich text fields. By default, ``RichTextField`` and ``RichTextBlock`` use the configuration given under the ``'default'`` key, but this can be overridden on a per-field basis through the ``editor`` keyword argument, e.g. ``body = RichTextField(editor='legacy')``. Within each configuration block, the following fields are recognised:
+
+ * ``WIDGET``: The rich text widget implementation to use. Wagtail provides two implementations: ``wagtail.admin.rich_text.DraftailRichTextArea`` (a modern extensible editor which enforces well-structured markup) and ``wagtail.admin.rich_text.HalloRichTextArea`` (deprecated; works directly at the HTML level). Other widgets may be provided by third-party packages.
+
+ * ``OPTIONS``: Configuration options to pass to the widget. Recognised options are widget-specific, but both ``DraftailRichTextArea`` and ``HalloRichTextArea`` accept a ``features`` list indicating the active rich text features (see :ref:`rich_text_features`).
+
+
+
 URL Patterns
 ~~~~~~~~~~~~
 
@@ -440,13 +575,11 @@ URL Patterns
   from wagtail.core import urls as wagtail_urls
   from wagtail.admin import urls as wagtailadmin_urls
   from wagtail.documents import urls as wagtaildocs_urls
-  from wagtail.search import urls as wagtailsearch_urls
 
   urlpatterns = [
       url(r'^django-admin/', include(admin.site.urls)),
 
       url(r'^admin/', include(wagtailadmin_urls)),
-      url(r'^search/', include(wagtailsearch_urls)),
       url(r'^documents/', include(wagtaildocs_urls)),
 
       # Optional URL for including your own vanilla Django urls/views
@@ -683,14 +816,12 @@ These two files should reside in your project directory (``myproject/myproject/`
   from wagtail.core import urls as wagtail_urls
   from wagtail.admin import urls as wagtailadmin_urls
   from wagtail.documents import urls as wagtaildocs_urls
-  from wagtail.search import urls as wagtailsearch_urls
 
 
   urlpatterns = [
       url(r'^django-admin/', include(admin.site.urls)),
 
       url(r'^admin/', include(wagtailadmin_urls)),
-      url(r'^search/', include(wagtailsearch_urls)),
       url(r'^documents/', include(wagtaildocs_urls)),
 
       # For anything not caught by a more specific rule above, hand over to

@@ -1,11 +1,13 @@
+from collections import OrderedDict
 from warnings import warn
 
 from django.db import models
+from django.db.models import Count
 from django.db.models.expressions import Value
 
 from wagtail.search.backends.base import (
-    BaseSearchBackend, BaseSearchQueryCompiler, BaseSearchResults)
-from wagtail.search.query import And, MatchAll, Not, Or, SearchQueryShortcut, Term
+    BaseSearchBackend, BaseSearchQueryCompiler, BaseSearchResults, FilterFieldError)
+from wagtail.search.query import And, MatchAll, Not, Or, Prefix, SearchQueryShortcut, Term
 from wagtail.search.utils import AND, OR
 
 
@@ -51,6 +53,10 @@ class DatabaseSearchQueryCompiler(BaseSearchQueryCompiler):
             term_query |= models.Q(**{field_name + '__icontains': term})
         return term_query
 
+    def check_boost(self, query):
+        if query.boost != 1:
+            warn('Database search backend does not support term boosting.')
+
     def build_database_filter(self, query=None):
         if query is None:
             query = self.query
@@ -61,9 +67,11 @@ class DatabaseSearchQueryCompiler(BaseSearchQueryCompiler):
         if isinstance(query, SearchQueryShortcut):
             return self.build_database_filter(query.get_equivalent())
         if isinstance(query, Term):
-            if query.boost != 1:
-                warn('Database search backend does not support term boosting.')
+            self.check_boost(query)
             return self.build_single_term_filter(query.term)
+        if isinstance(query, Prefix):
+            self.check_boost(query)
+            return self.build_single_term_filter(query.prefix)
         if isinstance(query, Not):
             return ~self.build_database_filter(query.subquery)
         if isinstance(query, And):
@@ -99,6 +107,26 @@ class DatabaseSearchResults(BaseSearchResults):
 
     def _do_count(self):
         return self.get_queryset().count()
+
+    supports_facet = True
+
+    def facet(self, field_name):
+        # Get field
+        field = self.query_compiler._get_filterable_field(field_name)
+        if field is None:
+            raise FilterFieldError(
+                'Cannot facet search results with field "' + field_name + '". Please add index.FilterField(\'' +
+                field_name + '\') to ' + self.query_compiler.queryset.model.__name__ + '.search_fields.',
+                field_name=field_name
+            )
+
+        query = self.get_queryset()
+        results = query.values(field_name).annotate(count=Count('pk')).order_by('-count')
+
+        return OrderedDict([
+            (result[field_name], result['count'])
+            for result in results
+        ])
 
 
 class DatabaseSearchBackend(BaseSearchBackend):

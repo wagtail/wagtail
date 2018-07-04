@@ -23,6 +23,7 @@ from wagtail.admin.utils import send_notification, user_has_any_page_permission,
 from wagtail.core import hooks
 from wagtail.core.collectors import get_paginated_uses
 from wagtail.core.models import Page, PageRevision, UserPagePermissionsProxy
+from wagtail.search.query import MATCH_ALL
 from wagtail.utils.pagination import paginate
 
 
@@ -93,11 +94,13 @@ def index(request, parent_page_id=None):
     # allow drag-and-drop reordering
     do_paginate = ordering != 'ord'
 
-    if do_paginate:
-        # Retrieve pages in their most specific form.
-        # Only do this for paginated listings, as this could potentially be a
-        # very expensive operation when performed on a large queryset.
-        pages = pages.specific()
+    if do_paginate or pages.count() < 100:
+        # Retrieve pages in their most specific form, so that custom
+        # get_admin_display_title and get_url_parts methods on subclasses are respected.
+        # However, skip this on unpaginated listings with >100 child pages as this could
+        # be a significant performance hit. (This should only happen on the reorder view,
+        # and hopefully no-one is having to do manual reordering on listings that large...)
+        pages = pages.specific(defer=True)
 
     # allow hooks to modify the queryset
     for hook in hooks.get_hooks('construct_explorer_page_queryset'):
@@ -307,8 +310,9 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
 
 
 def edit(request, page_id):
-    latest_revision = get_object_or_404(Page, id=page_id).get_latest_revision()
-    page = get_object_or_404(Page, id=page_id).get_latest_revision_as_page()
+    real_page_record = get_object_or_404(Page, id=page_id)
+    latest_revision = real_page_record.get_latest_revision()
+    page = real_page_record.get_latest_revision_as_page()
     parent = page.get_parent()
 
     content_type = ContentType.objects.get_for_model(page)
@@ -514,9 +518,9 @@ def edit(request, page_id):
 
         messages.warning(request, _("This page is currently awaiting moderation"), buttons=buttons)
 
-    # Page status needs to present the version of the page containing the correct live URL
-    if page.has_unpublished_changes:
-        page_for_status = latest_revision.page.specific
+    if page.live and page.has_unpublished_changes:
+        # Page status needs to present the version of the page containing the correct live URL
+        page_for_status = real_page_record.specific
     else:
         page_for_status = page
 
@@ -887,7 +891,7 @@ def copy(request, page_id):
 @user_passes_test(user_has_any_page_permission)
 def search(request):
     pages = []
-    q = None
+    q = MATCH_ALL
 
     if 'q' in request.GET:
         form = SearchForm(request.GET)

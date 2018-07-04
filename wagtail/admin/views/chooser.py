@@ -1,5 +1,3 @@
-import json
-
 from django.http import Http404
 from django.shortcuts import get_object_or_404, render
 
@@ -124,18 +122,21 @@ def browse(request, parent_page_id=None):
         page.can_descend = page.get_children_count()
 
     # Render
+    context = shared_context(request, {
+        'parent_page': parent_page,
+        'parent_page_id': parent_page.pk,
+        'pages': pages,
+        'search_form': SearchForm(),
+        'page_type_string': page_type_string,
+        'page_type_names': [desired_class.get_verbose_name() for desired_class in desired_classes],
+        'page_types_restricted': (page_type_string != 'wagtailcore.page')
+    })
+
     return render_modal_workflow(
         request,
-        'wagtailadmin/chooser/browse.html', 'wagtailadmin/chooser/browse.js',
-        shared_context(request, {
-            'parent_page': parent_page,
-            'parent_page_id': parent_page.pk,
-            'pages': pages,
-            'search_form': SearchForm(),
-            'page_type_string': page_type_string,
-            'page_type_names': [desired_class.get_verbose_name() for desired_class in desired_classes],
-            'page_types_restricted': (page_type_string != 'wagtailcore.page')
-        })
+        'wagtailadmin/chooser/browse.html', None,
+        context,
+        json_data={'step': 'browse', 'parent_page_id': context['parent_page_id']},
     )
 
 
@@ -201,21 +202,18 @@ def external_link(request):
             }
 
             return render_modal_workflow(
-                request,
-                None, 'wagtailadmin/chooser/external_link_chosen.js',
-                {
-                    'result_json': json.dumps(result),
-                }
+                request, None, None,
+                None, json_data={'step': 'external_link_chosen', 'result': result}
             )
     else:
         form = ExternalLinkChooserForm(initial=initial_data)
 
     return render_modal_workflow(
         request,
-        'wagtailadmin/chooser/external_link.html', 'wagtailadmin/chooser/external_link.js',
+        'wagtailadmin/chooser/external_link.html', None,
         shared_context(request, {
             'form': form,
-        })
+        }), json_data={'step': 'external_link'}
     )
 
 
@@ -238,19 +236,16 @@ def email_link(request):
                 'prefer_this_title_as_link_text': ('link_text' in form.changed_data),
             }
             return render_modal_workflow(
-                request,
-                None, 'wagtailadmin/chooser/external_link_chosen.js',
-                {
-                    'result_json': json.dumps(result),
-                }
+                request, None, None,
+                None, json_data={'step': 'external_link_chosen', 'result': result}
             )
     else:
         form = EmailLinkChooserForm(initial=initial_data)
 
     return render_modal_workflow(
         request,
-        'wagtailadmin/chooser/email_link.html', 'wagtailadmin/chooser/email_link.js',
+        'wagtailadmin/chooser/email_link.html', None,
         shared_context(request, {
             'form': form,
-        })
+        }), json_data={'step': 'email_link'}
     )

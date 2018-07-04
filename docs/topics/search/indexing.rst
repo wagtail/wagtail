@@ -24,10 +24,6 @@ If the search index is kept separate from the database (when using Elasticsearch
 Signal handlers
 ---------------
 
-.. versionchanged:: 0.8
-
-    Signal handlers are now automatically registered
-
 ``wagtailsearch`` provides some signal handlers which bind to the save/delete signals of all indexed models. This would automatically add and delete them from all backends you have registered in ``WAGTAILSEARCH_BACKENDS``. These signal handlers are automatically registered when the ``wagtail.search`` app is loaded.
 
 
@@ -115,7 +111,9 @@ For example, if we have a book that has a ``ForeignKey`` to its author, we can n
 
 .. code-block:: python
 
-    class Book(models.Model, indexed.Indexed):
+    from wagtail.search import index
+
+    class Book(models.Model, index.Indexed):
         ...
 
         search_fields = [
@@ -134,7 +132,9 @@ It works the other way around as well. You can index an author's books, allowing
 
 .. code-block:: python
 
-    class Author(models.Model, indexed.Indexed):
+    from wagtail.search import index
+
+    class Author(models.Model, index.Indexed):
         ...
 
         search_fields = [

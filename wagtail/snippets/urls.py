@@ -13,5 +13,6 @@ urlpatterns = [
     url(r'^(\w+)/(\w+)/$', snippets.list, name='list'),
     url(r'^(\w+)/(\w+)/add/$', snippets.create, name='add'),
     url(r'^(\w+)/(\w+)/([^/]+?)/$', snippets.edit, name='edit'),
+    url(r'^(\w+)/(\w+)/multiple/delete/$', snippets.delete, name='delete-multiple'),
     url(r'^(\w+)/(\w+)/([^/]+?)/delete/$', snippets.delete, name='delete'),
 ]

@@ -54,7 +54,7 @@ Then in your settings module:
     When changing an existing site to use a custom document model, no documents
     will be copied to the new model automatically. Copying old documents to the
     new model would need to be done manually with a
-    `data migration <https://docs.djangoproject.com/en/1.8/topics/migrations/#data-migrations>`_.
+    `data migration <https://docs.djangoproject.com/en/stable/topics/migrations/#data-migrations>`_.
 
     Any templates that reference the builtin document model will still continue
     to work as before.

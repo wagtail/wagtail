@@ -1,9 +1,19 @@
 {% extends "wagtailadmin/base.html" %}
 {% load wagtailadmin_tags i18n %}
-{% block titletag %}{% blocktrans with snippet_type_name=model_opts.verbose_name %}Delete {{ snippet_type_name }} - {{ instance }}{% endblocktrans %}{% endblock %}
+{% block titletag %}
+    {% if count == 1 %}
+      {% blocktrans with snippet_type_name=model_opts.verbose_name %}Delete {{ snippet_type_name }}{% endblocktrans %} - {{ instances|first }}
+    {% else %}
+      {{ count }} {{ model_opts.verbose_name_plural|capfirst }}
+    {% endif %}
+{% endblock %}
 {% block content %}
-    {% trans "Delete" as delete_str %}
-    {% include "wagtailadmin/shared/header.html" with title=delete_str subtitle=instance icon="snippet" %}
+    {% trans "Delete " as delete_str %}
+    {% if count == 1 %}
+        {% include "wagtailadmin/shared/header.html" with title=delete_str subtitle=instances|first icon="snippet" %}
+    {% else %}
+        {% include "wagtailadmin/shared/header.html" with title=delete_str subtitle=model_opts.verbose_name_plural|capfirst icon="snippet" %}
+    {% endif %}
 
     <div class="nice-padding">
         {% if uses.are_protected %}
