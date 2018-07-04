@@ -1154,7 +1154,7 @@ def revisions_unschedule(request, page_id, revision_id):
     page = get_object_or_404(Page, id=page_id).specific
 
     user_perms = UserPagePermissionsProxy(request.user)
-    if not user_perms.for_page(page).can_unpublish():
+    if not user_perms.for_page(page).can_publish():
         raise PermissionDenied
 
     revision = get_object_or_404(page.revisions, id=revision_id)
