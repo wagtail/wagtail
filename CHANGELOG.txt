@@ -28,7 +28,7 @@ Changelog
  * Fix: Null characters in URLs no longer crash the redirect middleware on PostgreSQL (Andrew Crewdson, Matt Westcott)
 
 
-2.1.1 (xx.xx.xxxx) - IN DEVELOPMENT
+2.1.1 (04.07.2018)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Site.get_site_root_paths() preferring other sites over the default when some sites share the same root_page (Andy Babic)
