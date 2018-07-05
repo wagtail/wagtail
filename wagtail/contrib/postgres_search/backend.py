@@ -189,6 +189,10 @@ class Index:
 
 class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
     DEFAULT_OPERATOR = 'and'
+    OPERATORS = {
+        'and': AND,
+        'or': OR,
+    }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -237,10 +241,7 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
         if isinstance(query, PlainText):
             self.check_boost(query, boost=boost)
 
-            operator = {
-                'and': AND,
-                'or': OR,
-            }[query.operator]
+            operator = self.OPERATORS[query.operator]
 
             return operator([
                 PostgresSearchQuery(unidecode(term), config=config)

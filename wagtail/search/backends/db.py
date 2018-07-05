@@ -13,6 +13,10 @@ from wagtail.search.utils import AND, OR
 
 class DatabaseSearchQueryCompiler(BaseSearchQueryCompiler):
     DEFAULT_OPERATOR = 'and'
+    OPERATORS = {
+        'and': AND,
+        'or': OR,
+    }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -64,10 +68,7 @@ class DatabaseSearchQueryCompiler(BaseSearchQueryCompiler):
         if isinstance(query, PlainText):
             self.check_boost(query, boost=boost)
 
-            operator = {
-                'and': AND,
-                'or': OR,
-            }[query.operator]
+            operator = self.OPERATORS[query.operator]
 
             return operator([
                 self.build_single_term_filter(term)
