@@ -1759,6 +1759,9 @@ class PagePermissionTester:
     def can_set_view_restrictions(self):
         return self.can_publish()
 
+    def can_unschedule(self):
+        return self.can_publish()
+
     def can_lock(self):
         return self.user.is_superuser or ('lock' in self.permissions)
 
