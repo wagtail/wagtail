@@ -1,10 +1,12 @@
+from collections import OrderedDict
 from warnings import warn
 
 from django.db import models
+from django.db.models import Count
 from django.db.models.expressions import Value
 
 from wagtail.search.backends.base import (
-    BaseSearchBackend, BaseSearchQueryCompiler, BaseSearchResults)
+    BaseSearchBackend, BaseSearchQueryCompiler, BaseSearchResults, FilterFieldError)
 from wagtail.search.query import And, Boost, MatchAll, Not, Or, PlainText
 from wagtail.search.utils import AND, OR
 
@@ -114,6 +116,26 @@ class DatabaseSearchResults(BaseSearchResults):
 
     def _do_count(self):
         return self.get_queryset().count()
+
+    supports_facet = True
+
+    def facet(self, field_name):
+        # Get field
+        field = self.query_compiler._get_filterable_field(field_name)
+        if field is None:
+            raise FilterFieldError(
+                'Cannot facet search results with field "' + field_name + '". Please add index.FilterField(\'' +
+                field_name + '\') to ' + self.query_compiler.queryset.model.__name__ + '.search_fields.',
+                field_name=field_name
+            )
+
+        query = self.get_queryset()
+        results = query.values(field_name).annotate(count=Count('pk')).order_by('-count')
+
+        return OrderedDict([
+            (result[field_name], result['count'])
+            for result in results
+        ])
 
 
 class DatabaseSearchBackend(BaseSearchBackend):

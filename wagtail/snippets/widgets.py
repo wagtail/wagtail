@@ -41,4 +41,7 @@ class AdminSnippetChooser(AdminChooser):
                 model=model._meta.model_name)))
 
     class Media:
-        js = ['wagtailsnippets/js/snippet-chooser.js']
+        js = [
+            'wagtailsnippets/js/snippet-chooser-modal.js',
+            'wagtailsnippets/js/snippet-chooser.js',
+        ]

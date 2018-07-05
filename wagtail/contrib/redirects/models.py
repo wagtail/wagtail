@@ -24,7 +24,7 @@ class Redirect(models.Model):
         null=True, blank=True,
         on_delete=models.CASCADE
     )
-    redirect_link = models.URLField(verbose_name=_("redirect to any URL"), blank=True)
+    redirect_link = models.URLField(verbose_name=_("redirect to any URL"), blank=True, max_length=255)
 
     @property
     def title(self):

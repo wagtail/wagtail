@@ -30,7 +30,7 @@ install_requires = [
     "Pillow>=4.0.0,<6.0",
     "beautifulsoup4>=4.5.1,<5.0",
     "html5lib>=0.999,<2",
-    "Unidecode>=0.04.14,<1.0",
+    "Unidecode>=0.04.14,<2.0",
     "Willow>=1.1,<1.2",
     "requests>=2.11.1,<3.0",
     "l18n",
@@ -67,14 +67,19 @@ documentation_extras = [
 setup(
     name='wagtail',
     version=__version__,
-    description='A Django content management system focused on flexibility and user experience',
+    description='A Django content management system.',
     author='Wagtail core team + contributors',
     author_email='hello@wagtail.io',  # For support queries, please see http://docs.wagtail.io/en/stable/support.html
     url='http://wagtail.io/',
     packages=find_packages(),
     include_package_data=True,
     license='BSD',
-    long_description=open('README.rst').read(),
+    long_description="Wagtail is an open source content management \
+system built on Django, with a strong community and commercial support. \
+It’s focused on user experience, and offers precise control for \
+designers and developers.\n\n\
+For more details, see https://wagtail.io, http://docs.wagtail.io and \
+https://github.com/wagtail/wagtail/.",
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Environment :: Web Environment',
@@ -89,6 +94,7 @@ setup(
         'Framework :: Django',
         'Framework :: Django :: 1.11',
         'Framework :: Django :: 2.0',
+        'Framework :: Wagtail',
         'Topic :: Internet :: WWW/HTTP :: Site Management',
     ],
     install_requires=install_requires,

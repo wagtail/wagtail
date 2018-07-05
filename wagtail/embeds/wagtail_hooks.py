@@ -40,7 +40,10 @@ def register_embed_feature(features):
         'hallo', 'embed',
         HalloPlugin(
             name='hallowagtailembeds',
-            js=['wagtailembeds/js/hallo-plugins/hallo-wagtailembeds.js'],
+            js=[
+                'wagtailembeds/js/embed-chooser-modal.js',
+                'wagtailembeds/js/hallo-plugins/hallo-wagtailembeds.js',
+            ],
         )
     )
 
@@ -54,7 +57,7 @@ def register_embed_feature(features):
             'type': 'EMBED',
             'icon': 'media',
             'description': _('Embed'),
-        })
+        }, js=['wagtailembeds/js/embed-chooser-modal.js'])
     )
 
     # define how to convert between contentstate's representation of embeds and

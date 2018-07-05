@@ -1,3 +1,5 @@
+.. _api_v2_configuration:
+
 ==================================
 Wagtail API v2 Configuration Guide
 ==================================

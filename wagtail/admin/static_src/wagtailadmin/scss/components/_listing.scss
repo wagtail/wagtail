@@ -99,6 +99,14 @@ ul.listing {
                 background-color: #fcfcfc;
             }
         }
+
+        tr.selected {
+            background-color: #c8eae9;
+
+            &:hover {
+                background-color: #b5e3e2;
+            }
+        }
     }
 
     &.full-width tbody {

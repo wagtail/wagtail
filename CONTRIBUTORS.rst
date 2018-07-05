@@ -302,6 +302,14 @@ Contributors
 * Victor Miti
 * Andrew Plummer
 * Dmitry Vasilev
+* Benjamin Thurm
+* Ed Henderson
+* Strother Scott
+* Daniele Procida
+* Catherine Farman
+* Abdulmalik Abdulwahab
+* Andrew Crewdson
+* Aram Dulyan
 
 Translators
 ===========
