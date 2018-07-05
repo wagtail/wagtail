@@ -300,7 +300,7 @@ class BaseSearchBackend:
     def delete(self, obj):
         raise NotImplementedError
 
-    def search(self, query, model_or_queryset, fields=None, operator=None, order_by_relevance=True, partial_match=True, query_compiler_class=None):
+    def _search(self, query_compiler_class, query, model_or_queryset, **kwargs):
         # Find model/queryset
         if isinstance(model_or_queryset, QuerySet):
             model = model_or_queryset.model
@@ -318,9 +318,9 @@ class BaseSearchBackend:
             return EmptySearchResults()
 
         # Search
-        query_compiler_class = query_compiler_class or self.query_compiler_class
+        query_compiler_class = query_compiler_class
         search_query = query_compiler_class(
-            queryset, query, fields=fields, operator=operator, order_by_relevance=order_by_relevance, partial_match=partial_match
+            queryset, query, **kwargs
         )
 
         # Check the query
@@ -328,15 +328,26 @@ class BaseSearchBackend:
 
         return self.results_class(self, search_query)
 
-    def autocomplete(self, query, model_or_queryset, fields=None, operator=None, order_by_relevance=True):
-        if self.autocomplete_query_compiler_class is None:
-            raise NotImplementedError("This search backend does not support the autocomplete API")
-
-        return self.search(
+    def search(self, query, model_or_queryset, fields=None, operator=None, order_by_relevance=True, partial_match=True):
+        return self._search(
+            self.query_compiler_class,
             query,
             model_or_queryset,
             fields=fields,
             operator=operator,
             order_by_relevance=order_by_relevance,
-            query_compiler_class=self.autocomplete_query_compiler_class,
+            partial_match=partial_match,
+        )
+
+    def autocomplete(self, query, model_or_queryset, fields=None, operator=None, order_by_relevance=True):
+        if self.autocomplete_query_compiler_class is None:
+            raise NotImplementedError("This search backend does not support the autocomplete API")
+
+        return self._search(
+            self.autocomplete_query_compiler_class,
+            query,
+            model_or_queryset,
+            fields=fields,
+            operator=operator,
+            order_by_relevance=order_by_relevance,
         )
