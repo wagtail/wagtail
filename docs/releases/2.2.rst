@@ -39,6 +39,7 @@ Bug fixes
  * Pages with missing model definitions no longer crash the API (Abdulmalik Abdulwahab)
  * Rich text image chooser no longer skips format selection after a validation error (Matt Westcott)
  * Null characters in URLs no longer crash the redirect middleware on PostgreSQL (Andrew Crewdson, Matt Westcott)
+ * Permission checks no longer prevent a non-live page from being unscheduled (Abdulmalik Abdulwahab)
 
 Upgrade considerations
 ======================
