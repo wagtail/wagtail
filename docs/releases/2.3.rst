@@ -32,6 +32,7 @@ Bug fixes
 
  * Respect next param on login (Loic Teixeira)
  * InlinePanel now handles relations that specify a related_query_name (Aram Dulyan)
+ * before_delete_page / after_delete_page hooks now run within the same database transaction as the page deletion (Tomasz Knapik)
 
 
 Upgrade considerations

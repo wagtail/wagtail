@@ -10,6 +10,7 @@ Changelog
  * EmbedBlock now validates against recognised embed providers on save (Bertrand Bordage)
  * Fix: Respect next param on login (Loic Teixeira)
  * Fix: InlinePanel now handles relations that specify a related_query_name (Aram Dulyan)
+ * Fix: before_delete_page / after_delete_page hooks now run within the same database transaction as the page deletion (Tomasz Knapik)
 
 
 2.2.1 (13.08.2018)
