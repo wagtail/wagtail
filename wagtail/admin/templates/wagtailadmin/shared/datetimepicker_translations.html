@@ -16,7 +16,7 @@
             '{% trans "November" %}',
             '{% trans "December" %}'
         ],
-        dayOfWeek: [
+        dayOfWeekShort: [
             '{% trans "Sun" %}',
             '{% trans "Mon" %}',
             '{% trans "Tue" %}',
@@ -24,6 +24,18 @@
             '{% trans "Thu" %}',
             '{% trans "Fri" %}',
             '{% trans "Sat" %}'
+        ],
+        dayOfWeek: [
+            '{% trans "Sunday" %}',
+            '{% trans "Monday" %}',
+            '{% trans "Tuesday" %}',
+            '{% trans "Wednesday" %}',
+            '{% trans "Thursday" %}',
+            '{% trans "Friday" %}',
+            '{% trans "Saturday" %}'
         ]
     }
+    $(function() {
+        $.datetimepicker.setLocale('ru');
+    });
 </script>

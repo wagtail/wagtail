@@ -33,9 +33,8 @@ function initDateChooser(id, opts) {
             scrollInput: false,
             format: 'Y-m-d',
             i18n: {
-                lang: window.dateTimePickerTranslations
+                ru: window.dateTimePickerTranslations
             },
-            lang: 'lang',
             onGenerate: hideCurrent
         }, opts || {}));
     } else {
@@ -56,9 +55,8 @@ function initTimeChooser(id) {
             scrollInput: false,
             format: 'H:i',
             i18n: {
-                lang: window.dateTimePickerTranslations
-            },
-            lang: 'lang'
+                ru: window.dateTimePickerTranslations
+            }
         });
     } else {
         $('#' + id).datetimepicker({
