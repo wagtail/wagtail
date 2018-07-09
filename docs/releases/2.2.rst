@@ -28,6 +28,7 @@ Other features
  * Added accessible colour contrast guidelines to the style guide (Catherine Farman)
  * Added faceted search using the ``.facet()`` method (Karl Hobley)
  * Admin modal views no longer rely on Javascript ``eval()``, for better CSP compliance (Matt Westcott)
+ * Update editor guide for embeds and documents in rich text (Kevin Howbrook)
 
 Bug fixes
 ~~~~~~~~~
