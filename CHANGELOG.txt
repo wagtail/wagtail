@@ -54,7 +54,7 @@ Changelog
  * Remove outdated X-UA-Compatible meta from admin template  (Thibaud Colas)
  * Add JavaScript source maps in production build for packaged Wagtail (Thibaud Colas)
  * Removed `assert` statements from Wagtail API (Kim Chee Leong)
- * Update `jquery-datetimepicker` dependency to make Wagtail more CSP-friendly (`unsafe-eval`) (Mike Kamermans)
+ * Update `jquery-datetimepicker` dependency to make Wagtail more CSP-friendly (`unsafe-eval`) (Pomax)
  * Added error notification when running the `wagtail` command on Python <3.4 (Matt Westcott)
  * `update_index` management command now accepts a `--chunk_size` option to determine the number of items to load at once (Dave Bell)
  * Added hook `register_account_menu_item` to add new account preference items (Michael van Tellingen)
