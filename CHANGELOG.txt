@@ -19,6 +19,7 @@ Changelog
  * Added accessible colour contrast guidelines to the style guide (Catherine Farman)
  * Added faceted search using the `.facet()` method (Karl Hobley)
  * Admin modal views no longer rely on Javascript `eval()`, for better CSP compliance (Matt Westcott)
+ * Update editor guide for embeds and documents in rich text (Kevin Howbrook)
  * Fix: Handle all exceptions from `Image.get_file_size` (Andrew Plummer)
  * Fix: Fix display of breadcrumbs in ModelAdmin (LB (Ben Johnston))
  * Fix: Remove duplicate border radius of avatars (Benjamin Thurm)

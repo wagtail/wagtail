@@ -310,6 +310,7 @@ Contributors
 * Abdulmalik Abdulwahab
 * Andrew Crewdson
 * Aram Dulyan
+* Kevin Howbrook
 
 Translators
 ===========
