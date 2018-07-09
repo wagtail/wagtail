@@ -28,6 +28,7 @@ Changelog
  * Fix: Rich text image chooser no longer skips format selection after a validation error (Matt Westcott)
  * Fix: Null characters in URLs no longer crash the redirect middleware on PostgreSQL (Andrew Crewdson, Matt Westcott)
  * Fix: Permission checks no longer prevent a non-live page from being unscheduled (Abdulmalik Abdulwahab)
+ * Fix: Copy-paste between Draftail editors now preserves all formatting/content (Thibaud Colas)
 
 
 2.1.1 (04.07.2018)
