@@ -287,7 +287,7 @@ Contributors
 * Dan Swain
 * Alexs Mathilda
 * Tony Yates
-* Mike Kamermans
+* Pomax
 * Arthur Holzner
 * Alejandro Garza
 * Rajeev J Sebastian
