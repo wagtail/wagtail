@@ -53,6 +53,10 @@ def index(request, parent_page_id=None):
 
     parent_page = parent_page.specific
 
+    if getattr(parent_page, 'subpage_types', None) == []:  # this page type was set as a leaf node in user-land
+        target_url = reverse('wagtailadmin_pages:edit', args=[parent_page_id])
+        return redirect(target_url)
+
     pages = parent_page.get_children().prefetch_related('content_type', 'sites_rooted_here')
 
     # Get page ordering

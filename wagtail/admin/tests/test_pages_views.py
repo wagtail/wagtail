@@ -3278,12 +3278,12 @@ class TestSubpageBusinessRules(TestCase, WagtailTestUtils):
         self.assertContains(response, BusinessChild.get_verbose_name())
 
     def test_business_child_subpage(self):
-        add_subpage_url = reverse('wagtailadmin_pages:add_subpage', args=(self.business_child.id, ))
+        edit_page_url = reverse('wagtailadmin_pages:edit', args=(self.business_child.id, ))
 
-        # explorer should not contain a link to 'add child page', as this page doesn't accept subpages
+        # explorer should redirect to edit view if the page doesn't accept subpages
         response = self.client.get(reverse('wagtailadmin_explore', args=(self.business_child.id, )))
-        self.assertEqual(response.status_code, 200)
-        self.assertNotContains(response, add_subpage_url)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, edit_page_url)
 
         # this also means that fetching add_subpage is blocked at the permission-check level
         response = self.client.get(reverse('wagtailadmin_pages:add_subpage', args=(self.business_child.id, )))
