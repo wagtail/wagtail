@@ -97,10 +97,11 @@ Customising
 URLs
 ----
 
-The ``Page`` class defines a ``get_sitemap_urls`` method which you can override
-to customise sitemaps per ``Page`` instance. This method must return a list of
-dictionaries, one dictionary per URL entry in the sitemap. You can exclude
-pages from the sitemap by returning an empty list.
+The ``Page`` class defines a ``get_sitemap_urls`` method which you can
+override to customise sitemaps per ``Page`` instance. This method must accept
+a request object and return a list of dictionaries, one dictionary per URL
+entry in the sitemap. You can exclude pages from the sitemap by returning an
+empty list.
 
 Each dictionary can contain the following:
 

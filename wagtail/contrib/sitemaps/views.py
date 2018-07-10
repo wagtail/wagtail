@@ -12,7 +12,7 @@ def sitemap(request, sitemaps=None, **kwargs):
     if sitemaps:
         sitemaps = prepare_sitemaps(request, sitemaps)
     else:
-        sitemaps = {'wagtail': Sitemap(request.site)}
+        sitemaps = {'wagtail': Sitemap(request.site, request)}
     return sitemap_views.sitemap(request, sitemaps, **kwargs)
 
 
@@ -21,7 +21,7 @@ def prepare_sitemaps(request, sitemaps):
     initialised_sitemaps = {}
     for name, sitemap_cls in sitemaps.items():
         if issubclass(sitemap_cls, Sitemap):
-            initialised_sitemaps[name] = sitemap_cls(request.site)
+            initialised_sitemaps[name] = sitemap_cls(request.site, request)
         else:
             initialised_sitemaps[name] = sitemap_cls
     return initialised_sitemaps
