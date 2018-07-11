@@ -52,10 +52,15 @@ class TestSitemapGenerator(TestCase):
         # Clear the cache to that runs are deterministic regarding the sql count
         ContentType.objects.clear_cache()
 
-    def test_items(self):
-        request = RequestFactory().get('/sitemap.xml')
+    def get_request_and_django_site(self, url):
+        request = RequestFactory().get(url)
+        request.site = self.site
+        return request, get_current_site(request)
 
-        sitemap = Sitemap(self.site, request)
+    def test_items(self):
+        request, django_site = self.get_request_and_django_site('/sitemap.xml')
+
+        sitemap = Sitemap(request)
         pages = sitemap.items()
 
         self.assertIn(self.child_page.page_ptr.specific, pages)
@@ -63,34 +68,31 @@ class TestSitemapGenerator(TestCase):
         self.assertNotIn(self.protected_child_page.page_ptr.specific, pages)
 
     def test_get_urls_without_request(self):
-        request = RequestFactory().get('/sitemap.xml')
+        request, django_site = self.get_request_and_django_site('/sitemap.xml')
         req_protocol = request.scheme
-        req_site = get_current_site(request)
 
-        sitemap = Sitemap(self.site)
+        sitemap = Sitemap()
         with self.assertNumQueries(18):
-            urls = [url['location'] for url in sitemap.get_urls(1, req_site, req_protocol)]
+            urls = [url['location'] for url in sitemap.get_urls(1, django_site, req_protocol)]
 
         self.assertIn('http://localhost/', urls)  # Homepage
         self.assertIn('http://localhost/hello-world/', urls)  # Child page
 
     def test_get_urls_with_request_site_cache(self):
-        request = RequestFactory().get('/sitemap.xml')
+        request, django_site = self.get_request_and_django_site('/sitemap.xml')
         req_protocol = request.scheme
-        req_site = get_current_site(request)
 
-        sitemap = Sitemap(self.site, request)
+        sitemap = Sitemap(request)
 
         with self.assertNumQueries(16):
-            urls = [url['location'] for url in sitemap.get_urls(1, req_site, req_protocol)]
+            urls = [url['location'] for url in sitemap.get_urls(1, django_site, req_protocol)]
 
         self.assertIn('http://localhost/', urls)  # Homepage
         self.assertIn('http://localhost/hello-world/', urls)  # Child page
 
     def test_get_urls_uses_specific(self):
-        request = RequestFactory().get('/sitemap.xml')
+        request, django_site = self.get_request_and_django_site('/sitemap.xml')
         req_protocol = request.scheme
-        req_site = get_current_site(request)
 
         # Add an event page which has an extra url in the sitemap
         self.home_page.add_child(instance=EventIndex(
@@ -99,19 +101,18 @@ class TestSitemapGenerator(TestCase):
             live=True,
         ))
 
-        sitemap = Sitemap(self.site, request)
-        urls = [url['location'] for url in sitemap.get_urls(1, req_site, req_protocol)]
+        sitemap = Sitemap(request)
+        urls = [url['location'] for url in sitemap.get_urls(1, django_site, req_protocol)]
 
         self.assertIn('http://localhost/events/', urls)  # Main view
         self.assertIn('http://localhost/events/past/', urls)  # Sub view
 
     def test_lastmod_uses_last_published_date(self):
-        request = RequestFactory().get('/sitemap.xml')
+        request, django_site = self.get_request_and_django_site('/sitemap.xml')
         req_protocol = request.scheme
-        req_site = get_current_site(request)
 
-        sitemap = Sitemap(self.site, request)
-        urls = sitemap.get_urls(1, req_site, req_protocol)
+        sitemap = Sitemap(request)
+        urls = sitemap.get_urls(1, django_site, req_protocol)
 
         child_page_lastmod = [
             url['lastmod'] for url in urls
@@ -131,12 +132,11 @@ class TestSitemapGenerator(TestCase):
         self.home_page.last_published_at = datetime.datetime(2017, 3, 1, 12, 0, 0, tzinfo=pytz.utc)
         self.home_page.save()
 
-        request = RequestFactory().get('/sitemap.xml')
+        request, django_site = self.get_request_and_django_site('/sitemap.xml')
         req_protocol = request.scheme
-        req_site = get_current_site(request)
 
-        sitemap = Sitemap(self.site, request)
-        sitemap.get_urls(1, req_site, req_protocol)
+        sitemap = Sitemap(request)
+        sitemap.get_urls(1, django_site, req_protocol)
 
         self.assertEqual(sitemap.latest_lastmod, datetime.datetime(2017, 3, 1, 12, 0, 0, tzinfo=pytz.utc))
 
@@ -145,12 +145,11 @@ class TestSitemapGenerator(TestCase):
         self.home_page.last_published_at = None
         self.home_page.save()
 
-        request = RequestFactory().get('/sitemap.xml')
+        request, django_site = self.get_request_and_django_site('/sitemap.xml')
         req_protocol = request.scheme
-        req_site = get_current_site(request)
 
-        sitemap = Sitemap(self.site, request)
-        sitemap.get_urls(1, req_site, req_protocol)
+        sitemap = Sitemap(request)
+        sitemap.get_urls(1, django_site, req_protocol)
 
         self.assertFalse(hasattr(sitemap, 'latest_lastmod'))
 

@@ -2,14 +2,14 @@ import warnings
 
 from django.contrib.sitemaps import Sitemap as DjangoSitemap
 
+from wagtail.core.models import Site
 from wagtail.core.utils import accepts_kwarg
 from wagtail.utils.deprecation import RemovedInWagtail24Warning
 
 
 class Sitemap(DjangoSitemap):
 
-    def __init__(self, site=None, request=None):
-        self.site = site
+    def __init__(self, request=None):
         self.request = request
 
     def location(self, obj):
@@ -20,9 +20,17 @@ class Sitemap(DjangoSitemap):
         # (for backwards compatibility from before last_published_at was added)
         return (obj.last_published_at or obj.latest_revision_created_at)
 
+    def get_wagtail_site(self):
+        site = getattr(self.request, 'site', None)
+        if site is None:
+            return Site.objects.select_related(
+                'root_page'
+            ).get(is_default_site=True)
+        return site
+
     def items(self):
         return (
-            self.site
+            self.get_wagtail_site()
             .root_page
             .get_descendants(inclusive=True)
             .live()
