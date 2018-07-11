@@ -14,7 +14,8 @@ from elasticsearch.helpers import bulk
 from wagtail.search.backends.base import (
     BaseSearchBackend, BaseSearchQueryCompiler, BaseSearchResults, FilterFieldError)
 from wagtail.search.index import FilterField, Indexed, RelatedFields, SearchField, class_is_indexed
-from wagtail.search.query import And, Boost, MatchAll, Not, Or, PlainText
+from wagtail.search.query import (
+    And, Boost, Filter, Fuzzy, MatchAll, Not, Or, PlainText, Prefix, Term)
 from wagtail.utils.deprecation import RemovedInWagtail22Warning
 from wagtail.utils.utils import deep_update
 
@@ -385,6 +386,20 @@ class Elasticsearch2SearchQueryCompiler(BaseSearchQueryCompiler):
 
             return filter_out
 
+    def _compile_term_query(self, query_type, value, field, boost=1.0, **extra):
+        term_query = {
+            'value': value,
+        }
+
+        if boost != 1.0:
+            term_query['boost'] = boost
+
+        return {
+            query_type: {
+                field: term_query,
+            }
+        }
+
     def _compile_plaintext_query(self, query, fields, boost=1.0):
         match_query = {
             'query': query.query_string
@@ -418,6 +433,15 @@ class Elasticsearch2SearchQueryCompiler(BaseSearchQueryCompiler):
 
             return {'match_all': match_all_query}
 
+        elif isinstance(query, Term):
+            return self._compile_term_query('term', query.term, field, query.boost * boost)
+
+        elif isinstance(query, Prefix):
+            return self._compile_term_query('prefix', query.prefix, field, query.boost * boost)
+
+        elif isinstance(query, Fuzzy):
+            return self._compile_term_query('fuzzy', query.term, field, query.boost * boost, fuzziness=query.max_distance)
+
         elif isinstance(query, And):
             return {
                 'bool': {
@@ -446,8 +470,22 @@ class Elasticsearch2SearchQueryCompiler(BaseSearchQueryCompiler):
             }
 
         elif isinstance(query, PlainText):
-            return self._compile_plaintext_query(query, [field], boost)
+            return self._compile_plaintext_query(self.query, [field], boost)
 
+        elif isinstance(query, Filter):
+            bool_query = {
+                'must': self._compile_query(query.query, field, boost),
+            }
+
+            if query.include:
+                bool_query['filter'] = self._compile_query(query.include, field, 0.0)
+
+            if query.exclude:
+                bool_query['mustNot'] = self._compile_query(query.exclude, field, 0.0)
+
+            return {
+                'bool': bool_query,
+            }
 
         elif isinstance(query, Boost):
             return self._compile_query(query.subquery, field, boost * query.boost)
