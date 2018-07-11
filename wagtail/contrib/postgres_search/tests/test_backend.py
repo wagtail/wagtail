@@ -1,5 +1,3 @@
-import unittest
-
 from django.test import TestCase
 
 from wagtail.search.tests.test_backends import BackendTests
@@ -37,8 +35,3 @@ class TestPostgresSearchBackend(BackendTests, TestCase):
                              [(6, 'A'), (4, 'B'), (2, 'C'), (0, 'D')])
         self.assertListEqual(determine_boosts_weights([-2, -1, 0, 1, 2, 3, 4]),
                              [(4, 'A'), (2, 'B'), (0, 'C'), (-2, 'D')])
-
-    # Doesn't support Boost() query class
-    @unittest.expectedFailure
-    def test_boost(self):
-        super().test_boost()
