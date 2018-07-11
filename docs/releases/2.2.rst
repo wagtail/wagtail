@@ -30,6 +30,7 @@ Other features
  * Admin modal views no longer rely on Javascript ``eval()``, for better CSP compliance (Matt Westcott)
  * Update editor guide for embeds and documents in rich text (Kevin Howbrook)
  * Improved performance of sitemap generation (Michael van Tellingen)
+ * Added an internal API for autocomplete (Karl Hobley)
 
 Bug fixes
 ~~~~~~~~~
