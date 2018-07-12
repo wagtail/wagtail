@@ -42,3 +42,8 @@ class TestPostgresSearchBackend(BackendTests, TestCase):
     @unittest.expectedFailure
     def test_autocomplete(self):
         super().test_autocomplete()
+
+    # Doesn't support Boost() query class
+    @unittest.expectedFailure
+    def test_boost(self):
+        super().test_boost()

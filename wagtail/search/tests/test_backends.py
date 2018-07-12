@@ -15,7 +15,7 @@ from wagtail.search.backends import (
     InvalidSearchBackendError, get_search_backend, get_search_backends)
 from wagtail.search.backends.base import FieldError, FilterFieldError
 from wagtail.search.backends.db import DatabaseSearchBackend
-from wagtail.search.query import MATCH_ALL, And, Boost, Filter, Not, Or, PlainText, Prefix, Term
+from wagtail.search.query import MATCH_ALL, And, Boost, Not, Or, PlainText
 from wagtail.tests.search import models
 from wagtail.tests.utils import WagtailTestUtils
 
@@ -491,102 +491,6 @@ class BackendTests(WagtailTestUtils):
             "The Fellowship of the Ring"  # If this item doesn't appear, "Foundation" is still in the index
         ])
 
-    #
-    # Basic query classes
-    #
-
-    def test_match_all(self):
-        results = self.backend.search(MATCH_ALL, models.Book.objects.all())
-        self.assertEqual(len(results), 13)
-
-    def test_term(self):
-        results = self.backend.search(Term('javascript'),
-                                      models.Book.objects.all())
-
-        self.assertSetEqual({r.title for r in results},
-                            {'JavaScript: The Definitive Guide',
-                             'JavaScript: The good parts'})
-
-    def test_incomplete_term(self):
-        results = self.backend.search(Term('pro'),
-                                      models.Book.objects.all())
-
-        self.assertSetEqual({r.title for r in results}, set())
-
-    def test_and(self):
-        results = self.backend.search(And([Term('javascript'),
-                                           Term('definitive')]),
-                                      models.Book.objects.all())
-        self.assertSetEqual({r.title for r in results},
-                            {'JavaScript: The Definitive Guide'})
-
-        results = self.backend.search(Term('javascript') & Term('definitive'),
-                                      models.Book.objects.all())
-        self.assertSetEqual({r.title for r in results},
-                            {'JavaScript: The Definitive Guide'})
-
-    def test_or(self):
-        results = self.backend.search(Or([Term('hobbit'), Term('towers')]),
-                                      models.Book.objects.all())
-        self.assertSetEqual({r.title for r in results},
-                            {'The Hobbit', 'The Two Towers'})
-
-        results = self.backend.search(Term('hobbit') | Term('towers'),
-                                      models.Book.objects.all())
-        self.assertSetEqual({r.title for r in results},
-                            {'The Hobbit', 'The Two Towers'})
-
-    def test_not(self):
-        all_other_titles = {
-            'A Clash of Kings',
-            'A Game of Thrones',
-            'A Storm of Swords',
-            'Foundation',
-            'Learning Python',
-            'The Hobbit',
-            'The Two Towers',
-            'The Fellowship of the Ring',
-            'The Return of the King',
-            'The Rust Programming Language',
-            'Two Scoops of Django 1.11',
-        }
-
-        results = self.backend.search(Not(Term('javascript')),
-                                      models.Book.objects.all())
-        self.assertSetEqual({r.title for r in results}, all_other_titles)
-
-        results = self.backend.search(~Term('javascript'),
-                                      models.Book.objects.all())
-        self.assertSetEqual({r.title for r in results}, all_other_titles)
-
-    def test_operators_combination(self):
-        results = self.backend.search(
-            ((Term('javascript') & ~Term('definitive')) |
-             Term('python') | Term('rust')) |
-            Term('two'),
-            models.Book.objects.all())
-        self.assertSetEqual({r.title for r in results},
-                            {'JavaScript: The good parts',
-                             'Learning Python',
-                             'The Two Towers',
-                             'The Rust Programming Language',
-                             'Two Scoops of Django 1.11'})
-
-    def test_prefix_single_word(self):
-        results = self.backend.search(Prefix('pro'), models.Book.objects.all())
-        self.assertSetEqual({r.title for r in results},
-                            {'The Rust Programming Language'})
-
-    def test_prefix_multiple_words(self):
-        results = self.backend.search(Prefix('rust pro'),
-                                      models.Book.objects.all())
-        self.assertSetEqual({r.title for r in results},
-                            {'The Rust Programming Language'})
-
-    #
-    # Shortcut query classes
-    #
-
     def test_plain_text_single_word(self):
         results = self.backend.search(PlainText('Javascript'),
                                       models.Book.objects.all())
@@ -645,95 +549,85 @@ class BackendTests(WagtailTestUtils):
             self.backend.search('Guide', models.Book.objects.all(),
                                 operator='xor')
 
-    def test_filter_equivalent(self):
-        filter = Filter(Term('javascript'))
-        term = filter.child
-        self.assertIsInstance(term, Term)
-        self.assertEqual(term.term, 'javascript')
+    def test_boost(self):
+        results = self.backend.search(PlainText('JavaScript Definitive') | Boost(PlainText('Learning Python'), 2.0), models.Book.objects.all())
 
-        filter = Filter(Term('javascript'), include=Term('definitive'))
-        and_obj = filter.child
-        self.assertIsInstance(and_obj, And)
-        javascript = and_obj.children[0]
-        self.assertIsInstance(javascript, Term)
-        self.assertEqual(javascript.term, 'javascript')
-        boost_obj = and_obj.children[1]
-        self.assertIsInstance(boost_obj, Boost)
-        self.assertEqual(boost_obj.boost, 0)
-        definitive = boost_obj.child
-        self.assertIsInstance(definitive, Term)
-        self.assertEqual(definitive.term, 'definitive')
+        # Both python and JavaScript should be returned with Python at the top
+        self.assertEqual([r.title for r in results], [
+            "Learning Python",
+            "JavaScript: The Definitive Guide",
+        ])
 
-        filter = Filter(Term('javascript'),
-                        include=Term('definitive'), exclude=Term('guide'))
-        and_obj1 = filter.child
-        self.assertIsInstance(and_obj1, And)
-        and_obj2 = and_obj1.children[0]
-        javascript = and_obj2.children[0]
-        self.assertIsInstance(javascript, Term)
-        self.assertEqual(javascript.term, 'javascript')
-        boost_obj = and_obj2.children[1]
-        self.assertIsInstance(boost_obj, Boost)
-        self.assertEqual(boost_obj.boost, 0)
-        definitive = boost_obj.child
-        self.assertIsInstance(definitive, Term)
-        self.assertEqual(definitive.term, 'definitive')
-        boost_obj = and_obj1.children[1]
-        self.assertIsInstance(boost_obj, Boost)
-        self.assertEqual(boost_obj.boost, 0)
-        not_obj = boost_obj.child
-        self.assertIsInstance(not_obj, Not)
-        guide = not_obj.child
-        self.assertEqual(guide.term, 'guide')
+        results = self.backend.search(PlainText('JavaScript Definitive') | Boost(PlainText('Learning Python'), 0.5), models.Book.objects.all())
 
-    def test_filter_query(self):
-        results = self.backend.search(Filter(Term('javascript')),
-                                      models.Book.objects.all())
-        self.assertSetEqual({r.title for r in results},
-                            {'JavaScript: The Definitive Guide',
-                             'JavaScript: The good parts'})
+        # Now they should be swapped
+        self.assertEqual([r.title for r in results], [
+            "JavaScript: The Definitive Guide",
+            "Learning Python",
+        ])
 
-        results = self.backend.search(Filter(Term('javascript'),
-                                             include=Term('definitive')),
+    def test_match_all(self):
+        results = self.backend.search(MATCH_ALL, models.Book.objects.all())
+        self.assertEqual(len(results), 13)
+
+    def test_and(self):
+        results = self.backend.search(And([PlainText('javascript'),
+                                           PlainText('definitive')]),
                                       models.Book.objects.all())
         self.assertSetEqual({r.title for r in results},
                             {'JavaScript: The Definitive Guide'})
 
-        results = self.backend.search(Filter(Term('javascript'),
-                                             include=Term('definitive'),
-                                             exclude=Term('guide')),
+        results = self.backend.search(PlainText('javascript') & PlainText('definitive'),
                                       models.Book.objects.all())
-        self.assertSetEqual({r.title for r in results}, set())
+        self.assertSetEqual({r.title for r in results},
+                            {'JavaScript: The Definitive Guide'})
 
-    def test_boost_equivalent(self):
-        boost = Boost(Term('guide'), 5)
-        equivalent = boost.children[0]
-        self.assertIsInstance(equivalent, Term)
-        self.assertAlmostEqual(equivalent.boost, 5)
+    def test_or(self):
+        results = self.backend.search(Or([PlainText('hobbit'), PlainText('towers')]),
+                                      models.Book.objects.all())
+        self.assertSetEqual({r.title for r in results},
+                            {'The Hobbit', 'The Two Towers'})
 
-        boost = Boost(Term('guide', boost=0.5), 5)
-        equivalent = boost.children[0]
-        self.assertIsInstance(equivalent, Term)
-        self.assertAlmostEqual(equivalent.boost, 2.5)
+        results = self.backend.search(PlainText('hobbit') | PlainText('towers'),
+                                      models.Book.objects.all())
+        self.assertSetEqual({r.title for r in results},
+                            {'The Hobbit', 'The Two Towers'})
 
-        boost = Boost(Boost(Term('guide', 0.1), 3), 5)
-        sub_boost = boost.children[0]
-        self.assertIsInstance(sub_boost, Boost)
-        sub_boost = sub_boost.children[0]
-        self.assertIsInstance(sub_boost, Term)
-        self.assertAlmostEqual(sub_boost.boost, 1.5)
+    def test_not(self):
+        all_other_titles = {
+            'A Clash of Kings',
+            'A Game of Thrones',
+            'A Storm of Swords',
+            'Foundation',
+            'Learning Python',
+            'The Hobbit',
+            'The Two Towers',
+            'The Fellowship of the Ring',
+            'The Return of the King',
+            'The Rust Programming Language',
+            'Two Scoops of Django 1.11',
+        }
 
-        boost = Boost(And([Boost(Term('guide', 0.1), 3), Term('two', 2)]), 5)
-        and_obj = boost.children[0]
-        self.assertIsInstance(and_obj, And)
-        sub_boost = and_obj.children[0]
-        self.assertIsInstance(sub_boost, Boost)
-        guide = sub_boost.children[0]
-        self.assertIsInstance(guide, Term)
-        self.assertAlmostEqual(guide.boost, 1.5)
-        two = and_obj.children[1]
-        self.assertIsInstance(two, Term)
-        self.assertAlmostEqual(two.boost, 10)
+        results = self.backend.search(Not(PlainText('javascript')),
+                                      models.Book.objects.all())
+        self.assertSetEqual({r.title for r in results}, all_other_titles)
+
+        results = self.backend.search(~PlainText('javascript'),
+                                      models.Book.objects.all())
+        self.assertSetEqual({r.title for r in results}, all_other_titles)
+
+    def test_operators_combination(self):
+        results = self.backend.search(
+            ((PlainText('javascript') & ~PlainText('definitive')) |
+             PlainText('python') | PlainText('rust')) |
+            PlainText('two'),
+            models.Book.objects.all())
+        self.assertSetEqual({r.title for r in results},
+                            {'JavaScript: The good parts',
+                             'Learning Python',
+                             'The Two Towers',
+                             'The Rust Programming Language',
+                             'Two Scoops of Django 1.11'})
 
 
 @override_settings(
