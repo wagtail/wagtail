@@ -431,7 +431,7 @@ class Elasticsearch2SearchQueryCompiler(BaseSearchQueryCompiler):
                 'bool': {
                     'must': [
                         self._compile_query(child_query, field, boost)
-                        for child_query in query.get_children()
+                        for child_query in query.subqueries
                     ]
                 }
             }
@@ -441,7 +441,7 @@ class Elasticsearch2SearchQueryCompiler(BaseSearchQueryCompiler):
                 'bool': {
                     'should': [
                         self._compile_query(child_query, field, boost)
-                        for child_query in query.get_children()
+                        for child_query in query.subqueries
                     ]
                 }
             }
