@@ -217,11 +217,17 @@ class BaseField:
             return 'CharField'
 
     def get_value(self, obj):
+        from taggit.managers import TaggableManager
+
         try:
             field = self.get_field(obj.__class__)
             value = field.value_from_object(obj)
             if hasattr(field, 'get_searchable_content'):
                 value = field.get_searchable_content(value)
+            elif isinstance(field, TaggableManager):
+                # Special case for tags fields. Convert QuerySet of TaggedItems into QuerySet of Tags
+                Tag = field.remote_field.model
+                value = Tag.objects.filter(id__in=value.values_list('tag_id', flat=True))
             return value
         except models.fields.FieldDoesNotExist:
             value = getattr(obj, self.field_name, None)
