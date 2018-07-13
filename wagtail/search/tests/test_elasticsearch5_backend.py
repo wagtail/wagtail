@@ -532,6 +532,7 @@ class TestElasticsearch5Mapping(TestCase):
                             'date_of_birth_filter': {'type': 'date', 'include_in_all': False},
                         },
                     },
+                    'authors_filter': {'type': 'integer', 'include_in_all': False},
                     'publication_date_filter': {'type': 'date', 'include_in_all': False},
                     'number_of_pages_filter': {'type': 'integer', 'include_in_all': False},
                     'tags': {
@@ -541,7 +542,7 @@ class TestElasticsearch5Mapping(TestCase):
                             'slug_filter': {'type': 'keyword', 'include_in_all': False},
                         },
                     },
-                    'tags_filter': {'type': 'keyword', 'include_in_all': False}
+                    'tags_filter': {'type': 'integer', 'include_in_all': False}
                 }
             }
         }
@@ -573,6 +574,7 @@ class TestElasticsearch5Mapping(TestCase):
                     'date_of_birth_filter': datetime.date(1892, 1, 3)
                 }
             ],
+            'authors_filter': [2],
             'publication_date_filter': datetime.date(1954, 7, 29),
             'number_of_pages_filter': 423,
             'tags': [],
@@ -613,9 +615,11 @@ class TestElasticsearch5MappingInheritance(TestCase):
                     'searchtests_novel__protagonist': {
                         'type': 'nested',
                         'properties': {
-                            'name': {'type': 'text', 'boost': 0.5, 'include_in_all': True}
+                            'name': {'type': 'text', 'boost': 0.5, 'include_in_all': True},
+                            'novel_id_filter': {'type': 'integer', 'include_in_all': False}
                         }
                     },
+                    'searchtests_novel__protagonist_id_filter': {'type': 'integer', 'include_in_all': False},
                     'searchtests_novel__characters': {
                         'type': 'nested',
                         'properties': {
@@ -637,6 +641,7 @@ class TestElasticsearch5MappingInheritance(TestCase):
                             'date_of_birth_filter': {'type': 'date', 'include_in_all': False},
                         },
                     },
+                    'authors_filter': {'type': 'integer', 'include_in_all': False},
                     'publication_date_filter': {'type': 'date', 'include_in_all': False},
                     'number_of_pages_filter': {'type': 'integer', 'include_in_all': False},
                     'tags': {
@@ -646,7 +651,7 @@ class TestElasticsearch5MappingInheritance(TestCase):
                             'slug_filter': {'type': 'keyword', 'include_in_all': False},
                         },
                     },
-                    'tags_filter': {'type': 'keyword', 'include_in_all': False}
+                    'tags_filter': {'type': 'integer', 'include_in_all': False}
                 }
             }
         }
@@ -676,8 +681,10 @@ class TestElasticsearch5MappingInheritance(TestCase):
             # New
             'searchtests_novel__setting': "Middle Earth",
             'searchtests_novel__protagonist': {
-                'name': "Frodo Baggins"
+                'name': "Frodo Baggins",
+                'novel_id_filter': 4
             },
+            'searchtests_novel__protagonist_id_filter': 8,
             'searchtests_novel__characters': [
                 {
                     'name': "Bilbo Baggins"
@@ -705,6 +712,7 @@ class TestElasticsearch5MappingInheritance(TestCase):
                     'date_of_birth_filter': datetime.date(1892, 1, 3)
                 }
             ],
+            'authors_filter': [2],
             'publication_date_filter': datetime.date(1954, 7, 29),
             'number_of_pages_filter': 423,
             'tags': [],
