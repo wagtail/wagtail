@@ -1,5 +1,4 @@
 from collections import OrderedDict
-from warnings import warn
 
 from django.contrib.postgres.search import SearchQuery as PostgresSearchQuery
 from django.contrib.postgres.search import SearchRank, SearchVector
@@ -13,7 +12,7 @@ from wagtail.search.backends.base import (
     BaseSearchBackend, BaseSearchQueryCompiler, BaseSearchResults, FilterFieldError)
 from wagtail.search.index import RelatedFields, SearchField, get_indexed_models
 from wagtail.search.query import And, Boost, MatchAll, Not, Or, PlainText
-from wagtail.search.utils import ADD, AND, OR
+from wagtail.search.utils import ADD, AND, OR, MUL
 
 from .models import SearchAutocomplete as PostgresSearchAutocomplete
 from .models import IndexEntry
@@ -227,19 +226,8 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
                     and field.field_name == field_lookup:
                 return self.get_search_field(sub_field_name, field.fields)
 
-    # TODO: Find a way to use the term boosting.
-    def check_boost(self, query, boost=1.0):
-        if query.boost * boost != 1.0:
-            warn('PostgreSQL search backend '
-                 'does not support term boosting for now.')
-
-    def build_database_query(self, query=None, config=None, boost=1.0):
-        if query is None:
-            query = self.query
-
+    def build_database_query(self, query, config=None):
         if isinstance(query, PlainText):
-            self.check_boost(query, boost=boost)
-
             operator = self.OPERATORS[query.operator]
 
             return operator([
@@ -247,16 +235,42 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
                 for term in query.query_string.split()
             ])
         if isinstance(query, Boost):
-            boost *= query.boost
-            return self.build_database_query(query.subquery, config, boost=boost)
+            return self.build_database_query(query.subquery, config=config)
         if isinstance(query, Not):
-            return ~self.build_database_query(query.subquery, config, boost=boost)
+            return ~self.build_database_query(query.subquery, config=config)
         if isinstance(query, And):
-            return AND(self.build_database_query(subquery, config, boost=boost)
+            return AND(self.build_database_query(subquery, config=config)
                        for subquery in query.subqueries)
         if isinstance(query, Or):
-            return OR(self.build_database_query(subquery, config, boost=boost)
+            return OR(self.build_database_query(subquery, config=config)
                       for subquery in query.subqueries)
+        raise NotImplementedError(
+            '`%s` is not supported by the PostgreSQL search backend.'
+            % query.__class__.__name__)
+
+    def build_database_rank(self, vector, query, config=None, boost=1.0):
+        if isinstance(query, (PlainText, Not)):
+            rank_expression = SearchRank(
+                vector,
+                self.build_database_query(query, config=config),
+                weights=self.sql_weights)
+            if boost != 1.0:
+                rank_expression *= boost
+            return rank_expression
+        if isinstance(query, Boost):
+            boost *= query.boost
+            return self.build_database_rank(vector, query.subquery,
+                                            config=config, boost=boost)
+        if isinstance(query, And):
+            return MUL(
+                1 + self.build_database_rank(vector, subquery,
+                                             config=config, boost=boost)
+                for subquery in query.subqueries) - 1
+        if isinstance(query, Or):
+            return ADD(
+                self.build_database_rank(vector, subquery,
+                                         config=config, boost=boost)
+                for subquery in query.subqueries) / (len(query.subqueries) or 1)
         raise NotImplementedError(
             '`%s` is not supported by the PostgreSQL search backend.'
             % query.__class__.__name__)
@@ -280,10 +294,9 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
         if isinstance(self.query, MatchAll):
             return self.queryset[start:stop]
 
-        search_query = self.build_database_query(config=config)
+        search_query = self.build_database_query(self.query, config=config)
         vector = self.get_search_vector(search_query)
-        rank_expression = SearchRank(vector, search_query,
-                                     weights=self.sql_weights)
+        rank_expression = self.build_database_rank(vector, self.query, config=config)
         queryset = self.queryset.annotate(
             _vector_=vector).filter(_vector_=search_query)
         if self.order_by_relevance:
