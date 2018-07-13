@@ -638,6 +638,7 @@ class Elasticsearch2SearchResults(BaseSearchResults):
             field_name: {
                 'terms': {
                     'field': column_name,
+                    'missing': 0,
                 }
             }
         }
@@ -650,7 +651,7 @@ class Elasticsearch2SearchResults(BaseSearchResults):
         )
 
         return OrderedDict([
-            (bucket['key'], bucket['doc_count'])
+            (bucket['key'] if bucket['key'] != 0 else None, bucket['doc_count'])
             for bucket in response['aggregations'][field_name]['buckets']
         ])
 
