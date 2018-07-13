@@ -79,7 +79,7 @@ Now make the following additions to your ``urls.py`` file:
 
 .. important::
 
-   The example aboves assumes you are using Django version 2.0 or later. If you are using a Django version earlier than 2.0, you should rename all occurrences of re_path() to url(). For example: ``from django.urls import path, url, include`` instead of ``from django.urls import path, re_path, include`` and ``url(r'^cms/', include(wagtailadmin_urls)),`` instead of ``re_path(r'^cms/', include(wagtailadmin_urls)),``.
+   The example above assumes you are using Django version 2.0 or later. If you are using a Django version earlier than 2.0, you should rename all occurrences of re_path() to url(). For example: ``from django.urls import path, url, include`` instead of ``from django.urls import path, re_path, include`` and ``url(r'^cms/', include(wagtailadmin_urls)),`` instead of ``re_path(r'^cms/', include(wagtailadmin_urls)),``.
    (`read more <https://docs.djangoproject.com/en/2.1/ref/urls/#url>`_).
 
 The URL paths here can be altered as necessary to fit your project's URL scheme.
