@@ -15,7 +15,7 @@ from wagtail.search.index import RelatedFields, SearchField, get_indexed_models
 from wagtail.search.query import And, Boost, MatchAll, Not, Or, PlainText
 from wagtail.search.utils import ADD, AND, OR
 
-from .models import IndexEntry
+from .models import IndexEntry, SearchAutocomplete as PostgresSearchAutocomplete
 from .utils import (
     get_content_type_pk, get_descendants_content_types_pks, get_postgresql_connections,
     get_sql_weights, get_weight, unidecode)
@@ -193,6 +193,7 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
         'and': AND,
         'or': OR,
     }
+    query_class = PostgresSearchQuery
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -200,9 +201,6 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
         # Due to a Django bug, arrays are not automatically converted
         # when we use WEIGHTS_VALUES.
         self.sql_weights = get_sql_weights()
-        # TODO: Better handle mixed queries containing
-        #       both autocomplete and search.
-        self.is_autocomplete = False
         if self.fields is not None:
             search_fields = self.queryset.model.get_searchable_search_fields()
             self.search_fields = {
@@ -244,7 +242,7 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
             operator = self.OPERATORS[query.operator]
 
             return operator([
-                PostgresSearchQuery(unidecode(term), config=config)
+                self.query_class(unidecode(term), config=config)
                 for term in query.query_string.split()
             ])
         if isinstance(query, Boost):
@@ -262,22 +260,27 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
             '`%s` is not supported by the PostgreSQL search backend.'
             % query.__class__.__name__)
 
+    def get_index_vector(self, search_query):
+        return F('index_entries__autocomplete')._combine(
+            F('index_entries__body'), '||', False)
+
+    def get_fields_vector(self, search_query):
+        return ADD(
+            SearchVector(field_lookup, config=search_query.config,
+                         weight=get_weight(search_field.boost))
+            for field_lookup, search_field in self.search_fields.items())
+
+    def get_search_vector(self, search_query):
+        return (self.get_index_vector(search_query) if self.fields is None
+                else self.get_fields_vector(search_query))
+
     def search(self, config, start, stop, score_field=None):
         # TODO: Handle MatchAll nested inside other search query classes.
         if isinstance(self.query, MatchAll):
             return self.queryset[start:stop]
 
         search_query = self.build_database_query(config=config)
-        if self.fields is None:
-            vector = F('index_entries__autocomplete')
-            if not self.is_autocomplete:
-                vector = vector._combine(F('index_entries__body'), '||', False)
-        else:
-            vector = ADD(
-                SearchVector(field_lookup, config=search_query.config,
-                             weight=get_weight(search_field.boost))
-                for field_lookup, search_field in self.search_fields.items()
-                if not self.is_autocomplete or search_field.partial_match)
+        vector = self.get_search_vector(search_query)
         rank_expression = SearchRank(vector, search_query,
                                      weights=self.sql_weights)
         queryset = self.queryset.annotate(
@@ -308,6 +311,20 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
             q = ~q
 
         return q
+
+
+class PostgresAutocompleteQueryCompiler(PostgresSearchQueryCompiler):
+    query_class = PostgresSearchAutocomplete
+
+    def get_index_vector(self, search_query):
+        return F('index_entries__autocomplete')
+
+    def get_fields_vector(self, search_query):
+        return ADD(
+            SearchVector(field_lookup, config=search_query.config,
+                         weight=get_weight(search_field.boost))
+            for field_lookup, search_field in self.search_fields.items()
+            if search_field.partial_match)
 
 
 class PostgresSearchResults(BaseSearchResults):
@@ -378,6 +395,7 @@ class PostgresSearchAtomicRebuilder(PostgresSearchRebuilder):
 
 class PostgresSearchBackend(BaseSearchBackend):
     query_compiler_class = PostgresSearchQueryCompiler
+    autocomplete_query_compiler_class = PostgresAutocompleteQueryCompiler
     results_class = PostgresSearchResults
     rebuilder_class = PostgresSearchRebuilder
     atomic_rebuilder_class = PostgresSearchAtomicRebuilder

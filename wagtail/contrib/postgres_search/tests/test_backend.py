@@ -38,11 +38,6 @@ class TestPostgresSearchBackend(BackendTests, TestCase):
         self.assertListEqual(determine_boosts_weights([-2, -1, 0, 1, 2, 3, 4]),
                              [(4, 'A'), (2, 'B'), (0, 'C'), (-2, 'D')])
 
-    # Doesn't support autocomplete
-    @unittest.expectedFailure
-    def test_autocomplete(self):
-        super().test_autocomplete()
-
     # Doesn't support Boost() query class
     @unittest.expectedFailure
     def test_boost(self):
