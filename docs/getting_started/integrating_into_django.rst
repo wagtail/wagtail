@@ -87,7 +87,7 @@ The URL paths here can be altered as necessary to fit your project's URL scheme.
 
 .. code-block:: python
 
-    url(r'', include(wagtail_urls)),
+    re_path(r'', include(wagtail_urls)),
 
 In this case, this should be placed at the end of the ``urlpatterns`` list, so that it does not override more specific URL patterns.
 
