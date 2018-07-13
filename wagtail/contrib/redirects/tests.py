@@ -273,6 +273,19 @@ class TestRedirects(TestCase):
 
         self.assertRedirects(response, '/redirectto', status_code=301, fetch_redirect_response=False)
 
+    def test_reject_null_characters(self):
+        response = self.client.get('/test%00test/')
+        self.assertEqual(response.status_code, 404)
+
+        response = self.client.get('/test\0test/')
+        self.assertEqual(response.status_code, 404)
+
+        response = self.client.get('/test/?foo=%00bar')
+        self.assertEqual(response.status_code, 404)
+
+        response = self.client.get('/test/?foo=\0bar')
+        self.assertEqual(response.status_code, 404)
+
 
 class TestRedirectsIndexView(TestCase, WagtailTestUtils):
     def setUp(self):
@@ -421,6 +434,23 @@ class TestRedirectsAddView(TestCase, WagtailTestUtils):
         # Check that the redirect was created
         redirects = models.Redirect.objects.filter(redirect_link='http://www.test.com/')
         self.assertEqual(redirects.count(), 1)
+
+    def test_add_long_redirect(self):
+        response = self.post({
+            'old_path': '/test',
+            'site': '',
+            'is_permanent': 'on',
+            'redirect_link': 'https://www.google.com/search?q=this+is+a+very+long+url+because+it+has+a+huge+search+term+appended+to+the+end+of+it+even+though+someone+should+really+not+be+doing+something+so+crazy+without+first+seeing+a+psychiatrist',
+        })
+
+        # Should redirect back to index
+        self.assertRedirects(response, reverse('wagtailredirects:index'))
+
+        # Check that the redirect was created
+        redirects = models.Redirect.objects.filter(old_path='/test')
+        self.assertEqual(redirects.count(), 1)
+        self.assertEqual(redirects.first().redirect_link, 'https://www.google.com/search?q=this+is+a+very+long+url+because+it+has+a+huge+search+term+appended+to+the+end+of+it+even+though+someone+should+really+not+be+doing+something+so+crazy+without+first+seeing+a+psychiatrist')
+        self.assertEqual(redirects.first().site, None)
 
 
 class TestRedirectsEditView(TestCase, WagtailTestUtils):

@@ -85,6 +85,16 @@ class TestImage(TestCase):
     def test_is_stored_locally_with_external_storage(self):
         self.assertFalse(self.image.is_stored_locally())
 
+    def test_get_file_size(self):
+        file_size = self.image.get_file_size()
+        self.assertIsInstance(file_size, int)
+        self.assertGreater(file_size, 0)
+
+    def test_get_file_size_on_missing_file_raises_sourceimageioerror(self):
+        self.image.file.delete(save=False)
+        with self.assertRaises(SourceImageIOError):
+            self.image.get_file_size()
+
 
 class TestImageQuerySet(TestCase):
     def test_search_method(self):

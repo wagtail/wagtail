@@ -1,6 +1,11 @@
 Support
 -------
 
+If you have any problems or questions about working with Wagtail, you are invited to visit any of the following support channels, where volunteer members of the Wagtail community will be happy to assist.
+
+**Please respect the time and effort of volunteers, by not asking the same question in multiple places.** At best, you'll be spamming the same set of people each time; at worst, you'll waste the effort of volunteers who spend time answering a question unaware that it has already been answered elsewhere. If you absolutely must ask a question on multiple forums, post it on Stack Overflow first and include the Stack Overflow link in your subsequent posts.
+
+
 Stack Overflow
 ~~~~~~~~~~~~~~
 

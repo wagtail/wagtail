@@ -161,7 +161,7 @@ class Site(models.Model):
             result = [
                 (site.id, site.root_page.url_path, site.root_url)
                 for site in Site.objects.select_related('root_page').order_by(
-                    '-root_page__url_path', 'is_default_site', 'hostname')
+                    '-root_page__url_path', '-is_default_site', 'hostname')
             ]
             cache.set('wagtail_site_root_paths', result, 3600)
 
@@ -329,6 +329,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
     search_fields = [
         index.SearchField('title', partial_match=True, boost=2),
+        index.AutocompleteField('title'),
         index.FilterField('title'),
         index.FilterField('id'),
         index.FilterField('live'),
@@ -1328,10 +1329,10 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         """
         return ['/']
 
-    def get_sitemap_urls(self):
+    def get_sitemap_urls(self, request=None):
         return [
             {
-                'location': self.full_url,
+                'location': self.get_full_url(request),
                 # fall back on latest_revision_created_at if last_published_at is null
                 # (for backwards compatibility from before last_published_at was added)
                 'lastmod': (self.last_published_at or self.latest_revision_created_at),
@@ -1757,6 +1758,9 @@ class PagePermissionTester:
         return self.user.is_superuser or ('publish' in self.permissions)
 
     def can_set_view_restrictions(self):
+        return self.can_publish()
+
+    def can_unschedule(self):
         return self.can_publish()
 
     def can_lock(self):

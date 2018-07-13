@@ -61,6 +61,13 @@ class Indexed:
         ]
 
     @classmethod
+    def get_autocomplete_search_fields(cls):
+        return [
+            field for field in cls.get_search_fields()
+            if isinstance(field, AutocompleteField)
+        ]
+
+    @classmethod
     def get_filterable_search_fields(cls):
         return [
             field for field in cls.get_search_fields()
@@ -103,7 +110,7 @@ class Indexed:
     def _check_search_fields(cls, **kwargs):
         errors = []
         for field in cls.get_search_fields():
-            message = "{model}.search_fields contains field '{name}' but it doesn't exist"
+            message = "{model}.search_fields contains non-existent field '{name}'"
             if not cls._has_field(field.field_name):
                 errors.append(
                     checks.Warning(
@@ -223,6 +230,10 @@ class SearchField(BaseField):
         super().__init__(field_name, **kwargs)
         self.boost = boost
         self.partial_match = partial_match
+
+
+class AutocompleteField(BaseField):
+    pass
 
 
 class FilterField(BaseField):

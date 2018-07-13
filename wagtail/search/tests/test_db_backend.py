@@ -8,6 +8,11 @@ from .test_backends import BackendTests
 class TestDBBackend(BackendTests, TestCase):
     backend_path = 'wagtail.search.backends.db'
 
+    # Doesn't support autocomplete
+    @unittest.expectedFailure
+    def test_autocomplete(self):
+        super().test_autocomplete()
+
     # Doesn't support ranking
     @unittest.expectedFailure
     def test_ranking(self):
@@ -61,3 +66,8 @@ class TestDBBackend(BackendTests, TestCase):
     @unittest.expectedFailure
     def test_row_boost(self):
         super().test_row_boost()
+
+    # Database backend doesn't support Boost() query class
+    @unittest.expectedFailure
+    def test_boost(self):
+        super().test_boost()

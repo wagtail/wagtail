@@ -1,4 +1,5 @@
 import datetime
+import json
 from io import StringIO
 
 from django.core import management
@@ -163,7 +164,8 @@ class TestQueryChooserView(TestCase, WagtailTestUtils):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailsearch/queries/chooser/chooser.html')
-        self.assertTemplateUsed(response, 'wagtailsearch/queries/chooser/chooser.js')
+        response_json = json.loads(response.content.decode())
+        self.assertEqual(response_json['step'], 'chooser')
 
     def test_search(self):
         response = self.get({'q': "Hello"})

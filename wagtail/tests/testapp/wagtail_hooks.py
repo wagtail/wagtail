@@ -2,11 +2,11 @@ from django import forms
 from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.http import HttpResponse
 
+import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 from wagtail.admin.menu import MenuItem
 from wagtail.admin.rich_text import HalloPlugin
 from wagtail.admin.search import SearchArea
 from wagtail.core import hooks
-from wagtail.core.whitelist import allow_without_attributes, attribute_rule, check_url
 
 
 # Register one hook using decorators...
@@ -15,23 +15,12 @@ def editor_css():
     return """<link rel="stylesheet" href="/path/to/my/custom.css">"""
 
 
+# And the other using old-style function calls
 def editor_js():
     return """<script src="/path/to/my/custom.js"></script>"""
 
 
 hooks.register('insert_editor_js', editor_js)
-
-
-# And the other using old-style function calls
-
-def whitelister_element_rules():
-    return {
-        'blockquote': allow_without_attributes,
-        'a': attribute_rule({'href': check_url, 'target': True}),
-    }
-
-
-hooks.register('construct_whitelister_element_rules', whitelister_element_rules)
 
 
 def block_googlebot(page, request, serve_args, serve_kwargs):
@@ -98,6 +87,7 @@ def hide_hidden_pages(parent_page, pages, request):
 
 
 # register 'blockquote' as a rich text feature supported by a hallo.js plugin
+# and a Draftail feature
 @hooks.register('register_rich_text_features')
 def register_blockquote_feature(features):
     features.register_editor_plugin(
@@ -105,5 +95,12 @@ def register_blockquote_feature(features):
             name='halloblockquote',
             js=['testapp/js/hallo-blockquote.js'],
             css={'all': ['testapp/css/hallo-blockquote.css']},
+        )
+    )
+    features.register_editor_plugin(
+        'draftail', 'blockquote', draftail_features.EntityFeature(
+            {},
+            js=['testapp/js/draftail-blockquote.js'],
+            css={'all': ['testapp/css/draftail-blockquote.css']},
         )
     )

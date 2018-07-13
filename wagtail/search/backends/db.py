@@ -1,16 +1,22 @@
+from collections import OrderedDict
 from warnings import warn
 
 from django.db import models
+from django.db.models import Count
 from django.db.models.expressions import Value
 
 from wagtail.search.backends.base import (
-    BaseSearchBackend, BaseSearchQueryCompiler, BaseSearchResults)
-from wagtail.search.query import And, MatchAll, Not, Or, Prefix, SearchQueryShortcut, Term
+    BaseSearchBackend, BaseSearchQueryCompiler, BaseSearchResults, FilterFieldError)
+from wagtail.search.query import And, Boost, MatchAll, Not, Or, PlainText
 from wagtail.search.utils import AND, OR
 
 
 class DatabaseSearchQueryCompiler(BaseSearchQueryCompiler):
     DEFAULT_OPERATOR = 'and'
+    OPERATORS = {
+        'and': AND,
+        'or': OR,
+    }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -51,36 +57,42 @@ class DatabaseSearchQueryCompiler(BaseSearchQueryCompiler):
             term_query |= models.Q(**{field_name + '__icontains': term})
         return term_query
 
-    def check_boost(self, query):
-        if query.boost != 1:
+    def check_boost(self, query, boost=1.0):
+        if query.boost * boost != 1.0:
             warn('Database search backend does not support term boosting.')
 
-    def build_database_filter(self, query=None):
+    def build_database_filter(self, query=None, boost=1.0):
         if query is None:
             query = self.query
+
+        if isinstance(query, PlainText):
+            self.check_boost(query, boost=boost)
+
+            operator = self.OPERATORS[query.operator]
+
+            return operator([
+                self.build_single_term_filter(term)
+                for term in query.query_string.split()
+            ])
+
+        if isinstance(query, Boost):
+            boost *= query.boost
+            return self.build_database_filter(query.subquery, boost=boost)
 
         if isinstance(self.query, MatchAll):
             return models.Q()
 
-        if isinstance(query, SearchQueryShortcut):
-            return self.build_database_filter(query.get_equivalent())
-        if isinstance(query, Term):
-            self.check_boost(query)
-            return self.build_single_term_filter(query.term)
-        if isinstance(query, Prefix):
-            self.check_boost(query)
-            return self.build_single_term_filter(query.prefix)
         if isinstance(query, Not):
-            return ~self.build_database_filter(query.subquery)
+            return ~self.build_database_filter(query.subquery, boost=boost)
         if isinstance(query, And):
-            return AND(self.build_database_filter(subquery)
+            return AND(self.build_database_filter(subquery, boost=boost)
                        for subquery in query.subqueries)
         if isinstance(query, Or):
-            return OR(self.build_database_filter(subquery)
+            return OR(self.build_database_filter(subquery, boost=boost)
                       for subquery in query.subqueries)
         raise NotImplementedError(
             '`%s` is not supported by the database search backend.'
-            % self.query.__class__.__name__)
+            % query.__class__.__name__)
 
 
 class DatabaseSearchResults(BaseSearchResults):
@@ -105,6 +117,26 @@ class DatabaseSearchResults(BaseSearchResults):
 
     def _do_count(self):
         return self.get_queryset().count()
+
+    supports_facet = True
+
+    def facet(self, field_name):
+        # Get field
+        field = self.query_compiler._get_filterable_field(field_name)
+        if field is None:
+            raise FilterFieldError(
+                'Cannot facet search results with field "' + field_name + '". Please add index.FilterField(\'' +
+                field_name + '\') to ' + self.query_compiler.queryset.model.__name__ + '.search_fields.',
+                field_name=field_name
+            )
+
+        query = self.get_queryset()
+        results = query.values(field_name).annotate(count=Count('pk')).order_by('-count')
+
+        return OrderedDict([
+            (result[field_name], result['count'])
+            for result in results
+        ])
 
 
 class DatabaseSearchBackend(BaseSearchBackend):

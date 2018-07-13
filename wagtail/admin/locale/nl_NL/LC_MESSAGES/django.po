@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-02-17 18:01+0000\n"
+"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"PO-Revision-Date: 2018-05-07 09:32+0000\n"
 "Last-Translator: Maarten Kling <kling.maarten@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
@@ -20,6 +20,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nl_NL\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail admin"
+msgstr "Wagtail admin"
 
 msgid "None"
 msgstr "Geen"
@@ -60,19 +63,6 @@ msgstr "Voer uw %s in"
 
 msgid "Enter your email address to reset your password"
 msgstr "Vul uw e-mailadres in om uw wachtwoord te herstellen"
-
-msgid "Please fill your email address."
-msgstr "Vul uw e-mailadres in"
-
-msgid ""
-"Sorry, you cannot reset your password here as your user account is managed "
-"by another server."
-msgstr ""
-"Sorry, u kunt uw wachtwoord hier niet herstellen omdat uw account beheerd "
-"wordt door een andere server."
-
-msgid "This email address is not recognised."
-msgstr "Dit e-mailadres is onbekend."
 
 msgid "New title"
 msgstr "Nieuwe titel"
@@ -174,35 +164,20 @@ msgstr "Ga naar de Wagtail admin"
 msgid "Account"
 msgstr "Account"
 
-msgid "Set gravatar"
-msgstr "Stel gravatar in"
+msgid "Change profile picture"
+msgstr "Wijzig profiel foto"
 
-msgid ""
-"Your avatar image is provided by Gravatar and is connected to your email "
-"address. With a Gravatar account you can set an avatar for any number of "
-"other email addresses you use."
-msgstr ""
-"Uw profielfoto wordt door Gravatar aangeleverd en is verbonden met uw e-"
-"mailadres. Met uw Gravatar-account kunt u een avatar instellen voor elk e-"
-"mailadres dat u in gebruik hebt."
+msgid "Your current profile picture:"
+msgstr "Je huidige profiel foto:"
+
+msgid "Update"
+msgstr "Bijwerken"
+
+msgid "Change email"
+msgstr "Wijzig email"
 
 msgid "Change password"
 msgstr "Wijzig wachtwoord"
-
-msgid "Change the password you use to log in."
-msgstr "Wijzig het wachtwoord dat u gebruikt om mee in te loggen."
-
-msgid "Notification preferences"
-msgstr "Notificatievoorkeuren"
-
-msgid "Choose which email notifications to receive."
-msgstr "Kies hier welke e-mailnotificaties u wilt ontvangen."
-
-msgid "Language preferences"
-msgstr "Taalvoorkeuren"
-
-msgid "Choose the language you want to use here."
-msgstr "Kies de taal die u hier wilt gebruiken."
 
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
@@ -210,11 +185,14 @@ msgstr ""
 "Uw wachtwoord kan hier niet gewijzigd worden. Neem contact op met een "
 "beheerder van deze site."
 
+msgid "Set Time Zone"
+msgstr "Zet tijd zone"
+
 msgid "Language Preferences"
 msgstr "Taalvoorkeuren"
 
-msgid "Update"
-msgstr "Bijwerken"
+msgid "Notification preferences"
+msgstr "Notificatievoorkeuren"
 
 msgid "Reset password"
 msgstr "Wachtwoord resetten"
@@ -228,15 +206,27 @@ msgstr "Inloggen"
 msgid "Set your new password"
 msgstr "Vul uw nieuwe wachtwoord in"
 
-msgid "The passwords do not match. Please try again."
-msgstr "De wachtwoorden komen niet overeen. Probeer het nogmaals."
+msgid "Invalid password reset link"
+msgstr "Onjuiste wachtwoord reset link"
+
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used."
+msgstr ""
+"De wachtwoord reset link is niet juist, waarschijnlijk is deze al gebruikt."
+
+msgid "Request a new password reset"
+msgstr "Vraag een nieuw wachtwoord reset aan"
 
 msgid "Check your email"
 msgstr "Controleer uw e-mail"
 
-msgid "A link to reset your password has been emailed to you."
+msgid ""
+"A link to reset your password has been emailed to you if an account exists "
+"for this address."
 msgstr ""
-"Een link om uw wachtwoord te herstellen is naar uw e-mailadres verstuurd."
+"Een link om uw wachtwoord te herstellen is naar uw e-mailadres verstuurd als "
+"dit adres bestaat."
 
 msgid "Please follow the link below to reset your password:"
 msgstr "Klik op de link hieronder om uw wachtwoord te wijzigen:"
@@ -297,6 +287,24 @@ msgstr "Ongedaan maken"
 
 msgid "Redo"
 msgstr "Opnieuw doen"
+
+msgid "Reload the page"
+msgstr "Herlaad de pagina"
+
+msgid "Reload saved content"
+msgstr "Herlaad opgeslagen inhoud"
+
+msgid "Show latest content"
+msgstr "Toon laatste inhoud"
+
+msgid "Show error"
+msgstr "Toon fout"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr ""
+"De editor is vastgelopen. Inhoud is terug gezet naar de laatst opgeslagen "
+"versie."
 
 msgid "Dashboard"
 msgstr "Dashboard"
@@ -1244,6 +1252,9 @@ msgstr "Zweeds"
 msgid "Slovak"
 msgstr "Slowaaks"
 
+msgid "Ukrainian"
+msgstr "Oekraïens"
+
 msgid "Chinese (China)"
 msgstr "Chinees (China)"
 
@@ -1253,8 +1264,14 @@ msgstr "Sorry, u heeft geen toegang tot dit gedeelte."
 msgid "Your password has been changed successfully!"
 msgstr "Uw wachtwoord is succesvol gewijzigd!"
 
+msgid "Your email has been changed successfully!"
+msgstr "Je email is succesvol gewijzigd!"
+
 msgid "Your preferences have been updated."
 msgstr "Uw voorkeuren zijn aangepast."
+
+msgid "Your preferences have been updated successfully!"
+msgstr "Je instellingen zijn succesvol gewijzigd!"
 
 msgid "You have been successfully logged out."
 msgstr "U bent succesvol uitgelogd."
@@ -1268,11 +1285,9 @@ msgstr "Voeg een collectie toe"
 msgid "Add collection"
 msgstr "Voeg collectie toe"
 
-#, python-brace-format
 msgid "Collection '{0}' created."
 msgstr "Collectie '{0}' is aangemaakt."
 
-#, python-brace-format
 msgid "Collection '{0}' updated."
 msgstr "Collectie '{0}' is gewijzigd."
 
@@ -1282,7 +1297,6 @@ msgstr "De collectie kon vanwege fouten niet worden opgeslagen."
 msgid "Delete collection"
 msgstr "Verwijder collectie"
 
-#, python-brace-format
 msgid "Collection '{0}' deleted."
 msgstr "Collectie '{0}' is verwijderd."
 
@@ -1292,18 +1306,15 @@ msgstr "Weet u zeker dat u deze collectie wilt verwijderen?"
 msgid "Editing"
 msgstr "Wijzigen"
 
-#, python-brace-format
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr "De pagina '{0}' is aangemaakt en ingepland voor publicatie."
 
 msgid "View live"
 msgstr "Bekijk live"
 
-#, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "Pagina '{0}' aangemaakt en gepubliceerd."
 
-#, python-brace-format
 msgid "Page '{0}' created and submitted for moderation."
 msgstr "Pagina '{0}' aangemaakt en ingediend voor controle."
 
@@ -1313,42 +1324,33 @@ msgstr "Bekijk concept"
 msgid "Failed to send notifications to moderators"
 msgstr "Het versturen van notificaties aan moderators is mislukt."
 
-#, python-brace-format
 msgid "Page '{0}' created."
 msgstr "Pagina '{0}' is aangemaakt."
 
 msgid "The page could not be created due to validation errors"
 msgstr "De pagina kon niet aangemaakt worden vanwege validatiefouten."
 
-#, python-brace-format
 msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
 msgstr "De versie van {0} van de pagina '{1}' is ingepland voor publicatie."
 
-#, python-brace-format
 msgid "Page '{0}' is live and this revision has been scheduled for publishing."
 msgstr "Pagina  '{0}' is live en de versie is gepland voor publicatie"
 
-#, python-brace-format
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "De pagina '{0}' is ingepland voor publicatie."
 
-#, python-brace-format
 msgid "Revision from {0} of page '{1}' has been published."
 msgstr "De versie van {0} van de pagina '{1}' is gepubliceerd."
 
-#, python-brace-format
 msgid "Page '{0}' has been published."
 msgstr "Pagina '{0}' is gepubliceerd."
 
-#, python-brace-format
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Pagina '{0}' is voor moderatie ingediend."
 
-#, python-brace-format
 msgid "Page '{0}' has been replaced with revision from {1}."
 msgstr "Pagina '{0}' is vervangen met de versie van {1}."
 
-#, python-brace-format
 msgid "Page '{0}' has been updated."
 msgstr "Pagina '{0}' is gewijzigd."
 
@@ -1364,49 +1366,39 @@ msgstr "Vergelijk met live versie"
 msgid "This page is currently awaiting moderation"
 msgstr "Deze pagina is in afwachting van content goedkeuring"
 
-#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Pagina '{0}' verwijderd."
 
-#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "Publicatie van pagina '{0}' is ingetrokken."
 
-#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "Pagina '{0}' is verplaatst."
 
-#, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "Pagina '{0}' en {1} onderliggende pagina's gekopieerd."
 
-#, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "Pagina '{0}' gekopieerd."
 
-#, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "De pagina '{0}' is nu niet in afwachting van moderatie."
 
-#, python-brace-format
 msgid "Page '{0}' published."
 msgstr "Pagina '{0}' gepubliceerd."
 
 msgid "Failed to send approval notifications"
 msgstr "Het versturen van goedkeuringsnotificaties is mislukt"
 
-#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "Pagina '{0}' afgewezen voor publicatie."
 
 msgid "Failed to send rejection notifications"
 msgstr "Het versturen van afkeuringsnotificaties is mislukt"
 
-#, python-brace-format
 msgid "Page '{0}' is now locked."
 msgstr "Pagina '{0}' is nu op slot."
 
-#, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "Pagina '{0}' is nu geopend."
 
@@ -1424,58 +1416,72 @@ msgstr "Eerste"
 msgid "Latest"
 msgstr "Laatste"
 
-#, python-brace-format
 msgid "revision {0} of \"{1}\""
 msgstr "Versie {0} van \"{1}\""
 
-#, python-brace-format
 msgid "Revision {0} of \"{1}\" unscheduled."
 msgstr "Versie {0} of \"{1}\" gestopt met plannen"
 
-#, python-brace-format
 msgid "Edit '{title}'"
 msgstr "Wijzig '{title}'"
 
-#, python-brace-format
 msgid "Preview draft version of '{title}'"
 msgstr "Bekijk conceptversie van '{title}'"
 
-#, python-brace-format
 msgid "View live version of '{title}'"
 msgstr "Bekijk live versie van '{title}'"
 
-#, python-brace-format
 msgid "Add a child page to '{title}' "
 msgstr "Voeg een onderliggende pagina toe aan '{title}'"
 
 msgid "More"
 msgstr "Meer"
 
-#, python-brace-format
 msgid "View more options for '{title}'"
 msgstr "Bekijk meer opties voor '{title}'"
 
-#, python-brace-format
 msgid "Move page '{title}'"
 msgstr "Verplaats pagina '{title}'"
 
-#, python-brace-format
 msgid "Copy page '{title}'"
 msgstr "Kopieer pagina '{title}'"
 
-#, python-brace-format
 msgid "Delete page '{title}'"
 msgstr "Verwijder pagina '{title}'"
 
-#, python-brace-format
 msgid "Unpublish page '{title}'"
 msgstr "Publicatie van '{title}' intrekken"
 
-#, python-brace-format
 msgid "View revision history for '{title}'"
 msgstr "Bekijk de versiegeschiedenis van '{title}' "
 
-#, python-brace-format
+msgid "Set profile picture"
+msgstr "Zet profiel foto"
+
+msgid "Change your profile picture"
+msgstr "Wijzig je profiel foto"
+
+msgid "Change the email address linked to your account."
+msgstr "Wijzig je email adres welke is gelinkt aan je account"
+
+msgid "Change the password you use to log in."
+msgstr "Wijzig het wachtwoord dat u gebruikt om mee in te loggen."
+
+msgid "Choose which email notifications to receive."
+msgstr "Kies hier welke e-mailnotificaties u wilt ontvangen."
+
+msgid "Language preferences"
+msgstr "Taalvoorkeuren"
+
+msgid "Choose the language you want to use here."
+msgstr "Kies de taal die u hier wilt gebruiken."
+
+msgid "Current Time Zone"
+msgstr "Huidige tijd zone"
+
+msgid "Choose your current time zone."
+msgstr "Wijzig je huidige tijd zone."
+
 msgid "Heading {level}"
 msgstr "Heading {level}"
 

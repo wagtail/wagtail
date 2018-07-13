@@ -287,7 +287,7 @@ Contributors
 * Dan Swain
 * Alexs Mathilda
 * Tony Yates
-* Mike Kamermans
+* Pomax
 * Arthur Holzner
 * Alejandro Garza
 * Rajeev J Sebastian
@@ -298,6 +298,19 @@ Contributors
 * Harm Zeinstra
 * David Moore
 * Pierre Geier
+* Jérôme Lebleu
+* Victor Miti
+* Andrew Plummer
+* Dmitry Vasilev
+* Benjamin Thurm
+* Ed Henderson
+* Strother Scott
+* Daniele Procida
+* Catherine Farman
+* Abdulmalik Abdulwahab
+* Andrew Crewdson
+* Aram Dulyan
+* Kevin Howbrook
 
 Translators
 ===========
@@ -322,7 +335,7 @@ Translators
 * German: Ettore Atalan, Patrick Craston, Henrik Kröger, Tammo van Lessen, Martin Löhle, Wasilis Mandratzis-Walz, Daniel Manser, m0rph3u5, Max Pfeiffer, Moritz Pfeiffer, Herbert Poul, Karl Sander, Tobias Schmidt, Johannes Spielmann, Raphael Stolt, Jannis Vajen, Vorlif, Matthew Westcott
 * Greek: Jim Dal, George Giannoulopoulos, Yiannis Inglessis, Wasilis Mandratzis-Walz, Nick Mavrakis, NeotheOne, Serafeim Papastefanos
 * Hebrew (Israel): Lior Abazon, bjesus, Yossi Lalum, Oleg Sverdlov
-* Hungarian: Laszlo Molnar, Kornél Novák Mergulhão
+* Hungarian: Laszlo Molnar, Kornél Novák Mergulhão, BN
 * Icelandic (Iceland): Arnar Tumi Þorsteinsson, Kjartan Sverrisson, Sævar Öfjörð Magnússon
 * Indonesian (Indonesia): Sutrisno Efendi, Geek Pantura, Ronggo Radityo
 * Italian: Edd Baldry, Claudio Bantaloukas, Gian-Maria Daffre, Giacomo Ghizzani, Carlo Miron, Alessio Di Stasio, Andrea Tagliazucchi

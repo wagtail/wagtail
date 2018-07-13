@@ -33,16 +33,34 @@ class AbstractDocument(CollectionMember, index.Indexed, models.Model):
 
     tags = TaggableManager(help_text=None, blank=True, verbose_name=_('tags'))
 
+    file_size = models.PositiveIntegerField(null=True, editable=False)
+
     objects = DocumentQuerySet.as_manager()
 
     search_fields = CollectionMember.search_fields + [
         index.SearchField('title', partial_match=True, boost=10),
+        index.AutocompleteField('title'),
         index.FilterField('title'),
         index.RelatedFields('tags', [
             index.SearchField('name', partial_match=True, boost=10),
+            index.AutocompleteField('name'),
         ]),
         index.FilterField('uploaded_by_user'),
     ]
+
+    def get_file_size(self):
+        if self.file_size is None:
+            try:
+                self.file_size = self.file.size
+            except (SystemExit, KeyboardInterrupt):
+                raise
+            except Exception:
+                # File doesn't exist
+                return
+
+            self.save(update_fields=['file_size'])
+
+        return self.file_size
 
     def __str__(self):
         return self.title

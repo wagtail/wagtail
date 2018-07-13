@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/base.html" %}
-{% load i18n %}
+{% load i18n static %}
 {% block titletag %}{% blocktrans with snippet_type_name_plural=model_opts.verbose_name_plural|capfirst %}Snippets {{ snippet_type_name_plural }}{% endblocktrans %}{% endblock %}
 
 {% block extra_js %}
@@ -11,13 +11,16 @@
             targetOutput: "#snippet-results"
         }
     </script>
+    {% if can_delete_snippets %}
+        <script src="{% static 'wagtailsnippets/js/snippet-multiple-select.js' %}"></script>
+    {% endif %}
 {% endblock %}
 
 {% block content %}
 
     <header class="nice-padding">
         <div class="row row-flush">
-            <div class="left col9 header-title">
+            <div class="left col6 header-title">
                 <h1 class="icon icon-snippet">
                 {% blocktrans with snippet_type_name_plural=model_opts.verbose_name_plural|capfirst %}Snippets <span>{{ snippet_type_name_plural }}</span>{% endblocktrans %}</h1>
 
@@ -32,7 +35,10 @@
                     </form>
                 {% endif %}
             </div>
-            <div class="right col3">
+            <div class="right col6">
+                {% if can_delete_snippets %}
+                    <a class="button bicolor icon icon-bin serious disabled delete-button" data-url="{% url 'wagtailsnippets:delete-multiple' model_opts.app_label model_opts.model_name %}?">{% blocktrans with snippet_type_name=model_opts.verbose_name_plural %}Delete {{ snippet_type_name }}{% endblocktrans %}</a>
+                {% endif %}
                 {% if can_add_snippet %}
                     <a href="{% url 'wagtailsnippets:add' model_opts.app_label model_opts.model_name %}" class="button bicolor icon icon-plus">{% blocktrans with snippet_type_name=model_opts.verbose_name %}Add {{ snippet_type_name }}{% endblocktrans %}</a>
                     {# TODO: figure out a way of saying "Add a/an [foo]" #}

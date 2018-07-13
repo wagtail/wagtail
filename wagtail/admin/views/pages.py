@@ -99,7 +99,7 @@ def index(request, parent_page_id=None):
         # However, skip this on unpaginated listings with >100 child pages as this could
         # be a significant performance hit. (This should only happen on the reorder view,
         # and hopefully no-one is having to do manual reordering on listings that large...)
-        pages = pages.specific()
+        pages = pages.specific(defer=True)
 
     # allow hooks to modify the queryset
     for hook in hooks.get_hooks('construct_explorer_page_queryset'):
@@ -1154,7 +1154,7 @@ def revisions_unschedule(request, page_id, revision_id):
     page = get_object_or_404(Page, id=page_id).specific
 
     user_perms = UserPagePermissionsProxy(request.user)
-    if not user_perms.for_page(page).can_unpublish():
+    if not user_perms.for_page(page).can_unschedule():
         raise PermissionDenied
 
     revision = get_object_or_404(page.revisions, id=revision_id)

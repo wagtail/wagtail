@@ -89,14 +89,6 @@ See :ref:`postgres_search` for more detail.
 Elasticsearch Backend
 ---------------------
 
-.. versionchanged:: 1.7
-
-    Support for Elasticsearch 2.x was added
-
-.. versionchanged:: 1.8
-
-    Support for Elasticsearch 5.x was added
-
 .. versionchanged:: 2.1
 
     Support for Elasticsearch 6.x was added

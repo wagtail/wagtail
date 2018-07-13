@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-02-16 11:33+0000\n"
+"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"PO-Revision-Date: 2018-05-04 19:30+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Basque (http://www.transifex.com/torchbox/wagtail/language/"
 "eu/)\n"
@@ -28,39 +28,11 @@ msgstr "Bilaketa terminoa"
 msgid "Enter your email address to reset your password"
 msgstr "Idatzi zure eposta helbidea zure pasahitza berrezartzeko"
 
-msgid "Please fill your email address."
-msgstr "Idatzi zure eposta helbidea mesedez."
-
-msgid ""
-"Sorry, you cannot reset your password here as your user account is managed "
-"by another server."
-msgstr ""
-"Sentitzen dugu, ezin duzu zure pasahitza hemen berrezarri zure kontua beste "
-"zerbitzari batek kudeatzen duelako."
-
-msgid "This email address is not recognised."
-msgstr "Ez da horrelako eposta helbiderik ezagutzen."
-
 msgid "Account"
 msgstr "Kontua"
 
-msgid "Set gravatar"
-msgstr "Gravatarra aukeratu"
-
-msgid ""
-"Your avatar image is provided by Gravatar and is connected to your email "
-"address. With a Gravatar account you can set an avatar for any number of "
-"other email addresses you use."
-msgstr ""
-"Zure avatar irudia Gravatar-ek hornitzen du eta zure eposta helbidera "
-"konektatua dago. Gravatar kontu batekin erabiltzen duzun eposta helbide "
-"bakoitzeko avatar bat ezarri dezakezu."
-
 msgid "Change password"
 msgstr "Pasahitza aldatu"
-
-msgid "Change the password you use to log in."
-msgstr "Saioa hasteko erabiltzen duzun pasahitza aldatu."
 
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
@@ -79,14 +51,8 @@ msgstr "Login"
 msgid "Set your new password"
 msgstr "Zure pasahitza berria ezarri"
 
-msgid "The passwords do not match. Please try again."
-msgstr "Pasahitzek ez dute bat egiten. Mesedez saiatu berriro."
-
 msgid "Check your email"
 msgstr "Zure eposta konprobatu"
-
-msgid "A link to reset your password has been emailed to you."
-msgstr "Zure pasahitza berrezartzeko esteka bat bidali zaizu epostaz."
 
 msgid "Password reset"
 msgstr "Pasahitzaren berrezarpena"
@@ -173,6 +139,9 @@ msgstr "Egoera"
 
 msgid "Home"
 msgstr "Etxea"
+
+msgid "Change the password you use to log in."
+msgstr "Saioa hasteko erabiltzen duzun pasahitza aldatu."
 
 msgid "Choose an item"
 msgstr "Elementu bat aukeratu"
