@@ -15,7 +15,8 @@ from wagtail.search.index import RelatedFields, SearchField, get_indexed_models
 from wagtail.search.query import And, Boost, MatchAll, Not, Or, PlainText
 from wagtail.search.utils import ADD, AND, OR
 
-from .models import IndexEntry, SearchAutocomplete as PostgresSearchAutocomplete
+from .models import SearchAutocomplete as PostgresSearchAutocomplete
+from .models import IndexEntry
 from .utils import (
     get_content_type_pk, get_descendants_content_types_pks, get_postgresql_connections,
     get_sql_weights, get_weight, unidecode)
