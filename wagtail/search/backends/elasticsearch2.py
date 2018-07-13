@@ -68,7 +68,6 @@ class Elasticsearch2Mapping:
         'IPAddressField': 'string',
         'GenericIPAddressField': 'string',
         'NullBooleanField': 'boolean',
-        'OneToOneField': 'integer',
         'PositiveIntegerField': 'integer',
         'PositiveSmallIntegerField': 'integer',
         'SlugField': 'string',

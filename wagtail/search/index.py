@@ -201,7 +201,18 @@ class BaseField:
 
         try:
             field = self.get_field(cls)
+
+            # Follow foreign keys to find underlying type
+            # We use a while loop as it's possible for a foreign key
+            # to target a foreign key in another model.
+            # (for example, a foreign key to a child page model will
+            # point to the `page_ptr_id` field so we need to follow this
+            # second foreign key to find the `id`` field in the Page model)
+            while isinstance(field, RelatedField):
+                field = field.target_field
+
             return field.get_internal_type()
+
         except models.fields.FieldDoesNotExist:
             return 'CharField'
 
