@@ -14,11 +14,11 @@ from .utils import get_descendants_content_types_pks
 
 class SearchAutocomplete(SearchQuery):
     def as_sql(self, compiler, connection):
-        params = [self.value]
+        params = [self.value.replace("'", "''")]
         if self.config:
             config_sql, config_params = compiler.compile(self.config)
             template = "to_tsquery({}::regconfig, ''%s':*')".format(config_sql)
-            params = config_params + [self.value]
+            params = config_params + params
         else:
             template = "to_tsquery(''%s':*')"
         if self.invert:

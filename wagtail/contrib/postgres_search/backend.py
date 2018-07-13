@@ -12,7 +12,7 @@ from wagtail.search.backends.base import (
     BaseSearchBackend, BaseSearchQueryCompiler, BaseSearchResults, FilterFieldError)
 from wagtail.search.index import RelatedFields, SearchField, get_indexed_models
 from wagtail.search.query import And, Boost, MatchAll, Not, Or, PlainText
-from wagtail.search.utils import ADD, AND, OR, MUL
+from wagtail.search.utils import ADD, AND, MUL, OR
 
 from .models import SearchAutocomplete as PostgresSearchAutocomplete
 from .models import IndexEntry
