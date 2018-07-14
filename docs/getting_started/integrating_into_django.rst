@@ -77,6 +77,11 @@ Now make the following additions to your ``urls.py`` file:
         ...
     ]
 
+.. important::
+
+   The example above assumes you are using Django version 2.0 or later. If you are using a Django version earlier than 2.0, you should rename all occurrences of re_path() to url(). For example: ``from django.urls import path, url, include`` instead of ``from django.urls import path, re_path, include`` and ``url(r'^cms/', include(wagtailadmin_urls)),`` instead of ``re_path(r'^cms/', include(wagtailadmin_urls)),``.
+   (`read more <https://docs.djangoproject.com/en/2.1/ref/urls/#url>`_).
+
 The URL paths here can be altered as necessary to fit your project's URL scheme.
 
 ``wagtailadmin_urls`` provides the admin interface for Wagtail. This is separate from the Django admin interface (``django.contrib.admin``); Wagtail-only projects typically host the Wagtail admin at ``/admin/``, but if this would clash with your project's existing admin backend then an alternative path can be used, such as ``/cms/`` here.
@@ -87,7 +92,7 @@ The URL paths here can be altered as necessary to fit your project's URL scheme.
 
 .. code-block:: python
 
-    url(r'', include(wagtail_urls)),
+    re_path(r'', include(wagtail_urls)),
 
 In this case, this should be placed at the end of the ``urlpatterns`` list, so that it does not override more specific URL patterns.
 
