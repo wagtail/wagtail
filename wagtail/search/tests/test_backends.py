@@ -616,6 +616,11 @@ class BackendTests(WagtailTestUtils):
                                       models.Book.objects.all())
         self.assertSetEqual({r.title for r in results}, all_other_titles)
 
+        # Tests multiple words
+        results = self.backend.search(~PlainText('javascript the'),
+                                      models.Book.objects.all())
+        self.assertSetEqual({r.title for r in results}, all_other_titles)
+
     def test_operators_combination(self):
         results = self.backend.search(
             ((PlainText('javascript') & ~PlainText('definitive')) |
