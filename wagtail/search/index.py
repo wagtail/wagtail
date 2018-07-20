@@ -228,6 +228,17 @@ class BaseField:
                 # Special case for tags fields. Convert QuerySet of TaggedItems into QuerySet of Tags
                 Tag = field.remote_field.model
                 value = Tag.objects.filter(id__in=value.values_list('tag_id', flat=True))
+            elif isinstance(field, RelatedField):
+                # The type of the ForeignKey may have a get_searchable_content method that we should
+                # call. Firstly we need to find the field its referencing but it may be referencing
+                # another RelatedField (eg an FK to page_ptr_id) so we need to run this in a while
+                # loop to find the actual remote field.
+                remote_field = field
+                while isinstance(remote_field, RelatedField):
+                    remote_field = remote_field.target_field
+
+                if hasattr(remote_field, 'get_searchable_content'):
+                    value = remote_field.get_searchable_content(value)
             return value
         except models.fields.FieldDoesNotExist:
             value = getattr(obj, self.field_name, None)
