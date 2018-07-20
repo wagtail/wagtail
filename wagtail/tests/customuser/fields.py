@@ -68,3 +68,8 @@ class ConvertedValueField(models.IntegerField):
         if not value:
             return
         return ConvertedValue(value).db_value
+
+    def get_searchable_content(self, value):
+        if not value:
+            return
+        return ConvertedValue(value).db_value
