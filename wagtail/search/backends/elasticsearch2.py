@@ -263,6 +263,8 @@ class Elasticsearch2Mapping:
                     value = list(value.values_list('pk', flat=True))
                 elif isinstance(value, models.Model):
                     value = value.pk
+                elif isinstance(value, (list, tuple)):
+                    value = [item.pk if isinstance(item, models.Model) else item for item in value]
 
             doc[self.get_field_column_name(field)] = value
 
