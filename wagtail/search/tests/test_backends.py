@@ -421,6 +421,8 @@ class BackendTests(WagtailTestUtils):
         FANTASY_BOOKS = [1, 2, 3, 4, 5, 6, 7]
         SCIFI_BOOKS = [10]
         for book in models.Book.objects.filter(id__in=FANTASY_BOOKS + SCIFI_BOOKS):
+            book = book.get_indexed_instance()
+
             if book.id in FANTASY_BOOKS:
                 book.tags.add('Fantasy')
             if book.id in SCIFI_BOOKS:
