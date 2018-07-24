@@ -95,3 +95,6 @@ class IndexEntry(Model):
             if class_is_indexed(model):
                 TextIDGenericRelation(cls).contribute_to_class(model,
                                                                'index_entries')
+
+    def is_shown_in_uses(self):
+        return False

@@ -1,3 +1,6 @@
+from django.db.models import Model
+from django.utils.html import escape
+
 from wagtail.core import hooks
 
 
@@ -68,16 +71,16 @@ class FeatureRegistry:
         except KeyError:
             return None
 
-    def register_link_type(self, link_type, handler):
-        self.link_types[link_type] = handler
+    def register_link_type(self, handler):
+        self.link_types[handler.link_type] = handler
 
     def get_link_types(self):
         if not self.has_scanned_for_features:
             self._scan_for_features()
         return self.link_types
 
-    def register_embed_type(self, embed_type, handler):
-        self.embed_types[embed_type] = handler
+    def register_embed_type(self, handler):
+        self.embed_types[handler.link_type] = handler
 
     def get_embed_types(self):
         if not self.has_scanned_for_features:
@@ -96,3 +99,91 @@ class FeatureRegistry:
             return self.converter_rules_by_converter[converter_name][feature_name]
         except KeyError:
             return None
+
+
+class HTMLElement(dict):
+    def __init__(self, name: str, is_closing: bool = False, **attrs):
+        self.name = name
+        self.is_closing = is_closing
+        super().__init__(**attrs)
+
+    @property
+    def open_tag(self) -> str:
+        attrs = ''
+        for k, v in sorted(self.items()):
+            if v is not False:
+                attrs += ' %s="%s"' % (escape(k.replace('_', '-')), escape(v))
+        params = (self.name, attrs)
+        if self.is_closing:
+            return '<%s%s />' % params
+        return '<%s%s>' % params
+
+    @property
+    def close_tag(self) -> str:
+        if self.is_closing:
+            return ''
+        return '</%s>' % self.name
+
+
+class LinkHandler:
+    """
+    PageLinkHandler will be invoked whenever we encounter an HTML element
+    in rich text content with an attribute of data-linktype="`linktype`".
+    The resulting element in the database representation will be for example:
+     <a linktype="page" id="42">hello world</a>
+    """
+
+    link_type = None
+    tag_name = 'a'
+
+    @staticmethod
+    def get_model():
+        raise NotImplementedError
+
+    @classmethod
+    def get_instance(cls, attrs: dict) -> Model:
+        model = cls.get_model()
+        try:
+            return model._default_manager.get(id=attrs['id'])
+        except model.DoesNotExist:
+            pass
+
+    @staticmethod
+    def get_id_pair_from_instance(instance: Model):
+        return 'id', instance.pk
+
+    @staticmethod
+    def get_db_attributes(tag: dict) -> dict:
+        """
+        Given an <`tag_name`> tag that we've identified as a `linktype` embed
+        (because it has a data-linktype="`linktype`" attribute),
+        returns a dict of the attributes we should have on the resulting
+        <`tag_name` linktype="`linktype`"> element.
+        """
+        return {'id': tag['data-id']}
+
+    @classmethod
+    def get_html_attributes(cls, instance: Model, for_editor: bool) -> dict:
+        if for_editor:
+            return {'data-linktype': cls.link_type, 'data-id': instance.pk}
+        return {}
+
+    @classmethod
+    def to_open_tag(cls, attrs: dict, for_editor: bool) -> str:
+        """
+        Given a dict of attributes from the <`tag_name`> tag
+        stored in the database, returns the real HTML representation.
+        """
+        instance = cls.get_instance(attrs)
+        tag = HTMLElement(cls.tag_name)
+        if instance is not None:
+            tag.update(cls.get_html_attributes(instance, for_editor))
+        return tag.open_tag
+
+    @classmethod
+    def to_frontend_open_tag(cls, attrs: dict) -> str:
+        return cls.to_open_tag(attrs, for_editor=False)
+
+    @classmethod
+    def to_editor_open_tag(cls, attrs: dict) -> str:
+        return cls.to_open_tag(attrs, for_editor=True)

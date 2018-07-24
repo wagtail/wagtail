@@ -10,6 +10,7 @@ from wagtail.admin.utils import PermissionPolicyChecker, permission_denied
 from wagtail.contrib.redirects import models
 from wagtail.contrib.redirects.forms import RedirectForm
 from wagtail.contrib.redirects.permissions import permission_policy
+from wagtail.core.collectors import get_paginated_uses
 from wagtail.utils.pagination import paginate
 
 permission_checker = PermissionPolicyChecker(permission_policy)
@@ -95,13 +96,16 @@ def delete(request, redirect_id):
     ):
         return permission_denied(request)
 
-    if request.method == 'POST':
+    uses = get_paginated_uses(request, theredirect)
+
+    if request.method == 'POST' and not uses.are_protected:
         theredirect.delete()
         messages.success(request, _("Redirect '{0}' deleted.").format(theredirect.title))
         return redirect('wagtailredirects:index')
 
     return render(request, "wagtailredirects/confirm_delete.html", {
         'redirect': theredirect,
+        'uses': uses,
     })
 
 

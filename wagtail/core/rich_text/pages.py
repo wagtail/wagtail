@@ -1,42 +1,27 @@
-from django.utils.html import escape
-
 from wagtail.core.models import Page
+from .feature_registry import LinkHandler
 
 
-class PageLinkHandler:
-    """
-    PageLinkHandler will be invoked whenever we encounter an <a> element in HTML content
-    with an attribute of data-linktype="page". The resulting element in the database
-    representation will be:
-    <a linktype="page" id="42">hello world</a>
-    """
-    @staticmethod
-    def get_db_attributes(tag):
-        """
-        Given an <a> tag that we've identified as a page link embed (because it has a
-        data-linktype="page" attribute), return a dict of the attributes we should
-        have on the resulting <a linktype="page"> element.
-        """
-        return {'id': tag['data-id']}
+class PageLinkHandler(LinkHandler):
+    link_type = 'page'
 
     @staticmethod
-    def expand_db_attributes(attrs):
-        try:
-            page = Page.objects.get(id=attrs['id'])
+    def get_model():
+        return Page
 
-            attrs = 'data-linktype="page" data-id="%d" ' % page.id
-            parent_page = page.get_parent()
+    @classmethod
+    def get_instance(cls, attrs):
+        page = super().get_instance(attrs)
+        if page is None:
+            return
+        return page.specific
+
+    @classmethod
+    def get_html_attributes(cls, instance, for_editor):
+        attrs = super().get_html_attributes(instance, for_editor)
+        attrs['href'] = instance.specific.url
+        if for_editor:
+            parent_page = instance.get_parent()
             if parent_page:
-                attrs += 'data-parent-id="%d" ' % parent_page.id
-
-            return '<a %shref="%s">' % (attrs, escape(page.specific.url))
-        except Page.DoesNotExist:
-            return "<a>"
-
-
-def page_linktype_handler(attrs):
-    try:
-        page = Page.objects.get(id=attrs['id'])
-        return '<a href="%s">' % escape(page.specific.url)
-    except Page.DoesNotExist:
-        return "<a>"
+                attrs['data-parent-id'] = parent_page.id
+        return attrs

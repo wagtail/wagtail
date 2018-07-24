@@ -866,6 +866,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
         return Site.objects.get(id=site_id)
 
+    def get_edit_url(self):
+        return reverse('wagtailadmin_pages:edit', args=(self.pk,))
+
     @classmethod
     def get_indexed_objects(cls):
         content_type = ContentType.objects.get_for_model(cls)
@@ -1537,6 +1540,9 @@ class PageRevision(models.Model):
 
     def get_next(self):
         return self.get_next_by_created_at(page=self.page)
+
+    def is_shown_in_uses(self):
+        return False
 
     def __str__(self):
         return '"' + str(self.page) + '" at ' + str(self.created_at)

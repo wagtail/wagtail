@@ -8,7 +8,7 @@ from wagtail.admin.rich_text import HalloPlugin
 from wagtail.core import hooks
 from wagtail.embeds import urls
 from wagtail.embeds.rich_text import (
-    ContentstateMediaConversionRule, EditorHTMLEmbedConversionRule, media_embedtype_handler)
+    ContentstateMediaConversionRule, EditorHTMLEmbedConversionRule, EmbedHandler)
 
 
 @hooks.register('register_admin_urls')
@@ -33,7 +33,7 @@ def editor_js():
 @hooks.register('register_rich_text_features')
 def register_embed_feature(features):
     # define a handler for converting <embed embedtype="media"> tags into frontend HTML
-    features.register_embed_type('media', media_embedtype_handler)
+    features.register_embed_type(EmbedHandler)
 
     # define a hallo.js plugin to use when the 'embed' feature is active
     features.register_editor_plugin(

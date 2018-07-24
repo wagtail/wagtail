@@ -7,6 +7,7 @@ from wagtail.admin import messages
 from wagtail.admin.forms import SearchForm
 from wagtail.admin.utils import any_permission_required, permission_required
 from wagtail.contrib.search_promotions import forms
+from wagtail.core.collectors import get_paginated_uses
 from wagtail.search import forms as search_forms
 from wagtail.search.models import Query
 from wagtail.utils.pagination import paginate
@@ -147,11 +148,14 @@ def edit(request, query_id):
 def delete(request, query_id):
     query = get_object_or_404(Query, id=query_id)
 
-    if request.method == 'POST':
+    uses = get_paginated_uses(request, query)
+
+    if request.method == 'POST' and not uses.are_protected:
         query.editors_picks.all().delete()
         messages.success(request, _("Editor's picks deleted."))
         return redirect('wagtailsearchpromotions:index')
 
     return render(request, 'wagtailsearchpromotions/confirm_delete.html', {
         'query': query,
+        'uses': uses,
     })

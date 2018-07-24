@@ -451,7 +451,7 @@ class TestRichTextBlock(TestCase):
         result = block.render_form(value, prefix='richtext')
         self.assertIn(
             (
-                '&lt;p&gt;Merry &lt;a data-linktype=&quot;page&quot; data-id=&quot;4&quot;'
+                '&lt;p&gt;Merry &lt;a data-id=&quot;4&quot; data-linktype=&quot;page&quot;'
                 ' data-parent-id=&quot;3&quot; href=&quot;/events/christmas/&quot;&gt;Christmas&lt;/a&gt;!&lt;/p&gt;'
             ),
             result

@@ -7,12 +7,10 @@ from django.core.exceptions import ValidationError
 from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import RequestFactory, TestCase
-from django.test.utils import override_settings
 from django.urls import reverse
 from taggit.models import Tag
 
 from wagtail.admin.forms import WagtailAdminModelForm
-from wagtail.core.models import Page
 from wagtail.snippets.blocks import SnippetChooserBlock
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import SNIPPET_MODELS, register_snippet
@@ -359,14 +357,6 @@ class TestSnippetDelete(TestCase, WagtailTestUtils):
         # Check that the page is gone
         self.assertEqual(Advert.objects.filter(text='test_advert').count(), 0)
 
-    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
-    def test_usage_link(self):
-        response = self.client.get(reverse('wagtailsnippets:delete', args=('tests', 'advert', quote(self.test_snippet.pk), )))
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailsnippets/snippets/confirm_delete.html')
-        self.assertContains(response, 'Used 2 times')
-        self.assertContains(response, self.test_snippet.usage_url())
-
 
 class TestSnippetDeleteMultipleWithOne(TestCase, WagtailTestUtils):
     # test deletion of one snippet using the delete-multiple URL
@@ -507,24 +497,6 @@ class TestSnippetOrdering(TestCase):
         # may get registered elsewhere during test
         self.assertLess(SNIPPET_MODELS.index(AlphaSnippet),
                         SNIPPET_MODELS.index(ZuluSnippet))
-
-
-class TestUsageCount(TestCase):
-    fixtures = ['test.json']
-
-    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
-    def test_snippet_usage_count(self):
-        advert = Advert.objects.get(pk=1)
-        self.assertEqual(advert.get_usage().count(), 2)
-
-
-class TestUsedBy(TestCase):
-    fixtures = ['test.json']
-
-    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
-    def test_snippet_used_by(self):
-        advert = Advert.objects.get(pk=1)
-        self.assertEqual(type(advert.get_usage()[0]), Page)
 
 
 class TestSnippetChoose(TestCase, WagtailTestUtils):
@@ -954,14 +926,6 @@ class TestSnippetViewWithCustomPrimaryKey(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtailsnippets:delete', args=('snippetstests', 'standardsnippetwithcustomprimarykey', quote(self.snippet_a.pk), )))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailsnippets/snippets/confirm_delete.html')
-
-    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
-    def test_usage_link(self):
-        response = self.client.get(reverse('wagtailsnippets:delete', args=('snippetstests', 'standardsnippetwithcustomprimarykey', quote(self.snippet_a.pk), )))
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailsnippets/snippets/confirm_delete.html')
-        self.assertContains(response, 'Used 0 times')
-        self.assertContains(response, self.snippet_a.usage_url())
 
 
 class TestSnippetChooserBlockWithCustomPrimaryKey(TestCase):

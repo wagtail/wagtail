@@ -15,7 +15,7 @@ from wagtail.images.api.admin.endpoints import ImagesAdminAPIEndpoint
 from wagtail.images.forms import GroupImagePermissionFormSet
 from wagtail.images.permissions import permission_policy
 from wagtail.images.rich_text import (
-    ContentstateImageConversionRule, EditorHTMLImageConversionRule, image_embedtype_handler)
+    ContentstateImageConversionRule, EditorHTMLImageConversionRule, ImageHandler)
 
 
 @hooks.register('register_admin_urls')
@@ -60,7 +60,7 @@ def editor_js():
 @hooks.register('register_rich_text_features')
 def register_image_feature(features):
     # define a handler for converting <embed embedtype="image"> tags into frontend HTML
-    features.register_embed_type('image', image_embedtype_handler)
+    features.register_embed_type(ImageHandler)
 
     # define a hallo.js plugin to use when the 'image' feature is active
     features.register_editor_plugin(

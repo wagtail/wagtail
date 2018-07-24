@@ -279,7 +279,7 @@ def register_core_features(features):
     )
     features.register_converter_rule('editorhtml', 'link', [
         WhitelistRule('a', attribute_rule({'href': check_url})),
-        LinkTypeRule('page', PageLinkHandler),
+        LinkTypeRule(PageLinkHandler.link_type, PageLinkHandler),
     ])
 
     features.register_editor_plugin(

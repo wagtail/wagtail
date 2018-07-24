@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 from django.test import TestCase
 
-from wagtail.documents.rich_text import DocumentLinkHandler, document_linktype_handler
+from wagtail.documents.rich_text import DocumentLinkHandler
 
 
 class TestDocumentRichTextLinkHandler(TestCase):
@@ -14,16 +14,16 @@ class TestDocumentRichTextLinkHandler(TestCase):
         self.assertEqual(result,
                          {'id': 'test-id'})
 
-    def test_expand_db_attributes_document_does_not_exist(self):
-        result = document_linktype_handler({'id': 0})
+    def test_to_frontend_open_tag_document_does_not_exist(self):
+        result = DocumentLinkHandler.to_frontend_open_tag({'id': 0})
         self.assertEqual(result, '<a>')
 
-    def test_expand_db_attributes_for_editor(self):
-        result = DocumentLinkHandler.expand_db_attributes({'id': 1})
+    def test_to_editor_open_tag_for_editor(self):
+        result = DocumentLinkHandler.to_editor_open_tag({'id': 1})
         self.assertEqual(result,
-                         '<a data-linktype="document" data-id="1" href="/documents/1/test.pdf">')
+                         '<a data-id="1" data-linktype="document" href="/documents/1/test.pdf">')
 
-    def test_expand_db_attributes_not_for_editor(self):
-        result = document_linktype_handler({'id': 1})
+    def test_to_frontend_open_tag(self):
+        result = DocumentLinkHandler.to_frontend_open_tag({'id': 1})
         self.assertEqual(result,
                          '<a href="/documents/1/test.pdf">')

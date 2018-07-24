@@ -20,8 +20,8 @@ from wagtail.documents.forms import GroupDocumentPermissionFormSet
 from wagtail.documents.models import get_document_model
 from wagtail.documents.permissions import permission_policy
 from wagtail.documents.rich_text import (
-    ContentstateDocumentLinkConversionRule, EditorHTMLDocumentLinkConversionRule,
-    document_linktype_handler)
+    ContentstateDocumentLinkConversionRule, DocumentLinkHandler,
+    EditorHTMLDocumentLinkConversionRule)
 
 
 @hooks.register('register_admin_urls')
@@ -68,7 +68,7 @@ def editor_js():
 
 @hooks.register('register_rich_text_features')
 def register_document_feature(features):
-    features.register_link_type('document', document_linktype_handler)
+    features.register_link_type(DocumentLinkHandler)
 
     features.register_editor_plugin(
         'hallo', 'document-link',
