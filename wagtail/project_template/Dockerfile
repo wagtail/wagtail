@@ -4,17 +4,15 @@ LABEL maintainer="hello@wagtail.io"
 ENV PYTHONUNBUFFERED 1
 ENV DJANGO_ENV dev
 
-COPY ./requirements.txt /code/requirements.txt
-RUN pip install -r /code/requirements.txt
-RUN pip install gunicorn
-
-COPY . /code/
 WORKDIR /code/
+COPY . /code/
 
-RUN python manage.py migrate
+RUN pip install -r /code/requirements.txt && \
+    pip install gunicorn && \
+    python manage.py migrate && \
+    useradd wagtail && \
+    chown -R wagtail /code
 
-RUN useradd wagtail
-RUN chown -R wagtail /code
 USER wagtail
 
 EXPOSE 8000
