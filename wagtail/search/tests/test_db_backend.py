@@ -33,11 +33,6 @@ class TestDBBackend(BackendTests, TestCase):
     def test_search_boosting_on_related_fields(self):
         super().test_search_boosting_on_related_fields()
 
-    # Doesn't support ranking
-    @unittest.expectedFailure
-    def test_same_rank_pages(self):
-        super(TestDBBackend, self).test_same_rank_pages()
-
     # Doesn't support searching specific fields
     @unittest.expectedFailure
     def test_search_child_class_field_from_parent(self):

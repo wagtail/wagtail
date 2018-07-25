@@ -1,7 +1,3 @@
-class RemovedInWagtail22Warning(DeprecationWarning):
-    pass
-
-
 class RemovedInWagtail23Warning(DeprecationWarning):
     pass
 
