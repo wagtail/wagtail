@@ -29,6 +29,10 @@ matrix:
      sudo: true
    - env: TOXENV=py35-dj20-sqlite-noelasticsearch
      python: 3.5
+   - env: TOXENV=py35-dj21-sqlite-noelasticsearch
+     python: 3.5
+   - env: TOXENV=py35-dj21-mysql-noelasticsearch
+     python: 3.5
    - env: TOXENV=py36-dj111-sqlite-noelasticsearch
      python: 3.6
    - env: TOXENV=py36-dj111-postgres-noelasticsearch
@@ -37,10 +41,15 @@ matrix:
      python: 3.6
    - env: TOXENV=py36-dj20-postgres-noelasticsearch
      python: 3.6
+   - env: TOXENV=py36-dj21-postgres-noelasticsearch
+     python: 3.6
    - env: TOXENV=py36-dj111-postgres-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
      python: 3.6
      sudo: true
    - env: TOXENV=py36-dj20-sqlite-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
+     python: 3.6
+     sudo: true
+   - env: TOXENV=py36-dj21-sqlite-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
      python: 3.6
      sudo: true
    - env: TOXENV=py36-dj111-postgres-elasticsearch5 INSTALL_ELASTICSEARCH5=yes
@@ -49,10 +58,16 @@ matrix:
    - env: TOXENV=py36-dj20-postgres-elasticsearch5 INSTALL_ELASTICSEARCH5=yes
      python: 3.6
      sudo: true
+   - env: TOXENV=py36-dj21-postgres-elasticsearch5 INSTALL_ELASTICSEARCH5=yes
+     python: 3.6
+     sudo: true
    - env: TOXENV=py36-dj111-postgres-elasticsearch6 INSTALL_ELASTICSEARCH6=yes
      python: 3.6
      sudo: true
    - env: TOXENV=py36-dj20-postgres-elasticsearch6 INSTALL_ELASTICSEARCH6=yes
+     python: 3.6
+     sudo: true
+   - env: TOXENV=py36-dj21-postgres-elasticsearch6 INSTALL_ELASTICSEARCH6=yes
      python: 3.6
      sudo: true
   allow_failures:
@@ -60,10 +75,18 @@ matrix:
     - env: TOXENV=py35-dj111-postgres-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
     - env: TOXENV=py36-dj111-postgres-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
     - env: TOXENV=py36-dj20-sqlite-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
+    - env: TOXENV=py36-dj21-sqlite-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
     - env: TOXENV=py36-dj111-postgres-elasticsearch5 INSTALL_ELASTICSEARCH5=yes
     - env: TOXENV=py36-dj20-postgres-elasticsearch5 INSTALL_ELASTICSEARCH5=yes
+    - env: TOXENV=py36-dj21-postgres-elasticsearch5 INSTALL_ELASTICSEARCH5=yes
     - env: TOXENV=py36-dj111-postgres-elasticsearch6 INSTALL_ELASTICSEARCH6=yes
     - env: TOXENV=py36-dj20-postgres-elasticsearch6 INSTALL_ELASTICSEARCH6=yes
+    - env: TOXENV=py36-dj21-postgres-elasticsearch6 INSTALL_ELASTICSEARCH6=yes
+    # Django 2.1 support is in progress
+    - env: TOXENV=py35-dj21-sqlite-noelasticsearch
+    - env: TOXENV=py35-dj21-mysql-noelasticsearch
+    - env: TOXENV=py36-dj21-postgres-noelasticsearch
+
 
 # Services
 services:

@@ -15,7 +15,6 @@ from django.db import models
 from django.db.models.constants import LOOKUP_SEP
 from django.db.models.fields import FieldDoesNotExist
 from django.db.models.fields.related import ForeignObjectRel, ManyToManyField
-from django.db.models.sql.constants import QUERY_TERMS
 from django.shortcuts import get_object_or_404, redirect
 from django.template.defaultfilters import filesizeformat
 from django.utils.decorators import method_decorator
@@ -32,6 +31,18 @@ from wagtail.admin import messages
 from wagtail.admin.edit_handlers import ObjectList, extract_panel_definitions_from_model_class
 
 from .forms import ParentChooserForm
+
+
+try:
+    from django.db.models.sql.constants import QUERY_TERMS
+except ImportError:
+    # Django 2.1+ does not have QUERY_TERMS anymore
+    QUERY_TERMS = {
+        'contains', 'day', 'endswith', 'exact', 'gt', 'gte', 'hour',
+        'icontains', 'iendswith', 'iexact', 'in', 'iregex', 'isnull',
+        'istartswith', 'lt', 'lte', 'minute', 'month', 'range', 'regex',
+        'search', 'second', 'startswith', 'week_day', 'year',
+    }
 
 
 class WMABaseView(TemplateView):
