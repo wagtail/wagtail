@@ -113,7 +113,7 @@ of references descending.
 
 For example, to find the most common page types in the search results:
 
-.. code-block::python
+.. code-block:: python
 
     >>> Page.objects.search("Test").facet("content_type_id")
 
