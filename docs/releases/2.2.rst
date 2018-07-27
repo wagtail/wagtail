@@ -10,6 +10,18 @@ Wagtail 2.2 release notes - IN DEVELOPMENT
 What's new
 ==========
 
+Faceted search
+~~~~~~~~~~~~~~
+
+Wagtail search now includes support for facets, allowing you to display search result counts broken down by a particular field value. For further details, see :ref:`wagtailsearch_faceted_search`. This feature was developed by Karl Hobley.
+
+
+Improved admin page search
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The page search in the Wagtail admin now supports filtering by page type and ordering search results by title, creation date and status. This feature was developed by Karl Hobley.
+
+
 Other features
 ~~~~~~~~~~~~~~
 
@@ -26,7 +38,6 @@ Other features
  * Increased max length of redirect URL field to 255 (Michael Harrison)
  * Added documentation for new JS/CSS media files association with Draftail feature definitions (Ed Henderson)
  * Added accessible colour contrast guidelines to the style guide (Catherine Farman)
- * Added faceted search using the ``.facet()`` method (Karl Hobley)
  * Admin modal views no longer rely on Javascript ``eval()``, for better CSP compliance (Matt Westcott)
  * Update editor guide for embeds and documents in rich text (Kevin Howbrook)
  * Improved performance of sitemap generation (Michael van Tellingen, Bertrand Bordage)

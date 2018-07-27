@@ -4,6 +4,8 @@ Changelog
 2.2 (xx.xx.xxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~
 
+ * Added faceted search using the `.facet()` method (Karl Hobley)
+ * Added page type filtering and ordering to the Wagtail admin page search (Karl Hobley)
  * Added another valid AudioBoom oEmbed pattern (Bertrand Bordage)
  * Added `annotate_score` support to PostgreSQL search backend (Bertrand Bordage)
  * Pillow's image optimisation is now applied when saving PNG images (Dmitry Vasilev)
@@ -17,7 +19,6 @@ Changelog
  * Increased max length of redirect URL field to 255 (Michael Harrison)
  * Added documentation for new JS/CSS media files association with Draftail feature definitions (Ed Henderson)
  * Added accessible colour contrast guidelines to the style guide (Catherine Farman)
- * Added faceted search using the `.facet()` method (Karl Hobley)
  * Admin modal views no longer rely on Javascript `eval()`, for better CSP compliance (Matt Westcott)
  * Update editor guide for embeds and documents in rich text (Kevin Howbrook)
  * Improved performance of sitemap generation (Michael van Tellingen, Bertrand Bordage)
