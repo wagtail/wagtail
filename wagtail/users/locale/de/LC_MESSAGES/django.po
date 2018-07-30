@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Benjamin Thurm, 2018
 # Ettore Atalan <atalanttore@googlemail.com>, 2016-2017
 # Vorlif <flori@vorlif.org>, 2015
 # Henrik Kröger <hedwig@riseup.net>, 2016,2018
@@ -21,8 +22,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-05-04 20:22+0100\n"
-"PO-Revision-Date: 2018-05-09 09:56+0000\n"
-"Last-Translator: Henrik Kröger <hedwig@riseup.net>\n"
+"PO-Revision-Date: 2018-07-13 10:03+0000\n"
+"Last-Translator: Benjamin Thurm\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -51,7 +52,7 @@ msgid "The two password fields didn't match."
 msgstr "Die beiden Passwortfelder stimmen nicht überein."
 
 msgid "Email"
-msgstr "Email"
+msgstr "E-Mail"
 
 msgid "First Name"
 msgstr "Vorname"
@@ -87,7 +88,7 @@ msgstr ""
 "Sie können nicht mehrere Berechtigungseinträge für dieselbe Seite haben."
 
 msgid "Upload a profile picture"
-msgstr "Ein Profil-Bild hochladen"
+msgstr "Ein Profilbild hochladen"
 
 msgid "submitted notifications"
 msgstr "Eingereicht-Benachrichtigungen"
@@ -121,7 +122,7 @@ msgid "Select your current time zone"
 msgstr "Wählen Sie Ihre aktuelle Zeitzone"
 
 msgid "profile picture"
-msgstr "Profil-Bild"
+msgstr "Profilbild"
 
 msgid "user profile"
 msgstr "Benutzerprofil"

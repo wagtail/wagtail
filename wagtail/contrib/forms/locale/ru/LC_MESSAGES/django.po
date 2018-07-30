@@ -4,8 +4,8 @@
 #
 # Translators:
 # Andrey Avdey <talkerbox@live.com>, 2016
-# Eugene MechanisM <eugene@mechanism.pro>, 2014-2015
-# Eugene MechanisM <eugene@mechanism.pro>, 2017
+# Eugene <eugene.mechanism@gmail.com>, 2014-2015
+# Eugene <eugene.mechanism@gmail.com>, 2017
 # Mikalai Radchuk <radchuk.m@gmail.com>, 2016-2017
 # Sergey Khalymon <sergiykhalimon@gmail.com>, 2015
 msgid ""

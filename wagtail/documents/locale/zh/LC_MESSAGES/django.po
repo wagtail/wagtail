@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# shengsheng gz <gzshengsheng@139.com>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-05-04 20:22+0100\n"
-"PO-Revision-Date: 2018-05-04 19:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-06-26 14:33+0000\n"
+"Last-Translator: shengsheng gz <gzshengsheng@139.com>\n"
 "Language-Team: Chinese (http://www.transifex.com/torchbox/wagtail/language/"
 "zh/)\n"
 "MIME-Version: 1.0\n"
@@ -17,6 +18,27 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: zh\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Add"
+msgstr "添加"
+
+msgid "Edit"
+msgstr "编辑"
+
+msgid "title"
+msgstr "标题"
+
+msgid "file"
+msgstr "文件"
+
+msgid "created at"
+msgstr "创建于"
+
+msgid "tags"
+msgstr "标签"
+
+msgid "document"
+msgstr "文档"
 
 msgid "Choose a document"
 msgstr "选择一个文档"
@@ -26,6 +48,12 @@ msgstr "搜索"
 
 msgid "Upload"
 msgstr "上传"
+
+msgid "Uploading…"
+msgstr "上传中"
+
+msgid "Server Error"
+msgstr "服务错误"
 
 msgid "Latest documents"
 msgstr "最新文档"
@@ -66,6 +94,12 @@ msgstr "编辑"
 msgid "Save"
 msgstr "保存"
 
+msgid "Filesize"
+msgstr "文件大小"
+
+msgid "File not found"
+msgstr "未找到文件"
+
 msgid "Documents"
 msgstr "文档"
 
@@ -86,6 +120,24 @@ msgstr ""
 "你没有上传任何文档。 为什么不 <a href=\"%(wagtaildocs_add_document_url)s\">上"
 "传一份</a>?"
 
+msgid "Parent"
+msgstr "上一级"
+
+msgid "Type"
+msgstr "类型"
+
+msgid "Edit this page"
+msgstr "编辑这个页面"
+
+msgid "Add multiple documents"
+msgstr "添加多份文档"
+
+msgid "Add documents"
+msgstr "添加文档"
+
+msgid "Search documents"
+msgstr "查找文档"
+
 msgid "Document '{0}' added."
 msgstr "文档'{0}'已添加"
 
@@ -97,6 +149,9 @@ msgstr "文档'{0}'已更新"
 
 msgid "Document '{0}' deleted."
 msgstr "文档'{0}'已删除"
+
+msgid "Document"
+msgstr "文档"
 
 msgid "Choose another document"
 msgstr "选择另外一份文档"

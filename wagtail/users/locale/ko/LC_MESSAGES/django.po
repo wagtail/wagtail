@@ -5,14 +5,14 @@
 # Translators:
 # Jihan Chung <jihanchung20@gmail.com>, 2015
 # Jihan Chung <jihanchung20@gmail.com>, 2015
-# Kyungil Choi <hanpama@gmail.com>, 2015,2017
+# Kyungil Choi <hanpama@gmail.com>, 2015,2017-2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-05-04 20:22+0100\n"
-"PO-Revision-Date: 2018-05-04 19:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-06-21 12:23+0000\n"
+"Last-Translator: Kyungil Choi <hanpama@gmail.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
 "MIME-Version: 1.0\n"
@@ -20,6 +20,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ko\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail users"
+msgstr "웨그테일 사용자"
 
 msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
 msgstr "필수사항. 15자 이하. 문자, 숫자 및 @/./+/-/_ 만 가능."
@@ -66,6 +69,9 @@ msgstr "해당 이름의 그룹은 이미 사용되고 있습니다."
 msgid "You cannot have multiple permission records for the same page."
 msgstr "같은 페이지에 대해서 여러 개의 권한을 설정할 수는 없습니다."
 
+msgid "Upload a profile picture"
+msgstr "프로필 사진 업로드"
+
 msgid "submitted notifications"
 msgstr "제출 알림"
 
@@ -89,6 +95,15 @@ msgstr "선호하는 언어"
 
 msgid "Select language for the admin"
 msgstr "관리자에서 사용할 언어를 선택하세요"
+
+msgid "current time zone"
+msgstr "현재 타임존"
+
+msgid "Select your current time zone"
+msgstr "현재 타임존 선택"
+
+msgid "profile picture"
+msgstr "프로필 사진"
 
 msgid "user profile"
 msgstr "사용자 프로필"
@@ -163,6 +178,10 @@ msgstr "그룹"
 
 msgid "Add a group"
 msgstr "그룹 추가"
+
+#, python-format
+msgid "Sorry, no groups match \"%(query)s\""
+msgstr "죄송합니다. \"%(query)s\"에 해당하는 그룹은 없습니다"
 
 #, python-format
 msgid ""
@@ -265,6 +284,13 @@ msgstr "수정"
 
 msgid "The user could not be created due to errors."
 msgstr "에러로 인해 사용자를 생성할 수 없습니다."
+
+msgid ""
+"Your details have been updated. You've been logged out for security reasons, "
+"please login to continue."
+msgstr ""
+"세부사항이 반영되었습니다. 보안을 위해 로그아웃하며 진행을 위해 다시 로그인"
+"해 주세요."
 
 msgid "The user could not be saved due to errors."
 msgstr "에러로 인해 사용자를 저장할 수 없습니다."

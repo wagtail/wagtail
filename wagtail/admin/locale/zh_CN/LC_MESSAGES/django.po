@@ -5,6 +5,8 @@
 # Translators:
 # hanfeng <appweb.cn@gmail.com>, 2014-2015,2017
 # Daniel Hwang <danielblinkhw@gmail.com>, 2015
+# Ed <724195301@qq.com>, 2018
+# Ed <724195301@qq.com>, 2018
 # Fred Zeng <979738295@qq.com>, 2016
 # hanfeng <appweb.cn@gmail.com>, 2014
 # listeng, 2016
@@ -17,8 +19,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-05-04 20:22+0100\n"
-"PO-Revision-Date: 2018-05-04 19:30+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-06-30 03:16+0000\n"
+"Last-Translator: Ed <724195301@qq.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -26,6 +28,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail admin"
+msgstr "Wagtail 管理"
 
 msgid "None"
 msgstr "无"
@@ -153,8 +158,17 @@ msgstr "转到管理界面"
 msgid "Account"
 msgstr "帐号"
 
+msgid "Change profile picture"
+msgstr "更改配置图片"
+
+msgid "Your current profile picture:"
+msgstr "你现在的头像"
+
 msgid "Update"
 msgstr "更新"
+
+msgid "Change email"
+msgstr "更改邮箱"
 
 msgid "Change password"
 msgstr "修改密码"
@@ -162,6 +176,9 @@ msgstr "修改密码"
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr "您不能修改密码，请联系管理员。"
+
+msgid "Set Time Zone"
+msgstr "设置时区"
 
 msgid "Language Preferences"
 msgstr "语言首选项"
@@ -181,8 +198,24 @@ msgstr "登录"
 msgid "Set your new password"
 msgstr "设置新密码"
 
+msgid "Invalid password reset link"
+msgstr "忘记密码"
+
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used."
+msgstr "密码重置链接已被使用。"
+
+msgid "Request a new password reset"
+msgstr "请求重新设置密码"
+
 msgid "Check your email"
 msgstr "检查您的邮件"
+
+msgid ""
+"A link to reset your password has been emailed to you if an account exists "
+"for this address."
+msgstr "一个密码重置链接将被发送到该地址。"
 
 msgid "Please follow the link below to reset your password:"
 msgstr "请点击下面的链接来重置密码"
@@ -243,6 +276,22 @@ msgstr "撤销"
 
 msgid "Redo"
 msgstr "重复"
+
+msgid "Reload the page"
+msgstr "刷新页面"
+
+msgid "Reload saved content"
+msgstr "重新加载已保存内容"
+
+msgid "Show latest content"
+msgstr "显示最新内容"
+
+msgid "Show error"
+msgstr "显示错误"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr "编辑器崩溃了😭，内容被重新设置为最后保存的版本。"
 
 msgid "Dashboard"
 msgstr "控制面板"
@@ -1141,6 +1190,9 @@ msgstr "瑞典语"
 msgid "Slovak"
 msgstr "斯洛伐克语"
 
+msgid "Ukrainian"
+msgstr "乌克兰语"
+
 msgid "Chinese (China)"
 msgstr "中文 (中国)"
 
@@ -1150,8 +1202,14 @@ msgstr "对不起， 你没有权限访问。"
 msgid "Your password has been changed successfully!"
 msgstr "密码成功修改！"
 
+msgid "Your email has been changed successfully!"
+msgstr "修改邮箱成功！😊"
+
 msgid "Your preferences have been updated."
 msgstr "你的首选项已被更新。"
+
+msgid "Your preferences have been updated successfully!"
+msgstr "已更新您的配置！"
 
 msgid "You have been successfully logged out."
 msgstr "注销成功"
@@ -1335,6 +1393,15 @@ msgstr "取消发布页面 '{title}'"
 msgid "View revision history for '{title}'"
 msgstr "查看 '{title}' 的修订历史"
 
+msgid "Set profile picture"
+msgstr "头像设置"
+
+msgid "Change your profile picture"
+msgstr "更改你的头像"
+
+msgid "Change the email address linked to your account."
+msgstr "更改账户关联邮箱"
+
 msgid "Change the password you use to log in."
 msgstr "修改用于登录的密码"
 
@@ -1346,6 +1413,12 @@ msgstr "语言首选项"
 
 msgid "Choose the language you want to use here."
 msgstr "请在这里选择你想使用的语言。"
+
+msgid "Current Time Zone"
+msgstr "当前时区"
+
+msgid "Choose your current time zone."
+msgstr "选择你的当前时区"
 
 msgid "Heading {level}"
 msgstr "标题{level}"

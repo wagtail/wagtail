@@ -3,18 +3,19 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Eugene MechanisM <eugene@mechanism.pro>, 2016
-# Eugene MechanisM <eugene@mechanism.pro>, 2016
+# Eugene <eugene.mechanism@gmail.com>, 2016
+# Eugene <eugene.mechanism@gmail.com>, 2016
 # Matt Westcott <matthew@torchbox.com>, 2016
 # Matt Westcott <matthew@torchbox.com>, 2016
 # Mikalai Radchuk <radchuk.m@gmail.com>, 2016
+# Nikita Tonkoshkur <humapen@gmail.com>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-05-04 20:23+0100\n"
-"PO-Revision-Date: 2018-05-04 19:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-07-15 15:29+0000\n"
+"Last-Translator: Nikita Tonkoshkur <humapen@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -40,6 +41,9 @@ msgstr "Сохранить"
 
 msgid "Settings"
 msgstr "Настройки"
+
+msgid "This setting could not be opened because there is no site defined."
+msgstr "Настройка не может быть открыта так как сайт не определён."
 
 msgid "{setting_type} updated."
 msgstr "{setting_type} обновлен."

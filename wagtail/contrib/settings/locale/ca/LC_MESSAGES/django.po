@@ -4,14 +4,14 @@
 #
 # Translators:
 # Matt Westcott <matthew@torchbox.com>, 2017
-# Roger Pons <rogerpons@gmail.com>, 2017
+# Roger Pons <rogerpons@gmail.com>, 2017-2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-05-04 20:23+0100\n"
-"PO-Revision-Date: 2018-05-04 19:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-05-31 08:52+0000\n"
+"Last-Translator: Roger Pons <rogerpons@gmail.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
 "MIME-Version: 1.0\n"
@@ -35,6 +35,11 @@ msgstr "Desar"
 
 msgid "Settings"
 msgstr "Configuració"
+
+msgid "This setting could not be opened because there is no site defined."
+msgstr ""
+"No es pot obrir aquest paràmetre de configuració perquè no hi ha cap lloc "
+"web definit."
 
 msgid "{setting_type} updated."
 msgstr "{setting_type} actualitzat."

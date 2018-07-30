@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Ed <724195301@qq.com>, 2018
 # Fred Zeng <979738295@qq.com>, 2016
 # Vincent Zhao <zhaopu2008@gmail.com>, 2017
 # 汇民 王 <whuim@qq.com>, 2017
@@ -11,8 +12,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-05-04 20:23+0100\n"
-"PO-Revision-Date: 2018-05-04 19:32+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-06-30 00:24+0000\n"
+"Last-Translator: Ed <724195301@qq.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -20,6 +21,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail ModelAdmin"
+msgstr "Wagtail 模型管理"
 
 msgid "Parent page"
 msgstr "上一级页面"

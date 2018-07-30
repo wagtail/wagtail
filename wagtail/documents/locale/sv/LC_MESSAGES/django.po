@@ -4,13 +4,14 @@
 #
 # Translators:
 # Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2017
+# Philip Andersen <renegadevi@codeofmagi.net>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-05-04 20:22+0100\n"
-"PO-Revision-Date: 2018-05-04 19:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-05-27 23:23+0000\n"
+"Last-Translator: Philip Andersen <renegadevi@codeofmagi.net>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -18,6 +19,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sv\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail documents"
+msgstr "Wagtail dokument"
 
 msgid "Add"
 msgstr "Lägg till"
@@ -109,6 +113,12 @@ msgstr "Radera %(title)s"
 msgid "Delete document"
 msgstr "Ta bort dokument"
 
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Använd %(usage_count)s gång"
+msgstr[1] "Använd %(usage_count)s gånger"
+
 msgid "Are you sure you want to delete this document?"
 msgstr "Är du säker på att du vill radera detta dokument?"
 
@@ -130,6 +140,9 @@ msgstr "Filstorlek"
 
 msgid "File not found"
 msgstr "Filen hittades inte"
+
+msgid "Usage"
+msgstr "Användning"
 
 msgid "Documents"
 msgstr "Dokument"
@@ -261,6 +274,9 @@ msgstr ""
 
 msgid "Document '{0}' deleted."
 msgstr "Dokument '{0}' borttaget."
+
+msgid "Document"
+msgstr "Dokument"
 
 #, python-format
 msgid "%(count)s document"

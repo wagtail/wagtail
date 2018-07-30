@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Nguyễn Hồng Quân <ng.hong.quan@gmail.com>, 2017
+# Hồng Quân Nguyễn <ng.hong.quan@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"

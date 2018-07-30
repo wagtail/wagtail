@@ -5,6 +5,7 @@
 # Translators:
 # Alexander Holmbäck <alexander.holmback@creuna.se>, 2017
 # Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2017
+# Philip Andersen <renegadevi@codeofmagi.net>, 2018
 # Thomas Kunambi <kunambi@gmail.com>, 2015,2017
 # Thomas Kunambi <kunambi@gmail.com>, 2015
 msgid ""
@@ -12,8 +13,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-05-04 20:23+0100\n"
-"PO-Revision-Date: 2018-05-04 19:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-05-27 23:13+0000\n"
+"Last-Translator: Philip Andersen <renegadevi@codeofmagi.net>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -21,6 +22,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sv\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail snippets"
+msgstr "Wagtail kodsnuttar"
 
 msgid "Choose"
 msgstr "Välj"
@@ -67,6 +71,12 @@ msgid "Delete"
 msgstr "Radera"
 
 #, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Använd %(usage_count)sgång"
+msgstr[1] "Använd %(usage_count)sgånger"
+
+#, python-format
 msgid "Are you sure you want to delete this %(snippet_type_name)s?"
 msgstr "Är du säker på att du vill radera %(snippet_type_name)s?"
 
@@ -92,6 +102,9 @@ msgstr "Redigerar %(snippet_type_name)s - %(instance)s"
 
 msgid "Editing"
 msgstr "Redigerar"
+
+msgid "Usage"
+msgstr "Användning"
 
 msgid "Snippets"
 msgstr "Snutt"

@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Benjamin Thurm, 2018
 # Daniel Manser <me@danielmanser.com>, 2015
 # Ettore Atalan <atalanttore@googlemail.com>, 2015-2017
 # Henrik Kröger <hedwig@riseup.net>, 2015-2016,2018
@@ -26,8 +27,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-05-04 20:22+0100\n"
-"PO-Revision-Date: 2018-05-09 09:52+0000\n"
-"Last-Translator: Henrik Kröger <hedwig@riseup.net>\n"
+"PO-Revision-Date: 2018-07-13 10:04+0000\n"
+"Last-Translator: Benjamin Thurm\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -37,13 +38,13 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Wagtail admin"
-msgstr "Wagtail Admin"
+msgstr "Wagtail Admin-Interface"
 
 msgid "None"
 msgstr "Nichts"
 
 msgid "You do not have permission to access the admin"
-msgstr "Sie haben keinen Zugang zur Verwaltung."
+msgstr "Sie haben nicht die nötige Berechtigung das Admin-Interface aufzurufen"
 
 msgid "Scheduled publishing"
 msgstr "Geplante Veröffentlichung"
@@ -77,7 +78,7 @@ msgid "Enter your %s"
 msgstr "Bitte %s eingeben"
 
 msgid "Enter your email address to reset your password"
-msgstr "Geben Sie Ihre Email-Adresse ein, um Ihr Passwort zurückzusetzen."
+msgstr "Geben Sie Ihre E-Mail-Adresse ein, um Ihr Passwort zurückzusetzen"
 
 msgid "New title"
 msgstr "Neuer Titel"
@@ -90,7 +91,8 @@ msgstr "Neue übergeordnete Seite"
 
 msgid "This copy will be a child of this given parent page."
 msgstr ""
-"Diese Kopie wird ein Kind von dieser bestimmten übergeordneten Seite sein."
+"Diese Kopie wird als Unterseite der gewählten, übergeordneten Seite "
+"eingefügt."
 
 msgid "Copy subpages"
 msgstr "Unterseiten kopieren"
@@ -106,7 +108,8 @@ msgstr "Kopierte Seite veröffentlichen"
 
 msgid "This page is live. Would you like to publish its copy as well?"
 msgstr ""
-"Diese Seite ist öffentlich. Möchten Sie die Kopie ebenfalls veröffentlichen?"
+"Diese Seite ist veröffentlicht. Möchten Sie die Kopie ebenfalls "
+"veröffentlichen?"
 
 msgid "Publish copies"
 msgstr "Kopien veröffentlichen"
@@ -127,7 +130,9 @@ msgstr[1] ""
 
 #, python-format
 msgid "You do not have permission to copy to page \"%(page_title)s\""
-msgstr "Sie sind nicht berechtigt in die Seite \"%(page_title)s\" zu kopieren"
+msgstr ""
+"Sie haben nicht die nötige Berechtigung zur Seite \"%(page_title)s\" zu "
+"kopieren"
 
 #, python-format
 msgid ""
@@ -156,11 +161,11 @@ msgid "Go live date/time must be before expiry date/time"
 msgstr "Das Veröffentlichungsdatum muss vor dem Ablaufsdatum liegen"
 
 msgid "Expiry date/time must be in the future"
-msgstr "Das Verfallsdatum muss in der Zukunft sein"
+msgstr "Das Ablaufdatum muss in der Zukunft liegen"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
-"Sie können nicht mehrere Berechtigungseinträge für dieselbe Sammlung haben."
+"Sie können nicht mehrere Berechtigungseinträge für dieselbe Sammlung anlegen."
 
 msgid "Error 404: Page not found"
 msgstr "Fehler 404: Seite nicht gefunden"
@@ -178,10 +183,10 @@ msgid "Account"
 msgstr "Benutzerkonto"
 
 msgid "Change profile picture"
-msgstr "Profil-Bild ändern"
+msgstr "Profilbild ändern"
 
 msgid "Your current profile picture:"
-msgstr "Ihr aktuelles Profil-Bild"
+msgstr "Ihr aktuelles Profilbild:"
 
 msgid "Update"
 msgstr "Update"
@@ -220,7 +225,7 @@ msgid "Set your new password"
 msgstr "Setzen Sie Ihr neues Passwort"
 
 msgid "Invalid password reset link"
-msgstr "ungültiger Passwort-Zurücksetzen-Link"
+msgstr "Ungültiger Passwort-Zurücksetzen-Link"
 
 msgid ""
 "The password reset link was invalid, possibly because it has already been "
@@ -233,20 +238,21 @@ msgid "Request a new password reset"
 msgstr "Einen neuen Passwort-Zurücksetzen-Link anfordern"
 
 msgid "Check your email"
-msgstr "Überprüfen Sie Ihre Emails."
+msgstr "Überprüfen Sie Ihr E-Mail-Postfach"
 
 msgid ""
 "A link to reset your password has been emailed to you if an account exists "
 "for this address."
 msgstr ""
-"Ein Link, um Ihr Passwort zurückzusetzen wurde Ihnen zugeschickt (falls ein "
-"Konto für diese Adresse existiert)."
+"Falls ein Konto unter dieser Adresse existiert, wurde ein Link zum "
+"Zurücksetzen Ihres Passworts an Sie versandt."
 
 msgid "Please follow the link below to reset your password:"
-msgstr "Bitte folgen Sie dem Link um Ihr Passwort zurückzusetzen:"
+msgstr ""
+"Bitte folgen Sie dem nachfolgenden Link, um Ihr Passwort zurückzusetzen:"
 
 msgid "Your username (in case you've forgotten):"
-msgstr "Ihr Benutzername (falls Sie ihn vergessen haben):"
+msgstr "Ihr Benutzername, falls Sie ihn vergessen haben:"
 
 msgid "Password reset"
 msgstr "Passwort zurückgesetzt"
@@ -282,7 +288,7 @@ msgid "See all"
 msgstr "Alles einsehen"
 
 msgid "Close explorer"
-msgstr "Explorer schliessen"
+msgstr "Explorer schließen"
 
 msgid "Alt text"
 msgstr "Alternativtext"
@@ -303,13 +309,13 @@ msgid "Redo"
 msgstr "Wiederholen"
 
 msgid "Reload the page"
-msgstr "Seite neuladen"
+msgstr "Seite erneut laden"
 
 msgid "Reload saved content"
-msgstr "gespeicherten Inhalt neuladen"
+msgstr "Gespeicherten Inhalt erneut laden"
 
 msgid "Show latest content"
-msgstr "aktuellen Inhalt anzeigen"
+msgstr "Aktuellen Inhalt anzeigen"
 
 msgid "Show error"
 msgstr "Fehler anzeigen"
@@ -317,8 +323,8 @@ msgstr "Fehler anzeigen"
 msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
 msgstr ""
-"Der Editor ist gerade abgestürzt. Der Inhalt wurde zurückgesetzt zur letzten "
-"gespeicherten Version."
+"Der Texteditor ist abgestürzt. Der Inhalt wurde auf die zuletzt gespeicherte "
+"Version zurückgesetzt."
 
 msgid "Dashboard"
 msgstr "Dashboard"
@@ -327,7 +333,7 @@ msgid "Menu"
 msgstr "Menü"
 
 msgid "Add another"
-msgstr "Ein anderes hinzufügen"
+msgstr "Hinzufügen"
 
 msgid "Move up"
 msgstr "Nach oben"
@@ -345,7 +351,7 @@ msgid "External link"
 msgstr "Externer Link"
 
 msgid "Email link"
-msgstr "Email-Link"
+msgstr "E-Mail-Link"
 
 #, python-format
 msgid ""
@@ -384,15 +390,14 @@ msgid_plural ""
 msgstr[0] ""
 "\n"
 "Es können nur Seiten des Typs \"%(type)s\" für dieses Feld ausgewählt "
-"werden. Seiten anderer Typen werden nicht in den Suchergebnissen aufgeführt."
+"werden. Andere Seitentypen werden nicht in den Suchergebnissen aufgeführt."
 msgstr[1] ""
 "\n"
-"Es können nur Seiten der folgenden Typen für dieses Feld ausgewählt werden: "
-"%(type)s. Seiten anderer Typen werden nicht in den Suchergebnissen "
-"aufgeführt."
+"Es können nur folgende Seitentypen für dieses Feld ausgewählt werden: "
+"%(type)s. Andere Seitentypen werden nicht in den Suchergebnissen aufgeführt."
 
 msgid "Add an email link"
-msgstr "Email-Link hinzufügen"
+msgstr "E-Mail-Link hinzufügen"
 
 msgid "Insert link"
 msgstr "Link einfügen"
@@ -401,31 +406,33 @@ msgid "Add an external link"
 msgstr "Externen Link hinzufügen"
 
 msgid "Collection privacy"
-msgstr "Sammlungschutz"
+msgstr "Privatsphäre-Einstellungen der Sammlung"
 
 msgid "This collection has been made private by a parent collection."
-msgstr "Diese Sammlung wurde durch eine übergeordnete Sammlung geschützt."
+msgstr ""
+"Diese Sammlung wurde durch eine übergeordnete Sammlung als privat "
+"gekennzeichnet."
 
 msgid "You can edit the privacy settings on:"
-msgstr "Sie können die Schutzeinstellungen hier bearbeiten:"
+msgstr "Sie können die Privatsphäre-Einstellungen hier bearbeiten:"
 
 msgid ""
 "Privacy settings determine who is able to view documents in this collection."
 msgstr ""
-"Schutzeinstellungen legen fest wer Dokumente in dieser Sammlung einsehen "
-"darf."
+"Die Privatsphäre-Einstellungen legen fest, wer Dokumente in dieser Sammlung "
+"einsehen darf."
 
 msgid "Save"
 msgstr "Speichern"
 
 msgid "Privacy"
-msgstr "Schutz"
+msgstr "Privatsphäre"
 
 msgid "Public"
 msgstr "Öffentlich"
 
 msgid "Private"
-msgstr "Geschützt"
+msgstr "Privat"
 
 msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
@@ -589,13 +596,16 @@ msgid "The page \"%(page)s\" has been submitted for moderation"
 msgstr "Die Seite „%(page)s“ wurde zur Freischaltung eingereicht"
 
 msgid "Page privacy"
-msgstr "Seitenschutz"
+msgstr "Privatsphäre-Einstellungen der Seite"
 
 msgid "This page has been made private by a parent page."
-msgstr "Diese Seite wurde durch eine Oberseite geschützt."
+msgstr ""
+"Diese Seite wurde durch eine übergeordnete Seite als privat gekennzeichnet."
 
 msgid "Privacy changes apply to all children of this page too."
-msgstr "Schutzeinstellungen gelten ebenfalls für alle Unterseiten."
+msgstr ""
+"Die Privatsphäre-Einstellungen gelten ebenfalls für alle Unterseiten dieser "
+"Seite."
 
 msgid "Edit lock"
 msgstr "Sperre bearbeiten"
@@ -656,9 +666,10 @@ msgid ""
 "This removes the page from public view and you can edit or publish it again "
 "later."
 msgstr ""
-"Alternativ können Sie <a href=\"%(unpublish_url)s\">die Seite depublizieren</"
-"a>. Die Seite wird aus der öffentlichen Ansicht entfernt und Sie können sie "
-"später noch bearbeiten oder erneut veröffentlichen."
+"Alternativ können Sie <a href=\"%(unpublish_url)s\">die Veröffentlichung der "
+"Seite aufheben</a>. Dadurch ist die Seite für die Öffentlichkeit nicht mehr "
+"einsehbar und kann zu einem späteren Zeitpunkt weiter bearbeitet oder erneut "
+"veröffentlicht werden."
 
 #, python-format
 msgid "Move %(title)s"
@@ -685,13 +696,14 @@ msgstr "Ja, diese Seite verschieben"
 
 #, python-format
 msgid "Unpublish %(title)s"
-msgstr "%(title)s depublizieren"
+msgstr "Veröffentlichung von %(title)s aufheben"
 
 msgid "Unpublish"
-msgstr "Depublizieren"
+msgstr "Veröffentlichung aufheben"
 
 msgid "Are you sure you want to unpublish this page?"
-msgstr "Sind Sie sicher, dass Sie diese Seite depublizieren wollen?"
+msgstr ""
+"Sind Sie sicher, dass Sie die Veröffentlichung der Seite aufheben wollen?"
 
 #, python-format
 msgid ""
@@ -711,14 +723,14 @@ msgstr[0] ""
 msgstr[1] ""
 "\n"
 "                    Diese Seite hat %(live_descendant_count)s Unterseiten. "
-"Diese Unterseiten ebenfalls depublizieren\n"
+"Die Veröffentlichung dieser Unterseiten ebenfalls aufheben\n"
 "                "
 
 msgid "Yes, unpublish it"
-msgstr "Ja, depublizieren"
+msgstr "Ja, Veröffentlichung aufheben"
 
 msgid "No, don't unpublish"
-msgstr "Nein, nicht depublizieren"
+msgstr "Nein, veröffentlicht belassen"
 
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
@@ -764,7 +776,7 @@ msgstr "Diese Seite hat ungesicherte Änderungen."
 
 #, python-format
 msgid "Editing %(page_type)s: %(title)s"
-msgstr "Wird bearbeitet %(page_type)s: %(title)s"
+msgstr "Bearbeite %(page_type)s: %(title)s"
 
 #, python-format
 msgid "Editing %(page_type)s <span>%(title)s</span>"
@@ -907,7 +919,7 @@ msgid "Next"
 msgstr "Nächste"
 
 msgid "This page is protected from public view"
-msgstr "Diese Seite ist geschützt vor öffentlichen Zugang"
+msgstr "Diese Seite ist vor öffentlichem Zugriff geschützt"
 
 msgid "Disable ordering of child pages"
 msgstr "Sortierung von Unterseiten deaktivieren"
@@ -1185,9 +1197,9 @@ msgid ""
 "software. Please <a href=\"http://browsehappy.com/\">upgrade your browser</"
 "a>."
 msgstr ""
-"Sie verwenden einen <strong>überholten</ strong> Browser, der nicht von "
-"dieser Software unterstützt wird. Bitte <a href=\"http://browsehappy.com/\"> "
-"aktualisieren Sie Ihren Browser</a> "
+"Sie verwenden einen <strong>überholten</strong> Browser, der nicht von "
+"dieser Software unterstützt wird. Bitte <a href=\"http://browsehappy.com/"
+"\">aktualisieren Sie Ihren Browser</a>."
 
 msgid ""
 "\n"
@@ -1411,7 +1423,7 @@ msgid "Page '{0}' deleted."
 msgstr "Seite ‚{0}‘ gelöscht."
 
 msgid "Page '{0}' unpublished."
-msgstr "Seite ‚{0}‘ depubliziert."
+msgstr "Veröffentlichung der Seite \"{0}\" aufgehoben."
 
 msgid "Page '{0}' moved."
 msgstr "Seite ‚{0}‘ verschoben."
@@ -1491,25 +1503,25 @@ msgid "Delete page '{title}'"
 msgstr "Seite '{title}' löschen"
 
 msgid "Unpublish page '{title}'"
-msgstr "Seite '{title}' depublizieren"
+msgstr "Veröffentlichung der Seite \"{title}\" aufheben"
 
 msgid "View revision history for '{title}'"
 msgstr "Revisionsgeschichte von '{title}' anzeigen"
 
 msgid "Set profile picture"
-msgstr "Profil-Bild einstellen"
+msgstr "Profilbild einstellen"
 
 msgid "Change your profile picture"
-msgstr "Profil-Bild ändern"
+msgstr "Profilbild ändern"
 
 msgid "Change the email address linked to your account."
-msgstr "E-Mail-Adresse ändern, die mit Ihrem Konto verbunden ist."
+msgstr "E-Mail-Adresse ändern, die mit Ihrem Konto verknüpft ist."
 
 msgid "Change the password you use to log in."
 msgstr "Ändern Sie das Passwort, dass Sie verwenden um sich anzumelden."
 
 msgid "Choose which email notifications to receive."
-msgstr "Wählen Sie, welche Emailbenachrichtigungen Sie erhalten möchten!"
+msgstr "Wählen Sie, welche E-Mail-Benachrichtigungen Sie erhalten möchten!"
 
 msgid "Language preferences"
 msgstr "Spracheinstellungen"

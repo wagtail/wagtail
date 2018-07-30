@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Benjamin Thurm, 2018
 # Ettore Atalan <atalanttore@googlemail.com>, 2017
 # Henrik Kröger <hedwig@riseup.net>, 2016,2018
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014-2015
@@ -19,8 +20,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-05-04 20:22+0100\n"
-"PO-Revision-Date: 2018-05-09 09:54+0000\n"
-"Last-Translator: Henrik Kröger <hedwig@riseup.net>\n"
+"PO-Revision-Date: 2018-07-12 14:37+0000\n"
+"Last-Translator: Benjamin Thurm\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -40,12 +41,12 @@ msgid ""
 "Supported formats: %(supported_formats)s. Maximum filesize: "
 "%(max_upload_size)s."
 msgstr ""
-"Unterstützte Dateiformate: %(supported_formats)s. Maximale Dateigrößen"
+"Unterstützte Dateiformate: %(supported_formats)s. Maximale Dateigröße: "
 "%(max_upload_size)s."
 
 #, python-format
 msgid "Supported formats: %(supported_formats)s."
-msgstr "Unterstütze Formate: %(supported_formats)s."
+msgstr "Unterstütze Dateiformate: %(supported_formats)s."
 
 #, python-format
 msgid "Not a supported image format. Supported formats: %s."
@@ -57,11 +58,11 @@ msgstr "Kein gültiges %s Bild."
 
 #, python-format
 msgid "This file is too big (%%s). Maximum filesize %s."
-msgstr "Die Datei ist zu groß (%%s). Maximum Dateigröße %s."
+msgstr "Die Datei ist zu groß (%%s). Maximale Dateigröße %s."
 
 #, python-format
 msgid "This file is too big. Maximum filesize %s."
-msgstr "Die Datei ist zu groß. Maximum Dateigröße %s."
+msgstr "Die Datei ist zu groß. Maximale Dateigröße %s."
 
 msgid "Full width"
 msgstr "Ganze Breite"

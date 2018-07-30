@@ -316,23 +316,23 @@ Translators
 ===========
 
 * Afrikaans: Jaco du Plessis
-* Arabic: alfuhigi, Roger Allen, Ahmad Kiswani, Mohamed Mayla
+* Arabic: alfuhigi, Roger Allen, Khaled Arnaout, Ahmad Kiswani, Mohamed Mayla
 * Basque: Unai Zalakain
 * Bulgarian: Lyuboslav Petrov
 * Catalan: Antoni Aloy, David Llop, Roger Pons
-* Chinese: hanfeng, Lihan Li, Leway Colin, Orangle Liu
-* Chinese (China): hanfeng, Daniel Hwang, Jian Li, Listeng Teng, Feng Wang, whuim, Fred Zeng, Joey Zhao, Vincent Zhao, zhushajun
+* Chinese: hanfeng, Lihan Li, Leway Colin, Orangle Liu, shengsheng gz
+* Chinese (China): hanfeng, Daniel Hwang, Ed, Jian Li, Listeng Teng, Feng Wang, whuim, Fred Zeng, Joey Zhao, Vincent Zhao, zhushajun
 * Chinese (Taiwan): gogobook, Lihan Li, Jp Shieh
 * Croatian (Croatia): Luka Matijević
 * Czech: Ales Dvorak, Martin Galda, Sophy O, Ivan Pomykacz, Jiri Stepanek, Marek Turnovec, Stanislav Vasko
 * Danish: Mads Kronborg, Asger Sørensen
 * Dutch: benny_AT_it_digin.com, Bram, Brecht Dervaux, Huib Keemink, Thijs Kramer, Samuel Leeuwenburg, mahulst, Rob Moorman, Michael van Tellingen, Arne Turpyn
-* Dutch (Netherlands): Bram, Kees Hink, Franklin Kingma, Maarten Kling, Thijs Kramer
+* Dutch (Netherlands): Bram, Kees Hink, Coen van der Kamp, Franklin Kingma, Maarten Kling, Thijs Kramer
 * Finnish: Eetu Häivälä, Niklas Jerva, Aarni Koskela, Rauli Laine, Glen Somerville, Juha Yrjölä
 * French: Adrien, Timothy Allen, Sebastien Andrivet, Bertrand Bordage, André Bouatchidzé, Aurélien Debord, Romain Dorgueil, Tom Dyson, Antonin Enfrun, Axel Haustant, Léo, Pierre Marfoure, nahuel, Sophy O, Dominique Peretti, Loïc Teixeira, Benoît Vogel
 * Galician: fooflare
 * Georgian: André Bouatchidzé
-* German: Ettore Atalan, Patrick Craston, Henrik Kröger, Tammo van Lessen, Martin Löhle, Wasilis Mandratzis-Walz, Daniel Manser, m0rph3u5, Max Pfeiffer, Moritz Pfeiffer, Herbert Poul, Karl Sander, Tobias Schmidt, Johannes Spielmann, Raphael Stolt, Jannis Vajen, Vorlif, Matthew Westcott
+* German: Ettore Atalan, Patrick Craston, Henrik Kröger, Tammo van Lessen, Martin Löhle, Wasilis Mandratzis-Walz, Daniel Manser, m0rph3u5, Max Pfeiffer, Moritz Pfeiffer, Herbert Poul, Karl Sander, Tobias Schmidt, Johannes Spielmann, Raphael Stolt, Benjamin Thurm, Jannis Vajen, Vorlif, Matthew Westcott
 * Greek: Jim Dal, George Giannoulopoulos, Yiannis Inglessis, Wasilis Mandratzis-Walz, Nick Mavrakis, NeotheOne, Serafeim Papastefanos
 * Hebrew (Israel): Lior Abazon, bjesus, Yossi Lalum, Oleg Sverdlov
 * Hungarian: Laszlo Molnar, Kornél Novák Mergulhão, BN
@@ -350,13 +350,13 @@ Translators
 * Portuguese (Brazil): Claudemiro Alves Feitosa Neto, Bruno Bertoldi, Luiz Boaretto, Gladson Brito, Thiago Cangussu, Gilson Filho, Joao Garcia, João Luiz Lorencetti, Marcio Mazza, Douglas Miranda, Guilherme Nabanete
 * Portuguese (Portugal): Gladson Brito, Thiago Cangussu, Tiago Henriques, Jose Lourenco, Nuno Matos, Douglas Miranda, Manuela Silva
 * Romanian: Dan Braghis
-* Russian: ajk, Andrey Avdey, Daniil, gsstver, Sergey Khalymon, Sergey Komarov, Arseni M, Eugene MechanisM, Rustam Mirzaev, Alexander Penshin, Mikalai Radchuk, Alexandr Romantsov, Nikita Viktorovich, Vassiliy Vorobyov
+* Russian: ajk, Andrey Avdey, Daniil, gsstver, Sergey Khalymon, Sergey Komarov, Arseni M, Eugene MechanisM, Rustam Mirzaev, Alexander Penshin, Mikalai Radchuk, Alexandr Romantsov, Nikita Tonkoshkur, Nikita Viktorovich, Vassiliy Vorobyov
 * Slovak (Slovakia): Stevo Backor, dellax, Martin Janšto, Jozef Karabelly
 * Slovenian: Mitja Pagon
 * Spanish: Mauricio Baeza, Daniel Chimeno, fonso, fooflare, José Luis, Joaquín Tita, Unai Zalakain
-* Swedish: Andreas Bergström, Jim Brouzoulis, Alexander Holmbäck, André Karlsson, Jon Karlsson, Ludwig Kjellström, Thomas Kunambi, Andreas Lans, Hannes Lohmander
+* Swedish: Philip Andersen, Andreas Bergström, Jim Brouzoulis, Alexander Holmbäck, André Karlsson, Jon Karlsson, Ludwig Kjellström, Thomas Kunambi, Andreas Lans, Hannes Lohmander
 * Turkish: Zafer Cengiz, Cihad Gündoǧdu, Ragıp Ünal
 * Turkish (Turkey): Saadettin Yasir Akel, Cihad Gündoǧdu, José Luis, Ragıp Ünal
-* Ukrainian: Sergiy Shkodenko, Viktor Shytiuk, Mykola Zamkovoi
-* Vietnamese: Luan Nguyen, Nguyễn Hồng Quân
+* Ukrainian: Mikolai Incognito, Sergiy Shkodenko, Viktor Shytiuk, Mykola Zamkovoi
+* Vietnamese: Hồng Quân Nguyễn, Luan Nguyen
 * Welsh: Adam Hughes

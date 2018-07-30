@@ -4,14 +4,15 @@
 #
 # Translators:
 # Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2017
+# Philip Andersen <renegadevi@codeofmagi.net>, 2018
 # Thomas Kunambi <kunambi@gmail.com>, 2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-05-04 20:22+0100\n"
-"PO-Revision-Date: 2018-05-04 19:30+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-05-27 23:24+0000\n"
+"Last-Translator: Philip Andersen <renegadevi@codeofmagi.net>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +20,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sv\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail core"
+msgstr "Wagtail kärna"
 
 msgid "{label}: this block has no options."
 msgstr "{label}: det här blocket har inga inställningar."
@@ -174,6 +178,9 @@ msgstr "schemalagd"
 
 msgid "draft"
 msgstr "utkast"
+
+msgid "live + scheduled"
+msgstr "live + schemalagd"
 
 msgid "live + draft"
 msgstr "publicerad + utkast"

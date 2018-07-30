@@ -4,13 +4,14 @@
 #
 # Translators:
 # Asger Sørensen <asger.soerensen@live.com>, 2016
+# Mads Kronborg <madskronborg99@gmail.com>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-05-04 20:23+0100\n"
-"PO-Revision-Date: 2018-05-04 19:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-06-05 11:36+0000\n"
+"Last-Translator: Mads Kronborg <madskronborg99@gmail.com>\n"
 "Language-Team: Danish (http://www.transifex.com/torchbox/wagtail/language/"
 "da/)\n"
 "MIME-Version: 1.0\n"
@@ -18,6 +19,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: da\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#, python-format
+msgid "Editing %(setting_type_name)s - %(instance)s"
+msgstr "Redigerer %(setting_type_name)s - %(instance)s"
+
+msgid "Editing"
+msgstr "Redigerer"
 
 msgid "Saving…"
 msgstr "Gemmer…"
@@ -27,3 +35,13 @@ msgstr "Gem"
 
 msgid "Settings"
 msgstr "Indstillinger"
+
+msgid "This setting could not be opened because there is no site defined."
+msgstr ""
+"Denne indstilling kunne ikke åbnes, da der ikke er nogen side defineret."
+
+msgid "{setting_type} updated."
+msgstr "{setting_type} opdateret."
+
+msgid "The setting could not be saved due to errors."
+msgstr "Denne indstilling kunne ikke gemmes på grund af fejl."

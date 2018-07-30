@@ -4,14 +4,15 @@
 #
 # Translators:
 # alfuhigi <abajall@gmail.com>, 2016
+# Khaled Arnaout <khaledarnaout@live.com>, 2018
 # alfuhigi <abajall@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-05-04 20:23+0100\n"
-"PO-Revision-Date: 2018-05-04 19:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-06-28 02:26+0000\n"
+"Last-Translator: Khaled Arnaout <khaledarnaout@live.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
@@ -36,6 +37,9 @@ msgstr "حفظ"
 
 msgid "Settings"
 msgstr "اعدادات"
+
+msgid "This setting could not be opened because there is no site defined."
+msgstr "لايمكن فتح الاعدادات لعدم وجود موقع مُعرف."
 
 msgid "{setting_type} updated."
 msgstr "تحديث {setting_type} ."

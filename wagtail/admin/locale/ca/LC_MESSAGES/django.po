@@ -5,14 +5,14 @@
 # Translators:
 # Antoni Aloy <aaloy@apsl.net>, 2016
 # David Llop, 2014
-# Roger Pons <rogerpons@gmail.com>, 2017
+# Roger Pons <rogerpons@gmail.com>, 2017-2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-05-04 20:22+0100\n"
-"PO-Revision-Date: 2018-05-04 19:30+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-05-31 08:54+0000\n"
+"Last-Translator: Roger Pons <rogerpons@gmail.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
 "MIME-Version: 1.0\n"
@@ -20,6 +20,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ca\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail admin"
+msgstr "Administració de Wagtail"
 
 msgid "None"
 msgstr "Cap"
@@ -104,9 +107,17 @@ msgstr[1] ""
 "%(count)s de les pàgines a copiar estan en viu. Voleu publicar-ne les còpies?"
 
 #, python-format
+msgid "You do not have permission to copy to page \"%(page_title)s\""
+msgstr "No teniu permís per copiar a la pàgina \"%(page_title)s\""
+
+#, python-format
 msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
 msgstr "Aquest slug ja està en ús dins el context de la seva plana pare \"%s\""
+
+msgid "You cannot copy a page into itself when copying subpages"
+msgstr ""
+"No podeu copiar una pàgina a ella mateixa quan esteu copiant subpàgines"
 
 msgid "Visibility"
 msgstr "Visibilitat"
@@ -131,14 +142,32 @@ msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
 "No podeu tenir múltiples registres de permisos per la mateixa col·lecció."
 
+msgid "Error 404: Page not found"
+msgstr "Error 404: Pàgina no trobada"
+
+msgid "Error 404"
+msgstr "Error 404"
+
+msgid "The requested page could not be found."
+msgstr "No s'ha trobat la pàgina demanada"
+
 msgid "Go to Wagtail admin"
 msgstr "Anar a l'administració de Wagtail"
 
 msgid "Account"
 msgstr "Compte"
 
+msgid "Change profile picture"
+msgstr "Modificar imatge de perfil"
+
+msgid "Your current profile picture:"
+msgstr "La vostra imatge de perfil actual:"
+
 msgid "Update"
 msgstr "Actualitzar"
+
+msgid "Change email"
+msgstr "Modificar correu electrònic"
 
 msgid "Change password"
 msgstr "Canviar contrasenya"

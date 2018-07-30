@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-05-04 20:23+0100\n"
-"PO-Revision-Date: 2018-05-07 12:24+0000\n"
+"PO-Revision-Date: 2018-06-05 10:48+0000\n"
 "Last-Translator: Stein Strindhaug <stein.strindhaug@gmail.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
@@ -72,7 +72,7 @@ msgid "image"
 msgstr "bilde"
 
 msgid "Choose a parent page"
-msgstr "Veld en foreldreside"
+msgstr "Velg en foreldreside"
 
 #, python-format
 msgid ""

@@ -16,8 +16,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-05-04 20:22+0100\n"
-"PO-Revision-Date: 2018-05-04 19:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-06-19 13:36+0000\n"
+"Last-Translator: Luiz Boaretto <lboaretto@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -25,6 +25,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pt_BR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Wagtail images"
+msgstr "Imagens Wagtail"
 
 msgid "GIF, JPEG, PNG"
 msgstr "GIF, JPEG, PNG"
@@ -128,6 +131,12 @@ msgstr "enviado pelo usuário"
 
 msgid "tags"
 msgstr "etiquetas"
+
+msgid "image"
+msgstr "imagem"
+
+msgid "images"
+msgstr "imagens"
 
 msgid "Choose an image"
 msgstr "Escolha uma imagem"

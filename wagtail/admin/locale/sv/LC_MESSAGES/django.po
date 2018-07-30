@@ -7,6 +7,7 @@
 # André Karlsson <andre@sess.se>, 2017
 # Hannes Lohmander <c.hannes.l@gmail.com>, 2015
 # Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2017
+# Philip Andersen <renegadevi@codeofmagi.net>, 2018
 # Thomas Kunambi <kunambi@gmail.com>, 2016-2017
 # Thomas Kunambi <kunambi@gmail.com>, 2015
 msgid ""
@@ -14,8 +15,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-05-04 20:22+0100\n"
-"PO-Revision-Date: 2018-05-04 19:30+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-05-27 23:34+0000\n"
+"Last-Translator: Philip Andersen <renegadevi@codeofmagi.net>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -23,6 +24,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sv\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail admin"
+msgstr "Wagtail administration"
 
 msgid "None"
 msgstr "Inget"
@@ -155,8 +159,17 @@ msgstr "Gå till Wagtail admin"
 msgid "Account"
 msgstr "Konto"
 
+msgid "Change profile picture"
+msgstr "Ändra profilbild"
+
+msgid "Your current profile picture:"
+msgstr "Nuvarande profilbild:"
+
 msgid "Update"
 msgstr "Uppdatera"
+
+msgid "Change email"
+msgstr "Byt e-postadress"
 
 msgid "Change password"
 msgstr "Byt lösenord"
@@ -165,6 +178,9 @@ msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr ""
 "Ditt lösenord inte inte ändras här. Vänligen kontakta en administratör."
+
+msgid "Set Time Zone"
+msgstr "Ställ in tidszon"
 
 msgid "Language Preferences"
 msgstr "Språkpreferens"
@@ -184,8 +200,28 @@ msgstr "Logga in"
 msgid "Set your new password"
 msgstr "Sätt ditt nya lösenord"
 
+msgid "Invalid password reset link"
+msgstr "Ogiltig länk för lösenordsåterställning"
+
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used."
+msgstr ""
+"Länk för lösenordsåterställning var ogiltig, möjligtvis har den redan har "
+"använts."
+
+msgid "Request a new password reset"
+msgstr "Begär om återställning av lösenord"
+
 msgid "Check your email"
 msgstr "Kontrollera din mejl"
+
+msgid ""
+"A link to reset your password has been emailed to you if an account exists "
+"for this address."
+msgstr ""
+"En länk för att återställa ditt lösenord har skickats till dig om ett konto "
+"för denna adressen existerar."
 
 msgid "Please follow the link below to reset your password:"
 msgstr "Vänligen följ länken för att återställa ditt lösenord: "
@@ -246,6 +282,24 @@ msgstr "Ångra"
 
 msgid "Redo"
 msgstr "Gör om"
+
+msgid "Reload the page"
+msgstr "Ladda om sidan"
+
+msgid "Reload saved content"
+msgstr "Ladda om sparat innehåll"
+
+msgid "Show latest content"
+msgstr "Visa senaste innehållet"
+
+msgid "Show error"
+msgstr "Visa fel"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr ""
+"Textredigeraren kraschade. Innehållet har återställts till den senaste "
+"sparade versionen."
 
 msgid "Dashboard"
 msgstr "Instrumentpanel"
@@ -1205,6 +1259,12 @@ msgstr "Ryska"
 msgid "Swedish"
 msgstr "Svenska"
 
+msgid "Slovak"
+msgstr "Slovakiska"
+
+msgid "Ukrainian"
+msgstr "Ukrainska"
+
 msgid "Chinese (China)"
 msgstr "Kinesiska"
 
@@ -1214,8 +1274,14 @@ msgstr "Ledsen, du har inte rättigheter att tillträda detta område."
 msgid "Your password has been changed successfully!"
 msgstr "Ditt lösenord har framgångsrikt uppdaterats!"
 
+msgid "Your email has been changed successfully!"
+msgstr "Din e-postadress har ändrats!"
+
 msgid "Your preferences have been updated."
 msgstr "Dina inställningar har uppdaterats."
+
+msgid "Your preferences have been updated successfully!"
+msgstr "Dina inställningar har uppdaterats!"
 
 msgid "You have been successfully logged out."
 msgstr "Du har framgångsrikt loggats ut."
@@ -1401,6 +1467,15 @@ msgstr "Avpublicera sida '{title}'"
 msgid "View revision history for '{title}'"
 msgstr "Se revisionshistorik för '{title}'"
 
+msgid "Set profile picture"
+msgstr "Ange profilbild"
+
+msgid "Change your profile picture"
+msgstr "Ändra profilbild"
+
+msgid "Change the email address linked to your account."
+msgstr "Ändra e-postadressen som är länkad till ditt konto."
+
 msgid "Change the password you use to log in."
 msgstr "Byt lösenordet du använder för att logga in"
 
@@ -1412,6 +1487,12 @@ msgstr "Språkpreferens"
 
 msgid "Choose the language you want to use here."
 msgstr "Välj det språk du vill använda här."
+
+msgid "Current Time Zone"
+msgstr "Aktuell tidszon"
+
+msgid "Choose your current time zone."
+msgstr "Välj din nuvarande tidszon"
 
 msgid "Heading {level}"
 msgstr "Titel {level}"

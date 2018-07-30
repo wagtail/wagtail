@@ -4,6 +4,8 @@
 #
 # Translators:
 # hanfeng <appweb.cn@gmail.com>, 2014-2015
+# Ed <724195301@qq.com>, 2018
+# Ed <724195301@qq.com>, 2018
 # hanfeng <appweb.cn@gmail.com>, 2014
 # Jian Li <kdlijian@gmail.com>, 2015
 # jszsj <zhushajun@gmail.com>, 2016-2017
@@ -18,8 +20,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-05-04 20:22+0100\n"
-"PO-Revision-Date: 2018-05-04 19:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-06-30 03:16+0000\n"
+"Last-Translator: Ed <724195301@qq.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -27,6 +29,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail users"
+msgstr "Wagtail 用户"
 
 msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
 msgstr "必填。30字符以内。只能使用字母，数字和@/./+/-/_"
@@ -73,6 +78,9 @@ msgstr "此组名已被占用。"
 msgid "You cannot have multiple permission records for the same page."
 msgstr "对于同一个页面你不能设置多重权限"
 
+msgid "Upload a profile picture"
+msgstr "上传新的头像"
+
 msgid "submitted notifications"
 msgstr "提交通知"
 
@@ -96,6 +104,15 @@ msgstr "首选语言"
 
 msgid "Select language for the admin"
 msgstr "为管理员选择语言"
+
+msgid "current time zone"
+msgstr "当前时区"
+
+msgid "Select your current time zone"
+msgstr "选择你所在时区"
+
+msgid "profile picture"
+msgstr "配置图片"
 
 msgid "user profile"
 msgstr "用户资料"
@@ -277,6 +294,11 @@ msgstr "编辑"
 
 msgid "The user could not be created due to errors."
 msgstr "无法创建用户。出现错误。"
+
+msgid ""
+"Your details have been updated. You've been logged out for security reasons, "
+"please login to continue."
+msgstr "你的详细资料已更新。出于安全考虑，请重新登录。"
 
 msgid "The user could not be saved due to errors."
 msgstr "无法保存用户。出现错误。"

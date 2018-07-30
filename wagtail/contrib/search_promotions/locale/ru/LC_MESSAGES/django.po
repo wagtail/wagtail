@@ -4,7 +4,7 @@
 #
 # Translators:
 # Andrey Avdey <talkerbox@live.com>, 2016
-# Eugene MechanisM <eugene@mechanism.pro>, 2015
+# Eugene <eugene.mechanism@gmail.com>, 2015
 # Sergey Khalymon <sergiykhalimon@gmail.com>, 2015
 msgid ""
 msgstr ""

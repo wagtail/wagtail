@@ -5,13 +5,14 @@
 # Translators:
 # Sergiy Shkodenko <shkodenkosergiy@gmail.com>, 2018
 # Viktor Shytiuk <VicHunting@yandex.ua>, 2018
+# Николай Инкогнито <mmmsvit@gmail.com>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-05-04 20:23+0100\n"
-"PO-Revision-Date: 2018-05-04 19:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-06-14 21:56+0000\n"
+"Last-Translator: Николай Инкогнито <mmmsvit@gmail.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
 "MIME-Version: 1.0\n"
@@ -38,6 +39,9 @@ msgstr "Зберегти"
 
 msgid "Settings"
 msgstr "Налаштування"
+
+msgid "This setting could not be opened because there is no site defined."
+msgstr "Налаштування не буде відчинене тому, що не призначено сайт."
 
 msgid "{setting_type} updated."
 msgstr "{setting_type} оновлено."

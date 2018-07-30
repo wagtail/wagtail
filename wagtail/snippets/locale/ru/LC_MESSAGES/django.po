@@ -3,16 +3,17 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Eugene MechanisM <eugene@mechanism.pro>, 2014-2015
+# Eugene <eugene.mechanism@gmail.com>, 2014-2015
 # Mikalai Radchuk <radchuk.m@gmail.com>, 2016
+# Nikita Tonkoshkur <humapen@gmail.com>, 2018
 # Vassiliy Vorobyov <zuber.kg@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-05-04 20:23+0100\n"
-"PO-Revision-Date: 2018-05-04 19:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-07-15 15:31+0000\n"
+"Last-Translator: Nikita Tonkoshkur <humapen@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -95,6 +96,9 @@ msgstr "Редактирование %(snippet_type_name)s - %(instance)s"
 
 msgid "Editing"
 msgstr "Редактирование"
+
+msgid "Usage"
+msgstr "Использование"
 
 msgid "Snippets"
 msgstr "Фрагменты"

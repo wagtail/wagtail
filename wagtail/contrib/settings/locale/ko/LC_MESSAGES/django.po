@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Kyungil Choi <hanpama@gmail.com>, 2017
+# Kyungil Choi <hanpama@gmail.com>, 2017-2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-05-04 20:23+0100\n"
-"PO-Revision-Date: 2018-05-04 19:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-06-21 11:04+0000\n"
+"Last-Translator: Kyungil Choi <hanpama@gmail.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
 "MIME-Version: 1.0\n"
@@ -34,6 +34,9 @@ msgstr "저장"
 
 msgid "Settings"
 msgstr "설정"
+
+msgid "This setting could not be opened because there is no site defined."
+msgstr "사이트가 정의되지 않아 이 설정을 열 수 없습니다."
 
 msgid "{setting_type} updated."
 msgstr "{setting_type}의 수정이 반영됨."

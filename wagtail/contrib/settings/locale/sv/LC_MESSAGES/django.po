@@ -5,14 +5,15 @@
 # Translators:
 # Andreas Bergström <andreas.bergstrom@gmail.com>, 2018
 # André Karlsson <andre@sess.se>, 2017
+# Philip Andersen <renegadevi@codeofmagi.net>, 2018
 # Thomas Kunambi <kunambi@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-05-04 20:23+0100\n"
-"PO-Revision-Date: 2018-05-04 19:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-05-27 23:24+0000\n"
+"Last-Translator: Philip Andersen <renegadevi@codeofmagi.net>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -36,6 +37,11 @@ msgstr "Spara"
 
 msgid "Settings"
 msgstr "Inställningar"
+
+msgid "This setting could not be opened because there is no site defined."
+msgstr ""
+"Den här inställningen kunde inte öppnas eftersom det inte finns någon "
+"definierad webbplats."
 
 msgid "{setting_type} updated."
 msgstr "{setting_type} uppdaterat."

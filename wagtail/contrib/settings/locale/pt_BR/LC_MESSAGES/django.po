@@ -4,14 +4,14 @@
 #
 # Translators:
 # Luiz Boaretto <lboaretto@gmail.com>, 2016
-# Luiz Boaretto <lboaretto@gmail.com>, 2016
+# Luiz Boaretto <lboaretto@gmail.com>, 2016,2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-05-04 20:23+0100\n"
-"PO-Revision-Date: 2018-05-04 19:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-06-19 13:24+0000\n"
+"Last-Translator: Luiz Boaretto <lboaretto@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -35,6 +35,9 @@ msgstr "Salvar"
 
 msgid "Settings"
 msgstr "Configurações"
+
+msgid "This setting could not be opened because there is no site defined."
+msgstr "Essa configuração não pôde ser aberta porque não há site definido."
 
 msgid "{setting_type} updated."
 msgstr "{setting_type} atualizado."

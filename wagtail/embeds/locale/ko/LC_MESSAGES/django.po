@@ -5,14 +5,14 @@
 # Translators:
 # Jihan Chung <jihanchung20@gmail.com>, 2015
 # Jihan Chung <jihanchung20@gmail.com>, 2015
-# Kyungil Choi <hanpama@gmail.com>, 2017
+# Kyungil Choi <hanpama@gmail.com>, 2017-2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-05-04 20:22+0100\n"
-"PO-Revision-Date: 2018-05-04 19:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-06-21 12:19+0000\n"
+"Last-Translator: Kyungil Choi <hanpama@gmail.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
 "MIME-Version: 1.0\n"
@@ -20,6 +20,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ko\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail embeds"
+msgstr "웨그테일 임베드"
 
 msgid "Please enter a valid URL"
 msgstr "유효한 URL을 적어 주세요"
@@ -51,3 +54,6 @@ msgid ""
 msgstr ""
 "이 URL을 임베드하는 동안 Embedly와 관련하여 에러가 있는 것으로 보입니다. 다음"
 "에 다시 시도하여 주세요."
+
+msgid "Embed"
+msgstr "임베드"
