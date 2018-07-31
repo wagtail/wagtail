@@ -83,10 +83,11 @@ class AdminDateTimeInput(WidgetWithScript, widgets.DateTimeInput):
 
 class AdminTagWidget(WidgetWithScript, TagWidget):
     def render_js_init(self, id_, name, value):
-        return "initTagField({0}, {1}, {2});".format(
+        return "initTagField({0}, {1}, {2}, {3});".format(
             json.dumps(id_),
             json.dumps(reverse('wagtailadmin_tag_autocomplete')),
             'true' if getattr(settings, 'TAG_SPACES_ALLOWED', True) else 'false',
+            'false' if not getattr(settings, 'TAG_DISABLE_COMMA', False) else 'true',
         )
 
 
