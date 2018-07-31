@@ -11,6 +11,7 @@ addons:
     packages:
      - oracle-java9-installer
      - oracle-java9-set-default
+  postgresql: "9.6"
 
 matrix:
   include:
