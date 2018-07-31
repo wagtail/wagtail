@@ -651,7 +651,7 @@ class PageChooserBlock(ChooserBlock):
     def deconstruct(self):
         name, args, kwargs = super().deconstruct()
 
-        if 'page_type' in kwargs:
+        if 'target_model' in kwargs or 'page_type' in kwargs:
             target_models = []
 
             for target_model in self.target_models:
@@ -660,6 +660,7 @@ class PageChooserBlock(ChooserBlock):
                     '{}.{}'.format(opts.app_label, opts.object_name)
                 )
 
+            kwargs.pop('target_model', None)
             kwargs['page_type'] = target_models
 
         return name, args, kwargs
