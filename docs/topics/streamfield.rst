@@ -261,7 +261,7 @@ A control for selecting a page object, using Wagtail's page browser. The followi
 ``required`` (default: True)
   If true, the field cannot be left blank.
 
-``target_model`` (default: Page)
+``page_type`` (default: Page)
   Restrict choices to one or more specific page types. Accepts a page model class, model name (as a string), or a list or tuple of these.
 
 ``can_choose_root`` (default: False)
