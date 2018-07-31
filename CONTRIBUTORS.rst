@@ -311,6 +311,7 @@ Contributors
 * Andrew Crewdson
 * Aram Dulyan
 * Kevin Howbrook
+* Ryan Verner
 
 Translators
 ===========
