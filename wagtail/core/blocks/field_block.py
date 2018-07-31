@@ -1,5 +1,4 @@
 import datetime
-import warnings
 
 from django import forms
 from django.db.models.fields import BLANK_CHOICE_DASH
@@ -13,7 +12,6 @@ from django.utils.safestring import mark_safe
 
 from wagtail.core.rich_text import RichText
 from wagtail.core.utils import resolve_model_string
-from wagtail.utils.deprecation import RemovedInWagtail24Warning
 
 from .base import Block
 
@@ -597,12 +595,10 @@ class ChooserBlock(FieldBlock):
 
 class PageChooserBlock(ChooserBlock):
     def __init__(self, page_type=None, can_choose_root=False, target_model=None, **kwargs):
+        # We cannot simply deprecate 'target_model' in favour of 'page_type'
+        # as it would force developers to update their old migrations.
+        # Mapping the old 'target_model' to the new 'page_type' kwarg instead.
         if target_model:
-            warnings.warn(
-                "PageChooserBlock's `target_model` parameter is deprecated. "
-                "Please use `page_type` instead.",
-                category=RemovedInWagtail24Warning
-            )
             page_type = target_model
 
         if page_type:
