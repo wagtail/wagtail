@@ -5,10 +5,11 @@ from django.forms import Media, widgets
 from wagtail.admin.edit_handlers import RichTextFieldPanel
 from wagtail.admin.rich_text.converters.contentstate import ContentstateConverter
 from wagtail.core.rich_text import features as feature_registry
-from wagtail.utils.widgets import WidgetWithScript
 
 
-class DraftailRichTextArea(WidgetWithScript, widgets.HiddenInput):
+class DraftailRichTextArea(widgets.HiddenInput):
+    template_name = 'wagtailadmin/widgets/draftail_rich_text_area.html'
+
     # this class's constructor accepts a 'features' kwarg
     accepts_features = True
 
@@ -39,6 +40,12 @@ class DraftailRichTextArea(WidgetWithScript, widgets.HiddenInput):
 
         self.converter = ContentstateConverter(self.features)
 
+        default_attrs = {'data-draftail-input': True}
+        attrs = kwargs.get('attrs')
+        if attrs:
+            default_attrs.update(attrs)
+        kwargs['attrs'] = default_attrs
+
         super().__init__(*args, **kwargs)
 
     def format_value(self, value):
@@ -51,17 +58,10 @@ class DraftailRichTextArea(WidgetWithScript, widgets.HiddenInput):
 
         return self.converter.from_database_format(value)
 
-    def render(self, name, value, attrs=None):
-        if attrs is None:
-            attrs = {}
-
-        attrs['data-draftail-input'] = True
-
-        return super().render(name, value, attrs)
-
-    def render_js_init(self, id_, name, value):
-        return "window.draftail.initEditor('#{id}', {opts}, document.currentScript)".format(
-            id=id_, opts=json.dumps(self.options))
+    def get_context(self, name, value, attrs):
+        context = super().get_context(name, value, attrs)
+        context['widget']['options_json'] = json.dumps(self.options)
+        return context
 
     def value_from_datadict(self, data, files, name):
         original_value = super().value_from_datadict(data, files, name)
