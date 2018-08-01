@@ -1,0 +1,49 @@
+version: 2
+
+jobs:
+  backend:
+    docker:
+      - image: circleci/python:3.6.4
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - pip-packages-v1-{{ .Branch }}
+            - pip-packages-v1-
+      - run: pipenv install -e .[testing]
+      - save_cache:
+          paths:
+            - ~/.local/
+          key: pip-package-v1-{{ .Branch }}
+      - run: pipenv run flake8 wagtail
+      - run: pipenv run isort --check-only --diff --recursive wagtail
+      - run: pipenv run python -u runtests.py
+
+  frontend:
+    docker:
+      - image: circleci/node:8.11.3
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
+            - node-v1-{{ .Branch }}-
+            - node-v1-
+      - run: npm install
+      - save_cache:
+          paths:
+            - ~/project/node_modules/
+          key: node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
+      - run: npm run lint:js
+      - run: npm run lint:css
+      - run: npm run test:unit:coverage -- --runInBand
+      - run: npm rebuild node-sass
+      - run: npm run dist
+      - run: bash <(curl -s https://codecov.io/bash) -F frontend
+
+workflows:
+    version: 2
+    test:
+        jobs:
+          - backend
+          - frontend
