@@ -22,7 +22,9 @@ DEFAULT_DATE_FORMAT = '%Y-%m-%d'
 DEFAULT_DATETIME_FORMAT = '%Y-%m-%d %H:%M'
 
 
-class AdminAutoHeightTextInput(WidgetWithScript, widgets.Textarea):
+class AdminAutoHeightTextInput(widgets.Textarea):
+    template_name = 'wagtailadmin/widgets/auto_height_text_input.html'
+
     def __init__(self, attrs=None):
         # Use more appropriate rows default, given autoheight will alter this anyway
         default_attrs = {'rows': '1'}
@@ -30,9 +32,6 @@ class AdminAutoHeightTextInput(WidgetWithScript, widgets.Textarea):
             default_attrs.update(attrs)
 
         super().__init__(default_attrs)
-
-    def render_js_init(self, id_, name, value):
-        return 'autosize($("#{0}"));'.format(id_)
 
 
 class AdminDateInput(WidgetWithScript, widgets.DateInput):
