@@ -8,7 +8,7 @@ from django.conf import settings
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
 from django.core import checks
-from django.core.cache import cache
+from django.core.cache import cache, caches
 from django.core.exceptions import ValidationError
 from django.core.handlers.base import BaseHandler
 from django.core.handlers.wsgi import WSGIRequest
@@ -35,9 +35,78 @@ from wagtail.search import index
 logger = logging.getLogger('wagtail.core')
 
 PAGE_TEMPLATE_VAR = 'page'
+SITE_CACHE_SITES_KEY = 'wagtail.core.sites'
+SITE_CACHE_DEFAULT_KEY = '__default__'
 
 
 class SiteManager(models.Manager):
+
+    @classmethod
+    def get_site_cache(cls):
+        """Returns a cache instance to use for site caching operations, or
+        ``None`` if site caching is disabled
+        """
+        if getattr(settings, 'WAGTAIL_SITE_CACHE_ENABLED', False):
+            return caches[getattr(settings, 'WAGTAIL_SITE_CACHE', 'default')]
+
+    @staticmethod
+    def get_hostname_and_port_from_request(request):
+        """Reliably extracts 'hostname' and 'port' values from the supplied
+        ``HttpRequest`` instance (without raising exceptions), and return them
+        as a tuple"""
+        try:
+            hostname = request.get_host().split(':')[0]
+        except KeyError:
+            hostname = None
+        try:
+            port = int(request.get_port())
+        except(KeyError, ValueError):
+            port = None
+        return hostname, port
+
+    def clear_cache(self):
+        cache = self.get_site_cache()
+        if cache is not None:
+            cache.delete(SITE_CACHE_SITES_KEY)
+
+    def populate_cache(self):
+        cache = self.get_site_cache()
+        if cache is None:
+            return
+
+        sites = defaultdict(list)
+        for site in self.all().select_related('root_page').iterator():
+            sites[site.hostname].append(site)
+            if site.is_default_site:
+                sites[SITE_CACHE_DEFAULT_KEY] = site
+
+        cache.set(SITE_CACHE_SITES_KEY, dict(sites), None)
+        return sites
+
+    def get_for_request(self, request):
+        """Return the site responsible for dealing with the supplied
+        ``HttpRequest`` instance"""
+        hostname, port = self.get_hostname_and_port_from_request(request)
+        cache = self.get_site_cache()
+        if cache is None:
+            return get_site_for_hostname(hostname, port)
+
+        sites = cache.get(SITE_CACHE_SITES_KEY) or self.populate_cache()
+        sites_for_hostname = sites.get(hostname, ())
+
+        if len(sites_for_hostname) == 1:
+            return sites_for_hostname[0]
+
+        if port is not None:
+            for site in sites_for_hostname:
+                if site.port == port:
+                    return site
+
+        try:
+            return sites[SITE_CACHE_DEFAULT_KEY]
+        except KeyError:
+            raise Site.DoesNotExist()
+
     def get_by_natural_key(self, hostname, port):
         return self.get(hostname=hostname, port=port)
 
@@ -91,33 +160,9 @@ class Site(models.Model):
                 (" [default]" if self.is_default_site else "")
             )
 
-    @staticmethod
-    def find_for_request(request):
-        """
-        Find the site object responsible for responding to this HTTP
-        request object. Try:
-
-        * unique hostname first
-        * then hostname and port
-        * if there is no matching hostname at all, or no matching
-          hostname:port combination, fall back to the unique default site,
-          or raise an exception
-
-        NB this means that high-numbered ports on an extant hostname may
-        still be routed to a different hostname which is set as the default
-        """
-
-        try:
-            hostname = request.get_host().split(':')[0]
-        except KeyError:
-            hostname = None
-
-        try:
-            port = request.get_port()
-        except (AttributeError, KeyError):
-            port = request.META.get('SERVER_PORT')
-
-        return get_site_for_hostname(hostname, port)
+    @classmethod
+    def find_for_request(cls, request):
+        return cls.objects.get_for_request(request)
 
     @property
     def root_url(self):
