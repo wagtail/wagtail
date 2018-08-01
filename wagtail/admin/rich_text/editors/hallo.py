@@ -104,17 +104,15 @@ class HalloRichTextArea(WidgetWithScript, widgets.Textarea):
 
         super().__init__(*args, **kwargs)
 
-    def translate_value(self, value):
+    def format_value(self, value):
         # Convert database rich text representation to the format required by
         # the input field
+        value = super().format_value(value)
+
         if value is None:
             return None
 
         return self.converter.from_database_format(value)
-
-    def render(self, name, value, attrs=None):
-        translated_value = self.translate_value(value)
-        return super().render(name, translated_value, attrs)
 
     def render_js_init(self, id_, name, value):
         if self.options is not None and 'plugins' in self.options:
