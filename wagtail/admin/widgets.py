@@ -85,13 +85,15 @@ class AdminDateTimeInput(widgets.DateTimeInput):
         return context
 
 
-class AdminTagWidget(WidgetWithScript, TagWidget):
-    def render_js_init(self, id_, name, value):
-        return "initTagField({0}, {1}, {2});".format(
-            json.dumps(id_),
-            json.dumps(reverse('wagtailadmin_tag_autocomplete')),
-            'true' if getattr(settings, 'TAG_SPACES_ALLOWED', True) else 'false',
-        )
+class AdminTagWidget(TagWidget):
+    template_name = 'wagtailadmin/widgets/tag_widget.html'
+
+    def get_context(self, name, value, attrs):
+        context = super().get_context(name, value, attrs)
+        context['widget']['autocomplete_url'] = reverse('wagtailadmin_tag_autocomplete')
+        context['widget']['tag_spaces_allowed'] = getattr(settings, 'TAG_SPACES_ALLOWED', True)
+
+        return context
 
 
 class AdminChooser(WidgetWithScript, widgets.Input):
