@@ -1,24 +1,37 @@
 function createImageChooser(id) {
-    var chooserElement = $('#' + id + '-chooser');
-    var previewImage = chooserElement.find('.preview-image img');
-    var input = $('#' + id);
-    var editLink = chooserElement.find('.edit-link');
+    console.log('id: ' + id);
+    let chooserElement = $('#' + id + '-chooser');
+    //now there will be more images to change per preview owing to the way that jcrop works..
+    let input = $('#' + id);
+    let editLink = chooserElement.find('.edit-link');
 
     $('.action-choose', chooserElement).on('click', function() {
+        let previewImages = chooserElement.find('.preview-image img');
         ModalWorkflow({
             url: window.chooserUrls.imageChooser,
             onload: IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS,
             responses: {
                 imageChosen: function(imageData) {
                     input.val(imageData.id);
-                    previewImage.attr({
-                        src: imageData.preview.url,
-                        width: imageData.preview.width,
-                        height: imageData.preview.height,
-                        alt: imageData.title
-                    });
+                    previewImages.each( 
+                        function(){
+                            $( this ).attr({
+                                src: imageData.preview.url,
+                                width: imageData.preview.width,
+                                height: imageData.preview.height,
+                                alt: imageData.title,
+                                "data-original-width": imageData.preview.original_width,
+                                "data-original-height": imageData.preview.original_height
+                            })
+                        }
+                        )
                     chooserElement.removeClass('blank');
                     editLink.attr('href', imageData.edit_link);
+                    let focalPointChooser = $('div.focal-point-chooser', chooserElement);
+                    if(focalPointChooser.length){
+                        window.runJcrop(focalPointChooser, 'remove');//need to completely rebuild the associated jcrop instance if changing the image
+                    }
+                    
                 }
             }
         });
