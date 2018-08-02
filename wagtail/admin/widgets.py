@@ -34,7 +34,9 @@ class AdminAutoHeightTextInput(widgets.Textarea):
         super().__init__(default_attrs)
 
 
-class AdminDateInput(WidgetWithScript, widgets.DateInput):
+class AdminDateInput(widgets.DateInput):
+    template_name = 'wagtailadmin/widgets/date_input.html'
+
     def __init__(self, attrs=None, format=None):
         fmt = format
         if fmt is None:
@@ -42,26 +44,28 @@ class AdminDateInput(WidgetWithScript, widgets.DateInput):
         self.js_format = to_datetimepicker_format(fmt)
         super().__init__(attrs=attrs, format=fmt)
 
-    def render_js_init(self, id_, name, value):
+    def get_context(self, name, value, attrs):
+        context = super().get_context(name, value, attrs)
+
         config = {
             'dayOfWeekStart': get_format('FIRST_DAY_OF_WEEK'),
             'format': self.js_format,
         }
-        return 'initDateChooser({0}, {1});'.format(
-            json.dumps(id_),
-            json.dumps(config)
-        )
+        context['widget']['config_json'] = json.dumps(config)
+
+        return context
 
 
-class AdminTimeInput(WidgetWithScript, widgets.TimeInput):
+class AdminTimeInput(widgets.TimeInput):
+    template_name = 'wagtailadmin/widgets/time_input.html'
+
     def __init__(self, attrs=None, format='%H:%M'):
         super().__init__(attrs=attrs, format=format)
 
-    def render_js_init(self, id_, name, value):
-        return 'initTimeChooser({0});'.format(json.dumps(id_))
 
+class AdminDateTimeInput(widgets.DateTimeInput):
+    template_name = 'wagtailadmin/widgets/datetime_input.html'
 
-class AdminDateTimeInput(WidgetWithScript, widgets.DateTimeInput):
     def __init__(self, attrs=None, format=None):
         fmt = format
         if fmt is None:
@@ -69,15 +73,16 @@ class AdminDateTimeInput(WidgetWithScript, widgets.DateTimeInput):
         self.js_format = to_datetimepicker_format(fmt)
         super().__init__(attrs=attrs, format=fmt)
 
-    def render_js_init(self, id_, name, value):
+    def get_context(self, name, value, attrs):
+        context = super().get_context(name, value, attrs)
+
         config = {
             'dayOfWeekStart': get_format('FIRST_DAY_OF_WEEK'),
             'format': self.js_format,
         }
-        return 'initDateTimeChooser({0}, {1});'.format(
-            json.dumps(id_),
-            json.dumps(config)
-        )
+        context['widget']['config_json'] = json.dumps(config)
+
+        return context
 
 
 class AdminTagWidget(WidgetWithScript, TagWidget):
