@@ -287,7 +287,7 @@ class TestUserCreateView(TestCase, WagtailTestUtils):
         users = get_user_model().objects.filter(username='testuser')
         self.assertEqual(users.count(), 1)
         self.assertEqual(users.first().email, 'test@user.com')
-        self.assertFalse(users.first().has_usable_password())
+        self.assertEqual(users.first().password, '')
 
     @override_settings(WAGTAILUSERS_PASSWORD_REQUIRED=False)
     def test_optional_password_is_still_validated(self):
@@ -330,7 +330,6 @@ class TestUserCreateView(TestCase, WagtailTestUtils):
         users = get_user_model().objects.filter(username='testuser')
         self.assertEqual(users.count(), 1)
         self.assertEqual(users.first().email, 'test@user.com')
-        self.assertTrue(users.first().has_usable_password())
         self.assertTrue(users.first().check_password('banana'))
 
     @override_settings(WAGTAILUSERS_PASSWORD_ENABLED=False)
@@ -344,7 +343,7 @@ class TestUserCreateView(TestCase, WagtailTestUtils):
 
     @override_settings(WAGTAILUSERS_PASSWORD_ENABLED=False)
     def test_password_fields_ignored_when_disabled(self):
-        """When WAGTAILUSERS_PASSWORD_REQUIRED is False, users should always be created without a usable password"""
+        """When WAGTAILUSERS_PASSWORD_ENABLED is False, users should always be created without a usable password"""
         response = self.post({
             'username': "testuser",
             'email': "test@user.com",
@@ -361,7 +360,7 @@ class TestUserCreateView(TestCase, WagtailTestUtils):
         users = get_user_model().objects.filter(username='testuser')
         self.assertEqual(users.count(), 1)
         self.assertEqual(users.first().email, 'test@user.com')
-        self.assertFalse(users.first().has_usable_password())
+        self.assertEqual(users.first().password, '')
 
     def test_before_create_user_hook(self):
         def hook_func(request):
