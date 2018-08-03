@@ -6,6 +6,8 @@ from django.utils.translation import ugettext_lazy as _
 from wagtail.admin.widgets import AdminChooser
 from wagtail.images import get_image_model
 
+from django.conf import settings #HT START END
+
 
 class AdminImageChooser(AdminChooser):
     choose_one_text = _('Choose an image')

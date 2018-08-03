@@ -25,7 +25,7 @@
 //HT START
 // NECESSARY TO MAKE PREVIEW IMAGE LARGE ENOUGH TO COMFORTABLY USE CROSS HAIRS 
 .image-chooser .chosen .preview-image {
-    display:inline-block; !important /* allows buttons to sit next to image until they're pushed below */
+    display:inline-block !important; /* allows buttons to sit next to image until they're pushed below */
     max-width: 95% !important; 
     margin-bottom:1em !important; 
     float: none !important; 
