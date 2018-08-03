@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.utils.translation import ugettext as _
+from django.conf import settings
 
 from wagtail.admin.forms import SearchForm
 from wagtail.admin.modal_workflow import render_modal_workflow
