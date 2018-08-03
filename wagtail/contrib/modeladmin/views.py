@@ -229,6 +229,10 @@ class IndexView(WMABaseView):
     ERROR_FLAG = 'e'
     IGNORED_PARAMS = (ORDER_VAR, ORDER_TYPE_VAR, SEARCH_VAR)
 
+    # sortable_by is required by the django.contrib.admin.templatetags.admin_list.result_headers
+    # template tag as of Django 2.1 - see https://docs.djangoproject.com/en/2.1/ref/contrib/admin/#django.contrib.admin.ModelAdmin.sortable_by
+    sortable_by = None
+
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
         # Only continue if logged in user has list permission
