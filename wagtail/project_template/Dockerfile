@@ -8,8 +8,9 @@ WORKDIR /code/
 COPY . /code/
 
 RUN pip install -r /code/requirements.txt && \
-    pip install gunicorn && \
-    python manage.py migrate && \
+    pip install gunicorn
+
+RUN python manage.py migrate && \
     useradd wagtail && \
     chown -R wagtail /code
 
