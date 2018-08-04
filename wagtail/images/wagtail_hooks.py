@@ -116,7 +116,7 @@ def register_image_operations():
         ('jpegquality', image_operations.JPEGQualityOperation),
         ('format', image_operations.FormatOperation),
         ('bgcolor', image_operations.BackgroundColorOperation),
-        ('select', image_operations.SelectCropOperation),#HT START END
+        ('select', image_operations.SelectCropOperation),  # HT START END
     ]
 
 

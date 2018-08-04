@@ -1,5 +1,5 @@
 {# HT START #}
-{% load static wagtailcore_tags wagtailimages_tags jbs_core_tags i18n l10n wagtailadmin_tags %}
+{% load static %}
 {% block extra_css %}
     Focal point chooser 
     <link rel="stylesheet" href="{% static 'wagtailimages/css/vendor/jquery.Jcrop.min.css' %}" type="text/css">
@@ -10,7 +10,6 @@
     <script src="{% static 'wagtailadmin/js/vendor/jquery.ba-throttle-debounce.min.js' %}"></script>
     <script src="{% static 'wagtailimages/js/vendor/jquery.Jcrop.min.js' %}"></script>
     <script src="{% static 'wagtailimages/js/contextual-focal-point-chooser.js' %}"></script>
-    {# contextual-focal-point-chooser.js is a version of focal-point-chooser.js adjusted for multiple images in a struct block context, using hidden fields rather than data attributes to store focal point info #}
 {% endblock %}
 
 <div id="{{prefix}}-image-container" class="{{ classname }}">

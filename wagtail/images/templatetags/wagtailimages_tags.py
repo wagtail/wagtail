@@ -87,17 +87,14 @@ class ImageNode(template.Node):
         return Filter(spec=self.filter_spec)
 
     def render(self, context):
-        #HT START
+        # HT START
         try:
-            #nice thing about this it will automatically pick up values set and combine it into the result without any further action 
-            #on the part of the developer. These values will only be set in the block context when using a block that defines the following focal point values
-            #as top level values in the context
-            select_spec="select-" + str(context['focal_point_x']) + ":" + str(context['focal_point_y']) + ":" + str(context['focal_point_width']) + ":" + str(context['focal_point_height'])
+            # The SelectCropBlock adds these values to its context..
+            select_spec = "select-" + str(context['focal_point_x']) + ":" + str(context['focal_point_y']) + ":" + str(context['focal_point_width']) + ":" + str(context['focal_point_height'])
             self.filter_spec = select_spec + '|' + self.filter_spec
-            print(self.filter_spec)
         except KeyError:
             pass
-        #HT END
+        # HT END
 
         try:
             image = self.image_expr.resolve(context)

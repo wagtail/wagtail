@@ -1,7 +1,7 @@
+from django.conf import settings
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.utils.translation import ugettext as _
-from django.conf import settings
 
 from wagtail.admin.forms import SearchForm
 from wagtail.admin.modal_workflow import render_modal_workflow
@@ -33,10 +33,10 @@ def get_image_result_data(image):
     helper function: given an image, return the json data to pass back to the
     image chooser panel
     """
-    #HT START
+    # HT START
     dim = getattr(settings, 'PREVIEW_IMAGE_SIZE', 165)
     preview_image = image.get_rendition('max-{}x{}'.format(dim, dim))
-    #HT END
+    # HT END
 
     return {
         'id': image.id,
@@ -46,10 +46,10 @@ def get_image_result_data(image):
             'url': preview_image.url,
             'width': preview_image.width,
             'height': preview_image.height,
-            #HT START
-            'original_width':image.width,#used for jcrop
-            'original_height':image.height#used for jcrop
-            #HT END
+            # HT START
+            'original_width': image.width,  # used for jcrop
+            'original_height': image.height  # used for jcrop
+            # HT END
         }
     }
 

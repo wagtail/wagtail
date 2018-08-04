@@ -25,18 +25,18 @@
 //HT START
 // NECESSARY TO MAKE PREVIEW IMAGE LARGE ENOUGH TO COMFORTABLY USE CROSS HAIRS 
 .image-chooser .chosen .preview-image {
-    display:inline-block; /* allows buttons to sit next to image until they're pushed below */
-    max-width: 95%; 
-    margin-bottom:1em; 
-    float: none; 
+    display: inline-block; /* allows buttons to sit next to image until they're pushed below */
+    margin-bottom: 1em;
+    float: none;
     margin-left: 0;
     margin-right: 0;
     max-width: none;
-  } 
 
-/*having the max values set meant that jcrop didn't work! - and it doesn't really help with anything here...*/
-.image-chooser .chosen .preview-image img {
-    max-width: none;
-    max-height: none;
-  } 
+    img {
+        /*having the max values set meant that jcrop didn't work! - and it doesn't really help with anything here...*/
+        max-width: none;
+        max-height: none;
+    }
+}
+
 //HT END

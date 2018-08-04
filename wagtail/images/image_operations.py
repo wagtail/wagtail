@@ -64,8 +64,8 @@ class FillOperation(Operation):
 
     def run(self, willow, image, env):
         image_width, image_height = willow.get_size()
-        focal_point = getattr(self, 'focal_point', image.get_focal_point()) #HT START END
-        #focal_point = image.get_focal_point()
+        focal_point = getattr(self, 'focal_point', image.get_focal_point())  # HT START END
+        # focal_point = image.get_focal_point()
 
         # Get crop aspect ratio
         crop_aspect_ratio = self.width / self.height
@@ -144,7 +144,9 @@ class FillOperation(Operation):
         return willow
 
 
-#HT - START
+# HT - START
+
+
 class SelectCropOperation(FillOperation):
 
     def construct(self, focal_point):
@@ -154,12 +156,13 @@ class SelectCropOperation(FillOperation):
 
     def run(self, willow, image, env):
         self.focal_point = Rect.from_point(int(self.focal_point_x),
-                    int(self.focal_point_y),
-                    int(self.focal_point_width),
-                    int(self.focal_point_height))
+                                           int(self.focal_point_y),
+                                           int(self.focal_point_width),
+                                           int(self.focal_point_height))
         willow = super().run(willow, image, env)
         return willow
-#HT - END
+# HT - END
+
 
 class MinMaxOperation(Operation):
     def construct(self, size):

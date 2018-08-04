@@ -1,12 +1,11 @@
 import json
 
+from django.conf import settings  # HT START END
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
 
 from wagtail.admin.widgets import AdminChooser
 from wagtail.images import get_image_model
-
-from django.conf import settings #HT START END
 
 
 class AdminImageChooser(AdminChooser):
@@ -39,15 +38,17 @@ class AdminImageChooser(AdminChooser):
             'wagtailimages/js/image-chooser.js',
         ]
 
-#HT START
+
+# HT START
+
+
 class SelectCropAdminImageChooser(AdminImageChooser):
 
+
     def render_html(self, name, value, attrs):
-        #it is important to remember the difference between the json focal_point values of the parent (contextual) and the focal point values accessible as image properties
-        #which belong to the image..  the json contextual values cannot be obtained in here
         max_dim = getattr(settings, 'PREVIEW_IMAGE_SIZE', 165)
         instance, value = self.get_instance_and_id(self.image_model, value)
-        original_field_html = super(AdminImageChooser, self).render_html(name, value, attrs)#skips the AdminImageChooser and calls its parent's method to avoid double call
+        original_field_html = super(AdminImageChooser, self).render_html(name, value, attrs)  # skips the AdminImageChooser and calls its parent's method to avoid double call
 
         return render_to_string("wagtailimages/widgets/select_crop_chooser.html", {
             'widget': self,
@@ -55,6 +56,6 @@ class SelectCropAdminImageChooser(AdminImageChooser):
             'attrs': attrs,
             'value': value,
             'image': instance,
-            'admin_preview_rendition': instance.get_rendition('max-{}x{}'.format(max_dim,max_dim)) if instance else None
+            'admin_preview_rendition': instance.get_rendition('max-{}x{}'.format(max_dim, max_dim)) if instance else None
         })
-#HT END
+# HT END
