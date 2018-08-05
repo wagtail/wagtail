@@ -203,7 +203,7 @@ class LoginView(auth_views.LoginView):
     template_name = 'wagtailadmin/login.html'
 
     def get_success_url(self):
-        return reverse('wagtailadmin_home')
+        return self.get_redirect_url() or reverse('wagtailadmin_home')
 
     def get(self, *args, **kwargs):
         # If user is already logged in, redirect them to the dashboard
