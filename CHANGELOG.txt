@@ -7,6 +7,7 @@ Changelog
  * Added support for Django 2.1 (Ryan Verner, Matt Westcott)
  * Added 'scale' image filter (Oliver Wilkerson)
  * Added meta tag to prevent search engines from indexing admin pages (Karl Hobley)
+ * Fix: Respect next param on login (Loic Teixeira)
 
 
 2.2 (10.08.2018)
