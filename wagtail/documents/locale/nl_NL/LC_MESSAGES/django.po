@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"POT-Creation-Date: 2018-07-30 17:31+0100\n"
 "PO-Revision-Date: 2018-05-07 09:25+0000\n"
 "Last-Translator: Maarten Kling <kling.maarten@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
@@ -64,13 +64,6 @@ msgstr "Uploaden"
 
 msgid "Uploading…"
 msgstr "Bezig met uploaden…"
-
-msgid "Server Error"
-msgstr "Server Error"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr ""
-"Rapporteer deze foutmelding aan uw webmaster met de volgende informatie:"
 
 #, python-format
 msgid ""
@@ -255,6 +248,13 @@ msgstr "Documentmachtigingen"
 
 msgid "Add a document permission"
 msgstr "Voeg een documentmachtiging toe"
+
+msgid "Server Error"
+msgstr "Server Error"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr ""
+"Rapporteer deze foutmelding aan uw webmaster met de volgende informatie:"
 
 msgid "Search documents"
 msgstr "Zoek documenten"

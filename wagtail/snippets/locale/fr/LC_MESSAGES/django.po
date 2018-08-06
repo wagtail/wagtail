@@ -5,7 +5,8 @@
 # Translators:
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015,2017-2018
 # Léo <leo@naeka.fr>, 2016
-# Loïc Teixeira <hello@lta.me>, 2018
+# Loic Teixeira <hello@lta.me>, 2018
+# Loic Teixeira <hello@lta.me>, 2018
 # nahuel, 2014
 # nahuel, 2014
 # Sebastien Andrivet <sebastien@andrivet.com>, 2016
@@ -13,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:23+0100\n"
-"PO-Revision-Date: 2018-05-07 14:44+0000\n"
-"Last-Translator: Bertrand Bordage <bordage.bertrand@gmail.com>\n"
+"POT-Creation-Date: 2018-07-30 17:31+0100\n"
+"PO-Revision-Date: 2018-07-31 21:15+0000\n"
+"Last-Translator: Loic Teixeira <hello@lta.me>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -64,10 +65,10 @@ msgstr ""
 "a> ?"
 
 #, python-format
-msgid "Delete %(snippet_type_name)s - %(instance)s"
-msgstr "Supprimer  %(snippet_type_name)s - %(instance)s"
+msgid "Delete %(snippet_type_name)s"
+msgstr "Supprimer  %(snippet_type_name)s"
 
-msgid "Delete"
+msgid "Delete "
 msgstr "Supprimer"
 
 #, python-format
@@ -79,6 +80,10 @@ msgstr[1] "Utilisé(e) %(usage_count)s fois"
 #, python-format
 msgid "Are you sure you want to delete this %(snippet_type_name)s?"
 msgstr "Êtes-vous sûr(e) de vouloir supprimer ce %(snippet_type_name)s ?"
+
+#, python-format
+msgid "Are you sure you want to delete %(count)s %(snippet_type_name)s?"
+msgstr "Êtes-vous sûr(e) de vouloir supprimer %(count)s %(snippet_type_name)s?"
 
 msgid "Yes, delete"
 msgstr "Oui, supprimer"
@@ -102,6 +107,9 @@ msgstr "Modification de %(snippet_type_name)s - %(instance)s"
 
 msgid "Editing"
 msgstr "Rédaction"
+
+msgid "Delete"
+msgstr "Supprimer"
 
 msgid "Usage"
 msgstr "Utilisation"
@@ -172,6 +180,9 @@ msgstr "Le bloc ne peut être enregistré du fait d'erreurs."
 
 msgid "{snippet_type} '{instance}' deleted."
 msgstr "{snippet_type} '{instance}' supprimé."
+
+msgid "{count} {snippet_type} deleted."
+msgstr "{count} {snippet_type} supprimé."
 
 #, python-format
 msgid "Choose %s"

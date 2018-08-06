@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
-"PO-Revision-Date: 2018-05-04 19:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2018-07-30 17:31+0100\n"
+"PO-Revision-Date: 2018-07-30 21:27+0000\n"
+"Last-Translator: Sergiy Shkodenko <shkodenkosergiy@gmail.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
 "MIME-Version: 1.0\n"
@@ -22,6 +22,9 @@ msgstr ""
 "11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
 "100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
 "(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+
+msgid "Wagtail users"
+msgstr "Користувачі Wagtail "
 
 msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
 msgstr ""
@@ -69,6 +72,20 @@ msgstr ""
 msgid "A group with that name already exists."
 msgstr "Група з таким ім'ям вже існує."
 
+msgid "You cannot have multiple permission records for the same page."
+msgstr ""
+"Ви не можете мати декілька записів з правами доступу для однієї і тієї ж "
+"сторінки. "
+
+msgid "Preferred language"
+msgstr "Бажана мова"
+
+msgid "Current time zone"
+msgstr "Поточний часовий пояс"
+
+msgid "Upload a profile picture"
+msgstr "Завантажити зображення для профілю"
+
 msgid "submitted notifications"
 msgstr "сповіщення у разі додавання"
 
@@ -92,6 +109,15 @@ msgstr "бажана мова"
 
 msgid "Select language for the admin"
 msgstr "Оберіть мову для адміністратора"
+
+msgid "current time zone"
+msgstr "поточний часовий пояс"
+
+msgid "Select your current time zone"
+msgstr "Оберіть поточний часовий пояс"
+
+msgid "profile picture"
+msgstr "зображення профілю користувача"
 
 msgid "user profile"
 msgstr "профіль користувача"
@@ -304,6 +330,13 @@ msgstr "Редагувати"
 
 msgid "The user could not be created due to errors."
 msgstr "Користувач не може бути створений через помилки."
+
+msgid ""
+"Your details have been updated. You've been logged out for security reasons, "
+"please login to continue."
+msgstr ""
+"Дані про вас були оновлені. Ваш сеанс роботи буде завершено з міркувань "
+"безпеки, будь ласка, для продовження увійдіть знову. "
 
 msgid "The user could not be saved due to errors."
 msgstr "Користувач не може бути створений через помилки."

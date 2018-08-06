@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
-"PO-Revision-Date: 2018-05-07 09:04+0000\n"
+"POT-Creation-Date: 2018-07-30 17:31+0100\n"
+"PO-Revision-Date: 2018-07-31 09:30+0000\n"
 "Last-Translator: Maarten Kling <kling.maarten@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
@@ -75,6 +75,12 @@ msgstr ""
 "Het is niet mogelijk om meerdere machtigingen voor dezelfde pagina in te "
 "stellen."
 
+msgid "Preferred language"
+msgstr "Voorkeurstaal"
+
+msgid "Current time zone"
+msgstr "Huidige tijd zone"
+
 msgid "Upload a profile picture"
 msgstr "Upload een profiel foto"
 
@@ -97,7 +103,7 @@ msgid "Receive notification when your page edit is rejected"
 msgstr "Ontvang notificaties wanneer uw paginawijziging is afgekeurd."
 
 msgid "preferred language"
-msgstr "Voorkeurstaal"
+msgstr "voorkeurstaal"
 
 msgid "Select language for the admin"
 msgstr "Selecteer de taal voor de admin"

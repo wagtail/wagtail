@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:23+0100\n"
-"PO-Revision-Date: 2018-05-04 19:31+0000\n"
+"POT-Creation-Date: 2018-07-30 17:31+0100\n"
+"PO-Revision-Date: 2018-07-30 16:34+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
 "tr/)\n"
@@ -25,13 +25,6 @@ msgstr "Seç"
 
 msgid "Search"
 msgstr "Ara"
-
-#, python-format
-msgid "Delete %(snippet_type_name)s - %(instance)s"
-msgstr "Sil %(snippet_type_name)s - %(instance)s"
-
-msgid "Delete"
-msgstr "Sil"
 
 #, python-format
 msgid "Are you sure you want to delete this %(snippet_type_name)s?"
@@ -59,6 +52,9 @@ msgstr "%(snippet_type_name)s - %(instance)s düzenleniyor"
 
 msgid "Editing"
 msgstr "Düzenleniyor"
+
+msgid "Delete"
+msgstr "Sil"
 
 msgid "Title"
 msgstr "Başlık"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"POT-Creation-Date: 2018-07-30 17:31+0100\n"
 "PO-Revision-Date: 2018-05-04 19:31+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
@@ -62,12 +62,6 @@ msgstr "업로드"
 
 msgid "Uploading…"
 msgstr "업로드 중…"
-
-msgid "Server Error"
-msgstr "서버 오류"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr "이 오류를 다음의 정보와 함께 웹마스터에게 알려 주시기 바랍니다:"
 
 #, python-format
 msgid ""
@@ -231,6 +225,12 @@ msgstr "문서 권한"
 
 msgid "Add a document permission"
 msgstr "문서 권한 추가"
+
+msgid "Server Error"
+msgstr "서버 오류"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "이 오류를 다음의 정보와 함께 웹마스터에게 알려 주시기 바랍니다:"
 
 msgid "Search documents"
 msgstr "문서 검색"

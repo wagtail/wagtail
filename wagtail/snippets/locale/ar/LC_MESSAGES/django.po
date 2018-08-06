@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:23+0100\n"
-"PO-Revision-Date: 2018-05-04 19:31+0000\n"
+"POT-Creation-Date: 2018-07-30 17:31+0100\n"
+"PO-Revision-Date: 2018-07-30 16:34+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
@@ -27,9 +27,6 @@ msgstr "اختر"
 msgid "Search"
 msgstr "بحث"
 
-msgid "Delete"
-msgstr "احذف"
-
 msgid "Yes, delete"
 msgstr "نعم احذف"
 
@@ -41,6 +38,9 @@ msgstr "احفظ"
 
 msgid "Editing"
 msgstr "تنقيح"
+
+msgid "Delete"
+msgstr "احذف"
 
 msgid "Snippets"
 msgstr "قصاصات"

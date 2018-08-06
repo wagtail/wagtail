@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# hanfeng <appweb.cn@gmail.com>, 2014-2015,2017
+# hanfeng <appweb.cn@gmail.com>, 2014-2015,2017-2018
 # Daniel Hwang <danielblinkhw@gmail.com>, 2015
 # Ed <724195301@qq.com>, 2018
 # Ed <724195301@qq.com>, 2018
@@ -18,9 +18,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
-"PO-Revision-Date: 2018-06-30 03:16+0000\n"
-"Last-Translator: Ed <724195301@qq.com>\n"
+"POT-Creation-Date: 2018-07-30 17:31+0100\n"
+"PO-Revision-Date: 2018-07-31 15:24+0000\n"
+"Last-Translator: hanfeng <appweb.cn@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -992,6 +992,9 @@ msgid_plural ""
 msgstr[0] ""
 "\n"
 "有%(counter)s个符合要求的页面"
+
+msgid "Page types"
+msgstr "页面类型"
 
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"

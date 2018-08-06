@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
-"PO-Revision-Date: 2018-05-27 23:04+0000\n"
+"POT-Creation-Date: 2018-07-30 17:31+0100\n"
+"PO-Revision-Date: 2018-07-31 11:45+0000\n"
 "Last-Translator: Philip Andersen <renegadevi@codeofmagi.net>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
@@ -70,6 +70,12 @@ msgstr "En grupp med det namnet existerar redan."
 
 msgid "You cannot have multiple permission records for the same page."
 msgstr "Du kan inte ha flera rättighetsinställningar för samma sida."
+
+msgid "Preferred language"
+msgstr "Föredraget språk"
+
+msgid "Current time zone"
+msgstr "Aktuell tidszon"
 
 msgid "Upload a profile picture"
 msgstr "Ladda upp en profilbild"

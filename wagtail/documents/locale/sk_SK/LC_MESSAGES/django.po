@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"POT-Creation-Date: 2018-07-30 17:31+0100\n"
 "PO-Revision-Date: 2018-05-04 19:31+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
@@ -64,12 +64,6 @@ msgstr "Nahrať"
 
 msgid "Uploading…"
 msgstr "Odosielam…"
-
-msgid "Server Error"
-msgstr "Chyba servera"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Nahláste túto chybu Vášmu webmasterovi s nasledujúcimi informáciami:"
 
 #, python-format
 msgid ""
@@ -255,6 +249,12 @@ msgstr "Oprávnenia dokumentu"
 
 msgid "Add a document permission"
 msgstr "Pridať oprávnenia dokumentu"
+
+msgid "Server Error"
+msgstr "Chyba servera"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Nahláste túto chybu Vášmu webmasterovi s nasledujúcimi informáciami:"
 
 msgid "Search documents"
 msgstr "Hľadať dokumenty"
