@@ -39,6 +39,13 @@ Changelog
  * Fix: Fix alignment of checkboxes and radio buttons on Firefox (Matt Westcott)
 
 
+2.1.2 (06.08.2018)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Bundle the l18n package to avoid installation issues on systems with a non-Unicode locale (Matt Westcott)
+ * Fix: Mark Beautiful Soup 4.6.1 as incompatible due to bug in formatting empty elements (Matt Westcott)
+
+
 2.1.1 (04.07.2018)
 ~~~~~~~~~~~~~~~~~~
 
