@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# hanfeng <appweb.cn@gmail.com>, 2018
 # Ed <724195301@qq.com>, 2018
 # jszsj <zhushajun@gmail.com>, 2017
 # jszsj <zhushajun@gmail.com>, 2017
@@ -11,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:23+0100\n"
-"PO-Revision-Date: 2018-06-30 00:19+0000\n"
-"Last-Translator: Ed <724195301@qq.com>\n"
+"POT-Creation-Date: 2018-07-30 17:31+0100\n"
+"PO-Revision-Date: 2018-07-31 15:24+0000\n"
+"Last-Translator: hanfeng <appweb.cn@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -39,7 +40,7 @@ msgid "Settings"
 msgstr "设置"
 
 msgid "This setting could not be opened because there is no site defined."
-msgstr "未定义站点，无法打开配置。"
+msgstr "尚未定义站点，无法打开配置。"
 
 msgid "{setting_type} updated."
 msgstr "{setting_type} 已更新。"

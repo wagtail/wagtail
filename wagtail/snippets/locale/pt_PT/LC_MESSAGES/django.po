@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:23+0100\n"
-"PO-Revision-Date: 2018-05-04 19:31+0000\n"
+"POT-Creation-Date: 2018-07-30 17:31+0100\n"
+"PO-Revision-Date: 2018-07-30 16:34+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
@@ -51,13 +51,6 @@ msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
 msgstr "Desculpe, nenhum fragmento corresponde a \"<em>%(query_string)s</em>\""
 
 #, python-format
-msgid "Delete %(snippet_type_name)s - %(instance)s"
-msgstr "Apagar %(snippet_type_name)s - %(instance)s"
-
-msgid "Delete"
-msgstr "Apagar"
-
-#, python-format
 msgid "Are you sure you want to delete this %(snippet_type_name)s?"
 msgstr "Tem a certeza que quer apagar este %(snippet_type_name)s?"
 
@@ -83,6 +76,9 @@ msgstr "A alterar %(snippet_type_name)s - %(instance)s"
 
 msgid "Editing"
 msgstr "A alterar"
+
+msgid "Delete"
+msgstr "Apagar"
 
 msgid "Snippets"
 msgstr "Fragmentos"

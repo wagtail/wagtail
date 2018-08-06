@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"POT-Creation-Date: 2018-07-30 17:31+0100\n"
 "PO-Revision-Date: 2018-06-26 14:33+0000\n"
 "Last-Translator: shengsheng gz <gzshengsheng@139.com>\n"
 "Language-Team: Chinese (http://www.transifex.com/torchbox/wagtail/language/"
@@ -51,9 +51,6 @@ msgstr "上传"
 
 msgid "Uploading…"
 msgstr "上传中"
-
-msgid "Server Error"
-msgstr "服务错误"
 
 msgid "Latest documents"
 msgstr "最新文档"
@@ -134,6 +131,9 @@ msgstr "添加多份文档"
 
 msgid "Add documents"
 msgstr "添加文档"
+
+msgid "Server Error"
+msgstr "服务错误"
 
 msgid "Search documents"
 msgstr "查找文档"

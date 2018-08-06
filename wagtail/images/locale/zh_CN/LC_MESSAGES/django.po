@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"POT-Creation-Date: 2018-07-30 17:31+0100\n"
 "PO-Revision-Date: 2018-06-30 00:33+0000\n"
 "Last-Translator: Ed <724195301@qq.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
@@ -147,12 +147,6 @@ msgstr "热门标签"
 
 msgid "Uploading…"
 msgstr "正在上传…"
-
-msgid "Server Error"
-msgstr "服务器错误"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr "将此错误报告给你的网站管理员，包含如下信息："
 
 #, python-format
 msgid ""
@@ -337,6 +331,12 @@ msgstr ""
 
 msgid "Sorry, upload failed."
 msgstr "对不起啊，上传失败。"
+
+msgid "Server Error"
+msgstr "服务器错误"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "将此错误报告给你的网站管理员，包含如下信息："
 
 msgid "Image updated."
 msgstr "图片已更新。"

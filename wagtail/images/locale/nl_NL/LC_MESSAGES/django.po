@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"POT-Creation-Date: 2018-07-30 17:31+0100\n"
 "PO-Revision-Date: 2018-06-27 13:26+0000\n"
 "Last-Translator: Coen van der Kamp <cvanderkamp@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
@@ -148,13 +148,6 @@ msgstr "Populaire tags"
 
 msgid "Uploading…"
 msgstr "Bezig met uploaden…"
-
-msgid "Server Error"
-msgstr "Server error"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr ""
-"Rapporteer deze foutmelding aan uw webmaster met de volgende informatie:"
 
 #, python-format
 msgid ""
@@ -353,6 +346,13 @@ msgstr ""
 
 msgid "Sorry, upload failed."
 msgstr "Sorry, upload ging fout."
+
+msgid "Server Error"
+msgstr "Server error"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr ""
+"Rapporteer deze foutmelding aan uw webmaster met de volgende informatie:"
 
 msgid "Image updated."
 msgstr "Afbeelding is bijgewerkt."

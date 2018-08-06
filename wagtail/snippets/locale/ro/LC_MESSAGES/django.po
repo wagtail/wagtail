@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:23+0100\n"
-"PO-Revision-Date: 2018-05-04 19:31+0000\n"
+"POT-Creation-Date: 2018-07-30 17:31+0100\n"
+"PO-Revision-Date: 2018-07-30 16:34+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
@@ -64,13 +64,6 @@ msgstr ""
 "a>?"
 
 #, python-format
-msgid "Delete %(snippet_type_name)s - %(instance)s"
-msgstr "Șterge %(snippet_type_name)s - %(instance)s"
-
-msgid "Delete"
-msgstr "Șterge"
-
-#, python-format
 msgid "Used %(usage_count)s time"
 msgid_plural "Used %(usage_count)s times"
 msgstr[0] "%(usage_count)s utilizări"
@@ -103,6 +96,9 @@ msgstr "Editare %(snippet_type_name)s - %(instance)s"
 
 msgid "Editing"
 msgstr "Editare"
+
+msgid "Delete"
+msgstr "Șterge"
 
 msgid "Usage"
 msgstr "Utilizare"

@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:23+0100\n"
-"PO-Revision-Date: 2018-05-04 19:31+0000\n"
+"POT-Creation-Date: 2018-07-30 17:31+0100\n"
+"PO-Revision-Date: 2018-07-30 16:34+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
@@ -52,13 +52,6 @@ msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
 msgstr "Λυπούμαστε, δεν υπάρχουν snippets με το \"<em>%(query_string)s</em>\""
 
 #, python-format
-msgid "Delete %(snippet_type_name)s - %(instance)s"
-msgstr "Διαγραφή του %(snippet_type_name)s - %(instance)s"
-
-msgid "Delete"
-msgstr "Διαγραφή"
-
-#, python-format
 msgid "Are you sure you want to delete this %(snippet_type_name)s?"
 msgstr "Είστε σίγουρος ότι θέλετε να διαγραφεί αυτό το %(snippet_type_name)s;"
 
@@ -84,6 +77,9 @@ msgstr "Διόρθωση %(snippet_type_name)s - %(instance)s"
 
 msgid "Editing"
 msgstr "Διόρθωση"
+
+msgid "Delete"
+msgstr "Διαγραφή"
 
 msgid "Snippets"
 msgstr "Snippets"

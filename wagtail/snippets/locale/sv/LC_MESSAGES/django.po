@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:23+0100\n"
-"PO-Revision-Date: 2018-05-27 23:13+0000\n"
+"POT-Creation-Date: 2018-07-30 17:31+0100\n"
+"PO-Revision-Date: 2018-07-31 11:46+0000\n"
 "Last-Translator: Philip Andersen <renegadevi@codeofmagi.net>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
@@ -64,10 +64,10 @@ msgstr ""
 "\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">skapa en nu</a>?"
 
 #, python-format
-msgid "Delete %(snippet_type_name)s - %(instance)s"
-msgstr "Radera %(snippet_type_name)s - %(instance)s"
+msgid "Delete %(snippet_type_name)s"
+msgstr "Radera %(snippet_type_name)s"
 
-msgid "Delete"
+msgid "Delete "
 msgstr "Radera"
 
 #, python-format
@@ -79,6 +79,10 @@ msgstr[1] "Använd %(usage_count)sgånger"
 #, python-format
 msgid "Are you sure you want to delete this %(snippet_type_name)s?"
 msgstr "Är du säker på att du vill radera %(snippet_type_name)s?"
+
+#, python-format
+msgid "Are you sure you want to delete %(count)s %(snippet_type_name)s?"
+msgstr "Är du säker på att du vill radera %(count)s %(snippet_type_name)s?"
 
 msgid "Yes, delete"
 msgstr "Ja, radera"
@@ -102,6 +106,9 @@ msgstr "Redigerar %(snippet_type_name)s - %(instance)s"
 
 msgid "Editing"
 msgstr "Redigerar"
+
+msgid "Delete"
+msgstr "Radera"
 
 msgid "Usage"
 msgstr "Användning"
@@ -172,6 +179,9 @@ msgstr "Snutten kunde inte sparas p.g.a. fel."
 
 msgid "{snippet_type} '{instance}' deleted."
 msgstr "{snippet_type} '{instance}' raderad."
+
+msgid "{count} {snippet_type} deleted."
+msgstr "{count} {snippet_type} deleted raderad."
 
 #, python-format
 msgid "Choose %s"

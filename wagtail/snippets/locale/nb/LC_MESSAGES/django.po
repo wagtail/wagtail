@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:23+0100\n"
-"PO-Revision-Date: 2018-05-07 12:25+0000\n"
-"Last-Translator: Stein Strindhaug <stein.strindhaug@gmail.com>\n"
+"POT-Creation-Date: 2018-07-30 17:31+0100\n"
+"PO-Revision-Date: 2018-07-30 16:34+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
 "MIME-Version: 1.0\n"
@@ -61,13 +61,6 @@ msgstr ""
 "nå</a>?"
 
 #, python-format
-msgid "Delete %(snippet_type_name)s - %(instance)s"
-msgstr "Slett %(snippet_type_name)s - %(instance)s"
-
-msgid "Delete"
-msgstr "Slett"
-
-#, python-format
 msgid "Used %(usage_count)s time"
 msgid_plural "Used %(usage_count)s times"
 msgstr[0] "Brukt %(usage_count)s gang"
@@ -99,6 +92,9 @@ msgstr "Redigerer %(snippet_type_name)s - %(instance)s"
 
 msgid "Editing"
 msgstr "Redigerer"
+
+msgid "Delete"
+msgstr "Slett"
 
 msgid "Usage"
 msgstr "Bruk"

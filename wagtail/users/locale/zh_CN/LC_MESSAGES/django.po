@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# hanfeng <appweb.cn@gmail.com>, 2014-2015
+# hanfeng <appweb.cn@gmail.com>, 2014-2015,2018
 # Ed <724195301@qq.com>, 2018
 # Ed <724195301@qq.com>, 2018
 # hanfeng <appweb.cn@gmail.com>, 2014
@@ -19,9 +19,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
-"PO-Revision-Date: 2018-06-30 03:16+0000\n"
-"Last-Translator: Ed <724195301@qq.com>\n"
+"POT-Creation-Date: 2018-07-30 17:31+0100\n"
+"PO-Revision-Date: 2018-07-31 15:27+0000\n"
+"Last-Translator: hanfeng <appweb.cn@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -77,6 +77,12 @@ msgstr "此组名已被占用。"
 
 msgid "You cannot have multiple permission records for the same page."
 msgstr "对于同一个页面你不能设置多重权限"
+
+msgid "Preferred language"
+msgstr "首选语言"
+
+msgid "Current time zone"
+msgstr "当前时区"
 
 msgid "Upload a profile picture"
 msgstr "上传新的头像"
