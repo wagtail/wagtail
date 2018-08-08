@@ -100,8 +100,10 @@ window.runJcrop = function(focalPointChooser, reset) {
         resetJcrop(container, $image, params)
     }));
 
-    $('.remove-focal-point').on('click', function() {
-        removeJcropSelection(container, params)
+    //$('.remove-focal-point', container).off();
+
+    $('.remove-focal-point', container).on('click', function(event) {
+        removeJcropSelection(container, $image, fields, params)
     });
 };
 
