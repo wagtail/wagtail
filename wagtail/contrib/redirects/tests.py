@@ -129,8 +129,8 @@ class TestRedirects(TestCase):
         visit_url = '/old-path/?foo=Bar'
         redirect_url = '/new-path-a'
 
-        redirect_a = models.Redirect.objects.create(old_path=from_url_a, redirect_link=to_url_a)
-        redirect_b = models.Redirect.objects.create(old_path=from_url_b, redirect_link=to_url_b)
+        models.Redirect.objects.create(old_path=from_url_a, redirect_link=to_url_a)
+        models.Redirect.objects.create(old_path=from_url_b, redirect_link=to_url_b)
         response = self.client.get(visit_url)
         self.assertRedirects(response, redirect_url, status_code=301, fetch_redirect_response=False)
 
@@ -144,8 +144,8 @@ class TestRedirects(TestCase):
         visit_url = '/old-path/?foo=Bar&baz=1'
         redirect_url = '/new-path-b?foo=Bar&baz=1'
 
-        redirect_a = models.Redirect.objects.create(old_path=from_url_a, redirect_link=to_url_a)
-        redirect_b = models.Redirect.objects.create(old_path=from_url_b, redirect_link=to_url_b)
+        models.Redirect.objects.create(old_path=from_url_a, redirect_link=to_url_a)
+        models.Redirect.objects.create(old_path=from_url_b, redirect_link=to_url_b)
         response = self.client.get(visit_url)
         self.assertRedirects(response, redirect_url, status_code=301, fetch_redirect_response=False)
 
@@ -158,7 +158,7 @@ class TestRedirects(TestCase):
         visit_url = '/old-path/?key=val'
         redirect_url = '/new-path?key=val'
 
-        redirect = models.Redirect.objects.create(old_path=from_url, redirect_link=to_url)
+        models.Redirect.objects.create(old_path=from_url, redirect_link=to_url)
         response = self.client.get(visit_url)
         self.assertRedirects(response, redirect_url, status_code=301, fetch_redirect_response=False)
 
@@ -171,7 +171,7 @@ class TestRedirects(TestCase):
         visit_url = '/old-path/?key=val'
         redirect_url = '/new-path'
 
-        redirect = models.Redirect.objects.create(old_path=from_url, redirect_link=to_url)
+        models.Redirect.objects.create(old_path=from_url, redirect_link=to_url)
         response = self.client.get(visit_url)
         self.assertRedirects(response, redirect_url, status_code=301, fetch_redirect_response=False)
 
@@ -184,7 +184,7 @@ class TestRedirects(TestCase):
         visit_url = '/old-path/?key2=val2'
         redirect_url = '/new-path?key1=val1&key2=val2'
 
-        redirect = models.Redirect.objects.create(old_path=from_url, redirect_link=to_url)
+        models.Redirect.objects.create(old_path=from_url, redirect_link=to_url)
         response = self.client.get(visit_url)
         self.assertRedirects(response, redirect_url, status_code=301, fetch_redirect_response=False)
 
@@ -197,7 +197,7 @@ class TestRedirects(TestCase):
         visit_url = '/old-path/?key1=val1'
         redirect_url = '/new-path?key2=val2'
 
-        redirect = models.Redirect.objects.create(old_path=from_url, redirect_link=to_url)
+        models.Redirect.objects.create(old_path=from_url, redirect_link=to_url)
         response = self.client.get(visit_url)
         self.assertRedirects(response, redirect_url, status_code=301, fetch_redirect_response=False)
 
