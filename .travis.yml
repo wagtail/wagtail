@@ -83,10 +83,6 @@ matrix:
     - env: TOXENV=py36-dj111-postgres-elasticsearch6 INSTALL_ELASTICSEARCH6=yes
     - env: TOXENV=py36-dj20-postgres-elasticsearch6 INSTALL_ELASTICSEARCH6=yes
     - env: TOXENV=py36-dj21-postgres-elasticsearch6 INSTALL_ELASTICSEARCH6=yes
-    # Django 2.1 support is in progress
-    - env: TOXENV=py35-dj21-sqlite-noelasticsearch
-    - env: TOXENV=py35-dj21-mysql-noelasticsearch
-    - env: TOXENV=py36-dj21-postgres-noelasticsearch
 
 
 # Services
