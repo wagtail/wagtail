@@ -201,6 +201,26 @@ class TestRedirects(TestCase):
         response = self.client.get(visit_url)
         self.assertRedirects(response, redirect_url, status_code=301, fetch_redirect_response=False)
 
+    def test_redirect_querystring_handles_key_conflicts_with_different_values(self):
+        from_url = '/old-path'
+        to_url = '/new-path?key=val1'
+        visit_url = '/old-path/?key=val2'
+        redirect_url = '/new-path?key=val1&key=val2'
+
+        models.Redirect.objects.create(old_path=from_url, redirect_link=to_url)
+        response = self.client.get(visit_url)
+        self.assertRedirects(response, redirect_url, status_code=301, fetch_redirect_response=False)
+
+    def test_redirect_querystring_handles_key_conflicts_with_same_values(self):
+        from_url = '/old-path'
+        to_url = '/new-path?key=val'
+        visit_url = '/old-path/?key=val'
+        redirect_url = '/new-path?key=val&key=val'
+
+        models.Redirect.objects.create(old_path=from_url, redirect_link=to_url)
+        response = self.client.get(visit_url)
+        self.assertRedirects(response, redirect_url, status_code=301, fetch_redirect_response=False)
+
     def test_redirect_to_page(self):
         christmas_page = Page.objects.get(url_path='/home/events/christmas/')
         models.Redirect.objects.create(old_path='/xmas', redirect_page=christmas_page)

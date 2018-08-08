@@ -41,7 +41,13 @@ def append_querystring(redirect, request_qs):
     }
 
     # Construct a new querystring, combining those in the redirect target and the pass-through params.
-    new_qs_params = {**redirect_qs_params, **pass_through_params}
+    new_qs_params = {**redirect_qs_params}
+    for key, val in pass_through_params.items():
+        try:
+            new_qs_params[key] += val
+        except KeyError:
+            new_qs_params[key] = val
+
     new_qs = urlencode(new_qs_params, doseq=True)
     if new_qs:
         # Replace the original requested querystring with the new one
