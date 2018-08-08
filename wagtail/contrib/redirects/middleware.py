@@ -1,4 +1,4 @@
-from urllib.parse import urlparse
+from urllib.parse import parse_qs, urlencode, urlparse, urlunparse
 
 from django import http
 from django.utils.deprecation import MiddlewareMixin
@@ -23,6 +23,34 @@ def get_redirect(request, path):
         # try unencoding the path
         redirect = _get_redirect(request, uri_to_iri(path))
     return redirect
+
+
+def append_querystring(redirect, request_qs):
+    """
+    Returns the redirected URL with a querystring, with any params specified in the old_path
+    filtered out, and any other params passed through.
+    """
+    old_path_qs_params = parse_qs(urlparse(redirect.old_path).query, keep_blank_values=True)
+    redirect_qs_params = parse_qs(urlparse(redirect.link).query, keep_blank_values=True)
+    request_qs_params = parse_qs(request_qs, keep_blank_values=True)
+
+    # Filter out any key-value pairs from the request qs that are specified in the old path.
+    pass_through_params = {
+        key: val for key, val in request_qs_params.items()
+        if old_path_qs_params.get(key) != val
+    }
+
+    # Construct a new querystring, combining those in the redirect target and the pass-through params.
+    new_qs_params = {**redirect_qs_params, **pass_through_params}
+    new_qs = urlencode(new_qs_params, doseq=True)
+    if new_qs:
+        # Replace the original requested querystring with the new one
+        url_parts = list(urlparse(redirect.link))
+        url_parts[4] = new_qs
+        return urlunparse(url_parts)
+    else:
+        # No querystring to return
+        return redirect.link
 
 
 # Originally pinched from: https://github.com/django/django/blob/master/django/contrib/redirects/middleware.py
@@ -54,12 +82,8 @@ class RedirectMiddleware(MiddlewareMixin):
             if redirect is None:
                 return response
 
-        # Add the querystring back onto the redirect URL if the redirect
-        # does not specify a querystring already.
-        redirect_url = redirect.link
-        redirect_querystring = urlparse(redirect_url).query
-        if not redirect_querystring and request.META.get('QUERY_STRING'):
-            redirect_url = '{}?{}'.format(redirect_url, request.META['QUERY_STRING'])
+        request_qs = request.META.get('QUERY_STRING', '')
+        redirect_url = append_querystring(redirect, request_qs)
 
         if redirect.is_permanent:
             return http.HttpResponsePermanentRedirect(redirect_url)

@@ -120,43 +120,79 @@ class TestRedirects(TestCase):
         self.assertRedirects(response, '/redirectto', status_code=302, fetch_redirect_response=False)
 
     def test_redirect_matches_query_string(self):
+        """
+        Given there are two redirect paths: /redirectme and /redirectme?foo=Bar,
+        when I request /redirectme?foo=Bar
+        then I am matched to the redirect with the same querystring, and the querystring is stripped.
+        """
         # Create a redirect which includes a query string
-        redirect_with_query_string = models.Redirect(
-            old_path='/redirectme?foo=Bar', redirect_link='/with-query-string-only'
+        redirect_with_query_string = models.Redirect.objects.create(
+            old_path='/redirectme?foo=Bar',
+            redirect_link='/path-a'
         )
-        redirect_with_query_string.save()
-
         # ... and another redirect without the query string
-        redirect_without_query_string = models.Redirect(old_path='/redirectme', redirect_link='/without-query-string')
-        redirect_without_query_string.save()
-
+        redirect_without_query_string = models.Redirect.objects.create(
+            old_path='/redirectme',
+            redirect_link='/path-b'
+        )
         # Navigate to the redirect with the query string
         r_matching_qs = self.client.get('/redirectme/?foo=Bar')
-        self.assertRedirects(r_matching_qs, '/with-query-string-only?foo=Bar', status_code=301, fetch_redirect_response=False)
+        self.assertRedirects(r_matching_qs, '/path-a', status_code=301, fetch_redirect_response=False)
 
-        # Navigate to the redirect with a different query string
-        # This should match redirect_without_query_string
+    def test_redirect_matches_query_string_with_extra_params(self):
+        """
+        Given there are two redirect paths: /redirectme and /redirectme?foo=Bar,
+        when I request /redirectme?foo=Bar&baz=1
+        then I am matched to the redirect with the no querystring, and the querystring is passed through.
+        """
+        # Create a redirect which includes a query string
+        redirect_with_query_string = models.Redirect.objects.create(
+            old_path='/redirectme?foo=Bar',
+            redirect_link='/path-a'
+        )
+        # ... and another redirect without the query string
+        redirect_without_query_string = models.Redirect.objects.create(
+            old_path='/redirectme',
+            redirect_link='/path-b'
+        )
+        # Navigate to the redirect with the query string
+        r_matching_qs = self.client.get('/redirectme/?foo=Bar&baz=1')
+        self.assertRedirects(r_matching_qs, '/path-b?foo=Bar&baz=1', status_code=301, fetch_redirect_response=False)
+
+    def test_redirect_matches_query_string_with_pass_through(self):
+        """
+        Given there are two redirect paths: /redirectme and /redirectme?foo=Bar,
+        when I request /redirectme?utm_source=irrelevant
+        then I am matched to the redirect without at querystring, and the querystring is passed through.
+        """
+        # Create a redirect which includes a query string
+        redirect_with_query_string = models.Redirect.objects.create(
+            old_path='/redirectme?foo=Bar',
+            redirect_link='/path-a'
+        )
+        # ... and another redirect without the query string
+        redirect_without_query_string = models.Redirect.objects.create(
+            old_path='/redirectme',
+            redirect_link='/path-b'
+        )
+        # Navigate to the redirect with a different query string -
         r_no_qs = self.client.get('/redirectme/?utm_source=irrelevant')
-        self.assertRedirects(r_no_qs, '/without-query-string?utm_source=irrelevant', status_code=301, fetch_redirect_response=False)
+        self.assertRedirects(r_no_qs, '/path-b?utm_source=irrelevant', status_code=301, fetch_redirect_response=False)
 
-    def test_redirect_preserves_query_string(self):
-        # Create a redirect to a path with no query string
-        redirect_with_no_query_string = models.Redirect(old_path='/redirect-no-qs', redirect_link='/no-query-string')
-        redirect_with_no_query_string.save()
-
-        # ... and another redirect to a path with a query string
-        redirect_with_query_string = models.Redirect(old_path='/redirect-with-qs', redirect_link='/with-query-string?foo=Bar')
-        redirect_with_query_string.save()
-
-        # Navigate to the redirect without the query string, passing a query string to the GET request
-        # Expect the querystring from the original request to be preserved
-        r_no_qs_specified = self.client.get('/redirect-no-qs/?baz=1')
-        self.assertRedirects(r_no_qs_specified, '/no-query-string?baz=1', status_code=301, fetch_redirect_response=False)
-
-        # Navigate to the redirect which specifies a querystring
-        # Expect the querystring from the original request to be overridden
-        r_qs_specified = self.client.get('/redirect-with-qs/?baz=1')
-        self.assertRedirects(r_qs_specified, '/with-query-string?foo=Bar', status_code=301, fetch_redirect_response=False)
+    def test_redirect_matches_query_string_with_extended_params(self):
+        """
+        Given there is a redirect: /redirectme --> /path?baz=1
+        when I request /redirectme?foo=Bar
+        then I am redirected to /path?baz=1&foo=Bar
+        """
+        # Create a redirect which targets a path with a querystring
+        redirect_without_query_string = models.Redirect.objects.create(
+            old_path='/redirectme',
+            redirect_link='/path-b?baz=1'
+        )
+        # Navigate to the redirect with a different query string -
+        r_no_qs = self.client.get('/redirectme/?foo=Bar')
+        self.assertRedirects(r_no_qs, '/path-b?baz=1&foo=Bar', status_code=301, fetch_redirect_response=False)
 
     def test_redirect_to_page(self):
         christmas_page = Page.objects.get(url_path='/home/events/christmas/')
@@ -221,7 +257,7 @@ class TestRedirects(TestCase):
 
         response = self.client.get('/xmas/?foo=Bar')
         # the redirect which matched was /generic-with-query-string
-        self.assertRedirects(response, '/generic-with-query-string?foo=Bar', status_code=301, fetch_redirect_response=False)
+        self.assertRedirects(response, '/generic-with-query-string', status_code=301, fetch_redirect_response=False)
 
         # now use a non-matching query string
         response = self.client.get('/xmas/?foo=Baz')
@@ -254,7 +290,7 @@ class TestRedirects(TestCase):
 
         response = self.client.get('/xmas/?foo=Bar', HTTP_HOST='other.example.com')
         # the redirect which matched was /site-specific-with-query-string
-        self.assertRedirects(response, '/site-specific-with-query-string?foo=Bar', status_code=301, fetch_redirect_response=False)
+        self.assertRedirects(response, '/site-specific-with-query-string', status_code=301, fetch_redirect_response=False)
 
         # now use a non-matching query string
         response = self.client.get('/xmas/?foo=Baz', HTTP_HOST='other.example.com')
