@@ -23,6 +23,7 @@ Other features
 ~~~~~~~~~~~~~~
 
  * Added 'scale' image filter (Oliver Wilkerson)
+ * Added meta tag to prevent search engines from indexing admin pages (Karl Hobley)
 
 
 Bug fixes

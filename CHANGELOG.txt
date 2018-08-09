@@ -6,6 +6,7 @@ Changelog
 
  * Added support for Django 2.1 (Ryan Verner, Matt Westcott)
  * Added 'scale' image filter (Oliver Wilkerson)
+ * Added meta tag to prevent search engines from indexing admin pages (Karl Hobley)
 
 
 2.2 (xx.xx.xxx) - IN DEVELOPMENT
