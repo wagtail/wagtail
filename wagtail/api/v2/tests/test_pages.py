@@ -1137,7 +1137,7 @@ class TestPageDetailWithStreamField(TestCase):
         return self.homepage.add_child(instance=stream_page)
 
     def test_can_fetch_streamfield_content(self):
-        stream_page = self.make_stream_page('[{"type": "text", "value": "foo"}]')
+        stream_page = self.make_stream_page('[{"type": "text", "value": "foo", "id": "test-id" }]')
 
         response_url = reverse('wagtailapi_v2:pages:detail', args=(stream_page.id, ))
         response = self.client.get(response_url)
@@ -1153,7 +1153,7 @@ class TestPageDetailWithStreamField(TestCase):
         self.assertEqual(len(content['body']), 1)
         self.assertEqual(content['body'][0]['type'], 'text')
         self.assertEqual(content['body'][0]['value'], 'foo')
-        self.assertTrue(content['body'][0]['id'])
+        self.assertEqual(content['body'][0]['id'], 'test-id')
 
     def test_image_block(self):
         stream_page = self.make_stream_page('[{"type": "image", "value": 1}]')

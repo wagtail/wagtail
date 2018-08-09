@@ -1,9 +1,11 @@
 import collections
+import json
 import uuid
 
 from django import forms
 from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.core.exceptions import NON_FIELD_ERRORS, ValidationError
+from django.core.serializers.json import DjangoJSONEncoder
 from django.forms.utils import ErrorList
 from django.template.loader import render_to_string
 from django.utils.html import format_html_join
@@ -444,3 +446,33 @@ class StreamValue(collections.Sequence):
 
     def __str__(self):
         return self.__html__()
+
+    def get_prep_value(self):
+        if not self.stream_data and self.raw_text:
+            # An empty StreamValue with a nonempty raw_text attribute should have that
+            # raw_text attribute written back to the db. (This is probably only useful
+            # for reverse migrations that convert StreamField data back into plain text
+            # fields.)
+            return self.raw_text
+
+        prep_value = []
+        for i, stream_data_item in enumerate(self.stream_data):
+            if self.is_lazy and i not in self._bound_blocks:
+                # If this StreamValue is lazy and we haven't yet created a bound block
+                # for this block, just use the initial lazy (raw JSONish) value.
+                prep_value_item = stream_data_item
+            else:
+                # Otherwise, generate a new raw JSONish value from a bound block.
+                # Using self[i] here either uses an existing bound block if it already
+                # exists or causes a new one to be created.
+                bound_block = self[i]
+
+                # StreamBlock.get_prep_value expects a list of blocks, so because we're
+                # passing them one at a time, we pass in a single-element list and then
+                # pull out the single prepped value.
+                prep_value_item = self.stream_block.get_prep_value([bound_block])[0]
+
+            prep_value.append(prep_value_item)
+
+        # Convert the list of dicts to JSON.
+        return json.dumps(prep_value, cls=DjangoJSONEncoder)

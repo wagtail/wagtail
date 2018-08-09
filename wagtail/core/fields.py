@@ -1,6 +1,5 @@
 import json
 
-from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
 
 from wagtail.core.blocks import Block, BlockField, StreamBlock, StreamValue
@@ -96,14 +95,12 @@ class StreamField(models.Field):
             return StreamValue(self.stream_block, value)
 
     def get_prep_value(self, value):
-        if isinstance(value, StreamValue) and not(value) and value.raw_text is not None:
-            # An empty StreamValue with a nonempty raw_text attribute should have that
-            # raw_text attribute written back to the db. (This is probably only useful
-            # for reverse migrations that convert StreamField data back into plain text
-            # fields.)
-            return value.raw_text
-        else:
-            return json.dumps(self.stream_block.get_prep_value(value), cls=DjangoJSONEncoder)
+        if value is None:
+            # Treat None as identical to an empty stream.
+            value = StreamValue(self.stream_block, [])
+
+        # Use StreamValue.get_prep_value to generate JSON for this stream.
+        return value.get_prep_value()
 
     def from_db_value(self, value, expression, connection, context):
         return self.to_python(value)
