@@ -6,7 +6,6 @@ from django.utils import translation
 from django.utils.functional import cached_property
 
 from wagtail.core.blocks import FieldBlock
-from wagtail.utils.widgets import WidgetWithScript
 
 DEFAULT_TABLE_OPTIONS = {
     'minSpareRows': 0,
@@ -35,22 +34,17 @@ DEFAULT_TABLE_OPTIONS = {
 }
 
 
-class TableInput(WidgetWithScript, forms.HiddenInput):
+class TableInput(forms.HiddenInput):
+    template_name = "table_block/widgets/table.html"
 
     def __init__(self, table_options=None, attrs=None):
         self.table_options = table_options
         super().__init__(attrs=attrs)
 
-    def render(self, name, value, attrs=None):
-        original_field_html = super().render(name, value, attrs)
-        return render_to_string("table_block/widgets/table.html", {
-            'original_field_html': original_field_html,
-            'attrs': attrs,
-            'value': value,
-        })
-
-    def render_js_init(self, id_, name, value):
-        return "initTable({0}, {1});".format(json.dumps(id_), json.dumps(self.table_options))
+    def get_context(self, name, value, attrs=None):
+        context = super().get_context(name, value, attrs)
+        context['widget']['table_options_json'] = json.dumps(self.table_options)
+        return context
 
 
 class TableBlock(FieldBlock):
