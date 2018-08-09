@@ -174,7 +174,7 @@ class TestHalloRichText(BaseRichTextEditHandlerTestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
         # Check that hallo (default editor now) initialisation is applied
-        self.assertContains(response, 'makeHalloRichTextEditable("__PREFIX__-value",')
+        self.assertContains(response, 'makeHalloRichTextEditable("__PREFIX__\\u002Dvalue",')
 
         # check that media for the default hallo features (but not others) is being imported
         self.assertContains(response, 'wagtaildocs/js/hallo-plugins/hallo-wagtaildoclink.js')
@@ -564,12 +564,12 @@ class TestHalloJsHeadingOrder(BaseRichTextEditHandlerTestCase, WagtailTestUtils)
         feature_registry.default_features.extend(['h1', 'h5', 'h6'])
 
         widget = HalloRichTextArea()
-        js_init = widget.render_js_init('the_id', 'the_name', '<p>the value</p>')
+        html = widget.render('the_name', '<p>the value</p>', attrs={'id': 'the_id'})
 
         expected_options = (
             '"halloheadings": {"formatBlocks": ["p", "h1", "h2", "h3", "h4", "h5", "h6"]}'
         )
-        self.assertIn(expected_options, js_init)
+        self.assertIn(expected_options, html)
 
 
 class TestWidgetWhitelisting(TestCase, WagtailTestUtils):
