@@ -1,4 +1,5 @@
 from django.core.exceptions import ValidationError
+from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
 
 from wagtail.core import blocks
@@ -15,7 +16,10 @@ class EmbedValue:
     """
     def __init__(self, url):
         self.url = url
-        self.html = embed_to_frontend_html(url)
+
+    @cached_property
+    def html(self):
+        return embed_to_frontend_html(self.url)
 
     def __str__(self):
         return self.html
