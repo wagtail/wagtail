@@ -5,12 +5,13 @@
 # Translators:
 # Jihan Chung <jihanchung20@gmail.com>, 2015
 # Kyungil Choi <hanpama@gmail.com>, 2015,2017-2018
+# Matt Westcott <matthew@torchbox.com>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-07-30 17:31+0100\n"
-"PO-Revision-Date: 2018-07-30 16:33+0000\n"
+"PO-Revision-Date: 2018-08-10 11:03+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
@@ -926,7 +927,7 @@ msgstr "두 수정안에는 차이점이 없습니다."
 
 #, python-format
 msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "%(title)s에 수정안 %(revision.id) 예약 취소"
+msgstr "%(title)s에 수정안 %(revision.id)s 예약 취소"
 
 msgid "Unschedule"
 msgstr "예약 취소"
