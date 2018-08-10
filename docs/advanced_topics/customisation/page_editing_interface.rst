@@ -143,6 +143,9 @@ To begin, import the ``Format`` class, ``register_image_format`` function, and o
 
 To unregister, call ``unregister_image_format`` with the string of the ``name`` of the ``Format`` as the only argument.
 
+  .. warning::
+     Unregistering ``Format`` objects will cause errors viewing or editing pages that reference them.
+
 .. _custom_edit_handler_forms:
 
 Customising generated forms
