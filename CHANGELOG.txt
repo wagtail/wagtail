@@ -9,8 +9,8 @@ Changelog
  * Added meta tag to prevent search engines from indexing admin pages (Karl Hobley)
 
 
-2.2 (xx.xx.xxx) - IN DEVELOPMENT
-~~~~~~~~~~~~~~~
+2.2 (10.08.2018)
+~~~~~~~~~~~~~~~~
 
  * Added faceted search using the `.facet()` method (Karl Hobley)
  * Added page type filtering and ordering to the Wagtail admin page search (Karl Hobley)
