@@ -29,5 +29,7 @@ Other features
 Bug fixes
 ~~~~~~~~~
 
+ * Respect next param on login (Loic Teixeira)
+
 Upgrade considerations
 ======================
