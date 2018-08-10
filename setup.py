@@ -23,7 +23,7 @@ except ImportError:
 install_requires = [
     "Django>=1.8.1,<1.12",
     "django-modelcluster>=3.1,<4.0",
-    "django-taggit>=0.20,<1.0",
+    "django-taggit>=0.20,<0.23",  # 0.23 drops Django 1.8-1.10 support
     "django-treebeard>=3.0,<5.0",
     "djangorestframework>=3.1.3,<3.7",  # 3.7 drops Django 1.8 support
     "Pillow>=2.6.1",
