@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"POT-Creation-Date: 2018-07-30 17:31+0100\n"
 "PO-Revision-Date: 2018-05-04 19:31+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
@@ -138,14 +138,6 @@ msgstr "Populiarios žymenos"
 
 msgid "Uploading…"
 msgstr "Įkeliama..."
-
-msgid "Server Error"
-msgstr "Serverio klaida"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr ""
-"Praneškite apie šią klaidą savo tinklalapio administratoriui su sekančia "
-"informacija:"
 
 #, python-format
 msgid ""
@@ -356,6 +348,14 @@ msgstr ""
 
 msgid "Sorry, upload failed."
 msgstr "Atsiprašome, įkelti nepavyko."
+
+msgid "Server Error"
+msgstr "Serverio klaida"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr ""
+"Praneškite apie šią klaidą savo tinklalapio administratoriui su sekančia "
+"informacija:"
 
 msgid "Image updated."
 msgstr "Paveiksliukai atnaujinti."

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:23+0100\n"
-"PO-Revision-Date: 2018-05-04 19:31+0000\n"
+"POT-Creation-Date: 2018-07-30 17:31+0100\n"
+"PO-Revision-Date: 2018-07-30 16:34+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/"
 "lv/)\n"
@@ -22,13 +22,6 @@ msgstr ""
 
 msgid "Choose"
 msgstr "Izvēlēties"
-
-#, python-format
-msgid "Delete %(snippet_type_name)s - %(instance)s"
-msgstr "Dzēst %(snippet_type_name)s - %(instance)s"
-
-msgid "Delete"
-msgstr "Dzēst"
 
 msgid "Yes, delete"
 msgstr "Dzēst"
@@ -49,6 +42,9 @@ msgstr "Labo %(snippet_type_name)s - %(instance)s"
 
 msgid "Editing"
 msgstr "Labošana"
+
+msgid "Delete"
+msgstr "Dzēst"
 
 msgid "Title"
 msgstr "Virsraksts"

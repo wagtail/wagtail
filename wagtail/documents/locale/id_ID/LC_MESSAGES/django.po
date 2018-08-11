@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"POT-Creation-Date: 2018-07-30 17:31+0100\n"
 "PO-Revision-Date: 2018-05-04 19:31+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
@@ -62,12 +62,6 @@ msgstr "Unggah"
 
 msgid "Uploading…"
 msgstr "Mengunggah"
-
-msgid "Server Error"
-msgstr "Kesalahan Server"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Laporkan kesalahan ini ke webmaster anda dengan informasi berikut:"
 
 msgid "Latest documents"
 msgstr "Dokumen terbaru"
@@ -138,3 +132,9 @@ msgstr "Ubah halaman ini"
 
 msgid "Delete"
 msgstr "Hapus"
+
+msgid "Server Error"
+msgstr "Kesalahan Server"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Laporkan kesalahan ini ke webmaster anda dengan informasi berikut:"

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:23+0100\n"
-"PO-Revision-Date: 2018-05-04 19:31+0000\n"
+"POT-Creation-Date: 2018-07-30 17:31+0100\n"
+"PO-Revision-Date: 2018-07-30 16:34+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (http://www.transifex.com/torchbox/wagtail/language/"
 "zh/)\n"
@@ -20,13 +20,6 @@ msgstr ""
 
 msgid "Choose"
 msgstr "选择"
-
-#, python-format
-msgid "Delete %(snippet_type_name)s - %(instance)s"
-msgstr "删除%(snippet_type_name)s - %(instance)s"
-
-msgid "Delete"
-msgstr "删除"
 
 #, python-format
 msgid "Are you sure you want to delete this %(snippet_type_name)s?"
@@ -51,6 +44,9 @@ msgstr "编辑%(snippet_type_name)s - %(instance)s"
 
 msgid "Editing"
 msgstr "编辑"
+
+msgid "Delete"
+msgstr "删除"
 
 msgid "Snippets"
 msgstr "片段"

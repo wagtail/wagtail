@@ -5,17 +5,17 @@
 # Translators:
 # fonso <fonzzo@gmail.com>, 2015
 # fonso <fonzzo@gmail.com>, 2015
-# José Luis <alagunajs@gmail.com>, 2015
-# José Luis <alagunajs@gmail.com>, 2015-2016,2018
+# José Luis Sandoval Alaguna <alagunajs@gmail.com>, 2015
+# José Luis Sandoval Alaguna <alagunajs@gmail.com>, 2015-2016,2018
 # Mauricio Baeza <web@mauriciobaeza.org>, 2014
-# José Luis <alagunajs@gmail.com>, 2016
+# José Luis Sandoval Alaguna <alagunajs@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"POT-Creation-Date: 2018-07-30 17:31+0100\n"
 "PO-Revision-Date: 2018-05-07 13:06+0000\n"
-"Last-Translator: José Luis <alagunajs@gmail.com>\n"
+"Last-Translator: José Luis Sandoval Alaguna <alagunajs@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"

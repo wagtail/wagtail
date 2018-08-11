@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"POT-Creation-Date: 2018-07-30 17:31+0100\n"
 "PO-Revision-Date: 2018-05-09 09:53+0000\n"
 "Last-Translator: Henrik Kröger <hedwig@riseup.net>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
@@ -72,14 +72,6 @@ msgstr "Hochladen"
 
 msgid "Uploading…"
 msgstr "Lade hoch…"
-
-msgid "Server Error"
-msgstr "Server-Fehler"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr ""
-"Melden Sie diesen Fehler Ihrem Webseitenverwalter mit der folgenden "
-"Information:"
 
 #, python-format
 msgid ""
@@ -263,6 +255,14 @@ msgstr "Dokumenten-Berechtigungen"
 
 msgid "Add a document permission"
 msgstr "Einfügen einer Dokumenten-Berechtigung"
+
+msgid "Server Error"
+msgstr "Server-Fehler"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr ""
+"Melden Sie diesen Fehler Ihrem Webseitenverwalter mit der folgenden "
+"Information:"
 
 msgid "Search documents"
 msgstr "Nach Dokumenten suchen"

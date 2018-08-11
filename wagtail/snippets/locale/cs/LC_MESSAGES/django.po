@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:23+0100\n"
-"PO-Revision-Date: 2018-05-04 19:31+0000\n"
+"POT-Creation-Date: 2018-07-30 17:31+0100\n"
+"PO-Revision-Date: 2018-07-30 16:34+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
@@ -26,9 +26,6 @@ msgstr "Zvolit"
 msgid "Search"
 msgstr "Hledat"
 
-msgid "Delete"
-msgstr "Smazat"
-
 msgid "Yes, delete"
 msgstr "Ano, smazat"
 
@@ -37,6 +34,9 @@ msgstr "Nový"
 
 msgid "Save"
 msgstr "Uložit"
+
+msgid "Delete"
+msgstr "Smazat"
 
 msgid "Title"
 msgstr "Titulek"

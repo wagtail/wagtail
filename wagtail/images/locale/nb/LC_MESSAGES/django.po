@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"POT-Creation-Date: 2018-07-30 17:31+0100\n"
 "PO-Revision-Date: 2018-06-06 10:50+0000\n"
 "Last-Translator: Stein Strindhaug <stein.strindhaug@gmail.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
@@ -146,12 +146,6 @@ msgstr "Populære stikkord"
 
 msgid "Uploading…"
 msgstr "Laster opp…"
-
-msgid "Server Error"
-msgstr "Serverfeil"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Rapporter denne feilen til de webansvarlige med følgende info:"
 
 #, python-format
 msgid ""
@@ -349,6 +343,12 @@ msgstr ""
 
 msgid "Sorry, upload failed."
 msgstr "Beklager, opplasting feilet."
+
+msgid "Server Error"
+msgstr "Serverfeil"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Rapporter denne feilen til de webansvarlige med følgende info:"
 
 msgid "Image updated."
 msgstr "Bildet er oppdatert."

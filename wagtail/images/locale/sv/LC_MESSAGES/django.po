@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"POT-Creation-Date: 2018-07-30 17:31+0100\n"
 "PO-Revision-Date: 2018-05-27 23:16+0000\n"
 "Last-Translator: Philip Andersen <renegadevi@codeofmagi.net>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
@@ -147,13 +147,6 @@ msgstr "Populära taggar"
 
 msgid "Uploading…"
 msgstr "Laddar upp…"
-
-msgid "Server Error"
-msgstr "Serverfel"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr ""
-"Rapportera det här felet till din webadministratör med följande information:"
 
 #, python-format
 msgid ""
@@ -351,6 +344,13 @@ msgstr ""
 
 msgid "Sorry, upload failed."
 msgstr "Ledsen, uppladdningen misslyckades."
+
+msgid "Server Error"
+msgstr "Serverfel"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr ""
+"Rapportera det här felet till din webadministratör med följande information:"
 
 msgid "Image updated."
 msgstr "Bilden uppdaterades."

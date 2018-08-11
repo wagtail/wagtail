@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"POT-Creation-Date: 2018-07-30 17:31+0100\n"
 "PO-Revision-Date: 2018-05-04 19:31+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
@@ -67,12 +67,6 @@ msgstr "Ανέβασμα"
 
 msgid "Uploading…"
 msgstr "Ανέβασμα εγγράφου .."
-
-msgid "Server Error"
-msgstr "Σφάλμα"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Αναφέρατε το σφάλμα στο διαχειριστή με τις εξής πληροφορίες:"
 
 #, python-format
 msgid ""
@@ -244,6 +238,12 @@ msgstr "Δικαιώματα εγγράφων"
 
 msgid "Add a document permission"
 msgstr "Προσθήκη δικαιώματος εγγράφου"
+
+msgid "Server Error"
+msgstr "Σφάλμα"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Αναφέρατε το σφάλμα στο διαχειριστή με τις εξής πληροφορίες:"
 
 msgid "Search documents"
 msgstr "Αναζήτηση εγγράφων"

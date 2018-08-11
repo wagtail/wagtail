@@ -1,8 +1,8 @@
 Changelog
 =========
 
-2.2 (xx.xx.xxx) - IN DEVELOPMENT
-~~~~~~~~~~~~~~~
+2.2 (10.08.2018)
+~~~~~~~~~~~~~~~~
 
  * Added faceted search using the `.facet()` method (Karl Hobley)
  * Added page type filtering and ordering to the Wagtail admin page search (Karl Hobley)
@@ -33,6 +33,13 @@ Changelog
  * Fix: Permission checks no longer prevent a non-live page from being unscheduled (Abdulmalik Abdulwahab)
  * Fix: Copy-paste between Draftail editors now preserves all formatting/content (Thibaud Colas)
  * Fix: Fix alignment of checkboxes and radio buttons on Firefox (Matt Westcott)
+
+
+2.1.2 (06.08.2018)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Bundle the l18n package to avoid installation issues on systems with a non-Unicode locale (Matt Westcott)
+ * Fix: Mark Beautiful Soup 4.6.1 as incompatible due to bug in formatting empty elements (Matt Westcott)
 
 
 2.1.1 (04.07.2018)

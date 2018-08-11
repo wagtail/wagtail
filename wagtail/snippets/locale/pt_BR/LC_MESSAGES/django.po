@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:23+0100\n"
-"PO-Revision-Date: 2018-05-04 19:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2018-07-30 17:31+0100\n"
+"PO-Revision-Date: 2018-07-31 11:44+0000\n"
+"Last-Translator: Luiz Boaretto <lboaretto@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -63,11 +63,11 @@ msgstr ""
 "a>?"
 
 #, python-format
-msgid "Delete %(snippet_type_name)s - %(instance)s"
-msgstr "Excluir %(snippet_type_name)s - %(instance)s"
+msgid "Delete %(snippet_type_name)s"
+msgstr "Remover %(snippet_type_name)s"
 
-msgid "Delete"
-msgstr "Excluir"
+msgid "Delete "
+msgstr "Remover"
 
 #, python-format
 msgid "Used %(usage_count)s time"
@@ -78,6 +78,10 @@ msgstr[1] "Usado %(usage_count)s vezes"
 #, python-format
 msgid "Are you sure you want to delete this %(snippet_type_name)s?"
 msgstr "Você tem certeza que deseja excluir essa %(snippet_type_name)s?"
+
+#, python-format
+msgid "Are you sure you want to delete %(count)s %(snippet_type_name)s?"
+msgstr "Tem certeza de que deseja excluir %(count)s %(snippet_type_name)s?"
 
 msgid "Yes, delete"
 msgstr "Sim, exclua"
@@ -101,6 +105,9 @@ msgstr "Editando %(snippet_type_name)s - %(instance)s"
 
 msgid "Editing"
 msgstr "Editando"
+
+msgid "Delete"
+msgstr "Excluir"
 
 msgid "Usage"
 msgstr "Uso"
@@ -171,6 +178,9 @@ msgstr "O snippet não pode ser salvo por conter erros."
 
 msgid "{snippet_type} '{instance}' deleted."
 msgstr "{snippet_type} '{instance}' removido."
+
+msgid "{count} {snippet_type} deleted."
+msgstr "{count} {snippet_type} removido."
 
 #, python-format
 msgid "Choose %s"

@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2017
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018
 # saevarom <saevar@saevar.is>, 2015-2016,2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:23+0100\n"
-"PO-Revision-Date: 2018-05-07 10:23+0000\n"
-"Last-Translator: saevarom <saevar@saevar.is>\n"
+"POT-Creation-Date: 2018-07-30 17:31+0100\n"
+"PO-Revision-Date: 2018-08-01 14:36+0000\n"
+"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -61,10 +61,10 @@ msgstr ""
 "eitt núna</a>?"
 
 #, python-format
-msgid "Delete %(snippet_type_name)s - %(instance)s"
-msgstr "Eyða %(snippet_type_name)s - %(instance)s"
+msgid "Delete %(snippet_type_name)s"
+msgstr "Eyða %(snippet_type_name)s"
 
-msgid "Delete"
+msgid "Delete "
 msgstr "Eyða"
 
 #, python-format
@@ -76,6 +76,10 @@ msgstr[1] "Notað %(usage_count)s sinnum"
 #, python-format
 msgid "Are you sure you want to delete this %(snippet_type_name)s?"
 msgstr "Ertu viss um að þú viljir eyða þessu %(snippet_type_name)s?"
+
+#, python-format
+msgid "Are you sure you want to delete %(count)s %(snippet_type_name)s?"
+msgstr "Ertu viss um að þú viljir eyða %(count)s %(snippet_type_name)s?"
 
 msgid "Yes, delete"
 msgstr "Já, eyða"
@@ -99,6 +103,9 @@ msgstr "Breyti %(snippet_type_name)s - %(instance)s"
 
 msgid "Editing"
 msgstr "Breyti"
+
+msgid "Delete"
+msgstr "Eyða"
 
 msgid "Usage"
 msgstr "Notkun"
@@ -169,6 +176,9 @@ msgstr "Ekki var hægt að vista snifsi þar sem það stóðst ekki villuprófa
 
 msgid "{snippet_type} '{instance}' deleted."
 msgstr "{snippet_type} '{instance}' eytt."
+
+msgid "{count} {snippet_type} deleted."
+msgstr "{count} {snippet_type} eytt."
 
 #, python-format
 msgid "Choose %s"

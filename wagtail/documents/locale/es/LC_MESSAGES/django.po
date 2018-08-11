@@ -9,18 +9,18 @@
 # Daniel Chimeno <daniel@chimeno.me>, 2016
 # fooflare <amos.oviedo@gmail.com>, 2014
 # Joaquín Tita <carpincho@gmail.com>, 2014
-# José Luis <alagunajs@gmail.com>, 2015-2016
-# José Luis <alagunajs@gmail.com>, 2018
+# José Luis Sandoval Alaguna <alagunajs@gmail.com>, 2015-2016
+# José Luis Sandoval Alaguna <alagunajs@gmail.com>, 2018
 # Mauricio Baeza <python@amigos.email>, 2015
 # Mauricio Baeza <python@amigos.email>, 2015
-# José Luis <alagunajs@gmail.com>, 2016-2017
+# José Luis Sandoval Alaguna <alagunajs@gmail.com>, 2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"POT-Creation-Date: 2018-07-30 17:31+0100\n"
 "PO-Revision-Date: 2018-05-07 13:06+0000\n"
-"Last-Translator: José Luis <alagunajs@gmail.com>\n"
+"Last-Translator: José Luis Sandoval Alaguna <alagunajs@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -73,12 +73,6 @@ msgstr "Subir"
 
 msgid "Uploading…"
 msgstr "Subiendo..."
-
-msgid "Server Error"
-msgstr "Error de servidor"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Reporte este error a su admnistrador web con la siguiente información:"
 
 #, python-format
 msgid ""
@@ -264,6 +258,12 @@ msgstr "Permisos de documento"
 
 msgid "Add a document permission"
 msgstr "Agregar un permiso de documento"
+
+msgid "Server Error"
+msgstr "Error de servidor"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Reporte este error a su admnistrador web con la siguiente información:"
 
 msgid "Search documents"
 msgstr "Buscar documentos"
