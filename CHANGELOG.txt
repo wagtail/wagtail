@@ -211,6 +211,13 @@ Changelog
  * Fix: Prevent style leak of Wagtail panel icons in widgets using ``h2`` elements (THibaud Colas)
 
 
+1.13.3 (13.08.2018)
+~~~~~~~~~~~~~~~~~~~
+
+ * Fix: Pin django-taggit to <0.23 to restore Django 1.8 compatibility (Matt Westcott)
+ * Fix: Mark Beautiful Soup 4.6.1 as incompatible due to bug in formatting empty elements (Matt Westcott)
+
+
 1.13.2 (04.07.2018)
 ~~~~~~~~~~~~~~~~~~~
 
