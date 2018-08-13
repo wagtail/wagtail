@@ -44,6 +44,12 @@ Changelog
  * Fix: Fix alignment of checkboxes and radio buttons on Firefox (Matt Westcott)
 
 
+2.1.3 (13.08.2018)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Pin Beautiful Soup to 4.6.0 due to further regressions in formatting empty elements (Matt Westcott)
+
+
 2.1.2 (06.08.2018)
 ~~~~~~~~~~~~~~~~~~
 
