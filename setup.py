@@ -27,7 +27,7 @@ install_requires = [
     "django-treebeard>=3.0,<5.0",
     "djangorestframework>=3.1.3,<3.7",  # 3.7 drops Django 1.8 support
     "Pillow>=2.6.1",
-    "beautifulsoup4>=4.5.1,<5.0,!=4.6.1",
+    "beautifulsoup4>=4.5.1,<4.6.1",
     "html5lib>=0.999,<1",
     "Unidecode>=0.04.14",
     "Willow>=0.4,<0.5",
