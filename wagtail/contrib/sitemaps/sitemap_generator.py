@@ -2,7 +2,6 @@ import warnings
 
 from django.contrib.sitemaps import Sitemap as DjangoSitemap
 
-from wagtail.core.models import Site
 from wagtail.core.utils import accepts_kwarg
 from wagtail.utils.deprecation import RemovedInWagtail24Warning
 
@@ -23,6 +22,7 @@ class Sitemap(DjangoSitemap):
     def get_wagtail_site(self):
         site = getattr(self.request, 'site', None)
         if site is None:
+            from wagtail.core.models import Site
             return Site.objects.select_related(
                 'root_page'
             ).get(is_default_site=True)
