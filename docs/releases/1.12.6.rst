@@ -1,0 +1,16 @@
+============================
+Wagtail 1.12.6 release notes
+============================
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Bug fixes
+~~~~~~~~~
+
+ * Pin Beautiful Soup to 4.6.0 due to further regressions in formatting empty elements (Matt Westcott)
