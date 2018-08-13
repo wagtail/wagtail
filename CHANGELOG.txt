@@ -211,6 +211,12 @@ Changelog
  * Fix: Prevent style leak of Wagtail panel icons in widgets using ``h2`` elements (THibaud Colas)
 
 
+1.13.4 (13.08.2018)
+~~~~~~~~~~~~~~~~~~~
+
+ * Fix: Pin Beautiful Soup to 4.6.0 due to further regressions in formatting empty elements (Matt Westcott)
+
+
 1.13.3 (13.08.2018)
 ~~~~~~~~~~~~~~~~~~~
 
@@ -269,6 +275,12 @@ Changelog
  * Fix: Custom display page titles defined with `get_admin_display_title` are now shown in search results (Ben Sturmfels, Matt Westcott)
  * Fix: Custom PageManagers now return the correct PageQuerySet subclass (Matt Westcott)
  * Fix: API listing views no longer fail when no site records are defined (Karl Hobley)
+
+
+1.12.6 (13.08.2018)
+~~~~~~~~~~~~~~~~~~~
+
+ * Fix: Pin Beautiful Soup to 4.6.0 due to further regressions in formatting empty elements (Matt Westcott)
 
 
 1.12.5 (13.08.2018)
