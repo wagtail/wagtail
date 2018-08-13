@@ -121,6 +121,14 @@ Changelog
  * Fix: Fix usage URL on the document edit page (Jérôme Lebleu)
 
 
+2.0.2 (13.08.2018)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Restored ability to use non-model fields with FieldPanel (Matt Westcott, LB (Ben Johnston))
+ * Fix: Fix usage URL on the document edit page (Jérôme Lebleu)
+ * Fix: Pin Beautiful Soup to 4.6.0 due to further regressions in formatting empty elements (Matt Westcott)
+
+
 2.0.1 (04.04.2018)
 ~~~~~~~~~~~~~~~~~~
 
