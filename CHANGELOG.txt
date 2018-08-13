@@ -1,6 +1,13 @@
 Changelog
 =========
 
+
+1.13.4 (13.08.2018)
+~~~~~~~~~~~~~~~~~~~
+
+ * Fix: Pin Beautiful Soup to 4.6.0 due to further regressions in formatting empty elements (Matt Westcott)
+
+
 1.13.3 (13.08.2018)
 ~~~~~~~~~~~~~~~~~~~
 
