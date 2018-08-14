@@ -8,6 +8,7 @@ Changelog
  * Added 'scale' image filter (Oliver Wilkerson)
  * Added meta tag to prevent search engines from indexing admin pages (Karl Hobley)
  * Fix: Respect next param on login (Loic Teixeira)
+ * Fix: InlinePanel now handles relations that specify a related_query_name (Aram Dulyan)
 
 
 2.2.1 (13.08.2018)

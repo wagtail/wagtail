@@ -30,6 +30,8 @@ Bug fixes
 ~~~~~~~~~
 
  * Respect next param on login (Loic Teixeira)
+ * InlinePanel now handles relations that specify a related_query_name (Aram Dulyan)
+
 
 Upgrade considerations
 ======================
