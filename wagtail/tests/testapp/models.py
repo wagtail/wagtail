@@ -410,9 +410,9 @@ class EventIndex(Page):
         for path in super().get_static_site_paths():
             yield path
 
-    def get_sitemap_urls(self):
+    def get_sitemap_urls(self, request=None):
         # Add past events url to sitemap
-        return super().get_sitemap_urls() + [
+        return super().get_sitemap_urls(request=request) + [
             {
                 'location': self.full_url + 'past/',
                 'lastmod': self.latest_revision_created_at
