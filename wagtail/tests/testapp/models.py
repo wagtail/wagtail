@@ -196,7 +196,7 @@ class EventPageRelatedLink(Orderable, RelatedLink):
 
 
 class EventPageSpeaker(Orderable, LinkFields):
-    page = ParentalKey('tests.EventPage', related_name='speakers', on_delete=models.CASCADE)
+    page = ParentalKey('tests.EventPage', related_name='speakers', related_query_name='speaker', on_delete=models.CASCADE)
     first_name = models.CharField("Name", max_length=255, blank=True)
     last_name = models.CharField("Surname", max_length=255, blank=True)
     image = models.ForeignKey(

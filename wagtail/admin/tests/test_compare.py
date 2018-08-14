@@ -359,7 +359,7 @@ class TestChildRelationComparison(TestCase):
         ))
 
         comparison = self.comparison_class(
-            EventPage._meta.get_field('speakers'),
+            EventPage._meta.get_field('speaker'),
             [
                 curry(self.field_comparison_class, EventPageSpeaker._meta.get_field('first_name')),
                 curry(self.field_comparison_class, EventPageSpeaker._meta.get_field('last_name')),
@@ -370,7 +370,7 @@ class TestChildRelationComparison(TestCase):
 
         self.assertFalse(comparison.is_field)
         self.assertTrue(comparison.is_child_relation)
-        self.assertEqual(comparison.field_label(), "Speakers")
+        self.assertEqual(comparison.field_label(), "Speaker")
         self.assertFalse(comparison.has_changed())
 
         # Check mapping
@@ -406,7 +406,7 @@ class TestChildRelationComparison(TestCase):
         ))
 
         comparison = self.comparison_class(
-            EventPage._meta.get_field('speakers'),
+            EventPage._meta.get_field('speaker'),
             [
                 curry(self.field_comparison_class, EventPageSpeaker._meta.get_field('first_name')),
                 curry(self.field_comparison_class, EventPageSpeaker._meta.get_field('last_name')),
@@ -417,7 +417,7 @@ class TestChildRelationComparison(TestCase):
 
         self.assertFalse(comparison.is_field)
         self.assertTrue(comparison.is_child_relation)
-        self.assertEqual(comparison.field_label(), "Speakers")
+        self.assertEqual(comparison.field_label(), "Speaker")
         self.assertTrue(comparison.has_changed())
 
         # Check mapping
@@ -455,7 +455,7 @@ class TestChildRelationComparison(TestCase):
         ))
 
         comparison = self.comparison_class(
-            EventPage._meta.get_field('speakers'),
+            EventPage._meta.get_field('speaker'),
             [
                 curry(self.field_comparison_class, EventPageSpeaker._meta.get_field('first_name')),
                 curry(self.field_comparison_class, EventPageSpeaker._meta.get_field('last_name')),
@@ -466,7 +466,7 @@ class TestChildRelationComparison(TestCase):
 
         self.assertFalse(comparison.is_field)
         self.assertTrue(comparison.is_child_relation)
-        self.assertEqual(comparison.field_label(), "Speakers")
+        self.assertEqual(comparison.field_label(), "Speaker")
         self.assertTrue(comparison.has_changed())
 
         # Check mapping
@@ -496,7 +496,7 @@ class TestChildRelationComparison(TestCase):
         ))
 
         comparison = self.comparison_class(
-            EventPage._meta.get_field('speakers'),
+            EventPage._meta.get_field('speaker'),
             [
                 curry(self.field_comparison_class, EventPageSpeaker._meta.get_field('first_name')),
                 curry(self.field_comparison_class, EventPageSpeaker._meta.get_field('last_name')),
@@ -507,7 +507,7 @@ class TestChildRelationComparison(TestCase):
 
         self.assertFalse(comparison.is_field)
         self.assertTrue(comparison.is_child_relation)
-        self.assertEqual(comparison.field_label(), "Speakers")
+        self.assertEqual(comparison.field_label(), "Speaker")
         self.assertTrue(comparison.has_changed())
 
         # Check mapping

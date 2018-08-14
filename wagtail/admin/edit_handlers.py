@@ -685,8 +685,8 @@ class InlinePanel(EditHandler):
                       field_comparisons)]
 
     def on_model_bound(self):
-        self.db_field = self.model._meta.get_field(self.relation_name)
         manager = getattr(self.model, self.relation_name)
+        self.db_field = manager.rel
         self.related = manager.rel
 
     def on_instance_bound(self):
