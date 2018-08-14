@@ -60,6 +60,7 @@ class SelectCropBlock(StructBlock):
             context['focal_point_y'] = value['focal_point_y']
             context['focal_point_width'] = value['focal_point_width']
             context['focal_point_height'] = value['focal_point_height']
+
         # if these values don't exist the crop probably hasn't been selected - just return the context - this means the image tag won't attempt to crop first
         return context
 

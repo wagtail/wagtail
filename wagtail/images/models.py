@@ -434,14 +434,23 @@ class Filter:
                 return willow.save_as_gif(output)
 
     def get_cache_key(self, image):
-        vary_parts = []
 
-        for operation in self.operations:
-            for field in getattr(operation, 'vary_fields', []):
-                value = getattr(image, field, '')
-                vary_parts.append(str(value))
+        """ when the 'select' crop operation is used it is always prepended to operations
+            as it should be carried out before other operations.  Also if a generic focus
+            has been specified for the image, clearly the contextualised select crop should
+            take precedence - the generic focus will be overidden as would be expected """
+        # HT START
+        first_spec = self.spec.split('|')[0]
+        if first_spec.split('-')[0] == "select":
+            vary_string = first_spec
+        else:  # HT END
+            vary_parts = []
+            for operation in self.operations:
+                for field in getattr(operation, 'vary_fields', []):
+                    value = getattr(image, field, '')
+                    vary_parts.append(str(value))
 
-        vary_string = '-'.join(vary_parts)
+            vary_string = '-'.join(vary_parts)
 
         # Return blank string if there are no vary fields
         if not vary_string:
