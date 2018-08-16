@@ -22,7 +22,7 @@ DATABASES = {
     }
 }
 
-if DATABASES['default']['ENGINE'] == 'sql_server.pyodbc':
+if DATABASES['default']['ENGINE'] == 'django.db.backends.sqlite3':
     DATABASES['default']['NAME'] = 'wagtail.db'
 
 # Add extra options when mssql is used (on for example appveyor)
