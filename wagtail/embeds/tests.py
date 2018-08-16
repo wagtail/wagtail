@@ -518,25 +518,42 @@ class TestEmbedBlock(TestCase):
         self.assertIsInstance(block5.get_default(), EmbedValue)
         self.assertEqual(block5.get_default().url, 'http://www.example.com/foo')
 
-    def test_clean(self):
-        required_block = EmbedBlock()
-        nonrequired_block = EmbedBlock(required=False)
+    def test_clean_required(self):
+        block = EmbedBlock()
 
-        # a valid EmbedValue should return the same value on clean
-        cleaned_value = required_block.clean(EmbedValue('http://www.example.com/foo'))
+        cleaned_value = block.clean(
+            EmbedValue('https://www.youtube.com/watch?v=_U79Wc965vw'))
         self.assertIsInstance(cleaned_value, EmbedValue)
-        self.assertEqual(cleaned_value.url, 'http://www.example.com/foo')
+        self.assertEqual(cleaned_value.url,
+                         'https://www.youtube.com/watch?v=_U79Wc965vw')
 
-        cleaned_value = nonrequired_block.clean(EmbedValue('http://www.example.com/foo'))
+        with self.assertRaisesMessage(ValidationError, ''):
+            block.clean(None)
+
+    def test_clean_non_required(self):
+        block = EmbedBlock(required=False)
+
+        cleaned_value = block.clean(
+            EmbedValue('https://www.youtube.com/watch?v=_U79Wc965vw'))
         self.assertIsInstance(cleaned_value, EmbedValue)
-        self.assertEqual(cleaned_value.url, 'http://www.example.com/foo')
+        self.assertEqual(cleaned_value.url,
+                         'https://www.youtube.com/watch?v=_U79Wc965vw')
 
-        # None should only be accepted for nonrequired blocks
-        cleaned_value = nonrequired_block.clean(None)
-        self.assertEqual(cleaned_value, None)
+        cleaned_value = block.clean(None)
+        self.assertIsNone(cleaned_value)
+
+    def test_clean_invalid_url(self):
+        non_required_block = EmbedBlock(required=False)
 
         with self.assertRaises(ValidationError):
-            required_block.clean(None)
+            non_required_block.clean(
+                EmbedValue('http://no-oembed-here.com/something'))
+
+        required_block = EmbedBlock()
+
+        with self.assertRaises(ValidationError):
+            required_block.clean(
+                EmbedValue('http://no-oembed-here.com/something'))
 
 
 class TestMediaEmbedHandler(TestCase):
