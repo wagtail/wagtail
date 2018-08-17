@@ -5,11 +5,12 @@ ENV PYTHONUNBUFFERED 1
 ENV DJANGO_ENV dev
 
 WORKDIR /code/
-COPY . /code/
+COPY ./requirements.txt /code/requirements.txt
 
 RUN pip install -r /code/requirements.txt && \
     pip install gunicorn
 
+COPY . /code/
 RUN python manage.py migrate && \
     useradd wagtail && \
     chown -R wagtail /code
