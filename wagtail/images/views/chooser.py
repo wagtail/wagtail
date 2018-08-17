@@ -150,6 +150,7 @@ def chooser_upload(request):
             # Set image file hash
             image.file.seek(0)
             image._set_file_hash(image.file.read())
+            image.file.seek(0)
 
             form.save()
 
