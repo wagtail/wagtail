@@ -1,6 +1,5 @@
 import copy
 import json
-import warnings
 from collections import OrderedDict
 from urllib.parse import urlparse
 
@@ -16,7 +15,6 @@ from wagtail.search.backends.base import (
 from wagtail.search.index import (
     AutocompleteField, FilterField, Indexed, RelatedFields, SearchField, class_is_indexed)
 from wagtail.search.query import And, Boost, MatchAll, Not, Or, PlainText
-from wagtail.utils.deprecation import RemovedInWagtail22Warning
 from wagtail.utils.utils import deep_update
 
 
@@ -1099,51 +1097,6 @@ class Elasticsearch2SearchBackend(BaseSearchBackend):
     def reset_index(self):
         # Use the rebuilder to reset the index
         self.get_rebuilder().reset_index()
-
-    def add_type(self, model):
-        warnings.warn(
-            "The `backend.add_type(model)` method is deprecated. "
-            "Please use `backend.get_index_for_model(model).add_model(model)` instead.",
-            category=RemovedInWagtail22Warning
-        )
-
-        self.get_index_for_model(model).add_model(model)
-
-    def refresh_index(self):
-        warnings.warn(
-            "The `backend.refresh_index()` method is deprecated. "
-            "Please use `backend.get_index_for_model(model).refresh()` for each model instead.",
-            category=RemovedInWagtail22Warning
-        )
-
-        self.get_index().refresh()
-
-    def add(self, obj):
-        warnings.warn(
-            "The `backend.add(obj)` method is deprecated. "
-            "Please use `backend.get_index_for_model(type(obj)).add_item(obj)` instead.",
-            category=RemovedInWagtail22Warning
-        )
-
-        self.get_index_for_model(type(obj)).add_item(obj)
-
-    def add_bulk(self, model, obj_list):
-        warnings.warn(
-            "The `backend.add_bulk(model, obj_list)` method is deprecated. "
-            "Please use `self.get_index_for_model(model).add_items(model, obj_list)` instead.",
-            category=RemovedInWagtail22Warning
-        )
-
-        self.get_index_for_model(model).add_items(model, obj_list)
-
-    def delete(self, obj):
-        warnings.warn(
-            "The `backend.delete(obj)` method is deprecated. "
-            "Please use `backend.get_index_for_model(type(obj)).delete_item(obj)` instead.",
-            category=RemovedInWagtail22Warning
-        )
-
-        self.get_index_for_model(type(obj)).delete_item(obj)
 
 
 SearchBackend = Elasticsearch2SearchBackend

@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:23+0100\n"
-"PO-Revision-Date: 2018-05-10 14:20+0000\n"
-"Last-Translator: giammi <gian-maria.daffre@giammi.org>\n"
+"POT-Creation-Date: 2018-07-30 17:31+0100\n"
+"PO-Revision-Date: 2018-07-30 16:34+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -63,13 +63,6 @@ msgstr ""
 "adesso</a>?"
 
 #, python-format
-msgid "Delete %(snippet_type_name)s - %(instance)s"
-msgstr "Elimina %(snippet_type_name)s - %(instance)s"
-
-msgid "Delete"
-msgstr "Elimina"
-
-#, python-format
 msgid "Used %(usage_count)s time"
 msgid_plural "Used %(usage_count)s times"
 msgstr[0] "Usato %(usage_count)s volta"
@@ -101,6 +94,9 @@ msgstr "Modifica %(snippet_type_name)s - %(instance)s"
 
 msgid "Editing"
 msgstr "Modifica"
+
+msgid "Delete"
+msgstr "Elimina"
 
 msgid "Usage"
 msgstr "Uso"

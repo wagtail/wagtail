@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:23+0100\n"
-"PO-Revision-Date: 2018-05-04 19:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2018-07-30 17:31+0100\n"
+"PO-Revision-Date: 2018-07-30 21:17+0000\n"
+"Last-Translator: Sergiy Shkodenko <shkodenkosergiy@gmail.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
 "MIME-Version: 1.0\n"
@@ -22,6 +22,9 @@ msgstr ""
 "11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
 "100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
 "(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+
+msgid "Wagtail forms"
+msgstr "Форми Wagtail "
 
 #, python-format
 msgid "%s submissions"
@@ -53,16 +56,19 @@ msgid "URL"
 msgstr "URL"
 
 msgid "Checkbox"
-msgstr "Чекбокс"
+msgstr "Прапорець"
 
 msgid "Checkboxes"
-msgstr "Чекбокси"
+msgstr "Прапорці"
 
 msgid "Drop down"
 msgstr "Випадаючий список"
 
 msgid "Multiple select"
 msgstr "Множинний вибір"
+
+msgid "Radio buttons"
+msgstr "Перемикачі"
 
 msgid "Date"
 msgstr "Дата"
@@ -93,6 +99,13 @@ msgstr "обов'язково"
 
 msgid "choices"
 msgstr "варіанти"
+
+msgid ""
+"Comma separated list of choices. Only applicable in checkboxes, radio and "
+"dropdown."
+msgstr ""
+"Список варіантів для вибору, розділений комами. Застосовується тільки для "
+"прапорців, перемикачів та випадаючих списків."
 
 msgid "default value"
 msgstr "початкове значення"
@@ -196,6 +209,9 @@ msgstr "Оригінал"
 
 msgid "Delete selected submissions"
 msgstr "Видалили обрані подання"
+
+msgid "No form pages have been created."
+msgstr "Сторінки із формами відсутні, їх не було створено."
 
 #, python-format
 msgid "One submission has been deleted."

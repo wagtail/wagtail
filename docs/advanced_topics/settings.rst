@@ -288,7 +288,7 @@ This specifies whether password fields are shown when creating or editing users 
 
   WAGTAILUSERS_PASSWORD_REQUIRED = True
 
-This specifies whether password is a required field when creating a new user. True by default; ignored if ``WAGTAILUSERS_PASSWORD_ENABLED`` is false. If this is set to False, and the password field is left blank when creating a user, then that user will have no usable password, and will not be able to log in unless an alternative authentication system such as LDAP is set up.
+This specifies whether password is a required field when creating a new user. True by default; ignored if ``WAGTAILUSERS_PASSWORD_ENABLED`` is false. If this is set to False, and the password field is left blank when creating a user, then that user will have no usable password; in order to log in, they will have to reset their password (if ``WAGTAIL_PASSWORD_RESET_ENABLED`` is True) or use an alternative authentication system such as LDAP (if one is set up).
 
 
 .. _email_notifications:

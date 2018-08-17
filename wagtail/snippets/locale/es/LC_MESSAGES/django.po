@@ -8,18 +8,18 @@
 # Daniel Chimeno <daniel@chimeno.me>, 2015-2016
 # fooflare <amos.oviedo@gmail.com>, 2014
 # Joaquín Tita <carpincho@gmail.com>, 2014
-# José Luis <alagunajs@gmail.com>, 2015
-# José Luis <alagunajs@gmail.com>, 2015,2018
+# José Luis Sandoval Alaguna <alagunajs@gmail.com>, 2015
+# José Luis Sandoval Alaguna <alagunajs@gmail.com>, 2015,2018
 # Mauricio Baeza <python@amigos.email>, 2015
 # Mauricio Baeza <python@amigos.email>, 2015
-# José Luis <alagunajs@gmail.com>, 2016-2017
+# José Luis Sandoval Alaguna <alagunajs@gmail.com>, 2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:23+0100\n"
-"PO-Revision-Date: 2018-05-07 13:07+0000\n"
-"Last-Translator: José Luis <alagunajs@gmail.com>\n"
+"POT-Creation-Date: 2018-07-30 17:31+0100\n"
+"PO-Revision-Date: 2018-07-31 06:54+0000\n"
+"Last-Translator: José Luis Sandoval Alaguna <alagunajs@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -69,10 +69,10 @@ msgstr ""
 "ahora</a>?"
 
 #, python-format
-msgid "Delete %(snippet_type_name)s - %(instance)s"
-msgstr "Eliminar %(snippet_type_name)s - %(instance)s"
+msgid "Delete %(snippet_type_name)s"
+msgstr "Eliminar %(snippet_type_name)s"
 
-msgid "Delete"
+msgid "Delete "
 msgstr "Eliminar"
 
 #, python-format
@@ -84,6 +84,10 @@ msgstr[1] "Usado %(usage_count)s veces"
 #, python-format
 msgid "Are you sure you want to delete this %(snippet_type_name)s?"
 msgstr "¿Seguro que quieres eliminar este %(snippet_type_name)s?"
+
+#, python-format
+msgid "Are you sure you want to delete %(count)s %(snippet_type_name)s?"
+msgstr "Está seguro de querer eliminar %(count)s %(snippet_type_name)s?"
 
 msgid "Yes, delete"
 msgstr "Sí, eliminar"
@@ -107,6 +111,9 @@ msgstr "Editando %(snippet_type_name)s - %(instance)s"
 
 msgid "Editing"
 msgstr "Editando"
+
+msgid "Delete"
+msgstr "Eliminar"
 
 msgid "Usage"
 msgstr "Uso"
@@ -177,6 +184,9 @@ msgstr "El fragmento no puedo ser guardado debido a errores."
 
 msgid "{snippet_type} '{instance}' deleted."
 msgstr "{snippet_type} '{instance}' eliminado."
+
+msgid "{count} {snippet_type} deleted."
+msgstr "{count} {snippet_type} eliminado."
 
 #, python-format
 msgid "Choose %s"

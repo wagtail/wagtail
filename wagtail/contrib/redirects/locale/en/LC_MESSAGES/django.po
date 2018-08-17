@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:23+0100\n"
+"POT-Creation-Date: 2018-07-30 17:31+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -163,7 +163,6 @@ msgid "Search redirects"
 msgstr ""
 
 #: views.py:73
-#, python-brace-format
 msgid "Redirect '{0}' updated."
 msgstr ""
 
@@ -176,12 +175,10 @@ msgid "The redirect could not be saved due to errors."
 msgstr ""
 
 #: views.py:100
-#, python-brace-format
 msgid "Redirect '{0}' deleted."
 msgstr ""
 
 #: views.py:115
-#, python-brace-format
 msgid "Redirect '{0}' added."
 msgstr ""
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"POT-Creation-Date: 2018-07-30 17:31+0100\n"
 "PO-Revision-Date: 2018-05-04 19:31+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
@@ -60,12 +60,6 @@ msgstr "Yükle"
 
 msgid "Uploading…"
 msgstr "Yükleniyor…"
-
-msgid "Server Error"
-msgstr "Sunucu Hatası"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Aşağıdaki bilgilerle bu hatayı webmaster a raporlayın"
 
 msgid "Latest documents"
 msgstr "Son dökümanlar"
@@ -169,6 +163,12 @@ msgstr "Döküman izinleri"
 
 msgid "Add a document permission"
 msgstr "Döküman izni ekle"
+
+msgid "Server Error"
+msgstr "Sunucu Hatası"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Aşağıdaki bilgilerle bu hatayı webmaster a raporlayın"
 
 msgid "Search documents"
 msgstr "Dökümanları ara"

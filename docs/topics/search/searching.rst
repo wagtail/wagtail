@@ -97,6 +97,9 @@ This can be limited to a certain set of fields by using the ``fields`` keyword a
     >>> EventPage.objects.search("Event", fields=["title"])
     [<EventPage: Event 1>, <EventPage: Event 2>]
 
+
+.. _wagtailsearch_faceted_search:
+
 Faceted search
 --------------
 
@@ -110,7 +113,7 @@ of references descending.
 
 For example, to find the most common page types in the search results:
 
-.. code-block::python
+.. code-block:: python
 
     >>> Page.objects.search("Test").facet("content_type_id")
 

@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"POT-Creation-Date: 2018-07-30 17:31+0100\n"
 "PO-Revision-Date: 2018-05-04 19:31+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
@@ -141,12 +141,6 @@ msgstr "Suositut asiasanat"
 
 msgid "Uploading…"
 msgstr "Lähetetään…"
-
-msgid "Server Error"
-msgstr "Palvelinvirhe"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Raportoi tämä virhe sivuston ylläpitäjälle seuraavan tiedon kanssa:"
 
 #, python-format
 msgid ""
@@ -329,6 +323,12 @@ msgstr ""
 
 msgid "Sorry, upload failed."
 msgstr "Pahoittelut, siirto epäonnistui."
+
+msgid "Server Error"
+msgstr "Palvelinvirhe"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Raportoi tämä virhe sivuston ylläpitäjälle seuraavan tiedon kanssa:"
 
 msgid "Image updated."
 msgstr "Kuva päivitetty."

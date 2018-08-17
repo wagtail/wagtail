@@ -281,7 +281,7 @@ def querystring(context, **kwargs):
             querydict.pop(key, None)
         else:
             # Set the key otherwise
-            querydict[key] = value
+            querydict[key] = str(value)
 
     return '?' + querydict.urlencode()
 

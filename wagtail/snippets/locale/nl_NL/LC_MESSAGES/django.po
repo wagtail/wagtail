@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:23+0100\n"
-"PO-Revision-Date: 2018-05-07 09:05+0000\n"
+"POT-Creation-Date: 2018-07-30 17:31+0100\n"
+"PO-Revision-Date: 2018-07-31 09:32+0000\n"
 "Last-Translator: Maarten Kling <kling.maarten@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
@@ -64,10 +64,10 @@ msgstr ""
 "een toe</a>?"
 
 #, python-format
-msgid "Delete %(snippet_type_name)s - %(instance)s"
-msgstr "Verwijder %(snippet_type_name)s - %(instance)s"
+msgid "Delete %(snippet_type_name)s"
+msgstr "Verwijder%(snippet_type_name)s"
 
-msgid "Delete"
+msgid "Delete "
 msgstr "Verwijder"
 
 #, python-format
@@ -79,6 +79,11 @@ msgstr[1] "%(usage_count)s keer gebruikt"
 #, python-format
 msgid "Are you sure you want to delete this %(snippet_type_name)s?"
 msgstr "Weet u zeker dat u deze %(snippet_type_name)s wilt verwijderen?"
+
+#, python-format
+msgid "Are you sure you want to delete %(count)s %(snippet_type_name)s?"
+msgstr ""
+"Weet u zeker dat u deze %(count)s%(snippet_type_name)s wilt verwijderen?"
 
 msgid "Yes, delete"
 msgstr "Ja, verwijder"
@@ -102,6 +107,9 @@ msgstr "Wijzigen %(snippet_type_name)s - %(instance)s"
 
 msgid "Editing"
 msgstr "Wijzigen"
+
+msgid "Delete"
+msgstr "Verwijder"
 
 msgid "Usage"
 msgstr "Gebruik"
@@ -172,6 +180,9 @@ msgstr "De snippet kon niet worden opgeslagen door fouten."
 
 msgid "{snippet_type} '{instance}' deleted."
 msgstr "{snippet_type} '{instance}' verwijderd."
+
+msgid "{count} {snippet_type} deleted."
+msgstr "{count} {snippet_type} verwijderd."
 
 #, python-format
 msgid "Choose %s"

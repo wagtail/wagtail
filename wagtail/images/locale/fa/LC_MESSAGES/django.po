@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"POT-Creation-Date: 2018-07-30 17:31+0100\n"
 "PO-Revision-Date: 2018-05-04 19:31+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -138,12 +138,6 @@ msgstr "برچسب های پرتکرار"
 
 msgid "Uploading…"
 msgstr "در حال آپلود…"
-
-msgid "Server Error"
-msgstr "خطای سرور"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr "گزارش این خطا به وبمستر با اطلاعات زیر:"
 
 #, python-format
 msgid ""
@@ -326,6 +320,12 @@ msgstr ""
 
 msgid "Sorry, upload failed."
 msgstr "متاسفانه آپلود ناموفق بود."
+
+msgid "Server Error"
+msgstr "خطای سرور"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "گزارش این خطا به وبمستر با اطلاعات زیر:"
 
 msgid "Image updated."
 msgstr "تصویر آپلود شد."

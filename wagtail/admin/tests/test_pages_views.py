@@ -2395,6 +2395,86 @@ class TestPageSearch(TestCase, WagtailTestUtils):
         self.user.save()
         self.assertRedirects(self.get(), '/admin/')
 
+    def test_search_order_by_title(self):
+        root_page = Page.objects.get(id=2)
+        new_event = SingleEventPage(
+            title="Lunar event",
+            location='the moon', audience='public',
+            cost='free', date_from='2001-01-01',
+            latest_revision_created_at=local_datetime(2016, 1, 1)
+        )
+        root_page.add_child(instance=new_event)
+
+        new_event_2 = SingleEventPage(
+            title="A Lunar event",
+            location='the moon', audience='public',
+            cost='free', date_from='2001-01-01',
+            latest_revision_created_at=local_datetime(2016, 1, 1)
+        )
+        root_page.add_child(instance=new_event_2)
+
+        response = self.get({'q': 'Lunar', 'ordering': 'title'})
+        page_ids = [page.id for page in response.context['pages']]
+        self.assertEqual(page_ids, [new_event_2.id, new_event.id])
+
+        response = self.get({'q': 'Lunar', 'ordering': '-title'})
+        page_ids = [page.id for page in response.context['pages']]
+        self.assertEqual(page_ids, [new_event.id, new_event_2.id])
+
+    def test_search_order_by_updated(self):
+        root_page = Page.objects.get(id=2)
+        new_event = SingleEventPage(
+            title="Lunar event",
+            location='the moon', audience='public',
+            cost='free', date_from='2001-01-01',
+            latest_revision_created_at=local_datetime(2016, 1, 1)
+        )
+        root_page.add_child(instance=new_event)
+
+        new_event_2 = SingleEventPage(
+            title="Lunar event 2",
+            location='the moon', audience='public',
+            cost='free', date_from='2001-01-01',
+            latest_revision_created_at=local_datetime(2015, 1, 1)
+        )
+        root_page.add_child(instance=new_event_2)
+
+        response = self.get({'q': 'Lunar', 'ordering': 'latest_revision_created_at'})
+        page_ids = [page.id for page in response.context['pages']]
+        self.assertEqual(page_ids, [new_event_2.id, new_event.id])
+
+        response = self.get({'q': 'Lunar', 'ordering': '-latest_revision_created_at'})
+        page_ids = [page.id for page in response.context['pages']]
+        self.assertEqual(page_ids, [new_event.id, new_event_2.id])
+
+    def test_search_order_by_status(self):
+        root_page = Page.objects.get(id=2)
+        live_event = SingleEventPage(
+            title="Lunar event",
+            location='the moon', audience='public',
+            cost='free', date_from='2001-01-01',
+            latest_revision_created_at=local_datetime(2016, 1, 1),
+            live=True
+        )
+        root_page.add_child(instance=live_event)
+
+        draft_event = SingleEventPage(
+            title="Lunar event",
+            location='the moon', audience='public',
+            cost='free', date_from='2001-01-01',
+            latest_revision_created_at=local_datetime(2016, 1, 1),
+            live=False
+        )
+        root_page.add_child(instance=draft_event)
+
+        response = self.get({'q': 'Lunar', 'ordering': 'live'})
+        page_ids = [page.id for page in response.context['pages']]
+        self.assertEqual(page_ids, [draft_event.id, live_event.id])
+
+        response = self.get({'q': 'Lunar', 'ordering': '-live'})
+        page_ids = [page.id for page in response.context['pages']]
+        self.assertEqual(page_ids, [live_event.id, draft_event.id])
+
 
 class TestPageMove(TestCase, WagtailTestUtils):
     def setUp(self):

@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
-"PO-Revision-Date: 2018-05-04 19:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2018-07-30 17:31+0100\n"
+"PO-Revision-Date: 2018-07-30 21:08+0000\n"
+"Last-Translator: Sergiy Shkodenko <shkodenkosergiy@gmail.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
 "MIME-Version: 1.0\n"
@@ -21,6 +21,9 @@ msgstr ""
 "11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
 "100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
 "(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+
+msgid "Wagtail documents"
+msgstr "Документи Wagtail"
 
 msgid "Add"
 msgstr "Додати"
@@ -63,12 +66,6 @@ msgstr "Надіслати"
 
 msgid "Uploading…"
 msgstr "Йде надсилання..."
-
-msgid "Server Error"
-msgstr "Помилка сервера"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Повідомте про цю помилку вашому вебмастеру, додавши цю інформацію: "
 
 #, python-format
 msgid ""
@@ -271,6 +268,12 @@ msgstr "Дозволи для документа"
 
 msgid "Add a document permission"
 msgstr "Додати дозвіл для документа"
+
+msgid "Server Error"
+msgstr "Помилка сервера"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Повідомте про цю помилку вашому вебмастеру, додавши цю інформацію: "
 
 msgid "Search documents"
 msgstr "Шукати документи"

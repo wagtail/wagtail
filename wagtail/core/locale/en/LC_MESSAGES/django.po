@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"POT-Creation-Date: 2018-07-30 17:31+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,7 +22,6 @@ msgid "Wagtail core"
 msgstr ""
 
 #: blocks/static_block.py:15
-#, python-brace-format
 msgid "{label}: this block has no options."
 msgstr ""
 
@@ -126,7 +125,7 @@ msgstr ""
 msgid "content type"
 msgstr ""
 
-#: models.py:258 models.py:1014
+#: models.py:258 models.py:1015
 msgid "live"
 msgstr ""
 
@@ -173,7 +172,7 @@ msgstr ""
 msgid "expiry date/time"
 msgstr ""
 
-#: models.py:300 models.py:1003
+#: models.py:300 models.py:1004
 msgid "expired"
 msgstr ""
 
@@ -193,187 +192,187 @@ msgstr ""
 msgid "latest revision created at"
 msgstr ""
 
-#: models.py:437
+#: models.py:438
 msgid "This slug is already in use"
 msgstr ""
 
-#: models.py:1005
+#: models.py:1006
 msgid "scheduled"
 msgstr ""
 
-#: models.py:1007
+#: models.py:1008
 msgid "draft"
 msgstr ""
 
-#: models.py:1010
+#: models.py:1011
 msgid "live + scheduled"
 msgstr ""
 
-#: models.py:1012
+#: models.py:1013
 msgid "live + draft"
 msgstr ""
 
-#: models.py:1279
+#: models.py:1280
 msgid "Default"
 msgstr ""
 
-#: models.py:1389 models.py:1408 models.py:1564 models.py:1920
+#: models.py:1390 models.py:1409 models.py:1565 models.py:1924
 msgid "page"
 msgstr ""
 
-#: models.py:1390
+#: models.py:1391
 msgid "pages"
 msgstr ""
 
-#: models.py:1410
+#: models.py:1411
 msgid "submitted for moderation"
 msgstr ""
 
-#: models.py:1414
+#: models.py:1415
 msgid "created at"
 msgstr ""
 
-#: models.py:1416
+#: models.py:1417
 msgid "user"
 msgstr ""
 
-#: models.py:1419
+#: models.py:1420
 msgid "content JSON"
 msgstr ""
 
-#: models.py:1420
+#: models.py:1421
 msgid "approved go live at"
 msgstr ""
 
-#: models.py:1544
+#: models.py:1545
 msgid "page revision"
 msgstr ""
 
-#: models.py:1545
+#: models.py:1546
 msgid "page revisions"
 msgstr ""
 
-#: models.py:1549
+#: models.py:1550
 msgid "Add"
 msgstr ""
 
-#: models.py:1549
+#: models.py:1550
 msgid "Add/edit pages you own"
 msgstr ""
 
-#: models.py:1550
+#: models.py:1551
 msgid "Edit"
 msgstr ""
 
-#: models.py:1550
+#: models.py:1551
 msgid "Edit any page"
 msgstr ""
 
-#: models.py:1551
+#: models.py:1552
 msgid "Publish"
 msgstr ""
 
-#: models.py:1551
+#: models.py:1552
 msgid "Publish any page"
 msgstr ""
 
-#: models.py:1552
+#: models.py:1553
 msgid "Bulk delete"
 msgstr ""
 
-#: models.py:1552
+#: models.py:1553
 msgid "Delete pages with children"
 msgstr ""
 
-#: models.py:1553
+#: models.py:1554
 msgid "Lock"
 msgstr ""
 
-#: models.py:1553
+#: models.py:1554
 msgid "Lock/unlock any page"
 msgstr ""
 
-#: models.py:1563 models.py:2019
+#: models.py:1564 models.py:2023
 msgid "group"
 msgstr ""
 
-#: models.py:1566
+#: models.py:1567
 msgid "permission type"
 msgstr ""
 
-#: models.py:1573
+#: models.py:1574
 msgid "group page permission"
 msgstr ""
 
-#: models.py:1574
+#: models.py:1575
 msgid "group page permissions"
 msgstr ""
 
-#: models.py:1867
+#: models.py:1871
 msgid "Public"
 msgstr ""
 
-#: models.py:1868
+#: models.py:1872
 msgid "Private, accessible to logged-in users"
 msgstr ""
 
-#: models.py:1869
+#: models.py:1873
 msgid "Private, accessible with the following password"
 msgstr ""
 
-#: models.py:1870
+#: models.py:1874
 msgid "Private, accessible to users in specific groups"
 msgstr ""
 
-#: models.py:1875
+#: models.py:1879
 msgid "password"
 msgstr ""
 
-#: models.py:1876
+#: models.py:1880
 msgid "groups"
 msgstr ""
 
-#: models.py:1914
+#: models.py:1918
 msgid "view restriction"
 msgstr ""
 
-#: models.py:1915
+#: models.py:1919
 msgid "view restrictions"
 msgstr ""
 
-#: models.py:1926
+#: models.py:1930
 msgid "page view restriction"
 msgstr ""
 
-#: models.py:1927
+#: models.py:1931
 msgid "page view restrictions"
 msgstr ""
 
-#: models.py:1941 models.py:1984 models.py:1999 models.py:2025
+#: models.py:1945 models.py:1988 models.py:2003 models.py:2029
 msgid "collection"
 msgstr ""
 
-#: models.py:1949
+#: models.py:1953
 msgid "collection view restriction"
 msgstr ""
 
-#: models.py:1950
+#: models.py:1954
 msgid "collection view restrictions"
 msgstr ""
 
-#: models.py:1957
+#: models.py:1961
 msgid "name"
 msgstr ""
 
-#: models.py:1985
+#: models.py:1989
 msgid "collections"
 msgstr ""
 
-#: models.py:2031
+#: models.py:2035
 msgid "permission"
 msgstr ""
 
-#: models.py:2044
+#: models.py:2048
 msgid "group collection permission"
 msgstr ""
 

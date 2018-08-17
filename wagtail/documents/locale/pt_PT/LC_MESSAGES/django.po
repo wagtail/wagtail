@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"POT-Creation-Date: 2018-07-30 17:31+0100\n"
 "PO-Revision-Date: 2018-05-04 19:31+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
@@ -64,12 +64,6 @@ msgstr "Carregar"
 
 msgid "Uploading…"
 msgstr "A carregar…"
-
-msgid "Server Error"
-msgstr "Erro no Servidor"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Comunique este erro ao seu webmaster com a seguinte informação:"
 
 #, python-format
 msgid ""
@@ -236,6 +230,12 @@ msgstr "Permissões de documento"
 
 msgid "Add a document permission"
 msgstr "Adicionar uma permissão de documento"
+
+msgid "Server Error"
+msgstr "Erro no Servidor"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Comunique este erro ao seu webmaster com a seguinte informação:"
 
 msgid "Search documents"
 msgstr "Pesquisar documentos"
