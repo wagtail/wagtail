@@ -79,6 +79,17 @@ To replace the welcome message on the dashboard, create a template file ``dashbo
     {% extends "wagtailadmin/home.html" %}
 
     {% block branding_welcome %}Welcome to Frank's Site{% endblock %}
+    
+``branding_title``
+--------------------
+
+To replace the branding in the title of the admin interface, create a template file ``dashboard/templates/wagtailadmin/skeleton.html`` that overrides the block ``branding_title``:
+
+.. code-block:: html+django
+
+    {% extends "wagtailadmin/skeleton.html" %}
+
+    {{% block branding_title %}Editing -{% endblock %}
 
 Specifying a site or page in the branding
 =========================================
