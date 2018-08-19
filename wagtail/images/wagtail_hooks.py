@@ -1,6 +1,7 @@
 from django.conf.urls import include, url
+from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.urls import reverse
-from django.utils.html import format_html
+from django.utils.html import format_html, format_html_join
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ugettext, ungettext
 
@@ -45,9 +46,34 @@ def register_images_menu_item():
     )
 
 
+#  HT START
+@hooks.register('insert_editor_css')
+def editor_css():
+
+    css_files = [
+        static('wagtailimages/css/vendor/jquery.Jcrop.min.css'),
+        static('wagtailimages/css/focal-point-chooser.css'),
+    ]
+
+    return format_html_join('\n', '<link rel="stylesheet" href="{}">',
+                            ((filename,) for filename in css_files))
+#  HT END
+
+
 @hooks.register('insert_editor_js')
 def editor_js():
-    return format_html(
+
+    # HT START
+    js_files = [
+        static('wagtailimages/js/contextual-focal-point-chooser.js'),
+        static('wagtailadmin/js/vendor/jquery.ba-throttle-debounce.min.js'),
+        static('wagtailimages/js/vendor/jquery.Jcrop.min.js'),
+    ]
+
+    js_includes = format_html_join('\n', '<script src="{}"></script>',
+                                   ((filename,) for filename in js_files))
+
+    return js_includes + format_html(  # HT END
         """
         <script>
             window.chooserUrls.imageChooser = '{0}';

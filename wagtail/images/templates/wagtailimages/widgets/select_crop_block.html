@@ -1,16 +1,4 @@
 {# HT START #}
-{% load static %}
-{% block extra_css %}
-    Focal point chooser 
-    <link rel="stylesheet" href="{% static 'wagtailimages/css/vendor/jquery.Jcrop.min.css' %}" type="text/css">
-    <link rel="stylesheet" href="{% static 'wagtailimages/css/focal-point-chooser.css' %}" type="text/css">
-{% endblock %}
-
-{% block extra_js %}
-    <script src="{% static 'wagtailadmin/js/vendor/jquery.ba-throttle-debounce.min.js' %}"></script>
-    <script src="{% static 'wagtailimages/js/vendor/jquery.Jcrop.min.js' %}"></script>
-    <script src="{% static 'wagtailimages/js/contextual-focal-point-chooser.js' %}"></script>
-{% endblock %}
 
 <div id="{{prefix}}-image-container" class="{{ classname }}">
     {% if help_text %}

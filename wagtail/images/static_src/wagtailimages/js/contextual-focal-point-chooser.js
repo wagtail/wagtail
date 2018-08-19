@@ -51,9 +51,16 @@ function removeJcropSelection(container, image, fields, params){
 }
 
 window.runJcrop = function(focalPointChooser, reset) {
+    console.log('running runJcrop');
     var $indicator = $('.current-focal-point-indicator', focalPointChooser);
+    console.log('here is focalPointChooser:');
+    console.log(focalPointChooser);
     var $image = $('img', focalPointChooser);
+    console.log('here is image: ');
+    console.log($image);
     let container = focalPointChooser.closest('.select-crop-image-block');//very important to ensure multiple jcrops on the page don't interfere with one another
+    console.log('here is container');
+    console.log(container);
     let fields = {
         x: $('input.focal_point_x', container),
         y: $('input.focal_point_y', container),
@@ -96,7 +103,7 @@ window.runJcrop = function(focalPointChooser, reset) {
     $(window).on('resize', $.debounce(300, function() {
         // jcrop doesn't support responsive images so to cater for resizing the browser
         // we have to destroy() it, which doesn't properly do it,
-        // so destory it some more, then re-apply it
+        // so destroy it some more, then re-apply it
         resetJcrop(container, $image, params)
     }));
 
@@ -108,7 +115,7 @@ window.runJcrop = function(focalPointChooser, reset) {
 };
 
 function setupFocalPointChoosers(){
-    let focalPointChoosers = $('.focal-point-chooser')
+    let focalPointChoosers = $('.focal-point-chooser');
     focalPointChoosers.each(
         function(index){
             runJcrop($( this ))
