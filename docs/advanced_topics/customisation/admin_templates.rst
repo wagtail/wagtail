@@ -131,7 +131,7 @@ To add content above or below the login form, override these blocks:
 
     {% extends "wagtailadmin/login.html" %}
 
-    {% block above_login %} If you are not Frank you should not be here! {% endblock %}
+    {% block above_login %}If you are not Frank you should not be here!{% endblock %}
 
 ``fields``
 ----------
