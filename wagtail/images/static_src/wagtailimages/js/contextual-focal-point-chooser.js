@@ -51,16 +51,10 @@ function removeJcropSelection(container, image, fields, params){
 }
 
 window.runJcrop = function(focalPointChooser, reset) {
-    console.log('running runJcrop');
     var $indicator = $('.current-focal-point-indicator', focalPointChooser);
-    console.log('here is focalPointChooser:');
-    console.log(focalPointChooser);
     var $image = $('img', focalPointChooser);
-    console.log('here is image: ');
-    console.log($image);
     let container = focalPointChooser.closest('.select-crop-image-block');//very important to ensure multiple jcrops on the page don't interfere with one another
-    console.log('here is container');
-    console.log(container);
+
     let fields = {
         x: $('input.focal_point_x', container),
         y: $('input.focal_point_y', container),
