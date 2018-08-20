@@ -83,7 +83,8 @@ class ImageNode(template.Node):
         self.attrs = attrs
         self.filter_spec = filter_spec
 
-    @cached_property
+    # @cached_property
+    @property
     def filter(self):
         return Filter(spec=self.filter_spec)
 
