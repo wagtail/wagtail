@@ -1,3 +1,4 @@
+import logging
 import re
 
 from django import template
@@ -87,14 +88,7 @@ class ImageNode(template.Node):
         return Filter(spec=self.filter_spec)
 
     def render(self, context):
-        # HT START
-        try:
-            # The SelectCropBlock adds these values to its context..
-            select_spec = "select-" + str(context['focal_point_x']) + ":" + str(context['focal_point_y']) + ":" + str(context['focal_point_width']) + ":" + str(context['focal_point_height'])
-            self.filter_spec = select_spec + '|' + self.filter_spec
-        except KeyError:
-            pass
-        # HT END
+        logger = logging.getLogger(__name__)
 
         try:
             image = self.image_expr.resolve(context)
@@ -103,6 +97,16 @@ class ImageNode(template.Node):
 
         if not image:
             return ''
+
+        # HT START
+        try:
+            # The SelectCropBlock adds these values to its context..
+            select_spec = "select-" + str(context['focal_point_x']) + ":" + str(context['focal_point_y']) + ":" + str(context['focal_point_width']) + ":" + str(context['focal_point_height'])
+            self.filter_spec = select_spec + '|' + self.filter_spec
+            logger.warning('image id: {0} \n context["focal_point_x"]: {1} \n context["focal_point_y"]: {2} \n context["focal_point_width"]: {3} \n context["focal_point_height"]: {4}'.format(image.id, str(context['focal_point_x']), str(context['focal_point_y']), str(context['focal_point_width']), str(context['focal_point_height'])))
+        except KeyError:
+            pass
+        # HT END
 
         rendition = get_rendition_or_not_found(image, self.filter)
 
