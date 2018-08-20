@@ -83,8 +83,7 @@ class ImageNode(template.Node):
         self.attrs = attrs
         self.filter_spec = filter_spec
 
-    # @cached_property
-    @property
+    @cached_property
     def filter(self):
         return Filter(spec=self.filter_spec)
 
@@ -103,14 +102,15 @@ class ImageNode(template.Node):
         try:
             # The SelectCropBlock adds these values to its context..
             select_spec = "select-" + str(context['focal_point_x']) + ":" + str(context['focal_point_y']) + ":" + str(context['focal_point_width']) + ":" + str(context['focal_point_height'])
-            self.filter_spec = select_spec + '|' + self.filter_spec
+            #self.filter_spec = select_spec + '|' + self.filter_spec
+            full_spec = select_spec + '|' + self.filter_spec
             logger.warning('image id: {0} \n context["focal_point_x"]: {1} \n context["focal_point_y"]: {2} \n context["focal_point_width"]: {3} \n context["focal_point_height"]: {4}'.format(image.id, str(context['focal_point_x']), str(context['focal_point_y']), str(context['focal_point_width']), str(context['focal_point_height'])))
         except KeyError:
-            pass
+            full_spec = self.filter
         # HT END
-        logger.warning(self.filter.spec)
+        logger.warning(full_spec)
 
-        rendition = get_rendition_or_not_found(image, self.filter)
+        rendition = get_rendition_or_not_found(image, full_spec)
 
         if self.output_var_name:
             # return the rendition object in the given variable
