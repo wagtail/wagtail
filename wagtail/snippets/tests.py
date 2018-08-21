@@ -22,8 +22,8 @@ from wagtail.tests.snippets.models import (
     AlphaSnippet, FancySnippet, FileUploadSnippet, RegisterDecorator, RegisterFunction,
     SearchableSnippet, StandardSnippet, StandardSnippetWithCustomPrimaryKey, ZuluSnippet)
 from wagtail.tests.testapp.models import (
-    Advert, AdvertWithCustomPrimaryKey, AdvertWithTabbedInterface, SnippetChooserModel,
-    SnippetChooserModelWithCustomPrimaryKey)
+    Advert, AdvertWithCustomPrimaryKey, AdvertWithCustomUUIDPrimaryKey, AdvertWithTabbedInterface,
+    SnippetChooserModel, SnippetChooserModelWithCustomPrimaryKey)
 from wagtail.tests.utils import WagtailTestUtils
 
 
@@ -1127,5 +1127,22 @@ class TestSnippetChosenWithCustomPrimaryKey(TestCase, WagtailTestUtils):
 
     def test_choose_a_page(self):
         response = self.get(pk=AdvertWithCustomPrimaryKey.objects.all()[0].pk)
+        response_json = json.loads(response.content.decode())
+        self.assertEqual(response_json['step'], 'chosen')
+
+
+class TestSnippetChosenWithCustomUUIDPrimaryKey(TestCase, WagtailTestUtils):
+    fixtures = ['test.json']
+
+    def setUp(self):
+        self.login()
+
+    def get(self, pk, params=None):
+        return self.client.get(reverse('wagtailsnippets:chosen',
+                                       args=('tests', 'advertwithcustomuuidprimarykey', quote(pk))),
+                               params or {})
+
+    def test_choose_a_page(self):
+        response = self.get(pk=AdvertWithCustomUUIDPrimaryKey.objects.all()[0].pk)
         response_json = json.loads(response.content.decode())
         self.assertEqual(response_json['step'], 'chosen')
