@@ -1,6 +1,12 @@
 Changelog
 =========
 
+2.2.2 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Seek to the beginning of image files when uploading, to restore compatibility with django-storages Google Cloud and Azure backends (Mikalai Radchuk)
+
+
 2.2.1 (13.08.2018)
 ~~~~~~~~~~~~~~~~~~
 
