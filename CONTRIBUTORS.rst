@@ -369,6 +369,7 @@ Contributors
 * scil
 * Mike Hearn
 * Samuel Mendes
+* Erwin Junge
 
 Translators
 ===========

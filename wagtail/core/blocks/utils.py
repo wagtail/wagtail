@@ -21,3 +21,23 @@ def js_dict(d):
         for (k, v) in d.items()
     ]
     return "{\n%s\n}" % ',\n'.join(dict_items)
+
+
+def recursive_deconstruct(block, with_kwargs=True):
+    """
+    Recursively deconstruct block definition
+    """
+    deconstructed = block.deconstruct()
+    if not with_kwargs:
+        deconstructed = deconstructed[:2]
+    if hasattr(block, "child_blocks"):
+        args = deconstructed[1]
+        if args:
+            subblocks = [
+                (subblock_name, recursive_deconstruct(subblock, with_kwargs))
+                for (subblock_name, subblock) in args[0]
+            ]
+            deconstructed = list(deconstructed)
+            deconstructed[1][0] = subblocks
+            deconstructed = tuple(deconstructed)
+    return deconstructed
