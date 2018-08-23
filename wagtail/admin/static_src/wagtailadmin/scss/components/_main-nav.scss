@@ -295,7 +295,12 @@ body.explorer-open {
     }
 
     .nav-main {
-        margin-bottom: 127px; // WARNING - magic number - the height of the .footer
+        @include transition(margin-bottom 0.2s ease);
+        position: absolute;
+        top: 175px; // WARNING - magic number - the height of the logo plus search box
+        bottom: 0;
+        margin-bottom: 50px; // WARNING - magic number - the height of the unexpanded .footer
+        width: 100%;
         overflow: auto;
 
         .footer {
@@ -305,7 +310,7 @@ body.explorer-open {
         }
 
         .footer-open .footer-submenu {
-            max-height: 127px; // WARNING - magic number - the height of the .footer
+            max-height: 77px; // WARNING - magic number - the height of the .footer - the 50px height of .account
         }
 
         .footer-submenu {
@@ -359,6 +364,10 @@ body.explorer-open {
                 }
             }
         }
+    }
+
+    .nav-main.nav-more-margin-for-footer {
+        margin-bottom: 127px; // WARNING - magic number - the height of the expanded .footer
     }
 
     .nav-submenu {
