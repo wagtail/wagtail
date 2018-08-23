@@ -57,10 +57,10 @@ class TestHome(TestCase, WagtailTestUtils):
         # This tests that wagtailadmins global cache settings have been applied correctly
         response = self.client.get(reverse('wagtailadmin_home'))
 
-        self.assertIn('private', response['Cache-Control'])
         self.assertIn('no-cache', response['Cache-Control'])
         self.assertIn('no-store', response['Cache-Control'])
         self.assertIn('max-age=0', response['Cache-Control'])
+        self.assertIn('must-revalidate', response['Cache-Control'])
 
     def test_nonascii_email(self):
         # Test that non-ASCII email addresses don't break the admin; previously these would
