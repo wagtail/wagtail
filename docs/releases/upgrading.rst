@@ -72,6 +72,8 @@ To upgrade:
 * Make any necessary code changes as directed in the "Upgrade considerations" section of the release notes.
 * Test that your project is working as expected.
 
+Remember that the JavaScript and CSS files used in the Wagtail admin may have changed between releases - if you encounter erratic behaviour on upgrading, ensure that you have cleared your browser cache. When deploying the upgrade to a production server, be sure to run ``./manage.py collectstatic`` to make the updated static files available to the web server. In production, we recommend enabling `ManifestStaticFilesStorage <https://docs.djangoproject.com/en/stable/ref/contrib/staticfiles/#manifeststaticfilesstorage>`_ in the ``STATICFILES_STORAGE`` setting - this ensures that different versions of files are assigned distinct URLs.
+
 
 .. _compatible_django_python_versions:
 
