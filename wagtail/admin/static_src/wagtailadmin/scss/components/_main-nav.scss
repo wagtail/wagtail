@@ -307,6 +307,7 @@ body.explorer-open {
             position: fixed;
             width: $menu-width;
             bottom: 0;
+            background-color: $footer-submenu; // Also acts as background for .account when it is semi-transparent
         }
 
         .footer-open .footer-submenu {
@@ -315,7 +316,7 @@ body.explorer-open {
 
         .footer-submenu {
             @include transition(max-height 0.2s ease);
-            background-color: $footer-submenu;
+            background-color: transparent;
             overflow: hidden;
             max-height: 0;
         }
