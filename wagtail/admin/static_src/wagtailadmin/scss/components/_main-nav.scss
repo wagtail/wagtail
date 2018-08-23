@@ -10,6 +10,8 @@
 
     .inner {
         background: $nav-grey-1;
+        display: flex;
+        flex-flow: column nowrap;
     }
 }
 
@@ -162,8 +164,10 @@
 
 .nav-search {
     position: relative;
-    padding: 0;
-    margin: 0 1em 1em;
+    padding: 0 1em 1em;
+    margin: 0;
+    width: 100%;
+    box-sizing: border-box;
 
     label {
         @include visuallyhidden();
@@ -205,10 +209,10 @@
         top: 0;
         right: 0;
         bottom: 0;
-        margin: auto;
+        margin: 0 1em 1em;
         padding: 0;
         width: 3em;
-        height: 100%;
+        height: auto;
         overflow: hidden;
 
         &:hover {
@@ -290,9 +294,7 @@ body.explorer-open {
     }
 
     .nav-main {
-        position: absolute;
-        top: 175px; // WARNING - magic number - the height of the logo plus search box
-        bottom: 0;
+        position: relative;
         margin-bottom: 127px; // WARNING - magic number - the height of the .footer
         width: 100%;
         overflow: auto;
