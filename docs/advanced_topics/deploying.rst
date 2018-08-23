@@ -28,8 +28,19 @@ On other PAASs and IAASs
 
 We know of Wagtail sites running on `Heroku <http://spapas.github.io/2014/02/13/wagtail-tutorial/>`_, Digital Ocean and elsewhere. If you have successfully installed Wagtail on your platform or infrastructure, please :doc:`contribute </contributing/index>` your notes to this documentation!
 
+Deployment tips
+~~~~~~~~~~~~~~~
+
+Static files
+++++++++++++
+
+As with all Django projects, static files are not served by the Django application server in production (i.e. outside of the ``manage.py runserver`` command); these need to be handled separately at the web server level. See `Django's documentation on deploying static files <https://docs.djangoproject.com/en/stable/howto/static-files/deployment/>`_.
+
+The JavaScript and CSS files used by the Wagtail admin frequently change between releases of Wagtail - it's important to avoid serving outdated versions of these files due to browser or server-side caching, as this can cause hard-to-diagnose issues. We recommend enabling `ManifestStaticFilesStorage <https://docs.djangoproject.com/en/stable/ref/contrib/staticfiles/#manifeststaticfilesstorage>`_ in the ``STATICFILES_STORAGE`` setting - this ensures that different versions of files are assigned distinct URLs.
+
+
 Cloud storage
-~~~~~~~~~~~~~
++++++++++++++
 
 Wagtail follows `Django's conventions for managing uploaded files <https://docs.djangoproject.com/en/stable/topics/files/>`_, and can be configured to store uploaded images and documents on a cloud storage service such as Amazon S3; this is done through the `DEFAULT_FILE_STORAGE <https://docs.djangoproject.com/en/stable/ref/settings/#std:setting-DEFAULT_FILE_STORAGE>`_ setting in conjunction with an add-on package such as `django-storages <https://django-storages.readthedocs.io/>`_. Be aware that setting up remote storage will not entirely offload file handling tasks from the application server - some Wagtail functionality requires files to be read back by the application server. In particular, documents are served through a Django view in order to enforce permission checks, and original image files need to be read back whenever a new resized rendition is created.
 
