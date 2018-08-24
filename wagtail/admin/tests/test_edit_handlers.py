@@ -27,7 +27,7 @@ class TestGetFormForModel(TestCase):
         with self.assertRaisesMessage(
                 AttributeError,
                 'ObjectList is not bound to a model yet. '
-                'Use `.bind_to_model(model)` before using this method.'):
+                'Use `.bind_to(model=model)` before using this method.'):
             edit_handler.get_form_class()
 
     def test_get_form_for_model(self):

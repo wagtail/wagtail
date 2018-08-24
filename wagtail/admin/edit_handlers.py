@@ -1,5 +1,6 @@
 import functools
 import re
+from warnings import warn
 
 from django import forms
 from django.core.exceptions import ImproperlyConfigured
@@ -7,7 +8,6 @@ from django.db.models.fields import FieldDoesNotExist
 from django.forms.formsets import DELETION_FIELD_NAME, ORDERING_FIELD_NAME
 from django.forms.models import fields_for_model
 from django.template.loader import render_to_string
-from django.utils.encoding import force_text
 from django.utils.functional import cached_property
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy
@@ -18,6 +18,7 @@ from wagtail.core.fields import RichTextField
 from wagtail.core.models import Page
 from wagtail.core.utils import camelcase_to_underscore, resolve_model_string
 from wagtail.utils.decorators import cached_classmethod
+from wagtail.utils.deprecation import RemovedInWagtail27Warning
 
 # DIRECT_FORM_FIELD_OVERRIDES, FORM_FIELD_OVERRIDES are imported for backwards
 # compatibility, as people are likely importing them from here and then
@@ -97,13 +98,20 @@ class EditHandler:
         self.heading = heading
         self.classname = classname
         self.help_text = help_text
+        self.model = None
+        self.instance = None
+        self.request = None
+        self.form = None
 
     def clone(self):
-        return self.__class__(
-            heading=self.heading,
-            classname=self.classname,
-            help_text=self.help_text,
-        )
+        return self.__class__(**self.clone_kwargs())
+
+    def clone_kwargs(self):
+        return {
+            'heading': self.heading,
+            'classname': self.classname,
+            'help_text': self.help_text,
+        }
 
     # return list of widget overrides that this EditHandler wants to be in place
     # on the form it receives
@@ -126,45 +134,58 @@ class EditHandler:
     def html_declarations(self):
         return ''
 
-    def bind_to_model(self, model):
+    def bind_to(self, model=None, instance=None, request=None, form=None):
+        if model is None and instance is not None and self.model is None:
+            model = instance._meta.model
+
         new = self.clone()
-        new.model = model
-        new.on_model_bound()
+        new.model = self.model if model is None else model
+        new.instance = self.instance if instance is None else instance
+        new.request = self.request if request is None else request
+        new.form = self.form if form is None else form
+
+        if new.model is not None:
+            new.on_model_bound()
+
+        if new.instance is not None:
+            new.on_instance_bound()
+
+        if new.request is not None:
+            new.on_request_bound()
+
+        if new.form is not None:
+            new.on_form_bound()
+
         return new
+
+    def bind_to_model(self, model):
+        warn('EditHandler.bind_to_model(model) is deprecated. '
+             'Use EditHandler.bind_to(model=model) instead',
+             category=RemovedInWagtail27Warning)
+        return self.bind_to(model=model)
+
+    def bind_to_instance(self, instance, form, request):
+        warn('EditHandler.bind_to_instance(instance, request, form) is deprecated. '
+             'Use EditHandler.bind_to(instance=instance, request=request, form=form) instead',
+             category=RemovedInWagtail27Warning)
+        return self.bind_to(instance=instance, request=request, form=form)
 
     def on_model_bound(self):
         pass
 
-    def bind_to_instance(self, instance=None, form=None, request=None):
-        new = self.bind_to_model(self.model)
-
-        if not instance:
-            raise ValueError("EditHandler did not receive an instance object")
-        new.instance = instance
-
-        if not form:
-            raise ValueError("EditHandler did not receive a form object")
-        new.form = form
-
-        if request is None:
-            raise ValueError("EditHandler did not receive a request object")
-        new.request = request
-
-        new.on_instance_bound()
-
-        return new
-
     def on_instance_bound(self):
         pass
 
+    def on_request_bound(self):
+        pass
+
+    def on_form_bound(self):
+        pass
+
     def __repr__(self):
-        class_name = self.__class__.__name__
-        try:
-            bound_to = force_text(getattr(self, 'instance',
-                                          getattr(self, 'model')))
-        except AttributeError:
-            return '<%s>' % class_name
-        return '<%s bound to %s>' % (class_name, bound_to)
+        return '<%s with model=%s instance=%s request=%s form=%s>' % (
+            self.__class__.__name__,
+            self.model, self.instance, self.request, self.form)
 
     def classes(self):
         """
@@ -244,13 +265,10 @@ class BaseCompositeEditHandler(EditHandler):
         super().__init__(*args, **kwargs)
         self.children = children
 
-    def clone(self):
-        return self.__class__(
-            children=self.children,
-            heading=self.heading,
-            classname=self.classname,
-            help_text=self.help_text,
-        )
+    def clone_kwargs(self):
+        kwargs = super().clone_kwargs()
+        kwargs['children'] = self.children
+        return kwargs
 
     def widget_overrides(self):
         # build a collated version of all its children's widget lists
@@ -277,10 +295,18 @@ class BaseCompositeEditHandler(EditHandler):
         return mark_safe(''.join([c.html_declarations() for c in self.children]))
 
     def on_model_bound(self):
-        self.children = [child.bind_to_model(self.model)
+        self.children = [child.bind_to(model=self.model)
                          for child in self.children]
 
     def on_instance_bound(self):
+        self.children = [child.bind_to(instance=self.instance)
+                         for child in self.children]
+
+    def on_request_bound(self):
+        self.children = [child.bind_to(request=self.request)
+                         for child in self.children]
+
+    def on_form_bound(self):
         children = []
         for child in self.children:
             if isinstance(child, FieldPanel):
@@ -290,9 +316,7 @@ class BaseCompositeEditHandler(EditHandler):
                 if self.form._meta.fields:
                     if child.field_name not in self.form._meta.fields:
                         continue
-            children.append(child.bind_to_instance(instance=self.instance,
-                                                   form=self.form,
-                                                   request=self.request))
+            children.append(child.bind_to(form=self.form))
         self.children = children
 
     def render(self):
@@ -326,9 +350,9 @@ class BaseFormEditHandler(BaseCompositeEditHandler):
         Construct a form class that has all the fields and formsets named in
         the children of this edit handler.
         """
-        if not hasattr(self, 'model'):
+        if self.model is None:
             raise AttributeError(
-                '%s is not bound to a model yet. Use `.bind_to_model(model)` '
+                '%s is not bound to a model yet. Use `.bind_to(model=model)` '
                 'before using this method.' % self.__class__.__name__)
         # If a custom form class was passed to the EditHandler, use it.
         # Otherwise, use the base_form_class from the model.
@@ -352,10 +376,10 @@ class TabbedInterface(BaseFormEditHandler):
         self.base_form_class = kwargs.pop('base_form_class', None)
         super().__init__(*args, **kwargs)
 
-    def clone(self):
-        new = super().clone()
-        new.base_form_class = self.base_form_class
-        return new
+    def clone_kwargs(self):
+        kwargs = super().clone_kwargs()
+        kwargs['base_form_class'] = self.base_form_class
+        return kwargs
 
 
 class ObjectList(TabbedInterface):
@@ -392,13 +416,14 @@ class HelpPanel(EditHandler):
         self.content = content
         self.template = template
 
-    def clone(self):
-        return self.__class__(
+    def clone_kwargs(self):
+        kwargs = super().clone_kwargs()
+        del kwargs['help_text']
+        kwargs.update(
             content=self.content,
             template=self.template,
-            heading=self.heading,
-            classname=self.classname,
         )
+        return kwargs
 
     def render(self):
         return mark_safe(render_to_string(self.template, {
@@ -416,14 +441,13 @@ class FieldPanel(EditHandler):
         super().__init__(*args, **kwargs)
         self.field_name = field_name
 
-    def clone(self):
-        return self.__class__(
+    def clone_kwargs(self):
+        kwargs = super().clone_kwargs()
+        kwargs.update(
             field_name=self.field_name,
             widget=self.widget if hasattr(self, 'widget') else None,
-            heading=self.heading,
-            classname=self.classname,
-            help_text=self.help_text
         )
+        return kwargs
 
     def widget_overrides(self):
         """check if a specific widget has been defined for this field"""
@@ -515,19 +539,15 @@ class FieldPanel(EditHandler):
 
         return model._meta.get_field(self.field_name)
 
-    def on_instance_bound(self):
+    def on_form_bound(self):
         self.bound_field = self.form[self.field_name]
         self.heading = self.bound_field.label
         self.help_text = self.bound_field.help_text
 
     def __repr__(self):
-        class_name = self.__class__.__name__
-        try:
-            bound_to = force_text(getattr(self, 'instance',
-                                          getattr(self, 'model')))
-        except AttributeError:
-            return "<%s '%s'>" % (class_name, self.field_name)
-        return "<%s '%s' bound to %s>" % (class_name, self.field_name, bound_to)
+        return "<%s '%s' with model=%s instance=%s request=%s form=%s>" % (
+            self.__class__.__name__, self.field_name,
+            self.model, self.instance, self.request, self.form)
 
 
 class RichTextFieldPanel(FieldPanel):
@@ -584,12 +604,12 @@ class PageChooserPanel(BaseChooserPanel):
         self.page_type = page_type
         self.can_choose_root = can_choose_root
 
-    def clone(self):
-        return self.__class__(
-            field_name=self.field_name,
-            page_type=self.page_type,
-            can_choose_root=self.can_choose_root,
-        )
+    def clone_kwargs(self):
+        return {
+            'field_name': self.field_name,
+            'page_type': self.page_type,
+            'can_choose_root': self.can_choose_root,
+        }
 
     def widget_overrides(self):
         return {self.field_name: widgets.AdminPageChooser(
@@ -631,17 +651,16 @@ class InlinePanel(EditHandler):
         self.min_num = min_num
         self.max_num = max_num
 
-    def clone(self):
-        return self.__class__(
+    def clone_kwargs(self):
+        kwargs = super().clone_kwargs()
+        kwargs.update(
             relation_name=self.relation_name,
             panels=self.panels,
-            heading=self.heading,
             label=self.label,
-            help_text=self.help_text,
             min_num=self.min_num,
             max_num=self.max_num,
-            classname=self.classname,
         )
+        return kwargs
 
     def get_panel_definitions(self):
         # Look for a panels definition in the InlinePanel declaration
@@ -656,7 +675,7 @@ class InlinePanel(EditHandler):
     def get_child_edit_handler(self):
         panels = self.get_panel_definitions()
         child_edit_handler = MultiFieldPanel(panels, heading=self.heading)
-        return child_edit_handler.bind_to_model(self.db_field.related_model)
+        return child_edit_handler.bind_to(model=self.db_field.related_model)
 
     def required_formsets(self):
         child_edit_handler = self.get_child_edit_handler()
@@ -679,7 +698,7 @@ class InlinePanel(EditHandler):
 
         for panel in self.get_panel_definitions():
             field_comparisons.extend(
-                panel.bind_to_model(self.db_field.related_model)
+                panel.bind_to(model=self.db_field.related_model)
                 .get_comparison())
 
         return [functools.partial(compare.ChildRelationComparison, self.db_field, field_comparisons)]
@@ -688,7 +707,7 @@ class InlinePanel(EditHandler):
         manager = getattr(self.model, self.relation_name)
         self.db_field = manager.rel
 
-    def on_instance_bound(self):
+    def on_form_bound(self):
         self.formset = self.form.formsets[self.relation_name]
 
         self.children = []
@@ -701,10 +720,8 @@ class InlinePanel(EditHandler):
                 subform.fields[ORDERING_FIELD_NAME].widget = forms.HiddenInput()
 
             child_edit_handler = self.get_child_edit_handler()
-            self.children.append(
-                child_edit_handler.bind_to_instance(instance=subform.instance,
-                                                    form=subform,
-                                                    request=self.request))
+            self.children.append(child_edit_handler.bind_to(
+                instance=subform.instance, request=self.request, form=subform))
 
         # if this formset is valid, it may have been re-ordered; respect that
         # in case the parent form errored and we need to re-render
@@ -718,8 +735,8 @@ class InlinePanel(EditHandler):
             empty_form.fields[ORDERING_FIELD_NAME].widget = forms.HiddenInput()
 
         self.empty_child = self.get_child_edit_handler()
-        self.empty_child = self.empty_child.bind_to_instance(
-            instance=empty_form.instance, form=empty_form, request=self.request)
+        self.empty_child = self.empty_child.bind_to(
+            instance=empty_form.instance, request=self.request, form=empty_form)
 
     template = "wagtailadmin/edit_handlers/inline_panel.html"
 
@@ -786,21 +803,26 @@ def get_edit_handler(cls):
     Get the EditHandler to use in the Wagtail admin when editing this page type.
     """
     if hasattr(cls, 'edit_handler'):
-        return cls.edit_handler.bind_to_model(cls)
+        edit_handler = cls.edit_handler
+    else:
+        # construct a TabbedInterface made up of content_panels, promote_panels
+        # and settings_panels, skipping any which are empty
+        tabs = []
 
-    # construct a TabbedInterface made up of content_panels, promote_panels
-    # and settings_panels, skipping any which are empty
-    tabs = []
+        if cls.content_panels:
+            tabs.append(ObjectList(cls.content_panels,
+                                   heading=ugettext_lazy('Content')))
+        if cls.promote_panels:
+            tabs.append(ObjectList(cls.promote_panels,
+                                   heading=ugettext_lazy('Promote')))
+        if cls.settings_panels:
+            tabs.append(ObjectList(cls.settings_panels,
+                                   heading=ugettext_lazy('Settings'),
+                                   classname='settings'))
 
-    if cls.content_panels:
-        tabs.append(ObjectList(cls.content_panels, heading=ugettext_lazy('Content')))
-    if cls.promote_panels:
-        tabs.append(ObjectList(cls.promote_panels, heading=ugettext_lazy('Promote')))
-    if cls.settings_panels:
-        tabs.append(ObjectList(cls.settings_panels, heading=ugettext_lazy('Settings'), classname="settings"))
+        edit_handler = TabbedInterface(tabs, base_form_class=cls.base_form_class)
 
-    edit_handler = TabbedInterface(tabs, base_form_class=cls.base_form_class)
-    return edit_handler.bind_to_model(cls)
+    return edit_handler.bind_to(model=cls)
 
 
 Page.get_edit_handler = get_edit_handler
