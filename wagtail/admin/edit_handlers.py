@@ -7,7 +7,6 @@ from django.db.models.fields import FieldDoesNotExist
 from django.forms.formsets import DELETION_FIELD_NAME, ORDERING_FIELD_NAME
 from django.forms.models import fields_for_model
 from django.template.loader import render_to_string
-from django.utils.encoding import force_text
 from django.utils.functional import cached_property, curry
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy
