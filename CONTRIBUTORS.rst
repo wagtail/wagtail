@@ -460,6 +460,8 @@ Contributors
 * Saeed Tahmasebi
 * Liam Mullens
 * Caitlin White
+* Brylie Christopher Oxley
+* Lacey Williams Henschel
 
 Translators
 ===========

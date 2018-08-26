@@ -16,6 +16,7 @@ Wagtail ships with a variety of extra optional modules.
     postgres_search
     searchpromotions
     table_block
+    redirects
 
 
 :doc:`settings`
@@ -65,3 +66,9 @@ A module for managing "Promoted Search Results"
 -----------------------
 
 Provides a TableBlock for adding HTML tables to pages.
+
+
+:doc:`redirects`
+-----------------------
+
+Provides a way to manage redirects.

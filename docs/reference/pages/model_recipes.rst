@@ -256,6 +256,7 @@ By default, tag fields work on a "free tagging" basis: editors can enter anythin
 
 Here we have registered ``BlogTag`` as a snippet, to provide an interface for administrators (and other users with the appropriate permissions) to manage the allowed set of tags. With the ``free_tagging = False`` option set, editors can no longer enter arbitrary text into the tag field, and must instead select existing tags from the autocomplete dropdown.
 
+.. _page_model_auto_redirects_recipe:
 
 Have redirects created automatically when changing page slug
 ------------------------------------------------------------

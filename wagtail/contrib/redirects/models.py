@@ -3,6 +3,8 @@ from urllib.parse import urlparse
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+from wagtail.core.models import Page
+
 
 class Redirect(models.Model):
     old_path = models.CharField(verbose_name=_("redirect from"), max_length=255, db_index=True)
@@ -51,6 +53,35 @@ class Redirect(models.Model):
             return cls.objects.filter(models.Q(site=site) | models.Q(site=None))
         else:
             return cls.objects.all()
+
+    @staticmethod
+    def add_redirect(old_path, redirect_to=None, is_permanent=True):
+        """
+        Create and save a Redirect instance with a single method.
+
+        :param old_path: the path you wish to redirect
+        :param redirect_to: a Page (instance) or path (string) where the redirect should point
+        :param is_permanent: whether the redirect should be indicated as permanent (i.e. 301 redirect)
+        :return: Redirect instance
+        """
+        redirect = Redirect()
+
+        # Set redirect properties from input parameters
+        redirect.old_path = Redirect.normalise_path(old_path)
+
+        # Check whether redirect to is string or Page
+        if isinstance(redirect_to, Page):
+            # Set redirect page
+            redirect.redirect_page = redirect_to
+        elif isinstance(redirect_to, str):
+            # Set redirect link string
+            redirect.redirect_link = redirect_to
+
+        redirect.is_permanent = is_permanent
+
+        redirect.save()
+
+        return redirect
 
     @staticmethod
     def normalise_path(url):

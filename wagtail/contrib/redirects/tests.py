@@ -301,6 +301,49 @@ class TestRedirects(TestCase):
         response = self.client.get('/test/?foo=\0bar')
         self.assertEqual(response.status_code, 404)
 
+    def test_add_redirect_with_url(self):
+        add_redirect = models.Redirect.add_redirect
+
+        old_path = '/old-path'
+        redirect_to = '/new-path'
+
+        # Create a redirect
+        redirect = add_redirect(
+            old_path=old_path,
+            redirect_to=redirect_to,
+            is_permanent=False
+        )
+
+        # Old path should match in redirect
+        self.assertEqual(redirect.old_path, old_path)
+
+        # Redirect page should match in redirect
+        self.assertEqual(redirect.link, redirect_to)
+
+        # should use is_permanent kwarg
+        self.assertEqual(redirect.is_permanent, False)
+
+    def test_add_redirect_with_page(self):
+        add_redirect = models.Redirect.add_redirect
+
+        old_path = '/old-path'
+        redirect_to = Page.objects.get(url_path='/home/events/christmas/')
+
+        # Create a redirect
+        redirect = add_redirect(
+            old_path=old_path,
+            redirect_to=redirect_to
+        )
+
+        # Old path should match in redirect
+        self.assertEqual(redirect.old_path, old_path)
+
+        # Redirect page should match in redirect
+        self.assertEqual(redirect.link, redirect_to.url)
+
+        # should default is_permanent to True
+        self.assertEqual(redirect.is_permanent, True)
+
 
 class TestRedirectsIndexView(TestCase, WagtailTestUtils):
     def setUp(self):
