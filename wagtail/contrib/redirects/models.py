@@ -49,7 +49,20 @@ class Redirect(models.Model):
             return cls.objects.filter(models.Q(site=site) | models.Q(site=None))
         else:
             return cls.objects.all()
-
+    
+    @staticmethod
+    def add_redirect(old_path, redirect_page, is_permanent = True):
+        redirect = Redirect()
+        
+        # Set redirect properties from input parameters
+        redirect.old_path = Redirect.normalise_path(old_path)
+        redirect.redirect_page = redirect_page
+        redirect.is_permanent = is_permanent
+        
+        redirect.save()
+        
+        return redirect
+        
     @staticmethod
     def normalise_path(url):
         # Strip whitespace
