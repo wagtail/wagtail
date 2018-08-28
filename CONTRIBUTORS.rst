@@ -313,6 +313,7 @@ Contributors
 * Kevin Howbrook
 * Ryan Verner
 * Oliver Wilkerson
+* Matthew Schinckel
 
 Translators
 ===========
