@@ -127,7 +127,7 @@ CODE FOR SETTING UP SPECIFIC UI WIDGETS, SUCH AS DELETE BUTTONS OR MENUS, DOES N
         }
 
         self.insertMemberBefore = function(otherMember, template) {
-            newMemberPrefix = getNewMemberPrefix();
+            var newMemberPrefix = getNewMemberPrefix();
 
             /* Create the new list member element with the real prefix substituted in */
             var elem = elementFromTemplate(template, newMemberPrefix);
@@ -154,7 +154,7 @@ CODE FOR SETTING UP SPECIFIC UI WIDGETS, SUCH AS DELETE BUTTONS OR MENUS, DOES N
         };
 
         self.insertMemberAfter = function(otherMember, template) {
-            newMemberPrefix = getNewMemberPrefix();
+            var newMemberPrefix = getNewMemberPrefix();
 
             /* Create the new list member element with the real prefix substituted in */
             var elem = elementFromTemplate(template, newMemberPrefix);
@@ -185,7 +185,7 @@ CODE FOR SETTING UP SPECIFIC UI WIDGETS, SUCH AS DELETE BUTTONS OR MENUS, DOES N
                 self.insertMemberBefore(members[0], template)
             because that won't work for initially empty lists
             */
-            newMemberPrefix = getNewMemberPrefix();
+            var newMemberPrefix = getNewMemberPrefix();
 
             /* Create the new list member element with the real prefix substituted in */
             var elem = elementFromTemplate(template, newMemberPrefix);
@@ -211,7 +211,7 @@ CODE FOR SETTING UP SPECIFIC UI WIDGETS, SUCH AS DELETE BUTTONS OR MENUS, DOES N
         };
 
         self.insertMemberAtEnd = function(template) {
-            newMemberPrefix = getNewMemberPrefix();
+            var newMemberPrefix = getNewMemberPrefix();
 
             /* Create the new list member element with the real prefix substituted in */
             var elem = elementFromTemplate(template, newMemberPrefix);
