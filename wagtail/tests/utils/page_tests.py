@@ -41,7 +41,7 @@ class WagtailPageTests(WagtailTestUtils, TestCase):
                 parent_model._meta.app_label, parent_model._meta.model_name))
             raise self.failureException(msg)
 
-    def assertCanCreate(self, parent, child_model, data, msg=None, live=True):
+    def assertCanCreate(self, parent, child_model, data, msg=None, publish=True):
         """
         Assert that a child of the given Page type can be created under the
         parent, using the supplied POST data.
@@ -54,7 +54,7 @@ class WagtailPageTests(WagtailTestUtils, TestCase):
 
         if 'slug' not in data and 'title' in data:
             data['slug'] = slugify(data['title'])
-        if live:
+        if publish:
             data['action-publish'] = 'action-publish'
 
         add_url = reverse('wagtailadmin_pages:add', args=[
@@ -81,7 +81,7 @@ class WagtailPageTests(WagtailTestUtils, TestCase):
                 child_model._meta.app_label, child_model._meta.model_name, errors))
             raise self.failureException(msg)
 
-        if live:
+        if publish:
             explore_url = reverse('wagtailadmin_explore', args=[parent.pk])
             if response.redirect_chain != [(explore_url, 302)]:
                 msg = self._formatMessage(msg, 'Creating a page %s.%s didnt redirect the user to the explorer, but to %s' % (
