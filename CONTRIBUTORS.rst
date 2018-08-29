@@ -652,6 +652,7 @@ Contributors
 * Precious Arinda
 * Ogunbanjo Oluwadamilare
 * Damee Zivah Olawuyi
+* Harry Percival
 
 Translators
 ===========
