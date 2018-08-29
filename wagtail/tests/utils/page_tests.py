@@ -82,20 +82,16 @@ class WagtailPageTests(WagtailTestUtils, TestCase):
             raise self.failureException(msg)
 
         if publish:
-            explore_url = reverse('wagtailadmin_explore', args=[parent.pk])
-            if response.redirect_chain != [(explore_url, 302)]:
-                msg = self._formatMessage(msg, 'Creating a page %s.%s didnt redirect the user to the explorer, but to %s' % (
-                    child_model._meta.app_label, child_model._meta.model_name,
-                    response.redirect_chain))
-                raise self.failureException(msg)
+            expected_url = reverse('wagtailadmin_explore', args=[parent.pk])
         else:
-            edit_url = reverse('wagtailadmin_pages:edit', args=[Page.objects.order_by('pk').last().pk])
-            if response.redirect_chain != [(edit_url, 302)]:
-                msg = self._formatMessage(msg, 'Creating a page %s.%s didnt redirect the user to the edit page %s, but to %s' % (
-                    child_model._meta.app_label, child_model._meta.model_name,
-                    edit_url,
-                    response.redirect_chain))
-                raise self.failureException(msg)
+            expected_url = reverse('wagtailadmin_pages:edit', args=[Page.objects.order_by('pk').last().pk])
+
+        if response.redirect_chain != [(expected_url, 302)]:
+            msg = self._formatMessage(msg, 'Creating a page %s.%s didnt redirect the user to the expected page %s, but to %s' % (
+                child_model._meta.app_label, child_model._meta.model_name,
+                expected_url,
+                response.redirect_chain))
+            raise self.failureException(msg)
 
 
     def assertAllowedSubpageTypes(self, parent_model, child_models, msg=None):
