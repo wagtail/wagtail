@@ -16,7 +16,7 @@ Changelog
  * Fix: Restored localisation in date/time pickers (David Moore, Thibaud Colas)
 
 
-2.2.2 (xx.xx.xxxx) - IN DEVELOPMENT
+2.2.2 (29.08.2018)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Seek to the beginning of image files when uploading, to restore compatibility with django-storages Google Cloud and Azure backends (Mikalai Radchuk)
