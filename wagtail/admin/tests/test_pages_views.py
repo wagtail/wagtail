@@ -11,6 +11,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.messages import constants as message_constants
 from django.core import mail, paginator
 from django.core.files.base import ContentFile
+from django.core.mail import EmailMultiAlternatives
 from django.db.models.signals import post_delete, pre_delete
 from django.http import HttpRequest, HttpResponse
 from django.test import TestCase, modify_settings, override_settings
@@ -3587,7 +3588,7 @@ class TestNotificationPreferences(TestCase, WagtailTestUtils):
         self.assertIn(self.moderator.email, email_to)
         self.assertNotIn(self.moderator2.email, email_to)
 
-    @mock.patch('wagtail.admin.utils.django_send_mail', side_effect=IOError('Server down'))
+    @mock.patch.object(EmailMultiAlternatives, 'send', side_effect=IOError('Server down'))
     def test_email_send_error(self, mock_fn):
         logging.disable(logging.CRITICAL)
         # Approve
@@ -3604,6 +3605,14 @@ class TestNotificationPreferences(TestCase, WagtailTestUtils):
         self.assertEqual(len(messages), 2)
         self.assertEqual(messages[0].level, message_constants.SUCCESS)
         self.assertEqual(messages[1].level, message_constants.ERROR)
+
+    def test_email_headers(self):
+        # Submit
+        self.submit()
+
+        msg_headers = set(mail.outbox[0].message().items())
+        headers = {('Auto-Submitted', 'auto-generated')}
+        self.assertTrue(headers.issubset(msg_headers), msg='Message is missing the Auto-Submitted header.',)
 
 
 class TestLocking(TestCase, WagtailTestUtils):
