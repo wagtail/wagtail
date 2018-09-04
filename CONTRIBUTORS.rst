@@ -314,6 +314,7 @@ Contributors
 * Ryan Verner
 * Oliver Wilkerson
 * Matthew Schinckel
+* Michael Borisov
 
 Translators
 ===========
