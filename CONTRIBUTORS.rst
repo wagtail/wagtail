@@ -315,6 +315,7 @@ Contributors
 * Oliver Wilkerson
 * Matthew Schinckel
 * Michael Borisov
+* Dan Braghis
 
 Translators
 ===========
