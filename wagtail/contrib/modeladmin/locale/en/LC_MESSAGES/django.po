@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:23+0100\n"
+"POT-Creation-Date: 2018-07-30 17:31+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -84,26 +84,26 @@ msgstr ""
 msgid "image"
 msgstr ""
 
-#: templates/modeladmin/choose_parent.html:25
+#: templates/modeladmin/choose_parent.html:28
 msgid "Choose a parent page"
 msgstr ""
 
-#: templates/modeladmin/choose_parent.html:26
+#: templates/modeladmin/choose_parent.html:29
 #, python-format
 msgid ""
 "%(plural)s can be added to more than one place within your site. Which of "
 "the following would you like to be the parent of your new page?"
 msgstr ""
 
-#: templates/modeladmin/choose_parent.html:34
+#: templates/modeladmin/choose_parent.html:37
 msgid "Continue"
 msgstr ""
 
-#: templates/modeladmin/create.html:33 templates/modeladmin/edit.html:8
+#: templates/modeladmin/create.html:38 templates/modeladmin/edit.html:8
 msgid "Saving…"
 msgstr ""
 
-#: templates/modeladmin/create.html:34 templates/modeladmin/edit.html:9
+#: templates/modeladmin/create.html:39 templates/modeladmin/edit.html:9
 msgid "Save"
 msgstr ""
 
@@ -181,7 +181,7 @@ msgstr ""
 msgid "Page %(current_page)s of %(num_pages)s."
 msgstr ""
 
-#: templates/modeladmin/inspect.html:25
+#: templates/modeladmin/inspect.html:26
 #, python-format
 msgid "Back to %(model_name)s list"
 msgstr ""
@@ -195,7 +195,6 @@ msgid "Next"
 msgstr ""
 
 #: views.py:151
-#, python-brace-format
 msgid "{model_name} '{instance}' created."
 msgstr ""
 
@@ -223,7 +222,6 @@ msgid "Editing %s"
 msgstr ""
 
 #: views.py:706
-#, python-brace-format
 msgid "{model_name} '{instance}' updated."
 msgstr ""
 
@@ -245,7 +243,6 @@ msgid ""
 msgstr ""
 
 #: views.py:792
-#, python-brace-format
 msgid "{model} '{instance}' deleted."
 msgstr ""
 

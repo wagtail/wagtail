@@ -92,32 +92,32 @@ class TestAdminDateInput(TestCase):
     def test_render_js_init(self):
         widget = widgets.AdminDateInput()
 
-        js_init = widget.render_js_init('test-id', 'test', None)
+        html = widget.render('test', None, attrs={'id': 'test-id'})
 
         # we should see the JS initialiser code:
         # initDateChooser("test-id", {"dayOfWeekStart": 0, "format": "Y-m-d"});
         # except that we can't predict the order of the config options
-        self.assertIn('initDateChooser("test-id", {', js_init)
-        self.assertIn('"dayOfWeekStart": 0', js_init)
-        self.assertIn('"format": "Y-m-d"', js_init)
+        self.assertIn('initDateChooser("test\\u002Did", {', html)
+        self.assertIn('"dayOfWeekStart": 0', html)
+        self.assertIn('"format": "Y-m-d"', html)
 
     def test_render_js_init_with_format(self):
         widget = widgets.AdminDateInput(format='%d.%m.%Y.')
 
-        js_init = widget.render_js_init('test-id', 'test', None)
+        html = widget.render('test', None, attrs={'id': 'test-id'})
         self.assertIn(
             '"format": "d.m.Y."',
-            js_init,
+            html,
         )
 
     @override_settings(WAGTAIL_DATE_FORMAT='%d.%m.%Y.')
     def test_render_js_init_with_format_from_settings(self):
         widget = widgets.AdminDateInput()
 
-        js_init = widget.render_js_init('test-id', 'test', None)
+        html = widget.render('test', None, attrs={'id': 'test-id'})
         self.assertIn(
             '"format": "d.m.Y."',
-            js_init,
+            html,
         )
 
 
@@ -126,30 +126,30 @@ class TestAdminDateTimeInput(TestCase):
     def test_render_js_init(self):
         widget = widgets.AdminDateTimeInput()
 
-        js_init = widget.render_js_init('test-id', 'test', None)
+        html = widget.render('test', None, attrs={'id': 'test-id'})
 
         # we should see the JS initialiser code:
         # initDateTimeChooser("test-id", {"dayOfWeekStart": 0, "format": "Y-m-d H:i"});
         # except that we can't predict the order of the config options
-        self.assertIn('initDateTimeChooser("test-id", {', js_init)
-        self.assertIn('"dayOfWeekStart": 0', js_init)
-        self.assertIn('"format": "Y-m-d H:i"', js_init)
+        self.assertIn('initDateTimeChooser("test\\u002Did", {', html)
+        self.assertIn('"dayOfWeekStart": 0', html)
+        self.assertIn('"format": "Y-m-d H:i"', html)
 
     def test_render_js_init_with_format(self):
         widget = widgets.AdminDateTimeInput(format='%d.%m.%Y. %H:%M')
 
-        js_init = widget.render_js_init('test-id', 'test', None)
+        html = widget.render('test', None, attrs={'id': 'test-id'})
         self.assertIn(
             '"format": "d.m.Y. H:i"',
-            js_init,
+            html,
         )
 
     @override_settings(WAGTAIL_DATETIME_FORMAT='%d.%m.%Y. %H:%M')
     def test_render_js_init_with_format_from_settings(self):
         widget = widgets.AdminDateTimeInput()
 
-        js_init = widget.render_js_init('test-id', 'test', None)
+        html = widget.render('test', None, attrs={'id': 'test-id'})
         self.assertIn(
             '"format": "d.m.Y. H:i"',
-            js_init,
+            html,
         )

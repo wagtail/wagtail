@@ -420,10 +420,19 @@ class BackendTests(WagtailTestUtils):
         # The test data doesn't contain any tags, add some
         FANTASY_BOOKS = [1, 2, 3, 4, 5, 6, 7]
         SCIFI_BOOKS = [10]
-        for book_id in FANTASY_BOOKS:
-            models.Book.objects.get(id=book_id).tags.add('Fantasy')
-        for book_id in SCIFI_BOOKS:
-            models.Book.objects.get(id=book_id).tags.add('Science Fiction')
+        for book in models.Book.objects.filter(id__in=FANTASY_BOOKS + SCIFI_BOOKS):
+            book = book.get_indexed_instance()
+
+            if book.id in FANTASY_BOOKS:
+                book.tags.add('Fantasy')
+            if book.id in SCIFI_BOOKS:
+                book.tags.add('Science Fiction')
+
+            self.backend.add(book)
+
+        index = self.backend.get_index_for_model(models.Book)
+        if index:
+            index.refresh()
 
         fantasy_tag = Tag.objects.get(name='Fantasy')
         scifi_tag = Tag.objects.get(name='Science Fiction')
@@ -613,6 +622,11 @@ class BackendTests(WagtailTestUtils):
         self.assertSetEqual({r.title for r in results}, all_other_titles)
 
         results = self.backend.search(~PlainText('javascript'),
+                                      models.Book.objects.all())
+        self.assertSetEqual({r.title for r in results}, all_other_titles)
+
+        # Tests multiple words
+        results = self.backend.search(~PlainText('javascript the'),
                                       models.Book.objects.all())
         self.assertSetEqual({r.title for r in results}, all_other_titles)
 

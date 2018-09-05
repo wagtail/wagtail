@@ -69,6 +69,7 @@ def add(request):
             image.file_size = image.file.size
             image.file.seek(0)
             image._set_file_hash(image.file.read())
+            image.file.seek(0)
             image.save()
 
             # Success! Send back an edit form for this image to the user

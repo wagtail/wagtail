@@ -28,6 +28,7 @@ class Book(index.Indexed, models.Model):
         index.SearchField('title', partial_match=True, boost=2.0),
         index.AutocompleteField('title'),
         index.FilterField('title'),
+        index.FilterField('authors'),
         index.RelatedFields('authors', Author.search_fields),
         index.FilterField('publication_date'),
         index.FilterField('number_of_pages'),
@@ -73,10 +74,6 @@ class Character(models.Model):
     name = models.CharField(max_length=255)
     novel = models.ForeignKey('Novel', related_name='characters', on_delete=models.CASCADE)
 
-    search_fields = [
-        index.SearchField('name'),
-    ]
-
     def __str__(self):
         return self.name
 
@@ -92,7 +89,9 @@ class Novel(Book):
         ]),
         index.RelatedFields('protagonist', [
             index.SearchField('name', boost=0.5),
+            index.FilterField('novel'),
         ]),
+        index.FilterField('protagonist'),
     ]
 
 

@@ -4,7 +4,7 @@ from django.db.models.lookups import Lookup
 from django.db.models.query import QuerySet
 from django.db.models.sql.where import SubqueryConstraint, WhereNode
 
-from wagtail.search.index import class_is_indexed
+from wagtail.search.index import class_is_indexed, get_indexed_models
 from wagtail.search.query import MATCH_ALL, PlainText
 
 
@@ -272,6 +272,28 @@ class EmptySearchResults(BaseSearchResults):
         return 0
 
 
+class NullIndex:
+    """
+    Index class that provides do-nothing implementations of the indexing operations required by
+    BaseSearchBackend. Use this for search backends that do not maintain an index, such as the
+    database backend.
+    """
+    def add_model(self, model):
+        pass
+
+    def refresh(self):
+        pass
+
+    def add_item(self, item):
+        pass
+
+    def add_items(self, model, items):
+        pass
+
+    def delete_item(self, item):
+        pass
+
+
 class BaseSearchBackend:
     query_compiler_class = None
     autocomplete_query_compiler_class = None
@@ -282,7 +304,7 @@ class BaseSearchBackend:
         pass
 
     def get_index_for_model(self, model):
-        return None
+        return NullIndex()
 
     def get_rebuilder(self):
         return None
@@ -291,19 +313,24 @@ class BaseSearchBackend:
         raise NotImplementedError
 
     def add_type(self, model):
-        raise NotImplementedError
+        self.get_index_for_model(model).add_model(model)
 
     def refresh_index(self):
-        raise NotImplementedError
+        refreshed_indexes = []
+        for model in get_indexed_models:
+            index = self.get_index_for_model(model)
+            if index not in refreshed_indexes:
+                index.refresh()
+                refreshed_indexes.append(index)
 
     def add(self, obj):
-        raise NotImplementedError
+        self.get_index_for_model(type(obj)).add_item(obj)
 
     def add_bulk(self, model, obj_list):
-        raise NotImplementedError
+        self.get_index_for_model(model).add_items(model, obj_list)
 
     def delete(self, obj):
-        raise NotImplementedError
+        self.get_index_for_model(type(obj)).delete_item(obj)
 
     def _search(self, query_compiler_class, query, model_or_queryset, **kwargs):
         # Find model/queryset

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"POT-Creation-Date: 2018-07-30 17:31+0100\n"
 "PO-Revision-Date: 2018-05-07 10:32+0000\n"
 "Last-Translator: saevarom <saevar@saevar.is>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
@@ -64,12 +64,6 @@ msgstr "Hlaða upp"
 
 msgid "Uploading…"
 msgstr "Hleð upp..."
-
-msgid "Server Error"
-msgstr "Villa á vefþjóni"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Sendu þessa villu á vefstjóra með eftirfarandi upplýsingum:"
 
 #, python-format
 msgid ""
@@ -251,6 +245,12 @@ msgstr "Aðgangsheimildir skráar"
 
 msgid "Add a document permission"
 msgstr "Bæta við aðgangsheimildum á skrá"
+
+msgid "Server Error"
+msgstr "Villa á vefþjóni"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Sendu þessa villu á vefstjóra með eftirfarandi upplýsingum:"
 
 msgid "Search documents"
 msgstr "Leita að skrám"

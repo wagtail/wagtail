@@ -7,7 +7,7 @@ class WidgetWithScript(Widget):
         """Render the HTML (non-JS) portion of the field markup"""
         return super().render(name, value, attrs)
 
-    def render(self, name, value, attrs=None):
+    def render(self, name, value, attrs=None, renderer=None):
         # no point trying to come up with sensible semantics for when 'id' is missing from attrs,
         # so let's make sure it fails early in the process
         try:

@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
-"PO-Revision-Date: 2018-05-04 19:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2018-07-30 17:31+0100\n"
+"PO-Revision-Date: 2018-07-30 21:11+0000\n"
+"Last-Translator: Sergiy Shkodenko <shkodenkosergiy@gmail.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
 "MIME-Version: 1.0\n"
@@ -21,6 +21,9 @@ msgstr ""
 "11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
 "100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
 "(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+
+msgid "Wagtail images"
+msgstr "Зображення Wagtail "
 
 msgid "GIF, JPEG, PNG"
 msgstr "GIF, JPEG, PNG"
@@ -74,6 +77,15 @@ msgstr "Змінити довжину"
 msgid "Resize to height"
 msgstr "Змінити висоту"
 
+msgid "Resize to min"
+msgstr "Мінімізувати"
+
+msgid "Resize to max"
+msgstr "Змінити розмір на максимальний"
+
+msgid "Resize to fill"
+msgstr "Заповнити"
+
 msgid "Width"
 msgstr "Довжина"
 
@@ -116,6 +128,12 @@ msgstr "надіслано користувачем"
 msgid "tags"
 msgstr "теги"
 
+msgid "image"
+msgstr "зображення"
+
+msgid "images"
+msgstr "зображення"
+
 msgid "Choose an image"
 msgstr "Оберіть зображення"
 
@@ -130,13 +148,6 @@ msgstr "Популярні теги"
 
 msgid "Uploading…"
 msgstr "Йде надсилання..."
-
-msgid "Server Error"
-msgstr "Помилка сервера"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr ""
-"Повідомте вашому вебмастеру про цю помилку, використавши цю інформацію:"
 
 #, python-format
 msgid ""
@@ -354,6 +365,13 @@ msgstr ""
 
 msgid "Sorry, upload failed."
 msgstr "Вибачте, надсилання зазнало невдачі. "
+
+msgid "Server Error"
+msgstr "Помилка сервера"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr ""
+"Повідомте вашому вебмастеру про цю помилку, використавши цю інформацію:"
 
 msgid "Image updated."
 msgstr "Зображення оновлено."

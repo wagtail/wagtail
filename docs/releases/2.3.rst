@@ -1,0 +1,42 @@
+==========================================
+Wagtail 2.3 release notes - IN DEVELOPMENT
+==========================================
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+Wagtail 2.3 is designated a Long Term Support (LTS) release. Long Term Support releases will continue to receive maintenance updates as necessary to address security and data-loss related issues, up until the next LTS release (typically a period of 8 months).
+
+
+What's new
+==========
+
+Added Django 2.1 support
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+Wagtail is now compatible with Django 2.1. Compatibility fixes were contributed by Ryan Verner and Matt Westcott.
+
+
+Other features
+~~~~~~~~~~~~~~
+
+ * Added 'scale' image filter (Oliver Wilkerson)
+ * Added meta tag to prevent search engines from indexing admin pages (Karl Hobley)
+ * EmbedBlock now validates against recognised embed providers on save (Bertrand Bordage)
+ * Made cache control headers on Wagtail admin consistent with Django admin (Tomasz Knapik)
+
+
+Bug fixes
+~~~~~~~~~
+
+ * Respect next param on login (Loic Teixeira)
+ * InlinePanel now handles relations that specify a related_query_name (Aram Dulyan)
+ * before_delete_page / after_delete_page hooks now run within the same database transaction as the page deletion (Tomasz Knapik)
+ * Seek to the beginning of image files when uploading, to restore compatibility with django-storages Google Cloud and Azure backends (Mikalai Radchuk)
+ * Snippet chooser modal no longer fails on snippet models with UUID primary keys (Sævar Öfjörð Magnússon)
+ * Restored localisation in date/time pickers (David Moore, Thibaud Colas)
+
+Upgrade considerations
+======================

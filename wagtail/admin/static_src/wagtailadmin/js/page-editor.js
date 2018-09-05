@@ -32,10 +32,6 @@ function initDateChooser(id, opts) {
             timepicker: false,
             scrollInput: false,
             format: 'Y-m-d',
-            i18n: {
-                lang: window.dateTimePickerTranslations
-            },
-            lang: 'lang',
             onGenerate: hideCurrent
         }, opts || {}));
     } else {
@@ -55,10 +51,6 @@ function initTimeChooser(id) {
             datepicker: false,
             scrollInput: false,
             format: 'H:i',
-            i18n: {
-                lang: window.dateTimePickerTranslations
-            },
-            lang: 'lang'
         });
     } else {
         $('#' + id).datetimepicker({
@@ -74,10 +66,6 @@ function initDateTimeChooser(id, opts) {
             closeOnDateSelect: true,
             format: 'Y-m-d H:i',
             scrollInput: false,
-            i18n: {
-                lang: window.dateTimePickerTranslations
-            },
-            lang: 'lang',
             onGenerate: hideCurrent
         }, opts || {}));
     } else {

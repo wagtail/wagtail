@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"POT-Creation-Date: 2018-07-30 17:31+0100\n"
 "PO-Revision-Date: 2018-05-04 19:31+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
@@ -138,14 +138,6 @@ msgstr "Tags populars"
 
 msgid "Uploading…"
 msgstr "Pujant…"
-
-msgid "Server Error"
-msgstr "Error del servidor"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr ""
-"Informeu d'aquest error a l'administrador del lloc web amb la següent "
-"informació:"
 
 #, python-format
 msgid ""
@@ -333,6 +325,14 @@ msgstr ""
 
 msgid "Sorry, upload failed."
 msgstr "La pujada ha fallat."
+
+msgid "Server Error"
+msgstr "Error del servidor"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr ""
+"Informeu d'aquest error a l'administrador del lloc web amb la següent "
+"informació:"
 
 msgid "Image updated."
 msgstr "Imatge actualitzada."

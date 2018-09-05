@@ -8,19 +8,19 @@
 # Daniel Chimeno <daniel@chimeno.me>, 2017
 # Daniel Chimeno <daniel@chimeno.me>, 2015-2016
 # fooflare <amos.oviedo@gmail.com>, 2014
-# José Luis <alagunajs@gmail.com>, 2015-2016
-# José Luis <alagunajs@gmail.com>, 2017-2018
+# José Luis Sandoval Alaguna <alagunajs@gmail.com>, 2015-2016
+# José Luis Sandoval Alaguna <alagunajs@gmail.com>, 2017-2018
 # Mauricio Baeza <python@amigos.email>, 2014-2015
 # Mauricio Baeza <python@amigos.email>, 2015
 # Mauricio Baeza <python@amigos.email>, 2014
-# José Luis <alagunajs@gmail.com>, 2016-2017
+# José Luis Sandoval Alaguna <alagunajs@gmail.com>, 2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
-"PO-Revision-Date: 2018-05-07 13:12+0000\n"
-"Last-Translator: José Luis <alagunajs@gmail.com>\n"
+"POT-Creation-Date: 2018-07-30 17:31+0100\n"
+"PO-Revision-Date: 2018-07-31 06:54+0000\n"
+"Last-Translator: José Luis Sandoval Alaguna <alagunajs@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -80,6 +80,12 @@ msgstr "Ya existe un grupo con este nombre."
 
 msgid "You cannot have multiple permission records for the same page."
 msgstr "No puedes tener múltiples permisos de registro para una misma página."
+
+msgid "Preferred language"
+msgstr "Idioma preferido"
+
+msgid "Current time zone"
+msgstr "Zona horaria actual"
 
 msgid "Upload a profile picture"
 msgstr "Cargar una foto de perfil"

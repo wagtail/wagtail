@@ -6,7 +6,7 @@
 # Benoît Vogel <contact@spicy-informatique.com>, 2017
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015-2018
 # Léo <leo@naeka.fr>, 2016
-# Loïc Teixeira <hello@lta.me>, 2018
+# Loic Teixeira <hello@lta.me>, 2018
 # nahuel, 2014
 # nahuel, 2014
 # pierre marfoure <pierre@onoffdesign.com>, 2016
@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"POT-Creation-Date: 2018-07-30 17:31+0100\n"
 "PO-Revision-Date: 2018-05-07 14:54+0000\n"
 "Last-Translator: Bertrand Bordage <bordage.bertrand@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
@@ -70,13 +70,6 @@ msgstr "Transférer"
 
 msgid "Uploading…"
 msgstr "Transfert…"
-
-msgid "Server Error"
-msgstr "Erreur du serveur"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr ""
-"Signaler cette erreur à votre webmaster avec les informations suivantes :"
 
 #, python-format
 msgid ""
@@ -262,6 +255,13 @@ msgstr "Permissions de document"
 
 msgid "Add a document permission"
 msgstr "Ajouter une permission de document"
+
+msgid "Server Error"
+msgstr "Erreur du serveur"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr ""
+"Signaler cette erreur à votre webmaster avec les informations suivantes :"
 
 msgid "Search documents"
 msgstr "Rechercher des documents"

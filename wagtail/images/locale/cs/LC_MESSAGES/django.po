@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"POT-Creation-Date: 2018-07-30 17:31+0100\n"
 "PO-Revision-Date: 2018-05-04 19:31+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
@@ -123,12 +123,6 @@ msgstr "Oblíbené tagy"
 
 msgid "Uploading…"
 msgstr "Nahrávání…"
-
-msgid "Server Error"
-msgstr "Chyba serveru"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Nahlašte tuto chybu správci serveru s následujícími informacemi:"
 
 #, python-format
 msgid ""
@@ -286,6 +280,12 @@ msgstr ""
 
 msgid "Sorry, upload failed."
 msgstr "Nahrání obrázků na server selhalo."
+
+msgid "Server Error"
+msgstr "Chyba serveru"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Nahlašte tuto chybu správci serveru s následujícími informacemi:"
 
 msgid "Image updated."
 msgstr "Obrázek aktualizován."

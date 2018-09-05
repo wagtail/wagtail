@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
-"PO-Revision-Date: 2018-05-04 19:30+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2018-07-30 17:31+0100\n"
+"PO-Revision-Date: 2018-08-01 22:08+0000\n"
+"Last-Translator: Sergiy Shkodenko <shkodenkosergiy@gmail.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
 "MIME-Version: 1.0\n"
@@ -23,6 +23,9 @@ msgstr ""
 "11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
 "100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
 "(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+
+msgid "Wagtail admin"
+msgstr "Адміністрування Wagtail "
 
 msgid "None"
 msgstr "Нічого"
@@ -167,8 +170,17 @@ msgstr "Перехід до адмінпанелі"
 msgid "Account"
 msgstr "Обліковий запис"
 
+msgid "Change profile picture"
+msgstr "Змінити зображення профілю"
+
+msgid "Your current profile picture:"
+msgstr "Ваше поточне зображення профілю"
+
 msgid "Update"
 msgstr "Оновити"
+
+msgid "Change email"
+msgstr "Змінити email"
 
 msgid "Change password"
 msgstr "Зміна паролю"
@@ -177,6 +189,9 @@ msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr ""
 "Ваш пароль неможливо змінити. Будь-ласка, зверніться до адміністратора."
+
+msgid "Set Time Zone"
+msgstr "Задати часовий пояс"
 
 msgid "Language Preferences"
 msgstr "Налаштування мови"
@@ -196,8 +211,28 @@ msgstr "Вхід"
 msgid "Set your new password"
 msgstr "Встановіть новий пароль"
 
+msgid "Invalid password reset link"
+msgstr "Неправильне посилання для скидання паролю"
+
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used."
+msgstr ""
+"Посилання для скидання паролю недійсне, можливо через те, що воно вже було "
+"використане. "
+
+msgid "Request a new password reset"
+msgstr "Зробити запит для нового скидання паролю"
+
 msgid "Check your email"
 msgstr "Перевірте Вашу пошту"
+
+msgid ""
+"A link to reset your password has been emailed to you if an account exists "
+"for this address."
+msgstr ""
+"Посилання на скидання паролю було відправлено вам на електронну пошту, якщо "
+"для цієї адреси було заведено аккаунт. "
 
 msgid "Please follow the link below to reset your password:"
 msgstr "Слідуйте за посиланням щоб скинути пароль"
@@ -258,6 +293,23 @@ msgstr "Відмінити"
 
 msgid "Redo"
 msgstr "Повторити"
+
+msgid "Reload the page"
+msgstr "Перезавантажити цю сторінку"
+
+msgid "Reload saved content"
+msgstr "Перезавантажити збережений контент"
+
+msgid "Show latest content"
+msgstr "Показати останній вміст"
+
+msgid "Show error"
+msgstr "Показати помилку"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr ""
+"Редактор щойно впав. Вміст був скинутий до останньої збереженої версії."
 
 msgid "Dashboard"
 msgstr "Панель"
@@ -383,6 +435,11 @@ msgstr "Загальнодоступний"
 msgid "Private"
 msgstr "Приватний"
 
+msgid ""
+"This collection cannot be deleted, because it is not empty. It contains:"
+msgstr ""
+"Цю колекцію не можна видалити, тому що вона не є порожньою. Вона містить: "
+
 msgid "Name"
 msgstr "Ім'я"
 
@@ -457,6 +514,35 @@ msgstr "Чернетка"
 
 msgid "Live"
 msgstr "Наживо"
+
+msgid "Site summary"
+msgstr "Резюме сайту"
+
+#, python-format
+msgid ""
+"\n"
+"        <span>%(total)s</span> Page\n"
+"    "
+msgid_plural ""
+"\n"
+"        <span>%(total)s</span> Pages\n"
+"    "
+msgstr[0] ""
+"\n"
+"        <span>%(total)s</span> Сторінка\n"
+"    "
+msgstr[1] ""
+"\n"
+"        <span>%(total)s</span> Сторінки\n"
+"    "
+msgstr[2] ""
+"\n"
+"        <span>%(total)s</span> Page\n"
+"    "
+msgstr[3] ""
+"\n"
+"        <span>%(total)s</span> Сторінок\n"
+"    "
 
 msgid "Sign in"
 msgstr "Увійдіть"
@@ -768,6 +854,17 @@ msgstr ""
 msgid "Configure a site now."
 msgstr "Сконфігурувати сайт зараз."
 
+msgid ""
+"\n"
+"                            If you just want to add pages to an existing "
+"site, create them as children of the homepage instead.\n"
+"                        "
+msgstr ""
+"\n"
+"                            Якщо ви хочете просто додати сторінки на сайт, "
+"створіть їх як дочірні по відношенню до головної.\n"
+"                        "
+
 msgid "No pages have been created at this location."
 msgstr "У цьому розташування немає створених сторінок."
 
@@ -795,6 +892,16 @@ msgstr "Додати дочірню сторінку для'%(title)s'"
 
 msgid "Add child page"
 msgstr "Додати дочірню сторінку"
+
+#, python-format
+msgid ""
+"\n"
+"        Page %(page_number)s of %(num_pages)s.\n"
+"    "
+msgstr ""
+"\n"
+"        Сторінка %(page_number)s з %(num_pages)s.\n"
+"    "
 
 msgid "Previous"
 msgstr "Попередній"
@@ -824,6 +931,21 @@ msgstr "Обрати нову батьківську сторінку для <sp
 
 msgid "Preview error"
 msgstr "Помилка попереднього перегляду"
+
+msgid ""
+"\n"
+"                Impossible to preview this page, some errors are remaining.\n"
+"                Please close this tab, edit the page to fix these errors,\n"
+"                then use preview again.\n"
+"            "
+msgstr ""
+"\n"
+"                Неможливо зробити попередній перегляд цієї сторінки, "
+"лишаються ще деякі помилки.\n"
+"                Будь ласка, закрийте цю вкладу, відредагуйте сторінку, щоб "
+"виправити ці помилки \n"
+"                і тоді зробіть ще раз попередній перегляд.\n"
+"            "
 
 msgid "Close"
 msgstr "Закрити"
@@ -868,6 +990,10 @@ msgstr "Ревізії"
 
 msgid "Revision date"
 msgstr "Дата ревізії"
+
+msgctxt "points to a user who created a revision"
+msgid "by"
+msgstr "користувачем"
 
 msgid "Current draft"
 msgstr "Поточна чернетка"
@@ -917,6 +1043,9 @@ msgstr[3] ""
 "\n"
 "                Знайдено %(counter)s сторінок, що мають відповідність\n"
 "            "
+
+msgid "Page types"
+msgstr "Типи сторінок"
 
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
@@ -1085,6 +1214,9 @@ msgstr "Шведська"
 msgid "Slovak"
 msgstr "Словацька"
 
+msgid "Ukrainian"
+msgstr "Українська"
+
 msgid "Chinese (China)"
 msgstr "Китайська (Китай)"
 
@@ -1094,8 +1226,14 @@ msgstr "Вибачте, ви не маєте дозволів для досту�
 msgid "Your password has been changed successfully!"
 msgstr "Ваш пароль успішно змінено!"
 
+msgid "Your email has been changed successfully!"
+msgstr "Ваш email успішно змінений!"
+
 msgid "Your preferences have been updated."
 msgstr "Ваші вподобання оновлено."
+
+msgid "Your preferences have been updated successfully!"
+msgstr "Ваші параметри успішно оновлені!"
 
 msgid "You have been successfully logged out."
 msgstr "Ви успішно вийшли."
@@ -1272,6 +1410,15 @@ msgstr "Зняти з публікації сторінку '{title}'"
 msgid "View revision history for '{title}'"
 msgstr "Переглянути історію ревізій для '{title}'"
 
+msgid "Set profile picture"
+msgstr "Задати зображення профілю"
+
+msgid "Change your profile picture"
+msgstr "Змінити зображення профілю"
+
+msgid "Change the email address linked to your account."
+msgstr "Змінити email адресу вашого аккаунту. "
+
 msgid "Change the password you use to log in."
 msgstr "Змінити пароль, використаний для входу."
 
@@ -1283,6 +1430,12 @@ msgstr "Налаштування мови"
 
 msgid "Choose the language you want to use here."
 msgstr "Виберіть мову, яку ви хочете тут використовувати"
+
+msgid "Current Time Zone"
+msgstr "Поточний часовий пояс"
+
+msgid "Choose your current time zone."
+msgstr "Оберіть поточний часовий пояс"
 
 msgid "Heading {level}"
 msgstr "Заголовок {level}"

@@ -6,7 +6,6 @@ from django.forms import Media, widgets
 from wagtail.admin.edit_handlers import RichTextFieldPanel
 from wagtail.admin.rich_text.converters.editor_html import EditorHTMLConverter
 from wagtail.core.rich_text import features
-from wagtail.utils.widgets import WidgetWithScript
 
 
 class HalloPlugin:
@@ -78,7 +77,9 @@ CORE_HALLO_PLUGINS = [
 ]
 
 
-class HalloRichTextArea(WidgetWithScript, widgets.Textarea):
+class HalloRichTextArea(widgets.Textarea):
+    template_name = 'wagtailadmin/widgets/hallo_rich_text_area.html'
+
     # this class's constructor accepts a 'features' kwarg
     accepts_features = True
 
@@ -104,19 +105,19 @@ class HalloRichTextArea(WidgetWithScript, widgets.Textarea):
 
         super().__init__(*args, **kwargs)
 
-    def translate_value(self, value):
+    def format_value(self, value):
         # Convert database rich text representation to the format required by
         # the input field
+        value = super().format_value(value)
+
         if value is None:
             return None
 
         return self.converter.from_database_format(value)
 
-    def render(self, name, value, attrs=None):
-        translated_value = self.translate_value(value)
-        return super().render(name, translated_value, attrs)
+    def get_context(self, name, value, attrs):
+        context = super().get_context(name, value, attrs)
 
-    def render_js_init(self, id_, name, value):
         if self.options is not None and 'plugins' in self.options:
             # explicit 'plugins' config passed in options, so use that
             plugin_data = self.options['plugins']
@@ -124,10 +125,9 @@ class HalloRichTextArea(WidgetWithScript, widgets.Textarea):
             plugin_data = OrderedDict()
             for plugin in self.plugins:
                 plugin.construct_plugins_list(plugin_data)
+        context['widget']['plugins_json'] = json.dumps(plugin_data)
 
-        return "makeHalloRichTextEditable({0}, {1});".format(
-            json.dumps(id_), json.dumps(plugin_data)
-        )
+        return context
 
     def value_from_datadict(self, data, files, name):
         original_value = super().value_from_datadict(data, files, name)

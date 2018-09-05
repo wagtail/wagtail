@@ -191,8 +191,3 @@ class ElasticsearchCommonSearchBackendTests(BackendTests):
     @unittest.expectedFailure
     def test_incomplete_plain_text(self):
         super().test_incomplete_plain_text()
-
-    @unittest.expectedFailure
-    def test_facet_tags(self):
-        # Failing on Elasticsearch as of #4508
-        super().test_facet_tags()

@@ -1,6 +1,7 @@
 import hashlib
 import json
 import os
+import uuid
 
 from django import forms
 from django.conf import settings
@@ -196,7 +197,7 @@ class EventPageRelatedLink(Orderable, RelatedLink):
 
 
 class EventPageSpeaker(Orderable, LinkFields):
-    page = ParentalKey('tests.EventPage', related_name='speakers', on_delete=models.CASCADE)
+    page = ParentalKey('tests.EventPage', related_name='speakers', related_query_name='speaker', on_delete=models.CASCADE)
     first_name = models.CharField("Name", max_length=255, blank=True)
     last_name = models.CharField("Surname", max_length=255, blank=True)
     image = models.ForeignKey(
@@ -410,9 +411,9 @@ class EventIndex(Page):
         for path in super().get_static_site_paths():
             yield path
 
-    def get_sitemap_urls(self):
+    def get_sitemap_urls(self, request=None):
         # Add past events url to sitemap
-        return super().get_sitemap_urls() + [
+        return super().get_sitemap_urls(request=request) + [
             {
                 'location': self.full_url + 'past/',
                 'lastmod': self.latest_revision_created_at
@@ -738,6 +739,23 @@ class AdvertWithCustomPrimaryKey(ClusterableModel):
 
 
 register_snippet(AdvertWithCustomPrimaryKey)
+
+
+class AdvertWithCustomUUIDPrimaryKey(ClusterableModel):
+    advert_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    url = models.URLField(null=True, blank=True)
+    text = models.CharField(max_length=255)
+
+    panels = [
+        FieldPanel('url'),
+        FieldPanel('text'),
+    ]
+
+    def __str__(self):
+        return self.text
+
+
+register_snippet(AdvertWithCustomUUIDPrimaryKey)
 
 
 class AdvertWithTabbedInterface(models.Model):

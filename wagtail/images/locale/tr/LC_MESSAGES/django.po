@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
+"POT-Creation-Date: 2018-07-30 17:31+0100\n"
 "PO-Revision-Date: 2018-05-04 19:31+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
@@ -117,9 +117,6 @@ msgstr "Popüler etiketler"
 msgid "Uploading…"
 msgstr "Yükleniyor…"
 
-msgid "Server Error"
-msgstr "Sunucu Hatası"
-
 msgid "Latest images"
 msgstr "En son resimler"
 
@@ -220,6 +217,9 @@ msgstr "Veya bilgisayarınızdan seçin"
 
 msgid "Sorry, upload failed."
 msgstr "Üzgünüm, yükleme başarısız"
+
+msgid "Server Error"
+msgstr "Sunucu Hatası"
 
 msgid "Image updated."
 msgstr "Resim güncellendi"

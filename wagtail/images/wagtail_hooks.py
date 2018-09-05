@@ -113,6 +113,7 @@ def register_image_operations():
         ('max', image_operations.MinMaxOperation),
         ('width', image_operations.WidthHeightOperation),
         ('height', image_operations.WidthHeightOperation),
+        ('scale', image_operations.ScaleOperation),
         ('jpegquality', image_operations.JPEGQualityOperation),
         ('format', image_operations.FormatOperation),
         ('bgcolor', image_operations.BackgroundColorOperation),

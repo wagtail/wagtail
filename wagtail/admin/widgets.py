@@ -22,7 +22,9 @@ DEFAULT_DATE_FORMAT = '%Y-%m-%d'
 DEFAULT_DATETIME_FORMAT = '%Y-%m-%d %H:%M'
 
 
-class AdminAutoHeightTextInput(WidgetWithScript, widgets.Textarea):
+class AdminAutoHeightTextInput(widgets.Textarea):
+    template_name = 'wagtailadmin/widgets/auto_height_text_input.html'
+
     def __init__(self, attrs=None):
         # Use more appropriate rows default, given autoheight will alter this anyway
         default_attrs = {'rows': '1'}
@@ -31,11 +33,10 @@ class AdminAutoHeightTextInput(WidgetWithScript, widgets.Textarea):
 
         super().__init__(default_attrs)
 
-    def render_js_init(self, id_, name, value):
-        return 'autosize($("#{0}"));'.format(id_)
 
+class AdminDateInput(widgets.DateInput):
+    template_name = 'wagtailadmin/widgets/date_input.html'
 
-class AdminDateInput(WidgetWithScript, widgets.DateInput):
     def __init__(self, attrs=None, format=None):
         fmt = format
         if fmt is None:
@@ -43,26 +44,28 @@ class AdminDateInput(WidgetWithScript, widgets.DateInput):
         self.js_format = to_datetimepicker_format(fmt)
         super().__init__(attrs=attrs, format=fmt)
 
-    def render_js_init(self, id_, name, value):
+    def get_context(self, name, value, attrs):
+        context = super().get_context(name, value, attrs)
+
         config = {
             'dayOfWeekStart': get_format('FIRST_DAY_OF_WEEK'),
             'format': self.js_format,
         }
-        return 'initDateChooser({0}, {1});'.format(
-            json.dumps(id_),
-            json.dumps(config)
-        )
+        context['widget']['config_json'] = json.dumps(config)
+
+        return context
 
 
-class AdminTimeInput(WidgetWithScript, widgets.TimeInput):
+class AdminTimeInput(widgets.TimeInput):
+    template_name = 'wagtailadmin/widgets/time_input.html'
+
     def __init__(self, attrs=None, format='%H:%M'):
         super().__init__(attrs=attrs, format=format)
 
-    def render_js_init(self, id_, name, value):
-        return 'initTimeChooser({0});'.format(json.dumps(id_))
 
+class AdminDateTimeInput(widgets.DateTimeInput):
+    template_name = 'wagtailadmin/widgets/datetime_input.html'
 
-class AdminDateTimeInput(WidgetWithScript, widgets.DateTimeInput):
     def __init__(self, attrs=None, format=None):
         fmt = format
         if fmt is None:
@@ -70,24 +73,27 @@ class AdminDateTimeInput(WidgetWithScript, widgets.DateTimeInput):
         self.js_format = to_datetimepicker_format(fmt)
         super().__init__(attrs=attrs, format=fmt)
 
-    def render_js_init(self, id_, name, value):
+    def get_context(self, name, value, attrs):
+        context = super().get_context(name, value, attrs)
+
         config = {
             'dayOfWeekStart': get_format('FIRST_DAY_OF_WEEK'),
             'format': self.js_format,
         }
-        return 'initDateTimeChooser({0}, {1});'.format(
-            json.dumps(id_),
-            json.dumps(config)
-        )
+        context['widget']['config_json'] = json.dumps(config)
+
+        return context
 
 
-class AdminTagWidget(WidgetWithScript, TagWidget):
-    def render_js_init(self, id_, name, value):
-        return "initTagField({0}, {1}, {2});".format(
-            json.dumps(id_),
-            json.dumps(reverse('wagtailadmin_tag_autocomplete')),
-            'true' if getattr(settings, 'TAG_SPACES_ALLOWED', True) else 'false',
-        )
+class AdminTagWidget(TagWidget):
+    template_name = 'wagtailadmin/widgets/tag_widget.html'
+
+    def get_context(self, name, value, attrs):
+        context = super().get_context(name, value, attrs)
+        context['widget']['autocomplete_url'] = reverse('wagtailadmin_tag_autocomplete')
+        context['widget']['tag_spaces_allowed'] = getattr(settings, 'TAG_SPACES_ALLOWED', True)
+
+        return context
 
 
 class AdminChooser(WidgetWithScript, widgets.Input):
