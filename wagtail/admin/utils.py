@@ -7,7 +7,8 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
-from django.core.mail import send_mail as django_send_mail
+from django.core.mail import get_connection
+from django.core.mail.message import EmailMultiAlternatives
 from django.db.models import Count, Q
 from django.shortcuts import redirect
 from django.template.loader import render_to_string
@@ -202,6 +203,10 @@ class PermissionPolicyChecker:
 
 
 def send_mail(subject, message, recipient_list, from_email=None, **kwargs):
+    """
+    Wrapper around Django's EmailMultiAlternatives as done in send_mail().
+    Custom from_email handling and special Auto-Submitted header.
+    """
     if not from_email:
         if hasattr(settings, 'WAGTAILADMIN_NOTIFICATION_FROM_EMAIL'):
             from_email = settings.WAGTAILADMIN_NOTIFICATION_FROM_EMAIL
@@ -210,7 +215,23 @@ def send_mail(subject, message, recipient_list, from_email=None, **kwargs):
         else:
             from_email = 'webmaster@localhost'
 
-    return django_send_mail(subject, message, from_email, recipient_list, **kwargs)
+    connection = kwargs.get('connection', False) or get_connection(
+        username=kwargs.get('auth_user', None),
+        password=kwargs.get('auth_password', None),
+        fail_silently=kwargs.get('fail_silently', None),
+    )
+    kwargs = {
+        'connection': connection,
+        'headers': {
+            'Auto-Submitted': 'auto-generated',
+        }
+    }
+    mail = EmailMultiAlternatives(subject, message, from_email, recipient_list, **kwargs)
+    html_message = kwargs.get('html_message', None)
+    if html_message:
+        mail.attach_alternative(html_message, 'text/html')
+
+    return mail.send()
 
 
 def send_notification(page_revision_id, notification, excluded_user_id):
