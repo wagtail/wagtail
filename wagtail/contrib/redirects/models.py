@@ -52,6 +52,14 @@ class Redirect(models.Model):
 
     @staticmethod
     def add_redirect(old_path, redirect_page, is_permanent=True):
+        """
+        Create and save a Redirect instance with a single method.
+
+        :param old_path: the path you wish to redirect
+        :param redirect_page: a page where the redirect should point
+        :param is_permanent: whether the redirect should be indicated as permanent (i.e. 301 redirect)
+        :return: Redirect instance
+        """
         redirect = Redirect()
 
         # Set redirect properties from input parameters
