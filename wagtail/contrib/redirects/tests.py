@@ -11,6 +11,26 @@ from wagtail.tests.utils import WagtailTestUtils
 class TestRedirects(TestCase):
     fixtures = ['test.json']
 
+    def test_add_redirect(self):
+        # Shortcut to 'add_redirect' method
+        add_redirect = models.Redirect.add_redirect
+
+        old_path = '/old-path'
+        redirect_page = '/redirect-page'
+
+        # Create a redirect
+        redirect = add_redirect(
+            old_path=old_path,
+            redirect_page=redirect_page
+        )
+
+        # Old path should match in redirect
+        self.assertEqual(redirect.old_path, old_path)
+
+        # Redirect page should match in redirect
+        self.assertEqual(redirect.redirect_path, redirect_page)
+
+
     def test_path_normalisation(self):
         # Shortcut to normalise function (to keep things tidy)
         normalise_path = models.Redirect.normalise_path
