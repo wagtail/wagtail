@@ -372,7 +372,15 @@ class Filter:
     def operations(self):
         # Search for operations
         self._search_for_operations()
-
+        #  HT START
+        """
+        It doesn't make any sense at all for a fill operation to be applied on the basis of a general image focus area
+        with figures relating to the full image, after the image has already been cropped to a smaller size (or vice versa).
+        """
+        operation_types = [o.split('-')[0] for o in self.spec.split('|')]
+        if "fill" in operation_types and "select" in operation_types:
+            raise InvalidFilterSpecError("An image fill operation cannot be applied to a image with a contextual crop set")
+        # HT END
         # Build list of operation objects
         operations = []
         for op_spec in self.spec.split('|'):
@@ -434,23 +442,20 @@ class Filter:
                 return willow.save_as_gif(output)
 
     def get_cache_key(self, image):
-
-        """ when the 'select' crop operation is used it is always prepended to operations
-            as it should be carried out before other operations.  Also if a generic focus
-            has been specified for the image, clearly the contextualised select crop should
-            take precedence - the generic focus will be overidden as would be expected """
+        vary_parts = []
         # HT START
+        """contextual data does not exist on the image so it must be handled separately"""
         first_spec = self.spec.split('|')[0]
         if first_spec.split('-')[0] == "select":
-            vary_string = first_spec
-        else:  # HT END
-            vary_parts = []
-            for operation in self.operations:
-                for field in getattr(operation, 'vary_fields', []):
-                    value = getattr(image, field, '')
-                    vary_parts.append(str(value))
+            vary_parts.append(first_spec)
+        # HT END
 
-            vary_string = '-'.join(vary_parts)
+        for operation in self.operations:
+            for field in getattr(operation, 'vary_fields', []):
+                value = getattr(image, field, '')
+                vary_parts.append(str(value))
+
+        vary_string = '-'.join(vary_parts)
 
         # Return blank string if there are no vary fields
         if not vary_string:
