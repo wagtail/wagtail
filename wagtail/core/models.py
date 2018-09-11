@@ -1242,7 +1242,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
         # Add important values from the original request object, if it was provided.
         HEADERS_FROM_ORIGINAL_REQUEST = [
-            'REMOTE_ADDR', 'HTTP_X_FORWARDED_FOR', 'HTTP_COOKIE', 'HTTP_USER_AGENT',
+            'REMOTE_ADDR', 'HTTP_X_FORWARDED_FOR', 'HTTP_COOKIE', 'HTTP_USER_AGENT', 'HTTP_AUTHORIZATION',
             'wsgi.version', 'wsgi.multithread', 'wsgi.multiprocess', 'wsgi.run_once',
         ]
         if settings.SECURE_PROXY_SSL_HEADER:

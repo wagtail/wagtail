@@ -316,6 +316,7 @@ Contributors
 * Matthew Schinckel
 * Michael Borisov
 * Dan Braghis
+* Ben Dickinson
 
 Translators
 ===========

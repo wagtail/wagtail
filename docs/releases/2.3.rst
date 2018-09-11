@@ -29,6 +29,7 @@ Other features
  * Notification emails now include an "Auto-Submitted: auto-generated" header (Dan Braghis)
  * Image chooser panels now show alt text as title (Samir Shah)
  * Added ``download_url`` field to images in the API (Michael Harrison)
+ * Dummy requests for preview now preserve the HTTP Authorization header (Ben Dickinson)
 
 
 Bug fixes
