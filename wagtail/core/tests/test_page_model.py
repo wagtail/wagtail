@@ -1371,6 +1371,7 @@ class TestDummyRequest(TestCase):
             'HTTP_X_FORWARDED_FOR': '192.168.0.2,192.168.0.3',
             'HTTP_COOKIE': "test=1;blah=2",
             'HTTP_USER_AGENT': "Test Agent",
+            'HTTP_AUTHORIZATION': "Basic V2FndGFpbDpXYWd0YWlsCg==",
         }
         factory = RequestFactory(**original_headers)
         original_request = factory.get('/home/events/')
@@ -1381,6 +1382,7 @@ class TestDummyRequest(TestCase):
         self.assertEqual(request.META['HTTP_X_FORWARDED_FOR'], original_request.META['HTTP_X_FORWARDED_FOR'])
         self.assertEqual(request.META['HTTP_COOKIE'], original_request.META['HTTP_COOKIE'])
         self.assertEqual(request.META['HTTP_USER_AGENT'], original_request.META['HTTP_USER_AGENT'])
+        self.assertEqual(request.META['HTTP_AUTHORIZATION'], original_request.META['HTTP_AUTHORIZATION'])
 
         # check other env vars required by the WSGI spec
         self.assertEqual(request.META['REQUEST_METHOD'], 'GET')
