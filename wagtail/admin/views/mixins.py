@@ -1,6 +1,6 @@
 from django.utils.translation import ugettext as _
 
-from wagtail.admin.forms import SearchForm
+from wagtail.admin.forms.search import SearchForm
 from wagtail.search.backends import get_search_backend
 from wagtail.search.index import class_is_indexed
 

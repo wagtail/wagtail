@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django.utils.translation import ugettext as _
 
 from wagtail.admin import messages
-from wagtail.admin.forms import SearchForm
+from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.rich_text import get_rich_text_editor_widget
 from wagtail.admin.widgets import (
     AdminAutoHeightTextInput, AdminDateInput, AdminDateTimeInput, AdminPageChooser, AdminTimeInput)

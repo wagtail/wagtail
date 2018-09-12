@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404, redirect
 from django.utils.translation import ugettext_lazy
 
 from wagtail.admin import messages
-from wagtail.admin.forms import CollectionForm
+from wagtail.admin.forms.collections import CollectionForm
 from wagtail.admin.views.generic import CreateView, DeleteView, EditView, IndexView
 from wagtail.core import hooks
 from wagtail.core.models import Collection

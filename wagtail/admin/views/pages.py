@@ -18,7 +18,8 @@ from django.views.decorators.vary import vary_on_headers
 from django.views.generic import View
 
 from wagtail.admin import messages, signals
-from wagtail.admin.forms import CopyForm, SearchForm
+from wagtail.admin.forms.pages import CopyForm
+from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.admin.utils import send_notification, user_has_any_page_permission, user_passes_test
 from wagtail.core import hooks
