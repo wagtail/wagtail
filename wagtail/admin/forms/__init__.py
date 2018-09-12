@@ -18,6 +18,7 @@ from wagtail.core.models import (
 
 from .auth import *  # NOQA
 from .choosers import *  # NOQA
+from .search import *  # NOQA
 
 
 class SearchForm(forms.Form):
