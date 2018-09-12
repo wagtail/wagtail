@@ -3,9 +3,7 @@ from itertools import groupby
 
 from django import forms
 from django.contrib.auth.models import Group, Permission
-from django.core import validators
 from django.db import models, transaction
-from django.forms.widgets import TextInput
 from django.template.loader import render_to_string
 from django.utils import timezone
 from django.utils.translation import ugettext as _
@@ -19,28 +17,7 @@ from wagtail.core.models import (
     PageViewRestriction)
 
 from .auth import *  # NOQA
-
-
-class URLOrAbsolutePathValidator(validators.URLValidator):
-    @staticmethod
-    def is_absolute_path(value):
-        return value.startswith('/')
-
-    def __call__(self, value):
-        if URLOrAbsolutePathValidator.is_absolute_path(value):
-            return None
-        else:
-            return super().__call__(value)
-
-
-class URLOrAbsolutePathField(forms.URLField):
-    widget = TextInput
-    default_validators = [URLOrAbsolutePathValidator()]
-
-    def to_python(self, value):
-        if not URLOrAbsolutePathValidator.is_absolute_path(value):
-            value = super().to_python(value)
-        return value
+from .choosers import *  # NOQA
 
 
 class SearchForm(forms.Form):
@@ -50,16 +27,6 @@ class SearchForm(forms.Form):
         self.fields['q'].widget.attrs = {'placeholder': placeholder}
 
     q = forms.CharField(label=ugettext_lazy("Search term"), widget=forms.TextInput())
-
-
-class ExternalLinkChooserForm(forms.Form):
-    url = URLOrAbsolutePathField(required=True, label=ugettext_lazy("URL"))
-    link_text = forms.CharField(required=False)
-
-
-class EmailLinkChooserForm(forms.Form):
-    email_address = forms.EmailField(required=True)
-    link_text = forms.CharField(required=False)
 
 
 class CopyForm(forms.Form):
