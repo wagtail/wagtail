@@ -10,7 +10,7 @@ from django.utils.translation import ugettext as _
 
 from wagtail.admin import messages
 from wagtail.admin.edit_handlers import ObjectList, extract_panel_definitions_from_model_class
-from wagtail.admin.forms import SearchForm
+from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.utils import permission_denied
 from wagtail.search.backends import get_search_backend
 from wagtail.search.index import class_is_indexed

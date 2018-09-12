@@ -21,9 +21,9 @@ from wagtail.utils.decorators import cached_classmethod
 # DIRECT_FORM_FIELD_OVERRIDES, FORM_FIELD_OVERRIDES are imported for backwards
 # compatibility, as people are likely importing them from here and then
 # appending their own overrides
-from .forms import (  # NOQA
-    DIRECT_FORM_FIELD_OVERRIDES, FORM_FIELD_OVERRIDES, WagtailAdminModelForm, WagtailAdminPageForm,
-    formfield_for_dbfield)
+from .forms.models import (  # NOQA
+    DIRECT_FORM_FIELD_OVERRIDES, FORM_FIELD_OVERRIDES, WagtailAdminModelForm, formfield_for_dbfield)
+from .forms.pages import WagtailAdminPageForm
 
 
 def widget_with_script(widget, script):
