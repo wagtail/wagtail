@@ -317,6 +317,7 @@ Contributors
 * Michael Borisov
 * Dan Braghis
 * Ben Dickinson
+* Meteor0id
 
 Translators
 ===========
