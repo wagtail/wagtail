@@ -71,9 +71,37 @@ How to use
 A simple example
 ^^^^^^^^^^^^^^^^
 
-You have a model in your app, and you want a listing page specifically for that
-model, with a menu item added to the menu in the Wagtail admin area so that you
-can get to it.
+Let's say your website is for a local library. They have a model called
+``Book`` that appears across the site in many places. You can define a normal
+Django model for it, then use ModelAdmin to create a menu in Wagtail's admin
+to create, view, and edit ``Book`` entries.
+
+``models.py`` looks like this:
+
+.. code-block:: python
+
+    class Book(models.Model):
+        title = models.CharField(max_length=255)
+        author = models.CharField(max_length=255)
+        cover_photo = models.ForeignKey(
+            'wagtailimages.Image',
+            on_delete=models.SET_NULL,
+            related_name='+'
+        )
+
+        panels = [
+            FieldPanel('title'),
+            FieldPanel('author'),
+            ImageChooserPanel('cover_photo')
+        ]
+
+.. tip::
+
+    You can specify ``FieldPanels`` like ``ImageChooserPanel``, ``PageChooserPanel``,
+    and ``DocumentChooserPanel`` within the ``panels`` attribute of the model.
+    This lets you use Wagtail-specific features in an otherwise traditional
+    Django model.
+
 
 ``wagtail_hooks.py`` in your app directory would look something like this:
 
@@ -81,22 +109,22 @@ can get to it.
 
     from wagtail.contrib.modeladmin.options import (
         ModelAdmin, modeladmin_register)
-    from .models import MyPageModel
+    from .models import Book
 
 
-    class MyPageModelAdmin(ModelAdmin):
-        model = MyPageModel
-        menu_label = 'Page Model'  # ditch this to use verbose_name_plural from model
-        menu_icon = 'date'  # change as required
+    class BookAdmin(ModelAdmin):
+        model = Book
+        menu_label = 'Book'  # ditch this to use verbose_name_plural from model
+        menu_icon = 'pilcrow'  # change as required
         menu_order = 200  # will put in 3rd place (000 being 1st, 100 2nd)
         add_to_settings_menu = False  # or True to add your model to the Settings sub-menu
         exclude_from_explorer = False # or True to exclude pages of this type from Wagtail's explorer view
-        list_display = ('title', 'example_field2', 'example_field3', 'live')
-        list_filter = ('live', 'example_field2', 'example_field3')
-        search_fields = ('title',)
+        list_display = ('title', 'author')
+        list_filter = ('author',)
+        search_fields = ('title', 'author')
 
     # Now you just need to register your customised ModelAdmin class with Wagtail
-    modeladmin_register(MyPageModelAdmin)
+    modeladmin_register(BookAdmin)
 
 
 .. _modeladmin_example_complex:
@@ -104,10 +132,14 @@ can get to it.
 A more complicated example
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-You have an app with several models that you want to show grouped together in
-Wagtail's admin menu. Some of the models might extend Page, and others might
-be simpler models, perhaps registered as Snippets, perhaps not. No problem!
-ModelAdminGroup allows you to group them all together nicely.
+In addition to ``Book``, perhaps we also want to add ``Author`` and ``Genre``
+models to our app and display a menu item for each of them, too. Creating
+lots of menus can add up quickly, so it might be a good idea to group related
+menus together. This section show you how to create one menu called *Library*
+which expands to show submenus for *Book*, *Author*, and *Genre*.
+
+Assume we've defined ``Book``, ``Author``, and ``Genre`` models in
+``models.py``.
 
 ``wagtail_hooks.py`` in your app directory would look something like this:
 
@@ -116,54 +148,45 @@ ModelAdminGroup allows you to group them all together nicely.
     from wagtail.contrib.modeladmin.options import (
         ModelAdmin, ModelAdminGroup, modeladmin_register)
     from .models import (
-        MyPageModel, MyOtherPageModel, MySnippetModel, SomeOtherModel)
+        Book, Author, Genre)
 
 
-    class MyPageModelAdmin(ModelAdmin):
-        model = MyPageModel
-        menu_label = 'Page Model'  # ditch this to use verbose_name_plural from model
-        menu_icon = 'doc-full-inverse'  # change as required
-        list_display = ('title', 'example_field2', 'example_field3', 'live')
-        list_filter = ('live', 'example_field2', 'example_field3')
-        search_fields = ('title',)
+    class BookAdmin(ModelAdmin):
+        model = Book
+        menu_label = 'Book'  # ditch this to use verbose_name_plural from model
+        menu_icon = 'pilcrow'  # change as required
+        list_display = ('title', 'author')
+        list_filter = ('genre', 'author')
+        search_fields = ('title', 'author')
 
 
-    class MyOtherPageModelAdmin(ModelAdmin):
-        model = MyOtherPageModel
-        menu_label = 'Other Page Model'  # ditch this to use verbose_name_plural from model
-        menu_icon = 'doc-full-inverse'  # change as required
-        list_display = ('title', 'example_field2', 'example_field3', 'live')
-        list_filter = ('live', 'example_field2', 'example_field3')
-        search_fields = ('title',)
+    class AuthorAdmin(ModelAdmin):
+        model = Author
+        menu_label = 'Author'  # ditch this to use verbose_name_plural from model
+        menu_icon = 'user'  # change as required
+        list_display = ('first_name', 'last_name')
+        list_filter = ('first_name', 'last_name')
+        search_fields = ('first_name', 'last_name')
 
 
-    class MySnippetModelAdmin(ModelAdmin):
-        model = MySnippetModel
-        menu_label = 'Snippet Model'  # ditch this to use verbose_name_plural from model
-        menu_icon = 'snippet'  # change as required
-        list_display = ('title', 'example_field2', 'example_field3')
-        list_filter = ('example_field2', 'example_field3')
-        search_fields = ('title',)
+    class GenreAdmin(ModelAdmin):
+        model = Genre
+        menu_label = 'Genre'  # ditch this to use verbose_name_plural from model
+        menu_icon = 'group'  # change as required
+        list_display = ('name',)
+        list_filter = ('name',)
+        search_fields = ('name',)
 
 
-    class SomeOtherModelAdmin(ModelAdmin):
-        model = SomeOtherModel
-        menu_label = 'Some other model'  # ditch this to use verbose_name_plural from model
-        menu_icon = 'snippet'  # change as required
-        list_display = ('title', 'example_field2', 'example_field3')
-        list_filter = ('example_field2', 'example_field3')
-        search_fields = ('title',)
-
-
-    class MyModelAdminGroup(ModelAdminGroup):
-        menu_label = 'My App'
+    class LibraryGroup(ModelAdminGroup):
+        menu_label = 'Library'
         menu_icon = 'folder-open-inverse'  # change as required
         menu_order = 200  # will put in 3rd place (000 being 1st, 100 2nd)
-        items = (MyPageModelAdmin, MyOtherPageModelAdmin, MySnippetModelAdmin, SomeOtherModelAdmin)
+        items = (BookAdmin, AuthorAdmin, GenreAdmin)
 
     # When using a ModelAdminGroup class to group several ModelAdmin classes together,
     # you only need to register the ModelAdminGroup class with Wagtail:
-    modeladmin_register(MyModelAdminGroup)
+    modeladmin_register(LibraryGroup)
 
 
 .. _modeladmin_multi_registeration:
@@ -171,33 +194,26 @@ ModelAdminGroup allows you to group them all together nicely.
 Registering multiple classes in one ``wagtail_hooks.py`` file
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-If you have an app with more than one model that you wish to manage, or even
-multiple models you wish to group together with ``ModelAdminGroup`` classes,
-that's possible. Just register each of your ModelAdmin classes using
-``modeladmin_register``, and they'll work as expected.
+Each time you call ``modeladmin_register(MyAdmin)`` it creates a new top-level
+menu item in Wagtail's left sidebar. You can call this multiple times within
+the same ``wagtail_hooks.py`` file if you want. The example below will create
+3 top-level menus.
 
 .. code-block:: python
 
-    class MyPageModelAdmin(ModelAdmin):
-        model = MyPageModel
+    class BookAdmin(ModelAdmin):
+        model = Book
         ...
 
-    class MyOtherPageModelAdmin(ModelAdmin):
-        model = MyOtherPageModel
+    class MovieAdmin(ModelAdmin):
+        model = MovieModel
         ...
 
-    class MyModelAdminGroup(ModelAdminGroup):
-        label = _("Group 1")
-        items = (ModelAdmin1, ModelAdmin2)
+    class MusicAdminGroup(ModelAdminGroup):
+        label = _("Music")
+        items = (AlbumAdmin, ArtistAdmin)
         ...
 
-    class MyOtherModelAdminGroup(ModelAdminGroup):
-        label = _("Group 2")
-        items = (ModelAdmin3, ModelAdmin4)
-        ...
-
-    modeladmin_register(MyPageModelAdmin)
-    modeladmin_register(MyOtherPageModelAdmin)
-    modeladmin_register(MyModelAdminGroup)
-    modeladmin_register(MyOtherModelAdminGroup)
-
+    modeladmin_register(BookAdmin)
+    modeladmin_register(MovieAdmin)
+    modeladmin_register(MusicAdminGroup)
