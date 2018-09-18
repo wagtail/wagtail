@@ -13,6 +13,7 @@ from django.utils import timezone
 from django.utils.http import is_safe_url, urlquote
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy
 from django.views.decorators.http import require_GET, require_POST
 from django.views.decorators.vary import vary_on_headers
 from django.views.generic import View
@@ -31,6 +32,10 @@ from wagtail.utils.pagination import paginate
 class ActionMenuItem:
     """Defines an item in the actions drop-up on the page creation/edit view"""
     order = 100  # default order index if one is not specified on init
+    template = 'wagtailadmin/pages/action_menu/menu_item.html'
+
+    label = ''
+    name = None
 
     def __init__(self, order=None):
         if order is not None:
@@ -53,7 +58,16 @@ class ActionMenuItem:
 
     def get_context(self, request, parent_context):
         """Defines context for the template, overridable to use more data"""
-        return parent_context.copy()
+        context = parent_context.copy()
+        context.update({
+            'label': self.label,
+            'url': self.get_url(request, context),
+            'name': self.name,
+        })
+        return context
+
+    def get_url(self, request, context):
+        return None
 
     def render_html(self, request, parent_context):
         context = self.get_context(request, parent_context)
@@ -79,7 +93,8 @@ class PublishMenuItem(ActionMenuItem):
 
 
 class SubmitForModerationMenuItem(ActionMenuItem):
-    template = 'wagtailadmin/pages/action_menu/submit_for_moderation.html'
+    label = ugettext_lazy("Submit for moderation")
+    name = 'action-submit'
 
     def is_shown(self, request, context):
         if context['view'] == 'create':
@@ -91,7 +106,7 @@ class SubmitForModerationMenuItem(ActionMenuItem):
 
 
 class UnpublishMenuItem(ActionMenuItem):
-    template = 'wagtailadmin/pages/action_menu/unpublish.html'
+    label = ugettext_lazy("Unpublish")
 
     def is_shown(self, request, context):
         return (
@@ -100,9 +115,12 @@ class UnpublishMenuItem(ActionMenuItem):
             context['user_page_permissions'].for_page(context['page']).can_unpublish()
         )
 
+    def get_url(self, request, context):
+        return reverse('wagtailadmin_pages:unpublish', args=(context['page'].id,))
+
 
 class DeleteMenuItem(ActionMenuItem):
-    template = 'wagtailadmin/pages/action_menu/delete.html'
+    label = ugettext_lazy("Delete")
 
     def is_shown(self, request, context):
         return (
@@ -110,6 +128,9 @@ class DeleteMenuItem(ActionMenuItem):
             not context['page'].locked and
             context['user_page_permissions'].for_page(context['page']).can_delete()
         )
+
+    def get_url(self, request, context):
+        return reverse('wagtailadmin_pages:delete', args=(context['page'].id,))
 
 
 ACTION_MENU_ITEMS = [
