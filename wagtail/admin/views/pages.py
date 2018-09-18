@@ -133,12 +133,23 @@ class DeleteMenuItem(ActionMenuItem):
         return reverse('wagtailadmin_pages:delete', args=(context['page'].id,))
 
 
-ACTION_MENU_ITEMS = [
-    UnpublishMenuItem(order=10),
-    DeleteMenuItem(order=20),
-    PublishMenuItem(order=30),
-    SubmitForModerationMenuItem(order=40),
-]
+ACTION_MENU_ITEMS = None
+
+
+def _get_action_menu_items():
+    global ACTION_MENU_ITEMS
+
+    if ACTION_MENU_ITEMS is None:
+        ACTION_MENU_ITEMS = [
+            UnpublishMenuItem(order=10),
+            DeleteMenuItem(order=20),
+            PublishMenuItem(order=30),
+            SubmitForModerationMenuItem(order=40),
+        ]
+        for hook in hooks.get_hooks('register_page_action_menu_item'):
+            ACTION_MENU_ITEMS.append(hook())
+
+    return ACTION_MENU_ITEMS
 
 
 def get_valid_next_url_from_request(request):
@@ -416,7 +427,7 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
         'page_class': page_class,
         'parent_page': parent_page,
         'edit_handler': edit_handler,
-        'action_menu_items': ACTION_MENU_ITEMS,
+        'action_menu_items': _get_action_menu_items(),
         'preview_modes': page.preview_modes,
         'form': form,
         'next': next_url,
@@ -646,7 +657,7 @@ def edit(request, page_id):
         'content_type': content_type,
         'edit_handler': edit_handler,
         'errors_debug': errors_debug,
-        'action_menu_items': ACTION_MENU_ITEMS,
+        'action_menu_items': _get_action_menu_items(),
         'preview_modes': page.preview_modes,
         'form': form,
         'next': next_url,
@@ -1257,7 +1268,7 @@ def revisions_revert(request, page_id, revision_id):
         'content_type': content_type,
         'edit_handler': edit_handler,
         'errors_debug': None,
-        'action_menu_items': ACTION_MENU_ITEMS,
+        'action_menu_items': _get_action_menu_items(),
         'preview_modes': page.preview_modes,
         'form': form,  # Used in unit tests
     })

@@ -493,6 +493,46 @@ Hooks for customising the way users are directed through the process of creating
   Uses the same behaviour as ``before_create_page``.
 
 
+.. _register_page_action_menu_item:
+
+``register_page_action_menu_item``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Add an item to the popup menu of actions on the page creation and edit views. The callable passed to this hook must return an instance of ``wagtail.admin.views.pages.ActionMenuItem``. The following attributes and methods are available to be overridden on subclasses of ``ActionMenuItem``:
+
+  :order: an integer (default 100) which determines the item's position in the menu. Can also be passed as a keyword argument to the object constructor
+  :label: the displayed text of the menu item
+  :get_url: a method which returns a URL for the menu item to link to; by default, returns ``None`` which causes the menu item to behave as a form submit button instead
+  :name: value of the ``name`` attribute of the submit button, if no URL is specified
+  :is_shown: a method which returns a boolean indicating whether the menu item should be shown; by default, true except when editing a locked page
+  :template: path to a template to render to produce the menu item HTML
+  :get_context: a method that returns a context dictionary to pass to the template
+  :render_html: a method that returns the menu item HTML; by default, renders ``template`` with the context returned from ``get_context``
+
+  The ``get_url``, ``is_shown``, ``get_context`` and ``render_html`` methods all accept a request object and a context dictionary containing the following fields:
+
+  :view: name of the current view: ``'create'``, ``'edit'`` or ``'revisions_revert'``
+  :page: For ``view`` = ``'edit'`` or ``'revisions_revert'``, the page being edited
+  :parent_page: For ``view`` = ``'create'``, the parent page of the page being created
+  :user_page_permissions: a ``UserPagePermissionsProxy`` object for the current user, to test permissions against
+
+  .. code-block:: python
+
+    from wagtail.core import hooks
+    from wagtail.admin.views.pages import ActionMenuItem
+
+    class GuacamoleMenuItem(ActionMenuItem):
+        label = "Guacamole"
+
+        def get_url(self, request, context):
+            return "https://www.youtube.com/watch?v=dNJdJIwCF_Y"
+
+
+    @hooks.register('register_page_action_menu_item')
+    def register_guacamole_menu_item():
+        return GuacamoleMenuItem(order=10)
+
+
 .. _construct_wagtail_userbar:
 
 ``construct_wagtail_userbar``

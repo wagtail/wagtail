@@ -663,6 +663,8 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, '<a href="#tab-content" class="active">Content</a>')
         self.assertContains(response, '<a href="#tab-promote" class="">Promote</a>')
+        # test register_page_action_menu_item hook
+        self.assertContains(response, '<input type="submit" name="action-panic" value="Panic!" class="button" />')
 
     def test_create_multipart(self):
         """
@@ -1273,6 +1275,9 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         # Test InlinePanel labels/headings
         self.assertContains(response, '<legend>Speaker lineup</legend>')
         self.assertContains(response, 'Add speakers')
+
+        # test register_page_action_menu_item hook
+        self.assertContains(response, '<input type="submit" name="action-panic" value="Panic!" class="button" />')
 
     def test_edit_draft_page_with_no_revisions(self):
         # Tests that the edit page loads
