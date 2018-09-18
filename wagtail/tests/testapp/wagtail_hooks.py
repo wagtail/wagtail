@@ -115,3 +115,13 @@ class PanicMenuItem(ActionMenuItem):
 @hooks.register('register_page_action_menu_item')
 def register_panic_menu_item():
     return PanicMenuItem()
+
+
+class RelaxMenuItem(ActionMenuItem):
+    label = "Relax."
+    name = 'action-relax'
+
+
+@hooks.register('construct_page_action_menu')
+def register_relax_menu_item(menu_items, request, context):
+    menu_items.append(RelaxMenuItem())
