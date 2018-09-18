@@ -113,6 +113,15 @@ def widgettype(bound_field):
             return ""
 
 
+def _get_user_page_permissions(context):
+    # Create a UserPagePermissionsProxy object to represent the user's global permissions, and
+    # cache it in the context for the duration of the page request, if one does not exist already
+    if 'user_page_permissions' not in context:
+        context['user_page_permissions'] = UserPagePermissionsProxy(context['request'].user)
+
+    return context['user_page_permissions']
+
+
 @register.simple_tag(takes_context=True)
 def page_permissions(context, page):
     """
@@ -120,13 +129,7 @@ def page_permissions(context, page):
     Sets the variable 'page_perms' to a PagePermissionTester object that can be queried to find out
     what actions the current logged-in user can perform on the given page.
     """
-    # Create a UserPagePermissionsProxy object to represent the user's global permissions, and
-    # cache it in the context for the duration of the page request, if one does not exist already
-    if 'user_page_permissions' not in context:
-        context['user_page_permissions'] = UserPagePermissionsProxy(context['request'].user)
-
-    # Now retrieve a PagePermissionTester from it, specific to the given page
-    return context['user_page_permissions'].for_page(page)
+    return _get_user_page_permissions(context).for_page(page)
 
 
 @register.simple_tag(takes_context=True)
@@ -392,3 +395,24 @@ def avatar_url(user, size=50):
             return gravatar_url
 
     return static('wagtailadmin/images/default-user-avatar.png')
+
+
+@register.inclusion_tag("wagtailadmin/pages/action_menu/menu.html", takes_context=True)
+def page_action_menu(context, menu_items, **kwargs):
+    menu_item_context = kwargs
+    menu_item_context.update({
+        'user_page_permissions': _get_user_page_permissions(context),
+    })
+
+    visible_menu_items = [
+        menu_item for menu_item in menu_items
+        if menu_item.is_shown(context['request'], menu_item_context)
+    ]
+
+    return {
+        'show_menu': bool(visible_menu_items),
+        'rendered_menu_items': [
+            menu_item.render_html(context['request'], menu_item_context)
+            for menu_item in visible_menu_items
+        ]
+    }

@@ -28,6 +28,92 @@ from wagtail.search.query import MATCH_ALL
 from wagtail.utils.pagination import paginate
 
 
+class ActionMenuItem:
+    """Defines an item in the actions drop-up on the page creation/edit view"""
+    def is_shown(self, request, context):
+        """
+        Whether this action should be shown on this request; permission checks etc should go here.
+        By default, actions are shown for unlocked pages, hidden for locked pages
+
+        request = the current request object
+
+        context = dictionary containing at least:
+            'view' = 'create', 'edit' or 'revisions_revert'
+            'page' (if view = 'edit' or 'revisions_revert') = the page being edited
+            'parent_page' (if view = 'create') = the parent page of the page being created
+            'user_page_permissions' = a UserPagePermissionsProxy for the current user, to test permissions against
+        """
+        return (context['view'] == 'create' or not context['page'].locked)
+
+    def get_context(self, request, parent_context):
+        """Defines context for the template, overridable to use more data"""
+        return parent_context.copy()
+
+    def render_html(self, request, parent_context):
+        context = self.get_context(request, parent_context)
+        return render_to_string(self.template, context, request=request)
+
+
+class PublishMenuItem(ActionMenuItem):
+    template = 'wagtailadmin/pages/action_menu/publish.html'
+
+    def is_shown(self, request, context):
+        if context['view'] == 'create':
+            return context['user_page_permissions'].for_page(context['parent_page']).can_publish_subpage()
+        else:  # view == 'edit' or 'revisions_revert'
+            return (
+                not context['page'].locked and
+                context['user_page_permissions'].for_page(context['page']).can_publish()
+            )
+
+    def get_context(self, request, parent_context):
+        context = super().get_context(request, parent_context)
+        context['is_revision'] = (context['view'] == 'revisions_revert')
+        return context
+
+
+class SubmitForModerationMenuItem(ActionMenuItem):
+    template = 'wagtailadmin/pages/action_menu/submit_for_moderation.html'
+
+    def is_shown(self, request, context):
+        if context['view'] == 'create':
+            return True
+        elif context['view'] == 'edit':
+            return not context['page'].locked
+        else:  # context == revisions_revert
+            return False
+
+
+class UnpublishMenuItem(ActionMenuItem):
+    template = 'wagtailadmin/pages/action_menu/unpublish.html'
+
+    def is_shown(self, request, context):
+        return (
+            context['view'] == 'edit' and
+            not context['page'].locked and
+            context['user_page_permissions'].for_page(context['page']).can_unpublish()
+        )
+
+
+class DeleteMenuItem(ActionMenuItem):
+    template = 'wagtailadmin/pages/action_menu/delete.html'
+
+    def is_shown(self, request, context):
+        return (
+            context['view'] == 'edit' and
+            not context['page'].locked and
+            context['user_page_permissions'].for_page(context['page']).can_delete()
+        )
+
+
+ACTION_MENU_ITEMS = [
+    UnpublishMenuItem(),
+    DeleteMenuItem(),
+    PublishMenuItem(),
+    SubmitForModerationMenuItem(),
+]
+
+
 def get_valid_next_url_from_request(request):
     next_url = request.POST.get('next') or request.GET.get('next')
     if not next_url or not is_safe_url(url=next_url, allowed_hosts={request.get_host()}):
@@ -303,6 +389,7 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
         'page_class': page_class,
         'parent_page': parent_page,
         'edit_handler': edit_handler,
+        'action_menu_items': ACTION_MENU_ITEMS,
         'preview_modes': page.preview_modes,
         'form': form,
         'next': next_url,
@@ -526,11 +613,13 @@ def edit(request, page_id):
         page_for_status = page
 
     return render(request, 'wagtailadmin/pages/edit.html', {
+        'view_type': 'edit',
         'page': page,
         'page_for_status': page_for_status,
         'content_type': content_type,
         'edit_handler': edit_handler,
         'errors_debug': errors_debug,
+        'action_menu_items': ACTION_MENU_ITEMS,
         'preview_modes': page.preview_modes,
         'form': form,
         'next': next_url,
@@ -1134,12 +1223,14 @@ def revisions_revert(request, page_id, revision_id):
     ))
 
     return render(request, 'wagtailadmin/pages/edit.html', {
+        'view_type': 'revisions_revert',
         'page': page,
         'revision': revision,
         'is_revision': True,
         'content_type': content_type,
         'edit_handler': edit_handler,
         'errors_debug': None,
+        'action_menu_items': ACTION_MENU_ITEMS,
         'preview_modes': page.preview_modes,
         'form': form,  # Used in unit tests
     })
