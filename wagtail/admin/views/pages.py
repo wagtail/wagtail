@@ -30,6 +30,12 @@ from wagtail.utils.pagination import paginate
 
 class ActionMenuItem:
     """Defines an item in the actions drop-up on the page creation/edit view"""
+    order = 100  # default order index if one is not specified on init
+
+    def __init__(self, order=None):
+        if order is not None:
+            self.order = order
+
     def is_shown(self, request, context):
         """
         Whether this action should be shown on this request; permission checks etc should go here.
@@ -107,10 +113,10 @@ class DeleteMenuItem(ActionMenuItem):
 
 
 ACTION_MENU_ITEMS = [
-    UnpublishMenuItem(),
-    DeleteMenuItem(),
-    PublishMenuItem(),
-    SubmitForModerationMenuItem(),
+    UnpublishMenuItem(order=10),
+    DeleteMenuItem(order=20),
+    PublishMenuItem(order=30),
+    SubmitForModerationMenuItem(order=40),
 ]
 
 

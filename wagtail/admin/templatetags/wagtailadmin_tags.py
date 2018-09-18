@@ -408,6 +408,7 @@ def page_action_menu(context, menu_items, **kwargs):
         menu_item for menu_item in menu_items
         if menu_item.is_shown(context['request'], menu_item_context)
     ]
+    visible_menu_items.sort(key=lambda item: item.order)
 
     return {
         'show_menu': bool(visible_menu_items),
