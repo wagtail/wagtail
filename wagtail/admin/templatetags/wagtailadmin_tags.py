@@ -410,6 +410,9 @@ def page_action_menu(context, menu_items, **kwargs):
     ]
     visible_menu_items.sort(key=lambda item: item.order)
 
+    for hook in hooks.get_hooks('construct_page_action_menu'):
+        hook(visible_menu_items, context['request'], menu_item_context)
+
     return {
         'show_menu': bool(visible_menu_items),
         'rendered_menu_items': [
