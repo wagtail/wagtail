@@ -11,6 +11,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.messages import constants as message_constants
 from django.core import mail, paginator
 from django.core.files.base import ContentFile
+from django.core.mail import EmailMultiAlternatives
 from django.db.models.signals import post_delete, pre_delete
 from django.http import HttpRequest, HttpResponse
 from django.test import TestCase, modify_settings, override_settings
@@ -2395,6 +2396,86 @@ class TestPageSearch(TestCase, WagtailTestUtils):
         self.user.save()
         self.assertRedirects(self.get(), '/admin/')
 
+    def test_search_order_by_title(self):
+        root_page = Page.objects.get(id=2)
+        new_event = SingleEventPage(
+            title="Lunar event",
+            location='the moon', audience='public',
+            cost='free', date_from='2001-01-01',
+            latest_revision_created_at=local_datetime(2016, 1, 1)
+        )
+        root_page.add_child(instance=new_event)
+
+        new_event_2 = SingleEventPage(
+            title="A Lunar event",
+            location='the moon', audience='public',
+            cost='free', date_from='2001-01-01',
+            latest_revision_created_at=local_datetime(2016, 1, 1)
+        )
+        root_page.add_child(instance=new_event_2)
+
+        response = self.get({'q': 'Lunar', 'ordering': 'title'})
+        page_ids = [page.id for page in response.context['pages']]
+        self.assertEqual(page_ids, [new_event_2.id, new_event.id])
+
+        response = self.get({'q': 'Lunar', 'ordering': '-title'})
+        page_ids = [page.id for page in response.context['pages']]
+        self.assertEqual(page_ids, [new_event.id, new_event_2.id])
+
+    def test_search_order_by_updated(self):
+        root_page = Page.objects.get(id=2)
+        new_event = SingleEventPage(
+            title="Lunar event",
+            location='the moon', audience='public',
+            cost='free', date_from='2001-01-01',
+            latest_revision_created_at=local_datetime(2016, 1, 1)
+        )
+        root_page.add_child(instance=new_event)
+
+        new_event_2 = SingleEventPage(
+            title="Lunar event 2",
+            location='the moon', audience='public',
+            cost='free', date_from='2001-01-01',
+            latest_revision_created_at=local_datetime(2015, 1, 1)
+        )
+        root_page.add_child(instance=new_event_2)
+
+        response = self.get({'q': 'Lunar', 'ordering': 'latest_revision_created_at'})
+        page_ids = [page.id for page in response.context['pages']]
+        self.assertEqual(page_ids, [new_event_2.id, new_event.id])
+
+        response = self.get({'q': 'Lunar', 'ordering': '-latest_revision_created_at'})
+        page_ids = [page.id for page in response.context['pages']]
+        self.assertEqual(page_ids, [new_event.id, new_event_2.id])
+
+    def test_search_order_by_status(self):
+        root_page = Page.objects.get(id=2)
+        live_event = SingleEventPage(
+            title="Lunar event",
+            location='the moon', audience='public',
+            cost='free', date_from='2001-01-01',
+            latest_revision_created_at=local_datetime(2016, 1, 1),
+            live=True
+        )
+        root_page.add_child(instance=live_event)
+
+        draft_event = SingleEventPage(
+            title="Lunar event",
+            location='the moon', audience='public',
+            cost='free', date_from='2001-01-01',
+            latest_revision_created_at=local_datetime(2016, 1, 1),
+            live=False
+        )
+        root_page.add_child(instance=draft_event)
+
+        response = self.get({'q': 'Lunar', 'ordering': 'live'})
+        page_ids = [page.id for page in response.context['pages']]
+        self.assertEqual(page_ids, [draft_event.id, live_event.id])
+
+        response = self.get({'q': 'Lunar', 'ordering': '-live'})
+        page_ids = [page.id for page in response.context['pages']]
+        self.assertEqual(page_ids, [live_event.id, draft_event.id])
+
 
 class TestPageMove(TestCase, WagtailTestUtils):
     def setUp(self):
@@ -3507,7 +3588,7 @@ class TestNotificationPreferences(TestCase, WagtailTestUtils):
         self.assertIn(self.moderator.email, email_to)
         self.assertNotIn(self.moderator2.email, email_to)
 
-    @mock.patch('wagtail.admin.utils.django_send_mail', side_effect=IOError('Server down'))
+    @mock.patch.object(EmailMultiAlternatives, 'send', side_effect=IOError('Server down'))
     def test_email_send_error(self, mock_fn):
         logging.disable(logging.CRITICAL)
         # Approve
@@ -3524,6 +3605,14 @@ class TestNotificationPreferences(TestCase, WagtailTestUtils):
         self.assertEqual(len(messages), 2)
         self.assertEqual(messages[0].level, message_constants.SUCCESS)
         self.assertEqual(messages[1].level, message_constants.ERROR)
+
+    def test_email_headers(self):
+        # Submit
+        self.submit()
+
+        msg_headers = set(mail.outbox[0].message().items())
+        headers = {('Auto-Submitted', 'auto-generated')}
+        self.assertTrue(headers.issubset(msg_headers), msg='Message is missing the Auto-Submitted header.',)
 
 
 class TestLocking(TestCase, WagtailTestUtils):
@@ -4242,6 +4331,48 @@ class TestRevisionsUnschedule(TestCase, WagtailTestUtils):
 
         # Check that the approved_go_live_at has been cleared from the revision
         self.assertIsNone(self.christmas_event.revisions.get(id=self.this_christmas_revision.id).approved_go_live_at)
+
+
+class TestRevisionsUnscheduleForUnpublishedPages(TestCase, WagtailTestUtils):
+    fixtures = ['test.json']
+
+    def setUp(self):
+        self.unpublished_event = EventPage.objects.get(url_path='/home/events/tentative-unpublished-event/')
+        self.unpublished_event.title = "Unpublished Page"
+        self.unpublished_event.date_from = '2014-12-25'
+        self.unpublished_event.body = (
+            "<p>Some Content</p>"
+        )
+        self.unpublished_revision = self.unpublished_event.save_revision()
+        self.unpublished_revision.created_at = local_datetime(2014, 12, 25)
+        self.unpublished_revision.save()
+
+        self.user = self.login()
+
+    def test_unschedule_view(self):
+        """
+        This tests that the unschedule view responds with a confirm page
+        """
+        response = self.client.get(reverse('wagtailadmin_pages:revisions_unschedule', args=(self.unpublished_event.id, self.unpublished_revision.id)))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/pages/revisions/confirm_unschedule.html')
+
+    def test_unschedule_view_post(self):
+        """
+        This posts to the unschedule view and checks that the revision was unscheduled
+        """
+
+        # Post to the unschedule page
+        response = self.client.post(reverse('wagtailadmin_pages:revisions_unschedule', args=(self.unpublished_event.id, self.unpublished_revision.id)))
+
+        # Should be redirected to revisions index page
+        self.assertRedirects(response, reverse('wagtailadmin_pages:revisions_index', args=(self.unpublished_event.id, )))
+
+        # Check that the page has no approved_schedule
+        self.assertFalse(EventPage.objects.get(id=self.unpublished_event.id).approved_schedule)
+
+        # Check that the approved_go_live_at has been cleared from the revision
+        self.assertIsNone(self.unpublished_event.revisions.get(id=self.unpublished_revision.id).approved_go_live_at)
 
 
 class TestIssue2599(TestCase, WagtailTestUtils):

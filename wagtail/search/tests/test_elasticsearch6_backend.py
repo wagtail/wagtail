@@ -524,6 +524,7 @@ class TestElasticsearch6Mapping(TestCase):
                     '_all_text': {'type': 'text'},
                     '_edgengrams': {'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard', 'type': 'text'},
                     'title': {'type': 'text', 'boost': 2.0, 'copy_to': '_all_text', 'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard'},
+                    'title_edgengrams': {'type': 'text', 'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard'},
                     'title_filter': {'type': 'keyword'},
                     'authors': {
                         'type': 'nested',
@@ -532,6 +533,7 @@ class TestElasticsearch6Mapping(TestCase):
                             'date_of_birth_filter': {'type': 'date'},
                         },
                     },
+                    'authors_filter': {'type': 'integer'},
                     'publication_date_filter': {'type': 'date'},
                     'number_of_pages_filter': {'type': 'integer'},
                     'tags': {
@@ -540,7 +542,8 @@ class TestElasticsearch6Mapping(TestCase):
                             'name': {'type': 'text', 'copy_to': '_all_text'},
                             'slug_filter': {'type': 'keyword'},
                         },
-                    }
+                    },
+                    'tags_filter': {'type': 'integer'}
                 }
             }
         }
@@ -562,8 +565,9 @@ class TestElasticsearch6Mapping(TestCase):
         expected_result = {
             'pk': '4',
             'content_type': ["searchtests.Book"],
-            '_edgengrams': ['The Fellowship of the Ring'],
+            '_edgengrams': ['The Fellowship of the Ring', 'The Fellowship of the Ring'],
             'title': 'The Fellowship of the Ring',
+            'title_edgengrams': 'The Fellowship of the Ring',
             'title_filter': 'The Fellowship of the Ring',
             'authors': [
                 {
@@ -571,9 +575,11 @@ class TestElasticsearch6Mapping(TestCase):
                     'date_of_birth_filter': datetime.date(1892, 1, 3)
                 }
             ],
+            'authors_filter': [2],
             'publication_date_filter': datetime.date(1954, 7, 29),
             'number_of_pages_filter': 423,
-            'tags': []
+            'tags': [],
+            'tags_filter': []
         }
 
         self.assertDictEqual(document, expected_result)
@@ -610,9 +616,11 @@ class TestElasticsearch6MappingInheritance(TestCase):
                     'searchtests_novel__protagonist': {
                         'type': 'nested',
                         'properties': {
-                            'name': {'type': 'text', 'boost': 0.5, 'copy_to': '_all_text'}
+                            'name': {'type': 'text', 'boost': 0.5, 'copy_to': '_all_text'},
+                            'novel_id_filter': {'type': 'integer'}
                         }
                     },
+                    'searchtests_novel__protagonist_id_filter': {'type': 'integer'},
                     'searchtests_novel__characters': {
                         'type': 'nested',
                         'properties': {
@@ -626,6 +634,7 @@ class TestElasticsearch6MappingInheritance(TestCase):
                     '_all_text': {'type': 'text'},
                     '_edgengrams': {'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard', 'type': 'text'},
                     'title': {'type': 'text', 'boost': 2.0, 'copy_to': '_all_text', 'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard'},
+                    'title_edgengrams': {'type': 'text', 'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard'},
                     'title_filter': {'type': 'keyword'},
                     'authors': {
                         'type': 'nested',
@@ -634,6 +643,7 @@ class TestElasticsearch6MappingInheritance(TestCase):
                             'date_of_birth_filter': {'type': 'date'},
                         },
                     },
+                    'authors_filter': {'type': 'integer'},
                     'publication_date_filter': {'type': 'date'},
                     'number_of_pages_filter': {'type': 'integer'},
                     'tags': {
@@ -642,7 +652,8 @@ class TestElasticsearch6MappingInheritance(TestCase):
                             'name': {'type': 'text', 'copy_to': '_all_text'},
                             'slug_filter': {'type': 'keyword'},
                         },
-                    }
+                    },
+                    'tags_filter': {'type': 'integer'}
                 }
             }
         }
@@ -672,8 +683,10 @@ class TestElasticsearch6MappingInheritance(TestCase):
             # New
             'searchtests_novel__setting': "Middle Earth",
             'searchtests_novel__protagonist': {
-                'name': "Frodo Baggins"
+                'name': "Frodo Baggins",
+                'novel_id_filter': 4
             },
+            'searchtests_novel__protagonist_id_filter': 8,
             'searchtests_novel__characters': [
                 {
                     'name': "Bilbo Baggins"
@@ -688,11 +701,12 @@ class TestElasticsearch6MappingInheritance(TestCase):
 
             # Changed
             'content_type': ["searchtests.Novel", "searchtests.Book"],
-            '_edgengrams': ['Middle Earth', 'The Fellowship of the Ring'],
+            '_edgengrams': ['Middle Earth', 'The Fellowship of the Ring', 'The Fellowship of the Ring'],
 
             # Inherited
             'pk': '4',
             'title': 'The Fellowship of the Ring',
+            'title_edgengrams': 'The Fellowship of the Ring',
             'title_filter': 'The Fellowship of the Ring',
             'authors': [
                 {
@@ -700,9 +714,11 @@ class TestElasticsearch6MappingInheritance(TestCase):
                     'date_of_birth_filter': datetime.date(1892, 1, 3)
                 }
             ],
+            'authors_filter': [2],
             'publication_date_filter': datetime.date(1954, 7, 29),
             'number_of_pages_filter': 423,
-            'tags': []
+            'tags': [],
+            'tags_filter': []
         }
 
         self.assertDictEqual(document, expected_result)

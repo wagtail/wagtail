@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-02-08 21:17+0000\n"
-"Last-Translator: Miłosz Miśkiewicz\n"
+"POT-Creation-Date: 2018-07-30 17:31+0100\n"
+"PO-Revision-Date: 2018-07-30 16:34+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -24,6 +24,9 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n"
 "%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
 "%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+
+msgid "Wagtail users"
+msgstr "Użytkownicy Wagtail"
 
 msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
 msgstr ""
@@ -73,6 +76,9 @@ msgstr "Grupa o tej nazwie już istnieje."
 msgid "You cannot have multiple permission records for the same page."
 msgstr "Nie możesz posiadać wielu wystąpień uprawnień dla tej samej strony."
 
+msgid "Upload a profile picture"
+msgstr "Wgraj zdjęcie profilu"
+
 msgid "submitted notifications"
 msgstr "przesłane notyfikacje"
 
@@ -96,6 +102,15 @@ msgstr "preferowany język"
 
 msgid "Select language for the admin"
 msgstr "Wybierz język dla administratora"
+
+msgid "current time zone"
+msgstr "obecna strefa czasowa"
+
+msgid "Select your current time zone"
+msgstr "Wybierz swoją obecną strefę czasową"
+
+msgid "profile picture"
+msgstr "zdjęcie profilu"
 
 msgid "user profile"
 msgstr "profil użytkownika"
@@ -279,25 +294,21 @@ msgstr "Grupy"
 msgid "Search groups"
 msgstr "Przeszukaj grupy"
 
-#, python-brace-format
 msgid "Group '{0}' created."
 msgstr "Grupa '{0}' utworzona."
 
-#, python-brace-format
 msgid "Group '{0}' updated."
 msgstr "Grupa '{0}' zaktualizowana."
 
 msgid "The group could not be saved due to errors."
 msgstr "Grupa nie mogła zostać zapisana z powodu błędów."
 
-#, python-brace-format
 msgid "Group '{0}' deleted."
 msgstr "Grupa '{0}' została usunięta."
 
 msgid "Search users"
 msgstr "Szukaj użytkowników"
 
-#, python-brace-format
 msgid "User '{0}' created."
 msgstr "Stworzono użytkownika '{0}'"
 
@@ -307,14 +318,16 @@ msgstr "Edytuj"
 msgid "The user could not be created due to errors."
 msgstr "Użytkownik nie mógł zostać stworzony z powodu błędów."
 
-#, python-brace-format
-msgid "User '{0}' updated."
-msgstr "Uaktualniono użytkownika '{0}'."
+msgid ""
+"Your details have been updated. You've been logged out for security reasons, "
+"please login to continue."
+msgstr ""
+"Twoje szczegóły zostały zaktualizowane. Zostałeś wylogowany z powodów "
+"bezpieczeństwa, prosimy o ponowne zalogowanie."
 
 msgid "The user could not be saved due to errors."
 msgstr "Użytkownik nie mógł zostać zapisany z powodu błędów."
 
-#, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "Użytkownik '{0}' usunięty."
 

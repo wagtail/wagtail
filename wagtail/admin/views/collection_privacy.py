@@ -34,7 +34,9 @@ def set_privacy(request, collection_id):
                 form.save()
 
             return render_modal_workflow(
-                request, None, 'wagtailadmin/collection_privacy/set_privacy_done.js', {
+                request, None, None,
+                None, json_data={
+                    'step': 'set_privacy_done',
                     'is_public': (form.cleaned_data['restriction_type'] == 'none')
                 }
             )
@@ -61,10 +63,8 @@ def set_privacy(request, collection_id):
     else:
         # no restriction set at ancestor level - can set restrictions here
         return render_modal_workflow(
-            request,
-            'wagtailadmin/collection_privacy/set_privacy.html',
-            'wagtailadmin/collection_privacy/set_privacy.js', {
+            request, 'wagtailadmin/collection_privacy/set_privacy.html', None, {
                 'collection': collection,
                 'form': form,
-            }
+            }, json_data={'step': 'set_privacy'}
         )

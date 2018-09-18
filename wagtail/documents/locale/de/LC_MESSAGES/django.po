@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Henrik Kröger <hedwig@riseup.net>, 2016
+# Henrik Kröger <hedwig@riseup.net>, 2016,2018
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 # karlsander <karlsander@gmail.com>, 2014
 # karlsander <karlsander@gmail.com>, 2014
@@ -17,9 +17,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-02-16 14:21+0000\n"
-"Last-Translator: Moritz Pfeiffer <moritz@alp-phone.ch>\n"
+"POT-Creation-Date: 2018-07-30 17:31+0100\n"
+"PO-Revision-Date: 2018-05-09 09:53+0000\n"
+"Last-Translator: Henrik Kröger <hedwig@riseup.net>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -27,6 +27,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail documents"
+msgstr "Wagtail Dokumente"
 
 msgid "Add"
 msgstr "Hinzufügen"
@@ -69,14 +72,6 @@ msgstr "Hochladen"
 
 msgid "Uploading…"
 msgstr "Lade hoch…"
-
-msgid "Server Error"
-msgstr "Server-Fehler"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr ""
-"Melden Sie diesen Fehler Ihrem Webseitenverwalter mit der folgenden "
-"Information:"
 
 #, python-format
 msgid ""
@@ -261,17 +256,23 @@ msgstr "Dokumenten-Berechtigungen"
 msgid "Add a document permission"
 msgstr "Einfügen einer Dokumenten-Berechtigung"
 
+msgid "Server Error"
+msgstr "Server-Fehler"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr ""
+"Melden Sie diesen Fehler Ihrem Webseitenverwalter mit der folgenden "
+"Information:"
+
 msgid "Search documents"
 msgstr "Nach Dokumenten suchen"
 
-#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Dokument ‚{0}‘ wurde hinzugefügt."
 
 msgid "The document could not be saved due to errors."
 msgstr "Aufgrund eines Fehlers konnte das Dokument nicht gespeichert werden."
 
-#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "Dokument ‚{0}‘ wurde hochgeladen"
 
@@ -281,7 +282,6 @@ msgstr ""
 "Die Datei konnte nicht gefunden werden. Bitte ändern Sie die Quelle oder "
 "löschen Sie das Dokument "
 
-#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Dokument ‚{0}‘ wurde gelöscht."
 

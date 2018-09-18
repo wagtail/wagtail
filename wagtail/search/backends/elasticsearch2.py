@@ -1,6 +1,6 @@
 import copy
 import json
-import warnings
+from collections import OrderedDict
 from urllib.parse import urlparse
 
 from django.db import DEFAULT_DB_ALIAS, models
@@ -11,11 +11,10 @@ from elasticsearch import Elasticsearch, NotFoundError
 from elasticsearch.helpers import bulk
 
 from wagtail.search.backends.base import (
-    BaseSearchBackend, BaseSearchQueryCompiler, BaseSearchResults)
-from wagtail.search.index import FilterField, Indexed, RelatedFields, SearchField, class_is_indexed
-from wagtail.search.query import (
-    And, Boost, Filter, Fuzzy, MatchAll, Not, Or, PlainText, Prefix, Term)
-from wagtail.utils.deprecation import RemovedInWagtail22Warning
+    BaseSearchBackend, BaseSearchQueryCompiler, BaseSearchResults, FilterFieldError)
+from wagtail.search.index import (
+    AutocompleteField, FilterField, Indexed, RelatedFields, SearchField, class_is_indexed)
+from wagtail.search.query import And, Boost, MatchAll, Not, Or, PlainText
 from wagtail.utils.utils import deep_update
 
 
@@ -67,7 +66,6 @@ class Elasticsearch2Mapping:
         'IPAddressField': 'string',
         'GenericIPAddressField': 'string',
         'NullBooleanField': 'boolean',
-        'OneToOneField': 'integer',
         'PositiveIntegerField': 'integer',
         'PositiveSmallIntegerField': 'integer',
         'SlugField': 'string',
@@ -110,6 +108,8 @@ class Elasticsearch2Mapping:
 
         if isinstance(field, FilterField):
             return prefix + field.get_attname(self.model) + '_filter'
+        elif isinstance(field, AutocompleteField):
+            return prefix + field.get_attname(self.model) + '_edgengrams'
         elif isinstance(field, SearchField):
             return prefix + field.get_attname(self.model)
         elif isinstance(field, RelatedFields):
@@ -170,6 +170,11 @@ class Elasticsearch2Mapping:
 
                 mapping['include_in_all'] = True
 
+            if isinstance(field, AutocompleteField):
+                mapping['type'] = self.text_type
+                mapping['include_in_all'] = False
+                mapping.update(self.edgengram_analyzer_config)
+
             elif isinstance(field, FilterField):
                 if mapping['type'] == 'string':
                     mapping['type'] = self.keyword_type
@@ -217,7 +222,7 @@ class Elasticsearch2Mapping:
 
     def _get_nested_document(self, fields, obj):
         doc = {}
-        partials = []
+        edgengrams = []
         model = type(obj)
         mapping = type(self)(model)
 
@@ -226,40 +231,47 @@ class Elasticsearch2Mapping:
             doc[mapping.get_field_column_name(field)] = value
 
             # Check if this field should be added into _edgengrams
-            if isinstance(field, SearchField) and field.partial_match:
-                partials.append(value)
+            if (isinstance(field, SearchField) and field.partial_match) or isinstance(field, AutocompleteField):
+                edgengrams.append(value)
 
-        return doc, partials
+        return doc, edgengrams
 
     def get_document(self, obj):
         # Build document
         doc = dict(pk=str(obj.pk), content_type=self.get_all_content_types())
-        partials = []
+        edgengrams = []
         for field in self.model.get_search_fields():
             value = field.get_value(obj)
 
             if isinstance(field, RelatedFields):
-                if isinstance(value, models.Manager):
+                if isinstance(value, (models.Manager, models.QuerySet)):
                     nested_docs = []
 
                     for nested_obj in value.all():
                         nested_doc, extra_edgengrams = self._get_nested_document(field.fields, nested_obj)
                         nested_docs.append(nested_doc)
-                        partials.extend(extra_edgengrams)
+                        edgengrams.extend(extra_edgengrams)
 
                     value = nested_docs
                 elif isinstance(value, models.Model):
                     value, extra_edgengrams = self._get_nested_document(field.fields, value)
-                    partials.extend(extra_edgengrams)
+                    edgengrams.extend(extra_edgengrams)
+            elif isinstance(field, FilterField):
+                if isinstance(value, (models.Manager, models.QuerySet)):
+                    value = list(value.values_list('pk', flat=True))
+                elif isinstance(value, models.Model):
+                    value = value.pk
+                elif isinstance(value, (list, tuple)):
+                    value = [item.pk if isinstance(item, models.Model) else item for item in value]
 
             doc[self.get_field_column_name(field)] = value
 
             # Check if this field should be added into _edgengrams
-            if isinstance(field, SearchField) and field.partial_match:
-                partials.append(value)
+            if (isinstance(field, SearchField) and field.partial_match) or isinstance(field, AutocompleteField):
+                edgengrams.append(value)
 
         # Add partials to document
-        doc[self.edgengrams_field_name] = partials
+        doc[self.edgengrams_field_name] = edgengrams
 
         return doc
 
@@ -380,20 +392,6 @@ class Elasticsearch2SearchQueryCompiler(BaseSearchQueryCompiler):
 
             return filter_out
 
-    def _compile_term_query(self, query_type, value, field, boost=1.0, **extra):
-        term_query = {
-            'value': value,
-        }
-
-        if boost != 1.0:
-            term_query['boost'] = boost
-
-        return {
-            query_type: {
-                field: term_query,
-            }
-        }
-
     def _compile_plaintext_query(self, query, fields, boost=1.0):
         match_query = {
             'query': query.query_string
@@ -427,21 +425,12 @@ class Elasticsearch2SearchQueryCompiler(BaseSearchQueryCompiler):
 
             return {'match_all': match_all_query}
 
-        elif isinstance(query, Term):
-            return self._compile_term_query('term', query.term, field, query.boost * boost)
-
-        elif isinstance(query, Prefix):
-            return self._compile_term_query('prefix', query.prefix, field, query.boost * boost)
-
-        elif isinstance(query, Fuzzy):
-            return self._compile_term_query('fuzzy', query.term, field, query.boost * boost, fuzziness=query.max_distance)
-
         elif isinstance(query, And):
             return {
                 'bool': {
                     'must': [
                         self._compile_query(child_query, field, boost)
-                        for child_query in query.get_children()
+                        for child_query in query.subqueries
                     ]
                 }
             }
@@ -451,7 +440,7 @@ class Elasticsearch2SearchQueryCompiler(BaseSearchQueryCompiler):
                 'bool': {
                     'should': [
                         self._compile_query(child_query, field, boost)
-                        for child_query in query.get_children()
+                        for child_query in query.subqueries
                     ]
                 }
             }
@@ -464,22 +453,8 @@ class Elasticsearch2SearchQueryCompiler(BaseSearchQueryCompiler):
             }
 
         elif isinstance(query, PlainText):
-            return self._compile_plaintext_query(self.query, [field], boost)
+            return self._compile_plaintext_query(query, [field], boost)
 
-        elif isinstance(query, Filter):
-            bool_query = {
-                'must': self._compile_query(query.query, field, boost),
-            }
-
-            if query.include:
-                bool_query['filter'] = self._compile_query(query.include, field, 0.0)
-
-            if query.exclude:
-                bool_query['mustNot'] = self._compile_query(query.exclude, field, 0.0)
-
-            return {
-                'bool': bool_query,
-            }
 
         elif isinstance(query, Boost):
             return self._compile_query(query.subquery, field, boost * query.boost)
@@ -490,7 +465,12 @@ class Elasticsearch2SearchQueryCompiler(BaseSearchQueryCompiler):
                 % query.__class__.__name__)
 
     def get_inner_query(self):
-        fields = self.remapped_fields or [self.mapping.all_field_name, self.mapping.edgengrams_field_name]
+        if self.remapped_fields:
+            fields = self.remapped_fields
+        elif self.partial_match:
+            fields = [self.mapping.all_field_name, self.mapping.edgengrams_field_name]
+        else:
+            fields = [self.mapping.all_field_name]
 
         if len(fields) == 0:
             # No fields. Return a query that'll match nothing
@@ -599,8 +579,81 @@ class Elasticsearch2SearchQueryCompiler(BaseSearchQueryCompiler):
         return json.dumps(self.get_query())
 
 
+class ElasticsearchAutocompleteQueryCompilerImpl:
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        # Convert field names into index column names
+        # Note: this overrides Elasticsearch2SearchQueryCompiler by using autocomplete fields instead of searchbale fields
+        if self.fields:
+            fields = []
+            autocomplete_fields = {f.field_name: f for f in self.queryset.model.get_autocomplete_search_fields()}
+            for field_name in self.fields:
+                if field_name in autocomplete_fields:
+                    field_name = self.mapping.get_field_column_name(autocomplete_fields[field_name])
+
+                fields.append(field_name)
+
+            self.remapped_fields = fields
+        else:
+            self.remapped_fields = None
+
+    def get_inner_query(self):
+        fields = self.remapped_fields or [self.mapping.edgengrams_field_name]
+
+        if len(fields) == 0:
+            # No fields. Return a query that'll match nothing
+            return {
+                'bool': {
+                    'mustNot': {'match_all': {}}
+                }
+            }
+
+        return self._compile_plaintext_query(self.query, fields)
+
+
+class Elasticsearch2AutocompleteQueryCompiler(Elasticsearch2SearchQueryCompiler, ElasticsearchAutocompleteQueryCompilerImpl):
+    pass
+
+
 class Elasticsearch2SearchResults(BaseSearchResults):
     fields_param_name = 'fields'
+    supports_facet = True
+
+    def facet(self, field_name):
+        # Get field
+        field = self.query_compiler._get_filterable_field(field_name)
+        if field is None:
+            raise FilterFieldError(
+                'Cannot facet search results with field "' + field_name + '". Please add index.FilterField(\'' +
+                field_name + '\') to ' + self.query_compiler.queryset.model.__name__ + '.search_fields.',
+                field_name=field_name
+            )
+
+        # Build body
+        body = self._get_es_body()
+        column_name = self.query_compiler.mapping.get_field_column_name(field)
+
+        body['aggregations'] = {
+            field_name: {
+                'terms': {
+                    'field': column_name,
+                    'missing': 0,
+                }
+            }
+        }
+
+        # Send to Elasticsearch
+        response = self.backend.es.search(
+            index=self.backend.get_index_for_model(self.query_compiler.queryset.model).name,
+            body=body,
+            size=0,
+        )
+
+        return OrderedDict([
+            (bucket['key'] if bucket['key'] != 0 else None, bucket['doc_count'])
+            for bucket in response['aggregations'][field_name]['buckets']
+        ])
 
     def _get_es_body(self, for_count=False):
         body = {
@@ -927,6 +980,7 @@ class ElasticsearchAtomicIndexRebuilder(ElasticsearchIndexRebuilder):
 class Elasticsearch2SearchBackend(BaseSearchBackend):
     index_class = Elasticsearch2Index
     query_compiler_class = Elasticsearch2SearchQueryCompiler
+    autocomplete_query_compiler_class = Elasticsearch2AutocompleteQueryCompiler
     results_class = Elasticsearch2SearchResults
     mapping_class = Elasticsearch2Mapping
     basic_rebuilder_class = ElasticsearchIndexRebuilder
@@ -1043,51 +1097,6 @@ class Elasticsearch2SearchBackend(BaseSearchBackend):
     def reset_index(self):
         # Use the rebuilder to reset the index
         self.get_rebuilder().reset_index()
-
-    def add_type(self, model):
-        warnings.warn(
-            "The `backend.add_type(model)` method is deprecated. "
-            "Please use `backend.get_index_for_model(model).add_model(model)` instead.",
-            category=RemovedInWagtail22Warning
-        )
-
-        self.get_index_for_model(model).add_model(model)
-
-    def refresh_index(self):
-        warnings.warn(
-            "The `backend.refresh_index()` method is deprecated. "
-            "Please use `backend.get_index_for_model(model).refresh()` for each model instead.",
-            category=RemovedInWagtail22Warning
-        )
-
-        self.get_index().refresh()
-
-    def add(self, obj):
-        warnings.warn(
-            "The `backend.add(obj)` method is deprecated. "
-            "Please use `backend.get_index_for_model(type(obj)).add_item(obj)` instead.",
-            category=RemovedInWagtail22Warning
-        )
-
-        self.get_index_for_model(type(obj)).add_item(obj)
-
-    def add_bulk(self, model, obj_list):
-        warnings.warn(
-            "The `backend.add_bulk(model, obj_list)` method is deprecated. "
-            "Please use `self.get_index_for_model(model).add_items(model, obj_list)` instead.",
-            category=RemovedInWagtail22Warning
-        )
-
-        self.get_index_for_model(model).add_items(model, obj_list)
-
-    def delete(self, obj):
-        warnings.warn(
-            "The `backend.delete(obj)` method is deprecated. "
-            "Please use `backend.get_index_for_model(type(obj)).delete_item(obj)` instead.",
-            category=RemovedInWagtail22Warning
-        )
-
-        self.get_index_for_model(type(obj)).delete_item(obj)
 
 
 SearchBackend = Elasticsearch2SearchBackend

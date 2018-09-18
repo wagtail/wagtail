@@ -9,6 +9,8 @@ OR = partial(reduce, operator.or_)
 AND = partial(reduce, operator.and_)
 # Reduce any iterable to a single value using an addition
 ADD = partial(reduce, operator.add)
+# Reduce any iterable to a single value using a multiplication
+MUL = partial(reduce, operator.mul)
 
 MAX_QUERY_STRING_LENGTH = 255
 

@@ -1,3 +1,4 @@
+import json
 import unittest
 import urllib.request
 from urllib.error import URLError
@@ -172,7 +173,9 @@ class TestChooser(TestCase, WagtailTestUtils):
     def test_chooser_with_edit_params(self):
         r = self.client.get('/admin/embeds/chooser/?url=http://example2.com')
         self.assertEqual(r.status_code, 200)
-        self.assertContains(r, 'value=\\"http://example2.com\\"')
+        response_json = json.loads(r.content.decode())
+        self.assertEqual(response_json['step'], 'chooser')
+        self.assertIn('value="http://example2.com"', response_json['html'])
 
     @patch('wagtail.embeds.embeds.get_embed')
     def test_submit_valid_embed(self, get_embed):
@@ -182,8 +185,9 @@ class TestChooser(TestCase, WagtailTestUtils):
             'url': 'http://www.example.com/'
         })
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, """modal.respond('embedChosen'""")
-        self.assertContains(response, """An example embed""")
+        response_json = json.loads(response.content.decode())
+        self.assertEqual(response_json['step'], 'embed_chosen')
+        self.assertEqual(response_json['embed_data']['title'], "An example embed")
 
     @patch('wagtail.embeds.embeds.get_embed')
     def test_submit_unrecognised_embed(self, get_embed):
@@ -193,8 +197,10 @@ class TestChooser(TestCase, WagtailTestUtils):
             'url': 'http://www.example.com/'
         })
         self.assertEqual(response.status_code, 200)
-        self.assertNotContains(response, """modal.respond('embedChosen'""")
-        self.assertContains(response, """Cannot find an embed for this URL.""")
+
+        response_json = json.loads(response.content.decode())
+        self.assertEqual(response_json['step'], 'chooser')
+        self.assertIn("Cannot find an embed for this URL.", response_json['html'])
 
 
 class TestEmbedly(TestCase):
@@ -512,25 +518,42 @@ class TestEmbedBlock(TestCase):
         self.assertIsInstance(block5.get_default(), EmbedValue)
         self.assertEqual(block5.get_default().url, 'http://www.example.com/foo')
 
-    def test_clean(self):
-        required_block = EmbedBlock()
-        nonrequired_block = EmbedBlock(required=False)
+    def test_clean_required(self):
+        block = EmbedBlock()
 
-        # a valid EmbedValue should return the same value on clean
-        cleaned_value = required_block.clean(EmbedValue('http://www.example.com/foo'))
+        cleaned_value = block.clean(
+            EmbedValue('https://www.youtube.com/watch?v=_U79Wc965vw'))
         self.assertIsInstance(cleaned_value, EmbedValue)
-        self.assertEqual(cleaned_value.url, 'http://www.example.com/foo')
+        self.assertEqual(cleaned_value.url,
+                         'https://www.youtube.com/watch?v=_U79Wc965vw')
 
-        cleaned_value = nonrequired_block.clean(EmbedValue('http://www.example.com/foo'))
+        with self.assertRaisesMessage(ValidationError, ''):
+            block.clean(None)
+
+    def test_clean_non_required(self):
+        block = EmbedBlock(required=False)
+
+        cleaned_value = block.clean(
+            EmbedValue('https://www.youtube.com/watch?v=_U79Wc965vw'))
         self.assertIsInstance(cleaned_value, EmbedValue)
-        self.assertEqual(cleaned_value.url, 'http://www.example.com/foo')
+        self.assertEqual(cleaned_value.url,
+                         'https://www.youtube.com/watch?v=_U79Wc965vw')
 
-        # None should only be accepted for nonrequired blocks
-        cleaned_value = nonrequired_block.clean(None)
-        self.assertEqual(cleaned_value, None)
+        cleaned_value = block.clean(None)
+        self.assertIsNone(cleaned_value)
+
+    def test_clean_invalid_url(self):
+        non_required_block = EmbedBlock(required=False)
 
         with self.assertRaises(ValidationError):
-            required_block.clean(None)
+            non_required_block.clean(
+                EmbedValue('http://no-oembed-here.com/something'))
+
+        required_block = EmbedBlock()
+
+        with self.assertRaises(ValidationError):
+            required_block.clean(
+                EmbedValue('http://no-oembed-here.com/something'))
 
 
 class TestMediaEmbedHandler(TestCase):

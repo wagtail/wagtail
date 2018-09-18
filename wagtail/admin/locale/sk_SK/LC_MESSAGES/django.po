@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-02-16 11:33+0000\n"
+"POT-Creation-Date: 2018-07-30 17:31+0100\n"
+"PO-Revision-Date: 2018-07-30 16:33+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
@@ -22,7 +22,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sk_SK\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n "
+">= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
 
 msgid "None"
 msgstr "Nič"
@@ -64,19 +65,6 @@ msgstr "Zadajte vaše %s"
 msgid "Enter your email address to reset your password"
 msgstr "Zadajte vašu emailovú adresu pre obnovu hesla"
 
-msgid "Please fill your email address."
-msgstr "Prosím vyplňte vašu emailovú adresu."
-
-msgid ""
-"Sorry, you cannot reset your password here as your user account is managed "
-"by another server."
-msgstr ""
-"Je nám ľúto, ale nemožno obnoviť vaše heslo, pretože váš užívateľský účet je "
-"spravovaný na inom serveri."
-
-msgid "This email address is not recognised."
-msgstr "Táto emailová adresa nebola rozpoznaná."
-
 msgid "New title"
 msgstr "Nový titulok"
 
@@ -98,6 +86,7 @@ msgid_plural "This will copy %(count)s subpages."
 msgstr[0] "Toto skopíruje %(count)s podstránku."
 msgstr[1] "Toto skopíruje %(count)s podstránky."
 msgstr[2] "Toto skopíruje %(count)s podstránok."
+msgstr[3] "Toto skopíruje %(count)s podstránok."
 
 msgid "Publish copied page"
 msgstr "Publikovať skopírovanú stránku"
@@ -122,6 +111,9 @@ msgstr[1] ""
 "%(count)s zo stránok ktoré kopírujete sú live. Chcete publikovať aj ich "
 "kópie?"
 msgstr[2] ""
+"%(count)s zo stránok ktoré kopírujete sú live. Chcete publikovať aj ich "
+"kópie?"
+msgstr[3] ""
 "%(count)s zo stránok ktoré kopírujete sú live. Chcete publikovať aj ich "
 "kópie?"
 
@@ -173,35 +165,11 @@ msgstr "Choď do administrátorskej časti"
 msgid "Account"
 msgstr "Účet"
 
-msgid "Set gravatar"
-msgstr "Nastaviť gravatara"
-
-msgid ""
-"Your avatar image is provided by Gravatar and is connected to your email "
-"address. With a Gravatar account you can set an avatar for any number of "
-"other email addresses you use."
-msgstr ""
-"Obrázok vášho profilu poskytuje služba Gravatar a je pripojený k vašej "
-"emailovej adrese. S účtom Gravatar si môžete zvoliť obrázok pre ostatné "
-"emailové adresy ktoré používate."
+msgid "Update"
+msgstr "Aktualizovať"
 
 msgid "Change password"
 msgstr "Zmeniť heslo"
-
-msgid "Change the password you use to log in."
-msgstr "Zmeniť heslo ktoré používate na prihlásenie."
-
-msgid "Notification preferences"
-msgstr "Notifikačné nastavenia"
-
-msgid "Choose which email notifications to receive."
-msgstr "Zvoľte ktoré emailové notifikácie chcete dostávať"
-
-msgid "Language preferences"
-msgstr "Nastavenia jazyka"
-
-msgid "Choose the language you want to use here."
-msgstr "Vyberte jazyk, ktorá tu chcete používať."
 
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
@@ -211,8 +179,8 @@ msgstr ""
 msgid "Language Preferences"
 msgstr "Nastavenia jazyka"
 
-msgid "Update"
-msgstr "Aktualizovať"
+msgid "Notification preferences"
+msgstr "Notifikačné nastavenia"
 
 msgid "Reset password"
 msgstr "Resetovať heslo"
@@ -226,14 +194,8 @@ msgstr "Prihlasovacie meno"
 msgid "Set your new password"
 msgstr "Zadajte vaše nové heslo"
 
-msgid "The passwords do not match. Please try again."
-msgstr "Zadané hesla sa nezhodujú. Prosím pokúste sa zadať heslá znovu."
-
 msgid "Check your email"
 msgstr "Skontrolujte váš email"
-
-msgid "A link to reset your password has been emailed to you."
-msgstr "Odkaz na resetovanie hesla bol zaslaný na vašu emailovú adresu."
 
 msgid "Please follow the link below to reset your password:"
 msgstr "Prosím kliknite na odkaz nižšie pre resetovanie vášho hesla"
@@ -319,6 +281,9 @@ msgstr[1] ""
 msgstr[2] ""
 "\n"
 "%(counter)s výsledkov hľadania"
+msgstr[3] ""
+"\n"
+"%(counter)s výsledkov hľadania"
 
 msgid "Choose"
 msgstr "Zvoliť"
@@ -348,6 +313,11 @@ msgstr[1] ""
 "%(type)s. Výsledky hľadania nebudú obsahovať stránky iných typov.\n"
 "            "
 msgstr[2] ""
+"\n"
+"                Len nasledujúce typy stránok môžu byť vybrané pre toto pole: "
+"%(type)s. Výsledky hľadania nebudú obsahovať stránky iných typov.\n"
+"            "
+msgstr[3] ""
 "\n"
 "                Len nasledujúce typy stránok môžu byť vybrané pre toto pole: "
 "%(type)s. Výsledky hľadania nebudú obsahovať stránky iných typov.\n"
@@ -484,6 +454,9 @@ msgstr[1] ""
 msgstr[2] ""
 "\n"
 "<span>%(total)s</span> Stránok"
+msgstr[3] ""
+"\n"
+"<span>%(total)s</span> Stránok"
 
 msgid "Sign in"
 msgstr "Prihlásiť sa"
@@ -596,6 +569,9 @@ msgstr[1] ""
 msgstr[2] ""
 "\n"
 "Toto odstráni tiež %(descendant_count)s podstránok."
+msgstr[3] ""
+"\n"
+"Toto odstráni tiež %(descendant_count)s podstránok."
 
 msgid "Yes, delete it"
 msgstr "Áno, vymazať"
@@ -664,6 +640,11 @@ msgstr[1] ""
 "podstránky. Odpublikujte ich tiež\n"
 "                "
 msgstr[2] ""
+"\n"
+"                    Táto stránka obsahuje %(live_descendant_count)s "
+"podstránok. Odpublikujte ich tiež\n"
+"                "
+msgstr[3] ""
 "\n"
 "                    Táto stránka obsahuje %(live_descendant_count)s "
 "podstránok. Odpublikujte ich tiež\n"
@@ -938,6 +919,11 @@ msgstr[2] ""
 "                                                            Posunuté nadol o "
 "%(counter)s miest.\n"
 "                                                        "
+msgstr[3] ""
+"\n"
+"                                                            Posunuté nadol o "
+"%(counter)s miest.\n"
+"                                                        "
 
 #, python-format
 msgid ""
@@ -960,6 +946,11 @@ msgstr[1] ""
 "%(counter)s miesta.\n"
 "                                                        "
 msgstr[2] ""
+"\n"
+"                                                            Posunuté nahor o "
+"%(counter)s miest.\n"
+"                                                        "
+msgstr[3] ""
 "\n"
 "                                                            Posunuté nahor o "
 "%(counter)s miest.\n"
@@ -1016,6 +1007,9 @@ msgstr[1] ""
 "\n"
 "%(counter)s výsledky hľadania"
 msgstr[2] ""
+"\n"
+"%(counter)s výsledkov hľadania"
+msgstr[3] ""
 "\n"
 "%(counter)s výsledkov hľadania"
 
@@ -1241,11 +1235,9 @@ msgstr "Pridať kolekciu"
 msgid "Add collection"
 msgstr "Pridať kolekciu"
 
-#, python-brace-format
 msgid "Collection '{0}' created."
 msgstr "Kolekcia '{0}' bola vytvorená."
 
-#, python-brace-format
 msgid "Collection '{0}' updated."
 msgstr "Kolekcia '{0}' bola aktualizovaná."
 
@@ -1255,7 +1247,6 @@ msgstr "Kolekcia nemôže byť uložená kvôli chybám."
 msgid "Delete collection"
 msgstr "Zmazať kolekciu"
 
-#, python-brace-format
 msgid "Collection '{0}' deleted."
 msgstr "Kolekcia '{0}' bola zmazaná."
 
@@ -1265,18 +1256,15 @@ msgstr "Naozaj chcete zmazať túto kolekciu?"
 msgid "Editing"
 msgstr "Editácia"
 
-#, python-brace-format
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr "Stránka '{0}' vytvorená a naplánovaná pre publikáciu."
 
 msgid "View live"
 msgstr "Zobraziť live"
 
-#, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "Stránka '{0}' bola úspešne vytvorená a publikovaná."
 
-#, python-brace-format
 msgid "Page '{0}' created and submitted for moderation."
 msgstr "Stránka '{0}' bola úspešne vytvorená a odoslaná na moderáciu."
 
@@ -1286,38 +1274,30 @@ msgstr "Zobraziť koncept"
 msgid "Failed to send notifications to moderators"
 msgstr "Odoslanie upozornenia pre moderátorov zlyhalo"
 
-#, python-brace-format
 msgid "Page '{0}' created."
 msgstr "Stránka '{0}' bola vytvorená."
 
 msgid "The page could not be created due to validation errors"
 msgstr "Táto stránka nemôže byť vytvorená, kvôli validačným chybám."
 
-#, python-brace-format
 msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
 msgstr "Revízia z {0} stránky '{1}' bola naplánovaná pre publikáciu."
 
-#, python-brace-format
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Stránka '{0}' bola naplánovaná pre publikáciu."
 
-#, python-brace-format
 msgid "Revision from {0} of page '{1}' has been published."
 msgstr "Revízia z {0} stránky '{1}' bola publikovaná."
 
-#, python-brace-format
 msgid "Page '{0}' has been published."
 msgstr "Stránka '{0}' bola publikovaná."
 
-#, python-brace-format
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Stránka '{0}' bola odoslaná na moderáciu."
 
-#, python-brace-format
 msgid "Page '{0}' has been replaced with revision from {1}."
 msgstr "Stránka '{0}' bola nahradená revíziou z {1}."
 
-#, python-brace-format
 msgid "Page '{0}' has been updated."
 msgstr "Stránka '{0}' bola aktualizovaná."
 
@@ -1333,49 +1313,39 @@ msgstr "Porovnaj s live verziou"
 msgid "This page is currently awaiting moderation"
 msgstr "Táto stránka momentálne čaká na moderáciu"
 
-#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Stránka '{0}' bola zmazaná."
 
-#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "Stránka '{0}' bola odpublikovaná."
 
-#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "Stránka '{0}' bola presunutá."
 
-#, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "Stránka '{0}' a {1} podstránok skopírovaných."
 
-#, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "Stránka '{0}' bola skopírovaná."
 
-#, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "Stránka '{0}'  momentálne čaká na moderáciu"
 
-#, python-brace-format
 msgid "Page '{0}' published."
 msgstr "Stránka '{0}' bola publikovaná."
 
 msgid "Failed to send approval notifications"
 msgstr "Odoslanie notifikácií o schválení zlyhalo"
 
-#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "Publikácia stránky '{0}' zamietnutá."
 
 msgid "Failed to send rejection notifications"
 msgstr "Odoslanie notifikácií o zamietnutí zlyhalo"
 
-#, python-brace-format
 msgid "Page '{0}' is now locked."
 msgstr "Stránka '{0}' bola uzamknutá."
 
-#, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "Stránka '{0}' bola odomknutá."
 
@@ -1393,48 +1363,50 @@ msgstr "Najstaršie"
 msgid "Latest"
 msgstr "Najnovšie"
 
-#, python-brace-format
 msgid "Edit '{title}'"
 msgstr "Upraviť '{title}'"
 
-#, python-brace-format
 msgid "Preview draft version of '{title}'"
 msgstr "Prezrieť koncept '{title}'"
 
-#, python-brace-format
 msgid "View live version of '{title}'"
 msgstr "Zobraziť live verziu '{title}'"
 
-#, python-brace-format
 msgid "Add a child page to '{title}' "
 msgstr "Pridať podstránku k '{title}' "
 
 msgid "More"
 msgstr "Viac"
 
-#, python-brace-format
 msgid "View more options for '{title}'"
 msgstr "Zobraziť viac možností pre '{title}'"
 
-#, python-brace-format
 msgid "Move page '{title}'"
 msgstr "Presunúť stránku '{title}'"
 
-#, python-brace-format
 msgid "Copy page '{title}'"
 msgstr "Kopírovať stránku '{title}'"
 
-#, python-brace-format
 msgid "Delete page '{title}'"
 msgstr "Vymazať stránku '{title}'"
 
-#, python-brace-format
 msgid "Unpublish page '{title}'"
 msgstr "Odpublikovať stránku '{title}'"
 
-#, python-brace-format
 msgid "View revision history for '{title}'"
 msgstr "Zobraziť históriu revízii pre '{title}'"
+
+msgid "Change the password you use to log in."
+msgstr "Zmeniť heslo ktoré používate na prihlásenie."
+
+msgid "Choose which email notifications to receive."
+msgstr "Zvoľte ktoré emailové notifikácie chcete dostávať"
+
+msgid "Language preferences"
+msgstr "Nastavenia jazyka"
+
+msgid "Choose the language you want to use here."
+msgstr "Vyberte jazyk, ktorá tu chcete používať."
 
 msgid "Choose an item"
 msgstr "Zvoľte položku"

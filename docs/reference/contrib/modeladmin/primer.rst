@@ -35,8 +35,8 @@ while `fields`, `fieldsets`, `exclude` and other attributes you may be used
 to using to configure Django's add/edit views, simply aren't supported by
 Wagtail's version.
 
-'Page type' models need to be treated differently to other models
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+'Page type' models need to be treated differently from other models
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 While ``modeladmin``'s listing view and it's supported customisation
 options work in exactly the same way for all types of ``Model``, when it
@@ -49,12 +49,12 @@ interface elements and general treatment in order to be managed
 effectively. For example, they have a tree structure that must be preserved
 properly as pages are added, deleted and moved around. They also have a
 revisions system, their own permission considerations, and the facility to
-preview changes before saving changes. Because of this added complexity
+preview changes before saving changes. Because of this added complexity,
 Wagtail provides its own specific views for managing any custom page types
-you  might add to your project; whether you create a ``ModelAdmin`` class
-for them, or not.
+you  might add to your project (whether you create a ``ModelAdmin`` class
+for them or not).
 
-In order to deliver a consistent experience for users, ``modeladmin``
+In order to deliver a consistent user experience, ``modeladmin``
 simply redirects users to Wagtail's existing page management views wherever
 possible. You should bear this in mind if you ever find yourself wanting to
 change what happens when pages of a certain type are added, deleted,
@@ -103,7 +103,7 @@ Adding additional stylesheets and/or JavaScript
 
 The ``ModelAdmin`` class provides several attributes to enable you to easily
 add additional stylesheets and JavaScript to the admin interface for your
-model. Each atttribute simply needs to be a list of paths to the files you
+model. Each attribute simply needs to be a list of paths to the files you
 want to include. If the path is for a file in your project's static directory,
 Wagtail will automatically prepended paths for each path with ``STATIC_URL``,
 so you don't need to repeat it each time in your list of paths.
@@ -127,7 +127,7 @@ set the following attributes:
     file that you'd like to include.
 
 And if you're using the ``InspectView`` for your model, and want to do the same
-for that view, your should set the following attributes:
+for that view, you should set the following attributes:
 
 -   ``inspect_view_extra_css`` -  Where each item is the path name of a
     pre-compiled stylesheet that you'd like to include.
@@ -225,7 +225,7 @@ Overriding helper classes
 While 'view classes' are responsible for a lot of the work, there are also
 a number of other tasks that ``modeladmin`` must do regularly, that need to be
 handled in a consistent way, and in a number of different places. These tasks
-are designated to set of simple classes (in ``modeladmin``, these are termed
+are designated to a set of simple classes (in ``modeladmin``, these are termed
 'helper' classes) and can be found in ``wagtail.contrib.modeladmin.helpers``.
 
 If you ever intend to write and use your own custom views with ``modeladmin``,
@@ -254,7 +254,7 @@ By default, the ``modeladmin.helpers.url.PageAdminURLHelper`` class is used
 when your model extends ``wagtailcore.models.Page``, otherwise
 ``modeladmin.helpers.url.AdminURLHelper`` is used.
 
-If you find that the above helper classes don't cater for your needs, you can
+If you find that the above helper classes don't work for your needs, you can
 easily create your own helper class, by sub-classing ``AdminURLHelper`` or
 ``PageAdminURLHelper`` (if your  model extend's Wagtail's ``Page`` model), and
 making any necessary additions/overrides.

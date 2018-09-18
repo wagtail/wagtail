@@ -36,6 +36,21 @@ class ElasticsearchCommonSearchBackendTests(BackendTests):
             "JavaScript: The good parts"
         ])
 
+    def test_disabled_partial_search(self):
+        results = self.backend.search("Java", models.Book, partial_match=False)
+
+        self.assertUnsortedListEqual([r.title for r in results], [])
+
+    def test_disabled_partial_search_with_whole_term(self):
+        # Making sure that there isn't a different reason why the above test
+        # returned no results
+        results = self.backend.search("JavaScript", models.Book, partial_match=False)
+
+        self.assertUnsortedListEqual([r.title for r in results], [
+            "JavaScript: The Definitive Guide",
+            "JavaScript: The good parts"
+        ])
+
     def test_child_partial_search(self):
         # Note: Expands to "Westeros". Which is in a field on Novel.setting
         results = self.backend.search("Wes", models.Book)

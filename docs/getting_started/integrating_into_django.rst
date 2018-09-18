@@ -5,7 +5,7 @@ Integrating Wagtail into a Django project
 
 Wagtail provides the ``wagtail start`` command and project template to get you started with a new Wagtail project as quickly as possible, but it's easy to integrate Wagtail into an existing Django project too.
 
-Wagtail is currently compatible with Django 1.11 and 2.0. First, install the ``wagtail`` package from PyPI:
+Wagtail is currently compatible with Django 1.11, 2.0 and 2.1. First, install the ``wagtail`` package from PyPI:
 
 .. code-block:: console
 
@@ -77,6 +77,11 @@ Now make the following additions to your ``urls.py`` file:
         ...
     ]
 
+.. important::
+
+   The example above assumes you are using Django version 2.0 or later. If you are using a Django version earlier than 2.0, you should rename all occurrences of re_path() to url(). For example: ``from django.urls import path, url, include`` instead of ``from django.urls import path, re_path, include`` and ``url(r'^cms/', include(wagtailadmin_urls)),`` instead of ``re_path(r'^cms/', include(wagtailadmin_urls)),``.
+   (`read more <https://docs.djangoproject.com/en/2.1/ref/urls/#url>`_).
+
 The URL paths here can be altered as necessary to fit your project's URL scheme.
 
 ``wagtailadmin_urls`` provides the admin interface for Wagtail. This is separate from the Django admin interface (``django.contrib.admin``); Wagtail-only projects typically host the Wagtail admin at ``/admin/``, but if this would clash with your project's existing admin backend then an alternative path can be used, such as ``/cms/`` here.
@@ -87,7 +92,7 @@ The URL paths here can be altered as necessary to fit your project's URL scheme.
 
 .. code-block:: python
 
-    url(r'', include(wagtail_urls)),
+    re_path(r'', include(wagtail_urls)),
 
 In this case, this should be placed at the end of the ``urlpatterns`` list, so that it does not override more specific URL patterns.
 
@@ -102,7 +107,7 @@ Finally, your project needs to be set up to serve user-uploaded files from ``MED
         # ... the rest of your URLconf goes here ...
     ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-Note that this only works in development mode (``DEBUG = True``); in production, you will need to configure your web server to serve files from ``MEDIA_ROOT``. For further details, see the Django documentation: `Serving files uploaded by a user during development <https://docs.djangoproject.com/en/1.9/howto/static-files/#serving-files-uploaded-by-a-user-during-development>`_ and `Deploying static files <https://docs.djangoproject.com/en/1.9/howto/static-files/deployment/>`_.
+Note that this only works in development mode (``DEBUG = True``); in production, you will need to configure your web server to serve files from ``MEDIA_ROOT``. For further details, see the Django documentation: `Serving files uploaded by a user during development <https://docs.djangoproject.com/en/stable/howto/static-files/#serving-files-uploaded-by-a-user-during-development>`_ and `Deploying static files <https://docs.djangoproject.com/en/stable/howto/static-files/deployment/>`_.
 
 With this configuration in place, you are ready to run ``./manage.py migrate`` to create the database tables used by Wagtail.
 

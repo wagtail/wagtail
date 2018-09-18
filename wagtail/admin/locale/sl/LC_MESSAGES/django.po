@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-02-16 11:33+0000\n"
+"POT-Creation-Date: 2018-07-30 17:31+0100\n"
+"PO-Revision-Date: 2018-07-30 16:33+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
@@ -56,19 +56,6 @@ msgstr "Vnesite vaše %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Vnesite vaš e-naslov za ponastavitev gesla"
-
-msgid "Please fill your email address."
-msgstr "Prosimo vnesite vaš e-naslov."
-
-msgid ""
-"Sorry, you cannot reset your password here as your user account is managed "
-"by another server."
-msgstr ""
-"Vašega gesla žal ni mogoče ponastaviti, saj je vas uporabniški račun v "
-"upravljanju na drugem strežniku."
-
-msgid "This email address is not recognised."
-msgstr "Nepoznan e-naslov."
 
 msgid "New title"
 msgstr "Nov naziv"
@@ -145,28 +132,11 @@ msgstr "Pojdite v Wagtail admin"
 msgid "Account"
 msgstr "Račun"
 
-msgid "Set gravatar"
-msgstr "Nastavi gravatar"
-
-msgid ""
-"Your avatar image is provided by Gravatar and is connected to your email "
-"address. With a Gravatar account you can set an avatar for any number of "
-"other email addresses you use."
-msgstr ""
-"Vašo sliko zagotavlja storitev Gravatar in je vezana na vaš e-naslov. V "
-"vašem Gravatar računu lahko nastavite slike za poljubne e-naslove."
+msgid "Update"
+msgstr "Posodbi"
 
 msgid "Change password"
 msgstr "Spremeni geslo"
-
-msgid "Change the password you use to log in."
-msgstr "Spremenite geslo za prijavo."
-
-msgid "Notification preferences"
-msgstr "Nastavitve obveščanja"
-
-msgid "Choose which email notifications to receive."
-msgstr "Izberite katera obvestila želite prejemati na vaš e-naslov."
 
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
@@ -174,8 +144,8 @@ msgstr ""
 "Vaše gesla tu ni mogoče spremeniti. Prosimo vzpostavite kontakt z "
 "administratorjem strani.  "
 
-msgid "Update"
-msgstr "Posodbi"
+msgid "Notification preferences"
+msgstr "Nastavitve obveščanja"
 
 msgid "Reset password"
 msgstr "Ponastavi geslo"
@@ -189,14 +159,8 @@ msgstr "Prijava"
 msgid "Set your new password"
 msgstr "Nastavite novo geslo"
 
-msgid "The passwords do not match. Please try again."
-msgstr "Gesli se ne ujemata. Prosimo poizkusite znova."
-
 msgid "Check your email"
 msgstr "Preverite vašo e-pošto."
-
-msgid "A link to reset your password has been emailed to you."
-msgstr "Povezava za ponastavitev gesla je bila poslana na vaš e-naslov."
 
 msgid "Password reset"
 msgstr "Geslo ponastavljeno"
@@ -826,56 +790,45 @@ msgstr "Vaše geslo je bil uspešno spremenjeno!"
 msgid "Collections"
 msgstr "Zbirke"
 
-#, python-brace-format
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr "Stran '{0}' ustvarjena in načrtovana za objavo."
 
 msgid "View live"
 msgstr "Ogled v živo"
 
-#, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "Stran '{0}' ustvarjena in objavljena."
 
-#, python-brace-format
 msgid "Page '{0}' created and submitted for moderation."
 msgstr "Stran '{0}' ustvarjena in oddana v potrditev."
 
 msgid "View draft"
 msgstr "Poglej osnutek"
 
-#, python-brace-format
 msgid "Page '{0}' created."
 msgstr "Stran '{0}' ustvarjena."
 
 msgid "The page could not be created due to validation errors"
 msgstr "Strani, zaradi na neveljavnih vrednosti polj, ni bilo možno ustvariti"
 
-#, python-brace-format
 msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
 msgstr "Različica iz {0} strani '{1}' je načrtovana za objavo."
 
-#, python-brace-format
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Stran '{0}' je načrtovana za objavo."
 
-#, python-brace-format
 msgid "Revision from {0} of page '{1}' has been published."
 msgstr "Različica iz {0} strani '{1}' je objavljena."
 
-#, python-brace-format
 msgid "Page '{0}' has been published."
 msgstr "Stran '{0}' je objavljena."
 
-#, python-brace-format
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Stran '{0}' je bila oddana v potrditev."
 
-#, python-brace-format
 msgid "Page '{0}' has been replaced with revision from {1}."
 msgstr "Stran '{0}' je bila nadomeščena z različico iz {1}."
 
-#, python-brace-format
 msgid "Page '{0}' has been updated."
 msgstr "Stran '{0}' je posodobljena."
 
@@ -888,45 +841,41 @@ msgstr "Strani, zaradi na neveljavnih vrednosti polj, ni bilo možno shraniti"
 msgid "This page is currently awaiting moderation"
 msgstr "Stran trenutno čaka na potrditev"
 
-#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Stran '{0}' izbrisana."
 
-#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "Stran '{0}' umaknjena iz objave."
 
-#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "Stran '{0}' premaknjena."
 
-#, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "Stran '{0}' in {1} podstrani kopiranih."
 
-#, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "Stran '{0}' kopirana."
 
-#, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "Stran '{0}' trenutno ne čaka na potrditev."
 
-#, python-brace-format
 msgid "Page '{0}' published."
 msgstr "Stran '{0}' objavljena."
 
-#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "Objava strani '{0}' zavrnjena."
 
-#, python-brace-format
 msgid "Page '{0}' is now locked."
 msgstr "Stran '{0}' je sedaj zaklenjena."
 
-#, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "Stran '{0}' je sedaj odklenjena."
+
+msgid "Change the password you use to log in."
+msgstr "Spremenite geslo za prijavo."
+
+msgid "Choose which email notifications to receive."
+msgstr "Izberite katera obvestila želite prejemati na vaš e-naslov."
 
 msgid "Choose an item"
 msgstr "Izberite element"

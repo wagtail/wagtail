@@ -4,6 +4,7 @@
 #
 # Translators:
 # hanfeng <appweb.cn@gmail.com>, 2014-2015
+# Ed <724195301@qq.com>, 2018
 # jszsj <zhushajun@gmail.com>, 2017
 # Vincent Zhao <zhaopu2008@gmail.com>, 2017
 # jszsj <zhushajun@gmail.com>, 2017
@@ -12,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-04-11 07:41+0000\n"
-"Last-Translator: 汇民 王 <whuim@qq.com>\n"
+"POT-Creation-Date: 2018-07-30 17:31+0100\n"
+"PO-Revision-Date: 2018-06-30 00:20+0000\n"
+"Last-Translator: Ed <724195301@qq.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -22,6 +23,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail documents"
+msgstr "Wagtail 文档"
 
 msgid "Add"
 msgstr "添加"
@@ -64,12 +68,6 @@ msgstr "上传"
 
 msgid "Uploading…"
 msgstr "正在上传…"
-
-msgid "Server Error"
-msgstr "服务器错误"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr "将此错误报告给你的网络管理员，包含如下信息："
 
 #, python-format
 msgid ""
@@ -244,17 +242,21 @@ msgstr "文档权限"
 msgid "Add a document permission"
 msgstr "添加一个文档权限"
 
+msgid "Server Error"
+msgstr "服务器错误"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "将此错误报告给你的网络管理员，包含如下信息："
+
 msgid "Search documents"
 msgstr "搜索文档"
 
-#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "文档'{0}' 已添加"
 
 msgid "The document could not be saved due to errors."
 msgstr "无法保存文档，出现错误。"
 
-#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "文档'{0}' 已更新"
 
@@ -262,7 +264,6 @@ msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "无法找到文件。请修改源或者删除文档。"
 
-#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "文档'{0}' 已删除"
 

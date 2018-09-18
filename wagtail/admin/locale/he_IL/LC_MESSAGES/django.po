@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-02-16 11:33+0000\n"
+"POT-Creation-Date: 2018-07-30 17:31+0100\n"
+"PO-Revision-Date: 2018-07-30 16:33+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/torchbox/wagtail/"
 "language/he_IL/)\n"
@@ -18,7 +18,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: he_IL\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % "
+"1 == 0) ? 1: (n % 10 == 0 && n % 1 == 0 && n > 10) ? 2 : 3;\n"
 
 msgid "Scheduled publishing"
 msgstr "פרסום מתוזמן"
@@ -51,17 +52,6 @@ msgstr "הזינו את ה%s שלכם"
 msgid "Enter your email address to reset your password"
 msgstr "הזינו את כתובת הדוא\"ל שלכם כדי לאתחל את הסיסמה"
 
-msgid "Please fill your email address."
-msgstr "אנא הזינו את כתובת הדוא\"ל שלכם"
-
-msgid ""
-"Sorry, you cannot reset your password here as your user account is managed "
-"by another server."
-msgstr "שגיאה. אין אפשרות לאתחל את הסיסמה משום שהחשבון מנוהל בשרת אחר."
-
-msgid "This email address is not recognised."
-msgstr "כתובת הדוא\"ל הזו איננה מזוהה"
-
 msgid "New title"
 msgstr "כותרת חדשה"
 
@@ -82,6 +72,8 @@ msgid "This will copy %(count)s subpage."
 msgid_plural "This will copy %(count)s subpages."
 msgstr[0] "זה יעתיק תת-עמוד %(count)s."
 msgstr[1] "זה יעתיק %(count)s תת-עמודים."
+msgstr[2] "זה יעתיק %(count)s תת-עמודים."
+msgstr[3] "זה יעתיק %(count)s תת-עמודים."
 
 msgid "Publish copied page"
 msgstr "פרסם עמוד מועתק"
@@ -102,6 +94,12 @@ msgid_plural ""
 msgstr[0] ""
 "דף %(count)s שמועתק מופיע עכשו באתר. האם אתם רוצים לפרסם את העותק שלו?"
 msgstr[1] ""
+"%(count)s מהדפים שמועתקים מופיעים עכשו באתר. האם אתם רוצים לפרסם את העותקים "
+"שלהם?"
+msgstr[2] ""
+"%(count)s מהדפים שמועתקים מופיעים עכשו באתר. האם אתם רוצים לפרסם את העותקים "
+"שלהם?"
+msgstr[3] ""
 "%(count)s מהדפים שמועתקים מופיעים עכשו באתר. האם אתם רוצים לפרסם את העותקים "
 "שלהם?"
 
@@ -125,35 +123,18 @@ msgstr "זמן תפוגה חייב להיות בעתיד"
 msgid "Account"
 msgstr "חשבון"
 
-msgid "Set gravatar"
-msgstr "הגדרת Gravatar"
-
-msgid ""
-"Your avatar image is provided by Gravatar and is connected to your email "
-"address. With a Gravatar account you can set an avatar for any number of "
-"other email addresses you use."
-msgstr ""
-"התמונה שלכם מגיעה מהשירות Gravatar והיא מחוברת לכתובת הדוא\"ל שלכם. באמצעות "
-"חשבון Gravatar אתם יכולים להגדיר תמונה עבור כל כתובת דוא\"ל שנמצאת ברשותכם."
+msgid "Update"
+msgstr "עדכן"
 
 msgid "Change password"
 msgstr "שינוי סיסמה"
-
-msgid "Change the password you use to log in."
-msgstr "שינוי הסיסמה עבור התחברות"
-
-msgid "Notification preferences"
-msgstr "העדפות התראות"
-
-msgid "Choose which email notifications to receive."
-msgstr "בחרו אילו התראות דואר אלקטרוני לקבל"
 
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr "אי אפשר לשנות את הסיסמה. נא לפנות למנהל האתר."
 
-msgid "Update"
-msgstr "עדכן"
+msgid "Notification preferences"
+msgstr "העדפות התראות"
 
 msgid "Reset password"
 msgstr "איתחול סיסמה"
@@ -167,14 +148,8 @@ msgstr "התחברות"
 msgid "Set your new password"
 msgstr "הגדרת סיסמה חדשה"
 
-msgid "The passwords do not match. Please try again."
-msgstr "הסיסמאות לא תואמות. נא לנסות שוב."
-
 msgid "Check your email"
 msgstr "בדקו את תיבת הדואר האלקטרוני שלכם"
-
-msgid "A link to reset your password has been emailed to you."
-msgstr "קישור לאיתחול הסיסמה נשלח לתיבת הדואר האלקטרוני שלכם."
 
 msgid "Password reset"
 msgstr "איתחול סיסמה"
@@ -228,6 +203,12 @@ msgstr[0] ""
 "\n"
 "יש תוצאה אחת"
 msgstr[1] ""
+"\n"
+"יש %(counter)s תוצאות"
+msgstr[2] ""
+"\n"
+"יש %(counter)s תוצאות"
+msgstr[3] ""
 "\n"
 "יש %(counter)s תוצאות"
 
@@ -325,6 +306,12 @@ msgstr[0] ""
 "\n"
 "עמוד <span>%(total)s</span>"
 msgstr[1] ""
+"\n"
+"<span>%(total)s</span> עמודים"
+msgstr[2] ""
+"\n"
+"<span>%(total)s</span> עמודים"
+msgstr[3] ""
 "\n"
 "<span>%(total)s</span> עמודים"
 
@@ -426,6 +413,12 @@ msgstr[0] ""
 "\n"
 "פעולה זו תמחק בנוסף תת-עמוד אחד."
 msgstr[1] ""
+"\n"
+"פעולה זו תמחק %(descendant_count)s תת-עמודים נוספים."
+msgstr[2] ""
+"\n"
+"פעולה זו תמחק %(descendant_count)s תת-עמודים נוספים."
+msgstr[3] ""
 "\n"
 "פעולה זו תמחק %(descendant_count)s תת-עמודים נוספים."
 
@@ -670,18 +663,15 @@ msgstr "סיסמתכם שונתה בהצלחה!"
 msgid "View live"
 msgstr "תצוגה בחי"
 
-#, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "עמוד {0} נוצר ופורסם"
 
-#, python-brace-format
 msgid "Page '{0}' created and submitted for moderation."
 msgstr "עמוד {0} נוצר והוזן לעריכה"
 
 msgid "View draft"
 msgstr "הצג טיוטה"
 
-#, python-brace-format
 msgid "Page '{0}' created."
 msgstr "עמוד {0} נוצר"
 
@@ -697,45 +687,41 @@ msgstr "העמוד לא ניתן לשמירה עקב שגיאות אישור"
 msgid "This page is currently awaiting moderation"
 msgstr "העמוד ממתין לעריכה"
 
-#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "עמוד {0} נמחק"
 
-#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "פרסום עמוד {0} בוטל"
 
-#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "עמוד {0} הוזז"
 
-#, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "עמוד {0} ותת העמודים {1} הועתקו "
 
-#, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "עמוד {0} הועתק "
 
-#, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "העמוד {0} אינו ממתין לעריכה כרגע "
 
-#, python-brace-format
 msgid "Page '{0}' published."
 msgstr "עמוד {0} פורסם"
 
-#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "עמוד {0} נדחה עבור פרסום"
 
-#, python-brace-format
 msgid "Page '{0}' is now locked."
 msgstr "עמוד {0} נעול כעת"
 
-#, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "עמוד {0} בלתי נעול כעת"
+
+msgid "Change the password you use to log in."
+msgstr "שינוי הסיסמה עבור התחברות"
+
+msgid "Choose which email notifications to receive."
+msgstr "בחרו אילו התראות דואר אלקטרוני לקבל"
 
 msgid "Choose an item"
 msgstr "בחרו פריט"

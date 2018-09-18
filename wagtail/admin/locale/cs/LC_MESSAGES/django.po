@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-02-16 11:33+0000\n"
+"POT-Creation-Date: 2018-07-30 17:31+0100\n"
+"PO-Revision-Date: 2018-07-30 16:33+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
@@ -20,7 +20,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: cs\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n "
+"<= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
 
 msgid "You do not have permission to access the admin"
 msgstr "Nemáte povolení k přístupu do redakčního systému"
@@ -59,17 +60,6 @@ msgstr "Zadejte své %s"
 msgid "Enter your email address to reset your password"
 msgstr "Pro obnovení hesla zadejte svou e-mailovou adresu"
 
-msgid "Please fill your email address."
-msgstr "Vyplňte prosím svou e-mailovou adresu."
-
-msgid ""
-"Sorry, you cannot reset your password here as your user account is managed "
-"by another server."
-msgstr "Heslo nelze obnovit, protože Váš účet je spravován jiným serverem."
-
-msgid "This email address is not recognised."
-msgstr "Tato e-mailová adresa nebyla nalezena."
-
 msgid "New title"
 msgstr "Nový název"
 
@@ -91,6 +81,7 @@ msgid_plural "This will copy %(count)s subpages."
 msgstr[0] "Bude zkopírována %(count)s podstránka."
 msgstr[1] "Bude zkopírováno %(count)s podstránek."
 msgstr[2] "Bude zkopírováno %(count)s podstránek."
+msgstr[3] "Bude zkopírováno %(count)s podstránek."
 
 msgid "Publish copied page"
 msgstr "Publikovat zkopírovanou stránku"
@@ -115,6 +106,9 @@ msgstr[1] ""
 "%(count)s z kopírovaných stránek je publikovaných. Chcete publikovat i "
 "jejich kopie?"
 msgstr[2] ""
+"%(count)s z kopírovaných stránek je publikovaných. Chcete publikovat i "
+"jejich kopie?"
+msgstr[3] ""
 "%(count)s z kopírovaných stránek je publikovaných. Chcete publikovat i "
 "jejich kopie?"
 
@@ -152,32 +146,11 @@ msgstr "Datum/čas expirace musí být v budoucnosti"
 msgid "Account"
 msgstr "Účet"
 
-msgid "Set gravatar"
-msgstr "Nastavit gravatar"
-
-msgid ""
-"Your avatar image is provided by Gravatar and is connected to your email "
-"address. With a Gravatar account you can set an avatar for any number of "
-"other email addresses you use."
-msgstr ""
-"Váš profilový obrázek je poskytován službou Gravatar a je svázán s Vaší e-"
-"mailovou adresou. Pomocí služby Gravatar můžete nastavit obrázek pro "
-"libovolný počet Vámi používaných adres."
+msgid "Update"
+msgstr "Uložit"
 
 msgid "Change password"
 msgstr "Změnit heslo"
-
-msgid "Change the password you use to log in."
-msgstr "Změnit heslo používané k přihlášení."
-
-msgid "Notification preferences"
-msgstr "Nastavení notifikací"
-
-msgid "Choose which email notifications to receive."
-msgstr "Zvolte, které e-mailové notifikace si přejete dostávat."
-
-msgid "Language preferences"
-msgstr "Nastavení jazyka"
 
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
@@ -188,8 +161,8 @@ msgstr ""
 msgid "Language Preferences"
 msgstr "Nastavení jazyka"
 
-msgid "Update"
-msgstr "Uložit"
+msgid "Notification preferences"
+msgstr "Nastavení notifikací"
 
 msgid "Reset password"
 msgstr "Obnovit heslo"
@@ -203,14 +176,8 @@ msgstr "Přihlásit se"
 msgid "Set your new password"
 msgstr "Nastavte své nové heslo"
 
-msgid "The passwords do not match. Please try again."
-msgstr "Hesla se neshodují. Zkuste to prosím znovu."
-
 msgid "Check your email"
 msgstr "Zkontrolujte svoji e-mailovou schránku"
-
-msgid "A link to reset your password has been emailed to you."
-msgstr "Odkaz pro obnovu hesla jsme Vám poslali e-mailem."
 
 msgid "Password reset"
 msgstr "Obnovení hesla"
@@ -453,6 +420,9 @@ msgstr[1] ""
 msgstr[2] ""
 "\n"
 "Tímto dojde též ke smazání %(descendant_count)s podstránek."
+msgstr[3] ""
+"\n"
+"Tímto dojde též ke smazání %(descendant_count)s podstránek."
 
 msgid "Yes, delete it"
 msgstr "Ano, smazat"
@@ -638,6 +608,9 @@ msgstr[1] ""
 msgstr[2] ""
 "\n"
 "Celkem vyhovujících stran: %(counter)s"
+msgstr[3] ""
+"\n"
+"Celkem vyhovujících stran: %(counter)s"
 
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
@@ -753,7 +726,6 @@ msgstr "Zobrazit publikovanou verzi"
 msgid "View draft"
 msgstr "Zobrazit koncept"
 
-#, python-brace-format
 msgid "Page '{0}' created."
 msgstr "Stránka '{0}' byla vytvořena."
 
@@ -769,48 +741,47 @@ msgstr "Stránku nelze uložit, zkontrolujte správné vyplnění polí"
 msgid "This page is currently awaiting moderation"
 msgstr "Stránka nyní čeká na schválení"
 
-#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Stránka '{0}' byla smazána."
 
-#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "Stránce '{0}' byla zrušena publikace."
 
-#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "Stránka '{0}' byla přesunuta."
 
-#, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "Stránka '{0}' a {1} podstránek bylo zkopírováno."
 
-#, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "Stránka '{0}' byla zkopírována."
 
-#, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "Stránka '{0}' nyní nečeká na schválení."
 
-#, python-brace-format
 msgid "Page '{0}' published."
 msgstr "Stránka '{0}' byla publikována."
 
-#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "Publikace stránky '{0}' byla zamítnuta."
 
-#, python-brace-format
 msgid "Page '{0}' is now locked."
 msgstr "Stránka '{0}' je nyní uzamčena."
 
-#, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "Stránka '{0}' je nyní odemčena."
 
 msgid "More"
 msgstr "Více"
+
+msgid "Change the password you use to log in."
+msgstr "Změnit heslo používané k přihlášení."
+
+msgid "Choose which email notifications to receive."
+msgstr "Zvolte, které e-mailové notifikace si přejete dostávat."
+
+msgid "Language preferences"
+msgstr "Nastavení jazyka"
 
 msgid "Choose an item"
 msgstr "Zvolit položku"

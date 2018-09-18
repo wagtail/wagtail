@@ -88,6 +88,15 @@ The available resizing methods are as follows:
 
         Resize the height of the image to the dimension specified.
 
+    ``scale``
+        (takes percentage)
+
+        .. code-block:: html+django
+
+            {% image page.photo scale-50 %}
+
+        Resize the image to the percentage specified.
+
     ``fill``
         (takes two dimensions and an optional ``-c`` parameter)
 

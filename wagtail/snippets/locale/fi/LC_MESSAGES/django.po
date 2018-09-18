@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-01-26 16:03+0000\n"
+"POT-Creation-Date: 2018-07-30 17:31+0100\n"
+"PO-Revision-Date: 2018-07-30 16:34+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
@@ -49,13 +49,6 @@ msgstr ""
 "Pahoittelut, yksikään pätkä ei täsmää hakuun \"<em>%(query_string)s</em>\""
 
 #, python-format
-msgid "Delete %(snippet_type_name)s - %(instance)s"
-msgstr "Poista %(snippet_type_name)s - %(instance)s"
-
-msgid "Delete"
-msgstr "Poista"
-
-#, python-format
 msgid "Are you sure you want to delete this %(snippet_type_name)s?"
 msgstr "Haluatko varmasti poistaa tämän %(snippet_type_name)s -kohteen?"
 
@@ -81,6 +74,9 @@ msgstr "Muokaa %(snippet_type_name)s - %(instance)s"
 
 msgid "Editing"
 msgstr "Muokataan"
+
+msgid "Delete"
+msgstr "Poista"
 
 msgid "Snippets"
 msgstr "Pätkät"
@@ -131,7 +127,6 @@ msgstr "Muokkaa tätä sivua"
 msgid "Search %(snippet_type_name)s"
 msgstr "Hae %(snippet_type_name)s"
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' created."
 msgstr "{snippet_type} '{instance}' luotu."
 
@@ -141,14 +136,12 @@ msgstr "Muokkaa"
 msgid "The snippet could not be created due to errors."
 msgstr "Pätkää ei voitu luoda virheiden vuoksi."
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' updated."
 msgstr "{snippet_type} '{instance}' päivitetty."
 
 msgid "The snippet could not be saved due to errors."
 msgstr "Pätkää ei voitu tallentaa virheiden vuoksi."
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' deleted."
 msgstr "{snippet_type} '{instance}' poistettu."
 

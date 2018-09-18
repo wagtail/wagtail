@@ -2,6 +2,7 @@ from time import time
 
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
+from django.db import transaction
 from django.db.models import Count
 from django.http import Http404, HttpResponse, JsonResponse
 from django.http.request import QueryDict
@@ -99,7 +100,7 @@ def index(request, parent_page_id=None):
         # However, skip this on unpaginated listings with >100 child pages as this could
         # be a significant performance hit. (This should only happen on the reorder view,
         # and hopefully no-one is having to do manual reordering on listings that large...)
-        pages = pages.specific()
+        pages = pages.specific(defer=True)
 
     # allow hooks to modify the queryset
     for hook in hooks.get_hooks('construct_explorer_page_queryset'):
@@ -541,27 +542,28 @@ def delete(request, page_id):
     if not page.permissions_for_user(request.user).can_delete():
         raise PermissionDenied
 
-    for fn in hooks.get_hooks('before_delete_page'):
-        result = fn(request, page)
-        if hasattr(result, 'status_code'):
-            return result
-
-    next_url = get_valid_next_url_from_request(request)
-
-    if request.method == 'POST':
-        parent_id = page.get_parent().id
-        page.delete()
-
-        messages.success(request, _("Page '{0}' deleted.").format(page.get_admin_display_title()))
-
-        for fn in hooks.get_hooks('after_delete_page'):
+    with transaction.atomic():
+        for fn in hooks.get_hooks('before_delete_page'):
             result = fn(request, page)
             if hasattr(result, 'status_code'):
                 return result
 
-        if next_url:
-            return redirect(next_url)
-        return redirect('wagtailadmin_explore', parent_id)
+        next_url = get_valid_next_url_from_request(request)
+
+        if request.method == 'POST':
+            parent_id = page.get_parent().id
+            page.delete()
+
+            messages.success(request, _("Page '{0}' deleted.").format(page.get_admin_display_title()))
+
+            for fn in hooks.get_hooks('after_delete_page'):
+                result = fn(request, page)
+                if hasattr(result, 'status_code'):
+                    return result
+
+            if next_url:
+                return redirect(next_url)
+            return redirect('wagtailadmin_explore', parent_id)
 
     return render(request, 'wagtailadmin/pages/confirm_delete.html', {
         'page': page,
@@ -886,31 +888,85 @@ def copy(request, page_id):
 @vary_on_headers('X-Requested-With')
 @user_passes_test(user_has_any_page_permission)
 def search(request):
-    pages = []
+    pages = all_pages = Page.objects.all().prefetch_related('content_type').specific()
     q = MATCH_ALL
+    content_types = []
+    pagination_query_params = QueryDict({}, mutable=True)
+    ordering = None
+
+    if 'ordering' in request.GET:
+        if request.GET['ordering'] in ['title', '-title', 'latest_revision_created_at', '-latest_revision_created_at', 'live', '-live']:
+            ordering = request.GET['ordering']
+
+            if ordering == 'title':
+                pages = pages.order_by('title')
+            elif ordering == '-title':
+                pages = pages.order_by('-title')
+
+            if ordering == 'latest_revision_created_at':
+                pages = pages.order_by('latest_revision_created_at')
+            elif ordering == '-latest_revision_created_at':
+                pages = pages.order_by('-latest_revision_created_at')
+
+            if ordering == 'live':
+                pages = pages.order_by('live')
+            elif ordering == '-live':
+                pages = pages.order_by('-live')
+
+    if 'content_type' in request.GET:
+        pagination_query_params['content_type'] = request.GET['content_type']
+
+        app_label, model_name = request.GET['content_type'].split('.')
+
+        try:
+            selected_content_type = ContentType.objects.get_by_natural_key(app_label, model_name)
+        except ContentType.DoesNotExist:
+            raise Http404
+
+        pages = pages.filter(content_type=selected_content_type)
+    else:
+        selected_content_type = None
 
     if 'q' in request.GET:
         form = SearchForm(request.GET)
         if form.is_valid():
             q = form.cleaned_data['q']
+            pagination_query_params['q'] = q
 
-            pages = Page.objects.all().prefetch_related('content_type').specific().search(q)
-            paginator, pages = paginate(request, pages)
+            all_pages = all_pages.search(q, order_by_relevance=not ordering, operator='and')
+            pages = pages.search(q, order_by_relevance=not ordering, operator='and')
+
+            if pages.supports_facet:
+                content_types = [
+                    (ContentType.objects.get(id=content_type_id), count)
+                    for content_type_id, count in all_pages.facet('content_type_id').items()
+                ]
+
     else:
         form = SearchForm()
+
+    paginator, pages = paginate(request, pages)
 
     if request.is_ajax():
         return render(request, "wagtailadmin/pages/search_results.html", {
             'pages': pages,
+            'all_pages': all_pages,
             'query_string': q,
-            'pagination_query_params': ('q=%s' % q) if q else ''
+            'content_types': content_types,
+            'selected_content_type': selected_content_type,
+            'ordering': ordering,
+            'pagination_query_params': pagination_query_params.urlencode(),
         })
     else:
         return render(request, "wagtailadmin/pages/search.html", {
             'search_form': form,
             'pages': pages,
+            'all_pages': all_pages,
             'query_string': q,
-            'pagination_query_params': ('q=%s' % q) if q else ''
+            'content_types': content_types,
+            'selected_content_type': selected_content_type,
+            'ordering': ordering,
+            'pagination_query_params': pagination_query_params.urlencode(),
         })
 
 
@@ -1154,7 +1210,7 @@ def revisions_unschedule(request, page_id, revision_id):
     page = get_object_or_404(Page, id=page_id).specific
 
     user_perms = UserPagePermissionsProxy(request.user)
-    if not user_perms.for_page(page).can_unpublish():
+    if not user_perms.for_page(page).can_unschedule():
         raise PermissionDenied
 
     revision = get_object_or_404(page.revisions, id=revision_id)

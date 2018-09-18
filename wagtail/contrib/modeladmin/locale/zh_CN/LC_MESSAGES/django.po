@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Ed <724195301@qq.com>, 2018
 # Fred Zeng <979738295@qq.com>, 2016
 # Vincent Zhao <zhaopu2008@gmail.com>, 2017
 # 汇民 王 <whuim@qq.com>, 2017
@@ -10,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-01-26 16:07+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2018-07-30 17:31+0100\n"
+"PO-Revision-Date: 2018-06-30 00:24+0000\n"
+"Last-Translator: Ed <724195301@qq.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -20,6 +21,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail ModelAdmin"
+msgstr "Wagtail 模型管理"
 
 msgid "Parent page"
 msgstr "上一级页面"
@@ -166,7 +170,6 @@ msgstr "上一页"
 msgid "Next"
 msgstr "下一页"
 
-#, python-brace-format
 msgid "{model_name} '{instance}' created."
 msgstr "{model_name} '{instance}'已创建。"
 
@@ -188,7 +191,6 @@ msgstr "正在编辑"
 msgid "Editing %s"
 msgstr "正在编辑%s"
 
-#, python-brace-format
 msgid "{model_name} '{instance}' updated."
 msgstr "{model_name} '{instance}'已更新"
 
@@ -207,7 +209,6 @@ msgid ""
 msgstr ""
 "你确定要删除此%s？如果你网站中有其他内容与其相关，这些内容可能会受到影响。"
 
-#, python-brace-format
 msgid "{model} '{instance}' deleted."
 msgstr "{model} '{instance}'已删除"
 

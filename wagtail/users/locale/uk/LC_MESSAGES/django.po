@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-03-21 13:23+0000\n"
+"POT-Creation-Date: 2018-07-30 17:31+0100\n"
+"PO-Revision-Date: 2018-07-30 21:27+0000\n"
 "Last-Translator: Sergiy Shkodenko <shkodenkosergiy@gmail.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
@@ -18,8 +18,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: uk\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != "
+"11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
+"100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
+"(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+
+msgid "Wagtail users"
+msgstr "Користувачі Wagtail "
 
 msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
 msgstr ""
@@ -67,6 +72,20 @@ msgstr ""
 msgid "A group with that name already exists."
 msgstr "Група з таким ім'ям вже існує."
 
+msgid "You cannot have multiple permission records for the same page."
+msgstr ""
+"Ви не можете мати декілька записів з правами доступу для однієї і тієї ж "
+"сторінки. "
+
+msgid "Preferred language"
+msgstr "Бажана мова"
+
+msgid "Current time zone"
+msgstr "Поточний часовий пояс"
+
+msgid "Upload a profile picture"
+msgstr "Завантажити зображення для профілю"
+
 msgid "submitted notifications"
 msgstr "сповіщення у разі додавання"
 
@@ -90,6 +109,15 @@ msgstr "бажана мова"
 
 msgid "Select language for the admin"
 msgstr "Оберіть мову для адміністратора"
+
+msgid "current time zone"
+msgstr "поточний часовий пояс"
+
+msgid "Select your current time zone"
+msgstr "Оберіть поточний часовий пояс"
+
+msgid "profile picture"
+msgstr "зображення профілю користувача"
 
 msgid "user profile"
 msgstr "профіль користувача"
@@ -119,6 +147,11 @@ msgstr[1] ""
 "strong> учасників.\n"
 "            "
 msgstr[2] ""
+"\n"
+"                Група '%(group_name)s' має <strong>%(group_user_count)s</"
+"strong> учасників.\n"
+"            "
+msgstr[3] ""
 "\n"
 "                Група '%(group_name)s' має <strong>%(group_user_count)s</"
 "strong> учасників.\n"
@@ -251,6 +284,10 @@ msgstr[2] ""
 "\n"
 "            Знайдено %(counter)s збігів\n"
 "        "
+msgstr[3] ""
+"\n"
+"            Знайдено %(counter)s збігів\n"
+"        "
 
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
@@ -270,25 +307,21 @@ msgstr "Групи"
 msgid "Search groups"
 msgstr "Пошук груп"
 
-#, python-brace-format
 msgid "Group '{0}' created."
 msgstr "Групу '{0}' створено."
 
-#, python-brace-format
 msgid "Group '{0}' updated."
 msgstr "Групу '{0}' оновлено."
 
 msgid "The group could not be saved due to errors."
 msgstr "Група не може бути збережена через помилки."
 
-#, python-brace-format
 msgid "Group '{0}' deleted."
 msgstr "Групу '{0}' видалено."
 
 msgid "Search users"
 msgstr "Пошук користувачів"
 
-#, python-brace-format
 msgid "User '{0}' created."
 msgstr "Користувача '{0}' створено"
 
@@ -298,14 +331,16 @@ msgstr "Редагувати"
 msgid "The user could not be created due to errors."
 msgstr "Користувач не може бути створений через помилки."
 
-#, python-brace-format
-msgid "User '{0}' updated."
-msgstr "Користувач '{0}' оновлений."
+msgid ""
+"Your details have been updated. You've been logged out for security reasons, "
+"please login to continue."
+msgstr ""
+"Дані про вас були оновлені. Ваш сеанс роботи буде завершено з міркувань "
+"безпеки, будь ласка, для продовження увійдіть знову. "
 
 msgid "The user could not be saved due to errors."
 msgstr "Користувач не може бути створений через помилки."
 
-#, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "Користувача '{0}' видалено."
 

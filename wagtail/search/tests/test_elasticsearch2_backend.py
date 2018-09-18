@@ -522,6 +522,7 @@ class TestElasticsearch2Mapping(TestCase):
                     'content_type': {'index': 'not_analyzed', 'type': 'string', 'include_in_all': False},
                     '_partials': {'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard', 'include_in_all': False, 'type': 'string'},
                     'title': {'type': 'string', 'boost': 2.0, 'include_in_all': True, 'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard'},
+                    'title_edgengrams': {'type': 'string', 'include_in_all': False, 'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard'},
                     'title_filter': {'index': 'not_analyzed', 'type': 'string', 'include_in_all': False},
                     'authors': {
                         'type': 'nested',
@@ -530,6 +531,7 @@ class TestElasticsearch2Mapping(TestCase):
                             'date_of_birth_filter': {'index': 'not_analyzed', 'type': 'date', 'include_in_all': False},
                         },
                     },
+                    'authors_filter': {'index': 'not_analyzed', 'type': 'integer', 'include_in_all': False},
                     'publication_date_filter': {'index': 'not_analyzed', 'type': 'date', 'include_in_all': False},
                     'number_of_pages_filter': {'index': 'not_analyzed', 'type': 'integer', 'include_in_all': False},
                     'tags': {
@@ -538,7 +540,8 @@ class TestElasticsearch2Mapping(TestCase):
                             'name': {'type': 'string', 'include_in_all': True},
                             'slug_filter': {'index': 'not_analyzed', 'type': 'string', 'include_in_all': False},
                         },
-                    }
+                    },
+                    'tags_filter': {'index': 'not_analyzed', 'type': 'integer', 'include_in_all': False}
                 }
             }
         }
@@ -560,8 +563,9 @@ class TestElasticsearch2Mapping(TestCase):
         expected_result = {
             'pk': '4',
             'content_type': ["searchtests.Book"],
-            '_partials': ['The Fellowship of the Ring'],
+            '_partials': ['The Fellowship of the Ring', 'The Fellowship of the Ring'],
             'title': 'The Fellowship of the Ring',
+            'title_edgengrams': 'The Fellowship of the Ring',
             'title_filter': 'The Fellowship of the Ring',
             'authors': [
                 {
@@ -569,9 +573,11 @@ class TestElasticsearch2Mapping(TestCase):
                     'date_of_birth_filter': datetime.date(1892, 1, 3)
                 }
             ],
+            'authors_filter': [2],
             'publication_date_filter': datetime.date(1954, 7, 29),
             'number_of_pages_filter': 423,
-            'tags': []
+            'tags': [],
+            'tags_filter': []
         }
 
         self.assertDictEqual(document, expected_result)
@@ -608,13 +614,15 @@ class TestElasticsearch2MappingInheritance(TestCase):
                     'searchtests_novel__protagonist': {
                         'type': 'nested',
                         'properties': {
-                            'name': {'type': 'string', 'boost': 0.5, 'include_in_all': True}
+                            'name': {'type': 'string', 'boost': 0.5, 'include_in_all': True},
+                            'novel_id_filter': {'index': 'not_analyzed', 'type': 'integer', 'include_in_all': False}
                         }
                     },
+                    'searchtests_novel__protagonist_id_filter': {'index': 'not_analyzed', 'type': 'integer', 'include_in_all': False},
                     'searchtests_novel__characters': {
                         'type': 'nested',
                         'properties': {
-                            'name': {'type': 'string', 'boost': 0.25, 'include_in_all': True}
+                            'name': {'type': 'string', 'boost': 0.25, 'include_in_all': True},
                         }
                     },
 
@@ -623,6 +631,7 @@ class TestElasticsearch2MappingInheritance(TestCase):
                     'content_type': {'index': 'not_analyzed', 'type': 'string', 'include_in_all': False},
                     '_partials': {'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard', 'include_in_all': False, 'type': 'string'},
                     'title': {'type': 'string', 'boost': 2.0, 'include_in_all': True, 'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard'},
+                    'title_edgengrams': {'type': 'string', 'include_in_all': False, 'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard'},
                     'title_filter': {'index': 'not_analyzed', 'type': 'string', 'include_in_all': False},
                     'authors': {
                         'type': 'nested',
@@ -631,6 +640,7 @@ class TestElasticsearch2MappingInheritance(TestCase):
                             'date_of_birth_filter': {'index': 'not_analyzed', 'type': 'date', 'include_in_all': False},
                         },
                     },
+                    'authors_filter': {'index': 'not_analyzed', 'type': 'integer', 'include_in_all': False},
                     'publication_date_filter': {'index': 'not_analyzed', 'type': 'date', 'include_in_all': False},
                     'number_of_pages_filter': {'index': 'not_analyzed', 'type': 'integer', 'include_in_all': False},
                     'tags': {
@@ -639,7 +649,8 @@ class TestElasticsearch2MappingInheritance(TestCase):
                             'name': {'type': 'string', 'include_in_all': True},
                             'slug_filter': {'index': 'not_analyzed', 'type': 'string', 'include_in_all': False},
                         },
-                    }
+                    },
+                    'tags_filter': {'index': 'not_analyzed', 'type': 'integer', 'include_in_all': False}
                 }
             }
         }
@@ -669,8 +680,10 @@ class TestElasticsearch2MappingInheritance(TestCase):
             # New
             'searchtests_novel__setting': "Middle Earth",
             'searchtests_novel__protagonist': {
-                'name': "Frodo Baggins"
+                'name': "Frodo Baggins",
+                'novel_id_filter': 4
             },
+            'searchtests_novel__protagonist_id_filter': 8,
             'searchtests_novel__characters': [
                 {
                     'name': "Bilbo Baggins"
@@ -685,11 +698,12 @@ class TestElasticsearch2MappingInheritance(TestCase):
 
             # Changed
             'content_type': ["searchtests.Novel", "searchtests.Book"],
-            '_partials': ['Middle Earth', 'The Fellowship of the Ring'],
+            '_partials': ['Middle Earth', 'The Fellowship of the Ring', 'The Fellowship of the Ring'],
 
             # Inherited
             'pk': '4',
             'title': 'The Fellowship of the Ring',
+            'title_edgengrams': 'The Fellowship of the Ring',
             'title_filter': 'The Fellowship of the Ring',
             'authors': [
                 {
@@ -697,9 +711,11 @@ class TestElasticsearch2MappingInheritance(TestCase):
                     'date_of_birth_filter': datetime.date(1892, 1, 3)
                 }
             ],
+            'authors_filter': [2],
             'publication_date_filter': datetime.date(1954, 7, 29),
             'number_of_pages_filter': 423,
-            'tags': []
+            'tags': [],
+            'tags_filter': []
         }
 
         self.assertDictEqual(document, expected_result)

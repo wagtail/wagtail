@@ -3,9 +3,10 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Benjamin Thurm, 2018
 # Ettore Atalan <atalanttore@googlemail.com>, 2017
 # Vorlif <flori@vorlif.org>, 2015
-# Henrik Kröger <hedwig@riseup.net>, 2016
+# Henrik Kröger <hedwig@riseup.net>, 2016,2018
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 # Matt Westcott <matthew@torchbox.com>, 2015
 # Matt Westcott <matthew@torchbox.com>, 2015
@@ -19,9 +20,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-02-16 14:24+0000\n"
-"Last-Translator: Moritz Pfeiffer <moritz@alp-phone.ch>\n"
+"POT-Creation-Date: 2018-07-30 17:31+0100\n"
+"PO-Revision-Date: 2018-07-13 09:37+0000\n"
+"Last-Translator: Benjamin Thurm\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -30,7 +31,9 @@ msgstr ""
 "Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#, python-brace-format
+msgid "Wagtail core"
+msgstr "Wagtail Kern"
+
 msgid "{label}: this block has no options."
 msgstr "{label}: dieser Block hat keine Einstellmöglichkeiten."
 
@@ -125,7 +128,7 @@ msgid "live"
 msgstr "Veröffentlicht"
 
 msgid "has unpublished changes"
-msgstr "Hat unveröffentlichte Änderungen"
+msgstr "hat unveröffentlichte Änderungen"
 
 msgid "URL path"
 msgstr "URL Pfad"

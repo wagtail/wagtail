@@ -80,6 +80,8 @@ class AbstractImage(CollectionMember, index.Indexed, models.Model):
     focal_point_height = models.PositiveIntegerField(null=True, blank=True)
 
     file_size = models.PositiveIntegerField(null=True, editable=False)
+    # A SHA-1 hash of the file contents
+    file_hash = models.CharField(max_length=40, blank=True, editable=False)
 
     objects = ImageQuerySet.as_manager()
 
@@ -98,13 +100,29 @@ class AbstractImage(CollectionMember, index.Indexed, models.Model):
         if self.file_size is None:
             try:
                 self.file_size = self.file.size
-            except OSError:
-                # File doesn't exist
-                return
+            except Exception as e:
+                # File not found
+                #
+                # Have to catch everything, because the exception
+                # depends on the file subclass, and therefore the
+                # storage being used.
+                raise SourceImageIOError(str(e))
 
             self.save(update_fields=['file_size'])
 
         return self.file_size
+
+    def _set_file_hash(self, file_contents):
+        self.file_hash = hashlib.sha1(file_contents).hexdigest()
+
+    def get_file_hash(self):
+        if self.file_hash == '':
+            with self.open_file() as f:
+                self._set_file_hash(f.read())
+
+            self.save(update_fields=['file_hash'])
+
+        return self.file_hash
 
     def get_upload_to(self, filename):
         folder_name = 'original_images'
@@ -135,9 +153,11 @@ class AbstractImage(CollectionMember, index.Indexed, models.Model):
 
     search_fields = CollectionMember.search_fields + [
         index.SearchField('title', partial_match=True, boost=10),
+        index.AutocompleteField('title'),
         index.FilterField('title'),
         index.RelatedFields('tags', [
             index.SearchField('name', partial_match=True, boost=10),
+            index.AutocompleteField('name'),
         ]),
         index.FilterField('uploaded_by_user'),
     ]
@@ -146,7 +166,7 @@ class AbstractImage(CollectionMember, index.Indexed, models.Model):
         return self.title
 
     @contextmanager
-    def get_willow_image(self):
+    def open_file(self):
         # Open file if it is closed
         close_file = False
         try:
@@ -172,10 +192,15 @@ class AbstractImage(CollectionMember, index.Indexed, models.Model):
         image_file.seek(0)
 
         try:
-            yield WillowImage.open(image_file)
+            yield image_file
         finally:
             if close_file:
                 image_file.close()
+
+    @contextmanager
+    def get_willow_image(self):
+        with self.open_file() as image_file:
+            yield WillowImage.open(image_file)
 
     def get_rect(self):
         return Rect(0, 0, self.width, self.height)
@@ -404,7 +429,7 @@ class Filter:
 
                 return willow.save_as_jpeg(output, quality=quality, progressive=True, optimize=True)
             elif output_format == 'png':
-                return willow.save_as_png(output)
+                return willow.save_as_png(output, optimize=True)
             elif output_format == 'gif':
                 return willow.save_as_gif(output)
 

@@ -8,17 +8,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-03-15 11:59+0000\n"
-"Last-Translator: Matas Dailyda <matas@dailyda.com>\n"
+"POT-Creation-Date: 2018-07-30 17:31+0100\n"
+"PO-Revision-Date: 2018-07-30 16:34+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
 "language/lt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: lt\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
-"%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
+"1 : n % 1 != 0 ? 2: 3);\n"
 
 msgid "Choose"
 msgstr "Pasirinkti"
@@ -44,6 +45,9 @@ msgstr[1] ""
 msgstr[2] ""
 "\n"
 "Yra %(counter)s atitikmenų"
+msgstr[3] ""
+"\n"
+"Yra %(counter)s atitikmenų"
 
 #, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
@@ -60,18 +64,12 @@ msgstr ""
 "vienos dabar</a>?"
 
 #, python-format
-msgid "Delete %(snippet_type_name)s - %(instance)s"
-msgstr "Ištrinti %(snippet_type_name)s - %(instance)s"
-
-msgid "Delete"
-msgstr "Ištrinti"
-
-#, python-format
 msgid "Used %(usage_count)s time"
 msgid_plural "Used %(usage_count)s times"
 msgstr[0] "Panaudota %(usage_count)s kartą"
 msgstr[1] "Panaudota %(usage_count)s kartus"
 msgstr[2] "Panaudota %(usage_count)s kartų"
+msgstr[3] "Panaudota %(usage_count)s kartų"
 
 #, python-format
 msgid "Are you sure you want to delete this %(snippet_type_name)s?"
@@ -99,6 +97,9 @@ msgstr "Redaguojama %(snippet_type_name)s - %(instance)s"
 
 msgid "Editing"
 msgstr "Redagavimas"
+
+msgid "Delete"
+msgstr "Ištrinti"
 
 msgid "Usage"
 msgstr "Panaudojimas"
@@ -152,7 +153,6 @@ msgstr "Redaguoti šį puslapį"
 msgid "Search %(snippet_type_name)s"
 msgstr "Ieškoti %(snippet_type_name)s"
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' created."
 msgstr "{snippet_type} '{instance}' sukurta."
 
@@ -162,14 +162,12 @@ msgstr "Redaguoti"
 msgid "The snippet could not be created due to errors."
 msgstr "Nuokarpa negalėjo būti sukurta dėl klaidų."
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' updated."
 msgstr "{snippet_type} '{instance}' atnaujinta."
 
 msgid "The snippet could not be saved due to errors."
 msgstr "Nuokarpa negalėjo būti išsaugota dėl klaidų."
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' deleted."
 msgstr "{snippet_type} '{instance}' ištrinta."
 

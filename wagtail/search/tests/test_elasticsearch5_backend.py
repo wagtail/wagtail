@@ -523,6 +523,7 @@ class TestElasticsearch5Mapping(TestCase):
                     'content_type': {'type': 'keyword', 'include_in_all': False},
                     '_partials': {'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard', 'include_in_all': False, 'type': 'text'},
                     'title': {'type': 'text', 'boost': 2.0, 'include_in_all': True, 'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard'},
+                    'title_edgengrams': {'type': 'text', 'include_in_all': False, 'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard'},
                     'title_filter': {'type': 'keyword', 'include_in_all': False},
                     'authors': {
                         'type': 'nested',
@@ -531,6 +532,7 @@ class TestElasticsearch5Mapping(TestCase):
                             'date_of_birth_filter': {'type': 'date', 'include_in_all': False},
                         },
                     },
+                    'authors_filter': {'type': 'integer', 'include_in_all': False},
                     'publication_date_filter': {'type': 'date', 'include_in_all': False},
                     'number_of_pages_filter': {'type': 'integer', 'include_in_all': False},
                     'tags': {
@@ -539,7 +541,8 @@ class TestElasticsearch5Mapping(TestCase):
                             'name': {'type': 'text', 'include_in_all': True},
                             'slug_filter': {'type': 'keyword', 'include_in_all': False},
                         },
-                    }
+                    },
+                    'tags_filter': {'type': 'integer', 'include_in_all': False}
                 }
             }
         }
@@ -561,8 +564,9 @@ class TestElasticsearch5Mapping(TestCase):
         expected_result = {
             'pk': '4',
             'content_type': ["searchtests.Book"],
-            '_partials': ['The Fellowship of the Ring'],
+            '_partials': ['The Fellowship of the Ring', 'The Fellowship of the Ring'],
             'title': 'The Fellowship of the Ring',
+            'title_edgengrams': 'The Fellowship of the Ring',
             'title_filter': 'The Fellowship of the Ring',
             'authors': [
                 {
@@ -570,9 +574,11 @@ class TestElasticsearch5Mapping(TestCase):
                     'date_of_birth_filter': datetime.date(1892, 1, 3)
                 }
             ],
+            'authors_filter': [2],
             'publication_date_filter': datetime.date(1954, 7, 29),
             'number_of_pages_filter': 423,
-            'tags': []
+            'tags': [],
+            'tags_filter': []
         }
 
         self.assertDictEqual(document, expected_result)
@@ -609,9 +615,11 @@ class TestElasticsearch5MappingInheritance(TestCase):
                     'searchtests_novel__protagonist': {
                         'type': 'nested',
                         'properties': {
-                            'name': {'type': 'text', 'boost': 0.5, 'include_in_all': True}
+                            'name': {'type': 'text', 'boost': 0.5, 'include_in_all': True},
+                            'novel_id_filter': {'type': 'integer', 'include_in_all': False}
                         }
                     },
+                    'searchtests_novel__protagonist_id_filter': {'type': 'integer', 'include_in_all': False},
                     'searchtests_novel__characters': {
                         'type': 'nested',
                         'properties': {
@@ -624,6 +632,7 @@ class TestElasticsearch5MappingInheritance(TestCase):
                     'content_type': {'type': 'keyword', 'include_in_all': False},
                     '_partials': {'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard', 'include_in_all': False, 'type': 'text'},
                     'title': {'type': 'text', 'boost': 2.0, 'include_in_all': True, 'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard'},
+                    'title_edgengrams': {'type': 'text', 'include_in_all': False, 'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard'},
                     'title_filter': {'type': 'keyword', 'include_in_all': False},
                     'authors': {
                         'type': 'nested',
@@ -632,6 +641,7 @@ class TestElasticsearch5MappingInheritance(TestCase):
                             'date_of_birth_filter': {'type': 'date', 'include_in_all': False},
                         },
                     },
+                    'authors_filter': {'type': 'integer', 'include_in_all': False},
                     'publication_date_filter': {'type': 'date', 'include_in_all': False},
                     'number_of_pages_filter': {'type': 'integer', 'include_in_all': False},
                     'tags': {
@@ -640,7 +650,8 @@ class TestElasticsearch5MappingInheritance(TestCase):
                             'name': {'type': 'text', 'include_in_all': True},
                             'slug_filter': {'type': 'keyword', 'include_in_all': False},
                         },
-                    }
+                    },
+                    'tags_filter': {'type': 'integer', 'include_in_all': False}
                 }
             }
         }
@@ -670,8 +681,10 @@ class TestElasticsearch5MappingInheritance(TestCase):
             # New
             'searchtests_novel__setting': "Middle Earth",
             'searchtests_novel__protagonist': {
-                'name': "Frodo Baggins"
+                'name': "Frodo Baggins",
+                'novel_id_filter': 4
             },
+            'searchtests_novel__protagonist_id_filter': 8,
             'searchtests_novel__characters': [
                 {
                     'name': "Bilbo Baggins"
@@ -686,11 +699,12 @@ class TestElasticsearch5MappingInheritance(TestCase):
 
             # Changed
             'content_type': ["searchtests.Novel", "searchtests.Book"],
-            '_partials': ['Middle Earth', 'The Fellowship of the Ring'],
+            '_partials': ['Middle Earth', 'The Fellowship of the Ring', 'The Fellowship of the Ring'],
 
             # Inherited
             'pk': '4',
             'title': 'The Fellowship of the Ring',
+            'title_edgengrams': 'The Fellowship of the Ring',
             'title_filter': 'The Fellowship of the Ring',
             'authors': [
                 {
@@ -698,9 +712,11 @@ class TestElasticsearch5MappingInheritance(TestCase):
                     'date_of_birth_filter': datetime.date(1892, 1, 3)
                 }
             ],
+            'authors_filter': [2],
             'publication_date_filter': datetime.date(1954, 7, 29),
             'number_of_pages_filter': 423,
-            'tags': []
+            'tags': [],
+            'tags_filter': []
         }
 
         self.assertDictEqual(document, expected_result)

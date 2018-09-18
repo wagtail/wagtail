@@ -3,16 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# José Luis <alagunajs@gmail.com>, 2016
-# José Luis <alagunajs@gmail.com>, 2016,2018
-# José Luis <alagunajs@gmail.com>, 2016
+# José Luis Sandoval Alaguna <alagunajs@gmail.com>, 2016
+# José Luis Sandoval Alaguna <alagunajs@gmail.com>, 2016,2018
+# José Luis Sandoval Alaguna <alagunajs@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-01-26 20:00+0000\n"
-"Last-Translator: José Luis <alagunajs@gmail.com>\n"
+"POT-Creation-Date: 2018-07-30 17:31+0100\n"
+"PO-Revision-Date: 2018-05-07 12:55+0000\n"
+"Last-Translator: José Luis Sandoval Alaguna <alagunajs@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -37,7 +37,10 @@ msgstr "Guardar"
 msgid "Settings"
 msgstr "Propiedades"
 
-#, python-brace-format
+msgid "This setting could not be opened because there is no site defined."
+msgstr ""
+"Esta configuración podría no ser abierta porque no hay un sitio definido."
+
 msgid "{setting_type} updated."
 msgstr "{setting_type} actualizado."
 

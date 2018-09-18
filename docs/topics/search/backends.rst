@@ -89,14 +89,6 @@ See :ref:`postgres_search` for more detail.
 Elasticsearch Backend
 ---------------------
 
-.. versionchanged:: 1.7
-
-    Support for Elasticsearch 2.x was added
-
-.. versionchanged:: 1.8
-
-    Support for Elasticsearch 5.x was added
-
 .. versionchanged:: 2.1
 
     Support for Elasticsearch 6.x was added
@@ -123,7 +115,11 @@ Prerequisites are the `Elasticsearch`_ service itself and, via pip, the `elastic
 
 .. code-block:: sh
 
-  pip install "elasticsearch>=6.0.0,<7.0.0"  # for Elasticsearch 6.x
+  pip install "elasticsearch>=6.0.0,<6.3.1"  # for Elasticsearch 6.x
+
+.. warning::
+
+    | Version 6.3.1 of the Elasticsearch client library is incompatible with Wagtail. Use 6.3.0 or earlier.
 
 The backend is configured in settings:
 

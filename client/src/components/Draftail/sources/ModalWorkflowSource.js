@@ -18,16 +18,26 @@ MUTABILITY[ENTITY_TYPE.IMAGE] = 'IMMUTABLE';
 MUTABILITY[EMBED] = 'IMMUTABLE';
 
 export const getChooserConfig = (entityType, entity, selectedText) => {
-  const chooserURL = {};
-  chooserURL[ENTITY_TYPE.IMAGE] = `${global.chooserUrls.imageChooser}?select_format=true`;
-  chooserURL[EMBED] = global.chooserUrls.embedsChooser;
-  chooserURL[ENTITY_TYPE.LINK] = global.chooserUrls.pageChooser;
-  chooserURL[DOCUMENT] = global.chooserUrls.documentChooser;
+  let url;
+  let urlParams;
 
-  let url = chooserURL[entityType.type];
-  let urlParams = {};
+  switch (entityType.type) {
+  case ENTITY_TYPE.IMAGE:
+    return {
+      url: `${global.chooserUrls.imageChooser}?select_format=true`,
+      urlParams: {},
+      onload: global.IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS,
+    };
 
-  if (entityType.type === ENTITY_TYPE.LINK) {
+  case EMBED:
+    return {
+      url: global.chooserUrls.embedsChooser,
+      urlParams: {},
+      onload: global.EMBED_CHOOSER_MODAL_ONLOAD_HANDLERS,
+    };
+
+  case ENTITY_TYPE.LINK:
+    url = global.chooserUrls.pageChooser;
     urlParams = {
       page_type: 'wagtailcore.page',
       allow_external_link: true,
@@ -49,12 +59,27 @@ export const getChooserConfig = (entityType, entity, selectedText) => {
         urlParams.link_url = data.url;
       }
     }
-  }
 
-  return {
-    url,
-    urlParams,
-  };
+    return {
+      url,
+      urlParams,
+      onload: global.PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS,
+    };
+
+  case DOCUMENT:
+    return {
+      url: global.chooserUrls.documentChooser,
+      urlParams: {},
+      onload: global.DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS,
+    };
+
+  default:
+    return {
+      url: null,
+      urlParams: {},
+      onload: {},
+    };
+  }
 };
 
 export const filterEntityData = (entityType, data) => {
@@ -113,7 +138,7 @@ class ModalWorkflowSource extends Component {
   componentDidMount() {
     const { onClose, entityType, entity, editorState } = this.props;
     const selectedText = getSelectionText(editorState);
-    const { url, urlParams } = getChooserConfig(entityType, entity, selectedText);
+    const { url, urlParams, onload } = getChooserConfig(entityType, entity, selectedText);
 
     $(document.body).on('hidden.bs.modal', this.onClose);
 
@@ -121,6 +146,7 @@ class ModalWorkflowSource extends Component {
     this.workflow = global.ModalWorkflow({
       url,
       urlParams,
+      onload,
       responses: {
         imageChosen: this.onChosen,
         // Discard the first parameter (HTML) to only transmit the data.

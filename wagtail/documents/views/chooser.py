@@ -1,7 +1,6 @@
-import json
-
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
+from django.utils.translation import ugettext as _
 
 from wagtail.admin.forms import SearchForm
 from wagtail.admin.modal_workflow import render_modal_workflow
@@ -17,19 +16,29 @@ from wagtail.utils.pagination import paginate
 permission_checker = PermissionPolicyChecker(permission_policy)
 
 
-def get_document_json(document):
+def get_chooser_context():
+    """construct context variables needed by the chooser JS"""
+    return {
+        'step': 'chooser',
+        'error_label': _("Server Error"),
+        'error_message': _("Report this error to your webmaster with the following information:"),
+        'tag_autocomplete_url': reverse('wagtailadmin_tag_autocomplete'),
+    }
+
+
+def get_document_result_data(document):
     """
-    helper function: given a document, return the json to pass back to the
+    helper function: given a document, return the json data to pass back to the
     chooser panel
     """
 
-    return json.dumps({
+    return {
         'id': document.id,
         'title': document.title,
         'url': document.url,
         'filename': document.filename,
         'edit_link': reverse('wagtaildocs:edit', args=(document.id,)),
-    })
+    }
 
 
 def chooser(request):
@@ -82,21 +91,21 @@ def chooser(request):
         documents = documents.order_by('-created_at')
         paginator, documents = paginate(request, documents, per_page=10)
 
-        return render_modal_workflow(request, 'wagtaildocs/chooser/chooser.html', 'wagtaildocs/chooser/chooser.js', {
+        return render_modal_workflow(request, 'wagtaildocs/chooser/chooser.html', None, {
             'documents': documents,
             'uploadform': uploadform,
             'searchform': searchform,
             'collections': collections,
             'is_searching': False,
-        })
+        }, json_data=get_chooser_context())
 
 
 def document_chosen(request, document_id):
     document = get_object_or_404(get_document_model(), id=document_id)
 
     return render_modal_workflow(
-        request, None, 'wagtaildocs/chooser/document_chosen.js',
-        {'document_json': get_document_json(document)}
+        request, None, None,
+        None, json_data={'step': 'document_chosen', 'result': get_document_result_data(document)}
     )
 
 
@@ -110,14 +119,16 @@ def chooser_upload(request):
         form = DocumentForm(request.POST, request.FILES, instance=document, user=request.user)
 
         if form.is_valid():
+            document.file_size = document.file.size
+
             form.save()
 
             # Reindex the document to make sure all tags are indexed
             search_index.insert_or_update_object(document)
 
             return render_modal_workflow(
-                request, None, 'wagtaildocs/chooser/document_chosen.js',
-                {'document_json': get_document_json(document)}
+                request, None, None,
+                None, json_data={'step': 'document_chosen', 'result': get_document_result_data(document)}
             )
     else:
         form = DocumentForm(user=request.user)
@@ -125,6 +136,7 @@ def chooser_upload(request):
     documents = Document.objects.order_by('title')
 
     return render_modal_workflow(
-        request, 'wagtaildocs/chooser/chooser.html', 'wagtaildocs/chooser/chooser.js',
-        {'documents': documents, 'uploadform': form}
+        request, 'wagtaildocs/chooser/chooser.html', None,
+        {'documents': documents, 'uploadform': form},
+        json_data=get_chooser_context()
     )

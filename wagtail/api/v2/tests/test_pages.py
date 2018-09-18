@@ -1,7 +1,8 @@
 import collections
 import json
-
 import mock
+
+from django.contrib.contenttypes.models import ContentType
 from django.test import TestCase
 from django.test.utils import override_settings
 from django.urls import reverse
@@ -79,6 +80,17 @@ class TestPageListing(TestCase):
         response = self.get_response()
         content = json.loads(response.content.decode('UTF-8'))
         self.assertEqual(content['meta']['total_count'], new_total_count)
+
+    def test_page_listing_with_missing_page_model(self):
+        # Create a ContentType that doesn't correspond to a real model
+        missing_page_content_type = ContentType.objects.create(app_label='tests', model='missingpage')
+
+        # Turn a BlogEntryPage into this content_type
+        models.BlogEntryPage.objects.filter(id=16).update(content_type=missing_page_content_type)
+
+        # get page listing with missing model
+        response = self.get_response()
+        self.assertEqual(response.status_code, 200)
 
     # TYPE FILTER
 
@@ -262,7 +274,7 @@ class TestPageListing(TestCase):
                 self.assertEqual(set(feed_image.keys()), {'id', 'meta', 'title'})
                 self.assertIsInstance(feed_image['id'], int)
                 self.assertIsInstance(feed_image['meta'], dict)
-                self.assertEqual(set(feed_image['meta'].keys()), {'type', 'detail_url'})
+                self.assertEqual(set(feed_image['meta'].keys()), {'type', 'detail_url', 'download_url'})
                 self.assertEqual(feed_image['meta']['type'], 'wagtailimages.Image')
                 self.assertEqual(feed_image['meta']['detail_url'], 'http://localhost/api/v2beta/images/%d/' % feed_image['id'])
 
@@ -851,7 +863,7 @@ class TestPageDetail(TestCase):
         self.assertEqual(set(content['feed_image'].keys()), {'id', 'meta', 'title'})
         self.assertEqual(content['feed_image']['id'], 7)
         self.assertIsInstance(content['feed_image']['meta'], dict)
-        self.assertEqual(set(content['feed_image']['meta'].keys()), {'type', 'detail_url'})
+        self.assertEqual(set(content['feed_image']['meta'].keys()), {'type', 'detail_url', 'download_url'})
         self.assertEqual(content['feed_image']['meta']['type'], 'wagtailimages.Image')
         self.assertEqual(content['feed_image']['meta']['detail_url'], 'http://localhost/api/v2beta/images/7/')
 
@@ -904,6 +916,17 @@ class TestPageDetail(TestCase):
 
         self.assertIn('related_links', content)
         self.assertEqual(content['feed_image'], None)
+
+    def test_page_with_missing_page_model(self):
+        # Create a ContentType that doesn't correspond to a real model
+        missing_page_content_type = ContentType.objects.create(app_label='tests', model='missingpage')
+
+        # Turn a BlogEntryPage into this content_type
+        models.BlogEntryPage.objects.filter(id=16).update(content_type=missing_page_content_type)
+
+        # get missing model page
+        response = self.get_response(16)
+        self.assertEqual(response.status_code, 200)
 
     # FIELDS
 
@@ -991,7 +1014,7 @@ class TestPageDetail(TestCase):
         self.assertEqual(set(feed_image.keys()), {'id', 'meta', 'title'})
         self.assertIsInstance(feed_image['id'], int)
         self.assertIsInstance(feed_image['meta'], dict)
-        self.assertEqual(set(feed_image['meta'].keys()), {'type', 'detail_url'})
+        self.assertEqual(set(feed_image['meta'].keys()), {'type', 'detail_url', 'download_url'})
         self.assertEqual(feed_image['meta']['type'], 'wagtailimages.Image')
         self.assertEqual(feed_image['meta']['detail_url'], 'http://localhost/api/v2beta/images/%d/' % feed_image['id'])
 

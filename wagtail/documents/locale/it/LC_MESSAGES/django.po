@@ -4,13 +4,14 @@
 #
 # Translators:
 # Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2018
+# giammi <gian-maria.daffre@giammi.org>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-03-27 17:28+0000\n"
-"Last-Translator: Giacomo Ghizzani <giacomo.ghz@gmail.com>\n"
+"POT-Creation-Date: 2018-07-30 17:31+0100\n"
+"PO-Revision-Date: 2018-05-10 14:11+0000\n"
+"Last-Translator: giammi <gian-maria.daffre@giammi.org>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -18,6 +19,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: it\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail documents"
+msgstr "Documenti Wagtail"
 
 msgid "Add"
 msgstr "Aggiungi"
@@ -60,12 +64,6 @@ msgstr "Carica"
 
 msgid "Uploading…"
 msgstr "Caricamento…"
-
-msgid "Server Error"
-msgstr "Errore del Server"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Presenta questo errore al tuo webmaster con le seguenti informazioni:"
 
 #, python-format
 msgid ""
@@ -253,17 +251,21 @@ msgstr "Permessi del documento"
 msgid "Add a document permission"
 msgstr "Aggiungi un permesso al documento"
 
+msgid "Server Error"
+msgstr "Errore del Server"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Presenta questo errore al tuo webmaster con le seguenti informazioni:"
+
 msgid "Search documents"
 msgstr "Cerca documenti"
 
-#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Documento '{0}' aggiunto."
 
 msgid "The document could not be saved due to errors."
 msgstr "Il documento non può essere salvato a causa di errori."
 
-#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "Documento '{0}' aggiornato"
 
@@ -271,7 +273,6 @@ msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "File non trovato. Prova a cambiare l'origine o elimina il documento."
 
-#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Documento '{0}' eliminato."
 

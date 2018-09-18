@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-02-05 02:04+0000\n"
+"POT-Creation-Date: 2018-07-30 17:31+0100\n"
+"PO-Revision-Date: 2018-06-19 13:36+0000\n"
 "Last-Translator: Luiz Boaretto <lboaretto@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
@@ -25,6 +25,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pt_BR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Wagtail images"
+msgstr "Imagens Wagtail"
 
 msgid "GIF, JPEG, PNG"
 msgstr "GIF, JPEG, PNG"
@@ -129,6 +132,12 @@ msgstr "enviado pelo usuário"
 msgid "tags"
 msgstr "etiquetas"
 
+msgid "image"
+msgstr "imagem"
+
+msgid "images"
+msgstr "imagens"
+
 msgid "Choose an image"
 msgstr "Escolha uma imagem"
 
@@ -143,12 +152,6 @@ msgstr "Etiquetas populares"
 
 msgid "Uploading…"
 msgstr "Enviando…"
-
-msgid "Server Error"
-msgstr "Erro de servidor"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Relatar este erro ao seu webmaster com as seguintes informações:"
 
 #, python-format
 msgid ""
@@ -347,6 +350,12 @@ msgstr ""
 msgid "Sorry, upload failed."
 msgstr "Desculpe, o carregamento falhou."
 
+msgid "Server Error"
+msgstr "Erro de servidor"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Relatar este erro ao seu webmaster com as seguintes informações:"
+
 msgid "Image updated."
 msgstr "Imagem atualizada."
 
@@ -365,7 +374,6 @@ msgstr "Adicionar uma permissão de imagem"
 msgid "Search images"
 msgstr "Buscar imagens"
 
-#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "Imagem '{0}' enviada."
 
@@ -382,11 +390,9 @@ msgstr ""
 "O arquivo de imagem não pode ser encontrado. Por favor altere a fonte ou "
 "delete a imagem."
 
-#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "Imagem '{0}' apagada."
 
-#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "Imagem '{0}' adicionada."
 

@@ -64,16 +64,7 @@ def get_form_for_model(
 
 def extract_panel_definitions_from_model_class(model, exclude=None):
     if hasattr(model, 'panels'):
-        panels = model.panels
-
-        if exclude is not None:
-            # Filter out fields in exclude
-            panels = [
-                panel for panel in panels
-                if isinstance(panel, FieldPanel) and panel.field_name not in exclude
-            ]
-
-        return panels
+        return model.panels
 
     panels = []
 
@@ -657,14 +648,14 @@ class InlinePanel(EditHandler):
             return self.panels
         # Failing that, get it from the model
         return extract_panel_definitions_from_model_class(
-            self.related.related_model,
-            exclude=[self.related.field.name]
+            self.db_field.related_model,
+            exclude=[self.db_field.field.name]
         )
 
     def get_child_edit_handler(self):
         panels = self.get_panel_definitions()
         child_edit_handler = MultiFieldPanel(panels, heading=self.heading)
-        return child_edit_handler.bind_to_model(self.related.related_model)
+        return child_edit_handler.bind_to_model(self.db_field.related_model)
 
     def required_formsets(self):
         child_edit_handler = self.get_child_edit_handler()
@@ -687,16 +678,15 @@ class InlinePanel(EditHandler):
 
         for panel in self.get_panel_definitions():
             field_comparisons.extend(
-                panel.bind_to_model(self.related.related_model)
+                panel.bind_to_model(self.db_field.related_model)
                 .get_comparison())
 
         return [curry(compare.ChildRelationComparison, self.db_field,
                       field_comparisons)]
 
     def on_model_bound(self):
-        self.db_field = self.model._meta.get_field(self.relation_name)
         manager = getattr(self.model, self.relation_name)
-        self.related = manager.rel
+        self.db_field = manager.rel
 
     def on_instance_bound(self):
         self.formset = self.form.formsets[self.relation_name]

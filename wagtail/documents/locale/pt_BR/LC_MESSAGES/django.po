@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-01-26 17:05+0000\n"
+"POT-Creation-Date: 2018-07-30 17:31+0100\n"
+"PO-Revision-Date: 2018-06-19 13:35+0000\n"
 "Last-Translator: Luiz Boaretto <lboaretto@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
@@ -23,6 +23,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pt_BR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Wagtail documents"
+msgstr "Documentos Wagtail"
 
 msgid "Add"
 msgstr "Adicionar"
@@ -65,12 +68,6 @@ msgstr "Enviar"
 
 msgid "Uploading…"
 msgstr "Enviando…"
-
-msgid "Server Error"
-msgstr "Erro de servidor"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Relatar este erro ao seu webmaster com as seguintes informações:"
 
 #, python-format
 msgid ""
@@ -255,17 +252,21 @@ msgstr "Permissões de documentos"
 msgid "Add a document permission"
 msgstr "Adicionar uma permissão de documento"
 
+msgid "Server Error"
+msgstr "Erro de servidor"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Relatar este erro ao seu webmaster com as seguintes informações:"
+
 msgid "Search documents"
 msgstr "Buscar documentos"
 
-#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Documento '{0}' adicionado."
 
 msgid "The document could not be saved due to errors."
 msgstr "O documento não pôde ser salvo devido à erros."
 
-#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "Documento '{0}' atualizado"
 
@@ -275,7 +276,6 @@ msgstr ""
 "Este arquivo não pode ser encontrado. Por favor altere a fonte ou remova o "
 "documento"
 
-#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Documento '{0}' apagado."
 

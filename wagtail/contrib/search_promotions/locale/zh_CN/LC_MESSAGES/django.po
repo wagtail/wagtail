@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Ed <724195301@qq.com>, 2018
 # hanfeng <appweb.cn@gmail.com>, 2014
 # jszsj <zhushajun@gmail.com>, 2017
 # Vincent Zhao <zhaopu2008@gmail.com>, 2017
@@ -11,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-01-26 16:06+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2018-07-30 17:31+0100\n"
+"PO-Revision-Date: 2018-06-30 00:51+0000\n"
+"Last-Translator: Ed <724195301@qq.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -21,6 +22,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail search promotions"
+msgstr "Wagtail 高级搜索"
 
 msgid "Please specify at least one recommendation for this search term."
 msgstr "请至少指定一条针对此搜索条件的建议。"
@@ -157,7 +161,6 @@ msgstr ""
 msgid "Search promoted results"
 msgstr "搜索推广结果"
 
-#, python-brace-format
 msgid "Editor's picks for '{0}' created."
 msgstr "为'{0}'的编辑精选已被创建。"
 
@@ -167,7 +170,6 @@ msgstr "编辑"
 msgid "Recommendations have not been created due to errors"
 msgstr "无法创建推荐，出现错误。"
 
-#, python-brace-format
 msgid "Editor's picks for '{0}' updated."
 msgstr "为'{0}'的编辑精选已被更新。"
 

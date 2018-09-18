@@ -1,14 +1,96 @@
 Changelog
 =========
 
-2.2 (xx.xx.xxx) - IN DEVELOPMENT
-~~~~~~~~~~~~~~~
+2.3 LTS (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~~~
 
+ * Added support for Django 2.1 (Ryan Verner, Matt Westcott)
+ * Added 'scale' image filter (Oliver Wilkerson)
+ * Added meta tag to prevent search engines from indexing admin pages (Karl Hobley)
+ * EmbedBlock now validates against recognised embed providers on save (Bertrand Bordage)
+ * Made cache control headers on Wagtail admin consistent with Django admin (Tomasz Knapik)
+ * Notification emails now include an "Auto-Submitted: auto-generated" header (Dan Braghis)
+ * Image chooser panels now show alt text as title (Samir Shah)
+ * Added `download_url` field to images in the API (Michael Harrison)
+ * Dummy requests for preview now preserve the HTTP Authorization header (Ben Dickinson)
+ * Fix: Respect next param on login (Loic Teixeira)
+ * Fix: InlinePanel now handles relations that specify a related_query_name (Aram Dulyan)
+ * Fix: before_delete_page / after_delete_page hooks now run within the same database transaction as the page deletion (Tomasz Knapik)
+ * Fix: Snippet chooser modal no longer fails on snippet models with UUID primary keys (Sævar Öfjörð Magnússon)
+ * Fix: Restored localisation in date/time pickers (David Moore, Thibaud Colas)
+ * Fix: Tag input field no longer treats 'б' on Russian keyboards as a comma (Michael Borisov)
+
+
+2.2.2 (29.08.2018)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Seek to the beginning of image files when uploading, to restore compatibility with django-storages Google Cloud and Azure backends (Mikalai Radchuk)
+ * Fix: Respect next param on login (Loic Teixeira)
+
+
+2.2.1 (13.08.2018)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Pin Beautiful Soup to 4.6.0 due to further regressions in formatting empty elements (Matt Westcott)
+ * Fix: Prevent AppRegistryNotReady error when wagtail.contrib.sitemaps is in INSTALLED_APPS (Matt Westcott)
+
+
+2.2 (10.08.2018)
+~~~~~~~~~~~~~~~~
+
+ * Added faceted search using the `.facet()` method (Karl Hobley)
+ * Added page type filtering and ordering to the Wagtail admin page search (Karl Hobley)
  * Added another valid AudioBoom oEmbed pattern (Bertrand Bordage)
  * Added `annotate_score` support to PostgreSQL search backend (Bertrand Bordage)
+ * Pillow's image optimisation is now applied when saving PNG images (Dmitry Vasilev)
+ * JS / CSS media files can now be associated with Draftail feature definitions (Matt Westcott)
+ * The `{% slugurl %}` template tag is now site-aware (Samir Shah)
+ * Added `file_size` field to documents (Karl Hobley)
+ * Added `file_hash` field to images (Karl Hobley)
+ * Update documentation (configuring Django for Wagtail) to contain all current settings options (Matt Westcott, LB (Ben Johnston))
+ * Added `defer` flag to `PageQuerySet.specific` (Karl Hobley)
+ * Snippets can now be deleted from the listing view (LB (Ben Johnston))
+ * Increased max length of redirect URL field to 255 (Michael Harrison)
+ * Added documentation for new JS/CSS media files association with Draftail feature definitions (Ed Henderson)
+ * Added accessible colour contrast guidelines to the style guide (Catherine Farman)
+ * Admin modal views no longer rely on Javascript `eval()`, for better CSP compliance (Matt Westcott)
+ * Update editor guide for embeds and documents in rich text (Kevin Howbrook)
+ * Improved performance of sitemap generation (Michael van Tellingen, Bertrand Bordage)
+ * Added an internal API for autocomplete (Karl Hobley, Bertrand Bordage)
+ * Fix: Handle all exceptions from `Image.get_file_size` (Andrew Plummer)
+ * Fix: Fix display of breadcrumbs in ModelAdmin (LB (Ben Johnston))
+ * Fix: Remove duplicate border radius of avatars (Benjamin Thurm)
+ * Fix: Site.get_site_root_paths() preferring other sites over the default when some sites share the same root_page (Andy Babic)
+ * Fix: Pages with missing model definitions no longer crash the API (Abdulmalik Abdulwahab)
+ * Fix: Rich text image chooser no longer skips format selection after a validation error (Matt Westcott)
+ * Fix: Null characters in URLs no longer crash the redirect middleware on PostgreSQL (Andrew Crewdson, Matt Westcott)
+ * Fix: Permission checks no longer prevent a non-live page from being unscheduled (Abdulmalik Abdulwahab)
+ * Fix: Copy-paste between Draftail editors now preserves all formatting/content (Thibaud Colas)
+ * Fix: Fix alignment of checkboxes and radio buttons on Firefox (Matt Westcott)
 
 
-2.1 (xx.xx.xxxx) - IN DEVELOPMENT
+2.1.3 (13.08.2018)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Pin Beautiful Soup to 4.6.0 due to further regressions in formatting empty elements (Matt Westcott)
+
+
+2.1.2 (06.08.2018)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Bundle the l18n package to avoid installation issues on systems with a non-Unicode locale (Matt Westcott)
+ * Fix: Mark Beautiful Soup 4.6.1 as incompatible due to bug in formatting empty elements (Matt Westcott)
+
+
+2.1.1 (04.07.2018)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Site.get_site_root_paths() preferring other sites over the default when some sites share the same root_page (Andy Babic)
+ * Fix: Rich text image chooser no longer skips format selection after a validation error (Matt Westcott)
+ * Fix: Null characters in URLs no longer crash the redirect middleware on PostgreSQL (Matt Westcott)
+
+
+2.1 (22.05.2018)
 ~~~~~~~~~~~~~~~~
 
  * Add `HelpPanel` to add HTML within an edit form (Keving Chung)
@@ -23,7 +105,7 @@ Changelog
  * Remove outdated X-UA-Compatible meta from admin template  (Thibaud Colas)
  * Add JavaScript source maps in production build for packaged Wagtail (Thibaud Colas)
  * Removed `assert` statements from Wagtail API (Kim Chee Leong)
- * Update `jquery-datetimepicker` dependency to make Wagtail more CSP-friendly (`unsafe-eval`) (Mike Kamermans)
+ * Update `jquery-datetimepicker` dependency to make Wagtail more CSP-friendly (`unsafe-eval`) (Pomax)
  * Added error notification when running the `wagtail` command on Python <3.4 (Matt Westcott)
  * `update_index` management command now accepts a `--chunk_size` option to determine the number of items to load at once (Dave Bell)
  * Added hook `register_account_menu_item` to add new account preference items (Michael van Tellingen)
@@ -67,12 +149,15 @@ Changelog
  * Fix: Stop revision comparison view from crashing when non-model FieldPanels are in use (LB (Ben Johnston))
  * Fix: Ordering in the page explorer now respects custom `get_admin_display_title` methods when sorting <100 pages (Matt Westcott)
  * Fix: Use index-specific Elasticsearch endpoints for bulk insertion, for compatibility with providers that lock down the root endpoint (Karl Hobley)
+ * Fix: Fix usage URL on the document edit page (Jérôme Lebleu)
 
 
-2.0.2 (xx.xx.xxxx) - IN DEVELOPMENT
+2.0.2 (13.08.2018)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Restored ability to use non-model fields with FieldPanel (Matt Westcott, LB (Ben Johnston))
+ * Fix: Fix usage URL on the document edit page (Jérôme Lebleu)
+ * Fix: Pin Beautiful Soup to 4.6.0 due to further regressions in formatting empty elements (Matt Westcott)
 
 
 2.0.1 (04.04.2018)
@@ -165,6 +250,28 @@ Changelog
  * Fix: Prevent style leak of Wagtail panel icons in widgets using ``h2`` elements (THibaud Colas)
 
 
+1.13.4 (13.08.2018)
+~~~~~~~~~~~~~~~~~~~
+
+ * Fix: Pin Beautiful Soup to 4.6.0 due to further regressions in formatting empty elements (Matt Westcott)
+
+
+1.13.3 (13.08.2018)
+~~~~~~~~~~~~~~~~~~~
+
+ * Fix: Pin django-taggit to <0.23 to restore Django 1.8 compatibility (Matt Westcott)
+ * Fix: Mark Beautiful Soup 4.6.1 as incompatible due to bug in formatting empty elements (Matt Westcott)
+
+
+1.13.2 (04.07.2018)
+~~~~~~~~~~~~~~~~~~~
+
+ * Fix: Fix support of `ATOMIC_REBUILD` for projects with Elasticsearch client >=1.7.0 (Mikalai Radchuk)
+ * Fix: Logging an indexing failure on an object with a non-ASCII representation no longer crashes on Python 2 (Aram Dulyan)
+ * Fix: Rich text image chooser no longer skips format selection after a validation error (Matt Westcott)
+ * Fix: Null characters in URLs no longer crash the redirect middleware on PostgreSQL (Matt Westcott)
+
+
 1.13.1 (17.11.2017)
 ~~~~~~~~~~~~~~~~~~~
 
@@ -207,6 +314,28 @@ Changelog
  * Fix: Custom display page titles defined with `get_admin_display_title` are now shown in search results (Ben Sturmfels, Matt Westcott)
  * Fix: Custom PageManagers now return the correct PageQuerySet subclass (Matt Westcott)
  * Fix: API listing views no longer fail when no site records are defined (Karl Hobley)
+
+
+1.12.6 (13.08.2018)
+~~~~~~~~~~~~~~~~~~~
+
+ * Fix: Pin Beautiful Soup to 4.6.0 due to further regressions in formatting empty elements (Matt Westcott)
+
+
+1.12.5 (13.08.2018)
+~~~~~~~~~~~~~~~~~~~
+
+ * Fix: Pin django-taggit to <0.23 to restore Django 1.8 compatibility (Matt Westcott)
+ * Fix: Mark Beautiful Soup 4.6.1 as incompatible due to bug in formatting empty elements (Matt Westcott)
+
+
+1.12.4 (04.07.2018)
+~~~~~~~~~~~~~~~~~~~
+
+ * Fix: Fix support of `ATOMIC_REBUILD` for projects with Elasticsearch client >=1.7.0 (Mikalai Radchuk)
+ * Fix: Logging an indexing failure on an object with a non-ASCII representation no longer crashes on Python 2 (Aram Dulyan)
+ * Fix: Rich text image chooser no longer skips format selection after a validation error (Matt Westcott)
+ * Fix: Null characters in URLs no longer crash the redirect middleware on PostgreSQL (Matt Westcott)
 
 
 1.12.3 (17.11.2017)

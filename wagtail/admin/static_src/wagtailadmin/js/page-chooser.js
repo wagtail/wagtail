@@ -21,6 +21,7 @@ function createPageChooser(id, pageTypes, openAtParentId, canChooseRoot, userPer
         ModalWorkflow({
             url: initialUrl,
             urlParams: urlParams,
+            onload: PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS,
             responses: {
                 pageChosen: function(pageData) {
                     input.val(pageData.id);
