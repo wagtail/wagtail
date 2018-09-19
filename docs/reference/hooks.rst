@@ -498,7 +498,7 @@ Hooks for customising the way users are directed through the process of creating
 ``register_page_action_menu_item``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  Add an item to the popup menu of actions on the page creation and edit views. The callable passed to this hook must return an instance of ``wagtail.admin.views.pages.ActionMenuItem``. The following attributes and methods are available to be overridden on subclasses of ``ActionMenuItem``:
+  Add an item to the popup menu of actions on the page creation and edit views. The callable passed to this hook must return an instance of ``wagtail.admin.action_menu.ActionMenuItem``. The following attributes and methods are available to be overridden on subclasses of ``ActionMenuItem``:
 
   :order: an integer (default 100) which determines the item's position in the menu. Can also be passed as a keyword argument to the object constructor
   :label: the displayed text of the menu item
@@ -519,7 +519,7 @@ Hooks for customising the way users are directed through the process of creating
   .. code-block:: python
 
     from wagtail.core import hooks
-    from wagtail.admin.views.pages import ActionMenuItem
+    from wagtail.admin.action_menu import ActionMenuItem
 
     class GuacamoleMenuItem(ActionMenuItem):
         label = "Guacamole"

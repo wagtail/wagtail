@@ -3,10 +3,10 @@ from django.http import HttpResponse
 from django.templatetags.static import static
 
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
+from wagtail.admin.action_menu import ActionMenuItem
 from wagtail.admin.menu import MenuItem
 from wagtail.admin.rich_text import HalloPlugin
 from wagtail.admin.search import SearchArea
-from wagtail.admin.views.pages import ActionMenuItem
 from wagtail.core import hooks
 
 
