@@ -1,14 +1,16 @@
 """Handles rendering of the list of actions in the footer of the page create/edit views."""
 
+from django.forms import Media, MediaDefiningClass
 from django.template.loader import render_to_string
 from django.urls import reverse
+from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
 
 from wagtail.core import hooks
 from wagtail.core.models import UserPagePermissionsProxy
 
 
-class ActionMenuItem:
+class ActionMenuItem(metaclass=MediaDefiningClass):
     """Defines an item in the actions drop-up on the page creation/edit view"""
     order = 100  # default order index if one is not specified on init
     template = 'wagtailadmin/pages/action_menu/menu_item.html'
@@ -162,3 +164,10 @@ class PageActionMenu:
                 for menu_item in self.menu_items
             ]
         }, request=self.request)
+
+    @cached_property
+    def media(self):
+        media = Media()
+        for item in self.menu_items:
+            media += item.media
+        return media

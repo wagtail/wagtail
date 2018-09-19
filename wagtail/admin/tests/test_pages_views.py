@@ -665,6 +665,7 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertContains(response, '<a href="#tab-promote" class="">Promote</a>')
         # test register_page_action_menu_item hook
         self.assertContains(response, '<input type="submit" name="action-panic" value="Panic!" class="button" />')
+        self.assertContains(response, 'testapp/js/siren.js')
         # test construct_page_action_menu hook
         self.assertContains(response, '<input type="submit" name="action-relax" value="Relax." class="button" />')
 
@@ -1280,6 +1281,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
 
         # test register_page_action_menu_item hook
         self.assertContains(response, '<input type="submit" name="action-panic" value="Panic!" class="button" />')
+        self.assertContains(response, 'testapp/js/siren.js')
 
         # test construct_page_action_menu hook
         self.assertContains(response, '<input type="submit" name="action-relax" value="Relax." class="button" />')

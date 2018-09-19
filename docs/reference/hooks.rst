@@ -508,6 +508,7 @@ Hooks for customising the way users are directed through the process of creating
   :template: path to a template to render to produce the menu item HTML
   :get_context: a method that returns a context dictionary to pass to the template
   :render_html: a method that returns the menu item HTML; by default, renders ``template`` with the context returned from ``get_context``
+  :Media: an inner class defining Javascript and CSS to import when this menu item is shown - see `Django form media <https://docs.djangoproject.com/en/stable/topics/forms/media/>`_
 
   The ``get_url``, ``is_shown``, ``get_context`` and ``render_html`` methods all accept a request object and a context dictionary containing the following fields:
 
