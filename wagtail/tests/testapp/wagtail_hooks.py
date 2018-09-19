@@ -111,6 +111,9 @@ class PanicMenuItem(ActionMenuItem):
     label = "Panic!"
     name = 'action-panic'
 
+    class Media:
+        js = ['testapp/js/siren.js']
+
 
 @hooks.register('register_page_action_menu_item')
 def register_panic_menu_item():
