@@ -395,28 +395,3 @@ def avatar_url(user, size=50):
             return gravatar_url
 
     return static('wagtailadmin/images/default-user-avatar.png')
-
-
-@register.inclusion_tag("wagtailadmin/pages/action_menu/menu.html", takes_context=True)
-def page_action_menu(context, menu_items, **kwargs):
-    menu_item_context = kwargs
-    menu_item_context.update({
-        'user_page_permissions': _get_user_page_permissions(context),
-    })
-
-    visible_menu_items = [
-        menu_item for menu_item in menu_items
-        if menu_item.is_shown(context['request'], menu_item_context)
-    ]
-    visible_menu_items.sort(key=lambda item: item.order)
-
-    for hook in hooks.get_hooks('construct_page_action_menu'):
-        hook(visible_menu_items, context['request'], menu_item_context)
-
-    return {
-        'show_menu': bool(visible_menu_items),
-        'rendered_menu_items': [
-            menu_item.render_html(context['request'], menu_item_context)
-            for menu_item in visible_menu_items
-        ]
-    }

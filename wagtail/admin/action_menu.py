@@ -5,6 +5,7 @@ from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 
 from wagtail.core import hooks
+from wagtail.core.models import UserPagePermissionsProxy
 
 
 class ActionMenuItem:
@@ -111,20 +112,53 @@ class DeleteMenuItem(ActionMenuItem):
         return reverse('wagtailadmin_pages:delete', args=(context['page'].id,))
 
 
-PAGE_ACTION_MENU_ITEMS = None
+BASE_PAGE_ACTION_MENU_ITEMS = None
 
 
-def _get_action_menu_items():
-    global PAGE_ACTION_MENU_ITEMS
+def _get_base_page_action_menu_items():
+    """
+    Retrieve the global list of menu items for the page action menu,
+    which may then be customised on a per-request basis
+    """
+    global BASE_PAGE_ACTION_MENU_ITEMS
 
-    if PAGE_ACTION_MENU_ITEMS is None:
-        PAGE_ACTION_MENU_ITEMS = [
+    if BASE_PAGE_ACTION_MENU_ITEMS is None:
+        BASE_PAGE_ACTION_MENU_ITEMS = [
             UnpublishMenuItem(order=10),
             DeleteMenuItem(order=20),
             PublishMenuItem(order=30),
             SubmitForModerationMenuItem(order=40),
         ]
         for hook in hooks.get_hooks('register_page_action_menu_item'):
-            PAGE_ACTION_MENU_ITEMS.append(hook())
+            BASE_PAGE_ACTION_MENU_ITEMS.append(hook())
 
-    return PAGE_ACTION_MENU_ITEMS
+    return BASE_PAGE_ACTION_MENU_ITEMS
+
+
+class PageActionMenu:
+    template = 'wagtailadmin/pages/action_menu/menu.html'
+
+    def __init__(self, request, **kwargs):
+        self.request = request
+        self.context = kwargs
+        self.context['user_page_permissions'] = UserPagePermissionsProxy(self.request.user)
+
+        self.menu_items = [
+            menu_item
+            for menu_item in _get_base_page_action_menu_items()
+            if menu_item.is_shown(self.request, self.context)
+        ]
+
+        self.menu_items.sort(key=lambda item: item.order)
+
+        for hook in hooks.get_hooks('construct_page_action_menu'):
+            hook(self.menu_items, self.request, self.context)
+
+    def render_html(self):
+        return render_to_string(self.template, {
+            'show_menu': bool(self.menu_items),
+            'rendered_menu_items': [
+                menu_item.render_html(self.request, self.context)
+                for menu_item in self.menu_items
+            ]
+        }, request=self.request)

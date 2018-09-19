@@ -18,7 +18,7 @@ from django.views.decorators.vary import vary_on_headers
 from django.views.generic import View
 
 from wagtail.admin import messages, signals
-from wagtail.admin.action_menu import _get_action_menu_items
+from wagtail.admin.action_menu import PageActionMenu
 from wagtail.admin.forms.pages import CopyForm
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.navigation import get_explorable_root_page
@@ -304,7 +304,7 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
         'page_class': page_class,
         'parent_page': parent_page,
         'edit_handler': edit_handler,
-        'action_menu_items': _get_action_menu_items(),
+        'action_menu': PageActionMenu(request, view='create', parent_page=parent_page),
         'preview_modes': page.preview_modes,
         'form': form,
         'next': next_url,
@@ -528,13 +528,12 @@ def edit(request, page_id):
         page_for_status = page
 
     return render(request, 'wagtailadmin/pages/edit.html', {
-        'view_type': 'edit',
         'page': page,
         'page_for_status': page_for_status,
         'content_type': content_type,
         'edit_handler': edit_handler,
         'errors_debug': errors_debug,
-        'action_menu_items': _get_action_menu_items(),
+        'action_menu': PageActionMenu(request, view='edit', page=page),
         'preview_modes': page.preview_modes,
         'form': form,
         'next': next_url,
@@ -1138,14 +1137,13 @@ def revisions_revert(request, page_id, revision_id):
     ))
 
     return render(request, 'wagtailadmin/pages/edit.html', {
-        'view_type': 'revisions_revert',
         'page': page,
         'revision': revision,
         'is_revision': True,
         'content_type': content_type,
         'edit_handler': edit_handler,
         'errors_debug': None,
-        'action_menu_items': _get_action_menu_items(),
+        'action_menu': PageActionMenu(request, view='revisions_revert', page=page),
         'preview_modes': page.preview_modes,
         'form': form,  # Used in unit tests
     })
