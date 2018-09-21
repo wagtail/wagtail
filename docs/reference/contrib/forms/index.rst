@@ -23,7 +23,7 @@ Add ``wagtail.contrib.forms`` to your ``INSTALLED_APPS``:
        'wagtail.contrib.forms',
     ]
 
-Within the ``models.py`` of one of your apps, create a model that extends ``wagtailforms.models.AbstractEmailForm``:
+Within the ``models.py`` of one of your apps, create a model that extends ``wagtail.contrib.forms.models.AbstractEmailForm``:
 
 
 .. code-block:: python
