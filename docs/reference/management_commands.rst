@@ -57,7 +57,7 @@ update_index
 
     $ ./manage.py update_index [--backend <backend name>]
 
-This command rebuilds the search index from scratch. It is only required when using Elasticsearch.
+This command rebuilds the search index from scratch. It is not required when using the database search backend (``wagtail.search.backends.db``).
 
 It is recommended to run this command once a week and at the following times:
 
