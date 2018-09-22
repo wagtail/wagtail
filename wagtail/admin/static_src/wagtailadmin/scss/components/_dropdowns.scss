@@ -319,13 +319,13 @@
 // }
 .t-default .u-btn-current {
     border-color: rgba(0, 0, 0, 0.15);
-    color: #43b1b0;
+    color: $color-teal;
 }
 
 .t-default .u-btn-current:hover {
-    background: #43b1b0;
+    background: $color-teal;
     color: #fff;
-    border-color: #43b1b0;
+    border-color: $color-teal;
 }
 
 .t-default .u-btn-current:active {
