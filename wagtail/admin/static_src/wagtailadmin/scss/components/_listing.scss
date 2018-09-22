@@ -5,7 +5,7 @@ ul.listing {
 
 .listing {
     margin-bottom: 2em;
-    color: lighten($color-text-base, 10%);
+    color: $color-text-base;
     font-size: 0.95em;
 
     ul {
@@ -188,14 +188,12 @@ ul.listing {
     }
 
     .title {
-        color: darken($color-grey-2, 10%);
-
         h2 {
             text-transform: none;
             margin: 0;
             font-size: 1.15em;
             font-weight: 600;
-            color: inherit;
+            color: darken($color-text-base, 10);
             line-height: 1.5em;
 
             a {
