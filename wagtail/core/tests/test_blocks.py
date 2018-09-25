@@ -2870,7 +2870,7 @@ class TestDateBlock(TestCase):
         self.assertIn('"format": "Y-m-d"', result)
 
         self.assertInHTML(
-            '<input id="dateblock" name="dateblock" placeholder="" type="text" value="2015-08-13" />',
+            '<input id="dateblock" name="dateblock" placeholder="" type="text" value="2015-08-13" autocomplete="off" />',
             result
         )
 
@@ -2883,7 +2883,7 @@ class TestDateBlock(TestCase):
         self.assertIn('"dayOfWeekStart": 0', result)
         self.assertIn('"format": "d.m.Y"', result)
         self.assertInHTML(
-            '<input id="dateblock" name="dateblock" placeholder="" type="text" value="13.08.2015" />',
+            '<input id="dateblock" name="dateblock" placeholder="" type="text" value="13.08.2015" autocomplete="off" />',
             result
         )
 
@@ -2899,7 +2899,7 @@ class TestDateTimeBlock(TestCase):
             result
         )
         self.assertInHTML(
-            '<input id="datetimeblock" name="datetimeblock" placeholder="" type="text" value="13.08.2015 10:00" />',
+            '<input id="datetimeblock" name="datetimeblock" placeholder="" type="text" value="13.08.2015 10:00" autocomplete="off" />',
             result
         )
 

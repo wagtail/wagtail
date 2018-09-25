@@ -42,6 +42,7 @@ Bug fixes
  * Snippet chooser modal no longer fails on snippet models with UUID primary keys (Sævar Öfjörð Magnússon)
  * Restored localisation in date/time pickers (David Moore, Thibaud Colas)
  * Tag input field no longer treats 'б' on Russian keyboards as a comma (Michael Borisov)
+ * Disabled autocomplete dropdowns on date/time chooser fields (Janneke Janssen)
 
 Upgrade considerations
 ======================

@@ -38,11 +38,14 @@ class AdminDateInput(widgets.DateInput):
     template_name = 'wagtailadmin/widgets/date_input.html'
 
     def __init__(self, attrs=None, format=None):
+        default_attrs = {'autocomplete': 'off'}
         fmt = format
+        if attrs:
+            default_attrs.update(attrs)
         if fmt is None:
             fmt = getattr(settings, 'WAGTAIL_DATE_FORMAT', DEFAULT_DATE_FORMAT)
         self.js_format = to_datetimepicker_format(fmt)
-        super().__init__(attrs=attrs, format=fmt)
+        super().__init__(attrs=default_attrs, format=fmt)
 
     def get_context(self, name, value, attrs):
         context = super().get_context(name, value, attrs)
@@ -60,18 +63,24 @@ class AdminTimeInput(widgets.TimeInput):
     template_name = 'wagtailadmin/widgets/time_input.html'
 
     def __init__(self, attrs=None, format='%H:%M'):
-        super().__init__(attrs=attrs, format=format)
+        default_attrs = {'autocomplete': 'off'}
+        if attrs:
+            default_attrs.update(attrs)
+        super().__init__(attrs=default_attrs, format=format)
 
 
 class AdminDateTimeInput(widgets.DateTimeInput):
     template_name = 'wagtailadmin/widgets/datetime_input.html'
 
     def __init__(self, attrs=None, format=None):
+        default_attrs = {'autocomplete': 'off'}
         fmt = format
+        if attrs:
+            default_attrs.update(attrs)
         if fmt is None:
             fmt = getattr(settings, 'WAGTAIL_DATETIME_FORMAT', DEFAULT_DATETIME_FORMAT)
         self.js_format = to_datetimepicker_format(fmt)
-        super().__init__(attrs=attrs, format=fmt)
+        super().__init__(attrs=default_attrs, format=fmt)
 
     def get_context(self, name, value, attrs):
         context = super().get_context(name, value, attrs)
