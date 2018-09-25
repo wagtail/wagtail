@@ -94,6 +94,8 @@ class TestAdminDateInput(TestCase):
 
         html = widget.render('test', None, attrs={'id': 'test-id'})
 
+        self.assertInHTML('<input type="text" name="test" autocomplete="off" id="test-id" />', html)
+
         # we should see the JS initialiser code:
         # initDateChooser("test-id", {"dayOfWeekStart": 0, "format": "Y-m-d"});
         # except that we can't predict the order of the config options
@@ -127,6 +129,8 @@ class TestAdminDateTimeInput(TestCase):
         widget = widgets.AdminDateTimeInput()
 
         html = widget.render('test', None, attrs={'id': 'test-id'})
+
+        self.assertInHTML('<input type="text" name="test" autocomplete="off" id="test-id" />', html)
 
         # we should see the JS initialiser code:
         # initDateTimeChooser("test-id", {"dayOfWeekStart": 0, "format": "Y-m-d H:i"});
