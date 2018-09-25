@@ -1,0 +1,41 @@
+.c-filter {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+
+    border: 1px solid $color-grey-4;
+    border-radius: 3px;
+
+    display: inline-flex;
+    overflow: hidden;
+}
+
+.c-filter__item {
+    display: flex;
+    text-transform: uppercase;
+
+    @media screen and (min-width: $breakpoint-mobile) {
+        display: inline-flex;
+        border-left: 1px solid $color-grey-4;
+
+        &:first-child {
+            border-left: 0;
+        }
+    }
+}
+
+.c-filter__link {
+    display: flex;
+    align-items: center;
+    padding: 2px 5px;
+    font-weight: 600;
+
+    @media screen and (min-width: $breakpoint-mobile) {
+        padding: 13px 25px;
+    }
+}
+
+.c-filter__link--active {
+    background-color: $color-grey-4;
+    color: $color-grey-1;
+}
