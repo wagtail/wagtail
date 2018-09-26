@@ -1,8 +1,3 @@
-$selected-highlight: darken($color-grey-1, 10%);
-$submenu-color: darken($color-grey-1, 5%);
-$footer-account: $selected-highlight;
-$footer-submenu: $submenu-color;
-
 .nav-wrapper {
     position: relative;
     margin-left: -$menu-width;
@@ -11,10 +6,10 @@ $footer-submenu: $submenu-color;
     display: flex;
     flex-direction: column;
     height: 100%;
-    background: $color-grey-1;
+    background: $nav-grey-1;
 
     .inner {
-        background: $color-grey-1;
+        background: $nav-grey-1;
     }
 }
 
@@ -62,7 +57,7 @@ $footer-submenu: $submenu-color;
         &:hover,
         &:focus {
             outline: none;
-            background-color: rgba(100, 100, 100, 0.15);
+            background-color: $nav-item-hover-bg;
             color: $color-white;
             text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
         }
@@ -92,7 +87,7 @@ $footer-submenu: $submenu-color;
     }
 
     .menu-active {
-        background: $selected-highlight;
+        background: $nav-item-active-bg;
         text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
 
         > a {
@@ -136,7 +131,7 @@ $footer-submenu: $submenu-color;
 }
 
 .nav-submenu {
-    background: $submenu-color;
+    background: $submenu-bg;
 
     h2 {
         display: none;
@@ -395,7 +390,7 @@ body.explorer-open {
     }
 
     li.submenu-active {
-        background: $submenu-color;
+        background: $submenu-bg;
 
         > a {
             text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);

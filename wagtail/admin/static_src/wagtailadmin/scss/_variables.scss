@@ -25,9 +25,9 @@ $breakpoint-desktop-large: 75em; // 1200px
 $breakpoint-desktop-larger: 100em; // 1600px
 
 // colours
-$color-teal: #43b1b0;
-$color-teal-darker: darken($color-teal, 10);
-$color-teal-dark: darken($color-teal, 22);
+$color-teal: #007d7e;
+$color-teal-darker: darken(adjust-hue($color-teal, 1), 3);
+$color-teal-dark: darken(adjust-hue($color-teal, 1), 6);
 
 $color-blue: #71b2d4;
 $color-red: #cd3238;
@@ -89,3 +89,12 @@ $mobile-nav-indent: 50px;
 
 $nav-wrapper-inner-z-index: 26;
 $draftail-editor-z-index: $nav-wrapper-inner-z-index + 1;
+
+// Nav
+$nav-grey-1: darken($color-white, 80);
+$nav-grey-2: darken($color-white, 60);
+$nav-item-hover-bg: rgba(100, 100, 100, 0.15);
+$nav-item-active-bg: darken($color-white, 90);
+$submenu-bg: darken($color-white, 85);
+$footer-account: $nav-item-active-bg;
+$footer-submenu: $submenu-bg;
