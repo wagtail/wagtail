@@ -18,7 +18,7 @@
 
     a {
         @include transition(border-color 0.2s ease);
-        background-color: lighten($color-teal-darker, 3%);
+        background-color: $color-teal-darker;
         outline: none;
         text-transform: uppercase;
         font-weight: 700;
@@ -27,7 +27,7 @@
         display: block;
         padding: 0.7em;
         color: $color-white;
-        border-top: 0.3em solid lighten($color-teal-darker, 3%);
+        border-top: 0.3em solid $color-teal-darker;
         max-height: 1.2em;
         overflow: hidden;
 
