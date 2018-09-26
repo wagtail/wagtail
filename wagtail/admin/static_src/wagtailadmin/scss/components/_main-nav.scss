@@ -178,19 +178,24 @@
 
     input {
         cursor: pointer;
-        border: 1px solid darken($color-grey-2, 10%);
-        background-color: darken($color-grey-2, 15%);
-        color: $color-menu-text;
+        border: 1px solid $nav-search-border;
+        background-color: $nav-search-bg;
+        color: $nav-search-color;
         padding: 0.8em 2.5em 0.8em 1em;
+        font-weight: 600;
 
         &:hover {
-            background-color: darken($color-grey-2, 10%);
+            background-color: $nav-search-hover-bg;
         }
 
         &:active,
         &:focus {
-            background-color: darken($color-grey-2, 5%);
-            color: $color-white;
+            background-color: $nav-search-focus-bg;
+            color: $nav-search-focus-color;
+        }
+
+        &::placeholder {
+            color: $color-menu-text;
         }
     }
 
@@ -205,6 +210,14 @@
         width: 3em;
         height: 100%;
         overflow: hidden;
+
+        &:hover {
+            background-color: $nav-item-hover-bg;
+        }
+
+        &:active {
+            background-color: $nav-item-active-bg;
+        }
 
         &:before {
             font-family: wagtail;
