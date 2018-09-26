@@ -98,3 +98,11 @@ $nav-item-active-bg: darken($color-white, 90);
 $submenu-bg: darken($color-white, 85);
 $footer-account: $nav-item-active-bg;
 $footer-submenu: $submenu-bg;
+
+// Nav search
+$nav-search-color: darken($color-white, 20);
+$nav-search-border: darken($color-white, 40);
+$nav-search-bg: $nav-grey-1;
+$nav-search-hover-bg: $nav-item-hover-bg;
+$nav-search-focus-color: $color-white;
+$nav-search-focus-bg: $nav-item-hover-bg;
