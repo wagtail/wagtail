@@ -105,6 +105,27 @@ select::-ms-expand {
     display: none;
 }
 
+.file_field {
+    .input {
+        label {
+            float: none;
+            display: inline;
+            padding: 0;
+        }
+
+        input[type=checkbox] {
+            margin-top: 5px;
+        }
+
+        a {
+            &:after {
+                content: ' ';
+                display: block;
+            }
+        }
+    }
+}
+
 
 // radio and check boxes
 input[type=radio],
