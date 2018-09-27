@@ -44,6 +44,7 @@ Bug fixes
  * Specific page permission checks are now enforced when viewing a page revision (Andy Chosak)
  * ``pageurl`` and ``slugurl`` tags no longer fail when ``request.site`` is ``None`` (Samir Shah)
  * Output form media on add/edit image forms with custom models (Matt Westcott)
+ * Fixes layout for the clear checkbox in default FileField widget (Mikalai Radchuk)
 
 
 Upgrade considerations
