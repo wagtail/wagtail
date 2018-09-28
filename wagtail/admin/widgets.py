@@ -66,7 +66,7 @@ class AdminTimeInput(widgets.TimeInput):
         default_attrs = {'autocomplete': 'off'}
         if attrs:
             default_attrs.update(attrs)
-        super().__init__(attrs=attrs, format=format)
+        super().__init__(attrs=default_attrs, format=format)
 
 
 class AdminDateTimeInput(widgets.DateTimeInput):
