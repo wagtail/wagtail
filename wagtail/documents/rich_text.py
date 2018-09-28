@@ -13,7 +13,7 @@ def document_linktype_handler(attrs):
     try:
         doc = Document.objects.get(id=attrs['id'])
         return '<a href="%s">' % escape(doc.url)
-    except Document.DoesNotExist:
+    except (Document.DoesNotExist, KeyError):
         return "<a>"
 
 
@@ -31,7 +31,11 @@ class DocumentLinkHandler:
             doc = Document.objects.get(id=attrs['id'])
             return '<a data-linktype="document" data-id="%d" href="%s">' % (doc.id, escape(doc.url))
         except Document.DoesNotExist:
-            return "<a>"
+            # Preserve the ID attribute for troubleshooting purposes, even though it
+            # points to a missing document
+            return '<a data-linktype="document" data-id="%s">' % attrs['id']
+        except KeyError:
+            return '<a data-linktype="document">'
 
 
 EditorHTMLDocumentLinkConversionRule = [
@@ -62,9 +66,14 @@ class DocumentLinkElementHandler(LinkElementHandler):
     def get_attribute_data(self, attrs):
         Document = get_document_model()
         try:
-            doc = Document.objects.get(id=attrs['id'])
-        except Document.DoesNotExist:
+            id = int(attrs['id'])
+        except (KeyError, ValueError):
             return {}
+
+        try:
+            doc = Document.objects.get(id=id)
+        except Document.DoesNotExist:
+            return {'id': id}
 
         return {
             'id': doc.id,
