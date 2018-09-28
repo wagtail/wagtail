@@ -5,7 +5,7 @@ from django.utils.translation import ugettext as _
 from django.views.decorators.vary import vary_on_headers
 
 from wagtail.admin import messages
-from wagtail.admin.forms import SearchForm
+from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.utils import PermissionPolicyChecker, permission_denied
 from wagtail.contrib.redirects import models
 from wagtail.contrib.redirects.forms import RedirectForm

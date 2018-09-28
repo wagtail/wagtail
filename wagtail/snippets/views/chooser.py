@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.utils.translation import ugettext as _
 
-from wagtail.admin.forms import SearchForm
+from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.search.backends import get_search_backend
 from wagtail.search.index import class_is_indexed

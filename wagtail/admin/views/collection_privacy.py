@@ -1,7 +1,7 @@
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404
 
-from wagtail.admin.forms import CollectionViewRestrictionForm
+from wagtail.admin.forms.collections import CollectionViewRestrictionForm
 from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.core.models import Collection, CollectionViewRestriction
 from wagtail.core.permissions import collection_permission_policy

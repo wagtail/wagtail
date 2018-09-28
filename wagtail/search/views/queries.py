@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from wagtail.admin.forms import SearchForm
+from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.search import models
 from wagtail.search.utils import normalise_query_string
