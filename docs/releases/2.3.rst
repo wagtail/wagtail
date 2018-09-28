@@ -43,6 +43,48 @@ Bug fixes
  * Restored localisation in date/time pickers (David Moore, Thibaud Colas)
  * Tag input field no longer treats 'б' on Russian keyboards as a comma (Michael Borisov)
  * Disabled autocomplete dropdowns on date/time chooser fields (Janneke Janssen)
+ * Split up ``wagtail.admin.forms`` to make it less prone to circular imports (Matt Westcott)
 
 Upgrade considerations
 ======================
+
+``wagtail.admin.forms`` reorganised
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The ``wagtail.admin.forms`` module has been split up into submodules to make it less prone to producing circular imports, particularly when a custom user model is in use. The following (undocumented) definitions have now been moved to new locations:
+
++----------------------------------------------+---------------------------------------+
+| Definition                                   | New location                          |
++==============================================+=======================================+
+| LoginForm                                    | wagtail.admin.forms.auth              |
++----------------------------------------------+---------------------------------------+
+| PasswordResetForm                            | wagtail.admin.forms.auth              |
++----------------------------------------------+---------------------------------------+
+| URLOrAbsolutePathValidator                   | wagtail.admin.forms.choosers          |
++----------------------------------------------+---------------------------------------+
+| URLOrAbsolutePathField                       | wagtail.admin.forms.choosers          |
++----------------------------------------------+---------------------------------------+
+| ExternalLinkChooserForm                      | wagtail.admin.forms.choosers          |
++----------------------------------------------+---------------------------------------+
+| EmailLinkChooserForm                         | wagtail.admin.forms.choosers          |
++----------------------------------------------+---------------------------------------+
+| CollectionViewRestrictionForm                | wagtail.admin.forms.collections       |
++----------------------------------------------+---------------------------------------+
+| CollectionForm                               | wagtail.admin.forms.collections       |
++----------------------------------------------+---------------------------------------+
+| BaseCollectionMemberForm                     | wagtail.admin.forms.collections       |
++----------------------------------------------+---------------------------------------+
+| BaseGroupCollectionMemberPermissionFormSet   | wagtail.admin.forms.collections       |
++----------------------------------------------+---------------------------------------+
+| collection_member_permission_formset_factory | wagtail.admin.forms.collections       |
++----------------------------------------------+---------------------------------------+
+| CopyForm                                     | wagtail.admin.forms.pages             |
++----------------------------------------------+---------------------------------------+
+| PageViewRestrictionForm                      | wagtail.admin.forms.pages             |
++----------------------------------------------+---------------------------------------+
+| SearchForm                                   | wagtail.admin.forms.search            |
++----------------------------------------------+---------------------------------------+
+| BaseViewRestrictionForm                      | wagtail.admin.forms.view_restrictions |
++----------------------------------------------+---------------------------------------+
+
+The following definitions remain in ``wagtail.admin.forms``: ``FORM_FIELD_OVERRIDES``, ``DIRECT_FORM_FIELD_OVERRIDES``, ``formfield_for_dbfield``, ``WagtailAdminModelFormMetaclass``, ``WagtailAdminModelForm`` and ``WagtailAdminPageForm``.

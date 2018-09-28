@@ -20,6 +20,7 @@ Changelog
  * Fix: Restored localisation in date/time pickers (David Moore, Thibaud Colas)
  * Fix: Tag input field no longer treats 'б' on Russian keyboards as a comma (Michael Borisov)
  * Fix: Disabled autocomplete dropdowns on date/time chooser fields (Janneke Janssen)
+ * Fix: Split up `wagtail.admin.forms` to make it less prone to circular imports (Matt Westcott)
 
 
 2.2.2 (29.08.2018)
