@@ -7,6 +7,7 @@ from django.forms.utils import ErrorList
 from django.template.loader import render_to_string
 from django.utils.functional import cached_property
 from django.utils.html import format_html, format_html_join
+from django.utils.module_loading import import_string
 
 from .base import Block, DeclarativeSubBlocksMetaclass
 from .utils import js_dict
@@ -16,6 +17,7 @@ __all__ = ['BaseStructBlock', 'StructBlock', 'StructValue']
 
 class StructValue(collections.OrderedDict):
     """ A class that generates a StructBlock value from provded sub-blocks """
+
     def __init__(self, block, *args):
         super().__init__(*args)
         self.block = block
@@ -149,7 +151,13 @@ class BaseStructBlock(Block):
 
     def _to_struct_value(self, block_items):
         """ Return a Structvalue representation of the sub-blocks in this block """
-        return self.meta.value_class(self, block_items)
+        try:
+            return self.meta.value_class(self, block_items)
+        except TypeError as err:
+            if type(self.meta.value_class) == str:
+                return import_string(self.meta.value_class)(self, block_items)
+            else:
+                raise TypeError(err)
 
     def get_prep_value(self, value):
         """ Recursively call get_prep_value on children and return as a plain dict """
