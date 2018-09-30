@@ -3,6 +3,8 @@ from urllib.parse import urlparse
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
+from wagtail.core.models import Page
+
 
 class Redirect(models.Model):
     old_path = models.CharField(verbose_name=_("redirect from"), max_length=255, db_index=True)
