@@ -51,12 +51,12 @@ class Redirect(models.Model):
             return cls.objects.all()
 
     @staticmethod
-    def add_redirect(old_path, redirect_page, is_permanent=True):
+    def add_redirect(old_path, redirect_to=None, is_permanent=True):
         """
         Create and save a Redirect instance with a single method.
 
         :param old_path: the path you wish to redirect
-        :param redirect_page: a page where the redirect should point
+        :param redirect_to: a Page (instance) or path (string) where the redirect should point
         :param is_permanent: whether the redirect should be indicated as permanent (i.e. 301 redirect)
         :return: Redirect instance
         """
@@ -64,7 +64,15 @@ class Redirect(models.Model):
 
         # Set redirect properties from input parameters
         redirect.old_path = Redirect.normalise_path(old_path)
-        redirect.redirect_page = redirect_page
+
+        # Check whether redirect to is string or Page
+        if isinstance(redirect_to, Page):
+            # Set redirect page
+            redirect.redirect_page = redirect_page
+        elif isinstance(redirect_to, str):
+            # Set redirect link string
+            redirect.redirect_link = redirect_to
+
         redirect.is_permanent = is_permanent
 
         redirect.save()
