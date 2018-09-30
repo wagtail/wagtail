@@ -16,12 +16,12 @@ class TestRedirects(TestCase):
         add_redirect = models.Redirect.add_redirect
 
         old_path = '/old-path'
-        redirect_page = '/redirect-page'
+        redirect_page = Page.objects.get(url_path='/home/events/christmas/')
 
         # Create a redirect
         redirect = add_redirect(
             old_path=old_path,
-            redirect_page=redirect_page
+            redirect_to=redirect_page
         )
 
         # Old path should match in redirect
