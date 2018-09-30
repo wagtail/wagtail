@@ -68,7 +68,7 @@ class Redirect(models.Model):
         # Check whether redirect to is string or Page
         if isinstance(redirect_to, Page):
             # Set redirect page
-            redirect.redirect_page = redirect_page
+            redirect.redirect_page = redirect_to
         elif isinstance(redirect_to, str):
             # Set redirect link string
             redirect.redirect_link = redirect_to
