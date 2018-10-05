@@ -42,7 +42,6 @@ export const getChooserConfig = (entityType, entity, selectedText) => {
       page_type: 'wagtailcore.page',
       allow_external_link: true,
       allow_email_link: true,
-      can_choose_root: 'false',
       link_text: selectedText,
     };
 
