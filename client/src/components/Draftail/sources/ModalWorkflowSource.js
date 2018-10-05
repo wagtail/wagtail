@@ -50,7 +50,11 @@ export const getChooserConfig = (entityType, entity, selectedText) => {
       const data = entity.getData();
 
       if (data.id) {
-        url = `${global.chooserUrls.pageChooser}${data.parentId}/`;
+        if (data.parentId !== null) {
+          url = `${global.chooserUrls.pageChooser}${data.parentId}/`;
+        } else {
+          url = global.chooserUrls.pageChooser;
+        }
       } else if (data.url.startsWith('mailto:')) {
         url = global.chooserUrls.emailLinkChooser;
         urlParams.link_url = data.url.replace('mailto:', '');

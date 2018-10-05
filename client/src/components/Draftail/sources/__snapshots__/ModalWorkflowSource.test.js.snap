@@ -103,7 +103,22 @@ Object {
   "onload": Object {
     "type": "page",
   },
-  "url": "/admin/choose-page/0/",
+  "url": "/admin/choose-page/1/",
+  "urlParams": Object {
+    "allow_email_link": true,
+    "allow_external_link": true,
+    "link_text": "",
+    "page_type": "wagtailcore.page",
+  },
+}
+`;
+
+exports[`ModalWorkflowSource #getChooserConfig LINK root page 1`] = `
+Object {
+  "onload": Object {
+    "type": "page",
+  },
+  "url": "/admin/choose-page/",
   "urlParams": Object {
     "allow_email_link": true,
     "allow_external_link": true,

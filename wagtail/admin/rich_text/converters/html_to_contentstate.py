@@ -208,10 +208,12 @@ class PageLinkElementHandler(LinkElementHandler):
         except Page.DoesNotExist:
             return {}
 
+        parent_page = page.get_parent()
+
         return {
             'id': page.id,
             'url': page.url,
-            'parentId': page.get_parent().id,
+            'parentId': parent_page.id if parent_page else None,
         }
 
 
