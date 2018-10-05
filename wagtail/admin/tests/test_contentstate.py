@@ -337,6 +337,28 @@ class TestHtmlToContentState(TestCase):
             ]
         })
 
+    def test_link_to_root_page(self):
+        converter = ContentstateConverter(features=['link'])
+        result = json.loads(converter.from_database_format(
+            '''
+            <p>an <a linktype="page" id="1">internal</a> link</p>
+            '''
+        ))
+        self.assertContentStateEqual(result, {
+            'entityMap': {
+                '0': {
+                    'mutability': 'MUTABLE', 'type': 'LINK',
+                    'data': {'id': 1, 'url': None, 'parentId': None}
+                }
+            },
+            'blocks': [
+                {
+                    'inlineStyleRanges': [], 'text': 'an internal link', 'depth': 0, 'type': 'unstyled', 'key': '00000',
+                    'entityRanges': [{'offset': 3, 'length': 8, 'key': 0}]
+                },
+            ]
+        })
+
     def test_document_link(self):
         converter = ContentstateConverter(features=['document-link'])
         result = json.loads(converter.from_database_format(
