@@ -2626,7 +2626,16 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         self.assertEqual(value[1].id, '0000')
         self.assertEqual(value[1].value, 'this is my heading')
 
-    def test_get_prep_value(self):
+    def assertExpectedGetPrepValue(self, jsonish_value):
+        self.assertEqual(len(jsonish_value), 2)
+        self.assertEqual(jsonish_value[0], {'type': 'heading', 'value': 'this is my heading', 'id': '0000'})
+        self.assertEqual(jsonish_value[1]['type'], 'paragraph')
+        self.assertEqual(jsonish_value[1]['value'], '<p>this is a paragraph</p>')
+        # get_prep_value should assign a new (random and non-empty) ID to this block, as it didn't
+        # have one already
+        self.assertTrue(jsonish_value[1]['id'])
+
+    def get_prep_value(self):
         class ArticleBlock(blocks.StreamBlock):
             heading = blocks.CharBlock()
             paragraph = blocks.CharBlock()
@@ -2637,15 +2646,22 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             ('heading', 'this is my heading', '0000'),
             ('paragraph', '<p>this is a paragraph</p>')
         ])
-        jsonish_value = block.get_prep_value(value)
 
-        self.assertEqual(len(jsonish_value), 2)
-        self.assertEqual(jsonish_value[0], {'type': 'heading', 'value': 'this is my heading', 'id': '0000'})
-        self.assertEqual(jsonish_value[1]['type'], 'paragraph')
-        self.assertEqual(jsonish_value[1]['value'], '<p>this is a paragraph</p>')
-        # get_prep_value should assign a new (random and non-empty) ID to this block, as it didn't
-        # have one already
-        self.assertTrue(jsonish_value[1]['id'])
+        self.assertExpectedGetPrepValue(block.get_prep_value(value))
+
+    def test_get_prep_value_lazy(self):
+        class ArticleBlock(blocks.StreamBlock):
+            heading = blocks.CharBlock()
+            paragraph = blocks.CharBlock()
+
+        block = ArticleBlock()
+
+        value = blocks.StreamValue(block, [
+            {'type': 'heading', 'value': 'this is my heading', 'id': '0000'},
+            {'type': 'paragraph', 'value': '<p>this is a paragraph</p>'},
+        ], is_lazy=True)
+
+        self.assertExpectedGetPrepValue(block.get_prep_value(value))
 
 
 class TestPageChooserBlock(TestCase):
