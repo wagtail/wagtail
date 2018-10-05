@@ -246,16 +246,11 @@ class BaseStreamBlock(Block):
         if value is None:
             # treat None as identical to an empty stream
             return []
-
-        return [
-            {
-                'type': child.block.name,
-                'value': child.block.get_prep_value(child.value),
-                # assign a new ID on save if it didn't have one already
-                'id': child.id or str(uuid.uuid4()),
-            }
-            for child in value  # child is a StreamChild instance
-        ]
+        else:
+            # value is a StreamValue - delegate to its get_prep_value() method
+            # (which has special-case handling for lazy StreamValues to avoid useless
+            # round-trips to the full data representation and back)
+            return value.get_prep_value()
 
     def get_api_representation(self, value, context=None):
         if value is None:
@@ -423,6 +418,33 @@ class StreamValue(collections.Sequence):
             # also pass the block ID to StreamChild, if one exists for this stream index
             block_id = self.stream_data[i].get('id')
             self._bound_blocks[i] = StreamValue.StreamChild(child_block, value, id=block_id)
+
+    def get_prep_value(self):
+        prep_value = []
+
+        for i, stream_data_item in enumerate(self.stream_data):
+            if self.is_lazy and i not in self._bound_blocks:
+                # This child has not been accessed as a bound block, so its raw JSONish
+                # value (stream_data_item here) is still valid
+
+                # assign a new ID if it didn't have one already
+                if not stream_data_item.get('id'):
+                    stream_data_item['id'] = str(uuid.uuid4())
+
+                prep_value_item = stream_data_item
+
+            else:
+                # convert the bound block back into JSONish data
+                child = self[i]
+                prep_value_item = {
+                    'type': child.block.name,
+                    'value': child.block.get_prep_value(child.value),
+                    # assign a new ID on save if it didn't have one already
+                    'id': child.id or str(uuid.uuid4()),
+                }
+            prep_value.append(prep_value_item)
+
+        return prep_value
 
     def __eq__(self, other):
         if not isinstance(other, StreamValue):
