@@ -326,7 +326,9 @@ class TestHtmlToContentState(TestCase):
             'entityMap': {
                 '0': {
                     'mutability': 'MUTABLE', 'type': 'LINK',
-                    'data': {}
+                    'data': {
+                        'id': 9999, 'url': None, 'parentId': None,
+                    }
                 }
             },
             'blocks': [

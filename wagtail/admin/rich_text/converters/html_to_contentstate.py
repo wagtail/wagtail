@@ -206,7 +206,12 @@ class PageLinkElementHandler(LinkElementHandler):
         try:
             page = Page.objects.get(id=attrs['id']).specific
         except Page.DoesNotExist:
-            return {}
+            # retain ID so that it's still identified as a page link (albeit a broken one)
+            return {
+                'id': int(attrs['id']),
+                'url': None,
+                'parentId': None
+            }
 
         parent_page = page.get_parent()
 
