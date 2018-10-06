@@ -426,11 +426,6 @@ class StreamValue(collections.Sequence):
             if self.is_lazy and i not in self._bound_blocks:
                 # This child has not been accessed as a bound block, so its raw JSONish
                 # value (stream_data_item here) is still valid
-
-                # assign a new ID if it didn't have one already
-                if not stream_data_item.get('id'):
-                    stream_data_item['id'] = str(uuid.uuid4())
-
                 prep_value_item = stream_data_item
 
             else:
@@ -439,9 +434,14 @@ class StreamValue(collections.Sequence):
                 prep_value_item = {
                     'type': child.block.name,
                     'value': child.block.get_prep_value(child.value),
-                    # assign a new ID on save if it didn't have one already
-                    'id': child.id or str(uuid.uuid4()),
+                    'id': child.id,
                 }
+
+            # As this method is preparing this value to be saved to the database,
+            # this is an appropriate place to ensure that each block has a unique id.
+            if not prep_value_item.get('id'):
+                prep_value_item['id'] = str(uuid.uuid4())
+
             prep_value.append(prep_value_item)
 
         return prep_value
