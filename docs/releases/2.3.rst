@@ -44,6 +44,8 @@ Bug fixes
  * Tag input field no longer treats 'б' on Russian keyboards as a comma (Michael Borisov)
  * Disabled autocomplete dropdowns on date/time chooser fields (Janneke Janssen)
  * Split up ``wagtail.admin.forms`` to make it less prone to circular imports (Matt Westcott)
+ * Disable linking to root page in rich text, making the page non-functional (Matt Westcott)
+ * Pages should be editable and save-able even if there are broken links in rich text (Matt Westcott)
 
 Upgrade considerations
 ======================
