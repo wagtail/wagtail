@@ -394,6 +394,28 @@ class TestHtmlToContentState(TestCase):
             'entityMap': {
                 '0': {
                     'mutability': 'MUTABLE', 'type': 'DOCUMENT',
+                    'data': {'id': 9999}
+                }
+            },
+            'blocks': [
+                {
+                    'inlineStyleRanges': [], 'text': 'a document link', 'depth': 0, 'type': 'unstyled', 'key': '00000',
+                    'entityRanges': [{'offset': 2, 'length': 8, 'key': 0}]
+                },
+            ]
+        })
+
+    def test_document_link_with_missing_id(self):
+        converter = ContentstateConverter(features=['document-link'])
+        result = json.loads(converter.from_database_format(
+            '''
+            <p>a <a linktype="document">document</a> link</p>
+            '''
+        ))
+        self.assertContentStateEqual(result, {
+            'entityMap': {
+                '0': {
+                    'mutability': 'MUTABLE', 'type': 'DOCUMENT',
                     'data': {}
                 }
             },
