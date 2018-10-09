@@ -318,6 +318,7 @@ Contributors
 * Dan Braghis
 * Ben Dickinson
 * Meteor0id
+* Stian Aurdal
 
 Translators
 ===========
