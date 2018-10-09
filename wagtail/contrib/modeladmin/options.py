@@ -314,14 +314,14 @@ class ModelAdmin(WagtailRegisterable):
         view_class = self.index_view_class
         return view_class.as_view(**kwargs)(request)
 
-    def create_view(self, request):
+    def create_view(self, request, **kwargs):
         """
         Instantiates a class-based view to provide 'creation' functionality for
         the assigned model, or redirect to Wagtail's create view if the
         assigned model extends 'Page'. The view class used can be overridden by
         changing the 'create_view_class' attribute.
         """
-        kwargs = {'model_admin': self}
+        kwargs.update({'model_admin': self})
         view_class = self.create_view_class
         return view_class.as_view(**kwargs)(request)
 
@@ -337,28 +337,28 @@ class ModelAdmin(WagtailRegisterable):
         view_class = self.choose_parent_view_class
         return view_class.as_view(**kwargs)(request)
 
-    def inspect_view(self, request, instance_pk):
+    def inspect_view(self, request, **kwargs):
         """
         Instantiates a class-based view to provide 'inspect' functionality for
         the assigned model. The view class used can be overridden by changing
         the 'inspect_view_class' attribute.
         """
-        kwargs = {'model_admin': self, 'instance_pk': instance_pk}
+        kwargs.update({'model_admin': self})
         view_class = self.inspect_view_class
         return view_class.as_view(**kwargs)(request)
 
-    def edit_view(self, request, instance_pk):
+    def edit_view(self, request, **kwargs):
         """
         Instantiates a class-based view to provide 'edit' functionality for the
         assigned model, or redirect to Wagtail's edit view if the assinged
         model extends 'Page'. The view class used can be overridden by changing
         the  'edit_view_class' attribute.
         """
-        kwargs = {'model_admin': self, 'instance_pk': instance_pk}
+        kwargs.update({'model_admin': self})
         view_class = self.edit_view_class
         return view_class.as_view(**kwargs)(request)
 
-    def delete_view(self, request, instance_pk):
+    def delete_view(self, request, **kwargs):
         """
         Instantiates a class-based view to provide 'delete confirmation'
         functionality for the assigned model, or redirect to Wagtail's delete
@@ -366,7 +366,7 @@ class ModelAdmin(WagtailRegisterable):
         used can be overridden by changing the 'delete_view_class'
         attribute.
         """
-        kwargs = {'model_admin': self, 'instance_pk': instance_pk}
+        kwargs.update({'model_admin': self})
         view_class = self.delete_view_class
         return view_class.as_view(**kwargs)(request)
 
