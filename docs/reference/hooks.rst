@@ -306,7 +306,7 @@ Hooks for customising the editing interface for pages and snippets.
 
   .. code-block:: python
 
-    from django.contrib.staticfiles.templatetags.staticfiles import static
+    from django.templatetags.static import static
     from django.utils.html import format_html
 
     from wagtail.core import hooks
@@ -329,7 +329,7 @@ Hooks for customising the editing interface for pages and snippets.
   .. code-block:: python
 
     from django.utils.html import format_html
-    from django.contrib.staticfiles.templatetags.staticfiles import static
+    from django.templatetags.static import static
 
     from wagtail.core import hooks
 
@@ -348,7 +348,7 @@ Hooks for customising the editing interface for pages and snippets.
   .. code-block:: python
 
     from django.utils.html import format_html, format_html_join
-    from django.conf import settings
+    from django.templatetags.static import static
 
     from wagtail.core import hooks
 
@@ -357,8 +357,8 @@ Hooks for customising the editing interface for pages and snippets.
         js_files = [
             'demo/js/jquery.raptorize.1.0.js',
         ]
-        js_includes = format_html_join('\n', '<script src="{0}{1}"></script>',
-            ((settings.STATIC_URL, filename) for filename in js_files)
+        js_includes = format_html_join('\n', '<script src="{0}"></script>',
+            ((static(filename),) for filename in js_files)
         )
         return js_includes + format_html(
             """
