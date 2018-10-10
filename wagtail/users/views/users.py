@@ -149,8 +149,9 @@ def edit(request, user_id):
         form = get_user_edit_form()(request.POST, request.FILES, instance=user, editing_self=editing_self)
         if form.is_valid():
             user = form.save()
-            messages.success(request, _("Your details have been updated. You've been logged out for security reasons, "
-                                        "please login to continue."))
+            messages.success(request, _("User '{0}' updated.").format(user), buttons=[
+                messages.button(reverse('wagtailusers_users:edit', args=(user.pk,)), _('Edit'))
+            ])
             for fn in hooks.get_hooks('after_edit_user'):
                 result = fn(request, user)
                 if hasattr(result, 'status_code'):
