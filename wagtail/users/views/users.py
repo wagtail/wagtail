@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, update_session_auth_hash
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
@@ -149,6 +149,11 @@ def edit(request, user_id):
         form = get_user_edit_form()(request.POST, request.FILES, instance=user, editing_self=editing_self)
         if form.is_valid():
             user = form.save()
+
+            if user == request.user and 'password1' in form.changed_data:
+                # User is changing their own password; need to update their session hash
+                update_session_auth_hash(request, user)
+
             messages.success(request, _("User '{0}' updated.").format(user), buttons=[
                 messages.button(reverse('wagtailusers_users:edit', args=(user.pk,)), _('Edit'))
             ])
