@@ -33,7 +33,7 @@
 
         &:hover {
             color: $color-white;
-            border-top-color: $color-teal-dark;
+            border-top-color: darken($color-teal-darker, 8);
         }
     }
 
