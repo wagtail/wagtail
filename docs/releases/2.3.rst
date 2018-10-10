@@ -47,6 +47,7 @@ Bug fixes
  * Disable linking to root page in rich text, making the page non-functional (Matt Westcott)
  * Pages should be editable and save-able even if there are broken page or document links in rich text (Matt Westcott)
  * Avoid redundant round-trips of JSON StreamField data on save, improving performance and preventing consistency issues on fixture loading (Andy Chosak, Matt Westcott)
+ * Users are not logged out when changing their own password through the Users area (Matt Westcott)
 
 
 Upgrade considerations

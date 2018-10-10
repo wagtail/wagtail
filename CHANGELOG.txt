@@ -24,6 +24,7 @@ Changelog
  * Fix: Disable linking to root page in rich text, making the page non-functional (Matt Westcott)
  * Fix: Pages should be editable and save-able even if there are broken page or document links in rich text (Matt Westcott)
  * Fix: Avoid redundant round-trips of JSON StreamField data on save, improving performance and preventing consistency issues on fixture loading (Andy Chosak, Matt Westcott)
+ * Fix: Users are not logged out when changing their own password through the Users area (Matt Westcott)
 
 
 2.2.2 (29.08.2018)

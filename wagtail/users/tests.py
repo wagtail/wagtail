@@ -768,6 +768,29 @@ class TestUserEditView(TestCase, WagtailTestUtils):
         # Check that the user is still active
         self.assertEqual(user.is_active, True)
 
+    def test_editing_own_password_does_not_log_out(self):
+        response = self.post({
+            'username': 'test@email.com',
+            'email': 'test@email.com',
+            'first_name': "Edited Myself",
+            'last_name': "User",
+            'password1': "c0rrecth0rse",
+            'password2': "c0rrecth0rse",
+            'is_active': 'on',
+            'is_superuser': 'on',
+        }, self.current_user.pk)
+
+        # Should redirect back to index
+        self.assertRedirects(response, reverse('wagtailusers_users:index'))
+
+        # Check that the user was edited
+        user = get_user_model().objects.get(pk=self.current_user.pk)
+        self.assertEqual(user.first_name, 'Edited Myself')
+
+        # Check user is not logged out
+        response = self.client.get(reverse('wagtailusers_users:index'))
+        self.assertEqual(response.status_code, 200)
+
     def test_cannot_demote_self(self):
         """
         check that unsetting a user's own is_active or is_superuser flag has no effect
