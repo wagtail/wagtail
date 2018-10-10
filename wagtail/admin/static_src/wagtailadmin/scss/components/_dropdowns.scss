@@ -335,17 +335,17 @@
 }
 
 .t-inverted .u-btn-current {
-    border-color: rgba(0, 0, 0, 0.25);
+    border-color: rgba(0, 0, 0, 0.35);
     color: #fff;
 }
 
 .t-inverted .u-btn-current:hover {
     background-color: $color-teal-darker;
-    border-color: $color-teal-darker;
+    border-color: rgba(0, 0, 0, 0.35);
 }
 
 .t-inverted .u-btn-current:active {
-    border-color: rgba(0, 0, 0, 0.25);
+    border-color: rgba(0, 0, 0, 0.35);
     background: #333;
     color: #fff;
 }

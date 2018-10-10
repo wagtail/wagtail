@@ -375,7 +375,7 @@ ul.listing {
         .button {
             background-color: $color-white;
             color: $color-teal;
-            border-color: rgba(0, 0, 0, 0.25);
+            border-color: rgba(0, 0, 0, 0.35);
 
             &:hover {
                 color: $color-white;
@@ -472,7 +472,7 @@ table.listing {
         .button {
             background-color: transparent;
             color: $color-white;
-            border-color: rgba(0, 0, 0, 0.25);
+            border-color: rgba(0, 0, 0, 0.35);
 
             &:hover {
                 color: $color-white;
