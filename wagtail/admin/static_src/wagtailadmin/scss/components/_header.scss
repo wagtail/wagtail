@@ -16,7 +16,7 @@ header {
     }
 
     h1 {
-        padding: 0.2em 0;
+        padding: 0 0 0.2em;
 
         &.icon:before {
             width: 1em;
@@ -24,6 +24,10 @@ header {
             margin-right: 0.4em;
             font-size: 1.5em;
         }
+    }
+
+    h2 {
+        font-size: 1.9em;
     }
 
     .col {
@@ -57,6 +61,7 @@ header {
         @media screen and (max-width: $breakpoint-mobile) {
             // To all hamburger menu to be visible
             padding-left: $desktop-nice-padding;
+            padding-right: 0;
             padding-top: 11px;
         }
 
