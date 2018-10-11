@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Istvan Farkas <istvan.farkas@gmail.com>, 2018
 # B N <biczoxd@gmail.com>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-07-30 17:31+0100\n"
-"PO-Revision-Date: 2018-07-30 16:34+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-08-29 09:24+0000\n"
+"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
 "MIME-Version: 1.0\n"
@@ -71,11 +72,53 @@ msgstr "Már létezik csoport ezzel a névvel."
 msgid "You cannot have multiple permission records for the same page."
 msgstr "Nem lehet több engedély bejegyzésed ugyan ahhoz az oldalhoz."
 
+msgid "Preferred language"
+msgstr "Alapértelmezett nyelv"
+
+msgid "Current time zone"
+msgstr "Jelenlegi időzóna"
+
 msgid "Upload a profile picture"
 msgstr "Profilkép feltöltése"
 
 msgid "submitted notifications"
 msgstr "beküldött értesítések"
+
+msgid "Receive notification when a page is submitted for moderation"
+msgstr "Értesítést kapsz, amikor egy oldal moderálásra lett benyújtva"
+
+msgid "approved notifications"
+msgstr "jóváhagyási értesítések"
+
+msgid "Receive notification when your page edit is approved"
+msgstr "Értesítést kapsz, ha egy általad szerkesztett oldalt jóváhagytak"
+
+msgid "rejected notifications"
+msgstr "elutasítási értesítések"
+
+msgid "Receive notification when your page edit is rejected"
+msgstr "Értesítést kapsz, ha egy általad szerkesztett oldalt elutasítottak"
+
+msgid "preferred language"
+msgstr "alapértelmezett nyelv"
+
+msgid "Select language for the admin"
+msgstr "Válaszd ki a felület nyelvét"
+
+msgid "current time zone"
+msgstr "jelenlegi időzóna"
+
+msgid "Select your current time zone"
+msgstr "Válaszd ki a jelenlegi időzónádat"
+
+msgid "profile picture"
+msgstr "profilkép"
+
+msgid "user profile"
+msgstr "felhasználói profil"
+
+msgid "Delete group"
+msgstr "Csoport törlése"
 
 msgid "Yes, delete"
 msgstr "Igen, törlés"

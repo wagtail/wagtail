@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-07-30 17:31+0100\n"
-"PO-Revision-Date: 2018-07-30 16:34+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-10-11 12:22+0000\n"
+"Last-Translator: Miłosz Miśkiewicz\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -74,6 +74,13 @@ msgstr ""
 "jednego teraz</a>?"
 
 #, python-format
+msgid "Delete %(snippet_type_name)s"
+msgstr "Usuń %(snippet_type_name)s"
+
+msgid "Delete "
+msgstr "Usuń"
+
+#, python-format
 msgid "Used %(usage_count)s time"
 msgid_plural "Used %(usage_count)s times"
 msgstr[0] "Użyto %(usage_count)s raz"
@@ -84,6 +91,10 @@ msgstr[3] "Użyto %(usage_count)s razy"
 #, python-format
 msgid "Are you sure you want to delete this %(snippet_type_name)s?"
 msgstr "Czy na pewno chcesz usunąć ten %(snippet_type_name)s?"
+
+#, python-format
+msgid "Are you sure you want to delete %(count)s %(snippet_type_name)s?"
+msgstr "Czy na pewno chcesz usunąć %(count)s %(snippet_type_name)s?"
 
 msgid "Yes, delete"
 msgstr "Tak, usuń"
@@ -180,6 +191,9 @@ msgstr "Snippet nie mógł zostać zapisany z powodu błędów."
 
 msgid "{snippet_type} '{instance}' deleted."
 msgstr "Usunięto {snippet_type} '{instance}'."
+
+msgid "{count} {snippet_type} deleted."
+msgstr "{count} {snippet_type} usuniętych."
 
 #, python-format
 msgid "Choose %s"

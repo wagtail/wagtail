@@ -4,6 +4,7 @@
 #
 # Translators:
 # geek pantura <geekpantura@gmail.com>, 2016
+# M. Febrian Ramadhana <febrian@ramadhana.me>, 2018
 # Ronggo Radityo <radityo3000@yahoo.com>, 2017
 # Sutrisno Efendi <kangfend@gmail.com>, 2017
 msgid ""
@@ -11,8 +12,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-07-30 17:31+0100\n"
-"PO-Revision-Date: 2018-05-04 19:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-09-18 08:33+0000\n"
+"Last-Translator: M. Febrian Ramadhana <febrian@ramadhana.me>\n"
 "Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
 "wagtail/language/id_ID/)\n"
 "MIME-Version: 1.0\n"
@@ -20,6 +21,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: id_ID\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail documents"
+msgstr "Wagtail dokumen"
 
 msgid "Add"
 msgstr "Menambahkan"
@@ -63,6 +67,19 @@ msgstr "Unggah"
 msgid "Uploading…"
 msgstr "Mengunggah"
 
+#, python-format
+msgid ""
+"\n"
+"            There is one match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"Ada %(counter)s yang sesuai"
+
 msgid "Latest documents"
 msgstr "Dokumen terbaru"
 
@@ -86,6 +103,11 @@ msgstr "Hapus %(title)s"
 msgid "Delete document"
 msgstr "Hapus dokumen"
 
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Digunakan %(usage_count)skali"
+
 msgid "Are you sure you want to delete this document?"
 msgstr "Anda yakin ingin menghapus dokumen ini?"
 
@@ -108,18 +130,50 @@ msgstr "Ukuran file"
 msgid "File not found"
 msgstr "File tidak ditemukan"
 
+msgid "Usage"
+msgstr "Pemakaian"
+
 msgid "Documents"
 msgstr "Dokumen"
 
 msgid "Title"
 msgstr "Judul"
 
+msgid "File"
+msgstr "Berkas"
+
 msgid "Uploaded"
-msgstr "Telah diupload"
+msgstr "Telah diunggah"
 
 #, python-format
 msgid "%(time_period)s ago"
 msgstr "%(time_period)s yang lalu"
+
+#, python-format
+msgid ""
+"You haven't uploaded any documents in this collection. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"Anda sama sekali belum mengunggah dokumen dalam koleksi ini. Mengapa tidak "
+"<a href=\"%(wagtaildocs_add_document_url)s\">mengunggahnya sekarang</a>?"
+
+#, python-format
+msgid ""
+"You haven't uploaded any documents. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"Anda sama sekali belum mengunggah dokumen. Mengapa tidak <a href="
+"\"%(wagtaildocs_add_document_url)s\">mengunggahnya sekarang</a>?"
+
+#, python-format
+msgid "Usage of %(title)s"
+msgstr "Penggunaan dari %(title)s"
+
+msgid "Usage of"
+msgstr "Penggunaan dari"
+
+msgid "Parent"
+msgstr "Induk"
 
 msgid "Type"
 msgstr "Tipe"
@@ -130,11 +184,97 @@ msgstr "Status"
 msgid "Edit this page"
 msgstr "Ubah halaman ini"
 
+#, python-format
+msgid ""
+"\n"
+"        <span>%(total)s</span> Document\n"
+"    "
+msgid_plural ""
+"\n"
+"        <span>%(total)s</span> Documents\n"
+"    "
+msgstr[0] ""
+"\n"
+"<span>%(total)s</span> Dokumen"
+
+msgid "Add multiple documents"
+msgstr "Tambah beberapa dokumen"
+
+msgid "Add documents"
+msgstr "Tambah dokumen"
+
+msgid "Drag and drop documents into this area to upload immediately."
+msgstr "Seret dan lepaskan dokumen ke area ini untuk langsung diunggah."
+
+msgid "Or choose from your computer"
+msgstr "Atau pilih dari komputer Anda"
+
+msgid "Add to collection:"
+msgstr "Tambah ke koleksi:"
+
+msgid ""
+"Upload successful. Please update this documents with a more appropriate "
+"title, if necessary. You may also delete the document completely if the "
+"upload wasn't required."
+msgstr ""
+"Pengunggahan berhasil. Jika perlu, perbarui dokumen ini dengan judul yang "
+"lebih tepat. Anda juga dapat menghapus dokumen sepenuhnya jika unggahan "
+"tidak diperlukan."
+
+msgid "Sorry, upload failed."
+msgstr "Maaf, pengunggahan gagal."
+
+msgid "Update"
+msgstr "Perbarui"
+
 msgid "Delete"
 msgstr "Hapus"
+
+msgid "You need a password to access this document."
+msgstr "Anda memerlukan kata sandi untuk mengakses dokumen ini."
+
+msgid "Document permissions"
+msgstr "Izin dokumen"
+
+msgid "Add a document permission"
+msgstr "Tambahkan izin dokumen"
 
 msgid "Server Error"
 msgstr "Kesalahan Server"
 
 msgid "Report this error to your webmaster with the following information:"
 msgstr "Laporkan kesalahan ini ke webmaster anda dengan informasi berikut:"
+
+msgid "Search documents"
+msgstr "Cari dokumen"
+
+msgid "Document '{0}' added."
+msgstr "Dokumen '{0}' ditambahkan."
+
+msgid "The document could not be saved due to errors."
+msgstr "Dokumen tidak dapat tersimpan dikarenakan oleh error."
+
+msgid "Document '{0}' updated"
+msgstr "Dokumen '{0}' diperbarui."
+
+msgid ""
+"The file could not be found. Please change the source or delete the document"
+msgstr ""
+"Berkas tidak dapat ditemukan. Mohon untuk mengganti sumber atau hapus dokumen"
+
+msgid "Document '{0}' deleted."
+msgstr "Dokumen '{0}' dihapus."
+
+msgid "Document"
+msgstr "Dokumen"
+
+#, python-format
+msgid "%(count)s document"
+msgid_plural "%(count)s documents"
+msgstr[0] "%(count)sdokumen"
+
+msgid "Choose another document"
+msgstr "Pilih dokumen lain"
+
+msgid "Edit this document"
+msgstr "Ubah dokumen ini"

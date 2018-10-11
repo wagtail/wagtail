@@ -3,17 +3,18 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Eva Mikesova <eva.mikesova@tul.cz>, 2018
 # Ivan Pomykacz <mist@alastify.cz>, 2015
 # Jiri Stepanek <stepiiicz@gmail.com>, 2015
 # Marek Turnovec <aesculap@gmail.com>, 2016
-# Martin Galda <martingalda9@gmail.com>, 2017
+# Martin Galda <martingalda9@gmail.com>, 2017-2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-07-30 17:31+0100\n"
-"PO-Revision-Date: 2018-07-30 16:33+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-10-02 11:06+0000\n"
+"Last-Translator: Eva Mikesova <eva.mikesova@tul.cz>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -22,6 +23,12 @@ msgstr ""
 "Language: cs\n"
 "Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n "
 "<= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
+
+msgid "Wagtail admin"
+msgstr "Wagtail admin"
+
+msgid "None"
+msgstr "Nic"
 
 msgid "You do not have permission to access the admin"
 msgstr "Nemáte povolení k přístupu do redakčního systému"
@@ -143,11 +150,35 @@ msgstr "Datum/čas zveřejnění musí být dřívější než datum/čas expira
 msgid "Expiry date/time must be in the future"
 msgstr "Datum/čas expirace musí být v budoucnosti"
 
+msgid "You cannot have multiple permission records for the same collection."
+msgstr "Oprávnění pro stejnou kolekci nemůže být nastaveno vícekrát."
+
+msgid "Error 404: Page not found"
+msgstr "Error 404: Stránka nebyla nalezena"
+
+msgid "Error 404"
+msgstr "Error 404"
+
+msgid "The requested page could not be found."
+msgstr "Požadovaná stránka nebyla nalezena."
+
+msgid "Go to Wagtail admin"
+msgstr "Přejít do redakčního systému"
+
 msgid "Account"
 msgstr "Účet"
 
+msgid "Change profile picture"
+msgstr "Změnit profilový obrázek"
+
+msgid "Your current profile picture:"
+msgstr "Váš aktuální profilový obrázek:"
+
 msgid "Update"
 msgstr "Uložit"
+
+msgid "Change email"
+msgstr "Změnit email"
 
 msgid "Change password"
 msgstr "Změnit heslo"
@@ -157,6 +188,9 @@ msgid ""
 msgstr ""
 "Vaše heslo nelze změnit pomocí této stránky. Kontaktujte prosím "
 "administrátora."
+
+msgid "Set Time Zone"
+msgstr "Nastavit časové pásmo"
 
 msgid "Language Preferences"
 msgstr "Nastavení jazyka"
@@ -176,8 +210,32 @@ msgstr "Přihlásit se"
 msgid "Set your new password"
 msgstr "Nastavte své nové heslo"
 
+msgid "Invalid password reset link"
+msgstr "Neplatný odkaz na obnovu hesla"
+
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used."
+msgstr "Odkaz na obnovu hesla byl neplatný, pravděpodobně už byl použit."
+
+msgid "Request a new password reset"
+msgstr "Znovu požádat o obnovu hesla"
+
 msgid "Check your email"
 msgstr "Zkontrolujte svoji e-mailovou schránku"
+
+msgid ""
+"A link to reset your password has been emailed to you if an account exists "
+"for this address."
+msgstr ""
+"Odkaz na obnovu hesla byl odeslán na váš email, pokud existuje účet s touto "
+"adresou."
+
+msgid "Please follow the link below to reset your password:"
+msgstr "Prosím klikněte na odkaz níže pro obnovu hesla:"
+
+msgid "Your username (in case you've forgotten):"
+msgstr "Vaše uživatelské jméno (pro případ že si ho nepamatujete):"
 
 msgid "Password reset"
 msgstr "Obnovení hesla"
@@ -197,8 +255,23 @@ msgstr "Stránka"
 msgid "Pages"
 msgstr "Stránky"
 
+msgid "Loading…"
+msgstr "Načítání..."
+
 msgid "No results"
 msgstr "Žádné výsledky"
+
+msgid "Server Error"
+msgstr "Chyba serveru"
+
+msgid "See all"
+msgstr "Zobrazit vse"
+
+msgid "Redo"
+msgstr "Opakovat"
+
+msgid "Reload the page"
+msgstr "Znovu nacist stranku"
 
 msgid "Dashboard"
 msgstr "Dashboard"
@@ -227,6 +300,28 @@ msgstr "Externí odkaz"
 msgid "Email link"
 msgstr "Odkaz na e-mailovou adresu"
 
+#, python-format
+msgid ""
+"\n"
+"        There is one match\n"
+"    "
+msgid_plural ""
+"\n"
+"        There are %(counter)s matches\n"
+"    "
+msgstr[0] ""
+"\n"
+"Nalezen jeden výsledek"
+msgstr[1] ""
+"\n"
+"Nalezeny %(counter)s výsledky"
+msgstr[2] ""
+"\n"
+"Nalezeno %(counter)s výsledků"
+msgstr[3] ""
+"\n"
+"Nalezeno %(counter)s výsledků"
+
 msgid "Choose"
 msgstr "Zvolit"
 
@@ -242,8 +337,18 @@ msgstr "Vložit odkaz"
 msgid "Add an external link"
 msgstr "Vložit externí odkaz"
 
+msgid "Collection privacy"
+msgstr "Soukromá kolekce"
+
+msgid "This collection has been made private by a parent collection."
+msgstr "Tato kolekce byla nastavena jako soukromá nadřazenou kolekcí."
+
 msgid "You can edit the privacy settings on:"
 msgstr "Nastavení viditelnosti můžete změnit zde:"
+
+msgid ""
+"Privacy settings determine who is able to view documents in this collection."
+msgstr "Nastavení soukromí určuje kdo má přístup k dokumentům v této kolekci."
 
 msgid "Save"
 msgstr "Uložit"
@@ -257,8 +362,24 @@ msgstr "Veřejné"
 msgid "Private"
 msgstr "Soukromé"
 
+msgid ""
+"This collection cannot be deleted, because it is not empty. It contains:"
+msgstr "Tato kolekce nemůže být smazána protože není prázdná. Obsahuje:"
+
 msgid "Name"
 msgstr "Jméno"
+
+#, python-format
+msgid ""
+"No collections have been created. Why not <a href=\"%(add_collection_url)s"
+"\">add one</a>?"
+msgstr ""
+"Nebyly nalezeny žádné kolekce. Novou kolekci můžete přidat <a href="
+"\"%(add_collection_url)s\">zde</a>."
+
+#, python-format
+msgid "Add %(label)s"
+msgstr "Přidat %(label)s"
 
 msgid "Yes, delete"
 msgstr "Ano, smazat"
@@ -299,6 +420,10 @@ msgstr "Zamítnout"
 msgid "Preview"
 msgstr "Náhled"
 
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "před %(time_period)s"
+
 msgid "Your most recent edits"
 msgstr "Vaše poslední úpravy"
 
@@ -317,6 +442,28 @@ msgstr "Publikováno"
 msgid "Site summary"
 msgstr "Přehled obsahu"
 
+#, python-format
+msgid ""
+"\n"
+"        <span>%(total)s</span> Page\n"
+"    "
+msgid_plural ""
+"\n"
+"        <span>%(total)s</span> Pages\n"
+"    "
+msgstr[0] ""
+"\n"
+"<span>%(total)s</span> Stránka"
+msgstr[1] ""
+"\n"
+"<span>%(total)s</span> Stránky"
+msgstr[2] ""
+"\n"
+"<span>%(total)s</span> Stránek"
+msgstr[3] ""
+"\n"
+"<span>%(total)s</span> Stránek"
+
 msgid "Sign in"
 msgstr "Přihlásit se"
 
@@ -330,6 +477,9 @@ msgstr "Přihlášení do redakčního systému"
 msgid "Forgotten it?"
 msgstr "Zapoměli jste heslo?"
 
+msgid "Signing in…"
+msgstr "Přihlašování..."
+
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
 msgstr "Stránka \"%(title)s\" byla schválena."
@@ -340,6 +490,10 @@ msgstr "Stránku můžete zobrazit zde:"
 #, python-format
 msgid "The page \"%(title)s\" has been approved"
 msgstr "Stránka \"%(title)s\" byla schválena"
+
+#, python-format
+msgid "Hello %(username)s,"
+msgstr "Dobrý den %(username)s,"
 
 msgid "Edit your notification preferences here:"
 msgstr "Své nastavení notifikací najdete zde:"
@@ -354,6 +508,10 @@ msgstr "Stránku můžete upravit zde:"
 #, python-format
 msgid "The page \"%(title)s\" has been rejected"
 msgstr "Stránka \"%(title)s\" byla zamítnuta"
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation by %(editor)s."
+msgstr "%(editor)s odeslal(a) ke schválení stránku \"%(page)s\"."
 
 msgid "You can preview the page here:"
 msgstr "Náhled stránky můžete zobrazit zde:"
@@ -431,6 +589,16 @@ msgid "No, don't delete it"
 msgstr "Ne, nemazat"
 
 #, python-format
+msgid ""
+"Alternatively you can <a href=\"%(unpublish_url)s\">unpublish the page</a>. "
+"This removes the page from public view and you can edit or publish it again "
+"later."
+msgstr ""
+"Můžete také jen <a href=\"%(unpublish_url)s\">zrušit publikaci stránky</a>. "
+"Tím přestane být stránka veřejně viditelná a později ji můžete upravit nebo "
+"znovu publikovat."
+
+#, python-format
 msgid "Move %(title)s"
 msgstr "Přesunout %(title)s"
 
@@ -462,8 +630,37 @@ msgstr "Zrušit publikaci"
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Opravdu chcete zrušit publikaci této stránky?"
 
+#, python-format
+msgid ""
+"\n"
+"                    This page has one subpage. Unpublish this too\n"
+"                "
+msgid_plural ""
+"\n"
+"                    This page has %(live_descendant_count)s subpages. "
+"Unpublish these too\n"
+"                "
+msgstr[0] ""
+"\n"
+"Tato stránka má jednu podstránku. Zrušit i její publikaci"
+msgstr[1] ""
+"\n"
+"Tato stránka má %(live_descendant_count)s podstránky. Zrušit i jejich "
+"publkaci"
+msgstr[2] ""
+"\n"
+"Tato stránka má %(live_descendant_count)s podstránek. Zrušit i jejich "
+"publkaci"
+msgstr[3] ""
+"\n"
+"Tato stránka má %(live_descendant_count)s podstránek. Zrušit i jejich "
+"publkaci"
+
 msgid "Yes, unpublish it"
 msgstr "Ano, zrušit publikaci"
+
+msgid "No, don't unpublish"
+msgstr "Ne, nerušit publikaci"
 
 msgid "Pages using"
 msgstr "Stránky typu"
@@ -485,8 +682,14 @@ msgstr "Nový %(page_type)s"
 msgid "New"
 msgstr "Nový"
 
+msgid "Saving…"
+msgstr "Ukládání..."
+
 msgid "Save draft"
 msgstr "Uložit koncept"
+
+msgid "Publishing…"
+msgstr "Publikování..."
 
 msgid "Publish"
 msgstr "Publikovat"
@@ -497,8 +700,19 @@ msgstr "Odeslat ke schválení"
 msgid "This page has unsaved changes."
 msgstr "Na této stránce jsou neuložené změny."
 
+#, python-format
+msgid "Editing %(page_type)s: %(title)s"
+msgstr "Upravit %(page_type)s: %(title)s"
+
+#, python-format
+msgid "Editing %(page_type)s <span>%(title)s</span>"
+msgstr "Upravit %(page_type)s <span>%(title)s</span>"
+
 msgid "Page locked"
 msgstr "Stránka uzamčena"
+
+msgid "Replace current draft"
+msgstr "Nahradit současný koncept"
 
 msgid "Publish this revision"
 msgstr "Publikovat tuto revizi"
@@ -586,6 +800,39 @@ msgstr "Zvolte novou nadřazenou stránku pro %(title)s"
 #, python-format
 msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Zvolte novou nadřazenou stránku pro <span>%(title)s</span>"
+
+msgid ""
+"\n"
+"                Impossible to preview this page, some errors are remaining.\n"
+"                Please close this tab, edit the page to fix these errors,\n"
+"                then use preview again.\n"
+"            "
+msgstr ""
+"\n"
+"Není možné zobrazit náhled této stránky protože zbývají nějaké chyby.\n"
+"Zavřete tuto kartu, opravte chyby ve stránce a znovu použijte náhled."
+
+msgid "Close"
+msgstr "Zavřít"
+
+#, python-format
+msgid "Comparing %(title)s"
+msgstr "Porovnání %(title)s"
+
+msgid "Comparing"
+msgstr "Porovnání"
+
+msgid "View revisions"
+msgstr "Zobrazit revize"
+
+msgid "Fields"
+msgstr "Pole"
+
+msgid "Changes"
+msgstr "Změny"
+
+msgid "There are no differences between these two revisions"
+msgstr "Mezi těmito revizemi nejsou žádné rozdíly"
 
 msgid "Current draft"
 msgstr "Současný koncept"

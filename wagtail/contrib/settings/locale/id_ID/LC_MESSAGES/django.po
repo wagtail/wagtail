@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# M. Febrian Ramadhana <febrian@ramadhana.me>, 2018
 # Ronggo Radityo <radityo3000@yahoo.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-07-30 17:31+0100\n"
-"PO-Revision-Date: 2018-05-04 19:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-09-18 06:51+0000\n"
+"Last-Translator: M. Febrian Ramadhana <febrian@ramadhana.me>\n"
 "Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
 "wagtail/language/id_ID/)\n"
 "MIME-Version: 1.0\n"
@@ -34,6 +35,10 @@ msgstr "Simpan"
 
 msgid "Settings"
 msgstr "Pengaturan"
+
+msgid "This setting could not be opened because there is no site defined."
+msgstr ""
+"Pengaturan ini tidak dapat dibuka karena tidak ada situs yang didefinisikan."
 
 msgid "{setting_type} updated."
 msgstr "{setting_type} telah diperbarui."

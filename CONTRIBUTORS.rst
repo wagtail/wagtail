@@ -334,7 +334,7 @@ Translators
 * Chinese (China): hanfeng, Daniel Hwang, Ed, Jian Li, Listeng Teng, Feng Wang, whuim, Fred Zeng, Joey Zhao, Vincent Zhao, zhushajun
 * Chinese (Taiwan): gogobook, Lihan Li, Jp Shieh
 * Croatian (Croatia): Luka Matijević
-* Czech: Ales Dvorak, Martin Galda, Sophy O, Ivan Pomykacz, Jiri Stepanek, Marek Turnovec, Stanislav Vasko
+* Czech: Ales Dvorak, Martin Galda, Eva Mikesova, Sophy O, Ivan Pomykacz, Jiri Stepanek, Marek Turnovec, Stanislav Vasko
 * Danish: Mads Kronborg, Asger Sørensen
 * Dutch: benny_AT_it_digin.com, Bram, Brecht Dervaux, Huib Keemink, Thijs Kramer, Samuel Leeuwenburg, mahulst, Rob Moorman, Michael van Tellingen, Arne Turpyn
 * Dutch (Netherlands): Bram, Kees Hink, Coen van der Kamp, Franklin Kingma, Maarten Kling, Thijs Kramer
@@ -345,9 +345,9 @@ Translators
 * German: Ettore Atalan, Patrick Craston, Henrik Kröger, Tammo van Lessen, Martin Löhle, Wasilis Mandratzis-Walz, Daniel Manser, m0rph3u5, Max Pfeiffer, Moritz Pfeiffer, Herbert Poul, Karl Sander, Tobias Schmidt, Johannes Spielmann, Raphael Stolt, Benjamin Thurm, Jannis Vajen, Vorlif, Matthew Westcott
 * Greek: Jim Dal, George Giannoulopoulos, Yiannis Inglessis, Wasilis Mandratzis-Walz, Nick Mavrakis, NeotheOne, Serafeim Papastefanos
 * Hebrew (Israel): Lior Abazon, bjesus, Yossi Lalum, Oleg Sverdlov
-* Hungarian: Laszlo Molnar, Kornél Novák Mergulhão, BN
+* Hungarian: Istvan Farkas, Laszlo Molnar, Kornél Novák Mergulhão, BN
 * Icelandic (Iceland): Arnar Tumi Þorsteinsson, Kjartan Sverrisson, Sævar Öfjörð Magnússon
-* Indonesian (Indonesia): Sutrisno Efendi, Geek Pantura, Ronggo Radityo
+* Indonesian (Indonesia): Sutrisno Efendi, Geek Pantura, Ronggo Radityo, M. Febrian Ramadhana
 * Italian: Edd Baldry, Claudio Bantaloukas, Gian-Maria Daffre, Giacomo Ghizzani, Carlo Miron, Alessio Di Stasio, Andrea Tagliazucchi
 * Japanese: Sangmin Ahn, Shu Ishida, Daigo Shitara, Shimizu Taku
 * Korean: Kyungil Choi, Jihan Chung
@@ -367,6 +367,6 @@ Translators
 * Swedish: Philip Andersen, Andreas Bergström, Jim Brouzoulis, Alexander Holmbäck, André Karlsson, Jon Karlsson, Ludwig Kjellström, Thomas Kunambi, Andreas Lans, Hannes Lohmander
 * Turkish: Zafer Cengiz, Cihad Gündoǧdu, Ragıp Ünal
 * Turkish (Turkey): Saadettin Yasir Akel, Cihad Gündoǧdu, José Luis, Ragıp Ünal
-* Ukrainian: Mikolai Incognito, Sergiy Shkodenko, Viktor Shytiuk, Mykola Zamkovoi
+* Ukrainian: Mikolai Incognito, Sergiy Shkodenko, Viktor Shytiuk, Zoriana Zaiats, Mykola Zamkovoi
 * Vietnamese: Hồng Quân Nguyễn, Luan Nguyen
 * Welsh: Adam Hughes

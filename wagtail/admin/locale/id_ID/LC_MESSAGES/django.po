@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# M. Febrian Ramadhana <febrian@ramadhana.me>, 2018
 # Ronggo Radityo <radityo3000@yahoo.com>, 2017
 # Sutrisno Efendi <kangfend@gmail.com>, 2015,2017
 msgid ""
@@ -10,8 +11,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-07-30 17:31+0100\n"
-"PO-Revision-Date: 2018-07-30 16:33+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-09-18 08:04+0000\n"
+"Last-Translator: M. Febrian Ramadhana <febrian@ramadhana.me>\n"
 "Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
 "wagtail/language/id_ID/)\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +20,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: id_ID\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail admin"
+msgstr "Wagtail admin"
 
 msgid "None"
 msgstr "Tidak ada"
@@ -152,8 +156,17 @@ msgstr "Pergi ke pengelolaan Wagtail"
 msgid "Account"
 msgstr "Akun"
 
+msgid "Change profile picture"
+msgstr "Ubah gambar profil"
+
+msgid "Your current profile picture:"
+msgstr "Gambar profil anda saat ini:"
+
 msgid "Update"
 msgstr "Perbarui"
+
+msgid "Change email"
+msgstr "Ubah surel"
 
 msgid "Change password"
 msgstr "Ganti kata sandi"
@@ -162,6 +175,9 @@ msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr ""
 "Kata sandi Anda tidak dapat diubah di sini. Harap hubungi pengelola situs."
+
+msgid "Set Time Zone"
+msgstr "Atur Zona Waktu"
 
 msgid "Language Preferences"
 msgstr "Preferensi Bahasa"
@@ -181,8 +197,28 @@ msgstr "Masuk"
 msgid "Set your new password"
 msgstr "Atur kata sandi baru Anda"
 
+msgid "Invalid password reset link"
+msgstr "Tautan atur ulang kata sandi tidak valid"
+
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used."
+msgstr ""
+"Tautan pengaturan ulang kata sandi tidak valid, mungkin karena sudah "
+"digunakan."
+
+msgid "Request a new password reset"
+msgstr "Buat permohonan atur ulang kata sandi baru"
+
 msgid "Check your email"
 msgstr "Periksa surel Anda"
+
+msgid ""
+"A link to reset your password has been emailed to you if an account exists "
+"for this address."
+msgstr ""
+"Tautan untuk mengatur ulang kata sandi Anda telah dikirim melalui surel "
+"kepada Anda jika ada akun untuk alamat ini."
 
 msgid "Please follow the link below to reset your password:"
 msgstr "Harap ikuti tautan di bawah ini untuk mengatur ulang kata sandi anda:"
@@ -208,6 +244,9 @@ msgstr "Halaman"
 msgid "Pages"
 msgstr "Halaman"
 
+msgid "Loading…"
+msgstr "Memuat..."
+
 msgid "No results"
 msgstr "Tidak ada hasil"
 
@@ -222,6 +261,42 @@ msgstr "Lihat semua"
 
 msgid "Close explorer"
 msgstr "Tutup penjelajah"
+
+msgid "Alt text"
+msgstr "Teks alt"
+
+msgid "Write here…"
+msgstr "Tulis disini..."
+
+msgid "Horizontal line"
+msgstr "Garis horizontal"
+
+msgid "Line break"
+msgstr "Akhir baris"
+
+msgid "Undo"
+msgstr "Urungkan"
+
+msgid "Redo"
+msgstr "Ulangi"
+
+msgid "Reload the page"
+msgstr "Muat ulang halaman"
+
+msgid "Reload saved content"
+msgstr "Muat ulang konten tersimpan"
+
+msgid "Show latest content"
+msgstr "Tampilkan konten terbaru"
+
+msgid "Show error"
+msgstr "Tampilkan error"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr ""
+"Editor telah gagal. Konten telah dipasang ulang dengan versi terakhir yang "
+"disimpan."
 
 msgid "Dashboard"
 msgstr "Dasbor"
@@ -340,6 +415,10 @@ msgstr ""
 "Belum ada koleksi. Bagaimana kalau <a href=\"%(add_collection_url)s"
 "\">membuat sebuah koleksi</a>?"
 
+#, python-format
+msgid "Add %(label)s"
+msgstr "Tambah %(label)s"
+
 msgid "Yes, delete"
 msgstr "Ya, hapus"
 
@@ -430,6 +509,9 @@ msgstr "Masuk ke Wagtail"
 
 msgid "Forgotten it?"
 msgstr "Apakah anda lupa?"
+
+msgid "Signing in…"
+msgstr "Melakukan Sign In..."
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -621,8 +703,14 @@ msgstr "%(page_type)s baru"
 msgid "New"
 msgstr "Baru"
 
+msgid "Saving…"
+msgstr "Menyimpan..."
+
 msgid "Save draft"
 msgstr "Simpan konsep"
+
+msgid "Publishing…"
+msgstr "Mempublikasikan..."
 
 msgid "Publish"
 msgstr "Publikasikan"
@@ -879,6 +967,22 @@ msgid "There are no differences between these two revisions"
 msgstr "Tidak ada perbedaan di antara kedua revisi"
 
 #, python-format
+msgid "Unschedule Revision %(revision.id)s for %(title)s"
+msgstr "Hapus Jadwal Revisi %(revision.id) untuk %(title)s"
+
+msgid "Unschedule"
+msgstr "Hapus Jadwal"
+
+msgid "Are you sure you want to unschedule this revision?"
+msgstr "Apakah Anda yakin untuk menghapus jadwal pada revisi ini?"
+
+msgid "Yes, unschedule"
+msgstr "Ya, hapus jadwal"
+
+msgid "No, don't unschedule"
+msgstr "Tidak, jangan hapus jadwal"
+
+#, python-format
 msgid "Revisions of %(title)s"
 msgstr "Revisi dari %(title)s"
 
@@ -898,11 +1002,17 @@ msgstr "Konsep saat ini"
 msgid "Live version"
 msgstr "Versi aktif"
 
+msgid "Scheduled for"
+msgstr "Dijadwalkan untuk"
+
 msgid "Review this revision"
 msgstr "Tinjau revisi ini"
 
 msgid "Compare with previous revision"
 msgstr "Bandingkan dengan revisi sebelumnya"
+
+msgid "Cancel scheduled publish"
+msgstr "Batalkan publikasi terjadwal"
 
 msgid "No revisions of this page exist"
 msgstr "Halaman ini tidak memiliki revisi"
@@ -923,6 +1033,9 @@ msgstr[0] ""
 "\n"
 "                Ada %(counter)s halaman yang sesuai\n"
 "            "
+
+msgid "Page types"
+msgstr "Jenis Halaman"
 
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
@@ -1121,6 +1234,12 @@ msgstr "Rusia"
 msgid "Swedish"
 msgstr "Swedia"
 
+msgid "Slovak"
+msgstr "Slowakia"
+
+msgid "Ukrainian"
+msgstr "Ukraina"
+
 msgid "Chinese (China)"
 msgstr "Cina"
 
@@ -1130,8 +1249,14 @@ msgstr "Maaf, Anda tidak memiliki izin untuk mengakses area ini"
 msgid "Your password has been changed successfully!"
 msgstr "Kata sandi Anda telah berhasil diubah!"
 
+msgid "Your email has been changed successfully!"
+msgstr "Surel Anda telah berhasil diubah! "
+
 msgid "Your preferences have been updated."
 msgstr "Preferensi anda telah diperbarui."
+
+msgid "Your preferences have been updated successfully!"
+msgstr "Preferensi anda telah berhasil diperbarui!"
 
 msgid "You have been successfully logged out."
 msgstr "Anda berhasil keluar."
@@ -1192,6 +1317,9 @@ msgstr "Halaman tersebut tidak dapat dibuat karena tidak lolos validasi."
 
 msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
 msgstr "Revisi oleh {0} untuk halaman '{1}' telah dijadwalkan untuk publikasi."
+
+msgid "Page '{0}' is live and this revision has been scheduled for publishing."
+msgstr "Halaman '{0}' hidup dan revisi ini telah dijadwalkan untuk publikasi."
 
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Halaman '{0}' telah dijadwalkan untuk publikasi."
@@ -1273,6 +1401,12 @@ msgstr "Paling awal"
 msgid "Latest"
 msgstr "Paling akhir"
 
+msgid "revision {0} of \"{1}\""
+msgstr "revisi {0} dari \"{1}\""
+
+msgid "Revision {0} of \"{1}\" unscheduled."
+msgstr "Jadwal revisi {0} dari \"{1}\" dihapus."
+
 msgid "Edit '{title}'"
 msgstr "Ubah '{title}'"
 
@@ -1306,6 +1440,15 @@ msgstr "Tarik publikasi halaman '{title}'"
 msgid "View revision history for '{title}'"
 msgstr "Tampilkan catatan revisi '{title}'"
 
+msgid "Set profile picture"
+msgstr "Atur gambar profil"
+
+msgid "Change your profile picture"
+msgstr "Ubah gambar profil Anda"
+
+msgid "Change the email address linked to your account."
+msgstr "Ubah alamat surel yang terkait dengan akun Anda."
+
 msgid "Change the password you use to log in."
 msgstr "Ganti kata sandi yang Anda gunakan untuk masuk."
 
@@ -1317,6 +1460,30 @@ msgstr "Preferensi bahasa"
 
 msgid "Choose the language you want to use here."
 msgstr "Pilih bahasa yang akan Anda gunakan disini."
+
+msgid "Current Time Zone"
+msgstr "Zona Waktu Saat Ini"
+
+msgid "Choose your current time zone."
+msgstr "Pilih zona waktu saat ini."
+
+msgid "Heading {level}"
+msgstr "Titel {level}"
+
+msgid "Bulleted list"
+msgstr "Daftar Bullet"
+
+msgid "Numbered list"
+msgstr "Daftar Bernomor"
+
+msgid "Bold"
+msgstr "Bold"
+
+msgid "Italic"
+msgstr "Italic"
+
+msgid "Link"
+msgstr "Tautan"
 
 msgid "Choose an item"
 msgstr "Pilih salah satu"

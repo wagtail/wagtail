@@ -5,13 +5,14 @@
 # Translators:
 # Mykola Zamkovoi <nickzam@gmail.com>, 2014
 # Sergiy Shkodenko <shkodenkosergiy@gmail.com>, 2018
+# Zoriana Zaiats, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-07-30 17:31+0100\n"
-"PO-Revision-Date: 2018-05-04 19:30+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-09-28 11:02+0000\n"
+"Last-Translator: Zoriana Zaiats\n"
 "Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
 "MIME-Version: 1.0\n"
@@ -22,6 +23,9 @@ msgstr ""
 "11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
 "100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
 "(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+
+msgid "Wagtail core"
+msgstr "Ядро Wagtail "
 
 msgid "{label}: this block has no options."
 msgstr "{label}: для цього блоку немає опцій."
@@ -248,6 +252,12 @@ msgstr "група"
 msgid "permission type"
 msgstr "тип дозволу"
 
+msgid "group page permission"
+msgstr "дозвіл для групи сторінок "
+
+msgid "group page permissions"
+msgstr "дозволи для групи сторінок "
+
 msgid "Public"
 msgstr "Загальнодоступний"
 
@@ -295,6 +305,9 @@ msgstr "колекції"
 
 msgid "permission"
 msgstr "дозвіл"
+
+msgid "group collection permission"
+msgstr "дозволи для групи колекцій "
 
 msgid "Log in"
 msgstr "Увійдіть"

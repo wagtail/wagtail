@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-07-30 17:31+0100\n"
-"PO-Revision-Date: 2018-09-18 11:03+0000\n"
+"PO-Revision-Date: 2018-09-18 11:01+0000\n"
 "Last-Translator: M. Febrian Ramadhana <febrian@ramadhana.me>\n"
 "Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
 "wagtail/language/id_ID/)\n"
@@ -19,32 +19,17 @@ msgstr ""
 "Language: id_ID\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-msgid "Wagtail style guide"
-msgstr "Wagtail panduan style"
+msgid "Wagtail table block"
+msgstr "Wagtail blok tabel"
 
-msgid "Styleguide"
-msgstr "Panduan style"
+msgid "Row header"
+msgstr "Header baris"
 
-msgid "Save"
-msgstr "Simpan"
+msgid "Display the first row as a header."
+msgstr "Menampilkan baris pertama sebagai header."
 
-msgid "Delete image"
-msgstr "Hapus gambar"
+msgid "Column header"
+msgstr "Header kolom"
 
-msgid "Search something"
-msgstr "Cari sesuatu"
-
-msgid "Success message"
-msgstr "Pesan sukses"
-
-msgid "View live"
-msgstr "Tampilkan yang aktif"
-
-msgid "Edit"
-msgstr "Ubah"
-
-msgid "Warning message"
-msgstr "Pesan peringatan"
-
-msgid "Error message"
-msgstr "Pesan error"
+msgid "Display the first column as a header."
+msgstr "Menampilkan kolom pertama sebagai header."

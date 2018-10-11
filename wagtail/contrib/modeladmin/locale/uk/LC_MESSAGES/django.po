@@ -4,13 +4,14 @@
 #
 # Translators:
 # Sergiy Shkodenko <shkodenkosergiy@gmail.com>, 2018
+# Zoriana Zaiats, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-07-30 17:31+0100\n"
-"PO-Revision-Date: 2018-05-04 19:32+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-09-28 11:10+0000\n"
+"Last-Translator: Zoriana Zaiats\n"
 "Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
 "MIME-Version: 1.0\n"
@@ -21,6 +22,9 @@ msgstr ""
 "11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
 "100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
 "(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+
+msgid "Wagtail ModelAdmin"
+msgstr "Wagtail ModelAdmin"
 
 msgid "Parent page"
 msgstr "Батьківська сторінка"
@@ -74,6 +78,14 @@ msgstr "зображення"
 msgid "Choose a parent page"
 msgstr "Оберіть батьківську сторінку"
 
+#, python-format
+msgid ""
+"%(plural)s can be added to more than one place within your site. Which of "
+"the following would you like to be the parent of your new page?"
+msgstr ""
+"%(plural)s можуть бути додані до більш ніж однієї локації вашого сайту. Що з "
+"нижче перечисленого буде батьківським об'єктом вашої нової сторінки?"
+
 msgid "Continue"
 msgstr "Продовжити"
 
@@ -86,6 +98,16 @@ msgstr "Зберегти"
 #, python-format
 msgid "%(model_name)s could not be deleted"
 msgstr "%(model_name)s не може бути видалено"
+
+#, python-format
+msgid ""
+"'%(instance_name)s' is currently referenced by other objects, and cannot be "
+"deleted without jeopardising data integrity. To delete it successfully, "
+"first remove references from the following objects, then try again:"
+msgstr ""
+"На '%(instance_name)s' зараз вказують декілька об'єктів і його видалення "
+"порушить цілісність даних. Для того, щоб успішно видалити цей об'єкт, "
+"спочатку заберіть посилання з цих об'єктів, а потім спробуйте знову:"
 
 msgid "Go back to listing"
 msgstr "Повернутися назад до списку"
@@ -114,6 +136,14 @@ msgstr "Шукати %(name)s"
 
 msgid "Filter"
 msgstr "Фільтр"
+
+#, python-format
+msgid ""
+"No %(name)s have been created yet. One of the following must be created "
+"before you can add any %(name)s:"
+msgstr ""
+"Жодного %(name)s ще не було створено. Перед додаванням будь якого %(name)s "
+"має бути спочатку створено щось із цього:"
 
 #, python-format
 msgid "No %(name)s have been created yet."

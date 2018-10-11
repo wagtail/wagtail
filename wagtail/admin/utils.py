@@ -33,6 +33,7 @@ WAGTAILADMIN_PROVIDED_LANGUAGES = [
     ('fi', ugettext_lazy('Finnish')),
     ('fr', ugettext_lazy('French')),
     ('gl', ugettext_lazy('Galician')),
+    ('id-id', ugettext_lazy('Indonesian')),
     ('is-is', ugettext_lazy('Icelandic')),
     ('it', ugettext_lazy('Italian')),
     ('ko', ugettext_lazy('Korean')),
