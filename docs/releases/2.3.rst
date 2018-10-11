@@ -18,7 +18,7 @@ What's new
 Added Django 2.1 support
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-Wagtail is now compatible with Django 2.1. Compatibility fixes were contributed by Ryan Verner and Matt Westcott.
+Wagtail is now compatible with Django 2.1.  Compatibility fixes were contributed by Ryan Verner and Matt Westcott.
 
 
 Improved colour contrast
