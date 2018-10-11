@@ -320,6 +320,7 @@ Contributors
 * Dan Braghis
 * Ben Dickinson
 * Meteor0id
+* Naa Marteki Reed
 
 Translators
 ===========

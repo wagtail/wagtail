@@ -19,6 +19,12 @@ Added Django 2.1 support
 Wagtail is now compatible with Django 2.1. Compatibility fixes were contributed by Ryan Verner and Matt Westcott.
 
 
+Improved colour contrast
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+Colour contrast within the admin interface has been improved, and now complies with WCAG 2 level AA. This was completed by Coen van der Kamp and Naomi Morduch Toubman based on earlier work from Edd Baldry, Naa Marteki Reed and Ben Enright.
+
+
 Other features
 ~~~~~~~~~~~~~~
 
