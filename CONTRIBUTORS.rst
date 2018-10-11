@@ -8,13 +8,15 @@ Core team
 * Thibaud Colas
 * Janneke Janssen (Lukkien)
 * Mike Dingjan (Lab Digital)
-* Rob Moorman (Moor Interactive)
 * Bertrand Bordage (NoriPyt)
-* Emily Horsman (Little Weaver)
 * Loïc Teixeira (Springload)
 * Andy Chosak (consumerfinance.gov)
 * Will Barton (consumerfinance.gov)
 * LB Johnston
+* Coen van der Kamp (Four Digits)
+* Codie Roelf (Praekelt)
+* Lisa Adams (Praekelt)
+* Naomi Morduch Toubman
 
 Contributors
 ============
@@ -123,6 +125,7 @@ Contributors
 * Nicolas Kuttler
 * Juha Kujala
 * Eirik Krogstad
+* Rob Moorman
 * Matthijs Melissen
 * Jonas Lergell
 * Danielle Madeley
@@ -252,6 +255,7 @@ Contributors
 * Edwar Baron
 * Tomasz Knapik
 * Venelin Stoykov
+* Emily Horsman
 * jcronyn
 * Ben Sturmfels
 * Anselm Bradford
@@ -282,7 +286,6 @@ Contributors
 * Sebastian Brestin
 * Casper Timmers
 * Kevin Chung
-* Codie Roelf
 * Kim Chee Leong
 * Dan Swain
 * Alexs Mathilda
@@ -291,7 +294,6 @@ Contributors
 * Arthur Holzner
 * Alejandro Garza
 * Rajeev J Sebastian
-* Coen van der Kamp
 * Sander Tuit
 * Tim Kamanin
 * Sergey Fedoseev
