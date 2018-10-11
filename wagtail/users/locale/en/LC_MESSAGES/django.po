@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-30 17:31+0100\n"
+"POT-Creation-Date: 2018-10-11 14:09+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -378,7 +378,7 @@ msgstr ""
 msgid "User '{0}' created."
 msgstr ""
 
-#: views/users.py:121 wagtail_hooks.py:107
+#: views/users.py:121 views/users.py:158 wagtail_hooks.py:107
 msgid "Edit"
 msgstr ""
 
@@ -386,17 +386,15 @@ msgstr ""
 msgid "The user could not be created due to errors."
 msgstr ""
 
-#: views/users.py:152
-msgid ""
-"Your details have been updated. You've been logged out for security reasons, "
-"please login to continue."
+#: views/users.py:157
+msgid "User '{0}' updated."
 msgstr ""
 
-#: views/users.py:160
+#: views/users.py:166
 msgid "The user could not be saved due to errors."
 msgstr ""
 
-#: views/users.py:184
+#: views/users.py:190
 msgid "User '{0}' deleted."
 msgstr ""
 

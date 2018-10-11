@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-30 17:31+0100\n"
+"POT-Creation-Date: 2018-10-11 14:09+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -117,7 +117,7 @@ msgstr ""
 msgid "Add/edit images you own"
 msgstr ""
 
-#: forms.py:89 views/images.py:270
+#: forms.py:89 views/images.py:272
 msgid "Edit"
 msgstr ""
 
@@ -312,7 +312,7 @@ msgstr ""
 
 #: templates/wagtailimages/images/index.html:5
 #: templates/wagtailimages/images/index.html:24 wagtail_hooks.py:43
-#: wagtail_hooks.py:152
+#: wagtail_hooks.py:153
 msgid "Images"
 msgstr ""
 
@@ -429,7 +429,7 @@ msgstr ""
 msgid "Update"
 msgstr ""
 
-#: templates/wagtailimages/multiple/edit_form.html:15 views/images.py:142
+#: templates/wagtailimages/multiple/edit_form.html:15 views/images.py:143
 msgid "Delete"
 msgstr ""
 
@@ -445,33 +445,33 @@ msgstr ""
 msgid "Search images"
 msgstr ""
 
-#: views/images.py:120
+#: views/images.py:121
 msgid "Image '{0}' updated."
 msgstr ""
 
-#: views/images.py:121
+#: views/images.py:122
 msgid "Edit again"
 msgstr ""
 
-#: views/images.py:125
+#: views/images.py:126
 msgid "The image could not be saved due to errors."
 msgstr ""
 
-#: views/images.py:140
+#: views/images.py:141
 msgid ""
 "The source image file could not be found. Please change the source or delete "
 "the image."
 msgstr ""
 
-#: views/images.py:240
+#: views/images.py:241
 msgid "Image '{0}' deleted."
 msgstr ""
 
-#: views/images.py:269
+#: views/images.py:271
 msgid "Image '{0}' added."
 msgstr ""
 
-#: views/images.py:274
+#: views/images.py:276
 msgid "The image could not be created due to errors."
 msgstr ""
 
@@ -479,7 +479,7 @@ msgstr ""
 msgid "Image"
 msgstr ""
 
-#: wagtail_hooks.py:171
+#: wagtail_hooks.py:172
 #, python-format
 msgid "%(count)s image"
 msgid_plural "%(count)s images"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-30 17:31+0100\n"
+"POT-Creation-Date: 2018-10-11 14:09+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,12 +21,16 @@ msgstr ""
 msgid "Wagtail embeds"
 msgstr ""
 
-#: forms.py:12
-msgid "Please enter a valid URL"
+#: blocks.py:70 views/chooser.py:46
+msgid "Cannot find an embed for this URL."
 msgstr ""
 
-#: forms.py:16
+#: forms.py:8
 msgid "URL"
+msgstr ""
+
+#: forms.py:8
+msgid "Please enter a valid URL"
 msgstr ""
 
 #: models.py:37
@@ -45,10 +49,6 @@ msgstr ""
 msgid ""
 "There seems to be a problem with your embedly API key. Please check your "
 "settings."
-msgstr ""
-
-#: views/chooser.py:46
-msgid "Cannot find an embed for this URL."
 msgstr ""
 
 #: views/chooser.py:49

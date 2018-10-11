@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-30 17:31+0100\n"
+"POT-Creation-Date: 2018-10-11 14:09+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -206,20 +206,20 @@ msgstr ""
 msgid "Submissions of %(form_title)s"
 msgstr ""
 
-#: templates/wagtailforms/index_submissions.html:93
+#: templates/wagtailforms/index_submissions.html:85
 #, python-format
 msgid "Form data <span>%(form_title)s</span>"
 msgstr ""
 
-#: templates/wagtailforms/index_submissions.html:102
+#: templates/wagtailforms/index_submissions.html:94
 msgid "Filter"
 msgstr ""
 
-#: templates/wagtailforms/index_submissions.html:108
+#: templates/wagtailforms/index_submissions.html:100
 msgid "Download CSV"
 msgstr ""
 
-#: templates/wagtailforms/index_submissions.html:120
+#: templates/wagtailforms/index_submissions.html:112
 #, python-format
 msgid "There have been no submissions of the '%(title)s' form."
 msgstr ""
