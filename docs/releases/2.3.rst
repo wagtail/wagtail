@@ -9,6 +9,8 @@ Wagtail 2.3 release notes - IN DEVELOPMENT
 
 Wagtail 2.3 is designated a Long Term Support (LTS) release. Long Term Support releases will continue to receive maintenance updates as necessary to address security and data-loss related issues, up until the next LTS release (typically a period of 8 months).
 
+Note that Wagtail 2.3 will be the last release branch to support Django 1.11.
+
 
 What's new
 ==========
