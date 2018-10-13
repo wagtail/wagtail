@@ -321,6 +321,7 @@ Contributors
 * Ben Dickinson
 * Meteor0id
 * Naa Marteki Reed
+* Jorge Barata
 
 Translators
 ===========

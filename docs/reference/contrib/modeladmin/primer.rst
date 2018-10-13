@@ -339,7 +339,7 @@ isn't possible or doesn't meet your needs, you can override the
     class MyModelAdmin(ModelAdmin):
         model = MyModel
 
-        def get_get_permission_helper_class(self):
+        def get_permission_helper_class(self):
             if self.some_attribute is True:
                 return MyPermissionHelper
             return PermissionHelper
