@@ -130,7 +130,7 @@ def register_documents_search_area():
     return DocsSearchArea(
         _('Documents'), reverse('wagtaildocs:index'),
         name='documents',
-        classnames='icon icon-doc-full-inverse',
+        classnames='c-filter__link icon icon-doc-full-inverse',
         order=400)
 
 

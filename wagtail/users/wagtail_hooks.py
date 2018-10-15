@@ -98,7 +98,7 @@ def register_users_search_area():
     return UsersSearchArea(
         _('Users'), reverse('wagtailusers_users:index'),
         name='users',
-        classnames='icon icon-user',
+        classnames='c-filter__link icon icon-user',
         order=600)
 
 

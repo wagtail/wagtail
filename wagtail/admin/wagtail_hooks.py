@@ -73,7 +73,7 @@ class PageSearchArea(SearchArea):
         super().__init__(
             _('Pages'), reverse('wagtailadmin_pages:search'),
             name='pages',
-            classnames='icon icon-folder-open-inverse',
+            classnames='c-filter__link icon icon-folder-open-inverse',
             order=100)
 
     def is_shown(self, request):

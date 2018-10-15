@@ -31,7 +31,12 @@
     font-weight: 600;
 
     @media screen and (min-width: $breakpoint-mobile) {
-        padding: 13px 25px;
+        padding: 10px 25px;
+
+        &.icon::before {
+            font-size: 1.8em;
+            margin-right: 0;
+        }
     }
 }
 
