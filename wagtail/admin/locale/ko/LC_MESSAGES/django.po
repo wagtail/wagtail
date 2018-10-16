@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-30 17:31+0100\n"
-"PO-Revision-Date: 2018-08-23 12:06+0000\n"
-"Last-Translator: Kyungil Choi <hanpama@gmail.com>\n"
+"POT-Creation-Date: 2018-10-11 14:09+0100\n"
+"PO-Revision-Date: 2018-10-11 13:13+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
 "MIME-Version: 1.0\n"
@@ -45,15 +45,6 @@ msgstr "홍보"
 msgid "Settings"
 msgstr "설정"
 
-msgid "Search"
-msgstr "검색"
-
-msgid "Search term"
-msgstr "검색어"
-
-msgid "URL"
-msgstr "URL"
-
 msgid "Enter password"
 msgstr "패스워드 입력"
 
@@ -63,6 +54,12 @@ msgstr "%s 입력"
 
 msgid "Enter your email address to reset your password"
 msgstr "비밀번호 재설정을 위해 이메일을 적어주세요"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr "같은 모음에 대해서 여러 개의 권한을 설정할 수는 없습니다."
 
 msgid "New title"
 msgstr "새로운 제목"
@@ -117,15 +114,6 @@ msgstr ""
 "하위 페이지를 복사할 때 페이지를 그 페이지 자신으로 복사해 넣을 수는 없습니"
 "다."
 
-msgid "Visibility"
-msgstr "보임"
-
-msgid "This field is required."
-msgstr "필수 작성 항목입니다"
-
-msgid "Please select at least one group."
-msgstr "적어도 한 개의 그룹을 선택해 주세요."
-
 msgid "This slug is already in use"
 msgstr "이 슬러그는 이미 쓰이고 있습니다"
 
@@ -135,8 +123,20 @@ msgstr "라이브를 위한 날짜 및 시간은 만료 날짜 및 시간보다 
 msgid "Expiry date/time must be in the future"
 msgstr "만료 날짜는 현재 이후의 날짜 및 시간이어야 합니다"
 
-msgid "You cannot have multiple permission records for the same collection."
-msgstr "같은 모음에 대해서 여러 개의 권한을 설정할 수는 없습니다."
+msgid "Search"
+msgstr "검색"
+
+msgid "Search term"
+msgstr "검색어"
+
+msgid "Visibility"
+msgstr "보임"
+
+msgid "This field is required."
+msgstr "필수 작성 항목입니다"
+
+msgid "Please select at least one group."
+msgstr "적어도 한 개의 그룹을 선택해 주세요."
 
 msgid "Error 404: Page not found"
 msgstr "에러 404: 페이지를 찾을 수 없습니다"

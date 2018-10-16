@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-30 17:31+0100\n"
-"PO-Revision-Date: 2018-07-31 11:44+0000\n"
+"POT-Creation-Date: 2018-10-11 14:09+0100\n"
+"PO-Revision-Date: 2018-10-16 02:10+0000\n"
 "Last-Translator: Philip Andersen <renegadevi@codeofmagi.net>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
@@ -49,15 +49,6 @@ msgstr "Främja"
 msgid "Settings"
 msgstr "Inställningar"
 
-msgid "Search"
-msgstr "Sök"
-
-msgid "Search term"
-msgstr "Sökord"
-
-msgid "URL"
-msgstr "URL"
-
 msgid "Enter password"
 msgstr "Ange lösenord"
 
@@ -67,6 +58,12 @@ msgstr "Ange ditt %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Ange din e-postadress för att återställa ditt lösenord"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr "Du kan inte ha multipla rättigheter för samma kollektion"
 
 msgid "New title"
 msgstr "Ny titel"
@@ -123,15 +120,6 @@ msgstr ""
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "Du kan inte kopiera en sida till sig själv när du kopierar undersidor"
 
-msgid "Visibility"
-msgstr "Synlighet"
-
-msgid "This field is required."
-msgstr "Det här fältet är obligatoriskt"
-
-msgid "Please select at least one group."
-msgstr "Vänligen välj minst en grupp"
-
 msgid "This slug is already in use"
 msgstr "URL-fragmentet är redan i användning"
 
@@ -141,8 +129,20 @@ msgstr "Publicera vid datum/-tid måste ske före utgångsdatum/-tid"
 msgid "Expiry date/time must be in the future"
 msgstr "Utgångsdatum/-tid måste ske i framtiden"
 
-msgid "You cannot have multiple permission records for the same collection."
-msgstr "Du kan inte ha multipla rättigheter för samma kollektion"
+msgid "Search"
+msgstr "Sök"
+
+msgid "Search term"
+msgstr "Sökord"
+
+msgid "Visibility"
+msgstr "Synlighet"
+
+msgid "This field is required."
+msgstr "Det här fältet är obligatoriskt"
+
+msgid "Please select at least one group."
+msgstr "Vänligen välj minst en grupp"
 
 msgid "Error 404: Page not found"
 msgstr "Sidfel 404: Sidan kunde inte hittas"
@@ -1124,6 +1124,27 @@ msgstr "November"
 msgid "December"
 msgstr "December"
 
+msgid "Sunday"
+msgstr "Söndag"
+
+msgid "Monday"
+msgstr "Måndag"
+
+msgid "Tuesday"
+msgstr "Tisdag"
+
+msgid "Wednesday"
+msgstr "Onsdag"
+
+msgid "Thursday"
+msgstr "Torsdag"
+
+msgid "Friday"
+msgstr "Fredag"
+
+msgid "Saturday"
+msgstr "Lördag"
+
 msgid "Sun"
 msgstr "Sön"
 
@@ -1222,6 +1243,9 @@ msgstr "Franska"
 
 msgid "Galician"
 msgstr "Galiciska"
+
+msgid "Indonesian"
+msgstr "Indonesisk"
 
 msgid "Icelandic"
 msgstr "Isländska"

@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-30 17:31+0100\n"
-"PO-Revision-Date: 2018-07-30 16:33+0000\n"
+"POT-Creation-Date: 2018-10-11 14:09+0100\n"
+"PO-Revision-Date: 2018-10-11 13:13+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
@@ -39,15 +39,6 @@ msgstr "Promocionar"
 msgid "Settings"
 msgstr "Propiedades"
 
-msgid "Search"
-msgstr "Porcurar"
-
-msgid "Search term"
-msgstr "Procurar termo"
-
-msgid "URL"
-msgstr "URL"
-
 msgid "Enter password"
 msgstr "Introduce contrasinal"
 
@@ -57,6 +48,12 @@ msgstr "Introduce o teu %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Escribe a túa dirección de correo para restaurar o teu contrasinal"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr "Non podes ter múltiples rexistros de permisos para a mesma colección."
 
 msgid "New title"
 msgstr "Novo título"
@@ -107,9 +104,6 @@ msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
 msgstr "Este slug está xa en uso no contexto da súa páxina pai \"%s\""
 
-msgid "This field is required."
-msgstr "Este campo é requirido."
-
 msgid "This slug is already in use"
 msgstr "Este slug ya está en uso"
 
@@ -120,8 +114,14 @@ msgstr ""
 msgid "Expiry date/time must be in the future"
 msgstr "A data/tempo de expiración debe ser no futuro"
 
-msgid "You cannot have multiple permission records for the same collection."
-msgstr "Non podes ter múltiples rexistros de permisos para a mesma colección."
+msgid "Search"
+msgstr "Porcurar"
+
+msgid "Search term"
+msgstr "Procurar termo"
+
+msgid "This field is required."
+msgstr "Este campo é requirido."
 
 msgid "Go to Wagtail admin"
 msgstr "Ir ao administrador de Wagtail"

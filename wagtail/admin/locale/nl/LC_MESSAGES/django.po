@@ -20,8 +20,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-30 17:31+0100\n"
-"PO-Revision-Date: 2018-07-30 16:33+0000\n"
+"POT-Creation-Date: 2018-10-11 14:09+0100\n"
+"PO-Revision-Date: 2018-10-11 13:13+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
@@ -52,15 +52,6 @@ msgstr "Eigenschappen"
 msgid "Settings"
 msgstr "Instellingen"
 
-msgid "Search"
-msgstr "Zoeken"
-
-msgid "Search term"
-msgstr "Zoekterm"
-
-msgid "URL"
-msgstr "URL"
-
 msgid "Enter password"
 msgstr "Voer wachtwoord in"
 
@@ -70,6 +61,13 @@ msgstr "Voer uw %s in"
 
 msgid "Enter your email address to reset your password"
 msgstr "Vul uw e-mailadres in om uw wachtwoord te resetten."
+
+msgid "URL"
+msgstr "URL"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr ""
+"U kunt niet beschikken over meerdere permissies voor dezelfde collectie."
 
 msgid "New title"
 msgstr "Nieuwe titel"
@@ -120,15 +118,6 @@ msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
 msgstr "Deze slug is al in gebruik onder de bovenliggende pagina \"%s\""
 
-msgid "Visibility"
-msgstr "Zichtbaarheid"
-
-msgid "This field is required."
-msgstr "Dit veld is verplicht"
-
-msgid "Please select at least one group."
-msgstr "Selecteer minimaal één groep."
-
 msgid "This slug is already in use"
 msgstr "Deze slug is al in gebruik"
 
@@ -140,9 +129,20 @@ msgstr ""
 msgid "Expiry date/time must be in the future"
 msgstr "Vervaldatum moet in de toekomst zijn."
 
-msgid "You cannot have multiple permission records for the same collection."
-msgstr ""
-"U kunt niet beschikken over meerdere permissies voor dezelfde collectie."
+msgid "Search"
+msgstr "Zoeken"
+
+msgid "Search term"
+msgstr "Zoekterm"
+
+msgid "Visibility"
+msgstr "Zichtbaarheid"
+
+msgid "This field is required."
+msgstr "Dit veld is verplicht"
+
+msgid "Please select at least one group."
+msgstr "Selecteer minimaal één groep."
 
 msgid "Account"
 msgstr "Account"

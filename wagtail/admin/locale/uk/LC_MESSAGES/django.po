@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-30 17:31+0100\n"
-"PO-Revision-Date: 2018-09-28 10:53+0000\n"
-"Last-Translator: Zoriana Zaiats\n"
+"POT-Creation-Date: 2018-10-11 14:09+0100\n"
+"PO-Revision-Date: 2018-10-11 13:13+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
 "MIME-Version: 1.0\n"
@@ -49,15 +49,6 @@ msgstr "Просування"
 msgid "Settings"
 msgstr "Налаштування"
 
-msgid "Search"
-msgstr "Пошук"
-
-msgid "Search term"
-msgstr "Пошуковий термін"
-
-msgid "URL"
-msgstr "URL"
-
 msgid "Enter password"
 msgstr "Введіть пароль"
 
@@ -67,6 +58,13 @@ msgstr "Введіть ваш %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Введіть вашу е-мейл адресу для скидання паролю"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr ""
+"Ви не можете мати декілька записів дозволів для однієї і тієї ж колекції."
 
 msgid "New title"
 msgstr "Новий заголовок"
@@ -134,15 +132,6 @@ msgstr ""
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "Не можливо скопіювати сторінку в саму себе, коли копіюєте підсторінки"
 
-msgid "Visibility"
-msgstr "Видимість"
-
-msgid "This field is required."
-msgstr "Це поле необхідно заповнити"
-
-msgid "Please select at least one group."
-msgstr "Будь ласка, виберіть як мінімум одну групу"
-
 msgid "This slug is already in use"
 msgstr "Ця коротка назва вже використовується"
 
@@ -152,9 +141,20 @@ msgstr "Дата/час наживо має знаходитись перед д
 msgid "Expiry date/time must be in the future"
 msgstr "Дата/час закінчення має бути у майбутньому"
 
-msgid "You cannot have multiple permission records for the same collection."
-msgstr ""
-"Ви не можете мати декілька записів дозволів для однієї і тієї ж колекції."
+msgid "Search"
+msgstr "Пошук"
+
+msgid "Search term"
+msgstr "Пошуковий термін"
+
+msgid "Visibility"
+msgstr "Видимість"
+
+msgid "This field is required."
+msgstr "Це поле необхідно заповнити"
+
+msgid "Please select at least one group."
+msgstr "Будь ласка, виберіть як мінімум одну групу"
 
 msgid "Error 404: Page not found"
 msgstr "Помилка 404: сторінку не знайдено"

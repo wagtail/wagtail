@@ -18,9 +18,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-30 17:31+0100\n"
-"PO-Revision-Date: 2018-07-31 15:24+0000\n"
-"Last-Translator: hanfeng <appweb.cn@gmail.com>\n"
+"POT-Creation-Date: 2018-10-11 14:09+0100\n"
+"PO-Revision-Date: 2018-10-11 13:13+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -53,15 +53,6 @@ msgstr "推荐"
 msgid "Settings"
 msgstr "设置"
 
-msgid "Search"
-msgstr "搜索"
-
-msgid "Search term"
-msgstr "搜索条件"
-
-msgid "URL"
-msgstr "URL"
-
 msgid "Enter password"
 msgstr "输入密码"
 
@@ -71,6 +62,12 @@ msgstr "输入你的 %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "输入邮件地址以重置密码"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr "对于同一个集合你不能设置多重权限"
 
 msgid "New title"
 msgstr "新标题"
@@ -122,15 +119,6 @@ msgstr "此缩略名在其父页面\"%s\"上下文中已被使用。"
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "你在复制子页面时不能复制当前页面本身"
 
-msgid "Visibility"
-msgstr "是否可见"
-
-msgid "This field is required."
-msgstr "必需字段"
-
-msgid "Please select at least one group."
-msgstr "请至少选择一个组。"
-
 msgid "This slug is already in use"
 msgstr "此缩略名已被使用"
 
@@ -140,8 +128,20 @@ msgstr "发布日期/时间必须早于过期日期/时间"
 msgid "Expiry date/time must be in the future"
 msgstr "过期日期/时间必须是未来时间。"
 
-msgid "You cannot have multiple permission records for the same collection."
-msgstr "对于同一个集合你不能设置多重权限"
+msgid "Search"
+msgstr "搜索"
+
+msgid "Search term"
+msgstr "搜索条件"
+
+msgid "Visibility"
+msgstr "是否可见"
+
+msgid "This field is required."
+msgstr "必需字段"
+
+msgid "Please select at least one group."
+msgstr "请至少选择一个组。"
 
 msgid "Error 404: Page not found"
 msgstr "404错误：没有找到页面"

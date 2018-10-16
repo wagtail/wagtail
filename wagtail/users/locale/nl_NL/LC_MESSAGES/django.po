@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Coen van der Kamp <cvanderkamp@gmail.com>, 2018
 # Kees Hink <keeshink@gmail.com>, 2017
 # Maarten Kling <kling.maarten@gmail.com>, 2015,2017-2018
 # Thijs Kramer <thijskramer@gmail.com>, 2015-2016
@@ -10,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-30 17:31+0100\n"
-"PO-Revision-Date: 2018-07-31 09:30+0000\n"
-"Last-Translator: Maarten Kling <kling.maarten@gmail.com>\n"
+"POT-Creation-Date: 2018-10-11 14:09+0100\n"
+"PO-Revision-Date: 2018-10-11 18:56+0000\n"
+"Last-Translator: Coen van der Kamp <cvanderkamp@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -290,7 +291,7 @@ msgid "Group '{0}' created."
 msgstr "Groep '{0}' aangemaakt."
 
 msgid "Group '{0}' updated."
-msgstr "Groep '{0}' gewijzigd."
+msgstr "Groep '{0}' is gewijzigd."
 
 msgid "The group could not be saved due to errors."
 msgstr "De groep kon vanwege fouten niet worden opgeslagen."
@@ -310,12 +311,8 @@ msgstr "Wijzig"
 msgid "The user could not be created due to errors."
 msgstr "De gebruiker kon vanwege fouten niet worden aangemaakt."
 
-msgid ""
-"Your details have been updated. You've been logged out for security reasons, "
-"please login to continue."
-msgstr ""
-"Je details zijn opgeslagen. Je bent uitgelogd vanwege "
-"veiligheidsoverwegingen, log opnieuw in om verder te gaan."
+msgid "User '{0}' updated."
+msgstr "Gebruiker '{0}' is gewijzigd."
 
 msgid "The user could not be saved due to errors."
 msgstr "De gebruiker kon vanwege fouten niet worden opgeslagen."

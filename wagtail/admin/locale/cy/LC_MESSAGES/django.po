@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-30 17:31+0100\n"
-"PO-Revision-Date: 2018-07-30 16:33+0000\n"
+"POT-Creation-Date: 2018-10-11 14:09+0100\n"
+"PO-Revision-Date: 2018-10-11 13:13+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Welsh (http://www.transifex.com/torchbox/wagtail/language/"
 "cy/)\n"
@@ -32,14 +32,6 @@ msgstr "Hyrwyddo"
 msgid "Settings"
 msgstr "Gosodiadau"
 
-msgid "Search"
-msgstr "Chwillio"
-
-msgid "Search term"
-msgstr ""
-" \n"
-"Term Chwilio"
-
 msgid "Enter password"
 msgstr "Rhowch cyfrinair "
 
@@ -58,3 +50,11 @@ msgstr "Gwlithod newydd"
 
 msgid "New parent page"
 msgstr "Tudalen rhiant newydd"
+
+msgid "Search"
+msgstr "Chwillio"
+
+msgid "Search term"
+msgstr ""
+" \n"
+"Term Chwilio"

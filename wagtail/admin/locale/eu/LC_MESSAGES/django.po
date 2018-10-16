@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-30 17:31+0100\n"
-"PO-Revision-Date: 2018-07-30 16:33+0000\n"
+"POT-Creation-Date: 2018-10-11 14:09+0100\n"
+"PO-Revision-Date: 2018-10-11 13:13+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Basque (http://www.transifex.com/torchbox/wagtail/language/"
 "eu/)\n"
@@ -19,14 +19,14 @@ msgstr ""
 "Language: eu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "Enter your email address to reset your password"
+msgstr "Idatzi zure eposta helbidea zure pasahitza berrezartzeko"
+
 msgid "Search"
 msgstr "Bilatu"
 
 msgid "Search term"
 msgstr "Bilaketa terminoa"
-
-msgid "Enter your email address to reset your password"
-msgstr "Idatzi zure eposta helbidea zure pasahitza berrezartzeko"
 
 msgid "Account"
 msgstr "Kontua"

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-30 17:31+0100\n"
-"PO-Revision-Date: 2018-07-30 16:33+0000\n"
+"POT-Creation-Date: 2018-10-11 14:09+0100\n"
+"PO-Revision-Date: 2018-10-11 13:13+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
 "language/lt/)\n"
@@ -42,15 +42,6 @@ msgstr "Skelbti"
 msgid "Settings"
 msgstr "Nustatymai"
 
-msgid "Search"
-msgstr "Paieška"
-
-msgid "Search term"
-msgstr "Paieškos frazė"
-
-msgid "URL"
-msgstr "URL"
-
 msgid "Enter password"
 msgstr "Įveskite slaptažodį"
 
@@ -61,6 +52,12 @@ msgstr "Įveskite savo %s"
 msgid "Enter your email address to reset your password"
 msgstr ""
 "Įveskite savo elektroninio pašto adresą kad atstatytumėte savo slaptažodį"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr "Jūs negalite turėti daugybinių leidimų įrašų tai pačiai kolekcijai."
 
 msgid "New title"
 msgstr "Naujas pavadinimas"
@@ -128,15 +125,6 @@ msgid "You cannot copy a page into itself when copying subpages"
 msgstr ""
 "Jūs negalite kopijuoti puslapio į jį patį kopijuojant vidinius puslapius"
 
-msgid "Visibility"
-msgstr "Matomumas"
-
-msgid "This field is required."
-msgstr "Šis laukas yra privalomas."
-
-msgid "Please select at least one group."
-msgstr "Prašome pasirinkti bent vieną grupę."
-
 msgid "This slug is already in use"
 msgstr "Šis trumpinys jau naudojamas"
 
@@ -147,8 +135,20 @@ msgstr ""
 msgid "Expiry date/time must be in the future"
 msgstr "Galiojimo pabaigos data/laikas turi būti ateityje"
 
-msgid "You cannot have multiple permission records for the same collection."
-msgstr "Jūs negalite turėti daugybinių leidimų įrašų tai pačiai kolekcijai."
+msgid "Search"
+msgstr "Paieška"
+
+msgid "Search term"
+msgstr "Paieškos frazė"
+
+msgid "Visibility"
+msgstr "Matomumas"
+
+msgid "This field is required."
+msgstr "Šis laukas yra privalomas."
+
+msgid "Please select at least one group."
+msgstr "Prašome pasirinkti bent vieną grupę."
 
 msgid "Error 404: Page not found"
 msgstr "Klaida 404: Puslapis nerastas"

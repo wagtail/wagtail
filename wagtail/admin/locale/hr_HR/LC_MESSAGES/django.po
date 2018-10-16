@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-30 17:31+0100\n"
-"PO-Revision-Date: 2018-07-30 16:33+0000\n"
+"POT-Creation-Date: 2018-10-11 14:09+0100\n"
+"PO-Revision-Date: 2018-10-11 13:13+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/torchbox/wagtail/"
 "language/hr_HR/)\n"
@@ -19,12 +19,6 @@ msgstr ""
 "Language: hr_HR\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-
-msgid "Search"
-msgstr "Pretraga"
-
-msgid "Search term"
-msgstr "Pojam za pretraživanje"
 
 msgid "Enter password"
 msgstr "Unesite lozinku"
@@ -40,6 +34,12 @@ msgstr "Objavi kopiranu stranicu"
 
 msgid "Publish copies"
 msgstr "Objavi kopije"
+
+msgid "Search"
+msgstr "Pretraga"
+
+msgid "Search term"
+msgstr "Pojam za pretraživanje"
 
 msgid "This field is required."
 msgstr "Ovo polje je obavezno."

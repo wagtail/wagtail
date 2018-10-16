@@ -26,9 +26,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-30 17:31+0100\n"
-"PO-Revision-Date: 2018-07-31 21:20+0000\n"
-"Last-Translator: Loic Teixeira <hello@lta.me>\n"
+"POT-Creation-Date: 2018-10-11 14:09+0100\n"
+"PO-Revision-Date: 2018-10-11 13:13+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -61,15 +61,6 @@ msgstr "Promotion"
 msgid "Settings"
 msgstr "Paramètres"
 
-msgid "Search"
-msgstr "Rechercher"
-
-msgid "Search term"
-msgstr "Terme de recherche"
-
-msgid "URL"
-msgstr "URL"
-
 msgid "Enter password"
 msgstr "Entrez un mot de passe"
 
@@ -79,6 +70,12 @@ msgstr "Entrez votre %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Entrez votre adresse e-mail pour réinitialiser votre mot de passe"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr "Vous ne pouvez avoir plusieurs permissions pour la même collection."
 
 msgid "New title"
 msgstr "Nouveau titre"
@@ -137,15 +134,6 @@ msgstr ""
 "Vous ne pouvez pas copier une page sous elle-même lors de la copie de sous-"
 "pages"
 
-msgid "Visibility"
-msgstr "Visibilité"
-
-msgid "This field is required."
-msgstr "Champ requis."
-
-msgid "Please select at least one group."
-msgstr "Vous devez sélectionner au moins un groupe."
-
 msgid "This slug is already in use"
 msgstr "Ce slug est déjà utilisé"
 
@@ -155,8 +143,20 @@ msgstr "La date de publication doit être antérieure à la date d'expiration"
 msgid "Expiry date/time must be in the future"
 msgstr "La date d'expiration doit être dans le futur"
 
-msgid "You cannot have multiple permission records for the same collection."
-msgstr "Vous ne pouvez avoir plusieurs permissions pour la même collection."
+msgid "Search"
+msgstr "Rechercher"
+
+msgid "Search term"
+msgstr "Terme de recherche"
+
+msgid "Visibility"
+msgstr "Visibilité"
+
+msgid "This field is required."
+msgstr "Champ requis."
+
+msgid "Please select at least one group."
+msgstr "Vous devez sélectionner au moins un groupe."
 
 msgid "Error 404: Page not found"
 msgstr "Erreur 404 : Page introuvable"

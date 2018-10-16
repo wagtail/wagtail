@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-30 17:31+0100\n"
-"PO-Revision-Date: 2018-07-30 16:33+0000\n"
+"POT-Creation-Date: 2018-10-11 14:09+0100\n"
+"PO-Revision-Date: 2018-10-11 13:13+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Danish (http://www.transifex.com/torchbox/wagtail/language/"
 "da/)\n"
@@ -44,15 +44,6 @@ msgstr "Promover"
 msgid "Settings"
 msgstr "Indstillinger"
 
-msgid "Search"
-msgstr "Søg"
-
-msgid "Search term"
-msgstr "Søge term"
-
-msgid "URL"
-msgstr "URL"
-
 msgid "Enter password"
 msgstr "Skriv adgangskode"
 
@@ -62,6 +53,9 @@ msgstr "Skriv din %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Skriv din email addresse for at genindstille din adgangskode"
+
+msgid "URL"
+msgstr "URL"
 
 msgid "New title"
 msgstr "Ny titel"
@@ -103,15 +97,6 @@ msgid ""
 msgstr ""
 "Dette slug er allerede i brug inden for konteksten af forældresiden \"%s\""
 
-msgid "Visibility"
-msgstr "Synlighed"
-
-msgid "This field is required."
-msgstr "Dette felt er påkrævet."
-
-msgid "Please select at least one group."
-msgstr "Vælg venligst mindst én gruppe."
-
 msgid "This slug is already in use"
 msgstr "Dette slug er allerede i brug"
 
@@ -120,6 +105,21 @@ msgstr "Gå live dato/tidspunkt skal forekomme før udløbende dato/tidspunkt"
 
 msgid "Expiry date/time must be in the future"
 msgstr "Udløbende dato/tidspunkt skal være i fremtiden"
+
+msgid "Search"
+msgstr "Søg"
+
+msgid "Search term"
+msgstr "Søge term"
+
+msgid "Visibility"
+msgstr "Synlighed"
+
+msgid "This field is required."
+msgstr "Dette felt er påkrævet."
+
+msgid "Please select at least one group."
+msgstr "Vælg venligst mindst én gruppe."
 
 msgid "Error 404: Page not found"
 msgstr "Fejl 404: Side ikke fundet"

@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-30 17:31+0100\n"
-"PO-Revision-Date: 2018-07-30 16:33+0000\n"
+"POT-Creation-Date: 2018-10-11 14:09+0100\n"
+"PO-Revision-Date: 2018-10-11 13:13+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Bulgarian (http://www.transifex.com/torchbox/wagtail/language/"
 "bg/)\n"
@@ -20,17 +20,17 @@ msgstr ""
 "Language: bg\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "Search"
-msgstr "Търсене"
-
-msgid "Search term"
-msgstr "Фраза за търсене"
-
 msgid "Enter your email address to reset your password"
 msgstr "Въведете вашият имейл адрес за да си възстановите паролата"
 
 msgid "This slug is already in use"
 msgstr "Този слъг е вече в употреба"
+
+msgid "Search"
+msgstr "Търсене"
+
+msgid "Search term"
+msgstr "Фраза за търсене"
 
 msgid "Account"
 msgstr "Профил"

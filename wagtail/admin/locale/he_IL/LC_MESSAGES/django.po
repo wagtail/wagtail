@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-30 17:31+0100\n"
-"PO-Revision-Date: 2018-07-30 16:33+0000\n"
+"POT-Creation-Date: 2018-10-11 14:09+0100\n"
+"PO-Revision-Date: 2018-10-11 13:13+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/torchbox/wagtail/"
 "language/he_IL/)\n"
@@ -35,12 +35,6 @@ msgstr "קידום"
 
 msgid "Settings"
 msgstr "הגדרות"
-
-msgid "Search"
-msgstr "חיפוש"
-
-msgid "Search term"
-msgstr "ערך לחיפוש"
 
 msgid "Enter password"
 msgstr "הזינו סיסמה"
@@ -108,9 +102,6 @@ msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
 msgstr "הכתובת שבחרת כבר בשימוש בתוך הקונטקסט של עמוד ההורה \"%s\""
 
-msgid "This field is required."
-msgstr "שדה חובה"
-
 msgid "This slug is already in use"
 msgstr "שדה זה כבר בשימוש"
 
@@ -119,6 +110,15 @@ msgstr "זמן פרסום חייב להיות לפני זמן תפוגת תוק�
 
 msgid "Expiry date/time must be in the future"
 msgstr "זמן תפוגה חייב להיות בעתיד"
+
+msgid "Search"
+msgstr "חיפוש"
+
+msgid "Search term"
+msgstr "ערך לחיפוש"
+
+msgid "This field is required."
+msgstr "שדה חובה"
 
 msgid "Account"
 msgstr "חשבון"
