@@ -178,7 +178,7 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
             if issubclass(model, klass)
         ]).values()
 
-        return Q(content_type__in=content_types)
+        return Q(content_type__in=list(content_types))
 
     def type(self, model):
         """
