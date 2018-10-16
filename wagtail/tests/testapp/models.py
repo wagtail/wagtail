@@ -1232,3 +1232,22 @@ class TabbedSettings(TestSetting):
 
 class AlwaysShowInMenusPage(Page):
     show_in_menus_default = True
+
+
+# test for AddField migrations on StreamFields using various default values
+class AddedStreamFieldWithoutDefaultPage(Page):
+    body = StreamField([
+        ('title', CharBlock())
+    ])
+
+
+class AddedStreamFieldWithEmptyStringDefaultPage(Page):
+    body = StreamField([
+        ('title', CharBlock())
+    ], default='')
+
+
+class AddedStreamFieldWithEmptyListDefaultPage(Page):
+    body = StreamField([
+        ('title', CharBlock())
+    ], default=[])
