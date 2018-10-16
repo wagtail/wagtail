@@ -23,8 +23,7 @@ export const getLinkAttributes = (data) => {
   if (!url) {
     icon = BROKEN_LINK_ICON;
     label = STRINGS.BROKEN_LINK;
-  }
-  else if (data.id) {
+  } else if (data.id) {
     icon = LINK_ICON;
     label = url;
   } else if (url.startsWith('mailto:')) {
