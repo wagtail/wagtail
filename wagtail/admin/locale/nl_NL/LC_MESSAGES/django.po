@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-30 17:31+0100\n"
-"PO-Revision-Date: 2018-07-31 09:32+0000\n"
-"Last-Translator: Maarten Kling <kling.maarten@gmail.com>\n"
+"POT-Creation-Date: 2018-10-11 14:09+0100\n"
+"PO-Revision-Date: 2018-10-11 18:50+0000\n"
+"Last-Translator: Coen van der Kamp <cvanderkamp@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -46,15 +46,6 @@ msgstr "Eigenschappen"
 msgid "Settings"
 msgstr "Instellingen"
 
-msgid "Search"
-msgstr "Zoeken"
-
-msgid "Search term"
-msgstr "Zoekterm"
-
-msgid "URL"
-msgstr "URL"
-
 msgid "Enter password"
 msgstr "Voer wachtwoord in"
 
@@ -64,6 +55,14 @@ msgstr "Voer uw %s in"
 
 msgid "Enter your email address to reset your password"
 msgstr "Vul uw e-mailadres in om uw wachtwoord te herstellen"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr ""
+"Het is niet mogelijk om meerdere machtigingen voor dezelfde collectie in te "
+"stellen."
 
 msgid "New title"
 msgstr "Nieuwe titel"
@@ -127,15 +126,6 @@ msgstr ""
 "Het is niet mogelijk een pagina naar zichzelf te kopiëren bij het kopiëren "
 "van onderliggende pagina's"
 
-msgid "Visibility"
-msgstr "Zichtbaarheid"
-
-msgid "This field is required."
-msgstr "Dit is een verplicht veld."
-
-msgid "Please select at least one group."
-msgstr "Selecteer minimaal één groep."
-
 msgid "This slug is already in use"
 msgstr "Deze slug is al in gebruik"
 
@@ -145,10 +135,20 @@ msgstr "Publicatiedatum/tijd moet voor de vervaldatum/tijd liggen."
 msgid "Expiry date/time must be in the future"
 msgstr "Vervaldatum moet in de toekomst liggen"
 
-msgid "You cannot have multiple permission records for the same collection."
-msgstr ""
-"Het is niet mogelijk om meerdere machtigingen voor dezelfde collectie in te "
-"stellen."
+msgid "Search"
+msgstr "Zoeken"
+
+msgid "Search term"
+msgstr "Zoekterm"
+
+msgid "Visibility"
+msgstr "Zichtbaarheid"
+
+msgid "This field is required."
+msgstr "Dit is een verplicht veld."
+
+msgid "Please select at least one group."
+msgstr "Selecteer minimaal één groep."
 
 msgid "Error 404: Page not found"
 msgstr "Error 404: Pagina niet gevonden"
@@ -1117,6 +1117,27 @@ msgstr "november"
 msgid "December"
 msgstr "december"
 
+msgid "Sunday"
+msgstr "Zondag"
+
+msgid "Monday"
+msgstr "Maandag"
+
+msgid "Tuesday"
+msgstr "Dinsdag"
+
+msgid "Wednesday"
+msgstr "Woensdag"
+
+msgid "Thursday"
+msgstr "Donderdag"
+
+msgid "Friday"
+msgstr "Vrijdag"
+
+msgid "Saturday"
+msgstr "Zaterdag"
+
 msgid "Sun"
 msgstr "Zo"
 
@@ -1213,6 +1234,9 @@ msgstr "Frans"
 
 msgid "Galician"
 msgstr "Galicisch"
+
+msgid "Indonesian"
+msgstr "Indonesisch"
 
 msgid "Icelandic"
 msgstr "IJslands"

@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-30 17:31+0100\n"
-"PO-Revision-Date: 2018-07-30 16:33+0000\n"
+"POT-Creation-Date: 2018-10-11 14:09+0100\n"
+"PO-Revision-Date: 2018-10-11 13:13+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
 "tr/)\n"
@@ -35,15 +35,6 @@ msgstr "İçerik"
 msgid "Settings"
 msgstr "Ayarlar"
 
-msgid "Search"
-msgstr "Ara"
-
-msgid "Search term"
-msgstr "Arama terimi"
-
-msgid "URL"
-msgstr "URL"
-
 msgid "Enter password"
 msgstr "Şifre girin"
 
@@ -53,6 +44,12 @@ msgstr "%s gir"
 
 msgid "Enter your email address to reset your password"
 msgstr "Şifreyi sıfırlamak için e posta adresini gir"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr "Aynı kolleksiyona ait birden fazla yetkiye sahip olamazsınız"
 
 msgid "New title"
 msgstr "Yeni başlı"
@@ -78,9 +75,6 @@ msgstr "Bu sayfa yayında. Kopyasını da yayınlamak istermisiniz?"
 msgid "Publish copies"
 msgstr "Kopyaları yayınla"
 
-msgid "This field is required."
-msgstr "Bu alan zorunludur."
-
 msgid "This slug is already in use"
 msgstr "Bu Slug kullanılmakta"
 
@@ -90,8 +84,14 @@ msgstr "Yayın tarih/saati bitiş tarih/saatinden önce olmalı"
 msgid "Expiry date/time must be in the future"
 msgstr "Bitiş tarihi ileri bir tarih olmalı"
 
-msgid "You cannot have multiple permission records for the same collection."
-msgstr "Aynı kolleksiyona ait birden fazla yetkiye sahip olamazsınız"
+msgid "Search"
+msgstr "Ara"
+
+msgid "Search term"
+msgstr "Arama terimi"
+
+msgid "This field is required."
+msgstr "Bu alan zorunludur."
 
 msgid "Account"
 msgstr "Hesap"

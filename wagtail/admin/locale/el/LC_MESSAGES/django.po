@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-30 17:31+0100\n"
-"PO-Revision-Date: 2018-07-30 16:33+0000\n"
+"POT-Creation-Date: 2018-10-11 14:09+0100\n"
+"PO-Revision-Date: 2018-10-11 13:13+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
@@ -45,15 +45,6 @@ msgstr "Προωθηση"
 msgid "Settings"
 msgstr "Ρυθμισεις"
 
-msgid "Search"
-msgstr "Αναζήτηση"
-
-msgid "Search term"
-msgstr "Όρος αναζήτησης"
-
-msgid "URL"
-msgstr "URL"
-
 msgid "Enter password"
 msgstr "Εισάγετε τον κωδικό σας"
 
@@ -63,6 +54,12 @@ msgstr "Εισάγετε το %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Εισάγετε τη διεύθυνση email σας για να ανανεώσετε τον κωδικό σας"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr "Δε μπορείτε να έχετε πολλαπλά δικαιώματα για την ίδια συλλογή"
 
 msgid "New title"
 msgstr "Νέος τίτλος"
@@ -113,15 +110,6 @@ msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
 msgstr "Αυτό το slug χρησιμοποιείται ήδη στην κύρια σελίδα \"%s\""
 
-msgid "Visibility"
-msgstr "Ορατότητα"
-
-msgid "This field is required."
-msgstr "Το πεδίο αυτό είναι απαραίτητο"
-
-msgid "Please select at least one group."
-msgstr "Παρακαλούμε επιλέξτε τουλάχιστον μια ομάδα."
-
 msgid "This slug is already in use"
 msgstr "Το slug χρησιμοποιείται"
 
@@ -132,8 +120,20 @@ msgstr ""
 msgid "Expiry date/time must be in the future"
 msgstr "Η ημερομηνία/ώρα λήξης πρέπει να είναι μελλοντική"
 
-msgid "You cannot have multiple permission records for the same collection."
-msgstr "Δε μπορείτε να έχετε πολλαπλά δικαιώματα για την ίδια συλλογή"
+msgid "Search"
+msgstr "Αναζήτηση"
+
+msgid "Search term"
+msgstr "Όρος αναζήτησης"
+
+msgid "Visibility"
+msgstr "Ορατότητα"
+
+msgid "This field is required."
+msgstr "Το πεδίο αυτό είναι απαραίτητο"
+
+msgid "Please select at least one group."
+msgstr "Παρακαλούμε επιλέξτε τουλάχιστον μια ομάδα."
 
 msgid "Go to Wagtail admin"
 msgstr "Πηγαίνετε στη διαχείριση του Wagtail"

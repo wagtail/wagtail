@@ -22,8 +22,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-30 17:31+0100\n"
-"PO-Revision-Date: 2018-07-30 16:33+0000\n"
+"POT-Creation-Date: 2018-10-11 14:09+0100\n"
+"PO-Revision-Date: 2018-10-11 13:13+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
@@ -56,15 +56,6 @@ msgstr "Продвижение"
 msgid "Settings"
 msgstr "Настройки"
 
-msgid "Search"
-msgstr "Поиск"
-
-msgid "Search term"
-msgstr "Критерий поиска"
-
-msgid "URL"
-msgstr "URL"
-
 msgid "Enter password"
 msgstr "Введите пароль"
 
@@ -74,6 +65,14 @@ msgstr "Введите ваше %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Введите ваш адрес электронной почты для сброса пароля"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr ""
+"Вы не можете иметь несколько записей с правами доступа к одной и той же "
+"коллекции."
 
 msgid "New title"
 msgstr "Новый заголовок"
@@ -143,15 +142,6 @@ msgstr ""
 "Вы не можете скопировать страницу саму в себя, когда выбрана опция "
 "\"Копировать подстраницы\""
 
-msgid "Visibility"
-msgstr "Видимость"
-
-msgid "This field is required."
-msgstr "Требуется заполнить это поле."
-
-msgid "Please select at least one group."
-msgstr "Пожалуйста, выберите хотя бы одну группу."
-
 msgid "This slug is already in use"
 msgstr "Этот слаг уже используется"
 
@@ -162,10 +152,20 @@ msgstr ""
 msgid "Expiry date/time must be in the future"
 msgstr "Дата/время снятия с публикации должно быть в будущем."
 
-msgid "You cannot have multiple permission records for the same collection."
-msgstr ""
-"Вы не можете иметь несколько записей с правами доступа к одной и той же "
-"коллекции."
+msgid "Search"
+msgstr "Поиск"
+
+msgid "Search term"
+msgstr "Критерий поиска"
+
+msgid "Visibility"
+msgstr "Видимость"
+
+msgid "This field is required."
+msgstr "Требуется заполнить это поле."
+
+msgid "Please select at least one group."
+msgstr "Пожалуйста, выберите хотя бы одну группу."
 
 msgid "Error 404: Page not found"
 msgstr "Ошибка 404: Страница не найдена"

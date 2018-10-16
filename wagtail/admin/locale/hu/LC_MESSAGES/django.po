@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-30 17:31+0100\n"
-"PO-Revision-Date: 2018-07-30 16:33+0000\n"
+"POT-Creation-Date: 2018-10-11 14:09+0100\n"
+"PO-Revision-Date: 2018-10-11 13:13+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
@@ -33,15 +33,6 @@ msgstr "Tartalom"
 msgid "Settings"
 msgstr "Beállítások"
 
-msgid "Search"
-msgstr "Keresés"
-
-msgid "Search term"
-msgstr "Keresett szó(darab)"
-
-msgid "URL"
-msgstr "URL"
-
 msgid "Enter password"
 msgstr "Adja meg a jelszavát"
 
@@ -51,6 +42,9 @@ msgstr "Adja meg a %s string-et"
 
 msgid "Enter your email address to reset your password"
 msgstr "Kérem adja meg az email címét, a jelszó változtatáshoz."
+
+msgid "URL"
+msgstr "URL"
 
 msgid "New title"
 msgstr "Új oldalcím"
@@ -101,11 +95,17 @@ msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
 msgstr "A domain-darabka már használatban van az oldal szülőoldalán \"%s\""
 
-msgid "This field is required."
-msgstr "Egy mező megadása szükséges."
-
 msgid "Expiry date/time must be in the future"
 msgstr "A lejárat dátumának/idejének egy jövőbeni időpontnak kell lennie."
+
+msgid "Search"
+msgstr "Keresés"
+
+msgid "Search term"
+msgstr "Keresett szó(darab)"
+
+msgid "This field is required."
+msgstr "Egy mező megadása szükséges."
 
 msgid "Account"
 msgstr "Felhasználói profil"

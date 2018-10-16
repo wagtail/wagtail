@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-30 17:31+0100\n"
-"PO-Revision-Date: 2018-08-01 14:36+0000\n"
-"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>\n"
+"POT-Creation-Date: 2018-10-11 14:09+0100\n"
+"PO-Revision-Date: 2018-10-11 13:13+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -46,15 +46,6 @@ msgstr "Sýnileiki"
 msgid "Settings"
 msgstr "Stillingar"
 
-msgid "Search"
-msgstr "Leita"
-
-msgid "Search term"
-msgstr "Leitarfrasi"
-
-msgid "URL"
-msgstr "Slóð"
-
 msgid "Enter password"
 msgstr "Sláðu inn lykilorð"
 
@@ -64,6 +55,12 @@ msgstr "Sláðu inn %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Sláðu inn netfangið þitt til að endursetja lykilorðið þitt."
+
+msgid "URL"
+msgstr "Slóð"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr "Þú getur ekki haft margar heimildafærslur fyrir sama safnið"
 
 msgid "New title"
 msgstr "Titill"
@@ -124,15 +121,6 @@ msgstr ""
 "Ekki er hægt að afrita síðu inn undir sjálfa sig þegar verið er að afrita "
 "undirsíður"
 
-msgid "Visibility"
-msgstr "Sýnileiki"
-
-msgid "This field is required."
-msgstr "Þennan reit þarf að fylla út."
-
-msgid "Please select at least one group."
-msgstr "Vinsamlegast veljið amk eina grúppu."
-
 msgid "This slug is already in use"
 msgstr "Þessi vefslóð (e.slug) er þegar í notkun"
 
@@ -144,8 +132,20 @@ msgstr ""
 msgid "Expiry date/time must be in the future"
 msgstr "Dagsetning afbirtingar verður að vera í framtíðinni"
 
-msgid "You cannot have multiple permission records for the same collection."
-msgstr "Þú getur ekki haft margar heimildafærslur fyrir sama safnið"
+msgid "Search"
+msgstr "Leita"
+
+msgid "Search term"
+msgstr "Leitarfrasi"
+
+msgid "Visibility"
+msgstr "Sýnileiki"
+
+msgid "This field is required."
+msgstr "Þennan reit þarf að fylla út."
+
+msgid "Please select at least one group."
+msgstr "Vinsamlegast veljið amk eina grúppu."
 
 msgid "Error 404: Page not found"
 msgstr "404: Síðan fannst ekki"

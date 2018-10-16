@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-30 17:31+0100\n"
-"PO-Revision-Date: 2018-10-02 11:06+0000\n"
-"Last-Translator: Eva Mikesova <eva.mikesova@tul.cz>\n"
+"POT-Creation-Date: 2018-10-11 14:09+0100\n"
+"PO-Revision-Date: 2018-10-11 13:13+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -48,15 +48,6 @@ msgstr "Prezentace"
 msgid "Settings"
 msgstr "Nastavení"
 
-msgid "Search"
-msgstr "Hledat"
-
-msgid "Search term"
-msgstr "Hledaný výraz"
-
-msgid "URL"
-msgstr "URL"
-
 msgid "Enter password"
 msgstr "Zadejte heslo"
 
@@ -66,6 +57,12 @@ msgstr "Zadejte své %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Pro obnovení hesla zadejte svou e-mailovou adresu"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr "Oprávnění pro stejnou kolekci nemůže být nastaveno vícekrát."
 
 msgid "New title"
 msgstr "Nový název"
@@ -132,15 +129,6 @@ msgstr ""
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "Není možné kopírovat stránku samu do sebe při kopírování podstránek"
 
-msgid "Visibility"
-msgstr "Viditelnost"
-
-msgid "This field is required."
-msgstr "Toto pole je povinné."
-
-msgid "Please select at least one group."
-msgstr "Zvolte prosím alespoň jednu skupinu."
-
 msgid "This slug is already in use"
 msgstr "Název pro URL musí být unikátní"
 
@@ -150,8 +138,20 @@ msgstr "Datum/čas zveřejnění musí být dřívější než datum/čas expira
 msgid "Expiry date/time must be in the future"
 msgstr "Datum/čas expirace musí být v budoucnosti"
 
-msgid "You cannot have multiple permission records for the same collection."
-msgstr "Oprávnění pro stejnou kolekci nemůže být nastaveno vícekrát."
+msgid "Search"
+msgstr "Hledat"
+
+msgid "Search term"
+msgstr "Hledaný výraz"
+
+msgid "Visibility"
+msgstr "Viditelnost"
+
+msgid "This field is required."
+msgstr "Toto pole je povinné."
+
+msgid "Please select at least one group."
+msgstr "Zvolte prosím alespoň jednu skupinu."
 
 msgid "Error 404: Page not found"
 msgstr "Error 404: Stránka nebyla nalezena"

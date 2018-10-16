@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-30 17:31+0100\n"
-"PO-Revision-Date: 2018-07-30 16:33+0000\n"
+"POT-Creation-Date: 2018-10-11 14:09+0100\n"
+"PO-Revision-Date: 2018-10-11 13:13+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/"
 "lv/)\n"
@@ -42,15 +42,6 @@ msgstr "Veicināšana"
 msgid "Settings"
 msgstr "Iestatījumi"
 
-msgid "Search"
-msgstr "Meklēt"
-
-msgid "Search term"
-msgstr "Meklēšanas termins"
-
-msgid "URL"
-msgstr "Norāde (URL)"
-
 msgid "Enter password"
 msgstr "Ievadīt paroli"
 
@@ -60,6 +51,12 @@ msgstr "Ievadiet jūsu %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Ievadiet savu e-pasta adresi, lai atjaunotu paroli"
+
+msgid "URL"
+msgstr "Norāde (URL)"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr "Vienai kolekcijai nevar būt vairāki tiesību ieraksti."
 
 msgid "New title"
 msgstr "Jauns virsraksts"
@@ -120,15 +117,6 @@ msgstr ""
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "Kopējot apakšlapas nav iespējams kopēt lapu uz sevi pašu"
 
-msgid "Visibility"
-msgstr "Redzamība"
-
-msgid "This field is required."
-msgstr "Šis lauks ir nepieciešams"
-
-msgid "Please select at least one group."
-msgstr "Lūdzu izvēlieties vismaz vienu grupu"
-
 msgid "This slug is already in use"
 msgstr "Šis tekstuālais identifikators jau tiek lietots"
 
@@ -138,8 +126,20 @@ msgstr "Publicēšanas datumam/laikam jābūt pirms beigu datuma/laika"
 msgid "Expiry date/time must be in the future"
 msgstr "Beigu datumam/laikam jābūt nākotnē"
 
-msgid "You cannot have multiple permission records for the same collection."
-msgstr "Vienai kolekcijai nevar būt vairāki tiesību ieraksti."
+msgid "Search"
+msgstr "Meklēt"
+
+msgid "Search term"
+msgstr "Meklēšanas termins"
+
+msgid "Visibility"
+msgstr "Redzamība"
+
+msgid "This field is required."
+msgstr "Šis lauks ir nepieciešams"
+
+msgid "Please select at least one group."
+msgstr "Lūdzu izvēlieties vismaz vienu grupu"
 
 msgid "Error 404: Page not found"
 msgstr "Kļūda 404: lapa nav atrasta"

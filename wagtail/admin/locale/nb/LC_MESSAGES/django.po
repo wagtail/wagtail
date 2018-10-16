@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-30 17:31+0100\n"
-"PO-Revision-Date: 2018-07-30 16:33+0000\n"
+"POT-Creation-Date: 2018-10-11 14:09+0100\n"
+"PO-Revision-Date: 2018-10-11 13:13+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
@@ -45,15 +45,6 @@ msgstr "Fremming"
 msgid "Settings"
 msgstr "Innstillinger"
 
-msgid "Search"
-msgstr "Søk"
-
-msgid "Search term"
-msgstr "Søkeord"
-
-msgid "URL"
-msgstr "URL"
-
 msgid "Enter password"
 msgstr "Skriv inn passord"
 
@@ -63,6 +54,12 @@ msgstr "Skriv inn %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Skriv inn din e-postadresse for å nullstille passord"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr "Du kan ikke ha flere tillatelsesoppføringer for samme samling."
 
 msgid "New title"
 msgstr "Ny tittel"
@@ -121,15 +118,6 @@ msgstr ""
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "Du kan ikke kopiere en side inn i seg selv når du kopierer undersider"
 
-msgid "Visibility"
-msgstr "Synlighet"
-
-msgid "This field is required."
-msgstr "Dette feltet er påkrevet."
-
-msgid "Please select at least one group."
-msgstr "Velg minst en gruppe."
-
 msgid "This slug is already in use"
 msgstr "Denne permalenken er allerede i bruk"
 
@@ -139,8 +127,20 @@ msgstr "Tidspunkt for publisering må være før tidspunkt for avpublisering"
 msgid "Expiry date/time must be in the future"
 msgstr "Tidspunkt for avpublisering må være en gang i fremtiden"
 
-msgid "You cannot have multiple permission records for the same collection."
-msgstr "Du kan ikke ha flere tillatelsesoppføringer for samme samling."
+msgid "Search"
+msgstr "Søk"
+
+msgid "Search term"
+msgstr "Søkeord"
+
+msgid "Visibility"
+msgstr "Synlighet"
+
+msgid "This field is required."
+msgstr "Dette feltet er påkrevet."
+
+msgid "Please select at least one group."
+msgstr "Velg minst en gruppe."
 
 msgid "Error 404: Page not found"
 msgstr "404 Feil: Fant ikke siden"

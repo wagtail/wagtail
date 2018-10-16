@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-30 17:31+0100\n"
-"PO-Revision-Date: 2018-07-30 16:33+0000\n"
+"POT-Creation-Date: 2018-10-11 14:09+0100\n"
+"PO-Revision-Date: 2018-10-11 13:13+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
@@ -41,15 +41,6 @@ msgstr "ترويج"
 msgid "Settings"
 msgstr "إعدادات"
 
-msgid "Search"
-msgstr "بحث"
-
-msgid "Search term"
-msgstr "مصطلح البحث"
-
-msgid "URL"
-msgstr "الرابط"
-
 msgid "Enter password"
 msgstr "ادخل كلمة المرور"
 
@@ -59,6 +50,9 @@ msgstr "ادخل %s الخاص بك "
 
 msgid "Enter your email address to reset your password"
 msgstr "ادخل البريد الإلكتروني الخاص بك لإرجاع كلمة المرور الخاصة بك "
+
+msgid "URL"
+msgstr "الرابط"
 
 msgid "New title"
 msgstr "عنوان جديد"
@@ -81,11 +75,17 @@ msgstr "هذه النسخه مباشرة. هل تريد نشر نسخه لها �
 msgid "Publish copies"
 msgstr "انشر النسخ"
 
-msgid "This field is required."
-msgstr "هذا الحقل مقتضى"
-
 msgid "Expiry date/time must be in the future"
 msgstr "تاريخ الانتهاء/الوقت يجب ان يكون مستقبلياً"
+
+msgid "Search"
+msgstr "بحث"
+
+msgid "Search term"
+msgstr "مصطلح البحث"
+
+msgid "This field is required."
+msgstr "هذا الحقل مقتضى"
 
 msgid "Account"
 msgstr "حساب"

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-30 17:31+0100\n"
-"PO-Revision-Date: 2018-07-30 16:33+0000\n"
+"POT-Creation-Date: 2018-10-11 14:09+0100\n"
+"PO-Revision-Date: 2018-10-11 13:13+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
@@ -44,15 +44,6 @@ msgstr "Promovează"
 msgid "Settings"
 msgstr "Setări"
 
-msgid "Search"
-msgstr "Căutare"
-
-msgid "Search term"
-msgstr "Termen de căutare"
-
-msgid "URL"
-msgstr "Adresă de internet"
-
 msgid "Enter password"
 msgstr "Introduceți parola"
 
@@ -62,6 +53,13 @@ msgstr "Introduceți %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Introduceți adresa de e-mail pentru a reseta parola"
+
+msgid "URL"
+msgstr "Adresă de internet"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr ""
+"Nu puteți avea înregistrări de permisiune multiple pentru aceeași colecție."
 
 msgid "New title"
 msgstr "Titlu nou"
@@ -123,15 +121,6 @@ msgstr "Acest slug este deja folosit în contextul paginii părinte \"%s\""
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "Nu puteți copia o pagină în sine atunci când copiați subpagini"
 
-msgid "Visibility"
-msgstr "Vizibilitate"
-
-msgid "This field is required."
-msgstr "Acest câmp este obligatoriu."
-
-msgid "Please select at least one group."
-msgstr "Selectați cel puțin un grup"
-
 msgid "This slug is already in use"
 msgstr "Această fisă a fost deja folosită"
 
@@ -142,9 +131,20 @@ msgstr ""
 msgid "Expiry date/time must be in the future"
 msgstr "Data/timpul de expirare trebuie să fie în viitor"
 
-msgid "You cannot have multiple permission records for the same collection."
-msgstr ""
-"Nu puteți avea înregistrări de permisiune multiple pentru aceeași colecție."
+msgid "Search"
+msgstr "Căutare"
+
+msgid "Search term"
+msgstr "Termen de căutare"
+
+msgid "Visibility"
+msgstr "Vizibilitate"
+
+msgid "This field is required."
+msgstr "Acest câmp este obligatoriu."
+
+msgid "Please select at least one group."
+msgstr "Selectați cel puțin un grup"
 
 msgid "Error 404: Page not found"
 msgstr "Eroare 404: Pagina nu a fost găsită"

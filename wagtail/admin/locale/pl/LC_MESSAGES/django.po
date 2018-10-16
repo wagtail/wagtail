@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-30 17:31+0100\n"
-"PO-Revision-Date: 2018-10-11 12:21+0000\n"
+"POT-Creation-Date: 2018-10-11 14:09+0100\n"
+"PO-Revision-Date: 2018-10-15 20:13+0000\n"
 "Last-Translator: Miłosz Miśkiewicz\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
@@ -52,15 +52,6 @@ msgstr "Promocja SEO"
 msgid "Settings"
 msgstr "Ustawienia"
 
-msgid "Search"
-msgstr "Szukaj"
-
-msgid "Search term"
-msgstr "Wyszukiwania fraza"
-
-msgid "URL"
-msgstr "URL"
-
 msgid "Enter password"
 msgstr "Wpisz hasło"
 
@@ -70,6 +61,12 @@ msgstr "Wpisz %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Podaj swój adres email aby zresetować hasło"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr "Nie możesz posiadać wielu wystąpień uprawnień dla tej samej kolekcji."
 
 msgid "New title"
 msgstr "Nowy tytuł"
@@ -135,15 +132,6 @@ msgstr "Slug jest już wykorzystywany w kontekście strony nadrzędnej \"%s\""
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "Nie możesz skopiować strony do siebie samej kiedy kopiujesz podstrony"
 
-msgid "Visibility"
-msgstr "Widoczność"
-
-msgid "This field is required."
-msgstr "To pole jest wymagane."
-
-msgid "Please select at least one group."
-msgstr "Proszę wybrać co najmniej jedną grupę"
-
 msgid "This slug is already in use"
 msgstr "Ten slug jest już w użyciu"
 
@@ -153,8 +141,20 @@ msgstr "Data/czas publikacji musi być wcześniejszy niż data wykończenia"
 msgid "Expiry date/time must be in the future"
 msgstr "Data/czas wykończenia musi znajdować się w przyszłości."
 
-msgid "You cannot have multiple permission records for the same collection."
-msgstr "Nie możesz posiadać wielu wystąpień uprawnień dla tej samej kolekcji."
+msgid "Search"
+msgstr "Szukaj"
+
+msgid "Search term"
+msgstr "Wyszukiwania fraza"
+
+msgid "Visibility"
+msgstr "Widoczność"
+
+msgid "This field is required."
+msgstr "To pole jest wymagane."
+
+msgid "Please select at least one group."
+msgstr "Proszę wybrać co najmniej jedną grupę"
 
 msgid "Error 404: Page not found"
 msgstr "Błąd 404: Strona nie została znaleziona"
@@ -1179,6 +1179,27 @@ msgstr "Listopad"
 msgid "December"
 msgstr "Grudzień"
 
+msgid "Sunday"
+msgstr "Niedziela"
+
+msgid "Monday"
+msgstr "Poniedziałek"
+
+msgid "Tuesday"
+msgstr "Wtorek"
+
+msgid "Wednesday"
+msgstr "Środa"
+
+msgid "Thursday"
+msgstr "Czwartek"
+
+msgid "Friday"
+msgstr "Piątek"
+
+msgid "Saturday"
+msgstr "Sobota"
+
 msgid "Sun"
 msgstr "Nd"
 
@@ -1277,6 +1298,9 @@ msgstr "Francuski"
 
 msgid "Galician"
 msgstr "Galicyjski"
+
+msgid "Indonesian"
+msgstr "Indonezyjski"
 
 msgid "Icelandic"
 msgstr "Islandzki"

@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-30 17:31+0100\n"
-"PO-Revision-Date: 2018-07-30 16:33+0000\n"
+"POT-Creation-Date: 2018-10-11 14:09+0100\n"
+"PO-Revision-Date: 2018-10-11 13:13+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
 "fa/)\n"
@@ -42,15 +42,6 @@ msgstr "ترویج"
 msgid "Settings"
 msgstr "تنظیمات"
 
-msgid "Search"
-msgstr "جستجو"
-
-msgid "Search term"
-msgstr "عبارت جستجو"
-
-msgid "URL"
-msgstr "نشانی"
-
 msgid "Enter password"
 msgstr "رمزعبور را وارد کنید"
 
@@ -60,6 +51,12 @@ msgstr "%s خود را وارد کنید"
 
 msgid "Enter your email address to reset your password"
 msgstr "برای بازنشانی رمز، نشانی ایمیل خود را وارد کنید"
+
+msgid "URL"
+msgstr "نشانی"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr "نمی‌توانید چند رکورد مجوز برای یک مجموعه معین داشته باشید."
 
 msgid "New title"
 msgstr "عنوان جدید"
@@ -115,15 +112,6 @@ msgstr "این اسلاگ در حال استفاده داخل محتوای صف�
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "هنگامی که صفحه ها کپی میشوند نمی‌توان یک صفحه را به داخل خودش کپی کرد"
 
-msgid "Visibility"
-msgstr "دیده شدن"
-
-msgid "This field is required."
-msgstr "این فیلد لازم است."
-
-msgid "Please select at least one group."
-msgstr "لطفا دست کم یک گروه را انتخاب نمایید."
-
 msgid "This slug is already in use"
 msgstr "این اسلاگ در حال استفاده است"
 
@@ -133,8 +121,20 @@ msgstr "تاریخ/ساعت زنده شدن باید پیش از تاریخ/سا
 msgid "Expiry date/time must be in the future"
 msgstr "تاریخ/ساعت انقضا باید در آینده باشد"
 
-msgid "You cannot have multiple permission records for the same collection."
-msgstr "نمی‌توانید چند رکورد مجوز برای یک مجموعه معین داشته باشید."
+msgid "Search"
+msgstr "جستجو"
+
+msgid "Search term"
+msgstr "عبارت جستجو"
+
+msgid "Visibility"
+msgstr "دیده شدن"
+
+msgid "This field is required."
+msgstr "این فیلد لازم است."
+
+msgid "Please select at least one group."
+msgstr "لطفا دست کم یک گروه را انتخاب نمایید."
 
 msgid "Go to Wagtail admin"
 msgstr "رفتن به رابط راهبری وگتیل"

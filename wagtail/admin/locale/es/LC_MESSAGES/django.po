@@ -17,9 +17,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-30 17:31+0100\n"
-"PO-Revision-Date: 2018-07-31 06:55+0000\n"
-"Last-Translator: José Luis Sandoval Alaguna <alagunajs@gmail.com>\n"
+"POT-Creation-Date: 2018-10-11 14:09+0100\n"
+"PO-Revision-Date: 2018-10-11 13:13+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -52,15 +52,6 @@ msgstr "Promocionar"
 msgid "Settings"
 msgstr "Propiedades"
 
-msgid "Search"
-msgstr "Búsqueda"
-
-msgid "Search term"
-msgstr "Término de búsqueda"
-
-msgid "URL"
-msgstr "URL"
-
 msgid "Enter password"
 msgstr "Introduce contraseña"
 
@@ -70,6 +61,13 @@ msgstr "Ingrese su %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Escribe tu dirección de correo para restablecer tu contraseña"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr ""
+"No puedes tener múltiples permisos de registro para una misma colección."
 
 msgid "New title"
 msgstr "Nuevo título"
@@ -126,15 +124,6 @@ msgstr ""
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "No puede copiar una página dentro de sí misma cuando copia subpáginas."
 
-msgid "Visibility"
-msgstr "Visibilidad"
-
-msgid "This field is required."
-msgstr "Este campo es necesario."
-
-msgid "Please select at least one group."
-msgstr "Por favor seleccione al menos un grupo."
-
 msgid "This slug is already in use"
 msgstr "Este slug ya está en uso"
 
@@ -145,9 +134,20 @@ msgstr ""
 msgid "Expiry date/time must be in the future"
 msgstr "La fecha/tiempo de expiración debe ser en el futuro"
 
-msgid "You cannot have multiple permission records for the same collection."
-msgstr ""
-"No puedes tener múltiples permisos de registro para una misma colección."
+msgid "Search"
+msgstr "Búsqueda"
+
+msgid "Search term"
+msgstr "Término de búsqueda"
+
+msgid "Visibility"
+msgstr "Visibilidad"
+
+msgid "This field is required."
+msgstr "Este campo es necesario."
+
+msgid "Please select at least one group."
+msgstr "Por favor seleccione al menos un grupo."
 
 msgid "Error 404: Page not found"
 msgstr "Error 404: Página no encontrada."

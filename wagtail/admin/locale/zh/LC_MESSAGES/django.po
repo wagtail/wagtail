@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-30 17:31+0100\n"
-"PO-Revision-Date: 2018-07-30 16:33+0000\n"
+"POT-Creation-Date: 2018-10-11 14:09+0100\n"
+"PO-Revision-Date: 2018-10-11 13:13+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (http://www.transifex.com/torchbox/wagtail/language/"
 "zh/)\n"
@@ -30,12 +30,6 @@ msgstr "内容"
 msgid "Settings"
 msgstr "设置"
 
-msgid "Search"
-msgstr "搜索"
-
-msgid "Search term"
-msgstr "搜索词"
-
 msgid "Enter password"
 msgstr "请输入密码"
 
@@ -47,6 +41,12 @@ msgstr "新标题"
 
 msgid "This slug is already in use"
 msgstr "这个唯一的地址已被占用"
+
+msgid "Search"
+msgstr "搜索"
+
+msgid "Search term"
+msgstr "搜索词"
 
 msgid "Account"
 msgstr "账号"

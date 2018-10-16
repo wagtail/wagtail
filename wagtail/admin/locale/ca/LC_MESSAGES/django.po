@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-30 17:31+0100\n"
-"PO-Revision-Date: 2018-07-30 16:33+0000\n"
+"POT-Creation-Date: 2018-10-11 14:09+0100\n"
+"PO-Revision-Date: 2018-10-11 13:13+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
@@ -45,15 +45,6 @@ msgstr "Promoure"
 msgid "Settings"
 msgstr "Configuració"
 
-msgid "Search"
-msgstr "Cercar"
-
-msgid "Search term"
-msgstr "Termini de cerca"
-
-msgid "URL"
-msgstr "URL"
-
 msgid "Enter password"
 msgstr "Introdueix la contrassenya"
 
@@ -63,6 +54,13 @@ msgstr "Introdueix el teu %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Escriu el teu correu per reiniciar la teva contrasenya"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr ""
+"No podeu tenir múltiples registres de permisos per la mateixa col·lecció."
 
 msgid "New title"
 msgstr "Nou títol"
@@ -119,15 +117,6 @@ msgid "You cannot copy a page into itself when copying subpages"
 msgstr ""
 "No podeu copiar una pàgina a ella mateixa quan esteu copiant subpàgines"
 
-msgid "Visibility"
-msgstr "Visibilitat"
-
-msgid "This field is required."
-msgstr "Aquest camp és obligatori"
-
-msgid "Please select at least one group."
-msgstr "Seleccioneu com a mínim un grup."
-
 msgid "This slug is already in use"
 msgstr "Aquest llimac ja està en ús"
 
@@ -138,9 +127,20 @@ msgstr ""
 msgid "Expiry date/time must be in the future"
 msgstr "La data/hora de caducitat ha d'estar en el futur"
 
-msgid "You cannot have multiple permission records for the same collection."
-msgstr ""
-"No podeu tenir múltiples registres de permisos per la mateixa col·lecció."
+msgid "Search"
+msgstr "Cercar"
+
+msgid "Search term"
+msgstr "Termini de cerca"
+
+msgid "Visibility"
+msgstr "Visibilitat"
+
+msgid "This field is required."
+msgstr "Aquest camp és obligatori"
+
+msgid "Please select at least one group."
+msgstr "Seleccioneu com a mínim un grup."
 
 msgid "Error 404: Page not found"
 msgstr "Error 404: Pàgina no trobada"

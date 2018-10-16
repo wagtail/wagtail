@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Matt Westcott <matthew@torchbox.com>, 2018
 # M. Febrian Ramadhana <febrian@ramadhana.me>, 2018
 # Ronggo Radityo <radityo3000@yahoo.com>, 2017
 # Sutrisno Efendi <kangfend@gmail.com>, 2015,2017
@@ -10,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-30 17:31+0100\n"
-"PO-Revision-Date: 2018-09-18 08:04+0000\n"
-"Last-Translator: M. Febrian Ramadhana <febrian@ramadhana.me>\n"
+"POT-Creation-Date: 2018-10-11 14:09+0100\n"
+"PO-Revision-Date: 2018-10-16 11:37+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
 "wagtail/language/id_ID/)\n"
 "MIME-Version: 1.0\n"
@@ -45,15 +46,6 @@ msgstr "Promosikan"
 msgid "Settings"
 msgstr "Pengaturan"
 
-msgid "Search"
-msgstr "Pencarian"
-
-msgid "Search term"
-msgstr "Kata kunci pencarian"
-
-msgid "URL"
-msgstr "URL"
-
 msgid "Enter password"
 msgstr "Masukkan kata sandi"
 
@@ -63,6 +55,13 @@ msgstr "Masukkan %s anda"
 
 msgid "Enter your email address to reset your password"
 msgstr "Masukkan alamat surel untuk atur ulang kata kunci anda"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr ""
+"Anda tidak boleh memiliki lebih dari satu izin untuk koleksi yang sama."
 
 msgid "New title"
 msgstr "Judul baru"
@@ -119,15 +118,6 @@ msgstr ""
 "Ketika melakukan penyalinan sub-halaman, anda tidak dapat menyalin sebuah "
 "halaman ke dirinya sendiri "
 
-msgid "Visibility"
-msgstr "Visibilitas"
-
-msgid "This field is required."
-msgstr "Kolom ini  harus diisi."
-
-msgid "Please select at least one group."
-msgstr "Harap memilih minimal satu grup."
-
 msgid "This slug is already in use"
 msgstr "Slug ini telah digunakan"
 
@@ -137,9 +127,20 @@ msgstr "Waktu publikasi harus diatur sebelum waktu kadaluarsa"
 msgid "Expiry date/time must be in the future"
 msgstr "Waktu kadaluarsa harus di masa depan"
 
-msgid "You cannot have multiple permission records for the same collection."
-msgstr ""
-"Anda tidak boleh memiliki lebih dari satu izin untuk koleksi yang sama."
+msgid "Search"
+msgstr "Pencarian"
+
+msgid "Search term"
+msgstr "Kata kunci pencarian"
+
+msgid "Visibility"
+msgstr "Visibilitas"
+
+msgid "This field is required."
+msgstr "Kolom ini  harus diisi."
+
+msgid "Please select at least one group."
+msgstr "Harap memilih minimal satu grup."
 
 msgid "Error 404: Page not found"
 msgstr "Galat 404: Halaman tidak ditemukan"
@@ -968,7 +969,7 @@ msgstr "Tidak ada perbedaan di antara kedua revisi"
 
 #, python-format
 msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "Hapus Jadwal Revisi %(revision.id) untuk %(title)s"
+msgstr "Hapus Jadwal Revisi %(revision.id)s untuk %(title)s"
 
 msgid "Unschedule"
 msgstr "Hapus Jadwal"
