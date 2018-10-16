@@ -322,6 +322,7 @@ Contributors
 * Meteor0id
 * Naa Marteki Reed
 * Jorge Barata
+* Brady Moe
 
 Translators
 ===========
