@@ -243,8 +243,9 @@ class BaseStreamBlock(Block):
         ], is_lazy=True)
 
     def get_prep_value(self, value):
-        if value is None:
-            # treat None as identical to an empty stream
+        if not value:
+            # Falsy values (including None, empty string, empty list, and
+            # empty StreamValue) become an empty stream
             return []
         else:
             # value is a StreamValue - delegate to its get_prep_value() method
