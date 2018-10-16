@@ -5,7 +5,10 @@ import Icon from '../../Icon/Icon';
 
 import TooltipEntity from '../decorators/TooltipEntity';
 
+import { STRINGS } from '../../../config/wagtailConfig';
+
 const LINK_ICON = <Icon name="link" />;
+const BROKEN_LINK_ICON = <Icon name="warning" />;
 const MAIL_ICON = <Icon name="mail" />;
 
 const getEmailAddress = mailto => mailto.replace('mailto:', '').split('?')[0];
@@ -17,7 +20,11 @@ export const getLinkAttributes = (data) => {
   let icon;
   let label;
 
-  if (data.id) {
+  if (!url) {
+    icon = BROKEN_LINK_ICON;
+    label = STRINGS.BROKEN_LINK;
+  }
+  else if (data.id) {
     icon = LINK_ICON;
     label = url;
   } else if (url.startsWith('mailto:')) {
