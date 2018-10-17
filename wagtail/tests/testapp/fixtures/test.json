@@ -5,7 +5,7 @@
     "fields": {
         "title": "Root",
         "draft_title": "Root",
-        "numchild": 1,
+        "numchild": 2,
         "show_in_menus": false,
         "live": true,
         "depth": 1,
@@ -591,6 +591,23 @@
     "model": "tests.simplepage",
     "fields": {
         "content": "<p>collect logs</p>"
+    }
+},
+
+{
+    "pk": 20,
+    "model": "wagtailcore.page",
+    "fields": {
+        "title": "This page doesn't get served",
+        "draft_title": "This page doesn't get served",
+        "numchild": 0,
+        "show_in_menus": false,
+        "live": true,
+        "depth": 2,
+        "content_type": ["wagtailcore", "page"],
+        "path": "00010002",
+        "url_path": "/does-not-exist/",
+        "slug": "does-not-exist"
     }
 },
 

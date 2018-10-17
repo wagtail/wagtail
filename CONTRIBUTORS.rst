@@ -332,6 +332,7 @@ Contributors
 * Justin Focus
 * Fedor Selitsky
 * Seb Brown
+* Hillary Jeffrey
 
 Translators
 ===========
