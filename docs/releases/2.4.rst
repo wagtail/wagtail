@@ -14,6 +14,8 @@ What's new
 Other features
 ~~~~~~~~~~~~~~
 
+ * Added support for Python 3.7 (Matt Westcott)
+
 
 Bug fixes
 ~~~~~~~~~
