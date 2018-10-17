@@ -55,15 +55,7 @@ function ModalWorkflow(opts) {
     };
 
     self.loadResponseText = function(responseText, textStatus, xhr) {
-        /* RemovedInWagtail24Warning - support for eval()-ing text/javascript responses
-        (rather than JSON.parse) will be dropped */
-        var response;
-        if (xhr && xhr.getResponseHeader('content-type') != 'text/javascript') {
-            response = JSON.parse(responseText);
-        } else {
-            response = eval('(' + responseText + ')');
-        }
-
+        var response = JSON.parse(responseText);
         self.loadBody(response);
     };
 
@@ -72,12 +64,6 @@ function ModalWorkflow(opts) {
             // if response contains an 'html' item, replace modal body with it
             self.body.html(response.html);
             container.modal('show');
-        }
-
-        if (response.onload) {
-            // if response contains an 'onload' function, call it
-            // (passing this modal object and the full response data)
-            response.onload(self, response);
         }
 
         /* If response contains a 'step' identifier, and that identifier is found in
