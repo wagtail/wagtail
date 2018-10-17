@@ -1,0 +1,23 @@
+=========================
+Wagtail 2.4 release notes
+=========================
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+
+Other features
+~~~~~~~~~~~~~~
+
+
+Bug fixes
+~~~~~~~~~
+
+
+Upgrade considerations
+======================
