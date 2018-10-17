@@ -5,12 +5,7 @@ dist: trusty
 # Use container-based infrastructure
 sudo: false
 
-# Install JDK9 for Elasticsearch 5
 addons:
-  apt:
-    packages:
-     - oracle-java9-installer
-     - oracle-java9-set-default
   postgresql: "9.6"
 
 matrix:
@@ -27,6 +22,18 @@ matrix:
      python: 3.6
    - env: TOXENV=py36-dj21-postgres-noelasticsearch
      python: 3.6
+   - env: TOXENV=py37-dj20-mysql-noelasticsearch
+     python: 3.7
+     dist: xenial
+     sudo: true
+   - env: TOXENV=py37-dj21-postgres-noelasticsearch
+     python: 3.7
+     dist: xenial
+     sudo: true
+   - env: TOXENV=py37-dj21-sqlite-noelasticsearch
+     python: 3.7
+     dist: xenial
+     sudo: true
    - env: TOXENV=py36-djmaster-postgres-noelasticsearch
      python: 3.6
    - env: TOXENV=py36-dj20-sqlite-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
@@ -44,6 +51,10 @@ matrix:
    - env: TOXENV=py36-dj21-postgres-elasticsearch6 INSTALL_ELASTICSEARCH6=yes
      python: 3.6
      sudo: true
+   - env: TOXENV=py37-dj21-postgres-elasticsearch6 INSTALL_ELASTICSEARCH6=yes
+     python: 3.7
+     dist: xenial
+     sudo: true
   allow_failures:
     # Ignore failures on Elasticsearch tests because ES on Travis is intermittently flaky
     - env: TOXENV=py36-dj20-sqlite-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
@@ -51,6 +62,7 @@ matrix:
     - env: TOXENV=py36-dj21-postgres-elasticsearch5 INSTALL_ELASTICSEARCH5=yes
     - env: TOXENV=py36-dj20-postgres-elasticsearch6 INSTALL_ELASTICSEARCH6=yes
     - env: TOXENV=py36-dj21-postgres-elasticsearch6 INSTALL_ELASTICSEARCH6=yes
+    - env: TOXENV=py37-dj21-postgres-elasticsearch6 INSTALL_ELASTICSEARCH6=yes
     # allow failures against Django master
     - env: TOXENV=py36-djmaster-postgres-noelasticsearch
 
@@ -58,6 +70,7 @@ matrix:
 # Services
 services:
   - elasticsearch
+  - mysql
 
 # Package installation
 install:
