@@ -21,3 +21,8 @@ Bug fixes
 
 Upgrade considerations
 ======================
+
+Removed support for Django 1.11
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Django 1.11 is no longer supported in this release; please upgrade your project to Django 2.0 or 2.1 before upgrading to Wagtail 2.4.
