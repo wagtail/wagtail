@@ -1,9 +1,4 @@
-import warnings
-
 from django.contrib.sitemaps import Sitemap as DjangoSitemap
-
-from wagtail.core.utils import accepts_kwarg
-from wagtail.utils.deprecation import RemovedInWagtail24Warning
 
 
 class Sitemap(DjangoSitemap):
@@ -44,15 +39,7 @@ class Sitemap(DjangoSitemap):
 
         for item in self.paginator.page(page).object_list:
 
-            if not accepts_kwarg(item.get_sitemap_urls, 'request'):
-                warnings.warn(
-                    "%s.get_sitemap_urls() must be updated to accept an optional "
-                    "'request' keyword argument" % type(item).__name__,
-                    category=RemovedInWagtail24Warning)
-
-                url_info_items = item.get_sitemap_urls()
-            else:
-                url_info_items = item.get_sitemap_urls(self.request)
+            url_info_items = item.get_sitemap_urls(self.request)
 
             for url_info in url_info_items:
                 urls.append(url_info)
