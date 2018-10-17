@@ -1,5 +1,6 @@
-import collections
 import uuid
+from collections import OrderedDict, defaultdict
+from collections.abc import Sequence
 
 from django import forms
 from django.contrib.staticfiles.templatetags.staticfiles import static
@@ -207,7 +208,7 @@ class BaseStreamBlock(Block):
             ))
 
         if self.meta.block_counts:
-            block_counts = collections.defaultdict(int)
+            block_counts = defaultdict(int)
             for item in value:
                 block_counts[item.block_type] += 1
 
@@ -322,7 +323,7 @@ class StreamBlock(BaseStreamBlock, metaclass=DeclarativeSubBlocksMetaclass):
     pass
 
 
-class StreamValue(collections.Sequence):
+class StreamValue(Sequence):
     """
     Custom type used to represent the value of a StreamBlock; behaves as a sequence of BoundBlocks
     (which keep track of block types in a way that the values alone wouldn't).
@@ -407,7 +408,7 @@ class StreamValue(collections.Sequence):
         """
         # create a mapping of all the child blocks matching the given block type,
         # mapping (index within the stream) => (raw block value)
-        raw_values = collections.OrderedDict(
+        raw_values = OrderedDict(
             (i, item['value']) for i, item in enumerate(self.stream_data)
             if item['type'] == type_name
         )
