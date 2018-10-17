@@ -1,6 +1,10 @@
 Changelog
 =========
 
+2.4 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~
+
+
 2.3 LTS (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~~~
 
