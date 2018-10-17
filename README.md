@@ -52,7 +52,7 @@ Wagtail is used by NASA, Google, Oxfam, the NHS, Mozilla, MIT, the Red Cross, Sa
 Wagtail supports:
 
 * Django 2.0.x and 2.1.x
-* Python 3.4, 3.5 and 3.6
+* Python 3.4, 3.5, 3.6 and 3.7
 * PostgreSQL, MySQL and SQLite as database backends
 
 Previous versions of Wagtail (1.13 and earlier) additionally supported Python 2.7 and Django 1.x.

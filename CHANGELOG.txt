@@ -4,6 +4,8 @@ Changelog
 2.4 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
+ * Added support for Python 3.7 (Matt Westcott)
+
 
 2.3 LTS (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~~~
