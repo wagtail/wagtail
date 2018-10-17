@@ -41,6 +41,7 @@ Bug fixes
  * Document chooser now displays more useful help message when there are no documents in Wagtail document library (gmmoraes, Stas Rudakou)
  * Allow custom logos of any height in the admin menu (Meteor0id)
  * Users without the edit permission no longer see "Edit" links in list of pages waiting for moderation (Justin Focus, Fedor Selitsky)
+ * Redirects now return 404 when destination is unspecified or a page with no site (Hillary Jeffrey)
 
 
 Upgrade considerations

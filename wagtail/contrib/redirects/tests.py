@@ -176,6 +176,21 @@ class TestRedirects(TestCase):
         response = self.client.get('/xmas/', HTTP_HOST='localhost')
         self.assertEqual(response.status_code, 404)
 
+    def test_redirect_without_page_or_link_target(self):
+        models.Redirect.objects.create(old_path='/xmas/', redirect_link='')
+
+        # the redirect has been created but has no target and should 404
+        response = self.client.get('/xmas/', HTTP_HOST='localhost')
+        self.assertEqual(response.status_code, 404)
+
+    def test_redirect_to_page_without_site(self):
+        siteless_page = Page.objects.get(url_path='/does-not-exist/')
+        models.Redirect.objects.create(old_path='/xmas', redirect_page=siteless_page)
+
+        # the redirect's destination page doesn't have a site so the redirect should 404
+        response = self.client.get('/xmas/', HTTP_HOST='localhost')
+        self.assertEqual(response.status_code, 404)
+
     def test_duplicate_redirects_when_match_is_for_generic(self):
         contact_page = Page.objects.get(url_path='/home/contact-us/')
         site = Site.objects.create(hostname='other.example.com', port=80, root_page=contact_page)

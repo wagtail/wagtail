@@ -57,6 +57,9 @@ class RedirectMiddleware(MiddlewareMixin):
             if redirect is None:
                 return response
 
+        if redirect.link is None:
+            return response
+
         if redirect.is_permanent:
             return http.HttpResponsePermanentRedirect(redirect.link)
         else:

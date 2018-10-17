@@ -333,6 +333,7 @@ Contributors
 * Fedor Selitsky
 * Seb Brown
 * Noah B Johnson
+* Hillary Jeffrey
 
 Translators
 ===========

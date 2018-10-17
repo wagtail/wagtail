@@ -17,6 +17,7 @@ Changelog
  * Fix: Additional fields on custom document models now show on the multiple document upload view (Robert Rollins, Sergey Fedoseev)
  * Fix: Help text is partially hidden when using a combination of BooleanField and FieldPanel in page model (Dzianis Sheka)
  * Fix: Allow custom logos of any height in the admin menu (Meteor0id)
+ * Fix: Redirects now return 404 when destination is unspecified or a page with no site (Hillary Jeffrey)
 
 
 2.3 LTS (23.10.2018)

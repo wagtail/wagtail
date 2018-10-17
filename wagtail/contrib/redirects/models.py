@@ -34,8 +34,10 @@ class Redirect(models.Model):
     def link(self):
         if self.redirect_page:
             return self.redirect_page.url
-        else:
+        elif self.redirect_link:
             return self.redirect_link
+
+        return None
 
     def get_is_permanent_display(self):
         if self.is_permanent:
