@@ -108,11 +108,6 @@ This feature is enabled through the project's root URL configuration. Just put t
         re_path(r'', include(wagtail_urls)),
     )
 
-.. important::
-
-   The example above assumes you are using Django version 2.0 or later. If you are using a Django version earlier than 2.0, you should rename all occurrences of re_path() to url(). For example: ``from django.conf.urls import include, url`` instead of ``from django.conf.urls import include, re_path`` and ``url(r'^django-admin/', include(admin.site.urls)),`` instead of ``re_path(r'^django-admin/', include(admin.site.urls)),``.
-   (`read more <https://docs.djangoproject.com/en/2.1/ref/urls/#url>`_).
-
 You can implement switching between languages by changing the part at the beginning of the URL. As each language has its own URL, it also works well with just about any caching setup.
 
 
