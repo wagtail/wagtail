@@ -110,7 +110,7 @@ Wagtail Apps
   Module governing oEmbed and Embedly content in Wagtail rich text fields. See :ref:`inserting_videos`.
 
 ``wagtailsearch``
-  Search framework for Page content. See :ref:`search`.
+  Search framework for Page content. See :ref:`wagtailsearch`.
 
 ``wagtailredirects``
   Admin interface for creating arbitrary redirects on your site.
