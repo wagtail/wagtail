@@ -327,7 +327,7 @@ Translators
 ===========
 
 * Afrikaans: Jaco du Plessis
-* Arabic: alfuhigi, Roger Allen, Khaled Arnaout, Ahmad Kiswani, Mohamed Mayla
+* Arabic: abdulaziz alfuhigi, Roger Allen, Khaled Arnaout, Ahmad Kiswani, Mohamed Mayla
 * Basque: Unai Zalakain
 * Bulgarian: Lyuboslav Petrov
 * Catalan: Antoni Aloy, David Llop, Roger Pons
