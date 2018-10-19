@@ -325,6 +325,7 @@ Contributors
 * Brady Moe
 * Yi Huang
 * Stas Rudakou
+* Abdulaziz Alfuhigi
 
 Translators
 ===========
