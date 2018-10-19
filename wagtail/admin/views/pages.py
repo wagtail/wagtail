@@ -849,7 +849,7 @@ def copy(request, page_id):
             can_publish = parent_page.permissions_for_user(request.user).can_publish_subpage()
 
             # Copy the page
-            new_page = page.copy(
+            new_page = page.specific.copy(
                 recursive=form.cleaned_data.get('copy_subpages'),
                 to=parent_page,
                 update_attrs={
