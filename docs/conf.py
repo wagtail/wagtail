@@ -15,6 +15,8 @@
 import sys
 import os
 
+from datetime import datetime
+
 
 # on_rtd is whether we are on readthedocs.org, this line of code grabbed from docs.readthedocs.org
 on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
@@ -68,7 +70,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'Wagtail'
-copyright = u'2015, Torchbox'
+copyright = u'{year:d}, Torchbox'.format(year=datetime.now().year)
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
