@@ -35,6 +35,7 @@ class Embed(models.Model):
     class Meta:
         unique_together = ('url', 'max_width')
         verbose_name = _('embed')
+        verbose_name_plural = _('embeds')
 
     @property
     def ratio(self):

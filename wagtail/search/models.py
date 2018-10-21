@@ -73,3 +73,4 @@ class QueryDailyHits(models.Model):
             ('query', 'date'),
         )
         verbose_name = _('Query Daily Hits')
+        verbose_name_plural = _('Query Daily Hits')
