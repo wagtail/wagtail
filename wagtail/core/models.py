@@ -2046,3 +2046,4 @@ class GroupCollectionPermission(models.Model):
     class Meta:
         unique_together = ('group', 'collection', 'permission')
         verbose_name = _('group collection permission')
+        verbose_name_plural = _('group collection permissions')
