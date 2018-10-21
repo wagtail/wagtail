@@ -52,6 +52,7 @@ class BaseAPIEndpoint(GenericViewSet):
     nested_default_fields = ['id', 'type', 'detail_url']
     detail_only_fields = []
     name = None  # Set on subclass.
+    router = None
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -91,7 +92,7 @@ class BaseAPIEndpoint(GenericViewSet):
             raise Http404("not found")
 
         # Generate redirect
-        url = get_object_detail_url(self.request.wagtailapi_router, request, self.model, obj.pk)
+        url = get_object_detail_url(self.router, request, self.model, obj.pk)
 
         if url is None:
             # Shouldn't happen unless this endpoint isn't actually installed in the router
@@ -294,10 +295,7 @@ class BaseAPIEndpoint(GenericViewSet):
         request = self.request
 
         # Get model
-        if self.action == 'listing_view':
-            model = self.get_queryset().model
-        else:
-            model = type(self.get_object())
+        model = self.get_queryset().model
 
         # Fields
         if 'fields' in request.GET:
@@ -315,7 +313,7 @@ class BaseAPIEndpoint(GenericViewSet):
         else:
             show_details = True
 
-        return self._get_serializer_class(self.request.wagtailapi_router, model, fields_config, show_details=show_details)
+        return self._get_serializer_class(self.router, model, fields_config, show_details=show_details)
 
     def get_serializer_context(self):
         """
@@ -324,7 +322,7 @@ class BaseAPIEndpoint(GenericViewSet):
         return {
             'request': self.request,
             'view': self,
-            'router': self.request.wagtailapi_router
+            'router': self.router
         }
 
     def get_renderer_context(self):
@@ -333,14 +331,14 @@ class BaseAPIEndpoint(GenericViewSet):
         return context
 
     @classmethod
-    def get_urlpatterns(cls):
+    def get_urlpatterns(cls, router):
         """
         This returns a list of URL patterns for the endpoint
         """
         return [
-            url(r'^$', cls.as_view({'get': 'listing_view'}), name='listing'),
-            url(r'^(?P<pk>\d+)/$', cls.as_view({'get': 'detail_view'}), name='detail'),
-            url(r'^find/$', cls.as_view({'get': 'find_view'}), name='find'),
+            url(r'^$', cls.as_view({'get': 'listing_view'}, router=router), name='listing'),
+            url(r'^(?P<pk>\d+)/$', cls.as_view({'get': 'detail_view'}, router=router), name='detail'),
+            url(r'^find/$', cls.as_view({'get': 'find_view'}, router=router), name='find'),
         ]
 
     @classmethod
