@@ -323,6 +323,7 @@ Contributors
 * Naa Marteki Reed
 * Jorge Barata
 * Brady Moe
+* Yi Huang
 
 Translators
 ===========

@@ -73,3 +73,4 @@ class UserProfile(models.Model):
 
     class Meta:
         verbose_name = _('user profile')
+        verbose_name_plural = _('user profiles')

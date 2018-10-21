@@ -90,6 +90,7 @@ class AbstractDocument(CollectionMember, index.Indexed, models.Model):
     class Meta:
         abstract = True
         verbose_name = _('document')
+        verbose_name_plural = _('documents')
 
 
 class Document(AbstractDocument):
