@@ -79,6 +79,22 @@
     }
 },
 {
+    "pk": 21,
+    "model": "wagtailcore.page",
+    "fields": {
+        "title": "This page doesn't get served",
+        "draft_title": "This page doesn't get served",
+        "numchild": 0,
+        "show_in_menus": false,
+        "live": true,
+        "depth": 2,
+        "content_type": ["wagtailcore", "page"],
+        "path": "00010005",
+        "url_path": "/does-not-exist/",
+        "slug": "does-not-exist",
+    }
+},
+{
     "pk": 4,
     "model": "tests.eventpage",
     "fields": {
