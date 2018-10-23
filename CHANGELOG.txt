@@ -7,7 +7,7 @@ Changelog
  * Added support for Python 3.7 (Matt Westcott)
 
 
-2.3 LTS (xx.xx.xxxx) - IN DEVELOPMENT
+2.3 LTS (23.10.2018)
 ~~~~~~~~~~~~~~~~~~~~
 
  * Added support for Django 2.1 (Ryan Verner, Matt Westcott)
