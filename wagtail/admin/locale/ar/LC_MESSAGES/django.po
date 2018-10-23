@@ -7,13 +7,14 @@
 # alfuhigi <abajall@gmail.com>, 2016
 # Mohamed Mayla <mohamed.mayla@gmail.com>, 2015
 # ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2015
+# ultraify media <ultraify@gmail.com>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-10-11 14:09+0100\n"
-"PO-Revision-Date: 2018-10-11 13:13+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-10-19 06:22+0000\n"
+"Last-Translator: ultraify media <ultraify@gmail.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
@@ -22,6 +23,9 @@ msgstr ""
 "Language: ar\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+msgid "None"
+msgstr "فارغ"
 
 msgid "You do not have permission to access the admin"
 msgstr "ليس لديك الصلاحيات لدخول الى Admin"
@@ -54,6 +58,9 @@ msgstr "ادخل البريد الإلكتروني الخاص بك لإرجاع 
 msgid "URL"
 msgstr "الرابط"
 
+msgid "You cannot have multiple permission records for the same collection."
+msgstr "لا يوجد لديك العديد من الصلاحيات المسجلة في نفس المجموعة"
+
 msgid "New title"
 msgstr "عنوان جديد"
 
@@ -62,6 +69,9 @@ msgstr "عنوان متصل slug"
 
 msgid "New parent page"
 msgstr "الصفحة الأم الجديدة"
+
+msgid "This copy will be a child of this given parent page."
+msgstr "هذه النسخه ستكون فرع من الصفحه الحالية"
 
 msgid "Copy subpages"
 msgstr "نسخ الصفحات التحتية"
@@ -75,6 +85,15 @@ msgstr "هذه النسخه مباشرة. هل تريد نشر نسخه لها �
 msgid "Publish copies"
 msgstr "انشر النسخ"
 
+msgid "You cannot copy a page into itself when copying subpages"
+msgstr "لا يمكنك نسخ صفحة إلى نفسها عند نسخ الصفحات الفرعية"
+
+msgid "This slug is already in use"
+msgstr "هذه slug بالفعل قيد الاستخدام"
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr "يجب أن يكون تاريخ / وقت البث المباشر قبل تاريخ / وقت انتهاء الصلاحية"
+
 msgid "Expiry date/time must be in the future"
 msgstr "تاريخ الانتهاء/الوقت يجب ان يكون مستقبلياً"
 
@@ -84,14 +103,41 @@ msgstr "بحث"
 msgid "Search term"
 msgstr "مصطلح البحث"
 
+msgid "Visibility"
+msgstr "امكانية الظهور"
+
 msgid "This field is required."
 msgstr "هذا الحقل مقتضى"
+
+msgid "Please select at least one group."
+msgstr "نرجوا اختيار على الاقل مجموعة واحدة"
+
+msgid "Error 404: Page not found"
+msgstr "خطا 404: الصفحة المطلوبة غير متوفرة"
+
+msgid "Error 404"
+msgstr "خطا 404"
+
+msgid "The requested page could not be found."
+msgstr "الصفحة المطلوبة لم تعد متوفرة"
+
+msgid "Go to Wagtail admin"
+msgstr "اذهب الى لوحة تحكم Wagtail"
 
 msgid "Account"
 msgstr "حساب"
 
+msgid "Change profile picture"
+msgstr "غير الصورة التعريفية"
+
+msgid "Your current profile picture:"
+msgstr "الصورة التعريفية الحالية:"
+
 msgid "Update"
 msgstr "حدث"
+
+msgid "Change email"
+msgstr "تغير البريد الالكتروني"
 
 msgid "Change password"
 msgstr "غير كلمة السر"
@@ -99,6 +145,12 @@ msgstr "غير كلمة السر"
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr "من غير ممكن أن تغير كلمتك السرية هنا , من فضلك اتصل بمدير الموقع"
+
+msgid "Set Time Zone"
+msgstr "اضبط التوقيت المحلي"
+
+msgid "Language Preferences"
+msgstr "إعدادات اللغة"
 
 msgid "Notification preferences"
 msgstr "أفضليات الأبلاغ"
@@ -115,8 +167,27 @@ msgstr "اتصل "
 msgid "Set your new password"
 msgstr "ثبّت كلمتك السرية الجديدة"
 
+msgid "Invalid password reset link"
+msgstr "رابط استرجاع كلمة المرور غير مقبول"
+
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used."
+msgstr ""
+"رابط استرجاع كلمة المرور غير مقبول , ربما يكون السبب انه تم استخدامه بالفعل"
+
+msgid "Request a new password reset"
+msgstr "طلب جديد لاعادة ضبط كلمة المرور "
+
 msgid "Check your email"
 msgstr "افحص بريدك الإلكتروني"
+
+msgid ""
+"A link to reset your password has been emailed to you if an account exists "
+"for this address."
+msgstr ""
+"تم إرسال رابط لإعادة تعيين كلمة المرور إليك عبر البريد الإلكتروني إذا كان "
+"هناك حساب لهذا العنوان."
 
 msgid "Please follow the link below to reset your password:"
 msgstr "ارجو استخدم الرابط بالاسفل لإعادة كلمة المرور الخاصه بك"
@@ -136,8 +207,60 @@ msgstr "تنقيح"
 msgid "Delete"
 msgstr "احذف"
 
+msgid "Page"
+msgstr "صفحة"
+
 msgid "Pages"
 msgstr "صفحات"
+
+msgid "Loading…"
+msgstr "تحميل..."
+
+msgid "No results"
+msgstr "لاتوجد نتائج"
+
+msgid "Server Error"
+msgstr "خطا بالخادم"
+
+msgid "See children"
+msgstr "مشاهدة التفرعات"
+
+msgid "See all"
+msgstr "مشاهدة الكل"
+
+msgid "Close explorer"
+msgstr "اغلق المستكشف"
+
+msgid "Alt text"
+msgstr "نص للمساعدة"
+
+msgid "Write here…"
+msgstr "اكتب هنا..."
+
+msgid "Horizontal line"
+msgstr "خط افقي"
+
+msgid "Line break"
+msgstr "خط فصل"
+
+msgid "Undo"
+msgstr "تراجع"
+
+msgid "Reload the page"
+msgstr "اعادة تحميل الصفحه"
+
+msgid "Reload saved content"
+msgstr "اعادة تحميل المحتوى المحفوظ"
+
+msgid "Show latest content"
+msgstr "اظهر اخر محتوى"
+
+msgid "Show error"
+msgstr "اعرض الخطء"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr "المحرر تحطمت للتو. تمت إعادة تعيين المحتوى إلى آخر إصدار تم حفظه."
 
 msgid "Dashboard"
 msgstr "لوحة التحكم"
@@ -180,6 +303,19 @@ msgstr "أدخل حلقة"
 
 msgid "Add an external link"
 msgstr "أضف حلقة خارجية"
+
+msgid "Collection privacy"
+msgstr "مجموعة خصوصية"
+
+msgid "This collection has been made private by a parent collection."
+msgstr "تم جعل هذه المجموعة خاصة من قبل مجموعة الأم."
+
+msgid "You can edit the privacy settings on:"
+msgstr "يمكنك تحرير إعدادات الخصوصية على:"
+
+msgid ""
+"Privacy settings determine who is able to view documents in this collection."
+msgstr "تحدد إعدادات الخصوصية من يمكنه عرض المستندات في هذه المجموعة."
 
 msgid "Save"
 msgstr "احفظ"
@@ -234,6 +370,9 @@ msgstr "مرفوض"
 msgid "Preview"
 msgstr "نظر مقدم"
 
+msgid "Your most recent edits"
+msgstr "أحدث تعديلاتك"
+
 msgid "Date"
 msgstr "تاريخ"
 
@@ -252,8 +391,14 @@ msgstr "ملحص الموقع"
 msgid "Sign in"
 msgstr "تسجيل الدخول"
 
+msgid "Sign in to Wagtail"
+msgstr "تسجيل الدخول لـ Wagtail"
+
 msgid "Forgotten it?"
 msgstr "أنسيته؟"
+
+msgid "Signing in…"
+msgstr "يتم تسجيل الدخول..."
 
 msgid "You can view the page here:"
 msgstr "انظر الصفحة هنا"
@@ -274,6 +419,9 @@ msgstr "يمكن النظر المقدم في الصفحة هنا"
 msgid "Page privacy"
 msgstr "خصوصية الصفحة"
 
+msgid "Privacy changes apply to all children of this page too."
+msgstr "تنطبق تغييرات الخصوصية على جميع أطفال هذه الصفحة أيضًا."
+
 msgid "Edit lock"
 msgstr "نقح عملية الإغلاق"
 
@@ -291,6 +439,12 @@ msgstr "اختر نوع الصفحة التي تريد إنشائها"
 
 msgid "Are you sure you want to delete this page?"
 msgstr "هل تريد فعلا حذف هذه الصفحة؟ "
+
+msgid "Yes, delete it"
+msgstr "نعم, احذف"
+
+msgid "No, don't delete it"
+msgstr "لا ، لا تحذفه"
 
 #, python-format
 msgid "Move %(title)s"
@@ -315,6 +469,9 @@ msgstr "هل تريد فعلا إلغاء نشر هذه الصفحة؟"
 msgid "Yes, unpublish it"
 msgstr "نعك ألغ نشره"
 
+msgid "No, don't unpublish"
+msgstr "لا ,ألغ النشر"
+
 msgid "Pages using"
 msgstr "صفحات تستعمل"
 
@@ -327,8 +484,14 @@ msgstr "انسخ هذه الصفحة"
 msgid "New"
 msgstr "جديد"
 
+msgid "Saving…"
+msgstr "يتم الحفظ..."
+
 msgid "Save draft"
 msgstr "احفظ المسوّد"
+
+msgid "Publishing…"
+msgstr "يتم النشر..."
 
 msgid "Publish"
 msgstr "انشر"
@@ -348,11 +511,17 @@ msgstr "استبدال المسودة الحالية"
 msgid "Publish this revision"
 msgstr "نشر النسخه السابقه"
 
+msgid "Revisions"
+msgstr "التنقيحات"
+
 msgid "Drag"
 msgstr "اسحب"
 
 msgid "Updated"
 msgstr "مجدد"
+
+msgid "Configure a site now."
+msgstr "تكوين موقع الآن."
 
 msgid "No pages have been created at this location."
 msgstr "لم تنسأ إي صفحات في هذا الموقع"
@@ -360,8 +529,14 @@ msgstr "لم تنسأ إي صفحات في هذا الموقع"
 msgid "This page is locked to further editing"
 msgstr "هذه الصفحة مغلقة لأي تنقيح"
 
+msgid "Explore"
+msgstr "استكشف"
+
 msgid "Add child page"
 msgstr "أضف صفحة لطفل "
+
+msgid "Sites menu"
+msgstr "قائمة الموقع"
 
 msgid "Previous"
 msgstr "سابق"
@@ -372,23 +547,132 @@ msgstr "قادم"
 msgid "This page is protected from public view"
 msgstr "هذه الصفحة محمية من النظر العمومي"
 
+msgid "Disable ordering of child pages"
+msgstr "تعطيل ترتيب الصفحات الفرعية"
+
 msgid "Order"
 msgstr "ترتيب"
+
+msgid "Enable ordering of child pages"
+msgstr "تمكين ترتيب الصفحات الفرعية"
+
+msgid "Preview error"
+msgstr "استعراض الخطء"
+
+msgid "Close"
+msgstr "اغلاق"
+
+msgid "Comparing"
+msgstr "مقارنة"
+
+msgid "View revisions"
+msgstr "عرض المراجعات"
+
+msgid "Fields"
+msgstr "حقل"
+
+msgid "Changes"
+msgstr "تغيرات"
+
+msgid "Unschedule"
+msgstr "غير مجدولة"
+
+msgid "Are you sure you want to unschedule this revision?"
+msgstr "هل أنت متأكد من أنك تريد إلغاء هذه المراجعة؟"
+
+msgid "Yes, unschedule"
+msgstr "نعم ,غير مجدولة"
+
+msgctxt "points to a user who created a revision"
+msgid "by"
+msgstr "بواسطة"
+
+msgid "Current draft"
+msgstr "المسودة الحالية"
+
+msgid "Live version"
+msgstr "نسخة حية"
+
+msgid "Scheduled for"
+msgstr "المقرر لـ"
+
+msgid "Review this revision"
+msgstr "مراجعة هذه المراجعة"
+
+msgid "Compare with previous revision"
+msgstr "قارن مع المراجعة السابقة"
+
+msgid "Cancel scheduled publish"
+msgstr "إلغاء النشر المجدول"
+
+msgid "No revisions of this page exist"
+msgstr "لا توجد مراجعات لهذه الصفحة"
+
+msgid "No revision of this page exist"
+msgstr "لا توجد مراجعة لهذه الصفحة"
+
+msgid "Page types"
+msgstr "انواع الصفحة"
+
+msgid "Enter a search term above"
+msgstr "أدخل مصطلح البحث أعلاه"
+
+msgid "Home"
+msgstr "الرئيسة"
 
 msgid "January"
 msgstr "يناير"
 
+msgid "Edit your account"
+msgstr "تعديل حسابك"
+
+msgid "Account settings"
+msgstr "إعدادات الحساب"
+
 msgid "Log out"
 msgstr "تسجيل الخروج"
 
+msgid "Add a child page"
+msgstr "إضافة صفحة فرعية"
+
+msgid "Test"
+msgstr "اختبار"
+
+msgid "Editing"
+msgstr "جاري التعديل"
+
 msgid "View live"
 msgstr "انظر في الواقع"
+
+msgid "View draft"
+msgstr "عرض المسودة"
+
+msgid "Earliest"
+msgstr "السابقة"
+
+msgid "Latest"
+msgstr "اللاحقة"
+
+msgid "More"
+msgstr "المزيد"
+
+msgid "Set profile picture"
+msgstr "اضبط صورة الملف الشخصي"
+
+msgid "Change your profile picture"
+msgstr "غير صورة ملفك الشخصي"
 
 msgid "Change the password you use to log in."
 msgstr "غير كلمة السر التي تستعملها للدخول"
 
 msgid "Choose which email notifications to receive."
 msgstr "اختر وسيلة الإبلاغ التي تفضلها للاستلام"
+
+msgid "Current Time Zone"
+msgstr "الوقت الزمني الحالي"
+
+msgid "Edit this item"
+msgstr "نقح هذا العنصر"
 
 msgid "Choose another page"
 msgstr "إختر صفحة أخرى"
