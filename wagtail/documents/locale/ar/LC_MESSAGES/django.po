@@ -5,13 +5,14 @@
 # Translators:
 # Ahmad Kiswani <kiswani.ahmad@gmail.com>, 2016
 # ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2015
+# ultraify media <ultraify@gmail.com>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-10-11 14:09+0100\n"
-"PO-Revision-Date: 2018-05-04 19:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-10-19 06:28+0000\n"
+"Last-Translator: ultraify media <ultraify@gmail.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
@@ -20,6 +21,9 @@ msgstr ""
 "Language: ar\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+msgid "Add"
+msgstr "أضف"
 
 msgid "Edit"
 msgstr "تنقيح"
@@ -32,6 +36,9 @@ msgstr "ملف"
 
 msgid "uploaded by user"
 msgstr "رفع عن طريق المستخدم"
+
+msgid "tags"
+msgstr "وسوم"
 
 msgid "document"
 msgstr "مستند"
@@ -81,6 +88,9 @@ msgstr "حجم الملف"
 msgid "File not found"
 msgstr "الملف غير موجود"
 
+msgid "Usage"
+msgstr "استعمال"
+
 msgid "Documents"
 msgstr "وثائق"
 
@@ -108,8 +118,20 @@ msgstr "رتبة"
 msgid "Edit this page"
 msgstr "نقح هذه الصفحة"
 
+msgid "Add documents"
+msgstr "!ضف وثيقة"
+
+msgid "Update"
+msgstr "حدث"
+
 msgid "Delete"
 msgstr "احذف"
+
+msgid "Document permissions"
+msgstr "اذونات الوثيقة"
+
+msgid "Server Error"
+msgstr "خطا بالخادم"
 
 msgid "Search documents"
 msgstr "ابحث وثائق"
@@ -121,6 +143,9 @@ msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr ""
 "كان من غبر الممكن العثور على الوثيقة. من فضلك غير المصدر أو احذف الوثيقة"
+
+msgid "Document"
+msgstr "مستند"
 
 msgid "Choose another document"
 msgstr "اختر وثيقة أخقى"

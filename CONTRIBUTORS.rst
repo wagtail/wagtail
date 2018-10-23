@@ -327,12 +327,12 @@ Translators
 ===========
 
 * Afrikaans: Jaco du Plessis
-* Arabic: abdulaziz alfuhigi, Roger Allen, Khaled Arnaout, Ahmad Kiswani, Mohamed Mayla
+* Arabic: Abdulaziz Alfuhigi, Roger Allen, Khaled Arnaout, Ahmad Kiswani, Mohamed Mayla, Ultraify Media
 * Basque: Unai Zalakain
 * Bulgarian: Lyuboslav Petrov
 * Catalan: Antoni Aloy, David Llop, Roger Pons
 * Chinese: hanfeng, Lihan Li, Leway Colin, Orangle Liu, shengsheng gz
-* Chinese (China): hanfeng, Daniel Hwang, Ed, Jian Li, Listeng Teng, Feng Wang, whuim, Fred Zeng, Joey Zhao, Vincent Zhao, zhushajun
+* Chinese (China): hanfeng, Yi Huang, Daniel Hwang, Ed, Jian Li, Listeng Teng, Feng Wang, whuim, Fred Zeng, Joey Zhao, Vincent Zhao, zhushajun
 * Chinese (Taiwan): gogobook, Lihan Li, Jp Shieh
 * Croatian (Croatia): Luka Matijević
 * Czech: Ales Dvorak, Martin Galda, Eva Mikesova, Sophy O, Ivan Pomykacz, Jiri Stepanek, Marek Turnovec, Stanislav Vasko

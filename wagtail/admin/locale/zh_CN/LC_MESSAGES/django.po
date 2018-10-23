@@ -11,6 +11,7 @@
 # hanfeng <appweb.cn@gmail.com>, 2014
 # listeng, 2016
 # Vincent Zhao <zhaopu2008@gmail.com>, 2017-2018
+# yi huang <yi.codeplayer@gmail.com>, 2018
 # jszsj <zhushajun@gmail.com>, 2017
 # 汇民 王 <whuim@qq.com>, 2017-2018
 # 飘 赵 <275980464@qq.com>, 2016
@@ -19,8 +20,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-10-11 14:09+0100\n"
-"PO-Revision-Date: 2018-10-11 13:13+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-10-21 03:21+0000\n"
+"Last-Translator: yi huang <yi.codeplayer@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -1054,6 +1055,27 @@ msgstr "十一月"
 msgid "December"
 msgstr "十二月"
 
+msgid "Sunday"
+msgstr "星期天"
+
+msgid "Monday"
+msgstr "星期一"
+
+msgid "Tuesday"
+msgstr "星期四"
+
+msgid "Wednesday"
+msgstr "星期三"
+
+msgid "Thursday"
+msgstr "星期四"
+
+msgid "Friday"
+msgstr "星期五"
+
+msgid "Saturday"
+msgstr "星期六"
+
 msgid "Sun"
 msgstr "周日"
 
@@ -1150,6 +1172,9 @@ msgstr "法语"
 
 msgid "Galician"
 msgstr "加利西亚语"
+
+msgid "Indonesian"
+msgstr "印度尼西亚"
 
 msgid "Icelandic"
 msgstr "冰岛语"

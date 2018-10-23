@@ -5,13 +5,14 @@
 # Translators:
 # Ahmad Kiswani <kiswani.ahmad@gmail.com>, 2016
 # ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2015
+# ultraify media <ultraify@gmail.com>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-10-11 14:09+0100\n"
-"PO-Revision-Date: 2018-10-11 13:14+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-10-19 06:10+0000\n"
+"Last-Translator: ultraify media <ultraify@gmail.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
@@ -20,6 +21,12 @@ msgstr ""
 "Language: ar\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
+msgstr "مطلوب. 30 حرفًا أو أقل. الحروف والأرقام و @ /. / + / - / _ فقط."
+
+msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
+msgstr "قد تحتوي هذه القيمة على أحرف وأرقام و @ /. / + / - / _ حرف فقط."
 
 msgid "A user with that username already exists."
 msgstr "يوجد مستعمل لنفس الاسم"
@@ -51,8 +58,23 @@ msgstr "أدخل كلمة السر نفسها للتحقيق"
 msgid "Administrator"
 msgstr "مدير"
 
+msgid "Administrators have full access to manage any object or setting."
+msgstr "يمتلك المسؤولون حق الوصول الكامل لإدارة أي كائن أو إعداد."
+
 msgid "A group with that name already exists."
 msgstr "توجد مجموعة بهذا الإسم"
+
+msgid "You cannot have multiple permission records for the same page."
+msgstr "لا يمكن أن يكون لديك سجلات أذونات متعددة لنفس الصفحة."
+
+msgid "Preferred language"
+msgstr "اللغة المفضلة"
+
+msgid "Current time zone"
+msgstr "المنطقة الزمنية الحالية"
+
+msgid "Upload a profile picture"
+msgstr "تحميل صورة ملف شخصي"
 
 msgid "submitted notifications"
 msgstr "بلاغات مقدمة"
@@ -71,6 +93,18 @@ msgstr "بلاغات مرفوضة"
 
 msgid "Receive notification when your page edit is rejected"
 msgstr "استلم بلاغا في حالة رفض تنقيح صفحتك"
+
+msgid "preferred language"
+msgstr "اللغة المفضلة"
+
+msgid "Select language for the admin"
+msgstr "اختر لغة للمشرف"
+
+msgid "Select your current time zone"
+msgstr "اختر منطقتك الزمنية الحالية"
+
+msgid "profile picture"
+msgstr "الصوره الشخصيه"
 
 msgid "Delete group"
 msgstr "احذف المجموعة"
@@ -94,6 +128,9 @@ msgstr "تنقيح"
 
 msgid "Save"
 msgstr "احفظ"
+
+msgid "Object permissions"
+msgstr "أذونات الكائن"
 
 msgid "Name"
 msgstr "اسم"

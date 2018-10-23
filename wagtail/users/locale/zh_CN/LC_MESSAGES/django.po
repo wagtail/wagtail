@@ -12,6 +12,7 @@
 # listeng, 2016
 # listeng, 2016
 # Vincent Zhao <zhaopu2008@gmail.com>, 2017
+# yi huang <yi.codeplayer@gmail.com>, 2018
 # jszsj <zhushajun@gmail.com>, 2017
 # 汇民 王 <whuim@qq.com>, 2017
 # jszsj <zhushajun@gmail.com>, 2016
@@ -20,8 +21,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-10-11 14:09+0100\n"
-"PO-Revision-Date: 2018-10-11 13:14+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-10-21 03:24+0000\n"
+"Last-Translator: yi huang <yi.codeplayer@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -300,6 +301,9 @@ msgstr "编辑"
 
 msgid "The user could not be created due to errors."
 msgstr "无法创建用户。出现错误。"
+
+msgid "User '{0}' updated."
+msgstr "用户 '{0}' 已更新。"
 
 msgid "The user could not be saved due to errors."
 msgstr "无法保存用户。出现错误。"
