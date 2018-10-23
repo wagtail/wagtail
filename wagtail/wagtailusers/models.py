@@ -3,6 +3,7 @@ from __future__ import absolute_import, unicode_literals
 from django.conf import settings
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
+from django.utils.translation import get_language
 from django.utils.translation import ugettext_lazy as _
 
 
@@ -42,7 +43,7 @@ class UserProfile(models.Model):
         return cls.objects.get_or_create(user=user)[0]
 
     def get_preferred_language(self):
-        return self.preferred_language or settings.LANGUAGE_CODE
+        return self.preferred_language or get_language()
 
     def __str__(self):
         return self.user.get_username()
