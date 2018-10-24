@@ -327,6 +327,7 @@ Contributors
 * Stas Rudakou
 * Abdulaziz Alfuhigi
 * Dzianis Sheka
+* Scott Cranfill
 
 Translators
 ===========

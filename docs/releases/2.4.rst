@@ -10,6 +10,14 @@ Wagtail 2.4 release notes
 What's new
 ==========
 
+New "Welcome to your Wagtail site" Starter Page
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+When using the ``wagtail start`` command to make a new site, users will now be greeted with a proper starter page. Thanks to Timothy Allen and Scott Cranfill for pulling this off!
+
+   .. figure:: ../_static/images/tutorial/tutorial_1.png
+      :alt: Wagtail welcome message
+
 
 Other features
 ~~~~~~~~~~~~~~
