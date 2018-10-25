@@ -48,11 +48,11 @@ msgstr ""
 #, python-format
 msgid ""
 "You haven't created any %(snippet_type_name)s snippets. Why not <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">create one now</"
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener noreferrer\">create one now</"
 "a>?"
 msgstr ""
 "%(snippet_type_name)s 스니펫은 없습니다. 하나 <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">만들어 보세요</"
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener noreferrer\">만들어 보세요</"
 "a>."
 
 #, python-format

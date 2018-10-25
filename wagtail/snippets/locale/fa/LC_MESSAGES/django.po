@@ -49,11 +49,11 @@ msgstr "متاسفانه هیچ قطعه ای با <em>%(query_string)s</em> پ�
 #, python-format
 msgid ""
 "You haven't created any %(snippet_type_name)s snippets. Why not <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">create one now</"
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener noreferrer\">create one now</"
 "a>?"
 msgstr ""
 "هنوز هیچ قطعه %(snippet_type_name)s ایجاد نکرده اید. میخواهید یکی <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">ایجاد</a> کنید؟"
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener noreferrer\">ایجاد</a> کنید؟"
 
 #, python-format
 msgid "Are you sure you want to delete this %(snippet_type_name)s?"

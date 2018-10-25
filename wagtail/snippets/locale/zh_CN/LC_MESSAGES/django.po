@@ -56,11 +56,11 @@ msgstr "对不起，没有匹配 \"<em>%(query_string)s</em>\" 的片段"
 #, python-format
 msgid ""
 "You haven't created any %(snippet_type_name)s snippets. Why not <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">create one now</"
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener noreferrer\">create one now</"
 "a>?"
 msgstr ""
 "还没有创建 %(snippet_type_name)s 片段。为何不 <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">创建一个</a>？"
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener noreferrer\">创建一个</a>？"
 
 #, python-format
 msgid "Delete %(snippet_type_name)s"

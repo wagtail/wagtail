@@ -66,11 +66,11 @@ msgstr "Żaden snippet nie spełnia pasuje do \"<em>%(query_string)s</em>\""
 #, python-format
 msgid ""
 "You haven't created any %(snippet_type_name)s snippets. Why not <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">create one now</"
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener noreferrer\">create one now</"
 "a>?"
 msgstr ""
 "Nie utworzyłeś jeszcze ani jednego %(snippet_type_name)s. Dlaczego <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">nie utworzyć "
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener noreferrer\">nie utworzyć "
 "jednego teraz</a>?"
 
 #, python-format

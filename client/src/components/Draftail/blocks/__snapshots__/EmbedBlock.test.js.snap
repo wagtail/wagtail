@@ -37,8 +37,8 @@ exports[`EmbedBlock renders 1`] = `
   <a
     className="Tooltip__link EmbedBlock__link"
     href="http://www.example.com/"
-    rel="noopener noreferrer"
     target="_blank"
+    rel="noopener noreferrer"
     title="http://www.example.com/"
   >
     Test title

@@ -56,11 +56,11 @@ msgstr "Atsiprašome, jokios nuokarpos neatitiko \"<em>%(query_string)s</em>\""
 #, python-format
 msgid ""
 "You haven't created any %(snippet_type_name)s snippets. Why not <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">create one now</"
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener noreferrer\">create one now</"
 "a>?"
 msgstr ""
 "Jūs nesukūrėte jokių %(snippet_type_name)s nuokarpų. Kodėl gi <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\"> nesukūrus "
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener noreferrer\"> nesukūrus "
 "vienos dabar</a>?"
 
 #, python-format

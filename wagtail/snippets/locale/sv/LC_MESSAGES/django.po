@@ -57,11 +57,11 @@ msgstr "Ledsen, men inga snuttar matchade \"<em>%(query_string)s</em>\""
 #, python-format
 msgid ""
 "You haven't created any %(snippet_type_name)s snippets. Why not <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">create one now</"
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener noreferrer\">create one now</"
 "a>?"
 msgstr ""
 "Du har inte skapat några %(snippet_type_name)s snuttar. Varför inte <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">skapa en nu</a>?"
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener noreferrer\">skapa en nu</a>?"
 
 #, python-format
 msgid "Delete %(snippet_type_name)s"

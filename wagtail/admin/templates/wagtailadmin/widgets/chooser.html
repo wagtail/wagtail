@@ -17,7 +17,7 @@
             {% endif %}
             <li><button type="button" class="button action-choose button-small button-secondary">{{ widget.choose_another_text }}</button></li>
             {% if widget.show_edit_link %}
-                <li><a href="{% block edit_chosen_item_url %}#{% endblock %}" class="edit-link button button-small button-secondary" target="_blank">{{ widget.link_to_chosen_text }}</a></li>
+                <li><a href="{% block edit_chosen_item_url %}#{% endblock %}" class="edit-link button button-small button-secondary" target="_blank" rel="noopener noreferrer">{{ widget.link_to_chosen_text }}</a></li>
             {% endif %}
         </ul>
     </div>

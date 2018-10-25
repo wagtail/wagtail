@@ -61,11 +61,11 @@ msgstr "Lo sentimos, ningún retazo coincide con \"<em>%(query_string)s</em>\""
 #, python-format
 msgid ""
 "You haven't created any %(snippet_type_name)s snippets. Why not <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">create one now</"
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener noreferrer\">create one now</"
 "a>?"
 msgstr ""
 "No ha creado ningún fragmento %(snippet_type_name)s. Por qué <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">no crear uno "
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener noreferrer\">no crear uno "
 "ahora</a>?"
 
 #, python-format

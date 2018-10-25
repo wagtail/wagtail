@@ -25,7 +25,7 @@ describe('Button', () => {
   });
 
   it('#target', () => {
-    expect(shallow(<Button target="_blank" />)).toMatchSnapshot();
+    expect(shallow(<Button target="_blank" rel="noopener noreferrer" />)).toMatchSnapshot();
   });
 
   it('#multiple icons', () => {

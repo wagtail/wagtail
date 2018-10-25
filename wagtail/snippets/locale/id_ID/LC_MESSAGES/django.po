@@ -50,12 +50,12 @@ msgstr ""
 #, python-format
 msgid ""
 "You haven't created any %(snippet_type_name)s snippets. Why not <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">create one now</"
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener noreferrer\">create one now</"
 "a>?"
 msgstr ""
 "Anda sama sekali belum membuat potongan %(snippet_type_name)s. Mengapa tidak "
 "<a href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank"
-"\">menambahnya sekarang</a>?"
+"\" rel=\"noopener noreferrer\">menambahnya sekarang</a>?"
 
 #, python-format
 msgid "Delete %(snippet_type_name)s"

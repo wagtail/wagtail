@@ -53,11 +53,11 @@ msgstr "Beklager, ingen snutter samsvarer med <em>\"%(query_string)s\"</em>"
 #, python-format
 msgid ""
 "You haven't created any %(snippet_type_name)s snippets. Why not <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">create one now</"
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener noreferrer\">create one now</"
 "a>?"
 msgstr ""
 "Du har ikke opprettet noen %(snippet_type_name)s snutter. Hvorfor ikke <a "
-"href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">lage en "
+"href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener noreferrer\">lage en "
 "nå</a>?"
 
 #, python-format

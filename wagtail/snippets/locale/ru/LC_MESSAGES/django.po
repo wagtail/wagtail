@@ -59,11 +59,11 @@ msgstr "Извините, нет фрагментов для \"<em>%(query_strin
 #, python-format
 msgid ""
 "You haven't created any %(snippet_type_name)s snippets. Why not <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">create one now</"
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener noreferrer\">create one now</"
 "a>?"
 msgstr ""
 "Вы не создали никаких %(snippet_type_name)s фрагментов. Почему бы не <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">создать прямо "
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener noreferrer\">создать прямо "
 "сейчас</a>?"
 
 #, python-format

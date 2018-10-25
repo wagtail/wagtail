@@ -49,8 +49,8 @@ exports[`TooltipEntity #openTooltip 1`] = `
       <a
         className="Tooltip__link"
         href="https://www.example.com/"
-        rel="noopener noreferrer"
         target="_blank"
+        rel="noopener noreferrer"
         title="https://www.example.com/"
       >
         www.example.com

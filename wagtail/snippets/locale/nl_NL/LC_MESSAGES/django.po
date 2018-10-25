@@ -56,11 +56,11 @@ msgstr ""
 #, python-format
 msgid ""
 "You haven't created any %(snippet_type_name)s snippets. Why not <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">create one now</"
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener noreferrer\">create one now</"
 "a>?"
 msgstr ""
 "Er is nog geen  %(snippet_type_name)s snippet aangemaakt. Waarom <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">voegt u er niet "
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener noreferrer\">voegt u er niet "
 "een toe</a>?"
 
 #, python-format

@@ -89,7 +89,7 @@ msgid ""
 "\"%(wagtailsnippets_create_url)s\">add one</a>?"
 msgstr ""
 "U heeft nog geen %(snippet_type_name_plural)s aangemaakt. Waarom <a href="
-"\"%(wagtailsnippets_create_url)s\" target=\"_blank\">maakt u er nu niet een "
+"\"%(wagtailsnippets_create_url)s\" target=\"_blank\" rel=\"noopener noreferrer\">maakt u er nu niet een "
 "aan</a>?"
 
 #, python-format
