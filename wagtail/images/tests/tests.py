@@ -54,8 +54,8 @@ class TestImageTag(TestCase):
 
     def render_image_tag_as(self, image, filter_spec):
         temp = template.Template(
-            '{% load wagtailimages_tags %}{% image image_obj ' + filter_spec +
-            ' as test_img %}<img {{ test_img.attrs }} />'
+            '{% load wagtailimages_tags %}{% image image_obj ' + filter_spec
+            + ' as test_img %}<img {{ test_img.attrs }} />'
         )
         context = template.Context({'image_obj': image})
         return temp.render(context)

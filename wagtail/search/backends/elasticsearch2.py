@@ -625,8 +625,8 @@ class Elasticsearch2SearchResults(BaseSearchResults):
         field = self.query_compiler._get_filterable_field(field_name)
         if field is None:
             raise FilterFieldError(
-                'Cannot facet search results with field "' + field_name + '". Please add index.FilterField(\'' +
-                field_name + '\') to ' + self.query_compiler.queryset.model.__name__ + '.search_fields.',
+                'Cannot facet search results with field "' + field_name + '". Please add index.FilterField(\''
+                + field_name + '\') to ' + self.query_compiler.queryset.model.__name__ + '.search_fields.',
                 field_name=field_name
             )
 

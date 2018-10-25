@@ -18,7 +18,6 @@ class TestDocumentListing(TestCase):
     def get_document_id_list(self, content):
         return [document['id'] for document in content['items']]
 
-
     # BASIC TESTS
 
     def test_basic(self):
@@ -57,7 +56,6 @@ class TestDocumentListing(TestCase):
 
             # Check download_url
             self.assertTrue(document['meta']['download_url'].startswith('http://localhost/documents/%d/' % document['id']))
-
 
     # FIELDS
 
@@ -157,7 +155,6 @@ class TestDocumentListing(TestCase):
         self.assertEqual(response.status_code, 400)
         self.assertEqual(content, {'message': "unknown fields: 123, abc"})
 
-
     # FILTERING
 
     def test_filtering_exact_filter(self):
@@ -189,7 +186,6 @@ class TestDocumentListing(TestCase):
 
         self.assertEqual(response.status_code, 400)
         self.assertEqual(content, {'message': "query parameter is not an operation or a recognised field: not_a_field"})
-
 
     # ORDERING
 
@@ -238,7 +234,6 @@ class TestDocumentListing(TestCase):
 
         self.assertEqual(response.status_code, 400)
         self.assertEqual(content, {'message': "cannot order by 'not_a_field' (unknown field)"})
-
 
     # LIMIT
 
@@ -294,7 +289,6 @@ class TestDocumentListing(TestCase):
 
         self.assertEqual(len(content['items']), 2)
 
-
     # OFFSET
 
     def test_offset_5_usually_appears_5th_in_list(self):
@@ -322,7 +316,6 @@ class TestDocumentListing(TestCase):
 
         self.assertEqual(response.status_code, 400)
         self.assertEqual(content, {'message': "offset must be a positive integer"})
-
 
     # SEARCH
 

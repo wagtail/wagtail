@@ -297,8 +297,8 @@ class ModelAdmin(WagtailRegisterable):
             for f in self.model._meta.get_fields():
                 if f.name not in self.inspect_view_fields_exclude:
                     if f.concrete and (
-                        not f.is_relation or
-                        (not f.auto_created and f.related_model)
+                        not f.is_relation
+                        or (not f.auto_created and f.related_model)
                     ):
                         found_fields.append(f.name)
             return found_fields

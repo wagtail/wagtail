@@ -449,7 +449,6 @@ class BackendTests(WagtailTestUtils):
         with self.assertRaises(FilterFieldError):
             self.backend.search(MATCH_ALL, models.ProgrammingGuide).facet('foo')
 
-
     # MISC TESTS
 
     def test_same_rank_pages(self):
@@ -632,10 +631,12 @@ class BackendTests(WagtailTestUtils):
 
     def test_operators_combination(self):
         results = self.backend.search(
-            ((PlainText('javascript') & ~PlainText('definitive')) |
-             PlainText('python') | PlainText('rust')) |
-            PlainText('two'),
-            models.Book.objects.all())
+            (
+                (PlainText('javascript') & ~PlainText('definitive'))
+                | PlainText('python') | PlainText('rust')
+            ) | PlainText('two'),
+            models.Book.objects.all()
+        )
         self.assertSetEqual({r.title for r in results},
                             {'JavaScript: The good parts',
                              'Learning Python',

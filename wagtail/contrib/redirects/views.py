@@ -25,9 +25,9 @@ def index(request):
 
     # Search
     if query_string:
-        redirects = redirects.filter(Q(old_path__icontains=query_string) |
-                                     Q(redirect_page__url_path__icontains=query_string) |
-                                     Q(redirect_link__icontains=query_string))
+        redirects = redirects.filter(Q(old_path__icontains=query_string)
+                                     | Q(redirect_page__url_path__icontains=query_string)
+                                     | Q(redirect_link__icontains=query_string))
 
     # Ordering (A bit useless at the moment as only 'old_path' is allowed)
     if ordering not in ['old_path']:

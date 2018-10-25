@@ -48,8 +48,8 @@ def index(request, parent_page_id=None):
     # If this page isn't a descendant of the user's explorable root page,
     # then redirect to that explorable root page instead.
     if not (
-        parent_page.pk == root_page.pk or
-        parent_page.is_descendant_of(root_page)
+        parent_page.pk == root_page.pk
+        or parent_page.is_descendant_of(root_page)
     ):
         return redirect('wagtailadmin_explore', root_page.pk)
 
@@ -494,8 +494,8 @@ def edit(request, page_id):
                                                          form=form,
                                                          request=request)
             errors_debug = (
-                repr(edit_handler.form.errors) +
-                repr([
+                repr(edit_handler.form.errors)
+                + repr([
                     (name, formset.errors)
                     for (name, formset) in edit_handler.form.formsets.items()
                     if formset.errors
@@ -731,9 +731,9 @@ def move_choose_destination(request, page_to_move_id, viewed_page_id=None):
         target.can_choose = page_perms.can_move_to(target)
 
         target.can_descend = (
-            not(target == page_to_move or
-                target.is_child_of(page_to_move)) and
-            target.get_children_count()
+            not(target == page_to_move
+                or target.is_child_of(page_to_move))
+            and target.get_children_count()
         )
 
         child_pages.append(target)

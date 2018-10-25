@@ -81,14 +81,14 @@ class Site(models.Model):
     def __str__(self):
         if self.site_name:
             return(
-                self.site_name +
-                (" [default]" if self.is_default_site else "")
+                self.site_name
+                + (" [default]" if self.is_default_site else "")
             )
         else:
             return(
-                self.hostname +
-                ("" if self.port == 80 else (":%d" % self.port)) +
-                (" [default]" if self.is_default_site else "")
+                self.hostname
+                + ("" if self.port == 80 else (":%d" % self.port))
+                + (" [default]" if self.is_default_site else "")
             )
 
     @staticmethod
@@ -1696,9 +1696,9 @@ class PagePermissionTester:
         if self.page_is_root:  # root node is not a page and can never be edited, even by superusers
             return False
         return (
-            self.user.is_superuser or
-            ('edit' in self.permissions) or
-            ('add' in self.permissions and self.page.owner_id == self.user.pk)
+            self.user.is_superuser
+            or ('edit' in self.permissions)
+            or ('add' in self.permissions and self.page.owner_id == self.user.pk)
         )
 
     def can_delete(self):

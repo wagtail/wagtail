@@ -330,8 +330,8 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
         return queryset[start:stop]
 
     def _process_lookup(self, field, lookup, value):
-        return Q(**{field.get_attname(self.queryset.model) +
-                    '__' + lookup: value})
+        return Q(**{field.get_attname(self.queryset.model)
+                    + '__' + lookup: value})
 
     def _connect_filters(self, filters, connector, negated):
         if connector == 'AND':
@@ -379,8 +379,8 @@ class PostgresSearchResults(BaseSearchResults):
         field = self.query_compiler._get_filterable_field(field_name)
         if field is None:
             raise FilterFieldError(
-                'Cannot facet search results with field "' + field_name + '". Please add index.FilterField(\'' +
-                field_name + '\') to ' + self.query_compiler.queryset.model.__name__ + '.search_fields.',
+                'Cannot facet search results with field "' + field_name + '". Please add index.FilterField(\''
+                + field_name + '\') to ' + self.query_compiler.queryset.model.__name__ + '.search_fields.',
                 field_name=field_name
             )
 

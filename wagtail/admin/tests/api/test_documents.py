@@ -17,7 +17,6 @@ class TestAdminDocumentListing(AdminAPITestCase, TestDocumentListing):
     def get_document_id_list(self, content):
         return [document['id'] for document in content['items']]
 
-
     # BASIC TESTS
 
     def test_basic(self):
@@ -56,7 +55,6 @@ class TestAdminDocumentListing(AdminAPITestCase, TestDocumentListing):
 
             # Check download_url
             self.assertTrue(document['meta']['download_url'].startswith('http://localhost/documents/%d/' % document['id']))
-
 
     # FIELDS
 

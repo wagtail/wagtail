@@ -27,7 +27,6 @@ class TestAdminPageListing(AdminAPITestCase, TestPageListing):
     def get_page_id_list(self, content):
         return [page['id'] for page in content['items']]
 
-
     # BASIC TESTS
 
     def test_basic(self):
@@ -297,7 +296,6 @@ class TestAdminPageListing(AdminAPITestCase, TestPageListing):
         json.loads(response.content.decode('UTF-8'))
 
         self.assertEqual(response.status_code, 200)
-
 
     # FOR EXPLORER FILTER
 

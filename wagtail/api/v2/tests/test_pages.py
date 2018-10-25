@@ -27,7 +27,6 @@ class TestPageListing(TestCase):
     def get_page_id_list(self, content):
         return [page['id'] for page in content['items']]
 
-
     # BASIC TESTS
 
     def test_basic(self):
@@ -361,7 +360,6 @@ class TestPageListing(TestCase):
         self.assertEqual(response.status_code, 400)
         self.assertEqual(content, {'message': "'title' does not support nested fields"})
 
-
     # FILTERING
 
     def test_filtering_exact_filter(self):
@@ -434,7 +432,6 @@ class TestPageListing(TestCase):
         self.assertEqual(response.status_code, 400)
         self.assertEqual(content, {'message': "field filter error. 'abc' is not a valid value for show_in_menus (expected 'true' or 'false', got 'abc')"})
 
-
     # CHILD OF FILTER
 
     def test_child_of_filter(self):
@@ -480,7 +477,6 @@ class TestPageListing(TestCase):
 
         self.assertEqual(response.status_code, 400)
         self.assertEqual(content, {'message': "parent page doesn't exist"})
-
 
     # DESCENDANT OF FILTER
 
@@ -535,7 +531,6 @@ class TestPageListing(TestCase):
 
         self.assertEqual(response.status_code, 400)
         self.assertEqual(content, {'message': "filtering by descendant_of with child_of is not supported"})
-
 
     # ORDERING
 
@@ -613,7 +608,6 @@ class TestPageListing(TestCase):
         self.assertEqual(response.status_code, 400)
         self.assertEqual(content, {'message': "cannot order by 'not_a_field' (unknown field)"})
 
-
     # LIMIT
 
     def test_limit_only_two_items_returned(self):
@@ -668,7 +662,6 @@ class TestPageListing(TestCase):
 
         self.assertEqual(len(content['items']), 2)
 
-
     # OFFSET
 
     def test_offset_5_usually_appears_5th_in_list(self):
@@ -696,7 +689,6 @@ class TestPageListing(TestCase):
 
         self.assertEqual(response.status_code, 400)
         self.assertEqual(content, {'message': "offset must be a positive integer"})
-
 
     # SEARCH
 
