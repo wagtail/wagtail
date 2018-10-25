@@ -481,7 +481,7 @@ Admin languages
 
 Users can choose between several languages for the admin interface
 in the account settings. The list of languages is by default all the available
-languages in Wagtail. To change it, set ``WAGTAILADMIN_PERMITTED_LANGUAGES``:
+languages in Wagtail with at least 90% coverage. To change it, set ``WAGTAILADMIN_PERMITTED_LANGUAGES``:
 
 .. code-block:: python
 
