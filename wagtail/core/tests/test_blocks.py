@@ -1888,7 +1888,7 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
 
     def test_initialisation_with_mixins(self):
         """
-        The order of child blocks of ``StreamBlock``\s with multiple parent
+        The order of child blocks of a ``StreamBlock`` with multiple parent
         classes is slightly surprising at first. Child blocks are inherited in
         a bottom-up order, by traversing the MRO in reverse. In the example
         below, ``ArticleWithIntroBlock`` will have an MRO of::

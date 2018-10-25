@@ -68,8 +68,8 @@ class BaseSearchQueryCompiler:
 
         if field is None:
             raise FilterFieldError(
-                'Cannot filter search results with field "' + field_attname + '". Please add index.FilterField(\'' +
-                field_attname + '\') to ' + self.queryset.model.__name__ + '.search_fields.',
+                'Cannot filter search results with field "' + field_attname + '". Please add index.FilterField(\''
+                + field_attname + '\') to ' + self.queryset.model.__name__ + '.search_fields.',
                 field_name=field_attname
             )
 
@@ -79,8 +79,8 @@ class BaseSearchQueryCompiler:
 
         if result is None:
             raise FilterError(
-                'Could not apply filter on search results: "' + field_attname + '__' +
-                lookup + ' = ' + str(value) + '". Lookup "' + lookup + '"" not recognised.'
+                'Could not apply filter on search results: "' + field_attname + '__'
+                + lookup + ' = ' + str(value) + '". Lookup "' + lookup + '"" not recognised.'
             )
 
         return result
@@ -132,8 +132,8 @@ class BaseSearchQueryCompiler:
 
             if field is None:
                 raise OrderByFieldError(
-                    'Cannot sort search results with field "' + field_name + '". Please add index.FilterField(\'' +
-                    field_name + '\') to ' + self.queryset.model.__name__ + '.search_fields.',
+                    'Cannot sort search results with field "' + field_name + '". Please add index.FilterField(\''
+                    + field_name + '\') to ' + self.queryset.model.__name__ + '.search_fields.',
                     field_name=field_name
                 )
 
@@ -147,8 +147,8 @@ class BaseSearchQueryCompiler:
             for field_name in self.fields:
                 if field_name not in allowed_fields:
                     raise SearchFieldError(
-                        'Cannot search with field "' + field_name + '". Please add index.SearchField(\'' +
-                        field_name + '\') to ' + self.queryset.model.__name__ + '.search_fields.',
+                        'Cannot search with field "' + field_name + '". Please add index.SearchField(\''
+                        + field_name + '\') to ' + self.queryset.model.__name__ + '.search_fields.',
                         field_name=field_name
                     )
 

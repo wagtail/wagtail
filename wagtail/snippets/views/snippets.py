@@ -263,8 +263,8 @@ def delete(request, app_label, model_name, pk=None):
         'count': count,
         'instances': instances,
         'submit_url': (
-            reverse('wagtailsnippets:delete-multiple', args=(app_label, model_name)) +
-            '?' + urlencode([('id', instance.pk) for instance in instances])
+            reverse('wagtailsnippets:delete-multiple', args=(app_label, model_name))
+            + '?' + urlencode([('id', instance.pk) for instance in instances])
         ),
     })
 

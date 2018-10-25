@@ -18,7 +18,6 @@ class TestAdminImageListing(AdminAPITestCase, TestImageListing):
     def get_image_id_list(self, content):
         return [image['id'] for image in content['items']]
 
-
     # BASIC TESTS
 
     def test_basic(self):
@@ -54,7 +53,6 @@ class TestAdminImageListing(AdminAPITestCase, TestImageListing):
 
             # Check detail url
             self.assertEqual(image['meta']['detail_url'], 'http://localhost/admin/api/v2beta/images/%d/' % image['id'])
-
 
     #  FIELDS
 

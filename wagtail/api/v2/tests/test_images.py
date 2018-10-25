@@ -18,7 +18,6 @@ class TestImageListing(TestCase):
     def get_image_id_list(self, content):
         return [image['id'] for image in content['items']]
 
-
     # BASIC TESTS
 
     def test_basic(self):
@@ -54,7 +53,6 @@ class TestImageListing(TestCase):
 
             # Check detail url
             self.assertEqual(image['meta']['detail_url'], 'http://localhost/api/v2beta/images/%d/' % image['id'])
-
 
     #  FIELDS
 
@@ -157,7 +155,6 @@ class TestImageListing(TestCase):
         self.assertEqual(response.status_code, 400)
         self.assertEqual(content, {'message': "unknown fields: 123, abc"})
 
-
     # FILTERING
 
     def test_filtering_exact_filter(self):
@@ -189,7 +186,6 @@ class TestImageListing(TestCase):
 
         self.assertEqual(response.status_code, 400)
         self.assertEqual(content, {'message': "query parameter is not an operation or a recognised field: not_a_field"})
-
 
     # ORDERING
 
@@ -238,7 +234,6 @@ class TestImageListing(TestCase):
 
         self.assertEqual(response.status_code, 400)
         self.assertEqual(content, {'message': "cannot order by 'not_a_field' (unknown field)"})
-
 
     # LIMIT
 
@@ -294,7 +289,6 @@ class TestImageListing(TestCase):
 
         self.assertEqual(len(content['items']), 2)
 
-
     # OFFSET
 
     def test_offset_10_usually_appears_7th_in_list(self):
@@ -322,7 +316,6 @@ class TestImageListing(TestCase):
 
         self.assertEqual(response.status_code, 400)
         self.assertEqual(content, {'message': "offset must be a positive integer"})
-
 
     # SEARCH
 

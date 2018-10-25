@@ -79,8 +79,8 @@ def chooser(request):
         images = hook(images, request)
 
     if (
-        'q' in request.GET or 'p' in request.GET or 'tag' in request.GET or
-        'collection_id' in request.GET
+        'q' in request.GET or 'p' in request.GET or 'tag' in request.GET
+        or 'collection_id' in request.GET
     ):
         # this request is triggered from search, pagination or 'popular tags';
         # we will just render the results.html fragment

@@ -57,8 +57,8 @@ class IndexView(PermissionCheckedMixin, TemplateResponseMixin, BaseListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['can_add'] = (
-            self.permission_policy is None or
-            self.permission_policy.user_has_permission(self.request.user, 'add')
+            self.permission_policy is None
+            or self.permission_policy.user_has_permission(self.request.user, 'add')
         )
         return context
 
@@ -185,8 +185,8 @@ class EditView(PermissionCheckedMixin, TemplateResponseMixin, BaseUpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['can_delete'] = (
-            self.permission_policy is None or
-            self.permission_policy.user_has_permission(self.request.user, 'delete')
+            self.permission_policy is None
+            or self.permission_policy.user_has_permission(self.request.user, 'delete')
         ),
         return context
 

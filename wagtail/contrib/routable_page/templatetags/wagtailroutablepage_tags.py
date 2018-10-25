@@ -7,7 +7,7 @@ register = template.Library()
 def routablepageurl(context, page, url_name, *args, **kwargs):
     """
     ``routablepageurl`` is similar to ``pageurl``, but works with
-    ``RoutablePage``\s. It behaves like a hybrid between the built-in
+    pages using ``RoutablePageMixin``. It behaves like a hybrid between the built-in
     ``reverse``, and ``pageurl`` from Wagtail.
 
     ``page`` is the RoutablePage that URLs will be generated from.

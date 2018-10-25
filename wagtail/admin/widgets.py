@@ -264,11 +264,11 @@ class Button:
     def __eq__(self, other):
         if not isinstance(other, Button):
             return NotImplemented
-        return (self.label == other.label and
-                self.url == other.url and
-                self.classes == other.classes and
-                self.attrs == other.attrs and
-                self.priority == other.priority)
+        return (self.label == other.label
+                and self.url == other.url
+                and self.classes == other.classes
+                and self.attrs == other.attrs
+                and self.priority == other.priority)
 
 
 class PageListingButton(Button):

@@ -918,7 +918,10 @@ class TestGetUsage(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtaildocs:document_usage',
                                            args=(1,)))
         # There's no usage so there should be no table rows
-        self.assertRegex(response.content, b'<tbody>(\s|\n)*</tbody>')
+        self.assertRegex(
+            response.content.decode('utf-8'),
+            r'<tbody>(\s|\n)*</tbody>'
+        )
 
 
 class TestEditOnlyPermissions(TestCase, WagtailTestUtils):

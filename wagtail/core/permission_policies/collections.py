@@ -255,8 +255,8 @@ class CollectionOwnershipPermissionPolicy(
             if self._check_perm(user, ['change'], collection=instance.collection):
                 return True
             elif (
-                self._check_perm(user, ['add'], collection=instance.collection) and
-                getattr(instance, self.owner_field_name) == user
+                self._check_perm(user, ['add'], collection=instance.collection)
+                and getattr(instance, self.owner_field_name) == user
             ):
                 return True
             else:
