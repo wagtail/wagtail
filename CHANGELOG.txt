@@ -6,6 +6,7 @@ Changelog
 
  * Added support for Python 3.7 (Matt Westcott)
  * Fix: Query objects returned from `PageQuerySet.type_q` can now be merged with `|` (Brady Moe)
+ * Fix: Add `rel="noopener noreferrer"` to target blank links (Anselm Bradford)
 
 
 2.3 LTS (23.10.2018)

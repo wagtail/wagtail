@@ -110,14 +110,14 @@ def page_listing_buttons(page, page_perms, is_parent=False):
         yield PageListingButton(
             _('View draft'),
             reverse('wagtailadmin_pages:view_draft', args=[page.id]),
-            attrs={'title': _("Preview draft version of '{title}'").format(title=page.get_admin_display_title()), 'target': '_blank'},
+            attrs={'title': _("Preview draft version of '{title}'").format(title=page.get_admin_display_title()), 'target': '_blank', 'rel': 'noopener noreferrer'},
             priority=20
         )
     if page.live and page.url:
         yield PageListingButton(
             _('View live'),
             page.url,
-            attrs={'target': "_blank", 'title': _("View live version of '{title}'").format(title=page.get_admin_display_title())},
+            attrs={'target': "_blank", 'rel': 'noopener noreferrer', 'title': _("View live version of '{title}'").format(title=page.get_admin_display_title())},
             priority=30
         )
     if page_perms.can_add_subpage():
@@ -143,7 +143,7 @@ def page_listing_buttons(page, page_perms, is_parent=False):
         page=page,
         page_perms=page_perms,
         is_parent=is_parent,
-        attrs={'target': '_blank', 'title': _("View more options for '{title}'").format(title=page.get_admin_display_title())},
+        attrs={'target': '_blank', 'rel': 'noopener noreferrer', 'title': _("View more options for '{title}'").format(title=page.get_admin_display_title())},
         priority=50
     )
 

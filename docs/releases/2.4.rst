@@ -21,6 +21,7 @@ Bug fixes
 ~~~~~~~~~
 
  * Query objects returned from ``PageQuerySet.type_q`` can now be merged with ``|`` (Brady Moe)
+ * Add `rel="noopener noreferrer"` to target blank links (Anselm Bradford)
 
 
 Upgrade considerations
