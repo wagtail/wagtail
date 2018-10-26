@@ -54,7 +54,7 @@ class ConvertedValueField(models.IntegerField):
             value = ConvertedValue(value)
         return value
 
-    def from_db_value(self, value, expression, connection, context):
+    def from_db_value(self, value, expression, connection):
         if not value:
             return
         return ConvertedValue(value)
