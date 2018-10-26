@@ -1,6 +1,6 @@
 from django import forms
-from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.http import HttpResponse
+from django.templatetags.static import static
 
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 from wagtail.admin.menu import MenuItem
