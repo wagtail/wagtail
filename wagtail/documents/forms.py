@@ -33,10 +33,14 @@ def get_document_form(model):
 
 
 def get_document_multi_form(model):
+    fields = [field for field in model.admin_form_fields if field != 'file']
+    if 'collection' not in fields:
+        fields.append('collection')
+
     return modelform_factory(
         model,
         form=BaseDocumentForm,
-        fields=[field for field in model.admin_form_fields if field != 'file'],
+        fields=fields,
         widgets={
             'tags': widgets.AdminTagWidget,
             'file': forms.FileInput()

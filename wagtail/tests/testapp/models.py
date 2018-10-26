@@ -910,7 +910,10 @@ class CustomRendition(AbstractRendition):
 
 
 class CustomDocument(AbstractDocument):
-    admin_form_fields = Document.admin_form_fields
+    description = models.TextField(blank=True)
+    admin_form_fields = Document.admin_form_fields + (
+        'description',
+    )
 
 
 class StreamModel(models.Model):

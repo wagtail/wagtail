@@ -1,4 +1,5 @@
 import json
+from unittest import mock
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
@@ -358,14 +359,24 @@ class TestMultipleDocumentUploader(TestCase, WagtailTestUtils):
     """
     This tests the multiple document upload views located in wagtaildocs/views/multiple.py
     """
+    edit_post_data = {
+        'title': "New title!",
+        'tags': "",
+    }
+
     def setUp(self):
         self.login()
 
         # Create a document for running tests on
-        self.doc = models.Document.objects.create(
+        self.doc = models.get_document_model().objects.create(
             title="Test document",
             file=ContentFile(b("Simple text document")),
         )
+
+    def check_doc_after_edit(self):
+        self.doc.refresh_from_db()
+        self.assertEqual(self.doc.title, "New title!")
+        self.assertFalse(self.doc.tags.all())
 
     def test_add(self):
         """
@@ -415,12 +426,16 @@ class TestMultipleDocumentUploader(TestCase, WagtailTestUtils):
         self.assertTrue(response.context['doc'].file_size)
 
         # check that it is in the root collection
-        doc = models.Document.objects.get(title='test.png')
+        doc = models.get_document_model().objects.get(title='test.png')
         root_collection = Collection.get_first_root_node()
         self.assertEqual(doc.collection, root_collection)
 
         # Check form
         self.assertIn('form', response.context)
+        self.assertEqual(
+            set(response.context['form'].fields),
+            set(models.get_document_model().admin_form_fields) - {'file', 'collection'},
+        )
         self.assertEqual(response.context['form'].initial['title'], 'test.png')
 
         # Check JSON
@@ -459,12 +474,16 @@ class TestMultipleDocumentUploader(TestCase, WagtailTestUtils):
         self.assertTrue(response.context['doc'].file_size)
 
         # check that it is in the 'evil plans' collection
-        doc = models.Document.objects.get(title='test.png')
+        doc = models.get_document_model().objects.get(title='test.png')
         root_collection = Collection.get_first_root_node()
         self.assertEqual(doc.collection, evil_plans_collection)
 
         # Check form
         self.assertIn('form', response.context)
+        self.assertEqual(
+            set(response.context['form'].fields),
+            set(models.get_document_model().admin_form_fields) - {'file'} | {'collection'},
+        )
         self.assertEqual(response.context['form'].initial['title'], 'test.png')
 
         # Check JSON
@@ -511,10 +530,11 @@ class TestMultipleDocumentUploader(TestCase, WagtailTestUtils):
         This tests that a POST request to the edit view edits the document
         """
         # Send request
-        response = self.client.post(reverse('wagtaildocs:edit_multiple', args=(self.doc.id, )), {
-            ('doc-%d-title' % self.doc.id): "New title!",
-            ('doc-%d-tags' % self.doc.id): "",
-        }, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        response = self.client.post(
+            reverse('wagtaildocs:edit_multiple', args=(self.doc.id, )),
+            {'doc-%d-%s' % (self.doc.id, field): data for field, data in self.edit_post_data.items()},
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest',
+        )
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -527,6 +547,8 @@ class TestMultipleDocumentUploader(TestCase, WagtailTestUtils):
         self.assertIn('success', response_json)
         self.assertEqual(response_json['doc_id'], self.doc.id)
         self.assertTrue(response_json['success'])
+
+        self.check_doc_after_edit()
 
     def test_edit_post_noajax(self):
         """
@@ -590,7 +612,7 @@ class TestMultipleDocumentUploader(TestCase, WagtailTestUtils):
         self.assertEqual(response['Content-Type'], 'application/json')
 
         # Make sure the document is deleted
-        self.assertFalse(models.Document.objects.filter(id=self.doc.id).exists())
+        self.assertFalse(models.get_document_model().objects.filter(id=self.doc.id).exists())
 
         # Check JSON
         response_json = json.loads(response.content.decode())
@@ -608,6 +630,30 @@ class TestMultipleDocumentUploader(TestCase, WagtailTestUtils):
 
         # Check response
         self.assertEqual(response.status_code, 400)
+
+
+@override_settings(WAGTAILDOCS_DOCUMENT_MODEL='tests.CustomDocument')
+class TestMultipleCustomDocumentUploader(TestMultipleDocumentUploader):
+    edit_post_data = dict(TestMultipleDocumentUploader.edit_post_data, description="New description.")
+
+    def check_doc_after_edit(self):
+        super().check_doc_after_edit()
+        self.assertEqual(self.doc.description, "New description.")
+
+
+class TestMultipleCustomDocumentUploaderNoCollection(TestMultipleCustomDocumentUploader):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        Document = models.get_document_model()
+        fields = tuple(f for f in Document.admin_form_fields if f != 'collection')
+        cls.__patcher = mock.patch.object(Document, 'admin_form_fields', fields)
+        cls.__patcher.start()
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.__patcher.stop()
+        super().tearDownClass()
 
 
 class TestDocumentChooserView(TestCase, WagtailTestUtils):
