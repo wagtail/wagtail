@@ -5,9 +5,9 @@ from django.conf import settings
 from django.contrib.admin.utils import quote
 from django.contrib.humanize.templatetags.humanize import intcomma
 from django.contrib.messages.constants import DEFAULT_TAGS as MESSAGE_TAGS
-from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.template.defaultfilters import stringfilter
 from django.template.loader import render_to_string
+from django.templatetags.static import static
 from django.utils.html import conditional_escape
 from django.utils.safestring import mark_safe
 

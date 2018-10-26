@@ -1,7 +1,7 @@
-from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.forms import Media, MediaDefiningClass
 from django.forms.utils import flatatt
 from django.template.loader import render_to_string
+from django.templatetags.static import static
 from django.utils.safestring import mark_safe
 from django.utils.text import slugify
 
