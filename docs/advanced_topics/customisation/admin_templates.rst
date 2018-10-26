@@ -34,7 +34,7 @@ To replace the default logo, create a template file ``dashboard/templates/wagtai
 .. code-block:: html+django
 
     {% extends "wagtailadmin/base.html" %}
-    {% load staticfiles %}
+    {% load static %}
 
     {% block branding_logo %}
         <img src="{% static 'images/custom-logo.svg' %}" alt="Custom Project" width="80" />
@@ -50,7 +50,7 @@ To replace the favicon displayed when viewing admin pages, create a template fil
 .. code-block:: html+django
 
     {% extends "wagtailadmin/admin_base.html" %}
-    {% load staticfiles %}
+    {% load static %}
 
     {% block branding_favicon %}
         <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" />
