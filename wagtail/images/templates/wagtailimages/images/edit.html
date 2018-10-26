@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/base.html" %}
-{% load wagtailimages_tags wagtailadmin_tags staticfiles i18n l10n %}
+{% load wagtailimages_tags wagtailadmin_tags static i18n l10n %}
 {% block titletag %}{% blocktrans with title=image.title %}Editing image {{ title }}{% endblocktrans %}{% endblock %}
 {% block extra_css %}
     {{ block.super }}
