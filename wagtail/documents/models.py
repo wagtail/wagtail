@@ -52,8 +52,6 @@ class AbstractDocument(CollectionMember, index.Indexed, models.Model):
         if self.file_size is None:
             try:
                 self.file_size = self.file.size
-            except (SystemExit, KeyboardInterrupt):
-                raise
             except Exception:
                 # File doesn't exist
                 return
