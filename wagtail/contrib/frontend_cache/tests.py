@@ -1,3 +1,5 @@
+from urllib.error import HTTPError, URLError
+
 import mock
 from django.core.exceptions import ImproperlyConfigured
 from django.test import TestCase
@@ -62,6 +64,49 @@ class TestBackendConfiguration(TestCase):
         self.assertIsInstance(backends['cloudfront'], CloudfrontBackend)
 
         self.assertEqual(backends['cloudfront'].cloudfront_distribution_id, 'frontend')
+
+    def test_http(self):
+        """Test that `HTTPBackend.purge` works when urlopen succeeds"""
+        self._test_http_with_side_effect(urlopen_side_effect=None)
+
+    def test_http_httperror(self):
+        """Test that `HTTPBackend.purge` can handle `HTTPError`"""
+        http_error = HTTPError(
+            url='http://localhost:8000/home/events/christmas/',
+            code=500,
+            msg='Internal Server Error',
+            hdrs={},
+            fp=None
+        )
+        self._test_http_with_side_effect(urlopen_side_effect=http_error)
+
+    def test_http_urlerror(self):
+        """Test that `HTTPBackend.purge` can handle `URLError`"""
+        url_error = URLError(reason='just for tests')
+        self._test_http_with_side_effect(urlopen_side_effect=url_error)
+
+    @mock.patch('wagtail.contrib.frontend_cache.backends.urlopen')
+    def _test_http_with_side_effect(self, urlopen_mock, urlopen_side_effect):
+        # given a backends configuration with one HTTP backend
+        backends = get_backends(backend_settings={
+            'varnish': {
+                'BACKEND': 'wagtail.contrib.frontend_cache.backends.HTTPBackend',
+                'LOCATION': 'http://localhost:8000',
+            },
+        })
+        self.assertEqual(set(backends.keys()), set(['varnish']))
+        self.assertIsInstance(backends['varnish'], HTTPBackend)
+        # and mocked urlopen that may or may not raise network-related exception
+        urlopen_mock.side_effect = urlopen_side_effect
+
+        # when making a purge request
+        backends.get('varnish').purge('http://www.wagtail.io/home/events/christmas/')
+
+        # then no exception is raised
+        # and mocked urlopen is called with a proper purge request
+        self.assertEqual(urlopen_mock.call_count, 1)
+        (purge_request,), _call_kwargs = urlopen_mock.call_args
+        self.assertEqual(purge_request.full_url, 'http://localhost:8000/home/events/christmas/')
 
     def test_cloudfront_validate_distribution_id(self):
         with self.assertRaises(ImproperlyConfigured):

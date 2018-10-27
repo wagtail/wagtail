@@ -324,6 +324,7 @@ Contributors
 * Jorge Barata
 * Brady Moe
 * Yi Huang
+* Stas Rudakou
 
 Translators
 ===========
