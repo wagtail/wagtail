@@ -199,6 +199,10 @@ In addition to the model fields provided, ``Page`` has many properties and metho
 
         Controls if this page can be created through the Wagtail administration. Defaults to True, and is not inherited by subclasses. This is useful when using `multi-table inheritance <https://docs.djangoproject.com/en/stable/topics/db/models/#multi-table-inheritance>`_, to stop the base model from being created as an actual page.
 
+    .. attribute:: max_count
+
+        Controls the maximum number of pages of this type that can be created through the Wagtail administration interface. This is useful when needing "allow at most 3 of these pages to exist", or for singleton pages.
+
     .. attribute:: exclude_fields_in_copy
 
         An array of field names that will not be included when a Page is copied.

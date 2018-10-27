@@ -863,6 +863,10 @@ class SingletonPage(Page):
             and not cls.objects.exists()
 
 
+class SingletonPageViaMaxCount(Page):
+    max_count = 1
+
+
 class PageChooserModel(models.Model):
     page = models.ForeignKey('wagtailcore.Page', help_text='help text', on_delete=models.CASCADE)
 
