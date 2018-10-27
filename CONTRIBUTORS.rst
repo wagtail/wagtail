@@ -326,6 +326,7 @@ Contributors
 * Yi Huang
 * Stas Rudakou
 * Abdulaziz Alfuhigi
+* Dzianis Sheka
 
 Translators
 ===========
