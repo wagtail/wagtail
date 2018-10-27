@@ -80,13 +80,13 @@ class TestImagesJinja(TestCase):
         )
 
     def test_image_url(self):
-        self.assertRegexpMatches(
+        self.assertRegex(
             self.render('{{ image_url("wagtailimages_serve", myimage, "width-200") }}', {'myimage': self.image}),
             '/images/.*/width-200/{}'.format(self.image.file.name.split('/')[-1]),
         )
 
     def test_image_url_custom_view(self):
-        self.assertRegexpMatches(
+        self.assertRegex(
             self.render('{{ image_url("wagtailimages_serve_custom_view", myimage, "width-200") }}', {'myimage': self.image}),
             '/testimages/custom_view/.*/width-200/{}'.format(self.image.file.name.split('/')[-1]),
         )

@@ -5,7 +5,7 @@ from django.utils.functional import cached_property
 
 from wagtail.images.models import Filter
 from wagtail.images.shortcuts import get_rendition_or_not_found
-from wagtail.wagtailimages.views.serve import (
+from wagtail.images.views.serve import (
     generate_image_url, generate_signature,
 )
 

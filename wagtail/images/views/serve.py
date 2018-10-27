@@ -6,9 +6,9 @@ from wsgiref.util import FileWrapper
 
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured, PermissionDenied
-from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponsePermanentRedirect, StreamingHttpResponse
 from django.shortcuts import get_object_or_404
+from django.urls import reverse
 from django.utils.decorators import classonlymethod
 from django.utils.encoding import force_text
 from django.views.generic import View
