@@ -78,6 +78,23 @@ class TestDocumentIndexView(TestCase, WagtailTestUtils):
             response = self.client.get(reverse('wagtaildocs:index'), {'ordering': ordering})
             self.assertEqual(response.status_code, 200)
 
+    def test_index_without_collections(self):
+        self.make_docs()
+
+        response = self.client.get(reverse('wagtaildocs:index'))
+        self.assertNotContains(response, '<th>Collection</th>')
+        self.assertNotContains(response, '<td>Root</td>')
+
+    def test_index_with_collection(self):
+        root_collection = Collection.get_first_root_node()
+        root_collection.add_child(name="Evil plans")
+
+        self.make_docs()
+
+        response = self.client.get(reverse('wagtaildocs:index'))
+        self.assertContains(response, '<th>Collection</th>')
+        self.assertContains(response, '<td>Root</td>')
+
 
 class TestDocumentAddView(TestCase, WagtailTestUtils):
     def setUp(self):
@@ -750,6 +767,23 @@ class TestDocumentChooserView(TestCase, WagtailTestUtils):
             response = self.client.get(reverse('wagtaildocs:chooser'), {'q': 'Test'})
         self.assertEqual(len(response.context['documents']), 1)
         self.assertEqual(response.context['documents'][0], document)
+
+    def test_index_without_collections(self):
+        self.make_docs()
+
+        response = self.client.get(reverse('wagtaildocs:index'))
+        self.assertNotContains(response, '<th>Collection</th>')
+        self.assertNotContains(response, '<td>Root</td>')
+
+    def test_index_with_collection(self):
+        root_collection = Collection.get_first_root_node()
+        root_collection.add_child(name="Evil plans")
+
+        self.make_docs()
+
+        response = self.client.get(reverse('wagtaildocs:index'))
+        self.assertContains(response, '<th>Collection</th>')
+        self.assertContains(response, '<td>Root</td>')
 
 
 class TestDocumentChooserChosenView(TestCase, WagtailTestUtils):
