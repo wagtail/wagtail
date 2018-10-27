@@ -29,7 +29,7 @@ from wagtail.tests.testapp.models import (
     EVENT_AUDIENCE_CHOICES, Advert, AdvertPlacement, BusinessChild, BusinessIndex, BusinessSubIndex,
     DefaultStreamPage, EventCategory, EventPage, EventPageCarouselItem, FilePage,
     FormClassAdditionalFieldPage, ManyToManyBlogPage, SimplePage, SingleEventPage, SingletonPage,
-    StandardChild, StandardIndex, TaggedPage)
+    SingletonPageViaMaxCount, StandardChild, StandardIndex, TaggedPage)
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.users.models import UserProfile
 
@@ -742,6 +742,9 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         # SingletonPage overrides the can_create_at method to make it return
         # False if another SingletonPage already exists.
 
+        # The Page model now has a max_count attribute (issue 4841),
+        # but we are leaving this test in place to cover existing behaviour and
+        # ensure it does not break any code doing this in the wild.
         add_url = reverse('wagtailadmin_pages:add', args=[
             SingletonPage._meta.app_label, SingletonPage._meta.model_name, self.root_page.pk])
 
@@ -756,6 +759,30 @@ class TestPageCreation(TestCase, WagtailTestUtils):
 
         # A second singleton page should not be creatable
         self.assertFalse(SingletonPage.can_create_at(self.root_page))
+        response = self.client.get(add_url)
+        self.assertEqual(response.status_code, 403)
+
+    def test_cannot_create_singleton_page_with_max_count(self):
+        # Check that creating a second SingletonPageViaMaxCount results in a permission
+        # denied error.
+
+        # SingletonPageViaMaxCount uses the max_count attribute to limit the number of
+        # instance it can have.
+
+        add_url = reverse('wagtailadmin_pages:add', args=[
+            SingletonPageViaMaxCount._meta.app_label, SingletonPageViaMaxCount._meta.model_name, self.root_page.pk])
+
+        # A single singleton page should be creatable
+        self.assertTrue(SingletonPageViaMaxCount.can_create_at(self.root_page))
+        response = self.client.get(add_url)
+        self.assertEqual(response.status_code, 200)
+
+        # Create a singleton page
+        self.root_page.add_child(instance=SingletonPageViaMaxCount(
+            title='singleton', slug='singleton'))
+
+        # A second singleton page should not be creatable
+        self.assertFalse(SingletonPageViaMaxCount.can_create_at(self.root_page))
         response = self.client.get(add_url)
         self.assertEqual(response.status_code, 403)
 

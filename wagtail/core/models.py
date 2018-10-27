@@ -347,6 +347,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     # Do not allow plain Page instances to be created through the Wagtail admin
     is_creatable = False
 
+    # Define the maximum number of instances this page type can have. Default to unlimited.
+    max_count = None
+
     # An array of additional field names that will not be included when a Page is copied.
     exclude_fields_in_copy = []
 
@@ -979,7 +982,12 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         Checks if this page type can be created as a subpage under a parent
         page instance.
         """
-        return cls.is_creatable and cls.can_exist_under(parent)
+        can_create = cls.is_creatable and cls.can_exist_under(parent)
+
+        if cls.max_count is not None:
+            can_create = can_create and cls.objects.count() < cls.max_count
+
+        return can_create
 
     def can_move_to(self, parent):
         """
