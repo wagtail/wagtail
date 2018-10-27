@@ -1,11 +1,14 @@
+$breakpoint-small: breakpoint-max(sm);
+$breakpoint-medium: breakpoint-min(sm);
+
 @mixin small {
-    @media only screen and (max-width: breakpoint-max(sm)) {
+    @media only screen and (max-width: $breakpoint-small) {
         @content;
     }
 }
 
 @mixin medium {
-    @media only screen and (min-width: breakpoint-min(sm)) {
+    @media only screen and (min-width: $breakpoint-medium) {
         @content;
     }
 }
