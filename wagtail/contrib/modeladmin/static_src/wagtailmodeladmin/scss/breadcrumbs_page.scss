@@ -1,10 +1,11 @@
 @import 'wagtailadmin/scss/variables';
+@import 'wagtailadmin/scss/mixins';
 
 .breadcrumb {
     margin: -1.2em 0 2em;
 }
 
-@media screen and (min-width: $breakpoint-mobile) {
+@include media-breakpoint-up(sm) {
     .breadcrumb {
         margin-top: -1.8em;
     }

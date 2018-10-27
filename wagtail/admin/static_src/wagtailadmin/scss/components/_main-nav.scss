@@ -268,7 +268,7 @@ body.explorer-open {
     }
 }
 
-@media screen and (min-width: $breakpoint-mobile) {
+@include media-breakpoint-up(sm) {
     .wrapper,
     body.nav-open .wrapper {
         transform: none;
@@ -493,8 +493,8 @@ body.explorer-open {
     }
 }
 
-@media all and (min-width: $breakpoint-mobile) and (-ms-high-contrast: none),
-    all and (min-width: $breakpoint-mobile) and (-ms-high-contrast: active) {
+@media all and (min-width: breakpoint-min(sm)) and (-ms-high-contrast: none),
+    all and (min-width: breakpoint-min(sm)) and (-ms-high-contrast: active) {
     body.explorer-open {
         .wrapper {
             left: 0;

@@ -89,7 +89,7 @@
     top: 0;
 }
 
-@media screen and (min-width: $breakpoint-mobile) {
+@include media-breakpoint-up(sm) {
     .messages > ul > li {
         padding-left: 1.6em;
         padding-right: 3em;

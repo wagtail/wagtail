@@ -36,7 +36,7 @@
     .header-title {
         padding-left: 3.1em;
 
-        @media screen and (max-width: $breakpoint-mobile) {
+        @include media-breakpoint-down(sm) {
             padding-left: 0;
             margin-left: -28px;
             // Because it's nested within tab-merged which we've given padding
@@ -345,7 +345,7 @@ $object-title-height: 40px;
 footer .preview {
     button,
     .button {
-        @media screen and (max-width: $breakpoint-mobile) {
+        @include media-breakpoint-down(sm) {
             width: 100%;
             margin-top: 2px;
             margin-bottom: 2px;

@@ -30,7 +30,7 @@
 }
 
 // Desktop styling (override mobile styling):
-@media screen and (min-width: $breakpoint-mobile) {
+@include media-breakpoint-up(sm) {
     .logo {
         margin: 1em auto;
         text-align: center;
