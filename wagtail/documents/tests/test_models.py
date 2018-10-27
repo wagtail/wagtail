@@ -130,10 +130,12 @@ class TestFilesDeletedForDefaultModels(TransactionTestCase):
     def test_document_file_deleted_oncommit(self):
         with transaction.atomic():
             document = get_document_model().objects.create(title="Test Image", file=get_test_image_file())
-            self.assertTrue(document.file.storage.exists(document.file.name))
+            filename = document.file.name
+
+            self.assertTrue(document.file.storage.exists(filename))
             document.delete()
-            self.assertTrue(document.file.storage.exists(document.file.name))
-        self.assertFalse(document.file.storage.exists(document.file.name))
+            self.assertTrue(document.file.storage.exists(filename))
+        self.assertFalse(document.file.storage.exists(filename))
 
 
 @override_settings(WAGTAILDOCS_DOCUMENT_MODEL='tests.CustomDocument')

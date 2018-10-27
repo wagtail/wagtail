@@ -305,7 +305,7 @@ class TestDocumentEditView(TestCase, WagtailTestUtils):
         Checks that reuploading the document file with the same file name
         changes the file name, to avoid browser cache issues (see #3816).
         """
-        old_file = self.document.file
+        old_filename = self.document.file.name
         new_name = self.document.filename
         new_file = SimpleUploadedFile(new_name, b'An updated test content.')
 
@@ -314,7 +314,7 @@ class TestDocumentEditView(TestCase, WagtailTestUtils):
         })
         self.assertRedirects(response, reverse('wagtaildocs:index'))
         self.document.refresh_from_db()
-        self.assertFalse(self.document.file.storage.exists(old_file.name))
+        self.assertFalse(self.document.file.storage.exists(old_filename))
         self.assertTrue(self.document.file.storage.exists(self.document.file.name))
         self.assertNotEqual(self.document.file.name, 'documents/' + new_name)
         self.assertEqual(self.document.file.read(),
@@ -325,7 +325,7 @@ class TestDocumentEditView(TestCase, WagtailTestUtils):
         Checks that reuploading the document file with a different file name
         correctly uses the new file name.
         """
-        old_file = self.document.file
+        old_filename = self.document.file.name
         new_name = 'test_reupload_different_name.txt'
         new_file = SimpleUploadedFile(new_name, b'An updated test content.')
 
@@ -334,7 +334,7 @@ class TestDocumentEditView(TestCase, WagtailTestUtils):
         })
         self.assertRedirects(response, reverse('wagtaildocs:index'))
         self.document.refresh_from_db()
-        self.assertFalse(self.document.file.storage.exists(old_file.name))
+        self.assertFalse(self.document.file.storage.exists(old_filename))
         self.assertTrue(self.document.file.storage.exists(self.document.file.name))
         self.assertEqual(self.document.file.name, 'documents/' + new_name)
         self.assertEqual(self.document.file.read(),
