@@ -11,6 +11,18 @@ DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS = {
                 setPage(page);
                 return false;
             });
+
+            $('a.upload-one-now').on('click', function(e) {
+                // Set current collection ID at upload form tab
+                let collection_id = $('#collection_chooser_collection_id').val();
+                if (collection_id) {
+                  $('#id_collection').val(collection_id);
+                }
+
+                // Select upload form tab
+                $('a[href="#upload"]').tab('show');
+                e.preventDefault();
+            });
         };
 
         var searchUrl = $('form.document-search', modal.body).attr('action');
