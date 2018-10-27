@@ -38,6 +38,7 @@ The project template
             __init__.py
             urls.py
             wsgi.py
+        Dockerfile
         manage.py
         requirements.txt
 
@@ -87,3 +88,16 @@ The Django settings files are split up into ``base.py``, ``dev.py``, ``productio
         .. tip::
 
             On production servers, we recommend that you only store secrets in ``local.py`` (such as API keys and passwords). This can save you headaches in the future if you are ever trying to debug why a server is behaving badly. If you are using multiple servers which need different settings then we recommend that you create a different ``production.py`` file for each one.
+
+
+Dockerfile
+----------
+
+Location: ``/mysite/Dockerfile``
+
+Contains configuration for building and deploying the site as a `Docker <https://docs.docker.com/>`_ container. To build and use the Docker image for your project, run:
+
+.. code-block:: console
+
+    docker build -t mysite .
+    docker run -p 8000:8000 mysite
