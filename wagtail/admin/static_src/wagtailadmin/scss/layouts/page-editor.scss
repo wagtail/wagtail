@@ -390,7 +390,6 @@ footer .preview {
 @include medium {
     .object {
         fieldset {
-            // @include column(10);
             // Override column mixin for column items.
             display: block;
             // Override column mixin for column items.
