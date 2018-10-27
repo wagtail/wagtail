@@ -95,7 +95,7 @@ Dockerfile
 
 Location: ``/mysite/Dockerfile``
 
-Contains configuration for building and deploying the site as a `Docker <https://docs.docker.com/>`_ container. To set up Docker for your project, run:
+Contains configuration for building and deploying the site as a `Docker <https://docs.docker.com/>`_ container. To build and use the Docker image for your project, run:
 
 .. code-block:: console
 
