@@ -18,10 +18,15 @@
                 </thead>
                 <tbody>
                     {% for revision in page_revisions_for_moderation %}
+                        {% page_permissions revision.page as page_perms %}
                         <tr>
                             <td class="title" valign="top">
                                 <h2>
-                                    <a href="{% url 'wagtailadmin_pages:edit' revision.page.id %}" title="{% trans 'Edit this page' %}">{{ revision.page.get_admin_display_title }}</a>
+                                    {% if page_perms.can_edit %}
+                                        <a href="{% url 'wagtailadmin_pages:edit' revision.page.id %}" title="{% trans 'Edit this page' %}">{{ revision.page.get_admin_display_title }}</a>
+                                    {% else %}
+                                        <a href="{% url 'wagtailadmin_pages:preview_for_moderation' revision.id %}" title="{% trans 'Preview this page' %}">{{ revision.page.get_admin_display_title }}</a>
+                                    {% endif %}
 
                                     {% include "wagtailadmin/pages/listing/_privacy_indicator.html" with page=revision.page %}
                                     {% include "wagtailadmin/pages/listing/_locked_indicator.html" with page=revision.page %}
@@ -39,7 +44,9 @@
                                             <input type="submit" class="button button-small button-secondary no" value="{% trans 'Reject' %}">
                                         </form>
                                     </li>
-                                    <li><a href="{% url 'wagtailadmin_pages:edit' revision.page.id %}" class="button button-small button-secondary">{% trans 'Edit' %}</a></li>
+                                    {% if page_perms.can_edit %}
+                                        <li><a href="{% url 'wagtailadmin_pages:edit' revision.page.id %}" class="button button-small button-secondary">{% trans 'Edit' %}</a></li>
+                                    {% endif %}
                                     <li><a href="{% url 'wagtailadmin_pages:preview_for_moderation' revision.id %}" class="button button-small button-secondary" target="_blank" rel="noopener noreferrer">{% trans 'Preview' %}</a></li>
                                 </ul>
                             </td>
