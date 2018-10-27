@@ -390,7 +390,7 @@ footer .preview {
 @include medium {
     .object {
         fieldset {
-            @include column(10);
+            // @include column(10);
             // Override column mixin for column items.
             display: block;
             // Override column mixin for column items.
@@ -404,14 +404,33 @@ footer .preview {
             }
         }
 
+        .object-layout {
+            display: flex;
+            flex-flow: row-reverse wrap;
+
+            &_small-part {
+                flex: 1 0 0;
+            }
+
+            &_big-part {
+                flex: 5 0 0;
+            }
+        }
+
         .object-help {
-            @include column(2);
-            position: absolute;
+            // switch off due to problems with help text
+             // @include column(2);
+            // position: absolute;
+            // float: right;
             right: 0;
             padding-right: $grid-gutter-width / 2;
-            float: right;
+
             opacity: 0;
             padding-left: 3em;
+
+            padding-bottom: 40px;
+
+            margin-left: 10px;
         }
 
         &.stream-field {
@@ -429,7 +448,7 @@ footer .preview {
 
         &.full {
             fieldset {
-                @include column(11);
+                // @include column(11);
                 // Override column mixin for column items.
                 display: block;
                 // Override column mixin for column items.
